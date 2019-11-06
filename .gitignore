@@ -28,3 +28,4 @@
 /config/master.key
 
 /.idea
+.DS_Store
