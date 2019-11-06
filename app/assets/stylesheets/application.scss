@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+@import 'cfa_styleguide_main';
+
+.illustration--vitamin {
+  @include retina-bg(vitamin, 100% auto);
+  width: 20px;
+  height: 20px;
+}
+
+.text--semibold {
+  font-weight: 500;
+}
