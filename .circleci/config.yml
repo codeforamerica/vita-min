@@ -1,0 +1,58 @@
+---
+version: 2.1
+
+executors:
+  rails_executor:
+    working_directory: ~/vita-min
+    docker:
+      - image: circleci/ruby:2.6.5-node-browsers
+
+commands:
+  install_app_dependencies:
+    description: "Install dependencies for specs"
+    steps:
+      - restore_cache:
+          name: Restore bundle cache
+          keys:
+            - v1-vita-min-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            - v1-vita-min-{{ arch }}-
+      - run:
+          name: install dependencies
+          command: bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          name: Store bundle cache
+          key: v1-vita-min-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/.bundle
+            - vendor/bundle
+jobs:
+  install_dependencies:
+    executor: rails_executor
+    steps:
+      - checkout
+      - install_app_dependencies
+  run_tests:
+    executor: rails_executor
+    steps:
+      - checkout
+      - install_app_dependencies
+      - run: mkdir ~/rspec
+      - run: |
+          bundle exec rspec \
+              --format RspecJunitFormatter \
+              --out ~/rspec/rspec.xml \
+              --format progress \
+              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - store_test_results:
+          path: ~/rspec
+      - store_artifacts:
+          path: ~/rspec
+          destination: test-results
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - install_dependencies
+      - run_tests:
+          requires: [install_dependencies]
