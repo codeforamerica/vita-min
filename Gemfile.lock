@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/codeforamerica/cfa-styleguide-gem
-  revision: 04d4e4f3508af3fe5b90a901bad3e29532dbff34
+  revision: 80490eace240b6555cf3396757a8bbe171f1c75f
   specs:
-    cfa-styleguide (0.8.0)
+    cfa-styleguide (0.9.0)
       autoprefixer-rails
       bourbon
       jquery-rails
@@ -191,6 +191,8 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.0)
+    rspec_junit_formatter (0.4.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     ruby_dep (1.5.0)
     rubyzip (2.0.0)
     sass (3.7.4)
@@ -262,6 +264,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.3)
   rspec-rails
+  rspec_junit_formatter
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
