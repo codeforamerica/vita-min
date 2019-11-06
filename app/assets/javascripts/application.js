@@ -13,3 +13,4 @@
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
+//= require cfa_styleguide_main
