@@ -48,6 +48,11 @@ jobs:
       - store_artifacts:
           path: ~/rspec
           destination: test-results
+  push_to_aptible--staging:
+    executor: rails_executor
+    steps:
+      - run: git fetch --depth=1000000
+      - run: git push git@beta.aptible.com:eitc-staging/vita-min-staging.git $CIRCLE_SHA1:master
 
 workflows:
   version: 2
@@ -56,3 +61,9 @@ workflows:
       - install_dependencies
       - run_tests:
           requires: [install_dependencies]
+  deploy_staging:
+    jobs:
+      - push_to_aptible--staging:
+          filters:
+            branches:
+              only: master
