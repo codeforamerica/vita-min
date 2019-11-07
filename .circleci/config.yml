@@ -48,6 +48,10 @@ jobs:
       - store_artifacts:
           path: ~/rspec
           destination: test-results
+  push_to_aptible:
+    executor: rails_executor
+    steps:
+      - run: git push aptible master
 
 workflows:
   version: 2
@@ -56,3 +60,9 @@ workflows:
       - install_dependencies
       - run_tests:
           requires: [install_dependencies]
+  deploy_staging:
+    jobs:
+      - push_to_aptible:
+          filters:
+            branches:
+              only: master
