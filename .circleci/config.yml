@@ -51,6 +51,7 @@ jobs:
   push_to_aptible--staging:
     executor: rails_executor
     steps:
+      - checkout
       - run: git fetch --depth=1000000
       - run: git push git@beta.aptible.com:eitc-staging/vita-min-staging.git $CIRCLE_SHA1:master
 
