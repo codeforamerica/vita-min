@@ -62,11 +62,9 @@ workflows:
       - install_dependencies
       - run_tests:
           requires: [install_dependencies]
-  build-and-deploy:
+  deploy:
     jobs:
-      - build
       - deploy_to_aptible--staging:
-          requires: [build]
           filters:
             branches:
               only: master
