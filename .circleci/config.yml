@@ -52,7 +52,7 @@ jobs:
     executor: rails_executor
     steps:
       - checkout
-      - add_ssh_keys
+      - run: echo $APTIBLE_PUBLIC_KEY >> /etc/ssh/ssh_known_hosts
       - run: git fetch --depth=1000000
       - run: git push git@beta.aptible.com:eitc-staging/vita-min-staging.git $CIRCLE_SHA1:master
 
