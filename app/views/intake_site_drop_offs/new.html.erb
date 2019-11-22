@@ -1,0 +1,55 @@
+<% content_for :page_title do %>
+  <% if @drop_off.errors.present? %>
+    <%= @drop_off.error_summary %>
+  <% end %>
+  Valet VITA Drop-off
+<% end %>
+<main class="main">
+  <section class="slab">
+    <div class="grid">
+      <div class="grid__item width-two-thirds shift-one-sixth">
+        <%= form_for @drop_off, url: intake_site_drop_offs_path, local: true, multipart: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
+          <header class="form-card__header">
+            <h1 class="form-card__title">Valet VITA Drop-off</h1>
+          </header>
+          <div class="form-card__content">
+            <%= f.hidden_field(:timezone) %>
+            <%= f.cfa_select(:intake_site, 'Intake Site', IntakeSiteDropOff.intake_sites.map { |site| [site, site] }) %>
+            <%= f.cfa_input_field(:name, 'Client name') %>
+            <%= f.cfa_input_field(:email, 'Client email', type: 'email', classes: ['form-width--email with-padding-med']) %>
+            <%= f.cfa_input_field(:phone_number, 'Client phone number', type: 'tel', classes: ['form-width--phone with-padding-med']) %>
+            <%= f.cfa_radio_set_with_follow_up(
+                    :signature_method,
+                    label_text: "Pick-up method",
+                    collection: [
+                        {value: 'e_signature', label: 'E-Signature'},
+                        {value: 'in_person', label: 'In-person'},
+                    ],
+                    second_follow_up: ->{ f.cfa_input_field :pickup_date_string, 'Pick-up date' }) %>
+
+            <%= f.cfa_file_field(:document_bundle, 'Documents bundle') %>
+            <%= f.cfa_select(
+              :certification_level,
+              'Certification level',
+              IntakeSiteDropOff.certification_levels.map { |level| [level, level] })
+            %>
+            <%= f.cfa_textarea(:additional_info, 'Additional information') %>
+
+            <button class="button button--primary" type="submit">
+              Send for prep
+              <i class="button__icon icon-arrow_forward"></i>
+            </button>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('intake_site_drop_off_timezone').value = timezone;
+    });
+</script>
+

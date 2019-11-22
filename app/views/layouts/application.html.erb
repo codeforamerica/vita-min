@@ -1,7 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>VitaMin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>
+      <% if content_for? :page_title %>
+        <%= content_for :page_title %>
+      <% else %>
+        Get Back the Cash You've Earned | VitaTaxHelp.org
+      <% end %>
+    </title>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
