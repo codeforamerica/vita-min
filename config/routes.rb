@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   mount Cfa::Styleguide::Engine => "/cfa"
+
+  resources :intake_site_drop_offs, only: [:new, :create, :show]
 end
