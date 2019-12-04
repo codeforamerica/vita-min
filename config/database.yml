@@ -25,5 +25,7 @@ production:
   database: db/production.sqlite3
 
 staging:
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
   adapter: postgresql
   url: <%= Rails.application.credentials.dig(:staging, :database_url) %>
