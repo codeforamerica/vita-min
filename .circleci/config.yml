@@ -6,7 +6,13 @@ executors:
     working_directory: ~/vita-min
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
-
+        environment:
+          PGHOST: 127.0.0.1
+          PGUSER: root
+      - image: circleci/postgres:9.6.2-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle-test_test
 commands:
   install_app_dependencies:
     description: "Install dependencies for specs"
@@ -36,6 +42,9 @@ jobs:
     steps:
       - checkout
       - install_app_dependencies
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
       - run: mkdir ~/rspec
       - run: |
           bundle exec rspec \
