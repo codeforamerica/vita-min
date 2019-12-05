@@ -60,34 +60,27 @@ class IntakeSiteDropOff < ApplicationRecord
     Phonelib.parse(phone_number).local_number
   end
 
-  def pickup_date_string=(value)
-    if value.present? && value.is_a?(String)
-      value = value.strip
-      begin
-        self.pickup_date = Date.strptime(value, "%m/%d/%Y")
-      rescue ArgumentError => error
-        raise error unless error.to_s == "invalid date"
-        @pickup_date_string = value
+  def pickup_date_string=(input_value)
+    if input_value.present? && input_value.is_a?(String)
+      input_value = input_value.strip
+      parsed_date = parse_month_day_date_string(input_value)
+      if parsed_date
+        self.pickup_date = parsed_date
+      else
+        @pickup_date_string = input_value
       end
     end
   end
 
   def pickup_date_string
-    return I18n.l(pickup_date) if pickup_date.present?
+    return pickup_date.strftime("%-m/%-d") if pickup_date.present?
     @pickup_date_string
   end
 
   def has_valid_pickup_date?
-    if pickup_date_string.present?
-      begin
-        Date.strptime(pickup_date_string, "%m/%d/%Y")
-        return true
-      rescue ArgumentError => error
-        errors.add(:pickup_date_string, "Please enter a valid date.")
-        errors.add(:pickup_date, "Please enter a valid date.")
-        return false
-      end
-    end
+    return true if pickup_date_string.blank? || parse_month_day_date_string(pickup_date_string)
+    errors.add(:pickup_date_string, "Please enter a valid month and day (M/D).")
+    false
   end
 
   def formatted_signature_method
@@ -128,6 +121,22 @@ class IntakeSiteDropOff < ApplicationRecord
     if new_drop_off.phone_number.blank? && new_drop_off.email.blank?
       name_only_match = where(name: new_drop_off.name).first
       return name_only_match if name_only_match
+    end
+  end
+
+  private
+
+  def append_year_to_date_string(date_string)
+    date_string + "/2020"
+  end
+
+  def parse_month_day_date_string(md_string)
+    full_date_string = append_year_to_date_string(md_string)
+    begin
+      return Date.strptime(full_date_string, "%m/%d/%Y")
+    rescue ArgumentError => error
+      raise error unless error.to_s == "invalid date"
+      return nil
     end
   end
 end

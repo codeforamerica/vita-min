@@ -92,7 +92,7 @@ class ZendeskDropOffService
       Phone number: #{@drop_off.formatted_phone_number}
       Email: #{@drop_off.email}
       Signature method: #{@drop_off.formatted_signature_method}
-      Pickup Date: #{@drop_off.pickup_date_string}
+      Pickup Date: #{I18n.l(@drop_off.pickup_date)}
       Additional info: #{@drop_off.additional_info}
     BODY
   end

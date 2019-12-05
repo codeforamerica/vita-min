@@ -77,11 +77,11 @@ describe IntakeSiteDropOff do
       it "summarizes errors nicely" do
         expect(drop_off.error_summary).to eq nil
 
-        drop_off.pickup_date_string = "02/20"
+        drop_off.pickup_date_string = "02/30"
         drop_off.phone_number = "(555) 123-4567"
         expect(drop_off).to_not be_valid
 
-        expect(drop_off.error_summary).to eq "Errors: Please enter a valid phone number. Please enter a valid date."
+        expect(drop_off.error_summary).to eq "Errors: Please enter a valid phone number. Please enter a valid month and day (M/D)."
       end
     end
   end
@@ -121,23 +121,23 @@ describe IntakeSiteDropOff do
       expect(drop_off.pickup_date_string).to be_nil
     end
 
-    it "formats the date appropriately" do
+    it "outputs a date in the format for the drop off form" do
       drop_off.pickup_date = Date.new(2020, 2, 6)
-      expect(drop_off.pickup_date_string).to eq "2/6/2020"
+      expect(drop_off.pickup_date_string).to eq "2/6"
     end
 
-    it "can parse a formatted date string" do
-      drop_off.pickup_date_string = "02/6/2020"
+    it "parses a month day date string and sets pickup_date correctly" do
+      drop_off.pickup_date_string = "02/6"
       expect(drop_off).to be_valid
       expect(drop_off.pickup_date).to eq Date.new(2020, 2, 6)
     end
 
     it "adds validation errors for invalid dates" do
-      drop_off.pickup_date_string = "02/2020"
+      drop_off.pickup_date_string = "22/30"
 
       expect(drop_off).not_to be_valid
-      expect(drop_off.errors.messages[:pickup_date]).to include "Please enter a valid date."
-      expect(drop_off.pickup_date_string).to eq "02/2020"
+      expect(drop_off.errors.messages[:pickup_date_string]).to include "Please enter a valid month and day (M/D)."
+      expect(drop_off.pickup_date_string).to eq "22/30"
     end
   end
 
