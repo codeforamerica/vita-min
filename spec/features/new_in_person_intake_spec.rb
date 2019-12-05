@@ -16,7 +16,8 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
     fill_in "Client phone number", with: "415-816-1286"
     expect(page).to have_text "Pick-up method"
     choose "In-person"
-    fill_in "Pick-up date", with: "2/20/2020"
+    expect(page).to have_text "M/D"
+    fill_in "Pick-up date", with: "2/20"
     attach_file("Documents bundle", "spec/fixtures/attachments/document_bundle.pdf")
     fill_in "Additional information", with: "Needs to double check if they have another W-2"
 
