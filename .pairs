@@ -1,0 +1,10 @@
+# .pairs - configuration for 'git pair'
+pairs:
+  # <initials>: <Firstname> <Lastname>[; <email-id>]
+  jenny: Jenny Heath; jheath
+  ben: Ben Golder; bgolder
+email:
+  prefix: pair
+  domain: codeforamerica.org
+  no_solo_prefix: true
+global: false  # Set to true for git-pair to change git configuration for all your projects
