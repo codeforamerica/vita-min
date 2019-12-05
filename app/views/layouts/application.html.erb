@@ -7,8 +7,8 @@
       <% if content_for? :page_title %>
         <%= content_for :page_title %>
       <% else %>
-        Get Back the Cash You've Earned | VitaTaxHelp.org
-      <% end %>
+        Free tax help from IRS-certified volunteers.
+      <% end %> | VitaTaxHelp.org
     </title>
 
     <%= csrf_meta_tags %>
@@ -17,10 +17,10 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
 
-    <%= favicon_link_tag image_path('vitamin.png'), :type=>'image/png', :sizes => '57x57' %>
+    <%= favicon_link_tag image_path('checkbox-logo--black.png'), :type=>'image/png', :sizes => '57x57' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body <% if content_for :body_class %>class="<%= content_for :body_class %>"<% end %>>
+  <%= content_for :body %>
   </body>
 </html>

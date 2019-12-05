@@ -17,6 +17,168 @@
 @import 'atoms/form-elements';
 @import 'molecules/form-molecules';
 
-.text--semibold {
-  font-weight: 500;
+body {
+  margin-bottom: 0;
+}
+
+.main-header {
+  background-color: black;
+
+  .main-header__logo {
+    padding-left: 3.0rem;
+    &:before {
+      @include retina-bg(checkbox-logo--white, 100% auto);
+    }
+  }
+}
+
+.toolbar {
+  &__left {
+    margin-top: 0rem;
+  }
+
+  &__right {
+    margin-top: -0.4rem;
+  }
+}
+
+.main-header__title {
+  .toolbar__logo-text {
+    color: white;
+    font-size: $font-size-25-small;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.image--checkbox-logo {
+  padding-right: 0.5em;
+}
+
+.slab--footer {
+  color: white;
+  background-color: black;
+  padding-bottom: $s95;
+
+  .footer__logos {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .footer__vita-logo {
+      margin-left: 3rem;
+    }
+
+    @include media($tablet-up) {
+      justify-content: flex-end;
+      .footer__vita-logo {
+        margin-left: 5rem;
+      }
+    }
+  }
+}
+
+.body--home {
+  .slab--hero {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    h1 {
+      font-size: 4rem;
+      line-height: 5rem;
+    }
+
+    @include media($tablet-up) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+
+      h1 {
+        font-size: 5rem;
+        line-height: 6rem;
+      }
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: .15;
+      background-image: image-url('dollar-hero.png');
+      background-repeat: no-repeat;
+      background-size: 476px 365px;
+      background-position: bottom right;
+      @include media($tablet-up) {
+        opacity: .5;
+      }
+    }
+  }
+  .slab--intro {
+    background-color: white;
+  }
+
+  .slab--eligibility {
+    @include media($tablet-up) {
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .slab--steps {
+    background-color: white;
+
+    .step {
+      display: flex;
+      @extend .spacing-below-60;
+
+      h3 {
+        margin-bottom: 1rem;
+      }
+
+      .step-icon-wrapper {
+        width: 6rem;
+        margin-right: 3.2rem;
+
+        img {
+          height: 100%;
+        }
+      }
+    }
+
+    .step:last-child {
+      margin-bottom: 0;
+    }
+
+    @media only screen and (max-width: 600px) {
+      text-align: center;
+
+      .step {
+        flex-direction: column;
+        align-items: center;
+
+        .step-icon-wrapper {
+          margin-right: 0;
+          margin-bottom: 1.6rem;
+        }
+
+        .step-text {
+          p {
+            max-width: 24rem;
+          }
+        }
+      }
+    }
+  }
 }
