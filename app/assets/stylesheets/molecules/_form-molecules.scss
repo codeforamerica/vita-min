@@ -1,0 +1,15 @@
+.question-with-follow-up__follow-up {
+  .text-input-group__prefix {
+    background-color: white;
+  }
+
+  .text-input-group__postfix {
+    background-color: white;
+  }
+}
+
+.text-input-group {
+  .text-input:first-child {
+    padding-left: 2.5rem;
+  }
+}
