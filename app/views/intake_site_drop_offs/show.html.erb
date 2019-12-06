@@ -7,12 +7,19 @@
       <div class="grid__item width-two-thirds shift-one-sixth">
         <div class="form-card">
           <header class="form-card__header">
-            <h1 class="form-card__title">New drop-off sent for prep!</h1>
+            <% if @drop_off.prior_drop_off.present? %>
+              <h1 class="form-card__title">Found a matching Zendesk ticket!</h1>
+            <% else %>
+              <h1 class="form-card__title">New drop-off sent for prep!</h1>
+            <% end %>
           </header>
 
           <div class="form-card__content">
-            <h2>Zendesk Ticket ID: <%= @drop_off.zendesk_ticket_id %></h2>
-
+            <% if @drop_off.prior_drop_off.present? %>
+              <h2>Comment with details added to ticket ID: <%= @drop_off.zendesk_ticket_id %></h2>
+            <% else %>
+              <h2>Zendesk Ticket ID: <%= @drop_off.zendesk_ticket_id %></h2>
+            <% end %>
 
             <%= link_to new_intake_site_drop_off_path, class: "button button--primary" do %>
               <i class="button__icon icon-add"></i>

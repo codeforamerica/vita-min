@@ -80,6 +80,19 @@ describe ZendeskDropOffService do
     end
   end
 
+  describe "#file_upload_name" do
+    let(:document_bundle) do
+      Rack::Test::UploadedFile.new("spec/fixtures/attachments/picture_id.jpg", "image/jpeg")
+    end
+    let(:drop_off) { create :intake_site_drop_off, name: "Kendra Kiwi", document_bundle: document_bundle }
+
+    it "returns the drop off name and correct file extension" do
+      result = ZendeskDropOffService.new(drop_off).file_upload_name
+
+      expect(result).to eq "KendraKiwi.jpg"
+    end
+  end
+
   describe "#comment_body" do
     let(:drop_off) { create :full_drop_off }
 
@@ -98,6 +111,25 @@ describe ZendeskDropOffService do
         Additional info: Gary is missing a document
       BODY
       expect(result).to eq expected_body
+    end
+
+    context "without pickup date" do
+      it "exclueds pickup date line" do
+        drop_off.pickup_date = nil
+        result = ZendeskDropOffService.new(drop_off).comment_body
+
+        expected_body = <<~BODY
+          New Dropoff at Adams City High School
+  
+          Certification Level: Basic
+          Name: Gary Guava
+          Phone number: (415) 816-1286
+          Email: gguava@example.com
+          Signature method: E-Signature
+          Additional info: Gary is missing a document
+        BODY
+        expect(result).to eq expected_body
+      end
     end
   end
 end

@@ -234,6 +234,8 @@ GEM
     selenium-webdriver (3.142.6)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    sentry-raven (2.12.3)
+      faraday (>= 0.7.6, < 1.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -305,6 +307,7 @@ DEPENDENCIES
   rspec-rails
   rspec_junit_formatter
   sass-rails (~> 5.0)
+  sentry-raven
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3

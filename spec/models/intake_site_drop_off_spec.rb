@@ -141,6 +141,28 @@ describe IntakeSiteDropOff do
     end
   end
 
+  describe "#add_prior_drop_off_if_present!" do
+    let(:new_drop_off) { build :intake_site_drop_off, email: "gguava@example.com" }
+
+    context "with a matching prior drop off" do
+      it "adds a relation to prior_drop_off" do
+        prior = create :intake_site_drop_off, email: "gguava@example.com"
+
+        new_drop_off.add_prior_drop_off_if_present!
+
+        expect(new_drop_off.prior_drop_off).to eq prior
+      end
+    end
+
+    context "without a matching prior drop off" do
+      it "leaves prior_drop_off as nil" do
+        new_drop_off.add_prior_drop_off_if_present!
+
+        expect(new_drop_off.prior_drop_off).to be_nil
+      end
+    end
+  end
+
   describe ".find_prior_drop_off" do
     let(:new_drop_off) do
       build(
