@@ -6,10 +6,9 @@ class IntakeSiteDropOffsController < ApplicationController
   def create
     @drop_off = IntakeSiteDropOff.new(intake_site_drop_off_params)
     # check for matching drop offs
-    match = IntakeSiteDropOff.find_prior_drop_off(@drop_off)
-    @drop_off.zendesk_ticket_id = match.zendesk_ticket_id if match
+    @drop_off.add_prior_drop_off_if_present!
     if @drop_off.save
-      if @drop_off.zendesk_ticket_id.present?
+      if @drop_off.prior_drop_off.present?
         ZendeskDropOffService.new(@drop_off).append_to_existing_ticket
       else
         zendesk_ticket_id = ZendeskDropOffService.new(@drop_off).create_ticket

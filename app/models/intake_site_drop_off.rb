@@ -38,6 +38,7 @@ class IntakeSiteDropOff < ApplicationRecord
   validate :has_valid_pickup_date?
 
   has_one_attached :document_bundle
+  belongs_to :prior_drop_off, class_name: self.name, optional: true
 
   def has_document_bundle?
     doc_is_attached = document_bundle.attached?
@@ -97,6 +98,12 @@ class IntakeSiteDropOff < ApplicationRecord
       concatenated_message_strings = visible_errors.map{ |key, messages| messages.join(" ")}.join(" ")
       "Errors: " + concatenated_message_strings
     end
+  end
+
+  def add_prior_drop_off_if_present!
+    prior_drop_off = self.class.find_prior_drop_off(self)
+    self.prior_drop_off = prior_drop_off
+    self.zendesk_ticket_id = prior_drop_off.zendesk_ticket_id if prior_drop_off
   end
 
   def self.intake_sites

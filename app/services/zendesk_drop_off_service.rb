@@ -62,10 +62,7 @@ class ZendeskDropOffService
         },
       ]
     )
-    download_blob_to_tempfile do |file|
-      ticket.comment.uploads << {file: file, filename: "#{@drop_off.name.split.join}.pdf"}
-      ticket.save
-    end
+    attach_file_and_save_ticket(ticket)
     return ticket.id
   end
 
@@ -73,10 +70,7 @@ class ZendeskDropOffService
     ticket = ZendeskAPI::Ticket.find(client, id: @drop_off.zendesk_ticket_id)
     ticket.comment = { body: comment_body }
 
-    download_blob_to_tempfile do |file|
-      ticket.comment.uploads << {file: file, filename: "#{@drop_off.name.split.join}.pdf"}
-      ticket.save
-    end
+    attach_file_and_save_ticket(ticket)
   end
 
   def create_end_user(name, email, phone)
@@ -91,13 +85,24 @@ class ZendeskDropOffService
       Name: #{@drop_off.name}
       Phone number: #{@drop_off.formatted_phone_number}
       Email: #{@drop_off.email}
-      Signature method: #{@drop_off.formatted_signature_method}
-      Pickup Date: #{I18n.l(@drop_off.pickup_date)}
+      Signature method: #{@drop_off.formatted_signature_method}#{pickup_date_line}
       Additional info: #{@drop_off.additional_info}
     BODY
   end
 
+  def file_upload_name
+    file_extension = @drop_off.document_bundle.blob.filename.extension
+    "#{@drop_off.name.split.join}.#{file_extension}"
+  end
+
   private
+
+  def attach_file_and_save_ticket(ticket)
+    download_blob_to_tempfile do |file|
+      ticket.comment.uploads << {file: file, filename: file_upload_name}
+      ticket.save
+    end
+  end
 
   def blob
     @drop_off.document_bundle.blob
@@ -117,5 +122,9 @@ class ZendeskDropOffService
 
   def intake_site_tag
     @drop_off.intake_site.downcase.gsub(" ", "_").gsub("-", "_")
+  end
+
+  def pickup_date_line
+    "\nPickup Date: #{I18n.l(@drop_off.pickup_date)}" if @drop_off.pickup_date
   end
 end
