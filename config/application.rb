@@ -30,8 +30,5 @@ module VitaMin
     Raven.configure do |config|
       config.dsn = Rails.application.credentials.dig(:staging, :sentry_dsn)
     end
-
-    # filter out sensitive parameters from logs and error reporting
-    config.filter_parameters << :password
   end
 end
