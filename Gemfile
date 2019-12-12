@@ -11,6 +11,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'cfa-styleguide', git: 'https://github.com/codeforamerica/cfa-styleguide-gem'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'mini_racer', platforms: :ruby
+gem 'nokogiri'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
@@ -59,6 +60,7 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   gem 'rspec_junit_formatter'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_13_172404) do
+ActiveRecord::Schema.define(version: 2019_12_13_185516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,18 @@ ActiveRecord::Schema.define(version: 2019_12_13_172404) do
     t.string "zendesk_ticket_id"
     t.bigint "prior_drop_off_id"
     t.index ["prior_drop_off_id"], name: "index_intake_site_drop_offs_on_prior_drop_off_id"
+  end
+
+  create_table "vita_providers", force: :cascade do |t|
+    t.string "name"
+    t.string "irs_id", null: false
+    t.string "details"
+    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.string "dates"
+    t.string "hours"
+    t.string "languages"
+    t.string "appointment_info"
+    t.index ["irs_id"], name: "index_vita_providers_on_irs_id", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
