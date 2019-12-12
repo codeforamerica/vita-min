@@ -28,4 +28,4 @@ staging:
 
 demo:
   <<: *deploy_default
-  url: <%= ENV.fetch("DATABASE_URL") %>
+  url: <%= ENV.fetch("DATABASE_URL") { "" } %>
