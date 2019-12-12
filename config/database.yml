@@ -25,3 +25,7 @@ production:
 
 staging:
   <<: *deploy_default
+
+demo:
+  <<: *deploy_default
+  url: <%= ENV.fetch("DATABASE_URL") %>
