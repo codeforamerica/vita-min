@@ -1,0 +1,179 @@
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <!--  version -27  vita API -->
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>Get Free Tax Prep Help</title>
+    <link href="/freetaxprep/css/vitaCSS.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js" type="text/javascript"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?client=gme-internalrevenueservice&v=3.17&sensor=false"></script>
+    <script type="text/javascript">
+        function searchLocations() {
+            var searchAddress = document.getElementById("addressInput").value;
+            var radiusSelected = document.getElementById('radiusSelect').value;
+            var searchRange = parseInt(radiusSelected);
+            var url = document.getElementById("searchbyzip").action;
+
+            if (searchAddress == null ||
+                searchAddress.length != 5 ||
+                isNaN(searchAddress))
+            {
+                window.location.href = url+'?zip='+escape(searchAddress)+'&radius='+searchRange;
+                return;
+            }
+
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+                address: searchAddress
+            }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var center = results[0].geometry.location;
+                    window.location.href = url+'?zip='+escape(searchAddress)+'&lat='+center.lat()+'&lng='+center.lng()+'&radius='+searchRange;
+                } else {
+                    window.location.href = url+'?zip='+escape(searchAddress)+'&radius='+searchRange;
+                }
+            });
+        }
+        if (document.layers)
+            document.captureEvents(Event.KEYDOWN);
+        document.onkeydown =
+            function (evt) {
+                var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+                if (keyCode == 13)   //13 = the code for pressing ENTER
+
+                {
+                    searchLocations();
+                }
+            }
+    </script>
+
+    <style type="text/css">
+        .style2 {
+            font-size: 24px
+        }
+        .style5 {font-size: 14px}
+    </style>
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+
+    <!--
+        <link rel="shortcut icon" href="/static_assets/img/icons/favicon.ico">
+        <link rel="P3Pv1" href="/w3c/p3p.xml">
+        <link rel="stylesheet" href="/static_assets/css/layout.css">
+        <link rel="stylesheet" href="/static_assets/css/main.css">
+        <script type="text/javascript" src="/static_assets/js/reporting/iep-reporting.js"></script>
+    -->
+
+</head>
+<body>
+<div id="main">
+    <!--googleoff: all-->
+    <div class="header">
+        <a href="https://www.irs.gov/" class="logo" style="border-style:none">
+            <img src="logo.png"
+                 style="border-style:none; margin-top:7px;"
+                 title="Internal Revenue Service United States Department of the Treasury"
+                 alt="Internal Revenue Service United States Department of the Treasury">
+        </a>
+    </div>
+    <div class="hr"><hr></div>
+    <!--googleon: all-->
+    <div class="body" id="body">
+
+
+        <br/><br/>
+        <div style="width: 100%; text-align: right;"><a href="https://www.irs.gov/Individuals/Free-Tax-Return-Preparation-for-You-by-Volunteers"><span class="top_link">Program Info</span></a>&nbsp;&nbsp;&nbsp;</div>
+        <div id="search-form">
+
+            <table width="auto" height="auto">
+                <tbody>
+                <tr>
+                    <td style="width:40px;"></td>
+                    <td width="auto" height="auto">
+                        <div id="label" align="left">
+                            <a name="skiptocontent"></a>
+
+                            <span style="font-family:Arial, Helvetica, height:35px;sans-serif;text-align:left;font-size: 24px; font-weight:bold; color:#330066" id="vitaHeader"> Get Free Tax Prep Help</span><br></br>
+
+                            <span id ="headerText"  style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:20px;">The IRS Volunteer Income Tax Assistance (VITA) and the Tax Counseling for the Elderly (TCE) programs offer free tax help for taxpayers who qualify. Find a provider near: </span> <br/><br/>
+
+                            <form id="searchbyzip" action="/freetaxprep/jsp/vita.jsp" onSubmit="return false">
+                                <div id="inputControl" style="height:35px">
+                                    <label for="addressInput" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">Zip Code</label><input title="ZIP Code" type="text" id="addressInput" value="77074" maxlength="5" onFocus="if(this.value=='Zip Code')this.value='';" style="font-family:Arial, Helvetica, sans-serif; font-size:16px;width:170px; height:20px" />
+                                    <label for="radiusSelect" class="style5">&nbsp;within&nbsp;</label>
+                                    <select title="Search Range Selection" name="radiusSelect" id="radiusSelect"  style="font-family:Arial, Helvetica, sans-serif; font-size:16px;width:60px; height:24px;">
+                                        <option title="5 miles" value="5" selected >5</option>
+                                        <option title="10 miles" value="10"  >10</option>
+                                        <option title="25 miles" value="25"  >25</option>
+                                        <option title="50 miles" value="50"  >50</option>
+                                        <option title="100 miles" value="100"  >100</option>
+                                    </select>
+                                    <span class="style5">&nbsp;miles&nbsp;</span>
+                                </div>
+                                <div id="buttonControl">
+                                    <input title="Click to Find" id ='submitButton' type="button" style="height:28px;font-family:Arial, Helvetica, sans-serif;width:140px; text-align:left;font-size:15px; font-weight:bold; color:#330066" onClick="searchLocations()" value="Find >>"/>
+                                </div>
+                            </form>
+                        </div>
+                        <br/>
+
+                        <div id="locationDiv" style="overflow:auto; width:880px; height:400px;">
+
+                            <div id="searchResultCount" style="font-size:14px; font-weight:bold;">One result found</div>
+                            <br/>
+
+                            <table style="vertical-align:top; border-spacing:0px; width: 100%;">
+                                <tr>
+                                    <td scope="col" align="left" class="th">Provider</td>
+                                    <td scope="col" align="left" class="th">Distance</td>
+                                    <td scope="col" align="left" class="th">Dates</td>
+                                    <td scope="col" align="left" class="th">Hours</td>
+                                    <td scope="col" align="left" class="th">Languages</td>
+                                    <td scope="col" align="left" class="th">Appointment</td>
+                                </tr>
+
+                                <tr>
+                                    <td scope="row" class="td" valign="top" align="left" width="280">BakerRipley Year Round Center<br/>6500 Rookin<br/>Bldg C<br/>Houston, TX 77074<br/>713-957-4357<br/><span id='serviceDelivery'>Volunteer Prepared Taxes</span><br/><a title='Direction to BakerRipley Year Round Center' href='/freetaxprep/jsp/direction.jsp?id=10202&lng=-95.496816&lat=29.710592'><span class='pagination'>Get Directions and Service Details</span></a></td>
+                                    <td class="td" valign="top" align="left" width="80">1.6 MI</td>
+                                    <td class="td" valign="top" align="left" width="120">06 MAY 2019 - <br/>15 NOV 2019</td>
+                                    <td class="td" valign="top" align="left" width="190"><table><tr><td class='tdHour'>MON</td><td align='right' class='tdHour'>10:00AM</td><td>-</td><td align='right' class='tdHour'>5:00PM</td></tr><tr><td class='tdHour'>TUE</td><td align='right' class='tdHour'>10:00AM</td><td>-</td><td align='right' class='tdHour'>5:00PM</td></tr><tr><td class='tdHour'>WED</td><td align='right' class='tdHour'>10:00AM</td><td>-</td><td align='right' class='tdHour'>5:00PM</td></tr><tr><td class='tdHour'>THU</td><td align='right' class='tdHour'>10:00AM</td><td>-</td><td align='right' class='tdHour'>5:00PM</td></tr><tr><td class='tdHour'>FRI</td><td align='right' class='tdHour'>12:00PM</td><td>-</td><td align='right' class='tdHour'>4:00PM</td></tr></table></td>
+                                    <td class="td" valign="top" align="left" width="100">Spanish<br/>English</td>
+                                    <td class="td" valign="top" align="left" width="110">Not Required</td>
+                                </tr>
+
+                            </table>
+
+                        </div></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <br/>
+        </div>
+    </div>
+</div> <!-- content -->
+</div> <!-- body -->
+<!--googleoff: all-->
+<div class="push"></div>
+</div> 	<!-- main -->
+
+<div class="footer" id="footerDiv">
+    <div class="legal">
+        <p>
+            &copy; 2012 IRS
+        </p>
+    </div>
+</div>
+</body>
+
+</html>
