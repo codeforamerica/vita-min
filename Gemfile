@@ -3,13 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+
 gem 'rails', '~> 5.2.3'
-# Use Puma as the app server
 gem 'puma', '>= 3.12.2'
-# Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 gem 'cfa-styleguide', git: 'https://github.com/codeforamerica/cfa-styleguide-gem'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -32,6 +29,7 @@ gem 'phonelib'
 gem 'strip_attributes'
 gem 'zendesk_api'
 gem 'pg'
+gem 'activerecord-postgis-adapter'
 gem 'sentry-raven'
 
 group :development, :test do
