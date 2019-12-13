@@ -1,10 +1,10 @@
 local_default: &local_default
-  adapter: postgresql
+  adapter: postgis
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 deploy_default: &deploy_default
-  adapter: postgresql
+  adapter: postgis
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   url: <%= Rails.application.credentials.dig(:staging, :database_url) %>
