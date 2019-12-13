@@ -16,7 +16,7 @@
     },
     "RAILS_MASTER_KEY": {
       "required": true
-    },
+    }
   },
   "addons": [
     "heroku-postgresql"
