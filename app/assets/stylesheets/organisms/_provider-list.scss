@@ -1,0 +1,31 @@
+.provider-list {
+  .provider-list__entry {
+    padding: 5rem 0 4rem 0;
+    border-bottom: 1px solid black;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+
+    h2 {
+      margin-bottom: 1rem;
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      i {
+        font-size: 3.5rem;
+      }
+    }
+
+    .address {
+      display: flex;
+
+      i {
+        font-size: 2.4rem;
+        margin-right: 3rem;
+      }
+    }
+  }
+}

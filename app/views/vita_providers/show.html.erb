@@ -1,0 +1,100 @@
+<% content_for :page_title do %>
+  <%= @provider.name %>
+<% end %>
+
+<% content_for :body_class, "body--provider-profile" %>
+
+<div class="slab slab--white">
+  <div class="grid">
+    <div class="grid__item width-two-thirds shift-one-sixth">
+
+      <% if @zip.present? && @page.present? %>
+        <div class="return-link">
+          <%= link_to vita_providers_path("provider_search_form[zip]" => @zip, "provider_search_form[page]" => @page), class: "button button--small" do %>
+            <%= image_tag "left_angle_bracket.svg", alt: "" %>
+            Return to search
+          <% end %>
+        </div>
+      <% end %>
+
+      <h1 class="provider-name h2"><%= @provider.name %></h1>
+      <% if @zip.present? %>
+        <p class="text--small">
+          <%= @distance %> miles away from <%= @zip %>
+        </p>
+      <% end %>
+
+      <div class="provider-field">
+        <div class="provider-field__icon">
+          <%= image_tag "map-pin.svg", alt: "" %>
+        </div>
+        <div>
+          <h2 class="provider-field__label h3">Address</h2>
+          <div class="provider-field__value">
+            <%= link_to @provider.google_maps_url, title: "Google Maps link for #{@provider.name}", target: "_blank" do %>
+              <div><%= @provider.street_address %></div>
+              <div><%= @provider.unit %></div>
+              <div><%= @provider.city_state_zip %></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="provider-field">
+        <div class="provider-field__icon">
+          <%= image_tag "calendar.svg", alt: "" %>
+        </div>
+        <div>
+          <h2 class="provider-field__label h3">Open</h2>
+          <div class="provider-field__value">
+            <%= @provider.dates %>
+          </div>
+        </div>
+      </div>
+
+      <div class="provider-field">
+        <div class="provider-field__icon">
+          <%= image_tag "clock.svg", alt: "" %>
+        </div>
+        <div>
+          <h2 class="provider-field__label h3">Hours</h2>
+          <div class="provider-field__value">
+            <%= @provider.hours %>
+          </div>
+        </div>
+      </div>
+
+
+      <h2 class="h3">
+        Appointments are <%= @provider.appointment_info&.downcase %>.
+      </h2>
+
+      <div class="provider-field">
+        <div class="provider-field__icon">
+          <%= image_tag "phone.svg", alt: "" %>
+        </div>
+        <div>
+          <h2 class="provider-field__label h3">Phone number</h2>
+          <div class="provider-field__value">
+            <%= link_to "tel:#{@provider.sanitized_phone_number}", title: "Call #{@provider.name}" do %>
+              <%= @provider.formatted_phone_number %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="provider-field">
+        <div class="provider-field__icon">
+          <%= image_tag "grid-globe.svg", alt: "" %>
+        </div>
+        <div>
+          <h2 class="provider-field__label h3">Languages</h2>
+          <div class="provider-field__value">
+            <%= @provider.languages.split(",").join(", ") if @provider.languages.present? %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
