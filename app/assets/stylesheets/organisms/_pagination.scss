@@ -1,0 +1,48 @@
+@mixin page-button-layout-adjust {
+  padding: .5rem 0.6rem;
+  margin-left: .1rem;
+  margin-right: .1rem;
+  min-width: 2.4em;
+}
+
+.pagination {
+  @extend .pagination__buttons;
+  > a {
+    @extend .button;
+    @extend .button--small;
+  }
+  > em {
+    font-style: normal;
+    @extend .button;
+    @extend .button--small;
+    @extend .pagination__selected;
+  }
+  > span.disabled {
+    @extend .button;
+    @extend .button--small;
+    @extend .button--disabled;
+  }
+  > span.gap {
+    @extend .pagination__ellipsis;
+  }
+
+  > .button {
+    margin-left: 0;
+  }
+
+  @media screen and (max-width: $mobile-up) {
+    > a {
+      @include page-button-layout-adjust;
+    }
+    > em {
+      @include page-button-layout-adjust;
+    }
+    > span.disabled {
+      @include page-button-layout-adjust;
+    }
+    > span.gap {
+      padding: .5rem 0;
+      width: 1em;
+    }
+  }
+}

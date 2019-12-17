@@ -1,4 +1,5 @@
 class IntakeSiteDropOff < ApplicationRecord
+
   SIGNATURE_METHODS = %w(in_person e_signature)
   INTAKE_SITES = [
       "Clayton Early Learning Center",
