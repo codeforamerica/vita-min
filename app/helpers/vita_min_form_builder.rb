@@ -1,5 +1,5 @@
 class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
-  def vita_min_label_and_field(
+  def vita_min_field_in_label(
       method,
       label_text,
       field,
@@ -11,6 +11,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       notice: nil,
       wrapper_classes: []
   )
+    # this override allows us to wrap the field in a label
     if options[:input_id]
       for_options = options.merge(
           for: options[:input_id],
@@ -40,7 +41,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     options[:input_id] ||= sanitized_id(method)
 
     file_field_html = file_field(method, file_field_options)
-    label_and_field_html = vita_min_label_and_field(
+    label_and_field_html = vita_min_field_in_label(
       method,
       label_text,
       file_field_html,
@@ -57,5 +58,29 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       </div>
     HTML
     html_output.html_safe
+  end
+
+  def vita_min_searchbar(method, label_text, options: {}, classes: [])
+    text_field_options = {
+      class: (classes + ["vita-min-searchbar__input text-input"]).join(" ")
+    }.merge(options).merge(error_attributes(method: method))
+
+    text_input_html = text_field(method, text_field_options)
+
+    return <<~HTML.html_safe
+      <div class="vita-min-searchbar form-group#{error_state(object, method)}" role="search">
+        <div class="vita-min-searchbar__field">
+          <label class="vita-min-searchbar__label sr-only" for="#{object_name}_#{method}">#{label_text}</label>
+          <div>
+            #{text_input_html}
+          </div>
+          <button class="vita-min-searchbar__button button button--primary" type="submit">
+            <span class="vita-min-searchbar__submit-text hide-on-mobile">#{label_text}</span>
+            <i class="icon-navigate_next"></i>
+          </button>
+        </div>
+        #{errors_for(object, method)}
+      </div>
+    HTML
   end
 end

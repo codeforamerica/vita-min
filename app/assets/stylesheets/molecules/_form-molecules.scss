@@ -13,3 +13,19 @@
     padding-left: 2.5rem;
   }
 }
+
+.vita-min-searchbar {
+  &__field {
+    display: flex;
+
+  }
+  &__button {
+    border-radius: 0;
+    box-shadow: none;
+    height: 6rem;
+  }
+
+  .text--error {
+    margin-top: 0;
+  }
+}

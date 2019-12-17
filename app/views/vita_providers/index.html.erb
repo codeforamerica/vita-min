@@ -1,25 +1,79 @@
 <% content_for :page_title do %>
-  All the VITA Providers We Scraped
+  <% if @provider_search_form.errors.present? %>
+    <%= @provider_search_form.error_summary %>
+  <% end %>
+  <% if @providers.empty? && @provider_search_form.valid_zip_searched? %>
+    We're sorry! We found no results within 50 miles of your address.
+  <% end %>
+  <% if @providers.present? %>
+    We found <%= @providers.total_entries %> results within 50 miles of <%= @provider_search_form.zip %>.
+    <% else %>
+    Enter your zip code to find providers near you.
+  <% end %>
 <% end %>
 
 <% content_for :body_class, "body--providers" %>
 
-
-<div class="slab">
+<div class="slab slab--white">
   <div class="grid">
-    <div class="grid__item width-two-thirds">
-      <h1>All the VITA Providers We Scraped</h1>
+    <div class="grid__item width-two-thirds shift-one-sixth">
+      <h2 class="h1">Get Free Tax Prep Help</h2>
 
-      <% @vita_providers.each do |provider| %>
-        <div><strong>name</strong>: <%= provider.name %></div>
-        <div><strong>irs_id</strong>: <%= provider.irs_id %></div>
-        <div><strong>details</strong>: <%= provider.details %></div>
-        <div><strong>dates</strong>: <%= provider.dates %></div>
-        <div><strong>hours</strong>: <%= provider.hours %></div>
-        <div><strong>languages</strong>: <%= provider.languages %></div>
-        <div><strong>appointment_info</strong>: <%= provider.appointment_info %></div>
-        <hr/>
+      <p>The IRS Volunteer Income Tax Assistance (VITA) programs offer free tax help for taxpayers who qualify.</p>
+
+      <h1 class="h4">Enter your zip code to find providers near you.</h1>
+
+      <%= form_with model: @provider_search_form, url: vita_providers_path, method: "get", local: true, builder: VitaMinFormBuilder do |f| %>
+        <%= f.vita_min_searchbar :zip, "See results", options: { placeholder: "Enter Zip Code" } %>
       <% end %>
+
+      <% if @providers.empty? && @provider_search_form.valid_zip_searched? %>
+        <h1>We're sorry!</h1>
+
+        <p>
+          We found no results within 50 miles of your address.
+          Please see
+          <%= link_to("https://myfreetaxes.com", target: "_blank") do %>MyFreeTaxes.com<% end %>,
+          an online service that lets you prepare your own taxes for free.</p>
+      <% end %>
+
+      <% if @providers.present? %>
+        <p>We found <%= @providers.total_entries %> results within 50 miles of <%= @provider_search_form.zip %>.</p>
+
+        <ul class="provider-list">
+          <% @providers.each_with_index do |provider, index| %>
+            <li class="provider-list__entry">
+
+                <h2>
+                  <%= link_to vita_provider_path(id: provider.id, zip: @provider_search_form.zip, page: @provider_search_form.page) do %>
+                    <%= "#{provider_result_number(index)}. #{provider.name}" %>
+                    <i class="icon icon-keyboard_arrow_right"></i>
+                  <% end %>
+                </h2>
+
+              <p class="text--small">Within <%= provider.cached_search_distance_rounded_by_5_mi %> miles</p>
+              <div class="address">
+                <i class="icon icon-room"></i>
+                <div class="address-details">
+                  <div><%= provider.street_address %></div>
+                  <div><%= provider.unit %></div>
+                  <div><%= provider.city_state_zip %></div>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+
+        <%= will_paginate(
+              @providers,
+              previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\"> Previous</span>",
+              next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+              inner_window: 0,
+              outer_window: 0,
+              param_name: "provider_search_form[page]",
+            ) %>
+      <% end %>
+
     </div>
   </div>
 </div>

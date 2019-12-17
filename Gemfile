@@ -31,6 +31,7 @@ gem 'strip_attributes'
 gem 'zendesk_api'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
+gem 'will_paginate'
 gem 'sentry-raven'
 
 group :development, :test do

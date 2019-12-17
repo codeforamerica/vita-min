@@ -1,0 +1,32 @@
+
+.provider-field {
+  display: flex;
+  margin-bottom: 2.5rem;
+
+  &__icon {
+    margin-right: 1.9rem;
+  }
+
+  &__label {
+    margin-bottom: 1rem;
+  }
+
+  &__value {
+    a { display: block }
+  }
+}
+
+.button {
+  > img:first-child {
+    margin-right: .5rem;
+  }
+}
+
+.body--provider-profile {
+  .slab {
+    padding-top: 2.5rem;
+  }
+  .provider-name {
+    margin-top: 1rem;
+  }
+}
