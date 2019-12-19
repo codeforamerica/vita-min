@@ -20,8 +20,13 @@
 @import 'organisms/provider-list';
 @import 'organisms/provider-details';
 
+html {
+  background-color: black;
+}
+
 body {
   margin-bottom: 0;
+  background-color: #F7F5F4;
 }
 
 @mixin visually-hidden {
@@ -38,6 +43,17 @@ body {
 .hide-on-mobile {
   @media screen and (max-width: $tablet-up) {
     @include visually-hidden;
+  }
+}
+
+.button--primary {
+  background-color: black;
+  border-color: black;
+  box-shadow: none;
+
+  &:hover {
+    background-color: black;
+    border-color: black;
   }
 }
 
@@ -128,7 +144,6 @@ body {
     &:before {
       content: '';
       display: block;
-      z-index: -1;
       position: absolute;
       top: 0;
       right: 0;

@@ -1,38 +1,19 @@
 class VitaProvider < ApplicationRecord
   self.per_page = 5
   DISTANCE_LIMIT = 80467.2 # 50 miles to meters
-  MILES_PER_METER = 0.000621371
   validates :irs_id, presence: true, uniqueness: true
 
-  def self.geometry_factory
-    RGeo::Geographic.spherical_factory(srid: 4326)
-  end
-
-  def self.geom_point_from_zip(zip)
-    coords = ZipCodes.coordinates_for_zip_code(zip)
-    geometry_factory.point(coords[1], coords[0])
-  end
-
   def self.sort_by_distance_from_zipcode(zip, page_number = nil)
-    from_point = geom_point_from_zip(zip)
+    coords = ZipCodes.coordinates_for_zip_code(zip)
+    from_point = Geometry.coords_to_point(lon: coords[1], lat: coords[0])
 
-    page(page_number).select(Arel.sql("ST_Distance(coordinates, ST_GeomFromText('#{from_point.as_text}', 4326)) as distance, *"))
+    page(page_number).select(Arel.sql("ST_Distance(coordinates, ST_GeomFromText('#{from_point.as_text}', 4326)) as cached_query_distance, *"))
       .where(Arel.sql("ST_DWithin(coordinates, ST_GeomFromText('#{from_point.as_text}', 4326), #{DISTANCE_LIMIT})"))
-      .order(Arel.sql("distance"))
+      .order(Arel.sql("cached_query_distance"))
   end
 
   def set_coordinates(lat:, lon:)
-    self.coordinates = self.class.geometry_factory.point(lon, lat)
-  end
-
-  def distance_from_zip(zip)
-    zip_centroid = self.class.geom_point_from_zip(zip)
-    (coordinates.distance(zip_centroid) * MILES_PER_METER).round(1)
-  end
-
-  def cached_search_distance_rounded_by_5_mi
-    five_miles_in_meters = 8046.72
-    (distance / five_miles_in_meters).ceil * 5
+    self.coordinates = Geometry.coords_to_point(lat: lat, lon: lon)
   end
 
   def parse_details
@@ -44,7 +25,7 @@ class VitaProvider < ApplicationRecord
       phone_number: get_phone_number(lines),
       city_state_zip: lines.pop,
       unit: get_unit_number(lines),
-      notes: lines.present? ? lines.join("\n") : nil,
+      notes: lines.present? ? lines : [],
     }
   end
 
@@ -97,8 +78,8 @@ class VitaProvider < ApplicationRecord
   end
 
   def get_unit_number(lines)
-    unit_prefixes = ["#", "unit", "Unit", "building", "Building", "floor", "Ste", "Suite", "[0-9]"]
+    unit_matchers = ["#", "unit", "building", "floor", "ste", "suite", "bldg", "p.o.", "courthouse", "room", "plaza", "school", "[0-9][0-9][0-9]+"]
 
-    lines.length > 0 && unit_prefixes.any? { |prefix| lines[0].match?(/^#{prefix}/) } ? lines.shift : nil
+    lines.length > 0 && unit_matchers.any? { |matcher| lines[0].match?(/#{matcher}/i) } ? lines.shift : nil
   end
 end

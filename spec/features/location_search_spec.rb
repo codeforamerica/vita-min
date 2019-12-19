@@ -21,11 +21,11 @@ RSpec.feature "Search for VITA locations" do
       click_on "Find a location", id: "firstCta"
 
       expect(page).to have_text "Enter your zip code to find providers near you"
-      fill_in "See results", with: "94609"
+      fill_in "Search", with: "94609"
 
-      click_on "See results"
+      click_on "Search"
 
-      expect(page).to have_text "We found 6 results within 50 miles of 94609"
+      expect(page).to have_text "We found 6 results within 50 miles of 94609 (Oakland, California)"
       expect(page).to have_text "1. Chinese Newcomers Service Ctr"
       expect(page).to have_text "2. Chinese Newcomers - VITA"
 
@@ -55,12 +55,12 @@ RSpec.feature "Search for VITA locations" do
       click_on "Find a location", id: "firstCta"
 
       expect(page).to have_text "Enter your zip code to find providers near you"
-      fill_in "See results", with: "94609"
+      fill_in "Search", with: "94609"
 
-      click_on "See results"
+      click_on "Search"
 
       expect(page).to have_selector("h1", text: "We're sorry!")
-      expect(page).to have_text "We found no results within 50 miles of your address."
+      expect(page).to have_text "We found no results within 50 miles of 94609 (Oakland, California)."
       expect(page).to have_link "MyFreeTaxes.com"
     end
   end

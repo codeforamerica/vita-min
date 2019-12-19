@@ -19,13 +19,27 @@
     display: flex;
 
   }
+
   &__button {
     border-radius: 0;
     box-shadow: none;
     height: 6rem;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    background-color: black;
+    border-color: black;
+    &:hover {
+      background-color: black;
+      border-color: black;
+    }
   }
 
   .text--error {
     margin-top: 0;
+  }
+
+  &__submit-text {
+    margin-right: 1rem;
   }
 }

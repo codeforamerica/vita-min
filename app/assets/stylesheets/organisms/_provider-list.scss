@@ -11,19 +11,14 @@
     h2 {
       margin-bottom: 1rem;
       a {
-        text-decoration: none;
         color: inherit;
-      }
-      i {
-        font-size: 3.5rem;
       }
     }
 
     .address {
       display: flex;
 
-      i {
-        font-size: 2.4rem;
+      .provider-entry__icon {
         margin-right: 3rem;
       }
     }
