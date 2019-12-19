@@ -10,7 +10,7 @@
 
       <% if @zip.present? && @page.present? %>
         <div class="return-link">
-          <%= link_to vita_providers_path("provider_search_form[zip]" => @zip, "provider_search_form[page]" => @page), class: "button button--small" do %>
+          <%= link_to vita_providers_path(zip: @zip, page: @page), class: "button button--small" do %>
             <%= image_tag "left_angle_bracket.svg", alt: "" %>
             Return to search
           <% end %>

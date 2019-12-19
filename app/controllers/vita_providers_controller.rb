@@ -4,7 +4,7 @@ class VitaProvidersController < ApplicationController
 
   def index
     @providers = []
-    if params[:provider_search_form].present?
+    if provider_search_form_params.present?
       @provider_search_form = ProviderSearchForm.new(provider_search_form_params)
       if @provider_search_form.valid?
         @providers = VitaProvider.sort_by_distance_from_zipcode(@provider_search_form.zip, @provider_search_form.page)
@@ -30,6 +30,6 @@ class VitaProvidersController < ApplicationController
   end
 
   def provider_search_form_params
-    params.require(:provider_search_form).permit(:zip, :page)
+    params.permit(:zip, :page)
   end
 end
