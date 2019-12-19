@@ -23,8 +23,7 @@ RSpec.describe VitaMinFormBuilder do
       output = form.vita_min_searchbar(
         :query,
         "Search for a book",
-        options: { placeholder: "Enter book title" }
-      )
+        )
 
       expect(output).to be_html_safe
 
@@ -34,7 +33,8 @@ RSpec.describe VitaMinFormBuilder do
             <label class="vita-min-searchbar__label sr-only" for="sample_query">Search for a book</label>
             <div>
               <div class="field_with_errors">
-                <input class="vita-min-searchbar__input text-input" placeholder="Enter book title" aria-describedby="sample_query__errors" type="text" name="sample[query]" id="sample_query" />
+                <input class="vita-min-searchbar__input text-input" aria-describedby="sample_query__errors" type="text"
+                       name="sample[query]" id="sample_query"/>
               </div>
             </div>
             <button class="vita-min-searchbar__button button button--primary" type="submit">

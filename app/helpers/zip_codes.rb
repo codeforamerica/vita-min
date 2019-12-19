@@ -5,6 +5,10 @@ class ZipCodes
     match[:coordinates]
   end
 
+  def self.details(zip)
+    ZIP_CODES.fetch(zip, nil)
+  end
+
   def self.has_key?(zip)
     ZIP_CODES.key?(zip)
   end

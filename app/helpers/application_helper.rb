@@ -8,4 +8,9 @@ module ApplicationHelper
     end
     super *[collection_or_options, options].compact
   end
+
+  def round_meters_up_to_5_mi(meters)
+    five_miles_in_meters = 8046.72
+    (meters / five_miles_in_meters).ceil * 5
+  end
 end

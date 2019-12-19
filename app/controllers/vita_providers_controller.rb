@@ -8,6 +8,7 @@ class VitaProvidersController < ApplicationController
       @provider_search_form = ProviderSearchForm.new(provider_search_form_params)
       if @provider_search_form.valid?
         @providers = VitaProvider.sort_by_distance_from_zipcode(@provider_search_form.zip, @provider_search_form.page)
+        @zip_name = ZipCodes.details(@provider_search_form.zip)[:name]
       end
     else
       @provider_search_form = ProviderSearchForm.new
@@ -17,7 +18,15 @@ class VitaProvidersController < ApplicationController
   def show
     @provider = VitaProvider.find(params[:id])
     @zip = params[:zip]
-    @distance = @provider.distance_from_zip(@zip) if @zip.present?
+    if @zip.present?
+      zip_details = ZipCodes.details(@zip)
+      @zip_name = zip_details[:name]
+      zip_centroid = Geometry.coords_to_point(
+        lat: zip_details[:coordinates][0],
+        lon: zip_details[:coordinates][1]
+      )
+      @distance = zip_centroid.distance(@provider.coordinates)
+    end
     @page = params[:page]
   end
 

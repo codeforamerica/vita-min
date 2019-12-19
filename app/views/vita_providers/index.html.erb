@@ -24,21 +24,21 @@
       <h1 class="h4">Enter your zip code to find providers near you.</h1>
 
       <%= form_with model: @provider_search_form, url: vita_providers_path, method: "get", local: true, enforce_utf8: false, builder: VitaMinFormBuilder do |f| %>
-        <%= f.vita_min_searchbar :zip, "See results", options: { placeholder: "Enter Zip Code", name: "zip" } %>
+        <%= f.vita_min_searchbar :zip, "Search", label_icon: image_tag("search.svg", class: "vita-min-searchbar__icon", alt: "" ), options: { placeholder: "Enter Zip Code", name: "zip" } %>
       <% end %>
 
       <% if @providers.empty? && @provider_search_form.valid_zip_searched? %>
         <h1>We're sorry!</h1>
 
         <p>
-          We found no results within 50 miles of your address.
-          Please see
+          We found no results within 50 miles of <%= "#{@provider_search_form.zip} (#{@zip_name})" %>.
+          Please try another zip code or see
           <%= link_to("https://www.myfreetaxes.com", target: "_blank") do %>MyFreeTaxes.com<% end %>,
           an online service that lets you prepare your own taxes for free.</p>
       <% end %>
 
       <% if @providers.present? %>
-        <p>We found <%= @providers.total_entries %> results within 50 miles of <%= @provider_search_form.zip %>.</p>
+        <p>We found <%= @providers.total_entries %> results within 50 miles of <%= "#{@provider_search_form.zip} (#{@zip_name})" %>.</p>
 
         <ul class="provider-list">
           <% @providers.each_with_index do |provider, index| %>
@@ -47,13 +47,17 @@
                 <h2>
                   <%= link_to vita_provider_path(id: provider.id, zip: @provider_search_form.zip, page: @provider_search_form.page) do %>
                     <%= "#{provider_result_number(index)}. #{provider.name}" %>
-                    <i class="icon icon-keyboard_arrow_right"></i>
                   <% end %>
                 </h2>
 
-              <p class="text--small">Within <%= provider.cached_search_distance_rounded_by_5_mi %> miles</p>
+              <p class="text--small">
+                <%# `cached_query_distance` is a column temporarily stored on each record from the search query %>
+                Within <%= round_meters_up_to_5_mi(provider.cached_query_distance) %> miles
+              </p>
               <div class="address">
-                <i class="icon icon-room"></i>
+                <div class="provider-entry__icon">
+                  <%= image_tag "map-pin.svg", alt: "" %>
+                </div>
                 <div class="address-details">
                   <div><%= provider.street_address %></div>
                   <div><%= provider.unit %></div>
