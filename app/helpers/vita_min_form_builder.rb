@@ -60,7 +60,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_output.html_safe
   end
 
-  def vita_min_searchbar(method, label_text, options: {}, classes: [])
+  def vita_min_searchbar(method, label_text, label_icon: "", options: {}, classes: [])
     text_field_options = {
       class: (classes + ["vita-min-searchbar__input text-input"]).join(" ")
     }.merge(options).merge(error_attributes(method: method))
@@ -76,7 +76,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
           </div>
           <button class="vita-min-searchbar__button button button--primary" type="submit">
             <span class="vita-min-searchbar__submit-text hide-on-mobile">#{label_text}</span>
-            <i class="icon-navigate_next"></i>
+            #{label_icon.present? ? label_icon.html_safe : "<i class=\"icon-navigate_next\"></i>".html_safe }
           </button>
         </div>
         #{errors_for(object, method)}

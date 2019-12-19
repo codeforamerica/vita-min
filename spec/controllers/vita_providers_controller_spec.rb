@@ -97,7 +97,7 @@ RSpec.describe VitaProvidersController do
         get :show, params: { id: provider.id, zip: "94609" }
 
         expect(assigns(:zip)).to eq "94609"
-        expect(assigns(:distance)).to eq 0.1
+        expect(assigns(:distance)).to eq 179.95539713817547
       end
     end
   end
