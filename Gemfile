@@ -33,6 +33,7 @@ gem 'pg'
 gem 'activerecord-postgis-adapter'
 gem 'will_paginate'
 gem 'sentry-raven'
+gem 'pdf-forms'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -55,6 +56,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'git-pair'
+  gem 'annotate'
 end
 
 group :test do

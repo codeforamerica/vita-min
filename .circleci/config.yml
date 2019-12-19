@@ -24,7 +24,10 @@ commands:
             - v1-vita-min-{{ arch }}-
       - run:
           name: install dependencies
-          command: bundle install --jobs=4 --retry=3 --path vendor/bundle
+          command: |
+            sudo apt-get update && \
+            sudo apt-get install -y pdftk && \
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           name: Store bundle cache
           key: v1-vita-min-{{ arch }}-{{ checksum "Gemfile.lock" }}

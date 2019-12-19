@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: intake_site_drop_offs
+#
+#  id                  :bigint           not null, primary key
+#  additional_info     :string
+#  certification_level :string
+#  email               :string
+#  intake_site         :string           not null
+#  name                :string           not null
+#  phone_number        :string
+#  pickup_date         :date
+#  signature_method    :string           not null
+#  timezone            :string
+#  prior_drop_off_id   :bigint
+#  zendesk_ticket_id   :string
+#
+# Indexes
+#
+#  index_intake_site_drop_offs_on_prior_drop_off_id  (prior_drop_off_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (prior_drop_off_id => intake_site_drop_offs.id)
+#
+
 FactoryBot.define do
   factory :intake_site_drop_off do
     name { "Gary Guava" }

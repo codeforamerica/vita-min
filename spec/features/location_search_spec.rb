@@ -38,8 +38,8 @@ RSpec.feature "Search for VITA locations" do
       click_on "6. Perfect Provider"
 
       expect(page).to have_selector("h1", text: "Perfect Provider")
-      expect(page).to have_css("a > div", text: "1234 Main Street")
-      expect(page).to have_css("a > div", text: "Oakland, CA 94609")
+      expect(page).to have_selector("a > div", text: "1234 Main Street")
+      expect(page).to have_selector("a > div", text: "Oakland, CA 94609")
       expect(page).to have_link("(916) 572-0560")
 
       click_on "Return to search"

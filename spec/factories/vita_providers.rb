@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: vita_providers
+#
+#  id               :bigint           not null, primary key
+#  appointment_info :string
+#  coordinates      :geography({:srid point, 4326
+#  dates            :string
+#  details          :string
+#  hours            :string
+#  languages        :string
+#  name             :string
+#  irs_id           :string           not null
+#
+# Indexes
+#
+#  index_vita_providers_on_irs_id  (irs_id) UNIQUE
+#
+
 FactoryBot.define do
   factory :vita_provider do
     sequence(:irs_id) { |n| "1234#{n}" }
