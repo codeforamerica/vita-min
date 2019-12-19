@@ -1,0 +1,20 @@
+.form-question {
+  @extend .h2;
+}
+
+.form-card {
+  .text--help {
+    font-size: 1.9rem;
+  }
+}
+
+.form-card--yes-no {
+  .button img:first-child {
+    margin-right: 1.5rem;
+  }
+
+  .button:last-child {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}

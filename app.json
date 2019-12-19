@@ -6,6 +6,9 @@
   ],
   "buildpacks": [
     {
+      "url": "https://github.com/fxtentacle/heroku-pdftk-buildpack.git"
+    },
+    {
       "url": "heroku/ruby"
     }
   ]

@@ -1,0 +1,13 @@
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
+    <h1 class="form-question" id="has_scholarship_income_question">
+      In 2019, did you receive scholarships?
+    </h1>
+    <%= f.button :submit, name: "form[has_scholarship_income]", value: "yes", class: "button", "aria-describedby": "has_scholarship_income_question" do %>
+      <%= image_tag("checkmark.svg", alt: "") %>Yes
+    <% end %>
+    <%= f.button :submit, name: "form[has_scholarship_income]", value: "no", class: "button", "aria-describedby": "has_scholarship_income_question" do %>
+      <%= image_tag("crossmark.svg", alt: "") %>No
+    <% end %>
+  <% end %>
+<% end %>

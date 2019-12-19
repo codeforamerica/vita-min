@@ -58,6 +58,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    annotate (3.0.3)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 14.0)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
@@ -89,6 +92,7 @@ GEM
     chromedriver-helper (2.1.1)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
+    cliver (0.3.2)
     coderay (1.1.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -157,6 +161,9 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
+    pdf-forms (1.2.0)
+      cliver (~> 0.3.2)
+      safe_shell (>= 1.0.3, < 2.0)
     pg (1.1.4)
     phonelib (0.6.39)
     prism-rails (1.6.0.3)
@@ -231,6 +238,7 @@ GEM
       rspec-core (>= 2, < 4, != 2.12.0)
     ruby_dep (1.5.0)
     rubyzip (2.0.0)
+    safe_shell (1.1.0)
     safe_yaml (1.0.5)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -304,6 +312,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-postgis-adapter
+  annotate
   axe-matchers
   bootsnap (>= 1.1.0)
   byebug
@@ -316,6 +325,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mini_racer
   nokogiri
+  pdf-forms
   pg
   phonelib
   pry-byebug

@@ -1,0 +1,10 @@
+<% content_for :main do %>
+  <section class="slab">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <%= content_for :form_card %>
+      </div>
+    </div>
+  </section>
+<% end %>
+<%= render template: "layouts/application" %>
