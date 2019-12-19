@@ -1,5 +1,4 @@
 class VitaProvidersController < ApplicationController
-  layout "client_facing"
   helper_method :provider_result_number
 
   def index
