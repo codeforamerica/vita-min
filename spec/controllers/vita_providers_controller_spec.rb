@@ -24,7 +24,7 @@ RSpec.describe VitaProvidersController do
 
     context "search invalid zip" do
       let(:params) do
-        { provider_search_form: { zip: "10928374"} }
+        { zip: "10928374" }
       end
 
       it "shows a validation error and no search results" do
@@ -37,7 +37,7 @@ RSpec.describe VitaProvidersController do
 
     context "search with valid zip" do
       let(:params) do
-        { provider_search_form: { zip: "94609" } }
+        { zip: "94609" }
       end
 
       context "with results" do
@@ -68,7 +68,7 @@ RSpec.describe VitaProvidersController do
         let!(:closest_providers) { create_list :vita_provider, 5, :with_coordinates, lat_lon: [37.834519, -122.263273] }
         let!(:next_closest_providers) { create_list :vita_provider, 5, :with_coordinates, lat_lon: [37.826387, -122.269738] }
         let(:params) do
-          { provider_search_form: { zip: "94609", page: 2 } }
+          { zip: "94609", page: 2 }
         end
 
         it "returns the second page of providers" do

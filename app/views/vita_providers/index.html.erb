@@ -23,8 +23,8 @@
 
       <h1 class="h4">Enter your zip code to find providers near you.</h1>
 
-      <%= form_with model: @provider_search_form, url: vita_providers_path, method: "get", local: true, builder: VitaMinFormBuilder do |f| %>
-        <%= f.vita_min_searchbar :zip, "See results", options: { placeholder: "Enter Zip Code" } %>
+      <%= form_with model: @provider_search_form, url: vita_providers_path, method: "get", local: true, enforce_utf8: false, builder: VitaMinFormBuilder do |f| %>
+        <%= f.vita_min_searchbar :zip, "See results", options: { placeholder: "Enter Zip Code", name: "zip" } %>
       <% end %>
 
       <% if @providers.empty? && @provider_search_form.valid_zip_searched? %>
@@ -70,7 +70,7 @@
               next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
               inner_window: 0,
               outer_window: 0,
-              param_name: "provider_search_form[page]",
+              param_name: "page",
             ) %>
       <% end %>
 
