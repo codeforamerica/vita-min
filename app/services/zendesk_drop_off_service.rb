@@ -8,6 +8,7 @@ class ZendeskDropOffService
   INTAKE_STATUS = "360029025294"
   SIGNATURE_METHOD = "360029896814"
   TAX_HELP_COLORADO = "360007047214"
+  HSA = "360031865033"
   TIMEZONE_MAP = {
     "America/Adak" => "Alaska",
     "America/Anchorage" => "Alaska",
@@ -55,6 +56,7 @@ class ZendeskDropOffService
       fields: [
         {
           CERTIFICATION_LEVEL => @drop_off.certification_level,
+          HSA => @drop_off.hsa,
           INTAKE_SITE => intake_site_tag,
           STATE => "co",
           INTAKE_STATUS => "3._ready_for_prep",
@@ -81,7 +83,7 @@ class ZendeskDropOffService
     <<~BODY
       New Dropoff at #{@drop_off.intake_site}
 
-      Certification Level: #{@drop_off.certification_level}
+      Certification Level: #{@drop_off.certification_level}#{" and HSA" if @drop_off.hsa}
       Name: #{@drop_off.name}
       Phone number: #{@drop_off.formatted_phone_number}
       Email: #{@drop_off.email}

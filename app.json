@@ -4,6 +4,7 @@
   "addons": [
     "heroku-postgresql"
   ],
+  "stack": "heroku-16",
   "buildpacks": [
     {
       "url": "https://github.com/fxtentacle/heroku-pdftk-buildpack.git"

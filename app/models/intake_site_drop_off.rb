@@ -6,6 +6,7 @@
 #  additional_info     :string
 #  certification_level :string
 #  email               :string
+#  hsa                 :boolean          default(FALSE)
 #  intake_site         :string           not null
 #  name                :string           not null
 #  phone_number        :string
@@ -45,7 +46,7 @@ class IntakeSiteDropOff < ApplicationRecord
       "Trinidad State Junior College - Alamosa",
       "Trinidad State Junior College - Trinidad",
   ]
-  CERTIFICATION_LEVELS = %w(Basic Advanced HSA)
+  CERTIFICATION_LEVELS = %w(Basic Advanced)
 
   strip_attributes only: [:name, :email, :phone_number, :additional_info]
 

@@ -34,11 +34,12 @@
                   }
           ) %>
           <%= f.cfa_file_field(:document_bundle, 'Documents bundle') %>
-          <%= f.cfa_select(
+          <%= f.cfa_radio_set(
             :certification_level,
-            'Certification level',
-            IntakeSiteDropOff.certification_levels.map { |level| [level, level] })
+            label_text: 'Certification level',
+            collection: IntakeSiteDropOff.certification_levels.map { |level| {value: level, label: level} })
           %>
+          <%= f.cfa_checkbox(:hsa, "HSA") %>
           <%= f.cfa_textarea(:additional_info, 'Additional information') %>
 
           <button class="button button--primary" type="submit">

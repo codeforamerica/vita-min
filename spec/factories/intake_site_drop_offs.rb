@@ -6,6 +6,7 @@
 #  additional_info     :string
 #  certification_level :string
 #  email               :string
+#  hsa                 :boolean          default(FALSE)
 #  intake_site         :string           not null
 #  name                :string           not null
 #  phone_number        :string
@@ -38,6 +39,7 @@ FactoryBot.define do
       additional_info { "Gary is missing a document" }
       timezone { "America/Denver" }
       certification_level { "Basic" }
+      hsa { true }
     end
 
     factory :full_drop_off do
