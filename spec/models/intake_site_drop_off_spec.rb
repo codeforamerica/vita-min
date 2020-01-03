@@ -6,6 +6,7 @@
 #  additional_info     :string
 #  certification_level :string
 #  email               :string
+#  hsa                 :boolean          default(FALSE)
 #  intake_site         :string           not null
 #  name                :string           not null
 #  phone_number        :string
@@ -35,6 +36,12 @@ describe IntakeSiteDropOff do
       drop_off.save
 
       expect(drop_off.name).to eq "Ben"
+    end
+  end
+
+  describe "default values" do
+    it "has certain default values" do
+      expect(drop_off.hsa).to eq false
     end
   end
 

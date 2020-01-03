@@ -9,7 +9,7 @@ describe ZendeskDropOffService do
     <<~BODY
       New Dropoff at Adams City High School
 
-      Certification Level: Basic
+      Certification Level: Basic and HSA
       Name: Gary Guava
       Phone number: (415) 816-1286
       Email: gguava@example.com
@@ -48,6 +48,7 @@ describe ZendeskDropOffService do
           fields: [
             {
               ZendeskDropOffService::CERTIFICATION_LEVEL => drop_off.certification_level,
+              ZendeskDropOffService::HSA => drop_off.hsa,
               ZendeskDropOffService::INTAKE_SITE => "adams_city_high_school",
               ZendeskDropOffService::STATE => "co",
               ZendeskDropOffService::INTAKE_STATUS => "3._ready_for_prep",
@@ -102,7 +103,7 @@ describe ZendeskDropOffService do
       expected_body = <<~BODY
         New Dropoff at Adams City High School
 
-        Certification Level: Basic
+        Certification Level: Basic and HSA
         Name: Gary Guava
         Phone number: (415) 816-1286
         Email: gguava@example.com
@@ -114,14 +115,14 @@ describe ZendeskDropOffService do
     end
 
     context "without pickup date" do
-      it "exclueds pickup date line" do
+      it "excludes pickup date line" do
         drop_off.pickup_date = nil
         result = ZendeskDropOffService.new(drop_off).comment_body
 
         expected_body = <<~BODY
           New Dropoff at Adams City High School
   
-          Certification Level: Basic
+          Certification Level: Basic and HSA
           Name: Gary Guava
           Phone number: (415) 816-1286
           Email: gguava@example.com

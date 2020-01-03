@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_20_190731) do
+ActiveRecord::Schema.define(version: 2020_01_03_194556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_190731) do
     t.string "certification_level"
     t.string "zendesk_ticket_id"
     t.bigint "prior_drop_off_id"
+    t.boolean "hsa", default: false
     t.index ["prior_drop_off_id"], name: "index_intake_site_drop_offs_on_prior_drop_off_id"
   end
 
