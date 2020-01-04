@@ -1,7 +1,49 @@
 class QuestionNavigation
   FLOW = [
+    # Income
     Questions::WagesController,
-    Questions::ScholarshipsController,
+    Questions::JobCountController,
+    Questions::TipsController,
+    Questions::RetirementIncomeController,
+    Questions::SocialSecurityIncomeController,
+    Questions::UnemploymentIncomeController,
+    Questions::DisabilityIncomeController,
+    Questions::InterestIncomeController,
+    Questions::AssetSaleIncomeController,
+    Questions::AssetSaleLossController,
+    Questions::ReceivedAlimonyController,
+    Questions::RentalIncomeController,
+    Questions::FarmIncomeController,
+    Questions::GamblingIncomeController,
+    Questions::LocalTaxRefundController,
+    Questions::SelfEmploymentController,
+    Questions::SelfEmploymentLossController,
+    Questions::OtherIncomeController,
+    Questions::OtherIncomeTypesController,
+
+    # Expenses
+    Questions::MortgageInterestController,
+    Questions::LocalTaxController,
+    Questions::MedicalExpensesController,
+    Questions::CharitableContributionsController,
+    Questions::StudentLoanInterestController,
+    Questions::DependentCareController,
+    Questions::RetirementContributionsController,
+    Questions::SchoolSuppliesController,
+    Questions::PaidAlimonyController,
+    Questions::StudentController,
+    Questions::SoldHomeController,
+    Questions::HsaController,
+    Questions::HealthInsuranceController,
+    Questions::HomebuyerCreditController,
+    Questions::DebtForgivenController,
+    Questions::DisasterLossController,
+    Questions::AdoptedChildController,
+    Questions::TaxCreditDisallowedController,
+    Questions::IrsLetterController,
+    Questions::EstimatedTaxPaymentsController,
+    Questions::AdditionalInfoController,
+
   ].freeze
 
   class << self

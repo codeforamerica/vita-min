@@ -1,0 +1,6 @@
+<%% content_for :form_question, "<%= options.title %>" %>
+<%- if options.help_text.present? -%>
+<%% content_for :form_help_text, "<%= options.help_text %>" %>
+<%- end -%>
+
+<%% content_for :method_name, :<%= options.db_column %> %>
