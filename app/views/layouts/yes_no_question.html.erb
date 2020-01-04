@@ -1,0 +1,32 @@
+<% content_for :page_title do %>
+  <% if @form.errors.present? %>
+    <%= @form.error_summary %>
+  <% end %>
+  <%= yield :form_question %>
+<% end %>
+
+<% content_for :main do %>
+  <section class="slab">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
+          <h1 class="form-question" id="had_wages_question">
+            <%= yield :form_question %>
+          </h1>
+          <% if content_for? :form_help_text %>
+            <p class="text--help">
+              <%= yield :form_help_text %>
+            </p>
+          <% end %>
+          <%= f.button :submit, name: "form[#{yield :method_name}]", value: "yes", class: "button", "aria-describedby": "#{yield :method_name}_question" do %>
+            <%= image_tag("checkmark.svg", alt: "") %>Yes
+          <% end %>
+          <%= f.button :submit, name: "form[#{yield :method_name}]", value: "no", class: "button", "aria-describedby": "#{yield :method_name}_question" do %>
+            <%= image_tag("crossmark.svg", alt: "") %>No
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+<%= render template: "layouts/application" %>

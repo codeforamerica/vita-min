@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_03_194556) do
+ActiveRecord::Schema.define(version: 2020_01_03_225859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,8 +54,46 @@ ActiveRecord::Schema.define(version: 2020_01_03_194556) do
   end
 
   create_table "intakes", force: :cascade do |t|
-    t.integer "has_wages", default: 0, null: false
-    t.integer "has_scholarship_income", default: 0, null: false
+    t.integer "had_wages", default: 0, null: false
+    t.integer "job_count"
+    t.integer "had_tips", default: 0, null: false
+    t.integer "had_retirement_income", default: 0, null: false
+    t.integer "had_social_security_income", default: 0, null: false
+    t.integer "had_unemployment_income", default: 0, null: false
+    t.integer "had_disability_income", default: 0, null: false
+    t.integer "had_interest_income", default: 0, null: false
+    t.integer "had_asset_sale_income", default: 0, null: false
+    t.integer "reported_asset_sale_loss", default: 0, null: false
+    t.integer "received_alimony", default: 0, null: false
+    t.integer "had_rental_income", default: 0, null: false
+    t.integer "had_farm_income", default: 0, null: false
+    t.integer "had_gambling_income", default: 0, null: false
+    t.integer "had_local_tax_refund", default: 0, null: false
+    t.integer "had_self_employment_income", default: 0, null: false
+    t.integer "reported_self_employment_loss", default: 0, null: false
+    t.integer "had_other_income", default: 0, null: false
+    t.string "other_income_types"
+    t.integer "paid_mortgage_interest", default: 0, null: false
+    t.integer "paid_local_tax", default: 0, null: false
+    t.integer "paid_medical_expenses", default: 0, null: false
+    t.integer "paid_charitable_contributions", default: 0, null: false
+    t.integer "paid_student_loan_interest", default: 0, null: false
+    t.integer "paid_dependent_care", default: 0, null: false
+    t.integer "paid_retirement_contributions", default: 0, null: false
+    t.integer "paid_school_supplies", default: 0, null: false
+    t.integer "paid_alimony", default: 0, null: false
+    t.integer "had_student_in_family", default: 0, null: false
+    t.integer "sold_a_home", default: 0, null: false
+    t.integer "had_hsa", default: 0, null: false
+    t.integer "bought_health_insurance", default: 0, null: false
+    t.integer "received_homebuyer_credit", default: 0, null: false
+    t.integer "had_debt_forgiven", default: 0, null: false
+    t.integer "had_disaster_loss", default: 0, null: false
+    t.integer "adopted_child", default: 0, null: false
+    t.integer "had_tax_credit_disallowed", default: 0, null: false
+    t.integer "received_irs_letter", default: 0, null: false
+    t.integer "made_estimated_tax_payments", default: 0, null: false
+    t.string "additional_info"
   end
 
   create_table "vita_providers", force: :cascade do |t|

@@ -1,0 +1,7 @@
+class <%= name.camelcase %>Form < QuestionsForm
+  set_attributes_for :intake, :<%= options.db_column %>
+
+  def save
+    @intake.update(attributes_for(:intake))
+  end
+end
