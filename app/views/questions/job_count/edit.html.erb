@@ -1,0 +1,9 @@
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
+    <%= f.cfa_input_field(:job_count, "In 2019, how many jobs did you have?") %>
+    <button class="button button--primary" type="submit">
+      Next
+      <i class="button__icon icon-arrow_forward"></i>
+    </button>
+  <% end %>
+<% end %>

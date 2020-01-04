@@ -1,5 +1,5 @@
 class WagesForm < QuestionsForm
-  set_attributes_for :intake, :has_wages
+  set_attributes_for :intake, :had_wages
 
   def save
     # remove when earlier questions are added - this is only for the first form
