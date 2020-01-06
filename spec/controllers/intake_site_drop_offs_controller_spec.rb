@@ -32,7 +32,7 @@ RSpec.describe IntakeSiteDropOffsController do
               phone_number: "4158161286",
               intake_site: "Trinidad State Junior College - Alamosa",
               signature_method: "in_person",
-              pickup_date: "2/6/2020",
+              pickup_date_string: "2/6",
               certification_level: "Advanced",
               hsa: "1",
               additional_info: "Needs to double check if they have another W-2",
@@ -42,12 +42,24 @@ RSpec.describe IntakeSiteDropOffsController do
           }
         end
 
-        it "redirects to a show page for the created record" do
+        it "saves all the info and redirects to a show page for the created record" do
           expect {
             post :create, params: valid_params
           }.to change(IntakeSiteDropOff, :count).by(1)
 
           drop_off = IntakeSiteDropOff.last
+
+          expect(drop_off.name).to eq "Cassie Cantaloupe"
+          expect(drop_off.email).to eq "ccherry6@example.com"
+          expect(drop_off.phone_number).to eq "14158161286"
+          expect(drop_off.intake_site).to eq "Trinidad State Junior College - Alamosa"
+          expect(drop_off.signature_method).to eq "in_person"
+          expect(drop_off.pickup_date).to eq Date.new(2020, 2, 6)
+          expect(drop_off.certification_level).to eq "Advanced"
+          expect(drop_off.hsa).to eq true
+          expect(drop_off.additional_info).to eq "Needs to double check if they have another W-2"
+          expect(drop_off.document_bundle).to be_attached
+          expect(drop_off.timezone).to eq "America/Juneau"
 
           expect(response).to redirect_to intake_site_drop_off_path(id: drop_off.id)
         end
