@@ -48,7 +48,7 @@ describe ZendeskDropOffService do
           fields: [
             {
               ZendeskDropOffService::CERTIFICATION_LEVEL => drop_off.certification_level,
-              ZendeskDropOffService::HSA => drop_off.hsa,
+              ZendeskDropOffService::HSA => true,
               ZendeskDropOffService::INTAKE_SITE => "adams_city_high_school",
               ZendeskDropOffService::STATE => "co",
               ZendeskDropOffService::INTAKE_STATUS => "3._ready_for_prep",

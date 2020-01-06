@@ -36,6 +36,7 @@ class IntakeSiteDropOffsController < ApplicationController
       :pickup_date_string,
       :document_bundle,
       :certification_level,
+      :hsa,
       :additional_info,
       :timezone,
     )
