@@ -6,6 +6,8 @@ module Questions
     delegate :form_class, to: :class
 
     helper_method :current_path
+    helper_method :section_title
+    helper_method :illustration_path
 
     layout "question"
 
@@ -39,6 +41,14 @@ module Questions
     def next_path(params = {})
       next_step = form_navigation.next
       question_path(next_step.to_param, params) if next_step
+    end
+
+    def section_title
+      "Section Title"
+    end
+
+    def illustration_path
+      ""
     end
 
     def self.show?(intake)

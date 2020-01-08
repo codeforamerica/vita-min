@@ -47,6 +47,11 @@ body {
   }
 }
 
+.button {
+  box-shadow: none;
+  border-width: 3px;
+}
+
 .button--primary {
   background-color: black;
   border-color: black;

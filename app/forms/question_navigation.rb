@@ -35,6 +35,8 @@ class QuestionNavigation
     Questions::SoldHomeController,
     Questions::HsaController,
     Questions::HealthInsuranceController,
+
+    # Life Events
     Questions::HomebuyerCreditController,
     Questions::DebtForgivenController,
     Questions::DisasterLossController,
@@ -42,6 +44,8 @@ class QuestionNavigation
     Questions::TaxCreditDisallowedController,
     Questions::IrsLetterController,
     Questions::EstimatedTaxPaymentsController,
+
+    # Additional Questions
     Questions::AdditionalInfoController,
 
   ].freeze

@@ -37,9 +37,7 @@
         </div>
       </header>
 
-      <main role="main">
-        <%= content_for?(:main) ? yield(:main) : yield %>
-      </main>
+      <%= content_for?(:main) ? yield(:main) : yield %>
 
       <footer class="footer">
         <div class="slab slab--footer">

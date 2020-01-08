@@ -4,107 +4,109 @@
 
 <% content_for :body_class, "body--home" %>
 
-<div class="slab slab--hero">
-  <div class="grid">
-    <div class="grid__item width-two-thirds">
-      <h1>
-        Free tax help from IRS-certified volunteers.
-      </h1>
-      <p><strong>Find a local VITA site near you and get more of your refund dollars back by filing for free.</strong></p>
+<main role="main">
+  <div class="slab slab--hero">
+    <div class="grid">
+      <div class="grid__item width-two-thirds">
+        <h1>
+          Free tax help from IRS-certified volunteers.
+        </h1>
+        <p><strong>Find a local VITA site near you and get more of your refund dollars back by filing for free.</strong></p>
 
-      <%= link_to vita_providers_path, id: "firstCta", class: "button button--cta" do %>
-        Find a location
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<div class="slab slab--intro">
-  <div class="grid">
-    <div class="grid__item width-two-thirds">
-      <h2>Get the tax refund you've earned.</h2>
-      <p>
-        VitaTaxHelp.org is a nonprofit service that connects you with
-        free tax preparation help from volunteers certified
-        through the IRS Volunteer Income Tax Assistance (VITA) program.
-      </p>
-    </div>
-    <div class="grid__item width-one-third">
-      <%= link_to("https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank") do %>
-        <%= image_tag("vita-logo--black.png", alt: "IRS website for the Volunteer Income Tax Assistance program") %>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<div class="slab slab--eligibility">
-  <div class="grid">
-    <div class="grid__item width-five-twelfths">
-      <%= image_tag("money-taco.svg", alt: "") %>
-    </div>
-    <div class="grid__item width-seven-twelfths">
-      <h2>Am I eligible?</h2>
-      <p>
-        Tax credits like the Earned Income Tax Credit (EITC) put the money you’ve earned back in your pocket.
-      </p>
-      <p><strong>If your family earns $56,000 or less per year, you likely qualify.</strong></p>
-    </div>
-  </div>
-</div>
-
-<div class="slab slab--steps">
-  <div class="grid">
-    <div class="grid__item width-one-whole">
-      <h2 class="spacing-below-35">How it works</h2>
-      <div class="step">
-        <div class="step-icon-wrapper">
-          <%= image_tag("calendar-icon.svg", alt: "") %>
-        </div>
-        <div class="step-text">
-          <h3>Step 1: Schedule</h3>
-          <p class="text--small with-padding-small">Schedule your appointment with a VITA center</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-icon-wrapper">
-          <%= image_tag("file-icon.svg", alt: "") %>
-        </div>
-        <div class="step-text">
-          <h3>Step 2: Gather</h3>
-          <p class="text--small with-padding-small">Collect your necessary documents (ID, W-2’s, 1099, 1095's)</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-icon-wrapper">
-          <%= image_tag("magnifying-glass-icon.svg", alt: "") %>
-        </div>
-        <div class="step-text">
-          <h3>Step 3: Review</h3>
-          <p class="text--small with-padding-small">Our IRS-certified tax volunteers will review your situation</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-icon-wrapper">
-          <%= image_tag("upload-icon.svg", alt: "") %>
-        </div>
-        <div class="step-text">
-          <h3>Step 4: File</h3>
-          <p class="text--small with-padding-small">We’ll help you file and get your refund (if you want)!</p>
-        </div>
+        <%= link_to vita_providers_path, id: "firstCta", class: "button button--cta" do %>
+          Find a location
+        <% end %>
       </div>
     </div>
   </div>
-</div>
 
-<div class="slab">
-  <div class="grid">
-    <div class="grid__item width-one-whole text--centered">
-      <div class="h2 spacing-below-35">
-        Get more of your refund dollars back by filing for free today!
+  <div class="slab slab--intro">
+    <div class="grid">
+      <div class="grid__item width-two-thirds">
+        <h2>Get the tax refund you've earned.</h2>
+        <p>
+          VitaTaxHelp.org is a nonprofit service that connects you with
+          free tax preparation help from volunteers certified
+          through the IRS Volunteer Income Tax Assistance (VITA) program.
+        </p>
       </div>
-      <%= link_to vita_providers_path, class: "button button--primary" do %>
-        Find a location
-      <% end %>
+      <div class="grid__item width-one-third">
+        <%= link_to("https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank") do %>
+          <%= image_tag("vita-logo--black.png", alt: "IRS website for the Volunteer Income Tax Assistance program") %>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
+
+  <div class="slab slab--eligibility">
+    <div class="grid">
+      <div class="grid__item width-five-twelfths">
+        <%= image_tag("money-taco.svg", alt: "") %>
+      </div>
+      <div class="grid__item width-seven-twelfths">
+        <h2>Am I eligible?</h2>
+        <p>
+          Tax credits like the Earned Income Tax Credit (EITC) put the money you’ve earned back in your pocket.
+        </p>
+        <p><strong>If your family earns $56,000 or less per year, you likely qualify.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--steps">
+    <div class="grid">
+      <div class="grid__item width-one-whole">
+        <h2 class="spacing-below-35">How it works</h2>
+        <div class="step">
+          <div class="step-icon-wrapper">
+            <%= image_tag("calendar-icon.svg", alt: "") %>
+          </div>
+          <div class="step-text">
+            <h3>Step 1: Schedule</h3>
+            <p class="text--small with-padding-small">Schedule your appointment with a VITA center</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-icon-wrapper">
+            <%= image_tag("file-icon.svg", alt: "") %>
+          </div>
+          <div class="step-text">
+            <h3>Step 2: Gather</h3>
+            <p class="text--small with-padding-small">Collect your necessary documents (ID, W-2’s, 1099, 1095's)</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-icon-wrapper">
+            <%= image_tag("magnifying-glass-icon.svg", alt: "") %>
+          </div>
+          <div class="step-text">
+            <h3>Step 3: Review</h3>
+            <p class="text--small with-padding-small">Our IRS-certified tax volunteers will review your situation</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-icon-wrapper">
+            <%= image_tag("upload-icon.svg", alt: "") %>
+          </div>
+          <div class="step-text">
+            <h3>Step 4: File</h3>
+            <p class="text--small with-padding-small">We’ll help you file and get your refund (if you want)!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab">
+    <div class="grid">
+      <div class="grid__item width-one-whole text--centered">
+        <div class="h2 spacing-below-35">
+          Get more of your refund dollars back by filing for free today!
+        </div>
+        <%= link_to vita_providers_path, class: "button button--primary" do %>
+          Find a location
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>
