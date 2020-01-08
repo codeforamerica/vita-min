@@ -1,3 +1,16 @@
+.form-card {
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 .5rem;
+}
+
+.form-group--error {
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 .form-question {
   @extend .h2;
 }
@@ -22,5 +35,39 @@
   .button:last-child {
     margin-right: 0;
     margin-left: 0;
+  }
+
+  .yes-no-buttons {
+    margin-top: 6rem;
+    max-width: 35rem;
+    display: flex;
+    justify-content: space-between;
+
+    .button {
+      @media screen and (min-width: $tablet-up) {
+        width: 16rem;
+      }
+    }
+  }
+}
+
+.section-title {
+  font-size: 2.4rem;
+
+  img {
+    height: 2.0rem;
+    margin-right: 1.5rem;
+  }
+}
+
+.question__illustration {
+  margin-bottom: 3.5rem;
+  .placeholder_illustration {
+    width: 10em;
+    height: 8em;
+    padding: 1em;
+    background-color: yellow;
+    font-weight: bold;
+    font-style: italic;
   }
 }

@@ -8,7 +8,7 @@ class IntakePdf
   def hash_for_pdf
     {
       had_wages: yes_no_unfilled_to_checkbox(@intake.had_wages),
-      job_count: @intake.job_count,
+      job_count: @intake.job_count == 5 ? "5 or more" : @intake.job_count,
       had_tips: yes_no_unfilled_to_checkbox(@intake.had_tips),
       had_retirement_income: yes_no_unfilled_to_checkbox(@intake.had_retirement_income),
       had_social_security_income: yes_no_unfilled_to_checkbox(@intake.had_social_security_income),

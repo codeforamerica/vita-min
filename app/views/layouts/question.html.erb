@@ -1,10 +1,26 @@
 <% content_for :main do %>
-  <section class="slab">
+  <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
-        <%= content_for :form_card %>
+        <h3 class="section-title">
+          <%= image_tag("#{section_title.parameterize}.svg", alt: "") %>
+          <%= section_title %>
+        </h3>
+        <main role="main">
+          <div class="question__illustration">
+            <% if illustration_path.present? %>
+              <%= image_tag("questions/#{illustration_path}", alt: "") %>
+            <% else %>
+              <div class="placeholder_illustration">
+                Placeholder for an illustration.
+              </div>
+            <% end %>
+          </div>
+          <%= yield :form_card %>
+        </main>
       </div>
     </div>
   </section>
 <% end %>
+
 <%= render template: "layouts/application" %>
