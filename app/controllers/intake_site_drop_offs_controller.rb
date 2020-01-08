@@ -1,10 +1,12 @@
 class IntakeSiteDropOffsController < ApplicationController
   def new
     @drop_off = IntakeSiteDropOff.new
+    @organization = params[:organization]
   end
 
   def create
     @drop_off = IntakeSiteDropOff.new(intake_site_drop_off_params)
+    @organization = params[:organization]
     # check for matching drop offs
     @drop_off.add_prior_drop_off_if_present!
     if @drop_off.save
@@ -14,7 +16,7 @@ class IntakeSiteDropOffsController < ApplicationController
         zendesk_ticket_id = ZendeskDropOffService.new(@drop_off).create_ticket
         @drop_off.update(zendesk_ticket_id: zendesk_ticket_id)
       end
-      redirect_to @drop_off
+      redirect_to show_drop_off_path(id: @drop_off, organization: @organization)
     else
       render :new
     end
@@ -22,6 +24,7 @@ class IntakeSiteDropOffsController < ApplicationController
 
   def show
     @drop_off = IntakeSiteDropOff.find(params[:id])
+    @organization = params[:organization]
   end
 
   private

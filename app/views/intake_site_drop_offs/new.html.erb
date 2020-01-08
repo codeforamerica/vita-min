@@ -8,13 +8,14 @@
 <section class="slab">
   <div class="grid">
     <div class="grid__item width-two-thirds shift-one-sixth">
-      <%= form_for @drop_off, url: intake_site_drop_offs_path, local: true, multipart: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
+      <%= form_for @drop_off, url: create_drop_off_path, local: true, multipart: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
         <header class="form-card__header">
-          <h1 class="form-card__title">Valet VITA Drop-off</h1>
+          <h1 class="h1"><%= @organization == 'thc' ? 'Tax Help Colorado' : 'Goodwill Industries of the Southern Rivers' %></h1>
+          <h2 class="h2">Valet VITA Drop-off</h2>
         </header>
         <div class="form-card__content">
           <%= f.hidden_field(:timezone) %>
-          <%= f.cfa_select(:intake_site, 'Intake Site', IntakeSiteDropOff.intake_sites.map { |site| [site, site] }) %>
+          <%= f.cfa_select(:intake_site, 'Intake Site', IntakeSiteDropOff.intake_sites[@organization.to_sym].map { |site| [site, site] }) %>
           <%= f.cfa_input_field(:name, 'Client name') %>
           <%= f.cfa_input_field(:email, 'Client email', type: 'email', classes: ['form-width--email with-padding-med']) %>
           <%= f.cfa_input_field(:phone_number, 'Client phone number', type: 'tel', classes: ['form-width--phone with-padding-med']) %>
