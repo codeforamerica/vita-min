@@ -13,7 +13,7 @@ RSpec.describe IntakeSiteDropOffsController do
   describe "#show" do
     it "finds the right IntakeSiteDropOff record" do
       drop_off = create :intake_site_drop_off
-      get :show, params: { id: drop_off.id }
+      get :show, params: { organization: "thc", id: drop_off.id }
 
       expect(response.status).to eq 200
       expect(response).to render_template(:show)
@@ -26,6 +26,7 @@ RSpec.describe IntakeSiteDropOffsController do
       context "with valid params" do
         let(:valid_params) do
           {
+            organization: "thc",
             intake_site_drop_off: {
               name: "Cassie Cantaloupe",
               email: "ccherry6@example.com",
@@ -61,7 +62,7 @@ RSpec.describe IntakeSiteDropOffsController do
           expect(drop_off.document_bundle).to be_attached
           expect(drop_off.timezone).to eq "America/Juneau"
 
-          expect(response).to redirect_to intake_site_drop_off_path(id: drop_off.id)
+          expect(response).to redirect_to show_drop_off_path(id: drop_off.id)
         end
 
         context "when there is no matching prior drop off" do
@@ -73,7 +74,7 @@ RSpec.describe IntakeSiteDropOffsController do
             expect(ZendeskDropOffService).to have_received(:new).with(drop_off)
             expect(zendesk_drop_off_service_spy).to have_received(:create_ticket)
             expect(drop_off.zendesk_ticket_id).to eq ticket_id
-            expect(response).to redirect_to intake_site_drop_off_path(id: drop_off.id)
+            expect(response).to redirect_to show_drop_off_path(id: drop_off.id)
           end
         end
 
@@ -100,6 +101,7 @@ RSpec.describe IntakeSiteDropOffsController do
       context "with invalid params" do
         let(:invalid_params) do
           {
+            organization: "thc",
             intake_site_drop_off: {
               name: "Gary Guava",
               email: "gguava@example.com",

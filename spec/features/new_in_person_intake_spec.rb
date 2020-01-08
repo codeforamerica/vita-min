@@ -7,7 +7,7 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
   end
 
   scenario "new client" do
-    visit "/intake_site_drop_offs/new"
+    visit "/thc/drop_off"
     expect(page).to have_text "Valet VITA Drop-off"
 
     select "Lamar Community College", from: "Intake Site"
@@ -36,7 +36,7 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
   scenario "returning client" do
     create :intake_site_drop_off, email: "jjackfruit@example.com", zendesk_ticket_id: "35"
 
-    visit "/intake_site_drop_offs/new"
+    visit "/thc/drop_off"
     expect(page).to have_text "Valet VITA Drop-off"
 
     select "Lamar Community College", from: "Intake Site"
