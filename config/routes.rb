@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/:organization/drop_off', to: 'intake_site_drop_offs#new', as: :new_drop_off
-  post '/:organization/drop_offs', to: 'intake_site_drop_offs#create', as: :create_drop_off
-  get '/:organization/drop_off/:id', to: 'intake_site_drop_offs#show', as: :show_drop_off
+  get '/:organization/drop-off', to: 'intake_site_drop_offs#new', as: :new_drop_off
+  post '/:organization/drop-offs', to: 'intake_site_drop_offs#create', as: :create_drop_off
+  get '/:organization/drop-off/:id', to: 'intake_site_drop_offs#show', as: :show_drop_off
 end
