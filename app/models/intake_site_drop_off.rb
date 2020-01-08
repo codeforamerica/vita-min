@@ -28,7 +28,8 @@
 class IntakeSiteDropOff < ApplicationRecord
 
   SIGNATURE_METHODS = %w(in_person e_signature)
-  INTAKE_SITES = [
+  INTAKE_SITES = {
+    thc: [
       "Clayton Early Learning Center",
       "Denver Housing Authority - Connections",
       "Denver Housing Authority - Mulroy",
@@ -45,21 +46,30 @@ class IntakeSiteDropOff < ApplicationRecord
       "Pueblo Community College",
       "Trinidad State Junior College - Alamosa",
       "Trinidad State Junior College - Trinidad",
-  ]
+    ],
+    gwisr: [
+      "GoodwillSR Columbus Intake",
+      "GoodwillSR Thomas Crossroads Intake",
+      "GoodwillSR Opelika Intake",
+      "GoodwillSR Phenix City Intake",
+      "GoodwillSR Hub",
+    ]
+  }
+
   CERTIFICATION_LEVELS = %w(Basic Advanced)
 
   strip_attributes only: [:name, :email, :phone_number, :additional_info]
 
   validates_presence_of :name
-  validates :intake_site, inclusion: { in: INTAKE_SITES, message: "Please select an intake site." }
+  validates :intake_site, inclusion: { in: INTAKE_SITES.values.flatten, message: "Please select an intake site." }
   validates :signature_method, inclusion: { in: SIGNATURE_METHODS, message: "Please select a pickup method." }
   validates :certification_level, allow_blank: true, inclusion: {
-      in: CERTIFICATION_LEVELS,
-      message: "Please select a certification level."
+    in: CERTIFICATION_LEVELS,
+    message: "Please select a certification level."
   }
   validates :email, allow_blank: true, format: {
-      with: URI::MailTo::EMAIL_REGEXP,
-      message: "Please enter a valid email.",
+    with: URI::MailTo::EMAIL_REGEXP,
+    message: "Please enter a valid email.",
   }
   validates :phone_number, allow_blank: true, phone: { message: "Please enter a valid phone number." }
   validate :has_document_bundle?
@@ -122,8 +132,8 @@ class IntakeSiteDropOff < ApplicationRecord
 
   def error_summary
     if errors.present?
-      visible_errors = errors.messages.select{ |key, _| key != :pickup_date }
-      concatenated_message_strings = visible_errors.map{ |key, messages| messages.join(" ")}.join(" ")
+      visible_errors = errors.messages.select { |key, _| key != :pickup_date }
+      concatenated_message_strings = visible_errors.map { |key, messages| messages.join(" ") }.join(" ")
       "Errors: " + concatenated_message_strings
     end
   end

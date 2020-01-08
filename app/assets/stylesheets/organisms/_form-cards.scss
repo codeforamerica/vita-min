@@ -2,6 +2,12 @@
   @extend .h2;
 }
 
+.form-card--long {
+  .form-question {
+    font-size: 1.9rem;
+  }
+}
+
 .form-card {
   .text--help {
     font-size: 1.9rem;
