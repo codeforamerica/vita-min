@@ -31,6 +31,50 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     formatted_label.html_safe
   end
 
+  def h1_label_contents(label_text, help_text, optional = false)
+    label_text = <<~HTML
+          <h1 class="form-question">#{label_text + optional_text(optional)}</h1>
+    HTML
+
+    if help_text
+      label_text << <<~HTML
+            <p class="text--help">#{help_text}</p>
+      HTML
+    end
+
+    label_text.html_safe
+  end
+
+  def vita_min_select(
+    method,
+    label_text,
+    collection,
+    options = {},
+    &block
+  )
+    html_options = {
+      class: "select__element",
+    }
+
+    formatted_label = label(
+      method,
+      h1_label_contents(label_text, options[:help_text], options[:optional])
+    )
+    html_options_with_errors = html_options.merge(error_attributes(method: method))
+
+    html_output = <<~HTML
+          <div class="form-group#{error_state(object, method)}">
+            #{formatted_label}
+            <div class="select">
+              #{select(method, collection, options, html_options_with_errors, &block)}
+            </div>
+            #{errors_for(object, method)}
+          </div>
+    HTML
+
+    html_output.html_safe
+  end
+
   def cfa_file_field(method, label_text, help_text: nil, options: {}, classes: [], optional: false)
 
     file_field_options = {
@@ -56,6 +100,34 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
         #{label_and_field_html}
         #{errors_for(object, method)}
       </div>
+    HTML
+    html_output.html_safe
+  end
+
+  def vita_min_text_field(
+    method,
+    label_text,
+    help_text: nil,
+    options: {},
+    classes: []
+  )
+    text_field_options = standard_options.merge(
+      class: (classes + ["text-input"]).join(" "),
+    ).merge(options).merge(error_attributes(method: method))
+
+    text_field_options[:id] ||= sanitized_id(method)
+
+    text_field_html = text_field(method, text_field_options)
+
+    formatted_label = label(method, h1_label_contents(label_text, help_text), options)
+
+    label_and_field_html = formatted_label + formatted_field(nil, text_field_html, nil, []).html_safe
+
+    html_output = <<~HTML
+          <div class="form-group#{error_state(object, method)}">
+          #{label_and_field_html}
+            #{errors_for(object, method)}
+          </div>
     HTML
     html_output.html_safe
   end

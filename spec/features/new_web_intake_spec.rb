@@ -6,7 +6,7 @@ RSpec.feature "Add a new intake case from the website" do
     expect(page).to have_selector("h1", text: "In 2019, did you receive wages or salary?")
     click_on "Yes"
 
-    fill_in "In 2019, how many jobs did you have?", with: "3"
+    select "3 jobs", from: "In 2019, how many jobs did you have?"
     click_on "Next"
 
     expect(page).to have_selector("h1", text: "In 2019, did you receive any tips?")

@@ -14,70 +14,72 @@
 
 <% content_for :body_class, "body--providers" %>
 
-<div class="slab slab--white">
-  <div class="grid">
-    <div class="grid__item width-two-thirds shift-one-sixth">
-      <h2 class="h1">Get Free Tax Prep Help</h2>
+<main role="main">
+  <div class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-two-thirds shift-one-sixth">
+        <h2 class="h1">Get Free Tax Prep Help</h2>
 
-      <p>The IRS Volunteer Income Tax Assistance (VITA) programs offer free tax help for taxpayers who qualify.</p>
+        <p>The IRS Volunteer Income Tax Assistance (VITA) programs offer free tax help for taxpayers who qualify.</p>
 
-      <h1 class="h4">Enter your zip code to find providers near you.</h1>
+        <h1 class="h4">Enter your zip code to find providers near you.</h1>
 
-      <%= form_with model: @provider_search_form, url: vita_providers_path, method: "get", local: true, enforce_utf8: false, builder: VitaMinFormBuilder do |f| %>
-        <%= f.vita_min_searchbar :zip, "Search", label_icon: image_tag("search.svg", class: "vita-min-searchbar__icon", alt: "" ), options: { placeholder: "Enter Zip Code", name: "zip" } %>
-      <% end %>
+        <%= form_with model: @provider_search_form, url: vita_providers_path, method: "get", local: true, enforce_utf8: false, builder: VitaMinFormBuilder do |f| %>
+          <%= f.vita_min_searchbar :zip, "Search", label_icon: image_tag("search.svg", class: "vita-min-searchbar__icon", alt: "" ), options: { placeholder: "Enter Zip Code", name: "zip" } %>
+        <% end %>
 
-      <% if @providers.empty? && @provider_search_form.valid_zip_searched? %>
-        <h1>We're sorry!</h1>
+        <% if @providers.empty? && @provider_search_form.valid_zip_searched? %>
+          <h1>We're sorry!</h1>
 
-        <p>
-          We found no results within 50 miles of <%= "#{@provider_search_form.zip} (#{@zip_name})" %>.
-          Please try another zip code or see
-          <%= link_to("https://www.myfreetaxes.com", target: "_blank") do %>MyFreeTaxes.com<% end %>,
-          an online service that lets you prepare your own taxes for free.</p>
-      <% end %>
+          <p>
+            We found no results within 50 miles of <%= "#{@provider_search_form.zip} (#{@zip_name})" %>.
+            Please try another zip code or see
+            <%= link_to("https://www.myfreetaxes.com", target: "_blank") do %>MyFreeTaxes.com<% end %>,
+            an online service that lets you prepare your own taxes for free.</p>
+        <% end %>
 
-      <% if @providers.present? %>
-        <p>We found <%= @providers.total_entries %> results within 50 miles of <%= "#{@provider_search_form.zip} (#{@zip_name})" %>.</p>
+        <% if @providers.present? %>
+          <p>We found <%= @providers.total_entries %> results within 50 miles of <%= "#{@provider_search_form.zip} (#{@zip_name})" %>.</p>
 
-        <ul class="provider-list">
-          <% @providers.each_with_index do |provider, index| %>
-            <li class="provider-list__entry">
+          <ul class="provider-list">
+            <% @providers.each_with_index do |provider, index| %>
+              <li class="provider-list__entry">
 
-                <h2>
-                  <%= link_to vita_provider_path(id: provider.id, zip: @provider_search_form.zip, page: @provider_search_form.page) do %>
-                    <%= "#{provider_result_number(index)}. #{provider.name}" %>
-                  <% end %>
-                </h2>
+                  <h2>
+                    <%= link_to vita_provider_path(id: provider.id, zip: @provider_search_form.zip, page: @provider_search_form.page) do %>
+                      <%= "#{provider_result_number(index)}. #{provider.name}" %>
+                    <% end %>
+                  </h2>
 
-              <p class="text--small">
-                <%# `cached_query_distance` is a column temporarily stored on each record from the search query %>
-                Within <%= round_meters_up_to_5_mi(provider.cached_query_distance) %> miles
-              </p>
-              <div class="address">
-                <div class="provider-entry__icon">
-                  <%= image_tag "map-pin.svg", alt: "" %>
+                <p class="text--small">
+                  <%# `cached_query_distance` is a column temporarily stored on each record from the search query %>
+                  Within <%= round_meters_up_to_5_mi(provider.cached_query_distance) %> miles
+                </p>
+                <div class="address">
+                  <div class="provider-entry__icon">
+                    <%= image_tag "map-pin.svg", alt: "" %>
+                  </div>
+                  <div class="address-details">
+                    <div><%= provider.street_address %></div>
+                    <div><%= provider.unit %></div>
+                    <div><%= provider.city_state_zip %></div>
+                  </div>
                 </div>
-                <div class="address-details">
-                  <div><%= provider.street_address %></div>
-                  <div><%= provider.unit %></div>
-                  <div><%= provider.city_state_zip %></div>
-                </div>
-              </div>
-            </li>
-          <% end %>
-        </ul>
+              </li>
+            <% end %>
+          </ul>
 
-        <%= will_paginate(
-              @providers,
-              previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\"> Previous</span>",
-              next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
-              inner_window: 0,
-              outer_window: 0,
-              param_name: "page",
-            ) %>
-      <% end %>
+          <%= will_paginate(
+                @providers,
+                previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\"> Previous</span>",
+                next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+                inner_window: 0,
+                outer_window: 0,
+                param_name: "page",
+              ) %>
+        <% end %>
 
+      </div>
     </div>
   </div>
-</div>
+</main>
