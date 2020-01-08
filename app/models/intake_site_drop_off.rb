@@ -52,7 +52,6 @@ class IntakeSiteDropOff < ApplicationRecord
       "GoodwillSR Thomas Crossroads Intake",
       "GoodwillSR Opelika Intake",
       "GoodwillSR Phenix City Intake",
-      "GoodwillSR Hub",
     ]
   }
 
