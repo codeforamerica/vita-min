@@ -15,6 +15,7 @@ describe ZendeskDropOffService do
       Email: gguava@example.com
       Signature method: E-Signature
       Pickup Date: 4/10/2020
+      State (for state tax return): Nevada
       Additional info: Gary is missing a document
     BODY
   end
@@ -31,7 +32,7 @@ describe ZendeskDropOffService do
   end
 
   describe "#create_ticket" do
-    let(:drop_off) { create :full_drop_off }
+    let(:drop_off) { create :full_drop_off, state: "nv" }
 
     it "creates a new Zendesk ticket with info from the drop_off and attaches documents to ticket" do
       result = ZendeskDropOffService.new(drop_off).create_ticket
@@ -50,7 +51,7 @@ describe ZendeskDropOffService do
               ZendeskDropOffService::CERTIFICATION_LEVEL => drop_off.certification_level,
               ZendeskDropOffService::HSA => true,
               ZendeskDropOffService::INTAKE_SITE => "adams_city_high_school",
-              ZendeskDropOffService::STATE => "co",
+              ZendeskDropOffService::STATE => "nv",
               ZendeskDropOffService::INTAKE_STATUS => "3._ready_for_prep",
               ZendeskDropOffService::SIGNATURE_METHOD => drop_off.signature_method,
             }
@@ -64,7 +65,7 @@ describe ZendeskDropOffService do
 
     context "from Goodwill Industries of the Southern Rivers" do
       let(:drop_off) do
-        create(:full_drop_off, organization: "gwisr", intake_site: "GoodwillSR Columbus Intake")
+        create(:full_drop_off, organization: "gwisr", state: "ga", intake_site: "GoodwillSR Columbus Intake")
       end
       let(:comment_body) do
         <<~BODY
@@ -76,6 +77,7 @@ describe ZendeskDropOffService do
           Email: gguava@example.com
           Signature method: E-Signature
           Pickup Date: 4/10/2020
+          State (for state tax return): Georgia
           Additional info: Gary is missing a document
         BODY
       end
@@ -108,7 +110,7 @@ describe ZendeskDropOffService do
   end
 
   describe "#append_to_existing_ticket" do
-    let(:drop_off) { create :full_drop_off, zendesk_ticket_id: "48" }
+    let(:drop_off) { create :full_drop_off, zendesk_ticket_id: "48", state: "nv" }
 
     before do
       allow(fake_zendesk_ticket).to receive(:save).and_return(true)
@@ -153,6 +155,7 @@ describe ZendeskDropOffService do
         Email: gguava@example.com
         Signature method: E-Signature
         Pickup Date: 4/10/2020
+        State (for state tax return): Colorado
         Additional info: Gary is missing a document
       BODY
       expect(result).to eq expected_body
@@ -171,6 +174,7 @@ describe ZendeskDropOffService do
           Phone number: (415) 816-1286
           Email: gguava@example.com
           Signature method: E-Signature
+          State (for state tax return): Colorado
           Additional info: Gary is missing a document
         BODY
         expect(result).to eq expected_body

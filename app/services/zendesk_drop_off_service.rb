@@ -59,7 +59,7 @@ class ZendeskDropOffService
           CERTIFICATION_LEVEL => @drop_off.certification_level,
           HSA => @drop_off.hsa,
           INTAKE_SITE => intake_site_tag,
-          STATE => state,
+          STATE => @drop_off.state,
           INTAKE_STATUS => "3._ready_for_prep",
           SIGNATURE_METHOD => @drop_off.signature_method
         },
@@ -89,6 +89,7 @@ class ZendeskDropOffService
       Phone number: #{@drop_off.formatted_phone_number}
       Email: #{@drop_off.email}
       Signature method: #{@drop_off.formatted_signature_method}#{pickup_date_line}
+      State (for state tax return): #{@drop_off.state_name}
       Additional info: #{@drop_off.additional_info}
     BODY
   end
@@ -133,9 +134,5 @@ class ZendeskDropOffService
 
   def group_id
     @drop_off.organization == "thc" ? TAX_HELP_COLORADO : GOODWILL_SOUTHERN_RIVERS
-  end
-
-  def state
-    @drop_off.organization == "thc" ? "co" : "ga"
   end
 end

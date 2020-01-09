@@ -13,6 +13,7 @@
 #  phone_number        :string
 #  pickup_date         :date
 #  signature_method    :string           not null
+#  state               :string
 #  timezone            :string
 #  prior_drop_off_id   :bigint
 #  zendesk_ticket_id   :string
@@ -56,6 +57,8 @@ describe IntakeSiteDropOff do
       expect(invalid_drop_off.errors).to include(:intake_site)
       expect(invalid_drop_off.errors).to include(:signature_method)
       expect(invalid_drop_off.errors).to include(:document_bundle)
+      expect(invalid_drop_off.errors).to include(:organization)
+      expect(invalid_drop_off.errors).to include(:state)
       expect(invalid_drop_off.errors.messages[:document_bundle]).to include "Please choose a file."
     end
 
@@ -81,6 +84,16 @@ describe IntakeSiteDropOff do
         expect(drop_off).not_to be_valid
         expect(drop_off.errors).to include :organization
         drop_off.organization = "thc"
+        expect(drop_off).to be_valid
+      end
+    end
+
+    describe "#state" do
+      it "expects state to be a valid choice" do
+        drop_off.state = "the Ukraine"
+        expect(drop_off).not_to be_valid
+        expect(drop_off.errors).to include :state
+        drop_off.state = "ga"
         expect(drop_off).to be_valid
       end
     end
@@ -204,6 +217,14 @@ describe IntakeSiteDropOff do
 
         expect(new_drop_off.prior_drop_off).to be_nil
       end
+    end
+  end
+
+  describe "#state_name" do
+    let(:drop_off) { build :intake_site_drop_off, state: "nv" }
+
+    it "returns the corresponding name of the state" do
+      expect(drop_off.state_name).to eq "Nevada"
     end
   end
 

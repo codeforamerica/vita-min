@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_175634) do
+ActiveRecord::Schema.define(version: 2020_01_09_191316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2020_01_09_175634) do
     t.bigint "prior_drop_off_id"
     t.boolean "hsa", default: false
     t.string "organization"
+    t.string "state"
     t.index ["prior_drop_off_id"], name: "index_intake_site_drop_offs_on_prior_drop_off_id"
   end
 
