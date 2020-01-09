@@ -8,6 +8,7 @@ class ZendeskDropOffService
   INTAKE_STATUS = "360029025294"
   SIGNATURE_METHOD = "360029896814"
   TAX_HELP_COLORADO = "360007047214"
+  GOODWILL_SOUTHERN_RIVERS = "360007941454"
   HSA = "360031865033"
   TIMEZONE_MAP = {
     "America/Adak" => "Alaska",
@@ -51,14 +52,14 @@ class ZendeskDropOffService
       client,
       subject: @drop_off.name,
       requester_id: zendesk_user.id,
-      group_id: TAX_HELP_COLORADO,
+      group_id: group_id,
       comment: { body: comment_body },
       fields: [
         {
           CERTIFICATION_LEVEL => @drop_off.certification_level,
           HSA => @drop_off.hsa,
           INTAKE_SITE => intake_site_tag,
-          STATE => "co",
+          STATE => state,
           INTAKE_STATUS => "3._ready_for_prep",
           SIGNATURE_METHOD => @drop_off.signature_method
         },
@@ -128,5 +129,13 @@ class ZendeskDropOffService
 
   def pickup_date_line
     "\nPickup Date: #{I18n.l(@drop_off.pickup_date)}" if @drop_off.pickup_date
+  end
+
+  def group_id
+    @drop_off.organization == "thc" ? TAX_HELP_COLORADO : GOODWILL_SOUTHERN_RIVERS
+  end
+
+  def state
+    @drop_off.organization == "thc" ? "co" : "ga"
   end
 end

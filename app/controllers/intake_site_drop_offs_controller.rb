@@ -7,6 +7,7 @@ class IntakeSiteDropOffsController < ApplicationController
   def create
     @drop_off = IntakeSiteDropOff.new(intake_site_drop_off_params)
     @organization = params[:organization]
+    @drop_off.organization = @organization
     # check for matching drop offs
     @drop_off.add_prior_drop_off_if_present!
     if @drop_off.save
