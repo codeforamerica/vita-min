@@ -9,6 +9,7 @@
 #  hsa                 :boolean          default(FALSE)
 #  intake_site         :string           not null
 #  name                :string           not null
+#  organization        :string
 #  phone_number        :string
 #  pickup_date         :date
 #  signature_method    :string           not null
@@ -29,6 +30,7 @@ FactoryBot.define do
   factory :intake_site_drop_off do
     name { "Gary Guava" }
     intake_site { "Adams City High School" }
+    organization { "thc" }
     signature_method { :e_signature }
     document_bundle { Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf") }
 

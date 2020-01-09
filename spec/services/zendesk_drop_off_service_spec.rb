@@ -5,7 +5,7 @@ describe ZendeskDropOffService do
   let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
   let(:comment_uploads) { [] }
-  let(:default_comment_body) do
+  let(:comment_body) do
     <<~BODY
       New Dropoff at Adams City High School
 
@@ -43,7 +43,7 @@ describe ZendeskDropOffService do
           requester_id: fake_zendesk_user.id,
           group_id: ZendeskDropOffService::TAX_HELP_COLORADO,
           comment: {
-            body: default_comment_body,
+            body: comment_body,
           },
           fields: [
             {
@@ -61,6 +61,50 @@ describe ZendeskDropOffService do
       expect(comment_uploads.first[:filename]).to eq "GaryGuava.pdf"
       expect(fake_zendesk_ticket).to have_received(:save)
     end
+
+    context "from Goodwill Industries of the Southern Rivers" do
+      let(:drop_off) do
+        create(:full_drop_off, organization: "gwisr", intake_site: "GoodwillSR Columbus Intake")
+      end
+      let(:comment_body) do
+        <<~BODY
+          New Dropoff at GoodwillSR Columbus Intake
+    
+          Certification Level: Basic and HSA
+          Name: Gary Guava
+          Phone number: (415) 816-1286
+          Email: gguava@example.com
+          Signature method: E-Signature
+          Pickup Date: 4/10/2020
+          Additional info: Gary is missing a document
+        BODY
+      end
+
+      it "assigns the Zendesk ticket to the correct group" do
+        ZendeskDropOffService.new(drop_off).create_ticket
+        expect(ZendeskAPI::Ticket).to have_received(:new).with(
+          fake_zendesk_client,
+          {
+            subject: drop_off.name,
+            requester_id: fake_zendesk_user.id,
+            group_id: ZendeskDropOffService::GOODWILL_SOUTHERN_RIVERS,
+            comment: {
+              body: comment_body,
+            },
+            fields: [
+              {
+                ZendeskDropOffService::CERTIFICATION_LEVEL => drop_off.certification_level,
+                ZendeskDropOffService::HSA => true,
+                ZendeskDropOffService::INTAKE_SITE => "goodwillsr_columbus_intake",
+                ZendeskDropOffService::STATE => "ga",
+                ZendeskDropOffService::INTAKE_STATUS => "3._ready_for_prep",
+                ZendeskDropOffService::SIGNATURE_METHOD => drop_off.signature_method,
+              }
+            ]
+          }
+        )
+      end
+    end
   end
 
   describe "#append_to_existing_ticket" do
@@ -74,7 +118,7 @@ describe ZendeskDropOffService do
       result = ZendeskDropOffService.new(drop_off).append_to_existing_ticket
 
       expect(ZendeskAPI::Ticket).to have_received(:find).with(fake_zendesk_client, id: "48")
-      expect(fake_zendesk_ticket).to have_received(:comment=).with({body: default_comment_body})
+      expect(fake_zendesk_ticket).to have_received(:comment=).with({body: comment_body})
       expect(comment_uploads.first[:filename]).to eq "GaryGuava.pdf"
       expect(fake_zendesk_ticket).to have_received(:save)
       expect(result).to eq true

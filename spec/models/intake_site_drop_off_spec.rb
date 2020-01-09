@@ -9,6 +9,7 @@
 #  hsa                 :boolean          default(FALSE)
 #  intake_site         :string           not null
 #  name                :string           not null
+#  organization        :string
 #  phone_number        :string
 #  pickup_date         :date
 #  signature_method    :string           not null
@@ -71,6 +72,16 @@ describe IntakeSiteDropOff do
         drop_off.intake_site = "North Pole"
         expect(drop_off).not_to be_valid
         expect(drop_off.errors.messages[:intake_site]).to include "Please select an intake site."
+      end
+    end
+
+    describe "#organization" do
+      it "expects organization to be a valid choice" do
+        drop_off.organization = "Garden Gnome Association"
+        expect(drop_off).not_to be_valid
+        expect(drop_off.errors).to include :organization
+        drop_off.organization = "thc"
+        expect(drop_off).to be_valid
       end
     end
 

@@ -51,6 +51,7 @@ RSpec.describe IntakeSiteDropOffsController do
           drop_off = IntakeSiteDropOff.last
 
           expect(drop_off.name).to eq "Cassie Cantaloupe"
+          expect(drop_off.organization).to eq "thc"
           expect(drop_off.email).to eq "ccherry6@example.com"
           expect(drop_off.phone_number).to eq "14158161286"
           expect(drop_off.intake_site).to eq "Trinidad State Junior College - Alamosa"

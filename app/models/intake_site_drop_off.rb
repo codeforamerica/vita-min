@@ -9,6 +9,7 @@
 #  hsa                 :boolean          default(FALSE)
 #  intake_site         :string           not null
 #  name                :string           not null
+#  organization        :string
 #  phone_number        :string
 #  pickup_date         :date
 #  signature_method    :string           not null
@@ -27,7 +28,8 @@
 
 class IntakeSiteDropOff < ApplicationRecord
 
-  SIGNATURE_METHODS = %w(in_person e_signature)
+  SIGNATURE_METHODS = %w(in_person e_signature).freeze
+  CERTIFICATION_LEVELS = %w(Basic Advanced).freeze
   INTAKE_SITES = {
     thc: [
       "Clayton Early Learning Center",
@@ -53,14 +55,14 @@ class IntakeSiteDropOff < ApplicationRecord
       "GoodwillSR Opelika Intake",
       "GoodwillSR Phenix City Intake",
     ]
-  }
-
-  CERTIFICATION_LEVELS = %w(Basic Advanced)
+  }.freeze
+  ORGANIZATIONS = INTAKE_SITES.keys.map(&:to_s).freeze
 
   strip_attributes only: [:name, :email, :phone_number, :additional_info]
 
   validates_presence_of :name
   validates :intake_site, inclusion: { in: INTAKE_SITES.values.flatten, message: "Please select an intake site." }
+  validates :organization, inclusion: { in: ORGANIZATIONS }
   validates :signature_method, inclusion: { in: SIGNATURE_METHODS, message: "Please select a pickup method." }
   validates :certification_level, allow_blank: true, inclusion: {
     in: CERTIFICATION_LEVELS,
