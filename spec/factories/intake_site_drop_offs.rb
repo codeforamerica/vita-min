@@ -15,6 +15,8 @@
 #  signature_method    :string           not null
 #  state               :string
 #  timezone            :string
+#  created_at          :datetime
+#  updated_at          :datetime
 #  prior_drop_off_id   :bigint
 #  zendesk_ticket_id   :string
 #
