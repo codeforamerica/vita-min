@@ -13,6 +13,7 @@
 #  phone_number        :string
 #  pickup_date         :date
 #  signature_method    :string           not null
+#  state               :string
 #  timezone            :string
 #  prior_drop_off_id   :bigint
 #  zendesk_ticket_id   :string
@@ -31,6 +32,7 @@ FactoryBot.define do
     name { "Gary Guava" }
     intake_site { "Adams City High School" }
     organization { "thc" }
+    state { "co" }
     signature_method { :e_signature }
     document_bundle { Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf") }
 

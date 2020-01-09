@@ -36,6 +36,7 @@
                     }
                 ) %>
             <%= f.cfa_file_field(:document_bundle, 'Documents bundle') %>
+            <%= f.cfa_select(:state, 'State', States.name_value_pairs, help_text: "For state tax return") %>
             <%= f.cfa_radio_set(
                     :certification_level,
                     label_text: 'Certification level',
