@@ -10,6 +10,8 @@
 #  hours            :string
 #  languages        :string
 #  name             :string
+#  created_at       :datetime
+#  updated_at       :datetime
 #  irs_id           :string           not null
 #
 # Indexes

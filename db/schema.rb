@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_191316) do
+ActiveRecord::Schema.define(version: 2020_01_09_223519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 2020_01_09_191316) do
     t.boolean "hsa", default: false
     t.string "organization"
     t.string "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["prior_drop_off_id"], name: "index_intake_site_drop_offs_on_prior_drop_off_id"
   end
 
@@ -96,6 +98,8 @@ ActiveRecord::Schema.define(version: 2020_01_09_191316) do
     t.integer "received_irs_letter", default: 0, null: false
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.string "additional_info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "vita_providers", force: :cascade do |t|
@@ -107,6 +111,8 @@ ActiveRecord::Schema.define(version: 2020_01_09_191316) do
     t.string "hours"
     t.string "languages"
     t.string "appointment_info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["irs_id"], name: "index_vita_providers_on_irs_id", unique: true
   end
 

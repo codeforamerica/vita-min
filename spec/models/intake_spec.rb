@@ -43,6 +43,8 @@
 #  reported_asset_sale_loss      :integer          default("unfilled"), not null
 #  reported_self_employment_loss :integer          default("unfilled"), not null
 #  sold_a_home                   :integer          default("unfilled"), not null
+#  created_at                    :datetime
+#  updated_at                    :datetime
 #
 
 require 'rails_helper'
