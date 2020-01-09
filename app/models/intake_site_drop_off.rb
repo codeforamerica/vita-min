@@ -13,6 +13,7 @@
 #  phone_number        :string
 #  pickup_date         :date
 #  signature_method    :string           not null
+#  state               :string
 #  timezone            :string
 #  prior_drop_off_id   :bigint
 #  zendesk_ticket_id   :string
@@ -27,7 +28,6 @@
 #
 
 class IntakeSiteDropOff < ApplicationRecord
-
   SIGNATURE_METHODS = %w(in_person e_signature).freeze
   CERTIFICATION_LEVELS = %w(Basic Advanced).freeze
   INTAKE_SITES = {
@@ -62,6 +62,7 @@ class IntakeSiteDropOff < ApplicationRecord
 
   validates_presence_of :name
   validates :intake_site, inclusion: { in: INTAKE_SITES.values.flatten, message: "Please select an intake site." }
+  validates :state, inclusion: { in: States.keys, message: "Please select a state." }
   validates :organization, inclusion: { in: ORGANIZATIONS }
   validates :signature_method, inclusion: { in: SIGNATURE_METHODS, message: "Please select a pickup method." }
   validates :certification_level, allow_blank: true, inclusion: {
@@ -143,6 +144,10 @@ class IntakeSiteDropOff < ApplicationRecord
     prior_drop_off = self.class.find_prior_drop_off(self)
     self.prior_drop_off = prior_drop_off
     self.zendesk_ticket_id = prior_drop_off.zendesk_ticket_id if prior_drop_off
+  end
+
+  def state_name
+    States.name_for_key(state)
   end
 
   def self.intake_sites

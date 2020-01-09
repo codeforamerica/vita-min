@@ -10,6 +10,28 @@ RSpec.describe IntakeSiteDropOffsController do
     allow(ZendeskDropOffService).to receive(:new).and_return(zendesk_drop_off_service_spy)
   end
 
+  describe "#new" do
+    before do
+      get :new, params: { organization: org }
+    end
+
+    context "for Tax Help Colorado" do
+      let(:org) { "thc" }
+
+      it "sets the default state to Colorado" do
+        expect(assigns(:drop_off).state).to eq "co"
+      end
+    end
+
+    context "for Goodwilll Southern Rivers" do
+      let(:org) { "gwisr" }
+
+      it "sets the default state to Georgia" do
+        expect(assigns(:drop_off).state).to eq "ga"
+      end
+    end
+  end
+
   describe "#show" do
     it "finds the right IntakeSiteDropOff record" do
       drop_off = create :intake_site_drop_off
@@ -32,6 +54,7 @@ RSpec.describe IntakeSiteDropOffsController do
               email: "ccherry6@example.com",
               phone_number: "4158161286",
               intake_site: "Trinidad State Junior College - Alamosa",
+              state: "co",
               signature_method: "in_person",
               pickup_date_string: "2/6",
               certification_level: "Advanced",
@@ -55,6 +78,7 @@ RSpec.describe IntakeSiteDropOffsController do
           expect(drop_off.email).to eq "ccherry6@example.com"
           expect(drop_off.phone_number).to eq "14158161286"
           expect(drop_off.intake_site).to eq "Trinidad State Junior College - Alamosa"
+          expect(drop_off.state).to eq "co"
           expect(drop_off.signature_method).to eq "in_person"
           expect(drop_off.pickup_date).to eq Date.new(2020, 2, 6)
           expect(drop_off.certification_level).to eq "Advanced"

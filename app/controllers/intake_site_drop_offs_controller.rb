@@ -2,6 +2,7 @@ class IntakeSiteDropOffsController < ApplicationController
   def new
     @drop_off = IntakeSiteDropOff.new
     @organization = params[:organization]
+    @drop_off.state = default_state_for_org(@organization)
   end
 
   def create
@@ -30,12 +31,17 @@ class IntakeSiteDropOffsController < ApplicationController
 
   private
 
+  def default_state_for_org(organization)
+    organization == "thc" ? "co" : "ga"
+  end
+
   def intake_site_drop_off_params
     params.require(:intake_site_drop_off).permit(
       :name,
       :email,
       :phone_number,
       :intake_site,
+      :state,
       :signature_method,
       :pickup_date_string,
       :document_bundle,

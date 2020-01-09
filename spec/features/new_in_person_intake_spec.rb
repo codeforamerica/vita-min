@@ -11,6 +11,8 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
     expect(page).to have_text "Valet VITA Drop-off"
 
     select "Lamar Community College", from: "Intake Site"
+    expect(page).to have_select("State", selected: "Colorado")
+    select "Nevada", from: "State"
     fill_in "Client name", with: "Jane Jackfruit"
     fill_in "Client email", with: "jjackfruit@example.com"
     fill_in "Client phone number", with: "415-816-1286"
