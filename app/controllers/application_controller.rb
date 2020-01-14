@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def send_mixpanel_event(event_name:, data: {})
+    return if user_agent.bot?
     major_browser_version = user_agent.full_version.try { |v| v.partition('.').first }
     default_data = {
       full_user_agent: request.user_agent,

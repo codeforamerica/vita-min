@@ -90,5 +90,16 @@ RSpec.describe ApplicationController do
         data: expected_data
       )
     end
+
+    context "with a request from a bot" do
+      let(:user_agent_string) { "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" }
+
+      it "sends nothing to mixpanel" do
+        get :index
+
+        subject.send_mixpanel_event(event_name: "beep")
+        expect(mixpanel_spy).not_to have_received(:run)
+      end
+    end
   end
 end
