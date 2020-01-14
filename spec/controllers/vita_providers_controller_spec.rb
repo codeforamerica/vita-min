@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe VitaProvidersController do
+  describe "#include_google_analytics?" do
+    it "returns true" do
+      expect(subject.include_google_analytics?).to eq true
+    end
+  end
+
   describe "#index" do
     context "get page with no params" do
       it "shows no search results" do
