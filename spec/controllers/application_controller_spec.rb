@@ -33,4 +33,19 @@ RSpec.describe ApplicationController do
       end
     end
   end
+
+  describe "#user_agent" do
+    it "parses the user agent" do
+      request.headers["HTTP_USER_AGENT"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36"
+
+      get :index
+
+      expect(subject.user_agent.name).to eq "Chrome"
+    end
+  end
+
+  xdescribe "#send_mixpanel_event" do
+    it "sends default data to mixpanel" do
+    end
+  end
 end
