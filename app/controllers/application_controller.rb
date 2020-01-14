@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
   def visitor_id
     cookies[:visitor_id]
   end
+
+  def user_agent
+    @user_agent ||= DeviceDetector.new(request.user_agent)
+  end
 end
