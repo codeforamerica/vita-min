@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <% if include_google_analytics? && Rails.env.production? %>
+      <%= render 'shared/google_analytics' %>
+    <% end %>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>

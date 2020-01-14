@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'pages#home'
+  root 'public_pages#home'
 
   mount Cfa::Styleguide::Engine => "/cfa"
 

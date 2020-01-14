@@ -1,6 +1,10 @@
 class VitaProvidersController < ApplicationController
   helper_method :provider_result_number
 
+  def include_google_analytics?
+    true
+  end
+
   def index
     @providers = []
     if provider_search_form_params.present?
