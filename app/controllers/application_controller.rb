@@ -46,6 +46,9 @@ class ApplicationController < ActionController::Base
     return if user_agent.bot?
     major_browser_version = user_agent.full_version.try { |v| v.partition('.').first }
     default_data = {
+      source: source,
+      referrer: referrer,
+      referrer_domain: Addressable::URI.parse(referrer).host || "None",
       full_user_agent: request.user_agent,
       browser_name: user_agent.name,
       browser_full_version: user_agent.full_version,
