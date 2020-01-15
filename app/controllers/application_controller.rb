@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_visitor_id, :set_source
+  before_action :set_visitor_id, :set_source, :set_referrer
   helper_method :include_google_analytics?
 
   def include_google_analytics?
@@ -25,6 +25,16 @@ class ApplicationController < ActionController::Base
       session[:source] = source_from_params
     elsif request.headers.fetch(:referer, "").include?("google.com")
       session[:source] = "organic_google"
+    end
+  end
+
+  def referrer
+    session[:referrer]
+  end
+
+  def set_referrer
+    unless referrer.present?
+      session[:referrer] = request.headers.fetch(:referer, "None")
     end
   end
 

@@ -82,6 +82,41 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#referrer" do
+    context "with an existing referrer in the session" do
+      before do
+        session[:referrer] = "searchengine.shrimp"
+        request.headers["HTTP_REFERER"] = "/previous_page"
+      end
+
+      it "does not override it" do
+        get :index
+
+        expect(subject.referrer).to eq "searchengine.shrimp"
+      end
+    end
+
+    context "with no referrer in the session" do
+      context "with an HTTP_REFERER header" do
+        before { request.headers["HTTP_REFERER"] = "coolwebsite.horse" }
+
+        it "sets the referrer from the headers" do
+          get :index
+
+          expect(session[:referrer]).to eq "coolwebsite.horse"
+        end
+      end
+
+      context "without an HTTP_REFERER header" do
+        it "sets the referrer to 'None'" do
+          get :index
+
+          expect(session[:referrer]).to eq "None"
+        end
+      end
+    end
+  end
+
   describe "#user_agent" do
     it "parses the user agent" do
       request.headers["HTTP_USER_AGENT"] = user_agent_string
