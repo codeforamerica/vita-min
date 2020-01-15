@@ -129,9 +129,24 @@ RSpec.describe ApplicationController do
 
   describe "#send_mixpanel_event" do
     let(:mixpanel_spy) { spy(MixpanelService) }
-    let(:expected_data) do
-      {
+
+    before do
+      allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
+      cookies[:visitor_id] = "123"
+      session[:source] = "vdss"
+      request.headers["HTTP_USER_AGENT"] = user_agent_string
+      request.headers["HTTP_REFERER"] = "http://coolwebsite.horse/tax-help/vita"
+    end
+
+    it "sends default data using mixpanel service" do
+      get :index
+
+      subject.send_mixpanel_event(event_name: "beep", data: { sound: "boop" })
+      expected_mixpanel_data = {
         sound: "boop",
+        source: "vdss",
+        referrer: "http://coolwebsite.horse/tax-help/vita",
+        referrer_domain: "coolwebsite.horse",
         full_user_agent: user_agent_string,
         browser_name: "Chrome",
         browser_full_version: "79.0.3945.117",
@@ -152,23 +167,10 @@ RSpec.describe ApplicationController do
         controller_action: "AnonymousController#index",
         controller_action_name: "index",
       }
-    end
-
-    before do
-      allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
-      cookies[:visitor_id] = "123"
-      request.headers["HTTP_USER_AGENT"] = user_agent_string
-    end
-
-    it "sends default data using mixpanel service" do
-      get :index
-
-      subject.send_mixpanel_event(event_name: "beep", data: { sound: "boop" })
-
       expect(mixpanel_spy).to have_received(:run).with(
         unique_id: "123",
         event_name: "beep",
-        data: expected_data
+        data: expected_mixpanel_data
       )
     end
 
