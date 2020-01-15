@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_visitor_id, :set_source, :set_referrer
+  before_action :set_visitor_id, :set_source, :set_referrer, :track_page_view
   helper_method :include_google_analytics?
 
   def include_google_analytics?
@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
     @user_agent ||= DeviceDetector.new(request.user_agent)
   end
 
+  def track_page_view
+    send_mixpanel_event(event_name: "page_view") if request.get?
+  end
+
   def send_mixpanel_event(event_name:, data: {})
     return if user_agent.bot?
     major_browser_version = user_agent.full_version.try { |v| v.partition('.').first }
@@ -73,6 +77,6 @@ class ApplicationController < ActionController::Base
       unique_id: visitor_id,
       event_name: event_name,
       data: default_data.merge(data),
-      )
+    )
   end
 end
