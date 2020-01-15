@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
     default_data = {
       source: source,
       referrer: referrer,
-      referrer_domain: Addressable::URI.parse(referrer).host || "None",
+      referrer_domain: URI.parse(referrer).host || "None",
       full_user_agent: request.user_agent,
       browser_name: user_agent.name,
       browser_full_version: user_agent.full_version,
