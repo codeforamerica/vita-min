@@ -36,6 +36,52 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#source" do
+    context "with an existing source in the session" do
+      before { session[:source] = "shrimps" }
+
+      it "returns the session value" do
+        get :index
+
+        expect(subject.source).to eq "shrimps"
+      end
+    end
+
+    context "with a 'source' param" do
+      let(:params) do
+        { source: "shromps"}
+      end
+
+      it "stores the param in the session" do
+        get :index, params: params
+
+        expect(session[:source]).to eq "shromps"
+      end
+    end
+
+    context "with an 's' param" do
+      let(:params) do
+        { s: "shremps"}
+      end
+
+      it "stores the param in the session" do
+        get :index, params: params
+
+        expect(session[:source]).to eq "shremps"
+      end
+    end
+
+    context "with an google.com referer header" do
+      before { request.headers["HTTP_REFERER"] = "http://google.com/search" }
+
+      it "stores the param in the session" do
+        get :index
+
+        expect(session[:source]).to eq "organic_google"
+      end
+    end
+  end
+
   describe "#user_agent" do
     it "parses the user agent" do
       request.headers["HTTP_USER_AGENT"] = user_agent_string
