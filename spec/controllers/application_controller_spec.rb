@@ -185,4 +185,26 @@ RSpec.describe ApplicationController do
       end
     end
   end
+
+  describe "#track_page_view" do
+    before do
+      allow(subject).to receive(:send_mixpanel_event)
+    end
+
+    context "with a POST request" do
+      it "does not send a page view event to mixpanel" do
+        post :index
+
+        expect(subject).not_to have_received(:send_mixpanel_event)
+      end
+    end
+
+    context "with a GET request" do
+      it "sends a page view event to mixpanel" do
+        get :index
+
+        expect(subject).to have_received(:send_mixpanel_event).with(event_name: "page_view")
+      end
+    end
+  end
 end
