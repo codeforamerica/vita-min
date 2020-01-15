@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_visitor_id
+  before_action :set_visitor_id, :set_source
   helper_method :include_google_analytics?
 
   def include_google_analytics?
@@ -13,6 +13,19 @@ class ApplicationController < ActionController::Base
 
   def visitor_id
     cookies[:visitor_id]
+  end
+
+  def source
+    session[:source]
+  end
+
+  def set_source
+    source_from_params = params[:source] || params[:utm_source] || params[:s]
+    if source_from_params.present?
+      session[:source] = source_from_params
+    elsif request.headers.fetch(:referer, "").include?("google.com")
+      session[:source] = "organic_google"
+    end
   end
 
   def user_agent
