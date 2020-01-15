@@ -1,5 +1,7 @@
 class QuestionNavigation
   FLOW = [
+    OverviewController,
+
     # Income
     Questions::JobCountController,
     Questions::WagesController,
