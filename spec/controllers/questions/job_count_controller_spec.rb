@@ -1,28 +1,27 @@
 require "rails_helper"
 
 RSpec.describe Questions::JobCountController do
-  describe ".show?" do
-    context "with an intake that reported no wages" do
-      let!(:intake) { create :intake, had_wages: "no" }
+  describe "#edit" do
+    context "when there is no intake" do
+      it "renders edit and returns 200" do
+        get :edit
 
-      it "returns false" do
-        expect(Questions::JobCountController.show?(intake)).to eq false
+        expect(response).to be_ok
       end
     end
+  end
 
-    context "with an intake that has not filled out the had_wages column" do
-      let!(:intake) { create :intake, had_wages: "unfilled" }
+  describe "#update" do
+    context "when there is no intake" do
+      it "creates a new intake and stores it to the session" do
+        ## Delete this spec when we have more controllers in front of this one.
+        expect {
+          post :update, params: { form: { job_count: "3" } }
+        }.to change(Intake, :count).by(1)
 
-      it "returns true" do
-        expect(Questions::JobCountController.show?(intake)).to eq true
-      end
-    end
+        intake = Intake.last
 
-    context "with an intake that reported yes to had_wages" do
-      let!(:intake) { create :intake, had_wages: "yes" }
-
-      it "returns true" do
-        expect(Questions::JobCountController.show?(intake)).to eq true
+        expect(session[:intake_id]).to eq intake.id
       end
     end
   end

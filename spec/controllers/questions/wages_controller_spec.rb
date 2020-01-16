@@ -17,17 +17,10 @@ RSpec.describe Questions::WagesController do
     end
 
     context "when there is no intake" do
-      # include once this controller is no longer the first
-      xit "redirects to root path" do
+      it "redirects to root path" do
         get :edit
 
         expect(response).to redirect_to(root_path)
-      end
-
-      it "renders edit and returns 200" do
-        get :edit
-
-        expect(response).to be_ok
       end
     end
   end
@@ -46,19 +39,6 @@ RSpec.describe Questions::WagesController do
         intake.reload
         expect(intake.had_wages).to eq "yes"
         expect(response.status).to eq 302
-      end
-    end
-
-    context "when there is no intake" do
-      it "creates a new intake and stores it to the session" do
-        ## Delete this spec when we have more controllers in front of this one.
-        expect {
-          post :update, params: { form: { had_wages: "yes" } }
-        }.to change(Intake, :count).by(1)
-
-        intake = Intake.last
-
-        expect(session[:intake_id]).to eq intake.id
       end
     end
   end

@@ -2,17 +2,23 @@ require "rails_helper"
 
 RSpec.feature "Add a new intake case from the website" do
   scenario "new client" do
-    visit "/questions/wages"
-    expect(page).to have_selector("h1", text: "In 2019, did you receive wages or salary?")
-    click_on "Yes"
-
+    visit "/questions/job-count"
     select "3 jobs", from: "In 2019, how many jobs did you have?"
     click_on "Next"
+
+    expect(page).to have_selector("h1", text: "In 2019, did you receive wages or salary?")
+    click_on "Yes"
 
     expect(page).to have_selector("h1", text: "In 2019, did you receive any tips?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from a retirement account, pension or annuity proceeds?")
+    expect(page).to have_selector("h1", text: "In 2019, did you have any income from contract or self-employment work?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "Did you report a business loss on your 2018 tax return?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "In 2019, did you have any income from a retirement account, pension, or annuity proceeds?")
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have any income from Social Security or Railroad Retirement Benefits?")
@@ -46,12 +52,6 @@ RSpec.feature "Add a new intake case from the website" do
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "In 2019, did you receive a state or local income tax refund?")
-    click_on "Yes"
-
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from contract or self-employment work?")
-    click_on "Yes"
-
-    expect(page).to have_selector("h1", text: "Did you report a business loss on your 2018 tax return?")
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "In 2019, did you receive any other money?")
