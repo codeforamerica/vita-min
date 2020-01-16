@@ -1,9 +1,11 @@
 class QuestionNavigation
   FLOW = [
     # Income
-    Questions::WagesController,
     Questions::JobCountController,
+    Questions::WagesController,
     Questions::TipsController,
+    Questions::SelfEmploymentController,
+    Questions::SelfEmploymentLossController,
     Questions::RetirementIncomeController,
     Questions::SocialSecurityIncomeController,
     Questions::UnemploymentIncomeController,
@@ -16,8 +18,6 @@ class QuestionNavigation
     Questions::FarmIncomeController,
     Questions::GamblingIncomeController,
     Questions::LocalTaxRefundController,
-    Questions::SelfEmploymentController,
-    Questions::SelfEmploymentLossController,
     Questions::OtherIncomeController,
     Questions::OtherIncomeTypesController,
 

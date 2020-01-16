@@ -25,6 +25,10 @@
   .text--help {
     font-size: 1.9rem;
   }
+
+  .form-question + .text--help {
+    margin-top: 0;
+  }
 }
 
 .form-card--yes-no {
