@@ -8,6 +8,7 @@ RSpec.describe IntakeSiteDropOffsController do
 
   before do
     allow(ZendeskDropOffService).to receive(:new).and_return(zendesk_drop_off_service_spy)
+    allow(subject).to receive(:send_mixpanel_event)
   end
 
   describe "#new" do
@@ -101,17 +102,33 @@ RSpec.describe IntakeSiteDropOffsController do
             expect(drop_off.zendesk_ticket_id).to eq ticket_id
             expect(response).to redirect_to show_drop_off_path(id: drop_off.id)
           end
+
+          it "sends a create_drop_off event to mixpanel" do
+            post :create, params: valid_params
+
+            expected_data = {
+              organization: "thc",
+              intake_site: "Trinidad State Junior College - Alamosa",
+              state: "co",
+              signature_method: "in_person",
+              certification_level: "Advanced",
+              hsa: true,
+            }
+            expect(subject).to have_received(:send_mixpanel_event).with(event_name: "create_drop_off", data: expected_data)
+          end
         end
 
         context "when there is a matching old drop off" do
-          it "appends to an existing ticket" do
-            prior_drop_off = create(
+          let!(:prior_drop_off) do
+            create(
               :intake_site_drop_off,
               name: "Cassie Cantaloupe",
               phone_number: "4158161286",
               zendesk_ticket_id: "151"
             )
+          end
 
+          it "appends to an existing ticket" do
             post :create, params: valid_params
 
             drop_off = IntakeSiteDropOff.last
@@ -119,6 +136,20 @@ RSpec.describe IntakeSiteDropOffsController do
             expect(ZendeskDropOffService).to have_received(:new).with(drop_off)
             expect(zendesk_drop_off_service_spy).to have_received(:append_to_existing_ticket)
             expect(drop_off.zendesk_ticket_id).to eq prior_drop_off.zendesk_ticket_id
+          end
+
+          it "sends a append_to_drop_off event to mixpanel" do
+            post :create, params: valid_params
+
+            expected_data = {
+              organization: "thc",
+              intake_site: "Trinidad State Junior College - Alamosa",
+              state: "co",
+              signature_method: "in_person",
+              certification_level: "Advanced",
+              hsa: true,
+            }
+            expect(subject).to have_received(:send_mixpanel_event).with(event_name: "append_to_drop_off", data: expected_data)
           end
         end
       end
