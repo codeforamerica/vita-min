@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   mount Cfa::Styleguide::Engine => "/cfa"
 
   resources :vita_providers, only: [:index, :show]
+  get '/vita_provider/map', to: 'vita_providers#map'
 
   resources :questions, controller: :questions do
     collection do

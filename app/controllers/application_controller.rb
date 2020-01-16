@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  before_action :set_visitor_id, :set_source, :set_referrer, :track_page_view
+  before_action :set_visitor_id, :set_source, :set_referrer
+  after_action :track_page_view
   helper_method :include_google_analytics?
 
   def include_google_analytics?
