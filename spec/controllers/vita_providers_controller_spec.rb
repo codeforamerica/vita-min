@@ -75,9 +75,9 @@ RSpec.describe VitaProvidersController do
           expected_data = {
             zip: "94609",
             zip_name: "Oakland, California",
-            result_count: 5,
+            result_count: "5",
             distance_to_closest_result: 0,
-            page: 1,
+            page: "1",
           }
           expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_search", data: expected_data)
         end
@@ -126,9 +126,9 @@ RSpec.describe VitaProvidersController do
           expected_data = {
             zip: "94609",
             zip_name: "Oakland, California",
-            result_count: 10,
+            result_count: "10",
             distance_to_closest_result: 1,
-            page: 2,
+            page: "2",
           }
           expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_search", data: expected_data)
         end
@@ -152,7 +152,7 @@ RSpec.describe VitaProvidersController do
           get :show, params: { id: provider.id }
 
           expected_data = {
-            provider_id: provider.id,
+            provider_id: provider.id.to_s,
             provider_name: "Public Library of the Test Suite",
           }
           expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_page_view", data: expected_data)
@@ -161,22 +161,22 @@ RSpec.describe VitaProvidersController do
 
       context "with zip in params" do
         it "gets the searched zip from params and calculates distance" do
-          get :show, params: { id: provider.id, zip: "94609" }
+          get :show, params: { id: provider.id.to_s, zip: "94609" }
 
           expect(assigns(:zip)).to eq "94609"
           expect(assigns(:distance)).to eq 179.95539713817547
         end
 
         it "sends provider_page_view event to mixpanel" do
-          get :show, params: { id: provider.id, zip: "94609", page: "2" }
+          get :show, params: { id: provider.id.to_s, zip: "94609", page: "2" }
 
           expected_data = {
-            provider_id: provider.id,
+            provider_id: provider.id.to_s,
             provider_name: "Public Library of the Test Suite",
             provider_distance_to_searched_zip: 0,
             provider_searched_zip: "94609",
             provider_searched_zip_name: "Oakland, California",
-            provider_search_result_page: 2,
+            provider_search_result_page: "2",
           }
           expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_page_view", data: expected_data)
         end
@@ -197,7 +197,7 @@ RSpec.describe VitaProvidersController do
       get :map, params: { id: provider.id }
 
       expected_data = {
-        provider_id: provider.id,
+        provider_id: provider.id.to_s,
         provider_name: "Public Library of the Test Suite",
       }
       expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_page_map_click", data: expected_data)

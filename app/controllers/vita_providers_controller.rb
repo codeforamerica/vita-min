@@ -11,7 +11,7 @@ class VitaProvidersController < ApplicationController
     if provider_search_form_params.present?
       @provider_search_form = ProviderSearchForm.new(provider_search_form_params)
       @zip = @provider_search_form.zip
-      @page = (@provider_search_form.page || "1").to_i
+      @page = (@provider_search_form.page || "1")
       if @provider_search_form.valid?
         @providers = VitaProvider.sort_by_distance_from_zipcode(@zip, @page)
         @zip_name = ZipCodes.details(@zip)[:name]
@@ -59,7 +59,7 @@ class VitaProvidersController < ApplicationController
     event_data = {
       zip: @zip,
       zip_name: @zip_name,
-      result_count: @providers.total_entries,
+      result_count: @providers.total_entries.to_s,
       distance_to_closest_result: (@providers.first&.cached_query_distance / METERS_IN_MILE).round,
       page: @page,
     }
@@ -80,7 +80,7 @@ class VitaProvidersController < ApplicationController
 
   def track_provider_page_view
     event_data = {
-      provider_id: @provider.id,
+      provider_id: @provider.id.to_s,
       provider_name: @provider.name,
     }
     if @zip.present?
@@ -91,7 +91,7 @@ class VitaProvidersController < ApplicationController
       })
     end
     if params[:page].present?
-      event_data[:provider_search_result_page] = params[:page].to_i
+      event_data[:provider_search_result_page] = params[:page]
     end
     send_mixpanel_event(event_name: "provider_page_view", data: event_data)
   end
@@ -99,7 +99,7 @@ class VitaProvidersController < ApplicationController
   def track_provider_page_map_click
     event_data = {
       provider_name: @provider.name,
-      provider_id: @provider.id,
+      provider_id: @provider.id.to_s,
     }
     send_mixpanel_event(event_name: "provider_page_map_click", data: event_data)
   end
