@@ -21,6 +21,7 @@
 
 FactoryBot.define do
   factory :vita_provider do
+    name { "Public Library of the Test Suite" }
     sequence(:irs_id) { |n| "1234#{n}" }
   end
 
