@@ -14,9 +14,11 @@ class IntakeSiteDropOffsController < ApplicationController
     if @drop_off.save
       if @drop_off.prior_drop_off.present?
         ZendeskDropOffService.new(@drop_off).append_to_existing_ticket
+        track_append_to_drop_off
       else
         zendesk_ticket_id = ZendeskDropOffService.new(@drop_off).create_ticket
         @drop_off.update(zendesk_ticket_id: zendesk_ticket_id)
+        track_create_drop_off
       end
       redirect_to show_drop_off_path(id: @drop_off, organization: @organization)
     else
@@ -30,6 +32,27 @@ class IntakeSiteDropOffsController < ApplicationController
   end
 
   private
+
+  def track_append_to_drop_off
+    event_data = mixpanel_data
+    send_mixpanel_event(event_name: "append_to_drop_off", data: event_data)
+  end
+
+  def track_create_drop_off
+    event_data = mixpanel_data
+    send_mixpanel_event(event_name: "create_drop_off", data: event_data)
+  end
+
+  def mixpanel_data
+    {
+      organization: @organization,
+      intake_site: @drop_off.intake_site,
+      state: @drop_off.state,
+      signature_method: @drop_off.signature_method,
+      certification_level: @drop_off.certification_level,
+      hsa: @drop_off.hsa,
+    }
+  end
 
   def default_state_for_org(organization)
     organization == "thc" ? "co" : "ga"
