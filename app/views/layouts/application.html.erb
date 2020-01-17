@@ -41,6 +41,32 @@
         </div>
       </header>
 
+      <% if notice.present? %>
+        <section class="slab notice">
+          <div class="grid">
+            <div class="grid__item width-three-fourths shift-one-eighth">
+              <p class="flash__message">
+                <%= notice %>
+              </p>
+            </div>
+          </div>
+        </section>
+      <% end %>
+
+      <% if alert.present? %>
+        <section class="slab alert">
+          <div class="grid">
+            <div class="grid__item width-three-fourths shift-one-eighth">
+              <p class="flash__message">
+                <%= alert %>
+              </p>
+            </div>
+          </div>
+        </section>
+      <% end %>
+
+
+
       <%= content_for?(:main) ? yield(:main) : yield %>
 
       <footer class="footer">
