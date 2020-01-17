@@ -12,8 +12,20 @@ RSpec.describe IntakeSiteDropOffsController do
   end
 
   describe "#new" do
+    let(:org) { "thc" }
+
     before do
       get :new, params: { organization: org }
+    end
+
+    context "with an intake site stored in the session" do
+      let(:intake_site) { "Denver Housing Authority - Westwood" }
+      before { session[:intake_site] = intake_site}
+
+      it "sets a default intake site for the drop off" do
+        get :new, params: { organization: org }
+        expect(assigns(:drop_off).intake_site).to eq intake_site
+      end
     end
 
     context "for Tax Help Colorado" do
@@ -115,6 +127,12 @@ RSpec.describe IntakeSiteDropOffsController do
               hsa: true,
             }
             expect(subject).to have_received(:send_mixpanel_event).with(event_name: "create_drop_off", data: expected_data)
+          end
+
+          it "sets the intake site in the session" do
+            post :create, params: valid_params
+
+            expect(session[:intake_site]).to eq "Trinidad State Junior College - Alamosa"
           end
         end
 

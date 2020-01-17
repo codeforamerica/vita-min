@@ -33,6 +33,7 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
     click_on "Add another drop-off"
 
     expect(page).to have_text "Valet VITA Drop-off"
+    expect(page).to have_select("Intake Site", selected: "Lamar Community College")
   end
 
   scenario "returning client" do

@@ -1,6 +1,6 @@
 class IntakeSiteDropOffsController < ApplicationController
   def new
-    @drop_off = IntakeSiteDropOff.new
+    @drop_off = IntakeSiteDropOff.new(intake_site: session[:intake_site])
     @organization = params[:organization]
     @drop_off.state = default_state_for_org(@organization)
   end
@@ -12,6 +12,7 @@ class IntakeSiteDropOffsController < ApplicationController
     # check for matching drop offs
     @drop_off.add_prior_drop_off_if_present!
     if @drop_off.save
+      session[:intake_site] = @drop_off.intake_site
       if @drop_off.prior_drop_off.present?
         ZendeskDropOffService.new(@drop_off).append_to_existing_ticket
         track_append_to_drop_off
