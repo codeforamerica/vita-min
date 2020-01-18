@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id       :bigint           not null, primary key
+#  email    :string
+#  provider :string
+#  uid      :string
+#
+
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: [:idme]
 

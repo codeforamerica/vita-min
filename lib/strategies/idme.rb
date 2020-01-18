@@ -4,20 +4,21 @@ module OmniAuth
   module Strategies
     class IdMe < OmniAuth::Strategies::OAuth2
       option :client_options, {
-        :site => 'https://api.id.me',
-        :authorize_url => 'https://api.id.me/oauth/authorize',
-        :token_url => 'https://api.id.me/oauth/token'
+        :site => 'https://api.idmelabs.com',
+        :authorize_url => 'https://api.idmelabs.com/oauth/authorize',
+        :token_url => 'https://api.idmelabs.com/oauth/token'
       }
       option :response_type, 'code'
 
       def request_phase
-        super
+        response = super
+        puts response
+        response
       end
 
       def authorize_params
-        binding.pry
         super.tap do |params|
-          %w[scope response_type client_options].each do |v|
+          %w[scope response_type client_options client_id client_secret].each do |v|
             if request.params[v]
               params[v.to_sym] = request.params[v]
             end
