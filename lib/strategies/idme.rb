@@ -11,9 +11,7 @@ module OmniAuth
       option :response_type, 'code'
 
       def request_phase
-        response = super
-        puts response
-        response
+        super
       end
 
       def authorize_params
@@ -26,25 +24,34 @@ module OmniAuth
         end
       end
 
-      uid { raw_info['id'].to_s }
+      uid { fields[:uuid] }
 
       info do
-        {
-          'email' => email
-        }
+        fields
       end
 
       extra do
-        {:raw_info => raw_info, :all_emails => emails}
+        {
+          raw_info: raw_info,
+        }
+      end
+
+      def fields
+        @fields ||= unpack_fields
+      end
+
+      def unpack_fields
+        fields = raw_info["attributes"].map { |f| [f["handle"].to_sym, f["value"]] }.to_h
+        fields[:name] = "#{fields[:fname]} #{fields[:lname]}"
+        fields[:first_name] = fields.delete :fname
+        fields[:last_name] = fields.delete :lname
+        fields[:location] = "#{fields[:city]}, #{fields[:state]}"
+        fields.merge(raw_info["status"].first.symbolize_keys)
       end
 
       def raw_info
         access_token.options[:mode] = :query
-        @raw_info ||= access_token.get('user').parsed
-      end
-
-      def email
-        raw_info['email']
+        @raw_info ||= access_token.get('api/public/v3/attributes.json').parsed
       end
 
       def callback_url
