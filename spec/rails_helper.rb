@@ -4,6 +4,8 @@ require File.expand_path('../config/environment', __dir__)
 
 require 'spec_helper'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join("lib/strategies/**/*.rb")].each { |f| require f }
+
 
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
