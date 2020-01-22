@@ -1,0 +1,19 @@
+<% content_for :form_card do %>
+  <div class="form-card">
+    <h1 class="form-question">
+      Sign in
+    </h1>
+
+    <p>
+      We are partnering with ID.me to protect your digital identity.
+    </p>
+    <p>
+      ID.me allows you to prove your legal identity.
+      The IRS has partnered with ID.me to ensure that your personal information is accurate and secure.
+    </p>
+
+    <%= link_to "#user_idme_omniauth_authorize_path", class: "button button--primary" do %>
+      Sign in with ID.me
+    <% end %>
+  </div>
+<% end %>

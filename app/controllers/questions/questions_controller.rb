@@ -26,6 +26,11 @@ module Questions
       end
     end
 
+    def set_new_intake
+      intake = Intake.create
+      session[:intake_id] = intake.id
+    end
+
     def current_intake
       Intake.find_by(id: session[:intake_id])
     end

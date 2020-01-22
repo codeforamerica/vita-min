@@ -1,8 +1,15 @@
 require "rails_helper"
 
 RSpec.feature "Add a new intake case from the website" do
-  scenario "new client" do
-    visit "/questions/job-count"
+  xscenario "new client" do
+    visit "/questions/identity"
+    click_on "Sign in with ID.me"
+
+    # the ID.me flow would occur here. They should end up back on a success page.
+
+    expect(page).to have_selector("h1", text: "Thanks for verifying your identity")
+    click_on "Next"
+
     select "3 jobs", from: "In 2019, how many jobs did you have?"
     click_on "Next"
 
