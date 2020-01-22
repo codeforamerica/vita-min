@@ -205,7 +205,7 @@ describe IntakeSiteDropOff do
 
     context "with a matching prior drop off" do
       it "adds a relation to prior_drop_off" do
-        prior = create :intake_site_drop_off, email: "gguava@example.com"
+        prior = create :intake_site_drop_off, email: "gguava@example.com", zendesk_ticket_id: "123"
 
         new_drop_off.add_prior_drop_off_if_present!
 
@@ -240,9 +240,19 @@ describe IntakeSiteDropOff do
       )
     end
 
+    context "with a prior drop off that has no zendesk ticket id, but does match email" do
+      it "returns nil" do
+        create :intake_site_drop_off, name: "Frances Fig", email: "heather@huckleberry.horse", zendesk_ticket_id: nil
+
+        result = IntakeSiteDropOff.find_prior_drop_off(new_drop_off)
+
+        expect(result).to eq nil
+      end
+    end
+
     context "with a prior drop off that has the same email" do
       it "returns the previous drop off" do
-        prior = create :intake_site_drop_off, name: "Frances Fig", email: "heather@huckleberry.horse"
+        prior = create :intake_site_drop_off, name: "Frances Fig", email: "heather@huckleberry.horse", zendesk_ticket_id: "167"
 
         result = IntakeSiteDropOff.find_prior_drop_off(new_drop_off)
 
@@ -252,7 +262,7 @@ describe IntakeSiteDropOff do
 
     context "with a prior drop off that has the same phone and name" do
       it "returns the previous drop off" do
-        prior = create :intake_site_drop_off, name: "Heather Huckleberry", email: "", phone_number: "(415) 816-1286"
+        prior = create :intake_site_drop_off, name: "Heather Huckleberry", email: "", phone_number: "(415) 816-1286", zendesk_ticket_id: "167"
 
         result = IntakeSiteDropOff.find_prior_drop_off(new_drop_off)
 
@@ -262,9 +272,9 @@ describe IntakeSiteDropOff do
 
     context "with drop offs that don't quite match" do
       it "returns nil" do
-        create :intake_site_drop_off, name: "Heather Huckleberry", email: "", phone_number: "(415) 816-1234"
-        create :intake_site_drop_off, name: "Heather Huckleberry", email: "", phone_number: "4158161283"
-        create :intake_site_drop_off, name: "Heather Huckleberry", email: "", phone_number: ""
+        create :intake_site_drop_off, name: "Heather Huckleberry", email: "", phone_number: "(415) 816-1234", zendesk_ticket_id: "167"
+        create :intake_site_drop_off, name: "Heather Huckleberry", email: "", phone_number: "4158161283", zendesk_ticket_id: "168"
+        create :intake_site_drop_off, name: "Heather Huckleberry", email: "", phone_number: "", zendesk_ticket_id: "169"
 
         result = IntakeSiteDropOff.find_prior_drop_off(new_drop_off)
 
@@ -277,7 +287,7 @@ describe IntakeSiteDropOff do
 
       context "with a prior name match" do
         it "returns the previous drop off" do
-          prior = create :intake_site_drop_off, name: "Heather Huckleberry", email: "heather@huckleberry.horse", phone_number: "(415) 816-1286"
+          prior = create :intake_site_drop_off, name: "Heather Huckleberry", email: "heather@huckleberry.horse", phone_number: "(415) 816-1286", zendesk_ticket_id: "167"
 
           result = IntakeSiteDropOff.find_prior_drop_off(new_drop_off)
 
@@ -287,9 +297,9 @@ describe IntakeSiteDropOff do
 
       context "with prior blank emails and phones but no similar name" do
         it "returns nil" do
-          create :intake_site_drop_off, name: "Heidi Honeydew", email: "", phone_number: ""
-          create :intake_site_drop_off, name: "Frances Fig", email: "", phone_number: ""
-          create :intake_site_drop_off, name: "Leon Lemon", email: "", phone_number: ""
+          create :intake_site_drop_off, name: "Heidi Honeydew", email: "", phone_number: "", zendesk_ticket_id: "167"
+          create :intake_site_drop_off, name: "Frances Fig", email: "", phone_number: "", zendesk_ticket_id: "168"
+          create :intake_site_drop_off, name: "Leon Lemon", email: "", phone_number: "", zendesk_ticket_id: "169"
 
           result = IntakeSiteDropOff.find_prior_drop_off(new_drop_off)
 

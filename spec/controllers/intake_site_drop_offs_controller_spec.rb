@@ -170,6 +170,42 @@ RSpec.describe IntakeSiteDropOffsController do
             expect(subject).to have_received(:send_mixpanel_event).with(event_name: "append_to_drop_off", data: expected_data)
           end
         end
+
+        context "when there is a matching old drop off with no zendesk ticket id" do
+          let!(:prior_drop_off) do
+            create(
+              :intake_site_drop_off,
+              name: "Cassie Cantaloupe",
+              phone_number: "4158161286",
+              zendesk_ticket_id: nil
+            )
+          end
+
+          it "creates a new ticket in zendesk" do
+            post :create, params: valid_params
+
+            drop_off = IntakeSiteDropOff.last
+
+            expect(ZendeskDropOffService).to have_received(:new).with(drop_off)
+            expect(zendesk_drop_off_service_spy).to have_received(:create_ticket)
+            expect(drop_off.zendesk_ticket_id).to eq ticket_id
+            expect(response).to redirect_to show_drop_off_path(id: drop_off.id)
+          end
+
+          it "sends a create_drop_off event to mixpanel" do
+            post :create, params: valid_params
+
+            expected_data = {
+              organization: "thc",
+              intake_site: "Trinidad State Junior College - Alamosa",
+              state: "co",
+              signature_method: "in_person",
+              certification_level: "Advanced",
+              hsa: true,
+            }
+            expect(subject).to have_received(:send_mixpanel_event).with(event_name: "create_drop_off", data: expected_data)
+          end
+        end
       end
 
       context "with invalid params" do
