@@ -161,18 +161,19 @@ class IntakeSiteDropOff < ApplicationRecord
   end
 
   def self.find_prior_drop_off(new_drop_off)
+    drop_offs_with_zendesk_ids = where.not(zendesk_ticket_id: nil)
     if new_drop_off.email.present?
-      email_match = where(email: new_drop_off.email).first
+      email_match = drop_offs_with_zendesk_ids.where(email: new_drop_off.email).first
       return email_match if email_match
     end
 
     if new_drop_off.phone_number.present?
-      phone_match = where(phone_number: new_drop_off.phone_number, name: new_drop_off.name).first
+      phone_match = drop_offs_with_zendesk_ids.where(phone_number: new_drop_off.phone_number, name: new_drop_off.name).first
       return phone_match if phone_match
     end
 
     if new_drop_off.phone_number.blank? && new_drop_off.email.blank?
-      name_only_match = where(name: new_drop_off.name).first
+      name_only_match = drop_offs_with_zendesk_ids.where(name: new_drop_off.name).first
       return name_only_match if name_only_match
     end
   end
