@@ -142,7 +142,7 @@ RSpec.describe OmniAuth::Strategies::IdMe do
       allow(subject).to receive(:full_host).and_return("https://example.com")
       allow(subject).to receive(:script_name).and_return("/sub_uri")
 
-      expect(subject.callback_url).to eq("https://example.com/sub_uri/auth/idme/callback")
+      expect(subject.callback_url).to eq("https://example.com/sub_uri/users/auth/idme/callback")
     end
   end
 end
