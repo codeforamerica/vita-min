@@ -24,12 +24,13 @@ RSpec.describe User, type: :model do
       end
 
       context "with no matching records" do
-        it "creates a new record with the auth attributes" do
-          expect {
-            described_class.from_omniauth(auth)
-          }.to change(User, :count).by(1)
+        it "initializes a new record with the auth attributes without saving" do
+          user = nil
 
-          user = User.last
+          expect {
+            user = described_class.from_omniauth(auth)
+          }.not_to change(User, :count)
+
 
           expect(user.provider).to eq "idme"
           expect(user.uid).to eq "123545"
