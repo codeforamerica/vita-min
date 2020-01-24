@@ -63,6 +63,17 @@ body {
   }
 }
 
+.button--wide {
+  width: 100%;
+  @media screen and (min-width: $tablet-up) {
+    width: 34.5rem;
+  }
+}
+
+.button-logo--inline {
+  margin-left: 0.5rem;
+}
+
 .main-header {
   background-color: black;
 

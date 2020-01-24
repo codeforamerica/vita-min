@@ -1,6 +1,7 @@
 module Questions
   class IdentityController < QuestionsController
     skip_before_action :ensure_intake_present
+    layout "application"
 
     def self.form_class
       NullForm
@@ -12,8 +13,8 @@ module Questions
       end
     end
 
-    def section_title
-      "Personal Information"
+    def illustration_path
+      controller_name.dasherize + ".svg"
     end
   end
 end
