@@ -2,6 +2,7 @@ class QuestionNavigation
   FLOW = [
     # Personal Information
     Questions::IdentityController,
+    Questions::OverviewController,
 
     # Income
     Questions::JobCountController,
