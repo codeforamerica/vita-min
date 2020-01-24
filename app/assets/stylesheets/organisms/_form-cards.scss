@@ -66,6 +66,10 @@
 
 .question__illustration {
   margin-bottom: 3.5rem;
+  text-align: center;
+  @media screen and (min-width: $tablet-up) {
+    text-align: left;
+  }
   .placeholder_illustration {
     width: 10em;
     height: 8em;

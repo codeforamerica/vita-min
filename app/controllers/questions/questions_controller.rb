@@ -48,9 +48,7 @@ module Questions
       question_path(next_step.to_param, params) if next_step
     end
 
-    def section_title
-      "Section Title"
-    end
+    def section_title; end
 
     def illustration_path
       ""

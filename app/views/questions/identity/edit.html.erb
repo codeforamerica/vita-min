@@ -1,19 +1,43 @@
-<% content_for :form_card do %>
-  <div class="form-card">
-    <h1 class="form-question">
-      Sign in
-    </h1>
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="form-card">
+            <h1 class="form-question">
+              Sign In
+            </h1>
 
-    <p>
-      We are partnering with ID.me to protect your digital identity.
-    </p>
-    <p>
-      ID.me allows you to prove your legal identity.
-      The IRS has partnered with ID.me to ensure that your personal information is accurate and secure.
-    </p>
+            <div class="question__illustration">
+              <% if illustration_path.present? %>
+                <%= image_tag("questions/#{illustration_path}", alt: "") %>
+              <% else %>
+                <div class="placeholder_illustration">
+                  Placeholder for an illustration.
+                </div>
+              <% end %>
+            </div>
 
-    <%= link_to "#user_idme_omniauth_authorize_path", class: "button button--primary" do %>
-      Sign in with ID.me
-    <% end %>
-  </div>
+            <%= link_to user_idme_omniauth_authorize_path, class: "button button--primary button--wide text--centered" do %>
+              Sign in with <span class="sr-only">ID.me</span> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
+            <% end %>
+
+            <p>
+              We are partnering with ID.me to protect your digital identity.
+            </p>
+            <p>
+              ID.me allows you to prove your legal identity.
+              The IRS has partnered with ID.me to ensure that your personal information is accurate and secure.
+            </p>
+
+            <p>
+              <a href="https://www.id.me/individuals/government" target="_blank">
+                For more information, please visit ID.me.
+              </a>
+            </p>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
 <% end %>
