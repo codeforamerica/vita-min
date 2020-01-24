@@ -16,7 +16,8 @@ RSpec.describe Users::OmniauthCallbacksController do
 
         it "signs the user in and redirects them to the overview page and sets success flash message" do
           get :idme
-          expect(response).to redirect_to(root_path)
+          expect(subject.current_user).to eq user
+          expect(response).to redirect_to(overview_questions_path)
           expect(flash[:notice]).to eq "You're signed in!"
         end
       end
@@ -28,7 +29,8 @@ RSpec.describe Users::OmniauthCallbacksController do
           expect{
             get :idme
           }.to change(User, :count).by(1)
-          expect(response).to redirect_to(root_path)
+          expect(subject.current_user).to eq user.reload
+          expect(response).to redirect_to(overview_questions_path)
           expect(flash[:notice]).to eq "Thank you for verifying your identity!"
         end
       end
