@@ -8,6 +8,7 @@ module Questions
     helper_method :current_path
     helper_method :section_title
     helper_method :illustration_path
+    helper_method :next_path
 
     layout "question"
 
