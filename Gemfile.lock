@@ -282,6 +282,7 @@ GEM
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
     ruby_dep (1.5.0)
+    ruby_http_client (3.3.0)
     rubyzip (2.0.0)
     safe_shell (1.1.0)
     safe_yaml (1.0.5)
@@ -299,6 +300,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    sendgrid-ruby (6.0.4)
+      ruby_http_client (~> 3.3.0)
     sentry-raven (2.13.0)
       faraday (>= 0.7.6, < 1.0)
     spring (2.1.0)
@@ -389,6 +392,7 @@ DEPENDENCIES
   rspec-rails
   rspec_junit_formatter
   sass-rails (~> 5.0)
+  sendgrid-ruby
   sentry-raven
   spring
   spring-watcher-listen (~> 2.0.0)
