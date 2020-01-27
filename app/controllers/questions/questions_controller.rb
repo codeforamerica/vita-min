@@ -1,6 +1,6 @@
 module Questions
   class QuestionsController < ApplicationController
-    before_action :ensure_intake_present, only: [:edit, :update]
+    before_action :require_sign_in
 
     delegate :form_name, to: :class
     delegate :form_class, to: :class
@@ -27,19 +27,6 @@ module Questions
       end
     end
 
-    def set_new_intake
-      intake = Intake.create
-      session[:intake_id] = intake.id
-    end
-
-    def current_intake
-      Intake.find_by(id: session[:intake_id])
-    end
-
-    def ensure_intake_present
-      redirect_to root_path if current_intake.blank?
-    end
-
     def current_path(params = {})
       question_path(self.class.to_param, params)
     end
@@ -60,6 +47,12 @@ module Questions
     end
 
     private
+
+    def require_sign_in
+      unless user_signed_in?
+        redirect_to identity_questions_path
+      end
+    end
 
     def update_session
     end

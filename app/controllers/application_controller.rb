@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   after_action :track_page_view
   helper_method :include_google_analytics?
 
+  def current_intake
+    current_user&.intake
+  end
+
   def include_google_analytics?
     false
   end

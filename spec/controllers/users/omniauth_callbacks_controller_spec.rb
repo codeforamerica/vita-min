@@ -20,6 +20,12 @@ RSpec.describe Users::OmniauthCallbacksController do
           expect(response).to redirect_to(overview_questions_path)
           expect(flash[:notice]).to eq "You're signed in!"
         end
+
+        it "does not create a new Intake" do
+          expect{
+            get :idme
+          }.not_to change(Intake, :count)
+        end
       end
 
       context "with a new ID.me user" do
@@ -32,6 +38,16 @@ RSpec.describe Users::OmniauthCallbacksController do
           expect(subject.current_user).to eq user.reload
           expect(response).to redirect_to(overview_questions_path)
           expect(flash[:notice]).to eq "Thank you for verifying your identity!"
+        end
+
+        it "creates a new intake and links the user to it" do
+          expect{
+            get :idme
+          }.to change(Intake, :count).by(1)
+
+          intake = Intake.last
+          expect(subject.current_intake).to eq intake
+          expect(subject.current_intake).to eq user.reload.intake
         end
       end
     end

@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.feature "Add a new intake case from the website" do
   scenario "new client" do
     visit "/questions/identity"
+    expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
 
     # the ID.me flow would occur here. They should end up back on a success page.
