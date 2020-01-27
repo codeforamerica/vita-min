@@ -1,27 +1,20 @@
 require "rails_helper"
 
 RSpec.describe Questions::JobCountController do
-  describe "#edit" do
-    context "when there is no intake" do
-      it "renders edit and returns 200" do
-        get :edit
-
-        expect(response).to be_ok
-      end
-    end
+  before do
+    allow(subject).to receive(:user_signed_in?).and_return(true)
   end
 
-  describe "#update" do
-    context "when there is no intake" do
-      it "creates a new intake and stores it to the session" do
-        ## Delete this spec when we have more controllers in front of this one.
-        expect {
-          post :update, params: { form: { job_count: "3" } }
-        }.to change(Intake, :count).by(1)
+  describe "#edit" do
+    context "when user not signed in" do
+      before do
+        allow(subject).to receive(:user_signed_in?).and_return(false)
+      end
 
-        intake = Intake.last
+      it "redirects to ID.me login page" do
+        get :edit
 
-        expect(session[:intake_id]).to eq intake.id
+        expect(response).to redirect_to identity_questions_path
       end
     end
   end

@@ -8,6 +8,15 @@
 #  uid        :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  intake_id  :bigint           not null
+#
+# Indexes
+#
+#  index_users_on_intake_id  (intake_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (intake_id => intakes.id)
 #
 
 FactoryBot.define do
@@ -15,5 +24,6 @@ FactoryBot.define do
     provider { "idme" }
     uid { SecureRandom.hex }
     email { "gary.gardengnome@example.green" }
+    intake { create :intake }
   end
 end

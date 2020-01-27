@@ -1,13 +1,15 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def idme
     @user = User.from_omniauth(request.env["omniauth.auth"])
+
     if @user.persisted?
-      flash[:notice] = "You're signed in!"
+      # returning user
       sign_in @user, event: :authentication
       redirect_to overview_questions_path
     else
+      # new user
+      @user.intake = Intake.create
       @user.save
-      flash[:notice] = "Thank you for verifying your identity!"
       sign_in @user, event: :authentication
       redirect_to overview_questions_path
     end

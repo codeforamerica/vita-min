@@ -8,11 +8,33 @@
 #  uid        :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  intake_id  :bigint           not null
+#
+# Indexes
+#
+#  index_users_on_intake_id  (intake_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (intake_id => intakes.id)
 #
 
 require "rails_helper"
 
 RSpec.describe User, type: :model do
+  describe "#intake" do
+    it "requires an intake" do
+      user = build :user, intake: nil
+      expect(user).not_to be_valid
+      expect(user.errors).to include :intake
+    end
+
+    it "should belong to an intake" do
+      relation = User.reflect_on_association(:intake).macro
+      expect(relation).to eq :belongs_to
+    end
+  end
+
   describe ".from_omniauth" do
     context "with valid data from omniauth" do
       let(:auth) do

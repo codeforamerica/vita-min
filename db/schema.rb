@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_22_172508) do
+ActiveRecord::Schema.define(version: 2020_01_27_224616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,8 @@ ActiveRecord::Schema.define(version: 2020_01_22_172508) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "intake_id", null: false
+    t.index ["intake_id"], name: "index_users_on_intake_id"
   end
 
   create_table "vita_providers", force: :cascade do |t|
@@ -126,4 +128,5 @@ ActiveRecord::Schema.define(version: 2020_01_22_172508) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
+  add_foreign_key "users", "intakes"
 end

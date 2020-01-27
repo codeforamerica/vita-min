@@ -67,4 +67,11 @@ describe Intake do
       expect(result).to eq "i am a pdf"
     end
   end
+
+  describe "#user" do
+    it "should have many users" do
+      relation = Intake.reflect_on_association(:users).macro
+      expect(relation).to eq :has_many
+    end
+  end
 end
