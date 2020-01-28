@@ -15,6 +15,7 @@
 @import 'cfa_styleguide_main';
 @import 'atoms/variables';
 @import 'atoms/form-elements';
+@import 'organisms/flash-messages';
 @import 'molecules/form-molecules';
 @import 'organisms/form-cards';
 @import 'organisms/pagination';
@@ -76,6 +77,13 @@ body {
 
 .main-header {
   background-color: black;
+  color: white;
+
+  .main-header__link {
+    color: inherit;
+    font-size: $font-size-25-small;
+    font-weight: 600;
+  }
 
   .main-header__logo {
     padding-left: 3.0rem;
