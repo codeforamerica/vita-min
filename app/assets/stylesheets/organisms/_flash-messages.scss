@@ -1,0 +1,12 @@
+.slab--flash {
+  border: none;
+  color: white;
+  padding: 1.5rem;
+}
+
+.flash--notice {
+  background-color: $color-green;
+}
+.flash--alert {
+  background-color: $color-red;
+}

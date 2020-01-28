@@ -35,11 +35,26 @@
               <% end %>
             </div>
           </div>
-          <!--        <div class="toolbar__right">-->
-          <!--          <button class="toolbar__item button button--small">Feedback</button>-->
-          <!--        </div>-->
+          <div class="toolbar__right">
+            <% if user_signed_in? %>
+              <%= link_to("Sign out", destroy_user_session_path, method: :delete, class: 'main-header__link') %>
+            <% end %>
+<!--            <button class="toolbar__item button button--small">Feedback</button>-->
+          </div>
         </div>
       </header>
+
+      <% if flash.any? %>
+        <% flash.each do |type, message| %>
+          <div class="slab slab--flash flash--<%= type %>">
+            <div class="grid">
+              <div class="grid__item">
+                <%= message %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
 
       <%= content_for?(:main) ? yield(:main) : yield %>
 
