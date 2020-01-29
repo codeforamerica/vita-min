@@ -7,7 +7,7 @@ module Questions
     end
 
     def section_title
-      "Income"
+      "Income and Expenses"
     end
   end
 end

@@ -3,7 +3,7 @@ module Questions
     layout "question"
 
     def section_title
-      "Income"
+      "Income and Expenses"
     end
 
     def self.show?(intake)

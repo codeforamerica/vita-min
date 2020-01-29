@@ -76,6 +76,8 @@ OmniAuth.config.mock_auth[:idme] = OmniAuth::AuthHash.new({
     last_name: "Gnome",
     name: "Gary Gnome",
     email: "gary.gardengnome@example.com",
+    social: "333445555",
+    phone: "15553332222",
     birth_date: "1992-09-04",
     age: 27,
     location: "Passaic Park, New Jersey",

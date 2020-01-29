@@ -2,13 +2,22 @@
 #
 # Table name: users
 #
-#  id         :bigint           not null, primary key
-#  email      :string
-#  provider   :string
-#  uid        :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  intake_id  :bigint           not null
+#  id             :bigint           not null, primary key
+#  birth_date     :string
+#  city           :string
+#  email          :string
+#  first_name     :string
+#  last_name      :string
+#  phone_number   :string
+#  provider       :string
+#  ssn            :string
+#  state          :string
+#  street_address :string
+#  uid            :string
+#  zip_code       :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  intake_id      :bigint           not null
 #
 # Indexes
 #

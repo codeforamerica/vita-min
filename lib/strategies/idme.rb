@@ -42,6 +42,7 @@ module OmniAuth
         fields[:first_name] = fields.delete :fname
         fields[:last_name] = fields.delete :lname
         fields[:location] = "#{fields[:city]}, #{fields[:state]}"
+        fields[:zip_code] = fields.delete :zip
         fields.merge(raw_info["status"].first.symbolize_keys)
       end
     end
