@@ -2,13 +2,22 @@
 #
 # Table name: users
 #
-#  id         :bigint           not null, primary key
-#  email      :string
-#  provider   :string
-#  uid        :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  intake_id  :bigint           not null
+#  id             :bigint           not null, primary key
+#  birth_date     :string
+#  city           :string
+#  email          :string
+#  first_name     :string
+#  last_name      :string
+#  phone_number   :string
+#  provider       :string
+#  ssn            :string
+#  state          :string
+#  street_address :string
+#  uid            :string
+#  zip_code       :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  intake_id      :bigint           not null
 #
 # Indexes
 #
@@ -42,7 +51,16 @@ RSpec.describe User, type: :model do
           provider: "idme",
           uid: "123545",
           info: {
-            email: "gary.gardengnome@example.green"
+            first_name: "Gary",
+            last_name: "Gnome",
+            email: "gary.gardengnome@example.green",
+            birth_date: "1993-09-06",
+            phone: "15552223333",
+            social: "123224567",
+            street: "1234 Green St",
+            city: "Passaic Park",
+            state: "New Jersey",
+            zip_code: "22233",
           }
         })
       end
@@ -68,7 +86,16 @@ RSpec.describe User, type: :model do
 
           expect(user.provider).to eq "idme"
           expect(user.uid).to eq "123545"
+          expect(user.first_name).to eq "Gary"
+          expect(user.last_name).to eq "Gnome"
           expect(user.email).to eq "gary.gardengnome@example.green"
+          expect(user.birth_date).to eq "1993-09-06"
+          expect(user.phone_number).to eq "15552223333"
+          expect(user.ssn).to eq "123224567"
+          expect(user.street_address).to eq "1234 Green St"
+          expect(user.city).to eq "Passaic Park"
+          expect(user.state).to eq "New Jersey"
+          expect(user.zip_code).to eq "22233"
         end
       end
     end

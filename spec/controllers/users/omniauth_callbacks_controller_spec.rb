@@ -35,7 +35,7 @@ RSpec.describe Users::OmniauthCallbacksController do
             get :idme
           }.to change(User, :count).by(1)
           expect(subject.current_user).to eq user.reload
-          expect(response).to redirect_to(overview_questions_path)
+          expect(response).to redirect_to(overview_questions_path(is_new_user: true))
         end
 
         it "creates a new intake and links the user to it" do
