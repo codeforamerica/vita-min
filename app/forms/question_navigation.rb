@@ -52,6 +52,8 @@ class QuestionNavigation
     # Additional Questions
     Questions::AdditionalInfoController,
 
+    # Documents
+    Questions::W2sController,
   ].freeze
 
   class << self
