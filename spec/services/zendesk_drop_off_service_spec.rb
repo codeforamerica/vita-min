@@ -25,7 +25,9 @@ describe ZendeskDropOffService do
     allow(ZendeskAPI::Ticket).to receive(:new).and_return(fake_zendesk_ticket)
     allow(ZendeskAPI::Ticket).to receive(:find).and_return(fake_zendesk_ticket)
 
+    allow(fake_zendesk_client).to receive_message_chain(:users, :search).and_return([])
     allow(fake_zendesk_client).to receive_message_chain(:users, :create).and_return(fake_zendesk_user)
+
     allow(fake_zendesk_ticket).to receive(:comment=)
     allow(fake_zendesk_ticket).to receive_message_chain(:comment, :uploads).and_return(comment_uploads)
     allow(fake_zendesk_ticket).to receive(:save)
@@ -137,6 +139,58 @@ describe ZendeskDropOffService do
       result = ZendeskDropOffService.new(drop_off).file_upload_name
 
       expect(result).to eq "KendraKiwi.jpg"
+    end
+  end
+
+  describe "#find_end_user" do
+    let(:search_results) { [fake_zendesk_user] }
+    let(:service) { ZendeskDropOffService.new(nil) }
+
+    before do
+      allow(service).to receive(:search_zendesk_users).with(kind_of(String)).and_return(search_results)
+    end
+
+    context "when email is present" do
+      it "searches by email" do
+        service.find_end_user(nil, "test@example.com", nil)
+        expect(service).to have_received(:search_zendesk_users).with("email:test@example.com")
+      end
+
+      context "when there are no email matches" do
+        before do
+          allow(service).to receive(:search_zendesk_users).with("email:test@example.com").and_return([])
+          allow(service).to receive(:search_zendesk_users).with("name:\"Barry Banana\" phone:14155551234").and_return(search_results)
+        end
+
+        it "searches by name and phone" do
+          result = service.find_end_user("Barry Banana", "test@example.com", "14155551234")
+          expect(service).to have_received(:search_zendesk_users).with("email:test@example.com")
+          expect(service).to have_received(:search_zendesk_users).with("name:\"Barry Banana\" phone:14155551234")
+          expect(result).to eq(fake_zendesk_user)
+        end
+      end
+    end
+
+    context "when only phone and name are present" do
+      it "searches with phone and name" do
+        service.find_end_user("Gary Guava", nil, "14155555555")
+        expect(service).to have_received(:search_zendesk_users).with("name:\"Gary Guava\" phone:14155555555")
+      end
+    end
+
+    context "when only name is present" do
+      it "searches with only name" do
+        service.find_end_user("Gary Guava", nil, nil)
+        expect(service).to have_received(:search_zendesk_users).with("name:\"Gary Guava\"")
+      end
+    end
+
+    context "when there are no search results" do
+      let(:search_results) { [] }
+      it "returns nil" do
+        result = service.find_end_user("Gary Guava", "test@example.com", "14155555555")
+        expect(result).to eq nil
+      end
     end
   end
 

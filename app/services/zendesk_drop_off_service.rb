@@ -47,7 +47,7 @@ class ZendeskDropOffService
   end
 
   def create_ticket
-    zendesk_user = create_end_user(@drop_off.name, @drop_off.email, @drop_off.phone_number)
+    zendesk_user = find_or_create_end_user(@drop_off.name, @drop_off.email, @drop_off.phone_number)
     ticket = ZendeskAPI::Ticket.new(
       client,
       subject: @drop_off.name,
@@ -76,7 +76,26 @@ class ZendeskDropOffService
     attach_file_and_save_ticket(ticket)
   end
 
-  def create_end_user(name, email, phone)
+  def search_zendesk_users(query_string)
+    client.users.search(query: query_string).to_a
+  end
+
+  def find_end_user(name, email, phone)
+    if email.present?
+      email_matches = search_zendesk_users("email:#{email}")
+      return email_matches.first if email_matches.present?
+    end
+
+    search_string = "name:\"#{name}\""
+    search_string += " phone:#{phone}" if phone.present?
+    results = search_zendesk_users(search_string)
+    results.first
+  end
+
+  def find_or_create_end_user(name, email, phone)
+    user = find_end_user(name, email, phone)
+    return user if user.present?
+
     client.users.create(name: name, email: email, phone: phone, verified: true, time_zone: zendesk_timezone)
   end
 
