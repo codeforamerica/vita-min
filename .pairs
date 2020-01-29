@@ -3,6 +3,7 @@ pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
   jenny: Jenny Heath; jheath
   ben: Ben Golder; bgolder
+  tom: Tom Dooner; tdooner
 email:
   prefix: pair
   domain: codeforamerica.org
