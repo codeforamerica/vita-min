@@ -49,6 +49,16 @@ RSpec.describe OmniAuth::Strategies::IdMe do
             "value" => "Walter"
           },
           {
+            "handle" => "social",
+            "name" => "Full SSN",
+            "value" => "222334444"
+          },
+          {
+            "handle" => "phone",
+            "name" => "Phone",
+            "value" => "1554442233"
+          },
+          {
             "handle" => "email",
             "name" => "Email",
             "value" => "santina.walter@id.me"
@@ -110,6 +120,8 @@ RSpec.describe OmniAuth::Strategies::IdMe do
         expect(subject.info[:first_name]).to eq "Santina"
         expect(subject.info[:last_name]).to eq "Walter"
         expect(subject.info[:name]).to eq "Santina Walter"
+        expect(subject.info[:phone]).to eq "1554442233"
+        expect(subject.info[:social]).to eq "222334444"
         expect(subject.info[:email]).to eq "santina.walter@id.me"
         expect(subject.info[:birth_date]).to eq "1993-09-06"
         expect(subject.info[:age]).to eq 26
@@ -117,7 +129,7 @@ RSpec.describe OmniAuth::Strategies::IdMe do
         expect(subject.info[:street]).to eq "46125 Etsuko Lights"
         expect(subject.info[:city]).to eq "New Geraldinefurt"
         expect(subject.info[:state]).to eq "Nevada"
-        expect(subject.info[:zip]).to eq "20982-5194"
+        expect(subject.info[:zip_code]).to eq "20982-5194"
         expect(subject.info[:group]).to eq "identity"
         expect(subject.info[:subgroups]).to eq ["IAL2"]
         expect(subject.info[:verified]).to eq true
