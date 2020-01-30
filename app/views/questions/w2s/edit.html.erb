@@ -18,7 +18,7 @@
               <% @documents.each do |document| %>
 
                 <li class="document-preview">
-                  <div class="thumbnail">Thumbnail</div>
+                  <div class="thumbnail"><%= image_tag document.upload.variant(resize: "140x140") %></div>
                   <h3 class="document_filename"><%= document.upload.filename %></h3>
                   <%= link_to(document_path(document, return_path: current_path), method: :delete, data: { confirm: "Are you sure you want to remove \"#{document.upload.filename}\"?" }) do %>
                     Remove
