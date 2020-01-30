@@ -30,7 +30,7 @@
           <% end %>
 
           <%# document upload form %>
-          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
             <div class="document-upload with-padding-med">
               <div class="file-upload">
                 <%= f.cfa_file_field(:document, "Select a file", classes: ["form__documentuploader"]) %>
@@ -48,6 +48,14 @@
               Done with this step
             <% end %>
           <% end %>
+          <script type="text/javascript" charset="utf-8">
+            function submitFileUploadFormImmediately(_event){
+              // This will submit the form when called. It will skip any onSubmit listeners.
+              document.getElementById('file-upload-form').submit();
+            }
+
+            document.getElementById('w2s_form_document').addEventListener('change', submitFileUploadFormImmediately);
+          </script>
 
         </main>
       </div>
