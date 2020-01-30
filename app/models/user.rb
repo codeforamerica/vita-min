@@ -2,22 +2,27 @@
 #
 # Table name: users
 #
-#  id             :bigint           not null, primary key
-#  birth_date     :string
-#  city           :string
-#  email          :string
-#  first_name     :string
-#  last_name      :string
-#  phone_number   :string
-#  provider       :string
-#  ssn            :string
-#  state          :string
-#  street_address :string
-#  uid            :string
-#  zip_code       :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  intake_id      :bigint           not null
+#  id                 :bigint           not null, primary key
+#  birth_date         :string
+#  city               :string
+#  current_sign_in_at :datetime
+#  current_sign_in_ip :inet
+#  email              :string
+#  first_name         :string
+#  last_name          :string
+#  last_sign_in_at    :datetime
+#  last_sign_in_ip    :inet
+#  phone_number       :string
+#  provider           :string
+#  sign_in_count      :integer          default(0), not null
+#  ssn                :string
+#  state              :string
+#  street_address     :string
+#  uid                :string
+#  zip_code           :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  intake_id          :bigint           not null
 #
 # Indexes
 #
@@ -29,7 +34,7 @@
 #
 
 class User < ApplicationRecord
-  devise :omniauthable, omniauth_providers: [:idme]
+  devise :omniauthable, :trackable, omniauth_providers: [:idme]
   belongs_to :intake
 
   def self.from_omniauth(auth)
