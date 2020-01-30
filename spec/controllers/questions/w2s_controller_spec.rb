@@ -16,7 +16,7 @@ RSpec.describe Questions::W2sController do
 
         get :edit
 
-        expect(assigns(:form).documents).to eq [w2_doc]
+        expect(assigns(:documents)).to eq [w2_doc]
       end
     end
   end
@@ -28,7 +28,7 @@ RSpec.describe Questions::W2sController do
       let(:valid_params) do
         {
           form: {
-            documents: fixture_file_upload("attachments/test-pattern.png")
+            document: fixture_file_upload("attachments/test-pattern.png")
           }
         }
       end

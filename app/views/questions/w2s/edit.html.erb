@@ -1,4 +1,56 @@
-<% content_for :form_question, "Great, let’s save your W2’s." %>
-<% content_for :form_help_text, "Unclear about your W2’s? Here’s some helpful information." %>
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <h3 class="section-title">
+          <%= image_tag("#{section_title.parameterize}.svg", alt: "") %>
+          <%= section_title %>
+        </h3>
 
-<% content_for :method_name, :YesNoQuestionGenerator %>
+        <main role="main">
+
+          <h1 class="form-question">Great, let’s save your W-2’s.</h1>
+          <p>Unclear about your W2’s? Here’s some helpful information.</p>
+
+          <%# uploaded documents %>
+          <% if @documents.present? %>
+            <ul class="document-upload-previews">
+              <% @documents.each do |document| %>
+
+                <li class="document-preview">
+                  <div class="thumbnail">Thumbnail</div>
+                  <h3 class="document_filename"><%= document.upload.filename %></h3>
+                  <%= link_to("#delete_document_path(id: document.id)", method: :post) do %>
+                    Remove
+                  <% end %>
+                </li>
+
+              <% end %>
+            </ul>
+          <% end %>
+
+          <%# document upload form %>
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+            <div class="document-upload with-padding-med">
+              <div class="file-upload">
+                <%= f.cfa_file_field(:document, "Select a file", classes: ["form__documentuploader"]) %>
+                <%= f.label(:document, class: "button is-tablet-hidden--inline", style: "display: none !important;") do %>
+                  Select a file
+                <% end %>
+
+                <%= f.label(:document, class: "button is-desktop-hidden--inline", style: "display: none !important;") do %>
+                  Take a picture
+                <% end %>
+              </div>
+            </div>
+
+            <%= f.button class: "button button--primary" do %>
+              Done with this step
+            <% end %>
+          <% end %>
+
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

@@ -1,9 +1,14 @@
 module Questions
   class W2sController < QuestionsController
-    layout "yes_no_question"
+    layout "application"
 
     def section_title
       "Documents"
+    end
+
+    def edit
+      @documents = current_intake.documents.where(document_type: "W-2")
+      super
     end
 
     def update
