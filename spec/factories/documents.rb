@@ -15,6 +15,7 @@
 
 FactoryBot.define do
   factory :document do
+    intake
     document_type { "W-2" }
   end
 end

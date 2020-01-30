@@ -20,7 +20,7 @@
                 <li class="document-preview">
                   <div class="thumbnail">Thumbnail</div>
                   <h3 class="document_filename"><%= document.upload.filename %></h3>
-                  <%= link_to("#delete_document_path(id: document.id)", method: :post) do %>
+                  <%= link_to(document_path(document, return_path: current_path), method: :delete) do %>
                     Remove
                   <% end %>
                 </li>
