@@ -4,7 +4,7 @@ module Questions
 
     def edit
       super
-      is_new_user = params[:is_new_user]
+      is_new_user = (current_user.sign_in_count == 1)
       if is_new_user
         @welcome_text = "Welcome #{current_user.first_name}!"
         @overview_text = "Here's an overview of our online process."
