@@ -17,7 +17,8 @@ module Questions
         @form.save
         update_session
       end
-      render :edit
+
+      redirect_to w2s_questions_path
     end
   end
 end

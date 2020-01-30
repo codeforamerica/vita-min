@@ -27,7 +27,7 @@ RSpec.describe Questions::W2sController do
     context "with valid params" do
       let(:valid_params) do
         {
-          form: {
+          w2s_form: {
             document: fixture_file_upload("attachments/test-pattern.png")
           }
         }
@@ -42,8 +42,7 @@ RSpec.describe Questions::W2sController do
         expect(latest_doc.document_type).to eq "W-2"
         expect(latest_doc.upload.filename).to eq "test-pattern.png"
 
-        expect(response.status).to eq 200
-        expect(response).to render_template :edit
+        expect(response).to redirect_to w2s_questions_path
       end
     end
   end
