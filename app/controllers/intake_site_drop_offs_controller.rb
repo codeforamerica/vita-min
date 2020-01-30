@@ -1,4 +1,10 @@
 class IntakeSiteDropOffsController < ApplicationController
+  DEFAULT_STATES = {
+    "thc" => "co",
+    "uwba" => "ca",
+    "gwisr" => "ga",
+  }.freeze
+
   def new
     @drop_off = IntakeSiteDropOff.new(intake_site: session[:intake_site])
     @organization = params[:organization]
@@ -56,7 +62,7 @@ class IntakeSiteDropOffsController < ApplicationController
   end
 
   def default_state_for_org(organization)
-    organization == "thc" ? "co" : "ga"
+    DEFAULT_STATES[organization]
   end
 
   def intake_site_drop_off_params

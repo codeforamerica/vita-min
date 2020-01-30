@@ -56,9 +56,18 @@ class IntakeSiteDropOff < ApplicationRecord
       "GoodwillSR Thomas Crossroads Intake",
       "GoodwillSR Opelika Intake",
       "GoodwillSR Phenix City Intake",
-    ]
+    ],
+    uwba: [
+      "Family Bridges",
+      "Gum Moon Residence",
+    ],
   }.freeze
   ORGANIZATIONS = INTAKE_SITES.keys.map(&:to_s).freeze
+  ORGANIZATION_NAMES = {
+    "thc" => "Tax Help Colorado",
+    "gwisr" => "Goodwill Industries of the Southern Rivers",
+    "uwba" => "United Way Bay Area",
+  }.freeze
 
   strip_attributes only: [:name, :email, :phone_number, :additional_info]
 

@@ -11,7 +11,7 @@
       <div class="grid__item width-two-thirds shift-one-sixth">
         <%= form_for @drop_off, url: create_drop_off_path, local: true, multipart: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
           <header class="form-card__header">
-            <h1 class="h1"><%= @organization == 'thc' ? 'Tax Help Colorado' : 'Goodwill Industries of the Southern Rivers' %></h1>
+            <h1 class="h1"><%= IntakeSiteDropOff::ORGANIZATION_NAMES[@organization] %></h1>
             <h2 class="h2">Valet VITA Drop-off</h2>
           </header>
           <div class="form-card__content">
