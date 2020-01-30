@@ -1,14 +1,22 @@
 class ZendeskDropOffService
   include ActiveStorage::Downloading
 
+  # Group IDs
+  TAX_HELP_COLORADO = "360007047214"
+  GOODWILL_SOUTHERN_RIVERS = "360007941454"
+  UNITED_WAY_BAY_AREA = "360007047234"
+  ORGANIZATION_GROUP_IDS = {
+    "thc" => TAX_HELP_COLORADO,
+    "gwisr" => GOODWILL_SOUTHERN_RIVERS,
+    "uwba" => UNITED_WAY_BAY_AREA
+  }.freeze
+
   # custom field id codes
   CERTIFICATION_LEVEL = "360028917234"
   INTAKE_SITE = "360028917374"
   STATE = "360028917614"
   INTAKE_STATUS = "360029025294"
   SIGNATURE_METHOD = "360029896814"
-  TAX_HELP_COLORADO = "360007047214"
-  GOODWILL_SOUTHERN_RIVERS = "360007941454"
   HSA = "360031865033"
   TIMEZONE_MAP = {
     "America/Adak" => "Alaska",
@@ -152,6 +160,6 @@ class ZendeskDropOffService
   end
 
   def group_id
-    @drop_off.organization == "thc" ? TAX_HELP_COLORADO : GOODWILL_SOUTHERN_RIVERS
+    ORGANIZATION_GROUP_IDS[@drop_off.organization]
   end
 end

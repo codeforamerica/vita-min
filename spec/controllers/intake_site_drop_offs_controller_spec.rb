@@ -43,6 +43,14 @@ RSpec.describe IntakeSiteDropOffsController do
         expect(assigns(:drop_off).state).to eq "ga"
       end
     end
+
+    context "for United Way Bay Area" do
+      let(:org) { "uwba" }
+
+      it "sets the default state to California" do
+        expect(assigns(:drop_off).state).to eq "ca"
+      end
+    end
   end
 
   describe "#show" do
