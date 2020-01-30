@@ -58,7 +58,7 @@ module Questions
     end
 
     def form_params
-      params.fetch(:form, {}).permit(*form_class.attribute_names)
+      params.fetch(form_name, {}).permit(*form_class.attribute_names)
     end
 
     def form_navigation
