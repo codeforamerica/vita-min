@@ -84,4 +84,12 @@ class ApplicationController < ActionController::Base
       data: default_data.merge(data),
     )
   end
+
+  private
+
+  def require_sign_in
+    unless user_signed_in?
+      redirect_to identity_questions_path
+    end
+  end
 end

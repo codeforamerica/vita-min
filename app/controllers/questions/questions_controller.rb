@@ -48,12 +48,6 @@ module Questions
 
     private
 
-    def require_sign_in
-      unless user_signed_in?
-        redirect_to identity_questions_path
-      end
-    end
-
     def update_session
     end
 

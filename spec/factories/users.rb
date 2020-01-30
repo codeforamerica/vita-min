@@ -33,6 +33,6 @@ FactoryBot.define do
     provider { "idme" }
     uid { SecureRandom.hex }
     email { "gary.gardengnome@example.green" }
-    intake { create :intake }
+    intake
   end
 end
