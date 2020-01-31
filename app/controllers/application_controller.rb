@@ -77,6 +77,9 @@ class ApplicationController < ActionController::Base
       controller_name: self.class.name.sub("Controller", ""),
       controller_action: "#{self.class.name}##{action_name}",
       controller_action_name: action_name,
+      sign_in_count: current_user&.sign_in_count,
+      current_sign_in_at: current_user&.current_sign_in_at,
+      last_sign_in_at: current_user&.last_sign_in_at,
     }
     MixpanelService.instance.run(
       unique_id: visitor_id,

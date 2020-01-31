@@ -166,6 +166,9 @@ RSpec.describe ApplicationController do
         controller_name: "Anonymous",
         controller_action: "AnonymousController#index",
         controller_action_name: "index",
+        sign_in_count: nil,
+        current_sign_in_at: nil,
+        last_sign_in_at: nil,
       }
       expect(mixpanel_spy).to have_received(:run).with(
         unique_id: "123",
@@ -182,6 +185,31 @@ RSpec.describe ApplicationController do
 
         subject.send_mixpanel_event(event_name: "beep")
         expect(mixpanel_spy).not_to have_received(:run)
+      end
+    end
+
+    context "as a logged in user" do
+      let(:user) { create(:user) }
+
+      before do
+        allow(subject).to receive(:current_user).and_return(user)
+      end
+
+      it "sends fields related to that user" do
+        get :index
+
+        subject.send_mixpanel_event(event_name: "doop")
+
+        expect(mixpanel_spy).to have_received(:run)
+          .with(
+            unique_id: "123",
+            event_name: "doop",
+            data: hash_including(
+              sign_in_count: user.sign_in_count,
+              current_sign_in_at: user.current_sign_in_at,
+              last_sign_in_at: user.last_sign_in_at,
+            )
+          )
       end
     end
   end
