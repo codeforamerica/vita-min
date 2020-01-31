@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "public_pages#home"
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  get '/auth/failure', to: "users/omniauth_callbacks#failure"
 
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new", as: :new_user_session
@@ -31,4 +32,7 @@ Rails.application.routes.draw do
   get "/:organization/drop-off", to: "intake_site_drop_offs#new", as: :new_drop_off
   post "/:organization/drop-offs", to: "intake_site_drop_offs#create", as: :create_drop_off
   get "/:organization/drop-off/:id", to: "intake_site_drop_offs#show", as: :show_drop_off
+
+  get "/identity-needed", to: "offboarding#identity_needed"
+  get "/other-options", to: "public_pages#other_options"
 end

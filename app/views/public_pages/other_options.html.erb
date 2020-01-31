@@ -1,0 +1,39 @@
+<% content_for :page_title, @welcome_text %>
+
+<main role="main">
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="offboarding--illustration">
+            <%= image_tag("other-options.svg", alt: "") %>
+          </div>
+          <h1 class="offboarding--title">Let's find a way to help you!</h1>
+
+          <div class="offboarding--help-text">
+            <p>
+              We're happy to answer any questions you may have about VITA Tax Help or we can connect you to other tax filing options.
+            </p>
+          </div>
+          <div class="offboarding--help-text">
+            <p class="offboarding--subtitle">
+              Try another free tax filing option
+            </p>
+            <p>
+              If you'd like to file your taxes without the assistance of our staff and services, try <a href="https://www.myfreetaxes.com" target="_blank">MyFreeTaxes.com</a>, an online service that lets you prepare your own taxes for free.
+            </p>
+          </div>
+
+          <div class="buttons--vertical-stack">
+            <%= link_to vita_providers_path, class: "button button--primary button--wide text--centered" do %>
+              Find a VITA site near you
+            <% end %>
+            <a href="https://www.myfreetaxes.com" target="_blank" class="button button--wide text--centered">
+              Visit MyFreeTaxes.com
+            </a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+</main>
