@@ -36,10 +36,10 @@
                 </p>
               <% end %>
               <div class="yes-no-buttons">
-                <%= f.button :submit, name: "form[#{yield :method_name}]", value: "yes", class: "button", "aria-describedby": "#{yield :method_name}_question" do %>
+                <%= f.button :submit, name: "form[#{yield :method_name}]", value: "yes", class: "button button--icon", "aria-describedby": "#{yield :method_name}_question" do %>
                   <%= image_tag("checkmark.svg", alt: "") %>Yes
                 <% end %>
-                <%= f.button :submit, name: "form[#{yield :method_name}]", value: "no", class: "button", "aria-describedby": "#{yield :method_name}_question" do %>
+                <%= f.button :submit, name: "form[#{yield :method_name}]", value: "no", class: "button button--icon", "aria-describedby": "#{yield :method_name}_question" do %>
                   <%= image_tag("crossmark.svg", alt: "") %>No
                 <% end %>
               </div>

@@ -9,20 +9,24 @@
 
         <main role="main">
 
-          <h1 class="form-question">Great, let’s save your W-2’s.</h1>
+          <h1 class="form-question">
+            Attach a copy of your W2’s
+          </h1>
           <p>Unclear about your W2’s? Here’s some helpful information.</p>
 
           <%# uploaded documents %>
           <% if @documents.present? %>
-            <ul class="document-upload-previews">
+            <ul class="doc-preview-container">
               <% @documents.each do |document| %>
 
-                <li class="document-preview">
-                  <div class="thumbnail"><%= image_tag document.upload.variant(resize: "140x140") %></div>
-                  <h3 class="document_filename"><%= document.upload.filename %></h3>
-                  <%= link_to(document_path(document, return_path: current_path), method: :delete, data: { confirm: "Are you sure you want to remove \"#{document.upload.filename}\"?" }) do %>
-                    Remove
-                  <% end %>
+                <li class="doc-preview">
+                  <div class="doc-preview__thumb"><%= image_tag document.upload.variant(resize: "140x140") %></div>
+                  <div class="doc-preview__info">
+                    <h3 class="doc-preview__filename"><%= document.upload.filename %></h3>
+                    <%= link_to(document_path(document, return_path: current_path), method: :delete, class: "link--delete", data: { confirm: "Are you sure you want to remove \"#{document.upload.filename}\"?" }) do %>
+                      Remove
+                    <% end %>
+                  </div>
                 </li>
 
               <% end %>
@@ -31,22 +35,20 @@
 
           <%# document upload form %>
           <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
-            <div class="document-upload with-padding-med">
+            <div class="document-upload">
               <div class="file-upload">
-                <%= f.cfa_file_field(:document, "Select a file", classes: ["form__documentuploader"]) %>
-                <%= f.label(:document, class: "button is-tablet-hidden--inline", style: "display: none !important;") do %>
+                <%= f.file_field(:document, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
+                <%= f.label(:document, class: "button button--wide button--icon is-tablet-hidden--inline", style: "display: none !important;") do %>
+                  <%= image_tag "upload.svg", alt: "" %>
                   Select a file
                 <% end %>
 
-                <%= f.label(:document, class: "button is-desktop-hidden--inline", style: "display: none !important;") do %>
+                <%= f.label(:document, class: "button button--wide button--icon is-desktop-hidden--inline", style: "display: none !important;") do %>
+                  <%= image_tag "camera.svg", alt: "" %>
                   Take a picture
                 <% end %>
               </div>
             </div>
-
-            <%= f.button class: "button button--primary" do %>
-              Done with this step
-            <% end %>
           <% end %>
           <script type="text/javascript" charset="utf-8">
             function submitFileUploadFormImmediately(_event){
@@ -56,6 +58,11 @@
 
             document.getElementById('w2s_form_document').addEventListener('change', submitFileUploadFormImmediately);
           </script>
+
+          <%= link_to next_path, class: "button button--wide button--icon button--primary" do %>
+            <%= image_tag "checkmark--white.svg", alt: "" %>
+            Done with this step
+          <% end %>
 
         </main>
       </div>
