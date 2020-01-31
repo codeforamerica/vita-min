@@ -1,0 +1,21 @@
+.offboarding--title {
+  font-size: 2.7rem;
+  line-height: 3.5rem;
+  margin-top: 0;
+}
+
+.offboarding--help-text {
+  margin-bottom: 3.5rem;
+}
+
+.offboarding--subtitle {
+  font-weight: $font-weight-bold;
+}
+
+.offboarding--illustration {
+  text-align: center;
+
+  @media screen and (min-width: $tablet-up) {
+    text-align: left;
+  }
+}

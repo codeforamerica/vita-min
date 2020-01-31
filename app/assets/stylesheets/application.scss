@@ -18,6 +18,7 @@
 @import 'organisms/flash-messages';
 @import 'molecules/form-molecules';
 @import 'organisms/form-cards';
+@import 'organisms/offboarding';
 @import 'organisms/overview';
 @import 'organisms/pagination';
 @import 'organisms/provider-list';
@@ -72,6 +73,8 @@ body {
   width: 100%;
   margin-left: 0;
   margin-right: 0;
+  display: block;
+
   @media screen and (min-width: $tablet-up) {
     width: 34.5rem;
   }

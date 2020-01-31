@@ -3,6 +3,7 @@ class PublicPagesController < ApplicationController
     true
   end
 
-  def home
-  end
+  def home; end
+
+  def other_options; end
 end

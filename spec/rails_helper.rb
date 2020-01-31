@@ -18,6 +18,7 @@ Capybara.default_max_wait_time = 0.2
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -73,32 +74,46 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:each) do
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:idme] = omniauth_idme_success
+  end
 end
 
-OmniAuth.config.test_mode = true
-OmniAuth.config.mock_auth[:idme] = OmniAuth::AuthHash.new({
-  provider: "idme",
-  uid: "123545",
-  info: {
-    first_name: "Gary",
-    last_name: "Gnome",
-    name: "Gary Gnome",
-    email: "gary.gardengnome@example.com",
-    social: "333445555",
-    phone: "15553332222",
-    birth_date: "1992-09-04",
-    age: 27,
-    location: "Passaic Park, New Jersey",
-    street: "1234 Green St",
-    city: "Passaic Park",
-    state: "New Jersey",
-    zip: "22233",
-    group: "identity",
-    subgroups: ["IAL2"],
-    verified: true,
-  },
-  credentials: {
-    token: "mock_token",
-    secret: "mock_secret"
-  }
-})
+def silence_omniauth_logging
+  previous_logger = OmniAuth.config.logger
+  OmniAuth.config.logger = Logger.new("/dev/null")
+  yield
+ensure
+  OmniAuth.config.logger = previous_logger
+end
+
+def omniauth_idme_success
+  OmniAuth::AuthHash.new({
+    provider: "idme",
+    uid: "123545",
+    info: {
+      first_name: "Gary",
+      last_name: "Gnome",
+      name: "Gary Gnome",
+      email: "gary.gardengnome@example.com",
+      social: "333445555",
+      phone: "15553332222",
+      birth_date: "1992-09-04",
+      age: 27,
+      location: "Passaic Park, New Jersey",
+      street: "1234 Green St",
+      city: "Passaic Park",
+      state: "New Jersey",
+      zip: "22233",
+      group: "identity",
+      subgroups: ["IAL2"],
+      verified: true,
+    },
+    credentials: {
+      token: "mock_token",
+      secret: "mock_secret"
+    }
+  })
+end

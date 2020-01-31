@@ -1,16 +1,19 @@
 require "rails_helper"
 
 RSpec.describe Users::OmniauthCallbacksController do
-  describe ".idme" do
+  describe "#idme" do
     let(:auth) { OmniAuth::AuthHash.new({}) }
 
     before do
       request.env["omniauth.auth"] = auth
       request.env["devise.mapping"] = Devise.mappings[:user]
-      allow(User).to receive(:from_omniauth).with(auth).and_return user
     end
 
     context "when a user successfully authenticates through ID.me" do
+      before do
+        allow(User).to receive(:from_omniauth).with(auth).and_return user
+      end
+
       context "with a returning ID.me user" do
         let(:user) { create :user, sign_in_count: 1 }
 
@@ -36,7 +39,7 @@ RSpec.describe Users::OmniauthCallbacksController do
         let(:user) { build :user }
 
         it "saves and signs the user in and sets a new user flash message" do
-          expect{
+          expect {
             get :idme
           }.to change(User, :count).by(1)
           expect(subject.current_user).to eq user.reload
@@ -44,7 +47,7 @@ RSpec.describe Users::OmniauthCallbacksController do
         end
 
         it "creates a new intake and links the user to it" do
-          expect{
+          expect {
             get :idme
           }.to change(Intake, :count).by(1)
 
@@ -57,6 +60,18 @@ RSpec.describe Users::OmniauthCallbacksController do
           get :idme
           expect(user.sign_in_count).to eq(1)
         end
+      end
+    end
+
+    context "when a user denies access to their idme info" do
+      before do
+        request.env["omniauth.error.type"] = :access_denied
+      end
+
+      it "redirects to the offboarding page" do
+        get :failure
+
+        expect(response).to redirect_to(identity_needed_path)
       end
     end
   end
