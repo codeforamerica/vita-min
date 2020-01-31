@@ -14,3 +14,28 @@
 //= require activestorage
 //= require_tree .
 //= require cfa_styleguide_main
+
+var immediateUpload = (function() {
+  var uploader = function() {
+    var fileUploadForm = $('form#file-upload-form')
+    var fileInputElements = fileUploadForm.find('input[type="file"][data-upload-immediately]');
+
+    // hide the submit button fallback
+    fileUploadForm.find("button[type=submit]").hide();
+    // show the label button
+    fileUploadForm.find('label.js-only').show();
+
+    // submit the form immediately after a file is uploaded
+    fileInputElements.change(function(_event) {
+      fileUploadForm.submit();
+    });
+  };
+
+  return {
+    init: uploader
+  }
+})();
+
+// $(document).ready(function() {
+//   immediateUpload.init();
+// });
