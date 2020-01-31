@@ -11,4 +11,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     sign_in @user, event: :authentication
     redirect_to overview_questions_path
   end
+
+  def failure
+    error_type = request.env["omniauth.error.type"]
+    if error_type == :access_denied
+      redirect_to identity_needed_path
+    end
+  end
 end
