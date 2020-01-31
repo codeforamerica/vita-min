@@ -14,8 +14,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def failure
     error_type = request.env["omniauth.error.type"]
+    error = request.env["omniauth.error"]
     if error_type == :access_denied
+      # the user did not grant permission to view their info
       redirect_to identity_needed_path
+    elsif error_type == :invalid_credentials && params["logout"] == "success"
+      # the user has logged out of ID.me through us
+      redirect_to root_path
+    else
+      raise error
     end
   end
 end

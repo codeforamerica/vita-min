@@ -63,15 +63,47 @@ RSpec.describe Users::OmniauthCallbacksController do
       end
     end
 
-    context "when a user denies access to their idme info" do
-      before do
-        request.env["omniauth.error.type"] = :access_denied
+    context "when authentication fails" do
+      context "when a user denies access to their idme info" do
+        before do
+          request.env["omniauth.error.type"] = :access_denied
+        end
+
+        it "redirects to the offboarding page" do
+          get :failure
+
+          expect(response).to redirect_to(identity_needed_path)
+        end
       end
 
-      it "redirects to the offboarding page" do
-        get :failure
+      context "when a user signs out of ID.me through our app" do
+        let(:params) do
+          { logout: "success" }
+        end
 
-        expect(response).to redirect_to(identity_needed_path)
+        before do
+          request.env["omniauth.error.type"] = :invalid_credentials
+        end
+
+        it "redirects to root path" do
+          get :failure, params: params
+
+          expect(response).to redirect_to root_path
+        end
+      end
+
+      context "for all other errors" do
+        before do
+          request.env["omniauth.error.type"] = :csrf_detected
+          request.env["omniauth.error"] = OmniAuth::Strategies::OAuth2::CallbackError.new(:csrf_detected, "CSRF detected")
+        end
+
+        it "raises the error" do
+          expect do
+            get :failure
+          end.to raise_error(OmniAuth::Strategies::OAuth2::CallbackError)
+        end
+
       end
     end
   end

@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
   root "public_pages#home"
 
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
-  get '/auth/failure', to: "users/omniauth_callbacks#failure"
+  devise_for :users, controllers: {
+    omniauth_callbacks: "users/omniauth_callbacks",
+    sessions: "users/sessions"
+  }
+  get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
 
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new", as: :new_user_session
-    delete "sign_out", :to => "devise/sessions#destroy", as: :destroy_user_session
+    delete "sign_out", :to => "users/sessions#destroy", as: :destroy_user_session
   end
 
   mount Cfa::Styleguide::Engine => "/cfa"
