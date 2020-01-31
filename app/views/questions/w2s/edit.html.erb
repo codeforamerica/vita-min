@@ -20,9 +20,9 @@
               <% @documents.each do |document| %>
 
                 <li class="doc-preview">
-                  <div class="doc-preview__thumb"><%= image_tag document.upload.variant(resize: "140x140") %></div>
+                  <div class="doc-preview__thumb"><%= image_tag document.upload.variant(resize: "140x140"), alt: "" %></div>
                   <div class="doc-preview__info">
-                    <h3 class="doc-preview__filename"><%= document.upload.filename %></h3>
+                    <h2 class="h3 doc-preview__filename"><%= document.upload.filename %></h2>
                     <%= link_to(document_path(document, return_path: current_path), method: :delete, class: "link--delete", data: { confirm: "Are you sure you want to remove \"#{document.upload.filename}\"?" }) do %>
                       Remove
                     <% end %>
@@ -37,15 +37,16 @@
           <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
             <div class="document-upload">
               <div class="file-upload">
-                <%= f.file_field(:document, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
-                <%= f.label(:document, class: "button button--wide button--icon is-tablet-hidden--inline", style: "display: none !important;") do %>
-                  <%= image_tag "upload.svg", alt: "" %>
-                  Select a file
-                <% end %>
-
-                <%= f.label(:document, class: "button button--wide button--icon is-desktop-hidden--inline", style: "display: none !important;") do %>
-                  <%= image_tag "camera.svg", alt: "" %>
-                  Take a picture
+                <%= f.file_field(:document, class: "form__documentuploader file-input file-upload__input", data: { "upload-immediately" => true}) %>
+                <%= f.label(:document, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
+                  <span class="is-tablet-hidden--inline">
+                    <%= image_tag "upload.svg", alt: "" %>
+                    Select a file
+                  </span>
+                  <span class="is-desktop-hidden--inline">
+                    <%= image_tag "camera.svg", alt: "" %>
+                    Take a picture
+                  </span>
                 <% end %>
               </div>
             </div>
@@ -53,14 +54,6 @@
               Upload
             <% end %>
           <% end %>
-          <script type="text/javascript" charset="utf-8">
-            function submitFileUploadFormImmediately(_event){
-              // This will submit the form when called. It will skip any onSubmit listeners.
-              document.getElementById('file-upload-form').submit();
-            }
-
-            document.getElementById('w2s_form_document').addEventListener('change', submitFileUploadFormImmediately);
-          </script>
 
           <%= link_to next_path, class: "button button--wide button--icon button--primary" do %>
             <%= image_tag "checkmark--white.svg", alt: "" %>
