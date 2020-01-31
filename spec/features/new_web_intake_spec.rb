@@ -1,13 +1,13 @@
 require "rails_helper"
 
 RSpec.feature "Add a new intake case from the website" do
-  xscenario "new client" do
+  scenario "new client" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
 
     # the ID.me flow would occur here. They should end up back on a success page.
-    expect(page).to have_selector("h1", text: "Overview")
+    expect(page).to have_selector("h1", text: "Welcome Gary!")
     click_on "Continue"
 
     select "3 jobs", from: "In 2019, how many jobs did you have?"
@@ -130,17 +130,19 @@ RSpec.feature "Add a new intake case from the website" do
     fill_in "Is there any additional information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
     click_on "Next"
 
-    expect(page).to have_selector("h1", text: "Great, let’s save your W2’s.")
+    expect(page).to have_selector("h1", text: "Attach a copy of your W2’s")
 
-    attach_file("document_file", Rails.root.join('spec', 'fixtures', 'attachments', 'test-pattern.png'))
-    click_button "Upload"
-    expect(page).to have_content('test-pattern.png')
-    expect(page).to have_button("Delete")
+    attach_file("w2s_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    click_on "Upload"
 
-    attach_file("document_file", Rails.root.join('spec', 'fixtures', 'attachments', 'picture_id.jpg'))
-    click_button "Upload"
+    expect(page).to have_content("test-pattern.png")
+    expect(page).to have_link("Remove")
 
-    expect(page).to have_content('test-pattern.png')
-    expect(page).to have_content('picture_id.jpg')
+    attach_file("w2s_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    click_on "Upload"
+
+    expect(page).to have_content("test-pattern.png")
+    expect(page).to have_content("picture_id.jpg")
+    click_on "Done with this step"
   end
 end
