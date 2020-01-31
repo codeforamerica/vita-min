@@ -43,3 +43,38 @@
     margin-right: 1rem;
   }
 }
+
+.file-upload {
+  display: block;
+}
+
+.doc-preview {
+  border: none;
+  margin-bottom: 3.6rem;
+
+  &__filename {
+    margin-bottom: .5rem;
+  }
+  &__thumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    right: auto;
+    background-color: $color-background;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 1rem;
+    border: none;
+    width: 7rem;
+    height: 6rem;
+  
+    img {
+      max-height: 6rem;
+      max-width: 7rem;
+    }
+  }
+  &__info {
+    margin-left: 90px;
+    margin-right: 0;
+  }
+}

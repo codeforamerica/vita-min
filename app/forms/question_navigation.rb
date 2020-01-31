@@ -54,6 +54,8 @@ class QuestionNavigation
 
     # Documents
     Questions::W2sController,
+
+    Questions::OverviewController, # TODO: remove this
   ].freeze
 
   class << self
