@@ -3,9 +3,17 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 
 require 'spec_helper'
+require 'capybara/rails'
+require "capybara/rspec"
+require "selenium/webdriver"
+require "webdrivers"
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("lib/strategies/**/*.rb")].each { |f| require f }
 
+
+Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.server = :puma, { Silent: true }
+Capybara.default_max_wait_time = 0.2
 
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
