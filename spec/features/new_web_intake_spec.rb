@@ -130,7 +130,7 @@ RSpec.feature "Add a new intake case from the website" do
     fill_in "Is there any additional information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
     click_on "Next"
 
-    expect(page).to have_selector("h1", text: "Attach a copy of your W2’s")
+    expect(page).to have_selector("h1", text: "Attach a copy of your W-2’s")
 
     attach_file("w2s_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
