@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Questions::W2sController do
+  render_views
+
   let(:intake) { create :intake }
 
   before do
@@ -11,19 +13,29 @@ RSpec.describe Questions::W2sController do
   describe "#edit" do
     context "with existing W-2 uploads" do
       it "assigns the documents to the form" do
-        w2_doc = create :document, document_type: "W-2", intake: intake
-        _other_doc = create :document, document_type: "Other", intake: intake
+        w2_doc = create :document, :with_upload, document_type: "W-2", intake: intake
+        _other_doc = create :document, :with_upload, document_type: "Other", intake: intake
 
         get :edit
 
         expect(assigns(:documents)).to eq [w2_doc]
       end
     end
+
+    context "with a non-image document" do
+      let(:document_path) { Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf") }
+
+      it "renders the thumbnails" do
+        w2_doc = create :document, :with_upload, document_type: "W-2", intake: intake,
+          upload_path: document_path
+
+        expect { get :edit }.not_to raise_error
+        expect(response.body).to include('document_bundle.pdf')
+      end
+    end
   end
 
   describe "#update" do
-    render_views
-
     context "with valid params" do
       let(:valid_params) do
         {

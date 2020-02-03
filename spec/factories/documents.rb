@@ -16,6 +16,20 @@
 FactoryBot.define do
   factory :document do
     intake
+    upload { nil }
     document_type { "W-2" }
+
+    trait :with_upload do
+      transient do
+        upload_path { Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg") }
+      end
+
+      after(:build) do |document, evaluator|
+        document.upload.attach(
+          io: File.open(evaluator.upload_path),
+          filename: File.basename(evaluator.upload_path)
+        )
+      end
+    end
   end
 end
