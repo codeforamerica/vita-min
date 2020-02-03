@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Add a new intake case from the website" do
-  scenario "new client" do
+  scenario "new client filing single" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
@@ -9,6 +9,15 @@ RSpec.feature "Add a new intake case from the website" do
     # the ID.me flow would occur here. They should end up back on a success page.
     expect(page).to have_selector("h1", text: "Welcome Gary!")
     click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you divorced?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you widowed?")
+    click_on "No"
 
     select "3 jobs", from: "In 2019, how many jobs did you have?"
     click_on "Next"

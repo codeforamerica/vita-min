@@ -4,6 +4,13 @@ class QuestionNavigation
     Questions::IdentityController,
     Questions::OverviewController,
 
+    # Marital Status
+    Questions::MarriedController,
+    Questions::DivorcedController,
+    Questions::DivorcedYearController,
+    Questions::WidowedController,
+    Questions::WidowedYearController,
+
     # Income
     Questions::JobCountController,
     Questions::WagesController,
