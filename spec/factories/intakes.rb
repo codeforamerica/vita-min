@@ -6,6 +6,8 @@
 #  additional_info               :string
 #  adopted_child                 :integer          default("unfilled"), not null
 #  bought_health_insurance       :integer          default("unfilled"), not null
+#  divorced                      :integer          default("unfilled"), not null
+#  divorced_year                 :string
 #  had_asset_sale_income         :integer          default("unfilled"), not null
 #  had_debt_forgiven             :integer          default("unfilled"), not null
 #  had_disability_income         :integer          default("unfilled"), not null
@@ -26,7 +28,10 @@
 #  had_unemployment_income       :integer          default("unfilled"), not null
 #  had_wages                     :integer          default("unfilled"), not null
 #  job_count                     :integer
+#  lived_with_spouse             :integer          default("unfilled"), not null
 #  made_estimated_tax_payments   :integer          default("unfilled"), not null
+#  married                       :integer          default("unfilled"), not null
+#  married_all_year              :integer          default("unfilled"), not null
 #  other_income_types            :string
 #  paid_alimony                  :integer          default("unfilled"), not null
 #  paid_charitable_contributions :integer          default("unfilled"), not null
@@ -42,7 +47,11 @@
 #  received_irs_letter           :integer          default("unfilled"), not null
 #  reported_asset_sale_loss      :integer          default("unfilled"), not null
 #  reported_self_employment_loss :integer          default("unfilled"), not null
+#  separated                     :integer          default("unfilled"), not null
+#  separated_year                :string
 #  sold_a_home                   :integer          default("unfilled"), not null
+#  widowed                       :integer          default("unfilled"), not null
+#  widowed_year                  :string
 #  created_at                    :datetime
 #  updated_at                    :datetime
 #

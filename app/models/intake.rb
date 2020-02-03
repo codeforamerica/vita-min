@@ -6,6 +6,8 @@
 #  additional_info               :string
 #  adopted_child                 :integer          default("unfilled"), not null
 #  bought_health_insurance       :integer          default("unfilled"), not null
+#  divorced                      :integer          default("unfilled"), not null
+#  divorced_year                 :string
 #  had_asset_sale_income         :integer          default("unfilled"), not null
 #  had_debt_forgiven             :integer          default("unfilled"), not null
 #  had_disability_income         :integer          default("unfilled"), not null
@@ -26,7 +28,10 @@
 #  had_unemployment_income       :integer          default("unfilled"), not null
 #  had_wages                     :integer          default("unfilled"), not null
 #  job_count                     :integer
+#  lived_with_spouse             :integer          default("unfilled"), not null
 #  made_estimated_tax_payments   :integer          default("unfilled"), not null
+#  married                       :integer          default("unfilled"), not null
+#  married_all_year              :integer          default("unfilled"), not null
 #  other_income_types            :string
 #  paid_alimony                  :integer          default("unfilled"), not null
 #  paid_charitable_contributions :integer          default("unfilled"), not null
@@ -42,7 +47,11 @@
 #  received_irs_letter           :integer          default("unfilled"), not null
 #  reported_asset_sale_loss      :integer          default("unfilled"), not null
 #  reported_self_employment_loss :integer          default("unfilled"), not null
+#  separated                     :integer          default("unfilled"), not null
+#  separated_year                :string
 #  sold_a_home                   :integer          default("unfilled"), not null
+#  widowed                       :integer          default("unfilled"), not null
+#  widowed_year                  :string
 #  created_at                    :datetime
 #  updated_at                    :datetime
 #
@@ -53,6 +62,7 @@ class Intake < ApplicationRecord
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_health_insurance
+  enum divorced: { unfilled: 0, yes: 1, no: 2 }, _prefix: :divorced
   enum had_asset_sale_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_asset_sale_income
   enum had_debt_forgiven: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_debt_forgiven
   enum had_disability_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_disability_income
@@ -72,7 +82,10 @@ class Intake < ApplicationRecord
   enum had_tips: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_tips
   enum had_unemployment_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_unemployment_income
   enum had_wages: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_wages
+  enum lived_with_spouse: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_spouse
   enum made_estimated_tax_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_estimated_tax_payments
+  enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
+  enum married_all_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married_all_year
   enum paid_alimony: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_alimony
   enum paid_charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_charitable_contributions
   enum paid_dependent_care: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_dependent_care
@@ -87,7 +100,9 @@ class Intake < ApplicationRecord
   enum received_irs_letter: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_irs_letter
   enum reported_asset_sale_loss: { unfilled: 0, yes: 1, no: 2 }, _prefix: :reported_asset_sale_loss
   enum reported_self_employment_loss: { unfilled: 0, yes: 1, no: 2 }, _prefix: :reported_self_employment_loss
+  enum separated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :separated
   enum sold_a_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sold_a_home
+  enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
 
   def pdf
     IntakePdf.new(self).output_file
