@@ -1,5 +1,11 @@
 module Questions
   class <%= name.camelcase %>Controller < QuestionsController
     layout "yes_no_question"
+
+    <%- if options.section_title -%>
+    def section_title
+      <%= options.section_title.inspect %>
+    end
+    <%- end -%>
   end
 end
