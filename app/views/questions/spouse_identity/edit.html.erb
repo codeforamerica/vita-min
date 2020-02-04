@@ -1,0 +1,26 @@
+<% content_for :page_title, "Spouse Identity" %>
+
+<% content_for :form_card do %>
+  <div class="form-card">
+    <h1 class="form-question">
+      Spouse Identity
+    </h1>
+
+    <p>
+      If your spouse is sitting with you, you can go ahead and sign in with ID.me
+    </p>
+
+    <p class="spacing-below-35">
+      If not, we can send them a sign in link through text or e-mail.
+    </p>
+
+    <%= link_to "#", class: "button button--primary button--wide text--centered", method: :post do %>
+      Sign in spouse with
+      <span class="sr-only">ID.me</span> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
+    <% end %>
+
+    <%= link_to "#", class: "button button--wide text--centered", method: :post do %>
+      Send my spouse a sign in link
+    <% end %>
+  </div>
+<% end %>
