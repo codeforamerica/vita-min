@@ -7,7 +7,7 @@ module Questions
     end
 
     def self.show?(intake)
-      !intake.had_other_income_no?
+      intake.had_other_income_yes?
     end
   end
 end

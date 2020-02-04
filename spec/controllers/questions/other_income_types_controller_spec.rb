@@ -13,8 +13,8 @@ RSpec.describe Questions::OtherIncomeTypesController do
     context "with an intake that has not filled out the other income column" do
       let!(:intake) { create :intake, had_other_income: "unfilled" }
 
-      it "returns true" do
-        expect(Questions::OtherIncomeTypesController.show?(intake)).to eq true
+      it "returns false" do
+        expect(Questions::OtherIncomeTypesController.show?(intake)).to eq false
       end
     end
 

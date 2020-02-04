@@ -3,7 +3,7 @@ module Questions
     layout "yes_no_question"
 
     def self.show?(intake)
-      intake.married_yes? || intake.married_unfilled?
+      intake.married_yes?
     end
 
     def section_title
