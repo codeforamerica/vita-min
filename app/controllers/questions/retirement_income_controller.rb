@@ -5,9 +5,5 @@ module Questions
     def section_title
       "Income and Expenses"
     end
-
-    def no_illustration?
-      true
-    end
   end
 end
