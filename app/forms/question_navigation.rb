@@ -10,6 +10,10 @@ class QuestionNavigation
     Questions::DivorcedYearController,
     Questions::WidowedController,
     Questions::WidowedYearController,
+    Questions::MarriedAllYearController,
+    Questions::LivedWithSpouseController,
+    Questions::SeparatedController,
+    Questions::SeparatedYearController,
 
     # Income
     Questions::JobCountController,
