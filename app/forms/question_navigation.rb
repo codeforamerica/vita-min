@@ -16,6 +16,9 @@ class QuestionNavigation
     Questions::SeparatedYearController,
     Questions::FilingJointController,
 
+    # Spouse authentication
+    Questions::SpouseIdentityController,
+
     # Income
     Questions::JobCountController,
     Questions::WagesController,

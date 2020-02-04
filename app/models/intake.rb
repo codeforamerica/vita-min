@@ -8,7 +8,7 @@
 #  bought_health_insurance       :integer          default("unfilled"), not null
 #  divorced                      :integer          default("unfilled"), not null
 #  divorced_year                 :string
-#  filing_joint                  :integer          default(0), not null
+#  filing_joint                  :integer          default("unfilled"), not null
 #  had_asset_sale_income         :integer          default("unfilled"), not null
 #  had_debt_forgiven             :integer          default("unfilled"), not null
 #  had_disability_income         :integer          default("unfilled"), not null
@@ -64,6 +64,7 @@ class Intake < ApplicationRecord
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_health_insurance
   enum divorced: { unfilled: 0, yes: 1, no: 2 }, _prefix: :divorced
+  enum filing_joint: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filing_joint
   enum had_asset_sale_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_asset_sale_income
   enum had_debt_forgiven: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_debt_forgiven
   enum had_disability_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_disability_income
