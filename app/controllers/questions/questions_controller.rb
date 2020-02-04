@@ -38,8 +38,12 @@ module Questions
 
     def section_title; end
 
+    def no_illustration?
+      false
+    end
+
     def illustration_path
-      ""
+      controller_name.dasherize + ".svg" unless no_illustration?
     end
 
     def self.show?(intake)

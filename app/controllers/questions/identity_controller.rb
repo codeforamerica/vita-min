@@ -9,8 +9,5 @@ module Questions
 
     def edit; end
 
-    def illustration_path
-      controller_name.dasherize + ".svg"
-    end
   end
 end

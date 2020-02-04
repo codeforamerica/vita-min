@@ -11,5 +11,9 @@ module Questions
         intake.widowed_yes? || intake.widowed_unfilled?
       )
     end
+
+    def no_illustration?
+      true
+    end
   end
 end

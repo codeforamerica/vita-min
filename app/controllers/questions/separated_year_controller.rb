@@ -11,5 +11,9 @@ module Questions
         intake.separated_yes? || intake.separated_unfilled?
       )
     end
+
+    def no_illustration?
+      true
+    end
   end
 end

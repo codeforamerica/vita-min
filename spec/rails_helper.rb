@@ -72,7 +72,9 @@ RSpec.configure do |config|
   config.before(:each) do
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:idme] = omniauth_idme_success
+    stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
   end
+
 end
 
 def silence_omniauth_logging

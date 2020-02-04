@@ -8,6 +8,7 @@
 #  bought_health_insurance       :integer          default("unfilled"), not null
 #  divorced                      :integer          default("unfilled"), not null
 #  divorced_year                 :string
+#  filing_joint                  :integer          default(0), not null
 #  had_asset_sale_income         :integer          default("unfilled"), not null
 #  had_debt_forgiven             :integer          default("unfilled"), not null
 #  had_disability_income         :integer          default("unfilled"), not null

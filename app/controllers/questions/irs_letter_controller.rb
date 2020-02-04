@@ -5,5 +5,9 @@ module Questions
     def section_title
       "Life Events"
     end
+
+    def no_illustration?
+      true
+    end
   end
 end
