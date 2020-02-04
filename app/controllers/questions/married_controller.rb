@@ -5,9 +5,5 @@ module Questions
     def section_title
       "Personal Information"
     end
-
-    def illustration_path
-      "married.svg"
-    end
   end
 end

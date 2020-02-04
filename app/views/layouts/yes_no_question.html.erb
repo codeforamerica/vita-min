@@ -18,11 +18,11 @@
 
           <main role="main">
             <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-              <div class="question__illustration">
-                <% if illustration_path.present? %>
+              <% if illustration_path.present? %>
+                <div class="question__illustration">
                   <%= image_tag("questions/#{illustration_path}", alt: "") %>
-                <% end %>
-              </div>
+                </div>
+              <% end %>
               <h1 class="form-question" id="had_wages_question">
                 <%= yield :form_question %>
               </h1>

@@ -11,5 +11,9 @@ module Questions
         intake.divorced_yes? || intake.divorced_unfilled?
       )
     end
+
+    def no_illustration?
+      true
+    end
   end
 end

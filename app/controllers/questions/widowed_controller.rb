@@ -9,5 +9,9 @@ module Questions
     def self.show?(intake)
       intake.married_no? || intake.married_unfilled?
     end
+
+    def no_illustration?
+      true
+    end
   end
 end

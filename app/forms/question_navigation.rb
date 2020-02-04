@@ -14,6 +14,7 @@ class QuestionNavigation
     Questions::LivedWithSpouseController,
     Questions::SeparatedController,
     Questions::SeparatedYearController,
+    Questions::FilingJointController,
 
     # Income
     Questions::JobCountController,
