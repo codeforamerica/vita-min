@@ -7,9 +7,7 @@ module Questions
     end
 
     def self.show?(intake)
-      intake.married_no? && (
-        intake.widowed_yes? || intake.widowed_unfilled?
-      )
+      intake.widowed_yes?
     end
 
     def no_illustration?

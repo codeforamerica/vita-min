@@ -13,8 +13,8 @@ RSpec.describe Questions::WidowedController do
     context "with an intake that has not filled out the married column" do
       let!(:intake) { create :intake, married: "unfilled" }
 
-      it "returns true" do
-        expect(Questions::WidowedController.show?(intake)).to eq true
+      it "returns false" do
+        expect(Questions::WidowedController.show?(intake)).to eq false
       end
     end
 
