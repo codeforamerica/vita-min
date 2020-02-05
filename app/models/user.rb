@@ -9,6 +9,7 @@
 #  current_sign_in_ip :inet
 #  email              :string
 #  first_name         :string
+#  is_spouse          :boolean          default(FALSE)
 #  last_name          :string
 #  last_sign_in_at    :datetime
 #  last_sign_in_ip    :inet
