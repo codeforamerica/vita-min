@@ -1,6 +1,6 @@
 module Questions
   class W2sController < QuestionsController
-    layout "application"
+    layout "document_upload"
 
     def section_title
       "Documents"
