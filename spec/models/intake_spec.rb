@@ -84,4 +84,22 @@ describe Intake do
       expect(relation).to eq :has_many
     end
   end
+
+  describe "#greeting_name" do
+    let(:intake) { create :intake }
+    let!(:primary_user) { create :user, first_name: "Porpoise", intake: intake}
+
+    context "with a single filer" do
+      it "returns the first name of the filer" do
+        expect(intake.greeting_name).to eq "Porpoise"
+      end
+    end
+
+    context "with a married couple filing jointly" do
+      let!(:spouse_user) { create :user, first_name: "Porcupine", is_spouse: true, intake: intake }
+      it "returns first name of primary and first name of spouse" do
+        expect(intake.greeting_name).to eq "Porpoise and Porcupine"
+      end
+    end
+  end
 end
