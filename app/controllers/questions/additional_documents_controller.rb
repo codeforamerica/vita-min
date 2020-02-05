@@ -1,6 +1,6 @@
 module Questions
   class AdditionalDocumentsController < QuestionsController
-    layout "application"
+    layout "document_upload"
 
     def section_title
       "Documents"
