@@ -65,6 +65,7 @@ class QuestionNavigation
 
     # Documents
     Questions::W2sController,
+    Questions::AdditionalDocumentsController,
 
     Questions::OverviewController, # TODO: remove this
   ].freeze
