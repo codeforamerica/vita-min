@@ -92,6 +92,30 @@ RSpec.describe Users::OmniauthCallbacksController do
         end
       end
 
+      context "when a user is verifying their spouse in the same session" do
+        let(:params) do
+          { logout: "primary" }
+        end
+
+        before do
+          request.env["omniauth.error.type"] = :invalid_credentials
+          allow(SecureRandom).to receive(:hex).and_return("1234")
+        end
+
+        it "redirects to ID.me authorization endpoint with necessary params" do
+          get :failure, params: params
+
+          expect(session["omniauth.state"]).to eq "1234"
+          expect(response).to redirect_to %r(\Ahttps://api\.idmelabs\.com/oauth/authorize)
+          redirect_params = Rack::Utils.parse_query(URI.parse(response.location).query)
+          expect(redirect_params["state"]).to eq "1234"
+          expect(redirect_params["scope"]).to eq "ial2"
+          expect(redirect_params["response_type"]).to eq "code"
+          expect(redirect_params["redirect_uri"]).to eq "http://test.host/users/auth/idme/callback?spouse=true"
+          expect(redirect_params).to include "client_id"
+        end
+      end
+
       context "for all other errors" do
         before do
           request.env["omniauth.error.type"] = :csrf_detected

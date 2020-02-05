@@ -1,4 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  include IdmeAuthenticatable
+
   def idme
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
@@ -21,6 +23,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     elsif error_type == :invalid_credentials && params["logout"] == "success"
       # the user has logged out of ID.me through us
       redirect_to root_path
+    elsif error_type == :invalid_credentials && params["logout"] == "primary"
+      # We have signed out the primary user and need to verify the spouse
+      redirect_to idme_authorize(spouse: "true")
     else
       raise error
     end

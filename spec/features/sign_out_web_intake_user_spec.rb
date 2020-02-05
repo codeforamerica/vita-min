@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Online intake user signs out" do
   before do
-    allow_any_instance_of(Users::SessionsController).to receive(:idme_logout_request_uri).and_return(
+    allow_any_instance_of(Users::SessionsController).to receive(:idme_request).and_return(
       user_idme_omniauth_callback_path(logout: "success")
     )
   end
