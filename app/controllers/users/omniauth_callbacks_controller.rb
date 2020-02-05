@@ -2,15 +2,31 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include IdmeAuthenticatable
 
   def idme
+    has_spouse_param = params["spouse"] == "true"
     @user = User.from_omniauth(request.env["omniauth.auth"])
+    is_new_user = !@user.persisted?
 
-    unless @user.persisted?
-      # new user
+    is_new_primary_user = !has_spouse_param && is_new_user
+    is_new_spouse = has_spouse_param && is_new_user
+    is_returning_user = !is_new_user
+    is_primary_but_expected_spouse = (@user == current_user && has_spouse_param)
+
+    return redirect_to(
+      spouse_identity_questions_path(missing_spouse: "true")
+    ) if is_primary_but_expected_spouse
+
+    if is_new_primary_user
       @user.intake = Intake.create
       @user.save
+      sign_in @user, event: :authentication
+    elsif is_new_spouse
+      @user.is_spouse = true
+      @user.intake = current_user.intake
+      @user.save
+    elsif is_returning_user
+      sign_in @user, event: :authentication
     end
 
-    sign_in @user, event: :authentication
     redirect_to overview_questions_path
   end
 
