@@ -140,7 +140,6 @@ RSpec.feature "Add a new intake case from the website" do
     click_on "Next"
 
     expect(page).to have_selector("h1", text: "Attach a copy of your W-2’s")
-
     attach_file("w2s_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
 
@@ -152,6 +151,12 @@ RSpec.feature "Add a new intake case from the website" do
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_content("picture_id.jpg")
+    click_on "Done with this step"
+
+    expect(page).to have_selector("h1", text: "Do you have any additional documents?")
+    attach_file("additional_documents_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    click_on "Upload"
+    expect(page).to have_content("test-pattern.png")
     click_on "Done with this step"
   end
 end

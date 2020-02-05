@@ -1,5 +1,5 @@
 module Questions
-  class W2sController < QuestionsController
+  class AdditionalDocumentsController < QuestionsController
     layout "application"
 
     def section_title
@@ -7,7 +7,7 @@ module Questions
     end
 
     def edit
-      @documents = current_intake.documents.of_type("W-2")
+      @documents = current_intake.documents.of_type("Other")
       super
     end
 
