@@ -22,6 +22,8 @@ class Document < ApplicationRecord
   validates :document_type, inclusion: { in: DOCUMENT_TYPES }
   validates :intake, presence: true
 
+  scope :of_type, ->(type) { where(document_type: type) }
+
   belongs_to :intake
   has_one_attached :upload
 end
