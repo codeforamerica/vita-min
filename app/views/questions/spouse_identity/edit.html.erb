@@ -14,7 +14,7 @@
       If not, we can send them a sign in link through text or e-mail.
     </p>
 
-    <%= link_to "#", class: "button button--primary button--wide text--centered", method: :post do %>
+    <%= link_to destroy_idme_session_path, class: "button button--primary button--wide text--centered", method: :delete do %>
       Sign in spouse with
       <span class="sr-only">ID.me</span> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
     <% end %>
