@@ -9,58 +9,127 @@ RSpec.describe Users::OmniauthCallbacksController do
       request.env["devise.mapping"] = Devise.mappings[:user]
     end
 
-    context "when a user successfully authenticates through ID.me" do
+    context "when a new primary user authenticates" do
+      let(:user) { build :user }
+
       before do
         allow(User).to receive(:from_omniauth).with(auth).and_return user
       end
 
-      context "with a returning ID.me user" do
-        let(:user) { create :user, sign_in_count: 1 }
-
-        it "signs the user in and redirects them to the overview page and sets success flash message" do
+      it "creates user, signs them in, and redirects to the overview page" do
+        expect {
           get :idme
+        }.to change(User, :count).by(1)
+        expect(subject.current_user).to eq user.reload
+        expect(response).to redirect_to(overview_questions_path)
+      end
+
+      it "creates a new intake and links the user to it" do
+        expect {
+          get :idme
+        }.to change(Intake, :count).by(1)
+
+        intake = Intake.last
+        expect(subject.current_intake).to eq intake
+        expect(subject.current_intake).to eq user.reload.intake
+      end
+
+      it "increments user sign_in_count to 1" do
+        get :idme
+        expect(user.sign_in_count).to eq(1)
+      end
+    end
+
+    context "when any returning user authenticates" do
+      let(:user) { create :user, sign_in_count: 1 }
+
+      before do
+        allow(User).to receive(:from_omniauth).with(auth).and_return user
+      end
+
+      it "signs the user in, redirects them to the overview page" do
+        get :idme
+        expect(subject.current_user).to eq user
+        expect(response).to redirect_to(overview_questions_path)
+      end
+
+      it "does not create a new intake" do
+        expect {
+          get :idme
+        }.not_to change(Intake, :count)
+      end
+
+      it "increments user sign_in_count by 1" do
+        get :idme
+        expect(user.sign_in_count).to eq 2
+      end
+
+      context "when the returning user used a spouse registration link" do
+        it "signs the user in, redirects them to the overview page" do
+          get :idme, params: { spouse: "true" }
           expect(subject.current_user).to eq user
           expect(response).to redirect_to(overview_questions_path)
         end
+      end
+    end
 
-        it "does not create a new Intake" do
-          expect {
-            get :idme
-          }.not_to change(Intake, :count)
-        end
+    context "when a new spouse user authenticates" do
+      let(:spouse_user) { build :user }
+      let(:primary_user) { create :user }
 
-        it "increments user sign_in_count by 1" do
-          get :idme
-          expect(user.sign_in_count).to eq 2
-        end
+      before do
+        sign_in primary_user
+        request.env["devise.mapping"] = Devise.mappings[:user]
+        allow(User).to receive(:from_omniauth).with(auth).and_return spouse_user
       end
 
-      context "with a new ID.me user" do
-        let(:user) { build :user }
-
-        it "saves and signs the user in and sets a new user flash message" do
-          expect {
-            get :idme
-          }.to change(User, :count).by(1)
-          expect(subject.current_user).to eq user.reload
-          expect(response).to redirect_to(overview_questions_path)
-        end
-
-        it "creates a new intake and links the user to it" do
-          expect {
-            get :idme
-          }.to change(Intake, :count).by(1)
-
-          intake = Intake.last
-          expect(subject.current_intake).to eq intake
-          expect(subject.current_intake).to eq user.reload.intake
-        end
-
-        it "increments user sign_in_count to 1" do
-          get :idme
-          expect(user.sign_in_count).to eq(1)
-        end
+      it "creates is_spouse user and redirects to the overview page, keeping primary signed in" do
+        expect {
+          get :idme, params: { spouse: "true" }
+        }.to change(User, :count).by(1)
+        expect(spouse_user.reload.is_spouse).to eq true
+        expect(subject.current_user).to eq primary_user
+        expect(response).to redirect_to(overview_questions_path)
       end
+
+      it "links spouse user to primary user's intake" do
+        get :idme, params: { spouse: "true" }
+        expect(spouse_user.reload.intake).to eq primary_user.intake
+      end
+    end
+
+    context "when we expected a new spouse but the primary user authenticated instead" do
+      let(:primary_user) { create :user }
+
+      before do
+        sign_in primary_user
+        request.env["devise.mapping"] = Devise.mappings[:user]
+        allow(User).to receive(:from_omniauth).with(auth).and_return primary_user
+      end
+
+      it "redirects to spouse identity page with a 'missing_spouse' param" do
+        get :idme, params: { spouse: "true" }
+
+        expect(response).to redirect_to spouse_identity_questions_path(missing_spouse: "true")
+      end
+
+      it "does not create a new intake" do
+        expect do
+          get :idme, params: { spouse: "true" }
+        end.not_to change(Intake, :count)
+      end
+
+      it "does not sign in the primary user again" do
+        expect do
+          get :idme, params: { spouse: "true" }
+        end.not_to change(primary_user, :sign_in_count)
+      end
+    end
+  end
+
+  describe "#failure" do
+    before do
+      request.env["devise.mapping"] = Devise.mappings[:user]
     end
 
     context "when authentication fails" do
@@ -127,7 +196,6 @@ RSpec.describe Users::OmniauthCallbacksController do
             get :failure
           end.to raise_error(OmniAuth::Strategies::OAuth2::CallbackError)
         end
-
       end
     end
   end
