@@ -9,6 +9,7 @@
 #  current_sign_in_ip :inet
 #  email              :string
 #  first_name         :string
+#  is_spouse          :boolean          default(FALSE)
 #  last_name          :string
 #  last_sign_in_at    :datetime
 #  last_sign_in_ip    :inet
@@ -36,6 +37,13 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
+  describe "default column values" do
+    it "sets is_spouse to false by default" do
+      user = build :user
+      expect(user.is_spouse).to eq false
+    end
+  end
+
   describe "#intake" do
     it "requires an intake" do
       user = build :user, intake: nil

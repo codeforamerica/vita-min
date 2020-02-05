@@ -78,7 +78,7 @@ describe Intake do
     end
   end
 
-  describe "#user" do
+  describe "#users" do
     it "should have many users" do
       relation = Intake.reflect_on_association(:users).macro
       expect(relation).to eq :has_many
