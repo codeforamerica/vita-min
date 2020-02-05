@@ -58,8 +58,8 @@
 #
 
 class Intake < ApplicationRecord
-  has_many :users
-  has_many :documents
+  has_many :users, -> { order(created_at: :asc) }
+  has_many :documents, -> { order(created_at: :asc) }
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_health_insurance
@@ -108,5 +108,9 @@ class Intake < ApplicationRecord
 
   def pdf
     IntakePdf.new(self).output_file
+  end
+
+  def greeting_name
+    users.map(&:first_name).join(" and ")
   end
 end
