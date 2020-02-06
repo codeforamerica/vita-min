@@ -2,7 +2,7 @@ class QuestionNavigation
   FLOW = [
     # Personal Information
     Questions::IdentityController,
-    Questions::OverviewController,
+    Questions::WelcomeController,
 
     # Marital Status
     Questions::MarriedController,
@@ -18,6 +18,7 @@ class QuestionNavigation
 
     # Spouse authentication
     Questions::SpouseIdentityController,
+    Questions::WelcomeSpouseController,
 
     # Income
     Questions::JobCountController,
@@ -71,7 +72,7 @@ class QuestionNavigation
     Questions::W2sController,
     Questions::AdditionalDocumentsController,
 
-    Questions::OverviewController, # TODO: remove this
+    Questions::WelcomeController, # TODO: remove this
   ].freeze
 
   class << self

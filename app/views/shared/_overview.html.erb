@@ -1,11 +1,11 @@
-<% content_for :page_title, @welcome_text %>
+<% content_for :page_title, @greeting_text %>
 
 <% content_for :main do %>
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <main role="main">
-          <h1 class="overview--title"><%= @welcome_text %></h1>
+          <h1 class="overview--title"><%= @greeting_text %></h1>
           <h2 class="overview--subtitle">
             <%= @overview_text %>
           </h2>

@@ -11,23 +11,25 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     is_returning_user = !is_new_user
     is_primary_but_expected_spouse = (@user == current_user && has_spouse_param)
 
-    return redirect_to(
-      spouse_identity_questions_path(missing_spouse: "true")
-    ) if is_primary_but_expected_spouse
+    if is_primary_but_expected_spouse
+      return redirect_to spouse_identity_questions_path(missing_spouse: "true")
+    end
+
+    if is_new_spouse
+      @user.is_spouse = true
+      @user.intake = current_user.intake
+      @user.save
+      return redirect_to welcome_spouse_questions_path
+    end
 
     if is_new_primary_user
       @user.intake = Intake.create
       @user.save
       sign_in @user, event: :authentication
-    elsif is_new_spouse
-      @user.is_spouse = true
-      @user.intake = current_user.intake
-      @user.save
     elsif is_returning_user
       sign_in @user, event: :authentication
     end
-
-    redirect_to overview_questions_path
+    redirect_to welcome_questions_path
   end
 
   def failure

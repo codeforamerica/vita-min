@@ -40,5 +40,9 @@ FactoryBot.define do
     uid { SecureRandom.hex }
     email { "gary.gardengnome@example.green" }
     intake
+
+    factory :spouse_user do
+      is_spouse { true }
+    end
   end
 end
