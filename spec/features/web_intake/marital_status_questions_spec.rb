@@ -5,11 +5,10 @@ RSpec.feature "Add a new intake case from the website" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
-
     # the ID.me flow would occur here. They should end up back on a success page.
     expect(page).to have_selector("h1", text: "Welcome Gary!")
-    click_on "Continue"
 
+    visit "/questions/married"
     expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
     click_on "No"
 
@@ -30,11 +29,10 @@ RSpec.feature "Add a new intake case from the website" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
-
     # the ID.me flow would occur here. They should end up back on a success page.
     expect(page).to have_selector("h1", text: "Welcome Gary!")
-    click_on "Continue"
 
+    visit "/questions/married"
     expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
     click_on "Yes"
 
