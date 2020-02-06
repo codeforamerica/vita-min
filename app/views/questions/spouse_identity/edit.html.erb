@@ -1,4 +1,13 @@
 <% content_for :page_title, "Spouse Identity" %>
+<% content_for :notices do %>
+  <% if @missing_spouse_notice.present? %>
+    <div class="notice--warning">
+      <p>
+        <%= @missing_spouse_notice %>
+      </p>
+    </div>
+  <% end %>
+<% end %>
 
 <% content_for :form_card do %>
   <div class="form-card">
