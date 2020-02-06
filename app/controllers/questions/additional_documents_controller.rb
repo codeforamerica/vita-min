@@ -1,24 +1,10 @@
 module Questions
-  class AdditionalDocumentsController < QuestionsController
-    layout "application"
+  class AdditionalDocumentsController < DocumentUploadQuestionController
 
-    def section_title
-      "Documents"
-    end
+    private
 
-    def edit
-      @documents = current_intake.documents.of_type("Other")
-      super
-    end
-
-    def update
-      @form = form_class.new(current_intake, form_params)
-      if @form.valid?
-        @form.save
-        update_session
-      end
-
-      redirect_to action: :edit
+    def document_type
+      "Other"
     end
   end
 end

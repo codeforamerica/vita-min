@@ -1,0 +1,73 @@
+<% content_for :page_title, (yield :form_question) %>
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <h3 class="section-title">
+          <%= image_tag("#{section_title.parameterize}.svg", alt: "") %>
+          <%= section_title %>
+        </h3>
+
+        <main role="main">
+          <h1 class="form-question">
+            <%= yield :form_question %>
+          </h1>
+          <p><%= yield :form_help_text %></p>
+
+          <%# uploaded documents %>
+          <% if @documents.present? %>
+            <ul class="doc-preview-container">
+              <% @documents.each do |document| %>
+
+                <li class="doc-preview">
+                  <div class="doc-preview__thumb">
+                    <% if document.upload.representable? %>
+                      <%= image_tag document.upload.representation(resize: "140x140"), alt: "" %>
+                    <% else %>
+                      <%= image_tag "documents.svg", alt: "" %>
+                    <% end %>
+                  </div>
+                  <div class="doc-preview__info">
+                    <h2 class="h3 doc-preview__filename"><%= document.upload.filename %></h2>
+                    <%= link_to(document_path(document, return_path: current_path), method: :delete, class: "link--delete", data: { confirm: "Are you sure you want to remove \"#{document.upload.filename}\"?" }) do %>
+                      Remove
+                    <% end %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+
+          <%# document upload form %>
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
+            <div class="document-upload">
+              <div class="file-upload">
+                <%= f.file_field(:document, class: "form__documentuploader file-input file-upload__input", data: { "upload-immediately" => true}) %>
+                <%= f.label(:document, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
+                  <span class="is-tablet-hidden--inline">
+                    <%= image_tag "upload.svg", alt: "" %>
+                    Select a file
+                  </span>
+                  <span class="is-desktop-hidden--inline">
+                    <%= image_tag "camera.svg", alt: "" %>
+                    Take a picture
+                  </span>
+                <% end %>
+              </div>
+            </div>
+            <%= f.button class: "button button--primary" do %>
+              Upload
+            <% end %>
+          <% end %>
+
+          <%= link_to next_path, class: "button button--wide button--icon button--primary" do %>
+            <%= image_tag "checkmark--white.svg", alt: "" %>
+            Done with this step
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<%= render template: "layouts/application" %>
