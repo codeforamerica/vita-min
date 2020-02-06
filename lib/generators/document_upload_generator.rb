@@ -16,7 +16,7 @@ class DocumentUploadGenerator < Rails::Generators::Base
 
     puts "\n\u{2728} Done generating the #{options.document_type.inspect} document upload!"
     puts "\u{1F6A8} Be sure to:"
-    puts "   1. Add Questions::#{@controller_name} in `question_navigation.rb`"
+    puts "   1. Add `Questions::#{@controller_name}` in `app/forms/question_navigation.rb`"
     puts "   2. Add #{options.document_type.inspect} in `app/models/document.rb` DOCUMENT_TYPES array."
   end
 
