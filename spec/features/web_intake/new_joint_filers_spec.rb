@@ -1,7 +1,43 @@
 require "rails_helper"
 
-RSpec.feature "Add a new intake case from the website" do
-  scenario "new client filing single" do
+RSpec.feature "Web Intake Joint Filers" do
+  let(:spouse_auth_hash) do
+    OmniAuth::AuthHash.new({
+      provider: "idme",
+      uid: "54321",
+      info: {
+        first_name: "Greta",
+        last_name: "Gnome",
+        name: "Greta Gnome",
+        email: "greta.gardengnome@example.com",
+        social: "555443333",
+        phone: "15553332222",
+        birth_date: "1990-09-04",
+        age: 800,
+        location: "Passaic Park, New Jersey",
+        street: "1234 Green St",
+        city: "Passaic Park",
+        state: "New Jersey",
+        zip: "22233",
+        group: "identity",
+        subgroups: ["IAL2"],
+        verified: true,
+      },
+      credentials: {
+        token: "mock_token",
+        secret: "mock_secret"
+      }
+    })
+  end
+
+  before do
+    # see note below about skipping redirects
+    allow_any_instance_of(Users::SessionsController).to receive(:idme_logout).and_return(
+      user_idme_omniauth_callback_path(spouse: "true")
+    )
+  end
+
+  scenario "new client filing joint taxes with spouse" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
@@ -11,13 +47,34 @@ RSpec.feature "Add a new intake case from the website" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "Were you married for all of 2019?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "Did you live with your spouse during any part of the last six months of 2019?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "Are you legally separated?")
     click_on "No"
 
-    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you divorced?")
-    click_on "No"
+    expect(page).to have_selector("h1", text: "Are you filing joint taxes with your spouse?")
+    click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you widowed?")
-    click_on "No"
+    expect(page).to have_selector("h1", text: "Spouse Identity")
+
+    OmniAuth.config.mock_auth[:idme] = spouse_auth_hash
+    # The following click would trigger a series of redirects
+    # To simplify this feature spec, we stub out the initial request
+    # in order to skip to the final redirect. We skip from step 1 to step 4.
+    # Full sequences of steps
+    #   1. delete destroy_idme_session_path --> redirect to external Id.me signout
+    #   2. get external ID.me signout --> redirect to omniauth_failure_path(logout: "primary")
+    #   3. get omniauth_failure_path(logout: "primary") --> redirect to external Id.me authorize
+    #   4. get external ID.me authorize --> user_idme_omniauth_callback_path(spouse: "true")
+    click_on "Sign in spouse with ID.me"
+    expect(page).to have_selector("h1", text: "Welcome Gary and Greta!")
+    click_on "Continue"
 
     select "3 jobs", from: "In 2019, how many jobs did you have?"
     click_on "Next"
@@ -159,33 +216,5 @@ RSpec.feature "Add a new intake case from the website" do
     expect(page).to have_content("test-pattern.png")
     click_on "Done with this step"
   end
-
-  scenario "new client filing joint taxes with spouse" do
-    visit "/questions/identity"
-    expect(page).to have_selector("h1", text: "Sign in")
-    click_on "Sign in with ID.me"
-
-    # the ID.me flow would occur here. They should end up back on a success page.
-    expect(page).to have_selector("h1", text: "Welcome Gary!")
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
-    click_on "Yes"
-
-    expect(page).to have_selector("h1", text: "Were you married for all of 2019?")
-    click_on "Yes"
-
-    expect(page).to have_selector("h1", text: "Did you live with your spouse during any part of the last six months of 2019?")
-    click_on "Yes"
-
-    expect(page).to have_selector("h1", text: "Are you legally separated?")
-    click_on "No"
-
-    expect(page).to have_selector("h1", text: "Are you filing joint taxes with your spouse?")
-    click_on "Yes"
-
-    expect(page).to have_selector("h1", text: "Spouse Identity")
-
-  #  add rest of questions with joint filing copy later
-  end
 end
+

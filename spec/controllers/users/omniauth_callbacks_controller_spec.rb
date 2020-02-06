@@ -16,12 +16,12 @@ RSpec.describe Users::OmniauthCallbacksController do
         allow(User).to receive(:from_omniauth).with(auth).and_return user
       end
 
-      it "creates user, signs them in, and redirects to the overview page" do
+      it "creates user, signs them in, and redirects to the welcome page" do
         expect {
           get :idme
         }.to change(User, :count).by(1)
         expect(subject.current_user).to eq user.reload
-        expect(response).to redirect_to(overview_questions_path)
+        expect(response).to redirect_to(welcome_questions_path)
       end
 
       it "creates a new intake and links the user to it" do
@@ -47,10 +47,10 @@ RSpec.describe Users::OmniauthCallbacksController do
         allow(User).to receive(:from_omniauth).with(auth).and_return user
       end
 
-      it "signs the user in, redirects them to the overview page" do
+      it "signs the user in, redirects them to the welcome page" do
         get :idme
         expect(subject.current_user).to eq user
-        expect(response).to redirect_to(overview_questions_path)
+        expect(response).to redirect_to(welcome_questions_path)
       end
 
       it "does not create a new intake" do
@@ -65,10 +65,10 @@ RSpec.describe Users::OmniauthCallbacksController do
       end
 
       context "when the returning user used a spouse registration link" do
-        it "signs the user in, redirects them to the overview page" do
+        it "signs the user in, redirects them to the welcome page" do
           get :idme, params: { spouse: "true" }
           expect(subject.current_user).to eq user
-          expect(response).to redirect_to(overview_questions_path)
+          expect(response).to redirect_to(welcome_questions_path)
         end
       end
     end
@@ -83,13 +83,13 @@ RSpec.describe Users::OmniauthCallbacksController do
         allow(User).to receive(:from_omniauth).with(auth).and_return spouse_user
       end
 
-      it "creates is_spouse user and redirects to the overview page, keeping primary signed in" do
+      it "creates is_spouse user and redirects to the welcome spouse page, keeping primary signed in" do
         expect {
           get :idme, params: { spouse: "true" }
         }.to change(User, :count).by(1)
         expect(spouse_user.reload.is_spouse).to eq true
         expect(subject.current_user).to eq primary_user
-        expect(response).to redirect_to(overview_questions_path)
+        expect(response).to redirect_to(welcome_spouse_questions_path)
       end
 
       it "links spouse user to primary user's intake" do

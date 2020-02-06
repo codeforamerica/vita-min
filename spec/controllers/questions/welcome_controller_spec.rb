@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Questions::OverviewController do
+RSpec.describe Questions::WelcomeController do
   describe "#edit" do
     let(:user) { create :user, sign_in_count: sign_in_count, first_name: "Marmot" }
 
@@ -14,7 +14,7 @@ RSpec.describe Questions::OverviewController do
       it "returns the correct copy" do
         get :edit
 
-        expect(assigns(:welcome_text)).to eq "Welcome Marmot!"
+        expect(assigns(:greeting_text)).to eq "Welcome Marmot!"
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Questions::OverviewController do
       it "returns the correct copy" do
         get :edit
 
-        expect(assigns(:welcome_text)).to eq "Welcome back Marmot!"
+        expect(assigns(:greeting_text)).to eq "Welcome back Marmot!"
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe Questions::OverviewController do
       it "returns both names" do
         get :edit
 
-        expect(assigns(:welcome_text)).to eq "Welcome Marmot and Meerkat!"
+        expect(assigns(:greeting_text)).to eq "Welcome Marmot and Meerkat!"
       end
     end
   end
