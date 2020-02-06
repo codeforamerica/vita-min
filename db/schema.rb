@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_05_003011) do
+ActiveRecord::Schema.define(version: 2020_02_06_191113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,8 @@ ActiveRecord::Schema.define(version: 2020_02_05_003011) do
     t.integer "widowed", default: 0, null: false
     t.string "widowed_year"
     t.integer "filing_joint", default: 0, null: false
+    t.string "source"
+    t.string "referrer"
   end
 
   create_table "users", force: :cascade do |t|

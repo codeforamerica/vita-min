@@ -23,7 +23,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     if is_new_primary_user
-      @user.intake = Intake.create
+      @user.intake = Intake.create(source: source, referrer: referrer)
       @user.save
       sign_in @user, event: :authentication
     elsif is_returning_user

@@ -46,11 +46,13 @@
 #  received_alimony              :integer          default("unfilled"), not null
 #  received_homebuyer_credit     :integer          default("unfilled"), not null
 #  received_irs_letter           :integer          default("unfilled"), not null
+#  referrer                      :string
 #  reported_asset_sale_loss      :integer          default("unfilled"), not null
 #  reported_self_employment_loss :integer          default("unfilled"), not null
 #  separated                     :integer          default("unfilled"), not null
 #  separated_year                :string
 #  sold_a_home                   :integer          default("unfilled"), not null
+#  source                        :string
 #  widowed                       :integer          default("unfilled"), not null
 #  widowed_year                  :string
 #  created_at                    :datetime

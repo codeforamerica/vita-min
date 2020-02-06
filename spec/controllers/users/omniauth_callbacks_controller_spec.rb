@@ -14,6 +14,8 @@ RSpec.describe Users::OmniauthCallbacksController do
 
       before do
         allow(User).to receive(:from_omniauth).with(auth).and_return user
+        session[:source] = "source_from_session"
+        session[:referrer] = "referrer_from_session"
       end
 
       it "creates user, signs them in, and redirects to the welcome page" do
@@ -32,6 +34,8 @@ RSpec.describe Users::OmniauthCallbacksController do
         intake = Intake.last
         expect(subject.current_intake).to eq intake
         expect(subject.current_intake).to eq user.reload.intake
+        expect(intake.source).to eq "source_from_session"
+        expect(intake.referrer).to eq "referrer_from_session"
       end
 
       it "increments user sign_in_count to 1" do
