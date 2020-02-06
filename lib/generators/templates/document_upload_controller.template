@@ -1,24 +1,13 @@
+# frozen_string_literal: true
+
 module Questions
-  class <%= @controller_name %> < QuestionsController
-    layout "document_upload"
+  # Handles user uploads for Form <%= @options.document_type %>'s
+  class <%= @controller_name %> < DocumentUploadQuestionController
 
-    def section_title
-      "Documents"
-    end
+    private
 
-    def edit
-      @documents = current_intake.documents.of_type(<%= options.document_type.inspect %>)
-      super
-    end
-
-    def update
-      @form = form_class.new(current_intake, form_params)
-      if @form.valid?
-        @form.save
-        update_session
-      end
-
-      redirect_to action: :edit
+    def document_type
+      <%= options.document_type.inspect %>
     end
   end
 end

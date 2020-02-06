@@ -1,3 +1,4 @@
+<% content_for :page_title, (yield :form_question) %>
 <% content_for :main do %>
   <section class="slab slab--white">
     <div class="grid">
@@ -8,7 +9,6 @@
         </h3>
 
         <main role="main">
-
           <h1 class="form-question">
             <%= yield :form_question %>
           </h1>
