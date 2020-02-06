@@ -120,6 +120,10 @@ ActiveRecord::Schema.define(version: 2020_02_06_191113) do
     t.integer "filing_joint", default: 0, null: false
     t.string "source"
     t.string "referrer"
+    t.string "street_address"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
   end
 
   create_table "users", force: :cascade do |t|
