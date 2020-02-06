@@ -6,6 +6,7 @@
 #  additional_info               :string
 #  adopted_child                 :integer          default("unfilled"), not null
 #  bought_health_insurance       :integer          default("unfilled"), not null
+#  city                          :string
 #  divorced                      :integer          default("unfilled"), not null
 #  divorced_year                 :string
 #  filing_joint                  :integer          default("unfilled"), not null
@@ -53,8 +54,11 @@
 #  separated_year                :string
 #  sold_a_home                   :integer          default("unfilled"), not null
 #  source                        :string
+#  state                         :string
+#  street_address                :string
 #  widowed                       :integer          default("unfilled"), not null
 #  widowed_year                  :string
+#  zip_code                      :string
 #  created_at                    :datetime
 #  updated_at                    :datetime
 #

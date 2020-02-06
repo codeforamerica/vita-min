@@ -3,6 +3,7 @@ class QuestionNavigation
     # Personal Information
     Questions::IdentityController,
     Questions::WelcomeController,
+    Questions::MailingAddressController,
 
     # Marital Status
     Questions::MarriedController,

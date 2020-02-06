@@ -46,6 +46,14 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Welcome Gary!")
     click_on "Continue"
 
+    # Personal Information
+    expect(page).to have_text("We'll send your final tax return to this address")
+    fill_in "Mailing Address", with: "123 Main St."
+    fill_in "City", with: "Anytown"
+    select "California", from: "State"
+    fill_in "ZIP Code", with: "94612"
+    click_on "Confirm"
+
     expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
     click_on "Yes"
 
