@@ -46,11 +46,13 @@
 #  received_alimony              :integer          default("unfilled"), not null
 #  received_homebuyer_credit     :integer          default("unfilled"), not null
 #  received_irs_letter           :integer          default("unfilled"), not null
+#  referrer                      :string
 #  reported_asset_sale_loss      :integer          default("unfilled"), not null
 #  reported_self_employment_loss :integer          default("unfilled"), not null
 #  separated                     :integer          default("unfilled"), not null
 #  separated_year                :string
 #  sold_a_home                   :integer          default("unfilled"), not null
+#  source                        :string
 #  widowed                       :integer          default("unfilled"), not null
 #  widowed_year                  :string
 #  created_at                    :datetime
@@ -99,6 +101,26 @@ describe Intake do
       let!(:spouse_user) { create :user, first_name: "Porcupine", is_spouse: true, intake: intake }
       it "returns first name of primary and first name of spouse" do
         expect(intake.greeting_name).to eq "Porpoise and Porcupine"
+      end
+    end
+  end
+
+  describe "#referrer_domain" do
+    let(:intake) { build :intake, referrer: referrer }
+
+    context "with a referrer" do
+      let(:referrer) { "https://www.google.com/some/stuffs?id=whocares" }
+
+      it "returns the domain from the referrer" do
+        expect(intake.referrer_domain).to eq "www.google.com"
+      end
+    end
+
+    context "with no referrer" do
+      let(:referrer) { nil }
+
+      it "returns the domain from the referrer" do
+        expect(intake.referrer_domain).to be_nil
       end
     end
   end

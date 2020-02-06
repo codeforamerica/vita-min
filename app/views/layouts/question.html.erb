@@ -2,6 +2,7 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
+        <%= yield :notices %>
         <h3 class="section-title">
           <%= image_tag("#{section_title.parameterize}.svg", alt: "") %>
           <%= section_title %>

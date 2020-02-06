@@ -169,6 +169,9 @@ RSpec.describe ApplicationController do
         sign_in_count: nil,
         current_sign_in_at: nil,
         last_sign_in_at: nil,
+        intake_source: nil,
+        intake_referrer: nil,
+        intake_referrer_domain: nil,
       }
       expect(mixpanel_spy).to have_received(:run).with(
         unique_id: "123",
@@ -183,13 +186,12 @@ RSpec.describe ApplicationController do
       it "sends nothing to mixpanel" do
         get :index
 
-        subject.send_mixpanel_event(event_name: "beep")
         expect(mixpanel_spy).not_to have_received(:run)
       end
     end
 
     context "as a logged in user" do
-      let(:user) { create(:user) }
+      let(:user) { create :user }
 
       before do
         allow(subject).to receive(:current_user).and_return(user)
@@ -198,18 +200,38 @@ RSpec.describe ApplicationController do
       it "sends fields related to that user" do
         get :index
 
-        subject.send_mixpanel_event(event_name: "doop")
-
         expect(mixpanel_spy).to have_received(:run)
           .with(
             unique_id: "123",
-            event_name: "doop",
+            event_name: "page_view",
             data: hash_including(
               sign_in_count: user.sign_in_count,
               current_sign_in_at: user.current_sign_in_at,
               last_sign_in_at: user.last_sign_in_at,
             )
           )
+      end
+    end
+
+    context "with a current intake" do
+      let(:intake) { build :intake, source: "horse-ad-campaign-26", referrer: "http://coolwebsite.horse/tax-help/vita" }
+
+      before do
+        allow(subject).to receive(:current_intake).and_return(intake)
+      end
+
+      it "sends fields about the intake" do
+        get :index
+
+        expect(mixpanel_spy).to have_received(:run).with(
+          unique_id: "123",
+          event_name: "page_view",
+          data: hash_including(
+            intake_source: "horse-ad-campaign-26",
+            intake_referrer: "http://coolwebsite.horse/tax-help/vita",
+            intake_referrer_domain: "coolwebsite.horse",
+          )
+        )
       end
     end
   end

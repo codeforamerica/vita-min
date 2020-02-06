@@ -80,6 +80,9 @@ class ApplicationController < ActionController::Base
       sign_in_count: current_user&.sign_in_count,
       current_sign_in_at: current_user&.current_sign_in_at,
       last_sign_in_at: current_user&.last_sign_in_at,
+      intake_source: current_intake&.source,
+      intake_referrer: current_intake&.referrer,
+      intake_referrer_domain: current_intake&.referrer_domain,
     }
     MixpanelService.instance.run(
       unique_id: visitor_id,
