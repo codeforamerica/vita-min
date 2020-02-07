@@ -18,6 +18,11 @@ RSpec.feature "Web Intake Single Filer" do
     fill_in "ZIP Code", with: "94612"
     click_on "Confirm"
 
+    expect(page).to have_text("How may we contact you about your taxes?")
+    check "Email Notifications"
+    check "SMS Notifications"
+    click_on "Continue"
+
     expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
     click_on "No"
 
