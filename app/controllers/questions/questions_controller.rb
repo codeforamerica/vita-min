@@ -20,9 +20,11 @@ module Questions
       @form = form_class.new(current_intake, form_params)
       if @form.valid?
         @form.save
+        track_question_answer
         update_session
         redirect_to(next_path)
       else
+        track_validation_error
         render :edit
       end
     end
@@ -63,6 +65,19 @@ module Questions
       @form_navigation ||= QuestionNavigation.new(self)
     end
 
+    def track_question_answer
+      send_mixpanel_event(event_name: "question_answered", data: custom_tracking_data)
+    end
+
+    def track_validation_error
+      invalid_field_flags = @form.errors.keys.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
+      tracking_data = invalid_field_flags.merge(custom_tracking_data)
+      send_mixpanel_event(event_name: "validation_error", data: tracking_data)
+    end
+
+    def custom_tracking_data
+      {}
+    end
 
     class << self
       def to_param

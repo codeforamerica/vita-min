@@ -8,6 +8,7 @@ RSpec.describe Questions::NotificationPreferenceController do
 
   before do
     allow(subject).to receive(:current_user).and_return(user)
+    allow(subject).to receive(:send_mixpanel_event)
   end
 
   describe "#edit" do
@@ -37,6 +38,18 @@ RSpec.describe Questions::NotificationPreferenceController do
         user.reload
         expect(user.sms_notification_opt_in).to eq("no")
         expect(user.email_notification_opt_in).to eq("yes")
+      end
+
+      it "sends an event to mixpanel with relevant data" do
+        post :update, params: params
+
+        expect(subject).to have_received(:send_mixpanel_event).with(
+          event_name: "question_answered",
+          data: {
+            email_notification_opt_in: "yes",
+            sms_notification_opt_in: "no",
+          }
+        )
       end
     end
   end

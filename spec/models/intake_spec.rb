@@ -155,4 +155,42 @@ describe Intake do
       end
     end
   end
+
+  describe "#address_matches_primary_user_address?" do
+    let(:first_address) do
+      {
+        street_address: "123 Main St.",
+        city: "Oaktown",
+        state: "CA",
+        zip_code: "94609",
+      }
+    end
+
+    let(:second_address) do
+      {
+        street_address: "321 Side St.",
+        city: "Oakland",
+        state: "CA",
+        zip_code: "94609",
+      }
+    end
+
+    let(:intake) { create :intake, **first_address }
+
+    context "when the addresses match" do
+      let!(:user) { create :user, intake: intake, **first_address, state: "ca" }
+
+      it "returns true" do
+        expect(intake.address_matches_primary_user_address?).to eq true
+      end
+    end
+
+    context "when the addresses don't match" do
+      let!(:user) { create :user, intake: intake, **second_address }
+
+      it "returns false" do
+        expect(intake.address_matches_primary_user_address?).to eq false
+      end
+    end
+  end
 end

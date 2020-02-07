@@ -7,5 +7,9 @@ module Questions
     end
 
     def illustration_path; end
+
+    def custom_tracking_data
+      @form.attributes_for(:user)
+    end
   end
 end
