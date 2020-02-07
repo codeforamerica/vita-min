@@ -71,9 +71,18 @@
 }
 
 .form-card__stacked-checkboxes {
-  margin: 4rem 0;
+  margin: 6rem 0;
 
   .form-group {
     margin-bottom: 1rem;
+  }
+}
+
+.form-card--long {
+  .form-group {
+    margin-bottom: 2.5rem;
+  }
+  .form-card__content {
+    margin-bottom: 6rem;
   }
 }

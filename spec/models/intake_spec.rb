@@ -91,6 +91,33 @@ describe Intake do
     end
   end
 
+  describe "#primary_user" do
+    let(:intake) { create :intake }
+
+    context "with no user" do
+      it "returns nil" do
+        expect(intake.primary_user).to be_nil
+      end
+    end
+
+    context "with a couple filing jointly" do
+      let!(:primary) { create :user, intake: intake }
+      let!(:spouse) { create :spouse_user, intake: intake }
+
+      it "returns the first non-spouse user" do
+        expect(intake.primary_user).to eq primary
+      end
+    end
+
+    context "with one user" do
+      let!(:primary) { create :user, intake: intake }
+
+      it "returns that one user" do
+        expect(intake.primary_user).to eq primary
+      end
+    end
+  end
+
   describe "#greeting_name" do
     let(:intake) { create :intake }
     let!(:primary_user) { create :user, first_name: "Porpoise", intake: intake}

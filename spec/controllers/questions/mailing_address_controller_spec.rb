@@ -70,5 +70,24 @@ RSpec.describe Questions::MailingAddressController do
           .to("30 Giraffe Terrace")
       end
     end
+
+    context "with invalid params" do
+      let(:params) do
+        {
+          mailing_address_form: {
+            street_address: "30 Giraffe Terrace",
+            state: "CA",
+            zip_code: "2233"
+          }
+        }
+      end
+
+      it "shows validation errors" do
+        post :update, params: params
+
+        expect(response.body).to include("Can't be blank.")
+        expect(response.body).to include("Please enter a valid 5-digit zip code.")
+      end
+    end
   end
 end

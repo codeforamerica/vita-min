@@ -41,7 +41,7 @@ RSpec.describe VitaProvidersController do
         get :index, params: params
 
         expect(assigns(:providers)).to eq []
-        expect(assigns(:provider_search_form).errors.messages[:zip]).to include "Please enter a valid 5 digit zip code."
+        expect(assigns(:provider_search_form).errors.messages[:zip]).to include "Please enter a valid 5-digit zip code."
       end
 
       it "sends provider_search_bad_zip event to mixpanel" do

@@ -23,7 +23,7 @@ RSpec.describe Questions::NotificationPreferenceController do
         {
           notification_preference_form: {
             email_notification_opt_in: "yes",
-            sms_notification_opt_in: "yes",
+            sms_notification_opt_in: "no",
           }
         }
       end
@@ -35,7 +35,7 @@ RSpec.describe Questions::NotificationPreferenceController do
         post :update, params: params
 
         user.reload
-        expect(user.sms_notification_opt_in).to eq("yes")
+        expect(user.sms_notification_opt_in).to eq("no")
         expect(user.email_notification_opt_in).to eq("yes")
       end
     end
