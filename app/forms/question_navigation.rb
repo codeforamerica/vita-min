@@ -4,6 +4,7 @@ class QuestionNavigation
     Questions::IdentityController,
     Questions::WelcomeController,
     Questions::MailingAddressController,
+    Questions::NotificationPreferenceController,
 
     # Marital Status
     Questions::MarriedController,
