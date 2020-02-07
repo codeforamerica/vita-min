@@ -112,6 +112,10 @@ class Intake < ApplicationRecord
   enum sold_a_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sold_a_home
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
 
+  def primary_user
+    users.where.not(is_spouse: true).first
+  end
+
   def pdf
     IntakePdf.new(self).output_file
   end
