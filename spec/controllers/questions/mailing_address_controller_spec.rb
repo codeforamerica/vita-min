@@ -16,6 +16,7 @@ RSpec.describe Questions::MailingAddressController do
 
   before do
     allow(subject).to receive(:current_user).and_return(user)
+    allow(subject).to receive(:send_mixpanel_event)
   end
 
   describe "#edit" do
@@ -69,6 +70,17 @@ RSpec.describe Questions::MailingAddressController do
           .from(nil)
           .to("30 Giraffe Terrace")
       end
+
+      it "sends an event to mixpanel with relevant data" do
+        post :update, params: params
+
+        expect(subject).to have_received(:send_mixpanel_event).with(
+          event_name: "question_answered",
+          data: {
+            mailing_address_same_as_idme_address: false,
+          }
+        )
+      end
     end
 
     context "with invalid params" do
@@ -87,6 +99,19 @@ RSpec.describe Questions::MailingAddressController do
 
         expect(response.body).to include("Can't be blank.")
         expect(response.body).to include("Please enter a valid 5-digit zip code.")
+      end
+
+      it "sends an event to mixpanel with relevant data" do
+        post :update, params: params
+
+        expect(subject).to have_received(:send_mixpanel_event).with(
+          event_name: "validation_error",
+          data: {
+            mailing_address_same_as_idme_address: false,
+            invalid_zip_code: true,
+            invalid_city: true
+          }
+        )
       end
     end
   end

@@ -127,4 +127,11 @@ class Intake < ApplicationRecord
   def referrer_domain
     URI.parse(referrer).host if referrer.present?
   end
+
+  def address_matches_primary_user_address?
+    primary_user.street_address&.downcase == street_address&.downcase &&
+      primary_user.city&.downcase == city&.downcase &&
+      primary_user.state&.downcase == state&.downcase &&
+      primary_user.zip_code == zip_code
+  end
 end
