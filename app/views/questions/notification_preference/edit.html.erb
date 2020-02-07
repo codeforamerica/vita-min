@@ -2,7 +2,7 @@
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
-    <h2>How may we contact you about your taxes?</h2>
+    <h1 class="h2">How may we contact you about your taxes?</h1>
 
     <p>We will need to contact you with some updates on the status of your form or if any questions arise. We will not share your information with any outside parties.</p>
 
@@ -15,7 +15,7 @@
     <p>
       <strong>Phone Number:</strong>
       <br>
-      <%= current_user.phone_number %>
+      <%= Phonelib.parse(current_user.phone_number).local_number %>
     </p>
 
     <div class="form-card__stacked-checkboxes">

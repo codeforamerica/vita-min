@@ -11,11 +11,11 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Continue"
 
     # Personal Information
-    expect(page).to have_text("We'll send your final tax return to this address")
-    fill_in "Mailing Address", with: "123 Main St."
+    expect(page).to have_text("What is your mailing address?")
+    fill_in "Street address", with: "123 Main St."
     fill_in "City", with: "Anytown"
     select "California", from: "State"
-    fill_in "ZIP Code", with: "94612"
+    fill_in "ZIP code", with: "94612"
     click_on "Confirm"
 
     expect(page).to have_text("How may we contact you about your taxes?")
