@@ -58,4 +58,15 @@ class User < ApplicationRecord
       user.zip_code = auth.info.zip_code
     end
   end
+
+  def contact_info_filtered_by_preferences
+    contact_info = {}
+    contact_info[:phone_number] = phone_number if sms_notification_opt_in_yes?
+    contact_info[:email] = email if email_notification_opt_in_yes?
+    contact_info
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

@@ -1,65 +1,24 @@
 class ZendeskDropOffService
+  include ZendeskServiceHelper
   include ActiveStorage::Downloading
 
   # Group IDs
-  TAX_HELP_COLORADO = "360007047214"
-  GOODWILL_SOUTHERN_RIVERS = "360007941454"
-  UNITED_WAY_BAY_AREA = "360007047234"
   ORGANIZATION_GROUP_IDS = {
     "thc" => TAX_HELP_COLORADO,
     "gwisr" => GOODWILL_SOUTHERN_RIVERS,
     "uwba" => UNITED_WAY_BAY_AREA
   }.freeze
 
-  # custom field id codes
-  CERTIFICATION_LEVEL = "360028917234"
-  INTAKE_SITE = "360028917374"
-  STATE = "360028917614"
-  INTAKE_STATUS = "360029025294"
-  SIGNATURE_METHOD = "360029896814"
-  HSA = "360031865033"
-  TIMEZONE_MAP = {
-    "America/Adak" => "Alaska",
-    "America/Anchorage" => "Alaska",
-    "America/Boise" => "Mountain Time (US & Canada)",
-    "America/Chicago" => "Central Time (US & Canada)",
-    "America/Denver" => "Mountain Time (US & Canada)",
-    "America/Detroit" => "Eastern Time (US & Canada)",
-    "America/Indiana/Indianapolis" => "Eastern Time (US & Canada)",
-    "America/Indiana/Knox" => "Central Time (US & Canada)",
-    "America/Indiana/Marengo" => "Eastern Time (US & Canada)",
-    "America/Indiana/Petersburg" => "Eastern Time (US & Canada)",
-    "America/Indiana/Tell_City" => "Central Time (US & Canada)",
-    "America/Indiana/Vevay" => "Eastern Time (US & Canada)",
-    "America/Indiana/Vincennes" => "Eastern Time (US & Canada)",
-    "America/Indiana/Winamac" => "Eastern Time (US & Canada)",
-    "America/Juneau" => "Alaska",
-    "America/Kentucky/Louisville" => "Eastern Time (US & Canada)",
-    "America/Kentucky/Monticello" => "Eastern Time (US & Canada)",
-    "America/Los_Angeles" => "Pacific Time (US & Canada)",
-    "America/Menominee" => "Central Time (US & Canada)",
-    "America/Metlakatla" => "Alaska",
-    "America/New_York" => "Eastern Time (US & Canada)",
-    "America/Nome" => "Alaska",
-    "America/North_Dakota/Beulah" => "Central Time (US & Canada)",
-    "America/North_Dakota/Center" => "Central Time (US & Canada)",
-    "America/North_Dakota/New_Salem" => "Central Time (US & Canada)",
-    "America/Phoenix" => "Arizona",
-    "America/Sitka" => "Alaska",
-    "America/Yakutat" => "Alaska",
-    "Pacific/Honolulu" => "Hawaii",
-  }
-
   def initialize(drop_off)
     @drop_off = drop_off
   end
 
   def create_ticket
-    zendesk_user = find_or_create_end_user(@drop_off.name, @drop_off.email, @drop_off.phone_number)
+    zendesk_user_id = find_or_create_end_user(@drop_off.name, @drop_off.email, @drop_off.phone_number)
     ticket = ZendeskAPI::Ticket.new(
       client,
       subject: @drop_off.name,
-      requester_id: zendesk_user.id,
+      requester_id: zendesk_user_id,
       group_id: group_id,
       comment: { body: comment_body },
       fields: [
@@ -82,29 +41,6 @@ class ZendeskDropOffService
     ticket.comment = { body: comment_body }
 
     attach_file_and_save_ticket(ticket)
-  end
-
-  def search_zendesk_users(query_string)
-    client.users.search(query: query_string).to_a
-  end
-
-  def find_end_user(name, email, phone)
-    if email.present?
-      email_matches = search_zendesk_users("email:#{email}")
-      return email_matches.first if email_matches.present?
-    end
-
-    search_string = "name:\"#{name}\""
-    search_string += " phone:#{phone}" if phone.present?
-    results = search_zendesk_users(search_string)
-    results.first
-  end
-
-  def find_or_create_end_user(name, email, phone)
-    user = find_end_user(name, email, phone)
-    return user if user.present?
-
-    client.users.create(name: name, email: email, phone: phone, verified: true, time_zone: zendesk_timezone)
   end
 
   def comment_body
@@ -141,14 +77,6 @@ class ZendeskDropOffService
 
   def zendesk_timezone
     TIMEZONE_MAP.fetch(@drop_off.timezone, "Mountain Time (US & Canada)")
-  end
-
-  def client
-    @client ||= ZendeskAPI::Client.new do |config|
-      config.url = "https://#{Rails.application.credentials.dig(:zendesk, :url)}/api/v2"
-      config.username = Rails.application.credentials.dig(:zendesk, :account_email)
-      config.token = Rails.application.credentials.dig(:zendesk, :api_key)
-    end
   end
 
   def intake_site_tag
