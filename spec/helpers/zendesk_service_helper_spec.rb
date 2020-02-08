@@ -14,6 +14,7 @@ RSpec.describe ZendeskServiceHelper do
 
   before do
     allow(ZendeskAPI::Client).to receive(:new).and_return(fake_zendesk_client)
+    allow(ZendeskAPI::Ticket).to receive(:new).and_return(fake_zendesk_ticket)
   end
 
   describe "#find_end_user" do
@@ -121,6 +122,66 @@ RSpec.describe ZendeskServiceHelper do
           time_zone: nil
         )
       end
+    end
+  end
+
+  describe "#build_ticket" do
+    let(:ticket_args) do
+      {
+        subject: "wyd",
+        requester_id: 4,
+        group_id: "123409218",
+        body: "What's up?",
+        fields: {
+          "09182374" => "not_busy"
+        }
+      }
+    end
+
+    it "correctly calls the Zendesk API and returns a ticket object" do
+      result = service.build_ticket(**ticket_args)
+
+      expect(result).to eq fake_zendesk_ticket
+      expect(ZendeskAPI::Ticket).to have_received(:new).with(
+        fake_zendesk_client,
+        {
+          subject: "wyd",
+          requester_id: 4,
+          group_id: "123409218",
+          comment: {
+            body: "What's up?",
+          },
+          fields: [
+            "09182374" => "not_busy"
+          ]
+        }
+      )
+    end
+  end
+
+  describe "create_ticket" do
+    let(:ticket_args) do
+      {
+        subject: "wyd",
+        requester_id: 4,
+        group_id: "123409218",
+        body: "What's up?",
+        fields: {
+          "09182374" => "not_busy"
+        }
+      }
+    end
+
+    before do
+      allow(service).to receive(:build_ticket).and_return(fake_zendesk_ticket)
+      allow(fake_zendesk_ticket).to receive(:save)
+    end
+
+    it "calls build_ticket, saves the ticket, and returns the ticket id" do
+      result = service.create_ticket(**ticket_args)
+      expect(result).to eq 2
+      expect(fake_zendesk_ticket).to have_received(:save).with(no_args)
+      expect(service).to have_received(:build_ticket).with(**ticket_args)
     end
   end
 end
