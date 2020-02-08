@@ -1,4 +1,10 @@
 module ZendeskServiceHelper
+  # online intake group ids
+  ONLINE_INTAKE_GWISR = "360008424134"
+  ONLINE_INTAKE_THC_UWBA = "360008424114"
+  ONLINE_INTAKE_UW_TUCSON = "360008416353"
+
+  # partner group ids
   TAX_HELP_COLORADO = "360007047214"
   GOODWILL_SOUTHERN_RIVERS = "360007941454"
   UNITED_WAY_BAY_AREA = "360007047234"
@@ -83,4 +89,30 @@ module ZendeskServiceHelper
     result = create_end_user(name: name, email: email, phone: phone, time_zone: time_zone)
     result.id if result.present?
   end
+
+  def build_ticket(subject:, requester_id:, group_id:, body:, fields: {})
+    ZendeskAPI::Ticket.new(
+      client,
+      subject: subject,
+      requester_id: requester_id,
+      group_id: group_id,
+      comment: { body: body },
+      fields: [fields]
+    )
+  end
+
+  def create_ticket(subject:, requester_id:, group_id:, body:, fields: {})
+    ticket = build_ticket(
+      subject: subject,
+      requester_id: requester_id,
+      group_id: group_id,
+      body: body,
+      fields: fields
+    )
+    ticket.save
+    ticket.id
+  end
+
+  class ZendeskServiceError < StandardError; end
+  class MissingRequesterIdError < ZendeskServiceError; end
 end

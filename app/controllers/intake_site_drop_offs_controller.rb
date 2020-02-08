@@ -23,7 +23,7 @@ class IntakeSiteDropOffsController < ApplicationController
         ZendeskDropOffService.new(@drop_off).append_to_existing_ticket
         track_append_to_drop_off
       else
-        zendesk_ticket_id = ZendeskDropOffService.new(@drop_off).create_ticket
+        zendesk_ticket_id = ZendeskDropOffService.new(@drop_off).create_ticket_and_attach_file
         @drop_off.update(zendesk_ticket_id: zendesk_ticket_id)
         track_create_drop_off
       end
