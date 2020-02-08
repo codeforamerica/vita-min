@@ -13,24 +13,21 @@ class ZendeskDropOffService
     @drop_off = drop_off
   end
 
-  def create_ticket
+  def create_ticket_and_attach_file
     zendesk_user_id = find_or_create_end_user(@drop_off.name, @drop_off.email, @drop_off.phone_number)
-    ticket = ZendeskAPI::Ticket.new(
-      client,
+    ticket = build_ticket(
       subject: @drop_off.name,
       requester_id: zendesk_user_id,
       group_id: group_id,
-      comment: { body: comment_body },
-      fields: [
-        {
+      body: comment_body,
+      fields: {
           CERTIFICATION_LEVEL => @drop_off.certification_level,
           HSA => @drop_off.hsa,
           INTAKE_SITE => intake_site_tag,
           STATE => @drop_off.state,
           INTAKE_STATUS => "3._ready_for_prep",
           SIGNATURE_METHOD => @drop_off.signature_method
-        },
-      ]
+      }
     )
     attach_file_and_save_ticket(ticket)
     return ticket.id

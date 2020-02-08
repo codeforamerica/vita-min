@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe IntakeSiteDropOffsController do
   let(:ticket_id) { '23' }
   let(:zendesk_drop_off_service_spy) do
-    instance_double(ZendeskDropOffService, create_ticket: ticket_id, append_to_existing_ticket: true)
+    instance_double(ZendeskDropOffService, create_ticket_and_attach_file: ticket_id, append_to_existing_ticket: true)
   end
 
   before do
@@ -118,7 +118,7 @@ RSpec.describe IntakeSiteDropOffsController do
             drop_off = IntakeSiteDropOff.last
 
             expect(ZendeskDropOffService).to have_received(:new).with(drop_off)
-            expect(zendesk_drop_off_service_spy).to have_received(:create_ticket)
+            expect(zendesk_drop_off_service_spy).to have_received(:create_ticket_and_attach_file)
             expect(drop_off.zendesk_ticket_id).to eq ticket_id
             expect(response).to redirect_to show_drop_off_path(id: drop_off.id)
           end
@@ -195,7 +195,7 @@ RSpec.describe IntakeSiteDropOffsController do
             drop_off = IntakeSiteDropOff.last
 
             expect(ZendeskDropOffService).to have_received(:new).with(drop_off)
-            expect(zendesk_drop_off_service_spy).to have_received(:create_ticket)
+            expect(zendesk_drop_off_service_spy).to have_received(:create_ticket_and_attach_file)
             expect(drop_off.zendesk_ticket_id).to eq ticket_id
             expect(response).to redirect_to show_drop_off_path(id: drop_off.id)
           end

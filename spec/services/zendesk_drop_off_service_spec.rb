@@ -33,11 +33,11 @@ describe ZendeskDropOffService do
     allow(fake_zendesk_ticket).to receive(:save)
   end
 
-  describe "#create_ticket" do
+  describe "#create_ticket_and_attach_file" do
     let(:drop_off) { create :full_drop_off, state: "nv" }
 
     it "creates a new Zendesk ticket with info from the drop_off and attaches documents to ticket" do
-      result = ZendeskDropOffService.new(drop_off).create_ticket
+      result = ZendeskDropOffService.new(drop_off).create_ticket_and_attach_file
 
       expect(ZendeskAPI::Ticket).to have_received(:new).with(
         fake_zendesk_client,
@@ -85,7 +85,7 @@ describe ZendeskDropOffService do
       end
 
       it "assigns the Zendesk ticket to the correct group" do
-        ZendeskDropOffService.new(drop_off).create_ticket
+        ZendeskDropOffService.new(drop_off).create_ticket_and_attach_file
         expect(ZendeskAPI::Ticket).to have_received(:new).with(
           fake_zendesk_client,
           {
