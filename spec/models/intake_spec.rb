@@ -61,7 +61,8 @@
 #  zip_code                      :string
 #  created_at                    :datetime
 #  updated_at                    :datetime
-#  intake_ticket_requester_id    :integer
+#  intake_ticket_id              :bigint
+#  intake_ticket_requester_id    :bigint
 #
 
 require 'rails_helper'

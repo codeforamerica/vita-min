@@ -31,6 +31,8 @@ RSpec.feature "Web Intake Joint Filers" do
   end
 
   before do
+    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
+    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(9876)
     # see note below about skipping redirects
     allow_any_instance_of(Users::SessionsController).to receive(:idme_logout).and_return(
       user_idme_omniauth_callback_path(spouse: "true")
