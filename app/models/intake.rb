@@ -135,4 +135,8 @@ class Intake < ApplicationRecord
       primary_user.state&.downcase == state&.downcase &&
       primary_user.zip_code == zip_code
   end
+
+  def state_name
+    States.name_for_key(state)
+  end
 end

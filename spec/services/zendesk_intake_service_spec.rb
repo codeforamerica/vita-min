@@ -4,7 +4,8 @@ describe ZendeskIntakeService do
   let(:fake_zendesk_client) { double(ZendeskAPI::Client) }
   let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
-  let(:intake) { create :intake }
+  let(:state) { "ne" }
+  let(:intake) { create :intake, state: state }
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
   let(:sms_opt_in) { "yes" }
@@ -84,6 +85,64 @@ describe ZendeskIntakeService do
         expect do
           service.create_intake_ticket
         end.to raise_error(ZendeskIntakeService::MissingRequesterIdError)
+      end
+    end
+  end
+
+  describe "#new_ticket_body" do
+    let(:expected_body) do
+      <<~BODY
+        New Online Intake Started
+
+        Name: Cher Cherimoya
+        Phone number: (415) 555-1234
+        Email: cash@raining.money
+        State (based on mailing address): Nebraska
+
+        This filer has:
+            • Verified their identity through ID.me
+            • Consented to this VITA pilot
+      BODY
+    end
+
+    it "adds all relevant details about the user and intake" do
+      expect(service.new_ticket_body).to eq expected_body
+    end
+  end
+
+  describe "#new_ticket_group_id" do
+    context "with a Tax Help Colorado state" do
+      let(:state) { "ne" }
+      it "assigns to the shared Tax Help Colorado / UWBA online intake" do
+        expect(service.new_ticket_group_id).to eq ZendeskServiceHelper::ONLINE_INTAKE_THC_UWBA
+      end
+    end
+
+    context "with California" do
+      let(:state) { "ca" }
+      it "assigns to the shared Tax Help Colorado / UWBA online intake" do
+        expect(service.new_ticket_group_id).to eq ZendeskServiceHelper::ONLINE_INTAKE_THC_UWBA
+      end
+    end
+
+    context "with a fed-only state" do
+      let(:state) { "ak" }
+      it "assigns to the shared Tax Help Colorado / UWBA online intake" do
+        expect(service.new_ticket_group_id).to eq ZendeskServiceHelper::ONLINE_INTAKE_THC_UWBA
+      end
+    end
+
+    context "with a GWISR state" do
+      let(:state) { "ga" }
+      it "assigns to the Goodwill online intake" do
+        expect(service.new_ticket_group_id).to eq ZendeskServiceHelper::ONLINE_INTAKE_GWISR
+      end
+    end
+
+    context "with any other state" do
+      let(:state) { "ny" }
+      it "assigns to the UW Tucson intake" do
+        expect(service.new_ticket_group_id).to eq ZendeskServiceHelper::ONLINE_INTAKE_UW_TUCSON
       end
     end
   end

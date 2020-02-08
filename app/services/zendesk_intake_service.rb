@@ -35,11 +35,26 @@ class ZendeskIntakeService
   end
 
   def new_ticket_group_id
-    ONLINE_INTAKE_THC_UWBA
+    if ONLINE_INTAKE_THC_UWBA_STATES.include? @intake.state
+      ONLINE_INTAKE_THC_UWBA
+    elsif ONLINE_INTAKE_GWISR_STATES.include? @intake.state
+      ONLINE_INTAKE_GWISR
+    else
+      ONLINE_INTAKE_UW_TUCSON
+    end
   end
 
   def new_ticket_body
-    "Body"
+    <<~BODY
+      #{new_ticket_body_header}
+
+      Name: #{@intake.primary_user.full_name}
+      Phone number: #{@intake.primary_user.formatted_phone_number}
+      Email: #{@intake.primary_user.email}
+      State (based on mailing address): #{@intake.state_name}
+
+      #{new_ticket_body_footer}
+    BODY
   end
 
   def new_ticket_fields
@@ -47,5 +62,19 @@ class ZendeskIntakeService
       INTAKE_SITE => "online_intake",
       INTAKE_STATUS => "1._new_online_submission",
     }
+  end
+
+  private
+
+  def new_ticket_body_header
+    "New Online Intake Started"
+  end
+
+  def new_ticket_body_footer
+    <<~FOOTER.strip
+      This filer has:
+          • Verified their identity through ID.me
+          • Consented to this VITA pilot
+    FOOTER
   end
 end
