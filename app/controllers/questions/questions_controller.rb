@@ -21,7 +21,7 @@ module Questions
       if @form.valid?
         @form.save
         track_question_answer
-        update_session
+        after_update_success
         redirect_to(next_path)
       else
         track_validation_error
@@ -54,8 +54,7 @@ module Questions
 
     private
 
-    def update_session
-    end
+    def after_update_success; end
 
     def form_params
       params.fetch(form_name, {}).permit(*form_class.attribute_names)

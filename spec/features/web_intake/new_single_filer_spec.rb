@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Single Filer" do
+  before do
+    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
+    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(9876)
+  end
+
   scenario "new client filing single" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")

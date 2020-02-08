@@ -20,7 +20,7 @@ module Questions
       @form = form_class.new(current_intake, form_params)
       if @form.valid?
         form_saved = @form.save
-        update_session
+        after_update_success
       end
 
       redirect_to action: :edit
