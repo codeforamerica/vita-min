@@ -116,6 +116,11 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
+    delayed_job (4.1.8)
+      activesupport (>= 3.0, < 6.1)
+    delayed_job_active_record (4.1.4)
+      activerecord (>= 3.0, < 6.1)
+      delayed_job (>= 3.0, < 5)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     device_detector (1.0.3)
@@ -371,6 +376,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   cfa-styleguide!
   chromedriver-helper
+  delayed_job_active_record
   device_detector
   devise
   factory_bot_rails

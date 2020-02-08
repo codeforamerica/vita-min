@@ -22,3 +22,12 @@ brew install poppler
 # 4. Get the secret key from LastPass / someone who has it set up.
 echo "[secret key]" > config/master.key
 ```
+
+
+## Running background jobs in development
+
+In development, you'll need to manually start the delayed_job worker using the following command:
+
+```shell
+rails jobs:work
+```
