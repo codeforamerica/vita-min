@@ -69,4 +69,8 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def formatted_phone_number
+    Phonelib.parse(phone_number).local_number
+  end
 end
