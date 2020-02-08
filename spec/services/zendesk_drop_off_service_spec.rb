@@ -166,7 +166,7 @@ describe ZendeskDropOffService do
           result = service.find_end_user("Barry Banana", "test@example.com", "14155551234")
           expect(service).to have_received(:search_zendesk_users).with("email:test@example.com")
           expect(service).to have_received(:search_zendesk_users).with("name:\"Barry Banana\" phone:14155551234")
-          expect(result).to eq(fake_zendesk_user)
+          expect(result).to eq(1)
         end
       end
     end
