@@ -15,7 +15,7 @@
     <p>
       <strong>Phone Number:</strong>
       <br>
-      <%= Phonelib.parse(current_user.phone_number).local_number %>
+      <%= current_user.formatted_phone_number %>
     </p>
 
     <div class="form-card__stacked-checkboxes">

@@ -46,7 +46,10 @@ module ZendeskServiceHelper
     "America/Sitka" => "Alaska",
     "America/Yakutat" => "Alaska",
     "Pacific/Honolulu" => "Hawaii",
-  }
+  }.freeze
+
+  ONLINE_INTAKE_THC_UWBA_STATES = %w(co nm ne ks ca ak fl nv sd tx wa wy).freeze
+  ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
 
   def client
     @client ||= ZendeskAPI::Client.new do |config|
