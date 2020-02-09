@@ -4,9 +4,9 @@ class ZendeskDropOffService
 
   # Group IDs
   ORGANIZATION_GROUP_IDS = {
-    "thc" => TAX_HELP_COLORADO,
-    "gwisr" => GOODWILL_SOUTHERN_RIVERS,
-    "uwba" => UNITED_WAY_BAY_AREA
+    "thc" => EitcZendeskInstance::TAX_HELP_COLORADO,
+    "gwisr" => EitcZendeskInstance::GOODWILL_SOUTHERN_RIVERS,
+    "uwba" => EitcZendeskInstance::UNITED_WAY_BAY_AREA
   }.freeze
 
   def initialize(drop_off)
@@ -21,12 +21,12 @@ class ZendeskDropOffService
       group_id: group_id,
       body: comment_body,
       fields: {
-          CERTIFICATION_LEVEL => @drop_off.certification_level,
-          HSA => @drop_off.hsa,
-          INTAKE_SITE => intake_site_tag,
-          STATE => @drop_off.state,
-          INTAKE_STATUS => "3._ready_for_prep",
-          SIGNATURE_METHOD => @drop_off.signature_method
+          EitcZendeskInstance::CERTIFICATION_LEVEL => @drop_off.certification_level,
+          EitcZendeskInstance::HSA => @drop_off.hsa,
+          EitcZendeskInstance::INTAKE_SITE => intake_site_tag,
+          EitcZendeskInstance::STATE => @drop_off.state,
+          EitcZendeskInstance::INTAKE_STATUS => "3._ready_for_prep",
+          EitcZendeskInstance::SIGNATURE_METHOD => @drop_off.signature_method
       }
     )
     attach_file_and_save_ticket(ticket)

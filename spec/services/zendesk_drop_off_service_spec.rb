@@ -44,18 +44,18 @@ describe ZendeskDropOffService do
         {
           subject: drop_off.name,
           requester_id: fake_zendesk_user.id,
-          group_id: ZendeskDropOffService::TAX_HELP_COLORADO,
+          group_id: EitcZendeskInstance::TAX_HELP_COLORADO,
           comment: {
             body: comment_body,
           },
           fields: [
             {
-              ZendeskDropOffService::CERTIFICATION_LEVEL => drop_off.certification_level,
-              ZendeskDropOffService::HSA => true,
-              ZendeskDropOffService::INTAKE_SITE => "adams_city_high_school",
-              ZendeskDropOffService::STATE => "nv",
-              ZendeskDropOffService::INTAKE_STATUS => "3._ready_for_prep",
-              ZendeskDropOffService::SIGNATURE_METHOD => drop_off.signature_method,
+              EitcZendeskInstance::CERTIFICATION_LEVEL => drop_off.certification_level,
+              EitcZendeskInstance::HSA => true,
+              EitcZendeskInstance::INTAKE_SITE => "adams_city_high_school",
+              EitcZendeskInstance::STATE => "nv",
+              EitcZendeskInstance::INTAKE_STATUS => "3._ready_for_prep",
+              EitcZendeskInstance::SIGNATURE_METHOD => drop_off.signature_method,
             }
           ]
         }
@@ -91,18 +91,18 @@ describe ZendeskDropOffService do
           {
             subject: drop_off.name,
             requester_id: fake_zendesk_user.id,
-            group_id: ZendeskDropOffService::GOODWILL_SOUTHERN_RIVERS,
+            group_id: EitcZendeskInstance::GOODWILL_SOUTHERN_RIVERS,
             comment: {
               body: comment_body,
             },
             fields: [
               {
-                ZendeskDropOffService::CERTIFICATION_LEVEL => drop_off.certification_level,
-                ZendeskDropOffService::HSA => true,
-                ZendeskDropOffService::INTAKE_SITE => "goodwillsr_columbus_intake",
-                ZendeskDropOffService::STATE => "ga",
-                ZendeskDropOffService::INTAKE_STATUS => "3._ready_for_prep",
-                ZendeskDropOffService::SIGNATURE_METHOD => drop_off.signature_method,
+                EitcZendeskInstance::CERTIFICATION_LEVEL => drop_off.certification_level,
+                EitcZendeskInstance::HSA => true,
+                EitcZendeskInstance::INTAKE_SITE => "goodwillsr_columbus_intake",
+                EitcZendeskInstance::STATE => "ga",
+                EitcZendeskInstance::INTAKE_STATUS => "3._ready_for_prep",
+                EitcZendeskInstance::SIGNATURE_METHOD => drop_off.signature_method,
               }
             ]
           }
