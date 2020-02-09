@@ -1,32 +1,9 @@
 class ZendeskIntakeService
   include ZendeskServiceHelper
-
-  ONLINE_INTAKE_THC_UWBA_STATES = %w(co nm ne ks ca ak fl nv sd tx wa wy).freeze
-  ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
-  EITC_INSTANCE_STATES = (ONLINE_INTAKE_THC_UWBA_STATES + ONLINE_INTAKE_GWISR_STATES).freeze
+  include ZendeskPartnerHelper
 
   def initialize(intake)
     @intake = intake
-  end
-
-  def state
-    @intake.state
-  end
-
-  def instance
-    @instance ||= instance_for_state
-  end
-
-  def instance_for_state
-    if (EITC_INSTANCE_STATES.include? state) || state.nil?
-      EitcZendeskInstance
-    else
-      UwtsaZendeskInstance
-    end
-  end
-
-  def instance_eitc?
-    instance == EitcZendeskInstance
   end
 
   def create_intake_ticket_requester
@@ -47,21 +24,10 @@ class ZendeskIntakeService
     create_ticket(
       subject: @intake.primary_user.full_name,
       requester_id: @intake.intake_ticket_requester_id,
-      group_id: new_ticket_group_id,
+      group_id: group_id_for_state,
       body: new_ticket_body,
       fields: new_ticket_fields
     )
-  end
-
-  def new_ticket_group_id
-    if ONLINE_INTAKE_THC_UWBA_STATES.include? @intake.state
-      EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
-    elsif ONLINE_INTAKE_GWISR_STATES.include? @intake.state
-      EitcZendeskInstance::ONLINE_INTAKE_GWISR
-    else
-      # we do not yet have group ids for UWTSA Zendesk instance
-      nil
-    end
   end
 
   def new_ticket_body

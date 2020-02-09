@@ -28,7 +28,7 @@
       <span class="sr-only">ID.me</span> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
     <% end %>
 
-    <%= link_to "#", class: "button button--wide text--centered", method: :post do %>
+    <%= link_to next_path, class: "button button--wide text--centered" do %>
       Send my spouse a sign in link
     <% end %>
   </div>

@@ -20,6 +20,7 @@ class QuestionNavigation
 
     # Spouse authentication
     Questions::SpouseIdentityController,
+    Questions::SendLinkToSpouseController,
     Questions::WelcomeSpouseController,
 
     # Income

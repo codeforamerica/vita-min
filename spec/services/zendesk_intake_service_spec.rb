@@ -166,39 +166,39 @@ describe ZendeskIntakeService do
     end
   end
 
-  describe "#new_ticket_group_id" do
+  describe "#group_id_for_state" do
     context "with a Tax Help Colorado state" do
       let(:state) { "ne" }
       it "assigns to the shared Tax Help Colorado / UWBA online intake" do
-        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
+        expect(service.group_id_for_state).to eq EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
       end
     end
 
     context "with California" do
       let(:state) { "ca" }
       it "assigns to the shared Tax Help Colorado / UWBA online intake" do
-        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
+        expect(service.group_id_for_state).to eq EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
       end
     end
 
     context "with a fed-only state" do
       let(:state) { "ak" }
       it "assigns to the shared Tax Help Colorado / UWBA online intake" do
-        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
+        expect(service.group_id_for_state).to eq EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
       end
     end
 
     context "with a GWISR state" do
       let(:state) { "ga" }
       it "assigns to the Goodwill online intake" do
-        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
+        expect(service.group_id_for_state).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
       end
     end
 
     context "with any other state" do
       let(:state) { "ny" }
       it "assigns to the UW Tucson intake" do
-        expect(service.new_ticket_group_id).to be_nil
+        expect(service.group_id_for_state).to be_nil
       end
     end
   end

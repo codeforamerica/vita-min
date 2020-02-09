@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_08_210650) do
+ActiveRecord::Schema.define(version: 2020_02_09_032608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,20 @@ ActiveRecord::Schema.define(version: 2020_02_08_210650) do
     t.string "zip_code"
     t.bigint "intake_ticket_requester_id"
     t.bigint "intake_ticket_id"
+  end
+
+  create_table "spouse_verification_requests", force: :cascade do |t|
+    t.bigint "zendesk_ticket_id"
+    t.bigint "zendesk_requester_id"
+    t.datetime "sent_at"
+    t.string "email"
+    t.string "phone_number"
+    t.bigint "intake_id", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["intake_id"], name: "index_spouse_verification_requests_on_intake_id"
+    t.index ["user_id"], name: "index_spouse_verification_requests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

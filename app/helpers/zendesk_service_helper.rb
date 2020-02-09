@@ -49,8 +49,10 @@ module ZendeskServiceHelper
       return email_matches.first&.id if email_matches.present?
     end
 
-    search_string = "name:\"#{name}\""
-    search_string += " phone:#{phone}" if phone.present?
+    search_components = []
+    search_components << "name:\"#{name}\"" if name.present?
+    search_components << " phone:#{phone}" if phone.present?
+    search_string = search_components.join(" ")
     results = search_zendesk_users(search_string)
     if exact_match
       results = results.select { |result| result.email.blank? } if email.blank?
@@ -66,32 +68,46 @@ module ZendeskServiceHelper
   end
 
   def find_or_create_end_user(name, email, phone, exact_match: false, time_zone: nil)
-    user = find_end_user(name, email, phone, exact_match: exact_match)
-    return user if user.present?
+    user_id = find_end_user(name, email, phone, exact_match: exact_match)
+    return user_id if user_id.present?
 
     result = create_end_user(name: name, email: email, phone: phone, time_zone: time_zone)
     result.id if result.present?
   end
 
-  def build_ticket(subject:, requester_id:, group_id:, body:, fields: {})
+  def build_ticket(subject:, requester_id:, group_id:, body:, public:, fields: {}, tags: [])
     ZendeskAPI::Ticket.new(
       client,
       subject: subject,
       requester_id: requester_id,
       group_id: group_id,
-      comment: { body: body },
-      fields: [fields]
+      comment: { body: body, public: public },
+      fields: [fields],
+      tags: tags
     )
   end
 
-  def create_ticket(subject:, requester_id:, group_id:, body:, fields: {})
+  def create_ticket(subject:, requester_id:, group_id:, body: "--", fields: {}, tags: [], public: true)
     ticket = build_ticket(
       subject: subject,
       requester_id: requester_id,
       group_id: group_id,
       body: body,
-      fields: fields
+      fields: fields,
+      tags: tags,
+      public: public
     )
+    ticket.save
+    ticket.id
+  end
+
+  def find_ticket(ticket_id)
+    ZendeskAPI::Ticket.find(client, id: ticket_id)
+  end
+
+  def update_ticket(ticket_id:, body:, public: false)
+    ticket = find_ticket(ticket_id)
+    ticket.comment = { body: body, public: public }
     ticket.save
     ticket.id
   end

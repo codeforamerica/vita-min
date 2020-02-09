@@ -68,6 +68,7 @@
 class Intake < ApplicationRecord
   has_many :users, -> { order(created_at: :asc) }
   has_many :documents, -> { order(created_at: :asc) }
+  has_many :spouse_verification_requests, -> { order(created_at: :asc) }
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_health_insurance
