@@ -1,13 +1,32 @@
-# zd_intake_service = ZendeskIntakeService.new(intake)
-# zd_intake_service.create_intake_ticket_requester
-# zd_ticket_id = zd_intake_service.create_intake_ticket
-# intake.update(zendesk_ticket_id: zd_ticket_id)
-
 class ZendeskIntakeService
   include ZendeskServiceHelper
 
+  ONLINE_INTAKE_THC_UWBA_STATES = %w(co nm ne ks ca ak fl nv sd tx wa wy).freeze
+  ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
+  EITC_INSTANCE_STATES = (ONLINE_INTAKE_THC_UWBA_STATES + ONLINE_INTAKE_GWISR_STATES).freeze
+
   def initialize(intake)
     @intake = intake
+  end
+
+  def state
+    @intake.state
+  end
+
+  def instance
+    @instance ||= instance_for_state
+  end
+
+  def instance_for_state
+    if (EITC_INSTANCE_STATES.include? state) || state.nil?
+      EitcZendeskInstance
+    else
+      UwtsaZendeskInstance
+    end
+  end
+
+  def instance_eitc?
+    instance == EitcZendeskInstance
   end
 
   def create_intake_ticket_requester
@@ -36,11 +55,12 @@ class ZendeskIntakeService
 
   def new_ticket_group_id
     if ONLINE_INTAKE_THC_UWBA_STATES.include? @intake.state
-      ONLINE_INTAKE_THC_UWBA
+      EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
     elsif ONLINE_INTAKE_GWISR_STATES.include? @intake.state
-      ONLINE_INTAKE_GWISR
+      EitcZendeskInstance::ONLINE_INTAKE_GWISR
     else
-      ONLINE_INTAKE_UW_TUCSON
+      # we do not yet have group ids for UWTSA Zendesk instance
+      nil
     end
   end
 
@@ -58,10 +78,15 @@ class ZendeskIntakeService
   end
 
   def new_ticket_fields
-    {
-      INTAKE_SITE => "online_intake",
-      INTAKE_STATUS => "1._new_online_submission",
-    }
+    if instance_eitc?
+      {
+        EitcZendeskInstance::INTAKE_SITE => "online_intake",
+        EitcZendeskInstance::INTAKE_STATUS => "1._new_online_submission",
+      }
+    else
+      # We do not yet have field IDs for UWTSA Zendesk instance
+      {}
+    end
   end
 
   private

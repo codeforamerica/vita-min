@@ -1,21 +1,4 @@
 module ZendeskServiceHelper
-  # online intake group ids
-  ONLINE_INTAKE_GWISR = "360008424134"
-  ONLINE_INTAKE_THC_UWBA = "360008424114"
-  ONLINE_INTAKE_UW_TUCSON = "360008416353"
-
-  # partner group ids
-  TAX_HELP_COLORADO = "360007047214"
-  GOODWILL_SOUTHERN_RIVERS = "360007941454"
-  UNITED_WAY_BAY_AREA = "360007047234"
-
-  # custom field id codes
-  CERTIFICATION_LEVEL = "360028917234"
-  INTAKE_SITE = "360028917374"
-  STATE = "360028917614"
-  INTAKE_STATUS = "360029025294"
-  SIGNATURE_METHOD = "360029896814"
-  HSA = "360031865033"
   TIMEZONE_MAP = {
     "America/Adak" => "Alaska",
     "America/Anchorage" => "Alaska",
@@ -48,15 +31,12 @@ module ZendeskServiceHelper
     "Pacific/Honolulu" => "Hawaii",
   }.freeze
 
-  ONLINE_INTAKE_THC_UWBA_STATES = %w(co nm ne ks ca ak fl nv sd tx wa wy).freeze
-  ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
-
   def client
-    @client ||= ZendeskAPI::Client.new do |config|
-      config.url = "https://#{Rails.application.credentials.dig(:zendesk, :url)}/api/v2"
-      config.username = Rails.application.credentials.dig(:zendesk, :account_email)
-      config.token = Rails.application.credentials.dig(:zendesk, :api_key)
-    end
+    @client ||= instance.client
+  end
+
+  def instance
+    EitcZendeskInstance
   end
 
   def search_zendesk_users(query_string)
