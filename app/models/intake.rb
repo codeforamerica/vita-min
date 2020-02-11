@@ -119,6 +119,10 @@ class Intake < ApplicationRecord
     users.where.not(is_spouse: true).first
   end
 
+  def spouse
+    users.where(is_spouse: true).first
+  end
+
   def pdf
     IntakePdf.new(self).output_file
   end

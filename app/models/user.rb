@@ -75,7 +75,15 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def parsed_birth_date
+    Date.strptime(birth_date, "%Y-%m-%d")
+  end
+
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number
+  end
+
+  def ssn_last_four
+    ssn.last(4)
   end
 end
