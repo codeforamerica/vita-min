@@ -74,6 +74,8 @@ class QuestionNavigation
     Questions::W2sController,
     Questions::AdditionalDocumentsController,
 
+    Questions::InterviewSchedulingController,
+
     Questions::WelcomeController, # TODO: remove this
   ].freeze
 

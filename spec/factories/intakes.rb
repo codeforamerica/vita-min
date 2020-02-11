@@ -29,6 +29,7 @@
 #  had_tips                      :integer          default("unfilled"), not null
 #  had_unemployment_income       :integer          default("unfilled"), not null
 #  had_wages                     :integer          default("unfilled"), not null
+#  interview_timing_preference   :string
 #  job_count                     :integer
 #  lived_with_spouse             :integer          default("unfilled"), not null
 #  made_estimated_tax_payments   :integer          default("unfilled"), not null
