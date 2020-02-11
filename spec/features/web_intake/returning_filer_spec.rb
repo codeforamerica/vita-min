@@ -6,6 +6,6 @@ RSpec.feature "Returning user to online intake" do
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
 
-    expect(page).to have_selector("h1", text: "Welcome Gary!")
+    expect(page).to have_selector("h1", text: "Great! Here's our terms of service.")
   end
 end

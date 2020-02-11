@@ -23,6 +23,8 @@
 @import 'organisms/pagination';
 @import 'organisms/provider-list';
 @import 'organisms/provider-details';
+@import 'components/buttons';
+@import 'templates/consent-form';
 
 html {
   background-color: black;
@@ -52,41 +54,6 @@ body {
 .link--delete {
   font-size: 1.6rem;
   color: inherit;
-}
-.button {
-  box-shadow: none;
-  border-width: 3px;
-}
-
-.button--primary {
-  background-color: black;
-  border-color: black;
-  box-shadow: none;
-
-  &:hover {
-    background-color: black;
-    border-color: black;
-  }
-}
-
-.button--wide {
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  display: block;
-
-  @media screen and (min-width: $tablet-up) {
-    width: 34.5rem;
-  }
-}
-.button--icon {
-  img:first-child {
-    margin-right: 1.5rem;
-  }
-}
-
-.button-logo--inline {
-  margin-left: 0.5rem;
 }
 
 .main-header {

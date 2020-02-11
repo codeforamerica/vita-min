@@ -29,7 +29,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     elsif is_returning_user
       sign_in @user, event: :authentication
     end
-    redirect_to welcome_questions_path
+    redirect_to consent_questions_path
   end
 
   def failure
