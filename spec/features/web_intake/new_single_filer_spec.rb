@@ -186,5 +186,8 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Upload"
     expect(page).to have_content("test-pattern.png")
     click_on "Done with this step"
+
+    expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
+    click_on "I've uploaded all my documents"
   end
 end
