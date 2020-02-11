@@ -45,6 +45,12 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Sign in with ID.me"
 
     # the ID.me flow would occur here. They should end up back on a success page.
+
+    # Consent form
+    expect(page).to have_selector("h1", text: "Great! Here's our terms of service.")
+    check "I agree"
+    click_on "Continue"
+
     expect(page).to have_selector("h1", text: "Welcome Gary!")
     click_on "Continue"
 
