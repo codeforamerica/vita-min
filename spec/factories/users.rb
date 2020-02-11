@@ -5,7 +5,7 @@
 #  id                        :bigint           not null, primary key
 #  birth_date                :string
 #  city                      :string
-#  consented_to_service      :integer          default(0), not null
+#  consented_to_service      :integer          default("unfilled"), not null
 #  consented_to_service_at   :datetime
 #  consented_to_service_ip   :string
 #  current_sign_in_at        :datetime
