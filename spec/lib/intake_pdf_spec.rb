@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe IntakePdf do
-  include PdfHelper
+  include PdfSpecHelper
 
   let(:intake_pdf) { IntakePdf.new(intake) }
 
