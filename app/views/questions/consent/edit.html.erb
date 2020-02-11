@@ -1,0 +1,75 @@
+<% @main_heading = "Great! Here's our terms of service." %>
+
+<% content_for :page_title, @main_heading %>
+<% content_for :body_class, "consent-form" %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <%= yield :notices %>
+        <main role="main">
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+            <h1 class="h2"><%= @main_heading %></h1>
+
+            <p>
+              You and your spouse (if applicable) are ultimately responsible for all of the information you provide VITA Tax Help on the tax return.
+            </p>
+
+            <p>
+              You understand that VITATaxhelp.org is a website run by Code for America, a non-profit organization that will submit your tax application for you.
+            </p>
+
+            <p>
+              You agree to the terms of the VITA Tax Help privacy policy at
+              <%= link_to "/privacy" do %>www.VITATaxHelp.org/privacy<% end %>
+            </p>
+
+            <div class="consent-details">
+              <h2 class="h3">The Details</h2>
+
+              <p>
+                I understand this site collects personal identifiable information provided by me
+                (social security numbers, Form W-2 and other documents) at the site in order to
+                prepare and quality review the tax return.
+                In this process, my tax return information is sent via this site to a VITA site
+                in order for an IRS certified volunteer to interview the taxpayer, prepare the
+                tax return, and perform a quality review.
+              </p>
+              <p>
+                I have been honest on this intake form and answered the questions to the best of my knowledge.
+              </p>
+              <p>
+                I understand that I must provide all required information/documentation necessary to
+                prepare an accurate tax return.
+              </p>
+              <p>
+                I understand that I will need to participate in an Intake Interview and Quality Review via
+                phone in order to have VITA file my taxes.
+              </p>
+              <p>
+                I understand that I may be contacted for additional information. If the preparer has
+                everything required to prepare the return, I will not be contacted until the return is completed.
+              </p>
+              <p>
+                I understand I need to review my completed tax return to ensure the names,
+                social security numbers, address, banking information, income, and expenses
+                are correct to the best of my knowledge.
+              </p>
+              <p>
+                I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, after Quality Review is completed
+                in order for VITA to e-file my tax return.
+              </p>
+            </div>
+
+            <%= f.cfa_checkbox(:consented_to_service, "I agree", options: { checked_value: "yes", unchecked_value: "no" }) %>
+
+            <button class="button button--primary button--wide" type="submit">
+              Continue
+            </button>
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

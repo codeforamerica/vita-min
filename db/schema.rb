@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_213645) do
+ActiveRecord::Schema.define(version: 2020_02_11_182037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,12 +133,12 @@ ActiveRecord::Schema.define(version: 2020_02_11_213645) do
     t.integer "widowed", default: 0, null: false
     t.string "widowed_year"
     t.integer "filing_joint", default: 0, null: false
-    t.string "source"
-    t.string "referrer"
     t.string "street_address"
     t.string "city"
     t.string "state"
     t.string "zip_code"
+    t.string "source"
+    t.string "referrer"
     t.bigint "intake_ticket_requester_id"
     t.bigint "intake_ticket_id"
     t.string "interview_timing_preference"
@@ -168,6 +168,9 @@ ActiveRecord::Schema.define(version: 2020_02_11_213645) do
     t.boolean "is_spouse", default: false
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.integer "email_notification_opt_in", default: 0, null: false
+    t.integer "consented_to_service", default: 0, null: false
+    t.string "consented_to_service_ip"
+    t.datetime "consented_to_service_at"
     t.index ["intake_id"], name: "index_users_on_intake_id"
   end
 

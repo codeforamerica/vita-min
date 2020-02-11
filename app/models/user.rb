@@ -5,6 +5,9 @@
 #  id                        :bigint           not null, primary key
 #  birth_date                :string
 #  city                      :string
+#  consented_to_service      :integer          default(0), not null
+#  consented_to_service_at   :datetime
+#  consented_to_service_ip   :string
 #  current_sign_in_at        :datetime
 #  current_sign_in_ip        :inet
 #  email                     :string
@@ -42,6 +45,8 @@ class User < ApplicationRecord
 
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
+  enum consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_service
+
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
