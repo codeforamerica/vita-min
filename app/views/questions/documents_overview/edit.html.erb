@@ -1,0 +1,50 @@
+<% content_for :page_title, "Great work! Here's a list of what we've collected." %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <h3 class="section-title">
+          <%= image_tag("#{section_title.parameterize}.svg", alt: "") %>
+          <%= section_title %>
+        </h3>
+
+        <main role="main">
+          <h1 class="form-question">
+            <%= content_for(:page_title) %>
+          </h1>
+
+          <% if @documents.empty? %>
+            <p>No documents were uploaded.</p>
+          <% end %>
+          <div class="document-overview-list">
+            <% documents_by_type = @documents.group_by(&:document_type) %>
+            <% documents_by_type.each do |type, documents| %>
+              <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__heading">
+                <%= type %>
+              </h2>
+              <a href="#TODO" class="button button--small document-overview-list__button">Edit</a>
+
+              <ul class="document-overview-list__filenames">
+                <% documents.each do |document| %>
+                  <li>
+                    <%= document.upload.filename %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+
+          <%= link_to next_path, class: "button button--icon button--wide button--primary" do %>
+            <%= image_tag "checkmark--white.svg", alt: "" %>
+            I've uploaded all my documents
+          <% end %>
+
+          <%= link_to w2s_questions_path, class: "button button--wide" do %>
+            I have another document to share
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

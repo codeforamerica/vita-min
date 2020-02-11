@@ -77,6 +77,7 @@ class QuestionNavigation
     # Documents
     Questions::W2sController,
     Questions::AdditionalDocumentsController,
+    Questions::DocumentsOverviewController,
 
     Questions::InterviewSchedulingController,
 
