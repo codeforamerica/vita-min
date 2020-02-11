@@ -1,5 +1,9 @@
 class IntakePdf
-  SOURCE_PDF = "app/lib/pdfs/f13614c.pdf"
+  include PdfHelper
+
+  def source_pdf_name
+    "f13614c"
+  end
 
   def initialize(intake)
     @intake = intake
@@ -48,18 +52,5 @@ class IntakePdf
       made_estimated_tax_payments: yes_no_unfilled_to_checkbox(@intake.made_estimated_tax_payments),
       additional_info: @intake.additional_info,
     }
-  end
-
-  def output_file
-    pdf_tempfile = Tempfile.new(
-      ["f13614c", ".pdf"],
-      "tmp/",
-    )
-    PdfForms.new.fill_form(SOURCE_PDF, pdf_tempfile.path, hash_for_pdf)
-    pdf_tempfile
-  end
-
-  def yes_no_unfilled_to_checkbox(value)
-    value == "yes" ? "Yes" : nil
   end
 end
