@@ -1,0 +1,31 @@
+.document-overview-list {
+  &:last-of-type {
+    margin-bottom: 5rem;
+  }
+}
+
+.document-overview-list__icon {
+  width: 2rem;
+  margin-right: 3rem;
+  vertical-align: text-bottom;
+}
+
+.document-overview-list__heading {
+  display: inline-block;
+  margin-bottom: 0;
+  margin-right: 2rem;
+}
+
+.document-overview-list__button {
+  margin-bottom: 0;
+}
+
+.document-overview-list__filenames {
+  font-size: 1.6rem;
+  margin-left: 5rem;
+  margin-bottom: 2rem;
+
+  > li {
+    margin-bottom: 1.3rem;
+  }
+}
