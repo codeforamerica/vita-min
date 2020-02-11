@@ -45,16 +45,16 @@ RSpec.describe Users::OmniauthCallbacksController do
     end
 
     context "when any returning user authenticates" do
-      let(:user) { create :user, sign_in_count: 1 }
+      let(:consented_to_service) { "yes" }
+      let(:user) { create :user, sign_in_count: 1, consented_to_service: consented_to_service }
 
       before do
         allow(User).to receive(:from_omniauth).with(auth).and_return user
       end
 
-      it "signs the user in, redirects them to the consent page" do
+      it "signs the user in" do
         get :idme
         expect(subject.current_user).to eq user
-        expect(response).to redirect_to(consent_questions_path)
       end
 
       it "does not create a new intake" do
@@ -68,11 +68,33 @@ RSpec.describe Users::OmniauthCallbacksController do
         expect(user.sign_in_count).to eq 2
       end
 
-      context "when the returning user used a spouse registration link" do
-        it "signs the user in, redirects them to the consent page" do
-          get :idme, params: { spouse: "true" }
+      context "when the returning user previously consented" do
+        let(:consented_to_service) { "yes" }
+
+        it "redirects them to the welcome page" do
+          get :idme
+
+          expect(subject.current_user).to eq user
+          expect(response).to redirect_to(welcome_questions_path)
+        end
+      end
+
+      context "when the returning user has not yet consented" do
+        let(:consented_to_service) { "unfilled" }
+
+        it "redirects them to the consent page" do
+          get :idme
+
           expect(subject.current_user).to eq user
           expect(response).to redirect_to(consent_questions_path)
+        end
+      end
+
+      context "when the returning user used a spouse registration link" do
+        it "signs the user in, redirects them to the welcome page" do
+          get :idme, params: { spouse: "true" }
+          expect(subject.current_user).to eq user
+          expect(response).to redirect_to(welcome_questions_path)
         end
       end
     end
