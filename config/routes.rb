@@ -39,4 +39,6 @@ Rails.application.routes.draw do
 
   get "/identity-needed", to: "offboarding#identity_needed"
   get "/other-options", to: "public_pages#other_options"
+
+  post "/email", to: "email#create"
 end
