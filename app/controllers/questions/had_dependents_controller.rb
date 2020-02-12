@@ -5,5 +5,13 @@ module Questions
     def section_title
       "Personal Information"
     end
+
+    def next_path
+      if current_intake.had_dependents_yes?
+        dependents_path
+      else
+        super
+      end
+    end
   end
 end
