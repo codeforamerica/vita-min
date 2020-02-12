@@ -29,6 +29,7 @@ class IntakeSiteDropOffsController < ApplicationController
       end
       redirect_to show_drop_off_path(id: @drop_off, organization: @organization)
     else
+      track_validation_error
       render :new
     end
   end
@@ -48,6 +49,12 @@ class IntakeSiteDropOffsController < ApplicationController
   def track_create_drop_off
     event_data = mixpanel_data
     send_mixpanel_event(event_name: "create_drop_off", data: event_data)
+  end
+
+  def track_validation_error
+    invalid_field_flags = @drop_off.errors.keys.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
+    tracking_data = invalid_field_flags.merge(mixpanel_data)
+    send_mixpanel_event(event_name: "validation_error", data: tracking_data)
   end
 
   def mixpanel_data
