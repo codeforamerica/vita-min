@@ -240,6 +240,25 @@ RSpec.describe IntakeSiteDropOffsController do
           expect(assigns(:drop_off).errors).to include(:document_bundle)
           expect(response).to render_template(:new)
         end
+
+        it "tracks the validation errors in mixpanel" do
+          post :create, params: invalid_params
+
+          expected_data = {
+            organization: "thc",
+            intake_site: "Denver Main Library",
+            state: nil,
+            invalid_document_bundle: true,
+            invalid_signature_method: true,
+            invalid_phone_number: true,
+            invalid_intake_site: true,
+            invalid_state: true,
+            hsa: false,
+            certification_level: nil,
+            signature_method: "pony express"
+          }
+          expect(subject).to have_received(:send_mixpanel_event).with(event_name: "validation_error", data: expected_data)
+        end
       end
     end
   end
