@@ -14,10 +14,13 @@
 #
 
 class Document < ApplicationRecord
-  DOCUMENT_TYPES = [
-    "W-2",
-    "Other"
-  ].freeze
+  # For the document overview page, we need a mapping of which controller
+  # corresponds to which Document Type.
+  DOCUMENT_CONTROLLERS = {
+    "W-2" => Questions::W2sController,
+    "Other" => Questions::AdditionalDocumentsController,
+  }.freeze
+  DOCUMENT_TYPES = DOCUMENT_CONTROLLERS.keys.freeze
 
   validates :document_type, inclusion: { in: DOCUMENT_TYPES }
   validates :intake, presence: true
