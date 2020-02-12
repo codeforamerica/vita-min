@@ -23,7 +23,8 @@
               <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__heading">
                 <%= type %>
               </h2>
-              <a href="#TODO" class="button button--small document-overview-list__button">Edit</a>
+
+              <%= link_to 'Edit', edit_document_path(type), class: "button button--small document-overview-list__button" %>
 
               <ul class="document-overview-list__filenames">
                 <% documents.each do |document| %>
