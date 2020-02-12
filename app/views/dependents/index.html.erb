@@ -30,6 +30,18 @@
             <% end %>
           </ul>
           <% end %>
+
+          <h1 class="h2"><%= @main_heading %></h1>
+          <p>We will need an ITIN or SSN for each person you add.</p>
+
+          <%= link_to(new_dependent_path, class: "button button--wide button--icon") do %>
+            Add a dependent
+          <% end %>
+
+          <%= link_to(job_count_questions_path, class: "button button--cta button--wide button--icon") do %>
+            <%= image_tag("checkmark--white.svg", alt: "") %>
+            Done with this step
+          <% end %>
         </main>
       </div>
     </div>

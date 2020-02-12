@@ -15,7 +15,7 @@ class DependentsController < ApplicationController
   end
 
   def edit
-
+    @dependent = Dependent.find(params[:id])
   end
 
   def update
