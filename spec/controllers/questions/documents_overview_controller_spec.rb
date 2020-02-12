@@ -33,10 +33,11 @@ RSpec.describe Questions::DocumentsOverviewController do
         ]
       end
 
-      it "includes the sections" do
+      it "includes the sections with links to the document types" do
         get :edit
 
         expect(response.body).to include("W-2")
+        expect(response.body).to include(w2s_questions_path)
         expect(response.body).to include(documents[0].upload.filename.to_s)
       end
     end
