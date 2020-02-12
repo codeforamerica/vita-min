@@ -23,6 +23,9 @@ class QuestionNavigation
     Questions::SpouseIdentityController,
     Questions::WelcomeSpouseController,
 
+    # Dependents
+    Questions::HadDependentsController,
+
     # Income
     Questions::JobCountController,
     Questions::WagesController,

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :dependents, only: [:index, :new, :create, :edit, :update]
   resources :documents, only: [:destroy]
 
   get "/:organization/drop-off", to: "intake_site_drop_offs#new", as: :new_drop_off

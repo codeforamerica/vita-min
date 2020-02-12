@@ -1,0 +1,59 @@
+<% @main_heading = "Tell us about your dependent. Please provide a few more details." %>
+
+<% content_for :page_title, @main_heading %>
+
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <%= yield :notices %>
+        <h3 class="section-title">
+          <%= image_tag("#{section_title.parameterize}.svg", alt: "") %>
+          <%= section_title %>
+        </h3>
+        <main role="main">
+          <%= form_with model: @dependent, url: dependents_path, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+            <h1 class="form-question">
+              <%= @main_heading %>
+            </h1>
+
+            <%= f.cfa_input_field(:first_name, "First name") %>
+            <%= f.cfa_input_field(:last_name, "Last name") %>
+            <%= f.cfa_input_field(:relationship, "Relationship to you") %>
+            <%= f.cfa_date_select(:birth_date, "Date of birth", options: {
+                start_year: Time.now.year,
+                end_year: Time.now.year - 100,
+            }) %>
+            <%= f.cfa_select(
+                    :months_in_home,
+                    "How many months did they live in your home during 2019?",
+                    (1..12).map { |i| [i.to_s, i] }.reverse,
+                    include_blank: true
+            ) %>
+
+            <h2 class="form-question">Select any cases that describe their life this past year</h2>
+
+            <p class="text--help">
+              We need these answers to determine which tax credits you may qualify for.
+            </p>
+
+            <div class="form-card__stacked-checkboxes">
+              <%= f.cfa_checkbox(:was_married, "Married as of 12/31/2019", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.cfa_checkbox(:was_student, "Full-time student", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.cfa_checkbox(:on_visa, "In the US on a Visa", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.cfa_checkbox(:north_american_resident, "Resident of US, Canada or Mexico", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.cfa_checkbox(:disabled, "Permanently disabled", options: { checked_value: "yes", unchecked_value: "no" }) %>
+            </div>
+
+
+            <button class="button button--cta button--wide button--icon" type="submit">
+              <%= image_tag("save-dependent.svg", alt: "") %>
+              Save dependent
+            </button>
+        <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

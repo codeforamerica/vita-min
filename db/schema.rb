@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_213645) do
+ActiveRecord::Schema.define(version: 2020_02_11_234425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,23 @@ ActiveRecord::Schema.define(version: 2020_02_11_213645) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "dependents", force: :cascade do |t|
+    t.bigint "intake_id", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.date "birth_date"
+    t.string "relationship"
+    t.integer "months_in_home"
+    t.integer "was_student", default: 0, null: false
+    t.integer "on_visa", default: 0, null: false
+    t.integer "north_american_resident", default: 0, null: false
+    t.integer "disabled", default: 0, null: false
+    t.integer "was_married", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["intake_id"], name: "index_dependents_on_intake_id"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -142,6 +159,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_213645) do
     t.bigint "intake_ticket_requester_id"
     t.bigint "intake_ticket_id"
     t.string "interview_timing_preference"
+    t.integer "had_dependents", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
