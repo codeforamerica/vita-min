@@ -99,8 +99,25 @@ RSpec.describe DependentsController do
     end
   end
 
-  xdescribe "#edit" do
+  describe "#edit" do
+    render_views
 
+    let!(:dependent) do
+      create :dependent,
+             first_name: "Mary",
+             last_name: "Mango",
+             birth_date: Date.new(2017, 4, 21),
+             relationship: "Kid"
+    end
+
+    it "renders information about the existing dependent and renders a delete button" do
+      get :edit, params: { id: dependent.id }
+
+      expect(response.body).to include("Mary")
+      expect(response.body).to include("Mango")
+      expect(response.body).to include("Kid")
+      expect(response.body).to include("Remove dependent")
+    end
   end
 
   xdescribe "#update" do
