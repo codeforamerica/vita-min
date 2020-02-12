@@ -12,6 +12,7 @@
 #  filing_joint                  :integer          default("unfilled"), not null
 #  had_asset_sale_income         :integer          default("unfilled"), not null
 #  had_debt_forgiven             :integer          default("unfilled"), not null
+#  had_dependents                :integer          default("unfilled"), not null
 #  had_disability_income         :integer          default("unfilled"), not null
 #  had_disaster_loss             :integer          default("unfilled"), not null
 #  had_farm_income               :integer          default("unfilled"), not null

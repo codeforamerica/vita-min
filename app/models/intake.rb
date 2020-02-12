@@ -12,6 +12,7 @@
 #  filing_joint                  :integer          default("unfilled"), not null
 #  had_asset_sale_income         :integer          default("unfilled"), not null
 #  had_debt_forgiven             :integer          default("unfilled"), not null
+#  had_dependents                :integer          default("unfilled"), not null
 #  had_disability_income         :integer          default("unfilled"), not null
 #  had_disaster_loss             :integer          default("unfilled"), not null
 #  had_farm_income               :integer          default("unfilled"), not null
@@ -69,6 +70,7 @@
 class Intake < ApplicationRecord
   has_many :users, -> { order(created_at: :asc) }
   has_many :documents, -> { order(created_at: :asc) }
+  has_many :dependents, -> { order(created_at: :asc) }
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_health_insurance
@@ -76,6 +78,7 @@ class Intake < ApplicationRecord
   enum filing_joint: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filing_joint
   enum had_asset_sale_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_asset_sale_income
   enum had_debt_forgiven: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_debt_forgiven
+  enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
   enum had_disability_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_disability_income
   enum had_disaster_loss: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_disaster_loss
   enum had_farm_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_farm_income

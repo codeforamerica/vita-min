@@ -39,7 +39,7 @@ RSpec.feature "Web Intake Joint Filers" do
     )
   end
 
-  scenario "new client filing joint taxes with spouse" do
+  xscenario "new client filing joint taxes with spouse and dependents" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
@@ -96,6 +96,36 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Sign in spouse with ID.me"
     expect(page).to have_selector("h1", text: "Welcome Gary and Greta!")
     click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Did you have any dependents in 2019?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "Let’s add your dependents!")
+    click_on "Add a dependent"
+    fill_in "First name", with: "Greg"
+    fill_in "Last name", with: "Gnome"
+    fill_in "Month", with: "3"
+    fill_in "Day", with: "5"
+    fill_in "Year", with: "2003"
+    fill_in "Relationship to you", with: "Son"
+    select "6", from: "How many months did they live in your home?"
+    check "Full-time student"
+    click_on "Save dependent"
+    expect(page).to have_text("Greg Gnome")
+
+    click_on "Add a dependent"
+    fill_in "First name", with: "Gallagher"
+    fill_in "Last name", with: "Gnome"
+    fill_in "Month", with: "11"
+    fill_in "Day", with: "24"
+    fill_in "Year", with: "2005"
+    fill_in "Relationship to you", with: "Nibling"
+    select "2", from: "How many months did they live in your home?"
+    check "Not a US citizen"
+    click_on "Save dependent"
+    expect(page).to have_text("Gallagher Gnome")
+
+    click_on "Done with this step"
 
     select "3 jobs", from: "In 2019, how many jobs did you have?"
     click_on "Next"
