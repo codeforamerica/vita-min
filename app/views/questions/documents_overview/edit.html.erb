@@ -24,7 +24,7 @@
                 <%= type %>
               </h2>
 
-              <%= link_to 'Edit', edit_document_path(type), class: "button button--small document-overview-list__button" %>
+              <%= link_to 'edit', edit_document_path(type), class: "button button--inline-action document-overview-list__button" %>
 
               <ul class="document-overview-list__filenames">
                 <% documents.each do |document| %>
