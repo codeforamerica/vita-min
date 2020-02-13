@@ -19,11 +19,17 @@ class DependentsController < ApplicationController
   end
 
   def update
-
+    @dependent = Dependent.find(params[:id])
+    if @dependent.update(dependent_params)
+      redirect_to dependents_path
+    else
+      render :edit
+    end
   end
 
   def create
-    @dependent = Dependent.new(dependent_params.merge(intake: current_intake))
+    @dependent = Dependent.new(intake: current_intake)
+    @dependent.assign_attributes(dependent_params)
 
     if @dependent.save
       redirect_to dependents_path
@@ -32,10 +38,18 @@ class DependentsController < ApplicationController
     end
   end
 
+  def destroy
+    @dependent = Dependent.find(params[:id])
+    if @dependent.destroy!
+      flash[:notice] = "Removed #{@dependent.full_name}."
+    end
+    redirect_to dependents_path
+  end
+
   private
 
   def birth_date_param_keys
-    [:dob_year, :dob_month, :dob_day]
+    [:birth_date_year, :birth_date_month, :birth_date_day]
   end
 
   def dependent_params
@@ -61,7 +75,7 @@ class DependentsController < ApplicationController
   def parse_birth_date_params(birth_date_params)
     begin
       Date.new(*birth_date_params.values.map(&:to_i))
-    rescue ArgumentError => e
+    rescue ArgumentError => error
       raise error unless error.to_s == "invalid date"
       nil
     end
