@@ -7,7 +7,7 @@ module Questions
     end
 
     def self.show?(intake)
-      intake.married_yes?
+      intake.ever_married_yes?
     end
 
     def no_illustration?
