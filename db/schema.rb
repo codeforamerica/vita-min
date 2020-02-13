@@ -173,7 +173,6 @@ ActiveRecord::Schema.define(version: 2020_02_14_215433) do
     t.string "first_name"
     t.string "last_name"
     t.string "birth_date"
-    t.string "ssn"
     t.string "phone_number"
     t.string "street_address"
     t.string "city"
@@ -190,6 +189,8 @@ ActiveRecord::Schema.define(version: 2020_02_14_215433) do
     t.integer "consented_to_service", default: 0, null: false
     t.string "consented_to_service_ip"
     t.datetime "consented_to_service_at"
+    t.string "encrypted_ssn"
+    t.string "encrypted_ssn_iv"
     t.index ["intake_id"], name: "index_users_on_intake_id"
   end
 
