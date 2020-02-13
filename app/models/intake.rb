@@ -9,6 +9,7 @@
 #  city                          :string
 #  divorced                      :integer          default("unfilled"), not null
 #  divorced_year                 :string
+#  ever_married                  :integer          default("unfilled"), not null
 #  filing_joint                  :integer          default("unfilled"), not null
 #  had_asset_sale_income         :integer          default("unfilled"), not null
 #  had_debt_forgiven             :integer          default("unfilled"), not null
@@ -35,7 +36,6 @@
 #  lived_with_spouse             :integer          default("unfilled"), not null
 #  made_estimated_tax_payments   :integer          default("unfilled"), not null
 #  married                       :integer          default("unfilled"), not null
-#  married_all_year              :integer          default("unfilled"), not null
 #  other_income_types            :string
 #  paid_alimony                  :integer          default("unfilled"), not null
 #  paid_charitable_contributions :integer          default("unfilled"), not null
@@ -99,7 +99,7 @@ class Intake < ApplicationRecord
   enum lived_with_spouse: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_spouse
   enum made_estimated_tax_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_estimated_tax_payments
   enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
-  enum married_all_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married_all_year
+  enum ever_married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ever_married
   enum paid_alimony: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_alimony
   enum paid_charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_charitable_contributions
   enum paid_dependent_care: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_dependent_care

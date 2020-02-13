@@ -35,13 +35,7 @@ RSpec.feature "Web Intake Single Filer" do
     check "SMS Notifications"
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
-    click_on "No"
-
-    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you divorced?")
-    click_on "No"
-
-    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you widowed?")
+    expect(page).to have_selector("h1", text: "Have you ever been legally married?")
     click_on "No"
 
     expect(page).to have_selector("h1", text: "Did you have any dependents in 2019?")

@@ -8,15 +8,15 @@ class QuestionNavigation
     Questions::NotificationPreferenceController,
 
     # Marital Status
+    Questions::EverMarriedController,
     Questions::MarriedController,
+    Questions::LivedWithSpouseController,
+    Questions::SeparatedController,
+    Questions::SeparatedYearController,
     Questions::DivorcedController,
     Questions::DivorcedYearController,
     Questions::WidowedController,
     Questions::WidowedYearController,
-    Questions::MarriedAllYearController,
-    Questions::LivedWithSpouseController,
-    Questions::SeparatedController,
-    Questions::SeparatedYearController,
     Questions::FilingJointController,
 
     # Spouse authentication
