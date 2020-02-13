@@ -13,16 +13,16 @@ RSpec.describe DocumentsController, type: :controller do
       expect(response).to redirect_to(identity_questions_path)
     end
 
-    context "with an authenticated user & expected params" do
+    context "with an authenticated user" do
       let(:params) do
-        { id: document.id, return_path: w2s_questions_path }
+        { id: document.id }
       end
 
       before do
         allow(controller).to receive(:current_user).and_return(user)
       end
 
-      it "allows them to delete their own document and redirects to redirect_path" do
+      it "allows them to delete their own document and redirects back" do
         expect do
           delete :destroy, params: params
         end.to change(Document, :count).by(-1)
@@ -32,22 +32,22 @@ RSpec.describe DocumentsController, type: :controller do
 
       context "with a document id that does not exist" do
         let(:params) do
-          { id: 123874619823764, return_path: w2s_questions_path }
+          { id: 123874619823764 }
         end
 
-        it "simply redirects to redirect_path" do
+        it "simply redirects to the documents overview page" do
           expect do
             delete :destroy, params: params
           end.not_to change(Document, :count)
 
-          expect(response).to redirect_to w2s_questions_path
+          expect(response).to redirect_to(documents_overview_questions_path)
         end
       end
 
       context "for another user's document" do
         let(:user) { create :user }
         let(:params) do
-          { id: document.id, return_path: w2s_questions_path }
+          { id: document.id }
         end
 
         it "does not delete the other document" do
@@ -55,7 +55,7 @@ RSpec.describe DocumentsController, type: :controller do
             delete :destroy, params: params
           end.not_to change(Document, :count)
 
-          expect(response).to redirect_to w2s_questions_path
+          expect(response).to redirect_to(documents_overview_questions_path)
         end
       end
     end
