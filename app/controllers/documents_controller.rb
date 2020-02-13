@@ -3,7 +3,13 @@ class DocumentsController < ApplicationController
 
   def destroy
     document = current_intake.documents.find_by(id: params[:id])
-    document.destroy if document.present?
-    redirect_to params[:return_path]
+
+    if document.present?
+      document.destroy
+
+      redirect_to helpers.edit_document_path(document.document_type)
+    else
+      redirect_to documents_overview_questions_path
+    end
   end
 end

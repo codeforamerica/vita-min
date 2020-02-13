@@ -29,7 +29,7 @@
                   </div>
                   <div class="doc-preview__info">
                     <h2 class="h3 doc-preview__filename"><%= document.upload.filename %></h2>
-                    <%= link_to(document_path(document, return_path: current_path), method: :delete, class: "link--delete", data: { confirm: "Are you sure you want to remove \"#{document.upload.filename}\"?" }) do %>
+                    <%= link_to(document_path(document), method: :delete, class: "link--delete", data: { confirm: "Are you sure you want to remove \"#{document.upload.filename}\"?" }) do %>
                       Remove
                     <% end %>
                   </div>
