@@ -21,7 +21,7 @@ RSpec.describe Questions::DocumentsOverviewController do
 
       it "displays an empty message" do
         get :edit
-        expect(response.body).to include("No documents were uploaded.")
+        expect(response.body).to include("No documents of this type were uploaded.")
       end
     end
 
