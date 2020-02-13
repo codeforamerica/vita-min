@@ -6,7 +6,7 @@ RSpec.feature "Web Intake Single Filer" do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(9876)
   end
 
-  xscenario "new client filing single without dependents" do
+  scenario "new client filing single without dependents" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
