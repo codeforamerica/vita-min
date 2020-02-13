@@ -1,7 +1,10 @@
 <% @main_heading = "Tell us about your dependent. Please provide a few more details." %>
 
-<% content_for :page_title, @main_heading %>
-
+<% if @dependent.errors.present? %>
+  <% content_for :page_title, "#{@dependent.error_summary} #{@main_heading}" %>
+<% else %>
+  <% content_for :page_title, @main_heading %>
+<% end %>
 
   <section class="slab slab--white">
     <div class="grid">

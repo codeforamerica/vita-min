@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe DependentsController do
+  render_views
+
   let(:intake) { create :intake }
   let(:user) { create :user, intake: intake }
 
@@ -9,7 +11,6 @@ RSpec.describe DependentsController do
   end
 
   describe "#index" do
-    render_views
 
     context "with existing dependents" do
       let!(:dependent_one) { create :dependent, first_name: "Kylie", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
@@ -31,9 +32,9 @@ RSpec.describe DependentsController do
           dependent: {
             first_name: "Kylie",
             last_name: "Kiwi",
-            dob_month: "6",
-            dob_day: "15",
-            dob_year: "2015",
+            birth_date_month: "6",
+            birth_date_day: "15",
+            birth_date_year: "2015",
             relationship: "Nibling",
             months_in_home: "12",
             was_student: "no",
@@ -72,9 +73,9 @@ RSpec.describe DependentsController do
         {
           dependent: {
             first_name: "Kylie",
-            dob_month: "16",
-            dob_day: "2",
-            dob_year: "2015",
+            birth_date_month: "16",
+            birth_date_day: "2",
+            birth_date_year: "2015",
             relationship: "Nibling",
             months_in_home: "12",
             was_student: "no",
@@ -86,7 +87,7 @@ RSpec.describe DependentsController do
         }
       end
 
-      xit "renders new with validation errors" do
+      it "renders new with validation errors" do
         expect do
           post :create, params: params
         end.not_to change(Dependent, :count)
@@ -94,14 +95,12 @@ RSpec.describe DependentsController do
         expect(response).to render_template(:new)
 
         expect(response.body).to include "Please enter a valid date."
-        expect(response.body).to include "Last name can't be blank."
+        expect(response.body).to include "Please enter a last name."
       end
     end
   end
 
   describe "#edit" do
-    render_views
-
     let!(:dependent) do
       create :dependent,
              first_name: "Mary",
@@ -120,13 +119,105 @@ RSpec.describe DependentsController do
     end
   end
 
-  xdescribe "#update" do
+  describe "#update" do
+    let!(:dependent) do
+      create :dependent,
+             first_name: "Mary",
+             last_name: "Mango",
+             birth_date: Date.new(2017, 4, 21),
+             relationship: "Kid",
+             intake: intake
+    end
 
+    context "with valid params" do
+      let(:params) do
+        {
+          id: dependent.id,
+          dependent: {
+            first_name: "Kylie",
+            last_name: "Kiwi",
+            birth_date_month: "6",
+            birth_date_day: "15",
+            birth_date_year: "2015",
+            relationship: "Nibling",
+            months_in_home: "12",
+            was_student: "no",
+            on_visa: "no",
+            north_american_resident: "yes",
+            disabled: "no",
+            was_married: "no"
+          }
+        }
+      end
+
+      it "updates the dependent and redirects to the index" do
+        post :update, params: params
+
+        expect(response).to redirect_to(dependents_path)
+
+        dependent.reload
+        expect(dependent.first_name).to eq "Kylie"
+        expect(dependent.last_name).to eq "Kiwi"
+        expect(dependent.birth_date).to eq Date.new(2015, 6, 15)
+        expect(dependent.relationship).to eq "Nibling"
+        expect(dependent.months_in_home).to eq 12
+        expect(dependent.was_student).to eq "no"
+        expect(dependent.on_visa).to eq "no"
+        expect(dependent.north_american_resident).to eq "yes"
+        expect(dependent.disabled).to eq "no"
+        expect(dependent.was_married).to eq "no"
+      end
+    end
+
+    context "with invalid params" do
+      let(:params) do
+        {
+          id: dependent.id,
+          dependent: {
+            first_name: "Kylie",
+            last_name: "",
+            birth_date_month: "16",
+            birth_date_day: "2",
+            birth_date_year: "2015",
+            relationship: "Nibling",
+            months_in_home: "12",
+            was_student: "no",
+            on_visa: "no",
+            north_american_resident: "yes",
+            disabled: "no",
+            was_married: "no"
+          }
+        }
+      end
+
+      it "renders edit with validation errors" do
+        expect do
+          post :update, params: params
+        end.not_to change(Dependent, :count)
+
+        expect(response).to render_template(:edit)
+
+        expect(response.body).to include "Please enter a valid date."
+        expect(response.body).to include "Please enter a last name."
+      end
+    end
   end
 
-  xdescribe "#destroy" do
-    it "deletes the dependent" do
-      delete :destroy
+  describe "#destroy" do
+    let!(:dependent) do
+      create :dependent,
+             first_name: "Mary",
+             last_name: "Mango",
+             birth_date: Date.new(2017, 4, 21),
+             relationship: "Kid"
+    end
+
+    it "deletes the dependent and adds a flash message" do
+      expect do
+        delete :destroy, params: { id: dependent.id }
+      end.to change(Dependent, :count).by(-1)
+
+      expect(flash[:notice]).to eq "Removed Mary Mango."
     end
   end
 end

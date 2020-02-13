@@ -39,7 +39,7 @@ RSpec.feature "Web Intake Joint Filers" do
     )
   end
 
-  xscenario "new client filing joint taxes with spouse and dependents" do
+  scenario "new client filing joint taxes with spouse and dependents" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
@@ -113,11 +113,11 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Add a dependent"
     fill_in "First name", with: "Greg"
     fill_in "Last name", with: "Gnome"
-    fill_in "Month", with: "3"
-    fill_in "Day", with: "5"
-    fill_in "Year", with: "2003"
+    select "March", from: "Month"
+    select "5", from: "Day"
+    select "2003", from: "Year"
     fill_in "Relationship to you", with: "Son"
-    select "6", from: "How many months did they live in your home?"
+    select "6", from: "How many months did they live in your home during 2019?"
     check "Full-time student"
     click_on "Save dependent"
     expect(page).to have_text("Greg Gnome")
@@ -125,12 +125,12 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Add a dependent"
     fill_in "First name", with: "Gallagher"
     fill_in "Last name", with: "Gnome"
-    fill_in "Month", with: "11"
-    fill_in "Day", with: "24"
-    fill_in "Year", with: "2005"
+    select "November", from: "Month"
+    select "24", from: "Day"
+    select "2005", from: "Year"
     fill_in "Relationship to you", with: "Nibling"
-    select "2", from: "How many months did they live in your home?"
-    check "Not a US citizen"
+    select "2", from: "How many months did they live in your home during 2019?"
+    check "In the US on a Visa"
     click_on "Save dependent"
     expect(page).to have_text("Gallagher Gnome")
 

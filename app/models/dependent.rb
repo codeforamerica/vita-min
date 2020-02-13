@@ -31,12 +31,16 @@ class Dependent < ApplicationRecord
   enum disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :disabled
   enum was_married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_married
 
-  validates_presence_of :first_name
-  validates_presence_of :last_name
-  validates_presence_of :birth_date
+  validates_presence_of :first_name, message: "Please enter a first name."
+  validates_presence_of :last_name, message: "Please enter a last name."
+  validates_presence_of :birth_date, message: "Please enter a valid date."
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 
   def full_name_and_birth_date
-    "#{first_name} #{last_name} #{birth_date.strftime("%-m/%-d/%Y")}"
+    "#{full_name} #{birth_date.strftime("%-m/%-d/%Y")}"
   end
 
   def birth_date_year
@@ -49,5 +53,12 @@ class Dependent < ApplicationRecord
 
   def birth_date_day
     birth_date&.day
+  end
+
+  def error_summary
+    if errors.present?
+      concatenated_message_strings = errors.messages.map { |key, messages| messages.join(" ") }.join(" ")
+      "Errors: " + concatenated_message_strings
+    end
   end
 end
