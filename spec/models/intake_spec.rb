@@ -9,6 +9,7 @@
 #  city                          :string
 #  divorced                      :integer          default("unfilled"), not null
 #  divorced_year                 :string
+#  ever_married                  :integer          default("unfilled"), not null
 #  filing_joint                  :integer          default("unfilled"), not null
 #  had_asset_sale_income         :integer          default("unfilled"), not null
 #  had_debt_forgiven             :integer          default("unfilled"), not null
@@ -35,7 +36,6 @@
 #  lived_with_spouse             :integer          default("unfilled"), not null
 #  made_estimated_tax_payments   :integer          default("unfilled"), not null
 #  married                       :integer          default("unfilled"), not null
-#  married_all_year              :integer          default("unfilled"), not null
 #  other_income_types            :string
 #  paid_alimony                  :integer          default("unfilled"), not null
 #  paid_charitable_contributions :integer          default("unfilled"), not null

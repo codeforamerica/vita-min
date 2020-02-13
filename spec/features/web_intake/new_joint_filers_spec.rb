@@ -67,6 +67,9 @@ RSpec.feature "Web Intake Joint Filers" do
     check "SMS Notifications"
     click_on "Continue"
 
+    expect(page).to have_selector("h1", text: "Have you ever been legally married?")
+    click_on "Yes"
+
     expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
     click_on "Yes"
 
@@ -77,6 +80,12 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "Are you legally separated?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you divorced?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "As of December 31, 2019, were you widowed?")
     click_on "No"
 
     expect(page).to have_selector("h1", text: "Are you filing joint taxes with your spouse?")
