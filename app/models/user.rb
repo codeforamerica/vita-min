@@ -12,6 +12,8 @@
 #  current_sign_in_ip        :inet
 #  email                     :string
 #  email_notification_opt_in :integer          default("unfilled"), not null
+#  encrypted_ssn             :string
+#  encrypted_ssn_iv          :string
 #  first_name                :string
 #  is_spouse                 :boolean          default(FALSE)
 #  last_name                 :string
@@ -21,7 +23,6 @@
 #  provider                  :string
 #  sign_in_count             :integer          default(0), not null
 #  sms_notification_opt_in   :integer          default("unfilled"), not null
-#  ssn                       :string
 #  state                     :string
 #  street_address            :string
 #  uid                       :string
@@ -42,6 +43,8 @@
 class User < ApplicationRecord
   devise :omniauthable, :trackable, omniauth_providers: [:idme]
   belongs_to :intake
+
+  attr_encrypted :ssn, key: Rails.application.credentials.db_encryption_key
 
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
