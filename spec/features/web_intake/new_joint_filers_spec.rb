@@ -39,7 +39,7 @@ RSpec.feature "Web Intake Joint Filers" do
     )
   end
 
-  scenario "new client filing joint taxes with spouse and dependents" do
+  xscenario "new client filing joint taxes with spouse and dependents" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
