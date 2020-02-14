@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Questions::FormStudentAccountStatementsController do
+RSpec.describe Questions::StudentAccountStatementsController do
   render_views
 
   let(:intake) { create :intake }

@@ -2,7 +2,7 @@
 
 module Questions
   # Handles user uploads for Form RRB-1099's
-  class FormRrb1099sController < DocumentUploadQuestionController
+  class Rrb1099sController < DocumentUploadQuestionController
 
     private
 

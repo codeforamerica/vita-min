@@ -2,7 +2,7 @@
 
 module Questions
   # Handles user uploads for Form SSA-1099's
-  class FormSsa1099sController < DocumentUploadQuestionController
+  class Ssa1099sController < DocumentUploadQuestionController
 
     private
 

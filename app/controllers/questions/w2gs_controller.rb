@@ -2,7 +2,7 @@
 
 module Questions
   # Handles user uploads for Form W-2G's
-  class FormW2gsController < DocumentUploadQuestionController
+  class W2gsController < DocumentUploadQuestionController
 
     private
 
