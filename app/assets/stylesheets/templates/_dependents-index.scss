@@ -3,6 +3,10 @@
     padding: 2.5rem 2rem;
     border: 2px solid black;
     border-radius: 1rem;
+
+    @media screen and (min-width: $tablet-up) {
+      max-width: 57rem;
+    }
   }
   .dependent {
     margin-bottom: 2.5rem;
