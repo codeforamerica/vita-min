@@ -39,6 +39,6 @@ class DocumentUploadGenerator < Rails::Generators::Base
   # "W-2" => "FormW2"
   # "1099-R" => "Form1099r"
   def controller_prefix
-    "Form#{options.document_type.capitalize.gsub("-", "").pluralize}"
+    "Form#{options.document_type.capitalize.gsub("-", "").camelcase.pluralize}"
   end
 end
