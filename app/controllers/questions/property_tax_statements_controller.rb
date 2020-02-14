@@ -2,12 +2,12 @@
 
 module Questions
   # Handles user uploads for Form PropertyTaxStatement's
-  class FormPropertyTaxStatementsController < DocumentUploadQuestionController
+  class PropertyTaxStatementsController < DocumentUploadQuestionController
 
     private
 
     def document_type
-      "property_tax_statement"
+      "Property Tax Statement"
     end
   end
 end
