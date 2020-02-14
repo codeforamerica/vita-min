@@ -182,6 +182,12 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Done with this step"
 
     expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
-    click_on "I've uploaded all my documents"
+    click_on "I'm done"
+
+    fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
+
+    click_on "Continue"
+
+    # Currently goes back to welcome page
   end
 end

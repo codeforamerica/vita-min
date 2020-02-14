@@ -61,4 +61,21 @@ class Dependent < ApplicationRecord
       "Errors: " + concatenated_message_strings
     end
   end
+
+  def age_at_end_of_tax_year
+    intake.tax_year - birth_date.year
+  end
+
+  def mixpanel_data
+    {
+      dependent_age_at_end_of_tax_year: age_at_end_of_tax_year.to_s,
+      dependent_under_6: age_at_end_of_tax_year < 6 ? "yes" : "no",
+      dependent_months_in_home: months_in_home.to_s,
+      dependent_was_student: was_student,
+      dependent_on_visa: on_visa,
+      dependent_north_american_resident: north_american_resident,
+      dependent_disabled: disabled,
+      dependent_was_married: was_married,
+    }
+  end
 end

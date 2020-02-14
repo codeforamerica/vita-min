@@ -15,33 +15,37 @@ class DependentsController < ApplicationController
   end
 
   def edit
-    @dependent = Dependent.find(params[:id])
+    @dependent = current_intake.dependents.find(params[:id])
   end
 
   def update
-    @dependent = Dependent.find(params[:id])
+    @dependent = current_intake.dependents.find(params[:id])
     if @dependent.update(dependent_params)
+      send_mixpanel_event(event_name: "dependent_updated", data: @dependent.mixpanel_data)
       redirect_to dependents_path
     else
+      send_mixpanel_validation_error(@dependent.errors)
       render :edit
     end
   end
 
   def create
-    @dependent = Dependent.new(intake: current_intake)
-    @dependent.assign_attributes(dependent_params)
+    @dependent = Dependent.new(dependent_params.merge(intake: current_intake))
 
     if @dependent.save
+      send_mixpanel_event(event_name: "dependent_added", data: @dependent.mixpanel_data)
       redirect_to dependents_path
     else
+      send_mixpanel_validation_error(@dependent.errors)
       render :new
     end
   end
 
   def destroy
-    @dependent = Dependent.find(params[:id])
-    if @dependent.destroy!
+    @dependent = current_intake.dependents.find(params[:id])
+    if @dependent.destroy
       flash[:notice] = "Removed #{@dependent.full_name}."
+      send_mixpanel_event(event_name: "dependent_removed")
     end
     redirect_to dependents_path
   end
@@ -73,6 +77,8 @@ class DependentsController < ApplicationController
   end
 
   def parse_birth_date_params(birth_date_params)
+    birth_date_values = birth_date_params.values
+    return nil if birth_date_values.any?(&:blank?)
     begin
       Date.new(*birth_date_params.values.map(&:to_i))
     rescue ArgumentError => error

@@ -69,9 +69,7 @@ module Questions
     end
 
     def track_validation_error
-      invalid_field_flags = @form.errors.keys.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
-      tracking_data = invalid_field_flags.merge(custom_tracking_data)
-      send_mixpanel_event(event_name: "validation_error", data: tracking_data)
+      send_mixpanel_validation_error(@form.errors, custom_tracking_data)
     end
 
     def custom_tracking_data
