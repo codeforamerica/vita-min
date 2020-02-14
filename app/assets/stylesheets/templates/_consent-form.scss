@@ -1,15 +1,4 @@
 .consent-form {
-  .checkbox {
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    display: block;
-
-    @media screen and (min-width: $tablet-up) {
-      width: 34.5rem;
-    }
-  }
-
   .consent-details {
     padding: 1.3rem;
     border: 2px solid black;

@@ -73,9 +73,6 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "As of December 31, 2019, were you legally married?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "Were you married for all of 2019?")
-    click_on "Yes"
-
     expect(page).to have_selector("h1", text: "Did you live with your spouse during any part of the last six months of 2019?")
     click_on "Yes"
 
@@ -277,7 +274,11 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Done with this step"
 
     expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
-    click_on "I've uploaded all my documents"
+    click_on "I'm done"
+
+    fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+
+    click_on "Continue"
   end
 end
 

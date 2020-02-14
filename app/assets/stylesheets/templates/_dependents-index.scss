@@ -1,0 +1,27 @@
+.dependents-index {
+  .dependents-list {
+    padding: 2.5rem 2rem;
+    border: 2px solid black;
+    border-radius: 1rem;
+  }
+  .dependent {
+    margin-bottom: 2.5rem;
+    position: relative;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &__icon {
+      position: absolute;
+      top: 0;
+      margin-right: 1.25rem;
+    }
+    &__details {
+      display: inline-block;
+      margin-left: 3rem;
+    }
+    &__label {
+      font-weight: normal;
+    }
+  }
+}

@@ -52,9 +52,7 @@ class IntakeSiteDropOffsController < ApplicationController
   end
 
   def track_validation_error
-    invalid_field_flags = @drop_off.errors.keys.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
-    tracking_data = invalid_field_flags.merge(mixpanel_data)
-    send_mixpanel_event(event_name: "validation_error", data: tracking_data)
+    send_mixpanel_validation_error(@drop_off.errors, mixpanel_data)
   end
 
   def mixpanel_data

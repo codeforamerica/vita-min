@@ -9,13 +9,18 @@
   box-shadow: none;
 
   &:hover {
-    background-color: black;
-    border-color: black;
+    background-color: #303030;
+    border-color: #303030;
+  }
+  &:active {
+    background-color: #303030;
+    border-color: #303030;
   }
 }
 
 .button--inline-action {
   border-radius: 0.5rem;
+  border-width: 2px;
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin-bottom: 0;
@@ -26,11 +31,29 @@
   background-color: #008060;
   color: white;
   border: none;
+  &:active {
+    background-color: #034E46;
+    color: white;
+  }
+  &:hover {
+    background-color: #034E46;
+    color: white;
+  }
 }
 
 .button--danger {
   border-color: #D70A40;
   color: #D70A40;
+
+  &:active {
+    background-color: #F7F5F4;
+    color: #D70A40;
+  }
+
+  &:hover {
+    background-color: #F7F5F4;
+    color: #D70A40;
+  }
 }
 
 .button--wide {
