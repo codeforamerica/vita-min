@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class FormStudentAccountStatementsForm < QuestionsForm
+class StudentAccountStatementsForm < QuestionsForm
   set_attributes_for :intake, :document
 
   def save
     document_file_upload = attributes_for(:intake)[:document]
     return unless document_file_upload.present?
 
-    document = @intake.documents.create(document_type: "student_account_statement")
+    document = @intake.documents.create(document_type: "Student Account Statement")
     document.upload.attach(document_file_upload)
   end
 end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Questions::FormSsnItinsController do
+RSpec.describe Questions::SsnItinsController do
   render_views
 
   let(:intake) { create :intake }
