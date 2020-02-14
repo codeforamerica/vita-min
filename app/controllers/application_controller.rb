@@ -51,6 +51,12 @@ class ApplicationController < ActionController::Base
     send_mixpanel_event(event_name: "page_view") if request.get?
   end
 
+  def send_mixpanel_validation_error(errors, additional_data = {})
+    invalid_field_flags = errors.keys.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
+    tracking_data = invalid_field_flags.merge(additional_data)
+    send_mixpanel_event(event_name: "validation_error", data: tracking_data)
+  end
+
   def send_mixpanel_event(event_name:, data: {})
     return if user_agent.bot?
     major_browser_version = user_agent.full_version.try { |v| v.partition('.').first }

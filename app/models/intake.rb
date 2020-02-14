@@ -148,4 +148,8 @@ class Intake < ApplicationRecord
   def state_name
     States.name_for_key(state)
   end
+
+  def tax_year
+    2019
+  end
 end

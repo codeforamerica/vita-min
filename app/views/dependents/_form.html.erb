@@ -15,14 +15,14 @@
           <%= section_title %>
         </h3>
         <main role="main">
-          <%= form_with model: @dependent, url: dependents_path, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+          <%= form_with model: @dependent, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
             <h1 class="form-question">
               <%= @main_heading %>
             </h1>
 
-            <%= f.cfa_input_field(:first_name, "First name") %>
-            <%= f.cfa_input_field(:last_name, "Last name") %>
-            <%= f.cfa_input_field(:relationship, "Relationship to you") %>
+            <%= f.cfa_input_field(:first_name, "First name", classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:last_name, "Last name", classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:relationship, "Relationship to you", classes: ["form-width--med"]) %>
             <%= f.cfa_date_select(:birth_date, "Date of birth", options: {
                 start_year: Time.now.year,
                 end_year: Time.now.year - 100,
@@ -30,8 +30,7 @@
             <%= f.cfa_select(
                     :months_in_home,
                     "How many months did they live in your home during 2019?",
-                    (1..12).map { |i| [i.to_s, i] }.reverse,
-                    include_blank: true
+                    (1..12).map { |i| [i.to_s, i] }.reverse
             ) %>
 
             <h2 class="form-question">Select any cases that describe their life this past year</h2>
@@ -49,10 +48,10 @@
             </div>
 
             <% if @allow_deletion %>
-              <button class="button button--danger button--wide button--icon" type="submit">
+              <%= link_to(dependent_path(@dependent), method: :delete, class: "button button--danger button--wide button--icon") do%>
                 <%= image_tag("remove.svg", alt: "") %>
                 Remove dependent
-              </button>
+              <% end %>
             <% end %>
 
             <button class="button button--cta button--wide button--icon" type="submit">

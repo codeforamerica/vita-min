@@ -8,10 +8,10 @@ RSpec.describe DependentsController do
 
   before do
     allow(subject).to receive(:current_user).and_return user
+    allow(subject).to receive(:send_mixpanel_event)
   end
 
   describe "#index" do
-
     context "with existing dependents" do
       let!(:dependent_one) { create :dependent, first_name: "Kylie", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
       let!(:dependent_two) { create :dependent, first_name: "Kelly", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
@@ -66,6 +66,24 @@ RSpec.describe DependentsController do
         expect(dependent.disabled).to eq "no"
         expect(dependent.was_married).to eq "no"
       end
+
+      it "sends analytics to mixpanel" do
+        post :create, params: params
+
+        expect(subject).to have_received(:send_mixpanel_event).with(
+          event_name: "dependent_added",
+          data: {
+            dependent_age_at_end_of_tax_year: "4",
+            dependent_under_6: "yes",
+            dependent_months_in_home: "12",
+            dependent_was_student: "no",
+            dependent_on_visa: "no",
+            dependent_north_american_resident: "yes",
+            dependent_disabled: "no",
+            dependent_was_married: "no",
+          }
+        )
+      end
     end
 
     context "with invalid params" do
@@ -73,9 +91,9 @@ RSpec.describe DependentsController do
         {
           dependent: {
             first_name: "Kylie",
-            birth_date_month: "16",
+            birth_date_month: "12",
             birth_date_day: "2",
-            birth_date_year: "2015",
+            birth_date_year: "",
             relationship: "Nibling",
             months_in_home: "12",
             was_student: "no",
@@ -97,6 +115,18 @@ RSpec.describe DependentsController do
         expect(response.body).to include "Please enter a valid date."
         expect(response.body).to include "Please enter a last name."
       end
+
+      it "sends validation errors to mixpanel" do
+        post :create, params: params
+
+        expect(subject).to have_received(:send_mixpanel_event).with(
+          event_name: "validation_error",
+          data: {
+            invalid_birth_date: true,
+            invalid_last_name: true,
+          }
+        )
+      end
     end
   end
 
@@ -106,7 +136,8 @@ RSpec.describe DependentsController do
              first_name: "Mary",
              last_name: "Mango",
              birth_date: Date.new(2017, 4, 21),
-             relationship: "Kid"
+             relationship: "Kid",
+             intake: intake
     end
 
     it "renders information about the existing dependent and renders a delete button" do
@@ -116,6 +147,16 @@ RSpec.describe DependentsController do
       expect(response.body).to include("Mango")
       expect(response.body).to include("Kid")
       expect(response.body).to include("Remove dependent")
+    end
+
+    context "when a user from a different intake tries to access" do
+      let(:user) { create :user }
+
+      it "raises a record not found error" do
+        expect do
+          get :edit, params: { id: dependent.id }
+        end.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
   end
 
@@ -167,6 +208,35 @@ RSpec.describe DependentsController do
         expect(dependent.disabled).to eq "no"
         expect(dependent.was_married).to eq "no"
       end
+
+
+      context "when a user from a different intake tries to update" do
+        let(:user) { create :user }
+
+        it "raises a record not found error" do
+          expect do
+            post :update, params: params
+          end.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      it "sends analytics to mixpanel" do
+        post :update, params: params
+
+        expect(subject).to have_received(:send_mixpanel_event).with(
+          event_name: "dependent_updated",
+          data: {
+            dependent_age_at_end_of_tax_year: "4",
+            dependent_under_6: "yes",
+            dependent_months_in_home: "12",
+            dependent_was_student: "no",
+            dependent_on_visa: "no",
+            dependent_north_american_resident: "yes",
+            dependent_disabled: "no",
+            dependent_was_married: "no",
+          }
+        )
+      end
     end
 
     context "with invalid params" do
@@ -200,6 +270,18 @@ RSpec.describe DependentsController do
         expect(response.body).to include "Please enter a valid date."
         expect(response.body).to include "Please enter a last name."
       end
+
+      it "sends validation errors to mixpanel" do
+        post :create, params: params
+
+        expect(subject).to have_received(:send_mixpanel_event).with(
+          event_name: "validation_error",
+          data: {
+            invalid_birth_date: true,
+            invalid_last_name: true,
+          }
+        )
+      end
     end
   end
 
@@ -209,15 +291,33 @@ RSpec.describe DependentsController do
              first_name: "Mary",
              last_name: "Mango",
              birth_date: Date.new(2017, 4, 21),
-             relationship: "Kid"
+             relationship: "Kid",
+             intake: intake
     end
 
-    it "deletes the dependent and adds a flash message" do
+    it "deletes the dependent and adds a flash message and redirects to dependents path" do
       expect do
         delete :destroy, params: { id: dependent.id }
       end.to change(Dependent, :count).by(-1)
 
+      expect(response).to redirect_to dependents_path
       expect(flash[:notice]).to eq "Removed Mary Mango."
+    end
+
+    it "sends analytics to mixpanel" do
+      delete :destroy, params: { id: dependent.id }
+
+      expect(subject).to have_received(:send_mixpanel_event).with(event_name: "dependent_removed")
+    end
+
+    context "when a user from a different intake tries to destroy" do
+      let(:user) { create :user }
+
+      it "raises a record not found error" do
+        expect do
+          delete :destroy, params: { id: dependent.id }
+        end.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
   end
 end
