@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_13_192025) do
+ActiveRecord::Schema.define(version: 2020_02_14_215433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,6 +160,7 @@ ActiveRecord::Schema.define(version: 2020_02_13_192025) do
     t.string "interview_timing_preference"
     t.integer "had_dependents", default: 0, null: false
     t.integer "ever_married", default: 0, null: false
+    t.boolean "intake_pdf_sent_to_zendesk", default: false, null: false
   end
 
   create_table "users", force: :cascade do |t|
