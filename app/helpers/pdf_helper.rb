@@ -3,6 +3,17 @@ module PdfHelper
     value == "yes" ? "Yes" : nil
   end
 
+  def yes_no_unfilled_to_radio(value)
+    {
+      "yes" => "Yes",
+      "no" => "No",
+    }[value]
+  end
+
+  def yes_no_unfilled_to_opposite_checkbox(value)
+    value == "no" ? "Yes" : nil
+  end
+
   def strftime_date(date)
     date.strftime("%-m/%-d/%Y")
   end

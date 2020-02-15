@@ -7,10 +7,26 @@ class IntakePdf
 
   def initialize(intake)
     @intake = intake
+    @primary = intake.primary_user
+    @spouse = intake.spouse
+    @dependents = intake.dependents
   end
 
   def hash_for_pdf
-    {
+    answers = {
+      street_address: @intake.street_address,
+      city: @intake.city,
+      state: @intake.state&.upcase,
+      zip_code: @intake.zip_code,
+      never_married: yes_no_unfilled_to_opposite_checkbox(@intake.ever_married),
+      married: yes_no_unfilled_to_checkbox(@intake.married),
+      divorced: yes_no_unfilled_to_checkbox(@intake.divorced),
+      widowed: yes_no_unfilled_to_checkbox(@intake.widowed),
+      separated: yes_no_unfilled_to_checkbox(@intake.separated),
+      lived_with_spouse: yes_no_unfilled_to_radio(@intake.lived_with_spouse),
+      widowed_date: @intake.widowed_year,
+      divorced_date: @intake.divorced_year,
+      separated_date: @intake.separated_year,
       had_wages: yes_no_unfilled_to_checkbox(@intake.had_wages),
       job_count: @intake.job_count == 5 ? "5 or more" : @intake.job_count,
       had_tips: yes_no_unfilled_to_checkbox(@intake.had_tips),
@@ -52,5 +68,67 @@ class IntakePdf
       made_estimated_tax_payments: yes_no_unfilled_to_checkbox(@intake.made_estimated_tax_payments),
       additional_info: @intake.additional_info,
     }
+    answers.merge!(primary_info) if @primary.present?
+    answers.merge!(spouse_info) if @spouse.present?
+    answers.merge!(dependents_info) if @dependents.present?
+    answers
+  end
+
+  def primary_info
+    {
+      first_name: @primary.first_name,
+      last_name: @primary.last_name,
+      date_of_birth: strftime_date(@primary.parsed_birth_date),
+      phone_number: @primary.formatted_phone_number,
+      email: @primary.email,
+    }
+  end
+
+  def spouse_info
+    {
+      spouse_first_name: @spouse.first_name,
+      spouse_last_name: @spouse.last_name,
+      spouse_date_of_birth: strftime_date(@spouse.parsed_birth_date),
+    }
+  end
+
+  def dependents_info
+    answers = {}
+    @dependents.first(4).each_with_index do |dependent, index|
+      prefix = "dependent_#{index + 1}"
+      {
+        name: dependent.full_name,
+        date_of_birth: strftime_date(dependent.birth_date),
+        relationship: dependent.relationship,
+        months_in_home: dependent.months_in_home.to_s,
+        disabled: yes_no_unfilled_to_YN(dependent.disabled),
+        north_american_resident: yes_no_unfilled_to_YN(dependent.north_american_resident),
+        on_visa: yes_no_unfilled_to_YN(dependent.on_visa),
+        student: yes_no_unfilled_to_YN(dependent.was_student),
+        marital_status: married_to_SM(dependent.was_married),
+      }.each do |key, value|
+        full_key = "#{prefix}_#{key}".to_sym
+        answers[full_key] = value
+      end
+    end
+    answers
+  end
+
+  private
+
+  def yes_no_unfilled_to_YN(yes_no_unfilled)
+    {
+      "yes" => "Y",
+      "no" => "N",
+      "unfilled" => ""
+    }[yes_no_unfilled]
+  end
+
+  def married_to_SM(was_married_yes_no_unfilled)
+    {
+      "yes" => "M",
+      "no" => "S",
+      "unfilled" => ""
+    }[was_married_yes_no_unfilled]
   end
 end

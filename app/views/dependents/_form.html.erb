@@ -30,7 +30,7 @@
             <%= f.cfa_select(
                     :months_in_home,
                     "How many months did they live in your home during 2019?",
-                    (1..12).map { |i| [i.to_s, i] }.reverse
+                    (0..12).map { |i| [i.to_s, i] }.reverse
             ) %>
 
             <h2 class="form-question">Select any cases that describe their life this past year</h2>
