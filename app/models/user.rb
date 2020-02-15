@@ -47,20 +47,41 @@ class User < ApplicationRecord
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_service
 
+  def self.temporary_fake_idme_data(auth_info)
+    OpenStruct.new(
+      first_name: "Fake",
+      last_name: "Person",
+      email: auth_info.email,
+      birth_date: "1991-01-20",
+      phone: auth_info.phone,
+      social: auth_info.social,
+      street: "927 Mission St",
+      city: "San Francisco",
+      state: "California",
+      zip_code: auth_info.zip_code,
+    )
+  end
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
       # this only runs on initialize
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
-      user.email = auth.info.email
-      user.birth_date = auth.info.birth_date
-      user.phone_number = auth.info.phone
-      user.ssn = auth.info.social
-      user.street_address = auth.info.street
-      user.city = auth.info.city
-      user.state = auth.info.state
-      user.zip_code = auth.info.zip_code
+
+      data_source = auth.info
+      # the ID.me sandbox does not give us full data to work with
+      unless Rails.env.production? || auth.info.birth_date.present?
+        data_source = temporary_fake_idme_data(auth.info)
+      end
+
+      user.first_name = data_source.first_name
+      user.last_name = data_source.last_name
+      user.email = data_source.email
+      user.birth_date = data_source.birth_date
+      user.phone_number = data_source.phone
+      user.ssn = data_source.social
+      user.street_address = data_source.street
+      user.city = data_source.city
+      user.state = data_source.state
+      user.zip_code = data_source.zip_code
     end
   end
 

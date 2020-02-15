@@ -174,5 +174,60 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    context "with a mostly empty sandbox data hash from omniauth" do
+      let(:auth) do
+        OmniAuth::AuthHash.new({
+          provider: "idme",
+          uid: "123545",
+          info: {
+            first_name: "VERONICA",
+            last_name: "PERSINGER",
+            email: "gary.gardengnome@example.green",
+            phone: "15552223333",
+            social: "123456789",
+            zip_code: "55016",
+          }
+        })
+      end
+
+      context "on non production environments" do
+        before { allow(Rails).to receive(:env) { "demo".inquiry } }
+
+        it "saves the user with default fake data" do
+          user = described_class.from_omniauth(auth)
+
+          expect(user.first_name).to eq "Fake"
+          expect(user.last_name).to eq "Person"
+          expect(user.email).to eq "gary.gardengnome@example.green"
+          expect(user.birth_date).to eq "1991-01-20"
+          expect(user.phone_number).to eq "15552223333"
+          expect(user.ssn).to eq "123456789"
+          expect(user.street_address).to eq "927 Mission St"
+          expect(user.city).to eq "San Francisco"
+          expect(user.state).to eq "California"
+          expect(user.zip_code).to eq "55016"
+        end
+      end
+
+      context "on production" do
+        before { allow(Rails).to receive(:env) { "production".inquiry } }
+
+        it "saves the user with mostly empty data hash" do
+          user = described_class.from_omniauth(auth)
+
+          expect(user.first_name).to eq "VERONICA"
+          expect(user.last_name).to eq "PERSINGER"
+          expect(user.email).to eq "gary.gardengnome@example.green"
+          expect(user.birth_date).to eq nil
+          expect(user.phone_number).to eq "15552223333"
+          expect(user.ssn).to eq "123456789"
+          expect(user.street_address).to eq nil
+          expect(user.city).to eq nil
+          expect(user.state).to eq nil
+          expect(user.zip_code).to eq "55016"
+        end
+      end
+    end
   end
 end
