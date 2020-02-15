@@ -80,7 +80,7 @@ class User < ApplicationRecord
       user.ssn = data_source.social
       user.street_address = data_source.street
       user.city = data_source.city
-      user.state = data_source.state
+      user.state = States.key_for_name(data_source.state)
       user.zip_code = data_source.zip_code
     end
   end
