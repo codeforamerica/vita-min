@@ -202,4 +202,36 @@ describe ZendeskIntakeService do
       end
     end
   end
+
+  describe "#send_intake_pdf" do
+    let(:output) { true }
+    let(:fake_file) { instance_double(File) }
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_file_to_ticket).and_return(output)
+      allow(intake).to receive(:pdf).and_return(fake_file)
+    end
+
+    it "appends the intake pdf to the ticket" do
+      result = service.send_intake_pdf
+      expect(result).to eq true
+      expect(service).to have_received(:append_file_to_ticket).with(
+        ticket_id: 34,
+        filename: "CherCherimoya_13614c.pdf",
+        file: fake_file,
+        comment: "New 13614-C Complete"
+      )
+    end
+
+    context "when the zendesk api fails" do
+      let(:output){ false }
+
+      it "raises an error" do
+        expect do
+          service.send_intake_pdf
+        end.to raise_error(ZendeskIntakeService::CouldNotSendIntakePdfError)
+      end
+    end
+  end
 end

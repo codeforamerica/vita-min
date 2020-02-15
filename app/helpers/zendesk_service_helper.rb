@@ -96,6 +96,16 @@ module ZendeskServiceHelper
     ticket.id
   end
 
+  def append_file_to_ticket(ticket_id:, filename:, file:, comment: "")
+    raise MissingTicketIdError if ticket_id.blank?
+
+    ticket = ZendeskAPI::Ticket.find(client, id: ticket_id)
+    ticket.comment = { body: comment }
+    ticket.comment.uploads << {file: file, filename: filename}
+    ticket.save
+  end
+
   class ZendeskServiceError < StandardError; end
   class MissingRequesterIdError < ZendeskServiceError; end
+  class MissingTicketIdError < ZendeskServiceError; end
 end

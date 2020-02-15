@@ -89,7 +89,23 @@ class ZendeskIntakeService
     end
   end
 
+  def send_intake_pdf
+    output = append_file_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      filename: intake_pdf_filename,
+      file: @intake.pdf,
+      comment: "New 13614-C Complete"
+    )
+
+    raise CouldNotSendIntakePdfError unless output == true
+    output
+  end
+
   private
+
+  def intake_pdf_filename
+    "#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_13614c.pdf"
+  end
 
   def new_ticket_body_header
     "New Online Intake Started"
@@ -102,4 +118,6 @@ class ZendeskIntakeService
           • Consented to this VITA pilot
     FOOTER
   end
+
+  class CouldNotSendIntakePdfError < ZendeskServiceError; end
 end

@@ -4,6 +4,7 @@ RSpec.describe ZendeskServiceHelper do
   let(:fake_zendesk_client) { double(ZendeskAPI::Client) }
   let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
+  let(:fake_zendesk_comment) { double(uploads: []) }
   let(:service) do
     class SampleService
       include ZendeskServiceHelper
@@ -13,8 +14,12 @@ RSpec.describe ZendeskServiceHelper do
   end
 
   before do
-    allow(ZendeskAPI::Client).to receive(:new).and_return(fake_zendesk_client)
-    allow(ZendeskAPI::Ticket).to receive(:new).and_return(fake_zendesk_ticket)
+    allow(ZendeskAPI::Client).to receive(:new).and_return fake_zendesk_client
+    allow(ZendeskAPI::Ticket).to receive(:new).and_return fake_zendesk_ticket
+    allow(ZendeskAPI::Ticket).to receive(:find).and_return fake_zendesk_ticket
+    allow(fake_zendesk_ticket).to receive(:comment=)
+    allow(fake_zendesk_ticket).to receive(:comment).and_return fake_zendesk_comment
+    allow(fake_zendesk_ticket).to receive(:save).and_return true
   end
 
   describe "#find_end_user" do
@@ -159,7 +164,7 @@ RSpec.describe ZendeskServiceHelper do
     end
   end
 
-  describe "create_ticket" do
+  describe "#create_ticket" do
     let(:ticket_args) do
       {
         subject: "wyd",
@@ -182,6 +187,35 @@ RSpec.describe ZendeskServiceHelper do
       expect(result).to eq 2
       expect(fake_zendesk_ticket).to have_received(:save).with(no_args)
       expect(service).to have_received(:build_ticket).with(**ticket_args)
+    end
+  end
+
+  describe "#append_file_to_ticket" do
+    let(:file) { instance_double(File) }
+
+    it "calls the Zendesk API to get the ticket and add the comment with upload and returns true" do
+      result = service.append_file_to_ticket(
+        ticket_id: 1141,
+        filename: "wyd.jpg",
+        file: file,
+        comment: "hey"
+      )
+      expect(result).to eq true
+      expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey" })
+      expect(fake_zendesk_comment.uploads).to include({file: file, filename: "wyd.jpg"})
+      expect(fake_zendesk_ticket).to have_received(:save)
+    end
+
+    context "when the ticket id is missing" do
+      it "raises an error" do
+        expect do
+          service.append_file_to_ticket(
+            ticket_id: nil,
+            filename: "yolo.pdf",
+            file: file
+          )
+        end.to raise_error(ZendeskServiceHelper::MissingTicketIdError)
+      end
     end
   end
 end
