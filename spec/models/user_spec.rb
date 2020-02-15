@@ -169,7 +169,7 @@ RSpec.describe User, type: :model do
           expect(user.ssn).to eq "123224567"
           expect(user.street_address).to eq "1234 Green St"
           expect(user.city).to eq "Passaic Park"
-          expect(user.state).to eq "New Jersey"
+          expect(user.state).to eq "nj"
           expect(user.zip_code).to eq "22233"
         end
       end
@@ -205,7 +205,7 @@ RSpec.describe User, type: :model do
           expect(user.ssn).to eq "123456789"
           expect(user.street_address).to eq "927 Mission St"
           expect(user.city).to eq "San Francisco"
-          expect(user.state).to eq "California"
+          expect(user.state).to eq "ca"
           expect(user.zip_code).to eq "55016"
         end
       end

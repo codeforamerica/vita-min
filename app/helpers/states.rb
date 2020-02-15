@@ -65,6 +65,10 @@ module States
     self.hash[key]
   end
 
+  def self.key_for_name(name)
+    self.hash.key(name)
+  end
+
   def self.name_value_pairs
     STATE_OPTIONS
   end
