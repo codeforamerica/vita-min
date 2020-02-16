@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class W2gsForm < QuestionsForm
   set_attributes_for :intake, :document
 
