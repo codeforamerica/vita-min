@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form 1098-T's
   class Form1098tsController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.had_student_in_family_yes?
+    end
 
     private
 

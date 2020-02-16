@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form 1099-MISC's
   class Form1099miscsController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.had_self_employment_income_yes? ||
+        intake.had_a_job?
+    end
 
     private
 

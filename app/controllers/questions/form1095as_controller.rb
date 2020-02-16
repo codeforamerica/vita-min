@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form 1095-A's
   class Form1095asController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.bought_health_insurance_yes?
+    end
 
     private
 

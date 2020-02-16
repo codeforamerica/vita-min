@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form 1099-INT's
   class Form1099intsController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.had_interest_income_yes?
+    end
 
     private
 

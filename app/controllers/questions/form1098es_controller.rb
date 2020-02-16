@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form 1098-E's
   class Form1098esController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.paid_student_loan_interest_yes?
+    end
 
     private
 

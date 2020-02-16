@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form 1099-B's
   class Form1099bsController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.had_asset_sale_income_yes?
+    end
 
     private
 

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form 1099-C's
   class Form1099csController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.had_debt_forgiven_yes?
+    end
 
     private
 

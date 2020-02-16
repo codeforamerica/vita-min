@@ -153,4 +153,8 @@ class Intake < ApplicationRecord
   def tax_year
     2019
   end
+
+  def had_a_job?
+    job_count.present? && job_count > 0
+  end
 end
