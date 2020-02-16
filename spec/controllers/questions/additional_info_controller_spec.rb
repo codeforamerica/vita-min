@@ -20,5 +20,11 @@ RSpec.describe Questions::AdditionalInfoController do
 
       expect(SendIntakePdfToZendeskJob).to have_been_enqueued
     end
+
+    it "redirects to the first relevant documents path" do
+      post :update, params: params
+
+      expect(response).to redirect_to additional_documents_documents_path
+    end
   end
 end

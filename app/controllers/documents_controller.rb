@@ -9,7 +9,7 @@ class DocumentsController < ApplicationController
 
       redirect_to helpers.edit_document_path(document.document_type)
     else
-      redirect_to documents_overview_questions_path
+      redirect_to overview_documents_path
     end
   end
 end

@@ -74,34 +74,7 @@ class QuestionNavigation
     # Additional Questions
     Questions::AdditionalInfoController,
 
-    # Documents
-    Questions::W2sController,
-    Questions::Form1095asController,
-    Questions::Form1098sController,
-    Questions::Form1098esController,
-    Questions::Form1098tsController,
-    Questions::Form1099asController,
-    Questions::Form1099bsController,
-    Questions::Form1099csController,
-    Questions::Form1099divsController,
-    Questions::Form1099intsController,
-    Questions::Form1099ksController,
-    Questions::Form1099miscsController,
-    Questions::Form1099rsController,
-    Questions::Form1099ssController,
-    Questions::Form1099sasController,
-    Questions::Form1099ssdisController,
-    Questions::Form1099gsController,
-    Questions::Form5498sasController,
-    Questions::IraStatementsController,
-    Questions::Rrb1099sController,
-    Questions::SsnItinsController,
-    Questions::Ssa1099sController,
-    Questions::StudentAccountStatementsController,
-    Questions::W2gsController,
-    Questions::PriorTaxReturnsController,
-    Questions::AdditionalDocumentsController,
-    Questions::DocumentsOverviewController,
+    # Documents --> See DocumentNavigation
 
     Questions::InterviewSchedulingController,
 

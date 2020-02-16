@@ -1,12 +1,4 @@
-# frozen_string_literal: true
-
 module Questions
   class <%= @controller_name %> < DocumentUploadQuestionController
-
-    private
-
-    def document_type
-      <%= options.document_type.inspect %>
-    end
   end
 end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PriorTaxReturnsForm < QuestionsForm
   set_attributes_for :intake, :document
 
