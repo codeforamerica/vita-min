@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form <%= @options.document_type %>'s
   class <%= @controller_name %> < DocumentUploadQuestionController
 
     private

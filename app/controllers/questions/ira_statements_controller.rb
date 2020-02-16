@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form IRA Statement's
   class IraStatementsController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.paid_retirement_contributions_yes?
+    end
 
     private
 

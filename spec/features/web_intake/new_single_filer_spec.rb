@@ -6,7 +6,7 @@ RSpec.feature "Web Intake Single Filer" do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(9876)
   end
 
-  xscenario "new client filing single without dependents" do
+  scenario "new client filing single without dependents" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
@@ -54,25 +54,25 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "Did you report a business loss on your 2018 tax return?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have any income from a retirement account, pension, or annuity proceeds?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have any income from Social Security or Railroad Retirement Benefits?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you receive any unemployment benefits?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you receive any disability benefits?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have any income from interest or dividends?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have any income from the sale of stocks, bonds, or real estate?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "Did you report a loss from the sale of stocks, bonds, or real estate on your 2018 return?")
     click_on "Yes"
@@ -81,13 +81,13 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have any income from rental properties?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have any income from farm activity?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have any income from gambling winnings, including the lottery?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you receive a state or local income tax refund?")
     click_on "Yes"
@@ -99,7 +99,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Next"
 
     expect(page).to have_selector("h1", text: "In 2019, did you pay any mortgage interest?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you pay any state, local, real estate, sales, or other taxes?")
     click_on "Yes"
@@ -111,7 +111,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "In 2019, did you pay any student loan interest?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you pay any child or dependent care expenses?")
     click_on "Yes"
@@ -129,25 +129,25 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "In 2019, did you sell a home?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have a Health Savings Account?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you purchase health insurance through the marketplace or exchange?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "Did you receive the First Time Homebuyer Credit in 2008?")
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have debt cancelled or forgiven by a lender?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have a loss related to a declared Federal Disaster Area?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you adopt a child?")
-    click_on "Yes"
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?")
     click_on "Yes"
@@ -161,7 +161,7 @@ RSpec.feature "Web Intake Single Filer" do
     fill_in "Is there any additional information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
     click_on "Next"
 
-    expect(page).to have_selector("h1", text: "Attach a copy of your W-2’s")
+    expect(page).to have_selector("h1", text: "Attach your W-2's")
     attach_file("w2s_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
 
@@ -173,6 +173,27 @@ RSpec.feature "Web Intake Single Filer" do
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_content("picture_id.jpg")
+    click_on "Done with this step"
+
+    expect(page).to have_selector("h1", text: "Attach your 1098's")
+    click_on "Done with this step"
+
+    expect(page).to have_selector("h1", text: "Attach your 1098-T's")
+    click_on "Done with this step"
+
+    expect(page).to have_selector("h1", text: "Attach your 1099-K's")
+    click_on "Done with this step"
+
+    expect(page).to have_selector("h1", text: "Attach your 1099-MISC's")
+    click_on "Done with this step"
+
+    expect(page).to have_selector("h1", text: "Attach your IRA Statements")
+    click_on "Done with this step"
+
+    expect(page).to have_selector("h1", text: "Attach your student account statements")
+    click_on "Done with this step"
+
+    expect(page).to have_selector("h1", text: "Attach your 2018 tax return")
     click_on "Done with this step"
 
     expect(page).to have_selector("h1", text: "Do you have any additional documents?")

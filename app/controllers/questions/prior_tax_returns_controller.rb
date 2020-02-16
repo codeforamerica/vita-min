@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form 2018 Tax Return's
   class PriorTaxReturnsController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.had_local_tax_refund_yes? || intake.reported_asset_sale_loss_yes?
+    end
 
     private
 
