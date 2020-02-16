@@ -77,7 +77,7 @@ RSpec.describe Documents::W2sController do
     context "with valid params" do
       let(:valid_params) do
         {
-          w2s_form: {
+          document_type_upload_form: {
             document: fixture_file_upload("attachments/test-pattern.png")
           }
         }

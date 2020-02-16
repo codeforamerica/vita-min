@@ -40,7 +40,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
     context "with valid params" do
       let(:valid_params) do
         {
-          additional_documents_form: {
+          document_type_upload_form: {
             document: fixture_file_upload("attachments/test-pattern.png")
           }
         }
