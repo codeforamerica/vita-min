@@ -31,6 +31,19 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :documents, controller: :documents do
+    collection do
+      DocumentNavigation.all_controllers.uniq.each do |controller_class|
+        { get: :edit, put: :update }.each do |method, action|
+          match "/#{controller_class.to_param}",
+                action: action,
+                controller: controller_class.controller_path,
+                via: method
+        end
+      end
+    end
+  end
+
   resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :documents, only: [:destroy]
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Form5498sasForm < QuestionsForm
   set_attributes_for :intake, :document
 
