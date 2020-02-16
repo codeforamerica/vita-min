@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form 1099-SA's
   class Form1099sasController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.had_hsa_yes?
+    end
 
     private
 

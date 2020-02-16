@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form 1099-SSDI's
   class Form1099ssdisController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.had_disability_income_yes?
+    end
 
     private
 

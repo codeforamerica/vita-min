@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Questions
-  # Handles user uploads for Form W-2G's
   class W2gsController < DocumentUploadQuestionController
+    def self.show?(intake)
+      intake.had_gambling_income_yes?
+    end
 
     private
 
