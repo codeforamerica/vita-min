@@ -48,7 +48,12 @@
             </div>
 
             <% if @allow_deletion %>
-              <%= link_to(dependent_path(@dependent), method: :delete, class: "button button--danger button--wide button--icon") do%>
+              <%= link_to(
+                dependent_path(@dependent),
+                method: :delete,
+                class: "button button--danger button--wide button--icon",
+                data: { confirm: "Are you sure you want to remove \"#{@dependent.full_name}\"?" }
+            ) do%>
                 <%= image_tag("remove.svg", alt: "") %>
                 Remove dependent
               <% end %>
