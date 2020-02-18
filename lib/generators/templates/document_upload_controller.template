@@ -1,4 +1,4 @@
-module Questions
+module Documents
   class <%= @controller_name %> < DocumentUploadQuestionController
   end
 end
