@@ -44,7 +44,7 @@ class User < ApplicationRecord
   devise :omniauthable, :trackable, omniauth_providers: [:idme]
   belongs_to :intake
 
-  attr_encrypted :ssn, key: Rails.application.credentials.db_encryption_key
+  attr_encrypted :ssn, key: ->(_) { Rails.application.credentials.db_encryption_key }
 
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
