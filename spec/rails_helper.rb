@@ -72,7 +72,11 @@ RSpec.configure do |config|
   config.before(:each) do
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:idme] = omniauth_idme_success
+
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
+
+    # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
+    allow(Rails.application.credentials).to receive(:db_encryption_key).and_return('any-32-character-string-here!!!!')
   end
 
 end
