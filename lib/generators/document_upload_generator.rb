@@ -10,30 +10,24 @@ class DocumentUploadGenerator < Rails::Generators::Base
     @controller_name = "#{controller_prefix}Controller"
     @form_name = "#{controller_prefix}Form"
 
-    generate_question_form
-    generate_question_controller
-    generate_question_view
+    generate_document_controller
+    generate_document_view
 
     puts "\n\u{2728} Done generating the #{options.document_type.inspect} document upload!"
     puts "\u{1F6A8} Be sure to:"
-    puts "   1. Add `Questions::#{@controller_name}` in `app/forms/question_navigation.rb`"
-    puts "   2. Add #{options.document_type.inspect} in `app/models/document.rb` DOCUMENT_TYPES array."
+    puts "Add #{options.document_type.inspect} in `app/lib/document_navigator.rb` DOCUMENT_CONTROLLERS hash."
   end
 
   private
 
-  def generate_question_form
-    template "document_upload_form.template", "app/forms/#{@form_name.underscore}.rb"
-  end
-
-  def generate_question_controller
+  def generate_document_controller
     template "document_upload_controller.template",
-      "app/controllers/questions/#{@controller_name.underscore}.rb"
+      "app/controllers/documents/#{@controller_name.underscore}.rb"
   end
 
-  def generate_question_view
+  def generate_document_view
     template "document_upload_view.template",
-      "app/views/questions/#{controller_prefix.underscore}/edit.html.erb"
+      "app/views/documents/#{controller_prefix.underscore}/edit.html.erb"
   end
 
   # "W-2" => "FormW2"

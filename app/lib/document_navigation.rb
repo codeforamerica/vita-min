@@ -25,6 +25,7 @@ class DocumentNavigation
     "SSN or ITIN" => Documents::SsnItinsController,
     "SSA-1099" => Documents::Ssa1099sController,
     "Student Account Statement" => Documents::StudentAccountStatementsController,
+    "Childcare Statement" => Documents::ChildcareStatementsController,
     "W-2G" => Documents::W2gsController,
     "2018 Tax Return" => Documents::PriorTaxReturnsController,
     "Other" => Documents::AdditionalDocumentsController,
