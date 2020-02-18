@@ -13,15 +13,6 @@ class AddEncryptedSsnFieldsToUser < ActiveRecord::Migration[5.2]
   end
 
   def down
-    add_column :users, :ssn, :string
-
-    # Copy all encrypted SSNs to the unencrypted `ssn` column.
-    User.find_each do |u|
-      previous_ssn = u.ssn
-      u.update_column(:ssn, previous_ssn)
-    end
-
-    remove_column :users, :encrypted_ssn
-    remove_column :users, :encrypted_ssn_iv
+    raise ActiveRecord::IrreversibleMigration
   end
 end
