@@ -81,7 +81,7 @@ class ZendeskIntakeService
     if instance_eitc?
       {
         EitcZendeskInstance::INTAKE_SITE => "online_intake",
-        EitcZendeskInstance::INTAKE_STATUS => "1._new_online_submission",
+        EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
       }
     else
       # We do not yet have field IDs for UWTSA Zendesk instance

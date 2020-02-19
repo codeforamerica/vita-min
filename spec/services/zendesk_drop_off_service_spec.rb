@@ -54,7 +54,7 @@ describe ZendeskDropOffService do
               EitcZendeskInstance::HSA => true,
               EitcZendeskInstance::INTAKE_SITE => "adams_city_high_school",
               EitcZendeskInstance::STATE => "nv",
-              EitcZendeskInstance::INTAKE_STATUS => "3._ready_for_prep",
+              EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
               EitcZendeskInstance::SIGNATURE_METHOD => drop_off.signature_method,
             }
           ]
