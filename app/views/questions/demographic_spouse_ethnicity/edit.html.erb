@@ -1,0 +1,23 @@
+<% @main_question = "What is your spouse's ethnicity?" %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <%= f.cfa_radio_set(
+            :demographic_spouse_ethnicity,
+            label_text: @main_question,
+            collection: [
+                { value: :hispanic_latino, label: "Hispanic or Latino" },
+                { value: :not_hispanic_latino, label: "Not Hispanic or Latino" },
+            ]
+        )
+    %>
+    <button class="button button--primary button--wide" type="submit">
+      Continue
+    </button>
+    <%= f.button :submit, name: "#{f.object_name}[demographic_spouse_ethnicity]", value: :prefer_not_to_answer, class: "button button--wide", "aria-describedby": "demographic_spouse_ethnicity_question" do %>
+      Skip question
+    <% end %>
+  <% end %>
+<% end %>
