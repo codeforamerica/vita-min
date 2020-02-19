@@ -6,7 +6,7 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <%= f.cfa_radio_set(
           :demographic_english_reading,
-          label_text: @main_question,
+          label_text: "<h1 class=\"form-question\">#{@main_question}</h1>".html_safe,
           collection: [
             { value: :very_well, label: "Very well" },
             { value: :well, label: "Well" },
@@ -18,7 +18,7 @@
     <button class="button button--primary button--wide" type="submit">
       Continue
     </button>
-    <%= f.button :submit, name: "#{f.object_name}[demographic_english_reading]", value: :prefer_not_to_answer, class: "button button--wide", "aria-describedby": "demographic_english_reading_question" do %>
+    <%= f.button :submit, name: "#{f.object_name}[demographic_english_reading]", value: :prefer_not_to_answer, class: "button button--wide" do %>
       Skip question
     <% end %>
   <% end %>
