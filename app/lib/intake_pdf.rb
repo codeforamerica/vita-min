@@ -68,6 +68,7 @@ class IntakePdf
       made_estimated_tax_payments: yes_no_unfilled_to_checkbox(@intake.made_estimated_tax_payments),
       additional_info: @intake.additional_info,
     }
+    answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes?
     answers.merge!(primary_info) if @primary.present?
     answers.merge!(spouse_info) if @spouse.present?
     answers.merge!(dependents_info) if @dependents.present?
@@ -112,6 +113,45 @@ class IntakePdf
       end
     end
     answers
+  end
+
+  def demographic_info
+    {
+      english_conversation_very_well: bool_checkbox(@intake.demographic_english_conversation_very_well?),
+      english_conversation_well: bool_checkbox(@intake.demographic_english_conversation_well?),
+      english_conversation_not_well: bool_checkbox(@intake.demographic_english_conversation_not_well?),
+      english_conversation_not_at_all: bool_checkbox(@intake.demographic_english_conversation_not_at_all?),
+      english_conversation_no_answer: bool_checkbox(@intake.demographic_english_conversation_prefer_not_to_answer?),
+      english_newspaper_very_well: bool_checkbox(@intake.demographic_english_reading_very_well?),
+      english_newspaper_well: bool_checkbox(@intake.demographic_english_reading_well?),
+      english_newspaper_not_well: bool_checkbox(@intake.demographic_english_reading_not_well?),
+      english_newspaper_not_at_all: bool_checkbox(@intake.demographic_english_reading_not_at_all?),
+      english_newspaper_no_answer: bool_checkbox(@intake.demographic_english_reading_prefer_not_to_answer?),
+      anyone_disabled_yes: bool_checkbox(@intake.demographic_disability_yes?),
+      anyone_disabled_no: bool_checkbox(@intake.demographic_disability_no?),
+      anyone_disabled_no_answer: bool_checkbox(@intake.demographic_disability_prefer_not_to_answer?),
+      anyone_veteran_yes: bool_checkbox(@intake.demographic_veteran_yes?),
+      anyone_veteran_no: bool_checkbox(@intake.demographic_veteran_no?),
+      anyone_veteran_no_answer: bool_checkbox(@intake.demographic_veteran_prefer_not_to_answer?),
+      race_american_indian_alaskan_native: bool_checkbox(@intake.demographic_primary_american_indian_alaska_native),
+      race_asian: bool_checkbox(@intake.demographic_primary_asian),
+      race_black_african_american: bool_checkbox(@intake.demographic_primary_black_africa_american),
+      race_native_hawaiian_pacific_islander: bool_checkbox(@intake.demographic_primary_native_hawaiian_pacific_islander),
+      race_white: bool_checkbox(@intake.demographic_primary_white),
+      race_no_answer: bool_checkbox(@intake.demographic_primary_prefer_not_to_answer_race),
+      spouse_race_american_indian_alaskan_native: bool_checkbox(@intake.demographic_spouse_american_indian_alaska_native),
+      spouse_race_asian: bool_checkbox(@intake.demographic_spouse_asian),
+      spouse_race_black_african_american: bool_checkbox(@intake.demographic_spouse_black_africa_american),
+      spouse_race_native_hawaiian_pacific_islander: bool_checkbox(@intake.demographic_spouse_native_hawaiian_pacific_islander),
+      spouse_race_white: bool_checkbox(@intake.demographic_spouse_white),
+      spouse_race_no_answer: bool_checkbox(@intake.demographic_spouse_prefer_not_to_answer_race),
+      ethnicity_hispanic: bool_checkbox(@intake.demographic_primary_ethnicity_hispanic_latino?),
+      ethnicity_not_hispanic: bool_checkbox(@intake.demographic_primary_ethnicity_not_hispanic_latino?),
+      ethnicity_no_answer: bool_checkbox(@intake.demographic_primary_ethnicity_prefer_not_to_answer?),
+      spouse_ethnicity_hispanic: bool_checkbox(@intake.demographic_spouse_ethnicity_hispanic_latino?),
+      spouse_ethnicity_not_hispanic: bool_checkbox(@intake.demographic_spouse_ethnicity_not_hispanic_latino?),
+      spouse_ethnicity_no_answer: bool_checkbox(@intake.demographic_spouse_ethnicity_prefer_not_to_answer?),
+    }
   end
 
   private
