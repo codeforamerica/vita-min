@@ -19,6 +19,16 @@ class EitcZendeskInstance
   SIGNATURE_METHOD = "360029896814"
   HSA = "360031865033"
 
+  # Digital Intake Status value tags
+  INTAKE_STATUS_IN_PROGRESS = "1._new_online_submission"
+  INTAKE_STATUS_GATHERING_DOCUMENTS = "online_intake_gathering_documents"
+  INTAKE_STATUS_READY_FOR_REVIEW = "online_intake_ready_for_review"
+  INTAKE_STATUS_IN_REVIEW = "online_intake_in_review"
+  INTAKE_STATUS_READY_FOR_INTAKE_INTERVIEW = "online_intake_ready_for_intake_interview"
+  INTAKE_STATUS_WAITING_FOR_INFO = "online_intake_waiting_for_info"
+  INTAKE_STATUS_COMPLETE = "3._ready_for_prep"
+  INTAKE_STATUS_NOT_FILING = "online_intake_not_filing"
+
   def self.client
     ZendeskAPI::Client.new do |config|
       config.url = "https://#{DOMAIN}.zendesk.com/api/v2"
