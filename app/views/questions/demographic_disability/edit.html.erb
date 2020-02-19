@@ -1,0 +1,23 @@
+<% @main_question = "Do you or any member of your household have a disability?" %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <%= f.cfa_radio_set(
+          :demographic_disability,
+          label_text: @main_question,
+          collection: [
+            { value: :yes, label: "Yes" },
+            { value: :no, label: "No" },
+          ]
+        )
+    %>
+    <button class="button button--primary button--wide" type="submit">
+      Continue
+    </button>
+    <%= f.button :submit, name: "#{f.object_name}[demographic_disability]", value: :prefer_not_to_answer, class: "button button--wide", "aria-describedby": "demographic_disability_question" do %>
+      Skip question
+    <% end %>
+  <% end %>
+<% end %>

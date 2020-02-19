@@ -209,9 +209,37 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "I'm done"
 
     fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
+    click_on "Continue"
 
+    expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
+    click_on "Continue"
+
+    expect(page).to have_text("How well would you say you can carry on a conversation in English?")
+    choose "Well"
+    click_on "Continue"
+
+    expect(page).to have_text("How well would you say you read a newspaper in English?")
+    choose "Not well"
+    click_on "Continue"
+
+    expect(page).to have_text("Do you or any member of your household have a disability?")
+    choose "No"
+    click_on "Continue"
+
+    expect(page).to have_text("Are you or your spouse a veteran of the U.S. Armed Forces?")
+    choose "Yes"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "What is your race?")
+    check "Asian"
+    check "White"
+    click_on "Continue"
+
+    expect(page).to have_text("What is your ethnicity?")
+    choose "Not Hispanic or Latino"
     click_on "Continue"
 
     # Currently goes back to welcome page
+    expect(page).to have_selector("h1", text: "Welcome Gary!")
   end
 end

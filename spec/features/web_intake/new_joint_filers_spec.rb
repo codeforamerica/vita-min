@@ -352,8 +352,13 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "I'm done"
 
     fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
-
     click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
+    click_on "Skip questions"
+
+    # Currently goes back to welcome page
+    expect(page).to have_selector("h1", text: "Welcome Gary and Greta!")
   end
 end
 
