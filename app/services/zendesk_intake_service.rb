@@ -94,7 +94,8 @@ class ZendeskIntakeService
       ticket_id: @intake.intake_ticket_id,
       filename: intake_pdf_filename,
       file: @intake.pdf,
-      comment: "New 13614-C Complete"
+      comment: "New 13614-C Complete",
+      fields: intake_pdf_fields
     )
 
     raise CouldNotSendIntakePdfError unless output == true
@@ -102,6 +103,17 @@ class ZendeskIntakeService
   end
 
   private
+
+  def intake_pdf_fields
+    if instance_eitc?
+      {
+        EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
+      }
+    else
+      # We do not yet have field IDs for UWTSA Zendesk instance
+      {}
+    end
+  end
 
   def intake_pdf_filename
     "#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_13614c.pdf"
