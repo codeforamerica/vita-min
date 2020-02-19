@@ -1,0 +1,17 @@
+<% @main_question = "Are you willing to answer some additional questions to help us better serve you?" %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <h1 class="form-question spacing-below-35">
+      <%= @main_question %>
+    </h1>
+    <%= f.button :submit, name: "#{f.object_name}[demographic_questions_opt_in]", value: "yes", class: "button button--wide button--primary", "aria-describedby": "demographic_questions_opt_in_question" do %>
+      Continue
+    <% end %>
+    <%= f.button :submit, name: "#{f.object_name}[demographic_questions_opt_in]", value: "no", class: "button button--wide", "aria-describedby": "demographic_questions_opt_in_question" do %>
+      Skip questions
+    <% end %>
+  <% end %>
+<% end %>
