@@ -220,7 +220,10 @@ describe ZendeskIntakeService do
         ticket_id: 34,
         filename: "CherCherimoya_13614c.pdf",
         file: fake_file,
-        comment: "New 13614-C Complete"
+        comment: "New 13614-C Complete",
+        fields: {
+          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS
+        }
       )
     end
 

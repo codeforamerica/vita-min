@@ -18,6 +18,7 @@ RSpec.describe ZendeskServiceHelper do
     allow(ZendeskAPI::Ticket).to receive(:new).and_return fake_zendesk_ticket
     allow(ZendeskAPI::Ticket).to receive(:find).and_return fake_zendesk_ticket
     allow(fake_zendesk_ticket).to receive(:comment=)
+    allow(fake_zendesk_ticket).to receive(:fields=)
     allow(fake_zendesk_ticket).to receive(:comment).and_return fake_zendesk_comment
     allow(fake_zendesk_ticket).to receive(:save).and_return true
   end
@@ -198,10 +199,12 @@ RSpec.describe ZendeskServiceHelper do
         ticket_id: 1141,
         filename: "wyd.jpg",
         file: file,
-        comment: "hey"
+        comment: "hey",
+        fields: { "314324132" => "custom_field_value" }
       )
       expect(result).to eq true
       expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey" })
+      expect(fake_zendesk_ticket).to have_received(:fields=).with({ "314324132" => "custom_field_value" })
       expect(fake_zendesk_comment.uploads).to include({file: file, filename: "wyd.jpg"})
       expect(fake_zendesk_ticket).to have_received(:save)
     end
