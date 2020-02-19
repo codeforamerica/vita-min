@@ -4,7 +4,7 @@
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
-    <h1 class="form-question spacing-below-35">
+    <h1 class="form-question spacing-below-35" id="demographic_primary_race_question">
       <%= @main_question %>
     </h1>
     <div class="form-card__stacked-checkboxes spacing-above-0">
@@ -18,7 +18,7 @@
     <button class="button button--primary button--wide" type="submit">
       Continue
     </button>
-    <%= f.button :submit, name: "#{f.object_name}[demographic_primary_prefer_not_to_answer_race]", value: true, class: "button button--wide", "aria-describedby": "demographic_primary_prefer_not_to_answer_race_question" do %>
+    <%= f.button :submit, name: "#{f.object_name}[demographic_primary_prefer_not_to_answer_race]", value: true, class: "button button--wide", "aria-describedby": "demographic_primary_race_question" do %>
       Skip question
     <% end %>
   <% end %>
