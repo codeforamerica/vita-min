@@ -12,7 +12,7 @@
 #  demographic_english_reading                          :integer          default("unfilled"), not null
 #  demographic_primary_american_indian_alaska_native    :boolean
 #  demographic_primary_asian                            :boolean
-#  demographic_primary_black_africa_american            :boolean
+#  demographic_primary_black_african_american           :boolean
 #  demographic_primary_ethnicity                        :integer          default("unfilled"), not null
 #  demographic_primary_native_hawaiian_pacific_islander :boolean
 #  demographic_primary_prefer_not_to_answer_race        :boolean
@@ -20,7 +20,7 @@
 #  demographic_questions_opt_in                         :integer          default("unfilled"), not null
 #  demographic_spouse_american_indian_alaska_native     :boolean
 #  demographic_spouse_asian                             :boolean
-#  demographic_spouse_black_africa_american             :boolean
+#  demographic_spouse_black_african_american            :boolean
 #  demographic_spouse_ethnicity                         :integer          default("unfilled"), not null
 #  demographic_spouse_native_hawaiian_pacific_islander  :boolean
 #  demographic_spouse_prefer_not_to_answer_race         :boolean
