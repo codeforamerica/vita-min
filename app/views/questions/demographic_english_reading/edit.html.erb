@@ -1,0 +1,25 @@
+<% @main_question = "How well would you say you read a newspaper in English?" %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <%= f.cfa_radio_set(
+          :demographic_english_reading,
+          label_text: @main_question,
+          collection: [
+            { value: :very_well, label: "Very well" },
+            { value: :well, label: "Well" },
+            { value: :not_well, label: "Not well" },
+            { value: :not_at_all, label: "Not at all" },
+          ]
+        )
+    %>
+    <button class="button button--primary button--wide" type="submit">
+      Continue
+    </button>
+    <%= f.button :submit, name: "#{f.object_name}[demographic_english_reading]", value: :prefer_not_to_answer, class: "button button--wide", "aria-describedby": "demographic_english_reading_question" do %>
+      Skip question
+    <% end %>
+  <% end %>
+<% end %>

@@ -78,6 +78,15 @@ class QuestionNavigation
 
     Questions::InterviewSchedulingController,
 
+    # Optional Demographic Questions
+    Questions::DemographicQuestionsController,
+    Questions::DemographicEnglishConversationController,
+    Questions::DemographicEnglishReadingController,
+    Questions::DemographicDisabilityController,
+    Questions::DemographicVeteranController,
+    Questions::DemographicPrimaryRaceController,
+    Questions::DemographicPrimaryEthnicityController,
+
     Questions::WelcomeController, # TODO: remove this
   ].freeze
 
