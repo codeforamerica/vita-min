@@ -2,7 +2,7 @@ class EmailController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
 
   def create
-    raise StandardError unless params[:to].include?("zendesk-sms@vitataxhelp.org")
+    raise StandardError unless params[:to].include?("zendesk-sms@hooks.vitataxhelp.org")
 
     body = params[:text]
     # https://regex101.com/r/gm4p3C/2
