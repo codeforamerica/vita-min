@@ -85,7 +85,9 @@ class QuestionNavigation
     Questions::DemographicDisabilityController,
     Questions::DemographicVeteranController,
     Questions::DemographicPrimaryRaceController,
+    Questions::DemographicSpouseRaceController,
     Questions::DemographicPrimaryEthnicityController,
+    Questions::DemographicSpouseEthnicityController,
 
     Questions::WelcomeController, # TODO: remove this
   ].freeze
