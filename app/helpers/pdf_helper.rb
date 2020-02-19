@@ -14,6 +14,10 @@ module PdfHelper
     value == "no" ? "Yes" : nil
   end
 
+  def bool_checkbox(value)
+    value ? "Yes" : nil
+  end
+
   def strftime_date(date)
     date.strftime("%-m/%-d/%Y")
   end
