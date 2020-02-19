@@ -59,7 +59,7 @@ RSpec.describe EmailController, type: :controller do
     end
 
     context "to the right email address" do
-      let(:to_email) { "zendesk-sms@vitataxhelp.org" }
+      let(:to_email) { "zendesk-sms@hooks.vitataxhelp.org" }
 
       it "returns 200 OK" do
         post :create, params: params
