@@ -112,7 +112,7 @@ describe ZendeskIntakeService do
           body: "Body text",
           fields: {
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
-            EitcZendeskInstance::INTAKE_STATUS => "1._new_online_submission",
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
           }
         )
       end

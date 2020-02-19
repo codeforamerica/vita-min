@@ -25,7 +25,7 @@ class ZendeskDropOffService
           EitcZendeskInstance::HSA => @drop_off.hsa,
           EitcZendeskInstance::INTAKE_SITE => intake_site_tag,
           EitcZendeskInstance::STATE => @drop_off.state,
-          EitcZendeskInstance::INTAKE_STATUS => "3._ready_for_prep",
+          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
           EitcZendeskInstance::SIGNATURE_METHOD => @drop_off.signature_method
       }
     )
