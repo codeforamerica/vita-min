@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_14_215433) do
+ActiveRecord::Schema.define(version: 2020_02_18_220540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +161,25 @@ ActiveRecord::Schema.define(version: 2020_02_14_215433) do
     t.integer "had_dependents", default: 0, null: false
     t.integer "ever_married", default: 0, null: false
     t.boolean "intake_pdf_sent_to_zendesk", default: false, null: false
+    t.integer "demographic_questions_opt_in", default: 0, null: false
+    t.integer "demographic_english_conversation", default: 0, null: false
+    t.integer "demographic_english_reading", default: 0, null: false
+    t.integer "demographic_disability", default: 0, null: false
+    t.integer "demographic_veteran", default: 0, null: false
+    t.boolean "demographic_primary_american_indian_alaska_native"
+    t.boolean "demographic_primary_black_africa_american"
+    t.boolean "demographic_primary_native_hawaiian_pacific_islander"
+    t.boolean "demographic_primary_asian"
+    t.boolean "demographic_primary_white"
+    t.boolean "demographic_primary_prefer_not_to_answer_race"
+    t.boolean "demographic_spouse_american_indian_alaska_native"
+    t.boolean "demographic_spouse_black_africa_american"
+    t.boolean "demographic_spouse_native_hawaiian_pacific_islander"
+    t.boolean "demographic_spouse_asian"
+    t.boolean "demographic_spouse_white"
+    t.boolean "demographic_spouse_prefer_not_to_answer_race"
+    t.integer "demographic_primary_ethnicity", default: 0, null: false
+    t.integer "demographic_spouse_ethnicity", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
