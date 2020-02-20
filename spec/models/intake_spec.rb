@@ -56,6 +56,7 @@
 #  lived_with_spouse                                    :integer          default("unfilled"), not null
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
 #  married                                              :integer          default("unfilled"), not null
+#  multiple_states                                      :integer          default("unfilled"), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default("unfilled"), not null
 #  paid_charitable_contributions                        :integer          default("unfilled"), not null

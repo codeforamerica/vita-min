@@ -56,6 +56,7 @@
 #  lived_with_spouse                                    :integer          default("unfilled"), not null
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
 #  married                                              :integer          default("unfilled"), not null
+#  multiple_states                                      :integer          default("unfilled"), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default("unfilled"), not null
 #  paid_charitable_contributions                        :integer          default("unfilled"), not null
@@ -125,6 +126,7 @@ class Intake < ApplicationRecord
   enum had_wages: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_wages
   enum lived_with_spouse: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_spouse
   enum made_estimated_tax_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_estimated_tax_payments
+  enum multiple_states: { unfilled: 0, yes: 1, no: 2 }, _prefix: :multiple_states
   enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
   enum ever_married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ever_married
   enum paid_alimony: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_alimony

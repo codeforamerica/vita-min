@@ -35,6 +35,9 @@ RSpec.feature "Web Intake Single Filer" do
     check "SMS Notifications"
     click_on "Continue"
 
+    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides California?")
+    click_on "No"
+
     expect(page).to have_selector("h1", text: "Have you ever been legally married?")
     click_on "No"
 

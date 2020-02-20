@@ -31,7 +31,7 @@ RSpec.describe IntakePdf do
           "zip_code" => "",
           "phone_number" => nil,
           "email" => nil,
-          "multistate" => nil,
+          "multistate" => "",
 
           "on_visa" => nil,
           "spouse_on_visa" => nil,
@@ -191,6 +191,7 @@ RSpec.describe IntakePdf do
           city: "Gardenia",
           state: "nj",
           zip_code: "08052",
+          multiple_states: "yes",
           ever_married: "yes",
           married: "yes",
           lived_with_spouse: "yes",
@@ -357,7 +358,7 @@ RSpec.describe IntakePdf do
           "zip_code" => "08052",
           "phone_number" => "(415) 816-1286",
           "email" => "hoofie@heifer.horse",
-          "multistate" => nil,
+          "multistate" => "Yes",
 
           "on_visa" => nil,
           "spouse_on_visa" => nil,
