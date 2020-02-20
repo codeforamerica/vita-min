@@ -1,6 +1,7 @@
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
     <%= f.vita_min_select(:job_count, "In 2019, how many jobs did you have?", [
+        ["I didn't have a job",  0],
         ["1 job",  1],
         ["2 jobs", 2],
         ["3 jobs", 3],
@@ -8,7 +9,8 @@
         ["5 or more jobs", 5],
       ],
       {
-        help_text: "Include any work that paid you, no matter how small."
+        help_text: "Include any work that paid you, no matter how small.",
+        include_blank: true
       }
     ) %>
     <button class="button button--primary" type="submit">
