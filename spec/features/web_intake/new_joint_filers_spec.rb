@@ -67,6 +67,21 @@ RSpec.feature "Web Intake Joint Filers" do
     check "SMS Notifications"
     click_on "Continue"
 
+    expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "In 2019, were you in the US on a Visa?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "In 2019, did you have a permanent disability?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "In 2019, were you legally blind?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "Have you been issued an Identity Protection PIN?")
+    click_on "No"
+
     expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides California?")
     click_on "Yes"
 
@@ -105,6 +120,21 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Sign in spouse with ID.me"
     expect(page).to have_selector("h1", text: "Welcome Gary and Greta!")
     click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Was your spouse a full-time student in 2019?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "In 2019, was your spouse in the US on a Visa?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "In 2019, did your spouse have a permanent disability?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "In 2019, was your spouse legally blind?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "Has your spouse been issued an Identity Protection PIN?")
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "Did you have any dependents in 2019?")
     click_on "Yes"
