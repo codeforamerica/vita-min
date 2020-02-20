@@ -9,6 +9,13 @@ RSpec.describe PublicPagesController do
         allow(Rails).to receive(:env).and_return("production".inquiry)
       end
 
+      it "does not link to the first questions page" do
+        get :home
+
+        expect(response.body).not_to include "Get started"
+        expect(response.body).not_to include question_path(QuestionNavigation.first)
+      end
+
       it "includes GA script in html" do
         get :home
 
@@ -19,6 +26,13 @@ RSpec.describe PublicPagesController do
     context "in demo env" do
       before do
         allow(Rails).to receive(:env).and_return("demo".inquiry)
+      end
+
+      it "links to the first question path for digital intake" do
+        get :home
+
+        expect(response.body).to include "Get started"
+        expect(response.body).to include question_path(QuestionNavigation.first)
       end
 
       it "does not include google analytics" do
