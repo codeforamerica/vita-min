@@ -13,4 +13,10 @@ module ApplicationHelper
     five_miles_in_meters = 8046.72
     (meters / five_miles_in_meters).ceil * 5
   end
+
+  def you_or_spouse(intake)
+    return "you or your spouse" if intake.filing_joint_yes?
+
+    "you"
+  end
 end

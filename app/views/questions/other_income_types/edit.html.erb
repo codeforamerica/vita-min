@@ -1,6 +1,6 @@
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
-    <%= f.vita_min_text_field(:other_income_types, "What were the other types of income that you received?") %>
+    <%= f.vita_min_text_field(:other_income_types, "What were the other types of income that #{you_or_spouse(@form.intake)} received?") %>
     <button class="button button--primary" type="submit">
       Next
       <i class="button__icon icon-arrow_forward"></i>
