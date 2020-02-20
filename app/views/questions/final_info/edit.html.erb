@@ -1,0 +1,14 @@
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <%= f.cfa_textarea(
+          :final_info,
+          "Anything else you'd like your tax preparer to know about your situation?",
+          help_text: "For example, are you missing any documents, or did you have major changes in your household situation this year? If not, you can leave this blank.",
+          options: { rows: '5' }
+        ) %>
+    <button class="button button--primary" type="submit">
+      Submit
+      <i class="button__icon icon-arrow_forward"></i>
+    </button>
+  <% end %>
+<% end %>

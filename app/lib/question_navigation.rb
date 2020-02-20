@@ -102,7 +102,8 @@ class QuestionNavigation
     Questions::DemographicPrimaryEthnicityController,
     Questions::DemographicSpouseEthnicityController,
 
-    Questions::WelcomeController, # TODO: remove this
+    Questions::FinalInfoController,
+    Questions::SuccessfullySubmittedController,
   ].freeze
 
   class << self

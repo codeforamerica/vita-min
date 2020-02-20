@@ -393,8 +393,10 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
     click_on "Skip questions"
 
-    # Currently goes back to welcome page
-    expect(page).to have_selector("h1", text: "Welcome Gary and Greta!")
+    fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
+    click_on "Submit"
+
+    expect(page).to have_selector("h1", text: "Your tax information has been successfully submitted!")
   end
 end
 
