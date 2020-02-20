@@ -6,6 +6,11 @@ class QuestionNavigation
     Questions::WelcomeController,
     Questions::MailingAddressController,
     Questions::NotificationPreferenceController, # creates initial Zendesk ticket
+    Questions::WasStudentController,
+    Questions::OnVisaController,
+    Questions::HadDisabilityController,
+    Questions::WasBlindController,
+    Questions::IssuedIdentityPinController,
     Questions::OtherStatesController,
 
     # Marital Status
@@ -23,6 +28,13 @@ class QuestionNavigation
     # Spouse authentication
     Questions::SpouseIdentityController,
     Questions::WelcomeSpouseController,
+
+    # Spouse personal information
+    Questions::SpouseWasStudentController,
+    Questions::SpouseOnVisaController,
+    Questions::SpouseHadDisabilityController,
+    Questions::SpouseWasBlindController,
+    Questions::SpouseIssuedIdentityPinController,
 
     # Dependents
     Questions::HadDependentsController,
