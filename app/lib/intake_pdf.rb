@@ -68,6 +68,21 @@ class IntakePdf
       received_irs_letter: yes_no_unfilled_to_checkbox(@intake.received_irs_letter),
       made_estimated_tax_payments: yes_no_unfilled_to_checkbox(@intake.made_estimated_tax_payments),
       additional_info: @intake.additional_info,
+      on_visa: yes_no_unfilled_to_checkbox(@intake.was_on_visa),
+      spouse_on_visa: yes_no_unfilled_to_checkbox(@intake.spouse_was_on_visa),
+      not_on_visa: check_if_both_are_no(@intake.was_on_visa, @intake.spouse_was_on_visa),
+      student: yes_no_unfilled_to_checkbox(@intake.was_full_time_student),
+      spouse_student: yes_no_unfilled_to_checkbox(@intake.spouse_was_full_time_student),
+      not_student: check_if_both_are_no(@intake.was_full_time_student, @intake.spouse_was_full_time_student),
+      blind: yes_no_unfilled_to_checkbox(@intake.was_blind),
+      spouse_blind: yes_no_unfilled_to_checkbox(@intake.spouse_was_blind),
+      not_blind: check_if_both_are_no(@intake.was_blind, @intake.spouse_was_blind),
+      disabled: yes_no_unfilled_to_checkbox(@intake.had_disability),
+      spouse_disabled: yes_no_unfilled_to_checkbox(@intake.spouse_had_disability),
+      not_disabled: check_if_both_are_no(@intake.had_disability, @intake.spouse_had_disability),
+      issued_pin: yes_no_unfilled_to_checkbox(@intake.issued_identity_pin),
+      spouse_issued_pin: yes_no_unfilled_to_checkbox(@intake.spouse_issued_identity_pin),
+      not_issued_pin: check_if_both_are_no(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin),
     }
     answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes?
     answers.merge!(primary_info) if @primary.present?
