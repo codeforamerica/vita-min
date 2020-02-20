@@ -12,6 +12,11 @@
           Free tax help from IRS-certified volunteers.
         </h1>
         <p><strong>Find a local VITA site near you and get more of your refund dollars back by filing for free.</strong></p>
+        <% unless Rails.env.production? %>
+          <%= link_to question_path(QuestionNavigation.first), class: "button button--cta" do %>
+            Get started
+          <% end %>
+        <% end %>
 
         <%= link_to vita_providers_path, id: "firstCta", class: "button button--primary" do %>
           Find a location
