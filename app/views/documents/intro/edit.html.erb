@@ -1,0 +1,37 @@
+<% content_for :page_title, "All right, let's collect your documents!" %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <h3 class="section-title">
+          <%= image_tag("#{section_title.parameterize}.svg", alt: "") %>
+          <%= section_title %>
+        </h3>
+
+        <main role="main">
+          <h1 class="form-question">
+            <%= content_for(:page_title) %>
+          </h1>
+          <p class="text--help">
+            Based on your responses to our earlier questions, we will ask for the following documents. Don't worry, we'll save your progress. You can return to upload more documents later.
+          </p>
+
+          <div class="document-overview-list">
+            <% recommended_document_types.each do |type| %>
+              <div>
+              <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__heading">
+            <%= type %>
+          </h2>
+              </div>
+            <% end %>
+          </div>
+
+          <%= link_to next_path, class: "button button--primary" do %>
+            Continue
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

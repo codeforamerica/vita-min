@@ -24,7 +24,8 @@ RSpec.describe DocumentNavigation do
         "Doc-3" => ThirdController,
       }
     )
-    stub_const("DocumentNavigation::GENERIC_CONTROLLERS", [])
+    stub_const("DocumentNavigation::BEFORE_CONTROLLERS", [])
+    stub_const("DocumentNavigation::AFTER_CONTROLLERS", [])
   end
 
   describe ".controllers" do

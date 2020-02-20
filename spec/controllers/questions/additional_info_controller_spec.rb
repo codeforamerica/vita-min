@@ -24,7 +24,7 @@ RSpec.describe Questions::AdditionalInfoController do
     it "redirects to the first relevant documents path" do
       post :update, params: params
 
-      expect(response).to redirect_to additional_documents_documents_path
+      expect(response).to redirect_to intro_documents_path
     end
   end
 end

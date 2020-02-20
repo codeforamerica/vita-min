@@ -30,7 +30,10 @@ class DocumentNavigation
     "2018 Tax Return" => Documents::PriorTaxReturnsController,
     "Other" => Documents::AdditionalDocumentsController,
   }.freeze
-  GENERIC_CONTROLLERS = [
+  BEFORE_CONTROLLERS = [
+      Documents::IntroController
+  ].freeze
+  AFTER_CONTROLLERS = [
     Documents::OverviewController
   ].freeze
   DOCUMENT_TYPES = DOCUMENT_CONTROLLERS.keys.freeze
@@ -43,7 +46,7 @@ class DocumentNavigation
     end
 
     def all_controllers
-      controllers + GENERIC_CONTROLLERS
+      BEFORE_CONTROLLERS + controllers + AFTER_CONTROLLERS
     end
 
     def document_type(controller_class)
@@ -62,7 +65,7 @@ class DocumentNavigation
   def next
     return unless index
 
-    controllers_until_end = all_controllers[index + 1..-1]
+    controllers_until_end = all_controllers[(index + 1)..-1]
     seek(controllers_until_end)
   end
 
@@ -85,7 +88,7 @@ class DocumentNavigation
   private
 
   def index
-    controllers.index(@current_controller.class)
+    all_controllers.index(@current_controller.class)
   end
 
   def seek(list)
