@@ -74,6 +74,7 @@ class ZendeskIntakeService
       Email: #{@intake.primary_user.email}
       State (based on mailing address): #{@intake.state_name}
 
+      #{contact_preferences}
       #{new_ticket_body_footer}
     BODY
   end
@@ -139,10 +140,22 @@ class ZendeskIntakeService
     output
   end
 
+  def contact_preferences
+    return no_notifications unless @intake.primary_user.opted_into_notifications?
+    text = "Prefers notifications by:\n"
+    text << "    • Text message\n" if @intake.primary_user.sms_notification_opt_in_yes?
+    text << "    • Email\n" if @intake.primary_user.email_notification_opt_in_yes?
+    text
+  end
+
   private
 
   def blob
     @document_blob
+  end
+
+  def no_notifications
+    "Did not want email or text message notifications.\n"
   end
 
   def intake_pdf_fields
