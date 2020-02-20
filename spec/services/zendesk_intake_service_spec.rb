@@ -157,6 +157,10 @@ describe ZendeskIntakeService do
         Email: cash@raining.money
         State (based on mailing address): Nebraska
 
+        Prefers notifications by:
+            • Text message
+            • Email
+
         This filer has:
             • Verified their identity through ID.me
             • Consented to this VITA pilot
@@ -165,6 +169,44 @@ describe ZendeskIntakeService do
 
     it "adds all relevant details about the user and intake" do
       expect(service.new_ticket_body).to eq expected_body
+    end
+  end
+
+  describe "#contact_preferences" do
+    context "with sms and email" do
+      let(:email_opt_in) { "yes" }
+      let(:sms_opt_in) { "yes" }
+
+      it "shows both" do
+        expect(service.contact_preferences).to eq <<~TEXT
+          Prefers notifications by:
+              • Text message
+              • Email
+        TEXT
+      end
+    end
+
+    context "with just sms" do
+      let(:email_opt_in) { "no" }
+      let(:sms_opt_in) { "yes" }
+
+      it "shows just sms" do
+        expect(service.contact_preferences).to eq <<~TEXT
+          Prefers notifications by:
+              • Text message
+        TEXT
+      end
+    end
+
+    context "with neither sms nor email" do
+      let(:email_opt_in) { "no" }
+      let(:sms_opt_in) { "no" }
+
+      it "says they what they don't want" do
+        expect(service.contact_preferences).to eq <<~TEXT
+          Did not want email or text message notifications.
+        TEXT
+      end
     end
   end
 
