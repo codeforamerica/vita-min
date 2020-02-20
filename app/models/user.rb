@@ -110,4 +110,8 @@ class User < ApplicationRecord
   def ssn_last_four
     ssn.last(4)
   end
+
+  def opted_into_notifications?
+    sms_notification_opt_in_yes? || email_notification_opt_in_yes?
+  end
 end
