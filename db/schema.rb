@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_18_220540) do
+ActiveRecord::Schema.define(version: 2020_02_19_234929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 2020_02_18_220540) do
     t.boolean "demographic_spouse_prefer_not_to_answer_race"
     t.integer "demographic_primary_ethnicity", default: 0, null: false
     t.integer "demographic_spouse_ethnicity", default: 0, null: false
+    t.integer "multiple_states", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
