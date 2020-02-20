@@ -33,6 +33,7 @@
 #  had_asset_sale_income                                :integer          default("unfilled"), not null
 #  had_debt_forgiven                                    :integer          default("unfilled"), not null
 #  had_dependents                                       :integer          default("unfilled"), not null
+#  had_disability                                       :integer          default("unfilled"), not null
 #  had_disability_income                                :integer          default("unfilled"), not null
 #  had_disaster_loss                                    :integer          default("unfilled"), not null
 #  had_farm_income                                      :integer          default("unfilled"), not null
@@ -52,6 +53,7 @@
 #  had_wages                                            :integer          default("unfilled"), not null
 #  intake_pdf_sent_to_zendesk                           :boolean          default(FALSE), not null
 #  interview_timing_preference                          :string
+#  issued_identity_pin                                  :integer          default("unfilled"), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default("unfilled"), not null
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
@@ -77,8 +79,16 @@
 #  separated_year                                       :string
 #  sold_a_home                                          :integer          default("unfilled"), not null
 #  source                                               :string
+#  spouse_had_disability                                :integer          default("unfilled"), not null
+#  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
+#  spouse_was_blind                                     :integer          default("unfilled"), not null
+#  spouse_was_full_time_student                         :integer          default("unfilled"), not null
+#  spouse_was_on_visa                                   :integer          default("unfilled"), not null
 #  state                                                :string
 #  street_address                                       :string
+#  was_blind                                            :integer          default("unfilled"), not null
+#  was_full_time_student                                :integer          default("unfilled"), not null
+#  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
 #  zip_code                                             :string
