@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe PublicPagesController do
-  describe "#home" do
-    render_views
+  render_views
 
+  describe "#home" do
     context "in production" do
       before do
         allow(Rails).to receive(:env).and_return("production".inquiry)
@@ -47,6 +47,13 @@ RSpec.describe PublicPagesController do
         get :home
         expect(response.body).not_to include "https://www.googletagmanager.com/gtag/js?id=UA-156157414-1"
       end
+    end
+  end
+
+  describe "#privacy_policy" do
+    it "renders successfully" do
+      get :privacy_policy
+      expect(response).to be_ok
     end
   end
 end

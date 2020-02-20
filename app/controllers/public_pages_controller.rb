@@ -6,4 +6,6 @@ class PublicPagesController < ApplicationController
   def home; end
 
   def other_options; end
+
+  def privacy_policy; end
 end

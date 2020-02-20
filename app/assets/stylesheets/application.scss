@@ -106,6 +106,10 @@ body {
   background-color: black;
   padding-bottom: $s95;
 
+  .footer__link {
+    color: inherit;
+  }
+
   .footer__logos {
     display: flex;
     align-items: center;
