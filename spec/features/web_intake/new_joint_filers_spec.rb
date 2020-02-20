@@ -136,7 +136,7 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Has your spouse been issued an Identity Protection PIN?")
     click_on "No"
 
-    expect(page).to have_selector("h1", text: "Did you have any dependents in 2019?")
+    expect(page).to have_selector("h1", text: "Did you or your spouse have any dependents in 2019?")
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "Let’s add your dependents!")
@@ -166,121 +166,121 @@ RSpec.feature "Web Intake Joint Filers" do
 
     click_on "Done with this step"
 
-    select "3 jobs", from: "In 2019, how many jobs did you have?"
+    select "3 jobs", from: "In 2019, how many jobs did you or your spouse have?"
     click_on "Next"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you receive wages or salary?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive wages or salary?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you receive any tips?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any tips?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from contract or self-employment work?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from contract or self-employment work?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "Did you report a business loss on your 2018 tax return?")
+    expect(page).to have_selector("h1", text: "Did you or your spouse report a business loss on your 2018 tax return?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from a retirement account, pension, or annuity proceeds?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from Social Security or Railroad Retirement Benefits?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from Social Security or Railroad Retirement Benefits?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you receive any unemployment benefits?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any unemployment benefits?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you receive any disability benefits?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any disability benefits?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from interest or dividends?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from interest or dividends?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from the sale of stocks, bonds, or real estate?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from the sale of stocks, bonds, or real estate?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "Did you report a loss from the sale of stocks, bonds, or real estate on your 2018 return?")
+    expect(page).to have_selector("h1", text: "Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your 2018 return?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you receive any income from alimony?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any income from alimony?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from rental properties?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from rental properties?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from farm activity?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from farm activity?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from gambling winnings, including the lottery?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from gambling winnings, including the lottery?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you receive a state or local income tax refund?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive a state or local income tax refund?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you receive any other money?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any other money?")
     click_on "Yes"
 
-    fill_in "What were the other types of income that you received?", with: "cash from gardening"
+    fill_in "What were the other types of income that you or your spouse received?", with: "cash from gardening"
     click_on "Next"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you pay any mortgage interest?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any mortgage interest?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you pay any state, local, real estate, sales, or other taxes?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any state, local, real estate, sales, or other taxes?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you pay any medical, dental, or prescription expenses?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any medical, dental, or prescription expenses?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you make any charitable contributions?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any charitable contributions?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you pay any student loan interest?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any student loan interest?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you pay any child or dependent care expenses?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay any child or dependent care expenses?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you make any contributions to a retirement account?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any contributions to a retirement account?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you make any alimony payments?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any alimony payments?")
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "In 2019, was someone in your family a college or other post high school student?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you sell a home?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse sell a home?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have a Health Savings Account?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have a Health Savings Account?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you purchase health insurance through the marketplace or exchange?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse purchase health insurance through the marketplace or exchange?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "Did you receive the First Time Homebuyer Credit in 2008?")
+    expect(page).to have_selector("h1", text: "Did you or your spouse receive the First Time Homebuyer Credit in 2008?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have debt cancelled or forgiven by a lender?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have debt cancelled or forgiven by a lender?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have a loss related to a declared Federal Disaster Area?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have a loss related to a declared Federal Disaster Area?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you adopt a child?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse adopt a child?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?")
+    expect(page).to have_selector("h1", text: "Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you receive any letter or bill from the IRS?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any letter or bill from the IRS?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you make any estimated tax payments or apply your 2018 refund to your 2019 taxes?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any estimated tax payments or apply your 2018 refund to your 2019 taxes?")
     click_on "Yes"
 
     fill_in "Is there any additional information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
