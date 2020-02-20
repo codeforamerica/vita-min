@@ -18,6 +18,10 @@ module PdfHelper
     value ? "Yes" : nil
   end
 
+  def check_if_both_are_no(value_a, value_b)
+    value_a == "no" && value_b == "no" ? "Yes" : nil
+  end
+
   def strftime_date(date)
     date.strftime("%-m/%-d/%Y")
   end
