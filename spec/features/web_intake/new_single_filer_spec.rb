@@ -35,6 +35,21 @@ RSpec.feature "Web Intake Single Filer" do
     check "SMS Notifications"
     click_on "Continue"
 
+    expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "In 2019, were you in the US on a Visa?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "In 2019, did you have a permanent disability?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "In 2019, were you legally blind?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "Have you been issued an Identity Protection PIN?")
+    click_on "No"
+
     expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides California?")
     click_on "No"
 
