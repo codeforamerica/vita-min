@@ -33,6 +33,7 @@
 #  had_asset_sale_income                                :integer          default("unfilled"), not null
 #  had_debt_forgiven                                    :integer          default("unfilled"), not null
 #  had_dependents                                       :integer          default("unfilled"), not null
+#  had_disability                                       :integer          default("unfilled"), not null
 #  had_disability_income                                :integer          default("unfilled"), not null
 #  had_disaster_loss                                    :integer          default("unfilled"), not null
 #  had_farm_income                                      :integer          default("unfilled"), not null
@@ -52,6 +53,7 @@
 #  had_wages                                            :integer          default("unfilled"), not null
 #  intake_pdf_sent_to_zendesk                           :boolean          default(FALSE), not null
 #  interview_timing_preference                          :string
+#  issued_identity_pin                                  :integer          default("unfilled"), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default("unfilled"), not null
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
@@ -77,8 +79,16 @@
 #  separated_year                                       :string
 #  sold_a_home                                          :integer          default("unfilled"), not null
 #  source                                               :string
+#  spouse_had_disability                                :integer          default("unfilled"), not null
+#  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
+#  spouse_was_blind                                     :integer          default("unfilled"), not null
+#  spouse_was_full_time_student                         :integer          default("unfilled"), not null
+#  spouse_was_on_visa                                   :integer          default("unfilled"), not null
 #  state                                                :string
 #  street_address                                       :string
+#  was_blind                                            :integer          default("unfilled"), not null
+#  was_full_time_student                                :integer          default("unfilled"), not null
+#  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
 #  zip_code                                             :string
@@ -103,10 +113,12 @@ class Intake < ApplicationRecord
   enum demographic_primary_ethnicity: { unfilled: 0, hispanic_latino: 1, not_hispanic_latino: 2, prefer_not_to_answer: 3 }, _prefix: :demographic_primary_ethnicity
   enum demographic_spouse_ethnicity: { unfilled: 0, hispanic_latino: 1, not_hispanic_latino: 2, prefer_not_to_answer: 3 }, _prefix: :demographic_spouse_ethnicity
   enum divorced: { unfilled: 0, yes: 1, no: 2 }, _prefix: :divorced
+  enum ever_married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ever_married
   enum filing_joint: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filing_joint
   enum had_asset_sale_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_asset_sale_income
   enum had_debt_forgiven: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_debt_forgiven
   enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
+  enum had_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_disability
   enum had_disability_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_disability_income
   enum had_disaster_loss: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_disaster_loss
   enum had_farm_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_farm_income
@@ -124,11 +136,11 @@ class Intake < ApplicationRecord
   enum had_tips: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_tips
   enum had_unemployment_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_unemployment_income
   enum had_wages: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_wages
+  enum issued_identity_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :issued_identity_pin
   enum lived_with_spouse: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_spouse
   enum made_estimated_tax_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_estimated_tax_payments
-  enum multiple_states: { unfilled: 0, yes: 1, no: 2 }, _prefix: :multiple_states
   enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
-  enum ever_married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ever_married
+  enum multiple_states: { unfilled: 0, yes: 1, no: 2 }, _prefix: :multiple_states
   enum paid_alimony: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_alimony
   enum paid_charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_charitable_contributions
   enum paid_dependent_care: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_dependent_care
@@ -144,7 +156,15 @@ class Intake < ApplicationRecord
   enum reported_asset_sale_loss: { unfilled: 0, yes: 1, no: 2 }, _prefix: :reported_asset_sale_loss
   enum reported_self_employment_loss: { unfilled: 0, yes: 1, no: 2 }, _prefix: :reported_self_employment_loss
   enum separated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :separated
+  enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_full_time_student
+  enum spouse_was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_on_visa
+  enum spouse_had_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_had_disability
+  enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
+  enum spouse_issued_identity_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_issued_identity_pin
   enum sold_a_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sold_a_home
+  enum was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_blind
+  enum was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_full_time_student
+  enum was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_on_visa
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
 
   def primary_user

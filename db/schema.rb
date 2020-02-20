@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_19_234929) do
+ActiveRecord::Schema.define(version: 2020_02_20_010211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,6 +181,16 @@ ActiveRecord::Schema.define(version: 2020_02_19_234929) do
     t.integer "demographic_primary_ethnicity", default: 0, null: false
     t.integer "demographic_spouse_ethnicity", default: 0, null: false
     t.integer "multiple_states", default: 0, null: false
+    t.integer "was_full_time_student", default: 0, null: false
+    t.integer "was_on_visa", default: 0, null: false
+    t.integer "had_disability", default: 0, null: false
+    t.integer "was_blind", default: 0, null: false
+    t.integer "issued_identity_pin", default: 0, null: false
+    t.integer "spouse_was_full_time_student", default: 0, null: false
+    t.integer "spouse_was_on_visa", default: 0, null: false
+    t.integer "spouse_had_disability", default: 0, null: false
+    t.integer "spouse_was_blind", default: 0, null: false
+    t.integer "spouse_issued_identity_pin", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
