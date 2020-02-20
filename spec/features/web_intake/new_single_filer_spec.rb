@@ -260,7 +260,9 @@ RSpec.feature "Web Intake Single Filer" do
     choose "Not Hispanic or Latino"
     click_on "Continue"
 
-    # Currently goes back to welcome page
-    expect(page).to have_selector("h1", text: "Welcome Gary!")
+    fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
+    click_on "Submit"
+
+    expect(page).to have_selector("h1", text: "Your tax information has been successfully submitted!")
   end
 end
