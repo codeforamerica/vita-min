@@ -5,7 +5,8 @@ class QuestionNavigation
     Questions::ConsentController,
     Questions::WelcomeController,
     Questions::MailingAddressController,
-    Questions::NotificationPreferenceController,
+    Questions::NotificationPreferenceController, # creates initial Zendesk ticket
+    Questions::OtherStatesController,
 
     # Marital Status
     Questions::EverMarriedController,
@@ -72,7 +73,7 @@ class QuestionNavigation
     Questions::EstimatedTaxPaymentsController,
 
     # Additional Questions
-    Questions::AdditionalInfoController,
+    Questions::AdditionalInfoController, # appends 13614-C to Zendesk ticket
 
     # Documents --> See DocumentNavigation
 

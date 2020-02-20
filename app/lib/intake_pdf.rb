@@ -18,6 +18,7 @@ class IntakePdf
       city: @intake.city,
       state: @intake.state&.upcase,
       zip_code: @intake.zip_code,
+      multistate: yes_no_unfilled_to_radio(@intake.multiple_states),
       never_married: yes_no_unfilled_to_opposite_checkbox(@intake.ever_married),
       married: yes_no_unfilled_to_checkbox(@intake.married),
       divorced: yes_no_unfilled_to_checkbox(@intake.divorced),
