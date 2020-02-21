@@ -293,7 +293,7 @@ describe ZendeskIntakeService do
 
     before do
       intake.intake_ticket_id = 34
-      allow(service).to receive(:append_file_to_ticket).and_return(output)
+      allow(service).to receive(:append_multiple_files_to_ticket).and_return(output)
     end
 
     it "appends each document to the ticket" do
@@ -301,18 +301,17 @@ describe ZendeskIntakeService do
 
       expect(result).to eq true
 
-      expect(service).to have_received(:append_file_to_ticket).with(
+      expect(service).to have_received(:append_multiple_files_to_ticket).with(
         ticket_id: 34,
-        filename: documents.first.upload.filename,
-        file: instance_of(Tempfile),
-        comment: "Document Type: #{documents.first.document_type}",
-      )
-
-      expect(service).to have_received(:append_file_to_ticket).with(
-        ticket_id: 34,
-        filename: documents[1].upload.filename,
-        file: instance_of(Tempfile),
-        comment: "Document Type: #{documents[1].document_type}",
+        file_list: [
+          { filename: documents[0].upload.filename, file: instance_of(Tempfile) },
+          { filename: documents[1].upload.filename, file: instance_of(Tempfile) },
+        ],
+        comment: <<~DOCS
+          Documents:
+          * #{documents[0].upload.filename} (#{documents[0].document_type})
+          * #{documents[1].upload.filename} (#{documents[1].document_type})
+        DOCS
       )
     end
 
