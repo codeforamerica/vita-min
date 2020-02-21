@@ -7,6 +7,7 @@
 #  adopted_child                                        :integer          default("unfilled"), not null
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
+#  completed_intake_sent_to_zendesk                     :boolean
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
 #  demographic_english_reading                          :integer          default("unfilled"), not null

@@ -7,7 +7,9 @@ describe ZendeskIntakeService do
   let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
   let(:state) { "ne" }
-  let(:intake) { create :intake, state: state }
+  let(:interview_timing_preference) { "" }
+  let(:final_info) { "" }
+  let(:intake) { create :intake, state: state, interview_timing_preference: interview_timing_preference, final_info: final_info }
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
   let(:sms_opt_in) { "yes" }
@@ -234,6 +236,88 @@ describe ZendeskIntakeService do
         expect do
           service.send_intake_pdf
         end.to raise_error(ZendeskIntakeService::CouldNotSendIntakePdfError)
+      end
+    end
+  end
+
+  describe "#send_all_docs" do
+    let(:output) { true }
+    let!(:documents) do
+      [
+        create(:document, :with_upload, intake: intake, document_type: "W-2"),
+        create(:document, :with_upload, intake: intake, document_type: "1099-MISC"),
+      ]
+    end
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_file_to_ticket).and_return(output)
+    end
+
+    it "appends each document to the ticket" do
+      result = service.send_all_docs
+
+      expect(result).to eq true
+
+      expect(service).to have_received(:append_file_to_ticket).with(
+        ticket_id: 34,
+        filename: documents.first.upload.filename,
+        file: instance_of(Tempfile),
+        comment: "Document Type: #{documents.first.document_type}",
+      )
+
+      expect(service).to have_received(:append_file_to_ticket).with(
+        ticket_id: 34,
+        filename: documents[1].upload.filename,
+        file: instance_of(Tempfile),
+        comment: "Document Type: #{documents[1].document_type}",
+      )
+    end
+
+    context "when the zendesk api fails" do
+      let(:output){ false }
+
+      it "raises an error" do
+        expect do
+          service.send_all_docs
+        end.to raise_error(ZendeskIntakeService::CouldNotSendDocumentError)
+      end
+    end
+  end
+
+  describe "#send_final_intake_pdf" do
+    let(:output) { true }
+    let(:fake_file) { instance_double(File) }
+    let(:interview_timing_preference) { "Monday evenings and Wednesday mornings" }
+    let(:final_info) { "I want my money" }
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_file_to_ticket).and_return(output)
+      allow(intake).to receive(:pdf).and_return(fake_file)
+    end
+
+    it "appends the intake pdf to the ticket with updated status and interview preferences" do
+      result = service.send_final_intake_pdf
+      expect(result).to eq true
+      expect(service).to have_received(:append_file_to_ticket).with(
+        ticket_id: 34,
+        filename: "Final_CherCherimoya_13614c.pdf",
+        file: fake_file,
+        comment: "Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)\"\n\nClient's provided interview preferences: Monday evenings and Wednesday mornings\n\nAdditional information from Client: I want my money\n",
+        fields: {
+          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW
+        }
+      )
+    end
+
+    context "when the zendesk api fails" do
+      let(:output){ false }
+
+      it "raises an error" do
+        expect do
+          service.send_final_intake_pdf
+        end.to raise_error(ZendeskIntakeService::CouldNotSendCompletedIntakePdfError)
       end
     end
   end
