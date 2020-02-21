@@ -1,5 +1,6 @@
 class ZendeskIntakeService
   include ZendeskServiceHelper
+  include ActiveStorage::Downloading
 
   ONLINE_INTAKE_THC_UWBA_STATES = %w(co nm ne ks ca ak fl nv sd tx wa wy).freeze
   ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
@@ -102,7 +103,47 @@ class ZendeskIntakeService
     output
   end
 
+  def send_final_intake_pdf
+    output = append_file_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      filename: intake_pdf_filename(final: true),
+      file: @intake.pdf,
+      comment: <<~COMMENT,
+        Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)"
+
+        Client's provided interview preferences: #{@intake.interview_timing_preference}
+
+        Additional information from Client: #{@intake.final_info}
+      COMMENT
+      fields: intake_pdf_final_fields
+    )
+
+    raise CouldNotSendCompletedIntakePdfError unless output == true
+    output
+  end
+
+  def send_all_docs
+    output = @intake.documents.all? do |document|
+      @document_blob = document.upload
+      download_blob_to_tempfile do |file|
+        append_file_to_ticket(
+          ticket_id: @intake.intake_ticket_id,
+          filename: document.upload.filename.to_s,
+          file: file,
+          comment: "Document Type: #{document.document_type}",
+        )
+      end
+    end
+
+    raise CouldNotSendDocumentError unless output
+    output
+  end
+
   private
+
+  def blob
+    @document_blob
+  end
 
   def intake_pdf_fields
     if instance_eitc?
@@ -115,8 +156,19 @@ class ZendeskIntakeService
     end
   end
 
-  def intake_pdf_filename
-    "#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_13614c.pdf"
+  def intake_pdf_final_fields
+    if instance_eitc?
+      {
+        EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
+      }
+    else
+      # We do not yet have field IDs for UWTSA Zendesk instance
+      {}
+    end
+  end
+
+  def intake_pdf_filename(final: false)
+    "#{"Final_" if final}#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_13614c.pdf"
   end
 
   def new_ticket_body_header
@@ -132,4 +184,6 @@ class ZendeskIntakeService
   end
 
   class CouldNotSendIntakePdfError < ZendeskServiceError; end
+  class CouldNotSendCompletedIntakePdfError < ZendeskServiceError; end
+  class CouldNotSendDocumentError < ZendeskServiceError; end
 end
