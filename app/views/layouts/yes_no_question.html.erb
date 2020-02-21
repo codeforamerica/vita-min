@@ -23,7 +23,7 @@
                   <%= image_tag("questions/#{illustration_path}", alt: "") %>
                 </div>
               <% end %>
-              <h1 class="form-question" id="had_wages_question">
+              <h1 class="form-question" id="main-question">
                 <%= yield :form_question %>
               </h1>
               <% if content_for? :form_help_text %>
@@ -32,10 +32,10 @@
                 </p>
               <% end %>
               <div class="yes-no-buttons">
-                <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "yes", class: "button button--icon", "aria-describedby": "#{yield :method_name}_question" do %>
+                <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "yes", class: "button button--icon", "aria-describedby": "main-question" do %>
                   <%= image_tag("checkmark.svg", alt: "") %>Yes
                 <% end %>
-                <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "no", class: "button button--icon", "aria-describedby": "#{yield :method_name}_question" do %>
+                <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "no", class: "button button--icon", "aria-describedby": "main-question" do %>
                   <%= image_tag("crossmark.svg", alt: "") %>No
                 <% end %>
               </div>
