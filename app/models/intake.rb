@@ -6,6 +6,7 @@
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
+#  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
 #  completed_intake_sent_to_zendesk                     :boolean
@@ -110,6 +111,7 @@ class Intake < ApplicationRecord
   has_many :dependents, -> { order(created_at: :asc) }
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
+  enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_energy_efficient_items
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_health_insurance
   enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in

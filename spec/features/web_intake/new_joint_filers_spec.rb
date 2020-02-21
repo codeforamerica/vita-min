@@ -275,6 +275,9 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Did you or your spouse receive the First Time Homebuyer Credit in 2008?")
     click_on "Yes"
 
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse purchase energy efficient home items?")
+    click_on "Yes"
+
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have debt cancelled or forgiven by a lender?")
     click_on "Yes"
 

@@ -80,6 +80,7 @@ class QuestionNavigation
 
     # Life Events
     Questions::HomebuyerCreditController,
+    Questions::EnergyEfficientPurchasesController,
     Questions::DebtForgivenController,
     Questions::DisasterLossController,
     Questions::AdoptedChildController,
