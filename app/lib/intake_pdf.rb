@@ -83,6 +83,11 @@ class IntakePdf
       issued_pin: yes_no_unfilled_to_checkbox(@intake.issued_identity_pin),
       spouse_issued_pin: yes_no_unfilled_to_checkbox(@intake.spouse_issued_identity_pin),
       not_issued_pin: check_if_both_are_no(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin),
+      refund_deposit: bool_checkbox(@intake.refund_payment_method_direct_deposit?),
+      refund_check: bool_checkbox(@intake.refund_payment_method_check?),
+      savings_split_refund: yes_no_unfilled_to_checkbox(@intake.savings_split_refund),
+      savings_purchase_bond: yes_no_unfilled_to_checkbox(@intake.savings_purchase_bond),
+      balance_due_transfer: yes_no_unfilled_to_radio(@intake.balance_pay_from_bank),
     }
     answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes?
     answers.merge!(primary_info) if @primary.present?

@@ -49,12 +49,12 @@ RSpec.describe IntakePdf do
           "spouse_issued_pin" => "",
           "not_issued_pin" => "",
 
-          "refund_deposit" => nil,
-          "refund_check" => nil,
-          "savings_split_refund" => nil,
-          "savings_purchase_bond" => nil,
+          "refund_deposit" => "",
+          "refund_check" => "",
+          "savings_split_refund" => "",
+          "savings_purchase_bond" => "",
           "savings_other" => nil,
-          "balance_due_transfer" => nil,
+          "balance_due_transfer" => "",
 
           "never_married" => "",
           "married" => "",
@@ -269,6 +269,10 @@ RSpec.describe IntakePdf do
           spouse_had_disability: "no",
           spouse_was_blind: "no",
           spouse_issued_identity_pin: "no",
+          refund_payment_method: "direct_deposit",
+          savings_purchase_bond: "yes",
+          savings_split_refund: "no",
+          balance_pay_from_bank: "no",
         )
       end
       before do
@@ -386,12 +390,12 @@ RSpec.describe IntakePdf do
           "spouse_issued_pin" => "",
           "not_issued_pin" => "Yes",
 
-          "refund_deposit" => nil,
-          "refund_check" => nil,
-          "savings_split_refund" => nil,
-          "savings_purchase_bond" => nil,
+          "refund_deposit" => "Yes",
+          "refund_check" => "",
+          "savings_split_refund" => "",
+          "savings_purchase_bond" => "Yes",
           "savings_other" => nil,
-          "balance_due_transfer" => nil,
+          "balance_due_transfer" => "No",
 
           "never_married" => "",
           "married" => "Yes",
