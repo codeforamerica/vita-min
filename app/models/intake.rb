@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
+#  balance_pay_from_bank                                :integer          default("unfilled"), not null
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
 #  completed_intake_sent_to_zendesk                     :boolean
@@ -75,8 +76,11 @@
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
 #  received_irs_letter                                  :integer          default("unfilled"), not null
 #  referrer                                             :string
+#  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
+#  savings_purchase_bond                                :integer          default("unfilled"), not null
+#  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
 #  separated_year                                       :string
 #  sold_a_home                                          :integer          default("unfilled"), not null
@@ -107,6 +111,7 @@ class Intake < ApplicationRecord
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_health_insurance
+  enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
   enum demographic_english_conversation: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_conversation
   enum demographic_english_reading: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_reading
@@ -155,8 +160,11 @@ class Intake < ApplicationRecord
   enum received_alimony: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_alimony
   enum received_homebuyer_credit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_homebuyer_credit
   enum received_irs_letter: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_irs_letter
+  enum refund_payment_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :refund_payment_method
   enum reported_asset_sale_loss: { unfilled: 0, yes: 1, no: 2 }, _prefix: :reported_asset_sale_loss
   enum reported_self_employment_loss: { unfilled: 0, yes: 1, no: 2 }, _prefix: :reported_self_employment_loss
+  enum savings_split_refund: { unfilled: 0, yes: 1, no: 2 }, _prefix: :savings_split_refund
+  enum savings_purchase_bond: { unfilled: 0, yes: 1, no: 2 }, _prefix: :savings_purchase_bond
   enum separated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :separated
   enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_full_time_student
   enum spouse_was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_on_visa

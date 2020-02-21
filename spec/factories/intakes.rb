@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
+#  balance_pay_from_bank                                :integer          default("unfilled"), not null
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
 #  completed_intake_sent_to_zendesk                     :boolean
@@ -75,8 +76,11 @@
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
 #  received_irs_letter                                  :integer          default("unfilled"), not null
 #  referrer                                             :string
+#  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
+#  savings_purchase_bond                                :integer          default("unfilled"), not null
+#  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
 #  separated_year                                       :string
 #  sold_a_home                                          :integer          default("unfilled"), not null
