@@ -11,6 +11,9 @@ class QuestionNavigation
     Questions::HadDisabilityController,
     Questions::WasBlindController,
     Questions::IssuedIdentityPinController,
+    Questions::RefundPaymentController,
+    Questions::SavingsOptionsController,
+    Questions::BalancePaymentController,
     Questions::OtherStatesController,
 
     # Marital Status

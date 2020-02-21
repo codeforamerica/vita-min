@@ -82,6 +82,16 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Have you been issued an Identity Protection PIN?")
     click_on "No"
 
+    expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
+    choose "Mail me a check (slower)"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
+    click_on "No"
+
     expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides California?")
     click_on "Yes"
 
