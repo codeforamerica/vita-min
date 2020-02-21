@@ -99,10 +99,22 @@ module ZendeskServiceHelper
   def append_file_to_ticket(ticket_id:, filename:, file:, comment: "", fields: {})
     raise MissingTicketIdError if ticket_id.blank?
 
+    append_multiple_files_to_ticket(
+      ticket_id: ticket_id,
+      file_list: [{ filename: filename, file: file }],
+      comment: comment,
+      fields: fields
+    )
+  end
+
+  # file_list is an Array of Hashes with keys :file and :filename.
+  def append_multiple_files_to_ticket(ticket_id:, file_list:, comment: "", fields: {})
+    raise MissingTicketIdError if ticket_id.blank?
+
     ticket = ZendeskAPI::Ticket.find(client, id: ticket_id)
     ticket.fields = fields if fields.present?
     ticket.comment = { body: comment }
-    ticket.comment.uploads << {file: file, filename: filename}
+    file_list.each { |file| ticket.comment.uploads << file }
     ticket.save
   end
 

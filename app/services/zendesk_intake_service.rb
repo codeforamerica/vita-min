@@ -123,20 +123,24 @@ class ZendeskIntakeService
   end
 
   def send_all_docs
-    output = @intake.documents.all? do |document|
+    file_list = @intake.documents.map do |document|
       @document_blob = document.upload
-      download_blob_to_tempfile do |file|
-        append_file_to_ticket(
-          ticket_id: @intake.intake_ticket_id,
-          filename: document.upload.filename.to_s,
-          file: file,
-          comment: "Document Type: #{document.document_type}",
-        )
-      end
+      tmpfile = Tempfile.open(["ZendeskIntakeService", blob.filename.extension_with_delimiter], Dir.tmpdir)
+      download_blob_to(tmpfile)
+
+      { file: tmpfile, filename: document.upload.filename.to_s }
     end
+
+    output = append_multiple_files_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      file_list: file_list,
+      comment: "Documents:\n" + @intake.documents.map { |d| "* #{d.upload.filename} (#{d.document_type})\n" }.join,
+    )
 
     raise CouldNotSendDocumentError unless output
     output
+  ensure
+    file_list.each { |entry| entry[:file].close! }
   end
 
   private
