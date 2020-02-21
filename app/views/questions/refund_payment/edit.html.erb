@@ -1,0 +1,20 @@
+<% @main_question = "If due a refund, how would like to receive it?" %>
+
+<% content_for :page_title, @main_question %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <%= f.cfa_radio_set(
+          :refund_payment_method,
+          label_text: "<h1 class=\"form-question\">#{@main_question}</h1>".html_safe,
+          collection: [
+            { value: :direct_deposit, label: "Direct deposit (fastest)" },
+            { value: :check, label: "Mail me a check (slower)" },
+          ]
+        )
+    %>
+    <button class="button button--primary" type="submit">
+      Continue
+    </button>
+  <% end %>
+<% end %>
