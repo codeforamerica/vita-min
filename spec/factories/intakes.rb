@@ -6,6 +6,7 @@
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
+#  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
 #  completed_intake_sent_to_zendesk                     :boolean
