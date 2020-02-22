@@ -6,8 +6,6 @@ module Questions
       "Personal Information"
     end
 
-    def illustration_path; end
-
     def after_update_success
       CreateZendeskIntakeTicketJob.perform_later(current_intake.id) if current_intake.intake_ticket_id.blank?
     end
