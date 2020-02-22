@@ -26,7 +26,7 @@ commands:
           name: install dependencies
           command: |
             sudo apt-get update && \
-            sudo apt-get install -y pdftk && \
+            sudo apt-get install -y pdftk ghostscript && \
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           name: Store bundle cache

@@ -107,6 +107,10 @@ class User < ApplicationRecord
     Phonelib.parse(phone_number).local_number
   end
 
+  def formatted_ssn
+    "#{ssn[0..2]}-#{ssn[3..4]}-#{ssn[5..-1]}" if ssn.present?
+  end
+
   def ssn_last_four
     ssn.last(4)
   end

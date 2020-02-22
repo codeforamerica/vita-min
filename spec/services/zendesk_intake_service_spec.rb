@@ -362,4 +362,26 @@ describe ZendeskIntakeService do
       end
     end
   end
+
+  describe "#send_additional_info_document" do
+    let(:output) { true }
+    let(:fake_file) { instance_double(File) }
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_file_to_ticket).and_return(output)
+      allow(intake).to receive(:additional_info_png).and_return(fake_file)
+    end
+
+    it "appends client and spouse (if applicable) info in png" do
+      result = service.send_additional_info_document
+      expect(result).to eq true
+      expect(service).to have_received(:append_file_to_ticket).with(
+        ticket_id: 34,
+        filename: "CherCherimoya_identity_info.png",
+        file: fake_file,
+        comment: "Identity Info Document contains name and ssn",
+      )
+    end
+  end
 end
