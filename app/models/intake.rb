@@ -191,6 +191,10 @@ class Intake < ApplicationRecord
     IntakePdf.new(self).output_file
   end
 
+  def additional_info_png
+    AdditionalInfoPdf.new(self).as_png
+  end
+
   def greeting_name
     users.map(&:first_name).join(" and ")
   end

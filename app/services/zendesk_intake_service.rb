@@ -144,6 +144,18 @@ class ZendeskIntakeService
     file_list.each { |entry| entry[:file].close! }
   end
 
+  def send_additional_info_document
+    output = append_file_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      filename: additional_info_doc_filename,
+      file: @intake.additional_info_png,
+      comment: "Identity Info Document contains name and ssn",
+    )
+
+    raise CouldNotSendIntakePdfError unless output == true
+    output
+  end
+
   def contact_preferences
     return no_notifications unless @intake.primary_user.opted_into_notifications?
     text = "Prefers notifications by:\n"
@@ -153,6 +165,10 @@ class ZendeskIntakeService
   end
 
   private
+
+  def additional_info_doc_filename
+    "#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_identity_info.png"
+  end
 
   def blob
     @document_blob
