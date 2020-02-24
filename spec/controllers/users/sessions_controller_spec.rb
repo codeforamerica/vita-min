@@ -26,6 +26,16 @@ RSpec.describe Users::SessionsController do
       expect(redirect_params["redirect_uri"]).to eq "http://test.host/users/auth/idme/callback?logout=success"
       expect(redirect_params).to include "client_id"
     end
+
+    context "in production" do
+      before { allow(Rails).to receive(:env).and_return "production".inquiry }
+
+      it "redirects to the real ID.me api" do
+        delete :destroy
+
+        expect(response).to redirect_to %r(\Ahttps://api\.id\.me/oauth/logout)
+      end
+    end
   end
 
   describe "#logout_primary_from_idme" do
