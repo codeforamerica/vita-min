@@ -25,7 +25,7 @@ module IdmeAuthenticatable
 
     if endpoint == "authorize"
       logout_params.merge!({
-        scope: "identity",
+        scope: idme_scope,
         response_type: "code",
       })
     end
@@ -35,6 +35,10 @@ module IdmeAuthenticatable
       path: "/oauth/#{endpoint}",
       query: URI.encode_www_form(logout_params)
     ).to_s
+  end
+
+  def idme_scope
+    Rails.env.production? ? "identity" : "ial2"
   end
 
   def api_domain

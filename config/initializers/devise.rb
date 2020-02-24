@@ -261,7 +261,7 @@ Devise.setup do |config|
     :id_me,
     EnvironmentCredentials.dig(:idme, :client_id),
     EnvironmentCredentials.dig(:idme, :client_secret),
-    scope: "identity"
+    scope: Rails.env.production? ? "identity" : "ial2"
   )
 
   # ==> Warden configuration
