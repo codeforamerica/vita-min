@@ -204,7 +204,7 @@ RSpec.describe Users::OmniauthCallbacksController do
           expect(response).to redirect_to %r(\Ahttps://api\.idmelabs\.com/oauth/authorize)
           redirect_params = Rack::Utils.parse_query(URI.parse(response.location).query)
           expect(redirect_params["state"]).to eq "1234"
-          expect(redirect_params["scope"]).to eq "identity"
+          expect(redirect_params["scope"]).to eq "ial2"
           expect(redirect_params["response_type"]).to eq "code"
           expect(redirect_params["redirect_uri"]).to eq "http://test.host/users/auth/idme/callback?spouse=true"
           expect(redirect_params).to include "client_id"
