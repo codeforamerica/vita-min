@@ -25,7 +25,7 @@ module IdmeAuthenticatable
 
     if endpoint == "authorize"
       logout_params.merge!({
-        scope: "ial2",
+        scope: "identity",
         response_type: "code",
       })
     end
