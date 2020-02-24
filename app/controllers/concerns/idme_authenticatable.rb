@@ -20,7 +20,7 @@ module IdmeAuthenticatable
     logout_params = {
       state: set_omniauth_state,
       redirect_uri: redirect_uri,
-      client_id: Rails.application.credentials.dig(:idme, :client_id),
+      client_id: EnvironmentCredentials.dig(:idme, :client_id),
     }
 
     if endpoint == "authorize"
@@ -31,9 +31,13 @@ module IdmeAuthenticatable
     end
 
     URI::HTTPS.build(
-      host: "api.idmelabs.com",
+      host: api_domain,
       path: "/oauth/#{endpoint}",
       query: URI.encode_www_form(logout_params)
     ).to_s
+  end
+
+  def api_domain
+    Rails.env.production? ? "api.id.me" : "api.idmelabs.com"
   end
 end

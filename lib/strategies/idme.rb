@@ -3,10 +3,12 @@ require "omniauth-oauth2"
 module OmniAuth
   module Strategies
     class IdMe < OmniAuth::Strategies::OAuth2
+      DOMAIN = Rails.env.production? ? "api.id.me" : "api.idmelabs.com"
+
       option :client_options, {
-        :site => "https://api.idmelabs.com",
-        :authorize_url => "https://api.idmelabs.com/oauth/authorize",
-        :token_url => "https://api.idmelabs.com/oauth/token"
+        :site => "https://#{DOMAIN}",
+        :authorize_url => "https://#{DOMAIN}/oauth/authorize",
+        :token_url => "https://#{DOMAIN}/oauth/token"
       }
 
       def raw_info

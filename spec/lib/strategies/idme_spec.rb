@@ -14,16 +14,33 @@ RSpec.describe OmniAuth::Strategies::IdMe do
   end
 
   context "client options" do
-    it "should have correct site" do
-      expect(subject.options.client_options.site).to eq("https://api.idmelabs.com")
+    context "in production" do
+      before { allow(Rails).to receive(:env).and_return("production".inquiry) }
+
+      xit "should use the production domain" do
+        # I can't yet figure out how to test this. The class seems to be loaded before the env method is stubbed
+        expect(subject.options.client_options.site).to eq("https://api.id.me")
+        expect(subject.options.client_options.authorize_url).to eq("https://api.id.me/oauth/authorize")
+        expect(subject.options.client_options.token_url).to eq("https://api.id.me/oauth/token")
+      end
     end
 
-    it "should have correct authorize url" do
-      expect(subject.options.client_options.authorize_url).to eq("https://api.idmelabs.com/oauth/authorize")
+    context "in development" do
+      before { allow(Rails).to receive(:env).and_return "development".inquiry }
+      it "should use the sandbox domain" do
+        expect(subject.options.client_options.site).to eq("https://api.idmelabs.com")
+        expect(subject.options.client_options.authorize_url).to eq("https://api.idmelabs.com/oauth/authorize")
+        expect(subject.options.client_options.token_url).to eq("https://api.idmelabs.com/oauth/token")
+      end
     end
 
-    it "should have correct token url" do
-      expect(subject.options.client_options.token_url).to eq("https://api.idmelabs.com/oauth/token")
+    context "in test" do
+      before { allow(Rails).to receive(:env).and_return "test".inquiry }
+      it "should use the sandbox domain" do
+        expect(subject.options.client_options.site).to eq("https://api.idmelabs.com")
+        expect(subject.options.client_options.authorize_url).to eq("https://api.idmelabs.com/oauth/authorize")
+        expect(subject.options.client_options.token_url).to eq("https://api.idmelabs.com/oauth/token")
+      end
     end
   end
 

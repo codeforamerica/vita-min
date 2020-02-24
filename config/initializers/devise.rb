@@ -259,8 +259,8 @@ Devise.setup do |config|
   # up on your models and hooks.
   config.omniauth(
     :id_me,
-    Rails.application.credentials.dig(:idme, :client_id),
-    Rails.application.credentials.dig(:idme, :client_secret),
+    EnvironmentCredentials.dig(:idme, :client_id),
+    EnvironmentCredentials.dig(:idme, :client_secret),
     scope: "ial2"
   )
 
