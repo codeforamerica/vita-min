@@ -51,6 +51,7 @@ RSpec.feature "Web Intake Joint Filers" do
 
     # Consent form
     expect(page).to have_selector("h1", text: "Great! Here's our terms of service.")
+    expect(page).to have_text("You, Gary Gnome, understand")
     check "I agree"
     click_on "Continue"
 
@@ -131,6 +132,12 @@ RSpec.feature "Web Intake Joint Filers" do
     #   3. get omniauth_failure_path(logout: "primary") --> redirect to external Id.me authorize
     #   4. get external ID.me authorize --> user_idme_omniauth_callback_path(spouse: "true")
     click_on "Sign in spouse with ID.me"
+
+    expect(page).to have_selector("h1", text: "Great! Here's our terms of service.")
+    expect(page).to have_text("You, Greta Gnome, understand")
+    check "I agree"
+    click_on "Continue"
+
     expect(page).to have_selector("h1", text: "Welcome Gary and Greta!")
     click_on "Continue"
 

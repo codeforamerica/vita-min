@@ -150,7 +150,7 @@ RSpec.describe Users::OmniauthCallbacksController do
         }.to change(User, :count).by(1)
         expect(spouse_user.reload.is_spouse).to eq true
         expect(subject.current_user).to eq primary_user
-        expect(response).to redirect_to(welcome_spouse_questions_path)
+        expect(response).to redirect_to(spouse_consent_questions_path)
       end
 
       it "links spouse user to primary user's intake" do
@@ -198,6 +198,36 @@ RSpec.describe Users::OmniauthCallbacksController do
         expect do
           get :idme, params: { spouse: "true" }
         end.not_to change(primary_user, :sign_in_count)
+      end
+    end
+
+    context "when a spouse returns" do
+      let(:spouse_user) { create :spouse_user, consented_to_service: spouse_consent }
+      let(:primary_user) { create :user }
+      before do
+        sign_in spouse_user
+        request.env["devise.mapping"] = Devise.mappings[:user]
+        allow(User).to receive(:from_omniauth).with(auth).and_return spouse_user
+      end
+
+      context "and they have already consented" do
+        let(:spouse_consent) { "yes" }
+
+        it "redirects to the welcome spouse page" do
+          get :idme
+
+          expect(response).to redirect_to welcome_spouse_questions_path
+        end
+      end
+
+      context "and they have not yet consented" do
+        let(:spouse_consent) { "unfilled" }
+
+        it "redirects to the spouse consent page" do
+          get :idme
+
+          expect(response).to redirect_to spouse_consent_questions_path
+        end
       end
     end
   end
