@@ -15,8 +15,6 @@ RSpec.describe Users::OmniauthCallbacksController do
 
       before do
         allow(User).to receive(:from_omniauth).with(auth).and_return user
-        session[:source] = "source_from_session"
-        session[:referrer] = "referrer_from_session"
         session[:intake_id] = intake_from_session.id
       end
 
@@ -34,14 +32,30 @@ RSpec.describe Users::OmniauthCallbacksController do
         intake_from_session.reload
         expect(subject.current_intake).to eq intake_from_session
         expect(subject.current_intake).to eq user.reload.intake
-        expect(intake_from_session.source).to eq "source_from_session"
-        expect(intake_from_session.referrer).to eq "referrer_from_session"
         expect(session[:intake_id]).to be_nil
       end
 
       it "increments user sign_in_count to 1" do
         get :idme
         expect(user.sign_in_count).to eq(1)
+      end
+
+      context "no intake id in session" do
+        before do
+          session[:intake_id] = nil
+          session[:source] = "source_from_session"
+          session[:referrer] = "referrer_from_session"
+        end
+
+        it "creates a new intake with source and referrer from session" do
+          expect {
+            get :idme
+          }.to change(Intake, :count).by(1)
+
+          new_intake = Intake.last
+          expect(new_intake.source).to eq "source_from_session"
+          expect(new_intake.referrer).to eq "referrer_from_session"
+        end
       end
     end
 
