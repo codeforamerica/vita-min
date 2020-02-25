@@ -7,7 +7,10 @@ RSpec.feature "Web Intake Single Filer" do
   end
 
   scenario "new client filing single without dependents" do
-    visit "/questions/identity"
+    visit "/questions/eligibility"
+    expect(page).to have_selector("h1", text: "Let’s check a few things.")
+    click_on "Continue"
+
     expect(page).to have_selector("h1", text: "Sign in")
     click_on "Sign in with ID.me"
 

@@ -1,5 +1,8 @@
 class QuestionNavigation
   FLOW = [
+    # Eligibility
+    Questions::EligibilityController,
+
     # Personal Information
     Questions::IdentityController,
     Questions::ConsentController,
