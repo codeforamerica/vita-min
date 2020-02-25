@@ -55,6 +55,7 @@
 #  had_tips                                             :integer          default("unfilled"), not null
 #  had_unemployment_income                              :integer          default("unfilled"), not null
 #  had_wages                                            :integer          default("unfilled"), not null
+#  income_over_limit                                    :integer          default("unfilled"), not null
 #  intake_pdf_sent_to_zendesk                           :boolean          default(FALSE), not null
 #  interview_timing_preference                          :string
 #  issued_identity_pin                                  :integer          default("unfilled"), not null

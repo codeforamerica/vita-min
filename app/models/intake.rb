@@ -55,6 +55,7 @@
 #  had_tips                                             :integer          default("unfilled"), not null
 #  had_unemployment_income                              :integer          default("unfilled"), not null
 #  had_wages                                            :integer          default("unfilled"), not null
+#  income_over_limit                                    :integer          default("unfilled"), not null
 #  intake_pdf_sent_to_zendesk                           :boolean          default(FALSE), not null
 #  interview_timing_preference                          :string
 #  issued_identity_pin                                  :integer          default("unfilled"), not null
@@ -145,6 +146,7 @@ class Intake < ApplicationRecord
   enum had_tips: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_tips
   enum had_unemployment_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_unemployment_income
   enum had_wages: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_wages
+  enum income_over_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :income_over_limit
   enum issued_identity_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :issued_identity_pin
   enum lived_with_spouse: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_spouse
   enum made_estimated_tax_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_estimated_tax_payments

@@ -7,5 +7,7 @@ class PublicPagesController < ApplicationController
 
   def other_options; end
 
+  def maybe_ineligible; end
+
   def privacy_policy; end
 end
