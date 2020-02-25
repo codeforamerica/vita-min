@@ -18,6 +18,7 @@ RSpec.feature "Web Intake Single Filer" do
 
     # Consent form
     expect(page).to have_selector("h1", text: "Great! Here's our terms of service.")
+    expect(page).to have_text("You, Gary Gnome, understand")
     check "I agree"
     click_on "Continue"
 

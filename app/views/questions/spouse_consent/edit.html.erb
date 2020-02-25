@@ -4,5 +4,5 @@
 <% content_for :body_class, "consent-form" %>
 
 <% content_for :main do %>
-  <%= render "shared/consent_page", consenting_user_name: @form.intake.primary_user.full_name %>
+  <%= render "shared/consent_page", consenting_user_name: @form.intake.spouse.full_name %>
 <% end %>
