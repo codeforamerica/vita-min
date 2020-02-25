@@ -11,11 +11,13 @@ RSpec.describe Users::OmniauthCallbacksController do
 
     context "when a new primary user authenticates" do
       let(:user) { build :user }
+      let(:intake_from_session) { create :intake }
 
       before do
         allow(User).to receive(:from_omniauth).with(auth).and_return user
         session[:source] = "source_from_session"
         session[:referrer] = "referrer_from_session"
+        session[:intake_id] = intake_from_session.id
       end
 
       it "creates user, signs them in, and redirects to the consent page" do
@@ -26,16 +28,15 @@ RSpec.describe Users::OmniauthCallbacksController do
         expect(response).to redirect_to(consent_questions_path)
       end
 
-      it "creates a new intake and links the user to it" do
-        expect {
-          get :idme
-        }.to change(Intake, :count).by(1)
+      it "links the user to the intake, source, and referrer in the session and removes intake id from session" do
+        get :idme
 
-        intake = Intake.last
-        expect(subject.current_intake).to eq intake
+        intake_from_session.reload
+        expect(subject.current_intake).to eq intake_from_session
         expect(subject.current_intake).to eq user.reload.intake
-        expect(intake.source).to eq "source_from_session"
-        expect(intake.referrer).to eq "referrer_from_session"
+        expect(intake_from_session.source).to eq "source_from_session"
+        expect(intake_from_session.referrer).to eq "referrer_from_session"
+        expect(session[:intake_id]).to be_nil
       end
 
       it "increments user sign_in_count to 1" do
@@ -47,9 +48,11 @@ RSpec.describe Users::OmniauthCallbacksController do
     context "when any returning user authenticates" do
       let(:consented_to_service) { "yes" }
       let(:user) { create :user, sign_in_count: 1, consented_to_service: consented_to_service }
+      let(:intake_from_session) { create :intake }
 
       before do
         allow(User).to receive(:from_omniauth).with(auth).and_return user
+        session[:intake_id] = intake_from_session.id
       end
 
       it "signs the user in" do
@@ -57,10 +60,28 @@ RSpec.describe Users::OmniauthCallbacksController do
         expect(subject.current_user).to eq user
       end
 
-      it "does not create a new intake" do
-        expect {
-          get :idme
-        }.not_to change(Intake, :count)
+      context "intake from session is new (has no associated user)" do
+        it "deletes the intake saved in the session and does not create a new intake" do
+          expect {
+            get :idme
+          }.to change(Intake, :count).by(-1)
+
+          expect(user.intake).not_to eq intake_from_session
+          expect(Intake.exists?(intake_from_session.id)).to eq false
+          expect(session[:intake_id]).to be_nil
+        end
+      end
+
+      context "intake from session is has an associated user (and is therefore probably not new)" do
+        let(:user) { create :user, sign_in_count: 1, consented_to_service: consented_to_service, intake: intake_from_session }
+
+        it "does not delete the intake and does not create a new intake" do
+          expect {
+            get :idme
+          }.not_to change(Intake, :count)
+
+          expect(session[:intake_id]).to be_nil
+        end
       end
 
       it "increments user sign_in_count by 1" do
@@ -121,6 +142,20 @@ RSpec.describe Users::OmniauthCallbacksController do
       it "links spouse user to primary user's intake" do
         get :idme, params: { spouse: "true" }
         expect(spouse_user.reload.intake).to eq primary_user.intake
+      end
+
+      context "spouse has intake in session" do
+        let(:intake_from_session) { create :intake }
+
+        before do
+          session[:intake_id] = intake_from_session.id
+        end
+
+        it "clears the intake id from the session and deletes the intake" do
+          get :idme, params: { spouse: "true" }
+          expect(session[:intake_id]).to be_nil
+          expect(Intake.exists?(intake_from_session.id)).to eq false
+        end
       end
     end
 

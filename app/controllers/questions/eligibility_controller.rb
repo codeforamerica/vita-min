@@ -13,7 +13,7 @@ module Questions
     end
 
     def update
-      if [:had_farm_income, :had_rental_income].any? { |attr| form_params[attr] == "yes" }
+      if [:had_farm_income, :had_rental_income, :income_over_limit].any? { |attr| form_params[attr] == "yes" }
         @intake = Intake.create(form_params)
         session[:intake_id] = @intake.id
         redirect_to maybe_ineligible_path

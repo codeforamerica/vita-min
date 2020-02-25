@@ -18,6 +18,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       return redirect_to spouse_identity_questions_path(missing_spouse: "true")
     end
 
+    if is_returning_consenting_user || is_returning_nonconsenting_user || is_new_spouse
+      if session[:intake_id]
+        intake_from_session = Intake.find(session[:intake_id])
+        intake_from_session.destroy! if intake_from_session.users.count == 0
+        session[:intake_id] = nil
+      end
+    end
+
     if is_new_spouse
       @user.is_spouse = true
       @user.intake = current_user.intake
@@ -33,7 +41,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if is_returning_nonconsenting_user
       sign_in @user, event: :authentication
     elsif is_new_primary_user
-      @user.intake = Intake.create(source: source, referrer: referrer)
+      intake_from_session = Intake.find_by_id(session[:intake_id]) || Intake.new
+      @user.intake = intake_from_session
+      intake_from_session.update(source: source, referrer: referrer)
+      session[:intake_id] = nil
       @user.save
       sign_in @user, event: :authentication
     end
