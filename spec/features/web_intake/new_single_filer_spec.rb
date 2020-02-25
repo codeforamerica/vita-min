@@ -112,12 +112,6 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "In 2019, did you receive any income from alimony?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from rental properties?")
-    click_on "No"
-
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from farm activity?")
-    click_on "No"
-
     expect(page).to have_selector("h1", text: "In 2019, did you have any income from gambling winnings, including the lottery?")
     click_on "No"
 

@@ -59,8 +59,6 @@ class QuestionNavigation
     Questions::AssetSaleIncomeController,
     Questions::AssetSaleLossController,
     Questions::ReceivedAlimonyController,
-    Questions::RentalIncomeController,
-    Questions::FarmIncomeController,
     Questions::GamblingIncomeController,
     Questions::LocalTaxRefundController,
     Questions::OtherIncomeController,

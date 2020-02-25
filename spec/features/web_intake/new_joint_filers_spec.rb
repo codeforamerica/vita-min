@@ -218,12 +218,6 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any income from alimony?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from rental properties?")
-    click_on "Yes"
-
-    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from farm activity?")
-    click_on "Yes"
-
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from gambling winnings, including the lottery?")
     click_on "Yes"
 
