@@ -7,19 +7,24 @@
 <main role="main">
   <div class="slab slab--hero">
     <div class="grid">
-      <div class="grid__item width-two-thirds">
+      <div class="grid__item width-one-half">
         <h1>
-          Free tax help from IRS-certified volunteers.
+          Free tax filing, real human support.
         </h1>
-        <p><strong>Find a local VITA site near you and get more of your refund dollars back by filing for free.</strong></p>
-        <% unless Rails.env.production? %>
-          <%= link_to question_path(QuestionNavigation.first), class: "button button--cta" do %>
+        <p>
+          <strong>
+            Maximize your refund by filing with our trusted volunteers. Available to you online or in person!
+          </strong>
+        </p>
+
+        <% if Rails.env.production? %>
+          <%= link_to vita_providers_path, id: "firstCta", class: "button button--primary" do %>
+            Find a location
+          <% end %>
+        <% else %>
+          <%= link_to question_path(QuestionNavigation.first), id: "firstCta", class: "button button--primary" do %>
             Get started
           <% end %>
-        <% end %>
-
-        <%= link_to vita_providers_path, id: "firstCta", class: "button button--primary" do %>
-          Find a location
         <% end %>
       </div>
     </div>
@@ -28,32 +33,35 @@
   <div class="slab slab--intro">
     <div class="grid">
       <div class="grid__item width-two-thirds">
-        <h2>Get the tax refund you've earned.</h2>
+        <h2>We maximize your refund.</h2>
         <p>
-          VitaTaxHelp.org is a nonprofit service that connects you with
-          free tax preparation help from volunteers certified
-          through the IRS Volunteer Income Tax Assistance (VITA) program.
+          Our trained volunteers know about tax credits you qualify for. Tax credits like the Earned Income Tax Credit (EITC) put the money you’ve earned back in your pocket.
+        </p>
+        <p>
+          <strong>In 2018 the average family with children received $3,000 by claiming the EITC.</strong>
         </p>
       </div>
       <div class="grid__item width-one-third">
-        <%= link_to("https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank") do %>
-          <%= image_tag("vita-logo--black.png", alt: "IRS website for the Volunteer Income Tax Assistance program") %>
-        <% end %>
+        <%= image_tag("money-taco.svg", alt: "") %>
       </div>
     </div>
   </div>
 
-  <div class="slab slab--eligibility">
+  <div class="slab">
     <div class="grid">
-      <div class="grid__item width-five-twelfths">
-        <%= image_tag("money-taco.svg", alt: "") %>
+      <div class="grid__item width-one-fourth spacing-below-25">
+        <%= link_to("https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank") do %>
+          <%= image_tag("vita-logo--black.png", alt: "IRS website for the Volunteer Income Tax Assistance program") %>
+        <% end %>
       </div>
-      <div class="grid__item width-seven-twelfths">
-        <h2>Am I eligible?</h2>
+      <div class="grid__item width-three-fourths">
+        <h2>We deliver the highest accuracy rates.</h2>
         <p>
-          Tax credits like the Earned Income Tax Credit (EITC) put the money you’ve earned back in your pocket.
+          We partner with free Volunteer Income Tax Assistance (VITA) sites to provide free tax filing assistance to families earning less than $60,000 a year. Trained IRS-certified volunteers will prepare your taxes with more than 90% accuracy (the highest in the tax prep industry!).
         </p>
-        <p><strong>If your family earns $56,000 or less per year, you likely qualify.</strong></p>
+        <p>
+          Save money and receive the best service possible online or in person.
+        </p>
       </div>
     </div>
   </div>
@@ -64,20 +72,29 @@
         <h2 class="spacing-below-35">How it works</h2>
         <div class="step">
           <div class="step-icon-wrapper">
-            <%= image_tag("calendar-icon.svg", alt: "") %>
+            <%= image_tag("questions.svg", alt: "") %>
           </div>
           <div class="step-text">
-            <h3>Step 1: Schedule</h3>
-            <p class="text--small with-padding-small">Schedule your appointment with a VITA center</p>
+            <h3>Answer questions</h3>
+            <p class="text--small with-padding-small">Fill out financial information in our simple form</p>
           </div>
         </div>
         <div class="step">
           <div class="step-icon-wrapper">
-            <%= image_tag("file-icon.svg", alt: "") %>
+            <%= image_tag("documents.svg", alt: "") %>
           </div>
           <div class="step-text">
-            <h3>Step 2: Gather</h3>
-            <p class="text--small with-padding-small">Collect your necessary documents (ID, W-2’s, 1099, 1095's)</p>
+            <h3>Gather documents</h3>
+            <p class="text--small with-padding-small">Gather your necessary documents (ID, W-2’s, 1099, 1095-A,B, C)</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-icon-wrapper">
+            <%= image_tag("phone.svg", alt: "") %>
+          </div>
+          <div class="step-text">
+            <h3>Have a conversation</h3>
+            <p class="text--small with-padding-small">Schedule a call with a VITA volunteer or talk to one in person</p>
           </div>
         </div>
         <div class="step">
@@ -85,8 +102,8 @@
             <%= image_tag("magnifying-glass-icon.svg", alt: "") %>
           </div>
           <div class="step-text">
-            <h3>Step 3: Review</h3>
-            <p class="text--small with-padding-small">Our IRS-certified tax volunteers will review your situation</p>
+            <h3>Prepare and review</h3>
+            <p class="text--small with-padding-small">We’ll prepare your taxes and have our IRS certified team review</p>
           </div>
         </div>
         <div class="step">
@@ -94,7 +111,7 @@
             <%= image_tag("upload-icon.svg", alt: "") %>
           </div>
           <div class="step-text">
-            <h3>Step 4: File</h3>
+            <h3>Submit your refund</h3>
             <p class="text--small with-padding-small">We’ll help you file and get your refund (if you want)!</p>
           </div>
         </div>
@@ -108,8 +125,14 @@
         <div class="h2 spacing-below-35">
           Get more of your refund dollars back by filing for free today!
         </div>
-        <%= link_to vita_providers_path, class: "button" do %>
-          Find a location
+        <% if Rails.env.production? %>
+          <%= link_to vita_providers_path, id: "firstCta", class: "button" do %>
+            Find a location
+          <% end %>
+        <% else %>
+          <%= link_to question_path(QuestionNavigation.first), class: "button" do %>
+            Get started
+          <% end %>
         <% end %>
       </div>
     </div>

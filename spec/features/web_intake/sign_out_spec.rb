@@ -17,7 +17,7 @@ RSpec.feature "Online intake user signs out" do
       click_on "Sign out"
     end
 
-    expect(page).to have_selector("h1", text: "Free tax help from IRS-certified volunteers.")
+    expect(page).to have_selector("h1", text: "Free tax filing, real human support.")
     expect(page).to have_text "You've been successfully signed out."
   end
 end

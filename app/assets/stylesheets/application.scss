@@ -161,21 +161,22 @@ body {
       right: 0;
       bottom: 0;
       left: 0;
-      opacity: .15;
       background-image: image-url('dollar-hero.png');
       background-repeat: no-repeat;
-      background-size: 476px 365px;
+      background-size: 519px 355px;
       background-position: bottom right;
-      @include media($tablet-up) {
+      @media screen and (max-width: $tablet-up) {
         opacity: .5;
+        background-size: 389px 266px;
       }
     }
-  }
-  .slab--intro {
-    background-color: white;
+    @media screen and (max-width: $tablet-up) {
+      padding-bottom: 120px;
+    }
   }
 
-  .slab--eligibility {
+  .slab--intro {
+    background-color: white;
     @include media($tablet-up) {
       img {
         width: 100%;

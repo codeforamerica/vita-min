@@ -16,9 +16,7 @@ RSpec.feature "Search for VITA locations" do
     end
 
     scenario "Click through result pages and view details for one" do
-      visit root_path
-      expect(page).to have_link("Find a location", id: "firstCta", href: vita_providers_path)
-      click_on "Find a location", id: "firstCta"
+      visit "/vita_providers"
 
       expect(page).to have_text "Enter your zip code to find providers near you"
       fill_in "Search", with: "94609"
@@ -50,9 +48,7 @@ RSpec.feature "Search for VITA locations" do
 
   context "Without nearby VITA locations" do
     scenario "See an apologetic message" do
-      visit root_path
-      expect(page).to have_link("Find a location", id: "firstCta", href: vita_providers_path)
-      click_on "Find a location", id: "firstCta"
+      visit "/vita_providers"
 
       expect(page).to have_text "Enter your zip code to find providers near you"
       fill_in "Search", with: "94609"
