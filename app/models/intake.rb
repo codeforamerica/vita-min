@@ -197,6 +197,10 @@ class Intake < ApplicationRecord
     AdditionalInfoPdf.new(self).as_png
   end
 
+  def consent_pdf
+    ConsentPdf.new(self).output_file
+  end
+
   def greeting_name
     users.map(&:first_name).join(" and ")
   end

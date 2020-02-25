@@ -363,6 +363,38 @@ describe ZendeskIntakeService do
     end
   end
 
+  describe "#send_consent_pdf" do
+    let(:output) { true }
+    let(:fake_consent_pdf) { instance_double(File) }
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_file_to_ticket).and_return(output)
+      allow(intake).to receive(:consent_pdf).and_return(fake_consent_pdf)
+    end
+
+    it "appends the intake pdf to the ticket with updated status and interview preferences" do
+      result = service.send_consent_pdf
+      expect(result).to eq true
+      expect(service).to have_received(:append_file_to_ticket).with(
+        ticket_id: 34,
+        filename: "CherCherimoya_Consent.pdf",
+        file: fake_consent_pdf,
+        comment: "Signed consent form\n",
+      )
+    end
+
+    context "when the zendesk api fails" do
+      let(:output){ false }
+
+      it "raises an error" do
+        expect do
+          service.send_consent_pdf
+        end.to raise_error(ZendeskIntakeService::CouldNotSendConsentPdfError)
+      end
+    end
+  end
+
   describe "#send_additional_info_document" do
     let(:output) { true }
     let(:fake_file) { instance_double(File) }

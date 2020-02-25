@@ -123,6 +123,20 @@ class ZendeskIntakeService
     output
   end
 
+  def send_consent_pdf
+    output = append_file_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      filename: consent_pdf_filename,
+      file: @intake.consent_pdf,
+      comment: <<~COMMENT,
+        Signed consent form
+      COMMENT
+    )
+
+    raise CouldNotSendConsentPdfError unless output == true
+    output
+  end
+
   def send_all_docs
     file_list = @intake.documents.map do |document|
       @document_blob = document.upload
@@ -170,6 +184,14 @@ class ZendeskIntakeService
     "#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_identity_info.png"
   end
 
+  def consent_pdf_filename
+    "#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_Consent.pdf"
+  end
+
+  def intake_pdf_filename(final: false)
+    "#{"Final_" if final}#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_13614c.pdf"
+  end
+
   def blob
     @document_blob
   end
@@ -200,10 +222,6 @@ class ZendeskIntakeService
     end
   end
 
-  def intake_pdf_filename(final: false)
-    "#{"Final_" if final}#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_13614c.pdf"
-  end
-
   def new_ticket_body_header
     "New Online Intake Started"
   end
@@ -218,5 +236,6 @@ class ZendeskIntakeService
 
   class CouldNotSendIntakePdfError < ZendeskServiceError; end
   class CouldNotSendCompletedIntakePdfError < ZendeskServiceError; end
+  class CouldNotSendConsentPdfError < ZendeskServiceError; end
   class CouldNotSendDocumentError < ZendeskServiceError; end
 end
