@@ -7,6 +7,11 @@ RSpec.describe Questions::EligibilityController do
     let(:income_over_limit) { "no" }
     let(:params) { { eligibility_form: { had_farm_income: had_farm_income, had_rental_income: had_rental_income, income_over_limit: income_over_limit } } }
 
+    before do
+      session[:source] = "source_from_session"
+      session[:referrer] = "referrer_from_session"
+    end
+
     RSpec.shared_examples "an offboarding flow" do
       describe "eligibility checks" do
         it "creates a new intake and offboards them" do
@@ -14,9 +19,12 @@ RSpec.describe Questions::EligibilityController do
             post :update, params: params
           }.to change(Intake, :count).by(1)
 
-          expect(Intake.last.had_farm_income).to eq had_farm_income
-          expect(Intake.last.had_rental_income).to eq had_rental_income
-          expect(Intake.last.income_over_limit).to eq income_over_limit
+          intake = Intake.last
+          expect(intake.source).to eq "source_from_session"
+          expect(intake.referrer).to eq "referrer_from_session"
+          expect(intake.had_farm_income).to eq had_farm_income
+          expect(intake.had_rental_income).to eq had_rental_income
+          expect(intake.income_over_limit).to eq income_over_limit
 
           expect(response).to redirect_to(maybe_ineligible_path)
         end
@@ -47,6 +55,9 @@ RSpec.describe Questions::EligibilityController do
           post :update, params: params
         }.to change(Intake, :count).by(1)
 
+        intake = Intake.last
+        expect(intake.source).to eq "source_from_session"
+        expect(intake.referrer).to eq "referrer_from_session"
         expect(response).to redirect_to(identity_questions_path)
       end
     end

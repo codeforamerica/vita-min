@@ -41,9 +41,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if is_returning_nonconsenting_user
       sign_in @user, event: :authentication
     elsif is_new_primary_user
-      intake_from_session = Intake.find_by_id(session[:intake_id]) || Intake.new
+      intake_from_session = Intake.find_by_id(session[:intake_id]) || Intake.new(source: source, referrer: referrer)
       @user.intake = intake_from_session
-      intake_from_session.update(source: source, referrer: referrer)
       session[:intake_id] = nil
       @user.save
       sign_in @user, event: :authentication
