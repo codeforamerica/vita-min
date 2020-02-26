@@ -181,7 +181,7 @@ describe ZendeskDropOffService do
     context "when only name is present" do
       it "searches with only name" do
         service.find_end_user("Gary Guava", nil, nil)
-        expect(service).to have_received(:search_zendesk_users).with("name:\"Gary Guava\"")
+        expect(service).to have_received(:search_zendesk_users).with("name:\"Gary Guava\" ")
       end
     end
 

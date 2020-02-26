@@ -39,6 +39,10 @@ module ZendeskServiceHelper
     EitcZendeskInstance
   end
 
+  def get_ticket(ticket_id:)
+    ZendeskAPI::Ticket.find(client, id: ticket_id)
+  end
+
   def search_zendesk_users(query_string)
     client.users.search(query: query_string).to_a
   end
@@ -49,14 +53,22 @@ module ZendeskServiceHelper
       return email_matches.first&.id if email_matches.present?
     end
 
-    search_string = "name:\"#{name}\""
-    search_string += " phone:#{phone}" if phone.present?
+    search_string = ""
+    search_string += "name:\"#{name}\" " if name.present?
+    search_string += "phone:#{phone}" if phone.present?
     results = search_zendesk_users(search_string)
     if exact_match
       results = results.select { |result| result.email.blank? } if email.blank?
       results = results.select { |result| result.phone.blank? } if phone.blank?
     end
     results.first&.id
+  end
+
+  # TODO: find_all_intake_tickets (should filter for only intake tickets if possible)
+
+  def find_latest_ticket(end_user_id)
+    end_user = client.user.find(id: end_user_id)
+    end_user.requested_tickets(sort_by: :updated_at, sort_order: :desc).first
   end
 
   def create_end_user(name:, **attributes)
@@ -94,6 +106,21 @@ module ZendeskServiceHelper
     )
     ticket.save
     ticket.id
+  end
+
+  def assign_ticket_to_group(ticket_id:, group_id:)
+    ticket = get_ticket(ticket_id: ticket_id)
+    ticket.group_id = group_id
+    ticket.save
+  end
+
+  def append_comment_to_ticket(ticket_id:, comment:, fields: {}, public: false)
+    raise MissingTicketIdError if ticket_id.blank?
+
+    ticket = ZendeskAPI::Ticket.find(client, id: ticket_id)
+    ticket.fields = fields if fields.present?
+    ticket.comment = { body: comment, public: public }
+    ticket.save
   end
 
   def append_file_to_ticket(ticket_id:, filename:, file:, comment: "", fields: {})
