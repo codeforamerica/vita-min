@@ -1,6 +1,16 @@
 require "rails_helper"
 
 RSpec.describe Questions::EligibilityController do
+  describe "#edit" do
+    context "without an intake" do
+      it "redirects to the beginning of the intake flow" do
+        get :edit
+
+        expect(response).to redirect_to(question_path(QuestionNavigation.first))
+      end
+    end
+  end
+
   describe "#update" do
     let(:had_farm_income) { "no" }
     let(:had_rental_income) { "no" }
@@ -10,6 +20,36 @@ RSpec.describe Questions::EligibilityController do
 
     before do
       session[:intake_id] = intake_from_session.id
+    end
+
+    context "without an intake" do
+      before do
+        session[:intake_id] = nil
+      end
+
+      it "redirects to the beginning of the intake flow" do
+        post :update, params: params
+
+        expect(response).to redirect_to(question_path(QuestionNavigation.first))
+      end
+    end
+
+    context "with an authenticated user" do
+      let(:intake) { create :intake }
+      let(:user) { create :user, intake: intake }
+
+      before do
+        sign_in user
+      end
+
+      it "updates the intake associated with the user" do
+        post :update, params: params
+
+        intake.reload
+        expect(intake.had_farm_income).to eq had_farm_income
+        expect(intake.had_rental_income).to eq had_rental_income
+        expect(intake.income_over_limit).to eq income_over_limit
+      end
     end
 
     RSpec.shared_examples "an offboarding flow" do
@@ -54,18 +94,6 @@ RSpec.describe Questions::EligibilityController do
         expect(intake_from_session.had_rental_income).to eq had_rental_income
         expect(intake_from_session.income_over_limit).to eq income_over_limit
         expect(response).to redirect_to(identity_questions_path)
-      end
-    end
-
-    context "when there is no intake in the session" do
-      before do
-        session[:intake_id] = nil
-      end
-
-      it "redirects to the feelings survey" do
-        post :update, params: params
-
-        expect(response).to redirect_to(feelings_questions_path)
       end
     end
   end

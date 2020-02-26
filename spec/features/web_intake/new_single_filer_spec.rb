@@ -9,8 +9,8 @@ RSpec.feature "Web Intake Single Filer" do
   scenario "new client filing single without dependents" do
     visit "/questions/feelings"
     expect(page).to have_selector("h1", text: "How are you feeling about your taxes?")
-    choose "feelings_form_feeling_about_taxes_negative"
-    click_on "Start my return online"
+    choose "Sad face"
+    click_on "Start my taxes online"
 
     expect(page).to have_selector("h1", text: "Let’s check a few things.")
     click_on "Continue"

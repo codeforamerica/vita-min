@@ -229,4 +229,9 @@ class Intake < ApplicationRecord
   def had_a_job?
     job_count.present? && job_count > 0
   end
+
+  def eligible_for_vita?
+    # if any are unfilled this will return false
+    had_farm_income_no? && had_rental_income_no? && income_over_limit_no?
+  end
 end

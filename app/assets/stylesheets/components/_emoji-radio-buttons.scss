@@ -8,23 +8,30 @@
     width: auto;
     padding: 1rem;
     border-radius: 5px;
-    margin-right: 30px;
+    margin-right: 3rem;
+    &:last-child {
+      margin-right: 0;
+    }
+    &.is-selected {
+      border-width: 3px;
+    }
 
     .emoji-label {
       width: 40px;
       height: 40px;
+      display: block;
     }
 
     .negative-icon {
-      background-image: image-url('sad-icon.png');
+      background-image: image-url('negative-icon.svg');
     }
 
     .neutral-icon {
-      background-image: image-url('neutral-icon.png');
+      background-image: image-url('neutral-icon.svg');
     }
 
     .positive-icon {
-      background-image: image-url('positive-icon.png');
+      background-image: image-url('positive-icon.svg');
     }
   }
 
