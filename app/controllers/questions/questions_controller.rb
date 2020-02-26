@@ -20,8 +20,8 @@ module Questions
       @form = form_class.new(current_intake, form_params)
       if @form.valid?
         @form.save
-        track_question_answer
         after_update_success
+        track_question_answer
         redirect_to(next_path)
       else
         track_validation_error
@@ -55,6 +55,10 @@ module Questions
     private
 
     def after_update_success; end
+
+    def require_intake
+      return redirect_to question_path(QuestionNavigation.first) unless current_intake.present?
+    end
 
     def form_params
       params.fetch(form_name, {}).permit(*form_class.attribute_names)
