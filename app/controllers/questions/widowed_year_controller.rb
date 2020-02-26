@@ -10,8 +10,6 @@ module Questions
       intake.widowed_yes?
     end
 
-    def no_illustration?
-      true
-    end
+    def illustration_path; end
   end
 end
