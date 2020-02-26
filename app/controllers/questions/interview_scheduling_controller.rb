@@ -5,7 +5,5 @@ module Questions
     def section_title
       "Additional Questions"
     end
-
-    def illustration_path; end
   end
 end

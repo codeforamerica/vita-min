@@ -7,8 +7,6 @@ module Questions
       super
     end
 
-    def illustration_path; end
-
     def section_title
       "Personal Information"
     end
