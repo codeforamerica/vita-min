@@ -32,6 +32,7 @@
 #  divorced                                             :integer          default("unfilled"), not null
 #  divorced_year                                        :string
 #  ever_married                                         :integer          default("unfilled"), not null
+#  feeling_about_taxes                                  :integer          default("unfilled"), not null
 #  filing_joint                                         :integer          default("unfilled"), not null
 #  final_info                                           :string
 #  had_asset_sale_income                                :integer          default("unfilled"), not null
@@ -124,6 +125,7 @@ class Intake < ApplicationRecord
   enum demographic_spouse_ethnicity: { unfilled: 0, hispanic_latino: 1, not_hispanic_latino: 2, prefer_not_to_answer: 3 }, _prefix: :demographic_spouse_ethnicity
   enum divorced: { unfilled: 0, yes: 1, no: 2 }, _prefix: :divorced
   enum ever_married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ever_married
+  enum feeling_about_taxes: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :feeling_about_taxes
   enum filing_joint: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filing_joint
   enum had_asset_sale_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_asset_sale_income
   enum had_debt_forgiven: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_debt_forgiven
