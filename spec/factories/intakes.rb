@@ -32,6 +32,7 @@
 #  divorced                                             :integer          default("unfilled"), not null
 #  divorced_year                                        :string
 #  ever_married                                         :integer          default("unfilled"), not null
+#  feeling_about_taxes                                  :integer          default("unfilled"), not null
 #  filing_joint                                         :integer          default("unfilled"), not null
 #  final_info                                           :string
 #  had_asset_sale_income                                :integer          default("unfilled"), not null
