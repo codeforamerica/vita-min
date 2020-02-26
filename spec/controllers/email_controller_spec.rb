@@ -36,6 +36,7 @@ RSpec.describe EmailController, type: :controller do
       "Spam detection software, running on the system \"mx0037p1mdw1.sendgrid.net\", has\nidentified this incoming email as possible spam.  The original message\nhas been attached to this so you can view it (if it isn't spam) or label\nsimilar future email.  If you have any questions, see\n@@CONTACT_ADDRESS@@ for details.\n\nContent preview:  ##- Please type your reply above this line -## phone: +15552341122\n   ticket_id: 103 sms_test heyo! [...] \n\nContent analysis details:   (0.0 points, 5.0 required)\n\n pts rule name              description\n---- ---------------------- --------------------------------------------------\n 0.0 HTML_MESSAGE           BODY: HTML included in message\n 0.0 T_MIME_NO_TEXT         No text body parts\n\n"
     end
     let(:to_email) { "zendesk-sms@vitataxhelp.org" }
+    let(:from) { "\"Text user: +15552341122 (VITA Tax Help)\" <#{from_email}>" }
     let(:to) { "EITC Zendesk SMS Robot <#{to_email}>" }
     let(:from_email) { "support@eitc.zendesk.com" }
     let(:subject) { "Incoming SMS" }
@@ -45,7 +46,7 @@ RSpec.describe EmailController, type: :controller do
           "dkim" => "{@zendesk.com : pass}",
           "to" => to,
           "html" => html,
-          "from" => "\"Text user: +15552341122 (VITA Tax Help)\" <#{from_email}>",
+          "from" => from,
           "text" => text,
           "sender_ip" => "192.161.149.31",
           "spam_report" => spam_report,
@@ -67,12 +68,34 @@ RSpec.describe EmailController, type: :controller do
         expect(response).to be_ok
       end
 
-      it "parses the ticket id, phone number, and message body" do
-        post :create, params: params
+      context "when it's from the right sender", active_job: true do
+        it "queues a zendesk inbound sms job" do
+          post :create, params: params
 
-        expect(assigns(:zendesk_ticket_id)).to eq 103
-        expect(assigns(:phone_number)).to eq "15552341122"
-        expect(assigns(:message_body)).to eq "sms_test heyo!\nsome other stuff on a new line"
+          expect(ZendeskInboundSmsJob).to have_been_enqueued.with(
+            sms_ticket_id: 103,
+            phone_number: "15552341122",
+            message_body: "sms_test heyo!\nsome other stuff on a new line",
+          )
+        end
+
+        it "parses the ticket id, phone number, and message body" do
+          post :create, params: params
+
+          expect(assigns(:zendesk_ticket_id)).to eq 103
+          expect(assigns(:phone_number)).to eq "15552341122"
+          expect(assigns(:message_body)).to eq "sms_test heyo!\nsome other stuff on a new line"
+        end
+      end
+
+      context "when it's from any other type of sender", active_job: true do
+        let(:from) { "Another Person not a client" }
+
+        it "does nothing" do
+          post :create, params: params
+
+          expect(ZendeskInboundSmsJob).not_to have_been_enqueued
+        end
       end
     end
 
