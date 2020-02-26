@@ -10,6 +10,8 @@ module Questions
       "Personal Information"
     end
 
-    def illustration_path; end
+    def illustration_path
+      "issued-identity-pin.svg"
+    end
   end
 end
