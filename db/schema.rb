@@ -192,11 +192,11 @@ ActiveRecord::Schema.define(version: 2020_02_26_004131) do
     t.integer "spouse_was_blind", default: 0, null: false
     t.integer "spouse_issued_identity_pin", default: 0, null: false
     t.string "final_info"
+    t.boolean "completed_intake_sent_to_zendesk"
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "savings_split_refund", default: 0, null: false
     t.integer "savings_purchase_bond", default: 0, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
-    t.boolean "completed_intake_sent_to_zendesk"
     t.integer "bought_energy_efficient_items"
     t.integer "income_over_limit", default: 0, null: false
     t.integer "feeling_about_taxes", default: 0, null: false

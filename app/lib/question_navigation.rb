@@ -1,6 +1,7 @@
 class QuestionNavigation
   FLOW = [
     # Eligibility
+    Questions::FeelingsController,
     Questions::EligibilityController,
 
     # Personal Information
