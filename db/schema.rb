@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_24_235429) do
+ActiveRecord::Schema.define(version: 2020_02_26_004131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 2020_02_24_235429) do
     t.boolean "completed_intake_sent_to_zendesk"
     t.integer "bought_energy_efficient_items"
     t.integer "income_over_limit", default: 0, null: false
+    t.integer "feeling_about_taxes", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
