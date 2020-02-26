@@ -13,14 +13,14 @@ module Questions
     end
 
     def update
+      @intake = Intake.find_by_id(session[:intake_id])
+      return redirect_to feelings_questions_path unless @intake.present?
+
       if [:had_farm_income, :had_rental_income, :income_over_limit].any? { |attr| form_params[attr] == "yes" }
-        @intake = Intake.create(form_params)
+        @intake.update(form_params)
         @intake.update(source: source, referrer: referrer)
-        session[:intake_id] = @intake.id
         redirect_to maybe_ineligible_path
       else
-        @intake = Intake.create(source: source, referrer: referrer)
-        session[:intake_id] = @intake.id
         super
       end
     end

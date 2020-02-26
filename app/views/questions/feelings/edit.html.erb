@@ -1,0 +1,30 @@
+<% content_for :page_title, "How are you feeling about your taxes?" %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form__feelings-survey" } do |f| %>
+    <h1 class="form-question spacing-below-35">
+      <%= content_for(:page_title) %>
+    </h1>
+
+    <%= f.cfa_radio_set(
+        :feeling_about_taxes,
+        collection: [
+          { value: :negative, label: "<div class=\"emoji-label negative-icon\"></div>" },
+          { value: :neutral, label: "<div class=\"emoji-label neutral-icon\"></div>" },
+          { value: :positive, label: "<div class=\"emoji-label positive-icon\"></div>" },
+        ]
+      )
+    %>
+
+    <p>
+      We know taxes can be hard and we’re here to support you every step of the way!
+    </p>
+
+    <button class="button button--primary button--wide" type="submit">
+      Start my return online
+    </button>
+    <%= link_to vita_providers_path, class: "button button--wide text--centered" do %>
+      Find a local site
+    <% end %>
+  <% end %>
+<% end %>
