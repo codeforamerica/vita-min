@@ -4,20 +4,22 @@ module Questions
     layout "question"
 
     def current_intake
-      @intake
+      super || Intake.new
     end
 
-    def edit
-      @intake = Intake.new
-      super
-    end
+    private
 
-    def update
-      @intake = Intake.create(source: source, referrer: referrer)
-      session[:intake_id] = @intake.id
-      super
+    def after_update_success
+      session[:intake_id] = @form.intake.id
     end
 
     def illustration_path; end
+
+    def form_params
+      super.merge(
+        source: current_intake.source || source,
+        referrer: current_intake.referrer || referrer,
+      )
+    end
   end
 end

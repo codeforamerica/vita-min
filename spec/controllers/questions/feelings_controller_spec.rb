@@ -10,6 +10,24 @@ RSpec.describe Questions::FeelingsController do
       session[:referrer] = "referrer_from_session"
     end
 
+    context "with an authenticated user" do
+      let(:intake) { create :intake, source: "original_source", referrer: "original_referrer" }
+      let(:user) { create :user, intake: intake }
+
+      before do
+        sign_in user
+      end
+
+      it "updates the feeling but not the source/referrer on the intake associated with the user" do
+        post :update, params: params
+
+        intake.reload
+        expect(intake.source).to eq "original_source"
+        expect(intake.referrer).to eq "original_referrer"
+        expect(intake.feeling_about_taxes).to eq feeling
+      end
+    end
+
     RSpec.shared_examples "feelings survey" do
       describe "feelings" do
         it "creates a new intake with the survey answer and saves id in the session" do
@@ -22,7 +40,6 @@ RSpec.describe Questions::FeelingsController do
           expect(intake.referrer).to eq "referrer_from_session"
           expect(intake.feeling_about_taxes).to eq feeling
           expect(session[:intake_id]).to eq intake.id
-          expect(response).to redirect_to(eligibility_questions_path)
         end
       end
     end
