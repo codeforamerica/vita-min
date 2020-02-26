@@ -19,6 +19,7 @@ RSpec.describe ZendeskServiceHelper do
     allow(ZendeskAPI::Ticket).to receive(:find).and_return fake_zendesk_ticket
     allow(fake_zendesk_ticket).to receive(:comment=)
     allow(fake_zendesk_ticket).to receive(:fields=)
+    allow(fake_zendesk_ticket).to receive(:group_id=)
     allow(fake_zendesk_ticket).to receive(:comment).and_return fake_zendesk_comment
     allow(fake_zendesk_ticket).to receive(:save).and_return true
   end
@@ -62,7 +63,14 @@ RSpec.describe ZendeskServiceHelper do
     context "when only name is present" do
       it "searches with only name" do
         service.find_end_user("Gary Guava", nil, nil)
-        expect(service).to have_received(:search_zendesk_users).with("name:\"Gary Guava\"")
+        expect(service).to have_received(:search_zendesk_users).with("name:\"Gary Guava\" ")
+      end
+    end
+
+    context "when only phone is present" do
+      it "searches with only phone" do
+        service.find_end_user(nil, nil, "14155555555")
+        expect(service).to have_received(:search_zendesk_users).with("phone:14155555555")
       end
     end
 
@@ -191,6 +199,16 @@ RSpec.describe ZendeskServiceHelper do
     end
   end
 
+  describe "#assign_ticket_to_group" do
+    it "finds the ticket and updates the group id" do
+      result = service.assign_ticket_to_group(ticket_id: 123, group_id: "12543")
+
+      expect(result).to eq true
+      expect(fake_zendesk_ticket).to have_received(:group_id=).with("12543")
+      expect(fake_zendesk_ticket).to have_received(:save).with(no_args)
+    end
+  end
+
   describe "#append_file_to_ticket" do
     let(:file) { instance_double(File) }
 
@@ -219,6 +237,29 @@ RSpec.describe ZendeskServiceHelper do
           )
         end.to raise_error(ZendeskServiceHelper::MissingTicketIdError)
       end
+    end
+  end
+
+  describe "#append_comment_to_ticket" do
+    it "calls the Zendesk API to get the ticket and add the comment" do
+      result = service.append_comment_to_ticket(
+        ticket_id: 1141,
+        comment: "hey this is a comment",
+        fields: { "314324132" => "custom_field_value" }
+      )
+
+      expect(result).to eq true
+      expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey this is a comment", public: false })
+      expect(fake_zendesk_ticket).to have_received(:fields=).with({ "314324132" => "custom_field_value" })
+      expect(fake_zendesk_ticket).to have_received(:save)
+    end
+  end
+
+  describe "#get_ticket" do
+    it "calls the Zendesk API to get the details for a given ticket id" do
+      service.get_ticket(ticket_id: 1141)
+
+      expect(ZendeskAPI::Ticket).to have_received(:find).with(fake_zendesk_client, id: 1141)
     end
   end
 end

@@ -18,6 +18,8 @@ class EitcZendeskInstance
   INTAKE_STATUS = "360029025294"
   SIGNATURE_METHOD = "360029896814"
   HSA = "360031865033"
+  LINKED_TICKET = "360033135434"
+  NEEDS_RESPONSE = "360035388874"
 
   # Digital Intake Status value tags
   INTAKE_STATUS_IN_PROGRESS = "1._new_online_submission"
