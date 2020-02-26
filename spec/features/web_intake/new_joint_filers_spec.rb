@@ -40,7 +40,11 @@ RSpec.feature "Web Intake Joint Filers" do
   end
 
   scenario "new client filing joint taxes with spouse and dependents" do
-    visit "/questions/eligibility"
+    visit "/questions/feelings"
+    expect(page).to have_selector("h1", text: "How are you feeling about your taxes?")
+    choose "feelings_form_feeling_about_taxes_positive"
+    click_on "Start my return online"
+
     expect(page).to have_selector("h1", text: "Let’s check a few things.")
     click_on "Continue"
 

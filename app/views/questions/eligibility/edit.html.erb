@@ -2,7 +2,7 @@
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
-    <h1 class="form-question spacing-below-35" id="demographic_primary_race_question">
+    <h1 class="form-question spacing-below-35">
       <%= content_for(:page_title) %>
     </h1>
     <p>

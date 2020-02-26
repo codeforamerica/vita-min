@@ -1,0 +1,49 @@
+.form__feelings-survey {
+  .form-group {
+    margin-bottom: 3rem;
+  }
+
+  .radio-button {
+    display: inline-block;
+    width: auto;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-right: 30px;
+
+    .emoji-label {
+      width: 40px;
+      height: 40px;
+    }
+
+    .negative-icon {
+      background-image: image-url('sad-icon.png');
+    }
+
+    .neutral-icon {
+      background-image: image-url('neutral-icon.png');
+    }
+
+    .positive-icon {
+      background-image: image-url('positive-icon.png');
+    }
+  }
+
+  input[type='radio'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  input[type='radio']:checked:before {
+    display: none;
+  }
+
+  input[type='radio']:focus {
+    box-shadow: none;
+  }
+}
