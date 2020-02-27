@@ -30,7 +30,7 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "Welcome Gary!")
     click_on "Continue"
 
-    # Personal Information
+    # Household Information
     expect(page).to have_text("What is your mailing address?")
     fill_in "Street address", with: "123 Main St."
     fill_in "City", with: "Anytown"
