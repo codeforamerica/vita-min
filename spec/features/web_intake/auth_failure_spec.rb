@@ -17,7 +17,7 @@ RSpec.feature "A new intake case from the website fails to authenticate with ID.
     OmniAuth.config.mock_auth[:idme] = omniauth_idme_success
     click_on "Return to ID.me"
 
-    expect(page).to have_selector("h1", text: "Great! Here's our terms of service.")
+    expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
   end
 
   scenario "client decides to find other options" do

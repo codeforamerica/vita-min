@@ -10,13 +10,7 @@
             </h1>
 
             <div class="question__illustration">
-              <% if illustration_path.present? %>
-                <%= image_tag("questions/#{illustration_path}", alt: "") %>
-              <% else %>
-                <div class="placeholder_illustration">
-                  Placeholder for an illustration.
-                </div>
-              <% end %>
+              <%= image_tag("questions/#{illustration_path}", alt: "") %>
             </div>
 
             <%= link_to user_idme_omniauth_authorize_path, class: "button button--primary button--wide text--centered", method: :post do %>
@@ -24,11 +18,7 @@
             <% end %>
 
             <p>
-              We are partnering with ID.me to protect your digital identity.
-            </p>
-            <p>
-              ID.me allows you to prove your legal identity.
-              The IRS has partnered with ID.me to ensure that your personal information is accurate and secure.
+              We are partnering with ID.me to protect your digital identity and ensure that your personal information is accurate and secure.
             </p>
 
             <p>

@@ -54,7 +54,7 @@ RSpec.feature "Web Intake Joint Filers" do
     # the ID.me flow would occur here. They should end up back on a success page.
 
     # Consent form
-    expect(page).to have_selector("h1", text: "Great! Here's our terms of service.")
+    expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
     expect(page).to have_text("You, Gary Gnome, understand")
     check "I agree"
     click_on "Continue"
@@ -70,15 +70,15 @@ RSpec.feature "Web Intake Joint Filers" do
     fill_in "ZIP code", with: "94612"
     click_on "Confirm"
 
-    expect(page).to have_text("How may we contact you about your taxes?")
-    check "Email Notifications"
-    check "SMS Notifications"
+    expect(page).to have_text("How should we reach out with questions and updates about your taxes?")
+    check "Email Me"
+    check "Text Me"
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
     click_on "No"
 
-    expect(page).to have_selector("h1", text: "In 2019, were you in the US on a Visa?")
+    expect(page).to have_selector("h1", text: "In 2019, were you in the United States on a Visa?")
     click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have a permanent disability?")
@@ -87,7 +87,7 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "In 2019, were you legally blind?")
     click_on "No"
 
-    expect(page).to have_selector("h1", text: "Have you been issued an Identity Protection PIN?")
+    expect(page).to have_selector("h1", text: "Have you ever been issued an Identity Protection PIN?")
     click_on "No"
 
     expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
@@ -137,7 +137,7 @@ RSpec.feature "Web Intake Joint Filers" do
     #   4. get external ID.me authorize --> user_idme_omniauth_callback_path(spouse: "true")
     click_on "Sign in spouse with ID.me"
 
-    expect(page).to have_selector("h1", text: "Great! Here's our terms of service.")
+    expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
     expect(page).to have_text("You, Greta Gnome, understand")
     check "I agree"
     click_on "Continue"
@@ -148,7 +148,7 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Was your spouse a full-time student in 2019?")
     click_on "No"
 
-    expect(page).to have_selector("h1", text: "In 2019, was your spouse in the US on a Visa?")
+    expect(page).to have_selector("h1", text: "In 2019, was your spouse in the United States on a Visa?")
     click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did your spouse have a permanent disability?")
@@ -171,7 +171,7 @@ RSpec.feature "Web Intake Joint Filers" do
     select "5", from: "Day"
     select "2003", from: "Year"
     fill_in "Relationship to you", with: "Son"
-    select "6", from: "How many months did they live in your home during 2019?"
+    select "6", from: "How many months did they live in your home in 2019?"
     check "Full-time student"
     click_on "Save dependent"
     expect(page).to have_text("Greg Gnome")
@@ -183,8 +183,8 @@ RSpec.feature "Web Intake Joint Filers" do
     select "24", from: "Day"
     select "2005", from: "Year"
     fill_in "Relationship to you", with: "Nibling"
-    select "2", from: "How many months did they live in your home during 2019?"
-    check "In the US on a Visa"
+    select "2", from: "How many months did they live in your home in 2019?"
+    check "In the United States on a Visa"
     click_on "Save dependent"
     expect(page).to have_text("Gallagher Gnome")
 

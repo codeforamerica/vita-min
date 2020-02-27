@@ -3,7 +3,7 @@ module Questions
     layout "yes_no_question"
 
     def section_title
-      "Expenses"
+      "Income and Expenses"
     end
   end
 end
