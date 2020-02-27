@@ -21,7 +21,7 @@ RSpec.feature "Web Intake Single Filer" do
     # the ID.me flow would occur here. They should end up back on a success page.
 
     # Consent form
-    expect(page).to have_selector("h1", text: "Great! Here's our terms of service.")
+    expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
     expect(page).to have_text("You, Gary Gnome, understand")
     check "I agree"
     click_on "Continue"
@@ -38,15 +38,15 @@ RSpec.feature "Web Intake Single Filer" do
     fill_in "ZIP code", with: "94612"
     click_on "Confirm"
 
-    expect(page).to have_text("How may we contact you about your taxes?")
-    check "Email Notifications"
-    check "SMS Notifications"
+    expect(page).to have_text("How should we reach out with questions and updates about your taxes?")
+    check "Email Me"
+    check "Text Me"
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
     click_on "No"
 
-    expect(page).to have_selector("h1", text: "In 2019, were you in the US on a Visa?")
+    expect(page).to have_selector("h1", text: "In 2019, were you in the United States on a Visa?")
     click_on "No"
 
     expect(page).to have_selector("h1", text: "In 2019, did you have a permanent disability?")
@@ -55,7 +55,7 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "In 2019, were you legally blind?")
     click_on "No"
 
-    expect(page).to have_selector("h1", text: "Have you been issued an Identity Protection PIN?")
+    expect(page).to have_selector("h1", text: "Have you ever been issued an Identity Protection PIN?")
     click_on "No"
 
     expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
@@ -63,7 +63,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
-    check "Purchase US Savings Bond"
+    check "Purchase United States Savings Bond"
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
