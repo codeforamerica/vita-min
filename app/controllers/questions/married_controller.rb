@@ -3,7 +3,7 @@ module Questions
     layout "yes_no_question"
 
     def section_title
-      "Personal Information"
+      "Household Information"
     end
 
     def self.show?(intake)

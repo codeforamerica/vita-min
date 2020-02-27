@@ -4,7 +4,7 @@ class QuestionNavigation
     Questions::FeelingsController,
     Questions::EligibilityController,
 
-    # Personal Information
+    # Household Information
     Questions::IdentityController,
     Questions::ConsentController,
     Questions::WelcomeController,

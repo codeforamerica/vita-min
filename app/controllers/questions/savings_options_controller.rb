@@ -3,7 +3,7 @@ module Questions
     private
 
     def section_title
-      "Personal Information"
+      "Household Information"
     end
 
     def illustration_path

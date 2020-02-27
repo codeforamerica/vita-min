@@ -8,7 +8,7 @@ module Questions
     end
 
     def section_title
-      "Personal Information"
+      "Household Information"
     end
   end
 end
