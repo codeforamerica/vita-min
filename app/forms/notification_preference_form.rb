@@ -1,5 +1,6 @@
 class NotificationPreferenceForm < QuestionsForm
   set_attributes_for :user, :sms_notification_opt_in, :email_notification_opt_in
+  validate :validate_one_method_selected
 
   def save
     intake.primary_user.update(attributes_for(:user))
@@ -7,5 +8,13 @@ class NotificationPreferenceForm < QuestionsForm
 
   def self.existing_attributes(intake)
     HashWithIndifferentAccess.new(intake.primary_user.attributes)
+  end
+
+  private
+
+  def validate_one_method_selected
+    unless sms_notification_opt_in == "yes" || email_notification_opt_in == "yes"
+      errors.add(:base, "We need a way to ask you a question if there is a problem with your taxes.")
+    end
   end
 end

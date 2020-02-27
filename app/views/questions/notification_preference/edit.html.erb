@@ -18,6 +18,14 @@
       <%= current_user.formatted_phone_number %>
     </p>
 
+    <% if @form.errors[:base].any? %>
+      <div class="form-group form-group--error">
+        <p class="text--error"><i class="icon-warning"></i>
+          <%= @form.errors.full_messages.first %>
+        </p>
+      </div>
+    <% end %>
+
     <div class="form-card__stacked-checkboxes">
       <%= f.cfa_checkbox(:email_notification_opt_in, "Email Me", options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:sms_notification_opt_in, "Text Me", options: { checked_value: "yes", unchecked_value: "no" }) %>

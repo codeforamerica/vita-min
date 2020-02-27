@@ -20,6 +20,27 @@ RSpec.describe Questions::NotificationPreferenceController do
   end
 
   describe "#update" do
+    context "when the user does not select either option" do
+      let(:params) do
+        {
+          notification_preference_form: {
+            email_notification_opt_in: "no",
+            sms_notification_opt_in: "no",
+          }
+        }
+      end
+
+      it "renders an error for the user" do
+        post :update, params: params
+
+        user.reload
+        expect(user.sms_notification_opt_in).to eq("unfilled")
+        expect(user.email_notification_opt_in).to eq("unfilled")
+        expect(response.body).to include("We need a way to ask you a question if there is a problem with your taxes.")
+        expect(response).not_to be_redirect
+      end
+    end
+
     context "with valid params" do
       let(:params) do
         {
