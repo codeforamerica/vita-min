@@ -9,6 +9,7 @@
         </h1>
       </legend>
 
+      <%= f.hidden_field :feeling_about_taxes, value: "unfilled" %>
       <radiogroup class="input-group--block">
         <label class="radio-button">
           <input type="radio" value="negative" name="feelings_form[feeling_about_taxes]" id="feelings_form_feeling_about_taxes_negative"<%= @form.feeling_about_taxes == "negative" ? " checked " : "" %>/>

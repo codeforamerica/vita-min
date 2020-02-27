@@ -55,6 +55,10 @@ RSpec.describe Questions::FeelingsController do
     it_behaves_like "feelings survey" do
       let(:feeling) { "negative" }
     end
+
+    it_behaves_like "feelings survey" do
+      let(:feeling) { "unfilled" }
+    end
   end
 end
 
