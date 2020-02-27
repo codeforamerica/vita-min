@@ -3,7 +3,7 @@ class DependentsController < ApplicationController
   helper_method :section_title
 
   def section_title
-    "Personal Information"
+    "Household Information"
   end
 
   def index

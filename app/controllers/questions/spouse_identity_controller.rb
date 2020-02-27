@@ -9,7 +9,7 @@ module Questions
     end
 
     def section_title
-      "Personal Information"
+      "Household Information"
     end
 
     def self.form_class

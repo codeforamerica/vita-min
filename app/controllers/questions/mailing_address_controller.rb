@@ -1,7 +1,7 @@
 module Questions
   class MailingAddressController < QuestionsController
     def section_title
-      "Personal Information"
+      "Household Information"
     end
 
     def custom_tracking_data
