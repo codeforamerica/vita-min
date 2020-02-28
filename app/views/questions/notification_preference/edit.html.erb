@@ -4,7 +4,11 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
 
-    <p>We will still call you to review your tax situation and we will email you for a final signature before you file. We will not share your information with any outside parties.</p>
+    <p>
+      We will need to call you to review your tax situation and email you for a final signature before you file.
+      Please let us know how we should reach out with questions and updates.
+      We will not share your information with any outside parties.
+    </p>
 
     <p>
       <strong>Email:</strong>
