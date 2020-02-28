@@ -11,7 +11,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'cfa-styleguide', git: 'https://github.com/codeforamerica/cfa-styleguide-gem'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'mini_racer', platforms: :ruby
-gem 'nokogiri'
+gem 'nokogiri', '>= 1.10.8'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
