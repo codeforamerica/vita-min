@@ -36,7 +36,7 @@ RSpec.describe Questions::NotificationPreferenceController do
         user.reload
         expect(user.sms_notification_opt_in).to eq("unfilled")
         expect(user.email_notification_opt_in).to eq("unfilled")
-        expect(response.body).to include("We need a way to ask you a question if there is a problem with your taxes.")
+        expect(response.body).to include("We need a way to get in touch in order to help you.")
         expect(response).not_to be_redirect
       end
     end

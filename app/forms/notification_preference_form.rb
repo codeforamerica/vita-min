@@ -14,7 +14,7 @@ class NotificationPreferenceForm < QuestionsForm
 
   def validate_one_method_selected
     unless sms_notification_opt_in == "yes" || email_notification_opt_in == "yes"
-      errors.add(:base, "We need a way to ask you a question if there is a problem with your taxes.")
+      errors.add(:base, "We need a way to get in touch in order to help you.")
     end
   end
 end
