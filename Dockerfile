@@ -2,7 +2,7 @@ FROM ruby:2.6.5
 
 # System prerequisites
 RUN apt-get update \
- && apt-get -y install build-essential libpq-dev pdftk poppler-utils \
+ && apt-get -y install build-essential libpq-dev pdftk ghostscript poppler-utils \
  && rm -rf /var/lib/apt/lists/*
 
 # If you require additional OS dependencies, install them here:
