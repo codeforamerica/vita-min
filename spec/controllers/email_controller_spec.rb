@@ -5,12 +5,12 @@ RSpec.describe EmailController, type: :controller do
     let(:headers) do
       <<~HEADERS.strip
         Received: by mx0028p1mdw1.sendgrid.net with SMTP id UvbNeDv2BB Mon, 10 Feb 2020 23:29:37 +0000 (UTC)
-        Received: from outbyoip2.pod23.use1.zdsys.com (outbyoip2.pod23.use1.zdsys.com [192.161.149.32]) by mx0028p1mdw1.sendgrid.net (Postfix) with ESMTPS id BA7146467A7 for <zendesk-sms@vitataxhelp.org>; Mon, 10 Feb 2020 23:28:01 +0000 (UTC)
-        Received: from zendesk.com (unknown [10.221.28.146]) by outbyoip2.pod23.use1.zdsys.com (Postfix) with ESMTP id 48GhsY2342z3hhT8 for <zendesk-sms@vitataxhelp.org>; Mon, 10 Feb 2020 23:28:01 +0000 (UTC)
+        Received: from outbyoip2.pod23.use1.zdsys.com (outbyoip2.pod23.use1.zdsys.com [192.161.149.32]) by mx0028p1mdw1.sendgrid.net (Postfix) with ESMTPS id BA7146467A7 for <zendesk-sms@getyourrefund.org>; Mon, 10 Feb 2020 23:28:01 +0000 (UTC)
+        Received: from zendesk.com (unknown [10.221.28.146]) by outbyoip2.pod23.use1.zdsys.com (Postfix) with ESMTP id 48GhsY2342z3hhT8 for <zendesk-sms@getyourrefund.org>; Mon, 10 Feb 2020 23:28:01 +0000 (UTC)
         Date: Mon, 10 Feb 2020 23:28:01 +0000
-        From: \"Text user: +15552341122 (VITA Tax Help)\" <support@eitc.zendesk.com>
-        Reply-To: VITA Tax Help <support+idM7W4K4-OZLY@eitc.zendesk.com>
-        To: EITC Zendesk SMS Robot <zendesk-sms@vitataxhelp.org>
+        From: \"Text user: +15552341122 (GetYourRefund)\" <support@eitc.zendesk.com>
+        Reply-To: GetYourRefund <support+idM7W4K4-OZLY@eitc.zendesk.com>
+        To: EITC Zendesk SMS Robot <zendesk-sms@getyourrefund.org>
         Message-ID: <M7W4K4OZLY_5e41e701f984_4bbecf1c70194_sprut@zendesk.com>
         In-Reply-To: <M7W4K4OZLY@zendesk.com> <M7W4K4OZLY_5e41e57c3dd44_4de40f2099212_sprut@zendesk.com>
         Subject: Incoming SMS
@@ -35,8 +35,8 @@ RSpec.describe EmailController, type: :controller do
     let(:spam_report) do
       "Spam detection software, running on the system \"mx0037p1mdw1.sendgrid.net\", has\nidentified this incoming email as possible spam.  The original message\nhas been attached to this so you can view it (if it isn't spam) or label\nsimilar future email.  If you have any questions, see\n@@CONTACT_ADDRESS@@ for details.\n\nContent preview:  ##- Please type your reply above this line -## phone: +15552341122\n   ticket_id: 103 sms_test heyo! [...] \n\nContent analysis details:   (0.0 points, 5.0 required)\n\n pts rule name              description\n---- ---------------------- --------------------------------------------------\n 0.0 HTML_MESSAGE           BODY: HTML included in message\n 0.0 T_MIME_NO_TEXT         No text body parts\n\n"
     end
-    let(:to_email) { "zendesk-sms@vitataxhelp.org" }
-    let(:from) { "\"Text user: +15552341122 (VITA Tax Help)\" <#{from_email}>" }
+    let(:to_email) { "zendesk-sms@getyourrefund.org" }
+    let(:from) { "\"Text user: +15552341122 (GetYourRefund)\" <#{from_email}>" }
     let(:to) { "EITC Zendesk SMS Robot <#{to_email}>" }
     let(:from_email) { "support@eitc.zendesk.com" }
     let(:subject) { "Incoming SMS" }
@@ -110,7 +110,7 @@ RSpec.describe EmailController, type: :controller do
     end
 
     context "with a random incoming email" do
-      let(:to_email) { "whatevs@vitataxhelp.org" }
+      let(:to_email) { "whatevs@getyourrefund.org" }
 
       it "returns 200 OK" do
         expect do
