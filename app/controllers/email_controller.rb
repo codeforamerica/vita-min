@@ -5,7 +5,7 @@ class EmailController < ApplicationController
   ZENDESK_SMS_REGEX = /〒\nphone: \+(?<phone_number>[0-9]{11})\nticket_id: (?<ticket_id>[0-9]*)\nbody: (?<body>.+)\n〶/m
 
   def create
-    raise StandardError unless params[:to].include?("zendesk-sms@hooks.vitataxhelp.org")
+    raise StandardError unless sent_to_known_email_hook?
 
     body = params[:text]
     match = body.match(ZENDESK_SMS_REGEX)
@@ -28,5 +28,16 @@ class EmailController < ApplicationController
     end
 
     render status: 200, json: "success"
+  end
+
+  private
+
+  def sent_to_known_email_hook?
+    to_emails = [
+      "zendesk-sms@hooks.vitataxhelp.org",
+      "zendesk-sms@hooks.getyourrefund.org",
+    ]
+    to_param = params[:to]
+    to_emails.map { |email| to_param.include? email }.any?
   end
 end

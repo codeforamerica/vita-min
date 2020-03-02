@@ -60,12 +60,22 @@ RSpec.describe EmailController, type: :controller do
     end
 
     context "to the right email address" do
-      let(:to_email) { "zendesk-sms@hooks.vitataxhelp.org" }
+      let(:to_email) { "zendesk-sms@hooks.getyourrefund.org" }
 
       it "returns 200 OK" do
         post :create, params: params
 
         expect(response).to be_ok
+      end
+
+      context "when the email is sent to vitataxhelp.org" do
+        let(:to_email) { "zendesk-sms@hooks.vitataxhelp.org" }
+
+        it "returns 200 OK" do
+          post :create, params: params
+
+          expect(response).to be_ok
+        end
       end
 
       context "when it's from the right sender", active_job: true do
