@@ -124,9 +124,13 @@ describe ZendeskSmsService do
         )
 
         expected_comment_body = <<~BODY
-          New text message from client: 14158161286
-          Text message thread ticket: https://eitc.zendesk.com/agent/tickets/1492
+          New text message from client phone: 14158161286
+          To respond to the client via text message, go to this ticket: https://eitc.zendesk.com/agent/tickets/1492
+
           ---------------------------
+          
+          Message:
+
           body here
         BODY
 
