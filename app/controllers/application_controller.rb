@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_visitor_id, :set_source, :set_referrer
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer
   after_action :track_page_view
   helper_method :include_google_analytics?
 
@@ -102,6 +102,12 @@ class ApplicationController < ActionController::Base
   def require_sign_in
     unless user_signed_in?
       redirect_to identity_questions_path
+    end
+  end
+
+  def redirect_to_getyourrefund
+    if request.get? && request.host.include?("vitataxhelp.org")
+      return redirect_to request.original_url.gsub("vitataxhelp.org", "getyourrefund.org")
     end
   end
 end
