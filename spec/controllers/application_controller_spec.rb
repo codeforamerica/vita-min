@@ -9,6 +9,34 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#redirect_to_getyourrefund" do
+    context "with a GET request to a subdomain of VitaTaxHelp.org" do
+      before do
+        allow_any_instance_of(ActionController::TestRequest).to receive(:host).and_return "demo.vitataxhelp.org"
+        allow_any_instance_of(ActionController::TestRequest).to receive(:original_url).and_return "https://demo.vitataxhelp.org/vita_providers?zip=94609&page=2&utf8=✓"
+      end
+
+      it "redirects to the same subdomain on GetYourRefund.org with same path and params" do
+        get :index
+
+        expect(response).to redirect_to "https://demo.getyourrefund.org/vita_providers?zip=94609&page=2&utf8=✓"
+      end
+    end
+
+    context "with a request to GetYourRefund.org" do
+      before do
+        allow_any_instance_of(ActionController::TestRequest).to receive(:host).and_return "demo.getyourrefund.org"
+        allow_any_instance_of(ActionController::TestRequest).to receive(:original_url).and_return "https://demo.getyourrefund.org/vita_providers?zip=94609&page=2&utf8=✓"
+      end
+
+      it "does not redirect" do
+        get :index
+
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
   describe "#include_google_analytics?" do
     it "returns false" do
       expect(subject.include_google_analytics?).to eq false
