@@ -5,7 +5,7 @@ ruby '2.6.5'
 
 gem 'rack', '>= 2.0.8'
 gem 'rails', '~> 5.2.3'
-gem 'puma', '>= 3.12.2'
+gem 'puma', '>= 4.3.3'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'cfa-styleguide', git: 'https://github.com/codeforamerica/cfa-styleguide-gem'
