@@ -25,6 +25,6 @@ RSpec.feature "Returning user to online intake" do
     OmniAuth.config.mock_auth[:idme] = omniauth_idme_success
     click_on "Sign in with ID.me"
 
-    expect(page).to have_selector("h1", text: "Welcome back Gary!")
+    expect(page).to have_selector("h1", text: "What is your mailing address?")
   end
 end
