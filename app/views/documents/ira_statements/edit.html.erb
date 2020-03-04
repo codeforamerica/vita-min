@@ -1,3 +1,6 @@
 <% content_for :form_question, "Attach your IRA Statements" %>
 
-<% content_for :form_help_text, "Based on your answers, we think you might have this document." %>
+<% content_for :form_help_text do %>
+  <strong>You might have this document</strong>
+  because you said that you made contributions to a retirement account.
+<% end %>

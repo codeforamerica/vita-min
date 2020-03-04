@@ -1,3 +1,8 @@
 <% content_for :form_question, "Attach your 1099-A's" %>
 
-<% content_for :form_help_text, "Based on your answers, we think you might have this document." %>
+<% content_for :form_help_text do %>
+  <strong>You might have this form</strong>
+  because you said that you had debt forgiven by a lender.
+  This form is typically used to report the transfer of foreclosed property.
+  If you haven’t received a 1099-A and believe you should have, contact your bank or lender.
+<% end %>

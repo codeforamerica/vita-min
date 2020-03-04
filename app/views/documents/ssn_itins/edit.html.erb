@@ -1,3 +1,18 @@
 <% content_for :form_question, "Attach your social security cards or ITIN paperwork for dependents" %>
 
-<% content_for :form_help_text, @help_text %>
+<% content_for :form_help_content do %>
+  <p>
+  Earlier, you claimed additional people in your household.
+  <strong>We must verify this with a Social Security Card or ITIN Paperwork for each person you claim.</strong>
+  </p>
+
+  <p class="spacing-below-10">
+    Please share an image of the needed documents for:
+  </p>
+
+  <ul class="list--bulleted spacing-above-0 spacing-below-35">
+    <% @dependent_names.each do |name| %>
+      <li><%= name %></li>
+    <% end %>
+  </ul>
+<% end %>

@@ -12,7 +12,11 @@
           <h1 class="form-question">
             <%= yield :form_question %>
           </h1>
-          <p><%= yield :form_help_text %></p>
+          <% if content_for? :form_help_content %>
+            <%= yield :form_help_content %>
+          <% else %>
+            <p><%= yield :form_help_text %></p>
+          <% end %>
 
           <%# uploaded documents %>
           <% if @documents.present? %>
