@@ -1,24 +1,30 @@
 class QuestionNavigation
   FLOW = [
-    # Eligibility
+    # Feelings
     Questions::FeelingsController,
+
+    # VITA eligibility checks
     Questions::EligibilityController,
 
-    # Household Information
+    # Authentication
     Questions::IdentityController,
+
+    # Consent
     Questions::ConsentController,
-    Questions::WelcomeController,
+
+    # Contact information
     Questions::MailingAddressController,
     Questions::NotificationPreferenceController, # creates initial Zendesk ticket
+
+    # Overview
+    Questions::WelcomeController,
+
+    # Primary filer personal information
     Questions::WasStudentController,
     Questions::OnVisaController,
     Questions::HadDisabilityController,
     Questions::WasBlindController,
     Questions::IssuedIdentityPinController,
-    Questions::RefundPaymentController,
-    Questions::SavingsOptionsController,
-    Questions::BalancePaymentController,
-    Questions::OtherStatesController,
 
     # Marital Status
     Questions::EverMarriedController,
@@ -30,7 +36,13 @@ class QuestionNavigation
     Questions::DivorcedYearController,
     Questions::WidowedController,
     Questions::WidowedYearController,
+
+    # Filing status
     Questions::FilingJointController,
+
+    # Alimony
+    Questions::ReceivedAlimonyController,
+    Questions::PaidAlimonyController,
 
     # Spouse authentication
     Questions::SpouseIdentityController,
@@ -47,56 +59,77 @@ class QuestionNavigation
     # Dependents
     Questions::HadDependentsController,
 
-    # Income
+    # Dependent related questions
+    Questions::DependentCareController,
+    Questions::AdoptedChildController,
+
+    # Student questions
+    Questions::StudentController,
+    Questions::StudentLoanInterestController,
+
+    # Income from working
     Questions::JobCountController,
+    Questions::OtherStatesController,
     Questions::WagesController,
-    Questions::TipsController,
     Questions::SelfEmploymentController,
-    Questions::SelfEmploymentLossController,
-    Questions::RetirementIncomeController,
-    Questions::SocialSecurityIncomeController,
+    Questions::TipsController,
+
+    # Income from benefits
     Questions::UnemploymentIncomeController,
     Questions::DisabilityIncomeController,
+
+    # Investment income/loss
     Questions::InterestIncomeController,
     Questions::AssetSaleIncomeController,
     Questions::AssetSaleLossController,
-    Questions::ReceivedAlimonyController,
-    Questions::GamblingIncomeController,
-    Questions::LocalTaxRefundController,
+
+    # Retirement income/contributions
+    Questions::SocialSecurityIncomeController,
+    Questions::RetirementIncomeController,
+    Questions::RetirementContributionsController,
+
+    # Other income
     Questions::OtherIncomeController,
     Questions::OtherIncomeTypesController,
 
-    # Expenses
-    Questions::MortgageInterestController,
-    Questions::LocalTaxController,
+    # Health insurance
+    Questions::HealthInsuranceController,
+    Questions::HsaController,
+
+    # Itemizing
     Questions::MedicalExpensesController,
     Questions::CharitableContributionsController,
-    Questions::StudentLoanInterestController,
-    Questions::DependentCareController,
-    Questions::RetirementContributionsController,
+    Questions::GamblingIncomeController,
     Questions::SchoolSuppliesController,
-    Questions::PaidAlimonyController,
-    Questions::StudentController,
+    Questions::LocalTaxController,
+    Questions::LocalTaxRefundController,
+
+    # Related to home ownership
     Questions::SoldHomeController,
-    Questions::HsaController,
-    Questions::HealthInsuranceController,
-
-    # Life Events
+    Questions::MortgageInterestController,
     Questions::HomebuyerCreditController,
-    Questions::EnergyEfficientPurchasesController,
-    Questions::DebtForgivenController,
-    Questions::DisasterLossController,
-    Questions::AdoptedChildController,
-    Questions::TaxCreditDisallowedController,
-    Questions::IrsLetterController,
-    Questions::EstimatedTaxPaymentsController,
 
-    # Additional Questions
+    # Miscellaneous
+    Questions::DisasterLossController,
+    Questions::DebtForgivenController,
+    Questions::IrsLetterController,
+    Questions::TaxCreditDisallowedController,
+    Questions::EstimatedTaxPaymentsController,
+    Questions::SelfEmploymentLossController,
+    Questions::EnergyEfficientPurchasesController,
+
+    # Additional Information
     Questions::AdditionalInfoController, # appends 13614-C to Zendesk ticket
 
     # Documents --> See DocumentNavigation
 
+    # Interview time preferences
     Questions::InterviewSchedulingController,
+
+    # Payment info
+    Questions::RefundPaymentController,
+    Questions::SavingsOptionsController,
+    Questions::BalancePaymentController,
 
     # Optional Demographic Questions
     Questions::DemographicQuestionsController,
@@ -109,7 +142,8 @@ class QuestionNavigation
     Questions::DemographicPrimaryEthnicityController,
     Questions::DemographicSpouseEthnicityController,
 
-    Questions::FinalInfoController,
+    # Additional Information
+    Questions::FinalInfoController, # appends final 13614-C, consent, & docs to Zendesk
     Questions::SuccessfullySubmittedController,
   ].freeze
 

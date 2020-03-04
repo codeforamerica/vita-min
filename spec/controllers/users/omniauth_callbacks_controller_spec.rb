@@ -110,7 +110,7 @@ RSpec.describe Users::OmniauthCallbacksController do
           get :idme
 
           expect(subject.current_user).to eq user
-          expect(response).to redirect_to(welcome_questions_path)
+          expect(response).to redirect_to(mailing_address_questions_path)
         end
       end
 
@@ -129,7 +129,7 @@ RSpec.describe Users::OmniauthCallbacksController do
         it "signs the user in, redirects them to the welcome page" do
           get :idme, params: { spouse: "true" }
           expect(subject.current_user).to eq user
-          expect(response).to redirect_to(welcome_questions_path)
+          expect(response).to redirect_to(mailing_address_questions_path)
         end
       end
     end

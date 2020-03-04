@@ -21,7 +21,7 @@ RSpec.describe Questions::HadDependentsController do
       let(:had_dependents) { "no" }
 
       it "returns the default next navigation path" do
-        expect(subject.next_path).to eq job_count_questions_path
+        expect(subject.next_path).to eq dependent_care_questions_path
       end
     end
   end
