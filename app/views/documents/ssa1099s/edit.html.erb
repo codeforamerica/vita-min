@@ -1,3 +1,9 @@
 <% content_for :form_question, "Attach your SSA-1099's" %>
 
-<% content_for :form_help_text, "Based on your answers, you should have received the following document." %>
+<% content_for :form_help_text do %>
+  <strong>You should have this document</strong>
+  because you said that you had income from Social Security.
+  This is a tax form that shows the total amount of benefits you received from Social Security in the previous year.
+  You can get this form
+  <%= link_to "https://www.ssa.gov/myaccount/replacement-SSA-1099.html", target: "_blank" do %>here<% end %>.
+<% end %>

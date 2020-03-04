@@ -1,3 +1,7 @@
 <% content_for :form_question, "Attach your 1099-S's" %>
 
-<% content_for :form_help_text, "Based on your answers, we think you might have this document." %>
+<% content_for :form_help_text do %>
+  <strong>You might have this form</strong>
+  because you said that you received income from the sale of investments or real estate.
+  Use Form 1099-S to report the sale or exchange of real estate.
+<% end %>

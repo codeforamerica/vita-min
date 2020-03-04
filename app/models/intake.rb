@@ -234,4 +234,12 @@ class Intake < ApplicationRecord
     # if any are unfilled this will return false
     had_farm_income_no? && had_rental_income_no? && income_over_limit_no?
   end
+
+  def student_names
+    names = []
+    names << primary_user.full_name if was_full_time_student_yes?
+    names << spouse.full_name if spouse_was_full_time_student_yes?
+    names += dependents.where(was_student: "yes").map(&:full_name)
+    names
+  end
 end

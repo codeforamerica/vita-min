@@ -199,6 +199,9 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "Attach your IRA Statements")
     click_on "I'm done for now"
 
+    expect(page).to have_selector("h1", text: "Attach your Property Tax Statements")
+    click_on "I'm done for now"
+
     expect(page).to have_selector("h1", text: "Attach your student account statements")
     click_on "I'm done for now"
 

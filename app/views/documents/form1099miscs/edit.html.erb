@@ -1,3 +1,8 @@
 <% content_for :form_question, "Attach your 1099-MISC's" %>
 
-<% content_for :form_help_text, "Based on your answers, we think you might have this document." %>
+<% content_for :form_help_text do %>
+  <strong>You might have this form</strong>
+  because you said that you got paid from contract or self-employed work.
+  This form is used to report non-employee compensation.
+  Independent contractors, freelancers, sole-proprietors, and self-employed individuals, receive a 1099-MISC from each client who paid them $600 or more in a calendar year.
+<% end %>

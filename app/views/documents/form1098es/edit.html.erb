@@ -1,3 +1,7 @@
 <% content_for :form_question, "Attach your 1098-E's" %>
 
-<% content_for :form_help_text, "Based on your answers, we think you might have this document. This document is usually accessed from a lender portal online and isn't mailed to you." %>
+<% content_for :form_help_text do %>
+  <strong>You might have this form</strong>
+  because you said that you paid student loan interest.
+  This document is usually accessed from a lender portal online and isn't mailed to you.
+<% end %>

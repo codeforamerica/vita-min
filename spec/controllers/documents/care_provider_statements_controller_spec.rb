@@ -1,11 +1,11 @@
 require "rails_helper"
 
-RSpec.describe Documents::ChildcareStatementsController, type: :controller do
+RSpec.describe Documents::CareProviderStatementsController, type: :controller do
   let(:attributes) { {} }
   let(:intake) { create :intake, **attributes }
 
   describe ".show?" do
-    context "when they paid dependant care" do
+    context "when they paid dependent care" do
       let(:attributes) { { paid_dependent_care: "yes" } }
 
       it "returns true" do

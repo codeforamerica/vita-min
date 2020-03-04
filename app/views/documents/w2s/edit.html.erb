@@ -1,3 +1,9 @@
 <% content_for :form_question, "Attach your W-2's" %>
 
-<% content_for :form_help_text, "Unclear about your W-2’s? Here’s some helpful information." %>
+<% content_for :form_help_text do %>
+  <strong>You should have this form</strong>
+  because you said that you worked a job with salaries or wages.
+  Your employer should have sent you this form and you can contact them if you haven't recieved it.
+  More information is available
+  <%= link_to "https://www.irs.gov/faqs/irs-procedures/copies-transcripts/transcript-or-copy-of-form-w-2", target: "_blank" do %>here<% end %>.
+<% end %>
