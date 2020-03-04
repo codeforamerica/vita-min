@@ -17,7 +17,6 @@ class DocumentNavigation
     "1099-R" => Documents::Form1099rsController,
     "1099-S" => Documents::Form1099ssController,
     "1099-SA" => Documents::Form1099sasController,
-    "1099-SSDI" => Documents::Form1099ssdisController,
     "1099-G" => Documents::Form1099gsController,
     "5498-SA" => Documents::Form5498sasController,
     "IRA Statement" => Documents::IraStatementsController,
