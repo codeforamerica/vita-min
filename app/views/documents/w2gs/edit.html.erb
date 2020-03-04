@@ -1,3 +1,8 @@
 <% content_for :form_question, "Attach your W-2G's" %>
 
-<% content_for :form_help_text, "Based on your answers, we think you might have this document." %>
+<% content_for :form_help_text do %>
+  <strong>You might have this form</strong>
+  because you said that you had income from gambling winnings or the lottery.
+  Depending on how much you won, a gaming facility may send you a form W2-G that
+  records your winnings and any income tax withholdings from the previous year.
+<% end %>

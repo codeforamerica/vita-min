@@ -1,3 +1,8 @@
 <% content_for :form_question, "Attach your 1099-C's" %>
 
-<% content_for :form_help_text, "Based on your answers, we think you might have this document." %>
+<% content_for :form_help_text do %>
+  <strong>You might have this form</strong>
+  because you said that you had debt forgiven by a lender.
+  If you borrowed money from a commercial lender and at least $600 of that debt was cancelled or forgiven, they should have sent you this form.
+  If you haven’t received a 1099-C and believe you should have, contact your lender.
+<% end %>

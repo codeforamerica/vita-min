@@ -268,4 +268,63 @@ describe Intake do
       end
     end
   end
+
+  describe "#student_names" do
+    context "when everyone is a student" do
+      let(:intake) do
+        create :intake, was_full_time_student: "yes", spouse_was_full_time_student: "yes"
+      end
+      before do
+        create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry"
+        create :spouse_user, intake: intake, first_name: "Helga", last_name: "Huckleberry"
+        create :dependent, intake: intake, first_name: "Harriet", last_name: "Huckleberry", was_student: "yes"
+        create :dependent, intake: intake, first_name: "Henry", last_name: "Huckleberry", was_student: "yes"
+      end
+
+      it "returns all the names" do
+        expected_results = [
+          "Henrietta Huckleberry",
+          "Helga Huckleberry",
+          "Harriet Huckleberry",
+          "Henry Huckleberry",
+        ]
+        expect(intake.student_names).to eq(expected_results)
+      end
+    end
+
+    context "when only one dependent is a student" do
+      let(:intake) do
+        create :intake, was_full_time_student: "no", spouse_was_full_time_student: "unfilled"
+      end
+      before do
+        create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry"
+        create :spouse_user, intake: intake, first_name: "Helga", last_name: "Huckleberry"
+        create :dependent, intake: intake, first_name: "Harriet", last_name: "Huckleberry", was_student: "yes"
+        create :dependent, intake: intake, first_name: "Henry", last_name: "Huckleberry", was_student: "no"
+      end
+
+      it "returns only one name" do
+        expected_results = [
+          "Harriet Huckleberry",
+        ]
+        expect(intake.student_names).to eq(expected_results)
+      end
+    end
+
+    context "when no one is a student" do
+      let(:intake) do
+        create :intake, was_full_time_student: "no", spouse_was_full_time_student: "no"
+      end
+      before do
+        create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry"
+        create :spouse_user, intake: intake, first_name: "Helga", last_name: "Huckleberry"
+        create :dependent, intake: intake, first_name: "Harriet", last_name: "Huckleberry", was_student: "no"
+        create :dependent, intake: intake, first_name: "Henry", last_name: "Huckleberry", was_student: "no"
+      end
+
+      it "returns an empty array" do
+        expect(intake.student_names).to eq([])
+      end
+    end
+  end
 end

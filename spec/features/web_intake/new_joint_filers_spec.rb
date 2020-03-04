@@ -347,6 +347,9 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Attach your IRA Statements")
     click_on "I'm done for now"
 
+    expect(page).to have_selector("h1", text: "Attach your Property Tax Statements")
+    click_on "I'm done for now"
+
     expect(page).to have_selector("h1", text: "Attach your RRB-1099's")
     click_on "I'm done for now"
 
