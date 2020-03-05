@@ -17,9 +17,12 @@ brew install postgresql postgis
 gem install bundler
 rbenv rehash
 bundle install
-brew install poppler
+brew install imagemagick poppler ghostscript
 
-# 4. Get the secret key from LastPass / someone who has it set up.
+# 4. Install PDFtk
+# Download from: https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg
+
+# 5. Get the secret key from LastPass / someone who has it set up.
 echo "[secret key]" > config/master.key
 ```
 
