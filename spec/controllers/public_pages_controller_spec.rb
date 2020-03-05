@@ -7,13 +7,7 @@ RSpec.describe PublicPagesController do
     context "in production" do
       before do
         allow(Rails).to receive(:env).and_return("production".inquiry)
-      end
-
-      it "does not link to the first questions page" do
-        get :home
-
-        expect(response.body).not_to include "Get started"
-        expect(response.body).not_to include question_path(QuestionNavigation.first)
+        allow_any_instance_of(PublicPagesHelper).to receive(:enable_online_intake?).and_return(true)
       end
 
       it "includes GA script in html" do
@@ -21,7 +15,30 @@ RSpec.describe PublicPagesController do
 
         expect(response.body).to include "https://www.googletagmanager.com/gtag/js?id=UA-156157414-1"
       end
+
+      it "links to the first question path for digital intake" do
+        get :home
+
+        expect(response.body).to include "Get started"
+        expect(response.body).to include question_path(QuestionNavigation.first)
+        expect(response.body).not_to include "Find a location"
+      end
+
+      context "when online intake is not enabled" do
+        before do
+          allow_any_instance_of(PublicPagesHelper).to receive(:enable_online_intake?).and_return(false)
+        end
+
+        it "does not link to the first questions page" do
+          get :home
+
+          expect(response.body).to include "Find a location"
+          expect(response.body).not_to include "Get started"
+          expect(response.body).not_to include question_path(QuestionNavigation.first)
+        end
+      end
     end
+
 
     context "in demo env" do
       before do
@@ -33,6 +50,7 @@ RSpec.describe PublicPagesController do
 
         expect(response.body).to include "Get started"
         expect(response.body).to include question_path(QuestionNavigation.first)
+        expect(response.body).not_to include "Find a location"
       end
 
       it "does not include google analytics" do
