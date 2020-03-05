@@ -2,26 +2,20 @@ require "rails_helper"
 
 RSpec.describe PublicPagesHelper do
   describe "#enable_online_intake?" do
-    let(:rails_env) { 'production' }
     let(:env_vars) { {} }
     let(:source) { nil }
 
     before do
-      allow(Rails).to receive(:env).and_return(rails_env.inquiry)
-      allow(helper).to receive(:session).and_return(source: source)
+      # The controller that rspec sets up for helper specs doesn't have the
+      # `source` method defined, so we define it via this mock:
+      without_partial_double_verification do
+        allow(controller).to receive(:source).and_return(source)
+      end
       env_vars.each { |k, v| ENV[k] = v }
     end
 
     after do
       env_vars.keys.each { |k| ENV.delete(k) }
-    end
-
-    describe "when not in production" do
-      let(:rails_env) { 'development' }
-
-      it "returns true" do
-        expect(helper.enable_online_intake?).to eq(true)
-      end
     end
 
     describe "when the ENABLE_ONLINE_INTAKE variable is set" do

@@ -4,10 +4,13 @@ RSpec.describe PublicPagesController do
   render_views
 
   describe "#home" do
+    before do
+      allow_any_instance_of(PublicPagesHelper).to receive(:enable_online_intake?).and_return(true)
+    end
+
     context "in production" do
       before do
         allow(Rails).to receive(:env).and_return("production".inquiry)
-        allow_any_instance_of(PublicPagesHelper).to receive(:enable_online_intake?).and_return(true)
       end
 
       it "includes GA script in html" do
@@ -43,14 +46,6 @@ RSpec.describe PublicPagesController do
     context "in demo env" do
       before do
         allow(Rails).to receive(:env).and_return("demo".inquiry)
-      end
-
-      it "links to the first question path for digital intake" do
-        get :home
-
-        expect(response.body).to include "Get started"
-        expect(response.body).to include question_path(QuestionNavigation.first)
-        expect(response.body).not_to include "Find a location"
       end
 
       it "does not include google analytics" do
