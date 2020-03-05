@@ -1,7 +1,5 @@
 module PublicPagesHelper
   def enable_online_intake?
-    return true unless Rails.env.production?
-
-    ENV['ENABLE_ONLINE_INTAKE'].present? && session[:source] != 'propel'
+    ENV['ENABLE_ONLINE_INTAKE'].present? && controller.source != 'propel'
   end
 end
