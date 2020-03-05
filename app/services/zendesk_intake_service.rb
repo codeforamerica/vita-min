@@ -86,8 +86,10 @@ class ZendeskIntakeService
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
       }
     else
-      # We do not yet have field IDs for UWTSA Zendesk instance
-      {}
+      {
+        UwtsaZendeskInstance::INTAKE_SITE => "online_intake",
+        UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+      }
     end
   end
 
@@ -206,8 +208,9 @@ class ZendeskIntakeService
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
       }
     else
-      # We do not yet have field IDs for UWTSA Zendesk instance
-      {}
+      {
+        UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
+      }
     end
   end
 
@@ -217,8 +220,9 @@ class ZendeskIntakeService
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
       }
     else
-      # We do not yet have field IDs for UWTSA Zendesk instance
-      {}
+      {
+        UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
+      }
     end
   end
 
