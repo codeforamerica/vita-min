@@ -145,6 +145,38 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#utm_state" do
+    context "with an existing utm_state in the session" do
+      before do
+        session[:utm_state] = "CA"
+      end
+
+      it "does not override it" do
+        get :index, params: { utm_state: "OH" }
+
+        expect(subject.utm_state).to eq "CA"
+      end
+    end
+
+    context "with no utm_state in the session" do
+      context "with a utm_state param" do
+        it "sets the referrer from the headers" do
+          get :index, params: { utm_state: "CA" }
+
+          expect(session[:utm_state]).to eq "CA"
+        end
+      end
+
+      context "without a utm_state query param" do
+        it "the utm_state remains nil" do
+          get :index
+
+          expect(session).not_to include(:utm_state)
+        end
+      end
+    end
+  end
+
   describe "#user_agent" do
     it "parses the user agent" do
       request.headers["HTTP_USER_AGENT"] = user_agent_string
@@ -162,6 +194,7 @@ RSpec.describe ApplicationController do
       allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
       cookies[:visitor_id] = "123"
       session[:source] = "vdss"
+      session[:utm_state] = "CA"
       request.headers["HTTP_USER_AGENT"] = user_agent_string
       request.headers["HTTP_REFERER"] = "http://coolwebsite.horse/tax-help/vita"
     end
@@ -173,6 +206,7 @@ RSpec.describe ApplicationController do
       expected_mixpanel_data = {
         sound: "boop",
         source: "vdss",
+        utm_state: "CA",
         referrer: "http://coolwebsite.horse/tax-help/vita",
         referrer_domain: "coolwebsite.horse",
         full_user_agent: user_agent_string,

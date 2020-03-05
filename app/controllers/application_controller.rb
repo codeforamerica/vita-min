@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state
   after_action :track_page_view
   helper_method :include_google_analytics?
 
@@ -43,6 +43,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def utm_state
+    session[:utm_state]
+  end
+
+  def set_utm_state
+    return unless params[:utm_state].present?
+
+    unless utm_state.present?
+      session[:utm_state] = params[:utm_state]
+    end
+  end
+
   def user_agent
     @user_agent ||= DeviceDetector.new(request.user_agent)
   end
@@ -63,6 +75,7 @@ class ApplicationController < ActionController::Base
     default_data = {
       source: source,
       referrer: referrer,
+      utm_state: utm_state,
       referrer_domain: URI.parse(referrer).host || "None",
       full_user_agent: request.user_agent,
       browser_name: user_agent.name,
