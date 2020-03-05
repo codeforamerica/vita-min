@@ -131,7 +131,10 @@ describe ZendeskIntakeService do
           requester_id: 987,
           group_id: nil,
           body: "Body text",
-          fields: {}
+          fields: {
+            UwtsaZendeskInstance::INTAKE_SITE => "online_intake",
+            UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+          }
         )
       end
     end
@@ -271,6 +274,23 @@ describe ZendeskIntakeService do
       )
     end
 
+    context "for UWTSA instance" do
+      let(:state) { "az" }
+      it "appends the intake pdf to the ticket" do
+        result = service.send_intake_pdf
+        expect(result).to eq true
+        expect(service).to have_received(:append_file_to_ticket).with(
+          ticket_id: 34,
+          filename: "CherCherimoya_13614c.pdf",
+          file: fake_file,
+          comment: "New 13614-C Complete",
+          fields: {
+            UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS
+          }
+        )
+      end
+    end
+
     context "when the zendesk api fails" do
       let(:output){ false }
 
@@ -350,6 +370,23 @@ describe ZendeskIntakeService do
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW
         }
       )
+    end
+
+    context "with UWTSA ZD instance" do
+      let(:state) { "az" }
+      it "appends the intake pdf to the ticket with updated status and interview preferences" do
+        result = service.send_final_intake_pdf
+        expect(result).to eq true
+        expect(service).to have_received(:append_file_to_ticket).with(
+          ticket_id: 34,
+          filename: "Final_CherCherimoya_13614c.pdf",
+          file: fake_file,
+          comment: "Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)\"\n\nClient's provided interview preferences: Monday evenings and Wednesday mornings\n\nAdditional information from Client: I want my money\n",
+          fields: {
+            UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW
+          }
+        )
+      end
     end
 
     context "when the zendesk api fails" do
