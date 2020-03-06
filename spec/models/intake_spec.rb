@@ -269,6 +269,53 @@ describe Intake do
     end
   end
 
+  describe "#any_students?" do
+    context "without answers" do
+      let(:intake) { build :intake }
+
+      it "returns false" do
+        expect(intake.any_students?).to eq false
+      end
+    end
+
+    context "when the primary user says they are not a student" do
+      let(:intake) do
+        build :intake, was_full_time_student: "no"
+      end
+
+      it "returns false" do
+        expect(intake.any_students?).to eq false
+      end
+    end
+
+    context "when the primary user says they are a full time student" do
+      let(:intake) do
+        build :intake, was_full_time_student: "yes", spouse_was_full_time_student: "no"
+      end
+
+      it "returns true" do
+        expect(intake.any_students?).to eq true
+      end
+    end
+
+    context "when a dependent is marked as a student" do
+      let(:intake) { create :intake }
+      before { create :dependent, intake: intake, was_student: "yes" }
+
+      it "returns true" do
+        expect(intake.any_students?).to eq true
+      end
+    end
+
+    context "when they said someone was a student" do
+      let(:intake) { create :intake, had_student_in_family: "yes" }
+
+      it "returns true" do
+        expect(intake.any_students?).to eq true
+      end
+    end
+  end
+
   describe "#student_names" do
     context "when everyone is a student" do
       let(:intake) do
