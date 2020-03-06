@@ -114,7 +114,7 @@ class ApplicationController < ActionController::Base
 
   def require_sign_in
     unless user_signed_in?
-      redirect_to identity_questions_path
+      redirect_to identity_questions_path(after_login: request.path)
     end
   end
 

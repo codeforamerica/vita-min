@@ -17,7 +17,7 @@ RSpec.feature "Returning user to online intake" do
     end
   end
 
-  scenario "client tries to return to a sign in protected page after being signed out" do
+  scenario "client tries to return to a sign in protected page after signing out" do
     silence_omniauth_logging do
       visit "/questions/wages"
     end
@@ -25,6 +25,6 @@ RSpec.feature "Returning user to online intake" do
     OmniAuth.config.mock_auth[:idme] = omniauth_idme_success
     click_on "Sign in with ID.me"
 
-    expect(page).to have_selector("h1", text: "What is your mailing address?")
+    expect(page).to have_selector("h1", text: "In 2019, did you receive wages or salary?")
   end
 end
