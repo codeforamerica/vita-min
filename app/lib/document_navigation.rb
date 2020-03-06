@@ -30,7 +30,7 @@ class DocumentNavigation
     "Other" => Documents::AdditionalDocumentsController,
   }.freeze
   BEFORE_CONTROLLERS = [
-      Documents::IntroController
+    Documents::IntroController
   ].freeze
   AFTER_CONTROLLERS = [
     Documents::OverviewController

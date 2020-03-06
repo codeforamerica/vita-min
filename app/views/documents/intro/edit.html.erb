@@ -14,16 +14,45 @@
             <%= content_for(:page_title) %>
           </h1>
           <p class="text--help">
-            Based on your responses to our earlier questions, we will need the documents below. Don’t worry, we’ll securely save your progress. You can return with more documents later.
+            Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later.
+          </p>
+          <p class="text--help">
+            <strong>
+              Your files are secure and the information you provide will be handled in accordance with our <%= link_to privacy_path, target: "_blank" do %>privacy policy<% end %>.
+            </strong>
           </p>
 
           <div class="document-overview-list">
-            <% recommended_document_types.each do |type| %>
-              <div>
-              <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__heading">
-            <%= type %>
-          </h2>
-              </div>
+            <% if any_must_have_docs?(recommended_document_types) %>
+              <p>
+                <strong>You should have:</strong>
+              </p>
+              <% recommended_document_types.each do |type| %>
+                <% if must_have?(type) %>
+                  <div class="document-overview-list__item">
+                    <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__heading">
+                      <%= type %>
+                    </h2>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <div class="document-overview-list">
+            <% if any_might_have_docs?(recommended_document_types) %>
+              <p>
+                <strong>You might also have:</strong>
+              </p>
+              <% recommended_document_types.each do |type| %>
+                <% if might_have?(type) %>
+                  <div class="document-overview-list__item">
+                    <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__heading">
+                      <%= type %>
+                    </h2>
+                  </div>
+                <% end %>
+              <% end %>
             <% end %>
           </div>
 
