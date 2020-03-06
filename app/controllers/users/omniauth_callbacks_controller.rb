@@ -3,6 +3,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def idme
     has_spouse_param = params["spouse"] == "true"
+    has_after_login_param = params["after_login"].present?
     @user = User.from_omniauth(request.env["omniauth.auth"])
     is_new_user = !@user.persisted?
     is_consenting_user = @user.consented_to_service_yes?
@@ -19,6 +20,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if is_primary_but_expected_spouse
       return redirect_to spouse_identity_questions_path(missing_spouse: "true")
+    end
+
+    if is_returning_user && is_consenting_user && has_after_login_param
+      sign_in @user, event: :authentication
+      return redirect_to params["after_login"]
     end
 
     should_delete_duplicate_intake = session[:intake_id] && (is_returning_user || is_new_spouse)

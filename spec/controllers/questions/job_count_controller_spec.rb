@@ -17,7 +17,7 @@ RSpec.describe Questions::JobCountController do
       it "redirects to ID.me login page" do
         get :edit
 
-        expect(response).to redirect_to identity_questions_path
+        expect(response).to redirect_to(identity_questions_path(after_login: job_count_questions_path))
       end
     end
   end
