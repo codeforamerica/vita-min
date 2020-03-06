@@ -40,6 +40,11 @@ RSpec.describe Users::OmniauthCallbacksController do
         expect(user.sign_in_count).to eq(1)
       end
 
+      it "does not redirect to the after_login URL" do
+        get :idme, params: { after_login: "/documents/additional-documents" }
+        expect(response).to redirect_to(consent_questions_path)
+      end
+
       context "no intake id in session" do
         before do
           session[:intake_id] = nil
@@ -117,8 +122,8 @@ RSpec.describe Users::OmniauthCallbacksController do
       context "when the returning user has not yet consented" do
         let(:consented_to_service) { "unfilled" }
 
-        it "redirects them to the consent page" do
-          get :idme
+        it "redirects them to the consent page (not the after_login)" do
+          get :idme, params: { after_login: "/documents/additional-documents" }
 
           expect(subject.current_user).to eq user
           expect(response).to redirect_to(consent_questions_path)
@@ -130,6 +135,15 @@ RSpec.describe Users::OmniauthCallbacksController do
           get :idme, params: { spouse: "true" }
           expect(subject.current_user).to eq user
           expect(response).to redirect_to(mailing_address_questions_path)
+        end
+      end
+
+      context "when the returning user has a after_login param" do
+        it "redirects them to the after_login" do
+          get :idme, params: { after_login: "/documents/additional-documents" }
+
+          expect(subject.current_user).to eq user
+          expect(response).to redirect_to("/documents/additional-documents")
         end
       end
     end
@@ -202,6 +216,7 @@ RSpec.describe Users::OmniauthCallbacksController do
     end
 
     context "when a spouse returns" do
+      let(:spouse_consent) { "yes" }
       let(:spouse_user) { create :spouse_user, consented_to_service: spouse_consent }
       let(:primary_user) { create :user }
       before do
@@ -220,13 +235,22 @@ RSpec.describe Users::OmniauthCallbacksController do
         end
       end
 
-      context "and they have not yet consented" do
+      context "and they have not yet consented (not the after_login)" do
         let(:spouse_consent) { "unfilled" }
 
         it "redirects to the spouse consent page" do
-          get :idme
+          get :idme, params: { after_login: "/documents/additional-documents" }
 
           expect(response).to redirect_to spouse_consent_questions_path
+        end
+      end
+
+      context "and they have a after_login param" do
+        it "redirects them to the after_login" do
+          get :idme, params: { after_login: "/documents/additional-documents" }
+
+          expect(subject.current_user).to eq spouse_user
+          expect(response).to redirect_to("/documents/additional-documents")
         end
       end
     end
