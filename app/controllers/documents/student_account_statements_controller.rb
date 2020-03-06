@@ -1,7 +1,7 @@
 module Documents
   class StudentAccountStatementsController < DocumentUploadQuestionController
     def self.show?(intake)
-      intake.had_student_in_family_yes?
+      intake.any_students?
     end
 
     def edit
