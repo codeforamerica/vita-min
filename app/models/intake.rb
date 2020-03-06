@@ -235,6 +235,13 @@ class Intake < ApplicationRecord
     had_farm_income_no? && had_rental_income_no? && income_over_limit_no?
   end
 
+  def any_students?
+    was_full_time_student_yes? ||
+      spouse_was_full_time_student_yes? ||
+      had_student_in_family_yes? ||
+      dependents.where(was_student: "yes" ).any?
+  end
+
   def student_names
     names = []
     names << primary_user.full_name if was_full_time_student_yes?
