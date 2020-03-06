@@ -14,6 +14,10 @@
             <%= content_for(:page_title) %>
           </h1>
 
+          <p class="text--help">
+            When you’re done sharing the documents you have, we’ll schedule an appointment with your tax preparer.
+          </p>
+
           <div class="document-overview-list">
             <% documents_by_type = @documents.group_by(&:document_type) %>
             <% recommended_document_types.each do |type| %>
