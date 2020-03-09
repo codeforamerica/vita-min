@@ -23,6 +23,11 @@ RSpec.describe Documents::OverviewController do
         get :edit
         expect(response.body).to include("No documents of this type were uploaded.")
       end
+
+      it "does not display requested documents in the list" do
+        get :edit
+        expect(response.body).not_to include("Requested")
+      end
     end
 
     context "with documents that have been uploaded" do
@@ -40,6 +45,23 @@ RSpec.describe Documents::OverviewController do
         expect(response.body).to include("W-2")
         expect(response.body).to include(w2s_documents_path)
         expect(response.body).to include(documents[0].upload.filename.to_s)
+        expect(response.body).not_to include("Requested")
+      end
+
+      context "requested documents" do
+        let(:documents) do
+          [
+            create(:document, :with_upload, intake: intake, document_type: "Requested")
+          ]
+        end
+
+        it "includes requested documents as a category only if documents of this type have been uploaded" do
+          get :edit
+
+          expect(response.body).to include("Requested")
+          expect(response.body).to include(requested_documents_documents_path)
+          expect(response.body).to include(documents[0].upload.filename.to_s)
+        end
       end
     end
 
