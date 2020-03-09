@@ -1,3 +1,8 @@
 <% content_for :form_question, "Attach your 1099-B's" %>
 
-<% content_for :form_help_text, "Based on your answers, you should have received the following document." %>
+<% content_for :form_help_text do %>
+  You said that you received income from the sale of investment or real estate.
+  If you specifically received income from stocks or bonds,
+  <strong>you should have this form.</strong>
+  If you haven't received a 1099-B, contact your broker.
+<% end %>

@@ -5,7 +5,7 @@ module Documents
     end
 
     def edit
-      @dependent_names = current_intake.dependents.map { |dependent| "#{dependent.first_name} #{dependent.last_name}" }
+      @dependent_names = current_intake.dependents.map(&:full_name)
       super
     end
   end
