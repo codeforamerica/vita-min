@@ -25,7 +25,6 @@ module Documents
 
     private
 
-
     def form_name
       "document_type_upload_form"
     end

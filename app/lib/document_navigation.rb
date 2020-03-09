@@ -29,12 +29,14 @@ class DocumentNavigation
     "W-2G" => Documents::W2gsController,
     "2018 Tax Return" => Documents::PriorTaxReturnsController,
     "Other" => Documents::AdditionalDocumentsController,
+    "Requested" => Documents::RequestedDocumentsController,
   }.freeze
   BEFORE_CONTROLLERS = [
     Documents::IntroController
   ].freeze
   AFTER_CONTROLLERS = [
-    Documents::OverviewController
+    Documents::OverviewController,
+    Documents::SendRequestedDocumentsController,
   ].freeze
   DOCUMENT_TYPES = DOCUMENT_CONTROLLERS.keys.freeze
 
