@@ -2,11 +2,12 @@
 #
 # Table name: documents
 #
-#  id            :bigint           not null, primary key
-#  document_type :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  intake_id     :bigint
+#  id                :bigint           not null, primary key
+#  document_type     :string           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  intake_id         :bigint
+#  zendesk_ticket_id :bigint
 #
 # Indexes
 #
