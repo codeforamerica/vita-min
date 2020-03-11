@@ -98,6 +98,23 @@ RSpec.describe EmailController, type: :controller do
         end
       end
 
+      context "from UWTSA", active_job: true do
+        let(:from_email) { "support@unitedwaytucson.zendesk.com" }
+
+        it "enqueues and parses" do
+          post :create, params: params
+
+          expect(ZendeskInboundSmsJob).to have_been_enqueued.with(
+            sms_ticket_id: 103,
+            phone_number: "15552341122",
+            message_body: "sms_test heyo!\nsome other stuff on a new line",
+            )
+          expect(assigns(:zendesk_ticket_id)).to eq 103
+          expect(assigns(:phone_number)).to eq "15552341122"
+          expect(assigns(:message_body)).to eq "sms_test heyo!\nsome other stuff on a new line"
+        end
+      end
+
       context "when it's from any other type of sender", active_job: true do
         let(:from) { "Another Person not a client" }
 
