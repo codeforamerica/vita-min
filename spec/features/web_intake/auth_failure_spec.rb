@@ -32,7 +32,7 @@ RSpec.feature "A new intake case from the website fails to authenticate with ID.
     click_on "Find other options"
 
     expect(page).to have_selector("h1", text: "Let's find a way to help you!")
-    expect(page).to have_link("Visit MyFreeTaxes.com", href: "https://www.myfreetaxes.com")
+    expect(page).to have_link("IRS Free File", href: "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp")
     click_on "Find a VITA site near you"
 
     expect(page).to have_text "Enter your zip code to find providers near you"

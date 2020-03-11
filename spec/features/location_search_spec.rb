@@ -57,7 +57,7 @@ RSpec.feature "Search for VITA locations" do
 
       expect(page).to have_selector("h1", text: "We're sorry!")
       expect(page).to have_text "We found no results within 50 miles of 94609 (Oakland, California)."
-      expect(page).to have_link "MyFreeTaxes.com"
+      expect(page).to have_link "IRS Free File Lookup Tool"
     end
   end
 end

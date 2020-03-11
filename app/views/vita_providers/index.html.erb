@@ -33,9 +33,19 @@
 
           <p>
             We found no results within 50 miles of <%= "#{@provider_search_form.zip} (#{@zip_name})" %>.
-            Please try another zip code or see
-            <%= link_to("https://www.myfreetaxes.com", target: "_blank") do %>MyFreeTaxes.com<% end %>,
-            an online service that lets you prepare your own taxes for free.</p>
+
+            <% if enable_online_intake? %>
+            Please try another zip code or try our <%= link_to "free online VITA form", question_path(QuestionNavigation.first) %>.
+            <% else %>
+            Please try another zip code.
+            <% end %>
+          </p>
+
+          <p>
+            You can also prepare your own taxes by using the
+            <%= link_to("https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", target: "_blank") do %>IRS Free File Lookup Tool<% end %>
+            to find a free way to file your taxes online.
+          </p>
         <% end %>
 
         <% if @providers.present? %>
