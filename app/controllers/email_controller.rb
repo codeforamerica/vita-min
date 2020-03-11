@@ -12,10 +12,7 @@ class EmailController < ApplicationController
 
     raise "Could not parse Zendesk SMS Message" unless match
 
-    is_from_zendesk_text_user = (params[:from].include? "Text user: +") &&
-      (params[:from].include? "support@eitc.zendesk.com")
-
-    if is_from_zendesk_text_user
+    if from_known_text_trigger?
       @zendesk_ticket_id = match["ticket_id"].to_i
       @phone_number = match["phone_number"]
       @message_body = match["body"]
@@ -39,5 +36,16 @@ class EmailController < ApplicationController
     ]
     to_param = params[:to]
     to_emails.map { |email| to_param.include? email }.any?
+  end
+
+  def from_known_text_trigger?
+    from_param = params[:from]
+    valid_from_emails = [
+      "support@eitc.zendesk.com",
+      "support@unitedwaytucson.zendesk.com",
+    ]
+    from_valid_sender = valid_from_emails.map { |email| from_param.include? email }.any?
+    from_text_user = params[:from].include? "Text user: +"
+    from_valid_sender && from_text_user
   end
 end
