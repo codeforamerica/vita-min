@@ -1,7 +1,7 @@
 module Documents
   class SendRequestedDocumentsController < DocumentUploadQuestionController
     def edit
-      SendRequestedDocumentsToZendeskJob.perform_later(intake: current_intake)
+      SendRequestedDocumentsToZendeskJob.perform_later(current_intake.id)
       flash[:notice] = "Thank you, your documents have been submitted."
       redirect_to root_path
     end
