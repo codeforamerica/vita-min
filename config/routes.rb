@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   get "/other-options", to: "public_pages#other_options"
   get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
   get "/privacy", to: "public_pages#privacy_policy"
+  get "/about-us", to: "public_pages#about_us"
 
   post "/email", to: "email#create"
 end

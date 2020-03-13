@@ -1,0 +1,22 @@
+.slab--footer {
+  color: white;
+  background-color: black;
+  padding-bottom: $s95;
+
+  @include media($tablet-up) {
+    .footer-description {
+      padding-right: 12rem;
+    }
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .footer-links {
+    margin-top: 5.3rem;
+    li {
+      margin-bottom: 1rem;
+    }
+  }
+}

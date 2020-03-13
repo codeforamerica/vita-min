@@ -10,4 +10,6 @@ class PublicPagesController < ApplicationController
   def maybe_ineligible; end
 
   def privacy_policy; end
+
+  def about_us; end
 end

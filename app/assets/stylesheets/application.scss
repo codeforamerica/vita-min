@@ -19,13 +19,16 @@
 @import 'organisms/flash-messages';
 @import 'molecules/form-molecules';
 @import 'components/emoji-radio-buttons';
+@import 'components/buttons';
+@import 'components/blockquote';
+@import 'components/footer';
 @import 'organisms/form-cards';
 @import 'organisms/offboarding';
 @import 'organisms/overview';
 @import 'organisms/pagination';
 @import 'organisms/provider-list';
 @import 'organisms/provider-details';
-@import 'components/buttons';
+@import 'templates/about-us';
 @import 'templates/consent-form';
 @import 'templates/dependents-index';
 
@@ -95,30 +98,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-}
-
-.slab--footer {
-  color: white;
-  background-color: black;
-  padding-bottom: $s95;
-
-  @include media($tablet-up) {
-    .footer-description {
-      padding-right: 12rem;
-    }
-  }
-
-  .footer-links {
-    margin-top: 5.3rem;
-  }
-
-  .footer__link {
-    color: inherit;
-  }
-
-  .footer-link__first {
-    margin-bottom: 1rem;
   }
 }
 
