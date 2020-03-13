@@ -1,0 +1,56 @@
+.about-us {
+
+  .map {
+    max-width: 56rem;
+    margin-top: 5rem;
+    margin-bottom: 7rem;
+  }
+
+  section.partner-quote {
+    background-color: #DBFAF2;
+    a {
+      color: inherit;
+      &:visited {
+        color: inherit;
+      }
+    }
+  }
+
+  .partner-picture {
+    padding: 0 1em;
+    padding-bottom: 1em;
+  }
+
+  .blockquote {
+    padding-left: 1em;
+    position: relative;
+    &::before {
+      content: "“";
+      font-size: 3.6rem;
+      font-weight: bold;
+      position: absolute;
+      left: -.6rem;
+      top: .4rem;
+    }
+  }
+
+  .partner-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 -0.5em;
+    &__listing {
+      padding-bottom: 1em;
+      margin: 0 .5em;
+    }
+  }
+  .partner-cta {
+    a {
+      color: inherit;
+      &:visited {
+        color: inherit;
+      }
+    }
+  }
+}

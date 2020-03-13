@@ -73,18 +73,27 @@
                 sites nationally.
               </p>
             </div>
-            <div class="grid__item width-one-fourth footer-links">
-              <p class="footer-link__first">
-                <%= link_to privacy_path, class: "footer__link" do %>
+
+            <ul class="grid__item width-one-fourth footer-links">
+              <li>
+                <%= link_to about_us_path do %>
+                  About Us
+                <% end %>
+              </li>
+
+              <li>
+                <%= link_to privacy_path do %>
                   Privacy Policy
                 <% end %>
-              </p>
-              <p>
-                <a href="mailto:hello@getyourrefund.org" class="footer__link">
+              </li>
+
+              <li>
+                <a href="mailto:hello@getyourrefund.org">
                   hello@getyourrefund.org
                 </a>
-              </p>
-            </div>
+              </li>
+            </ul>
+
           </div>
         </div>
       </footer>

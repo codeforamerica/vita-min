@@ -1,0 +1,122 @@
+<% content_for :page_title, "About Us" %>
+<% content_for :body_class, "about-us" %>
+
+<main role="main">
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <h1 class="h2">
+          About Us
+        </h1>
+        <p>
+          We partner with free tax sites, known as Volunteer Income Tax Assistance (VITA) sites,
+          to help you prepare your taxes.
+          Trained and IRS-certified volunteers at local community organizations will prepare your taxes.
+        </p>
+
+        <p>
+          You can save up to $300 when you file for free.
+          We also ensure eligible taxpayers claim the Earned Income Tax Credit (EITC),
+          which can be over $3,000 per family.
+        </p>
+
+        <p class="center-on-mobile">
+          <%= link_to "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank" do %>
+            <%= image_tag("vita-logo.png", alt: "VITA: Volunteer Income Tax Assistance", class: "vita-logo") %>
+          <% end %>
+        </p>
+
+        <p>
+          <%= link_to vita_providers_path, class: "button" do %>
+            Find a VITA location
+          <% end %>
+        </p>
+
+        <div class="map">
+          <%= render "shared/map" %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slab partner-quote">
+    <div class="grid">
+      <div class="grid__item width-one-fourth">
+        <div class="partner-picture">
+          <%= image_tag "partner-picture--courtney.png", alt: "A photograph of Courtney O'Reilly smiling." %>
+        </div>
+      </div>
+
+      <div class="grid__item width-one-half">
+        <blockquote class="blockquote">
+          <p>
+          I'm excited to extend our free services to those who can't come into one of our physical locations.
+          I know taxes can be intimidating, which is why we are here to help!
+          </p>
+
+          <footer role="contentinfo">
+            <p>
+              <strong>Courtney O'Reilly</strong><br>
+              <%= link_to "https://taxhelpco.org/", target: "_blank" do %>
+                Tax Help Colorado
+              <% end %>
+            </p>
+          </footer>
+
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item">
+        <h2 class="h3">Our Partners</h2>
+
+        <ul class="partner-logos spacing-below-25">
+          <%= render(
+            "shared/partner_logo",
+            name: "United Way Bay Area",
+            image_name: "uwba",
+            website: "https://uwba.org/"
+          )%>
+
+          <%= render(
+            "shared/partner_logo",
+            name: "Tax Help Colorado",
+            image_name: "thc",
+            website: "https://taxhelpco.org/"
+          )%>
+
+          <%= render(
+            "shared/partner_logo",
+            name: "Prosperity Now",
+            image_name: "prosperity-now",
+            website: "https://prosperitynow.org/"
+          )%>
+
+          <%= render(
+            "shared/partner_logo",
+            name: "Goodwill Industries of the Southern Rivers",
+            image_name: "gwisr",
+            website: "https://www.goodwillsr.org/"
+          )%>
+
+          <%= render(
+            "shared/partner_logo",
+            name: "United Way of Tucson and Southern Arizona",
+            image_name: "uwtsa",
+            website: "https://www.unitedwaytucson.org/"
+          )%>
+        </ul>
+
+        <p class="partner-cta">
+          <strong>Interested in partnering with us?</strong><br>
+          <a href="mailto:partnerships@getyourrefund.org">
+            partnerships@getyourrefund.org
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
