@@ -22,6 +22,10 @@
 
         <p>The IRS Volunteer Income Tax Assistance (VITA) programs offer free tax help for taxpayers who qualify.</p>
 
+        <div class="notice--warning">
+          <p>Tax preparation sites may be closed due to COVID-19. Please call a site before visiting to confirm hours.</p>
+        </div>
+
         <h1 class="h4">Enter your zip code to find providers near you.</h1>
 
         <%= form_with model: @provider_search_form, url: vita_providers_path, method: "get", local: true, enforce_utf8: false, builder: VitaMinFormBuilder do |f| %>
