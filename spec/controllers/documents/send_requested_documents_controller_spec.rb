@@ -11,7 +11,7 @@ RSpec.describe Documents::SendRequestedDocumentsController do
   end
 
   describe "#edit" do
-    it "sends the documents to zendesk, sets a flash notice, and redirects to the home page" do
+    it "sends the documents to zendesk, sets a flash notice, and redirects to the home page", active_job: true do
       get :edit
 
       expect(SendRequestedDocumentsToZendeskJob).to have_been_enqueued
