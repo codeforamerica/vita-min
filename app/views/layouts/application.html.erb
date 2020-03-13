@@ -61,27 +61,29 @@
       <footer class="footer">
         <div class="slab slab--footer">
           <div class="grid">
-            <div class="grid__item width-seven-twelfths spacing-below-60">
+            <div class="grid__item width-three-fourths footer-description">
               <p>
-                GetYourRefund.org is a service delivered by Code for America in
-                partnership with VITA organizations nationally.
+                <%= image_tag("checkbox-logo--white.png", alt: "") %>
               </p>
               <p>
+                GetYourRefund.org is a non-profit service built by
+                <a href="https://www.codeforamerica.org/" target="_blank" class="footer__link">Code for America</a>
+                in partnership with IRS-certified Volunteer Income Tax Assistance
+                (<a href="https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers" target="_blank" class="footer__link">VITA</a>)
+                sites nationally.
+              </p>
+            </div>
+            <div class="grid__item width-one-fourth footer-links">
+              <p class="footer-link__first">
                 <%= link_to privacy_path, class: "footer__link" do %>
                   Privacy Policy
                 <% end %>
               </p>
-            </div>
-            <div class="grid__item width-five-twelfths">
-              <div class="footer__logos">
-                <%= link_to("https://www.codeforamerica.org", target: "_blank", class: "footer__cfa-logo") do %>
-                  <%= image_tag("cfa-logo--white.svg", alt: "Code for America website") %>
-                <% end %>
-
-                <%= link_to("https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", class: "footer__vita-logo") do %>
-                  <%= image_tag("vita-logo--white.png", alt: "IRS website for the Volunteer Income Tax Assistance program") %>
-                <% end %>
-              </div>
+              <p>
+                <a href="mailto:hello@getyourrefund.org" class="footer__link">
+                  hello@getyourrefund.org
+                </a>
+              </p>
             </div>
           </div>
         </div>
