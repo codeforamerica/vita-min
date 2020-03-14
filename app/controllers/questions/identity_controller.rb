@@ -8,6 +8,5 @@ module Questions
     end
 
     def edit; end
-
   end
 end

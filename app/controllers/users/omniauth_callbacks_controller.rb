@@ -71,6 +71,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def failure
     error_type = request.env["omniauth.error.type"]
     error = request.env["omniauth.error"]
+    send_mixpanel_event(event_name: "authentication_failure", data: { error: error, error_type: error_type })
+
     if error_type == :access_denied
       # the user did not grant permission to view their info
       redirect_to identity_needed_path
