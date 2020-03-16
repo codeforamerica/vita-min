@@ -29,7 +29,7 @@ RSpec.describe OmniAuth::Strategies::IdMe do
       before { allow(Rails).to receive(:env).and_return "development".inquiry }
       it "should use the sandbox domain" do
         expect(subject.options.client_options.site).to eq("https://api.idmelabs.com")
-        expect(subject.options.client_options.authorize_url).to eq("https://api.idmelabs.com/oauth/authorize")
+        expect(subject.options.client_options.authorize_url).to eq("https://api.idmelabs.com/oauth/authorize?op=signup")
         expect(subject.options.client_options.token_url).to eq("https://api.idmelabs.com/oauth/token")
       end
     end
@@ -38,7 +38,7 @@ RSpec.describe OmniAuth::Strategies::IdMe do
       before { allow(Rails).to receive(:env).and_return "test".inquiry }
       it "should use the sandbox domain" do
         expect(subject.options.client_options.site).to eq("https://api.idmelabs.com")
-        expect(subject.options.client_options.authorize_url).to eq("https://api.idmelabs.com/oauth/authorize")
+        expect(subject.options.client_options.authorize_url).to eq("https://api.idmelabs.com/oauth/authorize?op=signup")
         expect(subject.options.client_options.token_url).to eq("https://api.idmelabs.com/oauth/token")
       end
     end
