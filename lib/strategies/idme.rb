@@ -7,7 +7,7 @@ module OmniAuth
 
       option :client_options, {
         :site => "https://#{DOMAIN}",
-        :authorize_url => "https://#{DOMAIN}/oauth/authorize",
+        :authorize_url => "https://#{DOMAIN}/oauth/authorize?op=signup",
         :token_url => "https://#{DOMAIN}/oauth/token"
       }
 

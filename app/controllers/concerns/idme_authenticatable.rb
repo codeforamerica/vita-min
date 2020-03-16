@@ -27,6 +27,7 @@ module IdmeAuthenticatable
       logout_params.merge!({
         scope: idme_scope,
         response_type: "code",
+        op: "signup",
       })
     end
 
