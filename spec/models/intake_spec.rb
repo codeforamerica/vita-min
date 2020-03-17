@@ -374,4 +374,22 @@ describe Intake do
       end
     end
   end
+
+  describe "#external_id" do
+    let(:intake) { build :intake }
+
+    context "when unsaved" do
+      it "is nil" do
+        expect(intake.external_id).to eq(nil)
+      end
+    end
+
+    context "when saved" do
+      it "is in the intended format" do
+        intake.save
+        intake.reload
+        expect(intake.external_id).to eq("intake-#{intake.id}")
+      end
+    end
+  end
 end

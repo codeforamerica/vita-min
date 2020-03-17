@@ -249,4 +249,10 @@ class Intake < ApplicationRecord
     names += dependents.where(was_student: "yes").map(&:full_name)
     names
   end
+
+  def external_id
+    return unless id.present?
+
+    ["intake", id].join("-")
+  end
 end
