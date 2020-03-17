@@ -111,6 +111,7 @@ describe ZendeskIntakeService do
           subject: "Cher Cherimoya",
           requester_id: 987,
           group_id: EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA,
+          external_id: "intake-#{intake.id}",
           body: "Body text",
           fields: {
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
@@ -130,6 +131,7 @@ describe ZendeskIntakeService do
           subject: "Cher Cherimoya",
           requester_id: 987,
           group_id: nil,
+          external_id: intake.external_id,
           body: "Body text",
           fields: {
             UwtsaZendeskInstance::INTAKE_SITE => "online_intake",
