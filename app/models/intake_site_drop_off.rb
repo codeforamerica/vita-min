@@ -60,6 +60,7 @@ class IntakeSiteDropOff < ApplicationRecord
     uwba: [
       "Family Bridges",
       "Gum Moon Residence",
+      "San Francisco Conservation Corps",
     ],
   }.freeze
   ORGANIZATIONS = INTAKE_SITES.keys.map(&:to_s).freeze
