@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get "sign_in", :to => "devise/sessions#new", as: :new_user_session
     delete "sign_out", :to => "users/sessions#destroy", as: :destroy_user_session
     delete "idme_sign_out", :to => "users/sessions#logout_primary_from_idme", as: :destroy_idme_session
+    post "idme_sign_in", to: "users/omniauth_callbacks#idme_sign_in", as: :idme_sign_in
   end
 
   mount Cfa::Styleguide::Engine => "/cfa"

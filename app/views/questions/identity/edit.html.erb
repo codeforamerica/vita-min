@@ -13,7 +13,7 @@
               <%= image_tag("questions/#{illustration_path}", alt: "") %>
             </div>
 
-            <%= link_to user_idme_omniauth_authorize_path(after_login: params[:after_login]), class: "button button--primary button--wide text--centered", method: :post do %>
+            <%= link_to idme_sign_in_path(after_login: params[:after_login]), class: "button button--primary button--wide text--centered", method: :post do %>
               Sign in with <span class="sr-only">ID.me</span> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
             <% end %>
 

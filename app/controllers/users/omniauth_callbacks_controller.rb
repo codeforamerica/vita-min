@@ -1,6 +1,11 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include IdmeAuthenticatable
 
+  def idme_sign_in(after_login: nil)
+    send_mixpanel_event(event_name: "click_sign_in")
+    redirect_to idme_authorize(after_login: after_login)
+  end
+
   def idme
     has_spouse_param = params["spouse"] == "true"
     has_after_login_param = params["after_login"].present?
