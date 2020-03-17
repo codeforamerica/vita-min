@@ -45,6 +45,7 @@ describe ZendeskDropOffService do
           subject: drop_off.name,
           requester_id: fake_zendesk_user.id,
           group_id: EitcZendeskInstance::TAX_HELP_COLORADO,
+          external_id: "drop-off-#{drop_off.id}",
           comment: {
             body: comment_body,
           },
@@ -92,6 +93,7 @@ describe ZendeskDropOffService do
             subject: drop_off.name,
             requester_id: fake_zendesk_user.id,
             group_id: EitcZendeskInstance::GOODWILL_SOUTHERN_RIVERS,
+            external_id: "drop-off-#{drop_off.id}",
             comment: {
               body: comment_body,
             },

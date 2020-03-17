@@ -19,6 +19,7 @@ class ZendeskDropOffService
       subject: @drop_off.name,
       requester_id: zendesk_user_id,
       group_id: group_id,
+      external_id: @drop_off.external_id,
       body: comment_body,
       fields: {
           EitcZendeskInstance::CERTIFICATION_LEVEL => @drop_off.certification_level,

@@ -85,22 +85,24 @@ module ZendeskServiceHelper
     result.id if result.present?
   end
 
-  def build_ticket(subject:, requester_id:, group_id:, body:, fields: {})
+  def build_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {})
     ZendeskAPI::Ticket.new(
       client,
       subject: subject,
       requester_id: requester_id,
       group_id: group_id,
+      external_id: external_id,
       comment: { body: body },
       fields: [fields]
     )
   end
 
-  def create_ticket(subject:, requester_id:, group_id:, body:, fields: {})
+  def create_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {})
     ticket = build_ticket(
       subject: subject,
       requester_id: requester_id,
       group_id: group_id,
+      external_id: external_id,
       body: body,
       fields: fields
     )

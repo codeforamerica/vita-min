@@ -162,6 +162,7 @@ RSpec.describe ZendeskServiceHelper do
           subject: "wyd",
           requester_id: 4,
           group_id: "123409218",
+          external_id: nil,
           comment: {
             body: "What's up?",
           },
@@ -179,6 +180,7 @@ RSpec.describe ZendeskServiceHelper do
         subject: "wyd",
         requester_id: 4,
         group_id: "123409218",
+        external_id: "some-object-123",
         body: "What's up?",
         fields: {
           "09182374" => "not_busy"
