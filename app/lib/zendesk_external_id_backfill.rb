@@ -10,15 +10,23 @@ class ZendeskExternalIdBackfill
 
     def run
       IntakeSiteDropOff.find_each do |drop_off|
-        ticket = get_ticket(ticket_id: drop_off.zendesk_ticket_id)
+        ticket_id = drop_off.zendesk_ticket_id
+        next unless ticket_id
+
+        ticket = get_ticket(ticket_id: ticket_id)
         next unless ticket
+
         ticket.external_id = drop_off.external_id
         ticket.save
       end
 
       Intake.find_each do |drop_off|
-        ticket = get_ticket(ticket_id: drop_off.intake_ticket_id)
+        ticket_id = drop_off.intake_ticket_id
+        next unless ticket_id
+
+        ticket = get_ticket(ticket_id: ticket_id)
         next unless ticket
+
         ticket.external_id = drop_off.external_id
         ticket.save
       end
