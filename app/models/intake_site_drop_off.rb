@@ -162,6 +162,12 @@ class IntakeSiteDropOff < ApplicationRecord
     States.name_for_key(state)
   end
 
+  def external_id
+    return unless id.present?
+
+    ["drop-off", id].join("-")
+  end
+
   def self.intake_sites
     INTAKE_SITES
   end

@@ -308,4 +308,22 @@ describe IntakeSiteDropOff do
       end
     end
   end
+
+  describe "#external_id" do
+    let(:drop_off) { build :intake_site_drop_off }
+
+    context "when unsaved" do
+      it "is nil" do
+        expect(drop_off.external_id).to eq(nil)
+      end
+    end
+
+    context "when saved" do
+      it "is in the intended format" do
+        drop_off.save
+        drop_off.reload
+        expect(drop_off.external_id).to eq("drop-off-#{drop_off.id}")
+      end
+    end
+  end
 end
