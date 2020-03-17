@@ -48,6 +48,7 @@ RSpec.feature "Web Intake Joint Filers" do
 
     # VITA eligibility checks
     expect(page).to have_selector("h1", text: "Let’s check a few things.")
+    check "None of the above"
     click_on "Continue"
 
     # Authentication
