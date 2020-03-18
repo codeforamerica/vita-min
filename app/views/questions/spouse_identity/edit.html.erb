@@ -27,5 +27,9 @@
       Sign in spouse with
       <span class="sr-only">ID.me</span> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
     <% end %>
+
+    <%= link_to spouse_was_student_questions_path, class: "button button--wide text--centered" do %>
+      Skip this step for now
+    <% end %>
   </div>
 <% end %>
