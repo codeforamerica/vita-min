@@ -146,7 +146,7 @@ RSpec.describe DependentsController do
       expect(response.body).to include("Mary")
       expect(response.body).to include("Mango")
       expect(response.body).to include("Kid")
-      expect(response.body).to include("Remove dependent")
+      expect(response.body).to include("Remove this person")
     end
 
     context "when a user from a different intake tries to access" do
