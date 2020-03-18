@@ -202,6 +202,7 @@ ActiveRecord::Schema.define(version: 2020_03_22_023004) do
     t.integer "income_over_limit", default: 0, null: false
     t.integer "feeling_about_taxes", default: 0, null: false
     t.integer "no_eligibility_checks_apply", default: 0, null: false
+    t.string "spouse_auth_token"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|
