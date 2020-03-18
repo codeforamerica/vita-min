@@ -149,11 +149,11 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "No"
 
     # Dependents
-    expect(page).to have_selector("h1", text: "Did you or your spouse have any dependents in 2019?")
+    expect(page).to have_selector("h1", text: "Would you or your spouse like to claim anyone for 2019?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "Let’s add your dependents!")
-    click_on "Add a dependent"
+    expect(page).to have_selector("h1", text: "Let’s claim someone!")
+    click_on "Add a person"
     fill_in "First name", with: "Greg"
     fill_in "Last name", with: "Gnome"
     select "March", from: "Month"
@@ -161,11 +161,11 @@ RSpec.feature "Web Intake Joint Filers" do
     select "2003", from: "Year"
     fill_in "Relationship to you", with: "Son"
     select "6", from: "How many months did they live in your home in 2019?"
-    check "Full-time student"
-    click_on "Save dependent"
+    check "Full time higher education student"
+    click_on "Save this person"
     expect(page).to have_text("Greg Gnome")
 
-    click_on "Add a dependent"
+    click_on "Add a person"
     fill_in "First name", with: "Gallagher"
     fill_in "Last name", with: "Gnome"
     select "November", from: "Month"
@@ -173,8 +173,9 @@ RSpec.feature "Web Intake Joint Filers" do
     select "2005", from: "Year"
     fill_in "Relationship to you", with: "Nibling"
     select "2", from: "How many months did they live in your home in 2019?"
-    check "In the United States on a Visa"
-    click_on "Save dependent"
+    check "Is this person here on a VISA?"
+    check "Married as of 12/31/2019"
+    click_on "Save this person"
     expect(page).to have_text("Gallagher Gnome")
 
     click_on "Done with this step"
