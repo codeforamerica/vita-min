@@ -89,6 +89,7 @@
 #  separated_year                                       :string
 #  sold_a_home                                          :integer          default("unfilled"), not null
 #  source                                               :string
+#  spouse_auth_token                                    :string
 #  spouse_had_disability                                :integer          default("unfilled"), not null
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
 #  spouse_was_blind                                     :integer          default("unfilled"), not null

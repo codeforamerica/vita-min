@@ -89,6 +89,7 @@
 #  separated_year                                       :string
 #  sold_a_home                                          :integer          default("unfilled"), not null
 #  source                                               :string
+#  spouse_auth_token                                    :string
 #  spouse_had_disability                                :integer          default("unfilled"), not null
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
 #  spouse_was_blind                                     :integer          default("unfilled"), not null
@@ -256,5 +257,17 @@ class Intake < ApplicationRecord
     return unless id.present?
 
     ["intake", id].join("-")
+  end
+
+  def missing_spouse_auth?
+    filing_joint_yes? && spouse.blank?
+  end
+
+  def get_or_create_spouse_auth_token
+    return spouse_auth_token if spouse_auth_token.present?
+
+    new_token = SecureRandom.urlsafe_base64(8)
+    update(spouse_auth_token: new_token)
+    new_token
   end
 end
