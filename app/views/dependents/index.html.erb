@@ -1,4 +1,4 @@
-<% @main_heading = "Let’s add your dependents!" %>
+<% @main_heading = "Let’s claim someone!" %>
 
 <% content_for :page_title, @main_heading %>
 
@@ -37,7 +37,7 @@
           <p>We will need an ITIN or SSN for each person you add. We’ll ask you to share images of these at the end.</p>
 
           <%= link_to(new_dependent_path, class: "button button--wide button--icon") do %>
-            Add a dependent
+            Add a person
           <% end %>
 
           <%= link_to(dependent_care_questions_path, class: "button button--cta button--wide button--icon") do %>

@@ -64,7 +64,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "No"
 
     # Dependents
-    expect(page).to have_selector("h1", text: "Did you have any dependents in 2019?")
+    expect(page).to have_selector("h1", text: "Would you like to claim anyone for 2019?")
     click_on "No"
 
     # Related to dependents
