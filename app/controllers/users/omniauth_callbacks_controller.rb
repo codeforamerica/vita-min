@@ -1,9 +1,9 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include IdmeAuthenticatable
 
-  def idme_sign_in(after_login: nil)
+  def idme_sign_in
     send_mixpanel_event(event_name: "click_sign_in")
-    redirect_to idme_authorize(after_login: after_login)
+    redirect_to idme_authorize(after_login: params[:after_login])
   end
 
   def idme
