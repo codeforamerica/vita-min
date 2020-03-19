@@ -1,6 +1,7 @@
 class ZendeskIntakeService
   include ZendeskServiceHelper
   include ActiveStorage::Downloading
+  include Rails.application.routes.url_helpers
 
   ONLINE_INTAKE_THC_UWBA_STATES = %w(co nm ne ks ca ak fl nv sd tx wy).freeze
   ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
@@ -106,11 +107,22 @@ class ZendeskIntakeService
   end
 
   def send_intake_pdf
+    comment_body = "New 13614-C questions answered."
+    if @intake.missing_spouse_auth?
+      comment_body += <<~BODY
+
+
+        ⚠️ Missing required verification for spouse.
+        The following link can be sent to the spouse to get their consent and information:  
+          #{spouse_identity_questions_url}
+      BODY
+    end
+
     output = append_file_to_ticket(
       ticket_id: @intake.intake_ticket_id,
       filename: intake_pdf_filename,
       file: @intake.pdf,
-      comment: "New 13614-C Complete",
+      comment: comment_body,
       fields: intake_pdf_fields
     )
 
@@ -119,17 +131,28 @@ class ZendeskIntakeService
   end
 
   def send_final_intake_pdf
+    comment_body = <<~BODY
+      Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
+
+      Client's provided interview preferences: #{@intake.interview_timing_preference}
+
+      Additional information from Client: #{@intake.final_info}
+    BODY
+
+    if @intake.missing_spouse_auth?
+      comment_body += <<~ALERT
+        
+        ⚠️ Missing required verification for spouse.
+        The following link can be sent to the spouse to get their consent and information:  
+          #{spouse_identity_questions_url}
+      ALERT
+    end
+
     output = append_file_to_ticket(
       ticket_id: @intake.intake_ticket_id,
       filename: intake_pdf_filename(final: true),
       file: @intake.pdf,
-      comment: <<~COMMENT,
-        Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)"
-
-        Client's provided interview preferences: #{@intake.interview_timing_preference}
-
-        Additional information from Client: #{@intake.final_info}
-      COMMENT
+      comment: comment_body,
       fields: intake_pdf_final_fields
     )
 

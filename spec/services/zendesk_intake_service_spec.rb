@@ -334,11 +334,36 @@ describe ZendeskIntakeService do
         ticket_id: 34,
         filename: "CherCherimoya_13614c.pdf",
         file: fake_file,
-        comment: "New 13614-C Complete",
+        comment: "New 13614-C questions answered.",
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS
         }
       )
+    end
+
+    context "when filing jointly but spouse has not verified" do
+      before { intake.update(filing_joint: "yes") }
+
+      it "notes the missing spouse and adds a link that can be sent to the spouse" do
+        result = service.send_intake_pdf
+        expected_comment_body = <<~BODY
+          New 13614-C questions answered.
+
+          ⚠️ Missing required verification for spouse.
+          The following link can be sent to the spouse to get their consent and information:  
+            http://test.host/questions/spouse-identity
+        BODY
+
+        expect(service).to have_received(:append_file_to_ticket).with(
+          ticket_id: 34,
+          filename: "CherCherimoya_13614c.pdf",
+          file: fake_file,
+          comment: expected_comment_body,
+          fields: {
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS
+          }
+        )
+      end
     end
 
     context "for UWTSA instance" do
@@ -350,7 +375,7 @@ describe ZendeskIntakeService do
           ticket_id: 34,
           filename: "CherCherimoya_13614c.pdf",
           file: fake_file,
-          comment: "New 13614-C Complete",
+          comment: "New 13614-C questions answered.",
           fields: {
             UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS
           }
@@ -428,15 +453,52 @@ describe ZendeskIntakeService do
     it "appends the intake pdf to the ticket with updated status and interview preferences" do
       result = service.send_final_intake_pdf
       expect(result).to eq true
+      comment_body = <<~BODY
+        Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
+
+        Client's provided interview preferences: Monday evenings and Wednesday mornings
+
+        Additional information from Client: I want my money
+      BODY
       expect(service).to have_received(:append_file_to_ticket).with(
         ticket_id: 34,
         filename: "Final_CherCherimoya_13614c.pdf",
         file: fake_file,
-        comment: "Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)\"\n\nClient's provided interview preferences: Monday evenings and Wednesday mornings\n\nAdditional information from Client: I want my money\n",
+        comment: comment_body,
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW
         }
       )
+    end
+
+    context "when filing jointly but spouse has not verified" do
+      before { intake.update(filing_joint: "yes") }
+
+      it "appends the intake pdf to the ticket with updated status and interview preferences" do
+        result = service.send_final_intake_pdf
+        expect(result).to eq true
+        expected_body = <<~BODY
+          Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
+
+          Client's provided interview preferences: Monday evenings and Wednesday mornings
+          
+          Additional information from Client: I want my money
+          
+          ⚠️ Missing required verification for spouse.
+          The following link can be sent to the spouse to get their consent and information:  
+            http://test.host/questions/spouse-identity
+        BODY
+
+        expect(service).to have_received(:append_file_to_ticket).with(
+          ticket_id: 34,
+          filename: "Final_CherCherimoya_13614c.pdf",
+          file: fake_file,
+          comment: expected_body,
+          fields: {
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW
+          }
+        )
+      end
     end
 
     context "with UWTSA ZD instance" do
@@ -444,11 +506,18 @@ describe ZendeskIntakeService do
       it "appends the intake pdf to the ticket with updated status and interview preferences" do
         result = service.send_final_intake_pdf
         expect(result).to eq true
+        comment_body = <<~BODY
+          Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
+
+          Client's provided interview preferences: Monday evenings and Wednesday mornings
+          
+          Additional information from Client: I want my money
+        BODY
         expect(service).to have_received(:append_file_to_ticket).with(
           ticket_id: 34,
           filename: "Final_CherCherimoya_13614c.pdf",
           file: fake_file,
-          comment: "Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)\"\n\nClient's provided interview preferences: Monday evenings and Wednesday mornings\n\nAdditional information from Client: I want my money\n",
+          comment: comment_body,
           fields: {
             UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW
           }
