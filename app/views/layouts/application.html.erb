@@ -22,6 +22,12 @@
     <%= javascript_include_tag 'application' %>
 
     <%= favicon_link_tag image_path('checkbox-logo--black.png'), :type=>'image/png', :sizes => '57x57' %>
+    <script>
+      window.mixpanelData = JSON.parse(<%= JSON.generate(
+        controller_action: "#{controller.class.name}##{action_name}",
+        full_path: request.fullpath
+      ).inspect.html_safe %>);
+    </script>
   </head>
 
   <body <% if content_for :body_class %>class="<%= content_for :body_class %>"<% end %>>
