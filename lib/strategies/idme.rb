@@ -11,11 +11,6 @@ module OmniAuth
         :token_url => "https://#{DOMAIN}/oauth/token"
       }
 
-      def request_phase
-        puts 'BLOOP!!'
-        super
-      end
-
       def raw_info
         access_token.options[:mode] = :query
         @raw_info ||= access_token.get("api/public/v3/attributes.json").parsed
