@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
   resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :documents, only: [:destroy]
+  resources :ajax_mixpanel_events, only: [:create]
 
   get "/:organization/drop-off", to: "intake_site_drop_offs#new", as: :new_drop_off
   post "/:organization/drop-offs", to: "intake_site_drop_offs#create", as: :create_drop_off
