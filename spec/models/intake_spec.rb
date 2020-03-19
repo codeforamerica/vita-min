@@ -393,6 +393,7 @@ describe Intake do
         expect(intake.external_id).to eq("intake-#{intake.id}")
       end
     end
+  end
 
   describe "#get_or_create_spouse_auth_token" do
     let(:intake) { build :intake, spouse_auth_token: existing_token }
@@ -400,7 +401,6 @@ describe Intake do
     before do
       allow(SecureRandom).to receive(:urlsafe_base64).with(8).and_return(new_token)
     end
-
 
     context "when a spouse auth token does not yet exist" do
       let(:existing_token) { nil }

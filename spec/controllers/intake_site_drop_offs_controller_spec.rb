@@ -108,7 +108,7 @@ RSpec.describe IntakeSiteDropOffsController do
           expect(drop_off.document_bundle).to be_attached
           expect(drop_off.timezone).to eq "America/Juneau"
 
-          expect(response).to redirect_to show_drop_off_path(id: drop_off.id)
+          expect(response).to redirect_to show_drop_off_path(id: drop_off.id, organization: "thc")
         end
 
         context "when there is no matching prior drop off" do
@@ -120,7 +120,7 @@ RSpec.describe IntakeSiteDropOffsController do
             expect(ZendeskDropOffService).to have_received(:new).with(drop_off)
             expect(zendesk_drop_off_service_spy).to have_received(:create_ticket_and_attach_file)
             expect(drop_off.zendesk_ticket_id).to eq ticket_id
-            expect(response).to redirect_to show_drop_off_path(id: drop_off.id)
+            expect(response).to redirect_to show_drop_off_path(id: drop_off.id, organization: "thc")
           end
 
           it "sends a create_drop_off event to mixpanel" do
@@ -197,7 +197,7 @@ RSpec.describe IntakeSiteDropOffsController do
             expect(ZendeskDropOffService).to have_received(:new).with(drop_off)
             expect(zendesk_drop_off_service_spy).to have_received(:create_ticket_and_attach_file)
             expect(drop_off.zendesk_ticket_id).to eq ticket_id
-            expect(response).to redirect_to show_drop_off_path(id: drop_off.id)
+            expect(response).to redirect_to show_drop_off_path(id: drop_off.id, organization: "thc")
           end
 
           it "sends a create_drop_off event to mixpanel" do
