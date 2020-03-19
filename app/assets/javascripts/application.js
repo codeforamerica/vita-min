@@ -36,6 +36,6 @@ var immediateUpload = (function() {
   }
 })();
 
-// $(document).ready(function() {
-//   immediateUpload.init();
-// });
+$(document).ready(function() {
+  ajaxMixpanelEvents.init();
+});
