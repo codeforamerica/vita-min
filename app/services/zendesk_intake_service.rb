@@ -114,7 +114,7 @@ class ZendeskIntakeService
 
         ⚠️ Missing required verification for spouse.
         The following link can be sent to the spouse to get their consent and information:  
-          #{spouse_identity_questions_url}
+          #{verify_spouse_url(token: @intake.get_or_create_spouse_auth_token)}
       BODY
     end
 
@@ -144,7 +144,7 @@ class ZendeskIntakeService
         
         ⚠️ Missing required verification for spouse.
         The following link can be sent to the spouse to get their consent and information:  
-          #{spouse_identity_questions_url}
+          #{verify_spouse_url(token: @intake.get_or_create_spouse_auth_token)}
       ALERT
     end
 

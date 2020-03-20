@@ -342,7 +342,7 @@ describe ZendeskIntakeService do
     end
 
     context "when filing jointly but spouse has not verified" do
-      before { intake.update(filing_joint: "yes") }
+      before { intake.update(filing_joint: "yes", spouse_auth_token: "1amSp0us3") }
 
       it "notes the missing spouse and adds a link that can be sent to the spouse" do
         result = service.send_intake_pdf
@@ -351,7 +351,7 @@ describe ZendeskIntakeService do
 
           ⚠️ Missing required verification for spouse.
           The following link can be sent to the spouse to get their consent and information:  
-            http://test.host/questions/spouse-identity
+            http://test.host/verify-spouse?token=1amSp0us3
         BODY
 
         expect(service).to have_received(:append_file_to_ticket).with(
@@ -472,7 +472,7 @@ describe ZendeskIntakeService do
     end
 
     context "when filing jointly but spouse has not verified" do
-      before { intake.update(filing_joint: "yes") }
+      before { intake.update(filing_joint: "yes", spouse_auth_token: "1amSp0us3") }
 
       it "appends the intake pdf to the ticket with updated status and interview preferences" do
         result = service.send_final_intake_pdf
@@ -486,7 +486,7 @@ describe ZendeskIntakeService do
           
           ⚠️ Missing required verification for spouse.
           The following link can be sent to the spouse to get their consent and information:  
-            http://test.host/questions/spouse-identity
+            http://test.host/verify-spouse?token=1amSp0us3
         BODY
 
         expect(service).to have_received(:append_file_to_ticket).with(
