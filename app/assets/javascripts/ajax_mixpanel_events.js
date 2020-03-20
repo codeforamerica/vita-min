@@ -1,6 +1,7 @@
 var ajaxMixpanelEvents = (function() {
   var init = function() {
-    $("[data-track-click]").on("click", function (e, options = {}) {
+    $("[data-track-click]").on("click", function (e, options) {
+      options = options || {};
       if (options.trackedEvent === true) {
         return;
       }
