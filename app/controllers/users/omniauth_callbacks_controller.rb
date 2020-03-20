@@ -17,6 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     is_returning_consenting_spouse = is_returning_spouse && is_consenting_user
     is_returning_nonconsenting_spouse = is_returning_spouse && !is_consenting_user
     is_primary_but_expected_spouse = (@user == current_user && has_spouse_param)
+    used_spouse_auth_only_link = session[:authenticate_spouse_only]
 
     if is_primary_but_expected_spouse
       return redirect_to spouse_identity_questions_path(missing_spouse: "true")
@@ -27,7 +28,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       return redirect_to params["after_login"]
     end
 
-    should_delete_duplicate_intake = session[:intake_id] && (is_returning_user || is_new_spouse)
+    # A new intake is created before sign in so that we can save answers to questions that are asked before sign in.
+    # If a returning user signs in, we want to delete this new intake because the user will already have an intake.
+    # TODO: We also want to do this for a new spouse - why??
+    # We want to skip this for a spouse who came to the sign in page with an authenticate-later-link because the intake
+    # in the session in that case is the one corresponding to the token in the link, which we will want to keep so that we
+    # can associate it with the new spouse user.
+    should_delete_duplicate_intake = session[:intake_id] && (is_returning_user || is_new_spouse) && !used_spouse_auth_only_link
     if should_delete_duplicate_intake
       intake_from_session = Intake.find(session[:intake_id])
       intake_from_session.destroy! if intake_from_session.users.count == 0
@@ -35,9 +42,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     if is_new_spouse
+      if used_spouse_auth_only_link
+        # TODO: could alternatively use Intake.find_by_id(session[:intake_id]) here just to be sure
+        @user.intake = current_intake
+      else
+        @user.intake = current_user.intake
+      end
       @user.is_spouse = true
-      @user.intake = current_user.intake
       @user.save
+      sign_in @user, event: :authentication if used_spouse_auth_only_link
       return redirect_to spouse_consent_questions_path
     end
 

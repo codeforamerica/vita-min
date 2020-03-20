@@ -1,0 +1,36 @@
+<% content_for :page_title, "Spouse Authentication" %>
+
+<% content_for :form_card do %>
+  <div class="form-card">
+    <h1 class="form-question">
+      Verify your identity
+    </h1>
+
+    <p>
+      Hi, there. Looks like you're trying to verify your identity
+      so your spouse can file your taxes jointly with
+      <%= link_to root_path, target: "_blank" do %>
+        GetYourRefund
+      <% end %>.
+    </p>
+
+    <p class="spacing-below-35">
+      Please verify your identity with ID.me by clicking the link below.
+    </p>
+
+    <%= link_to user_idme_omniauth_authorize_path(spouse: "true"), class: "button button--primary button--wide text--centered", method: :post do %>
+      Sign in with
+      <span class="sr-only">ID.me</span> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
+    <% end %>
+
+    <p>
+      We are partnering with ID.me to protect your digital identity and ensure that your personal information is accurate and secure.
+    </p>
+
+    <p>
+      <a href="https://www.id.me/individuals/government" target="_blank">
+        For more information, please visit ID.me.
+      </a>
+    </p>
+  </div>
+<% end %>

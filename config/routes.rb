@@ -57,6 +57,8 @@ Rails.application.routes.draw do
   get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
   get "/privacy", to: "public_pages#privacy_policy"
   get "/about-us", to: "public_pages#about_us"
+  get "/verify-spouse", to: "spouse_auth_only#show"
+  get "/not-found", to: "spouse_auth_only#not_found"
 
   post "/email", to: "email#create"
 end

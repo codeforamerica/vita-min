@@ -153,36 +153,62 @@ RSpec.describe Users::OmniauthCallbacksController do
       let(:primary_user) { create :user }
 
       before do
-        sign_in primary_user
         request.env["devise.mapping"] = Devise.mappings[:user]
         allow(User).to receive(:from_omniauth).with(auth).and_return spouse_user
       end
 
-      it "creates is_spouse user and redirects to the welcome spouse page, keeping primary signed in" do
-        expect {
-          get :idme, params: { spouse: "true" }
-        }.to change(User, :count).by(1)
-        expect(spouse_user.reload.is_spouse).to eq true
-        expect(subject.current_user).to eq primary_user
-        expect(response).to redirect_to(spouse_consent_questions_path)
-      end
-
-      it "links spouse user to primary user's intake" do
-        get :idme, params: { spouse: "true" }
-        expect(spouse_user.reload.intake).to eq primary_user.intake
-      end
-
-      context "spouse has intake in session" do
-        let(:intake_from_session) { create :intake }
-
+      context "when doing same-device authentication" do
         before do
-          session[:intake_id] = intake_from_session.id
+          sign_in primary_user
         end
 
-        it "clears the intake id from the session and deletes the intake" do
+        it "creates is_spouse user and redirects to the spouse consent page, keeping primary signed in" do
+          expect {
+            get :idme, params: { spouse: "true" }
+          }.to change(User, :count).by(1)
+          expect(spouse_user.reload.is_spouse).to eq true
+          expect(subject.current_user).to eq primary_user
+          expect(response).to redirect_to(spouse_consent_questions_path)
+        end
+
+        it "links spouse user to primary user's intake" do
           get :idme, params: { spouse: "true" }
-          expect(session[:intake_id]).to be_nil
-          expect(Intake.exists?(intake_from_session.id)).to eq false
+          expect(spouse_user.reload.intake).to eq primary_user.intake
+        end
+
+        context "spouse has intake in session" do
+          let(:intake_from_session) { create :intake }
+
+          before do
+            session[:intake_id] = intake_from_session.id
+          end
+
+          it "clears the intake id from the session and deletes the intake" do
+            get :idme, params: { spouse: "true" }
+            expect(session[:intake_id]).to be_nil
+            expect(Intake.exists?(intake_from_session.id)).to eq false
+          end
+        end
+      end
+
+      context "when using link to authenticate later" do
+        before do
+          session[:authenticate_spouse_only] = true
+          session[:intake_id] = primary_user.intake.id
+        end
+
+        it "creates is_spouse user, signs them in, and redirects to the spouse consent page" do
+          expect {
+            get :idme, params: { spouse: "true" }
+          }.to change(User, :count).by(1)
+          expect(spouse_user.reload.is_spouse).to eq true
+          expect(subject.current_user).to eq spouse_user
+          expect(response).to redirect_to(spouse_consent_questions_path)
+        end
+
+        it "links spouse user to intake from session" do
+          get :idme, params: { spouse: "true" }
+          expect(spouse_user.reload.intake).to eq primary_user.intake
         end
       end
     end
