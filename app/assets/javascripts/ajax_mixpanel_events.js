@@ -26,8 +26,8 @@ var ajaxMixpanelEvents = (function() {
         url: "/ajax_mixpanel_events",
         data: eventData,
       })
-      .then(() => clickedElement.trigger("click", {trackedEvent: true}))
-      .fail(() => clickedElement.trigger("click", {trackedEvent: true}));
+      .then(function() { clickedElement.trigger("click", {trackedEvent: true}) })
+      .fail(function() { clickedElement.trigger("click", {trackedEvent: true}) });
     });
   };
 
