@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   get "/about-us", to: "public_pages#about_us"
   get "/verify-spouse", to: "spouse_auth_only#show"
   get "/not-found", to: "spouse_auth_only#not_found"
+  get "/spouse-auth-complete", to: "spouse_auth_only#spouse_auth_complete"
 
   post "/email", to: "email#create"
 end

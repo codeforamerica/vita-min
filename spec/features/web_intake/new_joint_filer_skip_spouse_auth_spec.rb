@@ -93,6 +93,7 @@ RSpec.feature "Web Intake Joint Filer without spouse present" do
       expect(page).to have_text("You, Greta Gnome, understand")
       check "I agree"
       click_on "Continue"
+      expect(page).to have_selector("h1", text: "You did it!")
     end
   end
 end

@@ -1,0 +1,28 @@
+<% content_for :page_title, "Spouse Authentication Complete" %>
+
+<% content_for :form_card do %>
+  <div class="form-card">
+    <h1 class="form-question">
+      You did it!
+    </h1>
+
+    <p>
+      Thank you! You've successfully verified your identity.
+    </p>
+    <p>
+      You and your spouse can now complete your tax filing process with
+      <%= link_to root_path, target: "_blank" do %>GetYourRefund<% end %>.
+      Please check in with your spouse to see where they are in the filing process.
+    </p>
+
+    <%= link_to root_path, class: "button button--primary button--wide text--centered" do %>
+      Go to home page
+    <% end %>
+
+    <p class="text--help">
+      If you have questions or concerns, you can reach out for more information by emailing
+      <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a>
+      or clicking the live chat button in the bottom right corner.
+    </p>
+  </div>
+<% end %>

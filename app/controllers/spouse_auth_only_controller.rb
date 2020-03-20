@@ -19,6 +19,8 @@ class SpouseAuthOnlyController < ApplicationController
 
   def not_found; end
 
+  def spouse_auth_complete; end
+
   def section_title; end
 
   def illustration_path
