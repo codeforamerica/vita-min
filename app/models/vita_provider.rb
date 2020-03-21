@@ -4,6 +4,7 @@
 #
 #  id               :bigint           not null, primary key
 #  appointment_info :string
+#  archived         :boolean          default(FALSE), not null
 #  coordinates      :geography({:srid point, 4326
 #  dates            :string
 #  details          :string
@@ -24,11 +25,15 @@ class VitaProvider < ApplicationRecord
   DISTANCE_LIMIT = 80467.2 # 50 miles to meters
   validates :irs_id, presence: true, uniqueness: true
 
+  def self.live
+    where(archived: false)
+  end
+
   def self.sort_by_distance_from_zipcode(zip, page_number = nil)
     coords = ZipCodes.coordinates_for_zip_code(zip)
     from_point = Geometry.coords_to_point(lon: coords[1], lat: coords[0])
 
-    page(page_number).select(Arel.sql("ST_Distance(coordinates, ST_GeomFromText('#{from_point.as_text}', 4326)) as cached_query_distance, *"))
+    live.page(page_number).select(Arel.sql("ST_Distance(coordinates, ST_GeomFromText('#{from_point.as_text}', 4326)) as cached_query_distance, *"))
       .where(Arel.sql("ST_DWithin(coordinates, ST_GeomFromText('#{from_point.as_text}', 4326), #{DISTANCE_LIMIT})"))
       .order(Arel.sql("cached_query_distance"))
   end
