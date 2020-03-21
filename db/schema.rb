@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_17_173416) do
+ActiveRecord::Schema.define(version: 2020_03_21_232039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -246,6 +246,7 @@ ActiveRecord::Schema.define(version: 2020_03_17_173416) do
     t.string "appointment_info"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "archived", default: false, null: false
     t.index ["irs_id"], name: "index_vita_providers_on_irs_id", unique: true
   end
 
