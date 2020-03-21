@@ -58,9 +58,12 @@ RSpec.describe VitaProvidersController do
       end
 
       context "with results" do
+        let(:archived_providers) do
+          create_list :vita_provider, 2, :with_coordinates, lat_lon: [37.834519, -122.263273], archived: true
+        end
         let!(:local_providers) { create_list :vita_provider, 5, :with_coordinates, lat_lon: [37.834519, -122.263273] }
 
-        it "returns the first page of providers" do
+        it "returns the first page of providers, not including archived records" do
           get :index, params: params
 
           expect(assigns(:providers).size).to eq 5

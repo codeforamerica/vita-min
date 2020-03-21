@@ -4,6 +4,7 @@
 #
 #  id               :bigint           not null, primary key
 #  appointment_info :string
+#  archived         :boolean          default(FALSE), not null
 #  coordinates      :geography({:srid point, 4326
 #  dates            :string
 #  details          :string

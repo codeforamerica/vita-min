@@ -4,6 +4,7 @@
 #
 #  id               :bigint           not null, primary key
 #  appointment_info :string
+#  archived         :boolean          default(FALSE), not null
 #  coordinates      :geography({:srid point, 4326
 #  dates            :string
 #  details          :string
@@ -34,7 +35,7 @@ describe VitaProvider do
     end
 
     it "enforces uniqueness on certain fields" do
-      provider = create :vita_provider, irs_id: "23456"
+      create :vita_provider, irs_id: "23456"
       provider_with_same_irs_id = build :vita_provider, irs_id: "23456"
 
       expect(provider_with_same_irs_id).not_to be_valid
@@ -57,6 +58,23 @@ describe VitaProvider do
         results = VitaProvider.sort_by_distance_from_zipcode("94609")
 
         expect(results).to eq []
+      end
+    end
+
+    context "with archived providers" do
+      let!(:unarchived_providers) do
+        create_list :vita_provider, 2, :with_coordinates, lat_lon: [37.834519, -122.263273]
+      end
+      let!(:archived_providers) do
+        create_list :vita_provider, 2, :with_coordinates, lat_lon: [37.834519, -122.263273], archived: true
+      end
+
+      it "does not return any archived providers" do
+        results = VitaProvider.sort_by_distance_from_zipcode("94609")
+
+        expect(results.count).to eq(2)
+        expect(results).to include(*unarchived_providers)
+        expect(results).not_to include(*archived_providers)
       end
     end
 
