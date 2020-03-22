@@ -114,6 +114,22 @@ class VitaProvider < ApplicationRecord
       appointment_info == provider_data[:appointment_info]
   end
 
+  def update_with_irs_data(provider_data)
+    set_coordinates(
+      lat: provider_data[:lat_long].first,
+      lon: provider_data[:lat_long].second
+    )
+    update(
+      name: provider_data[:name],
+      irs_id: provider_data[:irs_id],
+      details: provider_data[:provider_details],
+      dates: provider_data[:dates],
+      hours: provider_data[:hours],
+      languages: provider_data[:languages].join(","),
+      appointment_info: provider_data[:appointment_info],
+    )
+  end
+
   private
 
   def phone_data
