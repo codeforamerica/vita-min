@@ -320,4 +320,55 @@ describe VitaProvider do
       end
     end
   end
+
+  describe "#update_with_irs_data" do
+    let(:provider) { build :vita_provider }
+    let(:details) do
+      <<~DETAILS.strip
+      6500 Rookin
+      Bldg C
+      Houston, TX 77074
+      713-957-4357
+      Volunteer Prepared Taxes
+      DETAILS
+    end
+
+    let(:hours) do
+      <<~HOURS.strip
+        MON 10:00AM-5:00PM
+        TUE 10:00AM-5:00PM
+        WED 10:00AM-5:00PM
+        THU 10:00AM-5:00PM
+        FRI 12:00PM-4:00PM
+      HOURS
+    end
+
+    let(:provider_data) do
+      {
+        name: "BakerRipley Year Round Center",
+        irs_id: "10202",
+        provider_details: details,
+        dates: "06 MAY 2019 - 15 NOV 2019",
+        languages: ["Spanish", "English"],
+        appointment_info: "Required",
+        hours: hours,
+        lat_long: ["29.710592", "-95.496816"],
+      }
+    end
+
+    it "correctly saves the record with the new data" do
+      provider.update_with_irs_data(provider_data)
+
+      expect(provider.id).to be_present
+      expect(provider.name).to eq "BakerRipley Year Round Center"
+      expect(provider.irs_id).to eq "10202"
+      expect(provider.details).to eq details
+      expect(provider.dates).to eq "06 MAY 2019 - 15 NOV 2019"
+      expect(provider.languages).to eq "Spanish,English"
+      expect(provider.appointment_info).to eq "Required"
+      expect(provider.hours).to eq hours
+      expect(provider.coordinates.lat).to eq 29.710592
+      expect(provider.coordinates.lon).to eq -95.496816
+    end
+  end
 end
