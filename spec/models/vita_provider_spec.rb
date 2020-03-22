@@ -228,4 +228,74 @@ describe VitaProvider do
       end
     end
   end
+
+  describe "#same_as_irs_result?" do
+    let(:details) do
+      <<~DETAILS
+        314 27th Street NE
+        Building 7
+        Puyallup, WA 98372
+        Volunteer Prepared Taxes
+      DETAILS
+    end
+
+    let(:hours) do
+      <<~HOURS.strip
+        MON 10:00AM-5:00PM
+        TUE 10:00AM-5:00PM
+        WED 10:00AM-5:00PM
+        THU 10:00AM-5:00PM
+        FRI 12:00PM-4:00PM
+      HOURS
+    end
+
+    let(:provider) do
+      build(
+        :vita_provider,
+        irs_id: "111",
+        name: "Provider",
+        details: details,
+        dates: "06 MAY 2019 - 15 NOV 2019",
+        hours: hours,
+        languages: "English,Spanish",
+        appointment_info: "Required"
+      )
+    end
+
+    context "when everything matches" do
+      let(:scraped_data) do
+        {
+          irs_id: "111",
+          name: "Provider",
+          provider_details: details,
+          dates: "06 MAY 2019 - 15 NOV 2019",
+          hours: hours,
+          languages: ["English","Spanish"],
+          appointment_info: "Required"
+        }
+      end
+
+      it "returns true" do
+        expect(provider.same_as_irs_result?(scraped_data)).to eq true
+      end
+    end
+
+    context "when one thing is different" do
+      let(:scraped_data) do
+        {
+          irs_id: "111",
+          name: "Provider",
+          provider_details: details,
+          dates: "06 MAY 2019 - 15 NOV 2019",
+          hours: hours,
+          languages: ["English","Spanish","Vietnamese"],
+          appointment_info: "Required"
+        }
+      end
+
+      it "returns false" do
+        expect(provider.same_as_irs_result?(scraped_data)).to eq false
+      end
+    end
+  end
 end
