@@ -34,16 +34,13 @@ class VitaProvider < ApplicationRecord
   validates :irs_id, presence: true, uniqueness: true
 
   scope :unscraped_by, -> (scrape) { where.not(last_scrape: scrape).or( where(last_scrape: nil) ) }
-
-  def self.live
-    where(archived: false)
-  end
+  scope :listed, -> { where(archived: false) }
 
   def self.sort_by_distance_from_zipcode(zip, page_number = nil)
     coords = ZipCodes.coordinates_for_zip_code(zip)
     from_point = Geometry.coords_to_point(lon: coords[1], lat: coords[0])
 
-    live.page(page_number).select(Arel.sql("ST_Distance(coordinates, ST_GeomFromText('#{from_point.as_text}', 4326)) as cached_query_distance, *"))
+    listed.page(page_number).select(Arel.sql("ST_Distance(coordinates, ST_GeomFromText('#{from_point.as_text}', 4326)) as cached_query_distance, *"))
       .where(Arel.sql("ST_DWithin(coordinates, ST_GeomFromText('#{from_point.as_text}', 4326), #{DISTANCE_LIMIT})"))
       .order(Arel.sql("cached_query_distance"))
   end
@@ -128,6 +125,10 @@ class VitaProvider < ApplicationRecord
       languages: provider_data[:languages].join(","),
       appointment_info: provider_data[:appointment_info],
     )
+  end
+
+  def is_listed?
+    archived == false
   end
 
   private
