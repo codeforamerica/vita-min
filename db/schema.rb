@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_21_232039) do
+ActiveRecord::Schema.define(version: 2020_03_22_023004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,6 +204,14 @@ ActiveRecord::Schema.define(version: 2020_03_21_232039) do
     t.integer "no_eligibility_checks_apply", default: 0, null: false
   end
 
+  create_table "provider_scrapes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "archived_count", default: 0, null: false
+    t.integer "created_count", default: 0, null: false
+    t.integer "changed_count", default: 0, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "uid"
     t.string "provider"
@@ -247,10 +255,13 @@ ActiveRecord::Schema.define(version: 2020_03_21_232039) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "archived", default: false, null: false
+    t.bigint "last_scrape_id"
     t.index ["irs_id"], name: "index_vita_providers_on_irs_id", unique: true
+    t.index ["last_scrape_id"], name: "index_vita_providers_on_last_scrape_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "users", "intakes"
+  add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
 end
