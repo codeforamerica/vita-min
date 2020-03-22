@@ -33,6 +33,8 @@ class VitaProvider < ApplicationRecord
   DISTANCE_LIMIT = 80467.2 # 50 miles to meters
   validates :irs_id, presence: true, uniqueness: true
 
+  scope :unscraped_by, -> (scrape) { where.not(last_scrape: scrape).or( where(last_scrape: nil) ) }
+
   def self.live
     where(archived: false)
   end

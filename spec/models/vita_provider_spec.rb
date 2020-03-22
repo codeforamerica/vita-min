@@ -48,6 +48,22 @@ describe VitaProvider do
     end
   end
 
+  describe "unscraped_by" do
+    let(:other_scrape) { create :provider_scrape }
+    let!(:scrape) { create :provider_scrape }
+    let!(:unscraped) { create :vita_provider }
+    let!(:scraped) { create :vita_provider, last_scrape: scrape }
+    let!(:scraped_by_another) { create :vita_provider, last_scrape: other_scrape }
+
+    it "returns records that do not have the given last_scrape" do
+      results = VitaProvider.unscraped_by(scrape)
+
+      expect(results).to include(unscraped)
+      expect(results).to include(scraped_by_another)
+      expect(results).not_to include(scraped)
+    end
+  end
+
   describe "#set_coordinates" do
     it "can save a longitude, latitude point to the coordinates" do
       provider.set_coordinates(lat: 37.7749, lon: -122.4194)
