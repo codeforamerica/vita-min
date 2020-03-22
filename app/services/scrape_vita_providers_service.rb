@@ -2,10 +2,10 @@ require 'open-uri'
 
 class ScrapeVitaProvidersService
   def import
-    base_url = 'https://irs.treasury.gov/freetaxprep/jsp/vita.jsp?zip=94103&lat=37.7726402&lng=-122.40991539999999&radius=1000000'
+    base_url = "https://irs.treasury.gov/freetaxprep/jsp/vita.jsp?lat=37.7726402&lng=-122.40991539999999&radius=1000000&zip=94103"
     vita_sites = get_page_contents(base_url)
 
-    (1..page_count).map do |page_number|
+    (2..page_count).map do |page_number|
       url = base_url + "&page=#{page_number}"
       vita_sites += get_page_contents(url)
     end
