@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe ScrapeVitaProvidersService do
   let(:service) { ScrapeVitaProvidersService.new }
-  let(:base_url) { "https://irs.treasury.gov/freetaxprep/jsp/vita.jsp?zip=94103&lat=37.7726402&lng=-122.40991539999999&radius=1000000" }
+  let(:base_url) { "https://irs.treasury.gov/freetaxprep/jsp/vita.jsp?lat=37.7726402&lng=-122.40991539999999&radius=1000000&zip=94103" }
   let(:html_file) { file_fixture("vita_providers_page_1.html").read }
 
   before do
@@ -13,7 +13,7 @@ describe ScrapeVitaProvidersService do
     service.import
 
     expect(WebMock).to have_requested(:get, base_url)
-    (1..21).each do |page_number|
+    (2..21).each do |page_number|
       page_url = base_url + "&page=#{page_number}"
       expect(WebMock).to have_requested(:get, page_url)
     end
