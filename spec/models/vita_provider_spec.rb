@@ -14,10 +14,16 @@
 #  created_at       :datetime
 #  updated_at       :datetime
 #  irs_id           :string           not null
+#  last_scrape_id   :bigint
 #
 # Indexes
 #
-#  index_vita_providers_on_irs_id  (irs_id) UNIQUE
+#  index_vita_providers_on_irs_id          (irs_id) UNIQUE
+#  index_vita_providers_on_last_scrape_id  (last_scrape_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (last_scrape_id => provider_scrapes.id)
 #
 
 require 'rails_helper'
