@@ -93,6 +93,17 @@ class VitaProvider < ApplicationRecord
     "https://www.google.com/maps/place/#{escaped_address}/@#{coordinates.lat},#{coordinates.lon},#{zoom_level}z/"
   end
 
+  def same_as_irs_result?(provider_data)
+    # does not check coordinates
+    irs_id == provider_data[:irs_id] &&
+      name == provider_data[:name] &&
+      details == provider_data[:provider_details] &&
+      dates == provider_data[:dates] &&
+      hours == provider_data[:hours] &&
+      languages == provider_data[:languages].join(",") &&
+      appointment_info == provider_data[:appointment_info]
+  end
+
   private
 
   def phone_data
