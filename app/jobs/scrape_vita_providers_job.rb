@@ -1,23 +1,27 @@
 class ScrapeVitaProvidersJob < ApplicationJob
   def perform
-    results = ScrapeVitaProvidersService.new.import
+    irs_provider_listings = ScrapeVitaProvidersService.new.import
+    scrape = ProviderScrape.get_recent_or_create
+    before_scrape_listed_provider_count = VitaProvider.listed.count
+    before_scrape_total_provider_count = VitaProvider.count
 
-    results.each do |provider_data|
-      provider = VitaProvider.find_by(irs_id: provider_data[:irs_id]) || VitaProvider.new()
-      provider.update(
-        name: provider_data[:name],
-        irs_id: provider_data[:irs_id],
-        details: provider_data[:provider_details],
-        dates: provider_data[:dates],
-        hours: provider_data[:hours],
-        languages: provider_data[:languages].join(","),
-        appointment_info: provider_data[:appointment_info],
-      )
-      provider.set_coordinates(
-        lat: provider_data[:lat_long].first,
-        lon: provider_data[:lat_long][1]
-      )
-      provider.save
+    irs_provider_listings.each do |provider_listing|
+      scrape.handle_irs_provider_data(provider_listing)
     end
+
+    scrape.archive_all_unscraped_providers
+
+    <<~REPORT
+        Finished updating all provider records!
+        ---------------------------------------
+        Total provider count before scraping: #{before_scrape_total_provider_count}
+        Total provider count after scraping: #{VitaProvider.count}
+        Listed provider count before scraping: #{before_scrape_listed_provider_count}
+        Listed provider count after scraping: #{VitaProvider.listed.count}
+
+        Newly created record count: #{scrape.created_count}
+        Changed record count: #{scrape.changed_count}
+        Newly archived record count: #{scrape.archived_count}
+    REPORT
   end
 end
