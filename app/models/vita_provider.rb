@@ -14,13 +14,21 @@
 #  created_at       :datetime
 #  updated_at       :datetime
 #  irs_id           :string           not null
+#  last_scrape_id   :bigint
 #
 # Indexes
 #
-#  index_vita_providers_on_irs_id  (irs_id) UNIQUE
+#  index_vita_providers_on_irs_id          (irs_id) UNIQUE
+#  index_vita_providers_on_last_scrape_id  (last_scrape_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (last_scrape_id => provider_scrapes.id)
 #
 
 class VitaProvider < ApplicationRecord
+  belongs_to :last_scrape, class_name: "ProviderScrape", optional: true
+
   self.per_page = 5
   DISTANCE_LIMIT = 80467.2 # 50 miles to meters
   validates :irs_id, presence: true, uniqueness: true
