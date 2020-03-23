@@ -244,6 +244,20 @@ describe ZendeskIntakeService do
       end
     end
 
+    context "with Washington state" do
+      let(:state) { "wa" }
+      it "assigns to United Way King County" do
+        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+      end
+    end
+
+    context "with Pennsylvania" do
+      let(:state) { "pa" }
+      it "assigns to Campaign for Working Families" do
+        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+      end
+    end
+
     context "with any other state" do
       let(:state) { "ny" }
       it "assigns to the UW Tucson intake" do
