@@ -118,4 +118,8 @@ class User < ApplicationRecord
   def opted_into_notifications?
     sms_notification_opt_in_yes? || email_notification_opt_in_yes?
   end
+
+  def age_end_of_tax_year
+    intake.tax_year - Date.parse(birth_date).year if birth_date
+  end
 end

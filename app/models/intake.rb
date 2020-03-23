@@ -270,4 +270,13 @@ class Intake < ApplicationRecord
     update(spouse_auth_token: new_token)
     new_token
   end
+
+  def mixpanel_data
+    {
+      primary_filer_age_at_end_of_tax_year: primary_user&.age_end_of_tax_year.to_s,
+      spouse_age_at_end_of_tax_year: spouse&.age_end_of_tax_year.to_s,
+      primary_filer_disabled: had_disability,
+      spouse_disabled: spouse_had_disability,
+    }
+  end
 end
