@@ -63,6 +63,14 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#age_end_of_tax_year" do
+    let(:user) { build :user, birth_date: "1990-04-21" }
+
+    it "returns their age at the end of 2019" do
+      expect(user.age_end_of_tax_year).to eq 29
+    end
+  end
+
   describe "#contact_info_filtered_by_preferences" do
     let(:user) do
       build :user,

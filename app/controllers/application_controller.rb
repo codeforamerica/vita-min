@@ -102,6 +102,7 @@ class ApplicationController < ActionController::Base
       intake_source: current_intake&.source,
       intake_referrer: current_intake&.referrer,
       intake_referrer_domain: current_intake&.referrer_domain,
+      **(current_intake.present? ? current_intake.mixpanel_data : {})
     }
     MixpanelService.instance.run(
       unique_id: visitor_id,
