@@ -7,7 +7,7 @@ RSpec.feature "A new intake case from the website fails to authenticate with ID.
 
   scenario "client decides to authenticate again" do
     visit "/questions/identity"
-    expect(page).to have_selector("h1", text: "Sign in")
+    expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     silence_omniauth_logging do
       click_on "Sign in with ID.me"
     end
@@ -22,7 +22,7 @@ RSpec.feature "A new intake case from the website fails to authenticate with ID.
 
   scenario "client decides to find other options" do
     visit "/questions/identity"
-    expect(page).to have_selector("h1", text: "Sign in")
+    expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     silence_omniauth_logging do
       click_on "Sign in with ID.me"
     end

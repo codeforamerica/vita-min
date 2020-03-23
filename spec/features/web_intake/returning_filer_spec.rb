@@ -21,7 +21,7 @@ RSpec.feature "Returning user to online intake" do
     silence_omniauth_logging do
       visit "/questions/wages"
     end
-    expect(page).to have_selector("h1", text: "Sign in")
+    expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     OmniAuth.config.mock_auth[:idme] = omniauth_idme_success
     click_on "Sign in with ID.me"
 
