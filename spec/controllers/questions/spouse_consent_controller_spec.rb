@@ -60,6 +60,21 @@ RSpec.describe Questions::SpouseConsentController do
         expect(spouse_user.consented_to_service).to eq "yes"
         expect(spouse_user.consented_to_service_ip).to eq ip_address
         expect(spouse_user.consented_to_service_at).to eq current_time
+
+        # if authenticate_spouse_only hasn't been set in the session, we don't enqueue a job
+        expect(SendSpouseAuthDocsToZendeskJob).not_to have_been_enqueued
+      end
+
+      context "with a spouse who uses the authenticate later link" do
+        before do
+          session[:authenticate_spouse_only] = true
+        end
+
+        it "enqueues a job to update the zendesk ticket", active_job: true do
+          post :update, params: params
+
+          expect(SendSpouseAuthDocsToZendeskJob).to have_been_enqueued
+        end
       end
     end
 
