@@ -30,6 +30,57 @@ describe ZendeskIntakeService do
     allow(ZendeskAPI::Ticket).to receive(:find).and_return(fake_zendesk_ticket)
   end
 
+  describe "#instance_for_state" do
+    context "when state is Washington" do
+      let(:state) { "wa" }
+      it "returns CfA instance" do
+        expect(service.instance_for_state).to eq EitcZendeskInstance
+      end
+    end
+
+    context "when state is Pennsylvania" do
+      let(:state) { "pa" }
+      it "returns CfA instance" do
+        expect(service.instance_for_state).to eq EitcZendeskInstance
+      end
+    end
+
+    context "when state is California" do
+      let(:state) { "ca" }
+      it "returns CfA instance" do
+        expect(service.instance_for_state).to eq EitcZendeskInstance
+      end
+    end
+
+    context "when state is Colorado" do
+      let(:state) { "co" }
+      it "returns CfA instance" do
+        expect(service.instance_for_state).to eq EitcZendeskInstance
+      end
+    end
+
+    context "when state is a random federal-only state" do
+      let(:state) { "ak" }
+      it "returns CfA instance" do
+        expect(service.instance_for_state).to eq EitcZendeskInstance
+      end
+    end
+
+    context "when state is Arizona" do
+      let(:state) { "az" }
+      it "returns UWTSA instance" do
+        expect(service.instance_for_state).to eq UwtsaZendeskInstance
+      end
+    end
+
+    context "when state is a random other state" do
+      let(:state) { "mn" }
+      it "returns UWTSA instance" do
+        expect(service.instance_for_state).to eq UwtsaZendeskInstance
+      end
+    end
+  end
+
   describe "#client" do
     before do
       allow(EitcZendeskInstance).to receive(:client).and_return fake_eitc_zendesk_client
