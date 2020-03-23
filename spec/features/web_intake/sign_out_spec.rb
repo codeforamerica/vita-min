@@ -9,7 +9,7 @@ RSpec.feature "Web Intake user signs out" do
 
   scenario "client clicks the sign out button" do
     visit "/questions/identity"
-    expect(page).to have_selector("h1", text: "Sign in")
+    expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     click_on "Sign in with ID.me"
 
     OmniAuth.config.mock_auth[:idme] = :invalid_credentials
