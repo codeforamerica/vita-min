@@ -1,4 +1,6 @@
-<% content_for :page_title, "Sign in with ID.me" %>
+<% @main_heading = "First, let’s get some basic information." %>
+<% content_for :page_title, @main_heading %>
+
 <% content_for :main do %>
   <section class="slab slab--white">
     <div class="grid">
@@ -6,20 +8,28 @@
         <main role="main">
           <div class="form-card">
             <h1 class="form-question">
-              Sign in
+              <%= @main_heading %>
             </h1>
 
             <div class="question__illustration">
               <%= image_tag("questions/#{illustration_path}", alt: "") %>
             </div>
 
+            <p>
+              We are partnering with ID.me to protect your identity and ensure that your personal information is accurate and secure.
+            </p>
+
+            <p>
+              You will need to upload your ID and take a selfie, so we can be sure it’s you! It usually takes about 5 minutes to complete.
+            </p>
+
+            <p>
+              If you have any trouble please e-mail <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a>. We’re here to help!
+            </p>
+
             <%= link_to user_idme_omniauth_authorize_path(after_login: params[:after_login]), class: "button button--primary button--wide text--centered", method: :post, data: { track_click: "idme_sign_in" } do %>
               Sign in with <span class="sr-only">ID.me</span> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
             <% end %>
-
-            <p>
-              We are partnering with ID.me to protect your digital identity and ensure that your personal information is accurate and secure.
-            </p>
 
             <p>
               <a href="https://www.id.me/individuals/government" target="_blank">

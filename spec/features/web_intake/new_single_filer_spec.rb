@@ -19,7 +19,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Continue"
 
     # Authentication
-    expect(page).to have_selector("h1", text: "Sign in")
+    expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     click_on "Sign in with ID.me"
 
     # the ID.me flow would occur here. They should end up back on a success page.
