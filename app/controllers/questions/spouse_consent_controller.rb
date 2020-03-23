@@ -4,6 +4,12 @@ module Questions
       intake.filing_joint_yes?
     end
 
+    def after_update_success
+      if session[:authenticate_spouse_only]
+        SendSpouseAuthDocsToZendeskJob.perform_later(current_intake.id)
+      end
+    end
+
     def next_path
       if session[:authenticate_spouse_only]
         session[:authenticate_spouse_only] = nil

@@ -588,5 +588,111 @@ describe ZendeskIntakeService do
         comment: "Identity Info Document contains name and ssn",
       )
     end
+
+    context "when the zendesk api fails" do
+      let(:output){ false }
+
+      it "raises an error" do
+        expect do
+          service.send_additional_info_document
+        end.to raise_error(ZendeskIntakeService::CouldNotSendAdditionalInfoDocError)
+      end
+    end
+  end
+
+  describe "#send_intake_pdf_with_spouse" do
+    let(:output) { true }
+    let(:fake_file) { instance_double(File) }
+    let(:interview_timing_preference) { "Tuesday and Thursday mornings" }
+    let(:final_info) { "Something I want you to know!" }
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_file_to_ticket).and_return(output)
+      allow(intake).to receive(:pdf).and_return(fake_file)
+    end
+
+    it "appends the intake pdf to the ticket with comment indicating spouse presence" do
+      result = service.send_intake_pdf_with_spouse
+
+      expect(result).to eq true
+      comment_body = <<~BODY
+        Updated 13614-c from online intake - added spouse signature and contact
+
+        Client's provided interview preferences: Tuesday and Thursday mornings
+
+        Additional information from Client: Something I want you to know!
+      BODY
+      expect(service).to have_received(:append_file_to_ticket).with(
+        ticket_id: 34,
+        filename: "CherCherimoya_13614c.pdf",
+        file: fake_file,
+        comment: comment_body,
+      )
+    end
+
+    context "when the zendesk api fails" do
+      let(:output){ false }
+
+      it "raises an error" do
+        expect do
+          service.send_intake_pdf_with_spouse
+        end.to raise_error(ZendeskIntakeService::CouldNotSendCompletedIntakePdfError)
+      end
+    end
+  end
+
+  describe "#send_consent_pdf_with_spouse" do
+    let(:output) { true }
+    let(:fake_consent_pdf) { instance_double(File) }
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_file_to_ticket).and_return(output)
+      allow(intake).to receive(:consent_pdf).and_return(fake_consent_pdf)
+    end
+
+    it "appends the intake pdf to the ticket with updated status and interview preferences" do
+      result = service.send_consent_pdf_with_spouse
+      expect(result).to eq true
+      expect(service).to have_received(:append_file_to_ticket).with(
+        ticket_id: 34,
+        filename: "CherCherimoya_Consent.pdf",
+        file: fake_consent_pdf,
+        comment: "Updated signed consent form with spouse signature\n",
+      )
+    end
+
+    context "when the zendesk api fails" do
+      let(:output){ false }
+
+      it "raises an error" do
+        expect do
+          service.send_consent_pdf_with_spouse
+        end.to raise_error(ZendeskIntakeService::CouldNotSendConsentPdfError)
+      end
+    end
+  end
+
+  describe "#send_additional_info_document_with_spouse" do
+    let(:output) { true }
+    let(:fake_file) { instance_double(File) }
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_file_to_ticket).and_return(output)
+      allow(intake).to receive(:additional_info_png).and_return(fake_file)
+    end
+
+    it "appends client and spouse (if applicable) info in png" do
+      result = service.send_additional_info_document_with_spouse
+      expect(result).to eq true
+      expect(service).to have_received(:append_file_to_ticket).with(
+        ticket_id: 34,
+        filename: "CherCherimoya_identity_info.png",
+        file: fake_file,
+        comment: "Updated Identity Info Document with spouse - contains names and ssn's",
+      )
+    end
   end
 end

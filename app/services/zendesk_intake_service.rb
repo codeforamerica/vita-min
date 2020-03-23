@@ -160,6 +160,26 @@ class ZendeskIntakeService
     output
   end
 
+  def send_intake_pdf_with_spouse
+    comment_body = <<~BODY
+      Updated 13614-c from online intake - added spouse signature and contact
+
+      Client's provided interview preferences: #{@intake.interview_timing_preference}
+
+      Additional information from Client: #{@intake.final_info}
+    BODY
+
+    output = append_file_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      filename: intake_pdf_filename,
+      file: @intake.pdf,
+      comment: comment_body,
+    )
+
+    raise CouldNotSendCompletedIntakePdfError unless output == true
+    output
+  end
+
   def send_consent_pdf
     output = append_file_to_ticket(
       ticket_id: @intake.intake_ticket_id,
@@ -167,6 +187,20 @@ class ZendeskIntakeService
       file: @intake.consent_pdf,
       comment: <<~COMMENT,
         Signed consent form
+      COMMENT
+    )
+
+    raise CouldNotSendConsentPdfError unless output == true
+    output
+  end
+
+  def send_consent_pdf_with_spouse
+    output = append_file_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      filename: consent_pdf_filename,
+      file: @intake.consent_pdf,
+      comment: <<~COMMENT,
+        Updated signed consent form with spouse signature
       COMMENT
     )
 
@@ -203,7 +237,19 @@ class ZendeskIntakeService
       comment: "Identity Info Document contains name and ssn",
     )
 
-    raise CouldNotSendIntakePdfError unless output == true
+    raise CouldNotSendAdditionalInfoDocError unless output == true
+    output
+  end
+
+  def send_additional_info_document_with_spouse
+    output = append_file_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      filename: additional_info_doc_filename,
+      file: @intake.additional_info_png,
+      comment: "Updated Identity Info Document with spouse - contains names and ssn's",
+    )
+
+    raise CouldNotSendAdditionalInfoDocError unless output == true
     output
   end
 
@@ -277,4 +323,5 @@ class ZendeskIntakeService
   class CouldNotSendCompletedIntakePdfError < ZendeskServiceError; end
   class CouldNotSendConsentPdfError < ZendeskServiceError; end
   class CouldNotSendDocumentError < ZendeskServiceError; end
+  class CouldNotSendAdditionalInfoDocError < ZendeskServiceError; end
 end
