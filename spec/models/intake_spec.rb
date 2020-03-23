@@ -424,4 +424,19 @@ describe Intake do
       end
     end
   end
+
+  describe "#mixpanel_data" do
+    let(:intake) { build :intake, had_disability: "no", spouse_had_disability: "yes" }
+    let!(:primary_user) { create :user, intake: intake, birth_date: "1993-03-12" }
+    let!(:spouse_user) { create :user, is_spouse: true, intake: intake, birth_date: "1992-05-03" }
+
+    it "returns the expected hash" do
+      expect(intake.mixpanel_data).to eq({
+        primary_filer_age_at_end_of_tax_year: "26",
+        spouse_age_at_end_of_tax_year: "27",
+        primary_filer_disabled: "no",
+        spouse_disabled: "yes",
+      })
+    end
+  end
 end
