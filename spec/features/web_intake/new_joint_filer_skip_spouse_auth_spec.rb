@@ -4,7 +4,7 @@ RSpec.feature "Web Intake Joint Filer without spouse present" do
   scenario "new client filing joint taxes with spouse and dependents" do
     # Primary Authentication
     visit "/questions/identity"
-    expect(page).to have_selector("h1", text: "Sign in")
+    expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     click_on "Sign in with ID.me"
 
     # the ID.me flow would occur here. They should end up back on a success page.
@@ -49,7 +49,6 @@ RSpec.feature "Web Intake Joint Filer without spouse present" do
   end
 
   context "with a valid auth token" do
-    let!(:intake) { create :intake, spouse_auth_token: "t0k3n" }
     let(:spouse_auth_hash) do
       OmniAuth::AuthHash.new({
         provider: "idme",
@@ -80,6 +79,7 @@ RSpec.feature "Web Intake Joint Filer without spouse present" do
     end
 
     before do
+      create :intake, spouse_auth_token: "t0k3n"
       OmniAuth.config.mock_auth[:idme] = spouse_auth_hash
     end
 

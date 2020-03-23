@@ -7,7 +7,7 @@ RSpec.describe SpouseAuthOnlyController, type: :controller do
       it "displays a message" do
         get :show, params: { token: "br0k3nt0k3n" }
 
-        expect(response).to redirect_to not_found_path
+        expect(response).to redirect_to verify_spouse_not_found_path
       end
     end
 

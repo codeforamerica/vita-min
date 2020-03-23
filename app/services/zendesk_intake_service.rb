@@ -163,10 +163,6 @@ class ZendeskIntakeService
   def send_intake_pdf_with_spouse
     comment_body = <<~BODY
       Updated 13614-c from online intake - added spouse signature and contact
-
-      Client's provided interview preferences: #{@intake.interview_timing_preference}
-
-      Additional information from Client: #{@intake.final_info}
     BODY
 
     output = append_file_to_ticket(

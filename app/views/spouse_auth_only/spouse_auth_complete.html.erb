@@ -1,9 +1,10 @@
-<% content_for :page_title, "Spouse Authentication Complete" %>
+<% @main_heading = "You did it!" %>
+<% content_for :page_title, @main_heading %>
 
 <% content_for :form_card do %>
   <div class="form-card">
     <h1 class="form-question">
-      You did it!
+      <%= @main_heading %>
     </h1>
 
     <p>
@@ -11,7 +12,7 @@
     </p>
     <p>
       You and your spouse can now complete your tax filing process with
-      <%= link_to root_path, target: "_blank" do %>GetYourRefund<% end %>.
+      <%= link_to root_path do %>GetYourRefund<% end %>.
       Please check in with your spouse to see where they are in the filing process.
     </p>
 
