@@ -30,7 +30,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     # A new intake is created before sign in so that we can save answers to questions that are asked before sign in.
     # If a returning user signs in, we want to delete this new intake because the user will already have an intake.
-    # TODO: We also want to do this for a new spouse - why??
     # We want to skip this for a spouse who came to the sign in page with an authenticate-later-link because the intake
     # in the session in that case is the one corresponding to the token in the link, which we will want to keep so that we
     # can associate it with the new spouse user.
@@ -42,12 +41,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     if is_new_spouse
-      if used_spouse_auth_only_link
-        # TODO: could alternatively use Intake.find_by_id(session[:intake_id]) here just to be sure
-        @user.intake = current_intake
-      else
-        @user.intake = current_user.intake
-      end
+      @user.intake = current_intake
       @user.is_spouse = true
       @user.save
       sign_in @user, event: :authentication if used_spouse_auth_only_link

@@ -12,8 +12,7 @@ module Questions
 
     def next_path
       if session[:authenticate_spouse_only]
-        session[:authenticate_spouse_only] = nil
-        spouse_auth_complete_path
+        verify_spouse_done_path
       else
         super
       end

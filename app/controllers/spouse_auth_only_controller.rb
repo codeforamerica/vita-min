@@ -5,13 +5,8 @@ class SpouseAuthOnlyController < ApplicationController
   helper_method :illustration_path
 
   def show
-    token = params[:token]
-    if token
-      intake = Intake.where(spouse_auth_token: params[:token]).first
-    end
-    if !token || !intake
-      return redirect_to not_found_path
-    end
+    intake = Intake.where.not(spouse_auth_token: nil).where(spouse_auth_token: params[:token]).first
+    return redirect_to verify_spouse_not_found_path unless intake.present?
 
     session[:intake_id] = intake.id
     session[:authenticate_spouse_only] = true

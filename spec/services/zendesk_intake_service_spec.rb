@@ -351,7 +351,7 @@ describe ZendeskIntakeService do
 
           ⚠️ Missing required verification for spouse.
           The following link can be sent to the spouse to get their consent and information:  
-            http://test.host/verify-spouse?token=1amSp0us3
+            http://test.host/verify-spouse/1amSp0us3
         BODY
 
         expect(service).to have_received(:append_file_to_ticket).with(
@@ -486,7 +486,7 @@ describe ZendeskIntakeService do
           
           ⚠️ Missing required verification for spouse.
           The following link can be sent to the spouse to get their consent and information:  
-            http://test.host/verify-spouse?token=1amSp0us3
+            http://test.host/verify-spouse/1amSp0us3
         BODY
 
         expect(service).to have_received(:append_file_to_ticket).with(
@@ -603,8 +603,6 @@ describe ZendeskIntakeService do
   describe "#send_intake_pdf_with_spouse" do
     let(:output) { true }
     let(:fake_file) { instance_double(File) }
-    let(:interview_timing_preference) { "Tuesday and Thursday mornings" }
-    let(:final_info) { "Something I want you to know!" }
 
     before do
       intake.intake_ticket_id = 34
@@ -618,10 +616,6 @@ describe ZendeskIntakeService do
       expect(result).to eq true
       comment_body = <<~BODY
         Updated 13614-c from online intake - added spouse signature and contact
-
-        Client's provided interview preferences: Tuesday and Thursday mornings
-
-        Additional information from Client: Something I want you to know!
       BODY
       expect(service).to have_received(:append_file_to_ticket).with(
         ticket_id: 34,
