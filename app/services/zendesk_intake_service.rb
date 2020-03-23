@@ -2,7 +2,7 @@ class ZendeskIntakeService
   include ZendeskServiceHelper
   include ActiveStorage::Downloading
 
-  ONLINE_INTAKE_THC_UWBA_STATES = %w(co nm ne ks ca ak fl nv sd tx wa wy).freeze
+  ONLINE_INTAKE_THC_UWBA_STATES = %w(co nm ne ks ca ak fl nv sd tx wy).freeze
   ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
   EITC_INSTANCE_STATES = (ONLINE_INTAKE_THC_UWBA_STATES + ONLINE_INTAKE_GWISR_STATES).freeze
 
@@ -56,7 +56,11 @@ class ZendeskIntakeService
   end
 
   def new_ticket_group_id
-    if ONLINE_INTAKE_THC_UWBA_STATES.include? @intake.state
+    if @intake.state == "wa"
+      EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+    elsif @intake.state == "pa"
+      EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+    elsif ONLINE_INTAKE_THC_UWBA_STATES.include? @intake.state
       EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
     elsif ONLINE_INTAKE_GWISR_STATES.include? @intake.state
       EitcZendeskInstance::ONLINE_INTAKE_GWISR
