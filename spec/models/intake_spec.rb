@@ -426,9 +426,18 @@ describe Intake do
   end
 
   describe "#mixpanel_data" do
-    let(:intake) { build :intake, had_disability: "no", spouse_had_disability: "yes" }
+    let(:intake) do
+      build(
+        :intake,
+        had_disability: "no",
+        spouse_had_disability: "yes",
+        source: "beep",
+        referrer: "boop",
+      )
+    end
     let!(:primary_user) { create :user, intake: intake, birth_date: "1993-03-12" }
     let!(:spouse_user) { create :user, is_spouse: true, intake: intake, birth_date: "1992-05-03" }
+    before { allow(intake).to receive(:referrer_domain).and_return("blep") }
 
     it "returns the expected hash" do
       expect(intake.mixpanel_data).to eq({
@@ -436,6 +445,9 @@ describe Intake do
         spouse_age_at_end_of_tax_year: "27",
         primary_filer_disabled: "no",
         spouse_disabled: "yes",
+        intake_source: "beep",
+        intake_referrer: "boop",
+        intake_referrer_domain: "blep",
       })
     end
   end
