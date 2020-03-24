@@ -272,14 +272,21 @@ class Intake < ApplicationRecord
   end
 
   def mixpanel_data
+    dependents_under_6 = dependents.any? { |dependent| dependent.age_at_end_of_tax_year < 6 }
+    had_earned_income = had_a_job? || had_wages_yes? || had_self_employment_income_yes?
     {
+      intake_source: source,
+      intake_referrer: referrer,
+      intake_referrer_domain: referrer_domain,
       primary_filer_age_at_end_of_tax_year: primary_user&.age_end_of_tax_year.to_s,
       spouse_age_at_end_of_tax_year: spouse&.age_end_of_tax_year.to_s,
       primary_filer_disabled: had_disability,
       spouse_disabled: spouse_had_disability,
-      intake_source: source,
-      intake_referrer: referrer,
-      intake_referrer_domain: referrer_domain,
+      had_dependents: dependents.size > 0 ? "yes" : "no",
+      number_of_dependents: dependents.size.to_s,
+      had_dependents_under_6: dependents_under_6 ? "yes" : "no",
+      filing_joint: filing_joint,
+      had_earned_income: had_earned_income ? "yes" : "no",
     }
   end
 end
