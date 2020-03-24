@@ -120,6 +120,8 @@ class User < ApplicationRecord
   end
 
   def age_end_of_tax_year
-    intake.tax_year - Date.parse(birth_date).year if birth_date
+    return unless birth_date.present?
+
+    intake.tax_year - Date.parse(birth_date).year
   end
 end

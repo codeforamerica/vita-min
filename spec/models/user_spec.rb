@@ -69,6 +69,14 @@ RSpec.describe User, type: :model do
     it "returns their age at the end of 2019" do
       expect(user.age_end_of_tax_year).to eq 29
     end
+
+    context "when birth_date is nil" do
+      let(:user) { build :user, birth_date: nil }
+
+      it "returns nil and does not error" do
+        expect(user.age_end_of_tax_year).to be_nil
+      end
+    end
   end
 
   describe "#contact_info_filtered_by_preferences" do

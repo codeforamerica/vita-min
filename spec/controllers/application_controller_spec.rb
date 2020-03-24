@@ -231,9 +231,6 @@ RSpec.describe ApplicationController do
         sign_in_count: nil,
         current_sign_in_at: nil,
         last_sign_in_at: nil,
-        intake_source: nil,
-        intake_referrer: nil,
-        intake_referrer_domain: nil,
       }
       expect(mixpanel_spy).to have_received(:run).with(
         unique_id: "123",
