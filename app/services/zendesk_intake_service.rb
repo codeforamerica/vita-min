@@ -97,11 +97,13 @@ class ZendeskIntakeService
       {
         EitcZendeskInstance::INTAKE_SITE => "online_intake",
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+        EitcZendeskInstance::STATE => @intake.state,
       }
     else
       {
         UwtsaZendeskInstance::INTAKE_SITE => "online_intake",
         UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+        UwtsaZendeskInstance::STATE => @intake.state,
       }
     end
   end

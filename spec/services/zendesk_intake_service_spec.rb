@@ -167,6 +167,7 @@ describe ZendeskIntakeService do
           fields: {
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+            EitcZendeskInstance::STATE => "co",
           }
         )
       end
@@ -187,6 +188,7 @@ describe ZendeskIntakeService do
           fields: {
             UwtsaZendeskInstance::INTAKE_SITE => "online_intake",
             UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+            UwtsaZendeskInstance::STATE => "az",
           }
         )
       end
