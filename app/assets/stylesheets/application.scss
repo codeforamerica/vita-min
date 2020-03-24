@@ -143,6 +143,12 @@ body {
     }
   }
 
+  .banner {
+    background-color: $color-yellow-light;
+    padding: 2rem 3.5rem;
+    font-size: $font-size-25-small
+  }
+
   .slab--intro {
     background-color: white;
     @include media($tablet-up) {
