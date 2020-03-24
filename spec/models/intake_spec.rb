@@ -433,21 +433,30 @@ describe Intake do
         spouse_had_disability: "yes",
         source: "beep",
         referrer: "boop",
+        filing_joint: "no",
+        had_wages: "yes",
       )
     end
     let!(:primary_user) { create :user, intake: intake, birth_date: "1993-03-12" }
     let!(:spouse_user) { create :user, is_spouse: true, intake: intake, birth_date: "1992-05-03" }
+    let!(:dependent_one) { create :dependent, birth_date: Date.new(2017, 4, 21), intake: intake}
+    let!(:dependent_two) { create :dependent, birth_date: Date.new(2005, 8, 11), intake: intake}
     before { allow(intake).to receive(:referrer_domain).and_return("blep") }
 
     it "returns the expected hash" do
       expect(intake.mixpanel_data).to eq({
+        intake_source: "beep",
+        intake_referrer: "boop",
+        intake_referrer_domain: "blep",
         primary_filer_age_at_end_of_tax_year: "26",
         spouse_age_at_end_of_tax_year: "27",
         primary_filer_disabled: "no",
         spouse_disabled: "yes",
-        intake_source: "beep",
-        intake_referrer: "boop",
-        intake_referrer_domain: "blep",
+        had_dependents: "yes",
+        number_of_dependents: "2",
+        had_dependents_under_6: "yes",
+        filing_joint: "no",
+        had_earned_income: "yes",
       })
     end
   end
