@@ -277,6 +277,9 @@ class Intake < ApplicationRecord
       spouse_age_at_end_of_tax_year: spouse&.age_end_of_tax_year.to_s,
       primary_filer_disabled: had_disability,
       spouse_disabled: spouse_had_disability,
+      intake_source: source,
+      intake_referrer: referrer,
+      intake_referrer_domain: referrer_domain,
     }
   end
 end
