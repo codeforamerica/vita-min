@@ -4,4 +4,5 @@ Rails.application.configure do
   config.active_storage.service = :s3_demo
 
   config.action_mailer.default_url_options = { host: 'demo.getyourrefund.org' }
+  Rails.application.default_url_options = config.action_mailer.default_url_options
 end
