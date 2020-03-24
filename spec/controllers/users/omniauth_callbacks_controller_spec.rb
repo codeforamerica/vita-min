@@ -175,20 +175,6 @@ RSpec.describe Users::OmniauthCallbacksController do
           get :idme, params: { spouse: "true" }
           expect(spouse_user.reload.intake).to eq primary_user.intake
         end
-
-        context "spouse has intake in session" do
-          let(:intake_from_session) { create :intake }
-
-          before do
-            session[:intake_id] = intake_from_session.id
-          end
-
-          it "clears the intake id from the session and deletes the intake" do
-            get :idme, params: { spouse: "true" }
-            expect(session[:intake_id]).to be_nil
-            expect(Intake.exists?(intake_from_session.id)).to eq false
-          end
-        end
       end
 
       context "when using link to authenticate later" do

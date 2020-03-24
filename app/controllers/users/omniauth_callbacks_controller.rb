@@ -29,11 +29,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     # A new intake is created before sign in so that we can save answers to questions that are asked before sign in.
+    # This intake is stored in session[:intake_id]
     # If a returning user signs in, we want to delete this new intake because the user will already have an intake.
-    # We want to skip this for a spouse who came to the sign in page with an authenticate-later-link because the intake
-    # in the session in that case is the one corresponding to the token in the link, which we will want to keep so that we
-    # can associate it with the new spouse user.
-    should_delete_duplicate_intake = session[:intake_id] && (is_returning_user || is_new_spouse) && !used_spouse_auth_only_link
+    # In the case of a spouse who came to the sign in page with a verify-spouse link, the intake
+    # in the session will be the one corresponding to the token in the link, so we ensure this doesn't get deleted.
+    # We also ensure that we don't destroy intakes with associated users.
+    should_delete_duplicate_intake = session[:intake_id] && is_returning_user && !used_spouse_auth_only_link
     if should_delete_duplicate_intake
       intake_from_session = Intake.find(session[:intake_id])
       intake_from_session.destroy! if intake_from_session.users.count == 0
