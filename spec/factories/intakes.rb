@@ -107,6 +107,7 @@
 #  updated_at                                           :datetime
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
+#  visitor_id                                           :string
 #
 
 FactoryBot.define do
