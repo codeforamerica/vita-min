@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_22_023004) do
+ActiveRecord::Schema.define(version: 2020_03_25_225523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(version: 2020_03_22_023004) do
     t.integer "feeling_about_taxes", default: 0, null: false
     t.string "spouse_auth_token"
     t.integer "no_eligibility_checks_apply", default: 0, null: false
+    t.string "visitor_id"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|

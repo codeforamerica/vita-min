@@ -53,6 +53,28 @@ RSpec.describe ApplicationController do
         get :index
         expect(cookies[:visitor_id]).to eq "123"
       end
+
+      context "with current intake" do
+        let(:intake) { create :intake }
+
+        before do
+          allow(subject).to receive(:current_intake).and_return(intake)
+        end
+
+        it "saves the visitor id to the intake" do
+          get :index
+          expect(intake.visitor_id).to eq "123"
+        end
+
+        context "intake already has visitor id" do
+          let(:intake) { create :intake, visitor_id: "234" }
+
+          it "does not override the visitor id" do
+            get :index
+            expect(intake.visitor_id).to eq "234"
+          end
+        end
+      end
     end
 
     context "no visitor id" do
@@ -60,6 +82,45 @@ RSpec.describe ApplicationController do
         get :index
         expect(cookies[:visitor_id]).to be_a String
         expect(cookies[:visitor_id]).to be_present
+      end
+
+      context "with current intake" do
+        let(:intake) { create :intake }
+
+        before do
+          allow(subject).to receive(:current_intake).and_return(intake)
+        end
+
+        it "saves the visitor id to the intake" do
+          get :index
+          expect(intake.visitor_id).to eq cookies[:visitor_id]
+        end
+      end
+    end
+  end
+
+  describe "#visitor_id" do
+    before do
+      cookies[:visitor_id] = "2"
+    end
+
+    it "returns the id from the cookies if no current intake" do
+      get :index
+
+      expect(subject.visitor_id).to eq "2"
+    end
+
+    context "with a current intake that has a visitor id" do
+      let(:intake) { create :intake, visitor_id: "1" }
+
+      before do
+        allow(subject).to receive(:current_intake).and_return(intake)
+      end
+
+      it "gives the intake precedent over the cookies" do
+        get :index
+
+        expect(subject.visitor_id).to eq "1"
       end
     end
   end
