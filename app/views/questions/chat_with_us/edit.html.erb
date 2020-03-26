@@ -1,0 +1,21 @@
+<% content_for :page_title, "Our team is here to help!" %>
+
+<% content_for :form_card do %>
+  <div class="form-card">
+    <h1 class="form-question">
+      <%= content_for(:page_title) %>
+    </h1>
+
+    <p>
+      We know taxes can be hard and we’re here to support you every step of the way!
+    </p>
+
+    <p>
+      If you have questions, you can chat with us by clicking the button in the bottom right of your screen.
+    </p>
+
+    <%= link_to next_path, class: "button button--primary text--centered" do %>
+      Continue
+    <% end %>
+  </div>
+<% end %>

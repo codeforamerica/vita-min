@@ -2,6 +2,7 @@ class QuestionNavigation
   FLOW = [
     # Feelings
     Questions::FeelingsController,
+    Questions::ChatWithUsController,
 
     # VITA eligibility checks
     Questions::EligibilityController,
