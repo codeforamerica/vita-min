@@ -4,16 +4,24 @@
     <% if include_google_analytics? && Rails.env.production? %>
       <%= render 'shared/google_analytics' %>
     <% end %>
+    <% unless content_for? :page_title %>
+      <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.<% end %>
+    <% end %>
+
+    <title><%= content_for(:page_title) %> | GetYourRefund.org</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>
-      <% if content_for? :page_title %>
-        <%= content_for :page_title %>
-      <% else %>
-        Free tax help from IRS-certified volunteers.
-      <% end %> | GetYourRefund.org
-    </title>
+    <meta name="description" content="Maximize your refund by filing with our trusted volunteers. Available to you online or in person!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= url_for(only_path: false) %>">
+    <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund.org">
+    <meta property="og:description" content="Maximize your refund by filing with our trusted volunteers. Available to you online or in person!">
+    <meta property="og:image" content="<%= image_url("social_share_banner.png") %>">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="<%= url_for(only_path: false) %>">
+    <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund.org">
+    <meta property="twitter:description" content="Maximize your refund by filing with our trusted volunteers. Available to you online or in person!">
+    <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
