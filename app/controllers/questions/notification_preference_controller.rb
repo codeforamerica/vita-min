@@ -10,7 +10,7 @@ module Questions
       CreateZendeskIntakeTicketJob.perform_later(current_intake.id) if current_intake.intake_ticket_id.blank?
     end
 
-    def custom_tracking_data
+    def tracking_data
       @form.attributes_for(:user)
     end
   end

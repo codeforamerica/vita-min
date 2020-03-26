@@ -11,5 +11,9 @@ module Questions
     def after_update_success
       SendCompletedIntakeToZendeskJob.perform_later(current_intake.id)
     end
+
+    def tracking_data
+      {}
+    end
   end
 end

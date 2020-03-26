@@ -5,5 +5,9 @@ module Questions
     def section_title
       "Additional Questions"
     end
+
+    def tracking_data
+      {}
+    end
   end
 end

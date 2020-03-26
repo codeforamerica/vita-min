@@ -65,15 +65,17 @@ module Questions
     end
 
     def track_question_answer
-      send_mixpanel_event(event_name: "question_answered", data: custom_tracking_data)
+      send_mixpanel_event(event_name: "question_answered", data: tracking_data)
     end
 
     def track_validation_error
-      send_mixpanel_validation_error(@form.errors, custom_tracking_data)
+      send_mixpanel_validation_error(@form.errors, tracking_data)
     end
 
-    def custom_tracking_data
-      {}
+    def tracking_data
+      return {} unless @form.class.scoped_attributes.key?(:intake)
+
+      @form.attributes_for(:intake)
     end
 
     class << self
