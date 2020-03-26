@@ -452,6 +452,8 @@ describe Intake do
         referrer: "boop",
         filing_joint: "no",
         had_wages: "yes",
+        state: "ca",
+        zip_code: "94609",
       )
     end
     let!(:primary_user) { create :user, intake: intake, birth_date: "1993-03-12" }
@@ -474,6 +476,8 @@ describe Intake do
         had_dependents_under_6: "yes",
         filing_joint: "no",
         had_earned_income: "yes",
+        state: "ca",
+        zip_code: "94609",
       })
     end
   end

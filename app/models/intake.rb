@@ -292,6 +292,8 @@ class Intake < ApplicationRecord
       had_dependents_under_6: dependents_under_6 ? "yes" : "no",
       filing_joint: filing_joint,
       had_earned_income: had_earned_income ? "yes" : "no",
+      state: state,
+      zip_code: zip_code,
     }
   end
 end
