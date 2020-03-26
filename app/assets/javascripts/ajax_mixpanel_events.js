@@ -3,7 +3,7 @@
 var ajaxMixpanelEvents = (function() {
   var init = function() {
     $("[data-track-click]").on("click", function (e, options) {
-      var clickedElement = $(e.target);
+      var clickedElement = $(e.target).closest("a");
       var elementText = clickedElement.text().trim();
       var eventName = "click_" + clickedElement.attr("data-track-click");
 
