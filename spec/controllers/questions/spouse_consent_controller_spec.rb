@@ -53,7 +53,7 @@ RSpec.describe Questions::SpouseConsentController do
         allow(DateTime).to receive(:current).and_return current_time
       end
 
-      it "saves the answer, along with a timestamp and ip address" do
+      it "saves the answer, along with a timestamp and ip address", active_job: true do
         post :update, params: params
 
         spouse_user.reload
