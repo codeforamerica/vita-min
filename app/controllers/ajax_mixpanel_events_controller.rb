@@ -14,7 +14,8 @@ class AjaxMixpanelEventsController < ApplicationController
   private
 
   def event_params
-    params.permit(:event_name, :full_path, :controller_action, data: {})
+    params.fetch(:event, {})
+      .permit(:event_name, :full_path, :controller_action, data: {})
   end
 
   def all_required_params_present?

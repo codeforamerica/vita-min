@@ -16,7 +16,7 @@ RSpec.describe AjaxMixpanelEventsController, type: :controller do
     end
 
     it "sends an event to mixpanel" do
-      post :create,  params: valid_params
+      post :create,  params: { event: valid_params }
 
       expect(subject).to have_received(:send_mixpanel_event).with(
         event_name: "clicked_link",
@@ -41,7 +41,7 @@ RSpec.describe AjaxMixpanelEventsController, type: :controller do
       end
 
       it "sends an event to mixpanel" do
-        post :create,  params: valid_params
+        post :create,  params: { event: valid_params }
 
         expect(subject).to have_received(:send_mixpanel_event).with(
           event_name: "clicked_link",
