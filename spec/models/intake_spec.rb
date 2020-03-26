@@ -346,6 +346,7 @@ describe Intake do
       let(:intake) do
         create :intake, was_full_time_student: "no", spouse_was_full_time_student: "unfilled"
       end
+
       before do
         create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry"
         create :spouse_user, intake: intake, first_name: "Helga", last_name: "Huckleberry"
@@ -365,6 +366,7 @@ describe Intake do
       let(:intake) do
         create :intake, was_full_time_student: "no", spouse_was_full_time_student: "no"
       end
+
       before do
         create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry"
         create :spouse_user, intake: intake, first_name: "Helga", last_name: "Huckleberry"
@@ -374,6 +376,20 @@ describe Intake do
 
       it "returns an empty array" do
         expect(intake.student_names).to eq([])
+      end
+    end
+
+    context "when there is no spouse verified but the spouse was a student" do
+      let(:intake) do
+        create :intake, was_full_time_student: "yes", spouse_was_full_time_student: "yes"
+      end
+
+      before do
+        create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry"
+      end
+
+      it "shows a placeholder for the spouse name" do
+        expect(intake.student_names).to eq(["Henrietta Huckleberry", "Your spouse"])
       end
     end
   end
