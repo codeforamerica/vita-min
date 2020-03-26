@@ -18,6 +18,7 @@ module Documents
       if @form.valid?
         form_saved = @form.save
         after_update_success
+        track_document_upload
       end
 
       redirect_to action: :edit
@@ -35,6 +36,14 @@ module Documents
 
     def self.document_type
       DocumentNavigation.document_type(self)
+    end
+
+    def track_document_upload
+      send_mixpanel_event(event_name: "document_uploaded", data: {
+        document_type: document_type,
+        file_extension: File.extname(@form.document.original_filename),
+        file_content_type: @form.document.content_type,
+      })
     end
 
     def next_path(params = {})
