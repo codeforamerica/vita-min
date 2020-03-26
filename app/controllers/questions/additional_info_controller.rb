@@ -14,5 +14,9 @@ module Questions
       next_step = DocumentNavigation.new(self).all_controllers.first
       document_path(next_step.to_param)
     end
+
+    def tracking_data
+      {}
+    end
   end
 end
