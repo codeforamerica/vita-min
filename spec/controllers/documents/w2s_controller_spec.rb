@@ -78,9 +78,13 @@ RSpec.describe Documents::W2sController do
       let(:valid_params) do
         {
           document_type_upload_form: {
-            document: fixture_file_upload("attachments/test-pattern.png")
+            document: fixture_file_upload("attachments/test-pattern.png", "image/png")
           }
         }
+      end
+
+      before do
+        allow(subject).to receive(:send_mixpanel_event).and_return(true)
       end
 
       it "appends the W-2 documents to the intake and rerenders :edit without redirecting" do
@@ -93,6 +97,18 @@ RSpec.describe Documents::W2sController do
         expect(latest_doc.upload.filename).to eq "test-pattern.png"
 
         expect(response).to redirect_to w2s_documents_path
+      end
+
+      it "sends the document type to mixpanel" do
+        post :update, params: valid_params
+
+        expect(subject).to have_received(:send_mixpanel_event).with(
+          event_name: "document_uploaded",
+          data: {
+            document_type: "W-2",
+            file_extension: ".png",
+            file_content_type: "image/png"
+          })
       end
     end
   end
