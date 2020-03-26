@@ -13,6 +13,10 @@ RSpec.feature "Web Intake Single Filer" do
     choose "Sad face"
     click_on "Start my taxes online"
 
+    # Chat with us
+    expect(page).to have_selector("h1", text: "Our team is here to help!")
+    click_on "Continue"
+
     # VITA eligibility checks
     expect(page).to have_selector("h1", text: "Let’s check a few things.")
     check "None of the above"
