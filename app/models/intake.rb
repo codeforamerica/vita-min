@@ -245,10 +245,14 @@ class Intake < ApplicationRecord
       dependents.where(was_student: "yes" ).any?
   end
 
+  def spouse_name_or_placeholder
+    spouse&.full_name || "Your spouse"
+  end
+
   def student_names
     names = []
     names << primary_user.full_name if was_full_time_student_yes?
-    names << spouse.full_name if spouse_was_full_time_student_yes?
+    names << spouse_name_or_placeholder if spouse_was_full_time_student_yes?
     names += dependents.where(was_student: "yes").map(&:full_name)
     names
   end
