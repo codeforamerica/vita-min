@@ -32,10 +32,20 @@ RSpec.describe Questions::JobCountController do
         }
       end
 
+      before do
+        allow(subject).to receive(:send_mixpanel_event).and_return(true)
+      end
+
       it "saves data to the model" do
         post :update, params: params
 
         expect(intake.reload.job_count).to eq 3
+      end
+
+      it "calls send_mixpanel_event with the right data" do
+        post :update, params: params
+
+        expect(subject).to have_received(:send_mixpanel_event).with(event_name: "question_answered", data: { job_count: "3" })
       end
     end
   end
