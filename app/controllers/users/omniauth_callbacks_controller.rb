@@ -89,6 +89,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # We have signed out the primary user and need to verify the spouse
       redirect_to idme_authorize(spouse: "true")
     else
+      logger.error("#{error}, #{error_type}, intake: #{current_intake}")
       raise error
     end
   end

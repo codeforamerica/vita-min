@@ -332,7 +332,8 @@ RSpec.describe Users::OmniauthCallbacksController do
           request.env["omniauth.error"] = OmniAuth::Strategies::OAuth2::CallbackError.new(:csrf_detected, "CSRF detected")
         end
 
-        it "raises the error" do
+        it "raises the error with details" do
+          expect(Rails.logger).to receive(:error).with("OmniAuth::Strategies::OAuth2::CallbackError, csrf_detected, intake: ")
           expect do
             get :failure
           end.to raise_error(OmniAuth::Strategies::OAuth2::CallbackError)
