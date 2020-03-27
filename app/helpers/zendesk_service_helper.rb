@@ -106,14 +106,24 @@ module ZendeskServiceHelper
       body: body,
       fields: fields
     )
-    ticket.save
+
+    unless ticket.save
+      raise ZendeskAPIError.new("Error creating Zendesk Ticket: #{ticket.errors}")
+    end
+
     ticket.id
   end
 
   def assign_ticket_to_group(ticket_id:, group_id:)
     ticket = get_ticket(ticket_id: ticket_id)
     ticket.group_id = group_id
-    ticket.save
+    success = ticket.save
+
+    unless success
+      raise ZendeskAPIError.new("Error assigning ticket to group: #{ticket.errors}")
+    end
+
+    success
   end
 
   def append_comment_to_ticket(ticket_id:, comment:, fields: {}, public: false)
@@ -122,7 +132,13 @@ module ZendeskServiceHelper
     ticket = ZendeskAPI::Ticket.find(client, id: ticket_id)
     ticket.fields = fields if fields.present?
     ticket.comment = { body: comment, public: public }
-    ticket.save
+    success = ticket.save
+
+    unless success
+      raise ZendeskAPIError.new("Error appending comment to ticket: #{ticket.errors}")
+    end
+
+    success
   end
 
   def append_file_to_ticket(ticket_id:, filename:, file:, comment: "", fields: {})
@@ -144,9 +160,16 @@ module ZendeskServiceHelper
     ticket.fields = fields if fields.present?
     ticket.comment = { body: comment }
     file_list.each { |file| ticket.comment.uploads << file }
-    ticket.save
+    success = ticket.save
+
+    unless success
+      raise ZendeskAPIError.new("Error appending file to ticket: #{ticket.errors}")
+    end
+
+    success
   end
 
+  class ZendeskAPIError < StandardError; end
   class ZendeskServiceError < StandardError; end
   class MissingRequesterIdError < ZendeskServiceError; end
   class MissingTicketIdError < ZendeskServiceError; end
