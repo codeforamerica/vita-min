@@ -65,7 +65,13 @@ class ZendeskDropOffService
   def attach_file_and_save_ticket(ticket)
     download_blob_to_tempfile do |file|
       ticket.comment.uploads << {file: file, filename: file_upload_name}
-      ticket.save
+      success = ticket.save
+
+      unless success
+        raise ZendeskServiceHelper::ZendeskAPIError.new("Error attaching file: #{ticket.errors}")
+      end
+
+      success
     end
   end
 

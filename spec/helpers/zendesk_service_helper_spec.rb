@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe ZendeskServiceHelper do
   let(:fake_zendesk_client) { double(ZendeskAPI::Client) }
-  let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2) }
+  let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2, errors: nil) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
   let(:fake_zendesk_comment) { double(uploads: []) }
   let(:service) do
@@ -175,6 +175,8 @@ RSpec.describe ZendeskServiceHelper do
   end
 
   describe "#create_ticket" do
+    let(:success) { true }
+    let(:errors) { nil }
     let(:ticket_args) do
       {
         subject: "wyd",
@@ -190,7 +192,8 @@ RSpec.describe ZendeskServiceHelper do
 
     before do
       allow(service).to receive(:build_ticket).and_return(fake_zendesk_ticket)
-      allow(fake_zendesk_ticket).to receive(:save)
+      allow(fake_zendesk_ticket).to receive(:save).and_return(success)
+      allow(fake_zendesk_ticket).to receive(:errors).and_return(errors)
     end
 
     it "calls build_ticket, saves the ticket, and returns the ticket id" do
@@ -198,6 +201,17 @@ RSpec.describe ZendeskServiceHelper do
       expect(result).to eq 2
       expect(fake_zendesk_ticket).to have_received(:save).with(no_args)
       expect(service).to have_received(:build_ticket).with(**ticket_args)
+    end
+
+    describe "when the API returns an error" do
+      let(:success) { false }
+      let(:errors) { "Zendesk API failed for some reason" }
+
+      it "raises an error" do
+        expect do
+          service.create_ticket(**ticket_args)
+        end.to raise_error(ZendeskServiceHelper::ZendeskAPIError, /Error.*some reason/)
+      end
     end
   end
 

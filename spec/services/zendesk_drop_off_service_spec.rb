@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ZendeskDropOffService do
   let(:fake_zendesk_client) { double(ZendeskAPI::Client) }
-  let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2) }
+  let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2, errors: nil) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
   let(:comment_uploads) { [] }
   let(:comment_body) do
@@ -30,7 +30,7 @@ describe ZendeskDropOffService do
 
     allow(fake_zendesk_ticket).to receive(:comment=)
     allow(fake_zendesk_ticket).to receive_message_chain(:comment, :uploads).and_return(comment_uploads)
-    allow(fake_zendesk_ticket).to receive(:save)
+    allow(fake_zendesk_ticket).to receive(:save).and_return(true)
   end
 
   describe "#create_ticket_and_attach_file" do
@@ -73,7 +73,7 @@ describe ZendeskDropOffService do
       let(:comment_body) do
         <<~BODY
           New Dropoff at GoodwillSR Columbus Intake
-    
+
           Certification Level: Basic and HSA
           Name: Gary Guava
           Phone number: (415) 816-1286
