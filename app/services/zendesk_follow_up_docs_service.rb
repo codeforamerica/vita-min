@@ -7,6 +7,8 @@ class ZendeskFollowUpDocsService
   end
 
   def send_requested_docs
+    return if @intake.documents.none?
+
     new_requested_docs = @intake.documents.where(document_type: "Requested", zendesk_ticket_id: nil)
     file_list = new_requested_docs.map do |document|
       @document_blob = document.upload
@@ -26,7 +28,9 @@ class ZendeskFollowUpDocsService
     new_requested_docs.each { |doc| doc.update(zendesk_ticket_id: @intake.intake_ticket_id) }
     output
   ensure
-    file_list.each { |entry| entry[:file].close! }
+    if file_list.present?
+      file_list.each { |entry| entry[:file].close! }
+    end
   end
 
   def blob
