@@ -48,5 +48,17 @@ describe ZendeskFollowUpDocsService do
         expect(doc.zendesk_ticket_id).to eq 34
       end
     end
+
+    context "when the user has not uploaded any documents" do
+      before do
+        intake.documents.destroy_all
+      end
+
+      it "does not update zendesk" do
+        result = service.send_requested_docs
+
+        expect(service).not_to have_received(:append_multiple_files_to_ticket)
+      end
+    end
   end
 end
