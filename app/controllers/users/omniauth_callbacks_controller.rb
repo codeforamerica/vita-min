@@ -56,7 +56,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if is_returning_consenting_spouse
       sign_in @user, event: :authentication
-      return redirect_to welcome_spouse_questions_path
+      return redirect_to spouse_was_student_questions_path
     end
 
     if is_returning_nonconsenting_spouse

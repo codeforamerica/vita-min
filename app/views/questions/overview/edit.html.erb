@@ -1,0 +1,73 @@
+<% @main_heading = "Just a few simple steps to file!" %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <h1 class="form-question"><%= @main_heading %></h1>
+          <p class="spacing-below-60">
+            <strong>
+              Our form should take you about 30 minutes to complete.
+            </strong>
+          </p>
+
+          <div class="steps--wrapper">
+            <div class="step">
+              <div class="step-icon-wrapper">
+                <%= image_tag("questions.svg", alt: "") %>
+              </div>
+              <div class="step-text">
+                <h3>Answer Questions</h3>
+                <p class="text--small with-padding-small">
+                  We'll ask you a series of questions about your finances.
+                </p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-icon-wrapper">
+                <%= image_tag("documents.svg", alt: "") %>
+              </div>
+              <div class="step-text">
+                <h3>Submit documents</h3>
+                <p class="text--small with-padding-small">
+                  Share all necessary documents (ID, W-2's, 1099, 1095-A,B,C).
+                </p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-icon-wrapper">
+                <%= image_tag("phone.svg", alt: "") %>
+              </div>
+              <div class="step-text">
+                <h3>Phone review</h3>
+                <p class="text--small with-padding-small">
+                  Your tax preparer will review everything with you over the phone.
+                </p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-icon-wrapper">
+                <%= image_tag("income-and-expenses.svg", alt: "") %>
+              </div>
+              <div class="step-text">
+                <h3>Get your refund</h3>
+                <p class="text--small with-padding-small">
+                  If you choose to file your taxes, our tax volunteers will help you e-file.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <%= link_to next_path, class: "button button--primary" do %>
+            Continue
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>
