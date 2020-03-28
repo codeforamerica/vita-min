@@ -93,7 +93,7 @@ RSpec.describe Questions::EligibilityController do
         expect(intake_from_session.had_farm_income).to eq had_farm_income
         expect(intake_from_session.had_rental_income).to eq had_rental_income
         expect(intake_from_session.income_over_limit).to eq income_over_limit
-        expect(response).to redirect_to(identity_questions_path)
+        expect(response).to redirect_to(overview_questions_path)
       end
     end
   end

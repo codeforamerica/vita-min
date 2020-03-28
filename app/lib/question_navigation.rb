@@ -7,6 +7,10 @@ class QuestionNavigation
     # VITA eligibility checks
     Questions::EligibilityController,
 
+    # Overview
+    Questions::OverviewController,
+    Questions::OverviewDocumentsController,
+
     # Authentication
     Questions::IdentityController,
 
@@ -16,9 +20,6 @@ class QuestionNavigation
     # Contact information
     Questions::MailingAddressController,
     Questions::NotificationPreferenceController, # creates initial Zendesk ticket
-
-    # Overview
-    Questions::WelcomeController,
 
     # Primary filer personal information
     Questions::WasStudentController,
@@ -48,7 +49,6 @@ class QuestionNavigation
     # Spouse authentication
     Questions::SpouseIdentityController,
     Questions::SpouseConsentController,
-    Questions::WelcomeSpouseController,
 
     # Spouse personal information
     Questions::SpouseWasStudentController,
