@@ -243,7 +243,7 @@ RSpec.describe Users::OmniauthCallbacksController do
         it "redirects to the welcome spouse page" do
           get :idme
 
-          expect(response).to redirect_to welcome_spouse_questions_path
+          expect(response).to redirect_to spouse_was_student_questions_path
         end
       end
 

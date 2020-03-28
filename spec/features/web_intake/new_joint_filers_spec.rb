@@ -55,6 +55,14 @@ RSpec.feature "Web Intake Joint Filers" do
     check "None of the above"
     click_on "Continue"
 
+    # Overview
+    expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
+    click_on "Continue"
+
+    # Documents overview
+    expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
+    click_on "Continue"
+
     # Authentication
     expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     click_on "Sign in with ID.me"
@@ -79,11 +87,6 @@ RSpec.feature "Web Intake Joint Filers" do
     check "Email Me"
     check "Text Me"
     click_on "Continue"
-
-    # Overview
-    expect(page).to have_selector("h1", text: "Welcome Gary!")
-    click_on "Continue"
-
 
     # Primary filer personal information
     expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
@@ -136,8 +139,6 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
     expect(page).to have_text("You, Greta Gnome, understand")
     check "I agree"
-    click_on "Continue"
-    expect(page).to have_selector("h1", text: "Welcome Gary and Greta!")
     click_on "Continue"
 
     # Spouse personal information

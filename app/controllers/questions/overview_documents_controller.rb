@@ -1,5 +1,5 @@
 module Questions
-  class OverviewController < QuestionsController
+  class OverviewDocumentsController < QuestionsController
     skip_before_action :require_sign_in
     before_action :require_intake
     layout "application"

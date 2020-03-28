@@ -1,0 +1,40 @@
+<% @main_heading = "Collect all your documents and have them with you." %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="form-card">
+            <h1 class="form-question">
+              <%= @main_heading %>
+            </h1>
+
+            <div class="question__illustration">
+              <%= image_tag("questions/#{illustration_path}", alt: "") %>
+            </div>
+
+            <p>
+              In the next pages, we'll be asking for the following:
+            </p>
+            <ul class="list--bulleted text--small">
+              <li>Social Security Number or ITIN</li>
+              <li>Current driver's license or passport</li>
+              <li>Employment tax documents (W2's, 1099, etc)</li>
+              <li>Any other official tax documents</li>
+            </ul>
+
+            <p>
+              <strong>We will also need to verify that you have a valid phone number and e-mail.</strong>
+            </p>
+
+            <%= link_to next_path, class: "button button--primary text--centered" do %>
+              Continue
+            <% end %>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

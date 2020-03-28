@@ -24,7 +24,6 @@
 @import 'components/footer';
 @import 'organisms/form-cards';
 @import 'organisms/offboarding';
-@import 'organisms/overview';
 @import 'organisms/pagination';
 @import 'organisms/provider-list';
 @import 'organisms/provider-details';
@@ -157,50 +156,38 @@ body {
       }
     }
   }
+}
 
-  .slab--steps {
-    background-color: white;
+.steps--wrapper {
+  background-color: white;
 
-    .step {
-      display: flex;
-      @extend .spacing-below-60;
+  .step {
+    display: flex;
+    @extend .spacing-below-60;
 
-      h3 {
-        margin-bottom: 1rem;
-      }
-
-      .step-icon-wrapper {
-        width: 6rem;
-        height: 5rem;
-        margin-right: 3.2rem;
-
-        img {
-          height: 100%;
-        }
-      }
+    h3 {
+      margin-bottom: 1rem;
     }
 
-    .step:last-child {
-      margin-bottom: 0;
+    .step-icon-wrapper {
+      width: 6rem;
+      height: 5rem;
+      margin-right: 2.5rem;
+
+      img {
+        height: 100%;
+      }
     }
+  }
 
-    @media only screen and (max-width: 600px) {
-      text-align: center;
+  .step:last-child {
+    margin-bottom: 0;
+  }
 
-      .step {
-        flex-direction: column;
-        align-items: center;
-
-        .step-icon-wrapper {
-          margin-right: 0;
-          margin-bottom: 1.6rem;
-        }
-
-        .step-text {
-          p {
-            max-width: 24rem;
-          }
-        }
+  @media only screen and (max-width: 600px) {
+    .step-text {
+      p {
+        max-width: 24rem;
       }
     }
   }

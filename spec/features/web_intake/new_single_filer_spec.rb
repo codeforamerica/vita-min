@@ -22,6 +22,14 @@ RSpec.feature "Web Intake Single Filer" do
     check "None of the above"
     click_on "Continue"
 
+    # Overview
+    expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
+    click_on "Continue"
+
+    # Documents overview
+    expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
+    click_on "Continue"
+
     # Authentication
     expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     click_on "Sign in with ID.me"
@@ -45,10 +53,6 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_text("How should we reach out with questions and updates about your taxes?")
     check "Email Me"
     check "Text Me"
-    click_on "Continue"
-
-    # Overview
-    expect(page).to have_selector("h1", text: "Welcome Gary!")
     click_on "Continue"
 
     # Primary filer personal information
