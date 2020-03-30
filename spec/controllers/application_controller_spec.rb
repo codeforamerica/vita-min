@@ -44,35 +44,59 @@ RSpec.describe ApplicationController do
   end
 
   describe "#set_visitor_id" do
-    context "existing visitor id" do
-      before do
-        cookies[:visitor_id] = "123"
-      end
-
-      it "retains the existing visitor id" do
-        get :index
-        expect(cookies[:visitor_id]).to eq "123"
-      end
-
-      context "with current intake" do
-        let(:intake) { create :intake }
+    context "existing visitor_id" do
+      context "on current_intake" do
+        let(:intake) { create :intake, visitor_id: "123"}
 
         before do
           allow(subject).to receive(:current_intake).and_return(intake)
         end
 
-        it "saves the visitor id to the intake" do
+        it "gets the visitor id from the intake and sets it in the cookies" do
           get :index
-          expect(intake.visitor_id).to eq "123"
+
+          expect(cookies[:visitor_id]).to eq "123"
+        end
+      end
+
+      context "on cookie" do
+        before do
+          cookies[:visitor_id] = "123"
         end
 
-        context "intake already has visitor id" do
-          let(:intake) { create :intake, visitor_id: "234" }
+        it "retains the existing visitor id" do
+          get :index
 
-          it "does not override the visitor id" do
-            get :index
-            expect(intake.visitor_id).to eq "234"
+          expect(cookies[:visitor_id]).to eq "123"
+        end
+
+        context "with current intake" do
+          let(:intake) { create :intake }
+
+          before do
+            allow(subject).to receive(:current_intake).and_return(intake)
           end
+
+          it "saves the visitor id to the intake" do
+            get :index
+            expect(intake.visitor_id).to eq "123"
+          end
+        end
+      end
+
+      context "on current_intake AND cookie" do
+        let(:intake) { create :intake, visitor_id: "123" }
+
+        before do
+          allow(subject).to receive(:current_intake).and_return(intake)
+          cookies[:visitor_id] = "456"
+        end
+
+        it "gets the visitor id from the intake and sets it in the cookie" do
+          get :index
+
+          expect(intake.visitor_id).to eq "123"
+          expect(cookies[:visitor_id]).to eq "123"
         end
       end
     end
