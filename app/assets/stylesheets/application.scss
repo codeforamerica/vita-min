@@ -163,20 +163,24 @@ body {
 
   .step {
     display: flex;
-    @extend .spacing-below-60;
+    @extend .spacing-below-35;
 
     h3 {
       margin-bottom: 1rem;
     }
 
     .step-icon-wrapper {
-      width: 6rem;
-      height: 5rem;
+      width: 3rem;
+      height: 3.5rem;
       margin-right: 2.5rem;
 
       img {
         height: 100%;
       }
+    }
+
+    .step-icon-wrapper--questions {
+      width: 3.5rem;
     }
   }
 
