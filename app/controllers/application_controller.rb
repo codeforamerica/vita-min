@@ -12,7 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_visitor_id
-    if cookies[:visitor_id].present?
+    return if current_intake&.visitor_id.present? && current_intake&.visitor_id == cookies[:visitor_id]
+
+    if current_intake&.visitor_id.present?
+      cookies.permanent[:visitor_id] = current_intake.visitor_id
+      return
+    elsif cookies[:visitor_id].present?
       visitor_id = cookies[:visitor_id]
     else
       visitor_id = SecureRandom.hex(26)
