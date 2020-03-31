@@ -98,12 +98,14 @@ class ZendeskIntakeService
         EitcZendeskInstance::INTAKE_SITE => "online_intake",
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
         EitcZendeskInstance::STATE => @intake.state,
+        EitcZendeskInstance::FILING_YEARS => @intake.filing_years,
       }
     else
       {
         UwtsaZendeskInstance::INTAKE_SITE => "online_intake",
         UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
         UwtsaZendeskInstance::STATE => @intake.state,
+        UwtsaZendeskInstance::FILING_YEARS => @intake.filing_years,
       }
     end
   end
