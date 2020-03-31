@@ -1,6 +1,7 @@
 class BackfillVisitorIdsJob < ApplicationJob
   queue_as :default
 
+  # command to run: BackfillVisitorIdsJob.perform_now
   def perform
     intakes_needing_visitor_id = Intake.where(visitor_id: nil)
     intakes_needing_visitor_id.each do |intake|
