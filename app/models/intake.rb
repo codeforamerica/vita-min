@@ -304,4 +304,13 @@ class Intake < ApplicationRecord
       zip_code: zip_code,
     }
   end
+
+  def filing_years
+    [
+      ("2019" if needs_help_2019_yes?),
+      ("2018" if needs_help_2018_yes?),
+      ("2017" if needs_help_2017_yes?),
+      ("2016" if needs_help_2016_yes?),
+    ].compact
+  end
 end

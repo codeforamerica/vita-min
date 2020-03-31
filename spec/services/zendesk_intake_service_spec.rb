@@ -9,7 +9,15 @@ describe ZendeskIntakeService do
   let(:state) { "ne" }
   let(:interview_timing_preference) { "" }
   let(:final_info) { "" }
-  let(:intake) { create :intake, state: state, interview_timing_preference: interview_timing_preference, final_info: final_info }
+  let(:intake) do
+    create :intake,
+           state: state,
+           interview_timing_preference: interview_timing_preference,
+           final_info: final_info,
+           needs_help_2019: "yes",
+           needs_help_2018: "no",
+           needs_help_2017: "yes"
+  end
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
   let(:sms_opt_in) { "yes" }
@@ -168,6 +176,7 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
             EitcZendeskInstance::STATE => "co",
+            EitcZendeskInstance::FILING_YEARS => ["2019", "2017"]
           }
         )
       end
@@ -189,6 +198,7 @@ describe ZendeskIntakeService do
             UwtsaZendeskInstance::INTAKE_SITE => "online_intake",
             UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
             UwtsaZendeskInstance::STATE => "az",
+            UwtsaZendeskInstance::FILING_YEARS => ["2019", "2017"]
           }
         )
       end
