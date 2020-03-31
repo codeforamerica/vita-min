@@ -458,6 +458,10 @@ describe Intake do
         had_wages: "yes",
         state: "ca",
         zip_code: "94609",
+        needs_help_2019: "yes",
+        needs_help_2018: "no",
+        needs_help_2017: "yes",
+        needs_help_2016: "unfilled",
       )
     end
     let!(:primary_user) { create :user, intake: intake, birth_date: "1993-03-12" }
@@ -482,7 +486,28 @@ describe Intake do
         had_earned_income: "yes",
         state: "ca",
         zip_code: "94609",
+        needs_help_2019: "yes",
+        needs_help_2018: "no",
+        needs_help_2017: "yes",
+        needs_help_2016: "unfilled",
+        needs_help_backtaxes: "yes",
       })
+    end
+
+    context "with no backtax help needed" do
+      let(:intake) do
+        build(
+          :intake,
+          needs_help_2019: "yes",
+          needs_help_2018: "no",
+          needs_help_2017: "no",
+          needs_help_2016: "no"
+        )
+      end
+
+      it "sends needs_help_backtaxes = no" do
+        expect(intake.mixpanel_data).to include(needs_help_backtaxes: "no")
+      end
     end
   end
 

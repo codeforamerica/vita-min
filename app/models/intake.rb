@@ -302,6 +302,11 @@ class Intake < ApplicationRecord
       had_earned_income: had_earned_income ? "yes" : "no",
       state: state,
       zip_code: zip_code,
+      needs_help_2019: needs_help_2019,
+      needs_help_2018: needs_help_2018,
+      needs_help_2017: needs_help_2017,
+      needs_help_2016: needs_help_2016,
+      needs_help_backtaxes: (needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?) ? "yes" : "no",
     }
   end
 
