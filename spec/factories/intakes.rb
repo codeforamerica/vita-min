@@ -65,6 +65,10 @@
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
 #  married                                              :integer          default("unfilled"), not null
 #  multiple_states                                      :integer          default("unfilled"), not null
+#  needs_help_2016                                      :integer          default("unfilled"), not null
+#  needs_help_2017                                      :integer          default("unfilled"), not null
+#  needs_help_2018                                      :integer          default("unfilled"), not null
+#  needs_help_2019                                      :integer          default("unfilled"), not null
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default("unfilled"), not null

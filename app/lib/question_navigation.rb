@@ -2,6 +2,8 @@ class QuestionNavigation
   FLOW = [
     # Feelings
     Questions::FeelingsController,
+    Questions::BacktaxesController,
+    Questions::StartWithCurrentYearController,
     Questions::ChatWithUsController,
 
     # VITA eligibility checks
