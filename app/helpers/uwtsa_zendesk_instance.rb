@@ -10,7 +10,7 @@ class UwtsaZendeskInstance
   HSA = "360034012514"
   LINKED_TICKET = "360035942494"
   NEEDS_RESPONSE = "360035847233"
-  FILING_YEARS = "360037476894®"
+  FILING_YEARS = "360037476894"
 
   # Digital Intake Status value tags
   INTAKE_STATUS_IN_PROGRESS = "1._new_online_submission"
