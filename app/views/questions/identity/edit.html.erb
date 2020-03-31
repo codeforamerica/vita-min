@@ -2,7 +2,7 @@
 <% content_for :page_title, @main_heading %>
 
 <% content_for :main do %>
-  <section class="slab slab--white">
+  <section class="slab slab--white steps--wrapper">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <main role="main">
@@ -11,28 +11,48 @@
               <%= @main_heading %>
             </h1>
 
-            <div class="question__illustration">
-              <%= image_tag("questions/#{illustration_path}", alt: "") %>
+            <div class="step">
+              <div class="step-icon-wrapper--large">
+                <%= image_tag("id-card.svg", alt: "") %>
+              </div>
+              <div class="step-text">
+                <p>
+                  We are partnering with <a class="inherit-color" href="https://www.id.me/individuals/government" target="_blank">ID.me</a> to protect your identity and ensure that your personal information is accurate and secure.
+                </p>
+              </div>
             </div>
 
-            <p>
-              We are partnering with ID.me to protect your identity and ensure that your personal information is accurate and secure.
-            </p>
+            <div class="step">
+              <div class="step-icon-wrapper--large">
+                <%= image_tag("identity-check.svg", alt: "") %>
+              </div>
+              <div class="step-text">
+                <p>
+                  You will need to upload your ID and take a selfie, so we can be sure it's you! It usually takes about 5 minutes to complete.
+                </p>
+              </div>
+            </div>
 
-            <p>
-              You will need to upload your ID and take a selfie, so we can be sure it’s you! It usually takes about 5 minutes to complete.
-            </p>
-
-            <p>
-              If you have any trouble please e-mail <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a>. We’re here to help!
-            </p>
+            <div class="step">
+              <div class="step-icon-wrapper--large">
+                <%= image_tag("chat-bubble.svg", alt: "") %>
+              </div>
+              <div class="step-text text--bold">
+                <p>
+                  If you have any trouble please chat with us or e-mail <a class="inherit-color" href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a>.
+                </p>
+                <p>
+                  We’re here to help!
+                </p>
+              </div>
+            </div>
 
             <%= link_to user_idme_omniauth_authorize_path(after_login: params[:after_login]), class: "button button--primary button--wide text--centered", method: :post do %>
               Sign in with <span class="sr-only">ID.me</span> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
             <% end %>
 
             <p>
-              <a href="https://www.id.me/individuals/government" target="_blank">
+              <a class="inherit-color" href="https://www.id.me/individuals/government" target="_blank">
                 For more information, please visit ID.me.
               </a>
             </p>
