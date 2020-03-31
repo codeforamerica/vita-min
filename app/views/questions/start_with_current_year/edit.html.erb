@@ -1,0 +1,21 @@
+<% content_for :page_title, "Let's get started" %>
+
+<% content_for :form_card do %>
+  <div class="form-card">
+    <h1 class="form-question">
+      <%= content_for(:page_title) %>
+    </h1>
+
+    <p>
+      We’ll start by asking about your situation in 2019.
+    </p>
+
+    <p class="spacing-below-35">
+      This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
+    </p>
+
+    <%= link_to next_path, class: "button button--primary text--centered" do %>
+      Continue
+    <% end %>
+  </div>
+<% end %>

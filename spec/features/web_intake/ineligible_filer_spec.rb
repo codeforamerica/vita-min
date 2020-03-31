@@ -7,6 +7,13 @@ RSpec.feature "client is not eligible for VITA services" do
     choose "Happy face"
     click_on "Start my taxes online"
 
+    expect(page).to have_selector("h1", text: "What years do you need to file for?")
+    check "2017"
+    check "2019"
+    click_on "Continue"
+    expect(page).to have_selector("h1", text: "Let's get started")
+    click_on "Continue"
+
     expect(page).to have_selector("h1", text: "Our team is here to help!")
     click_on "Continue"
 
