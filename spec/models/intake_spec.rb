@@ -485,4 +485,30 @@ describe Intake do
       })
     end
   end
+
+  describe "#filing_years" do
+    let(:intake) { create :intake, **filing_years }
+    let(:filing_years) { {} }
+
+    context "with unfilled filing years" do
+      it "returns nil" do
+        expect(intake.filing_years).to eq([])
+      end
+    end
+
+    context "with a couple filing years selected" do
+      let(:filing_years) do
+        {
+          needs_help_2019: "yes",
+          needs_help_2018: "no",
+          needs_help_2017: "yes",
+          needs_help_2016: "unfilled",
+        }
+      end
+
+      it "returns them as an array" do
+        expect(intake.filing_years).to eq(["2019", "2017"])
+      end
+    end
+  end
 end
