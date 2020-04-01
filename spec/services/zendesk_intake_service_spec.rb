@@ -335,6 +335,20 @@ describe ZendeskIntakeService do
       end
     end
 
+    context "with South Carolina" do
+      let(:state) { "sc" }
+      it "assigns to Impact America - South Carolina" do
+        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_SC
+      end
+    end
+
+    context "with Tennessee" do
+      let(:state) { "tn" }
+      it "assigns to Impact America - Alabama" do
+        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
+      end
+    end
+
     context "with any other state" do
       let(:state) { "ny" }
       it "assigns to the UW Tucson intake" do

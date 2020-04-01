@@ -68,6 +68,10 @@ class ZendeskIntakeService
       EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
     elsif @intake.state == "pa"
       EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+    elsif @intake.state == "sc"
+      EitcZendeskInstance::ONLINE_INTAKE_IA_SC
+    elsif @intake.state == "tn"
+      EitcZendeskInstance::ONLINE_INTAKE_IA_AL
     elsif ONLINE_INTAKE_THC_UWBA_STATES.include? @intake.state
       EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
     elsif ONLINE_INTAKE_GWISR_STATES.include? @intake.state
