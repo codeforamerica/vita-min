@@ -63,6 +63,21 @@ class ZendeskIntakeService
     )
   end
 
+  # TODO: remove this after we backfill filing years
+  def update_filing_years
+    ticket = get_ticket(ticket_id: @intake.intake_ticket_id)
+    return unless ticket
+
+    if instance_eitc?
+      existing_value = ticket.fields.find { |field| field["id"].to_s == EitcZendeskInstance::FILING_YEARS }.value
+      ticket.fields = { EitcZendeskInstance::FILING_YEARS => ["2019"] } if existing_value.nil?
+    else
+      existing_value = ticket.fields.find { |field| field["id"].to_s == UwtsaZendeskInstance::FILING_YEARS }.value
+      ticket.fields = { UwtsaZendeskInstance::FILING_YEARS => ["2019"] } if existing_value.nil?
+    end
+    ticket.save
+  end
+
   def new_ticket_group_id
     if @intake.state == "wa"
       EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
