@@ -1,6 +1,5 @@
 class ZendeskDropOffService
   include ZendeskServiceHelper
-  include ActiveStorage::Downloading
 
   # Group IDs
   ORGANIZATION_GROUP_IDS = {
@@ -63,7 +62,7 @@ class ZendeskDropOffService
   private
 
   def attach_file_and_save_ticket(ticket)
-    download_blob_to_tempfile do |file|
+    blob.open(tmpdir: Dir.tmpdir) do |file|
       ticket.comment.uploads << {file: file, filename: file_upload_name}
       success = ticket.save
 
