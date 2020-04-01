@@ -23,6 +23,7 @@ class EitcZendeskInstance
   LINKED_TICKET = "360033135434"
   NEEDS_RESPONSE = "360035388874"
   FILING_YEARS = "360037221113"
+  COMMUNICATION_PREFERENCES = "360037409074"
 
   # Digital Intake Status value tags
   INTAKE_STATUS_IN_PROGRESS = "1._new_online_submission"

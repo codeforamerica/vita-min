@@ -176,7 +176,8 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
             EitcZendeskInstance::STATE => "co",
-            EitcZendeskInstance::FILING_YEARS => ["2019", "2017"]
+            EitcZendeskInstance::FILING_YEARS => ["2019", "2017"],
+            EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
           }
         )
       end
@@ -198,9 +199,22 @@ describe ZendeskIntakeService do
             UwtsaZendeskInstance::INTAKE_SITE => "online_intake",
             UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
             UwtsaZendeskInstance::STATE => "az",
-            UwtsaZendeskInstance::FILING_YEARS => ["2019", "2017"]
+            UwtsaZendeskInstance::FILING_YEARS => ["2019", "2017"],
+            UwtsaZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"]
           }
         )
+      end
+    end
+
+    context "when the user opts out of sms notifications" do
+      let(:sms_opt_in) { "no" }
+      let(:email_opt_in) { "no" }
+
+      it "does not send the 'sms_opt_in'" do
+        result = service.create_intake_ticket
+        expect(service)
+          .to have_received(:create_ticket)
+          .with(include(fields: include(EitcZendeskInstance::COMMUNICATION_PREFERENCES => [])))
       end
     end
 
