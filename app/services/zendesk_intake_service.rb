@@ -93,12 +93,18 @@ class ZendeskIntakeService
   end
 
   def new_ticket_fields
+    notification_opt_ins = [
+      ("sms_opt_in" if @intake.primary_user.sms_notification_opt_in_yes?),
+      ("email_opt_in" if @intake.primary_user.email_notification_opt_in_yes?),
+    ].compact
+
     if instance_eitc?
       {
         EitcZendeskInstance::INTAKE_SITE => "online_intake",
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
         EitcZendeskInstance::STATE => @intake.state,
         EitcZendeskInstance::FILING_YEARS => @intake.filing_years,
+        EitcZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
       }
     else
       {
@@ -106,6 +112,7 @@ class ZendeskIntakeService
         UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
         UwtsaZendeskInstance::STATE => @intake.state,
         UwtsaZendeskInstance::FILING_YEARS => @intake.filing_years,
+        UwtsaZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
       }
     end
   end
