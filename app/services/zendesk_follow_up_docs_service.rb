@@ -1,6 +1,5 @@
 class ZendeskFollowUpDocsService
   include ZendeskServiceHelper
-  include ActiveStorage::Downloading
 
   def initialize(intake)
     @intake = intake
@@ -12,10 +11,9 @@ class ZendeskFollowUpDocsService
     new_requested_docs = @intake.documents.where(document_type: "Requested", zendesk_ticket_id: nil)
     file_list = new_requested_docs.map do |document|
       @document_blob = document.upload
-      tmpfile = Tempfile.open(["ZendeskFollowUpDocsService", blob.filename.extension_with_delimiter], Dir.tmpdir)
-      download_blob_to(tmpfile)
-
-      { file: tmpfile, filename: document.upload.filename.to_s }
+      blob.open(tmpdir: Dir.tmpdir) do |file|
+        {file: file, filename: document.upload.filename.to_s}
+      end
     end
 
     output = append_multiple_files_to_ticket(

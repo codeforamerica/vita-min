@@ -1,6 +1,5 @@
 class ZendeskIntakeService
   include ZendeskServiceHelper
-  include ActiveStorage::Downloading
   include Rails.application.routes.url_helpers
 
   ONLINE_INTAKE_THC_STATES = %w(co sd tx wy ks nm ne).freeze
@@ -274,10 +273,9 @@ class ZendeskIntakeService
   def send_all_docs
     file_list = @intake.documents.map do |document|
       @document_blob = document.upload
-      tmpfile = Tempfile.open(["ZendeskIntakeService", blob.filename.extension_with_delimiter], Dir.tmpdir)
-      download_blob_to(tmpfile)
-
-      { file: tmpfile, filename: document.upload.filename.to_s }
+      blob.open(tmpdir: Dir.tmpdir) do |file|
+        {file: file, filename: document.upload.filename.to_s}
+      end
     end
 
     output = append_multiple_files_to_ticket(
