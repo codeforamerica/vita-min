@@ -86,6 +86,33 @@ class ZendeskIntakeService
   end
 
   def new_ticket_group_id
+    if @intake.source.present?
+      group_by_source
+    else
+      group_by_state
+    end
+  end
+
+  def group_by_source
+    source = @intake.source.downcase
+    if source.start_with?("uwkc")
+      EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+    elsif source.start_with?("uwvp")
+      EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
+    elsif source.start_with?("cwf")
+      EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+    elsif source.start_with?("ia")
+      EitcZendeskInstance::ONLINE_INTAKE_IA_AL
+    elsif source.start_with?("goodwillsr")
+      EitcZendeskInstance::ONLINE_INTAKE_GWISR
+    elsif source.start_with?("fc")
+      EitcZendeskInstance::ONLINE_INTAKE_FC
+    elsif source.start_with?("uwco")
+      EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
+    end
+  end
+
+  def group_by_state
     if @intake.state == "wa"
       EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
     elsif @intake.state == "pa"
