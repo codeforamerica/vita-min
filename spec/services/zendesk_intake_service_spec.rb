@@ -9,9 +9,11 @@ describe ZendeskIntakeService do
   let(:state) { "ne" }
   let(:interview_timing_preference) { "" }
   let(:final_info) { "" }
+  let(:source) { nil }
   let(:intake) do
     create :intake,
            state: state,
+           source: source,
            interview_timing_preference: interview_timing_preference,
            final_info: final_info,
            needs_help_2019: "yes",
@@ -307,6 +309,73 @@ describe ZendeskIntakeService do
   end
 
   describe "#new_ticket_group_id" do
+    context "when there is a source parameter" do
+      context "when there is also a state" do
+        let(:source) { "uwkc" }
+        let(:state) { "ak" }
+
+        it "prioritizes source" do
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+        end
+      end
+
+      context "source starts with UW King County" do
+        let(:source) { "uwkc-something" }
+        it "assigns to the UWKC group" do
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+        end
+      end
+
+      context "source is UW King County" do
+        let(:source) { "uwkc" }
+        it "assigns to the UWKC group" do
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+        end
+      end
+
+      context "source is UW Virginia and Petersburg" do
+        let(:source) { "uwvp" }
+        it "assigns to the UWKC group" do
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
+        end
+      end
+
+      context "source is Campaign for Working Families" do
+        let(:source) { "cwf" }
+        it "assigns to the CWF group" do
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+        end
+      end
+
+      context "source is Impact America" do
+        let(:source) { "IA" }
+        it "assigns to the IA group" do
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
+        end
+      end
+
+      context "source is Goodwil SR" do
+        let(:source) { "goodwillsr" }
+        it "assigns to the Goodwill SR group" do
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
+        end
+      end
+
+      context "source is Foundation Communities" do
+        let(:source) { "FC" }
+        it "assigns to the FC group" do
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_FC
+        end
+      end
+
+      context "source is UW Central Ohio" do
+        let(:source) { "UWCO" }
+        it "assigns to the UWCO group" do
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
+        end
+      end
+    end
+
     context "with Tax Help Colorado states" do
       it "assigns to the shared Tax Help Colorado / UWBA online intake" do
         states = %w(co sd tx wy ks nm ne)
