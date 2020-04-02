@@ -53,6 +53,20 @@ describe ZendeskIntakeService do
       end
     end
 
+    context "when state is South Carolina" do
+      let(:state) { "sc" }
+      it "returns CfA instance" do
+        expect(service.instance_for_state).to eq EitcZendeskInstance
+      end
+    end
+
+    context "when state is Tennessee" do
+      let(:state) { "tn" }
+      it "returns CfA instance" do
+        expect(service.instance_for_state).to eq EitcZendeskInstance
+      end
+    end
+
     context "when state is California" do
       let(:state) { "ca" }
       it "returns CfA instance" do
