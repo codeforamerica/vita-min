@@ -69,6 +69,7 @@ class ZendeskIntakeService
 
   # TODO: remove this after we backfill filing years
   def update_filing_years
+    return unless @intake.intake_ticket_id.present?
     ticket = get_ticket(ticket_id: @intake.intake_ticket_id)
     return unless ticket
 
