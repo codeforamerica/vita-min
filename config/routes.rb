@@ -62,5 +62,6 @@ Rails.application.routes.draw do
   get "/verify-spouse/done", to: "spouse_auth_only#spouse_auth_complete"
   get "/verify-spouse/:token", to: "spouse_auth_only#show", as: :verify_spouse
 
+  post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
   post "/email", to: "email#create"
 end
