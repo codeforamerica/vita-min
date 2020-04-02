@@ -183,7 +183,7 @@ describe ZendeskIntakeService do
         expect(service).to have_received(:create_ticket).with(
           subject: "Cher Cherimoya",
           requester_id: 987,
-          group_id: EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA,
+          group_id: EitcZendeskInstance::ONLINE_INTAKE_THC,
           external_id: "intake-#{intake.id}",
           body: "Body text",
           fields: {
@@ -307,24 +307,23 @@ describe ZendeskIntakeService do
   end
 
   describe "#new_ticket_group_id" do
-    context "with a Tax Help Colorado state" do
-      let(:state) { "ne" }
+    context "with Tax Help Colorado states" do
       it "assigns to the shared Tax Help Colorado / UWBA online intake" do
-        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
+        states = %w(co sd tx wy ks nm ne)
+        states.each do |state|
+          intake.update(state: state)
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
+        end
       end
     end
 
-    context "with California" do
-      let(:state) { "ca" }
-      it "assigns to the shared Tax Help Colorado / UWBA online intake" do
-        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
-      end
-    end
-
-    context "with a fed-only state" do
-      let(:state) { "ak" }
-      it "assigns to the shared Tax Help Colorado / UWBA online intake" do
-        expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
+    context "with United Way Bay Area states" do
+      it "assigns to the Online Intake - California group" do
+        states = %w(ca ak fl nv)
+        states.each do |state|
+          intake.update(state: state)
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UWBA
+        end
       end
     end
 

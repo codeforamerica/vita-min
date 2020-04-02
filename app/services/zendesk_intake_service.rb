@@ -3,14 +3,16 @@ class ZendeskIntakeService
   include ActiveStorage::Downloading
   include Rails.application.routes.url_helpers
 
-  ONLINE_INTAKE_THC_UWBA_STATES = %w(co nm ne ks ca ak fl nv sd tx wy).freeze
+  ONLINE_INTAKE_THC_STATES = %w(co sd tx wy ks nm ne).freeze
+  ONLINE_INTAKE_UWBA_STATES = %w(ca ak fl nv).freeze
   ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
   ONLINE_INTAKE_UW_KING_COUNTY_STATES = %w(wa).freeze
   ONLINE_INTAKE_WORKING_FAMILIES_STATES = %w(pa).freeze
   ONLINE_INTAKE_IA_SC_STATES = %w(sc).freeze
   ONLINE_INTAKE_IA_AL_STATES = %w(tn).freeze
   EITC_INSTANCE_STATES = (
-    ONLINE_INTAKE_THC_UWBA_STATES +
+    ONLINE_INTAKE_THC_STATES +
+      ONLINE_INTAKE_UWBA_STATES +
       ONLINE_INTAKE_GWISR_STATES +
       ONLINE_INTAKE_UW_KING_COUNTY_STATES +
       ONLINE_INTAKE_WORKING_FAMILIES_STATES +
@@ -92,8 +94,10 @@ class ZendeskIntakeService
       EitcZendeskInstance::ONLINE_INTAKE_IA_SC
     elsif @intake.state == "tn"
       EitcZendeskInstance::ONLINE_INTAKE_IA_AL
-    elsif ONLINE_INTAKE_THC_UWBA_STATES.include? @intake.state
-      EitcZendeskInstance::ONLINE_INTAKE_THC_UWBA
+    elsif ONLINE_INTAKE_THC_STATES.include? @intake.state
+      EitcZendeskInstance::ONLINE_INTAKE_THC
+    elsif ONLINE_INTAKE_UWBA_STATES.include? @intake.state
+      EitcZendeskInstance::ONLINE_INTAKE_UWBA
     elsif ONLINE_INTAKE_GWISR_STATES.include? @intake.state
       EitcZendeskInstance::ONLINE_INTAKE_GWISR
     else
