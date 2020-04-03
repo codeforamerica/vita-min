@@ -11,7 +11,7 @@ RSpec.describe IntakePdf do
 
       it "returns a pdf with default fields and values" do
         output_file = intake_pdf.output_file
-        result = filled_in_values(output_file.path)
+        result = non_preparer_fields(output_file.path)
         expect(result).to eq({
           "first_name" => nil,
           "middle_initial" => nil,
@@ -352,7 +352,7 @@ RSpec.describe IntakePdf do
 
       it "returns a filled out pdf" do
         output_file = intake_pdf.output_file
-        result = filled_in_values(output_file.path)
+        result = non_preparer_fields(output_file.path)
         expect(result).to eq({
           "first_name" => "Hoofie",
           "middle_initial" => nil,
