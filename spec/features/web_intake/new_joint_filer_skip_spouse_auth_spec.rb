@@ -81,6 +81,9 @@ RSpec.feature "Web Intake Joint Filer without spouse present" do
     before do
       create :intake, spouse_auth_token: "t0k3n"
       OmniAuth.config.mock_auth[:idme] = spouse_auth_hash
+      allow_any_instance_of(Users::SessionsController).to receive(:idme_logout).and_return(
+        user_idme_omniauth_callback_path(spouse: "true")
+      )
     end
 
     scenario "spouse authenticates later" do

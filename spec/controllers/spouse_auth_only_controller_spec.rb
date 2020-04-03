@@ -27,10 +27,10 @@ RSpec.describe SpouseAuthOnlyController, type: :controller do
         expect(session[:authenticate_spouse_only]).to eq true
       end
 
-      it "displays a link to authorize path with spouse param" do
+      it "displays a link to ID.me logout path" do
         get :show, params: { token: token }
 
-        expect(response.body).to include(user_idme_omniauth_authorize_path(spouse: "true"))
+        expect(response.body).to include(destroy_idme_session_path)
       end
     end
   end
