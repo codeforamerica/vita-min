@@ -3,6 +3,7 @@ module Documents
     layout "document_upload"
 
     delegate :document_type, to: :class
+    helper_method :document_type
 
     def section_title
       "Documents"
