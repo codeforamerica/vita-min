@@ -1,5 +1,6 @@
 class ZendeskIntakeService
   include ZendeskServiceHelper
+  include AttachmentsHelper
   include Rails.application.routes.url_helpers
 
   ONLINE_INTAKE_THC_STATES = %w(co sd tx wy ks nm ne).freeze
@@ -271,23 +272,17 @@ class ZendeskIntakeService
   end
 
   def send_all_docs
-    file_list = @intake.documents.map do |document|
-      @document_blob = document.upload
-      blob.open(tmpdir: Dir.tmpdir) do |file|
-        {file: file, filename: document.upload.filename.to_s}
-      end
+    download_attachments_to_tmp(@intake.documents) do |file_list|
+
+      output = append_multiple_files_to_ticket(
+        ticket_id: @intake.intake_ticket_id,
+        file_list: file_list,
+        comment: "Documents:\n" + @intake.documents.map {|d| "* #{d.upload.filename} (#{d.document_type})\n"}.join,
+      )
+
+      raise CouldNotSendDocumentError unless output
+      output
     end
-
-    output = append_multiple_files_to_ticket(
-      ticket_id: @intake.intake_ticket_id,
-      file_list: file_list,
-      comment: "Documents:\n" + @intake.documents.map { |d| "* #{d.upload.filename} (#{d.document_type})\n" }.join,
-    )
-
-    raise CouldNotSendDocumentError unless output
-    output
-  ensure
-    file_list.each { |entry| entry[:file].close! }
   end
 
   def send_additional_info_document
@@ -336,10 +331,6 @@ class ZendeskIntakeService
     "#{"Final_" if final}#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_13614c.pdf"
   end
 
-  def blob
-    @document_blob
-  end
-
   def no_notifications
     "Did not want email or text message notifications.\n"
   end
@@ -380,9 +371,14 @@ class ZendeskIntakeService
     FOOTER
   end
 
-  class CouldNotSendIntakePdfError < ZendeskServiceError; end
-  class CouldNotSendCompletedIntakePdfError < ZendeskServiceError; end
-  class CouldNotSendConsentPdfError < ZendeskServiceError; end
-  class CouldNotSendDocumentError < ZendeskServiceError; end
-  class CouldNotSendAdditionalInfoDocError < ZendeskServiceError; end
+  class CouldNotSendIntakePdfError < ZendeskServiceError;
+  end
+  class CouldNotSendCompletedIntakePdfError < ZendeskServiceError;
+  end
+  class CouldNotSendConsentPdfError < ZendeskServiceError;
+  end
+  class CouldNotSendDocumentError < ZendeskServiceError;
+  end
+  class CouldNotSendAdditionalInfoDocError < ZendeskServiceError;
+  end
 end
