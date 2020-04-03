@@ -5,17 +5,18 @@ class EmailController < ApplicationController
   ZENDESK_SMS_REGEX = /〒\nphone: \+(?<phone_number>[0-9]{11})\nticket_id: (?<ticket_id>[0-9]*)\nbody: (?<body>.+)\n〶/m
 
   def create
-    raise StandardError unless sent_to_known_email_hook?
+    unless sent_to_known_email_hook?
+      raise StandardError.new("Email webhook received invalid email to #{params[:to]}")
+    end
 
-    body = params[:text]
-    match = body.match(ZENDESK_SMS_REGEX)
+    unless valid_update_from_user? || from_agent_replying_to_thread?
+      raise StandardError.new("Email webhook got an unexpected message (#{params[:subject]}) from: #{params[:from]}")
+    end
 
-    raise "Could not parse incoming message (#{params[:subject]}) from: #{params[:from]}" unless match
-
-    if from_known_text_trigger?
-      @zendesk_ticket_id = match["ticket_id"].to_i
-      @phone_number = match["phone_number"]
-      @message_body = match["body"]
+    if valid_update_from_user?
+      @zendesk_ticket_id = regex_match["ticket_id"].to_i
+      @phone_number = regex_match["phone_number"]
+      @message_body = regex_match["body"]
 
       ZendeskInboundSmsJob.perform_later(
         sms_ticket_id: @zendesk_ticket_id,
@@ -29,6 +30,14 @@ class EmailController < ApplicationController
 
   private
 
+  def regex_match
+    params[:text].match(ZENDESK_SMS_REGEX)
+  end
+
+  def valid_update_from_user?
+    from_known_text_trigger? && regex_match
+  end
+
   def sent_to_known_email_hook?
     to_emails = [
       "zendesk-sms@hooks.vitataxhelp.org",
@@ -38,14 +47,21 @@ class EmailController < ApplicationController
     to_emails.map { |email| to_param.include? email }.any?
   end
 
-  def from_known_text_trigger?
+  def from_valid_sender?
     from_param = params[:from]
     valid_from_emails = [
       "support@eitc.zendesk.com",
       "support@unitedwaytucson.zendesk.com",
     ]
-    from_valid_sender = valid_from_emails.map { |email| from_param.include? email }.any?
+    valid_from_emails.map { |email| from_param.include? email }.any?
+  end
+
+  def from_known_text_trigger?
     from_text_user = params[:from].include? "Text user: +"
-    from_valid_sender && from_text_user
+    from_valid_sender? && from_text_user
+  end
+
+  def from_agent_replying_to_thread?
+    from_valid_sender? && params[:subject].include?("Update to SMS Ticket")
   end
 end

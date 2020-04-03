@@ -115,11 +115,24 @@ RSpec.describe EmailController, type: :controller do
         end
       end
 
+      context "when it's an agent replying to a client in the SMS thread" do
+        let(:subject) { "Update to SMS Ticket - 4324" }
+        let(:text) { "We received your documents, thank you!" }
+
+        it "returns ok" do
+          post :create, params: params
+
+          expect(response).to be_ok
+        end
+      end
+
       context "when it's from any other type of sender", active_job: true do
         let(:from) { "Another Person not a client" }
 
         it "does nothing" do
-          post :create, params: params
+          expect do
+            post :create, params: params
+          end.to raise_error(StandardError)
 
           expect(ZendeskInboundSmsJob).not_to have_been_enqueued
         end
