@@ -34,7 +34,7 @@ RSpec.describe Questions::MailingAddressController do
 
     context "when the intake has mailing address" do
       before do
-        intake.update_attributes(
+        intake.update(
           street_address: "789 Dogbert Court",
           city: "Canineville",
           state: "CA",
