@@ -14,7 +14,7 @@ var ajaxMixpanelEvents = (function () {
         var attributePrefix = "trackAttribute";
         if (key.indexOf(attributePrefix) === 0) {
           var propertyKey = key.substring(attributePrefix.length).toLowerCase();
-          eventData.append(`event[${propertyKey}]`, value);
+          eventData.append("event["+propertyKey+"]", value);
         }
       });
 
