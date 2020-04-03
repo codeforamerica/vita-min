@@ -310,68 +310,42 @@ describe ZendeskIntakeService do
 
   describe "#new_ticket_group_id" do
     context "when there is a source parameter" do
-      context "when there is also a state" do
-        let(:source) { "uwkc" }
-        let(:state) { "ak" }
+      before do
+        stub_const("ZendeskIntakeService::ORGANIZATION_SOURCE_PARAMETERS", {
+          uwkc: EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY,
+          uwvp: EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA,
+        })
+      end
 
-        it "prioritizes source" do
-          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+      context "when there is a source parameter that does not match an organization" do
+        let(:source) { "propel" }
+
+        it "uses the state to route" do
+          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
         end
       end
 
-      context "source starts with UW King County" do
+      context "when source param starts with a organization's source parameter" do
         let(:source) { "uwkc-something" }
-        it "assigns to the UWKC group" do
+
+        it "matches the correct group id" do
           expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
         end
       end
 
-      context "source is UW King County" do
+      context "source matches a key in the source param hash" do
         let(:source) { "uwkc" }
+
         it "assigns to the UWKC group" do
           expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
         end
       end
 
-      context "source is UW Virginia and Petersburg" do
-        let(:source) { "uwvp" }
-        it "assigns to the UWKC group" do
+      context "source matches a key but is weirdly cased" do
+        let(:source) { "UwVp" }
+
+        it "assigns to the UWVP group" do
           expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
-        end
-      end
-
-      context "source is Campaign for Working Families" do
-        let(:source) { "cwf" }
-        it "assigns to the CWF group" do
-          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
-        end
-      end
-
-      context "source is Impact America" do
-        let(:source) { "IA" }
-        it "assigns to the IA group" do
-          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
-        end
-      end
-
-      context "source is Goodwil SR" do
-        let(:source) { "goodwillsr" }
-        it "assigns to the Goodwill SR group" do
-          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
-        end
-      end
-
-      context "source is Foundation Communities" do
-        let(:source) { "FC" }
-        it "assigns to the FC group" do
-          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_FC
-        end
-      end
-
-      context "source is UW Central Ohio" do
-        let(:source) { "UWCO" }
-        it "assigns to the UWCO group" do
-          expect(service.new_ticket_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
         end
       end
     end

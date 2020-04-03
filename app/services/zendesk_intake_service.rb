@@ -20,6 +20,16 @@ class ZendeskIntakeService
       ONLINE_INTAKE_IA_AL_STATES
   ).freeze
 
+  ORGANIZATION_SOURCE_PARAMETERS = {
+    uwkc: EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY,
+    uwvp: EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA,
+    cwf: EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES,
+    ia: EitcZendeskInstance::ONLINE_INTAKE_IA_AL,
+    goodwillsr: EitcZendeskInstance::ONLINE_INTAKE_GWISR,
+    fc: EitcZendeskInstance::ONLINE_INTAKE_FC,
+    uwco: EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO,
+  }.freeze
+
   def initialize(intake)
     @intake = intake
   end
@@ -86,7 +96,7 @@ class ZendeskIntakeService
   end
 
   def new_ticket_group_id
-    if @intake.source.present?
+    if @intake.source.present? && group_by_source.present?
       group_by_source
     else
       group_by_state
@@ -95,21 +105,12 @@ class ZendeskIntakeService
 
   def group_by_source
     source = @intake.source.downcase
-    if source.start_with?("uwkc")
-      EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-    elsif source.start_with?("uwvp")
-      EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
-    elsif source.start_with?("cwf")
-      EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
-    elsif source.start_with?("ia")
-      EitcZendeskInstance::ONLINE_INTAKE_IA_AL
-    elsif source.start_with?("goodwillsr")
-      EitcZendeskInstance::ONLINE_INTAKE_GWISR
-    elsif source.start_with?("fc")
-      EitcZendeskInstance::ONLINE_INTAKE_FC
-    elsif source.start_with?("uwco")
-      EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
+    ORGANIZATION_SOURCE_PARAMETERS.each do |key, value|
+      if source.starts_with?(key.to_s)
+        return value
+      end
     end
+    nil
   end
 
   def group_by_state
