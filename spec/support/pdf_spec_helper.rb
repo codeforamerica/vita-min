@@ -6,4 +6,10 @@ module PdfSpecHelper
       hash[field.name] = field.value
     end
   end
+
+  def non_preparer_fields(filepath)
+    filled_in_values(filepath).select do |key, value|
+      key.exclude?("intake_specialist_")
+    end
+  end
 end
