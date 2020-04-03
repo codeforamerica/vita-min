@@ -26,7 +26,11 @@
       If you have any trouble please e-mail <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a>. We’re here to help!
     </p>
 
-    <%= link_to user_idme_omniauth_authorize_path(spouse: "true"), class: "button button--primary button--wide text--centered", method: :post do %>
+    <%#
+      Log out the current user from ID.me, in case they are accidentally
+      signed in as the primary user (i.e. on a shared computer)
+    %>
+    <%= link_to destroy_idme_session_path, class: "button button--primary button--wide text--centered", method: :delete do %>
       Sign in with
       <span class="sr-only">ID.me</span> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
     <% end %>
