@@ -272,7 +272,7 @@ class ZendeskIntakeService
   end
 
   def send_all_docs
-    download_attachments_to_tmp(@intake.documents) do |file_list|
+    download_attachments_to_tmp(@intake.documents.map(&:upload)) do |file_list|
 
       output = append_multiple_files_to_ticket(
         ticket_id: @intake.intake_ticket_id,

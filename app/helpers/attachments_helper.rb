@@ -1,12 +1,13 @@
 module AttachmentsHelper
-  def download_attachments_to_tmp(documents, file_list: [], &block)
-    if documents.blank?
+  # @param [Array<ActiveStorage::Attached>] attachments Array of attachment objects, e.g. @intake.documents.map(&:upload)
+  def download_attachments_to_tmp(attachments, file_list: [], &block)
+    if attachments.blank?
       yield file_list
     else
-      documents.first.upload.open(tmpdir: Dir.tmpdir) do |f|
+      attachments.first.open(tmpdir: Dir.tmpdir) do |f|
         download_attachments_to_tmp(
-          documents[1..-1],
-          file_list: file_list.push({file: f, filename: documents.first.upload.filename.to_s}),
+          attachments[1..-1],
+          file_list: file_list.push({ file: f, filename: attachments.first.filename.to_s }),
           &block
         )
       end
