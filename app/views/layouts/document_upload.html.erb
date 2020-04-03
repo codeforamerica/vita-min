@@ -68,6 +68,10 @@
             <%= image_tag "checkmark--white.svg", alt: "" %>
             I'm done for now
           <% end %>
+          <%= link_to next_path, class: "button button--wide button--icon" do %>
+            <i class="button__icon icon-close"></i>
+            I don't have this document
+          <% end %>
         </main>
       </div>
     </div>

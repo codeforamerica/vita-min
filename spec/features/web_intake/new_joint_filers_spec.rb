@@ -350,19 +350,19 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "I'm done for now"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-SA's")
-    click_on "I'm done for now"
+    click_on "I don't have this document"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-G's")
-    click_on "I'm done for now"
+    click_on "I don't have this document"
 
     expect(page).to have_selector("h1", text: "Attach your 5498-SA's")
-    click_on "I'm done for now"
+    click_on "I don't have this document"
 
     expect(page).to have_selector("h1", text: "Attach your IRA Statements")
-    click_on "I'm done for now"
+    click_on "I don't have this document"
 
     expect(page).to have_selector("h1", text: "Attach your Property Tax Statements")
-    click_on "I'm done for now"
+    click_on "I don't have this document"
 
     expect(page).to have_selector("h1", text: "Attach your RRB-1099's")
     click_on "I'm done for now"
