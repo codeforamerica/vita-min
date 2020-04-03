@@ -10,7 +10,7 @@ class EmailController < ApplicationController
     body = params[:text]
     match = body.match(ZENDESK_SMS_REGEX)
 
-    raise "Could not parse Zendesk SMS Message" unless match
+    raise "Could not parse incoming message (#{params[:subject]}) from: #{params[:from]}" unless match
 
     if from_known_text_trigger?
       @zendesk_ticket_id = match["ticket_id"].to_i
