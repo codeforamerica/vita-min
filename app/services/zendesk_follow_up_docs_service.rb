@@ -10,7 +10,7 @@ class ZendeskFollowUpDocsService
     return if @intake.documents.none?
 
     new_requested_docs = @intake.documents.where(document_type: "Requested", zendesk_ticket_id: nil)
-    download_attachments_to_tmp(new_requested_docs) do |file_list|
+    download_attachments_to_tmp(new_requested_docs.map(&:upload)) do |file_list|
 
       output = append_multiple_files_to_ticket(
         ticket_id: @intake.intake_ticket_id,
