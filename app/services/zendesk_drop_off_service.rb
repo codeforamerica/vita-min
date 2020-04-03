@@ -62,7 +62,7 @@ class ZendeskDropOffService
   private
 
   def attach_file_and_save_ticket(ticket)
-    blob.open(tmpdir: Dir.tmpdir) do |file|
+    @drop_off.document_bundle.blob.open(tmpdir: Dir.tmpdir) do |file|
       ticket.comment.uploads << {file: file, filename: file_upload_name}
       success = ticket.save
 
@@ -72,10 +72,6 @@ class ZendeskDropOffService
 
       success
     end
-  end
-
-  def blob
-    @drop_off.document_bundle.blob
   end
 
   def zendesk_timezone
