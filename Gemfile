@@ -43,6 +43,7 @@ gem 'omniauth-rails_csrf_protection', '~> 0.1'
 gem 'sendgrid-ruby'
 gem 'delayed_job_active_record'
 gem 'attr_encrypted'
+gem 'lograge'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
