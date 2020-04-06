@@ -318,4 +318,12 @@ class Intake < ApplicationRecord
       ("2016" if needs_help_2016_yes?),
     ].compact
   end
+
+  def zendesk_group_id
+    ZendeskIntakeService.new(self).new_ticket_group_id
+  end
+
+  def zendesk_instance
+    ZendeskIntakeService.new(self).instance_for_state
+  end
 end

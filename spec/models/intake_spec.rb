@@ -536,4 +536,119 @@ describe Intake do
       end
     end
   end
+
+  describe "Zendesk routing" do
+    let(:source) { nil }
+    let(:intake) { build :intake, state: state, source: source }
+
+    context "when there is a source parameter" do
+      context "when there is a source parameter that does not match an organization" do
+        let(:source) { "propel" }
+        let(:state) { "ne" }
+
+        it "uses the state to route" do
+          expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
+          expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        end
+      end
+
+      context "when source param starts with a organization's source parameter" do
+        let(:source) { "uwkc-something" }
+        let(:state) { "ne" }
+
+        # TODO: try a source param that has no associated state
+
+        it "matches the correct group id" do
+          expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+          expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        end
+      end
+
+      context "source matches an organization" do
+        let(:source) { "uwkc" }
+        let(:state) { "ne" }
+
+        it "assigns to the UWKC group" do
+          expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+          expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        end
+      end
+
+      context "source matches a key but is weirdly cased" do
+        let(:source) { "UwVp" }
+        let(:state) { "ne" }
+
+        it "assigns to the UWVP group" do
+          expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
+          expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        end
+      end
+    end
+
+    context "with Tax Help Colorado state" do
+      let(:state) { "co" }
+
+      it "assigns to the shared Tax Help Colorado / UWBA online intake group" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with United Way Bay Area states" do
+      let(:state) { "ca" }
+
+      it "assigns to the Online Intake - California group" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UWBA
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with a GWISR state" do
+      let(:state) { "ga" }
+      it "assigns to the Goodwill online intake" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with Washington state" do
+      let(:state) { "wa" }
+      it "assigns to United Way King County" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with Pennsylvania" do
+      let(:state) { "pa" }
+      it "assigns to Campaign for Working Families" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with South Carolina" do
+      let(:state) { "sc" }
+      it "assigns to Impact America - South Carolina" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_SC
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with Tennessee" do
+      let(:state) { "tn" }
+      it "assigns to Impact America - Alabama" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with any other state" do
+      let(:state) { "ny" }
+      it "assigns to the UW Tucson intake" do
+        expect(intake.zendesk_group_id).to be_nil
+        expect(intake.zendesk_instance).to eq UwtsaZendeskInstance
+      end
+    end
+  end
 end
