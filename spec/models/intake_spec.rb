@@ -556,10 +556,18 @@ describe Intake do
         let(:source) { "uwkc-something" }
         let(:state) { "ne" }
 
-        # TODO: try a source param that has no associated state
-
         it "matches the correct group id" do
           expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+          expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        end
+      end
+
+      context "when source param is for an organization in an otherwise UWTSA state" do
+        let(:source) { "uwco" }
+        let(:state) { "oh" }
+
+        it "matches the correct group and the correct instance" do
+          expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
