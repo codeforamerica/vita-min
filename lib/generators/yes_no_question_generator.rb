@@ -3,7 +3,6 @@ class YesNoQuestionGenerator < Rails::Generators::NamedBase
   class_option :db_column, type: :string, default: name
   class_option :title, type: :string
   class_option :help_text, type: :string
-  class_option :section_title, type: :string
 
   def generate_yes_no_question
     generate_question_form

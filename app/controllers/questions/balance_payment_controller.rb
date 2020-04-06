@@ -4,10 +4,6 @@ module Questions
 
     private
 
-    def section_title
-      "Household Information"
-    end
-
     def illustration_path
       "banking.svg"
     end
