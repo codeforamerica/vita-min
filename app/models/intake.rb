@@ -320,10 +320,50 @@ class Intake < ApplicationRecord
   end
 
   def zendesk_group_id
-    ZendeskIntakeService.new(self).new_ticket_group_id
+    if source.present? && group_by_source.present?
+      group_by_source
+    else
+      group_by_state
+    end
   end
 
   def zendesk_instance
-    ZendeskIntakeService.new(self).instance_for_state
+    if (EitcZendeskInstance::EITC_INSTANCE_STATES.include? state) || state.nil?
+      EitcZendeskInstance
+    else
+      UwtsaZendeskInstance
+    end
+  end
+
+  private
+
+  def group_by_source
+    EitcZendeskInstance::ORGANIZATION_SOURCE_PARAMETERS.each do |key, value|
+      if source.downcase.starts_with?(key.to_s)
+        return value
+      end
+    end
+    nil
+  end
+
+  def group_by_state
+    if state == "wa"
+      EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+    elsif state == "pa"
+      EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+    elsif state == "sc"
+      EitcZendeskInstance::ONLINE_INTAKE_IA_SC
+    elsif state == "tn"
+      EitcZendeskInstance::ONLINE_INTAKE_IA_AL
+    elsif EitcZendeskInstance::ONLINE_INTAKE_THC_STATES.include? state
+      EitcZendeskInstance::ONLINE_INTAKE_THC
+    elsif EitcZendeskInstance::ONLINE_INTAKE_UWBA_STATES.include? state
+      EitcZendeskInstance::ONLINE_INTAKE_UWBA
+    elsif EitcZendeskInstance::ONLINE_INTAKE_GWISR_STATES.include? state
+      EitcZendeskInstance::ONLINE_INTAKE_GWISR
+    else
+      # we do not yet have group ids for UWTSA Zendesk instance
+      nil
+    end
   end
 end
