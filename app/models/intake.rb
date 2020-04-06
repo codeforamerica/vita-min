@@ -328,7 +328,7 @@ class Intake < ApplicationRecord
   end
 
   def zendesk_instance
-    if (EitcZendeskInstance::EITC_INSTANCE_STATES.include? state) || state.nil?
+    if state.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(zendesk_group_id)
       EitcZendeskInstance
     else
       UwtsaZendeskInstance
