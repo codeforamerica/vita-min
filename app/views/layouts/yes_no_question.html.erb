@@ -11,11 +11,6 @@
       <div class="grid__item width-three-fourths shift-one-eighth">
         <div class="form-card form-card--yes-no">
           <!--        progress bar-->
-          <h3 class="section-title">
-            <%= image_tag("#{section_title.parameterize}.svg", alt: "") %>
-            <%= section_title %>
-          </h3>
-
           <main role="main">
             <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
               <% if illustration_path.present? %>
