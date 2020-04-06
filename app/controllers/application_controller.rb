@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context
   after_action :track_page_view
   helper_method :include_google_analytics?
 
@@ -130,6 +130,11 @@ class ApplicationController < ActionController::Base
       referrer: referrer,
       ip: request.remote_ip
     }
+  end
+
+  def set_sentry_context
+    Raven.user_context id: current_user&.id, intake_id: current_intake&.id
+    Raven.extra_context visitor_id: visitor_id, is_bot: user_agent.bot?
   end
 
   private
