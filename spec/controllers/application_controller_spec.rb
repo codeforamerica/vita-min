@@ -432,4 +432,52 @@ RSpec.describe ApplicationController do
       expect(response).to redirect_to(expected_path)
     end
   end
+
+  describe "#append_info_to_payload" do
+    controller do
+      def index
+        head :ok
+      end
+    end
+
+    let(:fake_payload) { {} }
+    let(:intake) { nil }
+    let(:user) { nil }
+
+    before do
+      allow(controller).to receive(:current_intake).and_return(intake)
+      allow(controller).to receive(:current_user).and_return(user)
+    end
+
+    context "for an anonymous user" do
+      it "includes a nil user_id" do
+        controller.append_info_to_payload(fake_payload)
+        expect(fake_payload).to include(request_details: include(user_id: nil))
+      end
+
+      it "includes other tracking properties" do
+        controller.append_info_to_payload(fake_payload)
+        expect(fake_payload).to include(request_details: include(:ip, :device_type, :browser_name, :os_name, :request_id, :referrer, :visitor_id))
+      end
+    end
+
+    context "for an anonymous user with an intake" do
+      let(:intake) { create(:intake) }
+
+      it "includes a nil user_id but an intake_id" do
+        controller.append_info_to_payload(fake_payload)
+        expect(fake_payload).to include(request_details: include(user_id: nil, intake_id: intake.id))
+      end
+    end
+
+    context "for a logged in user with an intake" do
+      let(:intake) { create :intake }
+      let(:user) { create :user, intake: intake }
+
+      it "appends info to payload" do
+        controller.append_info_to_payload(fake_payload)
+        expect(fake_payload).to include(request_details: include(user_id: user.id, intake_id: intake.id))
+      end
+    end
+  end
 end

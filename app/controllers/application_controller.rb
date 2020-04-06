@@ -117,6 +117,21 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  def append_info_to_payload(payload)
+    super
+    payload[:request_details] = {
+      user_id: current_user&.id,
+      intake_id: current_intake&.id,
+      device_type: user_agent.device_type,
+      browser_name: user_agent.name,
+      os_name: user_agent.os_name,
+      request_id: request.request_id,
+      visitor_id: visitor_id,
+      referrer: referrer,
+      ip: request.remote_ip
+    }
+  end
+
   private
 
   def require_sign_in
