@@ -1,10 +1,5 @@
 class DependentsController < ApplicationController
   before_action :require_sign_in
-  helper_method :section_title
-
-  def section_title
-    "Household Information"
-  end
 
   def index
     @dependents = current_intake.dependents

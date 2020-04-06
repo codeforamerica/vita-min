@@ -10,10 +10,6 @@
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <%= yield :notices %>
-        <h3 class="section-title">
-          <%= image_tag("#{section_title.parameterize}.svg", alt: "") %>
-          <%= section_title %>
-        </h3>
         <main role="main">
           <%= form_with model: @dependent, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
             <h1 class="form-question">

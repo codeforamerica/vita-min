@@ -5,10 +5,6 @@ module Documents
     delegate :document_type, to: :class
     helper_method :document_type
 
-    def section_title
-      "Documents"
-    end
-
     def edit
       @documents = current_intake.documents.of_type(document_type)
       @form = form_class.new(document_type, current_intake, form_params)
