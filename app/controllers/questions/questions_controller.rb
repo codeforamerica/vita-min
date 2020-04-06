@@ -6,7 +6,6 @@ module Questions
     delegate :form_class, to: :class
 
     helper_method :current_path
-    helper_method :section_title
     helper_method :illustration_path
     helper_method :next_path
 
@@ -37,8 +36,6 @@ module Questions
       next_step = form_navigation.next
       question_path(next_step.to_param, params) if next_step
     end
-
-    def section_title; end
 
     def illustration_path
       controller_name.dasherize + ".svg"

@@ -6,10 +6,6 @@ module Questions
       intake.filing_joint_yes?
     end
 
-    def section_title
-      "Household Information"
-    end
-
     def illustration_path
       "on-visa.svg"
     end

@@ -2,10 +2,6 @@ module Questions
   class HadDependentsController < QuestionsController
     layout "yes_no_question"
 
-    def section_title
-      "Household Information"
-    end
-
     def next_path
       if current_intake.had_dependents_yes?
         dependents_path

@@ -10,10 +10,6 @@ module Documents
 
     private
 
-    def section_title
-      "Documents"
-    end
-
     def recommended_document_types
       document_types = DocumentNavigation.new(self).types_for_intake(current_intake)
       include_requested_documents = @documents.where(document_type: "Requested").exists?

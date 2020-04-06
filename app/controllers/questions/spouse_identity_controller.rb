@@ -8,10 +8,6 @@ module Questions
       end
     end
 
-    def section_title
-      "Household Information"
-    end
-
     def self.form_class
       NullForm
     end
