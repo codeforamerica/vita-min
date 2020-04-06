@@ -41,6 +41,33 @@ class EitcZendeskInstance
   INTAKE_STATUS_COMPLETE = "3._ready_for_prep"
   INTAKE_STATUS_NOT_FILING = "online_intake_not_filing"
 
+  ONLINE_INTAKE_THC_STATES = %w(co sd tx wy ks nm ne).freeze
+  ONLINE_INTAKE_UWBA_STATES = %w(ca ak fl nv).freeze
+  ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
+  ONLINE_INTAKE_UW_KING_COUNTY_STATES = %w(wa).freeze
+  ONLINE_INTAKE_WORKING_FAMILIES_STATES = %w(pa).freeze
+  ONLINE_INTAKE_IA_SC_STATES = %w(sc).freeze
+  ONLINE_INTAKE_IA_AL_STATES = %w(tn).freeze
+  EITC_INSTANCE_STATES = (
+  ONLINE_INTAKE_THC_STATES +
+    ONLINE_INTAKE_UWBA_STATES +
+    ONLINE_INTAKE_GWISR_STATES +
+    ONLINE_INTAKE_UW_KING_COUNTY_STATES +
+    ONLINE_INTAKE_WORKING_FAMILIES_STATES +
+    ONLINE_INTAKE_IA_SC_STATES +
+    ONLINE_INTAKE_IA_AL_STATES
+  ).freeze
+
+  ORGANIZATION_SOURCE_PARAMETERS = {
+    uwkc: ONLINE_INTAKE_UW_KING_COUNTY,
+    uwvp: ONLINE_INTAKE_UW_VIRGINIA,
+    cwf: ONLINE_INTAKE_WORKING_FAMILIES,
+    ia: ONLINE_INTAKE_IA_AL,
+    goodwillsr: ONLINE_INTAKE_GWISR,
+    fc: ONLINE_INTAKE_FC,
+    uwco: ONLINE_INTAKE_UW_CENTRAL_OHIO,
+  }.freeze
+
   def self.client
     ZendeskAPI::Client.new do |config|
       config.url = "https://#{DOMAIN}.zendesk.com/api/v2"

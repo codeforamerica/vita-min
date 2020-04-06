@@ -3,33 +3,6 @@ class ZendeskIntakeService
   include AttachmentsHelper
   include Rails.application.routes.url_helpers
 
-  ONLINE_INTAKE_THC_STATES = %w(co sd tx wy ks nm ne).freeze
-  ONLINE_INTAKE_UWBA_STATES = %w(ca ak fl nv).freeze
-  ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
-  ONLINE_INTAKE_UW_KING_COUNTY_STATES = %w(wa).freeze
-  ONLINE_INTAKE_WORKING_FAMILIES_STATES = %w(pa).freeze
-  ONLINE_INTAKE_IA_SC_STATES = %w(sc).freeze
-  ONLINE_INTAKE_IA_AL_STATES = %w(tn).freeze
-  EITC_INSTANCE_STATES = (
-    ONLINE_INTAKE_THC_STATES +
-      ONLINE_INTAKE_UWBA_STATES +
-      ONLINE_INTAKE_GWISR_STATES +
-      ONLINE_INTAKE_UW_KING_COUNTY_STATES +
-      ONLINE_INTAKE_WORKING_FAMILIES_STATES +
-      ONLINE_INTAKE_IA_SC_STATES +
-      ONLINE_INTAKE_IA_AL_STATES
-  ).freeze
-
-  ORGANIZATION_SOURCE_PARAMETERS = {
-    uwkc: EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY,
-    uwvp: EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA,
-    cwf: EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES,
-    ia: EitcZendeskInstance::ONLINE_INTAKE_IA_AL,
-    goodwillsr: EitcZendeskInstance::ONLINE_INTAKE_GWISR,
-    fc: EitcZendeskInstance::ONLINE_INTAKE_FC,
-    uwco: EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO,
-  }.freeze
-
   def initialize(intake)
     @intake = intake
   end
@@ -39,15 +12,7 @@ class ZendeskIntakeService
   end
 
   def instance
-    @instance ||= instance_for_state
-  end
-
-  def instance_for_state
-    if (EITC_INSTANCE_STATES.include? state) || state.nil?
-      EitcZendeskInstance
-    else
-      UwtsaZendeskInstance
-    end
+    @instance ||= @intake.zendesk_instance
   end
 
   def instance_eitc?
@@ -73,7 +38,7 @@ class ZendeskIntakeService
       subject: @intake.primary_user.full_name,
       requester_id: @intake.intake_ticket_requester_id,
       external_id: @intake.external_id,
-      group_id: new_ticket_group_id,
+      group_id: @intake.zendesk_group_id,
       body: new_ticket_body,
       fields: new_ticket_fields
     )
@@ -93,45 +58,6 @@ class ZendeskIntakeService
       ticket.fields = { UwtsaZendeskInstance::FILING_YEARS => ["2019"] } if existing_value.nil?
     end
     ticket.save
-  end
-
-  def new_ticket_group_id
-    if @intake.source.present? && group_by_source.present?
-      group_by_source
-    else
-      group_by_state
-    end
-  end
-
-  def group_by_source
-    source = @intake.source.downcase
-    ORGANIZATION_SOURCE_PARAMETERS.each do |key, value|
-      if source.starts_with?(key.to_s)
-        return value
-      end
-    end
-    nil
-  end
-
-  def group_by_state
-    if @intake.state == "wa"
-      EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-    elsif @intake.state == "pa"
-      EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
-    elsif @intake.state == "sc"
-      EitcZendeskInstance::ONLINE_INTAKE_IA_SC
-    elsif @intake.state == "tn"
-      EitcZendeskInstance::ONLINE_INTAKE_IA_AL
-    elsif ONLINE_INTAKE_THC_STATES.include? @intake.state
-      EitcZendeskInstance::ONLINE_INTAKE_THC
-    elsif ONLINE_INTAKE_UWBA_STATES.include? @intake.state
-      EitcZendeskInstance::ONLINE_INTAKE_UWBA
-    elsif ONLINE_INTAKE_GWISR_STATES.include? @intake.state
-      EitcZendeskInstance::ONLINE_INTAKE_GWISR
-    else
-      # we do not yet have group ids for UWTSA Zendesk instance
-      nil
-    end
   end
 
   def new_ticket_body
