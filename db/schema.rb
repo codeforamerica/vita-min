@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_01_211830) do
+ActiveRecord::Schema.define(version: 2020_04_07_215425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -208,6 +208,8 @@ ActiveRecord::Schema.define(version: 2020_04_01_211830) do
     t.integer "needs_help_2017", default: 0, null: false
     t.integer "needs_help_2018", default: 0, null: false
     t.integer "needs_help_2019", default: 0, null: false
+    t.string "requested_docs_token"
+    t.datetime "requested_docs_token_created_at"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|

@@ -43,6 +43,9 @@ Rails.application.routes.draw do
       end
     end
   end
+  namespace :documents do
+    get "/requested-documents-later/not-found", to: "requested_documents_later#not_found", as: :requested_docs_not_found
+  end
 
   resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :documents, only: [:destroy]

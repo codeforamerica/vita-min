@@ -87,6 +87,8 @@
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
+#  requested_docs_token                                 :string
+#  requested_docs_token_created_at                      :datetime
 #  savings_purchase_bond                                :integer          default("unfilled"), not null
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
