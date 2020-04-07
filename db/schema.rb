@@ -208,6 +208,8 @@ ActiveRecord::Schema.define(version: 2020_04_10_213236) do
     t.integer "needs_help_2017", default: 0, null: false
     t.integer "needs_help_2018", default: 0, null: false
     t.integer "needs_help_2019", default: 0, null: false
+    t.string "requested_docs_token"
+    t.datetime "requested_docs_token_created_at"
     t.string "phone_number"
     t.integer "phone_number_can_receive_texts", default: 0, null: false
     t.string "email_address"

@@ -91,6 +91,8 @@
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
+#  requested_docs_token                                 :string
+#  requested_docs_token_created_at                      :datetime
 #  savings_purchase_bond                                :integer          default("unfilled"), not null
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
@@ -310,6 +312,14 @@ class Intake < ApplicationRecord
 
     new_token = SecureRandom.urlsafe_base64(8)
     update(spouse_auth_token: new_token)
+    new_token
+  end
+
+  def get_or_create_requested_docs_token
+    return requested_docs_token if requested_docs_token.present?
+
+    new_token = SecureRandom.urlsafe_base64(8)
+    update(requested_docs_token: new_token, requested_docs_token_created_at: Time.now)
     new_token
   end
 
