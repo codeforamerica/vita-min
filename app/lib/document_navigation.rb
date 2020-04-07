@@ -30,6 +30,7 @@ class DocumentNavigation
     "2018 Tax Return" => Documents::PriorTaxReturnsController,
     "Other" => Documents::AdditionalDocumentsController,
     "Requested" => Documents::RequestedDocumentsController,
+    "Requested Later" => Documents::RequestedDocumentsLaterController,
   }.freeze
   BEFORE_CONTROLLERS = [
     Documents::IntroController
@@ -37,6 +38,7 @@ class DocumentNavigation
   AFTER_CONTROLLERS = [
     Documents::OverviewController,
     Documents::SendRequestedDocumentsController,
+    Documents::SendRequestedDocumentsLaterController,
   ].freeze
   DOCUMENT_TYPES = DOCUMENT_CONTROLLERS.keys.freeze
 

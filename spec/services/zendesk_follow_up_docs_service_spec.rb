@@ -8,7 +8,8 @@ describe ZendeskFollowUpDocsService do
     let!(:requested_docs) do
       [
         create(:document, :with_upload, intake: intake, document_type: "Requested"),
-        create(:document, :with_upload, intake: intake, document_type: "Requested")
+        create(:document, :with_upload, intake: intake, document_type: "Requested"),
+        create(:document, :with_upload, intake: intake, document_type: "Requested Later")
       ]
     end
     let!(:other_doc) do
@@ -31,11 +32,13 @@ describe ZendeskFollowUpDocsService do
         file_list: [
           { filename: "picture_id.jpg", file: instance_of(Tempfile) },
           { filename: "picture_id.jpg", file: instance_of(Tempfile) },
+          { filename: "picture_id.jpg", file: instance_of(Tempfile) },
         ],
         comment: <<~DOCS
           The client added requested follow-up documents:
           * #{requested_docs[0].upload.filename}
           * #{requested_docs[1].upload.filename}
+          * #{requested_docs[2].upload.filename}
         DOCS
       )
     end
