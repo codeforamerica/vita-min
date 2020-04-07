@@ -87,6 +87,8 @@
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
+#  requested_docs_token                                 :string
+#  requested_docs_token_created_at                      :datetime
 #  savings_purchase_bond                                :integer          default("unfilled"), not null
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
@@ -442,6 +444,40 @@ describe Intake do
         expect(result).to eq existing_token
         expect(intake.spouse_auth_token).to eq existing_token
         expect(SecureRandom).not_to have_received(:urlsafe_base64)
+      end
+    end
+  end
+
+  describe "#get_or_create_requested_docs_token" do
+    let(:intake) { build :intake, requested_docs_token: existing_token, requested_docs_token_created_at: token_created_at }
+    let(:new_token) { "n3wt0k3n" }
+    before do
+      allow(SecureRandom).to receive(:urlsafe_base64).with(8).and_return(new_token)
+    end
+
+    context "when a spouse auth token does not yet exist" do
+      let(:existing_token) { nil }
+      let(:token_created_at) { nil }
+
+      it "generates the token and returns it" do
+        result = intake.get_or_create_requested_docs_token
+        expect(result).to eq new_token
+        expect(intake.requested_docs_token).to eq new_token
+        expect(SecureRandom).to have_received(:urlsafe_base64).with(8)
+        expect(intake.requested_docs_token_created_at).to be_within(2.seconds).of(Time.now)
+      end
+    end
+
+    context "when the token already exists" do
+      let(:existing_token) { "3x1st1ngT0k3n" }
+      let(:token_created_at) { 3.days.ago }
+
+      it "just returns the token and does not generate a new one" do
+        result = intake.get_or_create_requested_docs_token
+        expect(result).to eq existing_token
+        expect(intake.requested_docs_token).to eq existing_token
+        expect(SecureRandom).not_to have_received(:urlsafe_base64)
+        expect(intake.requested_docs_token_created_at).to eq token_created_at
       end
     end
   end
