@@ -134,7 +134,7 @@ class ApplicationController < ActionController::Base
 
   def set_sentry_context
     Raven.user_context id: current_user&.id, intake_id: current_intake&.id
-    Raven.extra_context visitor_id: visitor_id, is_bot: user_agent.bot?
+    Raven.extra_context visitor_id: visitor_id, is_bot: user_agent.bot?, request_id: request.request_id
   end
 
   private
