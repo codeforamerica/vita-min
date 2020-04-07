@@ -46,7 +46,7 @@
           <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
             <div class="document-upload">
               <div class="file-upload">
-                <%= f.file_field(:document, class: "form__documentuploader file-input file-upload__input", data: { "upload-immediately" => true}) %>
+                <%= f.file_field(:document, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
                 <%= f.label(:document, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
                   <span class="is-tablet-hidden--inline">
                     <%= image_tag "upload.svg", alt: "" %>
