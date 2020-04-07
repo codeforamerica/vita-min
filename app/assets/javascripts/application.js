@@ -20,6 +20,9 @@ var immediateUpload = (function() {
     var fileUploadForm = $('form#file-upload-form')
     var fileInputElements = fileUploadForm.find('input[type="file"][data-upload-immediately]');
 
+    // hide the file input
+    $(fileInputElements).addClass('file-upload__input');
+
     // hide the submit button fallback
     fileUploadForm.find("button[type=submit]").hide();
     // show the label button
