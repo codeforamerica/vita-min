@@ -9,6 +9,7 @@ RSpec.describe SendCompletedIntakeToZendeskJob, type: :job do
     allow(fake_zendesk_intake_service).to receive(:send_consent_pdf).and_return(true)
     allow(fake_zendesk_intake_service).to receive(:send_additional_info_document).and_return(true)
     allow(fake_zendesk_intake_service).to receive(:send_all_docs).and_return(true)
+    allow(fake_zendesk_intake_service).to receive(:send_requested_docs_link).and_return(true)
   end
 
   describe "#perform" do
@@ -26,6 +27,7 @@ RSpec.describe SendCompletedIntakeToZendeskJob, type: :job do
       expect(fake_zendesk_intake_service).to have_received(:send_consent_pdf)
       expect(fake_zendesk_intake_service).to have_received(:send_additional_info_document)
       expect(fake_zendesk_intake_service).to have_received(:send_all_docs)
+      expect(fake_zendesk_intake_service).to have_received(:send_requested_docs_link)
       intake.reload
       expect(intake.completed_intake_sent_to_zendesk).to eq true
     end
