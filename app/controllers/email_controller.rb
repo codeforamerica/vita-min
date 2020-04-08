@@ -62,6 +62,9 @@ class EmailController < ApplicationController
   end
 
   def from_agent_replying_to_thread?
-    from_valid_sender? && params[:subject].include?("Update to SMS Ticket")
+    from_valid_sender? && (
+      params[:subject].include?("Update to SMS Ticket") ||
+        params[:subject].include?("New SMS Response")
+    )
   end
 end
