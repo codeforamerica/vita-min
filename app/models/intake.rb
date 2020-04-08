@@ -294,6 +294,10 @@ class Intake < ApplicationRecord
     new_token
   end
 
+  def requested_docs_token_link
+    "#{Rails.application.routes.url_helpers.root_url}documents/requested-documents-later?token=#{get_or_create_requested_docs_token}"
+  end
+
   def mixpanel_data
     dependents_under_6 = dependents.any? { |dependent| dependent.age_at_end_of_tax_year < 6 }
     had_earned_income = had_a_job? || had_wages_yes? || had_self_employment_income_yes?
