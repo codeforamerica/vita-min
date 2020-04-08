@@ -219,6 +219,13 @@ class ZendeskIntakeService
     output
   end
 
+  def send_requested_docs_link
+    append_comment_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      comment: "The client can add additional requested documents at this unique link: #{@intake.requested_docs_token_link}"
+    )
+  end
+
   def send_additional_info_document_with_spouse
     output = append_file_to_ticket(
       ticket_id: @intake.intake_ticket_id,

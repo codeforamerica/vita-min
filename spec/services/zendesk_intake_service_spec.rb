@@ -18,7 +18,9 @@ describe ZendeskIntakeService do
            final_info: final_info,
            needs_help_2019: "yes",
            needs_help_2018: "no",
-           needs_help_2017: "yes"
+           needs_help_2017: "yes",
+           requested_docs_token: "3456ABCD",
+           requested_docs_token_created_at: 2.minutes.ago
   end
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
@@ -613,6 +615,24 @@ describe ZendeskIntakeService do
         file: fake_file,
         comment: "Updated Identity Info Document with spouse - contains names and ssn's",
       )
+    end
+  end
+
+  describe "#send_requested_docs_link" do
+    let(:output) { true }
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_comment_to_ticket).and_return(output)
+    end
+
+    it "appends a comment to the ticket with the unique token link to add more documents" do
+      result = service.send_requested_docs_link
+      expect(result).to eq true
+      expect(service).to have_received(:append_comment_to_ticket).with(
+        ticket_id: 34,
+        comment: "The client can add additional requested documents at this unique link: http://test.host/documents/requested-documents-later?token=3456ABCD",
+        )
     end
   end
 end
