@@ -5,6 +5,10 @@ class ZendeskSmsService
 
   def initialize; end
 
+  def instance
+    EitcZendeskInstance
+  end
+
   def handle_inbound_sms(phone_number:, sms_ticket_id:, message_body:)
     users = User.where(phone_number: phone_number)
     drop_offs = IntakeSiteDropOff.where(phone_number: phone_number)

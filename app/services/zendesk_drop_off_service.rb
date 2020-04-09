@@ -12,6 +12,10 @@ class ZendeskDropOffService
     @drop_off = drop_off
   end
 
+  def instance
+    EitcZendeskInstance
+  end
+
   def create_ticket_and_attach_file
     zendesk_user_id = find_or_create_end_user(@drop_off.name, @drop_off.email, @drop_off.phone_number)
     ticket = build_ticket(

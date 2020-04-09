@@ -36,7 +36,7 @@ module ZendeskServiceHelper
   end
 
   def instance
-    EitcZendeskInstance
+    raise NotImplementedError, "You must define #instance in #{self.class.name}"
   end
 
   def get_ticket(ticket_id:)
