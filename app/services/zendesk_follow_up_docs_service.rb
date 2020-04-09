@@ -6,6 +6,10 @@ class ZendeskFollowUpDocsService
     @intake = intake
   end
 
+  def instance
+    @instake.zendesk_instance
+  end
+
   def send_requested_docs
     return if @intake.documents.none?
 
