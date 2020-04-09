@@ -289,13 +289,13 @@ class Intake < ApplicationRecord
   def get_or_create_requested_docs_token
     return requested_docs_token if requested_docs_token.present?
 
-    new_token = SecureRandom.urlsafe_base64(8)
+    new_token = SecureRandom.urlsafe_base64(10)
     update(requested_docs_token: new_token, requested_docs_token_created_at: Time.now)
     new_token
   end
 
   def requested_docs_token_link
-    "#{Rails.application.routes.url_helpers.root_url}documents/requested-documents-later?token=#{get_or_create_requested_docs_token}"
+    "#{Rails.application.routes.url_helpers.root_url}documents/add/#{get_or_create_requested_docs_token}"
   end
 
   def mixpanel_data

@@ -19,7 +19,7 @@ describe ZendeskIntakeService do
            needs_help_2019: "yes",
            needs_help_2018: "no",
            needs_help_2017: "yes",
-           requested_docs_token: "3456ABCD",
+           requested_docs_token: "3456ABCDEF",
            requested_docs_token_created_at: 2.minutes.ago
   end
   let(:service) { described_class.new(intake) }
@@ -631,7 +631,7 @@ describe ZendeskIntakeService do
       expect(result).to eq true
       expect(service).to have_received(:append_comment_to_ticket).with(
         ticket_id: 34,
-        comment: "The client can add additional requested documents at this unique link: http://test.host/documents/requested-documents-later?token=3456ABCD",
+        comment: "The client can add additional requested documents at this unique link:\n\nhttp://test.host/documents/add/3456ABCDEF",
         )
     end
   end
