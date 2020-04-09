@@ -394,7 +394,8 @@ describe ZendeskIntakeService do
         file: fake_file,
         comment: comment_body,
         fields: {
-          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW
+          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
+          EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
         }
       )
     end
@@ -423,7 +424,8 @@ describe ZendeskIntakeService do
           file: fake_file,
           comment: expected_body,
           fields: {
-            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
+            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
           }
         )
       end
@@ -615,24 +617,6 @@ describe ZendeskIntakeService do
         file: fake_file,
         comment: "Updated Identity Info Document with spouse - contains names and ssn's",
       )
-    end
-  end
-
-  describe "#send_requested_docs_link" do
-    let(:output) { true }
-
-    before do
-      intake.intake_ticket_id = 34
-      allow(service).to receive(:append_comment_to_ticket).and_return(output)
-    end
-
-    it "appends a comment to the ticket with the unique token link to add more documents" do
-      result = service.send_requested_docs_link
-      expect(result).to eq true
-      expect(service).to have_received(:append_comment_to_ticket).with(
-        ticket_id: 34,
-        comment: "The client can add additional requested documents at this unique link:\n\nhttp://test.host/documents/add/3456ABCDEF",
-        )
     end
   end
 end
