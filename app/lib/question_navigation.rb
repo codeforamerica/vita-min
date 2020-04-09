@@ -12,6 +12,7 @@ class QuestionNavigation
     # Overview
     Questions::OverviewController,
     Questions::OverviewDocumentsController,
+    Questions::PhoneNumberController,
 
     # Authentication
     Questions::IdentityController,
