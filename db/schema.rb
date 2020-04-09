@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_01_211830) do
+ActiveRecord::Schema.define(version: 2020_04_09_211248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -208,6 +208,8 @@ ActiveRecord::Schema.define(version: 2020_04_01_211830) do
     t.integer "needs_help_2017", default: 0, null: false
     t.integer "needs_help_2018", default: 0, null: false
     t.integer "needs_help_2019", default: 0, null: false
+    t.string "phone_number"
+    t.integer "phone_number_can_receive_texts", default: 0, null: false
   end
 
   create_table "provider_scrapes", force: :cascade do |t|
