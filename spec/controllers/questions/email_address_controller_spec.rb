@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Questions::PhoneNumberController do
+RSpec.describe Questions::EmailAddressController do
   render_views
 
   let(:user) do
@@ -24,23 +24,22 @@ RSpec.describe Questions::PhoneNumberController do
     context "with valid params" do
       let(:params) do
         {
-          phone_number_form: {
-            phone_number: "555-867-5309",
-            phone_number_confirmation: "555-867-5309",
-            phone_number_can_receive_texts: "yes",
+          email_address_form: {
+            email_address: "iloveplant@example.com",
+            email_address_confirmation: "iloveplant@example.com",
           }
         }
       end
 
-      it "sets the phone number on the intake" do
+      it "sets the email address on the intake" do
         expect do
           post :update, params: params
-        end.to change { intake.reload.phone_number }
+        end.to change { intake.reload.email_address }
           .from(nil)
-          .to("15558675309")
+          .to("iloveplant@example.com")
       end
 
-      it "sends an event to mixpanel without the phone number data" do
+      it "sends an event to mixpanel without the email address data" do
         post :update, params: params
 
         expect(subject).to have_received(:send_mixpanel_event).with(
@@ -50,13 +49,12 @@ RSpec.describe Questions::PhoneNumberController do
       end
     end
 
-    context "with non-matching phone numbers" do
+    context "with non-matching email addresses" do
       let(:params) do
         {
-          phone_number_form: {
-            phone_number: "555-867-5309",
-            phone_number_confirmation: "555-555-1234",
-            phone_number_can_receive_texts: "yes",
+          email_address_form: {
+            email_address: "iloveplant@example.com",
+            email_address_confirmation: "iloveplarnt@example.com",
           }
         }
       end
@@ -64,7 +62,7 @@ RSpec.describe Questions::PhoneNumberController do
       it "shows validation errors" do
         post :update, params: params
 
-        expect(response.body).to include("Please double check that the phone numbers match.")
+        expect(response.body).to include("Please double check that the email addresses match.")
       end
 
       it "sends an event to mixpanel with relevant data" do
@@ -73,19 +71,18 @@ RSpec.describe Questions::PhoneNumberController do
         expect(subject).to have_received(:send_mixpanel_event).with(
           event_name: "validation_error",
           data: {
-            invalid_phone_number_confirmation: true
+            invalid_email_address_confirmation: true
           }
         )
       end
     end
 
-    context "with an invalid phone number" do
+    context "with an invalid email address" do
       let(:params) do
         {
-          phone_number_form: {
-            phone_number: "555-555-123",
-            phone_number_confirmation: "555-555-123",
-            phone_number_can_receive_texts: "yes",
+          email_address_form: {
+            email_address: "iloveplant@example.",
+            email_address_confirmation: "iloveplant@example.",
           }
         }
       end
@@ -93,7 +90,7 @@ RSpec.describe Questions::PhoneNumberController do
       it "shows validation errors" do
         post :update, params: params
 
-        expect(response.body).to include("Please enter a valid phone number.")
+        expect(response.body).to include("Please enter a valid email address.")
       end
 
       it "sends an event to mixpanel with relevant data" do
@@ -102,7 +99,7 @@ RSpec.describe Questions::PhoneNumberController do
         expect(subject).to have_received(:send_mixpanel_event).with(
           event_name: "validation_error",
           data: {
-            invalid_phone_number: true
+            invalid_email_address: true
           }
         )
       end
