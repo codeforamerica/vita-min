@@ -22,7 +22,7 @@ module Documents
     end
 
     def check_token_and_create_anonymous_session
-      original_intake = Intake.where.not(requested_docs_token: nil).where(requested_docs_token: params[:token]).first
+      original_intake = Intake.find_for_requested_docs_token(params[:token])
       if original_intake.present?
         create_anonymous_intake_session(original_intake)
       else
@@ -31,7 +31,7 @@ module Documents
     end
 
     def create_anonymous_intake_session(original_intake)
-      anonymous_intake = Intake.create(intake_ticket_id: original_intake.intake_ticket_id)
+      anonymous_intake = Intake.create_anonymous_intake(original_intake)
       session[:intake_id] = anonymous_intake.id
       session[:anonymous_session] = true
     end

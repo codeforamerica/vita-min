@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
+#  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
@@ -125,5 +126,9 @@
 FactoryBot.define do
   factory :intake do
     had_wages { :unfilled }
+
+    factory :anonymous_intake do
+      anonymous { true }
+    end
   end
 end
