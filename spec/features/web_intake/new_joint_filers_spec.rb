@@ -88,6 +88,12 @@ RSpec.feature "Web Intake Joint Filers" do
     fill_in "Confirm e-mail address", with: "gary.gardengnome@example.green"
     click_on "Continue"
 
+    # Email
+    expect(page).to have_selector("h1", text: "Please share your e-mail address.")
+    fill_in "E-mail address", with: "gary.gardengnome@example.green"
+    fill_in "Confirm e-mail address", with: "gary.gardengnome@example.green"
+    click_on "Continue"
+
     # Authentication
     expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     click_on "Sign in with ID.me"
