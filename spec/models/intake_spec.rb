@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
+#  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
@@ -119,6 +120,60 @@
 require 'rails_helper'
 
 describe Intake do
+  describe ".create_anonymous_intake" do
+    let(:original_intake) { create :intake,
+                                   intake_ticket_id: 123,
+                                   visitor_id: "ABC987",
+                                   anonymous: false,
+                                   referrer: "https://coolsite.org"
+    }
+    it "returns an intake with select data copied from the original intake" do
+      anonymous_intake = Intake.create_anonymous_intake(original_intake)
+
+      expect(anonymous_intake.intake_ticket_id).to eq 123
+      expect(anonymous_intake.visitor_id).to eq "ABC987"
+    end
+
+    it "returns an intake with the anonymous field set to true" do
+      anonymous_intake = Intake.create_anonymous_intake(original_intake)
+
+      expect(anonymous_intake.anonymous).to eq true
+    end
+  end
+
+  describe ".find_original_intake" do
+    let!(:original_intake) { create :intake, intake_ticket_id: 123, visitor_id: "ABC987", anonymous: false, created_at: 5.days.ago }
+    let!(:anonymous_intake) { create :intake, intake_ticket_id: 123, visitor_id: "ABC987", anonymous: true }
+
+    it "returns the oldest intake with a matching ticket ID where anonymous is false" do
+      intake = Intake.find_original_intake(anonymous_intake)
+
+      expect(intake).to eq original_intake
+    end
+
+    context "when multiple original intakes match the ticket ID" do
+      let!(:older_intake) { create :intake, intake_ticket_id: 123, visitor_id: "ABC987", anonymous: false, created_at: 7.days.ago }
+
+      it "returns the oldest matching non-anonymous intake" do
+        intake = Intake.find_original_intake(anonymous_intake)
+
+        expect(intake).to eq older_intake
+      end
+    end
+  end
+
+  describe ".find_for_requested_docs_token" do
+    let!(:original_intake) { create :intake, requested_docs_token: "ABC987", anonymous: false }
+    let!(:anonymous_intake) { create :intake, requested_docs_token: "ABC987", anonymous: true }
+
+    it "returns the first non-anonymous intake with a matching token" do
+      intake = Intake.find_for_requested_docs_token("ABC987")
+
+      expect(intake).to eq original_intake
+      expect(intake.anonymous).to eq false
+    end
+  end
+
   describe "#pdf" do
     let(:intake) { create :intake }
     let(:intake_pdf_spy) { instance_double(IntakePdf) }
@@ -452,7 +507,7 @@ describe Intake do
     let(:intake) { build :intake, requested_docs_token: existing_token, requested_docs_token_created_at: token_created_at }
     let(:new_token) { "n3wt0k3n" }
     before do
-      allow(SecureRandom).to receive(:urlsafe_base64).with(8).and_return(new_token)
+      allow(SecureRandom).to receive(:urlsafe_base64).with(10).and_return(new_token)
     end
 
     context "when a spouse auth token does not yet exist" do
@@ -463,7 +518,7 @@ describe Intake do
         result = intake.get_or_create_requested_docs_token
         expect(result).to eq new_token
         expect(intake.requested_docs_token).to eq new_token
-        expect(SecureRandom).to have_received(:urlsafe_base64).with(8)
+        expect(SecureRandom).to have_received(:urlsafe_base64).with(10)
         expect(intake.requested_docs_token_created_at).to be_within(2.seconds).of(Time.now)
       end
     end

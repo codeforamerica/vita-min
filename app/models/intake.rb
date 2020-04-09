@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
+#  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
@@ -196,6 +197,30 @@ class Intake < ApplicationRecord
   enum was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_full_time_student
   enum was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_on_visa
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
+
+  scope :anonymous, -> { where(anonymous: true) }
+  
+  def self.create_anonymous_intake(original_intake)
+    Intake.create(
+      intake_ticket_id: original_intake.intake_ticket_id,
+      visitor_id: original_intake.visitor_id,
+      anonymous: true
+    )
+  end
+
+  def self.find_original_intake(anonymous_intake)
+    Intake
+      .where(intake_ticket_id: anonymous_intake.intake_ticket_id, anonymous: false)
+      .order(created_at: :asc)
+      .first
+  end
+
+  def self.find_for_requested_docs_token(token)
+    Intake
+      .where.not(requested_docs_token: nil)
+      .where(requested_docs_token: token, anonymous: false)
+      .first
+  end
 
   def primary_user
     users.where.not(is_spouse: true).first

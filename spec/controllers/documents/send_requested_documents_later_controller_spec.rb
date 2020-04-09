@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controller do
   render_views
   let!(:original_intake) { create :intake, intake_ticket_id: 123, created_at: 3.days.ago }
-  let!(:anonymous_intake) { create :intake, intake_ticket_id: 123, created_at: 5.minutes.ago }
+  let!(:anonymous_intake) { create :anonymous_intake, intake_ticket_id: 123, created_at: 5.minutes.ago }
 
   describe "#edit" do
     context "when the session is anonymous" do
