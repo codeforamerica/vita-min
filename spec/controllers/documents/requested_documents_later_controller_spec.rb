@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller do
   render_views
   let(:token) {"t0k3nN0tbr0k3n?"}
-  let!(:original_intake) {create :intake, requested_docs_token: token, intake_ticket_id: 123}
-  let!(:anonymous_intake) {create :intake}
+  let!(:original_intake) { create :intake, requested_docs_token: token, intake_ticket_id: 123 }
+  let!(:anonymous_intake) { create :anonymous_intake }
 
   describe "#edit" do
     context "with no session" do

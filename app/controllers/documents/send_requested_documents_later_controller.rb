@@ -23,7 +23,7 @@ module Documents
 
     def clear_anonymous_session
       if session[:anonymous_session]
-        intake = Intake.find(session[:intake_id])
+        intake = Intake.anonymous.find_by(id: session[:intake_id])
         intake.destroy if intake
         session[:anonymous_session] = false
       end
@@ -31,7 +31,7 @@ module Documents
 
     def find_original_intake
       if session[:anonymous_session]
-        Intake.where(intake_ticket_id: current_intake.intake_ticket_id).order(created_at: :asc).first
+        Intake.find_original_intake(current_intake)
       else
         current_intake
       end
