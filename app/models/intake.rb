@@ -353,6 +353,8 @@ class Intake < ApplicationRecord
   end
 
   def mixpanel_data
+    return Intake.find_original_intake(self).mixpanel_data if anonymous
+
     dependents_under_6 = dependents.any? { |dependent| dependent.age_at_end_of_tax_year < 6 }
     had_earned_income = had_a_job? || had_wages_yes? || had_self_employment_income_yes?
     {
