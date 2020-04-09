@@ -8,6 +8,10 @@ RSpec.describe ZendeskServiceHelper do
   let(:service) do
     class SampleService
       include ZendeskServiceHelper
+
+      def instance
+        EitcZendeskInstance
+      end
     end
 
     SampleService.new
