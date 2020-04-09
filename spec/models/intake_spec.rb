@@ -544,11 +544,12 @@ describe Intake do
         had_disability: "no",
         spouse_had_disability: "yes",
         source: "beep",
-        referrer: "boop",
+        referrer: "http://boop.horse/mane",
         filing_joint: "no",
         had_wages: "yes",
         state: "ca",
         zip_code: "94609",
+        intake_ticket_id: 9876,
         needs_help_2019: "yes",
         needs_help_2018: "no",
         needs_help_2017: "yes",
@@ -559,13 +560,12 @@ describe Intake do
     let!(:spouse_user) { create :user, is_spouse: true, intake: intake, birth_date: "1992-05-03" }
     let!(:dependent_one) { create :dependent, birth_date: Date.new(2017, 4, 21), intake: intake}
     let!(:dependent_two) { create :dependent, birth_date: Date.new(2005, 8, 11), intake: intake}
-    before { allow(intake).to receive(:referrer_domain).and_return("blep") }
 
     it "returns the expected hash" do
       expect(intake.mixpanel_data).to eq({
         intake_source: "beep",
-        intake_referrer: "boop",
-        intake_referrer_domain: "blep",
+        intake_referrer: "http://boop.horse/mane",
+        intake_referrer_domain: "boop.horse",
         primary_filer_age_at_end_of_tax_year: "26",
         spouse_age_at_end_of_tax_year: "27",
         primary_filer_disabled: "no",
@@ -583,6 +583,14 @@ describe Intake do
         needs_help_2016: "unfilled",
         needs_help_backtaxes: "yes",
       })
+    end
+
+    context "when the intake is anonymous" do
+      let(:anonymous_intake) {create :anonymous_intake, intake_ticket_id: 9876}
+
+      it "returns the data for the original intake" do
+        expect(anonymous_intake.mixpanel_data).to eq(intake.mixpanel_data)
+      end
     end
 
     context "with no backtax help needed" do

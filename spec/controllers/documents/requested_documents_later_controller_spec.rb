@@ -4,7 +4,7 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
   render_views
   let(:token) {"t0k3nN0tbr0k3n?"}
   let!(:original_intake) { create :intake, requested_docs_token: token, intake_ticket_id: 123 }
-  let!(:anonymous_intake) { create :anonymous_intake }
+  let!(:anonymous_intake) { create :anonymous_intake, intake_ticket_id: 123 }
 
   describe "#edit" do
     context "with no session" do
