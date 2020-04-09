@@ -81,6 +81,8 @@
 #  paid_retirement_contributions                        :integer          default("unfilled"), not null
 #  paid_school_supplies                                 :integer          default("unfilled"), not null
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
+#  phone_number                                         :string
+#  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
 #  received_irs_letter                                  :integer          default("unfilled"), not null
@@ -178,6 +180,7 @@ class Intake < ApplicationRecord
   enum paid_retirement_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_retirement_contributions
   enum paid_school_supplies: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_school_supplies
   enum paid_student_loan_interest: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_student_loan_interest
+  enum phone_number_can_receive_texts: { unfilled: 0, yes: 1, no: 2 }, _prefix: :phone_number_can_receive_texts
   enum received_alimony: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_alimony
   enum received_homebuyer_credit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_homebuyer_credit
   enum received_irs_letter: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_irs_letter
@@ -220,6 +223,17 @@ class Intake < ApplicationRecord
       .where.not(requested_docs_token: nil)
       .where(requested_docs_token: token, anonymous: false)
       .first
+  end
+
+  def phone_number=(value)
+    if value.present? && value.is_a?(String)
+      unless value[0] == "1" || value[0..1] == "+1"
+        value = "1#{value}" # add USA country code
+      end
+      self[:phone_number] = Phonelib.parse(value).sanitized
+    else
+      self[:phone_number] = value
+    end
   end
 
   def primary_user
@@ -414,4 +428,3 @@ class Intake < ApplicationRecord
     end
   end
 end
-
