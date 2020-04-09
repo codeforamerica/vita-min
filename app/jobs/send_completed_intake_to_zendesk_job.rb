@@ -8,7 +8,7 @@ class SendCompletedIntakeToZendeskJob < ApplicationJob
     success = service.send_final_intake_pdf &&
       service.send_consent_pdf &&
       service.send_all_docs &&
-      service.send_additional_info_document
+      service.send_additional_info_document &&
       service.send_requested_docs_link
 
     intake.update(completed_intake_sent_to_zendesk: success)
