@@ -199,7 +199,7 @@ class Intake < ApplicationRecord
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
 
   scope :anonymous, -> { where(anonymous: true) }
-  
+
   def self.create_anonymous_intake(original_intake)
     Intake.create(
       intake_ticket_id: original_intake.intake_ticket_id,
@@ -324,6 +324,8 @@ class Intake < ApplicationRecord
   end
 
   def mixpanel_data
+    return Intake.find_original_intake(self).mixpanel_data if anonymous
+
     dependents_under_6 = dependents.any? { |dependent| dependent.age_at_end_of_tax_year < 6 }
     had_earned_income = had_a_job? || had_wages_yes? || had_self_employment_income_yes?
     {
