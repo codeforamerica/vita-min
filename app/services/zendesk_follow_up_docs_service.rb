@@ -7,7 +7,7 @@ class ZendeskFollowUpDocsService
   end
 
   def instance
-    @instake.zendesk_instance
+    @intake.zendesk_instance
   end
 
   def send_requested_docs
