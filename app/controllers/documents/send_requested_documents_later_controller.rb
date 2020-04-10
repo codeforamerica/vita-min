@@ -7,8 +7,11 @@ module Documents
       original_intake = find_original_intake
       original_intake.documents << current_intake.documents
       SendRequestedDocumentsToZendeskJob.perform_later(original_intake.id)
-      flash[:notice] = "Thank you, your documents have been submitted."
-      redirect_to root_path
+      redirect_to documents_requested_documents_success_path
+    end
+
+    def success
+      render layout: "application"
     end
 
     def self.show?(_)

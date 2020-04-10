@@ -21,7 +21,7 @@ RSpec.feature "Client uploads a requested document" do
 
     click_on "I'm done for now"
 
-    expect(page).to have_text "Thank you, your documents have been submitted."
-    expect(page).to have_text "Free tax filing, real human support."
+    expect(page).to have_text "Thank you! Your documents have been submitted."
+    expect(page).to have_text "Your tax preparer will reach out with updates and any additional questions within 3 business days."
   end
 end
