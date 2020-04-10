@@ -15,7 +15,7 @@ RSpec.describe Documents::SendRequestedDocumentsController do
       get :edit
 
       expect(SendRequestedDocumentsToZendeskJob).to have_been_enqueued
-      expect(flash[:notice]).to eq "Thank you, your documents have been submitted."
+      expect(response).to redirect_to documents_requested_documents_success_path
     end
   end
 end
