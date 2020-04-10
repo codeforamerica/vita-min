@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_000131) do
+ActiveRecord::Schema.define(version: 2020_04_10_213236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,6 +215,8 @@ ActiveRecord::Schema.define(version: 2020_04_10_000131) do
     t.integer "phone_number_can_receive_texts", default: 0, null: false
     t.string "email_address"
     t.string "sms_phone_number"
+    t.string "preferred_name"
+    t.string "state_of_residence"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|
