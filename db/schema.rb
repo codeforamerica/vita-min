@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(version: 2020_04_09_231636) do
     t.string "phone_number"
     t.integer "phone_number_can_receive_texts", default: 0, null: false
     t.string "email_address"
+    t.string "sms_phone_number"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|

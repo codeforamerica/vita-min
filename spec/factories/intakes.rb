@@ -97,6 +97,7 @@
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
 #  separated_year                                       :string
+#  sms_phone_number                                     :string
 #  sold_a_home                                          :integer          default("unfilled"), not null
 #  source                                               :string
 #  spouse_auth_token                                    :string
