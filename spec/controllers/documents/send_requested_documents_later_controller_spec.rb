@@ -18,7 +18,7 @@ RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controll
         get :edit
 
         expect(SendRequestedDocumentsToZendeskJob).to have_been_enqueued.with(original_intake.id)
-        expect(flash[:notice]).to eq "Thank you, your documents have been submitted."
+        expect(response).to redirect_to documents_requested_documents_success_path
       end
 
       it "adds the documents to the original intake" do
@@ -52,7 +52,7 @@ RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controll
         get :edit
 
         expect(SendRequestedDocumentsToZendeskJob).to have_been_enqueued.with(original_intake.id)
-        expect(flash[:notice]).to eq "Thank you, your documents have been submitted."
+        expect(response).to redirect_to documents_requested_documents_success_path
       end
 
       it "does not duplicate documents" do
