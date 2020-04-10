@@ -94,6 +94,7 @@
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
 #  separated_year                                       :string
+#  sms_phone_number                                     :string
 #  sold_a_home                                          :integer          default("unfilled"), not null
 #  source                                               :string
 #  spouse_auth_token                                    :string
@@ -207,6 +208,17 @@ class Intake < ApplicationRecord
       self[:phone_number] = Phonelib.parse(value).sanitized
     else
       self[:phone_number] = value
+    end
+  end
+
+  def sms_phone_number=(value)
+    if value.present? && value.is_a?(String)
+      unless value[0] == "1" || value[0..1] == "+1"
+        value = "1#{value}" # add USA country code
+      end
+      self[:sms_phone_number] = Phonelib.parse(value).sanitized
+    else
+      self[:sms_phone_number] = value
     end
   end
 
