@@ -102,9 +102,8 @@ RSpec.feature "Web Intake Joint Filers" do
     fill_in "ZIP code", with: "94612"
     click_on "Confirm"
 
-    expect(page).to have_text("How should we reach out with questions and updates about your taxes?")
+    expect(page).to have_text("How can we update you on your tax return?")
     check "Email Me"
-    check "Text Me"
     click_on "Continue"
 
     # Primary filer personal information
