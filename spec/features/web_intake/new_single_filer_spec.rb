@@ -71,9 +71,10 @@ RSpec.feature "Web Intake Single Filer" do
     fill_in "ZIP code", with: "94612"
     click_on "Confirm"
 
-    expect(page).to have_text("How should we reach out with questions and updates about your taxes?")
+    expect(page).to have_text("How can we update you on your tax return?")
     check "Email Me"
     check "Text Me"
+    fill_in "Cell phone number", with: "555-231-4321"
     click_on "Continue"
 
     # Primary filer personal information
