@@ -1,25 +1,11 @@
-<% content_for :page_title, "How should we reach out with questions and updates about your taxes?" %>
+<% content_for :page_title, "How can we update you on your tax return?" %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
 
     <p>
-      We will need to call you to review your tax situation and email you for a final signature before you file.
-      Please let us know how we should reach out with questions and updates.
-      We will not share your information with any outside parties.
-    </p>
-
-    <p>
-      <strong>Email:</strong>
-      <br>
-      <%= current_user.email %>
-    </p>
-
-    <p>
-      <strong>Phone Number:</strong>
-      <br>
-      <%= current_user.formatted_phone_number %>
+      We will reach out with questions and updates. Select the option(s) that you prefer!
     </p>
 
     <% if @form.errors[:base].any? %>
@@ -33,6 +19,13 @@
     <div class="form-card__stacked-checkboxes">
       <%= f.cfa_checkbox(:email_notification_opt_in, "Email Me", options: { checked_value: "yes", unchecked_value: "no" }) %>
       <%= f.cfa_checkbox(:sms_notification_opt_in, "Text Me", options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <div class="text-input--small-label">
+        <%= f.cfa_input_field(:sms_phone_number, "Cell phone number", type: "tel", classes: ["form-width--long"]) %>
+      </div>
+
+      <p class="text--small">
+        Note: We will not share your information with any outside parties.
+      </p>
     </div>
 
     <button class="button button--primary" type="submit">
