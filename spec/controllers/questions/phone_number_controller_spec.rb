@@ -10,6 +10,7 @@ RSpec.describe Questions::PhoneNumberController do
 
   before do
     allow(subject).to receive(:current_user).and_return(user)
+    allow(subject).to receive(:current_intake).and_return(intake)
     allow(subject).to receive(:send_mixpanel_event)
   end
 
@@ -25,8 +26,8 @@ RSpec.describe Questions::PhoneNumberController do
       let(:params) do
         {
           phone_number_form: {
-            phone_number: "555-867-5309",
-            phone_number_confirmation: "555-867-5309",
+            phone_number: "5558675309",
+            phone_number_confirmation: "5558675309",
             phone_number_can_receive_texts: "yes",
           }
         }
