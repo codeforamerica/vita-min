@@ -83,6 +83,7 @@
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
+#  preferred_name                                       :string
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
 #  received_irs_letter                                  :integer          default("unfilled"), not null
@@ -104,6 +105,7 @@
 #  spouse_was_full_time_student                         :integer          default("unfilled"), not null
 #  spouse_was_on_visa                                   :integer          default("unfilled"), not null
 #  state                                                :string
+#  state_of_residence                                   :string
 #  street_address                                       :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
