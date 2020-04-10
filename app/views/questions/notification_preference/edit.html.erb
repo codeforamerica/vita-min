@@ -18,14 +18,21 @@
 
     <div class="form-card__stacked-checkboxes">
       <%= f.cfa_checkbox(:email_notification_opt_in, "Email Me", options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:sms_notification_opt_in, "Text Me", options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <div class="text-input--small-label">
-        <%= f.cfa_input_field(:sms_phone_number, "Cell phone number", type: "tel", classes: ["form-width--long"]) %>
+      <div class="question-with-follow-up">
+        <div class="question-with-follow-up__question">
+          <%= f.cfa_checkbox(:sms_notification_opt_in, "Text Me", options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
+        </div>
+        <div class="text-input--small-label question-with-follow-up__follow-up" id="sms-opt-in">
+          <div class="form-group">
+            <%= f.cfa_input_field(:sms_phone_number, "Cell phone number", type: "tel", classes: ["form-width--long"]) %>
+          </div>
+        </div>
+        
+        <p class="text--small">
+          Note: We will not share your information with any outside parties.
+        </p>
       </div>
 
-      <p class="text--small">
-        Note: We will not share your information with any outside parties.
-      </p>
     </div>
 
     <button class="button button--primary" type="submit">
