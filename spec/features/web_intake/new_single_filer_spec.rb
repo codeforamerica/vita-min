@@ -38,6 +38,12 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
     click_on "Continue"
 
+    # Personal Info
+    expect(page).to have_selector("h1", text: "First, let's get some basic information.")
+    fill_in "Preferred name", with: "Gary"
+    select "Indiana", from: "State of residence"
+    click_on "Continue"
+
     # Phone number
     expect(page).to have_selector("h1", text: "Please share your contact number.")
     fill_in "Phone number", with: "555-231-1234"
