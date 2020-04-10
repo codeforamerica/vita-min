@@ -9,23 +9,32 @@ RSpec.describe Questions::NotificationPreferenceController do
 
   before do
     allow(subject).to receive(:current_user).and_return(user)
+    allow(subject).to receive(:current_intake).and_return(intake)
     allow(subject).to receive(:send_mixpanel_event)
   end
 
   describe "#edit" do
+    let!(:intake) { create :intake, phone_number: "15552223333", phone_number_can_receive_texts: "yes" }
+
     it "renders successfully" do
       get :edit
       expect(response).to be_successful
     end
+
+    it "pre-populates the cell phone field if they said they can receive texts" do
+      get :edit
+
+      expect(response.body).to include("15552223333")
+    end
   end
 
   describe "#update" do
-    context "when the user does not select either option" do
+    context "with invalid params" do
       let(:params) do
         {
           notification_preference_form: {
-            email_notification_opt_in: "no",
-            sms_notification_opt_in: "no",
+            sms_notification_opt_in: "yes",
+            sms_phone_number: nil,
           }
         }
       end
@@ -35,8 +44,7 @@ RSpec.describe Questions::NotificationPreferenceController do
 
         user.reload
         expect(user.sms_notification_opt_in).to eq("unfilled")
-        expect(user.email_notification_opt_in).to eq("unfilled")
-        expect(response.body).to include("We need a way to get in touch in order to help you.")
+        expect(response.body).to include("Please enter a cell phone number.")
         expect(response).not_to be_redirect
       end
     end
@@ -47,6 +55,7 @@ RSpec.describe Questions::NotificationPreferenceController do
           notification_preference_form: {
             email_notification_opt_in: "yes",
             sms_notification_opt_in: "no",
+            sms_phone_number: "555-333-4444"
           }
         }
       end
@@ -60,6 +69,7 @@ RSpec.describe Questions::NotificationPreferenceController do
         user.reload
         expect(user.sms_notification_opt_in).to eq("no")
         expect(user.email_notification_opt_in).to eq("yes")
+        expect(intake.sms_phone_number).to eq("15553334444")
       end
 
       it "sends an event to mixpanel with relevant data" do
