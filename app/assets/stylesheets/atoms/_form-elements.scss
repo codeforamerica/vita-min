@@ -20,3 +20,14 @@
     margin-bottom: 1rem;
   }
 }
+
+.question-with-follow-up__follow-up {
+  background-color: inherit;
+  border: none;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  &:before {
+    display: none;
+  }
+}
