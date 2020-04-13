@@ -26,8 +26,8 @@ RSpec.describe Questions::PhoneNumberController do
       let(:params) do
         {
           phone_number_form: {
-            phone_number: "5558675309",
-            phone_number_confirmation: "5558675309",
+            phone_number: "(415) 553-7865",
+            phone_number_confirmation: "(415) 553-7865",
             phone_number_can_receive_texts: "yes",
           }
         }
@@ -38,7 +38,7 @@ RSpec.describe Questions::PhoneNumberController do
           post :update, params: params
         end.to change { intake.reload.phone_number }
           .from(nil)
-          .to("15558675309")
+          .to("14155537865")
       end
 
       it "sends an event to mixpanel without the phone number data" do
@@ -55,8 +55,8 @@ RSpec.describe Questions::PhoneNumberController do
       let(:params) do
         {
           phone_number_form: {
-            phone_number: "555-867-5309",
-            phone_number_confirmation: "555-555-1234",
+            phone_number: "415-553-7865",
+            phone_number_confirmation: "415-553-1234",
             phone_number_can_receive_texts: "yes",
           }
         }
