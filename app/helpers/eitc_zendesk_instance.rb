@@ -1,5 +1,7 @@
 class EitcZendeskInstance
   DOMAIN = "eitc"
+  # ZD "Professional" plan allows uploads up to 20MB
+  MAXIMUM_UPLOAD_SIZE = 20000000
 
   # online intake group ids
   ALL_EITC_GROUP_IDS = [
