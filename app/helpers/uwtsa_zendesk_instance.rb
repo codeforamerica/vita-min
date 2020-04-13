@@ -1,5 +1,7 @@
 class UwtsaZendeskInstance
   DOMAIN = "unitedwaytucson"
+  # ZD "Team" plan allows uploads up to 7MB
+  MAXIMUM_UPLOAD_SIZE = 7000000
 
   # custom field id codes
   CERTIFICATION_LEVEL = "114101964473"
