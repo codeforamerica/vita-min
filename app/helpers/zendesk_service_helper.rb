@@ -31,6 +31,9 @@ module ZendeskServiceHelper
     "Pacific/Honolulu" => "Hawaii",
   }.freeze
 
+  # Zendesk caps uploads at 20MB
+  MAXIMUM_UPLOAD_SIZE = 20000000
+
   def client
     @client ||= instance.client
   end
@@ -158,8 +161,8 @@ module ZendeskServiceHelper
 
     ticket = ZendeskAPI::Ticket.find(client, id: ticket_id)
     ticket.fields = fields if fields.present?
+    file_list.each { |file| append_file_or_add_comment(file, ticket, comment) }
     ticket.comment = { body: comment }
-    file_list.each { |file| ticket.comment.uploads << file }
     success = ticket.save
 
     unless success
@@ -167,6 +170,14 @@ module ZendeskServiceHelper
     end
 
     success
+  end
+
+  def append_file_or_add_comment(file, ticket, comment)
+    if file[:file].size < MAXIMUM_UPLOAD_SIZE
+      ticket.comment.uploads << file
+    else
+      comment.concat("\n\nThe file #{file[:filename]} could not be uploaded because it exceeds the maximum size of #{MAXIMUM_UPLOAD_SIZE/1000000}MB.")
+    end
   end
 
   class ZendeskAPIError < StandardError; end
