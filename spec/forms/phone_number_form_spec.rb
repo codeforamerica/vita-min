@@ -9,8 +9,8 @@ RSpec.describe PhoneNumberForm do
         form = PhoneNumberForm.new(
           intake,
           {
-            phone_number: "15558675309",
-            phone_number_confirmation: "15558675309",
+            phone_number: "14155537865",
+            phone_number_confirmation: "14155537865",
             phone_number_can_receive_texts: "no",
           }
         )
@@ -23,8 +23,8 @@ RSpec.describe PhoneNumberForm do
           form = PhoneNumberForm.new(
             intake,
             {
-              phone_number: "5558675309",
-              phone_number_confirmation: "5558675309",
+              phone_number: "4155537865",
+              phone_number_confirmation: "4155537865",
               phone_number_can_receive_texts: "no",
             }
           )
