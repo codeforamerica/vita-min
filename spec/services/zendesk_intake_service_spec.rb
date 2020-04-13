@@ -449,7 +449,8 @@ describe ZendeskIntakeService do
           file: fake_file,
           comment: comment_body,
           fields: {
-            UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW
+            UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
+            UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
           }
         )
       end
