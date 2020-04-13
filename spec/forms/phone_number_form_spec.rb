@@ -5,31 +5,35 @@ RSpec.describe PhoneNumberForm do
 
   describe "validations" do
     context "when all params are valid" do
-      it "is valid" do
-        form = PhoneNumberForm.new(
-          intake,
-          {
-            phone_number: "14155537865",
-            phone_number_confirmation: "14155537865",
-            phone_number_can_receive_texts: "no",
-          }
-        )
-
-        expect(form).to be_valid
-      end
-
-      context "when phone number excludes country code" do
-        it "adds one in the setter and is still valid" do
+      context "when phone number includes the country code" do
+        it "is valid and does not modify the value" do
           form = PhoneNumberForm.new(
             intake,
             {
-              phone_number: "4155537865",
-              phone_number_confirmation: "4155537865",
+              phone_number: "1 (415) 553-7865",
+              phone_number_confirmation: "1 (415) 553-7865",
               phone_number_can_receive_texts: "no",
             }
           )
 
           expect(form).to be_valid
+          expect(form.attributes_for(:intake)[:phone_number]).to eq "14155537865"
+        end
+      end
+
+      context "when phone number excludes country code" do
+        it "is valid and prepends a country code" do
+          form = PhoneNumberForm.new(
+            intake,
+            {
+              phone_number: "415.553.7865",
+              phone_number_confirmation: "415.553.7865",
+              phone_number_can_receive_texts: "no",
+            }
+          )
+
+          expect(form).to be_valid
+          expect(form.attributes_for(:intake)[:phone_number]).to eq "14155537865"
         end
       end
     end
@@ -39,14 +43,15 @@ RSpec.describe PhoneNumberForm do
         form = PhoneNumberForm.new(
           nil,
           {
-            phone_number: "555",
-            phone_number_confirmation: "555",
+            phone_number: "415",
+            phone_number_confirmation: "415",
             phone_number_can_receive_texts: "no",
           }
         )
 
         expect(form).not_to be_valid
         expect(form.errors[:phone_number]).to be_present
+        expect(form.attributes_for(:intake)[:phone_number]).to eq "1415"
       end
     end
 
@@ -55,8 +60,8 @@ RSpec.describe PhoneNumberForm do
         form = PhoneNumberForm.new(
           nil,
           {
-            phone_number: "5558675309",
-            phone_number_confirmation: "5558884444",
+            phone_number: "4155537865",
+            phone_number_confirmation: "4155537811",
             phone_number_can_receive_texts: "no",
           }
         )
