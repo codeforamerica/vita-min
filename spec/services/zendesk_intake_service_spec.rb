@@ -12,7 +12,7 @@ describe ZendeskIntakeService do
   let(:source) { nil }
   let(:intake) do
     create :intake,
-           state: state,
+           state_of_residence: state,
            source: source,
            interview_timing_preference: interview_timing_preference,
            final_info: final_info,
@@ -190,7 +190,7 @@ describe ZendeskIntakeService do
         Name: Cher Cherimoya
         Phone number: (415) 555-1234
         Email: cash@raining.money
-        State (based on mailing address): Nebraska
+        State of residence: Nebraska
 
         Prefers notifications by:
             • Text message
