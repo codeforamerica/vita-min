@@ -9,8 +9,10 @@ class PhoneNumberForm < QuestionsForm
   #     unless value[0] == "1" || value[0..1] == "+1"
   #       value = "1#{value}" # add USA country code
   #     end
+  #     # what goes here?
   #     @intake.assign_attributes(phone_number: Phonelib.parse(value).sanitized) if @intake
   #   else
+  #     # what goes here?
   #     @intake.assign_attributes(phone_number: value) if @intake
   #   end
   # end
