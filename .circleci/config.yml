@@ -47,7 +47,7 @@ jobs:
       - install_app_dependencies
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create
-      - run: bundle exec rake db:migrate RAILS_ENV=test
+      - run: bundle exec rake db:schema:load
       - run: mkdir ~/rspec
       - run: |
           bundle exec rspec \
