@@ -201,18 +201,7 @@ class Intake < ApplicationRecord
   enum was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_full_time_student
   enum was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_on_visa
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
-
-  def phone_number=(value)
-    if value.present? && value.is_a?(String)
-      unless value[0] == "1" || value[0..1] == "+1"
-        value = "1#{value}" # add USA country code
-      end
-      self[:phone_number] = Phonelib.parse(value).sanitized
-    else
-      self[:phone_number] = value
-    end
-  end
-
+  
   def sms_phone_number=(value)
     if value.present? && value.is_a?(String)
       unless value[0] == "1" || value[0..1] == "+1"
