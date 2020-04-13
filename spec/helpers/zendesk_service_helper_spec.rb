@@ -386,4 +386,51 @@ RSpec.describe ZendeskServiceHelper do
       expect(ZendeskAPI::Ticket).to have_received(:find).with(fake_zendesk_client, id: 1141)
     end
   end
+
+  describe "when the service is for the UWTSA Zendesk instance" do
+    let(:service) do
+      class SampleService
+        include ZendeskServiceHelper
+
+        def instance
+          UwtsaZendeskInstance
+        end
+      end
+
+      SampleService.new
+    end
+
+    describe "#append_multiple_files_to_ticket" do
+      let(:file_1) { instance_double(File) }
+      let(:file_2) { instance_double(File) }
+      let(:file_3) { instance_double(File) }
+      let(:file_list) { [
+        {file: file_1, filename: "file_1.jpg"},
+        {file: file_2, filename: "file_2.jpg"},
+        {file: file_3, filename: "file_3.jpg"}
+      ] }
+
+      before do
+        allow(file_1).to receive(:size).and_return(8000000)
+        allow(file_2).to receive(:size).and_return(1000)
+        allow(file_3).to receive(:size).and_return(1000)
+      end
+
+      it "sets the maximum file size to 7MB" do
+        result = service.append_multiple_files_to_ticket(
+          ticket_id: 1141,
+          file_list: file_list,
+          comment: "hey",
+          fields: { "314324132" => "custom_field_value" }
+        )
+        expect(result).to eq true
+        expect(fake_zendesk_comment.uploads).not_to include({file: file_1, filename: "file_1.jpg"})
+        expect(fake_zendesk_comment.uploads).to include({file: file_2, filename: "file_2.jpg"})
+        expect(fake_zendesk_comment.uploads).to include({file: file_3, filename: "file_3.jpg"})
+        expect(fake_zendesk_ticket).to have_received(:comment=).with({ body:
+           "hey\n\nThe file file_1.jpg could not be uploaded because it exceeds the maximum size of 7MB." })
+        expect(fake_zendesk_ticket).to have_received(:save)
+      end
+    end
+  end
 end
