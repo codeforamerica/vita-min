@@ -286,8 +286,8 @@ class Intake < ApplicationRecord
       primary_user.zip_code == zip_code
   end
 
-  def state_name
-    States.name_for_key(state)
+  def state_of_residence_name
+    States.name_for_key(state_of_residence)
   end
 
   def tax_year
@@ -398,7 +398,7 @@ class Intake < ApplicationRecord
   end
 
   def zendesk_instance
-    if state.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(zendesk_group_id)
+    if state_of_residence.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(zendesk_group_id)
       EitcZendeskInstance
     else
       UwtsaZendeskInstance
@@ -417,25 +417,25 @@ class Intake < ApplicationRecord
   end
 
   def group_by_state
-    if state == "wa"
+    if state_of_residence == "wa"
       EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-    elsif state == "oh"
+    elsif state_of_residence == "oh"
       EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
-    elsif state == "sc"
+    elsif state_of_residence == "sc"
       EitcZendeskInstance::ONLINE_INTAKE_IA_SC
-    elsif state == "tn"
+    elsif state_of_residence == "tn"
       EitcZendeskInstance::ONLINE_INTAKE_IA_AL
-    elsif state == "nv"
+    elsif state_of_residence == "nv"
       EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
-    elsif state == "tx"
+    elsif state_of_residence == "tx"
       EitcZendeskInstance::ONLINE_INTAKE_FC
-    elsif EitcZendeskInstance::ONLINE_INTAKE_THC_STATES.include? state
+    elsif EitcZendeskInstance::ONLINE_INTAKE_THC_STATES.include? state_of_residence
       EitcZendeskInstance::ONLINE_INTAKE_THC
-    elsif EitcZendeskInstance::ONLINE_INTAKE_UWBA_STATES.include? state
+    elsif EitcZendeskInstance::ONLINE_INTAKE_UWBA_STATES.include? state_of_residence
       EitcZendeskInstance::ONLINE_INTAKE_UWBA
-    elsif EitcZendeskInstance::ONLINE_INTAKE_GWISR_STATES.include? state
+    elsif EitcZendeskInstance::ONLINE_INTAKE_GWISR_STATES.include? state_of_residence
       EitcZendeskInstance::ONLINE_INTAKE_GWISR
-    elsif EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES_STATES.include? state
+    elsif EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES_STATES.include? state_of_residence
       EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
     else
       # we do not yet have group ids for UWTSA Zendesk instance
