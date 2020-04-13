@@ -7,10 +7,6 @@ class ZendeskIntakeService
     @intake = intake
   end
 
-  def state
-    @intake.state
-  end
-
   def instance
     @instance ||= @intake.zendesk_instance
   end
@@ -67,7 +63,7 @@ class ZendeskIntakeService
       Name: #{@intake.primary_user.full_name}
       Phone number: #{@intake.primary_user.formatted_phone_number}
       Email: #{@intake.primary_user.email}
-      State (based on mailing address): #{@intake.state_name}
+      State of residence: #{@intake.state_of_residence_name}
 
       #{contact_preferences}
       #{new_ticket_body_footer}
@@ -84,7 +80,7 @@ class ZendeskIntakeService
       {
         EitcZendeskInstance::INTAKE_SITE => "online_intake",
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
-        EitcZendeskInstance::STATE => @intake.state,
+        EitcZendeskInstance::STATE => @intake.state_of_residence,
         EitcZendeskInstance::FILING_YEARS => @intake.filing_years,
         EitcZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
       }
@@ -92,7 +88,7 @@ class ZendeskIntakeService
       {
         UwtsaZendeskInstance::INTAKE_SITE => "online_intake",
         UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
-        UwtsaZendeskInstance::STATE => @intake.state,
+        UwtsaZendeskInstance::STATE => @intake.state_of_residence,
         UwtsaZendeskInstance::FILING_YEARS => @intake.filing_years,
         UwtsaZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
       }

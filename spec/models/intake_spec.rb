@@ -545,7 +545,7 @@ describe Intake do
 
   describe "Zendesk routing" do
     let(:source) { nil }
-    let(:intake) { build :intake, state: state, source: source }
+    let(:intake) { build :intake, state_of_residence: state, source: source }
 
     context "when there is a source parameter" do
       context "when there is a source parameter that does not match an organization" do
