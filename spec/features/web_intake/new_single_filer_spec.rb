@@ -46,8 +46,8 @@ RSpec.feature "Web Intake Single Filer" do
 
     # Phone number
     expect(page).to have_selector("h1", text: "Please share your contact number.")
-    fill_in "Phone number", with: "555-231-1234"
-    fill_in "Confirm phone number", with: "555-231-1234"
+    fill_in "Phone number", with: "(415) 553-7865"
+    fill_in "Confirm phone number", with: "(415) 553-7865"
     check "This number can receive text messages"
     click_on "Continue"
 
