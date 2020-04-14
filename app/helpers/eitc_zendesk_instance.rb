@@ -14,7 +14,8 @@ class EitcZendeskInstance
     ONLINE_INTAKE_UW_CENTRAL_OHIO = "360009440374",
     ONLINE_INTAKE_IA_SC = "360009341873",
     ONLINE_INTAKE_IA_AL = "360009341853",
-    ONLINE_INTAKE_FC = "360009397734",
+    ONLINE_INTAKE_FC = "360009397734",     # Foundation Communities
+    ONLINE_INTAKE_NV_FTC = "360009537374", # Nevada Free Tax Coalition
   ].freeze
 
   # online intake source parameter to group
@@ -29,11 +30,11 @@ class EitcZendeskInstance
   }.freeze
 
   # states for intake groups
-  ONLINE_INTAKE_THC_STATES = %w(co sd tx wy ks nm ne).freeze
-  ONLINE_INTAKE_UWBA_STATES = %w(ca ak fl nv).freeze
+  ONLINE_INTAKE_THC_STATES = %w(co sd wy ks nm ne).freeze
+  ONLINE_INTAKE_UWBA_STATES = %w(ca ak fl).freeze
   ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
   ONLINE_INTAKE_UW_KING_COUNTY_STATES = %w(wa).freeze
-  ONLINE_INTAKE_WORKING_FAMILIES_STATES = %w(pa).freeze
+  ONLINE_INTAKE_WORKING_FAMILIES_STATES = %w(pa nj).freeze
   ONLINE_INTAKE_IA_SC_STATES = %w(sc).freeze
   ONLINE_INTAKE_IA_AL_STATES = %w(tn).freeze
 

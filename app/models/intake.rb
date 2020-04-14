@@ -390,21 +390,28 @@ class Intake < ApplicationRecord
   def group_by_state
     if state == "wa"
       EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-    elsif state == "pa"
-      EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+    elsif state == "oh"
+      EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
     elsif state == "sc"
       EitcZendeskInstance::ONLINE_INTAKE_IA_SC
     elsif state == "tn"
       EitcZendeskInstance::ONLINE_INTAKE_IA_AL
+    elsif state == "nv"
+      EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
+    elsif state == "tx"
+      EitcZendeskInstance::ONLINE_INTAKE_FC
     elsif EitcZendeskInstance::ONLINE_INTAKE_THC_STATES.include? state
       EitcZendeskInstance::ONLINE_INTAKE_THC
     elsif EitcZendeskInstance::ONLINE_INTAKE_UWBA_STATES.include? state
       EitcZendeskInstance::ONLINE_INTAKE_UWBA
     elsif EitcZendeskInstance::ONLINE_INTAKE_GWISR_STATES.include? state
       EitcZendeskInstance::ONLINE_INTAKE_GWISR
+    elsif EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES_STATES.include? state
+      EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
     else
       # we do not yet have group ids for UWTSA Zendesk instance
       nil
     end
   end
 end
+
