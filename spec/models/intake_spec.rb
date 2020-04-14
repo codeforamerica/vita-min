@@ -734,6 +734,22 @@ describe Intake do
       end
     end
 
+    context "with Ohio" do
+      let(:state) { "oh" }
+      it "assigns to UW Central Ohio" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with New Jersey" do
+      let(:state) { "nj" }
+      it "assigns to Campaign for Working Families" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
     context "with South Carolina" do
       let(:state) { "sc" }
       it "assigns to Impact America - South Carolina" do
@@ -750,9 +766,26 @@ describe Intake do
       end
     end
 
+    context "with Nevada" do
+      let(:state) { "nv" }
+      it "assigns to Nevada Free Tax Coalition" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with Texas" do
+      let(:state) { "tx" }
+      it "assigns to Foundation Communities" do
+        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_FC
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
     context "with any other state" do
       let(:state) { "ny" }
-      it "assigns to the UW Tucson intake" do
+
+      it "assigns to the UW Tucson instance" do
         expect(intake.zendesk_group_id).to be_nil
         expect(intake.zendesk_instance).to eq UwtsaZendeskInstance
       end
