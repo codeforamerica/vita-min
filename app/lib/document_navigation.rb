@@ -33,7 +33,8 @@ class DocumentNavigation
     "Requested Later" => Documents::RequestedDocumentsLaterController,
   }.freeze
   BEFORE_CONTROLLERS = [
-    Documents::IntroController
+    Documents::IntroController,
+    Documents::IdGuidanceController,
   ].freeze
   AFTER_CONTROLLERS = [
     Documents::OverviewController,

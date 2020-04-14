@@ -23,3 +23,14 @@
     margin-bottom: 1.3rem;
   }
 }
+
+.security-blurb {
+  display: flex;
+  font-size: 1.6rem;
+  font-weight: bold;
+  align-items: flex-start;
+
+  .lock-icon {
+    padding: 0.5rem 1.5rem 0 0;
+  }
+}
