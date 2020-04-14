@@ -96,4 +96,4 @@ workflows:
           requires: [run_tests]
           filters:
             branches:
-              only: master
+              only: remove-idme-bundle
