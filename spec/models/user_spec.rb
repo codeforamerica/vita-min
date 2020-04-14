@@ -80,9 +80,10 @@ RSpec.describe User, type: :model do
   end
 
   describe "#contact_info_filtered_by_preferences" do
+    let(:phone_number) { "+14158161286" }
     let(:user) do
       build :user,
-            phone_number: "14158161286",
+            phone_number: phone_number,
             email: "supermane@fantastic.horse",
             email_notification_opt_in: email,
             sms_notification_opt_in: sms
@@ -95,9 +96,18 @@ RSpec.describe User, type: :model do
       it "returns email and phone_number in a hash" do
         expected_result = {
           email: "supermane@fantastic.horse",
-          phone_number: "14158161286",
+          phone_number: "+14158161286",
         }
         expect(user.contact_info_filtered_by_preferences).to eq expected_result
+      end
+
+      context "when the phone number is not in E164 standard format" do
+        let(:phone_number ) { "4158161286" }
+
+        it "standardizes the phone number" do
+          expect(user.contact_info_filtered_by_preferences)
+            .to include(phone_number: "+14158161286")
+        end
       end
     end
 
@@ -107,7 +117,7 @@ RSpec.describe User, type: :model do
 
       it "returns phone_number in a hash" do
         expected_result = {
-          phone_number: "14158161286",
+          phone_number: "+14158161286",
         }
         expect(user.contact_info_filtered_by_preferences).to eq expected_result
 
