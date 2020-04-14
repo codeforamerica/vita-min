@@ -1,15 +1,10 @@
 module Documents
-  class IntroController < Questions::QuestionsController
+  class IntroController < DocumentUploadQuestionController
     layout "application"
 
     helper_method :recommended_document_types
 
     def edit; end
-
-    def next_path
-      next_step = DocumentNavigation.new(self).first_for_intake(current_intake)
-      document_path(next_step.to_param)
-    end
 
     private
 
