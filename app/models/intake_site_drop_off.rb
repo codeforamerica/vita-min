@@ -116,7 +116,7 @@ class IntakeSiteDropOff < ApplicationRecord
 
   # Returns the phone number in the E164 standardized format, e.g.: "+15105551234"
   def standardized_phone_number
-    Phonelib.parse(phone_number).e164
+    Phonelib.parse(phone_number, "US").e164
   end
 
   def pickup_date_string=(input_value)
