@@ -2,6 +2,8 @@
 
 class DocumentNavigation
   DOCUMENT_CONTROLLERS = {
+    "ID" => Documents::IdsController,
+    "Spouse ID" => Documents::SpouseIdsController,
     "W-2" => Documents::W2sController,
     "1095-A" => Documents::Form1095asController,
     "1098" => Documents::Form1098sController,
