@@ -109,8 +109,14 @@ class IntakeSiteDropOff < ApplicationRecord
     end
   end
 
+  # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number
+  end
+
+  # Returns the phone number in the E164 standardized format, e.g.: "+15105551234"
+  def standardized_phone_number
+    Phonelib.parse(phone_number).e164
   end
 
   def pickup_date_string=(input_value)
