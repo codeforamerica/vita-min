@@ -158,8 +158,8 @@ module ZendeskServiceHelper
 
     ticket = ZendeskAPI::Ticket.find(client, id: ticket_id)
     ticket.fields = fields if fields.present?
-    file_list.each { |file| append_file_or_add_comment(file, ticket, comment) }
-    ticket.comment = { body: comment }
+    ticket.comment = {body: comment}
+    file_list.each { |file| append_file_or_add_oversize_comment(file, ticket) }
     success = ticket.save
 
     unless success
@@ -169,11 +169,11 @@ module ZendeskServiceHelper
     success
   end
 
-  def append_file_or_add_comment(file, ticket, comment)
+  def append_file_or_add_oversize_comment(file, ticket)
     if file[:file].size < file_size_limit
       ticket.comment.uploads << file
     else
-      comment.concat("\n\nThe file #{file[:filename]} could not be uploaded because it exceeds the maximum size of #{file_size_limit/1000000}MB.")
+      ticket.comment.body.concat("\n\nThe file #{file[:filename]} could not be uploaded because it exceeds the maximum size of #{file_size_limit/1000000}MB.")
     end
   end
 
