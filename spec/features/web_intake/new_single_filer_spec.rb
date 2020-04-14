@@ -203,8 +203,12 @@ RSpec.feature "Web Intake Single Filer" do
     fill_in "Is there any additional information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
     click_on "Next"
 
-    # Documents
+    # Documents overview
     expect(page).to have_selector("h1", text: "All right, let's collect your documents!")
+    click_on "Continue"
+
+    # IRS guidance
+    expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your W-2's")
