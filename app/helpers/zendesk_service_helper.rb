@@ -39,6 +39,10 @@ module ZendeskServiceHelper
     raise NotImplementedError, "You must define #instance in #{self.class.name}"
   end
 
+  def get_end_user(user_id:)
+    ZendeskAPI::User.find(client, id: user_id)
+  end
+
   def get_ticket(ticket_id:)
     ZendeskAPI::Ticket.find(client, id: ticket_id)
   end
