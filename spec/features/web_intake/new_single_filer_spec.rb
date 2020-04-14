@@ -211,6 +211,10 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
     click_on "Continue"
 
+    expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
+    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    click_on "I'm done for now"
+
     expect(page).to have_selector("h1", text: "Attach your W-2's")
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
