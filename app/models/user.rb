@@ -90,7 +90,7 @@ class User < ApplicationRecord
 
   def contact_info_filtered_by_preferences
     contact_info = {}
-    contact_info[:phone_number] = phone_number if sms_notification_opt_in_yes?
+    contact_info[:phone_number] = standardized_phone_number if sms_notification_opt_in_yes?
     contact_info[:email] = email if email_notification_opt_in_yes?
     contact_info
   end
@@ -103,6 +103,12 @@ class User < ApplicationRecord
     Date.strptime(birth_date, "%Y-%m-%d")
   end
 
+  # Returns the phone number in the E164 standardized format, e.g.: "+15105551234"
+  def standardized_phone_number
+    Phonelib.parse(phone_number).e164
+  end
+
+  # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number
   end

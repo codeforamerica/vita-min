@@ -88,7 +88,7 @@ describe ZendeskIntakeService do
       it "returns the end user ID based on all contact info" do
         expect(service.create_intake_ticket_requester).to eq 1
         expect(service).to have_received(:find_or_create_end_user).with(
-          "Cher Cherimoya", "cash@raining.money", "14155551234", exact_match: true
+          "Cher Cherimoya", "cash@raining.money", "+14155551234", exact_match: true
         )
       end
     end
