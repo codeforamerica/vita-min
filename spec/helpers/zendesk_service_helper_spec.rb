@@ -5,6 +5,7 @@ RSpec.describe ZendeskServiceHelper do
   let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2, errors: nil) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
   let(:fake_zendesk_comment) { double(uploads: []) }
+  let(:fake_zendesk_comment_body) { "" }
   let(:service) do
     class SampleService
       include ZendeskServiceHelper
@@ -21,6 +22,8 @@ RSpec.describe ZendeskServiceHelper do
     allow(ZendeskAPI::Client).to receive(:new).and_return fake_zendesk_client
     allow(ZendeskAPI::Ticket).to receive(:new).and_return fake_zendesk_ticket
     allow(ZendeskAPI::Ticket).to receive(:find).and_return fake_zendesk_ticket
+    allow(fake_zendesk_comment).to receive(:body).and_return(fake_zendesk_comment_body)
+    allow(fake_zendesk_comment_body).to receive(:concat)
     allow(fake_zendesk_ticket).to receive(:comment=)
     allow(fake_zendesk_ticket).to receive(:fields=)
     allow(fake_zendesk_ticket).to receive(:group_id=)
@@ -291,7 +294,7 @@ RSpec.describe ZendeskServiceHelper do
           fields: { "314324132" => "custom_field_value" }
         )
         expect(result).to eq true
-        expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey\n\nThe file big.jpg could not be uploaded because it exceeds the maximum size of 20MB." })
+        expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file big.jpg could not be uploaded because it exceeds the maximum size of 20MB.")
         expect(fake_zendesk_ticket).to have_received(:save)
       end
     end
@@ -357,8 +360,8 @@ RSpec.describe ZendeskServiceHelper do
           fields: { "314324132" => "custom_field_value" }
         )
         expect(result).to eq true
-        expect(fake_zendesk_ticket).to have_received(:comment=).with({ body:
-           "hey\n\nThe file file_1.jpg could not be uploaded because it exceeds the maximum size of 20MB.\n\nThe file file_3.jpg could not be uploaded because it exceeds the maximum size of 20MB." })
+        expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file file_1.jpg could not be uploaded because it exceeds the maximum size of 20MB.")
+        expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file file_3.jpg could not be uploaded because it exceeds the maximum size of 20MB.")
         expect(fake_zendesk_ticket).to have_received(:save)
       end
     end
@@ -427,8 +430,7 @@ RSpec.describe ZendeskServiceHelper do
         expect(fake_zendesk_comment.uploads).not_to include({file: file_1, filename: "file_1.jpg"})
         expect(fake_zendesk_comment.uploads).to include({file: file_2, filename: "file_2.jpg"})
         expect(fake_zendesk_comment.uploads).to include({file: file_3, filename: "file_3.jpg"})
-        expect(fake_zendesk_ticket).to have_received(:comment=).with({ body:
-           "hey\n\nThe file file_1.jpg could not be uploaded because it exceeds the maximum size of 7MB." })
+        expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file file_1.jpg could not be uploaded because it exceeds the maximum size of 7MB.")
         expect(fake_zendesk_ticket).to have_received(:save)
       end
     end
