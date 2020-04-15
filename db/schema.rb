@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_213236) do
+ActiveRecord::Schema.define(version: 2020_04_15_152456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,11 +193,11 @@ ActiveRecord::Schema.define(version: 2020_04_10_213236) do
     t.integer "spouse_was_blind", default: 0, null: false
     t.integer "spouse_issued_identity_pin", default: 0, null: false
     t.string "final_info"
-    t.boolean "completed_intake_sent_to_zendesk"
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "savings_split_refund", default: 0, null: false
     t.integer "savings_purchase_bond", default: 0, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
+    t.boolean "completed_intake_sent_to_zendesk"
     t.integer "bought_energy_efficient_items"
     t.integer "income_over_limit", default: 0, null: false
     t.integer "feeling_about_taxes", default: 0, null: false
@@ -217,6 +217,14 @@ ActiveRecord::Schema.define(version: 2020_04_10_213236) do
     t.string "sms_phone_number"
     t.string "preferred_name"
     t.string "state_of_residence"
+    t.date "primary_birth_date"
+    t.date "spouse_birth_date"
+    t.string "encrypted_primary_last_four_ssn"
+    t.string "encrypted_primary_last_four_ssn_iv"
+    t.string "encrypted_spouse_last_four_ssn"
+    t.string "encrypted_spouse_last_four_ssn_iv"
+    t.string "primary_full_legal_name"
+    t.string "spouse_full_legal_name"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|
