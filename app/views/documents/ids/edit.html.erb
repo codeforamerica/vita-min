@@ -1,3 +1,17 @@
-<% content_for :form_question, "Attach a photo of your ID card" %>
+<% content_for :form_question, @title %>
 
-<% content_for :form_help_text, "The IRS requires us to see a current drivers license, passport, or state ID." %>
+<% content_for :form_help_content do %>
+  <p>
+    <%= @help_text %>
+  </p>
+
+  <p class="spacing-below-10">
+    We will need an ID for:
+  </p>
+
+  <ul class="list--bulleted spacing-above-0 spacing-below-35">
+    <% @names.each do |name| %>
+      <li><%= name %></li>
+    <% end %>
+  </ul>
+<% end %>
