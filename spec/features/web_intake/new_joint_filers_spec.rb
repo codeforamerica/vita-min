@@ -324,6 +324,12 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Attach a photo of your spouse's ID card")
     click_on "I'm done for now"
 
+    expect(page).to have_selector("h1", text: "Attach a photo of your Social Security Card or ITIN")
+    click_on "I'm done for now"
+
+    expect(page).to have_selector("h1", text: "Attach a photo of your spouse's Social Security Card or ITIN")
+    click_on "I'm done for now"
+
     expect(page).to have_selector("h1", text: "Attach your W-2's")
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
