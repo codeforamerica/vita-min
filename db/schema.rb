@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_213236) do
+ActiveRecord::Schema.define(version: 2020_04_15_152456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -217,6 +217,14 @@ ActiveRecord::Schema.define(version: 2020_04_10_213236) do
     t.string "sms_phone_number"
     t.string "preferred_name"
     t.string "state_of_residence"
+    t.date "primary_birth_date"
+    t.date "spouse_birth_date"
+    t.string "encrypted_primary_last_four_ssn"
+    t.string "encrypted_primary_last_four_ssn_iv"
+    t.string "encrypted_spouse_last_four_ssn"
+    t.string "encrypted_spouse_last_four_ssn_iv"
+    t.string "primary_full_legal_name"
+    t.string "spouse_full_legal_name"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|
