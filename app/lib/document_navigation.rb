@@ -4,8 +4,7 @@ class DocumentNavigation
   DOCUMENT_CONTROLLERS = {
     "ID" => Documents::IdsController,
     "Spouse ID" => Documents::SpouseIdsController,
-    "Primary SSN or ITIN" => Documents::PrimarySsnItinsController,
-    "Spouse SSN or ITIN" => Documents::SpouseSsnItinsController,
+    "SSN or ITIN" => Documents::SsnItinsController,
     "W-2" => Documents::W2sController,
     "1095-A" => Documents::Form1095asController,
     "1098" => Documents::Form1098sController,
@@ -26,7 +25,6 @@ class DocumentNavigation
     "IRA Statement" => Documents::IraStatementsController,
     "Property Tax Statement" => Documents::PropertyTaxStatementsController,
     "RRB-1099" => Documents::Rrb1099sController,
-    "SSN or ITIN" => Documents::SsnItinsController,
     "SSA-1099" => Documents::Ssa1099sController,
     "Student Account Statement" => Documents::StudentAccountStatementsController,
     "Care Provider Statement" => Documents::CareProviderStatementsController,
