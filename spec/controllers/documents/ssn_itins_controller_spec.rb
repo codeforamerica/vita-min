@@ -11,6 +11,16 @@ RSpec.describe Documents::SsnItinsController do
   end
 
   describe "#edit" do
+    context "when they do not have a spouse" do
+      let(:filing_joint) { "no" }
+
+      it "lists only their name" do
+        get :edit
+
+        expect(assigns(:names)).to eq ["Gary Gnome"]
+      end
+    end
+
     context "when they have a spouse" do
       let(:filing_joint) { "yes" }
       let!(:user) { create :user, is_spouse: true, first_name: "Greta", last_name: "Gnome", intake: intake }
