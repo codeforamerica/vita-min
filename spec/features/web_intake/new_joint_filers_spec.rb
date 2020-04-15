@@ -324,10 +324,7 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Attach a photo of your spouse's ID card")
     click_on "I'm done for now"
 
-    expect(page).to have_selector("h1", text: "Attach a photo of your Social Security Card or ITIN")
-    click_on "I'm done for now"
-
-    expect(page).to have_selector("h1", text: "Attach a photo of your spouse's Social Security Card or ITIN")
+    expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
     click_on "I'm done for now"
 
     expect(page).to have_selector("h1", text: "Attach your W-2's")
@@ -399,9 +396,6 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "I don't have this document"
 
     expect(page).to have_selector("h1", text: "Attach your RRB-1099's")
-    click_on "I'm done for now"
-
-    expect(page).to have_selector("h1", text: "Attach your social security cards or ITIN paperwork for dependents")
     click_on "I'm done for now"
 
     expect(page).to have_selector("h1", text: "Attach your SSA-1099's")
