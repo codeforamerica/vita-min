@@ -33,6 +33,10 @@
 #  divorced                                             :integer          default("unfilled"), not null
 #  divorced_year                                        :string
 #  email_address                                        :string
+#  encrypted_primary_last_four_ssn                      :string
+#  encrypted_primary_last_four_ssn_iv                   :string
+#  encrypted_spouse_last_four_ssn                       :string
+#  encrypted_spouse_last_four_ssn_iv                    :string
 #  ever_married                                         :integer          default("unfilled"), not null
 #  feeling_about_taxes                                  :integer          default("unfilled"), not null
 #  filing_joint                                         :integer          default("unfilled"), not null
@@ -85,6 +89,8 @@
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
 #  preferred_name                                       :string
+#  primary_birth_date                                   :date
+#  primary_full_legal_name                              :string
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
 #  received_irs_letter                                  :integer          default("unfilled"), not null
@@ -102,6 +108,8 @@
 #  sold_a_home                                          :integer          default("unfilled"), not null
 #  source                                               :string
 #  spouse_auth_token                                    :string
+#  spouse_birth_date                                    :date
+#  spouse_full_legal_name                               :string
 #  spouse_had_disability                                :integer          default("unfilled"), not null
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
 #  spouse_was_blind                                     :integer          default("unfilled"), not null
@@ -127,6 +135,9 @@ class Intake < ApplicationRecord
   has_many :users, -> { order(created_at: :asc) }
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
+
+  attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
   enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_energy_efficient_items
