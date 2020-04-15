@@ -129,6 +129,11 @@ ActiveRecord::Schema.define(version: 2020_04_15_152456) do
     t.integer "demographic_veteran", default: 0, null: false
     t.integer "divorced", default: 0, null: false
     t.string "divorced_year"
+    t.string "email_address"
+    t.string "encrypted_primary_last_four_ssn"
+    t.string "encrypted_primary_last_four_ssn_iv"
+    t.string "encrypted_spouse_last_four_ssn"
+    t.string "encrypted_spouse_last_four_ssn_iv"
     t.integer "ever_married", default: 0, null: false
     t.integer "feeling_about_taxes", default: 0, null: false
     t.integer "filing_joint", default: 0, null: false
@@ -180,6 +185,11 @@ ActiveRecord::Schema.define(version: 2020_04_15_152456) do
     t.integer "paid_retirement_contributions", default: 0, null: false
     t.integer "paid_school_supplies", default: 0, null: false
     t.integer "paid_student_loan_interest", default: 0, null: false
+    t.string "phone_number"
+    t.integer "phone_number_can_receive_texts", default: 0, null: false
+    t.string "preferred_name"
+    t.date "primary_birth_date"
+    t.string "primary_full_legal_name"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
     t.integer "received_irs_letter", default: 0, null: false
@@ -193,15 +203,19 @@ ActiveRecord::Schema.define(version: 2020_04_15_152456) do
     t.integer "savings_split_refund", default: 0, null: false
     t.integer "separated", default: 0, null: false
     t.string "separated_year"
+    t.string "sms_phone_number"
     t.integer "sold_a_home", default: 0, null: false
     t.string "source"
     t.string "spouse_auth_token"
+    t.date "spouse_birth_date"
+    t.string "spouse_full_legal_name"
     t.integer "spouse_had_disability", default: 0, null: false
     t.integer "spouse_issued_identity_pin", default: 0, null: false
     t.integer "spouse_was_blind", default: 0, null: false
     t.integer "spouse_was_full_time_student", default: 0, null: false
     t.integer "spouse_was_on_visa", default: 0, null: false
     t.string "state"
+    t.string "state_of_residence"
     t.string "street_address"
     t.datetime "updated_at"
     t.string "visitor_id"
@@ -211,20 +225,6 @@ ActiveRecord::Schema.define(version: 2020_04_15_152456) do
     t.integer "widowed", default: 0, null: false
     t.string "widowed_year"
     t.string "zip_code"
-    t.string "phone_number"
-    t.integer "phone_number_can_receive_texts", default: 0, null: false
-    t.string "email_address"
-    t.string "sms_phone_number"
-    t.string "preferred_name"
-    t.string "state_of_residence"
-    t.date "primary_birth_date"
-    t.date "spouse_birth_date"
-    t.string "encrypted_primary_last_four_ssn"
-    t.string "encrypted_primary_last_four_ssn_iv"
-    t.string "encrypted_spouse_last_four_ssn"
-    t.string "encrypted_spouse_last_four_ssn_iv"
-    t.string "primary_full_legal_name"
-    t.string "spouse_full_legal_name"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|
