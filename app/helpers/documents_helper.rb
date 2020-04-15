@@ -1,7 +1,6 @@
 module DocumentsHelper
   MUST_HAVE_DOC_TYPES= [
     "ID",
-    "Spouse ID",
     "SSN or ITIN",
     "1095-A",
     "1099-R",
