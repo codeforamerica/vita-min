@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_152456) do
+ActiveRecord::Schema.define(version: 2020_04_15_184824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,9 @@ ActiveRecord::Schema.define(version: 2020_04_15_152456) do
     t.integer "phone_number_can_receive_texts", default: 0, null: false
     t.string "preferred_name"
     t.date "primary_birth_date"
+    t.integer "primary_consented_to_service", default: 0, null: false
+    t.datetime "primary_consented_to_service_at"
+    t.inet "primary_consented_to_service_ip"
     t.string "primary_full_legal_name"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
@@ -208,6 +211,9 @@ ActiveRecord::Schema.define(version: 2020_04_15_152456) do
     t.string "source"
     t.string "spouse_auth_token"
     t.date "spouse_birth_date"
+    t.integer "spouse_consented_to_service", default: 0, null: false
+    t.datetime "spouse_consented_to_service_at"
+    t.inet "spouse_consented_to_service_ip"
     t.string "spouse_full_legal_name"
     t.integer "spouse_had_disability", default: 0, null: false
     t.integer "spouse_issued_identity_pin", default: 0, null: false
