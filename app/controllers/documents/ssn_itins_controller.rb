@@ -1,11 +1,13 @@
 module Documents
   class SsnItinsController < DocumentUploadQuestionController
-    def self.show?(intake)
-      intake.dependents.present?
-    end
-
     def edit
-      @dependent_names = current_intake.dependents.map(&:full_name)
+      @names = [current_intake.primary_user.full_name]
+      if current_intake.filing_joint? && current_intake.spouse.present?
+        @names << current_intake.spouse.full_name
+      end
+      if current_intake.dependents.present?
+        @names += current_intake.dependents.map(&:full_name)
+      end
       super
     end
   end
