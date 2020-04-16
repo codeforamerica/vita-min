@@ -7,13 +7,17 @@
 
 class ZendeskRequestedDocsLinkBackfill
   def self.update_link
+    puts "Beginning update ------------------"
     Intake.all.each do |intake|
-      return unless intake.intake_ticket_id.present?
+      puts '#############################'
+      next unless intake.intake_ticket_id.present?
+      puts "Intake id: #{intake.id}, ticket id: #{intake.intake_ticket_id}"
       service = ZendeskIntakeService.new(intake)
       ticket = service.get_ticket(ticket_id: intake.intake_ticket_id)
-      return unless ticket && ticket.status != "closed"
-
-      service.attach_requested_docs_link
+      puts "Ticket status: #{ticket&.status}"
+      next unless ticket && ticket.status != "closed"
+      puts "Found open ticket, adding link"
+      service.attach_requested_docs_link(ticket)
     end
   end
 end
