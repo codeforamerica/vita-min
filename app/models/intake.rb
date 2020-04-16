@@ -281,6 +281,10 @@ class Intake < ApplicationRecord
     users.map(&:first_name).join(" and ")
   end
 
+  def formatted_phone_number
+    Phonelib.parse(phone_number).local_number
+  end
+
   def referrer_domain
     URI.parse(referrer).host if referrer.present?
   end
@@ -332,10 +336,6 @@ class Intake < ApplicationRecord
     return unless id.present?
 
     ["intake", id].join("-")
-  end
-
-  def missing_spouse_auth?
-    filing_joint_yes? && spouse.blank?
   end
 
   def get_or_create_spouse_auth_token

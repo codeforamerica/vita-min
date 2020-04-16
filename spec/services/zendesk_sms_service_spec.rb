@@ -30,10 +30,7 @@ describe ZendeskSmsService do
       let!(:drop_off) do
         create(:intake_site_drop_off, phone_number: phone_number, zendesk_ticket_id: nil)
       end
-      let(:intake) { create :intake, intake_ticket_id: nil }
-      let!(:user) do
-        create(:user, intake: intake, phone_number: phone_number)
-      end
+      let(:intake) { create :intake, intake_ticket_id: nil, phone_number: phone_number }
 
       it "leaves an internal note on the sms ticket" do
         service.handle_inbound_sms(
@@ -49,7 +46,7 @@ describe ZendeskSmsService do
       end
     end
 
-    context "when there are users, drop offs and Zendesk tickets associated with this phone number" do
+    context "when there are intakes, drop offs and Zendesk tickets associated with this phone number" do
       let(:fake_ticket_1) { double(ZendeskAPI::Ticket, id: 1, group_id: "1001", updated_at: DateTime.new(2020, 4, 15, 6, 1)) }
       let(:fake_ticket_2) { double(ZendeskAPI::Ticket, id: 2, group_id: "1002", updated_at: DateTime.new(2020, 4, 15, 6, 2)) }
       let(:fake_ticket_3) { double(ZendeskAPI::Ticket, id: 3, group_id: "1003", updated_at: DateTime.new(2020, 4, 15, 6, 3)) }
@@ -60,14 +57,8 @@ describe ZendeskSmsService do
           create(:intake_site_drop_off, phone_number: phone_number, zendesk_ticket_id: "2")
         ]
       end
-      let(:first_intake) { create :intake, intake_ticket_id: 3 }
-      let(:second_intake) { create :intake, intake_ticket_id: 4 }
-      let!(:users) do
-        [
-          create(:user, intake: first_intake, phone_number: phone_number),
-          create(:user, intake: second_intake, phone_number: phone_number)
-        ]
-      end
+      let!(:first_intake) { create :intake, intake_ticket_id: 3, phone_number: phone_number }
+      let!(:second_intake) { create :intake, intake_ticket_id: 4, phone_number: phone_number }
 
       before do
         allow(service).to receive(:assign_ticket_to_group).and_return true

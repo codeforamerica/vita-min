@@ -1,6 +1,7 @@
 module Documents
   class SsnItinsController < DocumentUploadQuestionController
     def edit
+      # TODO: replace this with name from intake
       @names = [current_intake.primary_user.full_name]
       if current_intake.filing_joint_yes?
         @names << current_intake.spouse_name_or_placeholder

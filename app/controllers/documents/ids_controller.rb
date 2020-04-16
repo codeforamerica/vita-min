@@ -3,6 +3,7 @@ module Documents
     def edit
       @title = "Attach a photo of your ID card"
       @help_text = "The IRS requires us to see a current drivers license, passport, or state ID."
+      # TODO: replace this with name from intake
       @names = [current_intake.primary_user.full_name]
       if current_intake.filing_joint_yes?
         @title = "Attach photos of ID cards"
