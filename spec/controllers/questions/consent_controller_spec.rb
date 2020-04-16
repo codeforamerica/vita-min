@@ -2,19 +2,9 @@ require "rails_helper"
 
 RSpec.describe Questions::ConsentController do
   let(:intake) { create :intake }
-  let(:user) { create :user, intake: intake }
 
   before do
-    allow(subject).to receive(:current_user).and_return(user)
-  end
-
-  describe "#edit" do
-    render_views
-
-    it "includes the name of the primary filer" do
-      get :edit
-      expect(response.body).to include(user.full_name)
-    end
+    allow(subject).to receive(:current_intake).and_return(intake)
   end
 
   describe "#update" do
@@ -22,25 +12,25 @@ RSpec.describe Questions::ConsentController do
       let (:params) do
         {
           consent_form: {
-            consented_to_service: "yes"
+            birth_date_year: "1983",
+            birth_date_month: "5",
+            birth_date_day: "10",
+            primary_full_legal_name: "Greta Gnome",
+            primary_last_four_ssn: "5678"
           }
         }
       end
-      let(:current_time) { Date.new(2020, 4, 15) }
       let(:ip_address) { "127.0.0.1" }
 
       before do
         request.remote_ip = ip_address
-        allow(DateTime).to receive(:current).and_return current_time
       end
 
       it "saves the answer, along with a timestamp and ip address" do
         post :update, params: params
 
-        user.reload
-        expect(user.consented_to_service).to eq "yes"
-        expect(user.consented_to_service_ip).to eq ip_address
-        expect(user.consented_to_service_at).to eq current_time
+        intake.reload
+        expect(intake.primary_consented_to_service_ip).to eq ip_address
       end
     end
 
@@ -48,7 +38,11 @@ RSpec.describe Questions::ConsentController do
       let (:params) do
         {
           consent_form: {
-            consented_to_service: "no"
+            birth_date_year: "1983",
+            birth_date_month: nil,
+            birth_date_day: "10",
+            primary_full_legal_name: nil,
+            primary_last_four_ssn: nil
           }
         }
       end
@@ -58,7 +52,7 @@ RSpec.describe Questions::ConsentController do
 
         expect(response).to render_template :edit
         error_messages = assigns(:form).errors.messages
-        expect(error_messages[:consented_to_service].first).to eq "We need your consent to continue."
+        expect(error_messages[:primary_last_four_ssn].first).to eq "Please enter the last four digits of your SSN or ITIN."
       end
     end
   end
