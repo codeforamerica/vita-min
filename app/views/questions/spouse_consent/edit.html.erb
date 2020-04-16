@@ -1,8 +1,36 @@
-<% @main_heading = "Great! Here's the legal stuff..." %>
+<% @main_heading = "We need your spouse to review our legal stuff..." %>
 
 <% content_for :page_title, @main_heading %>
 <% content_for :body_class, "consent-form" %>
 
 <% content_for :main do %>
-  <%= render "shared/consent_page", consenting_user_name: @form.intake.spouse.full_name %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <%= yield :notices %>
+        <main role="main">
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+            <%= render "shared/consent_agreement" %>
+
+            <%= f.cfa_input_field(:spouse_full_legal_name, "Spouse's legal full name") %>
+            <%= f.cfa_input_field(
+                    :spouse_last_four_ssn,
+                    "Last 4 of SSN/ITIN",
+                    prefix: "XXX-XX-",
+                    type: :tel,
+                    classes: ["form-width--name field--last-four-ssn"]
+                ) %>
+            <%= f.cfa_date_select(:birth_date, "Date of birth", options: {
+                start_year: Time.now.year - 17,
+                end_year: Time.now.year - 120,
+            }) %>
+
+            <button class="button button--primary button--wide" type="submit">
+              I agree
+            </button>
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
 <% end %>
