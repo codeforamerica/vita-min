@@ -96,9 +96,12 @@ RSpec.feature "Web Intake Joint Filers" do
 
     # Consent form
     expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
-    expect(page).to have_text("You, Gary Gnome, understand")
-    check "I agree"
-    click_on "Continue"
+    fill_in "Legal full name", with: "Gary Gnome"
+    fill_in "Last 4 of SSN/ITIN", with: "1234"
+    select "March", from: "Month"
+    select "5", from: "Day"
+    select "1971", from: "Year"
+    click_on "I agree"
 
     # Contact information
     expect(page).to have_text("What is your mailing address?")
@@ -160,10 +163,13 @@ RSpec.feature "Web Intake Joint Filers" do
     #   3. get omniauth_failure_path(logout: "primary") --> redirect to external Id.me authorize
     #   4. get external ID.me authorize --> user_idme_omniauth_callback_path(spouse: "true")
     click_on "Sign in spouse with ID.me"
-    expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
-    expect(page).to have_text("You, Greta Gnome, understand")
-    check "I agree"
-    click_on "Continue"
+    expect(page).to have_selector("h1", text: "We need your spouse to review our legal stuff...")
+    fill_in "Spouse's legal full name", with: "Greta Gnome"
+    fill_in "Last 4 of SSN/ITIN", with: "1234"
+    select "March", from: "Month"
+    select "5", from: "Day"
+    select "1971", from: "Year"
+    click_on "I agree"
 
     # Spouse personal information
     expect(page).to have_selector("h1", text: "Was your spouse a full-time student in 2019?")

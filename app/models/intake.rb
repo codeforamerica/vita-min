@@ -90,7 +90,7 @@
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
 #  preferred_name                                       :string
 #  primary_birth_date                                   :date
-#  primary_consented_to_service                         :integer          default(0), not null
+#  primary_consented_to_service                         :integer          default("unfilled"), not null
 #  primary_consented_to_service_at                      :datetime
 #  primary_consented_to_service_ip                      :inet
 #  primary_full_legal_name                              :string
@@ -112,7 +112,7 @@
 #  source                                               :string
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date
-#  spouse_consented_to_service                          :integer          default(0), not null
+#  spouse_consented_to_service                          :integer          default("unfilled"), not null
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_full_legal_name                               :string
@@ -202,6 +202,7 @@ class Intake < ApplicationRecord
   enum paid_school_supplies: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_school_supplies
   enum paid_student_loan_interest: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_student_loan_interest
   enum phone_number_can_receive_texts: { unfilled: 0, yes: 1, no: 2 }, _prefix: :phone_number_can_receive_texts
+  enum primary_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_consented_to_service
   enum received_alimony: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_alimony
   enum received_homebuyer_credit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_homebuyer_credit
   enum received_irs_letter: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_irs_letter
@@ -211,6 +212,7 @@ class Intake < ApplicationRecord
   enum savings_split_refund: { unfilled: 0, yes: 1, no: 2 }, _prefix: :savings_split_refund
   enum savings_purchase_bond: { unfilled: 0, yes: 1, no: 2 }, _prefix: :savings_purchase_bond
   enum separated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :separated
+  enum spouse_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_consented_to_service
   enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_full_time_student
   enum spouse_was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_on_visa
   enum spouse_had_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_had_disability
