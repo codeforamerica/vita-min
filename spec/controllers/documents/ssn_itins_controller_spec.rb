@@ -21,14 +21,26 @@ RSpec.describe Documents::SsnItinsController do
       end
     end
 
-    context "when they have a spouse" do
-      let(:filing_joint) { "yes" }
-      let!(:user) { create :user, is_spouse: true, first_name: "Greta", last_name: "Gnome", intake: intake }
+    context "when they are filing jointly" do
+      context "when we have the spouse name" do
+        let(:filing_joint) { "yes" }
+        let!(:user) { create :user, is_spouse: true, first_name: "Greta", last_name: "Gnome", intake: intake }
 
-      it "includes their name in the list" do
-        get :edit
+        it "includes their name in the list" do
+          get :edit
 
-        expect(assigns(:names)).to include "Greta Gnome"
+          expect(assigns(:names)).to include "Greta Gnome"
+        end
+      end
+
+      context "when we don't have the spouse name" do
+        let(:filing_joint) { "yes" }
+
+        it "includes placeholder in the list" do
+          get :edit
+
+          expect(assigns(:names)).to include "Your spouse"
+        end
       end
     end
 
