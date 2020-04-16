@@ -1,8 +1,13 @@
 module Questions
-  class SpouseConsentController < ConsentController
+  class SpouseConsentController < QuestionsController
+    skip_before_action :require_sign_in
+    layout "application"
+
     def self.show?(intake)
       intake.filing_joint_yes?
     end
+
+    private
 
     def after_update_success
       if session[:authenticate_spouse_only]
@@ -16,6 +21,12 @@ module Questions
       else
         super
       end
+    end
+
+    def form_params
+      super.merge(
+        spouse_consented_to_service_ip: request.remote_ip,
+      )
     end
   end
 end
