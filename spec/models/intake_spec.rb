@@ -90,7 +90,7 @@
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
 #  preferred_name                                       :string
 #  primary_birth_date                                   :date
-#  primary_consented_to_service                         :integer          default(0), not null
+#  primary_consented_to_service                         :integer          default("unfilled"), not null
 #  primary_consented_to_service_at                      :datetime
 #  primary_consented_to_service_ip                      :inet
 #  primary_full_legal_name                              :string
@@ -112,7 +112,7 @@
 #  source                                               :string
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date
-#  spouse_consented_to_service                          :integer          default(0), not null
+#  spouse_consented_to_service                          :integer          default("unfilled"), not null
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_full_legal_name                               :string
