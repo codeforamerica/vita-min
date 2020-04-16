@@ -144,6 +144,16 @@ RSpec.describe User, type: :model do
         expect(user.contact_info_filtered_by_preferences).to eq({})
       end
     end
+
+    context "when the phone number is nil" do
+      let(:email){ "yes" }
+      let(:sms){ "yes" }
+      let(:phone_number) { nil }
+
+      it "returns nil" do
+        expect(user.contact_info_filtered_by_preferences).to include(phone_number: nil)
+      end
+    end
   end
 
   describe ".from_omniauth" do
