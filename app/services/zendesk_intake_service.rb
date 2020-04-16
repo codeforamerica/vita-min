@@ -19,6 +19,26 @@ class ZendeskIntakeService
     instance == EitcZendeskInstance
   end
 
+  # TODO: remove this after we backfill links
+  def attach_requested_docs_link
+    return unless @intake.intake_ticket_id.present?
+    ticket = get_ticket(ticket_id: @intake.intake_ticket_id)
+    return unless ticket
+
+    if instance_eitc?
+      existing_value = ticket.fields.find { |field| field["id"].to_s == EitcZendeskInstance::DOCUMENT_REQUEST_LINK }.value
+      ticket.fields = {
+        EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
+      } if existing_value.nil?
+    else
+      existing_value = ticket.fields.find { |field| field["id"].to_s == UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK }.value
+      ticket.fields = {
+        UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
+      } if existing_value.nil?
+    end
+    ticket.save
+  end
+
   def create_intake_ticket_requester
     # returns the Zendesk ID of the created user
     contact_info = @intake.primary_user.contact_info_filtered_by_preferences
@@ -42,22 +62,6 @@ class ZendeskIntakeService
       body: new_ticket_body,
       fields: new_ticket_fields
     )
-  end
-
-  # TODO: remove this after we backfill filing years
-  def update_filing_years
-    return unless @intake.intake_ticket_id.present?
-    ticket = get_ticket(ticket_id: @intake.intake_ticket_id)
-    return unless ticket
-
-    if instance_eitc?
-      existing_value = ticket.fields.find { |field| field["id"].to_s == EitcZendeskInstance::FILING_YEARS }.value
-      ticket.fields = { EitcZendeskInstance::FILING_YEARS => ["2019"] } if existing_value.nil?
-    else
-      existing_value = ticket.fields.find { |field| field["id"].to_s == UwtsaZendeskInstance::FILING_YEARS }.value
-      ticket.fields = { UwtsaZendeskInstance::FILING_YEARS => ["2019"] } if existing_value.nil?
-    end
-    ticket.save
   end
 
   def new_ticket_body
