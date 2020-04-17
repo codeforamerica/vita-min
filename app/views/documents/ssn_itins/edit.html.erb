@@ -5,13 +5,15 @@
   The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services.
   </p>
 
-  <p class="spacing-below-10">
-    We will need a SSN or ITIN for:
-  </p>
+  <div class="text--bold">
+    <p class="spacing-below-10">
+      We will need a SSN or ITIN for:
+    </p>
 
-  <ul class="list--bulleted spacing-above-0 spacing-below-35">
-    <% @names.each do |name| %>
-      <li><%= name %></li>
-    <% end %>
-  </ul>
+    <ul class="list--bulleted spacing-above-0 spacing-below-35">
+      <% @names.each do |name| %>
+        <li><%= name %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
