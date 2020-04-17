@@ -14,10 +14,6 @@ class QuestionNavigation
     Questions::OverviewDocumentsController,
 
     # Contact information
-    Questions::PhoneNumberController,
-    Questions::EmailAddressController,
-
-    # Contact information
     Questions::PersonalInfoController,
     Questions::PhoneNumberController,
     Questions::EmailAddressController,
