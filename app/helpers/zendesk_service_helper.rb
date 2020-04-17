@@ -174,10 +174,13 @@ module ZendeskServiceHelper
   end
 
   def append_file_or_add_oversize_comment(file, ticket)
-    if file[:file].size < file_size_limit
-      ticket.comment.uploads << file
-    else
+    size = file[:file].size
+    if size == 0
+      ticket.comment.body.concat("\n\nThe file #{file[:filename]} could not be uploaded because it is empty.")
+    elsif size > file_size_limit
       ticket.comment.body.concat("\n\nThe file #{file[:filename]} could not be uploaded because it exceeds the maximum size of #{file_size_limit/1000000}MB.")
+    else
+      ticket.comment.uploads << file
     end
   end
 

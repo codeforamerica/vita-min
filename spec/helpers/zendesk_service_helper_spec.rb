@@ -332,10 +332,10 @@ RSpec.describe ZendeskServiceHelper do
       expect(fake_zendesk_ticket).to have_received(:save)
     end
 
-    context "when the file exceeds the maximum size" do
+    context "when the file is not a valid size" do
       before do
         allow(file_1).to receive(:size).and_return(100000000)
-        allow(file_3).to receive(:size).and_return(100000000)
+        allow(file_3).to receive(:size).and_return(0)
       end
 
       it "does not append the file" do
@@ -361,7 +361,7 @@ RSpec.describe ZendeskServiceHelper do
         )
         expect(result).to eq true
         expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file file_1.jpg could not be uploaded because it exceeds the maximum size of 20MB.")
-        expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file file_3.jpg could not be uploaded because it exceeds the maximum size of 20MB.")
+        expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file file_3.jpg could not be uploaded because it is empty.")
         expect(fake_zendesk_ticket).to have_received(:save)
       end
     end
