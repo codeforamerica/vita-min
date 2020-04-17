@@ -7,30 +7,26 @@ class ConsentPdf
 
   def initialize(intake)
     @intake = intake
-    @primary = intake.primary_user
-    @spouse = intake.spouse
   end
 
   def hash_for_pdf
-    return {} unless @primary.present?
+    return {} unless @intake.primary_consented_to_service_at.present?
     data = {
-      primary_name: @primary.full_name,
-      primary_consented_at: strftime_date(@primary.consented_to_service_at),
-      primary_consented_ip: @primary.consented_to_service_ip,
-      primary_dob: strftime_date(@primary.parsed_birth_date),
-      primary_email: @primary.email,
-      primary_phone: @primary.formatted_phone_number,
-      primary_ssn_last_four: @primary.ssn_last_four,
+      primary_name: @intake.primary_full_legal_name,
+      primary_consented_at: strftime_date(@intake.primary_consented_to_service_at),
+      primary_consented_ip: @intake.primary_consented_to_service_ip,
+      primary_dob: strftime_date(@intake.primary_birth_date),
+      primary_email: @intake.email_address,
+      primary_phone: @intake.formatted_phone_number,
+      primary_ssn_last_four: @intake.primary_last_four_ssn,
     }
-    if @spouse.present?
+    if @intake.spouse_consented_to_service_at.present?
       data.merge!(
-        spouse_name: @spouse.full_name,
-        spouse_consented_at: strftime_date(@spouse.consented_to_service_at),
-        spouse_consented_ip: @spouse.consented_to_service_ip,
-        spouse_dob: strftime_date(@spouse.parsed_birth_date),
-        spouse_email: @spouse.email,
-        spouse_phone: @spouse.formatted_phone_number,
-        spouse_ssn_last_four: @spouse.ssn_last_four
+        spouse_name: @intake.spouse_full_legal_name,
+        spouse_consented_at: strftime_date(@intake.spouse_consented_to_service_at),
+        spouse_consented_ip: @intake.spouse_consented_to_service_ip,
+        spouse_dob: strftime_date(@intake.spouse_birth_date),
+        spouse_ssn_last_four: @intake.spouse_last_four_ssn
       )
     end
     data
