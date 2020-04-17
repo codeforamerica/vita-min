@@ -10,5 +10,9 @@ module Documents
       end
       super
     end
+
+    def next_path
+      return selfie_instructions_documents_path
+    end
   end
 end
