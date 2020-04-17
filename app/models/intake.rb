@@ -270,6 +270,10 @@ class Intake < ApplicationRecord
     end
   end
 
+  def formatted_phone_number
+    Phonelib.parse(phone_number).local_number
+  end
+
   def primary_user
     users.where.not(is_spouse: true).first
   end
