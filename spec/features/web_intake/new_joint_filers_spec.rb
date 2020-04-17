@@ -224,7 +224,7 @@ RSpec.feature "Web Intake Joint Filers" do
     # Income from working
     select "3 jobs", from: "In 2019, how many jobs did you or your spouse have?"
     click_on "Next"
-    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides California?")
+    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Indiana?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive wages or salary?")
     click_on "Yes"
