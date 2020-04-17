@@ -66,10 +66,18 @@
     width: 34.5rem;
   }
 }
+
 .button--icon {
+  display: flex;
+  align-items: center;
+
   img:first-child {
     margin-right: 1.5rem;
   }
+}
+
+.button--icon.button--centered {
+  justify-content: center;
 }
 
 .button-logo--inline {
