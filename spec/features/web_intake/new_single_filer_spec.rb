@@ -118,7 +118,7 @@ RSpec.feature "Web Intake Single Filer" do
     # Income from working
     select "3 jobs", from: "In 2019, how many jobs did you have?"
     click_on "Next"
-    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides California?")
+    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Indiana?")
     click_on "No"
     expect(page).to have_selector("h1", text: "In 2019, did you receive wages or salary?")
     click_on "Yes"
