@@ -38,7 +38,7 @@
           <% end %>
 
           <%# document upload form %>
-          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form", class: "spacing-below-60" do |f| %>
             <div class="document-upload">
               <div class="file-upload">
                 <%= f.file_field(:document, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
@@ -59,12 +59,12 @@
             <% end %>
           <% end %>
 
-          <%= link_to next_path, class: "button button--wide button--icon button--primary", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
+          <%= link_to next_path, class: "button button--wide button--icon button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
             <%= image_tag "checkmark--white.svg", alt: "" %>
             I'm done for now
           <% end %>
           <%= link_to next_path, class: "button button--wide button--icon", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
-            <i class="button__icon icon-close"></i>
+            <%= image_tag "crossmark--black.svg", alt: "" %>
             I don't have this document
           <% end %>
         </main>
