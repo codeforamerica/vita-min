@@ -1,0 +1,23 @@
+<% content_for :page_title, "" %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <h1 class="form-question">
+            Confirm your identity with a selfie
+          </h1>
+
+          <p>
+            The IRS requires us to verify who you are for tax preparation services. We do this by reviewing a photo of you holding your ID card.
+          </p>
+
+          <%= link_to selfies_documents_path, class: "button button--icon button--wide button--primary" do %>
+            Submit a selfie
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

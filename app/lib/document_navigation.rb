@@ -4,6 +4,7 @@ class DocumentNavigation
   DOCUMENT_CONTROLLERS = {
     "ID" => Documents::IdsController,
     "SSN or ITIN" => Documents::SsnItinsController,
+    "Selfie" => Documents::SelfiesController,
     "W-2" => Documents::W2sController,
     "1095-A" => Documents::Form1095asController,
     "1098" => Documents::Form1098sController,
@@ -36,6 +37,7 @@ class DocumentNavigation
   BEFORE_CONTROLLERS = [
     Documents::IntroController,
     Documents::IdGuidanceController,
+    Documents::SelfieInstructionsController,
   ].freeze
   AFTER_CONTROLLERS = [
     Documents::OverviewController,

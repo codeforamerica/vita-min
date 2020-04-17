@@ -221,6 +221,12 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
     click_on "I'm done for now"
 
+    expect(page).to have_selector("h1", text: "Confirm your identity with a selfie")
+    click_on "Submit a selfie"
+
+    expect(page).to have_selector("h1", text: "Share a selfie with your ID card")
+    click_on "I'm done for now"
+
     expect(page).to have_selector("h1", text: "Attach your W-2's")
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
