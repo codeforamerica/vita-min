@@ -76,6 +76,10 @@
   }
 }
 
+.button--centered {
+  margin: 0 auto !important;
+}
+
 .button--icon.button--centered {
   justify-content: center;
 }
