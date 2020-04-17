@@ -5,13 +5,15 @@
     <%= @help_text %>
   </p>
 
-  <p class="spacing-below-10">
-    We will need an ID for:
-  </p>
+  <div class="text--bold">
+    <p class="spacing-below-10">
+      We will need an ID for:
+    </p>
 
-  <ul class="list--bulleted spacing-above-0 spacing-below-35">
-    <% @names.each do |name| %>
-      <li><%= name %></li>
-    <% end %>
-  </ul>
+    <ul class="list--bulleted spacing-above-0 spacing-below-35">
+      <% @names.each do |name| %>
+        <li><%= name %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
