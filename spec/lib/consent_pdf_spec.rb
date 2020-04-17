@@ -31,34 +31,20 @@ RSpec.describe ConsentPdf do
     end
 
     context "with a complete intake record" do
-      let(:intake) { create :intake }
-      before do
-        create(
-          :user,
-          first_name: "Oscar",
-          last_name: "Orange",
-          birth_date: "1955-09-04",
-          phone_number: "14158161286",
-          email: "me@oscar.orange",
-          ssn: "333445555",
-          consented_to_service_at: DateTime.new(2020, 4, 15),
-          consented_to_service_ip: "127.0.0.1",
-          intake: intake
-        )
-
-        create(
-          :user,
-          first_name: "Owen",
-          last_name: "Orange",
-          birth_date: "1952-09-05",
-          phone_number: "14158161286",
-          email: "owen@oscar.orange",
-          ssn: "555334444",
-          consented_to_service_at: DateTime.new(2020, 4, 17),
-          consented_to_service_ip: "0.0.0.0",
-          intake: intake,
-          is_spouse: true
-        )
+      let(:intake) do
+        create :intake,
+           primary_full_legal_name: "Oscar Orange",
+           primary_consented_to_service_at: DateTime.new(2020, 4, 15),
+           primary_consented_to_service_ip: "127.0.0.1",
+           primary_last_four_ssn: "5555",
+           primary_birth_date: Date.new(1955, 9, 4),
+           phone_number: "14158161286",
+           email_address: "me@oscar.orange",
+           spouse_full_legal_name: "Owen Orange",
+           spouse_consented_to_service_at: DateTime.new(2020, 4, 17),
+           spouse_consented_to_service_ip: "0.0.0.0",
+           spouse_last_four_ssn: "4444",
+           spouse_birth_date: Date.new(1952, 9, 5)
       end
 
       it "returns a filled out pdf" do
@@ -76,9 +62,9 @@ RSpec.describe ConsentPdf do
            "spouse_consented_at" => "4/17/2020",
            "spouse_consented_ip" => "0.0.0.0",
            "spouse_dob" => "9/5/1952",
-           "spouse_email" => "owen@oscar.orange",
+           "spouse_email" => nil,
            "spouse_name" => "Owen Orange",
-           "spouse_phone" => "(415) 816-1286",
+           "spouse_phone" => nil,
            "spouse_ssn_last_four" => "4444",
         })
       end
