@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 2020_04_20_205919) do
     t.integer "divorced", default: 0, null: false
     t.string "divorced_year"
     t.string "email_address"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.string "encrypted_primary_last_four_ssn"
     t.string "encrypted_primary_last_four_ssn_iv"
     t.string "encrypted_spouse_last_four_ssn"
@@ -206,6 +207,7 @@ ActiveRecord::Schema.define(version: 2020_04_20_205919) do
     t.integer "savings_split_refund", default: 0, null: false
     t.integer "separated", default: 0, null: false
     t.string "separated_year"
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "sms_phone_number"
     t.integer "sold_a_home", default: 0, null: false
     t.string "source"
