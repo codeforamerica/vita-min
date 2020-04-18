@@ -39,11 +39,11 @@ RSpec.describe Questions::NotificationPreferenceController do
         }
       end
 
-      it "renders an error for the user" do
+      it "renders an error" do
         post :update, params: params
 
-        user.reload
-        expect(user.sms_notification_opt_in).to eq("unfilled")
+        intake.reload
+        expect(intake.sms_notification_opt_in).to eq("unfilled")
         expect(response.body).to include("Please enter a cell phone number.")
         expect(response).not_to be_redirect
       end
@@ -60,15 +60,15 @@ RSpec.describe Questions::NotificationPreferenceController do
         }
       end
 
-      it "updates the user's notification preferences" do
-        expect(user.sms_notification_opt_in).to eq("unfilled")
-        expect(user.email_notification_opt_in).to eq("unfilled")
+      it "updates the intake's notification preferences" do
+        expect(intake.sms_notification_opt_in).to eq("unfilled")
+        expect(intake.email_notification_opt_in).to eq("unfilled")
 
         post :update, params: params
 
-        user.reload
-        expect(user.sms_notification_opt_in).to eq("no")
-        expect(user.email_notification_opt_in).to eq("yes")
+        intake.reload
+        expect(intake.sms_notification_opt_in).to eq("no")
+        expect(intake.email_notification_opt_in).to eq("yes")
         expect(intake.sms_phone_number).to eq("15553334444")
       end
 
