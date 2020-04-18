@@ -7,7 +7,7 @@ module Questions
     end
 
     def tracking_data
-      @form.attributes_for(:user)
+      @form.attributes_for(:intake).reject { |k, _| k == :sms_phone_number }
     end
   end
 end
