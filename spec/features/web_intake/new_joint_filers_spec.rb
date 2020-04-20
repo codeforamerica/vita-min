@@ -151,6 +151,12 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any alimony payments?")
     click_on "Yes"
 
+    # Spouse email
+    expect(page).to have_selector("h1", text: "Please share your spouse's e-mail address")
+    fill_in "E-mail address", with: "greta.gardengnome@example.green"
+    fill_in "Confirm e-mail address", with: "greta.gardengnome@example.green"
+    click_on "Continue"
+
     # Spouse Authentication
     expect(page).to have_selector("h1", text: "Spouse Identity")
     OmniAuth.config.mock_auth[:idme] = spouse_auth_hash
@@ -163,6 +169,8 @@ RSpec.feature "Web Intake Joint Filers" do
     #   3. get omniauth_failure_path(logout: "primary") --> redirect to external Id.me authorize
     #   4. get external ID.me authorize --> user_idme_omniauth_callback_path(spouse: "true")
     click_on "Sign in spouse with ID.me"
+
+    # Spouse consent
     expect(page).to have_selector("h1", text: "We need your spouse to review our legal stuff...")
     fill_in "Spouse's legal full name", with: "Greta Gnome"
     fill_in "Last 4 of SSN/ITIN", with: "1234"

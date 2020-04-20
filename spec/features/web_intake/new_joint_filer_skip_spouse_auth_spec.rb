@@ -43,6 +43,12 @@ RSpec.feature "Web Intake Joint Filer without spouse present" do
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse make any alimony payments?")
     click_on "Yes"
 
+    # Spouse email
+    expect(page).to have_selector("h1", text: "Please share your spouse's e-mail address")
+    fill_in "E-mail address", with: "greta.gardengnome@example.green"
+    fill_in "Confirm e-mail address", with: "greta.gardengnome@example.green"
+    click_on "Continue"
+
     # Skip Spouse Authentication
     expect(page).to have_selector("h1", text: "Spouse Identity")
     click_on "Skip this step for now"
