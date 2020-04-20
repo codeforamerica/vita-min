@@ -53,11 +53,14 @@ class QuestionNavigation
     Questions::ReceivedAlimonyController,
     Questions::PaidAlimonyController,
 
+    # Spouse email
+    Questions::SpouseEmailAddressController,
+
     # Spouse authentication
     Questions::SpouseIdentityController,
-    Questions::SpouseConsentController,
 
     # Spouse personal information
+    Questions::SpouseConsentController,
     Questions::SpouseWasStudentController,
     Questions::SpouseOnVisaController,
     Questions::SpouseHadDisabilityController,
