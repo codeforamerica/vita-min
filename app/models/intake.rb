@@ -94,7 +94,8 @@
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
 #  primary_consented_to_service_at                      :datetime
 #  primary_consented_to_service_ip                      :inet
-#  primary_full_legal_name                              :string
+#  primary_first_name                                   :string
+#  primary_last_name                                    :string
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
 #  received_irs_letter                                  :integer          default("unfilled"), not null
@@ -118,9 +119,10 @@
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
 #  spouse_email_address                                 :string
-#  spouse_full_legal_name                               :string
+#  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default("unfilled"), not null
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
+#  spouse_last_name                                     :string
 #  spouse_was_blind                                     :integer          default("unfilled"), not null
 #  spouse_was_full_time_student                         :integer          default("unfilled"), not null
 #  spouse_was_on_visa                                   :integer          default("unfilled"), not null
@@ -279,20 +281,12 @@ class Intake < ApplicationRecord
     Phonelib.parse(phone_number).local_number
   end
 
-  def primary_first_name
-    primary_full_legal_name.split(" ").first if primary_full_legal_name
+  def primary_full_name
+    "#{primary_first_name} #{primary_last_name}"
   end
 
-  def spouse_first_name
-    spouse_full_legal_name.split(" ").first if spouse_full_legal_name
-  end
-
-  def primary_last_name
-    primary_full_legal_name.split(" ")[1..-1].join(" ") if primary_full_legal_name
-  end
-
-  def spouse_last_name
-    spouse_full_legal_name.split(" ")[1..-1].join(" ") if spouse_full_legal_name
+  def spouse_full_name
+    "#{spouse_first_name} #{spouse_last_name}"
   end
 
   def primary_user

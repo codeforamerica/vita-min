@@ -39,7 +39,7 @@ class ZendeskIntakeService
     # returns the Zendesk ID of the created user
     contact_info = @intake.contact_info_filtered_by_preferences
     find_or_create_end_user(
-      @intake.primary_full_legal_name,
+      @intake.primary_full_name,
       contact_info[:email],
       contact_info[:phone_number],
       exact_match: true
@@ -51,7 +51,7 @@ class ZendeskIntakeService
     raise MissingRequesterIdError if @intake.intake_ticket_requester_id.blank?
 
     create_ticket(
-      subject: @intake.primary_full_legal_name,
+      subject: @intake.primary_full_name,
       requester_id: @intake.intake_ticket_requester_id,
       external_id: @intake.external_id,
       group_id: @intake.zendesk_group_id,
@@ -64,7 +64,7 @@ class ZendeskIntakeService
     <<~BODY
       #{new_ticket_body_header}
 
-      Name: #{@intake.primary_full_legal_name}
+      Name: #{@intake.primary_full_name}
       Phone number: #{@intake.formatted_phone_number}
       Email: #{@intake.email_address}
       State of residence: #{@intake.state_of_residence_name}
@@ -227,16 +227,20 @@ class ZendeskIntakeService
 
   private
 
+  def primary_name_for_filename
+    @intake.primary_full_name.split(" ").map(&:capitalize).join
+  end
+
   def additional_info_doc_filename
-    "#{@intake.primary_full_legal_name.split(" ").join}_identity_info.png"
+    "#{primary_name_for_filename}_identity_info.png"
   end
 
   def consent_pdf_filename
-    "#{@intake.primary_full_legal_name.split(" ").join}_Consent.pdf"
+    "#{primary_name_for_filename}_Consent.pdf"
   end
 
   def intake_pdf_filename(final: false)
-    "#{"Final_" if final}#{@intake.primary_full_legal_name.split(" ").join}_13614c.pdf"
+    "#{"Final_" if final}#{primary_name_for_filename}_13614c.pdf"
   end
 
   def no_notifications
