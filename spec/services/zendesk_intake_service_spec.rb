@@ -20,7 +20,12 @@ describe ZendeskIntakeService do
            needs_help_2018: "no",
            needs_help_2017: "yes",
            requested_docs_token: "3456ABCDEF",
-           requested_docs_token_created_at: 2.minutes.ago
+           requested_docs_token_created_at: 2.minutes.ago,
+           email_address: "cash@raining.money",
+           phone_number: "14155551234",
+           primary_full_legal_name: "Cher Cherimoya",
+           email_notification_opt_in: email_opt_in,
+           sms_notification_opt_in: sms_opt_in
   end
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }

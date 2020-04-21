@@ -814,4 +814,61 @@ describe Intake do
       end
     end
   end
+
+  describe "#contact_info_filtered_by_preferences" do
+    let(:intake) do
+      build :intake,
+            phone_number: "14158161286",
+            email_address: "supermane@fantastic.horse",
+            email_notification_opt_in: email,
+            sms_notification_opt_in: sms
+    end
+
+    context "when they want all notifications" do
+      let(:email){ "yes" }
+      let(:sms){ "yes" }
+
+      it "returns email and phone_number in a hash" do
+        expected_result = {
+          email: "supermane@fantastic.horse",
+          phone_number: "14158161286",
+        }
+        expect(intake.contact_info_filtered_by_preferences).to eq expected_result
+      end
+    end
+
+    context "when they want sms only" do
+      let(:email){ "no" }
+      let(:sms){ "yes" }
+
+      it "returns phone_number in a hash" do
+        expected_result = {
+          phone_number: "14158161286",
+        }
+        expect(intake.contact_info_filtered_by_preferences).to eq expected_result
+
+      end
+    end
+
+    context "when they want email only" do
+      let(:email){ "yes" }
+      let(:sms){ "no" }
+
+      it "returns email in a hash" do
+        expected_result = {
+          email: "supermane@fantastic.horse",
+        }
+        expect(intake.contact_info_filtered_by_preferences).to eq expected_result
+      end
+    end
+
+    context "when they don't want any notifications" do
+      let(:email){ "no" }
+      let(:sms){ "no" }
+
+      it "returns an empty hash" do
+        expect(intake.contact_info_filtered_by_preferences).to eq({})
+      end
+    end
+  end
 end
