@@ -12,4 +12,6 @@ class PublicPagesController < ApplicationController
   def privacy_policy; end
 
   def about_us; end
+
+  def maintenance; end
 end
