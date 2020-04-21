@@ -7,8 +7,6 @@ class IntakePdf
 
   def initialize(intake)
     @intake = intake
-    @primary = intake.primary_user
-    @spouse = intake.spouse
     @dependents = intake.dependents
   end
 
@@ -90,27 +88,27 @@ class IntakePdf
       balance_due_transfer: yes_no_unfilled_to_radio(@intake.balance_pay_from_bank),
     }
     answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes?
-    answers.merge!(primary_info) if @primary.present?
-    answers.merge!(spouse_info) if @spouse.present?
+    answers.merge!(primary_info)
+    answers.merge!(spouse_info)
     answers.merge!(dependents_info) if @dependents.present?
     answers
   end
 
   def primary_info
     {
-      first_name: @primary.first_name,
-      last_name: @primary.last_name,
-      date_of_birth: strftime_date(@primary.parsed_birth_date),
-      phone_number: @primary.formatted_phone_number,
-      email: @primary.email,
+      first_name: @intake.primary_first_name,
+      last_name: @intake.primary_last_name,
+      date_of_birth: strftime_date(@intake.primary_birth_date),
+      phone_number: @intake.formatted_phone_number,
+      email: @intake.email_address,
     }
   end
 
   def spouse_info
     {
-      spouse_first_name: @spouse.first_name,
-      spouse_last_name: @spouse.last_name,
-      spouse_date_of_birth: strftime_date(@spouse.parsed_birth_date),
+      spouse_first_name: @intake.spouse_first_name,
+      spouse_last_name: @intake.spouse_last_name,
+      spouse_date_of_birth: strftime_date(@intake.spouse_birth_date),
     }
   end
 
