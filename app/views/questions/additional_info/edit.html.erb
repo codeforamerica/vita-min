@@ -1,6 +1,9 @@
+<% @main_heading = "Is there any additional information you think we should know?" %>
+<% content_for :form_question, @main_heading %>
+
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
-    <%= f.cfa_input_field(:additional_info, "Is there any additional information you think we should know?") %>
+    <%= f.cfa_input_field(:additional_info, @main_heading) %>
     <button class="button button--primary" type="submit">
       Next
       <i class="button__icon icon-arrow_forward"></i>
