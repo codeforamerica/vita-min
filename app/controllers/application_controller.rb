@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   after_action :track_page_view
   helper_method :include_google_analytics?
 
@@ -149,5 +149,9 @@ class ApplicationController < ActionController::Base
     if request.get? && request.host.include?("vitataxhelp.org")
       return redirect_to request.original_url.gsub("vitataxhelp.org", "getyourrefund.org")
     end
+  end
+
+  def check_maintenance_mode
+    redirect_to maintenance_path if ENV['MAINTENANCE_MODE'].present?
   end
 end
