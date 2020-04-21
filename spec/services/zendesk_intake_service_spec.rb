@@ -30,16 +30,6 @@ describe ZendeskIntakeService do
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
   let(:sms_opt_in) { "yes" }
-  let!(:user) do
-    create :user,
-           intake: intake,
-           first_name: "Cher",
-           last_name: "Cherimoya",
-           email: "cash@raining.money",
-           phone_number: "14155551234",
-           email_notification_opt_in: email_opt_in,
-           sms_notification_opt_in: sms_opt_in
-  end
 
   before do
     allow(ZendeskAPI::Client).to receive(:new).and_return(fake_zendesk_client)
@@ -274,31 +264,6 @@ describe ZendeskIntakeService do
       )
     end
 
-    context "when filing jointly but spouse has not verified" do
-      before { intake.update(filing_joint: "yes", spouse_auth_token: "1amSp0us3") }
-
-      it "notes the missing spouse and adds a link that can be sent to the spouse" do
-        result = service.send_intake_pdf
-        expected_comment_body = <<~BODY
-          New 13614-C questions answered.
-
-          ⚠️ Missing required verification for spouse.
-          The following link can be sent to the spouse to get their consent and information:  
-            http://test.host/verify-spouse/1amSp0us3
-        BODY
-
-        expect(service).to have_received(:append_file_to_ticket).with(
-          ticket_id: 34,
-          filename: "CherCherimoya_13614c.pdf",
-          file: fake_file,
-          comment: expected_comment_body,
-          fields: {
-            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS
-          }
-        )
-      end
-    end
-
     context "for UWTSA instance" do
       let(:state) { "az" }
       it "appends the intake pdf to the ticket" do
@@ -403,37 +368,6 @@ describe ZendeskIntakeService do
           EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
         }
       )
-    end
-
-    context "when filing jointly but spouse has not verified" do
-      before { intake.update(filing_joint: "yes", spouse_auth_token: "1amSp0us3") }
-
-      it "appends the intake pdf to the ticket with updated status and interview preferences" do
-        result = service.send_final_intake_pdf
-        expect(result).to eq true
-        expected_body = <<~BODY
-          Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
-
-          Client's provided interview preferences: Monday evenings and Wednesday mornings
-          
-          Additional information from Client: I want my money
-          
-          ⚠️ Missing required verification for spouse.
-          The following link can be sent to the spouse to get their consent and information:  
-            http://test.host/verify-spouse/1amSp0us3
-        BODY
-
-        expect(service).to have_received(:append_file_to_ticket).with(
-          ticket_id: 34,
-          filename: "Final_CherCherimoya_13614c.pdf",
-          file: fake_file,
-          comment: expected_body,
-          fields: {
-            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
-          }
-        )
-      end
     end
 
     context "with UWTSA ZD instance" do

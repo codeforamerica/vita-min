@@ -39,7 +39,7 @@ class ZendeskIntakeService
     # returns the Zendesk ID of the created user
     contact_info = @intake.contact_info_filtered_by_preferences
     find_or_create_end_user(
-      @intake.primary_user.full_name,
+      @intake.primary_full_legal_name,
       contact_info[:email],
       contact_info[:phone_number],
       exact_match: true
@@ -51,7 +51,7 @@ class ZendeskIntakeService
     raise MissingRequesterIdError if @intake.intake_ticket_requester_id.blank?
 
     create_ticket(
-      subject: @intake.primary_user.full_name,
+      subject: @intake.primary_full_legal_name,
       requester_id: @intake.intake_ticket_requester_id,
       external_id: @intake.external_id,
       group_id: @intake.zendesk_group_id,
@@ -64,9 +64,9 @@ class ZendeskIntakeService
     <<~BODY
       #{new_ticket_body_header}
 
-      Name: #{@intake.primary_user.full_name}
-      Phone number: #{@intake.primary_user.formatted_phone_number}
-      Email: #{@intake.primary_user.email}
+      Name: #{@intake.primary_full_legal_name}
+      Phone number: #{@intake.formatted_phone_number}
+      Email: #{@intake.email_address}
       State of residence: #{@intake.state_of_residence_name}
 
       #{contact_preferences}
@@ -76,8 +76,8 @@ class ZendeskIntakeService
 
   def new_ticket_fields
     notification_opt_ins = [
-      ("sms_opt_in" if @intake.primary_user.sms_notification_opt_in_yes?),
-      ("email_opt_in" if @intake.primary_user.email_notification_opt_in_yes?),
+      ("sms_opt_in" if @intake.sms_notification_opt_in_yes?),
+      ("email_opt_in" if @intake.email_notification_opt_in_yes?),
     ].compact
 
     if instance_eitc?
@@ -101,15 +101,6 @@ class ZendeskIntakeService
 
   def send_intake_pdf
     comment_body = "New 13614-C questions answered."
-    if @intake.missing_spouse_auth?
-      comment_body += <<~BODY
-
-
-        ⚠️ Missing required verification for spouse.
-        The following link can be sent to the spouse to get their consent and information:  
-          #{verify_spouse_url(token: @intake.get_or_create_spouse_auth_token)}
-      BODY
-    end
 
     output = append_file_to_ticket(
       ticket_id: @intake.intake_ticket_id,
@@ -131,15 +122,6 @@ class ZendeskIntakeService
 
       Additional information from Client: #{@intake.final_info}
     BODY
-
-    if @intake.missing_spouse_auth?
-      comment_body += <<~ALERT
-        
-        ⚠️ Missing required verification for spouse.
-        The following link can be sent to the spouse to get their consent and information:  
-          #{verify_spouse_url(token: @intake.get_or_create_spouse_auth_token)}
-      ALERT
-    end
 
     output = append_file_to_ticket(
       ticket_id: @intake.intake_ticket_id,
@@ -236,25 +218,25 @@ class ZendeskIntakeService
   end
 
   def contact_preferences
-    return no_notifications unless @intake.primary_user.opted_into_notifications?
+    return no_notifications unless @intake.opted_into_notifications?
     text = "Prefers notifications by:\n"
-    text << "    • Text message\n" if @intake.primary_user.sms_notification_opt_in_yes?
-    text << "    • Email\n" if @intake.primary_user.email_notification_opt_in_yes?
+    text << "    • Text message\n" if @intake.sms_notification_opt_in_yes?
+    text << "    • Email\n" if @intake.email_notification_opt_in_yes?
     text
   end
 
   private
 
   def additional_info_doc_filename
-    "#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_identity_info.png"
+    "#{@intake.primary_full_legal_name.split(" ").join}_identity_info.png"
   end
 
   def consent_pdf_filename
-    "#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_Consent.pdf"
+    "#{@intake.primary_full_legal_name.split(" ").join}_Consent.pdf"
   end
 
   def intake_pdf_filename(final: false)
-    "#{"Final_" if final}#{@intake.primary_user.full_name.split(" ").collect(&:capitalize).join}_13614c.pdf"
+    "#{"Final_" if final}#{@intake.primary_full_legal_name.split(" ").join}_13614c.pdf"
   end
 
   def no_notifications
