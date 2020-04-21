@@ -279,6 +279,22 @@ class Intake < ApplicationRecord
     Phonelib.parse(phone_number).local_number
   end
 
+  def primary_first_name
+    primary_full_legal_name.split(" ").first if primary_full_legal_name
+  end
+
+  def spouse_first_name
+    spouse_full_legal_name.split(" ").first if spouse_full_legal_name
+  end
+
+  def primary_last_name
+    primary_full_legal_name.split(" ")[1..-1].join(" ") if primary_full_legal_name
+  end
+
+  def spouse_last_name
+    spouse_full_legal_name.split(" ")[1..-1].join(" ") if spouse_full_legal_name
+  end
+
   def primary_user
     users.where.not(is_spouse: true).first
   end
