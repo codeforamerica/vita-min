@@ -187,11 +187,13 @@ RSpec.describe IntakePdf do
       let(:intake) do
         create(
           :intake,
-          primary_full_legal_name: "Hoofie Heifer",
+          primary_first_name: "Hoofie",
+          primary_last_name: "Heifer",
           primary_birth_date: Date.new(1961, 4, 19),
           email_address: "hoofie@heifer.horse",
           phone_number: "14158161286",
-          spouse_full_legal_name: "Hattie Heifer",
+          spouse_first_name: "Hattie",
+          spouse_last_name: "Heifer",
           spouse_birth_date: Date.new(1959, 11, 1),
           primary_consented_to_service: "yes",
           spouse_consented_to_service: "yes",

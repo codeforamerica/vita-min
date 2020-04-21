@@ -23,7 +23,8 @@ describe ZendeskIntakeService do
            requested_docs_token_created_at: 2.minutes.ago,
            email_address: "cash@raining.money",
            phone_number: "14155551234",
-           primary_full_legal_name: "Cher Cherimoya",
+           primary_first_name: "Cher",
+           primary_last_name: "Cherimoya",
            email_notification_opt_in: email_opt_in,
            sms_notification_opt_in: sms_opt_in
   end
