@@ -65,7 +65,8 @@ RSpec.feature "Web Intake Single Filer" do
 
     # Consent form
     expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
-    fill_in "Legal full name", with: "Gary Gnome"
+    fill_in "Legal first name", with: "Gary"
+    fill_in "Legal last name", with: "Gnome"
     fill_in "Last 4 of SSN/ITIN", with: "1234"
     select "March", from: "Month"
     select "5", from: "Day"

@@ -33,14 +33,16 @@ RSpec.describe ConsentPdf do
     context "with a complete intake record" do
       let(:intake) do
         create :intake,
-           primary_full_legal_name: "Oscar Orange",
+           primary_first_name: "Oscar",
+           primary_last_name: "Orange",
            primary_consented_to_service_at: DateTime.new(2020, 4, 15),
            primary_consented_to_service_ip: "127.0.0.1",
            primary_last_four_ssn: "5555",
            primary_birth_date: Date.new(1955, 9, 4),
            phone_number: "14158161286",
            email_address: "me@oscar.orange",
-           spouse_full_legal_name: "Owen Orange",
+           spouse_first_name: "Owen",
+           spouse_last_name: "Orange",
            spouse_consented_to_service_at: DateTime.new(2020, 4, 17),
            spouse_consented_to_service_ip: "0.0.0.0",
            spouse_last_four_ssn: "4444",

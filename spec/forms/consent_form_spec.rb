@@ -13,7 +13,8 @@ RSpec.describe ConsentForm do
         birth_date_year: "1983",
         birth_date_month: "5",
         birth_date_day: "10",
-        primary_full_legal_name: "Greta Gnome",
+        primary_first_name: "Greta",
+        primary_last_name: "Gnome",
         primary_last_four_ssn: "5678"
       }
     )
@@ -37,7 +38,8 @@ RSpec.describe ConsentForm do
               birth_date_year: "1983",
               birth_date_month: nil,
               birth_date_day: "10",
-              primary_full_legal_name: nil,
+              primary_first_name: "Greta",
+              primary_last_name: nil,
               primary_last_four_ssn: nil
             }
           )
@@ -45,7 +47,7 @@ RSpec.describe ConsentForm do
 
         expect(form).not_to be_valid
         expect(form.errors[:birth_date]).to be_present
-        expect(form.errors[:primary_full_legal_name]).to be_present
+        expect(form.errors[:primary_last_name]).to be_present
         expect(form.errors[:primary_last_four_ssn]).to be_present
       end
     end
