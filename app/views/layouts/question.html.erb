@@ -1,3 +1,10 @@
+<% content_for :page_title do %>
+  <% if @form&.errors.present? %>
+    <%= @form.error_summary %>
+  <% end %>
+  <%= yield :form_question %>
+<% end %>
+
 <% content_for :main do %>
   <section class="slab slab--white">
     <div class="grid">
