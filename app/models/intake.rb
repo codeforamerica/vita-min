@@ -356,10 +356,6 @@ class Intake < ApplicationRecord
     ["intake", id].join("-")
   end
 
-  def missing_spouse_auth?
-    filing_joint_yes? && spouse.blank?
-  end
-
   def get_or_create_spouse_auth_token
     return spouse_auth_token if spouse_auth_token.present?
 
@@ -446,6 +442,10 @@ class Intake < ApplicationRecord
     contact_info[:phone_number] = phone_number if sms_notification_opt_in_yes?
     contact_info[:email] = email_address if email_notification_opt_in_yes?
     contact_info
+  end
+
+  def opted_into_notifications?
+    sms_notification_opt_in_yes? || email_notification_opt_in_yes?
   end
 
   private
