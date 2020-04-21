@@ -23,7 +23,9 @@ module PdfHelper
   end
 
   def strftime_date(date)
-    date.strftime("%-m/%-d/%Y")
+    if date.present?
+      date.strftime("%-m/%-d/%Y")
+    end
   end
 
   def source_pdf_path
