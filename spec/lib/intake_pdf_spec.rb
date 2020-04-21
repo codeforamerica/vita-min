@@ -13,15 +13,15 @@ RSpec.describe IntakePdf do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to eq({
-          "first_name" => nil,
+          "first_name" => "",
           "middle_initial" => nil,
-          "last_name" => nil,
-          "date_of_birth" => nil,
+          "last_name" => "",
+          "date_of_birth" => "",
           "job" => nil,
-          "spouse_first_name" => nil,
+          "spouse_first_name" => "",
           "spouse_middle_initial" => nil,
-          "spouse_last_name" => nil,
-          "spouse_date_of_birth" => nil,
+          "spouse_last_name" => "",
+          "spouse_date_of_birth" => "",
           "spouse_job" => nil,
 
           "street_address" => "",
@@ -29,8 +29,8 @@ RSpec.describe IntakePdf do
           "city" => "",
           "state" => "",
           "zip_code" => "",
-          "phone_number" => nil,
-          "email" => nil,
+          "phone_number" => "",
+          "email" => "",
           "multistate" => "",
 
           "on_visa" => "",
@@ -187,6 +187,15 @@ RSpec.describe IntakePdf do
       let(:intake) do
         create(
           :intake,
+          primary_full_legal_name: "Hoofie Heifer",
+          primary_birth_date: Date.new(1961, 4, 19),
+          email_address: "hoofie@heifer.horse",
+          phone_number: "14158161286",
+          spouse_full_legal_name: "Hattie Heifer",
+          spouse_birth_date: Date.new(1959, 11, 1),
+          primary_consented_to_service: "yes",
+          spouse_consented_to_service: "yes",
+          filing_joint: "yes",
           street_address: "789 Garden Green Ln",
           city: "Gardenia",
           state: "nj",
@@ -276,22 +285,6 @@ RSpec.describe IntakePdf do
         )
       end
       before do
-        create(
-          :user,
-          intake: intake,
-          first_name: "Hoofie",
-          last_name: "Heifer",
-          birth_date: "1961-04-19",
-          email: "hoofie@heifer.horse",
-          phone_number: "14158161286",
-        )
-        create(
-          :spouse_user,
-          intake: intake,
-          first_name: "Hattie",
-          last_name: "Heifer",
-          birth_date: "1959-11-01",
-        )
         create(
           :dependent,
           intake: intake,
