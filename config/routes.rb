@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   get "/identity-needed", to: "offboarding#identity_needed"
   get "/other-options", to: "public_pages#other_options"
   get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
+  get "/maintenance", to: "public_pages#maintenance"
   get "/privacy", to: "public_pages#privacy_policy"
   get "/about-us", to: "public_pages#about_us"
 
