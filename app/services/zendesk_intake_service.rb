@@ -37,7 +37,7 @@ class ZendeskIntakeService
 
   def create_intake_ticket_requester
     # returns the Zendesk ID of the created user
-    contact_info = @intake.primary_user.contact_info_filtered_by_preferences
+    contact_info = @intake.contact_info_filtered_by_preferences
     find_or_create_end_user(
       @intake.primary_user.full_name,
       contact_info[:email],
