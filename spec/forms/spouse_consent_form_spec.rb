@@ -13,7 +13,8 @@ RSpec.describe SpouseConsentForm do
         birth_date_year: "1983",
         birth_date_month: "5",
         birth_date_day: "10",
-        spouse_full_legal_name: "Greta Gnome",
+        spouse_first_name: "Greta",
+        spouse_last_name: "Gnome",
         spouse_last_four_ssn: "5678"
       }
     )
@@ -37,7 +38,8 @@ RSpec.describe SpouseConsentForm do
               birth_date_year: "1983",
               birth_date_month: nil,
               birth_date_day: "10",
-              spouse_full_legal_name: nil,
+              spouse_first_name: "Greta",
+              spouse_last_name: nil,
               spouse_last_four_ssn: nil
             }
           )
@@ -45,7 +47,7 @@ RSpec.describe SpouseConsentForm do
 
         expect(form).not_to be_valid
         expect(form.errors[:birth_date]).to be_present
-        expect(form.errors[:spouse_full_legal_name]).to be_present
+        expect(form.errors[:spouse_last_name]).to be_present
         expect(form.errors[:spouse_last_four_ssn]).to be_present
       end
     end

@@ -15,7 +15,8 @@ RSpec.describe Questions::ConsentController do
             birth_date_year: "1983",
             birth_date_month: "5",
             birth_date_day: "10",
-            primary_full_legal_name: "Greta Gnome",
+            primary_first_name: "Greta",
+            primary_last_name: "Gnome",
             primary_last_four_ssn: "5678"
           }
         }
@@ -41,7 +42,8 @@ RSpec.describe Questions::ConsentController do
             birth_date_year: "1983",
             birth_date_month: nil,
             birth_date_day: "10",
-            primary_full_legal_name: nil,
+            primary_first_name: "Grindelwald",
+            primary_last_name: nil,
             primary_last_four_ssn: nil
           }
         }
@@ -53,6 +55,7 @@ RSpec.describe Questions::ConsentController do
         expect(response).to render_template :edit
         error_messages = assigns(:form).errors.messages
         expect(error_messages[:primary_last_four_ssn].first).to eq "Please enter the last four digits of your SSN or ITIN."
+        expect(error_messages[:primary_last_name].first).to eq "Please enter your last name."
       end
     end
   end
