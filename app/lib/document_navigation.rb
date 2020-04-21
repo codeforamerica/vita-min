@@ -37,10 +37,10 @@ class DocumentNavigation
   BEFORE_CONTROLLERS = [
     Documents::IntroController,
     Documents::IdGuidanceController,
-    Documents::SelfieInstructionsController,
   ].freeze
   AFTER_CONTROLLERS = [
     Documents::OverviewController,
+    Documents::SelfieInstructionsController,
     Documents::SendRequestedDocumentsController,
     Documents::SendRequestedDocumentsLaterController,
   ].freeze
