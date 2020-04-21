@@ -441,6 +441,13 @@ class Intake < ApplicationRecord
     end
   end
 
+  def contact_info_filtered_by_preferences
+    contact_info = {}
+    contact_info[:phone_number] = phone_number if sms_notification_opt_in_yes?
+    contact_info[:email] = email_address if email_notification_opt_in_yes?
+    contact_info
+  end
+
   private
 
   def group_by_source
