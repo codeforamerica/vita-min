@@ -152,6 +152,10 @@ class ApplicationController < ActionController::Base
   end
 
   def check_maintenance_mode
-    redirect_to maintenance_path if ENV['MAINTENANCE_MODE'].present?
+    if ENV['MAINTENANCE_MODE'].present?
+      return redirect_to maintenance_path
+    elsif ENV['MAINTENANCE_MODE_SCHEDULED'].present?
+      flash.now[:warning] = "GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow."
+    end
   end
 end

@@ -461,6 +461,21 @@ RSpec.describe ApplicationController do
         expect(response).to redirect_to(maintenance_path)
       end
     end
+
+    context "with maintenance mode scheduled" do
+      before do
+        ENV['MAINTENANCE_MODE_SCHEDULED'] = '1'
+      end
+
+      after do
+        ENV.delete('MAINTENANCE_MODE_SCHEDULED')
+      end
+
+      it "displays a flash message to the user" do
+        get :index
+        expect(flash.now[:warning]).to be_present
+      end
+    end
   end
 
   describe "#append_info_to_payload" do
