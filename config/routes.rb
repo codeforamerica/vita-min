@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   get "/privacy", to: "public_pages#privacy_policy"
   get "/about-us", to: "public_pages#about_us"
   get "/500", to: "public_pages#internal_server_error"
+  get "/422", to: "public_pages#internal_server_error"
   get "/404", to: "public_pages#page_not_found"
 
   get "/verify-spouse/not-found", to: "spouse_auth_only#not_found"
