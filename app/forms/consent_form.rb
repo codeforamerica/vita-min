@@ -8,11 +8,13 @@ class ConsentForm < QuestionsForm
     :birth_date_year,
     :birth_date_month,
     :birth_date_day,
-    :primary_full_legal_name,
+    :primary_first_name,
+    :primary_last_name,
     :primary_last_four_ssn
   )
 
-  validates_presence_of :primary_full_legal_name, message: "Please enter your name."
+  validates_presence_of :primary_first_name, message: "Please enter your first name."
+  validates_presence_of :primary_last_name, message: "Please enter your last name."
   validates_length_of :primary_last_four_ssn, maximum: 4, minimum: 4, message: "Please enter the last four digits of your SSN or ITIN."
   validate :valid_birth_date
 
