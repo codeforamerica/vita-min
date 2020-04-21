@@ -56,6 +56,9 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Use vita-min routes to render server error pages.
+  config.exceptions_app = self.routes
+
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
