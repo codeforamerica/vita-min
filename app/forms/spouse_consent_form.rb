@@ -9,11 +9,13 @@ class SpouseConsentForm < QuestionsForm
     :birth_date_year,
     :birth_date_month,
     :birth_date_day,
-    :spouse_full_legal_name,
+    :spouse_first_name,
+    :spouse_last_name,
     :spouse_last_four_ssn
   )
 
-  validates_presence_of :spouse_full_legal_name, message: "Please enter your name."
+  validates_presence_of :spouse_first_name, message: "Please enter your spouse's first name."
+  validates_presence_of :spouse_last_name, message: "Please enter your spouse's last name."
   validates_length_of :spouse_last_four_ssn, maximum: 4, minimum: 4, message: "Please enter the last four digits of your SSN or ITIN."
   validate :valid_birth_date
 
