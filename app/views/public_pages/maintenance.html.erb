@@ -1,0 +1,32 @@
+<% content_for :page_title, "GetYourRefund is temporarily down for maintenance" %>
+
+<main role="main">
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="offboarding--illustration">
+            <%= image_tag("construction.svg", alt: "") %>
+          </div>
+          <h1 class="offboarding--title">
+            <%= content_for(:page_title) %>
+          </h1>
+
+          <div class="offboarding--help-text">
+            <p>
+              We're making some updates to GetYourRefund, and we'll be back soon! We expect the maintenance to be finished at <strong>3:00 a.m. Eastern (12:00 a.m. Pacific)</strong>, and we encourage you to come back after that time.
+            </p>
+
+            <p>
+              If you have any questions in the meantime, feel free to reach out via the chat/help button in the bottom right.
+            </p>
+
+            <p>
+              You can also <a href="mailto:hello@getyourrefund.org">submit a question via email to GetYourRefund</a>.
+            </p>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+</main>
