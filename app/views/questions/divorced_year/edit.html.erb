@@ -1,6 +1,8 @@
+<% content_for :form_question, "What year was your divorce finalized?" %>
+
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card"} do |f| %>
-    <%= f.vita_min_select(:divorced_year, "What year was your divorce finalized?", [
+    <%= f.vita_min_select(:divorced_year, content_for(:form_question), [
         ["2020", "2020"],
         ["2019", "2019"],
         ["2018", "2018"],
