@@ -173,6 +173,10 @@ describe IntakeSiteDropOff do
       drop_off.phone_number = "4158161286"
       expect(drop_off.formatted_phone_number).to eq "(415) 816-1286"
     end
+
+    it "is okay with nil" do
+      expect(drop_off.formatted_phone_number).to eq nil
+    end
   end
 
   describe "#pickup_date_string" do
