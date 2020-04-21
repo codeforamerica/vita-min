@@ -1,6 +1,8 @@
+<% content_for :form_question, "In 2019, how many jobs did #{you_or_spouse(@form.intake)} have?" %>
+
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
-    <%= f.vita_min_select(:job_count, "In 2019, how many jobs did #{you_or_spouse(@form.intake)} have?", [
+    <%= f.vita_min_select(:job_count, content_for(:form_question), [
         ["No jobs",  0],
         ["1 job",  1],
         ["2 jobs", 2],

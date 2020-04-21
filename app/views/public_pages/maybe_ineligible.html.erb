@@ -1,4 +1,5 @@
-<% content_for :page_title, @welcome_text %>
+<% @main_heading = "We’re unsure if you qualify for our services." %>
+<% content_for :page_title, @main_heading %>
 
 <main role="main">
   <section class="slab slab--white">
@@ -8,7 +9,9 @@
           <div class="offboarding--illustration">
             <%= image_tag("other-options.svg", alt: "") %>
           </div>
-          <h1 class="offboarding--title">We’re unsure if you qualify for our services.</h1>
+          <h1 class="offboarding--title">
+            <%= @main_heading %>
+          </h1>
 
           <div class="offboarding--help-text">
             <p>
