@@ -21,7 +21,7 @@ class ZendeskRemoveDuplicatePhonesBackfill
   private
 
   def self.backfill_intake(intake)
-    return unless intake.intake_ticket_requester_id.present?
+    return unless intake.intake_ticket_requester_id.present? && intake.primary_user.present?
 
     service = ZendeskIntakeService.new(intake)
     user = service.get_end_user(user_id: intake.intake_ticket_requester_id)
