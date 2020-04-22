@@ -239,24 +239,34 @@ describe ZendeskIntakeService do
     end
   end
 
-  describe "#send_intake_pdf" do
+  describe "#send_preliminary_intake_and_consent_pdfs" do
     let(:output) { true }
-    let(:fake_file) { instance_double(File) }
+    let(:fake_intake_pdf) { instance_double(File) }
+    let(:fake_consent_pdf) { instance_double(File) }
 
     before do
       intake.intake_ticket_id = 34
-      allow(service).to receive(:append_file_to_ticket).and_return(output)
-      allow(intake).to receive(:pdf).and_return(fake_file)
+      allow(service).to receive(:append_multiple_files_to_ticket).and_return(output)
+      allow(intake).to receive(:pdf).and_return(fake_intake_pdf)
+      allow(intake).to receive(:consent_pdf).and_return(fake_consent_pdf)
     end
 
-    it "appends the intake pdf to the ticket" do
-      result = service.send_intake_pdf
+    it "appends the intake and consent pdfs to the ticket" do
+      result = service.send_preliminary_intake_and_consent_pdfs
+
+      expected_comment = <<~COMMENT
+        Preliminary 13614-C questions answered.
+  
+        Primary filer (and spouse, if applicable) consent form attached.
+      COMMENT
       expect(result).to eq true
-      expect(service).to have_received(:append_file_to_ticket).with(
+      expect(service).to have_received(:append_multiple_files_to_ticket).with(
         ticket_id: 34,
-        filename: "CherCherimoya_13614c.pdf",
-        file: fake_file,
-        comment: "New 13614-C questions answered.",
+        file_list: [
+          {file: fake_intake_pdf, filename: "CherCherimoya_13614c.pdf"},
+          {file: fake_consent_pdf, filename: "CherCherimoya_Consent.pdf"},
+        ],
+        comment: expected_comment,
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS
         }
@@ -266,13 +276,21 @@ describe ZendeskIntakeService do
     context "for UWTSA instance" do
       let(:state) { "az" }
       it "appends the intake pdf to the ticket" do
-        result = service.send_intake_pdf
+        result = service.send_preliminary_intake_and_consent_pdfs
+
+        expected_comment = <<~COMMENT
+        Preliminary 13614-C questions answered.
+  
+        Primary filer (and spouse, if applicable) consent form attached.
+        COMMENT
         expect(result).to eq true
-        expect(service).to have_received(:append_file_to_ticket).with(
+        expect(service).to have_received(:append_multiple_files_to_ticket).with(
           ticket_id: 34,
-          filename: "CherCherimoya_13614c.pdf",
-          file: fake_file,
-          comment: "New 13614-C questions answered.",
+          file_list: [
+            {file: fake_intake_pdf, filename: "CherCherimoya_13614c.pdf"},
+            {file: fake_consent_pdf, filename: "CherCherimoya_Consent.pdf"},
+          ],
+          comment: expected_comment,
           fields: {
             UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS
           }
@@ -285,7 +303,7 @@ describe ZendeskIntakeService do
 
       it "raises an error" do
         expect do
-          service.send_intake_pdf
+          service.send_preliminary_intake_and_consent_pdfs
         end.to raise_error(ZendeskIntakeService::CouldNotSendIntakePdfError)
       end
     end
@@ -401,38 +419,6 @@ describe ZendeskIntakeService do
         expect do
           service.send_final_intake_pdf
         end.to raise_error(ZendeskIntakeService::CouldNotSendCompletedIntakePdfError)
-      end
-    end
-  end
-
-  describe "#send_consent_pdf" do
-    let(:output) { true }
-    let(:fake_consent_pdf) { instance_double(File) }
-
-    before do
-      intake.intake_ticket_id = 34
-      allow(service).to receive(:append_file_to_ticket).and_return(output)
-      allow(intake).to receive(:consent_pdf).and_return(fake_consent_pdf)
-    end
-
-    it "appends the intake pdf to the ticket with updated status and interview preferences" do
-      result = service.send_consent_pdf
-      expect(result).to eq true
-      expect(service).to have_received(:append_file_to_ticket).with(
-        ticket_id: 34,
-        filename: "CherCherimoya_Consent.pdf",
-        file: fake_consent_pdf,
-        comment: "Signed consent form\n",
-      )
-    end
-
-    context "when the zendesk api fails" do
-      let(:output){ false }
-
-      it "raises an error" do
-        expect do
-          service.send_consent_pdf
-        end.to raise_error(ZendeskIntakeService::CouldNotSendConsentPdfError)
       end
     end
   end
