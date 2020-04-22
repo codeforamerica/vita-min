@@ -5,12 +5,12 @@ module Documents
       redirect_to documents_requested_documents_success_path
     end
 
-    def self.show?
+    def self.show?(_)
       false
     end
 
-    def self.form_class
-      NullForm
+    def self.document_type
+      nil
     end
   end
 end

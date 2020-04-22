@@ -6,10 +6,14 @@ module Documents
 
     def edit; end
 
+    def self.document_type
+      nil
+    end
+
     private
 
     def recommended_document_types
-      DocumentNavigation.new(self).types_for_intake(current_intake)
+      DocumentNavigation.document_types_for_intake(current_intake)
     end
   end
 end

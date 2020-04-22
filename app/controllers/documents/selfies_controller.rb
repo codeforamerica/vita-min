@@ -7,5 +7,9 @@ module Documents
         @names << current_intake.spouse_name_or_placeholder
       end
     end
+
+    def self.document_type
+      "Selfie"
+    end
   end
 end

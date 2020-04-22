@@ -7,7 +7,7 @@ module Questions
     end
 
     def next_path
-      next_step = DocumentNavigation.new(self).all_controllers.first
+      next_step = DocumentNavigation.first_for_intake(current_intake)
       document_path(next_step.to_param)
     end
 
