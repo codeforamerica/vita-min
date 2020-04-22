@@ -312,10 +312,7 @@ RSpec.describe ApplicationController do
         full_path: "/anonymous",
         controller_name: "Anonymous",
         controller_action: "AnonymousController#index",
-        controller_action_name: "index",
-        sign_in_count: nil,
-        current_sign_in_at: nil,
-        last_sign_in_at: nil,
+        controller_action_name: "index"
       }
       expect(mixpanel_spy).to have_received(:run).with(
         unique_id: "123",
@@ -334,29 +331,6 @@ RSpec.describe ApplicationController do
       end
     end
 
-    context "as a logged in user" do
-      let(:user) { create :user }
-
-      before do
-        allow(subject).to receive(:current_user).and_return(user)
-      end
-
-      it "sends fields related to that user" do
-        get :index
-
-        expect(mixpanel_spy).to have_received(:run)
-          .with(
-            unique_id: "123",
-            event_name: "page_view",
-            data: hash_including(
-              sign_in_count: user.sign_in_count,
-              current_sign_in_at: user.current_sign_in_at,
-              last_sign_in_at: user.last_sign_in_at,
-            )
-          )
-      end
-    end
-
     context "with a current intake" do
       let(:intake) do
         build(
@@ -364,11 +338,11 @@ RSpec.describe ApplicationController do
           source: "horse-ad-campaign-26",
           referrer: "http://coolwebsite.horse/tax-help/vita",
           had_disability: "yes",
-          spouse_had_disability: "no"
+          spouse_had_disability: "no",
+          primary_birth_date: Date.new(1993, 5, 16),
+          spouse_birth_date: Date.new(1992, 11, 4)
         )
       end
-      let!(:primary_user) { create :user, intake: intake, birth_date: "1993-05-16" }
-      let!(:spouse_user) { create :user, is_spouse: true, intake: intake, birth_date: "1992-11-04" }
 
       before do
         allow(subject).to receive(:current_intake).and_return(intake)
@@ -487,41 +461,24 @@ RSpec.describe ApplicationController do
 
     let(:fake_payload) { {} }
     let(:intake) { nil }
-    let(:user) { nil }
 
     before do
       allow(controller).to receive(:current_intake).and_return(intake)
-      allow(controller).to receive(:current_user).and_return(user)
     end
 
-    context "for an anonymous user" do
-      it "includes a nil user_id" do
-        controller.append_info_to_payload(fake_payload)
-        expect(fake_payload).to include(request_details: include(user_id: nil))
-      end
-
+    context "for any user" do
       it "includes other tracking properties" do
         controller.append_info_to_payload(fake_payload)
         expect(fake_payload).to include(request_details: include(:ip, :device_type, :browser_name, :os_name, :request_id, :referrer, :visitor_id))
       end
     end
 
-    context "for an anonymous user with an intake" do
+    context "for a user with an intake" do
       let(:intake) { create(:intake) }
 
-      it "includes a nil user_id but an intake_id" do
+      it "includes an intake_id" do
         controller.append_info_to_payload(fake_payload)
-        expect(fake_payload).to include(request_details: include(user_id: nil, intake_id: intake.id))
-      end
-    end
-
-    context "for a logged in user with an intake" do
-      let(:intake) { create :intake }
-      let(:user) { create :user, intake: intake }
-
-      it "appends info to payload" do
-        controller.append_info_to_payload(fake_payload)
-        expect(fake_payload).to include(request_details: include(user_id: user.id, intake_id: intake.id))
+        expect(fake_payload).to include(request_details: include(intake_id: intake.id))
       end
     end
   end
