@@ -5,7 +5,7 @@ RSpec.describe SendIntakePdfToZendeskJob, type: :job do
 
   before do
     allow(ZendeskIntakeService).to receive(:new).and_return fake_zendesk_intake_service
-    allow(fake_zendesk_intake_service).to receive(:send_intake_pdf).and_return(true)
+    allow(fake_zendesk_intake_service).to receive(:send_preliminary_intake_and_consent_pdfs).and_return(true)
   end
 
   describe "#perform" do
@@ -28,9 +28,9 @@ RSpec.describe SendIntakePdfToZendeskJob, type: :job do
     context "when pdf has not been sent" do
       let(:intake_pdf_sent_to_zendesk) { false }
 
-      it "sends the pdf as a comment on the intake ticket" do
+      it "sends the intake pdf and the consent pdf to the intake ticket" do
         expect(ZendeskIntakeService).to have_received(:new).with(intake)
-        expect(fake_zendesk_intake_service).to have_received(:send_intake_pdf)
+        expect(fake_zendesk_intake_service).to have_received(:send_preliminary_intake_and_consent_pdfs)
         intake.reload
         expect(intake.intake_pdf_sent_to_zendesk).to eq true
       end
