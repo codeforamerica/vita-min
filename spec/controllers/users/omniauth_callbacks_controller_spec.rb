@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.xdescribe Users::OmniauthCallbacksController do
+RSpec.describe Users::OmniauthCallbacksController do
   describe "#idme" do
     let(:auth) { OmniAuth::AuthHash.new({}) }
 
@@ -199,7 +199,7 @@ RSpec.xdescribe Users::OmniauthCallbacksController do
       end
     end
 
-    context "when we expected a new spouse but the primary user authenticated instead" do
+    xcontext "when we expected a new spouse but the primary user authenticated instead" do
       let(:primary_user) { create :user }
 
       before do

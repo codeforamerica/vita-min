@@ -8,7 +8,7 @@ RSpec.describe Questions::JobCountController do
   end
 
   describe "#edit" do
-    context "when user not signed in" do
+    context "when user doesn't have a current intake" do
       before do
         allow(subject).to receive(:current_intake).and_return(nil)
       end
