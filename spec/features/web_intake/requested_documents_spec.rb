@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Client uploads a requested document" do
-  scenario "client goes to the follow up documents link provided by their preparer" do
+  # TODO: What do we do about requested documents post-idme?
+  xscenario "client goes to the follow up documents link provided by their preparer" do
     silence_omniauth_logging do
       visit "/documents/requested-documents"
     end

@@ -1,6 +1,6 @@
 module Questions
   class QuestionsController < ApplicationController
-    before_action :require_sign_in
+    before_action :require_intake
 
     delegate :form_name, to: :class
     delegate :form_class, to: :class

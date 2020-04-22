@@ -1,7 +1,7 @@
 module Documents
   class RequestedDocumentsLaterController < DocumentUploadQuestionController
     before_action :handle_session, only: :edit
-    skip_before_action :require_sign_in
+    skip_before_action :require_intake
 
     def self.show?(_)
       false

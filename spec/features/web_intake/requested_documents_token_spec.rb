@@ -37,7 +37,7 @@ RSpec.feature "Client uploads a requested document" do
   end
 
   # TODO: remove this scenario when login is removed
-  scenario "client goes to the follow up documents token link while logged in" do
+  xscenario "client goes to the follow up documents token link while logged in" do
     silence_omniauth_logging do
       visit "/documents/requested-documents"
     end
