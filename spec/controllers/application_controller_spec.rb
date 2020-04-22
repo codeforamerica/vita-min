@@ -427,9 +427,54 @@ RSpec.describe ApplicationController do
 
     it "adds the after_login param onto the URL" do
       get :index
- 
+
       expected_path = controller.identity_questions_path(after_login: "/anonymous")
       expect(response).to redirect_to(expected_path)
+    end
+  end
+
+  describe "#check_maintenance_mode" do
+    controller do
+      def index
+        head :ok
+      end
+    end
+
+    context "when not in maintenance mode" do
+      it "renders successfully" do
+        get :index
+        expect(response).to be_successful
+      end
+    end
+
+    context "when in maintenance mode" do
+      before do
+        ENV['MAINTENANCE_MODE'] = '1'
+      end
+
+      after do
+        ENV.delete('MAINTENANCE_MODE')
+      end
+
+      it "redirects to the maintenance page" do
+        get :index
+        expect(response).to redirect_to(maintenance_path)
+      end
+    end
+
+    context "with maintenance mode scheduled" do
+      before do
+        ENV['MAINTENANCE_MODE_SCHEDULED'] = '1'
+      end
+
+      after do
+        ENV.delete('MAINTENANCE_MODE_SCHEDULED')
+      end
+
+      it "displays a flash message to the user" do
+        get :index
+        expect(flash.now[:warning]).to be_present
+      end
     end
   end
 

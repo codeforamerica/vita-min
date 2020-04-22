@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   after_action :track_page_view
   helper_method :include_google_analytics?
 
@@ -148,6 +148,14 @@ class ApplicationController < ActionController::Base
   def redirect_to_getyourrefund
     if request.get? && request.host.include?("vitataxhelp.org")
       return redirect_to request.original_url.gsub("vitataxhelp.org", "getyourrefund.org")
+    end
+  end
+
+  def check_maintenance_mode
+    if ENV['MAINTENANCE_MODE'].present?
+      return redirect_to maintenance_path
+    elsif ENV['MAINTENANCE_MODE_SCHEDULED'].present?
+      flash.now[:warning] = "GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow."
     end
   end
 end
