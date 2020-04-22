@@ -235,7 +235,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "I'm done for now"
 
     expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
-    click_on "I'm done"
+    click_on "I've shared all my documents"
 
     # Interview time preferences
     fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
