@@ -11,5 +11,9 @@ module Documents
       end
       super
     end
+
+    def self.document_type
+      "ID"
+    end
   end
 end

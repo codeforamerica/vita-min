@@ -7,5 +7,9 @@ module Documents
     def next_path(params = {})
       send_requested_documents_documents_path
     end
+
+    def self.document_type
+      "Requested"
+    end
   end
 end

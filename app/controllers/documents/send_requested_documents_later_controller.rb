@@ -18,8 +18,8 @@ module Documents
       false
     end
 
-    def self.form_class
-      NullForm
+    def self.document_type
+      nil
     end
 
     private

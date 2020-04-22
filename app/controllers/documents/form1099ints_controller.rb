@@ -3,5 +3,9 @@ module Documents
     def self.show?(intake)
       intake.had_interest_income_yes?
     end
+
+    def self.document_type
+      "1099-INT"
+    end
   end
 end

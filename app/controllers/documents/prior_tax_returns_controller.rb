@@ -3,5 +3,9 @@ module Documents
     def self.show?(intake)
       intake.had_local_tax_refund_yes? || intake.reported_asset_sale_loss_yes?
     end
+
+    def self.document_type
+      "2018 Tax Return"
+    end
   end
 end
