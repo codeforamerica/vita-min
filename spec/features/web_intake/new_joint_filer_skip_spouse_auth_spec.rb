@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Web Intake Joint Filer without spouse present" do
+RSpec.xfeature "Web Intake Joint Filer without spouse present" do
   scenario "new client filing joint taxes with spouse and dependents" do
     # Primary Authentication
     visit "/questions/identity"

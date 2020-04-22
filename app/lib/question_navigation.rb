@@ -4,29 +4,22 @@ class QuestionNavigation
     Questions::FeelingsController,
     Questions::BacktaxesController,
     Questions::StartWithCurrentYearController,
-    Questions::ChatWithUsController,
 
     # VITA eligibility checks
     Questions::EligibilityController,
 
     # Overview
     Questions::OverviewController,
-    Questions::OverviewDocumentsController,
 
     # Contact information
     Questions::PersonalInfoController,
+    Questions::ChatWithUsController,
     Questions::PhoneNumberController,
     Questions::EmailAddressController,
-
-    # Authentication
-    Questions::IdentityController,
+    Questions::NotificationPreferenceController, # creates initial Zendesk ticket
 
     # Consent
     Questions::ConsentController,
-
-    # Contact information
-    Questions::MailingAddressController,
-    Questions::NotificationPreferenceController, # creates initial Zendesk ticket
 
     # Primary filer personal information
     Questions::WasStudentController,
@@ -55,9 +48,6 @@ class QuestionNavigation
 
     # Spouse email
     Questions::SpouseEmailAddressController,
-
-    # Spouse authentication
-    Questions::SpouseIdentityController,
 
     # Spouse personal information
     Questions::SpouseConsentController,
@@ -133,6 +123,7 @@ class QuestionNavigation
     Questions::AdditionalInfoController, # appends 13614-C to Zendesk ticket
 
     # Documents --> See DocumentNavigation
+    Questions::OverviewDocumentsController,
 
     # Interview time preferences
     Questions::InterviewSchedulingController,
@@ -141,6 +132,7 @@ class QuestionNavigation
     Questions::RefundPaymentController,
     Questions::SavingsOptionsController,
     Questions::BalancePaymentController,
+    Questions::MailingAddressController,
 
     # Optional Demographic Questions
     Questions::DemographicQuestionsController,

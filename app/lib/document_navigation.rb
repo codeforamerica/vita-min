@@ -2,11 +2,12 @@
 
 class DocumentNavigation
   FLOW = [
-    Documents::IntroController,
     Documents::IdGuidanceController,
     Documents::IdsController,
-    Documents::SsnItinsController,
+    Documents::SelfieInstructionsController,
     Documents::SelfiesController,
+    Documents::SsnItinsController,
+    Documents::IntroController,
     Documents::W2sController,
     Documents::Form1095asController,
     Documents::Form1098sController,
@@ -36,7 +37,6 @@ class DocumentNavigation
     Documents::RequestedDocumentsController,
     Documents::RequestedDocumentsLaterController,
     Documents::OverviewController,
-    Documents::SelfieInstructionsController,
     Documents::SendRequestedDocumentsController,
     Documents::SendRequestedDocumentsLaterController,
   ].freeze
