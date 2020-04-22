@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Client uploads a requested document" do
-  let!(:intake) {create :intake, requested_docs_token: "1234ABCDEF"}
+  let!(:intake) { create :intake, requested_docs_token: "1234ABCDEF" }
   scenario "client goes to the follow up documents token link without logging in" do
     visit "/documents/add/1234ABCDEF"
 
