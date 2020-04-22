@@ -10,10 +10,10 @@ class ZendeskSmsService
   end
 
   def handle_inbound_sms(phone_number:, sms_ticket_id:, message_body:)
-    users = User.where(phone_number: phone_number)
+    intakes = Intake.where(phone_number: phone_number)
     drop_offs = IntakeSiteDropOff.where(phone_number: phone_number)
 
-    if users.empty? && drop_offs.empty?
+    if intakes.empty? && drop_offs.empty?
       return append_comment_to_ticket(
         ticket_id: sms_ticket_id,
         comment: "This user could not be found.\ntext_user_not_found",
@@ -21,7 +21,7 @@ class ZendeskSmsService
     end
 
     # get all associated tickets for intakes and drop offs
-    related_ticket_ids = (users.map { |user| user.intake.intake_ticket_id.to_s } +
+    related_ticket_ids = (intakes.map { |intake| intake.intake_ticket_id.to_s } +
         drop_offs.map { |drop_off| drop_off.zendesk_ticket_id }).reject(&:blank?).uniq.sort
 
     if related_ticket_ids.empty?
