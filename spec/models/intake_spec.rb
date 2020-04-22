@@ -320,44 +320,6 @@ describe Intake do
     end
   end
 
-  describe "#address_matches_primary_user_address?" do
-    let(:first_address) do
-      {
-        street_address: "123 Main St.",
-        city: "Oaktown",
-        state: "CA",
-        zip_code: "94609",
-      }
-    end
-
-    let(:second_address) do
-      {
-        street_address: "321 Side St.",
-        city: "Oakland",
-        state: "CA",
-        zip_code: "94609",
-      }
-    end
-
-    let(:intake) { create :intake, **first_address }
-
-    context "when the addresses match" do
-      let!(:user) { create :user, intake: intake, **first_address, state: "ca" }
-
-      it "returns true" do
-        expect(intake.address_matches_primary_user_address?).to eq true
-      end
-    end
-
-    context "when the addresses don't match" do
-      let!(:user) { create :user, intake: intake, **second_address }
-
-      it "returns false" do
-        expect(intake.address_matches_primary_user_address?).to eq false
-      end
-    end
-  end
-
   describe "#any_students?" do
     context "without answers" do
       let(:intake) { build :intake }
@@ -408,11 +370,15 @@ describe Intake do
   describe "#student_names" do
     context "when everyone is a student" do
       let(:intake) do
-        create :intake, was_full_time_student: "yes", spouse_was_full_time_student: "yes"
+        create :intake,
+          was_full_time_student: "yes",
+          spouse_was_full_time_student: "yes",
+          primary_first_name: "Henrietta",
+          primary_last_name: "Huckleberry",
+          spouse_first_name: "Helga",
+          spouse_last_name: "Huckleberry"
       end
       before do
-        create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry"
-        create :spouse_user, intake: intake, first_name: "Helga", last_name: "Huckleberry"
         create :dependent, intake: intake, first_name: "Harriet", last_name: "Huckleberry", was_student: "yes"
         create :dependent, intake: intake, first_name: "Henry", last_name: "Huckleberry", was_student: "yes"
       end
@@ -430,12 +396,16 @@ describe Intake do
 
     context "when only one dependent is a student" do
       let(:intake) do
-        create :intake, was_full_time_student: "no", spouse_was_full_time_student: "unfilled"
+        create :intake,
+          was_full_time_student: "no",
+          spouse_was_full_time_student: "unfilled",
+          primary_first_name: "Henrietta",
+          primary_last_name: "Huckleberry",
+          spouse_first_name: "Helga",
+          spouse_last_name: "Huckleberry"
       end
 
       before do
-        create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry"
-        create :spouse_user, intake: intake, first_name: "Helga", last_name: "Huckleberry"
         create :dependent, intake: intake, first_name: "Harriet", last_name: "Huckleberry", was_student: "yes"
         create :dependent, intake: intake, first_name: "Henry", last_name: "Huckleberry", was_student: "no"
       end
@@ -450,12 +420,16 @@ describe Intake do
 
     context "when no one is a student" do
       let(:intake) do
-        create :intake, was_full_time_student: "no", spouse_was_full_time_student: "no"
+        create :intake,
+          was_full_time_student: "no",
+          spouse_was_full_time_student: "no",
+          primary_first_name: "Henrietta",
+          primary_last_name: "Huckleberry",
+          spouse_first_name: "Helga",
+          spouse_last_name: "Huckleberry"
       end
 
       before do
-        create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry"
-        create :spouse_user, intake: intake, first_name: "Helga", last_name: "Huckleberry"
         create :dependent, intake: intake, first_name: "Harriet", last_name: "Huckleberry", was_student: "no"
         create :dependent, intake: intake, first_name: "Henry", last_name: "Huckleberry", was_student: "no"
       end
@@ -467,11 +441,11 @@ describe Intake do
 
     context "when there is no spouse verified but the spouse was a student" do
       let(:intake) do
-        create :intake, was_full_time_student: "yes", spouse_was_full_time_student: "yes"
-      end
-
-      before do
-        create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry"
+        create :intake,
+          was_full_time_student: "yes",
+          spouse_was_full_time_student: "yes",
+          primary_first_name: "Henrietta",
+          primary_last_name: "Huckleberry"
       end
 
       it "shows a placeholder for the spouse name" do
@@ -579,10 +553,10 @@ describe Intake do
         needs_help_2018: "no",
         needs_help_2017: "yes",
         needs_help_2016: "unfilled",
+        primary_birth_date: Date.new(1993, 3, 12),
+        spouse_birth_date: Date.new(1992, 5, 3),
       )
     end
-    let!(:primary_user) { create :user, intake: intake, birth_date: "1993-03-12" }
-    let!(:spouse_user) { create :user, is_spouse: true, intake: intake, birth_date: "1992-05-03" }
     let!(:dependent_one) { create :dependent, birth_date: Date.new(2017, 4, 21), intake: intake}
     let!(:dependent_two) { create :dependent, birth_date: Date.new(2005, 8, 11), intake: intake}
 
@@ -870,6 +844,22 @@ describe Intake do
 
       it "returns an empty hash" do
         expect(intake.contact_info_filtered_by_preferences).to eq({})
+      end
+    end
+  end
+
+  describe "#age_end_of_tax_year" do
+    let(:intake) { build :intake, primary_birth_date: Date.new(1990, 4, 21) }
+
+    it "returns their age at the end of 2019" do
+      expect(intake.age_end_of_tax_year).to eq 29
+    end
+
+    context "when birth_date is nil" do
+      let(:intake) { build :intake, primary_birth_date: nil }
+
+      it "returns nil and does not error" do
+        expect(intake.age_end_of_tax_year).to be_nil
       end
     end
   end
