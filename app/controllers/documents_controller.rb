@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :require_sign_in
+  before_action :require_intake
 
   def destroy
     document = current_intake.documents.find_by(id: params[:id])
