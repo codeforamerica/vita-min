@@ -1,8 +1,11 @@
 module DocumentsHelper
-  ALREADY_SUBMITTED_DOC_TYPES = [
+  # We want to exclude identity docs from the list of docs that the user might
+  # or must have.
+  IDENTITY_DOC_TYPES = [
     "ID",
     "SSN or ITIN",
-    "Selfie"
+    "Selfie",
+    "Other"
   ]
 
   MUST_HAVE_DOC_TYPES = [
@@ -11,13 +14,13 @@ module DocumentsHelper
   ]
 
   def must_have?(document_type)
-    return false if ALREADY_SUBMITTED_DOC_TYPES.include?(document_type)
+    return false if IDENTITY_DOC_TYPES.include?(document_type)
 
     MUST_HAVE_DOC_TYPES.include?(document_type)
   end
 
   def might_have?(document_type)
-    return false if ALREADY_SUBMITTED_DOC_TYPES.include?(document_type)
+    return false if IDENTITY_DOC_TYPES.include?(document_type)
 
     !MUST_HAVE_DOC_TYPES.include?(document_type)
   end

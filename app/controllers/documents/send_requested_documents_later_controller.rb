@@ -1,7 +1,7 @@
 module Documents
   class SendRequestedDocumentsLaterController < DocumentUploadQuestionController
-    skip_before_action :require_intake
     after_action :clear_anonymous_session
+    skip_before_action :require_intake
 
     def edit
       original_intake = find_original_intake

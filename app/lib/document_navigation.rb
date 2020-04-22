@@ -42,6 +42,9 @@ class DocumentNavigation
   ].freeze
 
   DOCUMENT_TYPES = FLOW.map(&:document_type).compact
+  CONTROLLER_BY_DOCUMENT_TYPE = FLOW
+    .find_all(&:document_type)
+    .index_by(&:document_type)
 
   class << self
     delegate :first, to: :controllers
@@ -62,7 +65,7 @@ class DocumentNavigation
     end
 
     def document_controller_for_type(document_type)
-      controllers.find { |c| c.document_type == document_type }
+      CONTROLLER_BY_DOCUMENT_TYPE[document_type]
     end
   end
 
