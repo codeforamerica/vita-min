@@ -30,10 +30,7 @@ describe ZendeskSmsService do
       let!(:drop_off) do
         create(:intake_site_drop_off, phone_number: phone_number, zendesk_ticket_id: nil)
       end
-      let(:intake) { create :intake, intake_ticket_id: nil }
-      let!(:user) do
-        create(:user, intake: intake, phone_number: phone_number)
-      end
+      let(:intake) { create :intake, intake_ticket_id: nil, phone_number: phone_number }
 
       it "leaves an internal note on the sms ticket" do
         service.handle_inbound_sms(
@@ -60,14 +57,8 @@ describe ZendeskSmsService do
           create(:intake_site_drop_off, phone_number: phone_number, zendesk_ticket_id: "2")
         ]
       end
-      let(:first_intake) { create :intake, intake_ticket_id: 3 }
-      let(:second_intake) { create :intake, intake_ticket_id: 4 }
-      let!(:users) do
-        [
-          create(:user, intake: first_intake, phone_number: phone_number),
-          create(:user, intake: second_intake, phone_number: phone_number)
-        ]
-      end
+      let!(:first_intake) { create :intake, intake_ticket_id: 3, phone_number: phone_number }
+      let!(:second_intake) { create :intake, intake_ticket_id: 4, phone_number: phone_number }
 
       before do
         allow(service).to receive(:assign_ticket_to_group).and_return true
