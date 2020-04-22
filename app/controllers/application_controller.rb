@@ -135,6 +135,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def require_intake
+    return redirect_to question_path(QuestionNavigation.first) unless current_intake.present?
+  end
+
   def require_sign_in
     unless user_signed_in?
       redirect_to identity_questions_path(after_login: request.path)
