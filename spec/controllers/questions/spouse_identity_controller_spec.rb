@@ -33,7 +33,7 @@ RSpec.describe Questions::SpouseIdentityController, type: :controller do
     end
 
     context "with missing_spouse param true" do
-      it "displays a message" do
+      xit "displays a message" do
         get :edit, params: { missing_spouse: "true" }
 
         expect(assigns(:missing_spouse_notice)).to eq "Oops! It looks like you signed in as your spouse. <b>Please sign your spouse in with ID.me so we can verify their identity.</b>"

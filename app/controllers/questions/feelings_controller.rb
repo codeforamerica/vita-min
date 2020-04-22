@@ -1,6 +1,5 @@
 module Questions
   class FeelingsController < QuestionsController
-    skip_before_action :require_sign_in
     layout "question"
 
     def current_intake
