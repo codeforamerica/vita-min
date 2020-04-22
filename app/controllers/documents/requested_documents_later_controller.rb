@@ -15,6 +15,10 @@ module Documents
       render layout: "application"
     end
 
+    def self.document_type
+      "Requested Later"
+    end
+
     private
 
     def handle_session

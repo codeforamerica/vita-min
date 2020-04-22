@@ -3,5 +3,9 @@ module Documents
     def self.show?(intake)
       intake.had_hsa_yes?
     end
+
+    def self.document_type
+      "1099-SA"
+    end
   end
 end

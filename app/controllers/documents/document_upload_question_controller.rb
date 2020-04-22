@@ -6,11 +6,15 @@ module Documents
     helper_method :document_type
 
     def edit
+      return if self.class.document_type.nil?
+
       @documents = current_intake.documents.of_type(document_type)
       @form = form_class.new(document_type, current_intake, form_params)
     end
 
     def update
+      return if self.class.document_type.nil?
+
       @form = form_class.new(document_type, current_intake, form_params)
       if @form.valid?
         form_saved = @form.save
@@ -32,7 +36,7 @@ module Documents
     end
 
     def self.document_type
-      DocumentNavigation.document_type(self)
+      raise NotImplementedError, "#{self.name} must implement document_type or return nil to indicate no document will be uploaded."
     end
 
     def track_document_upload
@@ -46,7 +50,7 @@ module Documents
     end
 
     def next_path(params = {})
-      next_step = form_navigation.next
+      next_step = form_navigation.next_for_intake(current_intake)
       document_path(next_step.to_param, params) if next_step
     end
 
