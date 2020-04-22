@@ -105,9 +105,6 @@ class ApplicationController < ActionController::Base
       controller_name: self.class.name.sub("Controller", ""),
       controller_action: "#{self.class.name}##{action_name}",
       controller_action_name: action_name,
-      sign_in_count: current_user&.sign_in_count,
-      current_sign_in_at: current_user&.current_sign_in_at,
-      last_sign_in_at: current_user&.last_sign_in_at,
     }
     default_data.merge!(current_intake.mixpanel_data) if current_intake.present?
     MixpanelService.instance.run(
@@ -120,7 +117,6 @@ class ApplicationController < ActionController::Base
   def append_info_to_payload(payload)
     super
     payload[:request_details] = {
-      user_id: current_user&.id,
       intake_id: current_intake&.id,
       device_type: user_agent.device_type,
       browser_name: user_agent.name,
