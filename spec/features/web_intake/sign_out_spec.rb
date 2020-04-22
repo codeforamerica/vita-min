@@ -7,7 +7,7 @@ RSpec.feature "Web Intake user signs out" do
     )
   end
 
-  scenario "client clicks the sign out button" do
+  xscenario "client clicks the sign out button" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     click_on "Sign in with ID.me"
