@@ -279,9 +279,7 @@ class ZendeskIntakeService
 
   def new_ticket_body_footer
     <<~FOOTER.strip
-      This filer has:
-          • Verified their identity through ID.me
-          • Consented to this VITA pilot
+      This filer has consented to this VITA pilot
     FOOTER
   end
 
