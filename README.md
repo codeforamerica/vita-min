@@ -3,6 +3,7 @@
 Vita-Min is a Rails app that helps people access the VITA program through a digital intake form, a "valet" drop-off workflow using Zendesk, and a national landing page to find the nearest VITA site.
 
 ## Setup
+
 ```bash
 # 1. Install Ruby using your preferred installation method. For example, to
 # install it with rbenv:
@@ -26,7 +27,6 @@ brew install imagemagick poppler ghostscript
 echo "[secret key]" > config/master.key
 ```
 
-
 ## Running background jobs in development
 
 In development, you'll need to manually start the delayed_job worker using the following command:
@@ -34,3 +34,23 @@ In development, you'll need to manually start the delayed_job worker using the f
 ```shell
 rails jobs:work
 ```
+
+## Run some tests!
+
+The `[options]` and `[path]` are optional.
+
+To run the test suite:
+
+`bundle exec rspec [options] [path]`
+
+To run only the failing tests:
+
+`bundle exec rspec --only-failures`
+
+To run the tests with coverage (path not recommended):
+
+`COVERAGE=y bundle exec rspec [options]`
+
+To run the test suite continuously:
+
+`bundle exec guard`

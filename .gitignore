@@ -29,3 +29,8 @@
 
 /.idea
 .DS_Store
+
+# Ignore coverage directory and contents
+coverage
+# Ignore rspec example persistence file
+spec/examples.txt

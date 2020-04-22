@@ -57,6 +57,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'pry-byebug'
+  gem 'guard-rspec', require: false
 end
 
 group :development do
@@ -75,6 +76,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'rspec_junit_formatter'
   gem 'webmock'
+  gem 'simplecov', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
