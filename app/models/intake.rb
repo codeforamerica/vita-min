@@ -301,13 +301,6 @@ class Intake < ApplicationRecord
     URI.parse(referrer).host if referrer.present?
   end
 
-  def address_matches_primary_user_address?
-    primary_user.street_address&.downcase == street_address&.downcase &&
-      primary_user.city&.downcase == city&.downcase &&
-      primary_user.state&.downcase == state&.downcase &&
-      primary_user.zip_code == zip_code
-  end
-
   def state_of_residence_name
     States.name_for_key(state_of_residence)
   end
@@ -333,12 +326,13 @@ class Intake < ApplicationRecord
   end
 
   def spouse_name_or_placeholder
-    spouse&.full_name || "Your spouse"
+    return "Your spouse" unless spouse_first_name.present?
+    spouse_full_name
   end
 
   def student_names
     names = []
-    names << primary_user.full_name if was_full_time_student_yes?
+    names << primary_full_name if was_full_time_student_yes?
     names << spouse_name_or_placeholder if spouse_was_full_time_student_yes?
     names += dependents.where(was_student: "yes").map(&:full_name)
     names
@@ -387,8 +381,8 @@ class Intake < ApplicationRecord
       intake_source: source,
       intake_referrer: referrer,
       intake_referrer_domain: referrer_domain,
-      primary_filer_age_at_end_of_tax_year: primary_user&.age_end_of_tax_year.to_s,
-      spouse_age_at_end_of_tax_year: spouse&.age_end_of_tax_year.to_s,
+      primary_filer_age_at_end_of_tax_year: age_end_of_tax_year.to_s,
+      spouse_age_at_end_of_tax_year: spouse_age_end_of_tax_year.to_s,
       primary_filer_disabled: had_disability,
       spouse_disabled: spouse_had_disability,
       had_dependents: dependents.size > 0 ? "yes" : "no",
@@ -441,6 +435,19 @@ class Intake < ApplicationRecord
   def opted_into_notifications?
     sms_notification_opt_in_yes? || email_notification_opt_in_yes?
   end
+
+  def age_end_of_tax_year
+    return unless primary_birth_date.present?
+
+    tax_year - primary_birth_date.year
+  end
+
+  def spouse_age_end_of_tax_year
+    return unless spouse_birth_date.present?
+
+    tax_year - spouse_birth_date.year
+  end
+
 
   private
 

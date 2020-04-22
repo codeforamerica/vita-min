@@ -2,7 +2,16 @@ require "rails_helper"
 
 RSpec.describe Documents::StudentAccountStatementsController do
   let(:attributes) { {} }
-  let(:intake) { create :intake, **attributes }
+  let(:intake) do
+    create(
+      :intake,
+      primary_first_name: "Henrietta",
+      primary_last_name: "Huckleberry",
+      spouse_first_name: "Helga",
+      spouse_last_name: "Huckleberry",
+      **attributes
+    )
+  end
 
   describe ".show?" do
     context "when they had a student in the family" do
@@ -26,11 +35,9 @@ RSpec.describe Documents::StudentAccountStatementsController do
 
   describe "#edit" do
     render_views
-    let!(:user) { create :user, intake: intake, first_name: "Henrietta", last_name: "Huckleberry" }
-    let!(:spouse_user) { create :spouse_user, intake: intake, first_name: "Helga", last_name: "Huckleberry" }
-
     before do
-      sign_in user
+      allow(subject).to receive(:user_signed_in?).and_return(true)
+      allow(subject).to receive(:current_intake).and_return intake
     end
 
     context "when everyone is a full time student" do
