@@ -134,12 +134,14 @@
 #  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
+#  zendesk_instance_domain                              :string
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  zendesk_group_id                                     :string
 #
 
 FactoryBot.define do
