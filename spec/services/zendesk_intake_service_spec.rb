@@ -192,9 +192,7 @@ describe ZendeskIntakeService do
             • Text message
             • Email
 
-        This filer has:
-            • Verified their identity through ID.me
-            • Consented to this VITA pilot
+        This filer has consented to this VITA pilot
       BODY
     end
 
