@@ -3,5 +3,9 @@ module Documents
     def self.show?(intake)
       intake.had_debt_forgiven_yes?
     end
+
+    def self.document_type
+      "1099-C"
+    end
   end
 end

@@ -8,5 +8,9 @@ module Documents
       @student_names = current_intake.student_names
       super
     end
+
+    def self.document_type
+      "Student Account Statement"
+    end
   end
 end

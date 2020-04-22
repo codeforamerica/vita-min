@@ -15,7 +15,7 @@ RSpec.describe DocumentsOverviewHelper do
 
     it "raises an error" do
       expect { helper.edit_document_path(document_type) }
-        .to raise_error(/Missing document type/)
+        .to raise_error(/Missing/)
     end
   end
 end
