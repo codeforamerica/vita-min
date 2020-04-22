@@ -10,22 +10,31 @@ RSpec.describe DocumentNavigation do
       def current_intake; end
     end
 
-    class FirstController < BaseController; end
-    class SecondController < BaseController; end
-    class ThirdController < BaseController; end
+    class FirstController < BaseController
+      def self.document_type
+        "Doc-1"
+      end
+    end
+
+    class SecondController < BaseController
+      def self.document_type
+        "Doc-2"
+      end
+    end
+
+    class ThirdController < BaseController
+      def self.document_type
+        "Doc-3"
+      end
+    end
 
     class ExternalController; end
 
-    stub_const(
-      "DocumentNavigation::DOCUMENT_CONTROLLERS",
-      {
-        "Doc-1" => FirstController,
-        "Doc-2" => SecondController,
-        "Doc-3" => ThirdController,
-      }
-    )
-    stub_const("DocumentNavigation::BEFORE_CONTROLLERS", [])
-    stub_const("DocumentNavigation::AFTER_CONTROLLERS", [])
+    stub_const("DocumentNavigation::FLOW", [
+      FirstController,
+      SecondController,
+      ThirdController,
+    ])
   end
 
   describe ".controllers" do
@@ -46,65 +55,47 @@ RSpec.describe DocumentNavigation do
     end
   end
 
-  describe ".document_type" do
-    it "returns the document type string corresponding to the given controller" do
-      expect(described_class.document_type(SecondController)).to eq "Doc-2"
-    end
-  end
+  describe "#next_for_intake" do
+    let(:intake) { build :intake }
 
-  describe "#next" do
     context "when current controller is second to last or before" do
       before do
-        allow(SecondController).to receive(:show?) { false }
+        allow(SecondController).to receive(:show?).with(intake).and_return(false)
       end
 
-      it "returns numeric index for next non-skipped controller in main flow" do
+      it "returns the class for next non-skipped controller in main flow" do
         navigation = described_class.new(FirstController.new)
-        expect(navigation.next).to eq(ThirdController)
+        expect(navigation.next_for_intake(intake)).to eq(ThirdController)
       end
     end
 
     context "when current controller is the last" do
       it "returns nil" do
         navigation = described_class.new(ThirdController.new)
-        expect(navigation.next).to be_nil
+        expect(navigation.next_for_intake(intake)).to be_nil
       end
     end
   end
 
-  describe "#first_for_intake" do
+  describe ".first_for_intake" do
     let(:intake) { build :intake }
     before do
-      allow(FirstController).to receive(:show?) { false }
+      allow(FirstController).to receive(:show?).with(intake).and_return(false)
     end
 
     it "returns the first relevant controller for the given input" do
-      navigation = described_class.new(ExternalController.new)
-      expect(navigation.first_for_intake(intake)).to eq SecondController
+      expect(described_class.first_for_intake(intake)).to eq SecondController
     end
   end
 
-  describe "#select" do
-    let(:intake) { build :intake }
-    before do
-      allow(SecondController).to receive(:show?) { false }
-    end
-
-    it "returns an array of all controllers that should be displayed for the current intake" do
-      navigation = described_class.new(ThirdController.new)
-      expect(navigation.select(intake)).to eq [FirstController, ThirdController]
-    end
-  end
-
-  describe "#types_for_intake" do
+  describe ".document_types_for_intake" do
     let(:intake) { build :intake }
     before do
       allow(SecondController).to receive(:show?) { false }
     end
 
     it "returns an array of all document types that should be displayed for the current intake" do
-      navigation = described_class.new(ThirdController.new)
-      expect(navigation.types_for_intake(intake)).to eq ["Doc-1", "Doc-3"]
+      expect(described_class.document_types_for_intake(intake)).to eq ["Doc-1", "Doc-3"]
     end
   end
 end

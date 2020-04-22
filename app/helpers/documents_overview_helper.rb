@@ -1,9 +1,9 @@
 module DocumentsOverviewHelper
   def edit_document_path(document_type)
-    document_controller = DocumentNavigation::DOCUMENT_CONTROLLERS[document_type]
+    document_controller = DocumentNavigation.document_controller_for_type(document_type)
 
     unless document_controller
-      raise "Missing document type `#{document_type}` from Document::DOCUMENT_CONTROLLERS"
+      raise "Missing DocumentNavigation::FLOW controller that returns `#{document_type}` from `self.document_type`"
     end
 
     document_path(document_controller)
