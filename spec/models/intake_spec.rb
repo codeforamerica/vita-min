@@ -833,7 +833,7 @@ describe Intake do
       it "returns email and phone_number in a hash" do
         expected_result = {
           email: "supermane@fantastic.horse",
-          phone_number: "14158161286",
+          phone_number: "+14158161286",
         }
         expect(intake.contact_info_filtered_by_preferences).to eq expected_result
       end
@@ -845,7 +845,7 @@ describe Intake do
 
       it "returns phone_number in a hash" do
         expected_result = {
-          phone_number: "14158161286",
+          phone_number: "+14158161286",
         }
         expect(intake.contact_info_filtered_by_preferences).to eq expected_result
 
