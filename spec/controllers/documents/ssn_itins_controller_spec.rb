@@ -2,8 +2,14 @@ require "rails_helper"
 
 RSpec.describe Documents::SsnItinsController do
   let(:filing_joint) { "no" }
-  let(:intake) { create :intake, filing_joint: filing_joint }
-  let!(:primary_user) { create :user, first_name: "Gary", last_name: "Gnome", intake: intake }
+  let(:intake) do
+    create(
+      :intake,
+      filing_joint: filing_joint,
+      primary_first_name: "Gary",
+      primary_last_name: "Gnome"
+    )
+  end
 
   before do
     allow(subject).to receive(:user_signed_in?).and_return(true)
@@ -24,7 +30,12 @@ RSpec.describe Documents::SsnItinsController do
     context "when they are filing jointly" do
       context "when we have the spouse name" do
         let(:filing_joint) { "yes" }
-        let!(:user) { create :user, is_spouse: true, first_name: "Greta", last_name: "Gnome", intake: intake }
+        before do
+          intake.update(
+            spouse_first_name: "Greta",
+            spouse_last_name: "Gnome",
+          )
+        end
 
         it "includes their name in the list" do
           get :edit

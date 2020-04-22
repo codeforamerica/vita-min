@@ -2,8 +2,14 @@ require "rails_helper"
 
 RSpec.describe Documents::IdsController do
   let(:attributes) { {} }
-  let(:intake) { create :intake, **attributes }
-  let!(:primary_user) { create :user, first_name: "Gary", last_name: "Gnome", intake: intake }
+  let(:intake) do
+    create(
+      :intake,
+      primary_first_name: "Gary",
+      primary_last_name: "Gnome",
+      **attributes
+    )
+  end
 
   before do
     allow(subject).to receive(:user_signed_in?).and_return(true)
@@ -15,7 +21,12 @@ RSpec.describe Documents::IdsController do
       let(:attributes) { { filing_joint: "yes" } }
 
       context "when we have the spouse name" do
-        let!(:user) { create :user, first_name: "Greta", last_name: "Gnome", is_spouse: true, intake: intake }
+        before do
+          intake.update(
+            spouse_first_name: "Greta",
+            spouse_last_name: "Gnome",
+            )
+        end
 
         it "shows the spouse name" do
           get :edit
