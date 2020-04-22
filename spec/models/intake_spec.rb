@@ -134,12 +134,14 @@
 #  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
+#  zendesk_instance_domain                              :string
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  zendesk_group_id                                     :string
 #
 
 require 'rails_helper'
@@ -600,6 +602,47 @@ describe Intake do
 
       it "returns them as an array" do
         expect(intake.filing_years).to eq(["2019", "2017"])
+      end
+    end
+  end
+
+  describe "#zendesk_instance" do
+    context "when the intake has a zendesk_instance_domain value saved in the DB" do
+      let(:eitc_intake) { create :intake, zendesk_instance_domain: "eitc" }
+      let(:uwtsa_intake) { create :intake, zendesk_instance_domain: "unitedwaytucson" }
+
+      it "returns the corresponding instance" do
+        expect(eitc_intake.zendesk_instance).to eq (EitcZendeskInstance)
+        expect(uwtsa_intake.zendesk_instance).to eq (UwtsaZendeskInstance)
+      end
+    end
+
+    context "when the zendesk_instance_domain is nil" do
+      context "when the state is nil" do
+        let(:intake) { create :intake }
+
+        it "returns the eitc instance and saves the domain on the intake" do
+          expect(intake.zendesk_instance).to eq (EitcZendeskInstance)
+          expect(intake.reload.zendesk_instance_domain).to eq ("eitc")
+        end
+      end
+
+      context "when the group id is an EITC group id" do
+        let(:intake) { create :intake, state: "oh", source: "uwco" }
+
+        it "returns the eitc instance and saves the domain on the intake" do
+          expect(intake.zendesk_instance).to eq (EitcZendeskInstance)
+          expect(intake.reload.zendesk_instance_domain).to eq ("eitc")
+        end
+      end
+
+      context "when the group id is NOT an EITC group id" do
+        let(:intake) { create :intake, state: "ny", source: nil }
+
+        it "returns the uwtsa instance and saves the domain on the intake" do
+          expect(intake.zendesk_instance).to eq (UwtsaZendeskInstance)
+          expect(intake.reload.zendesk_instance_domain).to eq ("unitedwaytucson")
+        end
       end
     end
   end

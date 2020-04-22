@@ -134,12 +134,14 @@
 #  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
+#  zendesk_instance_domain                              :string
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  zendesk_group_id                                     :string
 #
 
 class Intake < ApplicationRecord
@@ -232,7 +234,7 @@ class Intake < ApplicationRecord
   enum was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_on_visa
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
 
-  scope :anonymous, -> { where(anonymous: true) }
+  scope :anonymous, -> {where(anonymous: true)}
 
   def self.create_anonymous_intake(original_intake)
     Intake.create(
@@ -315,7 +317,7 @@ class Intake < ApplicationRecord
     was_full_time_student_yes? ||
       spouse_was_full_time_student_yes? ||
       had_student_in_family_yes? ||
-      dependents.where(was_student: "yes" ).any?
+      dependents.where(was_student: "yes").any?
   end
 
   def spouse_name_or_placeholder
@@ -411,7 +413,7 @@ class Intake < ApplicationRecord
   end
 
   def zendesk_instance
-    if state_of_residence.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(zendesk_group_id)
+    if state.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(zendesk_group_id)
       EitcZendeskInstance
     else
       UwtsaZendeskInstance
@@ -443,6 +445,24 @@ class Intake < ApplicationRecord
 
 
   private
+
+  def get_or_create_zendesk_instance_domain
+    if zendesk_instance_domain.present?
+      zendesk_instance_domain
+    else
+      domain = determine_zendesk_instance_domain
+      self.update(zendesk_instance_domain: domain)
+      domain
+    end
+  end
+
+  def determine_zendesk_instance_domain
+    if state.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(zendesk_group_id)
+      EitcZendeskInstance::DOMAIN
+    else
+      UwtsaZendeskInstance::DOMAIN
+    end
+  end
 
   def group_by_source
     EitcZendeskInstance::ORGANIZATION_SOURCE_PARAMETERS.each do |key, value|
