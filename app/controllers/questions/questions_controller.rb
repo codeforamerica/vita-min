@@ -49,10 +49,6 @@ module Questions
 
     def after_update_success; end
 
-    def require_intake
-      return redirect_to question_path(QuestionNavigation.first) unless current_intake.present?
-    end
-
     def form_params
       params.fetch(form_name, {}).permit(*form_class.attribute_names)
     end

@@ -10,7 +10,7 @@ RSpec.describe DocumentsController, type: :controller do
         delete :destroy, params: { id: document.id }
       end.not_to change(Document, :count)
 
-      expect(response).to redirect_to(identity_questions_path(after_login: document_path(document)))
+      expect(response).to redirect_to(feelings_questions_path)
     end
 
     context "with an authenticated user" do
