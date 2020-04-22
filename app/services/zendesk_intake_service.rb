@@ -99,13 +99,19 @@ class ZendeskIntakeService
     end
   end
 
-  def send_intake_pdf
-    comment_body = "New 13614-C questions answered."
+  def send_preliminary_intake_and_consent_pdfs
+    comment_body = <<~BODY
+      Preliminary 13614-C questions answered.
 
-    output = append_file_to_ticket(
+      Primary filer (and spouse, if applicable) consent form attached.
+    BODY
+
+    output = append_multiple_files_to_ticket(
       ticket_id: @intake.intake_ticket_id,
-      filename: intake_pdf_filename,
-      file: @intake.pdf,
+      file_list: [
+        {file: @intake.pdf, filename: intake_pdf_filename},
+        {file: @intake.consent_pdf, filename: consent_pdf_filename}
+      ],
       comment: comment_body,
       fields: intake_pdf_fields
     )
@@ -148,20 +154,6 @@ class ZendeskIntakeService
     )
 
     raise CouldNotSendCompletedIntakePdfError unless output == true
-    output
-  end
-
-  def send_consent_pdf
-    output = append_file_to_ticket(
-      ticket_id: @intake.intake_ticket_id,
-      filename: consent_pdf_filename,
-      file: @intake.consent_pdf,
-      comment: <<~COMMENT,
-        Signed consent form
-      COMMENT
-    )
-
-    raise CouldNotSendConsentPdfError unless output == true
     output
   end
 
