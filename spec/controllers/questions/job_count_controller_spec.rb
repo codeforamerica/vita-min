@@ -4,20 +4,19 @@ RSpec.describe Questions::JobCountController do
   let(:intake) { create :intake }
 
   before do
-    allow(subject).to receive(:user_signed_in?).and_return(true)
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
   describe "#edit" do
     context "when user not signed in" do
       before do
-        allow(subject).to receive(:user_signed_in?).and_return(false)
+        allow(subject).to receive(:current_intake).and_return(nil)
       end
 
-      it "redirects to ID.me login page" do
+      it "redirects to the start of the questions flow" do
         get :edit
 
-        expect(response).to redirect_to(identity_questions_path(after_login: job_count_questions_path))
+        expect(response).to redirect_to(feelings_questions_path)
       end
     end
   end

@@ -390,23 +390,6 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#require_sign_in" do
-    controller do
-      before_action :require_sign_in
-
-      def index
-        head :ok
-      end
-    end
-
-    it "adds the after_login param onto the URL" do
-      get :index
-
-      expected_path = controller.identity_questions_path(after_login: "/anonymous")
-      expect(response).to redirect_to(expected_path)
-    end
-  end
-
   describe "#check_maintenance_mode" do
     controller do
       def index

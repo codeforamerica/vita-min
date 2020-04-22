@@ -1,6 +1,5 @@
 module Questions
   class SpouseConsentController < QuestionsController
-    skip_before_action :require_sign_in
     layout "application"
 
     def self.show?(intake)

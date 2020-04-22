@@ -1,6 +1,6 @@
 module Documents
   class SendRequestedDocumentsLaterController < DocumentUploadQuestionController
-    skip_before_action :require_sign_in
+    skip_before_action :require_intake
     after_action :clear_anonymous_session
 
     def edit

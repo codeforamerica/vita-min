@@ -1,5 +1,5 @@
 class DependentsController < ApplicationController
-  before_action :require_sign_in
+  before_action :require_intake
 
   def index
     @dependents = current_intake.dependents
