@@ -3,13 +3,10 @@ require "rails_helper"
 RSpec.describe Questions::EmailAddressController do
   render_views
 
-  let(:user) do
-    create(:user)
-  end
-  let(:intake) { user.intake }
+  let(:intake) { create(:intake) }
 
   before do
-    allow(subject).to receive(:current_user).and_return(user)
+    allow(subject).to receive(:current_intake).and_return(intake)
     allow(subject).to receive(:send_mixpanel_event)
   end
 
