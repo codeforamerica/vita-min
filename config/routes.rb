@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   resources :documents, controller: :documents do
     collection do
-      DocumentNavigation.all_controllers.uniq.each do |controller_class|
+      DocumentNavigation.controllers.uniq.each do |controller_class|
         { get: :edit, put: :update }.each do |method, action|
           match "/#{controller_class.to_param}",
                 action: action,
