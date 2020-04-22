@@ -21,10 +21,6 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "Let's get started")
     click_on "Continue"
 
-    # Chat with us
-    expect(page).to have_selector("h1", text: "Our team is here to help!")
-    click_on "Continue"
-
     # VITA eligibility checks
     expect(page).to have_selector("h1", text: "Let’s check a few things.")
     check "None of the above"
@@ -34,14 +30,14 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
     click_on "Continue"
 
-    # Documents overview
-    expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
-    click_on "Continue"
-
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "Preferred name", with: "Gary"
     select "Indiana", from: "State of residence"
+    click_on "Continue"
+
+    # Chat with us
+    expect(page).to have_selector("h1", text: "Our team is here to help!")
     click_on "Continue"
 
     # Phone number
@@ -57,11 +53,12 @@ RSpec.feature "Web Intake Single Filer" do
     fill_in "Confirm e-mail address", with: "gary.gardengnome@example.green"
     click_on "Continue"
 
-    # Authentication
-    expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
-    click_on "Sign in with ID.me"
-
-    # the ID.me flow would occur here. They should end up back on a success page.
+    # Notification Preference
+    expect(page).to have_text("How can we update you on your tax return?")
+    check "Email Me"
+    check "Text Me"
+    fill_in "Cell phone number", with: "555-231-4321"
+    click_on "Continue"
 
     # Consent form
     expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
@@ -72,20 +69,6 @@ RSpec.feature "Web Intake Single Filer" do
     select "5", from: "Day"
     select "1971", from: "Year"
     click_on "I agree"
-
-    # Contact information
-    expect(page).to have_text("What is your mailing address?")
-    fill_in "Street address", with: "123 Main St."
-    fill_in "City", with: "Anytown"
-    select "California", from: "State"
-    fill_in "ZIP code", with: "94612"
-    click_on "Confirm"
-
-    expect(page).to have_text("How can we update you on your tax return?")
-    check "Email Me"
-    check "Text Me"
-    fill_in "Cell phone number", with: "555-231-4321"
-    click_on "Continue"
 
     # Primary filer personal information
     expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
@@ -207,8 +190,8 @@ RSpec.feature "Web Intake Single Filer" do
     fill_in "Is there any additional information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
     click_on "Next"
 
-    # Documents overview
-    expect(page).to have_selector("h1", text: "All right, let's collect your documents!")
+    # Overview: Documents
+    expect(page).to have_selector("h1", text: "Collect all your documents and have them with you.")
     click_on "Continue"
 
     # IRS guidance
@@ -219,14 +202,18 @@ RSpec.feature "Web Intake Single Filer" do
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "I'm done for now"
 
-    expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
-    click_on "I'm done for now"
-
     expect(page).to have_selector("h1", text: "Confirm your identity with a selfie")
     click_on "Submit a selfie"
 
     expect(page).to have_selector("h1", text: "Share a selfie with your ID card")
     click_on "I'm done for now"
+
+    expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
+    click_on "I'm done for now"
+
+    # Documents: Intro
+    expect(page).to have_selector("h1", text: "All right, let's collect your documents!")
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your W-2's")
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
@@ -291,6 +278,14 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Continue"
     expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
     click_on "Yes"
+
+    # Contact information
+    expect(page).to have_text("What is your mailing address?")
+    fill_in "Street address", with: "123 Main St."
+    fill_in "City", with: "Anytown"
+    select "California", from: "State"
+    fill_in "ZIP code", with: "94612"
+    click_on "Confirm"
 
     # Demographic questions
     expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
