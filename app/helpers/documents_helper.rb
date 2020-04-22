@@ -1,16 +1,24 @@
 module DocumentsHelper
-  MUST_HAVE_DOC_TYPES= [
+  ALREADY_SUBMITTED_DOC_TYPES = [
     "ID",
     "SSN or ITIN",
+    "Selfie"
+  ]
+
+  MUST_HAVE_DOC_TYPES = [
     "1095-A",
     "1099-R",
   ]
 
   def must_have?(document_type)
+    return false if ALREADY_SUBMITTED_DOC_TYPES.include?(document_type)
+
     MUST_HAVE_DOC_TYPES.include?(document_type)
   end
 
   def might_have?(document_type)
+    return false if ALREADY_SUBMITTED_DOC_TYPES.include?(document_type)
+
     !MUST_HAVE_DOC_TYPES.include?(document_type)
   end
 

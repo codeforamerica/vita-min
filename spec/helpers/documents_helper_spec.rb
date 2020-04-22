@@ -2,8 +2,16 @@ require "rails_helper"
 
 RSpec.describe DocumentsHelper do
   describe "#must_have?" do
-    context "a document that we can be sure someone needs" do
+    context "a document that the user has already uploaded" do
       let(:doc_type) { "SSN or ITIN" }
+
+      it "returns false" do
+        expect(helper.must_have?(doc_type)).to eq false
+      end
+    end
+
+    context "a document that we can be sure someone needs" do
+      let(:doc_type) { "1095-A" }
 
       it "returns true" do
         expect(helper.must_have?(doc_type)).to eq true
@@ -20,8 +28,16 @@ RSpec.describe DocumentsHelper do
   end
 
   describe "#might_have?" do
-    context "a document that we can be sure someone needs" do
+    context "a document that the user has already uploaded" do
       let(:doc_type) { "SSN or ITIN" }
+
+      it "returns false" do
+        expect(helper.must_have?(doc_type)).to eq false
+      end
+    end
+
+    context "a document that we can be sure someone needs" do
+      let(:doc_type) { "1095-A" }
 
       it "returns true" do
         expect(helper.might_have?(doc_type)).to eq false
