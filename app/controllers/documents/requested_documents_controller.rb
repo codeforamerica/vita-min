@@ -1,10 +1,12 @@
 module Documents
   class RequestedDocumentsController < DocumentUploadQuestionController
-    def self.show?(intake)
+    DOCUMENT_TYPE = 'Requested'.freeze
+
+    def self.show?(_)
       false
     end
 
-    def next_path(params = {})
+    def next_path(_ = {})
       send_requested_documents_documents_path
     end
   end

@@ -1,52 +1,56 @@
 # frozen_string_literal: true
 
 class DocumentNavigation
-  DOCUMENT_CONTROLLERS = {
-    "W-2" => Documents::W2sController,
-    "1095-A" => Documents::Form1095asController,
-    "1098" => Documents::Form1098sController,
-    "1098-E" => Documents::Form1098esController,
-    "1098-T" => Documents::Form1098tsController,
-    "1099-A" => Documents::Form1099asController,
-    "1099-B" => Documents::Form1099bsController,
-    "1099-C" => Documents::Form1099csController,
-    "1099-DIV" => Documents::Form1099divsController,
-    "1099-INT" => Documents::Form1099intsController,
-    "1099-K" => Documents::Form1099ksController,
-    "1099-MISC" => Documents::Form1099miscsController,
-    "1099-R" => Documents::Form1099rsController,
-    "1099-S" => Documents::Form1099ssController,
-    "1099-SA" => Documents::Form1099sasController,
-    "1099-G" => Documents::Form1099gsController,
-    "5498-SA" => Documents::Form5498sasController,
-    "IRA Statement" => Documents::IraStatementsController,
-    "Property Tax Statement" => Documents::PropertyTaxStatementsController,
-    "RRB-1099" => Documents::Rrb1099sController,
-    "SSN or ITIN" => Documents::SsnItinsController,
-    "SSA-1099" => Documents::Ssa1099sController,
-    "Student Account Statement" => Documents::StudentAccountStatementsController,
-    "Care Provider Statement" => Documents::CareProviderStatementsController,
-    "W-2G" => Documents::W2gsController,
-    "2018 Tax Return" => Documents::PriorTaxReturnsController,
-    "Other" => Documents::AdditionalDocumentsController,
-    "Requested" => Documents::RequestedDocumentsController,
-    "Requested Later" => Documents::RequestedDocumentsLaterController,
-  }.freeze
+  DOCUMENT_CONTROLLERS = [
+    Documents::W2sController,
+    Documents::Form1095asController,
+    Documents::Form1098sController,
+    Documents::Form1098esController,
+    Documents::Form1098tsController,
+    Documents::Form1099asController,
+    Documents::Form1099bsController,
+    Documents::Form1099csController,
+    Documents::Form1099divsController,
+    Documents::Form1099intsController,
+    Documents::Form1099ksController,
+    Documents::Form1099miscsController,
+    Documents::Form1099rsController,
+    Documents::Form1099ssController,
+    Documents::Form1099sasController,
+    Documents::Form1099gsController,
+    Documents::Form5498sasController,
+    Documents::IraStatementsController,
+    Documents::PropertyTaxStatementsController,
+    Documents::Rrb1099sController,
+    Documents::SsnItinsController,
+    Documents::Ssa1099sController,
+    Documents::StudentAccountStatementsController,
+    Documents::CareProviderStatementsController,
+    Documents::W2gsController,
+    Documents::PriorTaxReturnsController,
+    Documents::AdditionalDocumentsController,
+    Documents::RequestedDocumentsController,
+    Documents::RequestedDocumentsLaterController,
+  ].freeze
+
+
   BEFORE_CONTROLLERS = [
     Documents::IntroController
   ].freeze
+
   AFTER_CONTROLLERS = [
     Documents::OverviewController,
     Documents::SendRequestedDocumentsController,
     Documents::SendRequestedDocumentsLaterController,
   ].freeze
-  DOCUMENT_TYPES = DOCUMENT_CONTROLLERS.keys.freeze
+
+  DOCUMENT_TYPES = DOCUMENT_CONTROLLERS.map { |c| c::DOCUMENT_TYPE }.freeze
 
   class << self
     delegate :first, to: :controllers
 
     def controllers
-      DOCUMENT_CONTROLLERS.values
+      DOCUMENT_CONTROLLERS
     end
 
     def all_controllers
@@ -54,7 +58,23 @@ class DocumentNavigation
     end
 
     def document_type(controller_class)
-      DOCUMENT_CONTROLLERS.key(controller_class)
+      # was:
+      # DOCUMENT_CONTROLLERS.key(controller_class)
+
+      defined?(controller_class::DOCUMENT_TYPE) ? controller_class::DOCUMENT_TYPE : nil
+    end
+
+    def controller_for(doc_type)
+      controller_type_mapping[doc_type]
+    end
+
+    def controller_type_mapping
+      @controller_type_mapping_memo ||= Hash[
+        # Documents::DocumentUploadQuestionController.descendants
+        DOCUMENT_CONTROLLERS
+          .filter {|c| c::DOCUMENT_TYPE}         # ignore anything without a document type
+          .map { |c| [c::DOCUMENT_TYPE, c]}      # future: append to array
+      ].freeze
     end
   end
 

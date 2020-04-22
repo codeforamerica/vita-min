@@ -1,5 +1,7 @@
 module Documents
   class SsnItinsController < DocumentUploadQuestionController
+    DOCUMENT_TYPE = 'SSN or ITIN'.freeze
+
     def self.show?(intake)
       intake.dependents.present?
     end

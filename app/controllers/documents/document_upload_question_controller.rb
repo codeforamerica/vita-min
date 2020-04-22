@@ -5,6 +5,16 @@ module Documents
     delegate :document_type, to: :class
     helper_method :document_type
 
+    DOCUMENT_TYPE = nil
+
+    def self.show?(_)
+      # if a subclass hasn't implemented this method, it has no conditions
+      # to determine whether or not it should be shown. .: it shouldn't be.
+      # @bvandg
+
+      false
+    end
+
     def edit
       @documents = current_intake.documents.of_type(document_type)
       @form = form_class.new(document_type, current_intake, form_params)
@@ -32,7 +42,9 @@ module Documents
     end
 
     def self.document_type
-      DocumentNavigation.document_type(self)
+      # if DOCUMENT_TYPE is defined, use that. otherwise, default
+      # to the legacy list (being refactored).
+      self::DOCUMENT_TYPE || DocumentNavigation.document_type(self)
     end
 
     def track_document_upload

@@ -3,6 +3,8 @@ module Documents
     before_action :handle_session, only: :edit
     skip_before_action :require_sign_in
 
+    DOCUMENT_TYPE = 'Requested Later'.freeze
+
     def self.show?(_)
       false
     end
