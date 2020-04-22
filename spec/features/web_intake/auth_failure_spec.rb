@@ -5,7 +5,7 @@ RSpec.feature "A new intake case from the website fails to authenticate with ID.
     OmniAuth.config.mock_auth[:idme] = :access_denied
   end
 
-  scenario "client decides to authenticate again" do
+  xscenario "client decides to authenticate again" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     silence_omniauth_logging do
@@ -20,7 +20,7 @@ RSpec.feature "A new intake case from the website fails to authenticate with ID.
     expect(page).to have_selector("h1", text: "Great! Here's the legal stuff...")
   end
 
-  scenario "client decides to find other options" do
+  xscenario "client decides to find other options" do
     visit "/questions/identity"
     expect(page).to have_selector("h1", text: "First, let’s get some basic information.")
     silence_omniauth_logging do
