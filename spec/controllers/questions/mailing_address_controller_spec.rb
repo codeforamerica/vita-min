@@ -3,19 +3,10 @@ require "rails_helper"
 RSpec.describe Questions::MailingAddressController do
   render_views
 
-  let(:user) do
-    create(
-      :user,
-      street_address: "123 Cat Fancy Boulevard",
-      city: "Meowtown",
-      state: "CA",
-      zip_code: "90210"
-    )
-  end
-  let(:intake) { user.intake }
+  let(:intake) { create :intake }
 
   before do
-    allow(subject).to receive(:current_user).and_return(user)
+    allow(controller).to receive(:current_intake).and_return(intake)
     allow(subject).to receive(:send_mixpanel_event)
   end
 
@@ -23,13 +14,6 @@ RSpec.describe Questions::MailingAddressController do
     it "renders successfully" do
       get :edit
       expect(response).to be_successful
-    end
-
-    context "when mailing address on the intake is not present" do
-      it "pre-fills mailing address from the user" do
-        get :edit
-        expect(response.body).to include(user.street_address)
-      end
     end
 
     context "when the intake has mailing address" do
@@ -44,7 +28,6 @@ RSpec.describe Questions::MailingAddressController do
 
       it "uses the mailing address from the intake" do
         get :edit
-        expect(response.body).not_to include(user.street_address)
         expect(response.body).to include(intake.street_address)
       end
     end
