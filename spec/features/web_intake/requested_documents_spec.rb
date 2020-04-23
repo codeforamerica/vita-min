@@ -13,7 +13,7 @@ RSpec.feature "Client uploads a requested document" do
     visit "/documents/requested-documents"
 
     expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
 
     expect(page).to have_content("test-pattern.png")
