@@ -94,6 +94,7 @@ class ZendeskIntakeService
         EitcZendeskInstance::STATE => @intake.state_of_residence,
         EitcZendeskInstance::FILING_YEARS => @intake.filing_years,
         EitcZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
+        EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     else
       {
@@ -102,6 +103,7 @@ class ZendeskIntakeService
         UwtsaZendeskInstance::STATE => @intake.state_of_residence,
         UwtsaZendeskInstance::FILING_YEARS => @intake.filing_years,
         UwtsaZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
+        UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     end
   end
@@ -238,12 +240,10 @@ class ZendeskIntakeService
     if instance_eitc?
       {
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-        EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
       }
     else
       {
         UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-        UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
       }
     end
   end

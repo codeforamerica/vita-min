@@ -128,6 +128,7 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::STATE => "co",
             EitcZendeskInstance::FILING_YEARS => ["2019", "2017"],
             EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
+            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF",
           }
         )
       end
@@ -150,7 +151,8 @@ describe ZendeskIntakeService do
             UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
             UwtsaZendeskInstance::STATE => "az",
             UwtsaZendeskInstance::FILING_YEARS => ["2019", "2017"],
-            UwtsaZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"]
+            UwtsaZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
+            UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
           }
         )
       end
@@ -417,7 +419,6 @@ describe ZendeskIntakeService do
         comment: comment_body,
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-          EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
         }
       )
     end
@@ -441,7 +442,6 @@ describe ZendeskIntakeService do
           comment: comment_body,
           fields: {
             UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-            UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
           }
         )
       end
