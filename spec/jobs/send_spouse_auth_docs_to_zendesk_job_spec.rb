@@ -7,7 +7,6 @@ RSpec.describe SendSpouseAuthDocsToZendeskJob, type: :job do
     allow(ZendeskIntakeService).to receive(:new).and_return fake_zendesk_intake_service
     allow(fake_zendesk_intake_service).to receive(:send_intake_pdf_with_spouse).and_return(true)
     allow(fake_zendesk_intake_service).to receive(:send_consent_pdf_with_spouse).and_return(true)
-    allow(fake_zendesk_intake_service).to receive(:send_additional_info_document_with_spouse).and_return(true)
   end
 
   describe "#perform" do
@@ -33,7 +32,6 @@ RSpec.describe SendSpouseAuthDocsToZendeskJob, type: :job do
         expect(ZendeskIntakeService).to have_received(:new).with(intake)
         expect(fake_zendesk_intake_service).to have_received(:send_intake_pdf_with_spouse)
         expect(fake_zendesk_intake_service).to have_received(:send_consent_pdf_with_spouse)
-        expect(fake_zendesk_intake_service).to have_received(:send_additional_info_document_with_spouse)
       end
     end
   end
