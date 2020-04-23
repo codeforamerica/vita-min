@@ -217,19 +217,6 @@ describe Intake do
     end
   end
 
-  describe "#additional_info_png" do
-    let(:intake) { create :intake }
-
-    before do
-      allow_any_instance_of(AdditionalInfoPdf).to receive(:as_png).and_return("i am a png")
-    end
-
-    it "generates an additional info pdf for this intake" do
-      result = intake.additional_info_png
-      expect(result).to eq "i am a png"
-    end
-  end
-
   describe "#consent_pdf" do
     let(:intake) { create :intake }
     let(:consent_pdf_spy) { instance_double(ConsentPdf) }
