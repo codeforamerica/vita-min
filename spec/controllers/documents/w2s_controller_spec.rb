@@ -7,7 +7,6 @@ RSpec.describe Documents::W2sController do
   let(:intake) { create :intake, **attributes }
 
   before do
-    allow(subject).to receive(:user_signed_in?).and_return(true)
     allow(subject).to receive(:current_intake).and_return intake
   end
 
