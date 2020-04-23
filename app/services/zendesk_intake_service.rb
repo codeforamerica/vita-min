@@ -230,11 +230,11 @@ class ZendeskIntakeService
   end
 
   def consent_pdf_filename
-    "#{primary_name_for_filename}_Consent.pdf"
+    "Consent_#{primary_name_for_filename}.pdf"
   end
 
   def intake_pdf_filename(final: false)
-    "#{"Final_" if final}#{primary_name_for_filename}_13614c.pdf"
+    "#{"Final" if final}13614c_#{primary_name_for_filename}.pdf"
   end
 
   def no_notifications

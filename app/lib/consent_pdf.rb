@@ -26,7 +26,8 @@ class ConsentPdf
         spouse_consented_at: strftime_date(@intake.spouse_consented_to_service_at),
         spouse_consented_ip: @intake.spouse_consented_to_service_ip,
         spouse_dob: strftime_date(@intake.spouse_birth_date),
-        spouse_ssn_last_four: @intake.spouse_last_four_ssn
+        spouse_ssn_last_four: @intake.spouse_last_four_ssn,
+        spouse_email: @intake.spouse_email_address
       )
     end
     data
