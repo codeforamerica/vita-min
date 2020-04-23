@@ -59,14 +59,27 @@
             <% end %>
           <% end %>
 
-          <%= link_to next_path, class: "button button--wide button--icon button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
-            <%= image_tag "checkmark--white.svg", alt: "" %>
-            I'm done for now
+          <% if DocumentNavigation::REQUIRED_DOCUMENT_TYPES.include?(document_type) %>
+            <% if display_validation_error? %>
+              <p class="text--error">
+                <i class="icon-warning"></i>
+                This document is required.
+              </p>
+            <% end %>
+            <%= link_to required_document_next_path, class: "button button--cta" do %>
+              Continue
+            <% end %>
+          <% else %>
+            <%= link_to next_path, class: "button button--wide button--icon button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
+              <%= image_tag "checkmark--white.svg", alt: "" %>
+              I'm done for now
+            <% end %>
+            <%= link_to next_path, class: "button button--wide button--icon", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
+              <%= image_tag "crossmark--black.svg", alt: "" %>
+              I don't have this document
+            <% end %>
           <% end %>
-          <%= link_to next_path, class: "button button--wide button--icon", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
-            <%= image_tag "crossmark--black.svg", alt: "" %>
-            I don't have this document
-          <% end %>
+
         </main>
       </div>
     </div>

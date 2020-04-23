@@ -9,6 +9,7 @@ require "selenium/webdriver"
 require "webdrivers"
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("lib/strategies/**/*.rb")].each { |f| require f }
+Capybara.javascript_driver = :selenium_chrome_headless
 
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
