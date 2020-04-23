@@ -235,58 +235,6 @@ describe Intake do
     end
   end
 
-  describe "#users" do
-    it "should have many users" do
-      relation = Intake.reflect_on_association(:users).macro
-      expect(relation).to eq :has_many
-    end
-  end
-
-  describe "#primary_user" do
-    let(:intake) { create :intake }
-
-    context "with no user" do
-      it "returns nil" do
-        expect(intake.primary_user).to be_nil
-      end
-    end
-
-    context "with a couple filing jointly" do
-      let!(:primary) { create :user, intake: intake }
-      let!(:spouse) { create :spouse_user, intake: intake }
-
-      it "returns the first non-spouse user" do
-        expect(intake.primary_user).to eq primary
-      end
-    end
-
-    context "with one user" do
-      let!(:primary) { create :user, intake: intake }
-
-      it "returns that one user" do
-        expect(intake.primary_user).to eq primary
-      end
-    end
-  end
-
-  describe "#greeting_name" do
-    let(:intake) { create :intake }
-    let!(:primary_user) { create :user, first_name: "Porpoise", intake: intake}
-
-    context "with a single filer" do
-      it "returns the first name of the filer" do
-        expect(intake.greeting_name).to eq "Porpoise"
-      end
-    end
-
-    context "with a married couple filing jointly" do
-      let!(:spouse_user) { create :user, first_name: "Porcupine", is_spouse: true, intake: intake }
-      it "returns first name of primary and first name of spouse" do
-        expect(intake.greeting_name).to eq "Porpoise and Porcupine"
-      end
-    end
-  end
-
   describe "#referrer_domain" do
     let(:intake) { build :intake, referrer: referrer }
 
