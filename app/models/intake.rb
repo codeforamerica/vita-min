@@ -143,7 +143,8 @@
 #
 
 class Intake < ApplicationRecord
-  has_many :users, -> { order(created_at: :asc) }
+  # TODO: remove users association
+  has_many :users # order doesn't really matter at the moment
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
 
@@ -287,10 +288,6 @@ class Intake < ApplicationRecord
 
   def consent_pdf
     ConsentPdf.new(self).output_file
-  end
-
-  def greeting_name
-    users.map(&:first_name).join(" and ")
   end
 
   def referrer_domain
