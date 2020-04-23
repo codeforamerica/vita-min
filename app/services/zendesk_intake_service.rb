@@ -39,7 +39,7 @@ class ZendeskIntakeService
     # returns the Zendesk ID of the created user
     contact_info = @intake.contact_info_filtered_by_preferences
     find_or_create_end_user(
-      @intake.primary_full_name,
+      @intake.preferred_name,
       contact_info[:email],
       contact_info[:phone_number],
       exact_match: true
@@ -64,7 +64,9 @@ class ZendeskIntakeService
     <<~BODY
       #{new_ticket_body_header}
 
-      Name: #{@intake.primary_full_name}
+      Preferred name: #{@intake.preferred_name}
+      Legal first name: #{@intake.primary_first_name}
+      Legal last name: #{@intake.primary_last_name}
       Phone number: #{@intake.formatted_phone_number}
       Email: #{@intake.email_address}
       State of residence: #{@intake.state_of_residence_name}
