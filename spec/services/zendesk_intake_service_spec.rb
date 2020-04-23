@@ -266,8 +266,8 @@ describe ZendeskIntakeService do
       expect(service).to have_received(:append_multiple_files_to_ticket).with(
         ticket_id: 34,
         file_list: [
-          {file: fake_intake_pdf, filename: "CherCherimoya_13614c.pdf"},
-          {file: fake_consent_pdf, filename: "CherCherimoya_Consent.pdf"},
+          {file: fake_intake_pdf, filename: "13614c_CherCherimoya.pdf"},
+          {file: fake_consent_pdf, filename: "Consent_CherCherimoya.pdf"},
         ],
         comment: expected_comment,
         fields: {
@@ -290,8 +290,8 @@ describe ZendeskIntakeService do
         expect(service).to have_received(:append_multiple_files_to_ticket).with(
           ticket_id: 34,
           file_list: [
-            {file: fake_intake_pdf, filename: "CherCherimoya_13614c.pdf"},
-            {file: fake_consent_pdf, filename: "CherCherimoya_Consent.pdf"},
+            {file: fake_intake_pdf, filename: "13614c_CherCherimoya.pdf"},
+            {file: fake_consent_pdf, filename: "Consent_CherCherimoya.pdf"},
           ],
           comment: expected_comment,
           fields: {
@@ -380,7 +380,7 @@ describe ZendeskIntakeService do
       BODY
       expect(service).to have_received(:append_file_to_ticket).with(
         ticket_id: 34,
-        filename: "Final_CherCherimoya_13614c.pdf",
+        filename: "Final13614c_CherCherimoya.pdf",
         file: fake_file,
         comment: comment_body,
         fields: {
@@ -404,7 +404,7 @@ describe ZendeskIntakeService do
         BODY
         expect(service).to have_received(:append_file_to_ticket).with(
           ticket_id: 34,
-          filename: "Final_CherCherimoya_13614c.pdf",
+          filename: "Final13614c_CherCherimoya.pdf",
           file: fake_file,
           comment: comment_body,
           fields: {
@@ -445,7 +445,7 @@ describe ZendeskIntakeService do
       BODY
       expect(service).to have_received(:append_file_to_ticket).with(
         ticket_id: 34,
-        filename: "CherCherimoya_13614c.pdf",
+        filename: "13614c_CherCherimoya.pdf",
         file: fake_file,
         comment: comment_body,
       )
@@ -477,7 +477,7 @@ describe ZendeskIntakeService do
       expect(result).to eq true
       expect(service).to have_received(:append_file_to_ticket).with(
         ticket_id: 34,
-        filename: "CherCherimoya_Consent.pdf",
+        filename: "Consent_CherCherimoya.pdf",
         file: fake_consent_pdf,
         comment: "Updated signed consent form with spouse signature\n",
       )
