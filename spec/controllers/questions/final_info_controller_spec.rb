@@ -4,10 +4,9 @@ RSpec.describe Questions::FinalInfoController do
   render_views
 
   let(:intake) { create :intake }
-  let(:user) { create :user, intake: intake }
 
   before do
-    allow(subject).to receive(:current_user).and_return(user)
+    allow(subject).to receive(:current_intake).and_return(intake)
   end
 
   describe "#update" do

@@ -4,7 +4,6 @@ RSpec.describe Questions::OtherStatesController do
   let(:intake) { create :intake, state_of_residence: "nd" }
 
   before do
-    allow(subject).to receive(:user_signed_in?).and_return(true)
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
