@@ -54,7 +54,7 @@ class ZendeskIntakeService
       subject: new_ticket_subject,
       requester_id: @intake.intake_ticket_requester_id,
       external_id: @intake.external_id,
-      group_id: @intake.zendesk_group_id,
+      group_id: @intake.get_or_create_zendesk_group_id,
       body: new_ticket_body,
       fields: new_ticket_fields
     )
