@@ -404,7 +404,15 @@ class Intake < ApplicationRecord
     ].compact
   end
 
-  def zendesk_group_id
+  def get_or_create_zendesk_group_id
+    return zendesk_group_id if zendesk_group_id.present?
+
+    group_id = determine_zendesk_group_id
+    self.update(zendesk_group_id: group_id)
+    group_id
+  end
+
+  def determine_zendesk_group_id
     if source.present? && group_by_source.present?
       group_by_source
     else
@@ -443,26 +451,23 @@ class Intake < ApplicationRecord
     tax_year - spouse_birth_date.year
   end
 
-
-  private
-
   def get_or_create_zendesk_instance_domain
-    if zendesk_instance_domain.present?
-      zendesk_instance_domain
-    else
-      domain = determine_zendesk_instance_domain
-      self.update(zendesk_instance_domain: domain)
-      domain
-    end
+    return zendesk_instance_domain if zendesk_instance_domain.present?
+
+    domain = determine_zendesk_instance_domain
+    self.update(zendesk_instance_domain: domain)
+    domain
   end
 
   def determine_zendesk_instance_domain
-    if state.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(zendesk_group_id)
+    if state.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(get_or_create_zendesk_group_id)
       EitcZendeskInstance::DOMAIN
     else
       UwtsaZendeskInstance::DOMAIN
     end
   end
+
+  private
 
   def group_by_source
     EitcZendeskInstance::ORGANIZATION_SOURCE_PARAMETERS.each do |key, value|

@@ -657,7 +657,8 @@ describe Intake do
         let(:state) { "ne" }
 
         it "uses the state to route" do
-          expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
+          expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
+          expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
@@ -667,7 +668,8 @@ describe Intake do
         let(:state) { "ne" }
 
         it "matches the correct group id" do
-          expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+          expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+          expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
@@ -677,7 +679,8 @@ describe Intake do
         let(:state) { "oh" }
 
         it "matches the correct group and the correct instance" do
-          expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
+          expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
+          expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
@@ -687,7 +690,8 @@ describe Intake do
         let(:state) { "ne" }
 
         it "assigns to the UWKC group" do
-          expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+          expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+          expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
@@ -697,7 +701,8 @@ describe Intake do
         let(:state) { "ne" }
 
         it "assigns to the UWVP group" do
-          expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
+          expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
+          expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
@@ -707,7 +712,8 @@ describe Intake do
       let(:state) { "co" }
 
       it "assigns to the shared Tax Help Colorado / UWBA online intake group" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -716,7 +722,8 @@ describe Intake do
       let(:state) { "ca" }
 
       it "assigns to the Online Intake - California group" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UWBA
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UWBA
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UWBA
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -724,7 +731,8 @@ describe Intake do
     context "with a GWISR state" do
       let(:state) { "ga" }
       it "assigns to the Goodwill online intake" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -732,7 +740,8 @@ describe Intake do
     context "with Washington state" do
       let(:state) { "wa" }
       it "assigns to United Way King County" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -740,7 +749,8 @@ describe Intake do
     context "with Pennsylvania" do
       let(:state) { "pa" }
       it "assigns to Campaign for Working Families" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -748,7 +758,8 @@ describe Intake do
     context "with Ohio" do
       let(:state) { "oh" }
       it "assigns to UW Central Ohio" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -756,7 +767,8 @@ describe Intake do
     context "with New Jersey" do
       let(:state) { "nj" }
       it "assigns to Campaign for Working Families" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -764,7 +776,8 @@ describe Intake do
     context "with South Carolina" do
       let(:state) { "sc" }
       it "assigns to Impact America - South Carolina" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_SC
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_SC
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_SC
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -772,7 +785,8 @@ describe Intake do
     context "with Tennessee" do
       let(:state) { "tn" }
       it "assigns to Impact America - Alabama" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -780,7 +794,8 @@ describe Intake do
     context "with Nevada" do
       let(:state) { "nv" }
       it "assigns to Nevada Free Tax Coalition" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -788,7 +803,8 @@ describe Intake do
     context "with Texas" do
       let(:state) { "tx" }
       it "assigns to Foundation Communities" do
-        expect(intake.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_FC
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_FC
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_FC
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
@@ -797,7 +813,8 @@ describe Intake do
       let(:state) { "ny" }
 
       it "assigns to the UW Tucson instance" do
-        expect(intake.zendesk_group_id).to be_nil
+        expect(intake.get_or_create_zendesk_group_id).to be_nil
+        expect(intake.reload.zendesk_group_id).to be_nil
         expect(intake.zendesk_instance).to eq UwtsaZendeskInstance
       end
     end
