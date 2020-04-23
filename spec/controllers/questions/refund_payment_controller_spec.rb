@@ -2,10 +2,9 @@ require "rails_helper"
 
 RSpec.describe Questions::RefundPaymentController do
   let(:intake) { create :intake }
-  let(:user) { create :user, intake: intake }
 
   before do
-    allow(subject).to receive(:current_user).and_return(user)
+    allow(subject).to receive(:current_intake).and_return(intake)
   end
 
   describe "#update" do

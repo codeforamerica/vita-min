@@ -6,7 +6,6 @@ RSpec.describe Documents::IntroController do
   let(:intake) { create :intake, **intake_attributes }
 
   before do
-    allow(subject).to receive(:user_signed_in?).and_return(true)
     allow(subject).to receive(:current_intake).and_return intake
   end
 
