@@ -285,10 +285,6 @@ class Intake < ApplicationRecord
     IntakePdf.new(self).output_file
   end
 
-  def additional_info_png
-    AdditionalInfoPdf.new(self).as_png
-  end
-
   def consent_pdf
     ConsentPdf.new(self).output_file
   end
