@@ -16,6 +16,8 @@ RSpec.describe Documents::IdsController do
   end
 
   describe "#edit" do
+    it_behaves_like "required documents controllers"
+
     context "when they are filing jointly" do
       let(:attributes) { { filing_joint: "yes" } }
 

@@ -52,7 +52,7 @@ group :development, :test do
   gem 'axe-matchers'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'webdrivers', '~> 4.0'
+  gem 'webdrivers'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
@@ -73,7 +73,6 @@ end
 
 group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
   gem 'rspec_junit_formatter'
   gem 'webmock'
   gem 'simplecov', require: false
