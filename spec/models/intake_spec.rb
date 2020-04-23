@@ -637,7 +637,7 @@ describe Intake do
       end
 
       context "when the group id is NOT an EITC group id" do
-        let(:intake) { create :intake, state: "ny", source: nil }
+        let(:intake) { create :intake, state_of_residence: "ny", source: nil }
 
         it "returns the uwtsa instance and saves the domain on the intake" do
           expect(intake.zendesk_instance).to eq (UwtsaZendeskInstance)

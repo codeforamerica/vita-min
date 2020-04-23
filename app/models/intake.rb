@@ -350,14 +350,6 @@ class Intake < ApplicationRecord
   def get_or_create_requested_docs_token
     return requested_docs_token if requested_docs_token.present?
 
-    new_token = SecureRandom.urlsafe_base64(8)
-    update(requested_docs_token: new_token, requested_docs_token_created_at: Time.now)
-    new_token
-  end
-
-  def get_or_create_requested_docs_token
-    return requested_docs_token if requested_docs_token.present?
-
     new_token = SecureRandom.urlsafe_base64(10)
     update(requested_docs_token: new_token, requested_docs_token_created_at: Time.now)
     new_token
@@ -421,7 +413,7 @@ class Intake < ApplicationRecord
   end
 
   def zendesk_instance
-    if state.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(zendesk_group_id)
+    if get_or_create_zendesk_instance_domain == EitcZendeskInstance::DOMAIN
       EitcZendeskInstance
     else
       UwtsaZendeskInstance
@@ -460,7 +452,7 @@ class Intake < ApplicationRecord
   end
 
   def determine_zendesk_instance_domain
-    if state.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(get_or_create_zendesk_group_id)
+    if state_of_residence.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(get_or_create_zendesk_group_id)
       EitcZendeskInstance::DOMAIN
     else
       UwtsaZendeskInstance::DOMAIN
