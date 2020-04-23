@@ -12,7 +12,6 @@ RSpec.describe Documents::SelfiesController do
   end
 
   before do
-    allow(subject).to receive(:user_signed_in?).and_return(true)
     allow(subject).to receive(:current_intake).and_return intake
   end
 
