@@ -12,14 +12,6 @@ class MailingAddressForm < QuestionsForm
   end
 
   def self.existing_attributes(intake)
-    attributes = if intake.street_address.present?
-                   intake.attributes
-                 elsif intake.primary_user.present?
-                   intake.primary_user.attributes
-                 else
-                   {}
-                 end
-
-    HashWithIndifferentAccess.new(attributes)
+    HashWithIndifferentAccess.new(intake.attributes)
   end
 end
