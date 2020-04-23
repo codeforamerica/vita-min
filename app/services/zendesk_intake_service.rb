@@ -187,30 +187,6 @@ class ZendeskIntakeService
     end
   end
 
-  def send_additional_info_document
-    output = append_file_to_ticket(
-      ticket_id: @intake.intake_ticket_id,
-      filename: additional_info_doc_filename,
-      file: @intake.additional_info_png,
-      comment: "Identity Info Document contains name and ssn",
-    )
-
-    raise CouldNotSendAdditionalInfoDocError unless output == true
-    output
-  end
-
-  def send_additional_info_document_with_spouse
-    output = append_file_to_ticket(
-      ticket_id: @intake.intake_ticket_id,
-      filename: additional_info_doc_filename,
-      file: @intake.additional_info_png,
-      comment: "Updated Identity Info Document with spouse - contains names and ssn's",
-    )
-
-    raise CouldNotSendAdditionalInfoDocError unless output == true
-    output
-  end
-
   def contact_preferences
     return no_notifications unless @intake.opted_into_notifications?
     text = "Prefers notifications by:\n"
