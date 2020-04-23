@@ -3,8 +3,7 @@ require "rails_helper"
 RSpec.describe Questions::NotificationPreferenceController do
   render_views
 
-  let(:zendesk_ticket_id) { nil }
-  let(:intake) { create :intake, intake_ticket_id: zendesk_ticket_id }
+  let(:intake) { create :intake }
   let(:user) { create :user, intake: intake }
 
   before do
@@ -82,26 +81,6 @@ RSpec.describe Questions::NotificationPreferenceController do
             sms_notification_opt_in: "no",
           }
         )
-      end
-
-      context "making a new Zendesk ticket", active_job: true do
-        before { post :update, params: params }
-
-        context "without a ticket id" do
-          let(:zendesk_ticket_id) { nil }
-
-          it "enqueues a job to make a zendesk ticket" do
-            expect(CreateZendeskIntakeTicketJob).to have_been_enqueued
-          end
-        end
-
-        context "with a ticket id" do
-          let(:zendesk_ticket_id) { 32 }
-
-          it "does not enqueue a job to make a zendesk ticket" do
-            expect(CreateZendeskIntakeTicketJob).not_to have_been_enqueued
-          end
-        end
       end
     end
   end

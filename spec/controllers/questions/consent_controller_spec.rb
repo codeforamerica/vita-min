@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Questions::ConsentController do
-  let(:intake) { create :intake }
+  let(:zendesk_ticket_id) { nil }
+  let(:intake) { create :intake, intake_ticket_id: zendesk_ticket_id }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
@@ -32,6 +33,26 @@ RSpec.describe Questions::ConsentController do
 
         intake.reload
         expect(intake.primary_consented_to_service_ip).to eq ip_address
+      end
+
+      context "making a new Zendesk ticket", active_job: true do
+        before { post :update, params: params }
+
+        context "without a ticket id" do
+          let(:zendesk_ticket_id) { nil }
+
+          it "enqueues a job to make a zendesk ticket" do
+            expect(CreateZendeskIntakeTicketJob).to have_been_enqueued
+          end
+        end
+
+        context "with a ticket id" do
+          let(:zendesk_ticket_id) { 32 }
+
+          it "does not enqueue a job to make a zendesk ticket" do
+            expect(CreateZendeskIntakeTicketJob).not_to have_been_enqueued
+          end
+        end
       end
     end
 

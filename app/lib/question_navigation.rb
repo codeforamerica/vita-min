@@ -16,10 +16,10 @@ class QuestionNavigation
     Questions::ChatWithUsController,
     Questions::PhoneNumberController,
     Questions::EmailAddressController,
-    Questions::NotificationPreferenceController, # creates initial Zendesk ticket
+    Questions::NotificationPreferenceController,
 
     # Consent
-    Questions::ConsentController,
+    Questions::ConsentController, # create Zendesk ticket
 
     # Primary filer personal information
     Questions::WasStudentController,
@@ -120,7 +120,7 @@ class QuestionNavigation
     Questions::EnergyEfficientPurchasesController,
 
     # Additional Information
-    Questions::AdditionalInfoController, # appends 13614-C to Zendesk ticket
+    Questions::AdditionalInfoController, # appends 13614-C & consent PDF to Zendesk ticket
 
     # Documents --> See DocumentNavigation
     Questions::OverviewDocumentsController,
