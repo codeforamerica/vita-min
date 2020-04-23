@@ -25,6 +25,7 @@ describe ZendeskIntakeService do
            phone_number: "14155551234",
            primary_first_name: "Cher",
            primary_last_name: "Cherimoya",
+           preferred_name: "Cherry",
            email_notification_opt_in: email_opt_in,
            sms_notification_opt_in: sms_opt_in
   end
@@ -84,7 +85,7 @@ describe ZendeskIntakeService do
       it "returns the end user ID based on all contact info" do
         expect(service.create_intake_ticket_requester).to eq 1
         expect(service).to have_received(:find_or_create_end_user).with(
-          "Cher Cherimoya", "cash@raining.money", "+14155551234", exact_match: true
+          "Cherry", "cash@raining.money", "+14155551234", exact_match: true
         )
       end
     end
@@ -96,7 +97,7 @@ describe ZendeskIntakeService do
       it "returns the end user ID based on just the name" do
         expect(service.create_intake_ticket_requester).to eq 1
         expect(service).to have_received(:find_or_create_end_user).with(
-          "Cher Cherimoya", nil, nil, exact_match: true
+          "Cherry", nil, nil, exact_match: true
         )
       end
     end
@@ -183,7 +184,9 @@ describe ZendeskIntakeService do
       <<~BODY
         New Online Intake Started
 
-        Name: Cher Cherimoya
+        Preferred name: Cherry
+        Legal first name: Cher
+        Legal last name: Cherimoya
         Phone number: (415) 555-1234
         Email: cash@raining.money
         State of residence: Nebraska
