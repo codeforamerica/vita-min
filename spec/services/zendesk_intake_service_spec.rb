@@ -303,8 +303,6 @@ describe ZendeskIntakeService do
     end
 
     context "for UWTSA instance" do
-      # let(:state) { "az" }
-
       it "appends the intake pdf to the ticket" do
         intake.zendesk_instance_domain = UwtsaZendeskInstance::DOMAIN
 
@@ -421,7 +419,6 @@ describe ZendeskIntakeService do
     end
 
     context "with UWTSA ZD instance" do
-      # let(:state) { "az" }
       it "appends the intake pdf to the ticket with updated status and interview preferences" do
         intake.zendesk_instance_domain = UwtsaZendeskInstance::DOMAIN
 
