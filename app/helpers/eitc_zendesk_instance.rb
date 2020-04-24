@@ -16,7 +16,21 @@ class EitcZendeskInstance
     ONLINE_INTAKE_IA_AL = "360009341853",
     ONLINE_INTAKE_FC = "360009397734",     # Foundation Communities
     ONLINE_INTAKE_NV_FTC = "360009537374", # Nevada Free Tax Coalition
+    ONLINE_INTAKE_UW_TSA = "360009581934", # Nevada Free Tax Coalition
   ].freeze
+
+  GROUP_ID_TO_STATE_LIST_MAPPING = {
+    EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO => %w(oh).freeze,
+    EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY => %w(wa).freeze,
+    EitcZendeskInstance::ONLINE_INTAKE_IA_SC => %w(sc).freeze,
+    EitcZendeskInstance::ONLINE_INTAKE_IA_AL => %w(tn).freeze,
+    EitcZendeskInstance::ONLINE_INTAKE_NV_FTC => %w(nv).freeze,
+    EitcZendeskInstance::ONLINE_INTAKE_FC => %w(tx).freeze,
+    EitcZendeskInstance::ONLINE_INTAKE_THC => %w(co sd wy ks nm ne).freeze,
+    EitcZendeskInstance::ONLINE_INTAKE_UWBA => %w(ca ak fl).freeze,
+    EitcZendeskInstance::ONLINE_INTAKE_GWISR => %w(ga al).freeze,
+    EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES => %w(pa nj).freeze
+  }.freeze
 
   # online intake source parameter to group
   ORGANIZATION_SOURCE_PARAMETERS = {
@@ -37,6 +51,7 @@ class EitcZendeskInstance
   ONLINE_INTAKE_WORKING_FAMILIES_STATES = %w(pa nj).freeze
   ONLINE_INTAKE_IA_SC_STATES = %w(sc).freeze
   ONLINE_INTAKE_IA_AL_STATES = %w(tn).freeze
+  ONLINE_INTAKE_UW_TSA_STATES = %w(az).freeze
 
   # custom field id codes
   CERTIFICATION_LEVEL = "360028917234"
