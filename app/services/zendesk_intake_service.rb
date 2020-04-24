@@ -51,13 +51,18 @@ class ZendeskIntakeService
     raise MissingRequesterIdError if @intake.intake_ticket_requester_id.blank?
 
     create_ticket(
-      subject: @intake.primary_full_name,
+      subject: new_ticket_subject,
       requester_id: @intake.intake_ticket_requester_id,
       external_id: @intake.external_id,
       group_id: @intake.zendesk_group_id,
       body: new_ticket_body,
       fields: new_ticket_fields
     )
+  end
+
+  def new_ticket_subject
+    suffix = (Rails.env.production? || Rails.env.test?) ? "" : " (Test Ticket)"
+    @intake.primary_full_name + suffix
   end
 
   def new_ticket_body
