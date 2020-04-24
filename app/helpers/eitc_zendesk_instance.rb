@@ -20,16 +20,16 @@ class EitcZendeskInstance
   ].freeze
 
   GROUP_ID_TO_STATE_LIST_MAPPING = {
-    EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO => %w(oh).freeze,
-    EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY => %w(wa).freeze,
-    EitcZendeskInstance::ONLINE_INTAKE_IA_SC => %w(sc).freeze,
-    EitcZendeskInstance::ONLINE_INTAKE_IA_AL => %w(tn).freeze,
-    EitcZendeskInstance::ONLINE_INTAKE_NV_FTC => %w(nv).freeze,
-    EitcZendeskInstance::ONLINE_INTAKE_FC => %w(tx).freeze,
-    EitcZendeskInstance::ONLINE_INTAKE_THC => %w(co sd wy ks nm ne).freeze,
-    EitcZendeskInstance::ONLINE_INTAKE_UWBA => %w(ca ak fl).freeze,
-    EitcZendeskInstance::ONLINE_INTAKE_GWISR => %w(ga al).freeze,
-    EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES => %w(pa nj).freeze
+    ONLINE_INTAKE_UW_CENTRAL_OHIO => %w(oh).freeze,
+    ONLINE_INTAKE_UW_KING_COUNTY => %w(wa).freeze,
+    ONLINE_INTAKE_IA_SC => %w(sc).freeze,
+    ONLINE_INTAKE_IA_AL => %w(tn).freeze,
+    ONLINE_INTAKE_NV_FTC => %w(nv).freeze,
+    ONLINE_INTAKE_FC => %w(tx).freeze,
+    ONLINE_INTAKE_THC => %w(co sd wy ks nm ne).freeze,
+    ONLINE_INTAKE_UWBA => %w(ca ak fl).freeze,
+    ONLINE_INTAKE_GWISR => %w(ga al).freeze,
+    ONLINE_INTAKE_WORKING_FAMILIES => %w(pa nj).freeze
   }.freeze
 
   # online intake source parameter to group
@@ -43,15 +43,6 @@ class EitcZendeskInstance
     uwco: ONLINE_INTAKE_UW_CENTRAL_OHIO,
   }.freeze
 
-  # states for intake groups
-  ONLINE_INTAKE_THC_STATES = %w(co sd wy ks nm ne).freeze
-  ONLINE_INTAKE_UWBA_STATES = %w(ca ak fl).freeze
-  ONLINE_INTAKE_GWISR_STATES = %w(ga al).freeze
-  ONLINE_INTAKE_UW_KING_COUNTY_STATES = %w(wa).freeze
-  ONLINE_INTAKE_WORKING_FAMILIES_STATES = %w(pa nj).freeze
-  ONLINE_INTAKE_IA_SC_STATES = %w(sc).freeze
-  ONLINE_INTAKE_IA_AL_STATES = %w(tn).freeze
-  ONLINE_INTAKE_UW_TSA_STATES = %w(az).freeze
 
   # custom field id codes
   CERTIFICATION_LEVEL = "360028917234"
