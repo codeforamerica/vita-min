@@ -62,15 +62,6 @@ describe ZendeskIntakeService do
         expect(EitcZendeskInstance).to have_received(:client)
       end
     end
-
-    context "in a state for the UW Tucson zendesk instance" do
-      let(:state) { "az" }
-
-      it "returns a client for the UW Tucson zendesk instance" do
-        expect(service.client).to eq fake_uwtsa_zendesk_client
-        expect(UwtsaZendeskInstance).to have_received(:client)
-      end
-    end
   end
 
   describe "#create_intake_ticket_requester" do
@@ -134,7 +125,7 @@ describe ZendeskIntakeService do
       end
     end
 
-    context "in a state for the UWTSA Zendesk instance" do
+    context "in a state for the UWTSA Group" do
       let(:state) { "az" }
 
       it "excludes intake site, and intake status and sends a nil group_id" do
@@ -143,16 +134,16 @@ describe ZendeskIntakeService do
         expect(service).to have_received(:create_ticket).with(
           subject: "Cher Cherimoya",
           requester_id: 987,
-          group_id: nil,
+          group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_TSA,
           external_id: intake.external_id,
           body: "Body text",
           fields: {
-            UwtsaZendeskInstance::INTAKE_SITE => "online_intake",
-            UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
-            UwtsaZendeskInstance::STATE => "az",
-            UwtsaZendeskInstance::FILING_YEARS => ["2019", "2017"],
-            UwtsaZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
-            UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
+            EitcZendeskInstance::INTAKE_SITE => "online_intake",
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+            EitcZendeskInstance::STATE => "az",
+            EitcZendeskInstance::FILING_YEARS => ["2019", "2017"],
+            EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
+            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
           }
         )
       end
@@ -312,8 +303,9 @@ describe ZendeskIntakeService do
     end
 
     context "for UWTSA instance" do
-      let(:state) { "az" }
       it "appends the intake pdf to the ticket" do
+        intake.zendesk_instance_domain = UwtsaZendeskInstance::DOMAIN
+
         result = service.send_preliminary_intake_and_consent_pdfs
 
         expected_comment = <<~COMMENT
@@ -427,8 +419,9 @@ describe ZendeskIntakeService do
     end
 
     context "with UWTSA ZD instance" do
-      let(:state) { "az" }
       it "appends the intake pdf to the ticket with updated status and interview preferences" do
+        intake.zendesk_instance_domain = UwtsaZendeskInstance::DOMAIN
+
         result = service.send_final_intake_pdf
         expect(result).to eq true
         comment_body = <<~BODY
@@ -444,8 +437,8 @@ describe ZendeskIntakeService do
           file: fake_file,
           comment: comment_body,
           fields: {
-            UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-            UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF",
+              UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
+              UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF",
           }
         )
       end

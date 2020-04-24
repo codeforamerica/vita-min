@@ -639,9 +639,9 @@ describe Intake do
       context "when the group id is NOT an EITC group id" do
         let(:intake) { create :intake, state_of_residence: "ny", source: nil }
 
-        it "returns the uwtsa instance and saves the domain on the intake" do
-          expect(intake.zendesk_instance).to eq (UwtsaZendeskInstance)
-          expect(intake.reload.zendesk_instance_domain).to eq ("unitedwaytucson")
+        it "returns the EITC instance and saves the domain on the intake" do
+          expect(intake.zendesk_instance).to eq (EitcZendeskInstance)
+          expect(intake.reload.zendesk_instance_domain).to eq ("eitc")
         end
       end
     end
@@ -650,6 +650,16 @@ describe Intake do
   describe "Zendesk routing" do
     let(:source) { nil }
     let(:intake) { build :intake, state_of_residence: state, source: source }
+
+    context "when the zendesk instance domain has been saved as UWTSA instance" do
+      let(:uwtsa_instance_intake) { create :intake, state_of_residence: "az", zendesk_instance_domain: UwtsaZendeskInstance::DOMAIN}
+
+      it "assigns to the UWTSA instance and nil group id" do
+        expect(uwtsa_instance_intake.get_or_create_zendesk_group_id).to eq nil
+        expect(uwtsa_instance_intake.reload.zendesk_group_id).to eq nil
+        expect(uwtsa_instance_intake.zendesk_instance).to eq UwtsaZendeskInstance
+      end
+    end
 
     context "when there is a source parameter" do
       context "when there is a source parameter that does not match an organization" do
@@ -809,13 +819,23 @@ describe Intake do
       end
     end
 
+    context "with Arizona" do
+      let(:state) { "az" }
+
+      it "assigns to the UW Tucson group" do
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
     context "with any other state" do
       let(:state) { "ny" }
 
       it "assigns to the UW Tucson instance" do
-        expect(intake.get_or_create_zendesk_group_id).to be_nil
-        expect(intake.reload.zendesk_group_id).to be_nil
-        expect(intake.zendesk_instance).to eq UwtsaZendeskInstance
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end
   end
