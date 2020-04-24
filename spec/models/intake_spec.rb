@@ -651,6 +651,16 @@ describe Intake do
     let(:source) { nil }
     let(:intake) { build :intake, state_of_residence: state, source: source }
 
+    context "when the zendesk instance domain has been saved as UWTSA instance" do
+      let(:uwtsa_instance_intake) { create :intake, state_of_residence: "az", zendesk_instance_domain: UwtsaZendeskInstance::DOMAIN}
+
+      it "assigns to the UWTSA instance and nil group id" do
+        expect(uwtsa_instance_intake.get_or_create_zendesk_group_id).to eq nil
+        expect(uwtsa_instance_intake.reload.zendesk_group_id).to eq nil
+        expect(uwtsa_instance_intake.zendesk_instance).to eq UwtsaZendeskInstance
+      end
+    end
+
     context "when there is a source parameter" do
       context "when there is a source parameter that does not match an organization" do
         let(:source) { "propel" }

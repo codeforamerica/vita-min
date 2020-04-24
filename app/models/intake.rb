@@ -405,6 +405,9 @@ class Intake < ApplicationRecord
   end
 
   def determine_zendesk_group_id
+    # TODO: this should be refactored into a business logic / referral component
+    # (or removed entirely once all UW/TSA Zendesk tickets have been closed)
+    return nil if zendesk_instance == UwtsaZendeskInstance
     if source.present? && group_id_for_source.present?
       group_id_for_source
     else
