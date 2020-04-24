@@ -18,7 +18,7 @@
 @import 'organisms/document-overview';
 @import 'organisms/flash-messages';
 @import 'molecules/form-molecules';
-@import 'molecules/instructions-list';
+@import 'molecules/partner-logos';
 @import 'components/emoji-radio-buttons';
 @import 'components/buttons';
 @import 'components/blockquote';
@@ -40,6 +40,7 @@ html {
 body {
   margin-bottom: 0;
   background-color: #F7F5F4;
+  font-family: $font-gyr;
 }
 
 @mixin visually-hidden {
@@ -88,7 +89,7 @@ body {
 
 .toolbar {
   &__left {
-    margin-top: 0rem;
+    margin-top: 0;
   }
 
   &__right {
@@ -108,23 +109,25 @@ body {
 }
 
 .body--home {
+
+  .slab {
+    padding-left: 6rem;
+    padding-right: 6rem;
+
+    @media screen and (max-width: $tablet-up) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
   .slab--hero {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
 
     h1 {
-      font-size: 4rem;
-      line-height: 5rem;
-    }
-
-    @include media($tablet-up) {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
-
-      h1 {
-        font-size: 5rem;
-        line-height: 6rem;
-      }
+      font-size: 5rem;
+      line-height: 6rem;
+      font-weight: 900;
     }
 
     &:before {
@@ -139,68 +142,201 @@ body {
       background-repeat: no-repeat;
       background-size: 519px 355px;
       background-position: bottom right;
-      @media screen and (max-width: $tablet-up) {
-        opacity: .5;
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      padding-bottom: 12rem;
+
+      h1 {
+        margin-bottom: 1.5rem;
+      }
+
+      &:before {
         background-size: 389px 266px;
       }
-    }
-    @media screen and (max-width: $tablet-up) {
-      padding-bottom: 120px;
     }
   }
 
   .banner {
-    background-color: $color-yellow-light;
-    padding: 2rem 3.5rem;
-    font-size: $font-size-25-small
+    background-color: $color-orange-light;
+    padding: 2rem 6rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.8rem;
+
+    @media screen and (max-width: $tablet-up) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
   }
 
   .slab--intro {
     background-color: white;
-    @include media($tablet-up) {
+
+    #irs-logo {
       img {
-        width: 100%;
+        width: 178px;
+        height: 173px;
+        margin-top: 2.5rem;
+      }
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      #irs-logo {
+        text-align: center;
+        padding-bottom: 3.8rem;
+
+        img {
+          margin-top: 0;
+        }
+      }
+
+      #money-fan {
+        margin-top: 3.2rem;
+        text-align: center;
       }
     }
   }
-}
 
-.steps--wrapper {
-  background-color: white;
+  .slab--partners {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 
-  .step {
-    display: flex;
-    @extend .spacing-below-35;
+    #about-us-link {
+      font-weight: bold;
+      text-decoration: underline;
+      color: black;
+    }
 
-    h3 {
+    @media screen and (max-width: $tablet-up) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+
+  .slab--testimonials {
+    background-color: white;
+
+    #star-rating {
+      margin-bottom: 4rem;
+    }
+
+    #testimonial-left {
+      padding-right: 6rem;
+    }
+
+    #testimonial-right {
+      padding-left: 6rem;
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      h2 {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+      }
+
+      #star-rating {
+        margin-top: 2.5rem;
+      }
+
+      #testimonial-left {
+        padding: 0;
+      }
+
+      #testimonial-right {
+        padding: 0;
+        margin-top: 4rem;
+      }
+    }
+  }
+
+  .slab--faq {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+    li {
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    .button {
+      text-align: center;
+      width: 95%;
+      margin-top: 3.5rem;
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+
+      #faq-button-container {
+        text-align: center;
+      }
+      .button {
+        margin: 4rem auto 0 auto;
+        width: 80%;
+      }
+    }
+  }
+
+  .slab--security {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    background-color: white;
+
+    p {
+      font-weight: 500;
+    }
+
+    div.grid__item {
+      display: flex;
+
+      img {
+        width: 8rem;
+        padding: .6rem 2.5rem 0 0;
+      }
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      div.grid__item {
+        flex-direction: column;
+        img {
+          width: 4.7rem;
+        }
+      }
+    }
+  }
+
+  .slab--cta {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    background-color: $color-green-money;
+
+    @media screen and (max-width: $tablet-up) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+
+      .button--primary {
+        padding-left: 9rem;
+        padding-right: 9rem;
+      }
+    }
+  }
+
+  .grid__divider {
+    margin: 0 auto;
+    width:31.5rem;
+    height:.1rem;
+    background-color: #aaaaaa;
+  }
+
+  h2 {
+    font-weight: 900;
+  }
+
+  @media screen and (max-width: $tablet-up) {
+    h2 {
       margin-bottom: 1rem;
-    }
-
-    .step-icon-wrapper {
-      width: 3rem;
-      height: 3.5rem;
-      margin-right: 2.5rem;
-
-      img {
-        height: 100%;
-      }
-    }
-
-    .step-icon-wrapper--large {
-      @extend .step-icon-wrapper;
-      width: 3.5rem;
-    }
-  }
-
-  .step:last-child {
-    margin-bottom: 0;
-  }
-
-  @media only screen and (max-width: 600px) {
-    .step-text {
-      p {
-        max-width: 24rem;
-      }
     }
   }
 }

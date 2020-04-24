@@ -22,7 +22,7 @@
 
         <p class="center-on-mobile">
           <%= link_to "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank" do %>
-            <%= image_tag("vita-logo.png", alt: "VITA: Volunteer Income Tax Assistance", class: "vita-logo") %>
+            <%= image_tag("vita-logo--black.svg", alt: "VITA: Volunteer Income Tax Assistance", class: "vita-logo") %>
           <% end %>
         </p>
 
@@ -78,35 +78,40 @@
             "shared/partner_logo",
             name: "United Way Bay Area",
             image_name: "uwba",
-            website: "https://uwba.org/"
+            website: "https://uwba.org/",
+            style: ""
           )%>
 
           <%= render(
             "shared/partner_logo",
             name: "Tax Help Colorado",
             image_name: "thc",
-            website: "https://taxhelpco.org/"
+            website: "https://taxhelpco.org/",
+            style: "mix-blend-mode: multiply;"
           )%>
 
           <%= render(
             "shared/partner_logo",
             name: "Prosperity Now",
             image_name: "prosperity-now",
-            website: "https://prosperitynow.org/"
+            website: "https://prosperitynow.org/",
+            style: ""
           )%>
 
           <%= render(
             "shared/partner_logo",
             name: "Goodwill Industries of the Southern Rivers",
             image_name: "gwisr",
-            website: "https://www.goodwillsr.org/"
+            website: "https://www.goodwillsr.org/",
+            style: "mix-blend-mode: multiply;"
           )%>
 
           <%= render(
             "shared/partner_logo",
             name: "United Way of Tucson and Southern Arizona",
             image_name: "uwtsa",
-            website: "https://www.unitedwaytucson.org/"
+            website: "https://www.unitedwaytucson.org/",
+            style: ""
           )%>
         </ul>
 

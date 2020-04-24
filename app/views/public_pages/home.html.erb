@@ -5,13 +5,14 @@
 <% content_for :body_class, "body--home" %>
 
 <main role="main">
+
   <div class="slab slab--hero">
     <div class="grid">
       <div class="grid__item width-one-half">
         <h1>
           Free tax filing, real human support.
         </h1>
-        <p>
+        <p class="spacing-below-60">
           <strong>
             Maximize your refund by filing with our trusted volunteers.
 <!--            Available to you online or in person!-->
@@ -32,120 +33,179 @@
   </div>
 
   <div class="slab banner">
-    <strong>Note: The federal income tax filing deadline has been extended to July 15, 2020.</strong> You do not need to file any additional forms or call the IRS for the extension. We encourage you to file today as you may be due a refund that can help support your household.
+    <strong>Note: The federal income tax filing deadline has been extended to July 15, 2020.</strong>
+    You do not need to file any additional forms or call the IRS for the extension. We encourage you to file today as
+    you may be due a refund that can help support your household.
   </div>
 
   <div class="slab slab--intro">
-    <div class="grid">
+    <div class="grid spacing-below-60">
+      <div id="irs-logo" class="grid__item width-one-fourth">
+        <%= image_tag("irs-certified.svg", alt: "") %>
+      </div>
       <div class="grid__item width-two-thirds">
-        <h2>We maximize your refund.</h2>
+        <h2>We deliver the highest accuracy rates. For free.</h2>
         <p>
-          We can file your state and federal taxes for tax years 2016, 2017, 2018, and 2019. Our trained volunteers know about tax credits you qualify for. Tax credits like the Earned Income Tax Credit (EITC) put the money you’ve earned back in your pocket.
+          Yes, our service is truly free. We provide this free service by partnering with IRS-certified Volunteer Income
+          Tax Assistance (VITA) sites to provide tax filing assistance to families earning less than $66,000 a year.
         </p>
         <p>
-          <strong>In 2018 the average family with children received $3,000 by claiming the EITC.</strong>
+          Trained, IRS-certified volunteers will prepare and double-check your tax return to make sure it is correct
+          before filing.
         </p>
       </div>
-      <div class="grid__item width-one-third">
-        <%= image_tag("money-taco.svg", alt: "") %>
+    </div>
+    <div class="grid__divider"></div>
+    <div class="grid spacing-above-60">
+      <div class="grid__item width-two-thirds">
+        <h2>File for previous years and maximize your refund.</h2>
+        <p class="spacing-below-0">
+          We can file your state and federal taxes for tax years 2016, 2017, 2018, and 2019. Our trained volunteers will
+          also make sure you receive tax credits you qualify for.
+        </p>
+      </div>
+      <div id="money-fan" class="grid__item width-one-fourth">
+        <%= image_tag("money-fan.svg", alt: "") %>
       </div>
     </div>
   </div>
 
-  <div class="slab">
+  <div class="slab slab--partners">
     <div class="grid">
-      <div class="grid__item width-one-fourth spacing-below-25">
-        <%= link_to("https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank") do %>
-          <%= image_tag("vita-logo--black.png", alt: "IRS website for the Volunteer Income Tax Assistance program") %>
+      <h3 class="text--centered">We partner with trusted organizations</h3>
+      <ul class="partner-logos">
+        <%= render(
+                "shared/partner_logo",
+                name: "United Way Bay Area",
+                image_name: "uwba",
+                website: "https://uwba.org/",
+                style: ""
+            )%>
+
+        <%= render(
+                "shared/partner_logo",
+                name: "Tax Help Colorado",
+                image_name: "thc",
+                website: "https://taxhelpco.org/",
+                style: "mix-blend-mode: multiply;"
+            )%>
+
+        <%= render(
+                "shared/partner_logo",
+                name: "Prosperity Now",
+                image_name: "prosperity-now",
+                website: "https://prosperitynow.org/",
+                style: ""
+            )%>
+
+        <%= render(
+                "shared/partner_logo",
+                name: "Goodwill Industries of the Southern Rivers",
+                image_name: "gwisr",
+                website: "https://www.goodwillsr.org/",
+                style: "mix-blend-mode: multiply;"
+            )%>
+
+        <%= render(
+                "shared/partner_logo",
+                name: "United Way of Tucson and Southern Arizona",
+                image_name: "uwtsa",
+                website: "https://www.unitedwaytucson.org/",
+                style: ""
+            )%>
+      </ul>
+      <p class="text--centered text--small spacing-below-0 spacing-above-10">
+        <%= link_to about_us_path, id:"about-us-link" do %>
+          Learn more about us &rsaquo;
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+  <div class="slab slab--testimonials">
+    <div class="grid">
+      <h2 class="text--centered">What our clients are saying</h2>
+      <div id="star-rating" class="text--centered">
+        <%= image_tag("star_rating.svg", alt: "") %>
+        <p class="text--small text--bold text--centered spacing-above-5 spacing-below-0">
+          Rated 4.8 / 5 stars
+        </p>
+        <p class="text--small text--centered spacing-below-0">
+          from clients across the US
+        </p>
+      </div>
+      <div id="testimonial-left" class="grid__item width-one-half">
+          <p class="text--small text--bold">Oh my god this is amazing</p>
+          <p class="text--small spacing-below-0">
+            “I just want to say I can’t tell you how much stress you guys relieved by offering it online, I had looked
+            at other services credit karma, turbo tax and going through the initial steps I just wasn’t feeling
+            confident until I stopped and found GetYourRefund I was like oh my god this is amazing”
+          </p>
+      </div>
+      <div  id="testimonial-right" class="grid__item width-one-half">
+        <p class="text--small text--bold">Very professional, very friendly</p>
+        <p class="text--small spacing-below-0">
+          “I thought the tax preparers were very professional, very friendly, very open to questions so I really
+          appreciated that, and they were also patient with my questions. I like this process a lot better where there’s
+          a person that can explain in detail questions that you have and they respond pretty fast”
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--faq">
+    <div class="grid">
+      <h3 class="spacing-below-0">The convenience of online, the support of in person.</h3>
+      <div class="grid__item width-three-fourths">
+        <ul class="list--bulleted text--small">
+          <li>Completely free service</li>
+          <li>Chat support available</li>
+          <li>File back taxes (2016-2019)</li>
+          <li>File amendments for past years</li>
+        </ul>
+        <p class="text--small spacing-below-0">
+          Still have questions? Visit our FAQ page or chat with us.
+        </p>
+      </div>
+      <div id="faq-button-container" class="grid__item width-one-fourth">
+        <%= link_to faq_path, class: "button" do %>
+          Visit FAQ
         <% end %>
       </div>
-      <div class="grid__item width-three-fourths">
-        <h2>We deliver the highest accuracy rates.</h2>
-        <p>
-          We partner with free Volunteer Income Tax Assistance (VITA) sites to provide free tax filing assistance to families earning less than $66,000 a year.
-          Trained, IRS-certified volunteers will prepare and double-check your tax return to make sure it is correct before filing.
-<!--          We will review everything with on the phone before -->
-
-<!--          prepare your taxes with more than 90% accuracy (the highest in the tax prep industry!).-->
-        </p>
-<!--        <p>-->
-<!--          Save money and receive the best service possible online or in person.-->
-<!--        </p>-->
-      </div>
     </div>
   </div>
 
-  <div class="slab steps--wrapper">
+  <div class="slab slab--security">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <h2 class="spacing-below-35">How it works</h2>
-        <div class="step">
-          <div class="step-icon-wrapper--large">
-            <%= image_tag("questions.svg", alt: "") %>
-          </div>
-          <div class="step-text">
-            <h3>Answer questions</h3>
-            <p class="text--small with-padding-small">
-              We'll ask you a series of questions about your finances.
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-icon-wrapper">
-            <%= image_tag("documents.svg", alt: "") %>
-          </div>
-          <div class="step-text">
-            <h3>Submit documents</h3>
-            <p class="text--small with-padding-small">
-              Share all necessary documents (ID, W-2's, 1099, 1095-A,B,C).
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-icon-wrapper">
-            <%= image_tag("phone.svg", alt: "") %>
-          </div>
-          <div class="step-text">
-            <h3>Phone review</h3>
-            <p class="text--small with-padding-small">
-              Your tax preparer will review everything with you over the phone.
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-icon-wrapper">
-            <%= image_tag("income-and-expenses.svg", alt: "") %>
-          </div>
-          <div class="step-text">
-            <h3>Get your refund</h3>
-            <p class="text--small with-padding-small">
-              If you choose to file your taxes, our tax volunteers will help you e-file.
-            </p>
-          </div>
+        <div><%= image_tag("lock.svg", alt: "") %></div>
+        <div>
+          <h4 class="spacing-below-5">We're committed to keeping your information secure.</h4>
+          <p class="text--small spacing-below-0">
+            In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
+          </p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="slab">
+  <div class="slab slab--cta">
     <div class="grid">
       <div class="grid__item width-one-whole text--centered">
         <div class="h2 spacing-below-35">
           Get more of your refund dollars back by filing for free today!
         </div>
         <% if enable_online_intake? %>
-          <%= link_to question_path(QuestionNavigation.first), class: "button" do %>
+          <%= link_to question_path(QuestionNavigation.first), class: "button button--primary spacing-below-0" do %>
             Get started
           <% end %>
         <% else %>
-          <%= link_to vita_providers_path, id: "firstCta", class: "button" do %>
+          <%= link_to vita_providers_path, id: "firstCta", class: "button button--primary spacing-below-0" do %>
             Find a location
           <% end %>
         <% end %>
       </div>
     </div>
   </div>
+
 </main>
