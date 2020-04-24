@@ -18,19 +18,13 @@ class ZendeskIntakeService
   # TODO: remove this after we backfill links
   def attach_requested_docs_link(ticket)
     if instance_eitc?
-      puts "instance: EITC"
-      existing_value = ticket.fields.find { |field| field["id"].to_s == EitcZendeskInstance::DOCUMENT_REQUEST_LINK }.value
-      puts "existing value: #{existing_value}"
       ticket.fields = {
         EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
-      } if existing_value.nil?
+      }
     else
-      puts "instance: UWTSA"
-      existing_value = ticket.fields.find { |field| field["id"].to_s == UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK }.value
-      puts "existing value: #{existing_value}"
       ticket.fields = {
         UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
-      } if existing_value.nil?
+      }
     end
     ticket.save
   end
