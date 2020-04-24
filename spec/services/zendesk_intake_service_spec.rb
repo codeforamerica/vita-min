@@ -204,6 +204,38 @@ describe ZendeskIntakeService do
     end
   end
 
+  describe "#new_ticket_subject" do
+    context "in production" do
+      before do
+        allow(Rails).to receive(:env).and_return("production".inquiry)
+      end
+
+      it "returns the primary full name" do
+        expect(service.new_ticket_subject).to eq "Cher Cherimoya"
+      end
+    end
+
+    context "in test" do
+      before do
+        allow(Rails).to receive(:env).and_return("test".inquiry)
+      end
+
+      it "returns the primary full name" do
+        expect(service.new_ticket_subject).to eq "Cher Cherimoya"
+      end
+    end
+
+    context "in demo" do
+      before do
+        allow(Rails).to receive(:env).and_return("demo".inquiry)
+      end
+
+      it "returns the primary full name and marks it as a test ticket" do
+        expect(service.new_ticket_subject).to eq "Cher Cherimoya (Test Ticket)"
+      end
+    end
+  end
+
   describe "#contact_preferences" do
     context "with sms and email" do
       let(:email_opt_in) { "yes" }
