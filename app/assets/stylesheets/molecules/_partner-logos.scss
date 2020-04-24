@@ -1,0 +1,15 @@
+.partner-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 -0.5em;
+  &__listing {
+    padding-bottom: 1em;
+    margin: 0 .5em;
+  }
+
+  @media screen and (max-width: $tablet-up) {
+    justify-content: space-around;
+  }
+}
