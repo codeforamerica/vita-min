@@ -57,6 +57,9 @@ class ZendeskSmsService
       )
     end
 
+    # assign sms ticket to same group as most recently updated related ticket
+    most_recently_updated_ticket = related_tickets.sort_by(&:updated_at).last
+
     # comment on sms ticket with related ticket id's
     # update linked ticket field with related ticket id's
     ticket_urls = related_ticket_ids.map { |id| ticket_url(id) }
@@ -64,14 +67,11 @@ class ZendeskSmsService
     append_comment_to_ticket(
       ticket_id: sms_ticket_id,
       comment: comment_body,
+      group_id: most_recently_updated_ticket.group_id,
       fields: {
         EitcZendeskInstance::LINKED_TICKET => ticket_urls.join(",")
-      }
+      },
     )
-
-    # assign sms ticket to same group as most recently updated related ticket
-    most_recently_updated_ticket = related_tickets.sort_by(&:updated_at).last
-    assign_ticket_to_group(ticket_id: sms_ticket_id, group_id: most_recently_updated_ticket.group_id)
   end
 
   private
