@@ -10,7 +10,7 @@ class ZendeskRequestedDocsLinkBackfill
     intakes_with_ticket_no_token.each do |intake|
       service = ZendeskIntakeService.new(intake)
       ticket = service.get_ticket(ticket_id: intake.intake_ticket_id)
-      service.attach_requested_docs_link(ticket)
+      service.attach_requested_docs_link(ticket) if ticket.present?
     end
     nil
   end
