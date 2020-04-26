@@ -101,7 +101,8 @@ describe ZendeskSmsService do
         )
 
         expected_comment_body = <<~BODY
-          New text message from client phone: 14158161286
+          New text message from client phone: +14158161286
+          View all messages at: https://eitc.zendesk.com/agent/tickets/1492
           Message:
 
           body here
