@@ -32,7 +32,8 @@ class ZendeskSmsService
     end
 
     related_ticket_comment_body = <<~BODY
-      New text message from client phone: #{phone_number}
+      New text message from client phone: +#{phone_number}
+      View all messages at: #{ticket_url(sms_ticket_id)}
       Message:
 
       #{message_body}
