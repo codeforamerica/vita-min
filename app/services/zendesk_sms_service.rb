@@ -33,10 +33,6 @@ class ZendeskSmsService
 
     related_ticket_comment_body = <<~BODY
       New text message from client phone: #{phone_number}
-      To respond to the client via text message, go to this ticket: #{ticket_url(sms_ticket_id)}
-
-      ---------------------------
-
       Message:
 
       #{message_body}
