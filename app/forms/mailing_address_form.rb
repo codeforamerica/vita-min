@@ -12,6 +12,6 @@ class MailingAddressForm < QuestionsForm
   end
 
   def self.existing_attributes(intake)
-    HashWithIndifferentAccess.new(intake.attributes)
+    HashWithIndifferentAccess.new(intake.attributes.merge(state: intake.state_of_residence))
   end
 end
