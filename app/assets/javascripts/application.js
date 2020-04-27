@@ -17,7 +17,7 @@
 
 var immediateUpload = (function() {
   var uploader = function() {
-    var fileUploadForm = $('form#file-upload-form')
+    var fileUploadForm = $('form#file-upload-form');
     var fileInputElements = fileUploadForm.find('input[type="file"][data-upload-immediately]');
 
     // hide the file input
