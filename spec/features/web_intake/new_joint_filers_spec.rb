@@ -39,7 +39,7 @@ RSpec.feature "Web Intake Joint Filers" do
     )
   end
 
-  scenario "new client filing joint taxes with spouse and dependents" do
+  scenario "new client filing joint taxes with spouse and dependents", :js do
     # Feelings
     visit "/questions/feelings"
     expect(page).to have_selector("h1", text: "How are you feeling about your taxes?")
@@ -304,18 +304,20 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach photos of ID cards")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    click_on "I'm done for now"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Confirm your identity with a selfie")
     click_on "Submit a selfie"
 
     expect(page).to have_selector("h1", text: "Share a selfie with your ID card")
-    click_on "I'm done for now"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
-    click_on "I'm done for now"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    click_on "Continue"
 
     # Documents: Intro
     expect(page).to have_selector("h1", text: "All right, let's collect your documents!")
@@ -323,14 +325,12 @@ RSpec.feature "Web Intake Joint Filers" do
 
 
     expect(page).to have_selector("h1", text: "Attach your W-2's")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-    click_on "Upload"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
 
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    click_on "Upload"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_content("picture_id.jpg")
@@ -409,8 +409,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "I'm done for now"
 
     expect(page).to have_selector("h1", text: "Do you have any additional documents?")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-    click_on "Upload"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     expect(page).to have_content("test-pattern.png")
     click_on "I'm done for now"
 

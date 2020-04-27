@@ -18,19 +18,13 @@ class ZendeskIntakeService
   # TODO: remove this after we backfill links
   def attach_requested_docs_link(ticket)
     if instance_eitc?
-      puts "instance: EITC"
-      existing_value = ticket.fields.find { |field| field["id"].to_s == EitcZendeskInstance::DOCUMENT_REQUEST_LINK }.value
-      puts "existing value: #{existing_value}"
       ticket.fields = {
         EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
-      } if existing_value.nil?
+      }
     else
-      puts "instance: UWTSA"
-      existing_value = ticket.fields.find { |field| field["id"].to_s == UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK }.value
-      puts "existing value: #{existing_value}"
       ticket.fields = {
         UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
-      } if existing_value.nil?
+      }
     end
     ticket.save
   end
@@ -54,7 +48,7 @@ class ZendeskIntakeService
       subject: new_ticket_subject,
       requester_id: @intake.intake_ticket_requester_id,
       external_id: @intake.external_id,
-      group_id: @intake.zendesk_group_id,
+      group_id: @intake.get_or_create_zendesk_group_id,
       body: new_ticket_body,
       fields: new_ticket_fields
     )
@@ -94,6 +88,7 @@ class ZendeskIntakeService
         EitcZendeskInstance::STATE => @intake.state_of_residence,
         EitcZendeskInstance::FILING_YEARS => @intake.filing_years,
         EitcZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
+        EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     else
       {
@@ -102,6 +97,7 @@ class ZendeskIntakeService
         UwtsaZendeskInstance::STATE => @intake.state_of_residence,
         UwtsaZendeskInstance::FILING_YEARS => @intake.filing_years,
         UwtsaZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
+        UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     end
   end
@@ -226,10 +222,12 @@ class ZendeskIntakeService
     if instance_eitc?
       {
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
+        EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     else
       {
         UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
+        UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     end
   end
@@ -238,12 +236,12 @@ class ZendeskIntakeService
     if instance_eitc?
       {
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-        EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
+        EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     else
       {
         UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-        UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
+        UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     end
   end

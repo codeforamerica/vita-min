@@ -2,12 +2,11 @@ require "rails_helper"
 
 RSpec.feature "Client uploads a requested document" do
   let!(:intake) { create :intake, requested_docs_token: "1234ABCDEF" }
-  scenario "client goes to the follow up documents token link without logging in" do
+  scenario "client goes to the follow up documents token link without logging in", :js do
     visit "/documents/add/1234ABCDEF"
 
     expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-    click_on "Upload"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
@@ -24,8 +23,7 @@ RSpec.feature "Client uploads a requested document" do
     expect(page).not_to have_content("test-pattern.png")
     expect(page).not_to have_link("Remove")
 
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-    click_on "Upload"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
@@ -37,7 +35,7 @@ RSpec.feature "Client uploads a requested document" do
   end
 
   # TODO: remove this scenario when login is removed
-  xscenario "client goes to the follow up documents token link while logged in" do
+  xscenario "client goes to the follow up documents token link while logged in", :js do
     silence_omniauth_logging do
       visit "/documents/requested-documents"
     end
@@ -49,8 +47,7 @@ RSpec.feature "Client uploads a requested document" do
     visit "/documents/requested-documents"
 
     expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-    click_on "Upload"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
@@ -69,8 +66,7 @@ RSpec.feature "Client uploads a requested document" do
     expect(page).not_to have_selector("h2", text: "test-pattern.png")
 
     # Check that file can be added
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-    click_on "Upload"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
 
     expect(page).to have_selector("h2", text: "test-pattern.png", count: 1)
 
@@ -84,8 +80,7 @@ RSpec.feature "Client uploads a requested document" do
     expect(page).to have_link("Remove")
 
     # Check that another file can be added
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-    click_on "Upload"
+    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
 
     expect(page).to have_selector("h2", text: "test-pattern.png", count: 2)
 

@@ -134,12 +134,14 @@
 #  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
+#  zendesk_instance_domain                              :string
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  zendesk_group_id                                     :string
 #
 
 class Intake < ApplicationRecord
@@ -232,7 +234,7 @@ class Intake < ApplicationRecord
   enum was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_on_visa
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
 
-  scope :anonymous, -> { where(anonymous: true) }
+  scope :anonymous, -> {where(anonymous: true)}
 
   def self.create_anonymous_intake(original_intake)
     Intake.create(
@@ -315,7 +317,7 @@ class Intake < ApplicationRecord
     was_full_time_student_yes? ||
       spouse_was_full_time_student_yes? ||
       had_student_in_family_yes? ||
-      dependents.where(was_student: "yes" ).any?
+      dependents.where(was_student: "yes").any?
   end
 
   def spouse_name_or_placeholder
@@ -342,14 +344,6 @@ class Intake < ApplicationRecord
 
     new_token = SecureRandom.urlsafe_base64(8)
     update(spouse_auth_token: new_token)
-    new_token
-  end
-
-  def get_or_create_requested_docs_token
-    return requested_docs_token if requested_docs_token.present?
-
-    new_token = SecureRandom.urlsafe_base64(8)
-    update(requested_docs_token: new_token, requested_docs_token_created_at: Time.now)
     new_token
   end
 
@@ -402,16 +396,27 @@ class Intake < ApplicationRecord
     ].compact
   end
 
-  def zendesk_group_id
-    if source.present? && group_by_source.present?
-      group_by_source
+  def get_or_create_zendesk_group_id
+    return zendesk_group_id if zendesk_group_id.present?
+
+    group_id = determine_zendesk_group_id
+    self.update(zendesk_group_id: group_id)
+    group_id
+  end
+
+  def determine_zendesk_group_id
+    # TODO: this should be refactored into a business logic / referral component
+    # (or removed entirely once all UW/TSA Zendesk tickets have been closed)
+    return nil if zendesk_instance == UwtsaZendeskInstance
+    if source.present? && group_id_for_source.present?
+      group_id_for_source
     else
-      group_by_state
+      group_id_for_state
     end
   end
 
   def zendesk_instance
-    if state_of_residence.nil? || EitcZendeskInstance::ALL_EITC_GROUP_IDS.include?(zendesk_group_id)
+    if get_or_create_zendesk_instance_domain == EitcZendeskInstance::DOMAIN
       EitcZendeskInstance
     else
       UwtsaZendeskInstance
@@ -441,10 +446,21 @@ class Intake < ApplicationRecord
     tax_year - spouse_birth_date.year
   end
 
+  def get_or_create_zendesk_instance_domain
+    return zendesk_instance_domain if zendesk_instance_domain.present?
+
+    domain = determine_zendesk_instance_domain
+    self.update(zendesk_instance_domain: domain)
+    domain
+  end
+
+  def determine_zendesk_instance_domain
+    EitcZendeskInstance::DOMAIN
+  end
 
   private
 
-  def group_by_source
+  def group_id_for_source
     EitcZendeskInstance::ORGANIZATION_SOURCE_PARAMETERS.each do |key, value|
       if source.downcase.starts_with?(key.to_s)
         return value
@@ -453,30 +469,11 @@ class Intake < ApplicationRecord
     nil
   end
 
-  def group_by_state
-    if state_of_residence == "wa"
-      EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-    elsif state_of_residence == "oh"
-      EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
-    elsif state_of_residence == "sc"
-      EitcZendeskInstance::ONLINE_INTAKE_IA_SC
-    elsif state_of_residence == "tn"
-      EitcZendeskInstance::ONLINE_INTAKE_IA_AL
-    elsif state_of_residence == "nv"
-      EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
-    elsif state_of_residence == "tx"
-      EitcZendeskInstance::ONLINE_INTAKE_FC
-    elsif EitcZendeskInstance::ONLINE_INTAKE_THC_STATES.include? state_of_residence
-      EitcZendeskInstance::ONLINE_INTAKE_THC
-    elsif EitcZendeskInstance::ONLINE_INTAKE_UWBA_STATES.include? state_of_residence
-      EitcZendeskInstance::ONLINE_INTAKE_UWBA
-    elsif EitcZendeskInstance::ONLINE_INTAKE_GWISR_STATES.include? state_of_residence
-      EitcZendeskInstance::ONLINE_INTAKE_GWISR
-    elsif EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES_STATES.include? state_of_residence
-      EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
-    else
-      # we do not yet have group ids for UWTSA Zendesk instance
-      nil
+  def group_id_for_state
+    EitcZendeskInstance::GROUP_ID_TO_STATE_LIST_MAPPING.each do |group_id, state_list|
+      return group_id if state_list.include? state_of_residence
     end
+
+    EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
   end
 end

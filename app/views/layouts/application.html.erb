@@ -50,9 +50,6 @@
             </div>
           </div>
           <div class="toolbar__right">
-            <% if user_signed_in? %>
-              <%= link_to("Sign out", destroy_user_session_path, method: :delete, class: 'main-header__link') %>
-            <% end %>
 <!--            <button class="toolbar__item button button--small">Feedback</button>-->
           </div>
         </div>

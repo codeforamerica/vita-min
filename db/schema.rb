@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_213952) do
+ActiveRecord::Schema.define(version: 2020_04_22_181839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,6 +235,8 @@ ActiveRecord::Schema.define(version: 2020_04_21_213952) do
     t.integer "was_on_visa", default: 0, null: false
     t.integer "widowed", default: 0, null: false
     t.string "widowed_year"
+    t.string "zendesk_group_id"
+    t.string "zendesk_instance_domain"
     t.string "zip_code"
   end
 

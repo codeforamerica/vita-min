@@ -32,11 +32,8 @@ class ZendeskSmsService
     end
 
     related_ticket_comment_body = <<~BODY
-      New text message from client phone: #{phone_number}
-      To respond to the client via text message, go to this ticket: #{ticket_url(sms_ticket_id)}
-
-      ---------------------------
-
+      New text message from client phone: +#{phone_number}
+      View all messages at: #{ticket_url(sms_ticket_id)}
       Message:
 
       #{message_body}
@@ -57,6 +54,9 @@ class ZendeskSmsService
       )
     end
 
+    # assign sms ticket to same group as most recently updated related ticket
+    most_recently_updated_ticket = related_tickets.sort_by(&:updated_at).last
+
     # comment on sms ticket with related ticket id's
     # update linked ticket field with related ticket id's
     ticket_urls = related_ticket_ids.map { |id| ticket_url(id) }
@@ -64,14 +64,11 @@ class ZendeskSmsService
     append_comment_to_ticket(
       ticket_id: sms_ticket_id,
       comment: comment_body,
+      group_id: most_recently_updated_ticket.group_id,
       fields: {
         EitcZendeskInstance::LINKED_TICKET => ticket_urls.join(",")
-      }
+      },
     )
-
-    # assign sms ticket to same group as most recently updated related ticket
-    most_recently_updated_ticket = related_tickets.sort_by(&:updated_at).last
-    assign_ticket_to_group(ticket_id: sms_ticket_id, group_id: most_recently_updated_ticket.group_id)
   end
 
   private

@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 gem 'rack', '>= 2.0.8'
-gem 'rails', '6.0.1'
+gem 'rails', '>= 6.0.2.2'
 gem 'puma', '>= 4.3.3'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -52,7 +52,7 @@ group :development, :test do
   gem 'axe-matchers'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'webdrivers', '~> 4.0'
+  gem 'webdrivers'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
@@ -73,7 +73,6 @@ end
 
 group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
   gem 'rspec_junit_formatter'
   gem 'webmock'
   gem 'simplecov', require: false
