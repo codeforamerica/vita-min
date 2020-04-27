@@ -86,25 +86,11 @@ describe ZendeskSmsService do
         expect(service).to have_received(:append_comment_to_ticket).with(
           ticket_id: sms_ticket_id,
           comment: expected_comment_body,
+          group_id: "1004",
           fields: {
             EitcZendeskInstance::LINKED_TICKET => "https://eitc.zendesk.com/agent/tickets/1,https://eitc.zendesk.com/agent/tickets/2,https://eitc.zendesk.com/agent/tickets/3,https://eitc.zendesk.com/agent/tickets/4"
           },
         )
-      end
-
-      context "with existing tickets that have different group ids" do
-        it "updates the sms ticket with the group id of the most recently updated related ticket" do
-          service.handle_inbound_sms(
-            phone_number: phone_number,
-            sms_ticket_id: sms_ticket_id,
-            message_body: sms_message_body
-          )
-
-          expect(service).to have_received(:assign_ticket_to_group).with(
-            ticket_id: sms_ticket_id,
-            group_id: "1004"
-          )
-        end
       end
 
       it "updates each related ticket to link it and flag it" do
@@ -115,11 +101,8 @@ describe ZendeskSmsService do
         )
 
         expected_comment_body = <<~BODY
-          New text message from client phone: 14158161286
-          To respond to the client via text message, go to this ticket: https://eitc.zendesk.com/agent/tickets/1492
-
-          ---------------------------
-          
+          New text message from client phone: +14158161286
+          View all messages at: https://eitc.zendesk.com/agent/tickets/1492
           Message:
 
           body here

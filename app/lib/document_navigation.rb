@@ -41,6 +41,11 @@ class DocumentNavigation
     Documents::SendRequestedDocumentsLaterController,
   ].freeze
 
+  REQUIRED_DOCUMENT_TYPES = [
+    Documents::IdsController,
+    Documents::SelfiesController,
+    Documents::SsnItinsController,
+  ].map(&:document_type)
   DOCUMENT_TYPES = FLOW.map(&:document_type).compact
   CONTROLLER_BY_DOCUMENT_TYPE = FLOW
     .find_all(&:document_type)
