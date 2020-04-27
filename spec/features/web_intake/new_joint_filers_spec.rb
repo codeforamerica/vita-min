@@ -431,6 +431,8 @@ RSpec.feature "Web Intake Joint Filers" do
 
     # Contact information
     expect(page).to have_text("What is your mailing address?")
+    expect(page).to have_select('State', selected: 'Indiana')
+
     fill_in "Street address", with: "123 Main St."
     fill_in "City", with: "Anytown"
     select "California", from: "State"
