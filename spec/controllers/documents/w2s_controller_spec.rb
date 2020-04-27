@@ -95,7 +95,7 @@ RSpec.describe Documents::W2sController do
         expect(latest_doc.document_type).to eq "W-2"
         expect(latest_doc.upload.filename).to eq "test-pattern.png"
 
-        expect(response).to redirect_to w2s_documents_path
+        expect(response).to render_template(:edit)
       end
 
       it "sends the document type to mixpanel" do
@@ -118,11 +118,11 @@ RSpec.describe Documents::W2sController do
         }
       end
 
-      it "redirects back to the W2s page" do
+      it "renders back the W2s page" do
         expect do
           post :update, params: params
         end.not_to raise_error
-        expect(response).to redirect_to w2s_documents_path
+        expect(response).to render_template(:edit)
       end
     end
   end

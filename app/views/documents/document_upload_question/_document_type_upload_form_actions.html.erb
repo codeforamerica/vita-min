@@ -1,0 +1,8 @@
+<%= link_to next_path, class: "button button--wide button--icon button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
+  <%= image_tag "checkmark--white.svg", alt: "" %>
+  I'm done for now
+<% end %>
+<%= link_to next_path, class: "button button--wide button--icon", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
+  <%= image_tag "crossmark--black.svg", alt: "" %>
+  I don't have this document
+<% end %>

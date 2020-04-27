@@ -1,0 +1,4 @@
+<%= form_with model: @form, url: current_path, local: true, method: :put do |f| %>
+  <%= f.hidden_field :next_step, value: true %>
+  <%= f.submit "Continue", class: "button button--primary" %>
+<% end %>

@@ -304,19 +304,18 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach photos of ID cards")
-    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    attach("required_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Confirm your identity with a selfie")
     click_on "Submit a selfie"
 
     expect(page).to have_selector("h1", text: "Share a selfie with your ID card")
-    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    attach("required_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
-    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    attach("required_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Continue"
 
     # Documents: Intro

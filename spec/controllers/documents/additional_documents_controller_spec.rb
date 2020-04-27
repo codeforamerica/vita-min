@@ -54,7 +54,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
         expect(latest_doc.document_type).to eq "Other"
         expect(latest_doc.upload.filename).to eq "test-pattern.png"
 
-        expect(response).to redirect_to additional_documents_documents_path
+        expect(response).to render_template(:edit)
       end
     end
   end

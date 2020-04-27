@@ -1,4 +1,7 @@
 class DocumentTypeUploadForm < QuestionsForm
+  def self.scoped_attributes
+    @@scoped_attributes ||= {}
+  end
   set_attributes_for :intake, :document
 
   def initialize(document_type, *args, **kwargs)
@@ -13,4 +16,5 @@ class DocumentTypeUploadForm < QuestionsForm
       document.upload.attach(document_file_upload)
     end
   end
+
 end

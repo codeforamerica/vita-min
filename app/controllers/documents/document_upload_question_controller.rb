@@ -9,7 +9,7 @@ module Documents
       return if self.class.document_type.nil?
 
       @documents = current_intake.documents.of_type(document_type)
-      @form = form_class.new(document_type, current_intake, form_params)
+      @form ||= form_class.new(document_type, current_intake, form_params)
     end
 
     def update
@@ -17,22 +17,30 @@ module Documents
 
       @form = form_class.new(document_type, current_intake, form_params)
       if @form.valid?
-        form_saved = @form.save
+        @form.save
         after_update_success
         track_document_upload
+        if @form.try(:next_step)
+          redirect_to next_path and return
+        end
       end
 
-      redirect_to action: :edit
+      edit
+      render :edit
     end
 
     private
 
     def form_name
-      "document_type_upload_form"
+      self.class.form_class.name.underscore
     end
 
     def self.form_class
-      DocumentTypeUploadForm
+      if DocumentNavigation::REQUIRED_DOCUMENT_TYPES.include?(document_type)
+        RequiredDocumentUploadForm
+      else
+        DocumentTypeUploadForm
+      end
     end
 
     def self.document_type

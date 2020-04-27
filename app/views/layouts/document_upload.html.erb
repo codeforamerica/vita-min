@@ -40,8 +40,12 @@
           <%# document upload form %>
           <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form", class: "spacing-below-60" do |f| %>
             <div class="document-upload">
-              <div class="file-upload">
-                <%= f.file_field(:document, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
+              <div class="file-upload form-group <%= f.send(:error_state, @form, :document) %>">
+                <%= f.file_field(
+                  :document,
+                  class: "form__documentuploader file-input#{f.send(:error_state, @form, :document)}",
+                  data: { "upload-immediately" => true}
+                ) %>
                 <%= f.label(:document, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
                   <span class="is-tablet-hidden--inline">
                     <%= image_tag "upload.svg", alt: "" %>
@@ -52,6 +56,7 @@
                     Take a picture
                   </span>
                 <% end %>
+                <%= f.send(:errors_for, @form, :document)&.html_safe %>
               </div>
             </div>
             <%= f.button class: "button button--primary" do %>
@@ -59,27 +64,7 @@
             <% end %>
           <% end %>
 
-          <% if DocumentNavigation::REQUIRED_DOCUMENT_TYPES.include?(document_type) %>
-            <% if display_validation_error? %>
-              <p class="text--error">
-                <i class="icon-warning"></i>
-                This document is required.
-              </p>
-            <% end %>
-            <%= link_to required_document_next_path, class: "button button--cta" do %>
-              Continue
-            <% end %>
-          <% else %>
-            <%= link_to next_path, class: "button button--wide button--icon button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
-              <%= image_tag "checkmark--white.svg", alt: "" %>
-              I'm done for now
-            <% end %>
-            <%= link_to next_path, class: "button button--wide button--icon", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
-              <%= image_tag "crossmark--black.svg", alt: "" %>
-              I don't have this document
-            <% end %>
-          <% end %>
-
+          <%= render "#{@form.class.name.underscore}_actions" %>
         </main>
       </div>
     </div>

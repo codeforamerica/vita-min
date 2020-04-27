@@ -199,7 +199,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    attach_file("required_document_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"
 
@@ -207,12 +207,12 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Submit a selfie"
 
     expect(page).to have_selector("h1", text: "Share a selfie with your ID card")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    attach_file("required_document_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach photos of Social Security Card or ITIN")
-    attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    attach_file("required_document_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"
 
