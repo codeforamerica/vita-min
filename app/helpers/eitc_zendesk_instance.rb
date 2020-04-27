@@ -17,6 +17,9 @@ class EitcZendeskInstance
     ONLINE_INTAKE_FC = "360009397734",     # Foundation Communities
     ONLINE_INTAKE_NV_FTC = "360009537374", # Nevada Free Tax Coalition
     ONLINE_INTAKE_UW_TSA = "360009581934", # Nevada Free Tax Coalition
+    ONLINE_INTAKE_UWCCR = "360009708193", # "United Way California Capital Region
+    ONLINE_INTAKE_BRANCHES_FL = "360009704234", # Branches (FL)
+    ONLINE_INTAKE_HU_FL = "360009704314", # Hispanic Unity (FL)
   ].freeze
 
   GROUP_ID_TO_STATE_LIST_MAPPING = {
@@ -41,6 +44,11 @@ class EitcZendeskInstance
     goodwillsr: ONLINE_INTAKE_GWISR,
     fc: ONLINE_INTAKE_FC,
     uwco: ONLINE_INTAKE_UW_CENTRAL_OHIO,
+    uwccr: ONLINE_INTAKE_UWCCR,
+    "refundday-b" => ONLINE_INTAKE_BRANCHES_FL,
+    branchesfl: ONLINE_INTAKE_BRANCHES_FL,
+    "refundday-h" => ONLINE_INTAKE_HU_FL,
+    hispanicunity: ONLINE_INTAKE_HU_FL,
   }.freeze
 
 
