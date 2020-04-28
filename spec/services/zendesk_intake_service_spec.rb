@@ -183,6 +183,7 @@ describe ZendeskIntakeService do
         Phone number: (415) 555-1234
         Email: cash@raining.money
         State of residence: Nebraska
+        Client answered questions for the 2019 tax year.
 
         Prefers notifications by:
             • Text message
