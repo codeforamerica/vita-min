@@ -25,9 +25,9 @@
             }) %>
             <%= f.cfa_select(
                     :months_in_home,
-                    "How many months did they live in your home in 2019?",
+                    "How many months did they live in your home in #{current_intake.most_recent_filing_year}?",
                     (0..12).map { |i| [i.to_s, i] }.reverse,
-                    help_text: "Select 12 if their birth or death was in 2019."
+                    help_text: "Select 12 if their birth or death was in #{current_intake.most_recent_filing_year}."
             ) %>
 
             <label>
@@ -42,7 +42,7 @@
             </p>
 
             <div class="form-card__stacked-checkboxes">
-              <%= f.cfa_checkbox(:was_married, "Married as of 12/31/2019", options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= f.cfa_checkbox(:was_married, "Married as of 12/31/#{current_intake.most_recent_filing_year}", options: { checked_value: "yes", unchecked_value: "no" }) %>
               <%= f.cfa_checkbox(:was_student, "Full time higher education student", options: { checked_value: "yes", unchecked_value: "no" }) %>
               <%= f.cfa_checkbox(:north_american_resident, "Lived outside of the US, Mexico, or Canada", options: { checked_value: "no", unchecked_value: "yes" }) %>
               <%= f.cfa_checkbox(:disabled, "Permanently disabled", options: { checked_value: "yes", unchecked_value: "no" }) %>

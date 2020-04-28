@@ -1,4 +1,4 @@
-<% content_for :form_question, "In 2019, did #{you_or_spouse(@form.intake)} make any charitable contributions?" %>
+<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} make any charitable contributions?" %>
 
 <% content_for :form_help_text, "This includes cash or goods (such as clothing) donated to a church or charitable organization. For example, if you donated household items to Goodwill or Salvation Army." %>
 
