@@ -746,6 +746,7 @@ describe Intake do
       it_behaves_like "source group matching", "branchesfl", "360009704234"
       it_behaves_like "source group matching", "RefundDay-H", "360009704314"
       it_behaves_like "source group matching", "hispanicunity", "360009704314"
+      it_behaves_like "source group matching", "uwfm", "360009708233"
 
       context "when there is a source parameter that does not match an organization" do
         let(:source) { "propel" }
