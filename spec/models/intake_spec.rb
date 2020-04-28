@@ -662,6 +662,50 @@ describe Intake do
     end
 
     context "when there is a source parameter" do
+      shared_examples "source group matching" do |src, instance|
+        let(:state) { "ne" }
+        context "when source param starts with a organization's source parameter" do
+          let(:source) { "#{src}-something" }
+
+          it "matches the correct group id" do
+            expect(intake.get_or_create_zendesk_group_id).to eq instance
+            expect(intake.reload.zendesk_group_id).to eq instance
+            expect(intake.zendesk_instance).to eq EitcZendeskInstance
+          end
+        end
+
+        context "source matches an organization" do
+          let(:source) { src }
+
+          it "assigns to the correct group" do
+            expect(intake.get_or_create_zendesk_group_id).to eq instance
+            expect(intake.reload.zendesk_group_id).to eq instance
+            expect(intake.zendesk_instance).to eq EitcZendeskInstance
+          end
+        end
+
+        context "source matches a key but is weirdly cased" do
+          let(:source) do
+            src.chars.map { |c| [true, false].sample ? c.downcase : c.upcase }.join
+          end
+
+          it "assigns to the correct group" do
+            expect(intake.get_or_create_zendesk_group_id).to eq instance
+            expect(intake.reload.zendesk_group_id).to eq instance
+            expect(intake.zendesk_instance).to eq EitcZendeskInstance
+          end
+        end
+      end
+
+      it_behaves_like "source group matching", "uwkc", "360009173713"
+      it_behaves_like "source group matching", "uwco", "360009440374"
+      it_behaves_like "source group matching", "uwvp", "360009267673"
+      it_behaves_like "source group matching", "uwccr", "360009708193"
+      it_behaves_like "source group matching", "RefundDay-B", "360009704234"
+      it_behaves_like "source group matching", "branchesfl", "360009704234"
+      it_behaves_like "source group matching", "RefundDay-H", "360009704314"
+      it_behaves_like "source group matching", "hispanicunity", "360009704314"
+
       context "when there is a source parameter that does not match an organization" do
         let(:source) { "propel" }
         let(:state) { "ne" }
@@ -673,17 +717,6 @@ describe Intake do
         end
       end
 
-      context "when source param starts with a organization's source parameter" do
-        let(:source) { "uwkc-something" }
-        let(:state) { "ne" }
-
-        it "matches the correct group id" do
-          expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-          expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-          expect(intake.zendesk_instance).to eq EitcZendeskInstance
-        end
-      end
-
       context "when source param is for an organization in an otherwise UWTSA state" do
         let(:source) { "uwco" }
         let(:state) { "oh" }
@@ -691,28 +724,6 @@ describe Intake do
         it "matches the correct group and the correct instance" do
           expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
           expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
-          expect(intake.zendesk_instance).to eq EitcZendeskInstance
-        end
-      end
-
-      context "source matches an organization" do
-        let(:source) { "uwkc" }
-        let(:state) { "ne" }
-
-        it "assigns to the UWKC group" do
-          expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-          expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-          expect(intake.zendesk_instance).to eq EitcZendeskInstance
-        end
-      end
-
-      context "source matches a key but is weirdly cased" do
-        let(:source) { "UwVp" }
-        let(:state) { "ne" }
-
-        it "assigns to the UWVP group" do
-          expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
-          expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
