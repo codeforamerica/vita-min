@@ -7,6 +7,7 @@
 #  adopted_child                                        :integer          default("unfilled"), not null
 #  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
+#  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
@@ -34,6 +35,9 @@
 #  divorced_year                                        :string
 #  email_address                                        :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
+#  encrypted_bank_account_number                        :string
+#  encrypted_bank_name                                  :string
+#  encrypted_bank_routing_number                        :string
 #  encrypted_primary_last_four_ssn                      :string
 #  encrypted_primary_last_four_ssn_iv                   :string
 #  encrypted_spouse_last_four_ssn                       :string
@@ -244,6 +248,24 @@ describe Intake do
       expect(ConsentPdf).to have_received(:new).with(intake)
       expect(consent_pdf_spy).to have_received(:output_file)
       expect(result).to eq "i am a pdf"
+    end
+  end
+
+  describe "#bank_details_png" do
+    let(:intake) { create :intake }
+    let(:bank_details_pdf_spy) { instance_double(BankDetailsPdf) }
+
+    before do
+      allow(BankDetailsPdf).to receive(:new).with(intake).and_return(bank_details_pdf_spy)
+      allow(bank_details_pdf_spy).to receive(:as_png).and_return("i am a png")
+    end
+
+    it "generates a bank details png for this intake" do
+      result = intake.bank_details_png
+
+      expect(BankDetailsPdf).to have_received(:new).with(intake)
+      expect(bank_details_pdf_spy).to have_received(:as_png)
+      expect(result).to eq "i am a png"
     end
   end
 
@@ -952,6 +974,76 @@ describe Intake do
 
       it "returns nil and does not error" do
         expect(intake.age_end_of_tax_year).to be_nil
+      end
+    end
+  end
+
+  describe "#include_bank_details?" do
+    let(:refund_method) {nil}
+    let(:pay_from_bank) {nil}
+    let(:intake) { create :intake, refund_payment_method: refund_method, balance_pay_from_bank: pay_from_bank }
+    context "with an intake that wants their refund by direct deposit" do
+      let(:refund_method) { "direct_deposit"}
+      let(:pay_from_bank) {"no"}
+
+      it "returns true" do
+        expect(intake.include_bank_details?).to eq(true)
+      end
+    end
+
+    context "with an intake that has not answered how they want their refund" do
+      let(:refund_method) { "unfilled"}
+
+      context "when they want to pay by bank account" do
+        let(:pay_from_bank) {"yes"}
+
+        it "returns false" do
+          expect(intake.include_bank_details?).to eq true
+        end
+      end
+
+      context "when the have not answered whether they want to pay by bank account" do
+        let(:pay_from_bank) {"unfilled"}
+
+        it "returns false" do
+          expect(intake.include_bank_details?).to eq false
+        end
+      end
+
+      context "when they do not want to pay by bank account" do
+        let(:pay_from_bank) {"no"}
+
+        it "returns false" do
+          expect(intake.include_bank_details?).to eq false
+        end
+      end
+    end
+
+    context "with an intake that wants their refund by check" do
+      let(:refund_method) { "check"}
+
+      context "when they want to pay by bank account" do
+        let(:pay_from_bank) {"yes"}
+
+        it "returns false" do
+          expect(intake.include_bank_details?).to eq true
+        end
+      end
+
+      context "when the have not answered whether they want to pay by bank account" do
+        let(:pay_from_bank) {"unfilled"}
+
+        it "returns false" do
+          expect(intake.include_bank_details?).to eq false
+        end
+      end
+
+      context "when they do not want to pay by bank account" do
+        let(:pay_from_bank) {"no"}
+
+        it "returns false" do
+          expect(intake.include_bank_details?).to eq false
+        end
       end
     end
   end

@@ -7,6 +7,7 @@
 #  adopted_child                                        :integer          default("unfilled"), not null
 #  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
+#  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
@@ -34,6 +35,9 @@
 #  divorced_year                                        :string
 #  email_address                                        :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
+#  encrypted_bank_account_number                        :string
+#  encrypted_bank_name                                  :string
+#  encrypted_bank_routing_number                        :string
 #  encrypted_primary_last_four_ssn                      :string
 #  encrypted_primary_last_four_ssn_iv                   :string
 #  encrypted_spouse_last_four_ssn                       :string

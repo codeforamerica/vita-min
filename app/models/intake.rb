@@ -7,6 +7,7 @@
 #  adopted_child                                        :integer          default("unfilled"), not null
 #  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
+#  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
@@ -34,6 +35,9 @@
 #  divorced_year                                        :string
 #  email_address                                        :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
+#  encrypted_bank_account_number                        :string
+#  encrypted_bank_name                                  :string
+#  encrypted_bank_routing_number                        :string
 #  encrypted_primary_last_four_ssn                      :string
 #  encrypted_primary_last_four_ssn_iv                   :string
 #  encrypted_spouse_last_four_ssn                       :string
@@ -163,11 +167,15 @@ class Intake < ApplicationRecord
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :bank_routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :bank_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
   enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_energy_efficient_items
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_health_insurance
   enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
+  enum bank_account_type: { unfilled: 0, checking: 1, savings: 2 }, _prefix: :bank_account_type
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
   enum demographic_english_conversation: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_conversation
   enum demographic_english_reading: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_reading
@@ -303,6 +311,10 @@ class Intake < ApplicationRecord
     ConsentPdf.new(self).output_file
   end
 
+  def bank_details_png
+    BankDetailsPdf.new(self).as_png
+  end
+
   def referrer_domain
     URI.parse(referrer).host if referrer.present?
   end
@@ -412,6 +424,10 @@ class Intake < ApplicationRecord
 
   def most_recent_filing_year
     filing_years.first
+  end
+
+  def include_bank_details?
+    refund_payment_method_direct_deposit? || balance_pay_from_bank_yes?
   end
 
   def year_before_most_recent_filing_year

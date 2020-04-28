@@ -27,11 +27,15 @@ describe ZendeskIntakeService do
            primary_last_name: "Cherimoya",
            preferred_name: "Cherry",
            email_notification_opt_in: email_opt_in,
-           sms_notification_opt_in: sms_opt_in
+           sms_notification_opt_in: sms_opt_in,
+           refund_payment_method: payment_method,
+           balance_pay_from_bank: pay_from_bank
   end
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
   let(:sms_opt_in) { "yes" }
+  let(:payment_method) { "direct_deposit" }
+  let(:pay_from_bank) { "yes" }
 
   before do
     allow(ZendeskAPI::Client).to receive(:new).and_return(fake_zendesk_client)
@@ -311,9 +315,9 @@ describe ZendeskIntakeService do
         result = service.send_preliminary_intake_and_consent_pdfs
 
         expected_comment = <<~COMMENT
-        Preliminary 13614-C questions answered.
-  
-        Primary filer (and spouse, if applicable) consent form attached.
+          Preliminary 13614-C questions answered.
+
+          Primary filer (and spouse, if applicable) consent form attached.
         COMMENT
         expect(result).to eq true
         expect(service).to have_received(:append_multiple_files_to_ticket).with(
@@ -521,6 +525,55 @@ describe ZendeskIntakeService do
         expect do
           service.send_consent_pdf_with_spouse
         end.to raise_error(ZendeskIntakeService::CouldNotSendConsentPdfError)
+      end
+    end
+  end
+
+  describe "#send_bank_details_png" do
+    let(:output) { true }
+    let(:fake_bank_details_png) { instance_double(File) }
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_file_to_ticket).and_return(output)
+      allow(intake).to receive(:bank_details_png).and_return(fake_bank_details_png)
+    end
+
+    context "when the intake includes bank details" do
+      it "attaches the bank details png as a comment on the ticket" do
+        result = service.send_bank_details_png
+
+        expect(result).to eq true
+        comment_body = <<~BODY
+          Bank account information for direct deposit and/or payment
+        BODY
+        expect(service).to have_received(:append_file_to_ticket).with(
+          ticket_id: 34,
+          filename: "Bank_details_CherCherimoya.png",
+          file: fake_bank_details_png,
+          comment: comment_body,
+        )
+      end
+    end
+
+    context "when the intake does NOT include bank details" do
+      let(:payment_method) { "check" }
+      let(:pay_from_bank) { "no"}
+
+      it "does not attach a comment to the ticket" do
+        service.send_bank_details_png
+
+        expect(service).not_to have_received(:append_file_to_ticket)
+      end
+    end
+
+    context "when the zendesk api fails" do
+      let(:output){ false }
+
+      it "raises an error" do
+        expect do
+          service.send_bank_details_png
+        end.to raise_error(ZendeskIntakeService::CouldNotSendBankDetailsError)
       end
     end
   end
