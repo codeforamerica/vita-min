@@ -132,6 +132,7 @@ class QuestionNavigation
     Questions::RefundPaymentController,
     Questions::SavingsOptionsController,
     Questions::BalancePaymentController,
+    Questions::BankDetailsController,
     Questions::MailingAddressController,
 
     # Optional Demographic Questions
@@ -146,7 +147,7 @@ class QuestionNavigation
     Questions::DemographicSpouseEthnicityController,
 
     # Additional Information
-    Questions::FinalInfoController, # appends final 13614-C, consent, & docs to Zendesk
+    Questions::FinalInfoController, # appends final 13614-C, bank details & docs to Zendesk
     Questions::SuccessfullySubmittedController,
   ].freeze
 

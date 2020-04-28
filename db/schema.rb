@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 2020_05_04_184255) do
     t.integer "adopted_child", default: 0, null: false
     t.boolean "anonymous", default: false, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
+    t.integer "bank_account_type", default: 0, null: false
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
     t.string "city"
@@ -131,6 +132,9 @@ ActiveRecord::Schema.define(version: 2020_05_04_184255) do
     t.string "divorced_year"
     t.string "email_address"
     t.integer "email_notification_opt_in", default: 0, null: false
+    t.string "encrypted_bank_account_number"
+    t.string "encrypted_bank_name"
+    t.string "encrypted_bank_routing_number"
     t.string "encrypted_primary_last_four_ssn"
     t.string "encrypted_primary_last_four_ssn_iv"
     t.string "encrypted_spouse_last_four_ssn"

@@ -280,11 +280,20 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
     choose "Direct deposit (fastest)"
     click_on "Continue"
+    # Savings Options
     expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
     check "Purchase United States Savings Bond"
     click_on "Continue"
+    # Pay from bank account?
     expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
     click_on "Yes"
+    # Bank Details
+    expect(page).to have_selector("h1", text: "Great, please provide your bank details below!")
+    fill_in "Bank name", with: "First Savings Bank"
+    fill_in "Routing number", with: "123456"
+    fill_in "Account number", with: "987654321"
+    choose "Checking"
+    click_on "Continue"
 
     # Contact information
     expect(page).to have_text("What is your mailing address?")
