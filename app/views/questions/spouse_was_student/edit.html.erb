@@ -1,4 +1,4 @@
-<% content_for :form_question, "Was your spouse a full-time student in 2019?" %>
+<% content_for :form_question, "Was your spouse a full-time student in #{current_intake.most_recent_filing_year}?" %>
 <% content_for :form_help_text, "We are specifically asking if they pursued higher studies such as an associate, bachelors, or masters degree." %>
 
 <% content_for :method_name, :spouse_was_full_time_student %>
