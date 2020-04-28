@@ -429,6 +429,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
     expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
     click_on "No"
+    # Don't ask for bank details
 
     # Contact information
     expect(page).to have_text("What is your mailing address?")

@@ -6,7 +6,8 @@ class SendCompletedIntakeToZendeskJob < ApplicationJob
     with_raven_context({ticket_id: intake.intake_ticket_id}) do
       service = ZendeskIntakeService.new(intake)
       success = service.send_final_intake_pdf &&
-        service.send_all_docs
+          service.send_bank_details_png &&
+          service.send_all_docs
 
       intake.update(completed_intake_sent_to_zendesk: success)
     end
