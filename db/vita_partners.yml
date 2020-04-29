@@ -1,0 +1,9 @@
+vita_partners:
+  - logo_url: http://replace.me/no-logo.png
+    name: United Way of Tuscon/Southern Arizona
+    zendesk_instance_domain: EitcZendeskInstance::DOMAIN
+    zendesk_group_id: "360009581934"
+  - logo_url: http://replace.me/still-no-logo.png
+    name: Nevada Free Tax Coalition
+    zendesk_instance_domain: EitcZendeskInstance::DOMAIN
+    zendesk_group_id: "360009537374"
