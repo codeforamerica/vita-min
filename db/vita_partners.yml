@@ -5,21 +5,21 @@ vita_partners:
     display_name: United Way Bay Area
     referral_code:
     drop_off_code: uwba
-    logo_url: "/images/partner-logos/uwba.svg"
+    logo_url: "partner-logos/uwba.svg"
   - name: Tax Help Colorado (Piton Foundation)
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009415854"
     display_name: Tax Help Colorado
     referral_code:
     drop_off_code: thc
-    logo_url: "/images/partner-logos/thc.svg"
+    logo_url: "partner-logos/thc.svg"
   - name: Goodwill Industries of the Southern Rivers
     zendesk_instance_domain: eitc
     zendesk_group_id: "360008424134"
     display_name: Goodwill Industries of the Southern Rivers
     referral_code: goodwillsr
     drop_off_code: gwisr
-    logo_url: "/images/partner-logos/gwisr.svg"
+    logo_url: "partner-logos/gwisr.svg"
   - name: United Way of King County
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009173713"
@@ -33,21 +33,21 @@ vita_partners:
     display_name: Campaign for Working Families
     referral_code: cwf
     drop_off_code:
-    logo_url: "/images/partner-logos/cwf.png"
+    logo_url: "partner-logos/cwf.png"
   - name: Impact America (Save First)
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009341853"
     display_name: Save First
     referral_code: ia
     drop_off_code:
-    logo_url: "/images/partner-logos/ia.png"
+    logo_url: "partner-logos/ia.png"
   - name: Impact America (Save First)
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009341873"
     display_name: Save First
     referral_code:
     drop_off_code:
-    logo_url: "/images/partner-logos/ia.png"
+    logo_url: "partner-logos/ia.png"
   - name: Foundation Communities
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009397734"
@@ -75,4 +75,4 @@ vita_partners:
     display_name: United Way of Tuscon and Southern Arizona
     referral_code:
     drop_off_code:
-    logo_url: "/images/partner-logos/uwtsa.svg"
+    logo_url: "partner-logos/uwtsa.svg"
