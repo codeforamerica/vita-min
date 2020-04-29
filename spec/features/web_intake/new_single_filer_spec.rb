@@ -33,11 +33,11 @@ RSpec.feature "Web Intake Single Filer" do
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "Preferred name", with: "Gary"
-    select "Indiana", from: "State of residence"
+    select "Ohio", from: "State of residence"
     click_on "Continue"
 
     # Chat with us
-    expect(page).to have_selector("h1", text: "Our team is here to help!")
+    expect(page).to have_selector("h1", text: "Our team at United Way of Central Ohio is here to help!")
     click_on "Continue"
 
     # Phone number
