@@ -13,7 +13,7 @@
         <main role="main">
           <% if illustration_path.present? %>
             <div class="question__illustration spacing-above-0">
-              <%= image_tag("#{illustration_path}", alt: "") %>
+              <%= image_tag("questions/#{illustration_path}", alt: "") %>
             </div>
           <% end %>
           <%= yield :form_card %>
