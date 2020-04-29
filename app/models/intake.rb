@@ -141,7 +141,16 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  vita_partner_id                                      :bigint
 #  zendesk_group_id                                     :string
+#
+# Indexes
+#
+#  index_intakes_on_vita_partner_id  (vita_partner_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 
 class Intake < ApplicationRecord
@@ -149,6 +158,7 @@ class Intake < ApplicationRecord
   has_many :users # order doesn't really matter at the moment
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
+  belongs_to :vita_partner, optional: true
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
@@ -396,11 +406,21 @@ class Intake < ApplicationRecord
     ].compact
   end
 
+  def assign_vita_partner
+    # TODO: are these the right checks?
+    # return nil if vita_partner.present? || zendesk_group_id.blank?
+
+    partner = VitaPartner.where(zendesk_group_id: zendesk_group_id).first
+    self.update(vita_partner: partner) if partner.present?
+    # TODO: add partner name etc. to intake
+  end
+
   def get_or_create_zendesk_group_id
     return zendesk_group_id if zendesk_group_id.present?
 
     group_id = determine_zendesk_group_id
     self.update(zendesk_group_id: group_id)
+    assign_vita_partner
     group_id
   end
 
