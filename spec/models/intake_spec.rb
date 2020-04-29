@@ -724,7 +724,7 @@ describe Intake do
         context "when source param starts with a organization's source parameter" do
           let(:source) { "#{src}-something" }
 
-          it "matches the correct group id" do
+          it "assigns to the correct group and the correct instance" do
             expect(intake.get_or_create_zendesk_group_id).to eq instance
             expect(intake.reload.zendesk_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
@@ -734,7 +734,7 @@ describe Intake do
         context "source matches an organization" do
           let(:source) { src }
 
-          it "assigns to the correct group" do
+          it "assigns to the correct group and the correct instance" do
             expect(intake.get_or_create_zendesk_group_id).to eq instance
             expect(intake.reload.zendesk_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
@@ -746,7 +746,7 @@ describe Intake do
             src.chars.map { |c| [true, false].sample ? c.downcase : c.upcase }.join
           end
 
-          it "assigns to the correct group" do
+          it "assigns to the correct group and the correct instance" do
             expect(intake.get_or_create_zendesk_group_id).to eq instance
             expect(intake.reload.zendesk_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
@@ -779,7 +779,7 @@ describe Intake do
         let(:source) { "uwco" }
         let(:state) { "oh" }
 
-        it "matches the correct group and the correct instance" do
+        it "assigns to the correct group and the correct instance" do
           expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
           expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
@@ -792,7 +792,7 @@ describe Intake do
         context "given a state" do
           let(:state) { state_criteria } # might not be necessary?
 
-          it "assigns to the shared Tax Help Colorado / UWBA online intake group" do
+          it "assigns to the correct group and the correct instance" do
             expect(intake.get_or_create_zendesk_group_id).to eq zendesk_group_id
             expect(intake.reload.zendesk_group_id).to eq zendesk_group_id
             expect(intake.zendesk_instance).to eq zendesk_instance
@@ -820,7 +820,7 @@ describe Intake do
     let!(:vita_partner) { create :vita_partner, name: "test_partner", zendesk_group_id: partner_group_id }
     let(:partner_group_id) { "123456789" }
 
-    context "for an intake with a group id" do
+    context "for an intake with a zendesk group id" do
       let(:intake) { create :intake, zendesk_group_id: partner_group_id }
 
       it "assigns an appropriate partner based on zendesk group id" do
@@ -831,7 +831,7 @@ describe Intake do
       end
     end
 
-    context "for an intake without a group id" do
+    context "for an intake without a zendesk group id" do
       let(:intake) { create :intake }
 
       it "assigns the partner with the group id returned by the determine method" do
