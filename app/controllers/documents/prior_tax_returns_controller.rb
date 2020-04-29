@@ -5,7 +5,7 @@ module Documents
     end
 
     def self.document_type
-      "2018 Tax Return"
+      "Prior Year Tax Return"
     end
   end
 end

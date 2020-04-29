@@ -400,6 +400,10 @@ class Intake < ApplicationRecord
     filing_years.first
   end
 
+  def year_before_most_recent_filing_year
+    (most_recent_filing_year.to_i - 1).to_s if most_recent_filing_year.present?
+  end
+
   def get_or_create_zendesk_group_id
     return zendesk_group_id if zendesk_group_id.present?
 
