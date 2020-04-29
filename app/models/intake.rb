@@ -408,10 +408,12 @@ class Intake < ApplicationRecord
 
   def assign_vita_partner
     # TODO: are these the right checks?
-    # return nil if vita_partner.present? || zendesk_group_id.blank?
+    #  A: Yes, reassignment isn't on the menu right now
+    return nil if vita_partner.present? || zendesk_group_id.blank?
 
     partner = VitaPartner.where(zendesk_group_id: zendesk_group_id).first
-    self.update(vita_partner: partner) if partner.present?
+    raise "partner not found for zendesk_group_id [#{zendesk_group_id}]!" unless partner.present?
+    self.update(vita_partner: partner)
     # TODO: add partner name etc. to intake
   end
 
