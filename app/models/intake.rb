@@ -129,6 +129,7 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
 #  was_on_visa                                          :integer          default("unfilled"), not null
@@ -394,6 +395,9 @@ class Intake < ApplicationRecord
       needs_help_2017: needs_help_2017,
       needs_help_2016: needs_help_2016,
       needs_help_backtaxes: (needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?) ? "yes" : "no",
+      zendesk_instance_domain: zendesk_instance_domain,
+      zendesk_group_id: zendesk_group_id,
+      vita_partner_name: vita_partner_name,
     }
   end
 
@@ -406,13 +410,19 @@ class Intake < ApplicationRecord
     ].compact
   end
 
-  def assign_vita_partner
-    return nil if vita_partner.present? || zendesk_group_id.blank?
-
-    partner = VitaPartner.where(zendesk_group_id: get_or_create_zendesk_group_id).first
-    raise "partner not found for zendesk_group_id [#{zendesk_group_id}]!" unless partner.present?
-    self.update(vita_partner: partner)
-    # TODO: add partner name etc. to intake ? or wait until future changes are made?
+  def assign_vita_partner!
+    # NOTE: this MUST be called before create_intake_ticket is called.
+    return if vita_partner.present?
+    # given the information on the intake
+    get_or_create_zendesk_group_id
+    get_or_create_zendesk_instance_domain
+    if zendesk_group_id
+      # this will not be true for intakes to the UWTSA instance
+      # TODO: log this!
+      partner = VitaPartner.find_by(zendesk_group_id: zendesk_group_id)
+      raise "unable to determine VITA Partner from zendesk group id: [#{zendesk_group_id}]" unless partner.present?
+      update(vita_partner_id: partner.id, vita_partner_name: partner.name)
+    end
   end
 
   def most_recent_filing_year
@@ -424,7 +434,6 @@ class Intake < ApplicationRecord
 
     group_id = determine_zendesk_group_id
     self.update(zendesk_group_id: group_id)
-    assign_vita_partner
     group_id
   end
 
@@ -439,6 +448,8 @@ class Intake < ApplicationRecord
     end
   end
 
+  # returns the zendesk instance associated with the partner
+  # servicing this intake
   def zendesk_instance
     if get_or_create_zendesk_instance_domain == EitcZendeskInstance::DOMAIN
       EitcZendeskInstance

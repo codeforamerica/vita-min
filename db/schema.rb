@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_28_220200) do
+ActiveRecord::Schema.define(version: 2020_04_29_190910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -231,6 +231,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_220200) do
     t.datetime "updated_at"
     t.string "visitor_id"
     t.bigint "vita_partner_id"
+    t.string "vita_partner_name"
     t.integer "was_blind", default: 0, null: false
     t.integer "was_full_time_student", default: 0, null: false
     t.integer "was_on_visa", default: 0, null: false
