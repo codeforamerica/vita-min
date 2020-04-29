@@ -699,6 +699,7 @@ describe Intake do
 
   describe "Zendesk routing" do
     let(:source) { nil }
+    let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_THC }
     let(:intake) { build :intake, state_of_residence: state, source: source }
     let!(:partner) { create :vita_partner, zendesk_group_id: partner_group_id }
 
@@ -816,7 +817,7 @@ describe Intake do
 
     context "with a GWISR state" do
       let(:state) { "ga" }
-      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_UWBA }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_GWISR }
 
       it "assigns to the Goodwill online intake" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR

@@ -29,6 +29,7 @@ RSpec.feature "Web Intake Joint Filers" do
       }
     })
   end
+  let!(:vita_partner) { create :vita_partner, name: "United Way of Central Ohio", zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO }
 
   before do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
@@ -210,7 +211,7 @@ RSpec.feature "Web Intake Joint Filers" do
     # Income from working
     select "3 jobs", from: "In 2019, how many jobs did you or your spouse have?"
     click_on "Next"
-    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Indiana?")
+    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Ohio?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive wages or salary?")
     click_on "Yes"
@@ -431,7 +432,7 @@ RSpec.feature "Web Intake Joint Filers" do
 
     # Contact information
     expect(page).to have_text("What is your mailing address?")
-    expect(page).to have_select('State', selected: 'Indiana')
+    expect(page).to have_select('State', selected: 'Ohio')
 
     fill_in "Street address", with: "123 Main St."
     fill_in "City", with: "Anytown"
