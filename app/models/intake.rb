@@ -415,13 +415,9 @@ class Intake < ApplicationRecord
   end
 
   def assign_vita_partner!
-    # NOTE: this MUST be called before create_intake_ticket is called.
     return if vita_partner.present?
-    # given the information on the intake
-    get_or_create_zendesk_group_id
-    get_or_create_zendesk_instance_domain
-    if zendesk_group_id
-      # this will not be true for intakes to the UWTSA instance
+
+    if get_or_create_zendesk_group_id
       # TODO: log this!
       partner = VitaPartner.find_by(zendesk_group_id: zendesk_group_id)
       raise "unable to determine VITA Partner from zendesk group id: [#{zendesk_group_id}]" unless partner.present?
