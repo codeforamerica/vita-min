@@ -141,7 +141,16 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  vita_partner_id                                      :bigint
 #  zendesk_group_id                                     :string
+#
+# Indexes
+#
+#  index_intakes_on_vita_partner_id  (vita_partner_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 
 require 'rails_helper'
@@ -691,6 +700,7 @@ describe Intake do
   describe "Zendesk routing" do
     let(:source) { nil }
     let(:intake) { build :intake, state_of_residence: state, source: source }
+    let!(:partner) { create :vita_partner, zendesk_group_id: partner_group_id }
 
     context "when the zendesk instance domain has been saved as UWTSA instance" do
       let(:uwtsa_instance_intake) { create :intake, state_of_residence: "az", zendesk_instance_domain: UwtsaZendeskInstance::DOMAIN}
@@ -705,6 +715,8 @@ describe Intake do
     context "when there is a source parameter" do
       shared_examples "source group matching" do |src, instance|
         let(:state) { "ne" }
+        let(:partner_group_id) { instance }
+
         context "when source param starts with a organization's source parameter" do
           let(:source) { "#{src}-something" }
 
@@ -712,6 +724,7 @@ describe Intake do
             expect(intake.get_or_create_zendesk_group_id).to eq instance
             expect(intake.reload.zendesk_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
+            expect(intake.vita_partner).to eq partner
           end
         end
 
@@ -722,6 +735,7 @@ describe Intake do
             expect(intake.get_or_create_zendesk_group_id).to eq instance
             expect(intake.reload.zendesk_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
+            expect(intake.vita_partner).to eq partner
           end
         end
 
@@ -734,6 +748,7 @@ describe Intake do
             expect(intake.get_or_create_zendesk_group_id).to eq instance
             expect(intake.reload.zendesk_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
+            expect(intake.vita_partner).to eq partner
           end
         end
       end
@@ -751,144 +766,183 @@ describe Intake do
       context "when there is a source parameter that does not match an organization" do
         let(:source) { "propel" }
         let(:state) { "ne" }
+        let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_THC }
 
         it "uses the state to route" do
           expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
           expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
+          expect(intake.vita_partner).to eq partner
         end
       end
 
       context "when source param is for an organization in an otherwise UWTSA state" do
         let(:source) { "uwco" }
         let(:state) { "oh" }
+        let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO }
 
         it "matches the correct group and the correct instance" do
           expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
           expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
+          expect(intake.vita_partner).to eq partner
         end
       end
     end
 
     context "with Tax Help Colorado state" do
       let(:state) { "co" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_THC }
 
       it "assigns to the shared Tax Help Colorado / UWBA online intake group" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with United Way Bay Area states" do
       let(:state) { "ca" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_UWBA }
 
       it "assigns to the Online Intake - California group" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UWBA
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UWBA
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with a GWISR state" do
       let(:state) { "ga" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_UWBA }
+
       it "assigns to the Goodwill online intake" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with Washington state" do
       let(:state) { "wa" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY }
+
       it "assigns to United Way King County" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with Pennsylvania" do
       let(:state) { "pa" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES }
+
       it "assigns to Campaign for Working Families" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with Ohio" do
       let(:state) { "oh" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO }
+
       it "assigns to UW Central Ohio" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with New Jersey" do
       let(:state) { "nj" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES }
+
       it "assigns to Campaign for Working Families" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with South Carolina" do
       let(:state) { "sc" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_IA_SC }
+
       it "assigns to Impact America - South Carolina" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_SC
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_SC
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with Tennessee" do
       let(:state) { "tn" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_IA_AL }
+
       it "assigns to Impact America - Alabama" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with Nevada" do
       let(:state) { "nv" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_NV_FTC }
+
       it "assigns to Nevada Free Tax Coalition" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with Texas" do
       let(:state) { "tx" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_FC }
+
       it "assigns to Foundation Communities" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_FC
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_FC
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with Arizona" do
       let(:state) { "az" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_UW_TSA }
 
       it "assigns to the UW Tucson group" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
 
     context "with any other state" do
       let(:state) { "ny" }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_UW_TSA }
 
       it "assigns to the UW Tucson instance" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
+        expect(intake.vita_partner).to eq partner
       end
     end
   end

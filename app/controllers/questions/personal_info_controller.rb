@@ -5,5 +5,10 @@ module Questions
     def tracking_data
       {}
     end
+
+    def after_update_success
+      # TODO: figure out a better way to do this
+      current_intake.assign_vita_partner
+    end
   end
 end
