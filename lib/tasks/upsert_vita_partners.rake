@@ -20,7 +20,9 @@ def update_partner(partner, data)
   changed = data.filter { |k, v| partner_data[k] != v }
 
   changed.each { |k, v| puts "updating :#{k} with #{v}" }
+  print "resetting to YML -- " unless changed.empty?
   partner.update(changed)
+  puts "done"
 end
 
 def create_partner(data)
