@@ -1,4 +1,4 @@
-<% content_for :form_question, "As of December 31, 2019, were you legally married?" %>
+<% content_for :form_question, "As of December 31, #{current_intake.most_recent_filing_year}, were you legally married?" %>
 <% content_for :form_help_text, "This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation." %>
 
 <% content_for :method_name, :married %>

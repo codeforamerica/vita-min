@@ -1,4 +1,4 @@
-<% content_for :form_question, "In 2019, did #{you_or_spouse(@form.intake)} pay any child or dependent care expenses?" %>
+<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} pay any child or dependent care expenses?" %>
 
 <% content_for :form_help_text, "For example, daycare, afterschool care, a nanny, or in-home care." %>
 
