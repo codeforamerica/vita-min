@@ -24,6 +24,6 @@ def update_partner(partner, data)
 end
 
 def create_partner(data)
-  partner = VitaPartner.create(data).inspect
+  partner = VitaPartner.create(data)
   puts "added #{partner.name}"
 end
