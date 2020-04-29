@@ -129,6 +129,7 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
 #  was_on_visa                                          :integer          default("unfilled"), not null
