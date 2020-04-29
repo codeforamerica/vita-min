@@ -7,7 +7,7 @@ module Questions
     end
 
     def after_update_success
-      # TODO: figure out a better way to do this
+      # TODO: is there a better place to assign this?
       current_intake.assign_vita_partner
     end
   end

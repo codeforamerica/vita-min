@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   after_action :track_page_view
-  helper_method :include_google_analytics?
+  helper_method :include_google_analytics?, :current_intake
 
   def current_intake
     current_user&.intake || Intake.find_by_id(session[:intake_id])

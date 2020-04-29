@@ -1,3 +1,3 @@
-<% content_for :form_question, "In 2019, did you live or work in any other states besides #{@form.intake.state_of_residence_name}?" %>
+<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did you live or work in any other states besides #{@form.intake.state_of_residence_name}?" %>
 
 <% content_for :method_name, :multiple_states %>

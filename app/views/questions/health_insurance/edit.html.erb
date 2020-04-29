@@ -1,4 +1,4 @@
-<% content_for :form_question, "In 2019, did #{you_or_spouse(@form.intake)} purchase health insurance through the marketplace or exchange?" %>
+<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} purchase health insurance through the marketplace or exchange?" %>
 
 <% content_for :form_help_text, "This includes private health insurance purchased through a government website. This does not include Medicaid, Medicare, or health insurance purchased through your employer." %>
 

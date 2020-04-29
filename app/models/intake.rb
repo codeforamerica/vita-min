@@ -407,14 +407,16 @@ class Intake < ApplicationRecord
   end
 
   def assign_vita_partner
-    # TODO: are these the right checks?
-    #  A: Yes, reassignment isn't on the menu right now
     return nil if vita_partner.present? || zendesk_group_id.blank?
 
-    partner = VitaPartner.where(zendesk_group_id: zendesk_group_id).first
+    partner = VitaPartner.where(zendesk_group_id: get_or_create_zendesk_group_id).first
     raise "partner not found for zendesk_group_id [#{zendesk_group_id}]!" unless partner.present?
     self.update(vita_partner: partner)
-    # TODO: add partner name etc. to intake
+    # TODO: add partner name etc. to intake ? or wait until future changes are made?
+  end
+
+  def most_recent_filing_year
+    filing_years.first
   end
 
   def get_or_create_zendesk_group_id
