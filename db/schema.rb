@@ -283,8 +283,11 @@ ActiveRecord::Schema.define(version: 2020_04_28_220200) do
 
   create_table "vita_partners", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
+    t.string "display_name"
+    t.string "drop_off_code"
     t.string "logo_url"
     t.string "name", null: false
+    t.string "referral_code"
     t.datetime "updated_at", precision: 6, null: false
     t.string "zendesk_group_id", null: false
     t.string "zendesk_instance_domain", null: false
