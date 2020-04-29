@@ -103,6 +103,7 @@ describe ZendeskIntakeService do
 
     context "in a state for the EITC Zendesk instance" do
       let(:state) { "co" }
+      let!(:vita_partner) { create :vita_partner, zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_THC }
 
       it "calls create_ticket with the right arguments" do
         result = service.create_intake_ticket
