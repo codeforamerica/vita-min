@@ -1,5 +1,5 @@
-<% content_for :form_question, "In 2019, did #{you_or_spouse(@form.intake)} pay any state, local, real estate, sales, or other taxes?" %>
+<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} pay any state, local, real estate, sales, or other taxes?" %>
 
-<% content_for :form_help_text, "Answer \"Yes\" if you owned a home or bought a car in 2019. You might find this listed on a 1098 form." %>
+<% content_for :form_help_text, "Answer \"Yes\" if you owned a home or bought a car in #{current_intake.most_recent_filing_year}. You might find this listed on a 1098 form." %>
 
 <% content_for :method_name, :paid_local_tax %>

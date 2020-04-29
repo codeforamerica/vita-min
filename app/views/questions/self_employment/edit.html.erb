@@ -1,4 +1,4 @@
-<% content_for :form_question, "In 2019, did #{you_or_spouse(@form.intake)} have any income from contract or self-employment work?" %>
+<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} have any income from contract or self-employment work?" %>
 
 <% content_for :form_help_text, "Answer \"Yes\" if you received a 1099-MISC, 1099-K, or kept payment records for your own business. This includes cash you received for goods or services." %>
 

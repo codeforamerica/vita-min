@@ -594,7 +594,7 @@ describe Intake do
     let(:filing_years) { {} }
 
     context "with unfilled filing years" do
-      it "returns nil" do
+      it "returns empty array" do
         expect(intake.filing_years).to eq([])
       end
     end
@@ -611,6 +611,47 @@ describe Intake do
 
       it "returns them as an array" do
         expect(intake.filing_years).to eq(["2019", "2017"])
+      end
+    end
+  end
+
+  describe "#most_recent_filing_year" do
+    let(:intake) { create :intake, **filing_years }
+    let(:filing_years) { {} }
+
+    context "with unfilled filing years" do
+      it "returns nil" do
+        expect(intake.most_recent_filing_year).to be_nil
+      end
+    end
+
+    context "when multiple years are selected" do
+      let(:filing_years) do
+        {
+          needs_help_2019: "yes",
+          needs_help_2018: "no",
+          needs_help_2017: "yes",
+          needs_help_2016: "unfilled",
+        }
+      end
+
+      it "returns most recent" do
+        expect(intake.most_recent_filing_year).to eq("2019")
+      end
+    end
+
+    context "when 2019 is not selected" do
+      let(:filing_years) do
+        {
+          needs_help_2019: "no",
+          needs_help_2018: "yes",
+          needs_help_2017: "yes",
+          needs_help_2016: "unfilled",
+        }
+      end
+
+      it "returns next most recent" do
+        expect(intake.most_recent_filing_year).to eq("2018")
       end
     end
   end
@@ -658,6 +699,7 @@ describe Intake do
 
   describe "Zendesk routing" do
     let(:source) { nil }
+    let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_THC }
     let(:intake) { build :intake, state_of_residence: state, source: source }
     let!(:partner) { create :vita_partner, zendesk_group_id: partner_group_id }
 
@@ -720,6 +762,7 @@ describe Intake do
       it_behaves_like "source group matching", "branchesfl", "360009704234"
       it_behaves_like "source group matching", "RefundDay-H", "360009704314"
       it_behaves_like "source group matching", "hispanicunity", "360009704314"
+      it_behaves_like "source group matching", "uwfm", "360009708233"
 
       context "when there is a source parameter that does not match an organization" do
         let(:source) { "propel" }
@@ -774,7 +817,7 @@ describe Intake do
 
     context "with a GWISR state" do
       let(:state) { "ga" }
-      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_UWBA }
+      let(:partner_group_id) { EitcZendeskInstance::ONLINE_INTAKE_GWISR }
 
       it "assigns to the Goodwill online intake" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR

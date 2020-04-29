@@ -69,6 +69,7 @@ class ZendeskIntakeService
       Phone number: #{@intake.formatted_phone_number}
       Email: #{@intake.email_address}
       State of residence: #{@intake.state_of_residence_name}
+      Client answered questions for the #{@intake.most_recent_filing_year} tax year.
 
       #{contact_preferences}
       #{new_ticket_body_footer}
