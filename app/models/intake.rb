@@ -417,6 +417,10 @@ class Intake < ApplicationRecord
     # TODO: add partner name etc. to intake
   end
 
+  def most_recent_filing_year
+    filing_years.first
+  end
+
   def get_or_create_zendesk_group_id
     return zendesk_group_id if zendesk_group_id.present?
 

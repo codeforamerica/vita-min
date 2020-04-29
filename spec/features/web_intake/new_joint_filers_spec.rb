@@ -292,7 +292,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Yes"
 
     # Additional Information
-    fill_in "Is there any additional information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
+    fill_in "Is there any more information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
     click_on "Next"
 
     # Overview: Documents
