@@ -58,6 +58,9 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'pry-byebug'
   gem 'guard-rspec', require: false
+  gem 'rubocop', '~> 0.82.0', require: false
+  gem 'rubocop-performance', '~> 1.5.2', require: false
+  gem 'rubocop-rspec', '~> 1.38.1', require: false
 end
 
 group :development do
