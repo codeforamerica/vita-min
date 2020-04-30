@@ -29,7 +29,7 @@ RSpec.feature "Web Intake Joint Filers" do
       }
     })
   end
-  let!(:vita_partner) { create :vita_partner, name: "United Way of Central Ohio", zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO }
+  let!(:vita_partner) { create :vita_partner, display_name: "United Way of Central Ohio", zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO }
 
   before do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
