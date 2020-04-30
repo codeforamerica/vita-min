@@ -429,6 +429,17 @@ class Intake < ApplicationRecord
     filing_years.first
   end
 
+  def assign_vita_partner!
+    return if vita_partner.present?
+
+    if get_or_create_zendesk_group_id
+      # TODO: log this!
+      partner = VitaPartner.find_by(zendesk_group_id: zendesk_group_id)
+      raise "unable to determine VITA Partner from zendesk group id: [#{zendesk_group_id}]" unless partner.present?
+      update(vita_partner_id: partner.id, vita_partner_name: partner.name)
+    end
+  end
+
   def get_or_create_zendesk_group_id
     return zendesk_group_id if zendesk_group_id.present?
 

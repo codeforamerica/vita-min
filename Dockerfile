@@ -24,6 +24,9 @@ RUN set -a \
  && . ./.aptible.env \
  && bundle exec rake assets:precompile
 
+# Update database with any changes to vita partners
+RUN bundle exec rake db:upsert_vita_partners
+
 EXPOSE 3000
 
 CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "3000"]
