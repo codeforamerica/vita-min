@@ -5,9 +5,5 @@ module Questions
     def tracking_data
       {}
     end
-
-    def after_update_success
-      current_intake.assign_vita_partner!
-    end
   end
 end
