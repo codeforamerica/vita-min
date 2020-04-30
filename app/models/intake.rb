@@ -422,7 +422,6 @@ class Intake < ApplicationRecord
     return if vita_partner.present?
 
     if get_or_create_zendesk_group_id
-      # TODO: log this!
       partner = VitaPartner.find_by(zendesk_group_id: zendesk_group_id)
       raise "unable to determine VITA Partner from zendesk group id: [#{zendesk_group_id}]" unless partner.present?
       update(vita_partner_id: partner.id, vita_partner_name: partner.name)
