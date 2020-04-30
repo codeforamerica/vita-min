@@ -410,23 +410,12 @@ class Intake < ApplicationRecord
     ].compact
   end
 
-  def assign_vita_partner!
-    # NOTE: this MUST be called before create_intake_ticket is called.
-    return if vita_partner.present?
-    # given the information on the intake
-    get_or_create_zendesk_group_id
-    get_or_create_zendesk_instance_domain
-    if zendesk_group_id
-      # this will not be true for intakes to the UWTSA instance
-      # TODO: log this!
-      partner = VitaPartner.find_by(zendesk_group_id: zendesk_group_id)
-      raise "unable to determine VITA Partner from zendesk group id: [#{zendesk_group_id}]" unless partner.present?
-      update(vita_partner_id: partner.id, vita_partner_name: partner.name)
-    end
-  end
-
   def most_recent_filing_year
     filing_years.first
+  end
+
+  def year_before_most_recent_filing_year
+    (most_recent_filing_year.to_i - 1).to_s if most_recent_filing_year.present?
   end
 
   def assign_vita_partner!
@@ -459,8 +448,6 @@ class Intake < ApplicationRecord
     end
   end
 
-  # returns the zendesk instance associated with the partner
-  # servicing this intake
   def zendesk_instance
     if get_or_create_zendesk_instance_domain == EitcZendeskInstance::DOMAIN
       EitcZendeskInstance

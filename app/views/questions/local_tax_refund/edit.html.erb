@@ -1,5 +1,5 @@
 <% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} receive a state or local income tax refund?" %>
 
-<% content_for :form_help_text, "If you are unsure, check your 2018 state tax return." %>
+<% content_for :form_help_text, "If you are unsure, check your #{current_intake.year_before_most_recent_filing_year} state tax return." %>
 
 <% content_for :method_name, :had_local_tax_refund %>

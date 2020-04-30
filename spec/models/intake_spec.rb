@@ -662,6 +662,32 @@ describe Intake do
     end
   end
 
+  describe "#year_before_most_recent_filing_year" do
+    let(:intake) { create :intake, **filing_years }
+    let(:filing_years) { {} }
+
+    context "with unfilled filing years" do
+      it "returns nil" do
+        expect(intake.year_before_most_recent_filing_year).to be_nil
+      end
+    end
+
+    context "when a year is selected" do
+      let(:filing_years) do
+        {
+          needs_help_2019: "no",
+          needs_help_2018: "no",
+          needs_help_2017: "yes",
+          needs_help_2016: "unfilled",
+        }
+      end
+
+      it "returns most recent" do
+        expect(intake.year_before_most_recent_filing_year).to eq("2016")
+      end
+    end
+  end
+
   describe "#zendesk_instance" do
     context "when the intake has a zendesk_instance_domain value saved in the DB" do
       let(:eitc_intake) { create :intake, zendesk_instance_domain: "eitc" }
