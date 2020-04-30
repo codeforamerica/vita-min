@@ -17,6 +17,8 @@ class PublicPagesController < ApplicationController
 
   def maintenance; end
 
+  def at_capacity; end
+
   def internal_server_error; end
 
   def page_not_found; end
