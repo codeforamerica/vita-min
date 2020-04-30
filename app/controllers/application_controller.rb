@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode, :check_at_capacity
   after_action :track_page_view
   helper_method :include_google_analytics?, :current_intake
 
@@ -157,5 +157,9 @@ class ApplicationController < ActionController::Base
     elsif ENV['MAINTENANCE_MODE_SCHEDULED'].present?
       flash.now[:warning] = "GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow."
     end
+  end
+
+  def check_at_capacity
+    redirect_to at_capacity_path and return if ENV['AT_CAPACITY'].present?
   end
 end
