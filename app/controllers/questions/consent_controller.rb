@@ -9,6 +9,7 @@ module Questions
     end
 
     def after_update_success
+      # the 'if' following the next line is duplicated in CreateZendeskIntakeTicketJob#perform
       CreateZendeskIntakeTicketJob.perform_later(current_intake.id) if current_intake.intake_ticket_id.blank?
     end
   end

@@ -93,4 +93,23 @@ RSpec.describe PublicPagesController do
       expect(response).to be_successful
     end
   end
+
+  xdescribe '#at_capacity' do
+    it 'renders when at capacity (in at_capacity mode)' do
+      ENV['AT_CAPACITY'] = '1'
+      get :at_capacity
+      ENV.delete('AT_CAPACITY')
+
+      expect(response).to be_successful
+    end
+
+    it 'renders when not at capacity (in at_capacity mode)' do
+      # TODO: should this even render when not at capacity, or should
+      # it redirect to somewhere else?
+
+      get :at_capacity
+
+      expect(response).to be_successful
+    end
+  end
 end

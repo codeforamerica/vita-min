@@ -1,4 +1,5 @@
 module ZendeskServiceHelper
+
   TIMEZONE_MAP = {
     "America/Adak" => "Alaska",
     "America/Anchorage" => "Alaska",

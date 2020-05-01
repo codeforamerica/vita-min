@@ -310,9 +310,9 @@ describe ZendeskIntakeService do
         result = service.send_preliminary_intake_and_consent_pdfs
 
         expected_comment = <<~COMMENT
-        Preliminary 13614-C questions answered.
-  
-        Primary filer (and spouse, if applicable) consent form attached.
+          Preliminary 13614-C questions answered.
+
+          Primary filer (and spouse, if applicable) consent form attached.
         COMMENT
         expect(result).to eq true
         expect(service).to have_received(:append_multiple_files_to_ticket).with(
