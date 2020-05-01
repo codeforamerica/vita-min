@@ -6,11 +6,16 @@ RSpec.describe SendIntakePdfToZendeskJob, type: :job do
   before do
     allow(ZendeskIntakeService).to receive(:new).and_return fake_zendesk_intake_service
     allow(fake_zendesk_intake_service).to receive(:send_preliminary_intake_and_consent_pdfs).and_return(true)
+    allow(fake_zendesk_intake_service).to receive(:assign_requester).and_return(true)
+    allow(fake_zendesk_intake_service).to receive(:assign_intake_ticket).and_return(true)
   end
 
   describe "#perform" do
+    let(:intake_ticket_id) { rand(2**(8 * 7)) }
     let(:intake) do
-      create :intake, intake_pdf_sent_to_zendesk: intake_pdf_sent_to_zendesk
+      create :intake,
+             intake_pdf_sent_to_zendesk: intake_pdf_sent_to_zendesk,
+             intake_ticket_id: intake_ticket_id
     end
 
     context "without errors" do
@@ -39,7 +44,7 @@ RSpec.describe SendIntakePdfToZendeskJob, type: :job do
     end
 
     it_behaves_like "catches exceptions with raven context", :send_preliminary_intake_and_consent_pdfs do
-        let(:intake_pdf_sent_to_zendesk) { false }
+      let(:intake_pdf_sent_to_zendesk) { false }
     end
 
   end

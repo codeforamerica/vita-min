@@ -39,6 +39,15 @@ module ConsolidatedTraceHelper
       ----
     MSGBODY
   end
+  
+  def intake_context(intake)
+    {
+        name: intake.preferred_name,
+        email: intake.email_address,
+        phone: intake.phone_number,
+        intake_id: intake.id
+    }
+  end
 
   def trace_debug(message, attributes = {})
     trace(message, attributes, Severity::DEBUG)
