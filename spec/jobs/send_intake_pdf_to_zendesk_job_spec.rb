@@ -18,6 +18,36 @@ RSpec.describe SendIntakePdfToZendeskJob, type: :job do
              intake_ticket_id: intake_ticket_id
     end
 
+    context 'without an intake ticket id on intake' do
+      let(:intake_ticket_id) { nil }
+      let(:intake_pdf_sent_to_zendesk) { false }
+
+      it 'sends a trace' do
+
+        expect(Raven).to receive(:capture_message)
+          .with('SendIntakePdfToZendeskJob: missing intake_ticket_id on intake',
+                anything)
+        described_class.perform_now(intake.id)
+      end
+    end
+
+    context 'when the service throws an exception' do
+      let(:intake_pdf_sent_to_zendesk) { false }
+
+      before do
+        allow(fake_zendesk_intake_service).to receive(:send_preliminary_intake_and_consent_pdfs) {
+          raise ZendeskIntakeService::MissingTicketError, 'BOOM'
+        }
+      end
+
+      it 'sends a trace' do
+        expect(Raven).to receive(:capture_message)
+          .with('SendIntakePdfToZendeskJob: unable to find ticket with associated intake_ticket_id',
+                anything)
+        described_class.perform_now(intake.id)
+      end
+    end
+
     context "without errors" do
       before do
         described_class.perform_now(intake.id)
@@ -46,6 +76,5 @@ RSpec.describe SendIntakePdfToZendeskJob, type: :job do
     it_behaves_like "catches exceptions with raven context", :send_preliminary_intake_and_consent_pdfs do
       let(:intake_pdf_sent_to_zendesk) { false }
     end
-
   end
 end
