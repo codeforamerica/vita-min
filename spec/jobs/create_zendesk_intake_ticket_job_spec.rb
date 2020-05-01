@@ -12,6 +12,57 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
     allow(fake_zendesk_intake_service).to receive(:create_intake_ticket).and_return(5)
   end
 
+
+  describe '#perform unexpectedly' do
+    context 'when unable to create a ticket requester' do
+      before do
+        allow(fake_zendesk_intake_service).to receive(:create_intake_ticket_requester) { nil }
+      end
+      it 'notifies sentry' do
+        user_attributes = {
+            name: intake.preferred_name,
+            email: intake.email_address,
+            phone: intake.phone_number
+        }
+        expect(Raven).to receive(:capture_message)
+                             .with('ZendeskIntakeTicketJob failed to create a ticket requester',
+                                   {
+                                       extra: user_attributes,
+                                       severity: Severity::ERROR
+                                   })
+
+        described_class.perform_now(intake.id)
+      end
+
+      it 'does not create a ticket' do
+        expect(fake_zendesk_intake_service).to_not receive(:create_intake_ticket)
+        described_class.perform_now(intake.id)
+      end
+
+    end
+
+    context 'when unable to create a ticket' do
+      before do
+        allow(fake_zendesk_intake_service).to receive(:create_intake_ticket) { nil }
+      end
+      it 'notifies sentry' do
+        user_attributes = {
+            name: intake.preferred_name,
+            email: intake.email_address,
+            phone: intake.phone_number
+        }
+        expect(Raven).to receive(:capture_message)
+                             .with('ZendeskIntakeTicketJob failed to create an intake ticket',
+                                   {
+                                       extra: user_attributes,
+                                       severity: Severity::ERROR
+                                   })
+
+        described_class.perform_now(intake.id)
+      end
+    end
+  end
+
   describe "#perform" do
     context "without errors" do
       before do
@@ -30,6 +81,7 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
           expect(fake_zendesk_intake_service).to have_received(:create_intake_ticket).with(no_args)
           expect(intake.intake_ticket_id).to eq 5
         end
+
       end
 
       context "with a requester but no ticket" do
