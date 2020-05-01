@@ -109,29 +109,40 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
   end
 
   describe "#update" do
-    before do
-      allow(subject).to receive(:current_intake).and_return(anonymous_intake)
+    context "with no intake in the session" do
+      it "redirects to the home page" do
+        get :update
+
+        expect(response).to redirect_to root_path
+      end
     end
 
-    context "with valid params" do
-      let(:valid_params) do
-        {
-          document_type_upload_form: {
-            document: fixture_file_upload("attachments/test-pattern.png")
-          }
-        }
+    context "with an intake in the session" do
+      before do
+        session[:anonymous_session] = true
+        session[:intake_id] = anonymous_intake.id
       end
 
-      it "appends the documents to the intake and rerenders :edit without redirecting" do
-        expect {
-          post :update, params: valid_params
-        }.to change(anonymous_intake.documents, :count).by 1
+      context "with valid params" do
+        let(:valid_params) do
+          {
+            document_type_upload_form: {
+              document: fixture_file_upload("attachments/test-pattern.png")
+            }
+          }
+        end
 
-        latest_doc = anonymous_intake.documents.last
-        expect(latest_doc.document_type).to eq "Requested Later"
-        expect(latest_doc.upload.filename).to eq "test-pattern.png"
+        it "appends the documents to the intake and rerenders :edit without redirecting" do
+          expect {
+            post :update, params: valid_params
+          }.to change(anonymous_intake.documents, :count).by 1
 
-        expect(response).to redirect_to requested_documents_later_documents_path
+          latest_doc = anonymous_intake.documents.last
+          expect(latest_doc.document_type).to eq "Requested Later"
+          expect(latest_doc.upload.filename).to eq "test-pattern.png"
+
+          expect(response).to redirect_to requested_documents_later_documents_path
+        end
       end
     end
   end
