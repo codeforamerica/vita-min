@@ -163,6 +163,8 @@ module ZendeskServiceHelper
     raise MissingTicketIdError if ticket_id.blank?
 
     ticket = ZendeskAPI::Ticket.find(client, id: ticket_id)
+    raise MissingTicketError unless ticket.present?
+
     ticket.fields = fields if fields.present?
     ticket.comment = {body: comment}
     file_list.each { |file| append_file_or_add_oversize_comment(file, ticket) }
@@ -198,4 +200,5 @@ module ZendeskServiceHelper
   class ZendeskServiceError < StandardError; end
   class MissingRequesterIdError < ZendeskServiceError; end
   class MissingTicketIdError < ZendeskServiceError; end
+  class MissingTicketError < ZendeskServiceError; end
 end
