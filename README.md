@@ -25,9 +25,6 @@ brew install imagemagick poppler ghostscript
 
 # 5. Get the secret key from LastPass / someone who has it set up.
 echo "[secret key]" > config/master.key
-# note that for development configuration is being managed in its own credentials file (see [Rails 6 adds support for Multi Environment credentials](https://blog.bigbinary.com/2019/07/03/rails-6-adds-support-for-multi-environment-credentials.html). You can add that key:
-echo "[development key]" > config/credentials/development.key
-
 ```
 
 ## Running background jobs in development
