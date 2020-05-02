@@ -1,8 +1,10 @@
 class ApplicationJob < ActiveJob::Base
 
-  def with_raven_context(extra)
+  def with_raven_context(extra_context={})
     yield
   rescue => exception
-    Raven.capture_exception(exception, extra: extra)
+    Raven.extra_context(extra_context)
+    raise exception
   end
+
 end
