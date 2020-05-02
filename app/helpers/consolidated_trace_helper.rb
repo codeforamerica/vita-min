@@ -25,7 +25,7 @@ module ConsolidatedTraceHelper
                         .slice(0, 5)
                         .join("\n")
     logger&.send(severity, log_body(message, attributes, stack_trace))
-    Raven.capture_message(message, { extra: attributes, severity: severity })
+    Raven.capture_message(log_body(message, attributes, stack_trace), { extra: attributes, level: severity })
   end
 
   # creates a log body
