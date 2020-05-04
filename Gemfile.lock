@@ -351,6 +351,10 @@ GEM
       rexml
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-performance (1.5.2)
+      rubocop (>= 0.71.0)
+    rubocop-rspec (1.38.1)
+      rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
     ruby-vips (2.0.17)
       ffi (~> 1.9)
@@ -476,6 +480,9 @@ DEPENDENCIES
   rails-controller-testing
   rspec-rails
   rspec_junit_formatter
+  rubocop (~> 0.82.0)
+  rubocop-performance (~> 1.5.2)
+  rubocop-rspec (~> 1.38.1)
   sass-rails (~> 5.0)
   sendgrid-ruby
   sentry-raven
