@@ -773,6 +773,8 @@ describe Intake do
       it_behaves_like "source group matching", "RefundDay-H", "360009704314"
       it_behaves_like "source group matching", "hispanicunity", "360009704314"
       it_behaves_like "source group matching", "uwfm", "360009708233"
+      it_behaves_like "source group matching", "RefundDay-C", "360009704354"
+      it_behaves_like "source group matching", "catalyst", "360009704354"
 
       context "when there is a source parameter that does not match an organization" do
         let(:source) { "propel" }
@@ -904,6 +906,26 @@ describe Intake do
       it "assigns to the UW Tucson group" do
         expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
         expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with Virginia" do
+      let(:state) { "va" }
+
+      it "assigns to the UW Virginia group" do
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
+        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      end
+    end
+
+    context "with Florida" do
+      let(:state) { "fl" }
+
+      it "assigns to the Refund Day group" do
+        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_REFUND_DAY
+        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_REFUND_DAY
         expect(intake.zendesk_instance).to eq EitcZendeskInstance
       end
     end

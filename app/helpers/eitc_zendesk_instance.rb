@@ -21,6 +21,8 @@ class EitcZendeskInstance
     ONLINE_INTAKE_UWCCR = "360009708193", # "United Way California Capital Region
     ONLINE_INTAKE_BRANCHES_FL = "360009704234", # Branches (FL)
     ONLINE_INTAKE_HU_FL = "360009704314", # Hispanic Unity (FL)
+    ONLINE_INTAKE_CATALYST = "360009704354", # Catalyst Miami
+    ONLINE_INTAKE_REFUND_DAY = "360009657014", # Refund Day (FL)
   ].freeze
 
   GROUP_ID_TO_STATE_LIST_MAPPING = {
@@ -31,9 +33,11 @@ class EitcZendeskInstance
     ONLINE_INTAKE_NV_FTC => %w(nv).freeze,
     ONLINE_INTAKE_FC => %w(tx).freeze,
     ONLINE_INTAKE_THC => %w(co sd wy ks nm ne).freeze,
-    ONLINE_INTAKE_UWBA => %w(ca ak fl).freeze,
+    ONLINE_INTAKE_UWBA => %w(ca ak).freeze,
     ONLINE_INTAKE_GWISR => %w(ga al).freeze,
-    ONLINE_INTAKE_WORKING_FAMILIES => %w(pa nj).freeze
+    ONLINE_INTAKE_WORKING_FAMILIES => %w(pa nj).freeze,
+    ONLINE_INTAKE_UW_VIRGINIA => %w(va).freeze,
+    ONLINE_INTAKE_REFUND_DAY => %w(fl).freeze
   }.freeze
 
   # online intake source parameter to group
@@ -51,6 +55,8 @@ class EitcZendeskInstance
     "refundday-h" => ONLINE_INTAKE_HU_FL,
     hispanicunity: ONLINE_INTAKE_HU_FL,
     uwfm: ONLINE_INTAKE_UW_FRESNO_MADERA,
+    catalyst: ONLINE_INTAKE_CATALYST,
+    "refundday-c" => ONLINE_INTAKE_CATALYST,
   }.freeze
 
 
