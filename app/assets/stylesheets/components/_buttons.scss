@@ -3,6 +3,15 @@
   border-width: 3px;
 }
 
+.button--inline-action {
+  border-radius: 0.5rem;
+  border-width: 2px;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin-bottom: 0;
+  padding: 0 1rem;
+}
+
 .button--primary {
   background-color: black;
   border-color: black;
@@ -16,15 +25,6 @@
     background-color: #303030;
     border-color: #303030;
   }
-}
-
-.button--inline-action {
-  border-radius: 0.5rem;
-  border-width: 2px;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin-bottom: 0;
-  padding: 0 1rem;
 }
 
 .button--cta {
@@ -54,6 +54,33 @@
     background-color: #F7F5F4;
     color: #D70A40;
   }
+}
+
+.button--disabled {
+  opacity: 1;
+  border-color: #A0A0A0;
+  color: #A0A0A0;
+
+  &:hover {
+    color: #A0A0A0;
+    background-color: white;
+  }
+
+  &.button--cta {
+    background-color: #B6D8D1;
+    color: white;
+  }
+  &.button--primary {
+    border: none;
+    color: white;
+    background-color: #A0A0A0;
+  }
+
+  &.button--danger {
+    border-color: #F3B9C9;
+    color: #F3B9C9;
+  }
+
 }
 
 .button--wide {
