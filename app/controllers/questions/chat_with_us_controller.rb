@@ -5,7 +5,7 @@ module Questions
     private
 
     def illustration_path
-      current_intake.vita_partner&.logo_url
+      current_intake.vita_partner&.logo_path
     end
 
     def self.form_class
