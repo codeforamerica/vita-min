@@ -1,0 +1,67 @@
+vita_partners:
+  - name: United Way Bay Area
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009415834"
+    display_name: United Way Bay Area
+    source_parameter: uwba
+    logo_path: "partner-logos/uwba.svg"
+  - name: Tax Help Colorado (Piton Foundation)
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009415854"
+    display_name: Tax Help Colorado
+    source_parameter: thc
+    logo_path: "partner-logos/thc.svg"
+  - name: Goodwill Industries of the Southern Rivers
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360008424134"
+    display_name: Goodwill Industries of the Southern Rivers
+    source_parameter: goodwillsr
+    logo_path: "partner-logos/gwisr.svg"
+  - name: United Way of King County
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009173713"
+    display_name: United Way of King County
+    source_parameter: uwkc
+    logo_path:
+  - name: Campaign for Working Families
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009220253"
+    display_name: Campaign for Working Families
+    source_parameter: cwf
+    logo_path: "partner-logos/cwf.png"
+  - name: Impact America (Save First)
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009341853"
+    display_name: Save First
+    source_parameter: ia
+    logo_path: "partner-logos/ia.png"
+  - name: Impact America (Save First)
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009341873"
+    display_name: Save First
+    source_parameter:
+    logo_path: "partner-logos/ia.png"
+  - name: Foundation Communities
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009397734"
+    display_name: Foundation Communities
+    source_parameter: fc
+    logo_path:
+  - name: United Way of Central Ohio
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009440374"
+    display_name: United Way of Central Ohio
+    source_parameter: uwco
+    logo_path:
+  - name: Nevada Free Taxes Coalition
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009537374"
+    display_name: Nevada Free Taxes Coalition
+    source_parameter: nvftc
+    logo_path:
+  - name: United Way of Tuscon and Southern Arizona
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009581934"
+    display_name: United Way of Tuscon and Southern Arizona
+    source_parameter:
+    logo_path: "partner-logos/uwtsa.svg"

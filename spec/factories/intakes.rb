@@ -129,6 +129,7 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
 #  was_on_visa                                          :integer          default("unfilled"), not null
@@ -141,7 +142,16 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  vita_partner_id                                      :bigint
 #  zendesk_group_id                                     :string
+#
+# Indexes
+#
+#  index_intakes_on_vita_partner_id  (vita_partner_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 
 FactoryBot.define do

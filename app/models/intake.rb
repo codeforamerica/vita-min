@@ -129,6 +129,7 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
 #  was_on_visa                                          :integer          default("unfilled"), not null
@@ -141,7 +142,16 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  vita_partner_id                                      :bigint
 #  zendesk_group_id                                     :string
+#
+# Indexes
+#
+#  index_intakes_on_vita_partner_id  (vita_partner_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 
 class Intake < ApplicationRecord
@@ -149,6 +159,7 @@ class Intake < ApplicationRecord
   has_many :users # order doesn't really matter at the moment
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
+  belongs_to :vita_partner, optional: true
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
@@ -384,6 +395,9 @@ class Intake < ApplicationRecord
       needs_help_2017: needs_help_2017,
       needs_help_2016: needs_help_2016,
       needs_help_backtaxes: (needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?) ? "yes" : "no",
+      zendesk_instance_domain: zendesk_instance_domain,
+      zendesk_group_id: zendesk_group_id,
+      vita_partner_name: vita_partner_name,
     }
   end
 
@@ -402,6 +416,16 @@ class Intake < ApplicationRecord
 
   def year_before_most_recent_filing_year
     (most_recent_filing_year.to_i - 1).to_s if most_recent_filing_year.present?
+  end
+
+  def assign_vita_partner!
+    return if vita_partner.present?
+
+    if get_or_create_zendesk_group_id
+      partner = VitaPartner.find_by(zendesk_group_id: zendesk_group_id)
+      raise "unable to determine VITA Partner from zendesk group id: [#{zendesk_group_id}]" unless partner.present?
+      update(vita_partner_id: partner.id, vita_partner_name: partner.name)
+    end
   end
 
   def get_or_create_zendesk_group_id

@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Single Filer" do
+  let!(:vita_partner) { create :vita_partner, display_name: "United Way of Central Ohio", zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO }
+
   before do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(9876)
@@ -33,11 +35,11 @@ RSpec.feature "Web Intake Single Filer" do
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "Preferred name", with: "Gary"
-    select "Indiana", from: "State of residence"
+    select "Ohio", from: "State of residence"
     click_on "Continue"
 
     # Chat with us
-    expect(page).to have_selector("h1", text: "Our team is here to help!")
+    expect(page).to have_selector("h1", text: "Our team at United Way of Central Ohio is here to help!")
     click_on "Continue"
 
     # Phone number
@@ -105,7 +107,7 @@ RSpec.feature "Web Intake Single Filer" do
     # Income from working
     select "3 jobs", from: "In 2019, how many jobs did you have?"
     click_on "Next"
-    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Indiana?")
+    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Ohio?")
     click_on "No"
     expect(page).to have_selector("h1", text: "In 2019, did you receive wages or salary?")
     click_on "Yes"
