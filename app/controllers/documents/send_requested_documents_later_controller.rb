@@ -29,6 +29,7 @@ module Documents
         intake = Intake.anonymous.find_by(id: session[:intake_id])
         intake.destroy if intake
         session[:anonymous_session] = false
+        session[:intake_id] = nil
       end
     end
 

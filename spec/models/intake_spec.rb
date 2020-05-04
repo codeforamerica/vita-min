@@ -789,6 +789,8 @@ describe Intake do
       it_behaves_like "source group matching", "RefundDay-H", "360009704314"
       it_behaves_like "source group matching", "hispanicunity", "360009704314"
       it_behaves_like "source group matching", "uwfm", "360009708233"
+      it_behaves_like "source group matching", "RefundDay-C", "360009704354"
+      it_behaves_like "source group matching", "catalyst", "360009704354"
 
       context "when there is a source parameter that does not match an organization" do
         let(:source) { "propel" }
@@ -838,6 +840,8 @@ describe Intake do
       it_behaves_like "state-level routing", "nv", EitcZendeskInstance::ONLINE_INTAKE_NV_FTC, EitcZendeskInstance
       it_behaves_like "state-level routing", "tx", EitcZendeskInstance::ONLINE_INTAKE_FC, EitcZendeskInstance
       it_behaves_like "state-level routing", "az", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
+      it_behaves_like "state-level routing", "va", EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA, EitcZendeskInstance
+      it_behaves_like "state-level routing", "fl", EitcZendeskInstance::ONLINE_INTAKE_REFUND_DAY, EitcZendeskInstance
       it_behaves_like "state-level routing", "xx", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
     end
   end

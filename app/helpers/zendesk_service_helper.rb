@@ -62,6 +62,7 @@ module ZendeskServiceHelper
     search_string += "phone:#{phone}" if phone.present?
     results = search_zendesk_users(search_string)
     if exact_match
+      results = results.select { |result| result.name.blank? } if name.blank?
       results = results.select { |result| result.email.blank? } if email.blank?
       results = results.select { |result| result.phone.blank? } if phone.blank?
     end

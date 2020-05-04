@@ -14,16 +14,20 @@ RSpec.describe SendCompletedIntakeToZendeskJob, type: :job do
       create :intake
     end
 
-    before do
-      described_class.perform_now(intake.id)
+    context "without errors" do
+      before do
+        described_class.perform_now(intake.id)
+      end
+
+      it "sends the intake pdf and all of the docs as comments on the intake ticket" do
+        expect(ZendeskIntakeService).to have_received(:new).with(intake)
+        expect(fake_zendesk_intake_service).to have_received(:send_final_intake_pdf)
+        expect(fake_zendesk_intake_service).to have_received(:send_all_docs)
+        intake.reload
+        expect(intake.completed_intake_sent_to_zendesk).to eq true
+      end
     end
 
-    it "sends the intake pdf and all of the docs as comments on the intake ticket" do
-      expect(ZendeskIntakeService).to have_received(:new).with(intake)
-      expect(fake_zendesk_intake_service).to have_received(:send_final_intake_pdf)
-      expect(fake_zendesk_intake_service).to have_received(:send_all_docs)
-      intake.reload
-      expect(intake.completed_intake_sent_to_zendesk).to eq true
-    end
+    it_behaves_like "catches exceptions with raven context", :send_final_intake_pdf
   end
 end

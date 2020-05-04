@@ -13,26 +13,33 @@ RSpec.describe SendSpouseAuthDocsToZendeskJob, type: :job do
     let(:completed_intake_sent_to_zendesk) { nil }
     let(:intake) { create :intake, completed_intake_sent_to_zendesk: completed_intake_sent_to_zendesk }
 
-    before do
-      described_class.perform_now(intake.id)
-    end
+    context "without errors" do
+      before do
+        described_class.perform_now(intake.id)
+      end
 
-    context "when the primary user has not yet completed intake" do
-      let(:completed_intake_sent_to_zendesk) { false }
+      context "when the primary user has not yet completed intake" do
+        let(:completed_intake_sent_to_zendesk) { false }
 
-      it "doesn't send anything" do
-        expect(ZendeskIntakeService).not_to have_received(:new)
+        it "doesn't send anything" do
+          expect(ZendeskIntakeService).not_to have_received(:new)
+        end
+      end
+
+      context "when the primary user has already completed intake" do
+        let(:completed_intake_sent_to_zendesk) { true }
+
+        it "resends the intake pdf, consent pdf, and additional info document as comments on the intake ticket" do
+          expect(ZendeskIntakeService).to have_received(:new).with(intake)
+          expect(fake_zendesk_intake_service).to have_received(:send_intake_pdf_with_spouse)
+          expect(fake_zendesk_intake_service).to have_received(:send_consent_pdf_with_spouse)
+        end
       end
     end
 
-    context "when the primary user has already completed intake" do
+    it_behaves_like "catches exceptions with raven context", :send_consent_pdf_with_spouse do
       let(:completed_intake_sent_to_zendesk) { true }
-
-      it "resends the intake pdf, consent pdf, and additional info document as comments on the intake ticket" do
-        expect(ZendeskIntakeService).to have_received(:new).with(intake)
-        expect(fake_zendesk_intake_service).to have_received(:send_intake_pdf_with_spouse)
-        expect(fake_zendesk_intake_service).to have_received(:send_consent_pdf_with_spouse)
-      end
     end
+
   end
 end

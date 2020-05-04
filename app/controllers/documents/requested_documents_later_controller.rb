@@ -1,6 +1,7 @@
 module Documents
   class RequestedDocumentsLaterController < DocumentUploadQuestionController
     before_action :handle_session, only: :edit
+    before_action :current_intake_or_home, only: :update
     skip_before_action :require_intake
 
     def self.show?(_)
@@ -20,6 +21,12 @@ module Documents
     end
 
     private
+
+    def current_intake_or_home
+      if session[:intake_id].nil?
+        redirect_to root_path
+      end
+    end
 
     def handle_session
       check_token_and_create_anonymous_session unless session_in_progress?

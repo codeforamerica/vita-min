@@ -54,3 +54,16 @@ To run the tests with coverage (path not recommended):
 To run the test suite continuously:
 
 `bundle exec guard`
+
+## Tidy Up!
+
+This repo has `rubocop` installed. To check:
+
+`rubocop [app lib ...]`
+
+The rubocop settings files is in the root directory as `.rubocop.yml`
+
+### Integration with RubyMine
+
+RubyMine integrates Rubocop by default. Settings can be found in the Preferences
+menu, under Editor > Inspections > Ruby > Gems and Gem Management > Rubocop.
