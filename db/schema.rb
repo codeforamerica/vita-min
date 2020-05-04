@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_175300) do
+ActiveRecord::Schema.define(version: 2020_05_04_184255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -230,6 +230,8 @@ ActiveRecord::Schema.define(version: 2020_04_30_175300) do
     t.string "street_address"
     t.datetime "updated_at"
     t.string "visitor_id"
+    t.bigint "vita_partner_id"
+    t.string "vita_partner_name"
     t.integer "was_blind", default: 0, null: false
     t.integer "was_full_time_student", default: 0, null: false
     t.integer "was_on_visa", default: 0, null: false
@@ -238,6 +240,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_175300) do
     t.string "zendesk_group_id"
     t.string "zendesk_instance_domain"
     t.string "zip_code"
+    t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|
@@ -279,6 +282,17 @@ ActiveRecord::Schema.define(version: 2020_04_30_175300) do
     t.index ["intake_id"], name: "index_users_on_intake_id"
   end
 
+  create_table "vita_partners", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "display_name"
+    t.string "logo_path"
+    t.string "name", null: false
+    t.string "source_parameter"
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "zendesk_group_id", null: false
+    t.string "zendesk_instance_domain", null: false
+  end
+
   create_table "vita_providers", force: :cascade do |t|
     t.string "appointment_info"
     t.boolean "archived", default: false, null: false
@@ -298,6 +312,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_175300) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
+  add_foreign_key "intakes", "vita_partners"
   add_foreign_key "users", "intakes"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
 end

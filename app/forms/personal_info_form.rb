@@ -6,5 +6,7 @@ class PersonalInfoForm < QuestionsForm
 
   def save
     @intake.update(attributes_for(:intake))
+
+    @intake.assign_vita_partner!
   end
 end

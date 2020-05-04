@@ -129,6 +129,7 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
 #  was_on_visa                                          :integer          default("unfilled"), not null
@@ -141,7 +142,16 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  vita_partner_id                                      :bigint
 #  zendesk_group_id                                     :string
+#
+# Indexes
+#
+#  index_intakes_on_vita_partner_id  (vita_partner_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 
 require 'rails_helper'
@@ -508,6 +518,7 @@ describe Intake do
   end
 
   describe "#mixpanel_data" do
+    let!(:vita_partner) { create :vita_partner, name: "test_partner", zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_TSA }
     let(:intake) do
       build(
         :intake,
@@ -532,6 +543,7 @@ describe Intake do
     let!(:dependent_two) { create :dependent, birth_date: Date.new(2005, 8, 11), intake: intake}
 
     it "returns the expected hash" do
+      intake.assign_vita_partner!
       expect(intake.mixpanel_data).to eq({
         intake_source: "beep",
         intake_referrer: "http://boop.horse/mane",
@@ -552,6 +564,9 @@ describe Intake do
         needs_help_2017: "yes",
         needs_help_2016: "unfilled",
         needs_help_backtaxes: "yes",
+        zendesk_instance_domain: "eitc",
+        zendesk_group_id: vita_partner.zendesk_group_id,
+        vita_partner_name: vita_partner.name,
       })
     end
 
@@ -716,7 +731,7 @@ describe Intake do
 
   describe "Zendesk routing" do
     let(:source) { nil }
-    let(:intake) { build :intake, state_of_residence: state, source: source }
+    let(:intake) { create :intake, state_of_residence: state, source: source }
 
     context "when the zendesk instance domain has been saved as UWTSA instance" do
       let(:uwtsa_instance_intake) { create :intake, state_of_residence: "az", zendesk_instance_domain: UwtsaZendeskInstance::DOMAIN}
@@ -731,10 +746,11 @@ describe Intake do
     context "when there is a source parameter" do
       shared_examples "source group matching" do |src, instance|
         let(:state) { "ne" }
+
         context "when source param starts with a organization's source parameter" do
           let(:source) { "#{src}-something" }
 
-          it "matches the correct group id" do
+          it "assigns to the correct group and the correct instance" do
             expect(intake.get_or_create_zendesk_group_id).to eq instance
             expect(intake.reload.zendesk_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
@@ -744,7 +760,7 @@ describe Intake do
         context "source matches an organization" do
           let(:source) { src }
 
-          it "assigns to the correct group" do
+          it "assigns to the correct group and the correct instance" do
             expect(intake.get_or_create_zendesk_group_id).to eq instance
             expect(intake.reload.zendesk_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
@@ -756,7 +772,7 @@ describe Intake do
             src.chars.map { |c| [true, false].sample ? c.downcase : c.upcase }.join
           end
 
-          it "assigns to the correct group" do
+          it "assigns to the correct group and the correct instance" do
             expect(intake.get_or_create_zendesk_group_id).to eq instance
             expect(intake.reload.zendesk_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
@@ -791,7 +807,7 @@ describe Intake do
         let(:source) { "uwco" }
         let(:state) { "oh" }
 
-        it "matches the correct group and the correct instance" do
+        it "assigns to the correct group and the correct instance" do
           expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
           expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
@@ -799,144 +815,70 @@ describe Intake do
       end
     end
 
-    context "with Tax Help Colorado state" do
-      let(:state) { "co" }
+    context "with state routing" do
+      shared_examples "state-level routing" do |state_criteria, zendesk_group_id, zendesk_instance|
+        context "given a state" do
+          let(:state) { state_criteria } # might not be necessary?
 
-      it "assigns to the shared Tax Help Colorado / UWBA online intake group" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+          it "assigns to the correct group and the correct instance" do
+            expect(intake.get_or_create_zendesk_group_id).to eq zendesk_group_id
+            expect(intake.reload.zendesk_group_id).to eq zendesk_group_id
+            expect(intake.zendesk_instance).to eq zendesk_instance
+          end
+        end
+      end
+
+      it_behaves_like "state-level routing", "co", EitcZendeskInstance::ONLINE_INTAKE_THC, EitcZendeskInstance
+      it_behaves_like "state-level routing", "ca", EitcZendeskInstance::ONLINE_INTAKE_UWBA, EitcZendeskInstance
+      it_behaves_like "state-level routing", "ga", EitcZendeskInstance::ONLINE_INTAKE_GWISR, EitcZendeskInstance
+      it_behaves_like "state-level routing", "wa", EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY, EitcZendeskInstance
+      it_behaves_like "state-level routing", "pa", EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES, EitcZendeskInstance
+      it_behaves_like "state-level routing", "oh", EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO, EitcZendeskInstance
+      it_behaves_like "state-level routing", "nj", EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES, EitcZendeskInstance
+      it_behaves_like "state-level routing", "sc", EitcZendeskInstance::ONLINE_INTAKE_IA_SC, EitcZendeskInstance
+      it_behaves_like "state-level routing", "tn", EitcZendeskInstance::ONLINE_INTAKE_IA_AL, EitcZendeskInstance
+      it_behaves_like "state-level routing", "nv", EitcZendeskInstance::ONLINE_INTAKE_NV_FTC, EitcZendeskInstance
+      it_behaves_like "state-level routing", "tx", EitcZendeskInstance::ONLINE_INTAKE_FC, EitcZendeskInstance
+      it_behaves_like "state-level routing", "az", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
+      it_behaves_like "state-level routing", "va", EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA, EitcZendeskInstance
+      it_behaves_like "state-level routing", "fl", EitcZendeskInstance::ONLINE_INTAKE_REFUND_DAY, EitcZendeskInstance
+      it_behaves_like "state-level routing", "xx", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
+    end
+  end
+  
+  describe "#assign_vita_partner!" do
+    let!(:vita_partner) { create :vita_partner, name: "test_partner", zendesk_group_id: partner_group_id }
+    let(:partner_group_id) { "123456789" }
+
+    context "for an intake with a zendesk group id" do
+      let(:intake) { create :intake, zendesk_group_id: partner_group_id }
+
+      it "assigns an appropriate partner based on zendesk group id" do
+        intake.assign_vita_partner!
+
+        expect(intake.vita_partner).to_not be_nil
+        expect(intake.vita_partner.zendesk_group_id).to eq partner_group_id
       end
     end
 
-    context "with United Way Bay Area states" do
-      let(:state) { "ca" }
+    context "for an intake without a zendesk group id" do
+      let(:intake) { create :intake }
 
-      it "assigns to the Online Intake - California group" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UWBA
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UWBA
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      it "assigns the partner with the group id returned by the determine method" do
+        allow(intake).to receive(:determine_zendesk_group_id) { partner_group_id }
+        intake.assign_vita_partner!
+
+        expect(intake.vita_partner).to_not be_nil
+        expect(intake.vita_partner.zendesk_group_id).to eq partner_group_id
       end
     end
 
-    context "with a GWISR state" do
-      let(:state) { "ga" }
-      it "assigns to the Goodwill online intake" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_GWISR
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
+    context "for an intake that is already assigned to the Uwtsa instance" do
+      let(:intake) { create :intake, zendesk_instance_domain: UwtsaZendeskInstance::DOMAIN }
 
-    context "with Washington state" do
-      let(:state) { "wa" }
-      it "assigns to United Way King County" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with Pennsylvania" do
-      let(:state) { "pa" }
-      it "assigns to Campaign for Working Families" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with Ohio" do
-      let(:state) { "oh" }
-      it "assigns to UW Central Ohio" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with New Jersey" do
-      let(:state) { "nj" }
-      it "assigns to Campaign for Working Families" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with South Carolina" do
-      let(:state) { "sc" }
-      it "assigns to Impact America - South Carolina" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_SC
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_SC
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with Tennessee" do
-      let(:state) { "tn" }
-      it "assigns to Impact America - Alabama" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_IA_AL
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with Nevada" do
-      let(:state) { "nv" }
-      it "assigns to Nevada Free Tax Coalition" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_NV_FTC
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with Texas" do
-      let(:state) { "tx" }
-      it "assigns to Foundation Communities" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_FC
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_FC
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with Arizona" do
-      let(:state) { "az" }
-
-      it "assigns to the UW Tucson group" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with Virginia" do
-      let(:state) { "va" }
-
-      it "assigns to the UW Virginia group" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with Florida" do
-      let(:state) { "fl" }
-
-      it "assigns to the Refund Day group" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_REFUND_DAY
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_REFUND_DAY
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
-      end
-    end
-
-    context "with any other state" do
-      let(:state) { "ny" }
-
-      it "assigns to the UW Tucson instance" do
-        expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
-        expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
-        expect(intake.zendesk_instance).to eq EitcZendeskInstance
+      it "doesn't assign a vita partner" do
+        intake.assign_vita_partner!
+        expect(intake.vita_partner).to be_nil
       end
     end
   end
