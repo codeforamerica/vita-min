@@ -435,11 +435,13 @@ class Intake < ApplicationRecord
   end
 
   def assign_vita_partner!
-    return if vita_partner.present?
-
-    if get_or_create_zendesk_group_id
-      partner = VitaPartner.find_by(zendesk_group_id: zendesk_group_id)
-      raise "unable to determine VITA Partner from zendesk group id: [#{zendesk_group_id}]" unless partner.present?
+    # this should only be called before get_or_create_zendesk_group_id has ever been called
+    # because we want users to be able to change which group they are routed to up until the ZD ticket has been created,
+    # we don't call get_or_create_zendesk_group_id, we only check whether it has been persisted, and do not save it
+    group_id = zendesk_group_id || determine_zendesk_group_id
+    if group_id
+      partner = VitaPartner.find_by(zendesk_group_id: group_id)
+      raise "unable to determine VITA Partner from zendesk group id: [#{group_id}]" unless partner.present?
       update(vita_partner_id: partner.id, vita_partner_name: partner.name)
     end
   end
