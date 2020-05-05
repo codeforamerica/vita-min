@@ -29,8 +29,8 @@ class ZendeskWebhookController < ApplicationController
 
   def authenticate
     authenticate_or_request_with_http_basic do |name, password|
-      expected_name = EnvironmentCredentials.dig(:zendesk_webhook_auth, :name)
-      expected_password = EnvironmentCredentials.dig(:zendesk_webhook_auth, :password)
+      expected_name = Rails.application.credentials.dig(:zendesk_webhook_auth, :name)
+      expected_password = Rails.application.credentials.dig(:zendesk_webhook_auth, :password)
       ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
         ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
     end

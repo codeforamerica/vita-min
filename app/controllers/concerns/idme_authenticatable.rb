@@ -20,7 +20,7 @@ module IdmeAuthenticatable
     logout_params = {
       state: set_omniauth_state,
       redirect_uri: redirect_uri,
-      client_id: EnvironmentCredentials.dig(:idme, :client_id),
+      client_id: Rails.application.credentials.dig(:idme, :client_id),
     }
 
     if endpoint == "authorize"

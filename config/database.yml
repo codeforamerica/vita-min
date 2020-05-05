@@ -21,12 +21,12 @@ test:
 
 production:
   <<: *deploy_default
-  url: <%= Rails.application.credentials.dig(:production, :database_url) %>
+  url: <%= Rails.application.credentials.dig(:database_url) %>
 
 staging:
   <<: *deploy_default
-  url: <%= Rails.application.credentials.dig(:staging, :database_url) %>
+  url: <%= Rails.application.credentials.dig(:database_url) %>
 
 demo:
   <<: *deploy_default
-  url: <%= Rails.application.credentials.dig(:demo, :database_url) %>
+  url: <%= Rails.application.credentials.dig(:database_url) %>

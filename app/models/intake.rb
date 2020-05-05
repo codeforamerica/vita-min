@@ -150,8 +150,8 @@ class Intake < ApplicationRecord
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
 
-  attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-  attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :primary_last_four_ssn, key: ->(_) { Rails.application.credentials.dig(:db_encryption_key) }
+  attr_encrypted :spouse_last_four_ssn, key: ->(_) { Rails.application.credentials.dig(:db_encryption_key) }
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
   enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_energy_efficient_items

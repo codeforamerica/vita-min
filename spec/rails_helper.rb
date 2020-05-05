@@ -79,8 +79,8 @@ RSpec.configure do |config|
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
 
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
-    allow(EnvironmentCredentials).to receive(:dig).and_call_original
-    allow(EnvironmentCredentials).to receive(:dig).with(:db_encryption_key).and_return('any-32-character-string-here!!!!')
+    allow(Rails.application.credentials).to receive(:dig).and_call_original
+    allow(Rails.application.credentials).to receive(:dig).with(:db_encryption_key).and_return('any-32-character-string-here!!!!')
   end
 
 end

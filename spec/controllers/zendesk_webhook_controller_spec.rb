@@ -10,8 +10,8 @@ RSpec.describe ZendeskWebhookController, type: :controller do
   end
 
   before do
-    allow(EnvironmentCredentials).to receive(:dig).with(:zendesk_webhook_auth, :name).and_return("testname")
-    allow(EnvironmentCredentials).to receive(:dig).with(:zendesk_webhook_auth, :password).and_return("n1c3!")
+    allow(Rails.application.credentials).to receive(:dig).with(:zendesk_webhook_auth, :name).and_return("testname")
+    allow(Rails.application.credentials).to receive(:dig).with(:zendesk_webhook_auth, :password).and_return("n1c3!")
   end
 
   describe "#incoming" do
