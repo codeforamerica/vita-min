@@ -4,6 +4,7 @@ require 'yaml'
 namespace :db do
   desc 'loads new vita partners, updates existing partners'
   task upsert_vita_partners: [:environment] do
+    puts "beginning partner upsert using environment: #{Rails.env}"
     # TODO: don't leave the next line in
     # load yaml file
     partners = YAML.load_file('db/vita_partners.yml')['vita_partners']
