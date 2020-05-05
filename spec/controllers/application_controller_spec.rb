@@ -390,36 +390,49 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#check_maintenance_mode" do
+  describe 'special modes' do
     controller do
       def index
         head :ok
       end
     end
 
-    context "when not in maintenance mode" do
-      it "renders successfully" do
-        get :index
-        expect(response).to be_successful
+    shared_examples 'render special pages' do |env_flag, page_path|
+      context "when not #{env_flag} mode" do
+        it 'renders successfully' do
+          get :index
+          expect(response).to be_successful
+        end
+      end
+
+      context "when in #{env_flag} mode" do
+        before do
+          ENV[env_flag] = '1'
+        end
+
+        after do
+          ENV.delete(env_flag)
+        end
+
+        it "redirects to the #{page_path}" do
+          get :index
+          expect(response).to redirect_to(page_path)
+        end
       end
     end
 
-    context "when in maintenance mode" do
-      before do
-        ENV['MAINTENANCE_MODE'] = '1'
-      end
+    it_behaves_like 'render special pages', 'MAINTENANCE_MODE', '/maintenance'
+    it_behaves_like 'render special pages', 'AT_CAPACITY', '/at_capacity'
+  end
 
-      after do
-        ENV.delete('MAINTENANCE_MODE')
-      end
-
-      it "redirects to the maintenance page" do
-        get :index
-        expect(response).to redirect_to(maintenance_path)
+  describe '#check_maintenance_mode' do
+    controller do
+      def index
+        head :ok
       end
     end
 
-    context "with maintenance mode scheduled" do
+    context 'with maintenance mode scheduled' do
       before do
         ENV['MAINTENANCE_MODE_SCHEDULED'] = '1'
       end

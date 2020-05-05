@@ -215,6 +215,22 @@ class ZendeskIntakeService
     output
   end
 
+  def send_bank_details_png
+    return unless @intake.include_bank_details?
+
+    output = append_file_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      filename: bank_details_png_filename,
+      file: @intake.bank_details_png,
+      comment: <<~COMMENT,
+        Bank account information for direct deposit and/or payment
+      COMMENT
+    )
+
+    raise CouldNotSendBankDetailsError unless output == true
+    output
+  end
+
   def send_all_docs
     download_attachments_to_tmp(@intake.documents.map(&:upload)) do |file_list|
 
@@ -249,6 +265,10 @@ class ZendeskIntakeService
 
   def consent_pdf_filename
     "Consent_#{primary_name_for_filename}.pdf"
+  end
+
+  def bank_details_png_filename
+    "Bank_details_#{primary_name_for_filename}.png"
   end
 
   def intake_pdf_filename(final: false)
@@ -303,8 +323,8 @@ class ZendeskIntakeService
   end
   class CouldNotSendConsentPdfError < ZendeskServiceError;
   end
-  class CouldNotSendDocumentError < ZendeskServiceError;
+  class CouldNotSendBankDetailsError < ZendeskServiceError;
   end
-  class CouldNotSendAdditionalInfoDocError < ZendeskServiceError;
+  class CouldNotSendDocumentError < ZendeskServiceError;
   end
 end

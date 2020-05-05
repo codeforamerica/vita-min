@@ -7,6 +7,7 @@
 #  adopted_child                                        :integer          default("unfilled"), not null
 #  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
+#  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
@@ -34,6 +35,9 @@
 #  divorced_year                                        :string
 #  email_address                                        :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
+#  encrypted_bank_account_number                        :string
+#  encrypted_bank_name                                  :string
+#  encrypted_bank_routing_number                        :string
 #  encrypted_primary_last_four_ssn                      :string
 #  encrypted_primary_last_four_ssn_iv                   :string
 #  encrypted_spouse_last_four_ssn                       :string
@@ -129,6 +133,7 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
 #  was_on_visa                                          :integer          default("unfilled"), not null
@@ -141,7 +146,16 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  vita_partner_id                                      :bigint
 #  zendesk_group_id                                     :string
+#
+# Indexes
+#
+#  index_intakes_on_vita_partner_id  (vita_partner_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 
 FactoryBot.define do

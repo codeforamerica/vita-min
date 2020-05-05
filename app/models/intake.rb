@@ -7,6 +7,7 @@
 #  adopted_child                                        :integer          default("unfilled"), not null
 #  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
+#  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
@@ -34,6 +35,9 @@
 #  divorced_year                                        :string
 #  email_address                                        :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
+#  encrypted_bank_account_number                        :string
+#  encrypted_bank_name                                  :string
+#  encrypted_bank_routing_number                        :string
 #  encrypted_primary_last_four_ssn                      :string
 #  encrypted_primary_last_four_ssn_iv                   :string
 #  encrypted_spouse_last_four_ssn                       :string
@@ -129,6 +133,7 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
 #  was_on_visa                                          :integer          default("unfilled"), not null
@@ -141,7 +146,16 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  vita_partner_id                                      :bigint
 #  zendesk_group_id                                     :string
+#
+# Indexes
+#
+#  index_intakes_on_vita_partner_id  (vita_partner_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 
 class Intake < ApplicationRecord
@@ -149,14 +163,19 @@ class Intake < ApplicationRecord
   has_many :users # order doesn't really matter at the moment
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
+  belongs_to :vita_partner, optional: true
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :bank_routing_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+  attr_encrypted :bank_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
   enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_energy_efficient_items
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_health_insurance
   enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
+  enum bank_account_type: { unfilled: 0, checking: 1, savings: 2 }, _prefix: :bank_account_type
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
   enum demographic_english_conversation: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_conversation
   enum demographic_english_reading: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_reading
@@ -292,6 +311,10 @@ class Intake < ApplicationRecord
     ConsentPdf.new(self).output_file
   end
 
+  def bank_details_png
+    BankDetailsPdf.new(self).as_png
+  end
+
   def referrer_domain
     URI.parse(referrer).host if referrer.present?
   end
@@ -384,6 +407,9 @@ class Intake < ApplicationRecord
       needs_help_2017: needs_help_2017,
       needs_help_2016: needs_help_2016,
       needs_help_backtaxes: (needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?) ? "yes" : "no",
+      zendesk_instance_domain: zendesk_instance_domain,
+      zendesk_group_id: zendesk_group_id,
+      vita_partner_name: vita_partner_name,
     }
   end
 
@@ -400,8 +426,22 @@ class Intake < ApplicationRecord
     filing_years.first
   end
 
+  def include_bank_details?
+    refund_payment_method_direct_deposit? || balance_pay_from_bank_yes?
+  end
+
   def year_before_most_recent_filing_year
     (most_recent_filing_year.to_i - 1).to_s if most_recent_filing_year.present?
+  end
+
+  def assign_vita_partner!
+    return if vita_partner.present?
+
+    if get_or_create_zendesk_group_id
+      partner = VitaPartner.find_by(zendesk_group_id: zendesk_group_id)
+      raise "unable to determine VITA Partner from zendesk group id: [#{zendesk_group_id}]" unless partner.present?
+      update(vita_partner_id: partner.id, vita_partner_name: partner.name)
+    end
   end
 
   def get_or_create_zendesk_group_id

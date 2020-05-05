@@ -29,13 +29,17 @@ describe ZendeskIntakeService do
            email_notification_opt_in: email_opt_in,
            sms_notification_opt_in: sms_opt_in,
            intake_ticket_id: intake_ticket_id,
-           intake_ticket_requester_id: intake_requester_id
+           intake_ticket_requester_id: intake_requester_id,
+           refund_payment_method: payment_method,
+           balance_pay_from_bank: pay_from_bank
   end
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
   let(:sms_opt_in) { "yes" }
   let(:intake_requester_id) { rand(2**(8 * 7)) }
   let(:intake_ticket_id) { nil }
+  let(:payment_method) { "direct_deposit" }
+  let(:pay_from_bank) { "yes" }
 
   before do
     allow(ZendeskAPI::Client).to receive(:new).and_return(fake_zendesk_client)
@@ -107,6 +111,7 @@ describe ZendeskIntakeService do
 
     context "in a state for the EITC Zendesk instance" do
       let(:state) { "co" }
+      let!(:vita_partner) { create :vita_partner, zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_THC }
 
       it "calls create_ticket with the right arguments" do
         result = service.create_intake_ticket
@@ -557,6 +562,8 @@ describe ZendeskIntakeService do
       context 'when unable to create a requester' do
         before do
           allow(service).to receive(:create_intake_ticket_requester) { nil }
+          allow(Raven).to receive(:extra_context)
+          allow(Raven).to receive(:capture_message)
         end
 
         it 'notifies sentry' do
@@ -566,20 +573,17 @@ describe ZendeskIntakeService do
               phone: intake.phone_number,
               intake_id: intake.id
           }
-          expect(Raven).to receive(:capture_message)
-                               .with('ZendeskIntakeTicketJob failed to create a ticket requester',
-                                     {
-                                         extra: user_attributes,
-                                         severity: Severity::ERROR
-                                     })
           intake.intake_ticket_requester_id = nil
           service.assign_requester
+
+          expect(Raven).to have_received(:extra_context).with(hash_including(:intake_id, :level))
+          expect(Raven).to have_received(:capture_message)
+            .with(/ZendeskIntakeTicketJob failed to create a ticket requester/)
         end
       end
     end
 
-    context '#assign_intake_ticket' do
-
+    describe '#assign_intake_ticket' do
       context 'with an existing ticket id' do
         let(:intake_ticket_id) { rand(2 ** (7*8)) }
 
@@ -610,6 +614,8 @@ describe ZendeskIntakeService do
       context 'when unable to create a ticket' do
         before do
           allow(service).to receive(:create_intake_ticket) {nil}
+          allow(Raven).to receive(:extra_context)
+          allow(Raven).to receive(:capture_message)
         end
 
         it 'notifies sentry' do
@@ -620,15 +626,62 @@ describe ZendeskIntakeService do
               phone: intake.phone_number,
               intake_id: intake.id
           }
-          expect(Raven).to receive(:capture_message)
-                               .with('ZendeskIntakeTicketJob failed to create an intake ticket',
-                                     {
-                                         extra: user_attributes,
-                                         severity: Severity::ERROR
-                                     })
           service.assign_intake_ticket
+
+          expect(Raven).to have_received(:extra_context).with(hash_including(:intake_id, :level))
+          expect(Raven).to have_received(:capture_message)
+            .with(/ZendeskIntakeTicketJob failed to create an intake ticket/)
         end
 
+      end
+    end
+  end
+
+  describe "#send_bank_details_png" do
+    let(:output) { true }
+    let(:fake_bank_details_png) { instance_double(File) }
+
+    before do
+      intake.intake_ticket_id = 34
+      allow(service).to receive(:append_file_to_ticket).and_return(output)
+      allow(intake).to receive(:bank_details_png).and_return(fake_bank_details_png)
+    end
+
+    context "when the intake includes bank details" do
+      it "attaches the bank details png as a comment on the ticket" do
+        result = service.send_bank_details_png
+
+        expect(result).to eq true
+        comment_body = <<~BODY
+          Bank account information for direct deposit and/or payment
+        BODY
+        expect(service).to have_received(:append_file_to_ticket).with(
+          ticket_id: 34,
+          filename: "Bank_details_CherCherimoya.png",
+          file: fake_bank_details_png,
+          comment: comment_body,
+        )
+      end
+    end
+
+    context "when the intake does NOT include bank details" do
+      let(:payment_method) { "check" }
+      let(:pay_from_bank) { "no"}
+
+      it "does not attach a comment to the ticket" do
+        service.send_bank_details_png
+
+        expect(service).not_to have_received(:append_file_to_ticket)
+      end
+    end
+
+    context "when the zendesk api fails" do
+      let(:output){ false }
+
+      it "raises an error" do
+        expect do
+          service.send_bank_details_png
+        end.to raise_error(ZendeskIntakeService::CouldNotSendBankDetailsError)
       end
     end
   end
