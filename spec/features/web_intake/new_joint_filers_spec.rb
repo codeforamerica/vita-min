@@ -29,6 +29,7 @@ RSpec.feature "Web Intake Joint Filers" do
       }
     })
   end
+  let!(:vita_partner) { create :vita_partner, display_name: "United Way of Central Ohio", zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO }
 
   before do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
@@ -65,11 +66,11 @@ RSpec.feature "Web Intake Joint Filers" do
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "Preferred name", with: "Gary"
-    select "Indiana", from: "State of residence"
+    select "Ohio", from: "State of residence"
     click_on "Continue"
 
     # Chat with us
-    expect(page).to have_selector("h1", text: "Our team is here to help!")
+    expect(page).to have_selector("h1", text: "Our team at United Way of Central Ohio is here to help!")
     click_on "Continue"
 
     # Phone number
@@ -210,7 +211,7 @@ RSpec.feature "Web Intake Joint Filers" do
     # Income from working
     select "3 jobs", from: "In 2019, how many jobs did you or your spouse have?"
     click_on "Next"
-    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Indiana?")
+    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Ohio?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive wages or salary?")
     click_on "Yes"
@@ -428,10 +429,11 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
     expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
     click_on "No"
+    # Don't ask for bank details
 
     # Contact information
     expect(page).to have_text("What is your mailing address?")
-    expect(page).to have_select('State', selected: 'Indiana')
+    expect(page).to have_select('State', selected: 'Ohio')
 
     fill_in "Street address", with: "123 Main St."
     fill_in "City", with: "Anytown"

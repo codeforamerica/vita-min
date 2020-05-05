@@ -83,14 +83,4 @@ RSpec.describe PublicPagesController do
       expect(response).to be_ok
     end
   end
-
-  describe "#maintenance" do
-    it "renders even when in maintenance mode" do
-      ENV['MAINTENANCE_MODE'] = '1'
-      get :maintenance
-      ENV.delete('MAINTENANCE_MODE')
-
-      expect(response).to be_successful
-    end
-  end
 end

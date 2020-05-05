@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Single Filer" do
+  let!(:vita_partner) { create :vita_partner, display_name: "United Way of Central Ohio", zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO }
+
   before do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(9876)
@@ -33,11 +35,11 @@ RSpec.feature "Web Intake Single Filer" do
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "Preferred name", with: "Gary"
-    select "Indiana", from: "State of residence"
+    select "Ohio", from: "State of residence"
     click_on "Continue"
 
     # Chat with us
-    expect(page).to have_selector("h1", text: "Our team is here to help!")
+    expect(page).to have_selector("h1", text: "Our team at United Way of Central Ohio is here to help!")
     click_on "Continue"
 
     # Phone number
@@ -105,7 +107,7 @@ RSpec.feature "Web Intake Single Filer" do
     # Income from working
     select "3 jobs", from: "In 2019, how many jobs did you have?"
     click_on "Next"
-    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Indiana?")
+    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Ohio?")
     click_on "No"
     expect(page).to have_selector("h1", text: "In 2019, did you receive wages or salary?")
     click_on "Yes"
@@ -278,11 +280,20 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
     choose "Direct deposit (fastest)"
     click_on "Continue"
+    # Savings Options
     expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
     check "Purchase United States Savings Bond"
     click_on "Continue"
+    # Pay from bank account?
     expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
     click_on "Yes"
+    # Bank Details
+    expect(page).to have_selector("h1", text: "Great, please provide your bank details below!")
+    fill_in "Bank name", with: "First Savings Bank"
+    fill_in "Routing number", with: "123456"
+    fill_in "Account number", with: "987654321"
+    choose "Checking"
+    click_on "Continue"
 
     # Contact information
     expect(page).to have_text("What is your mailing address?")
