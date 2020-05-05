@@ -18,16 +18,20 @@ RSpec.describe SendIntakePdfToZendeskJob, type: :job do
              intake_ticket_id: intake_ticket_id
     end
 
+    before do
+      allow(Raven).to receive(:capture_message)
+      allow(Raven).to receive(:extra_context)
+    end
+
     context 'without an intake ticket id on intake' do
       let(:intake_ticket_id) { nil }
       let(:intake_pdf_sent_to_zendesk) { false }
 
       it 'sends a trace' do
-
-        expect(Raven).to receive(:capture_message)
-          .with('SendIntakePdfToZendeskJob: missing intake_ticket_id on intake',
-                anything)
         described_class.perform_now(intake.id)
+
+        expect(Raven).to have_received(:extra_context).with(hash_including(:intake_id, :level))
+        expect(Raven).to have_received(:capture_message).with(/missing intake_ticket_id/)
       end
     end
 
@@ -41,10 +45,10 @@ RSpec.describe SendIntakePdfToZendeskJob, type: :job do
       end
 
       it 'sends a trace' do
-        expect(Raven).to receive(:capture_message)
-          .with('SendIntakePdfToZendeskJob: unable to find ticket with associated intake_ticket_id',
-                anything)
         described_class.perform_now(intake.id)
+
+        expect(Raven).to have_received(:extra_context).with(hash_including(:intake_id, :level))
+        expect(Raven).to have_received(:capture_message).with(/unable to find ticket/)
       end
     end
 
