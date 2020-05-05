@@ -524,18 +524,14 @@ class Intake < ApplicationRecord
   private
 
   def group_id_for_source
-    EitcZendeskInstance::ORGANIZATION_SOURCE_PARAMETERS.each do |key, value|
-      if source.downcase.starts_with?(key.to_s)
-        return value
-      end
-    end
-    nil
+    source_code = SourceCode.find_by(code: source.downcase)
+    source_code.present? ? source_code.vita_partner.zendesk_group_id : nil
   end
 
   def group_id_for_state
-    EitcZendeskInstance::GROUP_ID_TO_STATE_LIST_MAPPING.each do |group_id, state_list|
-      return group_id if state_list.include? state_of_residence
-    end
+    state = State.find_by(abbreviation: state_of_residence.upcase)
+    return state.vita_partners.first.zendesk_group_id if state.present? && !state.vita_partners.empty?
+    # TODO: 'load-balancing'
 
     EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
   end

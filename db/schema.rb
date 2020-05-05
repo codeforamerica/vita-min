@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_14_214915) do
+ActiveRecord::Schema.define(version: 2020_05_06_005451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,19 +72,10 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
   create_table "documents", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "document_type", null: false
-    t.bigint "documents_request_id"
     t.bigint "intake_id"
     t.datetime "updated_at", null: false
     t.bigint "zendesk_ticket_id"
-    t.index ["documents_request_id"], name: "index_documents_on_documents_request_id"
     t.index ["intake_id"], name: "index_documents_on_intake_id"
-  end
-
-  create_table "documents_requests", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.bigint "intake_id"
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
   end
 
   create_table "intake_site_drop_offs", force: :cascade do |t|
@@ -110,7 +101,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
   create_table "intakes", force: :cascade do |t|
     t.string "additional_info"
     t.integer "adopted_child", default: 0, null: false
-    t.integer "already_filed", default: 0, null: false
     t.boolean "anonymous", default: false, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
     t.integer "bank_account_type", default: 0, null: false
@@ -154,7 +144,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
     t.string "encrypted_spouse_last_four_ssn_iv"
     t.integer "ever_married", default: 0, null: false
     t.integer "feeling_about_taxes", default: 0, null: false
-    t.integer "filing_for_stimulus", default: 0, null: false
     t.integer "filing_joint", default: 0, null: false
     t.string "final_info"
     t.integer "had_asset_sale_income", default: 0, null: false
@@ -269,15 +258,27 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "ticket_statuses", force: :cascade do |t|
+  create_table "source_codes", force: :cascade do |t|
+    t.string "code"
     t.datetime "created_at", precision: 6, null: false
-    t.bigint "intake_id"
-    t.string "intake_status", null: false
-    t.string "return_status", null: false
-    t.integer "ticket_id"
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "verified_change", default: true
-    t.index ["intake_id"], name: "index_ticket_statuses_on_intake_id"
+    t.bigint "vita_partner_id", null: false
+    t.index ["code"], name: "index_source_codes_on_code"
+    t.index ["vita_partner_id"], name: "index_source_codes_on_vita_partner_id"
+  end
+
+  create_table "states", primary_key: "abbreviation", id: :string, force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "name"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_states_on_name"
+  end
+
+  create_table "states_vita_partners", id: false, force: :cascade do |t|
+    t.string "state_abbreviation"
+    t.bigint "vita_partner_id"
+    t.index ["state_abbreviation"], name: "index_states_vita_partners_on_state_abbreviation"
+    t.index ["vita_partner_id"], name: "index_states_vita_partners_on_vita_partner_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -340,11 +341,10 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "documents", "documents_requests"
-  add_foreign_key "documents_requests", "intakes"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
-  add_foreign_key "ticket_statuses", "intakes"
+  add_foreign_key "source_codes", "vita_partners"
+  add_foreign_key "states_vita_partners", "vita_partners"
   add_foreign_key "users", "intakes"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
 end
