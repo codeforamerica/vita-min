@@ -29,6 +29,7 @@
 /config/credentials/development.key
 /config/credentials/demo.key
 /config/credentials/staging.key
+/config/credentials/production.key
 
 /.idea
 .DS_Store
