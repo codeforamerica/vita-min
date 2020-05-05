@@ -71,6 +71,11 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
         session[:intake_id] = anonymous_intake.id
       end
 
+
+      it_behaves_like "required documents controllers" do
+        let(:intake) { anonymous_intake }
+      end
+
       it "no longer checks the token param for a matching intake" do
         get :edit, params: {token: "br0k3nt0k3n"}
 
