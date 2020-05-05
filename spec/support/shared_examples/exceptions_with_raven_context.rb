@@ -4,9 +4,9 @@ shared_examples "catches exceptions with raven context" do |action|
       allow(fake_zendesk_intake_service).to receive(action)
         .and_raise("Test Error")
       expect(Raven).to receive(:extra_context)
-        .with({ticket_id: intake.intake_ticket_id })
+        .with(hash_including(ticket_id: intake.intake_ticket_id))
       expect { described_class.perform_now(intake.id) }
-        .to raise_error("Test Error")
+        .to raise_error(/Test Error/)
     end
   end
 end
