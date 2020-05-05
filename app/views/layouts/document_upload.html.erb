@@ -60,14 +60,14 @@
           <% end %>
 
           <% if DocumentNavigation::REQUIRED_DOCUMENT_TYPES.include?(document_type) %>
-            <% if display_validation_error? %>
-              <p class="text--error">
-                <i class="icon-warning"></i>
-                This document is required.
-              </p>
-            <% end %>
-            <%= link_to required_document_next_path, class: "button button--cta" do %>
-              Continue
+            <% if @documents.present? %>
+              <%= link_to next_path, class: "button button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
+                Continue
+              <% end %>
+            <% else %>
+              <button class="button button--cta button--disabled" disabled>
+                Continue
+              </button>
             <% end %>
           <% else %>
             <%= link_to next_path, class: "button button--wide button--icon button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>

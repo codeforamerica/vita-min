@@ -3,18 +3,24 @@ shared_examples "required documents controllers" do
     render_views
 
     context "when they first arrive on the page" do
-      it "does not render a validation error" do
+      it "includes a disabled button but no link to next path" do
         get :edit
 
-        expect(response.body).not_to include("This document is required.")
+        expect(response.body).to have_css("button[disabled].button--disabled")
+        expect(response.body).not_to have_css("a.button--cta")
       end
     end
 
-    context "when they tried to continue with no documents" do
-      it "renders a validation error" do
-        get :edit, params: { submitted_with_no_docs: true }
+    context "when they have uploaded one document" do
+      before do
+        create :document, :with_upload, intake: intake, document_type: controller.document_type
+      end
 
-        expect(response.body).to include("This document is required.")
+      it "renders a link to the next path" do
+        get :edit
+
+        expect(response.body).to have_css("a.button--cta")
+        expect(response.body).not_to have_css("button[disabled].button--disabled")
       end
     end
   end
