@@ -32,16 +32,4 @@ module DocumentsHelper
   def any_must_have_docs?(doc_types)
     doc_types.any? { |type| must_have?(type) }
   end
-
-  def required_document_next_path
-    if @documents.empty?
-      current_path(submitted_with_no_docs: true)
-    else
-      next_path
-    end
-  end
-
-  def display_validation_error?
-    params[:submitted_with_no_docs]
-  end
 end
