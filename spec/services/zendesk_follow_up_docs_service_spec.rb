@@ -7,8 +7,8 @@ describe ZendeskFollowUpDocsService do
   describe "#send_requested_docs" do
     let!(:requested_docs) do
       [
-        create(:document, :with_upload, intake: intake, document_type: "Requested"),
-        create(:document, :with_upload, intake: intake, document_type: "Requested"),
+        create(:document, :with_upload, intake: intake, document_type: "Requested Later"),
+        create(:document, :with_upload, intake: intake, document_type: "Requested Later"),
         create(:document, :with_upload, intake: intake, document_type: "Requested Later")
       ]
     end
@@ -16,7 +16,7 @@ describe ZendeskFollowUpDocsService do
       create(:document, :with_upload, intake: intake, document_type: "Other")
     end
     let!(:older_doc) do
-      create :document, :with_upload, intake: intake, document_type: "Requested", zendesk_ticket_id: 1234
+      create :document, :with_upload, intake: intake, document_type: "Requested Later", zendesk_ticket_id: 1234
     end
     let(:output) { true }
 
