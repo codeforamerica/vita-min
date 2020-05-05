@@ -34,10 +34,8 @@ class DocumentNavigation
     Documents::W2gsController,
     Documents::PriorTaxReturnsController,
     Documents::AdditionalDocumentsController,
-    Documents::RequestedDocumentsController,
     Documents::RequestedDocumentsLaterController,
     Documents::OverviewController,
-    Documents::SendRequestedDocumentsController,
     Documents::SendRequestedDocumentsLaterController,
   ].freeze
 
