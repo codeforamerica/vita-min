@@ -6,12 +6,14 @@ RSpec.feature "Client uploads a requested document" do
     visit "/documents/add/1234ABCDEF"
 
     expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
+    expect(page).to have_button("Continue", disabled: true)
     attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
 
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_text "Thank you! Your documents have been submitted."
     expect(page).to have_text "Your tax preparer will reach out with updates and any additional questions within 3 business days."
@@ -28,7 +30,7 @@ RSpec.feature "Client uploads a requested document" do
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
 
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_text "Thank you! Your documents have been submitted."
     expect(page).to have_text "Your tax preparer will reach out with updates and any additional questions within 3 business days."
