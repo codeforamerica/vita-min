@@ -45,6 +45,7 @@ gem 'delayed_job_active_record'
 gem 'attr_encrypted'
 gem 'lograge'
 gem 'fix-db-schema-conflicts'
+gem 'valid_email2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
