@@ -18,7 +18,7 @@ class EitcZendeskInstance
     ONLINE_INTAKE_FC = "360009397734",     # Foundation Communities
     ONLINE_INTAKE_NV_FTC = "360009537374", # Nevada Free Tax Coalition
     ONLINE_INTAKE_UW_TSA = "360009581934", # Nevada Free Tax Coalition
-    ONLINE_INTAKE_UWCCR = "360009708193", # "United Way California Capital Region
+    ONLINE_INTAKE_UWCCR = "360009708193", # United Way California Capital Region
     ONLINE_INTAKE_BRANCHES_FL = "360009704234", # Branches (FL)
     ONLINE_INTAKE_HU_FL = "360009704314", # Hispanic Unity (FL)
     ONLINE_INTAKE_CATALYST = "360009704354", # Catalyst Miami
