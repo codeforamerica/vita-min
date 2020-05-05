@@ -65,8 +65,8 @@ module ConsolidatedTraceHelper
         email: intake.email_address,
         phone: intake.phone_number,
         intake_id: intake.id,
-        zendesk_ticket_id: intake.intake_ticket_id,
-        zendesk_requester_id: intake.intake_ticket_requester_id
+        ticket_id: intake.intake_ticket_id,
+        requester_id: intake.intake_ticket_requester_id
     }
   end
 

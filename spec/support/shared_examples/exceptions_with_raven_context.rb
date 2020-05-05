@@ -11,4 +11,22 @@ shared_examples "catches exceptions with raven context" do |action|
   end
 end
 
+shared_examples 'a ticket-dependent job' do |zervice|
+  context 'when the intake ticket id is missing' do
+    let(:intake) do
+      create :intake, intake_ticket_id: nil
+    end
+
+    before do
+      allow(zervice).to receive(:new) { double('zervice stand-in').as_null_object }
+    end
+
+    it 'raises a MissingTicketError' do
+      described_class.perform_now(intake.id)
+
+      expect(zervice).not_to have_received(:new)
+    end
+  end
+end
+
 
