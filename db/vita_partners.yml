@@ -3,12 +3,12 @@ vita_partners:
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009415834"
     display_name: United Way Bay Area
-    logo_path: ""
     source_parameters:
       - uwba
     states:
       - CA
       - AK
+    logo_path: "partner-logos/uwba.svg"
   - name: Tax Help Colorado (Piton Foundation)
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009415854"
@@ -22,6 +22,7 @@ vita_partners:
       - KS
       - NM
       - NE
+    logo_path: "partner-logos/thc.svg"
   - name: Goodwill Industries of the Southern Rivers
     zendesk_instance_domain: eitc
     zendesk_group_id: "360008424134"
@@ -31,6 +32,7 @@ vita_partners:
     states:
       - GA
       - AL
+    logo_path: "partner-logos/gwisr.svg"
   - name: United Way of King County
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009173713"
@@ -46,17 +48,17 @@ vita_partners:
     display_name: Campaign for Working Families
     source_parameters:
       - cwf
+      - cwf-mfp
     states:
       - PA
-      - NJ
-    logo_path: partner-logos/cwf.png
+    logo_path: "partner-logos/cwf.png"
   - name: Impact America (Save First)
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009341853"
     display_name: Save First
     source_parameters:
       - ia
-    logo_path: partner-logos/impact-america.png
+    logo_path: "partner-logos/ia.png"
   - name: Impact America (Save First)
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009830214"
@@ -65,14 +67,14 @@ vita_partners:
       - TN
       - AR
       - MS
-    logo_path: partner-logos/impact-america.png
+    logo_path: "partner-logos/ia.png"
   - name: Impact America (Save First)
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009341873"
     display_name: Save First
     states:
       - SC
-    logo_path: partner-logos/impact-america.png
+    logo_path: "partner-logos/ia.png"
   - name: Foundation Communities
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009397734"
@@ -86,7 +88,6 @@ vita_partners:
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009440374"
     display_name: United Way of Central Ohio
-    source_parameter: uwco
     source_parameters:
       - uwco
     states:
@@ -105,7 +106,7 @@ vita_partners:
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009581934"
     display_name: United Way of Tuscon and Southern Arizona
-    logo_path: ""
+    logo_path: "partner-logos/uwtsa.svg"
     accepts_overflow: true
   - name: United Way of Greater Richmond and Petersburg
     zendesk_instance_domain: eitc
@@ -167,35 +168,45 @@ vita_partners:
     zendesk_instance_domain: eitc
     zendesk_group_id: '360009807434'
     display_name: Tax Help New Mexico
-    source_parameter:
     logo_path: partner-logos/th-nm.png
+    source_parameters:
+      - uwcnm
+    states:
+      - NM
   - name: United Way of Greater Newark
     zendesk_instance_domain: eitc
     zendesk_group_id: '360010163193'
     display_name: United Way of Greater Newark
-    source_parameter: uwgn
+    source_parameters:
+      - uwgn
+    states:
+      - NJ
     logo_path: ''
   - name: United Way Capital Region (PA)
     zendesk_instance_domain: eitc
     zendesk_group_id: '360009994193'
     display_name: United Way Capital Region
-    source_parameter: uwcrpa
+    source_parameters:
+      - uwcrpa
     logo_path: ''
   - name: United Way of Greenville County
     zendesk_instance_domain: eitc
     zendesk_group_id: '360010052433'
     display_name: United Way of Greenville County
-    source_parameter: uwgc
+    source_parameters:
+      - uwgc
     logo_path: ''
   - name: Urban Upbound (NY)
     zendesk_instance_domain: eitc
     zendesk_group_id: '360010243314'
     display_name: Urban Upbound (NY)
-    source_parameter: uuny
+    source_parameters:
+      - uuny
     logo_path: ''
   - name: "[United Way California] Koreatown Youth Community Center"
     zendesk_instance_domain: eitc
     zendesk_group_id: '360010314594'
     display_name: "Koreatown Youth Community Center"
-    source_parameter: kycc
+    source_parameters:
+      - kycc
     logo_path: ''

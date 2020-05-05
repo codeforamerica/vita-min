@@ -44,11 +44,12 @@ def update_partner(partner, data)
   changed.each { |k, v| puts "updating :#{k} with #{v}" }
   puts "  -> resetting to YML" unless changed.empty?
   partner.update(changed)
+  puts "done"
   return partner
 end
 
 def create_partner(data)
   partner = VitaPartner.create(data)
-  print "adding #{partner.name}"
+  puts "added #{partner.name}"
   return partner
 end
