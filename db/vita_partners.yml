@@ -65,3 +65,45 @@ vita_partners:
     display_name: United Way of Tuscon and Southern Arizona
     source_parameter:
     logo_path: "partner-logos/uwtsa.svg"
+  - name: United Way of Greater Richmond and Petersburg
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009267673"
+    display_name: United Way of Greater Richmond and Petersburg
+    source_parameter: uwvp
+    logo_path: ""
+  - name: United Way Fresno Madera
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009708233"
+    display_name: United Way Fresno Madera
+    source_parameter: uwfm
+    logo_path: ""
+  - name: United Way California Capital Region
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009708193"
+    display_name: United Way California Capital Region
+    source_parameter: uwccr
+    logo_path: ""
+  - name: Branches
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009704234"
+    display_name: Branches
+    source_parameter: branchesfl
+    logo_path: ""
+  - name: Hispanic Unity
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009704314"
+    display_name: Hispanic Unity
+    source_parameter: hispanicunity
+    logo_path: ""
+  - name: Catalyst Miami
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009704354"
+    display_name: Catalyst Miami
+    source_parameter: catalyst
+    logo_path: ""
+  - name: RefundDay
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009657014"
+    display_name: RefundDay
+    source_parameter:
+    logo_path: ""
