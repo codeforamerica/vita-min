@@ -569,6 +569,7 @@ describe Intake do
 
     it "returns the expected hash" do
       intake.assign_vita_partner!
+      intake.get_or_create_zendesk_group_id
       expect(intake.mixpanel_data).to eq({
         intake_source: "beep",
         intake_referrer: "http://boop.horse/mane",
