@@ -46,22 +46,6 @@ RSpec.describe Documents::OverviewController do
         expect(response.body).to include(documents[0].upload.filename.to_s)
         expect(response.body).not_to include("Requested")
       end
-
-      context "requested documents" do
-        let(:documents) do
-          [
-            create(:document, :with_upload, intake: intake, document_type: "Requested")
-          ]
-        end
-
-        it "includes requested documents as a category only if documents of this type have been uploaded" do
-          get :edit
-
-          expect(response.body).to include("Requested")
-          expect(response.body).to include(requested_documents_documents_path)
-          expect(response.body).to include(documents[0].upload.filename.to_s)
-        end
-      end
     end
 
     context "with a set of answers on an intake" do

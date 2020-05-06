@@ -51,11 +51,21 @@ RSpec.describe ZendeskServiceHelper do
           allow(service).to receive(:search_zendesk_users).with("name:\"Barry Banana\" phone:14155551234").and_return(search_results)
         end
 
-        it "searches by name and phone" do
-          result = service.find_end_user("Barry Banana", "test@example.com", "14155551234")
-          expect(service).to have_received(:search_zendesk_users).with("email:test@example.com")
-          expect(service).to have_received(:search_zendesk_users).with("name:\"Barry Banana\" phone:14155551234")
-          expect(result).to eq(1)
+        context "without exact match" do
+          it "searches by name and phone" do
+            result = service.find_end_user("Barry Banana", "test@example.com", "14155551234")
+            expect(service).to have_received(:search_zendesk_users).with("email:test@example.com")
+            expect(service).to have_received(:search_zendesk_users).with("name:\"Barry Banana\" phone:14155551234")
+            expect(result).to eq(1)
+          end
+        end
+
+        context "when it wants an exact match" do
+          it "doesn't return users with a different email address" do
+            result = service.find_end_user("Barry Banana", "test@example.com", "14155551234", exact_match: true)
+            expect(service).to have_received(:search_zendesk_users).with("email:test@example.com")
+            expect(result).to be_nil
+          end
         end
       end
     end
