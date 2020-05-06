@@ -107,3 +107,9 @@ vita_partners:
     display_name: RefundDay
     source_parameter:
     logo_path: "partner-logos/refund-day.png"
+  - name: Tax Help New Mexico
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009807434"
+    display_name: Tax Help New Mexico
+    source_parameter:
+    logo_path: "partner-logos/th-nm.png"
