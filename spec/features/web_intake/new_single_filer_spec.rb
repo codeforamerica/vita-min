@@ -330,7 +330,7 @@ RSpec.feature "Web Intake Single Filer" do
     fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
     click_on "Submit"
 
-    expect(page).to have_selector("h1", text: "Your tax information has been successfully submitted!")
+    expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
 
     # going back to another page after submit redirects to beginning
     visit "/questions/wages"

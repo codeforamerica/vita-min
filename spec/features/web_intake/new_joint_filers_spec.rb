@@ -449,7 +449,7 @@ RSpec.feature "Web Intake Joint Filers" do
     fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
     click_on "Submit"
 
-    expect(page).to have_selector("h1", text: "Your tax information has been successfully submitted!")
+    expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
   end
 end
 
