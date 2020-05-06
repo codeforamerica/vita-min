@@ -4,6 +4,10 @@ module Documents
     before_action :current_intake_or_home, only: :update
     skip_before_action :require_intake
 
+    def current_intake
+      current_user&.intake || Intake.find_by_id(session[:intake_id])
+    end
+
     def self.show?(_)
       false
     end

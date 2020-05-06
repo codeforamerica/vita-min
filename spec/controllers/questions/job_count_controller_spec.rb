@@ -3,10 +3,6 @@ require "rails_helper"
 RSpec.describe Questions::JobCountController do
   let(:intake) { create :intake }
 
-  before do
-    allow(subject).to receive(:current_intake).and_return(intake)
-  end
-
   describe "#edit" do
     context "when user doesn't have a current intake" do
       before do
@@ -19,9 +15,27 @@ RSpec.describe Questions::JobCountController do
         expect(response).to redirect_to(feelings_questions_path)
       end
     end
+
+    context "when the user has an anonymous intake in their session" do
+      let(:anonymous_intake) { create :intake, anonymous: true }
+
+      before do
+        session[:intake_id] = anonymous_intake
+      end
+
+      it "doesn't return the anonymous intake" do
+        get :edit
+
+        expect(response).to redirect_to(feelings_questions_path)
+      end
+    end
   end
 
   describe "#update" do
+    before do
+      allow(subject).to receive(:current_intake).and_return(intake)
+    end
+
     context "with valid params" do
       let(:params) do
         {

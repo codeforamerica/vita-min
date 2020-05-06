@@ -36,6 +36,16 @@ RSpec.feature "Client uploads a requested document" do
     expect(page).to have_text "Your tax preparer will reach out with updates and any additional questions within 3 business days."
   end
 
+  scenario "client goes to the follow up documents link and does not finish the requested docs flow" do
+    visit "/documents/add/1234ABCDEF"
+
+    expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
+    expect(page).to have_button("Continue", disabled: true)
+
+    visit "/questions/job-count"
+    expect(current_path).to eq("/questions/feelings")
+  end
+
   # TODO: remove this scenario when login is removed
   xscenario "client goes to the follow up documents token link while logged in", :js do
     silence_omniauth_logging do

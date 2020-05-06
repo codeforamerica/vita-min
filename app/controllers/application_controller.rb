@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :include_google_analytics?, :current_intake
 
   def current_intake
-    current_user&.intake || Intake.find_by_id(session[:intake_id])
+    current_user&.intake || Intake.where.not(anonymous: true).find_by_id(session[:intake_id])
   end
 
   def include_google_analytics?

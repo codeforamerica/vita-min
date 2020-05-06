@@ -3,6 +3,10 @@ module Documents
     after_action :clear_anonymous_session
     skip_before_action :require_intake
 
+    def current_intake
+      current_user&.intake || Intake.find_by_id(session[:intake_id])
+    end
+
     def edit
       original_intake = find_original_intake
       original_intake.documents << current_intake.documents
