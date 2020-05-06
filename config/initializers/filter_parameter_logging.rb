@@ -4,11 +4,19 @@
 Rails.application.config.filter_parameters += [
   :password,
   :name,
+  :primary_first_name,
+  :primary_last_name,
+  :spouse_first_name,
+  :spouse_last_name,
   :email,
+  :email_address,
+  :spouse_email_address,
   :phone_number,
   :additional_info,
-  :filename, 
-  :bank_account_name,
+  :filename,
+  :bank_name,
   :bank_routing_number,
-  :bank_account_number
+  :bank_account_number,
+  :primary_last_four_ssn,
+  :spouse_last_four_ssn
 ]

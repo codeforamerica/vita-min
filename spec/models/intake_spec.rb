@@ -36,8 +36,11 @@
 #  email_address                                        :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
 #  encrypted_bank_account_number                        :string
+#  encrypted_bank_account_number_iv                     :string
 #  encrypted_bank_name                                  :string
+#  encrypted_bank_name_iv                               :string
 #  encrypted_bank_routing_number                        :string
+#  encrypted_bank_routing_number_iv                     :string
 #  encrypted_primary_last_four_ssn                      :string
 #  encrypted_primary_last_four_ssn_iv                   :string
 #  encrypted_spouse_last_four_ssn                       :string
