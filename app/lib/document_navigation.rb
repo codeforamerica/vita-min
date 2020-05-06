@@ -34,10 +34,8 @@ class DocumentNavigation
     Documents::W2gsController,
     Documents::PriorTaxReturnsController,
     Documents::AdditionalDocumentsController,
-    Documents::RequestedDocumentsController,
     Documents::RequestedDocumentsLaterController,
     Documents::OverviewController,
-    Documents::SendRequestedDocumentsController,
     Documents::SendRequestedDocumentsLaterController,
   ].freeze
 
@@ -45,6 +43,7 @@ class DocumentNavigation
     Documents::IdsController,
     Documents::SelfiesController,
     Documents::SsnItinsController,
+    Documents::RequestedDocumentsLaterController,
   ].map(&:document_type)
   DOCUMENT_TYPES = FLOW.map(&:document_type).compact
   CONTROLLER_BY_DOCUMENT_TYPE = FLOW

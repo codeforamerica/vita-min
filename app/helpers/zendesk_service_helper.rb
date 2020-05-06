@@ -55,7 +55,11 @@ module ZendeskServiceHelper
   def find_end_user(name, email, phone, exact_match: false)
     if email.present?
       email_matches = search_zendesk_users("email:#{email}")
-      return email_matches.first&.id if email_matches.present?
+      if email_matches.present?
+        return email_matches.first&.id
+      elsif exact_match
+        return nil
+      end
     end
 
     search_string = ""
