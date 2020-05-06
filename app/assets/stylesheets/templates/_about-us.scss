@@ -1,14 +1,55 @@
 .about-us {
 
-  .map {
-    max-width: 56rem;
-    margin-top: 5rem;
-    margin-bottom: 7rem;
+  .vita-logo, .irs-logo {
+    height: 8rem;
   }
 
-  section.partner-quote {
-    background-color: #DBFAF2;
-    a {
+  .vita-logo-link, .irs-logo-link {
+    text-decoration: none;
+  }
+
+  .vita-logo {
+    margin-left: 5rem;
+  }
+
+
+  .map {
+    margin-top: 3rem;
+    margin-bottom: 0;
+    @media screen and (max-width: $tablet-up) {
+      margin-top: 6rem;
+    }
+  }
+
+  section.partner-quotes {
+    background-color: $color-green-money;
+
+    .partner-quote-left {
+      padding-right:6.5rem;
+      @media screen and (max-width: $tablet-up) {
+        padding-right: 0;
+      }
+    }
+
+    .partner-quote-right {
+      padding-left:6.5rem;
+      @media screen and (max-width: $tablet-up) {
+        padding-left: 0;
+        margin-top: 6rem;
+      }
+    }
+
+    .partner-picture {
+      padding: 0 1rem 1rem;
+      text-align: center;
+
+      img {
+        width: 9.9rem;
+      }
+    }
+
+    .partner-link {
+      font-size: 1.6rem;
       color: inherit;
       &:visited {
         color: inherit;
@@ -16,26 +57,21 @@
     }
   }
 
-  .partner-picture {
-    padding: 0 1em;
-    padding-bottom: 1em;
-  }
+  .slab--partner-cta {
+    background-color: $color-orange-medium;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 
-  .blockquote {
-    padding-left: 1em;
-    position: relative;
-    &::before {
-      content: "“";
-      font-size: 3.6rem;
-      font-weight: bold;
-      position: absolute;
-      left: -.6rem;
-      top: .4rem;
+    .partner-cta {
+      text-align: center;
     }
-  }
 
-  .partner-cta {
-    a {
+    .partner-cta-text {
+      font-weight: bold;
+      margin-bottom: .5rem;
+    }
+
+    .partner-cta-link {
       color: inherit;
       &:visited {
         color: inherit;
