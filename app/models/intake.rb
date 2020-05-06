@@ -523,13 +523,18 @@ class Intake < ApplicationRecord
 
   private
 
+  ##
+  # at load time, maps the source codes to the appropriate associated
+  # group id for speedy lookup
+  SOURCE_MATCHERS = Hash[SourceCode.all.map { |s| [s.code, s.vita_partner.zendesk_group_id] }]
+
   def group_id_for_source
-    source_code = SourceCode.find_by(code: source.downcase)
-    source_code.present? ? source_code.vita_partner.zendesk_group_id : nil
+    code_match = SOURCE_MATCHERS.filter { |k, _| source.downcase.match(/#{k}/) }
+    code_match&.first&.last
   end
 
   def group_id_for_state
-    state = State.find_by(abbreviation: state_of_residence.upcase)
+    state = State.find_by(abbreviation: state_of_residence&.upcase || state&.upcase)
     return state.vita_partners.first.zendesk_group_id if state.present? && !state.vita_partners.empty?
     # TODO: 'load-balancing'
 

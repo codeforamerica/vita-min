@@ -72,6 +72,18 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.before(:suite) do
+    # we include this because at present (2020-05-06) Vita Partners
+    # are yaml-loaded read-only domain information, as are states.
+    # TODO: when Vita Partners are editable, this should be removed
+    # and fixed tests adjusted
+    extend StateImporter
+    upsert_states
+
+    extend VitaPartnerImporter
+    upsert_vita_partners
+  end
+
   config.before(:each) do
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:idme] = omniauth_idme_success

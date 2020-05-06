@@ -536,7 +536,19 @@ describe Intake do
   end
 
   describe "#mixpanel_data" do
-    let!(:vita_partner) { create :vita_partner, name: "test_partner", zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_TSA }
+    let(:state_of_residence) { 'CA' }
+    let(:state) { State.find_by!(abbreviation: state_of_residence) }
+    let(:vita_partner) do
+      partner = state.vita_partners.first
+      return partner if partner.present?
+
+      partner = create :vita_partner,
+                       name: "test_partner",
+                       zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_TSA 
+      partner.states << state
+      partner
+    end
+
     let(:intake) do
       build(
         :intake,
@@ -546,7 +558,8 @@ describe Intake do
         referrer: "http://boop.horse/mane",
         filing_joint: "no",
         had_wages: "yes",
-        state: "ca",
+        state: state_of_residence,
+        state_of_residence: state_of_residence,
         zip_code: "94609",
         intake_ticket_id: 9876,
         needs_help_2019: "yes",
@@ -576,7 +589,7 @@ describe Intake do
         had_dependents_under_6: "yes",
         filing_joint: "no",
         had_earned_income: "yes",
-        state: "ca",
+        state: intake.state_of_residence,
         zip_code: "94609",
         needs_help_2019: "yes",
         needs_help_2018: "no",
