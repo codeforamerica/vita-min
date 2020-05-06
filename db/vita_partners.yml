@@ -28,19 +28,19 @@ vita_partners:
     zendesk_group_id: "360009220253"
     display_name: Campaign for Working Families
     source_parameter: cwf
-    logo_path: ""
+    logo_path: "partner-logos/cwf.png"
   - name: Impact America (Save First)
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009341853"
     display_name: Save First
     source_parameter: ia
-    logo_path: ""
+    logo_path: "partner-logos/impact-america.png"
   - name: Impact America (Save First)
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009341873"
     display_name: Save First
     source_parameter:
-    logo_path: ""
+    logo_path: "partner-logos/impact-america.png"
   - name: Foundation Communities
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009397734"
@@ -70,19 +70,19 @@ vita_partners:
     zendesk_group_id: "360009267673"
     display_name: United Way of Greater Richmond and Petersburg
     source_parameter: uwvp
-    logo_path: ""
+    logo_path: "partner-logos/uwvp.jpg"
   - name: United Way Fresno Madera
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009708233"
     display_name: United Way Fresno Madera
     source_parameter: uwfm
-    logo_path: ""
+    logo_path: "partner-logos/uwfm.png"
   - name: United Way California Capital Region
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009708193"
     display_name: United Way California Capital Region
     source_parameter: uwccr
-    logo_path: ""
+    logo_path: "partner-logos/uwccr.jpg"
   - name: Branches
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009704234"
@@ -106,4 +106,10 @@ vita_partners:
     zendesk_group_id: "360009657014"
     display_name: RefundDay
     source_parameter:
-    logo_path: ""
+    logo_path: "partner-logos/refund-day.png"
+  - name: Tax Help New Mexico
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009807434"
+    display_name: Tax Help New Mexico
+    source_parameter:
+    logo_path: "partner-logos/th-nm.png"
