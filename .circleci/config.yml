@@ -108,6 +108,6 @@ workflows:
           requires: [run_tests]
           filters:
             tags:
-              only: /version-\d+\.\d+\.\d+/
+              only: /version-\d+\.\d+\.\d+(\.\d+)?/
             branches:
               only: release
