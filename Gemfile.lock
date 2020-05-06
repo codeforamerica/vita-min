@@ -386,6 +386,8 @@ GEM
     sentry-raven (3.0.0)
       faraday (>= 1.0)
     shellany (0.0.1)
+    shoulda-matchers (4.3.0)
+      activesupport (>= 4.2.0)
     simplecov (0.18.5)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -495,6 +497,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sendgrid-ruby
   sentry-raven
+  shoulda-matchers (~> 4.3.0)
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)

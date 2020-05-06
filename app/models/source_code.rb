@@ -19,4 +19,7 @@
 #
 class SourceCode < ApplicationRecord
   belongs_to :vita_partner
+
+  validates_presence_of :vita_partner_id
+  validates_presence_of :code
 end

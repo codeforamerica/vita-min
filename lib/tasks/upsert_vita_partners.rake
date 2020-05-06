@@ -15,6 +15,7 @@ namespace :db do
       partner = partner.present? ? update_partner(partner, datum) : create_partner(datum)
       refresh_partner_sources(partner, sources)
       refresh_partner_states(partner, states)
+      puts "  => done"
     end
   end
 end
@@ -22,7 +23,7 @@ end
 def refresh_partner_sources(partner, codes)
   partner.source_codes.destroy_all
   return unless codes.present?
-  print "updating #{partner.name} source codes"
+  puts "  -> updating #{partner.name} source codes"
 
   codes.each { |code| partner.source_codes.find_or_create_by!(code: code.downcase, vita_partner_id: partner.id) }
 end
@@ -30,25 +31,24 @@ end
 def refresh_partner_states(partner, states)
   partner.states.clear
   return unless states.present?
-  print "updating #{partner.name} states"
+  puts "  -> updating #{partner.name} states"
 
   states.each { |st| partner.states << State.find_by!(abbreviation: st.upcase) }
 end
 
 def update_partner(partner, data)
-  print "reviewing #{partner.name} -- "
+  puts "reviewing #{partner.name}"
   partner_data = partner.serializable_hash
   changed = data.filter { |k, v| partner_data[k] != v }
 
   changed.each { |k, v| puts "updating :#{k} with #{v}" }
-  print "resetting to YML -- " unless changed.empty?
+  puts "  -> resetting to YML" unless changed.empty?
   partner.update(changed)
-  puts "done"
   return partner
 end
 
 def create_partner(data)
   partner = VitaPartner.create(data)
-  puts "added #{partner.name}"
+  print "adding #{partner.name}"
   return partner
 end

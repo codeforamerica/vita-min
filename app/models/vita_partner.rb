@@ -3,6 +3,7 @@
 # Table name: vita_partners
 #
 #  id                      :bigint           not null, primary key
+#  accepts_overflow        :boolean          default(FALSE)
 #  display_name            :string
 #  logo_path               :string
 #  name                    :string           not null
