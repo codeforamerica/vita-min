@@ -104,3 +104,10 @@ workflows:
           filters:
             branches:
               only: master
+      - deploy_to_aptible--production:
+          requires: [run_tests]
+          filters:
+            tags:
+              only: /version-\d+\.\d+\.\d+/
+            branches:
+              only: release
