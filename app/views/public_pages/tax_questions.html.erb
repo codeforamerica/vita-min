@@ -1,0 +1,38 @@
+<% content_for :page_title, "Tax Questions" %>
+<% content_for :body_class, "tax-questions" %>
+
+<main role="main">
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
+        <div class="offboarding--illustration">
+          <%= image_tag("other-options.svg", alt: "") %>
+        </div>
+        <h1 class="h2">
+          Looks like you’ve already filed and have questions.
+        </h1>
+        <p>
+          Our team is here to support you.
+          <%= link_to "Please see our FAQ", faq_path %> or submit a question via chat and we will get back to you!
+        </p>
+
+        <p>
+          We can not answer:
+        </p>
+
+        <ul class="list--crossmark">
+          <li>
+            Questions about taxes filed with a different service (H&R Block, TurboTax)
+          </li>
+          <li>
+            The amount of refund you will receive
+          </li>
+        </ul>
+
+        <button class="button button--primary button--wide" onclick="javascript: zE('webWidget', 'open');">
+          Chat with us
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
