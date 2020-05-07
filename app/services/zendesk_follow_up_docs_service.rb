@@ -1,9 +1,11 @@
 class ZendeskFollowUpDocsService
   include ZendeskServiceHelper
   include AttachmentsHelper
+  include ConsolidatedTraceHelper
 
   def initialize(intake)
     @intake = intake
+    raise "cannot initialize when intake is nil" unless @intake
   end
 
   def instance
@@ -12,6 +14,8 @@ class ZendeskFollowUpDocsService
 
   def send_requested_docs
     return if @intake.documents.none?
+
+    raise MissingTicketError unless @intake.intake_ticket_id.present?
 
     new_requested_docs = @intake.documents
                            .where(document_type: "Requested")

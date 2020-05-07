@@ -1,10 +1,15 @@
 class ZendeskIntakeService
   include ZendeskServiceHelper
   include AttachmentsHelper
+  include ConsolidatedTraceHelper
   include Rails.application.routes.url_helpers
 
   def initialize(intake)
     @intake = intake
+  end
+
+  def logger
+    Rails.logger
   end
 
   def instance
@@ -28,6 +33,39 @@ class ZendeskIntakeService
     end
     ticket.save
   end
+
+  def assign_requester
+    # if the requester has been assigned, return it.
+    return @intake.intake_ticket_requester_id if @intake.intake_ticket_requester_id.present?
+
+    # if not, attempt to create a requester and return it
+    if requester_id = create_intake_ticket_requester
+      @intake.update(intake_ticket_requester_id: requester_id)
+      return requester_id
+    end
+
+    # failing all else, that's likely noteworthy
+    trace_error('ZendeskIntakeTicketJob failed to create a ticket requester',
+                intake_context(@intake))
+    return # ensure a nil return value
+  end
+
+  def assign_intake_ticket
+    # if there's an intake ticket id, return it
+    return @intake.intake_ticket_id if @intake.intake_ticket_id.present?
+
+    # if not, attempt to create it
+    if intake_ticket_id = create_intake_ticket
+      @intake.update(intake_ticket_id: intake_ticket_id)
+      return intake_ticket_id
+    end
+
+    # failing all else, that's likely noteworthy
+    trace_error('ZendeskIntakeTicketJob failed to create an intake ticket',
+                intake_context(@intake))
+    return # ensure a nil return value
+  end
+
 
   def create_intake_ticket_requester
     # returns the Zendesk ID of the created user
@@ -110,6 +148,8 @@ class ZendeskIntakeService
       Primary filer (and spouse, if applicable) consent form attached.
     BODY
 
+    # if there's no intake_ticket_id, this shouldn't be performed,
+    # and that should be noted.
     output = append_multiple_files_to_ticket(
       ticket_id: @intake.intake_ticket_id,
       file_list: [
