@@ -65,10 +65,10 @@ vita_partners:
     display_name: Nevada Free Taxes Coalition
     source_parameter: nvftc
     logo_path: ""
-  - name: United Way of Tuscon and Southern Arizona
+  - name: United Way of Tucson and Southern Arizona
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009581934"
-    display_name: United Way of Tuscon and Southern Arizona
+    display_name: United Way of Tucson and Southern Arizona
     source_parameter:
     logo_path: ""
   - name: United Way of Greater Richmond and Petersburg
