@@ -77,4 +77,4 @@ Notes on deployment can be found in
 
 ## Concerning .git/objects
 
-TBD at a later time
+TBD
