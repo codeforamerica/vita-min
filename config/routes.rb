@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   get "/other-options", to: "public_pages#other_options"
   get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
   get "/maintenance", to: "public_pages#maintenance"
-  get "/at_capacity", to: "public_pages#at_capacity"
+  get "/at-capacity", to: "public_pages#at_capacity"
   get "/privacy", to: "public_pages#privacy_policy"
   get "/about-us", to: "public_pages#about_us"
   get "/faq", to: "public_pages#faq"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_184255) do
+ActiveRecord::Schema.define(version: 2020_05_06_005451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,8 +133,11 @@ ActiveRecord::Schema.define(version: 2020_05_04_184255) do
     t.string "email_address"
     t.integer "email_notification_opt_in", default: 0, null: false
     t.string "encrypted_bank_account_number"
+    t.string "encrypted_bank_account_number_iv"
     t.string "encrypted_bank_name"
+    t.string "encrypted_bank_name_iv"
     t.string "encrypted_bank_routing_number"
+    t.string "encrypted_bank_routing_number_iv"
     t.string "encrypted_primary_last_four_ssn"
     t.string "encrypted_primary_last_four_ssn_iv"
     t.string "encrypted_spouse_last_four_ssn"
