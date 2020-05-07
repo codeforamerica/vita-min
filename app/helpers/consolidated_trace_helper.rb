@@ -45,7 +45,7 @@ module ConsolidatedTraceHelper
   #       risky_thing.go()
   #     end
   #
-  def with_raven_context(extra_context={}, message = nil, severity = Severity::UNKNOWN)
+  def with_raven_context(extra_context={}, message = nil, severity = Severity::ERROR)
     yield
   rescue => exception
     trace_message = log_body(message || exception.message, extra_context)

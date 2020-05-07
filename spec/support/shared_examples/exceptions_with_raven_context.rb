@@ -22,7 +22,9 @@ shared_examples 'a ticket-dependent job' do |zervice|
     end
 
     it 'raises a MissingTicketError' do
-      described_class.perform_now(intake.id)
+      expect {
+        described_class.perform_now(intake.id)
+      }.to raise_error(ZendeskIntakeService::MissingTicketError)
 
       expect(zervice).not_to have_received(:new)
     end
