@@ -91,7 +91,7 @@ workflows:
           requires: [install_dependencies]
   build-and-deploy:
     jobs:
-      - install_dependencies
+      - install_dependencies:
           filters:
             branches:
               only: master
