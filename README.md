@@ -67,3 +67,10 @@ The rubocop settings files is in the root directory as `.rubocop.yml`
 
 RubyMine integrates Rubocop by default. Settings can be found in the Preferences
 menu, under Editor > Inspections > Ruby > Gems and Gem Management > Rubocop.
+
+## Environments
+
+## Deploying the Application
+
+Notes on deployment can be found in
+[doc/environments-and-deployment.md](doc/environments-and-deployment.md).
