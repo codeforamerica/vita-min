@@ -4,6 +4,7 @@ module Documents
 
     delegate :document_type, to: :class
     helper_method :document_type
+    helper_method :destroy_document_path
 
     def edit
       return if self.class.document_type.nil?
@@ -37,6 +38,10 @@ module Documents
 
     def self.document_type
       raise NotImplementedError, "#{self.name} must implement document_type or return nil to indicate no document will be uploaded."
+    end
+
+    def destroy_document_path(document)
+      document_path(document)
     end
 
     def track_document_upload

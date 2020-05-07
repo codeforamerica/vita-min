@@ -1,8 +1,36 @@
 module Documents
   class RequestedDocumentsLaterController < DocumentUploadQuestionController
-    before_action :handle_session, only: :edit
-    before_action :current_intake_or_home, only: :update
     skip_before_action :require_intake
+
+    def documents_request
+      if session[:documents_request_id]
+        DocumentsRequest.find(session[:documents_request_id])
+      else
+        if params[:token]
+          intake = Intake.find_for_requested_docs_token(params[:token])
+          # redirect_to root_path if !intake
+          docs_request = DocumentsRequest.create(intake: intake)
+          session[:documents_request_id] = docs_request.id
+          docs_request
+        end
+      end
+    end
+
+    def edit
+      @documents = documents_request.documents
+      @form = form_class.new(documents_request, form_params)
+    end
+
+    def update
+      @form = form_class.new(documents_request, form_params)
+      if @form.valid?
+        @form.save
+        after_update_success
+        track_document_upload
+      end
+
+      redirect_to action: :edit
+    end
 
     def self.show?(_)
       false
@@ -22,37 +50,18 @@ module Documents
 
     private
 
-    def current_intake_or_home
-      if session[:intake_id].nil?
-        redirect_to root_path
-      end
+    def form_name
+      "requested_document_upload_form"
     end
 
-    def handle_session
-      check_token_and_create_anonymous_session unless session_in_progress?
+    def self.form_class
+      RequestedDocumentUploadForm
     end
 
-    def check_token_and_create_anonymous_session
-      original_intake = Intake.find_for_requested_docs_token(params[:token])
-      if original_intake.present?
-        create_anonymous_intake_session(original_intake)
-      else
-        redirect_to documents_requested_docs_not_found_path
-      end
-    end
+    private
 
-    def create_anonymous_intake_session(original_intake)
-      anonymous_intake = Intake.create_anonymous_intake(original_intake)
-      session[:intake_id] = anonymous_intake.id
-      session[:anonymous_session] = true
-    end
-
-    def anonymous_session_in_progress?
-      session[:anonymous_session] && session[:intake_id].present?
-    end
-
-    def session_in_progress?
-      current_user.present? || anonymous_session_in_progress?
+    def destroy_document_path(document)
+      destroy_requested_document_path(document)
     end
   end
 end

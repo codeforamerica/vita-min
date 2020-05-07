@@ -50,7 +50,11 @@ Rails.application.routes.draw do
   end
 
   resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
-  resources :documents, only: [:destroy]
+  resources :documents, only: [:destroy] do
+    member do
+      delete :destroy_requested
+    end
+  end
   resources :ajax_mixpanel_events, only: [:create]
 
   get "/:organization/drop-off", to: "intake_site_drop_offs#new", as: :new_drop_off

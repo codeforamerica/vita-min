@@ -7,7 +7,7 @@ RSpec.feature "Client uploads a requested document" do
 
     expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
     expect(page).to have_button("Continue", disabled: true)
-    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
 
 
     expect(page).to have_content("test-pattern.png")
@@ -25,7 +25,7 @@ RSpec.feature "Client uploads a requested document" do
     expect(page).not_to have_content("test-pattern.png")
     expect(page).not_to have_link("Remove")
 
-    attach("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
@@ -34,6 +34,16 @@ RSpec.feature "Client uploads a requested document" do
 
     expect(page).to have_text "Thank you! Your documents have been submitted."
     expect(page).to have_text "Your tax preparer will reach out with updates and any additional questions within 3 business days."
+  end
+
+  scenario "client goes to the follow up documents link and does not finish the requested docs flow" do
+    visit "/documents/add/1234ABCDEF"
+
+    expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
+    expect(page).to have_button("Continue", disabled: true)
+
+    visit "/questions/job-count"
+    expect(current_path).to eq("/questions/feelings")
   end
 
   # TODO: remove this scenario when login is removed
