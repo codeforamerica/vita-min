@@ -41,6 +41,12 @@ vita_partners:
     display_name: Save First
     source_parameter:
     logo_path: "partner-logos/impact-america.png"
+  - name: Impact America (Save First)
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009830214"
+    display_name: Save First
+    source_parameter:
+    logo_path: "partner-logos/impact-america.png"
   - name: Foundation Communities
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009397734"
