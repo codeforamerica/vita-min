@@ -57,9 +57,23 @@ To view a list of releases (with the highest releases at the top):
 
 `git tag | sort -nr`
 
+To generate the next release number:
+
+`bin/reversion`
+
+To view a list of releases with their SHAs:
+
+`bin/show-tags`
+
 To tag a release:
 
 `git tag version-N.N.N`
+
+Once a release has been tagged, you'll want to push the tag to GitHub:
+
+`git push --tags`
+
+After this, the commit will begin processing (and deploying) in CircleCI.
 
 To issue a release from Github, use the same naming convention,
 but begin by clicking the 'releases' button on the main page.
