@@ -66,21 +66,21 @@ jobs:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push --tags git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:master
-        #   deploy_to_aptible--staging:
-        #     executor: rails_executor
-        #     steps:
-        #       - checkout
-        #       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
-        #       - run: git fetch --depth=1000000
-        #       - run: git push --tags git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
+      - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:master
+  deploy_to_aptible--staging:
+    executor: rails_executor
+    steps:
+      - checkout
+      - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
+      - run: git fetch --depth=1000000
+      - run: git push git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
   deploy_to_aptible--production:
     executor: rails_executor
     steps:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push --tags git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
+      - run: git push git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
 
 workflows:
   version: 2
@@ -99,11 +99,22 @@ workflows:
           filters:
             branches:
               only: master
-              #       - deploy_to_aptible--staging:
-              #           requires: [run_tests]
-              #           filters:
-              #             branches:
-              #               only: master
+      - deploy_to_aptible--staging:
+          requires: [run_tests]
+          filters:
+            branches:
+              only: master
+  tagged-release:
+    jobs:
+      - install_dependencies:
+          filters:
+            tags:
+              only: /version-\d+\.\d+\.\d+(\.\d+)?/
+      - run_tests:
+          requires: [install_dependencies]
+          filters:
+            tags:
+              only: /version-\d+\.\d+\.\d+(\.\d+)?/
       - deploy_to_aptible--production:
           requires: [run_tests]
           filters:
