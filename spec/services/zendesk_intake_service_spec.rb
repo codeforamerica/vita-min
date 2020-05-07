@@ -504,7 +504,7 @@ describe ZendeskIntakeService do
   describe "#send_consent_pdf_with_spouse" do
     let(:output) { true }
     let(:fake_consent_pdf) { instance_double(File) }
-    let(:intake_ticket_id) { rand(2**(9 * 7)) }
+    let(:intake_ticket_id) { rand(2**(8 * 7)) }
 
     before do
       allow(service).to receive(:append_file_to_ticket).and_return(output)
