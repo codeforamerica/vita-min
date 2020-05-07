@@ -72,5 +72,52 @@ RSpec.describe Questions::BankDetailsController do
       end
     end
   end
+
+  describe "#update" do
+    let(:intake) { create :intake }
+
+    before do
+      allow(subject).to receive(:current_intake).and_return intake
+    end
+
+    context "with no values" do
+      let(:params) do
+        {}
+      end
+
+      it "it redirects and fills out account type" do
+        put :update, params: params
+
+
+        expect(response.status).to eq 302
+        intake.reload
+        expect(intake.bank_account_type).to eq "unspecified"
+      end
+    end
+
+    context "with all params" do
+      let(:params) do
+        {
+          bank_details_form: {
+            bank_name: "Bank of Hamerica",
+            bank_routing_number: "1234",
+            bank_account_number: "0987",
+            bank_account_type: "checking"
+          }
+        }
+      end
+
+      it "saves them to the intake and redirects" do
+        put :update, params: params
+
+        expect(response.status).to eq 302
+        intake.reload
+        expect(intake.bank_name).to eq "Bank of Hamerica"
+        expect(intake.bank_routing_number).to eq "1234"
+        expect(intake.bank_account_number).to eq "0987"
+        expect(intake.bank_account_type).to eq "checking"
+      end
+    end
+  end
 end
 
