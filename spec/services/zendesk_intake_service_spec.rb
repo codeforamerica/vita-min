@@ -28,12 +28,16 @@ describe ZendeskIntakeService do
            preferred_name: "Cherry",
            email_notification_opt_in: email_opt_in,
            sms_notification_opt_in: sms_opt_in,
+           intake_ticket_id: intake_ticket_id,
+           intake_ticket_requester_id: intake_requester_id,
            refund_payment_method: payment_method,
            balance_pay_from_bank: pay_from_bank
   end
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
   let(:sms_opt_in) { "yes" }
+  let(:intake_requester_id) { rand(2**(8 * 7)) }
+  let(:intake_ticket_id) { nil }
   let(:payment_method) { "direct_deposit" }
   let(:pay_from_bank) { "yes" }
 
@@ -464,9 +468,9 @@ describe ZendeskIntakeService do
   describe "#send_intake_pdf_with_spouse" do
     let(:output) { true }
     let(:fake_file) { instance_double(File) }
+    let(:intake_ticket_id) { 34 }
 
     before do
-      intake.intake_ticket_id = 34
       allow(service).to receive(:append_file_to_ticket).and_return(output)
       allow(intake).to receive(:pdf).and_return(fake_file)
     end
@@ -500,9 +504,9 @@ describe ZendeskIntakeService do
   describe "#send_consent_pdf_with_spouse" do
     let(:output) { true }
     let(:fake_consent_pdf) { instance_double(File) }
+    let(:intake_ticket_id) { rand(2**(8 * 7)) }
 
     before do
-      intake.intake_ticket_id = 34
       allow(service).to receive(:append_file_to_ticket).and_return(output)
       allow(intake).to receive(:consent_pdf).and_return(fake_consent_pdf)
     end
@@ -511,7 +515,7 @@ describe ZendeskIntakeService do
       result = service.send_consent_pdf_with_spouse
       expect(result).to eq true
       expect(service).to have_received(:append_file_to_ticket).with(
-        ticket_id: 34,
+        ticket_id: intake.intake_ticket_id,
         filename: "Consent_CherCherimoya.pdf",
         file: fake_consent_pdf,
         comment: "Updated signed consent form with spouse signature\n",
@@ -525,6 +529,110 @@ describe ZendeskIntakeService do
         expect do
           service.send_consent_pdf_with_spouse
         end.to raise_error(ZendeskIntakeService::CouldNotSendConsentPdfError)
+      end
+    end
+
+    context '#assign_requester' do
+      let(:intake_requester_id) { rand(2**(7 * 8)) }
+
+      before do
+        allow(service).to receive(:create_intake_ticket_requester) { nil }
+      end
+
+      it 'does nothing if requester is already assigned' do
+        expect(service.assign_requester).to eq(intake_requester_id)
+        expect(service).not_to have_received(:create_intake_ticket_requester)
+      end
+
+      context 'when behaving' do
+        let(:ticket_id) { rand(2**(8 * 7)) } ## bigint?
+        let(:intake_requester_id) { nil }
+
+        before do
+          allow(service).to receive(:create_intake_ticket_requester) { ticket_id }
+        end
+
+        it 'updates intake ticket requester id' do
+          expect(service.assign_requester).to eq(ticket_id)
+          expect(intake.intake_ticket_requester_id).to eq(ticket_id)
+        end
+
+      end
+
+      context 'when unable to create a requester' do
+        before do
+          allow(service).to receive(:create_intake_ticket_requester) { nil }
+          allow(Raven).to receive(:extra_context)
+          allow(Raven).to receive(:capture_message)
+        end
+
+        it 'notifies sentry' do
+          user_attributes = {
+              name: intake.preferred_name,
+              email: intake.email_address,
+              phone: intake.phone_number,
+              intake_id: intake.id
+          }
+          intake.intake_ticket_requester_id = nil
+          service.assign_requester
+
+          expect(Raven).to have_received(:extra_context).with(hash_including(:intake_id, :level))
+          expect(Raven).to have_received(:capture_message)
+            .with(/ZendeskIntakeTicketJob failed to create a ticket requester/)
+        end
+      end
+    end
+
+    describe '#assign_intake_ticket' do
+      context 'with an existing ticket id' do
+        let(:intake_ticket_id) { rand(2 ** (7*8)) }
+
+        before do
+          allow(service).to receive(:create_intake_ticket) { nil }
+        end
+
+        it 'does nothing' do
+          expect(service.assign_intake_ticket).to eq(intake_ticket_id)
+          expect(service).not_to have_received(:create_intake_ticket)
+        end
+      end
+
+      context 'without an existing ticket id' do
+        let(:intake_ticket_id) { nil }
+        let(:new_ticket_id) { rand(2 ** (7*8)) }
+
+        before do
+          allow(service).to receive(:create_intake_ticket) { new_ticket_id }
+        end
+
+        it 'creates a ticket and assigns it to the intake' do
+          expect(service.assign_intake_ticket).to eq(new_ticket_id)
+          expect(service).to have_received(:create_intake_ticket)
+        end
+      end
+
+      context 'when unable to create a ticket' do
+        before do
+          allow(service).to receive(:create_intake_ticket) {nil}
+          allow(Raven).to receive(:extra_context)
+          allow(Raven).to receive(:capture_message)
+        end
+
+        it 'notifies sentry' do
+          intake.intake_ticket_id = nil
+          user_attributes = {
+              name: intake.preferred_name,
+              email: intake.email_address,
+              phone: intake.phone_number,
+              intake_id: intake.id
+          }
+          service.assign_intake_ticket
+
+          expect(Raven).to have_received(:extra_context).with(hash_including(:intake_id, :level))
+          expect(Raven).to have_received(:capture_message)
+            .with(/ZendeskIntakeTicketJob failed to create an intake ticket/)
+        end
+
       end
     end
   end

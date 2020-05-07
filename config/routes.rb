@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   get "/at-capacity", to: "public_pages#at_capacity"
   get "/privacy", to: "public_pages#privacy_policy"
   get "/about-us", to: "public_pages#about_us"
+  get "/tax-questions", to: "public_pages#tax_questions"
   get "/faq", to: "public_pages#faq"
   get "/stimulus", to: "public_pages#stimulus"
   get "/500", to: "public_pages#internal_server_error"
