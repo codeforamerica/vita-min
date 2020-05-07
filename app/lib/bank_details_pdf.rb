@@ -1,3 +1,5 @@
+require "mini_magick"
+
 class BankDetailsPdf
   include PdfHelper
 
