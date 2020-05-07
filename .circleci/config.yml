@@ -91,15 +91,9 @@ workflows:
           requires: [install_dependencies]
   build-and-deploy:
     jobs:
-      - install_dependencies:
-          filters:
-            branches:
-              only: master
+      - install_dependencies
       - run_tests:
           requires: [install_dependencies]
-          filters:
-            branches:
-              only: master
       - deploy_to_aptible--demo:
           requires: [run_tests]
           filters:
