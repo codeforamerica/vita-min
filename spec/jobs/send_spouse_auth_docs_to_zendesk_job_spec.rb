@@ -11,7 +11,11 @@ RSpec.describe SendSpouseAuthDocsToZendeskJob, type: :job do
 
   describe "#perform" do
     let(:completed_intake_sent_to_zendesk) { nil }
-    let(:intake) { create :intake, completed_intake_sent_to_zendesk: completed_intake_sent_to_zendesk }
+    let(:intake) {
+      create :intake,
+             completed_intake_sent_to_zendesk: completed_intake_sent_to_zendesk,
+             intake_ticket_id: rand(2**(7 * 8))
+    }
 
     context "without errors" do
       before do
@@ -40,6 +44,6 @@ RSpec.describe SendSpouseAuthDocsToZendeskJob, type: :job do
     it_behaves_like "catches exceptions with raven context", :send_consent_pdf_with_spouse do
       let(:completed_intake_sent_to_zendesk) { true }
     end
-
+    it_behaves_like "a ticket-dependent job", ZendeskIntakeService
   end
 end
