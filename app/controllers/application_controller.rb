@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include ConsolidatedTraceHelper
+
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode, :check_at_capacity
   after_action :track_page_view
   helper_method :include_google_analytics?, :current_intake

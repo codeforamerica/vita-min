@@ -22,4 +22,6 @@ class PublicPagesController < ApplicationController
   def internal_server_error; end
 
   def page_not_found; end
+
+  def tax_questions; end
 end

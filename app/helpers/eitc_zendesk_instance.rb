@@ -13,8 +13,9 @@ class EitcZendeskInstance
     ONLINE_INTAKE_UW_VIRGINIA = "360009267673",
     ONLINE_INTAKE_UW_CENTRAL_OHIO = "360009440374",
     ONLINE_INTAKE_UW_FRESNO_MADERA = "360009708233",
-    ONLINE_INTAKE_IA_SC = "360009341873",
-    ONLINE_INTAKE_IA_AL = "360009341853",
+    ONLINE_INTAKE_IA_AL = "360009341853", # Impact America Alabama
+    ONLINE_INTAKE_IA_SC = "360009341873", # Impact America South Carolina
+    ONLINE_INTAKE_IA_TN = "360009830214", # Impact America Tennessee
     ONLINE_INTAKE_FC = "360009397734",     # Foundation Communities
     ONLINE_INTAKE_NV_FTC = "360009537374", # Nevada Free Tax Coalition
     ONLINE_INTAKE_UW_TSA = "360009581934", # Nevada Free Tax Coalition
@@ -23,21 +24,23 @@ class EitcZendeskInstance
     ONLINE_INTAKE_HU_FL = "360009704314", # Hispanic Unity (FL)
     ONLINE_INTAKE_CATALYST = "360009704354", # Catalyst Miami
     ONLINE_INTAKE_REFUND_DAY = "360009657014", # Refund Day (FL)
+    ONLINE_INTAKE_TH_NM = "360009807434", # Tax Help New Mexico
   ].freeze
 
   GROUP_ID_TO_STATE_LIST_MAPPING = {
     ONLINE_INTAKE_UW_CENTRAL_OHIO => %w(oh).freeze,
     ONLINE_INTAKE_UW_KING_COUNTY => %w(wa).freeze,
     ONLINE_INTAKE_IA_SC => %w(sc).freeze,
-    ONLINE_INTAKE_IA_AL => %w(tn).freeze,
+    ONLINE_INTAKE_IA_TN => %w(tn ar ms).freeze,
     ONLINE_INTAKE_NV_FTC => %w(nv).freeze,
     ONLINE_INTAKE_FC => %w(tx).freeze,
-    ONLINE_INTAKE_THC => %w(co sd wy ks nm ne).freeze,
+    ONLINE_INTAKE_THC => %w(co sd wy ks ne).freeze,
     ONLINE_INTAKE_UWBA => %w(ca ak).freeze,
     ONLINE_INTAKE_GWISR => %w(ga al).freeze,
     ONLINE_INTAKE_WORKING_FAMILIES => %w(pa nj).freeze,
     ONLINE_INTAKE_UW_VIRGINIA => %w(va).freeze,
-    ONLINE_INTAKE_REFUND_DAY => %w(fl).freeze
+    ONLINE_INTAKE_REFUND_DAY => %w(fl).freeze,
+    ONLINE_INTAKE_TH_NM => %w(nm).freeze,
   }.freeze
 
   # online intake source parameter to group

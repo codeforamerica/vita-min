@@ -861,12 +861,15 @@ describe Intake do
       it_behaves_like "state-level routing", "oh", EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO, EitcZendeskInstance
       it_behaves_like "state-level routing", "nj", EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES, EitcZendeskInstance
       it_behaves_like "state-level routing", "sc", EitcZendeskInstance::ONLINE_INTAKE_IA_SC, EitcZendeskInstance
-      it_behaves_like "state-level routing", "tn", EitcZendeskInstance::ONLINE_INTAKE_IA_AL, EitcZendeskInstance
+      it_behaves_like "state-level routing", "tn", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
+      it_behaves_like "state-level routing", "ar", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
+      it_behaves_like "state-level routing", "ms", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
       it_behaves_like "state-level routing", "nv", EitcZendeskInstance::ONLINE_INTAKE_NV_FTC, EitcZendeskInstance
       it_behaves_like "state-level routing", "tx", EitcZendeskInstance::ONLINE_INTAKE_FC, EitcZendeskInstance
       it_behaves_like "state-level routing", "az", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
       it_behaves_like "state-level routing", "va", EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA, EitcZendeskInstance
       it_behaves_like "state-level routing", "fl", EitcZendeskInstance::ONLINE_INTAKE_REFUND_DAY, EitcZendeskInstance
+      it_behaves_like "state-level routing", "nm", EitcZendeskInstance::ONLINE_INTAKE_TH_NM, EitcZendeskInstance
       it_behaves_like "state-level routing", "xx", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
     end
   end
