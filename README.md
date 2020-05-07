@@ -74,3 +74,7 @@ menu, under Editor > Inspections > Ruby > Gems and Gem Management > Rubocop.
 
 Notes on deployment can be found in
 [doc/environments-and-deployment.md](doc/environments-and-deployment.md).
+
+## Concerning .git/objects
+
+TBD
