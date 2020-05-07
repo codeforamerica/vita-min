@@ -1,17 +1,21 @@
 .about-us {
 
-  .vita-logo, .irs-logo {
-    height: 8rem;
+  .irs-logo, .vita-logo {
+    vertical-align: middle;
+  }
+
+  .irs-logo {
+    height: 9rem;
+  }
+
+  .vita-logo {
+    height: 6rem;
+    margin-left: 5rem;
   }
 
   .vita-logo-link, .irs-logo-link {
     text-decoration: none;
   }
-
-  .vita-logo {
-    margin-left: 5rem;
-  }
-
 
   .map {
     margin-top: 3rem;
