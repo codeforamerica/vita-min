@@ -6,7 +6,7 @@
       <div class="grid__item width-three-fourths shift-one-eighth">
         <main role="main">
           <h1 class="form-question">
-            Confirm your identity with a selfie
+            Confirm your identity with a photo of yourself
           </h1>
           <div class="text--centered with-padding-med">
             <%= image_tag("selfie-illustration.svg", alt: "") %>
@@ -19,12 +19,13 @@
           <div class="selfie-instructions-list with-padding-large">
             <div class="text--centered">
               <span class="emoji emoji--small emoji--star"></span>
-              <p class="text--bold">
-                Helpful tips for taking a selfie:
-              </p>
             </div>
 
-            <ul>
+            <p class="text--bold">
+              Read through the following steps before continuing
+            </p>
+
+            <ul class="list--bulleted">
               <li>Make sure your face is clearly visible</li>
               <li>Make sure you aren't covering up your ID</li>
               <li>Face the camera directly and include from your shoulders to the top of your head, similar to your ID photo</li>
@@ -33,11 +34,10 @@
             </ul>
           </div>
 
-
         </main>
         <div class="text--centered">
           <%= link_to selfies_documents_path, class: "button button--wide button--primary button--centered" do %>
-            Submit a selfie
+            Submit a photo
           <% end %>
         </div>
       </div>

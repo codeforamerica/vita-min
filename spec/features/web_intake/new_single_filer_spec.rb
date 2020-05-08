@@ -205,10 +205,10 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Upload"
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Confirm your identity with a selfie")
-    click_on "Submit a selfie"
+    expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
+    click_on "Submit a photo"
 
-    expect(page).to have_selector("h1", text: "Share a selfie with your ID card")
+    expect(page).to have_selector("h1", text: "Share a photo of yourself holding your ID card")
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"
@@ -330,7 +330,7 @@ RSpec.feature "Web Intake Single Filer" do
     fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
     click_on "Submit"
 
-    expect(page).to have_selector("h1", text: "Your tax information has been successfully submitted!")
+    expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
 
     # going back to another page after submit redirects to beginning
     visit "/questions/wages"

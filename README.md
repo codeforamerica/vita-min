@@ -72,5 +72,7 @@ menu, under Editor > Inspections > Ruby > Gems and Gem Management > Rubocop.
 
 ## Deploying the Application
 
-Notes on deployment can be found in
+Notes on deployment (and tagged release) can be found in
 [doc/environments-and-deployment.md](doc/environments-and-deployment.md).
+
+
