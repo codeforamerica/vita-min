@@ -4,7 +4,9 @@ class SendSpouseAuthDocsToZendeskJob < ApplicationJob
   def perform(intake_id)
     intake = Intake.find(intake_id)
 
-    with_raven_context({ticket_id: intake.intake_ticket_id}) do
+    with_raven_context(intake_context(intake)) do
+      ensure_zendesk_ticket_on(intake)
+
       if intake.completed_intake_sent_to_zendesk
         service = ZendeskIntakeService.new(intake)
         service.send_intake_pdf_with_spouse &&

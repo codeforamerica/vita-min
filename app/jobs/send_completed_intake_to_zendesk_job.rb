@@ -3,7 +3,9 @@ class SendCompletedIntakeToZendeskJob < ApplicationJob
 
   def perform(intake_id)
     intake = Intake.find(intake_id)
-    with_raven_context({ticket_id: intake.intake_ticket_id}) do
+    with_raven_context(intake_context(intake)) do
+      ensure_zendesk_ticket_on(intake)
+
       service = ZendeskIntakeService.new(intake)
       success = service.send_final_intake_pdf &&
           service.send_bank_details_png &&
