@@ -42,7 +42,7 @@ RSpec.describe ZendeskServiceHelper do
       it "searches by email" do
         result = service.find_end_user(nil, "test@example.com", nil)
         expect(service).to have_received(:search_zendesk_users).with("email:test@example.com")
-        expect(result).to eq(1)
+        expect(result).to eq(fake_zendesk_user)
       end
 
       context "when there are no email matches" do
@@ -56,7 +56,7 @@ RSpec.describe ZendeskServiceHelper do
             result = service.find_end_user("Barry Banana", "test@example.com", "14155551234")
             expect(service).to have_received(:search_zendesk_users).with("email:test@example.com")
             expect(service).to have_received(:search_zendesk_users).with("name:\"Barry Banana\" phone:14155551234")
-            expect(result).to eq(1)
+            expect(result).to eq(fake_zendesk_user)
           end
         end
 
@@ -107,16 +107,16 @@ RSpec.describe ZendeskServiceHelper do
       context "and it exists" do
         let(:search_results) { [match_with_extra_phone, match_with_extra_email, exact_match] }
 
-        it "returns the id of the exact match" do
+        it "returns the exact match" do
           result = service.find_end_user("Percy Plum", nil, nil, exact_match: true)
-          expect(result).to eq 9
+          expect(result).to eq exact_match
         end
       end
 
       context "and only partial matches exist" do
         let(:search_results) { [match_with_extra_phone, match_with_extra_email] }
 
-        it "returns the id of the exact match" do
+        it "returns nil" do
           result = service.find_end_user("Percy Plum", nil, nil, exact_match: true)
           expect(result).to eq nil
         end
@@ -126,14 +126,35 @@ RSpec.describe ZendeskServiceHelper do
 
   describe "#find_or_create_end_user" do
     before do
-      allow(service).to receive(:find_end_user).and_return(result)
+      allow(service).to receive(:search_zendesk_users).with(kind_of(String)).and_return([result])
     end
 
     context "end user exists" do
-      let(:result) { 1 }
+      let(:result) { fake_zendesk_user }
 
       it "returns the existing user's id" do
         expect(service.find_or_create_end_user("Nancy Nectarine", nil, nil)).to eq 1
+      end
+
+      context "end user has missing phone number" do
+        let(:result) { double(ZendeskAPI::User, id: 5, phone: nil, email: "test@example.com") }
+        let(:phone) { "+123456789" }
+
+        context "search includes phone number" do
+          it "updates the user phone number in Zendesk" do
+            expect(result).to receive(:phone=).with(phone)
+            expect(result).to receive(:save)
+            expect(service.find_or_create_end_user("Nancy Nectarine", "test@example.com", phone)).to eq(result.id)
+          end
+        end
+
+        context "search does not includes phone number" do
+          it "does not update the user phone number in Zendesk" do
+            expect(result).not_to receive(:phone=).with(phone)
+            expect(result).not_to receive(:save)
+            expect(service.find_or_create_end_user("Nancy Nectarine", "test@example.com", nil)).to eq(result.id)
+          end
+        end
       end
     end
 
@@ -145,11 +166,11 @@ RSpec.describe ZendeskServiceHelper do
       end
 
       it "creates new user and returns their id" do
-        expect(service.find_or_create_end_user("Nancy Nectarine", nil, nil)).to eq 1
+        expect(service.find_or_create_end_user("Nancy Nectarine", nil, "1234567890")).to eq 1
         expect(service).to have_received(:create_end_user).with(
           name: "Nancy Nectarine",
           email: nil,
-          phone: nil,
+          phone: "1234567890",
           time_zone: nil
         )
       end
