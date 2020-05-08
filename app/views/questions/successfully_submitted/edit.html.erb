@@ -1,12 +1,40 @@
-<% content_for :form_question, "Your tax information has been successfully submitted!" %>
+<% content_for :form_question, "Success! Your tax information has been submitted." %>
 
 <% content_for :form_card do %>
   <h1 class="form-question">
     <%= content_for(:form_question) %>
   </h1>
-  <p>Submitted at <%= Time.now.strftime("%l:%M%P on %B %-d, %Y") %>.</p>
+  <% if current_intake&.intake_ticket_id.present? %>
+    <h2 class="text--teal h3">
+      Your confirmation number is: <%= current_intake.intake_ticket_id %>
+    </h2>
+  <% end %>
 
-  <h2 class="h3">What to expect next</h2>
-  <p>You should receive a confirmation by text message shortly.</p>
-  <p>Our tax preparers will review your situation and be in touch within the next few days.</p>
+  <p class="text--small">
+    <strong>Next Steps</strong>
+  </p>
+
+  <ul class="list--bulleted spacing-below-60">
+    <li>
+      You will receive a confirmation message shortly
+    </li>
+    <li>
+      <% if current_intake&.vita_partner.present? %>
+        Your tax preparer at <%= current_intake.vita_partner.display_name %> will review your information
+      <% else %>
+        Your tax preparer will review your information
+      <% end %>
+    </li>
+    <li>
+      <% if current_intake&.vita_partner.present? %>
+        <%= current_intake.vita_partner.display_name %> will reach out within 3 business days to talk about your taxes
+      <% else %>
+        Your tax preparer will reach out within 3 business days to talk about your taxes
+      <% end %>
+    </li>
+  </ul>
+
+  <%= link_to root_path, class: "button button--wide button--primary text--centered" do %>
+    Return to home
+  <% end %>
 <% end %>
