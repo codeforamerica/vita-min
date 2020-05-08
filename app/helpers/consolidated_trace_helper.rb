@@ -98,9 +98,6 @@ module ConsolidatedTraceHelper
   # that are most likely to be needed to isolate a problem
   def intake_context(intake)
     {
-        name: intake.preferred_name,
-        email: intake.email_address,
-        phone: intake.phone_number,
         intake_id: intake.id,
         ticket_id: intake.intake_ticket_id,
         requester_id: intake.intake_ticket_requester_id
