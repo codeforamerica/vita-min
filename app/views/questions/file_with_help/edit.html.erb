@@ -11,16 +11,25 @@
     </p>
 
     <p>
-      This is the right option for you if:
+    <strong>This is the right option for you if:</strong>
     </p>
 
-    <ul class="list--checkmark">
-      <li>You need assistance with tax filing</li>
-      <li>Your tax situation is confusing/complicated</li>
-      <li>You’re nervous to file completely on your own</li>
+    <ul class="checkmark-list">
+      <li>
+        <%= render "shared/svg/checkmark", fill_class: "teal" %>
+        <span>You need assistance with tax filing</span>
+      </li>
+      <li>
+        <%= render "shared/svg/checkmark", fill_class: "teal" %>
+        <span>Your tax situation is confusing/complicated</span>
+      </li>
+      <li>
+        <%= render "shared/svg/checkmark", fill_class: "teal" %>
+        <span>You’re nervous to file completely on your own</span>
+      </li>
     </ul>
     <div class="button--group">
-      <%= link_to feelings_questions_path, class: "button text--centered" do %>
+      <%= link_to :back, class: "button text--centered" do %>
         Go Back
       <% end %>
       <%= link_to next_path, class: "button button--primary text--centered" do %>
