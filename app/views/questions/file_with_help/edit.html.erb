@@ -1,0 +1,31 @@
+<% content_for :page_title, "File with the help of a tax expert!" %>
+
+<% content_for :form_card do %>
+  <div class="form-card">
+    <h1 class="form-question">
+      <%= content_for(:page_title) %>
+    </h1>
+
+    <p>
+      You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you.
+    </p>
+
+    <p>
+      This is the right option for you if:
+    </p>
+
+    <ul class="list--checkmark">
+      <li>You need assistance with tax filing</li>
+      <li>Your tax situation is confusing/complicated</li>
+      <li>You’re nervous to file completely on your own</li>
+    </ul>
+    <div class="button--group">
+      <%= link_to feelings_questions_path, class: "button text--centered" do %>
+        Go Back
+      <% end %>
+      <%= link_to next_path, class: "button button--primary text--centered" do %>
+        Continue
+      <% end %>
+    </div>
+  </div>
+<% end %>
