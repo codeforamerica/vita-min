@@ -59,6 +59,10 @@ body {
   font-weight: bold;
 }
 
+.text--black {
+  color: rgb(0, 0, 0);
+}
+
 .hide-on-mobile {
   @media screen and (max-width: $tablet-up) {
     @include visually-hidden;
