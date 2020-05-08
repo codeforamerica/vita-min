@@ -13,8 +13,9 @@ class EitcZendeskInstance
     ONLINE_INTAKE_UW_VIRGINIA = "360009267673",
     ONLINE_INTAKE_UW_CENTRAL_OHIO = "360009440374",
     ONLINE_INTAKE_UW_FRESNO_MADERA = "360009708233",
-    ONLINE_INTAKE_IA_SC = "360009341873",
-    ONLINE_INTAKE_IA_TN = "360009341853", # Impact America Tennessee
+    ONLINE_INTAKE_IA_AL = "360009341853", # Impact America Alabama
+    ONLINE_INTAKE_IA_SC = "360009341873", # Impact America South Carolina
+    ONLINE_INTAKE_IA_TN = "360009830214", # Impact America Tennessee
     ONLINE_INTAKE_FC = "360009397734",     # Foundation Communities
     ONLINE_INTAKE_NV_FTC = "360009537374", # Nevada Free Tax Coalition
     ONLINE_INTAKE_UW_TSA = "360009581934", # Nevada Free Tax Coalition
@@ -47,7 +48,7 @@ class EitcZendeskInstance
     uwkc: ONLINE_INTAKE_UW_KING_COUNTY,
     uwvp: ONLINE_INTAKE_UW_VIRGINIA,
     cwf: ONLINE_INTAKE_WORKING_FAMILIES,
-    ia: ONLINE_INTAKE_IA_TN,
+    ia: ONLINE_INTAKE_IA_AL,
     goodwillsr: ONLINE_INTAKE_GWISR,
     fc: ONLINE_INTAKE_FC,
     uwco: ONLINE_INTAKE_UW_CENTRAL_OHIO,

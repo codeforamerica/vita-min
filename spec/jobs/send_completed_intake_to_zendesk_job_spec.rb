@@ -12,7 +12,7 @@ RSpec.describe SendCompletedIntakeToZendeskJob, type: :job do
 
   describe "#perform" do
     let(:intake) do
-      create :intake
+      create :intake, intake_ticket_id: rand(2**(7 * 8))
     end
 
     context "without errors" do
@@ -31,5 +31,6 @@ RSpec.describe SendCompletedIntakeToZendeskJob, type: :job do
     end
 
     it_behaves_like "catches exceptions with raven context", :send_final_intake_pdf
+    it_behaves_like 'a ticket-dependent job', ZendeskIntakeService
   end
 end
