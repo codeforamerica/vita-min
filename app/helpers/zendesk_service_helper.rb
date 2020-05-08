@@ -56,7 +56,7 @@ module ZendeskServiceHelper
     if email.present?
       email_matches = search_zendesk_users("email:#{email}")
       if email_matches.present?
-        return email_matches.first&.id
+        return email_matches.first
       elsif exact_match
         return nil
       end
@@ -71,7 +71,7 @@ module ZendeskServiceHelper
       results = results.select { |result| result.email.blank? } if email.blank?
       results = results.select { |result| result.phone.blank? } if phone.blank?
     end
-    results.first&.id
+    results.first
   end
 
   # TODO: find_all_intake_tickets (should filter for only intake tickets if possible)
@@ -89,7 +89,10 @@ module ZendeskServiceHelper
 
   def find_or_create_end_user(name, email, phone, exact_match: false, time_zone: nil)
     user = find_end_user(name, email, phone, exact_match: exact_match)
-    return user if user.present?
+    if user.present?
+      update_user_contact_info(user, phone)
+      return user.id
+    end
 
     result = create_end_user(name: name, email: email, phone: phone, time_zone: time_zone)
     result.id if result.present?
@@ -206,4 +209,13 @@ module ZendeskServiceHelper
   class MissingRequesterIdError < ZendeskServiceError; end
   class MissingTicketIdError < ZendeskServiceError; end
   class MissingTicketError < ZendeskServiceError; end
+
+  private
+
+  def update_user_contact_info(user, phone)
+    if phone && user.phone.blank?
+      user.phone = phone
+      user.save
+    end
+  end
 end
