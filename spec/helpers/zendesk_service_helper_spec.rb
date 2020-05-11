@@ -17,6 +17,8 @@ RSpec.describe ZendeskServiceHelper do
 
     SampleService.new
   end
+  let(:qualified_environments) { service.qualified_environments }
+  let(:unqualified_environments) { %w[test production] }
 
   before do
     allow(ZendeskAPI::Client).to receive(:new).and_return fake_zendesk_client
@@ -124,8 +126,6 @@ RSpec.describe ZendeskServiceHelper do
     end
 
     context "in name-qualified environments" do
-      let(:qualified_environments) { %w[demo staging] }
-
       before do
         allow(service).to receive(:search_zendesk_users).with(include("(Fake User)")).and_return([])
       end
@@ -197,7 +197,6 @@ RSpec.describe ZendeskServiceHelper do
       end
 
       context "in a name-qualified environment" do
-        let(:qualified_environments) { %w[demo staging] }
         let(:fake_zendesk_user_list) { double("ZD Users") }
         let(:fake_zendesk_client) { double("ZD Client") }
         let(:name) { "Percy Plum" }
@@ -513,8 +512,6 @@ RSpec.describe ZendeskServiceHelper do
 
   describe "#qualify_user_name" do
     let(:name) { "Some Name" }
-    let(:qualified_environments) { %w[demo staging] }
-    let(:unqualified_environments) { %w[test production] }
 
     it "appends a qualifier in staging, demo environment" do
       qualified_environments.each do |e|
