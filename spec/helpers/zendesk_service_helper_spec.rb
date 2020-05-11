@@ -122,6 +122,24 @@ RSpec.describe ZendeskServiceHelper do
         end
       end
     end
+
+    context "in name-qualified environments" do
+      let(:qualified_environments) { %w[demo staging] }
+
+      before do
+        allow(service).to receive(:search_zendesk_users).with(include("(Fake User)")).and_return([])
+      end
+
+      it "qualifies the name" do
+        qualified_environments.each do |e|
+          with_environment(e) do
+            service.find_end_user('Percy Plum', nil, nil)
+          end
+        end
+        expect(service).to have_received(:search_zendesk_users)
+          .with(include("(Fake User)")).exactly(qualified_environments.count).times
+      end
+    end
   end
 
   describe "#find_or_create_end_user" do
@@ -161,18 +179,44 @@ RSpec.describe ZendeskServiceHelper do
     context "end user does not exist" do
       let(:result) { nil }
 
-      before do
-        allow(service).to receive(:create_end_user).and_return(fake_zendesk_user)
+
+      context "in a normal environment" do
+        before do
+          allow(service).to receive(:create_end_user).and_return(fake_zendesk_user)
+        end
+
+        it "creates new user and returns their id" do
+          expect(service.find_or_create_end_user("Nancy Nectarine", nil, "1234567890")).to eq 1
+          expect(service).to have_received(:create_end_user).with(
+              name: "Nancy Nectarine",
+              email: nil,
+              phone: "1234567890",
+              time_zone: nil
+          )
+        end
       end
 
-      it "creates new user and returns their id" do
-        expect(service.find_or_create_end_user("Nancy Nectarine", nil, "1234567890")).to eq 1
-        expect(service).to have_received(:create_end_user).with(
-          name: "Nancy Nectarine",
-          email: nil,
-          phone: "1234567890",
-          time_zone: nil
-        )
+      context "in a name-qualified environment" do
+        let(:qualified_environments) { %w[demo staging] }
+        let(:fake_zendesk_user_list) { double("ZD Users") }
+        let(:fake_zendesk_client) { double("ZD Client") }
+        let(:name) { "Percy Plum" }
+
+        before do
+          allow(fake_zendesk_client).to receive(:users).and_return(fake_zendesk_user_list)
+          allow(fake_zendesk_user_list).to receive(:create).and_return(fake_zendesk_user)
+          allow(service).to receive(:client).and_return(fake_zendesk_client)
+        end
+
+        it "creates a user with a qualified name" do
+          qualified_environments.each do |e|
+            with_environment(e) do
+              service.create_end_user(name: name)
+            end
+          end
+          expect(fake_zendesk_user_list).to have_received(:create)
+            .with(hash_including(name: "#{name} (Fake User)")).exactly(qualified_environments.count).times
+        end
       end
     end
   end
@@ -463,6 +507,28 @@ RSpec.describe ZendeskServiceHelper do
         expect(fake_zendesk_comment.uploads).to include({file: file_3, filename: "file_3.jpg"})
         expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file file_1.jpg could not be uploaded because it exceeds the maximum size of 7MB.")
         expect(fake_zendesk_ticket).to have_received(:save)
+      end
+    end
+  end
+
+  describe "#qualify_user_name" do
+    let(:name) { "Some Name" }
+    let(:qualified_environments) { %w[demo staging] }
+    let(:unqualified_environments) { %w[test production] }
+
+    it "appends a qualifier in staging, demo environment" do
+      qualified_environments.each do |e|
+        with_environment(e) do
+          expect(service.qualify_user_name(name)).to eq("#{name} (Fake User)")
+        end
+      end
+    end
+
+    it "doesn't append a qualifier in test, production" do
+      unqualified_environments.each do |e|
+        with_environment(e) do
+          expect(service.qualify_user_name(name)).to eq(name)
+        end
       end
     end
   end
