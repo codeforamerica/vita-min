@@ -3,8 +3,11 @@ class ZendeskWebhookController < ApplicationController
   before_action :authenticate
 
   def incoming
-    if ["new_sms", "updated_sms"].include? json_payload[:method]
+    case json_payload[:method]
+    when "new_sms", "updated_sms"
       incoming_sms
+    when "updated_ticket"
+      updated_ticket
     end
     head :ok if params[:zendesk_webhook].present?
   end
@@ -21,7 +24,32 @@ class ZendeskWebhookController < ApplicationController
     )
   end
 
+  def updated_ticket
+    return unless ticket_intake.present?
+
+    current_status = ticket_intake.current_ticket_status
+
+    if current_status.nil? || current_status.status_changed?(incoming_ticket_statuses)
+      ticket_intake.ticket_statuses.create(incoming_ticket_statuses)
+    end
+  end
+
   private
+
+  def ticket_intake
+    @ticket_intake ||= Intake.find_by(id: ticket_intake_id)
+  end
+
+  def ticket_intake_id
+    json_payload[:external_id].split("-").last&.to_i
+  end
+
+  def incoming_ticket_statuses
+    {
+      intake_status: json_payload[:digital_intake_status],
+      return_status: json_payload[:return_status],
+    }
+  end
 
   def json_payload
     params[:zendesk_webhook]
