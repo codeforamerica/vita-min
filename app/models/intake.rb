@@ -166,6 +166,7 @@ class Intake < ApplicationRecord
   has_many :users # order doesn't really matter at the moment
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
+  has_many :ticket_statuses, -> { order(created_at: :asc) }
   belongs_to :vita_partner, optional: true
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
@@ -509,6 +510,10 @@ class Intake < ApplicationRecord
 
   def determine_zendesk_instance_domain
     EitcZendeskInstance::DOMAIN
+  end
+
+  def current_ticket_status
+    ticket_statuses.last
   end
 
   private

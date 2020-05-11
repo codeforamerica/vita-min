@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_005451) do
+ActiveRecord::Schema.define(version: 2020_05_11_181343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,6 +258,15 @@ ActiveRecord::Schema.define(version: 2020_05_06_005451) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ticket_statuses", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "intake_id"
+    t.string "intake_status", null: false
+    t.string "return_status", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["intake_id"], name: "index_ticket_statuses_on_intake_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "birth_date"
     t.string "city"
@@ -320,6 +329,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_005451) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
+  add_foreign_key "ticket_statuses", "intakes"
   add_foreign_key "users", "intakes"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
 end
