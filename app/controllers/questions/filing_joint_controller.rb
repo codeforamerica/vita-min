@@ -6,6 +6,8 @@ module Questions
       intake.ever_married_yes?
     end
 
-    def illustration_path; end
+    def illustration_path
+      "filing-joint.svg"
+    end
   end
 end
