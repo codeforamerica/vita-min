@@ -98,8 +98,12 @@ module ZendeskServiceHelper
     result.id if result.present?
   end
 
+  def qualified_environments
+    %w[development demo staging]
+  end
+
   def qualify_user_name(name)
-    (Rails.env.demo? || Rails.env.staging?) ? "#{name} (Fake User)" : name
+    qualified_environments.include?(Rails.env) ? "#{name} (Fake User)" : name
   end
 
   def build_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {})
