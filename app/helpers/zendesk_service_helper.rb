@@ -63,7 +63,7 @@ module ZendeskServiceHelper
     end
 
     search_string = ""
-    search_string += "name:\"#{name}\" " if name.present?
+    search_string += "name:\"#{qualify_user_name(name)}\" " if name.present?
     search_string += "phone:#{phone}" if phone.present?
     results = search_zendesk_users(search_string)
     if exact_match
@@ -84,7 +84,7 @@ module ZendeskServiceHelper
   def create_end_user(name:, **attributes)
     # for a list of possible valid attributes, see:
     #   https://developer.zendesk.com/rest_api/docs/support/users#json-format-for-end-user-requests
-    client.users.create(name: name, verified: true, **attributes)
+    client.users.create(name: qualify_user_name(name), verified: true, **attributes)
   end
 
   def find_or_create_end_user(name, email, phone, exact_match: false, time_zone: nil)
@@ -96,6 +96,10 @@ module ZendeskServiceHelper
 
     result = create_end_user(name: name, email: email, phone: phone, time_zone: time_zone)
     result.id if result.present?
+  end
+
+  def qualify_user_name(name)
+    (Rails.env.demo? || Rails.env.staging?) ? "#{name} (Fake User)" : name
   end
 
   def build_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {})
