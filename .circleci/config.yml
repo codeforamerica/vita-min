@@ -115,11 +115,15 @@ workflows:
           filters:
             tags:
               only: /^version-\d+\.\d+\.\d+(\.\d+)?/
+            branches:
+              ignore: /.*/
       - run_tests:
           requires: [install_dependencies]
           filters:
             tags:
               only: /^version-\d+\.\d+\.\d+(\.\d+)?/
+            branches:
+              ignore: /.*/
       - deploy_to_aptible--production:
           requires: [run_tests]
           filters:
