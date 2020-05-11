@@ -46,6 +46,7 @@ gem 'attr_encrypted'
 gem 'lograge'
 gem 'fix-db-schema-conflicts'
 gem 'valid_email2'
+gem 'auto_strip_attributes'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

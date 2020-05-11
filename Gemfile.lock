@@ -77,6 +77,8 @@ GEM
     ast (2.4.0)
     attr_encrypted (3.1.0)
       encryptor (~> 3.0.0)
+    auto_strip_attributes (2.6.0)
+      activerecord (>= 4.0)
     autoprefixer-rails (9.7.6)
       execjs
     aws-eventstream (1.1.0)
@@ -451,6 +453,7 @@ DEPENDENCIES
   activerecord-postgis-adapter
   annotate
   attr_encrypted
+  auto_strip_attributes
   aws-sdk-s3
   axe-matchers
   bootsnap (>= 1.1.0)
