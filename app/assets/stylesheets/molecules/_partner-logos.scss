@@ -5,11 +5,19 @@
   align-items: center;
   margin: 0 -0.5em;
   &__listing {
-    padding-bottom: 1em;
     margin: 0 .5em;
+    @media screen and (max-width: $site-max-up) {
+      padding-bottom: 1em;
+    }
+    img.multiply {
+      mix-blend-mode: multiply;
+    }
+    img.small {
+      height: 3.5rem;
+    }
   }
 
-  @media screen and (max-width: $tablet-up) {
+  @media screen and (max-width: $site-max-up) {
     justify-content: space-around;
   }
 }

@@ -1,0 +1,32 @@
+.stimulus {
+  .hint {
+    color: #3D3DE1;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 2rem;
+
+    a {
+      color: #3D3DE1;
+    }
+  }
+
+  .note {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+
+  .exceptions {
+    font-weight: 500;
+    font-size: 1.6rem;
+    list-style: disc;
+    padding-left: 2rem;
+  }
+
+  p.last, ul.last {
+    margin-bottom: 0;
+  }
+
+  .stimulus-info h3 {
+    margin-bottom: 1rem;
+  }
+}
