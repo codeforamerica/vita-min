@@ -1054,4 +1054,14 @@ describe Intake do
       end
     end
   end
+
+  describe "#current_ticket_status" do
+    let!(:intake) {create :intake}
+    let!(:old_status) {create :ticket_status, intake: intake, created_at: 3.days.ago}
+    let!(:new_status) {create :ticket_status, intake: intake, created_at: 1.days.ago}
+
+    it "returns the ticket status with the most recent created_at" do
+      expect(intake.current_ticket_status).to eq new_status
+    end
+  end
 end
