@@ -1,4 +1,6 @@
 class QuestionsForm < Form
+  extend AutoStripAttributes
+
   class_attribute :attribute_names
   attr_accessor :intake
 
@@ -25,6 +27,7 @@ class QuestionsForm < Form
     attribute_strings = Attributes.new(attributes).to_s
 
     attr_accessor(*attribute_strings)
+    auto_strip_attributes *attribute_strings, virtual: true
   end
 
   def self.scoped_attributes

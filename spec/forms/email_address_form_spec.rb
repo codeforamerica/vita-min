@@ -34,5 +34,19 @@ RSpec.describe EmailAddressForm do
         expect(form.errors[:email_address]).to be_present
       end
     end
+
+    context "when there is whitespace mismatch with confirmation email" do
+      it "is valid" do
+        form = EmailAddressForm.new(
+          intake,
+          {
+            email_address: "stuff@things.net",
+            email_address_confirmation: " stuff@things.net "
+          }
+        )
+
+        expect(form).to be_valid
+      end
+    end
   end
 end
