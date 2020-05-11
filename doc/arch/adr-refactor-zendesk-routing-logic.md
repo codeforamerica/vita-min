@@ -3,7 +3,7 @@
 ## Status
 
 - **Proposed**: 2020-05-07
-- **Accepted/Rejected**:
+- **Accepted/Rejected**: 2020-05-08
 
 ## Context
 
@@ -158,7 +158,7 @@ refs:
 - [simplified/immediate modeling, after conversation with @bengolder 4/28](https://github.com/codeforamerica/vita-min/blob/refactor-zendesk-routing-logic-%23172323019/doc/arch/design/intake-routing-simplified.png) describes closer to the refactor described here
 - [original thinking: generic-tracker](https://github.com/codeforamerica/vita-min/blob/refactor-zendesk-routing-logic-%23172323019/doc/arch/design/intake-routing-generic-tracker.png) a generic design with an eye toward replacing Zendesk
 
-## Proposal / Decision
+## Decision
 
 To review the desired outcomes:
 
@@ -302,7 +302,13 @@ capture the critieria used to route (at present: 'source_code', 'state', or
 that criteria: `state_of_residence` for 'state' and `overflow`, `intake.source`
 for 'source_code'.
 
-## Decision
+### Implementation
+
+Decided 05-08-2020, proposal accepted.
+
+Implementation will be completed and reviewed by two pair: one pair to
+complete/finish the work, the other pair will review the work before committing
+merging and deploying.
 
 ## Consequences
 
