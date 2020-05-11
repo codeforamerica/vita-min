@@ -1,10 +1,12 @@
 <% content_for :page_title, "About Us" %>
 <% content_for :body_class, "about-us" %>
 
+<%= render("shared/breadcrumb")%>
+
 <main role="main">
   <section class="slab slab--white">
     <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
+      <div class="grid__item width-seven-twelfths">
         <h1 class="h2">
           About Us
         </h1>
@@ -21,49 +23,75 @@
         </p>
 
         <p class="center-on-mobile">
-          <%= link_to "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank" do %>
+          <%= link_to "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", class: "logos-link" do %>
+            <%= image_tag("irs-certified-plain.svg", alt: "IRS Certified Volunteers", class: "irs-logo") %>
             <%= image_tag("vita-logo--black.svg", alt: "VITA: Volunteer Income Tax Assistance", class: "vita-logo") %>
           <% end %>
         </p>
 
         <p>
           <%= link_to vita_providers_path, class: "button" do %>
-            Find a VITA location
+            Find a location
           <% end %>
         </p>
+      </div>
+    </div>
 
+    <div class="grid">
+      <div class="grid__item width-five-sixths">
         <div class="map">
-          <%= render "shared/map" %>
+          <%= image_tag("vita-map.svg", alt: "") %>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="slab partner-quote">
+  <section class="slab partner-quotes">
     <div class="grid">
-      <div class="grid__item width-one-fourth">
+      <div class="grid__item width-one-half partner-quote-left">
         <div class="partner-picture">
           <%= image_tag "partner-picture--courtney.png", alt: "A photograph of Courtney O'Reilly smiling." %>
         </div>
+        <div class="partner-quote">
+          <blockquote>
+            <p>
+              “I'm excited to extend our free services to those who can't come into one of our physical locations.
+              I know taxes can be intimidating, which is why we are here to help!”
+            </p>
+
+            <footer role="contentinfo">
+              <p>
+                <strong>Courtney O'Reilly</strong><br>
+                <%= link_to "https://taxhelpco.org/", target: "_blank", class: "partner-link" do %>
+                  Tax Help Colorado
+                <% end %>
+              </p>
+            </footer>
+          </blockquote>
+        </div>
       </div>
 
-      <div class="grid__item width-one-half">
-        <blockquote class="blockquote">
-          <p>
-          I'm excited to extend our free services to those who can't come into one of our physical locations.
-          I know taxes can be intimidating, which is why we are here to help!
-          </p>
-
-          <footer role="contentinfo">
+      <div class="grid__item width-one-half partner-quote-right">
+        <div class="partner-picture">
+          <%= image_tag "partner-picture--denise.png", alt: "A photograph of Denise Eckley smiling." %>
+        </div>
+        <div class="partner-quote">
+          <blockquote>
             <p>
-              <strong>Courtney O'Reilly</strong><br>
-              <%= link_to "https://taxhelpco.org/", target: "_blank" do %>
-                Tax Help Colorado
-              <% end %>
+              “Being part of an organization that works to bridge the gap between where people are and where they want
+              (or need) to be is both fulfilling and always exciting.”
             </p>
-          </footer>
 
-        </blockquote>
+            <footer role="contentinfo">
+              <p>
+                <strong>Denise Eckley</strong><br>
+                <%= link_to "https://www.goodwillsr.org/", target: "_blank", class: "partner-link" do %>
+                  Good Will Industries of the Southern Rivers
+                <% end %>
+              </p>
+            </footer>
+          </blockquote>
+        </div>
       </div>
     </div>
   </section>
@@ -71,57 +99,85 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item">
-        <h2 class="h3">Our Partners</h2>
+        <h2 class="h3">We partner with trusted organizations</h2>
+        <p>
+          We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax
+          filing assistance to families earning less than about $66,000 a year.
+        </p>
 
-        <ul class="partner-logos spacing-below-25">
+        <ul class="partner-logos">
           <%= render(
             "shared/grayscale_partner_logo",
             name: "United Way Bay Area",
             image_name: "uwba",
-            website: "https://uwba.org/",
-            style: ""
+            image_class: "small",
+            website: "https://uwba.org/"
           )%>
 
           <%= render(
             "shared/grayscale_partner_logo",
             name: "Tax Help Colorado",
             image_name: "thc",
-            website: "https://taxhelpco.org/",
-            style: "mix-blend-mode: multiply;"
+            image_class: "small multiply",
+            website: "https://taxhelpco.org/"
           )%>
 
           <%= render(
             "shared/grayscale_partner_logo",
             name: "Prosperity Now",
             image_name: "prosperity-now",
-            website: "https://prosperitynow.org/",
-            style: ""
+            image_class: "small",
+            website: "https://prosperitynow.org/"
           )%>
 
           <%= render(
             "shared/grayscale_partner_logo",
             name: "Goodwill Industries of the Southern Rivers",
             image_name: "gwisr",
-            website: "https://www.goodwillsr.org/",
-            style: "mix-blend-mode: multiply;"
+            image_class: "small multiply",
+            website: "https://www.goodwillsr.org/"
           )%>
+
+          <%= render(
+            "shared/grayscale_partner_logo",
+            name: "Impact America",
+            image_name: "ia",
+            image_class: "small",
+            website: "https://impactamerica.com/savefirst/"
+              )%>
+
+          <%= render(
+            "shared/grayscale_partner_logo",
+            name: "Campaign for Working Families",
+            image_name: "cwf",
+            image_class: "small",
+            website: "https://cwfphilly.org/"
+              )%>
 
           <%= render(
             "shared/grayscale_partner_logo",
             name: "United Way of Tucson and Southern Arizona",
             image_name: "uwtsa",
-            website: "https://www.unitedwaytucson.org/",
-            style: ""
-          )%>
+            image_class: "small",
+            website: "https://www.unitedwaytucson.org/"
+              )%>
         </ul>
 
-        <p class="partner-cta">
-          <strong>Interested in partnering with us?</strong><br>
-          <a href="mailto:partnerships@getyourrefund.org">
-            partnerships@getyourrefund.org
-          </a>
-        </p>
       </div>
     </div>
   </section>
+
+  <section class="slab slab--partner-cta">
+    <div class="grid">
+      <div class="grid__item partner-cta">
+        <p class="partner-cta-text">
+          Interested in partnering with us?
+        </p>
+        <a href="mailto:partnerships@getyourrefund.org" class="partner-cta-link">
+          partnerships@getyourrefund.org
+        </a>
+      </div>
+    </div>
+  </section>
+
 </main>

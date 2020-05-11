@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   get "/about-us", to: "public_pages#about_us"
   get "/tax-questions", to: "public_pages#tax_questions"
   get "/faq", to: "public_pages#faq"
+  get "/stimulus", to: "public_pages#stimulus"
   get "/500", to: "public_pages#internal_server_error"
   get "/422", to: "public_pages#internal_server_error"
   get "/404", to: "public_pages#page_not_found"

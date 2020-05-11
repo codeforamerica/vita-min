@@ -19,6 +19,7 @@
 @import "organisms/document-overview";
 @import "organisms/flash-messages";
 @import "molecules/accordion";
+@import 'molecules/breadcrumb';
 @import "molecules/form-molecules";
 @import "molecules/partner-logos";
 @import "molecules/checkmark-list";
@@ -35,6 +36,7 @@
 @import "templates/about-us";
 @import "templates/consent-form";
 @import "templates/dependents-index";
+@import 'templates/stimulus';
 
 html {
   background-color: black;
