@@ -11,13 +11,12 @@ module StateImporter
     puts message unless Rails.env.test?
   end
 
-  def upsert_states(yml = STATE_YAML)
+  def insert_states(yml = STATE_YAML)
     say "beginning state upsert using environment: #{Rails.env}"
     states = YAML.load_file(yml)['states']
-    State.destroy_all
-    states.each do |datum|
-      state = State.find_by(abbreviation: datum['abbreviation'])
-      state.present? ? State.update!(name: datum['name']) : State.create!(abbreviation: datum['abbreviation'], name: datum['name'])
+    State.transaction do
+      State.destroy_all
+      State.insert_all!(states)
     end
     say "  -> imported #{states.count} states"
   end

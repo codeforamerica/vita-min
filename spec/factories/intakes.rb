@@ -114,6 +114,9 @@
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
 #  requested_docs_token                                 :string
 #  requested_docs_token_created_at                      :datetime
+#  routed_at                                            :datetime
+#  routing_criteria                                     :string
+#  routing_value                                        :string
 #  savings_purchase_bond                                :integer          default("unfilled"), not null
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
@@ -151,8 +154,8 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  vita_partner_group_id                                :string
 #  vita_partner_id                                      :bigint
-#  zendesk_group_id                                     :string
 #
 # Indexes
 #

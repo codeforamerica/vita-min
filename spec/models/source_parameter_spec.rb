@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: source_codes
+# Table name: source_parameters
 #
 #  id              :bigint           not null, primary key
 #  code            :string
@@ -10,8 +10,8 @@
 #
 # Indexes
 #
-#  index_source_codes_on_code             (code)
-#  index_source_codes_on_vita_partner_id  (vita_partner_id)
+#  index_source_parameters_on_code             (code) UNIQUE
+#  index_source_parameters_on_vita_partner_id  (vita_partner_id)
 #
 # Foreign Keys
 #
@@ -19,7 +19,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe SourceCode, type: :model do
+RSpec.describe SourceParameter, type: :model do
   it { should validate_presence_of(:vita_partner_id) }
   it { should validate_presence_of(:code) }
 end

@@ -18,7 +18,7 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 FactoryBot.define do
-  factory :source_code do
+  factory :source_parameter do
     code { "MyString" }
     vita_partner { nil }
   end

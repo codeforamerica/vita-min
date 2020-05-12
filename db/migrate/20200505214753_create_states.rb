@@ -3,8 +3,6 @@ class CreateStates < ActiveRecord::Migration[6.0]
     create_table :states, id: false do |t|
       t.string :name
       t.string :abbreviation, primary_key: true
-
-      t.timestamps
     end
     add_index :states, :name
 

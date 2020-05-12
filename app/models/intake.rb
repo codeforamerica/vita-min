@@ -114,6 +114,9 @@
 #  reported_self_employment_loss                        :integer          default("unfilled"), not null
 #  requested_docs_token                                 :string
 #  requested_docs_token_created_at                      :datetime
+#  routed_at                                            :datetime
+#  routing_criteria                                     :string
+#  routing_value                                        :string
 #  savings_purchase_bond                                :integer          default("unfilled"), not null
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
@@ -151,8 +154,8 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  visitor_id                                           :string
+#  vita_partner_group_id                                :string
 #  vita_partner_id                                      :bigint
-#  zendesk_group_id                                     :string
 #
 # Indexes
 #
@@ -526,17 +529,20 @@ class Intake < ApplicationRecord
   ##
   # at load time, maps the source codes to the appropriate associated
   # group id for speedy lookup
-  SOURCE_MATCHERS = Hash[SourceCode.all.map { |s| [s.code, s.vita_partner.zendesk_group_id] }]
+  def source_matchers
+    @@source_matcher_memo ||= Hash[SourceParameter.all.map { |s| [s.code, s.vita_partner.zendesk_group_id] }]
+  end
 
   def group_id_for_source
-    code_match = SOURCE_MATCHERS.filter { |k, _| source.downcase.match(/#{k}/) }
-    code_match&.first&.last
+    all_matches = source_matchers.filter { |k, _| source.downcase.match(/#{k}/) }
+    codes = all_matches.map(&:first)
+    longest_code = codes.max_by(&:length)
+    all_matches[longest_code]
   end
 
   def group_id_for_state
     state = State.find_by(abbreviation: state_of_residence&.upcase || state&.upcase)
     return state.vita_partners.first.zendesk_group_id if state.present? && !state.vita_partners.empty?
-    # TODO: 'load-balancing'
 
     EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
   end

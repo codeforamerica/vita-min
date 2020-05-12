@@ -15,23 +15,25 @@ module VitaPartnerImporter
     say "beginning partner upsert using environment: #{Rails.env}"
 
     partners = YAML.load_file(yml)['vita_partners']
-    partners.each do |datum|
-      states = datum.delete('states')
-      sources = datum.delete('source_parameters')
-      partner = VitaPartner.find_by(zendesk_group_id: datum['zendesk_group_id'])
-      partner = partner.present? ? update_partner(partner, datum) : create_partner(datum)
-      refresh_partner_sources(partner, sources)
-      refresh_partner_states(partner, states)
-      say "  => done"
+    VitaPartner.transaction do
+      partners.each do |datum|
+        states = datum.delete('states')
+        sources = datum.delete('source_parameters')
+        partner = VitaPartner.find_by(zendesk_group_id: datum['zendesk_group_id'])
+        partner = partner.present? ? update_partner(partner, datum) : create_partner(datum)
+        refresh_partner_sources(partner, sources)
+        refresh_partner_states(partner, states)
+        say "  => done"
+      end
     end
   end
 
   def refresh_partner_sources(partner, codes)
-    partner.source_codes.destroy_all
+    partner.source_parameters.destroy_all
     return unless codes.present?
 
     say "  -> updating #{partner.name} source codes"
-    codes.each { |code| partner.source_codes.find_or_create_by!(code: code.downcase, vita_partner_id: partner.id) }
+    codes.each { |code| partner.source_parameters.create!(code: code.downcase) }
   end
 
   def refresh_partner_states(partner, states)

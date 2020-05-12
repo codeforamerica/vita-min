@@ -78,7 +78,7 @@ RSpec.configure do |config|
     # TODO: when Vita Partners are editable, this should be removed
     # and fixed tests adjusted
     extend StateImporter
-    upsert_states
+    insert_states
 
     extend VitaPartnerImporter
     upsert_vita_partners
