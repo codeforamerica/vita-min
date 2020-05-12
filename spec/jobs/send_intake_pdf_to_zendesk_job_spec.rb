@@ -7,7 +7,6 @@ RSpec.describe SendIntakePdfToZendeskJob, type: :job do
     allow(ZendeskIntakeService).to receive(:new).and_return fake_zendesk_intake_service
     allow(fake_zendesk_intake_service).to receive(:send_preliminary_intake_and_consent_pdfs).and_return(true)
     allow(fake_zendesk_intake_service).to receive(:assign_requester).and_return(true)
-    allow(fake_zendesk_intake_service).to receive(:assign_intake_ticket).and_return(true)
   end
 
   describe "#perform" do

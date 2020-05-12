@@ -72,6 +72,57 @@ describe ZendeskIntakeService do
     end
   end
 
+  describe "#assign_requester" do
+    let(:intake_requester_id) { rand(2**(7 * 8)) }
+
+    before do
+      allow(service).to receive(:create_intake_ticket_requester) { nil }
+    end
+
+    it "does nothing if requester is already assigned" do
+      expect(service.assign_requester).to eq(intake_requester_id)
+      expect(service).not_to have_received(:create_intake_ticket_requester)
+    end
+
+    context "when behaving" do
+      let(:ticket_id) { rand(2**(8 * 7)) } ## bigint?
+      let(:intake_requester_id) { nil }
+
+      before do
+        allow(service).to receive(:create_intake_ticket_requester) { ticket_id }
+      end
+
+      it "updates intake ticket requester id" do
+        expect(service.assign_requester).to eq(ticket_id)
+        expect(intake.intake_ticket_requester_id).to eq(ticket_id)
+      end
+
+    end
+
+    context "when unable to create a requester" do
+      before do
+        allow(service).to receive(:create_intake_ticket_requester) { nil }
+        allow(Raven).to receive(:extra_context)
+        allow(Raven).to receive(:capture_message)
+      end
+
+      it "notifies sentry" do
+        user_attributes = {
+          name: intake.preferred_name,
+          email: intake.email_address,
+          phone: intake.phone_number,
+          intake_id: intake.id
+        }
+        intake.intake_ticket_requester_id = nil
+        service.assign_requester
+
+        expect(Raven).to have_received(:extra_context).with(hash_including(:intake_id, :level))
+        expect(Raven).to have_received(:capture_message)
+                           .with(/ZendeskIntakeTicketJob failed to create a ticket requester/)
+      end
+    end
+  end
+
   describe "#create_intake_ticket_requester" do
     before do
       allow(service).to receive(:find_or_create_end_user).and_return 1
@@ -132,6 +183,21 @@ describe ZendeskIntakeService do
           }
         )
       end
+
+      it "saves the ticket id to the intake" do
+        service.create_intake_ticket
+        expect(intake.reload.intake_ticket_id).to eq 101
+      end
+
+      it "creates the initial TicketStatus for the intake" do
+        service.create_intake_ticket
+        ticket_status = intake.current_ticket_status
+        expect(ticket_status).to be_present
+        expect(ticket_status.intake_status).to eq(EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS)
+        expect(ticket_status.return_status).to eq(EitcZendeskInstance::RETURN_STATUS_UNSTARTED)
+        expect(ticket_status.verified_change).to eq(true)
+        expect(ticket_status.ticket_id).to eq(101)
+      end
     end
 
     context "in a state for the UWTSA Group" do
@@ -177,6 +243,19 @@ describe ZendeskIntakeService do
         expect do
           service.create_intake_ticket
         end.to raise_error(ZendeskIntakeService::MissingRequesterIdError)
+      end
+    end
+
+    context "when we fail to create a zendesk ticket" do
+      before do
+        allow(service).to receive(:create_ticket).and_raise(ZendeskServiceHelper::ZendeskAPIError.new("Error creating Zendesk Ticket"))
+      end
+
+      it "raises an error and does not create an initial TicketStatus" do
+        expect do
+          service.create_intake_ticket
+        end.to raise_error(ZendeskServiceHelper::ZendeskAPIError)
+        expect(intake.current_ticket_status).to be_nil
       end
     end
   end
@@ -532,109 +611,6 @@ describe ZendeskIntakeService do
       end
     end
 
-    context '#assign_requester' do
-      let(:intake_requester_id) { rand(2**(7 * 8)) }
-
-      before do
-        allow(service).to receive(:create_intake_ticket_requester) { nil }
-      end
-
-      it 'does nothing if requester is already assigned' do
-        expect(service.assign_requester).to eq(intake_requester_id)
-        expect(service).not_to have_received(:create_intake_ticket_requester)
-      end
-
-      context 'when behaving' do
-        let(:ticket_id) { rand(2**(8 * 7)) } ## bigint?
-        let(:intake_requester_id) { nil }
-
-        before do
-          allow(service).to receive(:create_intake_ticket_requester) { ticket_id }
-        end
-
-        it 'updates intake ticket requester id' do
-          expect(service.assign_requester).to eq(ticket_id)
-          expect(intake.intake_ticket_requester_id).to eq(ticket_id)
-        end
-
-      end
-
-      context 'when unable to create a requester' do
-        before do
-          allow(service).to receive(:create_intake_ticket_requester) { nil }
-          allow(Raven).to receive(:extra_context)
-          allow(Raven).to receive(:capture_message)
-        end
-
-        it 'notifies sentry' do
-          user_attributes = {
-              name: intake.preferred_name,
-              email: intake.email_address,
-              phone: intake.phone_number,
-              intake_id: intake.id
-          }
-          intake.intake_ticket_requester_id = nil
-          service.assign_requester
-
-          expect(Raven).to have_received(:extra_context).with(hash_including(:intake_id, :level))
-          expect(Raven).to have_received(:capture_message)
-            .with(/ZendeskIntakeTicketJob failed to create a ticket requester/)
-        end
-      end
-    end
-
-    describe '#assign_intake_ticket' do
-      context 'with an existing ticket id' do
-        let(:intake_ticket_id) { rand(2 ** (7*8)) }
-
-        before do
-          allow(service).to receive(:create_intake_ticket) { nil }
-        end
-
-        it 'does nothing' do
-          expect(service.assign_intake_ticket).to eq(intake_ticket_id)
-          expect(service).not_to have_received(:create_intake_ticket)
-        end
-      end
-
-      context 'without an existing ticket id' do
-        let(:intake_ticket_id) { nil }
-        let(:new_ticket_id) { rand(2 ** (7*8)) }
-
-        before do
-          allow(service).to receive(:create_intake_ticket) { new_ticket_id }
-        end
-
-        it 'creates a ticket and assigns it to the intake' do
-          expect(service.assign_intake_ticket).to eq(new_ticket_id)
-          expect(service).to have_received(:create_intake_ticket)
-        end
-      end
-
-      context 'when unable to create a ticket' do
-        before do
-          allow(service).to receive(:create_intake_ticket) {nil}
-          allow(Raven).to receive(:extra_context)
-          allow(Raven).to receive(:capture_message)
-        end
-
-        it 'notifies sentry' do
-          intake.intake_ticket_id = nil
-          user_attributes = {
-              name: intake.preferred_name,
-              email: intake.email_address,
-              phone: intake.phone_number,
-              intake_id: intake.id
-          }
-          service.assign_intake_ticket
-
-          expect(Raven).to have_received(:extra_context).with(hash_including(:intake_id, :level))
-          expect(Raven).to have_received(:capture_message)
-            .with(/ZendeskIntakeTicketJob failed to create an intake ticket/)
-        end
-
-      end
-    end
   end
 
   describe "#send_bank_details_png" do

@@ -50,23 +50,6 @@ class ZendeskIntakeService
     return # ensure a nil return value
   end
 
-  def assign_intake_ticket
-    # if there's an intake ticket id, return it
-    return @intake.intake_ticket_id if @intake.intake_ticket_id.present?
-
-    # if not, attempt to create it
-    if intake_ticket_id = create_intake_ticket
-      @intake.update(intake_ticket_id: intake_ticket_id)
-      return intake_ticket_id
-    end
-
-    # failing all else, that's likely noteworthy
-    trace_error('ZendeskIntakeTicketJob failed to create an intake ticket',
-                intake_context(@intake))
-    return # ensure a nil return value
-  end
-
-
   def create_intake_ticket_requester
     # returns the Zendesk ID of the created user
     contact_info = @intake.contact_info_filtered_by_preferences
@@ -81,15 +64,25 @@ class ZendeskIntakeService
   def create_intake_ticket
     # returns the Zendesk ID of the created ticket
     raise MissingRequesterIdError if @intake.intake_ticket_requester_id.blank?
-
-    create_ticket(
-      subject: new_ticket_subject,
-      requester_id: @intake.intake_ticket_requester_id,
-      external_id: @intake.external_id,
-      group_id: @intake.get_or_create_zendesk_group_id,
-      body: new_ticket_body,
-      fields: new_ticket_fields
-    )
+    @intake.transaction do
+      # we only want to create an initial ticket status if we are able
+      # to make a zendesk ticket without errors
+      ticket_id = create_ticket(
+        subject: new_ticket_subject,
+        requester_id: @intake.intake_ticket_requester_id,
+        external_id: @intake.external_id,
+        group_id: @intake.get_or_create_zendesk_group_id,
+        body: new_ticket_body,
+        fields: new_ticket_fields
+      )
+      @intake.ticket_statuses.create(
+        intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+        return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
+        ticket_id: ticket_id
+      )
+      @intake.update(intake_ticket_id: ticket_id)
+      ticket_id
+    end
   end
 
   def new_ticket_subject
