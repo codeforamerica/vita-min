@@ -119,3 +119,15 @@ vita_partners:
     display_name: Tax Help New Mexico
     source_parameter:
     logo_path: "partner-logos/th-nm.png"
+  - name: United Way Capital Region (PA)
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360009994193"
+    display_name: United Way Capital Region
+    source_parameter: uwcrpa
+    logo_path: ""
+  - name: United Way of Greenville County
+    zendesk_instance_domain: eitc
+    zendesk_group_id: "360010052433"
+    display_name: United Way of Greenville County
+    source_parameter: uwgc
+    logo_path: ""
