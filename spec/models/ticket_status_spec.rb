@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: ticket_statuses
+#
+#  id            :bigint           not null, primary key
+#  intake_status :string           not null
+#  return_status :string           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  intake_id     :bigint
+#  ticket_id     :integer
+#
+# Indexes
+#
+#  index_ticket_statuses_on_intake_id  (intake_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (intake_id => intakes.id)
+#
 require 'rails_helper'
 
 RSpec.describe TicketStatus, type: :model do
