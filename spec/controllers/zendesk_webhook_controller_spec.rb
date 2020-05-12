@@ -112,10 +112,13 @@ RSpec.describe ZendeskWebhookController, type: :controller do
         }
       end
 
-      it "creates an initial ticket status if none exist for the intake" do
-        expect {post :incoming, params: params}
-          .to change {intake.ticket_statuses.count}
-                .from(0).to(1)
+      context "without any existing ticket statuses" do
+        it "creates an initial ticket status with verified_change=false" do
+          expect {post :incoming, params: params}
+            .to change {intake.ticket_statuses.count}
+                  .from(0).to(1)
+          expect(intake.current_ticket_status.verified_change).to eq(false)
+        end
       end
 
       context "if a ticket status exists for that intake" do
@@ -143,7 +146,7 @@ RSpec.describe ZendeskWebhookController, type: :controller do
                    )
           end
 
-          it "creates a new ticket status" do
+          it "creates a new ticket status with verified_change=true" do
             old_status = intake.current_ticket_status
             expect(old_status.intake_status).to eq EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS
 
@@ -154,6 +157,7 @@ RSpec.describe ZendeskWebhookController, type: :controller do
             new_ticket_status = intake.reload.current_ticket_status
             expect(new_ticket_status.intake_status).to eq EitcZendeskInstance::INTAKE_STATUS_READY_FOR_INTAKE_INTERVIEW
             expect(new_ticket_status.ticket_id).to eq(9778)
+            expect(new_ticket_status.verified_change).to eq(true)
           end
         end
       end

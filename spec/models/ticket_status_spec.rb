@@ -2,13 +2,14 @@
 #
 # Table name: ticket_statuses
 #
-#  id            :bigint           not null, primary key
-#  intake_status :string           not null
-#  return_status :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  intake_id     :bigint
-#  ticket_id     :integer
+#  id              :bigint           not null, primary key
+#  intake_status   :string           not null
+#  return_status   :string           not null
+#  verified_change :boolean          default(TRUE)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  intake_id       :bigint
+#  ticket_id       :integer
 #
 # Indexes
 #

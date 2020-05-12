@@ -26,10 +26,19 @@ class ZendeskWebhookController < ApplicationController
 
   def updated_ticket
     return unless has_valid_intake_id? && intakes_for_ticket.present?
+    # in rare cases, there may be multiple intakes with the same ticket id
     intakes_for_ticket.each do |intake|
       current_status = intake.current_ticket_status
 
-      if current_status.nil? || current_status.status_changed?(incoming_ticket_statuses)
+      if current_status.nil?
+        # new tickets are created with an initial status
+        # if this is the first status, we don't know if this status changed
+        intake.ticket_statuses.create(
+          ticket_id: json_payload[:ticket_id],
+          verified_change: false,
+          **incoming_ticket_statuses
+        )
+      elsif current_status.status_changed?(incoming_ticket_statuses)
         intake.ticket_statuses.create(ticket_id: json_payload[:ticket_id], **incoming_ticket_statuses)
       end
     end

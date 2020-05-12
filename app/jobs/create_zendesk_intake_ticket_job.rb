@@ -11,7 +11,7 @@ class CreateZendeskIntakeTicketJob < ApplicationJob
       service = ZendeskIntakeService.new(intake)
 
       service.assign_requester &&
-          service.assign_intake_ticket
+          service.create_intake_ticket
     end
   end
 

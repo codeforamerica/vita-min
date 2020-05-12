@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
   let(:fake_zendesk_intake_service) { double(ZendeskIntakeService) }
@@ -17,7 +17,7 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
       before do
         allow(ZendeskIntakeService).to receive(:new).with(intake).and_return(fake_zendesk_intake_service)
         allow(fake_zendesk_intake_service).to receive(:assign_requester).and_return(new_requester_id)
-        allow(fake_zendesk_intake_service).to receive(:assign_intake_ticket).and_return(new_ticket_id)
+        allow(fake_zendesk_intake_service).to receive(:create_intake_ticket).and_return(new_ticket_id)
         described_class.perform_now(intake.id)
       end
 
@@ -31,7 +31,7 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
           intake.reload
           expect(ZendeskIntakeService).to have_received(:new).with(intake)
           expect(fake_zendesk_intake_service).to have_received(:assign_requester).with(no_args)
-          expect(fake_zendesk_intake_service).to have_received(:assign_intake_ticket).with(no_args)
+          expect(fake_zendesk_intake_service).to have_received(:create_intake_ticket).with(no_args)
         end
 
       end
@@ -44,7 +44,7 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
         it "creates a ticket" do
           intake.reload
           expect(ZendeskIntakeService).to have_received(:new).with(intake)
-          expect(fake_zendesk_intake_service).to have_received(:assign_intake_ticket).with(no_args)
+          expect(fake_zendesk_intake_service).to have_received(:create_intake_ticket).with(no_args)
         end
       end
 
@@ -58,23 +58,23 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
           intake.reload
           expect(ZendeskIntakeService).not_to have_received(:new)
           expect(fake_zendesk_intake_service).not_to have_received(:assign_requester)
-          expect(fake_zendesk_intake_service).not_to have_received(:assign_intake_ticket)
+          expect(fake_zendesk_intake_service).not_to have_received(:create_intake_ticket)
         end
       end
     end
   end
 
-  describe '#perform unexpectedly' do
-    context 'when unable to create a ticket requester' do
+  describe "#perform unexpectedly" do
+    context "when unable to create a ticket requester" do
       before do
         allow(ZendeskIntakeService).to receive(:new).with(intake).and_return(fake_zendesk_intake_service)
         allow(fake_zendesk_intake_service).to receive(:assign_requester) { nil }
-        allow(fake_zendesk_intake_service).to receive(:assign_intake_ticket) { nil }
+        allow(fake_zendesk_intake_service).to receive(:create_intake_ticket) { nil }
         described_class.perform_now(intake.id)
       end
 
-      it 'does not try to create a ticket' do
-        expect(fake_zendesk_intake_service).not_to have_received(:assign_intake_ticket)
+      it "does not try to create a ticket" do
+        expect(fake_zendesk_intake_service).not_to have_received(:create_intake_ticket)
       end
     end
   end
