@@ -513,7 +513,8 @@ class Intake < ApplicationRecord
   end
 
   def current_ticket_status
-    ticket_statuses.last
+    # we think this is faster than doing ticket_statuses.last
+    ticket_statuses.reorder(created_at: :desc).first
   end
 
   private
