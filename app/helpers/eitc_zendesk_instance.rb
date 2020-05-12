@@ -25,6 +25,8 @@ class EitcZendeskInstance
     ONLINE_INTAKE_CATALYST = "360009704354", # Catalyst Miami
     ONLINE_INTAKE_REFUND_DAY = "360009657014", # Refund Day (FL)
     ONLINE_INTAKE_TH_NM = "360009807434", # Tax Help New Mexico
+    ONLINE_INTAKE_UW_CRPA = "360009994193", # United Way Capital Region (PA)
+    ONLINE_INTAKE_UW_GREENVILLE = "360010052433", # United Way of Greenville County
   ].freeze
 
   GROUP_ID_TO_STATE_LIST_MAPPING = {
@@ -58,6 +60,8 @@ class EitcZendeskInstance
     "refundday-h" => ONLINE_INTAKE_HU_FL,
     hispanicunity: ONLINE_INTAKE_HU_FL,
     uwfm: ONLINE_INTAKE_UW_FRESNO_MADERA,
+    uwcrpa: ONLINE_INTAKE_UW_CRPA,
+    uwgc: ONLINE_INTAKE_UW_GREENVILLE,
     catalyst: ONLINE_INTAKE_CATALYST,
     "refundday-c" => ONLINE_INTAKE_CATALYST,
   }.freeze
