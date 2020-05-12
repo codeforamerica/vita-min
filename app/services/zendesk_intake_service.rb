@@ -216,7 +216,7 @@ class ZendeskIntakeService
   end
 
   def send_bank_details_png
-    return unless @intake.include_bank_details?
+    return true unless @intake.include_bank_details?
 
     output = append_file_to_ticket(
       ticket_id: @intake.intake_ticket_id,

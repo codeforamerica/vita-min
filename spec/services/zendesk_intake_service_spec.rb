@@ -668,10 +668,11 @@ describe ZendeskIntakeService do
       let(:payment_method) { "check" }
       let(:pay_from_bank) { "no"}
 
-      it "does not attach a comment to the ticket" do
-        service.send_bank_details_png
+      it "does not attach a comment to the ticket and returns true" do
+        result = service.send_bank_details_png
 
         expect(service).not_to have_received(:append_file_to_ticket)
+        expect(result).to eq true
       end
     end
 

@@ -30,7 +30,26 @@ RSpec.describe SendCompletedIntakeToZendeskJob, type: :job do
       end
     end
 
+    context "when one of the three tasks fails" do
+      before do
+        allow(fake_zendesk_intake_service).to receive(:send_final_intake_pdf).and_return(false)
+      end
+
+      it "raises an error" do
+        expect do
+          described_class.perform_now(intake.id)
+        end.to raise_error(/Unable send everything to Zendesk/)
+
+        expect(ZendeskIntakeService).to have_received(:new).with(intake)
+        expect(fake_zendesk_intake_service).to have_received(:send_final_intake_pdf)
+        expect(fake_zendesk_intake_service).to have_received(:send_bank_details_png)
+        expect(fake_zendesk_intake_service).to have_received(:send_all_docs)
+        intake.reload
+        expect(intake.completed_intake_sent_to_zendesk).to eq false
+      end
+    end
+
     it_behaves_like "catches exceptions with raven context", :send_final_intake_pdf
-    it_behaves_like 'a ticket-dependent job', ZendeskIntakeService
+    it_behaves_like "a ticket-dependent job", ZendeskIntakeService
   end
 end
