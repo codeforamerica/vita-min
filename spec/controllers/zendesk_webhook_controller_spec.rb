@@ -187,6 +187,7 @@ RSpec.describe ZendeskWebhookController, type: :controller do
 
             new_ticket_status = intake.reload.current_ticket_status
             expect(new_ticket_status.intake_status).to eq EitcZendeskInstance::INTAKE_STATUS_READY_FOR_INTAKE_INTERVIEW
+            expect(new_ticket_status.ticket_id).to eq(9778)
           end
         end
       end

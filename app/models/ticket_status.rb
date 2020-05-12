@@ -8,6 +8,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  intake_id     :bigint
+#  ticket_id     :integer
 #
 # Indexes
 #
