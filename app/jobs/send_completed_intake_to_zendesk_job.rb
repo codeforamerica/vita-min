@@ -7,11 +7,14 @@ class SendCompletedIntakeToZendeskJob < ApplicationJob
       ensure_zendesk_ticket_on(intake)
 
       service = ZendeskIntakeService.new(intake)
-      success = service.send_final_intake_pdf &&
-          service.send_bank_details_png &&
-          service.send_all_docs
 
+      sent_pdf = service.send_final_intake_pdf
+      sent_docs = service.send_all_docs
+      sent_bank_info = service.send_bank_details_png
+
+      success = sent_pdf && sent_docs && sent_bank_info
       intake.update(completed_intake_sent_to_zendesk: success)
+      raise 'Unable send everything to Zendesk' unless success
     end
   end
 end
