@@ -87,6 +87,7 @@ class EitcZendeskInstance
   INTAKE_STATUS_NOT_FILING = "online_intake_not_filing"
 
   # Zendesk Ticket Return Statuses
+  RETURN_STATUS_UNSTARTED = ""
   RETURN_STATUS_IN_PROGRESS = "1._in_progress"
   RETURN_STATUS_READY_FOR_QUALITY_REVIEW = "2._ready_for_quality_review"
   RETURN_STATUS_READY_FOR_SIGNATURE_ESIGN = "3a._ready_for_signature__e-sign"

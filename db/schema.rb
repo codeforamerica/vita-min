@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_12_152806) do
+ActiveRecord::Schema.define(version: 2020_05_12_205301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_152806) do
     t.string "return_status", null: false
     t.integer "ticket_id"
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "verified_change", default: true
     t.index ["intake_id"], name: "index_ticket_statuses_on_intake_id"
   end
 
