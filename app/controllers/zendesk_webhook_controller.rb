@@ -30,7 +30,7 @@ class ZendeskWebhookController < ApplicationController
     current_status = ticket_intake.current_ticket_status
 
     if current_status.nil? || current_status.status_changed?(incoming_ticket_statuses)
-      ticket_intake.ticket_statuses.create(incoming_ticket_statuses)
+      ticket_intake.ticket_statuses.create(ticket_id: json_payload[:ticket_id], **incoming_ticket_statuses)
     end
   end
 
