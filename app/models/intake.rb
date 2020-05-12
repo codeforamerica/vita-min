@@ -399,28 +399,28 @@ class Intake < ApplicationRecord
     dependents_under_6 = dependents.any? { |dependent| dependent.age_at_end_of_tax_year < 6 }
     had_earned_income = had_a_job? || had_wages_yes? || had_self_employment_income_yes?
     {
-      intake_source: source,
-      intake_referrer: referrer,
-      intake_referrer_domain: referrer_domain,
-      primary_filer_age_at_end_of_tax_year: age_end_of_tax_year.to_s,
-      spouse_age_at_end_of_tax_year: spouse_age_end_of_tax_year.to_s,
-      primary_filer_disabled: had_disability,
-      spouse_disabled: spouse_had_disability,
-      had_dependents: dependents.size > 0 ? "yes" : "no",
-      number_of_dependents: dependents.size.to_s,
-      had_dependents_under_6: dependents_under_6 ? "yes" : "no",
-      filing_joint: filing_joint,
-      had_earned_income: had_earned_income ? "yes" : "no",
-      state: state,
-      zip_code: zip_code,
-      needs_help_2019: needs_help_2019,
-      needs_help_2018: needs_help_2018,
-      needs_help_2017: needs_help_2017,
-      needs_help_2016: needs_help_2016,
-      needs_help_backtaxes: (needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?) ? "yes" : "no",
-      zendesk_instance_domain: zendesk_instance_domain,
-      zendesk_group_id: zendesk_group_id,
-      vita_partner_name: vita_partner_name,
+        intake_source: source,
+        intake_referrer: referrer,
+        intake_referrer_domain: referrer_domain,
+        primary_filer_age_at_end_of_tax_year: age_end_of_tax_year.to_s,
+        spouse_age_at_end_of_tax_year: spouse_age_end_of_tax_year.to_s,
+        primary_filer_disabled: had_disability,
+        spouse_disabled: spouse_had_disability,
+        had_dependents: dependents.size > 0 ? "yes" : "no",
+        number_of_dependents: dependents.size.to_s,
+        had_dependents_under_6: dependents_under_6 ? "yes" : "no",
+        filing_joint: filing_joint,
+        had_earned_income: had_earned_income ? "yes" : "no",
+        state: state,
+        zip_code: zip_code,
+        needs_help_2019: needs_help_2019,
+        needs_help_2018: needs_help_2018,
+        needs_help_2017: needs_help_2017,
+        needs_help_2016: needs_help_2016,
+        needs_help_backtaxes: (needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?) ? "yes" : "no",
+        zendesk_instance_domain: vita_partner&.zendesk_instance_domain,
+        vita_partner_group_id: vita_partner&.zendesk_group_id,
+        vita_partner_name: vita_partner&.name,
     }
   end
 
@@ -446,34 +446,25 @@ class Intake < ApplicationRecord
   end
 
   def assign_vita_partner!
-    # this should only be called before get_or_create_zendesk_group_id has ever been called
+    # don't re-assign if ZD ticket already exists
+    return if intake_ticket_id.present?
+
     # because we want users to be able to change which group they are routed to up until the ZD ticket has been created,
-    # we don't call get_or_create_zendesk_group_id, we only check whether it has been persisted, and do not save it
-    group_id = zendesk_group_id || determine_zendesk_group_id
-    if group_id
-      partner = VitaPartner.find_by(zendesk_group_id: group_id)
-      raise "unable to determine VITA Partner from zendesk group id: [#{group_id}]" unless partner.present?
-      update(vita_partner_id: partner.id, vita_partner_name: partner.name)
-    end
-  end
-
-  def get_or_create_zendesk_group_id
-    return zendesk_group_id if zendesk_group_id.present?
-
-    group_id = determine_zendesk_group_id
-    self.update(zendesk_group_id: group_id)
-    group_id
-  end
-
-  def determine_zendesk_group_id
-    # TODO: this should be refactored into a business logic / referral component
-    # (or removed entirely once all UW/TSA Zendesk tickets have been closed)
+    # we only check whether it has been persisted, and do not save it
     return nil if zendesk_instance == UwtsaZendeskInstance
-    if source.present? && group_id_for_source.present?
-      group_id_for_source
-    else
-      group_id_for_state
-    end
+
+    partner, routing_criteria, routing_value = partner_for_source || partner_for_state || partner_for_overflow
+
+    raise "partner not found!" unless partner # this shouldn't happen unless the data is horked!
+
+    update(
+      vita_partner_id: partner.id,
+      vita_partner_name: partner.name,
+      vita_partner_group_id: partner.zendesk_group_id,
+      routed_at: Time.now,
+      routing_criteria: routing_criteria,
+      routing_value: routing_value,
+    )
   end
 
   def zendesk_instance
@@ -510,6 +501,8 @@ class Intake < ApplicationRecord
   def get_or_create_zendesk_instance_domain
     return zendesk_instance_domain if zendesk_instance_domain.present?
 
+    return vita_partner.zendesk_instance_domain if vita_partner.present?
+
     domain = determine_zendesk_instance_domain
     self.update(zendesk_instance_domain: domain)
     domain
@@ -526,15 +519,28 @@ class Intake < ApplicationRecord
 
   private
 
-  def group_id_for_source
-    # returns nil if no source parameter or vita partner
-    SourceParameter.find_by(code: source.downcase)&.vita_partner&.zendesk_group_id
+  def partner_for_source
+    return nil unless source.present?
+
+    partner = SourceParameter.find_by(code: source.downcase)&.vita_partner
+    return nil unless partner.present?
+
+    [partner, "source_parameter", source]
   end
 
-  def group_id_for_state
+  def partner_for_state
     state = State.find_by(abbreviation: state_of_residence&.upcase || state&.upcase)
-    return state.vita_partners.first.zendesk_group_id if state.present? && !state.vita_partners.empty?
+    partner = state.vita_partners.first if state.present? && !state.vita_partners.empty?
+    return nil unless partner.present?
 
-    EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
+    [partner, "state", state_of_residence]
+  end
+
+  def partner_for_overflow
+    # when we have more than one partner that accepts overflow, this should balance the load
+    partner = VitaPartner.find_by(accepts_overflow: true)
+    return nil unless partner.present?
+
+    [partner, "overflow", state_of_residence]
   end
 end

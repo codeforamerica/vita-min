@@ -547,13 +547,13 @@ describe Intake do
 
       partner = create :vita_partner,
                        name: "test_partner",
-                       zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_TSA 
+                       zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
       partner.states << state
       partner
     end
 
     let(:intake) do
-      build(
+      create(
         :intake,
         had_disability: "no",
         spouse_had_disability: "yes",
@@ -571,37 +571,36 @@ describe Intake do
         needs_help_2016: "unfilled",
         primary_birth_date: Date.new(1993, 3, 12),
         spouse_birth_date: Date.new(1992, 5, 3),
+        vita_partner: vita_partner
       )
     end
     let!(:dependent_one) { create :dependent, birth_date: Date.new(2017, 4, 21), intake: intake}
     let!(:dependent_two) { create :dependent, birth_date: Date.new(2005, 8, 11), intake: intake}
 
     it "returns the expected hash" do
-      intake.assign_vita_partner!
-      intake.get_or_create_zendesk_group_id
-      expect(intake.mixpanel_data).to eq({
-        intake_source: "beep",
-        intake_referrer: "http://boop.horse/mane",
-        intake_referrer_domain: "boop.horse",
-        primary_filer_age_at_end_of_tax_year: "26",
-        spouse_age_at_end_of_tax_year: "27",
-        primary_filer_disabled: "no",
-        spouse_disabled: "yes",
-        had_dependents: "yes",
-        number_of_dependents: "2",
-        had_dependents_under_6: "yes",
-        filing_joint: "no",
-        had_earned_income: "yes",
-        state: intake.state_of_residence,
-        zip_code: "94609",
-        needs_help_2019: "yes",
-        needs_help_2018: "no",
-        needs_help_2017: "yes",
-        needs_help_2016: "unfilled",
-        needs_help_backtaxes: "yes",
-        zendesk_instance_domain: "eitc",
-        zendesk_group_id: vita_partner.zendesk_group_id,
-        vita_partner_name: vita_partner.name,
+      expect(intake.reload.mixpanel_data).to eq({
+                                             intake_source: "beep",
+                                             intake_referrer: "http://boop.horse/mane",
+                                             intake_referrer_domain: "boop.horse",
+                                             primary_filer_age_at_end_of_tax_year: "26",
+                                             spouse_age_at_end_of_tax_year: "27",
+                                             primary_filer_disabled: "no",
+                                             spouse_disabled: "yes",
+                                             had_dependents: "yes",
+                                             number_of_dependents: "2",
+                                             had_dependents_under_6: "yes",
+                                             filing_joint: "no",
+                                             had_earned_income: "yes",
+                                             state: intake.state_of_residence,
+                                             zip_code: "94609",
+                                             needs_help_2019: "yes",
+                                             needs_help_2018: "no",
+                                             needs_help_2017: "yes",
+                                             needs_help_2016: "unfilled",
+                                             needs_help_backtaxes: "yes",
+                                             zendesk_instance_domain: "eitc",
+                                             vita_partner_group_id: vita_partner.zendesk_group_id,
+                                             vita_partner_name: vita_partner.name,
       })
     end
 
@@ -772,8 +771,7 @@ describe Intake do
       let(:uwtsa_instance_intake) { create :intake, state_of_residence: "az", zendesk_instance_domain: UwtsaZendeskInstance::DOMAIN}
 
       it "assigns to the UWTSA instance and nil group id" do
-        expect(uwtsa_instance_intake.get_or_create_zendesk_group_id).to eq nil
-        expect(uwtsa_instance_intake.reload.zendesk_group_id).to eq nil
+        expect(uwtsa_instance_intake.reload.vita_partner_group_id).to eq nil
         expect(uwtsa_instance_intake.zendesk_instance).to eq UwtsaZendeskInstance
       end
     end
@@ -782,12 +780,15 @@ describe Intake do
       shared_examples "source group matching" do |src, instance|
         let(:state) { "ne" }
 
+        before do
+          intake.assign_vita_partner!
+        end
+
         context "source matches an organization" do
           let(:source) { src }
 
           it "assigns to the correct group and the correct instance" do
-            expect(intake.get_or_create_zendesk_group_id).to eq instance
-            expect(intake.reload.zendesk_group_id).to eq instance
+            expect(intake.reload.vita_partner_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
           end
         end
@@ -799,8 +800,7 @@ describe Intake do
           end
 
           it "assigns to the correct group and the correct instance" do
-            expect(intake.get_or_create_zendesk_group_id).to eq instance
-            expect(intake.reload.zendesk_group_id).to eq instance
+            expect(intake.reload.vita_partner_group_id).to eq instance
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
           end
         end
@@ -822,9 +822,12 @@ describe Intake do
         let(:source) { "propel" }
         let(:state) { "ne" }
 
+        before do
+          intake.assign_vita_partner!
+        end
+
         it "uses the state to route" do
-          expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
-          expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
+          expect(intake.reload.vita_partner_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
@@ -833,9 +836,12 @@ describe Intake do
         let(:source) { "uwco" }
         let(:state) { "oh" }
 
+        before do
+          intake.assign_vita_partner!
+        end
+
         it "assigns to the correct group and the correct instance" do
-          expect(intake.get_or_create_zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
-          expect(intake.reload.zendesk_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
+          expect(intake.reload.vita_partner_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
@@ -846,9 +852,12 @@ describe Intake do
         context "given a state" do
           let(:state) { state_criteria } # might not be necessary?
 
+          before do
+            intake.assign_vita_partner!
+          end
+
           it "assigns to the correct group and the correct instance" do
-            expect(intake.get_or_create_zendesk_group_id).to eq zendesk_group_id
-            expect(intake.reload.zendesk_group_id).to eq zendesk_group_id
+            expect(intake.reload.vita_partner_group_id).to eq zendesk_group_id
             expect(intake.zendesk_instance).to eq zendesk_instance
           end
         end
@@ -879,26 +888,41 @@ describe Intake do
     let!(:vita_partner) { create :vita_partner, name: "test_partner", zendesk_group_id: partner_group_id }
     let(:partner_group_id) { "123456789" }
 
-    context "for an intake with a zendesk group id" do
-      let(:intake) { create :intake, zendesk_group_id: partner_group_id }
-
-      it "assigns an appropriate partner based on zendesk group id" do
-        intake.assign_vita_partner!
-
-        expect(intake.vita_partner).to_not be_nil
-        expect(intake.vita_partner.zendesk_group_id).to eq partner_group_id
-      end
-    end
+    # previously: a spec to ensure bad data stayed bad?
 
     context "for an intake without a zendesk group id" do
+      let(:source_parameter) { SourceParameter.all.sample }
+      let(:source_partner) { source_parameter.vita_partner }
+      let(:intake_source) { source_parameter.code }
+      let(:state) { 'CO' }
+      let(:state_partner) { State.find(state).vita_partners.first }
+      let(:overflow_partners) { VitaPartner.where(accepts_overflow: true) }
       let(:intake) { create :intake }
 
-      it "assigns the partner with the group id returned by the determine method" do
-        allow(intake).to receive(:determine_zendesk_group_id) { partner_group_id }
-        intake.assign_vita_partner!
+      context "with a valid source parameter" do
+        let(:intake) { create :intake, source: intake_source }
 
-        expect(intake.vita_partner).to_not be_nil
-        expect(intake.vita_partner.zendesk_group_id).to eq partner_group_id
+        it "assigns the partner matching the source parameter" do
+          intake.assign_vita_partner!
+          expect(intake.vita_partner).to eq(source_partner)
+        end
+      end
+
+      context "with an invalid source parameter (and valid state)" do
+        let(:intake) { create :intake, source: 'noooooooooooooo', state_of_residence: state }
+
+        it "assigns the partner matching the state" do
+          intake.assign_vita_partner!
+          expect(intake.vita_partner).to eq(state_partner)
+        end
+      end
+
+      context "with no source and a nonsense state" do
+        let(:intake) { create :intake, state: 'DESPAIR' }
+        it 'assigns the partner to an overflow partner' do
+          intake.assign_vita_partner!
+          expect(overflow_partners.map(&:zendesk_group_id)).to include(intake.vita_partner.zendesk_group_id)
+        end
       end
     end
 
@@ -908,6 +932,59 @@ describe Intake do
       it "doesn't assign a vita partner" do
         intake.assign_vita_partner!
         expect(intake.vita_partner).to be_nil
+      end
+    end
+
+    context 'captures assignment information' do
+      let(:state) { 'XX' }
+      let(:zendesk_group_id) { '123456789101112' }
+      let(:source_parameter) { 'a-source-parameter' }
+      let(:vita_partner) do
+        partner = create :vita_partner, zendesk_group_id: zendesk_group_id, accepts_overflow: true
+        partner.states.create(abbreviation: state, name: 'doesn\'t matter')
+        partner.source_parameters.create(code: source_parameter)
+        partner
+      end
+      let(:intake) { create :intake }
+
+      before do
+        intake.assign_vita_partner!
+      end
+
+      it 'captures the routing timestamp' do
+        expect(intake.routed_at).to be_within(2.seconds).of(Time.now)
+      end
+
+      context 'when routing by state' do
+        let(:intake) { create :intake, state_of_residence: state }
+
+        it "captures the routing method and target" do
+          expect(intake.vita_partner_group_id).to eq(zendesk_group_id)
+          expect(intake.routing_criteria).to eq("state")
+          expect(intake.routing_value).to eq(state)
+        end
+      end
+
+      context 'when routing by source parameter' do
+        let(:intake) { create :intake, source: source_parameter }
+
+        it "captures the routing method and target" do
+          expect(intake.vita_partner_group_id).to eq(zendesk_group_id)
+          expect(intake.routing_criteria).to eq("source_parameter")
+          expect(intake.routing_value).to eq(source_parameter)
+        end
+      end
+
+      context 'when routing by overflow' do
+        let(:weird_state) { "ZZ" }
+        let(:intake) { create :intake, state_of_residence: weird_state }
+
+        it "captures the routing method and target" do
+          overflow_group_ids = VitaPartner.where(accepts_overflow: true).map(&:zendesk_group_id)
+          expect(overflow_group_ids).to include(intake.vita_partner_group_id)
+          expect(intake.routing_criteria).to eq("overflow")
+          expect(intake.routing_value).to eq(weird_state)
+        end
       end
     end
   end
