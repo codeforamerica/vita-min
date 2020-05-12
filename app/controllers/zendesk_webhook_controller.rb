@@ -25,19 +25,19 @@ class ZendeskWebhookController < ApplicationController
   end
 
   def updated_ticket
-    return unless ticket_intake.present?
+    return unless intake_for_ticket.present?
 
-    current_status = ticket_intake.current_ticket_status
+    current_status = intake_for_ticket.current_ticket_status
 
     if current_status.nil? || current_status.status_changed?(incoming_ticket_statuses)
-      ticket_intake.ticket_statuses.create(ticket_id: json_payload[:ticket_id], **incoming_ticket_statuses)
+      intake_for_ticket.ticket_statuses.create(ticket_id: json_payload[:ticket_id], **incoming_ticket_statuses)
     end
   end
 
   private
 
-  def ticket_intake
-    @ticket_intake ||= Intake.find_by(id: ticket_intake_id)
+  def intake_for_ticket
+    @intake_for_ticket ||= Intake.find_by(id: ticket_intake_id)
   end
 
   def ticket_intake_id
