@@ -4,7 +4,7 @@ class ZendeskWebhookController < ApplicationController
 
   def incoming
     case json_payload[:method]
-    when "new_sms", "updated_sms"
+    when "updated_sms"
       incoming_sms
     when "updated_ticket"
       updated_ticket
@@ -25,23 +25,24 @@ class ZendeskWebhookController < ApplicationController
   end
 
   def updated_ticket
-    return unless intake_for_ticket.present?
+    return unless has_valid_intake_id? && intakes_for_ticket.present?
+    intakes_for_ticket.each do |intake|
+      current_status = intake.current_ticket_status
 
-    current_status = intake_for_ticket.current_ticket_status
-
-    if current_status.nil? || current_status.status_changed?(incoming_ticket_statuses)
-      intake_for_ticket.ticket_statuses.create(ticket_id: json_payload[:ticket_id], **incoming_ticket_statuses)
+      if current_status.nil? || current_status.status_changed?(incoming_ticket_statuses)
+        intake.ticket_statuses.create(ticket_id: json_payload[:ticket_id], **incoming_ticket_statuses)
+      end
     end
   end
 
   private
 
-  def intake_for_ticket
-    @intake_for_ticket ||= Intake.find_by(id: ticket_intake_id)
+  def intakes_for_ticket
+    @intakes_for_ticket ||= Intake.where(intake_ticket_id: json_payload[:ticket_id])
   end
 
-  def ticket_intake_id
-    json_payload[:external_id].split("-").last&.to_i
+  def has_valid_intake_id?
+    json_payload[:external_id].include?("intake-")
   end
 
   def incoming_ticket_statuses
