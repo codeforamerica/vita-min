@@ -526,18 +526,9 @@ class Intake < ApplicationRecord
 
   private
 
-  ##
-  # at load time, maps the source codes to the appropriate associated
-  # group id for speedy lookup
-  def source_matchers
-    @@source_matcher_memo ||= Hash[SourceParameter.all.map { |s| [s.code, s.vita_partner.zendesk_group_id] }]
-  end
-
   def group_id_for_source
-    all_matches = source_matchers.filter { |k, _| source.downcase.match(/#{k}/) }
-    codes = all_matches.map(&:first)
-    longest_code = codes.max_by(&:length)
-    all_matches[longest_code]
+    # returns nil if no source parameter or vita partner
+    SourceParameter.find_by(code: source.downcase)&.vita_partner&.zendesk_group_id
   end
 
   def group_id_for_state

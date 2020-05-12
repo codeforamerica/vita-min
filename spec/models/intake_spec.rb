@@ -782,16 +782,6 @@ describe Intake do
       shared_examples "source group matching" do |src, instance|
         let(:state) { "ne" }
 
-        context "when source param starts with a organization's source parameter" do
-          let(:source) { "#{src}-something" }
-
-          it "assigns to the correct group and the correct instance" do
-            expect(intake.get_or_create_zendesk_group_id).to eq instance
-            expect(intake.reload.zendesk_group_id).to eq instance
-            expect(intake.zendesk_instance).to eq EitcZendeskInstance
-          end
-        end
-
         context "source matches an organization" do
           let(:source) { src }
 
@@ -805,6 +795,7 @@ describe Intake do
         context "source matches a key but is weirdly cased" do
           let(:source) do
             src.chars.map { |c| [true, false].sample ? c.downcase : c.upcase }.join
+            # latergram: this is kinda awesome
           end
 
           it "assigns to the correct group and the correct instance" do
