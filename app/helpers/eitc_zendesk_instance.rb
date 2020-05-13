@@ -82,6 +82,7 @@ class EitcZendeskInstance
   INTAKE_SOURCE = "360040933734"
 
   # Digital Intake Status value tags
+  INTAKE_STATUS_UNSTARTED = ""
   INTAKE_STATUS_IN_PROGRESS = "1._new_online_submission"
   INTAKE_STATUS_GATHERING_DOCUMENTS = "online_intake_gathering_documents"
   INTAKE_STATUS_READY_FOR_REVIEW = "online_intake_ready_for_review"
@@ -90,6 +91,18 @@ class EitcZendeskInstance
   INTAKE_STATUS_WAITING_FOR_INFO = "online_intake_waiting_for_info"
   INTAKE_STATUS_COMPLETE = "3._ready_for_prep"
   INTAKE_STATUS_NOT_FILING = "online_intake_not_filing"
+
+  INTAKE_STATUS_LABELS = {
+    INTAKE_STATUS_UNSTARTED => "Unstarted",
+    INTAKE_STATUS_IN_PROGRESS => "Online Submission",
+    INTAKE_STATUS_GATHERING_DOCUMENTS => "Gathering Documents",
+    INTAKE_STATUS_READY_FOR_REVIEW => "Ready For Review",
+    INTAKE_STATUS_IN_REVIEW => "In Review",
+    INTAKE_STATUS_READY_FOR_INTAKE_INTERVIEW => "Readu For Intake Interview",
+    INTAKE_STATUS_WAITING_FOR_INFO => "Waiting For Info",
+    INTAKE_STATUS_COMPLETE => "Complete",
+    INTAKE_STATUS_NOT_FILING => "Not Filing",
+}
 
   # Zendesk Ticket Return Statuses
   RETURN_STATUS_UNSTARTED = ""
@@ -101,6 +114,18 @@ class EitcZendeskInstance
   RETURN_STATUS_COMPLETED_RETURNS = "5._completed_returns"
   RETURN_STATUS_DO_NOT_FILE = "6._do_not_file"
   RETURN_STATUS_FOREIGN_STUDENT = "7._foreign_student"
+
+  RETURN_STATUS_LABELS = {
+    RETURN_STATUS_UNSTARTED => "Unstarted",
+    RETURN_STATUS_IN_PROGRESS => "In Progress",
+    RETURN_STATUS_READY_FOR_QUALITY_REVIEW => "Ready For Quality Review",
+    RETURN_STATUS_READY_FOR_SIGNATURE_ESIGN => "Ready For Signaure ESign",
+    RETURN_STATUS_READY_FOR_SIGNATURE_PICKUP	=> "Ready For Signature Pick-Up",
+    RETURN_STATUS_READY_FOR_EFILE => "Ready For E-File",
+    RETURN_STATUS_COMPLETED_RETURNS => "Completed Returns",
+    RETURN_STATUS_DO_NOT_FILE => "Do Not File",
+    RETURN_STATUS_FOREIGN_STUDENT => "Foreign Student",
+  }
 
   # partner group ids for drop offs
   TAX_HELP_COLORADO = "360007047214"

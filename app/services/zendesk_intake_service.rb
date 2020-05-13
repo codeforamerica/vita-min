@@ -75,12 +75,13 @@ class ZendeskIntakeService
         body: new_ticket_body,
         fields: new_ticket_fields
       )
-      @intake.ticket_statuses.create(
+      ticket_status = @intake.ticket_statuses.create(
         intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
         return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
         ticket_id: ticket_id
       )
       @intake.update(intake_ticket_id: ticket_id)
+      ticket_status.send_mixpanel_event
       ticket_id
     end
   end
