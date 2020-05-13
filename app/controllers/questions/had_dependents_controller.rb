@@ -1,5 +1,5 @@
 module Questions
-  class HadDependentsController < QuestionsController
+  class HadDependentsController < TicketedQuestionsController
     layout "yes_no_question"
 
     def next_path

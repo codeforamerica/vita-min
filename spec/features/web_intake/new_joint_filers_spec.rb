@@ -1,39 +1,12 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Joint Filers" do
-  let(:spouse_auth_hash) do
-    OmniAuth::AuthHash.new({
-      provider: "idme",
-      uid: "54321",
-      info: {
-        first_name: "Greta",
-        last_name: "Gnome",
-        name: "Greta Gnome",
-        email: "greta.gardengnome@example.com",
-        social: "555443333",
-        phone: "15553332222",
-        birth_date: "1990-09-04",
-        age: 800,
-        location: "Passaic Park, New Jersey",
-        street: "1234 Green St",
-        city: "Passaic Park",
-        state: "New Jersey",
-        zip: "22233",
-        group: "identity",
-        subgroups: ["IAL2"],
-        verified: true,
-      },
-      credentials: {
-        token: "mock_token",
-        secret: "mock_secret"
-      }
-    })
-  end
+  let(:ticket_id) { 9876 }
   let!(:vita_partner) { create :vita_partner, display_name: "United Way of Central Ohio", zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO }
 
   before do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
-    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(9876)
+    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(ticket_id)
     # see note below about skipping redirects
     allow_any_instance_of(Users::SessionsController).to receive(:idme_logout).and_return(
       user_idme_omniauth_callback_path(spouse: "true")
@@ -103,6 +76,9 @@ RSpec.feature "Web Intake Joint Filers" do
     select "5", from: "Day"
     select "1971", from: "Year"
     click_on "I agree"
+
+    # right about here, our intake gets an intake_ticket_id in a background job
+    allow_any_instance_of(Intake).to receive(:intake_ticket_id).and_return(ticket_id)
 
     # Primary filer personal information
     expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
@@ -454,6 +430,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Submit"
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+    expect(page).to have_text("Your confirmation number is: #{ticket_id}")
   end
 end
 

@@ -1,5 +1,5 @@
 module Questions
-  class IrsLetterController < QuestionsController
+  class IrsLetterController < TicketedQuestionsController
     layout "yes_no_question"
   end
 end

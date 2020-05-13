@@ -137,8 +137,19 @@ class ApplicationController < ActionController::Base
 
   private
 
+  ##
+  # when the session's current intake doesn't have a ticket, this will
+  # redirect to the beginning of question navigation
+  def require_ticket
+    redirect_to_beginning_of_intake unless current_intake&.intake_ticket_id
+  end
+
   def require_intake
-    return redirect_to question_path(QuestionNavigation.first) unless current_intake.present?
+    redirect_to_beginning_of_intake unless current_intake.present?
+  end
+
+  def redirect_to_beginning_of_intake
+    redirect_to(question_path(QuestionNavigation.first))
   end
 
   def require_sign_in

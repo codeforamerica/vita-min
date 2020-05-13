@@ -1,5 +1,5 @@
 module Questions
-  class SpouseIdentityController < QuestionsController
+  class SpouseIdentityController < TicketedQuestionsController
     layout "question"
 
     def edit

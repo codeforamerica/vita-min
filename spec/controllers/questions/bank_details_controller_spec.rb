@@ -74,7 +74,7 @@ RSpec.describe Questions::BankDetailsController do
   end
 
   describe "#update" do
-    let(:intake) { create :intake }
+    let(:intake) { create :intake, intake_ticket_id: 1234 }
 
     before do
       allow(subject).to receive(:current_intake).and_return intake

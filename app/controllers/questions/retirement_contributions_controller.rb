@@ -1,5 +1,5 @@
 module Questions
-  class RetirementContributionsController < QuestionsController
+  class RetirementContributionsController < TicketedQuestionsController
     layout "yes_no_question"
   end
 end

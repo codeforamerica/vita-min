@@ -3,12 +3,14 @@ require "rails_helper"
 RSpec.describe DependentsController do
   render_views
 
-  let(:intake) { create :intake }
+  let(:intake) { create :intake, intake_ticket_id: 1234 }
 
   before do
     allow(subject).to receive(:current_intake).and_return intake
     allow(subject).to receive(:send_mixpanel_event)
   end
+
+  it_behaves_like "a ticketed controller", :index
 
   describe "#index" do
     context "with existing dependents" do
@@ -23,6 +25,7 @@ RSpec.describe DependentsController do
       end
     end
   end
+
 
   describe "#create" do
     context "with valid params" do
@@ -147,16 +150,6 @@ RSpec.describe DependentsController do
       expect(response.body).to include("Kid")
       expect(response.body).to include("Remove this person")
     end
-
-    xcontext "when a user from a different intake tries to access" do
-      let(:user) { create :user }
-
-      it "raises a record not found error" do
-        expect do
-          get :edit, params: { id: dependent.id }
-        end.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
   end
 
   describe "#update" do
@@ -206,17 +199,6 @@ RSpec.describe DependentsController do
         expect(dependent.north_american_resident).to eq "yes"
         expect(dependent.disabled).to eq "no"
         expect(dependent.was_married).to eq "no"
-      end
-
-
-      xcontext "when a user from a different intake tries to update" do
-        let(:user) { create :user }
-
-        it "raises a record not found error" do
-          expect do
-            post :update, params: params
-          end.to raise_error(ActiveRecord::RecordNotFound)
-        end
       end
 
       it "sends analytics to mixpanel" do
@@ -307,16 +289,6 @@ RSpec.describe DependentsController do
       delete :destroy, params: { id: dependent.id }
 
       expect(subject).to have_received(:send_mixpanel_event).with(event_name: "dependent_removed")
-    end
-
-    xcontext "when a user from a different intake tries to destroy" do
-      let(:user) { create :user }
-
-      it "raises a record not found error" do
-        expect do
-          delete :destroy, params: { id: dependent.id }
-        end.to raise_error(ActiveRecord::RecordNotFound)
-      end
     end
   end
 end

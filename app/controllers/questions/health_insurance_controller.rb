@@ -1,5 +1,5 @@
 module Questions
-  class HealthInsuranceController < QuestionsController
+  class HealthInsuranceController < TicketedQuestionsController
     layout "yes_no_question"
   end
 end

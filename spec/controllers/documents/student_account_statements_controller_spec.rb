@@ -5,6 +5,7 @@ RSpec.describe Documents::StudentAccountStatementsController do
   let(:intake) do
     create(
       :intake,
+      intake_ticket_id: 1234,
       primary_first_name: "Henrietta",
       primary_last_name: "Huckleberry",
       spouse_first_name: "Helga",

@@ -1,5 +1,5 @@
 module Questions
-  class MedicalExpensesController < QuestionsController
+  class MedicalExpensesController < TicketedQuestionsController
     layout "yes_no_question"
   end
 end

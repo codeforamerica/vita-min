@@ -1,5 +1,5 @@
 module Questions
-  class FinalInfoController < QuestionsController
+  class FinalInfoController < TicketedQuestionsController
     layout "question"
 
     def illustration_path; end

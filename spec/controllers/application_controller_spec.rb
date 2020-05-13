@@ -478,4 +478,38 @@ RSpec.describe ApplicationController do
       end
     end
   end
+
+  describe "#require_ticket" do
+    controller do
+      before_action :require_ticket
+
+      def index
+        head :ok
+      end
+    end
+
+    before do
+      allow(controller).to receive(:current_intake).and_return(intake)
+    end
+
+    context "with an intake that has a zendesk ticket id" do
+      let(:intake) { create :intake, intake_ticket_id: 123876 }
+
+      it "doesn't redirect" do
+        get :index
+
+        expect(response.status).not_to eq(302)
+      end
+    end
+
+    context "with an intake that does not have a zendesk ticket id" do
+      let(:intake) { create :intake, intake_ticket_id: nil }
+
+      it "redirects to the first QuestionNavigation controller" do
+        get :index
+
+        expect(response).to redirect_to(question_path(QuestionNavigation.first))
+      end
+    end
+  end
 end

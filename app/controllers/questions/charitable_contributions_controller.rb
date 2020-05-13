@@ -1,5 +1,5 @@
 module Questions
-  class CharitableContributionsController < QuestionsController
+  class CharitableContributionsController < TicketedQuestionsController
     layout "yes_no_question"
   end
 end

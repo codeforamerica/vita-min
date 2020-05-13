@@ -1,6 +1,6 @@
 module Questions
-  class SuccessfullySubmittedController < QuestionsController
-    skip_before_action :require_intake
+  class SuccessfullySubmittedController < TicketedQuestionsController
+    skip_before_action :require_ticket
     append_after_action :reset_session, :track_page_view
 
     def edit

@@ -1,5 +1,5 @@
 module Questions
-  class MailingAddressController < QuestionsController
+  class MailingAddressController < TicketedQuestionsController
     def tracking_data
       {}
     end

@@ -1,5 +1,5 @@
 module Questions
-  class SocialSecurityIncomeController < QuestionsController
+  class SocialSecurityIncomeController < TicketedQuestionsController
     layout "yes_no_question"
   end
 end

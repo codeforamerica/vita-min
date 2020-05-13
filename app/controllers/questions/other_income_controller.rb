@@ -1,5 +1,5 @@
 module Questions
-  class OtherIncomeController < QuestionsController
+  class OtherIncomeController < TicketedQuestionsController
     layout "yes_no_question"
   end
 end

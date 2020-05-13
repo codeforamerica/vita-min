@@ -1,5 +1,5 @@
 module Questions
-  class PaidAlimonyController < QuestionsController
+  class PaidAlimonyController < TicketedQuestionsController
     layout "yes_no_question"
 
     def self.show?(intake)

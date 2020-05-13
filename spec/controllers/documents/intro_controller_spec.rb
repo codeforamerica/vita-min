@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe Documents::IntroController do
   render_views
-  let(:intake_attributes) { {} }
-  let(:intake) { create :intake, **intake_attributes }
+  let(:attributes) { {} }
+  let(:intake) { create :intake, intake_ticket_id: 1234, **attributes }
 
   before do
     allow(subject).to receive(:current_intake).and_return intake
@@ -11,7 +11,7 @@ RSpec.describe Documents::IntroController do
 
   describe "#edit" do
     context "with a set of answers on an intake" do
-      let(:intake_attributes) { { had_wages: "yes", had_retirement_income: "yes" } }
+      let(:attributes) { { had_wages: "yes", had_retirement_income: "yes" } }
 
       it "shows section headers for the expected document types" do
         get :edit
