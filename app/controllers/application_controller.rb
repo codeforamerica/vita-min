@@ -148,6 +148,9 @@ class ApplicationController < ActionController::Base
     redirect_to_beginning_of_intake unless current_intake.present?
   end
 
+  ##
+  # convenience method for redirection to beginning of
+  # intake process
   def redirect_to_beginning_of_intake
     redirect_to(question_path(QuestionNavigation.first))
   end
