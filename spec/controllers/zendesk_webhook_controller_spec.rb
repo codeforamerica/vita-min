@@ -124,7 +124,6 @@ RSpec.describe ZendeskWebhookController, type: :controller do
         it "sends a mixpanel event with ticket status data and without default user data" do
           mixpanel_spy = spy(MixpanelService)
           allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
-          expect(subject).to receive(:send_mixpanel_event).and_call_original
           post :incoming, params: params
 
           expected_mixpanel_data = {

@@ -43,18 +43,22 @@ class ZendeskWebhookController < ApplicationController
       end
 
       if new_status.present?
-        send_mixpanel_event(
-          event_name: "ticket_status_change",
-          data: new_status.mixpanel_data,
-          user_data: false,
-          intake: intake,
-          unique_id: intake.visitor_id
-        )
+        new_status.send_mixpanel_event(mixpanel_routing_data)
       end
     end
   end
 
   private
+
+  def mixpanel_routing_data
+    {
+      path: request.path,
+      full_path: request.fullpath,
+      controller_name: self.class.name.sub("Controller", ""),
+      controller_action: "#{self.class.name}##{action_name}",
+      controller_action_name: action_name,
+    }
+  end
 
   def intakes_for_ticket
     @intakes_for_ticket ||= Intake.where(intake_ticket_id: json_payload[:ticket_id])
