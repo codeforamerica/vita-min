@@ -28,13 +28,8 @@
         <span>You’re nervous to file completely on your own</span>
       </li>
     </ul>
-    <div class="button--group">
-      <%= link_to :back, class: "button text--centered" do %>
-        Go Back
-      <% end %>
-      <%= link_to next_path, class: "button button--primary text--centered" do %>
-        Continue
-      <% end %>
-    </div>
+    <%= link_to next_path, class: "button button--primary text--centered button--wide spacing-above-25" do %>
+      Continue
+    <% end %>
   </div>
 <% end %>

@@ -17,9 +17,6 @@ RSpec.feature "Web Intake Single Filer" do
 
     # File With Help
     expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
-    click_on "Go Back"
-    expect(current_path).to eq(feelings_questions_path)
-    click_on "Start my taxes online"
     click_on "Continue"
 
     # Ask about backtaxes
