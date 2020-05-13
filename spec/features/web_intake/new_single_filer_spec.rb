@@ -1,11 +1,12 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Single Filer" do
+  let(:ticket_id) { 9876 }
   let!(:vita_partner) { create :vita_partner, display_name: "United Way of Central Ohio", zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO }
 
   before do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
-    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(9876)
+    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(ticket_id)
   end
 
   scenario "new client filing single without dependents" do
@@ -75,6 +76,9 @@ RSpec.feature "Web Intake Single Filer" do
     select "5", from: "Day"
     select "1971", from: "Year"
     click_on "I agree"
+
+    # right about here, our intake gets an intake_ticket_id in a background job
+    allow_any_instance_of(Intake).to receive(:intake_ticket_id).and_return(ticket_id)
 
     # Primary filer personal information
     expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
@@ -335,6 +339,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Submit"
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+    expect(page).to have_text("Your confirmation number is: #{ticket_id}")
 
     # going back to another page after submit redirects to beginning
     visit "/questions/wages"

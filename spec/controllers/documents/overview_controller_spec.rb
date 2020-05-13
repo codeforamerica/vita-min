@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe Documents::OverviewController do
   render_views
-  let(:intake_attributes) { {} }
-  let(:intake) { create :intake, **intake_attributes }
+  let(:attributes) { {} }
+  let(:intake) { create :intake, intake_ticket_id: 1234, **attributes }
 
   before do
     allow(subject).to receive(:current_intake).and_return intake
@@ -30,7 +30,7 @@ RSpec.describe Documents::OverviewController do
     end
 
     context "with documents that have been uploaded" do
-      let(:intake_attributes) { { had_wages: "yes" } }
+      let(:attributes) { { had_wages: "yes" } }
       let(:documents) do
         [
           create(:document, :with_upload, intake: intake, document_type: "W-2"),
@@ -49,7 +49,7 @@ RSpec.describe Documents::OverviewController do
     end
 
     context "with a set of answers on an intake" do
-      let(:intake_attributes) { { had_wages: "yes", had_retirement_income: "yes" } }
+      let(:attributes) { { had_wages: "yes", had_retirement_income: "yes" } }
 
       it "shows section headers for the expected document types" do
         get :edit

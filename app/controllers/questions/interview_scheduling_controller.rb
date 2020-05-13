@@ -1,5 +1,5 @@
 module Questions
-  class InterviewSchedulingController < QuestionsController
+  class InterviewSchedulingController < TicketedQuestionsController
     layout "question"
 
     def tracking_data

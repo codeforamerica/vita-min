@@ -1,5 +1,5 @@
 module Questions
-  class EverMarriedController < QuestionsController
+  class EverMarriedController < TicketedQuestionsController
     layout "yes_no_question"
 
     def illustration_path
