@@ -80,37 +80,13 @@ class ApplicationController < ActionController::Base
     send_mixpanel_event(event_name: "validation_error", data: tracking_data)
   end
 
-  def send_mixpanel_event(event_name:, data: {})
+  def send_mixpanel_event(event_name:, data: {}, intake: current_intake, user_data: true, unique_id: visitor_id)
     return if user_agent.bot?
-    major_browser_version = user_agent.full_version.try { |v| v.partition('.').first }
-    default_data = {
-      source: source,
-      referrer: referrer,
-      utm_state: utm_state,
-      referrer_domain: URI.parse(referrer).host || "None",
-      full_user_agent: request.user_agent,
-      browser_name: user_agent.name,
-      browser_full_version: user_agent.full_version,
-      browser_major_version: major_browser_version,
-      os_name: user_agent.os_name,
-      os_full_version: user_agent.os_full_version,
-      os_major_version: user_agent.os_full_version.try { |v| v.partition('.').first },
-      is_bot: user_agent.bot?,
-      bot_name: user_agent.bot_name,
-      device_brand: user_agent.device_brand,
-      device_name: user_agent.device_name,
-      device_type: user_agent.device_type,
-      device_browser_version: "#{user_agent.os_name} #{user_agent.device_type} #{user_agent.name} #{major_browser_version}",
-      locale: I18n.locale.to_s,
-      path: request.path,
-      full_path: request.fullpath,
-      controller_name: self.class.name.sub("Controller", ""),
-      controller_action: "#{self.class.name}##{action_name}",
-      controller_action_name: action_name,
-    }
-    default_data.merge!(current_intake.mixpanel_data) if current_intake.present?
+    default_data = mixpanel_routing_data
+    default_data.merge!(mixpanel_user_data) if user_data
+    default_data.merge!(intake.mixpanel_data) if intake.present?
     MixpanelService.instance.run(
-      unique_id: visitor_id,
+      unique_id: unique_id,
       event_name: event_name,
       data: default_data.merge(data),
     )
@@ -142,6 +118,43 @@ class ApplicationController < ActionController::Base
   # redirect to the beginning of question navigation
   def require_ticket
     redirect_to_beginning_of_intake unless current_intake&.intake_ticket_id
+  end
+
+  def major_browser_version
+    user_agent.full_version.try { |v| v.partition('.').first }
+  end
+
+  def mixpanel_routing_data
+    {
+      path: request.path,
+      full_path: request.fullpath,
+      controller_name: self.class.name.sub("Controller", ""),
+      controller_action: "#{self.class.name}##{action_name}",
+      controller_action_name: action_name,
+    }
+  end
+
+  def mixpanel_user_data
+    {
+      source: source,
+      referrer: referrer,
+      utm_state: utm_state,
+      referrer_domain: URI.parse(referrer).host || "None",
+      full_user_agent: request.user_agent,
+      browser_name: user_agent.name,
+      browser_full_version: user_agent.full_version,
+      browser_major_version: major_browser_version,
+      os_name: user_agent.os_name,
+      os_full_version: user_agent.os_full_version,
+      os_major_version: user_agent.os_full_version.try { |v| v.partition('.').first },
+      is_bot: user_agent.bot?,
+      bot_name: user_agent.bot_name,
+      device_brand: user_agent.device_brand,
+      device_name: user_agent.device_name,
+      device_type: user_agent.device_type,
+      device_browser_version: "#{user_agent.os_name} #{user_agent.device_type} #{user_agent.name} #{major_browser_version}",
+      locale: I18n.locale.to_s,
+    }
   end
 
   def require_intake

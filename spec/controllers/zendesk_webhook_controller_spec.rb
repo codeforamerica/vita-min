@@ -92,6 +92,7 @@ RSpec.describe ZendeskWebhookController, type: :controller do
 
     before do
       request.env["HTTP_AUTHORIZATION"] = valid_auth_credentials
+      allow(subject).to receive(:send_mixpanel_event)
     end
 
     context "with valid params" do
@@ -119,6 +120,27 @@ RSpec.describe ZendeskWebhookController, type: :controller do
                   .from(0).to(1)
           expect(intake.current_ticket_status.verified_change).to eq(false)
         end
+
+        it "sends a mixpanel event with ticket status data and without default user data" do
+          mixpanel_spy = spy(MixpanelService)
+          allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
+          expect(subject).to receive(:send_mixpanel_event).and_call_original
+          post :incoming, params: params
+
+          expected_mixpanel_data = {
+            path: "/zendesk-webhook/incoming",
+            full_path: "/zendesk-webhook/incoming",
+            controller_name: "ZendeskWebhook",
+            controller_action: "ZendeskWebhookController#incoming",
+            controller_action_name: "incoming",
+          }.merge(intake.mixpanel_data).merge(intake.current_ticket_status.mixpanel_data)
+
+          expect(mixpanel_spy).to have_received(:run).with(
+            unique_id: intake.visitor_id,
+            event_name: "ticket_status_change",
+            data: expected_mixpanel_data
+          )
+        end
       end
 
       context "if a ticket status exists for that intake" do
@@ -134,6 +156,11 @@ RSpec.describe ZendeskWebhookController, type: :controller do
           it "does not create a new ticket status" do
             expect {post :incoming, params: params}
               .not_to change {intake.ticket_statuses.count}
+          end
+
+          it "does not send a mixpanel event" do
+            post :incoming, params: params
+            expect(subject).not_to have_received(:send_mixpanel_event)
           end
         end
 
