@@ -9,7 +9,7 @@ describe ZendeskIntakeService do
   let(:state) { "ne" }
   let(:interview_timing_preference) { "" }
   let(:final_info) { "" }
-  let(:source) { nil }
+  let(:source) { "uw-narnia" }
   let(:intake) do
     create :intake,
            state_of_residence: state,
@@ -180,6 +180,7 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::FILING_YEARS => ["2019", "2017"],
             EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
             EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF",
+            EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
           }
         )
       end
@@ -218,7 +219,8 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::STATE => "az",
             EitcZendeskInstance::FILING_YEARS => ["2019", "2017"],
             EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
-            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF"
+            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF",
+            EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
           }
         )
       end

@@ -121,6 +121,7 @@ class ZendeskIntakeService
         EitcZendeskInstance::FILING_YEARS => @intake.filing_years,
         EitcZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
         EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
+        EitcZendeskInstance::INTAKE_SOURCE => @intake.source,
       }
     else
       {
