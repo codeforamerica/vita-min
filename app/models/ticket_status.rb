@@ -25,4 +25,14 @@ class TicketStatus < ApplicationRecord
   def status_changed?(intake_status:, return_status:)
     self.intake_status != intake_status || self.return_status != return_status
   end
+
+  def mixpanel_data
+    {
+      verified_change: verified_change,
+      ticket_id: ticket_id,
+      intake_status: intake_status,
+      return_status: return_status,
+      created_at: created_at.utc.iso8601,
+    }
+  end
 end
