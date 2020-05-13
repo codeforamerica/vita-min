@@ -1,5 +1,5 @@
 module Questions
-  class WidowedYearController < QuestionsController
+  class WidowedYearController < TicketedQuestionsController
     layout "question"
 
     def self.show?(intake)

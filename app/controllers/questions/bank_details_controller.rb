@@ -1,5 +1,5 @@
 module Questions
-  class BankDetailsController < QuestionsController
+  class BankDetailsController < TicketedQuestionsController
     def illustration_path; end
 
     def tracking_data

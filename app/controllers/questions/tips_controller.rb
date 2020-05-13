@@ -1,5 +1,5 @@
 module Questions
-  class TipsController < QuestionsController
+  class TipsController < TicketedQuestionsController
     layout "yes_no_question"
   end
 end

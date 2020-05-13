@@ -1,5 +1,5 @@
 module Questions
-  class AdditionalInfoController < QuestionsController
+  class AdditionalInfoController < TicketedQuestionsController
     layout "question"
 
     def after_update_success

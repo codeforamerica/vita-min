@@ -1,5 +1,5 @@
 module Questions
-  class WidowedController < QuestionsController
+  class WidowedController < TicketedQuestionsController
     layout "yes_no_question"
 
     def self.show?(intake)

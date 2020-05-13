@@ -1,5 +1,5 @@
 module Questions
-  class JobCountController < QuestionsController
+  class JobCountController < TicketedQuestionsController
     layout "question"
   end
 end

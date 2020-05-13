@@ -2,7 +2,7 @@ module Documents
   class RequestedDocumentsLaterController < DocumentUploadQuestionController
     before_action :handle_session, only: :edit
     before_action :current_intake_or_home, only: :update
-    skip_before_action :require_intake
+    skip_before_action :require_ticket
 
     def self.show?(_)
       false

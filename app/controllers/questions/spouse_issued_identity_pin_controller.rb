@@ -1,5 +1,5 @@
 module Questions
-  class SpouseIssuedIdentityPinController < QuestionsController
+  class SpouseIssuedIdentityPinController < TicketedQuestionsController
     layout "yes_no_question"
 
     def self.show?(intake)

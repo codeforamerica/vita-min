@@ -1,5 +1,5 @@
 module Questions
-  class SelfEmploymentLossController < QuestionsController
+  class SelfEmploymentLossController < TicketedQuestionsController
     layout "yes_no_question"
   end
 end
