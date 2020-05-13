@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_12_205301) do
+ActiveRecord::Schema.define(version: 2020_05_13_160951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,10 +72,19 @@ ActiveRecord::Schema.define(version: 2020_05_12_205301) do
   create_table "documents", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "document_type", null: false
+    t.bigint "documents_request_id"
     t.bigint "intake_id"
     t.datetime "updated_at", null: false
     t.bigint "zendesk_ticket_id"
+    t.index ["documents_request_id"], name: "index_documents_on_documents_request_id"
     t.index ["intake_id"], name: "index_documents_on_intake_id"
+  end
+
+  create_table "documents_requests", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "intake_id"
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
   end
 
   create_table "intake_site_drop_offs", force: :cascade do |t|
@@ -329,6 +338,8 @@ ActiveRecord::Schema.define(version: 2020_05_12_205301) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "documents", "documents_requests"
+  add_foreign_key "documents_requests", "intakes"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "ticket_statuses", "intakes"
