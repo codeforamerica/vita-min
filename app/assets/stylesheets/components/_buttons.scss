@@ -117,5 +117,6 @@
 
 .button--group {
   display: flex;
-  justify-content: space-evenly;
+  max-width: 34.5rem;
+  justify-content: space-between;
 }
