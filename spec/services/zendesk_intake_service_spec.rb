@@ -298,6 +298,11 @@ describe ZendeskIntakeService do
     it "adds all relevant details about the user and intake" do
       expect(service.new_ticket_body).to eq expected_body
     end
+
+    it "adds extra message when client has already filed" do
+      intake.update(already_filed: :yes)
+      expect(service.new_ticket_body).to include("Client has already filed for 2019")
+    end
   end
 
   describe "#new_ticket_subject" do

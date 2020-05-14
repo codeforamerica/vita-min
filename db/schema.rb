@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_160951) do
+ActiveRecord::Schema.define(version: 2020_05_14_185642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_160951) do
   create_table "intakes", force: :cascade do |t|
     t.string "additional_info"
     t.integer "adopted_child", default: 0, null: false
+    t.integer "already_filed", default: 0, null: false
     t.boolean "anonymous", default: false, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
     t.integer "bank_account_type", default: 0, null: false

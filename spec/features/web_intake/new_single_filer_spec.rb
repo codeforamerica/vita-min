@@ -20,6 +20,10 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
     click_on "Continue"
 
+    # Already Filed? Page
+    expect(page).to have_selector("h1", text: "Before we start, have you already filed for 2019?")
+    click_on "Yes"
+
     # Ask about backtaxes
     expect(page).to have_selector("h1", text: "What years do you need to file for?")
     check "2017"
