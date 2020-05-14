@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new", as: :new_user_session
     delete "sign_out", :to => "users/sessions#destroy", as: :destroy_user_session
-    delete "idme_sign_out", :to => "users/sessions#logout_primary_from_idme", as: :destroy_idme_session
   end
 
   mount Cfa::Styleguide::Engine => "/cfa"
@@ -75,10 +74,6 @@ Rails.application.routes.draw do
   get "/500", to: "public_pages#internal_server_error"
   get "/422", to: "public_pages#internal_server_error"
   get "/404", to: "public_pages#page_not_found"
-
-  get "/verify-spouse/not-found", to: "spouse_auth_only#not_found"
-  get "/verify-spouse/done", to: "spouse_auth_only#spouse_auth_complete"
-  get "/verify-spouse/:token", to: "spouse_auth_only#show", as: :verify_spouse
 
   post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
   post "/email", to: "email#create"
