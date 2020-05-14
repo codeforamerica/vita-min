@@ -49,22 +49,4 @@ RSpec.describe TicketStatus, type: :model do
       )).to be false
     end
   end
-
-  describe "#mixpanel_data" do
-    let(:ticket_status) do
-      create(:ticket_status,
-        intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_REVIEW,
-        return_status: EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS)
-    end
-
-    it "returns the expected hash" do
-      expect(ticket_status.mixpanel_data).to eq({
-        verified_change: true,
-        ticket_id: ticket_status.intake.intake_ticket_id,
-        intake_status: "In Review",
-        return_status: "In Progress",
-        created_at: ticket_status.created_at.utc.iso8601
-      })
-    end
-  end
 end

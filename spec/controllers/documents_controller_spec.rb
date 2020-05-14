@@ -42,21 +42,6 @@ RSpec.describe DocumentsController, type: :controller do
           expect(response).to redirect_to(overview_documents_path)
         end
       end
-
-      xcontext "for another user's document" do
-        let(:user) { create :user }
-        let(:params) do
-          { id: document.id }
-        end
-
-        it "does not delete the other document" do
-          expect do
-            delete :destroy, params: params
-          end.not_to change(Document, :count)
-
-          expect(response).to redirect_to(overview_documents_path)
-        end
-      end
     end
   end
 end

@@ -30,7 +30,7 @@ class ZendeskWebhookController < ApplicationController
     intakes_for_ticket.each do |intake|
       current_status = intake.current_ticket_status
 
-      new_status = if current_status.nil?
+      if current_status.nil?
         # new tickets are created with an initial status
         # if this is the first status, we don't know if this status changed
         intake.ticket_statuses.create(
@@ -41,24 +41,10 @@ class ZendeskWebhookController < ApplicationController
       elsif current_status.status_changed?(incoming_ticket_statuses)
         intake.ticket_statuses.create(ticket_id: json_payload[:ticket_id], **incoming_ticket_statuses)
       end
-
-      if new_status&.verified_change?
-        new_status.send_mixpanel_event(mixpanel_routing_data)
-      end
     end
   end
 
   private
-
-  def mixpanel_routing_data
-    {
-      path: request.path,
-      full_path: request.fullpath,
-      controller_name: self.class.name.sub("Controller", ""),
-      controller_action: "#{self.class.name}##{action_name}",
-      controller_action_name: action_name,
-    }
-  end
 
   def intakes_for_ticket
     @intakes_for_ticket ||= Intake.where(intake_ticket_id: json_payload[:ticket_id])
