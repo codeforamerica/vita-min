@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
+#  already_filed                                        :integer          default("unfilled"), not null
 #  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
 #  bank_account_type                                    :integer          default("unfilled"), not null

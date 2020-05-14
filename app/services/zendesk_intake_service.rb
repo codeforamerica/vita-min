@@ -102,7 +102,7 @@ class ZendeskIntakeService
       Email: #{@intake.email_address}
       State of residence: #{@intake.state_of_residence_name}
       Client answered questions for the #{@intake.most_recent_filing_year} tax year.
-
+      #{"Client has already filed for 2019\n" if @intake.already_filed_yes?}
       #{contact_preferences}
       #{new_ticket_body_footer}
     BODY

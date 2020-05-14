@@ -3,6 +3,7 @@ class QuestionNavigation
     # Feelings
     Questions::FeelingsController,
     Questions::FileWithHelpController,
+    Questions::AlreadyFiledController,
     Questions::BacktaxesController,
     Questions::StartWithCurrentYearController,
 
