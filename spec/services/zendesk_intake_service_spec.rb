@@ -163,7 +163,6 @@ describe ZendeskIntakeService do
     context "in a state for the EITC Zendesk instance" do
       let(:state) { "co" }
       let!(:vita_partner) { create :vita_partner, zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_THC }
-      let(:ticket_status) { intake.current_ticket_status }
 
       it "calls create_ticket with the right arguments" do
         result = service.create_intake_ticket
@@ -193,23 +192,12 @@ describe ZendeskIntakeService do
 
       it "creates the initial TicketStatus for the intake" do
         service.create_intake_ticket
+        ticket_status = intake.current_ticket_status
         expect(ticket_status).to be_present
         expect(ticket_status.intake_status).to eq(EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS)
         expect(ticket_status.return_status).to eq(EitcZendeskInstance::RETURN_STATUS_UNSTARTED)
         expect(ticket_status.verified_change).to eq(true)
         expect(ticket_status.ticket_id).to eq(101)
-      end
-
-      it "sends a mixpanel event" do
-        mixpanel_spy = spy(MixpanelService)
-        allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
-        service.create_intake_ticket
-
-        expect(mixpanel_spy).to have_received(:run).with(
-          unique_id: intake.visitor_id,
-          event_name: "ticket_status_change",
-          data: intake.mixpanel_data.merge(ticket_status.mixpanel_data)
-        )
       end
     end
 
@@ -398,7 +386,7 @@ describe ZendeskIntakeService do
 
       expected_comment = <<~COMMENT
         Preliminary 13614-C questions answered.
-
+  
         Primary filer (and spouse, if applicable) consent form attached.
       COMMENT
       expect(result).to eq true
@@ -542,7 +530,7 @@ describe ZendeskIntakeService do
           Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
           Client's provided interview preferences: Monday evenings and Wednesday mornings
-
+          
           Additional information from Client: I want my money
         BODY
         expect(service).to have_received(:append_file_to_ticket).with(

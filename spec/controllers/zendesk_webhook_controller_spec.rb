@@ -119,11 +119,6 @@ RSpec.describe ZendeskWebhookController, type: :controller do
                   .from(0).to(1)
           expect(intake.current_ticket_status.verified_change).to eq(false)
         end
-
-        it "does not send a mixpanel event" do
-          expect(MixpanelService).not_to receive(:instance)
-          post :incoming, params: params
-        end
       end
 
       context "if a ticket status exists for that intake" do
@@ -139,11 +134,6 @@ RSpec.describe ZendeskWebhookController, type: :controller do
           it "does not create a new ticket status" do
             expect {post :incoming, params: params}
               .not_to change {intake.ticket_statuses.count}
-          end
-
-          it "does not send a mixpanel event" do
-            expect(MixpanelService).not_to receive(:instance)
-            post :incoming, params: params
           end
         end
 
@@ -168,26 +158,6 @@ RSpec.describe ZendeskWebhookController, type: :controller do
             expect(new_ticket_status.intake_status).to eq EitcZendeskInstance::INTAKE_STATUS_READY_FOR_INTAKE_INTERVIEW
             expect(new_ticket_status.ticket_id).to eq(9778)
             expect(new_ticket_status.verified_change).to eq(true)
-          end
-
-          it "sends a mixpanel event with intake and ticket status data" do
-            mixpanel_spy = spy(MixpanelService)
-            allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
-            post :incoming, params: params
-
-            expected_mixpanel_data = {
-              path: "/zendesk-webhook/incoming",
-              full_path: "/zendesk-webhook/incoming",
-              controller_name: "ZendeskWebhook",
-              controller_action: "ZendeskWebhookController#incoming",
-              controller_action_name: "incoming",
-            }.merge(intake.mixpanel_data).merge(intake.current_ticket_status.mixpanel_data)
-
-            expect(mixpanel_spy).to have_received(:run).with(
-              unique_id: intake.visitor_id,
-              event_name: "ticket_status_change",
-              data: expected_mixpanel_data
-            )
           end
         end
       end

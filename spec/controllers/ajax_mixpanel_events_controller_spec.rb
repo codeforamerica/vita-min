@@ -10,7 +10,6 @@ RSpec.describe AjaxMixpanelEventsController, type: :controller do
         full_path: "/page?key=value",
         controller_action: "Questions::TestQuestionController#edit",
         data: {
-          link_text: "Sign in with ID.me",
         }
       }
     end
@@ -26,7 +25,6 @@ RSpec.describe AjaxMixpanelEventsController, type: :controller do
           controller_action: "Questions::TestQuestionController#edit",
           controller_action_name: "edit",
           controller_name: "Questions::TestQuestion",
-          "link_text" => "Sign in with ID.me",
         }
       )
     end
