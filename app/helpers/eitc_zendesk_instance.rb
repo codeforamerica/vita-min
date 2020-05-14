@@ -115,7 +115,7 @@ class EitcZendeskInstance
   RETURN_STATUS_IN_PROGRESS = "1._in_progress"
   RETURN_STATUS_READY_FOR_QUALITY_REVIEW = "2._ready_for_quality_review"
   RETURN_STATUS_READY_FOR_SIGNATURE_ESIGN = "3a._ready_for_signature__e-sign"
-  RETURN_STATUS_READY_FOR_SIGNATURE_PICKUP	= "3b._ready_for_signature__pick-up"
+  RETURN_STATUS_READY_FOR_SIGNATURE_PICKUP = "3b._ready_for_signature__pick-up"
   RETURN_STATUS_READY_FOR_EFILE = "4._ready_for_e-file"
   RETURN_STATUS_COMPLETED_RETURNS = "5._completed_returns"
   RETURN_STATUS_DO_NOT_FILE = "6._do_not_file"
