@@ -3,6 +3,10 @@
     text-decoration: none;
   }
 
+  a:focus {
+    box-shadow: none;
+  }
+
   .link-box {
     border: 0.1rem solid #A0A0A0;
     border-radius: 1rem;
