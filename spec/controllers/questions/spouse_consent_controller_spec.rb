@@ -50,18 +50,6 @@ RSpec.describe Questions::SpouseConsentController do
         intake.reload
         expect(intake.spouse_consented_to_service_ip).to eq ip_address
       end
-
-      context "with a spouse who uses the authenticate later link" do
-        before do
-          session[:authenticate_spouse_only] = true
-        end
-
-        it "enqueues a job to update the zendesk ticket", active_job: true do
-          post :update, params: params
-
-          expect(SendSpouseAuthDocsToZendeskJob).to have_been_enqueued
-        end
-      end
     end
 
     context "with invalid params" do
