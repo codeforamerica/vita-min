@@ -42,7 +42,7 @@ class ZendeskWebhookController < ApplicationController
         intake.ticket_statuses.create(ticket_id: json_payload[:ticket_id], **incoming_ticket_statuses)
       end
 
-      if new_status.present?
+      if new_status&.verified_change?
         new_status.send_mixpanel_event(mixpanel_routing_data)
       end
     end
