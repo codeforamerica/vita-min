@@ -119,11 +119,11 @@ RSpec.describe ZendeskWebhookController, type: :controller do
                   .from(0).to(1)
           expect(intake.current_ticket_status.verified_change).to eq(false)
         end
-      end
 
-      it "does not send a mixpanel event" do
-        expect(MixpanelService).not_to receive(:instance)
-        post :incoming, params: params
+        it "does not send a mixpanel event" do
+          expect(MixpanelService).not_to receive(:instance)
+          post :incoming, params: params
+        end
       end
 
       context "if a ticket status exists for that intake" do

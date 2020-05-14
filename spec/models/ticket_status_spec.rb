@@ -48,6 +48,7 @@ RSpec.describe TicketStatus, type: :model do
         return_status: EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS
       )).to be false
     end
+  end
 
   describe "#mixpanel_data" do
     let(:ticket_status) do
@@ -65,6 +66,5 @@ RSpec.describe TicketStatus, type: :model do
         created_at: ticket_status.created_at.utc.iso8601
       })
     end
-  end
   end
 end
