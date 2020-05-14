@@ -290,15 +290,6 @@ describe Intake do
       end
     end
 
-    context "with a couple filing jointly" do
-      let!(:primary) { create :user, intake: intake }
-      let!(:spouse) { create :spouse_user, intake: intake }
-
-      it "returns the first non-spouse user" do
-        expect(intake.primary_user).to eq primary
-      end
-    end
-
     context "with one user" do
       let!(:primary) { create :user, intake: intake }
 
