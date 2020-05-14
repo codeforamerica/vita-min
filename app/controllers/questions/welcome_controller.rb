@@ -1,10 +1,7 @@
 module Questions
   class WelcomeController < QuestionsController
+    skip_before_action :require_intake
     layout "application"
-
-    def current_intake
-      super || Intake.new
-    end
 
     def edit; end
 

@@ -19,7 +19,6 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "File taxes with help"
 
     # File With Help
-    expect(current_path).to eq file_with_help_questions_path
     expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
     click_on "Continue"
 
@@ -354,7 +353,7 @@ RSpec.feature "Web Intake Single Filer" do
 
     # going back to another page after submit redirects to beginning
     visit "/questions/wages"
-    expect(page).to have_selector("h1", text: "How are you feeling about your taxes?")
+    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
   end
 
   scenario "new client already filed and looking for stimulus is directed to FAQ" do
