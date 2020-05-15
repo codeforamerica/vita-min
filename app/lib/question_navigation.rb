@@ -2,8 +2,11 @@ class QuestionNavigation
   FLOW = [
     # Feelings
     Questions::FeelingsController,
+
+    #Triage
     Questions::FileWithHelpController,
     Questions::AlreadyFiledController,
+    Questions::FilingForStimulusController,
     Questions::BacktaxesController,
     Questions::StartWithCurrentYearController,
 
