@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_14_185642) do
+ActiveRecord::Schema.define(version: 2020_05_14_214915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_185642) do
     t.string "encrypted_spouse_last_four_ssn_iv"
     t.integer "ever_married", default: 0, null: false
     t.integer "feeling_about_taxes", default: 0, null: false
+    t.integer "filing_for_stimulus", default: 0, null: false
     t.integer "filing_joint", default: 0, null: false
     t.string "final_info"
     t.integer "had_asset_sale_income", default: 0, null: false

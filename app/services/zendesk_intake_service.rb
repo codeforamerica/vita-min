@@ -164,7 +164,7 @@ class ZendeskIntakeService
       Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
       Client's provided interview preferences: #{@intake.interview_timing_preference}
-
+      #{"Client is filing for Economic Impact Payment support" if @intake.filing_for_stimulus_yes?}
       Additional information from Client: #{@intake.final_info}
     BODY
 

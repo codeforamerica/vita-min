@@ -48,6 +48,7 @@
 #  encrypted_spouse_last_four_ssn_iv                    :string
 #  ever_married                                         :integer          default("unfilled"), not null
 #  feeling_about_taxes                                  :integer          default("unfilled"), not null
+#  filing_for_stimulus                                  :integer          default(0), not null
 #  filing_joint                                         :integer          default("unfilled"), not null
 #  final_info                                           :string
 #  had_asset_sale_income                                :integer          default("unfilled"), not null
@@ -193,6 +194,7 @@ class Intake < ApplicationRecord
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum ever_married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ever_married
   enum feeling_about_taxes: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :feeling_about_taxes
+  enum filing_for_stimulus: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filing_for_stimulus
   enum filing_joint: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filing_joint
   enum had_asset_sale_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_asset_sale_income
   enum had_debt_forgiven: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_debt_forgiven
