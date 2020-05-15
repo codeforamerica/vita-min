@@ -27,6 +27,7 @@ class EitcZendeskInstance
     ONLINE_INTAKE_TH_NM = "360009807434", # Tax Help New Mexico
     ONLINE_INTAKE_UW_CRPA = "360009994193", # United Way Capital Region (PA)
     ONLINE_INTAKE_UW_GREENVILLE = "360010052433", # United Way of Greenville County
+    ONLINE_INTAKE_UW_NEWARK = "360010163193", # United Way of Greater Newark
   ].freeze
 
   GROUP_ID_TO_STATE_LIST_MAPPING = {
@@ -64,6 +65,7 @@ class EitcZendeskInstance
     uwgc: ONLINE_INTAKE_UW_GREENVILLE,
     catalyst: ONLINE_INTAKE_CATALYST,
     "refundday-c" => ONLINE_INTAKE_CATALYST,
+    uwgn: ONLINE_INTAKE_UW_NEWARK,
   }.freeze
 
 
