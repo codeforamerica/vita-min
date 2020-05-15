@@ -1,0 +1,27 @@
+<% @main_heading = "Get your stimulus check!" %>
+<% content_for :page_title, @main_heading %>
+
+<main role="main">
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="question__illustration spacing-above-0">
+            <%= image_tag("questions/filing-for-stimulus.svg", alt: "") %>
+          </div>
+
+          <h1 class="form-question">
+            <%= @main_heading %>
+          </h1>
+          <p>
+            Since you’ve already filed for 2019, we recommend checking out our Stimulus FAQ page.
+          <p>
+
+          <%= link_to stimulus_path, class: "button button--primary text--centered button--wide spacing-above-60" do %>
+            Visit Stimulus FAQ
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+</main>

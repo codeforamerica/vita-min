@@ -139,8 +139,8 @@ class ZendeskIntakeService
   def send_preliminary_intake_and_consent_pdfs
     comment_body = <<~BODY
       Preliminary 13614-C questions answered.
-
-      Primary filer (and spouse, if applicable) consent form attached.
+      
+      Primary filer (and spouse, if applicable) consent form attached.#{"\nClient is filing for Economic Impact Payment support" if @intake.filing_for_stimulus_yes?}
     BODY
 
     # if there's no intake_ticket_id, this shouldn't be performed,

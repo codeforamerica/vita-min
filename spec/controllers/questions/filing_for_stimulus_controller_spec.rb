@@ -34,14 +34,5 @@ RSpec.describe Questions::FilingForStimulusController do
       end
     end
   end
-
-  describe "#send_mixpanel_event" do
-    it "sends an event with unique name" do
-      expect(subject).to receive(:send_mixpanel_event)
-        .with(event_name: "filing_for_stimulus_answered", data: { filing_for_stimulus: "no"})
-      post :update, params: { filing_for_stimulus_form: { filing_for_stimulus: "no" } }
-    end
-
-  end
 end
 
