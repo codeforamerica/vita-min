@@ -410,6 +410,13 @@ describe ZendeskIntakeService do
       )
     end
 
+    it "adds extra comment when client filing for economic impact payment support" do
+      intake.update(filing_for_stimulus: :yes)
+      service.send_preliminary_intake_and_consent_pdfs
+      expect(service).to have_received(:append_multiple_files_to_ticket)
+        .with(hash_including(comment: /Client is filing for Economic Impact Payment support/))
+    end
+
     context "for UWTSA instance" do
       it "appends the intake pdf to the ticket" do
         intake.zendesk_instance_domain = UwtsaZendeskInstance::DOMAIN

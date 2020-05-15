@@ -9,10 +9,5 @@ module Questions
         super
       end
     end
-
-    def track_question_answer
-      send_mixpanel_event(event_name: "filing_for_stimulus_answered", data: tracking_data)
-    end
-
   end
 end
