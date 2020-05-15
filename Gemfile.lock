@@ -533,6 +533,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   strip_attributes
+  thor
   tzinfo-data
   uglifier (>= 1.3.0)
   valid_email2
