@@ -357,11 +357,9 @@ RSpec.feature "Web Intake Single Filer" do
   end
 
   scenario "new client already filed and looking for stimulus is directed to FAQ" do
-    # Feelings
-    visit "/questions/feelings"
-    expect(page).to have_selector("h1", text: "How are you feeling about your taxes?")
-    choose "Sad face"
-    click_on "Start my taxes online"
+    visit "/questions/welcome"
+    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
+    click_on "File taxes with help"
 
     # File With Help
     expect(page).to have_selector("h1", text: "File with the help of a tax expert!")

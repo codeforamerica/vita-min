@@ -4,9 +4,10 @@ RSpec.describe Questions::BacktaxesController do
   render_views
 
   describe "#update" do
+    let(:intake) { create :intake }
+
     before do
-      session[:source] = "source_from_session"
-      session[:referrer] = "referrer_from_session"
+      allow(subject).to receive(:current_intake).and_return(intake)
     end
 
     context "with valid params" do
@@ -21,19 +22,13 @@ RSpec.describe Questions::BacktaxesController do
         }
       end
 
-      it "creates new intake with the backtaxes answers" do
-        expect {
-          post :update, params: params
-        }.to change(Intake, :count).by(1)
+      it "updates intake backtaxes answers" do
+        post :update, params: params
 
-        intake = Intake.last
-        expect(intake.source).to eq "source_from_session"
-        expect(intake.referrer).to eq "referrer_from_session"
         expect(intake.needs_help_2016).to eq "no"
         expect(intake.needs_help_2017).to eq "yes"
         expect(intake.needs_help_2018).to eq "yes"
         expect(intake.needs_help_2019).to eq "yes"
-        expect(session[:intake_id]).to eq intake.id
       end
     end
 
