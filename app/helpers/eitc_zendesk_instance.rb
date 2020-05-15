@@ -28,6 +28,7 @@ class EitcZendeskInstance
     ONLINE_INTAKE_UW_CRPA = "360009994193", # United Way Capital Region (PA)
     ONLINE_INTAKE_UW_GREENVILLE = "360010052433", # United Way of Greenville County
     ONLINE_INTAKE_UW_NEWARK = "360010163193", # United Way of Greater Newark
+    ONLINE_INTAKE_URBAN_UPBOUND = "360010243314", # Urban Upbound (NY)
   ].freeze
 
   GROUP_ID_TO_STATE_LIST_MAPPING = {
@@ -66,6 +67,7 @@ class EitcZendeskInstance
     catalyst: ONLINE_INTAKE_CATALYST,
     "refundday-c" => ONLINE_INTAKE_CATALYST,
     uwgn: ONLINE_INTAKE_UW_NEWARK,
+    uuny: ONLINE_INTAKE_URBAN_UPBOUND,
   }.freeze
 
 
