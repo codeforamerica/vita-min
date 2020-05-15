@@ -24,4 +24,6 @@ class PublicPagesController < ApplicationController
   def page_not_found; end
 
   def tax_questions; end
+
+  def stimulus_recommendation; end
 end

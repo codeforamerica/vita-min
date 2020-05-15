@@ -2,13 +2,22 @@ require "rails_helper"
 
 RSpec.feature "client is not eligible for VITA services" do
   scenario "client checks one of the boxes on the eligibility page" do
-    visit "/questions/feelings"
-    expect(page).to have_selector("h1", text: "How are you feeling about your taxes?")
-    choose "Happy face"
-    click_on "Start my taxes online"
+    visit "/"
+    find("#firstCta").click
+
+    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
+    click_on "File taxes with help"
 
     expect(current_path).to eq(file_with_help_questions_path)
     click_on "Continue"
+
+    # Already Filed? Page
+    expect(current_path).to eq(already_filed_questions_path)
+    click_on "Yes"
+
+    # Filing For Stimulus
+    expect(page).to have_selector("h1", text: "Are you trying to file for your stimulus?")
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "What years do you need to file for?")
     check "2017"

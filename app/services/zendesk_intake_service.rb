@@ -102,7 +102,7 @@ class ZendeskIntakeService
       Email: #{@intake.email_address}
       State of residence: #{@intake.state_of_residence_name}
       Client answered questions for the #{@intake.most_recent_filing_year} tax year.
-
+      #{"Client has already filed for 2019\n" if @intake.already_filed_yes?}
       #{contact_preferences}
       #{new_ticket_body_footer}
     BODY
@@ -139,8 +139,8 @@ class ZendeskIntakeService
   def send_preliminary_intake_and_consent_pdfs
     comment_body = <<~BODY
       Preliminary 13614-C questions answered.
-
-      Primary filer (and spouse, if applicable) consent form attached.
+      
+      Primary filer (and spouse, if applicable) consent form attached.#{"\nClient is filing for Economic Impact Payment support" if @intake.filing_for_stimulus_yes?}
     BODY
 
     # if there's no intake_ticket_id, this shouldn't be performed,
@@ -164,7 +164,7 @@ class ZendeskIntakeService
       Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
       Client's provided interview preferences: #{@intake.interview_timing_preference}
-
+      #{"Client is filing for Economic Impact Payment support" if @intake.filing_for_stimulus_yes?}
       Additional information from Client: #{@intake.final_info}
     BODY
 

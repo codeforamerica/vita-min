@@ -298,6 +298,11 @@ describe ZendeskIntakeService do
     it "adds all relevant details about the user and intake" do
       expect(service.new_ticket_body).to eq expected_body
     end
+
+    it "adds extra message when client has already filed" do
+      intake.update(already_filed: :yes)
+      expect(service.new_ticket_body).to include("Client has already filed for 2019")
+    end
   end
 
   describe "#new_ticket_subject" do
@@ -403,6 +408,13 @@ describe ZendeskIntakeService do
           EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF",
         }
       )
+    end
+
+    it "adds extra comment when client filing for economic impact payment support" do
+      intake.update(filing_for_stimulus: :yes)
+      service.send_preliminary_intake_and_consent_pdfs
+      expect(service).to have_received(:append_multiple_files_to_ticket)
+        .with(hash_including(comment: /Client is filing for Economic Impact Payment support/))
     end
 
     context "for UWTSA instance" do
@@ -519,6 +531,13 @@ describe ZendeskIntakeService do
           EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF",
         }
       )
+    end
+
+    it "adds extra comment when client filing for economic impact payment support" do
+      intake.update(filing_for_stimulus: :yes)
+      service.send_final_intake_pdf
+      expect(service).to have_received(:append_file_to_ticket)
+        .with(hash_including(comment: /Client is filing for Economic Impact Payment support/))
     end
 
     context "with UWTSA ZD instance" do

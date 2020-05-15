@@ -16,7 +16,7 @@ RSpec.describe Questions::JobCountController do
       it "redirects to the start of the questions flow" do
         get :edit
 
-        expect(response).to redirect_to(feelings_questions_path)
+        expect(response).to redirect_to(welcome_questions_path)
       end
     end
   end

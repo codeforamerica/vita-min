@@ -14,15 +14,25 @@ RSpec.feature "Web Intake Joint Filers" do
   end
 
   scenario "new client filing joint taxes with spouse and dependents", :js do
-    # Feelings
-    visit "/questions/feelings"
-    expect(page).to have_selector("h1", text: "How are you feeling about your taxes?")
-    choose "Happy face"
-    click_on "Start my taxes online"
+    # Home
+    visit "/"
+    find("#firstCta").click
+
+    # Welcome
+    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
+    click_on "File taxes with help"
 
     # File With Help
     expect(current_path).to eq(file_with_help_questions_path)
     click_on "Continue"
+
+    # Already Filed? Page
+    expect(page).to have_selector("h1", text: "Before we start, have you already filed for 2019?")
+    click_on "Yes"
+
+    # Filing For Stimulus
+    expect(page).to have_selector("h1", text: "Are you trying to file for your stimulus?")
+    click_on "No"
 
     # Ask about backtaxes
     expect(page).to have_selector("h1", text: "What years do you need to file for?")

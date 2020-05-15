@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
+#  already_filed                                        :integer          default("unfilled"), not null
 #  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
 #  bank_account_type                                    :integer          default("unfilled"), not null
@@ -47,6 +48,7 @@
 #  encrypted_spouse_last_four_ssn_iv                    :string
 #  ever_married                                         :integer          default("unfilled"), not null
 #  feeling_about_taxes                                  :integer          default("unfilled"), not null
+#  filing_for_stimulus                                  :integer          default("unfilled"), not null
 #  filing_joint                                         :integer          default("unfilled"), not null
 #  final_info                                           :string
 #  had_asset_sale_income                                :integer          default("unfilled"), not null
