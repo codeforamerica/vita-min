@@ -34,7 +34,7 @@
           <div>
             <h2 class="provider-field__label h3">Address</h2>
             <div class="provider-field__value">
-              <%= link_to vita_provider_map_path(id: @provider.id), title: "Google Maps link for #{@provider.name}", target: "_blank" do %>
+              <%= link_to vita_provider_map_path(id: @provider.id), title: "Google Maps link for #{@provider.name}", target: "_blank", rel: "noopener" do %>
                 <div><%= @provider.street_address %></div>
                 <div><%= @provider.unit %></div>
                 <div><%= @provider.city_state_zip %></div>

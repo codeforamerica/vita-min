@@ -1,5 +1,5 @@
 <% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} have a loss related to a declared Federal Disaster Area?" %>
 
-<% content_for :form_help_text, "If you experienced a disaster in your area, and you are unsure if it was declared a Federal Disaster Area, you can use <a href=\"https://www.fema.gov/disasters/year/#{current_intake.most_recent_filing_year}?field_dv2_declaration_type_value=All\" target=\"_blank\">this FEMA tool</a> to check.".html_safe %>
+<% content_for :form_help_text, "If you experienced a disaster in your area, and you are unsure if it was declared a Federal Disaster Area, you can use <a href=\"https://www.fema.gov/disasters/year/#{current_intake.most_recent_filing_year}?field_dv2_declaration_type_value=All\" target=\"_blank\" rel=\"noopener\">this FEMA tool</a> to check.".html_safe %>
 
 <% content_for :method_name, :had_disaster_loss %>
