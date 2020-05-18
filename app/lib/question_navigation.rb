@@ -5,6 +5,7 @@ class QuestionNavigation
     Questions::FileWithHelpController,
     Questions::AlreadyFiledController,
     Questions::FilingForStimulusController,
+    Questions::StimulusRecommendationController, #possible off-boarding from flow
     Questions::BacktaxesController,
     Questions::StartWithCurrentYearController,
 
