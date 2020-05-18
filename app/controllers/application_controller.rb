@@ -15,12 +15,12 @@ class ApplicationController < ActionController::Base
 
   def set_visitor_id
     if current_intake&.visitor_id.present?
-      cookies.permanent[:visitor_id] = current_intake.visitor_id
+      cookies.permanent[:visitor_id] = { value: current_intake.visitor_id, httponly: true }
     elsif cookies[:visitor_id].present?
       visitor_id = cookies[:visitor_id]
     else
       visitor_id = SecureRandom.hex(26)
-      cookies.permanent[:visitor_id] = visitor_id
+      cookies.permanent[:visitor_id] =  { value: visitor_id, httponly: true }
     end
     if current_intake.present? && current_intake.persisted? && current_intake.visitor_id.blank?
       current_intake.update(visitor_id: visitor_id)

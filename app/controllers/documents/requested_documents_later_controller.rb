@@ -1,8 +1,40 @@
 module Documents
   class RequestedDocumentsLaterController < DocumentUploadQuestionController
     before_action :handle_session, only: :edit
-    before_action :current_intake_or_home, only: :update
+    before_action :current_session_or_home, only: [:update, :destroy]
     skip_before_action :require_ticket
+
+    def documents_request
+      DocumentsRequest.find(session[:documents_request_id])
+    end
+
+    def edit
+      @documents = documents_request.documents
+      @form = form_class.new(documents_request, form_params)
+    end
+
+    def update
+      @form = form_class.new(documents_request, form_params)
+      if @form.valid?
+        @form.save
+        after_update_success
+        track_document_upload
+      end
+
+      redirect_to action: :edit
+    end
+
+    def destroy
+      document = documents_request.documents.find_by(id: params[:id])
+
+      if document.present?
+        document.destroy
+
+        redirect_to action: :edit
+      else
+        redirect_to root_path
+      end
+    end
 
     def self.show?(_)
       false
@@ -16,43 +48,48 @@ module Documents
       render layout: "application"
     end
 
+    private
+
+    def destroy_document_path(document)
+      documents_remove_requested_document_path(document)
+    end
+
     def self.document_type
       "Requested Later"
     end
 
-    private
+    def form_name
+      "requested_document_upload_form"
+    end
 
-    def current_intake_or_home
-      if session[:intake_id].nil?
+    def form_class
+      RequestedDocumentUploadForm
+    end
+
+    def current_session_or_home
+      if session[:documents_request_id].nil?
         redirect_to root_path
       end
     end
 
     def handle_session
-      check_token_and_create_anonymous_session unless session_in_progress?
+      return if session[:documents_request_id].present?
+
+      validate_token_and_create_session
     end
 
-    def check_token_and_create_anonymous_session
-      original_intake = Intake.find_for_requested_docs_token(params[:token])
-      if original_intake.present?
-        create_anonymous_intake_session(original_intake)
+    def create_new_documents_request_session(intake)
+      docs_request = DocumentsRequest.create(intake: intake)
+      session[:documents_request_id] = docs_request.id
+    end
+
+    def validate_token_and_create_session
+      intake = Intake.find_for_requested_docs_token(params[:token])
+      if intake.present?
+        create_new_documents_request_session(intake)
       else
         redirect_to documents_requested_docs_not_found_path
       end
-    end
-
-    def create_anonymous_intake_session(original_intake)
-      anonymous_intake = Intake.create_anonymous_intake(original_intake)
-      session[:intake_id] = anonymous_intake.id
-      session[:anonymous_session] = true
-    end
-
-    def anonymous_session_in_progress?
-      session[:anonymous_session] && session[:intake_id].present?
-    end
-
-    def session_in_progress?
-      current_user.present? || anonymous_session_in_progress?
     end
   end
 end

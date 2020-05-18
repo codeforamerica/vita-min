@@ -3,13 +3,13 @@ require "rails_helper"
 RSpec.describe Questions::BacktaxesController do
   render_views
 
-  let(:intake) { create :intake }
-
-  before do
-    allow(subject).to receive(:current_intake).and_return(intake)
-  end
-
   describe "#update" do
+    let(:intake) { create :intake }
+
+    before do
+      allow(subject).to receive(:current_intake).and_return(intake)
+    end
+
     context "with valid params" do
       let(:params) do
         {
@@ -22,7 +22,7 @@ RSpec.describe Questions::BacktaxesController do
         }
       end
 
-      it "updates the intake" do
+      it "updates intake backtaxes answers" do
         post :update, params: params
 
         expect(intake.needs_help_2016).to eq "no"

@@ -4,6 +4,7 @@ module Documents
 
     delegate :document_type, to: :class
     helper_method :document_type
+    helper_method :destroy_document_path
 
     def edit
       return if self.class.document_type.nil?
@@ -26,6 +27,10 @@ module Documents
     end
 
     private
+
+    def destroy_document_path(document)
+      document_path(document)
+    end
 
     def form_name
       "document_type_upload_form"

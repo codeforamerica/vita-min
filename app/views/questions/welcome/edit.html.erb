@@ -1,0 +1,45 @@
+<% content_for :page_title, "Welcome! How can we help you?" %>
+
+<% content_for :main do %>
+  <section class="slab slab--white welcome">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <h1 class="form-question">
+            <%= content_for(:page_title) %>
+          </h1>
+
+          <%= link_to file_with_help_questions_path do %>
+            <div class="link-box">
+              <div class="link-box--content">
+                <div>
+                  <%= image_tag("headset.svg", alt: "") %>
+                </div>
+                <div>
+                  <h2 class="file-with-help">File taxes with help</h2>
+                  <p>Review and file with the help of a tax expert.</p>
+                </div>
+              </div>
+              <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
+            </div>
+          <% end %>
+
+          <%= link_to tax_questions_path do %>
+            <div class="link-box">
+              <div class="link-box--content">
+                <div>
+                  <%= image_tag("chat-question.svg", alt: "") %>
+                </div>
+                <div>
+                  <h2 class="ask-a-question">Ask a question</h2>
+                  <p>Get your tax related questions answered.</p>
+                </div>
+              </div>
+              <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
+            </div>
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

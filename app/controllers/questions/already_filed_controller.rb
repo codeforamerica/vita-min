@@ -1,6 +1,7 @@
 module Questions
-  class FeelingsController < QuestionsController
-    layout "question"
+  class AlreadyFiledController < QuestionsController
+    skip_before_action :require_intake
+    layout "yes_no_question"
 
     def current_intake
       super || Intake.new
@@ -12,13 +13,15 @@ module Questions
       session[:intake_id] = @form.intake.id
     end
 
-    def illustration_path; end
-
     def form_params
       super.merge(
         source: current_intake.source || source,
         referrer: current_intake.referrer || referrer,
-      )
+        )
+    end
+
+    def illustration_path
+      "backtaxes.svg"
     end
   end
 end

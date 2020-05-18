@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     end
   end
   namespace :documents do
+    delete "/requested-documents-later/remove", to: "requested_documents_later#destroy", as: :remove_requested_document
     get "/requested-documents-later/not-found", to: "requested_documents_later#not_found", as: :requested_docs_not_found
     get "/add/success", to: "send_requested_documents_later#success", as: :requested_documents_success
     get "/add/:token", to: "requested_documents_later#edit", as: :add_requested_documents
@@ -57,6 +58,7 @@ Rails.application.routes.draw do
   post "/:organization/drop-offs", to: "intake_site_drop_offs#create", as: :create_drop_off
   get "/:organization/drop-off/:id", to: "intake_site_drop_offs#show", as: :show_drop_off
 
+  get "/stimulus-recommendation", to: "public_pages#stimulus_recommendation"
   get "/identity-needed", to: "offboarding#identity_needed"
   get "/other-options", to: "public_pages#other_options"
   get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
