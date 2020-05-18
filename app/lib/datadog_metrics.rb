@@ -3,7 +3,7 @@ require 'datadog/statsd'
 module DatadogMetrics
 
   class Configuration
-    attr_accessor :enabled, :host, :port, :namespace
+    attr_accessor :enabled, :host, :port, :env, :namespace
   end
 
   class << self
@@ -19,7 +19,7 @@ module DatadogMetrics
   end
 
   def self.statsd
-    @statsd ||= Datadog::Statsd.new(configuration.host, configuration.port, logger: Rails.logger, namespace: configuration.namespace)
+    @statsd ||= Datadog::Statsd.new(configuration.host, configuration.port, tags: {:env => configuration.env}, logger: Rails.logger, namespace: configuration.namespace)
   end
 
   def self.statsd_gauge(label, value)
