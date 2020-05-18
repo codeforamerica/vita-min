@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     delete "idme_sign_out", :to => "users/sessions#logout_primary_from_idme", as: :destroy_idme_session
   end
 
+
   mount Cfa::Styleguide::Engine => "/cfa"
 
   resources :vita_providers, only: [:index, :show]
@@ -79,4 +80,7 @@ Rails.application.routes.draw do
 
   post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
   post "/email", to: "email#create"
+
+  get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
+  get "/zendesk/ticket/:ticket_id", to: "zendesk#ticket", as: :zendesk_ticket
 end

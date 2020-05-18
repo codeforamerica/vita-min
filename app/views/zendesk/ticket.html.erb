@@ -1,0 +1,41 @@
+<% @main_heading = "Zendesk Ticket ##{@zendesk_ticket_id}" %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :main do %>
+  <section class="slab slab--white steps--wrapper">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="form-card">
+            <h1 class="form-question">
+              <%= @main_heading %>
+            </h1>
+
+            <p>
+              Signed in as: <%= "#{@user.name} <#{@user.email}>" %>
+            </p>
+
+            <h2>
+              <%= @ticket.subject %> (<%= @ticket.external_id %>)
+            </h2>
+            <pre><%= @ticket.description %></pre>
+            <h2>Matching records:</h2>
+            <% if @intakes.present? %>
+              <ul>
+              <% @intakes.each do |intake| %>
+                <li>
+                  <%= intake.preferred_name %> <<%= intake.email_address %>>
+                </li>
+              <% end %>
+              </ul>
+            <% else %>
+              None
+            <% end %>
+
+
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

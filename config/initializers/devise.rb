@@ -257,12 +257,19 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth(
-    :id_me,
-    EnvironmentCredentials.dig(:idme, :client_id),
-    EnvironmentCredentials.dig(:idme, :client_secret),
-    scope: Rails.env.production? ? "identity" : "ial2"
-  )
+  #config.omniauth(
+  #  :id_me,
+  #  EnvironmentCredentials.dig(:idme, :client_id),
+  #  EnvironmentCredentials.dig(:idme, :client_secret),
+  #  scope: Rails.env.production? ? "identity" : "ial2"
+  #)
+  #
+  #config.omniauth(
+  #  :zendesk,
+  #  EnvironmentCredentials.dig(:zendesk_oauth, :client_id),
+  #  EnvironmentCredentials.dig(:zendesk_oauth, :client_secret),
+  #  scope: "read"
+  #)
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

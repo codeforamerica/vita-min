@@ -165,7 +165,7 @@
 
 class Intake < ApplicationRecord
   # TODO: remove users association
-  has_many :users # order doesn't really matter at the moment
+  has_many :users, foreign_key: "intake_id", class_name: "IdmeUser"
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
   has_many :ticket_statuses, -> { order(created_at: :asc) }

@@ -2,132 +2,46 @@
 #
 # Table name: users
 #
-#  id                        :bigint           not null, primary key
-#  birth_date                :string
-#  city                      :string
-#  consented_to_service      :integer          default("unfilled"), not null
-#  consented_to_service_at   :datetime
-#  consented_to_service_ip   :string
-#  current_sign_in_at        :datetime
-#  current_sign_in_ip        :inet
-#  email                     :string
-#  email_notification_opt_in :integer          default("unfilled"), not null
-#  encrypted_ssn             :string
-#  encrypted_ssn_iv          :string
-#  first_name                :string
-#  is_spouse                 :boolean          default(FALSE)
-#  last_name                 :string
-#  last_sign_in_at           :datetime
-#  last_sign_in_ip           :inet
-#  phone_number              :string
-#  provider                  :string
-#  sign_in_count             :integer          default(0), not null
-#  sms_notification_opt_in   :integer          default("unfilled"), not null
-#  state                     :string
-#  street_address            :string
-#  uid                       :string
-#  zip_code                  :string
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  intake_id                 :bigint           not null
+#  id                      :bigint           not null, primary key
+#  active                  :boolean
+#  email                   :string
+#  name                    :string
+#  provider                :string
+#  role                    :string
+#  suspended               :boolean
+#  ticket_restriction      :string
+#  two_factor_auth_enabled :boolean
+#  uid                     :string
+#  verified                :boolean
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  organization_id         :bigint
+#  zendesk_user_id         :bigint
 #
-# Indexes
-#
-#  index_users_on_intake_id  (intake_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (intake_id => intakes.id)
-#
-
 class User < ApplicationRecord
-  devise :omniauthable, :trackable, omniauth_providers: [:idme]
-  belongs_to :intake
+  devise :omniauthable, omniauth_providers: [:zendesk]
 
-  attr_encrypted :ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
-
-  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
-  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
-  enum consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_service
-
-  def self.temporary_fake_idme_data(auth_info)
-    OpenStruct.new(
-      first_name: "Fake",
-      last_name: "Person",
-      email: auth_info.email,
-      birth_date: "1991-01-20",
-      phone: auth_info.phone,
-      social: auth_info.social,
-      street: "927 Mission St",
-      city: "San Francisco",
-      state: "California",
-      zip_code: auth_info.zip_code,
-    )
-  end
-
-  def self.from_omniauth(auth)
+  def self.from_zendesk_oauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
       # this only runs on initialize
 
       data_source = auth.info
-      # the ID.me sandbox does not give us full data to work with
-      unless Rails.env.production? || auth.info.birth_date.present?
-        data_source = temporary_fake_idme_data(auth.info)
-      end
+      puts "\n\nreceived auth data: #{data_source}\n\n"
 
-      user.first_name = data_source.first_name
-      user.last_name = data_source.last_name
+      user.zendesk_user_id = data_source.id
+      user.name = data_source.name
       user.email = data_source.email
-      user.birth_date = data_source.birth_date
-      user.phone_number = data_source.phone
-      user.ssn = data_source.social
-      user.street_address = data_source.street
-      user.city = data_source.city
-      user.state = States.key_for_name(data_source.state)
-      user.zip_code = data_source.zip_code
+      user.role = data_source.role
+      user.organization_id = data_source.organization_id
+      user.ticket_restriction = data_source.ticket_restriction
+      user.two_factor_auth_enabled = data_source.two_factor_auth_enabled
+      user.active = data_source.active
+      user.suspended = data_source.suspended
+      user.verified = data_source.verified
     end
   end
 
-  def contact_info_filtered_by_preferences
-    contact_info = {}
-    contact_info[:phone_number] = standardized_phone_number if sms_notification_opt_in_yes?
-    contact_info[:email] = email if email_notification_opt_in_yes?
-    contact_info
-  end
-
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-
-  def parsed_birth_date
-    Date.strptime(birth_date, "%Y-%m-%d")
-  end
-
-  # Returns the phone number in the E164 standardized format, e.g.: "+15105551234"
-  def standardized_phone_number
-    Phonelib.parse(phone_number, "US").e164
-  end
-
-  # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
-  def formatted_phone_number
-    Phonelib.parse(phone_number).local_number
-  end
-
-  def formatted_ssn
-    "#{ssn[0..2]}-#{ssn[3..4]}-#{ssn[5..-1]}" if ssn.present?
-  end
-
-  def ssn_last_four
-    ssn.last(4)
-  end
-
-  def opted_into_notifications?
-    sms_notification_opt_in_yes? || email_notification_opt_in_yes?
-  end
-
-  def age_end_of_tax_year
-    return unless birth_date.present?
-
-    intake.tax_year - Date.parse(birth_date).year
+  def intake
+    nil
   end
 end
