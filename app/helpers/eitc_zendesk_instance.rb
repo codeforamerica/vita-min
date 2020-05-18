@@ -98,11 +98,11 @@ class EitcZendeskInstance
 
   INTAKE_STATUS_LABELS = {
     INTAKE_STATUS_UNSTARTED => "Unstarted",
-    INTAKE_STATUS_IN_PROGRESS => "Online Submission",
+    INTAKE_STATUS_IN_PROGRESS => "In Progress",
     INTAKE_STATUS_GATHERING_DOCUMENTS => "Gathering Documents",
     INTAKE_STATUS_READY_FOR_REVIEW => "Ready For Review",
     INTAKE_STATUS_IN_REVIEW => "In Review",
-    INTAKE_STATUS_READY_FOR_INTAKE_INTERVIEW => "Readu For Intake Interview",
+    INTAKE_STATUS_READY_FOR_INTAKE_INTERVIEW => "Ready For Intake Interview",
     INTAKE_STATUS_WAITING_FOR_INFO => "Waiting For Info",
     INTAKE_STATUS_COMPLETE => "Complete",
     INTAKE_STATUS_NOT_FILING => "Not Filing",
@@ -123,7 +123,7 @@ class EitcZendeskInstance
     RETURN_STATUS_UNSTARTED => "Unstarted",
     RETURN_STATUS_IN_PROGRESS => "In Progress",
     RETURN_STATUS_READY_FOR_QUALITY_REVIEW => "Ready For Quality Review",
-    RETURN_STATUS_READY_FOR_SIGNATURE_ESIGN => "Ready For Signaure ESign",
+    RETURN_STATUS_READY_FOR_SIGNATURE_ESIGN => "Ready For Signature E-Sign",
     RETURN_STATUS_READY_FOR_SIGNATURE_PICKUP	=> "Ready For Signature Pick-Up",
     RETURN_STATUS_READY_FOR_EFILE => "Ready For E-File",
     RETURN_STATUS_COMPLETED_RETURNS => "Completed Returns",
