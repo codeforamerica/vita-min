@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
     else
       visitor_id = SecureRandom.hex(26)
       cookies.permanent[:visitor_id] =  { value: visitor_id, httponly: true }
+      DatadogMetrics.statsd_increment('session.new')
     end
     if current_intake.present? && current_intake.persisted? && current_intake.visitor_id.blank?
       current_intake.update(visitor_id: visitor_id)
