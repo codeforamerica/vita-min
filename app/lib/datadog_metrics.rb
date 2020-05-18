@@ -19,7 +19,7 @@ module DatadogMetrics
   end
 
   def self.statsd
-    @statsd ||= Datadog::Statsd.new(configuration.host, configuration.port, namespace: configuration.namespace)
+    @statsd ||= Datadog::Statsd.new(configuration.host, configuration.port, logger: Rails.logger, namespace: configuration.namespace)
   end
 
   def self.statsd_gauge(label, value)
