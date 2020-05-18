@@ -5,6 +5,6 @@ Datadog.configure do |c|
   c.use :aws
   c.use :sequel
   c.use :delayed_job
-  c.tracer.enabled = Rails.env.staging?
-  c.tracer hostname: Rails.application.credentials.dig(Rails.env.to_sym, :datadog_agent_host), debug:true
+  c.tracer.enabled = Rails.env.staging? || Rails.env.demo? || Rails.env.production?
+  c.tracer hostname: Rails.application.credentials.dig(Rails.env.to_sym, :datadog_agent_host)
 end
