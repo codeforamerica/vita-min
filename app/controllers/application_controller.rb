@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
     else
       visitor_id = SecureRandom.hex(26)
       cookies.permanent[:visitor_id] =  { value: visitor_id, httponly: true }
-      DatadogMetrics.statsd_increment('session.new')
     end
     if current_intake.present? && current_intake.persisted? && current_intake.visitor_id.blank?
       current_intake.update(visitor_id: visitor_id)
@@ -73,6 +72,7 @@ class ApplicationController < ActionController::Base
 
   def track_page_view
     send_mixpanel_event(event_name: "page_view") if request.get?
+    DatadogMetrics.statsd_increment('page_view') if request.get?
   end
 
   def send_mixpanel_validation_error(errors, additional_data = {})
