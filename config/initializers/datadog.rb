@@ -13,7 +13,7 @@ end
 # DogStatsD
 DatadogMetrics.configure do |c|
   c.enabled = Rails.env.staging? || Rails.env.development?
-  c.host = Rails.application.credentials.dig(Rails.env.to_sym, :datadog_agent_host)
+  c.host = 'localhost'
   c.port = 8125
   c.namespace = 'dogstatsd'
 end
