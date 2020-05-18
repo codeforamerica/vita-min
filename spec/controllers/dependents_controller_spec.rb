@@ -10,8 +10,6 @@ RSpec.describe DependentsController do
     allow(subject).to receive(:send_mixpanel_event)
   end
 
-  it_behaves_like "a ticketed controller", :index
-
   describe "#index" do
     context "with existing dependents" do
       let!(:dependent_one) { create :dependent, first_name: "Kylie", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
@@ -22,6 +20,64 @@ RSpec.describe DependentsController do
 
         expect(response.body).to include "Kylie Kiwi 4/21/2012"
         expect(response.body).to include "Kelly Kiwi 4/21/2012"
+      end
+    end
+
+    context "with an intake that has an intake (zendesk) ticket" do
+      let(:intake) { create :intake, intake_ticket_id: 234234234 }
+
+      it "renders normally" do
+        get :index
+
+        expect(response).to be_ok
+      end
+    end
+
+    context "with an intake that does _not_ have an intake (zendesk) ticket" do
+      let(:intake) { create :intake, intake_ticket_id: nil }
+
+      context "in production or test" do
+        before { allow(Rails).to receive(:env).and_return "production".inquiry }
+
+        it "redirects to the start of the questions workflow" do
+          get :index
+
+          expect(response).to redirect_to(question_path(QuestionNavigation.first))
+        end
+      end
+
+      context "in any other environment" do
+        before { allow(Rails).to receive(:env).and_return "demo".inquiry }
+
+        it "adds a flash message to warn staff who are testing features" do
+          get :index
+
+          expect(flash[:alert]).to match("You're missing a ticket or intake. In production, we would have redirected you to the beginning.")
+        end
+      end
+    end
+
+    context "with no intake at all" do
+      let(:intake) { nil }
+
+      context "in production or test" do
+        before { allow(Rails).to receive(:env).and_return "production".inquiry }
+
+        it "redirects to the start of the questions workflow" do
+          get :index
+
+          expect(response).to redirect_to(question_path(QuestionNavigation.first))
+        end
+      end
+
+      context "in any other environment" do
+        before { allow(Rails).to receive(:env).and_return "demo".inquiry }
+
+        it "redirects to the start of the questions workflow" do
+          get :index
+
+          expect(response).to redirect_to(question_path(QuestionNavigation.first))
+        end
       end
     end
   end

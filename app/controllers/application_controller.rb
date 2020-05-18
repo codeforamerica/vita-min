@@ -141,7 +141,7 @@ class ApplicationController < ActionController::Base
   # when the session's current intake doesn't have a ticket, this will
   # redirect to the beginning of question navigation
   def require_ticket
-    redirect_to_beginning_of_intake unless current_intake&.intake_ticket_id
+    redirect_or_add_flash unless current_intake&.intake_ticket_id
   end
 
   def require_intake
@@ -153,6 +153,14 @@ class ApplicationController < ActionController::Base
   # intake process
   def redirect_to_beginning_of_intake
     redirect_to(question_path(QuestionNavigation.first))
+  end
+
+  def redirect_or_add_flash
+    if Rails.env.production? || Rails.env.test?
+      redirect_to_beginning_of_intake
+    else
+      flash[:alert] = "You're missing a ticket or intake. In production, we would have redirected you to the beginning."
+    end
   end
 
   def require_sign_in

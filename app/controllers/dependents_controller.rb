@@ -1,5 +1,5 @@
 class DependentsController < ApplicationController
-  before_action :require_ticket
+  before_action :require_ticket, :require_intake
 
   def index
     @dependents = current_intake.dependents
