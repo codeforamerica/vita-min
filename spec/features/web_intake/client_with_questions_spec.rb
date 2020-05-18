@@ -12,7 +12,7 @@ RSpec.feature "Web Intake New Client with Questions" do
 
     # File With Help
     expect(current_path).to eq(tax_questions_path)
-    expect(page).to have_selector("h1", text: "Looks like you’ve already filed and have questions.")
+    expect(page).to have_selector("h1", text: "Let's try to answer your tax questions!")
     expect(page).to have_selector("button", text: "Chat with us")
   end
 end
