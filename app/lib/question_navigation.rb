@@ -5,7 +5,7 @@ class QuestionNavigation
     Questions::FileWithHelpController,
     Questions::AlreadyFiledController,
     Questions::FilingForStimulusController,
-    Questions::StimulusRecommendationController, #possible off-boarding from flow
+    Questions::StimulusRecommendationController, # possible off-boarding from flow
     Questions::BacktaxesController,
     Questions::StartWithCurrentYearController,
 
@@ -20,6 +20,7 @@ class QuestionNavigation
     Questions::ChatWithUsController,
     Questions::PhoneNumberController,
     Questions::EmailAddressController,
+    Questions::ReturningClientController, # possible off-boarding from flow
     Questions::NotificationPreferenceController,
 
     # Consent
