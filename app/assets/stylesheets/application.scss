@@ -156,36 +156,47 @@ body {
       font-weight: 900;
     }
 
-    &:before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-image: image-url("homepage-hero.svg");
-      background-repeat: no-repeat;
-      background-size: 519px 355px;
-      background-position: right;
-      margin-right: auto;
-      max-width: 1260px;
-
-      @media screen and (max-width: $tablet-up) {
-        background-position: bottom;
-        background-image: image-url("homepage-hero-mobile.svg");
-      }
-    }
-
-    @media screen and (max-width: $tablet-up) {
+    @media screen and (max-width: $site-max-up) {
       padding-bottom: 27rem;
 
       h1 {
         margin-bottom: 1.5rem;
       }
+    }
+
+    .grid {
+      position: relative;
+
+      @media screen and (max-width: $site-max-up) {
+        position: static;
+
+        .grid__item {
+          width: 100%;
+        }
+      }
 
       &:before {
-        background-size: 389px 266px;
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-image: image-url("homepage-hero.svg");
+        background-repeat: no-repeat;
+        background-size: 400px 355px;
+        background-position: right;
+
+        @media screen and (max-width: $site-max-up) {
+          background-position: bottom left;
+          background-image: image-url("homepage-hero-mobile.svg");
+          background-size: 420px 266px;
+        }
+
+        @media screen and (max-width: $tablet-up) {
+          background-position: bottom;
+        }
       }
     }
   }
