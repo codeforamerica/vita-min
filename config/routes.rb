@@ -78,4 +78,7 @@ Rails.application.routes.draw do
 
   post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
   post "/email", to: "email#create"
+
+  # FSA routes
+  get '/diy/check-email', to: 'public_pages#check_email'
 end

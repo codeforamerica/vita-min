@@ -26,4 +26,6 @@ class PublicPagesController < ApplicationController
   def tax_questions; end
 
   def stimulus_recommendation; end
+
+  def check_email; end
 end
