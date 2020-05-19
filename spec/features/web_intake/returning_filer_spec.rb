@@ -9,7 +9,7 @@ RSpec.feature "Web Intake Single Filer" do
     )
   end
 
-  scenario "returning client tries filing again taken to signpost page", :js do
+  scenario "returning client tries filing again is taken to returning client signpost page" do
     visit already_filed_questions_path
     click_on "Yes"
 
@@ -19,7 +19,7 @@ RSpec.feature "Web Intake Single Filer" do
     fill_in "Confirm e-mail address", with: "returning@client.com"
     click_on "Continue"
 
-    expect(current_path).to eq(returning_client_path)
+    expect(current_path).to eq(returning_client_questions_path)
     click_on("Return to home")
     expect(current_path).to eq(root_path)
   end

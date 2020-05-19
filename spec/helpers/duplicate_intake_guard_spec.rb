@@ -25,6 +25,7 @@ RSpec.describe DuplicateIntakeGuard do
         expect(subject).to have_duplicate
       end
     end
+
     context "intake with matching phone number exists" do
       let!(:existing_intake) { create(:intake, phone_number: "1234567890") }
       let(:matching_intake) { create(:intake, phone_number: "1234567890") }
