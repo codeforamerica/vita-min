@@ -148,6 +148,7 @@ body {
   .slab--hero {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
+    margin-bottom: 2rem;
 
     h1 {
       font-size: 5rem;
@@ -163,14 +164,21 @@ body {
       right: 0;
       bottom: 0;
       left: 0;
-      background-image: image-url("dollar-hero.png");
+      background-image: image-url("homepage-hero.svg");
       background-repeat: no-repeat;
       background-size: 519px 355px;
-      background-position: bottom right;
+      background-position: right;
+      margin-right: auto;
+      max-width: 1260px;
+
+      @media screen and (max-width: $tablet-up) {
+        background-position: bottom;
+        background-image: image-url("homepage-hero-mobile.svg");
+      }
     }
 
     @media screen and (max-width: $tablet-up) {
-      padding-bottom: 12rem;
+      padding-bottom: 27rem;
 
       h1 {
         margin-bottom: 1.5rem;
