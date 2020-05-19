@@ -37,7 +37,7 @@
 @import "templates/about-us";
 @import "templates/consent-form";
 @import "templates/dependents-index";
-@import 'templates/stimulus';
+@import "templates/stimulus";
 
 html {
   background-color: black;
@@ -64,8 +64,16 @@ body {
   font-weight: bold;
 }
 
+.text--semibold {
+  font-weight: 500;
+}
+
 .text--teal {
   color: $color-teal;
+}
+
+.text--purple {
+  color: $color-purple;
 }
 
 .text--black {

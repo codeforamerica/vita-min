@@ -1,0 +1,55 @@
+<% @main_heading = "File your taxes yourself!" %>
+<% content_for :page_title, @main_heading %>
+
+<main role="main">
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="question__illustration spacing-above-0">
+            <%= image_tag("diy/file-yourself.svg", alt: "") %>
+          </div>
+
+          <h1 class="form-question">
+            <%= @main_heading %>
+          </h1>
+          <p>
+            You selected our do it yourself option. We'll provide the tools so you can file yourself.
+          </p>
+
+          <div class="text--semibold spacing-below-35">
+            <p>
+              This is the right option for you if:
+            </p>
+            <ul class="checkmark-list">
+              <li>
+                <%= render "shared/svg/checkmark", fill_class: "purple" %>
+                <span>You are only filing for 2019 (not previous years) </span>
+              </li>
+              <li>
+                <%= render "shared/svg/checkmark", fill_class: "purple" %>
+                <span>You’re comfortable using online tax services </span>
+              </li>
+              <li>
+                <%= render "shared/svg/checkmark", fill_class: "purple" %>
+                <span>Your tax situation is simple/straightforward </span>
+              </li>
+              <li>
+                <%= render "shared/svg/checkmark", fill_class: "purple" %>
+                <span>You need a quick option </span>
+              </li>
+            </ul>
+          </div>
+
+          <%= link_to file_with_help_questions_path, class: "text--purple" do %>
+            Actually, I need assistance filing.
+          <% end %>
+
+          <%= link_to root_path, class: "button button--primary text--centered button--wide spacing-above-60" do %>
+            Continue
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+</main>
