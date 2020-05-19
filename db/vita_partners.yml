@@ -50,6 +50,7 @@ vita_partners:
       - cwf-mfp
     states:
       - PA
+      - NJ
     logo_path: "partner-logos/cwf.png"
   - name: Impact America (Save First)
     zendesk_instance_domain: eitc
@@ -187,8 +188,6 @@ vita_partners:
     display_name: United Way of Greater Newark
     source_parameters:
       - uwgn
-    states:
-      - NJ
     logo_path: ''
   - name: United Way Capital Region (PA)
     zendesk_instance_domain: eitc

@@ -8,7 +8,7 @@ RSpec.describe Questions::PersonalInfoController do
   end
 
   describe "#update" do
-    let(:state) { 'co' }
+    let(:state) { 'CO' }
     let(:params) do
       {
         personal_info_form: {

@@ -863,24 +863,24 @@ describe Intake do
         end
       end
 
-      it_behaves_like "state-level routing", "co", EitcZendeskInstance::ONLINE_INTAKE_THC, EitcZendeskInstance
-      it_behaves_like "state-level routing", "ca", EitcZendeskInstance::ONLINE_INTAKE_UWBA, EitcZendeskInstance
-      it_behaves_like "state-level routing", "ga", EitcZendeskInstance::ONLINE_INTAKE_GWISR, EitcZendeskInstance
-      it_behaves_like "state-level routing", "wa", EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY, EitcZendeskInstance
-      it_behaves_like "state-level routing", "pa", EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES, EitcZendeskInstance
-      it_behaves_like "state-level routing", "oh", EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO, EitcZendeskInstance
-      it_behaves_like "state-level routing", "nj", EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES, EitcZendeskInstance
-      it_behaves_like "state-level routing", "sc", EitcZendeskInstance::ONLINE_INTAKE_IA_SC, EitcZendeskInstance
-      it_behaves_like "state-level routing", "tn", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
-      it_behaves_like "state-level routing", "ar", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
-      it_behaves_like "state-level routing", "ms", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
-      it_behaves_like "state-level routing", "nv", EitcZendeskInstance::ONLINE_INTAKE_NV_FTC, EitcZendeskInstance
-      it_behaves_like "state-level routing", "tx", EitcZendeskInstance::ONLINE_INTAKE_FC, EitcZendeskInstance
-      it_behaves_like "state-level routing", "az", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
-      it_behaves_like "state-level routing", "va", EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA, EitcZendeskInstance
-      it_behaves_like "state-level routing", "fl", EitcZendeskInstance::ONLINE_INTAKE_REFUND_DAY, EitcZendeskInstance
-      it_behaves_like "state-level routing", "nm", EitcZendeskInstance::ONLINE_INTAKE_TH_NM, EitcZendeskInstance
-      it_behaves_like "state-level routing", "xx", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
+      it_behaves_like "state-level routing", "CO", EitcZendeskInstance::ONLINE_INTAKE_THC, EitcZendeskInstance
+      it_behaves_like "state-level routing", "CA", EitcZendeskInstance::ONLINE_INTAKE_UWBA, EitcZendeskInstance
+      it_behaves_like "state-level routing", "GA", EitcZendeskInstance::ONLINE_INTAKE_GWISR, EitcZendeskInstance
+      it_behaves_like "state-level routing", "WA", EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY, EitcZendeskInstance
+      it_behaves_like "state-level routing", "PA", EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES, EitcZendeskInstance
+      it_behaves_like "state-level routing", "OH", EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO, EitcZendeskInstance
+      it_behaves_like "state-level routing", "NJ", EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES, EitcZendeskInstance
+      it_behaves_like "state-level routing", "SC", EitcZendeskInstance::ONLINE_INTAKE_IA_SC, EitcZendeskInstance
+      it_behaves_like "state-level routing", "TN", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
+      it_behaves_like "state-level routing", "AR", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
+      it_behaves_like "state-level routing", "MS", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
+      it_behaves_like "state-level routing", "NV", EitcZendeskInstance::ONLINE_INTAKE_NV_FTC, EitcZendeskInstance
+      it_behaves_like "state-level routing", "TX", EitcZendeskInstance::ONLINE_INTAKE_FC, EitcZendeskInstance
+      it_behaves_like "state-level routing", "AZ", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
+      it_behaves_like "state-level routing", "VA", EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA, EitcZendeskInstance
+      it_behaves_like "state-level routing", "FL", EitcZendeskInstance::ONLINE_INTAKE_REFUND_DAY, EitcZendeskInstance
+      it_behaves_like "state-level routing", "NM", EitcZendeskInstance::ONLINE_INTAKE_TH_NM, EitcZendeskInstance
+      it_behaves_like "state-level routing", "XX", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
     end
   end
   

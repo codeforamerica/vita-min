@@ -34,7 +34,7 @@ describe ZendeskDropOffService do
   end
 
   describe "#create_ticket_and_attach_file" do
-    let(:drop_off) { create :full_drop_off, state: "nv" }
+    let(:drop_off) { create :full_drop_off, state: "NV" }
 
     it "creates a new Zendesk ticket with info from the drop_off and attaches documents to ticket" do
       result = ZendeskDropOffService.new(drop_off).create_ticket_and_attach_file
@@ -54,7 +54,7 @@ describe ZendeskDropOffService do
               EitcZendeskInstance::CERTIFICATION_LEVEL => drop_off.certification_level,
               EitcZendeskInstance::HSA => true,
               EitcZendeskInstance::INTAKE_SITE => "adams_city_high_school",
-              EitcZendeskInstance::STATE => "nv",
+              EitcZendeskInstance::STATE => "NV",
               EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
               EitcZendeskInstance::SIGNATURE_METHOD => drop_off.signature_method,
             }
@@ -68,7 +68,7 @@ describe ZendeskDropOffService do
 
     context "from Goodwill Industries of the Southern Rivers" do
       let(:drop_off) do
-        create(:full_drop_off, organization: "gwisr", state: "ga", intake_site: "GoodwillSR Columbus Intake")
+        create(:full_drop_off, organization: "gwisr", state: "GA", intake_site: "GoodwillSR Columbus Intake")
       end
       let(:comment_body) do
         <<~BODY
@@ -102,7 +102,7 @@ describe ZendeskDropOffService do
                 EitcZendeskInstance::CERTIFICATION_LEVEL => drop_off.certification_level,
                 EitcZendeskInstance::HSA => true,
                 EitcZendeskInstance::INTAKE_SITE => "goodwillsr_columbus_intake",
-                EitcZendeskInstance::STATE => "ga",
+                EitcZendeskInstance::STATE => "GA",
                 EitcZendeskInstance::INTAKE_STATUS => "3._ready_for_prep",
                 EitcZendeskInstance::SIGNATURE_METHOD => drop_off.signature_method,
               }
@@ -114,7 +114,7 @@ describe ZendeskDropOffService do
   end
 
   describe "#append_to_existing_ticket" do
-    let(:drop_off) { create :full_drop_off, zendesk_ticket_id: "48", state: "nv" }
+    let(:drop_off) { create :full_drop_off, zendesk_ticket_id: "48", state: "NV" }
 
     before do
       allow(fake_zendesk_ticket).to receive(:save).and_return(true)

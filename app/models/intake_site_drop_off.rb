@@ -74,6 +74,8 @@ class IntakeSiteDropOff < ApplicationRecord
 
   validates_presence_of :name
   validates :intake_site, inclusion: { in: INTAKE_SITES.values.flatten, message: "Please select an intake site." }
+  # TODO: use the States table, e.g.:
+  # belongs_to :state, foreign_key: :abbreviation
   validates :state, inclusion: { in: States.keys, message: "Please select a state." }
   validates :organization, inclusion: { in: ORGANIZATIONS }
   validates :signature_method, inclusion: { in: SIGNATURE_METHODS, message: "Please select a pickup method." }

@@ -3,7 +3,7 @@ module States
   STATE_OPTIONS.freeze
 
   def self.hash
-    STATE_OPTIONS.to_h.invert
+    @state_hash ||= STATE_OPTIONS.to_h.invert
   end
 
   def self.keys
