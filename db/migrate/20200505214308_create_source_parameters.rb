@@ -6,6 +6,6 @@ class CreateSourceParameters < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :source_parameters, :code
+    add_index :source_parameters, :code, unique: true
   end
 end

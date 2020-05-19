@@ -11,7 +11,7 @@
 #
 FactoryBot.define do
   factory :state do
-    name { "MyString" }
-    abbreviation { "MyString" }
+    abbreviation { ('A'..'Z').to_a.sample(2).join }
+    name { "Town In #{abbreviation}" }
   end
 end

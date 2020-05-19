@@ -453,17 +453,18 @@ class Intake < ApplicationRecord
     # we only check whether it has been persisted, and do not save it
     return nil if zendesk_instance == UwtsaZendeskInstance
 
-    partner, routing_criteria, routing_value = partner_for_source || partner_for_state || partner_for_overflow
+    # this is a RouteOptions struct, defined below
+    route_options = partner_for_source || partner_for_state || partner_for_overflow
 
-    raise "partner not found!" unless partner # this shouldn't happen unless the data is horked!
+    raise "partner not found!" unless route_options.partner # this shouldn't happen unless the data is horked!
 
     update(
-      vita_partner_id: partner.id,
-      vita_partner_name: partner.name,
-      vita_partner_group_id: partner.zendesk_group_id,
+      vita_partner_id: route_options.partner.id,
+      vita_partner_name: route_options.partner.name,
+      vita_partner_group_id: route_options.partner.zendesk_group_id,
       routed_at: Time.now,
-      routing_criteria: routing_criteria,
-      routing_value: routing_value,
+      routing_criteria: route_options.routing_criteria,
+      routing_value: route_options.routing_value,
     )
   end
 
@@ -525,7 +526,7 @@ class Intake < ApplicationRecord
     partner = SourceParameter.find_by(code: source.downcase)&.vita_partner
     return nil unless partner.present?
 
-    [partner, "source_parameter", source]
+    RouteOptions.new(partner, "source_parameter", source)
   end
 
   def partner_for_state
@@ -533,7 +534,7 @@ class Intake < ApplicationRecord
     partner = state.vita_partners.first if state.present? && !state.vita_partners.empty?
     return nil unless partner.present?
 
-    [partner, "state", state_of_residence]
+    RouteOptions.new(partner, "state", state_of_residence)
   end
 
   def partner_for_overflow
@@ -541,6 +542,9 @@ class Intake < ApplicationRecord
     partner = VitaPartner.find_by(accepts_overflow: true)
     return nil unless partner.present?
 
-    [partner, "overflow", state_of_residence]
+    RouteOptions.new(partner, "overflow", state_of_residence)
   end
+
+  RouteOptions = Struct.new(:partner, :routing_criteria, :routing_value)
 end
+

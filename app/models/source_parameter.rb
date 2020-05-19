@@ -22,4 +22,5 @@ class SourceParameter < ApplicationRecord
 
   validates_presence_of :vita_partner_id
   validates_presence_of :code
+  validates_uniqueness_of :code
 end
