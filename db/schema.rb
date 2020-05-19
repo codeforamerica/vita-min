@@ -222,6 +222,9 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
     t.integer "reported_self_employment_loss", default: 0, null: false
     t.string "requested_docs_token"
     t.datetime "requested_docs_token_created_at"
+    t.datetime "routed_at"
+    t.string "routing_criteria"
+    t.string "routing_value"
     t.integer "savings_purchase_bond", default: 0, null: false
     t.integer "savings_split_refund", default: 0, null: false
     t.integer "separated", default: 0, null: false
@@ -248,6 +251,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
     t.string "street_address"
     t.datetime "updated_at"
     t.string "visitor_id"
+    t.string "vita_partner_group_id"
     t.bigint "vita_partner_id"
     t.string "vita_partner_name"
     t.integer "was_blind", default: 0, null: false
@@ -255,7 +259,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
     t.integer "was_on_visa", default: 0, null: false
     t.integer "widowed", default: 0, null: false
     t.string "widowed_year"
-    t.string "zendesk_group_id"
     t.string "zendesk_instance_domain"
     t.string "zip_code"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
@@ -267,6 +270,27 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
     t.datetime "created_at", null: false
     t.integer "created_count", default: 0, null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "source_parameters", force: :cascade do |t|
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "vita_partner_id", null: false
+    t.index ["code"], name: "index_source_parameters_on_code", unique: true
+    t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
+  end
+
+  create_table "states", primary_key: "abbreviation", id: :string, force: :cascade do |t|
+    t.string "name"
+    t.index ["name"], name: "index_states_on_name"
+  end
+
+  create_table "states_vita_partners", id: false, force: :cascade do |t|
+    t.string "state_abbreviation"
+    t.bigint "vita_partner_id"
+    t.index ["state_abbreviation"], name: "index_states_vita_partners_on_state_abbreviation"
+    t.index ["vita_partner_id"], name: "index_states_vita_partners_on_vita_partner_id"
   end
 
   create_table "ticket_statuses", force: :cascade do |t|
@@ -312,6 +336,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
   end
 
   create_table "vita_partners", force: :cascade do |t|
+    t.boolean "accepts_overflow", default: false
     t.datetime "created_at", precision: 6, null: false
     t.string "display_name"
     t.string "logo_path"
@@ -344,6 +369,8 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
   add_foreign_key "documents_requests", "intakes"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
+  add_foreign_key "source_parameters", "vita_partners"
+  add_foreign_key "states_vita_partners", "vita_partners"
   add_foreign_key "ticket_statuses", "intakes"
   add_foreign_key "users", "intakes"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"

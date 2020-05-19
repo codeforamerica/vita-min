@@ -5,17 +5,21 @@ RSpec.describe Questions::PersonalInfoController do
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
-    allow(intake).to receive(:determine_zendesk_group_id).and_return("123")
   end
 
   describe "#update" do
+    let(:state) { 'CO' }
     let(:params) do
       {
         personal_info_form: {
-          state_of_residence: "co",
+          state_of_residence: state,
           preferred_name: "Shep"
         }
       }
+    end
+
+    let(:vita_partner) do
+      State.find_by(abbreviation: state.upcase).vita_partners.first
     end
 
     context "when intake does not have a zendesk ticket id" do
@@ -30,7 +34,7 @@ RSpec.describe Questions::PersonalInfoController do
 
     context "when intake already has a zendesk ticket id" do
       let!(:old_vita_partner) { create :vita_partner, zendesk_group_id: "345" }
-      let(:intake) { create :intake, zendesk_group_id: "345", vita_partner: old_vita_partner }
+      let(:intake) { create :intake, intake_ticket_id: 'some-ticket', vita_partner_group_id: "345", vita_partner: old_vita_partner }
 
       it "does not re-assign the vita partner" do
         post :update, params: params

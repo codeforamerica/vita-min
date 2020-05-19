@@ -6,7 +6,7 @@ describe ZendeskIntakeService do
   let(:fake_zendesk_client) { double(ZendeskAPI::Client) }
   let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
-  let(:state) { "ne" }
+  let(:state) { "NE" }
   let(:interview_timing_preference) { "" }
   let(:final_info) { "" }
   let(:source) { "uw-narnia" }

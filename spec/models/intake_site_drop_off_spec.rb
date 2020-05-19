@@ -95,7 +95,7 @@ describe IntakeSiteDropOff do
         drop_off.state = "the Ukraine"
         expect(drop_off).not_to be_valid
         expect(drop_off.errors).to include :state
-        drop_off.state = "ga"
+        drop_off.state = "GA"
         expect(drop_off).to be_valid
       end
     end
@@ -227,7 +227,7 @@ describe IntakeSiteDropOff do
   end
 
   describe "#state_name" do
-    let(:drop_off) { build :intake_site_drop_off, state: "nv" }
+    let(:drop_off) { build :intake_site_drop_off, state: "NV" }
 
     it "returns the corresponding name of the state" do
       expect(drop_off.state_name).to eq "Nevada"

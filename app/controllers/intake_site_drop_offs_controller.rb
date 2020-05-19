@@ -1,8 +1,8 @@
 class IntakeSiteDropOffsController < ApplicationController
   DEFAULT_STATES = {
-    "thc" => "co",
-    "uwba" => "ca",
-    "gwisr" => "ga",
+    "thc" => "CO",
+    "uwba" => "CA",
+    "gwisr" => "GA",
   }.freeze
 
   def new

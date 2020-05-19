@@ -34,7 +34,7 @@ FactoryBot.define do
     name { "Gary Guava" }
     intake_site { "Adams City High School" }
     organization { "thc" }
-    state { "co" }
+    state { "CO" }
     signature_method { :e_signature }
     document_bundle { Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf") }
 

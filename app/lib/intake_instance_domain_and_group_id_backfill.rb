@@ -12,7 +12,7 @@ class IntakeInstanceDomainAndGroupIdBackfill
   end
 
   def self.backfill_group_ids!
-    Intake.where(zendesk_group_id: nil).each do |intake|
+    Intake.where(vita_partner_group_id: nil).each do |intake|
       populate_group_id(intake)
     end
     nil
@@ -29,6 +29,6 @@ class IntakeInstanceDomainAndGroupIdBackfill
   def self.populate_group_id(intake)
     puts "#######"
     puts "populating group id for Intake with id: #{intake.id}"
-    intake.get_or_create_zendesk_group_id
+    intake.assign_vita_partner!
   end
 end

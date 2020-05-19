@@ -3,6 +3,7 @@
 # Table name: vita_partners
 #
 #  id                      :bigint           not null, primary key
+#  accepts_overflow        :boolean          default(FALSE)
 #  display_name            :string
 #  logo_path               :string
 #  name                    :string           not null
@@ -14,4 +15,6 @@
 #
 class VitaPartner < ApplicationRecord
   has_many :intakes
+  has_and_belongs_to_many :states, association_foreign_key: :state_abbreviation
+  has_many :source_parameters
 end

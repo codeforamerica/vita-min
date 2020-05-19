@@ -64,6 +64,8 @@ class ZendeskIntakeService
   def create_intake_ticket
     # returns the Zendesk ID of the created ticket
     raise MissingRequesterIdError if @intake.intake_ticket_requester_id.blank?
+    @intake.assign_vita_partner! if @intake.vita_partner.blank?
+
     @intake.transaction do
       # we only want to create an initial ticket status if we are able
       # to make a zendesk ticket without errors
@@ -71,7 +73,7 @@ class ZendeskIntakeService
         subject: new_ticket_subject,
         requester_id: @intake.intake_ticket_requester_id,
         external_id: @intake.external_id,
-        group_id: @intake.get_or_create_zendesk_group_id,
+        group_id: @intake.vita_partner.zendesk_group_id,
         body: new_ticket_body,
         fields: new_ticket_fields
       )
