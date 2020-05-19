@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
   namespace :documents do
     delete "/requested-documents-later/remove", to: "requested_documents_later#destroy", as: :remove_requested_document
     get "/requested-documents-later/not-found", to: "requested_documents_later#not_found", as: :requested_docs_not_found
@@ -53,6 +54,10 @@ Rails.application.routes.draw do
   resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :documents, only: [:destroy]
   resources :ajax_mixpanel_events, only: [:create]
+
+  namespace :diy do
+    get "/file-yourself", to: "file_yourself#show"
+  end
 
   get "/:organization/drop-off", to: "intake_site_drop_offs#new", as: :new_drop_off
   post "/:organization/drop-offs", to: "intake_site_drop_offs#create", as: :create_drop_off

@@ -3,4 +3,8 @@ svg.checkmark {
   &.teal {
     fill: #02CEAA;
   }
+
+  &.purple {
+    fill: $color-purple;
+  }
 }
