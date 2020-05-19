@@ -5,5 +5,9 @@ module Questions
 
     def edit
     end
+
+    def include_google_analytics?
+      true
+    end
   end
 end

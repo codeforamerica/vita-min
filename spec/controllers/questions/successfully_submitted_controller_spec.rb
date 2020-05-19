@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
   render_views
 
+  describe "#include_google_analytics?" do
+    it "returns true" do
+      expect(subject.include_google_analytics?).to eq true
+    end
+  end
+
   describe "#edit" do
     let(:intake) { create :intake, intake_ticket_id: 1234 }
 
