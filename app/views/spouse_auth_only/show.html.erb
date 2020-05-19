@@ -9,7 +9,7 @@
     <p>
       Hi, there. Looks like you're trying to verify your identity
       so your spouse can file your taxes jointly with
-      <%= link_to root_path, target: "_blank" do %>
+      <%= link_to root_path, target: "_blank", rel: "noopener" do %>
         GetYourRefund
       <% end %>.
     </p>
@@ -36,7 +36,7 @@
     <% end %>
 
     <p>
-      <a href="https://www.id.me/individuals/government" target="_blank">
+      <a href="https://www.id.me/individuals/government" target="_blank" rel="noopener">
         For more information, please visit ID.me.
       </a>
     </p>

@@ -1,6 +1,6 @@
 <% image_class = '' if local_assigns[:image_class].nil? %>
 <li class="partner-logos__listing">
-  <%= link_to website, target: "_blank", title: "#{name} Homepage" do %>
+  <%= link_to website, target: "_blank", rel: "noopener", title: "#{name} Homepage" do %>
     <%= image_tag "partner-logos/grayscale/#{image_name}.svg", alt: name, class: "#{image_class}" %>
   <% end %>
 </li>
