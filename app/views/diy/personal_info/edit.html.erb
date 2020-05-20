@@ -1,0 +1,19 @@
+<% content_for :page_title, "First, let's get some basic information." %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= content_for(:page_title) %></h1>
+    <p class="text--help">
+      Welcome, we're excited to help you. We need some basic information to get started.
+    </p>
+
+    <div class="form-card__content">
+      <%= f.cfa_input_field(:preferred_name, "Preferred name", classes: ["form-width--long"]) %>
+      <%= f.cfa_select(:state_of_residence, "State of residence", States.name_value_pairs, include_blank: true) %>
+    </div>
+
+    <button class="button button--primary" type="submit">
+      Continue
+    </button>
+  <% end %>
+<% end %>
