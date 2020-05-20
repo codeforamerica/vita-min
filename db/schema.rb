@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_14_214915) do
+ActiveRecord::Schema.define(version: 2020_05_19_230707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(version: 2020_05_14_214915) do
     t.integer "was_married", default: 0, null: false
     t.integer "was_student", default: 0, null: false
     t.index ["intake_id"], name: "index_dependents_on_intake_id"
+  end
+
+  create_table "diy_intakes", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "preferred_name"
+    t.string "state_of_residence"
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "documents", force: :cascade do |t|
