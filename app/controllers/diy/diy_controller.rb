@@ -30,21 +30,21 @@ module Diy
     end
 
     def current_path(params = {})
-      send("#{self.class.to_param.underscore}_diy_path", params)
+      polymorphic_path([:diy, controller_name], params)
     end
 
     def next_path(params = {})
       next_step = form_navigation.next
-      diy_path(next_step.to_param, params) if next_step
+      polymorphic_path([:diy, next_step.controller_name], params) if next_step
     end
 
     def illustration_path
       controller_name.dasherize + ".svg"
     end
 
-    # def self.show?(intake)
-    #   true
-    # end
+     def self.show?(intake)
+       true
+     end
 
     private
 
