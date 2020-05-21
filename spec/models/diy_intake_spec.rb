@@ -45,7 +45,8 @@ describe DiyIntake do
     it 'ignores updates to tokens after creation' do
       diy_intake.save!
       diy_intake.token = "NONSENSE"
-      expect(diy_intake.token).not_to eq("NONSENSE")
+      diy_intake.save!
+      expect(diy_intake.reload.token).not_to eq("NONSENSE")
     end
   end
 end

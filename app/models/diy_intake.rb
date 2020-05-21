@@ -34,9 +34,4 @@ class DiyIntake < ApplicationRecord
 
     self.token = new_token
   end
-
-  def token=(val)
-    return if persisted?
-    super
-  end
 end
