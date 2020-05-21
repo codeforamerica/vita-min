@@ -22,6 +22,9 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
     click_on "Continue"
 
     # Remove this when next page is created
+    expect(page).to have_selector("h1", text: "Please check your e-mail for a confirmation link.")
+    click_on "Return to home"
+
     expect(current_path).to eq(root_path)
   end
 

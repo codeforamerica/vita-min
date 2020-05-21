@@ -1,0 +1,2 @@
+class NullDiyForm < DiyForm
+end
