@@ -4,6 +4,7 @@ module Diy
     delegate :form_class, to: :class
 
     helper_method :current_path
+    helper_method :illustration_folder
     helper_method :illustration_path
     helper_method :next_path
 
@@ -38,8 +39,12 @@ module Diy
       polymorphic_path([:diy, next_step.controller_name], params) if next_step
     end
 
+    def illustration_folder
+      "diy"
+    end
+
     def illustration_path
-      controller_name.dasherize + ".svg"
+      "#{controller_name.dasherize}.svg"
     end
 
      def self.show?(intake)
