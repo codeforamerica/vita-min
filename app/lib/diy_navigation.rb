@@ -3,6 +3,7 @@ class DiyNavigation
     Diy::FileYourselfController,
     Diy::PersonalInfoController,
     Diy::EmailAddressController,
+    Diy::CheckEmailController,
   ].freeze
 
   include ControllerNavigation
