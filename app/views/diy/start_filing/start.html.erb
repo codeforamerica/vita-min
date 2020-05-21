@@ -37,15 +37,7 @@
             </ul>
           </div>
 
-          <div>
-            <div>
-              <%= image_tag 'chat-bubble.svg', alt: 'chat bubble', style: 'padding-right: 1rem;', align: 'left' %>
-            </div>
-            <div>
-              <p class="text--bold">If any questions come up, please respond to your confirmation email.
-                We’re here to help!</p>
-            </div>
-          </div>
+            <%= render partial: 'shared/chat_bubble', locals: { text: 'If any questions come up, please respond to your confirmation email. We’re here to help!' } %>
 
           <%= link_to "https://www.taxslayer.com/vita2019fsa?source=TSUSATY2019&sidn=01093601", class: "button button--primary text--centered button--wide spacing-above-60" do %>
             Continue
