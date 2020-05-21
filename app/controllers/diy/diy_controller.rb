@@ -24,7 +24,7 @@ module Diy
         after_update_success
         redirect_to(next_path)
       else
-        # track_validation_error
+        track_validation_error
         render :edit
       end
     end
@@ -58,15 +58,15 @@ module Diy
       @form_navigation ||= DiyNavigation.new(self)
     end
 
-    # def track_validation_error
-    #   send_mixpanel_validation_error(@form.errors, tracking_data)
-    # end
-    #
-    # def tracking_data
-    #   return {} unless @form.class.scoped_attributes.key?(:intake)
-    #
-    #   @form.attributes_for(:intake)
-    # end
+    def track_validation_error
+      send_mixpanel_validation_error(@form.errors, tracking_data)
+    end
+
+    def tracking_data
+      return {} unless @form.class.scoped_attributes.key?(:diy_intake)
+
+      @form.attributes_for(:diy_intake)
+    end
 
     class << self
       def to_param

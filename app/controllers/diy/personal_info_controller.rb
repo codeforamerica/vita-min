@@ -14,5 +14,9 @@ module Diy
     def next_path(params = nil)
       root_path
     end
+
+    def tracking_data
+      {}
+    end
   end
 end
