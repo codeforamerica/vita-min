@@ -1,0 +1,27 @@
+ul.checkmark-list {
+  font-size: 16px;
+  li {
+    margin-bottom: 1.3rem;
+    position: relative;
+  }
+  li > * {
+    display: inline-block;
+  }
+  li > span {
+    margin-left: 3.2rem;
+  }
+  svg.checkmark {
+     position: absolute;
+     top: 7px;
+     margin-right: 1.5rem;
+     &.teal {
+       fill: #02CEAA;
+     }
+
+     &.purple {
+       fill: $color-purple;
+     }
+
+   }
+}
+
