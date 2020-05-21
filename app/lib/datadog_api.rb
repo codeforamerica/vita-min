@@ -25,7 +25,7 @@ module DatadogApi
   end
 
   def self.client
-    @statsd ||= Dogapi::Client.new(configuration.api_key)
+    @dogapi_client ||= Dogapi::Client.new(configuration.api_key)
   end
 
   def self.apply_namespace(label)
