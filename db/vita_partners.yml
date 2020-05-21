@@ -59,7 +59,7 @@ vita_partners:
     source_parameters:
       - ia
     logo_path: "partner-logos/ia.png"
-  - name: Impact America (Save First)
+  - name: Impact America (Save First) Mississippi River States
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009830214"
     display_name: Save First
@@ -68,21 +68,12 @@ vita_partners:
       - AR
       - MS
     logo_path: "partner-logos/ia.png"
-  - name: Impact America (Save First)
+  - name: Impact America (Save First) South Carolina
     zendesk_instance_domain: eitc
     zendesk_group_id: "360009341873"
     display_name: Save First
     states:
       - SC
-    logo_path: "partner-logos/ia.png"
-  - name: Impact America (Save First)
-    zendesk_instance_domain: eitc
-    zendesk_group_id: "360009830214"
-    display_name: Save First
-    states:
-      - TN
-      - AR
-      - MS
     logo_path: "partner-logos/ia.png"
   - name: Foundation Communities
     zendesk_instance_domain: eitc

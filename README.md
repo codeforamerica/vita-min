@@ -25,6 +25,9 @@ brew install imagemagick poppler ghostscript
 
 # 5. Get the secret key from LastPass / someone who has it set up.
 echo "[secret key]" > config/master.key
+
+# 6. Initialize the database
+rails db:terraform
 ```
 
 ## Running background jobs in development
@@ -46,6 +49,10 @@ To run the test suite:
 To run only the failing tests:
 
 `bundle exec rspec --only-failures`
+
+To run the test suite with Chrome visible (for feature specs):
+
+`CHROME=y bundle exec rspec`
 
 To run the tests with coverage (path not recommended):
 

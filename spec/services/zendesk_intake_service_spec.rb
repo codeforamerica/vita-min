@@ -162,7 +162,7 @@ describe ZendeskIntakeService do
 
     context "in a state for the EITC Zendesk instance" do
       let(:state) { "co" }
-      let!(:vita_partner) { create :vita_partner, zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_THC }
+      let!(:vita_partner) { VitaPartner.find_by(name: "Tax Help Colorado (Piton Foundation)") }
       let(:ticket_status) { intake.current_ticket_status }
 
       it "calls create_ticket with the right arguments" do
@@ -171,7 +171,7 @@ describe ZendeskIntakeService do
         expect(service).to have_received(:create_ticket).with(
           subject: "Cher Cherimoya",
           requester_id: 987,
-          group_id: EitcZendeskInstance::ONLINE_INTAKE_THC,
+          group_id: vita_partner.zendesk_group_id,
           external_id: "intake-#{intake.id}",
           body: "Body text",
           fields: {
@@ -215,6 +215,7 @@ describe ZendeskIntakeService do
 
     context "in a state for the UWTSA Group" do
       let(:state) { "az" }
+      let(:vita_partner) { VitaPartner.find_by(name: "United Way of Tuscon and Southern Arizona") }
 
       it "excludes intake site, and intake status and sends a nil group_id" do
         result = service.create_intake_ticket
@@ -222,7 +223,7 @@ describe ZendeskIntakeService do
         expect(service).to have_received(:create_ticket).with(
           subject: "Cher Cherimoya",
           requester_id: 987,
-          group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_TSA,
+          group_id: vita_partner.zendesk_group_id,
           external_id: intake.external_id,
           body: "Body text",
           fields: {
