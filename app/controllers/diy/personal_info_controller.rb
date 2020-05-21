@@ -10,13 +10,12 @@ module Diy
       "diy_personal_info_form"
     end
 
-    #TODO: remove this when next page is added
-    def next_path(params = nil)
-      root_path
-    end
-
     def tracking_data
       {}
+    end
+
+    def after_update_success
+      session[:diy_intake_id] = @form.diy_intake.id
     end
   end
 end

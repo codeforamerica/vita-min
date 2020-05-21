@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_190628) do
 
   create_table "diy_intakes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
+    t.string "email_address"
     t.string "preferred_name"
     t.string "state_of_residence"
     t.string "token"

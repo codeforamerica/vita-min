@@ -11,6 +11,21 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
     fill_in "Preferred name", with: "Gary"
     select "California", from: "State of residence"
     click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Please share your e-mail address.")
+    fill_in "E-mail address", with: "do.it@your"
+    fill_in "Confirm e-mail address", with: "do.it@your.self"
+    click_on "Continue"
+    expect("E-mail address").to have_error("Please enter a valid email address.")
+    expect("Confirm e-mail address").to have_error("Please double check that the email addresses match.")
+    fill_in "E-mail address", with: "do.it@your.self"
+    click_on "Continue"
+
+    # Remove this when next page is created
+    expect(page).to have_selector("h1", text: "Please check your e-mail for a confirmation link.")
+    click_on "Return to home"
+
+    expect(current_path).to eq(root_path)
   end
 
   scenario "new client thinks they want DIY but changes their mind" do
