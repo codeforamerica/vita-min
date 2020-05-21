@@ -32,6 +32,17 @@ RSpec.describe Questions::PersonalInfoController do
       end
     end
 
+    context "when intake has partner assigned but no zendesk ticket id" do
+      let!(:old_vita_partner) { create :vita_partner, zendesk_group_id: "345" }
+      let(:intake) { create :intake, vita_partner_group_id: "345", vita_partner: old_vita_partner }
+
+      it "re-assigns the vita partner" do
+        post :update, params: params
+
+        expect(intake.reload.vita_partner).to eq vita_partner
+      end
+    end
+
     context "when intake already has a zendesk ticket id" do
       let!(:old_vita_partner) { create :vita_partner, zendesk_group_id: "345" }
       let(:intake) { create :intake, intake_ticket_id: 'some-ticket', vita_partner_group_id: "345", vita_partner: old_vita_partner }

@@ -54,8 +54,15 @@ Rails.application.routes.draw do
   resources :documents, only: [:destroy]
   resources :ajax_mixpanel_events, only: [:create]
 
-  namespace :diy do
-    get "/file-yourself", to: "file_yourself#show"
+  scope :diy, as: :diy do
+    DiyNavigation.controllers.uniq.each do |controller_class|
+      { get: :edit, put: :update }.each do |method, action|
+        match "/#{controller_class.to_param}",
+          action: action,
+          controller: controller_class.controller_path,
+          via: method
+      end
+    end
   end
 
   get "/:organization/drop-off", to: "intake_site_drop_offs#new", as: :new_drop_off

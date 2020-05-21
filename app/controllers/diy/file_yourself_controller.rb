@@ -1,8 +1,7 @@
 module Diy
-  class FileYourselfController < ApplicationController
+  class FileYourselfController < DiyController
     layout "application"
 
-    def show; end
+    def edit; end
   end
 end
-

@@ -547,7 +547,7 @@ describe Intake do
 
       partner = create :vita_partner,
                        name: "test_partner",
-                       zendesk_group_id: EitcZendeskInstance::ONLINE_INTAKE_UW_TSA
+                       zendesk_group_id: "1234567890123456"
       partner.states << state
       partner
     end
@@ -777,7 +777,7 @@ describe Intake do
     end
 
     context "when there is a source parameter" do
-      shared_examples "source group matching" do |src, instance|
+      shared_examples "source group matching" do |src, expected_group_id|
         let(:state) { "ne" }
 
         before do
@@ -788,7 +788,7 @@ describe Intake do
           let(:source) { src }
 
           it "assigns to the correct group and the correct instance" do
-            expect(intake.reload.vita_partner_group_id).to eq instance
+            expect(intake.reload.vita_partner_group_id).to eq expected_group_id
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
           end
         end
@@ -800,7 +800,7 @@ describe Intake do
           end
 
           it "assigns to the correct group and the correct instance" do
-            expect(intake.reload.vita_partner_group_id).to eq instance
+            expect(intake.reload.vita_partner_group_id).to eq expected_group_id
             expect(intake.zendesk_instance).to eq EitcZendeskInstance
           end
         end
@@ -827,7 +827,7 @@ describe Intake do
         end
 
         it "uses the state to route" do
-          expect(intake.reload.vita_partner_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_THC
+          expect(intake.reload.vita_partner.name).to eq "Tax Help Colorado (Piton Foundation)"
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
@@ -841,46 +841,47 @@ describe Intake do
         end
 
         it "assigns to the correct group and the correct instance" do
-          expect(intake.reload.vita_partner_group_id).to eq EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO
+          expect(intake.reload.vita_partner.name).to eq "United Way of Central Ohio"
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
     end
 
     context "with state routing" do
-      shared_examples "state-level routing" do |state_criteria, zendesk_group_id, zendesk_instance|
+      shared_examples "state-level routing" do |state_criteria, partner_name|
         context "given a state" do
           let(:state) { state_criteria } # might not be necessary?
+          let(:partner) { VitaPartner.find_by!(name: partner_name) }
 
           before do
             intake.assign_vita_partner!
           end
 
           it "assigns to the correct group and the correct instance" do
-            expect(intake.reload.vita_partner_group_id).to eq zendesk_group_id
-            expect(intake.zendesk_instance).to eq zendesk_instance
+            expect(intake.reload.vita_partner_group_id).to eq partner.zendesk_group_id
+            expect(intake.zendesk_instance_domain).to eq partner.zendesk_instance_domain
           end
         end
       end
 
-      it_behaves_like "state-level routing", "CO", EitcZendeskInstance::ONLINE_INTAKE_THC, EitcZendeskInstance
-      it_behaves_like "state-level routing", "CA", EitcZendeskInstance::ONLINE_INTAKE_UWBA, EitcZendeskInstance
-      it_behaves_like "state-level routing", "GA", EitcZendeskInstance::ONLINE_INTAKE_GWISR, EitcZendeskInstance
-      it_behaves_like "state-level routing", "WA", EitcZendeskInstance::ONLINE_INTAKE_UW_KING_COUNTY, EitcZendeskInstance
-      it_behaves_like "state-level routing", "PA", EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES, EitcZendeskInstance
-      it_behaves_like "state-level routing", "OH", EitcZendeskInstance::ONLINE_INTAKE_UW_CENTRAL_OHIO, EitcZendeskInstance
-      it_behaves_like "state-level routing", "NJ", EitcZendeskInstance::ONLINE_INTAKE_WORKING_FAMILIES, EitcZendeskInstance
-      it_behaves_like "state-level routing", "SC", EitcZendeskInstance::ONLINE_INTAKE_IA_SC, EitcZendeskInstance
-      it_behaves_like "state-level routing", "TN", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
-      it_behaves_like "state-level routing", "AR", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
-      it_behaves_like "state-level routing", "MS", EitcZendeskInstance::ONLINE_INTAKE_IA_TN, EitcZendeskInstance
-      it_behaves_like "state-level routing", "NV", EitcZendeskInstance::ONLINE_INTAKE_NV_FTC, EitcZendeskInstance
-      it_behaves_like "state-level routing", "TX", EitcZendeskInstance::ONLINE_INTAKE_FC, EitcZendeskInstance
-      it_behaves_like "state-level routing", "AZ", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
-      it_behaves_like "state-level routing", "VA", EitcZendeskInstance::ONLINE_INTAKE_UW_VIRGINIA, EitcZendeskInstance
-      it_behaves_like "state-level routing", "FL", EitcZendeskInstance::ONLINE_INTAKE_REFUND_DAY, EitcZendeskInstance
-      it_behaves_like "state-level routing", "NM", EitcZendeskInstance::ONLINE_INTAKE_TH_NM, EitcZendeskInstance
-      it_behaves_like "state-level routing", "XX", EitcZendeskInstance::ONLINE_INTAKE_UW_TSA, EitcZendeskInstance
+      it_behaves_like "state-level routing", "CO", "Tax Help Colorado (Piton Foundation)", "eitc"
+      it_behaves_like "state-level routing", "CA", "United Way Bay Area", "eitc"
+      it_behaves_like "state-level routing", "GA", "Goodwill Industries of the Southern Rivers", "eitc"
+      it_behaves_like "state-level routing", "WA", "United Way of King County", "eitc"
+      it_behaves_like "state-level routing", "PA", "Campaign for Working Families", "eitc"
+      it_behaves_like "state-level routing", "NJ", "Campaign for Working Families", "eitc"
+      it_behaves_like "state-level routing", "OH", "United Way of Central Ohio", "eitc"
+      it_behaves_like "state-level routing", "SC", "Impact America (Save First) South Carolina", "eitc"
+      it_behaves_like "state-level routing", "TN", "Impact America (Save First) Mississippi River States", "eitc"
+      it_behaves_like "state-level routing", "AR", "Impact America (Save First) Mississippi River States", "eitc"
+      it_behaves_like "state-level routing", "MS", "Impact America (Save First) Mississippi River States", "eitc"
+      it_behaves_like "state-level routing", "NV", "Nevada Free Taxes Coalition", "eitc"
+      it_behaves_like "state-level routing", "TX", "Foundation Communities", "eitc"
+      it_behaves_like "state-level routing", "AZ", "United Way of Tuscon and Southern Arizona", "eitc"
+      it_behaves_like "state-level routing", "VA", "United Way of Greater Richmond and Petersburg", "eitc"
+      it_behaves_like "state-level routing", "FL", "RefundDay", "eitc"
+      it_behaves_like "state-level routing", "NM", "Tax Help New Mexico", "eitc"
+      it_behaves_like "state-level routing", "XX", "United Way of Tuscon and Southern Arizona", "eitc"
     end
   end
   

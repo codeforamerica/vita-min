@@ -16,7 +16,7 @@
 FactoryBot.define do
   factory :vita_partner do
     name { "Vita Partner Name" }
-    zendesk_instance_domain { "EitcZendeskInstance" }
+    zendesk_instance_domain { EitcZendeskInstance::DOMAIN }
     zendesk_group_id { "group_id" }
   end
 end
