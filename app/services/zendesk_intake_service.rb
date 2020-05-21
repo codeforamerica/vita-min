@@ -84,6 +84,7 @@ class ZendeskIntakeService
       )
       @intake.update(intake_ticket_id: ticket_id)
       ticket_status.send_mixpanel_event
+      DatadogApi.increment("zendesk.ticket.created")
       ticket_id
     end
   end
