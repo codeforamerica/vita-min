@@ -10,7 +10,13 @@ require "webdrivers"
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("lib/strategies/**/*.rb")].each { |f| require f }
 
-Capybara.javascript_driver = ENV.fetch("CHROME", false) ? :selenium_chrome : :selenium_chrome_headless
+# Set CHROME=true to run specs with a visible Chrome window
+if ENV.fetch("CHROME", false)
+  Capybara.javascript_driver = :selenium_chrome
+  Capybara.default_max_wait_time = 10
+else
+  Capybara.javascript_driver = :selenium_chrome_headless
+end
 
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
