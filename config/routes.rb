@@ -63,6 +63,7 @@ Rails.application.routes.draw do
           via: method
       end
     end
+    get "/:token", to: "diy/start_filing#start", as: :start_filing
   end
 
   get "/:organization/drop-off", to: "intake_site_drop_offs#new", as: :new_drop_off

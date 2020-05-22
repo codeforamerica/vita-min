@@ -1,0 +1,49 @@
+<% @main_heading = "Welcome to our DIY tax service!" %>
+<% content_for :page_title, @main_heading %>
+
+<main role="main">
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="question__illustration spacing-above-0">
+            <%= image_tag("diy/file-yourself.svg", alt: "") %>
+          </div>
+
+          <h1 class="form-question">
+            <%= @main_heading %>
+          </h1>
+          <p>
+            With our DIY tax prep option, you get access to a free online tax prep software. You’ll need to create a login in TaxSlayer to start.
+          </p>
+
+          <div class="text--semibold spacing-below-35">
+            <p>
+              Helpful tips:
+            </p>
+            <ul class="checkmark-list">
+              <li>
+                <%= render "shared/svg/checkmark", fill_class: "purple" %>
+                <span>Do not use your phone to file</span>
+              </li>
+              <li>
+                <%= render "shared/svg/checkmark", fill_class: "purple" %>
+                <span>Do not click ‘back’ or navigate away from the TaxSlayer page</span>
+              </li>
+              <li>
+                <%= render "shared/svg/checkmark", fill_class: "purple" %>
+                <span>Double check your spelling </span>
+              </li>
+            </ul>
+          </div>
+
+            <%= render partial: 'shared/chat_bubble', locals: { text: 'If any questions come up, please respond to your confirmation email. We’re here to help!' } %>
+
+          <%= link_to "https://www.taxslayer.com/vita2019fsa?source=TSUSATY2019&sidn=01093601", class: "button button--primary text--centered button--wide spacing-above-60" do %>
+            Continue
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+</main>
