@@ -5,6 +5,14 @@ describe ZendeskFollowUpDocsService do
   let(:service) { described_class.new(intake) }
   let(:fake_dogapi) { instance_double(Dogapi::Client, emit_point: nil) }
 
+  before do
+    DatadogApi.configure do |c|
+      c.enabled = true
+      c.namespace = "test.dogapi"
+    end
+    allow(Dogapi::Client).to receive(:new).and_return(fake_dogapi)
+  end
+
   describe "#send_requested_docs" do
     let!(:requested_docs) do
       [
@@ -22,13 +30,8 @@ describe ZendeskFollowUpDocsService do
     let(:output) { true }
 
     before do
+      DatadogApi.instance_variable_set("@dogapi_client", nil)
       allow(service).to receive(:append_multiple_files_to_ticket).and_return(output)
-
-      DatadogApi.configure do |c|
-        c.enabled = true
-        c.namespace = "test.dogapi"
-      end
-      allow(Dogapi::Client).to receive(:new).and_return(fake_dogapi)
     end
 
     it "appends each requested doc to the ticket" do
@@ -70,6 +73,7 @@ describe ZendeskFollowUpDocsService do
 
     context "when the user has not uploaded any documents" do
       before do
+        DatadogApi.instance_variable_set("@dogapi_client", nil)
         intake.documents.destroy_all
       end
 
@@ -86,9 +90,5 @@ describe ZendeskFollowUpDocsService do
         expect(fake_dogapi).not_to have_received(:emit_point)
       end
     end
-  end
-
-  after do
-    DatadogApi.instance_variable_set("@dogapi_client", nil)
   end
 end
