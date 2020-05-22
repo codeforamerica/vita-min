@@ -3,6 +3,7 @@ require "rails_helper"
 describe ZendeskFollowUpDocsService do
   let(:intake) { create :intake, intake_ticket_id: 34 }
   let(:service) { described_class.new(intake) }
+  let(:fake_dogapi) { instance_double(Dogapi::Client, emit_point: nil) }
 
   describe "#send_requested_docs" do
     let!(:requested_docs) do
@@ -20,7 +21,15 @@ describe ZendeskFollowUpDocsService do
     end
     let(:output) { true }
 
-    before { allow(service).to receive(:append_multiple_files_to_ticket).and_return(output) }
+    before do
+      allow(service).to receive(:append_multiple_files_to_ticket).and_return(output)
+
+      DatadogApi.configure do |c|
+        c.enabled = true
+        c.namespace = "test.dogapi"
+      end
+      allow(Dogapi::Client).to receive(:new).and_return(fake_dogapi)
+    end
 
     it "appends each requested doc to the ticket" do
       result = service.send_requested_docs
@@ -52,6 +61,13 @@ describe ZendeskFollowUpDocsService do
       end
     end
 
+    it "sends a datadog metric" do
+      service.send_requested_docs
+
+      expect(Dogapi::Client).to have_received(:new).once
+      expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.ticket.docs.requested.sent', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+    end
+
     context "when the user has not uploaded any documents" do
       before do
         intake.documents.destroy_all
@@ -62,6 +78,17 @@ describe ZendeskFollowUpDocsService do
 
         expect(service).not_to have_received(:append_multiple_files_to_ticket)
       end
+
+      it "does not send a datadog metric" do
+        service.send_requested_docs
+
+        expect(Dogapi::Client).not_to have_received(:new)
+        expect(fake_dogapi).not_to have_received(:emit_point)
+      end
     end
+  end
+
+  after do
+    DatadogApi.instance_variable_set("@dogapi_client", nil)
   end
 end
