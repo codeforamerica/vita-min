@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_084711) do
+ActiveRecord::Schema.define(version: 2020_05_21_190628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,9 @@ ActiveRecord::Schema.define(version: 2020_05_21_084711) do
     t.string "email_address"
     t.string "preferred_name"
     t.string "state_of_residence"
+    t.string "token"
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["token"], name: "index_diy_intakes_on_token", unique: true
   end
 
   create_table "documents", force: :cascade do |t|

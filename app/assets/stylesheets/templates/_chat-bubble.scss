@@ -1,0 +1,12 @@
+.chat-box {
+  display: flex;
+
+  .chat-box-icon {
+    background-image: image-url("chat-bubble.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 5rem;
+    min-height: 5rem;
+    margin-right: 1.5rem;
+  }
+}
