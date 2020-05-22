@@ -106,7 +106,7 @@ module ZendeskServiceHelper
     qualified_environments.include?(Rails.env) ? "#{name} (Fake User)" : name
   end
 
-  def build_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {})
+  def build_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {}, **extra_attributes)
     ZendeskAPI::Ticket.new(
       client,
       subject: subject,
@@ -114,18 +114,20 @@ module ZendeskServiceHelper
       group_id: group_id,
       external_id: external_id,
       comment: { body: body },
-      fields: [fields]
+      fields: [fields],
+      **extra_attributes
     )
   end
 
-  def create_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {})
+  def create_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {}, **extra_attributes)
     ticket = build_ticket(
       subject: subject,
       requester_id: requester_id,
       group_id: group_id,
       external_id: external_id,
       body: body,
-      fields: fields
+      fields: fields,
+      **extra_attributes
     )
 
     unless ticket.save

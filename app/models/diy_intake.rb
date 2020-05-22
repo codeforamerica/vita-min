@@ -9,6 +9,8 @@
 #  token              :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  requester_id       :bigint
+#  ticket_id          :bigint
 #
 # Indexes
 #
@@ -34,5 +36,9 @@ class DiyIntake < ApplicationRecord
     end
 
     self.token = new_token
+  end
+
+  def start_filing_url
+    Rails.application.routes.url_helpers.diy_start_filing_url(token)
   end
 end

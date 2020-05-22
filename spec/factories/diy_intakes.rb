@@ -9,6 +9,8 @@
 #  token              :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  requester_id       :bigint
+#  ticket_id          :bigint
 #
 # Indexes
 #

@@ -166,11 +166,13 @@ RSpec.describe ZendeskServiceHelper do
           end
         end
 
-        context "search does not includes phone number" do
-          it "does not update the user phone number in Zendesk" do
+        context "search includes nil phone number" do
+          let(:phone) { nil }
+
+          it "does not erase the user phone number in Zendesk" do
             expect(result).not_to receive(:phone=).with(phone)
             expect(result).not_to receive(:save)
-            expect(service.find_or_create_end_user("Nancy Nectarine", "test@example.com", nil)).to eq(result.id)
+            expect(service.find_or_create_end_user("Nancy Nectarine", "test@example.com", phone)).to eq(result.id)
           end
         end
       end
