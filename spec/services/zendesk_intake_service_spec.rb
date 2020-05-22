@@ -493,7 +493,9 @@ describe ZendeskIntakeService do
       end
 
       it "does not send a datadog metric" do
-        service.send_preliminary_intake_and_consent_pdfs
+        expect do
+          service.send_preliminary_intake_and_consent_pdfs
+        end.to raise_error(ZendeskIntakeService::CouldNotSendIntakePdfError)
 
         expect(Dogapi::Client).not_to have_received(:new)
         expect(fake_dogapi).not_to have_received(:emit_point)
@@ -552,7 +554,9 @@ describe ZendeskIntakeService do
       end
 
       it "does not send a datadog metric" do
-        service.send_all_docs
+        expect do
+          service.send_all_docs
+        end.to raise_error(ZendeskIntakeService::CouldNotSendDocumentError)
 
         expect(Dogapi::Client).not_to have_received(:new)
         expect(fake_dogapi).not_to have_received(:emit_point)
@@ -637,7 +641,9 @@ describe ZendeskIntakeService do
       end
 
       it "does not send a datadog metric" do
-        service.send_final_intake_pdf
+        expect do
+          service.send_final_intake_pdf
+        end.to raise_error(ZendeskIntakeService::CouldNotSendCompletedIntakePdfError)
 
         expect(Dogapi::Client).not_to have_received(:new)
         expect(fake_dogapi).not_to have_received(:emit_point)
@@ -687,7 +693,9 @@ describe ZendeskIntakeService do
       end
 
       it "does not send a datadog metric" do
-        service.send_intake_pdf_with_spouse
+        expect do
+          service.send_intake_pdf_with_spouse
+        end.to raise_error(ZendeskIntakeService::CouldNotSendCompletedIntakePdfError)
 
         expect(Dogapi::Client).not_to have_received(:new)
         expect(fake_dogapi).not_to have_received(:emit_point)
@@ -733,7 +741,9 @@ describe ZendeskIntakeService do
       end
 
       it "does not send a datadog metric" do
-        service.send_consent_pdf_with_spouse
+        expect do
+          service.send_consent_pdf_with_spouse
+        end.to raise_error(ZendeskIntakeService::CouldNotSendConsentPdfError)
 
         expect(Dogapi::Client).not_to have_received(:new)
         expect(fake_dogapi).not_to have_received(:emit_point)
@@ -805,7 +815,9 @@ describe ZendeskIntakeService do
       end
 
       it "does not send a datadog metric" do
-        service.send_bank_details_png
+        expect do
+          service.send_bank_details_png
+        end.to raise_error(ZendeskIntakeService::CouldNotSendBankDetailsError)
 
         expect(Dogapi::Client).not_to have_received(:new)
         expect(fake_dogapi).not_to have_received(:emit_point)
