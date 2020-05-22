@@ -1,3 +1,4 @@
 before_release:
   - bundle exec rake db:migrate
   - bundle exec rake db:upsert_vita_partners
+  - bundle exec rake backfill:upcase_states
