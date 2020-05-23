@@ -70,6 +70,7 @@ Rails.application.routes.draw do
   post "/:organization/drop-offs", to: "intake_site_drop_offs#create", as: :create_drop_off
   get "/:organization/drop-off/:id", to: "intake_site_drop_offs#show", as: :show_drop_off
 
+  get "/zendesk/sign-in", to: "zendesk#sign_in"
   get "/identity-needed", to: "offboarding#identity_needed"
   get "/other-options", to: "public_pages#other_options"
   get "/maybe-ineligible", to: "public_pages#maybe_ineligible"

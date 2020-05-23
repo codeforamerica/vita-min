@@ -1,0 +1,23 @@
+<% @main_heading = "First, verify with zendesk" %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :main do %>
+  <section class="slab slab--white steps--wrapper">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="form-card">
+            <h1 class="form-question">
+              <%= @main_heading %>
+            </h1>
+
+            <%= link_to "#", class: "button button--primary button--wide text--centered", method: :post do %>
+              Sign in with Zendesk
+            <% end %>
+
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>
