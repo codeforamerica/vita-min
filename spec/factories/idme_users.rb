@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: idme_users
 #
 #  id                        :bigint           not null, primary key
 #  birth_date                :string
@@ -33,7 +33,7 @@
 #
 # Indexes
 #
-#  index_users_on_intake_id  (intake_id)
+#  index_idme_users_on_intake_id  (intake_id)
 #
 # Foreign Keys
 #
@@ -41,7 +41,7 @@
 #
 
 FactoryBot.define do
-  factory :user do
+  factory :idme_user do
     uid { SecureRandom.hex }
     email { "gary.gardengnome@example.green" }
     intake

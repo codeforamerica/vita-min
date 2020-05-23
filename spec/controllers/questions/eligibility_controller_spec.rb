@@ -34,24 +34,6 @@ RSpec.describe Questions::EligibilityController do
       end
     end
 
-    context "with an authenticated user" do
-      let(:intake) { create :intake }
-      let(:user) { create :user, intake: intake }
-
-      before do
-        sign_in user
-      end
-
-      it "updates the intake associated with the user" do
-        post :update, params: params
-
-        intake.reload
-        expect(intake.had_farm_income).to eq had_farm_income
-        expect(intake.had_rental_income).to eq had_rental_income
-        expect(intake.income_over_limit).to eq income_over_limit
-      end
-    end
-
     RSpec.shared_examples "an offboarding flow" do
       describe "eligibility checks" do
         it "updates the intake from the session and offboards them" do

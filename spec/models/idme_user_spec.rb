@@ -42,36 +42,36 @@
 
 require "rails_helper"
 
-RSpec.describe User, type: :model do
+RSpec.describe IdmeUser, type: :model do
   describe "default column values" do
     it "sets is_spouse to false by default" do
-      user = build :user
+      user = build :idme_user
       expect(user.is_spouse).to eq false
     end
   end
 
   describe "#intake" do
     it "requires an intake" do
-      user = build :user, intake: nil
+      user = build :idme_user, intake: nil
       expect(user).not_to be_valid
       expect(user.errors).to include :intake
     end
 
     it "should belong to an intake" do
-      relation = User.reflect_on_association(:intake).macro
+      relation = described_class.reflect_on_association(:intake).macro
       expect(relation).to eq :belongs_to
     end
   end
 
   describe "#age_end_of_tax_year" do
-    let(:user) { build :user, birth_date: "1990-04-21" }
+    let(:user) { build :idme_user, birth_date: "1990-04-21" }
 
     it "returns their age at the end of 2019" do
       expect(user.age_end_of_tax_year).to eq 29
     end
 
     context "when birth_date is nil" do
-      let(:user) { build :user, birth_date: nil }
+      let(:user) { build :idme_user, birth_date: nil }
 
       it "returns nil and does not error" do
         expect(user.age_end_of_tax_year).to be_nil
@@ -82,7 +82,7 @@ RSpec.describe User, type: :model do
   describe "#contact_info_filtered_by_preferences" do
     let(:phone_number) { "+14158161286" }
     let(:user) do
-      build :user,
+      build :idme_user,
             phone_number: phone_number,
             email: "supermane@fantastic.horse",
             email_notification_opt_in: email,
