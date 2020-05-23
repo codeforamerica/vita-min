@@ -294,7 +294,7 @@ describe Intake do
     end
 
     context "with one user" do
-      let!(:primary) { create :user, intake: intake }
+      let!(:primary) { create :idme_user, intake: intake }
 
       it "returns that one user" do
         expect(intake.primary_user).to eq primary

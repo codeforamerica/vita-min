@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: idme_users
 #
 #  id                        :bigint           not null, primary key
 #  birth_date                :string
@@ -33,15 +33,14 @@
 #
 # Indexes
 #
-#  index_users_on_intake_id  (intake_id)
+#  index_idme_users_on_intake_id  (intake_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (intake_id => intakes.id)
 #
 
-class User < ApplicationRecord
-  devise :omniauthable, :trackable, omniauth_providers: []
+class IdmeUser < ApplicationRecord
   belongs_to :intake
 
   attr_encrypted :ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }

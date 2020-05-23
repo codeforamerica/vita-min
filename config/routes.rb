@@ -1,17 +1,6 @@
 Rails.application.routes.draw do
   root "public_pages#home"
 
-  devise_for :users, controllers: {
-    omniauth_callbacks: "users/omniauth_callbacks",
-    sessions: "users/sessions"
-  }
-  get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
-
-  devise_scope :user do
-    get "sign_in", :to => "devise/sessions#new", as: :new_user_session
-    delete "sign_out", :to => "users/sessions#destroy", as: :destroy_user_session
-  end
-
   mount Cfa::Styleguide::Engine => "/cfa"
 
   resources :vita_providers, only: [:index, :show]
@@ -71,7 +60,6 @@ Rails.application.routes.draw do
   get "/:organization/drop-off/:id", to: "intake_site_drop_offs#show", as: :show_drop_off
 
   get "/zendesk/sign-in", to: "zendesk#sign_in"
-  get "/identity-needed", to: "offboarding#identity_needed"
   get "/other-options", to: "public_pages#other_options"
   get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
   get "/maintenance", to: "public_pages#maintenance"
