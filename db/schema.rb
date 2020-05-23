@@ -350,6 +350,22 @@ ActiveRecord::Schema.define(version: 2020_05_26_164047) do
     t.index ["intake_id"], name: "index_ticket_statuses_on_intake_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.boolean "active"
+    t.datetime "created_at", precision: 6, null: false
+    t.string "email"
+    t.string "name"
+    t.string "provider"
+    t.string "role"
+    t.boolean "suspended"
+    t.string "ticket_restriction"
+    t.boolean "two_factor_auth_enabled"
+    t.string "uid"
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "verified"
+    t.bigint "zendesk_user_id"
+  end
+
   create_table "vita_partners", force: :cascade do |t|
     t.boolean "accepts_overflow", default: false
     t.datetime "created_at", precision: 6, null: false
