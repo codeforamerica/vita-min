@@ -40,6 +40,7 @@
 
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
     <div class="page-wrapper">
+      <%= render 'shared/header' %>
       <header class="main-header">
         <div class="toolbar">
           <div class="toolbar__left">
