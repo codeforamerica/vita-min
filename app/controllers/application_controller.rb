@@ -3,7 +3,14 @@ class ApplicationController < ActionController::Base
 
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode, :check_at_capacity
   after_action :track_page_view
+  around_action :switch_locale
   helper_method :include_google_analytics?, :current_intake
+
+  # This needs to be a class method for the devise controller to have access to it
+  # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
+  def self.default_url_options
+    { locale: I18n.locale }.merge(super)
+  end
 
   def current_intake
     Intake.find_by_id(session[:intake_id])
@@ -144,6 +151,17 @@ class ApplicationController < ActionController::Base
     Raven.user_context intake_id: current_intake&.id
     Raven.extra_context visitor_id: visitor_id, is_bot: user_agent.bot?, request_id: request.request_id
   end
+
+  def switch_locale(&action)
+    # Set the locale in order of priority
+    # 1) Language picker: query param 'new_locale'
+    # 2) Previously set locale: query param 'locale' (added by default_url_options once I18n.locale is set)
+    # 3) Browser settings: accept-header is examined if no params are set
+    # 4) Default Fallback: from I18n.default_locale (we set it to :en)
+    locale = params[:new_locale] || params[:locale] || http_accept_language.compatible_language_from(I18n.available_locales) || I18n.default_locale
+    I18n.with_locale(locale, &action)
+  end
+
 
   private
 
