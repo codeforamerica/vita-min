@@ -28,7 +28,8 @@ RSpec.describe User, type: :model do
       
       it "updates all the wonderful fields on the model" do
         expect do
-          described_class.from_zendesk_oauth(auth)
+          result = described_class.from_zendesk_oauth(auth)
+          expect(result).to eq existing_user
         end.not_to change(User, :count)
         
         user = existing_user.reload
@@ -40,7 +41,8 @@ RSpec.describe User, type: :model do
     context "without an existing user" do
       it "creates a user with all the wonderful fields" do
         expect do
-          described_class.from_zendesk_oauth(auth)
+          result = described_class.from_zendesk_oauth(auth)
+          expect(result).to be_a User
         end.to change(User, :count).by(1)
         
         user = User.last
