@@ -209,3 +209,38 @@ vita_partners:
   source_parameters:
   - kycc
   logo_path: ''
+- name: "[MASSCAP] South Shore/South Coast"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010417234'
+  display_name: Massachusetts Association for Community Action (MASSCAP)
+  source_parameters:
+  - MC-SSSC
+  logo_path: ''
+- name: "[MASSCAP] North Shore"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010417254'
+  display_name: Massachusetts Association for Community Action (MASSCAP)
+  source_parameters:
+  - MC-NS
+  logo_path: ''
+- name: "[MASSCAP] Springfield"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010417334'
+  display_name: Massachusetts Association for Community Action (MASSCAP)
+  source_parameters:
+  - MC-SP
+  logo_path: ''
+- name: "[MASSCAP] Community Action of Pioneer Valley"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010417354'
+  display_name: Massachusetts Association for Community Action (MASSCAP)
+  source_parameters:
+  - MC-CAPV
+  logo_path: ''
+- name: "[MASSCAP] Worcester"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010415253'
+  display_name: Massachusetts Association for Community Action (MASSCAP)
+  source_parameters:
+  - MC-WOR
+  logo_path: ''
