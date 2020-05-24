@@ -69,63 +69,7 @@
 
       <%= content_for?(:main) ? yield(:main) : yield %>
 
-      <footer class="footer">
-        <div class="slab slab--footer">
-          <div class="grid">
-            <div class="grid__item width-three-fourths footer-description">
-              <p>
-                <%= image_tag("checkbox-logo--white.png", alt: "") %>
-              </p>
-              <p>
-                GetYourRefund.org is a non-profit service built by
-                <a href="https://www.codeforamerica.org/" target="_blank" rel="noopener" class="footer__link">Code for America</a>
-                in partnership with IRS-certified Volunteer Income Tax Assistance
-                (<a href="https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers" target="_blank" rel="noopener" class="footer__link">VITA</a>)
-                sites nationally.
-              </p>
-            </div>
-
-            <ul class="grid__item width-one-fourth footer-links">
-              <li>
-                <%= link_to about_us_path do %>
-                  About Us
-                <% end %>
-              </li>
-
-              <li>
-                <%= link_to faq_path do %>
-                  FAQ
-                <% end %>
-              </li>
-
-              <li>
-                <%= link_to stimulus_path do %>
-                  Stimulus Payment
-                <% end %>
-              </li>
-
-              <li>
-                <a href="mailto:hello@getyourrefund.org">
-                  hello@getyourrefund.org
-                </a>
-              </li>
-
-              <li>
-                <%= link_to vita_providers_path do %>
-                  Find a Location
-                <% end %>
-              </li>
-
-              <li>
-                <%= link_to privacy_path do %>
-                  Privacy Policy
-                <% end %>
-              </li>
-            </ul>
-
-          </div>
-        </div>
-      </footer>
+      <%= render 'shared/footer' %>
     </div>
     <!-- Start of eitc Zendesk Widget script -->
     <script type="text/javascript">
