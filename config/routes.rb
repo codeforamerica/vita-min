@@ -59,7 +59,6 @@ Rails.application.routes.draw do
   post "/:organization/drop-offs", to: "intake_site_drop_offs#create", as: :create_drop_off
   get "/:organization/drop-off/:id", to: "intake_site_drop_offs#show", as: :show_drop_off
 
-  get "/zendesk/sign-in", to: "zendesk#sign_in"
   get "/other-options", to: "public_pages#other_options"
   get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
   get "/maintenance", to: "public_pages#maintenance"
@@ -80,6 +79,10 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks",
   }
   get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
+  get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
+  namespace :zendesk do
+    resources :documents, only: [:show]
+  end
 
   # FSA routes
   get '/diy/check-email', to: 'public_pages#check_email'

@@ -27,9 +27,8 @@ class User < ApplicationRecord
   def self.from_zendesk_oauth(auth)
     data_source = auth.info
 
-    where(provider: auth.provider, uid: auth.uid)
-      .first_or_initialize
-      .update(
+    user = where(provider: auth.provider, uid: auth.uid).first_or_initialize
+    user.update(
         zendesk_user_id: data_source.id,
         name: data_source.name,
         email: data_source.email,
@@ -41,5 +40,6 @@ class User < ApplicationRecord
         verified: data_source.verified,
         access_token: auth.credentials.token
       )
+    user
   end
 end

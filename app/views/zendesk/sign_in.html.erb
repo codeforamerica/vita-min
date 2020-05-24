@@ -11,7 +11,7 @@
               <%= @main_heading %>
             </h1>
 
-            <%= link_to "#", class: "button button--primary button--wide text--centered", method: :post do %>
+            <%= link_to user_zendesk_omniauth_authorize_path, class: "button button--primary button--wide text--centered", method: :post do %>
               Sign in with Zendesk
             <% end %>
 
