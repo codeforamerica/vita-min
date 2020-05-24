@@ -517,6 +517,18 @@ class Intake < ApplicationRecord
     ticket_statuses.reorder(created_at: :desc).first
   end
 
+  def name_for_filename
+    primary_full_name.split(" ").map(&:capitalize).join
+  end
+
+  def intake_pdf_filename
+    "13614c_#{name_for_filename}.pdf"
+  end
+
+  def consent_pdf_filename
+    "Consent_#{name_for_filename}.pdf"
+  end
+
   private
 
   def partner_for_source

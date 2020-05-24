@@ -266,24 +266,20 @@ class ZendeskIntakeService
     messages
   end
 
-  def primary_name_for_filename
-    @intake.primary_full_name.split(" ").map(&:capitalize).join
-  end
-
   def additional_info_doc_filename
-    "#{primary_name_for_filename}_identity_info.png"
+    "#{@intake.name_for_filename}_identity_info.png"
   end
 
   def consent_pdf_filename
-    "Consent_#{primary_name_for_filename}.pdf"
+    "Consent_#{@intake.name_for_filename}.pdf"
   end
 
   def bank_details_png_filename
-    "Bank_details_#{primary_name_for_filename}.png"
+    "Bank_details_#{@intake.name_for_filename}.png"
   end
 
   def intake_pdf_filename(final: false)
-    "#{"Final" if final}13614c_#{primary_name_for_filename}.pdf"
+    "#{"Final" if final}13614c_#{@intake.name_for_filename}.pdf"
   end
 
   def no_notifications
