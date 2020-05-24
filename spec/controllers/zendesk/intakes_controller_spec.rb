@@ -8,7 +8,7 @@ RSpec.describe Zendesk::IntakesController do
   describe "#intake_pdf" do
     it_behaves_like :a_protected_zendesk_ticket_page, action: :intake_pdf do
       let(:valid_params) do
-        { id: intake.id }
+        { id: intake.id, filename: intake.intake_pdf_filename }
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Zendesk::IntakesController do
       end
 
       it "returns the 13614-C pdf filled out for the intake inline" do
-        get :intake_pdf, params: { id: intake.id }
+        get :intake_pdf, params: { id: intake.id, filename: intake.intake_pdf_filename }
 
         expect(assigns(:intake)).to eq intake
         expect(IntakePdf).to have_received(:new).with(intake)
@@ -37,7 +37,7 @@ RSpec.describe Zendesk::IntakesController do
   describe "#consent_pdf" do
     it_behaves_like :a_protected_zendesk_ticket_page, action: :consent_pdf do
       let(:valid_params) do
-        { id: intake.id }
+        { id: intake.id, filename: intake.consent_pdf_filename }
       end
     end
 
@@ -53,7 +53,7 @@ RSpec.describe Zendesk::IntakesController do
       end
 
       it "returns the 13614-C pdf filled out for the intake inline" do
-        get :consent_pdf, params: { id: intake.id }
+        get :consent_pdf, params: { id: intake.id, filename: intake.consent_pdf_filename }
 
         expect(assigns(:intake)).to eq intake
         expect(ConsentPdf).to have_received(:new).with(intake)

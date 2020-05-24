@@ -81,10 +81,11 @@ Rails.application.routes.draw do
   get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
   get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
   namespace :zendesk do
+    resources :tickets, only: [:show]
     resources :documents, only: [:show]
-    resources :intakes do
-      get "13614-c", to: "intakes#intake_pdf", on: :member, as: :pdf
-      get "consent", to: "intakes#consent_pdf", on: :member, as: :consent_pdf
+    resources :intakes, only: [:pdf, :consent_pdf] do
+      get "13614c/:filename", to: "intakes#intake_pdf", on: :member, as: :pdf
+      get "consent/:filename", to: "intakes#consent_pdf", on: :member, as: :consent_pdf
     end
   end
 
