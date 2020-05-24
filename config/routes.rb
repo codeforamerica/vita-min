@@ -76,6 +76,11 @@ Rails.application.routes.draw do
   post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
   post "/email", to: "email#create"
 
+  devise_for :users, controllers: {
+    omniauth_callbacks: "users/omniauth_callbacks",
+  }
+  get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
+
   # FSA routes
   get '/diy/check-email', to: 'public_pages#check_email'
 end
