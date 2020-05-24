@@ -82,6 +82,10 @@ Rails.application.routes.draw do
   get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
   namespace :zendesk do
     resources :documents, only: [:show]
+    resources :intakes do
+      get "13614-c", to: "intakes#intake_pdf", on: :member, as: :pdf
+      get "consent", to: "intakes#consent_pdf", on: :member, as: :consent_pdf
+    end
   end
 
   # FSA routes
