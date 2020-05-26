@@ -1,0 +1,342 @@
+---
+es:
+  date:
+    formats:
+      default: "% -m /% - d /% Y"
+      long: "% B% -d,% Y"
+  dependents:
+    form:
+      birth_date: Fecha de nacimiento
+      delete_confirmation: ¿Estás seguro de que deseas eliminar "%{name}"?
+      delete_cta: Eliminar a esta persona
+      disabled: Incapacidad permanente
+      first_name: Nombre de pila
+      last_name: Apellido
+      life_circumstances: Seleccione cualquier caso que describa su vida el año pasado.
+      life_circumstances_help: Necesitamos estas respuestas para determinar para qué créditos fiscales puede calificar.
+      months_in_home: "¿Cuántos meses vivieron en su casa en %{year}?"
+      months_in_home_help: Seleccione 12 si su nacimiento o muerte fue en %{year}.
+      north_american_resident: Vivió fuera de los EE. UU., México o Canadá
+      on_visa: "¿Esta persona está aquí con una VISA?"
+      relationship: Relación contigo
+      save_cta: Salva a esta persona
+      title: Cuéntanos sobre tu dependiente. Proporcione algunos detalles más.
+      was_married: Casado el 31/12 / %{year}
+      was_student: Estudiante de educación superior a tiempo completo
+    index:
+      add_person: Agregar una persona
+      done: Hecho con este paso
+      info: Necesitaremos un ITIN o SSN para cada persona que agregue. Le pediremos que comparta imágenes de estos al final.
+      title: "¡Vamos a reclamar a alguien!"
+  footer:
+    service_description_html: GetYourRefund.org es un servicio sin fines de lucro creado por %{cfa_link} en asociación con los sitios de Asistencia Voluntaria del Impuesto sobre la Renta (%{vita_link}) certificados por el IRS a nivel nacional.
+  general:
+    affirmative: si
+    chat_with_us: habla con nosotros
+    edit: Editar
+    find_location: Encuentra una ubicación
+    find_vita_site: Encuentre un sitio de VITA cerca de usted
+    free_file_html: Si desea presentar sus impuestos sin la asistencia de nuestro personal y servicios, use el %{wizard_link} para encontrar una forma gratuita de presentar sus impuestos en línea.
+    free_file_lookup_tool: Herramienta de búsqueda de archivos gratis del IRS
+    get_my_payment: Obtén mi pago
+    get_started: Empezar
+    irs_certified_volunteers: Voluntarios certificados por el IRS
+    irs_free_file: IRS Free File
+    negative: 'No'
+    other_options: Pruebe con otra opción de presentación de impuestos gratuita
+    return_home: Vuelve a casa
+    submit_question: Envíe una pregunta a GetYourRefund
+    visit_free_file: Visite el archivo gratuito del IRS
+    vita_long: 'VITA: Asistencia Voluntaria al Impuesto sobre la Renta'
+  public_pages:
+    about_us:
+      how_it_helps: Puede ahorrar hasta $ 300 cuando presente de forma gratuita. También nos aseguramos de que los contribuyentes elegibles reclamen el Crédito Tributario por Ingreso del Trabajo (EITC), que puede superar los $ 3,000 por familia.
+      how_it_works: Nos asociamos con sitios de impuestos gratuitos, conocidos como sitios de Asistencia Voluntaria para el Impuesto sobre la Renta (VITA), para ayudarlo a preparar sus impuestos. Voluntarios capacitados y certificados por el IRS en organizaciones comunitarias locales prepararán sus impuestos.
+      partners:
+        cta: "¿Interesado en asociarse con nosotros?"
+        header: Nos asociamos con organizaciones confiables
+        photo_alt:
+          courtney: Una fotografía de Courtney O'Reilly sonriendo.
+          denise: Una fotografía de Denise Eckley sonriendo.
+        quote:
+          courtney: '"Estoy emocionado de extender nuestros servicios gratuitos a aquellos que no pueden venir a una de nuestras ubicaciones físicas. Sé que los impuestos pueden ser intimidantes, ¡por eso estamos aquí para ayudar!"'
+          denise: '"Ser parte de una organización que trabaja para cerrar la brecha entre dónde están las personas y dónde quieren (o necesitan) estar es satisfactorio y siempre emocionante".'
+        subheader: Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados para ayudarnos a proporcionar asistencia gratuita para la presentación de impuestos a las familias que ganan menos de aproximadamente $ 66,000 al año.
+      title: Sobre nosotros
+    at_capacity:
+      alternative_html: Alternativamente, puede probar %{irs_link}, un servicio en línea que le permite preparar sus propios impuestos de forma gratuita.
+      body: Estamos experimentando un gran volumen de clientes en este momento. Nuestro objetivo es servir a todos con el mejor servicio de calidad. Pedimos disculpas por la espera, GetYourRefund estará disponible nuevamente en breve.
+      check_back: Recomendamos volver a consultar en unos días. ¡Gracias!
+      title: Wow, parece que estamos en capacidad en este momento.
+    error:
+      body: Parece que hubo un error en el servidor. ¡Hemos sido notificados del problema y trabajaremos para solucionarlo!
+      contact_html: Si tienes problemas, estamos aquí para ayudarte. Puede comunicarse con nosotros utilizando el botón "Ayuda" / "Chat" en la parte inferior derecha o enviándonos un correo electrónico a %{email_link}.
+      cta: Vuelve a casa
+      title: Oops, lo sentimos, pero algo salió mal.
+    faq:
+      getting_started:
+        am_i_eligible:
+          a: Brindamos asistencia gratuita para la presentación de impuestos a las familias que ganan menos de aproximadamente $ 66,000 al año.
+          q: "¿Soy elegible?"
+        changes:
+          a: No se preocupe, tendrá la oportunidad de hablar con uno de nuestros especialistas en impuestos sobre su situación, y puede informarles sobre cualquier cambio o respuesta sobre los que no estaba seguro antes de que preparen sus impuestos.
+          q: "¿Qué sucede si necesito cambiar una de mis respuestas o no estoy seguro de cómo responder?"
+        extension:
+          a: Los plazos de presentación y pago de impuestos sobre la renta de 2019 del 15 de abril de 2020 se extienden automáticamente hasta el 15 de julio de 2020. Esto se aplica a todas las declaraciones individuales, fideicomisos y corporaciones. Esto es automático, los contribuyentes de impuestos no necesitan presentar ningún formulario adicional o llamar al IRS para calificar. Esto también incluye los pagos de impuestos estimados para el año fiscal 2020 que vencen el 15 de abril de 2020.
+          q: "¿Qué significa que se haya extendido el plazo?"
+        header: Ayuda para comenzar
+        how_long:
+          a1: En general, GetYourRefund tarda de 5 a 10 días hábiles en completarse porque trabaja uno a uno con un preparador de impuestos.
+          a2: El primer paso es responder preguntas sobre su situación fiscal en nuestro formulario en línea y cargar sus documentos fiscales, lo que puede demorar entre 10 y 30 minutos. A continuación, recibirá una llamada de su especialista en impuestos en 2-3 días hábiles para analizar su situación fiscal. Luego, su declaración de impuestos será preparada y la calidad será revisada por un preparador de impuestos certificado por el IRS que lo llamará para analizar su reembolso y el proceso para la firma y presentación electrónicas. Después de presentar los impuestos, hemos escuchado de los clientes que reciben un depósito directo del IRS dentro de una semana.
+          q: "¿Cuánto tiempo llevará esto?"
+        how_to_start:
+          a: Para comenzar, vaya a GetYourRefund.org, haga clic en "Comenzar" y díganos que desea "Iniciar mis impuestos en línea". Tendrá que cargar fotos de su identificación, responder algunas preguntas sobre su situación fiscal y cargar sus documentos fiscales. Luego, uno de nuestros especialistas en impuestos lo llamará por teléfono para analizar sus impuestos, responder cualquier pregunta y completar su presentación.
+          q: "¿Cómo empiezo?"
+        is_it_free:
+          a: "¡Si! Nos asociamos con VITA, un programa del IRS que certifica expertos en impuestos en organizaciones sin fines de lucro de la comunidad local como United Way, para completar sus impuestos estatales y federales de forma gratuita."
+          q: "¿Es este servicio realmente gratis?"
+        missing_docs:
+          a_html: Si ha perdido o nunca recibió un documento de impuestos, el primer lugar para intentarlo es su empleador. A menudo, su empleador puede volver a emitirle rápidamente sus formularios de impuestos. Si eso no funciona, puede solicitar sus documentos fiscales al IRS en %{transcript_link}.
+          q: "¿Qué debo hacer si no puedo encontrar un documento fiscal?"
+        non_filer:
+          a: Podemos presentar sus impuestos para 2016, 2017, 2018 y 2019. Le recomendamos que nos informe si aún no lo ha hecho durante estos años, ya que esto puede ayudarlo a reclamar reembolsos de años anteriores que podría haberse perdido. .
+          q: "¿Qué debo hacer si no he presentado en varios años?"
+      header: Preguntas frecuentes
+      subheader: Haga clic a continuación para obtener respuestas a las preguntas frecuentes. ¡Chatea con nosotros si aún tienes preguntas!
+      title: Preguntas más frecuentes
+    home:
+      accuracy:
+        body1: Sí, nuestro servicio es realmente gratuito. Brindamos este servicio gratuito al asociarnos con los sitios de Asistencia Voluntaria a los Impuestos sobre la Renta (VITA) certificados por el IRS para proporcionar asistencia para la presentación de impuestos a las familias que ganan menos de $ 66,000 al año.
+        body2: Voluntarios entrenados y certificados por el IRS prepararán y verificarán su declaración de impuestos para asegurarse de que sea correcta antes de presentarla.
+        header: Ofrecemos las tasas de precisión más altas. Gratis.
+      backtaxes:
+        body: Podemos presentar sus impuestos estatales y federales para los años fiscales 2016, 2017, 2018 y 2019. Nuestros voluntarios capacitados también se asegurarán de que reciba los créditos fiscales para los que califica.
+        header: Presente los años anteriores y maximice su reembolso.
+      clients:
+        across_us: de clientes en los Estados Unidos
+        header: Lo que dicen nuestros clientes
+        quote1:
+          body: '"Solo quiero decir que no puedo decirles cuánto estrés aliviaron al ofrecerlo en línea. He examinado otros servicios de crédito de karma, impuestos turbo y siguiendo los pasos iniciales. No me sentía seguro hasta que paré y encontré GetYourRefund. Pensé: "Dios mío, esto es increíble".'
+          header: Oh dios mio esto es asombroso
+        quote2:
+          body: “Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a las preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Este proceso me gusta mucho más cuando hay una persona que puede explicar en detalle las preguntas que tienes y que responden bastante rápido ".
+          header: Muy profesional, muy amable
+        rating: Clasificación 4.8 / 5 estrellas
+      features:
+        amendments: Archivo de enmiendas de años pasados
+        backtaxes: Presentar impuestos atrasados (2016-2019)
+        chat: Soporte de chat disponible
+        faq_cta: Visita las preguntas frecuentes
+        free: Servicio completamente gratuito
+        header: La conveniencia de en línea, el apoyo en persona.
+        questions: "¿Aún tienes preguntas? Visite nuestra página de preguntas frecuentes o chatee con nosotros."
+      file:
+        header: "¡Obtenga más de su reembolso de dólares al archivar gratis hoy!"
+      filing_deadline_banner:
+        body: No necesita presentar ningún formulario adicional ni llamar al IRS para obtener la extensión. Lo alentamos a que presente hoy ya que es posible que deba un reembolso que puede ayudar a mantener a su hogar.
+        title: 'Nota: El plazo de presentación de impuestos federales sobre la renta se ha extendido hasta el 15 de julio de 2020.'
+      header: Presentación de impuestos gratuita, apoyo humano real.
+      partners:
+        header: Nos asociamos con organizaciones confiables
+        learn_more_html: Aprenda más acerca de nosotros >
+      security:
+        body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII) proporcionada por los contribuyentes a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
+        header: Estamos comprometidos a mantener su información segura.
+      subheader: Maximice su reembolso presentando a nuestros voluntarios de confianza.
+      title: Ayuda tributaria gratuita de voluntarios certificados por el IRS.
+    maintenance:
+      contact_html: También puedes %{email_link}.
+      email: enviar una pregunta por correo electrónico a GetYourRefund
+      info_html: Estamos realizando algunas actualizaciones en GetYourRefund, ¡y volveremos pronto! Esperamos que el mantenimiento finalice a las <strong>3:00</strong> a.
+      questions: Mientras tanto, si tiene alguna pregunta, no dude en comunicarse a través del botón de chat / ayuda en la parte inferior derecha.
+      title: GetYourRefund está temporalmente fuera de servicio por mantenimiento
+    maybe_ineligible:
+      info: Nos complace responder cualquier pregunta que pueda tener sobre GetYourRefund o podemos conectarlo con otras opciones de presentación de impuestos.
+      title: No estamos seguros si califica para nuestros servicios.
+    other_options:
+      info: Nos complace ayudarlo con sus impuestos, pero necesitamos verificar su identidad para comenzar. La verificación de identificación es importante para garantizar que su información esté segura, pero si no es para usted, puede obtener más información sobre otras opciones de archivo gratuitas a continuación.
+      title: "¡Encontremos una manera de ayudarte!"
+    page_not_found:
+      info: La página a la que intenta acceder no está disponible.
+      let_us_know_html: Si siguió un enlace aquí, infórmenos utilizando el botón "Ayuda" / "Chat" en la parte inferior derecha o enviándonos un correo electrónico a %{email_link}.
+      title: Vaya, lo sentimos, pero no se puede encontrar la página que estás buscando.
+    privacy_policy:
+      changes:
+        header: Cambios
+        info: Podemos cambiar esta Política de privacidad de vez en cuando. Consulte esta página con frecuencia para obtener actualizaciones, ya que el uso continuado de este sitio después de cualquier cambio en esta Política de privacidad constituirá su aceptación de los cambios.
+      effective_date:
+        header: Fecha efectiva
+        info: Esta versión de la política es efectiva %{effective_date}
+      information_collection:
+        header: La información personal que recopilamos.
+        service:
+          data:
+            '1099': '1099'
+            address: habla a
+            contact_info: Información del contacto
+            dependent_cards: Imágenes de tarjetas de seguro social para dependientes, si corresponde
+            financial_info: información financiera, fotos de su licencia de conducir
+            header: 'Recopilamos toda la información proporcionada a través del Sitio para utilizar el servicio, incluidos, entre otros:'
+            name: tu nombre
+            ssn: Número de seguridad social
+            w2: W-2
+          header: Al usar el servicio
+          irs_forms:
+            consent: Consentimiento para obtener el modelo de servicio GetYourRefund
+            efile: El formulario 8879 autoriza la presentación electrónica (se enviará a través de DocuSign para su firma antes de la presentación electrónica)
+            header: 'Solo se recopilará y retendrá la información requerida para preparar y completar el servicio. Al usar el servicio, se completarán formularios específicos del IRS con su información provista, incluyendo:'
+            intake: 13614-C formulario de admisión VITA
+          retention_html: Actualmente conservamos todos los datos de visitas al sitio indefinidamente a menos que usted solicite específicamente que los eliminemos. Puede hacer esta solicitud enviándonos un correo electrónico a %{email_link}.
+          use_and_storage: No almacenamos ninguna de esta información a menos que usted autorice electrónicamente el servicio en el formulario de admisión GetYourRefund. Sus impuestos no se archivarán electrónicamente hasta que complete los formularios de consentimiento anteriores. Si decide no seguir adelante con el uso del servicio, se eliminará la información personal.
+        site:
+          data:
+            date_time: Fecha y hora de tu visita.
+            domain: Dominio desde el que accede a Internet.
+            header: 'Además de la información que proporciona, recopilamos y almacenamos automáticamente información sobre su visita al Sitio:'
+            ip: Dirección IP (una dirección de protocolo de Internet o IP es un número que se asigna automáticamente a una computadora conectada a la Web).
+            os_browser: Sistema operativo en su computadora e información sobre el navegador que utilizó cuando visitó el sitio.
+            pages: Páginas que visitaste.
+            referrer: Dirección del sitio web que lo conectó al Sitio (como google.com o bing.com).
+          header: Al visitar el sitio
+          knowledge_and_consent: No recopilaremos información personal de usted sin su conocimiento y consentimiento, excepto en algunas circunstancias limitadas como se describe en esta Política.
+          use_and_storage: Utilizamos esta información para comprender cómo se usa el Sitio, mejorar el Sitio y monitorear el uso por razones de seguridad. Estos datos se almacenan por separado de la información personal que envía en la aplicación GetYourRefund.
+      information_protection:
+        complete_security: Aunque hacemos todo lo posible para proteger la privacidad de su información personal, no podemos garantizar una seguridad completa. La transmisión de información a través de Internet no es completamente segura. La entrada o el uso no autorizados, la falla de hardware o software y otros factores pueden comprometer la seguridad de la información del usuario en cualquier momento.
+        header: Cómo protegemos su información
+        important: Proteger su información personal es extremadamente importante para nosotros y tomamos todas las medidas razonables para hacerlo. Tomamos precauciones para proteger su información. Cuando envía información confidencial a través del sitio web, su información está protegida tanto en línea como fuera de línea.
+        offline: Si bien utilizamos el cifrado para proteger la información confidencial transmitida en línea, también protegemos su información fuera de línea. Solo los empleados que necesitan la información para realizar un trabajo específico tienen acceso a información de identificación personal. Las computadoras / servidores en los que almacenamos información de identificación personal se mantienen en un entorno seguro.
+        online: Dondequiera que recolectemos información confidencial, esa información se encripta y nos transmite de manera segura. Puede verificar esto buscando un icono de candado en la barra de direcciones y buscando "https" al comienzo de la dirección de la página web.
+        security_practices:
+          doc_deletion: La documentación del contribuyente se eliminará dentro de los 5 días posteriores al tercer intento de contactar al contribuyente (si el contribuyente no responde a las solicitudes de contacto)
+          doc_storage: 'Los documentos se mantendrán seguros en todo momento: contraseñas, cifrado, sobres sellados, archivadores / archivadores de bloqueo, etc.'
+          header: 'Aquí hay algunas prácticas de seguridad específicas que utilizamos:'
+          incident_response: El sitio mantiene un plan de respuesta a incidentes que incluye reportar incidentes de seguridad al IRS
+          ssl: Todas las conexiones serán encriptadas usando certificados SSL
+          tls: Cuando ingresa su información en nuestro sitio, encriptamos la transmisión de esa información utilizando la seguridad de la capa de transporte (TLS).
+          training: Solo los voluntarios de VITA que completen la capacitación necesaria y los administradores del sitio de Code for America tendrán acceso a la información del contribuyente
+      information_sharing:
+        communication_with_others:
+          header: Comunicaciones con otros sitios, servicios e individuos.
+          need_to_know: El código para los empleados, contratistas y organizaciones afiliadas de Estados Unidos que necesiten conocer información para proporcionar los servicios del Sitio también tendrá acceso limitado a la información personal.
+          non-partners: Además de los sitios de VITA y las personas afiliadas al Sitio, no compartimos su información personal con ninguna otra persona u organización, excepto en la medida mínima requerida por la ley.
+          partners:
+            docusign: DocuSign
+            header: 'Una vez que envíe su información de admisión de VITA en el Sitio, compartiremos esta información con nuestros sitios asociados de VITA a través del sistema de admisión seguro. Para proporcionar servicios, el Sitio compartirá datos e información con otros sistemas seguros que albergarán su información, que incluyen:'
+            taxslayer: TaxSlayer (a través del consentimiento para trabajar con VITA, sistema que utilizan para preparar su declaración y archivo electrónico si acepta la presentación electrónica)
+            zendesk: Zendesk
+          responsibility: Tenga en cuenta que no somos responsables del contenido ni de las prácticas de privacidad de dichos sitios. Alentamos a nuestros usuarios a que estén atentos cuando abandonen nuestro sitio y lean las declaraciones de privacidad de cualquier otro sitio que recopile información de identificación personal.
+        communication_with_you:
+          header: Comunicación contigo
+          notifications:
+            email_consent: No le enviaremos un correo electrónico a menos que acepte la comunicación por correo electrónico en la aplicación o nos envíe un correo electrónico primero.
+            header: Le enviaremos notificaciones para actualizarlo con el progreso a medida que un sitio de VITA prepare sus declaraciones de impuestos. Podemos comunicarnos con usted con preguntas o solicitudes de información adicional.
+            sms_consent: No le enviaremos un mensaje de texto a menos que acepte la comunicación de mensajes de texto en la aplicación o nos envíe un mensaje de texto primero.
+            sms_email: Si acepta las comunicaciones por SMS y correo electrónico en el formulario de admisión, le enviaremos notificaciones de Zendesk por SMS y correo electrónico, según sus preferencias de comunicación indicadas.
+            vita: Los sitios de VITA pueden contactarlo para obtener más información para ayudarlo a completar su declaración (por ejemplo, solicitar documentos adicionales y aclarar preguntas). También divulgamos su información personal a los empleados, contratistas y organizaciones afiliadas de Code for America que necesitan conocer la información para proporcionar los servicios del Sitio.
+        header: Cómo compartimos su información
+      information_use:
+        header: Cómo usamos su información
+        research: Enviaremos una versión hash / anonimizada de su SSN al IRS solo para fines de investigación, recibiremos métricas agregadas para nuestra investigación para ayudarnos a mejorar el servicio.
+        vita_services:
+          docs: Envíe los documentos que cargue a un lugar seguro de carga de archivos para que el personal certificado y los voluntarios en los sitios de VITA lo revisen
+          efile: VITA presentará sus declaraciones electrónicamente a través de TaxSlayer y enviará su información al IRS si acepta la presentación electrónica a través del formulario de firma electrónica 8879 en DocuSign
+          header: 'Solo usamos su información personal para ayudarlo a acceder a los servicios de VITA. Si acepta permitir que VITA prepare sus impuestos, nosotros:'
+          intake: Envíe su formulario de admisión de VITA al programa VITA, quien asignará un voluntario certificado para preparar sus impuestos.
+          notifications: Notificarle sobre su progreso en el proceso, según sus preferencias de contacto.
+          support: Brindarle apoyo durante todo el proceso de preparación de impuestos.
+      intro: GetYourRefund.org es un sitio web sin fines de lucro administrado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro"). Esta Política de privacidad describe cómo el sitio web GetYourRefund.org (el "Sitio") recopila, usa y protege su información personal. Al enviar su información personal en el Sitio, usted acepta los términos de esta Política de privacidad. Si no está de acuerdo con estos términos, no utilice el Sitio.
+      overview:
+        data_use:
+          header: 'Solo usaremos su información personal para:'
+          suggestions: Sugerir otros servicios o programas de asistencia que puedan serle útiles. Solo utilizaremos su información personal para presentarle dichos servicios o programas como una opción, pero nunca enviaremos su información personal a ningún otro servicio o programa sin su permiso.
+          vita: Ayude a conectarse con los servicios gratuitos de preparación de impuestos de VITA (Volunteer Income Tax Income Assistance) y cualquier otro programa de beneficios que solicite en futuras versiones del Sitio ("GetYourRefund" en este documento se refiere a todos esos programas).
+        header: Visión general
+        no_disclosure: No divulgaremos ni venderemos a sabiendas su información personal a ningún tercero, excepto lo dispuesto en esta Política de privacidad. Tomaremos todas las medidas razonables para proteger su información personal.
+      questions:
+        contact_us_html: 'Si tiene alguna pregunta, comentario, inquietud o queja con el Sitio, contáctenos por correo electrónico a %{email_link} o por correo a:'
+        header: Preguntas
+        resolve: Haremos nuestro mejor esfuerzo para resolver el problema.
+      title: Política de privacidad
+    stimulus_payment:
+      faq:
+        eip:
+          additional_eip:
+            a: En la mayoría de los casos, el EIP adicional se proporcionaría en 2021.
+            q: "¿Qué sucede si no cumplí el plazo para proporcionar información adicional o recibí un EIP más pequeño de lo esperado?"
+          deadline:
+            a: Para aquellos preocupados por visitar en persona a un profesional de impuestos u organización comunitaria local para obtener ayuda con una declaración de impuestos, estos pagos de impacto económico estarán disponibles durante 2020 y la temporada de presentación de impuestos de 2021.
+            q: Todavía necesito presentar una declaración de impuestos. ¿Por cuánto tiempo están disponibles los pagos de impacto económico?
+          header: Preguntas frecuentes sobre el pago de impacto económico (pago de estímulo)
+          one_time:
+            a: Solo un paquete de estímulo ha sido anunciado por el gobierno de EE. UU. Actualizaremos esta página con cualquier cambio.
+            q: "¿Es este un pago único?"
+          other_benefits:
+            a: No, los cheques EIP se tratan como un crédito fiscal. Esto significa que su pago no afectará los beneficios que reciba ahora o en el futuro.
+            q: "¿El cheque EIP afectará mis otros beneficios del gobierno?"
+          owe_taxes:
+            a: Sí, pero con una excepción. El pago se compensará con la pensión alimenticia vencida. La Oficina del Servicio Fiscal le enviará un aviso si esto ocurre.
+            q: Si debo impuestos, o tengo un acuerdo de pago con el IRS, o debo otras deudas federales o estatales, ¿recibiré el EIP?
+          scams:
+            a: No haga clic en enlaces cuyos orígenes no esté 100% seguro. Ten cuidado con las estafas. Si parece demasiado bueno para ser verdad, probablemente lo sea. Y no envíe dinero a alguien que no conoce.
+            q: "¿Qué pasa si alguien ofrece un pago más rápido?"
+          when:
+            a: Los pagos de impacto económico llegarán a las cuentas bancarias a través del depósito directo a partir del 9 de abril de 2020. Si no tiene una cuenta bancaria, puede demorar hasta cinco meses en recibir su cheque por correo.
+            q: "¿Cuándo recibiré mi cheque?"
+        how_to_get_paid:
+          change_address:
+            a_html: 'Si desea que le enviemos su cheque EIP, asegúrese de que su dirección esté actualizada en el sitio web IRS %{irs_address_change_link}. Puede haber demoras: puede demorar hasta cinco meses en recibir su cheque por correo.'
+            address_change: cambio de dirección
+            q: "¿Qué sucede si me mudé desde que presenté mis impuestos?"
+          change_information:
+            a_html: Puede actualizar su información en el sitio web IRS %{irs_get_my_payment_link}.
+            q: "¿Qué sucede si necesito cambiar la información que proporcioné en 2018 o 2019?"
+          did_not_provide_bank_account:
+            a_html: Si no proporcionó un número de ruta para una cuenta bancaria, su devolución podría retrasarse. Puede proporcionarle al IRS esta información en el sitio web del IRS %{irs_get_my_payment_link}.
+            q: "¿Qué sucede si no proporcioné una cuenta bancaria al IRS?"
+          eip_check:
+            a: Si presentó sus impuestos de 2019, su pago de impacto económico (pago de estímulo) se le enviará por el método que eligió para recibir su reembolso de 2019 (ya sea enviado a su dirección postal o directamente depositado en la cuenta bancaria que proporcionó en sus impuestos de 2019) ) Si no ha presentado una solicitud para 2019, el IRS utilizará la información en sus impuestos de 2018.
+            q: "¿Cómo obtengo mi cheque de pago de impacto económico?"
+          header: Cómo cobrar
+          no_bank_account:
+            a_html: Si no tiene una cuenta bancaria, puede demorar hasta cinco meses en recibir su cheque EIP por correo. Para obtener su pago rápidamente mediante depósito directo, regístrese para obtener una cuenta bancaria en línea y agregue la información de su cuenta en el sitio web IRS %{irs_get_my_payment_link}. Si no desea registrarse para obtener una cuenta bancaria, puede vincular una tarjeta de débito prepaga. Muchos de nuestros socios de VITA también pueden inscribirlo en una tarjeta de débito prepaga cuando presente su declaración a través de GetYourRefund.
+            q: "¿Qué pasa si no tengo una cuenta bancaria?"
+          no_income:
+            a_html: Debe ingresar su información de pago en el sitio web IRS %{irs_enter_payment_info_link} para recibir su pago. Si tiene problemas para completar esto por su cuenta, puede completar el cuestionario GetYourRefund y los voluntarios certificados por el IRS pueden ayudarlo a completar el formulario simple.
+            enter_payment_info_website_title: '"No declarantes: ingrese la información de pago aquí"'
+            q: "¿Qué pasa si no tengo ingresos?"
+          non_filer:
+            a: Si no está obligado a presentar impuestos pero tiene ingresos ganados, le recomendamos que presente sus impuestos a través de GetYourRefund, ya que puede ser elegible para créditos fiscales adicionales. Si tiene que presentar impuestos, pero no lo hizo en 2018 o 2019, aún puede hacerlo con GetYourRefund.
+            q: "¿Qué pasa si no he presentado impuestos federales?"
+          payment_amount:
+            a_html: El IRS tiene un sitio web %{irs_eip_calculator_link} para ayudarlo a calcular cuánto recibirá.
+            calculate_eip_website_title: '"¿Cómo calculo mi EIP?"'
+            q: "¿Cuánto recibiré?"
+      header: Obtenga su pago de estímulo (EIP)
+      intro:
+        benefits:
+          header: Los beneficios de presentar
+          info: Sin embargo, para aquellos en las categorías anteriores, si tiene ingresos ganados o dependientes, puede acceder a créditos o beneficios fiscales adicionales al presentar o actualizar su información con el IRS. Comuníquese por chat para obtener más información.
+        common_questions: "¡Sabemos que hay muchas preguntas sobre los Pagos de Impacto Económico (EIP) y tenemos algunas respuestas! Hemos desglosado algunas preguntas comunes para ayudarte."
+        description: Este año, muchas personas recibirán un Pago de Impacto Económico (a menudo llamado un pago de estímulo) del gobierno federal. Obtendrá hasta $ 1,200 para usted ($ 2,400 para una pareja casada que presente una declaración conjunta) y recibirá $ 500 adicionales por cada hijo dependiente menor de 17 años.
+        eligibility:
+          header: "¿Quien es elegible?"
+          info: Los contribuyentes con ingresos brutos ajustados de hasta $ 75,000 para individuos y hasta $ 150,000 para parejas casadas que presenten declaraciones conjuntas recibirán el pago completo. Para los declarantes con ingresos superiores a esos montos, el monto del pago se reduce en $ 5 por cada $ 100 por encima de los umbrales de $ 75,000 / $ 150,000. Los declarantes solteros con ingresos superiores a $ 99,000 y $ 198,000 para declarantes conjuntos sin hijos no son elegibles.
+        irs_info_html: El IRS publicará toda la información clave en %{irs_eip_link} tan pronto como esté disponible.
+        payments:
+          exceptions:
+            header: 'A menos que deba presentar una declaración de impuestos o tener dependientes menores de 17 años, recibirá automáticamente su pago de $ 1,200 si se encuentra en alguna de las siguientes categorías, por lo que no está obligado a presentar:'
+            railroad: Beneficios de jubilación ferroviaria
+            social_security: Jubilación del Seguro Social, discapacidad (SSDI), Ingreso de Seguridad Suplementario (SSI) o beneficios de sobreviviente
+            veterans: Beneficios para veteranos
+          header: Pagos automáticos
+          info: Los contribuyentes elegibles que presentaron declaraciones de impuestos para 2019 o 2018 recibirán automáticamente un pago de impacto económico de hasta $ 1,200 para individuos o $ 2,400 para parejas casadas y hasta $ 500 por cada hijo calificado.
+      title: Pago de estímulo
+    tax_questions:
+      cannot_answer:
+        different_services: Preguntas sobre impuestos presentados con un servicio diferente (H & amp; R Block, TurboTax)
+        header: 'No podemos responder:'
+        refund_amounts: El monto del reembolso que recibirá
+      header: "¡Intentemos responder sus preguntas sobre impuestos!"
+      see_faq: Por favor, consulte nuestras preguntas frecuentes
+      support: Nuestro equipo está aquí para apoyarlo. %{faq_link} o envíe una pregunta por chat y nos pondremos en contacto con usted.
+      title: Preguntas de impuestos
