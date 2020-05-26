@@ -62,7 +62,6 @@ describe ZendeskDiyIntakeService do
         ticket_form_id: ZendeskDiyIntakeService::DIY_SUPPORT_TICKET_FORM,
         body: "Body text",
         fields: {
-          EitcZendeskInstance::INTAKE_SITE => "online_intake",
           EitcZendeskInstance::STATE => diy_intake.state_of_residence,
           ZendeskDiyIntakeService::DIY_SUPPORT_UNIQUE_LINK => diy_intake.start_filing_url
         }

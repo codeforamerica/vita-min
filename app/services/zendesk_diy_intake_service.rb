@@ -78,7 +78,6 @@ class ZendeskDiyIntakeService
 
   def ticket_fields
     {
-      EitcZendeskInstance::INTAKE_SITE => "online_intake",
       EitcZendeskInstance::STATE => diy_intake.state_of_residence,
       DIY_SUPPORT_UNIQUE_LINK => diy_intake.start_filing_url,
     }
