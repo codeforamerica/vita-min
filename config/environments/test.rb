@@ -35,16 +35,13 @@ Rails.application.configure do
   # ActiveJob
   config.active_job.queue_adapter = :test
 
-  config.action_mailer.default_url_options = { host: "test.host" }
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :test
-
-  Rails.application.default_url_options = config.action_mailer.default_url_options
 
   config.active_support.deprecation = :stderr
 
   # Raises error for missing translations
   config.action_view.raise_on_missing_translations = true
-  config.i18n.available_locales = [:'en', :'es']
+  config.i18n.available_locales = [:en, :es]
 
 end

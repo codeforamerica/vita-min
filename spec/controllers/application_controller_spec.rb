@@ -415,14 +415,14 @@ RSpec.describe ApplicationController do
         end
 
         it "redirects to the #{page_path}" do
-          get :index
+          get :index, params: { locale: 'en' }
           expect(response).to redirect_to(page_path)
         end
       end
     end
 
-    it_behaves_like 'render special pages', 'MAINTENANCE_MODE', '/maintenance'
-    it_behaves_like 'render special pages', 'AT_CAPACITY', '/at-capacity'
+    it_behaves_like 'render special pages', 'MAINTENANCE_MODE', '/en/maintenance'
+    it_behaves_like 'render special pages', 'AT_CAPACITY', '/en/at-capacity'
   end
 
   describe '#check_maintenance_mode' do

@@ -6,7 +6,7 @@ RSpec.describe Questions::EligibilityController do
       it "redirects to the beginning of the intake flow" do
         get :edit
 
-        expect(response).to redirect_to(question_path(QuestionNavigation.first))
+        expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
       end
     end
   end
@@ -30,7 +30,7 @@ RSpec.describe Questions::EligibilityController do
       it "redirects to the beginning of the intake flow" do
         post :update, params: params
 
-        expect(response).to redirect_to(question_path(QuestionNavigation.first))
+        expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
       end
     end
 

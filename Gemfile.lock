@@ -519,6 +519,7 @@ DEPENDENCIES
   rack (>= 2.0.8)
   rails (>= 6.0.3.1)
   rails-controller-testing
+  rails-i18n
   rspec-rails
   rspec_junit_formatter
   rubocop (~> 0.82.0)
