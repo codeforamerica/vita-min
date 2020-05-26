@@ -51,6 +51,7 @@ gem 'auto_strip_attributes'
 gem 'ddtrace'
 gem 'dogapi'
 gem 'http_accept_language'
+gem 'easy_translate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
