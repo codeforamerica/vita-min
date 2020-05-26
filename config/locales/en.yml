@@ -71,13 +71,13 @@ en:
     get_started: "Get Started"
     irs_certified_volunteers: "IRS Certified Volunteers"
     irs_free_file: "IRS Free File"
-    no: "No"
+    negative: "No"
     other_options: "Try another free tax filing option"
     return_home: "Return to home"
     submit_question: "Submit a question to GetYourRefund"
     visit_free_file: "Visit IRS Free File"
     vita_long: "VITA: Volunteer Income Tax Assistance"
-    yes: "Yes"
+    affirmative: "Yes"
   public_pages:
     about_us:
       title: "About Us"
