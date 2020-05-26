@@ -6,11 +6,9 @@
           <%= image_tag("checkbox-logo--white.png", alt: "") %>
         </p>
         <p>
-          GetYourRefund.org is a non-profit service built by
-          <a href="https://www.codeforamerica.org/" target="_blank" rel="noopener" class="footer__link">Code for America</a>
-          in partnership with IRS-certified Volunteer Income Tax Assistance
-          (<a href="https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers" target="_blank" rel="noopener" class="footer__link">VITA</a>)
-          sites nationally.
+          <%=t('footer.service_description_html',
+               :cfa_link => link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link"),
+               :vita_link => link_to("VITA", "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", rel: "noopener", class: "footer__link"))%>
         </p>
       </div>
 
@@ -23,19 +21,19 @@
         <% end %>
         <li>
           <%= link_to about_us_path do %>
-            About Us
+            <%=t('public_pages.about_us.title') %>
           <% end %>
         </li>
 
         <li>
           <%= link_to faq_path do %>
-            FAQ
+            <%=t('public_pages.faq.title') %>
           <% end %>
         </li>
 
         <li>
           <%= link_to stimulus_path do %>
-            Stimulus Payment
+            <%=t('public_pages.stimulus_payment.title') %>
           <% end %>
         </li>
 
@@ -47,13 +45,13 @@
 
         <li>
           <%= link_to vita_providers_path do %>
-            Find a Location
+            <%=t('general.find_location') %>
           <% end %>
         </li>
 
         <li>
           <%= link_to privacy_path do %>
-            Privacy Policy
+            <%=t('public_pages.privacy_policy.title') %>
           <% end %>
         </li>
       </ul>

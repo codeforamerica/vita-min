@@ -1,4 +1,4 @@
-<% content_for :page_title, "GetYourRefund is temporarily down for maintenance" %>
+<% content_for :page_title, t("public_pages.maintenance.title") %>
 
 <main role="main">
   <section class="slab slab--white">
@@ -14,15 +14,15 @@
 
           <div class="offboarding--help-text">
             <p>
-              We're making some updates to GetYourRefund, and we'll be back soon! We expect the maintenance to be finished at <strong>3:00 a.m. Eastern (12:00 a.m. Pacific)</strong>, and we encourage you to come back after that time.
+              <%=t("public_pages.maintenance.info_html") %>
             </p>
 
             <p>
-              If you have any questions in the meantime, feel free to reach out via the chat/help button in the bottom right.
+              <%=t("public_pages.maintenance.questions") %>
             </p>
 
             <p>
-              You can also <a href="mailto:hello@getyourrefund.org">submit a question via email to GetYourRefund</a>.
+              <%=t("public_pages.maintenance.contact_html", :email_link => link_to(t("public_pages.maintenance.email"), "mailto:hello@getyourrefund.org")) %>
             </p>
           </div>
         </main>

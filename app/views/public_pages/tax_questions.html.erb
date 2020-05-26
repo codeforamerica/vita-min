@@ -1,4 +1,4 @@
-<% content_for :page_title, "Tax Questions" %>
+<% content_for :page_title, t("public_pages.tax_questions.title") %>
 <% content_for :body_class, "tax-questions" %>
 
 <main role="main">
@@ -8,29 +8,20 @@
         <div class="offboarding--illustration">
           <%= image_tag("tax-questions.svg", alt: "") %>
         </div>
-        <h1 class="h2">
-          Let's try to answer your tax questions!
-        </h1>
+        <h1 class="h2"><%=t("public_pages.tax_questions.header") %></h1>
         <p>
-          Our team is here to support you. <%= link_to "Please see our FAQ",
-          faq_path, class: 'text--black' %> or submit a question via chat and we will get back to you!
+          <%=t("public_pages.tax_questions.support", :faq_link => link_to(t("public_pages.tax_questions.see_faq"), faq_path, class: 'text--black')) %>
         </p>
 
-        <p>
-          We can not answer:
-        </p>
+        <p><%=t("public_pages.tax_questions.cannot_answer.header") %></p>
 
         <ul class="list--crossmark">
-          <li>
-            Questions about taxes filed with a different service (H&amp;R Block, TurboTax)
-          </li>
-          <li>
-            The amount of refund you will receive
-          </li>
+          <li><%=t("public_pages.tax_questions.cannot_answer.different_services") %></li>
+          <li><%=t("public_pages.tax_questions.cannot_answer.refund_amounts") %></li>
         </ul>
 
         <button class="button button--primary button--wide" onclick="javascript: zE('webWidget', 'open');" type="submit">
-          Chat with us
+          <%=t("general.chat_with_us") %>
         </button>
       </div>
     </div>

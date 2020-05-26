@@ -1,4 +1,4 @@
-<% content_for :page_title, "Stimulus Payment" %>
+<% content_for :page_title, t("public_pages.stimulus_payment.title") %>
 <% content_for :body_class, "stimulus" %>
 
 <%= render("shared/breadcrumb") %>
@@ -7,21 +7,11 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-two-thirds">
-        <h1 class="h2">
-          Get your Stimulus Payment (EIP)
-        </h1>
-        <p>
-          This year, many people will receive an Economic Impact Payment (often called a stimulus payment) from the
-          federal government. You’ll get up to $1,200 for yourself ($2,400 for a married couple filing jointly) and
-          you’ll get an additional $500 for every dependent child under the age of 17.
-        </p>
-        <p>
-          We know there are many questions around the Economic Impact Payments (EIP) and we have some answers! We’ve
-          broken down some common questions to help you out.
-        </p>
+        <h1 class="h2"><%=t("public_pages.stimulus_payment.header") %></h1>
+        <p><%=t("public_pages.stimulus_payment.intro.description") %></p>
+        <p><%=t("public_pages.stimulus_payment.intro.common_questions") %></p>
         <p class="hint last">
-          The IRS will post all key information on <%=link_to 'https://irs.gov/eip', target: '_blank', rel: "noopener", "data-track-click": "stimulus-irs-eip", "data-track-attribute-position": "intro" do %>IRS.gov/eip<% end %>
-          as soon as it becomes available.
+          <%=t("public_pages.stimulus_payment.intro.irs_info_html", :irs_eip_link => link_to("IRS.gov/eip", "https://irs.gov/eip", target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-eip", "data-track-attribute-position": "intro")) %>
         </p>
       </div>
     </div>
@@ -30,15 +20,8 @@
         <%= image_tag("stimulus-who.svg", class: 'stimulus-logo', alt: "") %>
       </div>
       <div class="grid__item width-seven-twelfths">
-        <h2 class="h3">
-          Who is eligible?
-        </h2>
-        <p class="last">
-          Tax filers with adjusted gross income up to $75,000 for individuals and up to $150,000 for married couples
-          filing joint returns will receive the full payment. For filers with income above those amounts, the payment
-          amount is reduced by $5 for each $100 above the $75,000/$150,000 thresholds. Single filers with income
-          exceeding $99,000 and $198,000 for joint filers with no children are not eligible.
-        </p>
+        <h2 class="h3"><%=t("public_pages.stimulus_payment.intro.eligibility.header") %></h2>
+        <p class="last"><%=t("public_pages.stimulus_payment.intro.eligibility.info") %></p>
       </div>
     </div>
     <div class="grid spacing-above-35 stimulus-info">
@@ -46,23 +29,13 @@
         <%= image_tag("stimulus-cash.svg", alt: "") %>
       </div>
       <div class="grid__item width-seven-twelfths">
-        <h2 class="h3">
-          Automatic payments
-        </h2>
-        <p>
-          Eligible taxpayers who filed tax returns for either 2019 or 2018 will automatically receive an economic impact
-          payment of up to $1,200 for individuals or $2,400 for married couples and up to $500 for each qualifying
-          child.
-        </p>
-        <p class="note">
-          Unless you are otherwise required to file a tax return, or have dependents under the age of 17, you will
-          automatically receive your $1,200 payment if you are in any of the following categories, so you are not
-          required to file:
-        </p>
+        <h2 class="h3"><%=t("public_pages.stimulus_payment.intro.payments.header") %></h2>
+        <p><%=t("public_pages.stimulus_payment.intro.payments.info") %></p>
+        <p class="note"><%=t("public_pages.stimulus_payment.intro.payments.exceptions.header") %></p>
         <ul class="exceptions last">
-          <li>Social Security retirement, disability (SSDI), Supplemental Security Income (SSI) or survivor benefits</li>
-          <li>Veteran’s benefits</li>
-          <li>Railroad Retirement benefits</li>
+          <li><%=t("public_pages.stimulus_payment.intro.payments.exceptions.social_security") %></li>
+          <li><%=t("public_pages.stimulus_payment.intro.payments.exceptions.veterans") %></li>
+          <li><%=t("public_pages.stimulus_payment.intro.payments.exceptions.railroad") %></li>
         </ul>
       </div>
     </div>
@@ -71,202 +44,146 @@
         <%= image_tag("stimulus-benefits.svg", alt: "") %>
       </div>
       <div class="grid__item width-two-thirds">
-        <h2 class="h3">
-          The benefits of filing
-        </h2>
-        <p class="last">
-          However, for those in the categories above, if you have any earned income or dependents, you may be able to
-          access additional tax credits or benefits by filing or updating your info with the IRS. Please reach out via
-          chat for more information.
-        </p>
+        <h2 class="h3"><%=t("public_pages.stimulus_payment.intro.benefits.header") %></h2>
+        <p class="last"><%=t("public_pages.stimulus_payment.intro.benefits.info") %></p>
       </div>
     </div>
     <div class="grid spacing-above-60">
       <div class="grid__item width-three-fourths">
-        <h2>
-          How to get paid
-        </h2>
+        <h2><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.header") %></h2>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a1">
-            <h3>How do I get my Economic Impact Payment check?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.eip_check.q") %></h3>
           </a>
           <div class="accordion__content" id="a1">
-            <p>
-              If you filed your 2019 taxes, your economic impact payment (stimulus payment) will be sent to you by the
-              method you chose to receive your 2019 refund (either mailed to your mailing address or directly deposited
-              to the bank account you provided on your 2019 taxes). If you haven’t filed for 2019, the IRS will use the
-              information on your 2018 taxes.
-            </p>
+            <p><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.eip_check.a") %></p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a2">
-            <h3>What if I didn’t provide a bank account to the IRS?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.did_not_provide_bank_account.q") %></h3>
           </a>
           <div class="accordion__content" id="a2">
             <p>
-              If you did not provide a routing number for a bank account, your return could be delayed. You can provide
-              the IRS with this information at the IRS <%=link_to 'https://www.irs.gov/coronavirus/get-my-payment', target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-get-my-payment", "data-track-attribute-position": "faq2" do %>Get My Payment<% end %>
-              website.
+              <%=t("public_pages.stimulus_payment.faq.how_to_get_paid.did_not_provide_bank_account.a_html", :irs_get_my_payment_link => link_to(t("general.get_my_payment"), "https://www.irs.gov/coronavirus/get-my-payment", target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-get-my-payment", "data-track-attribute-position": "faq2")) %>
             </p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a3">
-            <h3>How much will I receive?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.payment_amount.q") %></h3>
           </a>
           <div class="accordion__content" id="a3">
             <p>
-              The IRS has a <%=link_to 'https://www.irs.gov/pub/irs-utl/how_do_I_calculate_my_eip.pdf', target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-calculate-eip", "data-track-attribute-position": "faq3" do %>“How do I calculate my EIP”<% end %>
-              website to help you calculate how much you will receive.
+              <%=t("public_pages.stimulus_payment.faq.how_to_get_paid.payment_amount.a_html", :irs_eip_calculator_link => link_to(t("public_pages.stimulus_payment.faq.how_to_get_paid.payment_amount.calculate_eip_website_title"), "https://www.irs.gov/pub/irs-utl/how_do_I_calculate_my_eip.pdf", target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-calculate-eip", "data-track-attribute-position": "faq3")) %>
             </p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a4">
-            <h3>What if I need to change the information I provided in 2018 or 2019?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.change_information.q") %></h3>
           </a>
           <div class="accordion__content" id="a4">
             <p>
-              You can update your information on the IRS <%=link_to 'https://www.irs.gov/coronavirus/get-my-payment', target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-get-my-payment", "data-track-attribute-position": "faq4" do %>Get My Payment<% end %>
-              website.
+              <%=t("public_pages.stimulus_payment.faq.how_to_get_paid.change_information.a_html", :irs_get_my_payment_link => link_to(t("general.get_my_payment"), "https://www.irs.gov/coronavirus/get-my-payment", target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-get-my-payment", "data-track-attribute-position": "faq4")) %>
             </p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a5">
-            <h3>What if I haven’t filed federal taxes?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.non_filer.q") %></h3>
           </a>
           <div class="accordion__content" id="a5">
-            <p>
-              If you aren’t required to file taxes but you have any earned income we recommend filing your taxes through
-              GetYourRefund as you may be eligible for additional tax credits! If you’re required to file taxes, but
-              didn’t file in 2018 or 2019, you can still file with GetYourRefund.
-            </p>
+            <p><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.non_filer.a") %></p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a6">
-            <h3>What if I have no income?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.no_income.q") %></h3>
           </a>
           <div class="accordion__content" id="a6">
             <p>
-              You need to enter your payment information on the IRS <%=link_to 'https://www.irs.gov/coronavirus/non-filers-enter-payment-info-here', target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-enter-payment-info", "data-track-attribute-position": "faq6" do%>“Non-Filers: Enter Payment Info Here”<% end %>
-              website to receive your payment. If you are having trouble completing this on your own, you can complete
-              the GetYourRefund questionnaire and IRS-certified volunteers can help you complete the simple form.
+              <%=t("public_pages.stimulus_payment.faq.how_to_get_paid.no_income.a_html", :irs_enter_payment_info_link => link_to(t("public_pages.stimulus_payment.faq.how_to_get_paid.no_income.enter_payment_info_website_title"), "https://www.irs.gov/coronavirus/non-filers-enter-payment-info-here", target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-enter-payment-info", "data-track-attribute-position": "faq6")) %>
             </p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a7">
-            <h3>What if I don’t have a bank account?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.no_bank_account.q") %></h3>
           </a>
           <div class="accordion__content" id="a7">
             <p>
-              If you don’t have a bank account, it could take up to five months to receive your EIP check by mail. To
-              get your payment quickly via direct deposit, sign up for a bank account online and add your account
-              information on the IRS <%=link_to 'https://www.irs.gov/coronavirus/get-my-payment', target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-get-my-payment", "data-track-attribute-position": "faq7" do %>Get My Payment<% end %>
-              website. If you don’t want to sign up for a bank account, you can link a prepaid debit card. Many of our
-              VITA partners can also enroll you in a prepaid debit card when you file your return through GetYourRefund.
+              <%=t("public_pages.stimulus_payment.faq.how_to_get_paid.no_bank_account.a_html", :irs_get_my_payment_link => link_to(t("general.get_my_payment"), "https://www.irs.gov/coronavirus/get-my-payment", target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-get-my-payment", "data-track-attribute-position": "faq7")) %>
             </p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a8">
-            <h3>What if I moved since filing my taxes?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.how_to_get_paid.change_address.q") %></h3>
           </a>
           <div class="accordion__content" id="a8">
             <p>
-              If you want your EIP check mailed to you, make sure your address is up to date on the IRS <%=link_to 'https://www.irs.gov/faqs/irs-procedures/address-changes', target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-address-changes", "data-track-attribute-position": "faq8" do %>address change<% end %>
-              website. There may be delays – it could take up to five months to receive your check by mail.
+              <%=t("public_pages.stimulus_payment.faq.how_to_get_paid.change_address.a_html", :irs_address_change_link => link_to(t("public_pages.stimulus_payment.faq.how_to_get_paid.change_address.address_change"), "https://www.irs.gov/faqs/irs-procedures/address-changes", target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-address-changes", "data-track-attribute-position": "faq8")) %>
             </p>
           </div>
         </div>
       </div>
       <div class="grid__item width-three-fourths">
-        <h2 class="spacing-above-35">
-          Economic Impact Payment (stimulus payment) FAQs
-        </h2>
+        <h2 class="spacing-above-35"><%=t("public_pages.stimulus_payment.faq.eip.header") %></h2>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a9">
-            <h3>When will I receive my check?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.eip.when.q") %></h3>
           </a>
           <div class="accordion__content" id="a9">
-            <p>
-              Economic Impact Payments will arrive in bank accounts through direct deposit starting on April 9th, 2020.
-              If you don't have a bank account it could take up to five months to receive your check by mail.
-            </p>
+            <p><%=t("public_pages.stimulus_payment.faq.eip.when.a") %></p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a10">
-            <h3>Will the EIP check affect my other government benefits?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.eip.other_benefits.q") %></h3>
           </a>
           <div class="accordion__content" id="a10">
-            <p>
-              No, the EIP checks are treated as a tax credit. This means your payment will not impact the benefits you
-              receive now or in the future.
-            </p>
+            <p><%=t("public_pages.stimulus_payment.faq.eip.other_benefits.a") %></p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a11">
-            <h3>I still need to file a tax return. How long are the economic impact payments available?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.eip.deadline.q") %></h3>
           </a>
           <div class="accordion__content" id="a11">
-            <p>
-              For those concerned about visiting a tax professional or local community organization in person to get
-              help with a tax return, these economic impact payments will be available throughout 2020 and the 2021
-              tax filing season.
-            </p>
+            <p><%=t("public_pages.stimulus_payment.faq.eip.deadline.a") %></p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a12">
-            <h3>
-              If I owe taxes, or have a payment agreement with the IRS, or owe other federal or state debts, will I
-              still get the EIP?
-            </h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.eip.owe_taxes.q") %></h3>
           </a>
           <div class="accordion__content" id="a12">
-            <p>
-              Yes, but with one exception. The Payment will be offset by past-due child support. The Bureau of the
-              Fiscal Service will send you a notice if this occurs.
-            </p>
+            <p><%=t("public_pages.stimulus_payment.faq.eip.owe_taxes.a") %></p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a13">
-            <h3>Is this a one-time payment?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.eip.one_time.q") %></h3>
           </a>
           <div class="accordion__content" id="a13">
-            <p>
-              Only one stimulus package has been announced by the U.S. government. We will update this page with any
-              changes.
-            </p>
+            <p><%=t("public_pages.stimulus_payment.faq.eip.one_time.a") %></p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a14">
-            <h3>
-              What if I missed the deadline to provide additional information or received a smaller EIP than expected?
-            </h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.eip.additional_eip.q") %></h3>
           </a>
           <div class="accordion__content" id="a14">
-            <p>
-              In most cases, the additional EIP would be provided in 2021.
-            </p>
+            <p><%=t("public_pages.stimulus_payment.faq.eip.additional_eip.a") %></p>
           </div>
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a15">
-            <h3>What if someone offers a quicker payment?</h3>
+            <h3><%=t("public_pages.stimulus_payment.faq.eip.scams.q") %></h3>
           </a>
           <div class="accordion__content" id="a15">
-            <p>
-              Don’t click on links whose origins you aren’t 100% sure of. Be wary of scams. If it looks too good to be
-              true, it probably is. And don’t send money to someone you don’t know.
-            </p>
+            <p><%=t("public_pages.stimulus_payment.faq.eip.scams.a") %></p>
           </div>
         </div>
       </div>

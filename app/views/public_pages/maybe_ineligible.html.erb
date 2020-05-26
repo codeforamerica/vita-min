@@ -1,5 +1,4 @@
-<% @main_heading = "We’re unsure if you qualify for our services." %>
-<% content_for :page_title, @main_heading %>
+<% content_for :page_title, t("public_pages.maybe_ineligible.title") %>
 
 <main role="main">
   <section class="slab slab--white">
@@ -10,34 +9,23 @@
             <%= image_tag("other-options.svg", alt: "") %>
           </div>
           <h1 class="offboarding--title">
-            <%= @main_heading %>
+            <%=t("public_pages.maybe_ineligible.title") %>
           </h1>
 
           <div class="offboarding--help-text">
-            <p>
-              We're happy to answer any questions you may have about GetYourRefund or we can connect you to other tax filing options.
-            </p>
-
-            <p>
-              <a href="mailto:hello@getyourrefund.org">Submit a question to GetYourRefund</a>
-            </p>
+            <p><%=t("public_pages.maybe_ineligible.info") %></p>
+            <p><%=link_to t("general.submit_question"), "mailto:hello@getyourrefund.org" %></p>
           </div>
           <div class="offboarding--help-text">
-            <p class="offboarding--subtitle">
-              Try another free tax filing option
-            </p>
+            <p class="offboarding--subtitle"><%=t("general.other_options") %></p>
             <p>
-              If you'd like to file your taxes without the assistance of our staff and services, use the <a href="https://apps.irs.gov/app/freeFile/jsp/wizard.jsp" target="_blank" data-track-click="freefile">IRS Free File Lookup Tool</a> to find a free way to file your taxes online.
+              <%=t("general.free_file_html", :wizard_link => link_to(t("general.free_file_lookup_tool"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", target: "_blank", rel: "noopener", "data-track_click": "freefile")) %>
             </p>
           </div>
 
           <div class="buttons--vertical-stack">
-            <%= link_to vita_providers_path, class: "button button--primary button--wide text--centered" do %>
-              Find a VITA site near you
-            <% end %>
-            <a href="https://apps.irs.gov/app/freeFile/jsp/wizard.jsp" target="_blank" rel="noopener" class="button button--wide text--centered" data-track-click="freefile">
-              Visit IRS Free File
-            </a>
+            <%= link_to t("general.find_vita_site"), vita_providers_path, class: "button button--primary button--wide text--centered" %>
+            <%= link_to t("general.visit_free_file"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", class: "button button--wide text--centered", rel: "noopener", target: "_blank", "data-track-click": "freefile" %>
           </div>
         </main>
       </div>
