@@ -10,8 +10,8 @@ module Diy
 
     layout "question"
 
-    def current_diy_intake
-      DiyIntake.find_by_id(session[:diy_intake_id])
+    def visitor_record
+      current_diy_intake
     end
 
     def edit

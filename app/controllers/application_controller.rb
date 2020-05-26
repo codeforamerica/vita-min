@@ -9,26 +9,34 @@ class ApplicationController < ActionController::Base
     current_user&.intake || Intake.find_by_id(session[:intake_id])
   end
 
+  def current_diy_intake
+    DiyIntake.find_by_id(session[:diy_intake_id])
+  end
+
   def include_google_analytics?
     false
   end
 
+  def visitor_record
+    current_intake
+  end
+
   def set_visitor_id
-    if current_intake&.visitor_id.present?
-      cookies.permanent[:visitor_id] = { value: current_intake.visitor_id, httponly: true }
+    if visitor_record&.visitor_id.present?
+      cookies.permanent[:visitor_id] = { value: visitor_record.visitor_id, httponly: true }
     elsif cookies[:visitor_id].present?
       visitor_id = cookies[:visitor_id]
     else
       visitor_id = SecureRandom.hex(26)
       cookies.permanent[:visitor_id] =  { value: visitor_id, httponly: true }
     end
-    if current_intake.present? && current_intake.persisted? && current_intake.visitor_id.blank?
-      current_intake.update(visitor_id: visitor_id)
+    if visitor_record.present? && visitor_record.persisted? && visitor_record.visitor_id.blank?
+      visitor_record.update(visitor_id: visitor_id)
     end
   end
 
   def visitor_id
-    current_intake&.visitor_id || cookies[:visitor_id]
+    visitor_record&.visitor_id || cookies[:visitor_id]
   end
 
   def source
@@ -120,6 +128,7 @@ class ApplicationController < ActionController::Base
     super
     payload[:request_details] = {
       intake_id: current_intake&.id,
+      diy_intake_id: current_diy_intake&.id,
       device_type: user_agent.device_type,
       browser_name: user_agent.name,
       os_name: user_agent.os_name,
