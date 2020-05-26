@@ -1,4 +1,4 @@
-<% content_for :page_title, "Oops, we're sorry, but the page you're looking for can't be found." %>
+<% content_for :page_title, t("public_pages.page_not_found.title") %>
 
 <main role="main">
   <section class="slab slab--white">
@@ -13,20 +13,15 @@
           </h1>
 
           <div class="offboarding--help-text">
-            <p>
-              The page you're trying to access isn't available.
-            </p>
-
+            <p><%=t("public_pages.page_not_found.info") %></p>
             <p>
               <strong>
-                If you followed a link here, please let us know using the "Help"/"Chat" button in the bottom right or by sending us an email at <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a>.
+                <%=t("public_pages.page_not_found.let_us_know_html", :email_link => link_to("hello@getyourrefund.org", "mailto:hello@getyourrefund.org")) %>
               </strong>
             </p>
           </div>
           <div class="buttons--vertical-stack">
-            <%= link_to root_path, class: "button button--primary button--wide text--centered" do %>
-              Return to home
-            <% end %>
+            <%= link_to t("general.return_home"), root_path, class: "button button--primary button--wide text--centered" %>
           </div>
         </main>
       </div>

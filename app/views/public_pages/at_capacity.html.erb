@@ -1,4 +1,4 @@
-<% content_for :page_title, "Wow, it looks like we are at capacity right now." %>
+<% content_for :page_title, t("public_pages.at_capacity.title") %>
 
 <main role="main">
   <section class="slab slab--white">
@@ -14,19 +14,12 @@
 
           <div class="offboarding--help-text">
             <p>
-              We’re experiencing a high volume of clients at the moment.
-              We aim to serve everyone with the best quality service.
-              We apologize for the wait, GetYourRefund will be available again shortly.
+              <%=t("public_pages.at_capacity.body") %>
             </p>
             <p>
-              Alternatively, you can try
-              <%= link_to "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", target: "_blank", rel: "noopener", "data-track-click": "freefile" do %>IRS Free File<% end %>,
-              an online service that lets you prepare your own taxes for free.
+              <%=t("public_pages.at_capacity.alternative_html", :irs_link => link_to(t("general.irs_free_file"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", target: "_blank", rel: "noopener", "data-track-click": "freefile")) %>
             </p>
-            <b>
-              We recommend checking back in a few days. Thank you!
-            </b>
-
+            <strong><%=t("public_pages.at_capacity.check_back") %></strong>
           </div>
         </main>
       </div>

@@ -6,7 +6,7 @@ RSpec.describe DocumentsOverviewHelper do
 
     it "returns the correct path" do
       result = helper.edit_document_path(document_type)
-      expect(result).to eq("/documents/w2s")
+      expect(result).to eq(w2s_documents_path)
     end
   end
 
