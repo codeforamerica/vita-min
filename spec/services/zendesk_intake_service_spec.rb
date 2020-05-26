@@ -180,7 +180,7 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::STATE => "co",
             EitcZendeskInstance::FILING_YEARS => ["2019", "2017"],
             EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
-            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "#{File.join(Rails.application.routes.url_helpers.root_url, "")}documents/add/3456ABCDEF",
+            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
             EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
           }
         )
@@ -232,7 +232,7 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::STATE => "az",
             EitcZendeskInstance::FILING_YEARS => ["2019", "2017"],
             EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
-            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "#{File.join(Rails.application.routes.url_helpers.root_url, "")}documents/add/3456ABCDEF",
+            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
             EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
           }
         )
@@ -412,7 +412,7 @@ describe ZendeskIntakeService do
         comment: expected_comment,
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
-          EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "#{File.join(Rails.application.routes.url_helpers.root_url, "")}documents/add/3456ABCDEF",
+          EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
         }
       )
     end
@@ -438,7 +438,7 @@ describe ZendeskIntakeService do
           comment: expected_comment,
           fields: {
             UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
-            UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "#{File.join(Rails.application.routes.url_helpers.root_url, "")}documents/add/3456ABCDEF",
+            UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
           }
         )
       end
@@ -528,7 +528,7 @@ describe ZendeskIntakeService do
         comment: comment_body,
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-          EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "#{File.join(Rails.application.routes.url_helpers.root_url, "")}documents/add/3456ABCDEF",
+          EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
         }
       )
     end
@@ -553,7 +553,7 @@ describe ZendeskIntakeService do
           comment: comment_body,
           fields: {
               UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-              UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "#{File.join(Rails.application.routes.url_helpers.root_url, "")}documents/add/3456ABCDEF",
+              UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
           }
         )
       end
