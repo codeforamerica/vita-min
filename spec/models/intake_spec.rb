@@ -561,7 +561,6 @@ describe Intake do
         referrer: "http://boop.horse/mane",
         filing_joint: "no",
         had_wages: "yes",
-        state: state_of_residence,
         state_of_residence: state_of_residence,
         zip_code: "94609",
         intake_ticket_id: 9876,
