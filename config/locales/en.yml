@@ -34,10 +34,35 @@ en:
     formats:
       default: "%-m/%-d/%Y"
       long: "%B %-d, %Y"
+  dependents:
+    index:
+      title: "Let’s claim someone!"
+      info: "We will need an ITIN or SSN for each person you add. We’ll ask you to share images of these at the end."
+      add_person: "Add a person"
+      done: "Done with this step"
+    form:
+      title: "Tell us about your dependent. Please provide a few more details."
+      first_name: "First name"
+      last_name: "Last name"
+      relationship: "Relationship to you"
+      birth_date: "Date of birth"
+      months_in_home: "How many months did they live in your home in %{year}?"
+      months_in_home_help: "Select 12 if their birth or death was in %{year}."
+      on_visa: "Is this person here on a VISA?"
+      life_circumstances: "Select any cases that describe their life this past year"
+      life_circumstances_help: "We need these answers to determine which tax credits you may qualify for."
+      was_married: "Married as of 12/31/%{year}"
+      was_student: "Full time higher education student"
+      north_american_resident: "Lived outside of the US, Mexico, or Canada"
+      disabled: "Permanently disabled"
+      delete_confirmation: "Are you sure you want to remove \"%{name}\"?"
+      delete_cta: "Remove this person"
+      save_cta: "Save this person"
   footer:
     service_description_html: "GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally."
   general:
     chat_with_us: "Chat with us"
+    edit: "Edit"
     find_location: "Find a Location"
     find_vita_site: "Find a VITA site near you"
     free_file_html: "If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online."
@@ -46,11 +71,13 @@ en:
     get_started: "Get Started"
     irs_certified_volunteers: "IRS Certified Volunteers"
     irs_free_file: "IRS Free File"
+    no: "No"
     other_options: "Try another free tax filing option"
     return_home: "Return to home"
     submit_question: "Submit a question to GetYourRefund"
     visit_free_file: "Visit IRS Free File"
     vita_long: "VITA: Volunteer Income Tax Assistance"
+    yes: "Yes"
   public_pages:
     about_us:
       title: "About Us"
