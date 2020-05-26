@@ -1,6 +1,4 @@
-<% @main_heading = "Let’s claim someone!" %>
-
-<% content_for :page_title, @main_heading %>
+<% content_for :page_title, t("dependents.index.title") %>
 
 
 <% content_for :body_class, "dependents-index" %>
@@ -20,26 +18,24 @@
                 <h3 class="dependent__label">
                   <%= dependent.full_name_and_birth_date %>
                 </h3>
-                <%= link_to edit_dependent_path(dependent), class: "button button--inline-action" do %>
-                  Edit
-                <% end %>
+                <%= link_to t("general.edit"), edit_dependent_path(dependent), class: "button button--inline-action" %>
               </div>
             </li>
             <% end %>
           </ul>
           <% end %>
 
-          <h1 class="h2"><%= @main_heading %></h1>
-          <p>We will need an ITIN or SSN for each person you add. We’ll ask you to share images of these at the end.</p>
+          <h1 class="h2"><%=t("dependents.index.title") %></h1>
+          <p><%=t("dependents.index.info") %></p>
 
           <%= link_to(new_dependent_path, class: "button button--wide button--icon") do %>
             <%= image_tag("add-person.svg", alt: "") %>
-            Add a person
+            <%=t("dependents.index.add_person") %>
           <% end %>
 
           <%= link_to(dependent_care_questions_path, class: "button button--cta button--wide button--icon") do %>
             <%= image_tag("checkmark--white.svg", alt: "") %>
-            Done with this step
+            <%=t("dependents.index.done") %>
           <% end %>
         </main>
       </div>
