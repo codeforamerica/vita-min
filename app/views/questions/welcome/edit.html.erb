@@ -9,6 +9,21 @@
             <%= content_for(:page_title) %>
           </h1>
 
+          <%= link_to diy_file_yourself_path do %>
+            <div class="link-box">
+              <div class="link-box--content">
+                <div>
+                  <%= image_tag("start-filing-yourself.svg", alt: "") %>
+                </div>
+                <div>
+                  <h2 class="file-myself">File taxes myself</h2>
+                  <p>File quickly with our DIY tool.</p>
+                </div>
+              </div>
+              <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
+            </div>
+          <% end %>
+
           <%= link_to file_with_help_questions_path do %>
             <div class="link-box">
               <div class="link-box--content">
