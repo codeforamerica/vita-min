@@ -244,3 +244,10 @@ vita_partners:
   source_parameters:
   - MC-WOR
   logo_path: ''
+- name: Granite United Way
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010462593'
+  display_name: Granite United Way
+  source_parameters:
+  - graniteuw
+  logo_path: ''
