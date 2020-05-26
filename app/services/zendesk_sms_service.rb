@@ -14,6 +14,7 @@ class ZendeskSmsService
     drop_offs = IntakeSiteDropOff.where(phone_number: phone_number)
 
     if intakes.empty? && drop_offs.empty?
+      DatadogApi.increment("zendesk.sms.inbound.user.not_found")
       return append_comment_to_ticket(
         ticket_id: sms_ticket_id,
         comment: "This user could not be found.\ntext_user_not_found",
@@ -25,6 +26,7 @@ class ZendeskSmsService
         drop_offs.map { |drop_off| drop_off.zendesk_ticket_id }).reject(&:blank?).uniq.sort
 
     if related_ticket_ids.empty?
+      DatadogApi.increment("zendesk.sms.inbound.user.tickets.not_found")
       return append_comment_to_ticket(
         ticket_id: sms_ticket_id,
         comment: "This user has no associated tickets.\ntext_user_has_no_other_ticket",
@@ -48,6 +50,7 @@ class ZendeskSmsService
     related_open_tickets = related_tickets.select{|ticket| ticket.status != "closed"}
 
     if related_open_tickets.empty?
+      DatadogApi.increment("zendesk.sms.inbound.user.tickets.open.not_found")
       return append_comment_to_ticket(
         ticket_id: sms_ticket_id,
         comment: "This user has no associated open tickets.\ntext_user_has_no_other_open_ticket",
@@ -77,6 +80,7 @@ class ZendeskSmsService
         EitcZendeskInstance::LINKED_TICKET => ticket_urls.join(",")
       },
     )
+    DatadogApi.increment("zendesk.sms.inbound.user.tickets.open.linked")
   end
 
   private

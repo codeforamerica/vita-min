@@ -12,5 +12,5 @@ DatadogApi.configure do |c|
   c.env = Rails.env
   c.api_key = Rails.application.credentials.dig(Rails.env.to_sym, :datadog_api_key)
   c.namespace = "vita-min.dogapi"
-  c.enabled = Rails.env.staging?
+  c.enabled = Rails.env.staging? || Rails.env.demo? || Rails.env.production?
 end

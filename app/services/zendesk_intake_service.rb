@@ -159,6 +159,7 @@ class ZendeskIntakeService
     )
 
     raise CouldNotSendIntakePdfError unless output == true
+    DatadogApi.increment("zendesk.ticket.pdfs.intake_and_consent.preliminary.sent")
     output
   end
 
@@ -180,6 +181,7 @@ class ZendeskIntakeService
     )
 
     raise CouldNotSendCompletedIntakePdfError unless output == true
+    DatadogApi.increment("zendesk.ticket.pdfs.intake.final.sent")
     output
   end
 
@@ -196,6 +198,7 @@ class ZendeskIntakeService
     )
 
     raise CouldNotSendCompletedIntakePdfError unless output == true
+    DatadogApi.increment("zendesk.ticket.pdfs.intake.spouse.sent")
     output
   end
 
@@ -210,6 +213,7 @@ class ZendeskIntakeService
     )
 
     raise CouldNotSendConsentPdfError unless output == true
+    DatadogApi.increment("zendesk.ticket.pdfs.consent.spouse.sent")
     output
   end
 
@@ -226,6 +230,7 @@ class ZendeskIntakeService
     )
 
     raise CouldNotSendBankDetailsError unless output == true
+    DatadogApi.increment("zendesk.ticket.bank_details.sent")
     output
   end
 
@@ -239,6 +244,7 @@ class ZendeskIntakeService
       )
 
       raise CouldNotSendDocumentError unless output
+      DatadogApi.increment("zendesk.ticket.docs.all.sent")
       output
     end
   end
