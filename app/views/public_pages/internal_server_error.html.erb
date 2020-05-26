@@ -1,4 +1,4 @@
-<% content_for :page_title, "Oops, we're sorry, but something went wrong." %>
+<% content_for :page_title, t("public_pages.error.title") %>
 
 <main role="main">
   <section class="slab slab--white">
@@ -13,20 +13,16 @@
           </h1>
 
           <div class="offboarding--help-text">
-            <p>
-              It looks like there was a server error. We've been notified of the issue and will work to fix it!
-            </p>
+            <p><%=t("public_pages.error.body") %></p>
 
             <p>
-              <strong>
-                If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a>.
-              </strong>
+              <strong><%=t("public_pages.error.contact_html", :email_link => link_to("mailto:hello@getyourrefund.org")) %></strong>
             </p>
           </div>
 
           <div class="buttons--vertical-stack">
             <%= link_to root_path, class: "button button--primary button--wide text--centered" do %>
-              Return to home
+              <%=t("public_pages.error.cta") %>
             <% end %>
           </div>
         </main>

@@ -1,4 +1,4 @@
-<% content_for :page_title, "Privacy Policy" %>
+<% content_for :page_title, t("public_pages.privacy_policy.title") %>
 
 <%= render("shared/breadcrumb")%>
 
@@ -9,121 +9,109 @@
         <main role="main">
           <h1 class="h2"><%= content_for(:page_title) %></h1>
 
-          <p class="text--help">GetYourRefund.org is a non-profit website run by Code for America Labs, Inc. ("Code for America", "we", "us", "our"). This Privacy Policy describes how the GetYourRefund.org website (the "Site") collects, uses, and protects your personal information. By submitting your personal information on the Site, you agree to the terms in this Privacy Policy. If you do not agree with these terms, please do not use the Site.</p>
+          <p class="text--help"><%=t("public_pages.privacy_policy.intro") %></p>
 
-          <h2 class="text--caption">Overview</h2>
-          <p>We will only use your personal information to:</p>
+          <h2 class="text--caption"><%=t("public_pages.privacy_policy.overview.header") %></h2>
+          <p><%=t("public_pages.privacy_policy.overview.data_use.header") %></p>
           <ul class="list--bulleted">
-            <li>Help connect you with Volunteer Income Tax Assistance (VITA) free tax preparation services and any other benefit programs that you apply for on future versions of the Site ("GetYourRefund" herein refers to all such programs).</li>
-            <li>Suggest other services or assistance programs that may be useful to you. We will only use your personal information in order to present those services or programs to you as an option, but will never send your personal information to any other services or programs without your permission.</li>
+            <li><%=t("public_pages.privacy_policy.overview.data_use.vita") %></li>
+            <li><%=t("public_pages.privacy_policy.overview.data_use.suggestions") %></li>
+          </ul>
+          <p><%=t("public_pages.privacy_policy.overview.no_disclosure") %></p>
+
+          <h2 class="text--caption"><%=t("public_pages.privacy_policy.information_collection.header") %></h2>
+          <h3><%=t("public_pages.privacy_policy.information_collection.site.header") %></h3>
+          <p><%=t("public_pages.privacy_policy.information_collection.site.data.header") %></p>
+          <ul class="list--bulleted">
+            <li><%=t("public_pages.privacy_policy.information_collection.site.data.domain") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.site.data.ip") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.site.data.os_browser") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.site.data.date_time") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.site.data.pages") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.site.data.referrer") %></li>
+          </ul>
+          <p><%=t("public_pages.privacy_policy.information_collection.site.use_and_storage") %></p>
+          <p><%=t("public_pages.privacy_policy.information_collection.site.knowledge_and_consent") %></p>
+
+          <h3><%=t("public_pages.privacy_policy.information_collection.service.header") %></h3>
+          <p><%=t("public_pages.privacy_policy.information_collection.service.data.header") %></p>
+          <ul class="list--bulleted">
+            <li><%=t("public_pages.privacy_policy.information_collection.service.data.name") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.service.data.address") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.service.data.contact_info") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.service.data.ssn") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.service.data.financial_info") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.service.data.dependent_cards") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.service.data.w2") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.service.data.1099") %></li>
           </ul>
 
-          <p>We will not knowingly disclose or sell your personal information to any third party, except as provided in this Privacy Policy.We will take all reasonable measures to protect your personal information.</p>
-
-          <h2 class="text--caption">The personal information we collect</h2>
-          <h3>When visiting the site</h3>
-
-          <p>In addition to the information you provide, we automatically collect and store information about your visit to the Site:</p>
+          <p><%=t("public_pages.privacy_policy.information_collection.service.irs_forms.header") %></p>
           <ul class="list--bulleted">
-            <li>Domain from which you access the Internet.</li>
-            <li>IP address (an IP or internet protocol address is a number that is automatically given to a computer connected to the Web).</li>
-            <li>Operating system on your computer and information about the browser you used when visiting the site.</li>
-            <li>Date and time of your visit.</li>
-            <li>Pages you visited.</li>
-            <li>Address of the website that connected you to the Site (such as google.com or bing.com).</li>
+            <li><%=t("public_pages.privacy_policy.information_collection.service.irs_forms.intake") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.service.irs_forms.consent") %></li>
+            <li><%=t("public_pages.privacy_policy.information_collection.service.irs_forms.efile") %></li>
           </ul>
 
-          <p>We use this information to understand how the Site is used, improve the Site, and monitor usage for security purposes. This data is stored separately from the personal information you submit in the GetYourRefund application.</p>
+          <p><%=t("public_pages.privacy_policy.information_collection.service.use_and_storage") %></p>
+          <p><%=t("public_pages.privacy_policy.information_collection.service.retention_html", :email_link => link_to("hello@getyourrefund.org", "mailto:hello@getyourrefund.org")) %></p>
 
-          <p>We will not collect personal information from you without your knowledge and consent, except in a few limited circumstances as described in this Policy.</p>
-
-          <h3>When using the service</h3>
-          <p>We collect all information provided through the Site in order to use the service, including but not limited to:</p>
+          <h2 class="text--caption"><%=t("public_pages.privacy_policy.information_use.header") %></h2>
+          <p><%=t("public_pages.privacy_policy.information_use.vita_services.header") %></p>
           <ul class="list--bulleted">
-            <li>your name</li>
-            <li>address</li>
-            <li>contact information</li>
-            <li>social security number</li>
-            <li>financial information, pictures of your driver’s license</li>
-            <li>Pictures of social security cards for dependents if applicable</li>
-            <li>W-2’s</li>
-            <li>1099’s</li>
+            <li><%=t("public_pages.privacy_policy.information_use.vita_services.intake") %></li>
+            <li><%=t("public_pages.privacy_policy.information_use.vita_services.notifications") %></li>
+            <li><%=t("public_pages.privacy_policy.information_use.vita_services.support") %></li>
+            <li><%=t("public_pages.privacy_policy.information_use.vita_services.docs") %></li>
+            <li><%=t("public_pages.privacy_policy.information_use.vita_services.efile") %></li>
+          </ul>
+          <p><%=t("public_pages.privacy_policy.information_use.research") %></p>
+
+          <h2 class="text--caption"><%=t("public_pages.privacy_policy.information_sharing.header") %></h2>
+          <h3><%=t("public_pages.privacy_policy.information_sharing.communication_with_you.header") %></h3>
+          <p><%=t("public_pages.privacy_policy.information_sharing.communication_with_you.notifications.header") %></p>
+          <ul class="list--bulleted">
+            <li><%=t("public_pages.privacy_policy.information_sharing.communication_with_you.notifications.sms_email") %></li>
+            <li><%=t("public_pages.privacy_policy.information_sharing.communication_with_you.notifications.email_consent") %></li>
+            <li><%=t("public_pages.privacy_policy.information_sharing.communication_with_you.notifications.sms_consent") %></li>
+            <li><%=t("public_pages.privacy_policy.information_sharing.communication_with_you.notifications.vita") %></li>
           </ul>
 
-          <p>Only information required to prepare and complete the service will be collected and retained. By using the service, specific IRS forms will be completed with your information provided, including:</p>
+          <h3><%=t("public_pages.privacy_policy.information_sharing.communication_with_others.header") %></h3>
+          <p><%=t("public_pages.privacy_policy.information_sharing.communication_with_others.need_to_know") %></p>
+          <p><%=t("public_pages.privacy_policy.information_sharing.communication_with_others.partners.header") %></p>
           <ul class="list--bulleted">
-            <li>13614-C VITA intake form</li>
-            <li>Consent to GetYourRefund service model</li>
-            <li>Form 8879 consent to e-file (will be sent via DocuSign for signature prior to e-filing)</li>
+            <li><%=t("public_pages.privacy_policy.information_sharing.communication_with_others.partners.zendesk") %>
+            <li><%=t("public_pages.privacy_policy.information_sharing.communication_with_others.partners.docusign") %>
+            <li><%=t("public_pages.privacy_policy.information_sharing.communication_with_others.partners.taxslayer") %>
           </ul>
+          <p><%=t("public_pages.privacy_policy.information_sharing.communication_with_others.responsibility") %></p>
+          <p><%=t("public_pages.privacy_policy.information_sharing.communication_with_others.non-partners") %></p>
 
-          <p>We do not store any of this information unless you electronically consent to the service on the GetYourRefund intake form. Your taxes will not be e-filed until you complete the above consent forms. If you decide not to move forward with using the service, the personal information will be deleted.</p>
+          <h2 class="text--caption"><%=t("public_pages.privacy_policy.information_protection.header") %></h2>
+          <p><%=t("public_pages.privacy_policy.information_protection.important") %></p>
+          <p><%=t("public_pages.privacy_policy.information_protection.online") %></p>
+          <p><%=t("public_pages.privacy_policy.information_protection.offline") %></p>
 
-          <p>We currently retain all site visit data indefinitely unless you specifically request that we delete it. You can make this request by emailing us at <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a>.</p>
-
-          <h2 class="text--caption">How we use your information</h2>
-          <p>We only use your personal information to help you access VITA services. If you consent to allow VITA to prepare your taxes, we will:</p>
+          <p><%=t("public_pages.privacy_policy.information_protection.security_practices.header") %></p>
           <ul class="list--bulleted">
-            <li>Submit your VITA intake form to the VITA program who will assign a certified volunteer to prepare your taxes</li>
-            <li>Notify you of your progress in the process, depending on your contact preferences.</li>
-            <li>Provide you support throughout the tax preparation process.</li>
-            <li>Send the documents you upload to a secure file upload location for certified staff and volunteers at VITA sites to review</li>
-            <li>VITA will e-file your returns through TaxSlayer and submit your information to the IRS if you consent to e-filing via e-signing form 8879 in DocuSign</li>
+            <li><%=t("public_pages.privacy_policy.information_protection.security_practices.tls") %></li>
+            <li><%=t("public_pages.privacy_policy.information_protection.security_practices.ssl") %></li>
+            <li><%=t("public_pages.privacy_policy.information_protection.security_practices.incident_response") %></li>
+            <li><%=t("public_pages.privacy_policy.information_protection.security_practices.doc_storage") %></li>
+            <li><%=t("public_pages.privacy_policy.information_protection.security_practices.doc_deletion") %></li>
+            <li><%=t("public_pages.privacy_policy.information_protection.security_practices.training") %></li>
           </ul>
-          <p>We will send a hashed/anonymized version of your SSN to the IRS for research purposes only, we will receive back aggregate metrics for our research to help us improve the service.</p>
+          <p><%=t("public_pages.privacy_policy.information_protection.complete_security") %></p>
 
-          <h2 class="text--caption">How we share your information</h2>
-          <h3>Communication with you</h3>
+          <h2 class="text--caption"><%=t("public_pages.privacy_policy.changes.header") %></h2>
+          <p><%=t("public_pages.privacy_policy.changes.info") %></p>
 
-          <p>We will send you notifications to update you with progress as a VITA site prepares your tax returns. We may reach out to you with questions or requests for additional information.</p>
-          <ul class="list--bulleted">
-            <li>If you consent to SMS and email communications on the intake form, we will send Zendesk notifications via SMS and email depending on your indicated communication preferences</li>
-            <li>We will not send you an email unless you consent to email communication in the application or you email us first.</li>
-            <li>We will not send you a text message unless you consent to text message communication in the application or you text us first.</li>
-            <li>VITA sites may contact you for more information to help complete your return (ex. requesting additional documents and clarifying questions). We also disclose your personal information to Code for America employees, contractors, and affiliated organizations that need to know the information in order to provide the services of the Site.</li>
-          </ul>
+          <h2 class="text--caption"><%=t("public_pages.privacy_policy.effective_date.header") %></h2>
+          <p><%=t("public_pages.privacy_policy.effective_date.info", :effective_date => l(Date.new(2020, 2, 1), :format => :long)) %></p>
 
-          <h3>Communications with other sites, services, and individuals</h3>
-          <p>
-            Code for America employees, contractors, and affiliated organizations with a need to know information in order to provide the services of the Site will also be provided limited access to personal information.
-          </p>
-
-          <p>Once you submit your VITA intake information on the Site, we share this information with our partner VITA sites via the secure intake system. In order to provide services, the Site will share data and information other secure systems that will house your information, including:</p>
-          <ul class="list--bulleted">
-            <li>Zendesk</li>
-            <li>DocuSign</li>
-            <li>TaxSlayer (through consenting to work with VITA, system they use to prepare your return and e-file if you consent to e-filing)</li>
-          </ul>
-          <p>Please be aware that we are not responsible for the content or privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information.</p>
-
-          <p>Besides VITA sites and individuals affiliated with the Site, we do not share your personal information with any other individuals or organizations, except to the minimal extent required by law.</p>
-
-          <h2 class="text--caption">How we protect your information</h2>
-          <p>Protecting your personal information is extremely important to us and we take all reasonable measures to do so. We take precautions to protect your information. When you submit sensitive information via the website, your information is protected both online and offline.</p>
-          <p>Wherever we collect sensitive information, that information is encrypted and transmitted to us in a secure way. You can verify this by looking for a lock icon in the address bar and looking for "https" at the beginning of the address of the Web page.</p>
-          <p>While we use encryption to protect sensitive information transmitted online, we also protect your information offline. Only employees who need the information to perform a specific job are granted access to personally identifiable information. The computers/servers in which we store personally identifiable information are kept in a secure environment.</p>
-
-          <p>Here are some specific security practices we use:</p>
-          <ul class="list--bulleted">
-            <li>When you enter your information on our site we encrypt the transmission of that information using transport layer security (TLS).</li>
-            <li>All connections will be encrypted using SSL certificates</li>
-            <li>Site maintains an incident response plan that includes reporting security incidents to the IRS</li>
-            <li>Documents will be kept secure at all times - passwords, encryption, sealed envelopes, locking file holders/cabinets, etc</li>
-            <li>Taxpayer documentation will be deleted within 5 days after 3rd attempt to contact the taxpayer (if the taxpayer is not responsive to requests for contact)</li>
-            <li>Only VITA volunteers completing the necessary training and Code for America site administrators will have access to taxpayer information</li>
-          </ul>
-
-          <p>Although we try our best to protect the privacy of your personal information, we cannot guarantee complete security. The transmission of information via the Internet is not completely secure. Unauthorized entry or use, hardware or software failure, and other factors, may compromise the security of user information at any time.</p>
-
-          <h2 class="text--caption">Changes</h2>
-          <p>We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of this site after any changes in this Privacy Policy will constitute your acceptance of the changes.</p>
-
-          <h2 class="text--caption">Effective Date</h2>
-          <p>This version of the policy is effective February 1, 2020</p>
-
-          <h2 class="text--caption">Questions</h2>
-          <p>If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or by mail at:</p>
-
+          <h2 class="text--caption"><%=t("public_pages.privacy_policy.questions.header") %></h2>
+          <p><%=t("public_pages.privacy_policy.questions.contact_us_html", :email_link => link_to("hello@getyourrefund.org", "mailto:hello@getyourrefund.org")) %>
           <p>
             GetYourRefund
             <br/>
@@ -133,8 +121,7 @@
             <br/>
             San Francisco, CA 94103
           </p>
-
-          <p>We will do our best to resolve the issue.</p>
+          <p><%=t("public_pages.privacy_policy.questions.resolve") %></p>
         </main>
       </div>
     </div>

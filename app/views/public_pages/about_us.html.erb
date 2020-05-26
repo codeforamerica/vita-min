@@ -1,4 +1,4 @@
-<% content_for :page_title, "About Us" %>
+<% content_for :page_title, t("public_pages.about_us.title") %>
 <% content_for :body_class, "about-us" %>
 
 <%= render("shared/breadcrumb")%>
@@ -8,31 +8,20 @@
     <div class="grid">
       <div class="grid__item width-seven-twelfths">
         <h1 class="h2">
-          About Us
+          <%=t("public_pages.about_us.title") %>
         </h1>
-        <p>
-          We partner with free tax sites, known as Volunteer Income Tax Assistance (VITA) sites,
-          to help you prepare your taxes.
-          Trained and IRS-certified volunteers at local community organizations will prepare your taxes.
-        </p>
-
-        <p>
-          You can save up to $300 when you file for free.
-          We also ensure eligible taxpayers claim the Earned Income Tax Credit (EITC),
-          which can be over $3,000 per family.
-        </p>
+        <p><%=t("public_pages.about_us.how_it_works") %></p>
+        <p><%=t("public_pages.about_us.how_it_helps") %></p>
 
         <p class="center-on-mobile">
           <%= link_to "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", rel: "noopener", class: "logos-link" do %>
-            <%= image_tag("irs-certified-plain.svg", alt: "IRS Certified Volunteers", class: "irs-logo") %>
-            <%= image_tag("vita-logo--black.svg", alt: "VITA: Volunteer Income Tax Assistance", class: "vita-logo") %>
+            <%= image_tag("irs-certified-plain.svg", alt: t("general.irs_certified_volunteers"), class: "irs-logo") %>
+            <%= image_tag("vita-logo--black.svg", alt: t("general.vita_long"), class: "vita-logo") %>
           <% end %>
         </p>
 
         <p>
-          <%= link_to vita_providers_path, class: "button" do %>
-            Find a location
-          <% end %>
+          <%= link_to vita_providers_path, class: "button" do %><%=t("general.find_location").humanize %><% end %>
         </p>
       </div>
     </div>
@@ -50,14 +39,11 @@
     <div class="grid">
       <div class="grid__item width-one-half partner-quote-left">
         <div class="partner-picture">
-          <%= image_tag "partner-picture--courtney.png", alt: "A photograph of Courtney O'Reilly smiling." %>
+          <%= image_tag "partner-picture--courtney.png", alt: t("public_pages.about_us.partners.photo_alt.courtney") %>
         </div>
         <div class="partner-quote">
           <blockquote>
-            <p>
-              “I'm excited to extend our free services to those who can't come into one of our physical locations.
-              I know taxes can be intimidating, which is why we are here to help!”
-            </p>
+            <p><%=t("public_pages.about_us.partners.quote.courtney") %></p>
 
             <footer role="contentinfo">
               <p>
@@ -73,14 +59,11 @@
 
       <div class="grid__item width-one-half partner-quote-right">
         <div class="partner-picture">
-          <%= image_tag "partner-picture--denise.png", alt: "A photograph of Denise Eckley smiling." %>
+          <%= image_tag "partner-picture--denise.png", alt: t("public_pages.about_us.partners.photo_alt.denise") %>
         </div>
         <div class="partner-quote">
           <blockquote>
-            <p>
-              “Being part of an organization that works to bridge the gap between where people are and where they want
-              (or need) to be is both fulfilling and always exciting.”
-            </p>
+            <p><%=t("public_pages.about_us.partners.quote.denise") %></p>
 
             <footer role="contentinfo">
               <p>
@@ -99,11 +82,8 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item">
-        <h2 class="h3">We partner with trusted organizations</h2>
-        <p>
-          We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax
-          filing assistance to families earning less than about $66,000 a year.
-        </p>
+        <h2 class="h3"><%=t("public_pages.about_us.partners.header") %></h2>
+        <p><%=t("public_pages.about_us.partners.subheader") %></p>
 
         <ul class="partner-logos">
           <%= render(
@@ -170,9 +150,7 @@
   <section class="slab slab--partner-cta">
     <div class="grid">
       <div class="grid__item partner-cta">
-        <p class="partner-cta-text">
-          Interested in partnering with us?
-        </p>
+        <p class="partner-cta-text"><%=t("public_pages.about_us.partners.cta") %></p>
         <a href="mailto:partnerships@getyourrefund.org" class="partner-cta-link">
           partnerships@getyourrefund.org
         </a>

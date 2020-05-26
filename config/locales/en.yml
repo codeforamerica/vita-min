@@ -33,3 +33,313 @@ en:
   date:
     formats:
       default: "%-m/%-d/%Y"
+      long: "%B %-d, %Y"
+  footer:
+    service_description_html: "GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally."
+  general:
+    chat_with_us: "Chat with us"
+    find_location: "Find a Location"
+    find_vita_site: "Find a VITA site near you"
+    free_file_html: "If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online."
+    free_file_lookup_tool: "IRS Free File Lookup Tool"
+    get_my_payment: "Get My Payment"
+    get_started: "Get Started"
+    irs_certified_volunteers: "IRS Certified Volunteers"
+    irs_free_file: "IRS Free File"
+    other_options: "Try another free tax filing option"
+    return_home: "Return to home"
+    submit_question: "Submit a question to GetYourRefund"
+    visit_free_file: "Visit IRS Free File"
+    vita_long: "VITA: Volunteer Income Tax Assistance"
+  public_pages:
+    about_us:
+      title: "About Us"
+      how_it_works: "We partner with free tax sites, known as Volunteer Income Tax Assistance (VITA) sites, to help you prepare your taxes. Trained and IRS-certified volunteers at local community organizations will prepare your taxes."
+      how_it_helps: "You can save up to $300 when you file for free. We also ensure eligible taxpayers claim the Earned Income Tax Credit (EITC), which can be over $3,000 per family."
+      partners:
+        header: "We partner with trusted organizations"
+        subheader: "We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $66,000 a year."
+        cta: "Interested in partnering with us?"
+        photo_alt:
+          courtney: "A photograph of Courtney O'Reilly smiling."
+          denise: "A photograph of Denise Eckley smiling."
+        quote:
+          courtney: "“I'm excited to extend our free services to those who can't come into one of our physical locations.I know taxes can be intimidating, which is why we are here to help!”"
+          denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
+    at_capacity:
+      title: "Wow, it looks like we are at capacity right now."
+      body: "We’re experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. We apologize for the wait, GetYourRefund will be available again shortly."
+      alternative_html: "Alternatively, you can try %{irs_link}, an online service that lets you prepare your own taxes for free."
+      check_back: "We recommend checking back in a few days. Thank you!"
+    error:
+      title: "Oops, we're sorry, but something went wrong."
+      body: "It looks like there was a server error. We've been notified of the issue and will work to fix it!"
+      contact_html: "If you’re running into trouble, we’re here for you. You can reach us using the \"Help\"/\"Chat\" button in the bottom right or by sending us an email at %{email_link}."
+      cta: "Return to home"
+    faq:
+      title: "FAQ"
+      header: "Frequently asked questions"
+      subheader: "Click below for responses to frequently asked questions. Chat with us if you still have questions!"
+      getting_started:
+        header: "Help getting started"
+        non_filer:
+          q: "What should I do if I haven’t filed in several years?"
+          a: "We can file your taxes for 2016, 2017, 2018, and 2019. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on."
+        how_to_start:
+          q: "How do I get started?"
+          a: "To get started, go to GetYourRefund.org, click “Get Started,” and let us know that you want to “Start my taxes online.” You will have to upload photos of your ID, answer some questions about your tax situation, and upload your tax documents. Then one of our tax specialists will call you on the phone to discuss your taxes, answer any questions, and complete your filing."
+        missing_docs:
+          q: "What should I do if I can’t find a tax document?"
+          a_html: "If you have lost or never received a tax document, the first place to try is your employer. Often your employer can quickly re-issue your tax forms to you. If that doesn’t work, you can request your tax documents from the IRS at %{transcript_link}."
+        is_it_free:
+          q: "Is this service really free?"
+          a: "Yes! We partner with VITA, an IRS program that certifies tax experts at local community nonprofits like United Way, to complete your state and federal taxes for free."
+        am_i_eligible:
+          q: "Am I eligible?"
+          a: "We provide free tax filing assistance to families earning less than about $66,000 a year."
+        how_long:
+          q: "How long will this take?"
+          a1: "All in all GetYourRefund takes 5-10 business days to complete because you work one on one with a tax preparer."
+          a2: "The first step is to answer questions about your tax situation in our online form and upload your tax documents, which can take 10-30 minutes. Next, you will receive a call from your tax specialist in 2-3 business days to discuss your tax situation. Your tax return will then be prepared and quality reviewed by an IRS-certified tax preparer who will call you to discuss your refund and the process for electronic signature and filing. After taxes are filed we have heard from clients that they receive a direct deposit from the IRS within a week."
+        changes:
+          q: "What if I need to change one of my answers or am unsure how to answer?"
+          a: "Don’t worry, you’ll get a chance to talk with one of our tax specialists about your situation, and you can let them know about any changes or answers you were unsure about before they prepare your taxes."
+        extension:
+          q: "What does it mean that the deadline has been extended?"
+          a: "The 2019 income tax filing and payment deadlines on April 15, 2020, are automatically extended until July 15, 2020. This applies to all individual returns, trusts, and corporations. This is automatic, tax filers do not need to file any additional forms or call the IRS to qualify. This also includes estimated tax payments for tax year 2020 that are due on April 15, 2020."
+    home:
+      title: "Free tax help from IRS-certified volunteers."
+      header: "Free tax filing, real human support."
+      subheader: "Maximize your refund by filing with our trusted volunteers."
+      filing_deadline_banner:
+        title: "Note: The federal income tax filing deadline has been extended to July 15, 2020."
+        body: "You do not need to file any additional forms or call the IRS for the extension. We encourage you to file today as you may be due a refund that can help support your household."
+      accuracy:
+        header: "We deliver the highest accuracy rates. For free."
+        body1: "Yes, our service is truly free. We provide this free service by partnering with IRS-certified Volunteer Income Tax Assistance (VITA) sites to provide tax filing assistance to families earning less than $66,000 a year."
+        body2: "Trained, IRS-certified volunteers will prepare and double-check your tax return to make sure it is correct before filing."
+      backtaxes:
+        header: "File for previous years and maximize your refund."
+        body: "We can file your state and federal taxes for tax years 2016, 2017, 2018, and 2019. Our trained volunteers will also make sure you receive tax credits you qualify for."
+      partners:
+        header: "We partner with trusted organizations"
+        learn_more_html: "Learn more about us &rsaquo;"
+      clients:
+        header: "What our clients are saying"
+        rating: "Rated 4.8 / 5 stars"
+        across_us: "from clients across the US"
+        quote1:
+          header: "Oh my god this is amazing"
+          body: "“I just want to say I can’t tell you how much stress you guys relieved by offering it online, I had looked at other services credit karma, turbo tax and going through the initial steps I just wasn’t feeling confident until I stopped and found GetYourRefund I was like oh my god this is amazing”"
+        quote2:
+          header: "Very professional, very friendly"
+          body: "“I thought the tax preparers were very professional, very friendly, very open to questions so I really appreciated that, and they were also patient with my questions. I like this process a lot better where there’s a person that can explain in detail questions that you have and they respond pretty fast”"
+      features:
+        header: "The convenience of online, the support of in person."
+        free: "Completely free service"
+        chat: "Chat support available"
+        backtaxes: "File back taxes (2016-2019)"
+        amendments: "File amendments for past years"
+        questions: "Still have questions? Visit our FAQ page or chat with us."
+        faq_cta: "Visit FAQ"
+      security:
+        header: "We're committed to keeping your information secure."
+        body: "In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure."
+      file:
+        header: "Get more of your refund dollars back by filing for free today!"
+    maintenance:
+      title: "GetYourRefund is temporarily down for maintenance"
+      info_html: "We're making some updates to GetYourRefund, and we'll be back soon! We expect the maintenance to be finished at <strong>3:00 a.m. Eastern (12:00 a.m. Pacific)</strong>, and we encourage you to come back after that time."
+      questions: "If you have any questions in the meantime, feel free to reach out via the chat/help button in the bottom right."
+      contact_html: "You can also %{email_link}."
+      email: "submit a question via email to GetYourRefund"
+    maybe_ineligible:
+      title: "We’re unsure if you qualify for our services."
+      info: "We're happy to answer any questions you may have about GetYourRefund or we can connect you to other tax filing options."
+    other_options:
+      title: "Let's find a way to help you!"
+      info: "We are excited to help you with your taxes, but we need to verify your identity to get started. Identify verification is important to ensure that your information is safe and secure, but if it's not for you, you can learn about other free filing options below."
+    page_not_found:
+      title: "Oops, we're sorry, but the page you're looking for can't be found."
+      info: "The page you're trying to access isn't available."
+      let_us_know_html: "If you followed a link here, please let us know using the \"Help\"/\"Chat\" button in the bottom right or by sending us an email at %{email_link}."
+    privacy_policy:
+      title: "Privacy Policy"
+      intro: "GetYourRefund.org is a non-profit website run by Code for America Labs, Inc. (\"Code for America\", \"we\", \"us\", \"our\"). This Privacy Policy describes how the GetYourRefund.org website (the \"Site\") collects, uses, and protects your personal information. By submitting your personal information on the Site, you agree to the terms in this Privacy Policy. If you do not agree with these terms, please do not use the Site."
+      overview:
+        header: "Overview"
+        data_use:
+          header: "We will only use your personal information to:"
+          vita: "Help connect you with Volunteer Income Tax Assistance (VITA) free tax preparation services and any other benefit programs that you apply for on future versions of the Site (\"GetYourRefund\" herein refers to all such programs)."
+          suggestions: "Suggest other services or assistance programs that may be useful to you. We will only use your personal information in order to present those services or programs to you as an option, but will never send your personal information to any other services or programs without your permission."
+        no_disclosure: "We will not knowingly disclose or sell your personal information to any third party, except as provided in this Privacy Policy. We will take all reasonable measures to protect your personal information."
+      information_collection:
+        header: "The personal information we collect"
+        site:
+          header: "When visiting the site"
+          data:
+            header: "In addition to the information you provide, we automatically collect and store information about your visit to the Site:"
+            domain: "Domain from which you access the Internet."
+            ip: "IP address (an IP or internet protocol address is a number that is automatically given to a computer connected to the Web)."
+            os_browser: "Operating system on your computer and information about the browser you used when visiting the site."
+            date_time: "Date and time of your visit."
+            pages: "Pages you visited."
+            referrer: "Address of the website that connected you to the Site (such as google.com or bing.com)."
+          use_and_storage: "We use this information to understand how the Site is used, improve the Site, and monitor usage for security purposes. This data is stored separately from the personal information you submit in the GetYourRefund application."
+          knowledge_and_consent: "We will not collect personal information from you without your knowledge and consent, except in a few limited circumstances as described in this Policy."
+        service:
+          header: "When using the service"
+          data:
+            header: "We collect all information provided through the Site in order to use the service, including but not limited to:"
+            name: "your name"
+            address: "address"
+            contact_info: "contact information"
+            ssn: "social security number"
+            financial_info: "financial information, pictures of your driver’s license"
+            dependent_cards: "Pictures of social security cards for dependents if applicable"
+            w2: "W-2’s"
+            1099: "1099’s"
+          irs_forms:
+            header: "Only information required to prepare and complete the service will be collected and retained. By using the service, specific IRS forms will be completed with your information provided, including:"
+            intake: "13614-C VITA intake form"
+            consent: "Consent to GetYourRefund service model"
+            efile: "Form 8879 consent to e-file (will be sent via DocuSign for signature prior to e-filing)"
+          use_and_storage: "We do not store any of this information unless you electronically consent to the service on the GetYourRefund intake form. Your taxes will not be e-filed until you complete the above consent forms. If you decide not to move forward with using the service, the personal information will be deleted."
+          retention_html: "We currently retain all site visit data indefinitely unless you specifically request that we delete it. You can make this request by emailing us at %{email_link}."
+      information_use:
+        header: "How we use your information"
+        vita_services:
+          header: "We only use your personal information to help you access VITA services. If you consent to allow VITA to prepare your taxes, we will:"
+          intake: "Submit your VITA intake form to the VITA program who will assign a certified volunteer to prepare your taxes"
+          notifications: "Notify you of your progress in the process, depending on your contact preferences."
+          support: "Provide you support throughout the tax preparation process."
+          docs: "Send the documents you upload to a secure file upload location for certified staff and volunteers at VITA sites to review"
+          efile: "VITA will e-file your returns through TaxSlayer and submit your information to the IRS if you consent to e-filing via e-signing form 8879 in DocuSign"
+        research: "We will send a hashed/anonymized version of your SSN to the IRS for research purposes only, we will receive back aggregate metrics for our research to help us improve the service."
+      information_sharing:
+        header: "How we share your information"
+        communication_with_you:
+          header: "Communication with you"
+          notifications:
+            header: "We will send you notifications to update you with progress as a VITA site prepares your tax returns. We may reach out to you with questions or requests for additional information."
+            sms_email: "If you consent to SMS and email communications on the intake form, we will send Zendesk notifications via SMS and email depending on your indicated communication preferences"
+            email_consent: "We will not send you an email unless you consent to email communication in the application or you email us first."
+            sms_consent: "We will not send you a text message unless you consent to text message communication in the application or you text us first."
+            vita: "VITA sites may contact you for more information to help complete your return (ex. requesting additional documents and clarifying questions). We also disclose your personal information to Code for America employees, contractors, and affiliated organizations that need to know the information in order to provide the services of the Site."
+        communication_with_others:
+          header: "Communications with other sites, services, and individuals"
+          need_to_know: "Code for America employees, contractors, and affiliated organizations with a need to know information in order to provide the services of the Site will also be provided limited access to personal information."
+          partners:
+            header: "Once you submit your VITA intake information on the Site, we share this information with our partner VITA sites via the secure intake system. In order to provide services, the Site will share data and information other secure systems that will house your information, including:"
+            zendesk: "Zendesk"
+            docusign: "DocuSign"
+            taxslayer: "TaxSlayer (through consenting to work with VITA, system they use to prepare your return and e-file if you consent to e-filing)"
+          responsibility: "Please be aware that we are not responsible for the content or privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information."
+          non-partners: "Besides VITA sites and individuals affiliated with the Site, we do not share your personal information with any other individuals or organizations, except to the minimal extent required by law."
+      information_protection:
+        header: "How we protect your information"
+        important: "Protecting your personal information is extremely important to us and we take all reasonable measures to do so. We take precautions to protect your information. When you submit sensitive information via the website, your information is protected both online and offline."
+        online: "Wherever we collect sensitive information, that information is encrypted and transmitted to us in a secure way. You can verify this by looking for a lock icon in the address bar and looking for \"https\" at the beginning of the address of the Web page."
+        offline: "While we use encryption to protect sensitive information transmitted online, we also protect your information offline. Only employees who need the information to perform a specific job are granted access to personally identifiable information. The computers/servers in which we store personally identifiable information are kept in a secure environment."
+        security_practices:
+          header: "Here are some specific security practices we use:"
+          tls: "When you enter your information on our site we encrypt the transmission of that information using transport layer security (TLS)."
+          ssl: "All connections will be encrypted using SSL certificates"
+          incident_response: "Site maintains an incident response plan that includes reporting security incidents to the IRS"
+          doc_storage: "Documents will be kept secure at all times - passwords, encryption, sealed envelopes, locking file holders/cabinets, etc"
+          doc_deletion: "Taxpayer documentation will be deleted within 5 days after 3rd attempt to contact the taxpayer (if the taxpayer is not responsive to requests for contact)"
+          training: "Only VITA volunteers completing the necessary training and Code for America site administrators will have access to taxpayer information"
+        complete_security: "Although we try our best to protect the privacy of your personal information, we cannot guarantee complete security. The transmission of information via the Internet is not completely secure. Unauthorized entry or use, hardware or software failure, and other factors, may compromise the security of user information at any time."
+      changes:
+        header: "Changes"
+        info: "We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of this site after any changes in this Privacy Policy will constitute your acceptance of the changes."
+      effective_date:
+        header: "Effective Date"
+        info: "This version of the policy is effective %{effective_date}"
+      questions:
+        header: "Questions"
+        contact_us_html: "If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:"
+        resolve: "We will do our best to resolve the issue."
+    stimulus_payment:
+      title: "Stimulus Payment"
+      header: "Get your Stimulus Payment (EIP)"
+      intro:
+        description: "This year, many people will receive an Economic Impact Payment (often called a stimulus payment) from the federal government. You’ll get up to $1,200 for yourself ($2,400 for a married couple filing jointly) and you’ll get an additional $500 for every dependent child under the age of 17."
+        common_questions: "We know there are many questions around the Economic Impact Payments (EIP) and we have some answers! We’ve broken down some common questions to help you out."
+        irs_info_html: "The IRS will post all key information on %{irs_eip_link} as soon as it becomes available."
+        eligibility:
+          header: "Who is eligible?"
+          info: "Tax filers with adjusted gross income up to $75,000 for individuals and up to $150,000 for married couples filing joint returns will receive the full payment. For filers with income above those amounts, the payment amount is reduced by $5 for each $100 above the $75,000/$150,000 thresholds. Single filers with income exceeding $99,000 and $198,000 for joint filers with no children are not eligible."
+        payments:
+          header: "Automatic payments"
+          info: "Eligible taxpayers who filed tax returns for either 2019 or 2018 will automatically receive an economic impact payment of up to $1,200 for individuals or $2,400 for married couples and up to $500 for each qualifying child."
+          exceptions:
+            header: "Unless you are otherwise required to file a tax return, or have dependents under the age of 17, you will automatically receive your $1,200 payment if you are in any of the following categories, so you are not required to file:"
+            social_security: "Social Security retirement, disability (SSDI), Supplemental Security Income (SSI) or survivor benefits"
+            veterans: "Veteran’s benefits"
+            railroad: "Railroad Retirement benefits"
+        benefits:
+          header: "The benefits of filing"
+          info: "However, for those in the categories above, if you have any earned income or dependents, you may be able to access additional tax credits or benefits by filing or updating your info with the IRS. Please reach out via chat for more information."
+      faq:
+        how_to_get_paid:
+          header: "How to get paid"
+          eip_check:
+            q: "How do I get my Economic Impact Payment check?"
+            a: "If you filed your 2019 taxes, your economic impact payment (stimulus payment) will be sent to you by the method you chose to receive your 2019 refund (either mailed to your mailing address or directly deposited to the bank account you provided on your 2019 taxes). If you haven’t filed for 2019, the IRS will use the information on your 2018 taxes."
+          did_not_provide_bank_account:
+            q: "What if I didn’t provide a bank account to the IRS?"
+            a_html: "If you did not provide a routing number for a bank account, your return could be delayed. You can provide the IRS with this information at the IRS %{irs_get_my_payment_link} website."
+          payment_amount:
+            q: "How much will I receive?"
+            a_html: "The IRS has a %{irs_eip_calculator_link} website to help you calculate how much you will receive."
+            calculate_eip_website_title: "“How do I calculate my EIP”"
+          change_information:
+            q: "What if I need to change the information I provided in 2018 or 2019?"
+            a_html: "You can update your information on the IRS %{irs_get_my_payment_link} website."
+          non_filer:
+            q: "What if I haven’t filed federal taxes?"
+            a: "If you aren’t required to file taxes but you have any earned income we recommend filing your taxes through GetYourRefund as you may be eligible for additional tax credits! If you’re required to file taxes, but didn’t file in 2018 or 2019, you can still file with GetYourRefund."
+          no_income:
+            q: "What if I have no income?"
+            a_html: "You need to enter your payment information on the IRS %{irs_enter_payment_info_link} website to receive your payment. If you are having trouble completing this on your own, you can complete the GetYourRefund questionnaire and IRS-certified volunteers can help you complete the simple form."
+            enter_payment_info_website_title: "“Non-Filers: Enter Payment Info Here”"
+          no_bank_account:
+            q: "What if I don’t have a bank account?"
+            a_html: "If you don’t have a bank account, it could take up to five months to receive your EIP check by mail. To get your payment quickly via direct deposit, sign up for a bank account online and add your account information on the IRS %{irs_get_my_payment_link} website. If you don’t want to sign up for a bank account, you can link a prepaid debit card. Many of our VITA partners can also enroll you in a prepaid debit card when you file your return through GetYourRefund."
+          change_address:
+            q: "What if I moved since filing my taxes?"
+            a_html: "If you want your EIP check mailed to you, make sure your address is up to date on the IRS %{irs_address_change_link} website. There may be delays – it could take up to five months to receive your check by mail."
+            address_change: "address change"
+        eip:
+            header: "Economic Impact Payment (stimulus payment) FAQs"
+            when:
+              q: "When will I receive my check?"
+              a: "Economic Impact Payments will arrive in bank accounts through direct deposit starting on April 9th, 2020. If you don't have a bank account it could take up to five months to receive your check by mail."
+            other_benefits:
+              q: "Will the EIP check affect my other government benefits?"
+              a: "No, the EIP checks are treated as a tax credit. This means your payment will not impact the benefits you receive now or in the future."
+            deadline:
+              q: "I still need to file a tax return. How long are the economic impact payments available?"
+              a: "For those concerned about visiting a tax professional or local community organization in person to get help with a tax return, these economic impact payments will be available throughout 2020 and the 2021 tax filing season."
+            owe_taxes:
+              q: "If I owe taxes, or have a payment agreement with the IRS, or owe other federal or state debts, will I still get the EIP?"
+              a: "Yes, but with one exception. The Payment will be offset by past-due child support. The Bureau of the Fiscal Service will send you a notice if this occurs."
+            one_time:
+              q: "Is this a one-time payment?"
+              a: "Only one stimulus package has been announced by the U.S. government. We will update this page with any changes."
+            additional_eip:
+              q: "What if I missed the deadline to provide additional information or received a smaller EIP than expected?"
+              a: "In most cases, the additional EIP would be provided in 2021."
+            scams:
+              q: "What if someone offers a quicker payment?"
+              a: "Don’t click on links whose origins you aren’t 100% sure of. Be wary of scams. If it looks too good to be true, it probably is. And don’t send money to someone you don’t know."
+    tax_questions:
+      title: "Tax Questions"
+      header: "Let's try to answer your tax questions!"
+      support: "Our team is here to support you. %{faq_link} or submit a question via chat and we will get back to you!"
+      see_faq: "Please see our FAQ"
+      cannot_answer:
+        header: "We can not answer:"
+        different_services: "Questions about taxes filed with a different service (H&amp;R Block, TurboTax)"
+        refund_amounts: "The amount of refund you will receive"

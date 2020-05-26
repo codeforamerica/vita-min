@@ -43,6 +43,6 @@ RSpec.feature "Client uploads a requested document" do
     expect(page).to have_button("Continue", disabled: true)
 
     visit "/questions/job-count"
-    expect(current_path).to eq("/questions/welcome")
+    expect(current_path).to eq(welcome_questions_path())
   end
 end
