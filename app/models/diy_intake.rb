@@ -5,10 +5,15 @@
 #  id                 :bigint           not null, primary key
 #  email_address      :string
 #  preferred_name     :string
+#  referrer           :string
+#  source             :string
 #  state_of_residence :string
 #  token              :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  requester_id       :bigint
+#  ticket_id          :bigint
+#  visitor_id         :string
 #
 # Indexes
 #
@@ -34,5 +39,9 @@ class DiyIntake < ApplicationRecord
     end
 
     self.token = new_token
+  end
+
+  def start_filing_url
+    Rails.application.routes.url_helpers.diy_start_filing_url(token)
   end
 end

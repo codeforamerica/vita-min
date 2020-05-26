@@ -4,6 +4,11 @@ RSpec.describe Diy::PersonalInfoController do
   render_views
 
   describe "#update" do
+    before do
+      session[:source] = "source_from_session"
+      session[:referrer] = "referrer_from_session"
+    end
+
     context "with valid params" do
       let(:params) do
         {
@@ -22,6 +27,8 @@ RSpec.describe Diy::PersonalInfoController do
         diy_intake = DiyIntake.last
         expect(diy_intake.state_of_residence).to eq "CO"
         expect(diy_intake.preferred_name).to eq "Shep"
+        expect(diy_intake.source).to eq "source_from_session"
+        expect(diy_intake.referrer).to eq "referrer_from_session"
       end
     end
   end
