@@ -42,7 +42,7 @@ RSpec.describe DependentsController do
         it "redirects to the start of the questions workflow" do
           get :index
 
-          expect(response).to redirect_to(question_path(QuestionNavigation.first))
+          expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
         end
       end
 
@@ -66,7 +66,7 @@ RSpec.describe DependentsController do
         it "redirects to the start of the questions workflow" do
           get :index
 
-          expect(response).to redirect_to(question_path(QuestionNavigation.first))
+          expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
         end
       end
 
@@ -76,7 +76,7 @@ RSpec.describe DependentsController do
         it "redirects to the start of the questions workflow" do
           get :index
 
-          expect(response).to redirect_to(question_path(QuestionNavigation.first))
+          expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
         end
       end
     end

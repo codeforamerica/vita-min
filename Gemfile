@@ -51,7 +51,7 @@ gem 'auto_strip_attributes'
 gem 'ddtrace'
 gem 'dogapi'
 gem 'http_accept_language'
-gem 'easy_translate'
+gem 'rails-i18n'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -69,6 +69,7 @@ group :development, :test do
   gem 'rubocop-performance', '~> 1.5.2', require: false
   gem 'rubocop-rspec', '~> 1.38.1', require: false
   gem 'i18n-tasks', require: false
+  gem 'easy_translate'
 end
 
 group :development do

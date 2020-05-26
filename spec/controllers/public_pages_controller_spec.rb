@@ -23,7 +23,7 @@ RSpec.describe PublicPagesController do
         get :home
 
         expect(response.body).to include "Get started"
-        expect(response.body).to include question_path(QuestionNavigation.first)
+        expect(response.body).to include question_path(:id => QuestionNavigation.first)
         expect(response.body).not_to include "Find a location"
       end
 
@@ -37,7 +37,7 @@ RSpec.describe PublicPagesController do
 
           expect(response.body).to include "Find a location"
           expect(response.body).not_to include "Get started"
-          expect(response.body).not_to include question_path(QuestionNavigation.first)
+          expect(response.body).not_to include question_path(:id => QuestionNavigation.first)
         end
       end
     end

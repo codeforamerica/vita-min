@@ -22,7 +22,7 @@ shared_examples "a ticketed controller" do |get_action|
       it "redirects to the start of the questions workflow" do
         get get_action
 
-        expect(response).to redirect_to(question_path(QuestionNavigation.first))
+        expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
       end
     end
 
@@ -46,7 +46,7 @@ shared_examples "a ticketed controller" do |get_action|
       it "redirects to the start of the questions workflow" do
         get get_action
 
-        expect(response).to redirect_to(question_path(QuestionNavigation.first))
+        expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
       end
     end
 
