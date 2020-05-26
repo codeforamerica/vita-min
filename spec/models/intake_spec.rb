@@ -868,7 +868,7 @@ describe Intake do
       it_behaves_like "state-level routing", "GA", "Goodwill Industries of the Southern Rivers", "eitc"
       it_behaves_like "state-level routing", "WA", "United Way of King County", "eitc"
       it_behaves_like "state-level routing", "PA", "Campaign for Working Families", "eitc"
-      it_behaves_like "state-level routing", "NJ", "United Way of Greater Newark", "eitc"
+      it_behaves_like "state-level routing", "NJ", "Campaign for Working Families", "eitc"
       it_behaves_like "state-level routing", "OH", "United Way of Central Ohio", "eitc"
       it_behaves_like "state-level routing", "SC", "Impact America (Save First) South Carolina", "eitc"
       it_behaves_like "state-level routing", "TN", "Impact America (Save First) Mississippi River States", "eitc"
