@@ -36,7 +36,7 @@ describe ZendeskIntakeService do
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
   let(:sms_opt_in) { "yes" }
-  let(:intake_requester_id) { rand(2**(8 * 7)) }
+  let(:intake_requester_id) { rand(2**(8 * 7)) } # zendesk requester ids are big integers
   let(:intake_ticket_id) { nil }
   let(:payment_method) { "direct_deposit" }
   let(:pay_from_bank) { "yes" }

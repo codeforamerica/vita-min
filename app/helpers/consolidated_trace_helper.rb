@@ -105,6 +105,17 @@ module ConsolidatedTraceHelper
   end
 
   ##
+  # given a diy_intake, provides consistent context using the fields
+  # that are most likely to be needed to isolate a problem
+  def diy_intake_context(diy_intake)
+    {
+        diy_intake_id: diy_intake.id,
+        ticket_id: diy_intake.ticket_id,
+        requester_id: diy_intake.requester_id
+    }
+  end
+
+  ##
   # trace with DEBUG severity
   def trace_debug(message, extra_context = {})
     trace(message, extra_context, Severity::DEBUG)
