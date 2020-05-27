@@ -51,7 +51,6 @@ vita_partners:
   - cwf-mfp
   states:
   - PA
-  - NJ
   logo_path: partner-logos/cwf.png
 - name: Impact America (Save First)
   zendesk_instance_domain: eitc
@@ -180,6 +179,8 @@ vita_partners:
   display_name: United Way of Greater Newark
   source_parameters:
   - uwgn
+  states:
+  - NJ
   logo_path: ''
 - name: United Way Capital Region (PA)
   zendesk_instance_domain: eitc
@@ -243,4 +244,11 @@ vita_partners:
   display_name: Massachusetts Association for Community Action (MASSCAP)
   source_parameters:
   - MC-WOR
+  logo_path: ''
+- name: Granite United Way
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010462593'
+  display_name: Granite United Way
+  source_parameters:
+  - graniteuw
   logo_path: ''

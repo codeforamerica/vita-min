@@ -1,0 +1,84 @@
+<% content_for :page_title, "#{@ticket.subject}, ##{@ticket.id}" %>
+<% content_for :toolbar_right do %>
+  <div class="toolbar__item">
+    <span class="user__welcome">
+      Welcome
+      <strong class="user__name">
+        <%= current_user.name %>
+      </strong>
+    </span>
+  </div>
+<% end %>
+
+<% content_for :main do %>
+  <section class="slab slab--white steps--wrapper">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="form-card">
+            <h1 class="form-question">
+              <%= @ticket.subject %>,
+              <%= link_to "##{@ticket.id}", "https://eitc.zendesk.com/agent/tickets/#{@ticket.id}" %>
+            </h1>
+
+            <div class="document-overview-list">
+              <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
+              <h2 class="h3 document-overview-list__heading">13614-C Intake Form</h2>
+              <ul class="document-overview-list__filenames">
+                <% @intakes.each do |intake| %>
+                  <li class="document-listing">
+                    <%= link_to pdf_zendesk_intake_path(intake.id, filename: "13614c_#{intake.name_for_filename}.pdf") do %>
+                      <%= "13614c_#{intake.name_for_filename}.pdf" %>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+
+              <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
+              <h2 class="h3 document-overview-list__heading">Consent Form</h2>
+              <ul class="document-overview-list__filenames">
+                <% @intakes.each do |intake| %>
+                  <li class="document-listing">
+                    <%= link_to consent_pdf_zendesk_intake_path(intake.id, filename: "Consent_#{intake.name_for_filename}.pdf") do %>
+                      <%= "Consent_#{intake.name_for_filename}.pdf" %>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+
+              <% if @documents.present? %>
+                <% @documents.group_by(&:document_type).each do |type, documents| %>
+                  <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
+                  <h2 class="h3 document-overview-list__heading"><%= type %>s</h2>
+                  <ul class="document-overview-list__filenames">
+                    <% documents.each do |document| %>
+                      <li class="document-listing">
+                        <%= link_to zendesk_document_path(document.id) do %>
+                          <div class="document-listing__thumbnail">
+                            <% if document.upload.representable? %>
+                              <%= image_tag document.upload.representation(resize: "140x140"), alt: "" %>
+                            <% else %>
+                              <%= image_tag "documents.svg", alt: "" %>
+                            <% end %>
+                          </div>
+                          <div class="document-listing__details">
+                            <h3 class="h4 document-listing__filename">
+                              <%= document.upload.filename %> (<%= number_to_human_size(document.upload.byte_size) %>)
+                            </h3>
+                            <p class="document-listing__upload-time">
+                              Uploaded <%= time_ago_in_words(document.upload.created_at) %> ago
+                            </p>
+                          </div>
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

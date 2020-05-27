@@ -38,7 +38,7 @@
     </script>
   </head>
 
-  <body <% if content_for :body_class %>class="<%= content_for :body_class %>"<% end %>>
+  <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
     <div class="page-wrapper">
       <header class="main-header">
         <div class="toolbar">
@@ -50,7 +50,7 @@
             </div>
           </div>
           <div class="toolbar__right">
-<!--            <button class="toolbar__item button button--small">Feedback</button>-->
+            <%= yield :toolbar_right %>
           </div>
         </div>
       </header>
