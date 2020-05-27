@@ -28,11 +28,51 @@ es:
       done: Hecho con este paso
       info: Necesitaremos un ITIN o SSN para cada persona que agregue. Le pediremos que comparta imágenes de estos al final.
       title: "¡Vamos a reclamar a alguien!"
+  diy:
+    check_email:
+      edit:
+        questions_html: Si tiene preguntas, debe enviar un correo electrónico a %{email_link}.
+        sent_secure_link: Acabamos de enviarle un enlace seguro para nuestro servicio de bricolaje.
+        title: Por favor revise su correo electrónico para un enlace de confirmación.
+    email_address:
+      edit:
+        confirm_email_address: Confirmar el correo
+        email_address: Dirección de correo electrónico
+        title: Por favor comparte tu dirección de correo electrónico.
+        will_send_secure_link: Le enviaremos un enlace seguro a su correo electrónico para que pueda archivar.
+    file_yourself:
+      edit:
+        info: Seleccionó nuestra opción hágalo usted mismo. Le proporcionaremos las herramientas para que pueda archivarse.
+        need_assistance: En realidad, necesito ayuda para archivar.
+        right_option:
+          2019_only: Solo está presentando solicitudes para 2019 (no en años anteriores)
+          comfortable_online: Te sientes cómodo usando los servicios de impuestos en línea
+          header: 'Esta es la opción correcta para usted si:'
+          quick: Necesitas una opción rápida
+          simple_situation: Su situación fiscal es simple / directa
+        title: "¡Presente sus impuestos usted mismo!"
+    personal_info:
+      edit:
+        info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
+        preferred_name: Nombre Preferido
+        state_of_residence: Estado de residencia
+        title: Primero, obtengamos información básica.
+    start_filing:
+      start:
+        chat: Si surge alguna pregunta, responda a su correo electrónico de confirmación. ¡Estamos aquí para ayudar!
+        info: Con nuestra opción de preparación de impuestos de bricolaje, obtienes acceso a un software gratuito de preparación de impuestos en línea. Deberá crear un inicio de sesión en TaxSlayer para comenzar.
+        tips:
+          header: 'Consejos útiles:'
+          no_navigation: No haga clic en "Atrás" ni navegue fuera de la página TaxSlayer
+          no_phone: No use su teléfono para archivar
+          spelling: Revisa tu ortografía
+        title: "¡Bienvenido a nuestro servicio de impuestos de bricolaje!"
   footer:
     service_description_html: GetYourRefund.org es un servicio sin fines de lucro creado por %{cfa_link} en asociación con los sitios de Asistencia Voluntaria del Impuesto sobre la Renta (%{vita_link}) certificados por el IRS a nivel nacional.
   general:
     affirmative: si
     chat_with_us: habla con nosotros
+    continue: Seguir
     edit: Editar
     find_location: Encuentra una ubicación
     find_vita_site: Encuentre un sitio de VITA cerca de usted
@@ -44,10 +84,52 @@ es:
     irs_free_file: IRS Free File
     negative: 'No'
     other_options: Pruebe con otra opción de presentación de impuestos gratuita
+    remove: Eliminar
     return_home: Vuelve a casa
     submit_question: Envíe una pregunta a GetYourRefund
+    upload: Subir
     visit_free_file: Visite el archivo gratuito del IRS
     vita_long: 'VITA: Asistencia Voluntaria al Impuesto sobre la Renta'
+  intake_site_drop_offs:
+    new:
+      additional_info: Información Adicional
+      certification_level: Nivel de certificación
+      document_bundle: Paquete de documentos
+      email: Correo electrónico del cliente
+      hsa: HSA
+      intake_site: Sitio de admisión
+      name: Nombre del cliente
+      phone_number: Número de teléfono del cliente
+      signature_method:
+        e_signature: Firma electrónica
+        in_person: En persona
+        label: Método de recogida
+        pickup_date:
+          help_text: 'Formato: M / D'
+          label: Fecha de recogida
+          postfix: "/ 2020"
+      state:
+        help_text: Para declaración de impuestos estatales
+        label: Estado
+      submit: Enviar para la preparación
+      title: Servicio de valet VITA Drop-off
+    show:
+      add_another: Agregar otra entrega
+      comment_added: 'Comentario con detalles agregados a la ID del ticket: %{ticket_id}'
+      found_ticket: "¡Encontré un boleto de Zendesk a juego!"
+      sent_for_prep: Nueva entrega enviada para la preparación!
+      ticket_id: 'ID de ticket de Zendesk: %{ticket_id}'
+      title: 'Enviado para la preparación! ID de ticket de Zendesk: %{ticket_id}'
+  layouts:
+    application:
+      meta:
+        description: Maximice su reembolso presentando a nuestros voluntarios de confianza. Disponible para usted en línea o en persona!
+    document_upload:
+      done_for_now: He terminado por ahora
+      dont_have: No tengo este documento
+      remove_confirmation: ¿Estás seguro de que deseas eliminar "%{filename}"?
+      select_file: Seleccione un archivo
+      take_picture: Toma una foto
   public_pages:
     about_us:
       how_it_helps: Puede ahorrar hasta $ 300 cuando presente de forma gratuita. También nos aseguramos de que los contribuyentes elegibles reclamen el Crédito Tributario por Ingreso del Trabajo (EITC), que puede superar los $ 3,000 por familia.
