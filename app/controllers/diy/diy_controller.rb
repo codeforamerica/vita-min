@@ -1,5 +1,7 @@
 module Diy
   class DiyController < ApplicationController
+    before_action :require_diy_intake
+
     delegate :form_name, to: :class
     delegate :form_class, to: :class
 
@@ -52,6 +54,10 @@ module Diy
      end
 
     private
+
+    def require_diy_intake
+      redirect_to diy_file_yourself_path unless current_diy_intake.present?
+    end
 
     def after_update_success; end
 
