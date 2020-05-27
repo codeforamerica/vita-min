@@ -134,7 +134,7 @@ module ZendeskServiceHelper
       raise ZendeskAPIError.new("Error creating Zendesk Ticket: #{ticket.errors}")
     end
 
-    ticket.id
+    ticket
   end
 
   def assign_ticket_to_group(ticket_id:, group_id:)
@@ -149,10 +149,14 @@ module ZendeskServiceHelper
     success
   end
 
+  def find_ticket(ticket_id)
+    ZendeskAPI::Ticket.find(client, id: ticket_id)
+  end
+
   def append_comment_to_ticket(ticket_id:, comment:, fields: {}, public: false, group_id: nil)
     raise MissingTicketIdError if ticket_id.blank?
 
-    ticket = ZendeskAPI::Ticket.find(client, id: ticket_id)
+    ticket = find_ticket(ticket_id)
     ticket.fields = fields if fields.present?
     ticket.group_id = group_id if group_id.present?
     ticket.comment = { body: comment, public: public }

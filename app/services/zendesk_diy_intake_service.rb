@@ -37,7 +37,7 @@ class ZendeskDiyIntakeService
 
 
   def create_diy_intake_ticket
-    ticket_id = create_ticket(
+    ticket = create_ticket(
       subject: ticket_subject,
       requester_id: diy_intake.requester_id,
       external_id: external_id,
@@ -46,8 +46,9 @@ class ZendeskDiyIntakeService
       body: ticket_body,
       fields: ticket_fields
     )
-    if ticket_id
-      diy_intake.update(ticket_id: ticket_id)
+    if ticket.id
+      diy_intake.update(ticket_id: ticket.id)
+      return ticket
     else
       raise ZendeskServiceError.new(
         "ZendeskDiyIntakeService failed to create a ticket for diy intake"
