@@ -42,6 +42,6 @@ class DiyIntake < ApplicationRecord
   end
 
   def start_filing_url
-    Rails.application.routes.url_helpers.diy_start_filing_url(token)
+    Rails.application.routes.url_helpers.diy_start_filing_url(:token => token)
   end
 end

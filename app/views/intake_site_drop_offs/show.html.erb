@@ -1,5 +1,5 @@
 <% content_for :page_title do %>
-  Sent for prep! Zendesk Ticket ID: <%= @drop_off.zendesk_ticket_id %>
+  <%=t("intake_site_drop_offs.show.title", :ticket_id => @drop_off.zendesk_ticket_id) %>
 <% end %>
 
 <main role="main">
@@ -9,20 +9,20 @@
         <div class="form-card">
           <header class="form-card__header">
             <% if @drop_off.prior_drop_off.present? %>
-              <h1 class="form-card__title">Found a matching Zendesk ticket!</h1>
+              <h1 class="form-card__title"><%=t("intake_site_drop_offs.show.found_ticket") %></h1>
             <% else %>
-              <h1 class="form-card__title">New drop-off sent for prep!</h1>
+              <h1 class="form-card__title"><%=t("intake_site_drop_offs.show.sent_for_prep") %></h1>
             <% end %>
           </header>
           <div class="form-card__content">
             <% if @drop_off.prior_drop_off.present? %>
-              <h2>Comment with details added to ticket ID: <%= @drop_off.zendesk_ticket_id %></h2>
+              <h2><%=t("intake_site_drop_offs.show.comment_added", :ticket_id => @drop_off.zendesk_ticket_id) %></h2>
             <% else %>
-              <h2>Zendesk Ticket ID: <%= @drop_off.zendesk_ticket_id %></h2>
+              <h2><%=t("intake_site_drop_offs.show.ticket_id", :ticket_id => @drop_off.zendesk_ticket_id) %></h2>
             <% end %>
             <%= link_to new_drop_off_path(organization: @organization), class: "button button--primary" do %>
               <i class="button__icon icon-add"></i>
-              Add another drop-off
+              <%=t("intake_site_drop_offs.show.add_another") %>
             <% end %>
           </div>
         </div>
