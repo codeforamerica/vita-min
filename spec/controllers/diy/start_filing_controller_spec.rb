@@ -21,4 +21,12 @@ RSpec.describe Diy::StartFilingController, type: :controller do
       end
     end
   end
+
+  describe "#current_diy_intake" do
+    it "finds the Diy Intake by token" do
+      get :start, params: {token: diy_intake.token}
+
+      expect(controller.current_diy_intake).to eq(diy_intake)
+    end
+  end
 end

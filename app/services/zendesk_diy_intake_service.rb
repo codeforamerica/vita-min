@@ -74,6 +74,27 @@ class ZendeskDiyIntakeService
       send_diy_confirmation
     BODY
   end
+
+  def append_resend_confirmation_email_comment
+    append_comment_to_ticket(
+      ticket_id: diy_intake.ticket_id,
+      comment: resend_confirmation_email_comment_body,
+      )
+  end
+
+  def resend_confirmation_email_comment_body
+    <<~BODY
+      DIY Intake Started with Duplicate Email
+
+      Preferred name: #{diy_intake.preferred_name}
+      Email: #{diy_intake.email_address}
+      State of residence: #{state_of_residence_name}
+      Client has been re-sent DIY link via email
+
+      resend_diy_confirmation
+    BODY
+  end
+
   private
 
   attr_reader :diy_intake

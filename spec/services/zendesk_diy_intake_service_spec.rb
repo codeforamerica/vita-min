@@ -161,4 +161,36 @@ describe ZendeskDiyIntakeService do
     end
   end
 
+  describe "#append_resend_confirmation_email_comment" do
+    before do
+      diy_intake.update(ticket_id: 1234)
+      allow(service).to receive(:append_comment_to_ticket)
+    end
+
+    it "adds a comment to the exisiting Zendesk ticket" do
+      service.append_resend_confirmation_email_comment
+      expect(service).to have_received(:append_comment_to_ticket)
+                           .with(ticket_id: 1234, comment: service.resend_confirmation_email_comment_body)
+    end
+  end
+
+  describe "#resend_confirmation_email_comment_body" do
+    let(:expected_body) do
+      <<~BODY
+        DIY Intake Started with Duplicate Email
+
+        Preferred name: Dotty
+        Email: doit@your.self
+        State of residence: North Carolina
+        Client has been re-sent DIY link via email
+
+        resend_diy_confirmation
+      BODY
+    end
+
+    it "adds all relevant details about the user and diy intake" do
+      expect(service.resend_confirmation_email_comment_body).to eq expected_body
+    end
+  end
+
 end
