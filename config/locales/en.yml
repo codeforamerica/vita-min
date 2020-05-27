@@ -58,10 +58,50 @@ en:
       delete_confirmation: "Are you sure you want to remove \"%{name}\"?"
       delete_cta: "Remove this person"
       save_cta: "Save this person"
+  diy:
+    check_email:
+      edit:
+        title: "Please check your e-mail for a confirmation link."
+        sent_secure_link: "We just sent you a secure link for our DIY service."
+        questions_html: "If you have questions you should email %{email_link}."
+    email_address:
+      edit:
+        title: "Please share your e-mail address."
+        will_send_secure_link: "We will send a secure link to your e-mail so that you can file."
+        confirm_email_address: "Confirm e-mail address"
+        email_address: "E-mail address"
+    file_yourself:
+      edit:
+        title: "File your taxes yourself!"
+        info: "You selected our do it yourself option. We'll provide the tools so you can file yourself."
+        right_option:
+          header: "This is the right option for you if:"
+          2019_only: "You are only filing for 2019 (not previous years)"
+          comfortable_online: "You’re comfortable using online tax services"
+          simple_situation: "Your tax situation is simple/straightforward"
+          quick: "You need a quick option"
+        need_assistance: "Actually, I need assistance filing."
+    personal_info:
+      edit:
+        title: "First, let's get some basic information."
+        info: "Welcome, we're excited to help you. We need some basic information to get started."
+        preferred_name: "Preferred name"
+        state_of_residence: "State of residence"
+    start_filing:
+      start:
+        title: "Welcome to our DIY tax service!"
+        info: "With our DIY tax prep option, you get access to a free online tax prep software. You’ll need to create a login in TaxSlayer to start."
+        tips:
+          header: "Helpful tips:"
+          no_phone: "Do not use your phone to file"
+          no_navigation: "Do not click ‘back’ or navigate away from the TaxSlayer page"
+          spelling: "Double check your spelling"
+        chat: "If any questions come up, please respond to your confirmation email. We’re here to help!"
   footer:
     service_description_html: "GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally."
   general:
     chat_with_us: "Chat with us"
+    continue: "Continue"
     edit: "Edit"
     find_location: "Find a Location"
     find_vita_site: "Find a VITA site near you"

@@ -1,4 +1,4 @@
-<% @main_heading = 'Please check your e-mail for a confirmation link.' %>
+<% @main_heading = t("diy.check_email.edit.title") %>
 <% content_for :page_title, @main_heading %>
 
 <main role="main">
@@ -13,19 +13,11 @@
             <%= @main_heading %>
           </h1>
           <div class="offboarding--help-text">
-            <p>
-              We just sent you a secure link for our DIY service.
-            </p>
-            <p>
-              If you have questions you should email <a
-              href="mailto:hello@getyourrefund.org" class="text--black">
-              hello@getyourrefund.org</a>.
-            </p>
+            <p><%=t("diy.check_email.edit.sent_secure_link") %></p>
+            <p><%=t("diy.check_email.edit.questions_html", :email_link => link_to("hello@getyourrefund.org", "mailto:hello@getyourrefund.org", class: "text--black")) %></p>
           </div>
           <div class="buttons--vertical-stack">
-            <%= link_to root_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
-              Return to home
-            <% end %>
+            <%= link_to t("general.return_home"), root_path, class: "button button--primary button--wide text--centered spacing-above-60" %>
           </div>
         </main>
       </div>

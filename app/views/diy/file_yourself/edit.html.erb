@@ -1,4 +1,4 @@
-<% @main_heading = "File your taxes yourself!" %>
+<% @main_heading = t("diy.file_yourself.edit.title") %>
 <% content_for :page_title, @main_heading %>
 
 <main role="main">
@@ -13,41 +13,33 @@
           <h1 class="form-question">
             <%= @main_heading %>
           </h1>
-          <p>
-            You selected our do it yourself option. We'll provide the tools so you can file yourself.
-          </p>
+          <p><%=t("diy.file_yourself.edit.info") %></p>
 
           <div class="text--semibold spacing-below-35">
-            <p>
-              This is the right option for you if:
-            </p>
+            <p><%=t("diy.file_yourself.edit.right_option.header") %></p>
             <ul class="checkmark-list">
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span>You are only filing for 2019 (not previous years) </span>
+                <span><%=t("diy.file_yourself.edit.right_option.2019_only") %> </span>
               </li>
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span>You’re comfortable using online tax services </span>
+                <span><%=t("diy.file_yourself.edit.right_option.comfortable_online") %> </span>
               </li>
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span>Your tax situation is simple/straightforward </span>
+                <span><%=t("diy.file_yourself.edit.right_option.simple_situation") %> </span>
               </li>
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span>You need a quick option </span>
+                <span><%=t("diy.file_yourself.edit.right_option.quick") %> </span>
               </li>
             </ul>
           </div>
 
-          <%= link_to file_with_help_questions_path, class: "text--purple" do %>
-            Actually, I need assistance filing.
-          <% end %>
+          <%= link_to t("diy.file_yourself.edit.need_assistance"), file_with_help_questions_path, class: "text--purple" %>
 
-          <%= link_to next_path, class: "button button--primary text--centered button--wide spacing-above-60" do %>
-            Continue
-          <% end %>
+          <%= link_to t("general.continue"), next_path, class: "button button--primary text--centered button--wide spacing-above-60" %>
         </main>
       </div>
     </div>
