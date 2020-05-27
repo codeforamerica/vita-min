@@ -28,10 +28,10 @@
               <% end %>
               <div class="yes-no-buttons">
                 <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "yes", class: "button button--icon button--centered", "aria-describedby": "main-question" do %>
-                  <%= image_tag("checkmark.svg", alt: "") %>Yes
+                  <%= image_tag("checkmark.svg", alt: "") %><%=t("general.affirmative") %>
                 <% end %>
                 <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "no", class: "button button--icon button--centered", "aria-describedby": "main-question" do %>
-                  <%= image_tag("crossmark.svg", alt: "") %>No
+                  <%= image_tag("crossmark.svg", alt: "") %><%=t("general.negative") %>
                 <% end %>
               </div>
             <% end %>

@@ -28,8 +28,8 @@
                   </div>
                   <div class="doc-preview__info">
                     <h2 class="h3 doc-preview__filename"><%= document.upload.filename %></h2>
-                    <%= link_to(destroy_document_path(document), method: :delete, class: "link--delete", data: { confirm: "Are you sure you want to remove \"#{document.upload.filename}\"?" }) do %>
-                      Remove
+                    <%= link_to(destroy_document_path(document), method: :delete, class: "link--delete", data: { confirm: t("layouts.document_upload.remove_confirmation", :filename => "#{document.upload.filename}")  }) do %>
+                      <%=t("general.remove") %>
                     <% end %>
                   </div>
                 </li>
@@ -45,38 +45,38 @@
                 <%= f.label(:document, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
                   <span class="is-tablet-hidden--inline">
                     <%= image_tag "upload.svg", alt: "" %>
-                    Select a file
+                    <%=t("layouts.document_upload.select_file") %>
                   </span>
                   <span class="is-desktop-hidden--inline">
                     <%= image_tag "camera.svg", alt: "" %>
-                    Take a picture
+                    <%=t("layouts.document_upload.take_picture") %>
                   </span>
                 <% end %>
               </div>
             </div>
             <%= f.button class: "button button--primary" do %>
-              Upload
+              <%=t("general.upload") %>
             <% end %>
           <% end %>
 
           <% if DocumentNavigation::REQUIRED_DOCUMENT_TYPES.include?(document_type) %>
             <% if @documents.present? %>
               <%= link_to next_path, class: "button button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
-                Continue
+                <%=t("general.continue") %>
               <% end %>
             <% else %>
               <button class="button button--cta button--disabled" disabled>
-                Continue
+                <%=t("general.continue") %>
               </button>
             <% end %>
           <% else %>
             <%= link_to next_path, class: "button button--wide button--icon button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
               <%= image_tag "checkmark--white.svg", alt: "" %>
-              I'm done for now
+              <%=t("layouts.document_upload.done_for_now") %>
             <% end %>
             <%= link_to next_path, class: "button button--wide button--icon", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
               <%= image_tag "crossmark--black.svg", alt: "" %>
-              I don't have this document
+              <%=t("layouts.document_upload.dont_have") %>
             <% end %>
           <% end %>
 
