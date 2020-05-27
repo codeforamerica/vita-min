@@ -12,6 +12,12 @@ RSpec.describe Diy::EmailAddressController do
       get :edit
       expect(response).to be_successful
     end
+
+    it "sets a new visitor_id on the diy intake" do
+      get :edit
+
+      expect(diy_intake.visitor_id).to be_present
+    end
   end
 
 

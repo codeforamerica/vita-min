@@ -31,6 +31,7 @@ class ZendeskFollowUpDocsService
 
       raise CouldNotSendFollowUpDocError unless output
       new_requested_docs.each {|doc| doc.update(zendesk_ticket_id: @intake.intake_ticket_id)}
+      DatadogApi.increment("zendesk.ticket.docs.requested.sent")
       output
     end
   end

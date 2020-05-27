@@ -34,7 +34,7 @@ gem 'activerecord-postgis-adapter'
 gem 'will_paginate'
 gem 'sentry-raven'
 gem 'pdf-forms'
-gem 'aws-sdk-s3', require: false
+gem 'aws-sdk-s3'
 gem 'device_detector'
 gem 'mixpanel-ruby'
 gem 'devise'

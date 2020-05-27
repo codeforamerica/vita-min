@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe ZendeskIntakeService do
+  let(:fake_dogapi) { instance_double(Dogapi::Client, emit_point: nil) }
   let(:fake_eitc_zendesk_client) { double(ZendeskAPI::Client) }
   let(:fake_uwtsa_zendesk_client) { double(ZendeskAPI::Client) }
   let(:fake_zendesk_client) { double(ZendeskAPI::Client) }
@@ -45,6 +46,12 @@ describe ZendeskIntakeService do
     allow(ZendeskAPI::Client).to receive(:new).and_return(fake_zendesk_client)
     allow(ZendeskAPI::Ticket).to receive(:new).and_return(fake_zendesk_ticket)
     allow(ZendeskAPI::Ticket).to receive(:find).and_return(fake_zendesk_ticket)
+
+    DatadogApi.configure do |c|
+      c.enabled = true
+      c.namespace = "test.dogapi"
+    end
+    allow(Dogapi::Client).to receive(:new).and_return(fake_dogapi)
   end
 
   describe "#client" do
@@ -211,6 +218,13 @@ describe ZendeskIntakeService do
           data: intake.mixpanel_data.merge(ticket_status.mixpanel_data)
         )
       end
+
+      it "sends a datadog metric" do
+        service.create_intake_ticket
+
+        expect(Dogapi::Client).to have_received(:new).once
+        expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.ticket.created', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+      end
     end
 
     context "in a state for the UWTSA Group" do
@@ -259,6 +273,15 @@ describe ZendeskIntakeService do
           service.create_intake_ticket
         end.to raise_error(ZendeskIntakeService::MissingRequesterIdError)
       end
+
+      it "does not send a datadog metric" do
+        expect do
+          service.create_intake_ticket
+        end.to raise_error(ZendeskIntakeService::MissingRequesterIdError)
+
+        expect(Dogapi::Client).not_to have_received(:new)
+        expect(fake_dogapi).not_to have_received(:emit_point)
+      end
     end
 
     context "when we fail to create a zendesk ticket" do
@@ -271,6 +294,15 @@ describe ZendeskIntakeService do
           service.create_intake_ticket
         end.to raise_error(ZendeskServiceHelper::ZendeskAPIError)
         expect(intake.current_ticket_status).to be_nil
+      end
+
+      it "does not send a datadog metric" do
+        expect do
+          service.create_intake_ticket
+        end.to raise_error(ZendeskServiceHelper::ZendeskAPIError)
+
+        expect(Dogapi::Client).not_to have_received(:new)
+        expect(fake_dogapi).not_to have_received(:emit_point)
       end
     end
   end
@@ -417,6 +449,13 @@ describe ZendeskIntakeService do
       )
     end
 
+    it "sends a datadog metric" do
+      service.send_preliminary_intake_and_consent_pdfs
+
+      expect(Dogapi::Client).to have_received(:new).once
+      expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.ticket.pdfs.intake_and_consent.preliminary.sent', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+    end
+
     context "for UWTSA instance" do
       it "appends the intake pdf to the ticket" do
         intake.zendesk_instance_domain = UwtsaZendeskInstance::DOMAIN
@@ -451,6 +490,15 @@ describe ZendeskIntakeService do
         expect do
           service.send_preliminary_intake_and_consent_pdfs
         end.to raise_error(ZendeskIntakeService::CouldNotSendIntakePdfError)
+      end
+
+      it "does not send a datadog metric" do
+        expect do
+          service.send_preliminary_intake_and_consent_pdfs
+        end.to raise_error(ZendeskIntakeService::CouldNotSendIntakePdfError)
+
+        expect(Dogapi::Client).not_to have_received(:new)
+        expect(fake_dogapi).not_to have_received(:emit_point)
       end
     end
   end
@@ -488,6 +536,14 @@ describe ZendeskIntakeService do
       )
     end
 
+    it "sends a datadog metric" do
+      service.send_all_docs
+
+      expect(Dogapi::Client).to have_received(:new).once
+      expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.ticket.docs.all.sent', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+    end
+
+
     context "when the zendesk api fails" do
       let(:output){ false }
 
@@ -495,6 +551,15 @@ describe ZendeskIntakeService do
         expect do
           service.send_all_docs
         end.to raise_error(ZendeskIntakeService::CouldNotSendDocumentError)
+      end
+
+      it "does not send a datadog metric" do
+        expect do
+          service.send_all_docs
+        end.to raise_error(ZendeskIntakeService::CouldNotSendDocumentError)
+
+        expect(Dogapi::Client).not_to have_received(:new)
+        expect(fake_dogapi).not_to have_received(:emit_point)
       end
     end
   end
@@ -533,6 +598,13 @@ describe ZendeskIntakeService do
       )
     end
 
+    it "sends a datadog metric" do
+      service.send_final_intake_pdf
+
+      expect(Dogapi::Client).to have_received(:new).once
+      expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.ticket.pdfs.intake.final.sent', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+    end
+
     context "with UWTSA ZD instance" do
       it "appends the intake pdf to the ticket with updated status and interview preferences" do
         intake.zendesk_instance_domain = UwtsaZendeskInstance::DOMAIN
@@ -567,6 +639,15 @@ describe ZendeskIntakeService do
           service.send_final_intake_pdf
         end.to raise_error(ZendeskIntakeService::CouldNotSendCompletedIntakePdfError)
       end
+
+      it "does not send a datadog metric" do
+        expect do
+          service.send_final_intake_pdf
+        end.to raise_error(ZendeskIntakeService::CouldNotSendCompletedIntakePdfError)
+
+        expect(Dogapi::Client).not_to have_received(:new)
+        expect(fake_dogapi).not_to have_received(:emit_point)
+      end
     end
   end
 
@@ -595,6 +676,13 @@ describe ZendeskIntakeService do
       )
     end
 
+    it "sends a datadog metric" do
+      service.send_intake_pdf_with_spouse
+
+      expect(Dogapi::Client).to have_received(:new).once
+      expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.ticket.pdfs.intake.spouse.sent', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+    end
+
     context "when the zendesk api fails" do
       let(:output){ false }
 
@@ -602,6 +690,15 @@ describe ZendeskIntakeService do
         expect do
           service.send_intake_pdf_with_spouse
         end.to raise_error(ZendeskIntakeService::CouldNotSendCompletedIntakePdfError)
+      end
+
+      it "does not send a datadog metric" do
+        expect do
+          service.send_intake_pdf_with_spouse
+        end.to raise_error(ZendeskIntakeService::CouldNotSendCompletedIntakePdfError)
+
+        expect(Dogapi::Client).not_to have_received(:new)
+        expect(fake_dogapi).not_to have_received(:emit_point)
       end
     end
   end
@@ -627,6 +724,13 @@ describe ZendeskIntakeService do
       )
     end
 
+    it "sends a datadog metric" do
+      service.send_consent_pdf_with_spouse
+
+      expect(Dogapi::Client).to have_received(:new).once
+      expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.ticket.pdfs.consent.spouse.sent', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+    end
+
     context "when the zendesk api fails" do
       let(:output){ false }
 
@@ -634,6 +738,15 @@ describe ZendeskIntakeService do
         expect do
           service.send_consent_pdf_with_spouse
         end.to raise_error(ZendeskIntakeService::CouldNotSendConsentPdfError)
+      end
+
+      it "does not send a datadog metric" do
+        expect do
+          service.send_consent_pdf_with_spouse
+        end.to raise_error(ZendeskIntakeService::CouldNotSendConsentPdfError)
+
+        expect(Dogapi::Client).not_to have_received(:new)
+        expect(fake_dogapi).not_to have_received(:emit_point)
       end
     end
 
@@ -664,6 +777,13 @@ describe ZendeskIntakeService do
           comment: comment_body,
         )
       end
+
+      it "sends a datadog metric" do
+        service.send_bank_details_png
+
+        expect(Dogapi::Client).to have_received(:new).once
+        expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.ticket.bank_details.sent', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+      end
     end
 
     context "when the intake does NOT include bank details" do
@@ -676,6 +796,13 @@ describe ZendeskIntakeService do
         expect(service).not_to have_received(:append_file_to_ticket)
         expect(result).to eq true
       end
+
+      it "does not send a datadog metric" do
+        service.send_bank_details_png
+
+        expect(Dogapi::Client).not_to have_received(:new)
+        expect(fake_dogapi).not_to have_received(:emit_point)
+      end
     end
 
     context "when the zendesk api fails" do
@@ -686,6 +813,19 @@ describe ZendeskIntakeService do
           service.send_bank_details_png
         end.to raise_error(ZendeskIntakeService::CouldNotSendBankDetailsError)
       end
+
+      it "does not send a datadog metric" do
+        expect do
+          service.send_bank_details_png
+        end.to raise_error(ZendeskIntakeService::CouldNotSendBankDetailsError)
+
+        expect(Dogapi::Client).not_to have_received(:new)
+        expect(fake_dogapi).not_to have_received(:emit_point)
+      end
     end
+  end
+
+  after do
+    DatadogApi.instance_variable_set("@dogapi_client", nil)
   end
 end

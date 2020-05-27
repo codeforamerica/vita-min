@@ -17,5 +17,12 @@ module Diy
     def after_update_success
       session[:diy_intake_id] = @form.diy_intake.id
     end
+
+    def form_params
+      super.merge(
+        source: current_diy_intake.source || source,
+        referrer: current_diy_intake.referrer || referrer,
+      )
+    end
   end
 end

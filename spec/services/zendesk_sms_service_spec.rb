@@ -5,9 +5,16 @@ describe ZendeskSmsService do
   let(:sms_ticket_id) { 1492 }
   let(:phone_number) { "14158161286" }
   let(:sms_message_body) { "body here" }
+  let(:fake_dogapi) { instance_double(Dogapi::Client, emit_point: nil) }
 
   before do
     allow(service).to receive(:append_comment_to_ticket).and_return true
+
+    DatadogApi.configure do |c|
+      c.enabled = true
+      c.namespace = "test.dogapi"
+    end
+    allow(Dogapi::Client).to receive(:new).and_return(fake_dogapi)
   end
 
   describe "#handle_inbound_sms" do
@@ -23,6 +30,17 @@ describe ZendeskSmsService do
           ticket_id: sms_ticket_id,
           comment: "This user could not be found.\ntext_user_not_found",
         )
+      end
+
+      it "sends a datadog metric" do
+        service.handle_inbound_sms(
+            phone_number: phone_number,
+            sms_ticket_id: sms_ticket_id,
+            message_body: sms_message_body
+        )
+
+        expect(Dogapi::Client).to have_received(:new).once
+        expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.sms.inbound.user.not_found', 1, {:tags => ["env:"+Rails.env], :type => "count"})
       end
     end
 
@@ -43,6 +61,17 @@ describe ZendeskSmsService do
           ticket_id: sms_ticket_id,
           comment: "This user has no associated tickets.\ntext_user_has_no_other_ticket",
           )
+      end
+
+      it "sends a datadog metric" do
+        service.handle_inbound_sms(
+            phone_number: phone_number,
+            sms_ticket_id: sms_ticket_id,
+            message_body: sms_message_body
+        )
+
+        expect(Dogapi::Client).to have_received(:new).once
+        expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.sms.inbound.user.tickets.not_found', 1, {:tags => ["env:"+Rails.env], :type => "count"})
       end
     end
 
@@ -118,6 +147,17 @@ describe ZendeskSmsService do
             },
           )
         end
+      end
+
+      it "sends a datadog metric" do
+        service.handle_inbound_sms(
+            phone_number: phone_number,
+            sms_ticket_id: sms_ticket_id,
+            message_body: sms_message_body
+        )
+
+        expect(Dogapi::Client).to have_received(:new).once
+        expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.sms.inbound.user.tickets.open.linked', 1, {:tags => ["env:"+Rails.env], :type => "count"})
       end
     end
 
@@ -202,6 +242,17 @@ describe ZendeskSmsService do
           },
           )
       end
+
+      it "sends a datadog metric" do
+        service.handle_inbound_sms(
+            phone_number: phone_number,
+            sms_ticket_id: sms_ticket_id,
+            message_body: sms_message_body
+        )
+
+        expect(Dogapi::Client).to have_received(:new).once
+        expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.sms.inbound.user.tickets.open.linked', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+      end
     end
 
     context "when ALL of the related tickets have a status of closed" do
@@ -238,6 +289,22 @@ describe ZendeskSmsService do
           comment: "This user has no associated open tickets.\ntext_user_has_no_other_open_ticket",
           )
       end
+
+      it "sends a datadog metric" do
+        service.handle_inbound_sms(
+            phone_number: phone_number,
+            sms_ticket_id: sms_ticket_id,
+            message_body: sms_message_body
+        )
+
+        expect(Dogapi::Client).to have_received(:new).once
+        expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.sms.inbound.user.tickets.open.not_found', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+      end
+
     end
+  end
+
+  after do
+    DatadogApi.instance_variable_set("@dogapi_client", nil)
   end
 end
