@@ -2,7 +2,7 @@
   <% if @drop_off.errors.present? %>
     <%= @drop_off.error_summary %>
   <% end %>
-  Valet VITA Drop-off
+  <%=t("intake_site_drop_offs.new.title") %>
 <% end %>
 
 <main role="main">
@@ -12,41 +12,41 @@
         <%= form_for @drop_off, url: create_drop_off_path, local: true, multipart: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
           <header class="form-card__header">
             <h1 class="h1"><%= IntakeSiteDropOff::ORGANIZATION_NAMES[@organization] %></h1>
-            <h2 class="h2">Valet VITA Drop-off</h2>
+            <h2 class="h2"><%=t("intake_site_drop_offs.new.title") %></h2>
           </header>
           <div class="form-card__content">
             <%= f.hidden_field(:timezone) %>
-            <%= f.cfa_select(:intake_site, 'Intake Site', IntakeSiteDropOff.intake_sites[@organization.to_sym].map { |site| [site, site] }) %>
-            <%= f.cfa_input_field(:name, 'Client name') %>
-            <%= f.cfa_input_field(:email, 'Client email', type: 'email', classes: ['form-width--email with-padding-med']) %>
-            <%= f.cfa_input_field(:phone_number, 'Client phone number', type: 'tel', classes: ['form-width--phone with-padding-med']) %>
+            <%= f.cfa_select(:intake_site, t("intake_site_drop_offs.new.intake_site"), IntakeSiteDropOff.intake_sites[@organization.to_sym].map { |site| [site, site] }) %>
+            <%= f.cfa_input_field(:name, t("intake_site_drop_offs.new.name")) %>
+            <%= f.cfa_input_field(:email, t("intake_site_drop_offs.new.email"), type: 'email', classes: ['form-width--email with-padding-med']) %>
+            <%= f.cfa_input_field(:phone_number, t("intake_site_drop_offs.new.phone_number"), type: 'tel', classes: ['form-width--phone with-padding-med']) %>
             <%= f.cfa_radio_set_with_follow_up(
                     :signature_method,
-                    label_text: "Pick-up method",
+                    label_text: t("intake_site_drop_offs.new.signature_method.label"),
                     collection: [
-                        {value: 'e_signature', label: 'E-Signature'},
-                        {value: 'in_person', label: 'In-person'},
+                        {value: 'e_signature', label: t("intake_site_drop_offs.new.signature_method.e_signature")},
+                        {value: 'in_person', label: t("intake_site_drop_offs.new.signature_method.in_person")},
                     ],
                     second_follow_up: ->{
                       f.cfa_input_field :pickup_date_string,
-                                        'Pick-up date',
-                                        help_text: 'Format: M/D',
-                                        postfix: "/2020",
+                                        t("intake_site_drop_offs.new.signature_method.pickup_date.label"),
+                                        help_text: t("intake_site_drop_offs.new.signature_method.pickup_date.help_text"),
+                                        postfix: t("intake_site_drop_offs.new.signature_method.pickup_date.postfix"),
                                         classes: ["form-width--phone"]
                     }
                 ) %>
-            <%= f.cfa_file_field(:document_bundle, 'Documents bundle') %>
-            <%= f.cfa_select(:state, 'State', States.name_value_pairs, help_text: "For state tax return") %>
+            <%= f.cfa_file_field(:document_bundle, t("intake_site_drop_offs.new.document_bundle")) %>
+            <%= f.cfa_select(:state, t("intake_site_drop_offs.new.state.label"), States.name_value_pairs, help_text: t("intake_site_drop_offs.new.state.help_text")) %>
             <%= f.cfa_radio_set(
                     :certification_level,
-                    label_text: 'Certification level',
+                    label_text: t("intake_site_drop_offs.new.certification_level"),
                     collection: IntakeSiteDropOff.certification_levels.map { |level| {value: level, label: level} })
             %>
-            <%= f.cfa_checkbox(:hsa, "HSA") %>
-            <%= f.cfa_textarea(:additional_info, 'Additional information') %>
+            <%= f.cfa_checkbox(:hsa, t("intake_site_drop_offs.new.hsa")) %>
+            <%= f.cfa_textarea(:additional_info, t("intake_site_drop_offs.new.additional_info")) %>
 
             <button class="button button--primary" type="submit">
-              Send for prep
+              <%=t("intake_site_drop_offs.new.submit") %>
               <i class="button__icon icon-arrow_forward"></i>
             </button>
           </div>
