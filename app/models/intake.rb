@@ -12,6 +12,7 @@
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
+#  completed_at                                         :datetime
 #  completed_intake_sent_to_zendesk                     :boolean
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null

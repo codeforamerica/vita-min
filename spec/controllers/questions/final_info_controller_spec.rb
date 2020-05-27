@@ -19,5 +19,11 @@ RSpec.describe Questions::FinalInfoController do
 
       expect(SendCompletedIntakeToZendeskJob).to have_been_enqueued
     end
+
+    it "updates completed_intake_at" do
+      post :update, params: params
+
+      expect(intake.completed_at).to be_within(2.seconds).of(Time.now)
+    end
   end
 end
