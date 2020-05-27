@@ -168,8 +168,7 @@
 #
 
 class Intake < ApplicationRecord
-  # TODO: remove users association
-  has_many :users # order doesn't really matter at the moment
+  has_many :users, foreign_key: "intake_id", class_name: "IdmeUser"
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
   has_many :ticket_statuses, -> { order(created_at: :asc) }
@@ -517,6 +516,18 @@ class Intake < ApplicationRecord
   def current_ticket_status
     # we think this is faster than doing ticket_statuses.last
     ticket_statuses.reorder(created_at: :desc).first
+  end
+
+  def name_for_filename
+    primary_full_name.split(" ").map(&:capitalize).join
+  end
+
+  def intake_pdf_filename
+    "13614c_#{name_for_filename}.pdf"
+  end
+
+  def consent_pdf_filename
+    "Consent_#{name_for_filename}.pdf"
   end
 
   private
