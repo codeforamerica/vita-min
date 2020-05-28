@@ -97,6 +97,12 @@ en:
           no_navigation: "Do not click ‘back’ or navigate away from the TaxSlayer page"
           spelling: "Double check your spelling"
         chat: "If any questions come up, please respond to your confirmation email. We’re here to help!"
+  flash:
+    application_controller:
+      flash_redirect: "You're missing a ticket or intake. In production, we would have redirected you to the beginning."
+      maintenance: "GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow."
+    dependents_controller:
+      removed_dependent: "Removed %{full_name}."
   footer:
     service_description_html: "GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally."
   general:

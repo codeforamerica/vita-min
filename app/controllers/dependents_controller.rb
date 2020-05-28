@@ -39,7 +39,7 @@ class DependentsController < ApplicationController
   def destroy
     @dependent = current_intake.dependents.find(params[:id])
     if @dependent.destroy
-      flash[:notice] = "Removed #{@dependent.full_name}."
+      flash[:notice] = I18n.translate("flash.dependents_controller.removed_dependent", :full_name => @dependent.full_name)
       send_mixpanel_event(event_name: "dependent_removed")
     end
     redirect_to dependents_path
