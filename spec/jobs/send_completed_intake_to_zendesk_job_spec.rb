@@ -38,7 +38,7 @@ RSpec.describe SendCompletedIntakeToZendeskJob, type: :job do
       it "raises an error" do
         expect do
           described_class.perform_now(intake.id)
-        end.to raise_error(/Unable send everything to Zendesk/)
+        end.to raise_error(/Unable to send everything to Zendesk/)
 
         expect(ZendeskIntakeService).to have_received(:new).with(intake)
         expect(fake_zendesk_intake_service).to have_received(:send_final_intake_pdf)

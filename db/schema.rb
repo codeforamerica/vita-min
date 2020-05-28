@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_26_164047) do
+ActiveRecord::Schema.define(version: 2020_05_27_180219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 2020_05_26_164047) do
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
     t.string "city"
+    t.datetime "completed_at"
     t.boolean "completed_intake_sent_to_zendesk"
     t.datetime "created_at"
     t.integer "demographic_disability", default: 0, null: false

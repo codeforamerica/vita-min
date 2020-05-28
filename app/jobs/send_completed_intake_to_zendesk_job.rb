@@ -14,7 +14,7 @@ class SendCompletedIntakeToZendeskJob < ApplicationJob
 
       success = sent_pdf && sent_docs && sent_bank_info
       intake.update(completed_intake_sent_to_zendesk: success)
-      raise 'Unable send everything to Zendesk' unless success
+      raise 'Unable to send everything to Zendesk' unless success
     end
   end
 end
