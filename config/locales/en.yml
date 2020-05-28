@@ -110,6 +110,7 @@ en:
     free_file_lookup_tool: "IRS Free File Lookup Tool"
     get_my_payment: "Get My Payment"
     get_started: "Get Started"
+    home: "Home"
     hours: "Hours"
     irs_certified_volunteers: "IRS Certified Volunteers"
     irs_free_file: "IRS Free File"
@@ -461,8 +462,29 @@ en:
         different_services: "Questions about taxes filed with a different service (H&amp;R Block, TurboTax)"
         refund_amounts: "The amount of refund you will receive"
   shared:
+    consent_agreement:
+      information_you_provide: "You understand the information you provide this site (GetYourRefund.org) is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order for an IRS-certified volunteer to review your information, conduct an intake interview on the phone, prepare the tax return, and perform a quality review before filing your taxes."
+      terms_html: "You agree to the terms of the GetYourRefund privacy policy at %{privacy_link}"
+      proceed_and_confirm: "By proceeding, you confirm that the following statements are true and complete to the best of your knowledge."
+      details:
+        header: "The Details"
+        provide_required_info: "I understand that I must provide all required information/documentation necessary to prepare an accurate tax return."
+        collects_pii: "I understand that this site collects personally identifiable information I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review my tax return."
+        interview_and_review: "I understand that I will need to participate in an Intake Interview and Quality Review via phone in order to have a VITA preparation site file my taxes."
+        cfa: "I understand that GetYourRefund.org is a website run by Code for America, a non-profit organization, that will submit your tax information to a VITA preparation site."
+        intake_process: "Intake Process - GetYourRefund will collect your information and documentation through the intake process in order to accurately prepare your tax return."
+        return_prep_process: "Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return."
+        quality_review_process: "Quality Review Process - GetYourRefund will provide you with your return to review for accuracy prior to submission."
+        contacted: "I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed."
+        review_return: "I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge."
+        e_signature: "I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through an electronic signature delivered via email after Quality Review is completed in order for a VITA preparation site to e-file my tax return."
+        responsible: "I understand that me and my spouse (if applicable) are ultimately responsible for all of the information provided to GetYourRefund."
+        irs: "This consent form replaces IRS Form 14446-Virtual VITA/TCE Taxpayer Consent. A copy of this consent will be retained on site, as required by the IRS."
+        sign_below: "By signing below, you agree to participate in the process and consent to allow GetYourRefund assist you with your taxes. You agree to the terms of the GetYourRefund privacy policy at www.GetYourRefund.org/privacy."
     covid_warning:
       notice_html: "Due to COVID-19, a number of VITA sites and all TCE sites are closed for an undetermined period of time. Please call a site before visiting to confirm hours. To get connected with a VITA site online and have a VITA site assist you with your taxes remotely, visit GetYourRefund.org and click \"Get Started.\" You can also visit the %{free_file_link} to find other free online tax preparation tools."
+    grayscale_partner_logo:
+      provider_homepage: "%{provider_name} Homepage"
   vita_providers:
     index:
       title: "Find a Location"
