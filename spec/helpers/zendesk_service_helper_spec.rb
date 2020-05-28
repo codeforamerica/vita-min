@@ -531,4 +531,15 @@ RSpec.describe ZendeskServiceHelper do
       end
     end
   end
+
+  describe "#find_ticket" do
+    before do
+      allow(ZendeskAPI::Ticket).to receive(:find).and_return(nil)
+    end
+    it "raises a MissingTicketError if a ticket is not found" do
+      expect {
+        service.find_ticket(1234)
+      }.to raise_error(ZendeskServiceHelper::MissingTicketError)
+    end
+  end
 end

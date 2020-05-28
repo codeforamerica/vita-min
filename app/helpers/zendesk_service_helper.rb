@@ -183,8 +183,15 @@ module ZendeskServiceHelper
     success
   end
 
+  ##
+  # find a zendesk ticket by ticket_id. raises +MissingTicketError+ if
+  # unable to find ticket.
+  #
+  # @param [Integer] ticket_id the id of the ZendeskAPI::Ticket
+  #
+  # @return [ZendeskAPI::Ticket, nil] found ticket
   def find_ticket(ticket_id)
-    ZendeskAPI::Ticket.find(client, id: ticket_id)
+    ZendeskAPI::Ticket.find(client, id: ticket_id) or raise MissingTicketError
   end
 
   def append_comment_to_ticket(ticket_id:, comment:, fields: {}, public: false, group_id: nil)
