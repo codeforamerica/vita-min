@@ -70,12 +70,24 @@ class ZendeskDiyIntakeService
       State of residence: #{state_of_residence_name}
       Client has been sent DIY link via email
 
+      #{additional_ticket_messages}
       send_diy_confirmation
     BODY
   end
   private
 
   attr_reader :diy_intake
+
+  def additional_ticket_messages
+    messages = []
+    full_service_intakes = Intake.where.not(email_address: nil).where(email_address: diy_intake.email_address).filter { |i| i.intake_ticket_id.present? }
+    full_service_intakes.each do |intake|
+      other_service = ZendeskIntakeService.new(intake)
+      other_ticket = other_service.find_ticket(intake.intake_ticket_id)
+        messages <<  "This client has a GetYourRefund full service ticket: #{other_ticket.url}"
+    end
+    messages.join("\n")
+  end
 
   def ticket_fields
     {

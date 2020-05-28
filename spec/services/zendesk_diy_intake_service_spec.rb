@@ -4,12 +4,15 @@ describe ZendeskDiyIntakeService do
   let(:requester_id) { 12341321234 } # zendesk requester ids are big integers
   let(:fake_eitc_zendesk_client) { double(ZendeskAPI::Client) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: requester_id) }
+  let(:preferred_name) { "Dotty" }
+  let(:state_of_residence) { "NC" }
+  let(:email_address) { "doit@your.self" }
   let(:diy_intake) do
     create(
       :diy_intake,
-      email_address: "doit@your.self",
-      preferred_name: "Dotty",
-      state_of_residence: "NC",
+      email_address: email_address,
+      preferred_name: preferred_name,
+      state_of_residence: state_of_residence,
     )
   end
   let(:service) { described_class.new(diy_intake) }
@@ -82,21 +85,59 @@ describe ZendeskDiyIntakeService do
   end
 
   describe "#ticket_body" do
-    let(:expected_body) do
-      <<~BODY
-        New DIY Intake Started
-
-        Preferred name: Dotty
-        Email: doit@your.self
-        State of residence: North Carolina
-        Client has been sent DIY link via email
-
-        send_diy_confirmation
-      BODY
-    end
+    # let(:expected_body) do
+    #   <<~BODY
+    #     New DIY Intake Started
+    #
+    #     Preferred name: Dotty
+    #     Email: doit@your.self
+    #     State of residence: North Carolina
+    #     Client has been sent DIY link via email
+    #
+    #     send_diy_confirmation
+    #   BODY
+    # end
 
     it "adds all relevant details about the user and diy intake" do
-      expect(service.ticket_body).to eq expected_body
+      body = service.ticket_body
+      expect(body).to include "New DIY Intake Started"
+      expect(body).to include "Preferred name: #{preferred_name}"
+      expect(body).to include "Email: #{email_address}"
+      expect(body).to include "State of residence: North Carolina"
+      expect(body).to include "Client has been sent DIY link via email"
+      expect(body).to include "send_diy_confirmation"
+    end
+
+    context "with corresponding full service tickets" do
+      let(:fake_zendesk_intake_service) { double(ZendeskIntakeService) }
+      let(:intake_ticket_map) do
+        { 99998 => double(ZendeskAPI::Ticket, url: "url1"),
+          99997 => double(ZendeskAPI::Ticket, url: "url2") }
+      end
+      let!(:related_intakes) do
+        intake_ticket_map.map do |ticket_id, fake_ticket|
+          create(
+              :intake,
+              email_address: email_address,
+              intake_ticket_id: ticket_id
+              )
+        end
+      end
+
+      before do
+        allow(ZendeskIntakeService).to receive(:new).and_return(fake_zendesk_intake_service)
+        intake_ticket_map.each do |tid, ticket|
+          allow(fake_zendesk_intake_service).to receive(:find_ticket).with(tid).and_return(ticket)
+        end
+      end
+
+      it "adds references to the full service tickets" do
+        body = service.ticket_body
+
+        intake_ticket_map.each do |_, ticket|
+          expect(body).to include "This client has a GetYourRefund full service ticket: #{ticket.url}"
+        end
+      end
     end
   end
 
