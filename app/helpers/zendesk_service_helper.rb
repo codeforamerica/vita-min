@@ -44,8 +44,25 @@ module ZendeskServiceHelper
     ZendeskAPI::User.find(client, id: user_id)
   end
 
+  ##
+  # find a zendesk ticket by ticket_id
+  #
+  # @param [Integer] ticket_id the id of the ZendeskAPI::Ticket
+  #
+  # @return [ZendeskAPI::Ticket, nil] found ticket
   def get_ticket(ticket_id:)
     ZendeskAPI::Ticket.find(client, id: ticket_id)
+  end
+
+  ##
+  # find a zendesk ticket by ticket_id. raises +MissingTicketError+ if
+  # unable to find ticket.
+  #
+  # @param [Integer] ticket_id the id of the ZendeskAPI::Ticket
+  #
+  # @return [ZendeskAPI::Ticket, nil] found ticket
+  def get_ticket!(ticket_id)
+    ZendeskAPI::Ticket.find(client, id: ticket_id) or raise MissingTicketError
   end
 
   def search_zendesk_users(query_string)
@@ -183,21 +200,10 @@ module ZendeskServiceHelper
     success
   end
 
-  ##
-  # find a zendesk ticket by ticket_id. raises +MissingTicketError+ if
-  # unable to find ticket.
-  #
-  # @param [Integer] ticket_id the id of the ZendeskAPI::Ticket
-  #
-  # @return [ZendeskAPI::Ticket, nil] found ticket
-  def find_ticket(ticket_id)
-    ZendeskAPI::Ticket.find(client, id: ticket_id) or raise MissingTicketError
-  end
-
   def append_comment_to_ticket(ticket_id:, comment:, fields: {}, public: false, group_id: nil)
     raise MissingTicketIdError if ticket_id.blank?
 
-    ticket = find_ticket(ticket_id)
+    ticket = get_ticket!(ticket_id)
     ticket.fields = fields if fields.present?
     ticket.group_id = group_id if group_id.present?
     ticket.comment = { body: comment, public: public }

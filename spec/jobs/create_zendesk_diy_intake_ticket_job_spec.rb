@@ -31,7 +31,7 @@ RSpec.describe CreateZendeskDiyIntakeTicketJob, type: :job do
 
         before do
           allow(ZendeskIntakeService).to receive(:new).and_return(fake_zendesk_intake_service)
-          allow(fake_zendesk_intake_service).to receive(:find_ticket).and_return(fake_ticket)
+          allow(fake_zendesk_intake_service).to receive(:get_ticket!).and_return(fake_ticket)
           allow(fake_zendesk_diy_intake_service).to receive(:append_comment_to_ticket)
           allow(fake_zendesk_intake_service).to receive(:append_comment_to_ticket)
         end

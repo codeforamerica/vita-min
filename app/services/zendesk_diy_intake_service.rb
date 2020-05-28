@@ -82,9 +82,8 @@ class ZendeskDiyIntakeService
     messages = []
     full_service_intakes = Intake.where.not(email_address: nil).where(email_address: diy_intake.email_address).filter { |i| i.intake_ticket_id.present? }
     full_service_intakes.each do |intake|
-      other_service = ZendeskIntakeService.new(intake)
-      other_ticket = other_service.find_ticket(intake.intake_ticket_id)
-        messages <<  "This client has a GetYourRefund full service ticket: #{other_ticket.url}"
+      other_ticket = get_ticket!(intake.intake_ticket_id)
+      messages <<  "This client has a GetYourRefund full service ticket: #{other_ticket.url}"
     end
     messages.join("\n")
   end

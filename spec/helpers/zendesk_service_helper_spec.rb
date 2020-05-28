@@ -466,6 +466,17 @@ RSpec.describe ZendeskServiceHelper do
     end
   end
 
+  describe "#get_ticket!" do
+    before do
+      allow(ZendeskAPI::Ticket).to receive(:find).and_return(nil)
+    end
+    it "raises a MissingTicketError if a ticket is not found" do
+      expect {
+        service.get_ticket!(1234)
+      }.to raise_error(ZendeskServiceHelper::MissingTicketError)
+    end
+  end
+
   describe "when the service is for the UWTSA Zendesk instance" do
     let(:service) do
       class SampleService
@@ -529,17 +540,6 @@ RSpec.describe ZendeskServiceHelper do
           expect(service.qualify_user_name(name)).to eq(name)
         end
       end
-    end
-  end
-
-  describe "#find_ticket" do
-    before do
-      allow(ZendeskAPI::Ticket).to receive(:find).and_return(nil)
-    end
-    it "raises a MissingTicketError if a ticket is not found" do
-      expect {
-        service.find_ticket(1234)
-      }.to raise_error(ZendeskServiceHelper::MissingTicketError)
     end
   end
 end

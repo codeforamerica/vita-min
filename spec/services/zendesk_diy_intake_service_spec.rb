@@ -85,19 +85,6 @@ describe ZendeskDiyIntakeService do
   end
 
   describe "#ticket_body" do
-    # let(:expected_body) do
-    #   <<~BODY
-    #     New DIY Intake Started
-    #
-    #     Preferred name: Dotty
-    #     Email: doit@your.self
-    #     State of residence: North Carolina
-    #     Client has been sent DIY link via email
-    #
-    #     send_diy_confirmation
-    #   BODY
-    # end
-
     it "adds all relevant details about the user and diy intake" do
       body = service.ticket_body
       expect(body).to include "New DIY Intake Started"
@@ -109,25 +96,23 @@ describe ZendeskDiyIntakeService do
     end
 
     context "with corresponding full service tickets" do
-      let(:fake_zendesk_intake_service) { double(ZendeskIntakeService) }
       let(:intake_ticket_map) do
         { 99998 => double(ZendeskAPI::Ticket, url: "url1"),
           99997 => double(ZendeskAPI::Ticket, url: "url2") }
       end
       let!(:related_intakes) do
-        intake_ticket_map.map do |ticket_id, fake_ticket|
+        intake_ticket_map.map do |ticket_id, _|
           create(
-              :intake,
-              email_address: email_address,
-              intake_ticket_id: ticket_id
-              )
+            :intake,
+            email_address: email_address,
+            intake_ticket_id: ticket_id
+          )
         end
       end
 
       before do
-        allow(ZendeskIntakeService).to receive(:new).and_return(fake_zendesk_intake_service)
         intake_ticket_map.each do |tid, ticket|
-          allow(fake_zendesk_intake_service).to receive(:find_ticket).with(tid).and_return(ticket)
+          allow(service).to receive(:get_ticket!).with(tid).and_return(ticket)
         end
       end
 

@@ -77,7 +77,6 @@ class ZendeskIntakeService
     @intake.transaction do
       # we only want to create an initial ticket status if we are able
       # to make a zendesk ticket without errors
-      # TODO: this appears to return a ticket actually ???
       ticket = create_ticket(
         subject: new_ticket_subject,
         requester_id: @intake.intake_ticket_requester_id,
