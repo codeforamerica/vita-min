@@ -45,7 +45,6 @@ Rails.application.routes.draw do
 
     resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :documents, only: [:destroy]
-    resources :ajax_mixpanel_events, only: [:create]
 
     scope :diy, as: :diy do
       DiyNavigation.controllers.uniq.each do |controller_class|
@@ -76,12 +75,14 @@ Rails.application.routes.draw do
     get "/422", to: "public_pages#internal_server_error"
     get "/404", to: "public_pages#page_not_found"
 
-    post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
-    post "/email", to: "email#create"
-
     # FSA routes
     get '/diy/check-email', to: 'public_pages#check_email'
   end
+
+  # Routes outside of the locale scope are not internationalized
+  resources :ajax_mixpanel_events, only: [:create]
+  post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
+  post "/email", to: "email#create"
 
   devise_for :users, controllers: {
       omniauth_callbacks: "users/omniauth_callbacks",
