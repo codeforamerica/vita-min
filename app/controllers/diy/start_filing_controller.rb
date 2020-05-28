@@ -6,6 +6,10 @@ module Diy
       # nothing left to do!
     end
 
+    def include_google_analytics?
+      true
+    end
+
     private
 
     def find_diy_intake
