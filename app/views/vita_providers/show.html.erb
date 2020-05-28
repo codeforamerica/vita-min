@@ -13,7 +13,7 @@
           <div class="return-link">
             <%= link_to vita_providers_path(zip: @zip, page: @page || "1"), class: "button button--small" do %>
               <%= image_tag "left_angle_bracket.svg", alt: "" %>
-              Return to search
+              <%=t("general.return_search") %>
             <% end %>
           </div>
         <% end %>
@@ -21,7 +21,7 @@
         <h1 class="provider-name h2"><%= @provider.name %></h1>
         <% if @zip.present? %>
           <p class="text--small">
-            Within <%= round_meters_up_to_5_mi(@distance) %> miles of <%= "#{@zip} (#{@zip_name})" %>
+            <%=t("vita_providers.show.search_radius", :distance => round_meters_up_to_5_mi(@distance), :zip => @zip, :zip_name => @zip_name) %>
           </p>
         <% end %>
 
@@ -32,9 +32,9 @@
             <%= image_tag "map-pin.svg", alt: "" %>
           </div>
           <div>
-            <h2 class="provider-field__label h3">Address</h2>
+            <h2 class="provider-field__label h3"><%=t("general.address") %></h2>
             <div class="provider-field__value">
-              <%= link_to vita_provider_map_path(id: @provider.id), title: "Google Maps link for #{@provider.name}", target: "_blank", rel: "noopener" do %>
+              <%= link_to vita_provider_map_path(id: @provider.id), title: t("vita_providers.show.maps_link_title", :provider_name => @provider.name), target: "_blank", rel: "noopener" do %>
                 <div><%= @provider.street_address %></div>
                 <div><%= @provider.unit %></div>
                 <div><%= @provider.city_state_zip %></div>
@@ -51,7 +51,7 @@
             <%= image_tag "calendar.svg", alt: "" %>
           </div>
           <div>
-            <h2 class="provider-field__label h3">Open</h2>
+            <h2 class="provider-field__label h3"><%=t("general.open") %></h2>
             <div class="provider-field__value">
               <%= @provider.dates || "Sorry, no dates listed." %>
             </div>
@@ -63,18 +63,18 @@
             <%= image_tag "clock.svg", alt: "" %>
           </div>
           <div>
-            <h2 class="provider-field__label h3">Hours</h2>
+            <h2 class="provider-field__label h3"><%=t("general.hours") %></h2>
             <div class="provider-field__value">
-              <%= @provider.hours || "Sorry, no hours listed." %>
+              <%= @provider.hours || t("vita_providers.show.no_hours_listed") %>
             </div>
           </div>
         </div>
 
         <% if @provider.appointment_info.present? %>
           <h2 class="h3">
-            Appointments are <%= @provider.appointment_info&.downcase %>.
+            <%=t("vita_providers.show.appointment_info", :appointment_info => @provider.appointment_info&.downcase) %>
             <%=
-              "Please call to schedule." if (@provider.appointment_info == "Required" && @provider.phone_number.present?)
+              t("vita_providers.show.call_to_schedule") if (@provider.appointment_info == "Required" && @provider.phone_number.present?)
             %>
           </h2>
         <% end %>
@@ -84,14 +84,14 @@
             <%= image_tag "phone.svg", alt: "" %>
           </div>
           <div>
-            <h2 class="provider-field__label h3">Phone number</h2>
+            <h2 class="provider-field__label h3"><%=t("general.phone_number") %></h2>
             <div class="provider-field__value">
               <% if @provider.phone_number.present? %>
-                <%= link_to "tel:#{@provider.sanitized_phone_number}", title: "Call #{@provider.name}" do %>
+                <%= link_to "tel:#{@provider.sanitized_phone_number}", title: t("vita_providers.show.phone_number_title", :provider_name => @provider.name) do %>
                   <%= @provider.formatted_phone_number %>
                 <% end %>
               <% else %>
-                Sorry, no phone number listed.
+                <%=t("vita_providers.show.no_phone_number_listed") %>
               <% end %>
             </div>
           </div>
@@ -102,7 +102,7 @@
             <%= image_tag "grid-globe.svg", alt: "" %>
           </div>
           <div>
-            <h2 class="provider-field__label h3">Languages</h2>
+            <h2 class="provider-field__label h3"><%=t("general.languages") %></h2>
             <div class="provider-field__value">
               <%= @provider.languages.split(",").join(", ") if @provider.languages.present? %>
             </div>
