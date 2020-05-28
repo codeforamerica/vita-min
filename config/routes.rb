@@ -1,17 +1,6 @@
 Rails.application.routes.draw do
   mount Cfa::Styleguide::Engine => "/cfa"
 
-  devise_for :users, controllers: {
-      omniauth_callbacks: "users/omniauth_callbacks",
-      sessions: "users/sessions"
-  }
-  get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
-
-  devise_scope :user do
-    get "sign_in", :to => "devise/sessions#new", as: :new_user_session
-    delete "sign_out", :to => "users/sessions#destroy", as: :destroy_user_session
-  end
-
   # All routes in this scope will be prefixed with /locale if an available locale is set. See default_url_options in
   # application_controller.rb and http://guides.rubyonrails.org/i18n.html for more info on this approach.
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
@@ -62,9 +51,9 @@ Rails.application.routes.draw do
       DiyNavigation.controllers.uniq.each do |controller_class|
         { get: :edit, put: :update }.each do |method, action|
           match "/#{controller_class.to_param}",
-                action: action,
-                controller: controller_class.controller_path,
-                via: method
+            action: action,
+            controller: controller_class.controller_path,
+            via: method
         end
       end
       get "/:token", to: "diy/start_filing#start", as: :start_filing
@@ -74,7 +63,6 @@ Rails.application.routes.draw do
     post "/:organization/drop-offs", to: "intake_site_drop_offs#create", as: :create_drop_off
     get "/:organization/drop-off/:id", to: "intake_site_drop_offs#show", as: :show_drop_off
 
-    get "/identity-needed", to: "offboarding#identity_needed"
     get "/other-options", to: "public_pages#other_options"
     get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
     get "/maintenance", to: "public_pages#maintenance"
@@ -93,5 +81,19 @@ Rails.application.routes.draw do
 
     # FSA routes
     get '/diy/check-email', to: 'public_pages#check_email'
+  end
+
+  devise_for :users, controllers: {
+      omniauth_callbacks: "users/omniauth_callbacks",
+  }
+  get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
+  get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
+  namespace :zendesk do
+    resources :tickets, only: [:show]
+    resources :documents, only: [:show]
+    resources :intakes, only: [:pdf, :consent_pdf] do
+      get "13614c/:filename", to: "intakes#intake_pdf", on: :member, as: :pdf
+      get "consent/:filename", to: "intakes#consent_pdf", on: :member, as: :consent_pdf
+    end
   end
 end

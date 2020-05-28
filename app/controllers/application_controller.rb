@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_intake
-    current_user&.intake || Intake.find_by_id(session[:intake_id])
+    Intake.find_by_id(session[:intake_id])
   end
 
   def current_diy_intake
@@ -147,7 +147,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_sentry_context
-    Raven.user_context id: current_user&.id, intake_id: current_intake&.id
+    Raven.user_context intake_id: current_intake&.id
     Raven.extra_context visitor_id: visitor_id, is_bot: user_agent.bot?, request_id: request.request_id
   end
 
@@ -187,12 +187,6 @@ class ApplicationController < ActionController::Base
       redirect_to_beginning_of_intake
     else
       flash[:alert] = "You're missing a ticket or intake. In production, we would have redirected you to the beginning."
-    end
-  end
-
-  def require_sign_in
-    unless user_signed_in?
-      redirect_to identity_questions_path(after_login: request.path)
     end
   end
 

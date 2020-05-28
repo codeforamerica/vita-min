@@ -3,47 +3,25 @@
 # Table name: users
 #
 #  id                        :bigint           not null, primary key
-#  birth_date                :string
-#  city                      :string
-#  consented_to_service      :integer          default("unfilled"), not null
-#  consented_to_service_at   :datetime
-#  consented_to_service_ip   :string
-#  current_sign_in_at        :datetime
-#  current_sign_in_ip        :inet
+#  active                    :boolean
 #  email                     :string
-#  email_notification_opt_in :integer          default("unfilled"), not null
-#  encrypted_ssn             :string
-#  encrypted_ssn_iv          :string
-#  first_name                :string
-#  is_spouse                 :boolean          default(FALSE)
-#  last_name                 :string
-#  last_sign_in_at           :datetime
-#  last_sign_in_ip           :inet
-#  phone_number              :string
+#  encrypted_access_token    :string
+#  encrypted_access_token_iv :string
+#  name                      :string
 #  provider                  :string
-#  sign_in_count             :integer          default(0), not null
-#  sms_notification_opt_in   :integer          default("unfilled"), not null
-#  state                     :string
-#  street_address            :string
+#  role                      :string
+#  suspended                 :boolean
+#  ticket_restriction        :string
+#  two_factor_auth_enabled   :boolean
 #  uid                       :string
-#  zip_code                  :string
+#  verified                  :boolean
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
-#  intake_id                 :bigint           not null
+#  zendesk_user_id           :bigint
 #
-# Indexes
-#
-#  index_users_on_intake_id  (intake_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (intake_id => intakes.id)
-#
-
 FactoryBot.define do
   factory :user do
-    uid { SecureRandom.hex }
+    uid { SecureRandom.random_number(99999999999999) }
     email { "gary.gardengnome@example.green" }
-    intake
   end
 end

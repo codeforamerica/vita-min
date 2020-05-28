@@ -38,7 +38,7 @@
     </script>
   </head>
 
-  <body <% if content_for :body_class %>class="<%= content_for :body_class %>"<% end %>>
+  <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
     <div class="page-wrapper">
       <%= render 'shared/header' %>
 
