@@ -18,10 +18,9 @@ class CreateZendeskIntakeTicketJob < ApplicationJob
 
         # append fill service notice to any related DIY tickets
         diy_intakes.each do |diy_intake|
-          other_service = ZendeskDiyIntakeService.new(diy_intake)
-          other_service.append_comment_to_ticket(
+          service.append_comment_to_ticket(
             ticket_id: diy_intake.ticket_id,
-            comment: "This client has a GetYourRefund full service ticket: #{ticket.url}"
+            comment: "This client has a GetYourRefund full service ticket: #{service.ticket_url(ticket.id)}"
           )
         end
       end

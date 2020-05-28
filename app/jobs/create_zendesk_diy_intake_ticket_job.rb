@@ -18,8 +18,7 @@ class CreateZendeskDiyIntakeTicketJob < ApplicationJob
 
         # append DIY notice to any related Full Service tickets
         intakes.each do |intake|
-          other_service = ZendeskIntakeService.new(intake)
-          other_service.append_comment_to_ticket(
+          service.append_comment_to_ticket(
             ticket_id: intake.intake_ticket_id,
             comment: "This client has requested a TaxSlayer DIY link from GetYourRefund.org"
           )

@@ -97,8 +97,8 @@ describe ZendeskDiyIntakeService do
 
     context "with corresponding full service tickets" do
       let(:intake_ticket_map) do
-        { 99998 => double(ZendeskAPI::Ticket, url: "url1"),
-          99997 => double(ZendeskAPI::Ticket, url: "url2") }
+        { 99998 => double(ZendeskAPI::Ticket, id: "99998"),
+          99997 => double(ZendeskAPI::Ticket, id: "99997") }
       end
       let!(:related_intakes) do
         intake_ticket_map.map do |ticket_id, _|
@@ -120,7 +120,7 @@ describe ZendeskDiyIntakeService do
         body = service.ticket_body
 
         intake_ticket_map.each do |_, ticket|
-          expect(body).to include "This client has a GetYourRefund full service ticket: #{ticket.url}"
+          expect(body).to include "This client has a GetYourRefund full service ticket: #{service.ticket_url(ticket.id)}"
         end
       end
     end

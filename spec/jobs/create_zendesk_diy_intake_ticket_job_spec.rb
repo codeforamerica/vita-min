@@ -24,23 +24,18 @@ RSpec.describe CreateZendeskDiyIntakeTicketJob, type: :job do
       end
 
       context "when the user has filled out a full service intake" do
-        let(:fake_zendesk_intake_service) { double(ZendeskIntakeService) }
         let(:fake_ticket) { double(ZendeskAPI::Ticket, url: "ticket_url") }
         let(:intake_ticket_id) { 123 }
         let!(:intake) { create :intake, email_address: email_address, intake_ticket_id: intake_ticket_id }
 
         before do
-          allow(ZendeskIntakeService).to receive(:new).and_return(fake_zendesk_intake_service)
-          allow(fake_zendesk_intake_service).to receive(:get_ticket!).and_return(fake_ticket)
           allow(fake_zendesk_diy_intake_service).to receive(:append_comment_to_ticket)
-          allow(fake_zendesk_intake_service).to receive(:append_comment_to_ticket)
         end
 
         it "appends comment to any full service intake tickets associated with the same email address" do
           described_class.perform_now(diy_intake.id)
 
-          expect(ZendeskIntakeService).to have_received(:new).with(intake)
-          expect(fake_zendesk_intake_service).to have_received(:append_comment_to_ticket).with(
+          expect(fake_zendesk_diy_intake_service).to have_received(:append_comment_to_ticket).with(
             ticket_id: intake_ticket_id,
             comment: "This client has requested a TaxSlayer DIY link from GetYourRefund.org"
           )

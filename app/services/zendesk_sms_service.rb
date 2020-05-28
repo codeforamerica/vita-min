@@ -82,10 +82,4 @@ class ZendeskSmsService
     )
     DatadogApi.increment("zendesk.sms.inbound.user.tickets.open.linked")
   end
-
-  private
-
-  def ticket_url(ticket_id)
-    "https://#{EitcZendeskInstance::DOMAIN}.zendesk.com/agent/tickets/#{ticket_id}"
-  end
 end

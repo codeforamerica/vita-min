@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
   let(:fake_zendesk_intake_service) { double(ZendeskIntakeService) }
-  let(:fake_zendesk_diy_intake_service) { double(ZendeskDiyIntakeService) }
   let(:intake) { create :intake, intake_ticket_id: intake_ticket_id, intake_ticket_requester_id: intake_requester_id, email_address: "filer@example.horse" }
 
   # clean start
@@ -17,7 +16,6 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
     context "without errors" do
       before do
         allow(ZendeskIntakeService).to receive(:new).with(intake).and_return(fake_zendesk_intake_service)
-        allow(ZendeskDiyIntakeService).to receive(:new).and_return(fake_zendesk_diy_intake_service)
         allow(fake_zendesk_intake_service).to receive(:assign_requester).and_return(new_requester_id)
         allow(fake_zendesk_intake_service).to receive(:create_intake_ticket).and_return(new_ticket_id)
       end
@@ -53,21 +51,21 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
           let(:diy_ticket_id) { 12 }
           let(:new_ticket_id) { 33 }
           let!(:diy_intake) { create :diy_intake, email_address: "filer@example.horse", ticket_id: diy_ticket_id }
-          let(:fake_ticket) { double(ZendeskAPI::Ticket, url: "ticket_url") }
+          let(:fake_ticket) { double(ZendeskAPI::Ticket, id: new_ticket_id) }
 
           before do
             allow(fake_zendesk_intake_service).to receive(:create_intake_ticket).and_return(fake_ticket)
             allow(fake_zendesk_intake_service).to receive(:get_ticket!).and_return(fake_ticket)
             allow(fake_zendesk_intake_service).to receive(:append_comment_to_ticket)
-            allow(fake_zendesk_diy_intake_service).to receive(:append_comment_to_ticket)
+            allow(fake_zendesk_intake_service).to receive(:ticket_url).and_return("https://eitc.zendesk.com/agent/tickets/#{new_ticket_id}")
           end
 
           it "appends comments to those tickets with link to new ticket" do
             described_class.perform_now(intake.id)
 
-            expect(fake_zendesk_diy_intake_service).to have_received(:append_comment_to_ticket).with(
+            expect(fake_zendesk_intake_service).to have_received(:append_comment_to_ticket).with(
               ticket_id: diy_ticket_id,
-              comment: "This client has a GetYourRefund full service ticket: ticket_url"
+              comment: "This client has a GetYourRefund full service ticket: https://eitc.zendesk.com/agent/tickets/#{new_ticket_id}"
             )
           end
         end

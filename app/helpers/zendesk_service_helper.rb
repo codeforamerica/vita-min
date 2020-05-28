@@ -65,6 +65,10 @@ module ZendeskServiceHelper
     ZendeskAPI::Ticket.find(client, id: ticket_id) or raise MissingTicketError
   end
 
+  def ticket_url(ticket_id)
+    "https://#{EitcZendeskInstance::DOMAIN}.zendesk.com/agent/tickets/#{ticket_id}"
+  end
+
   def search_zendesk_users(query_string)
     client.users.search(query: query_string).to_a
   end
