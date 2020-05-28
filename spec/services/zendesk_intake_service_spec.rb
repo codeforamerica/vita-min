@@ -526,7 +526,7 @@ describe ZendeskIntakeService do
       allow(service).to receive(:append_multiple_files_to_ticket).and_return(output)
     end
 
-    it "appends each document to the ticket" do
+    it "appends each document to the ticket and marks each document with the ticket id" do
       result = service.send_all_docs
 
       expect(result).to eq true
@@ -543,6 +543,11 @@ describe ZendeskIntakeService do
           * #{documents[1].upload.filename} (#{documents[1].document_type})
         DOCS
       )
+
+      documents.each do |document|
+        document.reload
+        expect(document.zendesk_ticket_id).to eq intake.intake_ticket_id
+      end
     end
 
     it "sends a datadog metric" do

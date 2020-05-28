@@ -252,9 +252,11 @@ class ZendeskIntakeService
       )
 
       raise CouldNotSendDocumentError unless output
+      @intake.documents.each { |d| d.update(zendesk_ticket_id: @intake.intake_ticket_id) }
       DatadogApi.increment("zendesk.ticket.docs.all.sent")
       output
     end
+
   end
 
   def contact_preferences
