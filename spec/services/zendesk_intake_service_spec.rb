@@ -161,9 +161,11 @@ describe ZendeskIntakeService do
   end
 
   describe "#create_intake_ticket" do
+    let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 101, errors: nil) }
+
     before do
       intake.intake_ticket_requester_id = 987
-      allow(service).to receive(:create_ticket).and_return(101)
+      allow(service).to receive(:create_ticket).and_return(fake_zendesk_ticket)
       allow(service).to receive(:new_ticket_body).and_return "Body text"
     end
 
@@ -174,7 +176,7 @@ describe ZendeskIntakeService do
 
       it "calls create_ticket with the right arguments" do
         result = service.create_intake_ticket
-        expect(result).to eq 101
+        expect(result.id).to eq 101
         expect(service).to have_received(:create_ticket).with(
           subject: "Cher Cherimoya",
           requester_id: 987,
@@ -233,7 +235,7 @@ describe ZendeskIntakeService do
 
       it "excludes intake site, and intake status and sends a nil group_id" do
         result = service.create_intake_ticket
-        expect(result).to eq 101
+        expect(result.id).to eq 101
         expect(service).to have_received(:create_ticket).with(
           subject: "Cher Cherimoya",
           requester_id: 987,
@@ -342,6 +344,13 @@ describe ZendeskIntakeService do
       expect(service.new_ticket_body).to include("Client is filing for Economic Impact Payment support")
     end
 
+    context "when the user has filled out a diy intake" do
+      let!(:diy_intake) { create :diy_intake, email_address: intake.email_address }
+
+      it "adds an extra message saying the client has requested a DIY link" do
+        expect(service.new_ticket_body).to include("This client has previously requested a DIY link from GetYourRefund.org")
+      end
+    end
   end
 
   describe "#new_ticket_subject" do
@@ -517,7 +526,7 @@ describe ZendeskIntakeService do
       allow(service).to receive(:append_multiple_files_to_ticket).and_return(output)
     end
 
-    it "appends each document to the ticket" do
+    it "appends each document to the ticket and marks each document with the ticket id" do
       result = service.send_all_docs
 
       expect(result).to eq true
@@ -534,6 +543,11 @@ describe ZendeskIntakeService do
           * #{documents[1].upload.filename} (#{documents[1].document_type})
         DOCS
       )
+
+      documents.each do |document|
+        document.reload
+        expect(document.zendesk_ticket_id).to eq intake.intake_ticket_id
+      end
     end
 
     it "sends a datadog metric" do

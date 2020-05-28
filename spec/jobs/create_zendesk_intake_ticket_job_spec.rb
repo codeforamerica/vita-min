@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
   let(:fake_zendesk_intake_service) { double(ZendeskIntakeService) }
-  let(:intake) { create :intake, intake_ticket_id: intake_ticket_id, intake_ticket_requester_id: intake_requester_id }
+  let(:intake) { create :intake, intake_ticket_id: intake_ticket_id, intake_ticket_requester_id: intake_requester_id, email_address: "filer@example.horse" }
 
   # clean start
   # these fields are the intake fields
@@ -18,7 +18,6 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
         allow(ZendeskIntakeService).to receive(:new).with(intake).and_return(fake_zendesk_intake_service)
         allow(fake_zendesk_intake_service).to receive(:assign_requester).and_return(new_requester_id)
         allow(fake_zendesk_intake_service).to receive(:create_intake_ticket).and_return(new_ticket_id)
-        described_class.perform_now(intake.id)
       end
 
       context "without a requester or ticket" do
@@ -28,12 +27,12 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
         let(:new_ticket_id) { rand(640_000 ) }
 
         it "creates a new intake ticket in Zendesk and saves IDs to the intake" do
-          intake.reload
+          described_class.perform_now(intake.id)
+
           expect(ZendeskIntakeService).to have_received(:new).with(intake)
           expect(fake_zendesk_intake_service).to have_received(:assign_requester).with(no_args)
           expect(fake_zendesk_intake_service).to have_received(:create_intake_ticket).with(no_args)
         end
-
       end
 
       context "with a requester but no ticket" do
@@ -42,9 +41,33 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
         let(:new_requester_id) { intake_requester_id }
 
         it "creates a ticket" do
-          intake.reload
+          described_class.perform_now(intake.id)
+
           expect(ZendeskIntakeService).to have_received(:new).with(intake)
           expect(fake_zendesk_intake_service).to have_received(:create_intake_ticket).with(no_args)
+        end
+
+        context "when client has a diy intake ticket" do
+          let(:diy_ticket_id) { 12 }
+          let(:new_ticket_id) { 33 }
+          let!(:diy_intake) { create :diy_intake, email_address: "filer@example.horse", ticket_id: diy_ticket_id }
+          let(:fake_ticket) { double(ZendeskAPI::Ticket, id: new_ticket_id) }
+
+          before do
+            allow(fake_zendesk_intake_service).to receive(:create_intake_ticket).and_return(fake_ticket)
+            allow(fake_zendesk_intake_service).to receive(:get_ticket!).and_return(fake_ticket)
+            allow(fake_zendesk_intake_service).to receive(:append_comment_to_ticket)
+            allow(fake_zendesk_intake_service).to receive(:ticket_url).and_return("https://eitc.zendesk.com/agent/tickets/#{new_ticket_id}")
+          end
+
+          it "appends comments to those tickets with link to new ticket" do
+            described_class.perform_now(intake.id)
+
+            expect(fake_zendesk_intake_service).to have_received(:append_comment_to_ticket).with(
+              ticket_id: diy_ticket_id,
+              comment: "This client has a GetYourRefund full service ticket: https://eitc.zendesk.com/agent/tickets/#{new_ticket_id}"
+            )
+          end
         end
       end
 
@@ -55,7 +78,8 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
         let(:new_ticket_id) { intake_ticket_id }
 
         it "does not call the zendesk service" do
-          intake.reload
+          described_class.perform_now(intake.id)
+
           expect(ZendeskIntakeService).not_to have_received(:new)
           expect(fake_zendesk_intake_service).not_to have_received(:assign_requester)
           expect(fake_zendesk_intake_service).not_to have_received(:create_intake_ticket)
@@ -70,10 +94,11 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
         allow(ZendeskIntakeService).to receive(:new).with(intake).and_return(fake_zendesk_intake_service)
         allow(fake_zendesk_intake_service).to receive(:assign_requester) { nil }
         allow(fake_zendesk_intake_service).to receive(:create_intake_ticket) { nil }
-        described_class.perform_now(intake.id)
       end
 
       it "does not try to create a ticket" do
+        described_class.perform_now(intake.id)
+
         expect(fake_zendesk_intake_service).not_to have_received(:create_intake_ticket)
       end
     end

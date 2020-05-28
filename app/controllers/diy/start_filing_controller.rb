@@ -10,10 +10,14 @@ module Diy
       true
     end
 
+    def current_diy_intake
+      DiyIntake.find_by(token: params[:token])
+    end
+
     private
 
     def find_diy_intake
-      redirect_to diy_file_yourself_path unless DiyIntake.find_by(token: params[:token]).present?
+      redirect_to diy_file_yourself_path unless current_diy_intake.present?
     end
   end
 end

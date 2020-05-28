@@ -44,8 +44,29 @@ module ZendeskServiceHelper
     ZendeskAPI::User.find(client, id: user_id)
   end
 
+  ##
+  # find a zendesk ticket by ticket_id
+  #
+  # @param [Integer] ticket_id the id of the ZendeskAPI::Ticket
+  #
+  # @return [ZendeskAPI::Ticket, nil] found ticket
   def get_ticket(ticket_id:)
     ZendeskAPI::Ticket.find(client, id: ticket_id)
+  end
+
+  ##
+  # find a zendesk ticket by ticket_id. raises +MissingTicketError+ if
+  # unable to find ticket.
+  #
+  # @param [Integer] ticket_id the id of the ZendeskAPI::Ticket
+  #
+  # @return [ZendeskAPI::Ticket, nil] found ticket
+  def get_ticket!(ticket_id)
+    ZendeskAPI::Ticket.find(client, id: ticket_id) or raise MissingTicketError
+  end
+
+  def ticket_url(ticket_id)
+    "https://#{EitcZendeskInstance::DOMAIN}.zendesk.com/agent/tickets/#{ticket_id}"
   end
 
   def search_zendesk_users(query_string)
@@ -106,6 +127,22 @@ module ZendeskServiceHelper
     qualified_environments.include?(Rails.env) ? "#{name} (Fake User)" : name
   end
 
+  ##
+  # builds a +ZendeskAPI::Ticket+ with the specified params
+  #
+  # @param [String] subject: the subject / title
+  # @param [Integer] requester_id: the id of the ZendeskAPI::User 
+  # @param [Integer] group_id: the id of the Zendesk group the ticket will be
+  #                            assigned to
+  # @param [Integer] external_id: the id of the local resource (e.g. an intake)
+  #                               the ticket concerns
+  # @param [String] body: the text of the ticket
+  # @param [Hash] fields: additional fields to include as custom fields on the
+  #                       ticket
+  # @param [Hash] extra_attributes extra attributes for the ZendeskAPI::Ticket's
+  #                                constructor
+  #
+  # @return [ZendeskAPI::Ticket] the ticket (not persisted)
   def build_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {}, **extra_attributes)
     ZendeskAPI::Ticket.new(
       client,
@@ -119,6 +156,24 @@ module ZendeskServiceHelper
     )
   end
 
+  ##
+  # creates (and persists) a +ZendeskAPI::Ticket+ with the specified params
+  #
+  # raises a ZendeskAPIError if ticket creation fails
+  #
+  # @param [String] subject: the subject / title
+  # @param [Integer] requester_id: the id of the ZendeskAPI::User 
+  # @param [Integer] group_id: the id of the Zendesk group the ticket will be
+  #                            assigned to
+  # @param [Integer] external_id: the id of the local resource (e.g. an intake)
+  #                               the ticket concerns
+  # @param [String] body: the text of the ticket
+  # @param [Hash] fields: additional fields to include as custom fields on the
+  #                       ticket
+  # @param [Hash] extra_attributes extra attributes for the ZendeskAPI::Ticket's
+  #                                constructor
+  #
+  # @return [ZendeskAPI::Ticket] the (persisted) ticket
   def create_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {}, **extra_attributes)
     ticket = build_ticket(
       subject: subject,
@@ -134,7 +189,7 @@ module ZendeskServiceHelper
       raise ZendeskAPIError.new("Error creating Zendesk Ticket: #{ticket.errors}")
     end
 
-    ticket.id
+    ticket
   end
 
   def assign_ticket_to_group(ticket_id:, group_id:)
@@ -152,7 +207,7 @@ module ZendeskServiceHelper
   def append_comment_to_ticket(ticket_id:, comment:, fields: {}, public: false, group_id: nil)
     raise MissingTicketIdError if ticket_id.blank?
 
-    ticket = ZendeskAPI::Ticket.find(client, id: ticket_id)
+    ticket = get_ticket!(ticket_id)
     ticket.fields = fields if fields.present?
     ticket.group_id = group_id if group_id.present?
     ticket.comment = { body: comment, public: public }
