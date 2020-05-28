@@ -1,7 +1,7 @@
 <div class="breadcrumb">
   <div class="grid">
     <div class="grid__item width-one-whole">
-      <%= link_to 'Home', root_path, class: 'breadcrumb-item' %> &gt;
+      <%= link_to t("general.home"), root_path, class: 'breadcrumb-item' %> &gt;
       <% if local_assigns[:page_name] %>
         <%= page_name %>
       <% else %>
