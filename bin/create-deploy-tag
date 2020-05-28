@@ -1,0 +1,42 @@
+#!/bin/bash
+set -euo pipefail
+
+production_git_remote=$(git remote -v | grep 'vita-min-prod.git' | head -n1 | awk '{ print $1 }')
+origin_git_remote=$(git remote -v | grep 'github.com:codeforamerica/vita-min' | head -n1 | awk '{ print $1 }')
+
+# Get the latest tags and branches
+echo "Fetching latest tags from '${origin_git_remote}' and '${production_git_remote}'"
+git fetch "$origin_git_remote" --quiet
+git fetch "$production_git_remote" --quiet
+
+# Show the user a list of commits that will be deployed (and their authors)
+echo '🚀 *Will deploy `'$(git log -1 --pretty=format:%h ${production_git_remote}/master)'`..`'$(git log -1 --pretty=format:%h ${origin_git_remote}/master)'` to production*:'
+GIT_PAGER= git log --pretty="format:* %s (%an)" ${production_git_remote}/master...${origin_git_remote}/master
+
+# Ask the user for the new tag name/version number.
+latest_version=$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)
+guessed_next_version=$(awk 'BEGIN { split("'$latest_version'", v, "."); v[3] += 1; print(v[1] "." v[2] "." v[3]); }')
+echo ""
+echo ""
+echo "Latest release version: ${latest_version}"
+echo -n "New tag name (e.g. '$guessed_next_version'): "
+read new_tag
+
+# Create the tag, allowing the user to edit the release message.
+tmpfile=$(mktemp)
+trap "rm $tmpfile" EXIT
+cat <<TEMPLATE > $tmpfile
+$(date +%Y-%m-%d) Write a one-line deploy description here
+
+* Short list of high-level changes
+
+# Full list of changes:
+$(git log --pretty="format:# * %s (%an)" ${production_git_remote}/master...${origin_git_remote}/master)
+TEMPLATE
+git tag "$new_tag" -F "$tmpfile" --edit
+
+# All done!
+echo ""
+echo "✨ Created tag ${new_tag}!"
+echo "To deploy, run: git push origin --tags"
+echo "To cancel, run: git tag --delete ${new_tag}"
