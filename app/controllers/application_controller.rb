@@ -179,14 +179,14 @@ class ApplicationController < ActionController::Base
   # convenience method for redirection to beginning of
   # intake process
   def redirect_to_beginning_of_intake
-    redirect_to(question_path(QuestionNavigation.first))
+    redirect_to(question_path(:id => QuestionNavigation.first))
   end
 
   def redirect_or_add_flash
     if Rails.env.production? || Rails.env.test?
       redirect_to_beginning_of_intake
     else
-      flash[:alert] = "You're missing a ticket or intake. In production, we would have redirected you to the beginning."
+      flash[:alert] = I18n.translate("flash.application_controller.flash_redirect")
     end
   end
 
@@ -200,7 +200,7 @@ class ApplicationController < ActionController::Base
     if ENV['MAINTENANCE_MODE'].present?
       return redirect_to maintenance_path
     elsif ENV['MAINTENANCE_MODE_SCHEDULED'].present?
-      flash.now[:warning] = "GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow."
+      flash.now[:warning] = I18n.translate("flash.application_controller.maintenance")
     end
   end
 
