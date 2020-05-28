@@ -67,6 +67,12 @@ es:
           no_phone: No use su teléfono para archivar
           spelling: Revisa tu ortografía
         title: "¡Bienvenido a nuestro servicio de impuestos de bricolaje!"
+  flash:
+    application_controller:
+      flash_redirect: Te estás perdiendo un boleto o entrada. En producción, lo habríamos redirigido al principio.
+      maintenance: GetYourRefund.org estará fuera de servicio por mantenimiento programado esta noche a las 11:00 p.m. Este (8:00 p.m. Pacífico) hasta las 3:00 a.m. Este (12:00 a.m. Pacífico). Le recomendamos que responda todas las preguntas antes de esta hora o que comience una nueva sesión mañana.
+    dependents_controller:
+      removed_dependent: Se eliminó %{full_name}.
   footer:
     service_description_html: GetYourRefund.org es un servicio sin fines de lucro creado por %{cfa_link} en asociación con los sitios de Asistencia Voluntaria del Impuesto sobre la Renta (%{vita_link}) certificados por el IRS a nivel nacional.
   general:
