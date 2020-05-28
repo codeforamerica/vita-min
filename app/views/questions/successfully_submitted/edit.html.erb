@@ -1,6 +1,7 @@
 <% content_for :form_question, "Success! Your tax information has been submitted." %>
 
 <% content_for :form_card do %>
+  <%= render 'shared/facebook_pixel', track_conversion: "SubmitIntake" %>
   <h1 class="form-question">
     <%= content_for(:form_question) %>
   </h1>

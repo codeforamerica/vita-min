@@ -1,6 +1,7 @@
 <% @main_heading = "Welcome to our DIY tax service!" %>
 <% content_for :page_title, @main_heading %>
 
+<%= render 'shared/facebook_pixel', track_conversion: "StartDIY" %>
 <main role="main">
   <section class="slab slab--white">
     <div class="grid">
