@@ -70,6 +70,7 @@ es:
   footer:
     service_description_html: GetYourRefund.org es un servicio sin fines de lucro creado por %{cfa_link} en asociación con los sitios de Asistencia Voluntaria del Impuesto sobre la Renta (%{vita_link}) certificados por el IRS a nivel nacional.
   general:
+    address: Habla a
     affirmative: si
     chat_with_us: habla con nosotros
     continue: Seguir
@@ -80,12 +81,20 @@ es:
     free_file_lookup_tool: Herramienta de búsqueda de archivos gratis del IRS
     get_my_payment: Obtén mi pago
     get_started: Empezar
+    home: Casa
+    hours: Horas
     irs_certified_volunteers: Voluntarios certificados por el IRS
     irs_free_file: IRS Free File
+    languages: Idiomas
     negative: 'No'
+    open: Abierto
     other_options: Pruebe con otra opción de presentación de impuestos gratuita
+    phone_number: Número de teléfono
     remove: Eliminar
     return_home: Vuelve a casa
+    return_search: Regresar a la búsqueda
+    search: Buscar
+    sorry: "¡Lo sentimos!"
     submit_question: Envíe una pregunta a GetYourRefund
     upload: Subir
     visit_free_file: Visite el archivo gratuito del IRS
@@ -422,3 +431,52 @@ es:
       see_faq: Por favor, consulte nuestras preguntas frecuentes
       support: Nuestro equipo está aquí para apoyarlo. %{faq_link} o envíe una pregunta por chat y nos pondremos en contacto con usted.
       title: Preguntas de impuestos
+  shared:
+    consent_agreement:
+      details:
+        cfa: Entiendo que GetYourRefund.org es un sitio web administrado por Code for America, una organización sin fines de lucro, que enviará su información fiscal a un sitio de preparación de VITA.
+        collects_pii: Entiendo que este sitio recopila información de identificación personal que proporciono (números de seguro social, Formulario W-2 y / o 1099, identificación con foto y otros documentos) para preparar y revisar la calidad de mi declaración de impuestos.
+        contacted: Entiendo que me pueden contactar para obtener información adicional utilizando una preferencia de contacto que proporciono. Si el preparador tiene todo lo necesario para preparar la devolución, no me contactarán hasta que se complete la devolución.
+        e_signature: Entiendo que tendré que firmar el Formulario 8879, Autorización de firma de archivos electrónicos del IRS, a través de una firma electrónica entregada por correo electrónico después de completar la Revisión de calidad para que un sitio de preparación de VITA presente mi declaración de impuestos por correo electrónico.
+        header: Los detalles
+        intake_process: 'Proceso de admisión: GetYourRefund recopilará su información y documentación a través del proceso de admisión para preparar con precisión su declaración de impuestos.'
+        interview_and_review: Entiendo que tendré que participar en una entrevista de admisión y revisión de calidad por teléfono para que un sitio de preparación de VITA presente mis impuestos.
+        irs: Este formulario de consentimiento reemplaza al Formulario 14446 del IRS-Consentimiento virtual del contribuyente VITA / TCE. Se conservará una copia de este consentimiento en el sitio, según lo requiera el IRS.
+        provide_required_info: Entiendo que debo proporcionar toda la información / documentación necesaria para preparar una declaración de impuestos precisa.
+        quality_review_process: 'Proceso de revisión de calidad: GetYourRefund le proporcionará su devolución para revisar la precisión antes de enviarla.'
+        responsible: Entiendo que yo y mi cónyuge (si corresponde) somos en última instancia responsables de toda la información proporcionada a GetYourRefund.
+        return_prep_process: 'Proceso de preparación de declaraciones: GetYourRefund utilizará su información / documentación para completar una declaración de impuestos.'
+        review_return: Entiendo que necesito revisar mi declaración de impuestos completada para asegurar que los nombres, números de seguro social, dirección, información bancaria, ingresos y gastos sean correctos a mi leal saber y entender.
+        sign_below: Al firmar a continuación, acepta participar en el proceso y acepta permitir que GetYourRefund lo ayude con sus impuestos. Usted acepta los términos de la política de privacidad de GetYourRefund en www.GetYourRefund.org/privacy.
+      information_you_provide: Usted comprende que la información que proporciona en este sitio (GetYourRefund.org) se envía a un sitio de preparación de Asistencia Voluntaria al Impuesto sobre la Renta (VITA) para que un voluntario certificado por el IRS revise su información, realice una entrevista de admisión por teléfono, prepare el impuesto devolver y realizar una revisión de calidad antes de presentar sus impuestos.
+      proceed_and_confirm: Al continuar, confirma que las siguientes afirmaciones son verdaderas y completas a su leal saber y entender.
+      terms_html: Usted acepta los términos de la política de privacidad de GetYourRefund en %{privacy_link}
+    covid_warning:
+      notice_html: Debido a COVID-19, varios sitios de VITA y todos los sitios de TCE están cerrados por un período de tiempo indeterminado. Por favor llame a un sitio antes de visitar para confirmar horas. Para conectarse con un sitio de VITA en línea y que un sitio de VITA lo ayude con sus impuestos de forma remota, visite GetYourRefund.org y haga clic en "Comenzar". También puede visitar el %{free_file_link} para encontrar otras herramientas gratuitas de preparación de impuestos en línea.
+    grayscale_partner_logo:
+      provider_homepage: Página de inicio de %{provider_name}
+  vita_providers:
+    index:
+      enter_zip: Ingrese su código postal para encontrar proveedores cerca de usted.
+      header: Obtenga ayuda gratuita para la preparación de impuestos
+      info: Los programas de Asistencia Voluntaria al Impuesto sobre la Renta (VITA) del IRS ofrecen ayuda tributaria gratuita para los contribuyentes que califican.
+      no_results: "¡Lo sentimos! No encontramos resultados dentro de 50 millas de su dirección."
+      results: Encontramos resultados de %{total_entries} dentro de 50 millas de %{zip}
+      search:
+        header: Ingrese su código postal para encontrar proveedores cerca de usted.
+        no_results: No encontramos resultados dentro de 50 millas de %{zip} (%{zip_name}).
+        placeholder: Introduzca código postal
+        prepare_your_own_html: También puede preparar sus propios impuestos utilizando el %{free_file_link} para encontrar una forma gratuita de presentar sus impuestos en línea.
+        results: Encontramos resultados de %{total_entries} dentro de 50 millas de %{zip} (%{zip_name}).
+        try_another: Por favor, intente con otro código postal.
+        try_another_or_apply_html: Por favor, intente con otro código postal o pruebe nuestro %{intake_link}.
+        try_intake_form: formulario VITA gratis en línea
+      title: Encuentra una ubicación
+    show:
+      appointment_info: Las citas son %{appointment_info}.
+      call_to_schedule: Por favor llame para programar.
+      maps_link_title: Enlace de Google Maps para %{provider_name}
+      no_hours_listed: Lo sentimos, no hay horas en la lista.
+      no_phone_number_listed: Lo sentimos, no hay número de teléfono en la lista.
+      phone_number_title: Llamar %{provider_name}
+      search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})%>
