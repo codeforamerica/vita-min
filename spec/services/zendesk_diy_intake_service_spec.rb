@@ -48,6 +48,8 @@ describe ZendeskDiyIntakeService do
   end
 
   describe "#create_diy_intake_ticket" do
+    let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 101, errors: nil) }
+
     before do
       diy_intake.requester_id = requester_id
     end
@@ -65,7 +67,7 @@ describe ZendeskDiyIntakeService do
           EitcZendeskInstance::STATE => diy_intake.state_of_residence,
           ZendeskDiyIntakeService::DIY_SUPPORT_UNIQUE_LINK => diy_intake.start_filing_url
         }
-      ).and_return(101)
+      ).and_return(fake_zendesk_ticket)
       expect { service.create_diy_intake_ticket }.
         to change { diy_intake.ticket_id }.from(nil).to(101)
     end

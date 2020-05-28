@@ -46,7 +46,7 @@ class ZendeskDiyIntakeService
       body: ticket_body,
       fields: ticket_fields
     )
-    if ticket.id
+    if ticket
       diy_intake.update(ticket_id: ticket.id)
       return ticket
     else

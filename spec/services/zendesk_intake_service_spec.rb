@@ -342,6 +342,13 @@ describe ZendeskIntakeService do
       expect(service.new_ticket_body).to include("Client is filing for Economic Impact Payment support")
     end
 
+    context "when the user has filled out a diy intake" do
+      let!(:diy_intake) { create :diy_intake, email_address: intake.email_address }
+
+      it "adds an extra message saying the client has requested a DIY link" do
+        expect(service.new_ticket_body).to include("This client has previously requested a DIY link from GetYourRefund.org")
+      end
+    end
   end
 
   describe "#new_ticket_subject" do

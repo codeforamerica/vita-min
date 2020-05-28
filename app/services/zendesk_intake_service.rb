@@ -69,6 +69,7 @@ class ZendeskIntakeService
     @intake.transaction do
       # we only want to create an initial ticket status if we are able
       # to make a zendesk ticket without errors
+      # TODO: this appears to return a ticket actually ???
       ticket_id = create_ticket(
         subject: new_ticket_subject,
         requester_id: @intake.intake_ticket_requester_id,
@@ -263,6 +264,8 @@ class ZendeskIntakeService
     messages = ""
     messages << "Client has already filed for 2019\n" if @intake.already_filed_yes?
     messages << "Client is filing for Economic Impact Payment support\n" if @intake.filing_for_stimulus_yes?
+    diy_intakes = DiyIntake.where.not(email_address: nil).where(email_address: @intake.email_address)
+    messages << "This client has previously requested a DIY link from GetYourRefund.org\n" if diy_intakes.count > 0
     messages
   end
 

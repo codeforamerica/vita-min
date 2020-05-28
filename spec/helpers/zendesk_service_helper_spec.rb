@@ -281,7 +281,7 @@ RSpec.describe ZendeskServiceHelper do
 
     it "calls build_ticket, saves the ticket, and returns the ticket id" do
       result = service.create_ticket(**ticket_args)
-      expect(result).to eq 2
+      expect(result).to eq fake_zendesk_ticket
       expect(fake_zendesk_ticket).to have_received(:save).with(no_args)
       expect(service).to have_received(:build_ticket).with(**ticket_args)
     end
