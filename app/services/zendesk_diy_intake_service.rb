@@ -37,7 +37,7 @@ class ZendeskDiyIntakeService
 
 
   def create_diy_intake_ticket
-    ticket_id = create_ticket(
+    ticket = create_ticket(
       subject: ticket_subject,
       requester_id: diy_intake.requester_id,
       external_id: external_id,
@@ -46,8 +46,9 @@ class ZendeskDiyIntakeService
       body: ticket_body,
       fields: ticket_fields
     )
-    if ticket_id
-      diy_intake.update(ticket_id: ticket_id)
+    if ticket
+      diy_intake.update(ticket_id: ticket.id)
+      return ticket
     else
       raise ZendeskServiceError.new(
         "ZendeskDiyIntakeService failed to create a ticket for diy intake"
@@ -69,12 +70,22 @@ class ZendeskDiyIntakeService
       State of residence: #{state_of_residence_name}
       Client has been sent DIY link via email
 
+      #{additional_ticket_messages}
       send_diy_confirmation
     BODY
   end
   private
 
   attr_reader :diy_intake
+
+  def additional_ticket_messages
+    messages = []
+    full_service_intakes = Intake.where.not(email_address: nil).where(email_address: diy_intake.email_address).filter { |i| i.intake_ticket_id.present? }
+    full_service_intakes.each do |intake|
+      messages <<  "This client has a GetYourRefund full service ticket: #{ticket_url(intake.intake_ticket_id)}"
+    end
+    messages.join("\n")
+  end
 
   def ticket_fields
     {
