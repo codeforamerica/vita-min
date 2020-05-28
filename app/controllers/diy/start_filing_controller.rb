@@ -6,6 +6,10 @@ module Diy
       # nothing left to do!
     end
 
+    def include_google_analytics?
+      true
+    end
+
     def current_diy_intake
       DiyIntake.find_by(token: params[:token])
     end
