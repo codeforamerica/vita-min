@@ -89,7 +89,7 @@ class ZendeskDiyIntakeService
       State of residence: #{state_of_residence_name}
       Client has been re-sent DIY link via email
 
-      resend_diy_confirmation
+      diy_confirmation_resend
     BODY
   end
 
