@@ -3,57 +3,55 @@
     <%= @provider_search_form.error_summary %>
   <% end %>
   <% if @providers.empty? && @provider_search_form.valid_zip_searched? %>
-    We're sorry! We found no results within 50 miles of your address.
+    <%=t("vita_providers.index.no_results") %>
   <% end %>
   <% if @providers.present? %>
-    We found <%= @providers.total_entries %> results within 50 miles of <%= @provider_search_form.zip %>.
-    <% else %>
-    Enter your zip code to find providers near you.
+    <%=t("vita_providers.index.results", :total_entries => @providers.total_entries, :zip => @provider_search_form.zip) %>
+  <% else %>
+    <%=t("vita_providers.index.enter_zip") %>
   <% end %>
 <% end %>
 
 <% content_for :body_class, "body--providers" %>
 
-<%= render "shared/breadcrumb", page_name: 'Find a Location' %>
+<%= render "shared/breadcrumb", page_name: t("vita_providers.index.title") %>
 
 <main role="main">
   <div class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-two-thirds shift-one-sixth">
-        <h2 class="h1">Get Free Tax Prep Help</h2>
+        <h2 class="h1"><%=t("vita_providers.index.header") %></h2>
 
-        <p>The IRS Volunteer Income Tax Assistance (VITA) programs offer free tax help for taxpayers who qualify.</p>
+        <p><%=t("vita_providers.index.info") %></p>
 
         <%= render "shared/covid_warning" %>
 
-        <h1 class="h4">Enter your zip code to find providers near you.</h1>
+        <h1 class="h4"><%=t("vita_providers.index.search.header") %></h1>
 
         <%= form_with model: @provider_search_form, url: vita_providers_path, method: "get", local: true, enforce_utf8: false, builder: VitaMinFormBuilder do |f| %>
-          <%= f.vita_min_searchbar :zip, "Search", label_icon: image_tag("search.svg", class: "vita-min-searchbar__icon", alt: "" ), options: { placeholder: "Enter Zip Code", name: "zip" } %>
+          <%= f.vita_min_searchbar :zip, t("general.search"), label_icon: image_tag("search.svg", class: "vita-min-searchbar__icon", alt: "" ), options: { placeholder: t("vita_providers.index.search.placeholder"), name: "zip" } %>
         <% end %>
 
         <% if @providers.empty? && @provider_search_form.valid_zip_searched? %>
-          <h1>We're sorry!</h1>
+          <h1><%=t("general.sorry") %></h1>
 
           <p>
-            We found no results within 50 miles of <%= "#{@provider_search_form.zip} (#{@zip_name})" %>.
+            <%=t("vita_providers.index.search.no_results", :zip => @provider_search_form.zip, :zip_name => @zip_name) %>
 
             <% if enable_online_intake? %>
-            Please try another zip code or try our <%= link_to "free online VITA form", question_path(QuestionNavigation.first) %>.
+              <%=t("vita_providers.index.search.try_another_or_apply_html", :intake_link => link_to(t("vita_providers.index.search.try_intake_form"), question_path(:id => QuestionNavigation.first) )) %>
             <% else %>
-            Please try another zip code.
+              <%=t("vita_providers.index.search.try_another") %>
             <% end %>
           </p>
 
           <p>
-            You can also prepare your own taxes by using the
-            <%= link_to("https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", target: "_blank", rel: "noopener", data: { track_click: "freefile" }) do %>IRS Free File Lookup Tool<% end %>
-            to find a free way to file your taxes online.
+            <%=t("vita_providers.index.search.prepare_your_own_html", :free_file_link => link_to(t("general.free_file_lookup_tool"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", target: "_blank", rel: "noopener", data: { track_click: "freefile" })) %>
           </p>
         <% end %>
 
         <% if @providers.present? %>
-          <p>We found <%= @providers.total_entries %> results within 50 miles of <%= "#{@provider_search_form.zip} (#{@zip_name})" %>.</p>
+          <p><%=t("vita_providers.index.search.results", :total_entries => @providers.total_entries, :zip => @provider_search_form.zip, :zip_name => @zip_name) %></p>
 
           <ul class="provider-list">
             <% @providers.each_with_index do |provider, index| %>
