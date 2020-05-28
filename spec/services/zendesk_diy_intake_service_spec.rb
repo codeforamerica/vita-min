@@ -184,7 +184,7 @@ describe ZendeskDiyIntakeService do
         State of residence: North Carolina
         Client has been re-sent DIY link via email
 
-        resend_diy_confirmation
+        diy_confirmation_resend
       BODY
     end
 
