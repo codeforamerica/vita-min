@@ -161,9 +161,11 @@ describe ZendeskIntakeService do
   end
 
   describe "#create_intake_ticket" do
+    let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 101, errors: nil) }
+
     before do
       intake.intake_ticket_requester_id = 987
-      allow(service).to receive(:create_ticket).and_return(101)
+      allow(service).to receive(:create_ticket).and_return(fake_zendesk_ticket)
       allow(service).to receive(:new_ticket_body).and_return "Body text"
     end
 
@@ -174,7 +176,7 @@ describe ZendeskIntakeService do
 
       it "calls create_ticket with the right arguments" do
         result = service.create_intake_ticket
-        expect(result).to eq 101
+        expect(result.id).to eq 101
         expect(service).to have_received(:create_ticket).with(
           subject: "Cher Cherimoya",
           requester_id: 987,
@@ -233,7 +235,7 @@ describe ZendeskIntakeService do
 
       it "excludes intake site, and intake status and sends a nil group_id" do
         result = service.create_intake_ticket
-        expect(result).to eq 101
+        expect(result.id).to eq 101
         expect(service).to have_received(:create_ticket).with(
           subject: "Cher Cherimoya",
           requester_id: 987,

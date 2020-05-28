@@ -61,6 +61,14 @@ class ZendeskIntakeService
     )
   end
 
+  ##
+  # creates a zendesk ticket, assigns statuses, and
+  # updates the +intake+ with the ticket id.
+  #
+  # will raise a +ZendeskAPIError+ (from ZendeskServiceHelper#create_ticket) if
+  # ticket creation fails.
+  #
+  # @return [ZendeskAPI::Ticket] the created ticket
   def create_intake_ticket
     # returns the Zendesk ID of the created ticket
     raise MissingRequesterIdError if @intake.intake_ticket_requester_id.blank?
@@ -70,7 +78,7 @@ class ZendeskIntakeService
       # we only want to create an initial ticket status if we are able
       # to make a zendesk ticket without errors
       # TODO: this appears to return a ticket actually ???
-      ticket_id = create_ticket(
+      ticket = create_ticket(
         subject: new_ticket_subject,
         requester_id: @intake.intake_ticket_requester_id,
         external_id: @intake.external_id,
@@ -81,12 +89,12 @@ class ZendeskIntakeService
       ticket_status = @intake.ticket_statuses.create(
         intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
         return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
-        ticket_id: ticket_id
+        ticket_id: ticket.id
       )
-      @intake.update(intake_ticket_id: ticket_id)
+      @intake.update(intake_ticket_id: ticket.id)
       ticket_status.send_mixpanel_event
       DatadogApi.increment("zendesk.ticket.created")
-      ticket_id
+      ticket
     end
   end
 

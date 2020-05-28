@@ -106,6 +106,22 @@ module ZendeskServiceHelper
     qualified_environments.include?(Rails.env) ? "#{name} (Fake User)" : name
   end
 
+  ##
+  # builds a +ZendeskAPI::Ticket+ with the specified params
+  #
+  # @param [String] subject: the subject / title
+  # @param [Integer] requester_id: the id of the ZendeskAPI::User 
+  # @param [Integer] group_id: the id of the Zendesk group the ticket will be
+  #                            assigned to
+  # @param [Integer] external_id: the id of the local resource (e.g. an intake)
+  #                               the ticket concerns
+  # @param [String] body: the text of the ticket
+  # @param [Hash] fields: additional fields to include as custom fields on the
+  #                       ticket
+  # @param [Hash] extra_attributes extra attributes for the ZendeskAPI::Ticket's
+  #                                constructor
+  #
+  # @return [ZendeskAPI::Ticket] the ticket (not persisted)
   def build_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {}, **extra_attributes)
     ZendeskAPI::Ticket.new(
       client,
@@ -119,6 +135,24 @@ module ZendeskServiceHelper
     )
   end
 
+  ##
+  # creates (and persists) a +ZendeskAPI::Ticket+ with the specified params
+  #
+  # raises a ZendeskAPIError if ticket creation fails
+  #
+  # @param [String] subject: the subject / title
+  # @param [Integer] requester_id: the id of the ZendeskAPI::User 
+  # @param [Integer] group_id: the id of the Zendesk group the ticket will be
+  #                            assigned to
+  # @param [Integer] external_id: the id of the local resource (e.g. an intake)
+  #                               the ticket concerns
+  # @param [String] body: the text of the ticket
+  # @param [Hash] fields: additional fields to include as custom fields on the
+  #                       ticket
+  # @param [Hash] extra_attributes extra attributes for the ZendeskAPI::Ticket's
+  #                                constructor
+  #
+  # @return [ZendeskAPI::Ticket] the (persisted) ticket
   def create_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {}, **extra_attributes)
     ticket = build_ticket(
       subject: subject,
