@@ -1,8 +1,5 @@
-<% content_for :form_question, "Attach your 1099-INT's" %>
+<% content_for :form_question, t("documents.form1099ints.title") %>
 
 <% content_for :form_help_text do %>
-  You said that you received income from interest or dividends.
-  If you specifically received income from interest,
-  <strong>you might have this form</strong>.
-  Investment companies are required to file 1099-INT by January 31 each year.
+  <%=t("documents.form1099ints.help_text_html") %>
 <% end %>

@@ -1,16 +1,16 @@
-<% content_for :form_question, @title %>
+<% content_for :form_question, t("documents.ids.title", count: @names.length) %>
 
 <% content_for :form_help_content do %>
   <p>
-    <%= @help_text %>
+    <%=t("documents.ids.help_text", count: @names.length) %>
   <p/>
   <p>
-    We will use your ID card to verify and protect your identity in accordance with IRS guidelines. It is ok if your ID is expired or if you have a temporary drivers license as long as we can clearly view your name and photo.
+    <%=t("documents.ids.info") %>
   </p>
 
   <div class="text--bold">
     <p class="spacing-below-10">
-      We will need an ID for:
+      <%=t("documents.ids.need_for") %>
     </p>
 
     <ul class="list--bulleted spacing-above-0 spacing-below-35">

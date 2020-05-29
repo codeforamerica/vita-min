@@ -1,4 +1,4 @@
-<% content_for :page_title, "First, we need to confirm your basic information." %>
+<% content_for :page_title, t("documents.id_guidance.title") %>
 
 <% content_for :main do %>
   <section class="slab slab--white">
@@ -14,21 +14,21 @@
           </h1>
 
           <p>
-            To protect your identity and ensure that your personal information is accurate and secure, we need to verify who you are.
+            <%=t("documents.id_guidance.info") %>
           </p>
           <p>
-            The IRS requires us to verify who you are with multiple forms of identity.
+            <%=t("documents.id_guidance.multiple_forms") %>
           </p>
 
           <div class="security-blurb spacing-below-60">
             <%= image_tag("lock.svg", alt: "", class: "lock-icon") %>
             <p>
-              Your information is secure and the information you provide will be handled in accordance with our <%= link_to privacy_path, target: "_blank" do %>privacy policy<% end %>.
+              <%=t("general.security_html", :privacy_link => link_to(t("general.privacy_policy"), privacy_path, target: "_blank")) %>
             </p>
           </div>
 
           <%= link_to next_path, class: "button button--primary" do %>
-            Continue
+            <%=t("general.continue") %>
           <% end %>
         </main>
       </div>

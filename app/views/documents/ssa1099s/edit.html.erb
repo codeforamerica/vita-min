@@ -1,10 +1,5 @@
-<% content_for :form_question, "Attach your SSA-1099's" %>
+<% content_for :form_question, t("documents.ssa1099s.title") %>
 
 <% content_for :form_help_text do %>
-  You said that you had income from Social Security or Railroad Retirement Benefits.
-  If you specifically had income from Social Security,
-  <strong>you should have this form.</strong>
-  This is a tax form that shows the total amount of benefits you received from Social Security in the previous year.
-  You can get this form
-  <%= link_to "https://www.ssa.gov/myaccount/replacement-SSA-1099.html", target: "_blank", rel: "noopener" do %>here<% end %>.
+  <%=t("documents.ssa1099s.help_text_html", :ssa_link => link_to(t("general.here"), "https://www.ssa.gov/myaccount/replacement-SSA-1099.html", target: "_blank", rel: "noopener")) %>
 <% end %>

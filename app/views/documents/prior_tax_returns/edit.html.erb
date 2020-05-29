@@ -1,13 +1,5 @@
-<% content_for :form_question, "Attach your #{current_intake.year_before_most_recent_filing_year} tax return." %>
+<% content_for :form_question, t("documents.prior_tax_returns.title", :year => current_intake.year_before_most_recent_filing_year) %>
 
 <% content_for :form_help_text do %>
-  <strong>You might have this form</strong>
-  because you said that you reported a loss from the sale of stocks, bonds, or real estate last year.
-  You might have your <%= current_intake.year_before_most_recent_filing_year %> return, which you can share below.
-  You can track down your <%= current_intake.year_before_most_recent_filing_year %> return
-  <%= link_to(
-    "https://www.irs.gov/newsroom/how-to-get-tax-transcripts-and-copies-of-tax-returns-from-the-irs",
-    target: "_blank", rel: "noopener"
-  ) do %>here<% end %>.
-
+  <%=t("documents.prior_tax_returns.help_text_html", :year => current_intake.year_before_most_recent_filing_year, :transcript_link => link_to(t("general.here"), "https://www.irs.gov/newsroom/how-to-get-tax-transcripts-and-copies-of-tax-returns-from-the-irs", target: "_blank", rel: "noopener")) %>
 <% end %>

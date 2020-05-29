@@ -1,13 +1,13 @@
-<% content_for :form_question, "Share a photo of yourself holding your ID card" %>
+<% content_for :form_question, t("documents.selfies.title") %>
 
 <% content_for :form_help_content do %>
   <p>
-  The IRS requires us to verify who you are for tax preparation services.
+  <%=t("documents.selfies.help_text") %>
   </p>
 
   <div class="text--bold">
     <p class="spacing-below-10">
-      We will need to see a <u>photo with ID</u> for:
+      <%=t("documents.selfies.need_for_html") %>
     </p>
 
     <ul class="list--bulleted spacing-above-0 spacing-below-35">

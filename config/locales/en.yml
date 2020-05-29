@@ -58,6 +58,151 @@ en:
       delete_confirmation: "Are you sure you want to remove \"%{name}\"?"
       delete_cta: "Remove this person"
       save_cta: "Save this person"
+  documents:
+    additional_documents:
+      title: "Do you have any additional documents?"
+      help_text: "Please add any additional documents or forms that you would like to share with your tax preparer. Include any forms you may be unsure of. Your tax preparer will determine if the forms are needed for your return."
+    care_provider_statements:
+      title: "Attach your statements from childcare facilities or individuals who provided care."
+      help_text_html: "<strong>You might have this statement</strong> because you said that you paid for child or dependent care. Contact your care facility if you need this documentation."
+    form1095as:
+      title: "Attach your 1095-A's"
+      help_text_html: "<strong>You should have this form</strong> because you said that you purchased health insurance from the marketplace. You may need to download this from the marketplace or the exchange for your state. More information on this form is available %{more_info_link}."
+    form1098es:
+      title: "Attach your 1098-E's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you paid student loan interest. This document is usually accessed from a lender portal online and isn't mailed to you."
+    form1098s:
+      title: "Attach your 1098's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you either paid mortgage interest or state, local, real estate, or sales taxes. More information on this form is available %{more_info_link}."
+    form1098ts:
+      title: "Attach your 1098-T's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you pursued higher education (technical school, college, university). This form is your tuition statement. More information on this form is listed %{more_info_link}."
+    form1099as:
+      title: "Attach your 1099-A's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you had debt forgiven by a lender. This form is typically used to report the transfer of foreclosed property. If you haven’t received a 1099-A and believe you should have, contact your bank or lender."
+    form1099bs:
+      title: "Attach your 1099-B's"
+      help_text_html: "You said that you received income from the sale of investment or real estate. If you specifically received income from stocks or bonds, <strong>you should have this form.</strong> If you haven't received a 1099-B, contact your broker."
+    form1099cs:
+      title: "Attach your 1099-C's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you had debt forgiven by a lender. If you borrowed money from a commercial lender and at least $600 of that debt was cancelled or forgiven, they should have sent you this form. If you haven’t received a 1099-C and believe you should have, contact your lender."
+    form1099divs:
+      title: "Attach your 1099-DIV's"
+      help_text_html: "You said that you received income from interest or dividends. If you specifically received income from dividends, <strong>you should have this form</strong>. Investment companies are required to provide taxpayers with a 1099-DIV by January 31 each year."
+    form1099gs:
+      title: "Attach your 1099-G's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you received a state or local income tax refund last year. The most common uses of the 1099-G are to report unemployment compensation and state and local income tax refunds."
+    form1099ints:
+      title: "Attach your 1099-INT's"
+      help_text_html: "You said that you received income from interest or dividends. If you specifically received income from interest, <strong>you might have this form</strong>. Investment companies are required to file 1099-INT by January 31 each year."
+    form1099ks:
+      title: "Attach your 1099-K's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you got paid from contract or self-employed work. You receive a 1099-K if you have a high dollar amount or quantity of business transactions during the year. Typically, large-volume online sellers file taxes with a 1099-K."
+    form1099miscs:
+      title: "Attach your 1099-MISC's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you got paid from contract or self-employed work. This form is used to report non-employee compensation. Independent contractors, freelancers, sole-proprietors, and self-employed individuals, receive a 1099-MISC from each client who paid them $600 or more in a calendar year."
+    form1099rs:
+      title: "Attach your 1099-R's"
+      help_text_html: "<strong>You should have this form</strong> because you said that you received income from a retirement account, pension, or annuity proceeds. This form is used to report distributions from annuities, profit-sharing plans, retirement plans, IRAs, insurance contracts, or pensions. Your retirement plan issuer would have sent this to you."
+    form1099sas:
+      title: "Attach your 1099-SA's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you have a Health Savings Account (HSA). This form is sent to report distributions from health savings, medical savings, and Medicare Advantage accounts. The financial institution that manages the account is responsible for sending you a copy."
+    form1099ss:
+      title: "Attach your 1099-S's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you received income from the sale of investments or real estate. Use Form 1099-S to report the sale or exchange of real estate."
+    form5498sas:
+      title: "Attach your 5498-SA's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you have a Health Savings Account (HSA). This form tracks contributions to Health Savings Accounts (HSA) and Medical Savings Accounts (MSA)."
+    id_guidance:
+      title: "First, we need to confirm your basic information."
+      info: "To protect your identity and ensure that your personal information is accurate and secure, we need to verify who you are."
+      multiple_forms: "The IRS requires us to verify who you are with multiple forms of identity."
+    ids:
+      title:
+        one: "Attach a photo of your ID card"
+        other: "Attach photos of ID cards"
+      help_text:
+        one: "The IRS requires us to see a current drivers license, passport, or state ID."
+        other: "The IRS requires us to see a current drivers license, passport, or state ID for you and your spouse."
+      info: "We will use your ID card to verify and protect your identity in accordance with IRS guidelines. It is ok if your ID is expired or if you have a temporary drivers license as long as we can clearly view your name and photo."
+      need_for: "We will need an ID for:"
+    intro:
+      title: "All right, let's collect your documents!"
+      info: "Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later."
+      should_have: "You should have:"
+      might_have: "You might also have:"
+    ira_statements:
+      title: "Attach your IRA Statements"
+      help_text_html: "<strong>You might have this document</strong> because you said that you made contributions to a retirement account."
+    overview:
+      title: "Great work! Here's a list of what we've collected."
+      empty: "No documents of this type were uploaded."
+      schedule_appointment: "When you’re done sharing the documents you have, we’ll schedule an appointment with your tax preparer."
+      finished: "I've shared all my documents"
+    primary_ssn_itins:
+      title: "Attach a photo of your Social Security Card or ITIN"
+      help_text: "The IRS requires us to see a valid SSN or ITIN for tax preparation services."
+    prior_tax_returns:
+      title: "Attach your %{year} tax return."
+      help_text_html: "<strong>You might have this form</strong> because you said that you reported a loss from the sale of stocks, bonds, or real estate last year. You might have your %{year} return, which you can share below. You can track down your %{year} return %{transcript_link}."
+    property_tax_statements:
+      title: "Attach your Property Tax Statements"
+      help_text_html: "<strong>You might have this document</strong> because you said that you either paid mortgage interest or state, local, real estate, or sales taxes."
+    requested_documents:
+      title: "Your tax specialist is requesting additional documents"
+      help_text: "Please upload all requested documents below. You can upload as many documents as you have. If you're unsure about which documents you need to share, please refer to the message from your tax preparer."
+    requested_documents_later:
+      not_found:
+        title: "Requested Documents Page Not Found"
+        info: "It looks like you're trying to upload documents but don't have a working link."
+        contact_us_html: "We can try to help you locate the correct link if you get in touch by emailing %{email_link} or clicking the live chat button in the bottom right corner."
+        contact_tax_preparer: "You can also reach out to your tax preparer if you have their contact information."
+    rrb1099s:
+      title: "Attach your RRB-1099's"
+      help_text_html: "You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Railroad Retirement Benefits, <strong>you should have this form</strong>. This is a tax statement issued by the U.S. Railroad Retirement Board (RRB) and represents payments made to you in %{year}."
+    selfie_instructions:
+      header: "Confirm your identity with a photo of yourself"
+      info: "The IRS requires us to verify who you are for tax preparation services. We do this by reviewing a photo of you holding your ID card."
+      steps:
+        header: "Read through the following steps before continuing"
+        face_visible: "Make sure your face is clearly visible"
+        id_visible: "Make sure you aren't covering up your ID"
+        face_camera: "Face the camera directly and include from your shoulders to the top of your head, similar to your ID photo"
+        plain_background: "Use a plain wall as a background if possible"
+        wear_glasses: "If you're wearing glasses in your ID photo, wear them in your selfie photo"
+      submit_photo: "Submit a photo"
+    selfies:
+      title: "Share a photo of yourself holding your ID card"
+      help_text: "The IRS requires us to verify who you are for tax preparation services."
+      need_for_html: "We will need to see a <u>photo with ID</u> for:"
+    send_requested_documents_later:
+      success:
+        title: "Requested Documents Successfully Uploaded"
+        thank_you: "Thank you! Your documents have been submitted."
+        next_steps: "Your tax preparer will reach out with updates and any additional questions within 3 business days."
+    spouse_ids:
+      title: "Attach a photo of your spouse's ID card"
+      help_text: "The IRS also requires us to have a current drivers license, passport, or state ID for your spouse."
+    spouse_ssn_itins:
+      title: "Attach a photo of your spouse's Social Security Card or ITIN"
+      help_text: "The IRS requires us to see a valid SSN or ITIN for tax preparation services."
+    ssa1099s:
+      title: "Attach your SSA-1099's"
+      help_text_html: "You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Social Security, <strong>you should have this form.</strong> This is a tax form that shows the total amount of benefits you received from Social Security in the previous year. You can get this form %{ssa_link}."
+    ssn_itins:
+      title: "Attach photos of Social Security Card or ITIN"
+      help_text: "The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services."
+      need_for: "We will need a SSN or ITIN for:"
+    student_account_statements:
+      title: "Attach your student account statements"
+      help_text_html: "<strong>You might have this statement</strong> because you said that you are filing taxes for people who are full-time students."
+      need_for: "Please share an image of the student account statement for the following people:"
+    w2gs:
+      title: "Attach your W-2G's"
+      help_text_html: "<strong>You might have this form</strong> because you said that you had income from gambling winnings or the lottery. Depending on how much you won, a gambling facility may send you a form W2-G that records your winnings and any income tax withholdings from the previous year."
+    w2s:
+      title: "Attach your W-2's"
+      help_text_html: "<strong>You should have this form</strong> because you said that you worked a job with wages or a salary. Your employer should have sent you this form and you can contact them if you haven't recieved it. More information is available %{transcript_link}."
   diy:
     check_email:
       edit:
@@ -116,19 +261,23 @@ en:
     free_file_lookup_tool: "IRS Free File Lookup Tool"
     get_my_payment: "Get My Payment"
     get_started: "Get Started"
+    here: "here"
     home: "Home"
     hours: "Hours"
     irs_certified_volunteers: "IRS Certified Volunteers"
     irs_free_file: "IRS Free File"
     languages: "Languages"
     negative: "No"
+    oops: "Oops!"
     open: "Open"
     other_options: "Try another free tax filing option"
     phone_number: "Phone number"
+    privacy_policy: "privacy policy"
     remove: "Remove"
     return_home: "Return to home"
     return_search: "Return to search"
     search: "Search"
+    security_html: "Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}."
     sorry: "We're sorry!"
     submit_question: "Submit a question to GetYourRefund"
     upload: "Upload"

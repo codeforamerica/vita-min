@@ -1,6 +1,5 @@
-<% content_for :form_question, "Attach your Property Tax Statements" %>
+<% content_for :form_question, t("documents.property_tax_statements.title") %>
 
 <% content_for :form_help_text do %>
-  <strong>You might have this document</strong>
-  because you said that you either paid mortgage interest or state, local, real estate, or sales taxes.
+  <%=t("documents.property_tax_statements.help_text_html") %>
 <% end %>

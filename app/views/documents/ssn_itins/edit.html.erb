@@ -1,12 +1,13 @@
-<% content_for :form_question, "Attach photos of Social Security Card or ITIN" %>
+<% content_for :form_question, t("documents.ssn_itins.title") %>
 
 <% content_for :form_help_content do %>
   <p>
-  The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services.
+    <%=t("documents.ssn_itins.help_text") %>
   </p>
 
   <div class="text--bold">
     <p class="spacing-below-10">
+      <%=t("documents.ssn_itins.need_for") %>
       We will need a SSN or ITIN for:
     </p>
 

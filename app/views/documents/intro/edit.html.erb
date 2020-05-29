@@ -1,4 +1,4 @@
-<% content_for :page_title, "All right, let's collect your documents!" %>
+<% content_for :page_title, t("documents.intro.title") %>
 
 <% content_for :main do %>
   <section class="slab slab--white">
@@ -9,18 +9,18 @@
             <%= content_for(:page_title) %>
           </h1>
           <p class="text--help">
-            Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later.
+            <%=t("documents.intro.info") %>
           </p>
           <p class="text--help">
             <strong>
-              Your files are secure and the information you provide will be handled in accordance with our <%= link_to privacy_path, target: "_blank" do %>privacy policy<% end %>.
+              <%=t("general.security_html", :privacy_link => link_to(t("general.privacy_policy"), privacy_path, target: "_blank")) %>
             </strong>
           </p>
 
           <div class="document-overview-list">
             <% if any_must_have_docs?(recommended_document_types) %>
               <p>
-                <strong>You should have:</strong>
+                <strong><%=t("documents.intro.should_have") %></strong>
               </p>
               <% recommended_document_types.each do |type| %>
                 <% if must_have?(type) %>
@@ -37,7 +37,7 @@
           <div class="document-overview-list">
             <% if any_might_have_docs?(recommended_document_types) %>
               <p>
-                <strong>You might also have:</strong>
+                <strong><%=t("documents.intro.might_have") %></strong>
               </p>
               <% recommended_document_types.each do |type| %>
                 <% if might_have?(type) %>
@@ -52,7 +52,7 @@
           </div>
 
           <%= link_to next_path, class: "button button--primary" do %>
-            Continue
+            <%=t("general.continue") %>
           <% end %>
         </main>
       </div>

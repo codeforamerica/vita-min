@@ -1,8 +1,5 @@
-<% content_for :form_question, "Attach your 1099-SA's" %>
+<% content_for :form_question, t("documents.form1099sas.title") %>
 
 <% content_for :form_help_text do %>
-  <strong>You might have this form</strong>
-  because you said that you have a Health Savings Account (HSA).
-  This form is sent to report distributions from health savings, medical savings, and Medicare Advantage accounts.
-  The financial institution that manages the account is responsible for sending you a copy.
+  <%=t("documents.form1099sas.help_text_html") %>
 <% end %>
