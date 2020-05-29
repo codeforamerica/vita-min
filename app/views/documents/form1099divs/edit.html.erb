@@ -1,8 +1,5 @@
-<% content_for :form_question, "Attach your 1099-DIV's" %>
+<% content_for :form_question, t("documents.form1099divs.title") %>
 
 <% content_for :form_help_text do %>
-  You said that you received income from interest or dividends.
-  If you specifically received income from dividends,
-  <strong>you should have this form</strong>.
-  Investment companies are required to provide taxpayers with a 1099-DIV by January 31 each year.
+  <%=t("documents.form1099divs.help_text_html") %>
 <% end %>

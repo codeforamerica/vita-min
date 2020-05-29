@@ -1,7 +1,5 @@
-<% content_for :form_question, "Attach your 1099-G's" %>
+<% content_for :form_question, t("documents.form1099gs.title") %>
 
 <% content_for :form_help_text do %>
-  <strong>You might have this form</strong>
-  because you said that you received a state or local income tax refund last year.
-  The most common uses of the 1099-G are to report unemployment compensation and state and local income tax refunds.
+  <%=t("documents.form1099gs.help_text_html") %>
 <% end %>

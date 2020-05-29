@@ -1,7 +1,5 @@
-<% content_for :form_question, "Attach your 1098-E's" %>
+<% content_for :form_question, t("documents.form1098es.title") %>
 
 <% content_for :form_help_text do %>
-  <strong>You might have this form</strong>
-  because you said that you paid student loan interest.
-  This document is usually accessed from a lender portal online and isn't mailed to you.
+  <%=t("documents.form1098es.help_text_html") %>
 <% end %>

@@ -1,7 +1,5 @@
-<% content_for :form_question, "Attach your 1098-T's" %>
+<% content_for :form_question, t("documents.form1098ts.title") %>
 
 <% content_for :form_help_text do %>
-  <strong>You might have this form</strong> because you said that you pursued higher education (technical school, college, university).
-  This form is your tuition statement.
-  More information on this form is listed <%= link_to "https://www.ed.gov/1098-e", target: "_blank", rel: "noopener" do %>here<% end %>.
+  <%=t("documents.form1098ts.help_text_html", :more_info_link => link_to(t("general.here"), "https://www.ed.gov/1098-e", target: "_blank", rel: "noopener")) %>
 <% end %>

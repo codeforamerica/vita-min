@@ -1,8 +1,5 @@
-<% content_for :form_question, "Attach your 1099-K's" %>
+<% content_for :form_question, t("documents.form1099ks.title") %>
 
 <% content_for :form_help_text do %>
-  <strong>You might have this form</strong>
-  because you said that you got paid from contract or self-employed work.
-  You receive a 1099-K if you have a high dollar amount or quantity of business transactions during the year.
-  Typically, large-volume online sellers file taxes with a 1099-K.
+  <%=t("documents.form1099ks.help_text_html") %>
 <% end %> %>

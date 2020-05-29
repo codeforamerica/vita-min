@@ -1,7 +1,5 @@
-<% content_for :form_question, "Attach your 5498-SA's" %>
+<% content_for :form_question, t("documents.form5498sas.title") %>
 
 <% content_for :form_help_text do %>
-  <strong>You might have this form</strong>
-  because you said that you have a Health Savings Account (HSA).
-  This form tracks contributions to Health Savings Accounts (HSA) and Medical Savings Accounts (MSA).
+  <%=t("documents.form5498sas.help_text_html") %>
 <% end %>

@@ -1,9 +1,5 @@
-<% content_for :form_question, "Attach your 1095-A's" %>
+<% content_for :form_question, t("documents.form1095as.title") %>
 
 <% content_for :form_help_text do %>
-  <strong>You should have this form</strong>
-  because you said that you purchased health insurance from the marketplace.
-  You may need to download this from the marketplace or the exchange for your state.
-  More information on this form is available
-  <%= link_to "https://www.irs.gov/affordable-care-act/individuals-and-families/health-insurance-marketplace-statements", target: "_blank", rel: "noopener" do %>here<% end %>.
+  <%=t("documents.form1095as.help_text_html", :more_info_link => link_to(t("general.here"), "https://www.irs.gov/affordable-care-act/individuals-and-families/health-insurance-marketplace-statements", target: "_blank", rel: "noopener")) %>
 <% end %>
