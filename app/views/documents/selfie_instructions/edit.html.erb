@@ -6,14 +6,14 @@
       <div class="grid__item width-three-fourths shift-one-eighth">
         <main role="main">
           <h1 class="form-question">
-            Confirm your identity with a photo of yourself
+            <%=t("documents.selfie_instructions.header") %>
           </h1>
           <div class="text--centered with-padding-med">
             <%= image_tag("selfie-illustration.svg", alt: "") %>
           </div>
 
           <p>
-            The IRS requires us to verify who you are for tax preparation services. We do this by reviewing a photo of you holding your ID card.
+            <%=t("documents.selfie_instructions.info") %>
           </p>
 
           <div class="selfie-instructions-list with-padding-large">
@@ -22,22 +22,22 @@
             </div>
 
             <p class="text--bold">
-              Read through the following steps before continuing
+              <%=t("documents.selfie_instructions.steps.header") %>
             </p>
 
             <ul class="list--bulleted">
-              <li>Make sure your face is clearly visible</li>
-              <li>Make sure you aren't covering up your ID</li>
-              <li>Face the camera directly and include from your shoulders to the top of your head, similar to your ID photo</li>
-              <li>Use a plain wall as a background if possible</li>
-              <li>If you're wearing glasses in your ID photo, wear them in your selfie photo</li>
+              <li><%=t("documents.selfie_instructions.steps.face_visible") %></li>
+              <li><%=t("documents.selfie_instructions.steps.id_visible") %></li>
+              <li><%=t("documents.selfie_instructions.steps.face_camera") %></li>
+              <li><%=t("documents.selfie_instructions.steps.plain_background") %></li>
+              <li><%=t("documents.selfie_instructions.steps.wear_glasses") %></li>
             </ul>
           </div>
 
         </main>
         <div class="text--centered">
           <%= link_to selfies_documents_path, class: "button button--wide button--primary button--centered" do %>
-            Submit a photo
+            <%=t("documents.selfie_instructions.submit_photo") %>
           <% end %>
         </div>
       </div>

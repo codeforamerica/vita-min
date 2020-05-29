@@ -1,4 +1,4 @@
-<% content_for :page_title, "Great work! Here's a list of what we've collected." %>
+<% content_for :page_title, t("documents.overview.title") %>
 
 <% content_for :main do %>
   <section class="slab slab--white">
@@ -17,11 +17,11 @@
                 <%= type %>
               </h2>
 
-              <%= link_to 'edit', edit_document_path(type), class: "button button--inline-action" %>
+              <%= link_to t("general.edit").downcase, edit_document_path(type), class: "button button--inline-action" %>
 
               <ul class="document-overview-list__filenames">
                 <% if documents.empty? %>
-                  <li><em>No documents of this type were uploaded.</em></li>
+                  <li><em><%=t("documents.overview.empty") %></em></li>
                 <% end %>
                 <% documents.each do |document| %>
                   <li>
@@ -34,12 +34,12 @@
 
           <p>
             <strong>
-              When you’re done sharing the documents you have, we’ll schedule an appointment with your tax preparer.
+              <%=t("documents.overview.schedule_appointment") %>
             </strong>
           </p>
 
           <%= link_to interview_scheduling_questions_path, class: "button button--icon button--wide button--primary" do %>
-            I've shared all my documents
+            <%=t("documents.overview.finished") %>
           <% end %>
         </main>
       </div>

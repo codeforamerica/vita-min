@@ -1,4 +1,4 @@
-<% content_for :page_title, "Requested Documents Successfully Uploaded" %>
+<% content_for :page_title, t("documents.send_requested_documents_later.success.title") %>
 
 <% content_for :main do %>
   <section class="slab slab--white">
@@ -9,16 +9,16 @@
       <div class="grid__item with-padding-large">
 
         <h1 class="form-question">
-          Thank you! Your documents have been submitted.
+          <%=t("documents.send_requested_documents_later.success.thank_you") %>
         </h1>
 
         <p>
-          Your tax preparer will reach out with updates and any additional questions within 3 business days.
+          <%=t("documents.send_requested_documents_later.success.next_steps") %>
         </p>
       </div>
       <div class="text--centered">
         <%= link_to root_path, class: "button button--primary button--wide", style: "margin: 0 auto" do %>
-          Return to home
+          <%=t("general.return_home") %>
         <% end %>
       </div>
     </div>

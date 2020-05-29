@@ -1,8 +1,5 @@
-<% content_for :form_question, "Attach your 1098's" %>
+<% content_for :form_question, t("documents.form1098s.title") %>
 
 <% content_for :form_help_text do %>
-  <strong>You might have this form</strong>
-  because you said that you either paid mortgage interest or state, local, real estate, or sales taxes.
-  More information on this form is available
-  <%= link_to "https://www.irs.gov/forms-pubs/about-form-1098", target: "_blank", rel: "noopener" do %>here<% end %>.
+  <%=t("documents.form1098s.help_text_html", :more_info_link => link_to(t("general.here"), "https://www.irs.gov/forms-pubs/about-form-1098", target: "_blank", rel: "noopener")) %>
 <% end %>

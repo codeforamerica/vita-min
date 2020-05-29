@@ -1,8 +1,5 @@
-<% content_for :form_question, "Attach your RRB-1099's" %>
+<% content_for :form_question, t("documents.rrb1099s.title") %>
 
 <% content_for :form_help_text do %>
-  You said that you had income from Social Security or Railroad Retirement Benefits.
-  If you specifically had income from Railroad Retirement Benefits,
-  <strong>you should have this form</strong>.
-  This is a tax statement issued by the U.S. Railroad Retirement Board (RRB) and represents payments made to you in <%= current_intake.most_recent_filing_year %>.
+  <%=t("documents.rrb1099s.help_text_html", :year => current_intake.most_recent_filing_year) %>
 <% end %>
