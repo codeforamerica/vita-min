@@ -21,9 +21,9 @@
 @import 'molecules/breadcrumb';
 @import "molecules/form-molecules";
 @import "molecules/partner-logos";
-@import "components/admin-details";
 @import "components/checkmark-list";
 @import "components/document-listing";
+@import "components/document-table";
 @import "components/emoji-radio-buttons";
 @import "components/buttons";
 @import "components/blockquote";
@@ -36,6 +36,7 @@
 @import "organisms/provider-list";
 @import "organisms/provider-details";
 @import "organisms/welcome";
+@import "templates/admin";
 @import "templates/about-us";
 @import "templates/consent-form";
 @import "templates/dependents-index";
