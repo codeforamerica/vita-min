@@ -62,4 +62,13 @@ RSpec.describe Zendesk::IntakesController do
       end
     end
   end
+
+  describe "#banking_info" do
+    it_behaves_like :a_protected_zendesk_ticket_page, action: :banking_info do
+      let(:valid_params) do
+        { id: intake.id }
+      end
+    end
+
+  end
 end

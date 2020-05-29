@@ -127,6 +127,7 @@ class ApplicationController < ActionController::Base
   def append_info_to_payload(payload)
     super
     payload[:request_details] = {
+      current_user_id: current_user&.id,
       intake_id: current_intake&.id,
       diy_intake_id: current_diy_intake&.id,
       device_type: user_agent.device_type,
