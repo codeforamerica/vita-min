@@ -1,64 +1,89 @@
 <% content_for :page_title, "#{@ticket.subject}, ##{@ticket.id}" %>
 
 <% content_for :card do %>
-  <h1 class="form-question">
-    <%= @ticket.subject %>,
-    <%= link_to "##{@ticket.id}", "https://eitc.zendesk.com/agent/tickets/#{@ticket.id}" %>
-  </h1>
-
-  <div class="document-overview-list">
-    <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
-    <h2 class="h3 document-overview-list__heading">13614-C Intake Form</h2>
-    <ul class="document-overview-list__filenames">
-      <% @intakes.each do |intake| %>
-        <li class="document-listing">
-          <%= link_to pdf_zendesk_intake_path(intake.id, filename: "13614c_#{intake.name_for_filename}.pdf") do %>
-            <%= "13614c_#{intake.name_for_filename}.pdf" %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-
-    <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
-    <h2 class="h3 document-overview-list__heading">Consent Form</h2>
-    <ul class="document-overview-list__filenames">
-      <% @intakes.each do |intake| %>
-        <li class="document-listing">
-          <%= link_to consent_pdf_zendesk_intake_path(intake.id, filename: "Consent_#{intake.name_for_filename}.pdf") do %>
-            <%= "Consent_#{intake.name_for_filename}.pdf" %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-
-    <% if @documents.present? %>
-      <% @documents.group_by(&:document_type).each do |type, documents| %>
-        <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
-        <h2 class="h3 document-overview-list__heading"><%= type %>s</h2>
-        <ul class="document-overview-list__filenames">
-          <% documents.each do |document| %>
-            <li class="document-listing">
-              <%= link_to zendesk_document_path(document.id) do %>
-                <div class="document-listing__thumbnail">
-                  <% if document.upload.representable? %>
-                    <%= image_tag document.upload.representation(resize: "140x140"), alt: "" %>
-                  <% else %>
-                    <%= image_tag "documents.svg", alt: "" %>
-                  <% end %>
-                </div>
-                <div class="document-listing__details">
-                  <h3 class="h4 document-listing__filename">
-                    <%= document.upload.filename %> (<%= number_to_human_size(document.upload.byte_size) %>)
-                  </h3>
-                  <p class="document-listing__upload-time">
-                    Uploaded <%= time_ago_in_words(document.upload.created_at) %> ago
-                  </p>
-                </div>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    <% end %>
+  <div class="header">
+    <h1 class="h2">
+      <%= @ticket.subject %>
+    </h1>
+    <h2 class="with-link">
+      <%= link_to "##{@ticket.id}", "https://eitc.zendesk.com/agent/tickets/#{@ticket.id}" %>
+    </h2>
+    <p class="text--smaller">
+      The following chart does not include documents uploaded by VITA volunteers or client support
+    </p>
   </div>
+
+  <table class="data-table document-table">
+    <thead>
+      <tr>
+        <th class="doc-type-column"> Doc Type </th>
+        <th class="link-column"> Link </th>
+        <th class="upload-date-column"> Upload Date </th>
+        <th class="notes-column"> Notes </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @intakes.each do |intake| %>
+        <tr>
+          <td> 13614-C </td>
+          <td>
+            <%= link_to pdf_zendesk_intake_path(
+              intake.id,
+              filename: "13614c_#{intake.name_for_filename}.pdf"
+            ) do %>
+              <%= "13614c_#{intake.name_for_filename}.pdf" %>
+            <% end %>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+      <% @intakes.each do |intake| %>
+        <tr>
+          <td> Consent </td>
+          <td>
+            <%= link_to consent_pdf_zendesk_intake_path(
+              intake.id,
+              filename: "Consent_#{intake.name_for_filename}.pdf"
+            ) do %>
+              <%= "Consent_#{intake.name_for_filename}.pdf" %>
+            <% end %>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+      <% if @document_groups.present? %>
+        <% @document_groups.each do |type, documents| %>
+          <% documents.each do |document| %>
+            <tr>
+              <td> <%= type %> </td>
+              <td>
+                <%= link_to zendesk_document_path(document.id) do %>
+                  <%= document.upload.filename %>
+                <% end %>
+              </td>
+              <td> <%= document.uploaded_ago %> </td>
+              <td class="document-notes">
+                <% if document.notes.present? %>
+                  <%= image_tag "document-notes.svg", alt: "", class: "notes" %>
+                  <%= document.notes %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% @intakes.select { |intake| intake.bank_account_number.present? }.each do |intake| %>
+        <tr>
+          <td> Bank Info </td>
+          <td>
+            <%= link_to "Bank Info", banking_info_zendesk_intake_path(intake.id)  %>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>

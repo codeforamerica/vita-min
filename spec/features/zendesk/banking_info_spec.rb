@@ -4,14 +4,10 @@ RSpec.feature "Viewing banking info for an intake" do
   let(:ticket_id) { 123 }
   let(:intake) do
     create(
-      :intake,
+      :intake, :with_banking_details,
       intake_ticket_id: ticket_id,
       primary_first_name: "Happy",
       primary_last_name: "Client",
-      bank_name: "Self-help United",
-      bank_routing_number: "12345678",
-      bank_account_number: "87654321",
-      bank_account_type: "checking"
     )
   end
   let(:auth_hash) do

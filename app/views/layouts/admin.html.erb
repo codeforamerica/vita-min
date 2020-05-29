@@ -8,7 +8,7 @@
     </span>
   </div>
 <% end if current_user %>
-
+<% content_for :body_class, "admin" %>
 <% content_for :main do %>
   <section class="slab slab--white steps--wrapper">
     <div class="grid">

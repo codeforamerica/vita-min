@@ -4,7 +4,7 @@ RSpec.feature "Viewing a document for a zendesk ticket" do
   let(:ticket_id) { 123 }
   let(:intake) do
     create(
-      :intake,
+      :intake, :with_banking_details,
       intake_ticket_id: ticket_id,
       primary_first_name: "German",
       primary_last_name: "Geranium"
@@ -46,6 +46,11 @@ RSpec.feature "Viewing a document for a zendesk ticket" do
 
     # redirected back to show zendesk ticket page
     expect(page).to have_text "German Geranium"
+
+    click_link "Bank Info"
+    expect(current_path).to eq(banking_info_zendesk_intake_path(intake.id))
+
+    visit "/zendesk/tickets/#{ticket_id}"
 
     click_link "13614c_GermanGeranium.pdf"
     expect(page.response_headers).to include("Content-Type" => "application/pdf")
