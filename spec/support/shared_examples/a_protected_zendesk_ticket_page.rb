@@ -9,10 +9,20 @@ shared_examples :a_protected_zendesk_ticket_page do |action: :show|
   end
 
   context "as an authenticated zendesk user" do
-    let(:user) { build :user, provider: "zendesk" }
+    let(:user) { build :user, provider: "zendesk", id: 1 }
 
     before do
       allow(subject).to receive(:current_user).and_return user
+    end
+
+    context "tracking zendesk user page views" do
+      render_views
+      before { allow(subject).to receive(:current_ticket) }
+
+      it "adds the current_user to the payload request details" do
+        expect(Rails.logger).to receive(:info).with(/\"current_user_id\":#{user.id}/)
+        get action, params: valid_params
+      end
     end
 
     context "without access to the current ticket" do
