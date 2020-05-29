@@ -1,0 +1,28 @@
+<% content_for :page_title, "#{@intake.primary_full_name}, ##{zendesk_ticket_id}" %>
+<% content_for :body_class, "admin-details" %>
+<% content_for :card do %>
+  <div class="header">
+    <h1 class="h2">
+      <%= @intake.primary_full_name %>
+    </h1>
+    <p>
+      <%= link_to "##{zendesk_ticket_id}",
+        "https://eitc.zendesk.com/agent/tickets/#{zendesk_ticket_id}" %>
+    </p>
+  </div>
+
+  <div class="info-details">
+    <h2 class="h3">Bank Name</h2>
+      <p> <%= @intake.bank_name %> </p>
+    </h2>
+    <h2 class="h3">Routing Number</h2>
+      <p> <%= @intake.bank_routing_number %> </p>
+    </h2>
+    <h2 class="h3">Account Number</h2>
+      <p> <%= @intake.bank_account_number%> </p>
+    </h2>
+    <h2 class="h3">Account Type</h2>
+      <p> <%= @intake.bank_account_type %> </p>
+    </h2>
+  </div>
+<% end %>

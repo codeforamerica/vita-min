@@ -86,6 +86,7 @@ Rails.application.routes.draw do
     resources :intakes, only: [:pdf, :consent_pdf] do
       get "13614c/:filename", to: "intakes#intake_pdf", on: :member, as: :pdf
       get "consent/:filename", to: "intakes#consent_pdf", on: :member, as: :consent_pdf
+      get "banking-info", to: "intakes#banking_info", on: :member, as: :banking_info
     end
   end
 

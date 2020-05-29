@@ -4,6 +4,8 @@ module Zendesk
 
     before_action :require_zendesk_user, :require_ticket_access
 
+    layout "admin"
+
     def show
       @ticket = current_ticket
       @intakes = Intake.where(intake_ticket_id: zendesk_ticket_id)
