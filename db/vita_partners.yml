@@ -216,6 +216,7 @@ vita_partners:
   display_name: Massachusetts Association for Community Action (MASSCAP)
   source_parameters:
   - MC-SSSC
+  - MC-SOUTH
   logo_path: ''
 - name: "[MASSCAP] North Shore"
   zendesk_instance_domain: eitc
@@ -223,6 +224,7 @@ vita_partners:
   display_name: Massachusetts Association for Community Action (MASSCAP)
   source_parameters:
   - MC-NS
+  - MC-LEO
   logo_path: ''
 - name: "[MASSCAP] Springfield"
   zendesk_instance_domain: eitc
