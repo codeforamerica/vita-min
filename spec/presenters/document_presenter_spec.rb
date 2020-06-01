@@ -47,12 +47,12 @@ describe DocumentPresenter do
   describe "#notes" do
     let(:document) { build(:document) }
     let(:byte_size) { 1000 }
-    let(:file_extension) { "jpg" }
+    let(:content_type) { "image/jpeg" }
     let(:subject) { DocumentPresenter.new(document) }
 
     before do
       expect(subject).to receive(:byte_size).and_return(byte_size)
-      expect(subject).to receive(:file_extension).and_return(file_extension)
+      expect(subject).to receive(:content_type).and_return(content_type)
     end
 
     context "normal sizes and extensions" do
@@ -62,7 +62,7 @@ describe DocumentPresenter do
     end
 
     context "uncommon situations" do
-      let(:file_extension) { "exe" }
+      let(:content_type) { "application/x-ms-dos-executable" }
       let(:byte_size) { 20_000_001 }
 
       it "reports the uncommon file type and byte size" do

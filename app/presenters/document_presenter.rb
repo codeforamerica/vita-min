@@ -1,5 +1,16 @@
 class DocumentPresenter < BasePresenter
-  COMMON_TYPES = %w{jpg png gif pdf}
+  COMMON_TYPES =
+    %w{
+      image/jpeg
+      application/pdf
+      image/png
+      image/heic
+      image/bmp
+      text/plain
+      image/tiff
+      text/csv
+      image/gif
+    }
 
   def self.grouped_documents(intakes)
     Document
@@ -23,15 +34,15 @@ class DocumentPresenter < BasePresenter
   private
 
   def uncommon_file_type
-    "Uncommon File Type" if COMMON_TYPES.exclude?(file_extension)
+    "Uncommon File Type" if COMMON_TYPES.exclude?(content_type)
   end
 
   def large_file_size
     "Large file size" if byte_size > 20 * 1_000_000
   end
 
-  def file_extension
-    upload.filename.extension
+  def content_type
+    upload.content_type
   end
 
   def byte_size
