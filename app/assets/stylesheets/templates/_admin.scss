@@ -1,35 +1,28 @@
 .admin {
 
-  div.header {
+  .header {
 
     * {
       margin: 0;
       margin-bottom: 1.0rem;
     }
 
-    h1 {
-      margin-bottom: 1.0rem;
-    }
-
-    h2.with-link {
-
-      a {
-        color: $color-purple;
-        font-size: 1.9rem;
-        font-weight: bold;
-        &:hover {
-          color: #8E8EEF;
-        }
+    .ticket-link {
+      color: $color-purple;
+      font-size: 1.9rem;
+      font-weight: bold;
+      &:hover {
+        color: #8E8EEF;
       }
     }
 
-    p.text--smaller {
+    .text--smaller {
       font-size: 1.2rem;
       max-width: none;
     }
   }
 
-  div.info-details {
+  .info-details {
     margin-top: 6.0rem;
 
     .h3 {
