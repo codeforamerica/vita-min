@@ -1,25 +1,15 @@
-table.document-table {
+.document-table {
   table-layout: fixed;
   width: 904px;
 
-  th {
 
-    &.doc-type-column {
-      width: 165px;
-    }
-
-    &.link-column {
-      width: 360px;
-    }
-
-    &.upload-date-column {
-      width: 129px;
-    }
-
-    &.notes-column {
-      width: 250px;
-    }
+  .document-column {
+    &__doc-type { width: 165px; }
+    &__link { width: 360px; }
+    &__upload-date { width: 129px;}
+    &__notes { width: 250px;}
   }
+
 
   td {
 
@@ -40,7 +30,7 @@ table.document-table {
       }
     }
 
-    img.notes {
+    .icon--inline-notice {
       position: relative;
       top: 4px;
     }

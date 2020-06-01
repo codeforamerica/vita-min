@@ -5,8 +5,8 @@
     <h1 class="h2">
       <%= @ticket.subject %>
     </h1>
-    <h2 class="with-link">
-      <%= link_to "##{@ticket.id}", "https://eitc.zendesk.com/agent/tickets/#{@ticket.id}" %>
+    <h2>
+      <%= link_to "##{@ticket.id}", "https://eitc.zendesk.com/agent/tickets/#{@ticket.id}", class: "ticket-link" %>
     </h2>
     <p class="text--smaller">
       The following chart does not include documents uploaded by VITA volunteers or client support
@@ -16,10 +16,10 @@
   <table class="data-table document-table">
     <thead>
       <tr>
-        <th class="doc-type-column"> Doc Type </th>
-        <th class="link-column"> Link </th>
-        <th class="upload-date-column"> Upload Date </th>
-        <th class="notes-column"> Notes </th>
+        <th class="document-column__doc-type"> Doc Type </th>
+        <th class="document-column__link"> Link </th>
+        <th class="document-column__upload-date"> Upload Date </th>
+        <th class="document-column__notes"> Notes </th>
       </tr>
     </thead>
     <tbody>
@@ -66,7 +66,7 @@
               <td> <%= document.uploaded_ago %> </td>
               <td class="document-notes">
                 <% if document.notes.present? %>
-                  <%= image_tag "document-notes.svg", alt: "", class: "notes" %>
+                  <%= image_tag "document-notes.svg", alt: "", class: "icon--inline-notice" %>
                   <%= document.notes %>
                 <% end %>
               </td>
