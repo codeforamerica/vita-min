@@ -2,7 +2,7 @@ module BirthDateHelper
   def valid_birth_date
     parsed_birth_date = parse_birth_date_params(birth_date_year, birth_date_month, birth_date_day)
     unless parsed_birth_date.present?
-      self.errors.add(:birth_date, "Please select a valid date")
+      self.errors.add(:birth_date, I18n.t("helpers.birth_date_helper.valid_birth_date"))
       return false
     end
     true

@@ -294,6 +294,9 @@ es:
     well: Bien
     you: tú
     you_or_spouse: usted o su cónyuge
+  helpers:
+    birth_date_helper:
+      valid_birth_date: por favor seleccione una fecha valida
   intake_site_drop_offs:
     new:
       additional_info: Información Adicional
@@ -334,6 +337,25 @@ es:
       remove_confirmation: ¿Estás seguro de que deseas eliminar "%{filename}"?
       select_file: Seleccione un archivo
       take_picture: Toma una foto
+  models:
+    dependent:
+      validators:
+        birth_date_presence: Por favor introduzca una fecha valida.
+        first_name_presence: Por favor ingrese un nombre.
+        last_name_presence: Por favor, introduzca un apellido.
+    intake:
+      your_spouse: Su cónyuge
+    intake_site_drop_off:
+      errors:
+        choose_file: Por favor, elija un archivo.
+        valid_pickup_date: Por favor, introduzca un mes y día válido (M / D).
+      validators:
+        certification_level_inclusion: Por favor seleccione un nivel de certificación.
+        email_valid: Por favor introduzca una dirección de correo electrónico válida.
+        intake_site_inclusion: Por favor seleccione un sitio de admisión.
+        phone_number_valid: Por favor ingrese un número de teléfono válido.
+        signature_method_inclusion: Por favor, seleccione un método de recogida.
+        state_inclusion: Por favor seleccione un estado.
   public_pages:
     about_us:
       how_it_helps: Puede ahorrar hasta $ 300 cuando presente de forma gratuita. También nos aseguramos de que los contribuyentes elegibles reclamen el Crédito Tributario por Ingreso del Trabajo (EITC), que puede superar los $ 3,000 por familia.
