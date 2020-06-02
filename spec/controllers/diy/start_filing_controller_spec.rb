@@ -4,6 +4,8 @@ RSpec.describe Diy::StartFilingController, type: :controller do
   let(:diy_intake) { create :diy_intake }
 
   describe "#start" do
+    render_views
+
     context "with no DIY intake matching the token" do
 
       it "redirects to the start of teh DIY flow" do
@@ -18,6 +20,12 @@ RSpec.describe Diy::StartFilingController, type: :controller do
         get :start, params: {token: diy_intake.token}
 
         expect(response).not_to redirect_to diy_file_yourself_path
+      end
+
+      it "includes a link to the correct taxslayer start page" do
+        get :start, params: { token: diy_intake.token }
+        fsa_url = "https://www.taxslayer.com/vita2019fsa?source=TSUSATY2019&sidn=01093601"
+        expect(response.body).to include(controller.helpers.sanitize(fsa_url))
       end
     end
   end
