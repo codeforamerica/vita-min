@@ -324,6 +324,9 @@ en:
     well: "Well"
     you: "you"
     you_or_spouse: "you or your spouse"
+  helpers:
+    birth_date_helper:
+      valid_birth_date: "Please select a valid date"
   intake_site_drop_offs:
     new:
       title: "Valet VITA Drop-off"
@@ -364,6 +367,25 @@ en:
       take_picture: "Take a picture"
       done_for_now: "I'm done for now"
       dont_have: "I don't have this document"
+  models:
+    dependent:
+      validators:
+        first_name_presence: "Please enter a first name."
+        last_name_presence: "Please enter a last name."
+        birth_date_presence: "Please enter a valid date."
+    intake:
+      your_spouse: "Your spouse"
+    intake_site_drop_off:
+      errors:
+        choose_file: "Please choose a file."
+        valid_pickup_date: "Please enter a valid month and day (M/D)."
+      validators:
+        certification_level_inclusion: "Please select a certification level."
+        email_valid: "Please enter a valid email."
+        intake_site_inclusion: "Please select an intake site."
+        phone_number_valid: "Please enter a valid phone number."
+        state_inclusion: "Please select a state."
+        signature_method_inclusion: "Please select a pickup method."
   public_pages:
     about_us:
       title: "About Us"

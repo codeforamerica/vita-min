@@ -31,9 +31,9 @@ class Dependent < ApplicationRecord
   enum disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :disabled
   enum was_married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_married
 
-  validates_presence_of :first_name, message: "Please enter a first name."
-  validates_presence_of :last_name, message: "Please enter a last name."
-  validates_presence_of :birth_date, message: "Please enter a valid date."
+  validates_presence_of :first_name, message: I18n.t("models.dependent.validators.first_name_presence")
+  validates_presence_of :last_name, message: I18n.t("models.dependent.validators.last_name_presence")
+  validates_presence_of :birth_date, message: I18n.t("models.dependent.validators.birth_date_presence")
 
   def full_name
     "#{first_name} #{last_name}"
