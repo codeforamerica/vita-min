@@ -14,9 +14,9 @@ class SpouseConsentForm < QuestionsForm
     :spouse_last_four_ssn
   )
 
-  validates_presence_of :spouse_first_name, message: "Please enter your spouse's first name."
-  validates_presence_of :spouse_last_name, message: "Please enter your spouse's last name."
-  validates_length_of :spouse_last_four_ssn, maximum: 4, minimum: 4, message: "Please enter the last four digits of your SSN or ITIN."
+  validates_presence_of :spouse_first_name, message: I18n.t("forms.validators.spouse_first_name_presence")
+  validates_presence_of :spouse_last_name, message: I18n.t("forms.validators.spouse_last_name_presence")
+  validates_length_of :spouse_last_four_ssn, maximum: 4, minimum: 4, message: I18n.t("forms.validators.spouse_last_four_ssn_length")
   validate :valid_birth_date
 
   def save

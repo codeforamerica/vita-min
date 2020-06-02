@@ -13,9 +13,9 @@ class ConsentForm < QuestionsForm
     :primary_last_four_ssn
   )
 
-  validates_presence_of :primary_first_name, message: "Please enter your first name."
-  validates_presence_of :primary_last_name, message: "Please enter your last name."
-  validates_length_of :primary_last_four_ssn, maximum: 4, minimum: 4, message: "Please enter the last four digits of your SSN or ITIN."
+  validates_presence_of :primary_first_name, message: I18n.t("forms.validators.primary_first_name_presence")
+  validates_presence_of :primary_last_name, message: I18n.t("forms.validators.primary_last_name_presence")
+  validates_length_of :primary_last_four_ssn, maximum: 4, minimum: 4, message: I18n.t("forms.validators.primary_last_four_ssn_length")
   validate :valid_birth_date
 
   def save

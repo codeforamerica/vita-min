@@ -254,6 +254,22 @@ en:
     errors:
       at_least_one_year: "Please pick at least one year."
       need_phone_number: "Please enter a cell phone number."
+    validators:
+      answer_presence: "Please answer or click \"Skip question\""
+      email_address_valid: "Please enter a valid email address."
+      email_address_confirmation_match: "Please double check that the email addresses match."
+      generic_presence: "Can't be blank."
+      job_count_presence: "Please select a number of jobs."
+      phone_number_valid: "Please enter a valid phone number."
+      phone_number_confirmation_match: "Please double check that the phone numbers match."
+      preferred_name_presence: "Please enter your preferred name."
+      primary_first_name_presence: "Please enter your first name."
+      primary_last_name_presence: "Please enter your last name."
+      primary_last_four_ssn_length: "Please enter the last four digits of your SSN or ITIN."
+      spouse_first_name_presence: "Please enter your spouse's first name."
+      spouse_last_name_presence: "Please enter your spouse's last name."
+      spouse_last_four_ssn_length: "Please enter the last four digits of your spouse's SSN or ITIN."
+      state_of_residence_inclusion: "Please select a state from the list."
   general:
     address: "Address"
     affirmative: "Yes"
