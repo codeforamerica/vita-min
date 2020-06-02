@@ -224,6 +224,22 @@ es:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
       need_phone_number: Por favor, introduzca un número de teléfono celular.
+    validators:
+      answer_presence: Responda o haga clic en "Saltar pregunta"
+      email_address_confirmation_match: Verifique que las direcciones de correo electrónico coincidan.
+      email_address_valid: Por favor, introduce una dirección de correo electrónico válida.
+      generic_presence: No puede estar en blanco.
+      job_count_presence: Por favor seleccione un número de trabajos.
+      phone_number_confirmation_match: Verifique que los números de teléfono coincidan.
+      phone_number_valid: Por favor ingrese un número de teléfono válido.
+      preferred_name_presence: Por favor ingrese su nombre preferido.
+      primary_first_name_presence: Por favor, introduzca su nombre de pila.
+      primary_last_four_ssn_length: Ingrese los últimos cuatro dígitos de su SSN o ITIN.
+      primary_last_name_presence: Por favor ingrese su apellido.
+      spouse_first_name_presence: Por favor ingrese el nombre de su cónyuge.
+      spouse_last_four_ssn_length: Ingrese los últimos cuatro dígitos del SSN o ITIN de su cónyuge.
+      spouse_last_name_presence: Por favor ingrese el apellido de su cónyuge.
+      state_of_residence_inclusion: Por favor seleccione un estado de la lista.
   general:
     address: Habla a
     affirmative: Sí

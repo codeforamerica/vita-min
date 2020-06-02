@@ -4,7 +4,7 @@ class SpouseEmailAddressForm < QuestionsForm
     with: URI::MailTo::EMAIL_REGEXP,
     message: "Please enter a valid email address.",
   }
-  validates :spouse_email_address, confirmation: { message: "Please double check that the email addresses match." }
+  validates :spouse_email_address, confirmation: { message: I18n.t("forms.validators.email_address_confirmation_match") }
   validates :spouse_email_address_confirmation, presence: true
 
   def save

@@ -71,7 +71,7 @@ RSpec.describe Questions::SpouseConsentController do
 
         expect(response).to render_template :edit
         error_messages = assigns(:form).errors.messages
-        expect(error_messages[:spouse_last_four_ssn].first).to eq "Please enter the last four digits of your SSN or ITIN."
+        expect(error_messages[:spouse_last_four_ssn].first).to eq "Please enter the last four digits of your spouse's SSN or ITIN."
         expect(error_messages[:spouse_last_name].first).to eq "Please enter your spouse's last name."
       end
     end
