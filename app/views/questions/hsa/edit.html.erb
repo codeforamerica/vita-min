@@ -1,5 +1,5 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} have a Health Savings Account?" %>
+<% content_for :form_question, t("questions.hsa.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, "Answer \"Yes\" if you received a 1099-SA or 5498-SA. This does not include Flexible Spending Accounts." %>
+<% content_for :form_help_text, t("questions.hsa.help_text") %>
 
 <% content_for :method_name, :had_hsa %>

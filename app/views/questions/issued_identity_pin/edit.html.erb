@@ -1,5 +1,5 @@
-<% content_for :form_question, "Have you ever been issued an Identity Protection PIN?" %>
+<% content_for :form_question, t("questions.issued_identity_pin.title") %>
 
-<% content_for :form_help_text, "If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers.".html_safe %>
+<% content_for :form_help_text, t("questions.issued_identity_pin.help_text").html_safe %>
 
 <% content_for :method_name, :issued_identity_pin %>

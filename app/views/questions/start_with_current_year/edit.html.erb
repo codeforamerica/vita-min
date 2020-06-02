@@ -1,4 +1,4 @@
-<% content_for :page_title, "Let's get started" %>
+<% content_for :page_title, t("questions.start_with_current_year.title") %>
 
 <% content_for :form_card do %>
   <div class="form-card">
@@ -7,15 +7,15 @@
     </h1>
 
     <p>
-    We’ll start by asking about your situation in <%= current_intake.most_recent_filing_year %>.
+      <%=t("questions.start_with_current_year.info", :year => current_intake.most_recent_filing_year) %>
     </p>
 
     <p class="spacing-below-35">
-      This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
+      <%=t("questions.start_with_current_year.starting_point") %>
     </p>
 
     <%= link_to next_path, class: "button button--primary text--centered" do %>
-      Continue
+      <%=t("general.continue") %>
     <% end %>
   </div>
 <% end %>

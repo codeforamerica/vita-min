@@ -33,8 +33,6 @@ RSpec.describe Documents::IdsController do
         it "shows the spouse name" do
           get :edit
 
-          expect(assigns(:title)).to eq "Attach photos of ID cards"
-          expect(assigns(:help_text)).to eq "The IRS requires us to see a current drivers license, passport, or state ID for you and your spouse."
           expect(assigns(:names)).to eq ["Gary Gnome", "Greta Gnome"]
         end
       end
@@ -43,8 +41,6 @@ RSpec.describe Documents::IdsController do
         it "shows the placeholder" do
           get :edit
 
-          expect(assigns(:title)).to eq "Attach photos of ID cards"
-          expect(assigns(:help_text)).to eq "The IRS requires us to see a current drivers license, passport, or state ID for you and your spouse."
           expect(assigns(:names)).to eq ["Gary Gnome", "Your spouse"]
         end
       end
@@ -56,8 +52,6 @@ RSpec.describe Documents::IdsController do
       it "shows singular copy" do
         get :edit
 
-        expect(assigns(:title)).to eq "Attach a photo of your ID card"
-        expect(assigns(:help_text)).to eq "The IRS requires us to see a current drivers license, passport, or state ID."
         expect(assigns(:names)).to eq ["Gary Gnome"]
       end
     end

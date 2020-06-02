@@ -1,22 +1,22 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, how many jobs did #{you_or_spouse(@form.intake)} have?" %>
+<% content_for :form_question, t("questions.job_count.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1)  %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
     <%= f.vita_min_select(:job_count, content_for(:form_question), [
-        ["No jobs",  0],
-        ["1 job",  1],
-        ["2 jobs", 2],
-        ["3 jobs", 3],
-        ["4 jobs", 4],
-        ["5 or more jobs", 5],
+        [t("questions.job_count.options.none"),  0],
+        [t("questions.job_count.options.one"),  1],
+        [t("questions.job_count.options.two"), 2],
+        [t("questions.job_count.options.three"), 3],
+        [t("questions.job_count.options.four"), 4],
+        [t("questions.job_count.options.five_or_more"), 5],
       ],
       {
-        help_text: "Include any work that paid you, no matter how small.",
+        help_text: t("questions.job_count.options.help_text"),
         include_blank: true
       }
     ) %>
     <button class="button button--primary" type="submit">
-      Next
+      <%=t("general.next") %>
       <i class="button__icon icon-arrow_forward"></i>
     </button>
   <% end %>

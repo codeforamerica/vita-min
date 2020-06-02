@@ -1,4 +1,4 @@
-<% @main_question = "If due a refund, are you interested in using these savings options?" %>
+<% @main_question = t("questions.savings_options.title") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -9,7 +9,7 @@
     <div class="form-card__stacked-checkboxes">
       <%= f.cfa_checkbox(
         :savings_split_refund,
-        "Split my refund between accounts",
+        t("questions.savings_options.savings_split_refund"),
         options: {
           checked_value: "yes",
           unchecked_value: "no",
@@ -18,7 +18,7 @@
       ) %>
       <%= f.cfa_checkbox(
         :savings_purchase_bond,
-        "Purchase United States Savings Bond",
+        t("questions.savings_options.savings_purchase_bond"),
         options: {
           checked_value: "yes",
           unchecked_value: "no",
@@ -28,7 +28,7 @@
     </div>
 
     <button class="button button--primary" type="submit">
-      Continue
+      <%=t("general.continue") %>
     </button>
   <% end %>
 <% end %>

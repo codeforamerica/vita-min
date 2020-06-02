@@ -1,4 +1,4 @@
-<% @main_question = "What is your spouse's race?" %>
+<% @main_question = t("questions.demographic_spouse_race.title") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -8,18 +8,18 @@
       <%= @main_question %>
     </h1>
     <div class="form-card__stacked-checkboxes spacing-above-0">
-      <%= f.cfa_checkbox(:demographic_spouse_american_indian_alaska_native, "American Indian or Alaska Native", options: { checked_value: true, unchecked_value: false }) %>
-      <%= f.cfa_checkbox(:demographic_spouse_native_hawaiian_pacific_islander, "Native Hawaiian or other Pacific Islander", options: { checked_value: true, unchecked_value: false }) %>
-      <%= f.cfa_checkbox(:demographic_spouse_asian, "Asian", options: { checked_value: true, unchecked_value: false }) %>
-      <%= f.cfa_checkbox(:demographic_spouse_black_african_american, "Black or African American", options: { checked_value: true, unchecked_value: false }) %>
-      <%= f.cfa_checkbox(:demographic_spouse_white, "White", options: { checked_value: true, unchecked_value: false }) %>
+      <%= f.cfa_checkbox(:demographic_spouse_american_indian_alaska_native, t("general.race.american_indian_alaska_native"), options: { checked_value: true, unchecked_value: false }) %>
+      <%= f.cfa_checkbox(:demographic_spouse_native_hawaiian_pacific_islander, t("general.race.native_hawaiian_pacific_islander"), options: { checked_value: true, unchecked_value: false }) %>
+      <%= f.cfa_checkbox(:demographic_spouse_asian, t("general.race.asian"), options: { checked_value: true, unchecked_value: false }) %>
+      <%= f.cfa_checkbox(:demographic_spouse_black_african_american, t("general.race.black_african_american"), options: { checked_value: true, unchecked_value: false }) %>
+      <%= f.cfa_checkbox(:demographic_spouse_white, t("general.race.white"), options: { checked_value: true, unchecked_value: false }) %>
     </div>
 
     <button class="button button--primary button--wide" type="submit">
-      Continue
+      <%=t("general.continue") %>
     </button>
     <%= f.button :submit, name: "#{f.object_name}[demographic_spouse_prefer_not_to_answer_race]", value: true, class: "button button--wide", "aria-describedby": "demographic_spouse_race_question" do %>
-      Skip question
+      <%=t("general.skip_question") %>
     <% end %>
   <% end %>
 <% end %>

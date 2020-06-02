@@ -1,13 +1,12 @@
-<% @main_heading = "Is there any more information you think we should know?" %>
-<% @help_text = "Please share any notes or questions about your tax situation. Your tax preparer will be sure to go over these questions during your phone review." %>
+<% @main_heading = t("questions.additional_info.title") %>
 <% content_for :form_question, @main_heading %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
-    <%= f.cfa_input_field(:additional_info, @main_heading, help_text: @help_text) %>
+    <%= f.cfa_input_field(:additional_info, @main_heading, help_text: t("questions.additional_info.help_text")) %>
 
     <button class="button button--primary" type="submit">
-      Next
+      <%=t("general.next") %>
       <i class="button__icon icon-arrow_forward"></i>
     </button>
   <% end %>

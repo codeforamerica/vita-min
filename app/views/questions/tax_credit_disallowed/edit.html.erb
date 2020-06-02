@@ -1,5 +1,5 @@
-<% content_for :form_question, "Have #{you_or_spouse(@form.intake)} had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?" %>
+<% content_for :form_question, t("questions.tax_credit_disallowed.title", :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, "Answer \"Yes\" if you were asked to repay any of these credits in the past." %>
+<% content_for :form_help_text, t("questions.tax_credit_disallowed.help_text") %>
 
 <% content_for :method_name, :had_tax_credit_disallowed %>

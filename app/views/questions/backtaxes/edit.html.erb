@@ -1,4 +1,4 @@
-<% content_for :page_title, "What years do you need to file for?" %>
+<% content_for :page_title, t("questions.backtaxes.title") %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
@@ -6,7 +6,7 @@
       <%= content_for(:page_title) %>
     </h1>
     <p>
-      Select all that apply.
+      <%=t("questions.backtaxes.select_all_that_apply") %>
     </p>
     <div class="form-card__stacked-checkboxes spacing-above-0">
       <%= f.cfa_checkbox(:needs_help_2019, "2019", options: { checked_value: "yes", unchecked_value: "no" }) %>
@@ -16,7 +16,7 @@
     </div>
 
     <button class="button button--primary button--wide" type="submit">
-      Continue
+      <%=t("general.continue") %>
     </button>
   <% end %>
 <% end %>

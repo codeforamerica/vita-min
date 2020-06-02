@@ -1,5 +1,5 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} receive wages or salary?" %>
+<% content_for :form_question, t("questions.wages.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, "As an employee you should receive a W-2 for any job you worked. Learn more about form W-2." %>
+<% content_for :form_help_text, t("questions.wages.help_text") %>
 
 <% content_for :method_name, :had_wages %>

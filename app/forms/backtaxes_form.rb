@@ -13,6 +13,6 @@ class BacktaxesForm < QuestionsForm
       needs_help_2017 == "yes" ||
       needs_help_2018 == "yes" ||
       needs_help_2019 == "yes"
-    errors.add(:needs_help_2016, "Please pick at least one year.") unless chose_one
+    errors.add(:needs_help_2016, I18n.t("forms.errors.at_least_one_year")) unless chose_one
   end
 end

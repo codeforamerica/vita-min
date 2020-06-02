@@ -1,4 +1,4 @@
-<% @main_question = "Do you or any member of your household have a disability?" %>
+<% @main_question = t("questions.demographic_disability.title") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -8,16 +8,16 @@
           :demographic_disability,
           label_text: "<h1 class=\"form-question\">#{@main_question}</h1>".html_safe,
           collection: [
-            { value: :yes, label: "Yes" },
-            { value: :no, label: "No" },
+            { value: :yes, label: t("general.affirmative") },
+            { value: :no, label: t("general.negative") },
           ]
         )
     %>
     <button class="button button--primary button--wide" type="submit">
-      Continue
+      <%=t("general.continue") %>
     </button>
     <%= f.button :submit, name: "#{f.object_name}[demographic_disability]", value: :prefer_not_to_answer, class: "button button--wide" do %>
-      Skip question
+      <%=t("general.skip_question") %>
     <% end %>
   <% end %>
 <% end %>

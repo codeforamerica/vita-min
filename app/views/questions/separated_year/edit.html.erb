@@ -1,4 +1,4 @@
-<% content_for :form_question, "What year was the separation finalized?" %>
+<% content_for :form_question, t("questions.separated_year.title") %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card"} do |f| %>
@@ -10,11 +10,11 @@
         ["2016", "2016"],
         ["2015", "2015"],
         ["2014", "2014"],
-        ["before 2014", "before 2014"],
+        [t("questions.separated_year.before_2014"), "before 2014"],
       ]
     ) %>
     <button class="button button--primary" type="submit">
-      Next
+      <%=t("general.next") %>
       <i class="button__icon icon-arrow_forward"></i>
     </button>
   <% end %>

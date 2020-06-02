@@ -1,4 +1,4 @@
-<% @main_heading = "Collect all your documents and have them with you." %>
+<% @main_heading = t("questions.overview_documents.title") %>
 <% content_for :page_title, @main_heading %>
 
 <% content_for :main do %>
@@ -16,21 +16,21 @@
             </div>
 
             <p>
-              In the next pages, we'll be asking for the following:
+              <%=t("questions.overview_documents.documents_list.header") %>
             </p>
             <ul class="list--bulleted text--small">
-              <li>Social Security Number or ITIN</li>
-              <li>Current driver's license, state ID, or passport</li>
-              <li>Employment tax documents (W2's, 1099, etc)</li>
-              <li>Any other official tax documents</li>
+              <li><%=t("questions.overview_documents.documents_list.ssn_itn") %></li>
+              <li><%=t("questions.overview_documents.documents_list.id") %></li>
+              <li><%=t("questions.overview_documents.documents_list.employment_tax") %></li>
+              <li><%=t("questions.overview_documents.documents_list.other_tax") %></li>
             </ul>
 
             <p>
-              <strong>We will also need to verify that you have a valid phone number and e-mail.</strong>
+              <strong><%=t("questions.overview_documents.valid_phone_email") %></strong>
             </p>
 
             <%= link_to next_path, class: "button button--primary text--centered" do %>
-              Continue
+              <%=t("general.continue") %>
             <% end %>
           </div>
         </main>

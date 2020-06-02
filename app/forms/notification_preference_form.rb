@@ -27,6 +27,6 @@ class NotificationPreferenceForm < QuestionsForm
 
   def need_phone_number_for_sms_opt_in
     has_phone_if_needed = sms_notification_opt_in == "yes" ? sms_phone_number.present? : true
-    errors.add(:sms_phone_number, "Please enter a cell phone number.") unless has_phone_if_needed
+    errors.add(:sms_phone_number, I18n.t("forms.errors.need_phone_number")) unless has_phone_if_needed
   end
 end
