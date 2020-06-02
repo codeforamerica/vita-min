@@ -1,4 +1,4 @@
-<% @main_heading = "Get your stimulus check!" %>
+<% @main_heading = t("questions.stimulus_recommendation.title") %>
 <% content_for :page_title, @main_heading %>
 
 <main role="main">
@@ -14,13 +14,11 @@
             <%= @main_heading %>
           </h1>
           <p>
-            Since you’ve already filed for 2019, you will automatically get your
-            stimulus check! If you have additional questions about your
-            stimulus, we recommend checking out our Stimulus FAQ page.
+            <%=t("questions.stimulus_recommendation.already_filed") %>
           <p>
 
           <%= link_to stimulus_path, class: "button button--primary text--centered button--wide spacing-above-60" do %>
-            Visit Stimulus FAQ
+            <%=t("questions.stimulus_recommendation.visit_stimulus_faq") %>
           <% end %>
         </main>
       </div>

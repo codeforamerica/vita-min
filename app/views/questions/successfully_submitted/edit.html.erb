@@ -1,4 +1,4 @@
-<% content_for :form_question, "Success! Your tax information has been submitted." %>
+<% content_for :form_question, t("questions.successfully_submitted.title") %>
 
 <% content_for :form_card do %>
   <%= render 'shared/facebook_pixel', track_conversion: "SubmitIntake" %>
@@ -7,35 +7,35 @@
   </h1>
   <% if current_intake&.intake_ticket_id.present? %>
     <h2 class="text--teal h3">
-      Your confirmation number is: <%= current_intake.intake_ticket_id %>
+      <%=t("questions.successfully_submitted.confirmation_number", :confirmation_number => current_intake.intake_ticket_id) %>
     </h2>
   <% end %>
 
   <p class="text--small">
-    <strong>Next Steps</strong>
+    <strong><%=t("questions.successfully_submitted.next_steps.header") %></strong>
   </p>
 
   <ul class="list--bulleted spacing-below-60">
     <li>
-      You will receive a confirmation message shortly
+      <%=t("questions.successfully_submitted.next_steps.confirmation_message") %>
     </li>
     <li>
       <% if current_intake&.vita_partner.present? %>
-        Your tax preparer at <%= current_intake.vita_partner.display_name %> will review your information
+        <%=t("questions.successfully_submitted.next_steps.partner_review", :partner_name => current_intake.vita_partner.display_name) %>
       <% else %>
-        Your tax preparer will review your information
+        <%=t("questions.successfully_submitted.next_steps.review") %>
       <% end %>
     </li>
     <li>
       <% if current_intake&.vita_partner.present? %>
-        <%= current_intake.vita_partner.display_name %> will reach out within 3 business days to talk about your taxes
+        <%=t("questions.successfully_submitted.next_steps.partner_timing", :partner_name => current_intake.vita_partner.display_name) %>
       <% else %>
-        Your tax preparer will reach out within 3 business days to talk about your taxes
+        <%=t("questions.successfully_submitted.next_steps.timing") %>
       <% end %>
     </li>
   </ul>
 
   <%= link_to root_path, class: "button button--wide button--primary text--centered" do %>
-    Return to home
+    <%=t("general.return_home") %>
   <% end %>
 <% end %>

@@ -1,5 +1,5 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} pay any child or dependent care expenses?" %>
+<% content_for :form_question, t("questions.dependent_care.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, "For example, daycare, afterschool care, a nanny, or in-home care." %>
+<% content_for :form_help_text, t("questions.dependent_care.help_text") %>
 
 <% content_for :method_name, :paid_dependent_care %>

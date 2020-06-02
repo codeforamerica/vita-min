@@ -1,5 +1,5 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, was someone in your family a college or other post high school student?" %>
+<% content_for :form_question, t("questions.student.title", :year => current_intake.most_recent_filing_year) %>
 
-<% content_for :form_help_text, "This includes community college, technical school, professional development classes, higher education, and vocational education." %>
+<% content_for :form_help_text, t("questions.student.help_text") %>
 
 <% content_for :method_name, :had_student_in_family %>

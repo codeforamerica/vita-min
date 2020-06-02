@@ -1,4 +1,4 @@
-<% @main_question = "Are you willing to answer some additional questions to help us better serve you?" %>
+<% @main_question = t("questions.demographic_questions.title") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -8,10 +8,10 @@
       <%= @main_question %>
     </h1>
     <%= f.button :submit, name: "#{f.object_name}[demographic_questions_opt_in]", value: "yes", class: "button button--wide button--primary", "aria-describedby": "demographic_questions_opt_in_question" do %>
-      Continue
+      <%=t("general.continue") %>
     <% end %>
     <%= f.button :submit, name: "#{f.object_name}[demographic_questions_opt_in]", value: "no", class: "button button--wide", "aria-describedby": "demographic_questions_opt_in_question" do %>
-      Skip questions
+      <%=t("general.skip_question") %>
     <% end %>
   <% end %>
 <% end %>

@@ -1,4 +1,4 @@
-<% content_for :page_title, "File with the help of a tax expert!" %>
+<% content_for :page_title, t("questions.file_with_help.title") %>
 
 <% content_for :form_card do %>
   <div class="form-card">
@@ -7,29 +7,29 @@
     </h1>
 
     <p>
-      You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you.
+      <%=t("questions.file_with_help.info") %>
     </p>
 
     <p>
-    <strong>This is the right option for you if:</strong>
+      <strong><%=t("questions.file_with_help.right_option.header") %></strong>
     </p>
 
     <ul class="checkmark-list">
       <li>
         <%= render "shared/svg/checkmark", fill_class: "teal" %>
-        <span>You need assistance with tax filing</span>
+        <span><%=t("questions.file_with_help.right_option.need_assistance") %></span>
       </li>
       <li>
         <%= render "shared/svg/checkmark", fill_class: "teal" %>
-        <span>Your tax situation is confusing/complicated</span>
+        <span><%=t("questions.file_with_help.right_option.confused") %></span>
       </li>
       <li>
         <%= render "shared/svg/checkmark", fill_class: "teal" %>
-        <span>You’re nervous to file completely on your own</span>
+        <span><%=t("questions.file_with_help.right_option.nervous") %></span>
       </li>
     </ul>
     <%= link_to next_path, class: "button button--primary text--centered button--wide spacing-above-25" do %>
-      Continue
+      <%=t("general.continue") %>
     <% end %>
   </div>
 <% end %>

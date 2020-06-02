@@ -14,9 +14,4 @@ module ApplicationHelper
     (meters / five_miles_in_meters).ceil * 5
   end
 
-  def you_or_spouse(intake)
-    return "you or your spouse" if intake.filing_joint_yes?
-
-    "you"
-  end
 end

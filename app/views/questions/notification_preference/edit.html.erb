@@ -1,11 +1,11 @@
-<% content_for :page_title, "How can we update you on your tax return?" %>
+<% content_for :page_title, t("questions.notification_preference.title") %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
 
     <p>
-      We will reach out with questions and updates. Select the option(s) that you prefer!
+      <%=t("questions.notification_preference.options.header") %>
     </p>
 
     <% if @form.errors[:base].any? %>
@@ -17,26 +17,26 @@
     <% end %>
 
     <div class="form-card__stacked-checkboxes">
-      <%= f.cfa_checkbox(:email_notification_opt_in, "Email Me", options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:email_notification_opt_in, t("questions.notification_preference.options.email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <div class="question-with-follow-up">
         <div class="question-with-follow-up__question">
-          <%= f.cfa_checkbox(:sms_notification_opt_in, "Text Me", options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
+          <%= f.cfa_checkbox(:sms_notification_opt_in, t("questions.notification_preference.options.sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
         </div>
         <div class="text-input--small-label question-with-follow-up__follow-up" id="sms-opt-in">
           <div class="form-group">
-            <%= f.cfa_input_field(:sms_phone_number, "Cell phone number", type: "tel", classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:sms_phone_number, t("questions.notification_preference.options.sms_phone_number"), type: "tel", classes: ["form-width--long"]) %>
           </div>
         </div>
 
         <p class="text--small">
-          Note: We will not share your information with any outside parties.
+          <%=t("questions.notification_preference.note") %>
         </p>
       </div>
 
     </div>
 
     <button class="button button--primary" type="submit">
-      Continue
+      <%=t("general.continue") %>
     </button>
   <% end %>
 <% end %>

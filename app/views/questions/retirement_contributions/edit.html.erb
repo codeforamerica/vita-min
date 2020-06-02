@@ -1,5 +1,5 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} make any contributions to a retirement account?" %>
+<% content_for :form_question, t("questions.retirement_contributions.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, "For example, a 401k, 403b, or any IRA." %>
+<% content_for :form_help_text, t("questions.retirement_contributions.help_text") %>
 
 <% content_for :method_name, :paid_retirement_contributions %>

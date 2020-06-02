@@ -1,5 +1,5 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} have any income from Social Security or Railroad Retirement Benefits?" %>
+<% content_for :form_question, t("questions.social_security_income.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, "Answer \"Yes\" if you received an SSA-1099 or an RRB-1099." %>
+<% content_for :form_help_text, t("questions.social_security_income.help_text") %>
 
 <% content_for :method_name, :had_social_security_income %>

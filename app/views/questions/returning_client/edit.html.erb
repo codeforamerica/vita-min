@@ -1,4 +1,4 @@
-<% @main_heading = "Looks like you’ve already started your tax form." %>
+<% @main_heading = t("questions.returning_client.title") %>
 <% content_for :page_title, @main_heading %>
 
 <main role="main">
@@ -14,12 +14,11 @@
             <%= @main_heading %>
           </h1>
           <p>
-            Please reference the confirmation email or text from your tax preparer with next steps.
-            If you have questions you should email <%= mail_to "hello@getyourrefund.org" %>
+            <%=t("questions.returning_client.next_steps_html", :email_link => mail_to("hello@getyourrefund.org")) %>
           <p>
 
           <%= link_to root_path, class: "button button--primary text--centered button--wide spacing-above-60" do %>
-            Return to home
+              <%=t("general.return_home") %>
           <% end %>
         </main>
       </div>
