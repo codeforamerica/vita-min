@@ -48,7 +48,7 @@ RSpec.feature "Viewing a document for a zendesk ticket" do
     expect(page).to have_text "German Geranium"
 
     click_link "Bank Info"
-    expect(current_path).to eq(banking_info_zendesk_intake_path(intake.id))
+    expect(current_path).to eq(banking_info_zendesk_intake_path(:id => intake.id))
 
     visit "/zendesk/tickets/#{ticket_id}"
 
