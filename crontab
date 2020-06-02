@@ -1,1 +1,1 @@
-*/30 * * * * bundle exec rake some:task
+*/30 * * * * bundle exec rake documents:notify_unsent
