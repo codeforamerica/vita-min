@@ -267,6 +267,7 @@ es:
     search: Buscar
     security_html: Su información es segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
     skip_question: Saltar pregunta
+    skip_questions: Saltar preguntas
     sorry: "¡Lo sentimos!"
     submit: Enviar
     submit_question: Envíe una pregunta a GetYourRefund
