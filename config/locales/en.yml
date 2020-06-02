@@ -908,7 +908,7 @@ en:
       title:
         one: "In %{year}, did you pay any medical, dental, or prescription expenses?"
         other: "In %{year}, did you or your spouse pay any medical, dental, or prescription expenses?"
-      help_text: "This includes monthly premiums for health insurance."
+      help_text: "This includes monthly premiums for health insurance and any Medicare payments."
     mortgage_interest:
       title:
         one: "In %{year}, did you pay any mortgage interest?"

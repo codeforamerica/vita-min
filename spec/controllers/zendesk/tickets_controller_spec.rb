@@ -29,7 +29,8 @@ RSpec.describe Zendesk::TicketsController do
 
           expect(assigns(:ticket)).to eq ticket
           expect(assigns(:intakes)).to contain_exactly(intake)
-          expect(assigns(:documents)).to contain_exactly(id_document, w2_document)
+          expect(assigns(:document_groups).values.flatten.map(&:__getobj__))
+            .to contain_exactly(id_document, w2_document)
           expect(response.body).to include(pdf_zendesk_intake_path(intake.id, filename: intake.intake_pdf_filename))
           expect(response.body).to include(consent_pdf_zendesk_intake_path(
                                              intake.id, filename: intake.consent_pdf_filename))

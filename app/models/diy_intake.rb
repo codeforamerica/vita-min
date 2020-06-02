@@ -44,4 +44,11 @@ class DiyIntake < ApplicationRecord
   def start_filing_url
     Rails.application.routes.url_helpers.diy_start_filing_url(:token => token)
   end
+
+  def duplicate_diy_intakes
+    DiyIntake
+      .where(email_address: email_address)
+      .where.not(ticket_id: nil)
+      .where.not(requester_id: nil)
+  end
 end

@@ -281,7 +281,7 @@ RSpec.describe ZendeskServiceHelper do
 
     it "calls build_ticket, saves the ticket, and returns the ticket id" do
       result = service.create_ticket(**ticket_args)
-      expect(result).to eq 2
+      expect(result).to eq fake_zendesk_ticket
       expect(fake_zendesk_ticket).to have_received(:save).with(no_args)
       expect(service).to have_received(:build_ticket).with(**ticket_args)
     end
@@ -463,6 +463,17 @@ RSpec.describe ZendeskServiceHelper do
       service.get_ticket(ticket_id: 1141)
 
       expect(ZendeskAPI::Ticket).to have_received(:find).with(fake_zendesk_client, id: 1141)
+    end
+  end
+
+  describe "#get_ticket!" do
+    before do
+      allow(ZendeskAPI::Ticket).to receive(:find).and_return(nil)
+    end
+    it "raises a MissingTicketError if a ticket is not found" do
+      expect {
+        service.get_ticket!(1234)
+      }.to raise_error(ZendeskServiceHelper::MissingTicketError)
     end
   end
 

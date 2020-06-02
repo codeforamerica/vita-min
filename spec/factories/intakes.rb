@@ -174,5 +174,12 @@ FactoryBot.define do
     factory :anonymous_intake do
       anonymous { true }
     end
+
+    trait :with_banking_details do
+      bank_name { "Self-help United" }
+      bank_routing_number { "12345678" }
+      bank_account_number { "87654321" }
+      bank_account_type { "checking" }
+    end
   end
 end

@@ -61,6 +61,14 @@ class ZendeskIntakeService
     )
   end
 
+  ##
+  # creates a zendesk ticket, assigns statuses, and
+  # updates the +intake+ with the ticket id.
+  #
+  # will raise a +ZendeskAPIError+ (from ZendeskServiceHelper#create_ticket) if
+  # ticket creation fails.
+  #
+  # @return [ZendeskAPI::Ticket] the created ticket
   def create_intake_ticket
     # returns the Zendesk ID of the created ticket
     raise MissingRequesterIdError if @intake.intake_ticket_requester_id.blank?
@@ -69,7 +77,7 @@ class ZendeskIntakeService
     @intake.transaction do
       # we only want to create an initial ticket status if we are able
       # to make a zendesk ticket without errors
-      ticket_id = create_ticket(
+      ticket = create_ticket(
         subject: new_ticket_subject,
         requester_id: @intake.intake_ticket_requester_id,
         external_id: @intake.external_id,
@@ -80,12 +88,12 @@ class ZendeskIntakeService
       ticket_status = @intake.ticket_statuses.create(
         intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
         return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
-        ticket_id: ticket_id
+        ticket_id: ticket.id
       )
-      @intake.update(intake_ticket_id: ticket_id)
+      @intake.update(intake_ticket_id: ticket.id)
       ticket_status.send_mixpanel_event
       DatadogApi.increment("zendesk.ticket.created")
-      ticket_id
+      ticket
     end
   end
 
@@ -244,9 +252,11 @@ class ZendeskIntakeService
       )
 
       raise CouldNotSendDocumentError unless output
+      @intake.documents.each { |d| d.update(zendesk_ticket_id: @intake.intake_ticket_id) }
       DatadogApi.increment("zendesk.ticket.docs.all.sent")
       output
     end
+
   end
 
   def contact_preferences
@@ -263,6 +273,8 @@ class ZendeskIntakeService
     messages = ""
     messages << "Client has already filed for 2019\n" if @intake.already_filed_yes?
     messages << "Client is filing for Economic Impact Payment support\n" if @intake.filing_for_stimulus_yes?
+    diy_intakes = DiyIntake.where.not(email_address: nil).where(email_address: @intake.email_address)
+    messages << "This client has previously requested a DIY link from GetYourRefund.org\n" if diy_intakes.count > 0
     messages
   end
 

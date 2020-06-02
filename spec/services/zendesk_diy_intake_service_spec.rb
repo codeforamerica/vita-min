@@ -4,12 +4,15 @@ describe ZendeskDiyIntakeService do
   let(:requester_id) { 12341321234 } # zendesk requester ids are big integers
   let(:fake_eitc_zendesk_client) { double(ZendeskAPI::Client) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: requester_id) }
+  let(:preferred_name) { "Dotty" }
+  let(:state_of_residence) { "NC" }
+  let(:email_address) { "doit@your.self" }
   let(:diy_intake) do
     create(
       :diy_intake,
-      email_address: "doit@your.self",
-      preferred_name: "Dotty",
-      state_of_residence: "NC",
+      email_address: email_address,
+      preferred_name: preferred_name,
+      state_of_residence: state_of_residence,
     )
   end
   let(:service) { described_class.new(diy_intake) }
@@ -48,6 +51,8 @@ describe ZendeskDiyIntakeService do
   end
 
   describe "#create_diy_intake_ticket" do
+    let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 101, errors: nil) }
+
     before do
       diy_intake.requester_id = requester_id
     end
@@ -65,7 +70,7 @@ describe ZendeskDiyIntakeService do
           EitcZendeskInstance::STATE => diy_intake.state_of_residence,
           ZendeskDiyIntakeService::DIY_SUPPORT_UNIQUE_LINK => diy_intake.start_filing_url
         }
-      ).and_return(101)
+      ).and_return(fake_zendesk_ticket)
       expect { service.create_diy_intake_ticket }.
         to change { diy_intake.ticket_id }.from(nil).to(101)
     end
@@ -80,21 +85,44 @@ describe ZendeskDiyIntakeService do
   end
 
   describe "#ticket_body" do
-    let(:expected_body) do
-      <<~BODY
-        New DIY Intake Started
-
-        Preferred name: Dotty
-        Email: doit@your.self
-        State of residence: North Carolina
-        Client has been sent DIY link via email
-
-        send_diy_confirmation
-      BODY
+    it "adds all relevant details about the user and diy intake" do
+      body = service.ticket_body
+      expect(body).to include "New DIY Intake Started"
+      expect(body).to include "Preferred name: #{preferred_name}"
+      expect(body).to include "Email: #{email_address}"
+      expect(body).to include "State of residence: North Carolina"
+      expect(body).to include "Client has been sent DIY link via email"
+      expect(body).to include "send_diy_confirmation"
     end
 
-    it "adds all relevant details about the user and diy intake" do
-      expect(service.ticket_body).to eq expected_body
+    context "with corresponding full service tickets" do
+      let(:intake_ticket_map) do
+        { 99998 => double(ZendeskAPI::Ticket, id: "99998"),
+          99997 => double(ZendeskAPI::Ticket, id: "99997") }
+      end
+      let!(:related_intakes) do
+        intake_ticket_map.map do |ticket_id, _|
+          create(
+            :intake,
+            email_address: email_address,
+            intake_ticket_id: ticket_id
+          )
+        end
+      end
+
+      before do
+        intake_ticket_map.each do |tid, ticket|
+          allow(service).to receive(:get_ticket!).with(tid).and_return(ticket)
+        end
+      end
+
+      it "adds references to the full service tickets" do
+        body = service.ticket_body
+
+        intake_ticket_map.each do |_, ticket|
+          expect(body).to include "This client has a GetYourRefund full service ticket: #{service.ticket_url(ticket.id)}"
+        end
+      end
     end
   end
 
@@ -130,6 +158,38 @@ describe ZendeskDiyIntakeService do
         expect(service.ticket_subject)
           .to eq "#{diy_intake.preferred_name} DIY Support (Test Ticket)"
       end
+    end
+  end
+
+  describe "#append_resend_confirmation_email_comment" do
+    before do
+      diy_intake.update(ticket_id: 1234)
+      allow(service).to receive(:append_comment_to_ticket)
+    end
+
+    it "adds a comment to the exisiting Zendesk ticket" do
+      service.append_resend_confirmation_email_comment
+      expect(service).to have_received(:append_comment_to_ticket)
+                           .with(ticket_id: 1234, comment: service.resend_confirmation_email_comment_body)
+    end
+  end
+
+  describe "#resend_confirmation_email_comment_body" do
+    let(:expected_body) do
+      <<~BODY
+        DIY Intake Started with Duplicate Email
+
+        Preferred name: Dotty
+        Email: doit@your.self
+        State of residence: North Carolina
+        Client has been re-sent DIY link via email
+
+        diy_confirmation_resend
+      BODY
+    end
+
+    it "adds all relevant details about the user and diy intake" do
+      expect(service.resend_confirmation_email_comment_body).to eq expected_body
     end
   end
 

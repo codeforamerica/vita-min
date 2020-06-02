@@ -4,6 +4,9 @@ module Zendesk
     include FileResponseControllerHelper
 
     before_action :require_zendesk_user, :set_intake, :require_ticket_access
+    helper_method :zendesk_ticket_id
+
+    layout "admin"
 
     def intake_pdf
       render_pdf @intake.pdf
@@ -11,6 +14,9 @@ module Zendesk
 
     def consent_pdf
       render_pdf @intake.consent_pdf
+    end
+
+    def banking_info
     end
 
     private

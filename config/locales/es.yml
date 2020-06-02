@@ -875,7 +875,7 @@ es:
       help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
       title: Al 31 de diciembre, %{year}, ¿estaba legalmente casado?
     medical_expenses:
-      help_text: Esto incluye las primas mensuales para el seguro de salud.
+      help_text: Esto incluye las primas mensuales para el seguro de salud y cualquier pago de Medicare.
       title:
         one: En %{year}, ¿pagó algún gasto médico, dental o de prescripción?
         other: En %{year}, ¿usted o su cónyuge pagaron gastos médicos, dentales o de medicamentos recetados?

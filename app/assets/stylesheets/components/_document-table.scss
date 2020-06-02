@@ -1,0 +1,38 @@
+.document-table {
+  table-layout: fixed;
+  width: 904px;
+
+
+  .document-column {
+    &__doc-type { width: 165px; }
+    &__link { width: 360px; }
+    &__upload-date { width: 129px;}
+    &__notes { width: 250px;}
+  }
+
+
+  td {
+
+    &.document-notes {
+      color: $color-gold-accent;
+    }
+
+    a {
+      color: black;
+      text-decoration: underline;
+
+      &:visited {
+        color: $color-default-purple;
+      }
+
+      &:hover {
+        color: #5C5C5C;
+      }
+    }
+
+    .icon--inline-notice {
+      position: relative;
+      top: 4px;
+    }
+  }
+}
