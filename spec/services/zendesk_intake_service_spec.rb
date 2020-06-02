@@ -523,24 +523,24 @@ describe ZendeskIntakeService do
 
     before do
       intake.intake_ticket_id = 34
-      allow(service).to receive(:append_comment_to_ticket).and_return(output)
+      allow(service).to receive(:append_multiple_files_to_ticket).and_return(output)
     end
 
-    it "lists each document in the comment, adds portal link and marks each document with the ticket id" do
+    it "appends each document to the ticket and marks each document with the ticket id" do
+      result = service.send_all_docs
 
-      expect(service.send_all_docs).to eq(true)
-      expect(service).to have_received(:append_comment_to_ticket).with(
+      expect(result).to eq true
+
+      expect(service).to have_received(:append_multiple_files_to_ticket).with(
         ticket_id: 34,
-        fields: {
-          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(34)
-        },
+        file_list: [
+          { filename: documents[0].upload.filename, file: instance_of(Tempfile) },
+          { filename: documents[1].upload.filename, file: instance_of(Tempfile) },
+        ],
         comment: <<~DOCS
           Documents:
           * #{documents[0].upload.filename} (#{documents[0].document_type})
           * #{documents[1].upload.filename} (#{documents[1].document_type})
-
-          View all client documents here:
-          #{zendesk_ticket_url(34)}
         DOCS
       )
 

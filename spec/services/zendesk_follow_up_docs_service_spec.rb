@@ -31,26 +31,26 @@ describe ZendeskFollowUpDocsService do
 
     before do
       DatadogApi.instance_variable_set("@dogapi_client", nil)
-      allow(service).to receive(:append_comment_to_ticket).and_return(output)
+      allow(service).to receive(:append_multiple_files_to_ticket).and_return(output)
     end
 
-    it "lists each requested doc in the comment and adds portal link to the ticket" do
+    it "appends each requested doc to the ticket" do
       result = service.send_requested_docs
+
       expect(result).to eq true
 
-      expect(service).to have_received(:append_comment_to_ticket).with(
+      expect(service).to have_received(:append_multiple_files_to_ticket).with(
         ticket_id: 34,
-        fields: {
-          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(34)
-        },
+        file_list: [
+          { filename: "picture_id.jpg", file: instance_of(Tempfile) },
+          { filename: "picture_id.jpg", file: instance_of(Tempfile) },
+          { filename: "picture_id.jpg", file: instance_of(Tempfile) },
+        ],
         comment: <<~DOCS
           The client added requested follow-up documents:
           * #{requested_docs[0].upload.filename}
           * #{requested_docs[1].upload.filename}
           * #{requested_docs[2].upload.filename}
-
-          View all client documents here:
-          #{zendesk_ticket_url(34)}
         DOCS
       )
     end
@@ -78,9 +78,9 @@ describe ZendeskFollowUpDocsService do
       end
 
       it "does not update zendesk" do
-        service.send_requested_docs
+        result = service.send_requested_docs
 
-        expect(service).not_to have_received(:append_comment_to_ticket)
+        expect(service).not_to have_received(:append_multiple_files_to_ticket)
       end
 
       it "does not send a datadog metric" do
