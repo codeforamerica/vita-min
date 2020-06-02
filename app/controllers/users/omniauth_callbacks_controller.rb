@@ -10,6 +10,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     return redirect_to after_login_path if after_login_path.present?
 
+    # TODO: i18n
     redirect_to root_path, notice: "Signed in as #{user.name}, #{user.email}"
   end
 
@@ -18,6 +19,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     error = request.env["omniauth.error"]
     if error_type == :access_denied
       # the user did not grant permission to view their info
+      # TODO: i18n
       redirect_to root_path, alert: "We were not able to verify your Zendesk account."
     else
       raise error

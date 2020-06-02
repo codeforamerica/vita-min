@@ -1,6 +1,6 @@
 class DemographicEnglishConversationForm < QuestionsForm
   set_attributes_for :intake, :demographic_english_conversation
-  validates_presence_of :demographic_english_conversation, message: "Please answer or click \"Skip question\""
+  validates_presence_of :demographic_english_conversation, message: I18n.t("forms.validators.answer_presence")
 
   def save
     @intake.update(attributes_for(:intake))
