@@ -355,7 +355,7 @@ class Intake < ApplicationRecord
   end
 
   def spouse_name_or_placeholder
-    return "Your spouse" unless spouse_first_name.present?
+    return I18n.t("models.intake.your_spouse") unless spouse_first_name.present?
     spouse_full_name
   end
 

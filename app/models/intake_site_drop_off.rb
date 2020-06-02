@@ -73,21 +73,21 @@ class IntakeSiteDropOff < ApplicationRecord
   strip_attributes only: [:name, :email, :phone_number, :additional_info]
 
   validates_presence_of :name
-  validates :intake_site, inclusion: { in: INTAKE_SITES.values.flatten, message: "Please select an intake site." }
+  validates :intake_site, inclusion: { in: INTAKE_SITES.values.flatten, message: I18n.t("models.intake_site_drop_off.validators.intake_site_inclusion") }
   # TODO: use the States table, e.g.:
   # belongs_to :state, foreign_key: :abbreviation
-  validates :state, inclusion: { in: States.keys, message: "Please select a state." }
+  validates :state, inclusion: { in: States.keys, message: I18n.t("models.intake_site_drop_off.validators.state_inclusion") }
   validates :organization, inclusion: { in: ORGANIZATIONS }
-  validates :signature_method, inclusion: { in: SIGNATURE_METHODS, message: "Please select a pickup method." }
+  validates :signature_method, inclusion: { in: SIGNATURE_METHODS, message: I18n.t("models.intake_site_drop_off.validators.signature_method_inclusion") }
   validates :certification_level, allow_blank: true, inclusion: {
     in: CERTIFICATION_LEVELS,
-    message: "Please select a certification level."
+    message: I18n.t("models.intake_site_drop_off.validators.certification_level_inclusion")
   }
   validates :email, allow_blank: true, format: {
     with: URI::MailTo::EMAIL_REGEXP,
-    message: "Please enter a valid email.",
+    message: I18n.t("models.intake_site_drop_off.validators.email_valid"),
   }
-  validates :phone_number, allow_blank: true, phone: { message: "Please enter a valid phone number." }
+  validates :phone_number, allow_blank: true, phone: { message: I18n.t("models.intake_site_drop_off.validators.phone_number_valid") }
   validate :has_document_bundle?
   validate :has_valid_pickup_date?
 
@@ -96,7 +96,7 @@ class IntakeSiteDropOff < ApplicationRecord
 
   def has_document_bundle?
     doc_is_attached = document_bundle.attached?
-    errors.add(:document_bundle, "Please choose a file.") unless doc_is_attached
+    errors.add(:document_bundle, I18n.t("models.intake_site_drop_off.errors.choose_file")) unless doc_is_attached
     doc_is_attached
   end
 
@@ -140,7 +140,7 @@ class IntakeSiteDropOff < ApplicationRecord
 
   def has_valid_pickup_date?
     return true if pickup_date_string.blank? || parse_month_day_date_string(pickup_date_string)
-    errors.add(:pickup_date_string, "Please enter a valid month and day (M/D).")
+    errors.add(:pickup_date_string, I18n.t("models.intake_site_drop_off.errors.valid_pickup_date"))
     false
   end
 
