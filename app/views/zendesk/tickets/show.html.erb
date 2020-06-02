@@ -9,17 +9,17 @@
       <%= link_to "##{@ticket.id}", "https://eitc.zendesk.com/agent/tickets/#{@ticket.id}", class: "ticket-link" %>
     </h2>
     <p class="text--smaller">
-      The following chart does not include documents uploaded by VITA volunteers or client support
+      <%=t("zendesk.tickets.show.chart.header") %>
     </p>
   </div>
 
   <table class="data-table document-table">
     <thead>
       <tr>
-        <th class="document-column__doc-type"> Doc Type </th>
-        <th class="document-column__link"> Link </th>
-        <th class="document-column__upload-date"> Upload Date </th>
-        <th class="document-column__notes"> Notes </th>
+        <th class="document-column__doc-type"><%=t("zendesk.tickets.show.chart.doc_type") %></th>
+        <th class="document-column__link"><%=t("zendesk.tickets.show.chart.link") %></th>
+        <th class="document-column__upload-date"><%=t("zendesk.tickets.show.chart.upload_date") %></th>
+        <th class="document-column__notes"><%=t("zendesk.tickets.show.chart.notes") %></th>
       </tr>
     </thead>
     <tbody>
@@ -40,7 +40,7 @@
       <% end %>
       <% @intakes.each do |intake| %>
         <tr>
-          <td> Consent </td>
+          <td> <%=t("zendesk.tickets.show.chart.consent") %> </td>
           <td>
             <%= link_to consent_pdf_zendesk_intake_path(
               intake.id,
@@ -76,9 +76,9 @@
       <% end %>
       <% @intakes.select { |intake| intake.bank_account_number.present? }.each do |intake| %>
         <tr>
-          <td> Bank Info </td>
+          <td> <%=t("zendesk.tickets.show.chart.bank_info") %> </td>
           <td>
-            <%= link_to "Bank Info", banking_info_zendesk_intake_path(intake.id)  %>
+            <%= link_to t("zendesk.tickets.show.chart.bank_info"), banking_info_zendesk_intake_path(intake.id)  %>
           </td>
           <td></td>
           <td></td>

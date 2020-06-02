@@ -77,6 +77,18 @@ Rails.application.routes.draw do
 
     # FSA routes
     get '/diy/check-email', to: 'public_pages#check_email'
+
+    # Admin routes
+    get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
+    namespace :zendesk do
+      resources :tickets, only: [:show]
+      resources :documents, only: [:show]
+      resources :intakes, only: [:pdf, :consent_pdf] do
+        get "13614c/:filename", to: "intakes#intake_pdf", on: :member, as: :pdf
+        get "consent/:filename", to: "intakes#consent_pdf", on: :member, as: :consent_pdf
+        get "banking-info", to: "intakes#banking_info", on: :member, as: :banking_info
+      end
+    end
   end
 
   # Routes outside of the locale scope are not internationalized
@@ -88,14 +100,4 @@ Rails.application.routes.draw do
       omniauth_callbacks: "users/omniauth_callbacks",
   }
   get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
-  get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
-  namespace :zendesk do
-    resources :tickets, only: [:show]
-    resources :documents, only: [:show]
-    resources :intakes, only: [:pdf, :consent_pdf] do
-      get "13614c/:filename", to: "intakes#intake_pdf", on: :member, as: :pdf
-      get "consent/:filename", to: "intakes#consent_pdf", on: :member, as: :consent_pdf
-      get "banking-info", to: "intakes#banking_info", on: :member, as: :banking_info
-    end
-  end
 end

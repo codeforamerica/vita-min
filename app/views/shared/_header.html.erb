@@ -8,6 +8,12 @@
       </div>
     </div>
     <div class="toolbar__right">
+      <%# if I18n.locale != :en %>
+        <%#= link_to("English", "?" + request.query_parameters.merge("new_locale" => "en").to_query, lang: 'en', class: "toolbar__item text--small") %>
+      <%# end %>
+      <%# if I18n.locale != :es %>
+        <%#= link_to "Español", "?" + request.query_parameters.merge("new_locale" => "es").to_query, lang: 'es', class: "toolbar__item text--small" %>
+      <%# end %>
       <%= yield :toolbar_right %>
     </div>
   </div>
