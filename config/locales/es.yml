@@ -328,6 +328,8 @@ es:
       ticket_id: 'ID de ticket de Zendesk: %{ticket_id}'
       title: 'Enviado para la preparación! ID de ticket de Zendesk: %{ticket_id}'
   layouts:
+    admin:
+      welcome_user_html: Bienvenido <strong class="user__name">%{name}</strong>
     application:
       meta:
         description: Maximice su reembolso presentando a nuestros voluntarios de confianza. Disponible para usted en línea o en persona!
@@ -1152,3 +1154,23 @@ es:
       no_phone_number_listed: Lo sentimos, no hay número de teléfono en la lista.
       phone_number_title: Llamar %{provider_name}
       search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})%>
+  zendesk:
+    intakes:
+      banking_info:
+        account_number: Número de cuenta
+        account_type: Tipo de cuenta
+        bank_name: Nombre del banco
+        routing_number: Número de ruta
+    sign_in:
+      cta: Inicie sesión con Zendesk
+      title: "¡Primero, necesitamos que verifique con Zendesk!"
+    tickets:
+      show:
+        chart:
+          bank_info: Información del banco
+          consent: Consentimiento
+          doc_type: Tipo de documento
+          header: El siguiente cuadro no incluye documentos cargados por voluntarios de VITA o atención al cliente.
+          link: Enlace
+          notes: Notas
+          upload_date: Fecha de carga

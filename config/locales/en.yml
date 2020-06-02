@@ -358,6 +358,8 @@ en:
       ticket_id: "Zendesk Ticket ID: %{ticket_id}"
       add_another: "Add another drop-off"
   layouts:
+    admin:
+      welcome_user_html: "Welcome <strong class=\"user__name\">%{name}</strong>"
     application:
       meta:
         description: "Maximize your refund by filing with our trusted volunteers. Available to you online or in person!"
@@ -1182,3 +1184,23 @@ en:
       no_hours_listed: "Sorry, no hours listed."
       no_phone_number_listed: "Sorry, no phone number listed."
       phone_number_title: "Call %{provider_name}"
+  zendesk:
+    intakes:
+      banking_info:
+        bank_name: "Bank name"
+        routing_number: "Routing number"
+        account_number: "Account number"
+        account_type: "Account type"
+    sign_in:
+      cta: "Sign in with Zendesk"
+      title: "First, we need you to verify with Zendesk!"
+    tickets:
+      show:
+        chart:
+          header: "The following chart does not include documents uploaded by VITA volunteers or client support"
+          bank_info: "Bank Info"
+          consent: "Consent"
+          doc_type: "Doc Type"
+          link: "Link"
+          notes: "Notes"
+          upload_date: "Upload Date"
