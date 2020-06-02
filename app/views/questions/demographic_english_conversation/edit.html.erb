@@ -1,4 +1,4 @@
-<% @main_question = "How well would you say you can carry on a conversation in English?" %>
+<% @main_question = t("questions.demographic_english_conversation.title") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -8,18 +8,18 @@
           :demographic_english_conversation,
           label_text: "<h1 class=\"form-question\">#{@main_question}</h1>".html_safe,
           collection: [
-            { value: :very_well, label: "Very well" },
-            { value: :well, label: "Well" },
-            { value: :not_well, label: "Not well" },
-            { value: :not_at_all, label: "Not at all" },
+            { value: :very_well, label: t("general.very_well") },
+            { value: :well, label: t("general.well") },
+            { value: :not_well, label: t("general.not_well") },
+            { value: :not_at_all, label: t("general.not_at_all") },
           ]
         )
     %>
     <button class="button button--primary button--wide" type="submit">
-      Continue
+      <%=t("general.continue") %>
     </button>
     <%= f.button :submit, name: "#{f.object_name}[demographic_english_conversation]", value: :prefer_not_to_answer, class: "button button--wide" do %>
-      Skip question
+      <%=t("general.skip_question") %>
     <% end %>
   <% end %>
 <% end %>

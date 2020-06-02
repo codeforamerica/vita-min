@@ -1,3 +1,3 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} receive any letter or bill from the IRS?" %>
+<% content_for :form_question, t("questions.irs_letter.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
 <% content_for :method_name, :received_irs_letter %>

@@ -250,11 +250,20 @@ en:
       removed_dependent: "Removed %{full_name}."
   footer:
     service_description_html: "GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally."
+  forms:
+    errors:
+      at_least_one_year: "Please pick at least one year."
+      need_phone_number: "Please enter a cell phone number."
   general:
     address: "Address"
+    affirmative: "Yes"
     chat_with_us: "Chat with us"
+    confirm: "Confirm"
     continue: "Continue"
     edit: "Edit"
+    ethnicity:
+      hispanic: "Hispanic or Latino"
+      not_hispanic: "Not Hispanic or Latino"
     find_location: "Find a Location"
     find_vita_site: "Find a VITA site near you"
     free_file_html: "If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online."
@@ -268,22 +277,36 @@ en:
     irs_free_file: "IRS Free File"
     languages: "Languages"
     negative: "No"
+    next: "Next"
+    not_at_all: "Not at all"
+    not_well: "Not well"
     oops: "Oops!"
     open: "Open"
     other_options: "Try another free tax filing option"
     phone_number: "Phone number"
     privacy_policy: "privacy policy"
+    race:
+      american_indian_alaska_native: "American Indian or Alaska Native"
+      asian: "Asian"
+      black_african_american: "Black or African American"
+      native_hawaiian_pacific_islander: "Native Hawaiian or other Pacific Islander"
+      white: "White"
     remove: "Remove"
     return_home: "Return to home"
     return_search: "Return to search"
     search: "Search"
     security_html: "Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}."
+    skip_question: "Skip question"
     sorry: "We're sorry!"
+    submit: "Submit"
     submit_question: "Submit a question to GetYourRefund"
     upload: "Upload"
+    very_well: "Very well"
     visit_free_file: "Visit IRS Free File"
     vita_long: "VITA: Volunteer Income Tax Assistance"
-    affirmative: "Yes"
+    well: "Well"
+    you: "you"
+    you_or_spouse: "you or your spouse"
   intake_site_drop_offs:
     new:
       title: "Valet VITA Drop-off"
@@ -616,6 +639,459 @@ en:
         header: "We can not answer:"
         different_services: "Questions about taxes filed with a different service (H&amp;R Block, TurboTax)"
         refund_amounts: "The amount of refund you will receive"
+  questions:
+    additional_info:
+      title: "Is there any more information you think we should know?"
+      help_text: "Please share any notes or questions about your tax situation. Your tax preparer will be sure to go over these questions during your phone review."
+    adopted_child:
+      title:
+        one: "In %{year}, did you adopt a child?"
+        other: "In %{year}, did you or your spouse adopt a child?"
+    already_filed:
+      title: "Before we start, have you already filed for 2019?"
+      help_text: "We’re asking because you may have filed with another service or you may have an amendment to your 2019 return."
+    asset_sale_income:
+      title:
+        one: "In %{year}, did you have any income from the sale of stocks, bonds, or real estate?"
+        other: "In %{year}, did you or your spouse have any income from the sale of stocks, bonds, or real estate?"
+      help_text: "For example, any income included on a 1099-B or 1099-S."
+    asset_sale_loss:
+      title:
+        one: "Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?"
+        other: "Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?"
+      help_text: "If you aren't sure, you can check your %{year} tax return."
+    backtaxes:
+      title: "What years do you need to file for?"
+      select_all_that_apply: "Select all that apply."
+    balance_payment:
+      title: "If you have a balance due, would you like to make a payment directly from your bank account?"
+    bank_details:
+      title: "Great, please provide your bank details below!"
+      bank_name: "Bank name"
+      routing_number: "Routing number"
+      account_number: "Account number"
+      account_type:
+        label: "What type of account is this?"
+        checking: "Checking"
+        savings: "Savings"
+    charitable_contributions:
+      title:
+        one: "In %{year}, did you make any charitable contributions?"
+        other: "In %{year}, did you or your spouse make any charitable contributions?"
+      help_text: "This includes cash or goods (such as clothing) donated to a church or charitable organization. For example, if you donated household items to Goodwill or Salvation Army."
+    chat_with_us:
+      title: "Our team at %{partner_name} is here to help!"
+      info: "We know taxes can be hard and we’re here to support you every step of the way!"
+      chat: "If you have questions, you can chat with us by clicking the button in the bottom right of your screen."
+    consent:
+      title: "Great! Here's the legal stuff..."
+      primary_first_name: "Legal first name"
+      primary_last_name: "Legal last name"
+      primary_last_four_ssn: "Last 4 of SSN/ITIN"
+      birth_date: "Date of birth"
+      cta: "I agree"
+    debt_forgiven:
+      title:
+        one: "In %{year}, did you have debt cancelled or forgiven by a lender?"
+        other: "In %{year}, did you or your spouse have debt cancelled or forgiven by a lender?"
+      help_text: "Such as credit card, mortgage, or other debt."
+    demographic_disability:
+      title: "Do you or any member of your household have a disability?"
+    demographic_english_conversation:
+      title: "How well would you say you can carry on a conversation in English?"
+    demographic_english_reading:
+      title: "How well would you say you read a newspaper in English?"
+    demographic_primary_ethnicity:
+      title: "What is your ethnicity?"
+    demographic_primary_race:
+      title: "What is your race?"
+    demographic_questions:
+      title: "Are you willing to answer some additional questions to help us better serve you?"
+    demographic_spouse_ethnicity:
+      title: "What is your spouse's ethnicity?"
+    demographic_spouse_race:
+      title: "What is your spouse's race?"
+    demographic_veteran:
+      title: "Are you or your spouse a veteran of the U.S. Armed Forces?"
+    dependent_care:
+      title:
+        one: "In %{year}, did you pay any child or dependent care expenses?"
+        other: "In %{year}, did you or your spouse pay any child or dependent care expenses?"
+      help_text: "For example, daycare, afterschool care, a nanny, or in-home care."
+    disability_income:
+      title:
+        one: "In %{year}, did you receive any disability benefits?"
+        other: "In %{year}, did you or your spouse receive any disability benefits?"
+      help_text: "Such as payments from insurance or workers compensation that is included on a W-2 or 1099-R."
+    disaster_loss:
+      title:
+        one: "In %{year}, did you have a loss related to a declared Federal Disaster Area?"
+        other: "In %{year}, did you or your spouse have a loss related to a declared Federal Disaster Area?"
+      help_text_html: "If you experienced a disaster in your area, and you are unsure if it was declared a Federal Disaster Area, you can use %{fema_link} to check."
+      fema_tool: "this FEMA tool"
+    divorced:
+      title: "As of December 31, %{year}, were you divorced?"
+    divorced_year:
+      title: "What year was your divorce finalized?"
+      before_2014: "before 2014"
+    eligibility:
+      title: "Let’s check a few things."
+      info: "We have a few additional questions to determine if you qualify for our services."
+      situations:
+        header: "Please check any situation that applies to you."
+        had_rental_income: "I earned money from a rental property"
+        had_farm_income: "I earned money from owning a farm"
+        income_over_limit: "I earned more than $66,000 in %{year}"
+        no_eligibility_checks_apply: "None of the above"
+    email_address:
+      title: "Please share your e-mail address."
+      info: "An e-mail is required for the final signature on your tax return."
+      email_address: "E-mail address"
+      email_address_confirmation: "Confirm e-mail address"
+    energy_efficient_purchases:
+      title:
+        one: "In %{year}, did you purchase energy efficient home items?"
+        other: "In %{year}, did you or your spouse purchase energy efficient home items?"
+      help_text: "For example, windows, furnaces, insulation, etc."
+    estimated_tax_payments:
+      title:
+        one: "In %{most_recent_year}, did you make any estimated tax payments or apply your %{prior_year} refund to your %{most_recent_year} taxes?"
+        other: "In %{most_recent_year}, did you or your spouse make any estimated tax payments or apply your %{prior_year} refund to your %{most_recent_year} taxes?"
+      help_text: "Answer \"Yes\" if you are self-employed and made quarterly estimated tax payments."
+    ever_married:
+      title: "Have you ever been legally married?"
+      help_text: "This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation."
+    file_with_help:
+      title: "File with the help of a tax expert!"
+      info: "You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you."
+      right_option:
+        header: "This is the right option for you if:"
+        need_assistance: "You need assistance with tax filing"
+        confused: "Your tax situation is confusing/complicated"
+        nervous: "You’re nervous to file completely on your own"
+    filing_for_stimulus:
+      title: "Are you trying to file for your stimulus?"
+      help_text: "This year, many people will receive a stimulus check from the federal government."
+    filing_joint:
+      title: "Are you filing joint taxes with your spouse?"
+      help_text: "Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return."
+    final_info:
+      title: "Anything else you'd like your tax preparer to know about your situation?"
+      help_text: "For example, are you missing any documents, or did you have major changes in your household situation this year? If not, you can leave this blank."
+    gambling_income:
+      title:
+        one: "In %{year}, did you have any income from gambling winnings, including the lottery?"
+        other: "In %{year}, did you or your spouse have any income from gambling winnings, including the lottery?"
+      help_text: "May be reported on a W-2G form."
+    had_dependents:
+      title:
+        one: "Would you like to claim anyone for %{year}?"
+        other: "Would you or your spouse like to claim anyone for %{year}?"
+      help_text: "This generally means people who live with you or who you support financially."
+    had_disability:
+      title:
+        one: "In %{year}, did you have a permanent disability?"
+        other: "In %{year}, did you or your spouse have a permanent disability?"
+      help_text: "Permanent disability is calculated as a percentage of your ability to work. It is rated on a scale from 0 to 100%."
+    health_insurance:
+      title:
+        one: "In %{year}, did you purchase health insurance through the marketplace or exchange?"
+        other: "In %{year}, did you or your spouse purchase health insurance through the marketplace or exchange?"
+      help_text: "This includes private health insurance purchased through a government website. This does not include Medicaid, Medicare, or health insurance purchased through your employer."
+    homebuyer_credit:
+      title:
+        one: "Did you receive the First Time Homebuyer Credit in 2008?"
+        other: "Did you or your spouse receive the First Time Homebuyer Credit in 2008?"
+      help_text_html: "If you are unsure, you can use %{irs_link} to check."
+      irs_homebuyer_tool: "this IRS tool"
+    hsa:
+      title:
+        one: "In %{year}, did you have a Health Savings Account?"
+        other: "In %{year}, did you or your spouse have a Health Savings Account?"
+      help_text: "Answer \"Yes\" if you received a 1099-SA or 5498-SA. This does not include Flexible Spending Accounts."
+    identity:
+      title: "First, let’s get some basic information."
+      partner_html: "We are partnering with %{partner_link} to protect your identity and ensure that your personal information is accurate and secure."
+      instructions: "You will need to upload your ID and take a selfie, so we can be sure it's you! It usually takes about 5 minutes to complete."
+      contact_html: "If you have any trouble please chat with us or e-mail %{email_link}."
+      here_to_help: "We’re here to help!"
+      sign_in_html: "Sign in with <span class=\"sr-only\">ID.me</span>"
+      visit_partner: "For more information, please visit ID.me."
+    interest_income:
+      title:
+        one: "In %{year}, did you have any income from interest or dividends?"
+        other: "In %{year}, did you or your spouse have any income from interest or dividends?"
+      help_text: "For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV."
+    interview_scheduling:
+      title: "Do you have any time preferences for your interview phone call?"
+      help_text: "Please provide 2-3 times you are available. For example, \"Tuesday or Thursday evenings\". We'll pass this info along to your interviewer. There is no guarantee that they will be able to call you at your preferred time."
+    irs_letter:
+      title:
+        one: "In %{year}, did you receive any letter or bill from the IRS?"
+        other: "In %{year}, did you or your spouse receive any letter or bill from the IRS?"
+    issued_identity_pin:
+      title: "Have you ever been issued an Identity Protection PIN?"
+      help_text: "If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers."
+    job_count:
+      title:
+        one: "In %{year}, how many jobs did you have?"
+        other: "In %{year}, how many jobs did you or your spouse have?"
+      options:
+        none: "No jobs"
+        one: "1 job"
+        two: "2 jobs"
+        three: "3 jobs"
+        four: "4 jobs"
+        five_or_more: "5 or more jobs"
+        help_text: "Include any work that paid you, no matter how small."
+    lived_with_spouse:
+      title: "Did you live with your spouse during any part of the last six months of %{year}?"
+    local_tax:
+      title:
+        one: "In %{year}, did you pay any state, local, real estate, sales, or other taxes?"
+        other: "In %{year}, did you or your spouse pay any state, local, real estate, sales, or other taxes?"
+      help_text: "Answer \"Yes\" if you owned a home or bought a car in %{year}. You might find this listed on a 1098 form."
+    local_tax_refund:
+      title:
+        one: "In %{year}, did you receive a state or local income tax refund?"
+        other: "In %{year}, did you or your spouse receive a state or local income tax refund?"
+      help_text: "If you are unsure, check your %{prior_year} state tax return."
+    mailing_address:
+      title: "What is your mailing address?"
+      street_address: "Street address"
+      city: "City"
+      state: "State"
+      zip_code: "ZIP code"
+    married:
+      title: "As of December 31, %{year}, were you legally married?"
+      help_text: "This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation."
+    medical_expenses:
+      title:
+        one: "In %{year}, did you pay any medical, dental, or prescription expenses?"
+        other: "In %{year}, did you or your spouse pay any medical, dental, or prescription expenses?"
+      help_text: "This includes monthly premiums for health insurance."
+    mortgage_interest:
+      title:
+        one: "In %{year}, did you pay any mortgage interest?"
+        other: "In %{year}, did you or your spouse pay any mortgage interest?"
+      help_text: "Answer \"Yes\" if you own a home and pay a mortgage. You might find this listed on a 1098 form."
+    notification_preference:
+      title: "How can we update you on your tax return?"
+      options:
+        header: "We will reach out with questions and updates. Select the option(s) that you prefer!"
+        email_notification_opt_in: "Email Me"
+        sms_notification_opt_in: "Text Me"
+        sms_phone_number: "Cell phone number"
+      note: "Note: We will not share your information with any outside parties."
+    on_visa:
+      title: "In %{year}, were you in the United States on a Visa?"
+      help_text: "You should have a stamp in your passport to indicate so."
+    other_income:
+      title:
+        one: "In %{year}, did you receive any other money?"
+        other: "In %{year}, did you or your spouse receive any other money?"
+      help_text: "Such as cash payments, jury duty, awards, virtual currency, royalties, or union strike benefits."
+    other_income_types:
+      title:
+        one: "What were the other types of income that you received?"
+        other: "What were the other types of income that you or your spouse received?"
+    other_states:
+      title: "In %{year}, did you live or work in any other states besides %{state}?"
+    overview:
+      title: "Just a few simple steps to file!"
+      info: "Our form should take you about 30 minutes to complete."
+      questions:
+        header: "Answer Questions"
+        info: "We'll ask you a series of questions about your finances."
+      documents:
+        header: "Submit documents"
+        info: "Share all necessary documents (ID, W-2's, 1099, 1095-A,B,C)."
+      phone_review:
+        header: "Phone review"
+        info: "Your tax preparer will review everything with you over the phone."
+      refund:
+        header: "Get your refund"
+        info: "If you choose to file your taxes, our tax volunteers will help you e-file."
+    overview_documents:
+      title: "Collect all your documents and have them with you."
+      documents_list:
+        header: "In the next pages, we'll be asking for the following:"
+        ssn_itn: "Social Security Number or ITIN"
+        id: "Current driver's license, state ID, or passport"
+        employment_tax: "Employment tax documents (W2's, 1099, etc)"
+        other_tax: "Any other official tax documents"
+      valid_phone_email: "We will also need to verify that you have a valid phone number and e-mail."
+    paid_alimony:
+      title:
+        one: "In %{year}, did you make any alimony payments?"
+        other: "In %{year}, did you or your spouse make any alimony payments?"
+      help_text: "This does not include child support."
+    personal_info:
+      title: "First, let's get some basic information."
+      info: "Welcome, we're excited to help you. We need some basic information to get started."
+      preferred_name: "Preferred name"
+      state_of_residence: "State of residence"
+    phone_number:
+      title: "Please share your contact number."
+      info: "Once you've answered all the tax questions, your tax preparer will call to review your tax situation."
+      phone_number: "Phone number"
+      phone_number_confirmation: "Confirm phone number"
+      phone_number_can_receive_texts: "This number can receive text messages"
+    received_alimony:
+      title:
+        one: "In %{year}, did you receive any income from alimony?"
+        other: "In %{year}, did you or your spouse receive any income from alimony?"
+      help_text: "Answer \"Yes\" even if you did not receive an official IRS document about the alimony. Do not include child support you received."
+    refund_payment:
+      title: "If due a refund, how would like to receive it?"
+      direct_deposit: "Direct deposit (fastest)"
+      check: "Mail me a check (slower)"
+    retirement_contributions:
+      title:
+        one: "In %{year}, did you make any contributions to a retirement account?"
+        other: "In %{year}, did you or your spouse make any contributions to a retirement account?"
+      help_text: "For example, a 401k, 403b, or any IRA."
+    retirement_income:
+      title:
+        one: "In %{year}, did you have any income from a retirement account, pension, or annuity proceeds?"
+        other: "In %{year}, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?"
+      help_text: "Answer \"Yes\" if you moved money between retirement accounts, took money out of your retirement account, or received a 1099-R form."
+    returning_client:
+      title: "Looks like you’ve already started your tax form."
+      next_steps_html: "Please reference the confirmation email or text from your tax preparer with next steps. If you have questions you should email %{email_link}"
+    savings_options:
+      title: "If due a refund, are you interested in using these savings options?"
+      savings_split_refund: "Split my refund between accounts"
+      savings_purchase_bond: "Purchase United States Savings Bond"
+    school_supplies:
+      title:
+        one: "In %{year}, did you pay for any eligible school supplies as a teacher, teacher's aide, or other educator?"
+        other: "In %{year}, did you or your spouse pay for any eligible school supplies as a teacher, teacher's aide, or other educator?"
+      help_text: "Answer \"Yes\" if you are a teacher who purchased classroom supplies for your work."
+    self_employment:
+        title:
+          one: "In %{year}, did you have any income from contract or self-employment work?"
+          other: "In %{year}, did you or your spouse have any income from contract or self-employment work?"
+        help_text: "Answer \"Yes\" if you received a 1099-MISC, 1099-K, or kept payment records for your own business. This includes cash you received for goods or services."
+    self_employment_loss:
+      title:
+        one: "Did you report a business loss on your %{prior_year} tax return?"
+        other: "Did you or your spouse report a business loss on your %{prior_year} tax return?"
+      help_text: "If you aren't sure, you can check Schedule C in your %{prior_year} tax return."
+    separated:
+      title: "Are you legally separated?"
+    separated_year:
+      title: "What year was the separation finalized?"
+      before_2014: "before 2014"
+    social_security_income:
+      title:
+        one: "In %{year}, did you have any income from Social Security or Railroad Retirement Benefits?"
+        other: "In %{year}, did you or your spouse have any income from Social Security or Railroad Retirement Benefits?"
+      help_text: "Answer \"Yes\" if you received an SSA-1099 or an RRB-1099."
+    sold_home:
+      title:
+        one: "In %{year}, did you sell a home?"
+        other: "In %{year}, did you or your spouse sell a home?"
+    spouse_consent:
+      title: "We need your spouse to review our legal stuff..."
+      spouse_first_name: "Spouse's legal first name"
+      spouse_last_name: "Spouse's legal last name"
+      spouse_last_four_ssn: "Last 4 of SSN/ITIN"
+      birth_date: "Date of birth"
+      cta: "I agree"
+    spouse_email_address:
+      title: "Please share your spouse's e-mail address."
+      info: "An e-mail is required for the final signature on your tax return."
+      spouse_email_address: "E-mail address"
+      spouse_email_address_confirmation: "Confirm e-mail address"
+    spouse_had_disability:
+      title: "In %{year}, did your spouse have a permanent disability?"
+      help_text: "Permanent disability is calculated as a percentage of one's ability to work. It is rated on a scale from 0 to 100%."
+    spouse_identity:
+      title: "Spouse Identity"
+      info_now: "If your spouse is sitting with you, you can go ahead and sign in with ID.me"
+      info_later: "If not, we can send them a sign in link through text or e-mail."
+      sign_in_html: "Sign in spouse with <span class=\"sr-only\">ID.me</span>"
+      skip_for_now: "Skip this step for now"
+    spouse_issued_identity_pin:
+      title: "Has your spouse been issued an Identity Protection PIN?"
+    spouse_on_visa:
+      title: "In %{year}, was your spouse in the United States on a Visa?"
+      help_text: "They should have a stamp in their passport to indicate so."
+    spouse_was_blind:
+      title: "In %{year}, was your spouse legally blind?"
+      help_text: "This basically means that even with corrective lenses or surgery, to clearly see an object that a person with normal vision could see from 200 feet away, one would have to be 20 feet or closer."
+    spouse_was_student:
+      title: "Was your spouse a full-time student in %{year}?"
+      help_text: "We are specifically asking if they pursued higher studies such as an associate, bachelors, or masters degree."
+    start_with_current_year:
+      title: "Let's get started"
+      info: "We’ll start by asking about your situation in %{year}."
+      starting_point: "This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone."
+    stimulus_recommendation:
+      title: "Get your stimulus check!"
+      already_filed: "Since you’ve already filed for 2019, you will automatically get your stimulus check! If you have additional questions about your stimulus, we recommend checking out our Stimulus FAQ page."
+      visit_stimulus_faq: "Visit Stimulus FAQ"
+    student:
+      title: "In %{year}, was someone in your family a college or other post high school student?"
+      help_text: "This includes community college, technical school, professional development classes, higher education, and vocational education."
+    student_loan_interest:
+      title:
+        one: "In %{year}, did you pay any student loan interest?"
+        other: "In %{year}, did you or your spouse pay any student loan interest?"
+      help_text: "Answer \"Yes\" if you are making student loan payments."
+    successfully_submitted:
+      title: "Success! Your tax information has been submitted."
+      confirmation_number: "Your confirmation number is: %{confirmation_number}"
+      next_steps:
+        header: "Next Steps"
+        confirmation_message: "You will receive a confirmation message shortly"
+        partner_review: "Your tax preparer at %{partner_name} will review your information"
+        review: "Your tax preparer will review your information"
+        partner_timing: "%{partner_name} will reach out within 3 business days to talk about your taxes"
+        timing: "Your tax preparer will reach out within 3 business days to talk about your taxes"
+    tax_credit_disallowed:
+      title:
+        one: "Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?"
+        other: "Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?"
+      help_text: "Answer \"Yes\" if you were asked to repay any of these credits in the past."
+    tips:
+      title:
+        one: "In %{year}, did you receive any tips?"
+        other: "In %{year}, did you or your spouse receive any tips?"
+      help_text: "Answer \"Yes\" if you received any cash tips not included in a W-2."
+    unemployment_income:
+      title:
+        one: "In %{year}, did you receive any unemployment benefits?"
+        other: "In %{year}, did you or your spouse receive any unemployment benefits?"
+      help_text: "Answer \"Yes\" if you received a 1099-G form."
+    wages:
+      title:
+        one: "In %{year}, did you receive wages or salary?"
+        other: "In %{year}, did you or your spouse receive wages or salary?"
+      help_text: "As an employee you should receive a W-2 for any job you worked. Learn more about form W-2."
+    was_blind:
+      title: "In %{year}, were you legally blind?"
+      help_text: "This means that even with corrective lenses or surgery, to clearly see an object that a person with normal vision could see from 200 feet away, you would have to be 20 feet or closer."
+    was_student:
+      title: "Were you a full-time student in %{year}?"
+      help_text: "We are specifically asking if you pursued higher studies such as an associate, bachelors, or masters degree."
+    widowed:
+      title: "As of December 31, %{year}, were you widowed?"
+    widowed_year:
+      title: "What was the year of your spouse's death?"
+      before_2014: "before 2014"
+    welcome:
+      title: "Welcome! How can we help you?"
+      diy:
+        header: "File taxes myself"
+        info: "File quickly with our DIY tool."
+      intake:
+        header: "File taxes with help"
+        info: "Review and file with the help of a tax expert."
+      question:
+        header: "Ask a question"
+        info: "Get your tax related questions answered."
   shared:
     consent_agreement:
       information_you_provide: "You understand the information you provide this site (GetYourRefund.org) is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order for an IRS-certified volunteer to review your information, conduct an intake interview on the phone, prepare the tax return, and perform a quality review before filing your taxes."
@@ -640,6 +1116,8 @@ en:
       notice_html: "Due to COVID-19, a number of VITA sites and all TCE sites are closed for an undetermined period of time. Please call a site before visiting to confirm hours. To get connected with a VITA site online and have a VITA site assist you with your taxes remotely, visit GetYourRefund.org and click \"Get Started.\" You can also visit the %{free_file_link} to find other free online tax preparation tools."
     grayscale_partner_logo:
       provider_homepage: "%{provider_name} Homepage"
+  validators:
+    zip: "Please enter a valid 5-digit zip code."
   vita_providers:
     index:
       title: "Find a Location"

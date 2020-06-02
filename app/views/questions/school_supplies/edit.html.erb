@@ -1,5 +1,5 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} pay for any eligible school supplies as a teacher, teacher's aide, or other educator?" %>
+<% content_for :form_question, t("questions.school_supplies.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, "Answer \"Yes\" if you are a teacher who purchased classroom supplies for your work." %>
+<% content_for :form_help_text, t("questions.school_supplies.help_text") %>
 
 <% content_for :method_name, :paid_school_supplies %>

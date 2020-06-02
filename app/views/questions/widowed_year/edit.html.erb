@@ -1,4 +1,4 @@
-<% content_for :form_question, "What was the year of your spouse's death?" %>
+<% content_for :form_question, t("questions.widowed_year.title") %>
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card"} do |f| %>
     <%= f.vita_min_select(:widowed_year, content_for(:form_question), [
@@ -9,11 +9,11 @@
         ["2016", "2016"],
         ["2015", "2015"],
         ["2014", "2014"],
-        ["before 2014", "before 2014"],
+        [t("questions.widowed_year.before_2014"), "before 2014"],
       ]
     ) %>
     <button class="button button--primary" type="submit">
-      Next
+      <%=t("general.next") %>
       <i class="button__icon icon-arrow_forward"></i>
     </button>
   <% end %>

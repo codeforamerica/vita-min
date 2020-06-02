@@ -1,5 +1,5 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did #{you_or_spouse(@form.intake)} make any alimony payments?" %>
+<% content_for :form_question, t("questions.paid_alimony.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, "This does not include child support." %>
+<% content_for :form_help_text, t("questions.paid_alimony.help_text") %>
 
 <% content_for :method_name, :paid_alimony %>

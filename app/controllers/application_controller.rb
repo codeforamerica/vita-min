@@ -186,7 +186,7 @@ class ApplicationController < ActionController::Base
     if Rails.env.production? || Rails.env.test?
       redirect_to_beginning_of_intake
     else
-      flash[:alert] = I18n.translate("flash.application_controller.flash_redirect")
+      flash[:alert] = I18n.t("flash.application_controller.flash_redirect")
     end
   end
 
@@ -200,7 +200,7 @@ class ApplicationController < ActionController::Base
     if ENV['MAINTENANCE_MODE'].present?
       return redirect_to maintenance_path
     elsif ENV['MAINTENANCE_MODE_SCHEDULED'].present?
-      flash.now[:warning] = I18n.translate("flash.application_controller.maintenance")
+      flash.now[:warning] = I18n.t("flash.application_controller.maintenance")
     end
   end
 

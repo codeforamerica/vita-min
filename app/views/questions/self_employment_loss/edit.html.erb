@@ -1,5 +1,5 @@
-<% content_for :form_question, "Did #{you_or_spouse(@form.intake)} report a business loss on your #{current_intake.year_before_most_recent_filing_year} tax return?" %>
+<% content_for :form_question, t("questions.self_employment_loss.title", :prior_year => current_intake.year_before_most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, "If you aren't sure, you can check Schedule C in your #{current_intake.year_before_most_recent_filing_year} tax return." %>
+<% content_for :form_help_text, t("questions.self_employment_loss.help_text", :prior_year => current_intake.year_before_most_recent_filing_year) %>
 
 <% content_for :method_name, :reported_self_employment_loss %>

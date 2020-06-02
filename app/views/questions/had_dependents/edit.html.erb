@@ -1,4 +1,4 @@
-<% content_for :form_question, "Would #{you_or_spouse(@form.intake)} like to claim anyone for #{current_intake.most_recent_filing_year}?" %>
-<% content_for :form_help_text, "This generally means people who live with you or who you support financially." %>
+<% content_for :form_question, t("questions.had_dependents.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
+<% content_for :form_help_text, t("questions.had_dependents.help_text") %>
 
 <% content_for :method_name, :had_dependents %>

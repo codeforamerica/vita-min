@@ -1,4 +1,4 @@
-<% @main_question = "Please share your spouse's e-mail address." %>
+<% @main_question = t("questions.spouse_email_address.title") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -6,16 +6,16 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= @main_question %></h1>
     <p class="text--help">
-      An e-mail is required for the final signature on your tax return.
+      <%=t("questions.spouse_email_address.info") %>
     </p>
 
     <div class="form-card__content">
-      <%= f.cfa_input_field(:spouse_email_address, "E-mail address", classes: ["form-width--long"]) %>
-      <%= f.cfa_input_field(:spouse_email_address_confirmation, "Confirm e-mail address", classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:spouse_email_address, t("questions.spouse_email_address.spouse_email_address"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:spouse_email_address_confirmation, t("questions.spouse_email_address.spouse_email_address_confirmation"), classes: ["form-width--long"]) %>
     </div>
 
     <button class="button button--primary" type="submit">
-      Continue
+      <%=t("general.continue") %>
     </button>
   <% end %>
 <% end %>

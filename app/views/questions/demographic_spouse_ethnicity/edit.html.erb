@@ -1,4 +1,4 @@
-<% @main_question = "What is your spouse's ethnicity?" %>
+<% @main_question = t("questions.demographic_spouse_ethnicity.title") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -8,16 +8,16 @@
             :demographic_spouse_ethnicity,
             label_text: "<h1 class=\"form-question\">#{@main_question}</h1>".html_safe,
             collection: [
-                { value: :hispanic_latino, label: "Hispanic or Latino" },
-                { value: :not_hispanic_latino, label: "Not Hispanic or Latino" },
+                { value: :hispanic_latino, label: t("general.ethnicity.hispanic") },
+                { value: :not_hispanic_latino, label: t("general.ethnicity.not_hispanic") },
             ]
         )
     %>
     <button class="button button--primary button--wide" type="submit">
-      Continue
+      <%=t("general.continue") %>
     </button>
     <%= f.button :submit, name: "#{f.object_name}[demographic_spouse_ethnicity]", value: :prefer_not_to_answer, class: "button button--wide" do %>
-      Skip question
+      <%=t("general.skip_question") %>
     <% end %>
   <% end %>
 <% end %>

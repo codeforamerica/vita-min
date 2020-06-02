@@ -1,4 +1,4 @@
-<% content_for :form_question, "In #{current_intake.most_recent_filing_year}, did you have a permanent disability?" %>
-<% content_for :form_help_text, "Permanent disability is calculated as a percentage of your ability to work. It is rated on a scale from 0 to 100%." %>
+<% content_for :form_question, t("questions.had_disability.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
+<% content_for :form_help_text, t("questions.had_disability.help_text") %>
 
 <% content_for :method_name, :had_disability %>

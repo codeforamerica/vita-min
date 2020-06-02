@@ -1,5 +1,5 @@
-<% @main_question = "Do you have any time preferences for your interview phone call?" %>
-<% @help_text = "Please provide 2-3 times you are available. For example, \"Tuesday or Thursday evenings\". We'll pass this info along to your interviewer. There is no guarantee that they will be able to call you at your preferred time." %>
+<% @main_question = t("questions.interview_scheduling.title") %>
+<% @help_text = t("questions.interview_scheduling.help_text") %>
 
 <% content_for :page_title, @main_question %>
 
@@ -7,7 +7,7 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <%= f.vita_min_text_field(:interview_timing_preference, @main_question, help_text: @help_text) %>
     <button class="button button--primary" type="submit">
-      Continue
+      <%=t("general.continue") %>
       <i class="button__icon icon-arrow_forward"></i>
     </button>
   <% end %>
