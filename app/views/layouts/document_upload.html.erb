@@ -28,7 +28,7 @@
                   </div>
                   <div class="doc-preview__info">
                     <h2 class="h3 doc-preview__filename"><%= document.upload.filename %></h2>
-                    <%= link_to(destroy_document_path(document), method: :delete, class: "link--delete", data: { confirm: t("layouts.document_upload.remove_confirmation", :filename => "#{document.upload.filename}")  }) do %>
+                    <%= link_to(destroy_document_path(document), method: :delete, class: "link--delete", data: { confirm: t("views.layouts.document_upload.remove_confirmation", :filename => "#{document.upload.filename}")  }) do %>
                       <%=t("general.remove") %>
                     <% end %>
                   </div>
@@ -45,11 +45,11 @@
                 <%= f.label(:document, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
                   <span class="is-tablet-hidden--inline">
                     <%= image_tag "upload.svg", alt: "" %>
-                    <%=t("layouts.document_upload.select_file") %>
+                    <%=t("views.layouts.document_upload.select_file") %>
                   </span>
                   <span class="is-desktop-hidden--inline">
                     <%= image_tag "camera.svg", alt: "" %>
-                    <%=t("layouts.document_upload.take_picture") %>
+                    <%=t("views.layouts.document_upload.take_picture") %>
                   </span>
                 <% end %>
               </div>
@@ -72,11 +72,11 @@
           <% else %>
             <%= link_to next_path, class: "button button--wide button--icon button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
               <%= image_tag "checkmark--white.svg", alt: "" %>
-              <%=t("layouts.document_upload.done_for_now") %>
+              <%=t("views.layouts.document_upload.done_for_now") %>
             <% end %>
             <%= link_to next_path, class: "button button--wide button--icon", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
               <%= image_tag "crossmark--black.svg", alt: "" %>
-              <%=t("layouts.document_upload.dont_have") %>
+              <%=t("views.layouts.document_upload.dont_have") %>
             <% end %>
           <% end %>
 

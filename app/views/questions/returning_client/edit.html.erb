@@ -1,4 +1,4 @@
-<% @main_heading = t("questions.returning_client.title") %>
+<% @main_heading = t("views.questions.returning_client.title") %>
 <% content_for :page_title, @main_heading %>
 
 <main role="main">
@@ -14,7 +14,7 @@
             <%= @main_heading %>
           </h1>
           <p>
-            <%=t("questions.returning_client.next_steps_html", :email_link => mail_to("hello@getyourrefund.org")) %>
+            <%=t("views.questions.returning_client.next_steps_html", :email_link => mail_to("hello@getyourrefund.org")) %>
           <p>
 
           <%= link_to root_path, class: "button button--primary text--centered button--wide spacing-above-60" do %>

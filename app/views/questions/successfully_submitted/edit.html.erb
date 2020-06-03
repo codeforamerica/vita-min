@@ -1,4 +1,4 @@
-<% content_for :form_question, t("questions.successfully_submitted.title") %>
+<% content_for :form_question, t("views.questions.successfully_submitted.title") %>
 
 <% content_for :form_card do %>
   <%= render 'shared/facebook_pixel', track_conversion: "SubmitIntake" %>
@@ -7,30 +7,30 @@
   </h1>
   <% if current_intake&.intake_ticket_id.present? %>
     <h2 class="text--teal h3">
-      <%=t("questions.successfully_submitted.confirmation_number", :confirmation_number => current_intake.intake_ticket_id) %>
+      <%=t("views.questions.successfully_submitted.confirmation_number", :confirmation_number => current_intake.intake_ticket_id) %>
     </h2>
   <% end %>
 
   <p class="text--small">
-    <strong><%=t("questions.successfully_submitted.next_steps.header") %></strong>
+    <strong><%=t("views.questions.successfully_submitted.next_steps.header") %></strong>
   </p>
 
   <ul class="list--bulleted spacing-below-60">
     <li>
-      <%=t("questions.successfully_submitted.next_steps.confirmation_message") %>
+      <%=t("views.questions.successfully_submitted.next_steps.confirmation_message") %>
     </li>
     <li>
       <% if current_intake&.vita_partner.present? %>
-        <%=t("questions.successfully_submitted.next_steps.partner_review", :partner_name => current_intake.vita_partner.display_name) %>
+        <%=t("views.questions.successfully_submitted.next_steps.partner_review", :partner_name => current_intake.vita_partner.display_name) %>
       <% else %>
-        <%=t("questions.successfully_submitted.next_steps.review") %>
+        <%=t("views.questions.successfully_submitted.next_steps.review") %>
       <% end %>
     </li>
     <li>
       <% if current_intake&.vita_partner.present? %>
-        <%=t("questions.successfully_submitted.next_steps.partner_timing", :partner_name => current_intake.vita_partner.display_name) %>
+        <%=t("views.questions.successfully_submitted.next_steps.partner_timing", :partner_name => current_intake.vita_partner.display_name) %>
       <% else %>
-        <%=t("questions.successfully_submitted.next_steps.timing") %>
+        <%=t("views.questions.successfully_submitted.next_steps.timing") %>
       <% end %>
     </li>
   </ul>

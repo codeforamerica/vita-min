@@ -1,4 +1,4 @@
-<% @main_heading = t("diy.file_yourself.edit.title") %>
+<% @main_heading = t("views.diy.file_yourself.edit.title") %>
 <% content_for :page_title, @main_heading %>
 
 <main role="main">
@@ -13,31 +13,31 @@
           <h1 class="form-question">
             <%= @main_heading %>
           </h1>
-          <p><%=t("diy.file_yourself.edit.info") %></p>
+          <p><%=t("views.diy.file_yourself.edit.info") %></p>
 
           <div class="text--semibold spacing-below-35">
-            <p><%=t("diy.file_yourself.edit.right_option.header") %></p>
+            <p><%=t("views.diy.file_yourself.edit.right_option.header") %></p>
             <ul class="checkmark-list">
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t("diy.file_yourself.edit.right_option.2019_only") %> </span>
+                <span><%=t("views.diy.file_yourself.edit.right_option.2019_only") %> </span>
               </li>
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t("diy.file_yourself.edit.right_option.comfortable_online") %> </span>
+                <span><%=t("views.diy.file_yourself.edit.right_option.comfortable_online") %> </span>
               </li>
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t("diy.file_yourself.edit.right_option.simple_situation") %> </span>
+                <span><%=t("views.diy.file_yourself.edit.right_option.simple_situation") %> </span>
               </li>
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t("diy.file_yourself.edit.right_option.quick") %> </span>
+                <span><%=t("views.diy.file_yourself.edit.right_option.quick") %> </span>
               </li>
             </ul>
           </div>
 
-          <%= link_to t("diy.file_yourself.edit.need_assistance"), file_with_help_questions_path, class: "text--purple" %>
+          <%= link_to t("views.diy.file_yourself.edit.need_assistance"), file_with_help_questions_path, class: "text--purple" %>
 
           <%= link_to t("general.continue"), next_path, class: "button button--primary text--centered button--wide spacing-above-60" %>
         </main>

@@ -1,5 +1,5 @@
-<% content_for :form_question, t("documents.prior_tax_returns.title", :year => current_intake.year_before_most_recent_filing_year) %>
+<% content_for :form_question, t("views.documents.prior_tax_returns.title", :year => current_intake.year_before_most_recent_filing_year) %>
 
 <% content_for :form_help_text do %>
-  <%=t("documents.prior_tax_returns.help_text_html", :year => current_intake.year_before_most_recent_filing_year, :transcript_link => link_to(t("general.here"), "https://www.irs.gov/newsroom/how-to-get-tax-transcripts-and-copies-of-tax-returns-from-the-irs", target: "_blank", rel: "noopener")) %>
+  <%=t("views.documents.prior_tax_returns.help_text_html", :year => current_intake.year_before_most_recent_filing_year, :transcript_link => link_to(t("general.here"), "https://www.irs.gov/newsroom/how-to-get-tax-transcripts-and-copies-of-tax-returns-from-the-irs", target: "_blank", rel: "noopener")) %>
 <% end %>

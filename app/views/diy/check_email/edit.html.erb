@@ -1,4 +1,4 @@
-<% @main_heading = t("diy.check_email.edit.title") %>
+<% @main_heading = t("views.diy.check_email.edit.title") %>
 <% content_for :page_title, @main_heading %>
 
 <main role="main">
@@ -13,8 +13,8 @@
             <%= @main_heading %>
           </h1>
           <div class="offboarding--help-text">
-            <p><%=t("diy.check_email.edit.sent_secure_link") %></p>
-            <p><%=t("diy.check_email.edit.questions_html", :email_link => link_to("hello@getyourrefund.org", "mailto:hello@getyourrefund.org", class: "text--black")) %></p>
+            <p><%=t("views.diy.check_email.edit.sent_secure_link") %></p>
+            <p><%=t("views.diy.check_email.edit.questions_html", :email_link => link_to("hello@getyourrefund.org", "mailto:hello@getyourrefund.org", class: "text--black")) %></p>
           </div>
           <div class="buttons--vertical-stack">
             <%= link_to t("general.return_home"), root_path, class: "button button--primary button--wide text--centered spacing-above-60" %>

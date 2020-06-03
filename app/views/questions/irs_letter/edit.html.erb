@@ -1,3 +1,3 @@
-<% content_for :form_question, t("questions.irs_letter.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
+<% content_for :form_question, t("views.questions.irs_letter.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
 <% content_for :method_name, :received_irs_letter %>

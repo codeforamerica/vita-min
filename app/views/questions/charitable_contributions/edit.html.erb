@@ -1,5 +1,5 @@
-<% content_for :form_question, t("questions.charitable_contributions.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
+<% content_for :form_question, t("views.questions.charitable_contributions.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, t("questions.charitable_contributions.help_text") %>
+<% content_for :form_help_text, t("views.questions.charitable_contributions.help_text") %>
 
 <% content_for :method_name, :paid_charitable_contributions %>

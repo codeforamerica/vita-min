@@ -31,11 +31,11 @@ RSpec.describe Zendesk::TicketsController do
           expect(assigns(:intakes)).to contain_exactly(intake)
           expect(assigns(:document_groups).values.map(&:first).map(&:original_object))
             .to contain_exactly(id_document, w2_document)
-          expect(response.body).to include(pdf_zendesk_intake_path(intake.id, filename: intake.intake_pdf_filename))
+          expect(response.body).to include(pdf_zendesk_intake_path(id: intake.id, filename: intake.intake_pdf_filename))
           expect(response.body).to include(consent_pdf_zendesk_intake_path(
-                                             intake.id, filename: intake.consent_pdf_filename))
-          expect(response.body).to include(zendesk_document_path(id_document.id))
-          expect(response.body).to include(zendesk_document_path(w2_document.id))
+                                             id: intake.id, filename: intake.consent_pdf_filename))
+          expect(response.body).to include(zendesk_document_path(id: id_document.id))
+          expect(response.body).to include(zendesk_document_path(id: w2_document.id))
         end
       end
 
@@ -51,17 +51,17 @@ RSpec.describe Zendesk::TicketsController do
           expect(assigns(:intakes)).to contain_exactly(intake, duplicate_intake)
           contain_exactly(id_document, duplicate_id_document, w2_document, duplicate_w2_document)
 
-          expect(response.body).to include(pdf_zendesk_intake_path(intake.id, filename: intake.intake_pdf_filename))
+          expect(response.body).to include(pdf_zendesk_intake_path(id: intake.id, filename: intake.intake_pdf_filename))
           expect(response.body).to include(consent_pdf_zendesk_intake_path(
-                                             intake.id, filename: intake.consent_pdf_filename))
-          expect(response.body).to include(zendesk_document_path(id_document.id))
-          expect(response.body).to include(zendesk_document_path(w2_document.id))
+                                             id: intake.id, filename: intake.consent_pdf_filename))
+          expect(response.body).to include(zendesk_document_path(id: id_document.id))
+          expect(response.body).to include(zendesk_document_path(id: w2_document.id))
 
-          expect(response.body).to include(pdf_zendesk_intake_path(duplicate_intake.id, filename: duplicate_intake.intake_pdf_filename))
+          expect(response.body).to include(pdf_zendesk_intake_path(id: duplicate_intake.id, filename: duplicate_intake.intake_pdf_filename))
           expect(response.body).to include(consent_pdf_zendesk_intake_path(
-                                             duplicate_intake.id, filename: duplicate_intake.consent_pdf_filename))
-          expect(response.body).to include(zendesk_document_path(duplicate_id_document.id))
-          expect(response.body).to include(zendesk_document_path(duplicate_w2_document.id))
+                                             id: duplicate_intake.id, filename: duplicate_intake.consent_pdf_filename))
+          expect(response.body).to include(zendesk_document_path(id: duplicate_id_document.id))
+          expect(response.body).to include(zendesk_document_path(id: duplicate_w2_document.id))
         end
       end
     end

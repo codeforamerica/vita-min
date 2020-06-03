@@ -1,4 +1,4 @@
-<% content_for :page_title, t("questions.spouse_identity.title") %>
+<% content_for :page_title, t("views.questions.spouse_identity.title") %>
 <% content_for :notices do %>
   <% if @missing_spouse_notice.present? %>
     <div class="notice--warning">
@@ -12,24 +12,24 @@
 <% content_for :form_card do %>
   <div class="form-card">
     <h1 class="form-question">
-      <%=t("questions.spouse_identity.title") %>
+      <%=t("views.questions.spouse_identity.title") %>
     </h1>
 
     <p>
-      <%=t("questions.spouse_identity.info_now") %>
+      <%=t("views.questions.spouse_identity.info_now") %>
     </p>
 
     <p class="spacing-below-35">
-      <%=t("questions.spouse_identity.info_later") %>
+      <%=t("views.questions.spouse_identity.info_later") %>
     </p>
 
     <%= link_to destroy_idme_session_path, class: "button button--primary button--wide text--centered", method: :delete do %>
-      <%=t("questions.spouse_identity.sign_in_html") %>
+      <%=t("views.questions.spouse_identity.sign_in_html") %>
       <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
     <% end %>
 
     <%= link_to spouse_was_student_questions_path, class: "button button--wide text--centered" do %>
-      <%=t("questions.spouse_identity.skip_for_now") %>
+      <%=t("views.questions.spouse_identity.skip_for_now") %>
   <% end %>
   </div>
 <% end %>

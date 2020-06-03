@@ -1,17 +1,17 @@
-<% content_for :form_question, t("questions.job_count.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1)  %>
+<% content_for :form_question, t("views.questions.job_count.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filing_joint_yes? ? 2 : 1)  %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
     <%= f.vita_min_select(:job_count, content_for(:form_question), [
-        [t("questions.job_count.options.none"),  0],
-        [t("questions.job_count.options.one"),  1],
-        [t("questions.job_count.options.two"), 2],
-        [t("questions.job_count.options.three"), 3],
-        [t("questions.job_count.options.four"), 4],
-        [t("questions.job_count.options.five_or_more"), 5],
+        [t("views.questions.job_count.options.none"),  0],
+        [t("views.questions.job_count.options.one"),  1],
+        [t("views.questions.job_count.options.two"), 2],
+        [t("views.questions.job_count.options.three"), 3],
+        [t("views.questions.job_count.options.four"), 4],
+        [t("views.questions.job_count.options.five_or_more"), 5],
       ],
       {
-        help_text: t("questions.job_count.options.help_text"),
+        help_text: t("views.questions.job_count.options.help_text"),
         include_blank: true
       }
     ) %>

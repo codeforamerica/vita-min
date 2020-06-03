@@ -1,11 +1,11 @@
-<% content_for :page_title, t("questions.notification_preference.title") %>
+<% content_for :page_title, t("views.questions.notification_preference.title") %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
 
     <p>
-      <%=t("questions.notification_preference.options.header") %>
+      <%=t("views.questions.notification_preference.options.header") %>
     </p>
 
     <% if @form.errors[:base].any? %>
@@ -17,19 +17,19 @@
     <% end %>
 
     <div class="form-card__stacked-checkboxes">
-      <%= f.cfa_checkbox(:email_notification_opt_in, t("questions.notification_preference.options.email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:email_notification_opt_in, t("views.questions.notification_preference.options.email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <div class="question-with-follow-up">
         <div class="question-with-follow-up__question">
-          <%= f.cfa_checkbox(:sms_notification_opt_in, t("questions.notification_preference.options.sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
+          <%= f.cfa_checkbox(:sms_notification_opt_in, t("views.questions.notification_preference.options.sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
         </div>
         <div class="text-input--small-label question-with-follow-up__follow-up" id="sms-opt-in">
           <div class="form-group">
-            <%= f.cfa_input_field(:sms_phone_number, t("questions.notification_preference.options.sms_phone_number"), type: "tel", classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:sms_phone_number, t("views.questions.notification_preference.options.sms_phone_number"), type: "tel", classes: ["form-width--long"]) %>
           </div>
         </div>
 
         <p class="text--small">
-          <%=t("questions.notification_preference.note") %>
+          <%=t("views.questions.notification_preference.note") %>
         </p>
       </div>
 

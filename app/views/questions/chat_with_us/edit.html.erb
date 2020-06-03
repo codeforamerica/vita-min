@@ -1,6 +1,6 @@
 <% content_for :body_class, "partner-page" %>
 
-<% content_for :page_title, t("questions.chat_with_us.title", :partner_name => current_intake.vita_partner&.display_name) %>
+<% content_for :page_title, t("views.questions.chat_with_us.title", :partner_name => current_intake.vita_partner&.display_name) %>
 
 <% content_for :form_card do %>
   <div class="form-card">
@@ -9,11 +9,11 @@
     </h1>
 
     <p>
-      <%=t("questions.chat_with_us.info") %>
+      <%=t("views.questions.chat_with_us.info") %>
     </p>
 
     <p>
-      <%=t("questions.chat_with_us.chat") %>
+      <%=t("views.questions.chat_with_us.chat") %>
     </p>
 
     <%= link_to next_path, class: "button button--primary text--centered" do %>

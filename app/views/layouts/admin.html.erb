@@ -1,7 +1,7 @@
 <% content_for :toolbar_right do %>
   <div class="toolbar__item">
     <span class="user__welcome">
-      <%=t("layouts.admin.welcome_user_html", :name => current_user.name) %>
+      <%=t("views.layouts.admin.welcome_user_html", :name => current_user.name) %>
     </span>
   </div>
 <% end if current_user %>

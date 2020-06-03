@@ -1,4 +1,4 @@
-<% content_for :page_title, t("documents.intro.title") %>
+<% content_for :page_title, t("views.documents.intro.title") %>
 
 <% content_for :main do %>
   <section class="slab slab--white">
@@ -9,7 +9,7 @@
             <%= content_for(:page_title) %>
           </h1>
           <p class="text--help">
-            <%=t("documents.intro.info") %>
+            <%=t("views.documents.intro.info") %>
           </p>
           <p class="text--help">
             <strong>
@@ -20,7 +20,7 @@
           <div class="document-overview-list">
             <% if any_must_have_docs?(recommended_document_types) %>
               <p>
-                <strong><%=t("documents.intro.should_have") %></strong>
+                <strong><%=t("views.documents.intro.should_have") %></strong>
               </p>
               <% recommended_document_types.each do |type| %>
                 <% if must_have?(type) %>
@@ -37,7 +37,7 @@
           <div class="document-overview-list">
             <% if any_might_have_docs?(recommended_document_types) %>
               <p>
-                <strong><%=t("documents.intro.might_have") %></strong>
+                <strong><%=t("views.documents.intro.might_have") %></strong>
               </p>
               <% recommended_document_types.each do |type| %>
                 <% if might_have?(type) %>

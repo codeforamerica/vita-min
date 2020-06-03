@@ -1,4 +1,4 @@
-<% content_for :page_title, t("public_pages.about_us.title") %>
+<% content_for :page_title, t("views.public_pages.about_us.title") %>
 <% content_for :body_class, "about-us" %>
 
 <%= render("shared/breadcrumb")%>
@@ -8,10 +8,10 @@
     <div class="grid">
       <div class="grid__item width-seven-twelfths">
         <h1 class="h2">
-          <%=t("public_pages.about_us.title") %>
+          <%=t("views.public_pages.about_us.title") %>
         </h1>
-        <p><%=t("public_pages.about_us.how_it_works") %></p>
-        <p><%=t("public_pages.about_us.how_it_helps") %></p>
+        <p><%=t("views.public_pages.about_us.how_it_works") %></p>
+        <p><%=t("views.public_pages.about_us.how_it_helps") %></p>
 
         <p class="center-on-mobile">
           <%= link_to "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", rel: "noopener", class: "logos-link" do %>
@@ -39,11 +39,11 @@
     <div class="grid">
       <div class="grid__item width-one-half partner-quote-left">
         <div class="partner-picture">
-          <%= image_tag "partner-picture--courtney.png", alt: t("public_pages.about_us.partners.photo_alt.courtney") %>
+          <%= image_tag "partner-picture--courtney.png", alt: t("views.public_pages.about_us.partners.photo_alt.courtney") %>
         </div>
         <div class="partner-quote">
           <blockquote>
-            <p><%=t("public_pages.about_us.partners.quote.courtney") %></p>
+            <p><%=t("views.public_pages.about_us.partners.quote.courtney") %></p>
 
             <footer role="contentinfo">
               <p>
@@ -59,11 +59,11 @@
 
       <div class="grid__item width-one-half partner-quote-right">
         <div class="partner-picture">
-          <%= image_tag "partner-picture--denise.png", alt: t("public_pages.about_us.partners.photo_alt.denise") %>
+          <%= image_tag "partner-picture--denise.png", alt: t("views.public_pages.about_us.partners.photo_alt.denise") %>
         </div>
         <div class="partner-quote">
           <blockquote>
-            <p><%=t("public_pages.about_us.partners.quote.denise") %></p>
+            <p><%=t("views.public_pages.about_us.partners.quote.denise") %></p>
 
             <footer role="contentinfo">
               <p>
@@ -82,8 +82,8 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item">
-        <h2 class="h3"><%=t("public_pages.about_us.partners.header") %></h2>
-        <p><%=t("public_pages.about_us.partners.subheader") %></p>
+        <h2 class="h3"><%=t("views.public_pages.about_us.partners.header") %></h2>
+        <p><%=t("views.public_pages.about_us.partners.subheader") %></p>
 
         <ul class="partner-logos">
           <%= render(
@@ -150,7 +150,7 @@
   <section class="slab slab--partner-cta">
     <div class="grid">
       <div class="grid__item partner-cta">
-        <p class="partner-cta-text"><%=t("public_pages.about_us.partners.cta") %></p>
+        <p class="partner-cta-text"><%=t("views.public_pages.about_us.partners.cta") %></p>
         <a href="mailto:partnerships@getyourrefund.org" class="partner-cta-link">
           partnerships@getyourrefund.org
         </a>

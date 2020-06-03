@@ -21,7 +21,7 @@
         <h1 class="provider-name h2"><%= @provider.name %></h1>
         <% if @zip.present? %>
           <p class="text--small">
-            <%=t("vita_providers.show.search_radius", :distance => round_meters_up_to_5_mi(@distance), :zip => @zip, :zip_name => @zip_name) %>
+            <%=t("views.vita_providers.show.search_radius", :distance => round_meters_up_to_5_mi(@distance), :zip => @zip, :zip_name => @zip_name) %>
           </p>
         <% end %>
 
@@ -34,7 +34,7 @@
           <div>
             <h2 class="provider-field__label h3"><%=t("general.address") %></h2>
             <div class="provider-field__value">
-              <%= link_to vita_provider_map_path(id: @provider.id), title: t("vita_providers.show.maps_link_title", :provider_name => @provider.name), target: "_blank", rel: "noopener" do %>
+              <%= link_to vita_provider_map_path(id: @provider.id), title: t("views.vita_providers.show.maps_link_title", :provider_name => @provider.name), target: "_blank", rel: "noopener" do %>
                 <div><%= @provider.street_address %></div>
                 <div><%= @provider.unit %></div>
                 <div><%= @provider.city_state_zip %></div>
@@ -65,16 +65,16 @@
           <div>
             <h2 class="provider-field__label h3"><%=t("general.hours") %></h2>
             <div class="provider-field__value">
-              <%= @provider.hours || t("vita_providers.show.no_hours_listed") %>
+              <%= @provider.hours || t("views.vita_providers.show.no_hours_listed") %>
             </div>
           </div>
         </div>
 
         <% if @provider.appointment_info.present? %>
           <h2 class="h3">
-            <%=t("vita_providers.show.appointment_info", :appointment_info => @provider.appointment_info&.downcase) %>
+            <%=t("views.vita_providers.show.appointment_info", :appointment_info => @provider.appointment_info&.downcase) %>
             <%=
-              t("vita_providers.show.call_to_schedule") if (@provider.appointment_info == "Required" && @provider.phone_number.present?)
+              t("views.vita_providers.show.call_to_schedule") if (@provider.appointment_info == "Required" && @provider.phone_number.present?)
             %>
           </h2>
         <% end %>
@@ -87,11 +87,11 @@
             <h2 class="provider-field__label h3"><%=t("general.phone_number") %></h2>
             <div class="provider-field__value">
               <% if @provider.phone_number.present? %>
-                <%= link_to "tel:#{@provider.sanitized_phone_number}", title: t("vita_providers.show.phone_number_title", :provider_name => @provider.name) do %>
+                <%= link_to "tel:#{@provider.sanitized_phone_number}", title: t("views.vita_providers.show.phone_number_title", :provider_name => @provider.name) do %>
                   <%= @provider.formatted_phone_number %>
                 <% end %>
               <% else %>
-                <%=t("vita_providers.show.no_phone_number_listed") %>
+                <%=t("views.vita_providers.show.no_phone_number_listed") %>
               <% end %>
             </div>
           </div>
