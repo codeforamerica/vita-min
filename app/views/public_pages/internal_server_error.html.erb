@@ -1,4 +1,4 @@
-<% content_for :page_title, t("public_pages.error.title") %>
+<% content_for :page_title, t("views.public_pages.error.title") %>
 
 <main role="main">
   <section class="slab slab--white">
@@ -13,16 +13,16 @@
           </h1>
 
           <div class="offboarding--help-text">
-            <p><%=t("public_pages.error.body") %></p>
+            <p><%=t("views.public_pages.error.body") %></p>
 
             <p>
-              <strong><%=t("public_pages.error.contact_html", :email_link => mail_to("hello@getyourrefund.org")) %></strong>
+              <strong><%=t("views.public_pages.error.contact_html", :email_link => mail_to("hello@getyourrefund.org")) %></strong>
             </p>
           </div>
 
           <div class="buttons--vertical-stack">
             <%= link_to root_path, class: "button button--primary button--wide text--centered" do %>
-              <%=t("public_pages.error.cta") %>
+              <%=t("views.public_pages.error.cta") %>
             <% end %>
           </div>
         </main>

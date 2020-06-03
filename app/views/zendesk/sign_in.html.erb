@@ -1,4 +1,4 @@
-<% @main_heading = t("zendesk.sign_in.title") %>
+<% @main_heading = t("views.zendesk.sign_in.title") %>
 <% content_for :page_title, @main_heading %>
 
 <% content_for :card do %>
@@ -8,6 +8,6 @@
   </h1>
 
   <%= link_to user_zendesk_omniauth_authorize_path, class: "button button--primary button--wide text--centered", method: :post do %>
-    <%=t("zendesk.sign_in.cta") %>
+    <%=t("views.zendesk.sign_in.cta") %>
   <% end %>
 <% end %>

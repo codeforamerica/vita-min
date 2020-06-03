@@ -3,55 +3,55 @@
     <%= @provider_search_form.error_summary %>
   <% end %>
   <% if @providers.empty? && @provider_search_form.valid_zip_searched? %>
-    <%=t("vita_providers.index.no_results") %>
+    <%=t("views.vita_providers.index.no_results") %>
   <% end %>
   <% if @providers.present? %>
-    <%=t("vita_providers.index.results", :total_entries => @providers.total_entries, :zip => @provider_search_form.zip) %>
+    <%=t("views.vita_providers.index.results", :total_entries => @providers.total_entries, :zip => @provider_search_form.zip) %>
   <% else %>
-    <%=t("vita_providers.index.enter_zip") %>
+    <%=t("views.vita_providers.index.enter_zip") %>
   <% end %>
 <% end %>
 
 <% content_for :body_class, "body--providers" %>
 
-<%= render "shared/breadcrumb", page_name: t("vita_providers.index.title") %>
+<%= render "shared/breadcrumb", page_name: t("views.vita_providers.index.title") %>
 
 <main role="main">
   <div class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-two-thirds shift-one-sixth">
-        <h2 class="h1"><%=t("vita_providers.index.header") %></h2>
+        <h2 class="h1"><%=t("views.vita_providers.index.header") %></h2>
 
-        <p><%=t("vita_providers.index.info") %></p>
+        <p><%=t("views.vita_providers.index.info") %></p>
 
         <%= render "shared/covid_warning" %>
 
-        <h1 class="h4"><%=t("vita_providers.index.search.header") %></h1>
+        <h1 class="h4"><%=t("views.vita_providers.index.search.header") %></h1>
 
         <%= form_with model: @provider_search_form, url: vita_providers_path, method: "get", local: true, enforce_utf8: false, builder: VitaMinFormBuilder do |f| %>
-          <%= f.vita_min_searchbar :zip, t("general.search"), label_icon: image_tag("search.svg", class: "vita-min-searchbar__icon", alt: "" ), options: { placeholder: t("vita_providers.index.search.placeholder"), name: "zip" } %>
+          <%= f.vita_min_searchbar :zip, t("general.search"), label_icon: image_tag("search.svg", class: "vita-min-searchbar__icon", alt: "" ), options: { placeholder: t("views.vita_providers.index.search.placeholder"), name: "zip" } %>
         <% end %>
 
         <% if @providers.empty? && @provider_search_form.valid_zip_searched? %>
           <h1><%=t("general.sorry") %></h1>
 
           <p>
-            <%=t("vita_providers.index.search.no_results", :zip => @provider_search_form.zip, :zip_name => @zip_name) %>
+            <%=t("views.vita_providers.index.search.no_results", :zip => @provider_search_form.zip, :zip_name => @zip_name) %>
 
             <% if enable_online_intake? %>
-              <%=t("vita_providers.index.search.try_another_or_apply_html", :intake_link => link_to(t("vita_providers.index.search.try_intake_form"), question_path(:id => QuestionNavigation.first) )) %>
+              <%=t("views.vita_providers.index.search.try_another_or_apply_html", :intake_link => link_to(t("views.vita_providers.index.search.try_intake_form"), question_path(:id => QuestionNavigation.first) )) %>
             <% else %>
-              <%=t("vita_providers.index.search.try_another") %>
+              <%=t("views.vita_providers.index.search.try_another") %>
             <% end %>
           </p>
 
           <p>
-            <%=t("vita_providers.index.search.prepare_your_own_html", :free_file_link => link_to(t("general.free_file_lookup_tool"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", target: "_blank", rel: "noopener", data: { track_click: "freefile" })) %>
+            <%=t("views.vita_providers.index.search.prepare_your_own_html", :free_file_link => link_to(t("general.free_file_lookup_tool"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", target: "_blank", rel: "noopener", data: { track_click: "freefile" })) %>
           </p>
         <% end %>
 
         <% if @providers.present? %>
-          <p><%=t("vita_providers.index.search.results", :total_entries => @providers.total_entries, :zip => @provider_search_form.zip, :zip_name => @zip_name) %></p>
+          <p><%=t("views.vita_providers.index.search.results", :total_entries => @providers.total_entries, :zip => @provider_search_form.zip, :zip_name => @zip_name) %></p>
 
           <ul class="provider-list">
             <% @providers.each_with_index do |provider, index| %>

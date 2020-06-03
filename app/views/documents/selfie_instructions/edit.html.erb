@@ -6,14 +6,14 @@
       <div class="grid__item width-three-fourths shift-one-eighth">
         <main role="main">
           <h1 class="form-question">
-            <%=t("documents.selfie_instructions.header") %>
+            <%=t("views.documents.selfie_instructions.header") %>
           </h1>
           <div class="text--centered with-padding-med">
             <%= image_tag("selfie-illustration.svg", alt: "") %>
           </div>
 
           <p>
-            <%=t("documents.selfie_instructions.info") %>
+            <%=t("views.documents.selfie_instructions.info") %>
           </p>
 
           <div class="selfie-instructions-list with-padding-large">
@@ -22,22 +22,22 @@
             </div>
 
             <p class="text--bold">
-              <%=t("documents.selfie_instructions.steps.header") %>
+              <%=t("views.documents.selfie_instructions.steps.header") %>
             </p>
 
             <ul class="list--bulleted">
-              <li><%=t("documents.selfie_instructions.steps.face_visible") %></li>
-              <li><%=t("documents.selfie_instructions.steps.id_visible") %></li>
-              <li><%=t("documents.selfie_instructions.steps.face_camera") %></li>
-              <li><%=t("documents.selfie_instructions.steps.plain_background") %></li>
-              <li><%=t("documents.selfie_instructions.steps.wear_glasses") %></li>
+              <li><%=t("views.documents.selfie_instructions.steps.face_visible") %></li>
+              <li><%=t("views.documents.selfie_instructions.steps.id_visible") %></li>
+              <li><%=t("views.documents.selfie_instructions.steps.face_camera") %></li>
+              <li><%=t("views.documents.selfie_instructions.steps.plain_background") %></li>
+              <li><%=t("views.documents.selfie_instructions.steps.wear_glasses") %></li>
             </ul>
           </div>
 
         </main>
         <div class="text--centered">
           <%= link_to selfies_documents_path, class: "button button--wide button--primary button--centered" do %>
-            <%=t("documents.selfie_instructions.submit_photo") %>
+            <%=t("views.documents.selfie_instructions.submit_photo") %>
           <% end %>
         </div>
       </div>

@@ -1,4 +1,4 @@
-<% @main_heading = t("questions.identity.title") %>
+<% @main_heading = t("views.questions.identity.title") %>
 <% content_for :page_title, @main_heading %>
 
 <% content_for :main do %>
@@ -17,7 +17,7 @@
               </div>
               <div class="step-text">
                 <p>
-                  <%=t("questions.identity.partner_html", :partner_link => link_to("ID.me", "https://www.id.me/individuals/government", class: "inherit-color", target: "_blank", rel: "noopener")) %>
+                  <%=t("views.questions.identity.partner_html", :partner_link => link_to("ID.me", "https://www.id.me/individuals/government", class: "inherit-color", target: "_blank", rel: "noopener")) %>
                 </p>
               </div>
             </div>
@@ -28,7 +28,7 @@
               </div>
               <div class="step-text">
                 <p>
-                  <%=t("questions.identity.instructions") %>
+                  <%=t("views.questions.identity.instructions") %>
                 </p>
               </div>
             </div>
@@ -39,21 +39,21 @@
               </div>
               <div class="step-text text--bold">
                 <p>
-                  <%=t("questions.identity.contact_html", :email_link => link_to("hello@getyourrefund", "mailto:hello@getyourrefund.org", class: "inherit-color")) %>
+                  <%=t("views.questions.identity.contact_html", :email_link => link_to("hello@getyourrefund", "mailto:hello@getyourrefund.org", class: "inherit-color")) %>
                 </p>
                 <p>
-                  <%=t("questions.identity.here_to_help") %>
+                  <%=t("views.questions.identity.here_to_help") %>
                 </p>
               </div>
             </div>
 
             <%= link_to user_idme_omniauth_authorize_path(after_login: params[:after_login]), class: "button button--primary button--wide text--centered", method: :post do %>
-              <%=t("questions.identity.sign_in_html") %> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
+              <%=t("views.questions.identity.sign_in_html") %> <%= image_tag("ID.me.svg", alt: "", class: "button-logo--inline") %>
             <% end %>
 
             <p>
               <a class="inherit-color" href="https://www.id.me/individuals/government" target="_blank" rel="noopener">
-                <%=t("questions.identity.visit_partner") %>
+                <%=t("views.questions.identity.visit_partner") %>
               </a>
             </p>
           </div>
