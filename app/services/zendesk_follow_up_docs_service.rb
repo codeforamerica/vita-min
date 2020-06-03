@@ -22,7 +22,7 @@ class ZendeskFollowUpDocsService
                            .where(document_type: "Requested")
                            .or(@intake.documents.where(document_type: "Requested Later"))
                            .where(zendesk_ticket_id: nil)
-    ticket_url = zendesk_ticket_url(@intake.intake_ticket_id)
+    ticket_url = zendesk_ticket_url(id: @intake.intake_ticket_id)
     output = append_comment_to_ticket(
       ticket_id: @intake.intake_ticket_id,
       fields: { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => ticket_url },

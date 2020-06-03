@@ -82,9 +82,9 @@
         <tr>
           <td> <%=t("views.zendesk.tickets.show.chart.bank_info") %> </td>
           <td>
-            <%= link_to t("views.zendesk.tickets.show.chart.bank_info"), banking_info_zendesk_intake_path(intake.id)  %>
-            <%= link_to t("zendesk.tickets.show.chart.bank_info"), banking_info_zendesk_intake_path(intake.id)  %>
-            <%= link_to "Bank Info", banking_info_zendesk_intake_path(intake.id), target: "_blank" %>
+            <%= link_to t("views.zendesk.tickets.show.chart.bank_info"),
+              banking_info_zendesk_intake_path(intake.id),
+              target: "_blank" %>
           </td>
           <td></td>
           <td></td>

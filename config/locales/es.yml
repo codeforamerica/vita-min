@@ -121,7 +121,7 @@ es:
         life_circumstances_help: Necesitamos estas respuestas para determinar para cuáles créditos tributarios califica.
         months_in_home: "¿Cuántos meses vivió en su hogar en %{year}?"
         months_in_home_help: Seleccione 12 si nació o falleció en %{year}.
-        north_american_resident: Vivió fuera de los EE. UU., México o Canadá
+        north_american_resident: Vivió fuera de los EE. UU., México o Canadá
         on_visa: "¿Tiene esta persona una visa para estar en el país?"
         relationship: Relación con usted
         save_cta: Guarde a esta persona
@@ -397,8 +397,8 @@ es:
             q: "¿Qué significa que el plazo se haya ampliado?"
           header: Ayuda para empezar
           how_long:
-            a1: En total, la presentación mediante GetYourRefund tarda de 5 a 10 días hábiles, ya que un preparador de declaraciones de impuestos trabajará de forma personalizada con usted.
-            a2: En primer lugar, debe responder a las preguntas sobre su situación fiscal en nuestro formulario en línea y subir sus documentos fiscales, lo que puede tomar entre 10 y 30 minutos. A continuación, en un plazo de 2 a 3 ‭días hábiles, el especialista en impuestos lo llamará para hablar sobre su situación fiscal. Luego, un preparador de declaraciones de impuestos certificado por el IRS preparará y revisará su declaración de impuestos, lo llamará para hablar del reembolso, y para explicarle cómo deberá hacer la presentación y la firma electrónica. Después de presentar la declaración, nuestros clientes suelen recibir un depósito directo del IRS en un plazo de una semana.
+            a1: En total, la presentación mediante GetYourRefund tarda de 5 a 10 días hábiles, ya que un preparador de declaraciones de impuestos trabajará de forma personalizada con usted.
+            a2: En primer lugar, debe responder a las preguntas sobre su situación fiscal en nuestro formulario en línea y subir sus documentos fiscales, lo que puede tomar entre 10 y 30 minutos. A continuación, en un plazo de 2 a 3 ‭días hábiles, el especialista en impuestos lo llamará para hablar sobre su situación fiscal. Luego, un preparador de declaraciones de impuestos certificado por el IRS preparará y revisará su declaración de impuestos, lo llamará para hablar del reembolso, y para explicarle cómo deberá hacer la presentación y la firma electrónica. Después de presentar la declaración, nuestros clientes suelen recibir un depósito directo del IRS en un plazo de una semana.
             q: "¿Cuánto tiempo tomará esto?"
           how_to_start:
             a: Para empezar, vaya a GetYourRefund.org, haga clic en "Get Started" ("Empezar") e indique que desea optar por "Start my taxes online" ("Empezar mi declaración de impuestos en línea"). Tendrá que subir las fotos de su identificación, responder a algunas preguntas sobre su situación fiscal y subir sus documentos fiscales. A continuación, uno de nuestros especialistas en impuestos lo llamará por teléfono para hablar sobre sus impuestos, responder sus preguntas y completar su presentación.
@@ -424,7 +424,7 @@ es:
           body: Podemos presentar sus declaraciones de impuestos estatales y federales de los años fiscales 2016, 2017, 2018 y 2019. Nuestros voluntarios capacitados también se asegurarán de que reciba los créditos tributarios que le correspondan.
           header: Presente las declaraciones de impuestos de años anteriores y obtenga un reembolso mayor.
         clients:
-          across_us: de clientes de todo EE. UU.
+          across_us: de clientes de todo EE. UU.
           header: Qué opinan nuestros clientes
           quote1:
             body: '"Sentí un gran alivio cuando me propusieron hacerlo en línea. Había mirado otros servicios como Credit Karma o Turbo Tax, pero los pasos iniciales no me daban seguridad, así que no seguí adelante. Al final, encontré GetYourRefund y, Dios, ¡es increíble!"'
@@ -458,7 +458,7 @@ es:
       maintenance:
         contact_html: También puede %{email_link}.
         email: enviar una pregunta por correo electrónico a GetYourRefund
-        info_html: Estamos haciendo algunas actualizaciones en GetYourRefund. ¡Volveremos pronto! Esperamos terminar el mantenimiento para <strong>las 3:00 a. m. ET (12:00 a. m. PT)</strong>, visítenos después de esa hora.
+        info_html: Estamos haciendo algunas actualizaciones en GetYourRefund. ¡Volveremos pronto! Esperamos terminar el mantenimiento para <strong>las 3:00 a. m. ET (12:00 a. m. PT)</strong>, visítenos después de esa hora.
         questions: Si tiene alguna pregunta mientras tanto, no dude en comunicarse con nosotros haciendo clic en el botón "Chat"/"Ayuda", en la parte inferior derecha.
         title: GetYourRefund no está disponible temporalmente por tareas de mantenimiento
       maybe_ineligible:
@@ -518,7 +518,7 @@ es:
           offline: Si bien encriptamos la información confidencial que nos envía por Internet para garantizar su seguridad, también protegemos el acceso a la información fuera de la red. Solamente tienen acceso a su información de identificación personal los empleados que necesiten dicha información para realizar un trabajo específico. Los ordenadores/servidores en los que guardamos la información de identificación personal están en un entorno protegido.
           online: La información confidencial que recopilamos, sea del origen que sea, se encripta y transmite de forma segura. Puede comprobarlo buscando el icono del candado en la barra de direcciones y el protocolo "https" al inicio de la dirección de la página web.
           security_practices:
-            doc_deletion: La documentación del contribuyente se eliminará en un plazo de 5 días desde el tercer intento de comunicación con el contribuyente (si este no responde a las solicitudes de contacto)
+            doc_deletion: La documentación del contribuyente se eliminará en un plazo de 5 días desde el tercer intento de comunicación con el contribuyente (si este no responde a las solicitudes de contacto)
             doc_storage: Los documentos estarán protegidos en todo momento (contraseñas, información encriptada, sobres sellados, depósitos/cabinas de archivos con bloqueo, etc.)
             header: 'Estas son algunas prácticas de seguridad específicas que utilizamos:'
             incident_response: El sitio mantiene un plan de respuesta a incidentes que puede reportar incidentes de seguridad al IRS
@@ -588,7 +588,7 @@ es:
               a: Sí, pero con una excepción. El pago se compensará con los pagos atrasados de manutención de menores. La Oficina del Servicio Fiscal le enviará un aviso si este es su caso.
               q: "¿Puedo recibir el EIP si debo impuestos, si tengo un acuerdo de pagos con el IRS o si tengo otras deudas federales o estatales?"
             scams:
-              a: No haga clic en enlaces en los que no confíe al 100 %. Tenga cuidado con las estafas. Si parece demasiado bueno para ser verdad, probablemente lo sea. Tampoco envíe dinero a nadie que no conozca.
+              a: No haga clic en enlaces en los que no confíe al 100 %. Tenga cuidado con las estafas. Si parece demasiado bueno para ser verdad, probablemente lo sea. Tampoco envíe dinero a nadie que no conozca.
               q: "¿Qué debo hacer si me ofrecen un pago más rápido?"
             when:
               a: Los pagos de impacto económico se acreditarán en las cuentas bancarias mediante depósito directo a partir del 9 de abril de 2020. Si no tiene una cuenta bancaria, su cheque podría tardar hasta cinco meses en llegar por correo.
@@ -628,14 +628,14 @@ es:
             header: Los beneficios de la declaración
             info: Sin embargo, si está en alguna de las categorías anteriores y tiene ingresos del trabajo o personas a su cargo, podría tener derecho a créditos tributarios o a beneficios adicionales si presenta su declaración o actualiza su información en el IRS. Comuníquese con nosotros a través del chat para obtener más información.
           common_questions: Sabemos que hay muchas dudas sobre los pagos de impacto económico (EIP, por sus siglas en inglés) y tenemos algunas respuestas. Hemos seleccionado algunas preguntas frecuentes que podrían ayudarlo.
-          description: Este año, muchas personas recibirán un pago de impacto económico (también conocido como "pago de estímulo") del gobierno federal. Cada persona recibirá hasta $1,200 ($2,400 para un matrimonio que declare sus impuestos conjuntamente) y obtendrá $500 adicionales por cada hijo menor de 17 años a su cargo.
+          description: Este año, muchas personas recibirán un pago de impacto económico (también conocido como "pago de estímulo") del gobierno federal. Cada persona recibirá hasta $1,200 ($2,400 para un matrimonio que declare sus impuestos conjuntamente) y obtendrá $500 adicionales por cada hijo menor de 17 años a su cargo.
           eligibility:
             header: "¿Quién es elegible?"
             info: Recibirán el pago completo los declarantes de impuestos con ingresos brutos ajustados de hasta $75,000 por persona y $150,000 por matrimonio que declare sus impuestos de forma conjunta. Para los declarantes con ingresos superiores, el monto del pago se reduce en $5 por cada $100 por encima de los umbrales de $75,000/$150,000. Los declarantes solteros con ingresos superiores a $99,000 y los declarantes conjuntos sin hijos con ingresos superiores a $198,000 no son elegibles.
           irs_info_html: El IRS publicará toda la información clave en %{irs_eip_link} en cuanto disponga de ella.
           payments:
             exceptions:
-              header: 'A menos que tenga que presentar una declaración de impuestos por otro motivo o que tenga dependientes menores de 17 años a su cargo, usted recibirá automáticamente su pago de $1,200 si se encuentra en alguna de las siguientes categorías, por lo tanto, no tendrá que presentar una declaración:'
+              header: 'A menos que tenga que presentar una declaración de impuestos por otro motivo o que tenga dependientes menores de 17 años a su cargo, usted recibirá automáticamente su pago de $1,200 si se encuentra en alguna de las siguientes categorías, por lo tanto, no tendrá que presentar una declaración:'
               railroad: Recibe beneficios de jubilación para los trabajadores ferroviarios
               social_security: Recibe beneficios del Seguro Social por jubilación, discapacidad (SSDI), Seguridad de Ingreso Suplementario (SSI) o para sobrevivientes
               veterans: Recibe beneficios para veteranos
@@ -644,7 +644,7 @@ es:
         title: Pago de estímulo
       tax_questions:
         cannot_answer:
-          different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&amp;R Block o TurboTax)
+          different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&amp;R Block o TurboTax)
           header: 'No podemos responder a lo siguiente:'
           refund_amounts: El monto del reembolso que recibirá
         header: "¡Tratemos de responder a sus preguntas sobre los impuestos!"
@@ -1108,6 +1108,8 @@ es:
       consent_agreement:
         details:
           cfa: Entiendo que GetYourRefund.org es un sitio web dirigido por Code for America, una organización sin fines de lucro, que enviará mi información fiscal a un sitio de preparación de VITA.
+          civil_rights_link: protege mis derechos civiles
+          civil_rights_understanding: Entiendo que VITA
           collects_pii: Entiendo que este sitio recopila la información de identificación personal que proporciono (números del Seguro Social, formularios W-2 o 1099, identificación con foto y otros documentos) para preparar mi declaración de impuestos y hacer un control de calidad de ella.
           contacted: Entiendo que alguien podría comunicarse conmigo a través del medio que yo prefiera para obtener más información. Si el preparador tiene todo lo necesario para preparar la declaración, nadie se comunicará conmigo hasta que la declaración esté lista.
           e_signature: Entiendo que tendré que firmar el formulario 8879 (SP), la autorización de firma electrónica del IRS para presentar la declaración por Internet, mediante una firma electrónica que enviaré por correo electrónico, después de completar control de calidad para que un sitio de preparación de VITA pueda presentar mi declaración de impuestos en línea.
@@ -1135,14 +1137,14 @@ es:
         enter_zip: Ingrese su código postal para encontrar proveedores cerca de usted.
         header: Obtenga ayuda gratuita de un preparador de declaraciones de impuestos
         info: Los programas de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) del IRS ofrecen ayuda gratis con sus impuestos a los contribuyentes que califiquen.
-        no_results: "¡Lo sentimos! No hemos encontrado ningún resultado en un área de 50 millas de su dirección."
-        results: Hemos encontrado %{total_entries} resultados en un área de 50 millas de %{zip}
+        no_results: "¡Lo sentimos! No hemos encontrado ningún resultado en un área de 50 millas de su dirección."
+        results: Hemos encontrado %{total_entries} resultados en un área de 50 millas de %{zip}
         search:
           header: Ingrese su código postal para encontrar proveedores cerca de usted.
-          no_results: No hemos encontrado ningún resultado en un área de 50 millas de %{zip} (%{zip_name}).
+          no_results: No hemos encontrado ningún resultado en un área de 50 millas de %{zip} (%{zip_name}).
           placeholder: Ingrese el código postal
           prepare_your_own_html: También puede preparar su propia declaración de impuestos utilizando el %{free_file_link} para encontrar una manera gratuita de hacerlo en línea.
-          results: Hemos encontrado %{total_entries} resultados en un área de 50 millas de %{zip} (%{zip_name}).
+          results: Hemos encontrado %{total_entries} resultados en un área de 50 millas de %{zip} (%{zip_name}).
           try_another: Pruebe con otro código postal.
           try_another_or_apply_html: Pruebe con otro código postal o con nuestro %{intake_link}.
           try_intake_form: formulario en línea de VITA gratuito
@@ -1154,7 +1156,7 @@ es:
         no_hours_listed: Lo sentimos, no hay horas.
         no_phone_number_listed: Lo sentimos, no hay números de teléfono.
         phone_number_title: Llame a %{provider_name}
-        search_radius: En un área de %{distance} millas de %{zip} (%{zip_name}) %>
+        search_radius: En un área de %{distance} millas de %{zip} (%{zip_name}) %>
     zendesk:
       intakes:
         banking_info:

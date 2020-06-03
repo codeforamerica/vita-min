@@ -532,7 +532,7 @@ describe ZendeskIntakeService do
       expect(service).to have_received(:append_comment_to_ticket).with(
         ticket_id: 34,
         fields: {
-          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(34)
+          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: 34)
         },
         comment: <<~DOCS
           Documents:
@@ -540,7 +540,7 @@ describe ZendeskIntakeService do
           * #{documents[1].upload.filename} (#{documents[1].document_type})
 
           View all client documents here:
-          #{zendesk_ticket_url(34)}
+          #{zendesk_ticket_url(id: 34)}
         DOCS
       )
 
