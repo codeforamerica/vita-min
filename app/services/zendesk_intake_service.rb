@@ -243,7 +243,7 @@ class ZendeskIntakeService
   end
 
   def send_all_docs
-    ticket_url = zendesk_ticket_url(@intake.intake_ticket_id)
+    ticket_url = zendesk_ticket_url(id: @intake.intake_ticket_id)
     output = append_comment_to_ticket(
       ticket_id: @intake.intake_ticket_id,
       fields: { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => ticket_url },

@@ -1108,6 +1108,8 @@ en:
       consent_agreement:
         details:
           cfa: I understand that GetYourRefund.org is a website run by Code for America, a non-profit organization, that will submit your tax information to a VITA preparation site.
+          civil_rights_understanding: I understand that VITA
+          civil_rights_link: protects my civil rights.
           collects_pii: I understand that this site collects personally identifiable information I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review my tax return.
           contacted: I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed.
           e_signature: I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through an electronic signature delivered via email after Quality Review is completed in order for a VITA preparation site to e-file my tax return.
