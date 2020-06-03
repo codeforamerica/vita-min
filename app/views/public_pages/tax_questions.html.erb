@@ -1,4 +1,4 @@
-<% content_for :page_title, t("public_pages.tax_questions.title") %>
+<% content_for :page_title, t("views.public_pages.tax_questions.title") %>
 <% content_for :body_class, "tax-questions" %>
 
 <main role="main">
@@ -8,16 +8,16 @@
         <div class="offboarding--illustration">
           <%= image_tag("tax-questions.svg", alt: "") %>
         </div>
-        <h1 class="h2"><%=t("public_pages.tax_questions.header") %></h1>
+        <h1 class="h2"><%=t("views.public_pages.tax_questions.header") %></h1>
         <p>
-          <%=t("public_pages.tax_questions.support", :faq_link => link_to(t("public_pages.tax_questions.see_faq"), faq_path, class: 'text--black')) %>
+          <%=t("views.public_pages.tax_questions.support", :faq_link => link_to(t("views.public_pages.tax_questions.see_faq"), faq_path, class: 'text--black')) %>
         </p>
 
-        <p><%=t("public_pages.tax_questions.cannot_answer.header") %></p>
+        <p><%=t("views.public_pages.tax_questions.cannot_answer.header") %></p>
 
         <ul class="list--crossmark">
-          <li><%=t("public_pages.tax_questions.cannot_answer.different_services") %></li>
-          <li><%=t("public_pages.tax_questions.cannot_answer.refund_amounts") %></li>
+          <li><%=t("views.public_pages.tax_questions.cannot_answer.different_services") %></li>
+          <li><%=t("views.public_pages.tax_questions.cannot_answer.refund_amounts") %></li>
         </ul>
 
         <button class="button button--primary button--wide" onclick="javascript: zE('webWidget', 'open');" type="submit">

@@ -1,13 +1,13 @@
-<% content_for :form_question, t("documents.student_account_statements.title") %>
+<% content_for :form_question, t("views.documents.student_account_statements.title") %>
 
 <% content_for :form_help_content do %>
   <p>
-    <%=t("documents.student_account_statements.help_text_html") %>
+    <%=t("views.documents.student_account_statements.help_text_html") %>
   </p>
 
   <% if @student_names.present? %>
     <p class="spacing-below-10">
-      <%=t("documents.student_account_statements.need_for") %>
+      <%=t("views.documents.student_account_statements.need_for") %>
     </p>
 
     <ul class="list--bulleted spacing-above-0 spacing-below-35">

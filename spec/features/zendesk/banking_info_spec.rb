@@ -36,7 +36,7 @@ RSpec.feature "Viewing banking info for an intake" do
   end
 
   scenario "check out the bank details for an intake" do
-    visit banking_info_zendesk_intake_path(intake.id)
+    visit banking_info_zendesk_intake_path(id: intake.id)
 
     # redirected to sign in page
     expect(page).to have_text "Sign in with Zendesk"

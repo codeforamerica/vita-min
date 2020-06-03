@@ -1,4 +1,4 @@
-<% content_for :page_title, t("questions.file_with_help.title") %>
+<% content_for :page_title, t("views.questions.file_with_help.title") %>
 
 <% content_for :form_card do %>
   <div class="form-card">
@@ -7,25 +7,25 @@
     </h1>
 
     <p>
-      <%=t("questions.file_with_help.info") %>
+      <%=t("views.questions.file_with_help.info") %>
     </p>
 
     <p>
-      <strong><%=t("questions.file_with_help.right_option.header") %></strong>
+      <strong><%=t("views.questions.file_with_help.right_option.header") %></strong>
     </p>
 
     <ul class="checkmark-list">
       <li>
         <%= render "shared/svg/checkmark", fill_class: "teal" %>
-        <span><%=t("questions.file_with_help.right_option.need_assistance") %></span>
+        <span><%=t("views.questions.file_with_help.right_option.need_assistance") %></span>
       </li>
       <li>
         <%= render "shared/svg/checkmark", fill_class: "teal" %>
-        <span><%=t("questions.file_with_help.right_option.confused") %></span>
+        <span><%=t("views.questions.file_with_help.right_option.confused") %></span>
       </li>
       <li>
         <%= render "shared/svg/checkmark", fill_class: "teal" %>
-        <span><%=t("questions.file_with_help.right_option.nervous") %></span>
+        <span><%=t("views.questions.file_with_help.right_option.nervous") %></span>
       </li>
     </ul>
     <%= link_to next_path, class: "button button--primary text--centered button--wide spacing-above-25" do %>

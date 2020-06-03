@@ -1,4 +1,4 @@
-<% content_for :page_title, t("questions.bank_details.title") %>
+<% content_for :page_title, t("views.questions.bank_details.title") %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
@@ -6,16 +6,16 @@
 
     <div class="form-card__content">
       <div class="with-padding-large">
-        <%= f.cfa_input_field(:bank_name, t("questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
-        <%= f.cfa_input_field(:bank_routing_number, t("questions.bank_details.routing_number"), classes: ["form-width--long"], type: :password) %>
-        <%= f.cfa_input_field(:bank_account_number, t("questions.bank_details.account_number"), classes: ["form-width--long"], type: :password) %>
+        <%= f.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:bank_routing_number, t("views.questions.bank_details.routing_number"), classes: ["form-width--long"], type: :password) %>
+        <%= f.cfa_input_field(:bank_account_number, t("views.questions.bank_details.account_number"), classes: ["form-width--long"], type: :password) %>
       </div>
       <%= f.cfa_radio_set(
               :bank_account_type,
-              label_text: "<h1 class=\"form-question\">" + t("questions.bank_details.account_type.label") + "</h1>".html_safe,
+              label_text: "<h1 class=\"form-question\">" + t("views.questions.bank_details.account_type.label") + "</h1>".html_safe,
               collection: [
-                  { value: :checking, label: t("questions.bank_details.account_type.checking") },
-                  { value: :savings, label: t("questions.bank_details.account_type.savings") },
+                  { value: :checking, label: t("views.questions.bank_details.account_type.checking") },
+                  { value: :savings, label: t("views.questions.bank_details.account_type.savings") },
               ]
           )
       %>

@@ -1,4 +1,4 @@
-<% content_for :page_title, t("dependents.index.title") %>
+<% content_for :page_title, t("views.dependents.index.title") %>
 
 
 <% content_for :body_class, "dependents-index" %>
@@ -25,17 +25,17 @@
           </ul>
           <% end %>
 
-          <h1 class="h2"><%=t("dependents.index.title") %></h1>
-          <p><%=t("dependents.index.info") %></p>
+          <h1 class="h2"><%=t("views.dependents.index.title") %></h1>
+          <p><%=t("views.dependents.index.info") %></p>
 
           <%= link_to(new_dependent_path, class: "button button--wide button--icon") do %>
             <%= image_tag("add-person.svg", alt: "") %>
-            <%=t("dependents.index.add_person") %>
+            <%=t("views.dependents.index.add_person") %>
           <% end %>
 
           <%= link_to(dependent_care_questions_path, class: "button button--cta button--wide button--icon") do %>
             <%= image_tag("checkmark--white.svg", alt: "") %>
-            <%=t("dependents.index.done") %>
+            <%=t("views.dependents.index.done") %>
           <% end %>
         </main>
       </div>

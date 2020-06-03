@@ -1,5 +1,5 @@
-<% content_for :form_question, t("questions.homebuyer_credit.title", :count => current_intake.filing_joint_yes? ? 2 : 1) %>
+<% content_for :form_question, t("views.questions.homebuyer_credit.title", :count => current_intake.filing_joint_yes? ? 2 : 1) %>
 
-<% content_for :form_help_text, t("questions.homebuyer_credit.help_text_html", :irs_link => link_to(t("questions.homebuyer_credit.irs_homebuyer_tool"), "https://www.irs.gov/credits-deductions/individuals/first-time-homebuyer-credit-account-look-up", target: "_blank", rel: "noopener")).html_safe %>
+<% content_for :form_help_text, t("views.questions.homebuyer_credit.help_text_html", :irs_link => link_to(t("views.questions.homebuyer_credit.irs_homebuyer_tool"), "https://www.irs.gov/credits-deductions/individuals/first-time-homebuyer-credit-account-look-up", target: "_blank", rel: "noopener")).html_safe %>
 
 <% content_for :method_name, :received_homebuyer_credit %>

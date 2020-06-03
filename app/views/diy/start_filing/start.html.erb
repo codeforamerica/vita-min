@@ -1,4 +1,4 @@
-<% @main_heading = t("diy.start_filing.start.title") %>
+<% @main_heading = t("views.diy.start_filing.start.title") %>
 <% content_for :page_title, @main_heading %>
 
 <%= render 'shared/facebook_pixel', track_conversion: "StartDIY" %>
@@ -14,27 +14,27 @@
           <h1 class="form-question">
             <%= @main_heading %>
           </h1>
-          <p><%=t("diy.start_filing.start.info") %></p>
+          <p><%=t("views.diy.start_filing.start.info") %></p>
 
           <div class="text--semibold spacing-below-35">
-            <p><%=t("diy.start_filing.start.tips.header") %></p>
+            <p><%=t("views.diy.start_filing.start.tips.header") %></p>
             <ul class="checkmark-list">
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t("diy.start_filing.start.tips.no_phone") %></span>
+                <span><%=t("views.diy.start_filing.start.tips.no_phone") %></span>
               </li>
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t("diy.start_filing.start.tips.no_navigation") %></span>
+                <span><%=t("views.diy.start_filing.start.tips.no_navigation") %></span>
               </li>
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t("diy.start_filing.start.tips.spelling") %></span>
+                <span><%=t("views.diy.start_filing.start.tips.spelling") %></span>
               </li>
             </ul>
           </div>
 
-          <%= render partial: 'shared/chat_bubble', locals: { text: t("diy.start_filing.start.chat") } %>
+          <%= render partial: 'shared/chat_bubble', locals: { text: t("views.diy.start_filing.start.chat") } %>
 
           <%= link_to t("general.continue"), "https://www.taxslayer.com/vita2019fsa?source=TSUSATY2019&sidn=01093601", class: "button button--primary text--centered button--wide spacing-above-60" %>
           <%= link_to "https://www.taxslayer.com/vita2019fsa?source=TSUSATY2019&sidn=01093601", class: "button button--primary text--centered button--wide spacing-above-60", "data-track-click": "taxslayer" do %>

@@ -1,4 +1,4 @@
-<% @main_heading = t("questions.overview.title") %>
+<% @main_heading = t("views.questions.overview.title") %>
 <% content_for :page_title, @main_heading %>
 
 <% content_for :main do %>
@@ -9,7 +9,7 @@
           <h1 class="form-question"><%= @main_heading %></h1>
           <p class="spacing-below-35">
             <strong>
-              <%=t("questions.overview.info") %>
+              <%=t("views.questions.overview.info") %>
             </strong>
           </p>
 
@@ -19,9 +19,9 @@
                 <%= image_tag("questions.svg", alt: "") %>
               </div>
               <div class="step-text">
-                <h3><%=t("questions.overview.questions.header") %></h3>
+                <h3><%=t("views.questions.overview.questions.header") %></h3>
                 <p class="text--small with-padding-small">
-                  <%=t("questions.overview.questions.info") %>
+                  <%=t("views.questions.overview.questions.info") %>
                 </p>
               </div>
             </div>
@@ -31,9 +31,9 @@
                 <%= image_tag("documents.svg", alt: "") %>
               </div>
               <div class="step-text">
-                <h3><%=t("questions.overview.documents.header") %></h3>
+                <h3><%=t("views.questions.overview.documents.header") %></h3>
                 <p class="text--small with-padding-small">
-                  <%=t("questions.overview.documents.info") %>
+                  <%=t("views.questions.overview.documents.info") %>
                 </p>
               </div>
             </div>
@@ -43,9 +43,9 @@
                 <%= image_tag("phone.svg", alt: "") %>
               </div>
               <div class="step-text">
-                <h3><%=t("questions.overview.phone_review.header") %></h3>
+                <h3><%=t("views.questions.overview.phone_review.header") %></h3>
                 <p class="text--small with-padding-small">
-                  <%=t("questions.overview.phone_review.info") %>
+                  <%=t("views.questions.overview.phone_review.info") %>
                 </p>
               </div>
             </div>
@@ -55,9 +55,9 @@
                 <%= image_tag("income-and-expenses.svg", alt: "") %>
               </div>
               <div class="step-text">
-                <h3><%=t("questions.overview.refund.header") %></h3>
+                <h3><%=t("views.questions.overview.refund.header") %></h3>
                 <p class="text--small with-padding-small">
-                  <%=t("questions.overview.refund.info") %>
+                  <%=t("views.questions.overview.refund.info") %>
                 </p>
               </div>
             </div>

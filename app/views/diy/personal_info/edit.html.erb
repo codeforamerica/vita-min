@@ -1,13 +1,13 @@
-<% content_for :page_title, t("diy.personal_info.edit.title") %>
+<% content_for :page_title, t("views.diy.personal_info.edit.title") %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
-    <p class="text--help"><%= t("diy.personal_info.edit.info") %></p>
+    <p class="text--help"><%= t("views.diy.personal_info.edit.info") %></p>
 
     <div class="form-card__content">
-      <%= f.cfa_input_field(:preferred_name, t("diy.personal_info.edit.preferred_name"), classes: ["form-width--long"]) %>
-      <%= f.cfa_select(:state_of_residence, t("diy.personal_info.edit.state_of_residence"), States.name_value_pairs, include_blank: true) %>
+      <%= f.cfa_input_field(:preferred_name, t("views.diy.personal_info.edit.preferred_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_select(:state_of_residence, t("views.diy.personal_info.edit.state_of_residence"), States.name_value_pairs, include_blank: true) %>
     </div>
 
     <button class="button button--primary" type="submit">

@@ -1,4 +1,4 @@
-<% content_for :page_title, t("documents.overview.title") %>
+<% content_for :page_title, t("views.documents.overview.title") %>
 
 <% content_for :main do %>
   <section class="slab slab--white">
@@ -21,7 +21,7 @@
 
               <ul class="document-overview-list__filenames">
                 <% if documents.empty? %>
-                  <li><em><%=t("documents.overview.empty") %></em></li>
+                  <li><em><%=t("views.documents.overview.empty") %></em></li>
                 <% end %>
                 <% documents.each do |document| %>
                   <li>
@@ -34,12 +34,12 @@
 
           <p>
             <strong>
-              <%=t("documents.overview.schedule_appointment") %>
+              <%=t("views.documents.overview.schedule_appointment") %>
             </strong>
           </p>
 
           <%= link_to interview_scheduling_questions_path, class: "button button--icon button--wide button--primary" do %>
-            <%=t("documents.overview.finished") %>
+            <%=t("views.documents.overview.finished") %>
           <% end %>
         </main>
       </div>

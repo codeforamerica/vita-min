@@ -1,4 +1,4 @@
-<% content_for :page_title, t("questions.start_with_current_year.title") %>
+<% content_for :page_title, t("views.questions.start_with_current_year.title") %>
 
 <% content_for :form_card do %>
   <div class="form-card">
@@ -7,11 +7,11 @@
     </h1>
 
     <p>
-      <%=t("questions.start_with_current_year.info", :year => current_intake.most_recent_filing_year) %>
+      <%=t("views.questions.start_with_current_year.info", :year => current_intake.most_recent_filing_year) %>
     </p>
 
     <p class="spacing-below-35">
-      <%=t("questions.start_with_current_year.starting_point") %>
+      <%=t("views.questions.start_with_current_year.starting_point") %>
     </p>
 
     <%= link_to next_path, class: "button button--primary text--centered" do %>
