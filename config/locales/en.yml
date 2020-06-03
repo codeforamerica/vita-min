@@ -1,1206 +1,1179 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
+---
 en:
   date:
     formats:
       default: "%-m/%-d/%Y"
       long: "%B %-d, %Y"
   dependents:
-    index:
-      title: "Let’s claim someone!"
-      info: "We will need an ITIN or SSN for each person you add. We’ll ask you to share images of these at the end."
-      add_person: "Add a person"
-      done: "Done with this step"
     form:
-      title: "Tell us about your dependent. Please provide a few more details."
-      first_name: "First name"
-      last_name: "Last name"
-      relationship: "Relationship to you"
-      birth_date: "Date of birth"
-      months_in_home: "How many months did they live in your home in %{year}?"
-      months_in_home_help: "Select 12 if their birth or death was in %{year}."
-      on_visa: "Is this person here on a VISA?"
-      life_circumstances: "Select any cases that describe their life this past year"
-      life_circumstances_help: "We need these answers to determine which tax credits you may qualify for."
-      was_married: "Married as of 12/31/%{year}"
-      was_student: "Full time higher education student"
-      north_american_resident: "Lived outside of the US, Mexico, or Canada"
-      disabled: "Permanently disabled"
-      delete_confirmation: "Are you sure you want to remove \"%{name}\"?"
-      delete_cta: "Remove this person"
-      save_cta: "Save this person"
-  documents:
-    additional_documents:
-      title: "Do you have any additional documents?"
-      help_text: "Please add any additional documents or forms that you would like to share with your tax preparer. Include any forms you may be unsure of. Your tax preparer will determine if the forms are needed for your return."
-    care_provider_statements:
-      title: "Attach your statements from childcare facilities or individuals who provided care."
-      help_text_html: "<strong>You might have this statement</strong> because you said that you paid for child or dependent care. Contact your care facility if you need this documentation."
-    form1095as:
-      title: "Attach your 1095-A's"
-      help_text_html: "<strong>You should have this form</strong> because you said that you purchased health insurance from the marketplace. You may need to download this from the marketplace or the exchange for your state. More information on this form is available %{more_info_link}."
-    form1098es:
-      title: "Attach your 1098-E's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you paid student loan interest. This document is usually accessed from a lender portal online and isn't mailed to you."
-    form1098s:
-      title: "Attach your 1098's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you either paid mortgage interest or state, local, real estate, or sales taxes. More information on this form is available %{more_info_link}."
-    form1098ts:
-      title: "Attach your 1098-T's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you pursued higher education (technical school, college, university). This form is your tuition statement. More information on this form is listed %{more_info_link}."
-    form1099as:
-      title: "Attach your 1099-A's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you had debt forgiven by a lender. This form is typically used to report the transfer of foreclosed property. If you haven’t received a 1099-A and believe you should have, contact your bank or lender."
-    form1099bs:
-      title: "Attach your 1099-B's"
-      help_text_html: "You said that you received income from the sale of investment or real estate. If you specifically received income from stocks or bonds, <strong>you should have this form.</strong> If you haven't received a 1099-B, contact your broker."
-    form1099cs:
-      title: "Attach your 1099-C's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you had debt forgiven by a lender. If you borrowed money from a commercial lender and at least $600 of that debt was cancelled or forgiven, they should have sent you this form. If you haven’t received a 1099-C and believe you should have, contact your lender."
-    form1099divs:
-      title: "Attach your 1099-DIV's"
-      help_text_html: "You said that you received income from interest or dividends. If you specifically received income from dividends, <strong>you should have this form</strong>. Investment companies are required to provide taxpayers with a 1099-DIV by January 31 each year."
-    form1099gs:
-      title: "Attach your 1099-G's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you received a state or local income tax refund last year. The most common uses of the 1099-G are to report unemployment compensation and state and local income tax refunds."
-    form1099ints:
-      title: "Attach your 1099-INT's"
-      help_text_html: "You said that you received income from interest or dividends. If you specifically received income from interest, <strong>you might have this form</strong>. Investment companies are required to file 1099-INT by January 31 each year."
-    form1099ks:
-      title: "Attach your 1099-K's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you got paid from contract or self-employed work. You receive a 1099-K if you have a high dollar amount or quantity of business transactions during the year. Typically, large-volume online sellers file taxes with a 1099-K."
-    form1099miscs:
-      title: "Attach your 1099-MISC's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you got paid from contract or self-employed work. This form is used to report non-employee compensation. Independent contractors, freelancers, sole-proprietors, and self-employed individuals, receive a 1099-MISC from each client who paid them $600 or more in a calendar year."
-    form1099rs:
-      title: "Attach your 1099-R's"
-      help_text_html: "<strong>You should have this form</strong> because you said that you received income from a retirement account, pension, or annuity proceeds. This form is used to report distributions from annuities, profit-sharing plans, retirement plans, IRAs, insurance contracts, or pensions. Your retirement plan issuer would have sent this to you."
-    form1099sas:
-      title: "Attach your 1099-SA's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you have a Health Savings Account (HSA). This form is sent to report distributions from health savings, medical savings, and Medicare Advantage accounts. The financial institution that manages the account is responsible for sending you a copy."
-    form1099ss:
-      title: "Attach your 1099-S's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you received income from the sale of investments or real estate. Use Form 1099-S to report the sale or exchange of real estate."
-    form5498sas:
-      title: "Attach your 5498-SA's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you have a Health Savings Account (HSA). This form tracks contributions to Health Savings Accounts (HSA) and Medical Savings Accounts (MSA)."
-    id_guidance:
-      title: "First, we need to confirm your basic information."
-      info: "To protect your identity and ensure that your personal information is accurate and secure, we need to verify who you are."
-      multiple_forms: "The IRS requires us to verify who you are with multiple forms of identity."
-    ids:
-      title:
-        one: "Attach a photo of your ID card"
-        other: "Attach photos of ID cards"
-      help_text:
-        one: "The IRS requires us to see a current drivers license, passport, or state ID."
-        other: "The IRS requires us to see a current drivers license, passport, or state ID for you and your spouse."
-      info: "We will use your ID card to verify and protect your identity in accordance with IRS guidelines. It is ok if your ID is expired or if you have a temporary drivers license as long as we can clearly view your name and photo."
-      need_for: "We will need an ID for:"
-    intro:
-      title: "All right, let's collect your documents!"
-      info: "Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later."
-      should_have: "You should have:"
-      might_have: "You might also have:"
-    ira_statements:
-      title: "Attach your IRA Statements"
-      help_text_html: "<strong>You might have this document</strong> because you said that you made contributions to a retirement account."
-    overview:
-      title: "Great work! Here's a list of what we've collected."
-      empty: "No documents of this type were uploaded."
-      schedule_appointment: "When you’re done sharing the documents you have, we’ll schedule an appointment with your tax preparer."
-      finished: "I've shared all my documents"
-    primary_ssn_itins:
-      title: "Attach a photo of your Social Security Card or ITIN"
-      help_text: "The IRS requires us to see a valid SSN or ITIN for tax preparation services."
-    prior_tax_returns:
-      title: "Attach your %{year} tax return."
-      help_text_html: "<strong>You might have this form</strong> because you said that you reported a loss from the sale of stocks, bonds, or real estate last year. You might have your %{year} return, which you can share below. You can track down your %{year} return %{transcript_link}."
-    property_tax_statements:
-      title: "Attach your Property Tax Statements"
-      help_text_html: "<strong>You might have this document</strong> because you said that you either paid mortgage interest or state, local, real estate, or sales taxes."
-    requested_documents:
-      title: "Your tax specialist is requesting additional documents"
-      help_text: "Please upload all requested documents below. You can upload as many documents as you have. If you're unsure about which documents you need to share, please refer to the message from your tax preparer."
-    requested_documents_later:
-      not_found:
-        title: "Requested Documents Page Not Found"
-        info: "It looks like you're trying to upload documents but don't have a working link."
-        contact_us_html: "We can try to help you locate the correct link if you get in touch by emailing %{email_link} or clicking the live chat button in the bottom right corner."
-        contact_tax_preparer: "You can also reach out to your tax preparer if you have their contact information."
-    rrb1099s:
-      title: "Attach your RRB-1099's"
-      help_text_html: "You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Railroad Retirement Benefits, <strong>you should have this form</strong>. This is a tax statement issued by the U.S. Railroad Retirement Board (RRB) and represents payments made to you in %{year}."
-    selfie_instructions:
-      header: "Confirm your identity with a photo of yourself"
-      info: "The IRS requires us to verify who you are for tax preparation services. We do this by reviewing a photo of you holding your ID card."
-      steps:
-        header: "Read through the following steps before continuing"
-        face_visible: "Make sure your face is clearly visible"
-        id_visible: "Make sure you aren't covering up your ID"
-        face_camera: "Face the camera directly and include from your shoulders to the top of your head, similar to your ID photo"
-        plain_background: "Use a plain wall as a background if possible"
-        wear_glasses: "If you're wearing glasses in your ID photo, wear them in your selfie photo"
-      submit_photo: "Submit a photo"
-    selfies:
-      title: "Share a photo of yourself holding your ID card"
-      help_text: "The IRS requires us to verify who you are for tax preparation services."
-      need_for_html: "We will need to see a <u>photo with ID</u> for:"
-    send_requested_documents_later:
-      success:
-        title: "Requested Documents Successfully Uploaded"
-        thank_you: "Thank you! Your documents have been submitted."
-        next_steps: "Your tax preparer will reach out with updates and any additional questions within 3 business days."
-    spouse_ids:
-      title: "Attach a photo of your spouse's ID card"
-      help_text: "The IRS also requires us to have a current drivers license, passport, or state ID for your spouse."
-    spouse_ssn_itins:
-      title: "Attach a photo of your spouse's Social Security Card or ITIN"
-      help_text: "The IRS requires us to see a valid SSN or ITIN for tax preparation services."
-    ssa1099s:
-      title: "Attach your SSA-1099's"
-      help_text_html: "You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Social Security, <strong>you should have this form.</strong> This is a tax form that shows the total amount of benefits you received from Social Security in the previous year. You can get this form %{ssa_link}."
-    ssn_itins:
-      title: "Attach photos of Social Security Card or ITIN"
-      help_text: "The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services."
-      need_for: "We will need a SSN or ITIN for:"
-    student_account_statements:
-      title: "Attach your student account statements"
-      help_text_html: "<strong>You might have this statement</strong> because you said that you are filing taxes for people who are full-time students."
-      need_for: "Please share an image of the student account statement for the following people:"
-    w2gs:
-      title: "Attach your W-2G's"
-      help_text_html: "<strong>You might have this form</strong> because you said that you had income from gambling winnings or the lottery. Depending on how much you won, a gambling facility may send you a form W2-G that records your winnings and any income tax withholdings from the previous year."
-    w2s:
-      title: "Attach your W-2's"
-      help_text_html: "<strong>You should have this form</strong> because you said that you worked a job with wages or a salary. Your employer should have sent you this form and you can contact them if you haven't recieved it. More information is available %{transcript_link}."
+      birth_date: Date of birth
+      delete_confirmation: Are you sure you want to remove "%{name}"?
+      delete_cta: Remove this person
+      disabled: Permanently disabled
+      first_name: First name
+      last_name: Last name
+      life_circumstances: Select any cases that describe their life this past year
+      life_circumstances_help: We need these answers to determine which tax credits you may qualify for.
+      months_in_home: How many months did they live in your home in %{year}?
+      months_in_home_help: Select 12 if their birth or death was in %{year}.
+      north_american_resident: Lived outside of the US, Mexico, or Canada
+      on_visa: Is this person here on a VISA?
+      relationship: Relationship to you
+      save_cta: Save this person
+      title: Tell us about your dependent. Please provide a few more details.
+      was_married: Married as of 12/31/%{year}
+      was_student: Full time higher education student
+    index:
+      add_person: Add a person
+      done: Done with this step
+      info: We will need an ITIN or SSN for each person you add. We’ll ask you to share images of these at the end.
+      title: Let’s claim someone!
   diy:
     check_email:
       edit:
-        title: "Please check your e-mail for a confirmation link."
-        sent_secure_link: "We just sent you a secure link for our DIY service."
-        questions_html: "If you have questions you should email %{email_link}."
+        questions_html: If you have questions you should email %{email_link}.
+        sent_secure_link: We just sent you a secure link for our DIY service.
+        title: Please check your e-mail for a confirmation link.
     email_address:
       edit:
-        title: "Please share your e-mail address."
-        will_send_secure_link: "We will send a secure link to your e-mail so that you can file."
-        confirm_email_address: "Confirm e-mail address"
-        email_address: "E-mail address"
+        confirm_email_address: Confirm e-mail address
+        email_address: E-mail address
+        title: Please share your e-mail address.
+        will_send_secure_link: We will send a secure link to your e-mail so that you can file.
     file_yourself:
       edit:
-        title: "File your taxes yourself!"
-        info: "You selected our do it yourself option. We'll provide the tools so you can file yourself."
+        info: You selected our do it yourself option. We'll provide the tools so you can file yourself.
+        need_assistance: Actually, I need assistance filing.
         right_option:
-          header: "This is the right option for you if:"
-          2019_only: "You are only filing for 2019 (not previous years)"
-          comfortable_online: "You’re comfortable using online tax services"
-          simple_situation: "Your tax situation is simple/straightforward"
-          quick: "You need a quick option"
-        need_assistance: "Actually, I need assistance filing."
+          2019_only: You are only filing for 2019 (not previous years)
+          comfortable_online: You’re comfortable using online tax services
+          header: 'This is the right option for you if:'
+          quick: You need a quick option
+          simple_situation: Your tax situation is simple/straightforward
+        title: File your taxes yourself!
     personal_info:
       edit:
-        title: "First, let's get some basic information."
-        info: "Welcome, we're excited to help you. We need some basic information to get started."
-        preferred_name: "Preferred name"
-        state_of_residence: "State of residence"
+        info: Welcome, we're excited to help you. We need some basic information to get started.
+        preferred_name: Preferred name
+        state_of_residence: State of residence
+        title: First, let's get some basic information.
     start_filing:
       start:
-        title: "Welcome to our DIY tax service!"
-        info: "With our DIY tax prep option, you get access to a free online tax prep software. You’ll need to create a login in TaxSlayer to start."
+        chat: If any questions come up, please respond to your confirmation email. We’re here to help!
+        info: With our DIY tax prep option, you get access to a free online tax prep software. You’ll need to create a login in TaxSlayer to start.
         tips:
-          header: "Helpful tips:"
-          no_phone: "Do not use your phone to file"
-          no_navigation: "Do not click ‘back’ or navigate away from the TaxSlayer page"
-          spelling: "Double check your spelling"
-        chat: "If any questions come up, please respond to your confirmation email. We’re here to help!"
+          header: 'Helpful tips:'
+          no_navigation: Do not click ‘back’ or navigate away from the TaxSlayer page
+          no_phone: Do not use your phone to file
+          spelling: Double check your spelling
+        title: Welcome to our DIY tax service!
+  documents:
+    additional_documents:
+      help_text: Please add any additional documents or forms that you would like to share with your tax preparer. Include any forms you may be unsure of. Your tax preparer will determine if the forms are needed for your return.
+      title: Do you have any additional documents?
+    care_provider_statements:
+      help_text_html: "<strong>You might have this statement</strong> because you said that you paid for child or dependent care. Contact your care facility if you need this documentation."
+      title: Attach your statements from childcare facilities or individuals who provided care.
+    form1095as:
+      help_text_html: "<strong>You should have this form</strong> because you said that you purchased health insurance from the marketplace. You may need to download this from the marketplace or the exchange for your state. More information on this form is available %{more_info_link}."
+      title: Attach your 1095-A's
+    form1098es:
+      help_text_html: "<strong>You might have this form</strong> because you said that you paid student loan interest. This document is usually accessed from a lender portal online and isn't mailed to you."
+      title: Attach your 1098-E's
+    form1098s:
+      help_text_html: "<strong>You might have this form</strong> because you said that you either paid mortgage interest or state, local, real estate, or sales taxes. More information on this form is available %{more_info_link}."
+      title: Attach your 1098's
+    form1098ts:
+      help_text_html: "<strong>You might have this form</strong> because you said that you pursued higher education (technical school, college, university). This form is your tuition statement. More information on this form is listed %{more_info_link}."
+      title: Attach your 1098-T's
+    form1099as:
+      help_text_html: "<strong>You might have this form</strong> because you said that you had debt forgiven by a lender. This form is typically used to report the transfer of foreclosed property. If you haven’t received a 1099-A and believe you should have, contact your bank or lender."
+      title: Attach your 1099-A's
+    form1099bs:
+      help_text_html: You said that you received income from the sale of investment or real estate. If you specifically received income from stocks or bonds, <strong>you should have this form.</strong> If you haven't received a 1099-B, contact your broker.
+      title: Attach your 1099-B's
+    form1099cs:
+      help_text_html: "<strong>You might have this form</strong> because you said that you had debt forgiven by a lender. If you borrowed money from a commercial lender and at least $600 of that debt was cancelled or forgiven, they should have sent you this form. If you haven’t received a 1099-C and believe you should have, contact your lender."
+      title: Attach your 1099-C's
+    form1099divs:
+      help_text_html: You said that you received income from interest or dividends. If you specifically received income from dividends, <strong>you should have this form</strong>. Investment companies are required to provide taxpayers with a 1099-DIV by January 31 each year.
+      title: Attach your 1099-DIV's
+    form1099gs:
+      help_text_html: "<strong>You might have this form</strong> because you said that you received a state or local income tax refund last year. The most common uses of the 1099-G are to report unemployment compensation and state and local income tax refunds."
+      title: Attach your 1099-G's
+    form1099ints:
+      help_text_html: You said that you received income from interest or dividends. If you specifically received income from interest, <strong>you might have this form</strong>. Investment companies are required to file 1099-INT by January 31 each year.
+      title: Attach your 1099-INT's
+    form1099ks:
+      help_text_html: "<strong>You might have this form</strong> because you said that you got paid from contract or self-employed work. You receive a 1099-K if you have a high dollar amount or quantity of business transactions during the year. Typically, large-volume online sellers file taxes with a 1099-K."
+      title: Attach your 1099-K's
+    form1099miscs:
+      help_text_html: "<strong>You might have this form</strong> because you said that you got paid from contract or self-employed work. This form is used to report non-employee compensation. Independent contractors, freelancers, sole-proprietors, and self-employed individuals, receive a 1099-MISC from each client who paid them $600 or more in a calendar year."
+      title: Attach your 1099-MISC's
+    form1099rs:
+      help_text_html: "<strong>You should have this form</strong> because you said that you received income from a retirement account, pension, or annuity proceeds. This form is used to report distributions from annuities, profit-sharing plans, retirement plans, IRAs, insurance contracts, or pensions. Your retirement plan issuer would have sent this to you."
+      title: Attach your 1099-R's
+    form1099sas:
+      help_text_html: "<strong>You might have this form</strong> because you said that you have a Health Savings Account (HSA). This form is sent to report distributions from health savings, medical savings, and Medicare Advantage accounts. The financial institution that manages the account is responsible for sending you a copy."
+      title: Attach your 1099-SA's
+    form1099ss:
+      help_text_html: "<strong>You might have this form</strong> because you said that you received income from the sale of investments or real estate. Use Form 1099-S to report the sale or exchange of real estate."
+      title: Attach your 1099-S's
+    form5498sas:
+      help_text_html: "<strong>You might have this form</strong> because you said that you have a Health Savings Account (HSA). This form tracks contributions to Health Savings Accounts (HSA) and Medical Savings Accounts (MSA)."
+      title: Attach your 5498-SA's
+    id_guidance:
+      info: To protect your identity and ensure that your personal information is accurate and secure, we need to verify who you are.
+      multiple_forms: The IRS requires us to verify who you are with multiple forms of identity.
+      title: First, we need to confirm your basic information.
+    ids:
+      help_text:
+        one: The IRS requires us to see a current drivers license, passport, or state ID.
+        other: The IRS requires us to see a current drivers license, passport, or state ID for you and your spouse.
+      info: We will use your ID card to verify and protect your identity in accordance with IRS guidelines. It is ok if your ID is expired or if you have a temporary drivers license as long as we can clearly view your name and photo.
+      need_for: 'We will need an ID for:'
+      title:
+        one: Attach a photo of your ID card
+        other: Attach photos of ID cards
+    intro:
+      info: Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later.
+      might_have: 'You might also have:'
+      should_have: 'You should have:'
+      title: All right, let's collect your documents!
+    ira_statements:
+      help_text_html: "<strong>You might have this document</strong> because you said that you made contributions to a retirement account."
+      title: Attach your IRA Statements
+    overview:
+      empty: No documents of this type were uploaded.
+      finished: I've shared all my documents
+      schedule_appointment: When you’re done sharing the documents you have, we’ll schedule an appointment with your tax preparer.
+      title: Great work! Here's a list of what we've collected.
+    primary_ssn_itins:
+      help_text: The IRS requires us to see a valid SSN or ITIN for tax preparation services.
+      title: Attach a photo of your Social Security Card or ITIN
+    prior_tax_returns:
+      help_text_html: "<strong>You might have this form</strong> because you said that you reported a loss from the sale of stocks, bonds, or real estate last year. You might have your %{year} return, which you can share below. You can track down your %{year} return %{transcript_link}."
+      title: Attach your %{year} tax return.
+    property_tax_statements:
+      help_text_html: "<strong>You might have this document</strong> because you said that you either paid mortgage interest or state, local, real estate, or sales taxes."
+      title: Attach your Property Tax Statements
+    requested_documents:
+      help_text: Please upload all requested documents below. You can upload as many documents as you have. If you're unsure about which documents you need to share, please refer to the message from your tax preparer.
+      title: Your tax specialist is requesting additional documents
+    requested_documents_later:
+      not_found:
+        contact_tax_preparer: You can also reach out to your tax preparer if you have their contact information.
+        contact_us_html: We can try to help you locate the correct link if you get in touch by emailing %{email_link} or clicking the live chat button in the bottom right corner.
+        info: It looks like you're trying to upload documents but don't have a working link.
+        title: Requested Documents Page Not Found
+    rrb1099s:
+      help_text_html: You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Railroad Retirement Benefits, <strong>you should have this form</strong>. This is a tax statement issued by the U.S. Railroad Retirement Board (RRB) and represents payments made to you in %{year}.
+      title: Attach your RRB-1099's
+    selfie_instructions:
+      header: Confirm your identity with a photo of yourself
+      info: The IRS requires us to verify who you are for tax preparation services. We do this by reviewing a photo of you holding your ID card.
+      steps:
+        face_camera: Face the camera directly and include from your shoulders to the top of your head, similar to your ID photo
+        face_visible: Make sure your face is clearly visible
+        header: Read through the following steps before continuing
+        id_visible: Make sure you aren't covering up your ID
+        plain_background: Use a plain wall as a background if possible
+        wear_glasses: If you're wearing glasses in your ID photo, wear them in your selfie photo
+      submit_photo: Submit a photo
+    selfies:
+      help_text: The IRS requires us to verify who you are for tax preparation services.
+      need_for_html: 'We will need to see a <u>photo with ID</u> for:'
+      title: Share a photo of yourself holding your ID card
+    send_requested_documents_later:
+      success:
+        next_steps: Your tax preparer will reach out with updates and any additional questions within 3 business days.
+        thank_you: Thank you! Your documents have been submitted.
+        title: Requested Documents Successfully Uploaded
+    spouse_ids:
+      help_text: The IRS also requires us to have a current drivers license, passport, or state ID for your spouse.
+      title: Attach a photo of your spouse's ID card
+    spouse_ssn_itins:
+      help_text: The IRS requires us to see a valid SSN or ITIN for tax preparation services.
+      title: Attach a photo of your spouse's Social Security Card or ITIN
+    ssa1099s:
+      help_text_html: You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Social Security, <strong>you should have this form.</strong> This is a tax form that shows the total amount of benefits you received from Social Security in the previous year. You can get this form %{ssa_link}.
+      title: Attach your SSA-1099's
+    ssn_itins:
+      help_text: The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services.
+      need_for: 'We will need a SSN or ITIN for:'
+      title: Attach photos of Social Security Card or ITIN
+    student_account_statements:
+      help_text_html: "<strong>You might have this statement</strong> because you said that you are filing taxes for people who are full-time students."
+      need_for: 'Please share an image of the student account statement for the following people:'
+      title: Attach your student account statements
+    w2gs:
+      help_text_html: "<strong>You might have this form</strong> because you said that you had income from gambling winnings or the lottery. Depending on how much you won, a gambling facility may send you a form W2-G that records your winnings and any income tax withholdings from the previous year."
+      title: Attach your W-2G's
+    w2s:
+      help_text_html: "<strong>You should have this form</strong> because you said that you worked a job with wages or a salary. Your employer should have sent you this form and you can contact them if you haven't recieved it. More information is available %{transcript_link}."
+      title: Attach your W-2's
   flash:
     application_controller:
-      flash_redirect: "You're missing a ticket or intake. In production, we would have redirected you to the beginning."
-      maintenance: "GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow."
+      flash_redirect: You're missing a ticket or intake. In production, we would have redirected you to the beginning.
+      maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
     dependents_controller:
-      removed_dependent: "Removed %{full_name}."
+      removed_dependent: Removed %{full_name}.
   footer:
-    service_description_html: "GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally."
+    service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
   forms:
     errors:
-      at_least_one_year: "Please pick at least one year."
-      need_phone_number: "Please enter a cell phone number."
+      at_least_one_year: Please pick at least one year.
+      need_phone_number: Please enter a cell phone number.
     validators:
-      answer_presence: "Please answer or click \"Skip question\""
-      email_address_valid: "Please enter a valid email address."
-      email_address_confirmation_match: "Please double check that the email addresses match."
-      generic_presence: "Can't be blank."
-      job_count_presence: "Please select a number of jobs."
-      phone_number_valid: "Please enter a valid phone number."
-      phone_number_confirmation_match: "Please double check that the phone numbers match."
-      preferred_name_presence: "Please enter your preferred name."
-      primary_first_name_presence: "Please enter your first name."
-      primary_last_name_presence: "Please enter your last name."
-      primary_last_four_ssn_length: "Please enter the last four digits of your SSN or ITIN."
-      spouse_first_name_presence: "Please enter your spouse's first name."
-      spouse_last_name_presence: "Please enter your spouse's last name."
-      spouse_last_four_ssn_length: "Please enter the last four digits of your spouse's SSN or ITIN."
-      state_of_residence_inclusion: "Please select a state from the list."
+      answer_presence: Please answer or click "Skip question"
+      email_address_confirmation_match: Please double check that the email addresses match.
+      email_address_valid: Please enter a valid email address.
+      generic_presence: Can't be blank.
+      job_count_presence: Please select a number of jobs.
+      phone_number_confirmation_match: Please double check that the phone numbers match.
+      phone_number_valid: Please enter a valid phone number.
+      preferred_name_presence: Please enter your preferred name.
+      primary_first_name_presence: Please enter your first name.
+      primary_last_four_ssn_length: Please enter the last four digits of your SSN or ITIN.
+      primary_last_name_presence: Please enter your last name.
+      spouse_first_name_presence: Please enter your spouse's first name.
+      spouse_last_four_ssn_length: Please enter the last four digits of your spouse's SSN or ITIN.
+      spouse_last_name_presence: Please enter your spouse's last name.
+      state_of_residence_inclusion: Please select a state from the list.
   general:
-    address: "Address"
-    affirmative: "Yes"
-    chat_with_us: "Chat with us"
-    confirm: "Confirm"
-    continue: "Continue"
-    edit: "Edit"
+    address: Address
+    affirmative: 'Yes'
+    chat_with_us: Chat with us
+    confirm: Confirm
+    continue: Continue
+    edit: Edit
     ethnicity:
-      hispanic: "Hispanic or Latino"
-      not_hispanic: "Not Hispanic or Latino"
-    find_location: "Find a Location"
-    find_vita_site: "Find a VITA site near you"
-    free_file_html: "If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online."
-    free_file_lookup_tool: "IRS Free File Lookup Tool"
-    get_my_payment: "Get My Payment"
-    get_started: "Get Started"
-    here: "here"
-    home: "Home"
-    hours: "Hours"
-    irs_certified_volunteers: "IRS Certified Volunteers"
-    irs_free_file: "IRS Free File"
-    languages: "Languages"
-    negative: "No"
-    next: "Next"
-    not_at_all: "Not at all"
-    not_well: "Not well"
-    oops: "Oops!"
-    open: "Open"
-    other_options: "Try another free tax filing option"
-    phone_number: "Phone number"
-    privacy_policy: "privacy policy"
+      hispanic: Hispanic or Latino
+      not_hispanic: Not Hispanic or Latino
+    find_location: Find a Location
+    find_vita_site: Find a VITA site near you
+    free_file_html: If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online.
+    free_file_lookup_tool: IRS Free File Lookup Tool
+    get_my_payment: Get My Payment
+    get_started: Get Started
+    here: here
+    home: Home
+    hours: Hours
+    irs_certified_volunteers: IRS Certified Volunteers
+    irs_free_file: IRS Free File
+    languages: Languages
+    negative: 'No'
+    next: Next
+    not_at_all: Not at all
+    not_well: Not well
+    oops: Oops!
+    open: Open
+    other_options: Try another free tax filing option
+    phone_number: Phone number
+    privacy_policy: privacy policy
     race:
-      american_indian_alaska_native: "American Indian or Alaska Native"
-      asian: "Asian"
-      black_african_american: "Black or African American"
-      native_hawaiian_pacific_islander: "Native Hawaiian or other Pacific Islander"
-      white: "White"
-    remove: "Remove"
-    return_home: "Return to home"
-    return_search: "Return to search"
-    search: "Search"
-    security_html: "Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}."
-    skip_question: "Skip question"
-    skip_questions: "Skip questions"
-    sorry: "We're sorry!"
-    submit: "Submit"
-    submit_question: "Submit a question to GetYourRefund"
-    upload: "Upload"
-    very_well: "Very well"
-    visit_free_file: "Visit IRS Free File"
-    vita_long: "VITA: Volunteer Income Tax Assistance"
-    well: "Well"
-    you: "you"
-    you_or_spouse: "you or your spouse"
+      american_indian_alaska_native: American Indian or Alaska Native
+      asian: Asian
+      black_african_american: Black or African American
+      native_hawaiian_pacific_islander: Native Hawaiian or other Pacific Islander
+      white: White
+    remove: Remove
+    return_home: Return to home
+    return_search: Return to search
+    search: Search
+    security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
+    skip_question: Skip question
+    skip_questions: Skip questions
+    sorry: We're sorry!
+    submit: Submit
+    submit_question: Submit a question to GetYourRefund
+    upload: Upload
+    very_well: Very well
+    visit_free_file: Visit IRS Free File
+    vita_long: 'VITA: Volunteer Income Tax Assistance'
+    well: Well
+    you: you
+    you_or_spouse: you or your spouse
   helpers:
     birth_date_helper:
-      valid_birth_date: "Please select a valid date"
+      valid_birth_date: Please select a valid date
   intake_site_drop_offs:
     new:
-      title: "Valet VITA Drop-off"
-      intake_site: "Intake Site"
-      name: "Client name"
-      email: "Client email"
-      phone_number: "Client phone number"
+      additional_info: Additional information
+      certification_level: Certification level
+      document_bundle: Documents bundle
+      email: Client email
+      hsa: HSA
+      intake_site: Intake Site
+      name: Client name
+      phone_number: Client phone number
       signature_method:
-        label: "Pick-up method"
-        e_signature: "E-Signature"
-        in_person: "In-person"
+        e_signature: E-Signature
+        in_person: In-person
+        label: Pick-up method
         pickup_date:
-          label: "Pick-up date"
-          help_text: "Format: M/D"
+          help_text: 'Format: M/D'
+          label: Pick-up date
           postfix: "/2020"
-      document_bundle: "Documents bundle"
       state:
-        label: "State"
-        help_text: "For state tax return"
-      certification_level: "Certification level"
-      hsa: "HSA"
-      additional_info: "Additional information"
-      submit: "Send for prep"
+        help_text: For state tax return
+        label: State
+      submit: Send for prep
+      title: Valet VITA Drop-off
     show:
-      title: "Sent for prep! Zendesk Ticket ID: %{ticket_id}"
-      found_ticket: "Found a matching Zendesk ticket!"
-      sent_for_prep: "New drop-off sent for prep!"
-      comment_added: "Comment with details added to ticket ID: %{ticket_id}"
-      ticket_id: "Zendesk Ticket ID: %{ticket_id}"
-      add_another: "Add another drop-off"
+      add_another: Add another drop-off
+      comment_added: 'Comment with details added to ticket ID: %{ticket_id}'
+      found_ticket: Found a matching Zendesk ticket!
+      sent_for_prep: New drop-off sent for prep!
+      ticket_id: 'Zendesk Ticket ID: %{ticket_id}'
+      title: 'Sent for prep! Zendesk Ticket ID: %{ticket_id}'
   layouts:
     admin:
-      welcome_user_html: "Welcome <strong class=\"user__name\">%{name}</strong>"
+      welcome_user_html: Welcome <strong class="user__name">%{name}</strong>
     application:
       meta:
-        description: "Maximize your refund by filing with our trusted volunteers. Available to you online or in person!"
+        description: Maximize your refund by filing with our trusted volunteers. Available to you online or in person!
     document_upload:
-      remove_confirmation: "Are you sure you want to remove \"%{filename}\"?"
-      select_file: "Select a file"
-      take_picture: "Take a picture"
-      done_for_now: "I'm done for now"
-      dont_have: "I don't have this document"
+      done_for_now: I'm done for now
+      dont_have: I don't have this document
+      remove_confirmation: Are you sure you want to remove "%{filename}"?
+      select_file: Select a file
+      take_picture: Take a picture
   models:
     dependent:
       validators:
-        first_name_presence: "Please enter a first name."
-        last_name_presence: "Please enter a last name."
-        birth_date_presence: "Please enter a valid date."
+        birth_date_presence: Please enter a valid date.
+        first_name_presence: Please enter a first name.
+        last_name_presence: Please enter a last name.
     intake:
-      your_spouse: "Your spouse"
+      your_spouse: Your spouse
     intake_site_drop_off:
       errors:
-        choose_file: "Please choose a file."
-        valid_pickup_date: "Please enter a valid month and day (M/D)."
+        choose_file: Please choose a file.
+        valid_pickup_date: Please enter a valid month and day (M/D).
       validators:
-        certification_level_inclusion: "Please select a certification level."
-        email_valid: "Please enter a valid email."
-        intake_site_inclusion: "Please select an intake site."
-        phone_number_valid: "Please enter a valid phone number."
-        state_inclusion: "Please select a state."
-        signature_method_inclusion: "Please select a pickup method."
+        certification_level_inclusion: Please select a certification level.
+        email_valid: Please enter a valid email.
+        intake_site_inclusion: Please select an intake site.
+        phone_number_valid: Please enter a valid phone number.
+        signature_method_inclusion: Please select a pickup method.
+        state_inclusion: Please select a state.
   public_pages:
     about_us:
-      title: "About Us"
-      how_it_works: "We partner with free tax sites, known as Volunteer Income Tax Assistance (VITA) sites, to help you prepare your taxes. Trained and IRS-certified volunteers at local community organizations will prepare your taxes."
-      how_it_helps: "You can save up to $300 when you file for free. We also ensure eligible taxpayers claim the Earned Income Tax Credit (EITC), which can be over $3,000 per family."
+      how_it_helps: You can save up to $300 when you file for free. We also ensure eligible taxpayers claim the Earned Income Tax Credit (EITC), which can be over $3,000 per family.
+      how_it_works: We partner with free tax sites, known as Volunteer Income Tax Assistance (VITA) sites, to help you prepare your taxes. Trained and IRS-certified volunteers at local community organizations will prepare your taxes.
       partners:
-        header: "We partner with trusted organizations"
-        subheader: "We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $66,000 a year."
-        cta: "Interested in partnering with us?"
+        cta: Interested in partnering with us?
+        header: We partner with trusted organizations
         photo_alt:
-          courtney: "A photograph of Courtney O'Reilly smiling."
-          denise: "A photograph of Denise Eckley smiling."
+          courtney: A photograph of Courtney O'Reilly smiling.
+          denise: A photograph of Denise Eckley smiling.
         quote:
           courtney: "“I'm excited to extend our free services to those who can't come into one of our physical locations.I know taxes can be intimidating, which is why we are here to help!”"
           denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
+        subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $66,000 a year.
+      title: About Us
     at_capacity:
-      title: "Wow, it looks like we are at capacity right now."
-      body: "We’re experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. We apologize for the wait, GetYourRefund will be available again shortly."
-      alternative_html: "Alternatively, you can try %{irs_link}, an online service that lets you prepare your own taxes for free."
-      check_back: "We recommend checking back in a few days. Thank you!"
+      alternative_html: Alternatively, you can try %{irs_link}, an online service that lets you prepare your own taxes for free.
+      body: We’re experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. We apologize for the wait, GetYourRefund will be available again shortly.
+      check_back: We recommend checking back in a few days. Thank you!
+      title: Wow, it looks like we are at capacity right now.
     error:
-      title: "Oops, we're sorry, but something went wrong."
-      body: "It looks like there was a server error. We've been notified of the issue and will work to fix it!"
-      contact_html: "If you’re running into trouble, we’re here for you. You can reach us using the \"Help\"/\"Chat\" button in the bottom right or by sending us an email at %{email_link}."
-      cta: "Return to home"
+      body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
+      contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
+      cta: Return to home
+      title: Oops, we're sorry, but something went wrong.
     faq:
-      title: "FAQ"
-      header: "Frequently asked questions"
-      subheader: "Click below for responses to frequently asked questions. Chat with us if you still have questions!"
       getting_started:
-        header: "Help getting started"
-        non_filer:
-          q: "What should I do if I haven’t filed in several years?"
-          a: "We can file your taxes for 2016, 2017, 2018, and 2019. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on."
-        how_to_start:
-          q: "How do I get started?"
-          a: "To get started, go to GetYourRefund.org, click “Get Started,” and let us know that you want to “Start my taxes online.” You will have to upload photos of your ID, answer some questions about your tax situation, and upload your tax documents. Then one of our tax specialists will call you on the phone to discuss your taxes, answer any questions, and complete your filing."
-        missing_docs:
-          q: "What should I do if I can’t find a tax document?"
-          a_html: "If you have lost or never received a tax document, the first place to try is your employer. Often your employer can quickly re-issue your tax forms to you. If that doesn’t work, you can request your tax documents from the IRS at %{transcript_link}."
-        is_it_free:
-          q: "Is this service really free?"
-          a: "Yes! We partner with VITA, an IRS program that certifies tax experts at local community nonprofits like United Way, to complete your state and federal taxes for free."
         am_i_eligible:
-          q: "Am I eligible?"
-          a: "We provide free tax filing assistance to families earning less than about $66,000 a year."
-        how_long:
-          q: "How long will this take?"
-          a1: "All in all GetYourRefund takes 5-10 business days to complete because you work one on one with a tax preparer."
-          a2: "The first step is to answer questions about your tax situation in our online form and upload your tax documents, which can take 10-30 minutes. Next, you will receive a call from your tax specialist in 2-3 business days to discuss your tax situation. Your tax return will then be prepared and quality reviewed by an IRS-certified tax preparer who will call you to discuss your refund and the process for electronic signature and filing. After taxes are filed we have heard from clients that they receive a direct deposit from the IRS within a week."
+          a: We provide free tax filing assistance to families earning less than about $66,000 a year.
+          q: Am I eligible?
         changes:
-          q: "What if I need to change one of my answers or am unsure how to answer?"
-          a: "Don’t worry, you’ll get a chance to talk with one of our tax specialists about your situation, and you can let them know about any changes or answers you were unsure about before they prepare your taxes."
+          a: Don’t worry, you’ll get a chance to talk with one of our tax specialists about your situation, and you can let them know about any changes or answers you were unsure about before they prepare your taxes.
+          q: What if I need to change one of my answers or am unsure how to answer?
         extension:
-          q: "What does it mean that the deadline has been extended?"
-          a: "The 2019 income tax filing and payment deadlines on April 15, 2020, are automatically extended until July 15, 2020. This applies to all individual returns, trusts, and corporations. This is automatic, tax filers do not need to file any additional forms or call the IRS to qualify. This also includes estimated tax payments for tax year 2020 that are due on April 15, 2020."
+          a: The 2019 income tax filing and payment deadlines on April 15, 2020, are automatically extended until July 15, 2020. This applies to all individual returns, trusts, and corporations. This is automatic, tax filers do not need to file any additional forms or call the IRS to qualify. This also includes estimated tax payments for tax year 2020 that are due on April 15, 2020.
+          q: What does it mean that the deadline has been extended?
+        header: Help getting started
+        how_long:
+          a1: All in all GetYourRefund takes 5-10 business days to complete because you work one on one with a tax preparer.
+          a2: The first step is to answer questions about your tax situation in our online form and upload your tax documents, which can take 10-30 minutes. Next, you will receive a call from your tax specialist in 2-3 business days to discuss your tax situation. Your tax return will then be prepared and quality reviewed by an IRS-certified tax preparer who will call you to discuss your refund and the process for electronic signature and filing. After taxes are filed we have heard from clients that they receive a direct deposit from the IRS within a week.
+          q: How long will this take?
+        how_to_start:
+          a: To get started, go to GetYourRefund.org, click “Get Started,” and let us know that you want to “Start my taxes online.” You will have to upload photos of your ID, answer some questions about your tax situation, and upload your tax documents. Then one of our tax specialists will call you on the phone to discuss your taxes, answer any questions, and complete your filing.
+          q: How do I get started?
+        is_it_free:
+          a: Yes! We partner with VITA, an IRS program that certifies tax experts at local community nonprofits like United Way, to complete your state and federal taxes for free.
+          q: Is this service really free?
+        missing_docs:
+          a_html: If you have lost or never received a tax document, the first place to try is your employer. Often your employer can quickly re-issue your tax forms to you. If that doesn’t work, you can request your tax documents from the IRS at %{transcript_link}.
+          q: What should I do if I can’t find a tax document?
+        non_filer:
+          a: We can file your taxes for 2016, 2017, 2018, and 2019. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on.
+          q: What should I do if I haven’t filed in several years?
+      header: Frequently asked questions
+      subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
+      title: FAQ
     home:
-      title: "Free tax help from IRS-certified volunteers."
-      header: "Free tax filing, real human support."
-      subheader: "Maximize your refund by filing with our trusted volunteers."
-      filing_deadline_banner:
-        title: "Note: The federal income tax filing deadline has been extended to July 15, 2020."
-        body: "You do not need to file any additional forms or call the IRS for the extension. We encourage you to file today as you may be due a refund that can help support your household."
       accuracy:
-        header: "We deliver the highest accuracy rates. For free."
-        body1: "Yes, our service is truly free. We provide this free service by partnering with IRS-certified Volunteer Income Tax Assistance (VITA) sites to provide tax filing assistance to families earning less than $66,000 a year."
-        body2: "Trained, IRS-certified volunteers will prepare and double-check your tax return to make sure it is correct before filing."
+        body1: Yes, our service is truly free. We provide this free service by partnering with IRS-certified Volunteer Income Tax Assistance (VITA) sites to provide tax filing assistance to families earning less than $66,000 a year.
+        body2: Trained, IRS-certified volunteers will prepare and double-check your tax return to make sure it is correct before filing.
+        header: We deliver the highest accuracy rates. For free.
       backtaxes:
-        header: "File for previous years and maximize your refund."
-        body: "We can file your state and federal taxes for tax years 2016, 2017, 2018, and 2019. Our trained volunteers will also make sure you receive tax credits you qualify for."
-      partners:
-        header: "We partner with trusted organizations"
-        learn_more_html: "Learn more about us &rsaquo;"
+        body: We can file your state and federal taxes for tax years 2016, 2017, 2018, and 2019. Our trained volunteers will also make sure you receive tax credits you qualify for.
+        header: File for previous years and maximize your refund.
       clients:
-        header: "What our clients are saying"
-        rating: "Rated 4.8 / 5 stars"
-        across_us: "from clients across the US"
+        across_us: from clients across the US
+        header: What our clients are saying
         quote1:
-          header: "Oh my god this is amazing"
           body: "“I just want to say I can’t tell you how much stress you guys relieved by offering it online, I had looked at other services credit karma, turbo tax and going through the initial steps I just wasn’t feeling confident until I stopped and found GetYourRefund I was like oh my god this is amazing”"
+          header: Oh my god this is amazing
         quote2:
-          header: "Very professional, very friendly"
           body: "“I thought the tax preparers were very professional, very friendly, very open to questions so I really appreciated that, and they were also patient with my questions. I like this process a lot better where there’s a person that can explain in detail questions that you have and they respond pretty fast”"
+          header: Very professional, very friendly
+        rating: Rated 4.8 / 5 stars
       features:
-        header: "The convenience of online, the support of in person."
-        free: "Completely free service"
-        chat: "Chat support available"
-        backtaxes: "File back taxes (2016-2019)"
-        amendments: "File amendments for past years"
-        questions: "Still have questions? Visit our FAQ page or chat with us."
-        faq_cta: "Visit FAQ"
-      security:
-        header: "We're committed to keeping your information secure."
-        body: "In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure."
+        amendments: File amendments for past years
+        backtaxes: File back taxes (2016-2019)
+        chat: Chat support available
+        faq_cta: Visit FAQ
+        free: Completely free service
+        header: The convenience of online, the support of in person.
+        questions: Still have questions? Visit our FAQ page or chat with us.
       file:
-        header: "Get more of your refund dollars back by filing for free today!"
+        header: Get more of your refund dollars back by filing for free today!
+      filing_deadline_banner:
+        body: You do not need to file any additional forms or call the IRS for the extension. We encourage you to file today as you may be due a refund that can help support your household.
+        title: 'Note: The federal income tax filing deadline has been extended to July 15, 2020.'
+      header: Free tax filing, real human support.
+      partners:
+        header: We partner with trusted organizations
+        learn_more_html: Learn more about us &rsaquo;
+      security:
+        body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
+        header: We're committed to keeping your information secure.
+      subheader: Maximize your refund by filing with our trusted volunteers.
+      title: Free tax help from IRS-certified volunteers.
     maintenance:
-      title: "GetYourRefund is temporarily down for maintenance"
-      info_html: "We're making some updates to GetYourRefund, and we'll be back soon! We expect the maintenance to be finished at <strong>3:00 a.m. Eastern (12:00 a.m. Pacific)</strong>, and we encourage you to come back after that time."
-      questions: "If you have any questions in the meantime, feel free to reach out via the chat/help button in the bottom right."
-      contact_html: "You can also %{email_link}."
-      email: "submit a question via email to GetYourRefund"
+      contact_html: You can also %{email_link}.
+      email: submit a question via email to GetYourRefund
+      info_html: We're making some updates to GetYourRefund, and we'll be back soon! We expect the maintenance to be finished at <strong>3:00 a.m. Eastern (12:00 a.m. Pacific)</strong>, and we encourage you to come back after that time.
+      questions: If you have any questions in the meantime, feel free to reach out via the chat/help button in the bottom right.
+      title: GetYourRefund is temporarily down for maintenance
     maybe_ineligible:
-      title: "We’re unsure if you qualify for our services."
-      info: "We're happy to answer any questions you may have about GetYourRefund or we can connect you to other tax filing options."
+      info: We're happy to answer any questions you may have about GetYourRefund or we can connect you to other tax filing options.
+      title: We’re unsure if you qualify for our services.
     other_options:
-      title: "Let's find a way to help you!"
-      info: "We are excited to help you with your taxes, but we need to verify your identity to get started. Identify verification is important to ensure that your information is safe and secure, but if it's not for you, you can learn about other free filing options below."
+      info: We are excited to help you with your taxes, but we need to verify your identity to get started. Identify verification is important to ensure that your information is safe and secure, but if it's not for you, you can learn about other free filing options below.
+      title: Let's find a way to help you!
     page_not_found:
-      title: "Oops, we're sorry, but the page you're looking for can't be found."
-      info: "The page you're trying to access isn't available."
-      let_us_know_html: "If you followed a link here, please let us know using the \"Help\"/\"Chat\" button in the bottom right or by sending us an email at %{email_link}."
+      info: The page you're trying to access isn't available.
+      let_us_know_html: If you followed a link here, please let us know using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
+      title: Oops, we're sorry, but the page you're looking for can't be found.
     privacy_policy:
-      title: "Privacy Policy"
-      intro: "GetYourRefund.org is a non-profit website run by Code for America Labs, Inc. (\"Code for America\", \"we\", \"us\", \"our\"). This Privacy Policy describes how the GetYourRefund.org website (the \"Site\") collects, uses, and protects your personal information. By submitting your personal information on the Site, you agree to the terms in this Privacy Policy. If you do not agree with these terms, please do not use the Site."
-      overview:
-        header: "Overview"
-        data_use:
-          header: "We will only use your personal information to:"
-          vita: "Help connect you with Volunteer Income Tax Assistance (VITA) free tax preparation services and any other benefit programs that you apply for on future versions of the Site (\"GetYourRefund\" herein refers to all such programs)."
-          suggestions: "Suggest other services or assistance programs that may be useful to you. We will only use your personal information in order to present those services or programs to you as an option, but will never send your personal information to any other services or programs without your permission."
-        no_disclosure: "We will not knowingly disclose or sell your personal information to any third party, except as provided in this Privacy Policy. We will take all reasonable measures to protect your personal information."
-      information_collection:
-        header: "The personal information we collect"
-        site:
-          header: "When visiting the site"
-          data:
-            header: "In addition to the information you provide, we automatically collect and store information about your visit to the Site:"
-            domain: "Domain from which you access the Internet."
-            ip: "IP address (an IP or internet protocol address is a number that is automatically given to a computer connected to the Web)."
-            os_browser: "Operating system on your computer and information about the browser you used when visiting the site."
-            date_time: "Date and time of your visit."
-            pages: "Pages you visited."
-            referrer: "Address of the website that connected you to the Site (such as google.com or bing.com)."
-          use_and_storage: "We use this information to understand how the Site is used, improve the Site, and monitor usage for security purposes. This data is stored separately from the personal information you submit in the GetYourRefund application."
-          knowledge_and_consent: "We will not collect personal information from you without your knowledge and consent, except in a few limited circumstances as described in this Policy."
-        service:
-          header: "When using the service"
-          data:
-            header: "We collect all information provided through the Site in order to use the service, including but not limited to:"
-            name: "your name"
-            address: "address"
-            contact_info: "contact information"
-            ssn: "social security number"
-            financial_info: "financial information, pictures of your driver’s license"
-            dependent_cards: "Pictures of social security cards for dependents if applicable"
-            w2: "W-2’s"
-            1099: "1099’s"
-          irs_forms:
-            header: "Only information required to prepare and complete the service will be collected and retained. By using the service, specific IRS forms will be completed with your information provided, including:"
-            intake: "13614-C VITA intake form"
-            consent: "Consent to GetYourRefund service model"
-            efile: "Form 8879 consent to e-file (will be sent via DocuSign for signature prior to e-filing)"
-          use_and_storage: "We do not store any of this information unless you electronically consent to the service on the GetYourRefund intake form. Your taxes will not be e-filed until you complete the above consent forms. If you decide not to move forward with using the service, the personal information will be deleted."
-          retention_html: "We currently retain all site visit data indefinitely unless you specifically request that we delete it. You can make this request by emailing us at %{email_link}."
-      information_use:
-        header: "How we use your information"
-        vita_services:
-          header: "We only use your personal information to help you access VITA services. If you consent to allow VITA to prepare your taxes, we will:"
-          intake: "Submit your VITA intake form to the VITA program who will assign a certified volunteer to prepare your taxes"
-          notifications: "Notify you of your progress in the process, depending on your contact preferences."
-          support: "Provide you support throughout the tax preparation process."
-          docs: "Send the documents you upload to a secure file upload location for certified staff and volunteers at VITA sites to review"
-          efile: "VITA will e-file your returns through TaxSlayer and submit your information to the IRS if you consent to e-filing via e-signing form 8879 in DocuSign"
-        research: "We will send a hashed/anonymized version of your SSN to the IRS for research purposes only, we will receive back aggregate metrics for our research to help us improve the service."
-      information_sharing:
-        header: "How we share your information"
-        communication_with_you:
-          header: "Communication with you"
-          notifications:
-            header: "We will send you notifications to update you with progress as a VITA site prepares your tax returns. We may reach out to you with questions or requests for additional information."
-            sms_email: "If you consent to SMS and email communications on the intake form, we will send Zendesk notifications via SMS and email depending on your indicated communication preferences"
-            email_consent: "We will not send you an email unless you consent to email communication in the application or you email us first."
-            sms_consent: "We will not send you a text message unless you consent to text message communication in the application or you text us first."
-            vita: "VITA sites may contact you for more information to help complete your return (ex. requesting additional documents and clarifying questions). We also disclose your personal information to Code for America employees, contractors, and affiliated organizations that need to know the information in order to provide the services of the Site."
-        communication_with_others:
-          header: "Communications with other sites, services, and individuals"
-          need_to_know: "Code for America employees, contractors, and affiliated organizations with a need to know information in order to provide the services of the Site will also be provided limited access to personal information."
-          partners:
-            header: "Once you submit your VITA intake information on the Site, we share this information with our partner VITA sites via the secure intake system. In order to provide services, the Site will share data and information other secure systems that will house your information, including:"
-            zendesk: "Zendesk"
-            docusign: "DocuSign"
-            taxslayer: "TaxSlayer (through consenting to work with VITA, system they use to prepare your return and e-file if you consent to e-filing)"
-          responsibility: "Please be aware that we are not responsible for the content or privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information."
-          non-partners: "Besides VITA sites and individuals affiliated with the Site, we do not share your personal information with any other individuals or organizations, except to the minimal extent required by law."
-      information_protection:
-        header: "How we protect your information"
-        important: "Protecting your personal information is extremely important to us and we take all reasonable measures to do so. We take precautions to protect your information. When you submit sensitive information via the website, your information is protected both online and offline."
-        online: "Wherever we collect sensitive information, that information is encrypted and transmitted to us in a secure way. You can verify this by looking for a lock icon in the address bar and looking for \"https\" at the beginning of the address of the Web page."
-        offline: "While we use encryption to protect sensitive information transmitted online, we also protect your information offline. Only employees who need the information to perform a specific job are granted access to personally identifiable information. The computers/servers in which we store personally identifiable information are kept in a secure environment."
-        security_practices:
-          header: "Here are some specific security practices we use:"
-          tls: "When you enter your information on our site we encrypt the transmission of that information using transport layer security (TLS)."
-          ssl: "All connections will be encrypted using SSL certificates"
-          incident_response: "Site maintains an incident response plan that includes reporting security incidents to the IRS"
-          doc_storage: "Documents will be kept secure at all times - passwords, encryption, sealed envelopes, locking file holders/cabinets, etc"
-          doc_deletion: "Taxpayer documentation will be deleted within 5 days after 3rd attempt to contact the taxpayer (if the taxpayer is not responsive to requests for contact)"
-          training: "Only VITA volunteers completing the necessary training and Code for America site administrators will have access to taxpayer information"
-        complete_security: "Although we try our best to protect the privacy of your personal information, we cannot guarantee complete security. The transmission of information via the Internet is not completely secure. Unauthorized entry or use, hardware or software failure, and other factors, may compromise the security of user information at any time."
       changes:
-        header: "Changes"
-        info: "We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of this site after any changes in this Privacy Policy will constitute your acceptance of the changes."
+        header: Changes
+        info: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of this site after any changes in this Privacy Policy will constitute your acceptance of the changes.
       effective_date:
-        header: "Effective Date"
-        info: "This version of the policy is effective %{effective_date}"
+        header: Effective Date
+        info: This version of the policy is effective %{effective_date}
+      information_collection:
+        header: The personal information we collect
+        service:
+          data:
+            '1099': 1099’s
+            address: address
+            contact_info: contact information
+            dependent_cards: Pictures of social security cards for dependents if applicable
+            financial_info: financial information, pictures of your driver’s license
+            header: 'We collect all information provided through the Site in order to use the service, including but not limited to:'
+            name: your name
+            ssn: social security number
+            w2: W-2’s
+          header: When using the service
+          irs_forms:
+            consent: Consent to GetYourRefund service model
+            efile: Form 8879 consent to e-file (will be sent via DocuSign for signature prior to e-filing)
+            header: 'Only information required to prepare and complete the service will be collected and retained. By using the service, specific IRS forms will be completed with your information provided, including:'
+            intake: 13614-C VITA intake form
+          retention_html: We currently retain all site visit data indefinitely unless you specifically request that we delete it. You can make this request by emailing us at %{email_link}.
+          use_and_storage: We do not store any of this information unless you electronically consent to the service on the GetYourRefund intake form. Your taxes will not be e-filed until you complete the above consent forms. If you decide not to move forward with using the service, the personal information will be deleted.
+        site:
+          data:
+            date_time: Date and time of your visit.
+            domain: Domain from which you access the Internet.
+            header: 'In addition to the information you provide, we automatically collect and store information about your visit to the Site:'
+            ip: IP address (an IP or internet protocol address is a number that is automatically given to a computer connected to the Web).
+            os_browser: Operating system on your computer and information about the browser you used when visiting the site.
+            pages: Pages you visited.
+            referrer: Address of the website that connected you to the Site (such as google.com or bing.com).
+          header: When visiting the site
+          knowledge_and_consent: We will not collect personal information from you without your knowledge and consent, except in a few limited circumstances as described in this Policy.
+          use_and_storage: We use this information to understand how the Site is used, improve the Site, and monitor usage for security purposes. This data is stored separately from the personal information you submit in the GetYourRefund application.
+      information_protection:
+        complete_security: Although we try our best to protect the privacy of your personal information, we cannot guarantee complete security. The transmission of information via the Internet is not completely secure. Unauthorized entry or use, hardware or software failure, and other factors, may compromise the security of user information at any time.
+        header: How we protect your information
+        important: Protecting your personal information is extremely important to us and we take all reasonable measures to do so. We take precautions to protect your information. When you submit sensitive information via the website, your information is protected both online and offline.
+        offline: While we use encryption to protect sensitive information transmitted online, we also protect your information offline. Only employees who need the information to perform a specific job are granted access to personally identifiable information. The computers/servers in which we store personally identifiable information are kept in a secure environment.
+        online: Wherever we collect sensitive information, that information is encrypted and transmitted to us in a secure way. You can verify this by looking for a lock icon in the address bar and looking for "https" at the beginning of the address of the Web page.
+        security_practices:
+          doc_deletion: Taxpayer documentation will be deleted within 5 days after 3rd attempt to contact the taxpayer (if the taxpayer is not responsive to requests for contact)
+          doc_storage: Documents will be kept secure at all times - passwords, encryption, sealed envelopes, locking file holders/cabinets, etc
+          header: 'Here are some specific security practices we use:'
+          incident_response: Site maintains an incident response plan that includes reporting security incidents to the IRS
+          ssl: All connections will be encrypted using SSL certificates
+          tls: When you enter your information on our site we encrypt the transmission of that information using transport layer security (TLS).
+          training: Only VITA volunteers completing the necessary training and Code for America site administrators will have access to taxpayer information
+      information_sharing:
+        communication_with_others:
+          header: Communications with other sites, services, and individuals
+          need_to_know: Code for America employees, contractors, and affiliated organizations with a need to know information in order to provide the services of the Site will also be provided limited access to personal information.
+          non-partners: Besides VITA sites and individuals affiliated with the Site, we do not share your personal information with any other individuals or organizations, except to the minimal extent required by law.
+          partners:
+            docusign: DocuSign
+            header: 'Once you submit your VITA intake information on the Site, we share this information with our partner VITA sites via the secure intake system. In order to provide services, the Site will share data and information other secure systems that will house your information, including:'
+            taxslayer: TaxSlayer (through consenting to work with VITA, system they use to prepare your return and e-file if you consent to e-filing)
+            zendesk: Zendesk
+          responsibility: Please be aware that we are not responsible for the content or privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information.
+        communication_with_you:
+          header: Communication with you
+          notifications:
+            email_consent: We will not send you an email unless you consent to email communication in the application or you email us first.
+            header: We will send you notifications to update you with progress as a VITA site prepares your tax returns. We may reach out to you with questions or requests for additional information.
+            sms_consent: We will not send you a text message unless you consent to text message communication in the application or you text us first.
+            sms_email: If you consent to SMS and email communications on the intake form, we will send Zendesk notifications via SMS and email depending on your indicated communication preferences
+            vita: VITA sites may contact you for more information to help complete your return (ex. requesting additional documents and clarifying questions). We also disclose your personal information to Code for America employees, contractors, and affiliated organizations that need to know the information in order to provide the services of the Site.
+        header: How we share your information
+      information_use:
+        header: How we use your information
+        research: We will send a hashed/anonymized version of your SSN to the IRS for research purposes only, we will receive back aggregate metrics for our research to help us improve the service.
+        vita_services:
+          docs: Send the documents you upload to a secure file upload location for certified staff and volunteers at VITA sites to review
+          efile: VITA will e-file your returns through TaxSlayer and submit your information to the IRS if you consent to e-filing via e-signing form 8879 in DocuSign
+          header: 'We only use your personal information to help you access VITA services. If you consent to allow VITA to prepare your taxes, we will:'
+          intake: Submit your VITA intake form to the VITA program who will assign a certified volunteer to prepare your taxes
+          notifications: Notify you of your progress in the process, depending on your contact preferences.
+          support: Provide you support throughout the tax preparation process.
+      intro: GetYourRefund.org is a non-profit website run by Code for America Labs, Inc. ("Code for America", "we", "us", "our"). This Privacy Policy describes how the GetYourRefund.org website (the "Site") collects, uses, and protects your personal information. By submitting your personal information on the Site, you agree to the terms in this Privacy Policy. If you do not agree with these terms, please do not use the Site.
+      overview:
+        data_use:
+          header: 'We will only use your personal information to:'
+          suggestions: Suggest other services or assistance programs that may be useful to you. We will only use your personal information in order to present those services or programs to you as an option, but will never send your personal information to any other services or programs without your permission.
+          vita: Help connect you with Volunteer Income Tax Assistance (VITA) free tax preparation services and any other benefit programs that you apply for on future versions of the Site ("GetYourRefund" herein refers to all such programs).
+        header: Overview
+        no_disclosure: We will not knowingly disclose or sell your personal information to any third party, except as provided in this Privacy Policy. We will take all reasonable measures to protect your personal information.
       questions:
-        header: "Questions"
-        contact_us_html: "If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:"
-        resolve: "We will do our best to resolve the issue."
+        contact_us_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:'
+        header: Questions
+        resolve: We will do our best to resolve the issue.
+      title: Privacy Policy
     stimulus_payment:
-      title: "Stimulus Payment"
-      header: "Get your Stimulus Payment (EIP)"
-      intro:
-        description: "This year, many people will receive an Economic Impact Payment (often called a stimulus payment) from the federal government. You’ll get up to $1,200 for yourself ($2,400 for a married couple filing jointly) and you’ll get an additional $500 for every dependent child under the age of 17."
-        common_questions: "We know there are many questions around the Economic Impact Payments (EIP) and we have some answers! We’ve broken down some common questions to help you out."
-        irs_info_html: "The IRS will post all key information on %{irs_eip_link} as soon as it becomes available."
-        eligibility:
-          header: "Who is eligible?"
-          info: "Tax filers with adjusted gross income up to $75,000 for individuals and up to $150,000 for married couples filing joint returns will receive the full payment. For filers with income above those amounts, the payment amount is reduced by $5 for each $100 above the $75,000/$150,000 thresholds. Single filers with income exceeding $99,000 and $198,000 for joint filers with no children are not eligible."
-        payments:
-          header: "Automatic payments"
-          info: "Eligible taxpayers who filed tax returns for either 2019 or 2018 will automatically receive an economic impact payment of up to $1,200 for individuals or $2,400 for married couples and up to $500 for each qualifying child."
-          exceptions:
-            header: "Unless you are otherwise required to file a tax return, or have dependents under the age of 17, you will automatically receive your $1,200 payment if you are in any of the following categories, so you are not required to file:"
-            social_security: "Social Security retirement, disability (SSDI), Supplemental Security Income (SSI) or survivor benefits"
-            veterans: "Veteran’s benefits"
-            railroad: "Railroad Retirement benefits"
-        benefits:
-          header: "The benefits of filing"
-          info: "However, for those in the categories above, if you have any earned income or dependents, you may be able to access additional tax credits or benefits by filing or updating your info with the IRS. Please reach out via chat for more information."
       faq:
-        how_to_get_paid:
-          header: "How to get paid"
-          eip_check:
-            q: "How do I get my Economic Impact Payment check?"
-            a: "If you filed your 2019 taxes, your economic impact payment (stimulus payment) will be sent to you by the method you chose to receive your 2019 refund (either mailed to your mailing address or directly deposited to the bank account you provided on your 2019 taxes). If you haven’t filed for 2019, the IRS will use the information on your 2018 taxes."
-          did_not_provide_bank_account:
-            q: "What if I didn’t provide a bank account to the IRS?"
-            a_html: "If you did not provide a routing number for a bank account, your return could be delayed. You can provide the IRS with this information at the IRS %{irs_get_my_payment_link} website."
-          payment_amount:
-            q: "How much will I receive?"
-            a_html: "The IRS has a %{irs_eip_calculator_link} website to help you calculate how much you will receive."
-            calculate_eip_website_title: "“How do I calculate my EIP”"
-          change_information:
-            q: "What if I need to change the information I provided in 2018 or 2019?"
-            a_html: "You can update your information on the IRS %{irs_get_my_payment_link} website."
-          non_filer:
-            q: "What if I haven’t filed federal taxes?"
-            a: "If you aren’t required to file taxes but you have any earned income we recommend filing your taxes through GetYourRefund as you may be eligible for additional tax credits! If you’re required to file taxes, but didn’t file in 2018 or 2019, you can still file with GetYourRefund."
-          no_income:
-            q: "What if I have no income?"
-            a_html: "You need to enter your payment information on the IRS %{irs_enter_payment_info_link} website to receive your payment. If you are having trouble completing this on your own, you can complete the GetYourRefund questionnaire and IRS-certified volunteers can help you complete the simple form."
-            enter_payment_info_website_title: "“Non-Filers: Enter Payment Info Here”"
-          no_bank_account:
-            q: "What if I don’t have a bank account?"
-            a_html: "If you don’t have a bank account, it could take up to five months to receive your EIP check by mail. To get your payment quickly via direct deposit, sign up for a bank account online and add your account information on the IRS %{irs_get_my_payment_link} website. If you don’t want to sign up for a bank account, you can link a prepaid debit card. Many of our VITA partners can also enroll you in a prepaid debit card when you file your return through GetYourRefund."
-          change_address:
-            q: "What if I moved since filing my taxes?"
-            a_html: "If you want your EIP check mailed to you, make sure your address is up to date on the IRS %{irs_address_change_link} website. There may be delays – it could take up to five months to receive your check by mail."
-            address_change: "address change"
         eip:
-            header: "Economic Impact Payment (stimulus payment) FAQs"
-            when:
-              q: "When will I receive my check?"
-              a: "Economic Impact Payments will arrive in bank accounts through direct deposit starting on April 9th, 2020. If you don't have a bank account it could take up to five months to receive your check by mail."
-            other_benefits:
-              q: "Will the EIP check affect my other government benefits?"
-              a: "No, the EIP checks are treated as a tax credit. This means your payment will not impact the benefits you receive now or in the future."
-            deadline:
-              q: "I still need to file a tax return. How long are the economic impact payments available?"
-              a: "For those concerned about visiting a tax professional or local community organization in person to get help with a tax return, these economic impact payments will be available throughout 2020 and the 2021 tax filing season."
-            owe_taxes:
-              q: "If I owe taxes, or have a payment agreement with the IRS, or owe other federal or state debts, will I still get the EIP?"
-              a: "Yes, but with one exception. The Payment will be offset by past-due child support. The Bureau of the Fiscal Service will send you a notice if this occurs."
-            one_time:
-              q: "Is this a one-time payment?"
-              a: "Only one stimulus package has been announced by the U.S. government. We will update this page with any changes."
-            additional_eip:
-              q: "What if I missed the deadline to provide additional information or received a smaller EIP than expected?"
-              a: "In most cases, the additional EIP would be provided in 2021."
-            scams:
-              q: "What if someone offers a quicker payment?"
-              a: "Don’t click on links whose origins you aren’t 100% sure of. Be wary of scams. If it looks too good to be true, it probably is. And don’t send money to someone you don’t know."
+          additional_eip:
+            a: In most cases, the additional EIP would be provided in 2021.
+            q: What if I missed the deadline to provide additional information or received a smaller EIP than expected?
+          deadline:
+            a: For those concerned about visiting a tax professional or local community organization in person to get help with a tax return, these economic impact payments will be available throughout 2020 and the 2021 tax filing season.
+            q: I still need to file a tax return. How long are the economic impact payments available?
+          header: Economic Impact Payment (stimulus payment) FAQs
+          one_time:
+            a: Only one stimulus package has been announced by the U.S. government. We will update this page with any changes.
+            q: Is this a one-time payment?
+          other_benefits:
+            a: No, the EIP checks are treated as a tax credit. This means your payment will not impact the benefits you receive now or in the future.
+            q: Will the EIP check affect my other government benefits?
+          owe_taxes:
+            a: Yes, but with one exception. The Payment will be offset by past-due child support. The Bureau of the Fiscal Service will send you a notice if this occurs.
+            q: If I owe taxes, or have a payment agreement with the IRS, or owe other federal or state debts, will I still get the EIP?
+          scams:
+            a: Don’t click on links whose origins you aren’t 100% sure of. Be wary of scams. If it looks too good to be true, it probably is. And don’t send money to someone you don’t know.
+            q: What if someone offers a quicker payment?
+          when:
+            a: Economic Impact Payments will arrive in bank accounts through direct deposit starting on April 9th, 2020. If you don't have a bank account it could take up to five months to receive your check by mail.
+            q: When will I receive my check?
+        how_to_get_paid:
+          change_address:
+            a_html: If you want your EIP check mailed to you, make sure your address is up to date on the IRS %{irs_address_change_link} website. There may be delays – it could take up to five months to receive your check by mail.
+            address_change: address change
+            q: What if I moved since filing my taxes?
+          change_information:
+            a_html: You can update your information on the IRS %{irs_get_my_payment_link} website.
+            q: What if I need to change the information I provided in 2018 or 2019?
+          did_not_provide_bank_account:
+            a_html: If you did not provide a routing number for a bank account, your return could be delayed. You can provide the IRS with this information at the IRS %{irs_get_my_payment_link} website.
+            q: What if I didn’t provide a bank account to the IRS?
+          eip_check:
+            a: If you filed your 2019 taxes, your economic impact payment (stimulus payment) will be sent to you by the method you chose to receive your 2019 refund (either mailed to your mailing address or directly deposited to the bank account you provided on your 2019 taxes). If you haven’t filed for 2019, the IRS will use the information on your 2018 taxes.
+            q: How do I get my Economic Impact Payment check?
+          header: How to get paid
+          no_bank_account:
+            a_html: If you don’t have a bank account, it could take up to five months to receive your EIP check by mail. To get your payment quickly via direct deposit, sign up for a bank account online and add your account information on the IRS %{irs_get_my_payment_link} website. If you don’t want to sign up for a bank account, you can link a prepaid debit card. Many of our VITA partners can also enroll you in a prepaid debit card when you file your return through GetYourRefund.
+            q: What if I don’t have a bank account?
+          no_income:
+            a_html: You need to enter your payment information on the IRS %{irs_enter_payment_info_link} website to receive your payment. If you are having trouble completing this on your own, you can complete the GetYourRefund questionnaire and IRS-certified volunteers can help you complete the simple form.
+            enter_payment_info_website_title: "“Non-Filers: Enter Payment Info Here”"
+            q: What if I have no income?
+          non_filer:
+            a: If you aren’t required to file taxes but you have any earned income we recommend filing your taxes through GetYourRefund as you may be eligible for additional tax credits! If you’re required to file taxes, but didn’t file in 2018 or 2019, you can still file with GetYourRefund.
+            q: What if I haven’t filed federal taxes?
+          payment_amount:
+            a_html: The IRS has a %{irs_eip_calculator_link} website to help you calculate how much you will receive.
+            calculate_eip_website_title: "“How do I calculate my EIP”"
+            q: How much will I receive?
+      header: Get your Stimulus Payment (EIP)
+      intro:
+        benefits:
+          header: The benefits of filing
+          info: However, for those in the categories above, if you have any earned income or dependents, you may be able to access additional tax credits or benefits by filing or updating your info with the IRS. Please reach out via chat for more information.
+        common_questions: We know there are many questions around the Economic Impact Payments (EIP) and we have some answers! We’ve broken down some common questions to help you out.
+        description: This year, many people will receive an Economic Impact Payment (often called a stimulus payment) from the federal government. You’ll get up to $1,200 for yourself ($2,400 for a married couple filing jointly) and you’ll get an additional $500 for every dependent child under the age of 17.
+        eligibility:
+          header: Who is eligible?
+          info: Tax filers with adjusted gross income up to $75,000 for individuals and up to $150,000 for married couples filing joint returns will receive the full payment. For filers with income above those amounts, the payment amount is reduced by $5 for each $100 above the $75,000/$150,000 thresholds. Single filers with income exceeding $99,000 and $198,000 for joint filers with no children are not eligible.
+        irs_info_html: The IRS will post all key information on %{irs_eip_link} as soon as it becomes available.
+        payments:
+          exceptions:
+            header: 'Unless you are otherwise required to file a tax return, or have dependents under the age of 17, you will automatically receive your $1,200 payment if you are in any of the following categories, so you are not required to file:'
+            railroad: Railroad Retirement benefits
+            social_security: Social Security retirement, disability (SSDI), Supplemental Security Income (SSI) or survivor benefits
+            veterans: Veteran’s benefits
+          header: Automatic payments
+          info: Eligible taxpayers who filed tax returns for either 2019 or 2018 will automatically receive an economic impact payment of up to $1,200 for individuals or $2,400 for married couples and up to $500 for each qualifying child.
+      title: Stimulus Payment
     tax_questions:
-      title: "Tax Questions"
-      header: "Let's try to answer your tax questions!"
-      support: "Our team is here to support you. %{faq_link} or submit a question via chat and we will get back to you!"
-      see_faq: "Please see our FAQ"
       cannot_answer:
-        header: "We can not answer:"
-        different_services: "Questions about taxes filed with a different service (H&amp;R Block, TurboTax)"
-        refund_amounts: "The amount of refund you will receive"
+        different_services: Questions about taxes filed with a different service (H&amp;R Block, TurboTax)
+        header: 'We can not answer:'
+        refund_amounts: The amount of refund you will receive
+      header: Let's try to answer your tax questions!
+      see_faq: Please see our FAQ
+      support: Our team is here to support you. %{faq_link} or submit a question via chat and we will get back to you!
+      title: Tax Questions
   questions:
     additional_info:
-      title: "Is there any more information you think we should know?"
-      help_text: "Please share any notes or questions about your tax situation. Your tax preparer will be sure to go over these questions during your phone review."
+      help_text: Please share any notes or questions about your tax situation. Your tax preparer will be sure to go over these questions during your phone review.
+      title: Is there any more information you think we should know?
     adopted_child:
       title:
-        one: "In %{year}, did you adopt a child?"
-        other: "In %{year}, did you or your spouse adopt a child?"
+        one: In %{year}, did you adopt a child?
+        other: In %{year}, did you or your spouse adopt a child?
     already_filed:
-      title: "Before we start, have you already filed for 2019?"
-      help_text: "We’re asking because you may have filed with another service or you may have an amendment to your 2019 return."
+      help_text: We’re asking because you may have filed with another service or you may have an amendment to your 2019 return.
+      title: Before we start, have you already filed for 2019?
     asset_sale_income:
+      help_text: For example, any income included on a 1099-B or 1099-S.
       title:
-        one: "In %{year}, did you have any income from the sale of stocks, bonds, or real estate?"
-        other: "In %{year}, did you or your spouse have any income from the sale of stocks, bonds, or real estate?"
-      help_text: "For example, any income included on a 1099-B or 1099-S."
+        one: In %{year}, did you have any income from the sale of stocks, bonds, or real estate?
+        other: In %{year}, did you or your spouse have any income from the sale of stocks, bonds, or real estate?
     asset_sale_loss:
+      help_text: If you aren't sure, you can check your %{year} tax return.
       title:
-        one: "Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?"
-        other: "Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?"
-      help_text: "If you aren't sure, you can check your %{year} tax return."
+        one: Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
+        other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
     backtaxes:
-      title: "What years do you need to file for?"
-      select_all_that_apply: "Select all that apply."
+      select_all_that_apply: Select all that apply.
+      title: What years do you need to file for?
     balance_payment:
-      title: "If you have a balance due, would you like to make a payment directly from your bank account?"
+      title: If you have a balance due, would you like to make a payment directly from your bank account?
     bank_details:
-      title: "Great, please provide your bank details below!"
-      bank_name: "Bank name"
-      routing_number: "Routing number"
-      account_number: "Account number"
+      account_number: Account number
       account_type:
-        label: "What type of account is this?"
-        checking: "Checking"
-        savings: "Savings"
+        checking: Checking
+        label: What type of account is this?
+        savings: Savings
+      bank_name: Bank name
+      routing_number: Routing number
+      title: Great, please provide your bank details below!
     charitable_contributions:
+      help_text: This includes cash or goods (such as clothing) donated to a church or charitable organization. For example, if you donated household items to Goodwill or Salvation Army.
       title:
-        one: "In %{year}, did you make any charitable contributions?"
-        other: "In %{year}, did you or your spouse make any charitable contributions?"
-      help_text: "This includes cash or goods (such as clothing) donated to a church or charitable organization. For example, if you donated household items to Goodwill or Salvation Army."
+        one: In %{year}, did you make any charitable contributions?
+        other: In %{year}, did you or your spouse make any charitable contributions?
     chat_with_us:
-      title: "Our team at %{partner_name} is here to help!"
-      info: "We know taxes can be hard and we’re here to support you every step of the way!"
-      chat: "If you have questions, you can chat with us by clicking the button in the bottom right of your screen."
+      chat: If you have questions, you can chat with us by clicking the button in the bottom right of your screen.
+      info: We know taxes can be hard and we’re here to support you every step of the way!
+      title: Our team at %{partner_name} is here to help!
     consent:
-      title: "Great! Here's the legal stuff..."
-      primary_first_name: "Legal first name"
-      primary_last_name: "Legal last name"
-      primary_last_four_ssn: "Last 4 of SSN/ITIN"
-      birth_date: "Date of birth"
-      cta: "I agree"
+      birth_date: Date of birth
+      cta: I agree
+      primary_first_name: Legal first name
+      primary_last_four_ssn: Last 4 of SSN/ITIN
+      primary_last_name: Legal last name
+      title: Great! Here's the legal stuff...
     debt_forgiven:
+      help_text: Such as credit card, mortgage, or other debt.
       title:
-        one: "In %{year}, did you have debt cancelled or forgiven by a lender?"
-        other: "In %{year}, did you or your spouse have debt cancelled or forgiven by a lender?"
-      help_text: "Such as credit card, mortgage, or other debt."
+        one: In %{year}, did you have debt cancelled or forgiven by a lender?
+        other: In %{year}, did you or your spouse have debt cancelled or forgiven by a lender?
     demographic_disability:
-      title: "Do you or any member of your household have a disability?"
+      title: Do you or any member of your household have a disability?
     demographic_english_conversation:
-      title: "How well would you say you can carry on a conversation in English?"
+      title: How well would you say you can carry on a conversation in English?
     demographic_english_reading:
-      title: "How well would you say you read a newspaper in English?"
+      title: How well would you say you read a newspaper in English?
     demographic_primary_ethnicity:
-      title: "What is your ethnicity?"
+      title: What is your ethnicity?
     demographic_primary_race:
-      title: "What is your race?"
+      title: What is your race?
     demographic_questions:
-      title: "Are you willing to answer some additional questions to help us better serve you?"
+      title: Are you willing to answer some additional questions to help us better serve you?
     demographic_spouse_ethnicity:
-      title: "What is your spouse's ethnicity?"
+      title: What is your spouse's ethnicity?
     demographic_spouse_race:
-      title: "What is your spouse's race?"
+      title: What is your spouse's race?
     demographic_veteran:
-      title: "Are you or your spouse a veteran of the U.S. Armed Forces?"
+      title: Are you or your spouse a veteran of the U.S. Armed Forces?
     dependent_care:
+      help_text: For example, daycare, afterschool care, a nanny, or in-home care.
       title:
-        one: "In %{year}, did you pay any child or dependent care expenses?"
-        other: "In %{year}, did you or your spouse pay any child or dependent care expenses?"
-      help_text: "For example, daycare, afterschool care, a nanny, or in-home care."
+        one: In %{year}, did you pay any child or dependent care expenses?
+        other: In %{year}, did you or your spouse pay any child or dependent care expenses?
     disability_income:
+      help_text: Such as payments from insurance or workers compensation that is included on a W-2 or 1099-R.
       title:
-        one: "In %{year}, did you receive any disability benefits?"
-        other: "In %{year}, did you or your spouse receive any disability benefits?"
-      help_text: "Such as payments from insurance or workers compensation that is included on a W-2 or 1099-R."
+        one: In %{year}, did you receive any disability benefits?
+        other: In %{year}, did you or your spouse receive any disability benefits?
     disaster_loss:
+      fema_tool: this FEMA tool
+      help_text_html: If you experienced a disaster in your area, and you are unsure if it was declared a Federal Disaster Area, you can use %{fema_link} to check.
       title:
-        one: "In %{year}, did you have a loss related to a declared Federal Disaster Area?"
-        other: "In %{year}, did you or your spouse have a loss related to a declared Federal Disaster Area?"
-      help_text_html: "If you experienced a disaster in your area, and you are unsure if it was declared a Federal Disaster Area, you can use %{fema_link} to check."
-      fema_tool: "this FEMA tool"
+        one: In %{year}, did you have a loss related to a declared Federal Disaster Area?
+        other: In %{year}, did you or your spouse have a loss related to a declared Federal Disaster Area?
     divorced:
-      title: "As of December 31, %{year}, were you divorced?"
+      title: As of December 31, %{year}, were you divorced?
     divorced_year:
-      title: "What year was your divorce finalized?"
-      before_2014: "before 2014"
+      before_2014: before 2014
+      title: What year was your divorce finalized?
     eligibility:
-      title: "Let’s check a few things."
-      info: "We have a few additional questions to determine if you qualify for our services."
+      info: We have a few additional questions to determine if you qualify for our services.
       situations:
-        header: "Please check any situation that applies to you."
-        had_rental_income: "I earned money from a rental property"
-        had_farm_income: "I earned money from owning a farm"
-        income_over_limit: "I earned more than $66,000 in %{year}"
-        no_eligibility_checks_apply: "None of the above"
+        had_farm_income: I earned money from owning a farm
+        had_rental_income: I earned money from a rental property
+        header: Please check any situation that applies to you.
+        income_over_limit: I earned more than $66,000 in %{year}
+        no_eligibility_checks_apply: None of the above
+      title: Let’s check a few things.
     email_address:
-      title: "Please share your e-mail address."
-      info: "An e-mail is required for the final signature on your tax return."
-      email_address: "E-mail address"
-      email_address_confirmation: "Confirm e-mail address"
+      email_address: E-mail address
+      email_address_confirmation: Confirm e-mail address
+      info: An e-mail is required for the final signature on your tax return.
+      title: Please share your e-mail address.
     energy_efficient_purchases:
+      help_text: For example, windows, furnaces, insulation, etc.
       title:
-        one: "In %{year}, did you purchase energy efficient home items?"
-        other: "In %{year}, did you or your spouse purchase energy efficient home items?"
-      help_text: "For example, windows, furnaces, insulation, etc."
+        one: In %{year}, did you purchase energy efficient home items?
+        other: In %{year}, did you or your spouse purchase energy efficient home items?
     estimated_tax_payments:
+      help_text: Answer "Yes" if you are self-employed and made quarterly estimated tax payments.
       title:
-        one: "In %{most_recent_year}, did you make any estimated tax payments or apply your %{prior_year} refund to your %{most_recent_year} taxes?"
-        other: "In %{most_recent_year}, did you or your spouse make any estimated tax payments or apply your %{prior_year} refund to your %{most_recent_year} taxes?"
-      help_text: "Answer \"Yes\" if you are self-employed and made quarterly estimated tax payments."
+        one: In %{most_recent_year}, did you make any estimated tax payments or apply your %{prior_year} refund to your %{most_recent_year} taxes?
+        other: In %{most_recent_year}, did you or your spouse make any estimated tax payments or apply your %{prior_year} refund to your %{most_recent_year} taxes?
     ever_married:
-      title: "Have you ever been legally married?"
-      help_text: "This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation."
+      help_text: This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation.
+      title: Have you ever been legally married?
     file_with_help:
-      title: "File with the help of a tax expert!"
-      info: "You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you."
+      info: You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you.
       right_option:
-        header: "This is the right option for you if:"
-        need_assistance: "You need assistance with tax filing"
-        confused: "Your tax situation is confusing/complicated"
-        nervous: "You’re nervous to file completely on your own"
+        confused: Your tax situation is confusing/complicated
+        header: 'This is the right option for you if:'
+        need_assistance: You need assistance with tax filing
+        nervous: You’re nervous to file completely on your own
+      title: File with the help of a tax expert!
     filing_for_stimulus:
-      title: "Are you trying to file for your stimulus?"
-      help_text: "This year, many people will receive a stimulus check from the federal government."
+      help_text: This year, many people will receive a stimulus check from the federal government.
+      title: Are you trying to file for your stimulus?
     filing_joint:
-      title: "Are you filing joint taxes with your spouse?"
-      help_text: "Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return."
+      help_text: Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return.
+      title: Are you filing joint taxes with your spouse?
     final_info:
-      title: "Anything else you'd like your tax preparer to know about your situation?"
-      help_text: "For example, are you missing any documents, or did you have major changes in your household situation this year? If not, you can leave this blank."
+      help_text: For example, are you missing any documents, or did you have major changes in your household situation this year? If not, you can leave this blank.
+      title: Anything else you'd like your tax preparer to know about your situation?
     gambling_income:
+      help_text: May be reported on a W-2G form.
       title:
-        one: "In %{year}, did you have any income from gambling winnings, including the lottery?"
-        other: "In %{year}, did you or your spouse have any income from gambling winnings, including the lottery?"
-      help_text: "May be reported on a W-2G form."
+        one: In %{year}, did you have any income from gambling winnings, including the lottery?
+        other: In %{year}, did you or your spouse have any income from gambling winnings, including the lottery?
     had_dependents:
+      help_text: This generally means people who live with you or who you support financially.
       title:
-        one: "Would you like to claim anyone for %{year}?"
-        other: "Would you or your spouse like to claim anyone for %{year}?"
-      help_text: "This generally means people who live with you or who you support financially."
+        one: Would you like to claim anyone for %{year}?
+        other: Would you or your spouse like to claim anyone for %{year}?
     had_disability:
+      help_text: Permanent disability is calculated as a percentage of your ability to work. It is rated on a scale from 0 to 100%.
       title:
-        one: "In %{year}, did you have a permanent disability?"
-        other: "In %{year}, did you or your spouse have a permanent disability?"
-      help_text: "Permanent disability is calculated as a percentage of your ability to work. It is rated on a scale from 0 to 100%."
+        one: In %{year}, did you have a permanent disability?
+        other: In %{year}, did you or your spouse have a permanent disability?
     health_insurance:
+      help_text: This includes private health insurance purchased through a government website. This does not include Medicaid, Medicare, or health insurance purchased through your employer.
       title:
-        one: "In %{year}, did you purchase health insurance through the marketplace or exchange?"
-        other: "In %{year}, did you or your spouse purchase health insurance through the marketplace or exchange?"
-      help_text: "This includes private health insurance purchased through a government website. This does not include Medicaid, Medicare, or health insurance purchased through your employer."
+        one: In %{year}, did you purchase health insurance through the marketplace or exchange?
+        other: In %{year}, did you or your spouse purchase health insurance through the marketplace or exchange?
     homebuyer_credit:
+      help_text_html: If you are unsure, you can use %{irs_link} to check.
+      irs_homebuyer_tool: this IRS tool
       title:
-        one: "Did you receive the First Time Homebuyer Credit in 2008?"
-        other: "Did you or your spouse receive the First Time Homebuyer Credit in 2008?"
-      help_text_html: "If you are unsure, you can use %{irs_link} to check."
-      irs_homebuyer_tool: "this IRS tool"
+        one: Did you receive the First Time Homebuyer Credit in 2008?
+        other: Did you or your spouse receive the First Time Homebuyer Credit in 2008?
     hsa:
+      help_text: Answer "Yes" if you received a 1099-SA or 5498-SA. This does not include Flexible Spending Accounts.
       title:
-        one: "In %{year}, did you have a Health Savings Account?"
-        other: "In %{year}, did you or your spouse have a Health Savings Account?"
-      help_text: "Answer \"Yes\" if you received a 1099-SA or 5498-SA. This does not include Flexible Spending Accounts."
+        one: In %{year}, did you have a Health Savings Account?
+        other: In %{year}, did you or your spouse have a Health Savings Account?
     identity:
-      title: "First, let’s get some basic information."
-      partner_html: "We are partnering with %{partner_link} to protect your identity and ensure that your personal information is accurate and secure."
-      instructions: "You will need to upload your ID and take a selfie, so we can be sure it's you! It usually takes about 5 minutes to complete."
-      contact_html: "If you have any trouble please chat with us or e-mail %{email_link}."
-      here_to_help: "We’re here to help!"
-      sign_in_html: "Sign in with <span class=\"sr-only\">ID.me</span>"
-      visit_partner: "For more information, please visit ID.me."
+      contact_html: If you have any trouble please chat with us or e-mail %{email_link}.
+      here_to_help: We’re here to help!
+      instructions: You will need to upload your ID and take a selfie, so we can be sure it's you! It usually takes about 5 minutes to complete.
+      partner_html: We are partnering with %{partner_link} to protect your identity and ensure that your personal information is accurate and secure.
+      sign_in_html: Sign in with <span class="sr-only">ID.me</span>
+      title: First, let’s get some basic information.
+      visit_partner: For more information, please visit ID.me.
     interest_income:
+      help_text: For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV.
       title:
-        one: "In %{year}, did you have any income from interest or dividends?"
-        other: "In %{year}, did you or your spouse have any income from interest or dividends?"
-      help_text: "For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV."
+        one: In %{year}, did you have any income from interest or dividends?
+        other: In %{year}, did you or your spouse have any income from interest or dividends?
     interview_scheduling:
-      title: "Do you have any time preferences for your interview phone call?"
-      help_text: "Please provide 2-3 times you are available. For example, \"Tuesday or Thursday evenings\". We'll pass this info along to your interviewer. There is no guarantee that they will be able to call you at your preferred time."
+      help_text: Please provide 2-3 times you are available. For example, "Tuesday or Thursday evenings". We'll pass this info along to your interviewer. There is no guarantee that they will be able to call you at your preferred time.
+      title: Do you have any time preferences for your interview phone call?
     irs_letter:
       title:
-        one: "In %{year}, did you receive any letter or bill from the IRS?"
-        other: "In %{year}, did you or your spouse receive any letter or bill from the IRS?"
+        one: In %{year}, did you receive any letter or bill from the IRS?
+        other: In %{year}, did you or your spouse receive any letter or bill from the IRS?
     issued_identity_pin:
-      title: "Have you ever been issued an Identity Protection PIN?"
-      help_text: "If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers."
+      help_text: If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers.
+      title: Have you ever been issued an Identity Protection PIN?
     job_count:
-      title:
-        one: "In %{year}, how many jobs did you have?"
-        other: "In %{year}, how many jobs did you or your spouse have?"
       options:
-        none: "No jobs"
-        one: "1 job"
-        two: "2 jobs"
-        three: "3 jobs"
-        four: "4 jobs"
-        five_or_more: "5 or more jobs"
-        help_text: "Include any work that paid you, no matter how small."
+        five_or_more: 5 or more jobs
+        four: 4 jobs
+        help_text: Include any work that paid you, no matter how small.
+        none: No jobs
+        one: 1 job
+        three: 3 jobs
+        two: 2 jobs
+      title:
+        one: In %{year}, how many jobs did you have?
+        other: In %{year}, how many jobs did you or your spouse have?
     lived_with_spouse:
-      title: "Did you live with your spouse during any part of the last six months of %{year}?"
+      title: Did you live with your spouse during any part of the last six months of %{year}?
     local_tax:
+      help_text: Answer "Yes" if you owned a home or bought a car in %{year}. You might find this listed on a 1098 form.
       title:
-        one: "In %{year}, did you pay any state, local, real estate, sales, or other taxes?"
-        other: "In %{year}, did you or your spouse pay any state, local, real estate, sales, or other taxes?"
-      help_text: "Answer \"Yes\" if you owned a home or bought a car in %{year}. You might find this listed on a 1098 form."
+        one: In %{year}, did you pay any state, local, real estate, sales, or other taxes?
+        other: In %{year}, did you or your spouse pay any state, local, real estate, sales, or other taxes?
     local_tax_refund:
+      help_text: If you are unsure, check your %{prior_year} state tax return.
       title:
-        one: "In %{year}, did you receive a state or local income tax refund?"
-        other: "In %{year}, did you or your spouse receive a state or local income tax refund?"
-      help_text: "If you are unsure, check your %{prior_year} state tax return."
+        one: In %{year}, did you receive a state or local income tax refund?
+        other: In %{year}, did you or your spouse receive a state or local income tax refund?
     mailing_address:
-      title: "What is your mailing address?"
-      street_address: "Street address"
-      city: "City"
-      state: "State"
-      zip_code: "ZIP code"
+      city: City
+      state: State
+      street_address: Street address
+      title: What is your mailing address?
+      zip_code: ZIP code
     married:
-      title: "As of December 31, %{year}, were you legally married?"
-      help_text: "This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation."
+      help_text: This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation.
+      title: As of December 31, %{year}, were you legally married?
     medical_expenses:
+      help_text: This includes monthly premiums for health insurance and any Medicare payments.
       title:
+        one: In %{year}, did you pay any medical, dental, or prescription expenses?
+        other: In %{year}, did you or your spouse pay any medical, dental, or prescription expenses?
         one: "In %{year}, did you pay any medical, dental, or prescription expenses?"
         other: "In %{year}, did you or your spouse pay any medical, dental, or prescription expenses?"
       help_text: "This includes monthly premiums for health insurance."
     mortgage_interest:
+      help_text: Answer "Yes" if you own a home and pay a mortgage. You might find this listed on a 1098 form.
       title:
-        one: "In %{year}, did you pay any mortgage interest?"
-        other: "In %{year}, did you or your spouse pay any mortgage interest?"
-      help_text: "Answer \"Yes\" if you own a home and pay a mortgage. You might find this listed on a 1098 form."
+        one: In %{year}, did you pay any mortgage interest?
+        other: In %{year}, did you or your spouse pay any mortgage interest?
     notification_preference:
-      title: "How can we update you on your tax return?"
+      note: 'Note: We will not share your information with any outside parties.'
       options:
-        header: "We will reach out with questions and updates. Select the option(s) that you prefer!"
-        email_notification_opt_in: "Email Me"
-        sms_notification_opt_in: "Text Me"
-        sms_phone_number: "Cell phone number"
-      note: "Note: We will not share your information with any outside parties."
+        email_notification_opt_in: Email Me
+        header: We will reach out with questions and updates. Select the option(s) that you prefer!
+        sms_notification_opt_in: Text Me
+        sms_phone_number: Cell phone number
+      title: How can we update you on your tax return?
     on_visa:
-      title: "In %{year}, were you in the United States on a Visa?"
-      help_text: "You should have a stamp in your passport to indicate so."
+      help_text: You should have a stamp in your passport to indicate so.
+      title: In %{year}, were you in the United States on a Visa?
     other_income:
+      help_text: Such as cash payments, jury duty, awards, virtual currency, royalties, or union strike benefits.
       title:
-        one: "In %{year}, did you receive any other money?"
-        other: "In %{year}, did you or your spouse receive any other money?"
-      help_text: "Such as cash payments, jury duty, awards, virtual currency, royalties, or union strike benefits."
+        one: In %{year}, did you receive any other money?
+        other: In %{year}, did you or your spouse receive any other money?
     other_income_types:
       title:
-        one: "What were the other types of income that you received?"
-        other: "What were the other types of income that you or your spouse received?"
+        one: What were the other types of income that you received?
+        other: What were the other types of income that you or your spouse received?
     other_states:
-      title: "In %{year}, did you live or work in any other states besides %{state}?"
+      title: In %{year}, did you live or work in any other states besides %{state}?
     overview:
-      title: "Just a few simple steps to file!"
-      info: "Our form should take you about 30 minutes to complete."
-      questions:
-        header: "Answer Questions"
-        info: "We'll ask you a series of questions about your finances."
       documents:
-        header: "Submit documents"
-        info: "Share all necessary documents (ID, W-2's, 1099, 1095-A,B,C)."
+        header: Submit documents
+        info: Share all necessary documents (ID, W-2's, 1099, 1095-A,B,C).
+      info: Our form should take you about 30 minutes to complete.
       phone_review:
-        header: "Phone review"
-        info: "Your tax preparer will review everything with you over the phone."
+        header: Phone review
+        info: Your tax preparer will review everything with you over the phone.
+      questions:
+        header: Answer Questions
+        info: We'll ask you a series of questions about your finances.
       refund:
-        header: "Get your refund"
-        info: "If you choose to file your taxes, our tax volunteers will help you e-file."
+        header: Get your refund
+        info: If you choose to file your taxes, our tax volunteers will help you e-file.
+      title: Just a few simple steps to file!
     overview_documents:
-      title: "Collect all your documents and have them with you."
       documents_list:
-        header: "In the next pages, we'll be asking for the following:"
-        ssn_itn: "Social Security Number or ITIN"
-        id: "Current driver's license, state ID, or passport"
-        employment_tax: "Employment tax documents (W2's, 1099, etc)"
-        other_tax: "Any other official tax documents"
-      valid_phone_email: "We will also need to verify that you have a valid phone number and e-mail."
+        employment_tax: Employment tax documents (W2's, 1099, etc)
+        header: 'In the next pages, we''ll be asking for the following:'
+        id: Current driver's license, state ID, or passport
+        other_tax: Any other official tax documents
+        ssn_itn: Social Security Number or ITIN
+      title: Collect all your documents and have them with you.
+      valid_phone_email: We will also need to verify that you have a valid phone number and e-mail.
     paid_alimony:
+      help_text: This does not include child support.
       title:
-        one: "In %{year}, did you make any alimony payments?"
-        other: "In %{year}, did you or your spouse make any alimony payments?"
-      help_text: "This does not include child support."
+        one: In %{year}, did you make any alimony payments?
+        other: In %{year}, did you or your spouse make any alimony payments?
     personal_info:
-      title: "First, let's get some basic information."
-      info: "Welcome, we're excited to help you. We need some basic information to get started."
-      preferred_name: "Preferred name"
-      state_of_residence: "State of residence"
+      info: Welcome, we're excited to help you. We need some basic information to get started.
+      preferred_name: Preferred name
+      state_of_residence: State of residence
+      title: First, let's get some basic information.
     phone_number:
-      title: "Please share your contact number."
-      info: "Once you've answered all the tax questions, your tax preparer will call to review your tax situation."
-      phone_number: "Phone number"
-      phone_number_confirmation: "Confirm phone number"
-      phone_number_can_receive_texts: "This number can receive text messages"
+      info: Once you've answered all the tax questions, your tax preparer will call to review your tax situation.
+      phone_number: Phone number
+      phone_number_can_receive_texts: This number can receive text messages
+      phone_number_confirmation: Confirm phone number
+      title: Please share your contact number.
     received_alimony:
+      help_text: Answer "Yes" even if you did not receive an official IRS document about the alimony. Do not include child support you received.
       title:
-        one: "In %{year}, did you receive any income from alimony?"
-        other: "In %{year}, did you or your spouse receive any income from alimony?"
-      help_text: "Answer \"Yes\" even if you did not receive an official IRS document about the alimony. Do not include child support you received."
+        one: In %{year}, did you receive any income from alimony?
+        other: In %{year}, did you or your spouse receive any income from alimony?
     refund_payment:
-      title: "If due a refund, how would like to receive it?"
-      direct_deposit: "Direct deposit (fastest)"
-      check: "Mail me a check (slower)"
+      check: Mail me a check (slower)
+      direct_deposit: Direct deposit (fastest)
+      title: If due a refund, how would like to receive it?
     retirement_contributions:
+      help_text: For example, a 401k, 403b, or any IRA.
       title:
-        one: "In %{year}, did you make any contributions to a retirement account?"
-        other: "In %{year}, did you or your spouse make any contributions to a retirement account?"
-      help_text: "For example, a 401k, 403b, or any IRA."
+        one: In %{year}, did you make any contributions to a retirement account?
+        other: In %{year}, did you or your spouse make any contributions to a retirement account?
     retirement_income:
+      help_text: Answer "Yes" if you moved money between retirement accounts, took money out of your retirement account, or received a 1099-R form.
       title:
-        one: "In %{year}, did you have any income from a retirement account, pension, or annuity proceeds?"
-        other: "In %{year}, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?"
-      help_text: "Answer \"Yes\" if you moved money between retirement accounts, took money out of your retirement account, or received a 1099-R form."
+        one: In %{year}, did you have any income from a retirement account, pension, or annuity proceeds?
+        other: In %{year}, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?
     returning_client:
-      title: "Looks like you’ve already started your tax form."
-      next_steps_html: "Please reference the confirmation email or text from your tax preparer with next steps. If you have questions you should email %{email_link}"
+      next_steps_html: Please reference the confirmation email or text from your tax preparer with next steps. If you have questions you should email %{email_link}
+      title: Looks like you’ve already started your tax form.
     savings_options:
-      title: "If due a refund, are you interested in using these savings options?"
-      savings_split_refund: "Split my refund between accounts"
-      savings_purchase_bond: "Purchase United States Savings Bond"
+      savings_purchase_bond: Purchase United States Savings Bond
+      savings_split_refund: Split my refund between accounts
+      title: If due a refund, are you interested in using these savings options?
     school_supplies:
+      help_text: Answer "Yes" if you are a teacher who purchased classroom supplies for your work.
       title:
-        one: "In %{year}, did you pay for any eligible school supplies as a teacher, teacher's aide, or other educator?"
-        other: "In %{year}, did you or your spouse pay for any eligible school supplies as a teacher, teacher's aide, or other educator?"
-      help_text: "Answer \"Yes\" if you are a teacher who purchased classroom supplies for your work."
+        one: In %{year}, did you pay for any eligible school supplies as a teacher, teacher's aide, or other educator?
+        other: In %{year}, did you or your spouse pay for any eligible school supplies as a teacher, teacher's aide, or other educator?
     self_employment:
-        title:
-          one: "In %{year}, did you have any income from contract or self-employment work?"
-          other: "In %{year}, did you or your spouse have any income from contract or self-employment work?"
-        help_text: "Answer \"Yes\" if you received a 1099-MISC, 1099-K, or kept payment records for your own business. This includes cash you received for goods or services."
+      help_text: Answer "Yes" if you received a 1099-MISC, 1099-K, or kept payment records for your own business. This includes cash you received for goods or services.
+      title:
+        one: In %{year}, did you have any income from contract or self-employment work?
+        other: In %{year}, did you or your spouse have any income from contract or self-employment work?
     self_employment_loss:
+      help_text: If you aren't sure, you can check Schedule C in your %{prior_year} tax return.
       title:
-        one: "Did you report a business loss on your %{prior_year} tax return?"
-        other: "Did you or your spouse report a business loss on your %{prior_year} tax return?"
-      help_text: "If you aren't sure, you can check Schedule C in your %{prior_year} tax return."
+        one: Did you report a business loss on your %{prior_year} tax return?
+        other: Did you or your spouse report a business loss on your %{prior_year} tax return?
     separated:
-      title: "Are you legally separated?"
+      title: Are you legally separated?
     separated_year:
-      title: "What year was the separation finalized?"
-      before_2014: "before 2014"
+      before_2014: before 2014
+      title: What year was the separation finalized?
     social_security_income:
+      help_text: Answer "Yes" if you received an SSA-1099 or an RRB-1099.
       title:
-        one: "In %{year}, did you have any income from Social Security or Railroad Retirement Benefits?"
-        other: "In %{year}, did you or your spouse have any income from Social Security or Railroad Retirement Benefits?"
-      help_text: "Answer \"Yes\" if you received an SSA-1099 or an RRB-1099."
+        one: In %{year}, did you have any income from Social Security or Railroad Retirement Benefits?
+        other: In %{year}, did you or your spouse have any income from Social Security or Railroad Retirement Benefits?
     sold_home:
       title:
-        one: "In %{year}, did you sell a home?"
-        other: "In %{year}, did you or your spouse sell a home?"
+        one: In %{year}, did you sell a home?
+        other: In %{year}, did you or your spouse sell a home?
     spouse_consent:
-      title: "We need your spouse to review our legal stuff..."
-      spouse_first_name: "Spouse's legal first name"
-      spouse_last_name: "Spouse's legal last name"
-      spouse_last_four_ssn: "Last 4 of SSN/ITIN"
-      birth_date: "Date of birth"
-      cta: "I agree"
+      birth_date: Date of birth
+      cta: I agree
+      spouse_first_name: Spouse's legal first name
+      spouse_last_four_ssn: Last 4 of SSN/ITIN
+      spouse_last_name: Spouse's legal last name
+      title: We need your spouse to review our legal stuff...
     spouse_email_address:
-      title: "Please share your spouse's e-mail address."
-      info: "An e-mail is required for the final signature on your tax return."
-      spouse_email_address: "E-mail address"
-      spouse_email_address_confirmation: "Confirm e-mail address"
+      info: An e-mail is required for the final signature on your tax return.
+      spouse_email_address: E-mail address
+      spouse_email_address_confirmation: Confirm e-mail address
+      title: Please share your spouse's e-mail address.
     spouse_had_disability:
-      title: "In %{year}, did your spouse have a permanent disability?"
-      help_text: "Permanent disability is calculated as a percentage of one's ability to work. It is rated on a scale from 0 to 100%."
+      help_text: Permanent disability is calculated as a percentage of one's ability to work. It is rated on a scale from 0 to 100%.
+      title: In %{year}, did your spouse have a permanent disability?
     spouse_identity:
-      title: "Spouse Identity"
-      info_now: "If your spouse is sitting with you, you can go ahead and sign in with ID.me"
-      info_later: "If not, we can send them a sign in link through text or e-mail."
-      sign_in_html: "Sign in spouse with <span class=\"sr-only\">ID.me</span>"
-      skip_for_now: "Skip this step for now"
+      info_later: If not, we can send them a sign in link through text or e-mail.
+      info_now: If your spouse is sitting with you, you can go ahead and sign in with ID.me
+      sign_in_html: Sign in spouse with <span class="sr-only">ID.me</span>
+      skip_for_now: Skip this step for now
+      title: Spouse Identity
     spouse_issued_identity_pin:
-      title: "Has your spouse been issued an Identity Protection PIN?"
+      title: Has your spouse been issued an Identity Protection PIN?
     spouse_on_visa:
-      title: "In %{year}, was your spouse in the United States on a Visa?"
-      help_text: "They should have a stamp in their passport to indicate so."
+      help_text: They should have a stamp in their passport to indicate so.
+      title: In %{year}, was your spouse in the United States on a Visa?
     spouse_was_blind:
-      title: "In %{year}, was your spouse legally blind?"
-      help_text: "This basically means that even with corrective lenses or surgery, to clearly see an object that a person with normal vision could see from 200 feet away, one would have to be 20 feet or closer."
+      help_text: This basically means that even with corrective lenses or surgery, to clearly see an object that a person with normal vision could see from 200 feet away, one would have to be 20 feet or closer.
+      title: In %{year}, was your spouse legally blind?
     spouse_was_student:
-      title: "Was your spouse a full-time student in %{year}?"
-      help_text: "We are specifically asking if they pursued higher studies such as an associate, bachelors, or masters degree."
+      help_text: We are specifically asking if they pursued higher studies such as an associate, bachelors, or masters degree.
+      title: Was your spouse a full-time student in %{year}?
     start_with_current_year:
-      title: "Let's get started"
-      info: "We’ll start by asking about your situation in %{year}."
-      starting_point: "This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone."
+      info: We’ll start by asking about your situation in %{year}.
+      starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
+      title: Let's get started
     stimulus_recommendation:
-      title: "Get your stimulus check!"
-      already_filed: "Since you’ve already filed for 2019, you will automatically get your stimulus check! If you have additional questions about your stimulus, we recommend checking out our Stimulus FAQ page."
-      visit_stimulus_faq: "Visit Stimulus FAQ"
+      already_filed: Since you’ve already filed for 2019, you will automatically get your stimulus check! If you have additional questions about your stimulus, we recommend checking out our Stimulus FAQ page.
+      title: Get your stimulus check!
+      visit_stimulus_faq: Visit Stimulus FAQ
     student:
-      title: "In %{year}, was someone in your family a college or other post high school student?"
-      help_text: "This includes community college, technical school, professional development classes, higher education, and vocational education."
+      help_text: This includes community college, technical school, professional development classes, higher education, and vocational education.
+      title: In %{year}, was someone in your family a college or other post high school student?
     student_loan_interest:
+      help_text: Answer "Yes" if you are making student loan payments.
       title:
-        one: "In %{year}, did you pay any student loan interest?"
-        other: "In %{year}, did you or your spouse pay any student loan interest?"
-      help_text: "Answer \"Yes\" if you are making student loan payments."
+        one: In %{year}, did you pay any student loan interest?
+        other: In %{year}, did you or your spouse pay any student loan interest?
     successfully_submitted:
-      title: "Success! Your tax information has been submitted."
-      confirmation_number: "Your confirmation number is: %{confirmation_number}"
+      confirmation_number: 'Your confirmation number is: %{confirmation_number}'
       next_steps:
-        header: "Next Steps"
-        confirmation_message: "You will receive a confirmation message shortly"
-        partner_review: "Your tax preparer at %{partner_name} will review your information"
-        review: "Your tax preparer will review your information"
+        confirmation_message: You will receive a confirmation message shortly
+        header: Next Steps
+        partner_review: Your tax preparer at %{partner_name} will review your information
         partner_timing: "%{partner_name} will reach out within 3 business days to talk about your taxes"
-        timing: "Your tax preparer will reach out within 3 business days to talk about your taxes"
+        review: Your tax preparer will review your information
+        timing: Your tax preparer will reach out within 3 business days to talk about your taxes
+      title: Success! Your tax information has been submitted.
     tax_credit_disallowed:
+      help_text: Answer "Yes" if you were asked to repay any of these credits in the past.
       title:
-        one: "Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?"
-        other: "Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?"
-      help_text: "Answer \"Yes\" if you were asked to repay any of these credits in the past."
+        one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
+        other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
     tips:
+      help_text: Answer "Yes" if you received any cash tips not included in a W-2.
       title:
-        one: "In %{year}, did you receive any tips?"
-        other: "In %{year}, did you or your spouse receive any tips?"
-      help_text: "Answer \"Yes\" if you received any cash tips not included in a W-2."
+        one: In %{year}, did you receive any tips?
+        other: In %{year}, did you or your spouse receive any tips?
     unemployment_income:
+      help_text: Answer "Yes" if you received a 1099-G form.
       title:
-        one: "In %{year}, did you receive any unemployment benefits?"
-        other: "In %{year}, did you or your spouse receive any unemployment benefits?"
-      help_text: "Answer \"Yes\" if you received a 1099-G form."
+        one: In %{year}, did you receive any unemployment benefits?
+        other: In %{year}, did you or your spouse receive any unemployment benefits?
     wages:
+      help_text: As an employee you should receive a W-2 for any job you worked. Learn more about form W-2.
       title:
-        one: "In %{year}, did you receive wages or salary?"
-        other: "In %{year}, did you or your spouse receive wages or salary?"
-      help_text: "As an employee you should receive a W-2 for any job you worked. Learn more about form W-2."
+        one: In %{year}, did you receive wages or salary?
+        other: In %{year}, did you or your spouse receive wages or salary?
     was_blind:
-      title: "In %{year}, were you legally blind?"
-      help_text: "This means that even with corrective lenses or surgery, to clearly see an object that a person with normal vision could see from 200 feet away, you would have to be 20 feet or closer."
+      help_text: This means that even with corrective lenses or surgery, to clearly see an object that a person with normal vision could see from 200 feet away, you would have to be 20 feet or closer.
+      title: In %{year}, were you legally blind?
     was_student:
-      title: "Were you a full-time student in %{year}?"
-      help_text: "We are specifically asking if you pursued higher studies such as an associate, bachelors, or masters degree."
-    widowed:
-      title: "As of December 31, %{year}, were you widowed?"
-    widowed_year:
-      title: "What was the year of your spouse's death?"
-      before_2014: "before 2014"
+      help_text: We are specifically asking if you pursued higher studies such as an associate, bachelors, or masters degree.
+      title: Were you a full-time student in %{year}?
     welcome:
-      title: "Welcome! How can we help you?"
       diy:
-        header: "File taxes myself"
-        info: "File quickly with our DIY tool."
+        header: File taxes myself
+        info: File quickly with our DIY tool.
       intake:
-        header: "File taxes with help"
-        info: "Review and file with the help of a tax expert."
+        header: File taxes with help
+        info: Review and file with the help of a tax expert.
       question:
-        header: "Ask a question"
-        info: "Get your tax related questions answered."
+        header: Ask a question
+        info: Get your tax related questions answered.
+      title: Welcome! How can we help you?
+    widowed:
+      title: As of December 31, %{year}, were you widowed?
+    widowed_year:
+      before_2014: before 2014
+      title: What was the year of your spouse's death?
   shared:
     consent_agreement:
-      information_you_provide: "You understand the information you provide this site (GetYourRefund.org) is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order for an IRS-certified volunteer to review your information, conduct an intake interview on the phone, prepare the tax return, and perform a quality review before filing your taxes."
-      terms_html: "You agree to the terms of the GetYourRefund privacy policy at %{privacy_link}"
-      proceed_and_confirm: "By proceeding, you confirm that the following statements are true and complete to the best of your knowledge."
       details:
-        header: "The Details"
-        provide_required_info: "I understand that I must provide all required information/documentation necessary to prepare an accurate tax return."
-        collects_pii: "I understand that this site collects personally identifiable information I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review my tax return."
-        interview_and_review: "I understand that I will need to participate in an Intake Interview and Quality Review via phone in order to have a VITA preparation site file my taxes."
-        cfa: "I understand that GetYourRefund.org is a website run by Code for America, a non-profit organization, that will submit your tax information to a VITA preparation site."
-        intake_process: "Intake Process - GetYourRefund will collect your information and documentation through the intake process in order to accurately prepare your tax return."
-        return_prep_process: "Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return."
-        quality_review_process: "Quality Review Process - GetYourRefund will provide you with your return to review for accuracy prior to submission."
-        contacted: "I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed."
-        review_return: "I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge."
-        e_signature: "I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through an electronic signature delivered via email after Quality Review is completed in order for a VITA preparation site to e-file my tax return."
-        responsible: "I understand that me and my spouse (if applicable) are ultimately responsible for all of the information provided to GetYourRefund."
-        irs: "This consent form replaces IRS Form 14446-Virtual VITA/TCE Taxpayer Consent. A copy of this consent will be retained on site, as required by the IRS."
-        sign_below: "By signing below, you agree to participate in the process and consent to allow GetYourRefund assist you with your taxes. You agree to the terms of the GetYourRefund privacy policy at www.GetYourRefund.org/privacy."
+        cfa: I understand that GetYourRefund.org is a website run by Code for America, a non-profit organization, that will submit your tax information to a VITA preparation site.
+        collects_pii: I understand that this site collects personally identifiable information I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review my tax return.
+        contacted: I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed.
+        e_signature: I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through an electronic signature delivered via email after Quality Review is completed in order for a VITA preparation site to e-file my tax return.
+        header: The Details
+        intake_process: Intake Process - GetYourRefund will collect your information and documentation through the intake process in order to accurately prepare your tax return.
+        interview_and_review: I understand that I will need to participate in an Intake Interview and Quality Review via phone in order to have a VITA preparation site file my taxes.
+        irs: This consent form replaces IRS Form 14446-Virtual VITA/TCE Taxpayer Consent. A copy of this consent will be retained on site, as required by the IRS.
+        provide_required_info: I understand that I must provide all required information/documentation necessary to prepare an accurate tax return.
+        quality_review_process: Quality Review Process - GetYourRefund will provide you with your return to review for accuracy prior to submission.
+        responsible: I understand that me and my spouse (if applicable) are ultimately responsible for all of the information provided to GetYourRefund.
+        return_prep_process: Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return.
+        review_return: I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge.
+        sign_below: By signing below, you agree to participate in the process and consent to allow GetYourRefund assist you with your taxes. You agree to the terms of the GetYourRefund privacy policy at www.GetYourRefund.org/privacy.
+      information_you_provide: You understand the information you provide this site (GetYourRefund.org) is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order for an IRS-certified volunteer to review your information, conduct an intake interview on the phone, prepare the tax return, and perform a quality review before filing your taxes.
+      proceed_and_confirm: By proceeding, you confirm that the following statements are true and complete to the best of your knowledge.
+      terms_html: You agree to the terms of the GetYourRefund privacy policy at %{privacy_link}
     covid_warning:
-      notice_html: "Due to COVID-19, a number of VITA sites and all TCE sites are closed for an undetermined period of time. Please call a site before visiting to confirm hours. To get connected with a VITA site online and have a VITA site assist you with your taxes remotely, visit GetYourRefund.org and click \"Get Started.\" You can also visit the %{free_file_link} to find other free online tax preparation tools."
+      notice_html: Due to COVID-19, a number of VITA sites and all TCE sites are closed for an undetermined period of time. Please call a site before visiting to confirm hours. To get connected with a VITA site online and have a VITA site assist you with your taxes remotely, visit GetYourRefund.org and click "Get Started." You can also visit the %{free_file_link} to find other free online tax preparation tools.
     grayscale_partner_logo:
       provider_homepage: "%{provider_name} Homepage"
   validators:
-    zip: "Please enter a valid 5-digit zip code."
+    zip: Please enter a valid 5-digit zip code.
   vita_providers:
     index:
-      title: "Find a Location"
-      enter_zip: "Enter your zip code to find providers near you."
-      no_results: "We're sorry! We found no results within 50 miles of your address."
-      results: "We found %{total_entries} results within 50 miles of %{zip}"
-      header: "Get Free Tax Prep Help"
-      info: "The IRS Volunteer Income Tax Assistance (VITA) programs offer free tax help for taxpayers who qualify."
+      enter_zip: Enter your zip code to find providers near you.
+      header: Get Free Tax Prep Help
+      info: The IRS Volunteer Income Tax Assistance (VITA) programs offer free tax help for taxpayers who qualify.
+      no_results: We're sorry! We found no results within 50 miles of your address.
+      results: We found %{total_entries} results within 50 miles of %{zip}
       search:
-        header: "Enter your zip code to find providers near you."
-        placeholder: "Enter Zip Code"
-        no_results: "We found no results within 50 miles of %{zip} (%{zip_name})."
-        try_another: "Please try another zip code."
-        try_another_or_apply_html: "Please try another zip code or try our %{intake_link}."
-        try_intake_form: "free online VITA form"
-        prepare_your_own_html: "You can also prepare your own taxes by using the %{free_file_link} to find a free way to file your taxes online."
-        results: "We found %{total_entries} results within 50 miles of %{zip} (%{zip_name})."
+        header: Enter your zip code to find providers near you.
+        no_results: We found no results within 50 miles of %{zip} (%{zip_name}).
+        placeholder: Enter Zip Code
+        prepare_your_own_html: You can also prepare your own taxes by using the %{free_file_link} to find a free way to file your taxes online.
+        results: We found %{total_entries} results within 50 miles of %{zip} (%{zip_name}).
+        try_another: Please try another zip code.
+        try_another_or_apply_html: Please try another zip code or try our %{intake_link}.
+        try_intake_form: free online VITA form
+      title: Find a Location
     show:
-      appointment_info: "Appointments are %{appointment_info}."
-      call_to_schedule: "Please call to schedule."
-      maps_link_title: "Google Maps link for %{provider_name}"
-      search_radius: "Within %{distance} miles of %{zip} (%{zip_name}) %>"
-      no_hours_listed: "Sorry, no hours listed."
-      no_phone_number_listed: "Sorry, no phone number listed."
-      phone_number_title: "Call %{provider_name}"
+      appointment_info: Appointments are %{appointment_info}.
+      call_to_schedule: Please call to schedule.
+      maps_link_title: Google Maps link for %{provider_name}
+      no_hours_listed: Sorry, no hours listed.
+      no_phone_number_listed: Sorry, no phone number listed.
+      phone_number_title: Call %{provider_name}
+      search_radius: Within %{distance} miles of %{zip} (%{zip_name}) %>
   zendesk:
     intakes:
       banking_info:
-        bank_name: "Bank name"
-        routing_number: "Routing number"
-        account_number: "Account number"
-        account_type: "Account type"
+        account_number: Account number
+        account_type: Account type
+        bank_name: Bank name
+        routing_number: Routing number
     sign_in:
-      cta: "Sign in with Zendesk"
-      title: "First, we need you to verify with Zendesk!"
+      cta: Sign in with Zendesk
+      title: First, we need you to verify with Zendesk!
     tickets:
       show:
         chart:
-          header: "The following chart does not include documents uploaded by VITA volunteers or client support"
-          bank_info: "Bank Info"
-          consent: "Consent"
-          doc_type: "Doc Type"
-          link: "Link"
-          notes: "Notes"
-          upload_date: "Upload Date"
+          bank_info: Bank Info
+          consent: Consent
+          doc_type: Doc Type
+          header: The following chart does not include documents uploaded by VITA volunteers or client support
+          link: Link
+          notes: Notes
+          upload_date: Upload Date
