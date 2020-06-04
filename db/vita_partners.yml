@@ -264,7 +264,7 @@ vita_partners:
 - name: CASH Campaign of MD
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010772553'
-  display_name: CASH Campaign of MD
+  display_name: CASH Campaign of Maryland
   source_parameters:
   - CASHMD
   logo_path: ''
