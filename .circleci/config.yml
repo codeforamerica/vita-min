@@ -138,3 +138,19 @@ workflows:
               only: /^version-\d+\.\d+\.\d+(\.\d+)?/
             branches:
               ignore: /.*/
+  production-branch-release:
+    jobs:
+      - install_dependencies:
+          filters:
+            branches:
+              only: production
+      - run_tests:
+          requires: [install_dependencies]
+          filters:
+            branches:
+              only: production
+      - deploy_to_aptible--staging:
+          requires: [run_tests]
+          filters:
+            branches:
+              only: production
