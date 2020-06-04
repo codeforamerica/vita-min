@@ -37,29 +37,43 @@ coverage is sufficient).
 
 The CI environment deploys if its criteria are met. At present, CI deploys
 from the `master` branch to both Demo and Staging whenever the test suite
-passes. For the Production environment, CI will deploy if a new version
-has appeared as a git tag.
+passes. For the Production environment, CI will deploy when changes have been
+pushed to the `production` branch.
 
 ### How To Deploy
 
 To deploy to Demo and Staging, commit/merge to `master` and push to
 Github. This will trigger a CI build and deploy.
 
-To deploy to Production, tag the release using a [semantic
-version](https://semver.org/):
+To deploy to Production, run the `bin/release` script from the project root.
+This will undertake all the necessary steps for a deployment. If there is a
+merge conflict when merging `master` into `production`, the conflicts must be
+resolved by hand, then re-run `bin/release`.
 
-For regular releases, use `version-N.N.N`, incrementing the appropriate number.
+The script also creates a tag. For regular releases, use `version-N.N.N`,
+incrementing the appropriate number. For hotfix releases, use `version-N.N.N.N`,
+incrementing the last digit from zero.
 
-For hotfix releases, use `version-N.N.N.N`, incrementing the last digit from
-zero.
+The steps the `bin/release` script automates are as follows:
+
+1. fetches from production/master and origin/master
+2. prompts for new tag name
+3. opens editor with template, includes list of changes
+4. merges current branch (usually `master`) into production
+5. creates tag and GitHub release using `hub` tool
+
+After this, CircleCI runs and deploys if the tests pass.
+
+To issue a release from Github, use the same naming convention,
+but begin by clicking the 'releases' button on the main page.
+Github provides useful documentation [here](https://help.github.com/en/github/administering-a-repository/managing-releases-in-a-repository).
+
+
+### Other Release-related Tools
 
 To view a list of releases (with the highest releases at the top):
 
 `git tag | sort -nr`
-
-To generate the next release number:
-
-`bin/reversion`
 
 To view a list of releases with their SHAs:
 
@@ -72,12 +86,6 @@ To tag a release:
 Once a release has been tagged, you'll want to push the tag to GitHub:
 
 `git push --tags`
-
-After this, the commit will begin processing (and deploying) in CircleCI.
-
-To issue a release from Github, use the same naming convention,
-but begin by clicking the 'releases' button on the main page.
-Github provides useful documentation [here](https://help.github.com/en/github/administering-a-repository/managing-releases-in-a-repository).
 
 ## Manual Deployment
 
