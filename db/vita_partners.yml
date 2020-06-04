@@ -254,3 +254,10 @@ vita_partners:
   source_parameters:
   - graniteuw
   logo_path: ''
+- name: Louisville Asset Building Coalition
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010397693'
+  display_name: Louisville Asset Building Coalition
+  source_parameters:
+  - LABC
+  logo_path: partner-logos/louisville-abc.png

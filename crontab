@@ -1,0 +1,1 @@
+*/30 * * * * bundle exec rake documents:notify_unsent

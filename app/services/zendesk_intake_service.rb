@@ -243,20 +243,22 @@ class ZendeskIntakeService
   end
 
   def send_all_docs
-    download_attachments_to_tmp(@intake.documents.map(&:upload)) do |file_list|
+    ticket_url = zendesk_ticket_url(@intake.intake_ticket_id)
+    output = append_comment_to_ticket(
+      ticket_id: @intake.intake_ticket_id,
+      fields: { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => ticket_url },
+      comment: <<~DOCS
+        Documents:
+        #{@intake.documents.map {|d| "* #{d.upload.filename} (#{d.document_type})\n"}.join}
+        View all client documents here:
+        #{ticket_url}
+      DOCS
+    )
 
-      output = append_multiple_files_to_ticket(
-        ticket_id: @intake.intake_ticket_id,
-        file_list: file_list,
-        comment: "Documents:\n" + @intake.documents.map {|d| "* #{d.upload.filename} (#{d.document_type})\n"}.join,
-      )
-
-      raise CouldNotSendDocumentError unless output
-      @intake.documents.each { |d| d.update(zendesk_ticket_id: @intake.intake_ticket_id) }
-      DatadogApi.increment("zendesk.ticket.docs.all.sent")
-      output
-    end
-
+    raise CouldNotSendDocumentError unless output
+    @intake.documents.each { |d| d.update(zendesk_ticket_id: @intake.intake_ticket_id) }
+    DatadogApi.increment("zendesk.ticket.docs.all.sent")
+    output
   end
 
   def contact_preferences

@@ -6,7 +6,11 @@
       <%= @ticket.subject %>
     </h1>
     <h2>
-      <%= link_to "##{@ticket.id}", "https://eitc.zendesk.com/agent/tickets/#{@ticket.id}", class: "ticket-link" %>
+      <%= link_to(
+              "##{@ticket.id}", "https://eitc.zendesk.com/agent/tickets/#{@ticket.id}",
+              class: "ticket-link",
+              target: "_blank"
+          ) %>
     </h2>
     <p class="text--smaller">
       The following chart does not include documents uploaded by VITA volunteers or client support
@@ -30,7 +34,7 @@
             <%= link_to pdf_zendesk_intake_path(
               intake.id,
               filename: "13614c_#{intake.name_for_filename}.pdf"
-            ) do %>
+            ), target: "_blank" do %>
               <%= "13614c_#{intake.name_for_filename}.pdf" %>
             <% end %>
           </td>
@@ -44,8 +48,8 @@
           <td>
             <%= link_to consent_pdf_zendesk_intake_path(
               intake.id,
-              filename: "Consent_#{intake.name_for_filename}.pdf"
-            ) do %>
+              filename: "Consent_#{intake.name_for_filename}.pdf",
+            ), target: "_blank" do %>
               <%= "Consent_#{intake.name_for_filename}.pdf" %>
             <% end %>
           </td>
@@ -59,7 +63,7 @@
             <tr>
               <td> <%= type %> </td>
               <td>
-                <%= link_to zendesk_document_path(document.id) do %>
+                <%= link_to zendesk_document_path(document.id), target: "_blank" do %>
                   <%= document.upload.filename %>
                 <% end %>
               </td>
@@ -78,7 +82,7 @@
         <tr>
           <td> Bank Info </td>
           <td>
-            <%= link_to "Bank Info", banking_info_zendesk_intake_path(intake.id)  %>
+            <%= link_to "Bank Info", banking_info_zendesk_intake_path(intake.id), target: "_blank" %>
           </td>
           <td></td>
           <td></td>

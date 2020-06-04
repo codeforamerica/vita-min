@@ -7,6 +7,10 @@ describe DatadogApi do
     allow(Dogapi::Client).to receive(:new).and_return(mock_dogapi)
   end
 
+  after do
+    DatadogApi.instance_variable_set("@dogapi_client", nil)
+  end
+
   it 'initializes and calls Dogapi::Client when enabled' do
     DatadogApi.configure do |c|
       c.enabled = true
