@@ -261,3 +261,10 @@ vita_partners:
   source_parameters:
   - LABC
   logo_path: partner-logos/louisville-abc.png
+- name: CASH Campaign of MD
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010772553'
+  display_name: CASH Campaign of MD
+  source_parameters:
+  - CASHMD
+  logo_path: ''
