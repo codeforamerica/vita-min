@@ -1,0 +1,89 @@
+#!/usr/bin/env bash +x
+
+set -euo pipefail
+
+# want a different editor? set your EDITOR in your shell's rc file
+EDITOR=${EDITOR:-$(which vim)}
+
+# check for master
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+if [ ! $branch_name == "master" ]; then
+  echo "WARNING! you're not on the \`master\` branch!"
+  echo "Hit <ctrl>-c to bail, or <enter> to continue."
+  read continue_response
+fi
+
+# TODO: change `staging` to `prod`
+production_git_remote=$(git remote -v | grep 'vita-min-staging.git' | head -n1 | awk '{ print $1 }')
+origin_git_remote=$(git remote -v | grep 'github.com:codeforamerica/vita-min' | head -n1 | awk '{ print $1 }')
+echo "ORIGIN GIT REMOTE: $origin_git_remote"
+
+# Get the latest tags and branches
+echo "Fetching latest tags from '${origin_git_remote}' and '${production_git_remote}'"
+git fetch "$origin_git_remote" --quiet
+git fetch "$production_git_remote" --quiet
+
+# Show the user a list of commits that will be deployed (and their authors)
+echo '🚀 *Will deploy `'$(git log -1 --pretty=format:%h ${production_git_remote}/master)'`..`'$(git log -1 --pretty=format:%h ${origin_git_remote}/master)'` to production*:'
+GIT_PAGER= git log --pretty="format:* %s (%an)" ${production_git_remote}/master...${origin_git_remote}/master
+
+# Ask the user for the new tag name/version number.
+latest_version=$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)
+# guessed_next_version=$(awk 'BEGIN { split("'$latest_version'", v, "."); v[3] += 1; print(v[1] "." v[2] "." v[3]); }')
+guessed_next_version=$(echo $latest_version | awk -F. -v OFS=. '{ ++$NF; print; }')
+echo ""
+echo ""
+echo "Latest release version: ${latest_version}"
+echo -n "New tag name (e.g. '$guessed_next_version'): "
+read new_tag
+
+new_tag=${new_tag:-$guessed_next_version}
+
+# Create the tag, allowing the user to edit the release message.
+tmpfile=$(mktemp)
+trap "rm $tmpfile" EXIT
+cat <<TEMPLATE > $tmpfile
+$(date +%Y-%m-%d) Write the release title here, one line
+
+Describe the release--include high-level changes, _markdown accepted_
+
+* #123123123 - story/feature description
+* short description of change
+* another change
+
+# Full list of changes (remove this line and all following before saving):
+$(git log --pretty="format:# * %s (%an)" ${production_git_remote}/master...${origin_git_remote}/master)
+# DON'T FORGET TO SAVE THE FILE
+TEMPLATE
+
+# Edit the temp file
+$EDITOR "$tmpfile"
+
+echo "Merging $branch_name into production..."
+git checkout production
+git merge --ff $branch_name
+
+# if an error occurs here, bail out.
+if [ ! $? ] ; then
+  # merge failed
+  echo "unable to merge via fast-forward. likely conflict."
+  echo "try: \`git merge -ff master\` and resolve conflicts."
+  git checkout $branch_name
+  exit 1
+fi
+
+git push $origin_git_remote production
+echo "Merged \`master\` into \`production\` branch and pushed."
+
+echo "Creating release $new_tag"
+hub release create -F "$tmpfile" "$new_tag"
+
+# All done!
+echo ""
+echo "✨ Merged $branch_name into production!"
+echo "✨ Released tag $new_tag!"
+
+# switch back to original branch
+git checkout $branch_name
+
+exit
