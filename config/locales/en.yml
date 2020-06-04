@@ -36,6 +36,17 @@ en:
     chat_with_us: Chat with us
     confirm: Confirm
     continue: Continue
+    document_type:
+      care_provider_statement: Care Provider Statement
+      id: ID
+      ira_statement: IRA Statement
+      other: Other
+      prior_year_tax_return: Prior Year Tax Return
+      property_tax_statement: Property Tax Statement
+      requested_later: Requested Later
+      selfie: Selfie
+      student_account_statement: Student Account Statement
+      ssn_or_itin: SSN o ITIN
     edit: Edit
     ethnicity:
       hispanic: Hispanic or Latino

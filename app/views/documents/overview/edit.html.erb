@@ -14,7 +14,7 @@
             <% recommended_document_types.each do |type| %>
               <% documents = documents_by_type[type] || [] %>
               <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__heading">
-                <%= type %>
+                <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
               </h2>
 
               <%= link_to t("general.edit").downcase, edit_document_path(type), class: "button button--inline-action" %>
