@@ -61,7 +61,9 @@
         <% @document_groups.each do |type, documents| %>
           <% documents.each do |document| %>
             <tr>
-              <td> <%= type %> </td>
+              <td>
+                <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
+              </td>
               <td>
                 <%= link_to zendesk_document_path(document.id), target: "_blank" do %>
                   <%= document.upload.filename %>
