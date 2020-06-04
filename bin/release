@@ -1,4 +1,4 @@
-#!/usr/bin/env bash +x
+#!/usr/bin/env bash
 
 set -euo pipefail
 
@@ -16,7 +16,6 @@ fi
 # TODO: change `staging` to `prod`
 production_git_remote=$(git remote -v | grep 'vita-min-staging.git' | head -n1 | awk '{ print $1 }')
 origin_git_remote=$(git remote -v | grep 'github.com:codeforamerica/vita-min' | head -n1 | awk '{ print $1 }')
-echo "ORIGIN GIT REMOTE: $origin_git_remote"
 
 # Get the latest tags and branches
 echo "Fetching latest tags from '${origin_git_remote}' and '${production_git_remote}'"
