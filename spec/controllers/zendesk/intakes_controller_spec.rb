@@ -3,12 +3,35 @@ require "rails_helper"
 RSpec.describe Zendesk::IntakesController do
   let(:user) { create :user, provider: "zendesk" }
   let(:ticket) { instance_double(ZendeskAPI::Ticket) }
-  let(:intake) { create :intake, intake_ticket_id: 123 }
+  let(:intake) { create :intake, intake_ticket_id: 123, zendesk_instance_domain: EitcZendeskInstance::DOMAIN }
+  let(:uwtsa_intake) do
+    create :intake, intake_ticket_id: 123, zendesk_instance_domain: UwtsaZendeskInstance::DOMAIN
+  end
+
+  shared_examples :an_eitc_zendesk_intake_only_page do |action:|
+    context "as an authenticated eitc zendesk user with a uwtsa intake" do
+      before do
+        allow(subject).to receive(:current_user).and_return(user)
+      end
+
+      it "returns 404 with a not found page" do
+        expect do
+          get action, params: valid_params
+        end.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
 
   describe "#intake_pdf" do
     it_behaves_like :a_protected_zendesk_ticket_page, action: :intake_pdf do
       let(:valid_params) do
         { id: intake.id, filename: intake.intake_pdf_filename }
+      end
+    end
+
+    it_behaves_like :an_eitc_zendesk_intake_only_page, action: :intake_pdf do
+      let(:valid_params) do
+        { id: uwtsa_intake.id, filename: uwtsa_intake.intake_pdf_filename }
       end
     end
 
@@ -41,6 +64,12 @@ RSpec.describe Zendesk::IntakesController do
       end
     end
 
+    it_behaves_like :an_eitc_zendesk_intake_only_page, action: :consent_pdf do
+      let(:valid_params) do
+        { id: uwtsa_intake.id, filename: uwtsa_intake.consent_pdf_filename }
+      end
+    end
+
     context "as an authenticated zendesk user with ticket access" do
       let(:consent_pdf_spy) { instance_double(ConsentPdf) }
       let(:fake_pdf) { StringIO.new("i am a pdf") }
@@ -70,5 +99,10 @@ RSpec.describe Zendesk::IntakesController do
       end
     end
 
+    it_behaves_like :an_eitc_zendesk_intake_only_page, action: :banking_info do
+      let(:valid_params) do
+        { id: uwtsa_intake.id }
+      end
+    end
   end
 end

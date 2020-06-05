@@ -7,7 +7,8 @@ RSpec.feature "Viewing a document for a zendesk ticket" do
       :intake, :with_banking_details,
       intake_ticket_id: ticket_id,
       primary_first_name: "German",
-      primary_last_name: "Geranium"
+      primary_last_name: "Geranium",
+      zendesk_instance_domain: EitcZendeskInstance::DOMAIN
     )
   end
   let!(:document) { create :document, :with_upload, intake: intake }

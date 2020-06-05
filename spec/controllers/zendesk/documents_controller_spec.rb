@@ -27,5 +27,23 @@ RSpec.describe Zendesk::DocumentsController do
         expect(response.headers["Content-Type"]).to eq("image/jpeg")
       end
     end
+
+    context "as an authenticated eitc zendesk user with a uwtsa document" do
+      let(:uwtsa_intake) do
+        create :intake, intake_ticket_id: 123, zendesk_instance_domain: UwtsaZendeskInstance::DOMAIN
+      end
+      let(:uwtsa_document) { create :document, intake: uwtsa_intake }
+
+      before do
+        allow(subject).to receive(:current_user).and_return(user)
+      end
+
+      it "returns 404 with a not found page" do
+        get :show, params: { id: uwtsa_document.id }
+
+        expect(response.status).to eq 404
+        expect(response).to render_template "public_pages/page_not_found"
+      end
+    end
   end
 end

@@ -8,6 +8,7 @@ RSpec.feature "Viewing banking info for an intake" do
       intake_ticket_id: ticket_id,
       primary_first_name: "Happy",
       primary_last_name: "Client",
+      zendesk_instance_domain: EitcZendeskInstance::DOMAIN
     )
   end
   let(:auth_hash) do

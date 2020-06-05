@@ -4,7 +4,7 @@ RSpec.describe Zendesk::TicketsController do
   let(:ticket_id) { 123 }
   let(:user) { create :user, provider: "zendesk" }
   let(:ticket) { double("ZendeskAPI::Ticket", id: ticket_id, subject: "Oswald Orange") }
-  let!(:intake) { create :intake, intake_ticket_id: ticket_id }
+  let!(:intake) { create :intake, intake_ticket_id: ticket_id, zendesk_instance_domain: "eitc" }
   let!(:id_document) { create :document, :with_upload, intake: intake, document_type: "ID" }
   let!(:w2_document) { create :document, :with_upload, intake: intake, document_type: "W-2" }
 
@@ -40,7 +40,7 @@ RSpec.describe Zendesk::TicketsController do
       end
 
       context "with duplicate linked intakes" do
-        let!(:duplicate_intake) { create :intake, intake_ticket_id: ticket_id }
+        let!(:duplicate_intake) { create :intake, intake_ticket_id: ticket_id, zendesk_instance_domain: "eitc" }
         let!(:duplicate_id_document) { create :document, :with_upload, intake: intake, document_type: "ID" }
         let!(:duplicate_w2_document) { create :document, :with_upload, intake: intake, document_type: "W-2" }
 
@@ -62,6 +62,23 @@ RSpec.describe Zendesk::TicketsController do
                                              duplicate_intake.id, filename: duplicate_intake.consent_pdf_filename))
           expect(response.body).to include(zendesk_document_path(duplicate_id_document.id))
           expect(response.body).to include(zendesk_document_path(duplicate_w2_document.id))
+        end
+
+        context "with a UnitedWayTucson intake that coincidentally has the same ticket id" do
+          let!(:coincidental_uwtsa_intake) { create :intake, intake_ticket_id: ticket_id, zendesk_instance_domain: "unitedwaytucson" }
+
+          it "does not include information from the UWTSA intake" do
+            get :show, params: { id: ticket_id }
+
+
+            expect(assigns(:intakes)).not_to include(coincidental_uwtsa_intake)
+            expect(response.body).not_to include(
+              pdf_zendesk_intake_path(
+                coincidental_uwtsa_intake.id,
+                filename: coincidental_uwtsa_intake.intake_pdf_filename
+              )
+            )
+          end
         end
       end
     end

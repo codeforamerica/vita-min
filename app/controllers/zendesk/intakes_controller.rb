@@ -22,7 +22,9 @@ module Zendesk
     private
 
     def set_intake
-      @intake = Intake.find(params[:id])
+      @intake = Intake
+        .where(zendesk_instance_domain: EitcZendeskInstance::DOMAIN)
+        .find(params[:id])
     end
 
     def zendesk_ticket_id

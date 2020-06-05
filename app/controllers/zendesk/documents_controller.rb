@@ -16,6 +16,8 @@ module Zendesk
     end
 
     def zendesk_ticket_id
+      return unless @document.intake.zendesk_instance_domain == EitcZendeskInstance::DOMAIN
+
       @document.intake.intake_ticket_id
     end
   end
