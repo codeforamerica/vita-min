@@ -40,7 +40,7 @@ latest_version=$(git tag --list | grep 'version-' | sort --version-sort | tail -
 
 # show the user a list of commits that will be deployed
 echo '🚀 *Will merge and push `'$(git log -1 --pretty=format:%h ${latest_version})'`..`'$(git log -1 --pretty=format:%h ${origin_git_remote}/master)'` to release, initiating a production deployment*:'
-GIT_PAGER= git log --pretty="format:* %s (%an)" ${latest_version}...${origin_git_remote}/master
+GIT_PAGER= git log --pretty="format:* %s" ${latest_version}...${origin_git_remote}/master
 
 # ask the user for the new tag name/version number, accepting the default if
 # nothing is entered.
