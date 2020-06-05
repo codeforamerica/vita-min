@@ -77,10 +77,11 @@ menu, under Editor > Inspections > Ruby > Gems and Gem Management > Rubocop.
 
 ## Environments
 
+Notes on environments can be found in [doc/environments.md](doc/environments.md).
+
 ## Deploying the Application
 
-Notes on deployment (and tagged release) can be found in
-[doc/environments-and-deployment.md](doc/environments-and-deployment.md).
+Notes on deployment can be found in [doc/deployment.md](doc/deployment.md).
 
 
 
