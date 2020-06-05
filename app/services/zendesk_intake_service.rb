@@ -134,6 +134,7 @@ class ZendeskIntakeService
         EitcZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
         EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
         EitcZendeskInstance::INTAKE_SOURCE => @intake.source,
+        EitcZendeskInstance::INTAKE_LANGUAGE => I18n.locale,
       }
     else
       {

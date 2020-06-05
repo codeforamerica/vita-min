@@ -54,6 +54,10 @@ describe ZendeskIntakeService do
     allow(Dogapi::Client).to receive(:new).and_return(fake_dogapi)
   end
 
+  after do
+    I18n.locale = I18n.default_locale
+  end
+
   describe "#client" do
     before do
       allow(EitcZendeskInstance).to receive(:client).and_return fake_eitc_zendesk_client
@@ -165,6 +169,7 @@ describe ZendeskIntakeService do
 
     before do
       intake.intake_ticket_requester_id = 987
+      I18n.locale = :en
       allow(service).to receive(:create_ticket).and_return(fake_zendesk_ticket)
       allow(service).to receive(:new_ticket_body).and_return "Body text"
     end
@@ -191,6 +196,7 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
             EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF",
             EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
+            EitcZendeskInstance::INTAKE_LANGUAGE => :en,
           }
         )
       end
@@ -250,6 +256,7 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
             EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/documents/add/3456ABCDEF",
             EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
+            EitcZendeskInstance::INTAKE_LANGUAGE => :en,
           }
         )
       end
