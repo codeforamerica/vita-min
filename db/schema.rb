@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_180219) do
+ActiveRecord::Schema.define(version: 2020_06_09_145453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -253,6 +253,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_180219) do
     t.integer "paid_student_loan_interest", default: 0, null: false
     t.string "phone_number"
     t.integer "phone_number_can_receive_texts", default: 0, null: false
+    t.string "preferred_interview_language", default: "English"
     t.string "preferred_name"
     t.date "primary_birth_date"
     t.integer "primary_consented_to_service", default: 0, null: false

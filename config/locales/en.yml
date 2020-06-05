@@ -846,8 +846,9 @@ en:
           one: In %{year}, did you have any income from interest or dividends?
           other: In %{year}, did you or your spouse have any income from interest or dividends?
       interview_scheduling:
-        help_text: Please provide 2-3 times you are available. For example, "Tuesday or Thursday evenings". We'll pass this info along to your interviewer. There is no guarantee that they will be able to call you at your preferred time.
+        help_text: We will try our best to schedule your review based on the information you provide.
         title: Do you have any time preferences for your interview phone call?
+        language_select: What is your preferred language for the review?
       irs_letter:
         title:
           one: In %{year}, did you receive any letter or bill from the IRS?

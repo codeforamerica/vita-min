@@ -292,6 +292,10 @@ RSpec.feature "Web Intake Single Filer" do
 
     # Interview time preferences
     fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
+    expect(page) .to have_select(
+      "What is your preferred language for the review?", selected: "English"
+    )
+    select("Spanish", from: "What is your preferred language for the review?")
     click_on "Continue"
 
     # Payment info

@@ -16,6 +16,7 @@ describe ZendeskIntakeService do
            state_of_residence: state,
            source: source,
            interview_timing_preference: interview_timing_preference,
+           preferred_interview_language: "Spanish",
            final_info: final_info,
            needs_help_2019: "yes",
            needs_help_2018: "no",
@@ -604,6 +605,7 @@ describe ZendeskIntakeService do
         Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
         Client's provided interview preferences: Monday evenings and Wednesday mornings
+        The client's preferred language for a phone call is Spanish
 
         Additional information from Client: I want my money
       BODY
@@ -636,6 +638,7 @@ describe ZendeskIntakeService do
           Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
           Client's provided interview preferences: Monday evenings and Wednesday mornings
+          The client's preferred language for a phone call is Spanish
 
           Additional information from Client: I want my money
         BODY
