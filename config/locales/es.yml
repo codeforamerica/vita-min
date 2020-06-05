@@ -846,7 +846,8 @@ es:
           one: En %{year}, ¿tuvo algún ingreso por intereses o dividendos?
           other: En %{year}, ¿usted o su cónyuge tuvieron ingresos por intereses o dividendos?
       interview_scheduling:
-        help_text: Proporcione 2-3 veces que está disponible. Por ejemplo, "martes o jueves por la noche". Le pasaremos esta información a su entrevistador. No hay garantía de que puedan llamarlo a su hora preferida.
+        help_text: Haremos todo lo posible para programar su revisión en función de la información que proporcione.
+        language_select: "¿Cuál es su idioma preferido para la revisión?"
         title: "¿Tiene alguna preferencia de tiempo para su entrevista telefónica?"
       irs_letter:
         title:

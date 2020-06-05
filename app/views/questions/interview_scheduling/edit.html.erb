@@ -4,8 +4,16 @@
 <% content_for :page_title, @main_question %>
 
 <% content_for :form_card do %>
-  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <%= f.vita_min_text_field(:interview_timing_preference, @main_question, help_text: @help_text) %>
+
+    <%= f.cfa_select(
+          :preferred_interview_language,
+          t("views.questions.interview_scheduling.language_select"),
+          @form.language_options,
+          selected: @form.default_option,
+        ) %>
+
     <button class="button button--primary" type="submit">
       <%=t("general.continue") %>
       <i class="button__icon icon-arrow_forward"></i>
