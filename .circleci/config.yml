@@ -127,7 +127,7 @@ workflows:
           filters:
             branches:
               only: production
-      - deploy_to_aptible--staging:
+      - deploy_to_aptible--production:
           requires: [run_tests]
           filters:
             branches:

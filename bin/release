@@ -63,9 +63,15 @@ Describe the release--include high-level changes, _markdown accepted_
 * short description of change
 * another change
 
-# Full list of changes (remove this line and all following before saving):
-$(git log --pretty="format:# * %s (%an)" ${latest_version}...${origin_git_remote}/master)
-# DON'T FORGET TO SAVE THE FILE
+<!--
+Note: everything within the HTML comment block won't be displayed.
+
+Full list of changes:
+
+$(git log --pretty="format: * %s" ${latest_version}...${origin_git_remote}/master)
+
+tip, if using vim: hit <esc>:wq<enter> when you're finished.
+-->
 TEMPLATE
 
 # Edit the temp file

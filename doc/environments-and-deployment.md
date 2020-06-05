@@ -51,8 +51,8 @@ merge conflict when merging `master` into `production`, the conflicts must be
 resolved by hand, then re-run `bin/release`.
 
 The script also creates a tag. For regular releases, use `version-N.N.N`,
-incrementing the appropriate number. For hotfix releases, use `version-N.N.N.N`,
-incrementing the last digit from zero.
+incrementing the appropriate number. Please consult
+[semver.org](https://semver.org) for advice on semantic versioning.
 
 The steps the `bin/release` script automates are as follows:
 
@@ -64,18 +64,30 @@ The steps the `bin/release` script automates are as follows:
 
 After this, CircleCI runs and deploys if the tests pass.
 
+### Releasing without `bin/release`
+
+To issue a release without using the script, follow the steps listed above:
+
+1. `git pull` the master and production branches
+2. from the `production` branch, `git merge --ff master`
+3. `git tag <version name>` with the next version
+4. `git push && git push --tags`
+
 To issue a release from Github, use the same naming convention,
 but begin by clicking the 'releases' button on the main page.
 Github provides useful documentation [here](https://help.github.com/en/github/administering-a-repository/managing-releases-in-a-repository).
 
+### Hotfixing
 
 ### Other Release-related Tools
 
-To view a list of releases (with the highest releases at the top):
+To view a detailed list of releases, visit https://github.com/codeforamerica/vita-min/releases
 
-`git tag | sort -nr`
+To view a list of tags (with the highest releases at the top):
 
-To view a list of releases with their SHAs:
+`git tag | sort --version-sort -r`
+
+To view a list of releases with their SHAs (latest first):
 
 `bin/show-tags`
 
