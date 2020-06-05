@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for tag in `git tag`; do
+for tag in `git tag | sort --version-sort -r`; do
   sha=`git rev-list -n 1 $tag`
   echo "$tag -> $sha"
 done
