@@ -32,7 +32,7 @@
           <td> 13614-C </td>
           <td>
             <%= link_to pdf_zendesk_intake_path(
-              intake.id,
+              id: intake.id,
               filename: "13614c_#{intake.name_for_filename}.pdf"
             ), target: "_blank" do %>
               <%= "13614c_#{intake.name_for_filename}.pdf" %>
@@ -47,7 +47,7 @@
           <td> <%=t("views.zendesk.tickets.show.chart.consent") %> </td>
           <td>
             <%= link_to consent_pdf_zendesk_intake_path(
-              intake.id,
+              id: intake.id,
               filename: "Consent_#{intake.name_for_filename}.pdf",
             ), target: "_blank" do %>
               <%= "Consent_#{intake.name_for_filename}.pdf" %>

@@ -74,7 +74,7 @@ RSpec.describe Zendesk::TicketsController do
             expect(assigns(:intakes)).not_to include(coincidental_uwtsa_intake)
             expect(response.body).not_to include(
               pdf_zendesk_intake_path(
-                coincidental_uwtsa_intake.id,
+                id: coincidental_uwtsa_intake.id,
                 filename: coincidental_uwtsa_intake.intake_pdf_filename
               )
             )
