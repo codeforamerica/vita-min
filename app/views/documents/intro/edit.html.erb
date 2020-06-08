@@ -25,8 +25,9 @@
               <% recommended_document_types.each do |type| %>
                 <% if must_have?(type) %>
                   <div class="document-overview-list__item">
-                    <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__heading">
-                      <%= type %>
+                    <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
+                    <h2 class="h3 document-overview-list__heading">
+                      <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
                     </h2>
                   </div>
                 <% end %>
@@ -42,8 +43,9 @@
               <% recommended_document_types.each do |type| %>
                 <% if might_have?(type) %>
                   <div class="document-overview-list__item">
-                    <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__heading">
-                      <%= type %>
+                    <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
+                    <h2 class="h3 document-overview-list__heading">
+                      <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
                     </h2>
                   </div>
                 <% end %>
