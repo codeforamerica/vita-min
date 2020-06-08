@@ -158,7 +158,9 @@ class ApplicationController < ActionController::Base
     # 2) Previously set locale: query param 'locale' (added by default_url_options once I18n.locale is set)
     # 3) Browser settings: accept-header is examined if no params are set
     # 4) Default Fallback: from I18n.default_locale (we set it to :en)
-    locale = params[:new_locale] || params[:locale] || http_accept_language.compatible_language_from(I18n.available_locales) || I18n.default_locale
+    # TODO: uncomment to include browser settings when we unlock spanish translation
+    # locale = params[:new_locale] || params[:locale] || http_accept_language.compatible_language_from(I18n.available_locales) || I18n.default_locale
+    locale = params[:new_locale] || params[:locale] || I18n.default_locale
     I18n.with_locale(locale, &action)
   end
 
