@@ -253,7 +253,7 @@ vita_partners:
   display_name: Granite United Way
   source_parameters:
   - graniteuw
-  logo_path: ''
+  logo_path: partner-logos/granite-united-way.png
 - name: Louisville Asset Building Coalition
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010397693'
