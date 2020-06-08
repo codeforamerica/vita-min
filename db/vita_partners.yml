@@ -131,6 +131,13 @@ vita_partners:
   source_parameters:
   - uwccr
   logo_path: ''
+- name: "[United Way California] Orange County"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360009858073'
+  display_name: Orange County United Way
+  source_parameters:
+  - OCUW
+  logo_path: partner-logos/uwca-orange-county.png
 - name: Branches
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009704234'
