@@ -268,3 +268,23 @@ vita_partners:
   source_parameters:
   - CASHMD
   logo_path: ''
+- name: Michigan Online Intake
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010913693'
+  display_name: Michigan Capital Area United Way
+  source_parameters: []
+  logo_path: ''
+- name: Capital Area United Way
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010913713'
+  display_name: Michigan Capital Area United Way
+  source_parameters:
+  - MICAUW
+  logo_path: ''
+- name: Michigan Economic Impact Coalition
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010915334'
+  display_name: Michigan Economic Impact Coalition
+  source_parameters:
+  - MEIC
+  logo_path: ''
