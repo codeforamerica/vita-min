@@ -660,7 +660,7 @@ es:
           refund_amounts: El monto del reembolso que recibirá
         header: "¡Tratemos de responder a sus preguntas sobre los impuestos!"
         see_faq: Consulte nuestras preguntas frecuentes
-        support: Nuestro equipo está aquí para ayudarle. %{faq_link} o envíe una pregunta por chat, y nos comunicaremos con usted.
+        support_html: Nuestro equipo está aquí para ayudarle. %{faq_link} o envíe una pregunta por chat, y nos comunicaremos con usted.
         title: Preguntas sobre los impuestos
     questions:
       additional_info:
