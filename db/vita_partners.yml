@@ -303,3 +303,10 @@ vita_partners:
   source_parameters:
   - MEIC
   logo_path: ''
+- name: Rappahannock United Way
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010907913'
+  display_name: Rappahannock United Way
+  source_parameters:
+  - RUW
+  logo_path: ''
