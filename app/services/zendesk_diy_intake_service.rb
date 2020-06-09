@@ -111,6 +111,7 @@ class ZendeskDiyIntakeService
   def ticket_fields
     {
       EitcZendeskInstance::STATE => diy_intake.state_of_residence,
+      EitcZendeskInstance::INTAKE_LANGUAGE => I18n.locale,
       DIY_SUPPORT_UNIQUE_LINK => diy_intake.start_filing_url,
     }
   end
