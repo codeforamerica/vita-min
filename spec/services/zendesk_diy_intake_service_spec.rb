@@ -68,9 +68,9 @@ describe ZendeskDiyIntakeService do
         ticket_form_id: ZendeskDiyIntakeService::DIY_SUPPORT_TICKET_FORM,
         body: "Body text",
         fields: {
-          EitcZendeskInstance::STATE => diy_intake.state_of_residence,
+          EitcZendeskInstance::STATE => "NC",
           EitcZendeskInstance::INTAKE_LANGUAGE => :en,
-          ZendeskDiyIntakeService::DIY_SUPPORT_UNIQUE_LINK => diy_intake.start_filing_url
+          ZendeskDiyIntakeService::DIY_SUPPORT_UNIQUE_LINK => "http://test.host/en/diy/#{diy_intake.token}"
         }
       ).and_return(fake_zendesk_ticket)
       expect { service.create_diy_intake_ticket }.
