@@ -1,15 +1,5 @@
 ---
 vita_partners:
-- name: United Way Bay Area
-  zendesk_instance_domain: eitc
-  zendesk_group_id: '360009415834'
-  display_name: United Way Bay Area
-  source_parameters:
-  - uwba
-  states:
-  - CA
-  - AK
-  logo_path: ''
 - name: Tax Help Colorado (Piton Foundation)
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009415854'
@@ -124,12 +114,37 @@ vita_partners:
   source_parameters:
   - uwfm
   logo_path: ''
-- name: United Way California Capital Region
+- name: "[United Way California] Online Intake"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360009415834'
+  display_name: United Way of California
+  source_parameters:
+  - uwca
+  states:
+  - CA
+  logo_path: ''
+- name: United Way Bay Area
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360007994533'
+  display_name: United Way Bay Area
+  source_parameters:
+  - uwba
+  states:
+  - AK
+  logo_path: partner-logos/uwba.svg
+- name: "[United Way California] Capital Region"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009708193'
   display_name: United Way California Capital Region
   source_parameters:
   - uwccr
+  logo_path: ''
+- name: "[United Way California] Koreatown Youth Community Center"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010314594'
+  display_name: Koreatown Youth Community Center
+  source_parameters:
+  - kycc
   logo_path: ''
 - name: "[United Way California] Orange County"
   zendesk_instance_domain: eitc
@@ -209,13 +224,6 @@ vita_partners:
   display_name: Urban Upbound (NY)
   source_parameters:
   - uuny
-  logo_path: ''
-- name: "[United Way California] Koreatown Youth Community Center"
-  zendesk_instance_domain: eitc
-  zendesk_group_id: '360010314594'
-  display_name: Koreatown Youth Community Center
-  source_parameters:
-  - kycc
   logo_path: ''
 - name: "[MASSCAP] South Shore/South Coast"
   zendesk_instance_domain: eitc
