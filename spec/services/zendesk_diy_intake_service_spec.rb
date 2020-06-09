@@ -55,6 +55,7 @@ describe ZendeskDiyIntakeService do
 
     before do
       diy_intake.requester_id = requester_id
+      I18n.locale = :en
     end
 
     it "calls create_ticket with the right arguments and saves the ticket_id" do
@@ -68,6 +69,7 @@ describe ZendeskDiyIntakeService do
         body: "Body text",
         fields: {
           EitcZendeskInstance::STATE => diy_intake.state_of_residence,
+          EitcZendeskInstance::INTAKE_LANGUAGE => :en,
           ZendeskDiyIntakeService::DIY_SUPPORT_UNIQUE_LINK => diy_intake.start_filing_url
         }
       ).and_return(fake_zendesk_ticket)
