@@ -391,7 +391,7 @@ class Intake < ApplicationRecord
   end
 
   def requested_docs_token_link
-    "#{File.join(Rails.application.routes.url_helpers.root_url, "")}documents/add/#{get_or_create_requested_docs_token}"
+    Rails.application.routes.url_helpers.documents_add_requested_documents_url(token: get_or_create_requested_docs_token)
   end
 
   def mixpanel_data
