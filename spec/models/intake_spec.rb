@@ -865,7 +865,7 @@ describe Intake do
       end
 
       it_behaves_like "state-level routing", "CO", "Tax Help Colorado (Piton Foundation)", "eitc"
-      it_behaves_like "state-level routing", "CA", "United Way Bay Area", "eitc"
+      it_behaves_like "state-level routing", "CA", "[United Way California] Online Intake", "eitc"
       it_behaves_like "state-level routing", "GA", "Goodwill Industries of the Southern Rivers", "eitc"
       it_behaves_like "state-level routing", "WA", "United Way of King County", "eitc"
       it_behaves_like "state-level routing", "PA", "Campaign for Working Families", "eitc"
