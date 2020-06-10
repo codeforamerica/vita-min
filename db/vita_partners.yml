@@ -282,6 +282,8 @@ vita_partners:
   display_name: CASH Campaign of Maryland
   source_parameters:
   - CASHMD
+  states:
+  - MD
   logo_path: ''
 - name: Michigan Online Intake
   zendesk_instance_domain: eitc
