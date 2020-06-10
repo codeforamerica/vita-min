@@ -15,6 +15,7 @@ describe ZendeskIntakeService do
     create :intake,
            state_of_residence: state,
            source: source,
+           locale: :en,
            interview_timing_preference: interview_timing_preference,
            preferred_interview_language: "es",
            final_info: final_info,
