@@ -34,16 +34,17 @@ class IntakeSiteDropOff < ApplicationRecord
   CERTIFICATION_LEVELS = %w(Basic Advanced).freeze
   INTAKE_SITES = {
     thc: [
+      "Adams City High School",
       "Clayton Early Learning Center",
+      "Colorado Community Action Association",
       "Denver Housing Authority - Connections",
       "Denver Housing Authority - Mulroy",
       "Denver Housing Authority - Quigg Newton",
       "Denver Housing Authority - Westwood",
-      "Adams City High School",
       "Denver Human Services - East Office",
       "Denver Human Services - Montbello",
-      "Dress for Success",
       "Denver International Airport",
+      "Dress for Success",
       "Fort Collins Tax Site",
       "Lamar Community College",
       "Northeastern Junior College",
@@ -53,9 +54,9 @@ class IntakeSiteDropOff < ApplicationRecord
     ],
     gwisr: [
       "GoodwillSR Columbus Intake",
-      "GoodwillSR Thomas Crossroads Intake",
       "GoodwillSR Opelika Intake",
       "GoodwillSR Phenix City Intake",
+      "GoodwillSR Thomas Crossroads Intake",
     ],
     uwba: [
       "Family Bridges",
