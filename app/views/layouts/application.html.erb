@@ -41,6 +41,9 @@
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
     <div class="page-wrapper">
       <%= render 'shared/header' %>
+
+      <%= render "shared/environment_warning" %>
+
       <% if flash.any? %>
         <% flash.each do |type, message| %>
           <div class="slab slab--flash flash--<%= type %>">

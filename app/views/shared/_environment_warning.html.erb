@@ -1,0 +1,10 @@
+<% unless Rails.env.production? %>
+  <div class="slab slab--flash flash--alert">
+    <div class="grid">
+      <div class="grid__item">
+        This site is for example purposes only. If you want help with your taxes, go to
+        <%= link_to "GetYourRefund.org", "https://www.getyourrefund.org" %>.
+      </div>
+    </div>
+  </div>
+<% end %>
