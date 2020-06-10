@@ -22,6 +22,7 @@ module Diy
       super.merge(
         source: current_diy_intake.source || source,
         referrer: current_diy_intake.referrer || referrer,
+        locale: I18n.locale,
       )
     end
   end

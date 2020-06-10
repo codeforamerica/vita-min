@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_203523) do
+ActiveRecord::Schema.define(version: 2020_06_10_212912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_203523) do
   create_table "diy_intakes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.string "email_address"
+    t.string "locale"
     t.string "preferred_name"
     t.string "referrer"
     t.bigint "requester_id"

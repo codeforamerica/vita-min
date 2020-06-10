@@ -13,6 +13,7 @@ describe ZendeskDiyIntakeService do
       email_address: email_address,
       preferred_name: preferred_name,
       state_of_residence: state_of_residence,
+      locale: :en
     )
   end
   let(:service) { described_class.new(diy_intake) }
@@ -55,7 +56,6 @@ describe ZendeskDiyIntakeService do
 
     before do
       diy_intake.requester_id = requester_id
-      I18n.locale = :en
     end
 
     it "calls create_ticket with the right arguments and saves the ticket_id" do
