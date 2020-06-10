@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_005807) do
+ActiveRecord::Schema.define(version: 2020_06_10_203523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,6 +233,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_005807) do
     t.integer "issued_identity_pin", default: 0, null: false
     t.integer "job_count"
     t.integer "lived_with_spouse", default: 0, null: false
+    t.string "locale"
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.integer "married", default: 0, null: false
     t.integer "multiple_states", default: 0, null: false
