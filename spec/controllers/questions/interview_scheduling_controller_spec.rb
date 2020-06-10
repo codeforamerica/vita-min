@@ -15,8 +15,20 @@ RSpec.describe Questions::InterviewSchedulingController do
 
       expect(response.body).to have_select(
         I18n.t("views.questions.interview_scheduling.language_select", locale: :es),
-        selected: "Spanish"
+        selected: "español"
       )
+    end
+
+    context "when the intake has preferred language" do
+      before { intake.update(preferred_interview_language: :en) }
+
+      it "defers to the intake preferred language" do
+        get :edit, params: { locale: :es }
+        expect(response.body).to have_select(
+          I18n.t("views.questions.interview_scheduling.language_select", locale: :es),
+          selected: "inglés"
+        )
+      end
     end
   end
 end

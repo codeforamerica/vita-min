@@ -177,7 +177,7 @@ class ZendeskIntakeService
       Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
       Client's provided interview preferences: #{@intake.interview_timing_preference}
-      The client's preferred language for a phone call is #{@intake.preferred_interview_language}
+      The client's preferred language for a phone call is #{preferred_interview_language_name}
 
       Additional information from Client: #{@intake.final_info}
     BODY
@@ -338,6 +338,10 @@ class ZendeskIntakeService
     <<~FOOTER.strip
       This filer has consented to this VITA pilot
     FOOTER
+  end
+
+  def preferred_interview_language_name
+    I18n.t("general.language.#{@intake.preferred_interview_language || I18n.locale}", locale: :en)
   end
 
   class CouldNotSendIntakePdfError < ZendeskServiceError;

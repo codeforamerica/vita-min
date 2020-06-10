@@ -16,7 +16,7 @@ describe ZendeskIntakeService do
            state_of_residence: state,
            source: source,
            interview_timing_preference: interview_timing_preference,
-           preferred_interview_language: "Spanish",
+           preferred_interview_language: "es",
            final_info: final_info,
            needs_help_2019: "yes",
            needs_help_2018: "no",
@@ -596,6 +596,7 @@ describe ZendeskIntakeService do
       intake.intake_ticket_id = 34
       allow(service).to receive(:append_file_to_ticket).and_return(output)
       allow(intake).to receive(:pdf).and_return(fake_file)
+      I18n.locale = :es
     end
 
     it "appends the intake pdf to the ticket with updated status and interview preferences" do
