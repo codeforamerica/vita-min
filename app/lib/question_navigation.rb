@@ -3,7 +3,7 @@ class QuestionNavigation
     # Triage
     Questions::WelcomeController,
     Questions::FileWithHelpController,
-    Questions::AlreadyFiledController,
+    Questions::AlreadyFiledController, #create Intake record
     Questions::FilingForStimulusController,
     Questions::StimulusRecommendationController, # possible off-boarding from flow
     Questions::BacktaxesController,
