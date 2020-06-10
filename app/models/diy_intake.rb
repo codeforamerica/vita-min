@@ -4,6 +4,7 @@
 #
 #  id                 :bigint           not null, primary key
 #  email_address      :string
+#  locale             :string
 #  preferred_name     :string
 #  referrer           :string
 #  source             :string
@@ -42,7 +43,7 @@ class DiyIntake < ApplicationRecord
   end
 
   def start_filing_url
-    Rails.application.routes.url_helpers.diy_start_filing_url(:token => token)
+    Rails.application.routes.url_helpers.diy_start_filing_url(token: token, locale: locale)
   end
 
   def duplicate_diy_intakes

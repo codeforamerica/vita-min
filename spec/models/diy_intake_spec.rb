@@ -4,6 +4,7 @@
 #
 #  id                 :bigint           not null, primary key
 #  email_address      :string
+#  locale             :string
 #  preferred_name     :string
 #  referrer           :string
 #  source             :string

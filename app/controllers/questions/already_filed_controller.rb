@@ -17,7 +17,7 @@ module Questions
       super.merge(
         source: current_intake.source || source,
         referrer: current_intake.referrer || referrer,
-        locale: current_intake.locale || I18n.locale,
+        locale: I18n.locale,
         )
     end
 
