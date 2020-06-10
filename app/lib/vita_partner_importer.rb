@@ -16,6 +16,7 @@ module VitaPartnerImporter
 
     partners = YAML.load_file(yml)['vita_partners']
     VitaPartner.transaction do
+      SourceParameter.destroy_all
       partners.each do |datum|
         states = datum.delete('states')
         sources = datum.delete('source_parameters')
@@ -29,7 +30,6 @@ module VitaPartnerImporter
   end
 
   def refresh_partner_sources(partner, codes)
-    partner.source_parameters.destroy_all
     return unless codes.present?
 
     say "  -> updating #{partner.name} source codes"
