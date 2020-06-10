@@ -99,7 +99,7 @@
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
-#  preferred_interview_language                         :string           default("English")
+#  preferred_interview_language                         :string
 #  preferred_name                                       :string
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null

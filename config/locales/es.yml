@@ -62,6 +62,14 @@ es:
     hours: Horas
     irs_certified_volunteers: Voluntarios certificados por el IRS
     irs_free_file: Presentación gratuita del IRS
+    language:
+      de: alemán
+      en: inglés
+      es: español
+      fa: farsi
+      fr: francés
+      ru: ruso
+      zh: mandarín
     languages: Idiomas
     negative: 'No'
     next: próximo
