@@ -394,37 +394,6 @@ class Intake < ApplicationRecord
     Rails.application.routes.url_helpers.documents_add_requested_documents_url(token: get_or_create_requested_docs_token)
   end
 
-  def mixpanel_data
-    return Intake.find_original_intake(self).mixpanel_data if anonymous
-
-    dependents_under_6 = dependents.any? { |dependent| dependent.age_at_end_of_tax_year < 6 }
-    had_earned_income = had_a_job? || had_wages_yes? || had_self_employment_income_yes?
-    {
-        intake_source: source,
-        intake_referrer: referrer,
-        intake_referrer_domain: referrer_domain,
-        primary_filer_age_at_end_of_tax_year: age_end_of_tax_year.to_s,
-        spouse_age_at_end_of_tax_year: spouse_age_end_of_tax_year.to_s,
-        primary_filer_disabled: had_disability,
-        spouse_disabled: spouse_had_disability,
-        had_dependents: dependents.size > 0 ? "yes" : "no",
-        number_of_dependents: dependents.size.to_s,
-        had_dependents_under_6: dependents_under_6 ? "yes" : "no",
-        filing_joint: filing_joint,
-        had_earned_income: had_earned_income ? "yes" : "no",
-        state: state_of_residence,
-        zip_code: zip_code,
-        needs_help_2019: needs_help_2019,
-        needs_help_2018: needs_help_2018,
-        needs_help_2017: needs_help_2017,
-        needs_help_2016: needs_help_2016,
-        needs_help_backtaxes: (needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?) ? "yes" : "no",
-        zendesk_instance_domain: vita_partner&.zendesk_instance_domain,
-        vita_partner_group_id: vita_partner&.zendesk_group_id,
-        vita_partner_name: vita_partner&.name,
-    }
-  end
-
   def filing_years
     [
       ("2019" if needs_help_2019_yes?),
@@ -531,6 +500,17 @@ class Intake < ApplicationRecord
     "Consent_#{name_for_filename}.pdf"
   end
 
+  def had_earned_income?
+    had_a_job? || had_wages_yes? || had_self_employment_income_yes?
+  end
+
+  def had_dependents_under?(yrs)
+    dependents.any? { |dependent| dependent.age_at_end_of_tax_year < yrs }
+  end
+
+  def needs_help_with_backtaxes?
+    needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?
+  end
   private
 
   def partner_for_source

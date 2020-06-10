@@ -7,7 +7,7 @@ RSpec.describe DependentsController do
 
   before do
     allow(subject).to receive(:current_intake).and_return intake
-    allow(subject).to receive(:send_mixpanel_event)
+    allow(MixpanelService).to receive(:send_event)
   end
 
   describe "#index" do
@@ -128,7 +128,7 @@ RSpec.describe DependentsController do
       it "sends analytics to mixpanel" do
         post :create, params: params
 
-        expect(subject).to have_received(:send_mixpanel_event).with(
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(
           event_name: "dependent_added",
           data: {
             dependent_age_at_end_of_tax_year: "4",
@@ -140,7 +140,7 @@ RSpec.describe DependentsController do
             dependent_disabled: "no",
             dependent_was_married: "no",
           }
-        )
+        ))
       end
     end
 
@@ -177,13 +177,13 @@ RSpec.describe DependentsController do
       it "sends validation errors to mixpanel" do
         post :create, params: params
 
-        expect(subject).to have_received(:send_mixpanel_event).with(
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(
           event_name: "validation_error",
           data: {
             invalid_birth_date: true,
             invalid_last_name: true,
           }
-        )
+        ))
       end
     end
   end
@@ -260,7 +260,7 @@ RSpec.describe DependentsController do
       it "sends analytics to mixpanel" do
         post :update, params: params
 
-        expect(subject).to have_received(:send_mixpanel_event).with(
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(
           event_name: "dependent_updated",
           data: {
             dependent_age_at_end_of_tax_year: "4",
@@ -272,7 +272,7 @@ RSpec.describe DependentsController do
             dependent_disabled: "no",
             dependent_was_married: "no",
           }
-        )
+        ))
       end
     end
 
@@ -311,13 +311,13 @@ RSpec.describe DependentsController do
       it "sends validation errors to mixpanel" do
         post :create, params: params
 
-        expect(subject).to have_received(:send_mixpanel_event).with(
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(
           event_name: "validation_error",
           data: {
             invalid_birth_date: true,
             invalid_last_name: true,
           }
-        )
+        ))
       end
     end
   end
@@ -344,7 +344,7 @@ RSpec.describe DependentsController do
     it "sends analytics to mixpanel" do
       delete :destroy, params: { id: dependent.id }
 
-      expect(subject).to have_received(:send_mixpanel_event).with(event_name: "dependent_removed")
+      expect(MixpanelService).to have_received(:send_event).with(hash_including(event_name: "dependent_removed"))
     end
   end
 end

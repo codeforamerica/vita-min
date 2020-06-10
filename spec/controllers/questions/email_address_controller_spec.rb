@@ -7,7 +7,7 @@ RSpec.describe Questions::EmailAddressController do
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
-    allow(subject).to receive(:send_mixpanel_event)
+    allow(MixpanelService).to receive(:send_event)
   end
 
   describe "#edit" do
@@ -39,10 +39,10 @@ RSpec.describe Questions::EmailAddressController do
       it "sends an event to mixpanel without the email address data" do
         post :update, params: params
 
-        expect(subject).to have_received(:send_mixpanel_event).with(
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(
           event_name: "question_answered",
           data: {}
-        )
+        ))
       end
     end
 
@@ -65,11 +65,11 @@ RSpec.describe Questions::EmailAddressController do
       it "sends an event to mixpanel with relevant data" do
         post :update, params: params
 
-        expect(subject).to have_received(:send_mixpanel_event).with(
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(
           event_name: "validation_error",
           data: {
             invalid_email_address_confirmation: true
-          }
+          })
         )
       end
     end
@@ -93,12 +93,12 @@ RSpec.describe Questions::EmailAddressController do
       it "sends an event to mixpanel with relevant data" do
         post :update, params: params
 
-        expect(subject).to have_received(:send_mixpanel_event).with(
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(
           event_name: "validation_error",
           data: {
             invalid_email_address: true
           }
-        )
+        ))
       end
     end
   end

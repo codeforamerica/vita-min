@@ -8,7 +8,7 @@ RSpec.describe IntakeSiteDropOffsController do
 
   before do
     allow(ZendeskDropOffService).to receive(:new).and_return(zendesk_drop_off_service_spy)
-    allow(subject).to receive(:send_mixpanel_event)
+    allow(MixpanelService).to receive(:send_event)
   end
 
   describe "#new" do
@@ -134,7 +134,9 @@ RSpec.describe IntakeSiteDropOffsController do
               certification_level: "Advanced",
               hsa: true,
             }
-            expect(subject).to have_received(:send_mixpanel_event).with(event_name: "create_drop_off", data: expected_data)
+            expect(MixpanelService).to have_received(:send_event).with(hash_including(
+                                                                           event_name: "create_drop_off",
+                                                                           data: expected_data))
           end
 
           it "sets the intake site in the session" do
@@ -175,7 +177,7 @@ RSpec.describe IntakeSiteDropOffsController do
               certification_level: "Advanced",
               hsa: true,
             }
-            expect(subject).to have_received(:send_mixpanel_event).with(event_name: "append_to_drop_off", data: expected_data)
+            expect(MixpanelService).to have_received(:send_event).with(hash_including(event_name: "append_to_drop_off", data: expected_data))
           end
         end
 
@@ -211,7 +213,7 @@ RSpec.describe IntakeSiteDropOffsController do
               certification_level: "Advanced",
               hsa: true,
             }
-            expect(subject).to have_received(:send_mixpanel_event).with(event_name: "create_drop_off", data: expected_data)
+            expect(MixpanelService).to have_received(:send_event).with(hash_including(event_name: "create_drop_off", data: expected_data))
           end
         end
       end
@@ -257,7 +259,7 @@ RSpec.describe IntakeSiteDropOffsController do
             certification_level: nil,
             signature_method: "pony express"
           }
-          expect(subject).to have_received(:send_mixpanel_event).with(event_name: "validation_error", data: expected_data)
+          expect(MixpanelService).to have_received(:send_event).with(hash_including(event_name: "validation_error", data: expected_data))
         end
       end
     end
