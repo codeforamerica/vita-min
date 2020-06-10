@@ -56,5 +56,32 @@ RSpec.describe VitaPartnerImporter do
           .from("Old Name").to("Tax Help Colorado")
       end
     end
+
+    context "when changing a group ID for a given partner" do
+      let(:old_zendesk_group_id) { "360000000000" }
+      let!(:existing_partner) { create(:vita_partner, zendesk_group_id: old_zendesk_group_id) }
+      let(:zendesk_group_id) { "360011111111" }
+
+      before do
+        create(:source_parameter,
+               vita_partner: existing_partner,
+               code: "test-source")
+      end
+
+      it "creates the new partner and moves over the source parameter" do
+        expect do
+          TestImporter.upsert_vita_partners
+        end.to change(VitaPartner, :count).by(1)
+
+        created = VitaPartner.last
+        expect(created.zendesk_group_id).to eq(zendesk_group_id)
+        expect(created.source_parameters.length).to eq(1)
+        expect(created.source_parameters.first.code).to eq("test-source")
+
+        existing_partner.reload
+        expect(existing_partner.zendesk_group_id).to eq(old_zendesk_group_id)
+        expect(existing_partner.source_parameters).to be_empty
+      end
+    end
   end
 end
