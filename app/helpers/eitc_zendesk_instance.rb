@@ -69,6 +69,7 @@ class EitcZendeskInstance
   TAX_HELP_COLORADO = "360007047214"
   GOODWILL_SOUTHERN_RIVERS = "360007941454"
   UNITED_WAY_BAY_AREA = "360007047234"
+  UNITED_WAY_CENTRAL_OHIO = '360009440374'
 
   def self.client
     ZendeskAPI::Client.new do |config|

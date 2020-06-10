@@ -5,7 +5,8 @@ class ZendeskDropOffService
   ORGANIZATION_GROUP_IDS = {
     "thc" => EitcZendeskInstance::TAX_HELP_COLORADO,
     "gwisr" => EitcZendeskInstance::GOODWILL_SOUTHERN_RIVERS,
-    "uwba" => EitcZendeskInstance::UNITED_WAY_BAY_AREA
+    "uwba" => EitcZendeskInstance::UNITED_WAY_BAY_AREA,
+    "uwco" => EitcZendeskInstance::UNITED_WAY_CENTRAL_OHIO
   }.freeze
 
   def initialize(drop_off)
