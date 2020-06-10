@@ -224,7 +224,7 @@ describe ZendeskDropOffService do
 
         expected_body = <<~BODY
           New Dropoff at Adams City High School
-  
+
           Certification Level: Basic and HSA
           Name: Gary Guava
           Phone number: (415) 816-1286
