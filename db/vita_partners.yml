@@ -310,3 +310,10 @@ vita_partners:
   source_parameters:
   - RUW
   logo_path: ''
+- name: Goodwill Industries of Tulsa
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360010814134'
+  display_name: Goodwill Industries of Tulsa
+  source_parameters:
+  - GITOK
+  logo_path: partner-logos/gw-tulsa.png
