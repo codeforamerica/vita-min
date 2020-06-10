@@ -1,14 +1,4 @@
 class InterviewSchedulingForm < QuestionsForm
-  LANGUAGES = {
-    en: "English",
-    fa: "Farsi",
-    fr: "French",
-    de: "German",
-    zh: "Mandarin",
-    es: "Spanish",
-    ru: "Russian",
-  }
-
   set_attributes_for :intake, :interview_timing_preference, :preferred_interview_language
 
   def save
@@ -16,10 +6,11 @@ class InterviewSchedulingForm < QuestionsForm
   end
 
   def language_options
-    LANGUAGES.values
+    I18n.backend.translations[I18n.locale][:general][:language].invert
   end
 
-  def default_option
-    LANGUAGES[I18n.locale]
+  def self.existing_attributes(intake)
+    intake.preferred_interview_language ||= I18n.locale
+    HashWithIndifferentAccess.new(intake.attributes)
   end
 end

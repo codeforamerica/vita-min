@@ -10,8 +10,7 @@
     <%= f.cfa_select(
           :preferred_interview_language,
           t("views.questions.interview_scheduling.language_select"),
-          @form.language_options,
-          selected: @form.default_option,
+          @form.language_options
         ) %>
 
     <button class="button button--primary" type="submit">

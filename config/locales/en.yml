@@ -62,6 +62,14 @@ en:
     hours: Hours
     irs_certified_volunteers: IRS Certified Volunteers
     irs_free_file: IRS Free File
+    language:
+      en: English
+      fa: Farsi
+      fr: French
+      de: German
+      zh: Mandarin
+      es: Spanish
+      ru: Russian
     languages: Languages
     negative: 'No'
     next: Next
