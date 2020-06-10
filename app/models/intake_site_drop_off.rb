@@ -62,12 +62,18 @@ class IntakeSiteDropOff < ApplicationRecord
       "Gum Moon Residence",
       "San Francisco Conservation Corps",
     ],
+    uwco: [
+      "IMPACT Community Action",
+      "United Way of Central Ohio",
+      "United Way of Central Ohio – Mobile"
+    ],
   }.freeze
   ORGANIZATIONS = INTAKE_SITES.keys.map(&:to_s).freeze
   ORGANIZATION_NAMES = {
     "thc" => "Tax Help Colorado",
     "gwisr" => "Goodwill Industries of the Southern Rivers",
     "uwba" => "United Way Bay Area",
+    "uwco" => "United Way of Central Ohio"
   }.freeze
 
   strip_attributes only: [:name, :email, :phone_number, :additional_info]
