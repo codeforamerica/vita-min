@@ -91,43 +91,31 @@ class ApplicationController < ActionController::Base
 
   def send_mixpanel_validation_error(errors, additional_data = {})
     invalid_field_flags = errors.keys.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
-    tracking_data = invalid_field_flags.merge(additional_data)
-    send_mixpanel_event(event_name: "validation_error", data: tracking_data)
+
+    MixpanelService.send_event(
+      event_id: visitor_id,
+      event_name: 'validation_error',
+      data: invalid_field_flags.merge(additional_data),
+      subject: current_intake,
+      request: request,
+      source: self
+    )
   end
 
   def send_mixpanel_event(event_name:, data: {})
     return if user_agent.bot?
-    major_browser_version = user_agent.full_version.try { |v| v.partition('.').first }
-    default_data = {
-      source: source,
-      referrer: referrer,
-      utm_state: utm_state,
-      referrer_domain: URI.parse(referrer).host || "None",
-      full_user_agent: request.user_agent,
-      browser_name: user_agent.name,
-      browser_full_version: user_agent.full_version,
-      browser_major_version: major_browser_version,
-      os_name: user_agent.os_name,
-      os_full_version: user_agent.os_full_version,
-      os_major_version: user_agent.os_full_version.try { |v| v.partition('.').first },
-      is_bot: user_agent.bot?,
-      bot_name: user_agent.bot_name,
-      device_brand: user_agent.device_brand,
-      device_name: user_agent.device_name,
-      device_type: user_agent.device_type,
-      device_browser_version: "#{user_agent.os_name} #{user_agent.device_type} #{user_agent.name} #{major_browser_version}",
-      locale: I18n.locale.to_s,
-      path: request.path,
-      full_path: request.fullpath,
-      controller_name: self.class.name.sub("Controller", ""),
-      controller_action: "#{self.class.name}##{action_name}",
-      controller_action_name: action_name,
-    }
-    default_data.merge!(current_intake.mixpanel_data) if current_intake.present?
-    MixpanelService.instance.run(
-      unique_id: visitor_id,
+    path_exclusions = []
+    path_exclusions << current_intake.id if current_intake.present?
+    path_exclusions << current_diy_intake.id if current_diy_intake.present?
+
+    MixpanelService.send_event(
+      event_id: visitor_id,
       event_name: event_name,
-      data: default_data.merge(data),
+      data: data,
+      subject: current_intake,
+      request: request,
+      source: self,
+      path_exclusions: []
     )
   end
 

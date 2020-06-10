@@ -180,6 +180,11 @@ describe ZendeskIntakeService do
       let(:state) { "co" }
       let!(:vita_partner) { VitaPartner.find_by(name: "Tax Help Colorado (Piton Foundation)") }
       let(:ticket_status) { intake.current_ticket_status }
+      let(:mixpanel_spy) { spy(MixpanelService) }
+
+      before(:each) do
+        allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
+      end
 
       it "calls create_ticket with the right arguments" do
         result = service.create_intake_ticket
@@ -218,15 +223,13 @@ describe ZendeskIntakeService do
       end
 
       it "sends a mixpanel event" do
-        mixpanel_spy = spy(MixpanelService)
-        allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
         service.create_intake_ticket
 
         expect(mixpanel_spy).to have_received(:run).with(
           unique_id: intake.visitor_id,
           event_name: "ticket_status_change",
-          data: intake.mixpanel_data.merge(ticket_status.mixpanel_data)
-        )
+          data: hash_including(MixpanelService.data_from([intake, ticket_status])
+        ))
       end
 
       it "sends a datadog metric" do
@@ -240,6 +243,11 @@ describe ZendeskIntakeService do
     context "in a state for the UWTSA Group" do
       let(:state) { "az" }
       let(:vita_partner) { VitaPartner.find_by(name: "United Way of Tuscon and Southern Arizona") }
+      let(:mixpanel_spy) { spy(MixpanelService) }
+
+      before(:each) do
+        allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
+      end
 
       it "excludes intake site, and intake status and sends a nil group_id" do
         result = service.create_intake_ticket
@@ -267,6 +275,11 @@ describe ZendeskIntakeService do
     context "when the user opts out of sms notifications" do
       let(:sms_opt_in) { "no" }
       let(:email_opt_in) { "no" }
+      let(:mixpanel_spy) { spy(MixpanelService) }
+
+      before(:each) do
+        allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
+      end
 
       it "does not send the 'sms_opt_in'" do
         result = service.create_intake_ticket
