@@ -32,13 +32,18 @@ module Zendesk
     def merge_duplicate_tickets(intake_ids)
       ticket_ids = Intake.find(intake_ids).map(&:intake_ticket_id).compact
       primary_ticket = find_primary_ticket(ticket_ids)
+
+      # this only happens if all tickets are closed
+      # TODO: what do we do here?
+      return puts "ALL TICKETS CLOSED" if !primary_ticket
+
       duplicate_ticket_ids = ticket_ids - [primary_ticket.id]
 
       # Comment on primary ticket with links to duplicates
       primary_ticket_comment_body = <<~BODY
         This client submitted multiple intakes. This is the most recent or complete ticket.
         These are the other tickets the client submitted:
-        #{duplicate_ticket_ids.map { |id| "*#{ticket_url(id)}" }.join("\n")}
+        #{duplicate_ticket_list(duplicate_ticket_ids, primary_ticket)}.join("\n")
       BODY
       append_comment_to_ticket(
         ticket_id: primary_ticket.id,
@@ -69,13 +74,33 @@ module Zendesk
       tickets.sort_by { |ticket| status_index(ticket) }.last
     end
 
+    def find_group(id)
+      client.groups.to_a.find { |g| g.id == id }
+    end
+
     private
+
+    def duplicate_ticket_list(ticket_ids, primary_ticket)
+      primary_ticket_group = find_group(primary_ticket.group_id)
+
+      ticket_ids.map do |id|
+        ticket = get_ticket(ticket_id: id)
+        duplicate_ticket_url = "*#{ticket_url(id)}"
+        group = find_group(ticket.group_id)
+        duplicate_ticket_url << " (assigned to #{group.name})" unless group == primary_ticket_group
+
+        duplicate_ticket_url
+      end
+    end
 
     ##
     # return the index of intake_status and return_status from the respective order lists
     # e.g. a ticket with intake_status of INTAKE_STATUS_GATHERING_DOCUMENTS and
     # return status of RETURN_STATUS_READY_FOR_EFILE would return [2, 5]
     def status_index(ticket)
+      # TODO: will this still work if intake & return statuses are reversed?
+      #     # statuses: INTAKE_STATUS_NOT_FILING, RETURN_STATUS_DO_NOT_FILE, RETURN_STATUS_FOREIGN_STUDENT
+      #     # are not included in the lists
       [
         INTAKE_STATUS_ORDER.index(ticket_status(ticket, EitcZendeskInstance::INTAKE_STATUS)),
         RETURN_STATUS_ORDER.index(ticket_status(ticket, EitcZendeskInstance::RETURN_STATUS)),
