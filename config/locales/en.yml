@@ -232,7 +232,7 @@ en:
         help_text_html: "<strong>You might have this form</strong> because you said that you got paid from contract or self-employed work. You receive a 1099-K if you have a high dollar amount or quantity of business transactions during the year. Typically, large-volume online sellers file taxes with a 1099-K."
         title: Attach your 1099-K's
       form1099miscs:
-        help_text_html: "<strong>You might have this form</strong> because you said that you got paid from contract or self-employed work. This form is used to report non-employee compensation. Independent contractors, freelancers, sole-proprietors, and self-employed individuals, receive a 1099-MISC from each client who paid them $600 or more in a calendar year."
+        help_text_html: "<strong>You might have this form</strong> because you said that you got paid from a job, a contract, or self-employed work. You may also have received this for other reasons, including income from rent, royalties, or other income."
         title: Attach your 1099-MISC's
       form1099rs:
         help_text_html: "<strong>You should have this form</strong> because you said that you received income from a retirement account, pension, or annuity proceeds. This form is used to report distributions from annuities, profit-sharing plans, retirement plans, IRAs, insurance contracts, or pensions. Your retirement plan issuer would have sent this to you."
