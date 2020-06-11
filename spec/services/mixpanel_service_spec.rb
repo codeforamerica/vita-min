@@ -69,13 +69,34 @@ describe MixpanelService do
     before do
       allow(bare_request).to receive(:referrer).and_return("http://test-host.dev/remove-me/referred")
       allow(bare_request).to receive(:path).and_return("/remove-me/resource")
-      allow(bare_request).to receive(:fullpath).and_return("/remove-me/resource?id=whatever")
+      allow(bare_request).to receive(:fullpath).and_return("/remove-me/resource?other_field=whatever")
     end
 
-    describe "#strip_all_from" do
+    describe "#strip_all_from_string" do
       it 'strips a list of strings from a target string' do
-        expect(MixpanelService.strip_all_from('what a day', ['a', 'w']))
+        expect(MixpanelService.strip_all_from_string('what a day', ['a', 'w']))
           .to eq('ht  dy')
+      end
+    end
+
+    describe '#strip_all_from_url' do
+      let(:path) { '/this/remove-me/path' }
+      let(:path_plus) { '/this/remove-me/path?first=no&second=also-me' }
+      let(:messy_path) { '/who/me/remove-me/path?remove=true&weird=me&dinner=meat&meet=home' }
+
+      it 'strips a list of strings from a target url path' do
+        expect(MixpanelService.strip_all_from_url(path, ['remove-me', 'immaterial']))
+          .to eq('/this/***/path')
+      end
+
+      it 'strips a list of strings from a target url path and query string' do
+        expect(MixpanelService.strip_all_from_url(path_plus, ['remove-me', 'also-me', 'immaterial']))
+          .to eq('/this/***/path?first=no&second=***')
+      end
+
+      it 'avoids stripping subsets of urls and query strings' do
+        expect(MixpanelService.strip_all_from_url(messy_path, ['me', 'meet']))
+          .to eq('/who/***/remove-me/path?remove=true&weird=***&dinner=meat&***=home')
       end
     end
 
@@ -122,8 +143,8 @@ describe MixpanelService do
           event_id,
           event_name,
           hash_including(
-            path: "//resource",
-            full_path: "//resource?id=whatever"
+            path: "/***/resource",
+            full_path: "/***/resource?other_field=whatever"
           )
         )
       end
@@ -342,9 +363,9 @@ describe ApplicationController, type: :controller do
         '72347235',
         'req_test_event',
         hash_including(
-          path: '/req_test//rest?the-id=',
-          full_path: '/req_test//rest?the-id=',
-          referrer: 'http://test.dev//rest'
+          path: '/req_test/***/rest?the-id=***',
+          full_path: '/req_test/***/rest?the-id=***',
+          referrer: 'http://test.dev/***/rest'
         )
       )
     end
@@ -358,9 +379,9 @@ describe ApplicationController, type: :controller do
         '72347235',
         'req_test_event',
         hash_including(
-          path: '/req_test//rest?the-id=',
-          full_path: '/req_test//rest?the-id=',
-          referrer: 'http://test.dev//rest'
+          path: '/req_test/***/rest?the-id=***',
+          full_path: '/req_test/***/rest?the-id=***',
+          referrer: 'http://test.dev/***/rest'
         )
       )
     end
@@ -374,9 +395,9 @@ describe ApplicationController, type: :controller do
         '72347235',
         'req_test_event',
         hash_including(
-          path: '/req_test//rest?the-id=',
-          full_path: '/req_test//rest?the-id=',
-          referrer: 'http://test.dev//rest'
+          path: '/req_test/***/rest?the-id=***',
+          full_path: '/req_test/***/rest?the-id=***',
+          referrer: 'http://test.dev/***/rest'
         )
       )
     end
@@ -390,9 +411,9 @@ describe ApplicationController, type: :controller do
         '72347235',
         'req_test_event',
         hash_including(
-          path: '/req_test//rest?the-id=',
-          full_path: '/req_test//rest?the-id=',
-          referrer: 'http://test.dev//rest'
+          path: '/req_test/***/rest?the-id=***',
+          full_path: '/req_test/***/rest?the-id=***',
+          referrer: 'http://test.dev/***/rest'
         )
       )
     end
@@ -406,9 +427,9 @@ describe ApplicationController, type: :controller do
         '72347235',
         'req_test_event',
         hash_including(
-          path: '/req_test//rest?the-id=',
-          full_path: '/req_test//rest?the-id=',
-          referrer: 'http://test.dev//rest'
+          path: '/req_test/***/rest?the-id=***',
+          full_path: '/req_test/***/rest?the-id=***',
+          referrer: 'http://test.dev/***/rest'
         )
       )
     end
@@ -421,8 +442,8 @@ describe ApplicationController, type: :controller do
         '72347236',
         'inst_test_event',
         hash_including(
-          path: '/inst_test//rest?the-id=',
-          full_path: '/inst_test//rest?the-id=',
+          path: '/inst_test/***/rest?the-id=***',
+          full_path: '/inst_test/***/rest?the-id=***',
         )
       )
     end
@@ -436,23 +457,23 @@ describe ApplicationController, type: :controller do
         '72347236',
         'inst_test_event',
         hash_including(
-          path: '/inst_test//rest?the-id=',
-          full_path: '/inst_test//rest?the-id=',
+          path: '/inst_test/***/rest?the-id=***',
+          full_path: '/inst_test/***/rest?the-id=***',
         )
       )
     end
 
     it 'strips current_diy_intake.id and current_diy_intake.ticket_id from paths' do
-      diy_intake = create(:diy_intake, ticket_id: 83225)
-      routes.draw { get "inst_test/:diy_intake_id/rest?the-id=83225" => "anonymous#inst_test" }
+      diy_intake = create(:diy_intake, ticket_id: 9999988)
+      routes.draw { get "inst_test/:diy_intake_id/rest?the-id=9999988" => "anonymous#inst_test" }
       get :inst_test, params: { diy_intake_id: diy_intake.id }
 
       expect(fake_tracker).to have_received(:track).with(
         '72347236',
         'inst_test_event',
         hash_including(
-          path: '/inst_test//rest?the-id=',
-          full_path: '/inst_test//rest?the-id=',
+          path: '/inst_test/***/rest?the-id=***',
+          full_path: '/inst_test/***/rest?the-id=***',
         )
       )
     end
