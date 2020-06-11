@@ -3,7 +3,14 @@ require "rails_helper"
 describe Zendesk::TicketMergingService do
   let(:service) { described_class.new }
 
-  def zendesk_double(id:, intake_status:, return_status:, updated_at: Time.now, group_id: "", status: "open")
+  def zendesk_double(
+    id:, intake_status:,
+    return_status:,
+    updated_at: Time.now,
+    group_id: "",
+    status: "open",
+    group: double("ZendeskAPI::Group", id: 1111, name: "Group")
+  )
     double(
       ZendeskAPI::Ticket,
       id: id,
@@ -11,10 +18,11 @@ describe Zendesk::TicketMergingService do
       status: status,
       updated_at: updated_at,
       group_id: group_id,
+      group: group,
       fields: [
         double(ZendeskAPI::Trackie, id: EitcZendeskInstance::INTAKE_STATUS.to_i, value: intake_status ),
         double(ZendeskAPI::Trackie, id: EitcZendeskInstance::RETURN_STATUS.to_i, value: return_status )
-      ]
+      ],
     )
   end
 
@@ -25,89 +33,84 @@ describe Zendesk::TicketMergingService do
   end
 
   describe "#merge_duplicate_tickets" do
-    let(:intake_in_progress) { create :intake, intake_ticket_id: 123 }
-    let(:intake_in_progress_2) { create :intake, intake_ticket_id: 345 }
-    let(:intake_ready_for_review) { create :intake, intake_ticket_id: 456 }
-    let(:ticket_in_progress) do
-      zendesk_double(
-        id: 123,
-        intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
-        return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
-      )
-    end
-    let(:ticket_in_progress_2) do
-      zendesk_double(
-        id: 345,
-        intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
-        return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
-      )
-    end
-    let(:ticket_ready_for_review) do
-      zendesk_double(
-        id: 456,
-        intake_status: EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-        return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
-      )
-    end
-
+    let(:all_tickets) { [] }
     before do
       allow(service).to receive(:append_comment_to_ticket)
-      allow(service).to receive(:find_primary_ticket).and_return(ticket_ready_for_review)
+      all_tickets.each do |ticket|
+        allow(service).to receive(:get_ticket).with(ticket_id: ticket.id).and_return(ticket)
+      end
     end
 
-    it "appends a comment to the primary ticket identifying the duplicate tickets" do
-      service.merge_duplicate_tickets([intake_in_progress.id, intake_in_progress_2.id, intake_ready_for_review.id])
+    context "when tickets are in the same group" do
+      let(:intake_in_progress) { create :intake, intake_ticket_id: 123 }
+      let(:intake_in_progress_2) { create :intake, intake_ticket_id: 345 }
+      let(:intake_ready_for_review) { create :intake, intake_ticket_id: 456 }
+      let(:ticket_in_progress) do
+        zendesk_double(
+          id: 123,
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+          return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
+        )
+      end
+      let(:ticket_in_progress_2) do
+        zendesk_double(
+          id: 345,
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+          return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
+        )
+      end
+      let(:ticket_ready_for_review) do
+        zendesk_double(
+          id: 456,
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
+          return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
+        )
+      end
+      let(:all_tickets) { [ticket_in_progress, ticket_in_progress_2, ticket_ready_for_review] }
 
-      comment_body = <<~BODY
-        This client submitted multiple intakes. This is the most recent or complete ticket.
-        These are the other tickets the client submitted:
-        *https://eitc.zendesk.com/agent/tickets/123
-        *https://eitc.zendesk.com/agent/tickets/345
-      BODY
-      expect(service).to have_received(:append_comment_to_ticket).with(
-        ticket_id: 456,
-        comment: comment_body,
-        public: false,
-      )
-    end
-
-    it "appends comments to the duplicate tickets and marks them as not filing" do
-      service.merge_duplicate_tickets([intake_in_progress.id, intake_in_progress_2.id, intake_ready_for_review.id])
-
-      comment_body = <<~BODY
-        This client submitted multiple intakes. This ticket has been marked as "not filing" because it is a duplicate.
-        The main ticket for this client is https://eitc.zendesk.com/agent/tickets/456
-      BODY
-      expect(service).to have_received(:append_comment_to_ticket).with(
-        ticket_id: 123,
-        comment: comment_body,
-        public: false,
-        fields: {
-          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
-        }
-      )
-      expect(service).to have_received(:append_comment_to_ticket).with(
-        ticket_id: 345,
-        comment: comment_body,
-        public: false,
-        fields: {
-          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
-        }
-      )
-    end
-
-    context "when there is no primary ticket because all are closed" do
-      let(:intake_closed) { create :intake }
-      let(:intake_closed_2) { create :intake }
       before do
-        allow(service).to receive(:append_comment_to_ticket)
-        allow(service).to receive(:find_primary_ticket).and_return(nil)
+        allow(service).to receive(:find_primary_ticket).and_return(ticket_ready_for_review)
       end
 
-      it "prints a message and does nothing to the tickets" do
-        service.merge_duplicate_tickets([intake_closed.id, intake_closed_2.id])
+      it "appends a comment to the primary ticket identifying the duplicate tickets" do
+        service.merge_duplicate_tickets([intake_in_progress.id, intake_in_progress_2.id, intake_ready_for_review.id])
 
-        expect(service).not_to have_received(:append_comment_to_ticket)
+        comment_body = <<~BODY
+        This client submitted multiple intakes. This is the most recent or complete ticket.
+        These are the other tickets the client submitted:
+        • https://eitc.zendesk.com/agent/tickets/123
+        • https://eitc.zendesk.com/agent/tickets/345
+        BODY
+        expect(service).to have_received(:append_comment_to_ticket).with(
+          ticket_id: 456,
+          comment: comment_body,
+          public: false,
+        )
+      end
+
+      it "appends comments to the duplicate tickets and marks them as not filing" do
+        service.merge_duplicate_tickets([intake_in_progress.id, intake_in_progress_2.id, intake_ready_for_review.id])
+
+        comment_body = <<~BODY
+        This client submitted multiple intakes. This ticket has been marked as "not filing" because it is a duplicate.
+        The main ticket for this client is https://eitc.zendesk.com/agent/tickets/456
+        BODY
+        expect(service).to have_received(:append_comment_to_ticket).with(
+          ticket_id: 123,
+          comment: comment_body,
+          public: false,
+          fields: {
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
+          }
+        )
+        expect(service).to have_received(:append_comment_to_ticket).with(
+          ticket_id: 345,
+          comment: comment_body,
+          public: false,
+          fields: {
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
+          }
+        )
       end
     end
 
@@ -121,7 +124,7 @@ describe Zendesk::TicketMergingService do
           id: 123,
           intake_status: EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
           return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
-          group_id: 1111,
+          group: old_group,
         )
       end
       let(:ticket_ready_for_review) do
@@ -129,28 +132,23 @@ describe Zendesk::TicketMergingService do
           id: 456,
           intake_status: EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
           return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
-          group_id: 2222,
+          group: new_group,
         )
       end
       let(:all_tickets) { [ticket_gathering_docs, ticket_ready_for_review] }
       let(:all_groups) { [old_group, new_group] }
 
       before do
-        allow(service).to receive(:append_comment_to_ticket)
         allow(service).to receive(:find_primary_ticket).and_return(ticket_ready_for_review)
-        all_groups.each { |group| allow(service).to receive(:find_group).with(group.id).and_return(group) }
-        all_tickets.each do |ticket|
-          allow(service).to receive(:get_ticket).with(ticket_id: ticket.id).and_return(ticket)
-        end
       end
 
       it "appends comments including the differing group assignments" do
-        service.merge_duplicate_tickets([intake_in_progress.id, intake_ready_for_review.id])
+        service.merge_duplicate_tickets([intake_gathering_docs.id, intake_ready_for_review.id])
 
         comment_body = <<~BODY
           This client submitted multiple intakes. This is the most recent or complete ticket.
           These are the other tickets the client submitted:
-          *https://eitc.zendesk.com/agent/tickets/123 (assigned to Old Group)
+          • https://eitc.zendesk.com/agent/tickets/123 (assigned to Old Group)
         BODY
         expect(service).to have_received(:append_comment_to_ticket).with(
           ticket_id: 456,
@@ -160,7 +158,7 @@ describe Zendesk::TicketMergingService do
 
         comment_body = <<~BODY
           This client submitted multiple intakes. This ticket has been marked as "not filing" because it is a duplicate.
-          The main ticket for this client is https://eitc.zendesk.com/agent/tickets/456 (and is assigned to New Group)
+          The main ticket for this client is https://eitc.zendesk.com/agent/tickets/456 (assigned to New Group)
         BODY
         expect(service).to have_received(:append_comment_to_ticket).with(
           ticket_id: 123,
@@ -172,72 +170,88 @@ describe Zendesk::TicketMergingService do
         )
       end
     end
+
+    context "when there is no primary ticket because all are closed" do
+      let(:intake_closed) { create :intake }
+      let(:intake_closed_2) { create :intake }
+      before do
+        allow(service).to receive(:find_primary_ticket).and_return(nil)
+      end
+
+      it "does nothing to the tickets" do
+        output = service.merge_duplicate_tickets([intake_closed.id, intake_closed_2.id])
+
+        expect(output).to be_nil
+        expect(service).not_to have_received(:append_comment_to_ticket)
+      end
+    end
   end
 
-  # TODO: consider checking for a not filing ticket
   describe "#find_primary_ticket" do
-    let(:return_in_progress) do
-      zendesk_double(
-        id: 345,
-        intake_status: EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
-        return_status: EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS,
-        updated_at: Time.new(2020, 4, 5)
-      )
-    end
-    let(:intake_in_progress) do
-      zendesk_double(
-        id: 456,
-        intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
-        return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
-      )
-    end
-    let(:ready_for_review) do
-      zendesk_double(
-        id: 123,
-        intake_status: EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
-        return_status: EitcZendeskInstance::RETURN_STATUS_READY_FOR_QUALITY_REVIEW,
-      )
-    end
-    let(:gathering_docs) do
-      zendesk_double(
-        id: 789,
-        intake_status: EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
-        return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
-        updated_at: Time.new(2020, 3, 3)
-      )
-    end
-    let(:closed) do
-      zendesk_double(
-        id: 567,
-        intake_status: EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
-        return_status: EitcZendeskInstance::RETURN_STATUS_READY_FOR_EFILE,
-        status: "closed"
-      )
-    end
-    let(:all_tickets) do
-      [return_in_progress, intake_in_progress, ready_for_review, gathering_docs, closed]
-    end
-
     before do
       all_tickets.each do |ticket|
         allow(service).to receive(:get_ticket).with(ticket_id: ticket.id).and_return(ticket)
       end
     end
 
-    it "returns the Zendesk ticket with most advanced status" do
-      ticket = service.find_primary_ticket([456, 789])
+    context "when tickets have different indexed statuses" do
+      let(:return_in_progress) do
+        zendesk_double(
+          id: 345,
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
+          return_status: EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS,
+          updated_at: Time.new(2020, 4, 5)
+        )
+      end
+      let(:intake_in_progress) do
+        zendesk_double(
+          id: 456,
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+          return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
+        )
+      end
+      let(:ready_for_review) do
+        zendesk_double(
+          id: 123,
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
+          return_status: EitcZendeskInstance::RETURN_STATUS_READY_FOR_QUALITY_REVIEW,
+        )
+      end
+      let(:gathering_docs) do
+        zendesk_double(
+          id: 789,
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
+          return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
+          updated_at: Time.new(2020, 3, 3)
+        )
+      end
+      let(:closed) do
+        zendesk_double(
+          id: 567,
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
+          return_status: EitcZendeskInstance::RETURN_STATUS_READY_FOR_EFILE,
+          status: "closed"
+        )
+      end
+      let(:all_tickets) do
+        [return_in_progress, intake_in_progress, ready_for_review, gathering_docs, closed]
+      end
 
-      expect(ticket).to eq gathering_docs
+      it "returns the Zendesk ticket with most advanced status" do
+        ticket = service.find_primary_ticket([456, 789])
 
-      ticket = service.find_primary_ticket([123, 345, 456, 789])
+        expect(ticket).to eq gathering_docs
 
-      expect(ticket).to eq ready_for_review
-    end
+        ticket = service.find_primary_ticket([123, 345, 456, 789])
 
-    it "ignores closed tickets" do
-      ticket = service.find_primary_ticket([123, 345, 456, 789, 567])
+        expect(ticket).to eq ready_for_review
+      end
 
-      expect(ticket).not_to eq closed
+      it "ignores closed tickets" do
+        ticket = service.find_primary_ticket([123, 345, 456, 789, 567])
+
+        expect(ticket).not_to eq closed
+      end
     end
 
     context "when there are tickets with the same status" do
@@ -261,16 +275,37 @@ describe Zendesk::TicketMergingService do
         [ready_for_review_new, ready_for_review_old]
       end
 
-      before do
-        all_tickets.each do |ticket|
-          allow(service).to receive(:get_ticket).with(ticket_id: ticket.id).and_return(ticket)
-        end
-      end
-
       it "returns the most recently updated ticket" do
         ticket = service.find_primary_ticket([345, 123])
 
         expect(ticket).to eq ready_for_review_new
+      end
+    end
+
+    context "when a ticket has an unindexed status (not filing)" do
+      let(:not_filing) do
+        zendesk_double(
+          id: 345,
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
+          return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
+          updated_at: Time.new(2020, 6, 5),
+        )
+      end
+      let(:intake_in_progress) do
+        zendesk_double(
+          id: 123,
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
+          return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
+          updated_at: Time.new(2020, 6, 5),
+        )
+      end
+
+      let(:all_tickets) { [not_filing, intake_in_progress] }
+
+      it "selects any other status as primary" do
+        result = service.find_primary_ticket([345, 123])
+
+        expect(result).to eq intake_in_progress
       end
     end
 
@@ -293,12 +328,6 @@ describe Zendesk::TicketMergingService do
       end
       let(:all_tickets) do
         [closed, closed_2]
-      end
-
-      before do
-        all_tickets.each do |ticket|
-          allow(service).to receive(:get_ticket).with(ticket_id: ticket.id).and_return(ticket)
-        end
       end
 
       it "returns nil" do
