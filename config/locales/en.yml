@@ -36,6 +36,8 @@ en:
     chat_with_us: Chat with us
     confirm: Confirm
     continue: Continue
+    continue_example: Continue to example
+    file_my_taxes: File my taxes
     document_type:
       care_provider_statement: Care Provider Statement
       id: ID
@@ -784,6 +786,9 @@ en:
         title:
           one: In %{year}, did you purchase energy efficient home items?
           other: In %{year}, did you or your spouse purchase energy efficient home items?
+      environment_warning:
+        title: Thanks for visiting the GetYourRefund demo application!
+        info: This site is for example purposes only. If you want help with your taxes, go to www.GetYourRefund.org
       estimated_tax_payments:
         help_text: Answer "Yes" if you are self-employed and made quarterly estimated tax payments.
         title:
@@ -1148,6 +1153,8 @@ en:
         terms_html: You agree to the terms of the GetYourRefund privacy policy at %{privacy_link}
       covid_warning:
         notice_html: Due to COVID-19, a number of VITA sites and all TCE sites are closed for an undetermined period of time. Please call a site before visiting to confirm hours. To get connected with a VITA site online and have a VITA site assist you with your taxes remotely, visit GetYourRefund.org and click "Get Started." You can also visit the %{free_file_link} to find other free online tax preparation tools.
+      environment_warning:
+        banner: This site is for example purposes only. If you want help with your taxes, go to
       footer:
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
       grayscale_partner_logo:
