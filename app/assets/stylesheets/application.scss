@@ -240,6 +240,30 @@ body {
     }
   }
 
+  .slab--stimulus_faq {
+    background-color: #C2C2FF;
+    font-size: 1.6rem;
+    .grid__item {
+      display: flex;
+    }
+    .stimulus-banner-text {
+      margin-top: 5rem;
+      margin-right: 5rem;
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      .grid__item {
+        display: inherit;
+        text-align: center;
+      }
+
+      .stimulus-banner-text {
+        text-align: left;
+        margin: 0;
+      }
+    }
+  }
+
   .slab--partners {
     padding-top: 3rem;
     padding-bottom: 3rem;
