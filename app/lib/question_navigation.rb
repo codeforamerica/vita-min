@@ -7,6 +7,7 @@ class QuestionNavigation
     Questions::FilingForStimulusController,
     Questions::StimulusRecommendationController, # possible off-boarding from flow
     Questions::BacktaxesController,
+    Questions::EnvironmentWarningController,
     Questions::StartWithCurrentYearController,
 
     # VITA eligibility checks

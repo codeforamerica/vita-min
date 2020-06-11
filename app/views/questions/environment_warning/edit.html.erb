@@ -1,0 +1,20 @@
+<% content_for :page_title, t("views.questions.environment_warning.title") %>
+
+<% content_for :form_card do %>
+  <div class="form-card">
+    <h1 class="form-question">
+      <%= content_for(:page_title) %>
+    </h1>
+
+    <p>
+      <%=t("views.questions.environment_warning.info") %>
+    </p>
+
+    <%= link_to "https://www.getyourrefund.org", class: "button button--primary text--centered button--wide spacing-above-60" do %>
+      <%=t("general.file_my_taxes") %>
+    <% end %>
+    <%= link_to next_path, class: "button button--secondary text--centered button--wide spacing-above-25" do %>
+      <%=t("general.continue_example") %>
+    <% end %>
+  </div>
+<% end %>

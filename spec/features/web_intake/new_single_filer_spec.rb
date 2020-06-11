@@ -35,6 +35,11 @@ RSpec.feature "Web Intake Single Filer" do
     check "2017"
     check "2019"
     click_on "Continue"
+
+    #Non-production environment warning
+    expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
+    click_on "Continue to example"
+
     expect(page).to have_selector("h1", text: "Let's get started")
     click_on "Continue"
 
