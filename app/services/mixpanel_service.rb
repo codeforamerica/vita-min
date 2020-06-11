@@ -54,8 +54,9 @@ class MixpanelService
     #   MixpanelService.strip_all_from('what a day', ['a', 'w'])
     #   # => 'ht  dy'
     def strip_all_from(target, exclusions)
-      exclusions.each { |ex| target.gsub!(ex, '') }
-      target
+      return unless target.present?
+
+      exclusions.reduce(target) { |acc, ex| acc.gsub(ex.to_s, '') }
     end
 
     ##

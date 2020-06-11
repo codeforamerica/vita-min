@@ -104,9 +104,6 @@ class ApplicationController < ActionController::Base
 
   def send_mixpanel_event(event_name:, data: {})
     return if user_agent.bot?
-    path_exclusions = []
-    path_exclusions << current_intake.id if current_intake.present?
-    path_exclusions << current_diy_intake.id if current_diy_intake.present?
 
     MixpanelService.send_event(
       event_id: visitor_id,
@@ -115,7 +112,7 @@ class ApplicationController < ActionController::Base
       subject: current_intake,
       request: request,
       source: self,
-      path_exclusions: []
+      path_exclusions: all_identifiers
     )
   end
 
@@ -200,5 +197,22 @@ class ApplicationController < ActionController::Base
 
   def check_at_capacity
     redirect_to at_capacity_path and return if ENV['AT_CAPACITY'].present?
+  end
+
+  ##
+  # @return [Array(Object)] all potential identifiers
+  def all_identifiers
+    [
+      params[:token],
+      params[:intake_id],
+      session[:intake_id],
+      params[:diy_intake_id],
+      session[:diy_intake_id],
+      params[:id],
+      params[:ticket_id],
+      current_intake&.intake_ticket_id,
+      current_diy_intake&.ticket_id,
+      (defined?(zendesk_ticket_id) && zendesk_ticket_id),
+    ].filter { |e| e && !e.to_s.empty? }.uniq
   end
 end

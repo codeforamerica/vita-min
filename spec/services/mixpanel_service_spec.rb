@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe MixpanelService do
   let(:fake_tracker) { double('mixpanel tracker') }
-  before(:each) do
+  before do
     allow(fake_tracker).to receive(:track)
     MixpanelService.instance.instance_variable_set(:@tracker, fake_tracker)
   end
@@ -20,13 +20,13 @@ describe MixpanelService do
     end
 
     describe '#run' do
-      let(:sent_params) {
+      let(:sent_params) do
         {
           unique_id: 'abcde',
           event_name: 'test_event',
           data: { test: 'OK' }
         }
-      }
+      end
       let(:expected_params) { ['abcde', 'test_event', { test: 'OK' }] }
 
       before do
@@ -65,23 +65,8 @@ describe MixpanelService do
     let(:event_name) { 'test_event' }
 
     let(:bare_request) { ActionDispatch::Request.new({}) }
-    let(:fake_user_agent) do
-      double(
-        'fake_user_agent',
-        name: 'TestZilla',
-        full_version: '6.6.6',
-        os_name: 'BeOS',
-        os_full_version: '12.3.3',
-        bot?: false,
-        bot_name: '',
-        device_brand: 'IRIX',
-        device_name: 'O2',
-        device_type: 'obsolete server',
-      )
-    end
 
     before do
-      allow(bare_request).to receive(:user_agent).and_return(fake_user_agent)
       allow(bare_request).to receive(:referrer).and_return("http://test-host.dev/remove-me/referred")
       allow(bare_request).to receive(:path).and_return("/remove-me/resource")
       allow(bare_request).to receive(:fullpath).and_return("/remove-me/resource?id=whatever")
@@ -133,10 +118,14 @@ describe MixpanelService do
           path_exclusions: ['remove-me', 'immaterial']
         )
 
-        expect(fake_tracker).to have_received(:track).with(event_id,
-                                                           event_name,
-                                                           hash_including(path: "//resource",
-                                                                          full_path: "//resource?id=whatever"))
+        expect(fake_tracker).to have_received(:track).with(
+          event_id,
+          event_name,
+          hash_including(
+            path: "//resource",
+            full_path: "//resource?id=whatever"
+          )
+        )
       end
 
       it 'overwrites defaults with included data' do
@@ -153,9 +142,11 @@ describe MixpanelService do
         partner = state.vita_partners.first
         return partner if partner.present?
 
-        partner = create :vita_partner,
-                          name: "test_partner",
-                          zendesk_group_id: "1234567890123456"
+        partner = create(
+          :vita_partner,
+          name: "test_partner",
+          zendesk_group_id: "1234567890123456"
+        )
         partner.states << state
         partner
       end
@@ -181,15 +172,18 @@ describe MixpanelService do
         )
       end
 
-      let!(:dependent_one) { create :dependent, birth_date: Date.new(2017, 4, 21), intake: intake}
-      let!(:dependent_two) { create :dependent, birth_date: Date.new(2005, 8, 11), intake: intake}
-
       let(:ticket_status) do
         create(
           :ticket_status,
           intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_REVIEW,
           return_status: EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS
         )
+      end
+
+      before do
+        intake.dependents << create(:dependent, birth_date: Date.new(2017, 4, 21), intake: intake)
+        intake.dependents << create(:dependent, birth_date: Date.new(2005, 8, 11), intake: intake)
+        intake.reload
       end
 
       context 'when obj is an array' do
@@ -273,7 +267,6 @@ describe MixpanelService do
       end
 
       context 'when object is a TicketStatus' do
-
         it 'returns the expected hash' do
           expect(MixpanelService.data_from(ticket_status)).to eq({
             verified_change: true,
@@ -288,27 +281,40 @@ describe MixpanelService do
   end
 end
 
-## this section tests controller-specific features of mixpanel_service
-#
-
+##
+# this section tests controller-specific features of mixpanel_service,
+# including the removal of identifying information in reports sent to mixpanel
 describe ApplicationController, type: :controller do
   let(:fake_tracker) { double('mixpanel tracker') }
-  before(:each) do
+
+  before do
     allow(fake_tracker).to receive(:track)
     MixpanelService.instance.instance_variable_set(:@tracker, fake_tracker)
   end
 
   describe "#send_event" do
     controller do
+      skip_after_action :track_page_view
+
       def index
-        MixpanelService.send_event(
-          event_id: '72347234',
-          event_name: 'test_event',
-          data: {},
-          source: self
-        )
+        MixpanelService.send_event(event_id: '72347234', event_name: 'index_test_event', data: {}, source: self, request: request)
         render plain: 'nope'
       end
+
+      def req_test
+        request.env['HTTP_REFERER'] = "http://test.dev/9999998/rest"
+        MixpanelService.send_event(event_id: '72347235', event_name: 'req_test_event', data: {}, request: request, path_exclusions: all_identifiers)
+        render plain: 'nope'
+      end
+
+      def inst_test
+        [:intake_id, :diy_intake_id].each { |k| session[k] = params[k] }
+        MixpanelService.send_event(event_id: '72347236', event_name: 'inst_test_event', data: {}, request: request, path_exclusions: all_identifiers)
+        render plain: 'nope'
+      end
+
+      ## mimic ZendeskController behavior
+      def zendesk_ticket_id; "1212123"; end
     end
 
     it 'includes controller (source) information, if present' do
@@ -316,13 +322,137 @@ describe ApplicationController, type: :controller do
 
       expect(fake_tracker).to have_received(:track).with(
         '72347234',
-        'test_event',
+        'index_test_event',
         hash_including(
           :source,
           :utm_state,
           :controller_name,
           :controller_action,
           :controller_action_name
+        )
+      )
+    end
+
+    it 'strips :intake_id from paths' do
+      routes.draw { get "req_test/:intake_id/rest?the-id=9999998" => "anonymous#req_test" }
+      params = {intake_id: 9999998}
+      get :req_test, params: params
+
+      expect(fake_tracker).to have_received(:track).with(
+        '72347235',
+        'req_test_event',
+        hash_including(
+          path: '/req_test//rest?the-id=',
+          full_path: '/req_test//rest?the-id=',
+          referrer: 'http://test.dev//rest'
+        )
+      )
+    end
+
+    it 'strips :diy_intake_id from paths' do
+      routes.draw { get "req_test/:diy_intake_id/rest?the-id=9999998" => "anonymous#req_test" }
+      params = { diy_intake_id: 9999998 }
+      get :req_test, params: params
+
+      expect(fake_tracker).to have_received(:track).with(
+        '72347235',
+        'req_test_event',
+        hash_including(
+          path: '/req_test//rest?the-id=',
+          full_path: '/req_test//rest?the-id=',
+          referrer: 'http://test.dev//rest'
+        )
+      )
+    end
+
+    it 'strips :id from paths' do
+      routes.draw { get "req_test/:id/rest?the-id=9999998" => "anonymous#req_test" }
+      params = { id: 9999998 }
+      get :req_test, params: params
+
+      expect(fake_tracker).to have_received(:track).with(
+        '72347235',
+        'req_test_event',
+        hash_including(
+          path: '/req_test//rest?the-id=',
+          full_path: '/req_test//rest?the-id=',
+          referrer: 'http://test.dev//rest'
+        )
+      )
+    end
+
+    it 'strips :token from paths' do
+      routes.draw { get "req_test/:token/rest?the-id=9999998" => "anonymous#req_test" }
+      params = { token: 9999998 }
+      get :req_test, params: params
+
+      expect(fake_tracker).to have_received(:track).with(
+        '72347235',
+        'req_test_event',
+        hash_including(
+          path: '/req_test//rest?the-id=',
+          full_path: '/req_test//rest?the-id=',
+          referrer: 'http://test.dev//rest'
+        )
+      )
+    end
+
+    it 'strips :ticket_id from paths' do
+      routes.draw { get "req_test/:ticket_id/rest?the-id=9999998" => "anonymous#req_test" }
+      params = { ticket_id: 9999998 }
+      get :req_test, params: params
+
+      expect(fake_tracker).to have_received(:track).with(
+        '72347235',
+        'req_test_event',
+        hash_including(
+          path: '/req_test//rest?the-id=',
+          full_path: '/req_test//rest?the-id=',
+          referrer: 'http://test.dev//rest'
+        )
+      )
+    end
+
+    it 'strips zendesk_ticket_id from paths' do
+      routes.draw { get "inst_test/1212123/rest?the-id=1212123" => "anonymous#inst_test" }
+      get :inst_test
+
+      expect(fake_tracker).to have_received(:track).with(
+        '72347236',
+        'inst_test_event',
+        hash_including(
+          path: '/inst_test//rest?the-id=',
+          full_path: '/inst_test//rest?the-id=',
+        )
+      )
+    end
+
+    it 'strips current_intake.id and current_intake.zendesk_ticket_id from paths' do
+      intake = create(:intake, intake_ticket_id: 83224)
+      routes.draw { get "inst_test/:intake_id/rest?the-id=83224" => "anonymous#inst_test" }
+      get :inst_test, params: { intake_id: intake.id }
+
+      expect(fake_tracker).to have_received(:track).with(
+        '72347236',
+        'inst_test_event',
+        hash_including(
+          path: '/inst_test//rest?the-id=',
+          full_path: '/inst_test//rest?the-id=',
+        )
+      )
+    end
+
+    it 'strips current_diy_intake.id and current_diy_intake.ticket_id from paths' do
+      diy_intake = create(:diy_intake, ticket_id: 83225)
+      routes.draw { get "inst_test/:diy_intake_id/rest?the-id=83225" => "anonymous#inst_test" }
+      get :inst_test, params: { diy_intake_id: diy_intake.id }
+
+      expect(fake_tracker).to have_received(:track).with(
+        '72347236',
+        'inst_test_event',
+        hash_including(
+          path: '/inst_test//rest?the-id=',
+          full_path: '/inst_test//rest?the-id=',
         )
       )
     end
