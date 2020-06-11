@@ -76,10 +76,10 @@ describe Zendesk::TicketMergingService do
         service.merge_duplicate_tickets([intake_in_progress.id, intake_in_progress_2.id, intake_ready_for_review.id])
 
         comment_body = <<~BODY
-        This client submitted multiple intakes. This is the most recent or complete ticket.
-        These are the other tickets the client submitted:
-        • https://eitc.zendesk.com/agent/tickets/123
-        • https://eitc.zendesk.com/agent/tickets/345
+          This client submitted multiple intakes. This is the most recent or complete ticket.
+          These are the other tickets the client submitted:
+          • https://eitc.zendesk.com/agent/tickets/123
+          • https://eitc.zendesk.com/agent/tickets/345
         BODY
         expect(service).to have_received(:append_comment_to_ticket).with(
           ticket_id: 456,
@@ -92,8 +92,8 @@ describe Zendesk::TicketMergingService do
         service.merge_duplicate_tickets([intake_in_progress.id, intake_in_progress_2.id, intake_ready_for_review.id])
 
         comment_body = <<~BODY
-        This client submitted multiple intakes. This ticket has been marked as "not filing" because it is a duplicate.
-        The main ticket for this client is https://eitc.zendesk.com/agent/tickets/456
+          This client submitted multiple intakes. This ticket has been marked as "not filing" because it is a duplicate.
+          The main ticket for this client is https://eitc.zendesk.com/agent/tickets/456
         BODY
         expect(service).to have_received(:append_comment_to_ticket).with(
           ticket_id: 123,
@@ -111,6 +111,13 @@ describe Zendesk::TicketMergingService do
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
           }
         )
+      end
+
+      it "links the intakes of the duplicate tickets to the primary ticket" do
+        service.merge_duplicate_tickets([intake_in_progress.id, intake_in_progress_2.id, intake_ready_for_review.id])
+
+        expect(intake_in_progress.reload.intake_ticket_id).to eq 456
+        expect(intake_in_progress_2.reload.intake_ticket_id).to eq 456
       end
     end
 
@@ -172,8 +179,8 @@ describe Zendesk::TicketMergingService do
     end
 
     context "when there is no primary ticket because all are closed" do
-      let(:intake_closed) { create :intake }
-      let(:intake_closed_2) { create :intake }
+      let(:intake_closed) { create :intake, intake_ticket_id: 123 }
+      let(:intake_closed_2) { create :intake, intake_ticket_id: 234 }
       before do
         allow(service).to receive(:find_primary_ticket).and_return(nil)
       end
@@ -183,6 +190,8 @@ describe Zendesk::TicketMergingService do
 
         expect(output).to be_nil
         expect(service).not_to have_received(:append_comment_to_ticket)
+        expect(intake_closed.reload.intake_ticket_id).to eq 123
+        expect(intake_closed_2.reload.intake_ticket_id).to eq 234
       end
     end
   end

@@ -47,6 +47,11 @@ module Zendesk
       duplicate_tickets.each do |duplicate_ticket|
         update_duplicate_ticket(duplicate_ticket, primary_ticket)
       end
+
+      # Update duplicate intakes with primary ticket id
+      Intake.find(intake_ids).each do |intake|
+        intake.update(intake_ticket_id: primary_ticket.id) unless intake.intake_ticket_id == primary_ticket.id
+      end
     end
 
     def find_primary_ticket(ticket_ids)
