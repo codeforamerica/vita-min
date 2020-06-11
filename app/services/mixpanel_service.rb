@@ -53,10 +53,39 @@ class MixpanelService
     #
     #   MixpanelService.strip_all_from('what a day', ['a', 'w'])
     #   # => 'ht  dy'
-    def strip_all_from(target, exclusions)
+    def strip_all_from_string(target, exclusions)
       return unless target.present?
 
       exclusions.reduce(target) { |acc, ex| acc.gsub(ex.to_s, '') }
+    end
+
+    ##
+    # convenience method for stripping a list of substrings from a url while
+    # preserving its structure and query string structure
+    #
+    # @param [String] target the url to be strippped
+    # @param [Enumerable(String)] exclusions list of strings to be removed from target
+    #
+    # @example
+    #
+    #   MixpanelService.strip_all_from('/this/dang/thing?query=remove-me', ['dang', 'remove-me'])
+    #   # => '/this/***/thing?query=***'
+    def strip_all_from_url(url, exclusions)
+      exclusions = exclusions.map(&:to_s)
+      return unless url.present?
+      return url if exclusions.empty?
+
+      path, querystring = url.split('?')
+      path = path.split('/').map { |part| exclusions.include?(part) ? '***' : part }.join('/')
+
+      if querystring.present?
+        path << '?'
+        path <<  querystring.split('&').map do |pair|
+          k, v = pair.split('=')
+          [(exclusions.include?(k) ? '***' : k), (exclusions.include?(v) ? '***' : v)].join('=')
+        end.join('&')
+      end
+      path
     end
 
     ##
@@ -135,7 +164,7 @@ class MixpanelService
     def data_from_request(source, path_exclusions: [])
       user_agent = DeviceDetector.new(source.user_agent)
       major_browser_version = user_agent.full_version.try { |v| v.partition('.').first } rescue ""
-      os_major_version  = user_agent.os_full_version.try { |v| v.partition('.').first } rescue ""
+      os_major_version = user_agent.os_full_version.try { |v| v.partition('.').first } rescue ""
       {
         browser_name: user_agent.name,
         browser_full_version: user_agent.full_version,
@@ -150,10 +179,10 @@ class MixpanelService
         device_type: user_agent.device_type,
         device_browser_version: "#{user_agent.os_name} #{user_agent.device_type} #{user_agent.name} #{major_browser_version}",
         full_user_agent: source.user_agent,
-        path: strip_all_from(source.path, path_exclusions),
-        full_path: strip_all_from(source.fullpath, path_exclusions),
-        referrer: strip_all_from(source.referrer, path_exclusions),
-        referrer_domain: strip_all_from((URI.parse(source.referrer).host || "None" rescue "None"),path_exclusions),
+        path: strip_all_from_url(source.path, path_exclusions),
+        full_path: strip_all_from_url(source.fullpath, path_exclusions),
+        referrer: strip_all_from_url(source.referrer, path_exclusions),
+        referrer_domain: strip_all_from_url((URI.parse(source.referrer).host || "None" rescue "None"), path_exclusions),
       }
     end
 
