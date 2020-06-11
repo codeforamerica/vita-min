@@ -101,6 +101,7 @@ en:
     upload: Upload
     very_well: Very well
     visit_free_file: Visit IRS Free File
+    visit_stimulus_faq: Visit Stimulus FAQ
     vita_long: 'VITA: Volunteer Income Tax Assistance'
     well: Well
     you: you
@@ -474,6 +475,8 @@ en:
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
           header: We're committed to keeping your information secure.
+        stimulus_faq:
+          info: Already filed your taxes and have questions about your stimulus check?
         subheader: Maximize your refund by filing with our trusted volunteers.
         title: Free tax help from IRS-certified volunteers.
       maintenance:

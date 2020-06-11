@@ -101,6 +101,7 @@ es:
     upload: Subir
     very_well: Muy bien
     visit_free_file: Visite el sitio de declaración de impuestos gratuita del IRS
+    visit_stimulus_faq: Preguntas Frecuentes
     vita_long: 'VITA: Asistencia Voluntaria al Contribuyente Tributario'
     well: Bien
     you: usted
@@ -474,6 +475,8 @@ es:
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Estamos comprometidos a proteger su información.
+        stimulus_faq:
+          info: ¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?
         subheader: Obtenga un reembolso más grande declarando sus impuestos con la ayuda de nuestros voluntarios de confianza.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maintenance:
