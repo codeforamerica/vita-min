@@ -58,7 +58,7 @@ es:
     free_file_html: Si desea declarar sus impuestos sin la ayuda de nuestro personal y servicios, utilice el %{wizard_link} para poder hacerlo en línea gratis.
     free_file_lookup_tool: Herramienta de búsqueda de la presentación gratuita del IRS
     get_my_payment: Recibir mi pago
-    get_started: Introducción
+    get_started: Comenzar
     here: aquí
     home: Inicio
     hours: Horas
@@ -463,7 +463,7 @@ es:
           header: La comodidad de hacer la presentación en línea y el apoyo de las consultas presenciales.
           questions: "¿Tiene más preguntas? Visite nuestra página de preguntas frecuentes o hable con nosotros por el chat."
         file:
-          header: "¡Presente su declaración de impuestos gratis hoy mismo y obtenga un reembolso mayor!"
+          header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         filing_deadline_banner:
           body: No tiene que presentar otro formulario ni llamar al IRS para pedir la ampliación del plazo. Le recomendamos que presente la declaración hoy mismo, ya que podría tener un reembolso pendiente que podría ayudar al sustento de su hogar.
           title: 'Nota: La fecha límite para presentar la declaración del impuesto federal sobre los ingresos se ha ampliado hasta el 15 de julio de 2020.'
