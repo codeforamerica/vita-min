@@ -156,6 +156,7 @@
 #  updated_at                                           :datetime
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
+#  primary_intake_id                                    :integer
 #  visitor_id                                           :string
 #  vita_partner_group_id                                :string
 #  vita_partner_id                                      :bigint
