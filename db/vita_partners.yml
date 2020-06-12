@@ -225,6 +225,13 @@ vita_partners:
   source_parameters:
   - uuny
   logo_path: ''
+- name: "[MASSCAP] Online Intake (w/Boston Tax Help)"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011044474'
+  display_name: Massachusetts Association for Community Action (MASSCAP) and Boston Tax Help
+  states:
+  - MA
+  logo_path: ''
 - name: "[MASSCAP] South Shore/South Coast"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417234'
