@@ -878,14 +878,6 @@ es:
         title:
           one: En %{year}, ¿tenía una cuenta de ahorro de salud?
           other: En el %{year}, ¿Tenía usted o su pareja una cuenta de ahorro para la salud?
-      identity:
-        contact_html: Si tiene algún problema, por favor chatea con nosotros o envíanos un correo electrónico a %{email_link}.
-        here_to_help: "¡Estamos aquí para ayudar!"
-        instructions: Tendrá que subir su identificación y tomarse una selfie, para poder estar seguros de que es usted. Por lo general, toma alrededor de 5 minutos para completarlo.
-        partner_html: Nos asociamos con %{partner_link} para proteger su identidad y garantizar que su información personal sea precisa y segura.
-        sign_in_html: Inicie sesión con <span class="sr-only">ID.me</span>
-        title: Primero, comenzaremos con información básica.
-        visit_partner: Para obtener más información, por favor visite ID.me.
       interest_income:
         help_text: Por ejemplo, los intereses recibidos en una cuenta de ahorro o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
         title:
