@@ -31,40 +31,42 @@ module Zendesk
     end
 
     def merge_duplicate_tickets(intake_ids)
-      ticket_ids = Intake.find(intake_ids).map(&:intake_ticket_id).compact
-      primary_ticket = find_primary_ticket(ticket_ids)
+      Rails.logger.tagged("Merging Intakes #{intake_ids}") do
+        ticket_ids = Intake.find(intake_ids).map(&:intake_ticket_id).compact
+        primary_ticket = find_primary_ticket(ticket_ids)
 
-      # this only happens if all tickets are closed
-      unless primary_ticket
-        Rails.logger.info("Could not identify primary ticket during duplicate merging (intake id's: #{intake_ids.join(", ")})")
-        return
-      end
-
-      Rails.logger.info("Identified primary ticket #{primary_ticket.id} during duplicate merging")
-
-      duplicate_ticket_ids = ticket_ids - [primary_ticket.id]
-      duplicate_tickets = duplicate_ticket_ids.map{ |id| get_ticket(ticket_id: id) }
-
-      primary_intake = Intake.where(intake_ticket_id: primary_ticket.id).first
-
-      # Update duplicate intakes with primary ticket id
-      Intake.find(intake_ids).each do |intake|
-        unless intake.id == primary_intake.id
-          intake.update(intake_ticket_id: primary_ticket.id, primary_intake_id: primary_intake.id)
-
-          Rails.logger.info("Updated duplicate intake #{intake.id} during duplicate merging (primary intake #{primary_intake.id})")
+        # this only happens if all tickets are closed
+        unless primary_ticket
+          Rails.logger.info("Could not identify primary ticket during duplicate merging")
+          return
         end
+
+        Rails.logger.info("Identified primary ticket #{primary_ticket.id} during duplicate merging")
+
+        duplicate_ticket_ids = ticket_ids - [primary_ticket.id]
+        duplicate_tickets = duplicate_ticket_ids.map{ |id| get_ticket(ticket_id: id) }
+
+        primary_intake = Intake.where(intake_ticket_id: primary_ticket.id).first
+
+        # Update duplicate intakes with primary ticket id
+        Intake.find(intake_ids).each do |intake|
+          unless intake.id == primary_intake.id
+            intake.update(intake_ticket_id: primary_ticket.id, primary_intake_id: primary_intake.id)
+
+            Rails.logger.info("Updated duplicate intake #{intake.id} during duplicate merging")
+          end
+        end
+
+        # Comment on primary ticket with links to duplicates
+        update_primary_ticket(primary_ticket, duplicate_tickets)
+
+        # Mark duplicate tickets as not filing and leave comments
+        duplicate_tickets.each do |duplicate_ticket|
+          update_duplicate_ticket(duplicate_ticket, primary_ticket)
+        end
+
+        Rails.logger.info("Completed duplicate merging")
       end
-
-      # Comment on primary ticket with links to duplicates
-      update_primary_ticket(primary_ticket, duplicate_tickets)
-
-      # Mark duplicate tickets as not filing and leave comments
-      duplicate_tickets.each do |duplicate_ticket|
-        update_duplicate_ticket(duplicate_ticket, primary_ticket)
-      end
-
-      Rails.logger.info("Completed duplicate merging for intake id's #{intake_ids.join(", ")}")
     end
 
     def find_primary_ticket(ticket_ids)
