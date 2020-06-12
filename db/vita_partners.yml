@@ -326,3 +326,10 @@ vita_partners:
   source_parameters:
   - cityofmiami
   logo_path: partner-logos/city-of-miami.png
+- name: Desert Financial and Tax Services
+  zendesk_instance_domain: eitc
+  zendesk_group_id: "360010812493"
+  display_name: Desert Financial and Tax Services
+  source_parameters:
+  - DFATS
+  logo_path: ''
