@@ -5,7 +5,7 @@
       <% if enable_online_intake? %>
         <%= link_to question_path(id: QuestionNavigation.first),
           class: "button button--wide button--primary button--centered spacing-below-0",
-          **mixpanel_info(local_assigns) do %>
+          **local_assigns.fetch(:link_attributes, {}) do %>
           <%=t("general.get_started").humanize %>
         <% end %>
       <% else %>
