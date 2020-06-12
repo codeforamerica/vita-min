@@ -319,3 +319,10 @@ vita_partners:
   source_parameters:
   - GITOK
   logo_path: partner-logos/gw-tulsa.png
+- name: "[RefundDay] City of Miami"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011031993'
+  display_name: "the City of Miami"
+  source_parameters:
+  - cityofmiami
+  logo_path: partner-logos/city-of-miami.png
