@@ -311,7 +311,7 @@ vita_partners:
   display_name: Rappahannock United Way
   source_parameters:
   - RUW
-  logo_path: ''
+  logo_path: partner-logos/ruw.png
 - name: Goodwill Industries of Tulsa
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010814134'
@@ -332,4 +332,4 @@ vita_partners:
   display_name: Desert Financial and Tax Services
   source_parameters:
   - DFATS
-  logo_path: ''
+  logo_path: partner-logos/desert-financial.svg
