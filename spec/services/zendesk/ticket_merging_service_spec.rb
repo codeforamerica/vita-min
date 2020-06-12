@@ -119,6 +119,13 @@ describe Zendesk::TicketMergingService do
         expect(intake_in_progress.reload.intake_ticket_id).to eq 456
         expect(intake_in_progress_2.reload.intake_ticket_id).to eq 456
       end
+
+      it "links the intakes of the duplicate tickets to the primary intake" do
+        service.merge_duplicate_tickets([intake_in_progress.id, intake_in_progress_2.id, intake_ready_for_review.id])
+
+        expect(intake_in_progress.reload.primary_intake_id).to eq intake_ready_for_review.id
+        expect(intake_in_progress_2.reload.primary_intake_id).to eq intake_ready_for_review.id
+      end
     end
 
     context "when tickets are routed to different groups" do

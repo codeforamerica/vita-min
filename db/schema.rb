@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_212912) do
+ActiveRecord::Schema.define(version: 2020_06_12_170554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_212912) do
     t.datetime "primary_consented_to_service_at"
     t.inet "primary_consented_to_service_ip"
     t.string "primary_first_name"
+    t.integer "primary_intake_id"
     t.string "primary_last_name"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
