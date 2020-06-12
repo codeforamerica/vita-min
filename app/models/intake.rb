@@ -79,6 +79,7 @@
 #  issued_identity_pin                                  :integer          default("unfilled"), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default("unfilled"), not null
+#  locale                                               :string
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
 #  married                                              :integer          default("unfilled"), not null
 #  multiple_states                                      :integer          default("unfilled"), not null
@@ -99,6 +100,7 @@
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
+#  preferred_interview_language                         :string
 #  preferred_name                                       :string
 #  primary_birth_date                                   :date
 #  primary_consented_to_service                         :integer          default("unfilled"), not null
@@ -390,7 +392,7 @@ class Intake < ApplicationRecord
   end
 
   def requested_docs_token_link
-    "#{File.join(Rails.application.routes.url_helpers.root_url, "")}documents/add/#{get_or_create_requested_docs_token}"
+    Rails.application.routes.url_helpers.documents_add_requested_documents_url(token: get_or_create_requested_docs_token, locale: locale)
   end
 
   def mixpanel_data

@@ -5,7 +5,8 @@ class ZendeskDropOffService
   ORGANIZATION_GROUP_IDS = {
     "thc" => EitcZendeskInstance::TAX_HELP_COLORADO,
     "gwisr" => EitcZendeskInstance::GOODWILL_SOUTHERN_RIVERS,
-    "uwba" => EitcZendeskInstance::UNITED_WAY_BAY_AREA
+    "uwba" => EitcZendeskInstance::UNITED_WAY_BAY_AREA,
+    "uwco" => EitcZendeskInstance::UNITED_WAY_CENTRAL_OHIO
   }.freeze
 
   def initialize(drop_off)
@@ -83,7 +84,7 @@ class ZendeskDropOffService
   end
 
   def intake_site_tag
-    @drop_off.intake_site.downcase.gsub(" ", "_").gsub("-", "_")
+    @drop_off.intake_site.downcase.gsub(/[ –-]/, "_") # that's a dash and an emdash, folks
   end
 
   def pickup_date_line

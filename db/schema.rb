@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_180219) do
+ActiveRecord::Schema.define(version: 2020_06_10_212912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_180219) do
   create_table "diy_intakes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.string "email_address"
+    t.string "locale"
     t.string "preferred_name"
     t.string "referrer"
     t.bigint "requester_id"
@@ -233,6 +234,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_180219) do
     t.integer "issued_identity_pin", default: 0, null: false
     t.integer "job_count"
     t.integer "lived_with_spouse", default: 0, null: false
+    t.string "locale"
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.integer "married", default: 0, null: false
     t.integer "multiple_states", default: 0, null: false
@@ -253,6 +255,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_180219) do
     t.integer "paid_student_loan_interest", default: 0, null: false
     t.string "phone_number"
     t.integer "phone_number_can_receive_texts", default: 0, null: false
+    t.string "preferred_interview_language"
     t.string "preferred_name"
     t.date "primary_birth_date"
     t.integer "primary_consented_to_service", default: 0, null: false

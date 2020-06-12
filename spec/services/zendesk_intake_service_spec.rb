@@ -15,7 +15,9 @@ describe ZendeskIntakeService do
     create :intake,
            state_of_residence: state,
            source: source,
+           locale: :en,
            interview_timing_preference: interview_timing_preference,
+           preferred_interview_language: "es",
            final_info: final_info,
            needs_help_2019: "yes",
            needs_help_2018: "no",
@@ -595,6 +597,7 @@ describe ZendeskIntakeService do
       intake.intake_ticket_id = 34
       allow(service).to receive(:append_file_to_ticket).and_return(output)
       allow(intake).to receive(:pdf).and_return(fake_file)
+      I18n.locale = :es
     end
 
     it "appends the intake pdf to the ticket with updated status and interview preferences" do
@@ -604,6 +607,7 @@ describe ZendeskIntakeService do
         Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
         Client's provided interview preferences: Monday evenings and Wednesday mornings
+        The client's preferred language for a phone call is Spanish
 
         Additional information from Client: I want my money
       BODY
@@ -636,6 +640,7 @@ describe ZendeskIntakeService do
           Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
           Client's provided interview preferences: Monday evenings and Wednesday mornings
+          The client's preferred language for a phone call is Spanish
 
           Additional information from Client: I want my money
         BODY

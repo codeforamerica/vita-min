@@ -52,6 +52,8 @@ gem 'ddtrace'
 gem 'dogapi'
 gem 'http_accept_language'
 gem 'rails-i18n'
+gem 'thor'
+gem 'websocket-extensions', '>= 0.1.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

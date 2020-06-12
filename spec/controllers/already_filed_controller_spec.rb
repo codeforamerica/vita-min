@@ -26,6 +26,7 @@ RSpec.describe Questions::AlreadyFiledController do
         intake = Intake.last
         expect(intake.source).to eq "source_from_session"
         expect(intake.referrer).to eq "referrer_from_session"
+        expect(intake.locale).to eq "en"
         expect(intake.already_filed).to eq "yes"
         expect(session[:intake_id]).to eq intake.id
       end

@@ -463,7 +463,7 @@ GEM
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
     will_paginate (3.3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
@@ -533,12 +533,14 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   strip_attributes
+  thor
   tzinfo-data
   uglifier (>= 1.3.0)
   valid_email2
   web-console (>= 3.3.0)
   webdrivers
   webmock
+  websocket-extensions (>= 0.1.5)
   will_paginate
   zendesk_api
 

@@ -13,6 +13,13 @@ RSpec.describe PublicPagesController do
         allow(Rails).to receive(:env).and_return("production".inquiry)
       end
 
+      it "does NOT show a banner warning that this is an example site" do
+        get :home
+
+        expect(response.body).not_to include("This site is for example purposes only. If you want help with your taxes, go to")
+        expect(response.body).not_to include("https://www.getyourrefund.org")
+      end
+
       it "includes GA script in html" do
         get :home
 
@@ -46,6 +53,13 @@ RSpec.describe PublicPagesController do
     context "in demo env" do
       before do
         allow(Rails).to receive(:env).and_return("demo".inquiry)
+      end
+
+      it "shows a banner warning that this is an example site" do
+        get :home
+
+        expect(response.body).to include("This site is for example purposes only. If you want help with your taxes, go to")
+        expect(response.body).to include("https://www.getyourrefund.org")
       end
 
       it "does not include google analytics" do

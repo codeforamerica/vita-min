@@ -13,6 +13,7 @@ describe ZendeskDiyIntakeService do
       email_address: email_address,
       preferred_name: preferred_name,
       state_of_residence: state_of_residence,
+      locale: :en
     )
   end
   let(:service) { described_class.new(diy_intake) }
@@ -67,8 +68,9 @@ describe ZendeskDiyIntakeService do
         ticket_form_id: ZendeskDiyIntakeService::DIY_SUPPORT_TICKET_FORM,
         body: "Body text",
         fields: {
-          EitcZendeskInstance::STATE => diy_intake.state_of_residence,
-          ZendeskDiyIntakeService::DIY_SUPPORT_UNIQUE_LINK => diy_intake.start_filing_url
+          EitcZendeskInstance::STATE => "NC",
+          EitcZendeskInstance::INTAKE_LANGUAGE => :en,
+          ZendeskDiyIntakeService::DIY_SUPPORT_UNIQUE_LINK => "http://test.host/en/diy/#{diy_intake.token}"
         }
       ).and_return(fake_zendesk_ticket)
       expect { service.create_diy_intake_ticket }.
