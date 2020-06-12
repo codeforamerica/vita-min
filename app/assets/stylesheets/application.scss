@@ -28,6 +28,7 @@
 @import "components/blockquote";
 @import "components/footer";
 @import "components/form-fields";
+@import "components/slab";
 @import "components/toolbar";
 @import "organisms/form-cards";
 @import "organisms/offboarding";
@@ -137,19 +138,9 @@ body {
   color: white;
 }
 
-.body--home, .stimulus {
+.body--home {
   .button {
     padding: $s35/2 4rem;
-  }
-
-  .slab {
-    padding-left: 6rem;
-    padding-right: 6rem;
-
-    @media screen and (max-width: $tablet-up) {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
   }
 
   .slab--hero {
@@ -354,22 +345,6 @@ body {
         img {
           width: 4.7rem;
         }
-      }
-    }
-  }
-
-  .slab--cta {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    background-color: $color-green-money;
-
-    @media screen and (max-width: $tablet-up) {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
-
-      .button--primary {
-        padding-left: 9rem;
-        padding-right: 9rem;
       }
     }
   }
