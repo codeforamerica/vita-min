@@ -354,3 +354,10 @@ vita_partners:
   source_parameters:
   - nwumpqua
   logo_path: partner-logos/nwumpqua.png
+- name: North Texas Area United Way
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011065394'
+  display_name: North Texas Area United Way
+  source_parameters:
+  - ntauw
+  logo_path: partner-logos/ntauw.jpg
