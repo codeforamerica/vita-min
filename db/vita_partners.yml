@@ -347,3 +347,10 @@ vita_partners:
   source_parameters:
   - CCAV
   logo_path: partner-logos/ccav.gif
+- name: NeighborWorks Umpqua
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011071393'
+  display_name: NeighborWorks Umpqua
+  source_parameters:
+  - nwumpqua
+  logo_path: partner-logos/nwumpqua.png
