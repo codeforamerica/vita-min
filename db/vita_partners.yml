@@ -228,7 +228,8 @@ vita_partners:
 - name: "[MASSCAP] Online Intake (w/Boston Tax Help)"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011044474'
-  display_name: Massachusetts Association for Community Action (MASSCAP) and Boston Tax Help
+  display_name: Massachusetts Association for Community Action (MASSCAP) and Boston
+    Tax Help
   states:
   - MA
   logo_path: ''
@@ -329,20 +330,20 @@ vita_partners:
 - name: "[RefundDay] City of Miami"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011031993'
-  display_name: "the City of Miami"
+  display_name: the City of Miami
   source_parameters:
   - cityofmiami
   logo_path: partner-logos/city-of-miami.png
 - name: Desert Financial and Tax Services
   zendesk_instance_domain: eitc
-  zendesk_group_id: "360010812493"
+  zendesk_group_id: '360010812493'
   display_name: Desert Financial and Tax Services
   source_parameters:
   - DFATS
   logo_path: partner-logos/desert-financial.png
 - name: Coalition of Community Assistance Volunteers
   zendesk_instance_domain: eitc
-  zendesk_group_id: "360011034854"
+  zendesk_group_id: '360011034854'
   display_name: Coalition of Community Assistance Volunteers
   source_parameters:
   - CCAV
