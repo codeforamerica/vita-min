@@ -339,7 +339,7 @@ vita_partners:
   display_name: Desert Financial and Tax Services
   source_parameters:
   - DFATS
-  logo_path: partner-logos/desert-financial.svg
+  logo_path: partner-logos/desert-financial.png
 - name: Coalition of Community Assistance Volunteers
   zendesk_instance_domain: eitc
   zendesk_group_id: "360011034854"
