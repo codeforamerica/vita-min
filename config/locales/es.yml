@@ -867,8 +867,9 @@ es:
           one: En %{year}, ¿recibió alguna carta o factura del IRS?
           other: En %{year}, ¿recibió usted o su cónyuge alguna carta o factura del IRS?
       issued_identity_pin:
-        help_text: Si usted es una víctima confirmada de robo de identidad y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará un Aviso CP01A con su PIN de IP, un número de 6 dígitos asignado a ciertos contribuyentes elegibles.
         title: "¿Alguna vez le emitieron un PIN de Protección de Identidad?"
+        help_text: Si usted es una víctima confirmada de robo de identidad y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará un Aviso CP01A con su PIN de IP, un número de 6 dígitos asignado a ciertos contribuyentes elegibles. %{ip_pin_link}
+        link_text: Puede recuperar su PIN de IP visitando esta página del IRS.
       job_count:
         options:
           five_or_more: 5 o más trabajos

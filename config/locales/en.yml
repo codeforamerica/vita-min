@@ -867,8 +867,9 @@ en:
           one: In %{year}, did you receive any letter or bill from the IRS?
           other: In %{year}, did you or your spouse receive any letter or bill from the IRS?
       issued_identity_pin:
-        help_text: If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers.
-        title: Have you ever been issued an Identity Protection PIN?
+        help_text: If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers. %{ip_pin_link}
+        title: Have you ever been issued an IP PIN because of identity theft?
+        link_text: You can retrieve your IP PIN through this IRS page.
       job_count:
         options:
           five_or_more: 5 or more jobs
