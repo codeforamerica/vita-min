@@ -296,7 +296,7 @@ en:
         help_text_html: You said that you had income from Social Security or Railroad Retirement Benefits. If you specifically had income from Railroad Retirement Benefits, <strong>you should have this form</strong>. This is a tax statement issued by the U.S. Railroad Retirement Board (RRB) and represents payments made to you in %{year}.
         title: Attach your RRB-1099's
       selfie_instructions:
-        header: Confirm your identity with a photo of yourself
+        header: Confirm your identity with a photo of yourself holding your ID card
         info: The IRS requires us to verify who you are for tax preparation services. We do this by reviewing a photo of you holding your ID card.
         steps:
           face_camera: Face the camera directly and include from your shoulders to the top of your head, similar to your ID photo
