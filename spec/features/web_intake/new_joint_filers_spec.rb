@@ -160,6 +160,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "Let’s claim someone!")
+    expect(track_progress).to be_present
     click_on "Add a person"
     fill_in "First name", with: "Greg"
     fill_in "Last name", with: "Gnome"

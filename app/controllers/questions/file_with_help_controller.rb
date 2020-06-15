@@ -8,5 +8,9 @@ module Questions
     def self.form_class
       NullForm
     end
+
+    def show_progress?
+      false
+    end
   end
 end

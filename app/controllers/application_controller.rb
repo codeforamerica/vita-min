@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode, :check_at_capacity
   after_action :track_page_view
   around_action :switch_locale
-  helper_method :include_google_analytics?, :current_intake
+  helper_method :include_google_analytics?, :current_intake, :show_progress?
 
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
@@ -158,6 +158,10 @@ class ApplicationController < ActionController::Base
       http_accept_language.compatible_language_from(I18n.available_locales) ||
       I18n.default_locale
     I18n.with_locale(locale, &action)
+  end
+
+  def show_progress?
+    false
   end
 
   private
