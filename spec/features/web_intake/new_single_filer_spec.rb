@@ -104,7 +104,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, were you legally blind?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "Have you ever been issued an Identity Protection PIN?")
+    expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
     click_on "No"
 
     # Marital status
