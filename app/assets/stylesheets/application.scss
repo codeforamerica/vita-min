@@ -332,18 +332,26 @@ body {
 
     div.grid__item {
       display: flex;
+      margin-top: 60px;
+      margin-bottom: 60px;
 
       img {
-        width: 8rem;
-        padding: 0.6rem 2.5rem 0 0;
+        width: 10rem;
+        min-width: 10rem;
+        padding-right: 4rem;
+        height: 100%;
       }
     }
 
     @media screen and (max-width: $tablet-up) {
       div.grid__item {
+        margin-top: 60px;
+        margin-bottom: 60px;
         flex-direction: column;
         img {
-          width: 4.7rem;
+          width: 100%;
+          height: 8rem;
+          margin-bottom: 2.5rem;
         }
       }
     }
