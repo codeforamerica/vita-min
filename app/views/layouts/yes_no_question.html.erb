@@ -10,7 +10,7 @@
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <div class="form-card form-card--yes-no">
-          <!--        progress bar-->
+          <%= render "shared/progress_bar" %>
           <main role="main">
             <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
               <% if illustration_path.present? %>

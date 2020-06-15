@@ -50,6 +50,10 @@ module Questions
       true
     end
 
+    def show_progress?
+      true
+    end
+
     private
 
     def after_update_success; end

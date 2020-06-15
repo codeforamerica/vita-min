@@ -45,6 +45,10 @@ class DependentsController < ApplicationController
     redirect_to dependents_path
   end
 
+  def show_progress?
+    true
+  end
+
   private
 
   def birth_date_param_keys

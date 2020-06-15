@@ -8,6 +8,7 @@
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <%= yield :notices %>
+        <%= render "shared/progress_bar" %>
         <main role="main">
           <% if @dependents.present? %>
           <ul class="dependents-list">

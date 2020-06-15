@@ -32,6 +32,8 @@ RSpec.feature "Web Intake Single Filer" do
 
     # Ask about backtaxes
     expect(page).to have_selector("h1", text: "What years do you need to file for?")
+    expect(track_progress).to eq(0)
+
     check "2017"
     check "2019"
     click_on "Continue"
@@ -45,6 +47,8 @@ RSpec.feature "Web Intake Single Filer" do
 
     # VITA eligibility checks
     expect(page).to have_selector("h1", text: "Let’s check a few things.")
+    expect{ track_progress }.to change { @current_progress }.by_at_least(1)
+
     check "None of the above"
     click_on "Continue"
 
@@ -224,6 +228,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
+    expect(track_progress).to be_present
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"
@@ -358,6 +363,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Submit"
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+    expect{ track_progress }.to change { @current_progress }.to(100)
     expect(page).to have_text("Your confirmation number is: #{ticket_id}")
 
     # going back to another page after submit redirects to beginning
