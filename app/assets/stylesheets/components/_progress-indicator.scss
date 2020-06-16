@@ -1,0 +1,20 @@
+
+.progress-indicator {
+  width: 345px;
+  margin-top: -25px;
+  margin-bottom: 25px;
+}
+
+.progress-indicator::before {
+  border-color: #A0A0A0;
+}
+
+.progress-indicator__bar {
+ background-color: #02CEAA;
+}
+
+.progress-indicator__percentage {
+  color: #A0A0A0;
+  font-size: 16px;
+  font-weight: bold;
+}
