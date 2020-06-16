@@ -37,7 +37,6 @@ en:
     confirm: Confirm
     continue: Continue
     continue_example: Continue to example
-    file_my_taxes: File my taxes
     document_type:
       care_provider_statement: Care Provider Statement
       id: ID
@@ -47,12 +46,13 @@ en:
       property_tax_statement: Property Tax Statement
       requested_later: Requested Later
       selfie: Selfie
-      student_account_statement: Student Account Statement
       ssn_or_itin: SSN or ITIN
+      student_account_statement: Student Account Statement
     edit: Edit
     ethnicity:
       hispanic: Hispanic or Latino
       not_hispanic: Not Hispanic or Latino
+    file_my_taxes: File my taxes
     find_location: Find a Location
     find_vita_site: Find a VITA site near you
     free_file_html: If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online.
@@ -65,13 +65,13 @@ en:
     irs_certified_volunteers: IRS Certified Volunteers
     irs_free_file: IRS Free File
     language:
+      de: German
       en: English
+      es: Spanish
       fa: Farsi
       fr: French
-      de: German
-      zh: Mandarin
-      es: Spanish
       ru: Russian
+      zh: Mandarin
     languages: Languages
     negative: 'No'
     next: Next
@@ -787,8 +787,8 @@ en:
           one: In %{year}, did you purchase energy efficient home items?
           other: In %{year}, did you or your spouse purchase energy efficient home items?
       environment_warning:
-        title: Thanks for visiting the GetYourRefund demo application!
         info: This site is for example purposes only. If you want help with your taxes, go to www.GetYourRefund.org
+        title: Thanks for visiting the GetYourRefund demo application!
       estimated_tax_payments:
         help_text: Answer "Yes" if you are self-employed and made quarterly estimated tax payments.
         title:
@@ -860,16 +860,16 @@ en:
           other: In %{year}, did you or your spouse have any income from interest or dividends?
       interview_scheduling:
         help_text: We will try our best to schedule your review based on the information you provide.
-        title: Do you have any time preferences for your interview phone call?
         language_select: What is your preferred language for the review?
+        title: Do you have any time preferences for your interview phone call?
       irs_letter:
         title:
           one: In %{year}, did you receive any letter or bill from the IRS?
           other: In %{year}, did you or your spouse receive any letter or bill from the IRS?
       issued_identity_pin:
         help_text: If you are a confirmed victim of identity theft and the IRS has resolved your tax account issues, the IRS will mail you a CP01A Notice with your IP PIN, a 6 digit number assigned to certain eligible tax filers. %{ip_pin_link}
-        title: Have you ever been issued an IP PIN because of identity theft?
         link_text: You can retrieve your IP PIN through this IRS page.
+        title: Have you ever been issued an IP PIN because of identity theft?
       job_count:
         options:
           five_or_more: 5 or more jobs
@@ -1134,8 +1134,8 @@ en:
       consent_agreement:
         details:
           cfa: I understand that GetYourRefund.org is a website run by Code for America, a non-profit organization, that will submit your tax information to a VITA preparation site.
-          civil_rights_understanding: I understand that VITA
           civil_rights_link: protects my civil rights.
+          civil_rights_understanding: I understand that VITA
           collects_pii: I understand that this site collects personally identifiable information I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review my tax return.
           contacted: I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed.
           e_signature: I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through an electronic signature delivered via email after Quality Review is completed in order for a VITA preparation site to e-file my tax return.

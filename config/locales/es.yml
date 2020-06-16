@@ -2,10 +2,10 @@
 es:
   controllers:
     application_controller:
-      maintenance: GetYourRefund.org estará fuera de servicio por mantenimiento programado esta noche a las 11:00 p.m. Este (8:00 p.m. Pacífico) hasta las 3:00 a.m. Este (12:00 a.m. Pacífico). Le recomendamos que responda todas las preguntas antes de esta hora o que comience una nueva sesión mañana.
-      redirect: Te estás perdiendo un boleto o entrada. En producción, lo habríamos redirigido al principio.
+      maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
+      redirect: Usted ha perdidio su tiquete. En producción,  lo redireccionaremos al inicio.
     dependents_controller:
-      removed_dependent: Se eliminó %{full_name}.
+      removed_dependent: Eliminado %{full_name}.
   date:
     formats:
       default: "%-m/%-d/%Y"
@@ -15,328 +15,328 @@ es:
       at_least_one_year: Por favor, elija al menos un año.
       need_phone_number: Por favor, introduzca un número de teléfono celular.
     validators:
-      answer_presence: Responda o haga clic en "Saltar pregunta"
-      email_address_confirmation_match: Verifique que las direcciones de correo electrónico coincidan.
-      email_address_valid: Por favor, introduce una dirección de correo electrónico válida.
+      answer_presence: Por favor, responda o haga clic en "Saltar pregunta"
+      email_address_confirmation_match: Por favor, revise que las direcciones de correo electrónico sean iguales.
+      email_address_valid: Por favor, introduzca una dirección de correo electrónico válida.
       generic_presence: No puede estar en blanco.
-      job_count_presence: Por favor seleccione un número de trabajos.
-      phone_number_confirmation_match: Verifique que los números de teléfono coincidan.
-      phone_number_valid: Por favor ingrese un número de teléfono válido.
-      preferred_name_presence: Por favor ingrese su nombre preferido.
-      primary_first_name_presence: Por favor, introduzca su nombre de pila.
-      primary_last_four_ssn_length: Ingrese los últimos cuatro dígitos de su SSN o ITIN.
-      primary_last_name_presence: Por favor ingrese su apellido.
+      job_count_presence: Por favor, seleccione un número de trabajos.
+      phone_number_confirmation_match: Por favor, compruebe si los números de teléfono coinciden.
+      phone_number_valid: Por favor, introduzca un número de teléfono válido.
+      preferred_name_presence: Por favor, introduzca su nombre preferido.
+      primary_first_name_presence: Por favor, introduzca su primer nombre.
+      primary_last_four_ssn_length: Por favor, ingrese los últimos cuatro dígitos de su SSN o ITIN.
+      primary_last_name_presence: Por favor, ingrese su apellido.
       spouse_first_name_presence: Por favor ingrese el nombre de su cónyuge.
-      spouse_last_four_ssn_length: Ingrese los últimos cuatro dígitos del SSN o ITIN de su cónyuge.
-      spouse_last_name_presence: Por favor ingrese el apellido de su cónyuge.
-      state_of_residence_inclusion: Por favor seleccione un estado de la lista.
+      spouse_last_four_ssn_length: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
+      spouse_last_name_presence: Por favor, ingrese el apellido de su pareja.
+      state_of_residence_inclusion: Por favor, seleccione un estado de la lista.
   general:
     address: Dirección
     affirmative: Sí
     chat_with_us: Hable con nosotros por el chat
     confirm: Confirmar
     continue: Continuar
-    continue_example: Seguir al ejemplo
-    file_my_taxes: Declarar mis impuestos
+    continue_example: Continúe para ver un ejemplo
     document_type:
-      care_provider_statement: Declaración del proveedor de atención
-      id: Carné De Identidad
-      ira_statement: Declaración de IRA
+      care_provider_statement: Declaración del Proveedor de Cuidados
+      id: Identificación
+      ira_statement: Declaración de plan de pensión (IRA)
       other: Otro
       prior_year_tax_return: Declaración de impuestos del año anterior
-      property_tax_statement: Declaración de impuestos a la propiedad
-      requested_later: Solicitado más tarde
+      property_tax_statement: 'Declaración de impuestos sobre la propiedad '
+      requested_later: Solicitado después
       selfie: Selfie
       ssn_or_itin: SSN o ITIN
       student_account_statement: Estado de cuenta del estudiante
     edit: Editar
     ethnicity:
-      hispanic: hispano o latino
-      not_hispanic: No Hispano o Latino
+      hispanic: Hispano o Latino
+      not_hispanic: No soy Hispano o Latino
+    file_my_taxes: Declarar mis impuestos
     find_location: Buscar una ubicación
     find_vita_site: Encuentre un sitio de VITA cerca de usted
     free_file_html: Si desea declarar sus impuestos sin la ayuda de nuestro personal y servicios, utilice el %{wizard_link} para poder hacerlo en línea gratis.
-    free_file_lookup_tool: Herramienta de búsqueda de la presentación gratuita del IRS
+    free_file_lookup_tool: Herramienta de búsqueda de declaración de impuestos gratuita del IRS
     get_my_payment: Recibir mi pago
-    get_started: Comenzar
+    get_started: Empiece ahora
     here: aquí
     home: Inicio
     hours: Horas
     irs_certified_volunteers: Voluntarios certificados por el IRS
-    irs_free_file: Presentación gratuita del IRS
+    irs_free_file: Declaración de impuestos gratuita del IRS
     language:
-      de: alemán
-      en: inglés
-      es: español
-      fa: farsi
-      fr: francés
-      ru: ruso
-      zh: mandarín
+      de: Alemán
+      en: Inglés
+      es: Español
+      fa: Farsi
+      fr: Francés
+      ru: Ruso
+      zh: Mandarín
     languages: Idiomas
     negative: 'No'
-    next: próximo
+    next: Próximo
     not_at_all: De ningún modo
-    not_well: Mal
-    oops: "¡Uy!"
+    not_well: No muy bein
+    oops: "¡Oye!"
     open: Abrir
-    other_options: Pruebe otra solución para presentar la declaración de impuestos gratis
+    other_options: Intente otra opción de declaración gratis
     phone_number: Número de teléfono
-    privacy_policy: política de privacidad
+    privacy_policy: Política de privacidad
     race:
       american_indian_alaska_native: Indio Americano o Nativo de Alaska
-      asian: asiático
+      asian: Asiático
       black_african_american: Negro o afroamericano
-      native_hawaiian_pacific_islander: Nativo de Hawai u otra isla del Pacífico
+      native_hawaiian_pacific_islander: Nativo de Hawái u otra isla del Pacífico
       white: Blanco
     remove: Quitar
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
     search: Búsqueda
-    security_html: Su información es segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
+    security_html: Sus informaciones están seguras y las informaciones que proporcione serán tratadas de acuerdo con nuestro %{privacy_link}.
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
-    sorry: "¡Lo sentimos!"
+    sorry: "¡Ay, no! ¡Lo sentimos!"
     submit: Enviar
     submit_question: Envíe una pregunta a GetYourRefund
     upload: Subir
     very_well: Muy bien
-    visit_free_file: Visite el sitio de presentación gratuita del IRS
-    vita_long: 'VITA: Asistencia Voluntaria al Contribuyente'
+    visit_free_file: Visite el sitio de declaración de impuestos gratuita del IRS
+    vita_long: 'VITA: Asistencia Voluntaria al Contribuyente Tributario'
     well: Bien
-    you: tú
+    you: usted
     you_or_spouse: usted o su cónyuge
   helpers:
     birth_date_helper:
-      valid_birth_date: por favor seleccione una fecha valida
+      valid_birth_date: Por favor, seleccione una fecha válida
   models:
     dependent:
       validators:
-        birth_date_presence: Por favor introduzca una fecha valida.
-        first_name_presence: Por favor ingrese un nombre.
+        birth_date_presence: Por favor, introduzca una fecha válida.
+        first_name_presence: Por favor, introduzca un nombre.
         last_name_presence: Por favor, introduzca un apellido.
     intake:
       your_spouse: Su cónyuge
     intake_site_drop_off:
       errors:
         choose_file: Por favor, elija un archivo.
-        valid_pickup_date: Por favor, introduzca un mes y día válido (M / D).
+        valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
       validators:
-        certification_level_inclusion: Por favor seleccione un nivel de certificación.
-        email_valid: Por favor introduzca una dirección de correo electrónico válida.
-        intake_site_inclusion: Por favor seleccione un sitio de admisión.
-        phone_number_valid: Por favor ingrese un número de teléfono válido.
+        certification_level_inclusion: Por favor, seleccione un nivel de certificación.
+        email_valid: Por favor, introduzca una dirección de correo electrónico válida.
+        intake_site_inclusion: Por favor, seleccione un sitio de admisión.
+        phone_number_valid: Por favor, introduzca un número de teléfono válido.
         signature_method_inclusion: Por favor, seleccione un método de recogida.
-        state_inclusion: Por favor seleccione un estado.
+        state_inclusion: Por favor, seleccione un estado.
   validators:
-    zip: Ingrese un código postal válido de 5 dígitos.
+    zip: Por favor, introduzca un código postal válido de 5 dígitos.
   views:
     dependents:
       form:
         birth_date: Fecha de nacimiento
-        delete_confirmation: ¿Está seguro de que desea quitar "%{name}"?
+        delete_confirmation: ¿Estás seguro de que deseas quitar "%{name}"?
         delete_cta: Quite a esta persona
         disabled: Con discapacidad permanente
         first_name: Nombre
         last_name: Apellido
-        life_circumstances: Seleccione las opciones que se apliquen a lo que sucedió en su vida el año pasado
-        life_circumstances_help: Necesitamos estas respuestas para determinar para cuáles créditos tributarios califica.
-        months_in_home: "¿Cuántos meses vivió en su hogar en %{year}?"
-        months_in_home_help: Seleccione 12 si nació o falleció en %{year}.
-        north_american_resident: Vivió fuera de los EE. UU., México o Canadá
+        life_circumstances: Selecciona cualesquiera casos que describan sus vidas en el último año
+        life_circumstances_help: Necesitamos estas respuestas para determinar para cuáles créditos tributarios te puedes calificar.
+        months_in_home: "¿Cuántos meses vivieron en tu hogar en %{year}?"
+        months_in_home_help: Seleccione 12 si nacieron o se murieron en %{year}.
+        north_american_resident: Vivió fuera de los EE.UU., México o Canadá
         on_visa: "¿Tiene esta persona una visa para estar en el país?"
-        relationship: Relación con usted
+        relationship: Su relación con usted
         save_cta: Guarde a esta persona
-        title: Háblenos de la persona que tiene a su cargo. Proporcione algunos detalles más.
+        title: Háblenos de la persona que tiene a su cargo. Por favor, proporcione algunos detalles más.
         was_married: Casado/a desde 12/31/%{year}
-        was_student: Estudiante de educación superior a tiempo completo
+        was_student: Estudiante de educación superior de tiempo completo
       index:
-        add_person: Agregue una persona
-        done: Se finalizó este paso
-        info: Necesitaremos un ITIN o SSN para cada persona que añada. Al final del proceso, le pediremos que comparta imágenes en las que se puedan ver.
+        add_person: Agregue a una persona
+        done: "¡Este paso fue finalizado!"
+        info: Necesitaremos un ITIN o SSN para cada persona que agregue. Le pediremos que suba imágenes del documento al final.
         title: "¡Pidámosle ayuda a alguien!"
     diy:
       check_email:
         edit:
           questions_html: Si tiene alguna pregunta, envíe un correo electrónico a %{email_link}.
-          sent_secure_link: Acabamos de enviarle un enlace seguro al servicio que le permite declarar sin ayuda.
-          title: Compruebe si ha recibido un enlace de confirmación por correo electrónico.
+          sent_secure_link: Acabamos de enviarle un enlace seguro de nuestro servicio DIY.
+          title: Por favor, compruebe si ha recibido un enlace de confirmación por correo electrónico.
       email_address:
         edit:
           confirm_email_address: Confirme la dirección de correo electrónico
           email_address: Dirección de correo electrónico
-          title: Indique su dirección de correo electrónico.
+          title: Por favor, informe su dirección de correo electrónico.
           will_send_secure_link: Le enviaremos un enlace seguro a su correo electrónico para que pueda hacer la declaración.
       file_yourself:
         edit:
-          info: Seleccionó la opción para hacerlo usted mismo. Le proporcionaremos las herramientas necesarias para que pueda presentar su propia declaración.
-          need_assistance: En realidad, necesito ayuda para presentar la declaración.
+          info: Seleccionaste la opción para hacerlo usted mismo. Le proveeremos las herramientas necesarias para que pueda hacer su propia declaración.
+          need_assistance: De hecho, necesito ayuda para declarar.
           right_option:
-            2019_only: Solo va a presentar la declaración de 2019 (no la de años anteriores)
+            2019_only: Solo está declarando del 2019 (no de los años anteriores)
             comfortable_online: Le resulta cómodo usar servicios de declaración de impuestos en línea
             header: 'Esta es la opción adecuada para usted si:'
             quick: Necesita una solución rápida
             simple_situation: Su situación fiscal es simple/clara
-          title: Presente su propia declaración de impuestos.
+          title: "¡Declare aquí sus impuestos usted mismo!"
       personal_info:
         edit:
-          info: Hola, estamos encantados de ayudarle. Necesitamos información básica para empezar.
+          info: "¡Hola! Estamos emocionados por ayudarle. Necesitamos algunas informaciones básicas para empezar."
           preferred_name: Nombre que prefiere
           state_of_residence: Estado de residencia
-          title: Primero, necesitamos información básica.
+          title: Primero, vamos a empezar con algunas informaciones básicas.
       start_filing:
         start:
-          chat: Si tiene alguna pregunta, responda al correo electrónico de confirmación. Estamos encantados de ayudarle.
-          info: Nuestra asesoría para presentar su propia declaración de impuestos le da acceso a un software gratuito de asesoría fiscal en línea. Tendrá que crear un usuario en TaxSlayer para empezar.
+          chat: Si tiene alguna pregunta, responda al correo electrónico de confirmación. ¡Estamos para ayudarle!
+          info: Con nuestra opción de preparación de impuestos DIY, va a tener aceso a un software gratuito que hará la asesoría. Tendrá que crearse un usuario en TaxSlayer para empezar.
           tips:
             header: 'Consejos útiles:'
-            no_navigation: No haga clic en "Atrás" ni salga de la página de TaxSlayer
-            no_phone: No presente su declaración con su teléfono celular
-            spelling: Revise la ortografía
+            no_navigation: No haga clic en "Regresar" ni salga de la página de TaxSlayer
+            no_phone: No utilize su teléfono celular para presentar su declaración.
+            spelling: Compruebe la ortografía
           title: "¡Le damos la bienvenida al servicio que le permite presentar su propia declaración de impuestos!"
     documents:
       additional_documents:
-        help_text: Agregue todos los documentos o formularios adicionales que le gustaría compartir con su preparador de impuestos. Incluya cualquier formulario del que no esté seguro. Su preparador de impuestos determinará si los formularios son necesarios para su declaración.
-        title: "¿Tienes algún documento adicional?"
+        help_text: Agregue todos los documentos o formularios adicionales que le gustaría compartir con su preparador de impuestos. Incluya cualquier formulario lo cual no esté seguro de utilizar. Su preparador de impuestos determinará si los formularios son necesarios para su declaración.
+        title: "¿Tiene algún documento adicional?"
       care_provider_statements:
-        help_text_html: "<strong>Es posible que tenga esta declaración</strong> porque dijo que pagó por cuidado de niños o dependientes. Comuníquese con su centro de atención si necesita esta documentación."
-        title: Adjunte sus declaraciones de centros de cuidado infantil o de personas que brindaron atención.
+        help_text_html: "<strong>Es posible que ya tenga esta declaración</strong> porque nos ha confirmado que pagó por cuidado de niños o dependientes. Comuníquese con su centro de atención si necesita esa documentación."
+        title: Anexe sus declaraciones de centros de cuidado infantil o de personas que han proveído cuidado.
       form1095as:
-        help_text_html: "<strong>Debe tener este formulario</strong> porque dijo que compró un seguro de salud en el mercado. Es posible que deba descargar esto del mercado o del intercambio de su estado. Más información en este formulario está disponible %{more_info_link}."
+        help_text_html: "<strong>Debe tener este formulario</strong> porque nos ha confirmado que compró un seguro de salud en el mercado. Es posible necesite descargarlo a través del mercado o del intercambio de su estado. Más información acerca del formulario está disponible %{more_info_link}."
         title: Adjunte sus 1095-A
       form1098es:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que pagó intereses de préstamos estudiantiles. Por lo general, se accede a este documento desde un portal de prestamista en línea y no se le envía por correo."
-        title: Adjunte sus 1098-E
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que pagó intereses de préstamos estudiantiles. En general, se puede obtener este documento desde un portal de préstamos en línea y que no le es enviado por correo."
+        title: Adjunte sus formularios 1098-E
       form1098s:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que pagó intereses hipotecarios o impuestos estatales, locales, inmobiliarios o de ventas. Más información en este formulario está disponible %{more_info_link}."
-        title: Adjunte sus 1098
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que pagó intereses hipotecarios o impuestos estatales, locales, inmobiliarios o de ventas. Más información acerca de este formulario está disponible %{more_info_link}."
+        title: Adjunte sus formularios 1098
       form1098ts:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que siguió la educación superior (escuela técnica, colegio, universidad). Este formulario es su declaración de matrícula. Más información en este formulario se encuentra en la lista %{more_info_link}."
-        title: Adjunte sus 1098-T
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que lograste finalizar la educación superior (escuela técnica, colegio, universidad). Este formulario es su declaración de matrícula. Más información acerca de este formulario se encuentra en la lista %{more_info_link}."
+        title: Adjunte sus formularios 1098-T
       form1099as:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que un prestamista le había perdonado la deuda. Este formulario se usa generalmente para informar la transferencia de propiedad embargada. Si no ha recibido un 1099-A y cree que debería haberlo hecho, comuníquese con su banco o prestamista."
-        title: Adjunte sus 1099-A
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que un tiene una deuda perdonada. Este formulario se usa generalmente para informar la transferencia de propiedad embargada. Si no ha recibido un 1099-A y cree que debería de haberlo recibido, comuníquese con su banco o prestamista."
+        title: Adjunte sus formularios 1099-A
       form1099bs:
-        help_text_html: Usted dijo que recibió ingresos por la venta de inversiones o bienes inmuebles. Si recibió ingresos específicos de acciones o bonos, <strong>debe tener este formulario.</strong> Si no ha recibido un 1099-B, comuníquese con su corredor.
-        title: Adjunte sus 1099-B
+        help_text_html: Usted nos ha confirmado que recibió ingresos por la venta de inversiones o bienes inmuebles. Si ha específicamente recibido ingresos de acciones o bonos, <strong>debe tener este formulario.</strong> Si no ha recibido un 1099-B, comuníquese con su corredor de bolsa.
+        title: Adjunte sus formularios 1099-B
       form1099cs:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que un prestamista le había perdonado la deuda. Si tomó prestado dinero de un prestamista comercial y al menos $ 600 de esa deuda fue cancelada o perdonada, deberían haberle enviado este formulario. Si no ha recibido un 1099-C y cree que debería haberlo hecho, comuníquese con su prestamista."
-        title: Adjunte sus 1099-C
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que tiene una deuda perdonada. Si ha prestado dinero de un prestamista comercial y al menos $ 600 de esa deuda ha sido cancelada o perdonada, muy probablemente le han enviado este formulario. Si no ha recibido un 1099-C y cree que debería de haberlo recibido, comuníquese con su prestamista."
+        title: Adjunte sus formularios 1099-C
       form1099divs:
-        help_text_html: Dijiste que recibiste ingresos de intereses o dividendos. Si recibió ingresos específicos de dividendos, <strong>debe tener este formulario</strong> . Las compañías de inversión deben proporcionar a los contribuyentes un 1099-DIV antes del 31 de enero de cada año.
-        title: Adjunte sus 1099-DIV
+        help_text_html: Nos ha confirmado que ha recibido ingresos de intereses o dividendos. Si ha recibido ingresos específicamente de dividendos, <strong>debe tener este formulario</strong>. Las compañías de inversión deben proporcionar a los contribuyentes un 1099-DIV antes del 31 de enero de cada año.
+        title: Adjunte sus formularios 1099-DIV
       form1099gs:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que recibió un reembolso de impuestos estatales o locales el año pasado. Los usos más comunes del 1099-G son informar la compensación por desempleo y los reembolsos de impuestos estatales y locales."
-        title: Adjunte sus 1099-G's
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que recibió un reembolso de impuestos estatales o locales el año pasado. Los usos más comunes del 1099-G son para informar la compensación por desempleo y los reembolsos de impuestos estatales y locales."
+        title: Adjunte sus formularios 1099-G
       form1099ints:
-        help_text_html: Dijiste que recibiste ingresos de intereses o dividendos. Si recibió ingresos específicos de intereses, <strong>es posible que tenga este formulario</strong> . Las compañías de inversión deben presentar 1099-INT antes del 31 de enero de cada año.
-        title: Adjunte sus 1099-INT
+        help_text_html: Nos ha confirmado que recibiste ingresos de intereses o dividendos. Si recibió ingresos específicos de intereses, <strong>es posible que tenga este formulario</strong> . Las compañías de inversión deben presentar 1099-INT antes del 31 de enero de cada año.
+        title: Adjunte sus formularios 1099-INT
       form1099ks:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que le pagaron por contrato o trabajo por cuenta propia. Recibe un 1099-K si tiene una cantidad alta en dólares o una cantidad de transacciones comerciales durante el año. Por lo general, los vendedores en línea de gran volumen presentan impuestos con un 1099-K."
-        title: Adjunte sus 1099-K
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que le pagaron por contrato o trabajo por cuenta propia. Recibe un 1099-K si tiene una cantidad alta en dólares o una cantidad de transacciones comerciales durante el año. En general, los mayoristas en línea presentan impuestos con un 1099-K."
+        title: Adjunte sus formularios 1099-K
       form1099miscs:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que le pagaron por contrato o trabajo por cuenta propia. Este formulario se utiliza para informar la compensación de no empleados. Los contratistas independientes, los trabajadores independientes, los propietarios únicos y los trabajadores independientes reciben un 1099-MISC de cada cliente que les pagó $ 600 o más en un año calendario."
-        title: Adjunte sus 1099-MISC
+        help_text_html: "<strong>Debe tener este formulario</strong> porque nos ha confirmado que recibió un pago por un trabajo. Es posible que lo hayas recibido por otras razones, incluyendo ingresos por alquiler, regalías u otros ingresos."
+        title: Adjunte sus formularios 1099-MISC
       form1099rs:
-        help_text_html: "<strong>Debería tener este formulario</strong> porque dijo que recibió ingresos de una cuenta de jubilación, pensión o ingresos de la anualidad. Este formulario se utiliza para informar distribuciones de anualidades, planes de participación en las ganancias, planes de jubilación, IRA, contratos de seguro o pensiones. El emisor de su plan de jubilación le habría enviado esto."
+        help_text_html: "<strong>Debería tener este formulario</strong> porque nos ha confirmado que recibió ingresos de una cuenta de jubilación, pensión o ingresos de anualidad. Este formulario es utilizado para informar distribuciones de anualidades, planes de participación en las ganancias, planes de jubilación, planes de pensiones - IRA, contratos de seguro o pensiones. El repartidor de su plan de jubilación debería de haberle enviado el formulario."
         title: Adjunte sus 1099-R
       form1099sas:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que tiene una Cuenta de Ahorros de Salud (HSA). Este formulario se envía para informar distribuciones de ahorros de salud, ahorros médicos y cuentas de Medicare Advantage. La institución financiera que administra la cuenta es responsable de enviarle una copia."
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que tiene una Cuenta de Ahorros de Salud (HSA). Este formulario es enviado para informar las distribuciones de ahorros de salud, ahorros médicos y cuentas de Medicare Advantage. La institución financiera que administra la cuenta es responsable por enviarle una copia."
         title: Adjunte sus 1099-SA
       form1099ss:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que recibió ingresos por la venta de inversiones o bienes inmuebles. Use el Formulario 1099-S para informar la venta o el intercambio de bienes inmuebles."
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que recibió ingresos por la venta de inversiones o bienes inmuebles. Use el Formulario 1099-S para informar la venta o el intercambio de bienes inmuebles."
         title: Adjunte sus 1099-S
       form5498sas:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que tiene una Cuenta de Ahorros de Salud (HSA). Este formulario realiza un seguimiento de las contribuciones a las Cuentas de ahorro para la salud (HSA) y a las Cuentas de ahorro médico (MSA)."
-        title: Adjunte sus 5498-SA
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que tiene una Cuenta de Ahorros para la Salud (HSA). Este formulario acompaña las contribuciones hechas a las Cuentas de Ahorros para la Salud (HSA) y a las Cuentas de Ahorros Médicos (MSA)."
+        title: Adjunte sus formularios 5498-SA
       id_guidance:
         info: Para proteger su identidad y garantizar que su información personal sea precisa y segura, necesitamos verificar quién es usted.
-        multiple_forms: El IRS requiere que verifiquemos quién es usted con múltiples formas de identidad.
-        title: Primero, necesitamos confirmar su información básica.
+        multiple_forms: El IRS requiere que verifiquemos quién es usted con variadas formas de identidad.
+        title: Primero, necesitamos confirmar sus informaciones básicas.
       ids:
         help_text:
           one: El IRS nos exige que veamos una licencia de conducir, un pasaporte o una identificación estatal actuales.
-          other: El IRS nos exige que veamos una licencia de conducir, pasaporte o identificación estatal actual para usted y su cónyuge.
-        info: Usaremos su tarjeta de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS. Está bien si su identificación caducó o si tiene una licencia de conducir temporal siempre que podamos ver claramente su nombre y foto.
-        need_for: 'Necesitaremos una identificación para:'
+          other: El IRS requiere que chequeemos una licencia de conducir, pasaporte o identificación estatal actual para usted y su esposo/a.
+        info: Usaremos su tarjeta de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS. No hay problema si su identificación se ha expirado o si tiene una licencia de conducir temporal, desde que podamos ver claramente su nombre y foto.
+        need_for: 'Necesitaremos una tarjeta de identificación para:'
         title:
           one: Adjunte una foto de su tarjeta de identificación
-          other: Adjunte fotos de tarjetas de identificación
+          other: Adjunte fotos de sus tarjetas de identificación
       intro:
-        info: Según sus respuestas a nuestras preguntas anteriores, tenemos una lista de documentos que debe compartir. Su progreso se guardará y podrá regresar con más documentos más adelante.
+        info: Basado en sus respuestas a nuestras preguntas anteriores, tenemos una lista de documentos que debe compartir con nosotros. Su progreso será guardado y podrá regresar con más documentos en otro momento.
         might_have: 'También podrías tener:'
-        should_have: 'Deberías:'
+        should_have: 'Deberías tener:'
         title: Muy bien, ¡recojamos sus documentos!
       ira_statements:
-        help_text_html: "<strong>Es posible que tenga este documento</strong> porque dijo que hizo contribuciones a una cuenta de jubilación."
-        title: Adjunte sus declaraciones de IRA
+        help_text_html: "<strong>Es posible que tenga este documento</strong> porque nos ha confirmado que hizo contribuciones a una cuenta de jubilación."
+        title: Adjunte sus declaraciones de algún plan de pensiones (IRA)
       overview:
-        empty: No se cargaron documentos de este tipo.
+        empty: No se cargó documentos de este tipo.
         finished: He compartido todos mis documentos
         schedule_appointment: Cuando haya terminado de compartir los documentos que tiene, programaremos una cita con su preparador de impuestos.
-        title: "¡Buen trabajo! Aquí hay una lista de lo que hemos recopilado."
+        title: "¡Buen trabajo! Aquí hay una lista de lo que hemos reunido."
       primary_ssn_itins:
-        help_text: El IRS nos exige que veamos un SSN o ITIN válido para los servicios de preparación de impuestos.
-        title: Adjunte una foto de su Tarjeta de Seguro Social o ITIN
+        help_text: El IRS require que veamos un SSN o ITIN válido para los servicios de preparación de impuestos.
+        title: Anexe una foto de su Tarjeta de Seguro Social o ITIN
       prior_tax_returns:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que informó una pérdida por la venta de acciones, bonos o bienes inmuebles el año pasado. Es posible que tenga su retorno %{year}, que puede compartir a continuación. Puede rastrear su %{year} return %{transcript_link}."
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que informó una pérdida por la venta de acciones, bonos o bienes inmuebles el año pasado. Es posible que tenga su retorno %{year}, que puede compartir abajo. Puede rastrear su retorno %{year} %{transcript_link}."
         title: Adjunte su declaración de impuestos %{year}.
       property_tax_statements:
         help_text_html: "<strong>Es posible que tenga este documento</strong> porque dijo que pagó intereses hipotecarios o impuestos estatales, locales, inmobiliarios o de ventas."
         title: Adjunte sus declaraciones de impuestos a la propiedad
       requested_documents:
-        help_text: Cargue todos los documentos solicitados a continuación. Puede cargar tantos documentos como tenga. Si no está seguro de qué documentos debe compartir, consulte el mensaje de su preparador de impuestos.
-        title: Su especialista en impuestos está solicitando documentos adicionales.
+        help_text: Cargue todos los documentos solicitados a continuación. Puede cargar todos los documentos que tenga. Si no está seguro de qué documentos debe compartir, consulte el mensaje de su preparador de impuestos.
+        title: Su especialista de impuestos está solicitando documentos adicionales.
       requested_documents_later:
         not_found:
           contact_tax_preparer: También puede comunicarse con su preparador de impuestos si tiene su información de contacto.
-          contact_us_html: Podemos intentar ayudarlo a ubicar el enlace correcto si se pone en contacto enviando un correo electrónico a %{email_link} o haciendo clic en el botón de chat en vivo en la esquina inferior derecha.
-          info: Parece que estás intentando subir documentos pero no tienes un enlace que funcione.
-          title: Página de documentos solicitados no encontrada
+          contact_us_html: Podemos intentar ayudarlo(a) a ubicar el enlace correcto si se pone en contacto enviando un correo electrónico a %{email_link} o haciendo clic en el botón de chat en vivo en la esquina inferior derecha.
+          info: Parece que está intentando subir documentos pero no tiene un enlace que funcione.
+          title: La página de documentos solicitados no ha sido encontrada
       rrb1099s:
-        help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si específicamente recibió ingresos de los Beneficios de jubilación ferroviaria, <strong>debe tener este formulario</strong> . Esta es una declaración de impuestos emitida por la Junta de Retiro Ferroviario de los EE. UU. (RRB) y representa los pagos realizados a usted en %{year}.
+        help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si usted recibió ingresos específicamente de los Beneficios de jubilación ferroviaria, <strong>debe tener este formulario</strong> . Esta es una declaración de impuestos emitida por la Junta de Retiro Ferroviario de los EE. UU. (RRB) y representa los pagos realizados a usted en %{year}.
         title: Adjunte sus RRB-1099
       selfie_instructions:
-        header: Confirma tu identidad con una foto tuya
-        info: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos. Hacemos esto al revisar una foto de usted con su tarjeta de identificación.
+        header: Confirme su identidad con una foto tuya sosteniendo su tarjeta de identificación
+        info: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos. Hacemos esto al revisar una foto de usted sosteniendo su tarjeta de identificación.
         steps:
           face_camera: Mire directamente a la cámara e incluya desde los hombros hasta la parte superior de la cabeza, similar a su foto de identificación
-          face_visible: Asegúrate de que tu cara sea claramente visible
+          face_visible: Asegúrese de que su cara sea claramente visible
           header: Lea los siguientes pasos antes de continuar
-          id_visible: Asegúrese de no estar ocultando su identificación
-          plain_background: Use una pared simple como fondo si es posible
+          id_visible: Asegúrese de no estar cubriendo su identificación
+          plain_background: Use una pared simple/en blanco como fondo si es posible
           wear_glasses: Si usa anteojos en su foto de identificación, úselos en su foto selfie
         submit_photo: Enviar una foto
       selfies:
         help_text: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos.
         need_for_html: 'Necesitaremos ver una <u>foto con ID</u> para:'
-        title: Comparte una foto tuya con tu tarjeta de identificación
+        title: Comparta una foto suya sosteniendo su tarjeta de identificación
       send_requested_documents_later:
         success:
           next_steps: Su preparador de impuestos se pondrá en contacto con actualizaciones y preguntas adicionales dentro de 3 días hábiles.
           thank_you: "¡Gracias! Sus documentos han sido enviados."
-          title: Documentos solicitados cargados correctamente
+          title: Los documentos solicitados han sido cargados correctamente
       spouse_ids:
-        help_text: El IRS también nos exige que tengamos una licencia de conducir, pasaporte o identificación estatal actual para su cónyuge.
+        help_text: 'El IRS también nos exige que tengamos uno de los siguientes documentos actuales: licencia de conducir, pasaporte o identificación estatal de su cónyuge.'
         title: Adjunte una foto de la tarjeta de identificación de su cónyuge
       spouse_ssn_itins:
         help_text: El IRS nos exige que veamos un SSN o ITIN válido para los servicios de preparación de impuestos.
         title: Adjunte una foto de la Tarjeta de Seguro Social de su cónyuge o ITIN
       ssa1099s:
-        help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si tuvo ingresos específicos del Seguro Social, <strong>debe tener este formulario.</strong> Este es un formulario de impuestos que muestra la cantidad total de beneficios que recibió del Seguro Social en el año anterior. Puede obtener este formulario %{ssa_link}.
+        help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si tuvo ingresos específicamente del Seguro Social, <strong>debe tener este formulario.</strong> Este es un formulario de impuestos que muestra la cantidad total de beneficios que recibió del Seguro Social en el año anterior. Puede obtener este formulario %{ssa_link}.
         title: Adjunte sus SSA-1099
       ssn_itins:
-        help_text: El IRS nos exige que veamos una tarjeta de Seguro Social o documentación ITIN válida para todos en el hogar para los servicios de preparación de impuestos.
+        help_text: El IRS nos exige que veamos una tarjeta de Seguro Social o documentación ITIN válida de todos en el hogar para los servicios de preparación de impuestos.
         need_for: 'Necesitaremos un SSN o ITIN para:'
         title: Adjunte fotos de la Tarjeta de Seguro Social o ITIN
       student_account_statements:
-        help_text_html: "<strong>Es posible que tenga esta declaración</strong> porque dijo que está presentando impuestos para las personas que son estudiantes de tiempo completo."
-        need_for: 'Comparta una imagen del extracto de la cuenta del alumno para las siguientes personas:'
-        title: Adjunte sus estados de cuenta de estudiante
+        help_text_html: "<strong>Es posible que tenga esta declaración</strong> porque dijo que está declarando impuestos de personas que son estudiantes de tiempo completo."
+        need_for: 'Comparta un imagen de la declaración de cuenta del alumno(a) para las siguientes personas:'
+        title: Adjunte sus declaraciones de cuenta de estudiante
       w2gs:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que tenía ingresos por las ganancias del juego o la lotería. Dependiendo de cuánto ganó, una instalación de juegos de azar puede enviarle un formulario W2-G que registra sus ganancias y cualquier retención de impuestos sobre la renta del año anterior."
+        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que tenía ingresos de ganancias de apuestas o la lotería. Dependiendo de cuánto ganó, una institución de juegos de azar puede enviarle un formulario W2-G que registra sus ganancias y cualquier retención de impuestos del año anterior."
         title: Adjunte sus W-2G
       w2s:
-        help_text_html: "<strong>Deberías tener este formulario</strong> porque dijiste que trabajabas con un sueldo o salario. Su empleador debería haberle enviado este formulario y puede comunicarse con ellos si no lo ha recibido. Más información está disponible %{transcript_link}."
+        help_text_html: "<strong>Usted debería tener este formulario</strong> porque dijo que trabajaba con un sueldo o salario. Su empleador le debió haber enviado este formulario y puede comunicarse con ellos si no lo ha recibido. Para mayor información %{transcript_link}."
         title: Adjunte sus W-2
     intake_site_drop_offs:
       new:
@@ -351,10 +351,10 @@ es:
         signature_method:
           e_signature: Firma electrónica
           in_person: En persona
-          label: Método de recogida
+          label: Método para recoger
           pickup_date:
             help_text: 'Formato: M/D'
-            label: Fecha de recogida
+            label: Fecha para recoger
             postfix: "/2020"
         state:
           help_text: Para la declaración de impuestos estatales
@@ -373,7 +373,7 @@ es:
         welcome_user_html: Bienvenido <strong class="user__name">%{name}</strong>
       application:
         meta:
-          description: Obtenga un reembolso mayor presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
+          description: Maximice su reembolso presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
       document_upload:
         done_for_now: De momento, he terminado.
         dont_have: No tengo este documento
@@ -382,8 +382,8 @@ es:
         take_picture: Tome una foto
     public_pages:
       about_us:
-        how_it_helps: Si presenta su declaración de forma gratuita, podrá ahorrar hasta $300. También garantizamos que los contribuyentes elegibles reclamen el Crédito por Ingreso del Trabajo (EITC, por sus siglas en inglés), que puede superar los $3,000 por familia.
-        how_it_works: Colaboramos con sitios fiscales gratuitos, conocidos como sitios de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés), para ayudarlo con sus impuestos. Los voluntarios capacitados y certificados por el IRS en las organizaciones locales prepararán su declaración de impuestos.
+        how_it_helps: Puedes ahorrar hasta $300 dólares cuando prepares tus impuestos gratis. También garantizamos que los contribuyentes elegibles reclamen el Crédito por Ingreso del Trabajo (EITC, por sus siglas en inglés), que puede superar hasta $3,000 por familia.
+        how_it_works: Colaboramos con sitios fiscales gratuitos, conocidos como sitios de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés), para ayudarlo a preparar sus impuestos. Voluntarios son entrenados y certificados por el IRS en las organizaciones comunitarias locales  prepararán sus impuestos.
         partners:
           cta: "¿Le interesa asociarse con nosotros?"
           header: Colaboramos con organizaciones de confianza
@@ -391,95 +391,95 @@ es:
             courtney: Una fotografía de Courtney O'Reilly sonriendo.
             denise: Una fotografía de Denise Eckley sonriendo.
           quote:
-            courtney: '"Me alegra mucho poder extender nuestros servicios gratuitos a aquellos que no pueden acercarse a nuestras oficinas. Sé que presentar una declaración de impuestos puede asustar a algunas personas, ¡pero estamos aquí para ayudarlas!"'
-            denise: '"Formar parte de una organización que hace todo lo posible por acortar la distancia entre el lugar donde están las personas y el lugar en el que quieren (o necesitan) estar, es muy gratificante y siempre emocionante".'
-          subheader: Hemos formado una coalición nacional de socios comunitarios y voluntarios especializados que nos ayudan a proporcionar asistencia gratuita para que las familias que ganan menos de $66,000 al año puedan presentar sus declaraciones de impuestos.
-        title: Sobre nosotros
+            courtney: '"Me alegra mucho poder extender nuestros servicios gratuitos a aquellos que no están cerca de nuestras oficinas. Sé que preparar una declaración de impuestos puede asustar a algunas personas, ¡pero estamos aquí para ayudarlas!"'
+            denise: '"Formar parte de una organización que hace todo lo posible por disminuir la distancia entre el lugar donde están las personas y el lugar en el que quieren (o necesitan) estar, es muy gratificante y siempre emocionante".'
+          subheader: 'Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionar asistencia gratuita para la declaración de impuestos las familias que ganan menos de $66,000 dólares al año. '
+        title: Quiénes Somos
       at_capacity:
         alternative_html: Alternativamente, puede probar con %{irs_link}, un servicio en línea que le permite preparar su declaración de impuestos de forma gratuita.
-        body: Tenemos un gran volumen de clientes en este momento. Nuestro objetivo es brindarles a todos la mejor calidad en el servicio. Nos disculpamos de antemano por la espera. GetYourRefund estará disponible de nuevo en breve.
+        body: Tenemos un gran volumen de clientes en este momento. Nuestro objetivo es brindarles a todos la mejor calidad de servicio. Nos disculpamos por la espera. GetYourRefund estará disponible de nuevo muy pronto.
         check_back: Le recomendamos volver dentro de unos días. ¡Gracias!
         title: Vaya, parece que estamos saturados en este momento.
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
-        contact_html: Si tiene algún problema, no dude en solicitar nuestra asistencia. Puede ponerse en contacto con nosotros haciendo clic en el botón "Ayuda"/"Chat" en la parte inferior derecha, o enviándonos un correo electrónico a %{email_link}.
+        contact_html: Si tiene algún problema, no dude en solicitar nuestra asistencia. Puede ponerse en contacto con nosotros haciendo clic al botón de "Ayuda"/"Chat" en la parte inferior a la derecha, o enviándonos un correo electrónico a %{email_link}.
         cta: Volver al inicio
         title: Lo sentimos, algo salió mal.
       faq:
         getting_started:
           am_i_eligible:
-            a: Proporcionamos asistencia gratuita para que las familias que ganan menos de $66,000 al año presenten sus declaraciones de impuestos.
+            a: Proporcionamos asistencia gratuita para llenado de la declaración de impuestos a familias que ganan menos de $66,000 al año.
             q: "¿Soy elegible?"
           changes:
-            a: No se preocupe. Podrá hablar sobre su situación con alguno de nuestros especialistas en impuestos e informarlo de cualquier cambio o respuesta sobre la que no esté seguro antes de que él prepare su declaración de impuestos.
-            q: "¿Qué ocurre si necesito cambiar una de mis respuestas o no sé cómo responder?"
+            a: No se preocupe, tendrá la oportunidad de hablar con uno de nuestros especialistas de impuestos sobre su situación y podrá informar sobre cualquier cambio o respuesta que no esté seguro antes de que preparen sus impuestos.
+            q: "¿Qué pasa si necesito cambiar una de mis respuestas o no sé cómo responder?"
           extension:
-            a: El plazo para presentar las declaraciones de impuestos sobre los ingresos de 2019 y para pagar se amplía automáticamente del 15 de abril de 2020 al 15 de julio de 2020. Esto se aplica a todas las declaraciones individuales, de fideicomisos y de corporaciones. Es automático, de modo que los declarantes de impuestos no tienen que presentar otro formulario ni llamar al IRS para calificar. Esto también afecta a los pagos estimados del impuesto del año fiscal 2020 que vencen el 15 de abril de 2020.
-            q: "¿Qué significa que el plazo se haya ampliado?"
-          header: Ayuda para empezar
+            a: El plazo para presentar y pagar las declaraciones de impuestos sobre los ingresos de 2019 se amplió automáticamente del 15 de Abril de 2020 al 15 de Julio de 2020. Esto se aplica a todas las declaraciones individuales, de fideicomisos y de corporaciones. Esto es automático, de modo que no es necesario presentar formas adicionales o llamar al IRS para calificar. Esto también incluye los pagos de impuestos estimados para el año fiscal 2020 que se deben pagar el 15 de abril de 2020.
+            q: "¿Qué significa que se haya extendido el plazo? "
+          header: Ayuda para comenzar
           how_long:
-            a1: En total, la presentación mediante GetYourRefund tarda de 5 a 10 días hábiles, ya que un preparador de declaraciones de impuestos trabajará de forma personalizada con usted.
-            a2: En primer lugar, debe responder a las preguntas sobre su situación fiscal en nuestro formulario en línea y subir sus documentos fiscales, lo que puede tomar entre 10 y 30 minutos. A continuación, en un plazo de 2 a 3 ‭días hábiles, el especialista en impuestos lo llamará para hablar sobre su situación fiscal. Luego, un preparador de declaraciones de impuestos certificado por el IRS preparará y revisará su declaración de impuestos, lo llamará para hablar del reembolso, y para explicarle cómo deberá hacer la presentación y la firma electrónica. Después de presentar la declaración, nuestros clientes suelen recibir un depósito directo del IRS en un plazo de una semana.
-            q: "¿Cuánto tiempo tomará esto?"
+            a1: En general, GetYourRefund tarda de 5 a 10 días para completarlo porque un preparador de declaraciones de impuestos trabajará de forma personalizada con usted.
+            a2: El primer paso es responder a las preguntas sobre su situación fiscal en nuestro formulario en línea y subir sus documentos de impuestos, lo que puede tomar entre 10 a 30 minutos. Después, recibirá una llamada de un especialista de impuestos entre 2 a 3 días para hablar de su situación fiscal. Luego, el especialista de impuestos certificado por el IRS preparará y revisará su declaración de impuestos, le llamará para hablar sobre su reembolso, y el proceso para la firma electrónica y la declaración. Después de presentar su declaración, nuestros clientes suelen recibir un depósito directo del IRS en una semana.
+            q: "¿Cuánto tiempo tardará esto?"
           how_to_start:
-            a: Para empezar, vaya a GetYourRefund.org, haga clic en "Get Started" ("Empezar") e indique que desea optar por "Start my taxes online" ("Empezar mi declaración de impuestos en línea"). Tendrá que subir las fotos de su identificación, responder a algunas preguntas sobre su situación fiscal y subir sus documentos fiscales. A continuación, uno de nuestros especialistas en impuestos lo llamará por teléfono para hablar sobre sus impuestos, responder sus preguntas y completar su presentación.
+            a: Para empezar, vaya a GetYourRefund.org, haga clic en "Get Started" ("Empezar") e indique que quiere "Start my taxes online" ("Empezar mi declaración de impuestos en línea"). Tendrá que subir fotos de su identificación, responder a algunas preguntas sobre su situación fiscal y subir sus documentos de impuestos. Después, uno de nuestros especialistas de impuestos le llamará por teléfono para hablar sobre sus impuestos, responder a cualquier pregunta y completar su declaración.
             q: "¿Por dónde empiezo?"
           is_it_free:
-            a: "¡Sí! Colaboramos con VITA, un programa del IRS que certifica a expertos en impuestos de organizaciones sin fines de lucro locales, como United Way, para que presenten sus declaraciones de impuestos estatales y federales gratis."
-            q: "¿Es realmente gratuito el servicio?"
+            a: "¡Sí! Colaboramos con VITA, un programa del IRS que certifica a expertos en impuestos de organizaciones sin fines de lucro locales, como United Way, para completar sus impuestos estatales y federales de forma gratuita."
+            q: "¿Este servicio es realmente gratuito?"
           missing_docs:
-            a_html: Si ha perdido un documento fiscal o nunca lo recibió, lo primero que debe hacer es consultarlo con su empleador. A menudo, los empleadores pueden volver a emitir rápidamente la documentación fiscal de sus empleados. Si no es el caso, puede solicitar sus documentos fiscales al IRS en %{transcript_link}.
-            q: "¿Qué debo hacer si no encuentro un documento fiscal?"
+            a_html: Si ha perdido un documento fiscal o nunca lo recibió, lo primero que debe hacer es consultarlo con su empleador. Normalmente, su empleador puede volver a emitir rápidamente la documentación fiscal a sus empleados. Si eso no funciona, puede solicitar sus documentos de impuestos al IRS en %{transcript_link}.
+            q: "¿Qué debo hacer si no encuentro un documento de impuestos?"
           non_filer:
-            a: Podemos presentar sus declaraciones de impuestos de 2016, 2017, 2018 y 2019. Le recomendamos que nos informe si todavía no ha presentado las declaraciones de esos años, ya que podría reclamar los reembolsos de años anteriores que no haya reclamado.
-            q: "¿Qué debo hacer si no he presentado declaraciones desde hace varios años?"
+            a: Podemos presentar sus declaraciones de impuestos de los años 2016, 2017, 2018 y 2019. Le recomendamos que nos informe si todavía no ha presentado las declaraciones de esos años, ya que podría reclamar los reembolsos de años anteriores que no haya reclamado.
+            q: "¿Qué debo hacer si no he declarado impuestos desde hace varios años?"
         header: Preguntas frecuentes
-        subheader: Haga clic abajo para ver las respuestas a las preguntas frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
-        title: Preguntas frecuentes
+        subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
+        title: Preguntas Frecuentes
       home:
         accuracy:
-          body1: Sí, nuestro servicio es realmente gratuito y lo ofrecemos en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) certificados por el IRS para ayudar a las familias que ganan menos de $66,000 al año a que presenten sus declaraciones de impuestos..
+          body1: Sí, nuestro servicio es realmente gratuito y lo ofrecemos en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) certificados por el IRS para ayudar a las familias que ganan menos de $66,000 al año a que presenten sus declaraciones de impuestos.
           body2: Voluntarios capacitados y certificados por el IRS prepararán y revisarán su declaración de impuestos para asegurarse de que todo esté correcto antes de presentarla.
           header: Ofrecemos la máxima precisión. Gratis.
         backtaxes:
           body: Podemos presentar sus declaraciones de impuestos estatales y federales de los años fiscales 2016, 2017, 2018 y 2019. Nuestros voluntarios capacitados también se asegurarán de que reciba los créditos tributarios que le correspondan.
           header: Presente las declaraciones de impuestos de años anteriores y obtenga un reembolso mayor.
         clients:
-          across_us: de clientes de todo EE. UU.
-          header: Qué opinan nuestros clientes
+          across_us: de clientes en todo Estados Unidos.
+          header: Lo qué opinan nuestros clientes
           quote1:
-            body: '"Sentí un gran alivio cuando me propusieron hacerlo en línea. Había mirado otros servicios como Credit Karma o Turbo Tax, pero los pasos iniciales no me daban seguridad, así que no seguí adelante. Al final, encontré GetYourRefund y, Dios, ¡es increíble!"'
-            header: Dios, ¡es increíble!
+            body: '"Sólo quería decirles que no puedo expresar cuánto estrés me aliviaron al ofrecer sus servicios en línea. Había visto otros servicios como Credit Karma o Turbo Tax, pero no tenia confianza a los pasos iniciales, así que no seguí adelante. Hasta que encontré GetYourRefund y ¡Dios mío, es increíble!"'
+            header: "¡Dios mío esto es increíble!"
           quote2:
-            body: '"Me pareció que los asesores fiscales eran muy profesionales, amables y abiertos a preguntas, cosa que aprecié mucho. También fueron muy pacientes con mis preguntas. Me gusta mucho más este proceso, donde hay una persona que puede explicarnos en detalle las dudas que tenemos y responder muy rápido a nuestras preguntas".'
+            body: “Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Este proceso me gusta mucho más cuando hay una persona que puede explicar en detalle las preguntas que tienes y que responden bastante rápido".
             header: Son muy profesionales y amables
           rating: Hemos recibido una valoración de 4.8/5 estrellas
         features:
-          amendments: Presentar enmiendas para años anteriores
-          backtaxes: Presentar declaraciones de impuestos atrasados (2016-2019)
+          amendments: Presenta enmiendas para años anteriores
+          backtaxes: Presenta declaraciones de impuestos atrasados (2016-2019)
           chat: Asistencia por chat disponible
           faq_cta: Visite la página de preguntas frecuentes
           free: Servicio completamente gratuito
-          header: La comodidad de hacer la presentación en línea y el apoyo de las consultas presenciales.
+          header: La comodidad de hacer las declaraciones en línea y el apoyo en persona.
           questions: "¿Tiene más preguntas? Visite nuestra página de preguntas frecuentes o hable con nosotros por el chat."
         file:
-          header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
+          header: "¡Recupere más dinero en su reembolso declarando su solicitud hoy mismo de forma gratuita!"
         filing_deadline_banner:
-          body: No tiene que presentar otro formulario ni llamar al IRS para pedir la ampliación del plazo. Le recomendamos que presente la declaración hoy mismo, ya que podría tener un reembolso pendiente que podría ayudar al sustento de su hogar.
-          title: 'Nota: La fecha límite para presentar la declaración del impuesto federal sobre los ingresos se ha ampliado hasta el 15 de julio de 2020.'
-        header: Apoyo gratuito y de personas reales para presentar la declaración de impuestos.
+          body: No tiene que presentar un formulario adicional ni llamar al IRS para pedir una extensión. Le recomendamos que declare sus impuestos hoy mismo, ya que puede recibir un reembolso que puede ayudar a mantener su hogar.
+          title: 'Nota: La fecha límite para presentar la declaración del impuesto federal ha sido extendida hasta el 15 de julio de 2020.'
+        header: 'Personas reales, proporcionando apoyo gratuito para su declaración de impuestos '
         partners:
           header: Colaboramos con organizaciones de confianza
           learn_more_html: Obtenga más información sobre nosotros &rsaquo;
         security:
-          body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información protegida.
-          header: Nos comprometemos a proteger su información.
-        subheader: Obtenga un reembolso mayor declarando sus impuestos con la ayuda de nuestros voluntarios de confianza.
-        title: Ayuda gratuita para declarar los impuestos ofrecida por voluntarios certificados por el IRS.
+          body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
+          header: Estamos comprometidos a proteger su información.
+        subheader: Obtenga un reembolso más grande declarando sus impuestos con la ayuda de nuestros voluntarios de confianza.
+        title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maintenance:
         contact_html: También puede %{email_link}.
         email: enviar una pregunta por correo electrónico a GetYourRefund
-        info_html: Estamos haciendo algunas actualizaciones en GetYourRefund. ¡Volveremos pronto! Esperamos terminar el mantenimiento para <strong>las 3:00 a. m. ET (12:00 a. m. PT)</strong>, visítenos después de esa hora.
+        info_html: Estamos haciendo algunas actualizaciones en GetYourRefund. ¡Volveremos pronto! Esperamos terminar el mantenimiento para <strong>las 3:00 a. m. ET (12:00 a. m. PT)</strong>, visítenos después de esa hora.
         questions: Si tiene alguna pregunta mientras tanto, no dude en comunicarse con nosotros haciendo clic en el botón "Chat"/"Ayuda", en la parte inferior derecha.
         title: GetYourRefund no está disponible temporalmente por tareas de mantenimiento
       maybe_ineligible:
@@ -495,10 +495,10 @@ es:
       privacy_policy:
         changes:
           header: Cambios
-          info: Podríamos hacer cambios a la Política de Privacidad ocasionalmente. Revise esta página con frecuencia para consultar las actualizaciones, ya que el uso continuado de este sitio luego de que se modifique la Política de Privacidad indicará la aceptación de los cambios.
+          info: Podríamos hacer cambios a la Política de Privacidad ocasionalmente. Revise esta página con frecuencia para consultar las actualizaciones, ya que el uso continuo de este sitio luego de que se modifique la Política de Privacidad indicará la aceptación de los cambios.
         effective_date:
-          header: Fecha de vigencia
-          info: Esta versión de la política tiene vigencia desde el %{effective_date}
+          header: Fecha efectiva
+          info: Esta versión de la política es efectiva desde el %{effective_date}
         information_collection:
           header: La información personal que recopilamos
           service:
@@ -508,7 +508,7 @@ es:
               contact_info: Su información de contacto
               dependent_cards: Las fotos de las tarjetas de Seguro Social de las personas dependientes, si corresponde
               financial_info: Su información financiera, las fotos de su licencia de conducir
-              header: 'Para usar el servicio, recopilamos toda la información proporcionada a través del Sitio, incluidos, entre otros:'
+              header: 'Recopilamos toda la información proporcionada a través del Sitio para dar el servicio, incluido y no limitado a:'
               name: Su nombre
               ssn: Su número de Seguro Social
               w2: Los formularios W-2
@@ -516,7 +516,7 @@ es:
             irs_forms:
               consent: El consentimiento para el modelo de servicio de GetYourRefund
               efile: El formulario 8879 de consentimiento para presentar una declaración electrónica (se enviará a través de DocuSign para que lo firme antes de presentar la declaración electrónica)
-              header: 'Solo se recopilará y conservará la información necesaria para preparar y realizar el servicio. Al usar el servicio, todos los formularios específicos del IRS se completarán con la información que proporcionó, incluidos:'
+              header: 'Solo se recopilará y conservará la información necesaria para preparar y realizar el servicio. Al usar el servicio, todos los formularios específicos del IRS se completarán con la información que proporcionó, incluyendo:'
               intake: El formulario 13614-C de admisión para la VITA
             retention_html: En este momento, conservamos indefinidamente todos los datos que nos proporciona cuando visita el sitio, a menos que usted pida específicamente que los eliminemos. Puede pedirnos que eliminemos esta información enviándonos un correo electrónico a %{email_link}.
             use_and_storage: No guardaremos esta información, a menos que usted dé su consentimiento para el servicio de manera electrónica en el formulario de admisión de GetYourRefund. No se podrán presentar sus declaraciones de impuestos en línea hasta que no complete los formularios de consentimiento anteriores. Si decide no utilizar el servicio, su información personal se eliminará.
@@ -535,7 +535,7 @@ es:
         information_protection:
           complete_security: Aunque hacemos todo lo posible para proteger la privacidad de su información personal, no podemos garantizar su seguridad por completo. La transmisión de la información mediante Internet no es completamente segura. El ingreso o el uso no autorizado, las fallas de software o de hardware, y otros factores pueden comprometer la información del usuario en cualquier momento.
           header: Cómo protegemos su información
-          important: Proteger su información personal es extremadamente importante para nosotros, por lo que tomamos todas las medidas necesarias para hacerlo. Tomamos precauciones para proteger su información, de modo que, cuando envía información confidencial a través del sitio web, estará protegida tanto en Internet y fuera de ella.
+          important: Proteger su información personal es extremadamente importante para nosotros, por lo que tomamos todas las medidas necesarias para hacerlo. Tomamos precauciones para proteger su información, de modo que, cuando envía información confidencial a través del sitio web, estará protegida en internet en línea como fuera de línea.
           offline: Si bien encriptamos la información confidencial que nos envía por Internet para garantizar su seguridad, también protegemos el acceso a la información fuera de la red. Solamente tienen acceso a su información de identificación personal los empleados que necesiten dicha información para realizar un trabajo específico. Los ordenadores/servidores en los que guardamos la información de identificación personal están en un entorno protegido.
           online: La información confidencial que recopilamos, sea del origen que sea, se encripta y transmite de forma segura. Puede comprobarlo buscando el icono del candado en la barra de direcciones y el protocolo "https" al inicio de la dirección de la página web.
           security_practices:
@@ -593,7 +593,7 @@ es:
         faq:
           eip:
             additional_eip:
-              a: En la mayoría de los casos, el resto del EIP se pagará en 2021.
+              a: En la mayoría de los casos, el resto del EIP (pago de impacto económico) se pagará en 2021.
               q: "¿Qué debo hacer si no proporcioné la información adicional dentro del plazo establecido o si recibí un EIP menor de lo que esperaba?"
             deadline:
               a: Para la tranquilidad de aquellos que quieran consultar en persona a un profesional o a una organización comunitaria local especializados en impuestos para que los ayuden con la declaración, estos pagos de impacto económico estarán disponibles durante todo el 2020 y durante la temporada de declaración de impuestos de 2021.
@@ -604,19 +604,19 @@ es:
               q: "¿Es un pago único?"
             other_benefits:
               a: No, los cheques del EIP se tratan como un crédito tributario, lo que significa que no afectará a los beneficios que reciba ahora o en el futuro.
-              q: Si recibo el EIP, ¿dejaré de recibir otros beneficios del gobierno?
+              q: Si recibo el EIP, ¿Afectará mis otros beneficios del gobierno?
             owe_taxes:
               a: Sí, pero con una excepción. El pago se compensará con los pagos atrasados de manutención de menores. La Oficina del Servicio Fiscal le enviará un aviso si este es su caso.
               q: "¿Puedo recibir el EIP si debo impuestos, si tengo un acuerdo de pagos con el IRS o si tengo otras deudas federales o estatales?"
             scams:
-              a: No haga clic en enlaces en los que no confíe al 100 %. Tenga cuidado con las estafas. Si parece demasiado bueno para ser verdad, probablemente lo sea. Tampoco envíe dinero a nadie que no conozca.
+              a: No haga clic en enlaces en los que no confíe al 100 %. Tenga cuidado con las estafas. Si parece demasiado bueno para ser verdad, probablemente lo sea. Tampoco envíe dinero a nadie que no conozca.
               q: "¿Qué debo hacer si me ofrecen un pago más rápido?"
             when:
               a: Los pagos de impacto económico se acreditarán en las cuentas bancarias mediante depósito directo a partir del 9 de abril de 2020. Si no tiene una cuenta bancaria, su cheque podría tardar hasta cinco meses en llegar por correo.
               q: "¿Cuándo recibiré mi cheque?"
           how_to_get_paid:
             change_address:
-              a_html: Si quiere que le envíen su cheque de EIP por correo, compruebe que su dirección esté actualizada en el sitio web %{irs_address_change_link} del IRS. Podría haber retrasos; su cheque podría tardar hasta cinco meses en llegar por correo.
+              a_html: Si quiere que le envíen su cheque de EIP por correo, asegúrese que su dirección esté actualizada en el sitio web %{irs_address_change_link} del IRS. Podría haber retrasos; su cheque podría tardar hasta cinco meses en llegar por correo.
               address_change: cambio de dirección
               q: "¿Qué debo hacer si me mudé después de haber presentado mi declaración de impuestos?"
             change_information:
@@ -634,7 +634,7 @@ es:
               q: "¿Qué debo hacer si no tengo una cuenta bancaria?"
             no_income:
               a_html: Debe ingresar su información de pago en el sitio web %{irs_enter_payment_info_link} del IRS para recibir su pago. Si tiene problemas para hacerlo por su cuenta, puede rellenar el cuestionario de GetYourRefund y los voluntarios certificados por el IRS lo ayudarán a rellenar el formulario simplificado.
-              enter_payment_info_website_title: 'Herramienta "Non-Filers: Enter Payment Info Here"'
+              enter_payment_info_website_title: '"Non-Filers: (sin declaración de impuestos) Ingrese la información de pago aquí"'
               q: "¿Qué ocurre si no tengo ingresos?"
             non_filer:
               a: Si no tiene la obligación de presentar una declaración de impuestos pero tiene ingresos del trabajo, le recomendamos que lo haga a través de GetYourRefund, ya que podría ser elegible para otros créditos tributarios. Si tiene que declarar impuestos pero no lo hizo en 2018 o en 2019, todavía está a tiempo de hacerlo con GetYourRefund.
@@ -649,14 +649,14 @@ es:
             header: Los beneficios de la declaración
             info: Sin embargo, si está en alguna de las categorías anteriores y tiene ingresos del trabajo o personas a su cargo, podría tener derecho a créditos tributarios o a beneficios adicionales si presenta su declaración o actualiza su información en el IRS. Comuníquese con nosotros a través del chat para obtener más información.
           common_questions: Sabemos que hay muchas dudas sobre los pagos de impacto económico (EIP, por sus siglas en inglés) y tenemos algunas respuestas. Hemos seleccionado algunas preguntas frecuentes que podrían ayudarlo.
-          description: Este año, muchas personas recibirán un pago de impacto económico (también conocido como "pago de estímulo") del gobierno federal. Cada persona recibirá hasta $1,200 ($2,400 para un matrimonio que declare sus impuestos conjuntamente) y obtendrá $500 adicionales por cada hijo menor de 17 años a su cargo.
+          description: Este año, muchas personas recibirán un pago de impacto económico (también conocido como "pago de estímulo") del gobierno federal. Cada persona recibirá hasta $1,200 ($2,400 para un matrimonio que declare sus impuestos conjuntamente) y obtendrá $500 adicionales por cada hijo menor de 17 años a su cargo.
           eligibility:
             header: "¿Quién es elegible?"
             info: Recibirán el pago completo los declarantes de impuestos con ingresos brutos ajustados de hasta $75,000 por persona y $150,000 por matrimonio que declare sus impuestos de forma conjunta. Para los declarantes con ingresos superiores, el monto del pago se reduce en $5 por cada $100 por encima de los umbrales de $75,000/$150,000. Los declarantes solteros con ingresos superiores a $99,000 y los declarantes conjuntos sin hijos con ingresos superiores a $198,000 no son elegibles.
-          irs_info_html: El IRS publicará toda la información clave en %{irs_eip_link} en cuanto disponga de ella.
+          irs_info_html: El IRS publicará toda la información clave en %{irs_eip_link} cuanto disponga de ella.
           payments:
             exceptions:
-              header: 'A menos que tenga que presentar una declaración de impuestos por otro motivo o que tenga dependientes menores de 17 años a su cargo, usted recibirá automáticamente su pago de $1,200 si se encuentra en alguna de las siguientes categorías, por lo tanto, no tendrá que presentar una declaración:'
+              header: 'A menos que tenga que presentar una declaración de impuestos por otro motivo o que tenga dependientes menores de 17 años a su cargo, usted recibirá automáticamente su pago de $1,200 si se encuentra en alguna de las siguientes categorías, por lo tanto, no tendrá que presentar una declaración:'
               railroad: Recibe beneficios de jubilación para los trabajadores ferroviarios
               social_security: Recibe beneficios del Seguro Social por jubilación, discapacidad (SSDI), Seguridad de Ingreso Suplementario (SSI) o para sobrevivientes
               veterans: Recibe beneficios para veteranos
@@ -665,7 +665,7 @@ es:
         title: Pago de estímulo
       tax_questions:
         cannot_answer:
-          different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&amp;R Block o TurboTax)
+          different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&amp;R Block o TurboTax)
           header: 'No podemos responder a lo siguiente:'
           refund_amounts: El monto del reembolso que recibirá
         header: "¡Tratemos de responder a sus preguntas sobre los impuestos!"
@@ -675,7 +675,7 @@ es:
     questions:
       additional_info:
         help_text: Comparta cualquier nota o pregunta sobre su situación fiscal. Su preparador de impuestos se asegurará de repasar estas preguntas durante la revisión de su teléfono.
-        title: "¿Hay más información que creas que deberíamos saber?"
+        title: "¿Hay más información que crea que deberíamos saber?"
       adopted_child:
         title:
           one: En %{year}, ¿adoptó un niño?
@@ -701,7 +701,7 @@ es:
       bank_details:
         account_number: Número de cuenta
         account_type:
-          checking: Comprobación
+          checking: Cuenta de Cheques
           label: "¿Qué tipo de cuenta es esta?"
           savings: Ahorros
         bank_name: Nombre del banco
@@ -735,7 +735,7 @@ es:
       demographic_english_reading:
         title: "¿Qué tan bien dirías que lees un periódico en inglés?"
       demographic_primary_ethnicity:
-        title: Cuál es tu etnia?
+        title: Cuál es tu etnicidad?
       demographic_primary_race:
         title: "¿Cuál es su raza?"
       demographic_questions:
@@ -787,8 +787,8 @@ es:
           one: En %{year}, ¿compró artículos para el hogar con eficiencia energética?
           other: En %{year}, ¿usted o su cónyuge compraron artículos para el hogar con eficiencia energética?
       environment_warning:
-        title: ¡Gracias por visitar el sitio de demostración de GetYourRefund!
-        info: Este sitio web es solamente para usar de ejemplo. Si quiere ayuda con su impuestos, vaya a www.GetYourRefund.org
+        info: Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite www.GetYourRefund.org
+        title: "¡Gracias por visitar la aplicación de demostración de GetYourRefund!"
       estimated_tax_payments:
         help_text: Responda "Sí" si trabaja por cuenta propia y realizó pagos trimestrales de impuestos estimados.
         title:
@@ -796,80 +796,80 @@ es:
           other: En %{most_recent_year}, ¿usted o su cónyuge hicieron pagos de impuestos estimados o aplicaron su reembolso de %{prior_year} a sus impuestos de %{most_recent_year}?
       ever_married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
-        title: "¿Alguna vez has estado casado legalmente?"
+        title: "¿Alguna vez ha estado casado legalmente?"
       file_with_help:
-        info: Seleccionó nuestra opción de servicio completo. Tendremos que responda una serie de preguntas sobre su situación fiscal (lo mejor que pueda) y que un especialista en impuestos revise todo con usted.
+        info: Seleccionó nuestra opción de servicio completo. Nosotros haremos que responda una serie de preguntas sobre su situación fiscal (lo mejor que pueda) y que un especialista en impuestos revise todo con usted.
         right_option:
           confused: Su situación fiscal es confusa / complicada
           header: 'Esta es la opción correcta para usted si:'
-          need_assistance: Necesita ayuda con la presentación de impuestos.
+          need_assistance: Necesita ayuda con el archivo de impuestos.
           nervous: Estás nervioso por archivar completamente por tu cuenta
-        title: "¡Presente con la ayuda de un experto en impuestos!"
+        title: "¡Archiva con la ayuda de un experto en impuestos!"
       filing_for_stimulus:
         help_text: Este año, muchas personas recibirán un cheque de estímulo del gobierno federal.
         title: "¿Estás tratando de solicitar tu estímulo?"
       filing_joint:
-        help_text: Por lo general, la presentación de impuestos conjuntos es más beneficioso para su devolución. Su cónyuge deberá verificar su identidad y firmar su declaración de impuestos final.
-        title: "¿Está presentando impuestos conjuntos con su cónyuge?"
+        help_text: Generalmente, archivar sus impuestos conjuntos es más beneficioso para su devolución. Su cónyuge necesitará que verificar su identidad y firmar tu declaración de impuestos final.
+        title: "¿Está archivando sus impuestos conjuntos con su cónyuge?"
       final_info:
-        help_text: Por ejemplo, ¿le falta algún documento o tuvo cambios importantes en la situación de su hogar este año? Si no, puede dejar esto en blanco.
+        help_text: Por ejemplo, ¿le falta algunos documentos o tuvo cambios importantes en la situación de su hogar este año? Si no, puede dejar esto en blanco.
         title: "¿Algo más que le gustaría que su preparador de impuestos sepa sobre su situación?"
       gambling_income:
-        help_text: Se puede informar en un formulario W-2G.
+        help_text: Se puede reportar en un formulario W-2G.
         title:
           one: En %{year}, ¿tuvo algún ingreso por las ganancias del juego, incluida la lotería?
-          other: En %{year}, ¿usted o su cónyuge obtuvieron ingresos de las ganancias del juego, incluida la lotería?
+          other: En %{year}, ¿usted o su cónyuge obtuvieron ingresos de las ganancias del juego, incluyendo la lotería?
       had_dependents:
         help_text: En general, esto significa personas que viven con usted o a las que apoya financieramente.
         title:
           one: "¿Le gustaría reclamar a alguien por %{year}?"
           other: "¿Usted o su cónyuge desean reclamar a alguien por %{year}?"
       had_disability:
-        help_text: La discapacidad permanente se calcula como un porcentaje de su capacidad para trabajar. Está clasificado en una escala del 0 al 100%.
+        help_text: La discapacidad permanente se calcula como un porcentaje de su capacidad de trabajo. Se califica en una escala de 0 al 100%.
         title:
           one: En %{year}, ¿tenía una discapacidad permanente?
-          other: En %{year}, ¿usted o su cónyuge tenían una discapacidad permanente?
+          other: En %{year}, ¿Tuvo usted o su pareja alguna discapacidad permanente?
       health_insurance:
-        help_text: Esto incluye un seguro de salud privado comprado a través de un sitio web del gobierno. Esto no incluye Medicaid, Medicare o seguro de salud comprado a través de su empleador.
+        help_text: Esto incluye un seguro medico privado comprado a través de un sitio web del gobierno. Esto no incluye Medicaid, Medicare o seguro médico comprado a través de su empleador.
         title:
           one: En %{year}, ¿compró un seguro de salud a través del mercado o intercambio?
-          other: En %{year}, ¿usted o su cónyuge compraron un seguro de salud a través del mercado o el intercambio?
+          other: En %{year}, ¿Compró usted o su pareja un seguro médico a través del mercado o el intercambio?
       homebuyer_credit:
-        help_text_html: Si no está seguro, puede usar %{irs_link} para verificar.
+        help_text_html: Si no está seguro, puede usar %{irs_link} para comprobarlo.
         irs_homebuyer_tool: esta herramienta del IRS
         title:
           one: "¿Recibió el crédito para compradores de vivienda por primera vez en 2008?"
-          other: "¿Recibió usted o su cónyuge el Crédito para compradores de vivienda por primera vez en 2008?"
+          other: "¿Recibió usted o su pareja el Crédito para Compradores de Vivienda por primera vez en el 2008?"
       hsa:
         help_text: Responda "Sí" si recibió un 1099-SA o 5498-SA. Esto no incluye cuentas de gastos flexibles.
         title:
           one: En %{year}, ¿tenía una cuenta de ahorro de salud?
-          other: En %{year}, ¿usted o su cónyuge tenían una cuenta de ahorro de salud?
+          other: En el %{year}, ¿Tenía usted o su pareja una cuenta de ahorro para la salud?
       identity:
-        contact_html: Si tiene algún problema, chatee con nosotros o envíe un correo electrónico a %{email_link}.
+        contact_html: Si tiene algún problema, por favor chatea con nosotros o envíanos un correo electrónico a %{email_link}.
         here_to_help: "¡Estamos aquí para ayudar!"
-        instructions: Deberá cargar su identificación y tomarse una selfie, para que podamos estar seguros de que es usted. Por lo general, tarda unos 5 minutos en completarse.
-        partner_html: Nos estamos asociando con %{partner_link} para proteger su identidad y garantizar que su información personal sea precisa y segura.
+        instructions: Tendrá que subir su identificación y tomarse una selfie, para poder estar seguros de que es usted. Por lo general, toma alrededor de 5 minutos para completarlo.
+        partner_html: Nos asociamos con %{partner_link} para proteger su identidad y garantizar que su información personal sea precisa y segura.
         sign_in_html: Inicie sesión con <span class="sr-only">ID.me</span>
-        title: Primero, obtengamos información básica.
-        visit_partner: Para obtener más información, visite ID.me.
+        title: Primero, comenzaremos con información básica.
+        visit_partner: Para obtener más información, por favor visite ID.me.
       interest_income:
-        help_text: Por ejemplo, los intereses recibidos en una cuenta de ahorros o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
+        help_text: Por ejemplo, los intereses recibidos en una cuenta de ahorro o cualquier otro ingreso incluido en un 1099-INT o 1099-DIV.
         title:
           one: En %{year}, ¿tuvo algún ingreso por intereses o dividendos?
-          other: En %{year}, ¿usted o su cónyuge tuvieron ingresos por intereses o dividendos?
+          other: En el %{year}, ¿Tuvo usted o su pareja ingresos por intereses o dividendos?
       interview_scheduling:
-        help_text: Haremos todo lo posible para programar su revisión en función de la información que proporcione.
-        language_select: "¿Cuál es su idioma preferido para la revisión?"
+        help_text: 'Haremos todo lo posible para programar su revisión basada en la información que nos proporcione. '
+        language_select: "¿Cuál idioma prefiere para la revisión?"
         title: "¿Tiene alguna preferencia de tiempo para su entrevista telefónica?"
       irs_letter:
         title:
           one: En %{year}, ¿recibió alguna carta o factura del IRS?
           other: En %{year}, ¿recibió usted o su cónyuge alguna carta o factura del IRS?
       issued_identity_pin:
-        title: "¿Alguna vez le emitieron un PIN de Protección de Identidad?"
-        help_text: Si usted es una víctima confirmada de robo de identidad y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará un Aviso CP01A con su PIN de IP, un número de 6 dígitos asignado a ciertos contribuyentes elegibles. %{ip_pin_link}
-        link_text: Puede recuperar su PIN de IP visitando esta página del IRS.
+        help_text: Si usted es una víctima de robo de identidad confirmada y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará un Aviso CP01A con su PIN de IP, un número de 6 dígitos asignado a ciertos contribuyentes elegibles. %{ip_pin_link}
+        link_text: Puede recuperar su PIN de IP a través de esta página del IRS.
+        title: "¿Alguna vez ha recibido un PIN de IP por causa de robo de identidad?"
       job_count:
         options:
           five_or_more: 5 o más trabajos
@@ -902,23 +902,23 @@ es:
         zip_code: código postal
       married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
-        title: Al 31 de diciembre, %{year}, ¿estaba legalmente casado?
+        title: El 31 de diciembre, %{year}, ¿Estaba legalmente casado?
       medical_expenses:
         help_text: Esto incluye las primas mensuales para el seguro de salud y cualquier pago de Medicare.
         title:
           one: En %{year}, ¿pagó algún gasto médico, dental o de prescripción?
-          other: En %{year}, ¿usted o su cónyuge pagaron gastos médicos, dentales o de medicamentos recetados?
+          other: En %{year}, ¿Pagó usted o su pareja algún gasto médicos, dentales o medicamentos recetados?
       mortgage_interest:
-        help_text: Responda "Sí" si posee una casa y paga una hipoteca. Puede encontrar esto en un formulario 1098.
+        help_text: Responda "Sí" si eres dueño de casa y pagas una hipoteca. Puede encontrar esto en un formulario 1098.
         title:
           one: En %{year}, ¿pagó algún interés hipotecario?
-          other: En %{year}, ¿usted o su cónyuge pagaron algún interés hipotecario?
+          other: En %{year}, ¿Pagó usted o su pareja  algún interés hipotecario?
       notification_preference:
         note: 'Nota: No compartiremos su información con terceros.'
         options:
           email_notification_opt_in: Envíeme un correo electrónico
-          header: Nos pondremos en contacto con preguntas y actualizaciones. ¡Seleccione las opciones que prefiera!
-          sms_notification_opt_in: Escríbeme
+          header: Nos pondremos en contacto con preguntas y actualizaciones. ¡Seleccione la opcion(es) que prefiera!
+          sms_notification_opt_in: Mensaje de Texto
           sms_phone_number: Número Celular
         title: "¿Cómo podemos actualizarlo en su declaración de impuestos?"
       on_visa:
@@ -928,7 +928,7 @@ es:
         help_text: Tales como pagos en efectivo, deberes de jurado, premios, moneda virtual, regalías o beneficios de huelga sindical.
         title:
           one: En %{year}, ¿recibió algún otro dinero?
-          other: En %{year}, ¿recibió usted o su cónyuge algún otro dinero?
+          other: En el %{year}, ¿Recibió usted o su pareja algún otro dinero?
       other_income_types:
         title:
           one: "¿Cuáles fueron los otros tipos de ingresos que recibió?"
@@ -949,7 +949,7 @@ es:
         refund:
           header: Obtenga su reembolso
           info: Si elige presentar sus impuestos, nuestros voluntarios de impuestos lo ayudarán a presentar su declaración electrónica.
-        title: "¡Solo unos simples pasos para presentar!"
+        title: "¡Solo unos simples pasos para declarar sus impuestos!"
       overview_documents:
         documents_list:
           employment_tax: Documentos de impuestos de empleo (W2, 1099, etc.)
@@ -963,7 +963,7 @@ es:
         help_text: Esto no incluye la manutención de los hijos.
         title:
           one: En %{year}, ¿realizó algún pago de pensión alimenticia?
-          other: En %{year}, ¿usted o su cónyuge hicieron algún pago de pensión alimenticia?
+          other: En %{year}, ¿Hizo usted o su pareja algún pago de pensión alimenticia?
       personal_info:
         info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
         preferred_name: Nombre Preferido
@@ -979,7 +979,7 @@ es:
         help_text: Responda "Sí" incluso si no recibió un documento oficial del IRS sobre la pensión alimenticia. No incluya la manutención de niños que recibió.
         title:
           one: En %{year}, ¿recibió algún ingreso de pensión alimenticia?
-          other: En %{year}, ¿recibió usted o su cónyuge algún ingreso por pensión alimenticia?
+          other: En %{year}, ¿recibió usted o su pareja algún ingreso de la pensión alimenticia?
       refund_payment:
         check: Envíame un cheque (más lento)
         direct_deposit: Depósito directo (el más rápido)
@@ -988,12 +988,12 @@ es:
         help_text: Por ejemplo, un 401k, 403b o cualquier IRA.
         title:
           one: En %{year}, ¿hizo alguna contribución a una cuenta de jubilación?
-          other: En %{year}, ¿usted o su cónyuge hicieron alguna contribución a una cuenta de jubilación?
+          other: En %{year}, ¿hizo usted o su pareja alguna contribución a una cuenta de jubilación?
       retirement_income:
         help_text: Responda "Sí" si movió dinero entre cuentas de jubilación, sacó dinero de su cuenta de jubilación o recibió un formulario 1099-R.
         title:
           one: En %{year}, ¿tuvo algún ingreso de una cuenta de jubilación, pensión o ingresos de la anualidad?
-          other: En %{year}, ¿usted o su cónyuge tuvieron ingresos de una cuenta de jubilación, pensión o ingresos de la anualidad?
+          other: En el %{year}, ¿tuvo usted o su pareja algún ingreso de una cuenta de jubilación, pensión o anualidad?
       returning_client:
         next_steps_html: Consulte el correo electrónico de confirmación o el texto de su preparador de impuestos con los siguientes pasos. Si tiene preguntas, debe enviar un correo electrónico a %{email_link}
         title: Parece que ya ha comenzado su formulario de impuestos.
@@ -1005,17 +1005,17 @@ es:
         help_text: Responda "Sí" si usted es un maestro que compró útiles para su trabajo.
         title:
           one: En %{year}, ¿pagó por útiles escolares elegibles como maestro, ayudante de maestro u otro educador?
-          other: En %{year}, ¿usted o su cónyuge pagaron por algún material escolar elegible como maestro, ayudante de maestro u otro educador?
+          other: En %{year}, ¿pagó usted o su pareja por algún material escolar elegible como maestro, ayudante de maestro u otro educador?
       self_employment:
         help_text: Responda "Sí" si recibió un 1099-MISC, 1099-K o mantuvo registros de pago para su propio negocio. Esto incluye el efectivo que recibió por bienes o servicios.
         title:
           one: En %{year}, ¿tuvo algún ingreso por contrato o trabajo por cuenta propia?
-          other: En %{year}, ¿tenía usted o su cónyuge algún ingreso por contrato o trabajo por cuenta propia?
+          other: En el %{year}, ¿tuvo usted o su pareja algún ingreso por contrato o trabajo por cuenta propia?
       self_employment_loss:
         help_text: Si no está seguro, puede consultar el Anexo C en su declaración de impuestos %{prior_year}.
         title:
           one: "¿Reportó una pérdida comercial en su declaración de impuestos %{prior_year}?"
-          other: "¿Usted o su cónyuge informaron una pérdida comercial en su declaración de impuestos %{prior_year}?"
+          other: "¿Informó usted o su pareja una pérdida de negocio en su declaración de impuestos en el %{prior_year}?"
       separated:
         title: "¿Estás legalmente separado?"
       separated_year:
@@ -1025,166 +1025,166 @@ es:
         help_text: Responda "Sí" si recibió un SSA-1099 o un RRB-1099.
         title:
           one: En %{year}, ¿tuvo algún ingreso del Seguro Social o de los Beneficios de jubilación ferroviaria?
-          other: En %{year}, ¿tenía usted o su cónyuge algún ingreso del Seguro Social o de los Beneficios de jubilación ferroviaria?
+          other: En %{year}, ¿Tenía usted o su pareja algún ingreso del Seguro Social o de los Beneficios de jubilación ferroviaria?
       sold_home:
         title:
           one: En %{year}, ¿vendiste una casa?
-          other: En %{year}, ¿usted o su cónyuge vendieron una casa?
+          other: En el %{year}, ¿Vendió usted o su pareja una casa?
       spouse_consent:
         birth_date: Fecha de nacimiento
-        cta: estoy de acuerdo
-        spouse_first_name: Nombre legal del cónyuge
-        spouse_last_four_ssn: Últimos 4 de SSN / ITIN
-        spouse_last_name: Apellido legal del cónyuge
-        title: Necesitamos que su cónyuge revise nuestros asuntos legales ...
+        cta: Estoy de acuerdo
+        spouse_first_name: Nombre legal de su pareja
+        spouse_last_four_ssn: Últimos 4 del SSN / ITIN
+        spouse_last_name: Apellido legal de su pareja
+        title: Necesitamos que su cónyuge revise algunos asuntos legales nuestros ...
       spouse_email_address:
-        info: Se requiere un correo electrónico para la firma final en su declaración de impuestos.
+        info: Se requiere un correo electrónico para la última firma en su declaración de impuestos.
         spouse_email_address: Dirección de correo electrónico
-        spouse_email_address_confirmation: Confirmar el correo
-        title: Por favor comparta la dirección de correo electrónico de su cónyuge.
+        spouse_email_address_confirmation: Confirme su correo
+        title: Por favor comparte el correo electrónico de su cónyuge.
       spouse_had_disability:
-        help_text: La discapacidad permanente se calcula como un porcentaje de la capacidad de trabajo de uno. Está clasificado en una escala del 0 al 100%.
-        title: En %{year}, ¿su cónyuge tenía una discapacidad permanente?
+        help_text: La discapacidad permanente se calcula como un porcentaje de la capacidad de trabajo de una persona. Está clasificado en una escala del 0 al 100%.
+        title: En el %{year}, ¿su cónyuge tenía una discapacidad permanente?
       spouse_identity:
         info_later: Si no, podemos enviarles un enlace de inicio de sesión a través de texto o correo electrónico.
         info_now: Si su cónyuge está sentado con usted, puede seguir adelante e iniciar sesión con ID.me
-        sign_in_html: Inicie sesión en su cónyuge con <span class="sr-only">ID.me</span>
-        skip_for_now: Omita este paso por ahora
-        title: Identidad del cónyuge
+        sign_in_html: Inicie sesión de su cónyuge con <span class="sr-only">ID.me</span>
+        skip_for_now: Sáltese esta etapa por ahora
+        title: Identidad de su cónyuge
       spouse_issued_identity_pin:
-        title: "¿Se le ha emitido a su cónyuge un PIN de protección de identidad?"
+        title: "¿Se le ha emitido a su pareja un PIN de protección de identidad?"
       spouse_on_visa:
         help_text: Deben tener un sello en su pasaporte para indicarlo.
-        title: En %{year}, ¿estaba su cónyuge en los Estados Unidos con una visa?
+        title: En el %{year}, ¿estaba su cónyuge en los Estados Unidos con una visa?
       spouse_was_blind:
         help_text: Esto básicamente significa que incluso con lentes correctivos o cirugía, para ver claramente un objeto que una persona con visión normal podría ver desde 200 pies de distancia, uno tendría que estar a 20 pies o más cerca.
-        title: En %{year}, ¿su cónyuge era legalmente ciego?
+        title: En el %{year}, ¿su cónyuge era legalmente ciego?
       spouse_was_student:
         help_text: Estamos preguntando específicamente si persiguieron estudios superiores como un título de asociado, licenciatura o maestría.
-        title: "¿Era su cónyuge un estudiante de tiempo completo en %{year}?"
+        title: "¿Era su cónyuge un estudiante de tiempo completo en el %{year}?"
       start_with_current_year:
-        info: Comenzaremos preguntando sobre su situación en %{year}.
+        info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Empecemos
       stimulus_recommendation:
         already_filed: Como ya ha presentado su solicitud para 2019, ¡recibirá automáticamente su cheque de estímulo! Si tiene preguntas adicionales sobre su estímulo, le recomendamos que consulte nuestra página de Preguntas frecuentes sobre estímulos.
-        title: "¡Obtenga su cheque de estímulo!"
-        visit_stimulus_faq: Visita las preguntas frecuentes sobre estímulos
+        title: "¡Obtenga su cheque del incentivo!"
+        visit_stimulus_faq: Revise las preguntas frecuentes del incentivo
       student:
         help_text: Esto incluye colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional.
-        title: En %{year}, ¿alguien de su familia era estudiante universitario u otro estudiante de secundaria?
+        title: En el %{year}, ¿alguien de su familia era estudiante universitario u otro estudiante de secundaria?
       student_loan_interest:
-        help_text: Responda "Sí" si está haciendo pagos de préstamos estudiantiles.
+        help_text: Responda "Sí" si está realizando pagos de algún préstamo educativo.
         title:
           one: En %{year}, ¿pagó algún interés de préstamo estudiantil?
-          other: En %{year}, ¿usted o su cónyuge pagaron algún interés de préstamo estudiantil?
+          other: En el %{year}, ¿usted o su cónyuge pagó interés de algún préstamo educativo?
       successfully_submitted:
         confirmation_number: 'Su número de confirmación es: %{confirmation_number}'
         next_steps:
-          confirmation_message: En breve recibirá un mensaje de confirmación.
+          confirmation_message: En seguido, recibirá un mensaje de confirmación.
           header: Próximos pasos
-          partner_review: Su preparador de impuestos en %{partner_name} revisará su información
-          partner_timing: "%{partner_name} se comunicará dentro de 3 días hábiles para hablar sobre sus impuestos"
-          review: Su preparador de impuestos revisará su información
-          timing: Su preparador de impuestos se comunicará dentro de los 3 días hábiles para hablar sobre sus impuestos.
-        title: "¡Éxito! Su información fiscal ha sido enviada."
+          partner_review: Su asesor fiscal en %{partner_name} revisará su información
+          partner_timing: "%{partner_name} se comunicará dentro de 3 días hábiles para discutir sus impuestos"
+          review: Su asesor fiscal revisará su información
+          timing: Su asesor fiscal se comunicará dentro de los 3 días hábiles para discutir sus impuestos.
+        title: "¡Felicidades! Su información tributaria ha sido enviada."
       tax_credit_disallowed:
-        help_text: Responda "Sí" si le pidieron que reembolse alguno de estos créditos en el pasado.
+        help_text: Responde "Sí" si le pidieron que reembolsaba alguno de estos créditos en el pasado.
         title:
           one: "¿Ha sido rechazado en el año anterior el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos, el Crédito por Oportunidad Estadounidense o el estado civil de Jefe de Familia?"
-          other: "¿Ha tenido usted o su cónyuge el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
+          other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
       tips:
-        help_text: Responda "Sí" si recibió alguna propina en efectivo no incluida en un W-2.
+        help_text: Responde "Sí" si recibió alguna propina de efectivo no incluida en el formulario W-2.
         title:
           one: En %{year}, ¿recibió algún consejo?
-          other: En %{year}, ¿recibió usted o su cónyuge algún consejo?
+          other: En el %{year}, ¿recibió usted o su cónyuge algún consejo?
       unemployment_income:
-        help_text: Responda "Sí" si recibió un formulario 1099-G.
+        help_text: Responde "Sí" si recibió el formulario 1099-G.
         title:
           one: En %{year}, ¿recibió beneficios de desempleo?
-          other: En %{year}, ¿recibió usted o su cónyuge beneficios de desempleo?
+          other: En el %{year}, ¿recibió usted o su cónyuge beneficios de desempleo?
       wages:
-        help_text: Como empleado, debe recibir un W-2 por cualquier trabajo que haya trabajado. Obtenga más información sobre el formulario W-2.
+        help_text: Como empleado, debe recibir un W-2 por cada trabajo en el que haya sido empleado. Obtenga más información sobre el formulario W-2.
         title:
           one: En %{year}, ¿recibió sueldos o salarios?
-          other: En %{year}, ¿recibió usted o su cónyuge sueldos o salarios?
+          other: En el %{year}, ¿recibió usted o su cónyuge sueldos o salarios?
       was_blind:
-        help_text: Esto significa que incluso con lentes correctivos o cirugía, para ver claramente un objeto que una persona con visión normal podría ver desde 200 pies de distancia, tendría que estar a 20 pies o más cerca.
-        title: En %{year}, ¿eras legalmente ciego?
+        help_text: Esto significa que incluso con lentes correctivos o cirugía, para ver claramente un objeto que una persona con visión normal podría ver desde 200 pies de distancia, usted tendría que estar a 20 pies o más cerca.
+        title: En el %{year}, ¿eras legalmente ciego?
       was_student:
-        help_text: Le preguntamos específicamente si realizó estudios superiores, como un título de asociado, licenciatura o maestría.
-        title: "¿Eras estudiante a tiempo completo en %{year}?"
+        help_text: Le preguntamos específicamente si realizó estudios superiores, como un título de diplomado, licenciatura o maestría.
+        title: "¿Eras un estudiante de tiempo completo en el %{year}?"
       welcome:
         diy:
-          header: Presentar impuestos yo mismo
-          info: Archive rápidamente con nuestra herramienta de bricolaje.
+          header: Declarar impuestos mi mismo
+          info: Declare rápidamente con nuestra herramienta DIY.
         intake:
-          header: Presentar impuestos con ayuda
-          info: Revise y presente con la ayuda de un experto en impuestos.
+          header: Declarar impuestos con ayuda
+          info: Revise y declare con la ayuda de un experto de impuestos.
         question:
           header: Hacer una pregunta
-          info: Obtenga respuestas a sus preguntas relacionadas con los impuestos.
-        title: "¡Bienvenidos! como podemos ayudarte?"
+          info: Obtenga respuestas a sus preguntas de impuestos.
+        title: "¡Bienvenidos! ¿Cómo podemos ayudarle?"
       widowed:
-        title: Al 31 de diciembre, %{year}, ¿eras viudo?
+        title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
       widowed_year:
-        before_2014: antes de 2014
-        title: "¿Cuál fue el año de la muerte de su cónyuge?"
+        before_2014: antes del 2014
+        title: "¿En qué año falleció su cónyuge?"
     shared:
       consent_agreement:
         details:
-          cfa: Entiendo que GetYourRefund.org es un sitio web dirigido por Code for America, una organización sin fines de lucro, que enviará mi información fiscal a un sitio de preparación de VITA.
-          civil_rights_link: protege mis derechos civiles
-          civil_rights_understanding: Entiendo que VITA
+          cfa: Entiendo que GetYourRefund.org es un sitio web dirigido por Code for America, una organización sin fines de lucro, que enviará mi información tributaria a un sitio de preparación de VITA.
+          civil_rights_link: protege mis derechos civiles.
+          civil_rights_understanding: Comprendo esta Asistencia Voluntaria al Contribuyente Tributario (VITA).
           collects_pii: Entiendo que este sitio recopila la información de identificación personal que proporciono (números del Seguro Social, formularios W-2 o 1099, identificación con foto y otros documentos) para preparar mi declaración de impuestos y hacer un control de calidad de ella.
           contacted: Entiendo que alguien podría comunicarse conmigo a través del medio que yo prefiera para obtener más información. Si el preparador tiene todo lo necesario para preparar la declaración, nadie se comunicará conmigo hasta que la declaración esté lista.
           e_signature: Entiendo que tendré que firmar el formulario 8879 (SP), la autorización de firma electrónica del IRS para presentar la declaración por Internet, mediante una firma electrónica que enviaré por correo electrónico, después de completar control de calidad para que un sitio de preparación de VITA pueda presentar mi declaración de impuestos en línea.
           header: Los detalles
           intake_process: 'Proceso de admisión: GetYourRefund recopilará su información y su documentación a través del proceso de admisión con el fin de preparar correctamente su declaración de impuestos.'
           interview_and_review: Entiendo que tendré que participar en una entrevista telefónica de admisión y control de calidad para que un sitio de preparación de VITA presente mi declaración de impuestos.
-          irs: Este formulario de consentimiento reemplaza el formulario 14446 (SP) del IRS, consentimiento del contribuyente del VITA/TCE Virtual. El sitio conservará una copia de este consentimiento, según lo que exige el IRS.
-          provide_required_info: Entiendo que debo proporcionar toda la información/documentación requerida para preparar una declaración de impuestos correcta.
+          irs: Este formulario de consentimiento reemplaza el formulario 14446 (SP) del IRS, consentimiento del contribuyente del VITA/TCE Virtual. Una copia copia de este consentimiento sera conservada, como lo exige el IRS.
+          provide_required_info: Entiendo que debo de proporcionar toda la información/documentación requerida para preparar una declaración de impuestos correcta.
           quality_review_process: 'Proceso de control de calidad: GetYourRefund le enviará su declaración para que la verifique antes de presentarla.'
-          responsible: Entiendo que mi cónyuge (si tengo) y yo somos responsables en última instancia de toda la información proporcionada a GetYourRefund.
+          responsible: Entiendo que mi pareja (si tengo) y yo somos responsables en última instancia de toda la información proporcionada a GetYourRefund.
           return_prep_process: 'Proceso de preparación de la declaración: GetYourRefund utilizará su información/documentación para completar una declaración de impuestos.'
-          review_return: Entiendo que tengo que revisar mi declaración de impuestos cuando esté lista para verificar que los nombres, números del Seguro Social, la dirección, la información bancaria, los ingresos y gastos sean correctos a mi leal saber.
-          sign_below: Al firmar, usted acepta participar en este proceso y permite que GetYourRefund lo ayude con su declaración de impuestos. Asimismo, acepta los términos de la política de privacidad de GetYourRefund, disponibles en www.GetYourRefund.org/privacy.
-        information_you_provide: Usted entiende que la información que proporciona a este sitio (GetYourRefund.org) se envía a un sitio de preparación de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) para que un voluntario certificado por el IRS revise su información, realice una entrevista de admisión por teléfono, prepare su declaración de impuestos y haga un control de calidad antes de presentarla.
-        proceed_and_confirm: Al continuar, usted confirma que las siguientes declaraciones son verdaderas y completas a su leal saber.
-        terms_html: Usted está de acuerdo con los términos de la política de privacidad de GetYourRefund en %{privacy_link}
+          review_return: Entiendo que tengo que revisar mi declaración de impuestos cuando esté lista para verificar que los nombres, números del Seguro Social, la dirección, la información bancaria, los ingresos y gastos sean correctos a mi entender.
+          sign_below: Al firmar, usted quiere participar en este proceso y permite que GetYourRefund lo ayude con su declaración de impuestos. Asimismo, acepta los términos de la política de dilvulgación de información privada de GetYourRefund, disponible en www.GetYourRefund.org/privacy.
+        information_you_provide: Usted entiende que la información que proporciona en este sitio de web (GetYourRefund.org) se envía a un sitio de preparación de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) para que un voluntario certificado por el Servicio de Rentas Internas (SRI) revise su información, realice una entrevista de admisión por teléfono, prepare su declaración de impuestos y haga un control de calidad antes de presentarla.
+        proceed_and_confirm: Al continuar, usted confirma que las siguientes declaraciones son verdaderas y completas hasta donde se sabe.
+        terms_html: Usted está de acuerdo con los términos de la política de divulgación de información privada de GetYourRefund disponible en %{privacy_link}
       covid_warning:
         notice_html: Por la pandemia de COVID-19, varios centros de VITA y todos los centros TCE permanecerán cerrados durante un período de tiempo indeterminado. Llame antes de visitar las oficinas para confirmar el horario de atención. Para conectarse con un sitio de VITA en línea y recibir ayuda con su declaración de impuestos de forma remota, visite GetYourRefund.org y haga clic en "Get Started" ("Empezar"). También puede visitar %{free_file_link} para encontrar otras herramientas gratuitas de preparación de impuestos en línea.
       environment_warning:
-        banner: Este sitio web es solamente para usar de ejemplo. Si quiere ayuda con su impuestos, vaya a
+        banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
       footer:
-        service_description_html: GetYourRefund.org es un servicio sin fines de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
+        service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
       grayscale_partner_logo:
-        provider_homepage: Página de inicio de %{provider_name}
+        provider_homepage: Portada de %{provider_name}
     vita_providers:
       index:
-        enter_zip: Ingrese su código postal para encontrar proveedores cerca de usted.
-        header: Obtenga ayuda gratuita de un preparador de declaraciones de impuestos
-        info: Los programas de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) del IRS ofrecen ayuda gratis con sus impuestos a los contribuyentes que califiquen.
-        no_results: "¡Lo sentimos! No hemos encontrado ningún resultado en un área de 50 millas de su dirección."
-        results: Hemos encontrado %{total_entries} resultados en un área de 50 millas de %{zip}
+        enter_zip: Ingrese su código postal para encontrar proveedores cercanos.
+        header: Obtenga ayuda gratuita en declarar sus impuestos
+        info: Los programas de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) del IRS ofrecen ayuda con los impuestos gratis, a los contribuyentes que califiquen.
+        no_results: "¡Disculpe! No hemos encontrado ningún resultado dentro de 50 millas de su dirección."
+        results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip}
         search:
-          header: Ingrese su código postal para encontrar proveedores cerca de usted.
-          no_results: No hemos encontrado ningún resultado en un área de 50 millas de %{zip} (%{zip_name}).
-          placeholder: Ingrese el código postal
+          header: Ingrese su código postal para encontrar proveedores cercanos.
+          no_results: No hemos encontrado ningún resultado dentro de 50 millas de %{zip} (%{zip_name}).
+          placeholder: Ingrese su código postal
           prepare_your_own_html: También puede preparar su propia declaración de impuestos utilizando el %{free_file_link} para encontrar una manera gratuita de hacerlo en línea.
-          results: Hemos encontrado %{total_entries} resultados en un área de 50 millas de %{zip} (%{zip_name}).
-          try_another: Pruebe con otro código postal.
-          try_another_or_apply_html: Pruebe con otro código postal o con nuestro %{intake_link}.
+          results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip} (%{zip_name}).
+          try_another: Intente otro código postal.
+          try_another_or_apply_html: Intente otro código postal o con nuestro %{intake_link}.
           try_intake_form: formulario en línea de VITA gratuito
-        title: Buscar una ubicación
+        title: Ubicar
       show:
         appointment_info: Las citas son %{appointment_info}.
         call_to_schedule: Llame para programar.
-        maps_link_title: Enlace de Google Maps de %{provider_name}
-        no_hours_listed: Lo sentimos, no hay horas.
-        no_phone_number_listed: Lo sentimos, no hay números de teléfono.
+        maps_link_title: Vínculo de Google Maps por %{provider_name}
+        no_hours_listed: Disculpe, no hay horario de apertura.
+        no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
-        search_radius: En un área de %{distance} millas de %{zip} (%{zip_name}) %>
+        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name}) %>
     zendesk:
       intakes:
         banking_info:
@@ -1193,15 +1193,15 @@ es:
           bank_name: Nombre del banco
           routing_number: Número de ruta
       sign_in:
-        cta: Inicie sesión con Zendesk
-        title: "¡Primero, necesitamos que verifique con Zendesk!"
+        cta: Inicie sesión de Zendesk
+        title: "¡Primero, necesitamos que se verifique con Zendesk!"
       tickets:
         show:
           chart:
-            bank_info: Información del banco
+            bank_info: Datos bancarios
             consent: Consentimiento
-            doc_type: Tipo de documento
-            header: El siguiente cuadro no incluye documentos cargados por voluntarios de VITA o atención al cliente.
-            link: Enlace
-            notes: Notas
+            doc_type: Clase de documento
+            header: El siguiente gráfica no incluye documentos cargados por voluntarios de VITA o atención al cliente.
+            link: Vínculo
+            notes: Apuntes
             upload_date: Fecha de carga
