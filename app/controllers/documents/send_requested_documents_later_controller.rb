@@ -19,6 +19,10 @@ module Documents
       false
     end
 
+    def show_progress?
+      false
+    end
+
     def self.document_type
       nil
     end

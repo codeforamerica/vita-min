@@ -30,5 +30,14 @@ describe IntakeProgressCalculator do
     it "returns the same values for the DependentsController and the Questions:HadDependentsController" do
       expect(calculator.get_progress(DependentsController, intake)).to eq calculator.get_progress(Questions::HadDependentsController, intake)
     end
+
+    it "includes all possible future steps until you reach the question" do
+      intake_survey_yes = Intake.new(demographic_questions_opt_in: :yes)
+      intake_survey_no = Intake.new(demographic_questions_opt_in: :no)
+      intake_survey_unfilled = Intake.new
+
+      expect(calculator.get_progress(Questions::MailingAddressController, intake_survey_yes)).to eq calculator.get_progress(Questions::MailingAddressController, intake_survey_no)
+      expect(calculator.get_progress(Questions::MailingAddressController, intake_survey_yes)).to eq calculator.get_progress(Questions::MailingAddressController, intake_survey_unfilled)
+    end
   end
 end
