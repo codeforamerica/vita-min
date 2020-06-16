@@ -13,12 +13,16 @@
       </div>
 
       <ul class="grid__item width-one-fourth footer-links">
-        <%# if I18n.locale != :en %>
-<!--          <li><%#= link_to("English", "?" + request.query_parameters.merge("new_locale" => "en").to_query, lang: 'en') %></li>-->
-        <%# end %>
-        <%# if I18n.locale != :es %>
-<!--          <li><%#= link_to "Español", "?" + request.query_parameters.merge("new_locale" => "es").to_query, lang: 'es' %></li>-->
-        <%# end %>
+        <% if I18n.locale != :en %>
+          <li>
+            <%= link_to_english() %>
+          </li>
+        <% end %>
+        <% if I18n.locale != :es %>
+          <li>
+            <%= link_to_spanish() %>
+          </li>
+        <% end %>
         <li>
           <%= link_to about_us_path do %>
             <%=t("views.public_pages.about_us.title") %>
