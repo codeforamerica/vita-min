@@ -3,9 +3,8 @@
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
     <%= f.vita_min_text_field(:other_income_types, content_for(:page_title)) %>
-    <button class="button button--primary" type="submit">
+    <button class="button button--primary button--wide" type="submit">
       <%=t("general.next") %>
-      <i class="button__icon icon-arrow_forward"></i>
     </button>
   <% end %>
 <% end %>
