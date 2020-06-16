@@ -55,27 +55,27 @@
                 <% end %>
               </div>
             </div>
-            <%= f.button class: "button button--primary" do %>
+            <%= f.button class: "button button--primary button--wide" do %>
               <%=t("general.upload") %>
             <% end %>
           <% end %>
 
           <% if DocumentNavigation::REQUIRED_DOCUMENT_TYPES.include?(document_type) %>
             <% if @documents.present? %>
-              <%= link_to next_path, class: "button button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
+              <%= link_to next_path, class: "button button--cta button--wide text--centered", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
                 <%=t("general.continue") %>
               <% end %>
             <% else %>
-              <button class="button button--cta button--disabled" disabled>
+              <button class="button button--cta button--disabled button--wide text--centered" disabled>
                 <%=t("general.continue") %>
               </button>
             <% end %>
           <% else %>
-            <%= link_to next_path, class: "button button--wide button--icon button--cta", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
+            <%= link_to next_path, class: "button button--icon button--cta button--wide", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
               <%= image_tag "checkmark--white.svg", alt: "" %>
               <%=t("views.layouts.document_upload.done_for_now") %>
             <% end %>
-            <%= link_to next_path, class: "button button--wide button--icon", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
+            <%= link_to next_path, class: "button button--icon button--wide", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
               <%= image_tag "crossmark--black.svg", alt: "" %>
               <%=t("views.layouts.document_upload.dont_have") %>
             <% end %>
