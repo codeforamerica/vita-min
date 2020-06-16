@@ -467,7 +467,7 @@ es:
         filing_deadline_banner:
           body: No tiene que presentar un formulario adicional ni llamar al IRS para pedir una extensión. Le recomendamos que declare sus impuestos hoy mismo, ya que puede recibir un reembolso que puede ayudar a mantener su hogar.
           title: 'Nota: La fecha límite para presentar la declaración del impuesto federal ha sido extendida hasta el 15 de julio de 2020.'
-        header: 'Personas reales, proporcionando apoyo gratuito para su declaración de impuestos '
+        header: 'Personas reales, proporcionando apoyo gratuito para su declaración de impuestos'
         partners:
           header: Colaboramos con organizaciones de confianza
           learn_more_html: Obtenga más información sobre nosotros &rsaquo;

@@ -153,19 +153,18 @@ class ApplicationController < ActionController::Base
   end
 
   def switch_locale(&action)
-    # Set the locale in order of priority
-    # 1) Language picker: query param 'new_locale'
-    # 2) Previously set locale: query param 'locale' (added by default_url_options once I18n.locale is set)
-    # 3) Browser settings: accept-header is examined if no params are set
-    # 4) Default Fallback: from I18n.default_locale (we set it to :en)
-    # TODO: uncomment to include browser settings when we unlock spanish translation
-    # locale = params[:new_locale] || params[:locale] || http_accept_language.compatible_language_from(I18n.available_locales) || I18n.default_locale
-    locale = params[:new_locale] || params[:locale] || I18n.default_locale
+    locale = available_locale(params[:new_locale]) ||
+      available_locale(params[:locale]) ||
+      http_accept_language.compatible_language_from(I18n.available_locales) ||
+      I18n.default_locale
     I18n.with_locale(locale, &action)
   end
 
-
   private
+
+  def available_locale(locale)
+    locale if I18n.available_locales.map(&:to_sym).include?(locale&.to_sym)
+  end
 
   ##
   # when the session's current intake doesn't have a ticket, this will
