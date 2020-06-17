@@ -5,7 +5,7 @@ class IntakeProgressCalculator
   doc_overview_index = question_steps.index(Questions::OverviewDocumentsController)
   POSSIBLE_STEPS = question_steps.insert(doc_overview_index + 1, *DocumentNavigation::FLOW)
 
-  def get_progress(controller, intake)
+  def self.get_progress(controller, intake)
     return 0 if controller == POSSIBLE_STEPS.first
 
     # The DependentsController is not in the QuestionsFlow, so we hold progress at the HadDependentsController until they move on

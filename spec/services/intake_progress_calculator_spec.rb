@@ -14,21 +14,20 @@ describe IntakeProgressCalculator do
 
   describe "#get_progress" do
     let (:intake) { create :intake }
-    let(:calculator) { IntakeProgressCalculator.new }
     it "returns 0 for the progress of the starting controller and intake" do
-      progress = calculator.get_progress(Questions::BacktaxesController, intake)
+      progress = IntakeProgressCalculator.get_progress(Questions::BacktaxesController, intake)
 
       expect(progress).to eq 0
     end
 
     it "returns 100 for the progress of the final controller and intake" do
-      progress = calculator.get_progress(Questions::SuccessfullySubmittedController, intake)
+      progress = IntakeProgressCalculator.get_progress(Questions::SuccessfullySubmittedController, intake)
 
       expect(progress).to eq 100
     end
 
     it "returns the same values for the DependentsController and the Questions:HadDependentsController" do
-      expect(calculator.get_progress(DependentsController, intake)).to eq calculator.get_progress(Questions::HadDependentsController, intake)
+      expect(IntakeProgressCalculator.get_progress(DependentsController, intake)).to eq IntakeProgressCalculator.get_progress(Questions::HadDependentsController, intake)
     end
 
     it "includes all possible future steps until you reach the question" do
@@ -36,8 +35,8 @@ describe IntakeProgressCalculator do
       intake_survey_no = Intake.new(demographic_questions_opt_in: :no)
       intake_survey_unfilled = Intake.new
 
-      expect(calculator.get_progress(Questions::MailingAddressController, intake_survey_yes)).to eq calculator.get_progress(Questions::MailingAddressController, intake_survey_no)
-      expect(calculator.get_progress(Questions::MailingAddressController, intake_survey_yes)).to eq calculator.get_progress(Questions::MailingAddressController, intake_survey_unfilled)
+      expect(IntakeProgressCalculator.get_progress(Questions::MailingAddressController, intake_survey_yes)).to eq IntakeProgressCalculator.get_progress(Questions::MailingAddressController, intake_survey_no)
+      expect(IntakeProgressCalculator.get_progress(Questions::MailingAddressController, intake_survey_yes)).to eq IntakeProgressCalculator.get_progress(Questions::MailingAddressController, intake_survey_unfilled)
     end
   end
 end
