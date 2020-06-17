@@ -1,3 +1,3 @@
 <% if show_progress? %>
-  <%= render 'components/molecules/progress_indicator', percent: IntakeProgressCalculator.new.get_progress(controller.class, current_intake) %>
+  <%= render 'components/molecules/progress_indicator', percent: IntakeProgressCalculator.get_progress(controller.class, current_intake) %>
 <% end %>
