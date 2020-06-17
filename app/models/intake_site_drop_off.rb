@@ -80,21 +80,15 @@ class IntakeSiteDropOff < ApplicationRecord
   strip_attributes only: [:name, :email, :phone_number, :additional_info]
 
   validates_presence_of :name
-  validates :intake_site, inclusion: { in: INTAKE_SITES.values.flatten, message: I18n.t("models.intake_site_drop_off.validators.intake_site_inclusion") }
+  validates :intake_site, inclusion: { in: INTAKE_SITES.values.flatten }
   # TODO: use the States table, e.g.:
   # belongs_to :state, foreign_key: :abbreviation
-  validates :state, inclusion: { in: States.keys, message: I18n.t("models.intake_site_drop_off.validators.state_inclusion") }
+  validates :state, inclusion: { in: States.keys }
   validates :organization, inclusion: { in: ORGANIZATIONS }
-  validates :signature_method, inclusion: { in: SIGNATURE_METHODS, message: I18n.t("models.intake_site_drop_off.validators.signature_method_inclusion") }
-  validates :certification_level, allow_blank: true, inclusion: {
-    in: CERTIFICATION_LEVELS,
-    message: I18n.t("models.intake_site_drop_off.validators.certification_level_inclusion")
-  }
-  validates :email, allow_blank: true, format: {
-    with: URI::MailTo::EMAIL_REGEXP,
-    message: I18n.t("models.intake_site_drop_off.validators.email_valid"),
-  }
-  validates :phone_number, allow_blank: true, phone: { message: I18n.t("models.intake_site_drop_off.validators.phone_number_valid") }
+  validates :signature_method, inclusion: { in: SIGNATURE_METHODS }
+  validates :certification_level, allow_blank: true, inclusion: { in: CERTIFICATION_LEVELS }
+  validates :email, allow_blank: true, 'valid_email_2/email': true
+  validates :phone_number, allow_blank: true, phone: true
   validate :has_document_bundle?
   validate :has_valid_pickup_date?
 
