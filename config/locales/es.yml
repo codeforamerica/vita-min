@@ -14,22 +14,70 @@ es:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
       need_phone_number: Por favor, introduzca un número de teléfono celular.
-    validators:
-      answer_presence: Por favor, responda o haga clic en "Saltar pregunta"
-      email_address_confirmation_match: Por favor, revise que las direcciones de correo electrónico sean iguales.
-      email_address_valid: Por favor, introduzca una dirección de correo electrónico válida.
-      generic_presence: No puede estar en blanco.
-      job_count_presence: Por favor, seleccione un número de trabajos.
-      phone_number_confirmation_match: Por favor, compruebe si los números de teléfono coinciden.
-      phone_number_valid: Por favor, introduzca un número de teléfono válido.
-      preferred_name_presence: Por favor, introduzca su nombre preferido.
-      primary_first_name_presence: Por favor, introduzca su primer nombre.
-      primary_last_four_ssn_length: Por favor, ingrese los últimos cuatro dígitos de su SSN o ITIN.
-      primary_last_name_presence: Por favor, ingrese su apellido.
-      spouse_first_name_presence: Por favor ingrese el nombre de su cónyuge.
-      spouse_last_four_ssn_length: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
-      spouse_last_name_presence: Por favor, ingrese el apellido de su pareja.
-      state_of_residence_inclusion: Por favor, seleccione un estado de la lista.
+  errors:
+    attributes:
+      birth_date:
+        blank: Por favor, introduzca una fecha válida.
+      certification_level:
+        inclusion: Por favor, seleccione un nivel de certificación.
+      demographic_disability:
+        blank: Por favor, responda o haga clic en "Saltar pregunta"
+      demographic_english_conversation:
+        blank: Por favor, responda o haga clic en "Saltar pregunta"
+      demographic_english_reading:
+        blank: Por favor, responda o haga clic en "Saltar pregunta"
+      demographic_primary_ethnicity:
+        blank: Por favor, responda o haga clic en "Saltar pregunta"
+      demographic_spouse_ethnicity:
+        blank: Por favor, responda o haga clic en "Saltar pregunta"
+      demographic_veteran:
+        blank: Por favor, responda o haga clic en "Saltar pregunta"
+      email:
+        invalid: Por favor, introduzca una dirección de correo electrónico válida.
+      email_address:
+        invalid: Por favor, introduzca una dirección de correo electrónico válida.
+      email_address_confirmation:
+        confirmation: Por favor, revise que las direcciones de correo electrónico sean iguales.
+      first_name:
+        blank: Por favor, introduzca un nombre.
+      intake_site:
+        inclusion: Por favor, seleccione un sitio de admisión.
+      job_count:
+        blank: Por favor, seleccione un número de trabajos.
+      last_name:
+        blank: Por favor, introduzca un apellido.
+      phone_number:
+        invalid: Por favor, introduzca un número de teléfono válido.
+      phone_number_confirmation:
+        confirmation: Por favor, compruebe si los números de teléfono coinciden.
+      preferred_name:
+        blank: Por favor, introduzca su nombre preferido.
+      primary_first_name:
+        blank: Por favor, introduzca su primer nombre.
+      primary_last_four_ssn:
+        too_short: Por favor, ingrese los últimos cuatro dígitos de su SSN o ITIN.
+        too_long: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
+      primary_last_name:
+        blank: Por favor, ingrese su apellido.
+      signature_method:
+        inclusion: Por favor, seleccione un método de recogida.
+      spouse_email_address:
+        invalid: Por favor, introduzca una dirección de correo electrónico válida.
+      spouse_email_address_confirmation:
+        confirmation: Por favor, revise que las direcciones de correo electrónico sean iguales.
+      spouse_first_name:
+        blank: Por favor ingrese el nombre de su cónyuge.
+      spouse_last_name:
+        blank: Por favor, ingrese el apellido de su pareja.
+      spouse_last_four_ssn:
+        too_short: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
+        too_long: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
+      state:
+        inclusion: Por favor, seleccione un estado.
+      state_of_residence:
+        inclusion: Por favor, seleccione un estado de la lista.
+    messages:
+      blank: No puede estar en blanco.
   general:
     address: Dirección
     affirmative: Sí
@@ -110,24 +158,12 @@ es:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
   models:
-    dependent:
-      validators:
-        birth_date_presence: Por favor, introduzca una fecha válida.
-        first_name_presence: Por favor, introduzca un nombre.
-        last_name_presence: Por favor, introduzca un apellido.
     intake:
       your_spouse: Su cónyuge
     intake_site_drop_off:
       errors:
         choose_file: Por favor, elija un archivo.
         valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
-      validators:
-        certification_level_inclusion: Por favor, seleccione un nivel de certificación.
-        email_valid: Por favor, introduzca una dirección de correo electrónico válida.
-        intake_site_inclusion: Por favor, seleccione un sitio de admisión.
-        phone_number_valid: Por favor, introduzca un número de teléfono válido.
-        signature_method_inclusion: Por favor, seleccione un método de recogida.
-        state_inclusion: Por favor, seleccione un estado.
   validators:
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
   views:

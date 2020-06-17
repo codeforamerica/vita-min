@@ -13,9 +13,9 @@ class ConsentForm < QuestionsForm
     :primary_last_four_ssn
   )
 
-  validates_presence_of :primary_first_name, message: I18n.t("forms.validators.primary_first_name_presence")
-  validates_presence_of :primary_last_name, message: I18n.t("forms.validators.primary_last_name_presence")
-  validates_length_of :primary_last_four_ssn, maximum: 4, minimum: 4, message: I18n.t("forms.validators.primary_last_four_ssn_length")
+  validates_presence_of :primary_first_name
+  validates_presence_of :primary_last_name
+  validates_length_of :primary_last_four_ssn, maximum: 4, minimum: 4
   validate :valid_birth_date
 
   def save

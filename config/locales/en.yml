@@ -14,22 +14,70 @@ en:
     errors:
       at_least_one_year: Please pick at least one year.
       need_phone_number: Please enter a cell phone number.
-    validators:
-      answer_presence: Please answer or click "Skip question"
-      email_address_confirmation_match: Please double check that the email addresses match.
-      email_address_valid: Please enter a valid email address.
-      generic_presence: Can't be blank.
-      job_count_presence: Please select a number of jobs.
-      phone_number_confirmation_match: Please double check that the phone numbers match.
-      phone_number_valid: Please enter a valid phone number.
-      preferred_name_presence: Please enter your preferred name.
-      primary_first_name_presence: Please enter your first name.
-      primary_last_four_ssn_length: Please enter the last four digits of your SSN or ITIN.
-      primary_last_name_presence: Please enter your last name.
-      spouse_first_name_presence: Please enter your spouse's first name.
-      spouse_last_four_ssn_length: Please enter the last four digits of your spouse's SSN or ITIN.
-      spouse_last_name_presence: Please enter your spouse's last name.
-      state_of_residence_inclusion: Please select a state from the list.
+  errors:
+    attributes:
+      birth_date:
+        blank: Please enter a valid date.
+      certification_level:
+        inclusion: Please select a certification level.
+      demographic_disability:
+        blank: Please answer or click "Skip question"
+      demographic_english_conversation:
+        blank: Please answer or click "Skip question"
+      demographic_english_reading:
+        blank: Please answer or click "Skip question"
+      demographic_primary_ethnicity:
+        blank: Please answer or click "Skip question"
+      demographic_spouse_ethnicity:
+        blank: Please answer or click "Skip question"
+      demographic_veteran:
+        blank: Please answer or click "Skip question"
+      email:
+        invalid: Please enter a valid email.
+      email_address:
+        invalid: Please enter a valid email address.
+      email_address_confirmation:
+        confirmation: Please double check that the email addresses match.
+      first_name:
+        blank: Please enter a first name.
+      intake_site:
+        inclusion: Please select an intake site.
+      job_count:
+        blank: Please select a number of jobs.
+      last_name:
+        blank: Please enter a last name.
+      phone_number:
+        invalid: Please enter a valid phone number.
+      phone_number_confirmation:
+        confirmation: Please double check that the phone numbers match.
+      primary_first_name:
+        blank: Please enter your first name.
+      primary_last_four_ssn:
+        too_short: Please enter the last four digits of your SSN or ITIN.
+        too_long: Please enter the last four digits of your SSN or ITIN.
+      primary_last_name:
+        blank: Please enter your last name.
+      preferred_name:
+        blank: Please enter your preferred name.
+      signature_method:
+        inclusion: Please select a pickup method.
+      spouse_email_address:
+        invalid: Please enter a valid email address.
+      spouse_email_address_confirmation:
+        confirmation: Please double check that the email addresses match.
+      spouse_first_name:
+        blank: Please enter your spouse's first name.
+      spouse_last_name:
+        blank: Please enter your spouse's last name.
+      spouse_last_four_ssn:
+        too_short: Please enter the last four digits of your spouse's SSN or ITIN.
+        too_long: Please enter the last four digits of your spouse's SSN or ITIN.
+      state:
+        inclusion: Please select a state.
+      state_of_residence:
+        inclusion: Please select a state from the list.
+    messages:
+      blank: Can't be blank.
   general:
     address: Address
     affirmative: 'Yes'
@@ -110,24 +158,12 @@ en:
     birth_date_helper:
       valid_birth_date: Please select a valid date
   models:
-    dependent:
-      validators:
-        birth_date_presence: Please enter a valid date.
-        first_name_presence: Please enter a first name.
-        last_name_presence: Please enter a last name.
     intake:
       your_spouse: Your spouse
     intake_site_drop_off:
       errors:
         choose_file: Please choose a file.
         valid_pickup_date: Please enter a valid month and day (M/D).
-      validators:
-        certification_level_inclusion: Please select a certification level.
-        email_valid: Please enter a valid email.
-        intake_site_inclusion: Please select an intake site.
-        phone_number_valid: Please enter a valid phone number.
-        signature_method_inclusion: Please select a pickup method.
-        state_inclusion: Please select a state.
   validators:
     zip: Please enter a valid 5-digit zip code.
   views:

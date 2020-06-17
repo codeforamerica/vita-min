@@ -42,7 +42,7 @@ RSpec.describe VitaMinFormBuilder do
               <i class="icon-navigate_next"></i>
             </button>
           </div>
-          <span class="text--error" id="sample_query__errors"><i class="icon-warning"></i> can't be blank </span>
+          <span class="text--error" id="sample_query__errors"><i class="icon-warning"></i> Can't be blank. </span>
         </div>
       HTML
     end
@@ -89,7 +89,7 @@ RSpec.describe VitaMinFormBuilder do
               </select>
             </div>
           </div>
-          <span class="text--error" id="sample_how_many__errors"><i class="icon-warning"></i> can't be blank </span>
+          <span class="text--error" id="sample_how_many__errors"><i class="icon-warning"></i> Can't be blank. </span>
         </div>
       HTML
     end
@@ -123,7 +123,7 @@ RSpec.describe VitaMinFormBuilder do
           <div class="field_with_errors">
             <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="text-input" aria-describedby="form_name__errors" id="form_name" type="text" name="form[name]" />
           </div>
-          <span class="text--error" id="form_name__errors"><i class="icon-warning"></i> can't be blank </div>
+          <span class="text--error" id="form_name__errors"><i class="icon-warning"></i> Can't be blank. </div>
         </div>
       HTML
     end

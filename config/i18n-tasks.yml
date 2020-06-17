@@ -101,6 +101,7 @@ translation:
 ignore_unused:
   - 'date.formats.*'
   - 'general.*'
+  - 'errors.*'
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
