@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_12_170554) do
+ActiveRecord::Schema.define(version: 2020_06_17_153218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -342,6 +342,16 @@ ActiveRecord::Schema.define(version: 2020_06_12_170554) do
     t.bigint "vita_partner_id"
     t.index ["state_abbreviation"], name: "index_states_vita_partners_on_state_abbreviation"
     t.index ["vita_partner_id"], name: "index_states_vita_partners_on_vita_partner_id"
+  end
+
+  create_table "stimulus_triages", force: :cascade do |t|
+    t.integer "chose_to_file", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.integer "filed_prior_years", default: 0, null: false
+    t.integer "filed_recently", default: 0, null: false
+    t.integer "need_to_correct", default: 0, null: false
+    t.integer "need_to_file", default: 0, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "ticket_statuses", force: :cascade do |t|
