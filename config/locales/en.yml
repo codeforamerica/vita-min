@@ -704,7 +704,7 @@ en:
         title: Stimulus Payment
       tax_questions:
         cannot_answer:
-          different_services: Questions about taxes filed with a different service (H&amp;R Block, TurboTax)
+          different_services: Questions about taxes filed with a different service (H&R Block, TurboTax)
           header: 'We can not answer:'
           refund_amounts: The amount of refund you will receive
         header: Let's try to answer your tax questions!
