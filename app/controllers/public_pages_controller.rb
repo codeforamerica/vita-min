@@ -1,7 +1,7 @@
 class PublicPagesController < ApplicationController
   skip_before_action :check_maintenance_mode
 
-  def include_google_analytics?
+  def include_analytics?
     true
   end
 

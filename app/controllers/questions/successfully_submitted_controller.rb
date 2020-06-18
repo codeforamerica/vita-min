@@ -6,7 +6,7 @@ module Questions
     def edit
     end
 
-    def include_google_analytics?
+    def include_analytics?
       true
     end
   end

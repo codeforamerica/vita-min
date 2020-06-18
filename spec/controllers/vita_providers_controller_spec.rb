@@ -5,9 +5,9 @@ RSpec.describe VitaProvidersController do
     allow(subject).to receive(:send_mixpanel_event)
   end
 
-  describe "#include_google_analytics?" do
+  describe "#include_analytics?" do
     it "returns true" do
-      expect(subject.include_google_analytics?).to eq true
+      expect(subject.include_analytics?).to eq true
     end
   end
 
