@@ -6,7 +6,7 @@ module Diy
       # nothing left to do!
     end
 
-    def include_google_analytics?
+    def include_analytics?
       true
     end
 

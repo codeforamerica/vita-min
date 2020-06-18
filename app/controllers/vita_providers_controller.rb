@@ -2,7 +2,7 @@ class VitaProvidersController < ApplicationController
   METERS_IN_MILE = 1609.34
   helper_method :provider_result_number
 
-  def include_google_analytics?
+  def include_analytics?
     true
   end
 

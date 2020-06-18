@@ -37,9 +37,9 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#include_google_analytics?" do
+  describe "#include_analytics?" do
     it "returns false" do
-      expect(subject.include_google_analytics?).to eq false
+      expect(subject.include_analytics?).to eq false
     end
   end
 
