@@ -3,6 +3,7 @@
   <head>
     <% if include_google_analytics? && Rails.env.production? %>
       <%= render 'shared/google_analytics' %>
+      <%= render 'shared/microsoft_uet' %>
     <% end %>
     <% unless content_for? :page_title %>
       <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.<% end %>
