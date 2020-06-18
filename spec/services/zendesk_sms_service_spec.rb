@@ -255,6 +255,78 @@ describe ZendeskSmsService do
       end
     end
 
+    context "when at least one of the related tickets returns nil" do
+      let(:fake_ticket_1) { double(ZendeskAPI::Ticket, id: 1, group_id: "1001", updated_at: DateTime.new(2020, 4, 15, 6, 1), status: "new") }
+      let(:fake_ticket_2) { double(ZendeskAPI::Ticket, id: 2, group_id: "1002", updated_at: DateTime.new(2020, 4, 15, 6, 2), status: "closed") }
+      let(:fake_ticket_3) { double(ZendeskAPI::Ticket, id: 3, group_id: "1003", updated_at: DateTime.new(2020, 4, 15, 6, 3), status: "new") }
+      let(:fake_ticket_4) { nil }
+      let!(:drop_offs) do
+        [
+          create(:intake_site_drop_off, phone_number: phone_number, zendesk_ticket_id: "1"),
+          create(:intake_site_drop_off, phone_number: phone_number, zendesk_ticket_id: "2")
+        ]
+      end
+      let!(:first_intake) { create :intake, intake_ticket_id: 3, phone_number: phone_number }
+      let!(:second_intake) { create :intake, intake_ticket_id: 4, phone_number: phone_number }
+
+      before do
+        allow(service).to receive(:assign_ticket_to_group).and_return true
+        allow(service).to receive(:get_ticket).with(ticket_id: "1").and_return fake_ticket_1
+        allow(service).to receive(:get_ticket).with(ticket_id: "2").and_return fake_ticket_2
+        allow(service).to receive(:get_ticket).with(ticket_id: "3").and_return fake_ticket_3
+        allow(service).to receive(:get_ticket).with(ticket_id: "4").and_return fake_ticket_4
+      end
+
+      it "doesn't raise an error" do
+        expect {
+          service.handle_inbound_sms(
+            phone_number: phone_number,
+            sms_ticket_id: sms_ticket_id,
+            message_body: sms_message_body
+          )
+        }.not_to raise_error
+      end
+
+      it "updates the sms ticket with a comment to link to the other relevant open tickets" do
+        service.handle_inbound_sms(
+          phone_number: phone_number,
+          sms_ticket_id: sms_ticket_id,
+          message_body: sms_message_body
+        )
+
+        expected_comment_body = <<~BODY
+          Linked to related tickets:
+          • https://eitc.zendesk.com/agent/tickets/1
+          • https://eitc.zendesk.com/agent/tickets/3
+        BODY
+
+        expect(service).to have_received(:append_comment_to_ticket).with(
+          ticket_id: sms_ticket_id,
+          comment: expected_comment_body,
+          group_id: "1003",
+          fields: {
+            EitcZendeskInstance::LINKED_TICKET => "https://eitc.zendesk.com/agent/tickets/1,https://eitc.zendesk.com/agent/tickets/3"
+          },
+          )
+      end
+
+      it "updates only the open and present related tickets to link and flag them" do
+        service.handle_inbound_sms(
+          phone_number: phone_number,
+          sms_ticket_id: sms_ticket_id,
+          message_body: sms_message_body
+        )
+
+        [1, 3].map do |ticket_id|
+          expect(service).to have_received(:append_comment_to_ticket).with(hash_including(ticket_id: ticket_id), any_args)
+        end
+
+        expect(service).not_to have_received(:append_comment_to_ticket).with(hash_including(ticket_id: 2), any_args)
+
+        expect(service).not_to have_received(:append_comment_to_ticket).with(hash_including(ticket_id: 4), any_args)
+      end
+    end
+
     context "when ALL of the related tickets have a status of closed" do
       let(:fake_ticket_1) { double(ZendeskAPI::Ticket, id: 1, group_id: "1001", updated_at: DateTime.new(2020, 4, 15, 6, 1), status: "closed") }
       let(:fake_ticket_2) { double(ZendeskAPI::Ticket, id: 2, group_id: "1002", updated_at: DateTime.new(2020, 4, 15, 6, 2), status: "closed") }
