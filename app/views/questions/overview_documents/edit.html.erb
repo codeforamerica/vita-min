@@ -5,6 +5,7 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
+        <%= render "shared/progress_bar" %>
         <main role="main">
           <div class="form-card">
             <h1 class="form-question">
@@ -29,7 +30,7 @@
               <strong><%=t("views.questions.overview_documents.valid_phone_email") %></strong>
             </p>
 
-            <%= link_to next_path, class: "button button--primary text--centered" do %>
+            <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
               <%=t("general.continue") %>
             <% end %>
           </div>

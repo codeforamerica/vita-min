@@ -156,6 +156,7 @@
 #  updated_at                                           :datetime
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
+#  primary_intake_id                                    :integer
 #  visitor_id                                           :string
 #  vita_partner_group_id                                :string
 #  vita_partner_id                                      :bigint
@@ -884,10 +885,11 @@ describe Intake do
       it_behaves_like "state-level routing", "FL", "RefundDay", "eitc"
       it_behaves_like "state-level routing", "NM", "Tax Help New Mexico", "eitc"
       it_behaves_like "state-level routing", "MD", "CASH Campaign of MD", "eitc"
-      it_behaves_like "state-level routing", "XX", "United Way of Tuscon and Southern Arizona", "eitc"
+      it_behaves_like "state-level routing", "MA", "[MASSCAP] Online Intake (w/Boston Tax Help)", "eitc"
+      it_behaves_like "state-level routing", "XX", "Foundation Communities", "eitc"
     end
   end
-  
+
   describe "#assign_vita_partner!" do
     let!(:vita_partner) { create :vita_partner, name: "test_partner", zendesk_group_id: partner_group_id }
     let(:partner_group_id) { "123456789" }

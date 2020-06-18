@@ -1,0 +1,18 @@
+<div class="slab slab--cta">
+  <div class="grid">
+    <div class="grid__item width-one-whole text--centered">
+      <div class="h2 spacing-below-35"><%=t("views.public_pages.home.file.header") %></div>
+      <% if enable_online_intake? %>
+        <%= link_to question_path(id: QuestionNavigation.first),
+          class: "button button--wide button--primary button--centered spacing-below-0",
+          **local_assigns.fetch(:link_attributes, {}) do %>
+          <%=t("general.get_started").humanize %>
+        <% end %>
+      <% else %>
+        <%= link_to vita_providers_path, id: "firstCta", class: "button button--primary spacing-below-0" do %>
+          <%=t("general.find_location").humanize %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -22,12 +22,14 @@
 @import "molecules/form-molecules";
 @import "molecules/partner-logos";
 @import "components/checkmark-list";
+@import "components/progress-indicator";
 @import "components/document-table";
 @import "components/emoji-radio-buttons";
 @import "components/buttons";
 @import "components/blockquote";
 @import "components/footer";
 @import "components/form-fields";
+@import "components/slab";
 @import "components/toolbar";
 @import "organisms/form-cards";
 @import "organisms/offboarding";
@@ -142,16 +144,6 @@ body {
     padding: $s35/2 4rem;
   }
 
-  .slab {
-    padding-left: 6rem;
-    padding-right: 6rem;
-
-    @media screen and (max-width: $tablet-up) {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-
   .slab--hero {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
@@ -249,6 +241,35 @@ body {
     }
   }
 
+  .slab--stimulus_faq {
+    background-color: #C2C2FF;
+    font-size: 19px;
+    .grid__item {
+      display: flex;
+    }
+    .stimulus-banner-text {
+      margin-top: 5rem;
+      margin-right: 5rem;
+      line-height: 2.5rem;
+    }
+
+    .stimulus-banner-cta {
+      font-size: 16px;
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      .grid__item {
+        display: inherit;
+        text-align: center;
+      }
+
+      .stimulus-banner-text {
+        text-align: left;
+        margin: 0;
+      }
+    }
+  }
+
   .slab--partners {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -341,35 +362,28 @@ body {
 
     div.grid__item {
       display: flex;
+      margin-top: 60px;
+      margin-bottom: 60px;
 
       img {
-        width: 8rem;
-        padding: 0.6rem 2.5rem 0 0;
+        width: 10rem;
+        min-width: 10rem;
+        padding-right: 4rem;
+        height: 100%;
       }
     }
 
     @media screen and (max-width: $tablet-up) {
       div.grid__item {
+        margin-top: 60px;
+        margin-bottom: 60px;
         flex-direction: column;
         img {
-          width: 4.7rem;
+          padding-right: 0;
+          width: 100%;
+          height: 8rem;
+          margin-bottom: 2.5rem;
         }
-      }
-    }
-  }
-
-  .slab--cta {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    background-color: $color-green-money;
-
-    @media screen and (max-width: $tablet-up) {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
-
-      .button--primary {
-        padding-left: 9rem;
-        padding-right: 9rem;
       }
     }
   }

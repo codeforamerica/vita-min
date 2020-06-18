@@ -10,6 +10,7 @@
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <%= yield :notices %>
+        <%= render "shared/progress_bar" %>
         <main role="main">
           <% if illustration_path.present? %>
             <div class="question__illustration spacing-above-0">

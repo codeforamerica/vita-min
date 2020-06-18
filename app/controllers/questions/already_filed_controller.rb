@@ -24,5 +24,9 @@ module Questions
     def illustration_path
       "backtaxes.svg"
     end
+
+    def show_progress?
+      false
+    end
   end
 end

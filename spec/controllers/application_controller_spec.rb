@@ -149,6 +149,117 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#switch_locale" do
+    let(:language) { 'zz' }
+    let(:available_locales) { ['zz', 'yy'] }
+
+    before do
+      @params = { things: 'stuff' }
+      allow(I18n).to receive(:with_locale)
+      allow(I18n).to receive(:default_locale).and_return('zz')
+      allow(I18n).to receive(:available_locales).and_return(available_locales)
+    end
+
+    describe "with no preferences" do
+      it "defers to the default locale" do
+        get :index
+
+        expect(I18n).to have_received(:with_locale).with('zz', any_args)
+      end
+    end
+
+    describe "with language headers" do
+      before { request.headers['HTTP_ACCEPT_LANGUAGE'] = language }
+
+      context "indicated language is unavailable" do
+        let(:language) { 'xx' }
+
+        it "defers to the default locale" do
+          get :index
+
+          expect(I18n).to have_received(:with_locale).with('zz', any_args)
+        end
+      end
+
+      context "indicated language is available" do
+        let(:language) { 'yy' }
+
+        it "uses the indicated language" do
+          get :index
+
+          expect(I18n).to have_received(:with_locale).with('yy', any_args)
+        end
+      end
+
+      context "and a :locale param" do
+        before { @params.merge!({ locale: locale }) }
+        let(:locale) { 'yy' }
+
+        context "that does exist" do
+          it "uses the :locale param" do
+            get :index, params: @params
+
+            expect(I18n).to have_received(:with_locale).with('yy', any_args)
+          end
+        end
+
+        context "that doesn't exist" do
+          let(:available_locales) { ['en', 'es'] }
+          before do
+            allow(I18n).to receive(:with_locale).and_call_original
+            allow(I18n).to receive(:default_locale).and_return('en')
+            request.headers['HTTP_ACCEPT_LANGUAGE'] = nil
+          end
+
+          let(:locale) { 'xx' }
+
+          it "doesn't explode" do
+            expect {
+              get :index, params: @params
+            }.not_to raise_error
+          end
+        end
+
+        context "and a :new_locale param" do
+          before { @params.merge!(new_locale: new_locale) }
+
+          context "that does exist" do
+            let(:new_locale) { 'yy' }
+
+            it "uses the :new_locale param" do
+              get :index, params: @params
+
+              expect(I18n).to have_received(:with_locale).with('yy', any_args)
+            end
+          end
+
+          context "that doesn't exist" do
+            let(:available_locales) { ['en', 'es'] }
+            before do
+              allow(I18n).to receive(:with_locale).and_call_original
+              allow(I18n).to receive(:default_locale).and_return('en')
+              request.headers['HTTP_ACCEPT_LANGUAGE'] = nil
+            end
+
+            let(:new_locale) { 'xx' }
+
+            it "doesn't explode" do
+              expect {
+                get :index, params: @params
+              }.not_to raise_error
+            end
+
+            it "falls back to :locale" do
+              get :index, params: {locale: 'es', new_locale: 'xx'}
+
+              expect(I18n).to have_received(:with_locale).with('es', any_args)
+            end
+          end
+        end
+      end
+    end
+  end
+
   describe "#source" do
     context "with an existing source in the session" do
       before { session[:source] = "shrimps" }

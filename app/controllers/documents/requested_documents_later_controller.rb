@@ -40,6 +40,10 @@ module Documents
       false
     end
 
+    def show_progress?
+      false
+    end
+
     def next_path(params = {})
       send_requested_documents_later_documents_path
     end

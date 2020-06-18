@@ -5,9 +5,8 @@
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
     <%= f.cfa_input_field(:additional_info, @main_heading, help_text: t("views.questions.additional_info.help_text")) %>
 
-    <button class="button button--primary" type="submit">
+    <button class="button button--primary button--wide" type="submit">
       <%=t("general.next") %>
-      <i class="button__icon icon-arrow_forward"></i>
     </button>
   <% end %>
 <% end %>

@@ -48,6 +48,7 @@ RSpec.describe Documents::W2sController do
   end
 
   describe "#edit" do
+    let(:attributes) { { had_wages: "yes" } }
     context "with existing W-2 uploads" do
       it "assigns the documents to the form" do
         w2_doc = create :document, :with_upload, document_type: "W-2", intake: intake

@@ -64,6 +64,19 @@
     </div>
   </div>
 
+  <div class="slab banner slab--stimulus_faq">
+    <div class="grid">
+      <div class="grid__item width-one-whole">
+        <div class="stimulus-banner-text">
+          <strong><%=t("views.public_pages.home.stimulus_faq.info") %></strong>
+        </div>
+        <%= link_to stimulus_path, class: "button button--secondary spacing-above-25 stimulus-banner-cta" do %>
+          <%=t("general.visit_stimulus_faq") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
   <div class="slab slab--partners">
     <div class="grid">
       <h3 class="text--centered"><%=t("views.public_pages.home.partners.header") %></h3>
@@ -157,7 +170,7 @@
   <div class="slab slab--security">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <div><%= image_tag("lock.svg", alt: "") %></div>
+        <div><%= image_tag("lock-gear.svg", alt: "a padlock icon") %></div>
         <div>
           <h4 class="spacing-below-5"><%=t("views.public_pages.home.security.header") %></h4>
           <p class="text--small spacing-below-0"><%=t("views.public_pages.home.security.body") %></p>
@@ -166,21 +179,5 @@
     </div>
   </div>
 
-  <div class="slab slab--cta">
-    <div class="grid">
-      <div class="grid__item width-one-whole text--centered">
-        <div class="h2 spacing-below-35"><%=t("views.public_pages.home.file.header") %></div>
-        <% if enable_online_intake? %>
-          <%= link_to question_path(:id => QuestionNavigation.first), class: "button button--primary spacing-below-0" do %>
-            <%=t("general.get_started").humanize %>
-          <% end %>
-        <% else %>
-          <%= link_to vita_providers_path, id: "firstCta", class: "button button--primary spacing-below-0" do %>
-            <%=t("general.find_location").humanize %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
+  <%= render "shared/get_started_slab", link_attributes: {} %>
 </main>

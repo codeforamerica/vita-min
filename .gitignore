@@ -35,3 +35,7 @@
 coverage
 # Ignore rspec example persistence file
 spec/examples.txt
+
+# Ignore RubyMine files
+.generators
+.rakeTasks

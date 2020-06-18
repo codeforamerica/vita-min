@@ -34,6 +34,11 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "What years do you need to file for?")
     check "2019"
     click_on "Continue"
+
+    #Non-production environment warning
+    expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
+    click_on "Continue to example"
+
     expect(page).to have_selector("h1", text: "Let's get started")
     click_on "Continue"
 
@@ -95,7 +100,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, were you legally blind?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "Have you ever been issued an Identity Protection PIN?")
+    expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
     click_on "No"
 
     # Marital status
@@ -155,6 +160,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Yes"
 
     expect(page).to have_selector("h1", text: "Let’s claim someone!")
+    expect(track_progress).to be_present
     click_on "Add a person"
     fill_in "First name", with: "Greg"
     fill_in "Last name", with: "Gnome"

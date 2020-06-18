@@ -1,0 +1,6 @@
+<% if show_progress? %>
+  <div class="progress-indicator">
+    <div class="progress-indicator__bar" style="width:<%= IntakeProgressCalculator.get_progress(controller.class, current_intake) %>%"></div>
+    <div class="progress-indicator__percentage"><%= IntakeProgressCalculator.get_progress(controller.class, current_intake) %>%</div>
+  </div>
+<% end %>

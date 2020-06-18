@@ -10,6 +10,7 @@
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <%= yield :notices %>
+        <%= render "shared/progress_bar" %>
         <main role="main">
           <%= form_with model: @dependent, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
             <h1 class="form-question">

@@ -4,6 +4,7 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
+        <%= render "shared/progress_bar" %>
         <main role="main">
           <div class="question__illustration spacing-above-0">
             <%= image_tag("questions/#{illustration_path}", alt: "") %>
@@ -27,7 +28,7 @@
             </p>
           </div>
 
-          <%= link_to next_path, class: "button button--primary" do %>
+          <%= link_to next_path, class: "button button--primary button--wide text--centered" do %>
             <%=t("general.continue") %>
           <% end %>
         </main>

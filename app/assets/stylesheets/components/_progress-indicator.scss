@@ -1,0 +1,24 @@
+
+.progress-indicator {
+  width: 345px;
+  margin: -25px 0 25px 0;
+
+  @media screen and (max-width: $tablet-up) {
+    width: 100%;
+  }
+}
+
+.progress-indicator::before {
+  border-color: #A0A0A0;
+}
+
+.progress-indicator__bar {
+ background-color: #02CEAA;
+}
+
+.progress-indicator__percentage {
+  color: #A0A0A0;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 auto;
+}

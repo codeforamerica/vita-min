@@ -4,6 +4,7 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
+        <%= render "shared/progress_bar" %>
         <main role="main">
           <h1 class="form-question">
             <%= content_for(:page_title) %>
@@ -38,7 +39,7 @@
             </strong>
           </p>
 
-          <%= link_to interview_scheduling_questions_path, class: "button button--icon button--wide button--primary" do %>
+          <%= link_to interview_scheduling_questions_path, class: "button button--wide button--primary text--centered" do %>
             <%=t("views.documents.overview.finished") %>
           <% end %>
         </main>
