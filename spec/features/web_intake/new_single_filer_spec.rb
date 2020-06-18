@@ -22,14 +22,6 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
     click_on "Continue"
 
-    # Already Filed? Page
-    expect(page).to have_selector("h1", text: "Before we start, have you already filed for 2019?")
-    click_on "Yes"
-
-    # Filing For Stimulus
-    expect(page).to have_selector("h1", text: "Are you trying to file for your stimulus?")
-    click_on "No"
-
     # Ask about backtaxes
     expect(page).to have_selector("h1", text: "What years do you need to file for?")
     expect(track_progress).to eq(0)
@@ -370,26 +362,4 @@ RSpec.feature "Web Intake Single Filer" do
     visit "/questions/wages"
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
   end
-
-  scenario "new client already filed and looking for stimulus is directed to FAQ" do
-    visit "/questions/welcome"
-    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
-    click_on "File taxes with help"
-
-    # File With Help
-    expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
-    click_on "Continue"
-
-    # Already Filed? Page
-    expect(page).to have_selector("h1", text: "Before we start, have you already filed for 2019?")
-    click_on "Yes"
-
-    # Filing For Stimulus
-    expect(page).to have_selector("h1", text: "Are you trying to file for your stimulus?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "Get your stimulus check!")
-    click_on "Visit Stimulus FAQ"
-    expect(current_path).to eq(stimulus_path)
-  end
-
 end

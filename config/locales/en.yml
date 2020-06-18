@@ -719,9 +719,6 @@ en:
         title:
           one: In %{year}, did you adopt a child?
           other: In %{year}, did you or your spouse adopt a child?
-      already_filed:
-        help_text: We’re asking because you may have filed with another service or you may have an amendment to your 2019 return.
-        title: Before we start, have you already filed for 2019?
       asset_sale_income:
         help_text: For example, any income included on a 1099-B or 1099-S.
         title:
@@ -844,9 +841,6 @@ en:
           need_assistance: You need assistance with tax filing
           nervous: You’re nervous to file completely on your own
         title: File with the help of a tax expert!
-      filing_for_stimulus:
-        help_text: This year, many people will receive a stimulus check from the federal government.
-        title: Are you trying to file for your stimulus?
       filing_joint:
         help_text: Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return.
         title: Are you filing joint taxes with your spouse?
@@ -1105,10 +1099,6 @@ en:
         info: We’ll start by asking about your situation in %{year}.
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: Let's get started
-      stimulus_recommendation:
-        already_filed: Since you’ve already filed for 2019, you will automatically get your stimulus check! If you have additional questions about your stimulus, we recommend checking out our Stimulus FAQ page.
-        title: Get your stimulus check!
-        visit_stimulus_faq: Visit Stimulus FAQ
       student:
         help_text: This includes community college, technical school, professional development classes, higher education, and vocational education.
         title: In %{year}, was someone in your family a college or other post high school student?

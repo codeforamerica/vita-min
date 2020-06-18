@@ -10,8 +10,9 @@ RSpec.feature "Web Intake Single Filer" do
   end
 
   scenario "returning client tries filing again is taken to returning client signpost page" do
-    visit already_filed_questions_path
-    click_on "Yes"
+    visit backtaxes_questions_path
+    check "2019"
+    click_on "Continue"
 
     visit email_address_questions_path
     expect(page).to have_selector("h1", text: "Please share your e-mail address.")

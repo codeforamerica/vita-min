@@ -11,14 +11,6 @@ RSpec.feature "client is not eligible for VITA services" do
     expect(current_path).to eq(file_with_help_questions_path)
     click_on "Continue"
 
-    # Already Filed? Page
-    expect(current_path).to eq(already_filed_questions_path)
-    click_on "Yes"
-
-    # Filing For Stimulus
-    expect(page).to have_selector("h1", text: "Are you trying to file for your stimulus?")
-    click_on "No"
-
     expect(page).to have_selector("h1", text: "What years do you need to file for?")
     check "2017"
     check "2019"

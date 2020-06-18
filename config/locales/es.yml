@@ -719,9 +719,6 @@ es:
         title:
           one: En %{year}, ¿adoptó un niño?
           other: En %{year}, ¿usted o su cónyuge adoptaron un hijo?
-      already_filed:
-        help_text: Le preguntamos porque puede haber presentado otro servicio o puede haber una enmienda a su declaración de 2019.
-        title: Antes de comenzar, ¿ya ha presentado su solicitud para 2019?
       asset_sale_income:
         help_text: Por ejemplo, cualquier ingreso incluido en un 1099-B o 1099-S.
         title:
@@ -844,9 +841,6 @@ es:
           need_assistance: Necesita ayuda con el archivo de impuestos.
           nervous: Estás nervioso por archivar completamente por tu cuenta
         title: "¡Archiva con la ayuda de un experto en impuestos!"
-      filing_for_stimulus:
-        help_text: Este año, muchas personas recibirán un cheque de estímulo del gobierno federal.
-        title: "¿Estás tratando de solicitar tu estímulo?"
       filing_joint:
         help_text: Generalmente, archivar sus impuestos conjuntos es más beneficioso para su devolución. Su cónyuge necesitará que verificar su identidad y firmar tu declaración de impuestos final.
         title: "¿Está archivando sus impuestos conjuntos con su cónyuge?"
@@ -1105,10 +1099,6 @@ es:
         info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Empecemos
-      stimulus_recommendation:
-        already_filed: Como ya ha presentado su solicitud para 2019, ¡recibirá automáticamente su cheque de estímulo! Si tiene preguntas adicionales sobre su estímulo, le recomendamos que consulte nuestra página de Preguntas frecuentes sobre estímulos.
-        title: "¡Obtenga su cheque del incentivo!"
-        visit_stimulus_faq: Revise las preguntas frecuentes del incentivo
       student:
         help_text: Esto incluye colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional.
         title: En el %{year}, ¿alguien de su familia era estudiante universitario u otro estudiante de secundaria?

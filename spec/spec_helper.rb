@@ -2,7 +2,9 @@ require "webmock/rspec"
 
 if ENV['COVERAGE']
   require 'simplecov'
-  SimpleCov.start
+  SimpleCov.start do
+    add_filter 'app/views' if ENV['COVER_VIEWS']
+  end
   puts "COVERAGE enabled! look at coverage/index.html for the result."
 end
 
