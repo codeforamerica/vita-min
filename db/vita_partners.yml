@@ -367,7 +367,7 @@ vita_partners:
   logo_path: partner-logos/ntauw.jpg
  - name: Coachella Valley Community Tax Services
   zendesk_instance_domain: eitc
-  zendesk_group_id: ''
+  zendesk_group_id: '360011269333'
   display_name: Coachella Valley Community Tax Services
   source_parameters:
   - mmcdc
