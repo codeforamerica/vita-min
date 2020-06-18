@@ -73,6 +73,7 @@ vita_partners:
   - fc
   states:
   - TX
+  accepts_overflow: true
   logo_path: ''
 - name: United Way of Central Ohio
   zendesk_instance_domain: eitc
@@ -97,7 +98,9 @@ vita_partners:
   zendesk_group_id: '360009581934'
   display_name: United Way of Tuscon and Southern Arizona
   logo_path: ''
-  accepts_overflow: true
+  accepts_overflow: false
+  states:
+  - AZ
 - name: United Way of Greater Richmond and Petersburg
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009267673'
