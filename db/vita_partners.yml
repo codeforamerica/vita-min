@@ -365,3 +365,10 @@ vita_partners:
   source_parameters:
   - ntauw
   logo_path: partner-logos/ntauw.jpg
+ - name: Coachella Valley Community Tax Services
+  zendesk_instance_domain: eitc
+  zendesk_group_id: ''
+  display_name: Coachella Valley Community Tax Services
+  source_parameters:
+  - mmcdc
+  logo_path: ''
