@@ -8,8 +8,11 @@
 #  filed_recently    :integer          default("unfilled"), not null
 #  need_to_correct   :integer          default("unfilled"), not null
 #  need_to_file      :integer          default("unfilled"), not null
+#  referrer          :string
+#  source            :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  visitor_id        :string
 #
 FactoryBot.define do
   factory :stimulus_triage do

@@ -1,5 +1,19 @@
 
 Rails.application.routes.draw do
+  def scoped_navigation_routes(context, navigation)
+    scope context, as: context do
+      navigation.controllers.uniq.each do |controller_class|
+        { get: :edit, put: :update }.each do |method, action|
+          match "/#{controller_class.to_param}",
+                action: action,
+                controller: controller_class.controller_path,
+                via: method
+        end
+      end
+      yield if block_given?
+    end
+  end
+
   mount Cfa::Styleguide::Engine => "/cfa"
   # All routes in this scope will be prefixed with /locale if an available locale is set. See default_url_options in
   # application_controller.rb and http://guides.rubyonrails.org/i18n.html for more info on this approach.
@@ -47,17 +61,13 @@ Rails.application.routes.draw do
     resources :documents, only: [:destroy]
 
     # FSA routes
-    scope :diy, as: :diy do
-      DiyNavigation.controllers.uniq.each do |controller_class|
-        { get: :edit, put: :update }.each do |method, action|
-          match "/#{controller_class.to_param}",
-                action: action,
-                controller: controller_class.controller_path,
-                via: method
-        end
-      end
+    scoped_navigation_routes(:diy, DiyNavigation) do
       get "/:token", to: "diy/start_filing#start", as: :start_filing
     end
+
+    # Stimulus routes
+    scoped_navigation_routes(:stimulus, StimulusNavigation)
+
     get '/diy/check-email', to: 'public_pages#check_email'
 
     get "/:organization/drop-off", to: "intake_site_drop_offs#new", as: :new_drop_off

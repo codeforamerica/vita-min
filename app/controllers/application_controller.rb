@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     DiyIntake.find_by_id(session[:diy_intake_id])
   end
 
+  def current_stimulus_triage
+    StimulusTriage.find_by_id(session[:stimulus_triage_id])
+  end
+
   def include_analytics?
     false
   end
@@ -122,6 +126,7 @@ class ApplicationController < ActionController::Base
       current_user_id: current_user&.id,
       intake_id: current_intake&.id,
       diy_intake_id: current_diy_intake&.id,
+      stimulus_triage_id: current_stimulus_triage&.id,
       device_type: user_agent.device_type,
       browser_name: user_agent.name,
       os_name: user_agent.os_name,

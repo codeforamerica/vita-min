@@ -15,7 +15,7 @@
             <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
               <% if illustration_path.present? %>
                 <div class="question__illustration">
-                  <%= image_tag("questions/#{illustration_path}", alt: "") %>
+                  <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
                 </div>
               <% end %>
               <h1 class="form-question" id="main-question">
