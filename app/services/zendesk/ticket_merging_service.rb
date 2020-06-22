@@ -62,7 +62,9 @@ module Zendesk
 
       # Mark duplicate tickets as not filing and leave comments
       duplicate_tickets.each do |duplicate_ticket|
-        update_duplicate_ticket(duplicate_ticket, primary_ticket)
+        unless duplicate_ticket.status == "closed"
+          update_duplicate_ticket(duplicate_ticket, primary_ticket)
+        end
       end
 
       Rails.logger.info("#{logging_prefix}: Completed duplicate merging")

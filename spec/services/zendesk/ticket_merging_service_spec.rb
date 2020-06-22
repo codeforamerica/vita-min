@@ -44,6 +44,7 @@ describe Zendesk::TicketMergingService do
     context "when tickets are in the same group" do
       let(:intake_in_progress) { create :intake, intake_ticket_id: 123 }
       let(:intake_in_progress_2) { create :intake, intake_ticket_id: 345 }
+      let(:intake_closed) { create :intake, intake_ticket_id: 789 }
       let(:intake_ready_for_review) { create :intake, intake_ticket_id: 456 }
       let(:ticket_in_progress) do
         zendesk_double(
@@ -66,7 +67,15 @@ describe Zendesk::TicketMergingService do
           return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
         )
       end
-      let(:all_tickets) { [ticket_in_progress, ticket_in_progress_2, ticket_ready_for_review] }
+      let(:ticket_closed) do
+        zendesk_double(
+          id: 789,
+          status: "closed",
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
+          return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
+          )
+      end
+      let(:all_tickets) { [ticket_in_progress, ticket_in_progress_2, ticket_ready_for_review, ticket_closed] }
 
       before do
         allow(service).to receive(:find_primary_ticket).and_return(ticket_ready_for_review)
@@ -105,6 +114,24 @@ describe Zendesk::TicketMergingService do
         )
         expect(service).to have_received(:append_comment_to_ticket).with(
           ticket_id: 345,
+          comment: comment_body,
+          public: false,
+          fields: {
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
+          }
+        )
+      end
+
+      it "does not attempt to append comments to duplicate tickets that are closed" do
+        service.merge_duplicate_tickets([intake_in_progress.id, intake_in_progress_2.id, intake_ready_for_review.id, intake_closed.id])
+
+        comment_body = <<~BODY
+          This client submitted multiple intakes. This ticket has been marked as "not filing" because it is a duplicate.
+          The main ticket for this client is https://eitc.zendesk.com/agent/tickets/456
+        BODY
+
+        expect(service).not_to have_received(:append_comment_to_ticket).with(
+          ticket_id: 789,
           comment: comment_body,
           public: false,
           fields: {
