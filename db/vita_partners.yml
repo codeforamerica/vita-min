@@ -65,9 +65,6 @@ vita_partners:
   - fc
   states:
   - TX
-  - TN
-  - AR
-  - MS
   accepts_overflow: true
   logo_path: ''
 - name: United Way of Central Ohio
