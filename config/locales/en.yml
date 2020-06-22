@@ -1185,6 +1185,9 @@ en:
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
+    stimulus:
+      filed_recently:
+        title: Have you already filed for 2018 and 2019?
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.

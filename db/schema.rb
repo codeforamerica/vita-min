@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_17_153218) do
+ActiveRecord::Schema.define(version: 2020_06_22_180406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -351,7 +351,10 @@ ActiveRecord::Schema.define(version: 2020_06_17_153218) do
     t.integer "filed_recently", default: 0, null: false
     t.integer "need_to_correct", default: 0, null: false
     t.integer "need_to_file", default: 0, null: false
+    t.string "referrer"
+    t.string "source"
     t.datetime "updated_at", precision: 6, null: false
+    t.string "visitor_id"
   end
 
   create_table "ticket_statuses", force: :cascade do |t|

@@ -8,8 +8,11 @@
 #  filed_recently    :integer          default("unfilled"), not null
 #  need_to_correct   :integer          default("unfilled"), not null
 #  need_to_file      :integer          default("unfilled"), not null
+#  referrer          :string
+#  source            :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  visitor_id        :string
 #
 class StimulusTriage < ApplicationRecord
   enum filed_recently: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_recently

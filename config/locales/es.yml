@@ -1185,6 +1185,9 @@ es:
         service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
+    stimulus:
+      filed_recently:
+        title: ¿Ha declarado sus impuestos para los años 2018 y 2019?
     vita_providers:
       index:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.
