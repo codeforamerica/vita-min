@@ -6,6 +6,10 @@ es:
       redirect: Usted ha perdidio su tiquete. En producción,  lo redireccionaremos al inicio.
     dependents_controller:
       removed_dependent: Eliminado %{full_name}.
+    send_requested_documents_later_controller:
+      not_found: ¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales para compartir, siga el enlace en su correo electrónico para añadir más.
+    requested_documents_later_controller:
+      not_found: ¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales para compartir, siga el enlace en su correo electrónico para añadir más.
   date:
     formats:
       default: "%-m/%-d/%Y"

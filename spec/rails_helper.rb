@@ -17,6 +17,7 @@ if ENV.fetch("CHROME", false)
 else
   Capybara.javascript_driver = :selenium_chrome_headless
 end
+Capybara.server = :puma, { Silent: true }
 
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?

@@ -45,4 +45,35 @@ RSpec.feature "Client uploads a requested document" do
     visit "/questions/job-count"
     expect(current_path).to eq(welcome_questions_path())
   end
+
+  context "with forgery protection" do
+    around do |example|
+      ActionController::Base.allow_forgery_protection = true
+      Capybara.raise_server_errors = false
+      example.run
+      Capybara.raise_server_errors = true
+      ActionController::Base.allow_forgery_protection = false
+    end
+
+    scenario "client completes requested docs and gets message when trying to go back", :js do
+      visit "/documents/add/1234ABCDEF"
+
+      expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
+      attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+      click_on "Continue"
+      expect(page).to have_text "Thank you! Your documents have been submitted."
+
+      go_back
+      click_on "Continue"
+      expect(current_path).to eq(root_path)
+      expect(page)
+        .to have_content(I18n.t("controllers.send_requested_documents_later_controller.not_found"))
+
+      go_back
+      attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+      expect(current_path).to eq(root_path)
+      expect(page)
+        .to have_content(I18n.t("controllers.requested_documents_later_controller.not_found"))
+    end
+  end
 end
