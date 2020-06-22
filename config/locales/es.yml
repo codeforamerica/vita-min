@@ -140,7 +140,7 @@ es:
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
     search: Búsqueda
-    security_html: Sus informaciones están seguras y las informaciones que proporcione serán tratadas de acuerdo con nuestro %{privacy_link}.
+    security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
     sorry: "¡Ay, no! ¡Lo sentimos!"
@@ -216,10 +216,10 @@ es:
           title: "¡Declare aquí sus impuestos usted mismo!"
       personal_info:
         edit:
-          info: "¡Hola! Estamos emocionados por ayudarle. Necesitamos algunas informaciones básicas para empezar."
+          info: "¡Hola! Estamos emocionados por ayudarle. Necesitamos información básica para empezar."
           preferred_name: Nombre que prefiere
           state_of_residence: Estado de residencia
-          title: Primero, vamos a empezar con algunas informaciones básicas.
+          title: Primero, vamos a empezar con su información básica.
       start_filing:
         start:
           chat: Si tiene alguna pregunta, responda al correo electrónico de confirmación. ¡Estamos para ayudarle!
@@ -288,26 +288,26 @@ es:
       id_guidance:
         info: Para proteger su identidad y garantizar que su información personal sea precisa y segura, necesitamos verificar quién es usted.
         multiple_forms: El IRS requiere que verifiquemos quién es usted con variadas formas de identidad.
-        title: Primero, necesitamos confirmar sus informaciones básicas.
+        title: Primero, necesitamos confirmar su información básica.
       ids:
         help_text:
           one: El IRS nos exige que veamos una licencia de conducir, un pasaporte o una identificación estatal actuales.
           other: El IRS requiere que chequeemos una licencia de conducir, pasaporte o identificación estatal actual para usted y su esposo/a.
-        info: Usaremos su tarjeta de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS. No hay problema si su identificación se ha expirado o si tiene una licencia de conducir temporal, desde que podamos ver claramente su nombre y foto.
+        info: Usaremos su tarjeta de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS. No hay problema si su identificación se ha expirado o si tiene una licencia de conducir temporal, siempre que podamos ver claramente su nombre y foto.
         need_for: 'Necesitaremos una tarjeta de identificación para:'
         title:
           one: Adjunte una foto de su tarjeta de identificación
           other: Adjunte fotos de sus tarjetas de identificación
       intro:
-        info: Basado en sus respuestas a nuestras preguntas anteriores, tenemos una lista de documentos que debe compartir con nosotros. Su progreso será guardado y podrá regresar con más documentos en otro momento.
-        might_have: 'También podrías tener:'
-        should_have: 'Deberías tener:'
+        info: Basado en las respuestas a nuestras preguntas anteriores, tenemos una lista de documentos que debe compartir con nosotros. Su progreso será guardado y podrá regresar con más documentos en otro momento.
+        might_have: 'También podría tener:'
+        should_have: 'Debería tener:'
         title: Muy bien, ¡recojamos sus documentos!
       ira_statements:
         help_text_html: "<strong>Es posible que tenga este documento</strong> porque nos ha confirmado que hizo contribuciones a una cuenta de jubilación."
         title: Adjunte sus declaraciones de algún plan de pensiones (IRA)
       overview:
-        empty: No se cargó documentos de este tipo.
+        empty: Este tipo de documento no fue subido.
         finished: He compartido todos mis documentos
         schedule_appointment: Cuando haya terminado de compartir los documentos que tiene, programaremos una cita con su preparador de impuestos.
         title: "¡Buen trabajo! Aquí hay una lista de lo que hemos reunido."
@@ -327,17 +327,17 @@ es:
         not_found:
           contact_tax_preparer: También puede comunicarse con su preparador de impuestos si tiene su información de contacto.
           contact_us_html: Podemos intentar ayudarlo(a) a ubicar el enlace correcto si se pone en contacto enviando un correo electrónico a %{email_link} o haciendo clic en el botón de chat en vivo en la esquina inferior derecha.
-          info: Parece que está intentando subir documentos pero no tiene un enlace que funcione.
+          info: Parece que está intentando subir documentos pero no tienen un enlace que funcione.
           title: La página de documentos solicitados no ha sido encontrada
       rrb1099s:
         help_text_html: Usted dijo que tenía ingresos del Seguro Social o de los Beneficios de jubilación ferroviaria. Si usted recibió ingresos específicamente de los Beneficios de jubilación ferroviaria, <strong>debe tener este formulario</strong> . Esta es una declaración de impuestos emitida por la Junta de Retiro Ferroviario de los EE. UU. (RRB) y representa los pagos realizados a usted en %{year}.
         title: Adjunte sus RRB-1099
       selfie_instructions:
-        header: Confirme su identidad con una foto tuya sosteniendo su tarjeta de identificación
+        header: Confirme su identidad con una foto suya sosteniendo su tarjeta de identificación
         info: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos. Hacemos esto al revisar una foto de usted sosteniendo su tarjeta de identificación.
         steps:
           face_camera: Mire directamente a la cámara e incluya desde los hombros hasta la parte superior de la cabeza, similar a su foto de identificación
-          face_visible: Asegúrese de que su cara sea claramente visible
+          face_visible: Asegúrese de que su cara está claramente visible
           header: Lea los siguientes pasos antes de continuar
           id_visible: Asegúrese de no estar cubriendo su identificación
           plain_background: Use una pared simple/en blanco como fondo si es posible
@@ -407,7 +407,7 @@ es:
         title: "¡Enviado al asesor! Identificación del ticket de Zendesk: %{ticket_id}"
     layouts:
       admin:
-        welcome_user_html: Bienvenido <strong class="user__name">%{name}</strong>
+        welcome_user_html: Bienvenido/a<strong class="user__name">%{name}</strong>
       application:
         meta:
           description: Maximice su reembolso presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
@@ -419,7 +419,7 @@ es:
         take_picture: Tome una foto
     public_pages:
       about_us:
-        how_it_helps: Puedes ahorrar hasta $300 dólares cuando prepares tus impuestos gratis. También garantizamos que los contribuyentes elegibles reclamen el Crédito por Ingreso del Trabajo (EITC, por sus siglas en inglés), que puede superar hasta $3,000 por familia.
+        how_it_helps: Puede ahorrar hasta $300 dólares cuando prepares sus impuestos gratis. También garantizamos que los contribuyentes elegibles reclamen el Crédito por Ingreso del Trabajo (EITC, por sus siglas en inglés), que puede superar hasta $3,000 por familia.
         how_it_works: Colaboramos con sitios fiscales gratuitos, conocidos como sitios de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés), para ayudarlo a preparar sus impuestos. Voluntarios son entrenados y certificados por el IRS en las organizaciones comunitarias locales  prepararán sus impuestos.
         partners:
           cta: "¿Le interesa asociarse con nosotros?"
@@ -430,8 +430,8 @@ es:
           quote:
             courtney: '"Me alegra mucho poder extender nuestros servicios gratuitos a aquellos que no están cerca de nuestras oficinas. Sé que preparar una declaración de impuestos puede asustar a algunas personas, ¡pero estamos aquí para ayudarlas!"'
             denise: '"Formar parte de una organización que hace todo lo posible por disminuir la distancia entre el lugar donde están las personas y el lugar en el que quieren (o necesitan) estar, es muy gratificante y siempre emocionante".'
-          subheader: 'Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionar asistencia gratuita para la declaración de impuestos las familias que ganan menos de $66,000 dólares al año. '
-        title: Quiénes Somos
+          subheader: 'Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $66,000 dólares al año. '
+        title: Quiénes somos
       at_capacity:
         alternative_html: Alternativamente, puede probar con %{irs_link}, un servicio en línea que le permite preparar su declaración de impuestos de forma gratuita.
         body: Tenemos un gran volumen de clientes en este momento. Nuestro objetivo es brindarles a todos la mejor calidad de servicio. Nos disculpamos por la espera. GetYourRefund estará disponible de nuevo muy pronto.
@@ -445,7 +445,7 @@ es:
       faq:
         getting_started:
           am_i_eligible:
-            a: Proporcionamos asistencia gratuita para llenado de la declaración de impuestos a familias que ganan menos de $66,000 al año.
+            a: Proporcionamos asistencia gratuita para llenar la declaración de impuestos a familias que ganan menos de $66,000 al año.
             q: "¿Soy elegible?"
           changes:
             a: No se preocupe, tendrá la oportunidad de hablar con uno de nuestros especialistas de impuestos sobre su situación y podrá informar sobre cualquier cambio o respuesta que no esté seguro antes de que preparen sus impuestos.
@@ -488,14 +488,14 @@ es:
             body: '"Sólo quería decirles que no puedo expresar cuánto estrés me aliviaron al ofrecer sus servicios en línea. Había visto otros servicios como Credit Karma o Turbo Tax, pero no tenia confianza a los pasos iniciales, así que no seguí adelante. Hasta que encontré GetYourRefund y ¡Dios mío, es increíble!"'
             header: "¡Dios mío esto es increíble!"
           quote2:
-            body: “Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Este proceso me gusta mucho más cuando hay una persona que puede explicar en detalle las preguntas que tienes y que responden bastante rápido".
+            body: “Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Me gusta mucho más este proceso cuando hay una persona que me puede explicar en detalle las preguntas que tienes y que responden bastante rápido".
             header: Son muy profesionales y amables
           rating: Hemos recibido una valoración de 4.8/5 estrellas
         features:
           amendments: Presenta enmiendas para años anteriores
           backtaxes: Presenta declaraciones de impuestos atrasados (2016-2019)
           chat: Asistencia por chat disponible
-          faq_cta: Visite la página de preguntas frecuentes
+          faq_cta: Preguntas Frecuentes
           free: Servicio completamente gratuito
           header: La comodidad de hacer las declaraciones en línea y el apoyo en persona.
           questions: "¿Tiene más preguntas? Visite nuestra página de preguntas frecuentes o hable con nosotros por el chat."
@@ -838,14 +838,14 @@ es:
         right_option:
           confused: Su situación fiscal es confusa / complicada
           header: 'Esta es la opción correcta para usted si:'
-          need_assistance: Necesita ayuda con el archivo de impuestos.
-          nervous: Estás nervioso por archivar completamente por tu cuenta
-        title: "¡Archiva con la ayuda de un experto en impuestos!"
+          need_assistance: Necesita ayuda con la declaración de impuestos.
+          nervous: Le preocupa preparar su declaración de impuestos por su cuenta
+        title: "¡Declara tus impuestos con la ayuda de un experto!"
       filing_joint:
-        help_text: Generalmente, archivar sus impuestos conjuntos es más beneficioso para su devolución. Su cónyuge necesitará que verificar su identidad y firmar tu declaración de impuestos final.
-        title: "¿Está archivando sus impuestos conjuntos con su cónyuge?"
+        help_text: Generalmente, declarar sus impuestos juntos es más beneficioso para su reembolso. Su cónyuge necesitará verificar su identidad y firmar la declaración de impuestos final.
+        title: "¿Está declarando sus impuestos con su cónyuge?"
       final_info:
-        help_text: Por ejemplo, ¿le falta algunos documentos o tuvo cambios importantes en la situación de su hogar este año? Si no, puede dejar esto en blanco.
+        help_text: Por ejemplo, ¿le falta algunos documentos o tuvo cambios importantes en la situación de su hogar este año? Si no, puede dejar este campo vacío.
         title: "¿Algo más que le gustaría que su preparador de impuestos sepa sobre su situación?"
       gambling_income:
         help_text: Se puede reportar en un formulario W-2G.
@@ -892,9 +892,9 @@ es:
           one: En %{year}, ¿recibió alguna carta o factura del IRS?
           other: En %{year}, ¿recibió usted o su cónyuge alguna carta o factura del IRS?
       issued_identity_pin:
-        help_text: Si fue una víctima confirmada de robo de identidad y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará por correo un Aviso CP01A con su IP PIN, un número de 6 dígitos es asignado a ciertos declarantes de impuestos elegibles. %{ip_pin_link}
-        link_text: Puede recuperar su IP PIN a través de esta página del IRS.
-        title: "¿Alguna vez ha recibido un Número de Identificación Personal (PIN, por sus siglas en inglés) por parte del IRS debido a el robo de su identidad?"
+        help_text: Si usted es una víctima de robo de identidad confirmada y el IRS ha resuelto los problemas de su cuenta de impuestos, el IRS le enviará un Aviso CP01A con su PIN de IP, un número de 6 dígitos asignado a ciertos contribuyentes elegibles. %{ip_pin_link}
+        link_text: Puede recuperar su PIN de IP a través de esta página del IRS.
+        title: "¿Alguna vez ha recibido un PIN de IP por causa de robo de identidad?"
       job_count:
         options:
           five_or_more: 5 o más trabajos
