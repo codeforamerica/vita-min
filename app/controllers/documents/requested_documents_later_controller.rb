@@ -4,6 +4,13 @@ module Documents
     before_action :current_session_or_home, only: [:update, :destroy]
     skip_before_action :require_ticket
 
+    rescue_from ActionController::InvalidAuthenticityToken do
+      redirect_to(
+        root_path,
+        alert: t("controllers.requested_documents_later_controller.not_found")
+      )
+    end
+
     def documents_request
       DocumentsRequest.find(session[:documents_request_id])
     end

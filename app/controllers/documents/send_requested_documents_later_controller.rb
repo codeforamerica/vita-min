@@ -5,10 +5,17 @@ module Documents
 
     def edit
       documents_request = DocumentsRequest.find_by(id: session[:documents_request_id])
-      intake = documents_request.intake
-      documents_request.documents.update_all(intake_id: intake.id)
-      SendRequestedDocumentsToZendeskJob.perform_later(intake.id)
-      redirect_to documents_requested_documents_success_path
+      if documents_request.nil?
+        redirect_to(
+          root_path,
+          alert: t("controllers.send_requested_documents_later_controller.not_found")
+        )
+      else
+        intake = documents_request.intake
+        documents_request.documents.update_all(intake_id: intake.id)
+        SendRequestedDocumentsToZendeskJob.perform_later(intake.id)
+        redirect_to documents_requested_documents_success_path
+      end
     end
 
     def success
