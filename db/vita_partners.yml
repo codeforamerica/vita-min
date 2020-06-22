@@ -46,24 +46,16 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009341853'
   display_name: Save First
-  source_parameters:
-  - ia
   logo_path: partner-logos/ia.png
 - name: Impact America (Save First) Mississippi River States
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009830214'
   display_name: Save First
-  states:
-  - TN
-  - AR
-  - MS
   logo_path: partner-logos/ia.png
 - name: Impact America (Save First) South Carolina
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009341873'
   display_name: Save First
-  states:
-  - SC
   logo_path: partner-logos/ia.png
 - name: Foundation Communities
   zendesk_instance_domain: eitc
@@ -73,6 +65,9 @@ vita_partners:
   - fc
   states:
   - TX
+  - TN
+  - AR
+  - MS
   accepts_overflow: true
   logo_path: ''
 - name: United Way of Central Ohio
@@ -220,6 +215,8 @@ vita_partners:
   display_name: United Way of Greenville County
   source_parameters:
   - uwgc
+  states:
+  - SC
   logo_path: ''
 - name: Urban Upbound (NY)
   zendesk_instance_domain: eitc
