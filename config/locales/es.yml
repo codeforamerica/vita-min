@@ -500,7 +500,7 @@ es:
           header: La comodidad de hacer las declaraciones en línea y el apoyo en persona.
           questions: "¿Tiene más preguntas? Visite nuestra página de preguntas frecuentes o hable con nosotros por el chat."
         file:
-          header: "¡Recupere más dinero en su reembolso declarando su solicitud hoy mismo de forma gratuita!"
+          header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         filing_deadline_banner:
           body: No tiene que presentar un formulario adicional ni llamar al IRS para pedir una extensión. Le recomendamos que declare sus impuestos hoy mismo, ya que puede recibir un reembolso que puede ayudar a mantener su hogar.
           title: 'Nota: La fecha límite para presentar la declaración del impuesto federal ha sido extendida hasta el 15 de julio de 2020.'
@@ -513,7 +513,7 @@ es:
           header: Estamos comprometidos a proteger su información.
         stimulus_faq:
           info: ¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?
-        subheader: Obtenga un reembolso más grande declarando sus impuestos con la ayuda de nuestros voluntarios de confianza.
+        subheader: Maximice su reembolso declarando sus impuestos con la ayuda de nuestros voluntarios de confianza.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maintenance:
         contact_html: También puede %{email_link}.
