@@ -8,7 +8,7 @@ module Documents
       if documents_request.nil?
         redirect_to(
           root_path,
-          alert: t("controllers.send_requested_documents_later_controller.not_found")
+          notice: t("controllers.send_requested_documents_later_controller.not_found")
         )
       else
         intake = documents_request.intake
