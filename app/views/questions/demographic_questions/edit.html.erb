@@ -7,7 +7,7 @@
     <h1 class="form-question spacing-below-35" id="demographic_questions_opt_in_question">
       <%= @main_question %>
     </h1>
-    <%= f.button :submit, name: "#{f.object_name}[demographic_questions_opt_in]", value: "yes", class: "button button--wide button--primary", "aria-describedby": "demographic_questions_opt_in_question" do %>
+    <%= f.button :submit, name: "#{f.object_name}[demographic_questions_opt_in]", value: "yes", class: "button button--wide button--primary spacing-above-60", "aria-describedby": "demographic_questions_opt_in_question" do %>
       <%=t("general.continue") %>
     <% end %>
     <%= f.button :submit, name: "#{f.object_name}[demographic_questions_opt_in]", value: "no", class: "button button--wide", "aria-describedby": "demographic_questions_opt_in_question" do %>
