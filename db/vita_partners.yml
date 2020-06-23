@@ -366,3 +366,10 @@ vita_partners:
   source_parameters:
   - mmcdc
   logo_path: ''
+- name: United Way of Central Alabama
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011436074'
+  display_name: United Way of Central Alabama
+  source_parameters:
+  - uwcaorg
+  logo_path: partner-logos/uw-central-alabama.jpg
