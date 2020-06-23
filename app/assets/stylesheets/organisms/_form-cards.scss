@@ -47,6 +47,7 @@
     justify-content: space-between;
 
     .button {
+      width: 45%;
       @media screen and (min-width: $tablet-up) {
         width: 16rem;
       }
