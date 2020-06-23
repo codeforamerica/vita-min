@@ -121,7 +121,8 @@ module Zendesk
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
           EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
-        }
+        },
+        tags: ["duplicate"]
       )
 
       Rails.logger.info("Updated duplicate ticket #{duplicate_ticket.id} during duplicate merging")
