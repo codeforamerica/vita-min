@@ -7,7 +7,7 @@ module Documents
     rescue_from ActionController::InvalidAuthenticityToken do
       redirect_to(
         root_path,
-        alert: t("controllers.requested_documents_later_controller.not_found")
+        notice: t("controllers.requested_documents_later_controller.not_found")
       )
     end
 
@@ -79,7 +79,10 @@ module Documents
 
     def current_session_or_home
       if session[:documents_request_id].nil?
-        redirect_to root_path
+        redirect_to(
+          root_path,
+          notice: t("controllers.send_requested_documents_later_controller.not_found")
+        )
       end
     end
 
