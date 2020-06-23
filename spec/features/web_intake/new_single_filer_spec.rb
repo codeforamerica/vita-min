@@ -358,6 +358,10 @@ RSpec.feature "Web Intake Single Filer" do
     expect{ track_progress }.to change { @current_progress }.to(100)
     expect(page).to have_text("Your confirmation number is: #{ticket_id}")
 
+    # reloading the success page works without trying to show the progress bar
+    visit "/questions/successfully-submitted"
+    expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+
     # going back to another page after submit redirects to beginning
     visit "/questions/wages"
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
