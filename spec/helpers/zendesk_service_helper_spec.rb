@@ -28,6 +28,8 @@ RSpec.describe ZendeskServiceHelper do
     allow(fake_zendesk_comment_body).to receive(:concat)
     allow(fake_zendesk_ticket).to receive(:comment=)
     allow(fake_zendesk_ticket).to receive(:fields=)
+    allow(fake_zendesk_ticket).to receive(:tags).and_return ["old_tag"]
+    allow(fake_zendesk_ticket).to receive(:tags=)
     allow(fake_zendesk_ticket).to receive(:group_id=)
     allow(fake_zendesk_ticket).to receive(:comment).and_return fake_zendesk_comment
     allow(fake_zendesk_ticket).to receive(:save).and_return true
@@ -448,12 +450,14 @@ RSpec.describe ZendeskServiceHelper do
       result = service.append_comment_to_ticket(
         ticket_id: 1141,
         comment: "hey this is a comment",
-        fields: { "314324132" => "custom_field_value" }
+        fields: { "314324132" => "custom_field_value" },
+        tags: ["some", "tags"],
       )
 
       expect(result).to eq true
       expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey this is a comment", public: false })
       expect(fake_zendesk_ticket).to have_received(:fields=).with({ "314324132" => "custom_field_value" })
+      expect(fake_zendesk_ticket).to have_received(:tags=).with(["old_tag", "some", "tags"])
       expect(fake_zendesk_ticket).to have_received(:save)
     end
   end

@@ -111,7 +111,8 @@ describe Zendesk::TicketMergingService do
           fields: {
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
             EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
-          }
+          },
+          tags: ["duplicate"],
         )
         expect(service).to have_received(:append_comment_to_ticket).with(
           ticket_id: 345,
@@ -120,7 +121,8 @@ describe Zendesk::TicketMergingService do
           fields: {
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
             EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
-          }
+          },
+          tags: ["duplicate"],
         )
       end
 
@@ -139,7 +141,8 @@ describe Zendesk::TicketMergingService do
           fields: {
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
             EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
-          }
+          },
+          tags: ["duplicate"]
         )
       end
 
@@ -211,7 +214,8 @@ describe Zendesk::TicketMergingService do
           fields: {
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
             EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
-          }
+          },
+          tags: ["duplicate"]
         )
       end
     end
