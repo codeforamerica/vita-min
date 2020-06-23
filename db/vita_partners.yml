@@ -212,8 +212,6 @@ vita_partners:
   display_name: United Way of Greenville County
   source_parameters:
   - uwgc
-  states:
-  - SC
   logo_path: ''
 - name: Urban Upbound (NY)
   zendesk_instance_domain: eitc
