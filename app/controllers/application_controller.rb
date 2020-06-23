@@ -113,7 +113,7 @@ class ApplicationController < ActionController::Base
       event_id: visitor_id,
       event_name: event_name,
       data: data,
-      subject: current_intake,
+      subject: visitor_record,
       request: request,
       source: self,
       path_exclusions: all_identifiers
