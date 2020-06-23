@@ -186,8 +186,6 @@ vita_partners:
   display_name: RefundDay
   source_parameters:
   - RefundDay
-  states:
-  - FL
   logo_path: ''
 - name: Tax Help New Mexico
   zendesk_instance_domain: eitc
@@ -336,6 +334,8 @@ vita_partners:
   display_name: the City of Miami
   source_parameters:
   - cityofmiami
+  states:
+  - FL
   logo_path: partner-logos/city-of-miami.png
 - name: Desert Financial and Tax Services
   zendesk_instance_domain: eitc

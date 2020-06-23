@@ -882,7 +882,7 @@ describe Intake do
       it_behaves_like "state-level routing", "TX", "Foundation Communities", "eitc"
       it_behaves_like "state-level routing", "AZ", "United Way of Tuscon and Southern Arizona", "eitc"
       it_behaves_like "state-level routing", "VA", "United Way of Greater Richmond and Petersburg", "eitc"
-      it_behaves_like "state-level routing", "FL", "RefundDay", "eitc"
+      it_behaves_like "state-level routing", "FL", "[RefundDay] City of Miami", "eitc"
       it_behaves_like "state-level routing", "NM", "Tax Help New Mexico", "eitc"
       it_behaves_like "state-level routing", "MD", "CASH Campaign of MD", "eitc"
       it_behaves_like "state-level routing", "MA", "[MASSCAP] Online Intake (w/Boston Tax Help)", "eitc"
