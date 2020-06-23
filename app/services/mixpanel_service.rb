@@ -141,6 +141,8 @@ class MixpanelService
           data.merge!(data_from_request(entry, path_exclusions: path_exclusions))
         when TicketStatus
           data.merge!(data_from_ticket_status(entry))
+        when StimulusTriage
+          data.merge!(data_from_stimulus_triage(entry))
         else
           {}
         end
@@ -225,6 +227,20 @@ class MixpanelService
           intake_status: ticket_status.intake_status_label,
           return_status: ticket_status.return_status_label,
           created_at: ticket_status.created_at.utc.iso8601,
+      }
+    end
+
+    ##
+    # creates Mixpanel data from a stimulus triage object
+    def data_from_stimulus_triage(stimulus_triage)
+      {
+        stimulus_triage_source: stimulus_triage.source,
+        stimulus_triage_referrer: stimulus_triage.referrer,
+        chose_to_file: stimulus_triage.chose_to_file,
+        filed_prior_years: stimulus_triage.filed_prior_years,
+        filed_recently: stimulus_triage.filed_recently,
+        need_to_correct: stimulus_triage.need_to_correct,
+        need_to_file: stimulus_triage.need_to_file
       }
     end
   end
