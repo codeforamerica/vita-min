@@ -109,7 +109,8 @@ describe Zendesk::TicketMergingService do
           comment: comment_body,
           public: false,
           fields: {
-            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
+            EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
           }
         )
         expect(service).to have_received(:append_comment_to_ticket).with(
@@ -117,7 +118,8 @@ describe Zendesk::TicketMergingService do
           comment: comment_body,
           public: false,
           fields: {
-            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
+            EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
           }
         )
       end
@@ -135,7 +137,8 @@ describe Zendesk::TicketMergingService do
           comment: comment_body,
           public: false,
           fields: {
-            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
+            EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
           }
         )
       end
@@ -206,7 +209,8 @@ describe Zendesk::TicketMergingService do
           comment: comment_body,
           public: false,
           fields: {
-            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
+            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
+            EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
           }
         )
       end

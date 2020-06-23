@@ -119,7 +119,8 @@ module Zendesk
         comment: duplicate_ticket_comment_body,
         public: false,
         fields: {
-          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
+          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
+          EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
         }
       )
 
