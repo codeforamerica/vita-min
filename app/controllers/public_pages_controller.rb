@@ -7,6 +7,8 @@ class PublicPagesController < ApplicationController
 
   def home; end
 
+  def diy_home; end
+
   def other_options; end
 
   def maybe_ineligible; end

@@ -441,6 +441,10 @@ es:
         body: Tenemos un gran volumen de clientes en este momento. Nuestro objetivo es brindarles a todos la mejor calidad de servicio. Nos disculpamos por la espera. GetYourRefund estará disponible de nuevo muy pronto.
         check_back: Le recomendamos volver dentro de unos días. ¡Gracias!
         title: Vaya, parece que estamos saturados en este momento.
+      diy_home:
+        header: ¡Declare sus impuestos por su cuenta de forma gratuita!
+        subheader: Brindamos acceso gratuito a un sitio de preparación de impuestos en línea llamado TaxSlayer. Le enviaremos un enlace para crear su propio acceso a TaxSlayer, para que pueda presentarlo por su cuenta.
+        send_link: Envíenme un enlace
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
         contact_html: Si tiene algún problema, no dude en solicitar nuestra asistencia. Puede ponerse en contacto con nosotros haciendo clic al botón de "Ayuda"/"Chat" en la parte inferior a la derecha, o enviándonos un correo electrónico a %{email_link}.

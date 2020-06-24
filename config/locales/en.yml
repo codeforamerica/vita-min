@@ -441,6 +441,10 @@ en:
         body: We’re experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. We apologize for the wait, GetYourRefund will be available again shortly.
         check_back: We recommend checking back in a few days. Thank you!
         title: Wow, it looks like we are at capacity right now.
+      diy_home:
+        header: File taxes on your own for free!
+        subheader: We provide free access to an online tax prep site called TaxSlayer. We’ll send you a link to create your own TaxSlayer login, so you can file on your own.
+        send_link: Send me a link
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
         contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
