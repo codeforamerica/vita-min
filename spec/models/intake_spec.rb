@@ -785,7 +785,7 @@ describe Intake do
       it_behaves_like "state-level routing", "PA", "Campaign for Working Families", "eitc"
       it_behaves_like "state-level routing", "NJ", "United Way of Greater Newark", "eitc"
       it_behaves_like "state-level routing", "OH", "United Way of Central Ohio", "eitc"
-      it_behaves_like "state-level routing", "SC", "United Way of Greenville County", "eitc"
+      it_behaves_like "state-level routing", "SC", "Foundation Communities", "eitc"
       it_behaves_like "state-level routing", "TN", "Foundation Communities", "eitc"
       it_behaves_like "state-level routing", "AR", "Foundation Communities", "eitc"
       it_behaves_like "state-level routing", "MS", "Foundation Communities", "eitc"
