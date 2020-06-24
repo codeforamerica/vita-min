@@ -1188,6 +1188,9 @@ es:
     stimulus:
       filed_recently:
         title: ¿Ha declarado sus impuestos para los años 2018 y 2019?
+      need_to_correct:
+        title: ¿Necesita corregir sus impuestos del 2019?
+        help_text: Puede que necesite modificar su declaración de impuestos para corregir su estado civil, el número de dependientes que ha declarado o su ingreso bruto que ha reportado en su declaración de impuestos original.
     vita_providers:
       index:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.

@@ -1188,6 +1188,9 @@ en:
     stimulus:
       filed_recently:
         title: Have you already filed for 2018 and 2019?
+      need_to_correct:
+        title: Do you need to correct your 2019 taxes?
+        help_text: You may need to amended your tax return to correct your filing status, the number of dependents you claim, or your gross income you reported on your original tax return.
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.

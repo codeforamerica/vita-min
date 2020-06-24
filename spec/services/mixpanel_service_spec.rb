@@ -8,7 +8,7 @@ describe MixpanelService do
   end
 
   after do
-    # Do nothing
+    MixpanelService.instance.remove_instance_variable(:@tracker)
   end
 
   context 'when called as a singleton' do
@@ -311,6 +311,10 @@ describe ApplicationController, type: :controller do
   before do
     allow(fake_tracker).to receive(:track)
     MixpanelService.instance.instance_variable_set(:@tracker, fake_tracker)
+  end
+
+  after do
+    MixpanelService.instance.remove_instance_variable(:@tracker)
   end
 
   describe "#send_event" do
