@@ -373,3 +373,10 @@ vita_partners:
   source_parameters:
   - uwcaorg
   logo_path: partner-logos/uw-central-alabama.jpg
+- name: United Way of Greater Nashville
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011486894'
+  display_name: United Way of Greater Nashville
+  source_parameters:
+  - greaternashville
+  logo_path: partner-logos/uw-greater-nashville.jpg
