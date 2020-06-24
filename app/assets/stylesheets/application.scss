@@ -156,7 +156,7 @@ body {
       line-height: 6rem;
       font-weight: 900;
 
-      &.diy {
+      &.diy-header {
         font-size: 2.7rem;
         line-height: 3.5rem;
         margin-top: 3.5rem;
@@ -168,7 +168,16 @@ body {
 
       h1 {
         margin-bottom: 1.5rem;
+
+        &.diy-header {
+          margin-top: 0;
+        }
       }
+    }
+
+    .diy-subheader {
+      font-weight: 200;
+      max-width: 391px;
     }
 
     .grid {
@@ -180,11 +189,6 @@ body {
         .grid__item {
           width: 100%;
         }
-      }
-
-      .diy-subheader {
-        font-weight: 200;
-        max-width: 391px;
       }
 
       &:before {
