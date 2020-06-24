@@ -62,6 +62,7 @@ Rails.application.routes.draw do
 
     # FSA routes
     scoped_navigation_routes(:diy, DiyNavigation) do
+      root "public_pages#diy_home"
       get "/:token", to: "diy/start_filing#start", as: :start_filing
     end
 

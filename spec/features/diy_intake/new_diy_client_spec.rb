@@ -39,6 +39,13 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
     expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
   end
 
+  scenario "new client start DIY flow from dedicated DIY landing page" do
+    visit "/diy"
+    click_on "Send me a link"
+
+    expect(page).to have_selector("h1", text: "File your taxes yourself!")
+  end
+
   scenario "client tries to go back and change their information" do
     visit "/questions/welcome"
     click_on "File taxes myself"
