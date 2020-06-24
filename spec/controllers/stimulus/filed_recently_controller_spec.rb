@@ -25,7 +25,7 @@ RSpec.describe Stimulus::FiledRecentlyController do
     context "with valid params" do
       let(:params) do
         {
-          "stimulus/filed_recently_form": {
+          "stimulus_filed_recently_form": {
             filed_recently: "yes"
           }
         }
@@ -50,10 +50,10 @@ RSpec.describe Stimulus::FiledRecentlyController do
       end
 
       it "replaces the stimulus triage id in the session" do
-        session[:stimulus_triage_id] = 123
+        session[:stimulus_triage_id] = create(:stimulus_triage).id
         expect {
           post :update, params: params
-        }.to change { session[:stimulus_triage_id] }.from(123)
+        }.to change { session[:stimulus_triage_id] }
         expect(session[:stimulus_triage_id]).to eq(StimulusTriage.last.id)
       end
     end

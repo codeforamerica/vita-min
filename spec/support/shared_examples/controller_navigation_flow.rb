@@ -5,7 +5,7 @@ shared_examples "controller navigation flow" do |navigation_class|
         true
       end
 
-      def current_intake; end
+      def visitor_record; end
     end
 
     class FirstController < BaseController; end

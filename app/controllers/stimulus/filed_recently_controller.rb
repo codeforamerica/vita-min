@@ -1,13 +1,12 @@
 module Stimulus
   class FiledRecentlyController < StimulusController
     def current_stimulus_triage
-      StimulusTriage.new
+      super || StimulusTriage.new
     end
 
-    ##
-    # temporary until more paths are added
-    def next_path
-      root_path
+    def update
+      session[:stimulus_triage_id] = nil
+      super
     end
 
     def after_update_success

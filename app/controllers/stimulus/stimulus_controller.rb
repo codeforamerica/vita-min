@@ -1,5 +1,7 @@
 module Stimulus
   class StimulusController < ApplicationController
+    before_action :require_stimulus_triage
+
     delegate :form_name, to: :class
     delegate :form_class, to: :class
 
@@ -47,7 +49,7 @@ module Stimulus
       "#{controller_name.dasherize}.svg"
     end
 
-     def self.show?(intake)
+     def self.show?(stimulus_triage)
        true
      end
 
@@ -82,12 +84,16 @@ module Stimulus
         controller_name.dasherize
       end
 
-      def form_name
+      def form_key
         "stimulus/" + controller_name + "_form"
       end
 
       def form_class
-        form_name.classify.constantize
+        form_key.classify.constantize
+      end
+
+      def form_name
+        form_key.parameterize(separator: "_")
       end
     end
   end
