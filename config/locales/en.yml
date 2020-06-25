@@ -7,9 +7,8 @@ en:
     dependents_controller:
       removed_dependent: Removed %{full_name}.
     send_requested_documents_later_controller:
-      not_found: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link in your e-mail to add more.
-    requested_documents_later_controller:
-      not_found: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link in your e-mail to add more.
+      success: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more.
+      not_found: We're sorry, we couldn't upload your document! To upload another document, please return to the link from your tax specialist.
   date:
     formats:
       default: "%-m/%-d/%Y"

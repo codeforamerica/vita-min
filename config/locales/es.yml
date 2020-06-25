@@ -7,9 +7,8 @@ es:
     dependents_controller:
       removed_dependent: Eliminado %{full_name}.
     send_requested_documents_later_controller:
-      not_found: ¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales para compartir, siga el enlace en su correo electrónico para añadir más.
-    requested_documents_later_controller:
-      not_found: ¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales para compartir, siga el enlace en su correo electrónico para añadir más.
+      success: ¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales, por favor siga el enlace enviado por su especialista en impuestos para agregar más.
+      not_found: Lo sentimos, no pudimos cargar su documento. Para cargar otro documento, por favor regrese al enlace enviado por su especialista en impuestos.
   date:
     formats:
       default: "%-m/%-d/%Y"

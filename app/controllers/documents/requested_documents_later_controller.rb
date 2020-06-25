@@ -7,7 +7,7 @@ module Documents
     rescue_from ActionController::InvalidAuthenticityToken do
       redirect_to(
         root_path,
-        notice: t("controllers.requested_documents_later_controller.not_found")
+        notice: t("controllers.send_requested_documents_later_controller.not_found")
       )
     end
 
