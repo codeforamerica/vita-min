@@ -90,7 +90,7 @@ vita_partners:
   zendesk_group_id: '360009581934'
   display_name: United Way of Tuscon and Southern Arizona
   logo_path: ''
-  accepts_overflow: false
+  accepts_overflow: true
   states:
   - AZ
 - name: United Way of Greater Richmond and Petersburg
