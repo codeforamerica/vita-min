@@ -5,10 +5,12 @@ module Documents
     skip_before_action :require_ticket
 
     rescue_from ActionController::InvalidAuthenticityToken do
-      redirect_to(
-        root_path,
-        notice: t("controllers.send_requested_documents_later_controller.not_found")
-      )
+      switch_locale do
+        redirect_to(
+          root_path,
+          notice: t("controllers.send_requested_documents_later_controller.not_found")
+        )
+      end
     end
 
     def documents_request
