@@ -237,7 +237,7 @@ vita_partners:
   - MC-SOUTH
   logo_path: ''
 - name: "[MA/BTH] North Shore"
-  zendesk_instance_domain: BTHeitc
+  zendesk_instance_domain: eitc
   zendesk_group_id: '360010417254'
   display_name: Massachusetts Association for Community Action (MASSCAP)
   source_parameters:
