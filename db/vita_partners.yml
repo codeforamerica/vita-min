@@ -269,22 +269,16 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011283393'
   display_name: 'Boston Tax Help'
-  source_parameters:
-  - BTHC-ABCD
   logo_path: ''
 - name: "[MA/BTH] AB APAC"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011284774'
   display_name: 'Boston Tax Help'
-  source_parameters:
-  - BTHC-AB-APAC
   logo_path: ''
 - name: "[MA/BTH] Roxbury & Jamaica Plain"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011284494'
   display_name: 'Boston Tax Help'
-  source_parameters:
-  - BTHC-ROXBURY
   logo_path: ''
 - name: "[MA/BTH] StreetCred"
   zendesk_instance_domain: eitc
