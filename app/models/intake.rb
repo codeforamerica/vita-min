@@ -533,8 +533,12 @@ class Intake < ApplicationRecord
   end
 
   def partner_for_overflow
-    # when we have more than one partner that accepts overflow, this should balance the load
-    partner = VitaPartner.find_by(accepts_overflow: true)
+    # assign overflow intakes to available overflow partners evenly by using the intake id modulo the number of
+    # available overflow partners
+    partners = VitaPartner.where(accepts_overflow: true)
+    return nil if partners.empty?
+
+    partner = partners[self.id % partners.length]
     return nil unless partner.present?
 
     RouteOptions.new(partner, "overflow", state_of_residence)
