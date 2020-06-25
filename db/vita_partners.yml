@@ -220,7 +220,7 @@ vita_partners:
   source_parameters:
   - uuny
   logo_path: ''
-- name: "[MASSCAP] Online Intake (w/Boston Tax Help)"
+- name: "[MA/BTH] Online Intake (w/Boston Tax Help)"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011044474'
   display_name: Massachusetts Association for Community Action (MASSCAP) and Boston
@@ -228,7 +228,7 @@ vita_partners:
   states:
   - MA
   logo_path: ''
-- name: "[MASSCAP] South Shore/South Coast"
+- name: "[MA/BTH] South Shore/South Coast"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417234'
   display_name: Massachusetts Association for Community Action (MASSCAP)
@@ -236,29 +236,29 @@ vita_partners:
   - MC-SSSC
   - MC-SOUTH
   logo_path: ''
-- name: "[MASSCAP] North Shore"
-  zendesk_instance_domain: eitc
+- name: "[MA/BTH] North Shore"
+  zendesk_instance_domain: BTHeitc
   zendesk_group_id: '360010417254'
   display_name: Massachusetts Association for Community Action (MASSCAP)
   source_parameters:
   - MC-NS
   - MC-LEO
   logo_path: ''
-- name: "[MASSCAP] Springfield"
+- name: "[MA/BTH] Springfield"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417334'
   display_name: Massachusetts Association for Community Action (MASSCAP)
   source_parameters:
   - MC-SP
   logo_path: ''
-- name: "[MASSCAP] Community Action of Pioneer Valley"
+- name: "[MA/BTH] Community Action of Pioneer Valley"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417354'
   display_name: Massachusetts Association for Community Action (MASSCAP)
   source_parameters:
   - MC-CAPV
   logo_path: ''
-- name: "[MASSCAP] Worcester"
+- name: "[MA/BTH] Worcester"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010415253'
   display_name: Massachusetts Association for Community Action (MASSCAP)
