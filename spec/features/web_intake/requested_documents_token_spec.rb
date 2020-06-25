@@ -13,6 +13,7 @@ RSpec.feature "Client uploads a requested document" do
     expect(page).to have_content("test-pattern.png")
     page.accept_confirm { click_link("Remove") }
 
+    expect(page).not_to have_content("test-pattern.png")
     attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Continue"
 

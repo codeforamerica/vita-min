@@ -2,17 +2,18 @@
   border: none;
   color: white;
   padding: 1.5rem;
+  a {
+    color: inherit;
+  }
 }
 
 .flash--notice {
   background-color: $color-green;
 }
+
 .flash--alert {
   background-color: #D70A40;
   font-weight: bold;
-  a {
-    color: inherit;
-  }
 }
 .flash--warning {
   background-color: $color-yellow-light;

@@ -6,10 +6,8 @@ module Documents
 
     rescue_from ActionController::InvalidAuthenticityToken do
       switch_locale do
-        redirect_to(
-          root_path,
-          notice: t("controllers.send_requested_documents_later_controller.not_found")
-        )
+        flash[:warning] = t("controllers.send_requested_documents_later_controller.not_found")
+        redirect_to root_path
       end
     end
 
@@ -81,10 +79,8 @@ module Documents
 
     def current_session_or_home
       if session[:documents_request_id].nil?
-        redirect_to(
-          root_path,
-          notice: t("controllers.send_requested_documents_later_controller.not_found")
-        )
+        flash[:warning] = t("controllers.send_requested_documents_later_controller.not_found")
+        redirect_to root_path
       end
     end
 

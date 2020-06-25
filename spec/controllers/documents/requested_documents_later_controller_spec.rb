@@ -155,7 +155,7 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
           post :update, params: params
 
           expect(response).to redirect_to(root_path(locale: :es))
-          expect(flash[:notice]).to match("Lo sentimos, no pudimos cargar su documento")
+          expect(flash[:warning]).to match("Lo sentimos, no pudimos cargar su documento")
         end
       end
     end
