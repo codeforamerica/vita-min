@@ -11,8 +11,9 @@ RSpec.feature "Client uploads a requested document" do
 
 
     expect(page).to have_content("test-pattern.png")
-    expect(page).to have_link("Remove")
+    page.accept_confirm { click_link("Remove") }
 
+    attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Continue"
 
     expect(page).to have_text "Thank you! Your documents have been submitted."
@@ -45,6 +46,21 @@ RSpec.feature "Client uploads a requested document" do
     visit "/questions/job-count"
     expect(current_path).to eq(welcome_questions_path())
   end
+
+  scenario "partner goes to multiple documents link and attaches doc to last intake", :js  do
+    second_intake = create(:intake, requested_docs_token: "A1B2C3D4")
+    visit "/documents/add/#{intake.requested_docs_token}"
+    visit "/documents/add/#{second_intake.requested_docs_token}"
+    expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
+
+    attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    expect(page).to have_content("test-pattern.png")
+    click_on "Continue"
+
+    expect(intake.documents.count).to eq(0)
+    expect(second_intake.documents.count).to eq(1)
+  end
+
 
   context "with forgery protection" do
     around do |example|
