@@ -35,8 +35,7 @@ class ZendeskCli
 
     def inactive_agents
       @inactive_agents ||= agents.find_all do |agent|
-        agent.last_login_at.present? &&
-          agent.last_login_at < INACTIVE_THRESHOLD.ago &&
+        (agent.last_login_at.nil? || agent.last_login_at < INACTIVE_THRESHOLD.ago) &&
           agent.created_at < GRACE_PERIOD.ago &&
           !SKIP_EMAIL_REGEX.match(agent.email)
       end
