@@ -25,11 +25,27 @@ RSpec.describe ZendeskCli::ListInactiveUsers do
       end
     end
 
+    context "with an inactive user that has never logged in" do
+      let(:agent_last_login) { nil }
+
+      it "includes the user" do
+        expect(instance.inactive_agents).to include(agent)
+      end
+    end
+
     context "with a user that was recently created" do
       let(:agent_created_at) { described_class::GRACE_PERIOD.ago + 1.day }
 
       it "does not include that agent" do
         expect(instance.inactive_agents).to be_empty
+      end
+
+      context "when that user has never logged in" do
+        let(:agent_last_login) { nil }
+
+        it "does not include that agent" do
+          expect(instance.inactive_agents).to be_empty
+        end
       end
     end
 
