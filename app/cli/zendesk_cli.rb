@@ -18,4 +18,20 @@ class ZendeskCli < Thor
       .from_csv(options[:csv_path])
       .import_all
   end
+
+  desc "list_inactive_users", "Outputs a list of inactive users from the Zendesk API"
+  option :csv_path, description: "Output to CSV.", required: true
+  def list_inactive_users
+    ZendeskCli::ListInactiveUsers
+      .new
+      .list_inactive_users(output_path: options[:csv_path])
+  end
+
+  desc "remove_users", "Removes a list of users from Zendesk via API"
+  option :csv_path, description: "Input CSV of users to remove.", required: true
+  def remove_users
+    ZendeskCli::RemoveUsers
+      .new(csv_path: options[:csv_path])
+      .remove_all
+  end
 end
