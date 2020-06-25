@@ -286,12 +286,12 @@ vita_partners:
   source_parameters:
   - BTHC-ROXBURY
   logo_path: ''
-- name: "[MA/BTH] StreetCred	BTHC-STREETCRED"
+- name: "[MA/BTH] StreetCred"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011282873'
   display_name: 'Boston Tax Help'
   source_parameters:
-  - [MA/BTH] StreetCred	BTHC-STREETCRED
+  - BTHC-STREETCRED
   logo_path: ''
 - name: Granite United Way
   zendesk_instance_domain: eitc
