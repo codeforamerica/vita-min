@@ -62,7 +62,7 @@ module Documents
     private
 
     def destroy_document_path(document)
-      documents_remove_requested_document_path(document)
+      documents_remove_requested_document_path(id: document)
     end
 
     def self.document_type
@@ -87,9 +87,14 @@ module Documents
     end
 
     def handle_session
-      return if session[:documents_request_id].present?
+      return if session[:documents_request_id].present? &&
+        (params[:token].nil? || token_matches_documents_request?)
 
       validate_token_and_create_session
+    end
+
+    def token_matches_documents_request?
+      documents_request&.intake&.requested_docs_token == params[:token]
     end
 
     def create_new_documents_request_session(intake)
