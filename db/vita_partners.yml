@@ -265,6 +265,34 @@ vita_partners:
   source_parameters:
   - MC-WOR
   logo_path: ''
+- name: "[MA/BTH] ABCD"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: ''
+  display_name: ''
+  source_parameters:
+  - BTHC-ABCD
+  logo_path: ''
+- name: "[MA/BTH] AB APAC"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: ''
+  display_name: ''
+  source_parameters:
+  - BTHC-AB-APAC
+  logo_path: ''
+- name: "[MA/BTH] Roxbury & Jamaica Plain"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: ''
+  display_name: ''
+  source_parameters:
+  - BTHC-ROXBURY
+  logo_path: ''
+- name: "[MA/BTH] StreetCred	BTHC-STREETCRED"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: ''
+  display_name: ''
+  source_parameters:
+  - [MA/BTH] StreetCred	BTHC-STREETCRED
+  logo_path: ''
 - name: Granite United Way
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010462593'
