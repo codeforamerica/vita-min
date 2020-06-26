@@ -285,6 +285,7 @@ vita_partners:
   display_name: 'Boston Tax Help'
   source_parameters:
   - BTHC-ROXBURY
+  - BTHC-DEAFINC
   logo_path: ''
 - name: "[MA/BTH] StreetCred"
   zendesk_instance_domain: eitc
