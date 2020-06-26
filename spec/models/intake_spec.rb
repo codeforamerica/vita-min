@@ -792,7 +792,7 @@ describe Intake do
       it_behaves_like "state-level routing", "FL", "RefundDay", "eitc"
       it_behaves_like "state-level routing", "NM", "Tax Help New Mexico", "eitc"
       it_behaves_like "state-level routing", "MD", "CASH Campaign of MD", "eitc"
-      it_behaves_like "state-level routing", "MA", "[MASSCAP] Online Intake (w/Boston Tax Help)", "eitc"
+      it_behaves_like "state-level routing", "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
     end
 
     context "with overflow routing" do
