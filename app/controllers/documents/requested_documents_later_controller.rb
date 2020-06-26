@@ -12,7 +12,7 @@ module Documents
     end
 
     def documents_request
-      DocumentsRequest.find(session[:documents_request_id])
+      DocumentsRequest.find_by(id: session[:documents_request_id])
     end
 
     def edit
@@ -85,14 +85,15 @@ module Documents
     end
 
     def handle_session
-      return if session[:documents_request_id].present? &&
-        (params[:token].nil? || token_matches_documents_request?)
-
-      validate_token_and_create_session
+      validate_token_and_create_session if needs_new_docs_request?
     end
 
-    def token_matches_documents_request?
-      documents_request&.intake&.requested_docs_token == params[:token]
+    def needs_new_docs_request?
+      params[:token].present? && token_does_not_match_doc_req_intake?
+    end
+
+    def token_does_not_match_doc_req_intake?
+      documents_request&.intake&.requested_docs_token != params[:token]
     end
 
     def create_new_documents_request_session(intake)
