@@ -5,14 +5,14 @@ module Documents
     skip_before_action :require_ticket
 
     rescue_from ActionController::InvalidAuthenticityToken do
-      redirect_to(
-        root_path,
-        notice: t("controllers.requested_documents_later_controller.not_found")
-      )
+      switch_locale do
+        flash[:warning] = t("controllers.send_requested_documents_later_controller.not_found")
+        redirect_to root_path
+      end
     end
 
     def documents_request
-      DocumentsRequest.find(session[:documents_request_id])
+      DocumentsRequest.find_by(id: session[:documents_request_id])
     end
 
     def edit
@@ -62,7 +62,7 @@ module Documents
     private
 
     def destroy_document_path(document)
-      documents_remove_requested_document_path(document)
+      documents_remove_requested_document_path(id: document)
     end
 
     def self.document_type
@@ -79,17 +79,21 @@ module Documents
 
     def current_session_or_home
       if session[:documents_request_id].nil?
-        redirect_to(
-          root_path,
-          notice: t("controllers.send_requested_documents_later_controller.not_found")
-        )
+        flash[:warning] = t("controllers.send_requested_documents_later_controller.not_found")
+        redirect_to root_path
       end
     end
 
     def handle_session
-      return if session[:documents_request_id].present?
+      validate_token_and_create_session if needs_new_docs_request?
+    end
 
-      validate_token_and_create_session
+    def needs_new_docs_request?
+      params[:token].present? && token_does_not_match_doc_req_intake?
+    end
+
+    def token_does_not_match_doc_req_intake?
+      documents_request&.intake&.requested_docs_token != params[:token]
     end
 
     def create_new_documents_request_session(intake)

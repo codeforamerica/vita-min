@@ -785,10 +785,6 @@ describe Intake do
       it_behaves_like "state-level routing", "PA", "Campaign for Working Families", "eitc"
       it_behaves_like "state-level routing", "NJ", "United Way of Greater Newark", "eitc"
       it_behaves_like "state-level routing", "OH", "United Way of Central Ohio", "eitc"
-      it_behaves_like "state-level routing", "SC", "Foundation Communities", "eitc"
-      it_behaves_like "state-level routing", "TN", "Foundation Communities", "eitc"
-      it_behaves_like "state-level routing", "AR", "Foundation Communities", "eitc"
-      it_behaves_like "state-level routing", "MS", "Foundation Communities", "eitc"
       it_behaves_like "state-level routing", "NV", "Nevada Free Taxes Coalition", "eitc"
       it_behaves_like "state-level routing", "TX", "Foundation Communities", "eitc"
       it_behaves_like "state-level routing", "AZ", "United Way of Tuscon and Southern Arizona", "eitc"
@@ -797,7 +793,32 @@ describe Intake do
       it_behaves_like "state-level routing", "NM", "Tax Help New Mexico", "eitc"
       it_behaves_like "state-level routing", "MD", "CASH Campaign of MD", "eitc"
       it_behaves_like "state-level routing", "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
-      it_behaves_like "state-level routing", "XX", "Foundation Communities", "eitc"
+    end
+
+    context "with overflow routing" do
+      shared_examples "overflow routing" do |state_criteria|
+        context "given a state" do
+          let(:state) { state_criteria }
+          let(:overflow_partners) { VitaPartner.where(accepts_overflow: true) }
+          let(:overflow_partner_group_ids) {overflow_partners.map(&:zendesk_group_id)}
+          let(:overflow_partner_instance_domains) {overflow_partners.map(&:zendesk_instance_domain)}
+
+          before do
+            intake.assign_vita_partner!
+          end
+
+          it "assigns to the correct group and the correct instance" do
+            expect(overflow_partner_group_ids).to include intake.reload.vita_partner_group_id
+            expect(overflow_partner_instance_domains).to include intake.zendesk_instance_domain
+          end
+        end
+      end
+
+      it_behaves_like "overflow routing", "XX"
+      it_behaves_like "overflow routing", "TN"
+      it_behaves_like "overflow routing", "AR"
+      it_behaves_like "overflow routing", "MS"
+      it_behaves_like "overflow routing", "SC"
     end
   end
 

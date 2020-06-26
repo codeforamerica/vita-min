@@ -7,9 +7,8 @@ es:
     dependents_controller:
       removed_dependent: Eliminado %{full_name}.
     send_requested_documents_later_controller:
-      not_found: ¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales para compartir, siga el enlace en su correo electrónico para añadir más.
-    requested_documents_later_controller:
-      not_found: ¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales para compartir, siga el enlace en su correo electrónico para añadir más.
+      success: ¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales, por favor siga el enlace enviado por su especialista en impuestos para agregar más.
+      not_found: Lo sentimos, no pudimos cargar su documento. Para cargar otro documento, por favor regrese al enlace enviado por su especialista en impuestos.
   date:
     formats:
       default: "%-m/%-d/%Y"
@@ -590,6 +589,7 @@ es:
             doc_storage: Los documentos estarán protegidos en todo momento (contraseñas, información encriptada, sobres sellados, depósitos/cabinas de archivos con bloqueo, etc.)
             header: 'Estas son algunas prácticas de seguridad específicas que utilizamos:'
             incident_response: El sitio mantiene un plan de respuesta a incidentes que puede reportar incidentes de seguridad al IRS
+            pii_deletion: Toda la información de identificación personal (PII) de los contribuyentes será eliminada del sistema antes del 31 de octubre de 2020.
             ssl: Todas las conexiones se encriptarán mediante certificados SSL
             tls: Cuando ingresa su información en nuestro sitio, nosotros encriptamos la transmisión de esa información utilizando seguridad de capa de transporte (TLS, por sus siglas en inglés).
             training: Solo tendrán acceso a la información de los contribuyentes los voluntarios de VITA que tengan la capacitación necesaria y los administradores del sitio de Code for America

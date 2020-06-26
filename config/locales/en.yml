@@ -7,9 +7,8 @@ en:
     dependents_controller:
       removed_dependent: Removed %{full_name}.
     send_requested_documents_later_controller:
-      not_found: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link in your e-mail to add more.
-    requested_documents_later_controller:
-      not_found: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link in your e-mail to add more.
+      success: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more.
+      not_found: We're sorry, we couldn't upload your document! To upload another document, please return to the link from your tax specialist.
   date:
     formats:
       default: "%-m/%-d/%Y"
@@ -590,6 +589,7 @@ en:
             doc_storage: Documents will be kept secure at all times - passwords, encryption, sealed envelopes, locking file holders/cabinets, etc
             header: 'Here are some specific security practices we use:'
             incident_response: Site maintains an incident response plan that includes reporting security incidents to the IRS
+            pii_deletion: All taxpayer personally identifiable information (PII) will be deleted from the system by October 31st, 2020.
             ssl: All connections will be encrypted using SSL certificates
             tls: When you enter your information on our site we encrypt the transmission of that information using transport layer security (TLS).
             training: Only VITA volunteers completing the necessary training and Code for America site administrators will have access to taxpayer information

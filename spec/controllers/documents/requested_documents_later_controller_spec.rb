@@ -61,22 +61,36 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
         end
       end
 
-      it "no longer checks the token param for a matching intake" do
-        get :edit, params: {token: "br0k3nt0k3n"}
+      context "when returning after upload (no token param)" do
+        it "no longer checks the token param for a matching intake" do
+          get :edit
 
-        expect(response).not_to redirect_to documents_requested_docs_not_found_path
+          expect(response).not_to redirect_to documents_requested_docs_not_found_path
+        end
+
+        it "does not create new documents request" do
+          expect { get :edit }.not_to change(DocumentsRequest, :count)
+        end
+
+        it "displays the document upload page" do
+          get :edit
+
+          expect(response).to be_ok
+        end
       end
 
-      it "does not create new documents request" do
-        expect {
-          get :edit, params: {token: token}
-        }.not_to change(DocumentsRequest, :count)
-      end
+      context "when returning with a different token param" do
+        let(:new_token) { create(:intake).get_or_create_requested_docs_token }
 
-      it "displays the document upload page" do
-        get :edit, params: {token: token}
+        it "create a new documents request" do
+          expect { get :edit, params: { token: new_token } }
+            .to change(DocumentsRequest, :count)
+        end
 
-        expect(response).to be_ok
+        it "replaces the documents_request_id in the session" do
+          expect { get :edit, params: { token: new_token } }
+            .to change { session[:documents_request_id] }
+        end
       end
 
       context "with existing requested document uploads" do
@@ -89,9 +103,17 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
           expect(assigns(:documents)).not_to include(old_document)
         end
 
-        it "shows documents on the documents request in the session" do
+        it "shows documents on the documents request for matching token" do
           get :edit, params: {token: token}
 
+          expect(assigns(:documents)).to include(new_document)
+        end
+
+        it "shows documents on the documents request matching session" do
+          session[:documents_request_id] = documents_request.id
+          get :edit
+
+          expect(assigns(:documents)).not_to include(old_document)
           expect(assigns(:documents)).to include(new_document)
         end
       end
@@ -99,11 +121,42 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
   end
 
   describe "#update" do
+    let(:valid_params) do
+      {
+        requested_document_upload_form: {
+          document: fixture_file_upload("attachments/test-pattern.png")
+        }
+      }
+    end
     context "with no documents request in the session" do
       it "redirects to the home page" do
-        get :update
+        post :update, params: valid_params
 
         expect(response).to redirect_to root_path
+      end
+
+      context "with an authenticity token error and a non-default locale" do
+        around do |example|
+          ActionController::Base.allow_forgery_protection = true
+          example.run
+          #ActionController::Base.allow_forgery_protection = false
+        end
+
+        let(:params) do
+          {
+            requested_document_upload_form: {
+              document: fixture_file_upload("attachments/test-pattern.png")
+            },
+            locale: :es
+          }
+        end
+
+        it "redirects to home page with a flash message and maintains locale" do
+          post :update, params: params
+
+          expect(response).to redirect_to(root_path(locale: :es))
+          expect(flash[:warning]).to match("Lo sentimos, no pudimos cargar su documento")
+        end
       end
     end
 
@@ -113,14 +166,6 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
       end
 
       context "with valid params" do
-        let(:valid_params) do
-          {
-            requested_document_upload_form: {
-              document: fixture_file_upload("attachments/test-pattern.png")
-            }
-          }
-        end
-
         it "appends the documents to the documents request and redirects to :edit" do
           expect {
             post :update, params: valid_params

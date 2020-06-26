@@ -90,7 +90,7 @@ vita_partners:
   zendesk_group_id: '360009581934'
   display_name: United Way of Tuscon and Southern Arizona
   logo_path: ''
-  accepts_overflow: false
+  accepts_overflow: true
   states:
   - AZ
 - name: United Way of Greater Richmond and Petersburg
@@ -351,6 +351,13 @@ vita_partners:
   source_parameters:
   - cityofmiami
   logo_path: partner-logos/city-of-miami.png
+- name: "[RefundDay] United Way of Lee/Hendry/Glades/Okeechobee County"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011522613'
+  display_name: "United Way of Lee, Hendry, Glades and Okeechobee County"
+  source_parameters:
+  - uwlee
+  logo_path: ''
 - name: Desert Financial and Tax Services
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010812493'
