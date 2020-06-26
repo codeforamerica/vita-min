@@ -589,6 +589,7 @@ es:
             doc_storage: Los documentos estarán protegidos en todo momento (contraseñas, información encriptada, sobres sellados, depósitos/cabinas de archivos con bloqueo, etc.)
             header: 'Estas son algunas prácticas de seguridad específicas que utilizamos:'
             incident_response: El sitio mantiene un plan de respuesta a incidentes que puede reportar incidentes de seguridad al IRS
+            pii_deletion: Toda la información de identificación personal (PII) de los contribuyentes será eliminada del sistema antes del 31 de octubre de 2020.
             ssl: Todas las conexiones se encriptarán mediante certificados SSL
             tls: Cuando ingresa su información en nuestro sitio, nosotros encriptamos la transmisión de esa información utilizando seguridad de capa de transporte (TLS, por sus siglas en inglés).
             training: Solo tendrán acceso a la información de los contribuyentes los voluntarios de VITA que tengan la capacitación necesaria y los administradores del sitio de Code for America
