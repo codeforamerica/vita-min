@@ -295,10 +295,10 @@ class Intake < ApplicationRecord
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number
   end
-
-  # Returns the phone number in the E164 standardized format, e.g.: "+15105551234"
-  def standardized_phone_number
-    Phonelib.parse(phone_number, "US").e164
+  
+  # Returns the sms phone number in the E164 standardized format, e.g.: "+15105551234"
+  def standardized_sms_phone_number
+    Phonelib.parse(sms_phone_number, "US").e164
   end
 
   def primary_full_name
@@ -450,7 +450,7 @@ class Intake < ApplicationRecord
 
   def contact_info_filtered_by_preferences
     contact_info = {}
-    contact_info[:phone_number] = standardized_phone_number if sms_notification_opt_in_yes?
+    contact_info[:sms_phone_number] = standardized_sms_phone_number if sms_notification_opt_in_yes?
     contact_info[:email] = email_address if email_notification_opt_in_yes?
     contact_info
   end

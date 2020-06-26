@@ -930,7 +930,7 @@ describe Intake do
   describe "#contact_info_filtered_by_preferences" do
     let(:intake) do
       build :intake,
-            phone_number: "14158161286",
+            sms_phone_number: "14158161286",
             email_address: "supermane@fantastic.horse",
             email_notification_opt_in: email,
             sms_notification_opt_in: sms
@@ -940,10 +940,10 @@ describe Intake do
       let(:email){ "yes" }
       let(:sms){ "yes" }
 
-      it "returns email and phone_number in a hash" do
+      it "returns email and sms_phone_number in a hash" do
         expected_result = {
           email: "supermane@fantastic.horse",
-          phone_number: "+14158161286",
+          sms_phone_number: "+14158161286",
         }
         expect(intake.contact_info_filtered_by_preferences).to eq expected_result
       end
@@ -953,9 +953,9 @@ describe Intake do
       let(:email){ "no" }
       let(:sms){ "yes" }
 
-      it "returns phone_number in a hash" do
+      it "returns sms_phone_number in a hash" do
         expected_result = {
-          phone_number: "+14158161286",
+          sms_phone_number: "+14158161286",
         }
         expect(intake.contact_info_filtered_by_preferences).to eq expected_result
 
@@ -980,6 +980,25 @@ describe Intake do
 
       it "returns an empty hash" do
         expect(intake.contact_info_filtered_by_preferences).to eq({})
+      end
+    end
+
+    context "when the intake has a different phone_number and sms_phone_number" do
+      let(:intake) do
+        build :intake,
+              sms_phone_number: "14159997777",
+              phone_number: "14158161286",
+              email_address: "supermane@fantastic.horse",
+              email_notification_opt_in: "no",
+              sms_notification_opt_in: "yes"
+      end
+
+      it "uses the sms_phone_number" do
+        expected_result = {
+          sms_phone_number: "+14159997777",
+        }
+
+        expect(intake.contact_info_filtered_by_preferences).to eq expected_result
       end
     end
   end
