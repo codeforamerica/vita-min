@@ -26,6 +26,7 @@ describe ZendeskIntakeService do
            requested_docs_token_created_at: 2.minutes.ago,
            email_address: "cash@raining.money",
            phone_number: "14155551234",
+           sms_phone_number: "14155551234",
            primary_first_name: "Cher",
            primary_last_name: "Cherimoya",
            preferred_name: "Cherry",

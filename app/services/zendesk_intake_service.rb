@@ -56,7 +56,7 @@ class ZendeskIntakeService
     find_or_create_end_user(
       @intake.preferred_name,
       contact_info[:email],
-      contact_info[:phone_number],
+      contact_info[:sms_phone_number],
       exact_match: true
     )
   end
