@@ -16,10 +16,5 @@
 #
 FactoryBot.define do
   factory :stimulus_triage do
-    filed_recently { 1 }
-    need_to_correct { 1 }
-    filed_prior_years { 1 }
-    need_to_file { 1 }
-    chose_to_file { 1 }
   end
 end

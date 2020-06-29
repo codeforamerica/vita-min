@@ -19,8 +19,7 @@ module Stimulus
       super.merge(
         source: current_stimulus_triage.source || source,
         referrer: current_stimulus_triage.referrer || referrer,
-        )
+      )
     end
-
   end
 end

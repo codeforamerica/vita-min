@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Stimulus::FiledRecentlyController do
-
   describe "#edit" do
     let(:stimulus_triage) { create(:stimulus_triage) }
 
