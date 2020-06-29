@@ -26,12 +26,11 @@ module Zendesk
               :needs_help_2017,
               :needs_help_2016)
 
-      @strong_matches = Intake.from("(#{subquery.to_sql}) intakes")
-        .where(AREL[:match_count].gt(1))
+      @strong_matches = Intake.from(subquery, :intakes).where(AREL[:match_count].gt(1))
     end
 
     def run(dry_run = true)
-      headers = ["name", "email", "phone", "intake ticket mapping", "primay ticket id"]
+      headers = ["name", "email", "phone", "filing years", "intake ticket mapping", "primary ticket id"]
       with_primaries = strong_matches.map do |matches|
         mapping = matches.intake_ids.zip(matches.ticket_ids).to_h
         primary = merging_service.find_primary_ticket(matches.ticket_ids.compact).id
@@ -39,6 +38,7 @@ module Zendesk
           matches.lower_name,
           matches.lower_email,
           matches.phone_number,
+          matches.filing_years.join(", "),
           mapping,
           primary,
         ]

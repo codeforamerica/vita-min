@@ -7,6 +7,7 @@ describe Zendesk::DuplicateIntakeMatcher do
       email_address: "george.bell@gmail.com",
       phone_number: "1234567890",
       intake_ticket_id: 12345,
+      needs_help_2018: "yes",
       needs_help_2019: "yes")
   end
   let!(:duplicate_intake) do
@@ -15,12 +16,13 @@ describe Zendesk::DuplicateIntakeMatcher do
       email_address: "George.bell@gmail.com",
       phone_number: "1234567890",
       intake_ticket_id: 23456,
+      needs_help_2018: "yes",
       needs_help_2019: "yes")
     end
   let!(:_other_year_intake) do
-    create(:intake, original_intake.attributes.except("id").merge(needs_help_2018: "yes"))
+    create(:intake, original_intake.attributes.except("id").merge(needs_help_2018: "no"))
   end
-  let!(:other_intake) do
+  let!(:_other_name_intake) do
     create(:intake,
       preferred_name: "George ball",
       email_address: "George.ball@gmail.com",
@@ -47,8 +49,8 @@ describe Zendesk::DuplicateIntakeMatcher do
     end
     let(:expected_csv) do
       <<~CSV
-          name,email,phone,intake ticket mapping,primay ticket id
-          \"george bell, jr.\",george.bell@gmail.com,1234567890,\"#{mapping}\",#{primary_id}
+          name,email,phone,filing years,intake ticket mapping,primary ticket id
+          \"george bell, jr.\",george.bell@gmail.com,1234567890,\"2019, 2018\",\"#{mapping}\",#{primary_id}
       CSV
     end
 
