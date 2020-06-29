@@ -279,7 +279,7 @@ vita_partners:
   source_parameters:
   - BTHC-AB-APAC
   logo_path: ''
-- name: "[MA/BTH] Roxbury & Jamaica Plain"
+- name: "[MA/BTH] Roxbury CFE"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011284494'
   display_name: 'Boston Tax Help'
