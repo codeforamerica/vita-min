@@ -39,3 +39,6 @@ spec/examples.txt
 # Ignore RubyMine files
 .generators
 .rakeTasks
+
+# Ignore node_modules directory
+node_modules
