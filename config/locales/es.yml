@@ -7,16 +7,12 @@ es:
     dependents_controller:
       removed_dependent: Eliminado %{full_name}.
     send_requested_documents_later_controller:
-      success: ¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales, por favor siga el enlace enviado por su especialista en impuestos para agregar más.
       not_found: Lo sentimos, no pudimos cargar su documento. Para cargar otro documento, por favor regrese al enlace enviado por su especialista en impuestos.
+      success: "¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales, por favor siga el enlace enviado por su especialista en impuestos para agregar más."
   date:
     formats:
       default: "%-m/%-d/%Y"
       long: "%-d de %B de %Y"
-  forms:
-    errors:
-      at_least_one_year: Por favor, elija al menos un año.
-      need_phone_number: Por favor, introduzca un número de teléfono celular.
   errors:
     attributes:
       birth_date:
@@ -58,8 +54,8 @@ es:
       primary_first_name:
         blank: Por favor, introduzca su primer nombre.
       primary_last_four_ssn:
-        too_short: Por favor, ingrese los últimos cuatro dígitos de su SSN o ITIN.
         too_long: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
+        too_short: Por favor, ingrese los últimos cuatro dígitos de su SSN o ITIN.
       primary_last_name:
         blank: Por favor, ingrese su apellido.
       signature_method:
@@ -70,17 +66,21 @@ es:
         confirmation: Por favor, revise que las direcciones de correo electrónico sean iguales.
       spouse_first_name:
         blank: Por favor ingrese el nombre de su cónyuge.
+      spouse_last_four_ssn:
+        too_long: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
+        too_short: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
       spouse_last_name:
         blank: Por favor, ingrese el apellido de su pareja.
-      spouse_last_four_ssn:
-        too_short: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
-        too_long: Por favor, ingrese los últimos cuatro dígitos del SSN o ITIN de su pareja.
       state:
         inclusion: Por favor, seleccione un estado.
       state_of_residence:
         inclusion: Por favor, seleccione un estado de la lista.
     messages:
       blank: No puede estar en blanco.
+  forms:
+    errors:
+      at_least_one_year: Por favor, elija al menos un año.
+      need_phone_number: Por favor, introduzca un número de teléfono celular.
   general:
     address: Dirección
     affirmative: Sí
@@ -441,9 +441,9 @@ es:
         check_back: Le recomendamos volver dentro de unos días. ¡Gracias!
         title: Vaya, parece que estamos saturados en este momento.
       diy_home:
-        header: ¡Declare sus impuestos por su cuenta de forma gratuita!
-        subheader: Brindamos acceso gratuito a un sitio de preparación de impuestos en línea llamado TaxSlayer. Le enviaremos un enlace para crear su propio acceso a TaxSlayer, para que pueda presentarlo por su cuenta.
+        header: "¡Declare sus impuestos por su cuenta de forma gratuita!"
         send_link: Envíenme un enlace
+        subheader: Brindamos acceso gratuito a un sitio de preparación de impuestos en línea llamado TaxSlayer. Le enviaremos un enlace para crear su propio acceso a TaxSlayer, para que pueda presentarlo por su cuenta.
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
         contact_html: Si tiene algún problema, no dude en solicitar nuestra asistencia. Puede ponerse en contacto con nosotros haciendo clic al botón de "Ayuda"/"Chat" en la parte inferior a la derecha, o enviándonos un correo electrónico a %{email_link}.
@@ -511,7 +511,7 @@ es:
         filing_deadline_banner:
           body: No tiene que presentar un formulario adicional ni llamar al IRS para pedir una extensión. Le recomendamos que declare sus impuestos hoy mismo, ya que puede recibir un reembolso que puede ayudar a mantener su hogar.
           title: 'Nota: La fecha límite para presentar la declaración del impuesto federal ha sido extendida hasta el 15 de julio de 2020.'
-        header: 'Personas reales, proporcionando apoyo gratuito para su declaración de impuestos'
+        header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
         partners:
           header: Colaboramos con organizaciones de confianza
           learn_more_html: Obtenga más información sobre nosotros &rsaquo;
@@ -519,7 +519,7 @@ es:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Estamos comprometidos a proteger su información.
         stimulus_faq:
-          info: ¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?
+          info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
         subheader: Maximice su reembolso declarando sus impuestos con la ayuda de nuestros voluntarios de confianza.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maintenance:
@@ -1190,16 +1190,16 @@ es:
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
     stimulus:
-      filed_recently:
-        title: ¿Ha declarado sus impuestos para los años 2018 y 2019?
-      need_to_correct:
-        title: ¿Necesita corregir sus impuestos del 2019?
-        help_text: Puede que necesite modificar su declaración de impuestos para corregir su estado civil, el número de dependientes que ha declarado o su ingreso bruto que ha reportado en su declaración de impuestos original.
       filed_prior_years:
-        title: ¿Ha declarado sus impuestos para los años 2016 y 2017?
+        title: "¿Ha declarado sus impuestos para los años 2016 y 2017?"
+      filed_recently:
+        title: "¿Ha declarado sus impuestos para los años 2018 y 2019?"
+      need_to_correct:
+        help_text: Puede que necesite modificar su declaración de impuestos para corregir su estado civil, el número de dependientes que ha declarado o su ingreso bruto que ha reportado en su declaración de impuestos original.
+        title: "¿Necesita corregir sus impuestos del 2019?"
       need_to_file:
-        title: ¿Necesita declarar este año?
         help_text: Es posible que requiera declarar si ha recibido algún ingreso, alguna beca, si ha tenido una Cuenta de Ahorros de Salud o ha recibido el Formulario 1095-A.
+        title: "¿Necesita declarar este año?"
     vita_providers:
       index:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.
