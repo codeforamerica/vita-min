@@ -7,16 +7,12 @@ en:
     dependents_controller:
       removed_dependent: Removed %{full_name}.
     send_requested_documents_later_controller:
-      success: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more.
       not_found: We're sorry, we couldn't upload your document! To upload another document, please return to the link from your tax specialist.
+      success: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more.
   date:
     formats:
       default: "%-m/%-d/%Y"
       long: "%B %-d, %Y"
-  forms:
-    errors:
-      at_least_one_year: Please pick at least one year.
-      need_phone_number: Please enter a cell phone number.
   errors:
     attributes:
       birth_date:
@@ -53,15 +49,15 @@ en:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
         confirmation: Please double check that the phone numbers match.
+      preferred_name:
+        blank: Please enter your preferred name.
       primary_first_name:
         blank: Please enter your first name.
       primary_last_four_ssn:
-        too_short: Please enter the last four digits of your SSN or ITIN.
         too_long: Please enter the last four digits of your SSN or ITIN.
+        too_short: Please enter the last four digits of your SSN or ITIN.
       primary_last_name:
         blank: Please enter your last name.
-      preferred_name:
-        blank: Please enter your preferred name.
       signature_method:
         inclusion: Please select a pickup method.
       spouse_email_address:
@@ -70,17 +66,21 @@ en:
         confirmation: Please double check that the email addresses match.
       spouse_first_name:
         blank: Please enter your spouse's first name.
+      spouse_last_four_ssn:
+        too_long: Please enter the last four digits of your spouse's SSN or ITIN.
+        too_short: Please enter the last four digits of your spouse's SSN or ITIN.
       spouse_last_name:
         blank: Please enter your spouse's last name.
-      spouse_last_four_ssn:
-        too_short: Please enter the last four digits of your spouse's SSN or ITIN.
-        too_long: Please enter the last four digits of your spouse's SSN or ITIN.
       state:
         inclusion: Please select a state.
       state_of_residence:
         inclusion: Please select a state from the list.
     messages:
       blank: Can't be blank.
+  forms:
+    errors:
+      at_least_one_year: Please pick at least one year.
+      need_phone_number: Please enter a cell phone number.
   general:
     address: Address
     affirmative: 'Yes'
@@ -442,8 +442,8 @@ en:
         title: Wow, it looks like we are at capacity right now.
       diy_home:
         header: File taxes on your own for free!
-        subheader: We provide free access to an online tax prep site called TaxSlayer. We’ll send you a link to create your own TaxSlayer login, so you can file on your own.
         send_link: Send me a link
+        subheader: We provide free access to an online tax prep site called TaxSlayer. We’ll send you a link to create your own TaxSlayer login, so you can file on your own.
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
         contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
@@ -1190,16 +1190,16 @@ en:
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
     stimulus:
+      filed_prior_years:
+        title: Have you already filed for 2016 and 2017?
       filed_recently:
         title: Have you already filed for 2018 and 2019?
       need_to_correct:
-        title: Do you need to correct your 2019 taxes?
         help_text: You may need to amended your tax return to correct your filing status, the number of dependents you claim, or your gross income you reported on your original tax return.
-      filed_prior_years:
-        title: Have you already filed for 2016 and 2017?
+        title: Do you need to correct your 2019 taxes?
       need_to_file:
-        title: Do you need to file this year?
         help_text: You may be required to file if you earned any income, received scholarship income, had a Health Savings Account, or received Form 1095-A.
+        title: Do you need to file this year?
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.
