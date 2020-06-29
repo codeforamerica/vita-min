@@ -49,9 +49,9 @@ module Stimulus
       "#{controller_name.dasherize}.svg"
     end
 
-     def self.show?(stimulus_triage)
-       true
-     end
+    def self.show?(stimulus_triage)
+      true
+    end
 
     private
 
