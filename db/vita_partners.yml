@@ -17,11 +17,6 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360008424134'
   display_name: Goodwill Industries of the Southern Rivers
-  source_parameters:
-  - goodwillsr
-  states:
-  - GA
-  - AL
   logo_path: ''
 - name: United Way of King County
   zendesk_instance_domain: eitc
