@@ -1197,6 +1197,9 @@ es:
         help_text: Puede que necesite modificar su declaración de impuestos para corregir su estado civil, el número de dependientes que ha declarado o su ingreso bruto que ha reportado en su declaración de impuestos original.
       filed_prior_years:
         title: ¿Ha declarado sus impuestos para los años 2016 y 2017?
+      need_to_file:
+        title: ¿Necesita declarar este año?
+        help_text: Es posible que requiera declarar si ha recibido algún ingreso, alguna beca, si ha tenido una Cuenta de Ahorros de Salud o ha recibido el Formulario 1095-A.
     vita_providers:
       index:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.

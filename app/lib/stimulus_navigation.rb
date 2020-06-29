@@ -3,6 +3,7 @@ class StimulusNavigation
     Stimulus::FiledRecentlyController,
     Stimulus::NeedToCorrectController,
     Stimulus::FiledPriorYearsController,
+    Stimulus::NeedToFileController,
     Stimulus::VisitStimulusFaqController
   ].freeze
 

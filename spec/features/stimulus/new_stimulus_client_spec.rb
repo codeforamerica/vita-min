@@ -12,5 +12,13 @@ RSpec.feature "Stimulus Triage Flow" do
     # click_on("Yes") # => /visit-stimulus-faq
     # click_on("No") # => /filing-might-help
   end
+
+  scenario "new client has not filed this year" do
+    visit "/stimulus/filed-recently"
+    expect(page).to have_selector("h1", text: "Have you already filed for 2018 and 2019?")
+    click_on("No")
+
+    expect(page).to have_selector("h1", text: "Do you need to file this year?")
+  end
 end
 

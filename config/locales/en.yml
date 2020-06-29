@@ -1197,6 +1197,9 @@ en:
         help_text: You may need to amended your tax return to correct your filing status, the number of dependents you claim, or your gross income you reported on your original tax return.
       filed_prior_years:
         title: Have you already filed for 2016 and 2017?
+      need_to_file:
+        title: Do you need to file this year?
+        help_text: You may be required to file if you earned any income, received scholarship income, had a Health Savings Account, or received Form 1095-A.
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.
