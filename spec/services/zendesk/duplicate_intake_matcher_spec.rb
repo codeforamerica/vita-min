@@ -12,9 +12,9 @@ describe Zendesk::DuplicateIntakeMatcher do
   end
   let!(:duplicate_intake) do
     create(:intake,
-      preferred_name: "George bell, JR.",
-      email_address: "George.bell@gmail.com",
-      phone_number: "1234567890",
+      preferred_name: " George bell, JR.",
+      email_address: "George.bell@gmail.com ",
+      phone_number: " 1234567890",
       intake_ticket_id: 23456,
       needs_help_2018: "yes",
       needs_help_2019: "yes")
