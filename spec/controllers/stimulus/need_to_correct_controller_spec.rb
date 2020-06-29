@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Stimulus::NeedToCorrectController do
-
   describe "#edit" do
     it "redirects to filed recently if no stimulus triage id in session" do
       session[:stimulus_triage_id] = nil
@@ -20,12 +19,12 @@ RSpec.describe Stimulus::NeedToCorrectController do
         expect(subject.class.show?(stimulus_triage)).to eq(true)
       end
     end
+
     context "when client has not filed recently" do
       let(:filed_recently) { "no" }
       it "returns false" do
         expect(subject.class.show?(stimulus_triage)).to eq(false)
       end
     end
-
   end
 end

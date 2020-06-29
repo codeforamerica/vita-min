@@ -1,7 +1,7 @@
 module Stimulus
   class FiledPriorYearsController < StimulusController
-    def show?
-      current_stimulus_triage.need_to_correct_no?
+    def self.show?(stimulus_triage)
+      stimulus_triage.filed_recently_yes? && stimulus_triage.need_to_correct_no?
     end
 
     def illustration_path

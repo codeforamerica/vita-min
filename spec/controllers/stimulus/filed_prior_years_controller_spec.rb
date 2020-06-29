@@ -12,6 +12,50 @@ RSpec.describe Stimulus::FiledPriorYearsController do
     allow(subject).to receive(:current_stimulus_triage).and_return(stimulus_triage)
   end
 
+  describe ".show?" do
+    let(:stimulus_triage) { create(:stimulus_triage, filed_recently: filed_recently, need_to_correct: need_to_correct) }
+
+    context "when client has filed recently" do
+      let(:filed_recently) { "yes" }
+
+      context "when the client does not need to correct their taxes" do
+        let(:need_to_correct) { "no" }
+
+        it "returns true" do
+          expect(subject.class.show?(stimulus_triage)).to eq(true)
+        end
+      end
+
+      context "when the client needs to correct their taxes" do
+        let(:need_to_correct) { "yes" }
+
+        it "returns false" do
+          expect(subject.class.show?(stimulus_triage)).to eq(false)
+        end
+      end
+    end
+
+    context "when client has not filed recently" do
+      let(:filed_recently) { "no" }
+
+      context "when the client does not need to correct their taxes" do
+        let(:need_to_correct) { "no" }
+
+        it "returns false" do
+          expect(subject.class.show?(stimulus_triage)).to eq(false)
+        end
+      end
+
+      context "when the client needs to correct their taxes" do
+        let(:need_to_correct) { "yes" }
+
+        it "returns false" do
+          expect(subject.class.show?(stimulus_triage)).to eq(false)
+        end
+      end
+    end
+  end
+
   describe '#update' do
     context 'when yes' do
       let(:params) do
