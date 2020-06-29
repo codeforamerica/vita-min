@@ -1195,6 +1195,8 @@ es:
       need_to_correct:
         title: ¿Necesita corregir sus impuestos del 2019?
         help_text: Puede que necesite modificar su declaración de impuestos para corregir su estado civil, el número de dependientes que ha declarado o su ingreso bruto que ha reportado en su declaración de impuestos original.
+      filed_prior_years:
+        title: ¿Ha declarado sus impuestos para los años 2016 y 2017?
     vita_providers:
       index:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.

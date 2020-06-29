@@ -1,4 +1,3 @@
-
 Rails.application.routes.draw do
   def scoped_navigation_routes(context, navigation)
     scope context, as: context do

@@ -1195,6 +1195,8 @@ en:
       need_to_correct:
         title: Do you need to correct your 2019 taxes?
         help_text: You may need to amended your tax return to correct your filing status, the number of dependents you claim, or your gross income you reported on your original tax return.
+      filed_prior_years:
+        title: Have you already filed for 2016 and 2017?
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.
