@@ -1203,6 +1203,10 @@ en:
       need_to_file:
         help_text: You may be required to file if you earned any income, received scholarship income, had a Health Savings Account, or received Form 1095-A.
         title: Do you need to file this year?
+      visit_stimulus_faq:
+        cta: Visit Stimulus FAQ
+        info: Since you’ve already filed, we recommend checking out our Stimulus FAQ page.
+        title: Get your stimulus check!
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.

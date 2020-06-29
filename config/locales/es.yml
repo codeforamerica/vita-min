@@ -1203,6 +1203,10 @@ es:
       need_to_file:
         help_text: Es posible que requiera declarar si ha recibido algún ingreso, alguna beca, si ha tenido una Cuenta de Ahorros de Salud o ha recibido el Formulario 1095-A.
         title: "¿Necesita declarar este año?"
+      visit_stimulus_faq:
+        cta: Revise las preguntas frecuentes sobre el cheque de estímulo
+        info: Como ya ha declarado para 2018 y 2019, le recomendamos que consulte nuestra nuestra página de preguntas frecuentes del cheque de estímulo.
+        title: "¡Reciba su cheque de estímulo!"
     vita_providers:
       index:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.

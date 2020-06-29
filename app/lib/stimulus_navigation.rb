@@ -5,7 +5,8 @@ class StimulusNavigation
     Stimulus::FiledPriorYearsController,
     Stimulus::NeedToFileController,
     Stimulus::FileForStimulusController,
-    Stimulus::VisitStimulusFaqController
+    Stimulus::VisitStimulusFaqController,
+    Stimulus::FilingMightHelpController
   ].freeze
 
   include ControllerNavigation
