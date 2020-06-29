@@ -1190,8 +1190,6 @@ en:
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
     stimulus:
-      filed_prior_years:
-        title: Have you already filed for 2016 and 2017?
       filed_recently:
         title: Have you already filed for 2018 and 2019?
       need_to_correct:
@@ -1200,6 +1198,11 @@ en:
       need_to_file:
         help_text: You may be required to file if you earned any income, received scholarship income, had a Health Savings Account, or received Form 1095-A.
         title: Do you need to file this year?
+      file_for_stimulus:
+        title: We’ll help you collect your stimulus check by filing!
+        info: You might also be eligible for additional money through tax credits. We’ll help you get the most out of your return!
+      filed_prior_years:
+        title: Have you already filed for 2016 and 2017?
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.
