@@ -12,6 +12,7 @@ vita_partners:
   - WY
   - KS
   - NE
+  - FL
   logo_path: ''
 - name: Goodwill Industries of the Southern Rivers
   zendesk_instance_domain: eitc
@@ -178,8 +179,6 @@ vita_partners:
   display_name: RefundDay
   source_parameters:
   - RefundDay
-  states:
-  - FL
   logo_path: ''
 - name: Tax Help New Mexico
   zendesk_instance_domain: eitc
@@ -219,6 +218,8 @@ vita_partners:
   display_name: Urban Upbound (NY)
   source_parameters:
   - uuny
+  states:
+  - NY
   logo_path: ''
 - name: "[MA/BTH] Online Intake (w/Boston Tax Help)"
   zendesk_instance_domain: eitc
