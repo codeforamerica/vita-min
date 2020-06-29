@@ -5,6 +5,6 @@ class DuplicateDetection < Thor
   option :"dry-run", desc: "just outputs a csv of expected results when true",
     default: true, aliases: "d"
   def strong_matches
-    puts Zendesk::DuplicateIntakeMatcher.run(options["dry-run"])
+    puts Zendesk::DuplicateIntakeMatcher.new.run(options["dry-run"])
   end
 end
