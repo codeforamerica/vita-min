@@ -294,6 +294,13 @@ vita_partners:
   source_parameters:
   - BTHC-STREETCRED
   logo_path: ''
+- name: "[MA/BTH] Urban Edge"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011568733'
+  display_name: 'Boston Tax Help'
+  source_parameters:
+  - BTHC-URBAN-EDGE
+  logo_path: ''
 - name: Granite United Way
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010462593'
