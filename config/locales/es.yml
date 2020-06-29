@@ -1191,8 +1191,8 @@ es:
         provider_homepage: Portada de %{provider_name}
     stimulus:
       file_for_stimulus:
-        title: ¡Le ayudaremos a obtener su cheque de estímulo declarando sus impuestos!
         info: Puede que también califique para recibir dinero adicional a través de créditos fiscales. ¡Vamos a ayudarle a máximizar su desembolso!
+        title: "¡Le ayudaremos a obtener su cheque de estímulo declarando sus impuestos!"
       filed_prior_years:
         title: "¿Ha declarado sus impuestos para los años 2016 y 2017?"
       filed_recently:
