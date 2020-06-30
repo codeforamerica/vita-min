@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_22_180406) do
+ActiveRecord::Schema.define(version: 2020_06_30_200820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -300,6 +300,8 @@ ActiveRecord::Schema.define(version: 2020_06_22_180406) do
     t.string "state"
     t.string "state_of_residence"
     t.string "street_address"
+    t.bigint "triage_source_id"
+    t.string "triage_source_type"
     t.datetime "updated_at"
     t.string "visitor_id"
     t.string "vita_partner_group_id"
@@ -312,6 +314,7 @@ ActiveRecord::Schema.define(version: 2020_06_22_180406) do
     t.string "widowed_year"
     t.string "zendesk_instance_domain"
     t.string "zip_code"
+    t.index ["triage_source_type", "triage_source_id"], name: "index_intakes_on_triage_source_type_and_triage_source_id"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
 

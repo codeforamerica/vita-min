@@ -15,6 +15,8 @@
 #  visitor_id        :string
 #
 class StimulusTriage < ApplicationRecord
+  has_one :intake, as: :triage_source
+
   enum filed_recently: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_recently
   enum need_to_correct: { unfilled: 0, yes: 1, no: 2 }, _prefix: :need_to_correct
   enum filed_prior_years: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_prior_years

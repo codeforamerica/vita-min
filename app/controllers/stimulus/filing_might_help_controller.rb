@@ -6,7 +6,6 @@ module Stimulus
       render plain: "next page goes here"
     end
 
-
     class << self
       def form_class
         Stimulus::NullForm

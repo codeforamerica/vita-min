@@ -144,6 +144,7 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  triage_source_type                                   :string
 #  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
@@ -157,13 +158,15 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  primary_intake_id                                    :integer
+#  triage_source_id                                     :bigint
 #  visitor_id                                           :string
 #  vita_partner_group_id                                :string
 #  vita_partner_id                                      :bigint
 #
 # Indexes
 #
-#  index_intakes_on_vita_partner_id  (vita_partner_id)
+#  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
+#  index_intakes_on_vita_partner_id                          (vita_partner_id)
 #
 # Foreign Keys
 #
@@ -176,6 +179,7 @@ class Intake < ApplicationRecord
   has_many :dependents, -> { order(created_at: :asc) }
   has_many :ticket_statuses, -> { order(created_at: :asc) }
   belongs_to :vita_partner, optional: true
+  belongs_to :triage_source, optional: true, polymorphic: true
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
