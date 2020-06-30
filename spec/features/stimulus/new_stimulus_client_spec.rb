@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Stimulus Triage Flow" do
-  scenario "new client fills out stimulus triage" do
+  scenario "new stimulus triage client might be helped by filing chooses to file" do
     # TODO: finish flow and connect with welcome page as epic work continues
     visit "/stimulus/filed-recently"
     expect(page).to have_selector("h1", text: "Have you already filed for 2018 and 2019?")
@@ -9,10 +9,27 @@ RSpec.feature "Stimulus Triage Flow" do
     expect(page).to have_selector("h1", text: "Do you need to correct your 2019 taxes?")
     click_on("No")
     expect(page).to have_selector("h1", text: "Have you already filed for 2016 and 2017?")
-    # click_on("No") # => /filing-might-help
+    click_on("No")
+    expect(page).to have_selector("h1", text: "We can help increase your cash support, by filing your taxes in addition to the stimulus")
+    click_on("Yes! Help me file my taxes.")
+    expect(page).to have_selector("h1", text: "What years do you need to file for?")
   end
 
-  scenario "new client visits the stimulus FAQ" do
+  scenario "new stimulus triage client might be helped by filing chooses only stimulus" do
+    # TODO: finish flow and connect with welcome page as epic work continues
+    visit "/stimulus/filed-recently"
+    expect(page).to have_selector("h1", text: "Have you already filed for 2018 and 2019?")
+    click_on("Yes")
+    expect(page).to have_selector("h1", text: "Do you need to correct your 2019 taxes?")
+    click_on("No")
+    expect(page).to have_selector("h1", text: "Have you already filed for 2016 and 2017?")
+    click_on("No")
+    expect(page).to have_selector("h1", text: "We can help increase your cash support, by filing your taxes in addition to the stimulus")
+    click_on("No. I only want my stimulus.")
+    expect(page).to have_selector("h1", text: "Get your Stimulus Payment (EIP)")
+  end
+
+  scenario "new stimulus triage client visits the stimulus FAQ" do
     # TODO: finish flow and connect with welcome page as epic work continues
     visit "/stimulus/filed-recently"
     expect(page).to have_selector("h1", text: "Have you already filed for 2018 and 2019?")

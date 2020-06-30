@@ -1197,6 +1197,15 @@ en:
         title: Have you already filed for 2016 and 2017?
       filed_recently:
         title: Have you already filed for 2018 and 2019?
+      filing_might_help:
+        button_no: No. I only want my stimulus.
+        button_yes: Yes! Help me file my taxes.
+        info: We know you're interested in collecting your stimulus payment, but you might be eligible for additional money by filing taxes for previous years.
+        list:
+          header: Get all the cash support you're owed!
+          item_1: You may receive additional money through tax credits
+          item_2: We provide free tax filing assistance
+        title: We can help increase your cash support, by filing your taxes in addition to the stimulus
       need_to_correct:
         help_text: You may need to amended your tax return to correct your filing status, the number of dependents you claim, or your gross income you reported on your original tax return.
         title: Do you need to correct your 2019 taxes?
