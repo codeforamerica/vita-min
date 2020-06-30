@@ -517,6 +517,11 @@ class Intake < ApplicationRecord
   def needs_help_with_backtaxes?
     needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?
   end
+
+  def triaged_from_stimulus?
+    triage_source.present? && triage_source.class == StimulusTriage
+  end
+
   private
 
   def partner_for_source

@@ -72,7 +72,7 @@ RSpec.describe Questions::BacktaxesController do
         }
       end
 
-      fit "assigns the triage source to the intake" do
+      it "assigns the triage source to the intake" do
         session[:triage_source_id] = stimulus_triage.id
         session[:triage_source_type] = stimulus_triage.class.to_s
 
@@ -90,13 +90,14 @@ RSpec.describe Questions::BacktaxesController do
     context "with a triage source" do
       let(:stimulus_triage) { create :stimulus_triage }
 
-      fit "captures the triage source's type and id" do
+      it "captures the triage source's type and id" do
         session[:stimulus_triage_id] = stimulus_triage.id
 
         get :edit
 
         expect(session[:triage_source_id]).to eq(stimulus_triage.id)
         expect(session[:triage_source_type]).to eq(stimulus_triage.class.to_s)
+        expect(session.has_key?(:stimulus_triage_id)).to be_falsey
       end
     end
   end

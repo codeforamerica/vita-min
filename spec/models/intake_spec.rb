@@ -1102,4 +1102,21 @@ describe Intake do
       expect(intake.current_ticket_status).to eq new_status
     end
   end
+
+  describe "#triaged_from_stimulus?" do
+    let(:stimulus_triage) { create(:stimulus_triage) }
+    let(:intake) { create(:intake) }
+
+    context "when a stimulus triage is present" do
+      before do
+        intake.update_attribute(:triage_source, stimulus_triage)
+      end
+
+      it { expect(intake.triaged_from_stimulus?).to be_truthy }
+    end
+
+    context "when no stimulus triage is present" do
+      it { expect(intake.triaged_from_stimulus?).to be_falsey }
+    end
+  end
 end
