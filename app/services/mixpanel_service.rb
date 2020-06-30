@@ -134,7 +134,8 @@ class MixpanelService
       obj_list.reduce({}) do |data, entry|
         case entry
         when Intake
-          data.merge!(data_from_intake(entry))
+          data.merge!(data_from_stimulus_triage_for_intake(entry))
+            .merge!(data_from_intake(entry))
         when ActionController::Base
           data.merge!(data_from_controller(entry))
         when ActionDispatch::Request
@@ -215,6 +216,7 @@ class MixpanelService
           zendesk_instance_domain: intake.vita_partner&.zendesk_instance_domain,
           vita_partner_group_id: intake.vita_partner&.zendesk_group_id,
           vita_partner_name: intake.vita_partner&.name,
+          triaged_from_stimulus: intake.triaged_from_stimulus? ? "yes" : "no"
       }
     end
 
@@ -241,6 +243,23 @@ class MixpanelService
         filed_recently: stimulus_triage.filed_recently,
         need_to_correct: stimulus_triage.need_to_correct,
         need_to_file: stimulus_triage.need_to_file
+      }
+    end
+
+    ##
+    # creates Mixpanel data from a stimulus triage object
+    def data_from_stimulus_triage_for_intake(intake)
+      return {} unless intake.triaged_from_stimulus?
+
+      stimulus_triage = intake.triage_source
+      {
+          stimulus_triage_source: stimulus_triage.source,
+          stimulus_triage_referrer: stimulus_triage.referrer,
+          stimulus_triage_chose_to_file: stimulus_triage.chose_to_file,
+          stimulus_triage_filed_prior_years: stimulus_triage.filed_prior_years,
+          stimulus_triage_filed_recently: stimulus_triage.filed_recently,
+          stimulus_triage_need_to_correct: stimulus_triage.need_to_correct,
+          stimulus_triage_need_to_file: stimulus_triage.need_to_file
       }
     end
   end
