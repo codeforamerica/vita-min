@@ -77,14 +77,18 @@ class ZendeskIntakeService
     @intake.transaction do
       # we only want to create an initial ticket status if we are able
       # to make a zendesk ticket without errors
-      ticket = create_ticket(
-        subject: new_ticket_subject,
-        requester_id: @intake.intake_ticket_requester_id,
-        external_id: @intake.external_id,
-        group_id: @intake.vita_partner.zendesk_group_id,
-        body: new_ticket_body,
-        fields: new_ticket_fields
-      )
+      ticket_content = {
+          subject: new_ticket_subject,
+          requester_id: @intake.intake_ticket_requester_id,
+          external_id: @intake.external_id,
+          group_id: @intake.vita_partner.zendesk_group_id,
+          body: new_ticket_body,
+          fields: new_ticket_fields
+      }
+      if @intake.triaged_from_stimulus?
+        ticket_content[:tags] = ['triaged_from_stimulus']
+      end
+      ticket = create_ticket(**ticket_content)
       ticket_status = @intake.ticket_statuses.create(
         intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
         return_status: EitcZendeskInstance::RETURN_STATUS_UNSTARTED,
