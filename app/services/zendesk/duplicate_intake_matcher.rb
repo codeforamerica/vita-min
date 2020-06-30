@@ -36,7 +36,7 @@ module Zendesk
       headers = ["name", "email", "phone", "filing years", "intake ticket mapping", "primary ticket id"]
       with_primaries = strong_matches.lazy.map do |matches|
         mapping = matches.intake_ids.zip(matches.ticket_ids).to_h
-        primary = merging_service.find_primary_ticket(matches.ticket_ids.compact).id
+        primary = merging_service.find_primary_ticket(matches.ticket_ids.compact)&.id
         [
           matches.lower_name,
           matches.lower_email,
