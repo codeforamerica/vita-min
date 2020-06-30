@@ -9,6 +9,14 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
 
   describe "#edit" do
     context "with no session" do
+
+      context "with no token in the params" do
+        it "redirects to an error page" do
+          get :edit, params: {}
+
+          expect(response).to redirect_to documents_requested_docs_not_found_path
+        end
+      end
       context "with no intake matching the token" do
         it "redirects to an error page" do
           get :edit, params: {token: "br0k3nt0k3n"}

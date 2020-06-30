@@ -85,14 +85,20 @@ module Documents
     end
 
     def handle_session
-      validate_token_and_create_session if needs_new_docs_request?
+      redirect_to documents_requested_docs_not_found_path if no_token_or_session
+
+      validate_token_and_create_session if needs_new_session?
     end
 
-    def needs_new_docs_request?
-      params[:token].present? && token_does_not_match_doc_req_intake?
+    def no_token_or_session
+      params[:token].nil? && session[:documents_request_id].nil?
     end
 
-    def token_does_not_match_doc_req_intake?
+    def needs_new_session?
+      params[:token].present? && params_token_does_not_match_session_token
+    end
+
+    def params_token_does_not_match_session_token
       documents_request&.intake&.requested_docs_token != params[:token]
     end
 
