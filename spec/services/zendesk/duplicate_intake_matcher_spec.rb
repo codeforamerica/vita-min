@@ -53,26 +53,37 @@ describe Zendesk::DuplicateIntakeMatcher do
           \"george bell, jr.\",george.bell@gmail.com,1234567890,\"2019, 2018\",\"#{mapping}\",#{primary_id}
       CSV
     end
+    before { allow(subject).to receive(:merging_service).and_return(merging_service) }
 
-    before do
-      allow(merging_service).to receive(:find_primary_ticket)
-        .and_return(double(id: primary_id))
-      allow(subject).to receive(:merging_service).and_return(merging_service)
-    end
+    context "when primary ticket is identified" do
+      before do
+        allow(merging_service).to receive(:find_primary_ticket)
+          .and_return(double(id: primary_id))
+      end
 
-    context "when dry_run is true" do
-      it "returns a csv of the matches with primary ticket identified" do
-        csv = subject.run
-        expect(csv).to eq(expected_csv)
+      context "when dry_run is true" do
+        it "returns a csv of the matches with primary ticket identified" do
+          csv = subject.run
+          expect(csv).to eq(expected_csv)
+        end
+      end
+
+      context "when dry_run is false" do
+        it "uses the TicketMergingService to merge the duplicates intakes" do
+          expect(merging_service).to receive(:merge_duplicate_tickets)
+            .with([original_intake.id, duplicate_intake.id])
+          csv = subject.run(false)
+          expect(csv).to eq(expected_csv)
+        end
       end
     end
-
-    context "when dry_run is false" do
-      it "uses the TicketMergingService to merge the duplicates intakes" do
-        expect(merging_service).to receive(:merge_duplicate_tickets)
-          .with([original_intake.id, duplicate_intake.id])
-        csv = subject.run(false)
-        expect(csv).to eq(expected_csv)
+    context "when primary ticket is not identified (e.g. all tickets are closed)" do
+      before do
+        allow(merging_service).to receive(:find_primary_ticket)
+          .and_return(nil)
+      end
+      it "does not blow up" do
+        expect { subject.run(false) }.not_to raise_error(NoMethodError)
       end
     end
   end
