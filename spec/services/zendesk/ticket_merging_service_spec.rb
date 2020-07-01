@@ -159,6 +159,19 @@ describe Zendesk::TicketMergingService do
         expect(intake_in_progress.reload.primary_intake_id).to eq intake_ready_for_review.id
         expect(intake_in_progress_2.reload.primary_intake_id).to eq intake_ready_for_review.id
       end
+
+      context "when the tickets have already been merged" do
+        before do
+          intake_in_progress.update(intake_ticket_id: ticket_ready_for_review.id)
+        end
+
+        it "does not append any comments" do
+          expect(service).not_to receive(:append_comment_to_ticket)
+          expect(service).not_to receive(:update_primary_ticket)
+          expect(service).not_to receive(:update_duplicate_ticket)
+          service.merge_duplicate_tickets([intake_ready_for_review.id, intake_in_progress.id])
+        end
+      end
     end
 
     context "when tickets are routed to different groups" do
@@ -236,6 +249,7 @@ describe Zendesk::TicketMergingService do
         expect(intake_closed_2.reload.intake_ticket_id).to eq 234
       end
     end
+
   end
 
   describe "#find_primary_ticket" do
@@ -302,6 +316,20 @@ describe Zendesk::TicketMergingService do
         ticket = service.find_primary_ticket([123, 345, 456, 789, 567])
 
         expect(ticket).not_to eq closed
+      end
+
+      context "when some tickets are not found in Zendesk" do
+        before do
+          allow(service).to receive(:get_ticket)
+            .with(ticket_id: ready_for_review.id)
+            .and_return(nil)
+        end
+
+        xit "ignores the missing ticket without throwing error" do
+          expect { @ticket = service.find_primary_ticket([123, 345, 456, 789]) }
+            .not_to raise_error
+          expect(@ticket).to eq(return_in_progress)
+        end
       end
     end
 

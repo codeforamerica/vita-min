@@ -20,6 +20,8 @@ module Zendesk
         :needs_help_2018,
         :needs_help_2017,
         :needs_help_2016
+      ).where(
+        zendesk_instance_domain: EitcZendeskInstance::DOMAIN
       ).group(
         :lower_name,
         :lower_email,
