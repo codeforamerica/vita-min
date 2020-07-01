@@ -14,8 +14,8 @@ module Questions
     # looks for a triage source
     def check_for_triage
       if stimulus_triage_id = session.delete(:stimulus_triage_id)
-        session[:triage_source_id] = stimulus_triage_id # 15
-        session[:triage_source_type] = StimulusTriage.to_s # "StimulusTriage"
+        session[:triage_source_id] = stimulus_triage_id
+        session[:triage_source_type] = StimulusTriage.to_s
       end
     end
 
@@ -28,9 +28,9 @@ module Questions
     # after creating an intake, looks for a triage source and attaches
     # to intake
     def assign_triage_source
-      return unless session.has_key?(:triage_source_id) && session.has_key?(:triage_source_type)
+      return unless session.key?(:triage_source_id) && session.key?(:triage_source_type)
 
-      triage_type = session.delete(:triage_source_type).constantize # => StimulusTriage
+      triage_type = session.delete(:triage_source_type).constantize
       triage_source = triage_type.find(session.delete(:triage_source_id))
       current_intake.update_attribute(:triage_source, triage_source)
     end
