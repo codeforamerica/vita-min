@@ -419,3 +419,10 @@ vita_partners:
   source_parameters:
   - greaternashville
   logo_path: partner-logos/uw-greater-nashville.png
+- name: Zacchaeus House for Tax Assistance
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011728613'
+  display_name: Zacchaeus House for Tax Assistance
+  source_parameters:
+  - zhousetax
+  logo_path: ''
