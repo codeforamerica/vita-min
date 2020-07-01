@@ -22,7 +22,10 @@ module Zendesk
         :needs_help_2016
       ).where(
         zendesk_instance_domain: EitcZendeskInstance::DOMAIN
-      ).group(
+      ).where.not(preferred_name: nil)
+       .where.not(email_address: nil)
+       .where.not(phone_number: nil)
+       .group(
         :lower_name,
         :lower_email,
         :phone,
