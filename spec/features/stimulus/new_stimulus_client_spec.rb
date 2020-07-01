@@ -2,8 +2,9 @@ require "rails_helper"
 
 RSpec.feature "Stimulus Triage Flow" do
   scenario "new stimulus triage client might be helped by filing chooses to file" do
-    # TODO: finish flow and connect with welcome page as epic work continues
-    visit "/stimulus/filed-recently"
+    visit "/questions/welcome"
+    expect(page).to have_selector("h2", text: "Get your Stimulus")
+    click_on("Get your Stimulus")
     expect(page).to have_selector("h1", text: "Have you already filed for 2018 and 2019?")
     click_on("Yes")
     expect(page).to have_selector("h1", text: "Do you need to correct your 2019 taxes?")
@@ -16,8 +17,9 @@ RSpec.feature "Stimulus Triage Flow" do
   end
 
   scenario "new stimulus triage client might be helped by filing chooses only stimulus" do
-    # TODO: finish flow and connect with welcome page as epic work continues
-    visit "/stimulus/filed-recently"
+    visit "/questions/welcome"
+    expect(page).to have_selector("h2", text: "Get your Stimulus")
+    click_on("Get your Stimulus")
     expect(page).to have_selector("h1", text: "Have you already filed for 2018 and 2019?")
     click_on("Yes")
     expect(page).to have_selector("h1", text: "Do you need to correct your 2019 taxes?")
@@ -30,8 +32,9 @@ RSpec.feature "Stimulus Triage Flow" do
   end
 
   scenario "new stimulus triage client visits the stimulus FAQ" do
-    # TODO: finish flow and connect with welcome page as epic work continues
-    visit "/stimulus/filed-recently"
+    visit "/questions/welcome"
+    expect(page).to have_selector("h2", text: "Get your Stimulus")
+    click_on("Get your Stimulus")
     expect(page).to have_selector("h1", text: "Have you already filed for 2018 and 2019?")
     click_on("Yes")
     expect(page).to have_selector("h1", text: "Do you need to correct your 2019 taxes?")
@@ -44,8 +47,9 @@ RSpec.feature "Stimulus Triage Flow" do
   end
 
   scenario "new stimulus triage client needs to correct" do
-    # TODO: finish flow and connect with welcome page as epic work continues
-    visit "/stimulus/filed-recently"
+    visit "/questions/welcome"
+    expect(page).to have_selector("h2", text: "Get your Stimulus")
+    click_on("Get your Stimulus")
     expect(page).to have_selector("h1", text: "Have you already filed for 2018 and 2019?")
     click_on("Yes")
     expect(page).to have_selector("h1", text: "Do you need to correct your 2019 taxes?")
@@ -56,8 +60,9 @@ RSpec.feature "Stimulus Triage Flow" do
   end
 
   scenario "new stimulus triage client needs to file" do
-    # TODO: finish flow and connect with welcome page as epic work continues
-    visit "/stimulus/filed-recently"
+    visit "/questions/welcome"
+    expect(page).to have_selector("h2", text: "Get your Stimulus")
+    click_on("Get your Stimulus")
     expect(page).to have_selector("h1", text: "Have you already filed for 2018 and 2019?")
     click_on("No")
     expect(page).to have_selector("h1", text: "Do you need to file this year?")

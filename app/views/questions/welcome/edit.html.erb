@@ -39,6 +39,21 @@
             </div>
           <% end %>
 
+          <%= link_to stimulus_filed_recently_path do %>
+            <div class="link-box">
+              <div class="link-box--content">
+                <div>
+                  <%= image_tag("stimulus/get-your-stimulus.svg", alt: t('views.questions.welcome.stimulus.header')) %>
+                </div>
+                <div>
+                  <h2 class="get-your-stimulus"><%=t("views.questions.welcome.stimulus.header") %></h2>
+                  <p><%=t("views.questions.welcome.stimulus.info") %></p>
+                </div>
+              </div>
+              <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
+            </div>
+          <% end %>
+
           <%= link_to tax_questions_path do %>
             <div class="link-box">
               <div class="link-box--content">

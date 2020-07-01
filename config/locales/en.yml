@@ -1153,6 +1153,9 @@ en:
         question:
           header: Ask a question
           info: Get your tax related questions answered.
+        stimulus:
+          header: Get your Stimulus
+          info: Find answers to your stimulus questions and file if needed.
         title: Welcome! How can we help you?
       widowed:
         title: As of December 31, %{year}, were you widowed?
