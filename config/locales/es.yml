@@ -1153,6 +1153,9 @@ es:
         question:
           header: Hacer una pregunta
           info: Obtenga respuestas a sus preguntas de impuestos.
+        stimulus:
+          header: "Reciba su Cheque de Estímulo"
+          info: "Encuentre las respuestas a sus preguntas sobre cheques de estímulo y declarar, si necesario."
         title: "¡Bienvenidos! ¿Cómo podemos ayudarle?"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
