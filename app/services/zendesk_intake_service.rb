@@ -20,20 +20,6 @@ class ZendeskIntakeService
     instance == EitcZendeskInstance
   end
 
-  # TODO: remove this after we backfill links
-  def attach_requested_docs_link(ticket)
-    if instance_eitc?
-      ticket.fields = {
-        EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
-      }
-    else
-      ticket.fields = {
-        UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link
-      }
-    end
-    ticket.save
-  end
-
   def assign_requester
     # if the requester has been assigned, return it.
     return @intake.intake_ticket_requester_id if @intake.intake_ticket_requester_id.present?
@@ -310,12 +296,10 @@ class ZendeskIntakeService
     if instance_eitc?
       {
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
-        EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     else
       {
         UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
-        UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     end
   end
@@ -324,12 +308,10 @@ class ZendeskIntakeService
     if instance_eitc?
       {
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-        EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     else
       {
         UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-        UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
       }
     end
   end
