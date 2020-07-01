@@ -63,8 +63,16 @@ RSpec.describe IntakeSiteDropOffsController do
     context "for Foundation Communities" do
       let(:org) { "fc" }
 
-      it "sets the default state to California" do
+      it "sets the default state to Texas" do
         expect(assigns(:drop_off).state).to eq "TX"
+      end
+    end
+
+    context "for United Way of Greater Richmond and Petersburg" do
+      let(:org) { "uwvp" }
+
+      it "sets the default state to Virginia" do
+        expect(assigns(:drop_off).state).to eq "VA"
       end
     end
   end

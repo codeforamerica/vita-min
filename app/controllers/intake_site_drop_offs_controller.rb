@@ -5,6 +5,7 @@ class IntakeSiteDropOffsController < ApplicationController
     "gwisr" => "GA",
     "uwco" => "OH",
     "fc" => "TX",
+    "uwvp" => "VA",
   }.freeze
 
   def new

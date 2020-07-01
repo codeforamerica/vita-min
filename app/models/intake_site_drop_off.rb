@@ -72,6 +72,9 @@ class IntakeSiteDropOff < ApplicationRecord
       "Prosper North",
       "Prosper South",
     ],
+    uwvp: [
+      "UWVP Main Headquarters",
+    ],
   }.freeze
   ORGANIZATIONS = INTAKE_SITES.keys.map(&:to_s).freeze
   ORGANIZATION_NAMES = {
@@ -80,6 +83,7 @@ class IntakeSiteDropOff < ApplicationRecord
     "uwba" => "United Way Bay Area",
     "uwco" => "United Way of Central Ohio",
     "fc" => "Foundation Communities",
+    "uwvp" => "United Way of Greater Richmond and Petersburg",
   }.freeze
 
   strip_attributes only: [:name, :email, :phone_number, :additional_info]
