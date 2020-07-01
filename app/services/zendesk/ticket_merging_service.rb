@@ -44,26 +44,29 @@ module Zendesk
       Rails.logger.info("#{logging_prefix}: Identified primary ticket #{primary_ticket.id} during duplicate merging")
 
       duplicate_ticket_ids = ticket_ids - [primary_ticket.id]
-      duplicate_tickets = duplicate_ticket_ids.map{ |id| get_ticket(ticket_id: id) }
+      if duplicate_ticket_ids.present?
+        duplicate_tickets = duplicate_ticket_ids.map{ |id| get_ticket(ticket_id: id) }
 
-      primary_intake = Intake.where(intake_ticket_id: primary_ticket.id).first
+        primary_intake = Intake.where(intake_ticket_id: primary_ticket.id).first
 
-      # Update duplicate intakes with primary ticket id
-      Intake.find(intake_ids).each do |intake|
-        unless intake.id == primary_intake.id
-          intake.update(intake_ticket_id: primary_ticket.id, primary_intake_id: primary_intake.id)
+        # Update duplicate intakes with primary ticket id
 
-          Rails.logger.info("#{logging_prefix}: Updated duplicate intake #{intake.id} during duplicate merging")
+        Intake.find(intake_ids).each do |intake|
+          unless intake.id == primary_intake.id
+            intake.update(intake_ticket_id: primary_ticket.id, primary_intake_id: primary_intake.id)
+
+            Rails.logger.info("#{logging_prefix}: Updated duplicate intake #{intake.id} during duplicate merging")
+          end
         end
-      end
 
-      # Comment on primary ticket with links to duplicates
-      update_primary_ticket(primary_ticket, duplicate_tickets)
+        # Comment on primary ticket with links to duplicates
+        update_primary_ticket(primary_ticket, duplicate_tickets)
 
-      # Mark duplicate tickets as not filing and leave comments
-      duplicate_tickets.each do |duplicate_ticket|
-        unless duplicate_ticket.status == "closed"
-          update_duplicate_ticket(duplicate_ticket, primary_ticket)
+        # Mark duplicate tickets as not filing and leave comments
+        duplicate_tickets.each do |duplicate_ticket|
+          unless duplicate_ticket.status == "closed"
+            update_duplicate_ticket(duplicate_ticket, primary_ticket)
+          end
         end
       end
 

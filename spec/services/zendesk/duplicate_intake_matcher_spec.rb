@@ -8,7 +8,8 @@ describe Zendesk::DuplicateIntakeMatcher do
       phone_number: "1234567890",
       intake_ticket_id: 12345,
       needs_help_2018: "yes",
-      needs_help_2019: "yes")
+      needs_help_2019: "yes",
+      zendesk_instance_domain: EitcZendeskInstance::DOMAIN)
   end
   let!(:duplicate_intake) do
     create(:intake,
@@ -17,10 +18,16 @@ describe Zendesk::DuplicateIntakeMatcher do
       phone_number: " 1234567890",
       intake_ticket_id: 23456,
       needs_help_2018: "yes",
-      needs_help_2019: "yes")
+      needs_help_2019: "yes",
+      zendesk_instance_domain: EitcZendeskInstance::DOMAIN)
     end
   let!(:_other_year_intake) do
     create(:intake, original_intake.attributes.except("id").merge(needs_help_2018: "no"))
+  end
+  let!(:_uwtsa_intake) do
+    create(:intake,
+      original_intake.attributes.except("id")
+        .merge(zendesk_instance_domain: UwtsaZendeskInstance))
   end
   let!(:_other_name_intake) do
     create(:intake,
@@ -77,13 +84,14 @@ describe Zendesk::DuplicateIntakeMatcher do
         end
       end
     end
+
     context "when primary ticket is not identified (e.g. all tickets are closed)" do
       before do
         allow(merging_service).to receive(:find_primary_ticket)
           .and_return(nil)
       end
       it "does not blow up" do
-        expect { subject.run(false) }.not_to raise_error(NoMethodError)
+        expect { subject.run(false) }.not_to raise_error
       end
     end
   end
