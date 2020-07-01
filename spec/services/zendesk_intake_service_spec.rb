@@ -476,6 +476,7 @@ describe ZendeskIntakeService do
         comment: expected_comment,
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
+          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => "http://test.host/en/zendesk/tickets/34",
         }
       )
     end
@@ -552,9 +553,7 @@ describe ZendeskIntakeService do
       expect(service.send_all_docs).to eq(true)
       expect(service).to have_received(:append_comment_to_ticket).with(
         ticket_id: 34,
-        fields: {
-          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: 34)
-        },
+        fields: { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => "http://test.host/en/zendesk/tickets/34"},
         comment: <<~DOCS
           Documents:
           * #{documents[0].upload.filename} (#{documents[0].document_type})
