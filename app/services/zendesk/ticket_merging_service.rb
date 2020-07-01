@@ -74,7 +74,23 @@ module Zendesk
     end
 
     def find_primary_ticket(ticket_ids)
-      tickets = ticket_ids.map { |id| get_ticket(ticket_id: id) }
+      missing_ticket_ids = []
+      tickets = ticket_ids.map do |id|
+        ticket = get_ticket(ticket_id: id)
+        if ticket
+          ticket
+        else
+          missing_ticket_ids << id
+          next
+        end
+      end.compact
+
+      unless missing_ticket_ids.empty?
+        puts "TicketMergingService could not find tickets with ids: #{missing_ticket_ids}"
+        puts "Other duplicate ticket ids in this set: #{ticket_ids - missing_ticket_ids}"
+        return nil
+      end
+
       tickets.reject! { |ticket| ticket.status == "closed" }
       tickets.sort_by { |ticket| status_index(ticket) }.last
     end

@@ -325,10 +325,10 @@ describe Zendesk::TicketMergingService do
             .and_return(nil)
         end
 
-        xit "ignores the missing ticket without throwing error" do
-          expect { @ticket = service.find_primary_ticket([123, 345, 456, 789]) }
-            .not_to raise_error
-          expect(@ticket).to eq(return_in_progress)
+        it "returns nil and outputs the missing ticket id" do
+          expect { @result = service.find_primary_ticket([123, 345, 456, 789]) }
+            .to(output.to_stdout)
+          expect(@result).to be_nil
         end
       end
     end
