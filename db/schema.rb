@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(version: 2020_07_06_180321) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "anonymized_intake_csv_extracts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.integer "record_count"
+    t.datetime "run_at"
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "attempts", default: 0, null: false
     t.datetime "created_at"

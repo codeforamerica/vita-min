@@ -1,0 +1,33 @@
+<% content_for :page_title, "Page Title" %>
+
+<% content_for :card do %>
+  <div class="header">
+    <h1 class="h2">
+      <%= "Subject" %>
+    </h1>
+
+    <p class="text--smaller">
+      <%= "Text" %>
+    </p>
+  </div>
+
+  <table class="data-table document-table">
+    <thead>
+    <tr>
+      <th><%= t("views.zendesk.extracts.filename") %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @extracts.each do |extract| %>
+      <tr>
+        <td>
+          <%= link_to zendesk_csv_extract_path(extract.id),  target: "_blank" do %>
+            <%= extract.upload.filename %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+
