@@ -387,7 +387,7 @@ vita_partners:
   display_name: North Texas Area United Way
   source_parameters:
   - ntauw
-  logo_path: partner-logos/ntauw.jpg
+  logo_path: partner-logos/ntauw-logo.png
 - name: Coachella Valley Community Tax Services
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011269333'
@@ -421,3 +421,10 @@ vita_partners:
   source_parameters:
   - zhousetax
   logo_path: ''
+- name: Pocono Mountains United Way (PA)
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011727513'
+  display_name: Pocono Mountains United Way
+  source_parameters:
+  - uwpm
+  logo_path: 'partner-logos/uwpm-logo.png'
