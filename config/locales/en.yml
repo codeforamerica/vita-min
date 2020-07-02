@@ -1244,6 +1244,8 @@ en:
         phone_number_title: Call %{provider_name}
         search_radius: Within %{distance} miles of %{zip} (%{zip_name}) %>
     zendesk:
+      extracts:
+        filename: Filename
       intakes:
         banking_info:
           account_number: Account number

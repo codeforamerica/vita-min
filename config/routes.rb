@@ -96,6 +96,7 @@ Rails.application.routes.draw do
         get "consent/:filename", to: "intakes#consent_pdf", on: :member, as: :consent_pdf
         get "banking-info", to: "intakes#banking_info", on: :member, as: :banking_info
       end
+      resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
     end
   end
 
