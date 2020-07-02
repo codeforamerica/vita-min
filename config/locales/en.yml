@@ -1209,7 +1209,7 @@ en:
           item_2: We provide free tax filing assistance
         title: We can help increase your cash support, by filing your taxes in addition to the stimulus
       need_to_correct:
-        help_text: You may need to amended your tax return to correct your filing status, the number of dependents you claim, or your gross income you reported on your original tax return.
+        help_text: You may need to amend your tax return to correct your filing status, the number of dependents you claim, or your gross income you reported on your original tax return.
         title: Do you need to correct your 2019 taxes?
       need_to_file:
         help_text: You may be required to file if you earned any income, received scholarship income, had a Health Savings Account, or received Form 1095-A.
