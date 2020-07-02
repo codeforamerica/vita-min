@@ -421,3 +421,10 @@ vita_partners:
   source_parameters:
   - zhousetax
   logo_path: ''
+- name: Pocono Mountains United Way (PA)
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011727513'
+  display_name: Pocono Mountains United Way
+  source_parameters:
+  - uwpm
+  logo_path: 'uwpm-logo.png'
