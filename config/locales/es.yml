@@ -209,7 +209,6 @@ es:
       file_yourself:
         edit:
           info: Seleccionaste la opción para hacerlo usted mismo. Le proveeremos las herramientas necesarias para que pueda hacer su propia declaración.
-          need_assistance: De hecho, necesito ayuda para declarar.
           right_option:
             2019_only: Solo está declarando del 2019 (no de los años anteriores)
             comfortable_online: Le resulta cómodo usar servicios de declaración de impuestos en línea

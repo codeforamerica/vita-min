@@ -209,7 +209,6 @@ en:
       file_yourself:
         edit:
           info: You selected our do it yourself option. We'll provide the tools so you can file yourself.
-          need_assistance: Actually, I need assistance filing.
           right_option:
             2019_only: You are only filing for 2019 (not previous years)
             comfortable_online: You’re comfortable using online tax services
