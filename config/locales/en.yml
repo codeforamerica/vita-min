@@ -104,12 +104,12 @@ en:
       hispanic: Hispanic or Latino
       not_hispanic: Not Hispanic or Latino
     file_my_taxes: File my taxes
-    find_location: Find a Location
+    find_location: Find a location
     find_vita_site: Find a VITA site near you
     free_file_html: If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online.
     free_file_lookup_tool: IRS Free File Lookup Tool
     get_my_payment: Get My Payment
-    get_started: Get Started
+    get_started: Get started
     here: here
     home: Home
     hours: Hours

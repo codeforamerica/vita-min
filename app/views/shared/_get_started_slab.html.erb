@@ -6,11 +6,11 @@
         <%= link_to question_path(id: QuestionNavigation.first),
           class: "button button--wide button--primary button--centered spacing-below-0",
           **local_assigns.fetch(:link_attributes, {}) do %>
-          <%=t("general.get_started").humanize %>
+          <%=t("general.get_started") %>
         <% end %>
       <% else %>
         <%= link_to vita_providers_path, id: "firstCta", class: "button button--primary spacing-below-0" do %>
-          <%=t("general.find_location").humanize %>
+          <%=t("general.find_location") %>
         <% end %>
       <% end %>
     </div>
