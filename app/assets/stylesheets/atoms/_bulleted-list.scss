@@ -1,0 +1,11 @@
+ul.list--bulleted.purple-bullets {
+  list-style: none;
+
+  li::before {
+    content: "•";
+    color: $color-purple;
+    display: inline-block;
+    width: 1.5rem;
+    margin-left: -1.9rem;
+  }
+}
