@@ -6,41 +6,46 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
-        <main role="main">
-          <div class="question__illustration spacing-above-0">
-            <%= image_tag("diy/file-yourself.svg", alt: "") %>
-          </div>
+        <div class="question__illustration spacing-above-0">
+          <%= image_tag("diy/file-yourself.svg", alt: "") %>
+        </div>
 
-          <h1 class="form-question">
-            <%= @main_heading %>
-          </h1>
-          <p><%=t("views.diy.start_filing.start.info") %></p>
+        <h1 class="form-question">
+          <%= @main_heading %>
+        </h1>
 
-          <div class="text--semibold spacing-below-35">
-            <p><%=t("views.diy.start_filing.start.tips.header") %></p>
-            <ul class="checkmark-list">
-              <li>
-                <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t("views.diy.start_filing.start.tips.no_phone") %></span>
-              </li>
-              <li>
-                <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t("views.diy.start_filing.start.tips.no_navigation") %></span>
-              </li>
-              <li>
-                <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t("views.diy.start_filing.start.tips.spelling") %></span>
-              </li>
-            </ul>
-          </div>
+        <div class="text--semibold spacing-below-35">
+          <ul class="list--bulleted purple-bullets">
+            <li>
+              <span><%= t("views.diy.start_filing.start.tips.create_login") %></span>
+            </li>
+            <li>
+              <span><%= t("views.diy.start_filing.start.tips.no_navigation") %></span>
+            </li>
+            <li>
+              <span><%= t("views.diy.start_filing.start.tips.spelling") %></span>
+            </li>
+          </ul>
+        </div>
 
-          <%= render partial: 'shared/chat_bubble', locals: { text: t("views.diy.start_filing.start.chat") } %>
-
-          <%= link_to t("general.continue"),
-            "https://www.taxslayer.com/vita2019fsa?source=TSUSATY2019&sidn=01093601",
-            class: "button button--primary text--centered button--wide spacing-above-60",
-            "data-track-click": "taxslayer" %>
-        </main>
+        <%= link_to t("general.continue"),
+                    "https://www.taxslayer.com/vita2019fsa?source=TSUSATY2019&sidn=01093601",
+                    class: "button button--primary text--centered button--wide spacing-above-60",
+                    "data-track-click": "taxslayer" %>
+      </div>
+    </div>
+  </section>
+  <section class="slab slab--help">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
+        <div class="stimulus-banner-text">
+          <%= t("views.diy.start_filing.help_html") %>
+        </div>
+      </div>
+      <div class="grid__item width-one-fourth help-button-container">
+        <button class="button button--chat-help" onclick="javascript: zE('webWidget', 'open');">
+          <i class="icon-help_outline"></i><%= t("general.help") %>
+        </button>
       </div>
     </div>
   </section>

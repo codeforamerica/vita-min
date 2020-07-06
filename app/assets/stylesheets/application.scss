@@ -14,6 +14,7 @@
  */
 @import "cfa_styleguide_main";
 @import "atoms/variables";
+@import "atoms/bulleted-list";
 @import "atoms/form-elements";
 @import "atoms/typography";
 @import "organisms/document-overview";
@@ -259,7 +260,7 @@ body {
   }
 
   .slab--stimulus_faq {
-    background-color: #C2C2FF;
+    background-color: $color-lavender;
     font-size: 19px;
     .grid__item {
       display: flex;

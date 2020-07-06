@@ -132,3 +132,20 @@
 .button-logo--inline {
   margin-left: 0.5rem;
 }
+
+.button--chat-help {
+  color: white;
+  background: black;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 25px;
+
+  &:hover {
+    color: white;
+    background-color: #303030;
+  }
+
+  i {
+    margin-right: 10px;
+  }
+}

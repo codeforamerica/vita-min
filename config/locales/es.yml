@@ -110,6 +110,7 @@ es:
     free_file_lookup_tool: Herramienta de búsqueda de declaración de impuestos gratuita del IRS
     get_my_payment: Recibir mi pago
     get_started: Empiece ahora
+    help: Ayuda
     here: aquí
     home: Inicio
     hours: Horas
@@ -224,14 +225,12 @@ es:
           title: Primero, vamos a empezar con su información básica.
       start_filing:
         start:
-          chat: Si tiene alguna pregunta, responda al correo electrónico de confirmación. ¡Estamos para ayudarle!
-          info: Con nuestra opción de preparación de impuestos DIY, va a tener aceso a un software gratuito que hará la asesoría. Tendrá que crearse un usuario en TaxSlayer para empezar.
           tips:
-            header: 'Consejos útiles:'
             no_navigation: No haga clic en "Regresar" ni salga de la página de TaxSlayer
-            no_phone: No utilize su teléfono celular para presentar su declaración.
+            create_login: Para comenzar a declarar, regístrese  en Taxslayer
             spelling: Compruebe la ortografía
           title: "¡Le damos la bienvenida al servicio que le permite presentar su propia declaración de impuestos!"
+        help_html: <strong>No podemos proporcionar asistencia por chat en TaxSlayer, ¡pero estamos aquí para ayudar!</strong><br/> Si tiene alguna pregunta, chatee con nosotros en esta página.
     documents:
       additional_documents:
         help_text: Agregue todos los documentos o formularios adicionales que le gustaría compartir con su preparador de impuestos. Incluya cualquier formulario lo cual no esté seguro de utilizar. Su preparador de impuestos determinará si los formularios son necesarios para su declaración.
