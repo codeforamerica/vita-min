@@ -10,6 +10,11 @@
     &__notes { width: 250px;}
   }
 
+  .extract-column {
+    &__filename { width: 404px; }
+    &__record-count { width: 140px; }
+    &__run_at { width: 360px; }
+  }
 
   td {
 
