@@ -2,8 +2,7 @@ module Zendesk
   class AnonymizedIntakeCsvExtractsController < ApplicationController
     include ZendeskAuthenticationControllerHelper
 
-    #TODO: Make sure that user has admin role
-    before_action :require_zendesk_user
+    before_action :require_zendesk_admin
 
     layout "admin"
 

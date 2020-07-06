@@ -1,21 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe AnonymizedIntakeCsvService do
-  let(:intake_1) do
-    create(:intake,
-      completed_at: Date.new(2020, 7, 1),
-      locale: "en",
-      source: "thc"
-    )
-  end
-  let(:intake_2) do
-    create(:intake,
-      completed_at: Date.new(2020, 7, 2),
-      locale: "es",
-      source: "uwkc"
-    )
-  end
+  let(:intake_1) { create(:intake, :filled_out) }
+  let(:intake_2) { create(:intake, :filled_out) }
   let!(:intake_3) { create(:intake) }
+
   let(:intake_ids) { [intake_1.id, intake_2.id] }
   let(:subject) { AnonymizedIntakeCsvService.new(intake_ids) }
 
@@ -36,12 +25,9 @@ RSpec.describe AnonymizedIntakeCsvService do
   end
 
   describe "#generate_csv" do
-    let(:expected_headers) do
-      %w{
-        completed_at
-        locale
-        intake_source
-      }
+    let(:expected_headers) { AnonymizedIntakeCsvService::CSV_HEADERS }
+    let(:csv_mapping) do
+      expected_headers.zip(AnonymizedIntakeCsvService::CSV_FIELDS).to_h
     end
     let(:csv) { CSV.parse(subject.generate_csv, headers: true) }
 
@@ -49,12 +35,14 @@ RSpec.describe AnonymizedIntakeCsvService do
       expect(csv.headers).to include(*expected_headers)
     end
 
-    it "adds a row for every Intake provided" do
+    it "adds a row with every field for every Intake provided" do
       [intake_1, intake_2].each_with_index do |intake, index|
         row = csv[index]
-        expect(row["completed_at"]).to eq(intake.completed_at.to_s)
-        expect(row["locale"]).to eq(intake.locale.to_s)
-        expect(row["intake_source"]).to eq(intake.source.to_s)
+        csv_mapping.each do |header, field|
+          expect(row[header].to_s)
+            .to eq(subject.decorated_intake(intake).send(field).to_s)
+            .and be_present
+        end
       end
     end
   end

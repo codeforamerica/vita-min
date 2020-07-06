@@ -3,18 +3,22 @@
 <% content_for :card do %>
   <div class="header">
     <h1 class="h2">
-      <%= "Subject" %>
+      <%= t("views.zendesk.extracts.header")  %>
     </h1>
-
-    <p class="text--smaller">
-      <%= "Text" %>
-    </p>
   </div>
 
   <table class="data-table document-table">
     <thead>
     <tr>
-      <th><%= t("views.zendesk.extracts.filename") %></th>
+      <th class="extract-column__filename">
+        <%= t("views.zendesk.extracts.filename") %>
+      </th>
+      <th class="extract-column__record-count">
+        <%= t("views.zendesk.extracts.record_count") %>
+      </th>
+      <th class="extract-column__run_at">
+        <%= t("views.zendesk.extracts.run_at") %>
+      </th>
     </tr>
     </thead>
     <tbody>
@@ -25,6 +29,8 @@
             <%= extract.upload.filename %>
           <% end %>
         </td>
+        <td> <%= extract.record_count %> </td>
+        <td> <%= extract.run_at %> </td>
       </tr>
     <% end %>
     </tbody>

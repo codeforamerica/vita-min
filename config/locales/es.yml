@@ -158,6 +158,8 @@ es:
     well: Bien
     you: usted
     you_or_spouse: usted o su cónyuge
+    zendesk:
+      access_denied: No tiene autorización para acceder a esa página
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -1244,6 +1246,11 @@ es:
         phone_number_title: Llame a %{provider_name}
         search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name}) %>
     zendesk:
+      extracts:
+        filename: Nombre de archivo
+        header: Extractos anónimos CSV de Intakes
+        record_count: Número de registros
+        run_at: Ejecutado a
       intakes:
         banking_info:
           account_number: Número de cuenta

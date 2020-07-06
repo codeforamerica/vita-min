@@ -158,6 +158,8 @@ en:
     well: Well
     you: you
     you_or_spouse: you or your spouse
+    zendesk:
+      access_denied: You are not authorized to access that page
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -1245,7 +1247,10 @@ en:
         search_radius: Within %{distance} miles of %{zip} (%{zip_name}) %>
     zendesk:
       extracts:
+        header: Anonymized Intake CSV Extracts
         filename: Filename
+        record_count: Record Count
+        run_at: Run At
       intakes:
         banking_info:
           account_number: Account number

@@ -19,6 +19,14 @@ module ZendeskAuthenticationControllerHelper
     end
   end
 
+  def require_zendesk_admin
+    return if require_zendesk_user
+    unless current_user&.role == "admin"
+      flash[:alert] = I18n.t("general.zendesk.access_denied")
+      redirect_to zendesk_sign_in_path
+    end
+  end
+
   def require_ticket_access
     render "public_pages/page_not_found", status: 404 unless current_ticket.present?
   end
