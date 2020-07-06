@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_200820) do
+ActiveRecord::Schema.define(version: 2020_07_06_180321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_200820) do
     t.string "city"
     t.datetime "completed_at"
     t.boolean "completed_intake_sent_to_zendesk"
+    t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false
@@ -303,6 +304,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_200820) do
     t.bigint "triage_source_id"
     t.string "triage_source_type"
     t.datetime "updated_at"
+    t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
     t.string "vita_partner_group_id"
     t.bigint "vita_partner_id"

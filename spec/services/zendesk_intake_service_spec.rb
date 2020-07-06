@@ -11,6 +11,7 @@ describe ZendeskIntakeService do
   let(:interview_timing_preference) { "" }
   let(:final_info) { "" }
   let(:source) { "uw-narnia" }
+  let(:continued_at_capacity) { false }
   let(:intake) do
     create :intake,
            state_of_residence: state,
@@ -35,7 +36,8 @@ describe ZendeskIntakeService do
            intake_ticket_id: intake_ticket_id,
            intake_ticket_requester_id: intake_requester_id,
            refund_payment_method: payment_method,
-           balance_pay_from_bank: pay_from_bank
+           balance_pay_from_bank: pay_from_bank,
+           continued_at_capacity: continued_at_capacity
   end
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
@@ -196,6 +198,7 @@ describe ZendeskIntakeService do
           group_id: vita_partner.zendesk_group_id,
           external_id: "intake-#{intake.id}",
           body: "Body text",
+          tags: [],
           fields: {
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
@@ -259,6 +262,7 @@ describe ZendeskIntakeService do
           group_id: vita_partner.zendesk_group_id,
           external_id: intake.external_id,
           body: "Body text",
+          tags: [],
           fields: {
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
@@ -287,6 +291,32 @@ describe ZendeskIntakeService do
         expect(service)
           .to have_received(:create_ticket)
           .with(include(fields: include(EitcZendeskInstance::COMMUNICATION_PREFERENCES => [])))
+      end
+    end
+
+    context "when the user went through the 'at capacity' page" do
+      let(:continued_at_capacity) { true }
+
+      it "adds the saw_at_capacity_page tag" do
+        service.create_intake_ticket
+        expect(service)
+          .to have_received(:create_ticket)
+          .with(include(tags: ["saw_at_capacity_page"])
+        )
+      end
+
+      context "when the user was triaged from stimulus" do
+        before do
+          intake.triage_source = StimulusTriage.new
+        end
+
+        it "adds the triaged_from_stimulus tag" do
+          service.create_intake_ticket
+          expect(service)
+            .to have_received(:create_ticket)
+            .with(include(tags: ["triaged_from_stimulus", "saw_at_capacity_page"])
+          )
+        end
       end
     end
 

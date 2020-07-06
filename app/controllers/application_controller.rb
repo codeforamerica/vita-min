@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
 
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode, :check_at_capacity
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   after_action :track_page_view
   around_action :switch_locale
   helper_method :include_analytics?, :current_intake, :show_progress?
@@ -198,10 +198,6 @@ class ApplicationController < ActionController::Base
     elsif ENV['MAINTENANCE_MODE_SCHEDULED'].present?
       flash.now[:warning] = I18n.t("controllers.application_controller.maintenance")
     end
-  end
-
-  def check_at_capacity
-    redirect_to at_capacity_path and return if ENV['AT_CAPACITY'].present?
   end
 
   ##

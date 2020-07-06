@@ -434,11 +434,6 @@ en:
             denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
           subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $66,000 a year.
         title: About Us
-      at_capacity:
-        alternative_html: Alternatively, you can try %{irs_link}, an online service that lets you prepare your own taxes for free.
-        body: We’re experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. We apologize for the wait, GetYourRefund will be available again shortly.
-        check_back: We recommend checking back in a few days. Thank you!
-        title: Wow, it looks like we are at capacity right now.
       diy_home:
         header: File taxes on your own for free!
         send_link: Send me a link
@@ -736,6 +731,13 @@ en:
         title:
           one: Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
           other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
+      at_capacity:
+        alternative_html: To file immediately, you can try our free DIY option, an online service that lets you prepare your own taxes for free.
+        body: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. We apologize for the wait.
+        check_back: We recommend checking back in a few days. Thank you!
+        file_with_diy: File with DIY option
+        file_with_help: File with help
+        title: Wow, it looks like we are at capacity right now.
       backtaxes:
         select_all_that_apply: Select all that apply.
         title: What years do you need to file for?
