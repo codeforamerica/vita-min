@@ -428,3 +428,10 @@ vita_partners:
   source_parameters:
   - uwpm
   logo_path: 'partner-logos/uwpm-logo.png'
+- name: Central City Neighborhood Partners [Los Angeles Ventanilla VITA site]
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011733194'
+  display_name: Central City Neighborhood Partners
+  source_parameters:
+  - laccnp
+  logo_path: 'partner-logos/CCNP-logo.jpeg'
