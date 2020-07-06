@@ -172,6 +172,23 @@ describe Zendesk::TicketMergingService do
           service.merge_duplicate_tickets([intake_ready_for_review.id, intake_in_progress.id])
         end
       end
+
+      context "when only one intake has a ticket in Zendesk" do
+        let!(:primary_intake) { create :intake, intake_ticket_id: ticket_in_progress.id }
+        let!(:unfinished_intake) { create :intake, intake_ticket_id: nil }
+        let(:all_tickets) { [ticket_in_progress] }
+
+        before do
+          allow(service).to receive(:find_primary_ticket).and_return(ticket_in_progress)
+        end
+
+        it "updates all the other intakes ticket ids to the primary one" do
+          expect(service).not_to receive(:append_comment_to_ticket)
+          expect { service.merge_duplicate_tickets([primary_intake.id, unfinished_intake.id ]) }
+            .to change { unfinished_intake.reload.intake_ticket_id }
+            .to(ticket_in_progress.id)
+        end
+      end
     end
 
     context "when tickets are routed to different groups" do
@@ -231,6 +248,7 @@ describe Zendesk::TicketMergingService do
           tags: ["duplicate"]
         )
       end
+
     end
 
     context "when there is no primary ticket because all are closed" do
