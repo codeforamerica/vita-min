@@ -15,6 +15,7 @@ class QuestionNavigation
 
     # Contact information
     Questions::PersonalInfoController,
+    Questions::AtCapacityController,
     Questions::ChatWithUsController,
     Questions::PhoneNumberController,
     Questions::EmailAddressController,

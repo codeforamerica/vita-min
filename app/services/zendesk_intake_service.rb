@@ -69,10 +69,14 @@ class ZendeskIntakeService
           external_id: @intake.external_id,
           group_id: @intake.vita_partner.zendesk_group_id,
           body: new_ticket_body,
-          fields: new_ticket_fields
+          fields: new_ticket_fields,
+          tags: [],
       }
       if @intake.triaged_from_stimulus?
-        ticket_content[:tags] = ['triaged_from_stimulus']
+        ticket_content[:tags] += ["triaged_from_stimulus"]
+      end
+      if @intake.continued_at_capacity
+        ticket_content[:tags] += ["saw_at_capacity_page"]
       end
       ticket = create_ticket(**ticket_content)
       ticket_status = @intake.ticket_statuses.create(

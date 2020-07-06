@@ -533,7 +533,6 @@ RSpec.describe ApplicationController do
     end
 
     it_behaves_like 'render special pages', 'MAINTENANCE_MODE', '/en/maintenance'
-    it_behaves_like 'render special pages', 'AT_CAPACITY', '/en/at-capacity'
   end
 
   describe '#check_maintenance_mode' do

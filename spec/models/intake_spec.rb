@@ -14,6 +14,7 @@
 #  city                                                 :string
 #  completed_at                                         :datetime
 #  completed_intake_sent_to_zendesk                     :boolean
+#  continued_at_capacity                                :boolean          default(FALSE)
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
 #  demographic_english_reading                          :integer          default("unfilled"), not null
@@ -145,6 +146,7 @@
 #  state_of_residence                                   :string
 #  street_address                                       :string
 #  triage_source_type                                   :string
+#  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
