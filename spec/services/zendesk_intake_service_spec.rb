@@ -11,6 +11,7 @@ describe ZendeskIntakeService do
   let(:interview_timing_preference) { "" }
   let(:final_info) { "" }
   let(:source) { "uw-narnia" }
+  let(:continued_at_capacity) { false }
   let(:intake) do
     create :intake,
            state_of_residence: state,
@@ -26,6 +27,7 @@ describe ZendeskIntakeService do
            requested_docs_token_created_at: 2.minutes.ago,
            email_address: "cash@raining.money",
            phone_number: "14155551234",
+           sms_phone_number: "14155551234",
            primary_first_name: "Cher",
            primary_last_name: "Cherimoya",
            preferred_name: "Cherry",
@@ -34,7 +36,8 @@ describe ZendeskIntakeService do
            intake_ticket_id: intake_ticket_id,
            intake_ticket_requester_id: intake_requester_id,
            refund_payment_method: payment_method,
-           balance_pay_from_bank: pay_from_bank
+           balance_pay_from_bank: pay_from_bank,
+           continued_at_capacity: continued_at_capacity
   end
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
@@ -180,6 +183,11 @@ describe ZendeskIntakeService do
       let(:state) { "co" }
       let!(:vita_partner) { VitaPartner.find_by(name: "Tax Help Colorado (Piton Foundation)") }
       let(:ticket_status) { intake.current_ticket_status }
+      let(:mixpanel_spy) { spy(MixpanelService) }
+
+      before(:each) do
+        allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
+      end
 
       it "calls create_ticket with the right arguments" do
         result = service.create_intake_ticket
@@ -190,6 +198,7 @@ describe ZendeskIntakeService do
           group_id: vita_partner.zendesk_group_id,
           external_id: "intake-#{intake.id}",
           body: "Body text",
+          tags: [],
           fields: {
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
@@ -218,15 +227,13 @@ describe ZendeskIntakeService do
       end
 
       it "sends a mixpanel event" do
-        mixpanel_spy = spy(MixpanelService)
-        allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
         service.create_intake_ticket
 
         expect(mixpanel_spy).to have_received(:run).with(
           unique_id: intake.visitor_id,
           event_name: "ticket_status_change",
-          data: intake.mixpanel_data.merge(ticket_status.mixpanel_data)
-        )
+          data: hash_including(MixpanelService.data_from([intake, ticket_status])
+        ))
       end
 
       it "sends a datadog metric" do
@@ -240,6 +247,11 @@ describe ZendeskIntakeService do
     context "in a state for the UWTSA Group" do
       let(:state) { "az" }
       let(:vita_partner) { VitaPartner.find_by(name: "United Way of Tuscon and Southern Arizona") }
+      let(:mixpanel_spy) { spy(MixpanelService) }
+
+      before(:each) do
+        allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
+      end
 
       it "excludes intake site, and intake status and sends a nil group_id" do
         result = service.create_intake_ticket
@@ -250,6 +262,7 @@ describe ZendeskIntakeService do
           group_id: vita_partner.zendesk_group_id,
           external_id: intake.external_id,
           body: "Body text",
+          tags: [],
           fields: {
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
@@ -267,12 +280,43 @@ describe ZendeskIntakeService do
     context "when the user opts out of sms notifications" do
       let(:sms_opt_in) { "no" }
       let(:email_opt_in) { "no" }
+      let(:mixpanel_spy) { spy(MixpanelService) }
+
+      before(:each) do
+        allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
+      end
 
       it "does not send the 'sms_opt_in'" do
         result = service.create_intake_ticket
         expect(service)
           .to have_received(:create_ticket)
           .with(include(fields: include(EitcZendeskInstance::COMMUNICATION_PREFERENCES => [])))
+      end
+    end
+
+    context "when the user went through the 'at capacity' page" do
+      let(:continued_at_capacity) { true }
+
+      it "adds the saw_at_capacity_page tag" do
+        service.create_intake_ticket
+        expect(service)
+          .to have_received(:create_ticket)
+          .with(include(tags: ["saw_at_capacity_page"])
+        )
+      end
+
+      context "when the user was triaged from stimulus" do
+        before do
+          intake.triage_source = StimulusTriage.new
+        end
+
+        it "adds the triaged_from_stimulus tag" do
+          service.create_intake_ticket
+          expect(service)
+            .to have_received(:create_ticket)
+            .with(include(tags: ["triaged_from_stimulus", "saw_at_capacity_page"])
+          )
+        end
       end
     end
 
@@ -462,7 +506,7 @@ describe ZendeskIntakeService do
         comment: expected_comment,
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
-          EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
+          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => "http://test.host/en/zendesk/tickets/34",
         }
       )
     end
@@ -495,7 +539,6 @@ describe ZendeskIntakeService do
           comment: expected_comment,
           fields: {
             UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
-            UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
           }
         )
       end
@@ -540,9 +583,7 @@ describe ZendeskIntakeService do
       expect(service.send_all_docs).to eq(true)
       expect(service).to have_received(:append_comment_to_ticket).with(
         ticket_id: 34,
-        fields: {
-          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: 34)
-        },
+        fields: { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => "http://test.host/en/zendesk/tickets/34"},
         comment: <<~DOCS
           Documents:
           * #{documents[0].upload.filename} (#{documents[0].document_type})
@@ -618,7 +659,6 @@ describe ZendeskIntakeService do
         comment: comment_body,
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-          EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
         }
       )
     end
@@ -651,7 +691,6 @@ describe ZendeskIntakeService do
           comment: comment_body,
           fields: {
               UwtsaZendeskInstance::INTAKE_STATUS => UwtsaZendeskInstance::INTAKE_STATUS_READY_FOR_REVIEW,
-              UwtsaZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
           }
         )
       end

@@ -1,14 +1,15 @@
 # .pairs - configuration for 'git pair'
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
-  jenny: Jenny Heath; jheath
-  ben: Ben Golder; bgolder
-  tom: Tom Dooner; tdooner
+  jh: Jenny Heath; jheath
+  bg: Ben Golder; bgolder
+  td: Tom Dooner; tdooner
   lk: Laura Kogler; lkogler
   mtm: Molly T-M; mollyt
   jg: Jonathan Greenberg; jgreenberg
   bv: Ben Vandgrift; bvandgrift
   dbd: Dimitri DeFigueiredo; ddefigueiredo
+  al: Asheesh Laroia; alaroia
 email:
   prefix: pair
   domain: codeforamerica.org

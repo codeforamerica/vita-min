@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
   render_views
 
-  describe "#include_google_analytics?" do
+  describe "#include_analytics?" do
     it "returns true" do
-      expect(subject.include_google_analytics?).to eq true
+      expect(subject.include_analytics?).to eq true
     end
   end
 

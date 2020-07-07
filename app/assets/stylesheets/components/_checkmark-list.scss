@@ -11,17 +11,20 @@ ul.checkmark-list {
     margin-left: 3.2rem;
   }
   svg.checkmark {
-     position: absolute;
-     top: 7px;
-     margin-right: 1.5rem;
-     &.teal {
-       fill: #02CEAA;
-     }
+    position: absolute;
+    top: 7px;
+    margin-right: 1.5rem;
+    &.teal {
+      fill: #02CEAA;
+    }
 
-     &.purple {
-       fill: $color-purple;
-     }
+    &.purple {
+      fill: $color-purple;
+    }
 
+    &.venice-blue {
+      fill: $color-venice-blue;
+    }
    }
 }
 

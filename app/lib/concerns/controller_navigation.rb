@@ -32,7 +32,7 @@ module ControllerNavigation
 
   def seek(list)
     list.detect do |controller_class|
-      controller_class.show?(@current_controller.current_intake)
+      controller_class.show?(@current_controller.visitor_record)
     end
   end
 

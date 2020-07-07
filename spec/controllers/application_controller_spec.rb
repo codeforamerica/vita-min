@@ -37,9 +37,9 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#include_google_analytics?" do
+  describe "#include_analytics?" do
     it "returns false" do
-      expect(subject.include_google_analytics?).to eq false
+      expect(subject.include_analytics?).to eq false
     end
   end
 
@@ -533,7 +533,6 @@ RSpec.describe ApplicationController do
     end
 
     it_behaves_like 'render special pages', 'MAINTENANCE_MODE', '/en/maintenance'
-    it_behaves_like 'render special pages', 'AT_CAPACITY', '/en/at-capacity'
   end
 
   describe '#check_maintenance_mode' do
@@ -594,9 +593,20 @@ RSpec.describe ApplicationController do
     context "for a user with a diy intake" do
       let(:diy_intake) { create(:diy_intake) }
 
-      it "includes an diy_intake_id" do
+      it "includes a diy_intake_id" do
         controller.append_info_to_payload(fake_payload)
         expect(fake_payload).to include(request_details: include(diy_intake_id: diy_intake.id))
+      end
+    end
+
+    context "for a user with a stimulus_triage" do
+      let(:stimulus_triage) { create(:stimulus_triage) }
+
+      it "includes a stimulus_triage_id" do
+        allow(controller).to receive(:current_stimulus_triage).and_return(stimulus_triage)
+        controller.append_info_to_payload(fake_payload)
+        expect(fake_payload)
+          .to include(request_details: include(stimulus_triage_id: stimulus_triage.id))
       end
     end
   end

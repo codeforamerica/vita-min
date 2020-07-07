@@ -181,12 +181,12 @@ RSpec.describe ZendeskWebhookController, type: :controller do
               controller_name: "ZendeskWebhook",
               controller_action: "ZendeskWebhookController#incoming",
               controller_action_name: "incoming",
-            }.merge(intake.mixpanel_data).merge(intake.current_ticket_status.mixpanel_data)
+            }.merge(MixpanelService.data_from([intake, intake.current_ticket_status]))
 
             expect(mixpanel_spy).to have_received(:run).with(
               unique_id: intake.visitor_id,
               event_name: "ticket_status_change",
-              data: expected_mixpanel_data
+              data: hash_including(expected_mixpanel_data)
             )
           end
         end

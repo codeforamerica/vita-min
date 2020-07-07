@@ -8,7 +8,7 @@
   }
 
   .link-box {
-    border: 0.1rem solid #A0A0A0;
+    border: 0.1rem solid #a0a0a0;
     border-radius: 1rem;
     padding: 2rem;
     display: flex;
@@ -17,7 +17,7 @@
     margin-bottom: 2.5rem;
 
     &:hover {
-      background: #F7F5F4;
+      background: #f7f5f4;
     }
 
     .link-box--content {
@@ -47,6 +47,10 @@
 
       h2.ask-a-question {
         color: $color-orange-dark;
+      }
+
+      h2.get-your-stimulus {
+        color: $color-venice-blue;
       }
 
       img {

@@ -15,7 +15,7 @@
             <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
               <% if illustration_path.present? %>
                 <div class="question__illustration">
-                  <%= image_tag("questions/#{illustration_path}", alt: "") %>
+                  <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
                 </div>
               <% end %>
               <h1 class="form-question" id="main-question">
@@ -27,10 +27,10 @@
                 </p>
               <% end %>
               <div class="yes-no-buttons">
-                <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "yes", class: "button button--icon button--centered", "aria-describedby": "main-question" do %>
+                <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "yes", class: "button button--icon button--icon--centered", "aria-describedby": "main-question" do %>
                   <%= image_tag("checkmark.svg", alt: "") %><%=t("general.affirmative") %>
                 <% end %>
-                <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "no", class: "button button--icon button--centered", "aria-describedby": "main-question" do %>
+                <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "no", class: "button button--icon button--icon--centered", "aria-describedby": "main-question" do %>
                   <%= image_tag("crossmark.svg", alt: "") %><%=t("general.negative") %>
                 <% end %>
               </div>

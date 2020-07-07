@@ -6,14 +6,13 @@ en:
       redirect: You're missing a ticket or intake. In production, we would have redirected you to the beginning.
     dependents_controller:
       removed_dependent: Removed %{full_name}.
+    send_requested_documents_later_controller:
+      not_found: We're sorry, we couldn't upload your document! To upload another document, please return to the link from your tax specialist.
+      success: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more.
   date:
     formats:
       default: "%-m/%-d/%Y"
       long: "%B %-d, %Y"
-  forms:
-    errors:
-      at_least_one_year: Please pick at least one year.
-      need_phone_number: Please enter a cell phone number.
   errors:
     attributes:
       birth_date:
@@ -50,15 +49,15 @@ en:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
         confirmation: Please double check that the phone numbers match.
+      preferred_name:
+        blank: Please enter your preferred name.
       primary_first_name:
         blank: Please enter your first name.
       primary_last_four_ssn:
-        too_short: Please enter the last four digits of your SSN or ITIN.
         too_long: Please enter the last four digits of your SSN or ITIN.
+        too_short: Please enter the last four digits of your SSN or ITIN.
       primary_last_name:
         blank: Please enter your last name.
-      preferred_name:
-        blank: Please enter your preferred name.
       signature_method:
         inclusion: Please select a pickup method.
       spouse_email_address:
@@ -67,17 +66,21 @@ en:
         confirmation: Please double check that the email addresses match.
       spouse_first_name:
         blank: Please enter your spouse's first name.
+      spouse_last_four_ssn:
+        too_long: Please enter the last four digits of your spouse's SSN or ITIN.
+        too_short: Please enter the last four digits of your spouse's SSN or ITIN.
       spouse_last_name:
         blank: Please enter your spouse's last name.
-      spouse_last_four_ssn:
-        too_short: Please enter the last four digits of your spouse's SSN or ITIN.
-        too_long: Please enter the last four digits of your spouse's SSN or ITIN.
       state:
         inclusion: Please select a state.
       state_of_residence:
         inclusion: Please select a state from the list.
     messages:
       blank: Can't be blank.
+  forms:
+    errors:
+      at_least_one_year: Please pick at least one year.
+      need_phone_number: Please enter a cell phone number.
   general:
     address: Address
     affirmative: 'Yes'
@@ -101,12 +104,12 @@ en:
       hispanic: Hispanic or Latino
       not_hispanic: Not Hispanic or Latino
     file_my_taxes: File my taxes
-    find_location: Find a Location
+    find_location: Find a location
     find_vita_site: Find a VITA site near you
     free_file_html: If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online.
     free_file_lookup_tool: IRS Free File Lookup Tool
     get_my_payment: Get My Payment
-    get_started: Get Started
+    get_started: Get started
     here: here
     home: Home
     hours: Hours
@@ -206,7 +209,6 @@ en:
       file_yourself:
         edit:
           info: You selected our do it yourself option. We'll provide the tools so you can file yourself.
-          need_assistance: Actually, I need assistance filing.
           right_option:
             2019_only: You are only filing for 2019 (not previous years)
             comfortable_online: You’re comfortable using online tax services
@@ -432,11 +434,10 @@ en:
             denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
           subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $66,000 a year.
         title: About Us
-      at_capacity:
-        alternative_html: Alternatively, you can try %{irs_link}, an online service that lets you prepare your own taxes for free.
-        body: We’re experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. We apologize for the wait, GetYourRefund will be available again shortly.
-        check_back: We recommend checking back in a few days. Thank you!
-        title: Wow, it looks like we are at capacity right now.
+      diy_home:
+        header: File taxes on your own for free!
+        send_link: Send me a link
+        subheader: We provide free access to an online tax prep site called TaxSlayer. We’ll send you a link to create your own TaxSlayer login, so you can file on your own.
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
         contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
@@ -582,6 +583,7 @@ en:
             doc_storage: Documents will be kept secure at all times - passwords, encryption, sealed envelopes, locking file holders/cabinets, etc
             header: 'Here are some specific security practices we use:'
             incident_response: Site maintains an incident response plan that includes reporting security incidents to the IRS
+            pii_deletion: All taxpayer personally identifiable information (PII) will be deleted from the system by October 31st, 2020.
             ssl: All connections will be encrypted using SSL certificates
             tls: When you enter your information on our site we encrypt the transmission of that information using transport layer security (TLS).
             training: Only VITA volunteers completing the necessary training and Code for America site administrators will have access to taxpayer information
@@ -719,9 +721,6 @@ en:
         title:
           one: In %{year}, did you adopt a child?
           other: In %{year}, did you or your spouse adopt a child?
-      already_filed:
-        help_text: We’re asking because you may have filed with another service or you may have an amendment to your 2019 return.
-        title: Before we start, have you already filed for 2019?
       asset_sale_income:
         help_text: For example, any income included on a 1099-B or 1099-S.
         title:
@@ -732,6 +731,13 @@ en:
         title:
           one: Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
           other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
+      at_capacity:
+        alternative_html: To file immediately, you can try our free DIY option, an online service that lets you prepare your own taxes for free.
+        body: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. We apologize for the wait.
+        check_back: We recommend checking back in a few days. Thank you!
+        file_with_diy: File with DIY option
+        file_with_help: File with help
+        title: Wow, it looks like we are at capacity right now.
       backtaxes:
         select_all_that_apply: Select all that apply.
         title: What years do you need to file for?
@@ -844,9 +850,6 @@ en:
           need_assistance: You need assistance with tax filing
           nervous: You’re nervous to file completely on your own
         title: File with the help of a tax expert!
-      filing_for_stimulus:
-        help_text: This year, many people will receive a stimulus check from the federal government.
-        title: Are you trying to file for your stimulus?
       filing_joint:
         help_text: Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return.
         title: Are you filing joint taxes with your spouse?
@@ -884,14 +887,6 @@ en:
         title:
           one: In %{year}, did you have a Health Savings Account?
           other: In %{year}, did you or your spouse have a Health Savings Account?
-      identity:
-        contact_html: If you have any trouble please chat with us or e-mail %{email_link}.
-        here_to_help: We’re here to help!
-        instructions: You will need to upload your ID and take a selfie, so we can be sure it's you! It usually takes about 5 minutes to complete.
-        partner_html: We are partnering with %{partner_link} to protect your identity and ensure that your personal information is accurate and secure.
-        sign_in_html: Sign in with <span class="sr-only">ID.me</span>
-        title: First, let’s get some basic information.
-        visit_partner: For more information, please visit ID.me.
       interest_income:
         help_text: For example interest received on a savings account or any other income included on a 1099-INT or 1099-DIV.
         title:
@@ -1105,10 +1100,6 @@ en:
         info: We’ll start by asking about your situation in %{year}.
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: Let's get started
-      stimulus_recommendation:
-        already_filed: Since you’ve already filed for 2019, you will automatically get your stimulus check! If you have additional questions about your stimulus, we recommend checking out our Stimulus FAQ page.
-        title: Get your stimulus check!
-        visit_stimulus_faq: Visit Stimulus FAQ
       student:
         help_text: This includes community college, technical school, professional development classes, higher education, and vocational education.
         title: In %{year}, was someone in your family a college or other post high school student?
@@ -1163,6 +1154,9 @@ en:
         question:
           header: Ask a question
           info: Get your tax related questions answered.
+        stimulus:
+          header: Get your Stimulus
+          info: Find answers to your stimulus questions and file if needed.
         title: Welcome! How can we help you?
       widowed:
         title: As of December 31, %{year}, were you widowed?
@@ -1199,6 +1193,33 @@ en:
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
+    stimulus:
+      file_for_stimulus:
+        info: You might also be eligible for additional money through tax credits. We’ll help you get the most out of your return!
+        title: We’ll help you collect your stimulus check by filing!
+      filed_prior_years:
+        title: Have you already filed for 2016 and 2017?
+      filed_recently:
+        title: Have you already filed for 2018 and 2019?
+      filing_might_help:
+        button_no: No. I only want my stimulus.
+        button_yes: Yes! Help me file my taxes.
+        info: We know you're interested in collecting your stimulus payment, but you might be eligible for additional money by filing taxes for previous years.
+        list:
+          header: Get all the cash support you're owed!
+          item_1: You may receive additional money through tax credits
+          item_2: We provide free tax filing assistance
+        title: We can help increase your cash support, by filing your taxes in addition to the stimulus
+      need_to_correct:
+        help_text: You may need to amend your tax return to correct your filing status, the number of dependents you claim, or your gross income you reported on your original tax return.
+        title: Do you need to correct your 2019 taxes?
+      need_to_file:
+        help_text: You may be required to file if you earned any income, received scholarship income, had a Health Savings Account, or received Form 1095-A.
+        title: Do you need to file this year?
+      visit_stimulus_faq:
+        cta: Visit Stimulus FAQ
+        info: Since you’ve already filed, we recommend checking out our Stimulus FAQ page.
+        title: Get your stimulus check!
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.

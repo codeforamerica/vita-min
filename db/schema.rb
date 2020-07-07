@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_12_170554) do
+ActiveRecord::Schema.define(version: 2020_07_06_180321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 2020_06_12_170554) do
     t.string "city"
     t.datetime "completed_at"
     t.boolean "completed_intake_sent_to_zendesk"
+    t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false
@@ -300,7 +301,10 @@ ActiveRecord::Schema.define(version: 2020_06_12_170554) do
     t.string "state"
     t.string "state_of_residence"
     t.string "street_address"
+    t.bigint "triage_source_id"
+    t.string "triage_source_type"
     t.datetime "updated_at"
+    t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
     t.string "vita_partner_group_id"
     t.bigint "vita_partner_id"
@@ -312,6 +316,7 @@ ActiveRecord::Schema.define(version: 2020_06_12_170554) do
     t.string "widowed_year"
     t.string "zendesk_instance_domain"
     t.string "zip_code"
+    t.index ["triage_source_type", "triage_source_id"], name: "index_intakes_on_triage_source_type_and_triage_source_id"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
 
@@ -342,6 +347,19 @@ ActiveRecord::Schema.define(version: 2020_06_12_170554) do
     t.bigint "vita_partner_id"
     t.index ["state_abbreviation"], name: "index_states_vita_partners_on_state_abbreviation"
     t.index ["vita_partner_id"], name: "index_states_vita_partners_on_vita_partner_id"
+  end
+
+  create_table "stimulus_triages", force: :cascade do |t|
+    t.integer "chose_to_file", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.integer "filed_prior_years", default: 0, null: false
+    t.integer "filed_recently", default: 0, null: false
+    t.integer "need_to_correct", default: 0, null: false
+    t.integer "need_to_file", default: 0, null: false
+    t.string "referrer"
+    t.string "source"
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "visitor_id"
   end
 
   create_table "ticket_statuses", force: :cascade do |t|

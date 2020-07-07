@@ -12,16 +12,12 @@ vita_partners:
   - WY
   - KS
   - NE
+  - FL
   logo_path: ''
 - name: Goodwill Industries of the Southern Rivers
   zendesk_instance_domain: eitc
   zendesk_group_id: '360008424134'
   display_name: Goodwill Industries of the Southern Rivers
-  source_parameters:
-  - goodwillsr
-  states:
-  - GA
-  - AL
   logo_path: ''
 - name: United Way of King County
   zendesk_instance_domain: eitc
@@ -46,24 +42,16 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009341853'
   display_name: Save First
-  source_parameters:
-  - ia
   logo_path: partner-logos/ia.png
 - name: Impact America (Save First) Mississippi River States
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009830214'
   display_name: Save First
-  states:
-  - TN
-  - AR
-  - MS
   logo_path: partner-logos/ia.png
 - name: Impact America (Save First) South Carolina
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009341873'
   display_name: Save First
-  states:
-  - SC
   logo_path: partner-logos/ia.png
 - name: Foundation Communities
   zendesk_instance_domain: eitc
@@ -98,7 +86,7 @@ vita_partners:
   zendesk_group_id: '360009581934'
   display_name: United Way of Tuscon and Southern Arizona
   logo_path: ''
-  accepts_overflow: false
+  accepts_overflow: true
   states:
   - AZ
 - name: United Way of Greater Richmond and Petersburg
@@ -186,8 +174,6 @@ vita_partners:
   display_name: RefundDay
   source_parameters:
   - RefundDay
-  states:
-  - FL
   logo_path: ''
 - name: Tax Help New Mexico
   zendesk_instance_domain: eitc
@@ -227,8 +213,10 @@ vita_partners:
   display_name: Urban Upbound (NY)
   source_parameters:
   - uuny
+  states:
+  - NY
   logo_path: ''
-- name: "[MASSCAP] Online Intake (w/Boston Tax Help)"
+- name: "[MA/BTH] Online Intake (w/Boston Tax Help)"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011044474'
   display_name: Massachusetts Association for Community Action (MASSCAP) and Boston
@@ -236,7 +224,7 @@ vita_partners:
   states:
   - MA
   logo_path: ''
-- name: "[MASSCAP] South Shore/South Coast"
+- name: "[MA/BTH] South Shore/South Coast"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417234'
   display_name: Massachusetts Association for Community Action (MASSCAP)
@@ -244,7 +232,7 @@ vita_partners:
   - MC-SSSC
   - MC-SOUTH
   logo_path: ''
-- name: "[MASSCAP] North Shore"
+- name: "[MA/BTH] North Shore"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417254'
   display_name: Massachusetts Association for Community Action (MASSCAP)
@@ -252,26 +240,54 @@ vita_partners:
   - MC-NS
   - MC-LEO
   logo_path: ''
-- name: "[MASSCAP] Springfield"
+- name: "[MA/BTH] Springfield"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417334'
   display_name: Massachusetts Association for Community Action (MASSCAP)
   source_parameters:
   - MC-SP
   logo_path: ''
-- name: "[MASSCAP] Community Action of Pioneer Valley"
+- name: "[MA/BTH] Community Action of Pioneer Valley"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417354'
   display_name: Massachusetts Association for Community Action (MASSCAP)
   source_parameters:
   - MC-CAPV
   logo_path: ''
-- name: "[MASSCAP] Worcester"
+- name: "[MA/BTH] Worcester"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010415253'
   display_name: Massachusetts Association for Community Action (MASSCAP)
   source_parameters:
   - MC-WOR
+  logo_path: ''
+- name: "[MA/BTH] ABCD"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011283393'
+  display_name: 'Boston Tax Help'
+  source_parameters:
+  - BTHC-ABCD
+  logo_path: ''
+- name: "[MA/BTH] AB APAC"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011284774'
+  display_name: 'Boston Tax Help'
+  source_parameters:
+  - BTHC-AB-APAC
+  logo_path: ''
+- name: "[MA/BTH] Roxbury & Jamaica Plain"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011284494'
+  display_name: 'Boston Tax Help'
+  source_parameters:
+  - BTHC-ROXBURY
+  logo_path: ''
+- name: "[MA/BTH] StreetCred"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011282873'
+  display_name: 'Boston Tax Help'
+  source_parameters:
+  - BTHC-STREETCRED
   logo_path: ''
 - name: Granite United Way
   zendesk_instance_domain: eitc
@@ -337,6 +353,13 @@ vita_partners:
   source_parameters:
   - cityofmiami
   logo_path: partner-logos/city-of-miami.png
+- name: "[RefundDay] United Way of Lee/Hendry/Glades/Okeechobee County"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011522613'
+  display_name: "United Way of Lee, Hendry, Glades and Okeechobee County"
+  source_parameters:
+  - uwlee
+  logo_path: ''
 - name: Desert Financial and Tax Services
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010812493'
@@ -364,4 +387,44 @@ vita_partners:
   display_name: North Texas Area United Way
   source_parameters:
   - ntauw
-  logo_path: partner-logos/ntauw.jpg
+  logo_path: partner-logos/ntauw-logo.png
+- name: Coachella Valley Community Tax Services
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011269333'
+  display_name: Coachella Valley Community Tax Services
+  source_parameters:
+  - mmcdc
+  logo_path: ''
+- name: Grow Brooklyn Free Tax Prep
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011201713'
+  display_name: Grow Brooklyn Free Tax Prep
+  logo_path: partner-logos/grow-brooklyn.jpg
+- name: United Way of Central Alabama
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011436074'
+  display_name: United Way of Central Alabama
+  source_parameters:
+  - uwcaorg
+  logo_path: partner-logos/uw-central-alabama.jpg
+- name: United Way of Greater Nashville
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011486894'
+  display_name: United Way of Greater Nashville
+  source_parameters:
+  - greaternashville
+  logo_path: partner-logos/uw-greater-nashville.png
+- name: Zacchaeus House for Tax Assistance
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011728613'
+  display_name: Zacchaeus House for Tax Assistance
+  source_parameters:
+  - zhousetax
+  logo_path: ''
+- name: Pocono Mountains United Way (PA)
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011727513'
+  display_name: Pocono Mountains United Way
+  source_parameters:
+  - uwpm
+  logo_path: 'partner-logos/uwpm-logo.png'

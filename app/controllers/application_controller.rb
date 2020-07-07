@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
 
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode, :check_at_capacity
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   after_action :track_page_view
   around_action :switch_locale
-  helper_method :include_google_analytics?, :current_intake, :show_progress?
+  helper_method :include_analytics?, :current_intake, :show_progress?
 
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
@@ -20,7 +20,11 @@ class ApplicationController < ActionController::Base
     DiyIntake.find_by_id(session[:diy_intake_id])
   end
 
-  def include_google_analytics?
+  def current_stimulus_triage
+    StimulusTriage.find_by_id(session[:stimulus_triage_id])
+  end
+
+  def include_analytics?
     false
   end
 
@@ -91,43 +95,28 @@ class ApplicationController < ActionController::Base
 
   def send_mixpanel_validation_error(errors, additional_data = {})
     invalid_field_flags = errors.keys.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
-    tracking_data = invalid_field_flags.merge(additional_data)
-    send_mixpanel_event(event_name: "validation_error", data: tracking_data)
+
+    MixpanelService.send_event(
+      event_id: visitor_id,
+      event_name: 'validation_error',
+      data: invalid_field_flags.merge(additional_data),
+      subject: current_intake,
+      request: request,
+      source: self
+    )
   end
 
   def send_mixpanel_event(event_name:, data: {})
     return if user_agent.bot?
-    major_browser_version = user_agent.full_version.try { |v| v.partition('.').first }
-    default_data = {
-      source: source,
-      referrer: referrer,
-      utm_state: utm_state,
-      referrer_domain: URI.parse(referrer).host || "None",
-      full_user_agent: request.user_agent,
-      browser_name: user_agent.name,
-      browser_full_version: user_agent.full_version,
-      browser_major_version: major_browser_version,
-      os_name: user_agent.os_name,
-      os_full_version: user_agent.os_full_version,
-      os_major_version: user_agent.os_full_version.try { |v| v.partition('.').first },
-      is_bot: user_agent.bot?,
-      bot_name: user_agent.bot_name,
-      device_brand: user_agent.device_brand,
-      device_name: user_agent.device_name,
-      device_type: user_agent.device_type,
-      device_browser_version: "#{user_agent.os_name} #{user_agent.device_type} #{user_agent.name} #{major_browser_version}",
-      locale: I18n.locale.to_s,
-      path: request.path,
-      full_path: request.fullpath,
-      controller_name: self.class.name.sub("Controller", ""),
-      controller_action: "#{self.class.name}##{action_name}",
-      controller_action_name: action_name,
-    }
-    default_data.merge!(current_intake.mixpanel_data) if current_intake.present?
-    MixpanelService.instance.run(
-      unique_id: visitor_id,
+
+    MixpanelService.send_event(
+      event_id: visitor_id,
       event_name: event_name,
-      data: default_data.merge(data),
+      data: data,
+      subject: visitor_record,
+      request: request,
+      source: self,
+      path_exclusions: all_identifiers
     )
   end
 
@@ -137,6 +126,7 @@ class ApplicationController < ActionController::Base
       current_user_id: current_user&.id,
       intake_id: current_intake&.id,
       diy_intake_id: current_diy_intake&.id,
+      stimulus_triage_id: current_stimulus_triage&.id,
       device_type: user_agent.device_type,
       browser_name: user_agent.name,
       os_name: user_agent.os_name,
@@ -210,7 +200,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def check_at_capacity
-    redirect_to at_capacity_path and return if ENV['AT_CAPACITY'].present?
+  ##
+  # @return [Array(Object)] all potential identifiers
+  def all_identifiers
+    [
+      params[:token],
+      params[:intake_id],
+      session[:intake_id],
+      params[:diy_intake_id],
+      session[:diy_intake_id],
+      params[:id],
+      params[:ticket_id],
+      current_intake&.intake_ticket_id,
+      current_diy_intake&.ticket_id,
+      (defined?(zendesk_ticket_id) && zendesk_ticket_id),
+    ].filter { |e| e && !e.to_s.empty? }.uniq
   end
 end

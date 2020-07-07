@@ -6,7 +6,9 @@ class ZendeskDropOffService
     "thc" => EitcZendeskInstance::TAX_HELP_COLORADO,
     "gwisr" => EitcZendeskInstance::GOODWILL_SOUTHERN_RIVERS,
     "uwba" => EitcZendeskInstance::UNITED_WAY_BAY_AREA,
-    "uwco" => EitcZendeskInstance::UNITED_WAY_CENTRAL_OHIO
+    "uwco" => EitcZendeskInstance::UNITED_WAY_CENTRAL_OHIO,
+    "fc" => EitcZendeskInstance::FOUNDATION_COMMUNITIES,
+    "uwvp" => EitcZendeskInstance::UNITED_WAY_VIRGINIA,
   }.freeze
 
   def initialize(drop_off)

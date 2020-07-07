@@ -12,6 +12,7 @@ class ZendeskCli
       "Intake Specialist" => "VITA Staff",
       "Volunteer" => "VITA Staff",
       "Customer Support Advocate" => "VITA Staff",
+      "Quality Reviewer" => "VITA Staff",
       "Limited Volunteer" => "VITA Staff (assigned tickets only)",
     }
 

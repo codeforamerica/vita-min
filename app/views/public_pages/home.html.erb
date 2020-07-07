@@ -21,11 +21,11 @@
 
         <% if enable_online_intake? %>
           <%= link_to question_path(:id => QuestionNavigation.first), id: "firstCta", class: "button button--primary" do %>
-            <%=t("general.get_started").humanize %>
+            <%=t("general.get_started") %>
           <% end %>
         <% else %>
           <%= link_to vita_providers_path, id: "firstCta", class: "button button--primary" do %>
-            <%=t("general.find_location").humanize %>
+            <%=t("general.find_location") %>
           <% end %>
         <% end %>
       </div>

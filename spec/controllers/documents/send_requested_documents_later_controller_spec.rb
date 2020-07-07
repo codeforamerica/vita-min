@@ -17,7 +17,7 @@ RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controll
         get :edit
 
         expect(SendRequestedDocumentsToZendeskJob).to have_been_enqueued.with(original_intake.id)
-        expect(response).to redirect_to documents_requested_documents_success_path
+        expect(response).to redirect_to(root_path)
       end
 
       it "adds the documents to the original intake" do
@@ -25,18 +25,12 @@ RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controll
 
         expect(original_intake.reload.documents).to include(document)
       end
-    end
-  end
 
-  describe "#success" do
-    before do
-      session[:documents_request_id] = documents_request.id
-    end
+      it "clears the session" do
+        get :edit
 
-    it "clears the session" do
-      get :success
-
-      expect(session[:documents_request_id]).to be_nil
+        expect(session[:documents_request_id]).to be_nil
+      end
     end
   end
 end

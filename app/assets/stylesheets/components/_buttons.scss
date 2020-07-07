@@ -1,6 +1,12 @@
 .button {
   box-shadow: none;
   border-width: 3px;
+  &:active {
+    color: $color-grey-darkest;
+  }
+  &:visited {
+    color: $color-grey-darkest;
+  }
 }
 
 .button--inline-action {
@@ -20,10 +26,15 @@
   &:hover {
     background-color: #303030;
     border-color: #303030;
+    color: white;
+  }
+  &:visited {
+    color: white;
   }
   &:active {
     background-color: #303030;
     border-color: #303030;
+    color: white;
   }
 }
 
@@ -31,6 +42,10 @@
   background-color: #008060;
   color: white;
   border: none;
+
+  &:visited {
+    color: white;
+  }
   &:active {
     background-color: #034E46;
     color: white;
@@ -52,6 +67,10 @@
 
   &:hover {
     background-color: #F7F5F4;
+    color: #D70A40;
+  }
+
+  &:visited {
     color: #D70A40;
   }
 }
@@ -80,7 +99,6 @@
     border-color: #F3B9C9;
     color: #F3B9C9;
   }
-
 }
 
 .button--wide {
@@ -107,7 +125,7 @@
   margin: 0 auto !important;
 }
 
-.button--icon.button--centered {
+.button--icon.button--centered, .button--icon--centered {
   justify-content: center;
 }
 

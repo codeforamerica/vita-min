@@ -31,29 +31,31 @@ module Zendesk
     end
 
     def merge_duplicate_tickets(intake_ids)
-      Rails.logger.tagged("Merging Intakes #{intake_ids}") do
-        ticket_ids = Intake.find(intake_ids).map(&:intake_ticket_id).compact
-        primary_ticket = find_primary_ticket(ticket_ids)
+      logging_prefix = "Merging Intakes #{intake_ids}"
+      ticket_ids = Intake.find(intake_ids).map(&:intake_ticket_id).compact
+      primary_ticket = find_primary_ticket(ticket_ids)
 
-        # this only happens if all tickets are closed
-        unless primary_ticket
-          Rails.logger.info("Could not identify primary ticket during duplicate merging")
-          return
-        end
+      # this only happens if all tickets are closed
+      unless primary_ticket
+        Rails.logger.info("#{logging_prefix}: Could not identify primary ticket during duplicate merging")
+        return
+      end
 
-        Rails.logger.info("Identified primary ticket #{primary_ticket.id} during duplicate merging")
+      Rails.logger.info("#{logging_prefix}: Identified primary ticket #{primary_ticket.id} during duplicate merging")
 
-        duplicate_ticket_ids = ticket_ids - [primary_ticket.id]
+      duplicate_ticket_ids = ticket_ids - [primary_ticket.id]
+      if duplicate_ticket_ids.present?
         duplicate_tickets = duplicate_ticket_ids.map{ |id| get_ticket(ticket_id: id) }
 
         primary_intake = Intake.where(intake_ticket_id: primary_ticket.id).first
 
         # Update duplicate intakes with primary ticket id
+
         Intake.find(intake_ids).each do |intake|
           unless intake.id == primary_intake.id
             intake.update(intake_ticket_id: primary_ticket.id, primary_intake_id: primary_intake.id)
 
-            Rails.logger.info("Updated duplicate intake #{intake.id} during duplicate merging")
+            Rails.logger.info("#{logging_prefix}: Updated duplicate intake #{intake.id} during duplicate merging")
           end
         end
 
@@ -62,15 +64,33 @@ module Zendesk
 
         # Mark duplicate tickets as not filing and leave comments
         duplicate_tickets.each do |duplicate_ticket|
-          update_duplicate_ticket(duplicate_ticket, primary_ticket)
+          unless duplicate_ticket.status == "closed"
+            update_duplicate_ticket(duplicate_ticket, primary_ticket)
+          end
         end
-
-        Rails.logger.info("Completed duplicate merging")
       end
+
+      Rails.logger.info("#{logging_prefix}: Completed duplicate merging")
     end
 
     def find_primary_ticket(ticket_ids)
-      tickets = ticket_ids.map { |id| get_ticket(ticket_id: id) }
+      missing_ticket_ids = []
+      tickets = ticket_ids.map do |id|
+        ticket = get_ticket(ticket_id: id)
+        if ticket
+          ticket
+        else
+          missing_ticket_ids << id
+          next
+        end
+      end.compact
+
+      unless missing_ticket_ids.empty?
+        puts "TicketMergingService could not find tickets with ids: #{missing_ticket_ids}"
+        puts "Other duplicate ticket ids in this set: #{ticket_ids - missing_ticket_ids}"
+        return nil
+      end
+
       tickets.reject! { |ticket| ticket.status == "closed" }
       tickets.sort_by { |ticket| status_index(ticket) }.last
     end
@@ -118,8 +138,10 @@ module Zendesk
         comment: duplicate_ticket_comment_body,
         public: false,
         fields: {
-          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING
-        }
+          EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_NOT_FILING,
+          EitcZendeskInstance::RETURN_STATUS => EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE,
+        },
+        tags: ["duplicate"]
       )
 
       Rails.logger.info("Updated duplicate ticket #{duplicate_ticket.id} during duplicate merging")

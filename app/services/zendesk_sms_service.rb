@@ -46,7 +46,7 @@ class ZendeskSmsService
       EitcZendeskInstance::NEEDS_RESPONSE => true
     }
 
-    related_tickets = related_ticket_ids.map {|ticket_id| get_ticket(ticket_id: ticket_id)}
+    related_tickets = related_ticket_ids.map {|ticket_id| get_ticket(ticket_id: ticket_id)}.compact
     related_open_tickets = related_tickets.select{|ticket| ticket.status != "closed"}
 
     if related_open_tickets.empty?

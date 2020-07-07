@@ -14,6 +14,7 @@
 #  city                                                 :string
 #  completed_at                                         :datetime
 #  completed_intake_sent_to_zendesk                     :boolean
+#  continued_at_capacity                                :boolean          default(FALSE)
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
 #  demographic_english_reading                          :integer          default("unfilled"), not null
@@ -144,6 +145,8 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  triage_source_type                                   :string
+#  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
@@ -157,13 +160,15 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  primary_intake_id                                    :integer
+#  triage_source_id                                     :bigint
 #  visitor_id                                           :string
 #  vita_partner_group_id                                :string
 #  vita_partner_id                                      :bigint
 #
 # Indexes
 #
-#  index_intakes_on_vita_partner_id  (vita_partner_id)
+#  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
+#  index_intakes_on_vita_partner_id                          (vita_partner_id)
 #
 # Foreign Keys
 #
@@ -542,95 +547,6 @@ describe Intake do
     end
   end
 
-  describe "#mixpanel_data" do
-    let(:state_of_residence) { 'CA' }
-    let(:state) { State.find_by!(abbreviation: state_of_residence) }
-    let(:vita_partner) do
-      partner = state.vita_partners.first
-      return partner if partner.present?
-
-      partner = create :vita_partner,
-                       name: "test_partner",
-                       zendesk_group_id: "1234567890123456"
-      partner.states << state
-      partner
-    end
-
-    let(:intake) do
-      create(
-        :intake,
-        had_disability: "no",
-        spouse_had_disability: "yes",
-        source: "beep",
-        referrer: "http://boop.horse/mane",
-        filing_joint: "no",
-        had_wages: "yes",
-        state_of_residence: state_of_residence,
-        zip_code: "94609",
-        intake_ticket_id: 9876,
-        needs_help_2019: "yes",
-        needs_help_2018: "no",
-        needs_help_2017: "yes",
-        needs_help_2016: "unfilled",
-        primary_birth_date: Date.new(1993, 3, 12),
-        spouse_birth_date: Date.new(1992, 5, 3),
-        vita_partner: vita_partner
-      )
-    end
-    let!(:dependent_one) { create :dependent, birth_date: Date.new(2017, 4, 21), intake: intake}
-    let!(:dependent_two) { create :dependent, birth_date: Date.new(2005, 8, 11), intake: intake}
-
-    it "returns the expected hash" do
-      expect(intake.reload.mixpanel_data).to eq({
-        intake_source: "beep",
-        intake_referrer: "http://boop.horse/mane",
-        intake_referrer_domain: "boop.horse",
-        primary_filer_age_at_end_of_tax_year: "26",
-        spouse_age_at_end_of_tax_year: "27",
-        primary_filer_disabled: "no",
-        spouse_disabled: "yes",
-        had_dependents: "yes",
-        number_of_dependents: "2",
-        had_dependents_under_6: "yes",
-        filing_joint: "no",
-        had_earned_income: "yes",
-        state: intake.state_of_residence,
-        zip_code: "94609",
-        needs_help_2019: "yes",
-        needs_help_2018: "no",
-        needs_help_2017: "yes",
-        needs_help_2016: "unfilled",
-        needs_help_backtaxes: "yes",
-        zendesk_instance_domain: "eitc",
-        vita_partner_group_id: vita_partner.zendesk_group_id,
-        vita_partner_name: vita_partner.name,
-      })
-    end
-
-    context "when the intake is anonymous" do
-      let(:anonymous_intake) {create :anonymous_intake, intake_ticket_id: 9876}
-
-      it "returns the data for the original intake" do
-        expect(anonymous_intake.mixpanel_data).to eq(intake.mixpanel_data)
-      end
-    end
-
-    context "with no backtax help needed" do
-      let(:intake) do
-        build(
-          :intake,
-          needs_help_2019: "yes",
-          needs_help_2018: "no",
-          needs_help_2017: "no",
-          needs_help_2016: "no"
-        )
-      end
-
-      it "sends needs_help_backtaxes = no" do
-        expect(intake.mixpanel_data).to include(needs_help_backtaxes: "no")
-      end
-    end
-  end
 
   describe "#filing_years" do
     let(:intake) { create :intake, **filing_years }
@@ -869,24 +785,45 @@ describe Intake do
 
       it_behaves_like "state-level routing", "CO", "Tax Help Colorado (Piton Foundation)", "eitc"
       it_behaves_like "state-level routing", "CA", "[United Way California] Online Intake", "eitc"
-      it_behaves_like "state-level routing", "GA", "Goodwill Industries of the Southern Rivers", "eitc"
       it_behaves_like "state-level routing", "WA", "United Way of King County", "eitc"
       it_behaves_like "state-level routing", "PA", "Campaign for Working Families", "eitc"
       it_behaves_like "state-level routing", "NJ", "United Way of Greater Newark", "eitc"
       it_behaves_like "state-level routing", "OH", "United Way of Central Ohio", "eitc"
-      it_behaves_like "state-level routing", "SC", "Impact America (Save First) South Carolina", "eitc"
-      it_behaves_like "state-level routing", "TN", "Impact America (Save First) Mississippi River States", "eitc"
-      it_behaves_like "state-level routing", "AR", "Impact America (Save First) Mississippi River States", "eitc"
-      it_behaves_like "state-level routing", "MS", "Impact America (Save First) Mississippi River States", "eitc"
       it_behaves_like "state-level routing", "NV", "Nevada Free Taxes Coalition", "eitc"
       it_behaves_like "state-level routing", "TX", "Foundation Communities", "eitc"
       it_behaves_like "state-level routing", "AZ", "United Way of Tuscon and Southern Arizona", "eitc"
       it_behaves_like "state-level routing", "VA", "United Way of Greater Richmond and Petersburg", "eitc"
-      it_behaves_like "state-level routing", "FL", "RefundDay", "eitc"
+      it_behaves_like "state-level routing", "FL", "Tax Help Colorado (Piton Foundation)", "eitc"
       it_behaves_like "state-level routing", "NM", "Tax Help New Mexico", "eitc"
       it_behaves_like "state-level routing", "MD", "CASH Campaign of MD", "eitc"
-      it_behaves_like "state-level routing", "MA", "[MASSCAP] Online Intake (w/Boston Tax Help)", "eitc"
-      it_behaves_like "state-level routing", "XX", "Foundation Communities", "eitc"
+      it_behaves_like "state-level routing", "NY", "Urban Upbound (NY)", "eitc"
+      it_behaves_like "state-level routing", "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
+    end
+
+    context "with overflow routing" do
+      shared_examples "overflow routing" do |state_criteria|
+        context "given a state" do
+          let(:state) { state_criteria }
+          let(:overflow_partners) { VitaPartner.where(accepts_overflow: true) }
+          let(:overflow_partner_group_ids) {overflow_partners.map(&:zendesk_group_id)}
+          let(:overflow_partner_instance_domains) {overflow_partners.map(&:zendesk_instance_domain)}
+
+          before do
+            intake.assign_vita_partner!
+          end
+
+          it "assigns to the correct group and the correct instance" do
+            expect(overflow_partner_group_ids).to include intake.reload.vita_partner_group_id
+            expect(overflow_partner_instance_domains).to include intake.zendesk_instance_domain
+          end
+        end
+      end
+
+      it_behaves_like "overflow routing", "XX"
+      it_behaves_like "overflow routing", "TN"
+      it_behaves_like "overflow routing", "AR"
+      it_behaves_like "overflow routing", "MS"
+      it_behaves_like "overflow routing", "SC"
     end
   end
 
@@ -998,7 +935,7 @@ describe Intake do
   describe "#contact_info_filtered_by_preferences" do
     let(:intake) do
       build :intake,
-            phone_number: "14158161286",
+            sms_phone_number: "14158161286",
             email_address: "supermane@fantastic.horse",
             email_notification_opt_in: email,
             sms_notification_opt_in: sms
@@ -1008,10 +945,10 @@ describe Intake do
       let(:email){ "yes" }
       let(:sms){ "yes" }
 
-      it "returns email and phone_number in a hash" do
+      it "returns email and sms_phone_number in a hash" do
         expected_result = {
           email: "supermane@fantastic.horse",
-          phone_number: "+14158161286",
+          sms_phone_number: "+14158161286",
         }
         expect(intake.contact_info_filtered_by_preferences).to eq expected_result
       end
@@ -1021,9 +958,9 @@ describe Intake do
       let(:email){ "no" }
       let(:sms){ "yes" }
 
-      it "returns phone_number in a hash" do
+      it "returns sms_phone_number in a hash" do
         expected_result = {
-          phone_number: "+14158161286",
+          sms_phone_number: "+14158161286",
         }
         expect(intake.contact_info_filtered_by_preferences).to eq expected_result
 
@@ -1048,6 +985,25 @@ describe Intake do
 
       it "returns an empty hash" do
         expect(intake.contact_info_filtered_by_preferences).to eq({})
+      end
+    end
+
+    context "when the intake has a different phone_number and sms_phone_number" do
+      let(:intake) do
+        build :intake,
+              sms_phone_number: "14159997777",
+              phone_number: "14158161286",
+              email_address: "supermane@fantastic.horse",
+              email_notification_opt_in: "no",
+              sms_notification_opt_in: "yes"
+      end
+
+      it "uses the sms_phone_number" do
+        expected_result = {
+          sms_phone_number: "+14159997777",
+        }
+
+        expect(intake.contact_info_filtered_by_preferences).to eq expected_result
       end
     end
   end
@@ -1145,6 +1101,23 @@ describe Intake do
 
     it "returns the ticket status with the most recent created_at" do
       expect(intake.current_ticket_status).to eq new_status
+    end
+  end
+
+  describe "#triaged_from_stimulus?" do
+    let(:stimulus_triage) { create(:stimulus_triage) }
+    let(:intake) { create(:intake) }
+
+    context "when a stimulus triage is present" do
+      before do
+        intake.update_attribute(:triage_source, stimulus_triage)
+      end
+
+      it { expect(intake.triaged_from_stimulus?).to be_truthy }
+    end
+
+    context "when no stimulus triage is present" do
+      it { expect(intake.triaged_from_stimulus?).to be_falsey }
     end
   end
 end

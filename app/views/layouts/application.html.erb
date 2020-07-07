@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <% if include_google_analytics? && Rails.env.production? %>
-      <%= render 'shared/google_analytics' %>
-    <% end %>
+    <%= render 'shared/combined_analytics' if include_analytics? && Rails.env.production? %>
     <% unless content_for? :page_title %>
       <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.<% end %>
     <% end %>

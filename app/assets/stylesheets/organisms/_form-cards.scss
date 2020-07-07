@@ -41,12 +41,16 @@
   }
 
   .yes-no-buttons {
-    margin-top: 6rem;
     max-width: 35rem;
     display: flex;
     justify-content: space-between;
+    margin: 6rem auto 0;
+    @media screen and (min-width: $tablet-up) {
+      margin: 6rem 0 0 0;
+    }
 
     .button {
+      width: 45%;
       @media screen and (min-width: $tablet-up) {
         width: 16rem;
       }

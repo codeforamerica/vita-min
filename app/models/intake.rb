@@ -14,6 +14,7 @@
 #  city                                                 :string
 #  completed_at                                         :datetime
 #  completed_intake_sent_to_zendesk                     :boolean
+#  continued_at_capacity                                :boolean          default(FALSE)
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
 #  demographic_english_reading                          :integer          default("unfilled"), not null
@@ -144,6 +145,8 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  triage_source_type                                   :string
+#  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
@@ -157,13 +160,15 @@
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  primary_intake_id                                    :integer
+#  triage_source_id                                     :bigint
 #  visitor_id                                           :string
 #  vita_partner_group_id                                :string
 #  vita_partner_id                                      :bigint
 #
 # Indexes
 #
-#  index_intakes_on_vita_partner_id  (vita_partner_id)
+#  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
+#  index_intakes_on_vita_partner_id                          (vita_partner_id)
 #
 # Foreign Keys
 #
@@ -176,6 +181,7 @@ class Intake < ApplicationRecord
   has_many :dependents, -> { order(created_at: :asc) }
   has_many :ticket_statuses, -> { order(created_at: :asc) }
   belongs_to :vita_partner, optional: true
+  belongs_to :triage_source, optional: true, polymorphic: true
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
@@ -295,10 +301,10 @@ class Intake < ApplicationRecord
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number
   end
-
-  # Returns the phone number in the E164 standardized format, e.g.: "+15105551234"
-  def standardized_phone_number
-    Phonelib.parse(phone_number, "US").e164
+  
+  # Returns the sms phone number in the E164 standardized format, e.g.: "+15105551234"
+  def standardized_sms_phone_number
+    Phonelib.parse(sms_phone_number, "US").e164
   end
 
   def primary_full_name
@@ -396,37 +402,6 @@ class Intake < ApplicationRecord
     Rails.application.routes.url_helpers.documents_add_requested_documents_url(token: get_or_create_requested_docs_token, locale: locale)
   end
 
-  def mixpanel_data
-    return Intake.find_original_intake(self).mixpanel_data if anonymous
-
-    dependents_under_6 = dependents.any? { |dependent| dependent.age_at_end_of_tax_year < 6 }
-    had_earned_income = had_a_job? || had_wages_yes? || had_self_employment_income_yes?
-    {
-        intake_source: source,
-        intake_referrer: referrer,
-        intake_referrer_domain: referrer_domain,
-        primary_filer_age_at_end_of_tax_year: age_end_of_tax_year.to_s,
-        spouse_age_at_end_of_tax_year: spouse_age_end_of_tax_year.to_s,
-        primary_filer_disabled: had_disability,
-        spouse_disabled: spouse_had_disability,
-        had_dependents: dependents.size > 0 ? "yes" : "no",
-        number_of_dependents: dependents.size.to_s,
-        had_dependents_under_6: dependents_under_6 ? "yes" : "no",
-        filing_joint: filing_joint,
-        had_earned_income: had_earned_income ? "yes" : "no",
-        state: state_of_residence,
-        zip_code: zip_code,
-        needs_help_2019: needs_help_2019,
-        needs_help_2018: needs_help_2018,
-        needs_help_2017: needs_help_2017,
-        needs_help_2016: needs_help_2016,
-        needs_help_backtaxes: (needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?) ? "yes" : "no",
-        zendesk_instance_domain: vita_partner&.zendesk_instance_domain,
-        vita_partner_group_id: vita_partner&.zendesk_group_id,
-        vita_partner_name: vita_partner&.name,
-    }
-  end
-
   def filing_years
     [
       ("2019" if needs_help_2019_yes?),
@@ -481,7 +456,7 @@ class Intake < ApplicationRecord
 
   def contact_info_filtered_by_preferences
     contact_info = {}
-    contact_info[:phone_number] = standardized_phone_number if sms_notification_opt_in_yes?
+    contact_info[:sms_phone_number] = standardized_sms_phone_number if sms_notification_opt_in_yes?
     contact_info[:email] = email_address if email_notification_opt_in_yes?
     contact_info
   end
@@ -533,6 +508,22 @@ class Intake < ApplicationRecord
     "Consent_#{name_for_filename}.pdf"
   end
 
+  def had_earned_income?
+    had_a_job? || had_wages_yes? || had_self_employment_income_yes?
+  end
+
+  def had_dependents_under?(yrs)
+    dependents.any? { |dependent| dependent.age_at_end_of_tax_year < yrs }
+  end
+
+  def needs_help_with_backtaxes?
+    needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?
+  end
+
+  def triaged_from_stimulus?
+    triage_source.present? && triage_source.class == StimulusTriage
+  end
+
   private
 
   def partner_for_source
@@ -553,8 +544,12 @@ class Intake < ApplicationRecord
   end
 
   def partner_for_overflow
-    # when we have more than one partner that accepts overflow, this should balance the load
-    partner = VitaPartner.find_by(accepts_overflow: true)
+    # assign overflow intakes to available overflow partners evenly by using the intake id modulo the number of
+    # available overflow partners
+    partners = VitaPartner.where(accepts_overflow: true)
+    return nil if partners.empty?
+
+    partner = partners[self.id % partners.length]
     return nil unless partner.present?
 
     RouteOptions.new(partner, "overflow", state_of_residence)

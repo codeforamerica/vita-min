@@ -31,7 +31,6 @@ RSpec.describe PublicPagesController do
 
         expect(response.body).to include "Get started"
         expect(response.body).to include question_path(:id => QuestionNavigation.first)
-        expect(response.body).not_to include "Find a location"
       end
 
       context "when online intake is not enabled" do
