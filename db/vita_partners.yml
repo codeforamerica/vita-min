@@ -275,12 +275,13 @@ vita_partners:
   source_parameters:
   - BTHC-AB-APAC
   logo_path: ''
-- name: "[MA/BTH] Roxbury & Jamaica Plain"
+- name: "[MA/BTH] Roxbury CFE"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011284494'
   display_name: 'Boston Tax Help'
   source_parameters:
   - BTHC-ROXBURY
+  - BTHC-DEAFINC
   logo_path: ''
 - name: "[MA/BTH] StreetCred"
   zendesk_instance_domain: eitc
@@ -288,6 +289,13 @@ vita_partners:
   display_name: 'Boston Tax Help'
   source_parameters:
   - BTHC-STREETCRED
+  logo_path: ''
+- name: "[MA/BTH] Urban Edge"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011568733'
+  display_name: 'Boston Tax Help'
+  source_parameters:
+  - BTHC-URBAN-EDGE
   logo_path: ''
 - name: Granite United Way
   zendesk_instance_domain: eitc
