@@ -428,3 +428,10 @@ vita_partners:
   source_parameters:
   - uwpm
   logo_path: 'partner-logos/uwpm-logo.png'
+- name: United Way of West Florida
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011938414'
+  display_name: United Way of West Florida
+  source_parameters:
+  - uwwf
+  logo_path: ''
