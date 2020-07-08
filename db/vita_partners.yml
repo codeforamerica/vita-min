@@ -63,6 +63,7 @@ vita_partners:
   - TX
   accepts_overflow: true
   logo_path: ''
+  weekly_capacity_limit: 500
 - name: United Way of Central Ohio
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009440374'

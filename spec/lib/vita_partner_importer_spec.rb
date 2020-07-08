@@ -19,6 +19,7 @@ RSpec.describe VitaPartnerImporter do
           "source_parameters" => ["test-source"],
           "states" => ["CO"],
           "logo_path" => "",
+          "weekly_capacity_limit" => 500
         }],
       }
     end
@@ -42,6 +43,26 @@ RSpec.describe VitaPartnerImporter do
       expect(created.source_parameters.first.code).to eq("test-source")
       expect(created.states.length).to eq(1)
       expect(created.states.first.abbreviation).to eq("CO")
+      expect(created.weekly_capacity_limit).to eq(500)
+    end
+
+    context "setting defaults on the vita partner model" do
+      let(:fake_partners_yaml) do
+        {
+          "vita_partners" => [{
+            "name" => "Tax Help Colorado",
+            "zendesk_instance_domain" => "eitc",
+            "zendesk_group_id" => zendesk_group_id,
+          }],
+        }
+      end
+
+      it "uses the default value for weekly capacity limit if not set in yml" do
+        TestImporter.upsert_vita_partners
+
+        created = VitaPartner.last
+        expect(created.weekly_capacity_limit).to eq(VitaPartner::DEFAULT_CAPACITY_LIMIT)
+      end
     end
 
     context "when a partner exists with that group ID" do
