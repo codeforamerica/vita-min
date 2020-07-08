@@ -188,7 +188,9 @@ class ZendeskCli
     # Load a cache of all Zendesk groups so we can easily search for a given
     # group by name.
     def zendesk_groups
-      @zendesk_groups ||= client.groups.to_a
+      groups = []
+      client.groups.all! { |group| groups << group }
+      @zendesk_groups ||= groups.to_a
     end
 
     # Load a cache of all Zendesk custom roles so we can easily find a role by
