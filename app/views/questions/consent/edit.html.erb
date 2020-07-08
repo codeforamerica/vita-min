@@ -8,7 +8,6 @@
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <%= yield :notices %>
-        <%= render "shared/progress_bar" %>
         <main role="main">
           <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
             <%= render "shared/consent_agreement" %>

@@ -51,7 +51,7 @@ module Questions
     end
 
     def show_progress?
-      true
+      IntakeProgressCalculator.show_progress?(self.class)
     end
 
     private
