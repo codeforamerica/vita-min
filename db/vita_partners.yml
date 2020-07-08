@@ -447,4 +447,6 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011727473'
   display_name: New Community Corporation
+  source_parameters:
+  - nccc
   logo_path: partner-logos/ncc-logo.png
