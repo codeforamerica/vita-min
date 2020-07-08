@@ -19,6 +19,7 @@ vita_partners:
   zendesk_group_id: '360008424134'
   display_name: Goodwill Industries of the Southern Rivers
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: United Way of King County
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009173713'
@@ -28,6 +29,7 @@ vita_partners:
   states:
   - WA
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: Campaign for Working Families
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009220253'
@@ -43,16 +45,19 @@ vita_partners:
   zendesk_group_id: '360009341853'
   display_name: Save First
   logo_path: partner-logos/ia.png
+  weekly_capacity_limit: 0
 - name: Impact America (Save First) Mississippi River States
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009830214'
   display_name: Save First
   logo_path: partner-logos/ia.png
+  weekly_capacity_limit: 0
 - name: Impact America (Save First) South Carolina
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009341873'
   display_name: Save First
   logo_path: partner-logos/ia.png
+  weekly_capacity_limit: 0
 - name: Foundation Communities
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009397734'
@@ -63,7 +68,7 @@ vita_partners:
   - TX
   accepts_overflow: true
   logo_path: ''
-  weekly_capacity_limit: 500
+  weekly_capacity_limit: 0
 - name: United Way of Central Ohio
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009440374'
@@ -82,14 +87,15 @@ vita_partners:
   states:
   - NV
   logo_path: ''
-- name: United Way of Tuscon and Southern Arizona
+- name: United Way of Tucson and Southern Arizona
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009581934'
-  display_name: United Way of Tuscon and Southern Arizona
+  display_name: United Way of Tucson and Southern Arizona
   logo_path: ''
   accepts_overflow: true
   states:
   - AZ
+  weekly_capacity_limit: 0
 - name: United Way of Greater Richmond and Petersburg
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009267673'
@@ -115,6 +121,7 @@ vita_partners:
   states:
   - CA
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: United Way Bay Area
   zendesk_instance_domain: eitc
   zendesk_group_id: '360007994533'
@@ -124,6 +131,7 @@ vita_partners:
   states:
   - AK
   logo_path: partner-logos/uwba.svg
+  weekly_capacity_limit: 0
 - name: "[United Way California] Capital Region"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009708193'
@@ -161,6 +169,7 @@ vita_partners:
   - RefundDay-H
   - hispanicunity
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: Catalyst Miami
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009704354'
@@ -185,6 +194,7 @@ vita_partners:
   - uwcnm
   states:
   - NM
+  weekly_capacity_limit: 0
 - name: United Way of Greater Newark
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010163193'
@@ -355,6 +365,7 @@ vita_partners:
   source_parameters:
   - GITOK
   logo_path: partner-logos/gw-tulsa.png
+  weekly_capacity_limit: 0
 - name: "[RefundDay] City of Miami"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011031993'
