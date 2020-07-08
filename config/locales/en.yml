@@ -1001,7 +1001,7 @@ en:
       personal_info:
         info: Welcome, we're excited to help you. We need some basic information to get started.
         preferred_name: Preferred name
-        state_of_residence: State of residence
+        zip_code: ZIP code
         title: First, let's get some basic information.
       phone_number:
         info: Once you've answered all the tax questions, your tax preparer will call to review your tax situation.

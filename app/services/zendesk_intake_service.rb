@@ -129,6 +129,7 @@ class ZendeskIntakeService
         EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
         EitcZendeskInstance::INTAKE_SOURCE => @intake.source,
         EitcZendeskInstance::INTAKE_LANGUAGE => I18n.locale,
+        EitcZendeskInstance::CLIENT_ZIP_CODE => @intake.zip_code,
       }
     else
       {

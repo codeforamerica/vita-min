@@ -8,6 +8,7 @@ describe ZendeskIntakeService do
   let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
   let(:state) { "NE" }
+  let(:zip_code) { "68583" }
   let(:interview_timing_preference) { "" }
   let(:final_info) { "" }
   let(:source) { "uw-narnia" }
@@ -15,6 +16,7 @@ describe ZendeskIntakeService do
   let(:intake) do
     create :intake,
            state_of_residence: state,
+           zip_code: zip_code,
            source: source,
            locale: :en,
            interview_timing_preference: interview_timing_preference,
@@ -179,8 +181,9 @@ describe ZendeskIntakeService do
       allow(service).to receive(:new_ticket_body).and_return "Body text"
     end
 
-    context "in a state for the EITC Zendesk instance" do
-      let(:state) { "co" }
+    context "in Colorado, using the EITC Zendesk instance" do
+      let(:state) { "CO" }
+      let(:zip_code) { "80309" }
       let!(:vita_partner) { VitaPartner.find_by(name: "Tax Help Colorado (Piton Foundation)") }
       let(:ticket_status) { intake.current_ticket_status }
       let(:mixpanel_spy) { spy(MixpanelService) }
@@ -202,12 +205,13 @@ describe ZendeskIntakeService do
           fields: {
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
-            EitcZendeskInstance::STATE => "co",
+            EitcZendeskInstance::STATE => "CO",
             EitcZendeskInstance::FILING_YEARS => ["2019", "2017"],
             EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
             EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
             EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
             EitcZendeskInstance::INTAKE_LANGUAGE => :en,
+            EitcZendeskInstance::CLIENT_ZIP_CODE => zip_code,
           }
         )
       end
@@ -245,6 +249,7 @@ describe ZendeskIntakeService do
     end
 
     context "in a state for the UWTSA Group" do
+      let(:zip_code) { "85721" }
       let(:state) { "az" }
       let(:vita_partner) { VitaPartner.find_by(name: "United Way of Tucson and Southern Arizona") }
       let(:mixpanel_spy) { spy(MixpanelService) }
@@ -272,6 +277,7 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
             EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
             EitcZendeskInstance::INTAKE_LANGUAGE => :en,
+            EitcZendeskInstance::CLIENT_ZIP_CODE => zip_code,
           }
         )
       end

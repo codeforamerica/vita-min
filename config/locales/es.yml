@@ -933,7 +933,7 @@ es:
         state: Estado
         street_address: Dirección
         title: "¿Cuál es su dirección postal?"
-        zip_code: código postal
+        zip_code: Código postal
       married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
         title: El 31 de diciembre, %{year}, ¿Estaba legalmente casado?
@@ -1001,8 +1001,8 @@ es:
       personal_info:
         info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
         preferred_name: Nombre Preferido
-        state_of_residence: Estado de residencia
         title: Primero, obtengamos información básica.
+        zip_code: Código postal
       phone_number:
         info: Una vez que haya respondido todas las preguntas sobre impuestos, su preparador de impuestos lo llamará para revisar su situación fiscal.
         phone_number: Número de teléfono

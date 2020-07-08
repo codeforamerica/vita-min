@@ -12,7 +12,7 @@ RSpec.describe Questions::PersonalInfoController do
     let(:params) do
       {
         personal_info_form: {
-          state_of_residence: state,
+          zip_code: '80309',
           preferred_name: "Shep"
         }
       }

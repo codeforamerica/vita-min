@@ -46,7 +46,7 @@ RSpec.feature "Web Intake Joint Filers" do
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "Preferred name", with: "Gary"
-    select "Ohio", from: "State of residence"
+    fill_in "ZIP code", with: "45701"
     click_on "Continue"
 
     # Chat with us
