@@ -188,6 +188,8 @@ class ZendeskCli
     # Load a cache of all Zendesk groups so we can easily search for a given
     # group by name.
     def zendesk_groups
+      return @zendesk_groups if @zendesk_groups.present?
+
       groups = []
       client.groups.all! { |group| groups << group }
       @zendesk_groups ||= groups.to_a
