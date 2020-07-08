@@ -2,6 +2,8 @@ require 'csv'
 
 class AnonymizedIntakeCsvService
   CSV_FIELDS = Intake.defined_enums.keys + %w{
+    external_id
+    intake_ticket_id
     locale
     source
     referrer
@@ -83,7 +85,6 @@ class AnonymizedIntakeCsvService
   end
 
   class AnonymizedCSVIntake < SimpleDelegator
-
     def dependent_count
       dependents.count
     end
@@ -109,6 +110,5 @@ class AnonymizedIntakeCsvService
     def ordered_documents
       @ordered_documents ||= documents.order(created_at: :asc)
     end
-
   end
 end

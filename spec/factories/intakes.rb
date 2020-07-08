@@ -214,6 +214,7 @@ FactoryBot.define do
       document_count  { [1, 2, 3].sample }
       dependent_count { [1, 2, 3].sample }
       with_dependents
+      intake_ticket_id { 192 }
       with_documents
       vita_partner { VitaPartner.find(VitaPartner.pluck(:id).sample) }
       locale { ["en", "es"].sample }
