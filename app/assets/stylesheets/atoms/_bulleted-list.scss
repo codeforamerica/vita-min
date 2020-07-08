@@ -1,3 +1,9 @@
+ul.list--bulleted {
+  @media screen and (max-width: $tablet-up) {
+    padding-left: 1em;
+  }
+}
+
 ul.list--bulleted.purple-bullets {
   list-style: none;
 
