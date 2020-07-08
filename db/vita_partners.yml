@@ -63,6 +63,7 @@ vita_partners:
   - TX
   accepts_overflow: true
   logo_path: ''
+  weekly_capacity_limit: 500
 - name: United Way of Central Ohio
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009440374'
@@ -275,12 +276,13 @@ vita_partners:
   source_parameters:
   - BTHC-AB-APAC
   logo_path: ''
-- name: "[MA/BTH] Roxbury & Jamaica Plain"
+- name: "[MA/BTH] Roxbury CFE"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011284494'
   display_name: 'Boston Tax Help'
   source_parameters:
   - BTHC-ROXBURY
+  - BTHC-DEAFINC
   logo_path: ''
 - name: "[MA/BTH] StreetCred"
   zendesk_instance_domain: eitc
@@ -288,6 +290,13 @@ vita_partners:
   display_name: 'Boston Tax Help'
   source_parameters:
   - BTHC-STREETCRED
+  logo_path: ''
+- name: "[MA/BTH] Urban Edge"
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011568733'
+  display_name: 'Boston Tax Help'
+  source_parameters:
+  - BTHC-URBAN-EDGE
   logo_path: ''
 - name: Granite United Way
   zendesk_instance_domain: eitc
@@ -428,3 +437,17 @@ vita_partners:
   source_parameters:
   - uwpm
   logo_path: 'partner-logos/uwpm-logo.png'
+- name: United Way of West Florida
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011938414'
+  display_name: United Way of West Florida
+  source_parameters:
+  - uwwf
+  logo_path: ''
+- name: New Community Corporation
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011727473'
+  display_name: New Community Corporation
+  source_parameters:
+  - nccc
+  logo_path: partner-logos/ncc-logo.png

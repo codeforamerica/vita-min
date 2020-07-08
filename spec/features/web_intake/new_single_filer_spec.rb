@@ -24,7 +24,6 @@ RSpec.feature "Web Intake Single Filer" do
 
     # Ask about backtaxes
     expect(page).to have_selector("h1", text: "What years do you need to file for?")
-    expect(track_progress).to eq(0)
 
     check "2017"
     check "2019"
@@ -39,7 +38,6 @@ RSpec.feature "Web Intake Single Filer" do
 
     # VITA eligibility checks
     expect(page).to have_selector("h1", text: "Let’s check a few things.")
-    expect{ track_progress }.to change { @current_progress }.by_at_least(1)
 
     check "None of the above"
     click_on "Continue"
@@ -93,9 +91,13 @@ RSpec.feature "Web Intake Single Filer" do
 
     # Primary filer personal information
     expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
+    expect(track_progress).to eq(0)
     click_on "No"
+
     expect(page).to have_selector("h1", text: "In 2019, were you in the United States on a Visa?")
+    expect{ track_progress }.to change { @current_progress }.by_at_least(1)
     click_on "No"
+
     expect(page).to have_selector("h1", text: "In 2019, did you have a permanent disability?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, were you legally blind?")
@@ -209,6 +211,7 @@ RSpec.feature "Web Intake Single Filer" do
 
     # Additional Information
     fill_in "Is there any more information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
+    expect{ track_progress }.to change { @current_progress }.to(100)
     click_on "Next"
 
     # Overview: Documents
@@ -220,7 +223,6 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
-    expect(track_progress).to be_present
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"
@@ -355,7 +357,6 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Submit"
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-    expect{ track_progress }.to change { @current_progress }.to(100)
     expect(page).to have_text("Your confirmation number is: #{ticket_id}")
 
     # reloading the success page works without trying to show the progress bar

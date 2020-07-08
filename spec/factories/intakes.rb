@@ -189,5 +189,58 @@ FactoryBot.define do
       bank_account_number { "87654321" }
       bank_account_type { "checking" }
     end
+
+    trait :with_dependents do
+      transient do
+        dependent_count { 1 }
+      end
+
+      after(:build) do |intake, evaluator|
+        create_list(:dependent, evaluator.dependent_count, intake: intake)
+      end
+    end
+
+    trait :with_documents do
+      transient do
+        document_count { 1 }
+      end
+
+      after(:build) do |intake, evaluator|
+        create_list(:document, evaluator.dependent_count, intake: intake)
+      end
+    end
+
+    trait :filled_out do
+      document_count  { [1, 2, 3].sample }
+      dependent_count { [1, 2, 3].sample }
+      with_dependents
+      intake_ticket_id { 192 }
+      with_documents
+      vita_partner { VitaPartner.find(VitaPartner.pluck(:id).sample) }
+      locale { ["en", "es"].sample }
+      source { vita_partner.source_parameters.first || "none" }
+      referrer { "/" }
+      primary_birth_date { (20..100).to_a.sample.years.ago }
+      spouse_birth_date { (20..100).to_a.sample.years.ago }
+      zip_code { ZipCodes::ZIP_CODES.keys.sample }
+      city { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").first }
+      state { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").last }
+      state_of_residence { state }
+      zendesk_instance_domain { EitcZendeskInstance::DOMAIN }
+      vita_partner_group_id { vita_partner.zendesk_group_id }
+      vita_partner_name { vita_partner.name }
+      routing_value { vita_partner.states.first&.abbreviation || "az" }
+      routing_criteria { "state" }
+      job_count { [1, 2, 3].sample }
+      preferred_interview_language { ["en", "es"].sample }
+      primary_consented_to_service_at { 2.weeks.ago }
+      completed_at { 1.week.ago }
+      after(:build) do |intake|
+        Intake.defined_enums.keys.each_with_object({}) do |key, hash|
+          intake[key] = Intake.send(key.pluralize).keys.sample
+        end
+      end
+    end
+
   end
 end

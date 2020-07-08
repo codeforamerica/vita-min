@@ -24,4 +24,17 @@
   }
 }
 
+.slab--help {
+  background-color: $color-lavender;
+
+  .help-button-container {
+    text-align: right;
+
+    @media screen and (max-width: $tablet-up) {
+      text-align: center;
+      padding-top: $s35;
+    }
+  }
+}
+
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_06_180321) do
+ActiveRecord::Schema.define(version: 2020_07_08_121947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 2020_07_06_180321) do
     t.string "key", null: false
     t.text "metadata"
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "anonymized_intake_csv_extracts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.integer "record_count"
+    t.datetime "run_at"
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -399,6 +406,7 @@ ActiveRecord::Schema.define(version: 2020_07_06_180321) do
     t.string "name", null: false
     t.string "source_parameter"
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "weekly_capacity_limit"
     t.string "zendesk_group_id", null: false
     t.string "zendesk_instance_domain", null: false
   end

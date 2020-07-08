@@ -1,9 +1,12 @@
 class IntakeProgressCalculator
 
-  starting_index = QuestionNavigation::FLOW.index(Questions::BacktaxesController)
-  question_steps = QuestionNavigation::FLOW[starting_index..-1]
-  doc_overview_index = question_steps.index(Questions::OverviewDocumentsController)
-  POSSIBLE_STEPS = question_steps.insert(doc_overview_index + 1, *DocumentNavigation::FLOW)
+  starting_index = QuestionNavigation::FLOW.index(Questions::WasStudentController)
+  ending_index = QuestionNavigation::FLOW.index(Questions::AdditionalInfoController)
+  POSSIBLE_STEPS = QuestionNavigation::FLOW[starting_index..ending_index]
+
+  def self.show_progress?(controller_class)
+    POSSIBLE_STEPS.include? controller_class
+  end
 
   def self.get_progress(controller, intake)
     return 0 if controller == POSSIBLE_STEPS.first
