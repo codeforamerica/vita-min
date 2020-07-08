@@ -18,7 +18,7 @@ order of priority:
    that related partner.
 3. If the intake has a state of residence that corresponds to a state
    serviced by a partner, route the intake to that state partner.
-4. Otherwise, route the intake to the overflow partner (United Way of Tuscon /
+4. Otherwise, route the intake to the overflow partner (United Way of Tucson /
    Southern Arizona, UWTSA)
 
 Desired future functionality not currently implemented:

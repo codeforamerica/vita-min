@@ -246,7 +246,7 @@ describe ZendeskIntakeService do
 
     context "in a state for the UWTSA Group" do
       let(:state) { "az" }
-      let(:vita_partner) { VitaPartner.find_by(name: "United Way of Tuscon and Southern Arizona") }
+      let(:vita_partner) { VitaPartner.find_by(name: "United Way of Tucson and Southern Arizona") }
       let(:mixpanel_spy) { spy(MixpanelService) }
 
       before(:each) do

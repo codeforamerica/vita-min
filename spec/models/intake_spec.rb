@@ -791,7 +791,7 @@ describe Intake do
       it_behaves_like "state-level routing", "OH", "United Way of Central Ohio", "eitc"
       it_behaves_like "state-level routing", "NV", "Nevada Free Taxes Coalition", "eitc"
       it_behaves_like "state-level routing", "TX", "Foundation Communities", "eitc"
-      it_behaves_like "state-level routing", "AZ", "United Way of Tuscon and Southern Arizona", "eitc"
+      it_behaves_like "state-level routing", "AZ", "United Way of Tucson and Southern Arizona", "eitc"
       it_behaves_like "state-level routing", "VA", "United Way of Greater Richmond and Petersburg", "eitc"
       it_behaves_like "state-level routing", "FL", "Tax Help Colorado (Piton Foundation)", "eitc"
       it_behaves_like "state-level routing", "NM", "Tax Help New Mexico", "eitc"
