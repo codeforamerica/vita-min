@@ -419,6 +419,8 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011201713'
   display_name: Grow Brooklyn Free Tax Prep
+  source_parameters:
+  - growbrooklyn
   logo_path: partner-logos/grow-brooklyn.jpg
 - name: United Way of Central Alabama
   zendesk_instance_domain: eitc
