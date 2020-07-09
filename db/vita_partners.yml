@@ -456,5 +456,5 @@ vita_partners:
   zendesk_group_id: '360011477453'
   display_name: La Casa de Esperanza (WI)
   source_parameters:
-  - lce
+  - WILCDE
   logo_path: ''
