@@ -464,3 +464,10 @@ vita_partners:
   source_parameters:
   - nccc
   logo_path: partner-logos/ncc-logo.png
+- name: La Casa de Esperanza (WI)
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011477453'
+  display_name: La Casa de Esperanza (WI)
+  source_parameters:
+  - WILCDE
+  logo_path: ''
