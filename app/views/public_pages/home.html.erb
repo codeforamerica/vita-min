@@ -20,7 +20,7 @@
         </p>
 
         <% if enable_online_intake? %>
-          <%= link_to question_path(:id => QuestionNavigation.first), id: "firstCta", class: "button button--primary" do %>
+          <%= link_to question_path(:id => QuestionNavigation.first), id: "firstCta", class: "button button--med-wide button--primary" do %>
             <%=t("general.get_started") %>
           <% end %>
         <% else %>
@@ -64,13 +64,15 @@
     </div>
   </div>
 
-  <div class="slab banner slab--stimulus_faq">
+  <div class="slab slab--secondary-cta slab--lavender">
     <div class="grid">
-      <div class="grid__item width-one-whole">
-        <div class="stimulus-banner-text">
+      <div class="grid__item width-two-thirds">
+        <p class="cta-text">
           <strong><%=t("views.public_pages.home.stimulus_faq.info") %></strong>
-        </div>
-        <%= link_to stimulus_path, class: "button button--secondary spacing-above-25 stimulus-banner-cta" do %>
+        </p>
+      </div>
+      <div class="grid__item width-one-third button-container">
+        <%= link_to stimulus_path, class: "button" do %>
           <%=t("general.visit_stimulus_faq") %>
         <% end %>
       </div>
@@ -149,20 +151,20 @@
     </div>
   </div>
 
-  <div class="slab slab--faq">
+  <div class="slab slab--secondary-cta">
     <div class="grid">
-      <h3 class="spacing-below-0"><%=t("views.public_pages.home.features.header") %></h3>
-      <div class="grid__item width-three-fourths">
-        <ul class="list--bulleted text--small">
-          <li><%=t("views.public_pages.home.features.free") %></li>
-          <li><%=t("views.public_pages.home.features.chat") %></li>
-          <li><%=t("views.public_pages.home.features.backtaxes") %></li>
-          <li><%=t("views.public_pages.home.features.amendments") %></li>
+      <div class="grid__item width-three-fourths cta-text">
+        <h3 class="spacing-below-0"><%=t("views.public_pages.home.features.header") %></h3>
+        <ul class="list--bulleted text--small text--semibold">
+          <li class="spacing-below-0"><%=t("views.public_pages.home.features.free") %></li>
+          <li class="spacing-below-0"><%=t("views.public_pages.home.features.chat") %></li>
+          <li class="spacing-below-0"><%=t("views.public_pages.home.features.backtaxes") %></li>
+          <li class="spacing-below-0"><%=t("views.public_pages.home.features.amendments") %></li>
         </ul>
         <p class="text--small spacing-below-0"><%=t("views.public_pages.home.features.questions") %></p>
       </div>
-      <div id="faq-button-container" class="grid__item width-one-fourth">
-        <%= link_to faq_path, class: "button" do %><%=t("views.public_pages.home.features.faq_cta") %><% end %>
+      <div class="grid__item width-one-fourth button-container">
+        <%= link_to faq_path, class: "button button--med-wide" do %><%=t("views.public_pages.home.features.faq_cta") %><% end %>
       </div>
     </div>
   </div>
