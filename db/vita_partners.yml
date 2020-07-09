@@ -435,6 +435,10 @@ vita_partners:
   display_name: United Way of Greater Nashville
   source_parameters:
   - greaternashville
+  states:
+  - TN
+  - GA
+  - AL
   logo_path: partner-logos/uw-greater-nashville.png
 - name: Zacchaeus House for Tax Assistance
   zendesk_instance_domain: eitc

@@ -797,6 +797,9 @@ describe Intake do
       it_behaves_like "state-level routing", "NM", "Tax Help New Mexico", "eitc"
       it_behaves_like "state-level routing", "MD", "CASH Campaign of MD", "eitc"
       it_behaves_like "state-level routing", "NY", "Urban Upbound (NY)", "eitc"
+      it_behaves_like "state-level routing", "TN", "United Way of Greater Nashville", "eitc"
+      it_behaves_like "state-level routing", "GA", "United Way of Greater Nashville", "eitc"
+      it_behaves_like "state-level routing", "AL", "United Way of Greater Nashville", "eitc"
       it_behaves_like "state-level routing", "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
     end
 
@@ -805,8 +808,8 @@ describe Intake do
         context "given a state" do
           let(:state) { state_criteria }
           let(:overflow_partners) { VitaPartner.where(accepts_overflow: true) }
-          let(:overflow_partner_group_ids) {overflow_partners.map(&:zendesk_group_id)}
-          let(:overflow_partner_instance_domains) {overflow_partners.map(&:zendesk_instance_domain)}
+          let(:overflow_partner_group_ids) { overflow_partners.map(&:zendesk_group_id) }
+          let(:overflow_partner_instance_domains) { overflow_partners.map(&:zendesk_instance_domain) }
 
           before do
             intake.assign_vita_partner!
@@ -820,7 +823,6 @@ describe Intake do
       end
 
       it_behaves_like "overflow routing", "XX"
-      it_behaves_like "overflow routing", "TN"
       it_behaves_like "overflow routing", "AR"
       it_behaves_like "overflow routing", "MS"
       it_behaves_like "overflow routing", "SC"
