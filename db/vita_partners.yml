@@ -419,6 +419,8 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011201713'
   display_name: Grow Brooklyn Free Tax Prep
+  source_parameters:
+  - growbrooklyn
   logo_path: partner-logos/grow-brooklyn.jpg
 - name: United Way of Central Alabama
   zendesk_instance_domain: eitc
@@ -433,6 +435,10 @@ vita_partners:
   display_name: United Way of Greater Nashville
   source_parameters:
   - greaternashville
+  states:
+  - TN
+  - GA
+  - AL
   logo_path: partner-logos/uw-greater-nashville.png
 - name: Zacchaeus House for Tax Assistance
   zendesk_instance_domain: eitc
@@ -468,4 +474,11 @@ vita_partners:
   display_name: United Way of Racine County
   source_parameters:
   - unitedwayracine
+  logo_path: ''
+- name: La Casa de Esperanza (WI)
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360011477453'
+  display_name: La Casa de Esperanza (WI)
+  source_parameters:
+  - WILCDE
   logo_path: ''

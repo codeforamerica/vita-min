@@ -504,8 +504,8 @@ es:
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         filing_deadline_banner:
-          body: No tiene que presentar un formulario adicional ni llamar al IRS para pedir una extensión. Le recomendamos que declare sus impuestos hoy mismo, ya que puede recibir un reembolso que puede ayudar a mantener su hogar.
-          title: 'Nota: La fecha límite para presentar la declaración del impuesto federal ha sido extendida hasta el 15 de julio de 2020.'
+          body_html: A menos que presente una declaración de 2016 o anticipe que debe dinero este año, puede presentarla hasta el 15 de octubre sin penalización. Si no está seguro de si debe o no, puede completar y enviar <a target="_blank" rel="noopener" href="https://www.irs.gov/pub/irs-pdf/f4868sp.pdf">este formulario del IRS</a> solicitando una extensión.
+          title: 'La fecha límite para la declaración de impuestos federales se ha extendido hasta el 15 de julio de 2020.'
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
         partners:
           header: Colaboramos con organizaciones de confianza
@@ -734,7 +734,7 @@ es:
           other: "¿Usted o su cónyuge informaron una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
       at_capacity:
         alternative_html: Para declarar de inmediato, puede probar nuestro servicio online para preparar sus propios impuestos de manera gratuita (DIY por sus siglas en inglés)
-        body: Estamos experimentando un gran volumen de clientes en este momento. Nuestro objetivo es brindar un servicio de alta calidad a todos nuestros clientes. Pedimos disculpas por la espera.
+        body: Estamos experimentando un gran volumen de clientes en este momento. Nuestro objetivo es brindar un servicio de alta calidad a todos nuestros clientes. Los tiempos de espera actuales para la opción Declara con Ayuda son de 2-3 semanas. Pedimos disculpas por la espera.
         file_with_diy: Declarar mis propios impuestos (DIY)
         file_with_help: Declarar con ayuda
         title: Vaya, parece que estamos saturados en este momento.
@@ -933,7 +933,7 @@ es:
         state: Estado
         street_address: Dirección
         title: "¿Cuál es su dirección postal?"
-        zip_code: código postal
+        zip_code: Código postal
       married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
         title: El 31 de diciembre, %{year}, ¿Estaba legalmente casado?
@@ -1001,8 +1001,8 @@ es:
       personal_info:
         info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
         preferred_name: Nombre Preferido
-        state_of_residence: Estado de residencia
         title: Primero, obtengamos información básica.
+        zip_code: Código postal
       phone_number:
         info: Una vez que haya respondido todas las preguntas sobre impuestos, su preparador de impuestos lo llamará para revisar su situación fiscal.
         phone_number: Número de teléfono
