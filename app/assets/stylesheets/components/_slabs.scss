@@ -24,17 +24,32 @@
   }
 }
 
-.slab--help {
+.slab--lavender {
   background-color: $color-lavender;
+}
 
-  .help-button-container {
-    text-align: right;
+.slab--secondary-cta {
+  .cta-text {
+    margin-bottom: 3.5rem;
+  }
 
-    @media screen and (max-width: $tablet-up) {
-      text-align: center;
-      padding-top: $s35;
+  .button-container {
+    text-align: center;
+  }
+
+  .button {
+    margin-bottom: 0;
+    margin-right: 0;
+  }
+
+  @media screen and (min-width: $tablet-up) {
+    .grid {
+      display: flex;
+      align-items: center;
+    }
+
+    .cta-text {
+      margin-bottom: 0;
     }
   }
 }
-
-
