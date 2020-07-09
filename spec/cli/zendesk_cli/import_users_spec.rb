@@ -18,7 +18,7 @@ RSpec.describe ZendeskCli::ImportUsers do
     double(
       "ZendeskAPI::Client",
       users: double(build: ZendeskAPI::User.new(nil), search: existing_zendesk_users),
-      groups: double(create: nil, to_a: existing_zendesk_groups.dup),
+      groups: double(create: nil),
       custom_roles: existing_zendesk_custom_roles,
       group_memberships: double(create: true),
     )
@@ -38,6 +38,9 @@ RSpec.describe ZendeskCli::ImportUsers do
   before do
     allow_any_instance_of(described_class).to receive(:client).and_return(mock_client)
     allow_any_instance_of(described_class).to receive(:shell).and_return(shell)
+    allow(mock_client.groups).to receive(:all!) do |&block|
+      existing_zendesk_groups.each { |group| block.call(group) }
+    end
   end
 
   describe "#import_all" do
@@ -304,7 +307,7 @@ RSpec.describe ZendeskCli::ImportUsers do
       # Simulate creating the group and updating the API results to include the
       # new record.
       importer.create_group(new_group_name)
-      allow(mock_client.groups).to receive(:to_a).and_return(existing_zendesk_groups + [mock_group])
+      existing_zendesk_groups << mock_group
 
       expect(importer.zendesk_groups).to include(mock_group)
     end
