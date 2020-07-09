@@ -504,8 +504,8 @@ en:
         file:
           header: Get more of your refund dollars back by filing for free today!
         filing_deadline_banner:
-          body: You do not need to file any additional forms or call the IRS for the extension. We encourage you to file today as you may be due a refund that can help support your household.
-          title: 'Note: The federal income tax filing deadline has been extended to July 15, 2020.'
+          body_html: Unless you are filing a 2016 return or anticipate owing money this year, you can can file until October 15th without a penalty. If you aren't sure whether or not you will owe, you can complete and mail <a target="_blank" rel="noopener" href="https://www.irs.gov/pub/irs-pdf/f4868.pdf">this IRS form</a> requesting an extension.
+          title: 'The federal income tax filing deadline has been extended to July 15, 2020.'
         header: Free tax filing, real human support.
         partners:
           header: We partner with trusted organizations
