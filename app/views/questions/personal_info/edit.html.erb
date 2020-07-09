@@ -8,6 +8,7 @@
     </p>
 
     <div class="form-card__content">
+      <%= f.hidden_field(:timezone) %>
       <%= f.cfa_input_field(:preferred_name, t("views.questions.personal_info.preferred_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:zip_code, t("views.questions.personal_info.zip_code"), classes: ["form-width--zip"]) %>
     </div>
@@ -16,4 +17,13 @@
       <%=t("general.continue") %>
     </button>
   <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          document.getElementById('personal_info_form_timezone').value = timezone;
+      });
+  </script>
 <% end %>

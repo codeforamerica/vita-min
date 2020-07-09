@@ -1,5 +1,8 @@
 module ZendeskServiceHelper
-
+  # Zendesk's API requires timezone strings which correspond to items in
+  # a drop-down within the app. This is our best effort to convert IANA
+  # timezones into that form. Zendesk's timezones appear to be a 100% match
+  # for ActiveSupport::TimeZone's `.name` property.
   TIMEZONE_MAP = {
     "America/Adak" => "Alaska",
     "America/Anchorage" => "Alaska",
@@ -127,11 +130,15 @@ module ZendeskServiceHelper
     qualified_environments.include?(Rails.env) ? "#{name} (Fake User)" : name
   end
 
+  def zendesk_timezone(timezone)
+    TIMEZONE_MAP[timezone] || "Unknown"
+  end
+
   ##
   # builds a +ZendeskAPI::Ticket+ with the specified params
   #
   # @param [String] subject: the subject / title
-  # @param [Integer] requester_id: the id of the ZendeskAPI::User 
+  # @param [Integer] requester_id: the id of the ZendeskAPI::User
   # @param [Integer] group_id: the id of the Zendesk group the ticket will be
   #                            assigned to
   # @param [Integer] external_id: the id of the local resource (e.g. an intake)
@@ -162,7 +169,7 @@ module ZendeskServiceHelper
   # raises a ZendeskAPIError if ticket creation fails
   #
   # @param [String] subject: the subject / title
-  # @param [Integer] requester_id: the id of the ZendeskAPI::User 
+  # @param [Integer] requester_id: the id of the ZendeskAPI::User
   # @param [Integer] group_id: the id of the Zendesk group the ticket will be
   #                            assigned to
   # @param [Integer] external_id: the id of the local resource (e.g. an intake)

@@ -43,7 +43,8 @@ class ZendeskIntakeService
       @intake.preferred_name,
       contact_info[:email],
       contact_info[:sms_phone_number],
-      exact_match: true
+      exact_match: true,
+      time_zone: zendesk_timezone(@intake.timezone)
     )
   end
 
@@ -171,6 +172,7 @@ class ZendeskIntakeService
     comment_body = <<~BODY
       Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
+      Client's detected timezone: #{zendesk_timezone(@intake.timezone)}
       Client's provided interview preferences: #{@intake.interview_timing_preference}
       The client's preferred language for a phone call is #{preferred_interview_language_name}
 

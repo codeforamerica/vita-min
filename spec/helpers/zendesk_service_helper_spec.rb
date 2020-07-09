@@ -546,4 +546,18 @@ RSpec.describe ZendeskServiceHelper do
       end
     end
   end
+
+  describe "#zendesk_timezone" do
+    it "converts iana timezone to Zendesk accepted timezones" do
+      expect(service.zendesk_timezone("America/Los_Angeles")).to eq("Pacific Time (US & Canada)")
+    end
+
+    it "returns Unknown when timezone is not found" do
+      expect(service.zendesk_timezone("Antarctica/Casey")).to eq("Unknown")
+    end
+
+    it "returns Unknown when timezone is nil" do
+      expect(service.zendesk_timezone(nil)).to eq("Unknown")
+    end
+  end
 end

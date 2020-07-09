@@ -1,5 +1,5 @@
 class PersonalInfoForm < QuestionsForm
-  set_attributes_for :intake, :preferred_name, :zip_code
+  set_attributes_for :intake, :preferred_name, :zip_code, :timezone
 
   validates :zip_code, zip_code: true
   validates :preferred_name, presence: true

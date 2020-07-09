@@ -9,6 +9,7 @@ describe ZendeskIntakeService do
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
   let(:state) { "NE" }
   let(:zip_code) { "68583" }
+  let(:timezone) { "America/Chicago" }
   let(:interview_timing_preference) { "" }
   let(:final_info) { "" }
   let(:source) { "uw-narnia" }
@@ -39,7 +40,8 @@ describe ZendeskIntakeService do
            intake_ticket_requester_id: intake_requester_id,
            refund_payment_method: payment_method,
            balance_pay_from_bank: pay_from_bank,
-           continued_at_capacity: continued_at_capacity
+           continued_at_capacity: continued_at_capacity,
+           timezone: timezone
   end
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
@@ -153,7 +155,7 @@ describe ZendeskIntakeService do
       it "returns the end user ID based on all contact info" do
         expect(service.create_intake_ticket_requester).to eq 1
         expect(service).to have_received(:find_or_create_end_user).with(
-          "Cherry", "cash@raining.money", "+14155551234", exact_match: true
+          "Cherry", "cash@raining.money", "+14155551234", exact_match: true, time_zone: "Central Time (US & Canada)"
         )
       end
     end
@@ -165,7 +167,7 @@ describe ZendeskIntakeService do
       it "returns the end user ID based on just the name" do
         expect(service.create_intake_ticket_requester).to eq 1
         expect(service).to have_received(:find_or_create_end_user).with(
-          "Cherry", nil, nil, exact_match: true
+          "Cherry", nil, nil, exact_match: true, time_zone: "Central Time (US & Canada)"
         )
       end
     end
@@ -653,6 +655,7 @@ describe ZendeskIntakeService do
       comment_body = <<~BODY
         Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
+        Client's detected timezone: Central Time (US & Canada)
         Client's provided interview preferences: Monday evenings and Wednesday mornings
         The client's preferred language for a phone call is Spanish
 
@@ -685,6 +688,7 @@ describe ZendeskIntakeService do
         comment_body = <<~BODY
           Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
+          Client's detected timezone: Central Time (US & Canada)
           Client's provided interview preferences: Monday evenings and Wednesday mornings
           The client's preferred language for a phone call is Spanish
 
