@@ -35,7 +35,23 @@
     </li>
   </ul>
 
-  <%= link_to root_path, class: "button button--wide button--primary text--centered" do %>
-    <%=t("general.return_home") %>
+  <% if current_intake.present? %>
+    <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "satisfaction_face_form" } do |f| %>
+      <h2 class="h3" id="survey-question"><%= t("views.questions.successfully_submitted.satisfaction_face.question") %></h2>
+      <div class="face-container">
+        <%= f.button :submit, name: "#{f.object_name}[satisfaction_face]", value: "positive", class: "button positive", "aria-describedby": "survey-question" do %>
+          <%= image_tag("questions/csat/positive.svg", alt: "") %>
+          <span><%= t("views.questions.successfully_submitted.satisfaction_face.positive") %></span>
+        <% end %>
+        <%= f.button :submit, name: "#{f.object_name}[satisfaction_face]", value: "neutral", class: "button neutral", "aria-describedby": "survey-question" do %>
+          <%= image_tag("questions/csat/neutral.svg", alt: "") %>
+          <span><%= t("views.questions.successfully_submitted.satisfaction_face.neutral") %></span>
+        <% end %>
+        <%= f.button :submit, name: "#{f.object_name}[satisfaction_face]", value: "negative", class: "button negative", "aria-describedby": "survey-question" do %>
+          <%= image_tag("questions/csat/negative.svg", alt: "") %>
+          <span><%= t("views.questions.successfully_submitted.satisfaction_face.negative") %></span>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

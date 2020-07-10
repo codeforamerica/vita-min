@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
   render_views
+  let(:intake) { create :intake, intake_ticket_id: 1234 }
 
   describe "#include_analytics?" do
     it "returns true" do
@@ -10,15 +11,52 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
   end
 
   describe "#edit" do
-    let(:intake) { create :intake, intake_ticket_id: 1234 }
+    context "with an intake in the session" do
+      before do
+        session[:intake_id] = intake.id
+      end
 
-    before do
-      allow(subject).to receive(:current_intake).and_return(intake)
+      it "clears the session and sets a completed_intake_id in the session" do
+        get :edit
+
+        expect(session[:intake_id]).to be_nil
+        expect(session[:completed_intake_id]).to eq intake.id
+      end
+
+      it "displays a confirmation number" do
+        get :edit
+
+        expect(response.body).to include "Your confirmation number is: #{intake.intake_ticket_id}"
+      end
     end
 
-    it "returns http success" do
-      get :edit
-      expect(response).to have_http_status(:success)
+    context "without an intake in the session" do
+      it "Still renders the page with a success message" do
+        get :edit
+
+        expect(response.body).to include "Success! Your tax information has been submitted."
+      end
+    end
+  end
+
+  describe "#update" do
+    context "with a completed intake id in the session" do
+      before { session[:completed_intake_id] = intake.id }
+
+      context "with valid params" do
+        let(:params) do
+          {
+            satisfaction_face_form: {
+              satisfaction_face: "negative"
+            }
+          }
+        end
+
+        it "saves the answer to the corresponding intake" do
+          post :update, params: params
+          expect(intake.reload.satisfaction_face).to eq "negative"
+        end
+      end
     end
   end
 end

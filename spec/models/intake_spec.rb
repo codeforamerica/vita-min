@@ -49,6 +49,7 @@
 #  encrypted_spouse_last_four_ssn                       :string
 #  encrypted_spouse_last_four_ssn_iv                    :string
 #  ever_married                                         :integer          default("unfilled"), not null
+#  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default("unfilled"), not null
 #  filing_for_stimulus                                  :integer          default("unfilled"), not null
 #  filing_joint                                         :integer          default("unfilled"), not null
@@ -121,6 +122,7 @@
 #  routed_at                                            :datetime
 #  routing_criteria                                     :string
 #  routing_value                                        :string
+#  satisfaction_face                                    :integer          default("unfilled"), not null
 #  savings_purchase_bond                                :integer          default("unfilled"), not null
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null

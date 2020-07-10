@@ -227,13 +227,13 @@ es:
           state_of_residence: Estado de residencia
           title: Primero, vamos a empezar con su información básica.
       start_filing:
+        help_html: "<strong>No podemos proporcionar asistencia por chat en TaxSlayer, ¡pero estamos aquí para ayudar!</strong><br/> Si tiene alguna pregunta, chatee con nosotros en esta página."
         start:
           tips:
-            no_navigation: No haga clic en "Regresar" ni salga de la página de TaxSlayer
             create_login: Para comenzar a declarar, regístrese  en Taxslayer
+            no_navigation: No haga clic en "Regresar" ni salga de la página de TaxSlayer
             spelling: Compruebe la ortografía
           title: "¡Le damos la bienvenida al servicio que le permite presentar su propia declaración de impuestos!"
-        help_html: <strong>No podemos proporcionar asistencia por chat en TaxSlayer, ¡pero estamos aquí para ayudar!</strong><br/> Si tiene alguna pregunta, chatee con nosotros en esta página.
     documents:
       additional_documents:
         help_text: Agregue todos los documentos o formularios adicionales que le gustaría compartir con su preparador de impuestos. Incluya cualquier formulario lo cual no esté seguro de utilizar. Su preparador de impuestos determinará si los formularios son necesarios para su declaración.
@@ -506,7 +506,7 @@ es:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         filing_deadline_banner:
           body_html: A menos que presente una declaración de 2016 o anticipe que debe dinero este año, puede presentarla hasta el 15 de octubre sin penalización. Si no está seguro de si debe o no, puede completar y enviar <a target="_blank" rel="noopener" href="https://www.irs.gov/pub/irs-pdf/f4868sp.pdf">este formulario del IRS</a> solicitando una extensión.
-          title: 'La fecha límite para la declaración de impuestos federales se ha extendido hasta el 15 de julio de 2020.'
+          title: La fecha límite para la declaración de impuestos federales se ha extendido hasta el 15 de julio de 2020.
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
         partners:
           header: Colaboramos con organizaciones de confianza
@@ -843,6 +843,9 @@ es:
       ever_married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
         title: "¿Alguna vez ha estado casado legalmente?"
+      feedback:
+        body: Apreciamos cualquier comentario adicional que tenga para servir mejor a nuestros clientes en el futuro.
+        title: Gracias por compartir su experiencia.
       file_with_help:
         info: Seleccionó nuestra opción de servicio completo. Nosotros haremos que responda una serie de preguntas sobre su situación fiscal (lo mejor que pueda) y que un especialista en impuestos revise todo con usted.
         right_option:
@@ -1118,6 +1121,11 @@ es:
           partner_timing: "%{partner_name} se comunicará dentro de 3 días hábiles para discutir sus impuestos"
           review: Su asesor fiscal revisará su información
           timing: Su asesor fiscal se comunicará dentro de los 3 días hábiles para discutir sus impuestos.
+        satisfaction_face:
+          negative: Mala
+          neutral: Buena
+          positive: "¡Excelente!"
+          question: "¿Cómo fue su experiencia con GetYourRefund?"
         title: "¡Felicidades! Su información tributaria ha sido enviada."
       tax_credit_disallowed:
         help_text: Responde "Sí" si le pidieron que reembolsaba alguno de estos créditos en el pasado.

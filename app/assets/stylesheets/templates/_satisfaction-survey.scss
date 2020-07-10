@@ -1,0 +1,45 @@
+.satisfaction_face_form {
+  .face-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 32rem;
+  }
+
+  .button {
+    font-size: 1.6rem;
+    border: 1px solid #A0A0A0;
+    border-radius: 2px;
+    padding: 1rem;
+    text-align: center;
+    margin: 0;
+    min-height: 9rem;
+    width: 9rem;
+    font-weight: normal;
+
+    &:active {
+      border: 1px solid black;
+    }
+
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+
+    span {
+      display: block;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .positive:hover {
+    background-color: $color-green-money;
+  }
+
+  .neutral:hover {
+    background-color: $color-orange-medium;
+  }
+
+  .negative:hover {
+    background-color: $color-red-medium;
+  }
+}
