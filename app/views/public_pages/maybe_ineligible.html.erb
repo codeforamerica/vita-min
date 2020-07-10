@@ -14,17 +14,30 @@
 
           <div class="offboarding--help-text">
             <p><%=t("views.public_pages.maybe_ineligible.info") %></p>
-            <p><%=link_to t("general.submit_question"), "mailto:hello@getyourrefund.org" %></p>
+            <p><%=t("views.public_pages.maybe_ineligible.alternatives") %></p>
           </div>
           <div class="offboarding--help-text">
-            <p class="offboarding--subtitle"><%=t("general.other_options") %></p>
-            <p>
-              <%=t("general.free_file_html", :wizard_link => link_to(t("general.free_file_lookup_tool"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", target: "_blank", rel: "noopener", "data-track_click": "freefile")) %>
+            <p class="offboarding--subtitle">
+              <%=t("views.public_pages.maybe_ineligible.diy_criteria_list.header") %>
             </p>
+            <ul class="checkmark-list">
+              <% (1..4).to_a.each do |i| %>
+                <li>
+                  <%= render "shared/svg/checkmark", fill_class: "purple" %>
+                  <span>
+                    <%=t("views.public_pages.maybe_ineligible.diy_criteria_list.item_#{i}") %>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
           </div>
 
           <div class="buttons--vertical-stack">
-            <%= link_to t("general.find_vita_site"), vita_providers_path, class: "button button--primary button--wide text--centered" %>
+            <%= link_to t("views.public_pages.maybe_ineligible.diy_button"),
+              diy_file_yourself_path,
+              class: "button button--primary button--wide text--centered",
+              "data-track-click": "diy_offboarding"
+            %>
             <%= link_to t("general.visit_free_file"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", class: "button button--wide text--centered", rel: "noopener", target: "_blank", "data-track-click": "freefile" %>
           </div>
         </main>

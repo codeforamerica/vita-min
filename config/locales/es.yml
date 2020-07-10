@@ -525,7 +525,15 @@ es:
         questions: Si tiene alguna pregunta mientras tanto, no dude en comunicarse con nosotros haciendo clic en el botón "Chat"/"Ayuda", en la parte inferior derecha.
         title: GetYourRefund no está disponible temporalmente por tareas de mantenimiento
       maybe_ineligible:
-        info: Estamos encantados de responder a sus preguntas sobre GetYourRefund. También podemos ponerlo en contacto con otras opciones para presentar su declaración de impuestos.
+        alternatives: También tenemos dos opciones alternativas de declaración de impuestos gratuitas para usted. Declare con nuestra herramienta de bricolaje, donde brindamos apoyo de chat mientras declara o prueba IRS Free File, un servicio en línea que le permite declarar sus propios impuestos.
+        diy_button: Declare con herramienta DIY
+        diy_criteria_list:
+          header: "¡Utiliza nuestra herramienta de bricolaje! Una gran elección si:"
+          item_1: Solo está declarando del 2019 (no de los años anteriores)
+          item_2: Se siente cómodo usando los servicios de declaración de impuestos en línea
+          item_3: Su situación fiscal es simple/clara
+          item_4: Necesita una solución rápida
+        info: ¡Nos complace responder cualquier pregunta que pueda tener sobre GetYourRefund! Contáctenos usando nuestra función de chat abajo de esta pagina.
         title: No estamos seguros de que califique para nuestros servicios.
       other_options:
         info: Estamos encantados de ayudarlo con sus impuestos, pero necesitamos verificar su identidad antes. La verificación de identidad es importante porque nos permite asegurarnos de que su información está protegida. Si no está de acuerdo con esto, a continuación tiene información sobre otras opciones gratuitas para presentar su declaración.

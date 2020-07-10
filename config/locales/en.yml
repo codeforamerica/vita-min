@@ -525,7 +525,15 @@ en:
         questions: If you have any questions in the meantime, feel free to reach out via the chat/help button in the bottom right.
         title: GetYourRefund is temporarily down for maintenance
       maybe_ineligible:
-        info: We're happy to answer any questions you may have about GetYourRefund or we can connect you to other tax filing options.
+        alternatives: We also have two alternative free tax filing options for you. File with our DIY tool, where we provide chat support as you file or try IRS Free File, an online service that lets you prepare your own taxes.
+        diy_button: File with DIY tool
+        diy_criteria_list:
+          header: "Use our DIY tool! A great choice if:"
+          item_1: You are only filing for 2019 (not previous years)
+          item_2: You’re comfortable using online tax services
+          item_3: Your tax situation is simple/straightforward
+          item_4: You need a quick option
+        info: We’re happy to answer any questions you may have about GetYourRefund! Contact us by using our chat feature below.
         title: We’re unsure if you qualify for our services.
       other_options:
         info: We are excited to help you with your taxes, but we need to verify your identity to get started. Identify verification is important to ensure that your information is safe and secure, but if it's not for you, you can learn about other free filing options below.

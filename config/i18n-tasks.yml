@@ -102,6 +102,7 @@ ignore_unused:
   - 'date.formats.*'
   - 'general.*'
   - 'errors.*'
+  - 'views.public_pages.maybe_ineligible.diy_criteria_list.{item_1,item_2,item_3,item_4}'
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
