@@ -54,6 +54,7 @@ RSpec.feature "Web Intake Single Filer" do
 
     # Chat with us
     expect(page).to have_selector("h1", text: "Our team at United Way of Central Ohio is here to help!")
+    expect(page).to have_selector("p", text: "United Way of Central Ohio handles tax returns from 45701 (Athens, Ohio).")
     click_on "Continue"
 
     # Phone number
