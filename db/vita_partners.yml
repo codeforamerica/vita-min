@@ -6,6 +6,9 @@ vita_partners:
   display_name: Tax Help Colorado
   source_parameters:
   - thc
+  # temporarily rerouted from Hispanic Unity for weeks of 2020/7/13-27
+  - RefundDay-H
+  - hispanicunity
   states:
   - CO
   - SD
@@ -165,9 +168,6 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009704314'
   display_name: Hispanic Unity
-  source_parameters:
-  - RefundDay-H
-  - hispanicunity
   logo_path: ''
   weekly_capacity_limit: 0
 - name: Catalyst Miami
