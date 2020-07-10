@@ -1124,7 +1124,7 @@ es:
         satisfaction_face:
           negative: Mala
           neutral: Buena
-          positive: "¡Excelente!"
+          positive: "¡Super!"
           question: "¿Cómo fue su experiencia con GetYourRefund?"
         title: "¡Felicidades! Su información tributaria ha sido enviada."
       tax_credit_disallowed:
