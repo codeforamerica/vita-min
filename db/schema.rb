@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_002316) do
     t.string "encrypted_spouse_last_four_ssn"
     t.string "encrypted_spouse_last_four_ssn_iv"
     t.integer "ever_married", default: 0, null: false
+    t.string "feedback"
     t.integer "feeling_about_taxes", default: 0, null: false
     t.integer "filing_for_stimulus", default: 0, null: false
     t.integer "filing_joint", default: 0, null: false
@@ -284,6 +285,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_002316) do
     t.datetime "routed_at"
     t.string "routing_criteria"
     t.string "routing_value"
+    t.integer "satisfaction_face", default: 0, null: false
     t.integer "savings_purchase_bond", default: 0, null: false
     t.integer "savings_split_refund", default: 0, null: false
     t.integer "separated", default: 0, null: false

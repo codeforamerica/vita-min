@@ -153,6 +153,7 @@ class QuestionNavigation
     # Additional Information
     Questions::FinalInfoController, # appends final 13614-C, bank details & docs to Zendesk
     Questions::SuccessfullySubmittedController,
+    Questions::FeedbackController,
   ].freeze
 
   include ControllerNavigation

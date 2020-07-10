@@ -358,10 +358,11 @@ RSpec.feature "Web Intake Single Filer" do
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
     expect(page).to have_text("Your confirmation number is: #{ticket_id}")
+    click_on "Great!"
 
-    # reloading the success page works without trying to show the progress bar
-    visit "/questions/successfully-submitted"
-    expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+    fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
+    click_on "Return to home"
+    expect(page).to have_selector("h1", text: "Free tax filing, real human support.")
 
     # going back to another page after submit redirects to beginning
     visit "/questions/wages"

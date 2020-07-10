@@ -227,13 +227,13 @@ en:
           state_of_residence: State of residence
           title: First, let's get some basic information.
       start_filing:
+        help_html: "<strong>We are unable to provide chat support in TaxSlayer, but we’re here to help!</strong><br/> If any questions come up, please chat with us on this page."
         start:
           tips:
-            no_navigation: Do not click ‘back’ or navigate away from the TaxSlayer page
             create_login: To start filing, create a login in Taxslayer
+            no_navigation: Do not click ‘back’ or navigate away from the TaxSlayer page
             spelling: Double check your spelling
           title: Welcome to our DIY tax service!
-        help_html: <strong>We are unable to provide chat support in TaxSlayer, but we’re here to help!</strong><br/> If any questions come up, please chat with us on this page.
     documents:
       additional_documents:
         help_text: Please add any additional documents or forms that you would like to share with your tax preparer. Include any forms you may be unsure of. Your tax preparer will determine if the forms are needed for your return.
@@ -506,7 +506,7 @@ en:
           header: Get more of your refund dollars back by filing for free today!
         filing_deadline_banner:
           body_html: Unless you are filing a 2016 return or anticipate owing money this year, you can can file until October 15th without a penalty. If you aren't sure whether or not you will owe, you can complete and mail <a target="_blank" rel="noopener" href="https://www.irs.gov/pub/irs-pdf/f4868.pdf">this IRS form</a> requesting an extension.
-          title: 'The federal income tax filing deadline has been extended to July 15, 2020.'
+          title: The federal income tax filing deadline has been extended to July 15, 2020.
         header: Free tax filing, real human support.
         partners:
           header: We partner with trusted organizations
@@ -843,6 +843,9 @@ en:
       ever_married:
         help_text: This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation.
         title: Have you ever been legally married?
+      feedback:
+        body: We appreciate any additional feedback you have to better serve clients in the future!
+        title: Thank you for sharing your experience.
       file_with_help:
         info: You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you.
         right_option:
@@ -1002,8 +1005,8 @@ en:
       personal_info:
         info: Welcome, we're excited to help you. We need some basic information to get started.
         preferred_name: Preferred name
-        zip_code: ZIP code
         title: First, let's get some basic information.
+        zip_code: ZIP code
       phone_number:
         info: Once you've answered all the tax questions, your tax preparer will call to review your tax situation.
         phone_number: Phone number
@@ -1118,6 +1121,11 @@ en:
           partner_timing: "%{partner_name} will reach out within 3 business days to talk about your taxes"
           review: Your tax preparer will review your information
           timing: Your tax preparer will reach out within 3 business days to talk about your taxes
+        satisfaction_face:
+          negative: Not good
+          neutral: Ok
+          positive: Great!
+          question: How was your experience with GetYourRefund?
         title: Success! Your tax information has been submitted.
       tax_credit_disallowed:
         help_text: Answer "Yes" if you were asked to repay any of these credits in the past.
@@ -1248,8 +1256,8 @@ en:
         search_radius: Within %{distance} miles of %{zip} (%{zip_name}) %>
     zendesk:
       extracts:
-        header: Anonymized Intake CSV Extracts
         filename: Filename
+        header: Anonymized Intake CSV Extracts
         record_count: Record Count
         run_at: Run At
       intakes:
