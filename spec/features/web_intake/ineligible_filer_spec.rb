@@ -19,7 +19,7 @@ RSpec.feature "client is not eligible for VITA services" do
     #Non-production environment warning
     expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
     click_on "Continue to example"
-    
+
     expect(page).to have_selector("h1", text: "Let's get started")
     click_on "Continue"
 
@@ -28,5 +28,8 @@ RSpec.feature "client is not eligible for VITA services" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "We’re unsure if you qualify for our services.")
+    click_on "File with DIY tool"
+
+    expect(current_path).to eq diy_file_yourself_path
   end
 end
