@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     get '/:locale' => 'public_pages#home'
     root "public_pages#home"
 
+    get "/:source" => "public_pages#home",
+      source: SourceParameter.routing_codes_regex
+
     resources :vita_providers, only: [:index, :show]
     get "/vita_provider/map", to: "vita_providers#map"
 
