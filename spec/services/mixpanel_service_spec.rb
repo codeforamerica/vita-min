@@ -191,6 +191,7 @@ describe MixpanelService do
           spouse_birth_date: Date.new(1992, 5, 3),
           vita_partner: vita_partner,
           timezone: "America/Los_Angeles",
+          satisfaction_face: "neutral",
         )
       end
 
@@ -262,6 +263,7 @@ describe MixpanelService do
             vita_partner_name: vita_partner.name,
             triaged_from_stimulus: "no",
             timezone: "America/Los_Angeles",
+            csat: "neutral",
           })
         end
 

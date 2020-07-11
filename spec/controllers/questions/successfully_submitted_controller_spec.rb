@@ -2,7 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
   render_views
+
   let(:intake) { create :intake, intake_ticket_id: 1234 }
+
+  before do
+    allow(MixpanelService).to receive(:send_event)
+  end
 
   describe "#include_analytics?" do
     it "returns true" do
@@ -27,6 +32,12 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
         get :edit
 
         expect(response.body).to include "Your confirmation number is: #{intake.intake_ticket_id}"
+      end
+
+      it "sends a mixpanel event with the intake in the session" do
+        get :edit
+
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(subject: intake))
       end
     end
 
@@ -54,7 +65,14 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
 
         it "saves the answer to the corresponding intake" do
           post :update, params: params
+
           expect(intake.reload.satisfaction_face).to eq "negative"
+        end
+
+        it "sends a mixpanel event with the completed intake in the session" do
+          post :update, params: params
+
+          expect(MixpanelService).to have_received(:send_event).with(hash_including(subject: intake))
         end
       end
     end

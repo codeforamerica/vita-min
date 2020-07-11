@@ -218,6 +218,7 @@ class MixpanelService
           vita_partner_name: intake.vita_partner&.name,
           triaged_from_stimulus: intake.triaged_from_stimulus? ? "yes" : "no",
           timezone: intake.timezone,
+          csat: intake.satisfaction_face,
       }
     end
 

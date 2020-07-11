@@ -7,6 +7,12 @@ module Questions
       true
     end
 
+    def visitor_record
+      return current_intake if action_name == "edit"
+
+      intake_from_completed_session if action_name == "update"
+    end
+
     private
 
     def initialized_update_form
