@@ -1,7 +1,9 @@
 module Documents
   class Form1099ksController < DocumentUploadQuestionController
     def self.show?(intake)
-      intake.had_self_employment_income_yes?
+      # Retaining this controller for approx 1 day, so that if someone is on
+      # this URL, they are able to use it successfully.
+      false
     end
 
     def self.document_type

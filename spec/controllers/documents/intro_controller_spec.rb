@@ -16,10 +16,9 @@ RSpec.describe Documents::IntroController do
       it "shows section headers for the expected document types" do
         get :edit
 
-        expect(response.body).to include("W-2")
+        expect(response.body).to include("Employment")
         expect(response.body).to include("1099-R")
         expect(response.body).not_to include("Other")
-        expect(response.body).not_to include("1099-MISC")
         expect(response.body).not_to include("1099-B")
       end
     end

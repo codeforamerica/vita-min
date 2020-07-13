@@ -11,39 +11,8 @@ RSpec.describe Documents::W2sController do
   end
 
   describe ".show?" do
-    context "with wages" do
-      let(:attributes) { { had_wages: "yes" } }
-      it "returns true" do
-        expect(subject.class.show?(intake)).to eq true
-      end
-    end
-
-    context "with jobs" do
-      let(:attributes) { { job_count: 2 } }
-      it "returns true" do
-        expect(subject.class.show?(intake)).to eq true
-      end
-    end
-
-    context "with disability benefits" do
-      let(:attributes) { { had_disability_income: "yes" } }
-      it "returns true" do
-        expect(subject.class.show?(intake)).to eq true
-      end
-    end
-
-    context "for other cases" do
-      let(:attributes) do
-        {
-          job_count: 0,
-          had_wages: "no",
-          had_disability_income: "unfilled"
-        }
-      end
-
-      it "returns false" do
-        expect(subject.class.show?(intake)).to eq false
-      end
+    it "always returns false" do
+      expect(subject.class.show?(intake)).to eq false
     end
   end
 

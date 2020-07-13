@@ -241,6 +241,11 @@ es:
       care_provider_statements:
         help_text_html: "<strong>Es posible que ya tenga esta declaración</strong> porque nos ha confirmado que pagó por cuidado de niños o dependientes. Comuníquese con su centro de atención si necesita esa documentación."
         title: Anexe sus declaraciones de centros de cuidado infantil o de personas que han proveído cuidado.
+      employment:
+        help_text_html: 'Hace falta una prueba de su empleo. Por favor, provea un (1) documento para cada empleo en que ha trabajado. El documento puede ser cualquiera de los enumerados aquí:'
+        personal_log: Registro personal
+        title: Comparte sus documentos de empleo
+        uber_lyft_dashboard_information: Informe del tablero Uber/Lyft
       form1095as:
         help_text_html: "<strong>Debe tener este formulario</strong> porque nos ha confirmado que compró un seguro de salud en el mercado. Es posible necesite descargarlo a través del mercado o del intercambio de su estado. Más información acerca del formulario está disponible %{more_info_link}."
         title: Adjunte sus 1095-A
@@ -533,7 +538,7 @@ es:
           item_2: Se siente cómodo usando los servicios de declaración de impuestos en línea
           item_3: Su situación fiscal es simple/clara
           item_4: Necesita una solución rápida
-        info: ¡Nos complace responder cualquier pregunta que pueda tener sobre GetYourRefund! Contáctenos usando nuestra función de chat abajo de esta pagina.
+        info: "¡Nos complace responder cualquier pregunta que pueda tener sobre GetYourRefund! Contáctenos usando nuestra función de chat abajo de esta pagina."
         title: No estamos seguros de que califique para nuestros servicios.
       other_options:
         info: Estamos encantados de ayudarlo con sus impuestos, pero necesitamos verificar su identidad antes. La verificación de identidad es importante porque nos permite asegurarnos de que su información está protegida. Si no está de acuerdo con esto, a continuación tiene información sobre otras opciones gratuitas para presentar su declaración.

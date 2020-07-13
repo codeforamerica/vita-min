@@ -1,0 +1,13 @@
+<% content_for :form_question, t("views.documents.employment.title") %>
+
+<% content_for :form_help_text do %>
+  <%= t("views.documents.employment.help_text_html") %>
+
+  <ul class="list--bulleted">
+    <li>W2</li>
+    <li>1099-K</li>
+    <li>1099-MISC</li>
+    <li><a href="https://www.smartsheet.com/free-expense-report-templates" rel="noopener" target="_blank"><%= t("views.documents.employment.personal_log") %></a></li>
+    <li><%= t("views.documents.employment.uber_lyft_dashboard_information") %></li>
+  </ul>
+<% end %>

@@ -241,6 +241,11 @@ en:
       care_provider_statements:
         help_text_html: "<strong>You might have this statement</strong> because you said that you paid for child or dependent care. Contact your care facility if you need this documentation."
         title: Attach your statements from childcare facilities or individuals who provided care.
+      employment:
+        help_text_html: "<strong>We need proof of your employment. Please provide 1 document for each job you've worked. This can be any of the documents listed below:</strong>"
+        personal_log: personal log
+        title: Share your employment documents
+        uber_lyft_dashboard_information: Uber/Lyft dashboard information
       form1095as:
         help_text_html: "<strong>You should have this form</strong> because you said that you purchased health insurance from the marketplace. You may need to download this from the marketplace or the exchange for your state. More information on this form is available %{more_info_link}."
         title: Attach your 1095-A's
@@ -528,7 +533,7 @@ en:
         alternatives: We also have two alternative free tax filing options for you. File with our DIY tool, where we provide chat support as you file or try IRS Free File, an online service that lets you prepare your own taxes.
         diy_button: File with DIY tool
         diy_criteria_list:
-          header: "Use our DIY tool! A great choice if:"
+          header: 'Use our DIY tool! A great choice if:'
           item_1: You are only filing for 2019 (not previous years)
           item_2: You’re comfortable using online tax services
           item_3: Your tax situation is simple/straightforward

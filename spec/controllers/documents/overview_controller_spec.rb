@@ -33,7 +33,7 @@ RSpec.describe Documents::OverviewController do
       let(:attributes) { { had_wages: "yes" } }
       let(:documents) do
         [
-          create(:document, :with_upload, intake: intake, document_type: "W-2"),
+          create(:document, :with_upload, intake: intake, document_type: "Employment"),
           create(:document, :with_upload, intake: intake, document_type: "Other"),
         ]
       end
@@ -41,8 +41,8 @@ RSpec.describe Documents::OverviewController do
       it "includes the sections with links to the document types" do
         get :edit
 
-        expect(response.body).to include("W-2")
-        expect(response.body).to include(w2s_documents_path)
+        expect(response.body).to include("Employment")
+        expect(response.body).to include(employment_documents_path)
         expect(response.body).to include(documents[0].upload.filename.to_s)
         expect(response.body).not_to include("Requested")
       end
@@ -54,10 +54,9 @@ RSpec.describe Documents::OverviewController do
       it "shows section headers for the expected document types" do
         get :edit
 
-        expect(response.body).to include("W-2")
+        expect(response.body).to include("Employment")
         expect(response.body).to include("1099-R")
         expect(response.body).to include("Other")
-        expect(response.body).not_to include("1099-MISC")
         expect(response.body).not_to include("1099-B")
       end
     end

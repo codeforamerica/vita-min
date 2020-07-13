@@ -313,20 +313,6 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
 
 
-    expect(page).to have_selector("h1", text: "Attach your W-2's")
-    attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-    click_on "Upload"
-
-    expect(page).to have_content("test-pattern.png")
-    expect(page).to have_link("Remove")
-
-    attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
-    click_on "Upload"
-
-    expect(page).to have_content("test-pattern.png")
-    expect(page).to have_content("picture_id.jpg")
-    click_on "I'm done for now"
-
     expect(page).to have_selector("h1", text: "Attach your 1095-A's")
     click_on "I'm done for now"
 
@@ -354,10 +340,18 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Attach your 1099-INT's")
     click_on "I'm done for now"
 
-    expect(page).to have_selector("h1", text: "Attach your 1099-K's")
-    click_on "I'm done for now"
+    expect(page).to have_selector("h1", text: "Share your employment documents")
+    attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+    click_on "Upload"
 
-    expect(page).to have_selector("h1", text: "Attach your 1099-MISC's")
+    expect(page).to have_content("test-pattern.png")
+    expect(page).to have_link("Remove")
+
+    attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
+    click_on "Upload"
+
+    expect(page).to have_content("test-pattern.png")
+    expect(page).to have_content("picture_id.jpg")
     click_on "I'm done for now"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-R's")
