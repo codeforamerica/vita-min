@@ -1262,7 +1262,7 @@ en:
         no_hours_listed: Sorry, no hours listed.
         no_phone_number_listed: Sorry, no phone number listed.
         phone_number_title: Call %{provider_name}
-        search_radius: Within %{distance} miles of %{zip} (%{zip_name}) %>
+        search_radius: Within %{distance} miles of %{zip} (%{zip_name})
     zendesk:
       extracts:
         filename: Filename
