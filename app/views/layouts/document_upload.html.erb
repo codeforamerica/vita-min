@@ -14,10 +14,9 @@
           <% end %>
 
           <%# uploaded documents %>
-          <% if @documents.present? %>
-            <ul class="doc-preview-container">
+          <ul class="doc-preview-container">
+            <% if @documents.present? %>
               <% @documents.each do |document| %>
-
                 <li class="doc-preview">
                   <div class="doc-preview__thumb">
                     <% if document.upload.representable? %>
@@ -34,8 +33,16 @@
                   </div>
                 </li>
               <% end %>
-            </ul>
-          <% end %>
+            <% end %>
+            <li class="doc-preview hidden-until-submit">
+              <div class="doc-preview__thumb">
+                <%= image_tag "loading.gif", alt: "Uploading spinner" %>
+              </div>
+              <div class="doc-preview__info">
+                <h2 class="h3 doc-preview__filename">Uploading...</h2>
+              </div>
+            </li>
+          </ul>
 
           <%# document upload form %>
           <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form", class: "spacing-below-60" do |f| %>
