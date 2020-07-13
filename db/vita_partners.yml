@@ -227,6 +227,7 @@ vita_partners:
   states:
   - NY
   logo_path: ''
+  weekly_capacity_limit: 500
 - name: "[MA/BTH] Online Intake (w/Boston Tax Help)"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011044474'
@@ -429,6 +430,7 @@ vita_partners:
   source_parameters:
   - uwcaorg
   logo_path: partner-logos/uw-central-alabama.jpg
+  weekly_capacity_limit: 25
 - name: United Way of Greater Nashville
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011486894'
@@ -440,6 +442,7 @@ vita_partners:
   - GA
   - AL
   logo_path: partner-logos/uw-greater-nashville.png
+  weekly_capacity_limit: 500
 - name: Zacchaeus House for Tax Assistance
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011728613'
