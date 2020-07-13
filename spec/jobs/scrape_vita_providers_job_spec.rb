@@ -48,6 +48,7 @@ describe ScrapeVitaProvidersJob do
 
     before do
       allow(scrape_vita_providers_service_spy).to receive(:import).and_return provider_data
+      allow(MixpanelService).to receive(:send_event)
     end
 
     it "creates, updates, and archives VitaProvider records to match the IRS website" do
@@ -88,6 +89,25 @@ describe ScrapeVitaProvidersJob do
         Changed record count: 1
         Newly archived record count: 1
       REPORT
+    end
+
+    it "sends mixpanel event with stats" do
+      ScrapeVitaProvidersJob.new.perform
+
+      data = {
+        total_provider_count_before: 3,
+        total_provider_count_after: 4,
+        listed_provider_count_before: 3,
+        listed_provider_count_after: 3,
+        new_provider_count: 1,
+        changed_provider_count: 1,
+        archived_provider_count: 1,
+      }
+      expect(MixpanelService).to have_received(:send_event).with(
+        event_id: ScrapeVitaProvidersJob::MIXPANEL_ROBOT_ID,
+        event_name: "scrape_vita_providers",
+        data: data,
+      )
     end
 
     context "with a recent partial scrape" do
