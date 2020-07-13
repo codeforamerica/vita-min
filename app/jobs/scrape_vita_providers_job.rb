@@ -1,4 +1,6 @@
 class ScrapeVitaProvidersJob < ApplicationJob
+  MIXPANEL_ROBOT_ID = "ScrapeVitaProvidersJob"
+
   def perform
     irs_provider_listings = ScrapeVitaProvidersService.new.import
     scrape = ProviderScrape.get_recent_or_create
@@ -10,6 +12,22 @@ class ScrapeVitaProvidersJob < ApplicationJob
     end
 
     scrape.archive_all_unscraped_providers
+
+    data = {
+      total_provider_count_before: before_scrape_total_provider_count,
+      total_provider_count_after: VitaProvider.count,
+      listed_provider_count_before: before_scrape_listed_provider_count,
+      listed_provider_count_after: VitaProvider.listed.count,
+      new_provider_count: scrape.created_count,
+      changed_provider_count: scrape.changed_count,
+      archived_provider_count: scrape.archived_count,
+    }
+
+    MixpanelService.send_event(
+      event_id: MIXPANEL_ROBOT_ID,
+      event_name: "scrape_vita_providers",
+      data: data,
+    )
 
     <<~REPORT
         Finished updating all provider records!
