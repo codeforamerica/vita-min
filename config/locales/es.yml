@@ -421,7 +421,6 @@ es:
         meta:
           description: Maximice su reembolso presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
       document_upload:
-        done_for_now: De momento, he terminado.
         dont_have: No lo tengo ahora
         remove_confirmation: ¿Está seguro de que desea quitar "%{filename}"?
         select_file: Elija un archivo

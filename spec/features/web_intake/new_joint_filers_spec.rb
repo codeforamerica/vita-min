@@ -314,31 +314,31 @@ RSpec.feature "Web Intake Joint Filers" do
 
 
     expect(page).to have_selector("h1", text: "Attach your 1095-A's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1098's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1098-E's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1098-T's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-A's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-B's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-C's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-DIV's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-INT's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Share your employment documents")
     attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
@@ -352,13 +352,13 @@ RSpec.feature "Web Intake Joint Filers" do
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_content("picture_id.jpg")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-R's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-S's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-SA's")
     click_on "I don't have this right now"
@@ -376,28 +376,28 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "I don't have this right now"
 
     expect(page).to have_selector("h1", text: "Attach your RRB-1099's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your SSA-1099's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your student account statements")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your statements from childcare facilities or individuals who provided care.")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your W-2G's")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 2018 tax return")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Do you have any additional documents?")
     attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
     expect(page).to have_content("test-pattern.png")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
     click_on "I've shared all my documents"
