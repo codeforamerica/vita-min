@@ -1,4 +1,8 @@
 a {
+  &.link--cta {
+    color: black;
+    font-weight: bold;
+  }
   color: $color-link-default;
   &:hover {
     color: $color-link-hover;
