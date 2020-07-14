@@ -90,6 +90,7 @@ en:
     continue_example: Continue to example
     document_type:
       care_provider_statement: Care Provider Statement
+      employment: Employment tax documents (W2's, 1099, etc)
       id: ID
       ira_statement: IRA Statement
       other: Other

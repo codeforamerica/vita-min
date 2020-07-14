@@ -90,6 +90,7 @@ es:
     continue_example: Continúe para ver un ejemplo
     document_type:
       care_provider_statement: Declaración del Proveedor de Cuidados
+      employment: Documentos de impuestos de empleo (W2, 1099, etc.)
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
       other: Otro
