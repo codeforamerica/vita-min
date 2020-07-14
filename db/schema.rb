@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_002316) do
+ActiveRecord::Schema.define(version: 2020_07_14_204317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,18 @@ ActiveRecord::Schema.define(version: 2020_07_10_002316) do
     t.integer "record_count"
     t.datetime "run_at"
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "client_efforts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "effort_type", null: false
+    t.bigint "intake_id", null: false
+    t.datetime "made_at", null: false
+    t.datetime "responded_to_at"
+    t.string "response_type"
+    t.bigint "ticket_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["intake_id"], name: "index_client_efforts_on_intake_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -432,6 +444,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_002316) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "client_efforts", "intakes"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents_requests", "intakes"
   add_foreign_key "idme_users", "intakes"
