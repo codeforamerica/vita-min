@@ -18,37 +18,33 @@
           </p>
 
           <div class="document-overview-list">
-            <% if any_must_have_docs?(recommended_document_types) %>
+            <% if current_intake.must_have_document_types.present? %>
               <p>
                 <strong><%=t("views.documents.intro.should_have") %></strong>
               </p>
-              <% recommended_document_types.each do |type| %>
-                <% if must_have?(type) %>
-                  <div class="document-overview-list__item">
-                    <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
-                    <h2 class="h3 document-overview-list__heading">
-                      <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
-                    </h2>
-                  </div>
-                <% end %>
+              <% current_intake.must_have_document_types.each do |type| %>
+                <div class="document-overview-list__item">
+                  <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
+                  <h2 class="h3 document-overview-list__heading">
+                    <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
+                  </h2>
+                </div>
               <% end %>
             <% end %>
           </div>
 
           <div class="document-overview-list">
-            <% if any_might_have_docs?(recommended_document_types) %>
+            <% if current_intake.might_have_document_types.present? %>
               <p>
                 <strong><%=t("views.documents.intro.might_have") %></strong>
               </p>
-              <% recommended_document_types.each do |type| %>
-                <% if might_have?(type) %>
-                  <div class="document-overview-list__item">
-                    <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
-                    <h2 class="h3 document-overview-list__heading">
-                      <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
-                    </h2>
-                  </div>
-                <% end %>
+              <% current_intake.might_have_document_types.each do |type| %>
+                <div class="document-overview-list__item">
+                  <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
+                  <h2 class="h3 document-overview-list__heading">
+                    <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
+                  </h2>
+                </div>
               <% end %>
             <% end %>
           </div>

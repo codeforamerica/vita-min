@@ -528,6 +528,22 @@ class Intake < ApplicationRecord
     triage_source.present? && triage_source.class == StimulusTriage
   end
 
+  def must_have_document_types
+    all_doc_types_for_intake = DocumentNavigation.document_types_for_intake(self)
+    all_doc_types_for_intake.filter do |document_type|
+      already_uploaded = documents.where(document_type: document_type).present?
+      Document.must_have_doc_type?(document_type) && !already_uploaded
+    end
+  end
+
+  def might_have_document_types
+    all_doc_types_for_intake = DocumentNavigation.document_types_for_intake(self)
+    all_doc_types_for_intake.filter do |document_type|
+      already_uploaded = documents.where(document_type: document_type).present?
+      Document.might_have_doc_type?(document_type) && !already_uploaded
+    end
+  end
+
   private
 
   def partner_for_source
