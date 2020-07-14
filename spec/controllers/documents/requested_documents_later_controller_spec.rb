@@ -50,7 +50,7 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
               get :edit
 
               expect(response.body).to have_css("button[disabled].button--disabled")
-              expect(response.body).not_to have_css("a.button--cta")
+              expect(response.body).not_to have_css("a.button--primary")
             end
           end
 
@@ -62,7 +62,7 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
             it "renders a link to the next path" do
               get :edit
 
-              expect(response.body).to have_css("a.button--cta")
+              expect(response.body).to have_css("a.button--primary")
               expect(response.body).not_to have_css("button[disabled].button--disabled")
             end
           end

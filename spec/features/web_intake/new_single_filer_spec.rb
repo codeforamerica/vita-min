@@ -272,10 +272,10 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "I'm done for now"
 
     expect(page).to have_selector("h1", text: "Attach your student account statements")
-    click_on "I don't have this document"
+    click_on "I don't have this right now"
 
     expect(page).to have_selector("h1", text: "Attach your statements from childcare facilities or individuals who provided care.")
-    click_on "I don't have this document"
+    click_on "I don't have this right now"
 
     expect(page).to have_selector("h1", text: "Attach your 2018 tax return")
     click_on "I'm done for now"
