@@ -204,6 +204,7 @@ vita_partners:
   states:
   - NJ
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: United Way Capital Region (PA)
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009994193'
@@ -211,6 +212,7 @@ vita_partners:
   source_parameters:
   - uwcrpa
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: United Way of Greenville County
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010052433'
@@ -388,6 +390,7 @@ vita_partners:
   source_parameters:
   - DFATS
   logo_path: partner-logos/desert-financial.png
+  weekly_capacity_limit: 0
 - name: Coalition of Community Assistance Volunteers
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011034854'
