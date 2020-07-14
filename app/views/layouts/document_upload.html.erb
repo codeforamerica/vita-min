@@ -45,7 +45,7 @@
           </ul>
 
           <%# document upload form %>
-          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form", class: "spacing-below-60" do |f| %>
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
             <div class="document-upload">
               <div class="file-upload">
                 <%= f.file_field(:document, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
@@ -68,20 +68,21 @@
 
           <% if DocumentNavigation::REQUIRED_DOCUMENT_TYPES.include?(document_type) %>
             <% if @documents.present? %>
-              <%= link_to next_path, class: "button button--primary button--wide text--centered", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type}" do %>
+              <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type}" do %>
                 <%=t("general.continue") %>
               <% end %>
             <% else %>
-              <button class="button button--primary button--disabled button--wide text--centered" disabled>
+              <button class="button button--primary button--disabled button--wide text--centered spacing-above-60" disabled>
                 <%=t("general.continue") %>
               </button>
             <% end %>
           <% else %>
-            <%= link_to next_path, class: "button button--primary button--wide text--centered", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type}" do %>
-              <%=t("general.continue") %>
-            <% end %>
-            <%= link_to next_path, class: "link--cta", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
+            <%= link_to next_path, class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
               <%=t("views.layouts.document_upload.dont_have") %>
+            <% end %>
+
+            <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type}" do %>
+              <%=t("general.continue") %>
             <% end %>
           <% end %>
 

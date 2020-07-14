@@ -2,6 +2,7 @@ a {
   &.link--cta {
     color: black;
     font-weight: bold;
+    display: block;
   }
   color: $color-link-default;
   &:hover {
