@@ -243,7 +243,7 @@ en:
         title: Attach your statements from childcare facilities or individuals who provided care.
       employment:
         help_text_html: "<strong>We need proof of your employment. Please provide 1 document for each job you've worked. This can be any of the documents listed below:</strong>"
-        personal_log: personal log
+        personal_log: Personal log
         title: Share your employment documents
         uber_lyft_dashboard_information: Uber/Lyft dashboard information
       form1095as:
