@@ -550,7 +550,6 @@ describe Intake do
     end
   end
 
-
   describe "#filing_years" do
     let(:intake) { create :intake, **filing_years }
     let(:filing_years) { {} }
@@ -1123,6 +1122,46 @@ describe Intake do
 
     context "when no stimulus triage is present" do
       it { expect(intake.triaged_from_stimulus?).to be_falsey }
+    end
+  end
+
+  describe "#must_have_documents" do
+    let(:intake) { create(:intake) }
+
+    before do
+      allow(DocumentNavigation).to receive(:document_types_for_intake).with(intake).and_return(["1095-A", "Selfie", "W-2"])
+    end
+
+    it "returns list of must have documents" do
+      expect(intake.must_have_document_types).to eq ["1095-A", "Selfie"]
+    end
+
+    context "with already uploaded documents" do
+      let!(:document) { create :document, intake: intake, document_type: "Selfie" }
+
+      it "doesn't include already uploaded documents" do
+        expect(intake.must_have_document_types).to eq ["1095-A"]
+      end
+    end
+  end
+
+  describe "#might_have_documents" do
+    let(:intake) { create(:intake) }
+
+    before do
+      allow(DocumentNavigation).to receive(:document_types_for_intake).with(intake).and_return(["1095-A", "W-2", "1099-MISC"])
+    end
+
+    it "returns list of might have documents" do
+      expect(intake.might_have_document_types).to eq ["W-2", "1099-MISC"]
+    end
+
+    context "with already uploaded documents" do
+      let!(:document) { create :document, intake: intake, document_type: "W-2" }
+
+      it "doesn't include already uploaded documents" do
+        expect(intake.might_have_document_types).to eq ["1099-MISC"]
+      end
     end
   end
 end
