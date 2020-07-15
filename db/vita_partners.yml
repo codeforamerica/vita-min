@@ -190,10 +190,6 @@ vita_partners:
   zendesk_group_id: '360009807434'
   display_name: Tax Help New Mexico
   logo_path: partner-logos/th-nm.png
-  source_parameters:
-  - uwcnm
-  states:
-  - NM
   weekly_capacity_limit: 0
 - name: United Way of Greater Newark
   zendesk_instance_domain: eitc
