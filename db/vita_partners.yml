@@ -235,6 +235,14 @@ vita_partners:
   zendesk_group_id: '360011044474'
   display_name: Massachusetts Association for Community Action (MASSCAP) and Boston
     Tax Help
+  source_parameters:
+  - MC-SP
+  - MC-CAPV
+  - MC-NS
+  - MC-LEO
+  - MC-SSSC
+  - MC-SOUTH
+  - MC-WOR
   states:
   - MA
   logo_path: ''
@@ -242,38 +250,26 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417234'
   display_name: Massachusetts Association for Community Action (MASSCAP)
-  source_parameters:
-  - MC-SSSC
-  - MC-SOUTH
   logo_path: ''
 - name: "[MA/BTH] North Shore"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417254'
   display_name: Massachusetts Association for Community Action (MASSCAP)
-  source_parameters:
-  - MC-NS
-  - MC-LEO
   logo_path: ''
 - name: "[MA/BTH] Springfield"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417334'
   display_name: Massachusetts Association for Community Action (MASSCAP)
-  source_parameters:
-  - MC-SP
   logo_path: ''
 - name: "[MA/BTH] Community Action of Pioneer Valley"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417354'
   display_name: Massachusetts Association for Community Action (MASSCAP)
-  source_parameters:
-  - MC-CAPV
   logo_path: ''
 - name: "[MA/BTH] Worcester"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010415253'
   display_name: Massachusetts Association for Community Action (MASSCAP)
-  source_parameters:
-  - MC-WOR
   logo_path: ''
 - name: "[MA/BTH] ABCD"
   zendesk_instance_domain: eitc
