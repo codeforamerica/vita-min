@@ -1,5 +1,37 @@
 <% content_for :form_question, t("views.documents.additional_documents.title") %>
 
 <% content_for :form_help_text do %>
-  <%=t("views.documents.additional_documents.help_text") %>
+  <div class="document-overview-list">
+    <p>
+      <strong>You might have:</strong>
+    </p>
+    <div class="document-overview-list__item">
+      <img alt="" class="document-overview-list__icon" src="/assets/paper-2c5eee0b2259b236bb970c6c4b2c23f24d052ea79826a2e3bf6656dc200a7098.svg">
+      <h2 class="h3 document-overview-list__heading">
+        1099-DIV
+      </h2>
+        <div class="reveal document-overview-list__heading">
+          <p><a href="#" class="reveal__link">Why are you asking for this form?</a></p>
+          <div class="reveal__content">
+
+            <p>In order to qualify as a college student, you have to meet one of the following exemptions:</p>
+            <ul class="list--bulleted">
+              <li>Work an average at least 20 hours a week</li>
+              <li>Approved for federal or state work study</li>
+              <li>Take care of a child under 12 (with exceptions)</li>
+              <li>Participate in an approved employment or traning program</li>
+              <li>Receive CalWORKs</li>
+              <li>Do not intend to enroll next term</li>
+            </ul>
+
+          </div>
+        </div>
+    </div>
+    <div class="document-overview-list__item">
+      <img alt="" class="document-overview-list__icon" src="/assets/paper-2c5eee0b2259b236bb970c6c4b2c23f24d052ea79826a2e3bf6656dc200a7098.svg">
+      <h2 class="h3 document-overview-list__heading">
+        (other doc name here)
+      </h2>
+    </div>
+  </div>
 <% end %>
