@@ -11,6 +11,8 @@ class SendIntakePdfToZendeskJob < ApplicationJob
       service = ZendeskIntakeService.new(intake)
       output = service.send_preliminary_intake_and_consent_pdfs
       intake.update(intake_pdf_sent_to_zendesk: output)
+
+      intake.client_efforts.create(effort_type: :completed_intake_questions, ticket_id: intake.intake_ticket_id, made_at: Time.now)
     end
   end
 end

@@ -46,11 +46,11 @@ ActiveRecord::Schema.define(version: 2020_07_14_204317) do
 
   create_table "client_efforts", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
-    t.string "effort_type", null: false
+    t.integer "effort_type", null: false
     t.bigint "intake_id", null: false
     t.datetime "made_at", null: false
     t.datetime "responded_to_at"
-    t.string "response_type"
+    t.integer "response_type"
     t.bigint "ticket_id", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["intake_id"], name: "index_client_efforts_on_intake_id"

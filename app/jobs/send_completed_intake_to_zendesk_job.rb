@@ -15,6 +15,8 @@ class SendCompletedIntakeToZendeskJob < ApplicationJob
       success = sent_pdf && sent_docs && sent_bank_info
       intake.update(completed_intake_sent_to_zendesk: success)
       raise 'Unable to send everything to Zendesk' unless success
+
+      intake.client_efforts.create(effort_type: :completed_full_intake, ticket_id: intake.intake_ticket_id, made_at: Time.now)
     end
   end
 end

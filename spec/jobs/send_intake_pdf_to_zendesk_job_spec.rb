@@ -39,6 +39,14 @@ RSpec.describe SendIntakePdfToZendeskJob, type: :job do
           intake.reload
           expect(intake.intake_pdf_sent_to_zendesk).to eq true
         end
+
+        it "creates a completed_intake_questions client_effort for the intake" do
+          client_effort = ClientEffort.last
+          expect(client_effort.effort_type_completed_intake_questions?).to eq true
+          expect(client_effort.intake).to eq intake
+          expect(client_effort.ticket_id).to eq intake.intake_ticket_id
+          expect(client_effort.made_at).to be_within(1.second).of(Time.now)
+        end
       end
     end
 

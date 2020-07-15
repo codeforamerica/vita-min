@@ -25,6 +25,9 @@ class UnsentDocumentsService
           )
           unsent_docs.each {|d| d.update(zendesk_ticket_id: intake.intake_ticket_id)}
           tickets_updated += 1
+
+          intake.client_efforts.create(effort_type: :uploaded_docs, ticket_id: ticket.id, made_at: unsent_docs.first.created_at)
+
           DatadogApi.gauge("zendesk.ticket.docs.unsent.ticket_updated.document_count", unsent_docs.length)
         end
       end

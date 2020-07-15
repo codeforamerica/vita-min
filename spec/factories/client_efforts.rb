@@ -3,10 +3,10 @@
 # Table name: client_efforts
 #
 #  id              :bigint           not null, primary key
-#  effort_type     :string           not null
+#  effort_type     :integer          not null
 #  made_at         :datetime         not null
 #  responded_to_at :datetime
-#  response_type   :string
+#  response_type   :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  intake_id       :bigint           not null

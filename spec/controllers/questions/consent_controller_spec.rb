@@ -10,7 +10,7 @@ RSpec.describe Questions::ConsentController do
 
   describe "#update" do
     context "with valid params" do
-      let (:params) do
+      let(:params) do
         {
           consent_form: {
             birth_date_year: "1983",

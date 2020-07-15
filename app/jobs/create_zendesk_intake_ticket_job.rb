@@ -23,6 +23,7 @@ class CreateZendeskIntakeTicketJob < ApplicationJob
             comment: "This client has a GetYourRefund full service ticket: #{service.ticket_url(ticket.id)}"
           )
         end
+        intake.client_efforts.create(effort_type: :consented, made_at: Time.now, ticket_id: ticket.id)
       end
     end
   end

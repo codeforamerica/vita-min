@@ -14,13 +14,22 @@ RSpec.describe SendRequestedDocumentsToZendeskJob, type: :job do
     end
 
     context "without errors" do
-      before do
-        described_class.perform_now(intake.id)
-      end
-
       it "sends the intake pdf and all of the docs as comments on the intake ticket" do
+        described_class.perform_now(intake.id)
         expect(ZendeskFollowUpDocsService).to have_received(:new).with(intake)
         expect(fake_service).to have_received(:send_requested_docs)
+      end
+
+      it "creates a new client effort" do
+        expect {
+          described_class.perform_now(intake.id)
+        }.to change(ClientEffort, :count).by(1)
+
+        client_effort = ClientEffort.last
+        expect(client_effort.effort_type_uploaded_requested_docs?).to eq true
+        expect(client_effort.intake).to eq intake
+        expect(client_effort.ticket_id).to eq intake.intake_ticket_id
+        expect(client_effort.made_at).to be_within(1.second).of(Time.now)
       end
     end
 
@@ -28,6 +37,5 @@ RSpec.describe SendRequestedDocumentsToZendeskJob, type: :job do
       let(:fake_zendesk_intake_service) { fake_service }
     end
     it_behaves_like "a ticket-dependent job", ZendeskFollowUpDocsService
-
   end
 end

@@ -9,6 +9,8 @@ class SendRequestedDocumentsToZendeskJob < ApplicationJob
 
       service = ZendeskFollowUpDocsService.new(intake)
       service.send_requested_docs
+
+      intake.client_efforts.create(effort_type: :uploaded_requested_docs, ticket_id: intake.intake_ticket_id, made_at: Time.now)
     end
   end
 end
