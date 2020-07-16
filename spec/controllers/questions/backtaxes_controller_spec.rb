@@ -13,8 +13,7 @@ RSpec.describe Questions::BacktaxesController do
       let(:params) do
         {
           backtaxes_form: {
-            needs_help_2016: "no",
-            needs_help_2017: "yes",
+            needs_help_2017: "no",
             needs_help_2018: "yes",
             needs_help_2019: "yes",
           }
@@ -31,8 +30,7 @@ RSpec.describe Questions::BacktaxesController do
         expect(intake.source).to eq "source_from_session"
         expect(intake.referrer).to eq "referrer_from_session"
         expect(intake.locale).to eq "en"
-        expect(intake.needs_help_2016).to eq "no"
-        expect(intake.needs_help_2017).to eq "yes"
+        expect(intake.needs_help_2017).to eq "no"
         expect(intake.needs_help_2018).to eq "yes"
         expect(intake.needs_help_2019).to eq "yes"
       end
@@ -42,7 +40,6 @@ RSpec.describe Questions::BacktaxesController do
       let(:params) do
         {
           backtaxes_form: {
-            needs_help_2016: "no",
             needs_help_2017: "no",
             needs_help_2018: "no",
             needs_help_2019: "no",
@@ -58,14 +55,13 @@ RSpec.describe Questions::BacktaxesController do
         expect(response.body).to include "Please pick at least one year."
       end
     end
-    
+
     context "with a triage source" do
       let(:stimulus_triage) { create :stimulus_triage }
       let(:params) do
         {
             backtaxes_form: {
-                needs_help_2016: "yes",
-                needs_help_2017: "no",
+                needs_help_2017: "yes",
                 needs_help_2018: "no",
                 needs_help_2019: "no",
             }
@@ -86,7 +82,7 @@ RSpec.describe Questions::BacktaxesController do
     end
   end
 
-  describe "#edit" do 
+  describe "#edit" do
     context "with a triage source" do
       let(:stimulus_triage) { create :stimulus_triage }
 
