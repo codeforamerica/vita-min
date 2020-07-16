@@ -476,7 +476,7 @@ en:
             a_html: If you have lost or never received a tax document, the first place to try is your employer. Often your employer can quickly re-issue your tax forms to you. If that doesn’t work, you can request your tax documents from the IRS at %{transcript_link}.
             q: What should I do if I can’t find a tax document?
           non_filer:
-            a: We can file your taxes for 2016, 2017, 2018, and 2019. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on.
+            a: We can file your taxes for 2017, 2018, and 2019. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on.
             q: What should I do if I haven’t filed in several years?
         header: Frequently asked questions
         subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
@@ -487,7 +487,7 @@ en:
           body2: Trained, IRS-certified volunteers will prepare and double-check your tax return to make sure it is correct before filing.
           header: We deliver the highest accuracy rates. For free.
         backtaxes:
-          body: We can file your state and federal taxes for tax years 2016, 2017, 2018, and 2019. Our trained volunteers will also make sure you receive tax credits you qualify for.
+          body: We can file your state and federal taxes for tax years 2017, 2018, and 2019. Our trained volunteers will also make sure you receive tax credits you qualify for.
           header: File for previous years and maximize your refund.
         clients:
           across_us: from clients across the US
@@ -501,7 +501,7 @@ en:
           rating: Rated 4.8 / 5 stars
         features:
           amendments: File amendments for past years
-          backtaxes: File back taxes (2016-2019)
+          backtaxes: File back taxes (2017-2019)
           chat: Chat support available
           faq_cta: Visit FAQ
           free: Completely free service
@@ -510,8 +510,8 @@ en:
         file:
           header: Get more of your refund dollars back by filing for free today!
         filing_deadline_banner:
-          body_html: Unless you are filing a 2016 return or anticipate owing money this year, you can can file until October 15th without a penalty. If you aren't sure whether or not you will owe, you can complete and mail <a target="_blank" rel="noopener" href="https://www.irs.gov/pub/irs-pdf/f4868.pdf">this IRS form</a> requesting an extension.
-          title: The federal income tax filing deadline has been extended to July 15, 2020.
+          body_html: Unless you anticipate owing money this year, you can still file until October 15th without a penalty.
+          title: The federal income tax filing deadline was extended to July 15, 2020.
         header: Free tax filing, real human support.
         partners:
           header: We partner with trusted organizations
@@ -1223,7 +1223,7 @@ en:
         info: You might also be eligible for additional money through tax credits. We’ll help you get the most out of your return!
         title: We’ll help you collect your stimulus check by filing!
       filed_prior_years:
-        title: Have you already filed for 2016 and 2017?
+        title: Have you already filed for 2017?
       filed_recently:
         title: Have you already filed for 2018 and 2019?
       filing_might_help:

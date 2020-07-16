@@ -565,13 +565,12 @@ describe Intake do
         {
           needs_help_2019: "yes",
           needs_help_2018: "no",
-          needs_help_2017: "yes",
-          needs_help_2016: "unfilled",
+          needs_help_2017: "unfilled",
         }
       end
 
       it "returns them as an array" do
-        expect(intake.filing_years).to eq(["2019", "2017"])
+        expect(intake.filing_years).to eq(["2019"])
       end
     end
   end
@@ -591,8 +590,7 @@ describe Intake do
         {
           needs_help_2019: "yes",
           needs_help_2018: "no",
-          needs_help_2017: "yes",
-          needs_help_2016: "unfilled",
+          needs_help_2017: "unfilled",
         }
       end
 
@@ -606,8 +604,7 @@ describe Intake do
         {
           needs_help_2019: "no",
           needs_help_2018: "yes",
-          needs_help_2017: "yes",
-          needs_help_2016: "unfilled",
+          needs_help_2017: "unfilled",
         }
       end
 
@@ -631,14 +628,13 @@ describe Intake do
       let(:filing_years) do
         {
           needs_help_2019: "no",
-          needs_help_2018: "no",
-          needs_help_2017: "yes",
-          needs_help_2016: "unfilled",
+          needs_help_2018: "yes",
+          needs_help_2017: "unfilled",
         }
       end
 
       it "returns most recent" do
-        expect(intake.year_before_most_recent_filing_year).to eq("2016")
+        expect(intake.year_before_most_recent_filing_year).to eq("2017")
       end
     end
   end

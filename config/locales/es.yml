@@ -476,7 +476,7 @@ es:
             a_html: Si ha perdido un documento fiscal o nunca lo recibió, lo primero que debe hacer es consultarlo con su empleador. Normalmente, su empleador puede volver a emitir rápidamente la documentación fiscal a sus empleados. Si eso no funciona, puede solicitar sus documentos de impuestos al IRS en %{transcript_link}.
             q: "¿Qué debo hacer si no encuentro un documento de impuestos?"
           non_filer:
-            a: Podemos presentar sus declaraciones de impuestos de los años 2016, 2017, 2018 y 2019. Le recomendamos que nos informe si todavía no ha presentado las declaraciones de esos años, ya que podría reclamar los reembolsos de años anteriores que no haya reclamado.
+            a: Podemos presentar sus declaraciones de impuestos de los años 2017, 2018 y 2019. Le recomendamos que nos informe si todavía no ha presentado las declaraciones de esos años, ya que podría reclamar los reembolsos de años anteriores que no haya reclamado.
             q: "¿Qué debo hacer si no he declarado impuestos desde hace varios años?"
         header: Preguntas frecuentes
         subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
@@ -487,7 +487,7 @@ es:
           body2: Voluntarios capacitados y certificados por el IRS prepararán y revisarán su declaración de impuestos para asegurarse de que todo esté correcto antes de presentarla.
           header: Ofrecemos la máxima precisión. Gratis.
         backtaxes:
-          body: Podemos presentar sus declaraciones de impuestos estatales y federales de los años fiscales 2016, 2017, 2018 y 2019. Nuestros voluntarios capacitados también se asegurarán de que reciba los créditos tributarios que le correspondan.
+          body: Podemos presentar sus declaraciones de impuestos estatales y federales de los años fiscales 2017, 2018 y 2019. Nuestros voluntarios capacitados también se asegurarán de que reciba los créditos tributarios que le correspondan.
           header: Presente las declaraciones de impuestos de años anteriores y obtenga un reembolso mayor.
         clients:
           across_us: de clientes en todo Estados Unidos.
@@ -501,7 +501,7 @@ es:
           rating: Hemos recibido una valoración de 4.8/5 estrellas
         features:
           amendments: Presenta enmiendas para años anteriores
-          backtaxes: Presenta declaraciones de impuestos atrasados (2016-2019)
+          backtaxes: Presenta declaraciones de impuestos atrasados (2017-2019)
           chat: Asistencia por chat disponible
           faq_cta: Preguntas Frecuentes
           free: Servicio completamente gratuito
@@ -510,8 +510,8 @@ es:
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         filing_deadline_banner:
-          body_html: A menos que presente una declaración de 2016 o anticipe que debe dinero este año, puede presentarla hasta el 15 de octubre sin penalización. Si no está seguro de si debe o no, puede completar y enviar <a target="_blank" rel="noopener" href="https://www.irs.gov/pub/irs-pdf/f4868sp.pdf">este formulario del IRS</a> solicitando una extensión.
-          title: La fecha límite para la declaración de impuestos federales se ha extendido hasta el 15 de julio de 2020.
+          body_html: A menos que anticipe que debe dinero este año, puede presentarla hasta el 15 de octubre sin penalización.
+          title: La fecha límite para la declaración de impuestos federales se extendió hasta el 15 de julio de 2020.
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
         partners:
           header: Colaboramos con organizaciones de confianza
@@ -1223,7 +1223,7 @@ es:
         info: Puede que también califique para recibir dinero adicional a través de créditos fiscales. ¡Vamos a ayudarle a máximizar su desembolso!
         title: "¡Le ayudaremos a obtener su cheque de estímulo declarando sus impuestos!"
       filed_prior_years:
-        title: "¿Ha declarado sus impuestos para los años 2016 y 2017?"
+        title: "¿Ha declarado sus impuestos para 2017?"
       filed_recently:
         title: "¿Ha declarado sus impuestos para los años 2018 y 2019?"
       filing_might_help:
