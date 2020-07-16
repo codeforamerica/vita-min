@@ -36,7 +36,15 @@ describe "partner source routing" do
     )
   end
 
-  it "does not route non-existant codes" do
-    expect(get: "/wrong-code").not_to be_routable
+  it "accepts arbitrary source parameters that contain only slug-like characters" do
+    expect(get: "/4Rb1_trar-y").to route_to(
+       controller: "public_pages",
+       action: "home",
+       source: "4Rb1_trar-y",
+     )
+  end
+
+  it "rejects arbitrary paths that contain non-slug-like characters" do
+    expect(get: "/4Rb!_trar-y").not_to be_routable
   end
 end

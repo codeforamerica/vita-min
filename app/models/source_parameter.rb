@@ -23,14 +23,4 @@ class SourceParameter < ApplicationRecord
   validates_presence_of :vita_partner_id
   validates_presence_of :code
   validates_uniqueness_of :code
-
-  def self.routing_codes_regex
-    yml = YAML.load_file(VitaPartnerImporter::VITA_PARTNERS_YAML)
-    partners = yml['vita_partners']
-    codes = partners.map do |partner|
-      partner["source_parameters"]
-    end.compact.flatten
-    escaped_codes = codes.map { |code| Regexp.escape(code) }.join("|")
-    Regexp.new(escaped_codes, "i")
-  end
 end
