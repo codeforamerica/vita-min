@@ -112,15 +112,15 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009708233'
   display_name: United Way Fresno Madera
-  source_parameters:
-  - uwfm
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: "[United Way California] Online Intake"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009415834'
   display_name: United Way of California
   source_parameters:
   - uwca
+  - uwfm
   states:
   - CA
   logo_path: ''
@@ -178,6 +178,7 @@ vita_partners:
   - catalyst
   - RefundDay-C
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: RefundDay
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009657014'
@@ -195,10 +196,6 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010163193'
   display_name: United Way of Greater Newark
-  source_parameters:
-  - uwgn
-  states:
-  - NJ
   logo_path: ''
   weekly_capacity_limit: 0
 - name: United Way Capital Region (PA)
@@ -232,6 +229,9 @@ vita_partners:
   display_name: Massachusetts Association for Community Action (MASSCAP) and Boston
     Tax Help
   source_parameters:
+  - BTHC-AB-APAC
+  - BTHC-ABCD
+  - BTHC-URBAN-EDGE
   - MC-SP
   - MC-CAPV
   - MC-NS
@@ -242,6 +242,7 @@ vita_partners:
   states:
   - MA
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: "[MA/BTH] South Shore/South Coast"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417234'
@@ -271,15 +272,11 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011283393'
   display_name: 'Boston Tax Help'
-  source_parameters:
-  - BTHC-ABCD
   logo_path: ''
 - name: "[MA/BTH] AB APAC"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011284774'
   display_name: 'Boston Tax Help'
-  source_parameters:
-  - BTHC-AB-APAC
   logo_path: ''
 - name: "[MA/BTH] Roxbury CFE"
   zendesk_instance_domain: eitc
@@ -300,16 +297,13 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011568733'
   display_name: 'Boston Tax Help'
-  source_parameters:
-  - BTHC-URBAN-EDGE
   logo_path: ''
 - name: Granite United Way
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010462593'
   display_name: Granite United Way
-  source_parameters:
-  - graniteuw
   logo_path: partner-logos/granite-united-way.png
+  weekly_capacity_limit: 0
 - name: Louisville Asset Building Coalition
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010397693'
@@ -379,8 +373,6 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010812493'
   display_name: Desert Financial and Tax Services
-  source_parameters:
-  - DFATS
   logo_path: partner-logos/desert-financial.png
   weekly_capacity_limit: 0
 - name: Coalition of Community Assistance Volunteers

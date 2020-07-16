@@ -698,7 +698,7 @@ describe Intake do
     end
 
     context "when there is a source parameter" do
-      shared_examples "source group matching" do |src, expected_group_id|
+      shared_examples :source_group_matching do |src, expected_group_id|
         let(:state) { "ne" }
 
         before do
@@ -727,17 +727,17 @@ describe Intake do
         end
       end
 
-      it_behaves_like "source group matching", "uwkc", "360009173713"
-      it_behaves_like "source group matching", "uwco", "360009440374"
-      it_behaves_like "source group matching", "uwvp", "360009267673"
-      it_behaves_like "source group matching", "uwccr", "360009708193"
-      it_behaves_like "source group matching", "RefundDay-B", "360009704234"
-      it_behaves_like "source group matching", "branchesfl", "360009704234"
-      it_behaves_like "source group matching", "RefundDay-H", "360009415854"
-      it_behaves_like "source group matching", "hispanicunity", "360009415854"
-      it_behaves_like "source group matching", "uwfm", "360009708233"
-      it_behaves_like "source group matching", "RefundDay-C", "360009704354"
-      it_behaves_like "source group matching", "catalyst", "360009704354"
+      it_behaves_like :source_group_matching, "uwkc", "360009173713"
+      it_behaves_like :source_group_matching, "uwco", "360009440374"
+      it_behaves_like :source_group_matching, "uwvp", "360009267673"
+      it_behaves_like :source_group_matching, "uwccr", "360009708193"
+      it_behaves_like :source_group_matching, "RefundDay-B", "360009704234"
+      it_behaves_like :source_group_matching, "branchesfl", "360009704234"
+      it_behaves_like :source_group_matching, "RefundDay-H", "360009415854"
+      it_behaves_like :source_group_matching, "hispanicunity", "360009415854"
+      it_behaves_like :source_group_matching, "uwfm", "360009415834"
+      it_behaves_like :source_group_matching, "RefundDay-C", "360009704354"
+      it_behaves_like :source_group_matching, "catalyst", "360009704354"
 
       context "when there is a source parameter that does not match an organization" do
         let(:source) { "propel" }
@@ -769,7 +769,7 @@ describe Intake do
     end
 
     context "with state routing" do
-      shared_examples "state-level routing" do |state_criteria, partner_name|
+      shared_examples :state_level_routing do |state_criteria, partner_name|
         context "given a state" do
           let(:state) { state_criteria } # might not be necessary?
           let(:partner) { VitaPartner.find_by!(name: partner_name) }
@@ -785,23 +785,22 @@ describe Intake do
         end
       end
 
-      it_behaves_like "state-level routing", "CO", "Tax Help Colorado (Piton Foundation)", "eitc"
-      it_behaves_like "state-level routing", "CA", "[United Way California] Online Intake", "eitc"
-      it_behaves_like "state-level routing", "WA", "United Way of King County", "eitc"
-      it_behaves_like "state-level routing", "PA", "Campaign for Working Families", "eitc"
-      it_behaves_like "state-level routing", "NJ", "United Way of Greater Newark", "eitc"
-      it_behaves_like "state-level routing", "OH", "United Way of Central Ohio", "eitc"
-      it_behaves_like "state-level routing", "NV", "Nevada Free Taxes Coalition", "eitc"
-      it_behaves_like "state-level routing", "TX", "Foundation Communities", "eitc"
-      it_behaves_like "state-level routing", "AZ", "United Way of Tucson and Southern Arizona", "eitc"
-      it_behaves_like "state-level routing", "VA", "United Way of Greater Richmond and Petersburg", "eitc"
-      it_behaves_like "state-level routing", "FL", "Tax Help Colorado (Piton Foundation)", "eitc"
-      it_behaves_like "state-level routing", "MD", "CASH Campaign of MD", "eitc"
-      it_behaves_like "state-level routing", "NY", "Urban Upbound (NY)", "eitc"
-      it_behaves_like "state-level routing", "TN", "United Way of Greater Nashville", "eitc"
-      it_behaves_like "state-level routing", "GA", "United Way of Greater Nashville", "eitc"
-      it_behaves_like "state-level routing", "AL", "United Way of Greater Nashville", "eitc"
-      it_behaves_like "state-level routing", "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
+      it_behaves_like :state_level_routing, "CO", "Tax Help Colorado (Piton Foundation)", "eitc"
+      it_behaves_like :state_level_routing, "CA", "[United Way California] Online Intake", "eitc"
+      it_behaves_like :state_level_routing, "WA", "United Way of King County", "eitc"
+      it_behaves_like :state_level_routing, "PA", "Campaign for Working Families", "eitc"
+      it_behaves_like :state_level_routing, "OH", "United Way of Central Ohio", "eitc"
+      it_behaves_like :state_level_routing, "NV", "Nevada Free Taxes Coalition", "eitc"
+      it_behaves_like :state_level_routing, "TX", "Foundation Communities", "eitc"
+      it_behaves_like :state_level_routing, "AZ", "United Way of Tucson and Southern Arizona", "eitc"
+      it_behaves_like :state_level_routing, "VA", "United Way of Greater Richmond and Petersburg", "eitc"
+      it_behaves_like :state_level_routing, "FL", "Tax Help Colorado (Piton Foundation)", "eitc"
+      it_behaves_like :state_level_routing, "MD", "CASH Campaign of MD", "eitc"
+      it_behaves_like :state_level_routing, "NY", "Urban Upbound (NY)", "eitc"
+      it_behaves_like :state_level_routing, "TN", "United Way of Greater Nashville", "eitc"
+      it_behaves_like :state_level_routing, "GA", "United Way of Greater Nashville", "eitc"
+      it_behaves_like :state_level_routing, "AL", "United Way of Greater Nashville", "eitc"
+      it_behaves_like :state_level_routing, "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
     end
 
     context "with overflow routing" do
