@@ -458,16 +458,13 @@ vita_partners:
   source_parameters:
   - nccc
   logo_path: partner-logos/ncc-logo.png
-<<<<<<< HEAD
-=======
 - name: United Way of Racine County (WI)
   zendesk_instance_domain: eitc
   zendesk_group_id: '360012007014'
   display_name: United Way of Racine County
   source_parameters:
   - unitedwayracine
-  logo_path: ''
->>>>>>> upstream/master
+  logo_path: 'VITA & UWRC Logo - Horizontal RGB Lockup.png'
 - name: La Casa de Esperanza (WI)
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011477453'
@@ -475,3 +472,10 @@ vita_partners:
   source_parameters:
   - WILCDE
   logo_path: ''
+- name: United Way Suncoast
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360012153274'
+  display_name: United Way Suncoast
+  source_parameters:
+  - uwsuncoast
+  logo_path: 'partner-logos/UWSC_ 4 spot Logo.png'
