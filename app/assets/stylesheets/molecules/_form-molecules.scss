@@ -78,4 +78,12 @@
     margin-left: 90px;
     margin-right: 0;
   }
+
+  &.hidden-until-submit {
+    display: none;
+
+    .submitting & {
+      display: block;
+    }
+  }
 }

@@ -7,7 +7,7 @@ shared_examples "required documents controllers" do
         get :edit
 
         expect(response.body).to have_css("button[disabled].button--disabled")
-        expect(response.body).not_to have_css("a.button--cta")
+        expect(response.body).not_to have_css("a.button--primary")
       end
     end
 
@@ -19,7 +19,7 @@ shared_examples "required documents controllers" do
       it "renders a link to the next path" do
         get :edit
 
-        expect(response.body).to have_css("a.button--cta")
+        expect(response.body).to have_css("a.button--primary")
         expect(response.body).not_to have_css("button[disabled].button--disabled")
       end
     end

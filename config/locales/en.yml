@@ -90,6 +90,7 @@ en:
     continue_example: Continue to example
     document_type:
       care_provider_statement: Care Provider Statement
+      employment: Employment tax documents (W2's, 1099, etc)
       id: ID
       ira_statement: IRA Statement
       other: Other
@@ -108,9 +109,9 @@ en:
     find_vita_site: Find a VITA site near you
     free_file_html: If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online.
     free_file_lookup_tool: IRS Free File Lookup Tool
+    get_help: Get help
     get_my_payment: Get My Payment
     get_started: Get started
-    help: Help
     here: here
     home: Home
     hours: Hours
@@ -148,6 +149,7 @@ en:
     skip_question: Skip question
     skip_questions: Skip questions
     sorry: We're sorry!
+    start_filing: Start filing
     submit: Submit
     submit_question: Submit a question to GetYourRefund
     upload: Upload
@@ -226,13 +228,13 @@ en:
           state_of_residence: State of residence
           title: First, let's get some basic information.
       start_filing:
+        help_html: "<strong>We are unable to provide chat support in TaxSlayer, but we’re here to help!</strong><br/> If any questions come up, please chat with us on this page."
         start:
           tips:
-            no_navigation: Do not click ‘back’ or navigate away from the TaxSlayer page
             create_login: To start filing, create a login in Taxslayer
+            no_navigation: Do not click ‘back’ or navigate away from the TaxSlayer page
             spelling: Double check your spelling
           title: Welcome to our DIY tax service!
-        help_html: <strong>We are unable to provide chat support in TaxSlayer, but we’re here to help!</strong><br/> If any questions come up, please chat with us on this page.
     documents:
       additional_documents:
         help_text: Please add any additional documents or forms that you would like to share with your tax preparer. Include any forms you may be unsure of. Your tax preparer will determine if the forms are needed for your return.
@@ -240,6 +242,11 @@ en:
       care_provider_statements:
         help_text_html: "<strong>You might have this statement</strong> because you said that you paid for child or dependent care. Contact your care facility if you need this documentation."
         title: Attach your statements from childcare facilities or individuals who provided care.
+      employment:
+        help_text_html: "<strong>We need proof of your employment. Please provide 1 document for each job you've worked. This can be any of the documents listed below:</strong>"
+        personal_log: Personal log
+        title: Share your employment documents
+        uber_lyft_dashboard_information: Uber/Lyft dashboard information
       form1095as:
         help_text_html: "<strong>You should have this form</strong> because you said that you purchased health insurance from the marketplace. You may need to download this from the marketplace or the exchange for your state. More information on this form is available %{more_info_link}."
         title: Attach your 1095-A's
@@ -415,11 +422,10 @@ en:
         meta:
           description: Maximize your refund by filing with our trusted volunteers. Available to you online or in person!
       document_upload:
-        done_for_now: I'm done for now
-        dont_have: I don't have this document
+        dont_have: I don't have this right now.
         remove_confirmation: Are you sure you want to remove "%{filename}"?
         select_file: Select a file
-        take_picture: Take a picture
+        take_picture: Add a photo
     public_pages:
       about_us:
         how_it_helps: You can save up to $300 when you file for free. We also ensure eligible taxpayers claim the Earned Income Tax Credit (EITC), which can be over $3,000 per family.
@@ -470,7 +476,7 @@ en:
             a_html: If you have lost or never received a tax document, the first place to try is your employer. Often your employer can quickly re-issue your tax forms to you. If that doesn’t work, you can request your tax documents from the IRS at %{transcript_link}.
             q: What should I do if I can’t find a tax document?
           non_filer:
-            a: We can file your taxes for 2016, 2017, 2018, and 2019. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on.
+            a: We can file your taxes for 2017, 2018, and 2019. We encourage you to let us know if you haven’t yet filed for these years, because this can help you claim refunds from previous years that you may have missed out on.
             q: What should I do if I haven’t filed in several years?
         header: Frequently asked questions
         subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
@@ -481,7 +487,7 @@ en:
           body2: Trained, IRS-certified volunteers will prepare and double-check your tax return to make sure it is correct before filing.
           header: We deliver the highest accuracy rates. For free.
         backtaxes:
-          body: We can file your state and federal taxes for tax years 2016, 2017, 2018, and 2019. Our trained volunteers will also make sure you receive tax credits you qualify for.
+          body: We can file your state and federal taxes for tax years 2017, 2018, and 2019. Our trained volunteers will also make sure you receive tax credits you qualify for.
           header: File for previous years and maximize your refund.
         clients:
           across_us: from clients across the US
@@ -495,7 +501,7 @@ en:
           rating: Rated 4.8 / 5 stars
         features:
           amendments: File amendments for past years
-          backtaxes: File back taxes (2016-2019)
+          backtaxes: File back taxes (2017-2019)
           chat: Chat support available
           faq_cta: Visit FAQ
           free: Completely free service
@@ -504,8 +510,8 @@ en:
         file:
           header: Get more of your refund dollars back by filing for free today!
         filing_deadline_banner:
-          body_html: Unless you are filing a 2016 return or anticipate owing money this year, you can can file until October 15th without a penalty. If you aren't sure whether or not you will owe, you can complete and mail <a target="_blank" rel="noopener" href="https://www.irs.gov/pub/irs-pdf/f4868.pdf">this IRS form</a> requesting an extension.
-          title: 'The federal income tax filing deadline has been extended to July 15, 2020.'
+          body_html: Unless you anticipate owing money this year, you can still file until October 15th without a penalty.
+          title: The federal income tax filing deadline was extended to July 15, 2020.
         header: Free tax filing, real human support.
         partners:
           header: We partner with trusted organizations
@@ -524,7 +530,15 @@ en:
         questions: If you have any questions in the meantime, feel free to reach out via the chat/help button in the bottom right.
         title: GetYourRefund is temporarily down for maintenance
       maybe_ineligible:
-        info: We're happy to answer any questions you may have about GetYourRefund or we can connect you to other tax filing options.
+        alternatives: We also have two alternative free tax filing options for you. File with our DIY tool, where we provide chat support as you file or try IRS Free File, an online service that lets you prepare your own taxes.
+        diy_button: File with DIY tool
+        diy_criteria_list:
+          header: 'Use our DIY tool! A great choice if:'
+          item_1: You are only filing for 2019 (not previous years)
+          item_2: You’re comfortable using online tax services
+          item_3: Your tax situation is simple/straightforward
+          item_4: You need a quick option
+        info: We’re happy to answer any questions you may have about GetYourRefund! Contact us by using our chat feature below.
         title: We’re unsure if you qualify for our services.
       other_options:
         info: We are excited to help you with your taxes, but we need to verify your identity to get started. Identify verification is important to ensure that your information is safe and secure, but if it's not for you, you can learn about other free filing options below.
@@ -760,6 +774,7 @@ en:
       chat_with_us:
         chat: If you have questions, you can chat with us by clicking the button in the bottom right of your screen.
         info: We know taxes can be hard and we’re here to support you every step of the way!
+        partner_info_html: "%{partner_name} handles tax returns from <strong>%{zip} (%{zip_name}).</strong>"
         title: Our team at %{partner_name} is here to help!
       consent:
         birth_date: Date of birth
@@ -842,7 +857,11 @@ en:
       ever_married:
         help_text: This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation.
         title: Have you ever been legally married?
+      feedback:
+        body: We appreciate any additional feedback you have to better serve clients in the future!
+        title: Thank you for sharing your experience.
       file_with_help:
+        diy_option_html: If you would like to file immediately, <a href="%{diy_path}">please use our DIY option instead.</a>
         info: You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you.
         right_option:
           confused: Your tax situation is confusing/complicated
@@ -850,6 +869,7 @@ en:
           need_assistance: You need assistance with tax filing
           nervous: You’re nervous to file completely on your own
         title: File with the help of a tax expert!
+        two_to_three_weeks_html: Filing with help will take 2-3 weeks to process. <b>You will have no penalty filing after July 15th if you do not owe money this year.</b>
       filing_joint:
         help_text: Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return.
         title: Are you filing joint taxes with your spouse?
@@ -1001,8 +1021,8 @@ en:
       personal_info:
         info: Welcome, we're excited to help you. We need some basic information to get started.
         preferred_name: Preferred name
-        state_of_residence: State of residence
         title: First, let's get some basic information.
+        zip_code: ZIP code
       phone_number:
         info: Once you've answered all the tax questions, your tax preparer will call to review your tax situation.
         phone_number: Phone number
@@ -1117,6 +1137,11 @@ en:
           partner_timing: "%{partner_name} will reach out within 3 business days to talk about your taxes"
           review: Your tax preparer will review your information
           timing: Your tax preparer will reach out within 3 business days to talk about your taxes
+        satisfaction_face:
+          negative: Not good
+          neutral: Ok
+          positive: Great!
+          question: How was your experience with GetYourRefund?
         title: Success! Your tax information has been submitted.
       tax_credit_disallowed:
         help_text: Answer "Yes" if you were asked to repay any of these credits in the past.
@@ -1198,7 +1223,7 @@ en:
         info: You might also be eligible for additional money through tax credits. We’ll help you get the most out of your return!
         title: We’ll help you collect your stimulus check by filing!
       filed_prior_years:
-        title: Have you already filed for 2016 and 2017?
+        title: Have you already filed for 2017?
       filed_recently:
         title: Have you already filed for 2018 and 2019?
       filing_might_help:
@@ -1244,11 +1269,11 @@ en:
         no_hours_listed: Sorry, no hours listed.
         no_phone_number_listed: Sorry, no phone number listed.
         phone_number_title: Call %{provider_name}
-        search_radius: Within %{distance} miles of %{zip} (%{zip_name}) %>
+        search_radius: Within %{distance} miles of %{zip} (%{zip_name})
     zendesk:
       extracts:
-        header: Anonymized Intake CSV Extracts
         filename: Filename
+        header: Anonymized Intake CSV Extracts
         record_count: Record Count
         run_at: Run At
       intakes:

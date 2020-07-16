@@ -16,12 +16,20 @@ class ApplicationController < ActionController::Base
     Intake.find_by_id(session[:intake_id])
   end
 
+  def intake_from_completed_session
+    Intake.find_by_id(session[:completed_intake_id])
+  end
+
   def current_diy_intake
     DiyIntake.find_by_id(session[:diy_intake_id])
   end
 
   def current_stimulus_triage
     StimulusTriage.find_by_id(session[:stimulus_triage_id])
+  end
+
+  def clear_intake_session
+    session.delete("intake_id")
   end
 
   def include_analytics?

@@ -38,6 +38,13 @@ describe VitaPartner do
       end
     end
 
+    context "recently consented intakes with Zendesk ticket count is above capacity limit" do
+      let(:recent_intake_count) { vita_partner.weekly_capacity_limit + 1}
+      it "returns true" do
+        expect(vita_partner).to be_at_capacity
+      end
+    end
+
     context "recently consented intakes with Zendesk ticket count is less than capacity limit" do
       let(:recent_intake_count) do
         vita_partner.weekly_capacity_limit - 1

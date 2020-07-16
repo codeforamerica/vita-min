@@ -98,6 +98,9 @@ Rails.application.routes.draw do
       end
       resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
     end
+
+    # Any other top level slash just goes to home as a source parameter
+    get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
   end
 
   # Routes outside of the locale scope are not internationalized

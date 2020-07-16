@@ -4,6 +4,10 @@
   padding: 0;
   margin-left: 0;
   margin-right: 0;
+
+  .notice--warning {
+    max-width: 30em;
+  }
 }
 
 .form-group--error {

@@ -49,6 +49,7 @@
 #  encrypted_spouse_last_four_ssn                       :string
 #  encrypted_spouse_last_four_ssn_iv                    :string
 #  ever_married                                         :integer          default("unfilled"), not null
+#  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default("unfilled"), not null
 #  filing_for_stimulus                                  :integer          default("unfilled"), not null
 #  filing_joint                                         :integer          default("unfilled"), not null
@@ -121,6 +122,7 @@
 #  routed_at                                            :datetime
 #  routing_criteria                                     :string
 #  routing_value                                        :string
+#  satisfaction_face                                    :integer          default("unfilled"), not null
 #  savings_purchase_bond                                :integer          default("unfilled"), not null
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
@@ -145,6 +147,7 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  timezone                                             :string
 #  triage_source_type                                   :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
@@ -257,6 +260,7 @@ class Intake < ApplicationRecord
   enum refund_payment_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :refund_payment_method
   enum reported_asset_sale_loss: { unfilled: 0, yes: 1, no: 2 }, _prefix: :reported_asset_sale_loss
   enum reported_self_employment_loss: { unfilled: 0, yes: 1, no: 2 }, _prefix: :reported_self_employment_loss
+  enum satisfaction_face: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :satisfaction_face
   enum savings_split_refund: { unfilled: 0, yes: 1, no: 2 }, _prefix: :savings_split_refund
   enum savings_purchase_bond: { unfilled: 0, yes: 1, no: 2 }, _prefix: :savings_purchase_bond
   enum separated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :separated
@@ -522,6 +526,22 @@ class Intake < ApplicationRecord
 
   def triaged_from_stimulus?
     triage_source.present? && triage_source.class == StimulusTriage
+  end
+
+  def must_have_document_types
+    all_doc_types_for_intake = DocumentNavigation.document_types_for_intake(self)
+    all_doc_types_for_intake.filter do |document_type|
+      already_uploaded = documents.where(document_type: document_type).present?
+      Document.must_have_doc_type?(document_type) && !already_uploaded
+    end
+  end
+
+  def might_have_document_types
+    all_doc_types_for_intake = DocumentNavigation.document_types_for_intake(self)
+    all_doc_types_for_intake.filter do |document_type|
+      already_uploaded = documents.where(document_type: document_type).present?
+      Document.might_have_doc_type?(document_type) && !already_uploaded
+    end
   end
 
   private

@@ -59,6 +59,8 @@
       <%= render 'shared/footer' %>
     </div>
     <!-- Start of eitc Zendesk Widget script -->
+
+    <%= yield(:script) if content_for?(:script) %>
     <script type="text/javascript">
         window.zESettings = {
             webWidget: {

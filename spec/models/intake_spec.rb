@@ -49,6 +49,7 @@
 #  encrypted_spouse_last_four_ssn                       :string
 #  encrypted_spouse_last_four_ssn_iv                    :string
 #  ever_married                                         :integer          default("unfilled"), not null
+#  feedback                                             :string
 #  feeling_about_taxes                                  :integer          default("unfilled"), not null
 #  filing_for_stimulus                                  :integer          default("unfilled"), not null
 #  filing_joint                                         :integer          default("unfilled"), not null
@@ -121,6 +122,7 @@
 #  routed_at                                            :datetime
 #  routing_criteria                                     :string
 #  routing_value                                        :string
+#  satisfaction_face                                    :integer          default("unfilled"), not null
 #  savings_purchase_bond                                :integer          default("unfilled"), not null
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
@@ -145,6 +147,7 @@
 #  state                                                :string
 #  state_of_residence                                   :string
 #  street_address                                       :string
+#  timezone                                             :string
 #  triage_source_type                                   :string
 #  viewed_at_capacity                                   :boolean          default(FALSE)
 #  vita_partner_name                                    :string
@@ -547,7 +550,6 @@ describe Intake do
     end
   end
 
-
   describe "#filing_years" do
     let(:intake) { create :intake, **filing_years }
     let(:filing_years) { {} }
@@ -563,13 +565,12 @@ describe Intake do
         {
           needs_help_2019: "yes",
           needs_help_2018: "no",
-          needs_help_2017: "yes",
-          needs_help_2016: "unfilled",
+          needs_help_2017: "unfilled",
         }
       end
 
       it "returns them as an array" do
-        expect(intake.filing_years).to eq(["2019", "2017"])
+        expect(intake.filing_years).to eq(["2019"])
       end
     end
   end
@@ -589,8 +590,7 @@ describe Intake do
         {
           needs_help_2019: "yes",
           needs_help_2018: "no",
-          needs_help_2017: "yes",
-          needs_help_2016: "unfilled",
+          needs_help_2017: "unfilled",
         }
       end
 
@@ -604,8 +604,7 @@ describe Intake do
         {
           needs_help_2019: "no",
           needs_help_2018: "yes",
-          needs_help_2017: "yes",
-          needs_help_2016: "unfilled",
+          needs_help_2017: "unfilled",
         }
       end
 
@@ -629,14 +628,13 @@ describe Intake do
       let(:filing_years) do
         {
           needs_help_2019: "no",
-          needs_help_2018: "no",
-          needs_help_2017: "yes",
-          needs_help_2016: "unfilled",
+          needs_help_2018: "yes",
+          needs_help_2017: "unfilled",
         }
       end
 
       it "returns most recent" do
-        expect(intake.year_before_most_recent_filing_year).to eq("2016")
+        expect(intake.year_before_most_recent_filing_year).to eq("2017")
       end
     end
   end
@@ -696,7 +694,7 @@ describe Intake do
     end
 
     context "when there is a source parameter" do
-      shared_examples "source group matching" do |src, expected_group_id|
+      shared_examples :source_group_matching do |src, expected_group_id|
         let(:state) { "ne" }
 
         before do
@@ -725,17 +723,17 @@ describe Intake do
         end
       end
 
-      it_behaves_like "source group matching", "uwkc", "360009173713"
-      it_behaves_like "source group matching", "uwco", "360009440374"
-      it_behaves_like "source group matching", "uwvp", "360009267673"
-      it_behaves_like "source group matching", "uwccr", "360009708193"
-      it_behaves_like "source group matching", "RefundDay-B", "360009704234"
-      it_behaves_like "source group matching", "branchesfl", "360009704234"
-      it_behaves_like "source group matching", "RefundDay-H", "360009704314"
-      it_behaves_like "source group matching", "hispanicunity", "360009704314"
-      it_behaves_like "source group matching", "uwfm", "360009708233"
-      it_behaves_like "source group matching", "RefundDay-C", "360009704354"
-      it_behaves_like "source group matching", "catalyst", "360009704354"
+      it_behaves_like :source_group_matching, "uwkc", "360009173713"
+      it_behaves_like :source_group_matching, "uwco", "360009440374"
+      it_behaves_like :source_group_matching, "uwvp", "360009267673"
+      it_behaves_like :source_group_matching, "uwccr", "360009708193"
+      it_behaves_like :source_group_matching, "RefundDay-B", "360009704234"
+      it_behaves_like :source_group_matching, "branchesfl", "360009704234"
+      it_behaves_like :source_group_matching, "RefundDay-H", "360009415854"
+      it_behaves_like :source_group_matching, "hispanicunity", "360009415854"
+      it_behaves_like :source_group_matching, "uwfm", "360009415834"
+      it_behaves_like :source_group_matching, "RefundDay-C", "360009704354"
+      it_behaves_like :source_group_matching, "catalyst", "360009704354"
 
       context "when there is a source parameter that does not match an organization" do
         let(:source) { "propel" }
@@ -767,7 +765,7 @@ describe Intake do
     end
 
     context "with state routing" do
-      shared_examples "state-level routing" do |state_criteria, partner_name|
+      shared_examples :state_level_routing do |state_criteria, partner_name|
         context "given a state" do
           let(:state) { state_criteria } # might not be necessary?
           let(:partner) { VitaPartner.find_by!(name: partner_name) }
@@ -783,21 +781,22 @@ describe Intake do
         end
       end
 
-      it_behaves_like "state-level routing", "CO", "Tax Help Colorado (Piton Foundation)", "eitc"
-      it_behaves_like "state-level routing", "CA", "[United Way California] Online Intake", "eitc"
-      it_behaves_like "state-level routing", "WA", "United Way of King County", "eitc"
-      it_behaves_like "state-level routing", "PA", "Campaign for Working Families", "eitc"
-      it_behaves_like "state-level routing", "NJ", "United Way of Greater Newark", "eitc"
-      it_behaves_like "state-level routing", "OH", "United Way of Central Ohio", "eitc"
-      it_behaves_like "state-level routing", "NV", "Nevada Free Taxes Coalition", "eitc"
-      it_behaves_like "state-level routing", "TX", "Foundation Communities", "eitc"
-      it_behaves_like "state-level routing", "AZ", "United Way of Tucson and Southern Arizona", "eitc"
-      it_behaves_like "state-level routing", "VA", "United Way of Greater Richmond and Petersburg", "eitc"
-      it_behaves_like "state-level routing", "FL", "Tax Help Colorado (Piton Foundation)", "eitc"
-      it_behaves_like "state-level routing", "NM", "Tax Help New Mexico", "eitc"
-      it_behaves_like "state-level routing", "MD", "CASH Campaign of MD", "eitc"
-      it_behaves_like "state-level routing", "NY", "Urban Upbound (NY)", "eitc"
-      it_behaves_like "state-level routing", "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
+      it_behaves_like :state_level_routing, "CO", "Tax Help Colorado (Piton Foundation)", "eitc"
+      it_behaves_like :state_level_routing, "CA", "[United Way California] Online Intake", "eitc"
+      it_behaves_like :state_level_routing, "WA", "United Way of King County", "eitc"
+      it_behaves_like :state_level_routing, "PA", "Campaign for Working Families", "eitc"
+      it_behaves_like :state_level_routing, "OH", "United Way of Central Ohio", "eitc"
+      it_behaves_like :state_level_routing, "NV", "Nevada Free Taxes Coalition", "eitc"
+      it_behaves_like :state_level_routing, "TX", "Foundation Communities", "eitc"
+      it_behaves_like :state_level_routing, "AZ", "United Way of Tucson and Southern Arizona", "eitc"
+      it_behaves_like :state_level_routing, "VA", "United Way of Greater Richmond and Petersburg", "eitc"
+      it_behaves_like :state_level_routing, "FL", "Tax Help Colorado (Piton Foundation)", "eitc"
+      it_behaves_like :state_level_routing, "MD", "CASH Campaign of MD", "eitc"
+      it_behaves_like :state_level_routing, "NY", "Urban Upbound (NY)", "eitc"
+      it_behaves_like :state_level_routing, "TN", "United Way of Greater Nashville", "eitc"
+      it_behaves_like :state_level_routing, "GA", "United Way of Greater Nashville", "eitc"
+      it_behaves_like :state_level_routing, "AL", "United Way of Greater Nashville", "eitc"
+      it_behaves_like :state_level_routing, "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
     end
 
     context "with overflow routing" do
@@ -805,8 +804,8 @@ describe Intake do
         context "given a state" do
           let(:state) { state_criteria }
           let(:overflow_partners) { VitaPartner.where(accepts_overflow: true) }
-          let(:overflow_partner_group_ids) {overflow_partners.map(&:zendesk_group_id)}
-          let(:overflow_partner_instance_domains) {overflow_partners.map(&:zendesk_instance_domain)}
+          let(:overflow_partner_group_ids) { overflow_partners.map(&:zendesk_group_id) }
+          let(:overflow_partner_instance_domains) { overflow_partners.map(&:zendesk_instance_domain) }
 
           before do
             intake.assign_vita_partner!
@@ -820,7 +819,6 @@ describe Intake do
       end
 
       it_behaves_like "overflow routing", "XX"
-      it_behaves_like "overflow routing", "TN"
       it_behaves_like "overflow routing", "AR"
       it_behaves_like "overflow routing", "MS"
       it_behaves_like "overflow routing", "SC"
@@ -1118,6 +1116,46 @@ describe Intake do
 
     context "when no stimulus triage is present" do
       it { expect(intake.triaged_from_stimulus?).to be_falsey }
+    end
+  end
+
+  describe "#must_have_documents" do
+    let(:intake) { create(:intake) }
+
+    before do
+      allow(DocumentNavigation).to receive(:document_types_for_intake).with(intake).and_return(["1095-A", "Selfie", "W-2"])
+    end
+
+    it "returns list of must have documents" do
+      expect(intake.must_have_document_types).to eq ["1095-A", "Selfie"]
+    end
+
+    context "with already uploaded documents" do
+      let!(:document) { create :document, intake: intake, document_type: "Selfie" }
+
+      it "doesn't include already uploaded documents" do
+        expect(intake.must_have_document_types).to eq ["1095-A"]
+      end
+    end
+  end
+
+  describe "#might_have_documents" do
+    let(:intake) { create(:intake) }
+
+    before do
+      allow(DocumentNavigation).to receive(:document_types_for_intake).with(intake).and_return(["1095-A", "W-2", "1099-MISC"])
+    end
+
+    it "returns list of might have documents" do
+      expect(intake.might_have_document_types).to eq ["W-2", "1099-MISC"]
+    end
+
+    context "with already uploaded documents" do
+      let!(:document) { create :document, intake: intake, document_type: "W-2" }
+
+      it "doesn't include already uploaded documents" do
+        expect(intake.might_have_document_types).to eq ["1099-MISC"]
+      end
     end
   end
 end

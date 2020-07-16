@@ -43,7 +43,8 @@ class ZendeskIntakeService
       @intake.preferred_name,
       contact_info[:email],
       contact_info[:sms_phone_number],
-      exact_match: true
+      exact_match: true,
+      time_zone: zendesk_timezone(@intake.timezone)
     )
   end
 
@@ -129,6 +130,7 @@ class ZendeskIntakeService
         EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
         EitcZendeskInstance::INTAKE_SOURCE => @intake.source,
         EitcZendeskInstance::INTAKE_LANGUAGE => I18n.locale,
+        EitcZendeskInstance::CLIENT_ZIP_CODE => @intake.zip_code,
       }
     else
       {
@@ -170,6 +172,7 @@ class ZendeskIntakeService
     comment_body = <<~BODY
       Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
+      Client's detected timezone: #{zendesk_timezone(@intake.timezone)}
       Client's provided interview preferences: #{@intake.interview_timing_preference}
       The client's preferred language for a phone call is #{preferred_interview_language_name}
 
@@ -301,6 +304,7 @@ class ZendeskIntakeService
       {
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
         EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: @intake.intake_ticket_id),
+        EitcZendeskInstance::DOCUMENTS_NEEDED => @intake.must_have_document_types.join(", "),
       }
     else
       {

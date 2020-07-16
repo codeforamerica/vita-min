@@ -1,12 +1,12 @@
 class PersonalInfoForm < QuestionsForm
-  set_attributes_for :intake, :state_of_residence, :preferred_name
+  set_attributes_for :intake, :preferred_name, :zip_code, :timezone
 
-  validates :state_of_residence, inclusion: { in: States.keys }
+  validates :zip_code, zip_code: true
   validates :preferred_name, presence: true
 
   def save
-    @intake.update(attributes_for(:intake))
-
+    state = ZipCodes.details(zip_code)[:state]
+    @intake.update(attributes_for(:intake).merge(state_of_residence: state))
     @intake.assign_vita_partner!
   end
 end

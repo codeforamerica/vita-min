@@ -49,11 +49,12 @@ RSpec.feature "Web Intake Single Filer" do
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "Preferred name", with: "Gary"
-    select "Ohio", from: "State of residence"
+    fill_in "ZIP code", with: "45701"
     click_on "Continue"
 
     # Chat with us
     expect(page).to have_selector("h1", text: "Our team at United Way of Central Ohio is here to help!")
+    expect(page).to have_selector("p", text: "United Way of Central Ohio handles tax returns from 45701 (Athens, Ohio).")
     click_on "Continue"
 
     # Phone number
@@ -244,7 +245,13 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "All right, let's collect your documents!")
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Attach your W-2's")
+    expect(page).to have_selector("h1", text: "Attach your 1098's")
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Attach your 1098-T's")
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Share your employment documents")
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
 
@@ -256,40 +263,28 @@ RSpec.feature "Web Intake Single Filer" do
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_content("picture_id.jpg")
-    click_on "I'm done for now"
-
-    expect(page).to have_selector("h1", text: "Attach your 1098's")
-    click_on "I'm done for now"
-
-    expect(page).to have_selector("h1", text: "Attach your 1098-T's")
-    click_on "I'm done for now"
-
-    expect(page).to have_selector("h1", text: "Attach your 1099-K's")
-    click_on "I'm done for now"
-
-    expect(page).to have_selector("h1", text: "Attach your 1099-MISC's")
-    click_on "I don't have this document"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your IRA Statements")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your Property Tax Statements")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your student account statements")
-    click_on "I don't have this document"
+    click_on "I don't have this right now"
 
     expect(page).to have_selector("h1", text: "Attach your statements from childcare facilities or individuals who provided care.")
-    click_on "I don't have this document"
+    click_on "I don't have this right now"
 
     expect(page).to have_selector("h1", text: "Attach your 2018 tax return")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Do you have any additional documents?")
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
     expect(page).to have_content("test-pattern.png")
-    click_on "I'm done for now"
+    click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
     click_on "I've shared all my documents"
@@ -358,10 +353,11 @@ RSpec.feature "Web Intake Single Filer" do
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
     expect(page).to have_text("Your confirmation number is: #{ticket_id}")
+    click_on "Great!"
 
-    # reloading the success page works without trying to show the progress bar
-    visit "/questions/successfully-submitted"
-    expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+    fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
+    click_on "Return to home"
+    expect(page).to have_selector("h1", text: "Free tax filing, real human support.")
 
     # going back to another page after submit redirects to beginning
     visit "/questions/wages"

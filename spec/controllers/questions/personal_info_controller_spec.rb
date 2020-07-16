@@ -8,11 +8,13 @@ RSpec.describe Questions::PersonalInfoController do
   end
 
   describe "#update" do
+    let(:intake) { create :intake }
     let(:state) { 'CO' }
     let(:params) do
       {
         personal_info_form: {
-          state_of_residence: state,
+          timezone: "America/New_York",
+          zip_code: "80309",
           preferred_name: "Shep"
         }
       }
@@ -22,9 +24,12 @@ RSpec.describe Questions::PersonalInfoController do
       State.find_by(abbreviation: state.upcase).vita_partners.first
     end
 
-    context "when intake does not have a zendesk ticket id" do
-      let(:intake) { create :intake }
+    it "sets the timezone on the intake" do
+      expect { post :update, params: params }
+        .to change { intake.timezone }.to("America/New_York")
+    end
 
+    context "when intake does not have a zendesk ticket id" do
       it "re-assigns the vita partner" do
         post :update, params: params
 

@@ -30,6 +30,7 @@ var immediateUpload = (function() {
 
     // submit the form immediately after a file is uploaded
     fileInputElements.change(function(_event) {
+      document.body.classList.add('submitting');
       fileUploadForm.submit();
     });
   };

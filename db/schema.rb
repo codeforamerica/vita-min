@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_121947) do
+ActiveRecord::Schema.define(version: 2020_07_10_002316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_121947) do
     t.string "encrypted_spouse_last_four_ssn"
     t.string "encrypted_spouse_last_four_ssn_iv"
     t.integer "ever_married", default: 0, null: false
+    t.string "feedback"
     t.integer "feeling_about_taxes", default: 0, null: false
     t.integer "filing_for_stimulus", default: 0, null: false
     t.integer "filing_joint", default: 0, null: false
@@ -284,6 +285,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_121947) do
     t.datetime "routed_at"
     t.string "routing_criteria"
     t.string "routing_value"
+    t.integer "satisfaction_face", default: 0, null: false
     t.integer "savings_purchase_bond", default: 0, null: false
     t.integer "savings_split_refund", default: 0, null: false
     t.integer "separated", default: 0, null: false
@@ -308,6 +310,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_121947) do
     t.string "state"
     t.string "state_of_residence"
     t.string "street_address"
+    t.string "timezone"
     t.bigint "triage_source_id"
     t.string "triage_source_type"
     t.datetime "updated_at"

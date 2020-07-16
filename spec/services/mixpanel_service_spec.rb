@@ -189,7 +189,9 @@ describe MixpanelService do
           needs_help_2016: "unfilled",
           primary_birth_date: Date.new(1993, 3, 12),
           spouse_birth_date: Date.new(1992, 5, 3),
-          vita_partner: vita_partner
+          vita_partner: vita_partner,
+          timezone: "America/Los_Angeles",
+          satisfaction_face: "neutral",
         )
       end
 
@@ -259,7 +261,9 @@ describe MixpanelService do
             zendesk_instance_domain: "eitc",
             vita_partner_group_id: vita_partner.zendesk_group_id,
             vita_partner_name: vita_partner.name,
-            triaged_from_stimulus: "no"
+            triaged_from_stimulus: "no",
+            timezone: "America/Los_Angeles",
+            csat: "neutral",
           })
         end
 

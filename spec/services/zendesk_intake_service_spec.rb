@@ -8,6 +8,8 @@ describe ZendeskIntakeService do
   let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
   let(:state) { "NE" }
+  let(:zip_code) { "68583" }
+  let(:timezone) { "America/Chicago" }
   let(:interview_timing_preference) { "" }
   let(:final_info) { "" }
   let(:source) { "uw-narnia" }
@@ -15,6 +17,7 @@ describe ZendeskIntakeService do
   let(:intake) do
     create :intake,
            state_of_residence: state,
+           zip_code: zip_code,
            source: source,
            locale: :en,
            interview_timing_preference: interview_timing_preference,
@@ -37,7 +40,8 @@ describe ZendeskIntakeService do
            intake_ticket_requester_id: intake_requester_id,
            refund_payment_method: payment_method,
            balance_pay_from_bank: pay_from_bank,
-           continued_at_capacity: continued_at_capacity
+           continued_at_capacity: continued_at_capacity,
+           timezone: timezone
   end
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
@@ -151,7 +155,7 @@ describe ZendeskIntakeService do
       it "returns the end user ID based on all contact info" do
         expect(service.create_intake_ticket_requester).to eq 1
         expect(service).to have_received(:find_or_create_end_user).with(
-          "Cherry", "cash@raining.money", "+14155551234", exact_match: true
+          "Cherry", "cash@raining.money", "+14155551234", exact_match: true, time_zone: "Central Time (US & Canada)"
         )
       end
     end
@@ -163,7 +167,7 @@ describe ZendeskIntakeService do
       it "returns the end user ID based on just the name" do
         expect(service.create_intake_ticket_requester).to eq 1
         expect(service).to have_received(:find_or_create_end_user).with(
-          "Cherry", nil, nil, exact_match: true
+          "Cherry", nil, nil, exact_match: true, time_zone: "Central Time (US & Canada)"
         )
       end
     end
@@ -179,8 +183,9 @@ describe ZendeskIntakeService do
       allow(service).to receive(:new_ticket_body).and_return "Body text"
     end
 
-    context "in a state for the EITC Zendesk instance" do
-      let(:state) { "co" }
+    context "in Colorado, using the EITC Zendesk instance" do
+      let(:state) { "CO" }
+      let(:zip_code) { "80309" }
       let!(:vita_partner) { VitaPartner.find_by(name: "Tax Help Colorado (Piton Foundation)") }
       let(:ticket_status) { intake.current_ticket_status }
       let(:mixpanel_spy) { spy(MixpanelService) }
@@ -202,12 +207,13 @@ describe ZendeskIntakeService do
           fields: {
             EitcZendeskInstance::INTAKE_SITE => "online_intake",
             EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
-            EitcZendeskInstance::STATE => "co",
+            EitcZendeskInstance::STATE => "CO",
             EitcZendeskInstance::FILING_YEARS => ["2019", "2017"],
             EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
             EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
             EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
             EitcZendeskInstance::INTAKE_LANGUAGE => :en,
+            EitcZendeskInstance::CLIENT_ZIP_CODE => zip_code,
           }
         )
       end
@@ -245,6 +251,7 @@ describe ZendeskIntakeService do
     end
 
     context "in a state for the UWTSA Group" do
+      let(:zip_code) { "85721" }
       let(:state) { "az" }
       let(:vita_partner) { VitaPartner.find_by(name: "United Way of Tucson and Southern Arizona") }
       let(:mixpanel_spy) { spy(MixpanelService) }
@@ -272,6 +279,7 @@ describe ZendeskIntakeService do
             EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
             EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
             EitcZendeskInstance::INTAKE_LANGUAGE => :en,
+            EitcZendeskInstance::CLIENT_ZIP_CODE => zip_code,
           }
         )
       end
@@ -480,9 +488,12 @@ describe ZendeskIntakeService do
     let(:output) { true }
     let(:fake_intake_pdf) { instance_double(File) }
     let(:fake_consent_pdf) { instance_double(File) }
+    let!(:id_doc) { create :document, intake: intake, document_type: "ID" }
+    let!(:selfie_doc) { create :document, intake: intake, document_type: "Selfie" }
 
     before do
       intake.intake_ticket_id = 34
+      intake.update(had_retirement_income: "yes")
       allow(service).to receive(:append_multiple_files_to_ticket).and_return(output)
       allow(intake).to receive(:pdf).and_return(fake_intake_pdf)
       allow(intake).to receive(:consent_pdf).and_return(fake_consent_pdf)
@@ -507,6 +518,7 @@ describe ZendeskIntakeService do
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
           EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => "http://test.host/en/zendesk/tickets/34",
+          EitcZendeskInstance::DOCUMENTS_NEEDED => "SSN or ITIN, 1099-R",
         }
       )
     end
@@ -647,6 +659,7 @@ describe ZendeskIntakeService do
       comment_body = <<~BODY
         Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
+        Client's detected timezone: Central Time (US & Canada)
         Client's provided interview preferences: Monday evenings and Wednesday mornings
         The client's preferred language for a phone call is Spanish
 
@@ -679,6 +692,7 @@ describe ZendeskIntakeService do
         comment_body = <<~BODY
           Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
+          Client's detected timezone: Central Time (US & Canada)
           Client's provided interview preferences: Monday evenings and Wednesday mornings
           The client's preferred language for a phone call is Spanish
 

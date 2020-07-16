@@ -1,4 +1,5 @@
 .button {
+  padding: 1.75rem 2rem;
   box-shadow: none;
   border-width: 3px;
   &:active {
@@ -110,6 +111,11 @@
   @media screen and (min-width: $tablet-up) {
     width: 34.5rem;
   }
+}
+
+.button--med-wide {
+  text-align: center;
+  width: 20rem;
 }
 
 .button--icon {

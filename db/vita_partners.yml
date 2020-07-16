@@ -6,6 +6,9 @@ vita_partners:
   display_name: Tax Help Colorado
   source_parameters:
   - thc
+  # temporarily rerouted from Hispanic Unity for weeks of 2020/7/13-27
+  - RefundDay-H
+  - hispanicunity
   states:
   - CO
   - SD
@@ -109,15 +112,15 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009708233'
   display_name: United Way Fresno Madera
-  source_parameters:
-  - uwfm
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: "[United Way California] Online Intake"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009415834'
   display_name: United Way of California
   source_parameters:
   - uwca
+  - uwfm
   states:
   - CA
   logo_path: ''
@@ -165,9 +168,6 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009704314'
   display_name: Hispanic Unity
-  source_parameters:
-  - RefundDay-H
-  - hispanicunity
   logo_path: ''
   weekly_capacity_limit: 0
 - name: Catalyst Miami
@@ -178,6 +178,7 @@ vita_partners:
   - catalyst
   - RefundDay-C
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: RefundDay
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009657014'
@@ -190,20 +191,13 @@ vita_partners:
   zendesk_group_id: '360009807434'
   display_name: Tax Help New Mexico
   logo_path: partner-logos/th-nm.png
-  source_parameters:
-  - uwcnm
-  states:
-  - NM
   weekly_capacity_limit: 0
 - name: United Way of Greater Newark
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010163193'
   display_name: United Way of Greater Newark
-  source_parameters:
-  - uwgn
-  states:
-  - NJ
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: United Way Capital Region (PA)
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009994193'
@@ -211,6 +205,7 @@ vita_partners:
   source_parameters:
   - uwcrpa
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: United Way of Greenville County
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010052433'
@@ -227,64 +222,61 @@ vita_partners:
   states:
   - NY
   logo_path: ''
+  weekly_capacity_limit: 500
 - name: "[MA/BTH] Online Intake (w/Boston Tax Help)"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011044474'
   display_name: Massachusetts Association for Community Action (MASSCAP) and Boston
     Tax Help
+  source_parameters:
+  - BTHC-AB-APAC
+  - BTHC-ABCD
+  - BTHC-URBAN-EDGE
+  - MC-SP
+  - MC-CAPV
+  - MC-NS
+  - MC-LEO
+  - MC-SSSC
+  - MC-SOUTH
+  - MC-WOR
   states:
   - MA
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: "[MA/BTH] South Shore/South Coast"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417234'
   display_name: Massachusetts Association for Community Action (MASSCAP)
-  source_parameters:
-  - MC-SSSC
-  - MC-SOUTH
   logo_path: ''
 - name: "[MA/BTH] North Shore"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417254'
   display_name: Massachusetts Association for Community Action (MASSCAP)
-  source_parameters:
-  - MC-NS
-  - MC-LEO
   logo_path: ''
 - name: "[MA/BTH] Springfield"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417334'
   display_name: Massachusetts Association for Community Action (MASSCAP)
-  source_parameters:
-  - MC-SP
   logo_path: ''
 - name: "[MA/BTH] Community Action of Pioneer Valley"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010417354'
   display_name: Massachusetts Association for Community Action (MASSCAP)
-  source_parameters:
-  - MC-CAPV
   logo_path: ''
 - name: "[MA/BTH] Worcester"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010415253'
   display_name: Massachusetts Association for Community Action (MASSCAP)
-  source_parameters:
-  - MC-WOR
   logo_path: ''
 - name: "[MA/BTH] ABCD"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011283393'
   display_name: 'Boston Tax Help'
-  source_parameters:
-  - BTHC-ABCD
   logo_path: ''
 - name: "[MA/BTH] AB APAC"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011284774'
   display_name: 'Boston Tax Help'
-  source_parameters:
-  - BTHC-AB-APAC
   logo_path: ''
 - name: "[MA/BTH] Roxbury CFE"
   zendesk_instance_domain: eitc
@@ -305,16 +297,13 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011568733'
   display_name: 'Boston Tax Help'
-  source_parameters:
-  - BTHC-URBAN-EDGE
   logo_path: ''
 - name: Granite United Way
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010462593'
   display_name: Granite United Way
-  source_parameters:
-  - graniteuw
   logo_path: partner-logos/granite-united-way.png
+  weekly_capacity_limit: 0
 - name: Louisville Asset Building Coalition
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010397693'
@@ -384,9 +373,8 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010812493'
   display_name: Desert Financial and Tax Services
-  source_parameters:
-  - DFATS
   logo_path: partner-logos/desert-financial.png
+  weekly_capacity_limit: 0
 - name: Coalition of Community Assistance Volunteers
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011034854'
@@ -429,13 +417,19 @@ vita_partners:
   source_parameters:
   - uwcaorg
   logo_path: partner-logos/uw-central-alabama.jpg
+  weekly_capacity_limit: 25
 - name: United Way of Greater Nashville
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011486894'
   display_name: United Way of Greater Nashville
   source_parameters:
   - greaternashville
+  states:
+  - TN
+  - GA
+  - AL
   logo_path: partner-logos/uw-greater-nashville.png
+  weekly_capacity_limit: 500
 - name: Zacchaeus House for Tax Assistance
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011728613'
@@ -464,6 +458,16 @@ vita_partners:
   source_parameters:
   - nccc
   logo_path: partner-logos/ncc-logo.png
+<<<<<<< HEAD
+=======
+- name: United Way of Racine County (WI)
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360012007014'
+  display_name: United Way of Racine County
+  source_parameters:
+  - unitedwayracine
+  logo_path: ''
+>>>>>>> upstream/master
 - name: La Casa de Esperanza (WI)
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011477453'

@@ -1,9 +1,9 @@
 module Documents
   class W2sController < DocumentUploadQuestionController
     def self.show?(intake)
-      intake.had_wages_yes? ||
-        intake.had_disability_income_yes? ||
-        intake.had_a_job?
+      # Retaining this controller for approx 1 day, so that if someone is on
+      # this URL, they are able to use it successfully.
+      false
     end
 
     def self.document_type

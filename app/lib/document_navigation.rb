@@ -20,6 +20,7 @@ class DocumentNavigation
     Documents::Form1099intsController,
     Documents::Form1099ksController,
     Documents::Form1099miscsController,
+    Documents::EmploymentController,
     Documents::Form1099rsController,
     Documents::Form1099ssController,
     Documents::Form1099sasController,

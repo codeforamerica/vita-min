@@ -17,7 +17,7 @@ module Questions
     end
 
     def update
-      @form = form_class.new(current_intake, form_params)
+      @form = initialized_update_form
       if @form.valid?
         @form.save
         after_update_success
@@ -57,6 +57,11 @@ module Questions
     private
 
     def after_update_success; end
+
+    # Overwrite in order to change which record or params are passed to the form during update
+    def initialized_update_form
+      form_class.new(current_intake, form_params)
+    end
 
     def form_params
       params.fetch(form_name, {}).permit(*form_class.attribute_names)

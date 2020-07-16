@@ -9,7 +9,7 @@ module Documents
     def edit
       return if self.class.document_type.nil?
 
-      @documents = current_intake.documents.of_type(document_type)
+      @documents = current_intake.documents.of_type(self.class.displayed_document_types)
       @form = form_class.new(document_type, current_intake, form_params)
     end
 
@@ -42,6 +42,10 @@ module Documents
 
     def self.document_type
       raise NotImplementedError, "#{self.name} must implement document_type or return nil to indicate no document will be uploaded."
+    end
+
+    def self.displayed_document_types
+      [self.document_type]
     end
 
     def track_document_upload

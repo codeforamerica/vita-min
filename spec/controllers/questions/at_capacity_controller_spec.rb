@@ -18,23 +18,6 @@ RSpec.describe Questions::AtCapacityController do
       it "returns true" do
         expect(subject.class.show?(intake)).to eq true
       end
-
-      context "when client started intake with a source parameter" do
-        let(:source_code) { "src" }
-        before do
-          vita_partner.source_parameters.create(code: source_code)
-        end
-
-        it "returns false if the source parameter belongs to the partner" do
-          intake.update(source: source_code)
-          expect(subject.class.show?(intake)).to eq false
-        end
-
-        it "returns true if the source parameter does not belong to the partner" do
-          intake.update(source: "propel")
-          expect(subject.class.show?(intake)).to eq true
-        end
-      end
     end
 
     context "when vita partner is not yet at capacity" do

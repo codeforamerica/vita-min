@@ -14,10 +14,9 @@
           <% end %>
 
           <%# uploaded documents %>
-          <% if @documents.present? %>
-            <ul class="doc-preview-container">
+          <ul class="doc-preview-container">
+            <% if @documents.present? %>
               <% @documents.each do |document| %>
-
                 <li class="doc-preview">
                   <div class="doc-preview__thumb">
                     <% if document.upload.representable? %>
@@ -34,11 +33,19 @@
                   </div>
                 </li>
               <% end %>
-            </ul>
-          <% end %>
+            <% end %>
+            <li class="doc-preview hidden-until-submit">
+              <div class="doc-preview__thumb">
+                <%= image_tag "loading.gif", alt: "" %>
+              </div>
+              <div class="doc-preview__info">
+                <h2 class="h3 doc-preview__filename">Uploading...</h2>
+              </div>
+            </li>
+          </ul>
 
           <%# document upload form %>
-          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form", class: "spacing-below-60" do |f| %>
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
             <div class="document-upload">
               <div class="file-upload">
                 <%= f.file_field(:document, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
@@ -61,22 +68,21 @@
 
           <% if DocumentNavigation::REQUIRED_DOCUMENT_TYPES.include?(document_type) %>
             <% if @documents.present? %>
-              <%= link_to next_path, class: "button button--cta button--wide text--centered", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
+              <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type}" do %>
                 <%=t("general.continue") %>
               <% end %>
             <% else %>
-              <button class="button button--cta button--disabled button--wide text--centered" disabled>
+              <button class="button button--primary button--disabled button--wide text--centered spacing-above-60" disabled>
                 <%=t("general.continue") %>
               </button>
             <% end %>
           <% else %>
-            <%= link_to next_path, class: "button button--icon button--cta button--wide", "data-track-click": "done_for_now", "data-track-attribute-document_type": "#{document_type}" do %>
-              <%= image_tag "checkmark--white.svg", alt: "" %>
-              <%=t("views.layouts.document_upload.done_for_now") %>
-            <% end %>
-            <%= link_to next_path, class: "button button--icon button--wide", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
-              <%= image_tag "crossmark--black.svg", alt: "" %>
+            <%= link_to next_path, class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
               <%=t("views.layouts.document_upload.dont_have") %>
+            <% end %>
+
+            <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type}" do %>
+              <%=t("general.continue") %>
             <% end %>
           <% end %>
 

@@ -1,5 +1,6 @@
 <% @main_heading = t("views.diy.start_filing.start.title") %>
 <% content_for :page_title, @main_heading %>
+<% content_for :body_class, "diy-start-filing" %>
 
 <%= render 'shared/facebook_pixel', track_conversion: "StartDIY" %>
 <main role="main">
@@ -28,23 +29,25 @@
           </ul>
         </div>
 
-        <%= link_to t("general.continue"),
+        <%= link_to t("general.start_filing"),
                     "https://www.taxslayer.com/vita2019fsa?source=TSUSATY2019&sidn=01093601",
                     class: "button button--primary text--centered button--wide spacing-above-60",
-                    "data-track-click": "taxslayer" %>
+                    "data-track-click": "taxslayer",
+                    target: "_blank",
+                    rel: "noopener" %>
       </div>
     </div>
   </section>
-  <section class="slab slab--help">
+  <section class="slab slab--secondary-cta slab--lavender">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <div class="stimulus-banner-text">
+        <p class="cta-text">
           <%= t("views.diy.start_filing.help_html") %>
-        </div>
+        </p>
       </div>
-      <div class="grid__item width-one-fourth help-button-container">
-        <button class="button button--chat-help" onclick="javascript: zE('webWidget', 'open');">
-          <i class="icon-help_outline"></i><%= t("general.help") %>
+      <div class="grid__item width-one-fourth button-container">
+        <button class="button button--med-wide" onclick="javascript: zE('webWidget', 'open');">
+          <%= t("general.get_help") %>
         </button>
       </div>
     </div>

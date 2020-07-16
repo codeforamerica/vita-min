@@ -14,7 +14,6 @@
  */
 @import "cfa_styleguide_main";
 @import "atoms/variables";
-@import "atoms/bulleted-list";
 @import "atoms/form-elements";
 @import "atoms/typography";
 @import "organisms/document-overview";
@@ -31,7 +30,7 @@
 @import "components/blockquote";
 @import "components/footer";
 @import "components/form-fields";
-@import "components/slab";
+@import "components/slabs";
 @import "components/toolbar";
 @import "organisms/form-cards";
 @import "organisms/offboarding";
@@ -46,6 +45,8 @@
 @import "templates/overview";
 @import "templates/stimulus";
 @import "templates/chat-bubble";
+@import "templates/diy-start-filing-start";
+@import "templates/satisfaction-survey";
 
 html {
   background-color: black;
@@ -259,35 +260,6 @@ body {
     }
   }
 
-  .slab--stimulus_faq {
-    background-color: $color-lavender;
-    font-size: 19px;
-    .grid__item {
-      display: flex;
-    }
-    .stimulus-banner-text {
-      margin-top: 5rem;
-      margin-right: 5rem;
-      line-height: 2.5rem;
-    }
-
-    .stimulus-banner-cta {
-      font-size: 16px;
-    }
-
-    @media screen and (max-width: $tablet-up) {
-      .grid__item {
-        display: inherit;
-        text-align: center;
-      }
-
-      .stimulus-banner-text {
-        text-align: left;
-        margin: 0;
-      }
-    }
-  }
-
   .slab--partners {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -336,35 +308,6 @@ body {
       #testimonial-right {
         padding: 0;
         margin-top: 4rem;
-      }
-    }
-  }
-
-  .slab--faq {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-
-    li {
-      font-weight: 500;
-      margin-bottom: 0;
-    }
-
-    .button {
-      text-align: center;
-      width: 95%;
-      margin-top: 3.5rem;
-    }
-
-    @media screen and (max-width: $tablet-up) {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
-
-      #faq-button-container {
-        text-align: center;
-      }
-      .button {
-        margin: 4rem auto 0 auto;
-        width: 80%;
       }
     }
   }

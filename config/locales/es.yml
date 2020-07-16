@@ -90,6 +90,7 @@ es:
     continue_example: Continúe para ver un ejemplo
     document_type:
       care_provider_statement: Declaración del Proveedor de Cuidados
+      employment: Documentos de impuestos de empleo (W2, 1099, etc.)
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
       other: Otro
@@ -108,9 +109,9 @@ es:
     find_vita_site: Encuentre un sitio de VITA cerca de usted
     free_file_html: Si desea declarar sus impuestos sin la ayuda de nuestro personal y servicios, utilice el %{wizard_link} para poder hacerlo en línea gratis.
     free_file_lookup_tool: Herramienta de búsqueda de declaración de impuestos gratuita del IRS
+    get_help: Pedir ayuda
     get_my_payment: Recibir mi pago
     get_started: Empiece ahora
-    help: Ayuda
     here: aquí
     home: Inicio
     hours: Horas
@@ -148,6 +149,7 @@ es:
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
     sorry: "¡Ay, no! ¡Lo sentimos!"
+    start_filing: Comenzar a declarar
     submit: Enviar
     submit_question: Envíe una pregunta a GetYourRefund
     upload: Subir
@@ -226,13 +228,13 @@ es:
           state_of_residence: Estado de residencia
           title: Primero, vamos a empezar con su información básica.
       start_filing:
+        help_html: "<strong>No podemos proporcionar asistencia por chat en TaxSlayer, ¡pero estamos aquí para ayudar!</strong><br/> Si tiene alguna pregunta, chatee con nosotros en esta página."
         start:
           tips:
-            no_navigation: No haga clic en "Regresar" ni salga de la página de TaxSlayer
             create_login: Para comenzar a declarar, regístrese  en Taxslayer
+            no_navigation: No haga clic en "Regresar" ni salga de la página de TaxSlayer
             spelling: Compruebe la ortografía
           title: "¡Le damos la bienvenida al servicio que le permite presentar su propia declaración de impuestos!"
-        help_html: <strong>No podemos proporcionar asistencia por chat en TaxSlayer, ¡pero estamos aquí para ayudar!</strong><br/> Si tiene alguna pregunta, chatee con nosotros en esta página.
     documents:
       additional_documents:
         help_text: Agregue todos los documentos o formularios adicionales que le gustaría compartir con su preparador de impuestos. Incluya cualquier formulario lo cual no esté seguro de utilizar. Su preparador de impuestos determinará si los formularios son necesarios para su declaración.
@@ -240,6 +242,11 @@ es:
       care_provider_statements:
         help_text_html: "<strong>Es posible que ya tenga esta declaración</strong> porque nos ha confirmado que pagó por cuidado de niños o dependientes. Comuníquese con su centro de atención si necesita esa documentación."
         title: Anexe sus declaraciones de centros de cuidado infantil o de personas que han proveído cuidado.
+      employment:
+        help_text_html: 'Hace falta una prueba de su empleo. Por favor, provea un (1) documento para cada empleo en que ha trabajado. El documento puede ser cualquiera de los enumerados aquí:'
+        personal_log: Registro personal
+        title: Comparte sus documentos de empleo
+        uber_lyft_dashboard_information: Informe del tablero Uber/Lyft
       form1095as:
         help_text_html: "<strong>Debe tener este formulario</strong> porque nos ha confirmado que compró un seguro de salud en el mercado. Es posible necesite descargarlo a través del mercado o del intercambio de su estado. Más información acerca del formulario está disponible %{more_info_link}."
         title: Adjunte sus 1095-A
@@ -415,11 +422,10 @@ es:
         meta:
           description: Maximice su reembolso presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
       document_upload:
-        done_for_now: De momento, he terminado.
-        dont_have: No tengo este documento
+        dont_have: No lo tengo ahora
         remove_confirmation: ¿Está seguro de que desea quitar "%{filename}"?
         select_file: Elija un archivo
-        take_picture: Tome una foto
+        take_picture: Agregar una foto
     public_pages:
       about_us:
         how_it_helps: Puede ahorrar hasta $300 dólares cuando prepares sus impuestos gratis. También garantizamos que los contribuyentes elegibles reclamen el Crédito por Ingreso del Trabajo (EITC, por sus siglas en inglés), que puede superar hasta $3,000 por familia.
@@ -470,7 +476,7 @@ es:
             a_html: Si ha perdido un documento fiscal o nunca lo recibió, lo primero que debe hacer es consultarlo con su empleador. Normalmente, su empleador puede volver a emitir rápidamente la documentación fiscal a sus empleados. Si eso no funciona, puede solicitar sus documentos de impuestos al IRS en %{transcript_link}.
             q: "¿Qué debo hacer si no encuentro un documento de impuestos?"
           non_filer:
-            a: Podemos presentar sus declaraciones de impuestos de los años 2016, 2017, 2018 y 2019. Le recomendamos que nos informe si todavía no ha presentado las declaraciones de esos años, ya que podría reclamar los reembolsos de años anteriores que no haya reclamado.
+            a: Podemos presentar sus declaraciones de impuestos de los años 2017, 2018 y 2019. Le recomendamos que nos informe si todavía no ha presentado las declaraciones de esos años, ya que podría reclamar los reembolsos de años anteriores que no haya reclamado.
             q: "¿Qué debo hacer si no he declarado impuestos desde hace varios años?"
         header: Preguntas frecuentes
         subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
@@ -481,7 +487,7 @@ es:
           body2: Voluntarios capacitados y certificados por el IRS prepararán y revisarán su declaración de impuestos para asegurarse de que todo esté correcto antes de presentarla.
           header: Ofrecemos la máxima precisión. Gratis.
         backtaxes:
-          body: Podemos presentar sus declaraciones de impuestos estatales y federales de los años fiscales 2016, 2017, 2018 y 2019. Nuestros voluntarios capacitados también se asegurarán de que reciba los créditos tributarios que le correspondan.
+          body: Podemos presentar sus declaraciones de impuestos estatales y federales de los años fiscales 2017, 2018 y 2019. Nuestros voluntarios capacitados también se asegurarán de que reciba los créditos tributarios que le correspondan.
           header: Presente las declaraciones de impuestos de años anteriores y obtenga un reembolso mayor.
         clients:
           across_us: de clientes en todo Estados Unidos.
@@ -495,7 +501,7 @@ es:
           rating: Hemos recibido una valoración de 4.8/5 estrellas
         features:
           amendments: Presenta enmiendas para años anteriores
-          backtaxes: Presenta declaraciones de impuestos atrasados (2016-2019)
+          backtaxes: Presenta declaraciones de impuestos atrasados (2017-2019)
           chat: Asistencia por chat disponible
           faq_cta: Preguntas Frecuentes
           free: Servicio completamente gratuito
@@ -504,8 +510,8 @@ es:
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         filing_deadline_banner:
-          body_html: A menos que presente una declaración de 2016 o anticipe que debe dinero este año, puede presentarla hasta el 15 de octubre sin penalización. Si no está seguro de si debe o no, puede completar y enviar <a target="_blank" rel="noopener" href="https://www.irs.gov/pub/irs-pdf/f4868sp.pdf">este formulario del IRS</a> solicitando una extensión.
-          title: 'La fecha límite para la declaración de impuestos federales se ha extendido hasta el 15 de julio de 2020.'
+          body_html: A menos que anticipe que debe dinero este año, puede presentarla hasta el 15 de octubre sin penalización.
+          title: La fecha límite para la declaración de impuestos federales se extendió hasta el 15 de julio de 2020.
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
         partners:
           header: Colaboramos con organizaciones de confianza
@@ -524,7 +530,15 @@ es:
         questions: Si tiene alguna pregunta mientras tanto, no dude en comunicarse con nosotros haciendo clic en el botón "Chat"/"Ayuda", en la parte inferior derecha.
         title: GetYourRefund no está disponible temporalmente por tareas de mantenimiento
       maybe_ineligible:
-        info: Estamos encantados de responder a sus preguntas sobre GetYourRefund. También podemos ponerlo en contacto con otras opciones para presentar su declaración de impuestos.
+        alternatives: También tenemos dos opciones alternativas de declaración de impuestos gratuitas para usted. Declare con nuestra herramienta de bricolaje, donde brindamos apoyo de chat mientras declara o prueba IRS Free File, un servicio en línea que le permite declarar sus propios impuestos.
+        diy_button: Declare con herramienta DIY
+        diy_criteria_list:
+          header: "¡Utiliza nuestra herramienta de bricolaje! Una gran elección si:"
+          item_1: Solo está declarando del 2019 (no de los años anteriores)
+          item_2: Se siente cómodo usando los servicios de declaración de impuestos en línea
+          item_3: Su situación fiscal es simple/clara
+          item_4: Necesita una solución rápida
+        info: "¡Nos complace responder cualquier pregunta que pueda tener sobre GetYourRefund! Contáctenos usando nuestra función de chat abajo de esta pagina."
         title: No estamos seguros de que califique para nuestros servicios.
       other_options:
         info: Estamos encantados de ayudarlo con sus impuestos, pero necesitamos verificar su identidad antes. La verificación de identidad es importante porque nos permite asegurarnos de que su información está protegida. Si no está de acuerdo con esto, a continuación tiene información sobre otras opciones gratuitas para presentar su declaración.
@@ -760,6 +774,7 @@ es:
       chat_with_us:
         chat: Si tiene preguntas, puede chatear con nosotros haciendo clic en el botón en la parte inferior derecha de su pantalla.
         info: "¡Sabemos que los impuestos pueden ser difíciles y estamos aquí para ayudarlo en cada paso del camino!"
+        partner_info_html: "%{partner_name} prepara declaraciones de impuestos de <strong>%{zip} (%{zip_name}).</strong>"
         title: "¡Nuestro equipo en %{partner_name} está aquí para ayudar!"
       consent:
         birth_date: Fecha de nacimiento
@@ -842,7 +857,11 @@ es:
       ever_married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
         title: "¿Alguna vez ha estado casado legalmente?"
+      feedback:
+        body: Apreciamos cualquier comentario adicional que tenga para servir mejor a nuestros clientes en el futuro.
+        title: Gracias por compartir su experiencia.
       file_with_help:
+        diy_option_html: Si desea declarar de inmediato, <a href="%{diy_path}">utilice nuestra herramienta DIY en su lugar.</a>
         info: Seleccionó nuestra opción de servicio completo. Nosotros haremos que responda una serie de preguntas sobre su situación fiscal (lo mejor que pueda) y que un especialista en impuestos revise todo con usted.
         right_option:
           confused: Su situación fiscal es confusa / complicada
@@ -850,6 +869,7 @@ es:
           need_assistance: Necesita ayuda con la declaración de impuestos.
           nervous: Le preocupa preparar su declaración de impuestos por su cuenta
         title: "¡Declara tus impuestos con la ayuda de un experto!"
+        two_to_three_weeks_html: La declaración con ayuda tardará de 2 a 3 semanas en procesarse. <b>No tendrá que pagar una multa después del 15 de julio si no debe dinero este año.</b>
       filing_joint:
         help_text: Generalmente, declarar sus impuestos juntos es más beneficioso para su reembolso. Su cónyuge necesitará verificar su identidad y firmar la declaración de impuestos final.
         title: "¿Está declarando sus impuestos con su cónyuge?"
@@ -933,7 +953,7 @@ es:
         state: Estado
         street_address: Dirección
         title: "¿Cuál es su dirección postal?"
-        zip_code: código postal
+        zip_code: Código postal
       married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.
         title: El 31 de diciembre, %{year}, ¿Estaba legalmente casado?
@@ -1001,8 +1021,8 @@ es:
       personal_info:
         info: Bienvenido, estamos encantados de ayudarte. Necesitamos información básica para comenzar.
         preferred_name: Nombre Preferido
-        state_of_residence: Estado de residencia
         title: Primero, obtengamos información básica.
+        zip_code: Código postal
       phone_number:
         info: Una vez que haya respondido todas las preguntas sobre impuestos, su preparador de impuestos lo llamará para revisar su situación fiscal.
         phone_number: Número de teléfono
@@ -1117,6 +1137,11 @@ es:
           partner_timing: "%{partner_name} se comunicará dentro de 3 días hábiles para discutir sus impuestos"
           review: Su asesor fiscal revisará su información
           timing: Su asesor fiscal se comunicará dentro de los 3 días hábiles para discutir sus impuestos.
+        satisfaction_face:
+          negative: Mala
+          neutral: Buena
+          positive: "¡Súper!"
+          question: "¿Cómo fue su experiencia con GetYourRefund?"
         title: "¡Felicidades! Su información tributaria ha sido enviada."
       tax_credit_disallowed:
         help_text: Responde "Sí" si le pidieron que reembolsaba alguno de estos créditos en el pasado.
@@ -1198,7 +1223,7 @@ es:
         info: Puede que también califique para recibir dinero adicional a través de créditos fiscales. ¡Vamos a ayudarle a máximizar su desembolso!
         title: "¡Le ayudaremos a obtener su cheque de estímulo declarando sus impuestos!"
       filed_prior_years:
-        title: "¿Ha declarado sus impuestos para los años 2016 y 2017?"
+        title: "¿Ha declarado sus impuestos para 2017?"
       filed_recently:
         title: "¿Ha declarado sus impuestos para los años 2018 y 2019?"
       filing_might_help:
@@ -1244,7 +1269,7 @@ es:
         no_hours_listed: Disculpe, no hay horario de apertura.
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
-        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name}) %>
+        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
     zendesk:
       extracts:
         filename: Nombre de archivo

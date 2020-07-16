@@ -216,7 +216,9 @@ class MixpanelService
           zendesk_instance_domain: intake.vita_partner&.zendesk_instance_domain,
           vita_partner_group_id: intake.vita_partner&.zendesk_group_id,
           vita_partner_name: intake.vita_partner&.name,
-          triaged_from_stimulus: intake.triaged_from_stimulus? ? "yes" : "no"
+          triaged_from_stimulus: intake.triaged_from_stimulus? ? "yes" : "no",
+          timezone: intake.timezone,
+          csat: intake.satisfaction_face,
       }
     end
 

@@ -81,10 +81,6 @@ class ZendeskDropOffService
     end
   end
 
-  def zendesk_timezone
-    TIMEZONE_MAP.fetch(@drop_off.timezone, "Mountain Time (US & Canada)")
-  end
-
   def intake_site_tag
     @drop_off.intake_site.downcase.gsub(/[ –-]/, "_") # that's a dash and an emdash, folks
   end
