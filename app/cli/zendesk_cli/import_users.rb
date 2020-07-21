@@ -14,7 +14,9 @@ class ZendeskCli
       "Customer Support Advocate" => "VITA Staff",
       "Quality Reviewer" => "VITA Staff",
       "Limited Volunteer" => "VITA Staff (assigned tickets only)",
-    }
+      "Partner Support - Explore Dashboard" => "Partner Support - Explore Dashboard",
+      "Brigade - All Client Access" => "Brigade - All Client Access",
+    }.freeze
 
     def self.from_csv(csv_path)
       rows = CSV.open(Rails.root.join(csv_path), 'r', headers: :first_row)
