@@ -220,7 +220,12 @@ vita_partners:
   source_parameters:
   - uuny
   states:
+  - CT
+  - DE
+  - ME
   - NY
+  - RI
+  - VT
   logo_path: ''
   weekly_capacity_limit: 500
 - name: "[MA/BTH] Online Intake (w/Boston Tax Help)"
