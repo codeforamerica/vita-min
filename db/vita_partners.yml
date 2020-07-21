@@ -178,7 +178,7 @@ vita_partners:
   - catalyst
   - RefundDay-C
   logo_path: ''
-  weekly_capacity_limit: 0
+  weekly_capacity_limit: 100
 - name: RefundDay
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009657014'
@@ -197,7 +197,7 @@ vita_partners:
   zendesk_group_id: '360010163193'
   display_name: United Way of Greater Newark
   logo_path: ''
-  weekly_capacity_limit: 0
+  weekly_capacity_limit: 20
 - name: United Way Capital Region (PA)
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009994193'
