@@ -61,6 +61,17 @@
                 <% end %>
               </div>
             </div>
+
+            <% if @form.errors[:document].any? %>
+              <div class="form-group form-group--error">
+                <% @form.errors.values.flatten.each do |error_message| %>
+                  <p class="text--error"><i class="icon-warning"></i>
+                    <%= error_message %>
+                  </p>
+                <% end %>
+              </div>
+            <% end %>
+
             <%= f.button class: "button button--primary button--wide" do %>
               <%=t("general.upload") %>
             <% end %>

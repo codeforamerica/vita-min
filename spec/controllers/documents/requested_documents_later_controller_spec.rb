@@ -186,6 +186,25 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
           expect(response).to redirect_to requested_documents_later_documents_path
         end
       end
+
+      context "with invalid params" do
+        let(:invalid_params) do
+          {
+            requested_document_upload_form: {
+              document: fixture_file_upload("attachments/test-pattern.html")
+            }
+          }
+        end
+
+        it "does not upload the attachment, redirects to :edit and shows a validation error" do
+          expect {
+            post :update, params: invalid_params
+          }.not_to change(documents_request.documents, :count)
+
+          expect(response.body).to include I18n.t("validators.file_type")
+          expect(response).to render_template(:edit)
+        end
+      end
     end
   end
 
