@@ -8,19 +8,52 @@
   <div class="slab slab--hero">
     <div class="grid">
       <div class="grid__item width-one-half">
-        <h1 class="diy-header">
-          <%= content_for :page_title %>
-        </h1>
-        <p class="diy-subheader spacing-below-60">
-          <strong>
-            <%=t("views.public_pages.diy_home.subheader") %>
-          </strong>
-        </p>
+        <% if session[:source] == 'adwords-f1' && I18n.locale == :en %>
+          <h1 class="diy-header">
+            Earn Up to $3,500 by Filling Out This Simple Form
+          </h1>
+          <p class="diy-subheader">
+            <strong>Does your family make less than $56,000? Could you use up to $3,500 to make ends meet? Did you know that a single form signs you up for stimulus checks and tax credits?</strong>
+          </p>
+          <p class="diy-subheader">
+            <strong>10 million people qualify for these government programs. And, Code for America, a nonprofit organization that makes government work for working people, is offering a free service to help you get your share.</strong>
+          </p>
+          <p class="diy-subheader">
+            <strong>Trained volunteers are ready to help you fill out the form. It only takes about an hour. Where else can you earn thousands of dollars for an hour of work?</strong>
+          </p>
+          <p class="diy-subheader spacing-below-60">
+            <strong>Don’t miss out. Start today.</strong>
+          </p>
+        <% elsif session[:source] == 'adwords-f2' && I18n.locale == :en %>
+          <h1 class="diy-header">
+            Take a smart step toward financial security for you and your family.
+          </h1>
+          <p class="diy-subheader">
+            <strong>Hard-working people like you want to be financially secure. But it can be hard to make ends meet. Good thing there are government programs with money to help working people get by in today’s tough economy.</strong>
+          </p>
+          <p class="diy-subheader">
+            <strong>Even if you’ve never paid taxes, you might qualify for up to $3,500 in stimulus checks and tax credits. 95% of people who fill out the form correctly receive money.</strong>
+          </p>
+          <p class="diy-subheader">
+            <strong>It only takes about an hour and the best part is that it is totally free. Below is a simple tool with step-by-step instructions to fill out your tax form. And IRS-certified volunteers are ready to help you do it right—from beginning to end.</strong>
+          </p>
+          <p class="diy-subheader spacing-below-60">
+            <strong>You can do it. Get started now.</strong>
+          </p>
+        <% else %>
+          <h1 class="diy-header">
+            <%= content_for :page_title %>
+          </h1>
+          <p class="diy-subheader spacing-below-60">
+            <strong>
+              <%=t("views.public_pages.diy_home.subheader") %>
+            </strong>
+          </p>
+        <% end %>
         <%= link_to [:diy, DiyNavigation.first.controller_name],
           class: "button button--primary button--wide text--centered" do %>
           <%= t("views.public_pages.diy_home.send_link") %>
         <% end %>
-
       </div>
     </div>
   </div>
