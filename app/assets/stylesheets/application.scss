@@ -177,13 +177,18 @@ body {
       }
     }
 
+    .diy-header {
+      max-width: 450px;
+    }
+
     .diy-subheader {
       font-weight: 200;
-      max-width: 391px;
+      max-width: 450px;
     }
 
     .grid {
       position: relative;
+      min-height: 355px;
 
       @media screen and (max-width: $site-max-up) {
         position: static;
@@ -204,7 +209,7 @@ body {
         background-image: image-url("homepage-hero.svg");
         background-repeat: no-repeat;
         background-size: 400px 355px;
-        background-position: right;
+        background-position: top right;
 
         @media screen and (max-width: $site-max-up) {
           background-position: bottom left;
