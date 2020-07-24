@@ -421,6 +421,8 @@ vita_partners:
   display_name: United Way of Central Alabama
   source_parameters:
   - uwcaorg
+  states:
+  - AL
   logo_path: partner-logos/uw-central-alabama.jpg
   weekly_capacity_limit: 25
 - name: United Way of Greater Nashville
@@ -432,7 +434,6 @@ vita_partners:
   states:
   - TN
   - GA
-  - AL
   logo_path: partner-logos/uw-greater-nashville.png
   weekly_capacity_limit: 500
 - name: Zacchaeus House for Tax Assistance

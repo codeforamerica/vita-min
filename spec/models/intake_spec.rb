@@ -800,7 +800,7 @@ describe Intake do
       it_behaves_like :state_level_routing, "ME", "Urban Upbound (NY)", "eitc"
       it_behaves_like :state_level_routing, "TN", "United Way of Greater Nashville", "eitc"
       it_behaves_like :state_level_routing, "GA", "United Way of Greater Nashville", "eitc"
-      it_behaves_like :state_level_routing, "AL", "United Way of Greater Nashville", "eitc"
+      it_behaves_like :state_level_routing, "AL", "United Way of Central Alabama", "eitc"
       it_behaves_like :state_level_routing, "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
     end
 
