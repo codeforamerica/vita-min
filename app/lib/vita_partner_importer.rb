@@ -48,6 +48,8 @@ module VitaPartnerImporter
     say "reviewing #{partner.name}"
     partner_data = partner.serializable_hash
     changed = data.filter { |k, v| partner_data[k] != v }
+    # WIP
+    # changed = partner_data.filter { |k, v| data[k] != v && ["id", "created_at", "updated_at"].exclude?(k) }
 
     changed.each { |k, v| say "updating :#{k} with #{v}" }
     say "  -> resetting to YML" unless changed.empty?

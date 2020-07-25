@@ -66,15 +66,44 @@ RSpec.describe VitaPartnerImporter do
     end
 
     context "when a partner exists with that group ID" do
-      let!(:existing_partner) do
-        create(:vita_partner, name: "Old Name", zendesk_group_id: zendesk_group_id)
+      context "when a field has changed" do
+        let!(:existing_partner) do
+          create(:vita_partner, name: "Old Name", zendesk_group_id: zendesk_group_id)
+        end
+
+        it "updates the existing partner" do
+          expect do
+            TestImporter.upsert_vita_partners
+          end.to change { existing_partner.reload.name }
+            .from("Old Name").to("Tax Help Colorado")
+        end
       end
 
-      it "updates the existing partner" do
-        expect do
-          TestImporter.upsert_vita_partners
-        end.to change { existing_partner.reload.name }
-          .from("Old Name").to("Tax Help Colorado")
+      context "when a field is deleted from a partner" do
+        let!(:existing_partner) do
+          create(
+            :vita_partner,
+            name: "Fake Name",
+            zendesk_instance_domain: "eitc",
+            zendesk_group_id: "1234567890",
+            accepts_overflow: true,
+          )
+        end
+
+        before do
+          fake_partners_yaml["vita_partners"] << {
+            "name" => "Fake Name",
+            "zendesk_instance_domain" => "eitc",
+            "zendesk_group_id" => "1234567890",
+          }
+        end
+
+        it "updates the corresponding column to nil or default value" do
+          expect do
+            TestImporter.upsert_vita_partners
+          end.to change { existing_partner.reload.accepts_overflow }
+            .from(true).to(false)
+        end
       end
     end
 
