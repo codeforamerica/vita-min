@@ -438,7 +438,7 @@ class Intake < ApplicationRecord
     # this is a RouteOptions struct, defined below
     route_options = partner_for_source || partner_for_state || partner_for_overflow
 
-    raise "partner not found!" unless route_options.partner # this shouldn't happen unless the data is horked!
+    raise "partner not found!" unless route_options&.partner # this shouldn't happen unless the data is horked!
 
     update(
       vita_partner_id: route_options.partner.id,
@@ -448,6 +448,10 @@ class Intake < ApplicationRecord
       routing_criteria: route_options.routing_criteria,
       routing_value: route_options.routing_value,
     )
+  end
+
+  def might_encounter_delayed_service?
+    !vita_partner.has_capacity_for?(self)
   end
 
   def zendesk_instance
