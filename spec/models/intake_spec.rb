@@ -935,6 +935,20 @@ describe Intake do
     end
   end
 
+  describe "#might_encounter_delayed_service?" do
+    let(:vita_partner) { create :vita_partner }
+    let(:intake) { build :intake, vita_partner: vita_partner }
+
+    before do
+      allow(vita_partner).to receive(:has_capacity_for?).with(intake).and_return(true)
+    end
+
+    it "returns true if the partner does not have capacity for this intake" do
+      expect(intake.might_encounter_delayed_service?).to eq false
+      expect(vita_partner).to have_received(:has_capacity_for?).with(intake)
+    end
+  end
+
   describe "#contact_info_filtered_by_preferences" do
     let(:intake) do
       build :intake,

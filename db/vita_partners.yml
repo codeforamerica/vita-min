@@ -69,7 +69,7 @@ vita_partners:
   - fc
   states:
   - TX
-  accepts_overflow: true
+  accepts_overflow: false
   logo_path: ''
   weekly_capacity_limit: 0
 - name: United Way of Central Ohio
@@ -95,7 +95,7 @@ vita_partners:
   zendesk_group_id: '360009581934'
   display_name: United Way of Tucson and Southern Arizona
   logo_path: ''
-  accepts_overflow: true
+  accepts_overflow: false
   states:
   - AZ
   weekly_capacity_limit: 0
@@ -228,6 +228,7 @@ vita_partners:
   - VT
   logo_path: ''
   weekly_capacity_limit: 500
+  accepts_overflow: true
 - name: "[MA/BTH] Online Intake (w/Boston Tax Help)"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011044474'
