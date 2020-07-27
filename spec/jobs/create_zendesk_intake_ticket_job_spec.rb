@@ -43,7 +43,7 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
             }.to change(ClientEffort, :count).by(1)
 
             client_effort = ClientEffort.last
-            expect(client_effort.effort_type_consented?).to eq true
+            expect(client_effort.effort_type).to eq "consented"
             expect(client_effort.intake).to eq intake
             expect(client_effort.ticket_id).to eq new_ticket_id
             expect(client_effort.made_at).to be_within(1.second).of(Time.now)

@@ -70,7 +70,7 @@ describe UnsentDocumentsService do
         }.to change(ClientEffort, :count).by(1)
 
         client_effort = ClientEffort.last
-        expect(client_effort.effort_type_uploaded_docs?).to eq true
+        expect(client_effort.effort_type).to eq "uploaded_docs"
         expect(client_effort.intake).to eq intake_docs_not_sent
         expect(client_effort.ticket_id).to eq intake_docs_not_sent.intake_ticket_id
         expect(client_effort.made_at).to be_within(1.second).of(document2.created_at)
