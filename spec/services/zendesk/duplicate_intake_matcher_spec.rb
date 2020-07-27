@@ -48,6 +48,7 @@ describe Zendesk::DuplicateIntakeMatcher do
 
   describe ".run" do
     let(:merging_service) { Zendesk::TicketMergingService.new }
+    let(:identifying_service) { Zendesk::TicketIdentifyingService.new }
     let(:primary_id) { original_intake.intake_ticket_id }
     let(:mapping) do
       [original_intake, duplicate_intake].each_with_object({}) do |intake, hash|
@@ -56,15 +57,18 @@ describe Zendesk::DuplicateIntakeMatcher do
     end
     let(:expected_csv) do
       <<~CSV
-          name,email,phone,filing years,intake ticket mapping,primary ticket id
-          \"george bell, jr.\",george.bell@gmail.com,1234567890,\"2019, 2018\",\"#{mapping}\",#{primary_id}
+        name,email,phone,filing years,intake ticket mapping,primary ticket id
+        \"george bell, jr.\",george.bell@gmail.com,1234567890,\"2019, 2018\",\"#{mapping}\",#{primary_id}
       CSV
     end
-    before { allow(subject).to receive(:merging_service).and_return(merging_service) }
+    before do
+      allow(subject).to receive(:merging_service).and_return(merging_service)
+      allow(Zendesk::TicketIdentifyingService).to receive(:new).and_return(identifying_service)
+    end
 
     context "when primary ticket is identified" do
       before do
-        allow(merging_service).to receive(:find_primary_ticket)
+        allow(identifying_service).to receive(:find_primary_ticket)
           .and_return(double(id: primary_id))
       end
 
@@ -87,7 +91,7 @@ describe Zendesk::DuplicateIntakeMatcher do
 
     context "when primary ticket is not identified (e.g. all tickets are closed)" do
       before do
-        allow(merging_service).to receive(:find_primary_ticket)
+        allow(identifying_service).to receive(:find_primary_ticket)
           .and_return(nil)
       end
       it "does not blow up" do
