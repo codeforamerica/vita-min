@@ -724,7 +724,6 @@ describe Intake do
       end
 
       it_behaves_like :source_group_matching, "uwkc", "360009173713"
-      it_behaves_like :source_group_matching, "uwco", "360009440374"
       it_behaves_like :source_group_matching, "uwvp", "360009267673"
       it_behaves_like :source_group_matching, "uwccr", "360009708193"
       it_behaves_like :source_group_matching, "RefundDay-B", "360009704234"
@@ -750,15 +749,15 @@ describe Intake do
       end
 
       context "when source param is for an organization in an otherwise UWTSA state" do
-        let(:source) { "uwco" }
-        let(:state) { "oh" }
+        let(:source) { "fc" }
+        let(:state) { "ny" }
 
         before do
           intake.assign_vita_partner!
         end
 
         it "assigns to the correct group and the correct instance" do
-          expect(intake.reload.vita_partner.name).to eq "United Way of Central Ohio"
+          expect(intake.reload.vita_partner.name).to eq "Foundation Communities"
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
@@ -785,7 +784,6 @@ describe Intake do
       it_behaves_like :state_level_routing, "CA", "[United Way California] Online Intake", "eitc"
       it_behaves_like :state_level_routing, "WA", "United Way of King County", "eitc"
       it_behaves_like :state_level_routing, "PA", "Campaign for Working Families", "eitc"
-      it_behaves_like :state_level_routing, "OH", "United Way of Central Ohio", "eitc"
       it_behaves_like :state_level_routing, "NV", "Nevada Free Taxes Coalition", "eitc"
       it_behaves_like :state_level_routing, "TX", "Foundation Communities", "eitc"
       it_behaves_like :state_level_routing, "AZ", "United Way of Tucson and Southern Arizona", "eitc"

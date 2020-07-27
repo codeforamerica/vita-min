@@ -77,11 +77,8 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009440374'
   display_name: United Way of Central Ohio
-  source_parameters:
-  - uwco
-  states:
-  - OH
   logo_path: ''
+  weekly_capacity_limit: 0
 - name: Nevada Free Taxes Coalition
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009537374'
@@ -132,8 +129,6 @@ vita_partners:
   display_name: United Way Bay Area
   source_parameters:
   - uwba
-  states:
-  - AK
   logo_path: partner-logos/uwba.svg
   weekly_capacity_limit: 0
 - name: "[United Way California] Capital Region"
@@ -149,6 +144,8 @@ vita_partners:
   display_name: Koreatown Youth Community Center
   source_parameters:
   - kycc
+  states:
+  - AK
   logo_path: ''
 - name: "[United Way California] Orange County"
   zendesk_instance_domain: eitc

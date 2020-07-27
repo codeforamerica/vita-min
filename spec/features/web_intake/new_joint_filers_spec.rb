@@ -46,11 +46,11 @@ RSpec.feature "Web Intake Joint Filers" do
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "Preferred name", with: "Gary"
-    fill_in "ZIP code", with: "45701"
+    fill_in "ZIP code", with: "20121"
     click_on "Continue"
 
     # Chat with us
-    expect(page).to have_selector("h1", text: "Our team at United Way of Central Ohio is here to help!")
+    expect(page).to have_selector("h1", text: "Our team at United Way of Greater Richmond and Petersburg is here to help!")
     click_on "Continue"
 
     # Phone number
@@ -195,7 +195,7 @@ RSpec.feature "Web Intake Joint Filers" do
     # Income from working
     select "3 jobs", from: "In 2019, how many jobs did you or your spouse have?"
     click_on "Next"
-    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Ohio?")
+    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Virginia?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive wages or salary?")
     click_on "Yes"
@@ -418,7 +418,7 @@ RSpec.feature "Web Intake Joint Filers" do
 
     # Contact information
     expect(page).to have_text("What is your mailing address?")
-    expect(page).to have_select('State', selected: 'Ohio')
+    expect(page).to have_select('State', selected: 'Virginia')
 
     fill_in "Street address", with: "123 Main St."
     fill_in "City", with: "Anytown"

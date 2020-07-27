@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.feature "Web Intake Single Filer" do
   let(:ticket_id) { 9876 }
-  let!(:vita_partner) { VitaPartner.find_by!(name: "United Way of Central Ohio") }
 
   before do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
@@ -49,12 +48,12 @@ RSpec.feature "Web Intake Single Filer" do
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "Preferred name", with: "Gary"
-    fill_in "ZIP code", with: "45701"
+    fill_in "ZIP code", with: "20121"
     click_on "Continue"
 
     # Chat with us
-    expect(page).to have_selector("h1", text: "Our team at United Way of Central Ohio is here to help!")
-    expect(page).to have_selector("p", text: "United Way of Central Ohio handles tax returns from 45701 (Athens, Ohio).")
+    expect(page).to have_selector("h1", text: "Our team at United Way of Greater Richmond and Petersburg is here to help!")
+    expect(page).to have_selector("p", text: "United Way of Greater Richmond and Petersburg handles tax returns from 20121 (Centreville, Virginia).")
     click_on "Continue"
 
     # Phone number
@@ -129,7 +128,7 @@ RSpec.feature "Web Intake Single Filer" do
     # Income from working
     select "3 jobs", from: "In 2019, how many jobs did you have?"
     click_on "Next"
-    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Ohio?")
+    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Virginia?")
     click_on "No"
     expect(page).to have_selector("h1", text: "In 2019, did you receive wages or salary?")
     click_on "Yes"
