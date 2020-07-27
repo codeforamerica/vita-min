@@ -105,6 +105,44 @@ RSpec.describe VitaPartnerImporter do
             .from(true).to(false)
         end
       end
+
+      context "when a source code and state are removed" do
+        let!(:existing_partner) do
+          create(
+            :vita_partner,
+            name: "Fake Name",
+            zendesk_instance_domain: "eitc",
+            zendesk_group_id: zendesk_group_id,
+            states: [create(:state)],
+            )
+        end
+
+        let!(:source_parameter) do
+          create :source_parameter, code: "hello", vita_partner: existing_partner
+        end
+
+        let(:fake_partners_yaml) do
+          {
+            "vita_partners" => [{
+              "name" => "Tax Help Colorado",
+              "zendesk_instance_domain" => "eitc",
+              "zendesk_group_id" => zendesk_group_id,
+              "display_name" => "Tax Help Colorado",
+              "logo_path" => "",
+              "weekly_capacity_limit" => 500
+            }],
+          }
+        end
+
+
+        it "removes the relationship with the partner" do
+          TestImporter.upsert_vita_partners
+
+          existing_partner.reload
+          expect(existing_partner.source_parameters.count).to eq 0
+          expect(existing_partner.states.count).to eq 0
+        end
+      end
     end
 
     context "when changing a group ID for a given partner" do
