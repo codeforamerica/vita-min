@@ -192,10 +192,7 @@ module ZendeskServiceHelper
       **extra_attributes
     )
 
-    unless ticket.save
-      raise ZendeskAPIError.new("Error creating Zendesk Ticket: #{ticket.errors}")
-    end
-
+    ticket.save!
     ticket
   end
 
