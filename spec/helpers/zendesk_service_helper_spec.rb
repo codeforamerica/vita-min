@@ -163,7 +163,7 @@ RSpec.describe ZendeskServiceHelper do
         context "search includes phone number" do
           it "updates the user phone number in Zendesk" do
             expect(result).to receive(:phone=).with(phone)
-            expect(result).to receive(:save)
+            expect(result).to receive(:save!)
             expect(service.find_or_create_end_user("Nancy Nectarine", "test@example.com", phone)).to eq(result.id)
           end
         end
@@ -173,7 +173,7 @@ RSpec.describe ZendeskServiceHelper do
 
           it "does not erase the user phone number in Zendesk" do
             expect(result).not_to receive(:phone=).with(phone)
-            expect(result).not_to receive(:save)
+            expect(result).not_to receive(:save!)
             expect(service.find_or_create_end_user("Nancy Nectarine", "test@example.com", phone)).to eq(result.id)
           end
         end
@@ -207,7 +207,7 @@ RSpec.describe ZendeskServiceHelper do
 
         before do
           allow(fake_zendesk_client).to receive(:users).and_return(fake_zendesk_user_list)
-          allow(fake_zendesk_user_list).to receive(:create).and_return(fake_zendesk_user)
+          allow(fake_zendesk_user_list).to receive(:create!).and_return(fake_zendesk_user)
           allow(service).to receive(:client).and_return(fake_zendesk_client)
         end
 
@@ -217,7 +217,7 @@ RSpec.describe ZendeskServiceHelper do
               service.create_end_user(name: name)
             end
           end
-          expect(fake_zendesk_user_list).to have_received(:create)
+          expect(fake_zendesk_user_list).to have_received(:create!)
             .with(hash_including(name: "#{name} (Fake User)")).exactly(qualified_environments.count).times
         end
       end

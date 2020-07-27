@@ -4,6 +4,7 @@ describe ZendeskDropOffService do
   let(:fake_zendesk_client) { double(ZendeskAPI::Client) }
   let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2, errors: nil) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
+  let(:fake_zendesk_search_results) { double("Collection", to_a!: [])}
   let(:comment_uploads) { [] }
   let(:comment_body) do
     <<~BODY
@@ -25,8 +26,8 @@ describe ZendeskDropOffService do
     allow(ZendeskAPI::Ticket).to receive(:new).and_return(fake_zendesk_ticket)
     allow(ZendeskAPI::Ticket).to receive(:find).and_return(fake_zendesk_ticket)
 
-    allow(fake_zendesk_client).to receive_message_chain(:users, :search).and_return([])
-    allow(fake_zendesk_client).to receive_message_chain(:users, :create).and_return(fake_zendesk_user)
+    allow(fake_zendesk_client).to receive_message_chain(:users, :search).and_return(fake_zendesk_search_results)
+    allow(fake_zendesk_client).to receive_message_chain(:users, :create!).and_return(fake_zendesk_user)
 
     allow(fake_zendesk_ticket).to receive(:comment=)
     allow(fake_zendesk_ticket).to receive_message_chain(:comment, :uploads).and_return(comment_uploads)
