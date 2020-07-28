@@ -11,18 +11,18 @@ RSpec.describe DuplicateIntakeGuard do
 
   let(:subject) { DuplicateIntakeGuard.new(matching_intake) }
 
-  describe "has_duplicate?" do
+  describe "get_duplicates" do
     context "intake with matching email address exists" do
       let!(:existing_intake) { create(:intake, email_address: "existing@client.com") }
       let(:matching_intake) { create(:intake, email_address: "existing@client.com") }
 
       it "returns false if the intake pdf has not been sent to zendesk" do
-        expect(subject).not_to have_duplicate
+        expect(subject.get_duplicates).to be_empty
       end
 
       it "returns true if the intake pdf has been sent to zendesk" do
         existing_intake.update(intake_pdf_sent_to_zendesk: true)
-        expect(subject).to have_duplicate
+        expect(subject.get_duplicates).to include(existing_intake)
       end
     end
 
@@ -31,12 +31,12 @@ RSpec.describe DuplicateIntakeGuard do
       let(:matching_intake) { create(:intake, phone_number: "1234567890") }
 
       it "returns false if the intake pdf has not been sent to zendesk" do
-        expect(subject).not_to have_duplicate
+        expect(subject.get_duplicates).to be_empty
       end
 
       it "returns true if the intake pdf has been sent to zendesk" do
         existing_intake.update(intake_pdf_sent_to_zendesk: true)
-        expect(subject).to have_duplicate
+        expect(subject.get_duplicates).to include(existing_intake)
       end
     end
 
@@ -45,16 +45,42 @@ RSpec.describe DuplicateIntakeGuard do
       let(:matching_intake) { create(:intake) }
 
       it "there is no match without phone and email" do
-        expect(subject).not_to have_duplicate
+        expect(subject.get_duplicates).to be_empty
       end
 
       it "there is no match with email address" do
         matching_intake.update(email_address: "new@email.com")
-        expect(subject).not_to have_duplicate
+        expect(subject.get_duplicates).to be_empty
       end
 
       it "there is no match with phone number" do
         matching_intake.update(phone_number: "1234567890")
+        expect(subject.get_duplicates).to be_empty
+      end
+    end
+  end
+
+  describe "has_duplicate?" do
+    let(:matching_intake) { create(:intake, email_address: "existing@client.com") }
+
+    context "has duplicates" do
+      let(:intake) { create(:intake, email_address: "existing@client.com") }
+
+      before do
+        allow(subject).to receive(:get_duplicates).and_return(Intake.where(email_address: "existing@client.com"))
+      end
+
+      it "returns true" do
+        expect(subject).to have_duplicate
+      end
+    end
+
+    context "does not have duplicates" do
+      before do
+        allow(subject).to receive(:get_duplicates).and_return(Intake.where(email_address: "non-existent@client.com"))
+      end
+
+      it "returns false" do
         expect(subject).not_to have_duplicate
       end
     end

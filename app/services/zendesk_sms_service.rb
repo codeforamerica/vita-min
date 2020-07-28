@@ -22,8 +22,9 @@ class ZendeskSmsService
     end
 
     # get all associated tickets for intakes and drop offs
-    related_ticket_ids = (intakes.map { |intake| intake.intake_ticket_id.to_s } +
-        drop_offs.map { |drop_off| drop_off.zendesk_ticket_id }).reject(&:blank?).uniq.sort
+    related_intake_ticket_ids = intakes.map { |intake| intake.intake_ticket_id.to_s }
+    related_drop_off_ticket_ids = drop_offs.map { |drop_off| drop_off.zendesk_ticket_id }
+    related_ticket_ids = (related_intake_ticket_ids + related_drop_off_ticket_ids).reject(&:blank?).uniq.sort
 
     if related_ticket_ids.empty?
       DatadogApi.increment("zendesk.sms.inbound.user.tickets.not_found")
@@ -54,7 +55,7 @@ class ZendeskSmsService
       return append_comment_to_ticket(
         ticket_id: sms_ticket_id,
         comment: "This user has no associated open tickets.\ntext_user_has_no_other_open_ticket",
-        )
+      )
     end
 
     related_open_tickets.each do |related_ticket|
@@ -80,6 +81,18 @@ class ZendeskSmsService
         EitcZendeskInstance::LINKED_TICKET => ticket_urls.join(",")
       },
     )
+
+    # create client effort
+    # TODO: decide whether this lives here or further up since it won't happen if all tickets are closed
+    ticket_identifying_service = Zendesk::TicketIdentifyingService.new
+    primary_ticket = ticket_identifying_service.find_primary_ticket(related_intake_ticket_ids)
+    if primary_ticket
+      # TODO: think about whether this should be .first - will we have multiple intakes with the same ticket id? our logic only finds the primary ticket, not the primary intake (which could be different)
+      primary_intake = intakes.where(intake_ticket_id: primary_ticket.id).first
+      primary_intake.client_efforts.create(effort_type: :sent_sms, ticket_id: primary_ticket.id, made_at: Time.now)
+    end
+
+    # send Datadog event
     DatadogApi.increment("zendesk.sms.inbound.user.tickets.open.linked")
   end
 end

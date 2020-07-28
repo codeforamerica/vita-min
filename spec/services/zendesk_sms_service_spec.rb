@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe ZendeskSmsService do
   let(:service) { described_class.new }
+  let(:fake_identifying_service) { Zendesk::TicketIdentifyingService.new }
   let(:sms_ticket_id) { 1492 }
   let(:phone_number) { "14158161286" }
   let(:sms_message_body) { "body here" }
@@ -9,6 +10,8 @@ describe ZendeskSmsService do
 
   before do
     allow(service).to receive(:append_comment_to_ticket).and_return true
+    allow(Zendesk::TicketIdentifyingService).to receive(:new).and_return(fake_identifying_service)
+    allow(fake_identifying_service).to receive(:find_primary_ticket)
 
     DatadogApi.configure do |c|
       c.enabled = true
@@ -95,6 +98,7 @@ describe ZendeskSmsService do
         allow(service).to receive(:get_ticket).with(ticket_id: "2").and_return fake_ticket_2
         allow(service).to receive(:get_ticket).with(ticket_id: "3").and_return fake_ticket_3
         allow(service).to receive(:get_ticket).with(ticket_id: "4").and_return fake_ticket_4
+        allow(fake_identifying_service).to receive(:find_primary_ticket).with(["3", "4"]).and_return(fake_ticket_3)
       end
 
       it "updates the sms ticket with a comment to link to the other relevant tickets" do
@@ -158,6 +162,22 @@ describe ZendeskSmsService do
 
         expect(Dogapi::Client).to have_received(:new).once
         expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.sms.inbound.user.tickets.open.linked', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+      end
+
+      it "creates a client effort on the primary intake" do
+        expect {
+          service.handle_inbound_sms(
+            phone_number: phone_number,
+            sms_ticket_id: sms_ticket_id,
+            message_body: sms_message_body
+          )
+        }.to change(ClientEffort, :count).by(1)
+
+        client_effort = ClientEffort.last
+        expect(client_effort.effort_type).to eq "sent_sms"
+        expect(client_effort.intake).to eq first_intake
+        expect(client_effort.ticket_id).to eq first_intake.intake_ticket_id
+        expect(client_effort.made_at).to be_within(1.second).of(Time.now)
       end
     end
 
