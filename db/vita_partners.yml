@@ -469,7 +469,7 @@ vita_partners:
   display_name: United Way of Racine County
   source_parameters:
   - unitedwayracine
-  logo_path: ''
+  logo_path: 'partner-logos/UWRC.png'
 - name: La Casa de Esperanza (WI)
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011477453'
@@ -477,3 +477,10 @@ vita_partners:
   source_parameters:
   - WILCDE
   logo_path: ''
+- name: United Way Suncoast
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360012153274'
+  display_name: United Way Suncoast
+  source_parameters:
+    - uwsuncoast
+  logo_path: 'partner-logos/UWSC.png'
