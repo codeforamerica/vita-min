@@ -9,6 +9,7 @@ class ZendeskDropOffService
     "uwco" => EitcZendeskInstance::UNITED_WAY_CENTRAL_OHIO,
     "fc" => EitcZendeskInstance::FOUNDATION_COMMUNITIES,
     "uwvp" => EitcZendeskInstance::UNITED_WAY_VIRGINIA,
+    "cwf" => EitcZendeskInstance::CAMPAIGN_FOR_WORKING_FAMILIES,
   }.freeze
 
   def initialize(drop_off)
