@@ -118,29 +118,6 @@ describe ZendeskIntakeService do
       end
 
     end
-
-    context "when unable to create a requester" do
-      before do
-        allow(service).to receive(:create_intake_ticket_requester) { nil }
-        allow(Raven).to receive(:extra_context)
-        allow(Raven).to receive(:capture_message)
-      end
-
-      it "notifies sentry" do
-        user_attributes = {
-          name: intake.preferred_name,
-          email: intake.email_address,
-          phone: intake.phone_number,
-          intake_id: intake.id
-        }
-        intake.intake_ticket_requester_id = nil
-        service.assign_requester
-
-        expect(Raven).to have_received(:extra_context).with(hash_including(:intake_id, :level))
-        expect(Raven).to have_received(:capture_message)
-                           .with(/ZendeskIntakeTicketJob failed to create a ticket requester/)
-      end
-    end
   end
 
   describe "#create_intake_ticket_requester" do
