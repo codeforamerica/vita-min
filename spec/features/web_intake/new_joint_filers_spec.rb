@@ -393,7 +393,7 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Attach your 2018 tax return")
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Do you have any additional documents?")
+    expect(page).to have_selector("h1", text: "Please share any additional documents.")
     attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
     expect(page).to have_content("test-pattern.png")

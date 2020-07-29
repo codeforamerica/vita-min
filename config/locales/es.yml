@@ -238,8 +238,8 @@ es:
           title: "¡Le damos la bienvenida al servicio que le permite presentar su propia declaración de impuestos!"
     documents:
       additional_documents:
-        help_text: Agregue todos los documentos o formularios adicionales que le gustaría compartir con su preparador de impuestos. Incluya cualquier formulario lo cual no esté seguro de utilizar. Su preparador de impuestos determinará si los formularios son necesarios para su declaración.
-        title: "¿Tiene algún documento adicional?"
+        help_text: No se obliga a compartir documentos adicionales, pero es posible que tenga otros documentos que nos ayudara consequirle un reembolso mas grande.
+        title: Por favor, provea cualquieras documentos adicionales
       care_provider_statements:
         help_text_html: "<strong>Es posible que ya tenga esta declaración</strong> porque nos ha confirmado que pagó por cuidado de niños o dependientes. Comuníquese con su centro de atención si necesita esa documentación."
         title: Anexe sus declaraciones de centros de cuidado infantil o de personas que han proveído cuidado.
@@ -312,7 +312,7 @@ es:
       intro:
         info: Basado en las respuestas a nuestras preguntas anteriores, tenemos una lista de documentos que debe compartir con nosotros. Su progreso será guardado y podrá regresar con más documentos en otro momento.
         might_have: 'También podría tener:'
-        should_have: 'Debería tener:'
+        should_have: 'Debería tener los siguientes documentos:'
         title: Muy bien, ¡recojamos sus documentos!
       ira_statements:
         help_text_html: "<strong>Es posible que tenga este documento</strong> porque nos ha confirmado que hizo contribuciones a una cuenta de jubilación."

@@ -9,18 +9,18 @@
             <%= content_for(:page_title) %>
           </h1>
           <p class="text--help">
-            <%=t("views.documents.intro.info") %>
+            <%= t("views.documents.intro.info") %>
           </p>
           <p class="text--help">
             <strong>
-              <%=t("general.security_html", :privacy_link => link_to(t("general.privacy_policy"), privacy_path, target: "_blank")) %>
+              <%= t("general.security_html", :privacy_link => link_to(t("general.privacy_policy"), privacy_path, target: "_blank")) %>
             </strong>
           </p>
 
           <div class="document-overview-list">
             <% if current_intake.must_have_document_types.present? %>
               <p>
-                <strong><%=t("views.documents.intro.should_have") %></strong>
+                <strong><%= t("views.documents.intro.should_have") %></strong>
               </p>
               <% current_intake.must_have_document_types.each do |type| %>
                 <div class="document-overview-list__item">
