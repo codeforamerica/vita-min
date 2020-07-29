@@ -32,7 +32,7 @@ vita_partners:
   states:
   - WA
   logo_path: ''
-  weekly_capacity_limit: 0
+  weekly_capacity_limit: 30
 - name: Campaign for Working Families
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009220253'
@@ -122,7 +122,7 @@ vita_partners:
   states:
   - CA
   logo_path: ''
-  weekly_capacity_limit: 0
+  weekly_capacity_limit: 500
 - name: United Way Bay Area
   zendesk_instance_domain: eitc
   zendesk_group_id: '360007994533'
@@ -130,7 +130,7 @@ vita_partners:
   source_parameters:
   - uwba
   logo_path: partner-logos/uwba.svg
-  weekly_capacity_limit: 0
+  weekly_capacity_limit: 500
 - name: "[United Way California] Capital Region"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009708193'
