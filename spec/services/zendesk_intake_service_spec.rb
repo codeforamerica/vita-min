@@ -59,8 +59,10 @@ describe ZendeskIntakeService do
     DatadogApi.configure do |c|
       c.enabled = true
       c.namespace = "test.dogapi"
+      c.env = "production"
     end
     allow(Dogapi::Client).to receive(:new).and_return(fake_dogapi)
+    allow(Rails).to receive(:env).and_return("production".inquiry)
   end
 
   after do
@@ -224,6 +226,17 @@ describe ZendeskIntakeService do
 
         expect(Dogapi::Client).to have_received(:new).once
         expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.ticket.created', 1, {:tags => ["env:"+Rails.env], :type => "count"})
+      end
+
+      context "in a non-production environment" do
+        before do
+          allow(Rails).to receive(:env).and_return("demo".inquiry)
+        end
+
+        it "tags the new ticket as test_ticket" do
+          service.create_intake_ticket
+          expect(service).to have_received(:create_ticket).with(hash_including(tags: ["test_ticket"]))
+        end
       end
     end
 
@@ -881,5 +894,9 @@ describe ZendeskIntakeService do
 
   after do
     DatadogApi.instance_variable_set("@dogapi_client", nil)
+    DatadogApi.configure do |c|
+      c.env = "test"
+    end
+    allow(Rails).to receive(:env).and_return("test".inquiry)
   end
 end

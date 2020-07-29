@@ -58,6 +58,7 @@ class ZendeskIntakeService
     @intake.transaction do
       # we only want to create an initial ticket status if we are able
       # to make a zendesk ticket without errors
+      tags = Rails.env.production? ? [] : ["test_ticket"]
       ticket_content = {
           subject: new_ticket_subject,
           requester_id: @intake.intake_ticket_requester_id,
@@ -65,7 +66,7 @@ class ZendeskIntakeService
           group_id: @intake.vita_partner.zendesk_group_id,
           body: new_ticket_body,
           fields: new_ticket_fields,
-          tags: [],
+          tags: tags,
       }
       if @intake.triaged_from_stimulus?
         ticket_content[:tags] += ["triaged_from_stimulus"]
