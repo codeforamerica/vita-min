@@ -161,10 +161,46 @@ RSpec.describe ApplicationController do
     end
 
     describe "with no preferences" do
-      it "defers to the default locale" do
-        get :index
+      context "with a request to getyourrefund.org" do
+        let(:available_locales) { ['en', 'es'] }
+        before do
+          allow_any_instance_of(ActionController::TestRequest).to receive(:domain).and_return "getyourrefund.org"
+          allow(I18n).to receive(:default_locale).and_return('en')
+        end
 
-        expect(I18n).to have_received(:with_locale).with('zz', any_args)
+        it "defaults to english" do
+          get :index
+
+          expect(I18n).to have_received(:with_locale).with('en', any_args)
+        end
+      end
+
+      context "with a request to mireembolso.org and spanish is available" do
+        let(:available_locales) { ['en', 'es'] }
+        before do
+          allow_any_instance_of(ActionController::TestRequest).to receive(:domain).and_return "mireembolso.org"
+          allow(I18n).to receive(:default_locale).and_return('en')
+        end
+
+        it "defaults to Spanish" do
+          get :index
+
+          expect(I18n).to have_received(:with_locale).with('es', any_args)
+        end
+      end
+
+      context "with a request to mireembolso.org and spanish is unavailable" do
+        let(:available_locales) { ['en', 'zz'] }
+        before do
+          allow_any_instance_of(ActionController::TestRequest).to receive(:domain).and_return "mireembolso.org"
+          allow(I18n).to receive(:default_locale).and_return('en')
+        end
+
+        it "defaults to English" do
+          get :index
+
+          expect(I18n).to have_received(:with_locale).with('en', any_args)
+        end
       end
     end
 
@@ -183,6 +219,34 @@ RSpec.describe ApplicationController do
 
       context "indicated language is available" do
         let(:language) { 'yy' }
+
+        it "uses the indicated language" do
+          get :index
+
+          expect(I18n).to have_received(:with_locale).with('yy', any_args)
+        end
+      end
+
+      context "with a request to mireembolso.org and Spanish is available" do
+        let(:available_locales) { ['zz', 'yy', 'es'] }
+        let(:language) { 'yy' }
+        before do
+          allow_any_instance_of(ActionController::TestRequest).to receive(:domain).and_return "mireembolso.org"
+        end
+
+        it "defaults to Spanish even when a different indicated language is available" do
+          get :index
+
+          expect(I18n).to have_received(:with_locale).with('es', any_args)
+        end
+      end
+
+      context "with a request to mireembolso.org and Spanish is unavailable" do
+        let(:available_locales) { ['zz', 'yy'] }
+        let(:language) { 'yy' }
+        before do
+          allow_any_instance_of(ActionController::TestRequest).to receive(:domain).and_return "mireembolso.org"
+        end
 
         it "uses the indicated language" do
           get :index
