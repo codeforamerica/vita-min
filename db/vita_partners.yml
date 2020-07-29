@@ -498,3 +498,10 @@ vita_partners:
   source_parameters:
   - orrr
   logo_path: 'partner-logos/goodwill_orr.png'
+- name: Central City Neighborhood Partners [Los Angeles Ventanilla VITA site]
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360012587493'
+  display_name: Central City Neighborhood Partners [Los Angeles Ventanilla VITA site]
+  source_parameters:
+  - laccnp
+  logo_path: 'partner-logos/ccnp.jpeg'
