@@ -19,14 +19,8 @@
           </strong>
         </p>
 
-        <% if enable_online_intake? %>
-          <%= link_to question_path(:id => QuestionNavigation.first), id: "firstCta", class: "button button--med-wide button--primary" do %>
-            <%=t("general.get_started") %>
-          <% end %>
-        <% else %>
-          <%= link_to vita_providers_path, id: "firstCta", class: "button button--primary" do %>
-            <%=t("general.find_location") %>
-          <% end %>
+        <%= link_to question_path(:id => QuestionNavigation.first), id: "firstCta", class: "button button--med-wide button--primary" do %>
+          <%=t("general.get_started") %>
         <% end %>
       </div>
     </div>

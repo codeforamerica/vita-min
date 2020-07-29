@@ -1259,7 +1259,6 @@ en:
           placeholder: Enter Zip Code
           prepare_your_own_html: You can also prepare your own taxes by using the %{free_file_link} to find a free way to file your taxes online.
           results: We found %{total_entries} results within 50 miles of %{zip} (%{zip_name}).
-          try_another: Please try another zip code.
           try_another_or_apply_html: Please try another zip code or try our %{intake_link}.
           try_intake_form: free online VITA form
         title: Find a Location
