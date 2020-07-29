@@ -38,11 +38,7 @@
           <p>
             <%=t("views.vita_providers.index.search.no_results", :zip => @provider_search_form.zip, :zip_name => @zip_name) %>
 
-            <% if enable_online_intake? %>
-              <%=t("views.vita_providers.index.search.try_another_or_apply_html", :intake_link => link_to(t("views.vita_providers.index.search.try_intake_form"), question_path(:id => QuestionNavigation.first) )) %>
-            <% else %>
-              <%=t("views.vita_providers.index.search.try_another") %>
-            <% end %>
+            <%=t("views.vita_providers.index.search.try_another_or_apply_html", :intake_link => link_to(t("views.vita_providers.index.search.try_intake_form"), question_path(:id => QuestionNavigation.first) )) %>
           </p>
 
           <p>
