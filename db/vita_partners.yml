@@ -482,5 +482,26 @@ vita_partners:
   zendesk_group_id: '360012153274'
   display_name: United Way Suncoast
   source_parameters:
-    - uwsuncoast
+  - uwsuncoast
   logo_path: 'partner-logos/UWSC.png'
+- name: Temple University
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360012561073'
+  display_name: Temple University
+  source_parameters:
+  - tuvs
+  logo_path: 'partner-logos/temple.jpg'
+- name: Goodwill of the Olympics and Rainier Region
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360012588394'
+  display_name: Goodwill of the Olympics and Rainier Region
+  source_parameters:
+  - orr
+  logo_path: 'partner-logos/goodwill_orr.png'
+- name: Central City Neighborhood Partners [Los Angeles Ventanilla VITA site]
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360012587493'
+  display_name: Central City Neighborhood Partners [Los Angeles Ventanilla VITA site]
+  source_parameters:
+  - laccnp
+  logo_path: 'partner-logos/ccnp.jpeg'
