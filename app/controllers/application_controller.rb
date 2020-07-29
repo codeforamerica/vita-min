@@ -153,6 +153,7 @@ class ApplicationController < ActionController::Base
   def switch_locale(&action)
     locale = available_locale(params[:new_locale]) ||
       available_locale(params[:locale]) ||
+      available_locale_from_domain ||
       http_accept_language.compatible_language_from(I18n.available_locales) ||
       I18n.default_locale
     I18n.with_locale(locale, &action)
@@ -166,6 +167,10 @@ class ApplicationController < ActionController::Base
 
   def available_locale(locale)
     locale if I18n.available_locales.map(&:to_sym).include?(locale&.to_sym)
+  end
+
+  def available_locale_from_domain
+    available_locale('es') if request.domain == 'mireembolso.org'
   end
 
   ##
