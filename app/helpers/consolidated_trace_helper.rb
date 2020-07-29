@@ -80,6 +80,30 @@ module ConsolidatedTraceHelper
   end
 
   ##
+  # given an intake, provides consistent context using the fields
+  # that are most likely to be needed to isolate a problem
+  def intake_context(intake)
+    {
+      intake_id: intake.id,
+      ticket_id: intake.intake_ticket_id,
+      requester_id: intake.intake_ticket_requester_id
+    }
+  end
+
+  ##
+  # given a diy_intake, provides consistent context using the fields
+  # that are most likely to be needed to isolate a problem
+  def diy_intake_context(diy_intake)
+    {
+      diy_intake_id: diy_intake.id,
+      ticket_id: diy_intake.ticket_id,
+      requester_id: diy_intake.requester_id
+    }
+  end
+
+  private
+
+  ##
   # creates a log body with a message, inspected attributes,
   # and a backtrace including the output from `local_trace`
   def log_body(msg, attrs)
@@ -94,73 +118,13 @@ module ConsolidatedTraceHelper
   end
 
   ##
-  # given an intake, provides consistent context using the fields
-  # that are most likely to be needed to isolate a problem
-  def intake_context(intake)
-    {
-        intake_id: intake.id,
-        ticket_id: intake.intake_ticket_id,
-        requester_id: intake.intake_ticket_requester_id
-    }
+  # generates five lines of backtrace, stripping out
+  # this module's cruft
+  def local_trace
+    Thread.current
+          .backtrace
+          .filter { |line| !line.include? 'consolidated_trace' }
+          .slice(0, 5)
+          .join("\n")
   end
-
-  ##
-  # given a diy_intake, provides consistent context using the fields
-  # that are most likely to be needed to isolate a problem
-  def diy_intake_context(diy_intake)
-    {
-        diy_intake_id: diy_intake.id,
-        ticket_id: diy_intake.ticket_id,
-        requester_id: diy_intake.requester_id
-    }
-  end
-
-  ##
-  # trace with DEBUG severity
-  def trace_debug(message, extra_context = {})
-    trace(message, extra_context, Severity::DEBUG)
-  end
-
-  ##
-  # trace with INFO severity
-  def trace_info(message, extra_context = {})
-    trace(message, extra_context, Severity::INFO)
-  end
-
-  ##
-  # trace with WARN severity
-  def trace_warning(message, extra_context = {})
-    trace(message, extra_context, Severity::WARN)
-  end
-
-  ##
-  # trace with ERROR severity
-  def trace_error(message, extra_context = {})
-    trace(message, extra_context, Severity::ERROR)
-  end
-
-  ##
-  # trace with FATAL severity
-  def trace_fatal(message, extra_context = {})
-    trace(message, extra_context, Severity::FATAL)
-  end
-
-  ##
-  # trace with UNKNOWN severity
-  def trace_unknown(message, extra_context = {})
-    trace(message, extra_context, Severity::UNKNOWN)
-  end
-
-  private
-
-    ##
-    # generates five lines of backtrace, stripping out
-    # this module's cruft
-    def local_trace
-      Thread.current
-            .backtrace
-            .filter { |line| !line.include? 'consolidated_trace' }
-            .slice(0, 5)
-            .join("\n")
-    end
 end

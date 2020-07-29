@@ -1,4 +1,6 @@
 class ZendeskIntakeService
+  # methods in this service *should* raise errors if they fail to perform their task through the Zendesk API
+  # (we haven't yet audited all of them)
   include ZendeskServiceHelper
   include AttachmentsHelper
   include ConsolidatedTraceHelper
@@ -21,19 +23,11 @@ class ZendeskIntakeService
   end
 
   def assign_requester
-    # if the requester has been assigned, return it.
     return @intake.intake_ticket_requester_id if @intake.intake_ticket_requester_id.present?
 
-    # if not, attempt to create a requester and return it
-    if requester_id = create_intake_ticket_requester
-      @intake.update(intake_ticket_requester_id: requester_id)
-      return requester_id
-    end
-
-    # failing all else, that's likely noteworthy
-    trace_error('ZendeskIntakeTicketJob failed to create a ticket requester',
-                intake_context(@intake))
-    return # ensure a nil return value
+    requester_id = create_intake_ticket_requester
+    @intake.update(intake_ticket_requester_id: requester_id)
+    requester_id
   end
 
   def create_intake_ticket_requester
