@@ -14,7 +14,8 @@ module VitaPartnerImporter
   def upsert_vita_partners(yml = VITA_PARTNERS_YAML)
     say "beginning partner upsert using environment: #{Rails.env}"
 
-    partners = YAML.load_file(yml)['vita_partners']
+    yaml_file = YAML.load_file(yml)
+    partners = yaml_file['vita_partners']
     VitaPartner.transaction do
       SourceParameter.destroy_all
       partners.each do |datum|

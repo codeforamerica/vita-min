@@ -724,7 +724,6 @@ describe Intake do
       end
 
       it_behaves_like :source_group_matching, "uwkc", "360009173713"
-      it_behaves_like :source_group_matching, "uwco", "360009440374"
       it_behaves_like :source_group_matching, "uwvp", "360009267673"
       it_behaves_like :source_group_matching, "uwccr", "360009708193"
       it_behaves_like :source_group_matching, "RefundDay-B", "360009704234"
@@ -750,15 +749,15 @@ describe Intake do
       end
 
       context "when source param is for an organization in an otherwise UWTSA state" do
-        let(:source) { "uwco" }
-        let(:state) { "oh" }
+        let(:source) { "fc" }
+        let(:state) { "ny" }
 
         before do
           intake.assign_vita_partner!
         end
 
         it "assigns to the correct group and the correct instance" do
-          expect(intake.reload.vita_partner.name).to eq "United Way of Central Ohio"
+          expect(intake.reload.vita_partner.name).to eq "Foundation Communities"
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
@@ -785,7 +784,6 @@ describe Intake do
       it_behaves_like :state_level_routing, "CA", "[United Way California] Online Intake", "eitc"
       it_behaves_like :state_level_routing, "WA", "United Way of King County", "eitc"
       it_behaves_like :state_level_routing, "PA", "Campaign for Working Families", "eitc"
-      it_behaves_like :state_level_routing, "OH", "United Way of Central Ohio", "eitc"
       it_behaves_like :state_level_routing, "NV", "Nevada Free Taxes Coalition", "eitc"
       it_behaves_like :state_level_routing, "TX", "Foundation Communities", "eitc"
       it_behaves_like :state_level_routing, "AZ", "United Way of Tucson and Southern Arizona", "eitc"
@@ -800,7 +798,7 @@ describe Intake do
       it_behaves_like :state_level_routing, "ME", "Urban Upbound (NY)", "eitc"
       it_behaves_like :state_level_routing, "TN", "United Way of Greater Nashville", "eitc"
       it_behaves_like :state_level_routing, "GA", "United Way of Greater Nashville", "eitc"
-      it_behaves_like :state_level_routing, "AL", "United Way of Greater Nashville", "eitc"
+      it_behaves_like :state_level_routing, "AL", "United Way of Central Alabama", "eitc"
       it_behaves_like :state_level_routing, "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
     end
 
@@ -932,6 +930,20 @@ describe Intake do
           expect(intake.routing_value).to eq(weird_state)
         end
       end
+    end
+  end
+
+  describe "#might_encounter_delayed_service?" do
+    let(:vita_partner) { create :vita_partner }
+    let(:intake) { build :intake, vita_partner: vita_partner }
+
+    before do
+      allow(vita_partner).to receive(:has_capacity_for?).with(intake).and_return(true)
+    end
+
+    it "returns true if the partner does not have capacity for this intake" do
+      expect(intake.might_encounter_delayed_service?).to eq false
+      expect(vita_partner).to have_received(:has_capacity_for?).with(intake)
     end
   end
 

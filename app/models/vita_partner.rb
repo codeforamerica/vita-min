@@ -24,14 +24,30 @@ class VitaPartner < ApplicationRecord
   after_initialize :defaults
 
   def at_capacity?
-    recently_consented_intakes_with_tickets.count >= weekly_capacity_limit
+    actionable_intakes_this_week.count >= weekly_capacity_limit
+  end
+
+  def has_capacity_for?(intake)
+    if intake.vita_partner.name == "Urban Upbound (NY)"
+      return urban_upbound_has_capacity_for? intake
+    end
+    !at_capacity?
   end
 
   private
 
-  def recently_consented_intakes_with_tickets
+  def urban_upbound_has_capacity_for?(intake)
+    return true if ["source_parameter", "state"].include? intake.routing_criteria
+    actionable_overflow_intakes_this_week.count < 50
+  end
+
+  def actionable_overflow_intakes_this_week
+    actionable_intakes_this_week.where(routing_criteria: "overflow")
+  end
+
+  def actionable_intakes_this_week
     intakes.where(
-      Intake.arel_table[:primary_consented_to_service_at].gt(7.days.ago)
+      Intake.arel_table[:primary_consented_to_service_at].gt(7.days.ago),
     ).where.not(intake_ticket_id: nil)
   end
 

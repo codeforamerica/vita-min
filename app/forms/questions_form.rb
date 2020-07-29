@@ -12,5 +12,4 @@ class QuestionsForm < Form
     attribute_keys = Attributes.new(attribute_names).to_sym
     new(intake, existing_attributes(intake).slice(*attribute_keys))
   end
-
 end

@@ -1,5 +1,6 @@
 class DocumentTypeUploadForm < QuestionsForm
   set_attributes_for :intake, :document
+  validates :document, file_type_allowed: true
 
   def initialize(document_type, *args, **kwargs)
     @document_type = document_type

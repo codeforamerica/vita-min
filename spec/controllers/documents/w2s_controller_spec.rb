@@ -8,6 +8,7 @@ RSpec.describe Documents::W2sController do
 
   before do
     allow(subject).to receive(:current_intake).and_return intake
+    allow(MixpanelService).to receive(:send_event)
   end
 
   describe ".show?" do
@@ -56,7 +57,7 @@ RSpec.describe Documents::W2sController do
         allow(subject).to receive(:send_mixpanel_event).and_return(true)
       end
 
-      it "appends the W-2 documents to the intake and rerenders :edit without redirecting" do
+      it "appends the W-2 documents to the intake and redirects to :edit" do
         expect{
           post :update, params: valid_params
         }.to change(intake.documents, :count).by 1
@@ -93,6 +94,36 @@ RSpec.describe Documents::W2sController do
           post :update, params: params
         end.not_to raise_error
         expect(response).to redirect_to w2s_documents_path
+      end
+    end
+
+    context "with invalid params" do
+      let(:invalid_params) do
+        {
+          document_type_upload_form: {
+            document: fixture_file_upload("attachments/test-pattern.html")
+          }
+        }
+      end
+
+      it "does not upload the attachment, redirects to :edit and shows a validation error" do
+        expect {
+          post :update, params: invalid_params
+        }.not_to change(intake.documents, :count)
+
+        expect(response.body).to include I18n.t("validators.file_type")
+        expect(response).to render_template(:edit)
+      end
+
+      it "sends the document type to mixpanel" do
+        post :update, params: invalid_params
+
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(
+          event_name: "validation_error",
+          data: hash_including({
+            invalid_document: true
+          })
+        ))
       end
     end
   end

@@ -75,6 +75,9 @@ class IntakeSiteDropOff < ApplicationRecord
     uwvp: [
       "UWVP Main Headquarters",
     ],
+    cwf: [
+      "CWF Headquarters",
+    ],
   }.freeze
   ORGANIZATIONS = INTAKE_SITES.keys.map(&:to_s).freeze
   ORGANIZATION_NAMES = {
@@ -84,6 +87,7 @@ class IntakeSiteDropOff < ApplicationRecord
     "uwco" => "United Way of Central Ohio",
     "fc" => "Foundation Communities",
     "uwvp" => "United Way of Greater Richmond and Petersburg",
+    "cwf" => "Campaign for Working Families",
   }.freeze
 
   strip_attributes only: [:name, :email, :phone_number, :additional_info]

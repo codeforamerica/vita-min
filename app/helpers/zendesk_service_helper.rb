@@ -73,7 +73,7 @@ module ZendeskServiceHelper
   end
 
   def search_zendesk_users(query_string)
-    client.users.search(query: query_string).to_a
+    client.users.search(query: query_string).to_a!
   end
 
   def find_end_user(name, email, phone, exact_match: false)
@@ -108,7 +108,7 @@ module ZendeskServiceHelper
   def create_end_user(name:, **attributes)
     # for a list of possible valid attributes, see:
     #   https://developer.zendesk.com/rest_api/docs/support/users#json-format-for-end-user-requests
-    client.users.create(name: qualify_user_name(name), verified: true, **attributes)
+    client.users.create!(name: qualify_user_name(name), verified: true, **attributes)
   end
 
   def find_or_create_end_user(name, email, phone, exact_match: false, time_zone: nil)
@@ -192,10 +192,7 @@ module ZendeskServiceHelper
       **extra_attributes
     )
 
-    unless ticket.save
-      raise ZendeskAPIError.new("Error creating Zendesk Ticket: #{ticket.errors}")
-    end
-
+    ticket.save!
     ticket
   end
 
@@ -288,7 +285,7 @@ module ZendeskServiceHelper
   def update_user_contact_info(user, phone)
     if phone && user.phone.blank?
       user.phone = phone
-      user.save
+      user.save!
     end
   end
 end

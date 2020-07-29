@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe ZendeskServiceHelper do
   let(:fake_zendesk_client) { double(ZendeskAPI::Client) }
-  let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2, errors: nil) }
+  let(:fake_zendesk_ticket) { double(ZendeskAPI::Ticket, id: 2) }
   let(:fake_zendesk_user) { double(ZendeskAPI::User, id: 1) }
   let(:fake_zendesk_comment) { double(uploads: []) }
   let(:fake_zendesk_comment_body) { "" }
@@ -163,7 +163,7 @@ RSpec.describe ZendeskServiceHelper do
         context "search includes phone number" do
           it "updates the user phone number in Zendesk" do
             expect(result).to receive(:phone=).with(phone)
-            expect(result).to receive(:save)
+            expect(result).to receive(:save!)
             expect(service.find_or_create_end_user("Nancy Nectarine", "test@example.com", phone)).to eq(result.id)
           end
         end
@@ -173,7 +173,7 @@ RSpec.describe ZendeskServiceHelper do
 
           it "does not erase the user phone number in Zendesk" do
             expect(result).not_to receive(:phone=).with(phone)
-            expect(result).not_to receive(:save)
+            expect(result).not_to receive(:save!)
             expect(service.find_or_create_end_user("Nancy Nectarine", "test@example.com", phone)).to eq(result.id)
           end
         end
@@ -207,7 +207,7 @@ RSpec.describe ZendeskServiceHelper do
 
         before do
           allow(fake_zendesk_client).to receive(:users).and_return(fake_zendesk_user_list)
-          allow(fake_zendesk_user_list).to receive(:create).and_return(fake_zendesk_user)
+          allow(fake_zendesk_user_list).to receive(:create!).and_return(fake_zendesk_user)
           allow(service).to receive(:client).and_return(fake_zendesk_client)
         end
 
@@ -217,7 +217,7 @@ RSpec.describe ZendeskServiceHelper do
               service.create_end_user(name: name)
             end
           end
-          expect(fake_zendesk_user_list).to have_received(:create)
+          expect(fake_zendesk_user_list).to have_received(:create!)
             .with(hash_including(name: "#{name} (Fake User)")).exactly(qualified_environments.count).times
         end
       end
@@ -261,7 +261,6 @@ RSpec.describe ZendeskServiceHelper do
 
   describe "#create_ticket" do
     let(:success) { true }
-    let(:errors) { nil }
     let(:ticket_args) do
       {
         subject: "wyd",
@@ -277,26 +276,14 @@ RSpec.describe ZendeskServiceHelper do
 
     before do
       allow(service).to receive(:build_ticket).and_return(fake_zendesk_ticket)
-      allow(fake_zendesk_ticket).to receive(:save).and_return(success)
-      allow(fake_zendesk_ticket).to receive(:errors).and_return(errors)
+      allow(fake_zendesk_ticket).to receive(:save!).and_return(success)
     end
 
     it "calls build_ticket, saves the ticket, and returns the ticket id" do
       result = service.create_ticket(**ticket_args)
       expect(result).to eq fake_zendesk_ticket
-      expect(fake_zendesk_ticket).to have_received(:save).with(no_args)
+      expect(fake_zendesk_ticket).to have_received(:save!).with(no_args)
       expect(service).to have_received(:build_ticket).with(**ticket_args)
-    end
-
-    describe "when the API returns an error" do
-      let(:success) { false }
-      let(:errors) { "Zendesk API failed for some reason" }
-
-      it "raises an error" do
-        expect do
-          service.create_ticket(**ticket_args)
-        end.to raise_error(ZendeskServiceHelper::ZendeskAPIError, /Error.*some reason/)
-      end
     end
   end
 

@@ -1,5 +1,6 @@
 class RequestedDocumentUploadForm < QuestionsForm
   set_attributes_for :documents_request, :document
+  validates :document, file_type_allowed: true
 
   def initialize(documents_request, *args, **kwargs)
     @documents_request = documents_request

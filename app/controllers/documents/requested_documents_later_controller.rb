@@ -26,9 +26,11 @@ module Documents
         @form.save
         after_update_success
         track_document_upload
+        redirect_to action: :edit
+      else
+        track_validation_error
+        render :edit
       end
-
-      redirect_to action: :edit
     end
 
     def destroy
