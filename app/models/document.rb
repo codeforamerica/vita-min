@@ -27,6 +27,7 @@ class Document < ApplicationRecord
     "ID",
     "SSN or ITIN",
     "Selfie",
+    "Employment",
   ]
 
   validates :document_type, inclusion: { in: DocumentNavigation::DOCUMENT_TYPES }

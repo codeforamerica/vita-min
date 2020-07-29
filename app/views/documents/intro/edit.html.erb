@@ -9,19 +9,19 @@
             <%= content_for(:page_title) %>
           </h1>
           <p class="text--help">
-            <%=t("views.documents.intro.info") %>
+            <%= t("views.documents.intro.info") %>
           </p>
           <p class="text--help">
             <strong>
-              <%=t("general.security_html", :privacy_link => link_to(t("general.privacy_policy"), privacy_path, target: "_blank")) %>
+              <%= t("general.security_html", :privacy_link => link_to(t("general.privacy_policy"), privacy_path, target: "_blank")) %>
             </strong>
           </p>
 
           <div class="document-overview-list">
             <% if current_intake.must_have_document_types.present? %>
-              <p>
-                <strong><%=t("views.documents.intro.should_have") %></strong>
-              </p>
+              <h2 class="h3">
+                <strong><%= t("views.documents.intro.should_have") %></strong>
+              </h2>
               <% current_intake.must_have_document_types.each do |type| %>
                 <div class="document-overview-list__item">
                   <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
@@ -33,20 +33,8 @@
             <% end %>
           </div>
 
-          <div class="document-overview-list">
-            <% if current_intake.might_have_document_types.present? %>
-              <p>
-                <strong><%=t("views.documents.intro.might_have") %></strong>
-              </p>
-              <% current_intake.might_have_document_types.each do |type| %>
-                <div class="document-overview-list__item">
-                  <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
-                  <h2 class="h3 document-overview-list__heading">
-                    <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
-                  </h2>
-                </div>
-              <% end %>
-            <% end %>
+          <div class="text--small">
+            <%=t("views.documents.intro.additional_docs_notice_text") %>
           </div>
 
           <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>

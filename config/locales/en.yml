@@ -238,8 +238,9 @@ en:
           title: Welcome to our DIY tax service!
     documents:
       additional_documents:
-        help_text: Please add any additional documents or forms that you would like to share with your tax preparer. Include any forms you may be unsure of. Your tax preparer will determine if the forms are needed for your return.
-        title: Do you have any additional documents?
+        list_header: "Based on your earlier answers, you could have the following:"
+        help_text: You are not required to share additional documents, but you may have other documents that will help us get you a bigger refund.
+        title: Please share any additional documents.
       care_provider_statements:
         help_text_html: "<strong>You might have this statement</strong> because you said that you paid for child or dependent care. Contact your care facility if you need this documentation."
         title: Attach your statements from childcare facilities or individuals who provided care.
@@ -311,9 +312,9 @@ en:
           other: Attach photos of ID cards
       intro:
         info: Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later.
-        might_have: 'You might also have:'
-        should_have: 'You should have:'
+        should_have: 'You should have the following documents:'
         title: All right, let's collect your documents!
+        additional_docs_notice_text: "Note: If you have other documents you will have a chance to share those as well."
       ira_statements:
         help_text_html: "<strong>You might have this document</strong> because you said that you made contributions to a retirement account."
         title: Attach your IRA Statements
