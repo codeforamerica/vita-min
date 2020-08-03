@@ -3,7 +3,7 @@ module Documents
     before_action :set_household_names, only: [:edit, :update]
 
     def self.document_type
-      "SSN or ITIN"
+      DocumentTypes::SsnItin
     end
 
     private

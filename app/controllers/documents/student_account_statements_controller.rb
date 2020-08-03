@@ -2,12 +2,8 @@ module Documents
   class StudentAccountStatementsController < DocumentUploadQuestionController
     before_action :set_student_names, only: [:edit, :update]
 
-    def self.show?(intake)
-      intake.any_students?
-    end
-
     def self.document_type
-      "Student Account Statement"
+      DocumentTypes::StudentAccountStatement
     end
 
     private

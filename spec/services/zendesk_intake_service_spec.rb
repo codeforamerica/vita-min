@@ -465,8 +465,6 @@ describe ZendeskIntakeService do
     let(:output) { true }
     let(:fake_intake_pdf) { instance_double(File) }
     let(:fake_consent_pdf) { instance_double(File) }
-    let!(:id_doc) { create :document, intake: intake, document_type: "ID" }
-    let!(:selfie_doc) { create :document, intake: intake, document_type: "Selfie" }
 
     before do
       intake.intake_ticket_id = 34
@@ -495,7 +493,7 @@ describe ZendeskIntakeService do
         fields: {
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
           EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => "http://test.host/en/zendesk/tickets/34",
-          EitcZendeskInstance::DOCUMENTS_NEEDED => "SSN or ITIN, 1099-R",
+          EitcZendeskInstance::DOCUMENTS_NEEDED => "ID, Selfie, SSN or ITIN, 1099-R",
         }
       )
     end

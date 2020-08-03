@@ -6,7 +6,6 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
   let!(:original_intake) { create :intake, requested_docs_token: token, intake_ticket_id: 123 }
   let!(:documents_request) { create :documents_request, intake: original_intake }
 
-
   describe "#edit" do
     context "with no session" do
 
@@ -56,7 +55,7 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
 
           context "when they have uploaded one document" do
             before do
-              create :document, :with_upload, documents_request: documents_request, document_type: controller.document_type
+              create :document, :with_upload, documents_request: documents_request, document_type: controller.document_type_key
             end
 
             it "renders a link to the next path" do

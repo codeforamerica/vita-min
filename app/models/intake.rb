@@ -305,7 +305,7 @@ class Intake < ApplicationRecord
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number
   end
-  
+
   # Returns the sms phone number in the E164 standardized format, e.g.: "+15105551234"
   def standardized_sms_phone_number
     Phonelib.parse(sms_phone_number, "US").e164
@@ -532,19 +532,23 @@ class Intake < ApplicationRecord
     triage_source.present? && triage_source.class == StimulusTriage
   end
 
-  def must_have_document_types
-    all_doc_types_for_intake = DocumentNavigation.document_types_for_intake(self)
-    all_doc_types_for_intake.filter do |document_type|
-      already_uploaded = documents.where(document_type: document_type).present?
-      Document.must_have_doc_type?(document_type) && !already_uploaded
+  def relevant_document_types
+    DocumentTypes::ALL_TYPES.select do |doc_type_class|
+      doc_type_class.relevant_to?(self)
     end
   end
 
-  def might_have_document_types
-    all_doc_types_for_intake = DocumentNavigation.document_types_for_intake(self)
-    all_doc_types_for_intake.filter do |document_type|
-      already_uploaded = documents.where(document_type: document_type).present?
-      Document.might_have_doc_type?(document_type) && !already_uploaded
+  def document_types_definitely_needed
+    relevant_document_types.select(&:needed_if_relevant?).map(&:key).reject do |key|
+      documents.where(document_type: key).present?
+    end
+  end
+
+  def document_types_possibly_needed
+    relevant_document_types.reject(&:needed_if_relevant?).map(&:key).reject do |key|
+      key == "Other"
+    end.reject do |key|
+      documents.where(document_type: key).present?
     end
   end
 

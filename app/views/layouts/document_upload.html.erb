@@ -77,9 +77,9 @@
             <% end %>
           <% end %>
 
-          <% if DocumentNavigation::REQUIRED_DOCUMENT_TYPES.include?(document_type) %>
+          <% if document_type.blocks_progress? %>
             <% if @documents.present? %>
-              <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type}" do %>
+              <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}" do %>
                 <%=t("general.continue") %>
               <% end %>
             <% else %>
@@ -88,11 +88,11 @@
               </button>
             <% end %>
           <% else %>
-            <%= link_to next_path, class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type}" do %>
+            <%= link_to next_path, class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type.key}" do %>
               <%=t("views.layouts.document_upload.dont_have") %>
             <% end %>
 
-            <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type}" do %>
+            <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}" do %>
               <%=t("general.continue") %>
             <% end %>
           <% end %>

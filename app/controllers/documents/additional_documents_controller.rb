@@ -1,7 +1,7 @@
 module Documents
   class AdditionalDocumentsController < DocumentUploadQuestionController
     def self.document_type
-      "Other"
+      DocumentTypes::Other
     end
   end
 end

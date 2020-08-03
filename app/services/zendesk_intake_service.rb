@@ -298,7 +298,7 @@ class ZendeskIntakeService
       {
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
         EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: @intake.intake_ticket_id),
-        EitcZendeskInstance::DOCUMENTS_NEEDED => @intake.must_have_document_types.join(", "),
+        EitcZendeskInstance::DOCUMENTS_NEEDED => @intake.document_types_definitely_needed.join(", "),
       }
     else
       {

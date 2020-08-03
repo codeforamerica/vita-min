@@ -17,7 +17,7 @@ RSpec.describe Documents::SsnItinsController do
   end
 
   describe "#edit" do
-    it_behaves_like "required documents controllers"
+    it_behaves_like :a_required_document_controller
 
     context "when they do not have a spouse" do
       let(:filing_joint) { "no" }

@@ -40,16 +40,9 @@ class DocumentNavigation
     Documents::SendRequestedDocumentsLaterController,
   ].freeze
 
-  REQUIRED_DOCUMENT_TYPES = [
-    Documents::IdsController,
-    Documents::SelfiesController,
-    Documents::SsnItinsController,
-    Documents::RequestedDocumentsLaterController,
-  ].map(&:document_type)
-  DOCUMENT_TYPES = FLOW.map(&:document_type).compact
   CONTROLLER_BY_DOCUMENT_TYPE = FLOW
-    .find_all(&:document_type)
-    .index_by(&:document_type)
+    .find_all(&:document_type_key)
+    .index_by(&:document_type_key)
 
   class << self
     delegate :first, to: :controllers
@@ -60,13 +53,6 @@ class DocumentNavigation
 
     def first_for_intake(intake)
       controllers.find { |c| c.show?(intake) }
-    end
-
-    def document_types_for_intake(intake)
-      controllers
-        .find_all { |c| c.show?(intake) }
-        .map(&:document_type)
-        .compact
     end
 
     def document_controller_for_type(document_type)

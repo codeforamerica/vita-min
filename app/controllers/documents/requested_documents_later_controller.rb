@@ -68,7 +68,7 @@ module Documents
     end
 
     def self.document_type
-      "Requested Later"
+      DocumentTypes::RequestedLater
     end
 
     def form_name

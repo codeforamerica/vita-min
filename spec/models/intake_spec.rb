@@ -1136,42 +1136,34 @@ describe Intake do
     end
   end
 
-  describe "#must_have_documents" do
-    let(:intake) { create(:intake) }
-
-    before do
-      allow(DocumentNavigation).to receive(:document_types_for_intake).with(intake).and_return(["1095-A", "Selfie", "W-2"])
-    end
+  describe "#document_types_definitely_needed" do
+    let(:intake) { create(:intake, bought_health_insurance: "yes") }
 
     it "returns list of must have documents" do
-      expect(intake.must_have_document_types).to eq ["1095-A", "Selfie"]
+      expect(intake.document_types_definitely_needed).to eq ["ID", "Selfie", "SSN or ITIN", "1095-A"]
     end
 
     context "with already uploaded documents" do
       let!(:document) { create :document, intake: intake, document_type: "Selfie" }
 
       it "doesn't include already uploaded documents" do
-        expect(intake.must_have_document_types).to eq ["1095-A"]
+        expect(intake.document_types_definitely_needed).to eq ["ID", "SSN or ITIN", "1095-A"]
       end
     end
   end
 
-  describe "#might_have_documents" do
-    let(:intake) { create(:intake) }
-
-    before do
-      allow(DocumentNavigation).to receive(:document_types_for_intake).with(intake).and_return(["1095-A", "W-2", "1099-MISC"])
-    end
+  describe "#document_types_possibly_needed" do
+    let(:intake) { create(:intake, had_wages: "yes") }
 
     it "returns list of might have documents" do
-      expect(intake.might_have_document_types).to eq ["W-2", "1099-MISC"]
+      expect(intake.document_types_possibly_needed).to eq ["Employment"]
     end
 
     context "with already uploaded documents" do
-      let!(:document) { create :document, intake: intake, document_type: "W-2" }
+      let!(:document) { create :document, intake: intake, document_type: "Employment" }
 
       it "doesn't include already uploaded documents" do
-        expect(intake.might_have_document_types).to eq ["1099-MISC"]
+        expect(intake.document_types_possibly_needed).to eq []
       end
     end
   end

@@ -18,11 +18,11 @@
           </p>
 
           <div class="document-overview-list">
-            <% if current_intake.must_have_document_types.present? %>
+            <% if current_intake.document_types_definitely_needed.present? %>
               <p>
                 <strong><%= t("views.documents.intro.should_have") %></strong>
               </p>
-              <% current_intake.must_have_document_types.each do |type| %>
+              <% current_intake.document_types_definitely_needed.each do |type| %>
                 <div class="document-overview-list__item">
                   <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
                   <h2 class="h3 document-overview-list__heading">
@@ -34,11 +34,11 @@
           </div>
 
           <div class="document-overview-list">
-            <% if current_intake.might_have_document_types.present? %>
+            <% if current_intake.document_types_possibly_needed.present? %>
               <p>
                 <strong><%=t("views.documents.intro.might_have") %></strong>
               </p>
-              <% current_intake.might_have_document_types.each do |type| %>
+              <% current_intake.document_types_possibly_needed.each do |type| %>
                 <div class="document-overview-list__item">
                   <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
                   <h2 class="h3 document-overview-list__heading">

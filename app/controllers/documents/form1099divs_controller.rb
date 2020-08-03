@@ -1,11 +1,7 @@
 module Documents
   class Form1099divsController < DocumentUploadQuestionController
-    def self.show?(intake)
-      intake.had_interest_income_yes?
-    end
-
     def self.document_type
-      "1099-DIV"
+      DocumentTypes::Form1099Div
     end
   end
 end

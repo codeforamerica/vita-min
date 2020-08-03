@@ -11,7 +11,7 @@
 
           <div class="document-overview-list">
             <% documents_by_type = @documents.group_by(&:document_type) %>
-            <% recommended_document_types.each do |type| %>
+            <% document_type_keys.each do |type| %>
               <% documents = documents_by_type[type] || [] %>
               <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__heading">
                 <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>

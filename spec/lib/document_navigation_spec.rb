@@ -11,19 +11,25 @@ RSpec.describe DocumentNavigation do
     end
 
     class FirstController < BaseController
-      def self.document_type
+      def self.document_type_key
         "Doc-1"
       end
     end
 
     class SecondController < BaseController
-      def self.document_type
+      def self.document_type_key
         "Doc-2"
       end
     end
 
+    class SignpostController < BaseController
+      def self.document_type_key
+        nil
+      end
+    end
+
     class ThirdController < BaseController
-      def self.document_type
+      def self.document_type_key
         "Doc-3"
       end
     end
@@ -33,6 +39,7 @@ RSpec.describe DocumentNavigation do
     stub_const("DocumentNavigation::FLOW", [
       FirstController,
       SecondController,
+      SignpostController,
       ThirdController,
     ])
   end
@@ -43,6 +50,7 @@ RSpec.describe DocumentNavigation do
         [
            FirstController,
            SecondController,
+           SignpostController,
            ThirdController,
         ],
       )
@@ -65,7 +73,7 @@ RSpec.describe DocumentNavigation do
 
       it "returns the class for next non-skipped controller in main flow" do
         navigation = described_class.new(FirstController.new)
-        expect(navigation.next_for_intake(intake)).to eq(ThirdController)
+        expect(navigation.next_for_intake(intake)).to eq(SignpostController)
       end
     end
 
@@ -85,17 +93,6 @@ RSpec.describe DocumentNavigation do
 
     it "returns the first relevant controller for the given input" do
       expect(described_class.first_for_intake(intake)).to eq SecondController
-    end
-  end
-
-  describe ".document_types_for_intake" do
-    let(:intake) { build :intake }
-    before do
-      allow(SecondController).to receive(:show?) { false }
-    end
-
-    it "returns an array of all document types that should be displayed for the current intake" do
-      expect(described_class.document_types_for_intake(intake)).to eq ["Doc-1", "Doc-3"]
     end
   end
 end

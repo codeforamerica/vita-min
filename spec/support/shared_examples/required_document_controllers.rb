@@ -1,4 +1,4 @@
-shared_examples "required documents controllers" do
+shared_examples :a_required_document_controller do
   context "requiring an upload" do
     render_views
 
@@ -13,7 +13,7 @@ shared_examples "required documents controllers" do
 
     context "when they have uploaded one document" do
       before do
-        create :document, :with_upload, intake: intake, document_type: controller.document_type
+        create :document, :with_upload, intake: intake, document_type: controller.document_type_key
       end
 
       it "renders a link to the next path" do

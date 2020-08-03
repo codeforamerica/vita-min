@@ -21,15 +21,7 @@
 #
 
 class Document < ApplicationRecord
-  MUST_HAVE_DOC_TYPES = [
-    "1095-A",
-    "1099-R",
-    "ID",
-    "SSN or ITIN",
-    "Selfie",
-  ]
-
-  validates :document_type, inclusion: { in: DocumentNavigation::DOCUMENT_TYPES }
+  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) }
   validates :intake, presence: { unless: :documents_request_id }
 
   scope :of_type, ->(type) { where(document_type: type) }
@@ -37,12 +29,4 @@ class Document < ApplicationRecord
   belongs_to :intake, optional: true
   belongs_to :documents_request, optional: true
   has_one_attached :upload
-
-  def self.must_have_doc_type?(document_type)
-    MUST_HAVE_DOC_TYPES.include?(document_type)
-  end
-
-  def self.might_have_doc_type?(document_type)
-    !MUST_HAVE_DOC_TYPES.include?(document_type) && document_type != "Other"
-  end
 end

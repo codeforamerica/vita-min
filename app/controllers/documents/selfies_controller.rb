@@ -3,7 +3,7 @@ module Documents
     before_action :set_filer_names, only: [:edit, :update]
 
     def self.document_type
-      "Selfie"
+      DocumentTypes::Selfie
     end
   end
 end

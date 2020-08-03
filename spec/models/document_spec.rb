@@ -42,44 +42,4 @@ describe Document do
       end
     end
   end
-
-  describe ".must_have_doc_type?" do
-    context "a document that we can be sure someone needs" do
-      let(:doc_type) { "1095-A" }
-
-      it { expect(subject.class.must_have_doc_type?(doc_type)).to eq true }
-    end
-
-    context "a document that we cannot be sure someone needs" do
-      let(:doc_type) { "1099-DIV" }
-
-      it { expect(subject.class.must_have_doc_type?(doc_type)).to eq false }
-    end
-
-    context "other is not a must have" do
-      let(:doc_type) { "Other" }
-
-      it { expect(subject.class.must_have_doc_type?(doc_type)).to eq false }
-    end
-  end
-
-  describe ".might_have_doc_type?" do
-    context "a document that we can be sure someone needs" do
-      let(:doc_type) { "1095-A" }
-
-      it { expect(subject.class.might_have_doc_type?(doc_type)).to eq false }
-    end
-
-    context "a document that we cannot be sure someone needs" do
-      let(:doc_type) { "1099-DIV" }
-
-      it { expect(subject.class.might_have_doc_type?(doc_type)).to eq true }
-    end
-
-    context "other is not a might have" do
-      let(:doc_type) { "Other" }
-
-      it { expect(subject.class.might_have_doc_type?(doc_type)).to eq false }
-    end
-  end
 end

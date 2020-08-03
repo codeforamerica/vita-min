@@ -3,7 +3,7 @@ module Documents
     before_action :set_filer_names, only: [:edit, :update]
 
     def self.document_type
-      "ID"
+      DocumentTypes::Identity
     end
   end
 end
