@@ -10,7 +10,7 @@ class ZendeskSmsService
   end
 
   def handle_inbound_sms(phone_number:, sms_ticket_id:, message_body:)
-    intakes = Intake.where(phone_number: phone_number)
+    intakes = Intake.where(phone_number: phone_number).or(Intake.where(sms_phone_number: phone_number))
     drop_offs = IntakeSiteDropOff.where(phone_number: phone_number)
 
     if intakes.empty? && drop_offs.empty?

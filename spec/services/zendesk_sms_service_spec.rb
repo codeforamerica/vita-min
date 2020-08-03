@@ -87,7 +87,7 @@ describe ZendeskSmsService do
         ]
       end
       let!(:first_intake) { create :intake, intake_ticket_id: 3, phone_number: phone_number }
-      let!(:second_intake) { create :intake, intake_ticket_id: 4, phone_number: phone_number }
+      let!(:second_intake) { create :intake, intake_ticket_id: 4, sms_phone_number: phone_number }
 
       before do
         allow(service).to receive(:assign_ticket_to_group).and_return true
