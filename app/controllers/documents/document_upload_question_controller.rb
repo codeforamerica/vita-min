@@ -72,5 +72,12 @@ module Documents
     def form_navigation
       @form_navigation ||= DocumentNavigation.new(self)
     end
+
+    def set_filer_names
+      @names = [current_intake.primary_full_name]
+      if current_intake.filing_joint_yes?
+        @names << current_intake.spouse_name_or_placeholder
+      end
+    end
   end
 end

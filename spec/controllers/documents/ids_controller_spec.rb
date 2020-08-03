@@ -56,5 +56,26 @@ RSpec.describe Documents::IdsController do
       end
     end
   end
+
+  describe "#update" do
+    context "with an invalid file upload" do
+      render_views
+
+      let(:params) do
+        {
+          document_type_upload_form: {
+            document: fixture_file_upload("attachments/test-pattern.html")
+          }
+        }
+      end
+
+      it "renders edit with validation errors" do
+        post :update, params: params
+
+        expect(response).to render_template :edit
+        expect(response.body).to include "Please upload a valid document type."
+      end
+    end
+  end
 end
 
