@@ -167,7 +167,7 @@ vita_partners:
   zendesk_group_id: '360009704314'
   display_name: Hispanic Unity
   logo_path: ''
-  weekly_capacity_limit: 0
+  weekly_capacity_limit: 200
 - name: Catalyst Miami
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009704354'
