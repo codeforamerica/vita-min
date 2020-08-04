@@ -1137,30 +1137,30 @@ describe Intake do
   end
 
   describe "#document_types_definitely_needed" do
-    let(:intake) { create(:intake, bought_health_insurance: "yes") }
+    let(:intake) { create(:intake, bought_health_insurance: "yes", had_wages: "yes") }
 
     it "returns list of must have documents" do
-      expect(intake.document_types_definitely_needed).to eq ["ID", "Selfie", "SSN or ITIN", "1095-A"]
+      expect(intake.document_types_definitely_needed).to eq ["ID", "Selfie", "SSN or ITIN", "Employment", "1095-A"]
     end
 
     context "with already uploaded documents" do
       let!(:document) { create :document, intake: intake, document_type: "Selfie" }
 
       it "doesn't include already uploaded documents" do
-        expect(intake.document_types_definitely_needed).to eq ["ID", "SSN or ITIN", "1095-A"]
+        expect(intake.document_types_definitely_needed).to eq ["ID", "SSN or ITIN", "Employment", "1095-A"]
       end
     end
   end
 
   describe "#document_types_possibly_needed" do
-    let(:intake) { create(:intake, had_wages: "yes") }
+    let(:intake) { create(:intake, had_wages: "yes", was_full_time_student: "yes") }
 
     it "returns list of might have documents" do
-      expect(intake.document_types_possibly_needed).to eq ["Employment"]
+      expect(intake.document_types_possibly_needed).to eq ["Student Account Statement"]
     end
 
     context "with already uploaded documents" do
-      let!(:document) { create :document, intake: intake, document_type: "Employment" }
+      let!(:document) { create :document, intake: intake, document_type: "Student Account Statement" }
 
       it "doesn't include already uploaded documents" do
         expect(intake.document_types_possibly_needed).to eq []

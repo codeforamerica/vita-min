@@ -11,6 +11,10 @@ module DocumentTypes
       def key
         "Employment"
       end
+
+      def needed_if_relevant?
+        true
+      end
     end
   end
 end
