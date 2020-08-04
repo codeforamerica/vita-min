@@ -1,0 +1,25 @@
+.document-intro-list {
+  margin-bottom: 5rem;
+
+  ul {
+    margin: 0;
+
+    li {
+      display: flex;
+    }
+  }
+}
+
+.document-intro-list__icon-wrapper {
+  flex-shrink: 0;
+  margin-right: 3rem;
+  margin-top: 0.2rem;
+}
+
+.document-intro-list__icon {
+  width: 1.6rem;
+}
+
+.document-intro-list__item-text {
+  margin: 0;
+}

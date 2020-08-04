@@ -309,7 +309,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
 
     # Documents: Intro
-    expect(page).to have_selector("h1", text: "All right, let's collect your documents!")
+    expect(page).to have_selector("h1", text: "Now, let's collect your tax documents!")
     click_on "Continue"
 
 

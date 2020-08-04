@@ -16,7 +16,6 @@
 @import "atoms/variables";
 @import "atoms/form-elements";
 @import "atoms/typography";
-@import "organisms/document-overview";
 @import "organisms/flash-messages";
 @import "molecules/accordion";
 @import 'molecules/breadcrumb';
@@ -48,6 +47,8 @@
 @import "templates/diy-start-filing-start";
 @import "templates/satisfaction-survey";
 @import "templates/additional-documents";
+@import "templates/document-intro";
+@import "templates/document-overview";
 
 html {
   background-color: black;

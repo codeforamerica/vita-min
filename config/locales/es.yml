@@ -312,9 +312,9 @@ es:
           other: Adjunte fotos de sus tarjetas de identificación
       intro:
         info: Basado en las respuestas a nuestras preguntas anteriores, tenemos una lista de documentos que debe compartir con nosotros. Su progreso será guardado y podrá regresar con más documentos en otro momento.
-        might_have: 'También podría tener:'
         should_have: 'Debería tener los siguientes documentos:'
-        title: Muy bien, ¡recojamos sus documentos!
+        title: "¡Ahora, vamos a recoger sus documentos de impuestos!"
+        note: "Nota: Si tiene otros documentos, también tendrá la oportunidad de compartirlos."
       ira_statements:
         help_text_html: "<strong>Es posible que tenga este documento</strong> porque nos ha confirmado que hizo contribuciones a una cuenta de jubilación."
         title: Adjunte sus declaraciones de algún plan de pensiones (IRA)

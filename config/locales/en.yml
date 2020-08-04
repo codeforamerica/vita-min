@@ -312,9 +312,9 @@ en:
           other: Attach photos of ID cards
       intro:
         info: Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later.
-        might_have: 'You might also have:'
         should_have: 'You should have the following documents:'
-        title: All right, let's collect your documents!
+        title: Now, let's collect your tax documents!
+        note: "Note: If you have other documents, you will have a chance to share those as well."
       ira_statements:
         help_text_html: "<strong>You might have this document</strong> because you said that you made contributions to a retirement account."
         title: Attach your IRA Statements

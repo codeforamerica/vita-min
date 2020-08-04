@@ -19,7 +19,6 @@ RSpec.describe Documents::IntroController do
         expect(response.body).to include("Employment")
         expect(response.body).to include("1099-R")
         expect(response.body).not_to include("Other")
-        expect(response.body).not_to include("1099-B")
       end
     end
   end
