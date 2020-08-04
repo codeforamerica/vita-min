@@ -32,7 +32,7 @@ module Documents
     def self.show?(intake)
       return true if document_type.nil?
 
-      document_type.relevant_to? intake
+      document_type.needed_if_relevant? && document_type.relevant_to?(intake)
     end
 
     def self.document_type_key

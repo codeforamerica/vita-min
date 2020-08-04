@@ -244,12 +244,6 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "Now, let's collect your tax documents!")
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Attach your 1098's")
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "Attach your 1098-T's")
-    click_on "Continue"
-
     expect(page).to have_selector("h1", text: "Share your employment documents")
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
     click_on "Upload"
@@ -262,21 +256,6 @@ RSpec.feature "Web Intake Single Filer" do
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_content("picture_id.jpg")
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "Attach your IRA Statements")
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "Attach your Property Tax Statements")
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "Attach your student account statements")
-    click_on "I don't have this right now"
-
-    expect(page).to have_selector("h1", text: "Attach your statements from childcare facilities or individuals who provided care.")
-    click_on "I don't have this right now"
-
-    expect(page).to have_selector("h1", text: "Attach your 2018 tax return")
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Please share any additional documents.")
