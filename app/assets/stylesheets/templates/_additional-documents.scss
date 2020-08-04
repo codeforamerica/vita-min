@@ -1,0 +1,15 @@
+.additional-documents {
+  .document-list {
+    margin-top: 0;
+    padding-left: 2rem;
+    &__heading {
+      margin-bottom: 0;
+    }
+    li {
+      margin-bottom: 0;
+      h3 {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

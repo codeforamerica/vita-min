@@ -26,7 +26,7 @@
                 <div class="document-overview-list__item">
                   <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
                   <h2 class="h3 document-overview-list__heading">
-                    <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
+                    <%= type %>
                   </h2>
                 </div>
               <% end %>
@@ -42,7 +42,7 @@
                 <div class="document-overview-list__item">
                   <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %>
                   <h2 class="h3 document-overview-list__heading">
-                    <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
+                    <%= type %>
                   </h2>
                 </div>
               <% end %>

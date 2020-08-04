@@ -539,16 +539,16 @@ class Intake < ApplicationRecord
   end
 
   def document_types_definitely_needed
-    relevant_document_types.select(&:needed_if_relevant?).map(&:key).reject do |key|
-      documents.where(document_type: key).present?
+    relevant_document_types.select(&:needed_if_relevant?).reject do |document_type|
+      documents.where(document_type: document_type.key).present?
     end
   end
 
   def document_types_possibly_needed
-    relevant_document_types.reject(&:needed_if_relevant?).map(&:key).reject do |key|
-      key == "Other"
-    end.reject do |key|
-      documents.where(document_type: key).present?
+    relevant_document_types.reject(&:needed_if_relevant?).reject do |document_type|
+      document_type == DocumentTypes::Other
+    end.reject do |document_type|
+      documents.where(document_type: document_type.key).present?
     end
   end
 

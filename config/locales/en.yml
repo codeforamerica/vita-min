@@ -238,7 +238,8 @@ en:
           title: Welcome to our DIY tax service!
     documents:
       additional_documents:
-        help_text: You are not required to share additional documents, but you may have other documents that will help us get you a bigger refund.
+        document_list_title: "Based on your earlier answers, you might have the following:"
+        help_text: If you have any other documents that might be relevant, please share them with us below. It will help us better prepare your taxes!
         title: Please share any additional documents.
       care_provider_statements:
         help_text_html: "<strong>You might have this statement</strong> because you said that you paid for child or dependent care. Contact your care facility if you need this documentation."

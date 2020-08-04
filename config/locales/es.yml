@@ -238,7 +238,8 @@ es:
           title: "¡Le damos la bienvenida al servicio que le permite presentar su propia declaración de impuestos!"
     documents:
       additional_documents:
-        help_text: No se obliga a compartir documentos adicionales, pero es posible que tenga otros documentos que nos ayudara consequirle un reembolso mas grande.
+        document_list_title: "Basado en sus respuestas previas, es possible que tenga los siguientes documentos:"
+        help_text: "Si tiene otros documentos que puedan ser relevantes, por favor compártalos con nosotros. ¡Nos ayudará a preparar mejor sus impuestos!"
         title: Por favor, provea cualquieras documentos adicionales
       care_provider_statements:
         help_text_html: "<strong>Es posible que ya tenga esta declaración</strong> porque nos ha confirmado que pagó por cuidado de niños o dependientes. Comuníquese con su centro de atención si necesita esa documentación."

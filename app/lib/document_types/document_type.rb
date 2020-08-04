@@ -19,6 +19,14 @@ module DocumentTypes
       def needed_if_relevant?
         false
       end
+
+      def label
+        I18n.t("general.document_type.#{key.parameterize(separator: "_")}", default: key)
+      end
+
+      def to_s
+        label
+      end
     end
   end
 end

@@ -1,5 +1,22 @@
+<% content_for :body_class, "additional-documents" %>
+
 <% content_for :form_question, t("views.documents.additional_documents.title") %>
 
 <% content_for :form_help_text do %>
-  <%=t("views.documents.additional_documents.help_text") %>
+  <%= t("views.documents.additional_documents.help_text") %>
+
+  <% if current_intake.document_types_possibly_needed.present? %>
+    <div>
+      <strong>
+        <h2 class="document-list__heading text--small"><%= t("views.documents.additional_documents.document_list_title") %></h2>
+        <ul class="document-list list--bulleted">
+          <% current_intake.document_types_possibly_needed.map do |document_type| %>
+            <li>
+              <h3 class="text--small"><%= document_type %></h3>
+            </li>
+          <% end %>
+        </ul>
+      </strong>
+    </div>
+  <% end %>
 <% end %>

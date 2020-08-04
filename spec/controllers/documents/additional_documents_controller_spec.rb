@@ -10,6 +10,34 @@ RSpec.describe Documents::AdditionalDocumentsController do
   end
 
   describe "#edit" do
+    context "with no docs that might be needed" do
+      it "does not show an extra list of docs" do
+        get :edit
+
+        expect(response.body).not_to include I18n.t("views.documents.additional_documents.document_list_title")
+      end
+    end
+
+    context "with an intake that has some docs that might be needed" do
+      let(:intake) do
+        create(
+          :intake,
+          intake_ticket_id: 1234,
+          had_local_tax_refund: "yes",
+          had_unemployment_income: "yes",
+          had_gambling_income: "yes"
+        )
+      end
+
+      it "lists the relevant documents" do
+        get :edit
+
+        expect(response.body).to include "W-2G"
+        expect(response.body).to include "1099-G"
+        expect(response.body).to include "Prior Year Tax Return"
+      end
+    end
+
     context "with existing document uploads" do
       it "assigns the documents to the form" do
         doc = create :document, :with_upload, document_type: "Other", intake: intake
@@ -55,6 +83,34 @@ RSpec.describe Documents::AdditionalDocumentsController do
         expect(latest_doc.upload.filename).to eq "test-pattern.png"
 
         expect(response).to redirect_to additional_documents_documents_path
+      end
+    end
+
+    context "with invalid params & maybe needed docs" do
+      let(:invalid_params) do
+        {
+          document_type_upload_form: {
+            document: fixture_file_upload("attachments/test-pattern.html")
+          }
+        }
+      end
+      let(:intake) do
+        create(
+          :intake,
+          intake_ticket_id: 1234,
+          had_local_tax_refund: "yes",
+          had_unemployment_income: "yes",
+          had_gambling_income: "yes"
+        )
+      end
+
+      it "renders edit and lists documents that might be needed" do
+        post :update, params: invalid_params
+
+        expect(response).to render_template(:edit)
+        expect(response.body).to include "W-2G"
+        expect(response.body).to include "1099-G"
+        expect(response.body).to include "Prior Year Tax Return"
       end
     end
   end
