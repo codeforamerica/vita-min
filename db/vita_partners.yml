@@ -512,3 +512,10 @@ vita_partners:
   source_parameters:
   - cdcb
   logo_path: 'partner-logos/cdcb.png'
+- name: Virtual VITA Inc
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360012783494'
+  display_name: Virtual VITA Inc
+  source_parameters:
+  - virtualvitainc
+  logo_path: 'partner-logos/virtualvitainc.png'
