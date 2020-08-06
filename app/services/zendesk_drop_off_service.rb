@@ -1,5 +1,6 @@
 class ZendeskDropOffService
   include ZendeskServiceHelper
+  include Rails.application.routes.url_helpers
 
   # Group IDs
   ORGANIZATION_GROUP_IDS = {
@@ -20,7 +21,7 @@ class ZendeskDropOffService
     EitcZendeskInstance
   end
 
-  def create_ticket_and_attach_file
+  def create_ticket
     zendesk_user_id = find_or_create_end_user(@drop_off.name, @drop_off.email, @drop_off.standardized_phone_number)
     ticket = build_ticket(
       subject: @drop_off.name,
@@ -37,7 +38,15 @@ class ZendeskDropOffService
           EitcZendeskInstance::SIGNATURE_METHOD => @drop_off.signature_method
       }
     )
-    attach_file_and_save_ticket(ticket)
+    success = ticket.save
+    raise ZendeskServiceHelper::ZendeskAPIError.new("Error creating drop off ticket: #{ticket.errors}") unless success
+
+    ticket.fields = { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: ticket.id) }
+    update_success = ticket.save
+    raise ZendeskServiceHelper::ZendeskAPIError.new(
+      "Error updating drop off ticket document link: #{ticket.errors}"
+    ) unless update_success
+
     return ticket.id
   end
 
@@ -45,7 +54,10 @@ class ZendeskDropOffService
     ticket = ZendeskAPI::Ticket.find(client, id: @drop_off.zendesk_ticket_id)
     ticket.comment = { body: comment_body }
 
-    attach_file_and_save_ticket(ticket)
+    success = ticket.save
+    raise ZendeskServiceHelper::ZendeskAPIError.new("Error updating drop off ticket: #{ticket.errors}") unless success
+
+    success
   end
 
   def comment_body
@@ -62,25 +74,7 @@ class ZendeskDropOffService
     BODY
   end
 
-  def file_upload_name
-    file_extension = @drop_off.document_bundle.blob.filename.extension
-    "#{@drop_off.name.split.join}.#{file_extension}"
-  end
-
   private
-
-  def attach_file_and_save_ticket(ticket)
-    @drop_off.document_bundle.blob.open(tmpdir: Dir.tmpdir) do |file|
-      ticket.comment.uploads << {file: file, filename: file_upload_name}
-      success = ticket.save
-
-      unless success
-        raise ZendeskServiceHelper::ZendeskAPIError.new("Error attaching file: #{ticket.errors}")
-      end
-
-      success
-    end
-  end
 
   def intake_site_tag
     @drop_off.intake_site.downcase.gsub(/[ –-]/, "_") # that's a dash and an emdash, folks

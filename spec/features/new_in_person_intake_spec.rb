@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Add a new intake case from an in-person drop-off site" do
   before do
-    zendesk_service_spy = instance_double(ZendeskDropOffService, create_ticket_and_attach_file: 23, append_to_existing_ticket: true)
+    zendesk_service_spy = instance_double(ZendeskDropOffService, create_ticket: 23, append_to_existing_ticket: true)
     allow(ZendeskDropOffService).to receive(:new).and_return(zendesk_service_spy)
   end
 

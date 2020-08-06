@@ -92,6 +92,20 @@
           <td></td>
         </tr>
       <% end %>
+      <% if @drop_offs.present? %>
+        <% @drop_offs.each do |drop_off| %>
+          <tr>
+            <td><%=t("views.zendesk.tickets.show.chart.drop_off_document_bundle") %></td>
+            <td>
+              <%= link_to drop_off.document_bundle.filename,
+                zendesk_drop_off_path(id: drop_off.id),
+                target: "_blank" %>
+            </td>
+            <td><%= drop_off_upload_date(drop_off) %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <% end %>
     </tbody>
   </table>
 <% end %>
