@@ -91,6 +91,7 @@ Rails.application.routes.draw do
     namespace :zendesk do
       resources :tickets, only: [:show]
       resources :documents, only: [:show]
+      resources :drop_offs, only: [:show]
       resources :intakes, only: [:pdf, :consent_pdf] do
         get "13614c/:filename", to: "intakes#intake_pdf", on: :member, as: :pdf
         get "consent/:filename", to: "intakes#consent_pdf", on: :member, as: :consent_pdf

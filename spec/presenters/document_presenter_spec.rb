@@ -1,11 +1,9 @@
 require "rails_helper"
 
 describe DocumentPresenter do
-
   describe ".grouped_documents" do
     let(:intake) { create(:intake) }
     let(:duplicate_intake) { create(:intake) }
-
     let!(:w2_document_a) do
       create :document, :with_upload,
         document_type: "W-2",

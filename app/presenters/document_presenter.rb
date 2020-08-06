@@ -48,5 +48,4 @@ class DocumentPresenter < BasePresenter
   def byte_size
     upload.byte_size
   end
-
 end
