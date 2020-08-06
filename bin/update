@@ -24,7 +24,6 @@ chdir APP_ROOT do
   system! 'bin/rails db:migrate'
 
   puts "\n== Updating states & VITA partners =="
-  system! 'bin/rails db:insert_states'
   system! 'bin/rails db:upsert_vita_partners'
 
   puts "\n== Removing old logs and tempfiles =="
