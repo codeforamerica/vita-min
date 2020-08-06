@@ -35,6 +35,116 @@ RSpec.describe ZendeskServiceHelper do
     allow(fake_zendesk_ticket).to receive(:save).and_return true
   end
 
+  describe "#create_or_update_zendesk_user" do
+    before do
+      allow(ZendeskAPI::User).to receive(:create_or_update!).with(
+        service.client,
+        hash_including(
+          name: kind_of(String),
+          verified: true,
+        )
+      ).and_return(fake_zendesk_user)
+    end
+
+    context "with valid arguments" do
+      let(:arguments) do
+        { name: "Olayo Orange", email: nil, phone: "+15554441111" }
+      end
+
+      it "returns the user id" do
+        result = service.create_or_update_zendesk_user(**arguments)
+
+        expect(result).to eq 1
+      end
+    end
+
+    context "with name, email, phone, and timezone" do
+      let(:arguments) do
+        { name: "Olayo Orange", email: "example@example.com", phone: "+15554441111", time_zone: "Chicago" }
+      end
+
+      it "passes them all to Zendesk" do
+        service.create_or_update_zendesk_user(**arguments)
+        expect(ZendeskAPI::User).to have_received(:create_or_update!).with(service.client, {
+          name: "Olayo Orange",
+          verified: true,
+          email: "example@example.com",
+          phone: "+15554441111",
+          time_zone: "Chicago"
+        })
+      end
+    end
+
+    context "with blank or missing optional attributes" do
+      let(:arguments) do
+        { name: "Olayo Orange", email: "", phone: "+15554441111" }
+      end
+
+      it "does not pass optional arguments to zendesk if they are blank or missing" do
+        service.create_or_update_zendesk_user(**arguments)
+        expect(ZendeskAPI::User).to have_received(:create_or_update!).with(service.client, {
+          name: "Olayo Orange",
+          verified: true,
+          phone: "+15554441111",
+        })
+      end
+    end
+
+    context "with a blank name argument" do
+      let(:arguments) do
+        { name: nil, phone: "+15554441111" }
+      end
+
+      it "raises an error" do
+        expect { service.create_or_update_zendesk_user(**arguments) }.to raise_error(StandardError)
+        expect(ZendeskAPI::User).not_to have_received(:create_or_update!)
+      end
+    end
+
+    context "if missing both email and phone" do
+      let(:arguments) do
+        { name: "Olayo Orange" }
+      end
+
+      it "raises an error" do
+        expect { service.create_or_update_zendesk_user(**arguments) }.to raise_error(StandardError)
+        expect(ZendeskAPI::User).not_to have_received(:create_or_update!)
+      end
+    end
+
+    context "modifying names" do
+      let(:arguments) do
+        { name: "Olayo Orange", email: "example@example.com" }
+      end
+
+      context "in an environment other than production or test" do
+        before { allow(Rails).to receive(:env).and_return("demo".inquiry) }
+
+        it "appends (Fake User) to the preferred user name" do
+          service.create_or_update_zendesk_user(**arguments)
+          expect(ZendeskAPI::User).to have_received(:create_or_update!).with(service.client, {
+              name: "Olayo Orange (Fake User)",
+              verified: true,
+              email: "example@example.com",
+          })
+        end
+      end
+
+      context "in production or test" do
+        before { allow(Rails).to receive(:env).and_return("production".inquiry) }
+
+        it "passes in preferred name with no edits" do
+          service.create_or_update_zendesk_user(**arguments)
+          expect(ZendeskAPI::User).to have_received(:create_or_update!).with(service.client, {
+              name: "Olayo Orange",
+              verified: true,
+              email: "example@example.com",
+          })
+        end
+      end
+    end
+  end
+
   describe "#find_end_user" do
     let(:search_results) { [fake_zendesk_user] }
 
@@ -192,10 +302,10 @@ RSpec.describe ZendeskServiceHelper do
         it "creates new user and returns their id" do
           expect(service.find_or_create_end_user("Nancy Nectarine", nil, "1234567890")).to eq 1
           expect(service).to have_received(:create_end_user).with(
-              name: "Nancy Nectarine",
-              email: nil,
-              phone: "1234567890",
-              time_zone: nil
+            name: "Nancy Nectarine",
+            email: nil,
+            phone: "1234567890",
+            time_zone: nil
           )
         end
       end

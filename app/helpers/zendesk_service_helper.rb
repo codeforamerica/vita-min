@@ -76,6 +76,30 @@ module ZendeskServiceHelper
     client.users.search(query: query_string).to_a!
   end
 
+  def create_or_update_zendesk_user(name: nil, email: nil, phone: nil, time_zone: nil)
+    # Ask Zendesk for the best end user by email address and/or phone number. Update its name
+    # to the name provided, after qualifying it with `qualify_user_name()`. Update its time zone
+    # to the time zone provided, if present.
+    #
+    # Based on manual testing, if email is absent, Zendesk will always create a new requester.
+    if email.blank? && phone.blank?
+      raise StandardError.new("Unable to find_or_create_end_user because both phone & email are blank")
+    end
+
+    if name.blank?
+      raise StandardError.new("Cannot create Zendesk users with a blank name")
+    end
+
+    attributes = {
+        name: qualify_user_name(name),
+        verified: true, # Avoid Zendesk sending a verification email.
+    } # see also https://developer.zendesk.com/rest_api/docs/support/users#json-format-for-end-user-requests
+    attributes[:time_zone] = time_zone if time_zone.present?
+    attributes[:email] = email if email.present?
+    attributes[:phone] = phone if phone.present?
+    ZendeskAPI::User.create_or_update!(instance.client, attributes).id
+  end
+
   def find_end_user(name, email, phone, exact_match: false)
     if email.present?
       email_matches = search_zendesk_users("email:#{email}")
