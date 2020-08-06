@@ -25,21 +25,14 @@ class ZendeskIntakeService
   def assign_requester
     return @intake.intake_ticket_requester_id if @intake.intake_ticket_requester_id.present?
 
-    requester_id = create_intake_ticket_requester
-    @intake.update(intake_ticket_requester_id: requester_id)
-    requester_id
-  end
-
-  def create_intake_ticket_requester
-    # returns the Zendesk ID of the created user
     contact_info = @intake.contact_info_filtered_by_preferences
-    find_or_create_end_user(
-      @intake.preferred_name,
-      contact_info[:email],
-      contact_info[:sms_phone_number],
-      exact_match: true,
-      time_zone: zendesk_timezone(@intake.timezone)
+    requester_id = create_or_update_zendesk_user(
+      name: @intake.preferred_name,
+      email: contact_info[:email],
+      phone: contact_info[:sms_phone_number],
+      time_zone: zendesk_timezone(@intake.timezone),
     )
+    @intake.update(intake_ticket_requester_id: requester_id)
   end
 
   ##
@@ -60,13 +53,13 @@ class ZendeskIntakeService
       # to make a zendesk ticket without errors
       tags = Rails.env.production? ? [] : ["test_ticket"]
       ticket_content = {
-          subject: new_ticket_subject,
-          requester_id: @intake.intake_ticket_requester_id,
-          external_id: @intake.external_id,
-          group_id: @intake.vita_partner.zendesk_group_id,
-          body: new_ticket_body,
-          fields: new_ticket_fields,
-          tags: tags,
+        subject: new_ticket_subject,
+        requester_id: @intake.intake_ticket_requester_id,
+        external_id: @intake.external_id,
+        group_id: @intake.vita_partner.zendesk_group_id,
+        body: new_ticket_body,
+        fields: new_ticket_fields,
+        tags: tags,
       }
       if @intake.triaged_from_stimulus?
         ticket_content[:tags] += ["triaged_from_stimulus"]

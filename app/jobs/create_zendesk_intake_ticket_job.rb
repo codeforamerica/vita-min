@@ -10,8 +10,8 @@ class CreateZendeskIntakeTicketJob < ApplicationJob
     with_raven_context(intake_context(intake)) do
       service = ZendeskIntakeService.new(intake)
 
-      requester_id = service.assign_requester
-      ticket = service.create_intake_ticket if requester_id # raises error if ticket creation fails
+      service.assign_requester
+      ticket = service.create_intake_ticket
 
       if ticket
         diy_intakes = DiyIntake.where.not(email_address: nil).where(email_address: intake.email_address).filter { |i| i.ticket_id.present? }

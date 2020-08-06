@@ -4,7 +4,7 @@ RSpec.feature "Web Intake Single Filer" do
   let(:ticket_id) { 9876 }
 
   before do
-    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket_requester).and_return(4321)
+    allow_any_instance_of(ZendeskIntakeService).to receive(:assign_requester)
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(ticket_id)
   end
 

@@ -37,7 +37,7 @@ describe ZendeskIntakeService do
            email_notification_opt_in: email_opt_in,
            sms_notification_opt_in: sms_opt_in,
            intake_ticket_id: intake_ticket_id,
-           intake_ticket_requester_id: intake_requester_id,
+           intake_ticket_requester_id: intake_ticket_requester_id,
            refund_payment_method: payment_method,
            balance_pay_from_bank: pay_from_bank,
            continued_at_capacity: continued_at_capacity,
@@ -46,7 +46,7 @@ describe ZendeskIntakeService do
   let(:service) { described_class.new(intake) }
   let(:email_opt_in) { "yes" }
   let(:sms_opt_in) { "yes" }
-  let(:intake_requester_id) { rand(2**(8 * 7)) } # zendesk requester ids are big integers
+  let(:intake_ticket_requester_id) { rand(2**(8 * 7)) } # zendesk requester ids are big integers
   let(:intake_ticket_id) { nil }
   let(:payment_method) { "direct_deposit" }
   let(:pay_from_bank) { "yes" }
@@ -95,59 +95,83 @@ describe ZendeskIntakeService do
   end
 
   describe "#assign_requester" do
-    let(:intake_requester_id) { rand(2**(7 * 8)) }
+    let(:output_ticket_requester_id) { 2 }
 
     before do
-      allow(service).to receive(:create_intake_ticket_requester) { nil }
+      allow(service).to receive(:create_or_update_zendesk_user) { output_ticket_requester_id }
     end
 
-    it "does nothing if requester is already assigned" do
-      expect(service.assign_requester).to eq(intake_requester_id)
-      expect(service).not_to have_received(:create_intake_ticket_requester)
+    context "if requester is already assigned" do
+      let(:intake_ticket_requester_id) { 1 }
+
+      it "skips create_or_update" do
+        service.assign_requester
+        expect(service).not_to have_received(:create_or_update_zendesk_user)
+      end
     end
 
-    context "when behaving" do
-      let(:ticket_id) { rand(2**(8 * 7)) } ## bigint?
-      let(:intake_requester_id) { nil }
+    context "if requester is not assigned" do
+      let(:intake_ticket_requester_id) { nil }
 
       before do
-        allow(service).to receive(:create_intake_ticket_requester) { ticket_id }
+        allow(service).to receive(:create_or_update_zendesk_user) { output_ticket_requester_id }
       end
 
       it "updates intake ticket requester id" do
-        expect(service.assign_requester).to eq(ticket_id)
-        expect(intake.intake_ticket_requester_id).to eq(ticket_id)
+        service.assign_requester
+        expect(intake.intake_ticket_requester_id).to eq(output_ticket_requester_id)
       end
 
-    end
-  end
+      context "filters contact info by preference" do
+        before do
+          service.assign_requester
+        end
 
-  describe "#create_intake_ticket_requester" do
-    before do
-      allow(service).to receive(:find_or_create_end_user).and_return 1
-    end
+        context "when opted in to email only" do
+          let(:email_opt_in) { "yes" }
+          let(:sms_opt_in) { "no" }
 
-    context "when the user wants all notifications" do
-      let(:email_opt_in) { "yes" }
-      let(:sms_opt_in) { "yes" }
+          it "passes the email address and not phone" do
+            expect(service).to have_received(:create_or_update_zendesk_user).with(hash_including(
+              email: "cash@raining.money",
+              phone: nil,
+            ))
+          end
+        end
 
-      it "returns the end user ID based on all contact info" do
-        expect(service.create_intake_ticket_requester).to eq 1
-        expect(service).to have_received(:find_or_create_end_user).with(
-          "Cherry", "cash@raining.money", "+14155551234", exact_match: true, time_zone: "Central Time (US & Canada)"
-        )
+        context "when opted in to sms only" do
+          let(:email_opt_in) { "no" }
+          let(:sms_opt_in) { "yes" }
+
+          it "passes the phone and not email address" do
+            expect(service).to have_received(:create_or_update_zendesk_user).with hash_including(
+              email: nil,
+              phone: "+14155551234",
+            )
+          end
+        end
+
+        context "when opted in to email and sms" do
+          let(:email_opt_in) { "yes" }
+          let(:sms_opt_in) { "yes" }
+
+          it "passes the phone and email address" do
+            expect(service).to have_received(:create_or_update_zendesk_user).with hash_including(
+              email: "cash@raining.money",
+              phone: "+14155551234",
+            )
+          end
+        end
       end
-    end
 
-    context "when the user doesn't want any notifications" do
-      let(:email_opt_in) { "no" }
-      let(:sms_opt_in) { "no" }
+      context "sets time zone" do
+        before do
+          service.assign_requester
+        end
 
-      it "returns the end user ID based on just the name" do
-        expect(service.create_intake_ticket_requester).to eq 1
-        expect(service).to have_received(:find_or_create_end_user).with(
-          "Cherry", nil, nil, exact_match: true, time_zone: "Central Time (US & Canada)"
-        )
+        it "converts intake time zone to Zendesk time zone" do
+          expect(service).to have_received(:create_or_update_zendesk_user).with hash_including(time_zone: "Central Time (US & Canada)")
+        end
       end
     end
   end
