@@ -26,7 +26,11 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/config/credentials/*
+/config/credentials/development.key
+/config/credentials/staging.key
+/config/credentials/demo.key
+/config/credentials/production.key
+/config/credentials/*.key
 
 /.idea
 .DS_Store
