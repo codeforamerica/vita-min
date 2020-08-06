@@ -38,14 +38,10 @@ class ZendeskDropOffService
           EitcZendeskInstance::SIGNATURE_METHOD => @drop_off.signature_method
       }
     )
-    success = ticket.save
-    raise ZendeskServiceHelper::ZendeskAPIError.new("Error creating drop off ticket: #{ticket.errors}") unless success
+    ticket.save!
 
     ticket.fields = { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: ticket.id) }
-    update_success = ticket.save
-    raise ZendeskServiceHelper::ZendeskAPIError.new(
-      "Error updating drop off ticket document link: #{ticket.errors}"
-    ) unless update_success
+    ticket.save!
 
     return ticket.id
   end
@@ -54,9 +50,7 @@ class ZendeskDropOffService
     ticket = ZendeskAPI::Ticket.find(client, id: @drop_off.zendesk_ticket_id)
     ticket.comment = { body: comment_body }
 
-    success = ticket.save
-    raise ZendeskServiceHelper::ZendeskAPIError.new("Error updating drop off ticket: #{ticket.errors}") unless success
-
+    success = ticket.save!
     success
   end
 
