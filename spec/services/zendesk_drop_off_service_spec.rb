@@ -10,6 +10,8 @@ describe ZendeskDropOffService do
     <<~BODY
       New Dropoff at Adams City High School
 
+      To view the client's documents, see the "Link to Client's Documents" in Zendesk.
+
       Certification Level: Basic and HSA
       Name: Gary Guava
       Phone number: (415) 816-1286
@@ -17,7 +19,6 @@ describe ZendeskDropOffService do
       Signature method: E-Signature
       Pickup Date: 4/10/2020
       State (for state tax return): Nevada
-      Link to client's documents: http://test.host/en/zendesk/drop_offs/#{drop_off.id}
       Additional info: Gary is missing a document
     BODY
   end
@@ -83,6 +84,8 @@ describe ZendeskDropOffService do
           <<~BODY
             New Dropoff at GoodwillSR Columbus Intake
 
+            To view the client's documents, see the "Link to Client's Documents" in Zendesk.
+
             Certification Level: Basic and HSA
             Name: Gary Guava
             Phone number: (415) 816-1286
@@ -90,7 +93,6 @@ describe ZendeskDropOffService do
             Signature method: E-Signature
             Pickup Date: 4/10/2020
             State (for state tax return): Georgia
-            Link to client's documents: http://test.host/en/zendesk/drop_offs/#{drop_off.id}
             Additional info: Gary is missing a document
           BODY
         end
@@ -202,6 +204,8 @@ describe ZendeskDropOffService do
       expected_body = <<~BODY
         New Dropoff at Adams City High School
 
+        To view the client's documents, see the "Link to Client's Documents" in Zendesk.
+
         Certification Level: Basic and HSA
         Name: Gary Guava
         Phone number: (415) 816-1286
@@ -209,7 +213,6 @@ describe ZendeskDropOffService do
         Signature method: E-Signature
         Pickup Date: 4/10/2020
         State (for state tax return): Colorado
-        Link to client's documents: http://test.host/en/zendesk/drop_offs/#{drop_off.id}
         Additional info: Gary is missing a document
       BODY
       expect(result).to eq expected_body
@@ -223,13 +226,14 @@ describe ZendeskDropOffService do
         expected_body = <<~BODY
           New Dropoff at Adams City High School
 
+          To view the client's documents, see the "Link to Client's Documents" in Zendesk.
+
           Certification Level: Basic and HSA
           Name: Gary Guava
           Phone number: (415) 816-1286
           Email: gguava@example.com
           Signature method: E-Signature
           State (for state tax return): Colorado
-          Link to client's documents: http://test.host/en/zendesk/drop_offs/#{drop_off.id}
           Additional info: Gary is missing a document
         BODY
         expect(result).to eq expected_body

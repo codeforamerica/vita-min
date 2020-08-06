@@ -67,13 +67,14 @@ class ZendeskDropOffService
     <<~BODY
       New Dropoff at #{@drop_off.intake_site}
 
+      To view the client's documents, see the "Link to Client's Documents" in Zendesk.
+
       Certification Level: #{@drop_off.certification_level}#{" and HSA" if @drop_off.hsa}
       Name: #{@drop_off.name}
       Phone number: #{@drop_off.formatted_phone_number}
       Email: #{@drop_off.email}
       Signature method: #{@drop_off.formatted_signature_method}#{pickup_date_line}
       State (for state tax return): #{@drop_off.state_name}
-      Link to client's documents: #{zendesk_drop_off_url(id: @drop_off.id)}
       Additional info: #{@drop_off.additional_info}
     BODY
   end
