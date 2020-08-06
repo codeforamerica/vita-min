@@ -83,7 +83,7 @@ module ZendeskServiceHelper
     #
     # Based on manual testing, if email is absent, Zendesk will always create a new requester.
     if email.blank? && phone.blank?
-      raise StandardError.new("Unable to find_or_create_end_user because both phone & email are blank")
+      raise StandardError.new("Unable to create_or_update_zendesk_user because both phone & email are blank")
     end
 
     if name.blank?
@@ -100,50 +100,11 @@ module ZendeskServiceHelper
     ZendeskAPI::User.create_or_update!(instance.client, attributes).id
   end
 
-  def find_end_user(name, email, phone, exact_match: false)
-    if email.present?
-      email_matches = search_zendesk_users("email:#{email}")
-      if email_matches.present?
-        return email_matches.first
-      elsif exact_match
-        return nil
-      end
-    end
-
-    search_string = ""
-    search_string += "name:\"#{qualify_user_name(name)}\" " if name.present?
-    search_string += "phone:#{phone}" if phone.present?
-    results = search_zendesk_users(search_string)
-    if exact_match
-      results = results.select { |result| result.name.blank? } if name.blank?
-      results = results.select { |result| result.email.blank? } if email.blank?
-      results = results.select { |result| result.phone.blank? } if phone.blank?
-    end
-    results.first
-  end
-
   # TODO: find_all_intake_tickets (should filter for only intake tickets if possible)
 
   def find_latest_ticket(end_user_id)
     end_user = client.user.find(id: end_user_id)
     end_user.requested_tickets(sort_by: :updated_at, sort_order: :desc).first
-  end
-
-  def create_end_user(name:, **attributes)
-    # for a list of possible valid attributes, see:
-    #   https://developer.zendesk.com/rest_api/docs/support/users#json-format-for-end-user-requests
-    client.users.create!(name: qualify_user_name(name), verified: true, **attributes)
-  end
-
-  def find_or_create_end_user(name, email, phone, exact_match: false, time_zone: nil)
-    user = find_end_user(name, email, phone, exact_match: exact_match)
-    if user.present?
-      update_user_contact_info(user, phone)
-      return user.id
-    end
-
-    result = create_end_user(name: name, email: email, phone: phone, time_zone: time_zone)
-    result.id if result.present?
   end
 
   def qualified_environments
@@ -303,13 +264,4 @@ module ZendeskServiceHelper
   class MissingRequesterIdError < ZendeskServiceError; end
   class MissingTicketIdError < ZendeskServiceError; end
   class MissingTicketError < ZendeskServiceError; end
-
-  private
-
-  def update_user_contact_info(user, phone)
-    if phone && user.phone.blank?
-      user.phone = phone
-      user.save!
-    end
-  end
 end
