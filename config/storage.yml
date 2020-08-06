@@ -1,3 +1,9 @@
+deploy_default: &deploy_default
+  service: S3
+  access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
+  secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
+  region: us-east-1
+
 test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
@@ -8,24 +14,15 @@ local:
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 s3_prod:
-  service: S3
-  access_key_id: <%= Rails.application.credentials.dig(:production, :aws, :access_key_id) %>
-  secret_access_key: <%= Rails.application.credentials.dig(:production, :aws, :secret_access_key) %>
-  region: us-east-1
+  <<: *deploy_default
   bucket: vita-min-prod-docs
 
 s3_staging:
-  service: S3
-  access_key_id: <%= Rails.application.credentials.dig(:staging, :aws, :access_key_id) %>
-  secret_access_key: <%= Rails.application.credentials.dig(:staging, :aws, :secret_access_key) %>
-  region: us-east-1
+  <<: *deploy_default
   bucket: vita-min-staging-docs
 
 s3_demo:
-  service: S3
-  access_key_id: <%= Rails.application.credentials.dig(:demo, :aws, :access_key_id) %>
-  secret_access_key: <%= Rails.application.credentials.dig(:demo, :aws, :secret_access_key) %>
-  region: us-east-1
+  <<: *deploy_default
   bucket: vita-min-demo-docs
 
 # Remember not to checkin your GCS keyfile to a repository

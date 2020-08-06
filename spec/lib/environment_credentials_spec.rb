@@ -4,11 +4,8 @@ RSpec.describe EnvironmentCredentials do
   describe ".dig" do
     let(:mock_credentials) do
       {
-        test: {
+        service_key: {
           test_key: "test-value",
-        },
-        production: {
-          test_key: "other-value"
         }
       }
     end
@@ -18,14 +15,14 @@ RSpec.describe EnvironmentCredentials do
         allow(Rails.application).to receive(:credentials).and_return(mock_credentials)
       end
 
-      it "returns the value for the current environment" do
-        expect(EnvironmentCredentials.dig(:test_key)).to eq("test-value")
+      it "returns the value for the key" do
+        expect(EnvironmentCredentials.dig(:service_key, :test_key)).to eq("test-value")
       end
     end
 
     context "when the key does not exist" do
       it "returns nil" do
-        expect(EnvironmentCredentials.dig(:nonexistent_key)).to be_nil
+        expect(EnvironmentCredentials.dig(:service_key, :nonexistent_key)).to be_nil
       end
     end
 

@@ -7,6 +7,7 @@ deploy_default: &deploy_default
   adapter: postgis
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  url: <%= Rails.application.credentials[:database_url] %>
 
 development:
   <<: *local_default
@@ -21,12 +22,9 @@ test:
 
 production:
   <<: *deploy_default
-  url: <%= Rails.application.credentials.dig(:production, :database_url) %>
 
 staging:
   <<: *deploy_default
-  url: <%= Rails.application.credentials.dig(:staging, :database_url) %>
 
 demo:
   <<: *deploy_default
-  url: <%= Rails.application.credentials.dig(:demo, :database_url) %>
