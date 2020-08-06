@@ -21,11 +21,20 @@ class ZendeskDropOffService
     EitcZendeskInstance
   end
 
+  def assign_requester
+    arguments = {
+      name: @drop_off.name,
+    }
+    phone = @drop_off.standardized_phone_number
+    arguments[:email] = @drop_off.email if @drop_off.email.present?
+    arguments[:phone] = phone if phone.present?
+    create_or_update_zendesk_user(arguments)
+  end
+
   def create_ticket
-    zendesk_user_id = find_or_create_end_user(@drop_off.name, @drop_off.email, @drop_off.standardized_phone_number)
     ticket = build_ticket(
       subject: @drop_off.name,
-      requester_id: zendesk_user_id,
+      requester_id: assign_requester,
       group_id: group_id,
       external_id: @drop_off.external_id,
       body: comment_body,

@@ -87,20 +87,4 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
       end
     end
   end
-
-  describe "#perform unexpectedly" do
-    context "when unable to create a ticket requester" do
-      before do
-        allow(ZendeskIntakeService).to receive(:new).with(intake).and_return(fake_zendesk_intake_service)
-        allow(fake_zendesk_intake_service).to receive(:assign_requester) { nil }
-        allow(fake_zendesk_intake_service).to receive(:create_intake_ticket) { nil }
-      end
-
-      it "does not try to create a ticket" do
-        described_class.perform_now(intake.id)
-
-        expect(fake_zendesk_intake_service).not_to have_received(:create_intake_ticket)
-      end
-    end
-  end
 end
