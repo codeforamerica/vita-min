@@ -31,7 +31,7 @@ describe ZendeskDropOffService do
 
     allow(fake_zendesk_ticket).to receive(:comment=)
     allow(fake_zendesk_ticket).to receive_message_chain(:comment, :uploads).and_return(comment_uploads)
-    allow(fake_zendesk_ticket).to receive(:save).and_return(true)
+    allow(fake_zendesk_ticket).to receive(:save!).and_return(true)
     allow(fake_zendesk_ticket).to receive(:fields=)
   end
 
@@ -69,7 +69,7 @@ describe ZendeskDropOffService do
         expect(fake_zendesk_ticket).to have_received(:fields=).with({
           EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: 2)
         })
-        expect(fake_zendesk_ticket).to have_received(:save).twice
+        expect(fake_zendesk_ticket).to have_received(:save!).twice
       end
 
       context "from Goodwill Industries of the Southern Rivers" do
@@ -118,25 +118,13 @@ describe ZendeskDropOffService do
         end
       end
     end
-
-    context "failure creating ticket" do
-      before do
-        allow(fake_zendesk_ticket).to receive(:save).and_return(false)
-      end
-
-      it "raises an error" do
-        expect {
-          ZendeskDropOffService.new(drop_off).create_ticket
-        }.to raise_error(ZendeskServiceHelper::ZendeskAPIError)
-      end
-    end
   end
 
   describe "#append_to_existing_ticket" do
     let(:drop_off) { create :full_drop_off, zendesk_ticket_id: "48", state: "NV" }
 
     before do
-      allow(fake_zendesk_ticket).to receive(:save).and_return(true)
+      allow(fake_zendesk_ticket).to receive(:save!).and_return(true)
     end
 
     it "appends a comment and document to the ticket" do
@@ -144,20 +132,8 @@ describe ZendeskDropOffService do
 
       expect(ZendeskAPI::Ticket).to have_received(:find).with(fake_zendesk_client, id: "48")
       expect(fake_zendesk_ticket).to have_received(:comment=).with({body: comment_body})
-      expect(fake_zendesk_ticket).to have_received(:save)
+      expect(fake_zendesk_ticket).to have_received(:save!)
       expect(result).to eq true
-    end
-
-    context "failure updating ticket" do
-      before do
-        allow(fake_zendesk_ticket).to receive(:save).and_return(false)
-      end
-
-      it "raises an error" do
-        expect {
-          ZendeskDropOffService.new(drop_off).append_to_existing_ticket
-        }.to raise_error(ZendeskServiceHelper::ZendeskAPIError)
-      end
     end
   end
 
