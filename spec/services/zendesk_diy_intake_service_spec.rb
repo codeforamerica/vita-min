@@ -19,7 +19,7 @@ describe ZendeskDiyIntakeService do
   let(:service) { described_class.new(diy_intake) }
 
   before do
-    allow(service).to receive(:find_or_create_end_user).and_return requester_id
+    allow(service).to receive(:create_or_update_zendesk_user).and_return requester_id
   end
 
   describe "#instance" do
@@ -31,23 +31,14 @@ describe ZendeskDiyIntakeService do
   describe "#assign_requester" do
     it "finds or creates the end user based on email" do
       service.assign_requester
-      expect(service).to have_received(:find_or_create_end_user).with(
-        diy_intake.preferred_name, diy_intake.email_address, nil, exact_match: true
+      expect(service).to have_received(:create_or_update_zendesk_user).with(
+        name: diy_intake.preferred_name, email: diy_intake.email_address,
       )
     end
 
     it "updates diy intake requester id" do
       expect { service.assign_requester }
         .to change { diy_intake.requester_id }.from(nil).to(requester_id)
-    end
-
-    context "when unable to create a requester" do
-      let(:requester_id) { nil }
-
-      it "raises an error" do
-        expect { service.assign_requester }
-          .to raise_error(ZendeskServiceHelper::ZendeskServiceError)
-      end
     end
   end
 

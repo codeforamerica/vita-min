@@ -20,21 +20,13 @@ class ZendeskDiyIntakeService
   end
 
   def assign_requester
-    requester_id = find_or_create_end_user(
-      diy_intake.preferred_name,
-      diy_intake.email_address,
-      nil,
-      exact_match: true
-    )
-    if requester_id
-      diy_intake.update(requester_id: requester_id)
-    else
-      raise ZendeskServiceError.new(
-        "ZendeskDiyIntakeService failed to create a ticket requester"
+    diy_intake.update(
+      requester_id: create_or_update_zendesk_user(
+        name: diy_intake.preferred_name,
+        email: diy_intake.email_address,
       )
-    end
+    )
   end
-
 
   def create_diy_intake_ticket
     ticket = create_ticket(
@@ -125,5 +117,4 @@ class ZendeskDiyIntakeService
   def state_of_residence_name
     States.name_for_key(diy_intake.state_of_residence)
   end
-
 end

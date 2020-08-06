@@ -91,8 +91,8 @@ module ZendeskServiceHelper
     end
 
     attributes = {
-        name: qualify_user_name(name),
-        verified: true, # Avoid Zendesk sending a verification email.
+      name: qualify_user_name(name),
+      verified: true, # Avoid Zendesk sending a verification email.
     } # see also https://developer.zendesk.com/rest_api/docs/support/users#json-format-for-end-user-requests
     attributes[:time_zone] = time_zone if time_zone.present?
     attributes[:email] = email if email.present?
