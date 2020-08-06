@@ -73,6 +73,7 @@ class ZendeskDropOffService
       Email: #{@drop_off.email}
       Signature method: #{@drop_off.formatted_signature_method}#{pickup_date_line}
       State (for state tax return): #{@drop_off.state_name}
+      Link to client's documents: #{zendesk_drop_off_url(id: @drop_off.id)}
       Additional info: #{@drop_off.additional_info}
     BODY
   end

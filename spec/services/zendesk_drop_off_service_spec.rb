@@ -17,6 +17,7 @@ describe ZendeskDropOffService do
       Signature method: E-Signature
       Pickup Date: 4/10/2020
       State (for state tax return): Nevada
+      Link to client's documents: http://test.host/en/zendesk/drop_offs/#{drop_off.id}
       Additional info: Gary is missing a document
     BODY
   end
@@ -89,6 +90,7 @@ describe ZendeskDropOffService do
             Signature method: E-Signature
             Pickup Date: 4/10/2020
             State (for state tax return): Georgia
+            Link to client's documents: http://test.host/en/zendesk/drop_offs/#{drop_off.id}
             Additional info: Gary is missing a document
           BODY
         end
@@ -207,6 +209,7 @@ describe ZendeskDropOffService do
         Signature method: E-Signature
         Pickup Date: 4/10/2020
         State (for state tax return): Colorado
+        Link to client's documents: http://test.host/en/zendesk/drop_offs/#{drop_off.id}
         Additional info: Gary is missing a document
       BODY
       expect(result).to eq expected_body
@@ -226,6 +229,7 @@ describe ZendeskDropOffService do
           Email: gguava@example.com
           Signature method: E-Signature
           State (for state tax return): Colorado
+          Link to client's documents: http://test.host/en/zendesk/drop_offs/#{drop_off.id}
           Additional info: Gary is missing a document
         BODY
         expect(result).to eq expected_body
