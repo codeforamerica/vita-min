@@ -520,3 +520,10 @@ vita_partners:
   states:
   - CT
   logo_path: 'partner-logos/virtualvitainc.png'
+- name: Foundation Communities - STS
+  zendesk_instance_domain: eitc
+  zendesk_group_id: '360012744854'
+  display_name: Foundation Communities - STS
+  source_parameters:
+  - fcsts
+  logo_path: ''  
