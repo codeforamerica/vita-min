@@ -218,7 +218,6 @@ vita_partners:
   source_parameters:
   - uuny
   states:
-  - CT
   - DE
   - ME
   - NY
@@ -518,4 +517,6 @@ vita_partners:
   display_name: Virtual VITA Inc
   source_parameters:
   - virtualvitainc
+  states:
+  - CT
   logo_path: 'partner-logos/virtualvitainc.png'
