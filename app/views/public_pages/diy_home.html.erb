@@ -24,6 +24,24 @@
           <p class="diy-subheader spacing-below-60">
             <strong>Don’t miss out. Start today.</strong>
           </p>
+          <%= link_to [:diy, DiyNavigation.first.controller_name],
+                      class: "button button--primary button--wide text--centered" do %>
+            <%= t("views.public_pages.diy_home.send_link") %>
+          <% end %>
+        <% elsif session[:source] == 'adwords-f1b' && I18n.locale == :en %>
+          <h1 class="diy-header">
+            Earn Up to $3,500
+          </h1>
+          <p class="diy-subheader">
+            <strong>Millions of people just like you qualify for government programs to get us through hard times. But they miss out on stimulus checks and tax credits when they don’t fill out this simple form.</strong>
+          </p>
+          <p class="diy-subheader">
+            <strong>You can do it yourself or get free help to get it right. Code for America, a nonprofit organization, is offering a free service to help you get it done.</strong></strong>
+          </p>
+          <p class="diy-subheader">
+            <strong>Trained volunteers are ready to help you today. In about an hour you’ll be on your way to the money you need.</strong>
+          </p>
+          <%= link_to 'Start Now', [:diy, DiyNavigation.first.controller_name], class: "button button--primary button--wide text--centered" %>
         <% elsif session[:source] == 'adwords-f2' && I18n.locale == :en %>
           <h1 class="diy-header">
             Take a smart step toward financial security for you and your family.
@@ -40,6 +58,10 @@
           <p class="diy-subheader spacing-below-60">
             <strong>You can do it. Get started now.</strong>
           </p>
+          <%= link_to [:diy, DiyNavigation.first.controller_name],
+                      class: "button button--primary button--wide text--centered" do %>
+            <%= t("views.public_pages.diy_home.send_link") %>
+          <% end %>
         <% else %>
           <h1 class="diy-header">
             <%= content_for :page_title %>
@@ -49,10 +71,10 @@
               <%=t("views.public_pages.diy_home.subheader") %>
             </strong>
           </p>
-        <% end %>
-        <%= link_to [:diy, DiyNavigation.first.controller_name],
-          class: "button button--primary button--wide text--centered" do %>
-          <%= t("views.public_pages.diy_home.send_link") %>
+          <%= link_to [:diy, DiyNavigation.first.controller_name],
+                      class: "button button--primary button--wide text--centered" do %>
+            <%= t("views.public_pages.diy_home.send_link") %>
+          <% end %>
         <% end %>
       </div>
     </div>
