@@ -8,7 +8,7 @@
   <div class="slab slab--hero">
     <div class="grid">
       <div class="grid__item width-one-half">
-        <% if session[:source] == 'adwords-f1' && I18n.locale == :en %>
+        <% if (session[:source] == 'adwords-f1' || session[:source] == 'fb-diy-f1') && I18n.locale == :en %>
           <h1 class="diy-header">
             Earn Up to $3,500 by Filling Out This Simple Form
           </h1>
@@ -28,7 +28,7 @@
                       class: "button button--primary button--wide text--centered" do %>
             <%= t("views.public_pages.diy_home.send_link") %>
           <% end %>
-        <% elsif session[:source] == 'adwords-f1b' && I18n.locale == :en %>
+        <% elsif (session[:source] == 'adwords-f1b' || session[:source] == 'fb-diy-f1b') && I18n.locale == :en %>
           <h1 class="diy-header">
             Earn Up to $3,500
           </h1>
@@ -42,7 +42,7 @@
             <strong>Trained volunteers are ready to help you today. In about an hour you’ll be on your way to the money you need.</strong>
           </p>
           <%= link_to 'Start Now', [:diy, DiyNavigation.first.controller_name], class: "button button--primary button--wide text--centered" %>
-        <% elsif session[:source] == 'adwords-f2' && I18n.locale == :en %>
+        <% elsif (session[:source] == 'adwords-f2' || session[:source] == 'fb-diy-f2') && I18n.locale == :en %>
           <h1 class="diy-header">
             Take a smart step toward financial security for you and your family.
           </h1>
