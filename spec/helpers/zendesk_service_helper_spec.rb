@@ -464,12 +464,12 @@ RSpec.describe ZendeskServiceHelper do
       expect(service.zendesk_timezone("America/Los_Angeles")).to eq("Pacific Time (US & Canada)")
     end
 
-    it "returns Unknown when timezone is not found" do
-      expect(service.zendesk_timezone("Antarctica/Casey")).to eq("Unknown")
+    it "returns nil when timezone is not found" do
+      expect(service.zendesk_timezone("Antarctica/Casey")).to eq(nil)
     end
 
-    it "returns Unknown when timezone is nil" do
-      expect(service.zendesk_timezone(nil)).to eq("Unknown")
+    it "returns nil when timezone is nil" do
+      expect(service.zendesk_timezone(nil)).to eq(nil)
     end
   end
 end

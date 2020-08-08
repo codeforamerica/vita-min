@@ -116,7 +116,7 @@ module ZendeskServiceHelper
   end
 
   def zendesk_timezone(timezone)
-    TIMEZONE_MAP[timezone] || "Unknown"
+    TIMEZONE_MAP[timezone]
   end
 
   ##

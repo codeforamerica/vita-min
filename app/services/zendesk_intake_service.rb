@@ -156,12 +156,19 @@ class ZendeskIntakeService
     output
   end
 
+  def client_interview_preferences_message
+    message = <<~MESSAGE
+      Client's detected timezone: #{zendesk_timezone(@intake.timezone) || "Unknown"}
+      Client's provided interview preferences: #{@intake.interview_timing_preference || "Unknown"}
+    MESSAGE
+    message.rstrip
+  end
+
   def send_final_intake_pdf
     comment_body = <<~BODY
       Online intake form submitted and ready for review. The taxpayer was notified that their information has been submitted. (automated_notification_submit_confirmation)
 
-      Client's detected timezone: #{zendesk_timezone(@intake.timezone)}
-      Client's provided interview preferences: #{@intake.interview_timing_preference}
+      #{client_interview_preferences_message}
       The client's preferred language for a phone call is #{preferred_interview_language_name}
 
       Additional information from Client: #{@intake.final_info}
