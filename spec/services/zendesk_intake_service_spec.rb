@@ -67,6 +67,11 @@ describe ZendeskIntakeService do
 
   after do
     I18n.locale = I18n.default_locale
+    DatadogApi.instance_variable_set("@dogapi_client", nil)
+    DatadogApi.configure do |c|
+      c.env = "test"
+    end
+    allow(Rails).to receive(:env).and_return("test".inquiry)
   end
 
   describe "#client" do
@@ -133,9 +138,9 @@ describe ZendeskIntakeService do
 
           it "passes the email address and not phone" do
             expect(service).to have_received(:create_or_update_zendesk_user).with(hash_including(
-              email: "cash@raining.money",
-              phone: nil,
-            ))
+                                                                                    email: "cash@raining.money",
+                                                                                    phone: nil,
+                                                                                  ))
           end
         end
 
@@ -169,8 +174,26 @@ describe ZendeskIntakeService do
           service.assign_requester
         end
 
-        it "converts intake time zone to Zendesk time zone" do
-          expect(service).to have_received(:create_or_update_zendesk_user).with hash_including(time_zone: "Central Time (US & Canada)")
+        context "with valid time zone" do
+          it "converts intake time zone to Zendesk time zone" do
+            expect(service).to have_received(:create_or_update_zendesk_user).with hash_including(time_zone: "Central Time (US & Canada)")
+          end
+        end
+
+        context "with time zone we cannot convert to a Zendesk time zone" do
+          let(:timezone) { "Timbuktu Time" }
+
+          it "converts intake time zone to Zendesk time zone" do
+            expect(service).to have_received(:create_or_update_zendesk_user).with hash_including(time_zone: nil)
+          end
+        end
+
+        context "with nil time zone" do
+          let(:timezone) { nil }
+
+          it "sends nil timezone to Zendesk API" do
+            expect(service).to have_received(:create_or_update_zendesk_user).with hash_including(time_zone: nil)
+          end
         end
       end
     end
@@ -242,7 +265,7 @@ describe ZendeskIntakeService do
           unique_id: intake.visitor_id,
           event_name: "ticket_status_change",
           data: hash_including(MixpanelService.data_from([intake, ticket_status])
-        ))
+                              ))
       end
 
       it "sends a datadog metric" do
@@ -324,7 +347,7 @@ describe ZendeskIntakeService do
         expect(service)
           .to have_received(:create_ticket)
           .with(include(tags: ["saw_at_capacity_page"])
-        )
+               )
       end
 
       context "when the user was triaged from stimulus" do
@@ -337,7 +360,7 @@ describe ZendeskIntakeService do
           expect(service)
             .to have_received(:create_ticket)
             .with(include(tags: ["triaged_from_stimulus", "saw_at_capacity_page"])
-          )
+                 )
         end
       end
     end
@@ -652,6 +675,33 @@ describe ZendeskIntakeService do
     end
   end
 
+  describe "#client_interview_preferences_message" do
+    let(:interview_timing_preference) { "Monday evenings and Wednesday mornings" }
+
+    context "with a usable timezone & timing preference" do
+      it "shows them" do
+        expected = [
+          "Client's detected timezone: Central Time (US & Canada)",
+          "Client's provided interview preferences: Monday evenings and Wednesday mornings"
+        ].join("\n")
+        expect(service.client_interview_preferences_message).to eq(expected)
+      end
+    end
+
+    context "with unusable timezone & timing preference" do
+      let(:timezone) { nil }
+      let(:interview_timing_preference) { nil }
+
+      it "shows their absence" do
+        expected = [
+            "Client's detected timezone: Unknown",
+            "Client's provided interview preferences: Unknown"
+        ].join("\n")
+        expect(service.client_interview_preferences_message).to eq(expected)
+      end
+    end
+  end
+
   describe "#send_final_intake_pdf" do
     let(:output) { true }
     let(:fake_file) { instance_double(File) }
@@ -914,13 +964,5 @@ describe ZendeskIntakeService do
         expect(fake_dogapi).not_to have_received(:emit_point)
       end
     end
-  end
-
-  after do
-    DatadogApi.instance_variable_set("@dogapi_client", nil)
-    DatadogApi.configure do |c|
-      c.env = "test"
-    end
-    allow(Rails).to receive(:env).and_return("test".inquiry)
   end
 end
