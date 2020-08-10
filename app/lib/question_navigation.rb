@@ -3,6 +3,7 @@ class QuestionNavigation
     # Triage
     Questions::WelcomeController,
     Questions::FileWithHelpController,
+    Questions::EipOnlyController,
     Questions::BacktaxesController, # create Intake record
     Questions::EnvironmentWarningController,
     Questions::StartWithCurrentYearController,
