@@ -54,6 +54,11 @@ module Questions
       IntakeProgressCalculator.show_progress?(self.class)
     end
 
+    def form_navigation
+      navigation_class = current_intake&.eip_only ? EipOnlyNavigation : QuestionNavigation
+      navigation_class.new(self)
+    end
+
     private
 
     def after_update_success; end
@@ -65,10 +70,6 @@ module Questions
 
     def form_params
       params.fetch(form_name, {}).permit(*form_class.attribute_names)
-    end
-
-    def form_navigation
-      @form_navigation ||= QuestionNavigation.new(self)
     end
 
     def track_question_answer
