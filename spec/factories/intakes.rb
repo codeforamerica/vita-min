@@ -36,6 +36,7 @@
 #  demographic_veteran                                  :integer          default("unfilled"), not null
 #  divorced                                             :integer          default("unfilled"), not null
 #  divorced_year                                        :string
+#  eip_only                                             :boolean
 #  email_address                                        :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
 #  encrypted_bank_account_number                        :string
@@ -184,6 +185,10 @@ FactoryBot.define do
 
     factory :anonymous_intake do
       anonymous { true }
+    end
+
+    trait :eip_only do
+      eip_only { true }
     end
 
     trait :with_banking_details do
