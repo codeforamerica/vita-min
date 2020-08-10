@@ -219,6 +219,7 @@ class MixpanelService
           triaged_from_stimulus: intake.triaged_from_stimulus? ? "yes" : "no",
           timezone: intake.timezone,
           csat: intake.satisfaction_face,
+          eip_only: intake.eip_only,
       }
     end
 

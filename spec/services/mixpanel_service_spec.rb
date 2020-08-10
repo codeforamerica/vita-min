@@ -192,6 +192,7 @@ describe MixpanelService do
           vita_partner: vita_partner,
           timezone: "America/Los_Angeles",
           satisfaction_face: "neutral",
+          eip_only: true
         )
       end
 
@@ -264,6 +265,7 @@ describe MixpanelService do
             triaged_from_stimulus: "no",
             timezone: "America/Los_Angeles",
             csat: "neutral",
+            eip_only: true
           })
         end
 
