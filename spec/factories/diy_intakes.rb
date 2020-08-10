@@ -24,5 +24,12 @@ FactoryBot.define do
   factory :diy_intake do
     preferred_name { "Gary Gnome" }
     state_of_residence { "CA" }
+
+    trait :filled_out do
+      ticket_id { 789 }
+      locale { "es" }
+      referrer { "https://www.gallopingacrosstheplains.horse/tax-help" }
+      source { "horse-help" }
+    end
   end
 end
