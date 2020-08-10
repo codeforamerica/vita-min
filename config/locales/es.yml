@@ -81,6 +81,7 @@ es:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
       need_phone_number: Por favor, introduzca un número de teléfono celular.
+      need_one_communication_method: Por favor, elija alguna forma para que nos comuniquemos con usted.
   general:
     address: Dirección
     affirmative: Sí
