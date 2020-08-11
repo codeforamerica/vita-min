@@ -417,7 +417,7 @@ class Intake < ApplicationRecord
   end
 
   def most_recent_filing_year
-    filing_years.first
+    filing_years.first || "2019"
   end
 
   def include_bank_details?

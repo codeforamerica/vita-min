@@ -63,28 +63,6 @@ RSpec.describe DocumentNavigation do
     end
   end
 
-  describe "#next_for_intake" do
-    let(:intake) { build :intake }
-
-    context "when current controller is second to last or before" do
-      before do
-        allow(SecondController).to receive(:show?).with(intake).and_return(false)
-      end
-
-      it "returns the class for next non-skipped controller in main flow" do
-        navigation = described_class.new(FirstController.new)
-        expect(navigation.next_for_intake(intake)).to eq(SignpostController)
-      end
-    end
-
-    context "when current controller is the last" do
-      it "returns nil" do
-        navigation = described_class.new(ThirdController.new)
-        expect(navigation.next_for_intake(intake)).to be_nil
-      end
-    end
-  end
-
   describe ".first_for_intake" do
     let(:intake) { build :intake }
     before do

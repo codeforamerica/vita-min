@@ -8,10 +8,14 @@ RSpec.feature "Web Intake EIP Only Filer" do
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(ticket_id)
   end
 
-  xscenario "new client filing single without dependents" do
+  scenario "new EIP-only client filing joint with a dependent" do
     #placeholder page
     visit "/questions/eip-only"
     click_on "Go"
+
+    #Non-production environment warning
+    expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
+    click_on "Continue to example"
 
     # Overview
     expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
@@ -94,7 +98,7 @@ RSpec.feature "Web Intake EIP Only Filer" do
     click_on "No"
 
     # Dependents
-    expect(page).to have_selector("h1", text: "Would you like to claim anyone for 2019?")
+    expect(page).to have_selector("h1", text: "Would you or your spouse like to claim anyone for 2019?")
     click_on "Yes"
 
     click_on "Add a person"
@@ -121,7 +125,7 @@ RSpec.feature "Web Intake EIP Only Filer" do
     expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
+    expect(page).to have_selector("h1", text: "Attach photos of ID cards")
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"
@@ -174,7 +178,14 @@ RSpec.feature "Web Intake EIP Only Filer" do
     check "Asian"
     check "White"
     click_on "Continue"
+    expect(page).to have_selector("h1", text: "What is your spouse's race?")
+    check "Asian"
+    check "White"
+    click_on "Continue"
     expect(page).to have_text("What is your ethnicity?")
+    choose "Not Hispanic or Latino"
+    click_on "Continue"
+    expect(page).to have_selector("h1", text: "What is your spouse's ethnicity?")
     choose "Not Hispanic or Latino"
     click_on "Continue"
 

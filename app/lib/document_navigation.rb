@@ -66,10 +66,10 @@ class DocumentNavigation
     @current_controller = current_controller
   end
 
-  def next_for_intake(intake)
+  def next
     current_index = controllers.index(@current_controller.class)
     return if current_index.nil?
 
-    controllers[(current_index + 1)..-1].find { |c| c.show?(intake) }
+    controllers[(current_index + 1)..-1].find { |c| c.show?(@current_controller.visitor_record) }
   end
 end

@@ -14,5 +14,9 @@ module Questions
     def illustration_path
       nil
     end
+
+    def after_update_success
+      session[:intake_id] = @form.intake.id
+    end
   end
 end

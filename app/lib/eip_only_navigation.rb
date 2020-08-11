@@ -41,7 +41,12 @@ class EipOnlyNavigation
     # Additional Information
     Questions::AdditionalInfoController, # appends 13614-C & consent PDF to Zendesk ticket
 
-    # Documents --> See DocumentNavigation
+    # Documents
+    Documents::IdGuidanceController,
+    Documents::IdsController,
+    Documents::SelfieInstructionsController,
+    Documents::SelfiesController,
+    Documents::SsnItinsController,
 
     # Interview time preferences
     Questions::InterviewSchedulingController,

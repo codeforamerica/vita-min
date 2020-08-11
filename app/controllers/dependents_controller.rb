@@ -1,5 +1,6 @@
 class DependentsController < ApplicationController
   before_action :require_ticket, :require_intake
+  helper_method :next_path
 
   def index
     @dependents = current_intake.dependents
@@ -47,6 +48,10 @@ class DependentsController < ApplicationController
 
   def show_progress?
     true
+  end
+
+  def next_path
+    current_intake.eip_only ? additional_info_questions_path : dependent_care_questions_path
   end
 
   private

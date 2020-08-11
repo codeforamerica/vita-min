@@ -581,8 +581,8 @@ describe Intake do
     let(:filing_years) { {} }
 
     context "with unfilled filing years" do
-      it "returns nil" do
-        expect(intake.most_recent_filing_year).to be_nil
+      it "returns 2019" do
+        expect(intake.most_recent_filing_year).to eq "2019"
       end
     end
 
@@ -620,8 +620,8 @@ describe Intake do
     let(:filing_years) { {} }
 
     context "with unfilled filing years" do
-      it "returns nil" do
-        expect(intake.year_before_most_recent_filing_year).to be_nil
+      it "returns 2018" do
+        expect(intake.year_before_most_recent_filing_year).to eq "2018"
       end
     end
 

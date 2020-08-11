@@ -35,7 +35,7 @@ module Questions
 
     def next_path(params = {})
       next_step = form_navigation.next
-      question_path(next_step.to_param, params) if next_step
+      next_step.to_path_helper(params) if next_step
     end
 
     def illustration_folder
@@ -89,6 +89,16 @@ module Questions
     class << self
       def to_param
         controller_name.dasherize
+      end
+
+      def to_path_helper(params = {})
+        path_helper_string = [
+          controller_name,
+          module_parent.name.underscore,
+          "path"
+        ].join("_") # "controller_name_module_path"
+
+        Rails.application.routes.url_helpers.send(path_helper_string.to_sym, params)
       end
 
       def form_name

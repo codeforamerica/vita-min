@@ -10,6 +10,22 @@ RSpec.describe DependentsController do
     allow(MixpanelService).to receive(:send_event)
   end
 
+  describe "#next_path" do
+    context "without an eip only return" do
+      it "returns a link to dependent care questions" do
+        expect(subject.next_path).to include dependent_care_questions_path
+      end
+    end
+
+    context "with an eip only return" do
+      let(:intake) { create :intake, :eip_only, intake_ticket_id: 1234 }
+
+      it "navigates to additional info" do
+        expect(subject.next_path).to include additional_info_questions_path
+      end
+    end
+  end
+
   describe "#index" do
     context "with existing dependents" do
       let!(:dependent_one) { create :dependent, first_name: "Kylie", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}

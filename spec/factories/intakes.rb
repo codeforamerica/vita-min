@@ -187,6 +187,10 @@ FactoryBot.define do
       anonymous { true }
     end
 
+    trait :with_ticket do
+      intake_ticket_id { 123 }
+    end
+
     trait :eip_only do
       eip_only { true }
     end

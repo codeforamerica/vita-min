@@ -40,6 +40,11 @@ module Documents
       document_type&.key
     end
 
+    def form_navigation
+      navigation_class = current_intake&.eip_only ? EipOnlyNavigation : DocumentNavigation
+      navigation_class.new(self)
+    end
+
     private
 
     def destroy_document_path(document)
@@ -72,17 +77,8 @@ module Documents
       })
     end
 
-    def next_path(params = {})
-      next_step = form_navigation.next_for_intake(current_intake)
-      document_path(next_step.to_param, params) if next_step
-    end
-
     def current_path(params = {})
       document_path(self.class.to_param, params)
-    end
-
-    def form_navigation
-      @form_navigation ||= DocumentNavigation.new(self)
     end
 
     def set_filer_names
