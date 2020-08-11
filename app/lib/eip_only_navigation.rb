@@ -9,7 +9,6 @@ class EipOnlyNavigation
 
     # Contact information
     Questions::PersonalInfoController,
-    Questions::AtCapacityController,
     Questions::ChatWithUsController,
     Questions::PhoneNumberController,
     Questions::EmailAddressController,
