@@ -776,6 +776,7 @@ en:
           other: In %{year}, did you or your spouse make any charitable contributions?
       chat_with_us:
         chat: If you have questions, you can chat with us by clicking the button in the bottom right of your screen.
+        eip_only: We’re here to support you every step of the way!
         info: We know taxes can be hard and we’re here to support you every step of the way!
         partner_info_html: "%{partner_name} handles tax returns from <strong>%{zip} (%{zip_name}).</strong>"
         title: Our team at %{partner_name} is here to help!

@@ -28,8 +28,7 @@ RSpec.feature "Web Intake EIP Only Filer" do
     click_on "Continue"
 
     # Chat with us
-    expect(page).to have_selector("h1", text: "Our team at United Way of Greater Richmond and Petersburg is here to help!")
-    expect(page).to have_selector("p", text: "United Way of Greater Richmond and Petersburg handles tax returns from 20121 (Centreville, Virginia).")
+    expect(page).to have_selector("h1", text: "Our team at Get Your Refund is here to help!")
     click_on "Continue"
 
     # Phone number

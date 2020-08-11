@@ -437,7 +437,7 @@ class Intake < ApplicationRecord
     return nil if zendesk_instance == UwtsaZendeskInstance
 
     # this is a RouteOptions struct, defined below
-    route_options = partner_for_source || partner_for_state || partner_for_overflow
+    route_options = partner_for_eip_only || partner_for_source || partner_for_state || partner_for_overflow
 
     raise "partner not found!" unless route_options&.partner # this shouldn't happen unless the data is horked!
 
@@ -554,6 +554,13 @@ class Intake < ApplicationRecord
   end
 
   private
+
+  def partner_for_eip_only
+    return nil unless eip_only
+
+    # There is one partner record we use for all eip-only intakes
+    RouteOptions.new(VitaPartner.find_by!(zendesk_group_id: "360012655454"), "eip_only", "eip_only")
+  end
 
   def partner_for_source
     return nil unless source.present?

@@ -833,7 +833,17 @@ describe Intake do
     let!(:vita_partner) { create :vita_partner, name: "test_partner", zendesk_group_id: partner_group_id }
     let(:partner_group_id) { "123456789" }
 
-    # previously: a spec to ensure bad data stayed bad?
+    context "with an eip-only intake that also state and source param" do
+      let(:eip_only_partner) { VitaPartner.find_by!(zendesk_group_id: "360012655454") }
+      let(:intake) { create :intake, :eip_only, source: "uwba", state_of_residence: "CA" }
+
+      it "assigns to the eip-only group with the correct assignment information" do
+        intake.assign_vita_partner!
+        expect(intake.vita_partner).to eq(eip_only_partner)
+        expect(intake.routing_criteria).to eq("eip_only")
+        expect(intake.routing_value).to eq("eip_only")
+      end
+    end
 
     context "for an intake without a zendesk group id" do
       let(:source_parameter) { SourceParameter.all.sample }
