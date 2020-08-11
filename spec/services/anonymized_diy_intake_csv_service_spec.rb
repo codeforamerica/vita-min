@@ -17,8 +17,8 @@ RSpec.describe AnonymizedDiyIntakeCsvService do
     context "when there are no diy_intake ids passed in" do
       let(:ids) { nil }
 
-      it "returns all records" do
-        expect(subject.records).to contain_exactly(filled_diy_intake, unfilled_diy_intake, filled_diy_intake_2)
+      it "returns all records with a ticket id" do
+        expect(subject.records).to contain_exactly(filled_diy_intake, filled_diy_intake_2)
       end
     end
   end
