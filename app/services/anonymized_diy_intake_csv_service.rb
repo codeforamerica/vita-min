@@ -22,7 +22,7 @@ class AnonymizedDiyIntakeCsvService
     if @ids
       DiyIntake.where(id: @ids)
     else
-      DiyIntake.all
+      DiyIntake.where.not(ticket_id: nil)
     end
   end
 
