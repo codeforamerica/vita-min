@@ -1193,4 +1193,33 @@ describe Intake do
       end
     end
   end
+
+  describe "#formatted_contact_preferences" do
+    let(:intake) { create(:intake, email_notification_opt_in: email_opt_in, sms_notification_opt_in: sms_opt_in) }
+
+    context "with sms and email" do
+      let(:email_opt_in) { "yes" }
+      let(:sms_opt_in) { "yes" }
+
+      it "shows both" do
+        expect(intake.formatted_contact_preferences).to eq <<~TEXT
+          Prefers notifications by:
+              • Text message
+              • Email
+        TEXT
+      end
+    end
+
+    context "with just sms" do
+      let(:email_opt_in) { "no" }
+      let(:sms_opt_in) { "yes" }
+
+      it "shows just sms" do
+        expect(intake.formatted_contact_preferences).to eq <<~TEXT
+          Prefers notifications by:
+              • Text message
+        TEXT
+      end
+    end
+  end
 end

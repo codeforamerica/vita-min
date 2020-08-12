@@ -222,6 +222,15 @@ FactoryBot.define do
       end
     end
 
+    trait :with_contact_info do
+      preferred_name { "Cherry" }
+      primary_first_name { "Cher" }
+      primary_last_name { "Cherimoya" }
+      phone_number { "14155551212" }
+      sms_phone_number { "14155551212" }
+      email_address { "cher@example.com" }
+    end
+
     trait :filled_out do
       document_count  { [1, 2, 3].sample }
       dependent_count { [1, 2, 3].sample }

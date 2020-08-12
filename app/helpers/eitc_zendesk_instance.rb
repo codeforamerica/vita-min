@@ -9,6 +9,7 @@ class EitcZendeskInstance
   STATE = "360028917614"
   INTAKE_STATUS = "360029025294"
   RETURN_STATUS = "360028903813"
+  EIP_STATUS = "360047393814"
   SIGNATURE_METHOD = "360029896814"
   HSA = "360031865033"
   LINKED_TICKET = "360033135434"
@@ -21,6 +22,9 @@ class EitcZendeskInstance
   LINK_TO_CLIENT_DOCUMENTS = "360042211294"
   CLIENT_ZIP_CODE = "360043811533"
   DOCUMENTS_NEEDED = "360045974133"
+
+  # Form IDs
+  EIP_TICKET_FORM = "360004533173"
 
   # Digital Intake Status value tags
   INTAKE_STATUS_UNSTARTED = ""
@@ -66,6 +70,24 @@ class EitcZendeskInstance
     RETURN_STATUS_COMPLETED_RETURNS => "Completed Returns",
     RETURN_STATUS_DO_NOT_FILE => "Do Not File",
     RETURN_STATUS_FOREIGN_STUDENT => "Foreign Student",
+  }
+
+  EIP_STATUS_STARTED = "started_eip_only_form"
+  EIP_STATUS_ID_UPLOAD = "reached_id_upload_page"
+  EIP_STATUS_SUBMITTED = "submitted_eip_only_form"
+  EIP_STATUS_READY_FOR_PHONE_CALL = "ready_for_phone_call"
+  EIP_STATUS_PREP_IN_PROGRESSS = "eip_prep_in_progress"
+  EIP_STATUS_SIGNATURE = "waiting_on_signature"
+  EIP_STATUS_COMPLETED = "completed_eip_return"
+
+  EIP_STATUS_LABELS = {
+    EIP_STATUS_STARTED => "Started EIP only form",
+    EIP_STATUS_ID_UPLOAD => "Reached ID upload page",
+    EIP_STATUS_SUBMITTED => "Submitted EIP only form",
+    EIP_STATUS_READY_FOR_PHONE_CALL => "Ready for phone call",
+    EIP_STATUS_PREP_IN_PROGRESSS => "EIP prep in progress",
+    EIP_STATUS_SIGNATURE => "Waiting on signature",
+    EIP_STATUS_COMPLETED => "Completed EIP return",
   }
 
   # partner group ids for drop offs

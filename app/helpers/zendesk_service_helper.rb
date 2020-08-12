@@ -119,6 +119,10 @@ module ZendeskServiceHelper
     TIMEZONE_MAP[timezone]
   end
 
+  def test_ticket_tags
+    Rails.env.production? ? [] : ["test_ticket"]
+  end
+
   ##
   # builds a +ZendeskAPI::Ticket+ with the specified params
   #

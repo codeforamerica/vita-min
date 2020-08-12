@@ -472,4 +472,22 @@ RSpec.describe ZendeskServiceHelper do
       expect(service.zendesk_timezone(nil)).to eq(nil)
     end
   end
+
+  describe "#test_ticket_tags" do
+    context "in a production environment" do
+      before do
+        allow(Rails).to receive(:env).and_return("production".inquiry)
+      end
+
+      it "has no test-related tag" do
+        expect(service.test_ticket_tags).to eq([])
+      end
+    end
+
+    context "in a non-production environment" do
+      it "tags the new ticket as test_ticket" do
+        expect(service.test_ticket_tags).to eq(["test_ticket"])
+      end
+    end
+  end
 end

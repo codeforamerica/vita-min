@@ -553,6 +553,13 @@ class Intake < ApplicationRecord
     end
   end
 
+  def formatted_contact_preferences
+    text = "Prefers notifications by:\n"
+    text << "    • Text message\n" if sms_notification_opt_in_yes?
+    text << "    • Email\n" if email_notification_opt_in_yes?
+    text
+  end
+
   private
 
   def partner_for_eip_only

@@ -4,7 +4,7 @@ class ZendeskDiyIntakeService
   include ConsolidatedTraceHelper
 
   DIY_SUPPORT_GROUP_ID = "360010187593"
-  DIY_SUPPORT_TICKET_FORM = "360003778974"
+  DIY_TICKET_FORM = "360003778974"
   DIY_SUPPORT_UNIQUE_LINK = "360041821734"
 
   def initialize(diy_intake)
@@ -34,9 +34,10 @@ class ZendeskDiyIntakeService
       requester_id: diy_intake.requester_id,
       external_id: external_id,
       group_id: DIY_SUPPORT_GROUP_ID,
-      ticket_form_id: DIY_SUPPORT_TICKET_FORM,
+      ticket_form_id: DIY_TICKET_FORM,
       body: ticket_body,
-      fields: ticket_fields
+      fields: ticket_fields,
+      tags: test_ticket_tags,
     )
     if ticket
       diy_intake.update(ticket_id: ticket.id)

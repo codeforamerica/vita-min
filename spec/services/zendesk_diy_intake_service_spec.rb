@@ -20,6 +20,7 @@ describe ZendeskDiyIntakeService do
 
   before do
     allow(service).to receive(:create_or_update_zendesk_user).and_return requester_id
+    allow(service).to receive(:test_ticket_tags).and_return([])
   end
 
   describe "#instance" do
@@ -56,13 +57,14 @@ describe ZendeskDiyIntakeService do
         requester_id: requester_id,
         group_id: ZendeskDiyIntakeService::DIY_SUPPORT_GROUP_ID,
         external_id: "diy-intake-#{diy_intake.id}",
-        ticket_form_id: ZendeskDiyIntakeService::DIY_SUPPORT_TICKET_FORM,
+        ticket_form_id: ZendeskDiyIntakeService::DIY_TICKET_FORM,
         body: "Body text",
         fields: {
           EitcZendeskInstance::STATE => "NC",
           EitcZendeskInstance::INTAKE_LANGUAGE => :en,
           ZendeskDiyIntakeService::DIY_SUPPORT_UNIQUE_LINK => "http://test.host/en/diy/#{diy_intake.token}"
-        }
+        },
+        tags: [],
       ).and_return(fake_zendesk_ticket)
       expect { service.create_diy_intake_ticket }.
         to change { diy_intake.ticket_id }.from(nil).to(101)

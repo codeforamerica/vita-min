@@ -51,7 +51,6 @@ class ZendeskIntakeService
     @intake.transaction do
       # we only want to create an initial ticket status if we are able
       # to make a zendesk ticket without errors
-      tags = Rails.env.production? ? [] : ["test_ticket"]
       ticket_content = {
         subject: new_ticket_subject,
         requester_id: @intake.intake_ticket_requester_id,
@@ -59,7 +58,7 @@ class ZendeskIntakeService
         group_id: @intake.vita_partner.zendesk_group_id,
         body: new_ticket_body,
         fields: new_ticket_fields,
-        tags: tags,
+        tags: test_ticket_tags,
       }
       if @intake.triaged_from_stimulus?
         ticket_content[:tags] += ["triaged_from_stimulus"]
@@ -97,7 +96,7 @@ class ZendeskIntakeService
       State of residence: #{@intake.state_of_residence_name}
       Client answered questions for the #{@intake.most_recent_filing_year} tax year.
       #{additional_ticket_messages}
-      #{contact_preferences}
+      #{@intake.formatted_contact_preferences}
       #{new_ticket_body_footer}
     BODY
   end
@@ -255,14 +254,6 @@ class ZendeskIntakeService
     output
   end
 
-  def contact_preferences
-    return no_notifications unless @intake.opted_into_notifications?
-    text = "Prefers notifications by:\n"
-    text << "    • Text message\n" if @intake.sms_notification_opt_in_yes?
-    text << "    • Email\n" if @intake.email_notification_opt_in_yes?
-    text
-  end
-
   private
 
   def additional_ticket_messages
@@ -288,10 +279,6 @@ class ZendeskIntakeService
 
   def intake_pdf_filename(final: false)
     "#{"Final" if final}13614c_#{@intake.name_for_filename}.pdf"
-  end
-
-  def no_notifications
-    "Did not want email or text message notifications.\n"
   end
 
   def intake_pdf_fields

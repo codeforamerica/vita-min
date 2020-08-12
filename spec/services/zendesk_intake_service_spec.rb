@@ -55,23 +55,18 @@ describe ZendeskIntakeService do
     allow(ZendeskAPI::Client).to receive(:new).and_return(fake_zendesk_client)
     allow(ZendeskAPI::Ticket).to receive(:new).and_return(fake_zendesk_ticket)
     allow(ZendeskAPI::Ticket).to receive(:find).and_return(fake_zendesk_ticket)
+    allow(service).to receive(:test_ticket_tags).and_return([])
 
     DatadogApi.configure do |c|
       c.enabled = true
       c.namespace = "test.dogapi"
-      c.env = "production"
     end
     allow(Dogapi::Client).to receive(:new).and_return(fake_dogapi)
-    allow(Rails).to receive(:env).and_return("production".inquiry)
   end
 
   after do
     I18n.locale = I18n.default_locale
     DatadogApi.instance_variable_set("@dogapi_client", nil)
-    DatadogApi.configure do |c|
-      c.env = "test"
-    end
-    allow(Rails).to receive(:env).and_return("test".inquiry)
   end
 
   describe "#client" do
@@ -274,17 +269,6 @@ describe ZendeskIntakeService do
         expect(Dogapi::Client).to have_received(:new).once
         expect(fake_dogapi).to have_received(:emit_point).once.with('test.dogapi.zendesk.ticket.created', 1, {:tags => ["env:"+Rails.env], :type => "count"})
       end
-
-      context "in a non-production environment" do
-        before do
-          allow(Rails).to receive(:env).and_return("demo".inquiry)
-        end
-
-        it "tags the new ticket as test_ticket" do
-          service.create_intake_ticket
-          expect(service).to have_received(:create_ticket).with(hash_including(tags: ["test_ticket"]))
-        end
-      end
     end
 
     context "in a state for the UWTSA Group" do
@@ -479,44 +463,6 @@ describe ZendeskIntakeService do
 
       it "returns the primary full name and marks it as a test ticket" do
         expect(service.new_ticket_subject).to eq "Cher Cherimoya (Test Ticket)"
-      end
-    end
-  end
-
-  describe "#contact_preferences" do
-    context "with sms and email" do
-      let(:email_opt_in) { "yes" }
-      let(:sms_opt_in) { "yes" }
-
-      it "shows both" do
-        expect(service.contact_preferences).to eq <<~TEXT
-          Prefers notifications by:
-              • Text message
-              • Email
-        TEXT
-      end
-    end
-
-    context "with just sms" do
-      let(:email_opt_in) { "no" }
-      let(:sms_opt_in) { "yes" }
-
-      it "shows just sms" do
-        expect(service.contact_preferences).to eq <<~TEXT
-          Prefers notifications by:
-              • Text message
-        TEXT
-      end
-    end
-
-    context "with neither sms nor email" do
-      let(:email_opt_in) { "no" }
-      let(:sms_opt_in) { "no" }
-
-      it "says they what they don't want" do
-        expect(service.contact_preferences).to eq <<~TEXT
-          Did not want email or text message notifications.
-        TEXT
       end
     end
   end

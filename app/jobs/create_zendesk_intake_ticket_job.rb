@@ -16,7 +16,7 @@ class CreateZendeskIntakeTicketJob < ApplicationJob
       if ticket
         diy_intakes = DiyIntake.where.not(email_address: nil).where(email_address: intake.email_address).filter { |i| i.ticket_id.present? }
 
-        # append fill service notice to any related DIY tickets
+        # append full service notice to any related DIY tickets
         diy_intakes.each do |diy_intake|
           service.append_comment_to_ticket(
             ticket_id: diy_intake.ticket_id,
