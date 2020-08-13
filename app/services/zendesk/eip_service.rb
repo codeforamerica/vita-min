@@ -1,6 +1,7 @@
 module Zendesk
   class EipService
     include ZendeskServiceHelper
+    include ZendeskIntakeAssignRequesterHelper
 
     EIP_DUMMY_INTAKE_STATUS = "EIP".freeze
 
@@ -13,6 +14,7 @@ module Zendesk
     end
 
     def create_eip_ticket
+      return nil if @intake.intake_ticket_id.present?
       raise MissingRequesterIdError if @intake.intake_ticket_requester_id.blank?
       raise "Missing vita_partner" if @intake.vita_partner.nil?
 

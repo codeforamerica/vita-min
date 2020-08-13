@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe Zendesk::EipService do
   let(:intake_ticket_requester_id) { 1 }
+  let(:intake_ticket_id) { nil }
   let(:vita_partner) { create :vita_partner }
   let(:intake) do
     create(
@@ -9,6 +10,7 @@ describe Zendesk::EipService do
       :with_contact_info,
       :eip_only,
       intake_ticket_requester_id: intake_ticket_requester_id,
+      intake_ticket_id: intake_ticket_id,
       vita_partner: vita_partner,
       state_of_residence: "CA",
       sms_notification_opt_in: "yes",
@@ -27,6 +29,16 @@ describe Zendesk::EipService do
   end
 
   describe "#create_eip_ticket" do
+    context "with a pre-existing zendesk ticket" do
+      let(:intake_ticket_id) { 2 }
+
+      it "does not create zendesk ticket" do
+        service.create_eip_ticket
+        expect(service).not_to have_received(:create_ticket)
+        expect(intake.reload.intake_ticket_id).to be(intake_ticket_id)
+      end
+    end
+
     context "with nil intake_ticket_requester_id" do
       let(:intake_ticket_requester_id) { nil }
 

@@ -2,6 +2,7 @@ class ZendeskIntakeService
   # methods in this service *should* raise errors if they fail to perform their task through the Zendesk API
   # (we haven't yet audited all of them)
   include ZendeskServiceHelper
+  include ZendeskIntakeAssignRequesterHelper
   include AttachmentsHelper
   include ConsolidatedTraceHelper
   include Rails.application.routes.url_helpers
@@ -20,19 +21,6 @@ class ZendeskIntakeService
 
   def instance_eitc?
     instance == EitcZendeskInstance
-  end
-
-  def assign_requester
-    return @intake.intake_ticket_requester_id if @intake.intake_ticket_requester_id.present?
-
-    contact_info = @intake.contact_info_filtered_by_preferences
-    requester_id = create_or_update_zendesk_user(
-      name: @intake.preferred_name,
-      email: contact_info[:email],
-      phone: contact_info[:sms_phone_number],
-      time_zone: zendesk_timezone(@intake.timezone),
-    )
-    @intake.update(intake_ticket_requester_id: requester_id)
   end
 
   ##
