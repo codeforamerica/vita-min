@@ -831,6 +831,9 @@ es:
       divorced_year:
         before_2014: antes de 2014
         title: "¿En qué año se finalizó su divorcio?"
+      eip_maybe_ineligible:
+        title: Desafortunadamente, no califica para nuestra ayuda.
+        info: "Según sus respuestas, no podemos ayudarlo a recibir su estímulo. Si tiene preguntas, \"Chat\" con nosotros o visita nuestra página de preguntas frecuentes de estímulo."
       eligibility:
         info: Tenemos algunas preguntas adicionales para determinar si califica para nuestros servicios.
         situations:

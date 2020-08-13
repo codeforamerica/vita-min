@@ -204,4 +204,30 @@ RSpec.feature "Web Intake EIP Only Filer" do
     visit "/questions/wages"
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
   end
+
+  xscenario "ineligible for EIP" do
+    #placeholder page
+    visit "/questions/eip-only"
+    click_on "Go"
+
+    # Non-production environment warning
+    expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
+    click_on "Continue to example"
+
+    # Overview
+    expect(page).to have_selector("h1", text: "Great! Let's help you collect your stimulus.")
+    click_on "Continue"
+
+    # Eligibility Page
+    expect(page).to have_selector("h1", text: "Before we start, let's make sure you qualify for our help!")
+    check "Someone else is claiming me on their taxes"
+    click_on "Collect my stimulus"
+
+    # Offboarding page
+    expect(page).to have_selector("h1", text: "Unfortunately, you don't qualify for our assistance")
+    click_on "Visit stimulus FAQ"
+
+    # Stimulus FAQ
+    expect(page).to have_selector("h1", text: "Get your Stimulus Payment (EIP)")
+  end
 end
