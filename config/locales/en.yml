@@ -831,6 +831,9 @@ en:
       divorced_year:
         before_2014: before 2014
         title: What year was your divorce finalized?
+      eip_maybe_ineligible:
+        title: Unfortunately, you don't qualify for our assistance.
+        info: Based on your previous answers, we cannot help you collect your stimulus. If you have additional questions, chat with us or visit our stimulus FAQ page.
       eligibility:
         info: We have a few additional questions to determine if you qualify for our services.
         situations:

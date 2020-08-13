@@ -7,6 +7,9 @@ class EipOnlyNavigation
     # Overview
     Questions::OverviewController,
 
+    # EIP Eligibility
+    Questions::EipMaybeIneligibleController,
+
     # Contact information
     Questions::PersonalInfoController,
     Questions::ChatWithUsController,
