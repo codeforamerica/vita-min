@@ -6,9 +6,6 @@ vita_partners:
   display_name: Tax Help Colorado
   source_parameters:
   - thc
-  # temporarily rerouted from Hispanic Unity for weeks of 2020/7/13-27
-  - RefundDay-H
-  - hispanicunity
   states:
   - CO
   - SD
@@ -167,6 +164,9 @@ vita_partners:
   zendesk_group_id: '360009704314'
   display_name: Hispanic Unity
   logo_path: ''
+  source_parameters:
+  - hispanicunity
+  - RefundDay-H
   weekly_capacity_limit: 200
 - name: Catalyst Miami
   zendesk_instance_domain: eitc
@@ -468,7 +468,10 @@ vita_partners:
   display_name: United Way of Racine County
   source_parameters:
   - unitedwayracine
+  states:
+  - WI
   logo_path: 'partner-logos/UWRC.png'
+  weekly_capacity_limit: 20
 - name: La Casa de Esperanza (WI)
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011477453'
