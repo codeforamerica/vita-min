@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Questions::ConsentController do
-  let(:zendesk_ticket_id) { nil }
-  let(:intake) { create :intake, intake_ticket_id: zendesk_ticket_id }
+  let(:eip_only) { false }
+  let(:intake) { create :intake, eip_only: eip_only }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
@@ -35,23 +35,22 @@ RSpec.describe Questions::ConsentController do
         expect(intake.primary_consented_to_service_ip).to eq ip_address
       end
 
-      context "making a new Zendesk ticket", active_job: true do
-        before { post :update, params: params }
+      context "for full intake ticket job", active_job: true do
+        it "enqueues a job to make an zendesk intake ticket" do
+          post :update, params: params
 
-        context "without a ticket id" do
-          let(:zendesk_ticket_id) { nil }
-
-          it "enqueues a job to make a zendesk ticket" do
-            expect(CreateZendeskIntakeTicketJob).to have_been_enqueued
-          end
+          expect(CreateZendeskIntakeTicketJob).to have_been_enqueued
+          expect(CreateZendeskEipIntakeTicketJob).not_to have_been_enqueued
         end
+      end
 
-        context "with a ticket id" do
-          let(:zendesk_ticket_id) { 32 }
+      context "for EIP-only Intake ticket", active_job: true do
+        let(:eip_only) { true }
 
-          it "does not enqueue a job to make a zendesk ticket" do
-            expect(CreateZendeskIntakeTicketJob).not_to have_been_enqueued
-          end
+        it "enqueues a job to make an EIP Zendesk ticket" do
+          post :update, params: params
+          expect(CreateZendeskEipIntakeTicketJob).to have_been_enqueued
+          expect(CreateZendeskIntakeTicketJob).not_to have_been_enqueued
         end
       end
     end
