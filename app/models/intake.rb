@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
+#  already_applied_for_stimulus                         :integer          default("unfilled"), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
@@ -12,6 +13,7 @@
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
+#  claimed_by_another                                   :integer          default("unfilled"), not null
 #  completed_at                                         :datetime
 #  completed_intake_sent_to_zendesk                     :boolean
 #  continued_at_capacity                                :boolean          default(FALSE)
@@ -91,6 +93,7 @@
 #  needs_help_2018                                      :integer          default("unfilled"), not null
 #  needs_help_2019                                      :integer          default("unfilled"), not null
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
+#  no_ssn                                               :integer          default("unfilled"), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default("unfilled"), not null
 #  paid_charitable_contributions                        :integer          default("unfilled"), not null
@@ -194,11 +197,13 @@ class Intake < ApplicationRecord
   attr_encrypted :bank_account_number, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   enum adopted_child: { unfilled: 0, yes: 1, no: 2 }, _prefix: :adopted_child
+  enum already_applied_for_stimulus: { unfilled: 0, yes: 1, no: 2 }, _prefix: :already_applied_for_stimulus
   enum already_filed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :already_filed
   enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_energy_efficient_items
   enum bought_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bought_health_insurance
   enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
   enum bank_account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :bank_account_type
+  enum claimed_by_another: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claimed_by_another
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
   enum demographic_english_conversation: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_conversation
   enum demographic_english_reading: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_reading
@@ -239,11 +244,12 @@ class Intake < ApplicationRecord
   enum made_estimated_tax_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_estimated_tax_payments
   enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
   enum multiple_states: { unfilled: 0, yes: 1, no: 2 }, _prefix: :multiple_states
-  enum no_eligibility_checks_apply: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_eligibility_checks_apply
   enum needs_help_2016: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2016
   enum needs_help_2017: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2017
   enum needs_help_2018: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2018
   enum needs_help_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2019
+  enum no_eligibility_checks_apply: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_eligibility_checks_apply
+  enum no_ssn: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_ssn
   enum paid_alimony: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_alimony
   enum paid_charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_charitable_contributions
   enum paid_dependent_care: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_dependent_care
@@ -359,6 +365,10 @@ class Intake < ApplicationRecord
   def eligible_for_vita?
     # if any are unfilled this will return false
     had_farm_income_no? && had_rental_income_no? && income_over_limit_no?
+  end
+
+  def eligible_for_eip_only?
+    claimed_by_another_no? && already_applied_for_stimulus_no? && no_ssn_no?
   end
 
   def any_students?

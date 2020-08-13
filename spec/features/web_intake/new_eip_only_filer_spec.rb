@@ -21,6 +21,11 @@ RSpec.feature "Web Intake EIP Only Filer" do
     expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
     click_on "Continue"
 
+    # Eligibility Page
+    expect(page).to have_selector("h1", text: "Before we start, let's make sure you qualify for our help!")
+    check "None of the above"
+    click_on "Collect my stimulus"
+
     # Personal Info
     expect(page).to have_selector("h1", text: "First, let's get some basic information.")
     fill_in "Preferred name", with: "Gary"
@@ -225,7 +230,7 @@ RSpec.feature "Web Intake EIP Only Filer" do
 
     # Offboarding page
     expect(page).to have_selector("h1", text: "Unfortunately, you don't qualify for our assistance")
-    click_on "Visit stimulus FAQ"
+    click_on "Visit Stimulus FAQ"
 
     # Stimulus FAQ
     expect(page).to have_selector("h1", text: "Get your Stimulus Payment (EIP)")

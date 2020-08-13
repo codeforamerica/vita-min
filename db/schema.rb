@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_10_182819) do
+ActiveRecord::Schema.define(version: 2020_08_13_185348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(version: 2020_08_10_182819) do
   create_table "intakes", force: :cascade do |t|
     t.string "additional_info"
     t.integer "adopted_child", default: 0, null: false
+    t.integer "already_applied_for_stimulus", default: 0, null: false
     t.integer "already_filed", default: 0, null: false
     t.boolean "anonymous", default: false, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
@@ -178,6 +179,7 @@ ActiveRecord::Schema.define(version: 2020_08_10_182819) do
     t.integer "bought_energy_efficient_items"
     t.integer "bought_health_insurance", default: 0, null: false
     t.string "city"
+    t.integer "claimed_by_another", default: 0, null: false
     t.datetime "completed_at"
     t.boolean "completed_intake_sent_to_zendesk"
     t.boolean "continued_at_capacity", default: false
@@ -260,6 +262,7 @@ ActiveRecord::Schema.define(version: 2020_08_10_182819) do
     t.integer "needs_help_2018", default: 0, null: false
     t.integer "needs_help_2019", default: 0, null: false
     t.integer "no_eligibility_checks_apply", default: 0, null: false
+    t.integer "no_ssn", default: 0, null: false
     t.string "other_income_types"
     t.integer "paid_alimony", default: 0, null: false
     t.integer "paid_charitable_contributions", default: 0, null: false

@@ -129,6 +129,7 @@ en:
     languages: Languages
     negative: 'No'
     next: Next
+    none_of_the_above: None of the above
     not_at_all: Not at all
     not_well: Not well
     oops: Oops!
@@ -831,6 +832,13 @@ en:
       divorced_year:
         before_2014: before 2014
         title: What year was your divorce finalized?
+      eip_eligibility:
+        title: Before we start, let's make sure you qualify for our help!
+        legend: "Select any situations that apply to you:"
+        claimed: Someone else is claiming me on their taxes
+        already_applied: I already applied for my stimulus on the IRS site
+        no_ssn: I don't have a Social Security Number
+        collect_my_stimulus: Collect my stimulus
       eip_maybe_ineligible:
         title: Unfortunately, you don't qualify for our assistance.
         info: Based on your previous answers, we cannot help you collect your stimulus. If you have additional questions, chat with us or visit our stimulus FAQ page.
@@ -841,7 +849,6 @@ en:
           had_rental_income: I earned money from a rental property
           header: Please check any situation that applies to you.
           income_over_limit: I earned more than $66,000 in %{year}
-          no_eligibility_checks_apply: None of the above
         title: Let’s check a few things.
       email_address:
         email_address: E-mail address

@@ -129,6 +129,7 @@ es:
     languages: Idiomas
     negative: 'No'
     next: Próximo
+    none_of_the_above: Ninguna de las anteriores
     not_at_all: De ningún modo
     not_well: No muy bein
     oops: "¡Oye!"
@@ -831,6 +832,13 @@ es:
       divorced_year:
         before_2014: antes de 2014
         title: "¿En qué año se finalizó su divorcio?"
+      eip_eligibility:
+        title: ¿Calificas para nuestra ayuda? Averigüemos antes de comenzar.
+        legend: "Seleccione las situaciones que se apliquen a usted:"
+        claimed: Alguien me reclamó en sus impuestos
+        already_applied: Ya solicité mi estímulo en el sitio del IRS
+        no_ssn: No tengo un número de Seguridad Social
+        collect_my_stimulus: ¡Recibir mi cheque de estímulo!
       eip_maybe_ineligible:
         title: Desafortunadamente, no califica para nuestra ayuda.
         info: "Según sus respuestas, no podemos ayudarlo a recibir su estímulo. Si tiene preguntas, \"Chat\" con nosotros o visita nuestra página de preguntas frecuentes de estímulo."
@@ -841,7 +849,6 @@ es:
           had_rental_income: Gané dinero de una propiedad alquilada
           header: Por favor marque cualquier situación que se aplique a usted.
           income_over_limit: Gané más de $ 66,000 en %{year}
-          no_eligibility_checks_apply: Ninguna de las anteriores
         title: Veamos algunas cosas.
       email_address:
         email_address: Dirección de correo electrónico

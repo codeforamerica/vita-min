@@ -5,6 +5,7 @@
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
 #  adopted_child                                        :integer          default("unfilled"), not null
+#  already_applied_for_stimulus                         :integer          default("unfilled"), not null
 #  already_filed                                        :integer          default("unfilled"), not null
 #  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
@@ -12,6 +13,7 @@
 #  bought_energy_efficient_items                        :integer
 #  bought_health_insurance                              :integer          default("unfilled"), not null
 #  city                                                 :string
+#  claimed_by_another                                   :integer          default("unfilled"), not null
 #  completed_at                                         :datetime
 #  completed_intake_sent_to_zendesk                     :boolean
 #  continued_at_capacity                                :boolean          default(FALSE)
@@ -91,6 +93,7 @@
 #  needs_help_2018                                      :integer          default("unfilled"), not null
 #  needs_help_2019                                      :integer          default("unfilled"), not null
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
+#  no_ssn                                               :integer          default("unfilled"), not null
 #  other_income_types                                   :string
 #  paid_alimony                                         :integer          default("unfilled"), not null
 #  paid_charitable_contributions                        :integer          default("unfilled"), not null
