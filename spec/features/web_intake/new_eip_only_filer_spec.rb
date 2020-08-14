@@ -9,17 +9,34 @@ RSpec.feature "Web Intake EIP Only Filer" do
   end
 
   scenario "new EIP-only client filing joint with a dependent" do
-    #placeholder page
-    visit "/questions/eip-only"
-    click_on "Go"
+    # Home
+    visit "/"
+    find("#firstCta").click
+
+    # Welcome
+    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
+    expect(page).to have_selector("h2", text: "Get your Stimulus")
+    click_on("Get your Stimulus")
+
+    expect(page).to have_selector("h1", text: "Have you already filed for 2018 and 2019?")
+    click_on("Yes")
+
+    expect(page).to have_selector("h1", text: "Do you need to correct your 2019 taxes?")
+    click_on("No")
+
+    expect(page).to have_selector("h1", text: "Have you already filed for 2017?")
+    click_on("No")
+
+    expect(page).to have_selector("h1", text: "We can help increase your cash support, by filing your taxes in addition to the stimulus")
+    click_on("No. I only want my stimulus.")
+
+    # Overview
+    expect(page).to have_selector("h1", text: "Great! Let's help you collect your stimulus.")
+    click_on "Continue"
 
     #Non-production environment warning
     expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
     click_on "Continue to example"
-
-    # Overview
-    expect(page).to have_selector("h1", text: "Just a few simple steps to file!")
-    click_on "Continue"
 
     # Eligibility Page
     expect(page).to have_selector("h1", text: "Before we start, let's make sure you qualify for our help!")
@@ -210,18 +227,14 @@ RSpec.feature "Web Intake EIP Only Filer" do
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
   end
 
-  xscenario "ineligible for EIP" do
-    #placeholder page
-    visit "/questions/eip-only"
-    click_on "Go"
+  scenario "ineligible for EIP" do
+    visit "/questions/eip-overview"
+    expect(page).to have_selector("h1", text: "Great! Let's help you collect your stimulus.")
+    click_on "Continue"
 
     # Non-production environment warning
     expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
     click_on "Continue to example"
-
-    # Overview
-    expect(page).to have_selector("h1", text: "Great! Let's help you collect your stimulus.")
-    click_on "Continue"
 
     # Eligibility Page
     expect(page).to have_selector("h1", text: "Before we start, let's make sure you qualify for our help!")

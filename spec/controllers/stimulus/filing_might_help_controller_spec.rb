@@ -12,7 +12,6 @@ RSpec.describe Stimulus::FilingMightHelpController do
   end
 
   describe ".show?" do
-
     context "when client does not need to file" do
       let(:stimulus_triage) do
         create(:stimulus_triage,
@@ -108,11 +107,10 @@ RSpec.describe Stimulus::FilingMightHelpController do
         expect(stimulus_triage.chose_to_file).to eq('no')
       end
 
-      it 'clears the session and redirects to the stimulus FAQ' do
+      it 'redirects to the beginning of EIP only intake' do
         post :update, params: params
 
-        expect(session[:stimulus_triage_id].blank?).to eq(true)
-        expect(response).to redirect_to(stimulus_path)
+        expect(response).to redirect_to(eip_overview_questions_path)
       end
     end
   end
