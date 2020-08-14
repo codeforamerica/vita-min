@@ -842,6 +842,13 @@ en:
       eip_maybe_ineligible:
         title: Unfortunately, you don't qualify for our assistance.
         info: Based on your previous answers, we cannot help you collect your stimulus. If you have additional questions, chat with us or visit our stimulus FAQ page.
+      eip_overview:
+        title: Great! Let's help you collect your stimulus.
+        info_html: "Heads up: You should get the payment automatically and <strong>do not need to fill out this form</strong> if you received:"
+        received_ssdi: Social Security retirement, survivor, or disability benefits (SSDI)
+        received_rrb: Railroad Retirement benefits
+        received_ssi: Supplemental Security Income (SSI)
+        received_va: VA Compensation and Pension (C&P)
       eligibility:
         info: We have a few additional questions to determine if you qualify for our services.
         situations:

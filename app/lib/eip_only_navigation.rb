@@ -1,11 +1,9 @@
 class EipOnlyNavigation
   FLOW = [
-    # Triage
-    Questions::EipOnlyController, # create new Intake with eip_only: true
-    Questions::EnvironmentWarningController,
-
     # Overview
-    Questions::OverviewController,
+    Questions::EipOverviewController,
+
+    Questions::EnvironmentWarningController,
 
     # EIP Eligibility
     Questions::EipEligibilityController,

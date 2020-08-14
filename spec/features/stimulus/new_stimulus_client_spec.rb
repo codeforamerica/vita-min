@@ -28,7 +28,7 @@ RSpec.feature "Stimulus Triage Flow" do
     click_on("No")
     expect(page).to have_selector("h1", text: "We can help increase your cash support, by filing your taxes in addition to the stimulus")
     click_on("No. I only want my stimulus.")
-    expect(page).to have_selector("h1", text: "Get your Stimulus Payment (EIP)")
+    expect(page).to have_selector("h1", text: "Great! Let's help you collect your stimulus.")
   end
 
   scenario "new stimulus triage client visits the stimulus FAQ" do

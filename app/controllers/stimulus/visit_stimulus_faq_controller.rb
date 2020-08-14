@@ -3,7 +3,6 @@ module Stimulus
     layout 'question'
     after_action :clear_stimulus_triage_session
 
-
     class << self
       def form_class
         Stimulus::NullForm

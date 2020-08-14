@@ -1,0 +1,37 @@
+<% @main_heading = t("views.questions.eip_overview.title") %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <h1 class="form-question"><%= @main_heading %></h1>
+    <p>
+      <%= t("views.questions.eip_overview.info_html") %>
+    </p>
+    <ul class="checkmark-list">
+      <li>
+        <%= render "shared/svg/checkmark", fill_class: "venice-blue" %>
+        <span><%=t("views.questions.eip_overview.received_ssdi") %></span>
+      </li>
+      <li>
+        <%= render "shared/svg/checkmark", fill_class: "venice-blue" %>
+        <span><%=t("views.questions.eip_overview.received_rrb") %></span>
+      </li>
+      <li>
+        <%= render "shared/svg/checkmark", fill_class: "venice-blue" %>
+        <span><%=t("views.questions.eip_overview.received_ssi") %></span>
+      </li>
+      <li>
+        <%= render "shared/svg/checkmark", fill_class: "venice-blue" %>
+        <span><%=t("views.questions.eip_overview.received_va") %></span>
+      </li>
+    </ul>
+
+    <button class="button button--primary button--wide text--centered spacing-above-60" name="eip_overview_form[eip_only]" value="true" type="submit">
+      <%=t("general.continue") %>
+    </button>
+
+    <%= link_to root_path, class: "button button--wide text--centered" do %>
+      <%=t("general.return_home") %>
+    <% end %>
+  <% end %>
+<% end %>

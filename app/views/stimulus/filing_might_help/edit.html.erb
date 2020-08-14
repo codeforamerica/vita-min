@@ -3,7 +3,6 @@
 <% content_for :form_card do %>
   <div class="form-card">
     <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-
       <h1 class="form-question">
         <%= content_for(:page_title) %>
       </h1>

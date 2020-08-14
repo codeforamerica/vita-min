@@ -842,6 +842,13 @@ es:
       eip_maybe_ineligible:
         title: Desafortunadamente, no califica para nuestra ayuda.
         info: "Según sus respuestas, no podemos ayudarlo a recibir su estímulo. Si tiene preguntas, \"Chat\" con nosotros o visita nuestra página de preguntas frecuentes de estímulo."
+      eip_overview:
+        title: ¡Excelente! Nos vamos a trabajar juntos para asugara que usted puede recibir tu pago de estimulo.
+        info_html: "Tenga en cuenta: Si recibió lo siguiente, el pago debería llegarle automáticamente y <strong>no es necesario que complete el formulario</strong>:"
+        received_ssdi: Sobreviviente o discapacidad del Seguro Social (SSDI)
+        received_rrb: Beneficios de Jubilación Ferroviaria
+        received_ssi: Seguridad de Ingreso suplementario (SSI)
+        received_va: Beneficios de Asuntos de Veteranos (C&P)
       eligibility:
         info: Tenemos algunas preguntas adicionales para determinar si califica para nuestros servicios.
         situations:

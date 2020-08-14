@@ -18,8 +18,7 @@ module Stimulus
       if current_stimulus_triage.chose_to_file_yes?
         redirect_to backtaxes_questions_path
       else
-        session.delete(:stimulus_triage_id)
-        redirect_to stimulus_path
+        redirect_to EipOnlyNavigation.first.to_path_helper
       end
     end
 
