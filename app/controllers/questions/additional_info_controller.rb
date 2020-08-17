@@ -3,7 +3,11 @@ module Questions
     layout "question"
 
     def after_update_success
-      SendIntakePdfToZendeskJob.perform_later(current_intake.id)
+      if current_intake.eip_only?
+        SendEipIntakeConsentToZendeskJob.perform_later(current_intake.id)
+      else
+        SendIntakePdfToZendeskJob.perform_later(current_intake.id)
+      end
     end
 
     def tracking_data

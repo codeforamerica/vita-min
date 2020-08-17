@@ -2,6 +2,7 @@ module Zendesk
   class EipService
     include ZendeskServiceHelper
     include ZendeskIntakeAssignRequesterHelper
+    include Rails.application.routes.url_helpers
 
     EIP_DUMMY_INTAKE_STATUS = "EIP".freeze
 
@@ -45,6 +46,27 @@ module Zendesk
         ticket_status.send_mixpanel_event
         ticket
       end
+    end
+
+    def send_consent_to_zendesk
+      return if @intake.intake_pdf_sent_to_zendesk
+
+      consent_comment = <<~COMMENT
+        Preliminary 13614-C questions answered.
+
+        See "Link to Client Documents" for 13614-C PDF and consent PDF(s).
+      COMMENT
+
+      append_comment_to_ticket(
+        ticket_id: @intake.intake_ticket_id,
+        comment: consent_comment,
+        fields: {
+          EitcZendeskInstance::EIP_STATUS => EitcZendeskInstance::EIP_STATUS_ID_UPLOAD,
+          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: @intake.intake_ticket_id),
+        }
+      )
+      @intake.update(intake_pdf_sent_to_zendesk: true)
+      DatadogApi.increment("zendesk.ticket.pdfs.intake_and_consent.preliminary.sent")
     end
 
     def new_ticket_subject

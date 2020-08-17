@@ -109,4 +109,50 @@ describe Zendesk::EipService do
       end
     end
   end
+
+  describe "#send_consent_to_zendesk" do
+    let(:intake_ticket_id) { 2 }
+
+    before do
+      allow(service).to receive(:append_comment_to_ticket)
+    end
+
+    context "when comment has already been appended" do
+      before do
+        intake.update(intake_pdf_sent_to_zendesk: true)
+      end
+
+      it "does not append the comment again" do
+        service.send_consent_to_zendesk
+        expect(service).not_to have_received(:append_comment_to_ticket)
+      end
+    end
+
+    context "when comment has not been appended" do
+      before do
+        allow(DatadogApi).to receive(:increment)
+      end
+
+      it "appends a comment and updates the eip return status" do
+        service.send_consent_to_zendesk
+        expected_comment = <<~COMMENT
+          Preliminary 13614-C questions answered.
+
+          See "Link to Client Documents" for 13614-C PDF and consent PDF(s).
+        COMMENT
+        expect(service).to have_received(:append_comment_to_ticket).with(
+          ticket_id: 2,
+          comment: expected_comment,
+          fields: {
+            EitcZendeskInstance::EIP_STATUS => EitcZendeskInstance::EIP_STATUS_ID_UPLOAD,
+            EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => "http://test.host/en/zendesk/tickets/2",
+          }
+        )
+        expect(DatadogApi).to have_received(:increment).with(
+          "zendesk.ticket.pdfs.intake_and_consent.preliminary.sent"
+        )
+        expect(intake.reload.intake_pdf_sent_to_zendesk).to eq true
+      end
+    end
+  end
 end
