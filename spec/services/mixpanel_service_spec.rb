@@ -192,7 +192,10 @@ describe MixpanelService do
           vita_partner: vita_partner,
           timezone: "America/Los_Angeles",
           satisfaction_face: "neutral",
-          eip_only: true
+          eip_only: true,
+          claimed_by_another: "yes",
+          already_applied_for_stimulus: "no",
+          no_ssn: "yes",
         )
       end
 
@@ -265,7 +268,10 @@ describe MixpanelService do
             triaged_from_stimulus: "no",
             timezone: "America/Los_Angeles",
             csat: "neutral",
-            eip_only: true
+            eip_only: true,
+            claimed_by_another: "yes",
+            already_applied_for_stimulus: "no",
+            no_ssn: "yes",
           })
         end
 
