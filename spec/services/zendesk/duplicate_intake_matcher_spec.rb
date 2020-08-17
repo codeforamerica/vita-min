@@ -50,7 +50,7 @@ describe Zendesk::DuplicateIntakeMatcher do
     let(:merging_service) { Zendesk::TicketMergingService.new }
     let(:primary_id) { original_intake.intake_ticket_id }
     let(:mapping) do
-      [original_intake, duplicate_intake].each_with_object({}) do |intake, hash|
+      [original_intake, duplicate_intake].sort.each_with_object({}) do |intake, hash|
         hash[intake.id] = intake.intake_ticket_id
       end
     end
