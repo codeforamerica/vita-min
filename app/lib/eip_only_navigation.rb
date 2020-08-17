@@ -53,6 +53,8 @@ class EipOnlyNavigation
     Questions::InterviewSchedulingController,
 
     # Payment info
+    Questions::RefundPaymentController,
+    Questions::BankDetailsController,
     Questions::MailingAddressController,
 
     # Optional Demographic Questions
