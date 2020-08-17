@@ -235,7 +235,7 @@ RSpec.describe ZendeskWebhookController, type: :controller do
           expect(intake.current_ticket_status.verified_change).to eq(false)
         end
 
-        xit "does not send a mixpanel event" do
+        it "does not send a mixpanel event" do
           expect(MixpanelService).not_to receive(:instance)
           post :incoming, params: params
         end
@@ -258,7 +258,7 @@ RSpec.describe ZendeskWebhookController, type: :controller do
             end.not_to change { intake.ticket_statuses.count }
           end
 
-          xit "does not send a mixpanel event" do
+          it "does not send a mixpanel event" do
             expect(MixpanelService).not_to receive(:instance)
             post :incoming, params: params
           end
@@ -283,23 +283,23 @@ RSpec.describe ZendeskWebhookController, type: :controller do
             expect(new_ticket_status.verified_change).to eq(true)
           end
 
-          xit "sends a mixpanel event with intake and ticket status data" do
+          it "sends a mixpanel event with eip status data" do
             mixpanel_spy = spy(MixpanelService)
             allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
             post :incoming, params: params
 
             expected_mixpanel_data = {
-                path: "/zendesk-webhook/incoming",
-                full_path: "/zendesk-webhook/incoming",
-                controller_name: "ZendeskWebhook",
-                controller_action: "ZendeskWebhookController#incoming",
-                controller_action_name: "incoming",
-            }.merge(MixpanelService.data_from([intake, intake.current_ticket_status]))
+              verified_change: true,
+              ticket_id: 9778,
+              eip_status: "Reached ID upload page",
+              created_at: instance_of(String),
+            }
 
-            expect(mixpanel_spy).to have_received(:run).with(
-                unique_id: intake.visitor_id,
-                event_name: "ticket_status_change",
-                data: hash_including(expected_mixpanel_data)
+            expect(mixpanel_spy).to have_received(:run).with hash_including(
+              data: hash_excluding(:return_status)
+            )
+            expect(mixpanel_spy).to have_received(:run).with hash_including(
+              data: hash_excluding(:intake_status)
             )
           end
         end

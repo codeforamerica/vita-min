@@ -31,13 +31,4 @@ class TicketStatus < ApplicationRecord
       subject: intake
     )
   end
-
-  def intake_status_label
-    EitcZendeskInstance::INTAKE_STATUS_LABELS[intake_status]
-  end
-
-  def return_status_label
-    EitcZendeskInstance::RETURN_STATUS_LABELS[return_status]
-  end
-
 end

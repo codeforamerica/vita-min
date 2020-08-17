@@ -229,14 +229,20 @@ class MixpanelService
     ##
     # creates Mixpanel data from a ticket_status object
     def data_from_ticket_status(ticket_status)
+      if ticket_status.eip_status.present?
+        status_labels = { eip_status: EitcZendeskInstance::EIP_STATUS_LABELS[ticket_status.eip_status] }
+      else
+        status_labels = {
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_LABELS[ticket_status.intake_status],
+          return_status: EitcZendeskInstance::RETURN_STATUS_LABELS[ticket_status.return_status]
+        }
+      end
+
       {
-          verified_change: ticket_status.verified_change,
-          ticket_id: ticket_status.ticket_id,
-          intake_status: ticket_status.intake_status_label,
-          return_status: ticket_status.return_status_label,
-          # XXX asheesh put something here
-          created_at: ticket_status.created_at.utc.iso8601,
-      }
+        verified_change: ticket_status.verified_change,
+        ticket_id: ticket_status.ticket_id,
+        created_at: ticket_status.created_at.utc.iso8601,
+      }.merge(status_labels)
     end
 
     ##
