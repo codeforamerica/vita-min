@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Questions::FinalInfoController do
-  render_views
-
-  let(:intake) { create :intake, intake_ticket_id: 1234 }
-
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
@@ -14,16 +10,32 @@ RSpec.describe Questions::FinalInfoController do
       { final_info_form: { final_info: "I moved here from Alaska." } }
     end
 
-    it "enqueues a job to update the zendesk ticket", active_job: true do
-      post :update, params: params
+    context "for a full intake" do
+      let(:intake) { create :intake, intake_ticket_id: 1234 }
 
-      expect(SendCompletedIntakeToZendeskJob).to have_been_enqueued
+      it "enqueues a job to update the zendesk ticket", active_job: true do
+        post :update, params: params
+
+        expect(SendCompletedIntakeToZendeskJob).to have_been_enqueued.with(intake.id)
+        expect(SendCompletedEipIntakeToZendeskJob).not_to have_been_enqueued
+      end
+
+      it "updates completed_intake_at" do
+        post :update, params: params
+
+        expect(intake.completed_at).to be_within(2.seconds).of(Time.now)
+      end
     end
 
-    it "updates completed_intake_at" do
-      post :update, params: params
+    context "for an EIP-only intake" do
+      let(:intake) { create :intake, :eip_only, intake_ticket_id: 1234 }
 
-      expect(intake.completed_at).to be_within(2.seconds).of(Time.now)
+      it "enqueues a job to update the zendesk ticket", active_job: true do
+        post :update, params: params
+
+        expect(SendCompletedEipIntakeToZendeskJob).to have_been_enqueued.with(intake.id)
+        expect(SendCompletedIntakeToZendeskJob).not_to have_been_enqueued
+      end
     end
   end
 end

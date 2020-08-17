@@ -48,6 +48,31 @@ module Zendesk
       end
     end
 
+    def send_completed_intake_to_zendesk
+      return if @intake.completed_intake_sent_to_zendesk
+
+      comment_body = <<~BODY
+        EIP only form submitted. The taxpayer was notified that their information has been submitted.
+
+        #{client_interview_preferences_message}
+        The client's preferred language for a phone call is #{preferred_interview_language_name}
+
+        Additional information from Client: #{@intake.final_info}
+
+        automated_notification_submit_confirmation
+      BODY
+
+      append_comment_to_ticket(
+        ticket_id: @intake.intake_ticket_id,
+        comment: comment_body,
+        fields: {
+          EitcZendeskInstance::EIP_STATUS => EitcZendeskInstance::EIP_STATUS_SUBMITTED,
+        }
+      )
+      @intake.update(completed_intake_sent_to_zendesk: true)
+      DatadogApi.increment("zendesk.ticket.pdfs.intake.final.sent")
+    end
+
     def send_consent_to_zendesk
       return if @intake.intake_pdf_sent_to_zendesk
 
@@ -106,6 +131,20 @@ module Zendesk
         EitcZendeskInstance::STATE => @intake.state_of_residence,
         EitcZendeskInstance::CLIENT_ZIP_CODE => @intake.zip_code,
       }
+    end
+
+    private
+
+    def client_interview_preferences_message
+      message = <<~MESSAGE
+        Client's detected timezone: #{zendesk_timezone(@intake.timezone) || 'Unknown'}
+        Client's provided interview preferences: #{@intake.interview_timing_preference || 'Unknown'}
+      MESSAGE
+      message.rstrip
+    end
+
+    def preferred_interview_language_name
+      I18n.t("general.language.#{@intake.preferred_interview_language || I18n.locale}", locale: :en)
     end
   end
 end

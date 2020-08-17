@@ -24,8 +24,10 @@ describe Zendesk::EipService do
   let(:service) { described_class.new(intake) }
 
   before do
+    allow(service).to receive(:append_comment_to_ticket)
     allow(service).to receive(:create_ticket).and_return(fake_zendesk_ticket)
     allow(service).to receive(:test_ticket_tags).and_return([])
+    allow(DatadogApi).to receive(:increment)
   end
 
   describe "#create_eip_ticket" do
@@ -113,10 +115,6 @@ describe Zendesk::EipService do
   describe "#send_consent_to_zendesk" do
     let(:intake_ticket_id) { 2 }
 
-    before do
-      allow(service).to receive(:append_comment_to_ticket)
-    end
-
     context "when comment has already been appended" do
       before do
         intake.update(intake_pdf_sent_to_zendesk: true)
@@ -129,10 +127,6 @@ describe Zendesk::EipService do
     end
 
     context "when comment has not been appended" do
-      before do
-        allow(DatadogApi).to receive(:increment)
-      end
-
       it "appends a comment and updates the eip return status" do
         service.send_consent_to_zendesk
         expected_comment = <<~COMMENT
@@ -152,6 +146,57 @@ describe Zendesk::EipService do
           "zendesk.ticket.pdfs.intake_and_consent.preliminary.sent"
         )
         expect(intake.reload.intake_pdf_sent_to_zendesk).to eq true
+      end
+    end
+  end
+
+  describe "#send_completed_intake_to_zendesk" do
+    let(:intake_ticket_id) { 2 }
+
+    context "it has not yet added a comment" do
+      before do
+        intake.update(
+          preferred_interview_language: "es",
+          timezone: "America/Chicago",
+          final_info: "I moved here from Alaska.",
+          interview_timing_preference: "Monday evenings and Wednesday mornings",
+        )
+      end
+
+      it "adds a comment" do
+        service.send_completed_intake_to_zendesk
+
+        expected_comment = <<~COMMENT
+          EIP only form submitted. The taxpayer was notified that their information has been submitted.
+
+          Client's detected timezone: Central Time (US & Canada)
+          Client's provided interview preferences: Monday evenings and Wednesday mornings
+          The client's preferred language for a phone call is Spanish
+
+          Additional information from Client: I moved here from Alaska.
+
+          automated_notification_submit_confirmation
+        COMMENT
+        expect(service).to have_received(:append_comment_to_ticket).with(
+          ticket_id: 2,
+          comment: expected_comment,
+          fields: {
+            EitcZendeskInstance::EIP_STATUS => EitcZendeskInstance::EIP_STATUS_SUBMITTED,
+          }
+        )
+        expect(DatadogApi).to have_received(:increment).with("zendesk.ticket.pdfs.intake.final.sent")
+        expect(intake.reload.completed_intake_sent_to_zendesk).to eq true
+      end
+    end
+
+    context "it has already added a comment" do
+      before do
+        intake.update(completed_intake_sent_to_zendesk: true)
+      end
+
+      it "does nothing" do
+        service.send_completed_intake_to_zendesk
+        expect(service).not_to have_received(:append_comment_to_ticket)
       end
     end
   end
