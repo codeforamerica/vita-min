@@ -18,6 +18,11 @@ module Zendesk
       raise MissingRequesterIdError if @intake.intake_ticket_requester_id.blank?
       raise "Missing vita_partner" if @intake.vita_partner.nil?
 
+      tags = test_ticket_tags
+      if @intake.triaged_from_stimulus?
+        tags.push("triaged_from_stimulus")
+      end
+
       ticket_content = {
           subject: new_ticket_subject,
           requester_id: @intake.intake_ticket_requester_id,

@@ -97,5 +97,16 @@ describe Zendesk::EipService do
         )
       end
     end
+
+    context "with an associated stimulus triage" do
+      before { create :stimulus_triage, intake: intake }
+
+      it "adds triaged_from_stimulus tag" do
+        service.create_eip_ticket
+        expect(service).to have_received(:create_ticket).with hash_including(
+          tags: array_including("triaged_from_stimulus")
+        )
+      end
+    end
   end
 end
