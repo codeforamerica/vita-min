@@ -23,16 +23,12 @@
 class TicketStatus < ApplicationRecord
   belongs_to :intake
 
-  def status_changed?(intake_status: nil, return_status: nil, eip_status: nil)
-    self.intake_status != intake_status || self.return_status != return_status || self.eip_status != eip_status
-  end
-
   def send_mixpanel_event(context = {})
     MixpanelService.send_event(
-        event_id: intake.visitor_id,
-        event_name: 'ticket_status_change',
-        data: context.merge(MixpanelService.data_from(self)),
-        subject: intake
+      event_id: intake.visitor_id,
+      event_name: 'ticket_status_change',
+      data: context.merge(MixpanelService.data_from(self)),
+      subject: intake
     )
   end
 
@@ -43,7 +39,5 @@ class TicketStatus < ApplicationRecord
   def return_status_label
     EitcZendeskInstance::RETURN_STATUS_LABELS[return_status]
   end
-
-  private
 
 end

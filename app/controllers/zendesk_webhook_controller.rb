@@ -30,17 +30,11 @@ class ZendeskWebhookController < ApplicationController
     # in rare cases, there may be multiple intakes with the same ticket id
     intakes_for_ticket.each do |intake|
       current_status = intake.current_ticket_status
-
-      new_status = if current_status.nil?
-        # new tickets are created with an initial status
-        # if this is the first status, we don't know if this status changed
-        intake.ticket_statuses.create(
-          ticket_id: json_payload[:ticket_id],
-          verified_change: false,
-          **incoming_ticket_statuses
-        )
-      elsif current_status.status_changed?(incoming_ticket_statuses)
-        intake.ticket_statuses.create(ticket_id: json_payload[:ticket_id], **incoming_ticket_statuses)
+      if current_status.nil? || ticket_status_changed?(current_status, incoming_ticket_statuses)
+        # verified_change means that we already had an old TicketStatus in the database and it had
+        # different status data.
+        verified_change = !current_status.nil?
+        new_status = intake.ticket_statuses.create(ticket_id: json_payload[:ticket_id], verified_change: verified_change, **incoming_ticket_statuses)
       end
 
       if new_status&.verified_change?
@@ -50,6 +44,10 @@ class ZendeskWebhookController < ApplicationController
   end
 
   private
+
+  def ticket_status_changed?(current_status, intake_status: nil, return_status: nil, eip_status: nil)
+    current_status.intake_status != intake_status || current_status.return_status != return_status || current_status.eip_status != eip_status
+  end
 
   def mixpanel_routing_data
     {
