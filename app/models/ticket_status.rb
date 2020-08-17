@@ -3,8 +3,9 @@
 # Table name: ticket_statuses
 #
 #  id              :bigint           not null, primary key
-#  intake_status   :string           not null
-#  return_status   :string           not null
+#  eip_status      :string
+#  intake_status   :string
+#  return_status   :string
 #  verified_change :boolean          default(TRUE)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -22,8 +23,8 @@
 class TicketStatus < ApplicationRecord
   belongs_to :intake
 
-  def status_changed?(intake_status:, return_status:)
-    self.intake_status != intake_status || self.return_status != return_status
+  def status_changed?(intake_status: nil, return_status: nil, eip_status: nil)
+    self.intake_status != intake_status || self.return_status != return_status || self.eip_status != eip_status
   end
 
   def send_mixpanel_event(context = {})

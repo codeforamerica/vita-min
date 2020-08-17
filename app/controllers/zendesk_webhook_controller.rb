@@ -26,6 +26,7 @@ class ZendeskWebhookController < ApplicationController
 
   def updated_ticket
     return unless has_valid_intake_id? && intakes_for_ticket.present?
+
     # in rare cases, there may be multiple intakes with the same ticket id
     intakes_for_ticket.each do |intake|
       current_status = intake.current_ticket_status
@@ -69,10 +70,15 @@ class ZendeskWebhookController < ApplicationController
   end
 
   def incoming_ticket_statuses
-    {
-      intake_status: json_payload[:digital_intake_status],
-      return_status: json_payload[:return_status],
-    }
+    # If a webhook event has an EIP status, skip reporting other statuses.
+    if json_payload[:eip_return_status].present?
+      { eip_status: json_payload[:eip_return_status] }
+    else
+      {
+        intake_status: json_payload[:digital_intake_status],
+        return_status: json_payload[:return_status],
+      }
+    end
   end
 
   def json_payload

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_13_185348) do
+ActiveRecord::Schema.define(version: 2020_08_17_164441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -385,9 +385,10 @@ ActiveRecord::Schema.define(version: 2020_08_13_185348) do
 
   create_table "ticket_statuses", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
+    t.string "eip_status"
     t.bigint "intake_id"
-    t.string "intake_status", null: false
-    t.string "return_status", null: false
+    t.string "intake_status"
+    t.string "return_status"
     t.integer "ticket_id"
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "verified_change", default: true

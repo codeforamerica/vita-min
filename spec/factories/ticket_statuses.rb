@@ -3,8 +3,9 @@
 # Table name: ticket_statuses
 #
 #  id              :bigint           not null, primary key
-#  intake_status   :string           not null
-#  return_status   :string           not null
+#  eip_status      :string
+#  intake_status   :string
+#  return_status   :string
 #  verified_change :boolean          default(TRUE)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -22,7 +23,5 @@
 FactoryBot.define do
   factory :ticket_status do
     intake
-    intake_status { EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS }
-    return_status { EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS }
   end
 end

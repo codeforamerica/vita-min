@@ -88,13 +88,13 @@ RSpec.describe ZendeskWebhookController, type: :controller do
   end
 
   describe "#updated_ticket", active_job: true do
-    let!(:intake) {create :intake, intake_ticket_id: 9778}
+    let!(:intake) { create :intake, intake_ticket_id: 9778 }
 
     before do
       request.env["HTTP_AUTHORIZATION"] = valid_auth_credentials
     end
 
-    context "with valid params" do
+    context "with valid params for a full intake" do
       let(:params) do
         {
           zendesk_webhook: {
@@ -105,6 +105,7 @@ RSpec.describe ZendeskWebhookController, type: :controller do
             ticket_created_at: "2020-05-11T07:27:50-07:00",
             ticket_updated_at: "2020-05-11T07:27:50-07:00",
             ticket_tags: "online_intake_ready_for_intake_interview pa",
+            eip_return_status: "",
             return_status: EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS,
             digital_intake_status: EitcZendeskInstance::INTAKE_STATUS_READY_FOR_INTAKE_INTERVIEW,
             ticket_via: "Web Service"
@@ -201,6 +202,106 @@ RSpec.describe ZendeskWebhookController, type: :controller do
           end.to change(TicketStatus, :count).from(0).to(2)
           linked_intakes = TicketStatus.all.pluck(:intake_id)
           expect(linked_intakes).to contain_exactly(intake.id, second_intake.id)
+        end
+      end
+    end
+
+    context "with valid params for an EIP-only Zendesk ticket" do
+      let(:params) do
+        {
+          zendesk_webhook: {
+            method: "updated_ticket",
+            external_id: "intake-#{intake.id}",
+            ticket_id: "9778",
+            ticket_url: "eitc.zendesk.com/agent/tickets/9778",
+            ticket_created_at: "2020-05-11T07:27:50-07:00",
+            ticket_updated_at: "2020-05-11T07:27:50-07:00",
+            ticket_tags: "",
+            eip_return_status: EitcZendeskInstance::EIP_STATUS_ID_UPLOAD,
+            return_status: "",
+            digital_intake_status: "",
+            ticket_via: "Web Service"
+          }
+        }
+      end
+
+      context "without any existing ticket statuses" do
+        it "creates an initial ticket status with verified_change=false" do
+          expect do
+            post :incoming, params: params
+          end.to change {
+            intake.ticket_statuses.count
+          }.from(0).to(1)
+          expect(intake.current_ticket_status.verified_change).to eq(false)
+        end
+
+        xit "does not send a mixpanel event" do
+          expect(MixpanelService).not_to receive(:instance)
+          post :incoming, params: params
+        end
+      end
+
+      context "if a ticket status exists for that intake" do
+        let(:eip_status) { EitcZendeskInstance::EIP_STATUS_ID_UPLOAD }
+        before do
+          create(
+            :ticket_status,
+            intake: intake,
+            eip_status: eip_status,
+          )
+        end
+
+        context "if the eip status is unchanged" do
+          it "does not create a new ticket status" do
+            expect do
+              post :incoming, params: params
+            end.not_to change { intake.ticket_statuses.count }
+          end
+
+          xit "does not send a mixpanel event" do
+            expect(MixpanelService).not_to receive(:instance)
+            post :incoming, params: params
+          end
+        end
+
+        context "if the incoming status information is different than the current ticket status" do
+          let(:eip_status) { EitcZendeskInstance::EIP_STATUS_SUBMITTED }
+
+          it "creates a new ticket status with verified_change=true" do
+            old_status = intake.current_ticket_status
+            expect(old_status.eip_status).to eq EitcZendeskInstance::EIP_STATUS_SUBMITTED
+
+            expect do
+              post :incoming, params: params
+            end.to change {
+              intake.ticket_statuses.count
+            }.from(1).to(2)
+
+            new_ticket_status = intake.reload.current_ticket_status
+            expect(new_ticket_status.eip_status).to eq EitcZendeskInstance::EIP_STATUS_ID_UPLOAD
+            expect(new_ticket_status.ticket_id).to eq(9778)
+            expect(new_ticket_status.verified_change).to eq(true)
+          end
+
+          xit "sends a mixpanel event with intake and ticket status data" do
+            mixpanel_spy = spy(MixpanelService)
+            allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
+            post :incoming, params: params
+
+            expected_mixpanel_data = {
+                path: "/zendesk-webhook/incoming",
+                full_path: "/zendesk-webhook/incoming",
+                controller_name: "ZendeskWebhook",
+                controller_action: "ZendeskWebhookController#incoming",
+                controller_action_name: "incoming",
+            }.merge(MixpanelService.data_from([intake, intake.current_ticket_status]))
+
+            expect(mixpanel_spy).to have_received(:run).with(
+                unique_id: intake.visitor_id,
+                event_name: "ticket_status_change",
+                data: hash_including(expected_mixpanel_data)
+            )
+          end
         end
       end
     end

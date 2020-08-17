@@ -234,6 +234,7 @@ class MixpanelService
           ticket_id: ticket_status.ticket_id,
           intake_status: ticket_status.intake_status_label,
           return_status: ticket_status.return_status_label,
+          # XXX asheesh put something here
           created_at: ticket_status.created_at.utc.iso8601,
       }
     end
