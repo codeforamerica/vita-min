@@ -172,6 +172,18 @@ RSpec.feature "Web Intake EIP Only Filer" do
     select("Spanish", from: "What is your preferred language for the review?")
     click_on "Continue"
 
+    # Payment info
+    expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
+    choose "Direct deposit (fastest)"
+    click_on "Continue"
+    # Bank Details
+    expect(page).to have_selector("h1", text: "Great, please provide your bank details below!")
+    fill_in "Bank name", with: "First Savings Bank"
+    fill_in "Routing number", with: "123456"
+    fill_in "Account number", with: "987654321"
+    choose "Checking"
+    click_on "Continue"
+
     # Contact information
     expect(page).to have_text("What is your mailing address?")
     fill_in "Street address", with: "123 Main St."
