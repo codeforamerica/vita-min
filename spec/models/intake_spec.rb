@@ -78,6 +78,7 @@
 #  had_tips                                             :integer          default("unfilled"), not null
 #  had_unemployment_income                              :integer          default("unfilled"), not null
 #  had_wages                                            :integer          default("unfilled"), not null
+#  has_enqueued_ticket_creation                         :boolean          default(FALSE)
 #  income_over_limit                                    :integer          default("unfilled"), not null
 #  intake_pdf_sent_to_zendesk                           :boolean          default(FALSE), not null
 #  interview_timing_preference                          :string

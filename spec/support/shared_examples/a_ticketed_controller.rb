@@ -1,4 +1,4 @@
-shared_examples "a ticketed controller" do |get_action|
+shared_examples :a_ticketed_controller do |get_action|
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
@@ -10,6 +10,34 @@ shared_examples "a ticketed controller" do |get_action|
       get get_action
 
       expect(response).to be_ok
+    end
+  end
+
+  context "with no ticket id and an enqueued create ticket job", active_job: true do
+    let(:intake) { create :intake }
+
+    context "with a CreateZendeskIntakeTicketJob" do
+      before do
+        CreateZendeskIntakeTicketJob.perform_later(intake.id)
+      end
+
+      it "renders normally" do
+        get get_action
+
+        expect(response).to be_ok
+      end
+    end
+
+    context "with a CreateZendeskEipIntakeTicketJob" do
+      before do
+        CreateZendeskEipIntakeTicketJob.perform_later(intake.id)
+      end
+
+      it "renders normally" do
+        get get_action
+
+        expect(response).to be_ok
+      end
     end
   end
 

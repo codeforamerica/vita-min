@@ -1,5 +1,6 @@
 class CreateZendeskIntakeTicketJob < ApplicationJob
   include ConsolidatedTraceHelper
+  include UpdateIntakeEnqueuedTicketCreationMixin
 
   queue_as :default
 

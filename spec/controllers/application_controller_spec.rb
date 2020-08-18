@@ -685,6 +685,6 @@ RSpec.describe ApplicationController do
       end
     end
 
-    it_behaves_like "a ticketed controller", :index
+    it_behaves_like :a_ticketed_controller, :index
   end
 end

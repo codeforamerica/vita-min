@@ -1,4 +1,6 @@
 class CreateZendeskEipIntakeTicketJob < ApplicationJob
+  include UpdateIntakeEnqueuedTicketCreationMixin
+
   queue_as :default
 
   def perform(intake_id)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_17_164441) do
+ActiveRecord::Schema.define(version: 2020_08_18_171739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,6 +245,7 @@ ActiveRecord::Schema.define(version: 2020_08_17_164441) do
     t.integer "had_tips", default: 0, null: false
     t.integer "had_unemployment_income", default: 0, null: false
     t.integer "had_wages", default: 0, null: false
+    t.boolean "has_enqueued_ticket_creation", default: false
     t.integer "income_over_limit", default: 0, null: false
     t.boolean "intake_pdf_sent_to_zendesk", default: false, null: false
     t.bigint "intake_ticket_id"

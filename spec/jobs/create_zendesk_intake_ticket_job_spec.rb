@@ -12,6 +12,18 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
   let(:new_requester_id) { nil }
   let(:new_ticket_id) { nil }
 
+  describe "#perform_later" do
+    context "when it is in enqueued", active_job: true do
+      it "sets the intake's has_enqueued_ticket_creation property" do
+        expect do
+          described_class.perform_later(intake.id)
+        end.to change {
+          intake.reload.has_enqueued_ticket_creation
+        }.from(false).to(true)
+      end
+    end
+  end
+
   describe "#perform" do
     context "without errors" do
       before do
