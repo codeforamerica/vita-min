@@ -153,7 +153,7 @@ describe Zendesk::EipService do
   describe "#send_completed_intake_to_zendesk" do
     let(:intake_ticket_id) { 2 }
 
-    context "it has not yet added a comment" do
+    context "has not sent completed intake" do
       before do
         intake.update(
           preferred_interview_language: "es",
@@ -189,7 +189,7 @@ describe Zendesk::EipService do
       end
     end
 
-    context "it has already added a comment" do
+    context "has sent completed intake" do
       before do
         intake.update(completed_intake_sent_to_zendesk: true)
       end
