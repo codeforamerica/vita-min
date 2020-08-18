@@ -26,6 +26,7 @@ RSpec.describe Questions::ConsentController do
 
       before do
         request.remote_ip = ip_address
+        allow(MixpanelService).to receive(:send_event)
       end
 
       it "saves the answer, along with a timestamp and ip address" do
@@ -52,6 +53,19 @@ RSpec.describe Questions::ConsentController do
           expect(CreateZendeskEipIntakeTicketJob).to have_been_enqueued
           expect(CreateZendeskIntakeTicketJob).not_to have_been_enqueued
         end
+      end
+
+      it "sends an event to mixpanel without PII" do
+        post :update, params: params
+
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(
+          event_name: "question_answered",
+          data: hash_excluding(
+            :primary_first_name,
+            :primary_last_name,
+            :primary_last_four_ssn
+          )
+        ))
       end
     end
 

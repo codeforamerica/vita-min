@@ -10,6 +10,7 @@ Rails.application.config.filter_parameters += [
   :spouse_last_name,
   :email,
   :email_address,
+  :email_address_confirmation,
   :spouse_email_address,
   :phone_number,
   :additional_info,

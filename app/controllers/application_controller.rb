@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
       visitor_id = cookies[:visitor_id]
     else
       visitor_id = SecureRandom.hex(26)
-      cookies.permanent[:visitor_id] =  { value: visitor_id, httponly: true }
+      cookies.permanent[:visitor_id] = { value: visitor_id, httponly: true }
     end
     if visitor_record.present? && visitor_record.persisted? && visitor_record.visitor_id.blank?
       visitor_record.update(visitor_id: visitor_id)

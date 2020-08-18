@@ -148,5 +148,6 @@ RSpec.describe EmailController, type: :controller do
         end.to raise_error(StandardError)
       end
     end
+
   end
 end

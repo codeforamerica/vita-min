@@ -83,7 +83,7 @@ module Questions
     def tracking_data
       return {} unless @form.class.scoped_attributes.key?(:intake)
 
-      @form.attributes_for(:intake)
+      @form.attributes_for(:intake).except(*Rails.application.config.filter_parameters)
     end
 
     class << self
