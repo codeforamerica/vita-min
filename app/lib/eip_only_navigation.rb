@@ -1,7 +1,7 @@
 class EipOnlyNavigation
   FLOW = [
     # Overview
-    Questions::EipOverviewController,
+    Questions::EipOverviewController, # FilingMightHelpController assumes this is the start of the EIP-only flow
 
     Questions::EnvironmentWarningController,
 

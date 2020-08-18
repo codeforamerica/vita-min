@@ -112,6 +112,18 @@ RSpec.describe Stimulus::FilingMightHelpController do
 
         expect(response).to redirect_to(eip_overview_questions_path)
       end
+
+      context "with Spanish locale" do
+        before do
+          allow(I18n).to receive(:default_locale).and_return('es')
+        end
+
+        it 'redirects to the beginning of Spanish EIP only intake' do
+          post :update, params: params
+
+          expect(response).to redirect_to(eip_overview_questions_path(locale: 'es'))
+        end
+      end
     end
   end
 end

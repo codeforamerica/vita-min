@@ -18,7 +18,7 @@ module Stimulus
       if current_stimulus_triage.chose_to_file_yes?
         redirect_to backtaxes_questions_path
       else
-        redirect_to EipOnlyNavigation.first.to_path_helper
+        redirect_to eip_overview_questions_path
       end
     end
 
