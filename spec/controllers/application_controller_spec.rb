@@ -345,6 +345,19 @@ RSpec.describe ApplicationController do
 
         expect(session[:source]).to eq "shromps"
       end
+
+      context "when the param is very long" do
+        let(:params) do
+          { source: ("shromps" * 200)}
+        end
+
+        it "truncates it" do
+          get :index, params: params
+
+          expect(session[:source]).to eq ("shromps" * 14 + "sh")
+        end
+      end
+
     end
 
     context "with an 's' param" do
@@ -395,6 +408,16 @@ RSpec.describe ApplicationController do
         end
       end
 
+      context "with a very long HTTP_REFERER header" do
+        before { request.headers["HTTP_REFERER"] = ('!' * 9001) }
+
+        it "sets the referrer to a truncated version" do
+          get :index
+
+          expect(session[:referrer]).to eq ('!' * 200)
+        end
+      end
+
       context "without an HTTP_REFERER header" do
         it "sets the referrer to 'None'" do
           get :index
@@ -424,6 +447,14 @@ RSpec.describe ApplicationController do
           get :index, params: { utm_state: "CA" }
 
           expect(session[:utm_state]).to eq "CA"
+        end
+      end
+
+      context "with a very long utm_state param" do
+        it "truncates to two characters" do
+          get :index, params: { utm_state: ("!" * 9001) }
+
+          expect(session[:utm_state]).to eq "!" * 50
         end
       end
 

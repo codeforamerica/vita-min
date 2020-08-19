@@ -65,7 +65,8 @@ class ApplicationController < ActionController::Base
   def set_source
     source_from_params = params[:source] || params[:utm_source] || params[:s]
     if source_from_params.present?
-      session[:source] = source_from_params
+      # Use at most 100 chars in session so we don't overflow it.
+      session[:source] = source_from_params.slice(0, 100)
     elsif request.headers.fetch(:referer, "").include?("google.com")
       session[:source] = "organic_google"
     end
@@ -77,7 +78,8 @@ class ApplicationController < ActionController::Base
 
   def set_referrer
     unless referrer.present?
-      session[:referrer] = request.headers.fetch(:referer, "None")
+      # Use at most 200 chars in the session to avoid overflow.
+      session[:referrer] = request.headers.fetch(:referer, "None").slice(0, 200)
     end
   end
 
@@ -89,7 +91,8 @@ class ApplicationController < ActionController::Base
     return unless params[:utm_state].present?
 
     unless utm_state.present?
-      session[:utm_state] = params[:utm_state]
+      # Avoid using too much cookie space
+      session[:utm_state] = params[:utm_state].slice(0, 50)
     end
   end
 
