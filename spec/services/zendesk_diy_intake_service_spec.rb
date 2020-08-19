@@ -90,14 +90,19 @@ describe ZendeskDiyIntakeService do
       expect(body).to include "send_diy_confirmation"
     end
 
-    context "with corresponding full service tickets" do
+    context "with corresponding intake tickets" do
       let(:intake_ticket_map) do
-        { 99998 => double(ZendeskAPI::Ticket, id: "99998"),
-          99997 => double(ZendeskAPI::Ticket, id: "99997") }
+        { 99998 => double(ZendeskAPI::Ticket, id: "99998", tags: []),
+          99997 => double(ZendeskAPI::Ticket, id: "99997", tags: ["eip"]) }
       end
       let!(:related_intakes) do
-        intake_ticket_map.map do |ticket_id, _|
-          create(
+        intake_ticket_map.map do |ticket_id, ticket|
+          ticket.tags.include?("eip") ? create(
+            :intake,
+            :eip_only,
+            email_address: email_address,
+            intake_ticket_id: ticket_id
+          ) : create(
             :intake,
             email_address: email_address,
             intake_ticket_id: ticket_id
@@ -115,7 +120,11 @@ describe ZendeskDiyIntakeService do
         body = service.ticket_body
 
         intake_ticket_map.each do |_, ticket|
-          expect(body).to include "This client has a GetYourRefund full service ticket: #{service.ticket_url(ticket.id)}"
+          if ticket.tags.include?("eip")
+            expect(body).to include "This client has a GetYourRefund EIP ticket: #{service.ticket_url(ticket.id)}"
+          else
+            expect(body).to include "This client has a GetYourRefund full service ticket: #{service.ticket_url(ticket.id)}"
+          end
         end
       end
     end
