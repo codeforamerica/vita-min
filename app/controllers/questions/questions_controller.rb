@@ -33,9 +33,9 @@ module Questions
       question_path(self.class.to_param, params)
     end
 
-    def next_path(params = {})
+    def next_path
       next_step = form_navigation.next
-      next_step.to_path_helper(params) if next_step
+      next_step.to_path_helper if next_step
     end
 
     def illustration_folder
@@ -91,14 +91,15 @@ module Questions
         controller_name.dasherize
       end
 
-      def to_path_helper(params = {})
+      def to_path_helper
         path_helper_string = [
           controller_name,
           module_parent.name.underscore,
           "path"
         ].join("_") # "controller_name_module_path"
 
-        Rails.application.routes.url_helpers.send(path_helper_string.to_sym, params)
+        # Pass default_url_options (namely, locale) from ApplicationController when computing URL for this controller
+        Rails.application.routes.url_helpers.send(path_helper_string.to_sym, default_url_options)
       end
 
       def form_name
