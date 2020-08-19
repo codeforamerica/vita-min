@@ -42,7 +42,17 @@ RSpec.describe Questions::QuestionsController do
       let(:controller_class) { Documents::IdsController }
 
       it "returns the correct path helper" do
-        expect(controller_class.to_path_helper(locale: :es)).to eq(ids_documents_path(locale: :es))
+        expect(controller_class.to_path_helper).to eq(ids_documents_path)
+      end
+
+      context "with a specific locale" do
+        before do
+          allow(I18n).to receive(:locale).and_return(:es)
+        end
+
+        it "computes the route appropriate to that locale" do
+          expect(controller_class.to_path_helper).to eq(ids_documents_path(locale: :es))
+        end
       end
     end
   end
