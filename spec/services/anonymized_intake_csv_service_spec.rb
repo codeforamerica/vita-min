@@ -45,6 +45,127 @@ RSpec.describe AnonymizedIntakeCsvService do
         end
       end
     end
+
+    context "intake status columns" do
+      before do
+        create(
+          :ticket_status,
+          intake: intake_1,
+          created_at: DateTime.new(2020, 1, 1),
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
+        )
+        create(
+          :ticket_status,
+          intake: intake_1,
+          created_at: DateTime.new(2020, 1, 2),
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_REVIEW,
+        )
+        create(
+          :ticket_status,
+          intake: intake_2,
+          verified_change: false,
+          created_at: DateTime.new(2020, 1, 3),
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
+        )
+        create(
+          :ticket_status,
+          intake: intake_2,
+          created_at: DateTime.new(2020, 1, 4),
+          intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_REVIEW,
+        )
+      end
+
+      it "stores timestamps in the appropriate column" do
+        row_1_csv_data = csv[0]
+        expect(row_1_csv_data["Intake Status - Gathering Documents"]).to eq("2020-01-01 00:00:00 UTC")
+        expect(row_1_csv_data["Intake Status - In Review"]).to eq("2020-01-02 00:00:00 UTC")
+        row_2_csv_data = csv[1]
+        expect(row_2_csv_data["Intake Status - Gathering Documents"]).to be_nil
+        expect(row_2_csv_data["Intake Status - In Review"]).to eq("2020-01-04 00:00:00 UTC")
+      end
+    end
+
+    context "return status columns" do
+      before do
+        create(
+          :ticket_status,
+          intake: intake_1,
+          created_at: DateTime.new(2020, 1, 1),
+          return_status: EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS
+        )
+        create(
+          :ticket_status,
+          intake: intake_1,
+          created_at: DateTime.new(2020, 1, 2),
+          return_status: EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE
+        )
+        create(
+          :ticket_status,
+          intake: intake_2,
+          verified_change: false,
+          created_at: DateTime.new(2020, 1, 3),
+          return_status: EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS
+        )
+        create(
+          :ticket_status,
+          intake: intake_2,
+          created_at: DateTime.new(2020, 1, 4),
+          return_status: EitcZendeskInstance::RETURN_STATUS_DO_NOT_FILE
+        )
+      end
+
+      context "if we know about any status changes" do
+        it "stores timestamps in the right column" do
+          row_1_csv_data = csv[0]
+          expect(row_1_csv_data["Return Status - In Progress"]).to eq("2020-01-01 00:00:00 UTC")
+          expect(row_1_csv_data["Return Status - Do Not File"]).to eq("2020-01-02 00:00:00 UTC")
+          row_2_csv_data = csv[1]
+          expect(row_2_csv_data["Return Status - In Progress"]).to be_nil
+          expect(row_2_csv_data["Return Status - Do Not File"]).to eq("2020-01-04 00:00:00 UTC")
+        end
+      end
+    end
+
+    context "EIP-only status columns" do
+      before do
+        create(
+          :ticket_status,
+          intake: intake_1,
+          created_at: DateTime.new(2020, 1, 1),
+          eip_status: EitcZendeskInstance::EIP_STATUS_ID_UPLOAD
+        )
+        create(
+          :ticket_status,
+          intake: intake_1,
+          created_at: DateTime.new(2020, 1, 2),
+          eip_status: EitcZendeskInstance::EIP_STATUS_SUBMITTED
+        )
+        create(
+          :ticket_status,
+          intake: intake_2,
+          verified_change: false,
+          created_at: DateTime.new(2020, 1, 3),
+          eip_status: EitcZendeskInstance::EIP_STATUS_ID_UPLOAD
+        )
+        create(
+          :ticket_status,
+          intake: intake_2,
+          created_at: DateTime.new(2020, 1, 4),
+          eip_status: EitcZendeskInstance::EIP_STATUS_SUBMITTED
+        )
+      end
+
+      context "there are EIP status events" do
+        it "stores timestamps in the right column" do
+          row_1_csv_data = csv[0]
+          expect(row_1_csv_data["EIP Status - Reached ID upload page"]).to eq("2020-01-01 00:00:00 UTC")
+          expect(row_1_csv_data["EIP Status - Submitted EIP only form"]).to eq("2020-01-02 00:00:00 UTC")
+          row_2_csv_data = csv[1]
+          expect(row_2_csv_data["EIP Status - Reached ID upload page"]).to be_nil
+          expect(row_2_csv_data["EIP Status - Submitted EIP only form"]).to eq("2020-01-04 00:00:00 UTC")
+        end
+      end
+    end
   end
 
   describe "#store_csv" do
