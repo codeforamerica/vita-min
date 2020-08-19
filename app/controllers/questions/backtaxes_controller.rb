@@ -5,7 +5,7 @@ module Questions
     layout "question"
 
     def current_intake
-      super || Intake.new
+      Intake.new
     end
 
     private
@@ -19,20 +19,22 @@ module Questions
       end
     end
 
+    ##
+    # sets new intake id in session and associates triage source to that intake
     def after_update_success
-      session[:intake_id] = @form.intake.id
-      assign_triage_source
+      new_intake = @form.intake
+      session[:intake_id] = new_intake.id
+      assign_triage_source(new_intake)
     end
 
     ##
-    # after creating an intake, looks for a triage source and attaches
-    # to intake
-    def assign_triage_source
+    # looks for a triage source and attaches to intake
+    def assign_triage_source(intake)
       return unless session.key?(:triage_source_id) && session.key?(:triage_source_type)
 
       triage_type = session.delete(:triage_source_type).constantize
       triage_source = triage_type.find(session.delete(:triage_source_id))
-      current_intake.update_attribute(:triage_source, triage_source)
+      intake.update_attribute(:triage_source, triage_source)
     end
 
     def form_params
@@ -40,7 +42,7 @@ module Questions
         source: current_intake.source || source,
         referrer: current_intake.referrer || referrer,
         locale: I18n.locale,
-        )
+      )
     end
   end
 end

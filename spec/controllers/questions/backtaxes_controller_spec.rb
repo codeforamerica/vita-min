@@ -20,19 +20,36 @@ RSpec.describe Questions::BacktaxesController do
         }
       end
 
-      it "creates new intake backtaxes answers" do
-        expect {
-          post :update, params: params
-        }.to change(Intake, :count).by(1)
+      context "without an intake in the session" do
+        it "creates new intake backtaxes answers" do
+          expect {
+            post :update, params: params
+          }.to change(Intake, :count).by(1)
 
-        intake = Intake.last
+          intake = Intake.last
 
-        expect(intake.source).to eq "source_from_session"
-        expect(intake.referrer).to eq "referrer_from_session"
-        expect(intake.locale).to eq "en"
-        expect(intake.needs_help_2017).to eq "no"
-        expect(intake.needs_help_2018).to eq "yes"
-        expect(intake.needs_help_2019).to eq "yes"
+          expect(intake.source).to eq "source_from_session"
+          expect(intake.referrer).to eq "referrer_from_session"
+          expect(intake.locale).to eq "en"
+          expect(intake.needs_help_2017).to eq "no"
+          expect(intake.needs_help_2018).to eq "yes"
+          expect(intake.needs_help_2019).to eq "yes"
+        end
+      end
+
+      context "with an existing intake in the session" do
+        let(:intake) { create :intake, :eip_only }
+
+        before { session[:intake_id] = intake.id }
+
+        it "creates a new intake and overwrites the one in the session" do
+          expect {
+            post :update, params: params
+          }.to change(Intake, :count).by(1)
+
+          created_intake = Intake.last
+          expect(session[:intake_id]).to eq created_intake.id
+        end
       end
     end
 
@@ -60,11 +77,11 @@ RSpec.describe Questions::BacktaxesController do
       let(:stimulus_triage) { create :stimulus_triage }
       let(:params) do
         {
-            backtaxes_form: {
-                needs_help_2017: "yes",
-                needs_help_2018: "no",
-                needs_help_2019: "no",
-            }
+          backtaxes_form: {
+            needs_help_2017: "yes",
+            needs_help_2018: "no",
+            needs_help_2019: "no",
+          }
         }
       end
 
