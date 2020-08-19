@@ -1,64 +1,56 @@
 require 'yaml'
 
-##
-# this module upserts Vita Partner data
 module VitaPartnerImporter
   VITA_PARTNERS_YAML = Rails.root.join("db/vita_partners.yml")
 
-  ##
-  # output normally except in test
-  def say(message)
-    puts message unless Rails.env.test?
-  end
-
   def upsert_vita_partners(yml = VITA_PARTNERS_YAML)
-    say "beginning partner upsert using environment: #{Rails.env}"
+    puts "beginning partner upsert using environment: #{Rails.env}" unless Rails.env.test?
 
-    yaml_file = YAML.load_file(yml)
-    partners = yaml_file['vita_partners']
+    yaml_partners = YAML.load_file(yml)['vita_partners']
+    yaml_zendesk_groups = yaml_partners.map { |partner| partner["zendesk_group_id"] }
     VitaPartner.transaction do
-      SourceParameter.destroy_all
-      partners.each do |datum|
-        states = datum.delete('states')
-        sources = datum.delete('source_parameters')
-        partner = VitaPartner.find_by(zendesk_group_id: datum['zendesk_group_id'])
-        partner = partner.present? ? update_partner(partner, datum) : create_partner(datum)
-        refresh_partner_sources(partner, sources)
-        refresh_partner_states(partner, states)
-        say "  => done"
+      yaml_partners.each do |yaml_partner|
+        upsert_vita_partner(yaml_partner)
       end
     end
+    archive_absent_partners(VitaPartner.where.not(zendesk_group_id: yaml_zendesk_groups))
+    puts "  => done" unless Rails.env.test?
   end
 
-  def refresh_partner_sources(partner, codes)
-    return unless codes.present?
+  private
 
-    say "  -> updating #{partner.name} source codes"
-    codes.each { |code| partner.source_parameters.create!(code: code.downcase) }
+  def upsert_vita_partner(yaml_partner)
+    # Make sure there is a VITA partner in the DB for this zendesk_group_id
+    db_partner = VitaPartner.find_by(zendesk_group_id: yaml_partner['zendesk_group_id'])
+    if db_partner.nil?
+      db_partner = VitaPartner.new(zendesk_group_id: yaml_partner['zendesk_group_id'])
+    end
+
+    # Update it
+    db_partner.accepts_overflow = (yaml_partner["accepts_overflow"] == "true")
+    db_partner.display_name = yaml_partner["display_name"]
+    db_partner.logo_path = yaml_partner["logo_path"]
+    db_partner.name = yaml_partner["name"]
+    db_partner.weekly_capacity_limit = yaml_partner["weekly_capacity_limit"]
+    db_partner.zendesk_instance_domain = yaml_partner["zendesk_instance_domain"]
+    db_partner.save!
+
+    db_partner.source_parameters.destroy(db_partner.source_parameters) if db_partner.source_parameters.present?
+    db_partner.states.destroy(db_partner.states) if db_partner.states.present?
+
+    yaml_partner["source_parameters"].each { |code| db_partner.source_parameters.create!(code: code.downcase) } if yaml_partner["source_parameters"].present?
+    yaml_partner["states"].each { |st| db_partner.states << State.find_by!(abbreviation: st.upcase) } if yaml_partner["states"].present?
+
+    db_partner.save!
   end
 
-  def refresh_partner_states(partner, states)
-    partner.states.clear
-    return unless states.present?
-
-    say "  -> updating #{partner.name} states"
-    states.each { |st| partner.states << State.find_by!(abbreviation: st.upcase) }
-  end
-
-  def update_partner(partner, data)
-    say "reviewing #{partner.name}"
-    partner_data = partner.serializable_hash
-    changed = data.filter { |k, v| partner_data[k] != v }
-
-    changed.each { |k, v| say "updating :#{k} with #{v}" }
-    say "  -> resetting to YML" unless changed.empty?
-    partner.update(changed)
-    partner
-  end
-
-  def create_partner(data)
-    partner = VitaPartner.create(data)
-    say "added #{partner.name}"
-    partner
+  def archive_absent_partners(db_partners)
+    db_partners.update_all(archived: true)
+    db_partners.each do |db_partner|
+      # This removes the source parameter. If you need a list of all historically-used source parameters, do a query
+      # against Intake objects.
+      db_partner.source_parameters.destroy(db_partner.source_parameters) if db_partner.source_parameters.present?
+      db_partner.states.destroy(db_partner.states) if db_partner.states.present?
+    end
   end
 end
