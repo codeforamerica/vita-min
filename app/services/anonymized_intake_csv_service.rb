@@ -90,7 +90,15 @@ class AnonymizedIntakeCsvService
   def csv_row(intake)
     row = CSV_FIELDS.map { |field| intake.send(field) }
 
-    # Add status transition times
+    # Add status transition times.
+    #
+    # If a ticket went into a status multiple times for any reason, record the earliest timestamp.
+    # This is an arbitrary choice that makes it possible to have just one CSV column per possible status,
+    # rather than multiple columns covering the same Zendesk status.
+    #
+    # Use `verified_change: true` to filter TicketStatus objects so we know it's a change,
+    # not just a repeated notification of the same status. TicketStatus objects from early May
+    # 2020 with `verified_change: false` may have had invalid data, so steer clear of them.
     intake_status_timestamps = {}
     return_status_timestamps = {}
     eip_status_timestamps = {}
