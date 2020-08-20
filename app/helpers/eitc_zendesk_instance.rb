@@ -22,6 +22,8 @@ class EitcZendeskInstance
   LINK_TO_CLIENT_DOCUMENTS = "360042211294"
   CLIENT_ZIP_CODE = "360043811533"
   DOCUMENTS_NEEDED = "360045974133"
+  # REFERRAL_BY_211 is only used by EIP at the moment
+  REFERRAL_BY_211 = "360047499514"
 
   # Form IDs
   EIP_TICKET_FORM = "360004533173"
@@ -47,7 +49,7 @@ class EitcZendeskInstance
     INTAKE_STATUS_WAITING_FOR_INFO => "Waiting For Info",
     INTAKE_STATUS_COMPLETE => "Complete",
     INTAKE_STATUS_NOT_FILING => "Not Filing",
-}
+  }
 
   # Zendesk Ticket Return Statuses
   RETURN_STATUS_UNSTARTED = ""

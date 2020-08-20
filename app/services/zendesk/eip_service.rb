@@ -20,9 +20,8 @@ module Zendesk
       raise "Missing vita_partner" if @intake.vita_partner.nil?
 
       tags = test_ticket_tags
-      if @intake.triaged_from_stimulus?
-        tags.push("triaged_from_stimulus")
-      end
+      tags.push("triaged_from_stimulus") if @intake.triaged_from_stimulus?
+      tags.push("211_eip_intake") if @intake.source == "211intake"
 
       ticket_content = {
           subject: new_ticket_subject,
@@ -100,7 +99,8 @@ module Zendesk
     end
 
     def new_ticket_body
-      <<~BODY
+      preface = "Client called 211 EIP hotline and a VITA certified 211 specialist talked to the client and completed the intake form\n\n" if @intake.source == "211intake"
+      preface.to_s + <<~BODY
         New EIP only form started
 
         Preferred name: #{@intake.preferred_name}
@@ -115,13 +115,15 @@ module Zendesk
       BODY
     end
 
+    private
+
     def new_ticket_fields
       notification_opt_ins = [
         ("sms_opt_in" if @intake.sms_notification_opt_in_yes?),
         ("email_opt_in" if @intake.email_notification_opt_in_yes?),
       ].compact
 
-      {
+      fields = {
         EitcZendeskInstance::COMMUNICATION_PREFERENCES => notification_opt_ins,
         EitcZendeskInstance::EIP_STATUS => EitcZendeskInstance::EIP_STATUS_STARTED,
         EitcZendeskInstance::DOCUMENT_REQUEST_LINK => @intake.requested_docs_token_link,
@@ -131,9 +133,10 @@ module Zendesk
         EitcZendeskInstance::STATE => @intake.state_of_residence,
         EitcZendeskInstance::CLIENT_ZIP_CODE => @intake.zip_code,
       }
-    end
 
-    private
+      fields[EitcZendeskInstance::REFERRAL_BY_211] = true if @intake.source == "211intake"
+      fields
+    end
 
     def client_interview_preferences_message
       message = <<~MESSAGE
