@@ -333,6 +333,14 @@ describe ZendeskIntakeService do
         expect(service.new_ticket_body).to include("This client has previously requested a DIY link from GetYourRefund.org")
       end
     end
+
+    context "when the user has filled out an EIP only intake" do
+      let!(:eip_intake) { create :intake, :eip_only, email_address: intake.email_address, intake_ticket_id: 123 }
+
+      it "adds an extra message saying the client has an EIP only ticket" do
+        expect(service.new_ticket_body).to include("This client has a GetYourRefund EIP ticket: #{service.ticket_url(eip_intake.intake_ticket_id)}")
+      end
+    end
   end
 
   describe "#new_ticket_subject" do

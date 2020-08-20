@@ -250,6 +250,10 @@ class ZendeskIntakeService
     messages << "Client is filing for Economic Impact Payment support\n" if @intake.filing_for_stimulus_yes?
     diy_intakes = DiyIntake.where.not(email_address: nil).where(email_address: @intake.email_address)
     messages << "This client has previously requested a DIY link from GetYourRefund.org\n" if diy_intakes.count > 0
+    eip_intakes = Intake.where.not(email_address: nil).where.not(intake_ticket_id: nil).where(email_address: @intake.email_address, eip_only: true)
+    eip_intakes.each do |intake|
+      messages <<  "This client has a GetYourRefund EIP ticket: #{ticket_url(intake.intake_ticket_id)}"
+    end
     messages
   end
 
