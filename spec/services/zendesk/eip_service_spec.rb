@@ -4,6 +4,7 @@ describe Zendesk::EipService do
   let(:intake_ticket_requester_id) { 1 }
   let(:intake_ticket_id) { nil }
   let(:vita_partner) { create :vita_partner }
+  let(:source) { "uw-narnia" }
   let(:intake) do
     create(
       :intake,
@@ -16,7 +17,7 @@ describe Zendesk::EipService do
       sms_notification_opt_in: "yes",
       email_notification_opt_in: "yes",
       requested_docs_token: "3456ABCDEF",
-      source: "uw-narnia",
+      source: source,
       zip_code: "94110",
     )
   end
@@ -106,7 +107,45 @@ describe Zendesk::EipService do
       it "adds triaged_from_stimulus tag" do
         service.create_eip_ticket
         expect(service).to have_received(:create_ticket).with hash_including(
-          tags: array_including("triaged_from_stimulus")
+          tags: ["triaged_from_stimulus"]
+        )
+      end
+    end
+
+    context "with intake source of 211intake" do
+      let (:source) { "211intake" }
+
+      it "adds 211_eip_intake tag" do
+        result = service.create_eip_ticket
+        expected_body = <<~BODY
+          Client called 211 EIP hotline and a VITA certified 211 specialist talked to the client and completed the intake form
+
+          New EIP only form started
+
+          Preferred name: Cherry
+          Legal first name: Cher
+          Legal last name: Cherimoya
+          Phone number: (415) 555-1212
+          Email: cher@example.com
+          State of residence: California
+
+          Prefers notifications by:
+              • Text message
+              • Email
+
+          This filer has consented to this VITA pilot.
+        BODY
+
+        service.create_eip_ticket
+        expect(service).to have_received(:create_ticket).with(
+          hash_including(
+            body: expected_body,
+            fields: hash_including(
+              EitcZendeskInstance::INTAKE_SOURCE => "211intake",
+              EitcZendeskInstance::REFERRAL_BY_211 => true
+            ),
+            tags: ["211_eip_intake"]
+          )
         )
       end
     end
