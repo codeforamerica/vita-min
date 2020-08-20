@@ -48,7 +48,7 @@ class AnonymizedIntakeCsvService
   end
 
   def generate_csv
-    CSV.generate(headers: CSV_HEADERS, write_headers: true) do |csv|
+    CSV.generate(headers: csv_headers, write_headers: true) do |csv|
       intakes.find_each(batch_size: 100) do |intake|
         csv << csv_row(decorated_intake(intake))
       end
@@ -80,8 +80,47 @@ class AnonymizedIntakeCsvService
 
   private
 
+  def csv_headers
+    status_headers = EitcZendeskInstance::INTAKE_STATUS_LABELS.values.map { |label| "Intake Status - #{label}" } +
+                     EitcZendeskInstance::RETURN_STATUS_LABELS.values.map { |label| "Return Status - #{label}" } +
+                     EitcZendeskInstance::EIP_STATUS_LABELS.values.map { |label| "EIP Status - #{label}" }
+    CSV_HEADERS + status_headers
+  end
+
   def csv_row(intake)
-    CSV_FIELDS.map { |field| intake.send(field) }
+    row = CSV_FIELDS.map { |field| intake.send(field) }
+
+    # Add status transition times.
+    #
+    # If a ticket went into a status multiple times for any reason, record the earliest timestamp.
+    # This is an arbitrary choice that makes it possible to have just one CSV column per possible status,
+    # rather than multiple columns covering the same Zendesk status.
+    #
+    # Use `verified_change: true` to filter TicketStatus objects so we know it's a change,
+    # not just a repeated notification of the same status. TicketStatus objects from early May
+    # 2020 with `verified_change: false` may have had invalid data, so steer clear of them.
+    intake_status_timestamps = {}
+    return_status_timestamps = {}
+    eip_status_timestamps = {}
+    intake.ticket_statuses.where(verified_change: true).order('created_at').each do |ticket_status|
+      unless intake_status_timestamps.key?(ticket_status.intake_status)
+        intake_status_timestamps[ticket_status.intake_status] = ticket_status.created_at
+      end
+
+      unless return_status_timestamps.key?(ticket_status.return_status)
+        return_status_timestamps[ticket_status.return_status] = ticket_status.created_at
+      end
+
+      unless eip_status_timestamps.key?(ticket_status.eip_status)
+        eip_status_timestamps[ticket_status.eip_status] = ticket_status.created_at
+      end
+    end
+
+    row += EitcZendeskInstance::INTAKE_STATUS_LABELS.keys.map { |label| intake_status_timestamps.dig(label)&.to_s } +
+           EitcZendeskInstance::RETURN_STATUS_LABELS.keys.map { |label| return_status_timestamps.dig(label)&.to_s } +
+           EitcZendeskInstance::EIP_STATUS_LABELS.keys.map { |label| eip_status_timestamps.dig(label)&.to_s }
+
+    row
   end
 
   class AnonymizedCSVIntake < SimpleDelegator
