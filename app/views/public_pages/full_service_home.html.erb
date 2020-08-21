@@ -1,0 +1,33 @@
+<% content_for :page_title do%>
+  <%=t("views.public_pages.full_service_home.title") %>
+<% end %>
+
+<% content_for :body_class, "body--home" %>
+
+<main role="main">
+  <div class="slab slab--hero">
+    <div class="grid">
+      <div class="grid__item width-one-half">
+        <h1 class="diy-header">
+          <%=t("views.public_pages.full_service_home.header") %>
+        </h1>
+        <p class="diy-subheader">
+          <strong><%=t("views.public_pages.full_service_home.subheader1") %></strong>
+        </p>
+        <p class="diy-subheader">
+          <strong><%=t("views.public_pages.full_service_home.subheader2") %></strong>
+        </p>
+        <p class="diy-subheader">
+          <strong><%=t("views.public_pages.full_service_home.subheader3") %></strong>
+        </p>
+        <p class="diy-subheader">
+          <strong><%=t("views.public_pages.full_service_home.subheader4") %></strong>
+        </p>
+        <%= link_to file_with_help_questions_path,
+                    class: "button button--primary button--wide text--centered" do %>
+          <%= t("general.start_filing") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>

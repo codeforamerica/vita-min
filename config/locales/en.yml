@@ -80,8 +80,8 @@ en:
   forms:
     errors:
       at_least_one_year: Please pick at least one year.
-      need_phone_number: Please enter a cell phone number.
       need_one_communication_method: Please choose some way for us to contact you.
+      need_phone_number: Please enter a cell phone number.
   general:
     address: Address
     affirmative: 'Yes'
@@ -175,8 +175,8 @@ en:
         choose_file: Please choose a file.
         valid_pickup_date: Please enter a valid month and day (M/D).
   validators:
+    file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
-    file_type: "Please upload a valid document type. Accepted types include jpg, pdf, and png."
   views:
     dependents:
       form:
@@ -240,7 +240,7 @@ en:
           title: Welcome to our DIY tax service!
     documents:
       additional_documents:
-        document_list_title: "Based on your earlier answers, you might have the following:"
+        document_list_title: 'Based on your earlier answers, you might have the following:'
         help_text: If you have any other documents that might be relevant, please share them with us below. It will help us better prepare your taxes!
         title: Please share any additional documents.
       care_provider_statements:
@@ -314,9 +314,9 @@ en:
           other: Attach photos of ID cards
       intro:
         info: Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later.
+        note: 'Note: If you have other documents, you will have a chance to share those as well.'
         should_have: 'You should have the following documents:'
         title: Now, let's collect your tax documents!
-        note: "Note: If you have other documents, you will have a chance to share those as well."
       ira_statements:
         help_text_html: "<strong>You might have this document</strong> because you said that you made contributions to a retirement account."
         title: Attach your IRA Statements
@@ -485,6 +485,13 @@ en:
         header: Frequently asked questions
         subheader: Click below for responses to frequently asked questions. Chat with us if you still have questions!
         title: FAQ
+      full_service_home:
+        header: Your money is waiting!
+        subheader1: Does your family make less than $56,000? You might qualify for a refund of up to $3,500.
+        subheader2: Millions of people qualify for government programs to get through hard times. We're offering a free service to help you get your share.
+        subheader3: Trained volunteers are ready to help you! Our single form signs you up for stimulus checks and tax credits. It takes less than an hour to fill out.
+        subheader4: Don't miss out!
+        title: File taxes with help for free!
       home:
         accuracy:
           body1: Yes, our service is truly free. We provide this free service by partnering with IRS-certified Volunteer Income Tax Assistance (VITA) sites to provide tax filing assistance to families earning less than $66,000 a year.
@@ -833,22 +840,22 @@ en:
         before_2014: before 2014
         title: What year was your divorce finalized?
       eip_eligibility:
-        title: Before we start, let's make sure you qualify for our help!
-        legend: "Select any situations that apply to you:"
-        claimed: Someone else is claiming me on their taxes
         already_applied: I already applied for my stimulus on the IRS site
-        no_ssn: I don't have a Social Security Number
+        claimed: Someone else is claiming me on their taxes
         collect_my_stimulus: Collect my stimulus
+        legend: 'Select any situations that apply to you:'
+        no_ssn: I don't have a Social Security Number
+        title: Before we start, let's make sure you qualify for our help!
       eip_maybe_ineligible:
-        title: Unfortunately, you don't qualify for our assistance.
         info: Based on your previous answers, we cannot help you collect your stimulus. If you have additional questions, chat with us or visit our stimulus FAQ page.
+        title: Unfortunately, you don't qualify for our assistance.
       eip_overview:
-        title: Great! Let's help you collect your stimulus.
-        info_html: "Heads up: You should get the payment automatically and <strong>do not need to fill out this form</strong> if you received:"
-        received_ssdi: Social Security retirement, survivor, or disability benefits (SSDI)
+        info_html: 'Heads up: You should get the payment automatically and <strong>do not need to fill out this form</strong> if you received:'
         received_rrb: Railroad Retirement benefits
+        received_ssdi: Social Security retirement, survivor, or disability benefits (SSDI)
         received_ssi: Supplemental Security Income (SSI)
         received_va: VA Compensation and Pension (C&P)
+        title: Great! Let's help you collect your stimulus.
       eligibility:
         info: We have a few additional questions to determine if you qualify for our services.
         situations:
@@ -1311,8 +1318,8 @@ en:
             bank_info: Bank Info
             consent: Consent
             doc_type: Doc Type
+            drop_off_document_bundle: Document Bundle
             header: The following chart does not include documents uploaded by VITA volunteers or client support
             link: Link
             notes: Notes
             upload_date: Upload Date
-            drop_off_document_bundle: Document Bundle

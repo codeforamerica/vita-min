@@ -80,8 +80,8 @@ es:
   forms:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
-      need_phone_number: Por favor, introduzca un número de teléfono celular.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
+      need_phone_number: Por favor, introduzca un número de teléfono celular.
   general:
     address: Dirección
     affirmative: Sí
@@ -175,8 +175,8 @@ es:
         choose_file: Por favor, elija un archivo.
         valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
   validators:
+    file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
-    file_type: "Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png."
   views:
     dependents:
       form:
@@ -240,8 +240,8 @@ es:
           title: "¡Le damos la bienvenida al servicio que le permite presentar su propia declaración de impuestos!"
     documents:
       additional_documents:
-        document_list_title: "Basado en sus respuestas previas, es possible que tenga los siguientes documentos:"
-        help_text: "Si tiene otros documentos que puedan ser relevantes, por favor compártalos con nosotros. ¡Nos ayudará a preparar mejor sus impuestos!"
+        document_list_title: 'Basado en sus respuestas previas, es possible que tenga los siguientes documentos:'
+        help_text: Si tiene otros documentos que puedan ser relevantes, por favor compártalos con nosotros. ¡Nos ayudará a preparar mejor sus impuestos!
         title: Por favor, provea cualquieras documentos adicionales
       care_provider_statements:
         help_text_html: "<strong>Es posible que ya tenga esta declaración</strong> porque nos ha confirmado que pagó por cuidado de niños o dependientes. Comuníquese con su centro de atención si necesita esa documentación."
@@ -314,9 +314,9 @@ es:
           other: Adjunte fotos de sus tarjetas de identificación
       intro:
         info: Basado en las respuestas a nuestras preguntas anteriores, tenemos una lista de documentos que debe compartir con nosotros. Su progreso será guardado y podrá regresar con más documentos en otro momento.
+        note: 'Nota: Si tiene otros documentos, también tendrá la oportunidad de compartirlos.'
         should_have: 'Debería tener los siguientes documentos:'
         title: "¡Ahora, vamos a recoger sus documentos de impuestos!"
-        note: "Nota: Si tiene otros documentos, también tendrá la oportunidad de compartirlos."
       ira_statements:
         help_text_html: "<strong>Es posible que tenga este documento</strong> porque nos ha confirmado que hizo contribuciones a una cuenta de jubilación."
         title: Adjunte sus declaraciones de algún plan de pensiones (IRA)
@@ -485,6 +485,13 @@ es:
         header: Preguntas frecuentes
         subheader: Haga clic abajo para ver las respuestas a las preguntas más  frecuentes. Si tiene más preguntas, hable con nosotros por el chat.
         title: Preguntas Frecuentes
+      full_service_home:
+        header: "¡Su dinero está esperandote!"
+        subheader1: "¿Ganan su familia menos que $56,000? Puedan calificar por un reembolso hasta $3,500"
+        subheader2: Millones de personas califican a programas públicos para sobrevivir a tiempos difficilis. Nosotros ofrecemos un servicio gratuito para ayudarte a conseguir su porción.
+        subheader3: "¡Voluntarios con experiencia están listos para ayudarte! Llena solo una forma para recibir su pago de estimulo y creditos de impuestos. Se tarda menos de una hora para llenar."
+        subheader4: "¡No se pierda!"
+        title: "¡Hace impuestos con ayuda gratis!"
       home:
         accuracy:
           body1: Sí, nuestro servicio es realmente gratuito y lo ofrecemos en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) certificados por el IRS para ayudar a las familias que ganan menos de $66,000 al año a que presenten sus declaraciones de impuestos.
@@ -833,22 +840,22 @@ es:
         before_2014: antes de 2014
         title: "¿En qué año se finalizó su divorcio?"
       eip_eligibility:
-        title: ¿Calificas para nuestra ayuda? Averigüemos antes de comenzar.
-        legend: "Seleccione las situaciones que se apliquen a usted:"
-        claimed: Alguien me reclamó en sus impuestos
         already_applied: Ya solicité mi estímulo en el sitio del IRS
+        claimed: Alguien me reclamó en sus impuestos
+        collect_my_stimulus: "¡Recibir mi cheque de estímulo!"
+        legend: 'Seleccione las situaciones que se apliquen a usted:'
         no_ssn: No tengo un número de Seguridad Social
-        collect_my_stimulus: ¡Recibir mi cheque de estímulo!
+        title: "¿Calificas para nuestra ayuda? Averigüemos antes de comenzar."
       eip_maybe_ineligible:
+        info: Según sus respuestas, no podemos ayudarlo a recibir su estímulo. Si tiene preguntas, "Chat" con nosotros o visita nuestra página de preguntas frecuentes de estímulo.
         title: Desafortunadamente, no califica para nuestra ayuda.
-        info: "Según sus respuestas, no podemos ayudarlo a recibir su estímulo. Si tiene preguntas, \"Chat\" con nosotros o visita nuestra página de preguntas frecuentes de estímulo."
       eip_overview:
-        title: ¡Excelente! Nos vamos a trabajar juntos para asugara que usted puede recibir tu pago de estimulo.
-        info_html: "Tenga en cuenta: Si recibió lo siguiente, el pago debería llegarle automáticamente y <strong>no es necesario que complete el formulario</strong>:"
-        received_ssdi: Sobreviviente o discapacidad del Seguro Social (SSDI)
+        info_html: 'Tenga en cuenta: Si recibió lo siguiente, el pago debería llegarle automáticamente y <strong>no es necesario que complete el formulario</strong>:'
         received_rrb: Beneficios de Jubilación Ferroviaria
+        received_ssdi: Sobreviviente o discapacidad del Seguro Social (SSDI)
         received_ssi: Seguridad de Ingreso suplementario (SSI)
         received_va: Beneficios de Asuntos de Veteranos (C&P)
+        title: "¡Excelente! Nos vamos a trabajar juntos para asugara que usted puede recibir tu pago de estimulo."
       eligibility:
         info: Tenemos algunas preguntas adicionales para determinar si califica para nuestros servicios.
         situations:
@@ -1311,8 +1318,8 @@ es:
             bank_info: Datos bancarios
             consent: Consentimiento
             doc_type: Clase de documento
+            drop_off_document_bundle: Paquete de documentos
             header: El siguiente gráfica no incluye documentos cargados por voluntarios de VITA o atención al cliente.
             link: Vínculo
             notes: Apuntes
             upload_date: Fecha de carga
-            drop_off_document_bundle: Paquete de documentos
