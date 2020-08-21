@@ -3,6 +3,7 @@ module Zendesk
     include ZendeskServiceHelper
     include ZendeskIntakeAssignRequesterHelper
     include Rails.application.routes.url_helpers
+
     EIP_DUMMY_INTAKE_STATUS = "EIP".freeze
 
     def initialize(intake)
@@ -14,8 +15,12 @@ module Zendesk
     end
 
     def create_eip_ticket
+      # All interaction with Zendesk is done within a transaction that stores the ticket ID
+      # at `@intake.intake_ticket_id`. Therefore, if that field is present, we already did everything.
       return nil if @intake.intake_ticket_id.present?
+      # Expect caller to use `assign_requester` to make a Zendesk requester.
       raise MissingRequesterIdError if @intake.intake_ticket_requester_id.blank?
+      # Expect caller to use `assign_vita_partner`; we rely on this to compute the appropriate Zendesk group.
       raise "Missing vita_partner" if @intake.vita_partner.nil?
 
       tags = test_ticket_tags
@@ -43,6 +48,8 @@ module Zendesk
         @intake.update(intake_ticket_id: ticket.id)
         ticket_status.send_mixpanel_event
         ticket
+
+        update_tickets_for_other_service_options
       end
     end
 
@@ -93,6 +100,21 @@ module Zendesk
     end
 
     private
+
+    def update_tickets_for_other_service_options
+      diy_intake_ticket_ids = DiyIntake.where.not(email_address: nil).where.not(ticket_id: nil)
+                                       .where(email_address: @intake.email_address)
+                                       .pluck(:ticket_id)
+      full_service_intake_ticket_ids = Intake.where.not(email_address: nil).where.not(intake_ticket_id: nil)
+                                             .where(email_address: @intake.email_address, eip_only: [nil, false])
+                                             .pluck(:intake_ticket_id)
+      (diy_intake_ticket_ids + full_service_intake_ticket_ids).each do |ticket_id|
+        append_comment_to_ticket(
+          ticket_id: ticket_id,
+          comment: "This client has a GetYourRefund EIP ticket: #{ticket_url(@intake.intake_ticket_id)}"
+        )
+      end
+    end
 
     def new_ticket_subject
       test_ticket_suffix = (Rails.env.production? || Rails.env.test?) ? "" : " (Test Ticket)"

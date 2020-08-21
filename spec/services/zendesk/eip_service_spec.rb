@@ -35,9 +35,10 @@ describe Zendesk::EipService do
     context "with a pre-existing zendesk ticket" do
       let(:intake_ticket_id) { 2 }
 
-      it "does not create zendesk ticket" do
+      it "does not create zendesk ticket or leave any comments" do
         service.create_eip_ticket
         expect(service).not_to have_received(:create_ticket)
+        expect(service).not_to have_received(:append_comment_to_ticket)
         expect(intake.reload.intake_ticket_id).to be(intake_ticket_id)
       end
     end
@@ -88,7 +89,6 @@ describe Zendesk::EipService do
 
     context "with intake_ticket_requester_id" do
       it "calls create_ticket with the right arguments" do
-        result = service.create_eip_ticket
         expected_body = <<~BODY
           New EIP only form started
 
@@ -106,7 +106,7 @@ describe Zendesk::EipService do
           This filer has consented to this VITA pilot.
         BODY
 
-        expect(result).to eq(fake_zendesk_ticket)
+        service.create_eip_ticket
         expect(service).to have_received(:create_ticket).with(
           subject: "Cher Cherimoya EIP",
           body: expected_body,
@@ -141,7 +141,7 @@ describe Zendesk::EipService do
     end
 
     context "with intake source of 211intake" do
-      let (:source) { "211intake" }
+      let(:source) { "211intake" }
 
       it "adds 211_eip_intake tag" do
         expected_body = <<~BODY
@@ -173,6 +173,23 @@ describe Zendesk::EipService do
             ),
             tags: ["211_eip_intake"]
           )
+        )
+      end
+    end
+
+    context "when there are tickets for other service options" do
+      let!(:diy_intake) { create :diy_intake, email_address: intake.email_address, ticket_id: fake_zendesk_ticket.id + 1 }
+      let!(:full_service_intake) { create :intake, email_address: intake.email_address, intake_ticket_id: fake_zendesk_ticket.id + 2 }
+
+      it "appends a comment the other tickets" do
+        service.create_eip_ticket
+        expect(service).to have_received(:append_comment_to_ticket).with(
+          ticket_id: diy_intake.ticket_id,
+          comment: "This client has a GetYourRefund EIP ticket: https://eitc.zendesk.com/agent/tickets/2",
+        )
+        expect(service).to have_received(:append_comment_to_ticket).with(
+          ticket_id: full_service_intake.intake_ticket_id,
+          comment: "This client has a GetYourRefund EIP ticket: https://eitc.zendesk.com/agent/tickets/2",
         )
       end
     end
