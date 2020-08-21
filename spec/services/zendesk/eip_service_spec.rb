@@ -42,6 +42,34 @@ describe Zendesk::EipService do
       end
     end
 
+    context "with other pre-existing intake tickets in Zendesk" do
+      context "with a DIY intake" do
+        let!(:diy_intake) { create :diy_intake, email_address: intake.email_address }
+
+        it "includes note in comment body that the DIY intake exists too" do
+          service.create_eip_ticket
+          expect(service).to have_received(:create_ticket).with(
+            hash_including(
+              body: including("This client has previously requested a DIY link from GetYourRefund.org"),
+            )
+          )
+        end
+      end
+
+      context "with a full intake" do
+        let!(:full_intake) { create :intake, email_address: intake.email_address, intake_ticket_id: 123 }
+
+        it "includes note in comment body that the full intake exists too" do
+          service.create_eip_ticket
+          expect(service).to have_received(:create_ticket).with(
+            hash_including(
+              body: including("This client has a GetYourRefund full intake ticket: #{service.ticket_url(full_intake.intake_ticket_id)}"),
+            )
+          )
+        end
+      end
+    end
+
     context "with nil intake_ticket_requester_id" do
       let(:intake_ticket_requester_id) { nil }
 
@@ -116,7 +144,6 @@ describe Zendesk::EipService do
       let (:source) { "211intake" }
 
       it "adds 211_eip_intake tag" do
-        result = service.create_eip_ticket
         expected_body = <<~BODY
           Client called 211 EIP hotline and a VITA certified 211 specialist talked to the client and completed the intake form
 

@@ -3,7 +3,6 @@ module Zendesk
     include ZendeskServiceHelper
     include ZendeskIntakeAssignRequesterHelper
     include Rails.application.routes.url_helpers
-
     EIP_DUMMY_INTAKE_STATUS = "EIP".freeze
 
     def initialize(intake)
@@ -93,6 +92,8 @@ module Zendesk
       DatadogApi.increment("zendesk.ticket.pdfs.intake_and_consent.preliminary.sent")
     end
 
+    private
+
     def new_ticket_subject
       test_ticket_suffix = (Rails.env.production? || Rails.env.test?) ? "" : " (Test Ticket)"
       @intake.primary_full_name + " EIP" + test_ticket_suffix
@@ -109,13 +110,11 @@ module Zendesk
         Phone number: #{@intake.formatted_phone_number}
         Email: #{@intake.email_address}
         State of residence: #{@intake.state_of_residence_name}
-
+        #{additional_ticket_messages}
         #{@intake.formatted_contact_preferences}
         This filer has consented to this VITA pilot.
       BODY
     end
-
-    private
 
     def new_ticket_fields
       notification_opt_ins = [
@@ -148,6 +147,18 @@ module Zendesk
 
     def preferred_interview_language_name
       I18n.t("general.language.#{@intake.preferred_interview_language || I18n.locale}", locale: :en)
+    end
+
+    def additional_ticket_messages
+      messages = ""
+      diy_intakes = DiyIntake.where.not(email_address: nil).where(email_address: @intake.email_address)
+      messages << "This client has previously requested a DIY link from GetYourRefund.org\n" if diy_intakes.count > 0
+      full_service_intakes = Intake.where.not(email_address: nil).where.not(intake_ticket_id: nil).where(eip_only: [nil, false]).where(email_address: @intake.email_address)
+      full_service_intakes.each do |intake|
+        messages <<  "This client has a GetYourRefund full intake ticket: #{ticket_url(intake.intake_ticket_id)}"
+      end
+
+      messages
     end
   end
 end
