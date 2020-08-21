@@ -476,8 +476,6 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011477453'
   display_name: La Casa de Esperanza (WI)
-  source_parameters:
-  - WILCDE
   logo_path: ''
 - name: United Way Suncoast
   zendesk_instance_domain: eitc
