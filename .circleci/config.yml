@@ -68,13 +68,6 @@ jobs:
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
       - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:master
-  deploy_to_aptible--staging:
-    executor: rails_executor
-    steps:
-      - checkout
-      - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
-      - run: git fetch --depth=1000000
-      - run: git push git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
   deploy_to_aptible--production:
     executor: rails_executor
     steps:
@@ -107,11 +100,6 @@ workflows:
             branches:
               only: master
       - deploy_to_aptible--demo:
-          requires: [run_tests]
-          filters:
-            branches:
-              only: master
-      - deploy_to_aptible--staging:
           requires: [run_tests]
           filters:
             branches:
