@@ -4,8 +4,6 @@ module Zendesk
     include ZendeskIntakeAssignRequesterHelper
     include Rails.application.routes.url_helpers
 
-    EIP_DUMMY_INTAKE_STATUS = "EIP".freeze
-
     def initialize(intake)
       @intake = intake
     end
@@ -41,8 +39,7 @@ module Zendesk
       @intake.transaction do
         ticket = create_ticket(**ticket_content)
         ticket_status = @intake.ticket_statuses.create(
-          intake_status: EIP_DUMMY_INTAKE_STATUS,
-          return_status: EitcZendeskInstance::EIP_STATUS_STARTED,
+          eip_status: EitcZendeskInstance::EIP_STATUS_STARTED,
           ticket_id: ticket.id
         )
         @intake.update(intake_ticket_id: ticket.id)

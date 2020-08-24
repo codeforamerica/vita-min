@@ -106,6 +106,7 @@ describe Zendesk::EipService do
           This filer has consented to this VITA pilot.
         BODY
 
+        expect(TicketStatus.count).to eq(0)
         service.create_eip_ticket
         expect(service).to have_received(:create_ticket).with(
           subject: "Cher Cherimoya EIP",
@@ -126,6 +127,13 @@ describe Zendesk::EipService do
               EitcZendeskInstance::CLIENT_ZIP_CODE => "94110",
           }
         )
+      end
+
+      it "creates a TicketStatus with EIP status started" do
+        expect(TicketStatus.count).to eq(0)
+        service.create_eip_ticket
+        expect(TicketStatus.count).to eq(1)
+        expect(TicketStatus.first.eip_status).to eq(EitcZendeskInstance::EIP_STATUS_STARTED)
       end
     end
 
