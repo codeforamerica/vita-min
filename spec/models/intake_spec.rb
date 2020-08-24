@@ -276,6 +276,34 @@ describe Intake do
     end
   end
 
+  describe "#name_for_filename" do
+    let(:intake) do
+      build(
+        :intake,
+        primary_first_name: "Ben",
+        primary_last_name: "Banana"
+      )
+    end
+
+    it "returns the full name with no spaces" do
+      expect(intake.name_for_filename).to eq "BenBanana"
+    end
+
+    context "with tricky characters in the name" do
+      let(:intake) do
+        build(
+          :intake,
+          primary_first_name: "Dr. Ben: Benjamin",
+          primary_last_name: "Banana/\\Berry Sr. "
+        )
+      end
+
+      it "returns a filename without the tricky characters" do
+        expect(intake.name_for_filename).to eq "DrBenBenjaminBananaberrySr"
+      end
+    end
+  end
+
   describe "#consent_pdf" do
     let(:intake) { create :intake }
     let(:consent_pdf_spy) { instance_double(ConsentPdf) }

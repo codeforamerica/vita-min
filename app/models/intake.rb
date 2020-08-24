@@ -517,7 +517,10 @@ class Intake < ApplicationRecord
   end
 
   def name_for_filename
-    primary_full_name.split(" ").map(&:capitalize).join
+    # Delete '.' because otherwise Rails will interpret what comes after the dot
+    # as the requested MIME type, aka requested format. Deleting other characters
+    # to avoid interfering with file paths when people download, or URLs.
+    primary_full_name.split(" ").map(&:capitalize).join.delete("/.:\\")
   end
 
   def intake_pdf_filename
