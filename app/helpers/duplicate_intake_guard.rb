@@ -1,7 +1,9 @@
 class DuplicateIntakeGuard < SimpleDelegator
   def has_duplicate?
+    permitted_eip_only_values = eip_only ? true : [nil, false]
     Intake
       .where(intake_pdf_sent_to_zendesk: true)
+      .where(eip_only: permitted_eip_only_values)
       .where(
          (arel_table[:email_address].eq(email_address)
            .and(arel_table[:email_address].not_eq(nil)))
