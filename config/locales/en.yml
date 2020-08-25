@@ -521,7 +521,7 @@ en:
         file:
           header: Get more of your refund dollars back by filing for free today!
         filing_deadline_banner:
-          body_html: Unless you anticipate owing money this year, you can still file until October 15th without a penalty.
+          body_html: Unless you anticipate owing money this year, you can still file until October 15th without a penalty. You can still receive your Economic Impact Payment (stimulus) even though the tax deadline has passed.
           title: The federal income tax filing deadline was extended to July 15, 2020.
         header: Free tax filing, real human support.
         partners:
@@ -729,6 +729,7 @@ en:
               veterans: Veteran’s benefits
             header: Automatic payments
             info: Eligible taxpayers who filed tax returns for either 2019 or 2018 will automatically receive an economic impact payment of up to $1,200 for individuals or $2,400 for married couples and up to $500 for each qualifying child.
+          tax_deadline: You can still receive your Economic Impact Payment (stimulus) even though the tax deadline has passed.
         title: Stimulus Payment
       tax_questions:
         cannot_answer:

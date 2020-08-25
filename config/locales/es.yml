@@ -521,7 +521,7 @@ es:
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         filing_deadline_banner:
-          body_html: A menos que anticipe que debe dinero este año, puede presentarla hasta el 15 de octubre sin penalización.
+          body_html: A menos que anticipe que debe dinero este año, puede presentarla hasta el 15 de octubre sin penalización. Aún puede recibir su Pago de Impacto Económico (estímulo) aunque haya pasado la fecha límite de impuestos.
           title: La fecha límite para la declaración de impuestos federales se extendió hasta el 15 de julio de 2020.
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
         partners:
@@ -729,6 +729,7 @@ es:
               veterans: Recibe beneficios para veteranos
             header: Pagos automáticos
             info: Los contribuyentes elegibles que presentaron declaraciones de impuestos en 2019 o 2018 recibirán automáticamente un pago de impacto económico de hasta $1,200 por persona o $2,400 por matrimonio y hasta $500 por cada hijo que califique.
+          tax_deadline: Aún puede recibir su Pago de Impacto Económico (estímulo) aunque haya pasado la fecha límite de impuestos.
         title: Pago de estímulo
       tax_questions:
         cannot_answer:
