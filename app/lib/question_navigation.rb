@@ -28,10 +28,7 @@ class QuestionNavigation
     Questions::ConsentController, # create Zendesk ticket
 
     # Primary filer personal information
-    Questions::WasStudentController,
-    Questions::OnVisaController,
-    Questions::HadDisabilityController,
-    Questions::WasBlindController,
+    Questions::LifeSituationsController,
     Questions::IssuedIdentityPinController,
 
     # Marital Status

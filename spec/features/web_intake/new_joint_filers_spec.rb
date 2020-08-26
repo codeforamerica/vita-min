@@ -84,14 +84,8 @@ RSpec.feature "Web Intake Joint Filers" do
     allow_any_instance_of(Intake).to receive(:intake_ticket_id).and_return(ticket_id)
 
     # Primary filer personal information
-    expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
-    click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, were you in the United States on a Visa?")
-    click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did you have a permanent disability?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, were you legally blind?")
-    click_on "No"
+    expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2019")
+    click_on "Continue"
     expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
     click_on "No"
 

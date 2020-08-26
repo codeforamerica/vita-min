@@ -915,11 +915,6 @@ es:
         title:
           one: "¿Le gustaría reclamar a alguien por %{year}?"
           other: "¿Usted o su cónyuge desean reclamar a alguien por %{year}?"
-      had_disability:
-        help_text: La discapacidad permanente se calcula como un porcentaje de su capacidad de trabajo. Se califica en una escala de 0 al 100%.
-        title:
-          one: En %{year}, ¿tenía una discapacidad permanente?
-          other: En %{year}, ¿Tuvo usted o su pareja alguna discapacidad permanente?
       health_insurance:
         help_text: Esto incluye un seguro medico privado comprado a través de un sitio web del gobierno. Esto no incluye Medicaid, Medicare o seguro médico comprado a través de su empleador.
         title:
@@ -1004,9 +999,6 @@ es:
           sms_notification_opt_in: Mensaje de Texto
           sms_phone_number: Número Celular
         title: "¿Cómo podemos actualizarlo en su declaración de impuestos?"
-      on_visa:
-        help_text: Debe tener un sello en su pasaporte para indicarlo.
-        title: En %{year}, ¿estaba en los Estados Unidos con una visa?
       other_income:
         help_text: Tales como pagos en efectivo, deberes de jurado, premios, moneda virtual, regalías o beneficios de huelga sindical.
         title:
@@ -1192,12 +1184,6 @@ es:
         title:
           one: En %{year}, ¿recibió sueldos o salarios?
           other: En el %{year}, ¿recibió usted o su cónyuge sueldos o salarios?
-      was_blind:
-        help_text: Esto significa que incluso con lentes correctivos o cirugía, para ver claramente un objeto que una persona con visión normal podría ver desde 200 pies de distancia, usted tendría que estar a 20 pies o más cerca.
-        title: En el %{year}, ¿eras legalmente ciego?
-      was_student:
-        help_text: Le preguntamos específicamente si realizó estudios superiores, como un título de diplomado, licenciatura o maestría.
-        title: "¿Eras un estudiante de tiempo completo en el %{year}?"
       welcome:
         diy:
           header: Declarar impuestos mi mismo

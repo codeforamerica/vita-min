@@ -1,6 +1,6 @@
 class IntakeProgressCalculator
 
-  starting_index = QuestionNavigation::FLOW.index(Questions::WasStudentController)
+  starting_index = QuestionNavigation::FLOW.index(Questions::LifeSituationsController)
   ending_index = QuestionNavigation::FLOW.index(Questions::AdditionalInfoController)
   POSSIBLE_STEPS = QuestionNavigation::FLOW[starting_index..ending_index]
 

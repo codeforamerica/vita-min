@@ -915,11 +915,6 @@ en:
         title:
           one: Would you like to claim anyone for %{year}?
           other: Would you or your spouse like to claim anyone for %{year}?
-      had_disability:
-        help_text: Permanent disability is calculated as a percentage of your ability to work. It is rated on a scale from 0 to 100%.
-        title:
-          one: In %{year}, did you have a permanent disability?
-          other: In %{year}, did you or your spouse have a permanent disability?
       health_insurance:
         help_text: This includes private health insurance purchased through a government website. This does not include Medicaid, Medicare, or health insurance purchased through your employer.
         title:
@@ -965,6 +960,14 @@ en:
         title:
           one: In %{year}, how many jobs did you have?
           other: In %{year}, how many jobs did you or your spouse have?
+      life_situations:
+        help_text: These answers help us determine what tax credits you qualify for.
+        options:
+          had_disability: I had a permanent disability
+          was_blind: I was legally blind
+          was_full_time_student: I was a full-time student in a college or a trade school
+          was_on_visa: I was in the US on a Visa
+        title: Select any situations that were true for you in 2019
       lived_with_spouse:
         title: Did you live with your spouse during any part of the last six months of %{year}?
       local_tax:
@@ -1004,9 +1007,6 @@ en:
           sms_notification_opt_in: Text Me
           sms_phone_number: Cell phone number
         title: How can we update you on your tax return?
-      on_visa:
-        help_text: You should have a stamp in your passport to indicate so.
-        title: In %{year}, were you in the United States on a Visa?
       other_income:
         help_text: Such as cash payments, jury duty, awards, virtual currency, royalties, or union strike benefits.
         title:
@@ -1192,12 +1192,6 @@ en:
         title:
           one: In %{year}, did you receive wages or salary?
           other: In %{year}, did you or your spouse receive wages or salary?
-      was_blind:
-        help_text: This means that even with corrective lenses or surgery, to clearly see an object that a person with normal vision could see from 200 feet away, you would have to be 20 feet or closer.
-        title: In %{year}, were you legally blind?
-      was_student:
-        help_text: We are specifically asking if you pursued higher studies such as an associate, bachelors, or masters degree.
-        title: Were you a full-time student in %{year}?
       welcome:
         diy:
           header: File taxes myself

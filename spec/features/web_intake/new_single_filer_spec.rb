@@ -90,19 +90,12 @@ RSpec.feature "Web Intake Single Filer" do
     allow_any_instance_of(Intake).to receive(:intake_ticket_id).and_return(ticket_id)
 
     # Primary filer personal information
-    expect(page).to have_selector("h1", text: "Were you a full-time student in 2019?")
+    expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2019")
     expect(track_progress).to eq(0)
-    click_on "No"
+    click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "In 2019, were you in the United States on a Visa?")
-    expect{ track_progress }.to change { @current_progress }.by_at_least(1)
-    click_on "No"
-
-    expect(page).to have_selector("h1", text: "In 2019, did you have a permanent disability?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, were you legally blind?")
-    click_on "No"
     expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
+    expect{ track_progress }.to change { @current_progress }.by_at_least(1)
     click_on "No"
 
     # Marital status
