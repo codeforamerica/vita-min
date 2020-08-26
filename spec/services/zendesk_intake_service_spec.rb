@@ -171,41 +171,6 @@ describe ZendeskIntakeService do
       end
     end
 
-    context "in a state for the UWTSA Group" do
-      let(:zip_code) { "85721" }
-      let(:state) { "az" }
-      let(:vita_partner) { VitaPartner.find_by(name: "United Way of Tucson and Southern Arizona") }
-      let(:mixpanel_spy) { spy(MixpanelService) }
-
-      before(:each) do
-        allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
-      end
-
-      it "excludes intake site, and intake status and sends a nil group_id" do
-        result = service.create_intake_ticket
-        expect(result.id).to eq 101
-        expect(service).to have_received(:create_ticket).with(
-          subject: "Cher Cherimoya",
-          requester_id: 987,
-          group_id: vita_partner.zendesk_group_id,
-          external_id: intake.external_id,
-          body: "Body text",
-          tags: [],
-          fields: {
-            EitcZendeskInstance::INTAKE_SITE => "online_intake",
-            EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_IN_PROGRESS,
-            EitcZendeskInstance::STATE => "az",
-            EitcZendeskInstance::FILING_YEARS => ["2019", "2017"],
-            EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in", "email_opt_in"],
-            EitcZendeskInstance::DOCUMENT_REQUEST_LINK => "http://test.host/en/documents/add/3456ABCDEF",
-            EitcZendeskInstance::INTAKE_SOURCE => "uw-narnia",
-            EitcZendeskInstance::INTAKE_LANGUAGE => :en,
-            EitcZendeskInstance::CLIENT_ZIP_CODE => zip_code,
-          }
-        )
-      end
-    end
-
     context "when the user opts out of sms notifications" do
       let(:sms_opt_in) { "no" }
       let(:email_opt_in) { "no" }

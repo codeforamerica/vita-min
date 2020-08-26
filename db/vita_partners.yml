@@ -91,8 +91,6 @@ vita_partners:
   display_name: United Way of Tucson and Southern Arizona
   logo_path: ''
   accepts_overflow: false
-  states:
-  - AZ
   weekly_capacity_limit: 0
 - name: United Way of Greater Richmond and Petersburg
   zendesk_instance_domain: eitc
