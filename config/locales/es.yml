@@ -453,7 +453,7 @@ es:
         header: Reciba su cheque de estímulo
         questions_cta: la página de preguntas frecuentes de estímulo
         questions_html: Preguntas? Visite %{faq_link}
-        subheader1: Es posible que se esté perdiendo un pago de más de $ 1,200 dólares. Los voluntarios entrenados y certificados por el IRS están listos para ayudarle a presentar su declaración de forma gratuita.
+        subheader1: Es posible que se esté perdiendo un pago de más de $1,200 dólares. Los voluntarios entrenados y certificados por el IRS están listos para ayudarle a presentar su declaración de forma gratuita.
         subheader2: Se tarda menos de 30 minutos en llenar el formulario. ¡Obtenga su cheque de estímulo hoy!
         title: Obtenga ayuda para reclamar su cheque de estímulo gratis
       error:
