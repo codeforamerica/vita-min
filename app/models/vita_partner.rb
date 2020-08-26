@@ -4,7 +4,6 @@
 #
 #  id                      :bigint           not null, primary key
 #  accepts_overflow        :boolean          default(FALSE)
-#  archived                :boolean          default(FALSE)
 #  display_name            :string
 #  logo_path               :string
 #  name                    :string           not null
