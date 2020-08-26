@@ -899,7 +899,6 @@ es:
           need_assistance: Necesita ayuda con la declaración de impuestos.
           nervous: Le preocupa preparar su declaración de impuestos por su cuenta
         title: "¡Declara tus impuestos con la ayuda de un experto!"
-        two_to_three_weeks_html: La declaración con ayuda tardará de 2 a 3 semanas en procesarse. <b>No tendrá que pagar una multa después del 15 de julio si no debe dinero este año.</b>
       filing_joint:
         help_text: Generalmente, declarar sus impuestos juntos es más beneficioso para su reembolso. Su cónyuge necesitará verificar su identidad y firmar la declaración de impuestos final.
         title: "¿Está declarando sus impuestos con su cónyuge?"
