@@ -892,6 +892,7 @@ en:
       file_with_help:
         diy_option_html: If you would like to file immediately, <a href="%{diy_path}">please use our DIY option instead.</a>
         info: You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you.
+        processing_time: Filing with help will take around 1 week to process.
         right_option:
           confused: Your tax situation is confusing/complicated
           header: 'This is the right option for you if:'
