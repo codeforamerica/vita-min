@@ -4,6 +4,7 @@ RSpec.feature "Web Intake Joint Filers" do
   let(:ticket_id) { 9876 }
 
   before do
+    create :vita_partner, display_name: "Virginia Partner", zendesk_group_id: "123", states: [State.find_by(abbreviation: "VA")]
     allow_any_instance_of(ZendeskIntakeService).to receive(:assign_requester)
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(ticket_id)
     # see note below about skipping redirects
@@ -50,7 +51,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
 
     # Chat with us
-    expect(page).to have_selector("h1", text: "Our team at United Way of Greater Richmond and Petersburg is here to help!")
+    expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
     click_on "Continue"
 
     # Phone number

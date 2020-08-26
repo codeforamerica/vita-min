@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Questions::PersonalInfoController do
-  let!(:vita_partner) { create :vita_partner, zendesk_group_id: "123" }
-
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
@@ -20,8 +18,8 @@ RSpec.describe Questions::PersonalInfoController do
       }
     end
 
-    let(:vita_partner) do
-      State.find_by(abbreviation: state.upcase).vita_partners.first
+    let!(:vita_partner) do
+      create :vita_partner, zendesk_group_id: "123", states: [State.find_by(abbreviation: state.upcase)]
     end
 
     it "sets the timezone on the intake" do

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AnonymizedIntakeCsvService do
+  let!(:vita_partner) { create(:vita_partner, name: "Example", zendesk_group_id: "123") }
   let(:intake_1) { create(:intake, :filled_out) }
   let(:intake_2) { create(:intake, :filled_out) }
   let!(:intake_3) { create(:intake) }

@@ -82,13 +82,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     # we include this because at present (2020-05-06) Vita Partners
     # are yaml-loaded read-only domain information, as are states.
-    # TODO: when Vita Partners are editable, this should be removed
-    # and fixed tests adjusted
     extend StateImporter
     insert_states
-
-    extend VitaPartnerImporter
-    upsert_vita_partners
   end
 
   config.before(:each) do
