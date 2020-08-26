@@ -450,12 +450,12 @@ es:
         send_link: Envíenme un enlace
         subheader: Brindamos acceso gratuito a un sitio de preparación de impuestos en línea llamado TaxSlayer. Le enviaremos un enlace para crear su propio acceso a TaxSlayer, para que pueda presentarlo por su cuenta.
       eip_home:
-        title: Obtenga ayuda para reclamar su cheque de estímulo gratis
         header: Reciba su cheque de estímulo
+        questions_cta: la página de preguntas frecuentes de estímulo
+        questions_html: Preguntas? Visite %{faq_link}
         subheader1: Es posible que se esté perdiendo un pago de más de $ 1,200 dólares. Los voluntarios entrenados y certificados por el IRS están listos para ayudarle a presentar su declaración de forma gratuita.
         subheader2: Se tarda menos de 30 minutos en llenar el formulario. ¡Obtenga su cheque de estímulo hoy!
-        questions_html: Preguntas? Visite %{faq_link}
-        questions_cta: la página de preguntas frecuentes de estímulo
+        title: Obtenga ayuda para reclamar su cheque de estímulo gratis
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
         contact_html: Si tiene algún problema, no dude en solicitar nuestra asistencia. Puede ponerse en contacto con nosotros haciendo clic al botón de "Ayuda"/"Chat" en la parte inferior a la derecha, o enviándonos un correo electrónico a %{email_link}.
