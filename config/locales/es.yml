@@ -892,6 +892,7 @@ es:
       file_with_help:
         diy_option_html: Si desea declarar de inmediato, <a href="%{diy_path}">utilice nuestra herramienta DIY en su lugar.</a>
         info: Seleccionó nuestra opción de servicio completo. Nosotros haremos que responda una serie de preguntas sobre su situación fiscal (lo mejor que pueda) y que un especialista en impuestos revise todo con usted.
+        processing_time: La declaración con ayuda tardará de una semana en procesarse.
         right_option:
           confused: Su situación fiscal es confusa / complicada
           header: 'Esta es la opción correcta para usted si:'

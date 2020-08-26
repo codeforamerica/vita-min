@@ -29,9 +29,9 @@
       </li>
     </ul>
 
-    <div class="notice--warning">
-      <p><%= t("views.questions.file_with_help.two_to_three_weeks_html") %></p>
-      <p><%= t("views.questions.file_with_help.diy_option_html", diy_path: diy_file_yourself_path) %></p>
+    <div class="spacing-above-35">
+      <%= t("views.questions.file_with_help.processing_time") %>
+      <%= t("views.questions.file_with_help.diy_option_html", diy_path: diy_file_yourself_path) %>
     </div>
 
     <%= link_to next_path, class: "button button--primary text--centered button--wide spacing-above-60" do %>
