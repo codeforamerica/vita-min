@@ -160,7 +160,7 @@ body {
       line-height: 6rem;
       font-weight: 900;
 
-      &.diy-header {
+      &.landing-page-header {
         font-size: 2.7rem;
         line-height: 3.5rem;
         margin-top: 3.5rem;
@@ -173,19 +173,20 @@ body {
       h1 {
         margin-bottom: 1.5rem;
 
-        &.diy-header {
+        &.landing-page-header {
           margin-top: 0;
         }
       }
     }
 
-    .diy-header {
+    .landing-page-header {
       max-width: 450px;
     }
 
-    .diy-subheader {
+    .landing-page-subheader {
       font-weight: 200;
       max-width: 450px;
+      position: relative;
     }
 
     .grid {
@@ -221,6 +222,31 @@ body {
 
         @media screen and (max-width: $tablet-up) {
           background-position: bottom;
+        }
+      }
+
+      &.stimulus {
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-image: image-url("stimulus-hero.svg");
+          background-repeat: no-repeat;
+          background-size: 400px 355px;
+          background-position: top right;
+
+          @media screen and (max-width: $site-max-up) {
+            background-position: bottom left;
+            background-size: 420px 266px;
+          }
+
+          @media screen and (max-width: $tablet-up) {
+            background-position: bottom;
+          }
         }
       }
     }
