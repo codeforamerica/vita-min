@@ -130,14 +130,8 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "I agree"
 
     # Spouse personal information
-    expect(page).to have_selector("h1", text: "Was your spouse a full-time student in 2019?")
-    click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, was your spouse in the United States on a Visa?")
-    click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did your spouse have a permanent disability?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, was your spouse legally blind?")
-    click_on "No"
+    expect(page).to have_selector("h1", text: "Select any situations that were true for your spouse in 2019")
+    click_on "Continue"
     expect(page).to have_selector("h1", text: "Has your spouse been issued an Identity Protection PIN?")
     click_on "No"
 

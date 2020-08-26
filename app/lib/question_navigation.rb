@@ -52,12 +52,11 @@ class QuestionNavigation
     # Spouse email
     Questions::SpouseEmailAddressController,
 
-    # Spouse personal information
+    # Spouse consent
     Questions::SpouseConsentController,
-    Questions::SpouseWasStudentController,
-    Questions::SpouseOnVisaController,
-    Questions::SpouseHadDisabilityController,
-    Questions::SpouseWasBlindController,
+
+    # Spouse personal information
+    Questions::SpouseLifeSituationsController,
     Questions::SpouseIssuedIdentityPinController,
 
     # Dependents

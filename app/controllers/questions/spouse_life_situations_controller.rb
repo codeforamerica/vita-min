@@ -1,13 +1,11 @@
 module Questions
-  class SpouseWasBlindController < TicketedQuestionsController
-    layout "yes_no_question"
-
+  class SpouseLifeSituationsController < QuestionsController
     def self.show?(intake)
       intake.filing_joint_yes?
     end
 
     def illustration_path
-      "was-blind.svg"
+      "life-situations.svg"
     end
   end
 end

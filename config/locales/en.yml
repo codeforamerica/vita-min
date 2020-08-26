@@ -1125,9 +1125,6 @@ en:
         spouse_email_address: E-mail address
         spouse_email_address_confirmation: Confirm e-mail address
         title: Please share your spouse's e-mail address.
-      spouse_had_disability:
-        help_text: Permanent disability is calculated as a percentage of one's ability to work. It is rated on a scale from 0 to 100%.
-        title: In %{year}, did your spouse have a permanent disability?
       spouse_identity:
         info_later: If not, we can send them a sign in link through text or e-mail.
         info_now: If your spouse is sitting with you, you can go ahead and sign in with ID.me
@@ -1136,15 +1133,14 @@ en:
         title: Spouse Identity
       spouse_issued_identity_pin:
         title: Has your spouse been issued an Identity Protection PIN?
-      spouse_on_visa:
-        help_text: They should have a stamp in their passport to indicate so.
-        title: In %{year}, was your spouse in the United States on a Visa?
-      spouse_was_blind:
-        help_text: This basically means that even with corrective lenses or surgery, to clearly see an object that a person with normal vision could see from 200 feet away, one would have to be 20 feet or closer.
-        title: In %{year}, was your spouse legally blind?
-      spouse_was_student:
-        help_text: We are specifically asking if they pursued higher studies such as an associate, bachelors, or masters degree.
-        title: Was your spouse a full-time student in %{year}?
+      spouse_life_situations:
+        help_text: These answers help us determine what tax credits you qualify for.
+        options:
+          had_disability: They had a permanent disability
+          was_blind: They were legally blind
+          was_full_time_student: They were a full-time student in a college or a trade school
+          was_on_visa: They were in the US on a Visa
+        title: Select any situations that were true for your spouse in 2019
       start_with_current_year:
         info: We’ll start by asking about your situation in %{year}.
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.

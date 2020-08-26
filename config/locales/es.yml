@@ -1117,9 +1117,6 @@ es:
         spouse_email_address: Dirección de correo electrónico
         spouse_email_address_confirmation: Confirme su correo
         title: Por favor comparte el correo electrónico de su cónyuge.
-      spouse_had_disability:
-        help_text: La discapacidad permanente se calcula como un porcentaje de la capacidad de trabajo de una persona. Está clasificado en una escala del 0 al 100%.
-        title: En el %{year}, ¿su cónyuge tenía una discapacidad permanente?
       spouse_identity:
         info_later: Si no, podemos enviarles un enlace de inicio de sesión a través de texto o correo electrónico.
         info_now: Si su cónyuge está sentado con usted, puede seguir adelante e iniciar sesión con ID.me
@@ -1128,15 +1125,6 @@ es:
         title: Identidad de su cónyuge
       spouse_issued_identity_pin:
         title: "¿Se le ha emitido a su pareja un PIN de protección de identidad?"
-      spouse_on_visa:
-        help_text: Deben tener un sello en su pasaporte para indicarlo.
-        title: En el %{year}, ¿estaba su cónyuge en los Estados Unidos con una visa?
-      spouse_was_blind:
-        help_text: Esto básicamente significa que incluso con lentes correctivos o cirugía, para ver claramente un objeto que una persona con visión normal podría ver desde 200 pies de distancia, uno tendría que estar a 20 pies o más cerca.
-        title: En el %{year}, ¿su cónyuge era legalmente ciego?
-      spouse_was_student:
-        help_text: Estamos preguntando específicamente si persiguieron estudios superiores como un título de asociado, licenciatura o maestría.
-        title: "¿Era su cónyuge un estudiante de tiempo completo en el %{year}?"
       start_with_current_year:
         info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
