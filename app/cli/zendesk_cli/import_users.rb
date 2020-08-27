@@ -38,12 +38,12 @@ class ZendeskCli
       catch(:exit) do
         @users.each_with_index do |user, i|
           catch(:next_user) do
-            puts "" unless Rails.env.test?
-            puts "==== USER #{i + 1} / #{@users.length} ================================" unless Rails.env.test?
-            puts "User: #{user.first_name} #{user.last_name}" unless Rails.env.test?
-            puts "Email: #{user.email}" unless Rails.env.test?
-            puts "Role: #{user.role}" unless Rails.env.test?
-            puts "Site Access: #{user.site_access}" unless Rails.env.test?
+            say ""
+            say "==== USER #{i + 1} / #{@users.length} ================================"
+            say "User: #{user.first_name} #{user.last_name}"
+            say "Email: #{user.email}"
+            say "Role: #{user.role}"
+            say "Site Access: #{user.site_access}"
 
             # Initial check that the spreadsheet row is valid
             exit_if_user_invalid(user) unless user.valid?
@@ -112,12 +112,12 @@ class ZendeskCli
 
       # Confirm changes
       if !zendesk_user.changed?
-        puts "No changes detected. Skipping." unless Rails.env.test?
+        say "No changes detected. Skipping."
       elsif zendesk_user.new_record?
-        puts "" unless Rails.env.test?
-        puts "Will create user:" unless Rails.env.test?
+        say ""
+        say "Will create user:"
         zendesk_user.attributes.changes.each do |attribute_name, value|
-          puts "  * #{attribute_name}: #{value}" unless Rails.env.test?
+          say "  * #{attribute_name}: #{value}"
         end
         if yes?("Confirm")
           zendesk_user.save
@@ -128,10 +128,10 @@ class ZendeskCli
         end
       else
         zendesk_user_url = URI(zendesk_user.url).tap { |u| u.path = "/users/#{zendesk_user.id}" }
-        puts "" unless Rails.env.test?
-        puts "Will update user (#{zendesk_user_url}):" unless Rails.env.test?
+        say ""
+        say "Will update user (#{zendesk_user_url}):"
         zendesk_user.attributes.changes.each do |attribute_name, value|
-          puts "  * #{attribute_name}: #{value}" unless Rails.env.test?
+          say "  * #{attribute_name}: #{value}"
         end
         zendesk_user.save if yes?("Confirm")
       end
@@ -157,8 +157,8 @@ class ZendeskCli
       zendesk_groups_to_add = zendesk_groups.map(&:name) - zendesk_user.groups.map(&:name)
       zendesk_groups_to_remove = zendesk_user.groups.map(&:name) - zendesk_groups.map(&:name)
       if zendesk_groups_to_add.any? || zendesk_groups_to_remove.any?
-        puts "Groups To Add: #{zendesk_groups_to_add}" unless Rails.env.test?
-        puts "Groups To Remove: #{zendesk_groups_to_remove}" unless Rails.env.test?
+        say "Groups To Add: #{zendesk_groups_to_add}"
+        say "Groups To Remove: #{zendesk_groups_to_remove}"
 
         if yes?("Confirm group updates?")
           zendesk_groups_to_add.each_with_index do |group_name, i|
@@ -211,7 +211,7 @@ class ZendeskCli
 
     def yes?(message)
       if @yes_to_all
-        puts "#{message} [Yes to all]" unless Rails.env.test?
+        say "#{message} [Yes to all]"
         return true
       end
 
@@ -224,7 +224,7 @@ class ZendeskCli
       when /\An|no\z/i
         false
       else
-        puts "Unknown input. Assuming 'no'." unless Rails.env.test?
+        say "Unknown input. Assuming 'no'."
         false
       end
     end
