@@ -748,11 +748,12 @@ describe Intake do
     end
 
     after(:all) do
-      # Use transaction rollback to speed up some of the data clearing. VitaPartners still leak through,
+      # Use transaction rollback to speed up some of the data clearing. Some data still leaks through,
       # so also call destroy_all.
       @transaction_manager.rollback_transaction
       SourceParameter.destroy_all
       VitaPartner.destroy_all
+      expect(SourceParameter.count).to eq(0)
       expect(VitaPartner.count).to eq(0)
     end
 
