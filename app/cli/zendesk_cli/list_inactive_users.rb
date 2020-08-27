@@ -20,9 +20,9 @@ class ZendeskCli
     def initialize; end
 
     def list_inactive_users(output_path: nil)
-      puts "Loading agents..." unless Rails.env.test?
-      puts "  Loaded #{agents.length} Zendesk users." unless Rails.env.test?
-      puts "Exporting to #{output_path}..." unless Rails.env.test? if output_path.present?
+      say "Loading agents..."
+      say "  Loaded #{agents.length} Zendesk users."
+      say "Exporting to #{output_path}..." if output_path.present?
 
       CSV.open(output_path, "w", write_headers: true, headers: CSV_HEADERS) do |csv|
         inactive_agents.each do |agent|
@@ -30,7 +30,7 @@ class ZendeskCli
         end
       end
 
-      puts "  Exported #{inactive_agents.length} Zendesk users to remove." unless Rails.env.test?
+      say "  Exported #{inactive_agents.length} Zendesk users to remove."
     end
 
     def inactive_agents

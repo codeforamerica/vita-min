@@ -17,14 +17,14 @@ class ZendeskCli
 
     def find_or_create_group
       if (group = find_existing_group(@name))
-        puts "Found existing group" unless Rails.env.test?
+        say "Found existing group"
       else
         if yes?("Will create group #{@name.inspect}. Confirm (y/N)")
           group = client.groups.create(name: @name)
         end
       end
 
-      puts "Adding all admins to the group..." unless Rails.env.test?
+      say "Adding all admins to the group..."
       add_all_admins_to_group(group)
 
       group
