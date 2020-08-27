@@ -27,7 +27,7 @@ class VitaPartnerImporter < CliScriptBase
     end
 
     # Update it
-    db_partner.accepts_overflow = (yaml_partner["accepts_overflow"] == "true")
+    db_partner.accepts_overflow = yaml_partner["accepts_overflow"]
     db_partner.display_name = yaml_partner["display_name"]
     db_partner.logo_path = yaml_partner["logo_path"]
     db_partner.name = yaml_partner["name"]

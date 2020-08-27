@@ -15,6 +15,7 @@ RSpec.describe VitaPartnerImporter do
             "states" => ["CO"],
             "logo_path" => "",
             "weekly_capacity_limit" => 500,
+            "accepts_overflow": true
           }
         ],
       }
@@ -41,6 +42,7 @@ RSpec.describe VitaPartnerImporter do
         expect(created.states.length).to eq(1)
         expect(created.states.first.abbreviation).to eq("CO")
         expect(created.weekly_capacity_limit).to eq(500)
+        expect(created.accepts_overflow).to be(true)
       end
 
       context "with only the essential attributes" do
