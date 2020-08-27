@@ -9,12 +9,12 @@ RSpec.describe Questions::AdditionalInfoController do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
-  describe "#update" do
+  describe "#update", active_job: true do
     let(:params) do
       { additional_info_form: { additional_info: "I moved here from Alaska." } }
     end
 
-    it "enqueues a job to send the intake pdf to zendesk", active_job: true do
+    it "enqueues a job to send the intake pdf to zendesk" do
       post :update, params: params
 
       expect(SendEipIntakeConsentToZendeskJob).not_to have_been_enqueued

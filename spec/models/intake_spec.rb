@@ -735,6 +735,26 @@ describe Intake do
     let(:source) { nil }
     let(:intake) { create :intake, state_of_residence: state, source: source }
 
+    before(:all) do
+      # Per https://relishapp.com/rspec/rspec-rails/docs/transactions,
+      # before(:all) has to manage data clearing explicitly.
+      @transaction_manager = ActiveRecord::Base.connection.transaction_manager
+      @transaction_manager.begin_transaction
+      class TestImporter
+        extend VitaPartnerImporter
+      end
+
+      TestImporter.upsert_vita_partners
+    end
+
+    after(:all) do
+      # Use transaction rollback to speed up some of the data clearing. Some data still leaks through,
+      # so also call destroy_all.
+      @transaction_manager.rollback_transaction
+      SourceParameter.destroy_all
+      VitaPartner.destroy_all
+    end
+
     context "when the zendesk instance domain has been saved as UWTSA instance" do
       let(:uwtsa_instance_intake) { create :intake, state_of_residence: "az", zendesk_instance_domain: UwtsaZendeskInstance::DOMAIN}
 
@@ -879,7 +899,11 @@ describe Intake do
   end
 
   describe "#assign_vita_partner!" do
-    let!(:vita_partner) { create :vita_partner, name: "test_partner", zendesk_group_id: partner_group_id }
+    before do
+      # Create the hard-coded VITA partner for EIP-only returns
+      create(:vita_partner, display_name: "Get Your Refund", zendesk_group_id: "360012655454")
+    end
+
     let(:partner_group_id) { "123456789" }
 
     context "with an eip-only intake that also state and source param" do
@@ -895,12 +919,15 @@ describe Intake do
     end
 
     context "for an intake without a zendesk group id" do
-      let(:source_parameter) { SourceParameter.all.sample }
-      let(:source_partner) { source_parameter.vita_partner }
-      let(:intake_source) { source_parameter.code }
+      before do
+        create(:source_parameter, code: "example", vita_partner: source_partner)
+      end
+
+      let!(:source_partner) { create(:vita_partner) }
+      let(:intake_source) { "example" }
       let(:state) { 'CO' }
-      let(:state_partner) { State.find(state).vita_partners.first }
-      let(:overflow_partners) { VitaPartner.where(accepts_overflow: true) }
+      let!(:state_partner) { create(:vita_partner, states: [State.find(state)]) }
+      let!(:overflow_partner) { create(:vita_partner, zendesk_group_id: "456", accepts_overflow: true) }
       let(:intake) { create :intake }
 
       context "with a valid source parameter" do
@@ -925,7 +952,7 @@ describe Intake do
         let(:intake) { create :intake, state: 'DESPAIR' }
         it 'assigns the partner to an overflow partner' do
           intake.assign_vita_partner!
-          expect(overflow_partners.map(&:zendesk_group_id)).to include(intake.vita_partner.zendesk_group_id)
+          expect(intake.vita_partner.zendesk_group_id).to eq(overflow_partner.zendesk_group_id)
         end
       end
     end
@@ -943,7 +970,7 @@ describe Intake do
       let(:state) { 'XX' }
       let(:zendesk_group_id) { '123456789101112' }
       let(:source_parameter) { 'a-source-parameter' }
-      let(:vita_partner) do
+      let!(:vita_partner) do
         partner = create :vita_partner, zendesk_group_id: zendesk_group_id, accepts_overflow: true
         partner.states.create(abbreviation: state, name: 'doesn\'t matter')
         partner.source_parameters.create(code: source_parameter)

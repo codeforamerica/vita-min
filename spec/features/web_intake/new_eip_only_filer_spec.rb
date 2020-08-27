@@ -6,6 +6,8 @@ RSpec.feature "Web Intake EIP Only Filer" do
   before do
     allow_any_instance_of(ZendeskIntakeService).to receive(:assign_requester)
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(ticket_id)
+    # Create the hard-coded VITA partner for EIP-only returns
+    create(:vita_partner, display_name: "Get Your Refund", zendesk_group_id: "360012655454")
   end
 
   scenario "new EIP-only client filing joint with a dependent" do

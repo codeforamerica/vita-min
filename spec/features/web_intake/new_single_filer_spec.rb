@@ -4,6 +4,7 @@ RSpec.feature "Web Intake Single Filer" do
   let(:ticket_id) { 9876 }
 
   before do
+    create :vita_partner, display_name: "Virginia Partner", zendesk_group_id: "123", states: [State.find_by(abbreviation: "VA")]
     allow_any_instance_of(ZendeskIntakeService).to receive(:assign_requester)
     allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(ticket_id)
   end
@@ -52,8 +53,8 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Continue"
 
     # Chat with us
-    expect(page).to have_selector("h1", text: "Our team at United Way of Greater Richmond and Petersburg is here to help!")
-    expect(page).to have_selector("p", text: "United Way of Greater Richmond and Petersburg handles tax returns from 20121 (Centreville, Virginia).")
+    expect(page).to have_selector("h1", text: "Our team at Virginia Partner is here to help!")
+    expect(page).to have_selector("p", text: "Virginia Partner handles tax returns from 20121 (Centreville, Virginia).")
     click_on "Continue"
 
     # Phone number

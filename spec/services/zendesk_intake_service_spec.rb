@@ -107,7 +107,7 @@ describe ZendeskIntakeService do
     context "in Colorado, using the EITC Zendesk instance" do
       let(:state) { "CO" }
       let(:zip_code) { "80309" }
-      let!(:vita_partner) { VitaPartner.find_by(name: "Tax Help Colorado (Piton Foundation)") }
+      let!(:vita_partner) { create(:vita_partner, states: [State.find_by(abbreviation: state)], name: "Tax Help Colorado (Piton Foundation)") }
       let(:ticket_status) { intake.current_ticket_status }
       let(:mixpanel_spy) { spy(MixpanelService) }
 
@@ -175,6 +175,7 @@ describe ZendeskIntakeService do
       let(:sms_opt_in) { "no" }
       let(:email_opt_in) { "no" }
       let(:mixpanel_spy) { spy(MixpanelService) }
+      let!(:vita_partner) { create(:vita_partner, accepts_overflow: true, zendesk_group_id: "123") }
 
       before(:each) do
         allow(MixpanelService).to receive(:instance).and_return(mixpanel_spy)
@@ -189,6 +190,7 @@ describe ZendeskIntakeService do
     end
 
     context "when the user went through the 'at capacity' page" do
+      let!(:vita_partner) { create(:vita_partner, accepts_overflow: true, zendesk_group_id: "123") }
       let(:continued_at_capacity) { true }
 
       it "adds the saw_at_capacity_page tag" do
@@ -235,6 +237,7 @@ describe ZendeskIntakeService do
 
     context "when we fail to create a zendesk ticket" do
       before do
+        create(:vita_partner, accepts_overflow: true, zendesk_group_id: "123")
         allow(service).to receive(:create_ticket).and_raise(ZendeskServiceHelper::ZendeskAPIError.new("Error creating Zendesk Ticket"))
       end
 
