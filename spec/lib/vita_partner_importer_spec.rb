@@ -15,14 +15,13 @@ RSpec.describe VitaPartnerImporter do
             "states" => ["CO"],
             "logo_path" => "",
             "weekly_capacity_limit" => 500,
-            "accepts_overflow": true
+            "accepts_overflow" => true,
           }
         ],
       }
     end
 
     before do
-      allow(YAML).to receive(:load_file).and_call_original
       allow(YAML).to receive(:load_file)
         .with(VitaPartnerImporter::VITA_PARTNERS_YAML)
         .and_return(fake_partners_yaml)
@@ -102,7 +101,7 @@ RSpec.describe VitaPartnerImporter do
         it "updates the corresponding column to nil or default value" do
           VitaPartnerImporter.upsert_vita_partners
           updated_partner = existing_partner.reload
-          expect(updated_partner.accepts_overflow).to be(false)
+          expect(updated_partner.accepts_overflow).to be(nil)
           expect(updated_partner.logo_path).to be_nil
           expect(updated_partner.display_name).to be_nil
           expect(updated_partner.weekly_capacity_limit).to eq(300) # Default from VitaPartner::DEFAULT_CAPACITY_LIMIT
