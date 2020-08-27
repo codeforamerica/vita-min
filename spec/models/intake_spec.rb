@@ -740,11 +740,8 @@ describe Intake do
       # before(:all) has to manage data clearing explicitly.
       @transaction_manager = ActiveRecord::Base.connection.transaction_manager
       @transaction_manager.begin_transaction
-      class TestImporter
-        extend VitaPartnerImporter
-      end
 
-      TestImporter.upsert_vita_partners
+      VitaPartnerImporter.upsert_vita_partners
     end
 
     after(:all) do
@@ -871,31 +868,6 @@ describe Intake do
       it_behaves_like :state_level_routing, "AL", "United Way of Central Alabama", "eitc"
       it_behaves_like :state_level_routing, "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
     end
-
-    context "with overflow routing" do
-      shared_examples "overflow routing" do |state_criteria|
-        context "given a state" do
-          let(:state) { state_criteria }
-          let(:overflow_partners) { VitaPartner.where(accepts_overflow: true) }
-          let(:overflow_partner_group_ids) { overflow_partners.map(&:zendesk_group_id) }
-          let(:overflow_partner_instance_domains) { overflow_partners.map(&:zendesk_instance_domain) }
-
-          before do
-            intake.assign_vita_partner!
-          end
-
-          it "assigns to the correct group and the correct instance" do
-            expect(overflow_partner_group_ids).to include intake.reload.vita_partner_group_id
-            expect(overflow_partner_instance_domains).to include intake.zendesk_instance_domain
-          end
-        end
-      end
-
-      it_behaves_like "overflow routing", "XX"
-      it_behaves_like "overflow routing", "AR"
-      it_behaves_like "overflow routing", "MS"
-      it_behaves_like "overflow routing", "SC"
-    end
   end
 
   describe "#assign_vita_partner!" do
@@ -1015,6 +987,26 @@ describe Intake do
           expect(overflow_group_ids).to include(intake.vita_partner_group_id)
           expect(intake.routing_criteria).to eq("overflow")
           expect(intake.routing_value).to eq(weird_state)
+        end
+      end
+    end
+
+    context "with an intake for a state without a state-specific partner" do
+      # No partners are loaded, so we use Colorado as an example state w/o a partner.
+      let(:intake) { create(:intake, state: "CO") }
+
+      context "with an overflow partner" do
+        let!(:overflow_partner) { create(:vita_partner, accepts_overflow: true) }
+
+        it "assigns to the correct partner" do
+          intake.assign_vita_partner!
+          expect(intake.reload.vita_partner).to eq(overflow_partner)
+        end
+      end
+
+      context "without an overflow partner" do
+        it "raises an error" do
+          expect { intake.assign_vita_partner! } .to raise_error(/Unable to route to any partner/)
         end
       end
     end

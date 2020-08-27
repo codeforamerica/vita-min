@@ -450,7 +450,7 @@ class Intake < ApplicationRecord
     # this is a RouteOptions struct, defined below
     route_options = partner_for_eip_only || partner_for_source || partner_for_state || partner_for_overflow
 
-    raise "partner not found!" unless route_options&.partner # this shouldn't happen unless the data is horked!
+    raise "Unable to route to any partner" unless route_options&.partner # this shouldn't happen unless the data is horked!
 
     update(
       vita_partner_id: route_options.partner.id,
