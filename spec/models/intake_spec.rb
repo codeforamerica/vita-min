@@ -734,11 +734,10 @@ describe Intake do
   describe "Zendesk routing" do
     let(:source) { nil }
     let(:intake) { create :intake, state_of_residence: state, source: source }
-    let!(:transaction_manager) { ActiveRecord::Base.connection.transaction_manager }
-
 
     before(:all) do
-      # Start a transaction explicitly, since rspec-rails only uses transactions in before(:each).
+      # Per https://relishapp.com/rspec/rspec-rails/docs/transactions,
+      # before(:all) has to manage data clearing explicitly.
       @transaction_manager = ActiveRecord::Base.connection.transaction_manager
       @transaction_manager.begin_transaction
       class TestImporter
@@ -749,7 +748,12 @@ describe Intake do
     end
 
     after(:all) do
+      # Use transaction rollback to speed up some of the data clearing. VitaPartners still leak through,
+      # so also call destroy_all.
       @transaction_manager.rollback_transaction
+      SourceParameter.destroy_all
+      VitaPartner.destroy_all
+      expect(VitaPartner.count).to eq(0)
     end
 
     context "when the zendesk instance domain has been saved as UWTSA instance" do
