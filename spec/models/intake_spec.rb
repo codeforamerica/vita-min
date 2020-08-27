@@ -734,12 +734,22 @@ describe Intake do
   describe "Zendesk routing" do
     let(:source) { nil }
     let(:intake) { create :intake, state_of_residence: state, source: source }
+    let!(:transaction_manager) { ActiveRecord::Base.connection.transaction_manager }
+
+
     before(:all) do
+      # Start a transaction explicitly, since rspec-rails only uses transactions in before(:each).
+      @transaction_manager = ActiveRecord::Base.connection.transaction_manager
+      @transaction_manager.begin_transaction
       class TestImporter
         extend VitaPartnerImporter
       end
 
       TestImporter.upsert_vita_partners
+    end
+
+    after(:all) do
+      @transaction_manager.rollback_transaction
     end
 
     context "when the zendesk instance domain has been saved as UWTSA instance" do
