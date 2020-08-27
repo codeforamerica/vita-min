@@ -9,19 +9,19 @@ class ZendeskCli
     end
 
     def remove_all
-      say "Loading agents..."
+      puts "Loading agents..." unless Rails.env.test?
       agents = parse_csv(@csv_path)
 
       if yes?("  Delete #{agents.length} agents? [y/N]: ")
         agents.each do |agent_to_delete|
           begin
-            say "Deleting #{agent_to_delete["email"]}..."
+            puts "Deleting #{agent_to_delete["email"]}..." unless Rails.env.test?
             agent = client.users.find(id: agent_to_delete["id"])
             if agent.destroy!
-              say "  Deleted!"
+              puts "  Deleted!" unless Rails.env.test?
             end
           rescue ZendeskAPI::Error::RecordInvalid => e
-            say "  Could not delete #{agent_to_delete["email"]}: #{e.message}"
+            puts "  Could not delete #{agent_to_delete["email"]}: #{e.message}" unless Rails.env.test?
           end
         end
       end

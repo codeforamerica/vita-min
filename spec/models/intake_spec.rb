@@ -734,7 +734,7 @@ describe Intake do
   describe "Zendesk routing" do
     let(:source) { nil }
     let(:intake) { create :intake, state_of_residence: state, source: source }
-    before do
+    before(:all) do
       class TestImporter
         extend VitaPartnerImporter
       end

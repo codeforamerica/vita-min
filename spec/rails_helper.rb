@@ -80,10 +80,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.before(:suite) do
-    # we include this because at present (2020-05-06) Vita Partners
-    # are yaml-loaded read-only domain information, as are states.
-    extend StateImporter
-    insert_states
+    StateImporter.insert_states
   end
 
   config.before(:each) do
