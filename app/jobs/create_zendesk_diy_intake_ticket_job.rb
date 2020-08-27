@@ -20,7 +20,8 @@ class CreateZendeskDiyIntakeTicketJob < ApplicationJob
         intakes.each do |intake|
           service.append_comment_to_ticket(
             ticket_id: intake.intake_ticket_id,
-            comment: "This client has requested a TaxSlayer DIY link from GetYourRefund.org"
+            comment: "This client has requested a TaxSlayer DIY link from GetYourRefund.org",
+            skip_if_closed: true,
           )
         end
       end

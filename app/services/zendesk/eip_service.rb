@@ -108,7 +108,8 @@ module Zendesk
       (diy_intake_ticket_ids + full_service_intake_ticket_ids).each do |ticket_id|
         append_comment_to_ticket(
           ticket_id: ticket_id,
-          comment: "This client has a GetYourRefund EIP ticket: #{ticket_url(@intake.intake_ticket_id)}"
+          comment: "This client has a GetYourRefund EIP ticket: #{ticket_url(@intake.intake_ticket_id)}",
+          skip_if_closed: true,
         )
       end
     end

@@ -32,6 +32,7 @@ RSpec.describe ZendeskServiceHelper do
     allow(fake_zendesk_ticket).to receive(:tags=)
     allow(fake_zendesk_ticket).to receive(:group_id=)
     allow(fake_zendesk_ticket).to receive(:comment).and_return fake_zendesk_comment
+    allow(fake_zendesk_ticket).to receive(:status).and_return "open"
     allow(fake_zendesk_ticket).to receive(:save!)
   end
 
@@ -363,6 +364,33 @@ RSpec.describe ZendeskServiceHelper do
       expect(fake_zendesk_ticket).to have_received(:fields=).with({ "314324132" => "custom_field_value" })
       expect(fake_zendesk_ticket).to have_received(:tags=).with(["old_tag", "some", "tags"])
       expect(fake_zendesk_ticket).to have_received(:save!)
+    end
+
+    context "with a Zendesk ticket that is closed" do
+      before do
+        allow(fake_zendesk_ticket).to receive(:status).and_return("closed")
+      end
+
+      context "with skip_if_closed: false (default)" do
+        it "attempts to add the comment" do
+          service.append_comment_to_ticket(
+            ticket_id: 1141,
+            comment: "hey this is a comment",
+          )
+          expect(fake_zendesk_ticket).to have_received(:save!)
+        end
+      end
+
+      context "with skip_if_closed: true" do
+        it "does not try to add the comment" do
+          service.append_comment_to_ticket(
+            ticket_id: 1141,
+            comment: "hey this is a comment",
+            skip_if_closed: true,
+          )
+          expect(fake_zendesk_ticket).not_to have_received(:save!)
+        end
+      end
     end
   end
 

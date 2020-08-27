@@ -94,7 +94,8 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
 
           expect(fake_zendesk_intake_service).to have_received(:append_comment_to_ticket).with(
             ticket_id: diy_ticket_id,
-            comment: "This client has a GetYourRefund full service ticket: https://eitc.zendesk.com/agent/tickets/#{new_ticket_id}"
+            comment: "This client has a GetYourRefund full service ticket: https://eitc.zendesk.com/agent/tickets/#{new_ticket_id}",
+            skip_if_closed: true
           )
         end
       end
@@ -117,7 +118,8 @@ RSpec.describe CreateZendeskIntakeTicketJob, type: :job do
 
           expect(fake_zendesk_intake_service).to have_received(:append_comment_to_ticket).with(
             ticket_id: eip_ticket_id,
-            comment: "This client has a GetYourRefund full service ticket: https://eitc.zendesk.com/agent/tickets/#{new_ticket_id}"
+            comment: "This client has a GetYourRefund full service ticket: https://eitc.zendesk.com/agent/tickets/#{new_ticket_id}",
+            skip_if_closed: true
           )
         end
       end

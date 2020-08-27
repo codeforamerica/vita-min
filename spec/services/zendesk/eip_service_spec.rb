@@ -194,10 +194,12 @@ describe Zendesk::EipService do
         expect(service).to have_received(:append_comment_to_ticket).with(
           ticket_id: diy_intake.ticket_id,
           comment: "This client has a GetYourRefund EIP ticket: https://eitc.zendesk.com/agent/tickets/2",
+          skip_if_closed: true
         )
         expect(service).to have_received(:append_comment_to_ticket).with(
           ticket_id: full_service_intake.intake_ticket_id,
           comment: "This client has a GetYourRefund EIP ticket: https://eitc.zendesk.com/agent/tickets/2",
+          skip_if_closed: true
         )
       end
     end

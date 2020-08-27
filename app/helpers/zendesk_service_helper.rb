@@ -191,10 +191,12 @@ module ZendeskServiceHelper
     ticket.save!
   end
 
-  def append_comment_to_ticket(ticket_id:, comment:, fields: {}, tags: [], public: false, group_id: nil)
+  def append_comment_to_ticket(ticket_id:, comment:, fields: {}, tags: [], public: false, group_id: nil, skip_if_closed: false)
     raise MissingTicketIdError if ticket_id.blank?
 
     ticket = get_ticket!(ticket_id)
+    return if ticket.status == "closed" && skip_if_closed
+
     ticket.fields = fields if fields.present?
     ticket.tags += tags if tags.present?
     ticket.group_id = group_id if group_id.present?

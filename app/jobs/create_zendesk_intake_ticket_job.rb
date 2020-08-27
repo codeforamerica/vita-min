@@ -21,7 +21,8 @@ class CreateZendeskIntakeTicketJob < ApplicationJob
         (diy_intake_ticket_ids + eip_intake_ticket_ids).each do |ticket_id|
           service.append_comment_to_ticket(
             ticket_id: ticket_id,
-            comment: "This client has a GetYourRefund full service ticket: #{service.ticket_url(ticket.id)}"
+            comment: "This client has a GetYourRefund full service ticket: #{service.ticket_url(ticket.id)}",
+            skip_if_closed: true,
           )
         end
       end

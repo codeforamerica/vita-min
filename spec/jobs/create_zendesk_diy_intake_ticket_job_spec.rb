@@ -37,7 +37,8 @@ RSpec.describe CreateZendeskDiyIntakeTicketJob, type: :job do
 
           expect(fake_zendesk_diy_intake_service).to have_received(:append_comment_to_ticket).with(
             ticket_id: intake_ticket_id,
-            comment: "This client has requested a TaxSlayer DIY link from GetYourRefund.org"
+            comment: "This client has requested a TaxSlayer DIY link from GetYourRefund.org",
+            skip_if_closed: true
           )
         end
       end
