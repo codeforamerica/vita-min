@@ -188,13 +188,7 @@ module ZendeskServiceHelper
   def assign_ticket_to_group(ticket_id:, group_id:)
     ticket = get_ticket(ticket_id: ticket_id)
     ticket.group_id = group_id
-    success = ticket.save
-
-    unless success
-      raise ZendeskAPIError.new("Error assigning ticket to group: #{ticket.errors}")
-    end
-
-    success
+    ticket.save!
   end
 
   def append_comment_to_ticket(ticket_id:, comment:, fields: {}, tags: [], public: false, group_id: nil)
@@ -205,13 +199,7 @@ module ZendeskServiceHelper
     ticket.tags += tags if tags.present?
     ticket.group_id = group_id if group_id.present?
     ticket.comment = { body: comment, public: public }
-    success = ticket.save
-
-    unless success
-      raise ZendeskAPIError.new("Error appending comment to ticket: #{ticket.errors}")
-    end
-
-    success
+    ticket.save!
   end
 
   def append_file_to_ticket(ticket_id:, filename:, file:, comment: "", fields: {})
@@ -235,13 +223,7 @@ module ZendeskServiceHelper
     ticket.fields = fields if fields.present?
     ticket.comment = {body: comment}
     file_list.each { |file| append_file_or_add_oversize_comment(file, ticket) }
-    success = ticket.save
-
-    unless success
-      raise ZendeskAPIError.new("Error appending file to ticket: #{ticket.errors}")
-    end
-
-    success
+    ticket.save!
   end
 
   def append_file_or_add_oversize_comment(file, ticket)

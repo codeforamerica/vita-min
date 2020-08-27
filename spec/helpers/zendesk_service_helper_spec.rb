@@ -32,7 +32,7 @@ RSpec.describe ZendeskServiceHelper do
     allow(fake_zendesk_ticket).to receive(:tags=)
     allow(fake_zendesk_ticket).to receive(:group_id=)
     allow(fake_zendesk_ticket).to receive(:comment).and_return fake_zendesk_comment
-    allow(fake_zendesk_ticket).to receive(:save).and_return true
+    allow(fake_zendesk_ticket).to receive(:save!)
   end
 
   describe "#create_or_update_zendesk_user" do
@@ -214,11 +214,10 @@ RSpec.describe ZendeskServiceHelper do
 
   describe "#assign_ticket_to_group" do
     it "finds the ticket and updates the group id" do
-      result = service.assign_ticket_to_group(ticket_id: 123, group_id: "12543")
+      service.assign_ticket_to_group(ticket_id: 123, group_id: "12543")
 
-      expect(result).to eq true
       expect(fake_zendesk_ticket).to have_received(:group_id=).with("12543")
-      expect(fake_zendesk_ticket).to have_received(:save).with(no_args)
+      expect(fake_zendesk_ticket).to have_received(:save!).with(no_args)
     end
   end
 
@@ -230,18 +229,17 @@ RSpec.describe ZendeskServiceHelper do
     end
 
     it "calls the Zendesk API to get the ticket and add the comment with upload and returns true" do
-      result = service.append_file_to_ticket(
+      service.append_file_to_ticket(
         ticket_id: 1141,
         filename: "wyd.jpg",
         file: file,
         comment: "hey",
         fields: { "314324132" => "custom_field_value" }
       )
-      expect(result).to eq true
       expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey" })
       expect(fake_zendesk_ticket).to have_received(:fields=).with({ "314324132" => "custom_field_value" })
       expect(fake_zendesk_comment.uploads).to include({file: file, filename: "wyd.jpg"})
-      expect(fake_zendesk_ticket).to have_received(:save)
+      expect(fake_zendesk_ticket).to have_received(:save!)
     end
 
     context "when the ticket id is missing" do
@@ -264,28 +262,26 @@ RSpec.describe ZendeskServiceHelper do
       end
 
       it "does not append the file" do
-        result = service.append_file_to_ticket(
+        service.append_file_to_ticket(
           ticket_id: 1141,
           filename: "big.jpg",
           file: oversize_file,
           comment: "hey",
           fields: { "314324132" => "custom_field_value" }
         )
-        expect(result).to eq true
         expect(fake_zendesk_comment.uploads).not_to include({file: oversize_file, filename: "big.jpg"})
       end
 
       it "adds an oversize file message to the comment" do
-        result = service.append_file_to_ticket(
+        service.append_file_to_ticket(
           ticket_id: 1141,
           filename: "big.jpg",
           file: oversize_file,
           comment: "hey",
           fields: { "314324132" => "custom_field_value" }
         )
-        expect(result).to eq true
         expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file big.jpg could not be uploaded because it exceeds the maximum size of 20MB.")
-        expect(fake_zendesk_ticket).to have_received(:save)
+        expect(fake_zendesk_ticket).to have_received(:save!)
       end
     end
   end
@@ -306,20 +302,19 @@ RSpec.describe ZendeskServiceHelper do
       allow(file_3).to receive(:size).and_return(1000)
     end
 
-    it "calls the Zendesk API to get the ticket and add the comment with uploads and returns true" do
-      result = service.append_multiple_files_to_ticket(
+    it "calls the Zendesk API to get the ticket and add the comment with uploads" do
+      service.append_multiple_files_to_ticket(
         ticket_id: 1141,
         file_list: file_list,
         comment: "hey",
         fields: { "314324132" => "custom_field_value" }
       )
-      expect(result).to eq true
       expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey" })
       expect(fake_zendesk_ticket).to have_received(:fields=).with({ "314324132" => "custom_field_value" })
       expect(fake_zendesk_comment.uploads).to include({file: file_1, filename: "file_1.jpg"})
       expect(fake_zendesk_comment.uploads).to include({file: file_2, filename: "file_2.jpg"})
       expect(fake_zendesk_comment.uploads).to include({file: file_3, filename: "file_3.jpg"})
-      expect(fake_zendesk_ticket).to have_received(:save)
+      expect(fake_zendesk_ticket).to have_received(:save!)
     end
 
     context "when the file is not a valid size" do
@@ -329,48 +324,45 @@ RSpec.describe ZendeskServiceHelper do
       end
 
       it "does not append the file" do
-        result = service.append_multiple_files_to_ticket(
+        service.append_multiple_files_to_ticket(
           ticket_id: 1141,
           file_list: file_list,
           comment: "hey",
           fields: { "314324132" => "custom_field_value" }
         )
-        expect(result).to eq true
         expect(fake_zendesk_comment.uploads).not_to include({file: file_1, filename: "file_1.jpg"})
         expect(fake_zendesk_comment.uploads).to include({file: file_2, filename: "file_2.jpg"})
         expect(fake_zendesk_comment.uploads).not_to include({file: file_3, filename: "file_3.jpg"})
-        expect(fake_zendesk_ticket).to have_received(:save)
+        expect(fake_zendesk_ticket).to have_received(:save!)
       end
 
       it "adds an oversize file message to the comment" do
-        result = service.append_multiple_files_to_ticket(
+        service.append_multiple_files_to_ticket(
           ticket_id: 1141,
           file_list: file_list,
           comment: "hey",
           fields: { "314324132" => "custom_field_value" }
         )
-        expect(result).to eq true
         expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file file_1.jpg could not be uploaded because it exceeds the maximum size of 20MB.")
         expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file file_3.jpg could not be uploaded because it is empty.")
-        expect(fake_zendesk_ticket).to have_received(:save)
+        expect(fake_zendesk_ticket).to have_received(:save!)
       end
     end
   end
 
   describe "#append_comment_to_ticket" do
     it "calls the Zendesk API to get the ticket and add the comment" do
-      result = service.append_comment_to_ticket(
+      service.append_comment_to_ticket(
         ticket_id: 1141,
         comment: "hey this is a comment",
         fields: { "314324132" => "custom_field_value" },
         tags: ["some", "tags"],
       )
 
-      expect(result).to eq true
       expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey this is a comment", public: false })
       expect(fake_zendesk_ticket).to have_received(:fields=).with({ "314324132" => "custom_field_value" })
       expect(fake_zendesk_ticket).to have_received(:tags=).with(["old_tag", "some", "tags"])
-      expect(fake_zendesk_ticket).to have_received(:save)
+      expect(fake_zendesk_ticket).to have_received(:save!)
     end
   end
 
@@ -423,18 +415,17 @@ RSpec.describe ZendeskServiceHelper do
       end
 
       it "sets the maximum file size to 7MB" do
-        result = service.append_multiple_files_to_ticket(
+        service.append_multiple_files_to_ticket(
           ticket_id: 1141,
           file_list: file_list,
           comment: "hey",
           fields: { "314324132" => "custom_field_value" }
         )
-        expect(result).to eq true
         expect(fake_zendesk_comment.uploads).not_to include({file: file_1, filename: "file_1.jpg"})
         expect(fake_zendesk_comment.uploads).to include({file: file_2, filename: "file_2.jpg"})
         expect(fake_zendesk_comment.uploads).to include({file: file_3, filename: "file_3.jpg"})
         expect(fake_zendesk_comment_body).to have_received(:concat).with("\n\nThe file file_1.jpg could not be uploaded because it exceeds the maximum size of 7MB.")
-        expect(fake_zendesk_ticket).to have_received(:save)
+        expect(fake_zendesk_ticket).to have_received(:save!)
       end
     end
   end
