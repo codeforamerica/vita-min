@@ -11,7 +11,7 @@
 #
 FactoryBot.define do
   factory :state do
-    abbreviation { ('A'..'Z').to_a.sample(2).join }
-    name { "Town In #{abbreviation}" }
+    abbreviation { "OT" }
+    name { "Orbis Tertius" }
   end
 end
