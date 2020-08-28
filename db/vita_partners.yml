@@ -496,6 +496,7 @@ vita_partners:
   display_name: Goodwill of the Olympics and Rainier Region
   source_parameters:
   - orr
+  - Goodwill-Tacoma
   logo_path: 'partner-logos/goodwill_orr.png'
 - name: Central City Neighborhood Partners [Los Angeles Ventanilla VITA site]
   zendesk_instance_domain: eitc
