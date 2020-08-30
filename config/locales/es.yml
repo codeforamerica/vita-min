@@ -965,8 +965,8 @@ es:
         options:
           had_disability: Yo tenía una discapacidad permanente
           was_blind: Yo estaba legalmente ciego 
-          was_full_time_student: Yo estaba en los Estados Unidos con una visa
-          was_on_visa: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
+          was_full_time_student: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
+          was_on_visa: Yo estaba en los Estados Unidos con una visa
         title: Seleccione las situaciones que fueron verdaderas para usted en el 2019
       lived_with_spouse:
         title: "¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de %{year}?"
@@ -1133,6 +1133,14 @@ es:
         title: Identidad de su cónyuge
       spouse_issued_identity_pin:
         title: "¿Se le ha emitido a su pareja un PIN de protección de identidad?"
+      spouse_life_situations:
+        help_text: Estas respuestas nos ayudan a determinar para qué créditos fiscales califica.
+        options:
+          had_disability: Mi cónyuge tenía una discapacidad permanente
+          was_blind: Mi cónyuge era legalmente ciego
+          was_full_time_student: Mi cónyuge era un estudiante a tiempo completo en una universidad o una escuela de oficios
+          was_on_visa: Mi cónyuge era en los Estados Unidos con una visa
+        title: Seleccione las situaciones que fueron verdaderas para su cónyuge en 2019
       start_with_current_year:
         info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
