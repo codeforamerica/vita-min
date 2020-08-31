@@ -534,6 +534,7 @@ vita_partners:
   display_name: BakerRipley Neighborhood Tax Centers
   source_parameters:
   - baker
+  logo_path: 'partner-logos/baker_ripley.png'
 - name: Get Your Refund - EIP Only
   zendesk_instance_domain: eitc
   zendesk_group_id: '360012655454'
