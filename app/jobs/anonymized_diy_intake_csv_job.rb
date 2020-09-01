@@ -1,4 +1,4 @@
-class AnonymizedDiyIntakeCsvJob < ApplicationJob
+class AnonymizedDiyIntakeCsvJob < ZendeskJob
   queue_as :default
 
   def perform(diy_intake_ids=nil)

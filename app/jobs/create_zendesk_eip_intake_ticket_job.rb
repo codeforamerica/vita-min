@@ -1,4 +1,4 @@
-class CreateZendeskEipIntakeTicketJob < ApplicationJob
+class CreateZendeskEipIntakeTicketJob < ZendeskJob
   include UpdateIntakeEnqueuedTicketCreationMixin
 
   queue_as :default

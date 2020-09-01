@@ -1,4 +1,4 @@
-class CreateZendeskIntakeTicketJob < ApplicationJob
+class CreateZendeskIntakeTicketJob < ZendeskJob
   include ConsolidatedTraceHelper
   include UpdateIntakeEnqueuedTicketCreationMixin
 

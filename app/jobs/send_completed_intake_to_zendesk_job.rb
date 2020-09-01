@@ -1,4 +1,4 @@
-class SendCompletedIntakeToZendeskJob < ApplicationJob
+class SendCompletedIntakeToZendeskJob < ZendeskJob
   queue_as :default
 
   def perform(intake_id)

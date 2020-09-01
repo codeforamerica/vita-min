@@ -1,4 +1,4 @@
-class CreateZendeskDiyIntakeTicketJob < ApplicationJob
+class CreateZendeskDiyIntakeTicketJob < ZendeskJob
   include ConsolidatedTraceHelper
 
   queue_as :default

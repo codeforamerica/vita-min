@@ -1,4 +1,4 @@
-class AnonymizedIntakeCsvJob < ApplicationJob
+class AnonymizedIntakeCsvJob < ActiveJob::Base
   queue_as :default
 
   def perform(intake_ids=nil)

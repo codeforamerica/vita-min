@@ -1,4 +1,4 @@
-class ScrapeVitaProvidersJob < ApplicationJob
+class ScrapeVitaProvidersJob < ActiveJob::Base
   MIXPANEL_ROBOT_ID = "ScrapeVitaProvidersJob"
 
   def perform

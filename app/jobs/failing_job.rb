@@ -1,4 +1,4 @@
-class FailingJob < ApplicationJob
+class FailingJob < ZendeskJob
   queue_as :default
 
   def perform(test_data)

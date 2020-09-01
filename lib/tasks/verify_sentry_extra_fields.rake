@@ -5,7 +5,7 @@
 namespace :test do
   desc "dispatch an exception from a background job"
   task dispatch_exception: [:environment] do
-    class DoAnExceptionalJob < ApplicationJob
+    class DoAnExceptionalJob < ZendeskJob
       def perform(fake_id)
         with_raven_context({ticket_id: fake_id}) do
           raise "hell"

@@ -1,4 +1,4 @@
-class ResendDiyConfirmationEmailJob < ApplicationJob
+class ResendDiyConfirmationEmailJob < ZendeskJob
   include ConsolidatedTraceHelper
 
   queue_as :default
