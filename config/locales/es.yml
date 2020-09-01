@@ -411,7 +411,7 @@ es:
           help_text: Para la declaración de impuestos estatales
           label: Estado
         submit: Enviar al asesor
-        title: Entrega de VITA
+        title: Formulario de entrega
       show:
         add_another: Añadir otra entrega
         comment_added: 'Se ha añadido un comentario con detalles a la identificación del ticket: %{ticket_id}'

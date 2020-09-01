@@ -411,7 +411,7 @@ en:
           help_text: For state tax return
           label: State
         submit: Send for prep
-        title: Valet VITA Drop-off
+        title: Drop-off form
       show:
         add_another: Add another drop-off
         comment_added: 'Comment with details added to ticket ID: %{ticket_id}'
