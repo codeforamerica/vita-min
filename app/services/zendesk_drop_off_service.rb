@@ -11,6 +11,7 @@ class ZendeskDropOffService
     "fc" => EitcZendeskInstance::FOUNDATION_COMMUNITIES,
     "uwvp" => EitcZendeskInstance::UNITED_WAY_VIRGINIA,
     "cwf" => EitcZendeskInstance::CAMPAIGN_FOR_WORKING_FAMILIES,
+    "nvftc" => EitcZendeskInstance::NEVADA_FREE_TAXES_COALITION,
   }.freeze
 
   def initialize(drop_off)

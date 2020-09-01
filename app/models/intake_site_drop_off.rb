@@ -78,6 +78,9 @@ class IntakeSiteDropOff < ApplicationRecord
     cwf: [
       "CWF Headquarters",
     ],
+    nvftc: [
+      "Nevada Free Taxes Coalition Headquarters",
+    ],
   }.freeze
   ORGANIZATIONS = INTAKE_SITES.keys.map(&:to_s).freeze
   ORGANIZATION_NAMES = {
@@ -88,6 +91,7 @@ class IntakeSiteDropOff < ApplicationRecord
     "fc" => "Foundation Communities",
     "uwvp" => "United Way of Greater Richmond and Petersburg",
     "cwf" => "Campaign for Working Families",
+    "nvftc" => "Nevada Free Taxes Coalition",
   }.freeze
 
   strip_attributes only: [:name, :email, :phone_number, :additional_info]
