@@ -922,11 +922,6 @@ es:
         title:
           one: "¿Le gustaría reclamar a alguien por %{year}?"
           other: "¿Usted o su cónyuge desean reclamar a alguien por %{year}?"
-      had_disability:
-        help_text: La discapacidad permanente se calcula como un porcentaje de su capacidad de trabajo. Se califica en una escala de 0 al 100%.
-        title:
-          one: En %{year}, ¿tenía una discapacidad permanente?
-          other: En %{year}, ¿Tuvo usted o su pareja alguna discapacidad permanente?
       health_insurance:
         help_text: Esto incluye un seguro medico privado comprado a través de un sitio web del gobierno. Esto no incluye Medicaid, Medicare o seguro médico comprado a través de su empleador.
         title:
@@ -972,6 +967,14 @@ es:
         title:
           one: En %{year}, ¿cuántos trabajos tuvo?
           other: En %{year}, ¿cuántos trabajos tenía usted o su cónyuge?
+      life_situations:
+        help_text: Estas respuestas nos ayudan a determinar para qué créditos fiscales califica.
+        options:
+          had_disability: Yo tenía una discapacidad permanente
+          was_blind: Yo estaba legalmente ciego 
+          was_full_time_student: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
+          was_on_visa: Yo estaba en los Estados Unidos con una visa
+        title: Seleccione las situaciones que fueron verdaderas para usted en el 2019
       lived_with_spouse:
         title: "¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de %{year}?"
       local_tax:
@@ -1011,9 +1014,6 @@ es:
           sms_notification_opt_in: Mensaje de Texto
           sms_phone_number: Número Celular
         title: "¿Cómo podemos actualizarlo en su declaración de impuestos?"
-      on_visa:
-        help_text: Debe tener un sello en su pasaporte para indicarlo.
-        title: En %{year}, ¿estaba en los Estados Unidos con una visa?
       other_income:
         help_text: Tales como pagos en efectivo, deberes de jurado, premios, moneda virtual, regalías o beneficios de huelga sindical.
         title:
@@ -1132,9 +1132,6 @@ es:
         spouse_email_address: Dirección de correo electrónico
         spouse_email_address_confirmation: Confirme su correo
         title: Por favor comparte el correo electrónico de su cónyuge.
-      spouse_had_disability:
-        help_text: La discapacidad permanente se calcula como un porcentaje de la capacidad de trabajo de una persona. Está clasificado en una escala del 0 al 100%.
-        title: En el %{year}, ¿su cónyuge tenía una discapacidad permanente?
       spouse_identity:
         info_later: Si no, podemos enviarles un enlace de inicio de sesión a través de texto o correo electrónico.
         info_now: Si su cónyuge está sentado con usted, puede seguir adelante e iniciar sesión con ID.me
@@ -1143,15 +1140,14 @@ es:
         title: Identidad de su cónyuge
       spouse_issued_identity_pin:
         title: "¿Se le ha emitido a su pareja un PIN de protección de identidad?"
-      spouse_on_visa:
-        help_text: Deben tener un sello en su pasaporte para indicarlo.
-        title: En el %{year}, ¿estaba su cónyuge en los Estados Unidos con una visa?
-      spouse_was_blind:
-        help_text: Esto básicamente significa que incluso con lentes correctivos o cirugía, para ver claramente un objeto que una persona con visión normal podría ver desde 200 pies de distancia, uno tendría que estar a 20 pies o más cerca.
-        title: En el %{year}, ¿su cónyuge era legalmente ciego?
-      spouse_was_student:
-        help_text: Estamos preguntando específicamente si persiguieron estudios superiores como un título de asociado, licenciatura o maestría.
-        title: "¿Era su cónyuge un estudiante de tiempo completo en el %{year}?"
+      spouse_life_situations:
+        help_text: Estas respuestas nos ayudan a determinar para qué créditos fiscales califica.
+        options:
+          had_disability: Mi cónyuge tenía una discapacidad permanente
+          was_blind: Mi cónyuge era legalmente ciego
+          was_full_time_student: Mi cónyuge era un estudiante a tiempo completo en una universidad o una escuela de oficios
+          was_on_visa: Mi cónyuge era en los Estados Unidos con una visa
+        title: Seleccione las situaciones que fueron verdaderas para su cónyuge en 2019
       start_with_current_year:
         info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
@@ -1199,12 +1195,6 @@ es:
         title:
           one: En %{year}, ¿recibió sueldos o salarios?
           other: En el %{year}, ¿recibió usted o su cónyuge sueldos o salarios?
-      was_blind:
-        help_text: Esto significa que incluso con lentes correctivos o cirugía, para ver claramente un objeto que una persona con visión normal podría ver desde 200 pies de distancia, usted tendría que estar a 20 pies o más cerca.
-        title: En el %{year}, ¿eras legalmente ciego?
-      was_student:
-        help_text: Le preguntamos específicamente si realizó estudios superiores, como un título de diplomado, licenciatura o maestría.
-        title: "¿Eras un estudiante de tiempo completo en el %{year}?"
       welcome:
         diy:
           header: Declarar impuestos mi mismo

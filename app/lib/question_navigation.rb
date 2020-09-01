@@ -27,11 +27,14 @@ class QuestionNavigation
     # Consent
     Questions::ConsentController, # create Zendesk ticket
 
-    # Primary filer personal information
+    # Old primary filer personal information - to be deleted
     Questions::WasStudentController,
     Questions::OnVisaController,
     Questions::HadDisabilityController,
     Questions::WasBlindController,
+
+    # Primary filer personal information
+    Questions::LifeSituationsController,
     Questions::IssuedIdentityPinController,
 
     # Marital Status
@@ -55,12 +58,17 @@ class QuestionNavigation
     # Spouse email
     Questions::SpouseEmailAddressController,
 
-    # Spouse personal information
+    # Spouse consent
     Questions::SpouseConsentController,
+
+    # Old Spouse personal information - to be deleted
     Questions::SpouseWasStudentController,
     Questions::SpouseOnVisaController,
     Questions::SpouseHadDisabilityController,
     Questions::SpouseWasBlindController,
+
+    # Spouse personal information
+    Questions::SpouseLifeSituationsController,
     Questions::SpouseIssuedIdentityPinController,
 
     # Dependents

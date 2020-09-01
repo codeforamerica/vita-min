@@ -4,7 +4,7 @@ describe IntakeProgressCalculator do
   describe "#get_progress" do
     let (:intake) { create :intake }
     it "returns 0 for the progress of the starting controller and intake" do
-      progress = IntakeProgressCalculator.get_progress(Questions::WasStudentController, intake)
+      progress = IntakeProgressCalculator.get_progress(Questions::LifeSituationsController, intake)
 
       expect(progress).to eq 0
     end
