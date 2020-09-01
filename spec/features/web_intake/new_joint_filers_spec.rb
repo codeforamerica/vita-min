@@ -85,6 +85,10 @@ RSpec.feature "Web Intake Joint Filers" do
 
     # Primary filer personal information
     expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2019")
+    check "I had a permanent disability"
+    check "I was legally blind"
+    check "I was a full-time student in a college or a trade school"
+    check "I was in the US on a Visa"
     click_on "Continue"
     expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
     click_on "No"
@@ -131,6 +135,7 @@ RSpec.feature "Web Intake Joint Filers" do
 
     # Spouse personal information
     expect(page).to have_selector("h1", text: "Select any situations that were true for your spouse in 2019")
+    check "None of the above"
     click_on "Continue"
     expect(page).to have_selector("h1", text: "Has your spouse been issued an Identity Protection PIN?")
     click_on "No"
