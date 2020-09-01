@@ -45,6 +45,12 @@ RSpec.describe CreateZendeskDiyIntakeTicketJob, type: :job do
     end
 
     context "with errors" do
+      before do
+        # Disable the rescue_handlers added by the job's retry_on,
+        # so that errors bubble up as if this is the last attempt for the job.
+        allow(described_class).to receive(:rescue_handlers).and_return([])
+      end
+
       context "when an error is raised while assigning requester" do
         before do
           expect(ZendeskDiyIntakeService).to receive(:new).with(diy_intake)

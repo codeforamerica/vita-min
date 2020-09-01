@@ -33,6 +33,9 @@ RSpec.describe SendCompletedIntakeToZendeskJob, type: :job do
     context "when one of the three tasks fails" do
       before do
         allow(fake_zendesk_intake_service).to receive(:send_final_intake_pdf).and_return(false)
+        # Disable the rescue_handlers added by the job's retry_on,
+        # so that errors bubble up as if this is the last attempt for the job.
+        allow(described_class).to receive(:rescue_handlers).and_return([])
       end
 
       it "raises an error" do
