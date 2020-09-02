@@ -260,6 +260,6 @@ RSpec.feature "Web Intake EIP Only Filer" do
     click_on "Visit Stimulus FAQ"
 
     # Stimulus FAQ
-    expect(page).to have_selector("h1", text: "Get your Stimulus Payment (EIP)")
+    expect(page).to have_selector("h1", text: "Get your Stimulus Check")
   end
 end
