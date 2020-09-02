@@ -8,7 +8,7 @@
   }
 }
 
-.slab--cta {
+.slab--cta, .slab--stimulus-cta {
   padding-top: 4rem;
   padding-bottom: 4rem;
   background-color: $color-green-money;
@@ -22,6 +22,10 @@
       padding-right: 9rem;
     }
   }
+}
+
+.slab--stimulus-cta {
+  background-color: $color-stimulus-blue;
 }
 
 .slab--lavender {
