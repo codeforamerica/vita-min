@@ -1,0 +1,13 @@
+<% content_for :page_title, "#{@case.preferred_name}, ##{@case.id}" %>
+
+<% content_for :card do %>
+  <div class="header">
+    <h1 class="h2">
+      <%= @case.preferred_name %>
+    </h1>
+    <h2>#<%= @case.id %></h2>
+    <h3>Email: <%= @case.email_address %></h3>
+    <h3>Phone: <%= @case.phone_number %></h3>
+    <h3>Phone for texting: <%= @case.sms_phone_number %></h3>
+  </div>
+<% end %>

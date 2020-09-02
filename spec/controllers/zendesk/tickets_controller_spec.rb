@@ -114,6 +114,39 @@ RSpec.describe Zendesk::TicketsController do
           end
         end
       end
+
+      context "as an authenticated admin and at least one intake" do
+        render_views
+
+        let(:user) { create :user, provider: "zendesk", role: "admin" }
+        let!(:intake) { create :intake, intake_ticket_id: ticket_id, zendesk_instance_domain: "eitc" }
+
+        before do
+          allow(subject).to receive(:current_user).and_return(user)
+          allow(subject).to receive(:current_ticket).and_return(ticket)
+        end
+
+        context "in production" do
+          before { allow(Rails).to receive(:env).and_return("production".inquiry) }
+
+          it "does not show the 'Create case' button" do
+            get :show, params: { id: ticket_id }
+
+            expect(response.body).not_to include("Create case")
+          end
+        end
+
+        context "in any other enviroment" do
+          before { allow(Rails).to receive(:env).and_return("demo".inquiry) }
+
+          it "shows the 'Create case' button that would submit the id for the first intake" do
+            get :show, params: { id: ticket_id }
+
+            expect(response.body).to include("Create case")
+            expect(response.body).to include("name=\"intake_id\" value=\"#{intake.id}\"")
+          end
+        end
+      end
     end
   end
 end
