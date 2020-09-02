@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: cases
+# Table name: case_files
 #
 #  id               :bigint           not null, primary key
 #  email_address    :string           not null
@@ -10,7 +10,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
-class Case < ApplicationRecord
+class CaseFile < ApplicationRecord
   def self.create_from_intake(intake)
     create(
       preferred_name: intake.preferred_name,
