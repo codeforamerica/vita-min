@@ -8,7 +8,7 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
 
   scenario "new client" do
     visit "/thc/drop-off"
-    expect(page).to have_text "Valet VITA Drop-off"
+    expect(page).to have_text "Drop-off form"
 
     select "Lamar Community College", from: "Intake Site"
     expect(page).to have_select("State", selected: "Colorado")
@@ -32,7 +32,7 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
 
     click_on "Add another drop-off"
 
-    expect(page).to have_text "Valet VITA Drop-off"
+    expect(page).to have_text "Drop-off form"
     expect(page).to have_select("Intake Site", selected: "Lamar Community College")
   end
 
@@ -40,7 +40,7 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
     create :intake_site_drop_off, email: "jjackfruit@example.com", zendesk_ticket_id: "35"
 
     visit "/thc/drop-off"
-    expect(page).to have_text "Valet VITA Drop-off"
+    expect(page).to have_text "Drop-off form"
 
     select "Lamar Community College", from: "Intake Site"
     fill_in "Client name", with: "Jane Jackfruit"
@@ -60,6 +60,6 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
 
     click_on "Add another drop-off"
 
-    expect(page).to have_text "Valet VITA Drop-off"
+    expect(page).to have_text "Drop-off form"
   end
 end
