@@ -10,7 +10,7 @@ RSpec.describe SendCompletedIntakeToZendeskJob, type: :job do
     allow(fake_zendesk_intake_service).to receive(:send_all_docs).and_return(true)
   end
 
-  describe "#perform" do
+  describe "#perform", active_job: true do
     let(:intake) do
       create :intake, intake_ticket_id: rand(2**(7 * 8))
     end

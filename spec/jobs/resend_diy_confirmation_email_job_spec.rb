@@ -4,7 +4,7 @@ RSpec.describe ResendDiyConfirmationEmailJob, type: :job do
   let(:fake_zendesk_intake_service) { double(ZendeskDiyIntakeService) }
   let(:diy_intake) { create(:diy_intake) }
 
-  describe "#perform" do
+  describe "#perform", active_job: true do
     context "without errors" do
       it "appends a comment to the existing ticket" do
         expect(ZendeskDiyIntakeService).to receive(:new).with(diy_intake)

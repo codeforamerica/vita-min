@@ -44,7 +44,7 @@ RSpec.describe CreateZendeskDiyIntakeTicketJob, type: :job do
       end
     end
 
-    context "with errors" do
+    context "with errors", active_job: true do
       context "when an error is raised while assigning requester" do
         before do
           expect(ZendeskDiyIntakeService).to receive(:new).with(diy_intake)

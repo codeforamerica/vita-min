@@ -1,4 +1,4 @@
-class SendIntakePdfToZendeskJob < ApplicationJob
+class SendIntakePdfToZendeskJob < ZendeskJob
   queue_as :default
 
   def perform(intake_id)

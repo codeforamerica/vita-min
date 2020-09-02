@@ -1,5 +1,5 @@
 shared_examples "catches exceptions with raven context" do |action|
-  context "when error occurs" do
+  context "when error occurs", active_job: true do
     it "sends the intake ticket_id to Sentry" do
       allow(fake_zendesk_intake_service).to receive(action)
         .and_raise("Test Error")
@@ -12,7 +12,7 @@ shared_examples "catches exceptions with raven context" do |action|
 end
 
 shared_examples 'a ticket-dependent job' do |zervice|
-  context 'when the intake ticket id is missing' do
+  context 'when the intake ticket id is missing', active_job: true do
     let(:intake) do
       create :intake, intake_ticket_id: nil
     end

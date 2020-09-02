@@ -1,4 +1,4 @@
-class ZendeskInboundSmsJob < ApplicationJob
+class ZendeskInboundSmsJob < ZendeskJob
   queue_as :default
 
   def perform(sms_ticket_id:, phone_number:, message_body:)
