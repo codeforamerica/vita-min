@@ -713,8 +713,8 @@ es:
               a: Si no tiene la obligación de presentar una declaración de impuestos pero tiene ingresos del trabajo, le recomendamos que lo haga a través de GetYourRefund, ya que podría ser elegible para otros créditos tributarios. Si tiene que declarar impuestos pero no lo hizo en 2018 o en 2019, todavía está a tiempo de hacerlo con GetYourRefund.
               q: "¿Qué debo hacer si no presenté una declaración de impuestos federales?"
             other_benefits:
-              a_html: Debería recibir el pago automáticamente y no es necesario que complete un formulario. Si desea cambiar los detalles de su pago, visite el sitio web %{irs_get_my_payment_link} del IRS.
-              q: "¿Qué pasa si estoy en SSI, SSDI, beneficios de jubilación ferroviaria, C&P?"
+              a_html: Debe recibir el pago automáticamente y no es necesario llenar un formulario. Si desea cambiar los detalles de su pago, visite el sitio web %{irs_get_my_payment_link} del IRS.
+              q: "¿Qué pasa si obtengo beneficios del Seguro Social, SSDI, beneficios de jubilación ferroviaria, C&P?"
             payment_amount:
               a_html: El IRS tiene un sitio web %{irs_eip_calculator_link} para ayudarlo a calcular cuánto dinero recibirá.
               calculate_eip_website_title: '"¿Cómo calculo mi EIP?"'
