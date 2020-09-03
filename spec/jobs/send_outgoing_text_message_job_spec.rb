@@ -13,15 +13,51 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
       allow(Twilio::REST::Client).to receive(:new).and_return(fake_twilio_client)
     end
 
-    it "send the message to Twilio and saves the status into the model" do
-      allow(fake_twilio_client).to receive_message_chain(:messages, :create)
-        .with(from: "+15555551212", to: case_file.sms_phone_number, body: outgoing_text_message.body)
-        .and_return(fake_twilio_message)
+    context "in the development environment" do
+      before do
+        allow(Rails).to receive(:env).and_return("development".inquiry)
+      end
 
-      SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id)
+      it "send the message to Twilio and saves the status into the model" do
+        allow(fake_twilio_client).to receive_message_chain(:messages, :create)
+                                       .with(from: "+15555551212", to: case_file.sms_phone_number, body: outgoing_text_message.body)
+                                       .and_return(fake_twilio_message)
 
-      expect(outgoing_text_message.reload.twilio_sid).to eq "123"
-      expect(outgoing_text_message.reload.twilio_status).to eq "sent"
+        SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id)
+
+        expect(outgoing_text_message.reload.twilio_sid).to eq "123"
+        expect(outgoing_text_message.reload.twilio_status).to eq "sent"
+      end
+    end
+
+    context "in a non-development environment" do
+      before do
+        allow(Rails).to receive(:env).and_return("staging".inquiry)
+      end
+
+      let(:verifiable_outgoing_text_message_id) do
+        ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base).generate(
+          outgoing_text_message.id.to_s, purpose: :twilio_text_message_status_callback
+        )
+      end
+
+      it "send the message to Twilio along with a status callback URL and saves the status into the model" do
+        allow(fake_twilio_client).to receive_message_chain(:messages, :create)
+          .with(
+            from: "+15555551212",
+            to: case_file.sms_phone_number,
+            body: outgoing_text_message.body,
+            status_callback: case_files_text_status_callback_url(
+              verifiable_outgoing_text_message_id: verifiable_outgoing_text_message_id
+            )
+          )
+          .and_return(fake_twilio_message)
+
+        SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id)
+
+        expect(outgoing_text_message.reload.twilio_sid).to eq "123"
+        expect(outgoing_text_message.reload.twilio_status).to eq "sent"
+      end
     end
   end
 end

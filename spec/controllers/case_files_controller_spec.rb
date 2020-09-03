@@ -159,4 +159,30 @@ RSpec.describe CaseFilesController do
       end
     end
   end
+
+  describe "#text_status_callback" do
+    let(:outgoing_text_message) { create :outgoing_text_message }
+
+    context "with invalid params" do
+      it "does nothing" do
+        expect {
+          post :text_status_callback, params: { verifiable_outgoing_text_message_id: "bad_id", message_status: "fake_status" }
+        }.not_to change { outgoing_text_message.twilio_status }
+      end
+    end
+
+    context "with valid params" do
+      it "saves the status to the message" do
+        verifiable_id = ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base).generate(
+          outgoing_text_message.id.to_s, purpose: :twilio_text_message_status_callback
+        )
+        post :text_status_callback, params: {
+          verifiable_outgoing_text_message_id: verifiable_id,
+          MessageStatus: "sent"
+        }
+
+        expect(outgoing_text_message.reload.twilio_status).to eq "sent"
+      end
+    end
+  end
 end

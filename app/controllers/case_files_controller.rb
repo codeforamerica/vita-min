@@ -1,7 +1,7 @@
 class CaseFilesController < ApplicationController
   include ZendeskAuthenticationControllerHelper
 
-  before_action :require_zendesk_admin
+  before_action :require_zendesk_admin, except: :text_status_callback
 
   layout "admin"
 
@@ -27,5 +27,14 @@ class CaseFilesController < ApplicationController
     )
     SendOutgoingTextMessageJob.perform_later(outgoing_text_message.id)
     redirect_to case_file_path(id: params[:case_file_id])
+  end
+
+  def text_status_callback
+    id = ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base).verified(
+      params[:verifiable_outgoing_text_message_id], purpose: :twilio_text_message_status_callback
+    )
+    return if id.blank?
+
+    OutgoingTextMessage.find(id).update(twilio_status: params[:MessageStatus])
   end
 end
