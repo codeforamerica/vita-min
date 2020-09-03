@@ -97,6 +97,21 @@ RSpec.describe CaseFilesController do
         expect(response.body).to include(client_case.email_address)
         expect(response.body).to include(client_case.phone_number)
       end
+
+      context "with existing contact history" do
+        let!(:expected_contact_history) do
+          [
+            create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2020, 1, 1, 0, 0, 1), case_file: client_case),
+          ]
+        end
+
+        it "displays prior messages" do
+          get :show, params: { id: client_case.id }
+
+          expect(assigns(:contact_history)).to eq expected_contact_history
+          expect(response.body).to include("Your tax return is great")
+        end
+      end
     end
   end
 end

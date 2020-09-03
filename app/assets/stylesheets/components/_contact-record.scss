@@ -1,0 +1,19 @@
+.contact-record {
+  &--outgoing-text-message {
+   margin-left: 3rem;
+    .contact-record__heading {
+      padding-left: 3rem;
+    }
+    .contact-record__name {
+      font-weight: bold;
+    }
+    .contact-record__time {}
+    .contact-record__body {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      padding-left: 3rem;
+      padding-right: 0.75rem;
+      background-color: white;
+    }
+  }
+}

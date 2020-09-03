@@ -15,5 +15,6 @@ class CaseFilesController < ApplicationController
 
   def show
     @case_file = CaseFile.find(params[:id])
+    @contact_history = @case_file.outgoing_text_messages
   end
 end

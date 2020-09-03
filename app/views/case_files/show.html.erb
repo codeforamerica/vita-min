@@ -10,4 +10,24 @@
     <h3>Phone: <%= @case_file.phone_number %></h3>
     <h3>Phone for texting: <%= @case_file.sms_phone_number %></h3>
   </div>
+  <h2>Contact History</h2>
+  <% if @contact_history.present? %>
+  <ul class="contact-history">
+    <% @contact_history.each do |contact_record| %>
+      <li class="contact-record contact-record--outgoing-text-message">
+        <div class="contact-record__heading">
+          <span class="contact-record__name">
+            <%= contact_record.user.name %>
+          </span>
+          <span class="contact-record__time">
+            <%= contact_record.sent_at %>
+          </span>
+        </div>
+        <div class="contact-record__body">
+          <%= contact_record.body %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <% end %>
 <% end %>

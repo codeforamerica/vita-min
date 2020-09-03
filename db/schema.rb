@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_02_205739) do
+ActiveRecord::Schema.define(version: 2020_09_02_221616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -351,6 +351,17 @@ ActiveRecord::Schema.define(version: 2020_09_02_205739) do
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
 
+  create_table "outgoing_text_messages", force: :cascade do |t|
+    t.string "body", null: false
+    t.bigint "case_file_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "sent_at", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["case_file_id"], name: "index_outgoing_text_messages_on_case_file_id"
+    t.index ["user_id"], name: "index_outgoing_text_messages_on_user_id"
+  end
+
   create_table "provider_scrapes", force: :cascade do |t|
     t.integer "archived_count", default: 0, null: false
     t.integer "changed_count", default: 0, null: false
@@ -460,6 +471,8 @@ ActiveRecord::Schema.define(version: 2020_09_02_205739) do
   add_foreign_key "idme_users", "intakes"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
+  add_foreign_key "outgoing_text_messages", "case_files"
+  add_foreign_key "outgoing_text_messages", "users"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "states_vita_partners", "vita_partners"
   add_foreign_key "ticket_statuses", "intakes"

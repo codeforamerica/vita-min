@@ -11,6 +11,8 @@
 #  updated_at       :datetime         not null
 #
 class CaseFile < ApplicationRecord
+  has_many :outgoing_text_messages
+
   def self.create_from_intake(intake)
     create(
       preferred_name: intake.preferred_name,
