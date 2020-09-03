@@ -33,10 +33,11 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
     context "in a non-development environment" do
       before do
         allow(Rails).to receive(:env).and_return("staging".inquiry)
+        allow(EnvironmentCredentials).to receive(:dig).with(:secret_key_base).and_return("a_secret_key")
       end
 
       let(:verifiable_outgoing_text_message_id) do
-        ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base).generate(
+        ActiveSupport::MessageVerifier.new("a_secret_key").generate(
           outgoing_text_message.id.to_s, purpose: :twilio_text_message_status_callback
         )
       end

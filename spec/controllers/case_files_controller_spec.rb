@@ -163,6 +163,10 @@ RSpec.describe CaseFilesController do
   describe "#text_status_callback" do
     let(:outgoing_text_message) { create :outgoing_text_message }
 
+    before do
+      allow(EnvironmentCredentials).to receive(:dig).with(:secret_key_base).and_return("a_secret_key")
+    end
+
     context "with invalid params" do
       it "does nothing" do
         expect {
@@ -173,7 +177,7 @@ RSpec.describe CaseFilesController do
 
     context "with valid params" do
       it "saves the status to the message" do
-        verifiable_id = ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base).generate(
+        verifiable_id = ActiveSupport::MessageVerifier.new("a_secret_key").generate(
           outgoing_text_message.id.to_s, purpose: :twilio_text_message_status_callback
         )
         post :text_status_callback, params: {

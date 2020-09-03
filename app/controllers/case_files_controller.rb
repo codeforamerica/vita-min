@@ -30,7 +30,7 @@ class CaseFilesController < ApplicationController
   end
 
   def text_status_callback
-    id = ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base).verified(
+    id = ActiveSupport::MessageVerifier.new(EnvironmentCredentials.dig(:secret_key_base)).verified(
       params[:verifiable_outgoing_text_message_id], purpose: :twilio_text_message_status_callback
     )
     return if id.blank?

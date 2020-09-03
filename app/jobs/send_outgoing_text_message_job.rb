@@ -14,7 +14,7 @@ class SendOutgoingTextMessageJob < ApplicationJob
       body: outgoing_text_message.body,
     }
     unless Rails.env.development?
-      verifiable_outgoing_text_message_id = ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base).generate(
+      verifiable_outgoing_text_message_id = ActiveSupport::MessageVerifier.new(EnvironmentCredentials.dig(:secret_key_base)).generate(
         outgoing_text_message.id.to_s, purpose: :twilio_text_message_status_callback
       )
       params[:status_callback] = case_files_text_status_callback_url(
