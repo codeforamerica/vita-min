@@ -2,6 +2,7 @@ class CaseFilesController < ApplicationController
   include ZendeskAuthenticationControllerHelper
 
   before_action :require_zendesk_admin, except: :text_status_callback
+  skip_before_action :verify_authenticity_token, only: :create
 
   layout "admin"
 
