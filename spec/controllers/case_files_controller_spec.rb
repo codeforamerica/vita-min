@@ -101,15 +101,30 @@ RSpec.describe CaseFilesController do
       context "with existing contact history" do
         let!(:expected_contact_history) do
           [
-            create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2020, 1, 1, 0, 0, 1), case_file: client_case),
+            create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2020, 1, 1, 0, 0, 1), case_file: client_case, twilio_status: twilio_status),
           ]
         end
 
-        it "displays prior messages" do
-          get :show, params: { id: client_case.id }
+        context "with a status from Twilio" do
+          let(:twilio_status) { "queued" }
 
-          expect(assigns(:contact_history)).to eq expected_contact_history
-          expect(response.body).to include("Your tax return is great")
+          it "displays prior messages" do
+            get :show, params: { id: client_case.id }
+
+            expect(assigns(:contact_history)).to eq expected_contact_history
+            expect(response.body).to include("Your tax return is great")
+            expect(response.body).to include("queued")
+          end
+        end
+
+        context "without a status from Twilio" do
+          let(:twilio_status) { nil }
+
+          it "shows sending... for outgoing text messages without a Twilio status" do
+            get :show, params: { id: client_case.id }
+
+            expect(response.body).to include("sending...")
+          end
         end
       end
     end

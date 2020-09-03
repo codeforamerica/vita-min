@@ -22,6 +22,9 @@
           <span class="contact-record__time">
             <%= contact_record.sent_at %>
           </span>
+          <span class="contact-record__status">
+            <%= contact_record.twilio_status || "sending..." %>
+          </span>
         </div>
         <div class="contact-record__body">
           <%= contact_record.body %>

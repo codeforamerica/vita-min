@@ -8,6 +8,9 @@
       font-weight: bold;
     }
     .contact-record__time {}
+    .contact-record__status {
+      color: $color-grey-dark;
+    }
     .contact-record__body {
       padding-top: 2rem;
       padding-bottom: 2rem;
