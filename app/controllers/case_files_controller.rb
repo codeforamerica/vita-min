@@ -17,4 +17,15 @@ class CaseFilesController < ApplicationController
     @case_file = CaseFile.find(params[:id])
     @contact_history = @case_file.outgoing_text_messages
   end
+
+  def send_text
+    outgoing_text_message = OutgoingTextMessage.create(
+      case_file: CaseFile.find(params[:case_file_id]),
+      body: params[:body],
+      sent_at: DateTime.now,
+      user: current_user,
+    )
+    SendOutgoingTextMessageJob.perform_later(outgoing_text_message.id)
+    redirect_to case_file_path(id: params[:case_file_id])
+  end
 end
