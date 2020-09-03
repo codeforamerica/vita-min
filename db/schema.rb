@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_02_221616) do
+ActiveRecord::Schema.define(version: 2020_09_03_182626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -356,6 +356,8 @@ ActiveRecord::Schema.define(version: 2020_09_02_221616) do
     t.bigint "case_file_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "sent_at", null: false
+    t.string "twilio_sid"
+    t.string "twilio_status"
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.index ["case_file_id"], name: "index_outgoing_text_messages_on_case_file_id"

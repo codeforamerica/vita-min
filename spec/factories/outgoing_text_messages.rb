@@ -2,13 +2,15 @@
 #
 # Table name: outgoing_text_messages
 #
-#  id           :bigint           not null, primary key
-#  body         :string           not null
-#  sent_at      :datetime         not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  case_file_id :bigint           not null
-#  user_id      :bigint           not null
+#  id            :bigint           not null, primary key
+#  body          :string           not null
+#  sent_at       :datetime         not null
+#  twilio_sid    :string
+#  twilio_status :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  case_file_id  :bigint           not null
+#  user_id       :bigint           not null
 #
 # Indexes
 #
