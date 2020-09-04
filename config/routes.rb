@@ -104,6 +104,7 @@ Rails.application.routes.draw do
     resources :case_files, only: [:show, :create]
     post "/case_files/send_text", to: "case_files#send_text"
     post "/case_files/text_status_callback", to: "case_files#text_status_callback"
+    post "/case_files/incoming_text_message", to: "case_files#incoming_text_message"
 
     # Any other top level slash just goes to home as a source parameter
     get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }

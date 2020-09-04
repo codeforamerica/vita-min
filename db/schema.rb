@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_03_182626) do
+ActiveRecord::Schema.define(version: 2020_09_04_175723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,16 @@ ActiveRecord::Schema.define(version: 2020_09_03_182626) do
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["intake_id"], name: "index_idme_users_on_intake_id"
+  end
+
+  create_table "incoming_text_messages", force: :cascade do |t|
+    t.string "body", null: false
+    t.bigint "case_file_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.string "from_phone_number", null: false
+    t.datetime "received_at", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["case_file_id"], name: "index_incoming_text_messages_on_case_file_id"
   end
 
   create_table "intake_site_drop_offs", force: :cascade do |t|
@@ -471,6 +481,7 @@ ActiveRecord::Schema.define(version: 2020_09_03_182626) do
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents_requests", "intakes"
   add_foreign_key "idme_users", "intakes"
+  add_foreign_key "incoming_text_messages", "case_files"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "outgoing_text_messages", "case_files"
