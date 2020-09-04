@@ -18,7 +18,7 @@ vita_partners:
   zendesk_group_id: '360008424134'
   display_name: Goodwill Industries of the Southern Rivers
   logo_path: ''
-  weekly_capacity_limit: 0
+  weekly_capacity_limit: 50
 - name: United Way of King County
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009173713'
@@ -141,6 +141,7 @@ vita_partners:
   states:
   - AK
   logo_path: ''
+  weekly_capacity_limit: 100
 - name: "[United Way California] Orange County"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009858073'
@@ -173,7 +174,7 @@ vita_partners:
   - catalyst
   - RefundDay-C
   logo_path: ''
-  weekly_capacity_limit: 100
+  weekly_capacity_limit: 40
 - name: RefundDay
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009657014'
@@ -200,7 +201,7 @@ vita_partners:
   source_parameters:
   - uwcrpa
   logo_path: ''
-  weekly_capacity_limit: 0
+  weekly_capacity_limit: 50
 - name: United Way of Greenville County
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010052433'
@@ -318,6 +319,7 @@ vita_partners:
   states:
   - MD
   logo_path: ''
+  weekly_capacity_limit: 40
 - name: Michigan Online Intake
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010913693'
@@ -331,6 +333,7 @@ vita_partners:
   source_parameters:
   - MICAUW
   logo_path: ''
+  weekly_capacity_limit: 20
 - name: Michigan Economic Impact Coalition
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010915334'
@@ -352,7 +355,7 @@ vita_partners:
   source_parameters:
   - GITOK
   logo_path: partner-logos/gw-tulsa.png
-  weekly_capacity_limit: 0
+  weekly_capacity_limit: 50
 - name: "[RefundDay] City of Miami"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011031993'
@@ -360,6 +363,7 @@ vita_partners:
   source_parameters:
   - cityofmiami
   logo_path: partner-logos/city-of-miami.png
+  weekly_capacity_limit: 100
 - name: "[RefundDay] United Way of Lee/Hendry/Glades/Okeechobee County"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011522613'
@@ -399,6 +403,7 @@ vita_partners:
   source_parameters:
   - mmcdc
   logo_path: ''
+  weekly_capacity_limit: 50
 - name: Grow Brooklyn Free Tax Prep
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011201713'
@@ -419,7 +424,7 @@ vita_partners:
   states:
   - AL
   logo_path: partner-logos/uw-central-alabama.jpg
-  weekly_capacity_limit: 25
+  weekly_capacity_limit: 50
 - name: United Way of Greater Nashville
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011486894'
@@ -430,7 +435,7 @@ vita_partners:
   - TN
   - GA
   logo_path: partner-logos/uw-greater-nashville.png
-  weekly_capacity_limit: 500
+  weekly_capacity_limit: 300
 - name: Zacchaeus House for Tax Assistance
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011728613'
@@ -483,6 +488,7 @@ vita_partners:
   logo_path: 'partner-logos/UWSC.png'
   states:
     - FL
+  weekly_capacity_limit: 100
 - name: Temple University
   zendesk_instance_domain: eitc
   zendesk_group_id: '360012561073'
@@ -498,6 +504,7 @@ vita_partners:
   - orr
   - Goodwill-Tacoma
   logo_path: 'partner-logos/goodwill_orr.png'
+  weekly_capacity_limit: 20
 - name: Central City Neighborhood Partners [Los Angeles Ventanilla VITA site]
   zendesk_instance_domain: eitc
   zendesk_group_id: '360012587493'
