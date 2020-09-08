@@ -27,4 +27,16 @@ class OutgoingTextMessage < ApplicationRecord
   belongs_to :user
   validates_presence_of :body
   validates_presence_of :sent_at
+
+  def contact_record_type
+    self.class.name.underscore.to_sym
+  end
+
+  def datetime
+    sent_at
+  end
+
+  def author
+    user.name
+  end
 end

@@ -18,20 +18,11 @@
 #
 #  fk_rails_...  (case_file_id => case_files.id)
 #
-class IncomingTextMessage < ApplicationRecord
-  belongs_to :case_file
-  validates_presence_of :body
-  validates_presence_of :received_at
-
-  def contact_record_type
-    self.class.name.underscore.to_sym
-  end
-
-  def datetime
-    received_at
-  end
-
-  def author
-    Phonelib.parse(from_phone_number).local_number
+FactoryBot.define do
+  factory :incoming_text_message do
+    case_file
+    body { "nothin" }
+    from_phone_number { "14155537865" }
+    sequence(:received_at) { |n| DateTime.new(2020, 9, 2, 15, 1, 30) + n.minutes }
   end
 end

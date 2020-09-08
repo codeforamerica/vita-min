@@ -14,17 +14,19 @@
   <% if @contact_history.present? %>
   <ul class="contact-history">
     <% @contact_history.each do |contact_record| %>
-      <li class="contact-record contact-record--outgoing-text-message">
+      <li class="contact-record contact-record--<%= contact_record.contact_record_type %>">
         <div class="contact-record__heading">
           <span class="contact-record__name">
-            <%= contact_record.user.name %>
+            <%= contact_record.author %>
           </span>
           <span class="contact-record__time">
-            <%= contact_record.sent_at %>
+            <%= contact_record.datetime %>
           </span>
-          <span class="contact-record__status">
-            <%= contact_record.twilio_status || "sending..." %>
-          </span>
+          <% if contact_record.contact_record_type == :outgoing_text_message %>
+            <span class="contact-record__status">
+              <%= contact_record.twilio_status || "sending..." %>
+            </span>
+          <% end %>
         </div>
         <div class="contact-record__body">
           <%= contact_record.body %>

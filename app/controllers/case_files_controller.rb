@@ -16,7 +16,7 @@ class CaseFilesController < ApplicationController
 
   def show
     @case_file = CaseFile.find(params[:id])
-    @contact_history = @case_file.outgoing_text_messages
+    @contact_history = (@case_file.outgoing_text_messages + @case_file.incoming_text_messages).sort_by(&:datetime)
   end
 
   def send_text
@@ -37,21 +37,5 @@ class CaseFilesController < ApplicationController
     return if id.blank?
 
     OutgoingTextMessage.find(id).update(twilio_status: params[:MessageStatus])
-  end
-
-  def incoming_text_message
-    validator = Twilio::Security::RequestValidator.new(EnvironmentCredentials.dig(:twilio, :auth_token))
-    return head 403 unless validator.validate(case_files_incoming_text_message_url, params, request.headers["X-Twilio-Signature"])
-
-    case_file = CaseFile.find_by_sms_phone_number(params[:from])
-    return unless case_file
-
-    IncomingTextMessage.create!(
-      body: params[:body],
-      received_at: DateTime.now,
-      from_phone_number: params[:from],
-      case_file: case_file,
-    )
-    nil
   end
 end

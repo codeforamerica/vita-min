@@ -102,6 +102,7 @@ RSpec.describe CaseFilesController do
         let!(:expected_contact_history) do
           [
             create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2020, 1, 1, 0, 0, 1), case_file: client_case, twilio_status: twilio_status),
+            create(:incoming_text_message, body: "Thx appreciate yr gratitude", received_at: DateTime.new(2020, 1, 1, 0, 0, 2), case_file: client_case),
           ]
         end
 
@@ -114,6 +115,7 @@ RSpec.describe CaseFilesController do
             expect(assigns(:contact_history)).to eq expected_contact_history
             expect(response.body).to include("Your tax return is great")
             expect(response.body).to include("queued")
+            expect(response.body).to include("Thx appreciate yr gratitude")
           end
         end
 
@@ -201,71 +203,6 @@ RSpec.describe CaseFilesController do
         }
 
         expect(outgoing_text_message.reload.twilio_status).to eq "sent"
-      end
-    end
-  end
-
-  describe "#incoming_text_message" do
-    let(:fake_validator) { instance_double(Twilio::Security::RequestValidator) }
-    let(:incoming_phone_number) { "+15555551212" }
-
-    before do
-      allow(Twilio::Security::RequestValidator).to receive(:new).and_return fake_validator
-    end
-
-    context "the request passes Twilio's request validation" do
-      before do
-        allow(fake_validator).to receive(:validate).and_return true
-      end
-
-      context "one case file matches the incoming phone number" do
-        let!(:case_file) { create(:case_file, sms_phone_number: incoming_phone_number) }
-
-        it "creates an IncomingTextMessage tied to the case file" do
-          expect {
-            post :incoming_text_message, params: { from: incoming_phone_number, body: "sup cfa" }
-          }.to change(IncomingTextMessage, :count).from(0).to(1)
-          message = IncomingTextMessage.last
-          expect(message.body).to eq("sup cfa")
-          expect(message.case_file).to eq(case_file)
-        end
-      end
-
-      context "multiple case files match the incoming phone number" do
-        let!(:case_file_1) { create(:case_file, sms_phone_number: incoming_phone_number) }
-        let!(:case_file_2) { create(:case_file, sms_phone_number: incoming_phone_number) }
-
-        it "creates an IncomingTextMessage tied to any matching case file" do
-          expect {
-            post :incoming_text_message, params: { from: incoming_phone_number, body: "sup cfa" }
-          }.to change(IncomingTextMessage, :count).from(0).to(1)
-          message = IncomingTextMessage.last
-          expect(message.body).to eq("sup cfa")
-          expect(message.case_file).to eq(case_file_1) | eq(case_file_2)
-        end
-      end
-
-      context "no case file matches the incoming phone number" do
-        it "does nothing" do
-          expect {
-            post :incoming_text_message, params: { from: incoming_phone_number, body: "sup cfa" }
-          }.not_to change(IncomingTextMessage, :count)
-        end
-      end
-    end
-
-    context "the request fails Twilio's request validation" do
-      before do
-        create(:case_file, sms_phone_number: incoming_phone_number)
-        allow(fake_validator).to receive(:validate).and_return false
-      end
-
-      it "does not create an IncomingTextMessage and provides a 403 status code" do
-        expect {
-          post :incoming_text_message, params: { from: incoming_phone_number, body: "sup cfa" }
-        }.not_to change(IncomingTextMessage, :count)
-
-        expect(response.status).to eq 403
       end
     end
   end

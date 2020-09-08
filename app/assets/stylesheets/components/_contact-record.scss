@@ -1,5 +1,6 @@
 .contact-record {
-  &--outgoing-text-message {
+  margin-bottom: 2rem;
+  &--outgoing_text_message {
    margin-left: 3rem;
     .contact-record__heading {
       padding-left: 3rem;
@@ -16,6 +17,27 @@
       padding-bottom: 2rem;
       padding-left: 3rem;
       padding-right: 0.75rem;
+      background-color: white;
+    }
+  }
+
+  &--incoming_text_message {
+    margin-right: 3rem;
+    .contact-record__heading {
+      padding-left: 1rem;
+    }
+    .contact-record__name {
+      font-weight: bold;
+    }
+    .contact-record__time {}
+    .contact-record__status {
+      color: $color-grey-dark;
+    }
+    .contact-record__body {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      padding-left: 1rem;
+      padding-right: 2rem;
       background-color: white;
     }
   }
