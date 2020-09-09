@@ -163,7 +163,7 @@ RSpec.describe CaseFilesController do
 
       let(:user) { build :user, provider: "zendesk", id: 1, role: "admin" }
 
-      it "sends a text" do
+      it "sends a text", active_job: true do
         expect {
           post :send_text, params: { case_file_id: client_case.id, body: "This is an outgoing text" }
         }.to change(OutgoingTextMessage, :count).from(0).to(1)
@@ -173,36 +173,6 @@ RSpec.describe CaseFilesController do
         expect(outgoing_text_message.case_file).to eq client_case
         expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
         expect(response).to redirect_to(case_file_path(id: client_case.id))
-      end
-    end
-  end
-
-  describe "#text_status_callback" do
-    let(:outgoing_text_message) { create :outgoing_text_message }
-
-    before do
-      allow(EnvironmentCredentials).to receive(:dig).with(:secret_key_base).and_return("a_secret_key")
-    end
-
-    context "with invalid params" do
-      it "does nothing" do
-        expect {
-          post :text_status_callback, params: { verifiable_outgoing_text_message_id: "bad_id", message_status: "fake_status" }
-        }.not_to change { outgoing_text_message.twilio_status }
-      end
-    end
-
-    context "with valid params" do
-      it "saves the status to the message" do
-        verifiable_id = ActiveSupport::MessageVerifier.new("a_secret_key").generate(
-          outgoing_text_message.id.to_s, purpose: :twilio_text_message_status_callback
-        )
-        post :text_status_callback, params: {
-          verifiable_outgoing_text_message_id: verifiable_id,
-          MessageStatus: "sent"
-        }
-
-        expect(outgoing_text_message.reload.twilio_status).to eq "sent"
       end
     end
   end

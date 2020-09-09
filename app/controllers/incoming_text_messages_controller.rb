@@ -1,6 +1,5 @@
 class IncomingTextMessagesController < ApplicationController
-  skip_before_action :verify_authenticity_token
-  before_action :validate_twilio_request
+  include TwilioRequestable
 
   def create
     phone_number = Phonelib.parse(params["From"]).sanitized
@@ -16,11 +15,5 @@ class IncomingTextMessagesController < ApplicationController
       case_file: case_file,
     )
     head :ok
-  end
-
-  private
-
-  def validate_twilio_request
-    return head 403 unless TwilioService.valid_request?(request)
   end
 end

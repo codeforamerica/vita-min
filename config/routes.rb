@@ -104,14 +104,17 @@ Rails.application.routes.draw do
     resources :case_files, only: [:show, :create]
     post "/case_files/send_text", to: "case_files#send_text"
 
-    resources :incoming_text_messages, only: [:create]
-    post "/case_files/text_status_callback", to: "case_files#text_status_callback"
-
     # Any other top level slash just goes to home as a source parameter
     get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
   end
 
   # Routes outside of the locale scope are not internationalized
+
+  # Messaging routes
+  resources :incoming_text_messages, only: [:create]
+  # outgoing message update needs to accept the POST verb instead of PUT or PATCH for Twilio callbacks
+  post "/outgoing_text_messages/:id", to: "outgoing_text_messages#update", as: :outgoing_text_message
+
   resources :ajax_mixpanel_events, only: [:create]
   post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
   post "/email", to: "email#create"
