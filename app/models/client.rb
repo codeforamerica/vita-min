@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: case_files
+# Table name: clients
 #
 #  id               :bigint           not null, primary key
 #  email_address    :string
@@ -10,7 +10,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
-class CaseFile < ApplicationRecord
+class Client < ApplicationRecord
   has_many :outgoing_text_messages
   has_many :incoming_text_messages
 

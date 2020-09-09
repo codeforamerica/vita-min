@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: case_files
+# Table name: clients
 #
 #  id               :bigint           not null, primary key
 #  email_address    :string
@@ -11,7 +11,7 @@
 #  updated_at       :datetime         not null
 #
 FactoryBot.define do
-  factory :case_file do
+  factory :client do
     preferred_name { "Casey" }
     email_address { "client@example.com" }
     phone_number { "14155551212" }

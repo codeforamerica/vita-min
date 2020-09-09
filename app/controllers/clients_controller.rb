@@ -1,8 +1,7 @@
-class CaseFilesController < ApplicationController
+class ClientsController < ApplicationController
   include ZendeskAuthenticationControllerHelper
 
-  before_action :require_zendesk_admin, except: [:text_status_callback, :incoming_text_message]
-  skip_before_action :verify_authenticity_token, only: [:text_status_callback, :incoming_text_message]
+  before_action :require_zendesk_admin
 
   layout "admin"
 
@@ -10,24 +9,24 @@ class CaseFilesController < ApplicationController
     intake = Intake.find_by(id: params[:intake_id])
     return head 422 unless intake.present?
 
-    created_case = CaseFile.create_from_intake(intake)
-    redirect_to case_file_path(id: created_case.id)
+    client = Client.create_from_intake(intake)
+    redirect_to client_path(id: client.id)
   end
 
   def show
-    @case_file = CaseFile.find(params[:id])
-    @contact_history = (@case_file.outgoing_text_messages + @case_file.incoming_text_messages).sort_by(&:datetime)
+    @client = Client.find(params[:id])
+    @contact_history = (@client.outgoing_text_messages + @client.incoming_text_messages).sort_by(&:datetime)
   end
 
   def send_text
     outgoing_text_message = OutgoingTextMessage.create(
-      case_file: CaseFile.find(params[:case_file_id]),
+      client: Client.find(params[:client_id]),
       body: params[:body],
       sent_at: DateTime.now,
       user: current_user,
     )
     SendOutgoingTextMessageJob.perform_later(outgoing_text_message.id)
-    redirect_to case_file_path(id: params[:case_file_id])
+    redirect_to client_path(id: params[:client_id])
   end
 
   def text_status_callback

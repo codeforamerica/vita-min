@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe CaseFilesController do
+RSpec.describe ClientsController do
   describe "#create" do
     let(:intake) { create :intake, email_address: "client@example.com", phone_number: "14155537865", preferred_name: "Casey" }
     let(:valid_params) do
@@ -37,23 +37,23 @@ RSpec.describe CaseFilesController do
         it "does nothing and returns invalid request status code" do
           expect {
             post :create, params: {}
-          }.not_to change(CaseFile, :count)
+          }.not_to change(Client, :count)
 
           expect(response.status).to eq 422
         end
       end
 
       context "with an intake id" do
-        it "creates a case_file from the intake and redirects to show" do
+        it "creates a client from the intake and redirects to show" do
           expect {
             post :create, params: valid_params
-          }.to change(CaseFile, :count).by(1)
+          }.to change(Client, :count).by(1)
 
-          new_case = CaseFile.last
-          expect(new_case.email_address).to eq "client@example.com"
-          expect(new_case.phone_number).to eq "14155537865"
-          expect(new_case.preferred_name).to eq "Casey"
-          expect(response).to redirect_to case_file_path(id: new_case.id)
+          client = Client.last
+          expect(client.email_address).to eq "client@example.com"
+          expect(client.phone_number).to eq "14155537865"
+          expect(client.preferred_name).to eq "Casey"
+          expect(response).to redirect_to client_path(id: client.id)
         end
       end
     end
@@ -64,12 +64,12 @@ RSpec.describe CaseFilesController do
       allow(subject).to receive(:current_user).and_return user
     end
 
-    let(:client_case) { create :case_file }
+    let(:client) { create :client }
 
     context "as an anonymous user" do
       let(:user) { nil }
       it "redirects to sign in" do
-        get :show, params: { id: client_case.id }
+        get :show, params: { id: client.id }
 
         expect(response).to redirect_to zendesk_sign_in_path
       end
@@ -79,7 +79,7 @@ RSpec.describe CaseFilesController do
       let(:user) { build :user, provider: "zendesk", id: 1 }
 
       it "redirects to sign in" do
-        get :show, params: { id: client_case.id }
+        get :show, params: { id: client.id }
 
         expect(response).to redirect_to zendesk_sign_in_path
       end
@@ -90,19 +90,19 @@ RSpec.describe CaseFilesController do
 
       let(:user) { build :user, provider: "zendesk", id: 1, role: "admin" }
 
-      it "shows case_file information" do
-        get :show, params: { id: client_case.id }
+      it "shows client information" do
+        get :show, params: { id: client.id }
 
-        expect(response.body).to include(client_case.preferred_name)
-        expect(response.body).to include(client_case.email_address)
-        expect(response.body).to include(client_case.phone_number)
+        expect(response.body).to include(client.preferred_name)
+        expect(response.body).to include(client.email_address)
+        expect(response.body).to include(client.phone_number)
       end
 
       context "with existing contact history" do
         let!(:expected_contact_history) do
           [
-            create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2020, 1, 1, 0, 0, 1), case_file: client_case, twilio_status: twilio_status),
-            create(:incoming_text_message, body: "Thx appreciate yr gratitude", received_at: DateTime.new(2020, 1, 1, 0, 0, 2), case_file: client_case),
+            create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2020, 1, 1, 0, 0, 1), client: client, twilio_status: twilio_status),
+            create(:incoming_text_message, body: "Thx appreciate yr gratitude", received_at: DateTime.new(2020, 1, 1, 0, 0, 2), client: client),
           ]
         end
 
@@ -110,7 +110,7 @@ RSpec.describe CaseFilesController do
           let(:twilio_status) { "queued" }
 
           it "displays prior messages" do
-            get :show, params: { id: client_case.id }
+            get :show, params: { id: client.id }
 
             expect(assigns(:contact_history)).to eq expected_contact_history
             expect(response.body).to include("Your tax return is great")
@@ -123,7 +123,7 @@ RSpec.describe CaseFilesController do
           let(:twilio_status) { nil }
 
           it "shows sending... for outgoing text messages without a Twilio status" do
-            get :show, params: { id: client_case.id }
+            get :show, params: { id: client.id }
 
             expect(response.body).to include("sending...")
           end
@@ -137,12 +137,12 @@ RSpec.describe CaseFilesController do
       allow(subject).to receive(:current_user).and_return user
     end
 
-    let(:client_case) { create :case_file }
+    let(:client) { create :client }
 
     context "as an anonymous user" do
       let(:user) { nil }
       it "redirects to sign in" do
-        post :send_text, params: { case_file_id: client_case.id, body: "This is an outgoing text" }
+        post :send_text, params: { client_id: client.id, body: "This is an outgoing text" }
 
         expect(response).to redirect_to zendesk_sign_in_path
       end
@@ -152,7 +152,7 @@ RSpec.describe CaseFilesController do
       let(:user) { build :user, provider: "zendesk", id: 1 }
 
       it "redirects to sign in" do
-        post :send_text, params: { case_file_id: client_case.id, body: "This is an outgoing text" }
+        post :send_text, params: { client_id: client.id, body: "This is an outgoing text" }
 
         expect(response).to redirect_to zendesk_sign_in_path
       end
@@ -165,14 +165,14 @@ RSpec.describe CaseFilesController do
 
       it "sends a text", active_job: true do
         expect {
-          post :send_text, params: { case_file_id: client_case.id, body: "This is an outgoing text" }
+          post :send_text, params: { client_id: client.id, body: "This is an outgoing text" }
         }.to change(OutgoingTextMessage, :count).from(0).to(1)
 
         outgoing_text_message = OutgoingTextMessage.last
         expect(outgoing_text_message.body).to eq "This is an outgoing text"
-        expect(outgoing_text_message.case_file).to eq client_case
+        expect(outgoing_text_message.client).to eq client
         expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
-        expect(response).to redirect_to(case_file_path(id: client_case.id))
+        expect(response).to redirect_to(client_path(id: client.id))
       end
     end
   end

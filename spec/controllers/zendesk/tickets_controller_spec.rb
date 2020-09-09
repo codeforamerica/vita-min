@@ -129,20 +129,20 @@ RSpec.describe Zendesk::TicketsController do
         context "in production" do
           before { allow(Rails).to receive(:env).and_return("production".inquiry) }
 
-          it "does not show the 'Create case file' button" do
+          it "does not show the 'Create client' button" do
             get :show, params: { id: ticket_id }
 
-            expect(response.body).not_to include("Create case file")
+            expect(response.body).not_to include("Create client")
           end
         end
 
         context "in any other enviroment" do
           before { allow(Rails).to receive(:env).and_return("demo".inquiry) }
 
-          it "shows the 'Create case file' button that would submit the id for the first intake" do
+          it "shows the 'Create client' button that would submit the id for the first intake" do
             get :show, params: { id: ticket_id }
 
-            expect(response.body).to include("Create case file")
+            expect(response.body).to include("Create client")
             expect(response.body).to include("name=\"intake_id\" value=\"#{intake.id}\"")
           end
         end
