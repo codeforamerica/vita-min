@@ -1,6 +1,6 @@
 .contact-record {
   margin-bottom: 2rem;
-  &--outgoing_text_message {
+  &--outgoing_text_message, &--outgoing_email {
    margin-left: 3rem;
     .contact-record__heading {
       padding-left: 3rem;
@@ -18,6 +18,12 @@
       padding-left: 3rem;
       padding-right: 0.75rem;
       background-color: white;
+    }
+    .contact-record__subject::before {
+      content: "✉️ ";
+    }
+    .contact-record__subject {
+      color: $color-grey-dark;
     }
   }
 
