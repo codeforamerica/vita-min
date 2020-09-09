@@ -27,6 +27,11 @@
               <%= contact_record.twilio_status || "sending..." %>
             </span>
           <% end %>
+          <% if contact_record.contact_record_type == :outgoing_email %>
+            <div class="contact-record__subject">
+              <%= contact_record.subject %>
+            </div>
+          <% end %>
         </div>
         <div class="contact-record__body">
           <%= contact_record.body %>

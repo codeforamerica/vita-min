@@ -11,7 +11,7 @@ class ClientsController < ApplicationController
 
     # Don't create additional clients if we already have one
     return redirect_to client_path(id: intake.client_id) if intake.client_id.present?
-    
+
     client = Client.create_from_intake(intake)
     intake.update(client: client)
     redirect_to client_path(id: client.id)
@@ -19,7 +19,8 @@ class ClientsController < ApplicationController
 
   def show
     @client = Client.find(params[:id])
-    @contact_history = (@client.outgoing_text_messages + @client.incoming_text_messages).sort_by(&:datetime)
+    @contact_history = (@client.outgoing_text_messages + @client.incoming_text_messages + @client.outgoing_emails
+                       ).sort_by(&:datetime)
   end
 
   def send_text

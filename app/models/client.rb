@@ -13,6 +13,7 @@
 class Client < ApplicationRecord
   has_many :intakes
   has_many :outgoing_text_messages
+  has_many :outgoing_emails
   has_many :incoming_text_messages
 
   def self.create_from_intake(intake)

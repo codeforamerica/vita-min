@@ -115,33 +115,43 @@ RSpec.describe ClientsController do
       end
 
       context "with existing contact history" do
+        let(:twilio_status) { nil }
         let!(:expected_contact_history) do
           [
             create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2020, 1, 1, 0, 0, 1), client: client, twilio_status: twilio_status),
             create(:incoming_text_message, body: "Thx appreciate yr gratitude", received_at: DateTime.new(2020, 1, 1, 0, 0, 2), client: client),
+            create(:outgoing_email, body: "We are really excited to work with you", sent_at: DateTime.new(2020, 1, 1, 0, 0, 3), client: client),
           ]
         end
 
-        context "with a status from Twilio" do
-          let(:twilio_status) { "queued" }
+        it "displays all message bodies sorted by date" do
+          get :show, params: { id: client.id }
 
-          it "displays prior messages" do
-            get :show, params: { id: client.id }
-
-            expect(assigns(:contact_history)).to eq expected_contact_history
-            expect(response.body).to include("Your tax return is great")
-            expect(response.body).to include("queued")
-            expect(response.body).to include("Thx appreciate yr gratitude")
-          end
+          expect(assigns(:contact_history)).to eq expected_contact_history
+          expect(response.body).to include("Your tax return is great")
+          expect(response.body).to include("Thx appreciate yr gratitude")
+          expect(response.body).to include("We are really excited to work with you")
         end
 
-        context "without a status from Twilio" do
-          let(:twilio_status) { nil }
+        context "SMS status from Twilio" do
+          context "with status" do
+            let(:twilio_status) { "queued" }
 
-          it "shows sending... for outgoing text messages without a Twilio status" do
-            get :show, params: { id: client.id }
+            it "displays the status" do
+              get :show, params: { id: client.id }
 
-            expect(response.body).to include("sending...")
+              expect(response.body).to include("queued")
+            end
+          end
+
+          context "without status" do
+            let(:twilio_status) { nil }
+
+            it "shows sending..." do
+              get :show, params: { id: client.id }
+
+              expect(response.body).to include("sending...")
+            end
           end
         end
       end
