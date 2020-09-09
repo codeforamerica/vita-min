@@ -9,17 +9,17 @@
 #  twilio_status :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  case_file_id  :bigint           not null
+#  client_id     :bigint           not null
 #  user_id       :bigint           not null
 #
 # Indexes
 #
-#  index_outgoing_text_messages_on_case_file_id  (case_file_id)
-#  index_outgoing_text_messages_on_user_id       (user_id)
+#  index_outgoing_text_messages_on_client_id  (client_id)
+#  index_outgoing_text_messages_on_user_id    (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (case_file_id => case_files.id)
+#  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (user_id => users.id)
 #
 require "rails_helper"
@@ -32,7 +32,7 @@ RSpec.describe OutgoingTextMessage, type: :model do
       it "is not valid and adds an error to each field" do
         expect(message).not_to be_valid
         expect(message.errors).to include :user
-        expect(message.errors).to include :case_file
+        expect(message.errors).to include :client
         expect(message.errors).to include :sent_at
         expect(message.errors).to include :body
       end
@@ -42,7 +42,7 @@ RSpec.describe OutgoingTextMessage, type: :model do
       let(:message) do
         OutgoingTextMessage.new(
           user: create(:user),
-          case_file: create(:case_file),
+          client: create(:client),
           body: "hi",
           sent_at: DateTime.now
         )

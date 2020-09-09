@@ -8,18 +8,18 @@
 #  received_at       :datetime         not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  case_file_id      :bigint           not null
+#  client_id         :bigint           not null
 #
 # Indexes
 #
-#  index_incoming_text_messages_on_case_file_id  (case_file_id)
+#  index_incoming_text_messages_on_client_id  (client_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (case_file_id => case_files.id)
+#  fk_rails_...  (client_id => clients.id)
 #
 class IncomingTextMessage < ApplicationRecord
-  belongs_to :case_file
+  belongs_to :client
   validates_presence_of :body
   validates_presence_of :received_at
 

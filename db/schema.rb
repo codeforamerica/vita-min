@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_192228) do
+ActiveRecord::Schema.define(version: 2020_09_09_013619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_192228) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "case_files", force: :cascade do |t|
+  create_table "clients", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.string "email_address"
     t.string "phone_number"
@@ -159,12 +159,12 @@ ActiveRecord::Schema.define(version: 2020_09_08_192228) do
 
   create_table "incoming_text_messages", force: :cascade do |t|
     t.string "body", null: false
-    t.bigint "case_file_id", null: false
+    t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.string "from_phone_number", null: false
     t.datetime "received_at", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["case_file_id"], name: "index_incoming_text_messages_on_case_file_id"
+    t.index ["client_id"], name: "index_incoming_text_messages_on_client_id"
   end
 
   create_table "intake_site_drop_offs", force: :cascade do |t|
@@ -363,14 +363,14 @@ ActiveRecord::Schema.define(version: 2020_09_08_192228) do
 
   create_table "outgoing_text_messages", force: :cascade do |t|
     t.string "body", null: false
-    t.bigint "case_file_id", null: false
+    t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "sent_at", null: false
     t.string "twilio_sid"
     t.string "twilio_status"
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.index ["case_file_id"], name: "index_outgoing_text_messages_on_case_file_id"
+    t.index ["client_id"], name: "index_outgoing_text_messages_on_client_id"
     t.index ["user_id"], name: "index_outgoing_text_messages_on_user_id"
   end
 
@@ -481,10 +481,10 @@ ActiveRecord::Schema.define(version: 2020_09_08_192228) do
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents_requests", "intakes"
   add_foreign_key "idme_users", "intakes"
-  add_foreign_key "incoming_text_messages", "case_files"
+  add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
-  add_foreign_key "outgoing_text_messages", "case_files"
+  add_foreign_key "outgoing_text_messages", "clients"
   add_foreign_key "outgoing_text_messages", "users"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "states_vita_partners", "vita_partners"

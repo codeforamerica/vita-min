@@ -46,7 +46,7 @@ RSpec.describe IncomingTextMessagesController do
       end
 
       context "with a matching client phone number" do
-        let!(:existing_client) { create :case_file, phone_number: "15552341122" }
+        let!(:existing_client) { create :client, phone_number: "15552341122" }
 
         it "creates a new IncomingTextMessage linked to the client the right data" do
           expect do
@@ -58,12 +58,12 @@ RSpec.describe IncomingTextMessagesController do
           expect(message.body).to eq "Hello, it me"
           expect(message.from_phone_number).to eq "15552341122"
           expect(message.received_at).to eq current_time
-          expect(message.case_file).to eq existing_client
+          expect(message.client).to eq existing_client
         end
       end
 
       context "with a matching client sms_phone_number" do
-        let!(:existing_client) { create :case_file, sms_phone_number: "15552341122" }
+        let!(:existing_client) { create :client, sms_phone_number: "15552341122" }
 
         it "creates a new IncomingTextMessage linked to the client the right data" do
           expect do
@@ -71,7 +71,7 @@ RSpec.describe IncomingTextMessagesController do
           end.to change(IncomingTextMessage, :count).by 1
 
           message = IncomingTextMessage.last
-          expect(message.case_file).to eq existing_client
+          expect(message.client).to eq existing_client
         end
       end
 
@@ -79,8 +79,8 @@ RSpec.describe IncomingTextMessagesController do
         # We have not discussed the best way to handle this scenario
         # This spec is intended to document existing behavior more than
         # prescribe the correct way to handle this.
-        let!(:client1) { create :case_file, sms_phone_number: "15552341122" }
-        let!(:client2) { create :case_file, phone_number: "15552341122" }
+        let!(:client1) { create :client, sms_phone_number: "15552341122" }
+        let!(:client2) { create :client, phone_number: "15552341122" }
 
         it "creates a new IncomingTextMessage linked to the first client" do
           expect do
@@ -88,7 +88,7 @@ RSpec.describe IncomingTextMessagesController do
           end.to change(IncomingTextMessage, :count).by 1
 
           message = IncomingTextMessage.last
-          expect(message.case_file).to eq client1
+          expect(message.client).to eq client1
         end
       end
 
@@ -96,14 +96,14 @@ RSpec.describe IncomingTextMessagesController do
         it "creates a new client and creates a new incoming text message linked to that client" do
           expect do
             post :create, params: incoming_message_params
-          end.to change(IncomingTextMessage, :count).by(1).and change(CaseFile, :count).by(1)
+          end.to change(IncomingTextMessage, :count).by(1).and change(Client, :count).by(1)
 
           message = IncomingTextMessage.last
           expect(message.body).to eq "Hello, it me"
           expect(message.from_phone_number).to eq "15552341122"
           expect(message.received_at).to eq current_time
-          client = CaseFile.last
-          expect(message.case_file).to eq client
+          client = Client.last
+          expect(message.client).to eq client
           expect(client.phone_number).to eq "15552341122"
           expect(client.sms_phone_number).to eq "15552341122"
         end

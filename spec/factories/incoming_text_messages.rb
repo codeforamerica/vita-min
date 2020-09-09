@@ -8,19 +8,19 @@
 #  received_at       :datetime         not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  case_file_id      :bigint           not null
+#  client_id         :bigint           not null
 #
 # Indexes
 #
-#  index_incoming_text_messages_on_case_file_id  (case_file_id)
+#  index_incoming_text_messages_on_client_id  (client_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (case_file_id => case_files.id)
+#  fk_rails_...  (client_id => clients.id)
 #
 FactoryBot.define do
   factory :incoming_text_message do
-    case_file
+    client
     body { "nothin" }
     from_phone_number { "14155537865" }
     sequence(:received_at) { |n| DateTime.new(2020, 9, 2, 15, 1, 30) + n.minutes }

@@ -101,8 +101,8 @@ Rails.application.routes.draw do
       end
       resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
     end
-    resources :case_files, only: [:show, :create]
-    post "/case_files/send_text", to: "case_files#send_text"
+    resources :clients, only: [:show, :create]
+    post "/clients/send_text", to: "clients#send_text"
 
     # Any other top level slash just goes to home as a source parameter
     get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
