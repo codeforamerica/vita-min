@@ -44,16 +44,32 @@ RSpec.describe ClientsController do
       end
 
       context "with an intake id" do
-        it "creates a client from the intake and redirects to show" do
-          expect {
-            post :create, params: valid_params
-          }.to change(Client, :count).by(1)
+        context "with an intake that does not yet have a client" do
+          it "creates a client linked to the intake and redirects to show" do
+            expect {
+              post :create, params: valid_params
+            }.to change(Client, :count).by(1)
 
-          client = Client.last
-          expect(client.email_address).to eq "client@example.com"
-          expect(client.phone_number).to eq "14155537865"
-          expect(client.preferred_name).to eq "Casey"
-          expect(response).to redirect_to client_path(id: client.id)
+            client = Client.last
+            expect(client.email_address).to eq "client@example.com"
+            expect(client.phone_number).to eq "14155537865"
+            expect(client.preferred_name).to eq "Casey"
+            expect(intake.reload.client).to eq client
+            expect(response).to redirect_to client_path(id: client.id)
+          end
+        end
+
+        context "with an intake that already has a client" do
+          let(:client) { create :client }
+          let!(:intake) { create :intake, client: client }
+
+          it "just redirects to the existing client" do
+            expect {
+              post :create, params: valid_params
+            }.not_to change(Client, :count)
+
+            expect(response).to redirect_to client_path(id: client.id)
+          end
         end
       end
     end

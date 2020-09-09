@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_09_013619) do
+ActiveRecord::Schema.define(version: 2020_09_09_020442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 2020_09_09_013619) do
     t.integer "bought_health_insurance", default: 0, null: false
     t.string "city"
     t.integer "claimed_by_another", default: 0, null: false
+    t.bigint "client_id"
     t.datetime "completed_at"
     t.boolean "completed_intake_sent_to_zendesk"
     t.boolean "continued_at_capacity", default: false
@@ -357,6 +358,7 @@ ActiveRecord::Schema.define(version: 2020_09_09_013619) do
     t.string "widowed_year"
     t.string "zendesk_instance_domain"
     t.string "zip_code"
+    t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["triage_source_type", "triage_source_id"], name: "index_intakes_on_triage_source_type_and_triage_source_id"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
