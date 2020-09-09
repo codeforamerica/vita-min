@@ -11,6 +11,7 @@
 #  updated_at       :datetime         not null
 #
 class Client < ApplicationRecord
+  has_many :intakes
   has_many :outgoing_text_messages
   has_many :incoming_text_messages
 

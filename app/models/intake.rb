@@ -165,6 +165,7 @@
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
+#  client_id                                            :bigint
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  primary_intake_id                                    :integer
@@ -175,6 +176,7 @@
 #
 # Indexes
 #
+#  index_intakes_on_client_id                                (client_id)
 #  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
 #  index_intakes_on_vita_partner_id                          (vita_partner_id)
 #
@@ -188,6 +190,7 @@ class Intake < ApplicationRecord
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
   has_many :ticket_statuses, -> { order(created_at: :asc) }
+  belongs_to :client, optional: true
   belongs_to :vita_partner, optional: true
   belongs_to :triage_source, optional: true, polymorphic: true
 

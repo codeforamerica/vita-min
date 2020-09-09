@@ -9,7 +9,11 @@ class ClientsController < ApplicationController
     intake = Intake.find_by(id: params[:intake_id])
     return head 422 unless intake.present?
 
+    # Don't create additional clients if we already have one
+    return redirect_to client_path(id: intake.client_id) if intake.client_id.present?
+    
     client = Client.create_from_intake(intake)
+    intake.update(client: client)
     redirect_to client_path(id: client.id)
   end
 

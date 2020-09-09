@@ -165,6 +165,7 @@
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
+#  client_id                                            :bigint
 #  intake_ticket_id                                     :bigint
 #  intake_ticket_requester_id                           :bigint
 #  primary_intake_id                                    :integer
@@ -175,6 +176,7 @@
 #
 # Indexes
 #
+#  index_intakes_on_client_id                                (client_id)
 #  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
 #  index_intakes_on_vita_partner_id                          (vita_partner_id)
 #
