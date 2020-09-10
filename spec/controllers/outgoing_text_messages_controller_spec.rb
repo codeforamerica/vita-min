@@ -1,44 +1,53 @@
 require "rails_helper"
 
 RSpec.describe OutgoingTextMessagesController do
-  describe "#update" do
-    let!(:existing_message) { create :outgoing_text_message }
+  describe "#create" do
+    before do
+      allow(subject).to receive(:current_user).and_return user
+    end
 
-    context "with an invalid request" do
-      before do
-        allow(TwilioService).to receive(:valid_request?).and_return false
-      end
+    let(:client) { create :client }
+    let(:valid_params) do
+      {
+        outgoing_text_message: {
+          client_id: client.id,
+          body: "This is an outgoing text"
+        }
+      }
+    end
 
-      it "returns a 403 status code" do
-        post :update, params: { id: existing_message.id }
+    context "as an anonymous user" do
+      let(:user) { nil }
+      it "redirects to client page" do
+        post :create, params: valid_params
 
-        expect(response.status).to eq 403
+        expect(response).to redirect_to client_path(id: client.id)
       end
     end
 
-    context "with a valid request" do
-      let(:params) do
-        {
-          "SmsSid" => "SM86006fa9b56c465597ce14349as6s7a2",
-          "SmsStatus" => "delivered",
-          "MessageStatus" => "delivered",
-          "To" => "+14083483513",
-          "MessageSid" => "SM86006fa9b56c465597ce14987a3f85a2",
-          "AccountSid" => "AC70b4e3aa44fe96139823d8f00a46fre7",
-          "From" => "+15136133299",
-          "ApiVersion" => "2010-04-01",
-          "id" => existing_message.id
-        }
-      end
-      before do
-        allow(TwilioService).to receive(:valid_request?).and_return true
-      end
+    context "as an authenticated non-admin user" do
+      let(:user) { build :user, provider: "zendesk", id: 1 }
 
-      it "updates the status of the existing message" do
-        post :update, params: params
+      it "redirects to client page" do
+        post :create, params: valid_params
 
-        expect(response).to be_ok
-        expect(existing_message.reload.twilio_status).to eq "delivered"
+        expect(response).to redirect_to client_path(id: client.id)
+      end
+    end
+
+    context "as an authenticated admin user" do
+      let(:user) { build :user, provider: "zendesk", id: 1, role: "admin" }
+
+      it "sends a text", active_job: true do
+        expect {
+          post :create, params: valid_params
+        }.to change(OutgoingTextMessage, :count).from(0).to(1)
+
+        outgoing_text_message = OutgoingTextMessage.last
+        expect(outgoing_text_message.body).to eq "This is an outgoing text"
+        expect(outgoing_text_message.client).to eq client
+        expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
+        expect(response).to redirect_to(client_path(id: client.id))
       end
     end
   end

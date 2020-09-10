@@ -178,6 +178,11 @@ es:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
   views:
+    clients:
+      show:
+        text_message_form:
+          label: Enviar un mensaje de texto
+          submit: Enviar
     dependents:
       form:
         birth_date: Fecha de nacimiento

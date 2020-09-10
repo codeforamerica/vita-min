@@ -157,49 +157,4 @@ RSpec.describe ClientsController do
       end
     end
   end
-
-  describe "#send_text" do
-    before do
-      allow(subject).to receive(:current_user).and_return user
-    end
-
-    let(:client) { create :client }
-
-    context "as an anonymous user" do
-      let(:user) { nil }
-      it "redirects to sign in" do
-        post :send_text, params: { client_id: client.id, body: "This is an outgoing text" }
-
-        expect(response).to redirect_to zendesk_sign_in_path
-      end
-    end
-
-    context "as an authenticated non-admin user" do
-      let(:user) { build :user, provider: "zendesk", id: 1 }
-
-      it "redirects to sign in" do
-        post :send_text, params: { client_id: client.id, body: "This is an outgoing text" }
-
-        expect(response).to redirect_to zendesk_sign_in_path
-      end
-    end
-
-    context "as an authenticated admin user" do
-      render_views
-
-      let(:user) { build :user, provider: "zendesk", id: 1, role: "admin" }
-
-      it "sends a text", active_job: true do
-        expect {
-          post :send_text, params: { client_id: client.id, body: "This is an outgoing text" }
-        }.to change(OutgoingTextMessage, :count).from(0).to(1)
-
-        outgoing_text_message = OutgoingTextMessage.last
-        expect(outgoing_text_message.body).to eq "This is an outgoing text"
-        expect(outgoing_text_message.client).to eq client
-        expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
-        expect(response).to redirect_to(client_path(id: client.id))
-      end
-    end
-  end
 end

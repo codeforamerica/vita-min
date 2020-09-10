@@ -40,14 +40,10 @@
     <% end %>
   </ul>
   <% end %>
-  <div style="text-align: right; width: 100%;">
-    <%= form_with url: clients_send_text_path, local: true, builder: VitaMinFormBuilder, method: "post", html: { class: 'form-card form-card--long' } do |f| %>
-      <%= label_tag(:body, "Send text message:") %>
-      <%= text_field_tag(:body) %>
-      <input type="hidden" name="client_id" value="<%= @client.id %>" />
-      <button class="button" type="submit">
-        Send
-      </button>
-    <% end %>
-  </div>
+
+  <%= form_with model: @outgoing_text_message, url: outgoing_text_messages_path, local: true, builder: VitaMinFormBuilder, method: "post", html: { class: 'text-message-form' } do |f| %>
+    <%= f.cfa_input_field :body, t("views.clients.show.text_message_form.label") %>
+    <%= f.hidden_field :client_id %>
+    <%= f.submit t("views.clients.show.text_message_form.submit"), class: "button" %>
+  <% end %>
 <% end %>

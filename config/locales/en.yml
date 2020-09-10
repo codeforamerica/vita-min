@@ -178,6 +178,11 @@ en:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
   views:
+    clients:
+      show:
+        text_message_form:
+          label: Send a text message
+          submit: Send
     dependents:
       form:
         birth_date: Date of birth

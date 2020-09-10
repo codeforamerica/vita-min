@@ -88,7 +88,7 @@ Rails.application.routes.draw do
     get "/422", to: "public_pages#internal_server_error"
     get "/404", to: "public_pages#page_not_found"
 
-    # Admin routes
+    # Zendesk Admin routes
     get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
     namespace :zendesk do
       resources :tickets, only: [:show]
@@ -101,8 +101,11 @@ Rails.application.routes.draw do
       end
       resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
     end
+
+    # New Case Management Admin routes
     resources :clients, only: [:show, :create]
-    post "/clients/send_text", to: "clients#send_text"
+    resources :outgoing_text_messages, only: [:create]
+    resources :outgoing_emails, only: [:create]
 
     # Any other top level slash just goes to home as a source parameter
     get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
@@ -110,11 +113,9 @@ Rails.application.routes.draw do
 
   # Routes outside of the locale scope are not internationalized
 
-  # Messaging routes
-  resources :incoming_text_messages, only: [:create]
-  resources :outgoing_emails, only: [:create]
-  # outgoing message update needs to accept the POST verb instead of PUT or PATCH for Twilio callbacks
-  post "/outgoing_text_messages/:id", to: "outgoing_text_messages#update", as: :outgoing_text_message
+  # Twilio Webhook routes
+  post "/outgoing_text_messages/:id", to: "twilio_webhooks#update_outgoing_text_message", as: :outgoing_text_message
+  post "/incoming_text_messages", to: "twilio_webhooks#create_incoming_text_message", as: :incoming_text_messages
 
   resources :ajax_mixpanel_events, only: [:create]
   post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
