@@ -3,7 +3,7 @@ FactoryBot.define do
     client
     user
     body { "nothin" }
-    subject { "Re: Re: Nothing" }
+    subject { "Update from GetYourRefund" }
     sequence(:sent_at) { |n| DateTime.new(2020, 9, 2, 15, 1, 30) + n.minutes }
   end
 end

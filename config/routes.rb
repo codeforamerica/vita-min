@@ -112,6 +112,7 @@ Rails.application.routes.draw do
 
   # Messaging routes
   resources :incoming_text_messages, only: [:create]
+  resources :outgoing_emails, only: [:create]
   # outgoing message update needs to accept the POST verb instead of PUT or PATCH for Twilio callbacks
   post "/outgoing_text_messages/:id", to: "outgoing_text_messages#update", as: :outgoing_text_message
 
