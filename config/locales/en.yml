@@ -183,6 +183,9 @@ en:
   views:
     clients:
       show:
+        email_form:
+          label: Send an email
+          submit: Send
         text_message_form:
           label: Send a text message
           submit: Send
