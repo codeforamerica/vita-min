@@ -19,8 +19,12 @@ class ClientsController < ApplicationController
 
   def show
     @client = Client.find(params[:id])
-    @contact_history = (@client.outgoing_text_messages + @client.incoming_text_messages + @client.outgoing_emails
-                       ).sort_by(&:datetime)
+    @contact_history = (
+      @client.outgoing_text_messages +
+      @client.incoming_text_messages +
+      @client.outgoing_emails +
+      @client.incoming_emails
+    ).sort_by(&:datetime)
     @outgoing_text_message = OutgoingTextMessage.new(client: @client)
     @outgoing_email = OutgoingEmail.new(client: @client)
   end

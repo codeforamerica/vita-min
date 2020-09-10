@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_09_172020) do
+ActiveRecord::Schema.define(version: 2020_09_10_210703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,28 @@ ActiveRecord::Schema.define(version: 2020_09_09_172020) do
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["intake_id"], name: "index_idme_users_on_intake_id"
+  end
+
+  create_table "incoming_emails", force: :cascade do |t|
+    t.integer "attachment_count"
+    t.string "body_html"
+    t.string "body_plain", null: false
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.string "from", null: false
+    t.string "message_id"
+    t.string "received"
+    t.datetime "received_at", null: false
+    t.string "recipient", null: false
+    t.string "sender", null: false
+    t.string "stripped_html"
+    t.string "stripped_signature"
+    t.string "stripped_text"
+    t.string "subject"
+    t.string "to", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "user_agent"
+    t.index ["client_id"], name: "index_incoming_emails_on_client_id"
   end
 
   create_table "incoming_text_messages", force: :cascade do |t|

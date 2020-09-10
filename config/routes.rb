@@ -113,9 +113,11 @@ Rails.application.routes.draw do
 
   # Routes outside of the locale scope are not internationalized
 
-  # Twilio Webhook routes
+  # Twilio webhook routes
   post "/outgoing_text_messages/:id", to: "twilio_webhooks#update_outgoing_text_message", as: :outgoing_text_message
   post "/incoming_text_messages", to: "twilio_webhooks#create_incoming_text_message", as: :incoming_text_messages
+  # Mailgun webhook routes
+  post "/incoming_emails", to: "mailgun_webhooks#create_incoming_email", as: :incoming_emails
 
   resources :ajax_mixpanel_events, only: [:create]
   post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
