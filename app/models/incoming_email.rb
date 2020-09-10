@@ -27,11 +27,10 @@
 #  index_incoming_emails_on_client_id  (client_id)
 #
 class IncomingEmail < ApplicationRecord
-  belongs_to :client
+  include ContactRecord
 
-  def contact_record_type
-    self.class.name.underscore.to_sym
-  end
+
+  belongs_to :client
 
   def body
     stripped_html&.html_safe || stripped_text || body_html&.html_safe || body_plain

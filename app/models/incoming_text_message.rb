@@ -19,13 +19,11 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class IncomingTextMessage < ApplicationRecord
+  include ContactRecord
+
   belongs_to :client
   validates_presence_of :body
   validates_presence_of :received_at
-
-  def contact_record_type
-    self.class.name.underscore.to_sym
-  end
 
   def datetime
     received_at
