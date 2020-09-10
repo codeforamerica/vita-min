@@ -38,10 +38,10 @@ RSpec.describe OutgoingEmailsController do
         end
         before { allow(DateTime).to receive(:now).and_return(expected_time) }
 
-        it "creates an OutgoingEmail and redirects to client show", active_job: true do
+        it "creates an OutgoingEmail, asks it to deliver itself later, then redirects to client show", active_job: true do
           expect do
             post :create, params: params
-          end.to change(OutgoingEmail, :count).from(0).to(1)
+          end.to change(OutgoingEmail, :count).from(0).to(1).and have_enqueued_mail(OutgoingEmailMailer, :user_message)
           outgoing_email = OutgoingEmail.last
           expect(outgoing_email.subject).to eq("Update from GetYourRefund")
           expect(outgoing_email.body).to eq("hi client")
@@ -49,17 +49,6 @@ RSpec.describe OutgoingEmailsController do
           expect(outgoing_email.user).to eq user
           expect(outgoing_email.sent_at).to eq expected_time
           expect(response).to redirect_to client_path(id: client.id)
-        end
-
-        xcontext "for a non-english client" do
-          let(:client) { create :client, locale: "es" }
-
-          it "translates any default strings in the email" do
-            post :create, params: params
-
-            outgoing_email = OutgoingEmail.last
-            expect(outgoing_email.subject).to eq "Actualización de GetYourRefund"
-          end
         end
       end
 

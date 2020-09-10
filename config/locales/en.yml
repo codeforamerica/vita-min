@@ -9,6 +9,9 @@ en:
     send_requested_documents_later_controller:
       not_found: We're sorry, we couldn't upload your document! To upload another document, please return to the link from your tax specialist.
       success: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more.
+  email:
+    user_message:
+      subject: "Update from GetYourRefund"
   date:
     formats:
       default: "%-m/%-d/%Y"

@@ -9,6 +9,9 @@ es:
     send_requested_documents_later_controller:
       not_found: Lo sentimos, no pudimos cargar su documento. Para cargar otro documento, por favor regrese al enlace enviado por su especialista en impuestos.
       success: "¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales, por favor siga el enlace enviado por su especialista en impuestos para agregar más."
+  email:
+    user_message:
+      subject: "Update from GetYourRefund"
   date:
     formats:
       default: "%-m/%-d/%Y"
