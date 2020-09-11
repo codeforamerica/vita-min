@@ -33,7 +33,7 @@ class IncomingEmail < ApplicationRecord
   belongs_to :client
 
   def body
-    stripped_html&.html_safe || stripped_text || body_html&.html_safe || body_plain
+    stripped_text || body_plain
   end
 
   def datetime
