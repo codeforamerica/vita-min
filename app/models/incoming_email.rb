@@ -29,7 +29,6 @@
 class IncomingEmail < ApplicationRecord
   include ContactRecord
 
-
   belongs_to :client
 
   def body

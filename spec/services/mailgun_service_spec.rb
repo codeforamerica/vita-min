@@ -3,6 +3,8 @@ require 'rails_helper'
 describe MailgunService do
   describe "#valid_post?" do
     let(:params) do
+      # Mailgun param documentation:
+      #   https://documentation.mailgun.com/en/latest/user_manual.html#parsed-messages-parameters
       {
         "Content-Type"  =>  "multipart/mixed; boundary=\"------------020601070403020003080006\"",
         "Date" => "Fri, 26 Apr 2013 11:50:29 -0700",

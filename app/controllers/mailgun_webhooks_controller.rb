@@ -1,7 +1,10 @@
 class MailgunWebhooksController < ActionController::Base
+  skip_before_action :verify_authenticity_token
   before_action :validate_mailgun_params
 
   def create_incoming_email
+    # Mailgun param documentation:
+    #   https://documentation.mailgun.com/en/latest/user_manual.html#parsed-messages-parameters
     sender_email = params["sender"]
     client = Client.where(email_address: sender_email).first
     unless client.present?
