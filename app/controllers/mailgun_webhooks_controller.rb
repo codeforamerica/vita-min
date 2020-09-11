@@ -1,14 +1,5 @@
-class MailgunWebhooksController < ApplicationController
-  skip_before_action :redirect_to_getyourrefund
-  skip_before_action :set_visitor_id
-  skip_before_action :set_source
-  skip_before_action :set_referrer
-  skip_before_action :set_utm_state
-  skip_before_action :set_sentry_context
-  skip_before_action :check_maintenance_mode
-  skip_after_action :track_page_view
-  skip_before_action :verify_authenticity_token
-  before_action :valid_mailgun_post?
+class MailgunWebhooksController < ActionController::Base
+  before_action :validate_mailgun_params
 
   def create_incoming_email
     sender_email = params["sender"]
@@ -37,7 +28,7 @@ class MailgunWebhooksController < ApplicationController
 
   private
 
-  def valid_mailgun_post?
+  def validate_mailgun_params
     return head 403 unless MailgunService.valid_post?(params)
   end
 end

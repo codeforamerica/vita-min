@@ -1,6 +1,5 @@
-class ZendeskWebhookController < ApplicationController
-  skip_before_action :verify_authenticity_token, :set_visitor_id, :set_source, :set_referrer, :set_utm_state
-  before_action :authenticate
+class ZendeskWebhookController < ActionController::Base
+  before_action :authenticate_zendesk_request
 
   def incoming
     case json_payload[:method]
@@ -83,7 +82,7 @@ class ZendeskWebhookController < ApplicationController
     params[:zendesk_webhook]
   end
 
-  def authenticate
+  def authenticate_zendesk_request
     authenticate_or_request_with_http_basic do |name, password|
       expected_name = EnvironmentCredentials.dig(:zendesk_webhook_auth, :name)
       expected_password = EnvironmentCredentials.dig(:zendesk_webhook_auth, :password)
