@@ -11,7 +11,7 @@ class MailgunService
       digest = OpenSSL::Digest::SHA256.new
       data = [timestamp, token].join
       expected_hmac = OpenSSL::HMAC.hexdigest(digest, signing_key, data)
-      # Use constant-time comparison to prevent timing-based key discovery attacks:
+      # Use constant-time comparison to prevent timing-based attacks:
       ActiveSupport::SecurityUtils.fixed_length_secure_compare(signature, expected_hmac)
     end
   end
