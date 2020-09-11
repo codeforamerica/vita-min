@@ -64,11 +64,9 @@ vita_partners:
   display_name: Foundation Communities
   source_parameters:
   - fc
-  states:
-  - TX
   accepts_overflow: false
   logo_path: ''
-  weekly_capacity_limit: 50
+  weekly_capacity_limit: 0
 - name: United Way of Central Ohio
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009440374'
@@ -115,6 +113,7 @@ vita_partners:
   - uwfm
   states:
   - CA
+  - TX
   logo_path: ''
   weekly_capacity_limit: 500
 - name: United Way Bay Area
