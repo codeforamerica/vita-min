@@ -1,0 +1,29 @@
+<% @main_heading = "Organization" %>
+
+<% if @organization.errors.present? %>
+  <% content_for :page_title, "#{@organization.error_summary} #{@main_heading}" %>
+<% else %>
+  <% content_for :page_title, @main_heading %>
+<% end %>
+
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <%= yield :notices %>
+        <main role="main">
+          <%= form_with model: @organization, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+            <h1 class="form-question">
+              <%= @main_heading %>
+            </h1>
+
+            <%= f.cfa_input_field(:name, "Name", classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:slug, "Slug", classes: ["form-width--long"]) %>
+
+            <button class="button button--cta button--wide button--icon text--left" type="submit">
+              Save
+            </button>
+        <% end %>
+        </main>
+      </div>
+    </div>
+  </section>

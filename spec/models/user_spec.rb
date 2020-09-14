@@ -81,4 +81,47 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#can_access?" do
+    let(:user) { create :user }
+    let(:client) { create :client}
+    let(:group) { create :group }
+
+    context "with a client assigned to a group that the user is a member of" do
+      before do
+        GroupAssignment.create(client: client, group: group)
+        GroupMembership.create(user: user, group: group)
+      end
+
+      it "returns true" do
+        expect(user.can_access?(client)).to eq true
+      end
+    end
+
+    context "with a client that is not assigned to a group that the user is a member of" do
+      before do
+        GroupMembership.create(user: user, group: group)
+      end
+
+      it "returns false" do
+        expect(user.can_access?(client)).to eq false
+      end
+    end
+  end
+
+  describe "#accessible_clients" do
+    let(:user) { create :user }
+    let(:group) { create :group }
+    let(:client) { create :client}
+    let(:other_client) { create :client}
+
+    before do
+      GroupAssignment.create(client: client, group: group)
+      GroupMembership.create(user: user, group: group)
+    end
+
+    it "returns clients assigned to a group that the user is a member of" do
+      expect(user.accessible_clients).to eq [client]
+    end
+  end
 end

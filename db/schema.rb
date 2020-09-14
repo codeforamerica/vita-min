@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_210703) do
+ActiveRecord::Schema.define(version: 2020_09_12_020425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,37 @@ ActiveRecord::Schema.define(version: 2020_09_10_210703) do
     t.bigint "intake_id"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
+  end
+
+  create_table "group_assignments", force: :cascade do |t|
+    t.bigint "assigned_by_id"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["assigned_by_id"], name: "index_group_assignments_on_assigned_by_id"
+    t.index ["client_id"], name: "index_group_assignments_on_client_id"
+    t.index ["group_id"], name: "index_group_assignments_on_group_id"
+  end
+
+  create_table "group_memberships", force: :cascade do |t|
+    t.bigint "added_by_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["added_by_id"], name: "index_group_memberships_on_added_by_id"
+    t.index ["group_id"], name: "index_group_memberships_on_group_id"
+    t.index ["user_id"], name: "index_group_memberships_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "description"
+    t.string "name", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_groups_on_organization_id"
   end
 
   create_table "idme_users", force: :cascade do |t|
@@ -385,6 +416,13 @@ ActiveRecord::Schema.define(version: 2020_09_10_210703) do
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
 
+  create_table "organizations", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "outgoing_emails", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "client_id", null: false
@@ -464,6 +502,17 @@ ActiveRecord::Schema.define(version: 2020_09_10_210703) do
     t.index ["intake_id"], name: "index_ticket_statuses_on_intake_id"
   end
 
+  create_table "user_assignments", force: :cascade do |t|
+    t.bigint "assigned_by_id"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["assigned_by_id"], name: "index_user_assignments_on_assigned_by_id"
+    t.index ["client_id"], name: "index_user_assignments_on_client_id"
+    t.index ["user_id"], name: "index_user_assignments_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "active"
     t.datetime "created_at", precision: 6, null: false
@@ -516,6 +565,8 @@ ActiveRecord::Schema.define(version: 2020_09_10_210703) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents_requests", "intakes"
+  add_foreign_key "group_assignments", "users", column: "assigned_by_id"
+  add_foreign_key "group_memberships", "users", column: "added_by_id"
   add_foreign_key "idme_users", "intakes"
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
@@ -527,5 +578,6 @@ ActiveRecord::Schema.define(version: 2020_09_10_210703) do
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "states_vita_partners", "vita_partners"
   add_foreign_key "ticket_statuses", "intakes"
+  add_foreign_key "user_assignments", "users", column: "assigned_by_id"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
 end

@@ -103,6 +103,9 @@ Rails.application.routes.draw do
     end
 
     # New Case Management Admin routes
+    resources :organizations
+    resources :groups
+    resources :users
     resources :clients, only: [:show, :create]
     resources :outgoing_text_messages, only: [:create]
     resources :outgoing_emails, only: [:create]

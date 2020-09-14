@@ -16,6 +16,8 @@ class Client < ApplicationRecord
   has_many :outgoing_emails
   has_many :incoming_text_messages
   has_many :incoming_emails
+  has_many :group_assignments
+  has_many :assigned_groups, through: :group_assignments, source: :group
 
   def self.create_from_intake(intake)
     create(
@@ -24,5 +26,13 @@ class Client < ApplicationRecord
       phone_number: intake.phone_number,
       sms_phone_number: intake.sms_phone_number,
     )
+  end
+
+  def accessible_to?(user)
+    group_assignments.where(id: user.groups).exists?
+  end
+
+  def users_with_access
+    User.joins(:groups).where(groups: {id: assigned_groups})
   end
 end

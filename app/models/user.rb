@@ -22,6 +22,11 @@
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: [:zendesk]
 
+  has_many :group_memberships
+  has_many :groups, through: :group_memberships
+  has_many :assigned_clients, through: :user_assignment, source: :client
+
+
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   def self.from_zendesk_oauth(auth)
@@ -41,5 +46,13 @@ class User < ApplicationRecord
         access_token: auth.credentials.token
       )
     user
+  end
+
+  def accessible_clients
+    Client.joins(:assigned_groups).where(groups: {id: groups})
+  end
+
+  def can_access?(client)
+    groups.where(id: client.assigned_groups.pluck(:id)).exists?
   end
 end
