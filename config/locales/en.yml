@@ -151,6 +151,7 @@ en:
     return_search: Return to search
     search: Search
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
+    sign_out: Sign out
     skip_question: Skip question
     skip_questions: Skip questions
     sorry: We're sorry!
