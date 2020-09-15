@@ -106,6 +106,7 @@ Rails.application.routes.draw do
     resources :clients, only: [:show, :create]
     resources :outgoing_text_messages, only: [:create]
     resources :outgoing_emails, only: [:create]
+    get "/users/profile" => "users#profile", as: :user_profile
 
     # Any other top level slash just goes to home as a source parameter
     get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }

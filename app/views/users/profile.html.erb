@@ -1,0 +1,9 @@
+<% content_for :card do %>
+  <h1><%= current_user.name %></h1>
+  <p>
+    <strong>Email:</strong> <%= current_user.email %>
+  </p>
+  <p>
+    <strong>Role:</strong> <%= current_user.role.capitalize %>
+  </p>
+<% end %>

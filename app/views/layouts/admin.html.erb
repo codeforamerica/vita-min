@@ -1,9 +1,13 @@
 <% content_for :toolbar_right do %>
-  <div class="toolbar__item">
-    <span class="user__welcome">
+  <% if current_user.role == "admin" %>
+    <%= link_to user_profile_path, class: "toolbar__item" do %>
       <%=t("views.layouts.admin.welcome_user_html", :name => current_user.name) %>
-    </span>
-  </div>
+    <% end %>
+  <% else %>
+    <div class="toolbar__item">
+      <%=t("views.layouts.admin.welcome_user_html", :name => current_user.name) %>
+    </div>
+  <% end %>
 <% end if current_user %>
 <% content_for :body_class, "admin" %>
 <% content_for :main do %>
