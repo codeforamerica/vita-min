@@ -4,7 +4,7 @@
 #
 #  id                        :bigint           not null, primary key
 #  active                    :boolean
-#  email                     :string
+#  email                     :string           not null
 #  encrypted_access_token    :string
 #  encrypted_access_token_iv :string
 #  name                      :string
@@ -19,9 +19,13 @@
 #  updated_at                :datetime         not null
 #  zendesk_user_id           :bigint
 #
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
 FactoryBot.define do
   factory :user do
-    uid { SecureRandom.random_number(99999999999999) }
-    email { "gary.gardengnome@example.green" }
+    sequence(:uid)
+    sequence(:email) { |n| "gary.gardengnome#{n}@example.green" }
   end
 end
