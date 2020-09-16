@@ -36,4 +36,30 @@ RSpec.describe Documents::DocumentUploadQuestionController do
       end
     end
   end
+
+  describe ".show?" do
+    before do
+      module TestingClass
+        class ExampleDocumentUploadController < Documents::DocumentUploadQuestionController
+          def self.document_type; end
+        end
+      end
+    end
+
+    context "for intakes with 211 source" do
+      let(:intake) { create :intake, source: "211intake" }
+
+      it "returns false" do
+        expect(TestingClass::ExampleDocumentUploadController.show?(intake)).to eq false
+      end
+    end
+
+    context "for intakes without 211 source" do
+      let(:intake) { create :intake }
+
+      it "returns true" do
+        expect(TestingClass::ExampleDocumentUploadController.show?(intake)).to eq(true)
+      end
+    end
+  end
 end
