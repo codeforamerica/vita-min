@@ -115,6 +115,7 @@ vita_partners:
   - uwfm
   states:
   - CA
+  - FL
   logo_path: ''
   weekly_capacity_limit: 500
 - name: United Way Bay Area
@@ -486,8 +487,6 @@ vita_partners:
   source_parameters:
   - uwsuncoast
   logo_path: 'partner-logos/UWSC.png'
-  states:
-    - FL
   weekly_capacity_limit: 100
 - name: Temple University
   zendesk_instance_domain: eitc

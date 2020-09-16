@@ -852,12 +852,12 @@ describe Intake do
 
       it_behaves_like :state_level_routing, "CO", "Tax Help Colorado (Piton Foundation)", "eitc"
       it_behaves_like :state_level_routing, "CA", "[United Way California] Online Intake", "eitc"
+      it_behaves_like :state_level_routing, "FL", "[United Way California] Online Intake", "eitc"
       it_behaves_like :state_level_routing, "TX", "Foundation Communities", "eitc"
       it_behaves_like :state_level_routing, "WA", "United Way of King County", "eitc"
       it_behaves_like :state_level_routing, "PA", "Campaign for Working Families", "eitc"
       it_behaves_like :state_level_routing, "NV", "Nevada Free Taxes Coalition", "eitc"
       it_behaves_like :state_level_routing, "VA", "United Way of Greater Richmond and Petersburg", "eitc"
-      it_behaves_like :state_level_routing, "FL", "United Way Suncoast", "eitc"
       it_behaves_like :state_level_routing, "MD", "CASH Campaign of MD", "eitc"
       it_behaves_like :state_level_routing, "NY", "Urban Upbound (NY)", "eitc"
       it_behaves_like :state_level_routing, "RI", "Urban Upbound (NY)", "eitc"
