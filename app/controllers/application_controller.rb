@@ -219,6 +219,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_sign_in_path_for(_)
+    user_profile_path
+  end
+
   ##
   # @return [Array(Object)] all potential identifiers
   def all_identifiers
