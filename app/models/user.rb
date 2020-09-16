@@ -35,8 +35,8 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  devise :omniauthable, omniauth_providers: [:zendesk]
-
+  devise :database_authenticatable, :lockable, :timeoutable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:zendesk]
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   def self.from_zendesk_oauth(auth)
