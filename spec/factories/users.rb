@@ -37,6 +37,7 @@
 FactoryBot.define do
   factory :user do
     sequence(:uid)
+    password { "userExamplePassword" }
     sequence(:email) { |n| "gary.gardengnome#{n}@example.green" }
   end
 end

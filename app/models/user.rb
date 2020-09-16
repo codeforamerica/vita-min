@@ -43,7 +43,10 @@ class User < ApplicationRecord
     data_source = auth.info
 
     # Watch out for weird capitalization!
-    user = where(email: data_source.email.downcase).first_or_initialize
+    user = where(email: data_source.email.downcase).first_or_initialize do |new_user|
+      # If creating user via Zendesk auth, give them a random password. They can do a password reset if desired.
+      new_user.password = Devise.friendly_token[0, 20]
+    end
     # update all other fields with latest values from zendesk
     user.update(
       zendesk_user_id: data_source.id,
