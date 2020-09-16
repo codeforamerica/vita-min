@@ -29,6 +29,7 @@ module VitaMin
     config.i18n.available_locales = [:en, :es]
 
     config.active_job.queue_adapter = :delayed_job
+    config.action_view.automatically_disable_submit_tag = false
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

@@ -4,7 +4,7 @@
       <%=t("views.layouts.admin.welcome_user_html", :name => current_user.name) %>
     <% end %>
 
-    <%= form_with url: destroy_user_session_path, local: false, method: :delete, class: "toolbar__item" do |f| %>
+    <%= form_with url: destroy_user_session_path, local: true, method: :delete, class: "toolbar__item" do |f| %>
       <%= f.submit value: t("general.sign_out"), class: "button--link" %>
     <% end %>
   <% else %>
