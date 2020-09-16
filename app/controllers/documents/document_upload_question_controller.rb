@@ -30,6 +30,7 @@ module Documents
     end
 
     def self.show?(intake)
+      return false if intake.source == "211intake"
       return true if document_type.nil?
 
       document_type.needed_if_relevant? && document_type.relevant_to?(intake)

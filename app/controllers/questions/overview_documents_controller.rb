@@ -3,6 +3,11 @@ module Questions
     before_action :require_intake
     layout "application"
 
+    def self.show?(intake)
+      return false if intake.source == "211intake"
+      super
+    end
+
     def self.form_class
       NullForm
     end
