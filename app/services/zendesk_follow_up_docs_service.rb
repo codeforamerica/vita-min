@@ -1,7 +1,6 @@
 class ZendeskFollowUpDocsService
   include ZendeskServiceHelper
   include AttachmentsHelper
-  include ConsolidatedTraceHelper
   include Rails.application.routes.url_helpers
 
   def initialize(intake)
