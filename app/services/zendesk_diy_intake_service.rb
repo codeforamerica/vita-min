@@ -11,10 +11,6 @@ class ZendeskDiyIntakeService
     @diy_intake = diy_intake
   end
 
-  def logger
-    Rails.logger
-  end
-
   def instance
     EitcZendeskInstance
   end
