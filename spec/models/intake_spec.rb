@@ -853,7 +853,7 @@ describe Intake do
       it_behaves_like :state_level_routing, "CO", "Tax Help Colorado (Piton Foundation)", "eitc"
       it_behaves_like :state_level_routing, "CA", "[United Way California] Online Intake", "eitc"
       it_behaves_like :state_level_routing, "FL", "[United Way California] Online Intake", "eitc"
-      it_behaves_like :state_level_routing, "TX", "Foundation Communities", "eitc"
+      it_behaves_like :state_level_routing, "TX", "[United Way California] Online Intake", "eitc"
       it_behaves_like :state_level_routing, "WA", "United Way of King County", "eitc"
       it_behaves_like :state_level_routing, "PA", "Campaign for Working Families", "eitc"
       it_behaves_like :state_level_routing, "NV", "Nevada Free Taxes Coalition", "eitc"
@@ -914,7 +914,7 @@ describe Intake do
       end
 
       context "with an invalid source parameter (and valid state)" do
-        let(:intake) { create :intake, source: 'noooooooooooooo', state_of_residence: state }
+        let(:intake) { create :intake, source: 'inspiration', state_of_residence: state }
 
         it "assigns the partner matching the state" do
           intake.assign_vita_partner!
@@ -923,7 +923,7 @@ describe Intake do
       end
 
       context "with no source and a nonsense state" do
-        let(:intake) { create :intake, state: 'DESPAIR' }
+        let(:intake) { create :intake, state: 'Tlön' }
         it 'assigns the partner to an overflow partner' do
           intake.assign_vita_partner!
           expect(intake.vita_partner.zendesk_group_id).to eq(overflow_partner.zendesk_group_id)

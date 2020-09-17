@@ -64,8 +64,6 @@ vita_partners:
   display_name: Foundation Communities
   source_parameters:
   - fc
-  states:
-  - TX
   accepts_overflow: false
   logo_path: ''
   weekly_capacity_limit: 50
@@ -116,6 +114,7 @@ vita_partners:
   states:
   - CA
   - FL
+  - TX
   logo_path: ''
   weekly_capacity_limit: 500
 - name: United Way Bay Area
