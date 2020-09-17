@@ -151,6 +151,7 @@ es:
     return_search: Volver a la búsqueda
     search: Búsqueda
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
+    sign_in: Iniciar sesión
     sign_out: Cerrar sesión
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
