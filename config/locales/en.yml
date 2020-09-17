@@ -20,6 +20,9 @@ en:
     formats:
       default: "%-m/%-d/%Y"
       long: "%B %-d, %Y"
+  devise:
+    failure:
+      invalid: Incorrect email or password. After 5 login attempts, accounts are locked for 30 minutes.
   errors:
     attributes:
       birth_date:
