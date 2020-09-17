@@ -11,10 +11,6 @@ class ZendeskIntakeService
     @intake = intake
   end
 
-  def logger
-    Rails.logger
-  end
-
   def instance
     @instance ||= @intake.zendesk_instance
   end

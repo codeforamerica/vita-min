@@ -49,7 +49,7 @@ module ConsolidatedTraceHelper
     yield
   rescue => exception
     trace_message = log_body(message || exception.message, extra_context)
-    logger&.send(severity, trace_message)
+    Rails.logger.send(severity, trace_message)
 
     unwind_extra_context(extra_context, severity) do
       raise exception, trace_message
@@ -58,10 +58,8 @@ module ConsolidatedTraceHelper
 
   ##
   # generic trace method providing severity options, and reporting out
-  # to both Raven (Sentry) and the defined logger. the format of the body of the
+  # to both Raven (Sentry) and the Rails logger. the format of the body of the
   # message can be found in the `log_body` method.
-  #
-  # *NOTE*: if no logger is defined, it will be unhappy.
   #
   # === Example
   #
@@ -72,7 +70,7 @@ module ConsolidatedTraceHelper
   #
   def trace(message, extra_context = {}, severity = Severity::UNKNOWN)
     trace_message = log_body(message, extra_context)
-    logger&.send(severity, trace_message)
+    Rails.logger.send(severity, trace_message)
 
     unwind_extra_context(extra_context, severity) do
       Raven.capture_message(trace_message)
