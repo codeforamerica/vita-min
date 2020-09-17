@@ -1,29 +1,17 @@
-<h2>Log in</h2>
+<% @main_heading = t("general.sign_in") %>
+<% content_for :page_title, @main_heading %>
+<% content_for :card do %>
+  <h1 class="h1"><%= @main_heading %></h1>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <% if false %>
-    Almost too many attempts, yikes.
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), local: true, builder: VitaMinFormBuilder ) do |f| %>
+    <%= f.cfa_input_field(:email, t("general.email"), type: 'email', classes: ['form-width--email']) %>
+    <%= f.cfa_input_field(:password, t("general.password"), type: 'password', classes: ['form-width--email']) %>
+
+    <div class="actions">
+      <%= f.submit t("general.sign_in"), class: "button button--primary" %>
+    </div>
   <% end %>
-  <% if resource.failed_attempts == (User.maximum_attempts - 1) %>
-    <p class="text--error">
-      Almost too many attempts, yikes.
-      You have one more chance to enter the correct password before we lock your account for 30 minutes
-    </p>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
+  <%= render "devise/shared/links" %>
 <% end %>
 
-<%= render "devise/shared/links" %>

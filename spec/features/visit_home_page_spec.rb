@@ -15,8 +15,8 @@ RSpec.feature "Visit home page" do
 
     scenario "it shows a sign in link" do
       visit "/"
-      click_on "Sign in"
-      expect(page).to have_text "Log in"
+      click_on "Volunteer sign in"
+      expect(page).to have_text "Sign in"
     end
   end
 end

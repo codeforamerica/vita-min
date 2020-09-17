@@ -9,6 +9,10 @@ es:
     send_requested_documents_later_controller:
       not_found: Lo sentimos, no pudimos cargar su documento. Para cargar otro documento, por favor regrese al enlace enviado por su especialista en impuestos.
       success: "¡Gracias! Sus documentos han sido enviados. Si tiene documentos adicionales, por favor siga el enlace enviado por su especialista en impuestos para agregar más."
+    users:
+      sessions_controller:
+        new:
+          invalid_email_or_password: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean durante 30 minutos.
   email:
     user_message:
       subject: "Update from GetYourRefund"
@@ -105,6 +109,7 @@ es:
       ssn_or_itin: SSN o ITIN
       student_account_statement: Estado de cuenta del estudiante
     edit: Editar
+    email: Email
     ethnicity:
       hispanic: Hispano o Latino
       not_hispanic: No soy Hispano o Latino
@@ -138,6 +143,7 @@ es:
     oops: "¡Oye!"
     open: Abrir
     other_options: Intente otra opción de declaración gratis
+    password: Contraseña
     phone_number: Número de teléfono
     privacy_policy: Política de privacidad
     race:
@@ -1259,6 +1265,7 @@ es:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
       footer:
         service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
+        volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
     stimulus:

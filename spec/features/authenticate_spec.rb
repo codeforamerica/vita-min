@@ -9,10 +9,10 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     # go to password-based sign in page
     visit new_user_session_path
 
-    expect(page).to have_text "Log in"
+    expect(page).to have_text "Sign in"
     fill_in "Email", with: "german@flowers.orange"
     fill_in "Password", with: "goodPassword"
-    click_on "Log in"
+    click_on "Sign in"
 
     # Expect to be redirected to user profile page
     expect(page).to have_text "German Geranium"
@@ -30,10 +30,10 @@ RSpec.feature "Logging in and out to the volunteer portal" do
 
     user.update(failed_attempts: 4)
     expect do
-      expect(page).to have_text "Log in"
+      expect(page).to have_text "Sign in"
       fill_in "Email", with: "german@flowers.orange"
       fill_in "Password", with: "wrongPassword"
-      click_on "Log in"
+      click_on "Sign in"
       expect(page).to have_text "Incorrect email or password. After 5 login attempts, accounts are locked for 30 minutes."
     end.to change { user.reload.failed_attempts }.by(1).and change { user.reload.locked_at.present? }.from(false).to(true)
 
@@ -42,7 +42,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     visit new_user_session_path
     fill_in "Email", with: "german@flowers.orange"
     fill_in "Password", with: "goodPassword"
-    click_on "Log in"
+    click_on "Sign in"
     # Expect to be redirected to user profile page
     expect(page).to have_text "German Geranium"
     expect(page).to have_text "Admin"

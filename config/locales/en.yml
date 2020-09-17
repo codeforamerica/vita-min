@@ -9,6 +9,10 @@ en:
     send_requested_documents_later_controller:
       not_found: We're sorry, we couldn't upload your document! To upload another document, please return to the link from your tax specialist.
       success: Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more.
+    users:
+      sessions_controller:
+        new:
+          invalid_email_or_password: Incorrect email or password. After 5 login attempts, accounts are locked for 30 minutes.
   email:
     user_message:
       subject: "Update from GetYourRefund"
@@ -105,6 +109,7 @@ en:
       ssn_or_itin: SSN or ITIN
       student_account_statement: Student Account Statement
     edit: Edit
+    email: Email
     ethnicity:
       hispanic: Hispanic or Latino
       not_hispanic: Not Hispanic or Latino
@@ -138,6 +143,7 @@ en:
     oops: Oops!
     open: Open
     other_options: Try another free tax filing option
+    password: Password
     phone_number: Phone number
     privacy_policy: privacy policy
     race:
@@ -1259,6 +1265,7 @@ en:
         banner: This site is for example purposes only. If you want help with your taxes, go to
       footer:
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
+        volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
     stimulus:
