@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_16_160314) do
+ActiveRecord::Schema.define(version: 2020_09_17_042818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -474,6 +474,13 @@ ActiveRecord::Schema.define(version: 2020_09_16_160314) do
     t.string "encrypted_access_token_iv"
     t.string "encrypted_password", default: "", null: false
     t.integer "failed_attempts", default: 0, null: false
+    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_created_at"
+    t.integer "invitation_limit"
+    t.datetime "invitation_sent_at"
+    t.string "invitation_token"
+    t.integer "invitations_count", default: 0
+    t.bigint "invited_by_id"
     t.datetime "last_sign_in_at"
     t.string "last_sign_in_ip"
     t.datetime "locked_at"
@@ -491,6 +498,9 @@ ActiveRecord::Schema.define(version: 2020_09_16_160314) do
     t.boolean "verified"
     t.bigint "zendesk_user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_users_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -539,5 +549,6 @@ ActiveRecord::Schema.define(version: 2020_09_16_160314) do
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "states_vita_partners", "vita_partners"
   add_foreign_key "ticket_statuses", "intakes"
+  add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
 end
