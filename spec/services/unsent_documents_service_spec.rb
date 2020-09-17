@@ -18,7 +18,7 @@ describe UnsentDocumentsService do
       allow(ZendeskIntakeService).to receive(:new).and_return(fake_zendesk_service)
       allow(fake_zendesk_service).to receive(:append_comment_to_ticket)
       allow(fake_zendesk_service).to receive(:get_ticket).and_return(fake_ticket)
-
+      allow(service).to receive(:with_raven_context).and_yield
 
       DatadogApi.configure do |c|
         c.enabled = true
@@ -84,6 +84,13 @@ describe UnsentDocumentsService do
         )
 
         expect(document4.reload.zendesk_ticket_id).to be_nil
+      end
+
+      it "sets the Raven exception context to the ticket ID when operating on the ticket ID" do
+        service.detect_unsent_docs_and_notify
+        expect(service).to have_received(:with_raven_context).with(hash_including(ticket_id: 1))
+        expect(service).to have_received(:with_raven_context).with(hash_including(ticket_id: 2))
+        expect(service).to have_received(:with_raven_context).with(hash_including(ticket_id: 3))
       end
     end
 
