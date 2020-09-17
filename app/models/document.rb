@@ -21,7 +21,8 @@
 #
 
 class Document < ApplicationRecord
-  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) }
+  # Permit all existing document types, plus "Requested", which is superseded by "Requested Later" (but the DB has both)
+  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested"] }
   validates :intake, presence: { unless: :documents_request_id }
 
   scope :of_type, ->(type) { where(document_type: type) }

@@ -11,7 +11,7 @@ describe UnsentDocumentsService do
     let!(:intake_new_doc) {create :intake, intake_ticket_id: 3}
     let!(:document1) {create :document, :with_upload, intake: intake_docs_sent, zendesk_ticket_id: 1234, created_at: 2.hours.ago}
     let!(:document2) {create :document, :with_upload, intake: intake_docs_not_sent, zendesk_ticket_id: nil, created_at: 2.hours.ago}
-    let!(:document3) {create :document, :with_upload, intake: intake_docs_not_sent, zendesk_ticket_id: nil, created_at: 2.hours.ago}
+    let!(:document3) {create :document, :with_upload, document_type: "Requested", intake: intake_docs_not_sent, zendesk_ticket_id: nil, created_at: 2.hours.ago}
     let!(:document4) {create :document, :with_upload, intake: intake_new_doc, zendesk_ticket_id: nil, created_at: 3.minutes.ago}
 
     before do
@@ -41,7 +41,7 @@ describe UnsentDocumentsService do
           New client documents are available to view: #{zendesk_ticket_url(id: intake_docs_not_sent.intake_ticket_id)}
           Files uploaded:
           * picture_id.jpg (W-2)
-          * picture_id.jpg (W-2)
+          * picture_id.jpg (Requested)
         BODY
 
         expect(fake_zendesk_service).to have_received(:append_comment_to_ticket).with(
