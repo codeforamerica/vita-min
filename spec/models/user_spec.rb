@@ -129,7 +129,15 @@ RSpec.describe User, type: :model do
         expect(user.active).to eq true
         expect(user.suspended).to eq false
         expect(user.verified).to eq true
+        # it creates a default random password that the user will have to reset
+        expect(user.encrypted_password).to be_present
       end
+    end
+  end
+
+  describe "#valid?" do
+    it "requires a password" do
+      expect(User.new(email: "example@example.com")).not_to be_valid
     end
   end
 end

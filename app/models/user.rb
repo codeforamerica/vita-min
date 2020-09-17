@@ -35,7 +35,8 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  devise :omniauthable, omniauth_providers: [:zendesk]
+  devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable,
+         :omniauthable, omniauth_providers: [:zendesk]
 
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
@@ -43,7 +44,11 @@ class User < ApplicationRecord
     data_source = auth.info
 
     # Watch out for weird capitalization!
-    user = where(email: data_source.email.downcase).first_or_initialize
+    user = where(email: data_source.email.downcase).first_or_initialize do |new_user|
+      # If creating user via Zendesk auth, give them a random password. They will need to reset their password.
+      new_user.password = Devise.friendly_token[0, 20]
+    end
+
     # update all other fields with latest values from zendesk
     user.update(
       zendesk_user_id: data_source.id,

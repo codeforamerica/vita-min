@@ -106,9 +106,7 @@ Rails.application.routes.draw do
     resources :clients, only: [:show, :create]
     resources :outgoing_text_messages, only: [:create]
     resources :outgoing_emails, only: [:create]
-    devise_scope :user do
-      delete "sign-out", :to => "users/sessions#destroy", as: :destroy_user_session
-    end
+    devise_for :users, skip: :omniauth_callbacks
     get "/users/profile" => "users#profile", as: :user_profile
 
     # Any other top level slash just goes to home as a source parameter
@@ -116,6 +114,9 @@ Rails.application.routes.draw do
   end
 
   # Routes outside of the locale scope are not internationalized
+  # Omniauth routes
+  devise_for :users, only: :omniauth_callbacks, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
 
   # Twilio webhook routes
   post "/outgoing_text_messages/:id", to: "twilio_webhooks#update_outgoing_text_message", as: :outgoing_text_message
@@ -126,9 +127,4 @@ Rails.application.routes.draw do
   resources :ajax_mixpanel_events, only: [:create]
   post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
   post "/email", to: "email#create"
-
-  devise_for :users, controllers: {
-    omniauth_callbacks: "users/omniauth_callbacks",
-  }
-  get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
 end

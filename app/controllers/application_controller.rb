@@ -235,4 +235,8 @@ class ApplicationController < ActionController::Base
       (defined?(zendesk_ticket_id) && zendesk_ticket_id),
     ].filter { |e| e && !e.to_s.empty? }.uniq
   end
+
+  def after_sign_in_path_for(_user)
+    user_profile_path
+  end
 end
