@@ -7,4 +7,16 @@ RSpec.feature "Visit home page" do
     expect(page).to have_text "Maximize your refund by filing with our trusted volunteers."
     expect(page).to have_link "Get started"
   end
+
+  context "in non-production environments" do
+    before do
+      allow(Rails.env).to receive(:production?).and_return(false)
+    end
+
+    scenario "it shows a sign in link" do
+      visit "/"
+      click_on "Sign in"
+      expect(page).to have_text "Log in"
+    end
+  end
 end
