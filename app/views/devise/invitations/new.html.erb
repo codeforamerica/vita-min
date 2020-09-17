@@ -1,0 +1,16 @@
+<% @main_heading = t(".title") %>
+<% content_for :page_title, @main_heading %>
+<% content_for :card do %>
+
+  <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), local: true, builder: VitaMinFormBuilder, html: { method: :post }) do |f| %>
+    <h1><%= @main_heading %></h1>
+
+    <%= resource.errors.values.join("<br />") %>
+
+    <%= f.cfa_input_field(:name, t(".name_label")) %>
+    <%= f.cfa_input_field(:email, t(".email_label"), type: 'email', classes: ['form-width--email']) %>
+
+    <%= f.submit t(".submit"), class: "button button--primary" %>
+  <% end %>
+<% end %>
+

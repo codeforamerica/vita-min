@@ -150,8 +150,12 @@ RSpec.describe User, type: :model do
   end
 
   describe "#valid?" do
-    it "requires a password" do
-      expect(User.new(email: "example@example.com")).not_to be_valid
+    it "required fields" do
+      user = User.new
+      expect(user).not_to be_valid
+      expect(user.errors).to include :name
+      expect(user.errors).to include :password
+      expect(user.errors).to include :email
     end
   end
 end

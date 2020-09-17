@@ -1,0 +1,10 @@
+<% @main_heading = t(".title") %>
+
+<% content_for :page_title, @main_heading %>
+<% content_for :card do %>
+  <h1><%= @main_heading %></h1>
+  <p><%= t(".might_have_been_replaced") %></p>
+  <p><%= t(".check_your_email", subject: t("devise.mailer.invitation_instructions.subject")) %></p>
+  <p><%= t(".contact_the_sender") %></p>
+  <p><%= t(".contact_support") %></p>
+<% end %>

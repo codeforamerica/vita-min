@@ -1,0 +1,23 @@
+<% content_for :card do %>
+  <h1><%= t(".title") %></h1>
+
+  <div class="actions">
+    <%= link_to new_user_invitation_path, class: "button" do %>
+      <%= t(".actions.new_invite") %>
+    <% end %>
+  </div>
+
+  <% if @unaccepted_invitations.present? %>
+    <ul class="invitations list--bulleted">
+      <% @unaccepted_invitations.each do |invitation| %>
+        <li id="invitation-<%= invitation.id %>" class="invitation">
+          <%= invitation.name %> &lt;<%= invitation.email %>&gt; (<%= t(".invitation.sent_at", datetime: invitation.invitation_sent_at) %>)
+          <%= form_with(model: invitation, url: user_invitation_path, method: :post, local: true) do |f| %>
+            <%= f.hidden_field :email %>
+            <%= f.submit value: t(".invitation.create"), class: "button button--small" %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

@@ -1,4 +1,4 @@
-class StimulusNavigation
+  class StimulusNavigation
   FLOW = [
     Stimulus::FiledRecentlyController,
     Stimulus::NeedToCorrectController,

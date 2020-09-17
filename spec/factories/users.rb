@@ -53,5 +53,27 @@ FactoryBot.define do
     sequence(:uid)
     sequence(:email) { |n| "gary.gardengnome#{n}@example.green" }
     password { "userExamplePassword" }
+    name { "Gary Gnome" }
+
+    factory :admin_user do
+      role { "admin" }
+    end
+
+    factory :agent_user do
+      role { "agent" }
+    end
+
+    factory :invited_user do
+      association :invited_by, factory: :admin_user
+      invitation_created_at { 1.day.ago - 1.minute }
+      invitation_sent_at { 1.day.ago }
+      sequence(:invitation_token) do |n|
+        Devise.token_generator.digest(User, :invitation_token, "InvitationToken#{n}")
+      end
+
+      factory :accepted_invite_user do
+        invitation_accepted_at { 1.minute.ago }
+      end
+    end
   end
 end

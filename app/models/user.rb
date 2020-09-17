@@ -49,10 +49,12 @@
 #  fk_rails_...  (invited_by_id => users.id)
 #
 class User < ApplicationRecord
-  devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable,
+  devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable,
          :omniauthable, omniauth_providers: [:zendesk]
 
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
+
+  validates_presence_of :name
 
   def self.from_zendesk_oauth(auth)
     data_source = auth.info

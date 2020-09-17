@@ -1,0 +1,7 @@
+<%= t(".hello", email: @resource.email) %>
+
+<%= t(".someone_invited_you", their_name: @resource.invited_by.name, their_email: @resource.invited_by.email, your_name: @resource.name) %>
+
+<%= accept_invitation_url(@resource, invitation_token: @token) %>
+
+<%= t(".ignore") %>

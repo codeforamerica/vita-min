@@ -1,3 +1,4 @@
+<% content_for :page_title, current_user.name %>
 <% content_for :card do %>
   <h1><%= current_user.name %></h1>
   <p>
@@ -6,4 +7,14 @@
   <p>
     <strong>Role:</strong> <%= current_user.role.capitalize %>
   </p>
+
+  <ul class="actions">
+    <% if current_user.role == "admin" %>
+      <li class="user-action-link">
+        <%= link_to invitations_path do %>
+          <%= t("general.invitations") %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>

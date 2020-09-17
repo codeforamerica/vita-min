@@ -23,6 +23,35 @@ en:
   devise:
     failure:
       invalid: Incorrect email or password. After 5 login attempts, accounts are locked for 30 minutes.
+    invitations:
+      edit:
+        title: Thank you for signing up to help!
+        email_label: Your email
+        name_label: What is your name?
+        password_label: Please choose a strong password
+        password_help_text_html: We recommend using a <a href="https://www.consumerreports.org/digital-security/everything-you-need-to-know-about-password-managers/" target="_blank" rel="nofollow">password manager</a> or inventing a long unusual phrase with random characters that you can remember. Please do not reuse a password from another website.
+        password_confirmation_label: Enter your new password again
+        submit: Get started
+      new:
+        title: Send a new invitation
+        name_label: What is their name?
+        email_label: What is their email?
+        submit: Send invitation email
+      not_found:
+        title: We can't find that invitation.
+        might_have_been_replaced: It might have been replaced by a newer invitation.
+        check_your_email: "Try searching your email for messages with the subject: \"%{subject}\""
+        contact_the_sender: If you can't find the invite, we'd suggest contacting the person who invited you and asking them to send you a new invitation.
+        contact_support: If you're stuck, you can contact support at support@getyourrefund.org
+      send_instructions: "We sent an email invitation to %{email}."
+      updated: You're all set and ready to go! You've joined an amazing team!
+    mailer:
+      invitation_instructions:
+        subject: You've been invited to GetYourRefund
+        hello: Hello,
+        someone_invited_you: "%{their_name} (%{their_email}) has invited %{your_name} to create an account on GetYourRefund to help people with their taxes."
+        accept: Accept the invitation and sign up to help!
+        ignore: If you don't want to accept the invitation, please ignore this email.
   errors:
     attributes:
       birth_date:
@@ -127,6 +156,7 @@ en:
     here: here
     home: Home
     hours: Hours
+    invitations: Invitations
     irs_certified_volunteers: IRS Certified Volunteers
     irs_free_file: IRS Free File
     language:
@@ -181,6 +211,14 @@ en:
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
+  invitations:
+    index:
+      title: Invitations
+      invitation:
+        sent_at: "Sent at %{datetime}"
+        create: Resend invitation email
+      actions:
+        new_invite: Invite a new user
   models:
     intake:
       your_spouse: Your spouse

@@ -112,8 +112,10 @@ Rails.application.routes.draw do
     resources :outgoing_text_messages, only: [:create]
     resources :outgoing_emails, only: [:create]
     devise_for :users, skip: :omniauth_callbacks, controllers: {
-      sessions: "users/sessions"
+      sessions: "users/sessions",
+      invitations: "users/invitations"
     }
+    get "/users/invitations" => "invitations#index", as: :invitations
     get "/users/profile" => "users#profile", as: :user_profile
 
     # Any other top level slash just goes to home as a source parameter
