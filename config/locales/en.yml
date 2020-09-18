@@ -142,6 +142,8 @@ en:
       student_account_statement: Student Account Statement
     edit: Edit
     email: Email
+    error:
+      sorry_something_went_wrong: Oops, we're sorry, but something went wrong.
     ethnicity:
       hispanic: Hispanic or Latino
       not_hispanic: Not Hispanic or Latino
@@ -490,6 +492,18 @@ en:
         remove_confirmation: Are you sure you want to remove "%{filename}"?
         select_file: Select a file
         take_picture: Add a photo
+    passwords:
+      new:
+        forgot_your_password: Forgot your password?
+        send_me_reset_password_instructions: Send me reset password instructions
+      edit:
+        change_my_password: Change my password
+        change_your_password: Change your password
+        confirm_new_password: Confirm new password
+        minimum_password_length:
+          one: "(%{count} character minimum)"
+          other: "(%{count} characters minimum)"
+        new_password: New password
     public_pages:
       about_us:
         how_it_helps: You can save up to $300 when you file for free. We also ensure eligible taxpayers claim the Earned Income Tax Credit (EITC), which can be over $3,000 per family.
@@ -520,7 +534,6 @@ en:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
         contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
         cta: Return to home
-        title: Oops, we're sorry, but something went wrong.
       faq:
         getting_started:
           am_i_eligible:

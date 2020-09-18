@@ -39,6 +39,8 @@ Rails.application.configure do
   config.action_mailer.default_options = { from: 'no-reply@localhost' }
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   Rails.application.default_url_options = config.action_mailer.default_url_options
+  # Custom config value read by DeviseMailer class
+  config.devise_email_from = 'devise-no-reply@test.localhost'
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

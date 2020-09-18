@@ -142,6 +142,8 @@ es:
       student_account_statement: Estado de cuenta del estudiante
     edit: Editar
     email: Email
+    error:
+      sorry_something_went_wrong: Lo sentimos, algo salió mal.
     ethnicity:
       hispanic: Hispano o Latino
       not_hispanic: No soy Hispano o Latino
@@ -490,6 +492,18 @@ es:
         remove_confirmation: ¿Está seguro de que desea quitar "%{filename}"?
         select_file: Elija un archivo
         take_picture: Agregar una foto
+    passwords:
+      new:
+        forgot_your_password: "¿Ha olvidado su contraseña?"
+        send_me_reset_password_instructions: Envíeme las instrucciones para resetear mi contraseña
+      edit:
+        change_my_password: Cambiar mi contraseña
+        change_your_password: Cambie su contraseña
+        confirm_new_password: Confirme la nueva contraseña
+        minimum_password_length:
+          one: "(%{count} caractere como mínimo)"
+          other: "(%{count} caracteres como mínimo)"
+        new_password: Nueva contraseña
     public_pages:
       about_us:
         how_it_helps: Puede ahorrar hasta $300 dólares cuando prepares sus impuestos gratis. También garantizamos que los contribuyentes elegibles reclamen el Crédito por Ingreso del Trabajo (EITC, por sus siglas en inglés), que puede superar hasta $3,000 por familia.
@@ -520,7 +534,6 @@ es:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
         contact_html: Si tiene algún problema, no dude en solicitar nuestra asistencia. Puede ponerse en contacto con nosotros haciendo clic al botón de "Ayuda"/"Chat" en la parte inferior a la derecha, o enviándonos un correo electrónico a %{email_link}.
         cta: Volver al inicio
-        title: Lo sentimos, algo salió mal.
       faq:
         getting_started:
           am_i_eligible:

@@ -18,7 +18,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
         email.deliver_now
       end.to change(ActionMailer::Base.deliveries, :count).by 1
       expect(email.subject).to eq outgoing_email.subject
-      expect(email.from).to eq ["no-reply@localhost"]
+      expect(email.from).to eq ["no-reply@test.localhost"]
       expect(email.to).to eq [outgoing_email.client.email_address]
       expect(email.text_part.decoded.chomp).to eq body
       expect(email.html_part.decoded).to have_selector('div', text: "Line 1")
