@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
 
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
-  after_action :track_page_view
   around_action :switch_locale
+  after_action :track_page_view
   helper_method :include_analytics?, :current_intake, :show_progress?
 
   # This needs to be a class method for the devise controller to have access to it
