@@ -572,6 +572,18 @@ RSpec.describe ApplicationController do
         )
       end
     end
+
+    context "with a new locale" do
+      it "sends the new locale" do
+        get :index, params: { locale: 'es' }
+
+        expect(mixpanel_spy).to have_received(:run).with(
+            unique_id: "123",
+            event_name: "page_view",
+            data: hash_including(locale: "es")
+        )
+      end
+    end
   end
 
   describe "#track_page_view" do
