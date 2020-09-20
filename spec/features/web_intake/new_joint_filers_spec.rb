@@ -193,8 +193,8 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Yes"
     expect(page).to have_selector("h1", text: "Tell us about you and your spouse's work in 2019")
     check "My spouse or I worked for someone else"
-    check "My spouse or I worked on our own or as a contractor"
-    check "My spouse or I collected tips at work outside of my W-2"
+    check "My spouse or I was self-employed or worked as an independent contractor"
+    check "My spouse or I collected tips at work not included in a W-2"
     check "My spouse or I received unemployment benefits"
     click_on "Continue"
 
