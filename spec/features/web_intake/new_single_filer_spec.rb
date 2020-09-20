@@ -124,7 +124,7 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Next"
     expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Virginia?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "Tell us about your work in 2019?")
+    expect(page).to have_selector("h1", text: "Tell us about your work in 2019")
     click_on "Continue"
 
     # Income from benefits

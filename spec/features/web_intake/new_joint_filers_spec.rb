@@ -191,7 +191,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Next"
     expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Virginia?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "Tell us about you and your spouse's work in 2019?")
+    expect(page).to have_selector("h1", text: "Tell us about you and your spouse's work in 2019")
     check "My spouse or I worked for someone else"
     check "My spouse or I worked on our own or as a contractor"
     check "My spouse or I collected tips at work outside of my W-2"
