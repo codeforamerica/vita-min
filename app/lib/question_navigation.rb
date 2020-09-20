@@ -85,12 +85,17 @@ class QuestionNavigation
     # Income from working
     Questions::JobCountController,
     Questions::OtherStatesController,
+
+    # TODO: Old controllers being consolidated, to be deleted after WorkSituationsController is deployed
     Questions::WagesController,
     Questions::SelfEmploymentController,
     Questions::TipsController,
+    Questions::UnemploymentIncomeController,
+
+    # Work Situations
+    Questions::WorkSituationsController,
 
     # Income from benefits
-    Questions::UnemploymentIncomeController,
     Questions::DisabilityIncomeController,
 
     # Investment income/loss
