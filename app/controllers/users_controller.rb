@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  include ReleaseToAdminOnly
+  include AccessControllable
+
+  before_action :require_sign_in
 
   layout "admin"
 

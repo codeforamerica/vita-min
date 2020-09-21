@@ -1,0 +1,7 @@
+<p><%= t(".hello") %></p>
+
+<p><%= t(".someone_invited_you", their_name: @resource.invited_by.name, their_email: @resource.invited_by.email, your_name: @resource.name) %></p>
+
+<p><%= link_to t(".accept"), accept_invitation_url(@resource, invitation_token: @token) %></p>
+
+<p><%= t(".ignore") %></p>

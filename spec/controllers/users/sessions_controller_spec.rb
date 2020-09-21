@@ -10,7 +10,7 @@ RSpec.describe Users::SessionsController do
       render_views
 
       let(:locale_params) { { locale: "es" } }
-      let(:fake_flash) { { alert: I18n.t("devise.failure.invalid", locale: :en) } }
+      let(:fake_flash) { { alert: "Invalid email or password" } }
       before do
         allow(subject).to receive(:flash).and_return(fake_flash)
       end
@@ -20,7 +20,7 @@ RSpec.describe Users::SessionsController do
 
         devise_failure_alert = Nokogiri::HTML.fragment(response.body).at_css(".flash--alert ~ .flash--alert")
         expect(devise_failure_alert).to be_nil
-        expect(response.body).not_to have_content I18n.t("devise.failure.invalid", locale: :en)
+        expect(response.body).not_to have_content "Invalid email or password"
 
         new_user_form = Nokogiri::HTML.fragment(response.body).at_css("form#new_user")
         expect(new_user_form).to have_content "Correo o contraseña incorrectos."
