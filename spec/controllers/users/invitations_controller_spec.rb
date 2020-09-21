@@ -108,7 +108,6 @@ RSpec.describe Users::InvitationsController do
         }
       end
 
-
       it "updates all necessary information on the user and signs them in" do
         expect do
           post :update, params: params

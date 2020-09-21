@@ -1,3 +1,21 @@
+# Usage:
+#
+#   it_behaves_like :a_get_action_that_redirects_anonymous_users_to_sign_in action: :new
+#
+#   # set params for this spec
+#   it_behaves_like :a_get_action_that_redirects_anonymous_users_to_sign_in action: :new do
+#     let(:params) do
+#       { my_mode: { name: "some name" } }
+#     end
+#   end
+#
+#   # set values for this & other specs
+#   let(:params) do
+#     { my_mode: { name: "some name" } }
+#   end
+#
+#   it_behaves_like :a_get_action_that_redirects_anonymous_users_to_sign_in action: :new
+#
 shared_examples :a_get_action_that_redirects_anonymous_users_to_sign_in do |action:|
   let(:params) { {} } unless method_defined?(:params)
 

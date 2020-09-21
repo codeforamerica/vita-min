@@ -1,14 +1,16 @@
 class Users::InvitationsController < Devise::InvitationsController
   include AccessControllable
 
-  # skip inherited methods
+  # Devise::InvitationsController from devise-invitable uses some before_actions to validate
+  # data being passed in. We skip those and use our before_action methods to customize
+  # access control and error messages.
   skip_before_action :authenticate_inviter!
   skip_before_action :has_invitations_left?
   skip_before_action :resource_from_invitation_token
 
-  # use our own access control methods
   before_action :require_sign_in, only: [:new]
   before_action only: [:create] do
+    # If an anonymous user tries to send an invitation, send them to the invitation page after sign-in.
     require_sign_in(redirect_after_login: new_user_invitation_path)
   end
   before_action :require_admin, only: [:new, :create]
@@ -16,12 +18,12 @@ class Users::InvitationsController < Devise::InvitationsController
 
   private
 
-  # Overwrites default params for newly created invites, allowing us to add attributes
+  # Override superclass method for default params for newly created invites, allowing us to add attributes
   def invite_params
     params.require(:user).permit(:name, :email).merge(role: "agent")
   end
 
-  # Overwrites default params for accepted invites, allowing us to add attributes
+  # Override superclass method for accepted invite params, allowing us to add attributes
   def update_resource_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :invitation_token)
   end
@@ -36,6 +38,7 @@ class Users::InvitationsController < Devise::InvitationsController
     user_profile_path
   end
 
+  # replaces #resource_from_invitation_token so we can render a not_found template if the token is bad
   def require_valid_invitation_token
     unless raw_invitation_token.present? && get_user_by_invitation_token
       render :not_found, status: :not_found
@@ -43,6 +46,7 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def raw_invitation_token
+    # on GET invitation_token is a top-level query param
     return params[:invitation_token] if request.get?
     update_resource_params[:invitation_token]
   end
