@@ -29,7 +29,6 @@ es:
         email_label: Su email
         name_label: ¿Cuál es tu nombre?
         password_label: Por favor elige una contraseña segura
-        password_help_text_html: Recomendamos utilizar un <a href="https://www.cnet.com/es/noticias/mejores-gestores-de-contrasenas-lastpass-1password/" target="_blank" rel="nofollow">gestor de contraseñas</a> o inventar una frase larga e inusual con caracteres aleatorios que pueda recordar. Por favor, no vuelva a usar una contraseña de otro sitio web.
         password_confirmation_label: Ingrese su nueva contraseña de nuevo
         submit: Empezar
       new:
@@ -494,16 +493,15 @@ es:
         take_picture: Agregar una foto
     passwords:
       new:
+        back: Regresar para iniciar sesión
         forgot_your_password: "¿Ha olvidado su contraseña?"
         send_me_reset_password_instructions: Envíeme las instrucciones para resetear mi contraseña
       edit:
         change_my_password: Cambiar mi contraseña
         change_your_password: Cambie su contraseña
         confirm_new_password: Confirme la nueva contraseña
-        minimum_password_length:
-          one: "(%{count} caractere como mínimo)"
-          other: "(%{count} caracteres como mínimo)"
         new_password: Nueva contraseña
+      password_help_text_html: Recomendamos utilizar un <a href="https://www.cnet.com/es/noticias/mejores-gestores-de-contrasenas-lastpass-1password/" target="_blank" rel="nofollow">gestor de contraseñas</a> o inventar una frase larga e inusual con caracteres aleatorios que pueda recordar. Por favor, no vuelva a usar una contraseña de otro sitio web.
     public_pages:
       about_us:
         how_it_helps: Puede ahorrar hasta $300 dólares cuando prepares sus impuestos gratis. También garantizamos que los contribuyentes elegibles reclamen el Crédito por Ingreso del Trabajo (EITC, por sus siglas en inglés), que puede superar hasta $3,000 por familia.

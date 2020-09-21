@@ -1,15 +1,15 @@
 <% @main_heading = t("views.passwords.new.forgot_your_password") %>
 <% content_for :page_title, @main_heading %>
 <% content_for :card do %>
+  <p><%= link_to t("views.passwords.new.back"), new_session_path(resource_name) %></p>
+
   <h1 class="h1"><%= @main_heading %></h1>
 
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), local: true, builder: VitaMinFormBuilder ) do |f| %>
-    <%= f.cfa_input_field(:email, t("general.email"), type: 'email', classes: ['form-width--email']) %>
+    <%= f.cfa_input_field(:email, t("general.email"), type: 'email', classes: ['form-width--email'], options: {value: resource.email || params[:email]}) %>
 
     <div class="actions">
       <%= f.submit t("views.passwords.new.send_me_reset_password_instructions"), class: "button button--primary" %>
     </div>
   <% end %>
-
-  <%= render "devise/shared/links" %>
 <% end %>

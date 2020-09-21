@@ -2,13 +2,13 @@
 
 <% content_for :page_title, @main_heading %>
 <% content_for :card do %>
-  <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), local: true, builder: VitaMinFormBuilder, html: { method: :put }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), method: :put, local: true, builder: VitaMinFormBuilder) do |f| %>
     <h1><%= @main_heading %></h1>
 
     <h2 class="form-question"><%= t(".email_label") %>: <%= resource.email %></h2>
     <%= f.hidden_field :invitation_token, readonly: true %>
     <%= f.cfa_input_field(:name, t(".name_label")) %>
-    <%= f.cfa_input_field(:password, t(".password_label"), type: "password", help_text: t(".password_help_text_html")) %>
+    <%= f.cfa_input_field(:password, t(".password_label"), type: "password", help_text: t("views.passwords.password_help_text_html")) %>
     <%= f.cfa_input_field(:password_confirmation, t(".password_confirmation_label"), type: "password") %>
 
     <%= f.submit t(".submit"), class: "button button--primary" %>

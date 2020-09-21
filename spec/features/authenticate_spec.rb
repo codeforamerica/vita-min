@@ -49,11 +49,15 @@ RSpec.feature "Logging in and out to the volunteer portal" do
 
   scenario "resetting password" do
     visit new_user_session_path
+    fill_in "Email", with: "german@flowers.orange"
+    fill_in "Password", with: "notQuiteGoodPassword"
+    click_on "Sign in"
+    expect(page).to have_text "Incorrect email or password."
     click_on "Forgot your password?"
 
     # Send email to get reset link
     expect(page).to have_text "Forgot your password?"
-    fill_in "Email", with: "german@flowers.orange"
+    expect(find_field("Email").value).to eq "german@flowers.orange"
     expect do
       click_on "Send me reset password instructions"
     end.to change(ActionMailer::Base.deliveries, :count).by 1

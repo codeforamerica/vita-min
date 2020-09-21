@@ -3,20 +3,19 @@
 
 <% content_for :card do %>
   <h1 class="h1"><%= @main_heading %></h1>
-  <%= form_for(resource, as: resource_name, builder: VitaMinFormBuilder, url: password_path(resource_name), html: { method: :put }) do |f| %>
-    <% if resource.errors.full_messages == ["Reset password token is invalid"] %>
-      <% # If Devise shows an error about the password reset token, replace the form with useful advice.  %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), method: :put, local: true, builder: VitaMinFormBuilder) do |f| %>
+    <% if resource.errors.include? :reset_password_token %>
+      <% # If Devise shows an error about the password reset token, replace the form with a useful link. %>
       <p><%= t("general.error.sorry_something_went_wrong") %></p>
       <p><%= link_to "Forgot your password?", new_password_path(resource_name) %></p>
     <% else %>
-      <%= render "devise/shared/error_messages", resource: resource %>
       <%= f.hidden_field :reset_password_token %>
       <div class="field">
         <%= f.cfa_input_field(:password,
                               t("views.passwords.edit.new_password"),
                               type: 'password',
                               classes: ['form-width--email'],
-                              help_text: t("views.passwords.edit.minimum_password_length", count: @minimum_password_length),
+                              help_text: t("views.passwords.password_help_text_html"),
             ) %>
       </div>
 

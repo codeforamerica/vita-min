@@ -36,13 +36,12 @@ Rails.application.configure do
   config.active_job.queue_adapter = :test
 
   config.action_mailer.default_options = { from: 'no-reply@test.localhost' }
+  config.address_for_transactional_authentication_emails = 'devise-no-reply@test.localhost'
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :test
 
   config.active_support.deprecation = :stderr
 
-  # Custom config value read by DeviseMailer class
-  config.devise_email_from = 'devise-no-reply@test.localhost'
 
   # Raises error for missing translations
   config.action_view.raise_on_missing_translations = true

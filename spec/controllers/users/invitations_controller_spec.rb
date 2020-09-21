@@ -133,6 +133,7 @@ RSpec.describe Users::InvitationsController do
       it "shows a validation error" do
         post :update, params: params
 
+        expect(assigns(:user).errors).to include :name
         expect(response.status).to eq 200
       end
     end

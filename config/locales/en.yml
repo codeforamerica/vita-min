@@ -29,7 +29,6 @@ en:
         email_label: Your email
         name_label: What is your name?
         password_label: Please choose a strong password
-        password_help_text_html: We recommend using a <a href="https://www.consumerreports.org/digital-security/everything-you-need-to-know-about-password-managers/" target="_blank" rel="nofollow">password manager</a> or inventing a long unusual phrase with random characters that you can remember. Please do not reuse a password from another website.
         password_confirmation_label: Enter your new password again
         submit: Get started
       new:
@@ -494,16 +493,15 @@ en:
         take_picture: Add a photo
     passwords:
       new:
+        back: Back to sign in
         forgot_your_password: Forgot your password?
         send_me_reset_password_instructions: Send me reset password instructions
       edit:
         change_my_password: Change my password
         change_your_password: Change your password
         confirm_new_password: Confirm new password
-        minimum_password_length:
-          one: "(%{count} character minimum)"
-          other: "(%{count} characters minimum)"
         new_password: New password
+      password_help_text_html: We recommend using a <a href="https://www.consumerreports.org/digital-security/everything-you-need-to-know-about-password-managers/" target="_blank" rel="nofollow">password manager</a> or inventing a long unusual phrase with random characters that you can remember. Please do not reuse a password from another website.
     public_pages:
       about_us:
         how_it_helps: You can save up to $300 when you file for free. We also ensure eligible taxpayers claim the Earned Income Tax Credit (EITC), which can be over $3,000 per family.
