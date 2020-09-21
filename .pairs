@@ -1,17 +1,22 @@
 # .pairs - configuration for 'git pair'
+# 
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
-  jh: Jenny Heath; jheath
-  bg: Ben Golder; bgolder
-  td: Tom Dooner; tdooner
-  lk: Laura Kogler; lkogler
-  mtm: Molly T-M; mollyt
-  jg: Jonathan Greenberg; jgreenberg
-  bv: Ben Vandgrift; bvandgrift
-  dbd: Dimitri DeFigueiredo; ddefigueiredo
-  al: Asheesh Laroia; alaroia
-email:
-  prefix: pair
-  domain: codeforamerica.org
-  no_solo_prefix: true
+  jh: Jenny Heath
+  bg: Ben Golder
+  td: Tom Dooner
+  lk: Laura Kogler
+  dbd: Dimitri DeFigueiredo
+  al: Asheesh Laroia
+  sn: Sarah Niemeyer
+  as: Alex Sartan
+email_addresses:
+  jh: jheath@codeforamerica.org
+  bg: bgolder@codeforamerica.org
+  td: tdooner@codeforamerica.org
+  lk: lkogler@codeforamerica.org
+  dbd: ddefigueiredo@codeforamerica.org
+  al: alaroia@codeforamerica.org
+  sn: sniemeyer@vmware.com
+  as: asartan@vmware.com
 global: false  # Set to true for git-pair to change git configuration for all your projects
