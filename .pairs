@@ -1,4 +1,5 @@
 # .pairs - configuration for 'git pair'
+# 
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
   jh: Jenny Heath
