@@ -89,9 +89,14 @@ Rails.application.routes.draw do
     get "/404", to: "public_pages#page_not_found"
 
     # Routes to support a simple URL for mailings from Benefits Data Trust (BDT) to their clients
-    # This will points people to the EIP landing page with the proper source tracking
+    # And for 211 hotline referrals to both full service and EIP
+    # These routes point people to the desired landing pages with the proper source tracking
+    # They can be removed after 10/15/20. When these routes are removed they'll go to the homepage so won't be broken.
     get "/bdt", to: "public_pages#eip_home", defaults: {"s": "bdt"}
     get "/BDT", to: "public_pages#eip_home", defaults: {"s": "bdt"}
+    get "/211", to: "public_pages#full_service_home", defaults: {"s": "211"}
+    get "/211-stimulus", to: "public_pages#eip_home", defaults: {"s": "211-stimulus"}
+    get "/211-Stimulus", to: "public_pages#eip_home", defaults: {"s": "211-stimulus"}
 
     # Zendesk Admin routes
     get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
