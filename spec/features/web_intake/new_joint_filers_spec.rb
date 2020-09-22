@@ -191,16 +191,14 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Next"
     expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Virginia?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive wages or salary?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from contract or self-employment work?")
-    click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any tips?")
-    click_on "Yes"
+    expect(page).to have_selector("h1", text: "Tell us about you and your spouse's work in 2019")
+    check "My spouse or I worked for someone else"
+    check "My spouse or I was self-employed or worked as an independent contractor"
+    check "My spouse or I collected tips at work not included in a W-2"
+    check "My spouse or I received unemployment benefits"
+    click_on "Continue"
 
     # Income from benefits
-    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any unemployment benefits?")
-    click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse receive any disability benefits?")
     click_on "Yes"
 

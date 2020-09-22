@@ -1289,6 +1289,24 @@ es:
       widowed_year:
         before_2014: antes del 2014
         title: "¿En qué año falleció su cónyuge?"
+      work_situations:
+        help_text: Seleccione todas las opciones aplicables.
+        options:
+          had_self_employment_income_html:
+            one: Trabajé por cuenta propia o trabajé como contratista independiente.<br><span class="checkbox-help">Recibí el formulario 1099-K, 1099-MISC, o registro personal</span>
+            other: Mi conyuge o yo trabajaba por cuenta propia o trabajaba como contratista independiente.<br><span class="checkbox-help">Recibimos el formulario 1099-K, 1099-MISC, o registro personal</span>
+          had_tips:
+            one: Recibí propinas en efectivo en el trabajo no incluidas en un W-2
+            other: Mi cónyuge o yo recibimos propinas en efectivo en el trabajo no incluidas en un W-2
+          had_unemployment_income_html:
+            one: Recibí prestaciones por desempleo.<br><span class="checkbox-help">Recibí el formulario 1099-G</span>
+            other: Mi cónyuge o yo recibimos beneficios de desempleo.<br><span class="checkbox-help">Recibimos el formulario 1099-G</span>
+          had_wages_html:
+            one: Trabajé para otra persona.<br><span class="checkbox-help">Recibí el formulario W-2</span>
+            other: Mi cónyuge o yo trabajamos para otra persona.<br><span class="checkbox-help">Recibimos el formulario W-2</span>
+        title:
+          one: Cuéntanos sobre tu trabajo en %{year}
+          other: Cuéntenos sobre usted y el trabajo de su cónyuge en %{year}
     shared:
       consent_agreement:
         details:

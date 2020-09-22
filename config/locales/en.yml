@@ -1289,6 +1289,24 @@ en:
       widowed_year:
         before_2014: before 2014
         title: What was the year of your spouse's death?
+      work_situations:
+        help_text: Select all the options that apply.
+        options:
+          had_self_employment_income_html:
+            one: I was self-employed or worked as an independent contractor.<br><span class="checkbox-help">Collected a 1099-K form, 1099-MISC form, or Personal log</span>
+            other: My spouse or I was self-employed or worked as an independent contractor.<br><span class="checkbox-help">Collected a 1099-K form, 1099-MISC form, or Personal log</span>
+          had_tips:
+            one: I collected tips at work not included in my W-2
+            other: My spouse or I collected tips at work not included in a W-2
+          had_unemployment_income_html:
+            one: I received unemployment benefits.<br><span class="checkbox-help">Collected 1099-G form</span>
+            other: My spouse or I received unemployment benefits.<br><span class="checkbox-help">Collected a 1099-G form</span>
+          had_wages_html:
+            one: I worked for someone else.<br><span class="checkbox-help">Collected W-2 form</span>
+            other: My spouse or I worked for someone else.<br><span class="checkbox-help">Collected a W-2 form</span>
+        title:
+          one: Tell us about your work in %{year}
+          other: Tell us about you and your spouse's work in %{year}
     shared:
       consent_agreement:
         details:
