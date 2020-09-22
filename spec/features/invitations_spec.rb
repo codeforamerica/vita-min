@@ -46,8 +46,8 @@ RSpec.feature "Sending and accepting invitations" do
 
       # New invitation recipient signing up!
       mail = ActionMailer::Base.deliveries.last
-      html_body = mail.body.parts[1].encoded
-      accept_invite_url = Nokogiri::HTML.fragment(html_body).at_css("a")["href"]
+      html_body = mail.body.parts[1].decoded
+      accept_invite_url = Nokogiri::HTML.parse(html_body).at_css("a")["href"]
       expect(mail.subject).to eq "You've been invited to GetYourRefund"
       expect(accept_invite_url).to be_present
       expect(mail.body.encoded).to have_text "Hello,"
