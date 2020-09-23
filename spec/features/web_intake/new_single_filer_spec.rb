@@ -326,7 +326,7 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_selector("h1", text: "Free tax filing, real human support.")
 
     # going back to another page after submit redirects to beginning
-    visit "/questions/wages"
+    visit "/questions/work-situations"
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
   end
 end
