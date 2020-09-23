@@ -434,6 +434,10 @@ class Intake < ApplicationRecord
     filing_years.first || "2019"
   end
 
+  def filer_count
+    filing_joint_yes? ? 2 : 1
+  end
+
   def include_bank_details?
     refund_payment_method_direct_deposit? || balance_pay_from_bank_yes?
   end
