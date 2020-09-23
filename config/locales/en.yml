@@ -1171,11 +1171,6 @@ en:
         title:
           one: In %{year}, did you pay for any eligible school supplies as a teacher, teacher's aide, or other educator?
           other: In %{year}, did you or your spouse pay for any eligible school supplies as a teacher, teacher's aide, or other educator?
-      self_employment:
-        help_text: Answer "Yes" if you received a 1099-MISC, 1099-K, or kept payment records for your own business. This includes cash you received for goods or services.
-        title:
-          one: In %{year}, did you have any income from contract or self-employment work?
-          other: In %{year}, did you or your spouse have any income from contract or self-employment work?
       self_employment_loss:
         help_text: If you aren't sure, you can check Schedule C in your %{prior_year} tax return.
         title:
@@ -1255,21 +1250,6 @@ en:
         title:
           one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
-      tips:
-        help_text: Answer "Yes" if you received any cash tips not included in a W-2.
-        title:
-          one: In %{year}, did you receive any tips?
-          other: In %{year}, did you or your spouse receive any tips?
-      unemployment_income:
-        help_text: Answer "Yes" if you received a 1099-G form.
-        title:
-          one: In %{year}, did you receive any unemployment benefits?
-          other: In %{year}, did you or your spouse receive any unemployment benefits?
-      wages:
-        help_text: As an employee you should receive a W-2 for any job you worked. Learn more about form W-2.
-        title:
-          one: In %{year}, did you receive wages or salary?
-          other: In %{year}, did you or your spouse receive wages or salary?
       welcome:
         diy:
           header: File taxes myself

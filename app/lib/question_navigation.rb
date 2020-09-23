@@ -74,12 +74,6 @@ class QuestionNavigation
     Questions::JobCountController,
     Questions::OtherStatesController,
 
-    # TODO: Old controllers being consolidated, to be deleted after WorkSituationsController is deployed
-    Questions::WagesController,
-    Questions::SelfEmploymentController,
-    Questions::TipsController,
-    Questions::UnemploymentIncomeController,
-
     # Work Situations
     Questions::WorkSituationsController,
 

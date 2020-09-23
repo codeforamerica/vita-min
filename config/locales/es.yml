@@ -1171,11 +1171,6 @@ es:
         title:
           one: En %{year}, ¿pagó por útiles escolares elegibles como maestro, ayudante de maestro u otro educador?
           other: En %{year}, ¿pagó usted o su pareja por algún material escolar elegible como maestro, ayudante de maestro u otro educador?
-      self_employment:
-        help_text: Responda "Sí" si recibió un 1099-MISC, 1099-K o mantuvo registros de pago para su propio negocio. Esto incluye el efectivo que recibió por bienes o servicios.
-        title:
-          one: En %{year}, ¿tuvo algún ingreso por contrato o trabajo por cuenta propia?
-          other: En el %{year}, ¿tuvo usted o su pareja algún ingreso por contrato o trabajo por cuenta propia?
       self_employment_loss:
         help_text: Si no está seguro, puede consultar el Anexo C en su declaración de impuestos %{prior_year}.
         title:
@@ -1255,21 +1250,6 @@ es:
         title:
           one: "¿Ha sido rechazado en el año anterior el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos, el Crédito por Oportunidad Estadounidense o el estado civil de Jefe de Familia?"
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
-      tips:
-        help_text: Responde "Sí" si recibió alguna propina de efectivo no incluida en el formulario W-2.
-        title:
-          one: En %{year}, ¿recibió algún consejo?
-          other: En el %{year}, ¿recibió usted o su cónyuge algún consejo?
-      unemployment_income:
-        help_text: Responde "Sí" si recibió el formulario 1099-G.
-        title:
-          one: En %{year}, ¿recibió beneficios de desempleo?
-          other: En el %{year}, ¿recibió usted o su cónyuge beneficios de desempleo?
-      wages:
-        help_text: Como empleado, debe recibir un W-2 por cada trabajo en el que haya sido empleado. Obtenga más información sobre el formulario W-2.
-        title:
-          one: En %{year}, ¿recibió sueldos o salarios?
-          other: En el %{year}, ¿recibió usted o su cónyuge sueldos o salarios?
       welcome:
         diy:
           header: Declarar impuestos mi mismo
