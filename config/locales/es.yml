@@ -17,9 +17,6 @@ es:
       sessions_controller:
         new:
           invalid_email_or_password: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean durante 30 minutos.
-  email:
-    user_message:
-      subject: "Update from GetYourRefund"
   date:
     formats:
       default: "%-m/%-d/%Y"
@@ -29,32 +26,35 @@ es:
       invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean durante 30 minutos.
     invitations:
       edit:
-        title: ¡Gracias por registrarte para ayudar!
         email_label: Su email
-        name_label: ¿Cuál es tu nombre?
-        password_label: Por favor elige una contraseña segura
+        name_label: "¿Cuál es tu nombre?"
         password_confirmation_label: Ingrese su nueva contraseña de nuevo
+        password_label: Por favor elige una contraseña segura
         submit: Empezar
+        title: "¡Gracias por registrarte para ayudar!"
       new:
-        title: Envíe una nueva invitación
-        name_label: ¿Cúal es el nombre del invitado?
-        email_label: ¿Cúal es el email del invitado?
+        email_label: "¿Cúal es el email del invitado?"
+        name_label: "¿Cúal es el nombre del invitado?"
         submit: Enviar email de invitación
+        title: Envíe una nueva invitación
       not_found:
-        title: No podemos encontrar esa invitación.
-        might_have_been_replaced: Podría haber sido reemplazado por una invitación más nueva.
-        check_your_email: "Intente buscar en su correo electrónico mensajes con el asunto: \"%{subject}\""
-        contact_the_sender: Si no puede encontrar la invitación, le sugerimos que se comunique con la persona que lo invitó y le pida que le envíe una nueva invitación.
+        check_your_email: 'Intente buscar en su correo electrónico mensajes con el asunto: "%{subject}"'
         contact_support: Si está atascado, puede ponerse en contacto con el soporte en support@getyourrefund.org
-      send_instructions: "Nosotras enviamos una invitación por email a %{email}."
-      updated: ¡Ya está todo listo para comenzar! ¡Usted has unido a un equipo increíble!
+        contact_the_sender: Si no puede encontrar la invitación, le sugerimos que se comunique con la persona que lo invitó y le pida que le envíe una nueva invitación.
+        might_have_been_replaced: Podría haber sido reemplazado por una invitación más nueva.
+        title: No podemos encontrar esa invitación.
+      send_instructions: Nosotras enviamos una invitación por email a %{email}.
+      updated: "¡Ya está todo listo para comenzar! ¡Usted has unido a un equipo increíble!"
     mailer:
       invitation_instructions:
-        subject: Usted ha sido invitado a GetYourRefund
+        accept: "¡Acepta la invitación y regístrate para ayudar!"
         hello: Hola,
-        someone_invited_you: "%{their_name} (%{their_email}) ha invitado a %{your_name} a crear una cuenta en GetYourRefund para ayudar a las personas con sus impuestos."
-        accept: ¡Acepta la invitación y regístrate para ayudar!
         ignore: Si no desea aceptar la invitación, ignore este correo electrónico.
+        someone_invited_you: "%{their_name} (%{their_email}) ha invitado a %{your_name} a crear una cuenta en GetYourRefund para ayudar a las personas con sus impuestos."
+        subject: Usted ha sido invitado a GetYourRefund
+  email:
+    user_message:
+      subject: Update from GetYourRefund
   errors:
     attributes:
       birth_date:
@@ -222,12 +222,12 @@ es:
       valid_birth_date: Por favor, seleccione una fecha válida
   invitations:
     index:
-      title: Invitaciones
-      invitation:
-        sent_at: "Enviado a las %{datetime}"
-        create: Reenviar email de invitación
       actions:
         new_invite: Invitar a alguien nuevo
+      invitation:
+        create: Reenviar email de invitación
+        sent_at: Enviado a las %{datetime}
+      title: Invitaciones
   models:
     intake:
       your_spouse: Su cónyuge
@@ -508,15 +508,15 @@ es:
         select_file: Elija un archivo
         take_picture: Agregar una foto
     passwords:
-      new:
-        back: Regresar para iniciar sesión
-        forgot_your_password: "¿Ha olvidado su contraseña?"
-        send_me_reset_password_instructions: Envíeme las instrucciones para resetear mi contraseña
       edit:
         change_my_password: Cambiar mi contraseña
         change_your_password: Cambie su contraseña
         confirm_new_password: Confirme la nueva contraseña
         new_password: Nueva contraseña
+      new:
+        back: Regresar para iniciar sesión
+        forgot_your_password: "¿Ha olvidado su contraseña?"
+        send_me_reset_password_instructions: Envíeme las instrucciones para resetear mi contraseña
       password_help_text_html: Recomendamos utilizar un <a href="https://www.cnet.com/es/noticias/mejores-gestores-de-contrasenas-lastpass-1password/" target="_blank" rel="nofollow">gestor de contraseñas</a> o inventar una frase larga e inusual con caracteres aleatorios que pueda recordar. Por favor, no vuelva a usar una contraseña de otro sitio web.
     public_pages:
       about_us:
@@ -846,6 +846,10 @@ es:
         title:
           one: En %{year}, ¿adoptó un niño?
           other: En %{year}, ¿usted o su cónyuge adoptaron un hijo?
+      asset_sale_gate:
+        title:
+          one: En %{year}, ¿vendió acciones, bonos o bienes inmuebles?
+          other: En %{year}, ¿usted o su cónyuge vendieron acciones, bonos o bienes inmuebles?
       asset_sale_income:
         help_text: Por ejemplo, cualquier ingreso incluido en un 1099-B o 1099-S.
         title:

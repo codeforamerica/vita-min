@@ -135,6 +135,7 @@
 #  sms_notification_opt_in                              :integer          default("unfilled"), not null
 #  sms_phone_number                                     :string
 #  sold_a_home                                          :integer          default("unfilled"), not null
+#  sold_assets                                          :integer          default("unfilled"), not null
 #  source                                               :string
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date
@@ -280,13 +281,14 @@ class Intake < ApplicationRecord
   enum savings_purchase_bond: { unfilled: 0, yes: 1, no: 2 }, _prefix: :savings_purchase_bond
   enum separated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :separated
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+  enum sold_a_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sold_a_home
+  enum sold_assets: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sold_assets
   enum spouse_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_consented_to_service
   enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_full_time_student
   enum spouse_was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_on_visa
   enum spouse_had_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_had_disability
   enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
   enum spouse_issued_identity_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_issued_identity_pin
-  enum sold_a_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sold_a_home
   enum was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_blind
   enum was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_full_time_student
   enum was_on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_on_visa

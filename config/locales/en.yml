@@ -17,9 +17,6 @@ en:
       sessions_controller:
         new:
           invalid_email_or_password: Incorrect email or password. After 5 login attempts, accounts are locked for 30 minutes.
-  email:
-    user_message:
-      subject: "Update from GetYourRefund"
   date:
     formats:
       default: "%-m/%-d/%Y"
@@ -29,32 +26,35 @@ en:
       invalid: Incorrect email or password. After 5 login attempts, accounts are locked for 30 minutes.
     invitations:
       edit:
-        title: Thank you for signing up to help!
         email_label: Your email
         name_label: What is your name?
-        password_label: Please choose a strong password
         password_confirmation_label: Enter your new password again
+        password_label: Please choose a strong password
         submit: Get started
+        title: Thank you for signing up to help!
       new:
-        title: Send a new invitation
-        name_label: What is their name?
         email_label: What is their email?
+        name_label: What is their name?
         submit: Send invitation email
+        title: Send a new invitation
       not_found:
-        title: We can't find that invitation.
-        might_have_been_replaced: It might have been replaced by a newer invitation.
-        check_your_email: "Try searching your email for messages with the subject: \"%{subject}\""
-        contact_the_sender: If you can't find the invite, we'd suggest contacting the person who invited you and asking them to send you a new invitation.
+        check_your_email: 'Try searching your email for messages with the subject: "%{subject}"'
         contact_support: If you're stuck, you can contact support at support@getyourrefund.org
-      send_instructions: "We sent an email invitation to %{email}."
+        contact_the_sender: If you can't find the invite, we'd suggest contacting the person who invited you and asking them to send you a new invitation.
+        might_have_been_replaced: It might have been replaced by a newer invitation.
+        title: We can't find that invitation.
+      send_instructions: We sent an email invitation to %{email}.
       updated: You're all set and ready to go! You've joined an amazing team!
     mailer:
       invitation_instructions:
-        subject: You've been invited to GetYourRefund
-        hello: Hello,
-        someone_invited_you: "%{their_name} (%{their_email}) has invited %{your_name} to create an account on GetYourRefund to help people with their taxes."
         accept: Accept the invitation and sign up to help!
+        hello: Hello,
         ignore: If you don't want to accept the invitation, please ignore this email.
+        someone_invited_you: "%{their_name} (%{their_email}) has invited %{your_name} to create an account on GetYourRefund to help people with their taxes."
+        subject: You've been invited to GetYourRefund
+  email:
+    user_message:
+      subject: Update from GetYourRefund
   errors:
     attributes:
       birth_date:
@@ -222,12 +222,12 @@ en:
       valid_birth_date: Please select a valid date
   invitations:
     index:
-      title: Invitations
-      invitation:
-        sent_at: "Sent at %{datetime}"
-        create: Resend invitation email
       actions:
         new_invite: Invite a new user
+      invitation:
+        create: Resend invitation email
+        sent_at: Sent at %{datetime}
+      title: Invitations
   models:
     intake:
       your_spouse: Your spouse
@@ -508,15 +508,15 @@ en:
         select_file: Select a file
         take_picture: Add a photo
     passwords:
-      new:
-        back: Back to sign in
-        forgot_your_password: Forgot your password?
-        send_me_reset_password_instructions: Send me reset password instructions
       edit:
         change_my_password: Change my password
         change_your_password: Change your password
         confirm_new_password: Confirm new password
         new_password: New password
+      new:
+        back: Back to sign in
+        forgot_your_password: Forgot your password?
+        send_me_reset_password_instructions: Send me reset password instructions
       password_help_text_html: We recommend using a <a href="https://www.consumerreports.org/digital-security/everything-you-need-to-know-about-password-managers/" target="_blank" rel="nofollow">password manager</a> or inventing a long unusual phrase with random characters that you can remember. Please do not reuse a password from another website.
     public_pages:
       about_us:
@@ -846,6 +846,10 @@ en:
         title:
           one: In %{year}, did you adopt a child?
           other: In %{year}, did you or your spouse adopt a child?
+      asset_sale_gate:
+        title:
+          one: In %{year}, did you sell any stocks, bonds, or real estate?
+          other: In %{year}, did you or your spouse sell any stocks, bonds, or real estate?
       asset_sale_income:
         help_text: For example, any income included on a 1099-B or 1099-S.
         title:
