@@ -1,0 +1,33 @@
+<% content_for :page_title, "Clients" %>
+
+<% content_for :card do %>
+  <table class="index-table client-table">
+    <caption class="index-table__title">
+      <h1 class="h2">Clients</h1>
+    </caption>
+
+    <thead class="index-table__head">
+      <tr class="index-table__row">
+        <th scope="col" class="index-table__header">Name</th>
+        <th scope="col" class="index-table__header">Client ID</th>
+        <th scope="col" class="index-table__header">Partner</th>
+      </tr>
+    </thead>
+
+    <tbody class="index-table__body clients-table">
+
+      <% @clients.each do |client| %>
+        <tr id="client-<%= client.id %>" class="index-table__row">
+          <th class="index-table__row-header client-attribute__name">
+            <%= link_to client_path(id: client) do %>
+              <%= client.preferred_name %>
+            <% end %>
+          </th>
+          <td class="index-table__cell"><%= client.id %></td>
+          <td class="index-table__cell"><%= client.intakes.first.vita_partner.display_name %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+<% end %>

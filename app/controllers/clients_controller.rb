@@ -1,9 +1,14 @@
 class ClientsController < ApplicationController
-  include ZendeskAuthenticationControllerHelper
+  include AccessControllable
 
-  before_action :require_zendesk_admin
+  before_action :require_sign_in
+  before_action :require_beta_tester
 
   layout "admin"
+
+  def index
+    @clients = Client.all
+  end
 
   def create
     intake = Intake.find_by(id: params[:intake_id])

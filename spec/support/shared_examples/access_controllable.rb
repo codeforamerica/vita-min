@@ -1,9 +1,9 @@
 # Usage:
 #
-#   it_behaves_like :a_get_action_that_redirects_anonymous_users_to_sign_in action: :new
+#   it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
 #
 #   # set params for this spec
-#   it_behaves_like :a_get_action_that_redirects_anonymous_users_to_sign_in action: :new do
+#   it_behaves_like :a_get_action_for_authenticated_users_only, action: :new do
 #     let(:params) do
 #       { my_mode: { name: "some name" } }
 #     end
@@ -14,9 +14,9 @@
 #     { my_mode: { name: "some name" } }
 #   end
 #
-#   it_behaves_like :a_get_action_that_redirects_anonymous_users_to_sign_in action: :new
+#   it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
 #
-shared_examples :a_get_action_that_redirects_anonymous_users_to_sign_in do |action:|
+shared_examples :a_get_action_for_authenticated_users_only do |action:|
   let(:params) { {} } unless method_defined?(:params)
 
   context "with an anonymous user" do
@@ -29,7 +29,7 @@ shared_examples :a_get_action_that_redirects_anonymous_users_to_sign_in do |acti
   end
 end
 
-shared_examples :a_post_action_that_redirects_anonymous_users_to_sign_in do |action:|
+shared_examples :a_post_action_for_authenticated_users_only do |action:|
   let(:params) { {} } unless method_defined?(:params)
 
   context "with an anonymous user" do
@@ -42,7 +42,7 @@ shared_examples :a_post_action_that_redirects_anonymous_users_to_sign_in do |act
   end
 end
 
-shared_examples :a_get_action_forbidden_to_non_admin_users do |action:|
+shared_examples :a_get_action_for_admins_only do |action:|
   let(:params) { {} } unless method_defined?(:params)
 
   context "with a non-admin user" do
@@ -56,7 +56,7 @@ shared_examples :a_get_action_forbidden_to_non_admin_users do |action:|
   end
 end
 
-shared_examples :a_post_action_forbidden_to_non_admin_users do |action:|
+shared_examples :a_post_action_for_admins_only do |action:|
   let(:params) { {} } unless method_defined?(:params)
 
   context "with a non-admin user" do

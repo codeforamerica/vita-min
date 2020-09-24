@@ -3,35 +3,15 @@ require "rails_helper"
 RSpec.describe ClientsController do
   describe "#create" do
     let(:intake) { create :intake, email_address: "client@example.com", phone_number: "14155537865", preferred_name: "Casey" }
-    let(:valid_params) do
+    let(:params) do
       { intake_id: intake.id }
     end
 
-    before do
-      allow(subject).to receive(:current_user).and_return user
-    end
-
-    context "as an anonymous user" do
-      let(:user) { nil }
-      it "redirects to sign in" do
-        post :create, params: valid_params
-
-        expect(response).to redirect_to zendesk_sign_in_path
-      end
-    end
-
-    context "as an authenticated non-admin user" do
-      let(:user) { build :user, provider: "zendesk", id: 1 }
-
-      it "redirects to sign in" do
-        post :create, params: valid_params
-
-        expect(response).to redirect_to zendesk_sign_in_path
-      end
-    end
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
+    it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
     context "as an authenticated admin user" do
-      let(:user) { build :user, provider: "zendesk", id: 1, role: "admin" }
+      before { sign_in(create :beta_tester) }
 
       context "without an intake id" do
         it "does nothing and returns invalid request status code" do
@@ -47,7 +27,7 @@ RSpec.describe ClientsController do
         context "with an intake that does not yet have a client" do
           it "creates a client linked to the intake and redirects to show" do
             expect {
-              post :create, params: valid_params
+              post :create, params: params
             }.to change(Client, :count).by(1)
 
             client = Client.last
@@ -65,7 +45,7 @@ RSpec.describe ClientsController do
 
           it "just redirects to the existing client" do
             expect {
-              post :create, params: valid_params
+              post :create, params: params
             }.not_to change(Client, :count)
 
             expect(response).to redirect_to client_path(id: client.id)
@@ -76,38 +56,21 @@ RSpec.describe ClientsController do
   end
 
   describe "#show" do
-    before do
-      allow(subject).to receive(:current_user).and_return user
-    end
-
     let(:client) { create :client }
-
-    context "as an anonymous user" do
-      let(:user) { nil }
-      it "redirects to sign in" do
-        get :show, params: { id: client.id }
-
-        expect(response).to redirect_to zendesk_sign_in_path
-      end
+    let(:params) do
+      { id: client.id }
     end
 
-    context "as an authenticated non-admin user" do
-      let(:user) { build :user, provider: "zendesk", id: 1 }
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
+    it_behaves_like :a_get_action_for_beta_testers_only, action: :show
 
-      it "redirects to sign in" do
-        get :show, params: { id: client.id }
-
-        expect(response).to redirect_to zendesk_sign_in_path
-      end
-    end
-
-    context "as an authenticated admin user" do
+    context "as an authenticated beta tester" do
       render_views
 
-      let(:user) { build :user, provider: "zendesk", id: 1, role: "admin" }
+      before { sign_in(create :beta_tester) }
 
       it "shows client information" do
-        get :show, params: { id: client.id }
+        get :show, params: params
 
         expect(response.body).to include(client.preferred_name)
         expect(response.body).to include(client.email_address)
@@ -156,6 +119,30 @@ RSpec.describe ClientsController do
             end
           end
         end
+      end
+    end
+  end
+
+  describe "#index" do
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
+    it_behaves_like :a_get_action_for_beta_testers_only, action: :index
+
+    context "as an authenticated beta tester" do
+      render_views
+
+      before { sign_in create(:beta_tester) }
+      let!(:george_sr) { create :client, preferred_name: "George Sr.", intakes: [ create(:intake, :filled_out) ] }
+      let!(:michael) { create :client, preferred_name: "Michael", intakes: [ create(:intake, :filled_out) ] }
+      let!(:tobias) { create :client, preferred_name: "Tobias", intakes: [ create(:intake, :filled_out) ] }
+
+      it "shows a list of clients and client information" do
+        get :index
+
+        expect(assigns(:clients).count).to eq 3
+        html = Nokogiri::HTML.parse(response.body)
+        expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
+        expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.intakes.first.vita_partner.display_name)
+        expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq client_path(id: george_sr)
       end
     end
   end

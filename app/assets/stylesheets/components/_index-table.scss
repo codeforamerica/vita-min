@@ -1,0 +1,23 @@
+/*
+index-table is for displaying tabular information in the case management views.
+It expects to be the primary content of the given page (full width).
+ */
+
+.index-table {
+  // inherits from honeycrisp table until we have more design on index views
+  @extend .data-table;
+
+  .index-table__title {
+    text-align: left;
+  }
+
+  .index-table__row-header {
+    font-weight: bold;
+  }
+
+  .index-table__row-header, .index-table__cell {
+    a {
+      text-decoration: underline;
+    }
+  }
+}

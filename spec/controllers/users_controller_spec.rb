@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe UsersController do
   describe "#profile" do
-    it_behaves_like :a_get_action_that_redirects_anonymous_users_to_sign_in, action: :profile
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :profile
     it_behaves_like :a_get_action_for_beta_testers_only, action: :profile
 
     context "with an authenticated beta tester" do

@@ -114,7 +114,7 @@ Rails.application.routes.draw do
     end
 
     # New Case Management Admin routes
-    resources :clients, only: [:show, :create]
+    resources :clients, only: [:index, :show, :create]
     resources :outgoing_text_messages, only: [:create]
     resources :outgoing_emails, only: [:create]
     devise_for :users, skip: :omniauth_callbacks, controllers: {

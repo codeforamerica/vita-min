@@ -247,7 +247,7 @@ FactoryBot.define do
       with_dependents
       intake_ticket_id { 192 }
       with_documents
-      vita_partner { VitaPartner.find(VitaPartner.pluck(:id).sample) }
+      vita_partner
       locale { ["en", "es"].sample }
       source { vita_partner.source_parameters.first || "none" }
       referrer { "/" }

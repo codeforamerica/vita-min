@@ -8,7 +8,7 @@ RSpec.describe Users::InvitationsController do
   end
 
   describe "#new" do
-    it_behaves_like :a_get_action_that_redirects_anonymous_users_to_sign_in, action: :new
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
     it_behaves_like :a_get_action_for_beta_testers_only, action: :new
   end
 
@@ -22,7 +22,7 @@ RSpec.describe Users::InvitationsController do
       }
     end
 
-    it_behaves_like :a_post_action_that_redirects_anonymous_users_to_sign_in, action: :create
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
     it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
     context "with an authenticated beta tester" do
