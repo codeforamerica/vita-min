@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
-  let(:admin_user) { create :admin_user }
+  let(:beta_user) { create :beta_tester }
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
   describe "#new" do
     it_behaves_like :a_get_action_that_redirects_anonymous_users_to_sign_in, action: :new
-    it_behaves_like :a_get_action_forbidden_to_non_admin_users, action: :new
+    it_behaves_like :a_get_action_for_beta_testers_only, action: :new
   end
 
   describe "#create" do
@@ -23,10 +23,10 @@ RSpec.describe Users::InvitationsController do
     end
 
     it_behaves_like :a_post_action_that_redirects_anonymous_users_to_sign_in, action: :create
-    it_behaves_like :a_post_action_forbidden_to_non_admin_users, action: :create
+    it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
-    context "with an authenticated admin user" do
-      before { sign_in admin_user }
+    context "with an authenticated beta tester" do
+      before { sign_in beta_user }
 
       it "creates a new invited user" do
         expect do
@@ -36,10 +36,22 @@ RSpec.describe Users::InvitationsController do
         invited_user = User.last
         expect(invited_user.name).to eq "Cher Cherimoya"
         expect(invited_user.email).to eq "cherry@example.com"
+        expect(invited_user.is_beta_tester?).to eq true
         expect(invited_user.invitation_token).to be_present
-        expect(invited_user.invited_by).to eq admin_user
+        expect(invited_user.invited_by).to eq beta_user
         expect(invited_user.role).to eq "agent"
         expect(response).to redirect_to invitations_path
+      end
+
+      context "if the invited user already exists and is an admin" do
+        let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
+
+        it "doesn't change the users role" do
+          post :create, params: params
+          invited_user.reload
+          expect(invited_user.is_beta_tester?).to eq true
+          expect(invited_user.role).to eq "admin"
+        end
       end
     end
   end
@@ -54,7 +66,7 @@ RSpec.describe Users::InvitationsController do
         name: "Cherry Cherimoya",
         email: "cherry@example.com",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
-        invited_by: admin_user
+        invited_by: beta_user
       )
     end
 
@@ -92,7 +104,7 @@ RSpec.describe Users::InvitationsController do
         :invited_user,
         name: "Cherry Cherimoya",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
-        invited_by: admin_user
+        invited_by: beta_user
       )
     end
 

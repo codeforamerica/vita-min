@@ -64,6 +64,10 @@ FactoryBot.define do
       role { "agent" }
     end
 
+    factory :beta_tester do
+      is_beta_tester { true }
+    end
+
     factory :invited_user do
       association :invited_by, factory: :admin_user
       invitation_created_at { 1.day.ago - 1.minute }

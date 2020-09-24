@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Logging in and out to the volunteer portal" do
-  # Making these users admins because profile page is admin only for now
-  let!(:user) { create(:user, name: "German Geranium", email: "german@flowers.orange", password: "goodPassword", role: "admin") }
+  # Making these users beta testers because profile page is beta tester only for now
+  let!(:user) { create(:beta_tester, name: "German Geranium", email: "german@flowers.orange", password: "goodPassword", role: "agent") }
 
   scenario "logging in and out" do
     # go to password-based sign in page
@@ -15,7 +15,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
 
     # Expect to be redirected to user profile page
     expect(page).to have_text "German Geranium"
-    expect(page).to have_text "Admin"
+    expect(page).to have_text "Agent"
 
     click_on "Sign out"
     # Should be redirected to home page
@@ -44,7 +44,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     click_on "Sign in"
     # Expect to be redirected to user profile page
     expect(page).to have_text "German Geranium"
-    expect(page).to have_text "Admin"
+    expect(page).to have_text "Agent"
   end
 
   scenario "resetting password" do

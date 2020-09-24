@@ -13,14 +13,21 @@ class Users::InvitationsController < Devise::InvitationsController
     # If an anonymous user tries to send an invitation, send them to the invitation page after sign-in.
     require_sign_in(redirect_after_login: new_user_invitation_path)
   end
-  before_action :require_admin, only: [:new, :create]
+  before_action :require_beta_tester, only: [:new, :create]
   before_action :require_valid_invitation_token, only: [:edit, :update]
+
+  def create
+    super do |invited_user|
+      # set default values
+      invited_user.update(is_beta_tester: true, role: invited_user.role || "agent" )
+    end
+  end
 
   private
 
   # Override superclass method for default params for newly created invites, allowing us to add attributes
   def invite_params
-    params.require(:user).permit(:name, :email).merge(role: "agent")
+    params.require(:user).permit(:name, :email)
   end
 
   # Override superclass method for accepted invite params, allowing us to add attributes

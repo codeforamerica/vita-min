@@ -69,3 +69,31 @@ shared_examples :a_post_action_forbidden_to_non_admin_users do |action:|
     end
   end
 end
+
+shared_examples :a_get_action_for_beta_testers_only do |action:|
+  let(:params) { {} } unless method_defined?(:params)
+
+  context "with a non-admin user" do
+    before { sign_in( create :user, is_beta_tester: false ) }
+
+    it "saves the current path to the session and redirects to the zendesk login path" do
+      get action, params: params
+
+      expect(response.status).to eq 403
+    end
+  end
+end
+
+shared_examples :a_post_action_for_beta_testers_only do |action:|
+  let(:params) { {} } unless method_defined?(:params)
+
+  context "with a non-admin user" do
+    before { sign_in( create :user, is_beta_tester: false ) }
+
+    it "saves the current path to the session and redirects to the zendesk login path" do
+      post action, params: params
+
+      expect(response.status).to eq 403
+    end
+  end
+end

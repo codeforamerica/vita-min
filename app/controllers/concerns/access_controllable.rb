@@ -11,4 +11,8 @@ module AccessControllable
   def require_admin
     head 403 unless current_user&.role == "admin"
   end
+
+  def require_beta_tester
+    head 403 unless current_user&.is_beta_tester?
+  end
 end
