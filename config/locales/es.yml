@@ -1,5 +1,9 @@
 ---
 es:
+  clients:
+    index:
+      title: Todos clientes
+      client_id_heading: Cliente ID
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
@@ -169,6 +173,7 @@ es:
       ru: Ruso
       zh: Mandarín
     languages: Idiomas
+    name: Nombre
     negative: 'No'
     next: Próximo
     none_of_the_above: Ninguna de las anteriores
@@ -177,6 +182,7 @@ es:
     oops: "¡Oye!"
     open: Abrir
     other_options: Intente otra opción de declaración gratis
+    partner: Socio
     password: Contraseña
     phone_number: Número de teléfono
     privacy_policy: Política de privacidad
@@ -227,6 +233,9 @@ es:
       errors:
         choose_file: Por favor, elija un archivo.
         valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
+  users:
+    profile:
+      clients_link: Todos clientes
   validators:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.

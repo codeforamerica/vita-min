@@ -2,19 +2,23 @@
 <% content_for :card do %>
   <h1><%= current_user.name %></h1>
   <p>
-    <strong>Email:</strong> <%= current_user.email %>
+    <strong><%= t("general.email") %></strong> <%= current_user.email %>
   </p>
   <p>
     <strong>Role:</strong> <%= current_user.role.capitalize %>
   </p>
 
   <ul class="actions">
-    <% if current_user.is_beta_tester? %>
-      <li class="user-action-link">
-        <%= link_to invitations_path do %>
-          <%= t("general.invitations") %>
-        <% end %>
-      </li>
-    <% end %>
+    <li class="user-action-link">
+      <%= link_to invitations_path, class: "button button--small" do %>
+        <%= t("general.invitations") %>
+      <% end %>
+    </li>
+
+    <li class="user-action-link">
+      <%= link_to clients_path, class: "button button--small" do %>
+        <%= t(".clients_link") %>
+      <% end %>
+    </li>
   </ul>
 <% end %>

@@ -1,5 +1,9 @@
 ---
 en:
+  clients:
+    index:
+      title: All clients
+      client_id_heading: Client ID
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
@@ -169,6 +173,7 @@ en:
       ru: Russian
       zh: Mandarin
     languages: Languages
+    name: Name
     negative: 'No'
     next: Next
     none_of_the_above: None of the above
@@ -177,6 +182,7 @@ en:
     oops: Oops!
     open: Open
     other_options: Try another free tax filing option
+    partner: Partner
     password: Password
     phone_number: Phone number
     privacy_policy: privacy policy
@@ -227,6 +233,9 @@ en:
       errors:
         choose_file: Please choose a file.
         valid_pickup_date: Please enter a valid month and day (M/D).
+  users:
+    profile:
+      clients_link: All clients
   validators:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.

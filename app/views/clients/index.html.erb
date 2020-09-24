@@ -3,14 +3,14 @@
 <% content_for :card do %>
   <table class="index-table client-table">
     <caption class="index-table__title">
-      <h1 class="h2">Clients</h1>
+      <h1 class="h2"><%= t(".title") %></h1>
     </caption>
 
     <thead class="index-table__head">
       <tr class="index-table__row">
-        <th scope="col" class="index-table__header">Name</th>
-        <th scope="col" class="index-table__header">Client ID</th>
-        <th scope="col" class="index-table__header">Partner</th>
+        <th scope="col" class="index-table__header"><%= t("general.name") %></th>
+        <th scope="col" class="index-table__header"><%= t(".client_id_heading") %></th>
+        <th scope="col" class="index-table__header"><%= t("general.partner") %></th>
       </tr>
     </thead>
 
