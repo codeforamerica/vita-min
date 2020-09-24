@@ -80,8 +80,11 @@ class QuestionNavigation
     # Income from benefits
     Questions::DisabilityIncomeController,
 
-    # Investment income/loss
+    # Investment interest
     Questions::InterestIncomeController,
+
+    # Investment sale income or loss
+    Questions::AssetSaleGateController,
     Questions::AssetSaleIncomeController,
     Questions::AssetSaleLossController,
 

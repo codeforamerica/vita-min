@@ -135,6 +135,7 @@
 #  sms_notification_opt_in                              :integer          default("unfilled"), not null
 #  sms_phone_number                                     :string
 #  sold_a_home                                          :integer          default("unfilled"), not null
+#  sold_assets                                          :integer          default("unfilled"), not null
 #  source                                               :string
 #  spouse_auth_token                                    :string
 #  spouse_birth_date                                    :date

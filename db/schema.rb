@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_24_042414) do
+ActiveRecord::Schema.define(version: 2020_09_24_061736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -347,6 +347,7 @@ ActiveRecord::Schema.define(version: 2020_09_24_042414) do
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "sms_phone_number"
     t.integer "sold_a_home", default: 0, null: false
+    t.integer "sold_assets", default: 0, null: false
     t.string "source"
     t.string "spouse_auth_token"
     t.date "spouse_birth_date"
