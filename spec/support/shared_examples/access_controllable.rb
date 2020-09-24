@@ -76,7 +76,7 @@ shared_examples :a_get_action_for_beta_testers_only do |action:|
   context "with a non-admin user" do
     before { sign_in( create :user, is_beta_tester: false ) }
 
-    it "saves the current path to the session and redirects to the zendesk login path" do
+    it "responds with status forbidden" do
       get action, params: params
 
       expect(response.status).to eq 403
@@ -90,7 +90,7 @@ shared_examples :a_post_action_for_beta_testers_only do |action:|
   context "with a non-admin user" do
     before { sign_in( create :user, is_beta_tester: false ) }
 
-    it "saves the current path to the session and redirects to the zendesk login path" do
+    it "responds with status forbidden" do
       post action, params: params
 
       expect(response.status).to eq 403
