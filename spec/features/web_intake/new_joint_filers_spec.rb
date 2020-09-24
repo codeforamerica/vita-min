@@ -205,7 +205,7 @@ RSpec.feature "Web Intake Joint Filers" do
     # Investment income/loss
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from interest or dividends?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you sell any stocks, bonds, or real estate?")
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse sell any stocks, bonds, or real estate?")
     click_on "No"
 
     # Retirement income/contributions
