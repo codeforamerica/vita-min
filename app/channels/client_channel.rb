@@ -1,6 +1,8 @@
 class ClientChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "client_#{params[:room]}"
+    # TODO: authz
+    client = Client.find(params[:id])
+    stream_for client
   end
 
   def unsubscribed

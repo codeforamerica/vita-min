@@ -14,7 +14,7 @@ Rails.application.configure do
   # This is useful if you want to log query parameters
   config.lograge.custom_options = lambda do |event|
     {
-      params: event.payload[:params].reject { |k| %w(controller action).include? k },
+      params: event.payload[:params]&.reject { |k| %w(controller action).include? k },
       request_details: event.payload[:request_details],
     }
   end
