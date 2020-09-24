@@ -933,6 +933,11 @@ es:
         info: Según sus respuestas, no podemos ayudarlo a recibir su estímulo. Si tiene preguntas, "Chat" con nosotros o visita nuestra página de preguntas frecuentes de estímulo.
         title: Desafortunadamente, no califica para nuestra ayuda.
       eip_overview:
+        hotline_notice:
+          title: ¿Necesitas ayuda adicional?
+          what: La línea de ayuda de United Way está disponible para responder sus preguntas y puede ayudarlo a completar este formulario por teléfono.
+          why: Es una buena opción para cualquier persona que no sea buena con las computadoras o que prefiera el soporte en persona.
+          number: Llame +1 844 322 3639
         info_html: 'Tenga en cuenta: Si recibió lo siguiente, el pago debería llegarle automáticamente y <strong>no es necesario que complete el formulario</strong>:'
         received_rrb: Beneficios de Jubilación Ferroviaria
         received_ssdi: Sobreviviente o discapacidad del Seguro Social (SSDI)
