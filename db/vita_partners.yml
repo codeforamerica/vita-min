@@ -114,7 +114,6 @@ vita_partners:
   states:
   - CA
   - FL
-  - TX
   logo_path: ''
   weekly_capacity_limit: 500
 - name: United Way Bay Area
@@ -539,6 +538,8 @@ vita_partners:
   display_name: BakerRipley Neighborhood Tax Centers
   source_parameters:
   - baker
+  states:
+  - TX
   logo_path: 'partner-logos/baker_ripley.png'
 - name: Get Your Refund - EIP Only
   zendesk_instance_domain: eitc
