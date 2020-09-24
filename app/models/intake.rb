@@ -177,6 +177,10 @@
 # Indexes
 #
 #  index_intakes_on_client_id                                (client_id)
+#  index_intakes_on_email_address                            (email_address)
+#  index_intakes_on_intake_ticket_id                         (intake_ticket_id)
+#  index_intakes_on_phone_number                             (phone_number)
+#  index_intakes_on_sms_phone_number                         (sms_phone_number)
 #  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
 #  index_intakes_on_vita_partner_id                          (vita_partner_id)
 #
