@@ -72,4 +72,7 @@ Rails.application.configure do
 
   # Allow incoming connections over ngrok
   config.hosts << /[a-z0-9]+\.ngrok\.io/
+
+  # config.action_cable.url = "ws://localhost:3000/cable"
+  # config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
 end

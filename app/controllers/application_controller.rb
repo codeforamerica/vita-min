@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
 
-  helper Webpacker::Helper
-
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   around_action :switch_locale
   after_action :track_page_view
