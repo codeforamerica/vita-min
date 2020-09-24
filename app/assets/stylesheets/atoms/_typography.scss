@@ -15,3 +15,27 @@ a {
     color: $color-link-active;
   }
 }
+
+.text--bold {
+  font-weight: bold;
+}
+
+.text--underline {
+  text-decoration: underline;
+}
+
+.text--semibold {
+  font-weight: 500;
+}
+
+.text--teal {
+  color: $color-teal;
+}
+
+.text--purple {
+  color: $color-purple;
+}
+
+.text--black {
+  color: rgb(0, 0, 0);
+}
