@@ -46,7 +46,7 @@ RSpec.describe Users::InvitationsController do
       context "if the invited user already exists and is an admin" do
         let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
 
-        it "doesn't change the users role" do
+        it "doesn't change the user's role" do
           post :create, params: params
           invited_user.reload
           expect(invited_user.is_beta_tester?).to eq true
