@@ -1,5 +1,5 @@
 <% content_for :toolbar_right do %>
-  <% if current_user.role == "admin" %>
+  <% if current_user.is_beta_tester? %>
     <%= link_to user_profile_path, class: "toolbar__item" do %>
       <%=t("views.layouts.admin.welcome_user_html", :name => current_user.name) %>
     <% end %>

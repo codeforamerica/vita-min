@@ -9,7 +9,7 @@
   </p>
 
   <ul class="actions">
-    <% if current_user.role == "admin" %>
+    <% if current_user.is_beta_tester? %>
       <li class="user-action-link">
         <%= link_to invitations_path do %>
           <%= t("general.invitations") %>

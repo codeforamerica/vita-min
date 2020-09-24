@@ -2,7 +2,7 @@ class InvitationsController < ApplicationController
   include AccessControllable
 
   before_action :require_sign_in
-  before_action :require_admin
+  before_action :require_beta_tester
 
   layout "admin"
 
