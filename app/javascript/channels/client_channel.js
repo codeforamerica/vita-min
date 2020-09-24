@@ -1,19 +1,14 @@
 import consumer from "./consumer"
 
-consumer.subscriptions.create("ClientChannel", {
-  connected() {
-    // Called when the subscription is ready for use on the server
-  },
+const channelName = {
+    channel: "ClientChannel",
+    room: "BestClient"
+};
 
-  disconnected() {
-    // Called when the subscription has been terminated by the server
-  },
+const callback = {
+    received(data) {
+        console.log("received :" + data);
+    }
+};
 
-  received(data) {
-    // Called when there's incoming data on the websocket for this channel
-  },
-
-  speak: function() {
-    return this.perform('speak');
-  }
-});
+consumer.subscriptions.create(channelName, callback);
