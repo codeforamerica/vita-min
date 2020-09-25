@@ -40,7 +40,6 @@ RSpec.feature "Web Intake 211 Assisted Filer" do
     # Skip to additional information
     visit "/questions/additional-info"
     fill_in "Is there any more information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
-    expect{ track_progress }.to change { @current_progress }.to(100)
     click_on "Next"
 
     # After additional info, navigation skips documents section and goes to interview time preferences
@@ -50,5 +49,10 @@ RSpec.feature "Web Intake 211 Assisted Filer" do
     )
     select("Spanish", from: "What is your preferred language for the review?")
     click_on "Continue"
+
+    # Skip to additional information
+    visit "/questions/successfully-submitted"
+    expect{ track_progress }.to change { @current_progress }.to(100)
+
   end
 end

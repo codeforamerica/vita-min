@@ -80,6 +80,7 @@ RSpec.describe Documents::EmploymentController, type: :controller do
 
   describe "#edit" do
     let(:attributes) { { had_wages: "yes" } }
+    let(:intake) { create :intake, intake_ticket_id: 1234, **attributes }
 
     context "with existing employment-related uploads" do
       it "assigns the documents to the form" do
