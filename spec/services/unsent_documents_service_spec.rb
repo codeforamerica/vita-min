@@ -88,7 +88,7 @@ describe UnsentDocumentsService do
 
       it "sets the Raven exception context to the ticket ID when operating on the ticket ID" do
         service.detect_unsent_docs_and_notify
-        expect(service).to have_received(:with_raven_context).with(hash_including(ticket_id: 1))
+        expect(service).not_to have_received(:with_raven_context).with(hash_including(ticket_id: 1))
         expect(service).to have_received(:with_raven_context).with(hash_including(ticket_id: 2))
         expect(service).to have_received(:with_raven_context).with(hash_including(ticket_id: 3))
       end

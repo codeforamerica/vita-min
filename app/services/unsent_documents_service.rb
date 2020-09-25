@@ -6,10 +6,10 @@ class UnsentDocumentsService
     DatadogApi.increment("cronjob.documents.unsent.detect_and_notify")
 
     tickets_updated = 0
-    Intake.where.not(intake_ticket_id: nil).find_each(batch_size: 100) do |intake|
+    intakes_with_unsent_docs_query.find_each(batch_size: 10) do |intake|
       with_raven_context(intake_context(intake)) do
-        unsent_docs = intake.documents.where(zendesk_ticket_id: nil).where("created_at < ?", 15.minutes.ago)
-        if unsent_docs.present?
+        unsent_docs = intake.documents.where("created_at < ?", 15.minutes.ago)
+        if unsent_docs.exists?
           zendesk_service = ZendeskIntakeService.new(intake)
 
           ticket = zendesk_service.get_ticket(ticket_id: intake.intake_ticket_id)
@@ -25,7 +25,7 @@ class UnsentDocumentsService
               ticket_id: intake.intake_ticket_id,
               comment: comment_body
             )
-            unsent_docs.each {|d| d.update(zendesk_ticket_id: intake.intake_ticket_id)}
+            unsent_docs.update_all(zendesk_ticket_id: intake.intake_ticket_id)
             tickets_updated += 1
             DatadogApi.gauge("zendesk.ticket.docs.unsent.ticket_updated.document_count", unsent_docs.length)
           end
@@ -33,5 +33,10 @@ class UnsentDocumentsService
       end
     end
     DatadogApi.gauge("zendesk.ticket.docs.unsent.tickets_updated", tickets_updated)
+  end
+
+  def intakes_with_unsent_docs_query
+    # Intake.joins().includes() performs an inner join without duplicate Intake rows
+    Intake.where.not(intake_ticket_id: nil).joins(:documents).includes(:documents).where(documents: { zendesk_ticket_id: nil })
   end
 end
