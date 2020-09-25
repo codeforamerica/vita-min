@@ -27,7 +27,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # Override superclass method for default params for newly created invites, allowing us to add attributes
   def invite_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :vita_partner_id)
   end
 
   # Override superclass method for accepted invite params, allowing us to add attributes

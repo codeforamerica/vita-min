@@ -30,8 +30,9 @@ RSpec.describe UsersController do
       render_views
 
       before { sign_in(create :beta_tester, role: "admin") }
-      let!(:leslie) { create :admin_user, name: "Leslie" }
-      let!(:ben) { create :agent_user, name: "Ben" }
+      let(:vita_partner) { create :vita_partner, name: "Pawnee Preparers" }
+      let!(:leslie) { create :admin_user, name: "Leslie", vita_partner: vita_partner }
+      let!(:ben) { create :agent_user, name: "Ben", vita_partner: vita_partner }
       let!(:ron) { create :agent_user, name: "Ron", is_beta_tester: true }
 
       it "displays a list of all users with certain key attributes" do
@@ -41,8 +42,10 @@ RSpec.describe UsersController do
         html = Nokogiri::HTML.parse(response.body)
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Leslie")
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Admin")
+        expect(html.at_css("#user-#{leslie.id}")).to have_text("Pawnee Preparers")
         expect(html.at_css("#user-#{leslie.id} a")["href"]).to eq edit_user_path(id: leslie)
         expect(html.at_css("#user-#{ron.id}")).to have_text("Ron (beta-tester)")
+        expect(html.at_css("#user-#{ron.id}")).to have_text("None")
       end
     end
   end
@@ -67,11 +70,15 @@ RSpec.describe UsersController do
   end
 
   describe "#update" do
+    let!(:vita_partner) { create :vita_partner, name: "Avonlea Tax Aid" }
     let!(:user) { create :agent_user, name: "Anne" }
     let(:params) do
       {
         id: user.id,
-        user: { is_beta_tester: true }
+        user: {
+          is_beta_tester: true,
+          vita_partner_id: vita_partner.id
+        }
       }
     end
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
@@ -85,7 +92,9 @@ RSpec.describe UsersController do
       it "updates the user and redirects to edit" do
         post :update, params: params
 
-        expect(user.reload.is_beta_tester?).to eq true
+        user.reload
+        expect(user.is_beta_tester?).to eq true
+        expect(user.vita_partner).to eq vita_partner
         expect(response).to redirect_to edit_user_path(id: user)
       end
     end

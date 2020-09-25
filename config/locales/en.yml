@@ -37,6 +37,7 @@ en:
         name_label: What is their name?
         submit: Send invitation email
         title: Send a new invitation
+        vita_partner_label: Which organization?
       not_found:
         check_your_email: 'Try searching your email for messages with the subject: "%{subject}"'
         contact_support: If you're stuck, you can contact support at support@getyourrefund.org
@@ -176,11 +177,13 @@ en:
     name: Name
     negative: 'No'
     next: Next
+    none: None
     none_of_the_above: None of the above
     not_at_all: Not at all
     not_well: Not well
     oops: Oops!
     open: Open
+    organization: Organization
     other_options: Try another free tax filing option
     partner: Partner
     password: Password

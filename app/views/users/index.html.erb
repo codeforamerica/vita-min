@@ -10,6 +10,7 @@
       <tr class="index-table__row">
         <th scope="col" class="index-table__header"><%= t("general.name") %></th>
         <th scope="col" class="index-table__header"><%= t("general.role") %></th>
+        <th scope="col" class="index-table__header"><%= t("general.organization") %></th>
       </tr>
     </thead>
 
@@ -22,7 +23,8 @@
               <%= user.name %><%= user.is_beta_tester? ? " (beta-tester)" : "" %>
             <% end %>
           </th>
-          <td class="index-table__cell"><%= user.role.capitalize %></td>
+          <td class="index-table__cell"><%= user.role&.capitalize %></td>
+          <td class="index-table__cell"><%= user.vita_partner&.name || t("general.none") %></td>
         </tr>
       <% end %>
 
