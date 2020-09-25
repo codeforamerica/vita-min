@@ -821,20 +821,6 @@ describe Intake do
           expect(intake.zendesk_instance).to eq EitcZendeskInstance
         end
       end
-
-      context "when source param is for an organization in an otherwise UWTSA state" do
-        let(:source) { "fc" }
-        let(:state) { "ny" }
-
-        before do
-          intake.assign_vita_partner!
-        end
-
-        it "assigns to the correct group and the correct instance" do
-          expect(intake.reload.vita_partner.name).to eq "Foundation Communities"
-          expect(intake.zendesk_instance).to eq EitcZendeskInstance
-        end
-      end
     end
 
     context "with state routing" do
