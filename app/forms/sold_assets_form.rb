@@ -1,4 +1,4 @@
-class AssetSaleGateForm < QuestionsForm
+class SoldAssetsForm < QuestionsForm
   set_attributes_for :intake, :sold_assets
 
   def save
