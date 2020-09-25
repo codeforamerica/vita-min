@@ -141,7 +141,6 @@ RSpec.feature "Web Intake EIP Only Filer" do
 
     # Additional Information
     fill_in "Is there any more information you think we should know?", with: "One of my kids moved away for college, should I include them as a dependent?"
-    expect{ track_progress }.to change { @current_progress }.to(100)
     click_on "Next"
 
     # IRS guidance
@@ -230,6 +229,7 @@ RSpec.feature "Web Intake EIP Only Filer" do
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
     expect(page).to have_text("Your confirmation number is: #{ticket_id}")
+    expect{ track_progress }.to change { @current_progress }.to(100)
     click_on "Great!"
 
     fill_in "Thank you for sharing your experience.", with: "I wish to file as speedily as possible!"
