@@ -21,8 +21,13 @@ class VitaPartner < ApplicationRecord
   has_many :intakes
   has_and_belongs_to_many :states, association_foreign_key: :state_abbreviation
   has_many :source_parameters
+  has_many :users
 
   after_initialize :defaults
+
+  def self.select_input_options
+    all.collect { |v| [v.name, v.id] }
+  end
 
   def at_capacity?
     actionable_intakes_this_week.count >= weekly_capacity_limit

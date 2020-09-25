@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.includes(:vita_partner)
   end
 
   def edit
@@ -29,6 +29,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:is_beta_tester)
+    params.require(:user).permit(:is_beta_tester, :vita_partner_id)
   end
 end

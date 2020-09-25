@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
   let(:beta_user) { create :beta_tester }
+  let(:vita_partner) { create :vita_partner }
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
@@ -17,7 +18,8 @@ RSpec.describe Users::InvitationsController do
       {
         user: {
           name: "Cher Cherimoya",
-          email: "cherry@example.com"
+          email: "cherry@example.com",
+          vita_partner_id: vita_partner.id
         }
       }
     end
@@ -40,6 +42,7 @@ RSpec.describe Users::InvitationsController do
         expect(invited_user.invitation_token).to be_present
         expect(invited_user.invited_by).to eq beta_user
         expect(invited_user.role).to eq "agent"
+        expect(invited_user.vita_partner).to eq vita_partner
         expect(response).to redirect_to invitations_path
       end
 
@@ -66,7 +69,8 @@ RSpec.describe Users::InvitationsController do
         name: "Cherry Cherimoya",
         email: "cherry@example.com",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
-        invited_by: beta_user
+        invited_by: beta_user,
+        vita_partner: vita_partner
       )
     end
 
@@ -74,6 +78,7 @@ RSpec.describe Users::InvitationsController do
       get :edit, params: params
 
       expect(response.body).to have_content "cherry@example.com"
+      expect(response.body).to have_content vita_partner.name
       expect(assigns(:user).name).to eq "Cherry Cherimoya"
     end
 
@@ -104,7 +109,8 @@ RSpec.describe Users::InvitationsController do
         :invited_user,
         name: "Cherry Cherimoya",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
-        invited_by: beta_user
+        invited_by: beta_user,
+        vita_partner: vita_partner
       )
     end
 
@@ -126,6 +132,7 @@ RSpec.describe Users::InvitationsController do
         end.to change{ controller.current_user }.from(nil).to(invited_user)
         invited_user.reload
         expect(invited_user.name).to eq "Cher Cherimoya"
+        expect(invited_user.vita_partner).to eq vita_partner
         expect(response).to redirect_to user_profile_path
       end
     end

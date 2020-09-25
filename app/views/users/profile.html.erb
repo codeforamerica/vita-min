@@ -5,7 +5,10 @@
     <strong><%= t("general.email") %></strong> <%= current_user.email %>
   </p>
   <p>
-    <strong>Role:</strong> <%= current_user.role.capitalize %>
+    <strong><%= t("general.role") %>></strong> <%= current_user.role&.capitalize %>
+  </p>
+  <p>
+    <strong><%= t("general.organization") %>></strong> <%= current_user.vita_partner&.name || t("general.none") %>
   </p>
 
   <ul class="actions">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_24_061736) do
+ActiveRecord::Schema.define(version: 2020_09_26_201736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -502,12 +502,14 @@ ActiveRecord::Schema.define(version: 2020_09_24_061736) do
     t.string "uid"
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "verified"
+    t.bigint "vita_partner_id"
     t.bigint "zendesk_user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["vita_partner_id"], name: "index_users_on_vita_partner_id"
   end
 
   create_table "vita_partners", force: :cascade do |t|
@@ -556,5 +558,6 @@ ActiveRecord::Schema.define(version: 2020_09_24_061736) do
   add_foreign_key "states_vita_partners", "vita_partners"
   add_foreign_key "ticket_statuses", "intakes"
   add_foreign_key "users", "users", column: "invited_by_id"
+  add_foreign_key "users", "vita_partners"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
 end

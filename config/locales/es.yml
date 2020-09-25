@@ -37,6 +37,7 @@ es:
         name_label: "¿Cúal es el nombre del invitado?"
         submit: Enviar email de invitación
         title: Envíe una nueva invitación
+        vita_partner_label: ¿Cúal organización?
       not_found:
         check_your_email: 'Intente buscar en su correo electrónico mensajes con el asunto: "%{subject}"'
         contact_support: Si está atascado, puede ponerse en contacto con el soporte en support@getyourrefund.org
@@ -176,11 +177,13 @@ es:
     name: Nombre
     negative: 'No'
     next: Próximo
+    none: Ninguna
     none_of_the_above: Ninguna de las anteriores
     not_at_all: De ningún modo
     not_well: No muy bein
     oops: "¡Oye!"
     open: Abrir
+    organization: Organización
     other_options: Intente otra opción de declaración gratis
     partner: Socio
     password: Contraseña

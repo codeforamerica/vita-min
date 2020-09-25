@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.feature "Sending and accepting invitations" do
   context "As an admin user" do
     let(:beta_tester) { create :beta_tester, role: "agent" }
+    let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders" }
     before do
       login_as beta_tester
     end
@@ -21,6 +22,7 @@ RSpec.feature "Sending and accepting invitations" do
       expect(page).to have_text "Send a new invitation"
       fill_in "What is their name?", with: "Colleen Cauliflower"
       fill_in "What is their email?", with: "colleague@cauliflower.org"
+      select "Brassica Asset Builders", from: "Which organization?"
       click_on "Send invitation email"
 
       # back on the invitations page
@@ -30,6 +32,7 @@ RSpec.feature "Sending and accepting invitations" do
       within(".invitations") do
         expect(page).to have_text "Colleen Cauliflower"
         expect(page).to have_text "colleague@cauliflower.org"
+        expect(page).to have_text "Brassica Asset Builders"
       end
       invited_user = User.where(invited_by: beta_tester).last
       expect(invited_user).to be_present
@@ -58,6 +61,7 @@ RSpec.feature "Sending and accepting invitations" do
       visit accept_invite_url
       expect(page).to have_text "Thank you for signing up to help!"
       expect(page).to have_text "colleague@cauliflower.org"
+      expect(page).to have_text "Brassica Asset Builders"
       expect(find_field("What is your name?").value).to eq "Colleen Cauliflower"
       fill_in "Please choose a strong password", with: "c0v3rt-c4ul1fl0wer"
       fill_in "Enter your new password again", with: "c0v3rt-c4ul1fl0wer"
@@ -66,6 +70,7 @@ RSpec.feature "Sending and accepting invitations" do
       expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
       expect(page).to have_text "Colleen Cauliflower"
       expect(page).to have_text "Agent"
+      expect(page).to have_text "Brassica Asset Builders"
     end
   end
 end
