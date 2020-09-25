@@ -84,7 +84,7 @@ class QuestionNavigation
     Questions::InterestIncomeController,
 
     # Investment sale income or loss
-    Questions::AssetSaleGateController,
+    Questions::SoldAssetsController,
     Questions::AssetSaleIncomeController,
     Questions::AssetSaleLossController,
 
