@@ -1,0 +1,18 @@
+<% content_for :page_title, @user.name %>
+<% content_for :card do %>
+  <%= form_with model: @user, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+    <h1><%= @user.name %></h1>
+    <p>
+      <strong><%= t("general.email") %>:</strong> <%= @user.email %>
+    </p>
+    <p>
+      <strong><%= t("general.role") %>:</strong> <%= @user.role.capitalize %>
+    </p>
+
+    <%= f.cfa_checkbox(:is_beta_tester, t(".is_beta_tester_label"), options: { classes: ["form-width--long"] }) %>
+
+    <button class="button" type="submit">
+      <%=t("general.save") %>
+    </button>
+  <% end %>
+<% end %>

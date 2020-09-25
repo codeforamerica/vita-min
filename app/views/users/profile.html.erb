@@ -20,5 +20,11 @@
         <%= t(".clients_link") %>
       <% end %>
     </li>
+
+    <li class="user-action-link">
+      <%= link_to users_path, class: "button button--small" do %>
+        <%= t(".users_link") %>
+      <% end %>
+    </li>
   </ul>
 <% end %>

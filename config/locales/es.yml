@@ -195,6 +195,8 @@ es:
     remove: Quitar
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
+    role: Rol
+    save: Guardar
     search: Búsqueda
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
     sign_in: Iniciar sesión
@@ -234,8 +236,13 @@ es:
         choose_file: Por favor, elija un archivo.
         valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
   users:
+    index:
+      title: Todos usuarios
     profile:
+      users_link: Todos usuarios
       clients_link: Todos clientes
+    edit:
+      is_beta_tester_label: Probador beta?
   validators:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.

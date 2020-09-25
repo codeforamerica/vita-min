@@ -7,7 +7,7 @@ class ClientsController < ApplicationController
   layout "admin"
 
   def index
-    @clients = Client.all
+    @clients = Client.all.includes(intakes: :vita_partner)
   end
 
   def create

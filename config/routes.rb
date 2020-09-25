@@ -121,6 +121,7 @@ Rails.application.routes.draw do
       sessions: "users/sessions",
       invitations: "users/invitations"
     }
+    resources :users, only: [:index, :edit, :update]
     get "/users/invitations" => "invitations#index", as: :invitations
     get "/users/profile" => "users#profile", as: :user_profile
 

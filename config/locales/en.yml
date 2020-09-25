@@ -195,6 +195,8 @@ en:
     remove: Remove
     return_home: Return to home
     return_search: Return to search
+    role: Role
+    save: Save
     search: Search
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
     sign_in: Sign in
@@ -234,8 +236,13 @@ en:
         choose_file: Please choose a file.
         valid_pickup_date: Please enter a valid month and day (M/D).
   users:
+    index:
+      title: All users
     profile:
       clients_link: All clients
+      users_link: All users
+    edit:
+      is_beta_tester_label: Beta tester?
   validators:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
