@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_26_201736) do
+ActiveRecord::Schema.define(version: 2020_09_26_213358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 2020_09_26_201736) do
     t.string "preferred_name"
     t.string "sms_phone_number"
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "vita_partner_id"
+    t.index ["vita_partner_id"], name: "index_clients_on_vita_partner_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -544,6 +546,7 @@ ActiveRecord::Schema.define(version: 2020_09_26_201736) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "clients", "vita_partners"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents_requests", "intakes"
   add_foreign_key "idme_users", "intakes"

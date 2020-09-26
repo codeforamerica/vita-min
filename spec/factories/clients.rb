@@ -9,6 +9,15 @@
 #  sms_phone_number :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  vita_partner_id  :bigint
+#
+# Indexes
+#
+#  index_clients_on_vita_partner_id  (vita_partner_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 FactoryBot.define do
   factory :client do

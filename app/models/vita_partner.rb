@@ -18,6 +18,7 @@
 class VitaPartner < ApplicationRecord
   DEFAULT_CAPACITY_LIMIT = 300
 
+  has_many :clients
   has_many :intakes
   has_and_belongs_to_many :states, association_foreign_key: :state_abbreviation
   has_many :source_parameters
