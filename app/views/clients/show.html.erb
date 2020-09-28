@@ -11,8 +11,8 @@
     <h3>Phone for texting: <%= @client.sms_phone_number %></h3>
   </div>
   <h2>Contact History</h2>
-  <% if @contact_history.present? %>
-    <ul class="contact-history">
+    <ul id="contact-history">
+      <% if @contact_history.present? %>
       <% @contact_history.each do |contact_record| %>
         <li class="contact-record contact-record--<%= contact_record.contact_record_type %>">
           <div class="contact-record__heading">
@@ -46,8 +46,8 @@
           </div>
         </li>
       <% end %>
+      <% end %>
     </ul>
-  <% end %>
 
   <%= form_with model: @outgoing_text_message, url: outgoing_text_messages_path, local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
     <%= f.cfa_input_field :body, t("views.clients.show.text_message_form.label") %>
