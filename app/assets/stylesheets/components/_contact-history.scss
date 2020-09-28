@@ -3,3 +3,6 @@
   background-color: darken($color-grey-light, 10%);
   padding: 1rem;
 }
+#contact-history:focus {
+  border-top: 2rem solid black;
+}

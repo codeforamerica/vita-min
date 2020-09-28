@@ -11,7 +11,7 @@
     <h3>Phone for texting: <%= @client.sms_phone_number %></h3>
   </div>
   <h2>Contact History</h2>
-    <ul id="contact-history">
+    <ul id="contact-history" aria-live="polite">
       <% if @contact_history.present? %>
       <% @contact_history.each do |contact_record| %>
         <li class="contact-record contact-record--<%= contact_record.contact_record_type %>">

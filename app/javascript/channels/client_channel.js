@@ -12,7 +12,8 @@ export const callback = {
         console.log(consumer.subscriptions);
     },
     received(data) {
-        document.querySelector('#contact-history').innerHTML = data
+        document.querySelector('#contact-history').innerHTML = data;
+        document.querySelector('#contact-history').focus();
     }
 };
 
