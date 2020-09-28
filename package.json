@@ -1,9 +1,20 @@
 {
   "dependencies": {
-    "@rails/webpacker": "5.2.1",
-    "@rails/actioncable": "6.0.3"
+    "@rails/actioncable": "6.0.3",
+    "@rails/webpacker": "5.2.1"
   },
   "devDependencies": {
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.2",
     "webpack-dev-server": "^3.11.0"
+  },
+  "jest": {
+    "roots": [
+      "spec/javascript"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/javascript"
+    ]
   }
 }
