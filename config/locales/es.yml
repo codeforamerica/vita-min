@@ -286,13 +286,13 @@ es:
       check_email:
         edit:
           questions_html: Si tiene alguna pregunta, envíe un correo electrónico a %{email_link}.
-          sent_secure_link: Acabamos de enviarle un enlace seguro de nuestro servicio DIY.
+          sent_secure_link: Acabamos de enviarle un enlace seguro de nuestro servicio DIY operado por nuestro socio comercial, TaxSlayer.
           title: Por favor, compruebe si ha recibido un enlace de confirmación por correo electrónico.
       email_address:
         edit:
           confirm_email_address: Confirme la dirección de correo electrónico
           email_address: Dirección de correo electrónico
-          title: Por favor, informe su dirección de correo electrónico.
+          title: Por favor, informe su dirección de correo electrónico para iniciar sesion de TaxSlayer.
           will_send_secure_link: Le enviaremos un enlace seguro a su correo electrónico para que pueda hacer la declaración.
       file_yourself:
         edit:

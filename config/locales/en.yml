@@ -286,8 +286,8 @@ en:
       check_email:
         edit:
           questions_html: If you have questions you should email %{email_link}.
-          sent_secure_link: We just sent you a secure link for our DIY service.
-          title: Please check your e-mail for a confirmation link.
+          sent_secure_link: We just sent you a secure link for our DIY tax service operated by our partner, TaxSlayer.
+          title: Please check your email to log into TaxSlayer.
       email_address:
         edit:
           confirm_email_address: Confirm e-mail address

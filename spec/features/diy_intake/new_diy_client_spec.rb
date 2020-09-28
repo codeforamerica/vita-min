@@ -22,11 +22,7 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
     fill_in "E-mail address", with: "do.it@your.self"
     click_on "Continue"
 
-    # Remove this when next page is created
-    expect(page).to have_selector("h1", text: "Please check your e-mail for a confirmation link.")
-    click_on "Return to home"
-
-    expect(current_path).to eq(root_path)
+    expect(page).to have_selector("h1", text: "Please check your email to log into TaxSlayer.")
   end
 
   scenario "new client start DIY flow from dedicated DIY landing page" do
@@ -34,30 +30,6 @@ RSpec.feature "Web Intake New Client wants to file on their own" do
     click_on "Send me a link"
 
     expect(page).to have_selector("h1", text: "File your taxes yourself!")
-  end
-
-  scenario "client tries to go back and change their information" do
-    visit "/questions/welcome"
-    click_on "File taxes myself"
-
-    expect(page).to have_selector("h1", text: "File your taxes yourself!")
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "First, let's get some basic information.")
-    fill_in "Preferred name", with: "Gary"
-    select "California", from: "State of residence"
-    click_on "Continue"
-
-    expect(page).to have_selector("h1", text: "Please share your e-mail address.")
-    fill_in "E-mail address", with: "do.it@your.self"
-    fill_in "Confirm e-mail address", with: "do.it@your.self"
-    click_on "Continue"
-
-    # Remove this when next page is created
-    expect(page).to have_selector("h1", text: "Please check your e-mail for a confirmation link.")
-    visit(diy_email_address_path)
-
-    expect(current_path).to eq(diy_file_yourself_path)
   end
 end
 

@@ -14,5 +14,13 @@ RSpec.describe Diy::CheckEmailController, type: :controller do
 
       expect(session[:diy_intake_id]).to be_nil
     end
+
+    it "does not redirect on reload" do
+      2.times do
+        get :edit
+      end
+
+      expect(response.status).to eq 200
+    end
   end
 end
