@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
   include ZendeskAuthenticationControllerHelper
 
-  # before_action :require_zendesk_admin
+  before_action :require_zendesk_admin
 
   layout "admin"
 
@@ -29,11 +29,4 @@ class ClientsController < ApplicationController
     @outgoing_email = OutgoingEmail.new(client: @client)
   end
 
-  def self.broadcast_from_repl(user)
-    WebNotificationsChannel.broadcast_to(
-        user,
-        title: 'New things!',
-        body: 'All the news fit to print'
-    )
-  end
 end

@@ -21,6 +21,10 @@ class TwilioWebhooksController < ActionController::Base
       client: client,
     )
     head :ok
+
+  # To notify any users on the client's page that there is new contact info, add this
+  # (untested pseudocode)
+  # ClientChannel.broadcast_to(client, render_partial("contact_history", client: client))
   end
 
   private
