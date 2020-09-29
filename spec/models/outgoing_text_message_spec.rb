@@ -54,4 +54,12 @@ RSpec.describe OutgoingTextMessage, type: :model do
       end
     end
   end
+
+  describe "#formatted_time" do
+    let(:message) { create :outgoing_text_message, sent_at: DateTime.new(2020, 2, 1, 2, 45, 1) }
+
+    it "returns a human readable time" do
+      expect(message.formatted_time).to eq "2:45 AM UTC"
+    end
+  end
 end

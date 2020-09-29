@@ -67,7 +67,8 @@ RSpec.describe ClientsController do
     context "as an authenticated beta tester" do
       render_views
 
-      before { sign_in(create :beta_tester) }
+      let(:current_user) { create :beta_tester }
+      before { sign_in(current_user) }
 
       it "shows client information" do
         get :show, params: params
@@ -88,7 +89,7 @@ RSpec.describe ClientsController do
           ].reverse
         end
 
-        it "displays all message bodies sorted by date" do
+        it "displays all message bodies" do
           get :show, params: { id: client.id }
 
           expect(assigns(:contact_history)).to eq expected_contact_history
@@ -98,26 +99,39 @@ RSpec.describe ClientsController do
           expect(response.body).to include("Me too! Happy to get every notification")
         end
 
-        context "SMS status from Twilio" do
-          context "with status" do
+        context "outgoing text messages" do
+          context "with Twilio status" do
             let(:twilio_status) { "queued" }
 
-            it "displays the status" do
+            it "displays the name of the logged in person, time of message, type, and Twilio status" do
               get :show, params: { id: client.id }
 
-              expect(response.body).to include("queued")
+              message_record = Nokogiri::HTML.parse(response.body).at_css(".contact-record--outgoing_text_message")
+              expect(message_record).to have_text(current_user.name)
+              expect(message_record).to have_text("12:00 AM UTC")
+              expect(message_record).to have_text("Text to #{client.formatted_phone_number}")
+              expect(message_record).to have_text("queued")
             end
           end
 
-          context "without status" do
+          context "without Twilio status" do
             let(:twilio_status) { nil }
 
-            it "shows sending..." do
+            it "shows sending... as Twilio status" do
               get :show, params: { id: client.id }
 
               expect(response.body).to include("sending...")
             end
           end
+        end
+
+        xcontext "incoming text messages" do
+        end
+
+        xcontext "outgoing emails" do
+        end
+
+        xcontext "incoming emails" do
         end
       end
     end
