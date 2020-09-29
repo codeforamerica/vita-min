@@ -4,6 +4,11 @@ es:
     index:
       title: Todos clientes
       client_id_heading: Cliente ID
+    navigation:
+      client_documents: Documentos
+      client_messages: Mensajes
+      client_notes: Notas
+      client_profile: Perfil del cliente
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
@@ -231,6 +236,14 @@ es:
         create: Reenviar email de invitación
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
+  messages:
+    index:
+      email_form:
+        label: Send an email
+        submit: Send
+      text_message_form:
+        label: Enviar un mensaje de texto
+        submit: Enviar
   models:
     intake:
       your_spouse: Su cónyuge
@@ -250,14 +263,6 @@ es:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
   views:
-    clients:
-      show:
-        email_form:
-          label: Send an email
-          submit: Send
-        text_message_form:
-          label: Enviar un mensaje de texto
-          submit: Enviar
     dependents:
       form:
         birth_date: Fecha de nacimiento

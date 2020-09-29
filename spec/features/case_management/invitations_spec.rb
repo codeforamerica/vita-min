@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Sending and accepting invitations" do
-  context "As an admin user" do
+  context "As a beta tester" do
     let(:beta_tester) { create :beta_tester, role: "agent" }
     let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders" }
     before do

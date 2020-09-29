@@ -4,6 +4,11 @@ en:
     index:
       title: All clients
       client_id_heading: Client ID
+    navigation:
+      client_documents: Documents
+      client_messages: Messages
+      client_notes: Notes
+      client_profile: Client Profile
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
@@ -231,6 +236,14 @@ en:
         create: Resend invitation email
         sent_at: Sent at %{datetime}
       title: Invitations
+  messages:
+    index:
+      email_form:
+        label: Send an email
+        submit: Send
+      text_message_form:
+        label: Send a text message
+        submit: Send
   models:
     intake:
       your_spouse: Your spouse
@@ -250,14 +263,6 @@ en:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
   views:
-    clients:
-      show:
-        email_form:
-          label: Send an email
-          submit: Send
-        text_message_form:
-          label: Send a text message
-          submit: Send
     dependents:
       form:
         birth_date: Date of birth

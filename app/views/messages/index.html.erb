@@ -1,0 +1,64 @@
+<% content_for :page_title, "#{@client.preferred_name}, ##{@client.id}" %>
+
+<% content_for :card do %>
+  <div class="client-header">
+    <h1 class="h2">
+      <%= @client.preferred_name %>
+    </h1>
+    <h2>#<%= @client.id %></h2>
+  </div>
+
+  <%= render "clients/navigation" %>
+
+  <% if @messages.present? %>
+    <ul class="contact-history">
+      <% @messages.each do |contact_record| %>
+        <li class="contact-record contact-record--<%= contact_record.contact_record_type %>">
+          <div class="contact-record__heading">
+
+            <span class="contact-record__name">
+              <%= contact_record.author %>
+            </span>
+            <span class="contact-record__time">
+            <%= contact_record.datetime %>
+            </span>
+
+            <% if contact_record.contact_record_type == :outgoing_text_message %>
+              <span class="contact-record__status">
+                <%= contact_record.twilio_status || "sending..." %>
+              </span>
+            <% end %>
+
+            <% if contact_record.contact_record_type.to_s.include? "email" %>
+              <div class="contact-record__subject">
+                <%= contact_record.subject %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="contact-record__body">
+            <% if contact_record.contact_record_type == :outgoing_email %>
+              <%= render "shared/email_body", body: contact_record.body %>
+            <% else %>
+              <%= contact_record.body %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+
+  <%= form_with model: @outgoing_text_message, url: outgoing_text_messages_path, local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
+    <%= f.cfa_input_field :body, t(".text_message_form.label") %>
+    <%= f.hidden_field :client_id %>
+    <%= f.submit t(".text_message_form.submit"), class: "button" %>
+  <% end %>
+
+  <%= form_with model: @outgoing_email, url: outgoing_emails_path, local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
+    <%= f.cfa_textarea :body, t(".email_form.label") %>
+    <%= f.hidden_field :client_id %>
+    <%= f.submit t(".email_form.submit"), class: "button" %>
+  <% end %>
+
+<% end %>
