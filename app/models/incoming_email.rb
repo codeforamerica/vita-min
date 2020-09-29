@@ -40,6 +40,6 @@ class IncomingEmail < ApplicationRecord
   end
 
   def author
-    from
+    client.preferred_name
   end
 end
