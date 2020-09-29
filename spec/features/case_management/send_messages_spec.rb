@@ -27,7 +27,14 @@ RSpec.feature "Read and send messages to a client" do
       expect(page).to have_css("a.tab-bar__tab.is-selected", text: "Messages")
       expect(page).to have_text("Send a text message")
 
-      # TODO: fill out this spec more
+      within(".text-message-form") do
+        fill_in "Send a text message", with: "Example text message"
+        click_on "Send"
+      end
+
+      within(".contact-history") do
+        expect(page).to have_text "Example text message"
+      end
     end
   end
 end

@@ -73,7 +73,7 @@ end
 shared_examples :a_get_action_for_beta_testers_only do |action:|
   let(:params) { {} } unless method_defined?(:params)
 
-  context "with a non-admin user" do
+  context "with a non-beta user" do
     before { sign_in( create :user, is_beta_tester: false ) }
 
     it "responds with status forbidden" do
@@ -87,7 +87,7 @@ end
 shared_examples :a_post_action_for_beta_testers_only do |action:|
   let(:params) { {} } unless method_defined?(:params)
 
-  context "with a non-admin user" do
+  context "with a non-beta user" do
     before { sign_in( create :user, is_beta_tester: false ) }
 
     it "responds with status forbidden" do

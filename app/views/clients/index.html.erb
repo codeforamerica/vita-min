@@ -24,7 +24,7 @@
             <% end %>
           </th>
           <td class="index-table__cell"><%= client.id %></td>
-          <td class="index-table__cell"><%= client.intakes.first.vita_partner.display_name %></td>
+z          <td class="index-table__cell"><%= client.intakes.exists? ? client.intakes.first.vita_partner.display_name : "No intake for this client" %></td>
         </tr>
       <% end %>
 

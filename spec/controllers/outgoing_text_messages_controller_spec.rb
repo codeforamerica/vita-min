@@ -2,10 +2,6 @@ require "rails_helper"
 
 RSpec.describe OutgoingTextMessagesController do
   describe "#create" do
-    before do
-      allow(subject).to receive(:current_user).and_return user
-    end
-
     let(:client) { create :client }
     let(:valid_params) do
       {
@@ -16,27 +12,12 @@ RSpec.describe OutgoingTextMessagesController do
       }
     end
 
-    context "as an anonymous user" do
-      let(:user) { nil }
-      it "redirects to client page" do
-        post :create, params: valid_params
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
+    it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
-        expect(response).to redirect_to client_path(id: client.id)
-      end
-    end
-
-    context "as an authenticated non-admin user" do
-      let(:user) { build :user, provider: "zendesk", id: 1 }
-
-      it "redirects to client page" do
-        post :create, params: valid_params
-
-        expect(response).to redirect_to client_path(id: client.id)
-      end
-    end
-
-    context "as an authenticated admin user" do
-      let(:user) { build :user, provider: "zendesk", id: 1, role: "admin" }
+    context "as an authenticated beta user" do
+      let(:beta_user) { create :beta_tester }
+      before { sign_in beta_user }
 
       it "sends a text", active_job: true do
         expect {
@@ -47,7 +28,7 @@ RSpec.describe OutgoingTextMessagesController do
         expect(outgoing_text_message.body).to eq "This is an outgoing text"
         expect(outgoing_text_message.client).to eq client
         expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
-        expect(response).to redirect_to(client_path(id: client.id))
+        expect(response).to redirect_to(client_messages_path(client_id: client.id))
       end
     end
   end

@@ -1,14 +1,14 @@
 class OutgoingEmailsController < ApplicationController
-  include ZendeskAuthenticationControllerHelper
+  include AccessControllable
 
-  before_action :require_zendesk_admin
+  before_action :require_sign_in, :require_beta_tester
 
   def create
     email = OutgoingEmail.new(outgoing_email_params)
     if email.save
       OutgoingEmailMailer.user_message(outgoing_email: email).deliver_later
     end
-    redirect_to client_path(id: email.client_id)
+    redirect_to client_messages_path(client_id: email.client_id)
   end
 
   private
