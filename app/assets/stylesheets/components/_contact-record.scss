@@ -11,6 +11,8 @@
    margin-left: 3rem;
     .contact-record__heading {
       padding-left: 3rem;
+      display: flex;
+      justify-content: space-between;
     }
     .contact-record__name {
       font-weight: bold;

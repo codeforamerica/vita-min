@@ -16,25 +16,32 @@
       <% @contact_history.each do |contact_record| %>
         <li class="contact-record contact-record--<%= contact_record.contact_record_type %>">
           <div class="contact-record__heading">
-
-            <span class="contact-record__name">
-              <%= contact_record.author %>
-            </span>
-            <span class="contact-record__time">
-            <%= contact_record.datetime %>
-            </span>
-
-            <% if contact_record.contact_record_type == :outgoing_text_message %>
-              <span class="contact-record__status">
-                <%= contact_record.twilio_status || "sending..." %>
+            <div>
+              <span class="contact-record__name">
+                <%= contact_record.author %>
               </span>
-            <% end %>
 
-            <% if contact_record.contact_record_type.to_s.include? "email" %>
-              <div class="contact-record__subject">
-                <%= contact_record.subject %>
-              </div>
-            <% end %>
+                <% if contact_record.contact_record_type == :outgoing_text_message %>
+                <span class="contact-record__phone_number">
+                  Text to <%= contact_record.client.formatted_phone_number %>
+                </span>
+                  <span class="contact-record__status">
+                  <%= contact_record.twilio_status || "sending..." %>
+                </span>
+                <% end %>
+
+                <% if contact_record.contact_record_type.to_s.include? "email" %>
+                  <div class="contact-record__subject">
+                    <%= contact_record.subject %>
+                  </div>
+              <% end %>
+            </div>
+
+            <div>
+              <span class="contact-record__time">
+                <%= contact_record.formatted_time %>
+              </span>
+            </div>
           </div>
 
           <div class="contact-record__body">
