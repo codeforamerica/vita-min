@@ -55,6 +55,7 @@ describe ZendeskDropOffService do
             external_id: "drop-off-#{drop_off.id}",
             comment: {
               body: comment_body,
+              public: false,
             },
             fields: [
               {
@@ -108,6 +109,7 @@ describe ZendeskDropOffService do
               external_id: "drop-off-#{drop_off.id}",
               comment: {
                 body: comment_body,
+                public: false,
               },
               fields: [
                 {
@@ -137,7 +139,7 @@ describe ZendeskDropOffService do
       result = ZendeskDropOffService.new(drop_off).append_to_existing_ticket
 
       expect(ZendeskAPI::Ticket).to have_received(:find).with(fake_zendesk_client, id: "48")
-      expect(fake_zendesk_ticket).to have_received(:comment=).with({body: comment_body})
+      expect(fake_zendesk_ticket).to have_received(:comment=).with({body: comment_body, public: false})
       expect(fake_zendesk_ticket).to have_received(:save!)
       expect(result).to eq true
     end

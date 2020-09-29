@@ -58,7 +58,7 @@ class ZendeskDropOffService
 
   def append_to_existing_ticket
     ticket = ZendeskAPI::Ticket.find(client, id: @drop_off.zendesk_ticket_id)
-    ticket.comment = { body: comment_body }
+    ticket.comment = { body: comment_body, public: false }
 
     success = ticket.save!
     success

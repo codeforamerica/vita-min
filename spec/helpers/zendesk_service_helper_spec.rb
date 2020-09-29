@@ -176,6 +176,7 @@ RSpec.describe ZendeskServiceHelper do
           external_id: nil,
           comment: {
             body: "What's up?",
+            public: false
           },
           fields: [
             "09182374" => "not_busy"
@@ -237,7 +238,7 @@ RSpec.describe ZendeskServiceHelper do
         comment: "hey",
         fields: { "314324132" => "custom_field_value" }
       )
-      expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey" })
+      expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey", public: false })
       expect(fake_zendesk_ticket).to have_received(:fields=).with({ "314324132" => "custom_field_value" })
       expect(fake_zendesk_comment.uploads).to include({file: file, filename: "wyd.jpg"})
       expect(fake_zendesk_ticket).to have_received(:save!)
@@ -310,7 +311,7 @@ RSpec.describe ZendeskServiceHelper do
         comment: "hey",
         fields: { "314324132" => "custom_field_value" }
       )
-      expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey" })
+      expect(fake_zendesk_ticket).to have_received(:comment=).with({ body: "hey", public: false })
       expect(fake_zendesk_ticket).to have_received(:fields=).with({ "314324132" => "custom_field_value" })
       expect(fake_zendesk_comment.uploads).to include({file: file_1, filename: "file_1.jpg"})
       expect(fake_zendesk_comment.uploads).to include({file: file_2, filename: "file_2.jpg"})
