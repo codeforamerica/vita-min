@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
 
   def index
     @client = Client.find(params[:client_id])
-    @messages = (
+    @contact_history = (
       @client.outgoing_text_messages.includes(:user) +
       @client.incoming_text_messages +
       @client.outgoing_emails.includes(:user) +
