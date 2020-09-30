@@ -55,7 +55,7 @@ describe ZendeskDropOffService do
             external_id: "drop-off-#{drop_off.id}",
             comment: {
               body: comment_body,
-              public: false,
+              public: true,
             },
             fields: [
               {
@@ -109,7 +109,7 @@ describe ZendeskDropOffService do
               external_id: "drop-off-#{drop_off.id}",
               comment: {
                 body: comment_body,
-                public: false,
+                public: true,
               },
               fields: [
                 {

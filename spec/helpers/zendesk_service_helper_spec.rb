@@ -176,7 +176,7 @@ RSpec.describe ZendeskServiceHelper do
           external_id: nil,
           comment: {
             body: "What's up?",
-            public: false
+            public: true
           },
           fields: [
             "09182374" => "not_busy"
