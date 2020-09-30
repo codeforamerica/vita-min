@@ -62,6 +62,7 @@ describe ZendeskDropOffService do
                 EitcZendeskInstance::CERTIFICATION_LEVEL => drop_off.certification_level,
                 EitcZendeskInstance::HSA => true,
                 EitcZendeskInstance::INTAKE_SITE => "adams_city_high_school",
+                EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["email_opt_in", "sms_opt_in"],
                 EitcZendeskInstance::STATE => "NV",
                 EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
                 EitcZendeskInstance::SIGNATURE_METHOD => drop_off.signature_method,
@@ -116,12 +117,47 @@ describe ZendeskDropOffService do
                   EitcZendeskInstance::CERTIFICATION_LEVEL => drop_off.certification_level,
                   EitcZendeskInstance::HSA => true,
                   EitcZendeskInstance::INTAKE_SITE => "goodwillsr_columbus_intake",
+                  EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["email_opt_in", "sms_opt_in"],
                   EitcZendeskInstance::STATE => "GA",
                   EitcZendeskInstance::INTAKE_STATUS => "3._ready_for_prep",
                   EitcZendeskInstance::SIGNATURE_METHOD => drop_off.signature_method,
                 }
               ]
             }
+          )
+        end
+      end
+      
+      context "without a phone number" do
+        let(:drop_off) { create(:full_drop_off, phone_number: nil) }
+        
+        it "only sets the email_opt_in tag" do
+          service.create_ticket
+
+          expect(ZendeskAPI::Ticket).to have_received(:new).with(
+            fake_zendesk_client,
+            hash_including(
+              fields: [
+                hash_including(EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["email_opt_in"])
+              ]
+            )
+          )
+        end
+      end
+      
+      context "without an email address" do
+        let(:drop_off) { create(:full_drop_off, email: nil) }
+
+        it "only sets the sms_opt_in tag" do
+          service.create_ticket
+
+          expect(ZendeskAPI::Ticket).to have_received(:new).with(
+            fake_zendesk_client,
+            hash_including(
+              fields: [
+                hash_including(EitcZendeskInstance::COMMUNICATION_PREFERENCES => ["sms_opt_in"])
+              ]
+            )
           )
         end
       end

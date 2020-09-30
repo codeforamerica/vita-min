@@ -44,6 +44,7 @@ class ZendeskDropOffService
           EitcZendeskInstance::HSA => @drop_off.hsa,
           EitcZendeskInstance::INTAKE_SITE => intake_site_tag,
           EitcZendeskInstance::STATE => @drop_off.state,
+          EitcZendeskInstance::COMMUNICATION_PREFERENCES => communication_tags,
           EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_COMPLETE,
           EitcZendeskInstance::SIGNATURE_METHOD => @drop_off.signature_method
       }
@@ -81,6 +82,13 @@ class ZendeskDropOffService
   end
 
   private
+
+  def communication_tags
+    [
+      ("email_opt_in" if @drop_off.email.present?),
+      ("sms_opt_in" if @drop_off.phone_number.present?)
+    ].compact
+  end
 
   def intake_site_tag
     @drop_off.intake_site.downcase.gsub(/[ –-]/, "_") # that's a dash and an emdash, folks
