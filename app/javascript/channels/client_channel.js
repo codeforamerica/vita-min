@@ -1,11 +1,11 @@
-import consumer from "./consumer"
+import consumer from "./consumer";
 
 const channelName = {
     channel: "ClientChannel",
     id: "1" // TODO: Grab the client ID out of e.g. the URL
 };
 
-export const callback = {
+const callbacks = {
     connected() {
         console.log("connected, wow! Here is some debug logging.");
         console.log(consumer);
@@ -17,4 +17,4 @@ export const callback = {
     }
 };
 
-consumer.subscriptions.create(channelName, callback);
+consumer.subscriptions.create(channelName, callbacks);
