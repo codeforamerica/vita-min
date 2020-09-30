@@ -146,7 +146,7 @@ module ZendeskServiceHelper
       requester_id: requester_id,
       group_id: group_id,
       external_id: external_id,
-      comment: { body: body, public: false },
+      comment: { body: body, public: true }, # we need the first comment to be public
       fields: [fields],
       **extra_attributes
     )
@@ -170,7 +170,7 @@ module ZendeskServiceHelper
   #                                constructor
   #
   # @return [ZendeskAPI::Ticket] the (persisted) ticket
-  def create_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {}, **extra_attributes)
+  def create_ticket(subject:, requester_id:, group_id:, external_id: nil, body:, fields: {}, tags: [], **extra_attributes)
     ticket = build_ticket(
       subject: subject,
       requester_id: requester_id,
@@ -180,7 +180,7 @@ module ZendeskServiceHelper
       fields: fields,
       **extra_attributes
     )
-
+    ticket.tags += tags if tags.present?
     ticket.save!
     ticket
   end
