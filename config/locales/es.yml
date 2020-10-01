@@ -2,8 +2,8 @@
 es:
   clients:
     index:
-      title: Todos clientes
       client_id_heading: Cliente ID
+      title: Todos clientes
     navigation:
       client_documents: Documentos
       client_messages: Mensajes
@@ -42,7 +42,7 @@ es:
         name_label: "¿Cúal es el nombre del invitado?"
         submit: Enviar email de invitación
         title: Envíe una nueva invitación
-        vita_partner_label: ¿Cúal organización?
+        vita_partner_label: "¿Cúal organización?"
       not_found:
         check_your_email: 'Intente buscar en su correo electrónico mensajes con el asunto: "%{subject}"'
         contact_support: Si está atascado, puede ponerse en contacto con el soporte en support@getyourrefund.org
@@ -252,13 +252,13 @@ es:
         choose_file: Por favor, elija un archivo.
         valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
   users:
+    edit:
+      is_beta_tester_label: Probador beta?
     index:
       title: Todos usuarios
     profile:
-      users_link: Todos usuarios
       clients_link: Todos clientes
-    edit:
-      is_beta_tester_label: Probador beta?
+      users_link: Todos usuarios
   validators:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
@@ -962,10 +962,10 @@ es:
         title: Desafortunadamente, no califica para nuestra ayuda.
       eip_overview:
         hotline_notice:
-          title: ¿Necesitas ayuda adicional?
+          number: Llame +1 844 322 3639
+          title: "¿Necesitas ayuda adicional?"
           what: La línea de ayuda de United Way está disponible para responder sus preguntas y puede ayudarlo a completar este formulario por teléfono.
           why: Es una buena opción para cualquier persona que no sea buena con las computadoras o que prefiera el soporte en persona.
-          number: Llame +1 844 322 3639
         info_html: 'Tenga en cuenta: Si recibió lo siguiente, el pago debería llegarle automáticamente y <strong>no es necesario que complete el formulario</strong>:'
         received_rrb: Beneficios de Jubilación Ferroviaria
         received_ssdi: Sobreviviente o discapacidad del Seguro Social (SSDI)
@@ -1113,7 +1113,7 @@ es:
         help_text: Responda "Sí" si eres dueño de casa y pagas una hipoteca. Puede encontrar esto en un formulario 1098.
         title:
           one: En %{year}, ¿pagó algún interés hipotecario?
-          other: En %{year}, ¿Pagó usted o su pareja  algún interés hipotecario?
+          other: En %{year}, ¿Pagó usted o su pareja algún interés hipotecario?
       notification_preference:
         note: 'Nota: No compartiremos su información con terceros.'
         options:
@@ -1219,6 +1219,10 @@ es:
         title:
           one: En %{year}, ¿tuvo algún ingreso del Seguro Social o de los Beneficios de jubilación ferroviaria?
           other: En %{year}, ¿Tenía usted o su pareja algún ingreso del Seguro Social o de los Beneficios de jubilación ferroviaria?
+      social_security_or_retirement:
+        title:
+          one: En %{year}, ¿tenía ingresos del Seguro Social, ingresos de jubilación o contribuciones de jubilación?
+          other: En %{year}, ¿tenía usted o su cónyuge ingresos del Seguro Social, ingresos de jubilación o contribuciones de jubilación?
       sold_home:
         title:
           one: En %{year}, ¿vendiste una casa?
@@ -1307,7 +1311,7 @@ es:
         options:
           had_self_employment_income_html:
             one: Trabajé por cuenta propia o trabajé como contratista independiente.<br><span class="checkbox-help">Recibí el formulario 1099-K, 1099-MISC, o registro personal</span>
-            other: Mi conyuge o yo trabajaba por cuenta propia o trabajaba como contratista independiente.<br><span class="checkbox-help">Recibimos el formulario 1099-K, 1099-MISC, o registro personal</span>
+            other: Mi cónyuge o yo trabajaba por cuenta propia o trabajaba como contratista independiente.<br><span class="checkbox-help">Recibimos el formulario 1099-K, 1099-MISC, o registro personal</span>
           had_tips:
             one: Recibí propinas en efectivo en el trabajo no incluidas en un W-2
             other: Mi cónyuge o yo recibimos propinas en efectivo en el trabajo no incluidas en un W-2

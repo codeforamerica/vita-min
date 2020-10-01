@@ -2,8 +2,8 @@
 en:
   clients:
     index:
-      title: All clients
       client_id_heading: Client ID
+      title: All clients
     navigation:
       client_documents: Documents
       client_messages: Messages
@@ -252,13 +252,13 @@ en:
         choose_file: Please choose a file.
         valid_pickup_date: Please enter a valid month and day (M/D).
   users:
+    edit:
+      is_beta_tester_label: Beta tester?
     index:
       title: All users
     profile:
       clients_link: All clients
       users_link: All users
-    edit:
-      is_beta_tester_label: Beta tester?
   validators:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
@@ -962,10 +962,10 @@ en:
         title: Unfortunately, you don't qualify for our assistance.
       eip_overview:
         hotline_notice:
+          number: Call +1 844 322 3639
           title: Need additional assistance?
           what: The United Way's helpline is available to answer your questions and can help you complete this form over the phone.
           why: It's a great option for anyone who isn’t great with computers or could use the support of a live human.
-          number: Call +1 844 322 3639
         info_html: 'Heads up: You should get the payment automatically and <strong>do not need to fill out this form</strong> if you received:'
         received_rrb: Railroad Retirement benefits
         received_ssdi: Social Security retirement, survivor, or disability benefits (SSDI)
@@ -1219,6 +1219,10 @@ en:
         title:
           one: In %{year}, did you have any income from Social Security or Railroad Retirement Benefits?
           other: In %{year}, did you or your spouse have any income from Social Security or Railroad Retirement Benefits?
+      social_security_or_retirement:
+        title:
+          one: In %{year}, did you have Social Security income, retirement income, or retirement contributions?
+          other: In %{year}, did you or your spouse have Social Security income, retirement income, or retirement contributions?
       sold_home:
         title:
           one: In %{year}, did you sell a home?

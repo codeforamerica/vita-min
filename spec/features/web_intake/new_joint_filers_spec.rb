@@ -209,6 +209,8 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "No"
 
     # Retirement income/contributions
+    expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have Social Security income, retirement income, or retirement contributions?")
+    click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from Social Security or Railroad Retirement Benefits?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "In 2019, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?")

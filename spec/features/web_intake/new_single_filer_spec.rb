@@ -142,12 +142,8 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Yes"
 
     # Retirement income/contributions
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from Social Security or Railroad Retirement Benefits?")
+    expect(page).to have_selector("h1", text: "In 2019, did you have Social Security income, retirement income, or retirement contributions?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from a retirement account, pension, or annuity proceeds?")
-    click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did you make any contributions to a retirement account?")
-    click_on "Yes"
 
     # Other income
     expect(page).to have_selector("h1", text: "In 2019, did you receive any other money?")

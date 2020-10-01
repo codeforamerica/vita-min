@@ -89,6 +89,7 @@ class QuestionNavigation
     Questions::AssetSaleLossController,
 
     # Retirement income/contributions
+    Questions::SocialSecurityOrRetirementController,
     Questions::SocialSecurityIncomeController,
     Questions::RetirementIncomeController,
     Questions::RetirementContributionsController,
