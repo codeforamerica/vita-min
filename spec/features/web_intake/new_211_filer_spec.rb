@@ -50,6 +50,10 @@ RSpec.feature "Web Intake 211 Assisted Filer" do
     select("Spanish", from: "What is your preferred language for the review?")
     click_on "Continue"
 
+    # Try to visit a page not in the flow and ensure it doesn't break from the progress calculation
+    visit "/questions/overview-documents"
+    expect(page).not_to have_selector(".progress-indicator__percentage")
+
     # Skip to additional information
     visit "/questions/successfully-submitted"
     expect{ track_progress }.to change { @current_progress }.to(100)
