@@ -6,7 +6,7 @@
 #  body       :string           not null
 #  sent_at    :datetime         not null
 #  subject    :string           not null
-#  to         :string
+#  to         :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  client_id  :bigint           not null
