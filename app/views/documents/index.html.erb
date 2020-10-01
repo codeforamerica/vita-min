@@ -1,20 +1,28 @@
-<table class="data-table document-table">
-  <thead>
-  <tr>
-    <th class="document-column__doc-type"><%=t("views.zendesk.tickets.show.chart.doc_type") %></th>
-    <th class="document-column__link"><%=t("views.zendesk.tickets.show.chart.link") %></th>
-    <th class="document-column__upload-date"><%=t("views.zendesk.tickets.show.chart.upload_date") %></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% if @documents.present? %>
-    <% @documents.each do |document| %>
+<% content_for :page_title, "#{@client.preferred_name} ##{@client.id} documents" %>
+
+<% content_for :card do %>
+  <%= render "clients/client_header" %>
+
+  <%= render "clients/navigation" %>
+
+  <table class="data-table document-table spacing-above-25">
+    <thead>
+    <tr>
+      <th class="document-column__doc-type"><%=t("views.zendesk.tickets.show.chart.doc_type") %></th>
+      <th class="document-column__link"><%=t("views.zendesk.tickets.show.chart.link") %></th>
+      <th class="document-column__upload-date"><%=t("views.zendesk.tickets.show.chart.upload_date") %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% if @documents.present? %>
+      <% @documents.each do |document| %>
         <tr id="document-<%= document.id %>">
           <td><%= document.document_type %></td>
           <td><%= document.display_name %></td>
           <td><%= time_ago_in_words(document.created_at) %> ago</td>
         </tr>
+      <% end %>
     <% end %>
-  <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+<% end %>

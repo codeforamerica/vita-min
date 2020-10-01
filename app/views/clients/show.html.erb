@@ -1,17 +1,11 @@
-<% content_for :page_title, "#{@client.preferred_name}, ##{@client.id}" %>
+<% content_for :page_title, "#{@client.preferred_name} ##{@client.id}" %>
 
 <% content_for :card do %>
-  <div class="client-header">
-    <h1 class="h2">
-      <%= @client.preferred_name %>
-    </h1>
-    <h2>#<%= @client.id %></h2>
+  <%= render "client_header" %>
 
-    <%= render "navigation" %>
+  <%= render "navigation" %>
 
-    <h3>Email: <%= @client.email_address %></h3>
-    <h3>Phone: <%= @client.phone_number %></h3>
-    <h3>Phone for texting: <%= @client.sms_phone_number %></h3>
-  </div>
-
+  <h3>Email: <%= @client.email_address %></h3>
+  <h3>Phone: <%= @client.phone_number %></h3>
+  <h3>Phone for texting: <%= @client.sms_phone_number %></h3>
 <% end %>

@@ -1,5 +1,6 @@
 class DocumentsController < ApplicationController
   before_action :require_intake, only: [:destroy]
+  layout "admin", only: [:index]
 
   def index
     @client = Client.find(params[:client_id])
