@@ -35,6 +35,17 @@ RSpec.describe DocumentsController, type: :controller do
     end
   end
 
+  describe "#show" do
+    let(:document) { create :document, :with_upload }
+
+    it "shows the document" do
+      get :show, params: { id: document.id }
+
+      expect(response).to be_ok
+      expect(response.headers["Content-Type"]).to eq("image/jpeg")
+    end
+  end
+
   context "#delete" do
     let!(:document) { create :document }
 

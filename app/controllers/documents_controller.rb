@@ -1,10 +1,17 @@
 class DocumentsController < ApplicationController
+  include FileResponseControllerHelper
+
   before_action :require_intake, only: [:destroy]
   layout "admin", only: [:index]
 
   def index
     @client = Client.find(params[:client_id])
     @documents = @client.documents
+  end
+
+  def show
+    @document = Document.find(params[:id])
+    render_active_storage_attachment @document.upload
   end
 
   def destroy

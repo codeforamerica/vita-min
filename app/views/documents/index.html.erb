@@ -8,9 +8,9 @@
   <table class="data-table document-table spacing-above-25">
     <thead>
     <tr>
-      <th class="document-column__doc-type"><%=t("views.zendesk.tickets.show.chart.doc_type") %></th>
-      <th class="document-column__link"><%=t("views.zendesk.tickets.show.chart.link") %></th>
-      <th class="document-column__upload-date"><%=t("views.zendesk.tickets.show.chart.upload_date") %></th>
+      <th class="document-column__doc-type"><%=t(".document_type") %></th>
+      <th class="document-column__link"><%=t(".file_name") %></th>
+      <th class="document-column__upload-date"><%=t(".upload_date") %></th>
     </tr>
     </thead>
     <tbody>
@@ -18,8 +18,12 @@
       <% @documents.each do |document| %>
         <tr id="document-<%= document.id %>">
           <td><%= document.document_type %></td>
-          <td><%= document.display_name %></td>
-          <td><%= time_ago_in_words(document.created_at) %> ago</td>
+          <td>
+            <%= link_to document_path(id: document.id), target: "_blank" do %>
+              <%= document.display_name %>
+            <% end %>
+          </td>
+          <td><%= t(".uploaded_ago", time: time_ago_in_words(document.created_at)) %></td>
         </tr>
       <% end %>
     <% end %>
