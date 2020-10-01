@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe OutgoingTextMessagesController do
   describe "#create" do
-    let(:client) { create :client }
+    let(:client) { create :client, sms_phone_number: "+15105551234", phone_number: "+15105551777" }
     let(:valid_params) do
       {
         outgoing_text_message: {
@@ -26,6 +26,7 @@ RSpec.describe OutgoingTextMessagesController do
 
         outgoing_text_message = OutgoingTextMessage.last
         expect(outgoing_text_message.body).to eq "This is an outgoing text"
+        expect(outgoing_text_message.to_phone_number).to eq client.sms_phone_number
         expect(outgoing_text_message.client).to eq client
         expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
         expect(response).to redirect_to(client_messages_path(client_id: client.id))

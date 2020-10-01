@@ -17,13 +17,18 @@
         <li class="contact-record contact-record--<%= contact_record.contact_record_type %>">
           <div class="contact-record__heading">
             <div>
-              <span class="contact-record__name">
-                <%= contact_record.author %>
+
+
+              <span class="contact-record__author">
+                <span role="img" aria-label="client">👤</span>
+                <% if contact_record.contact_record_type == :outgoing_text_message || contact_record.contact_record_type == :outgoing_email %>
+                  <%= contact_record.author %>
+                <% end %>
               </span>
 
               <% if contact_record.contact_record_type == :outgoing_text_message %>
                 <span class="contact-record__phone_number">
-                  Text to <%= local_phone_number(contact_record.client.phone_number) %>
+                  Text to <%= local_phone_number(contact_record.to_phone_number) %>
                 </span>
                 <span class="contact-record__status">
                   <%= contact_record.twilio_status || "sending..." %>
@@ -38,7 +43,7 @@
 
               <% if contact_record.contact_record_type == :outgoing_email %>
                 <span class="contact-record__phone_number">
-                  Email to <%= contact_record.client.email_address %>
+                  Email to <%= contact_record.to %>
                 </span>
               <% end %>
 

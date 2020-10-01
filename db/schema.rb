@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_26_213358) do
+ActiveRecord::Schema.define(version: 2020_10_01_191542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -398,6 +398,7 @@ ActiveRecord::Schema.define(version: 2020_09_26_213358) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "sent_at", null: false
     t.string "subject", null: false
+    t.string "to"
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.index ["client_id"], name: "index_outgoing_emails_on_client_id"
@@ -409,6 +410,7 @@ ActiveRecord::Schema.define(version: 2020_09_26_213358) do
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "sent_at", null: false
+    t.string "to_phone_number"
     t.string "twilio_sid"
     t.string "twilio_status"
     t.datetime "updated_at", precision: 6, null: false
