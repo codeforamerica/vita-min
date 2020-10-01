@@ -5,6 +5,7 @@ class OutgoingEmailsController < ApplicationController
 
   def create
     email = OutgoingEmail.new(outgoing_email_params)
+    email.to = email.client.email_address
     if email.save
       OutgoingEmailMailer.user_message(outgoing_email: email).deliver_later
     end

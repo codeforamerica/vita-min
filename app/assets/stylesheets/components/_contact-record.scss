@@ -1,6 +1,11 @@
 .contact-record {
   margin-bottom: 2rem;
 
+  .contact-record__heading {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &--incoming_text_message, &--outgoing_text_message {
     .contact-record__body {
       border-radius: 2rem;
@@ -11,10 +16,8 @@
    margin-left: 3rem;
     .contact-record__heading {
       padding-left: 3rem;
-      display: flex;
-      justify-content: space-between;
     }
-    .contact-record__name {
+    .contact-record__author {
       font-weight: bold;
     }
     .contact-record__time {}
@@ -41,7 +44,7 @@
     .contact-record__heading {
       padding-left: 1rem;
     }
-    .contact-record__name {
+    .contact-record__author {
       font-weight: bold;
     }
     .contact-record__time {}

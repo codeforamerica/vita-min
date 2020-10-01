@@ -28,6 +28,7 @@ RSpec.describe OutgoingEmailsController do
           expect(outgoing_email.client).to eq client
           expect(outgoing_email.user).to eq beta_user
           expect(outgoing_email.sent_at).to eq expected_time
+          expect(outgoing_email.to).to eq client.email_address
           expect(response).to redirect_to client_messages_path(client_id: client.id)
         end
       end
