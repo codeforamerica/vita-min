@@ -19,12 +19,24 @@ class IntakeProgressCalculator
       controller = Questions::HadDependentsController
     end
 
+    # From the Documents::OverviewController the user has the option to go add any relevant but optional documents
+    # Pin the progress bar to the OverviewController for these optional document controllers
+    if !controller.show?(intake) && controller.respond_to?(:document_type) && controller.document_type.relevant_to?(intake)
+      controller = Documents::OverviewController
+    end
+
     steps_for_intake = POSSIBLE_STEPS.select do |controller_step|
       controller_step.show?(intake)
     end
     current_index = steps_for_intake.index(controller)
-    completed_steps = current_index + 1 # Everything that the client has done
 
+    # If the currently viewed controller is not found in the possible steps, return a -1 so we can gracefully not show
+    # it rather than causing a broken page
+    if current_index.nil?
+      return -1
+    end
+
+    completed_steps = current_index + 1 # Everything that the client has done
     index_of_intake_steps = steps_for_intake.index(controller)
     remaining_steps = steps_for_intake[index_of_intake_steps + 1..-1].length # Everything the client could potentially do
 
