@@ -1,5 +1,10 @@
 class DocumentsController < ApplicationController
-  before_action :require_intake
+  before_action :require_intake, only: [:destroy]
+
+  def index
+    @client = Client.find(params[:client_id])
+    @documents = @client.documents
+  end
 
   def destroy
     document = current_intake.documents.find_by(id: params[:id])

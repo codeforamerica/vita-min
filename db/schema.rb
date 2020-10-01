@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_26_213358) do
+ActiveRecord::Schema.define(version: 2020_10_01_184841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,12 +111,15 @@ ActiveRecord::Schema.define(version: 2020_09_26_213358) do
   end
 
   create_table "documents", force: :cascade do |t|
+    t.bigint "client_id"
     t.datetime "created_at", null: false
+    t.string "display_name"
     t.string "document_type", null: false
     t.bigint "documents_request_id"
     t.bigint "intake_id"
     t.datetime "updated_at", null: false
     t.bigint "zendesk_ticket_id"
+    t.index ["client_id"], name: "index_documents_on_client_id"
     t.index ["documents_request_id"], name: "index_documents_on_documents_request_id"
     t.index ["intake_id"], name: "index_documents_on_intake_id"
   end
@@ -547,6 +550,7 @@ ActiveRecord::Schema.define(version: 2020_09_26_213358) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "clients", "vita_partners"
+  add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents_requests", "intakes"
   add_foreign_key "idme_users", "intakes"
