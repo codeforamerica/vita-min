@@ -1018,7 +1018,7 @@ es:
           need_assistance: Necesita ayuda con la declaración de impuestos.
           nervous: Le preocupa preparar su declaración de impuestos por su cuenta
         title: "¡Declara tus impuestos con la ayuda de un experto!"
-        closing_notice_html: <strong>Estamos por cerrar GetYourRefund para la temporada de impuestos el 15 de octubre.</strong> Para poder declarar impuestos para la fecha límite, necesitamos todos los documentos requeridos para el 8 de octubre. ¡Esperamos poder brindarle nuestra asistencia tributaria gratuita el próximo año!
+        closing_notice_html: <strong>Estamos por cerrar GetYourRefund para la temporada de impuestos el 12 de octubre.</strong> La declaración con ayuda tardará de una semana en procesarse. Para poder declarar impuestos para la fecha límite, necesitamos todos los documentos requeridos para el 8 de octubre. ¡Esperamos poder brindarle nuestra asistencia tributaria gratuita el próximo año!
       filing_joint:
         help_text: Generalmente, declarar sus impuestos juntos es más beneficioso para su reembolso. Su cónyuge necesitará verificar su identidad y firmar la declaración de impuestos final.
         title: "¿Está declarando sus impuestos con su cónyuge?"
