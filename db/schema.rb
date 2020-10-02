@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_30_092255) do
+ActiveRecord::Schema.define(version: 2020_10_01_221043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,12 +111,15 @@ ActiveRecord::Schema.define(version: 2020_09_30_092255) do
   end
 
   create_table "documents", force: :cascade do |t|
+    t.bigint "client_id"
     t.datetime "created_at", null: false
+    t.string "display_name"
     t.string "document_type", null: false
     t.bigint "documents_request_id"
     t.bigint "intake_id"
     t.datetime "updated_at", null: false
     t.bigint "zendesk_ticket_id"
+    t.index ["client_id"], name: "index_documents_on_client_id"
     t.index ["documents_request_id"], name: "index_documents_on_documents_request_id"
     t.index ["intake_id"], name: "index_documents_on_intake_id"
   end
@@ -399,6 +402,7 @@ ActiveRecord::Schema.define(version: 2020_09_30_092255) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "sent_at", null: false
     t.string "subject", null: false
+    t.string "to", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.index ["client_id"], name: "index_outgoing_emails_on_client_id"
@@ -410,6 +414,7 @@ ActiveRecord::Schema.define(version: 2020_09_30_092255) do
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "sent_at", null: false
+    t.string "to_phone_number", null: false
     t.string "twilio_sid"
     t.string "twilio_status"
     t.datetime "updated_at", precision: 6, null: false
@@ -548,6 +553,7 @@ ActiveRecord::Schema.define(version: 2020_09_30_092255) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "clients", "vita_partners"
+  add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents_requests", "intakes"
   add_foreign_key "idme_users", "intakes"

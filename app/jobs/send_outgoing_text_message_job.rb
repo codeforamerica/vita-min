@@ -10,7 +10,7 @@ class SendOutgoingTextMessageJob < ApplicationJob
     )
     message = client.messages.create(
       from: EnvironmentCredentials.dig(:twilio, :phone_number),
-      to: outgoing_text_message.client.sms_phone_number,
+      to: outgoing_text_message.to_phone_number,
       body: outgoing_text_message.body,
       status_callback: outgoing_text_message_url(outgoing_text_message, locale: nil)
     )

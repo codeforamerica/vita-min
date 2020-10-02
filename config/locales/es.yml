@@ -58,6 +58,12 @@ es:
         ignore: Si no desea aceptar la invitación, ignore este correo electrónico.
         someone_invited_you: "%{their_name} (%{their_email}) ha invitado a %{your_name} a crear una cuenta en GetYourRefund para ayudar a las personas con sus impuestos."
         subject: Usted ha sido invitado a GetYourRefund
+  documents:
+    index:
+      document_type: Clase de documento
+      file_name: Nombre de archivo
+      upload_date: Fecha de carga
+      uploaded_ago: "Hace %{time}"
   email:
     user_message:
       subject: Update from GetYourRefund
@@ -1005,15 +1011,14 @@ es:
         body: Apreciamos cualquier comentario adicional que tenga para servir mejor a nuestros clientes en el futuro.
         title: Gracias por compartir su experiencia.
       file_with_help:
-        diy_option_html: Si desea declarar de inmediato, <a href="%{diy_path}">utilice nuestra herramienta DIY en su lugar.</a>
         info: Seleccionó nuestra opción de servicio completo. Nosotros haremos que responda una serie de preguntas sobre su situación fiscal (lo mejor que pueda) y que un especialista en impuestos revise todo con usted.
-        processing_time: La declaración con ayuda tardará de una semana en procesarse.
         right_option:
           confused: Su situación fiscal es confusa / complicada
           header: 'Esta es la opción correcta para usted si:'
           need_assistance: Necesita ayuda con la declaración de impuestos.
           nervous: Le preocupa preparar su declaración de impuestos por su cuenta
         title: "¡Declara tus impuestos con la ayuda de un experto!"
+        closing_notice_html: <strong>Estamos por cerrar GetYourRefund para la temporada de impuestos el 15 de octubre.</strong> Para poder declarar impuestos para la fecha límite, necesitamos todos los documentos requeridos para el 8 de octubre. ¡Esperamos poder brindarle nuestra asistencia tributaria gratuita el próximo año!
       filing_joint:
         help_text: Generalmente, declarar sus impuestos juntos es más beneficioso para su reembolso. Su cónyuge necesitará verificar su identidad y firmar la declaración de impuestos final.
         title: "¿Está declarando sus impuestos con su cónyuge?"

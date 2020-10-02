@@ -26,6 +26,7 @@ class Client < ApplicationRecord
   has_many :outgoing_emails
   has_many :incoming_text_messages
   has_many :incoming_emails
+  has_many :documents
 
   def self.create_from_intake(intake)
     create(
@@ -35,10 +36,5 @@ class Client < ApplicationRecord
       sms_phone_number: intake.sms_phone_number,
       vita_partner: intake.vita_partner,
     )
-  end
-
-  # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
-  def formatted_phone_number
-    Phonelib.parse(phone_number).local_number
   end
 end
