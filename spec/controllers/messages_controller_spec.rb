@@ -18,37 +18,29 @@ RSpec.describe MessagesController do
         render_views
 
         let(:twilio_status) { nil }
+        let(:client) { create :client, preferred_name: "George Sr.", phone_number: "4155551233", email_address: "money@banana.stand" }
         let!(:expected_contact_history) do
           [
-            create(:incoming_email, body_plain: "Me too! Happy to get every notification", received_at: DateTime.new(2020, 1, 1, 0, 0, 4), client: client),
-            create(:outgoing_email, body: "We are really excited to work with you", sent_at: DateTime.new(2020, 1, 1, 0, 0, 3), client: client),
-            create(:incoming_text_message, body: "Thx appreciate yr gratitude", received_at: DateTime.new(2020, 1, 1, 0, 0, 2), client: client),
-            create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2020, 1, 1, 0, 0, 1), client: client, twilio_status: twilio_status),
+            create(:incoming_email, body_plain: "Me too! Happy to get every notification", received_at: DateTime.new(2020, 1, 1, 18, 0, 4), client: client, from: "Georgie <money@banana.stand>" ),
+            create(:outgoing_email, body: "We are really excited to work with you", sent_at: DateTime.new(2020, 1, 1, 14, 0, 3), client: client, user: create(:user, name: "Gob"), to: "always@banana.stand"),
+            create(:incoming_text_message, body: "Thx appreciate yr gratitude", received_at: DateTime.new(2020, 1, 1, 0, 0, 2), from_phone_number: "14155537865", client: client),
+            create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2020, 1, 1, 0, 0, 1), to_phone_number: '14155532222', client: client, twilio_status: twilio_status, user: create(:user, name: "Lucille")),
           ].reverse
-        end
-
-        it "displays all message bodies sorted by date" do
-          get :index, params: params
-
-          expect(assigns(:contact_history)).to eq expected_contact_history
-          expect(response.body).to include("Your tax return is great")
-          expect(response.body).to include("Thx appreciate yr gratitude")
-          expect(response.body).to include("We are really excited to work with you")
-          expect(response.body).to include("Me too! Happy to get every notification")
         end
 
         context "outgoing text messages" do
           context "with Twilio status" do
             let(:twilio_status) { "queued" }
 
-            it "displays the name of the logged in person, time of message, type, and Twilio status" do
+            it "displays the name of the author, time of message, type, body, and Twilio status" do
               get :index, params: params
 
               message_record = Nokogiri::HTML.parse(response.body).at_css(".contact-record--outgoing_text_message")
-              expect(message_record).to have_text(beta_user.name)
+              expect(message_record).to have_text("Lucille")
               expect(message_record).to have_text("12:00 AM UTC")
-              expect(message_record).to have_text("Text to #{client.formatted_phone_number}")
+              expect(message_record).to have_text("Text to (415) 553-2222")
               expect(message_record).to have_text("queued")
+              expect(message_record).to have_text("Your tax return is great")
             end
           end
 
@@ -63,13 +55,38 @@ RSpec.describe MessagesController do
           end
         end
 
-        xcontext "incoming text messages" do
+        context "incoming text messages" do
+          it "displays the time of message, type, body" do
+            get :index, params: params
+
+            message_record = Nokogiri::HTML.parse(response.body).at_css(".contact-record--incoming_text_message")
+            expect(message_record).to have_text("12:00 AM UTC")
+            expect(message_record).to have_text("Text from (415) 553-7865")
+            expect(message_record).to have_text("Thx appreciate yr gratitude")
+          end
         end
 
-        xcontext "outgoing emails" do
+        context "outgoing emails" do
+          it "displays the author, time of message, type, body, recipient" do
+            get :index, params: params
+
+            message_record = Nokogiri::HTML.parse(response.body).at_css(".contact-record--outgoing_email")
+            expect(message_record).to have_text("Gob")
+            expect(message_record).to have_text("2:00 PM UTC")
+            expect(message_record).to have_text("Email to always@banana.stand")
+            expect(message_record).to have_text("We are really excited to work with you")
+          end
         end
 
-        xcontext "incoming emails" do
+        context "incoming emails" do
+          it "displays the name of the client, time of message, type, body" do
+            get :index, params: params
+
+            message_record = Nokogiri::HTML.parse(response.body).at_css(".contact-record--incoming_email")
+            expect(message_record).to have_text("6:00 PM UTC")
+            expect(message_record).to have_text("Email from Georgie <money@banana.stand>")
+            expect(message_record).to have_text("Me too! Happy to get every notification")
+          end
         end
       end
     end

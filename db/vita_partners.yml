@@ -159,9 +159,6 @@ vita_partners:
   zendesk_group_id: '360009704314'
   display_name: Hispanic Unity
   logo_path: ''
-  source_parameters:
-  - hispanicunity
-  - RefundDay-H
   weekly_capacity_limit: 200
 - name: Catalyst Miami
   zendesk_instance_domain: eitc
@@ -216,6 +213,7 @@ vita_partners:
   - NY
   - RI
   - VT
+  - MD
   logo_path: ''
   weekly_capacity_limit: 500
   accepts_overflow: true
@@ -311,10 +309,6 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010772553'
   display_name: CASH Campaign of Maryland
-  source_parameters:
-  - CASHMD
-  states:
-  - MD
   logo_path: ''
   weekly_capacity_limit: 40
 - name: Michigan Online Intake
@@ -327,8 +321,6 @@ vita_partners:
   zendesk_instance_domain: eitc
   zendesk_group_id: '360010913713'
   display_name: Michigan Capital Area United Way
-  source_parameters:
-  - MICAUW
   logo_path: ''
   weekly_capacity_limit: 20
 - name: Michigan Economic Impact Coalition

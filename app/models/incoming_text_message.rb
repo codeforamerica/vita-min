@@ -30,6 +30,6 @@ class IncomingTextMessage < ApplicationRecord
   end
 
   def author
-    Phonelib.parse(from_phone_number).local_number
+    client.preferred_name
   end
 end

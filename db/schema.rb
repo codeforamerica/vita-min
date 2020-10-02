@@ -401,6 +401,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_184841) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "sent_at", null: false
     t.string "subject", null: false
+    t.string "to", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.index ["client_id"], name: "index_outgoing_emails_on_client_id"
@@ -412,6 +413,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_184841) do
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "sent_at", null: false
+    t.string "to_phone_number", null: false
     t.string "twilio_sid"
     t.string "twilio_status"
     t.datetime "updated_at", precision: 6, null: false

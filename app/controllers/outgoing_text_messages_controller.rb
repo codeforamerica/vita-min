@@ -5,6 +5,7 @@ class OutgoingTextMessagesController < ApplicationController
 
   def create
     message = OutgoingTextMessage.new(outgoing_text_message_params)
+    message.to_phone_number = message.client.sms_phone_number
     if message.save
       SendOutgoingTextMessageJob.perform_later(message.id)
     end

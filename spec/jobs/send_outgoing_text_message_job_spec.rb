@@ -7,7 +7,7 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
     let(:fake_twilio_client) { double(Twilio::REST::Client) }
     let(:fake_twilio_messages) { double }
     let(:fake_twilio_message) { double(Twilio::REST::Api::V2010::AccountContext::MessageInstance, sid: "123", status: "sent") }
-    let(:outgoing_text_message) { create(:outgoing_text_message, client: client, user: user) }
+    let(:outgoing_text_message) { create(:outgoing_text_message, client: client, user: user, to_phone_number: "+15855551212") }
 
     before do
       allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :phone_number).and_return("+15555551212")
@@ -20,7 +20,7 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
       SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id)
       expect(fake_twilio_messages).to have_received(:create).with(
         from: "+15555551212",
-        to: client.sms_phone_number,
+        to: outgoing_text_message.to_phone_number,
         body: outgoing_text_message.body,
         status_callback: "http://test.host/outgoing_text_messages/#{outgoing_text_message.id}",
       )
