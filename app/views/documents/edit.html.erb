@@ -1,0 +1,14 @@
+<% @main_heading = "Edit Document" %>
+<% content_for :page_title, @main_heading %>
+
+<%= form_with model: @document, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+  <h1 class="form-question">
+    <%= @main_heading %>
+  </h1>
+
+  <%= f.cfa_input_field(:display_name, t(".display_name"), classes: ["form-width--long"]) %>
+
+  <button class="button button--cta " type="submit">
+    <%=t("general.save") %>
+  </button>
+<% end %>

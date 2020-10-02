@@ -59,6 +59,8 @@ es:
         someone_invited_you: "%{their_name} (%{their_email}) ha invitado a %{your_name} a crear una cuenta en GetYourRefund para ayudar a las personas con sus impuestos."
         subject: Usted ha sido invitado a GetYourRefund
   documents:
+    edit:
+      display_name: Nombre Para Mostrar
     index:
       document_type: Clase de documento
       file_name: Nombre de archivo

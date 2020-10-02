@@ -64,6 +64,50 @@ RSpec.describe DocumentsController, type: :controller do
     end
   end
 
+  describe "#edit" do
+    let(:client) { create :client }
+    let(:document) { create :document, :with_upload, client: client }
+    let(:params) { { id: document.id, client_id: client.id }}
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
+    it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
+
+    context "with a signed in beta tester" do
+      let(:beta_user) { create :beta_tester }
+      before { sign_in(beta_user) }
+
+      it "renders edit for the document" do
+        get :edit, params: params
+
+        expect(response).to be_ok
+        expect(assigns(:document)).to eq(document)
+      end
+    end
+  end
+
+  describe "#update" do
+    let(:new_display_name) { "New Display Name"}
+    let(:client) { create :client }
+    let(:document) { create :document, :with_upload, client: client }
+    let(:params) { { id: document.id, client_id: client.id, document_form: { display_name: new_display_name} } }
+
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
+    it_behaves_like :a_post_action_for_beta_testers_only, action: :update
+
+    context "with a signed in beta tester" do
+      let(:beta_user) { create :beta_tester }
+      before { sign_in(beta_user) }
+
+      it "updates the display name attribute on the document" do
+        post :update, params: params
+
+        expect(response).to redirect_to(client_documents_path(client_id: client.id))
+        document.reload
+        expect(document.display_name).to eq new_display_name
+      end
+    end
+  end
+
   context "#delete" do
     let!(:document) { create :document }
 

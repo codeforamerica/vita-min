@@ -24,6 +24,9 @@
             <% end %>
           </td>
           <td><%= t(".uploaded_ago", time: time_ago_in_words(document.created_at)) %></td>
+          <td>
+            <%= link_to t("general.edit"), edit_client_document_path(id: document.id) %>
+          </td>
         </tr>
       <% end %>
     <% end %>
