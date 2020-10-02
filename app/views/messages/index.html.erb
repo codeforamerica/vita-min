@@ -1,12 +1,7 @@
 <% content_for :page_title, "#{@client.preferred_name}, ##{@client.id}" %>
 
 <% content_for :card do %>
-  <div class="client-header">
-    <h1 class="h2">
-      <%= @client.preferred_name %>
-    </h1>
-    <h2>#<%= @client.id %></h2>
-  </div>
+  <%= render "clients/client_header" %>
 
   <%= render "clients/navigation" %>
 

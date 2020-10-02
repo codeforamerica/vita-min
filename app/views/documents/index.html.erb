@@ -1,0 +1,32 @@
+<% content_for :page_title, "#{@client.preferred_name} ##{@client.id} documents" %>
+
+<% content_for :card do %>
+  <%= render "clients/client_header" %>
+
+  <%= render "clients/navigation" %>
+
+  <table class="data-table document-table spacing-above-25">
+    <thead>
+    <tr>
+      <th class="document-column__doc-type"><%=t(".document_type") %></th>
+      <th class="document-column__link"><%=t(".file_name") %></th>
+      <th class="document-column__upload-date"><%=t(".upload_date") %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% if @documents.present? %>
+      <% @documents.each do |document| %>
+        <tr id="document-<%= document.id %>">
+          <td><%= document.document_type %></td>
+          <td>
+            <%= link_to document_path(id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
+              <%= document.display_name %>
+            <% end %>
+          </td>
+          <td><%= t(".uploaded_ago", time: time_ago_in_words(document.created_at)) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
