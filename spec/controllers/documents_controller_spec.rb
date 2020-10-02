@@ -97,13 +97,25 @@ RSpec.describe DocumentsController, type: :controller do
     context "with a signed in beta tester" do
       let(:beta_user) { create :beta_tester }
       before { sign_in(beta_user) }
+      context "with valid params" do
+        it "updates the display name attribute on the document" do
+          post :update, params: params
 
-      it "updates the display name attribute on the document" do
-        post :update, params: params
+          expect(response).to redirect_to(client_documents_path(client_id: client.id))
+          document.reload
+          expect(document.display_name).to eq new_display_name
+        end
+      end
 
-        expect(response).to redirect_to(client_documents_path(client_id: client.id))
-        document.reload
-        expect(document.display_name).to eq new_display_name
+      context "invalid params" do
+        let(:params) { { id: document.id, client_id: client.id, document_form: { display_name: ''} } }
+
+        it "renders edit" do
+          post :update, params: params
+
+          expect(response).to render_template :edit
+          expect(response.body).to include "Can't be blank."
+        end
       end
     end
   end

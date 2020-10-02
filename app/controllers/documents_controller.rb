@@ -22,8 +22,13 @@ class DocumentsController < ApplicationController
 
   def update
     @document = Document.find(params[:id])
-    @document.update(document_params)
-    redirect_to client_documents_path(client_id: @document.client.id)
+    @form = CaseManagement::DocumentForm.new(@document, document_params)
+    if @form.valid?
+      @form.save
+      redirect_to client_documents_path(client_id: @document.client.id)
+    else
+      render :edit
+    end
   end
 
   def destroy
