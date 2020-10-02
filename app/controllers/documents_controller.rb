@@ -1,6 +1,8 @@
 class DocumentsController < ApplicationController
+  include AccessControllable
   include FileResponseControllerHelper
 
+  before_action :require_sign_in, :require_beta_tester, only: [:index, :show]
   before_action :require_intake, only: [:destroy]
   layout "admin", only: [:index]
 
