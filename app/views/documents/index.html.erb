@@ -19,7 +19,7 @@
         <tr id="document-<%= document.id %>">
           <td><%= document.document_type %></td>
           <td>
-            <%= link_to document_path(id: document.id), target: "_blank" do %>
+            <%= link_to document_path(id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
               <%= document.display_name %>
             <% end %>
           </td>
