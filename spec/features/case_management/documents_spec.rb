@@ -19,7 +19,8 @@ RSpec.feature "View and edit documents for a client" do
       within "#document-#{document_1.id}" do
         click_on "Edit"
       end
-      expect(page).to have_selector("h1", text: "Edit Document")
+
+      expect(page).to have_selector(".form-card__title", text: "Edit Document")
 
       fill_in("Display Name", with: "Updated Document Title")
 
@@ -27,7 +28,23 @@ RSpec.feature "View and edit documents for a client" do
 
       expect(page).to have_selector("h1", text: "Bart Simpson")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Updated Document Title")
+    end
 
+    scenario "updating a document with an invalid display name" do
+      visit client_documents_path(client_id: client.id)
+      expect(page).to have_selector("#document-#{document_1.id}", text: "ID.jpg")
+
+      within "#document-#{document_1.id}" do
+        click_on "Edit"
+      end
+
+      expect(page).to have_selector(".form-card__title", text: "Edit Document")
+
+      fill_in("Display Name", with: "")
+
+      click_on "Save"
+
+      expect(page).to have_selector("#document_display_name__errors", text: "Can't be blank.")
     end
   end
 end

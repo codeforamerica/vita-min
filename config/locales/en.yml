@@ -60,6 +60,7 @@ en:
         subject: You've been invited to GetYourRefund
   documents:
     edit:
+      title: Edit Document
       display_name: Display Name
     index:
       document_type: Document Type

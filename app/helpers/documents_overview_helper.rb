@@ -1,5 +1,5 @@
 module DocumentsOverviewHelper
-  def edit_document_path(document_type)
+  def edit_document_path_for(document_type)
     document_controller = DocumentNavigation.document_controller_for_type(document_type)
 
     unless document_controller

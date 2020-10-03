@@ -1,10 +1,9 @@
 class DocumentsController < ApplicationController
   include AccessControllable
   include FileResponseControllerHelper
-
   before_action :require_sign_in, :require_beta_tester, only: [:index, :show, :edit, :update]
   before_action :require_intake, only: [:destroy]
-  layout "admin", only: [:index]
+  layout "admin", only: [:index, :edit, :update]
 
   def index
     @client = Client.find(params[:client_id])
@@ -27,6 +26,7 @@ class DocumentsController < ApplicationController
       @form.save
       redirect_to client_documents_path(client_id: @document.client.id)
     else
+      @document.errors.copy!(@form.errors)
       render :edit
     end
   end
@@ -37,7 +37,7 @@ class DocumentsController < ApplicationController
     if document.present?
       document.destroy
 
-      redirect_to helpers.edit_document_path(document.document_type)
+      redirect_to helpers.edit_document_path_for(document.document_type)
     else
       redirect_to overview_documents_path
     end
@@ -46,6 +46,6 @@ class DocumentsController < ApplicationController
   private
 
   def document_params
-    params.require(:document_form).permit(:display_name)
+    params.require(:document).permit(:display_name)
   end
 end

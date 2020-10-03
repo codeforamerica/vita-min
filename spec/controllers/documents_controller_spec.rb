@@ -89,7 +89,7 @@ RSpec.describe DocumentsController, type: :controller do
     let(:new_display_name) { "New Display Name"}
     let(:client) { create :client }
     let(:document) { create :document, :with_upload, client: client }
-    let(:params) { { id: document.id, client_id: client.id, document_form: { display_name: new_display_name} } }
+    let(:params) { { id: document.id, document: { display_name: new_display_name} } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
     it_behaves_like :a_post_action_for_beta_testers_only, action: :update
@@ -108,13 +108,16 @@ RSpec.describe DocumentsController, type: :controller do
       end
 
       context "invalid params" do
-        let(:params) { { id: document.id, client_id: client.id, document_form: { display_name: ''} } }
+        let(:params) { { id: document.id, document: { display_name: '' } } }
 
-        it "renders edit" do
+        it "renders edit and does not update the document with invalid data" do
           post :update, params: params
 
           expect(response).to render_template :edit
-          expect(response.body).to include "Can't be blank."
+          expect(response.body).to include "Can't be blank"
+
+          document.reload
+          expect(document.display_name).not_to eq ''
         end
       end
     end

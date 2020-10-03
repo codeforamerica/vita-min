@@ -36,7 +36,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :documents, controller: :documents do
+    resources :documents, only: [:destroy], controller: :documents do
       collection do
         DocumentNavigation.controllers.uniq.each do |controller_class|
           { get: :edit, put: :update }.each do |method, action|
@@ -57,7 +57,6 @@ Rails.application.routes.draw do
     end
 
     resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :documents, only: [:destroy]
 
     # FSA routes
     scoped_navigation_routes(:diy, DiyNavigation) do
@@ -116,9 +115,11 @@ Rails.application.routes.draw do
     # New Case Management Admin routes
     resources :clients, only: [:index, :show, :create] do
       resources :messages, only: [:index]
-      resources :documents, only: [:index, :edit, :update]
+      resources :documents, only: [:index]
       resources :notes, only: [:index]
     end
+    resources :documents, only: [:edit, :update, :show]
+    
 
     resources :outgoing_text_messages, only: [:create]
     resources :outgoing_emails, only: [:create]
@@ -129,6 +130,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :edit, :update]
     get "/users/invitations" => "invitations#index", as: :invitations
     get "/users/profile" => "users#profile", as: :user_profile
+    
+    ### END Case Management Admin routes
 
     # Any other top level slash just goes to home as a source parameter
     get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
