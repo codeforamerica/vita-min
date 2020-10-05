@@ -30,6 +30,7 @@ class OutgoingEmail < ApplicationRecord
   validates_presence_of :body
   validates_presence_of :subject
   validates_presence_of :sent_at
+  has_many_attached :attachments
 
   def datetime
     sent_at

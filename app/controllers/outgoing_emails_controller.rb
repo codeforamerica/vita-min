@@ -16,7 +16,7 @@ class OutgoingEmailsController < ApplicationController
 
   def outgoing_email_params
     # Use client locale someday
-    params.require(:outgoing_email).permit(:client_id, :body).merge(
+    params.require(:outgoing_email).permit(:client_id, :body, attachments: []).merge(
       subject: I18n.t("email.user_message.subject", locale: "en"),
       sent_at: DateTime.now,
       user: current_user
