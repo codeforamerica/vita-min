@@ -73,6 +73,7 @@
 #  had_retirement_income                                :integer          default("unfilled"), not null
 #  had_self_employment_income                           :integer          default("unfilled"), not null
 #  had_social_security_income                           :integer          default("unfilled"), not null
+#  had_social_security_or_retirement                    :integer          default("unfilled"), not null
 #  had_student_in_family                                :integer          default("unfilled"), not null
 #  had_tax_credit_disallowed                            :integer          default("unfilled"), not null
 #  had_tips                                             :integer          default("unfilled"), not null
@@ -242,6 +243,7 @@ class Intake < ApplicationRecord
   enum had_retirement_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_retirement_income
   enum had_self_employment_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_self_employment_income
   enum had_social_security_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_social_security_income
+  enum had_social_security_or_retirement: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_social_security_or_retirement
   enum had_student_in_family: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_student_in_family
   enum had_tax_credit_disallowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_tax_credit_disallowed
   enum had_tips: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_tips

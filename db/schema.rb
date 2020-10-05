@@ -287,6 +287,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_221043) do
     t.integer "had_retirement_income", default: 0, null: false
     t.integer "had_self_employment_income", default: 0, null: false
     t.integer "had_social_security_income", default: 0, null: false
+    t.integer "had_social_security_or_retirement", default: 0, null: false
     t.integer "had_student_in_family", default: 0, null: false
     t.integer "had_tax_credit_disallowed", default: 0, null: false
     t.integer "had_tips", default: 0, null: false
