@@ -7,7 +7,9 @@ module CaseManagement
 
     def index
       @client = Client.find(params[:client_id])
-      @documents = @client.documents
+      @sort_order = sort_order
+      @sort_column = sort_column
+      @documents = @client.documents.order({ @sort_column => @sort_order })
     end
 
     def show
@@ -35,6 +37,14 @@ module CaseManagement
 
     def document_params
       params.require(:document).permit(:display_name)
+    end
+
+    def sort_column
+      %w[created_at display_name document_type].include?(params[:sort]) ? params[:sort] : "document_type"
+    end
+
+    def sort_order
+      %w[asc desc].include?(params[:order]) ? params[:order] : "asc"
     end
   end
 end

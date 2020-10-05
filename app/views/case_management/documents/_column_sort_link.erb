@@ -1,0 +1,3 @@
+<% new_order = @sort_column == column_name && @sort_order == "asc" ? "desc" : "asc" %>
+<% arrow = if @sort_column == column_name then @sort_order == "desc" ? "↑" : "↓" end %>
+<%= link_to("#{title} #{arrow}", sort: column_name, order: new_order) %>
