@@ -35,6 +35,7 @@ class Client < ApplicationRecord
       phone_number: intake.phone_number,
       sms_phone_number: intake.sms_phone_number,
       vita_partner: intake.vita_partner,
+      documents: intake.documents,
     )
   end
 end
