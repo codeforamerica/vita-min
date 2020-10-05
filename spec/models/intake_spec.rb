@@ -73,7 +73,7 @@
 #  had_retirement_income                                :integer          default("unfilled"), not null
 #  had_self_employment_income                           :integer          default("unfilled"), not null
 #  had_social_security_income                           :integer          default("unfilled"), not null
-#  had_social_security_or_retirement                    :integer          default(0), not null
+#  had_social_security_or_retirement                    :integer          default("unfilled"), not null
 #  had_student_in_family                                :integer          default("unfilled"), not null
 #  had_tax_credit_disallowed                            :integer          default("unfilled"), not null
 #  had_tips                                             :integer          default("unfilled"), not null
