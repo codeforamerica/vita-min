@@ -629,8 +629,8 @@ es:
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
         filing_deadline_banner:
-          body_html: A menos que anticipe que debe dinero este año, puede presentarla hasta el 15 de octubre sin penalización. Aún puede recibir su Pago de Impacto Económico (estímulo) aunque haya pasado la fecha límite de impuestos.
-          title: La fecha límite para la declaración de impuestos federales se extendió hasta el 15 de julio de 2020.
+          body_html: Para poder declarar impuestos para la fecha límite, necesitamos todos los documentos requeridos para el 8 de octubre. ¡Nos daría mucho gusto poder trabajar con usted el próximo año y ayudarle a declarar sus impuestos absolutamente gratis!
+          title: Los servicios de GetYourRefund cerrarán al 12 de octubre.
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
         partners:
           header: Colaboramos con organizaciones de confianza
@@ -972,7 +972,7 @@ es:
           title: "¿Necesitas ayuda adicional?"
           what: La línea de ayuda de United Way está disponible para responder sus preguntas y puede ayudarlo a completar este formulario por teléfono.
           why: Es una buena opción para cualquier persona que no sea buena con las computadoras o que prefiera el soporte en persona.
-        info_html: 'Tenga en cuenta: Si recibió lo siguiente, el pago debería llegarle automáticamente y <strong>no es necesario que complete el formulario</strong>:'
+        info_html: 'Tenga en cuenta: Necesitará tener toda la documentación necesaria para el 8 de octubre, ya que de otra manera no podremos ayudarle a recibir tu pago de estimulo. Si recibió lo siguiente, el pago debería llegarle automáticamente y <strong>no es necesario que complete el formulario</strong>:'
         received_rrb: Beneficios de Jubilación Ferroviaria
         received_ssdi: Sobreviviente o discapacidad del Seguro Social (SSDI)
         received_ssi: Seguridad de Ingreso suplementario (SSI)
@@ -1018,7 +1018,7 @@ es:
           need_assistance: Necesita ayuda con la declaración de impuestos.
           nervous: Le preocupa preparar su declaración de impuestos por su cuenta
         title: "¡Declara tus impuestos con la ayuda de un experto!"
-        closing_notice_html: <strong>Estamos por cerrar GetYourRefund para la temporada de impuestos el 15 de octubre.</strong> Para poder declarar impuestos para la fecha límite, necesitamos todos los documentos requeridos para el 8 de octubre. ¡Esperamos poder brindarle nuestra asistencia tributaria gratuita el próximo año!
+        closing_notice_html: <strong>Estamos por cerrar GetYourRefund para la temporada de impuestos el 12 de octubre.</strong> La declaración con ayuda tardará de una semana en procesarse. Para poder declarar impuestos para la fecha límite, necesitamos todos los documentos requeridos para el 8 de octubre. ¡Esperamos poder brindarle nuestra asistencia tributaria gratuita el próximo año!
       filing_joint:
         help_text: Generalmente, declarar sus impuestos juntos es más beneficioso para su reembolso. Su cónyuge necesitará verificar su identidad y firmar la declaración de impuestos final.
         title: "¿Está declarando sus impuestos con su cónyuge?"
