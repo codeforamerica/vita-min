@@ -801,7 +801,6 @@ describe Intake do
 
       it_behaves_like :source_group_matching, "uwkc", "360009173713"
       it_behaves_like :source_group_matching, "uwvp", "360009267673"
-      it_behaves_like :source_group_matching, "uwccr", "360009708193"
       it_behaves_like :source_group_matching, "RefundDay-B", "360009704234"
       it_behaves_like :source_group_matching, "branchesfl", "360009704234"
       it_behaves_like :source_group_matching, "uwfm", "360009415834"
