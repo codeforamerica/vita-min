@@ -11,6 +11,7 @@
       <th class="document-column__doc-type"><%=t(".document_type") %></th>
       <th class="document-column__link"><%=t(".file_name") %></th>
       <th class="document-column__upload-date"><%=t(".upload_date") %></th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +25,9 @@
             <% end %>
           </td>
           <td><%= t(".uploaded_ago", time: time_ago_in_words(document.created_at)) %></td>
+          <td class="edit">
+            <%= link_to t("general.edit"), edit_case_management_document_path(id: document.id) %>
+          </td>
         </tr>
       <% end %>
     <% end %>

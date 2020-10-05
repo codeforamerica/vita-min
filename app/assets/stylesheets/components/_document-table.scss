@@ -2,12 +2,12 @@
   table-layout: fixed;
   width: 904px;
 
-
   .document-column {
     &__doc-type { width: 165px; }
     &__link { width: 360px; }
-    &__upload-date { width: 129px;}
-    &__notes { width: 250px;}
+    &__upload-date { width: 129px; }
+    &__notes { width: 250px; }
+    &__edit { text-align: right; }
   }
 
   .extract-column {
@@ -17,9 +17,12 @@
   }
 
   td {
-
     &.document-notes {
       color: $color-gold-accent;
+    }
+
+    &.edit {
+      text-align: right;
     }
 
     a {

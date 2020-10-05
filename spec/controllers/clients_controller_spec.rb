@@ -6,6 +6,9 @@ RSpec.describe ClientsController do
     let(:params) do
       { intake_id: intake.id }
     end
+    let!(:document) do
+      create(:document, intake: intake)
+    end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
     it_behaves_like :a_post_action_for_beta_testers_only, action: :create
@@ -34,6 +37,7 @@ RSpec.describe ClientsController do
             expect(client.email_address).to eq "client@example.com"
             expect(client.phone_number).to eq "14155537865"
             expect(client.preferred_name).to eq "Casey"
+            expect(client.documents.first).to eq(document)
             expect(intake.reload.client).to eq client
             expect(response).to redirect_to client_path(id: client.id)
           end
