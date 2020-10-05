@@ -115,11 +115,16 @@ Rails.application.routes.draw do
     # New Case Management Admin routes
     resources :clients, only: [:index, :show, :create] do
       resources :messages, only: [:index]
-      resources :documents, only: [:index]
       resources :notes, only: [:index]
     end
-    resources :documents, only: [:edit, :update, :show]
     
+    namespace :case_management do
+      resources :documents, only: [:edit, :update, :show]
+      resources :clients, controller: '/clients' do
+        resources :documents, only: [:index]
+      end
+    end
+
 
     resources :outgoing_text_messages, only: [:create]
     resources :outgoing_emails, only: [:create]

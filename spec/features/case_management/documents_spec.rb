@@ -11,7 +11,7 @@ RSpec.feature "View and edit documents for a client" do
     end
 
     scenario "view document list and change a display name" do
-      visit client_documents_path(client_id: client.id)
+      visit case_management_client_documents_path(client_id: client.id)
 
       expect(page).to have_selector("h1", text: "Bart Simpson")
       expect(page).to have_selector("#document-#{document_1.id}", text: "ID.jpg")
@@ -31,7 +31,7 @@ RSpec.feature "View and edit documents for a client" do
     end
 
     scenario "updating a document with an invalid display name" do
-      visit client_documents_path(client_id: client.id)
+      visit case_management_client_documents_path(client_id: client.id)
       expect(page).to have_selector("#document-#{document_1.id}", text: "ID.jpg")
 
       within "#document-#{document_1.id}" do

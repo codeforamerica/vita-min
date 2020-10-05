@@ -26,7 +26,7 @@
           </td>
           <td><%= t(".uploaded_ago", time: time_ago_in_words(document.created_at)) %></td>
           <td class="edit">
-            <%= link_to t("general.edit"), edit_document_path(id: document.id) %>
+            <%= link_to t("general.edit"), edit_case_management_document_path(id: document.id) %>
           </td>
         </tr>
       <% end %>

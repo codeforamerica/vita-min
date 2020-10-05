@@ -58,15 +58,16 @@ en:
         ignore: If you don't want to accept the invitation, please ignore this email.
         someone_invited_you: "%{their_name} (%{their_email}) has invited %{your_name} to create an account on GetYourRefund to help people with their taxes."
         subject: You've been invited to GetYourRefund
-  documents:
-    edit:
-      title: Edit Document
-      display_name: Display Name
-    index:
-      document_type: Document Type
-      file_name: File Name
-      upload_date: Upload Date
-      uploaded_ago: "%{time} ago"
+  case_management:
+    documents:
+      edit:
+        title: Edit Document
+        display_name: Display Name
+      index:
+        document_type: Document Type
+        file_name: File Name
+        upload_date: Upload Date
+        uploaded_ago: "%{time} ago"
   email:
     user_message:
       subject: Update from GetYourRefund

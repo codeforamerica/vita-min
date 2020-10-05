@@ -5,7 +5,7 @@ RSpec.describe DocumentsOverviewHelper do
     let(:document_type) { "W-2" }
 
     it "returns the correct path" do
-      result = helper.edit_document_path_for(document_type)
+      result = helper.edit_document_path(document_type)
       expect(result).to eq(w2s_documents_path)
     end
   end
@@ -14,7 +14,7 @@ RSpec.describe DocumentsOverviewHelper do
     let(:document_type) { "AnOldPieceOfParchment" }
 
     it "raises an error" do
-      expect { helper.edit_document_path_for(document_type) }
+      expect { helper.edit_document_path(document_type) }
         .to raise_error(/Missing/)
     end
   end
