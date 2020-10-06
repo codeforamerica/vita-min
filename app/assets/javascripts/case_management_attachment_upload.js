@@ -1,8 +1,7 @@
-
 document.addEventListener("DOMContentLoaded", function(){
-    var imageUploader = document.querySelector('#multi-attachment-upload');
-    var preview = document.querySelector('#multi-attachment-image-preview');
-    var clearAttachments = document.querySelector('#multi-attachment-image-clear');
+    var imageUploader = document.querySelector('#attachment-upload');
+    var preview = document.querySelector('#attachment-image-preview');
+    var clearAttachments = document.querySelector('#attachment-image-clear');
 
     clearAttachments.addEventListener('click', function(e)  {
         e.preventDefault();
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
             // Make sure `file.name` matches our extensions criteria
             console.log(file.name)
-            if ( /\.(jpe?g|png|gif|pdf)$/i.test(file.name) ) {
+            if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
                 var reader = new FileReader();
 
                 reader.addEventListener("load", function () {
@@ -30,6 +29,12 @@ document.addEventListener("DOMContentLoaded", function(){
                 }, false);
 
                 reader.readAsDataURL(file);
+            } else {
+                var image = new Image();
+                image.height = 100;
+                image.title = file.name;
+                image.src = "app/assets/images/file-icon.svg";
+                preview.appendChild(image);
             }
 
         }
