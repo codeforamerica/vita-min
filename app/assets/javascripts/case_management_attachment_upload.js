@@ -1,12 +1,16 @@
 document.addEventListener("DOMContentLoaded", function(){
     var imageUploader = document.querySelector('#attachment-upload');
-    var preview = document.querySelector('#attachment-image-preview');
+    var customPreviewDiv = document.querySelector('#attachment-custom-preview');
+    var previewImageDefault = document.querySelector('#attachment-image-preview-default');
+
     var clearAttachments = document.querySelector('#attachment-image-clear');
+    previewImageDefault.hidden = true;
 
     clearAttachments.addEventListener('click', function(e)  {
         e.preventDefault();
         imageUploader.value = '';
-        preview.innerHTML = '';
+        customPreviewDiv.innerHTML = '';
+        previewImageDefault.hidden = true;
         clearAttachments.hidden = true;
     })
 
@@ -14,10 +18,9 @@ document.addEventListener("DOMContentLoaded", function(){
         var files   = this.files;
 
         function readAndPreview(file) {
-
-            // Make sure `file.name` matches our extensions criteria
-            console.log(file.name)
+            // Show preview if can for filetype
             if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+
                 var reader = new FileReader();
 
                 reader.addEventListener("load", function () {
@@ -25,22 +28,18 @@ document.addEventListener("DOMContentLoaded", function(){
                     image.height = 100;
                     image.title = file.name;
                     image.src = this.result;
-                    preview.appendChild( image );
+                    customPreviewDiv.appendChild(image);
                 }, false);
-
                 reader.readAsDataURL(file);
-            } else {
-                var image = new Image();
-                image.height = 100;
-                image.title = file.name;
-                image.src = "app/assets/images/file-icon.svg";
-                preview.appendChild(image);
-            }
+                previewImageDefault.hidden = true;
 
+            } else {
+                customPreviewDiv.innerHTML = '';
+                previewImageDefault.hidden = false;
+            }
         }
 
         if (files) {
-            preview.innerHTML = '';
             [].forEach.call(files, readAndPreview);
             clearAttachments.hidden = false;
         }

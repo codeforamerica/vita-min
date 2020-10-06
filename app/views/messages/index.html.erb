@@ -63,7 +63,7 @@
           <div class="contact-record__body">
             <% if contact_record.contact_record_type == :outgoing_email %>
               <%= render "shared/email_body", body: contact_record.body %>
-              <% if contact_record.attachment %>
+              <% if contact_record.attachment.present? && contact_record.attachment.filename %>
                 <hr class="contact-record--hr" />
                 <h4 class="contact-record--attachments__heading">Attachments:</h4>
                 <ul>
@@ -92,10 +92,11 @@
     <%= f.hidden_field :client_id %>
     <div class="attachment-uploader">
       <%= f.file_field :attachment, id: 'attachment-upload' %>
-
-      <div id="attachment-image-preview">
+      <div id="attachment-image-preview-wrapper">
+        <%= image_tag "file-icon.svg", id: "attachment-image-preview-default" %>
+        <div id="attachment-custom-preview"></div>
       </div>
-      <button id="attachment-image-clear" hidden>Clear Attachments</button>
+      <button id="attachment-image-clear" hidden>Remove Attachment</button>
     </div>
 
     <%= f.submit t(".email_form.submit"), class: "button" %>

@@ -1,9 +1,10 @@
-#multi-attachment-image-preview, #attachment-image-preview {
-  margin-top: 15px;
+.attachment-uploader {
+  margin-bottom: 1rem;
   img {
-    width: 200px;
+    margin-top: 1rem;
+    width: 100px;
     height: auto;
-    margin-bottom: 15px;
-    margin-right: 15px;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
   }
 }
