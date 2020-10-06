@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Read and send messages to a client" do
+RSpec.feature "Read and send messages to a client", js: true do
   context "As a beta tester" do
     let(:beta_tester) { create :beta_tester }
     let(:client) { create :client }
@@ -36,5 +36,28 @@ RSpec.feature "Read and send messages to a client" do
         expect(page).to have_text "Example text message"
       end
     end
+
+    scenario "I can send an email with an attachment" do
+      visit client_messages_path(client_id: client)
+
+      within(".email-form") do
+        fill_in "Send an email", with: "Example email"
+        attach_file("outgoing_email[attachment]", "spec/fixtures/attachments/test-pattern.png")
+        expect(page).to have_selector("div#attachment-custom-preview img")
+        attach_file("outgoing_email[attachment]", "spec/fixtures/attachments/document_bundle.pdf")
+        # Replaces custom file-streamed preview with default preview for non-image upload types.
+        expect(page).not_to have_selector("div#attachment-custom-preview img")
+        expect(page).to have_selector("img#attachment-image-preview-default")
+
+        click_on "Send"
+      end
+
+      within(".contact-history") do
+        expect(page).to have_text "Example email"
+        expect(page).to have_text "document_bundle.pdf"
+      end
+    end
+
+
   end
 end

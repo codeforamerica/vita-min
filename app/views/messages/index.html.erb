@@ -12,8 +12,6 @@
         <li class="contact-record contact-record--<%= contact_record.contact_record_type %>">
           <div class="contact-record__heading">
             <div>
-
-
               <span class="contact-record__author">
                 <span role="img" aria-label="client">👤</span>
                 <% if contact_record.contact_record_type == :outgoing_text_message || contact_record.contact_record_type == :outgoing_email %>
@@ -65,6 +63,14 @@
           <div class="contact-record__body">
             <% if contact_record.contact_record_type == :outgoing_email %>
               <%= render "shared/email_body", body: contact_record.body %>
+              <% if contact_record.attachment.present? && contact_record.attachment.filename %>
+                <hr class="contact-record--hr" />
+                <h4 class="contact-record--attachments__heading">Attachments:</h4>
+                <ul>
+                  <li><%= contact_record.attachment.filename %></li>
+                </ul>
+
+              <% end %>
             <% else %>
               <%= contact_record.body %>
             <% end %>
@@ -84,6 +90,15 @@
   <%= form_with model: @outgoing_email, url: outgoing_emails_path, local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
     <%= f.cfa_textarea :body, t(".email_form.label") %>
     <%= f.hidden_field :client_id %>
+    <div class="attachment-uploader">
+      <%= f.file_field :attachment, id: 'attachment-upload' %>
+      <div id="attachment-image-preview-wrapper">
+        <%= image_tag "file-icon.svg", id: "attachment-image-preview-default" %>
+        <div id="attachment-custom-preview"></div>
+      </div>
+      <button id="attachment-image-clear" hidden>Remove Attachment</button>
+    </div>
+
     <%= f.submit t(".email_form.submit"), class: "button" %>
   <% end %>
 
