@@ -2,25 +2,24 @@ module CaseManagement
   class DocumentsController < ApplicationController
     include AccessControllable
     include FileResponseControllerHelper
-    before_action :require_sign_in, :require_beta_tester
+
+    before_action :require_sign_in
+    load_and_authorize_resource :client
+    load_and_authorize_resource through: :client
+
     layout "admin"
 
     def index
-      @client = Client.find(params[:client_id])
-      @documents = @client.documents
     end
 
     def show
-      @document = Document.find(params[:id])
       render_active_storage_attachment @document.upload
     end
 
     def edit
-      @document = Document.find(params[:id])
     end
 
     def update
-      @document = Document.find(params[:id])
       @form = CaseManagement::DocumentForm.new(@document, document_params)
       if @form.valid?
         @form.save

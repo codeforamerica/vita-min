@@ -13,7 +13,8 @@ class Users::InvitationsController < Devise::InvitationsController
     # If an anonymous user tries to send an invitation, send them to the invitation page after sign-in.
     require_sign_in(redirect_after_login: new_user_invitation_path)
   end
-  before_action :require_beta_tester, only: [:new, :create]
+
+  authorize_resource :user, only: [:new, :create]
   before_action :require_valid_invitation_token, only: [:edit, :update]
 
   def create

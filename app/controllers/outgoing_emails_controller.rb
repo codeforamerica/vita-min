@@ -1,15 +1,15 @@
 class OutgoingEmailsController < ApplicationController
   include AccessControllable
 
-  before_action :require_sign_in, :require_beta_tester
+  before_action :require_sign_in
+  load_and_authorize_resource
 
   def create
-    email = OutgoingEmail.new(outgoing_email_params)
-    email.to = email.client.email_address
-    if email.save
-      OutgoingEmailMailer.user_message(outgoing_email: email).deliver_later
+    @outgoing_email.to = @outgoing_email.client.email_address
+    if @outgoing_email.save
+      OutgoingEmailMailer.user_message(outgoing_email: @outgoing_email).deliver_later
     end
-    redirect_to client_messages_path(client_id: email.client_id)
+    redirect_to client_messages_path(client_id: @outgoing_email.client_id)
   end
 
   private

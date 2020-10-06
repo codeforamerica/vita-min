@@ -2,12 +2,12 @@ class ClientsController < ApplicationController
   include AccessControllable
 
   before_action :require_sign_in
-  before_action :require_beta_tester
+  load_and_authorize_resource
 
   layout "admin"
 
   def index
-    @clients = Client.all.includes(intakes: :vita_partner)
+    @clients = @clients.includes(intakes: :vita_partner)
   end
 
   def create
@@ -23,7 +23,6 @@ class ClientsController < ApplicationController
   end
 
   def show
-    @client = Client.find(params[:id])
     @contact_history = (
       @client.outgoing_text_messages.includes(:user) +
       @client.incoming_text_messages +

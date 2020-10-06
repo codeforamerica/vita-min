@@ -123,9 +123,8 @@ Rails.application.routes.draw do
     end
     
     namespace :case_management do
-      resources :documents, only: [:edit, :update, :show]
       resources :clients, controller: '/clients' do
-        resources :documents, only: [:index]
+        resources :documents, only: [:index, :edit, :update, :show]
       end
     end
 

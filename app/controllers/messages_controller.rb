@@ -1,17 +1,22 @@
 class MessagesController < ApplicationController
   include AccessControllable
 
-  before_action :require_sign_in, :require_beta_tester
+  before_action :require_sign_in
+  load_and_authorize_resource :client
+  load_and_authorize_resource :outgoing_text_message, parent: false, through: :client
+  load_and_authorize_resource :incoming_text_message, parent: false, through: :client
+  load_and_authorize_resource :outgoing_email, parent: false, through: :client
+  load_and_authorize_resource :incoming_email, parent: false, through: :client
+
 
   layout "admin"
 
   def index
-    @client = Client.find(params[:client_id])
     @contact_history = (
-      @client.outgoing_text_messages.includes(:user) +
-      @client.incoming_text_messages +
-      @client.outgoing_emails.includes(:user) +
-      @client.incoming_emails
+      @outgoing_text_messages.includes(:user) +
+      @incoming_text_messages +
+      @outgoing_emails.includes(:user) +
+      @incoming_emails
     ).sort_by(&:datetime)
     @outgoing_text_message = OutgoingTextMessage.new(client: @client)
     @outgoing_email = OutgoingEmail.new(client: @client)

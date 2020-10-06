@@ -3,6 +3,9 @@ require "rails_helper"
 RSpec.describe OutgoingEmailsController do
   describe "#create" do
     let(:client) { create :client }
+    let(:params) do
+      { outgoing_email: { client_id: client.id, body: "hi client" } }
+    end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
     it_behaves_like :a_post_action_for_beta_testers_only, action: :create
@@ -13,9 +16,6 @@ RSpec.describe OutgoingEmailsController do
       before { sign_in beta_user }
 
       context "with body & client_id" do
-        let(:params) do
-          { outgoing_email: { client_id: client.id, body: "hi client" } }
-        end
         before { allow(DateTime).to receive(:now).and_return(expected_time) }
 
         it "creates an OutgoingEmail, asks it to deliver itself later, then redirects to client show", active_job: true do

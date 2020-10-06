@@ -28,6 +28,20 @@ RSpec.describe MessagesController do
           ].reverse
         end
 
+        before do
+          create :outgoing_text_message
+        end
+
+        it "displays all message bodies sorted by date" do
+          get :index, params: params
+
+          expect(assigns(:contact_history)).to eq expected_contact_history
+          expect(response.body).to include("Your tax return is great")
+          expect(response.body).to include("Thx appreciate yr gratitude")
+          expect(response.body).to include("We are really excited to work with you")
+          expect(response.body).to include("Me too! Happy to get every notification")
+        end
+
         context "outgoing text messages" do
           context "with Twilio status" do
             let(:twilio_status) { "queued" }

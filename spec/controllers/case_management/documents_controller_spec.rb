@@ -31,6 +31,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
       it "displays all the documents for the client" do
         get :index, params: params
 
+        expect(response).to be_ok
         html = Nokogiri::HTML.parse(response.body)
         first_doc_element = html.at_css("#document-#{first_document.id}")
         expect(first_doc_element).to have_text("ID")
@@ -69,7 +70,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
     let(:new_display_name) { "New Display Name"}
     let(:client) { create :client }
     let(:document) { create :document, :with_upload, client: client }
-    let(:params) { { id: document.id, document: { display_name: new_display_name} } }
+    let(:params) { { client_id: client.id, id: document.id, document: { display_name: new_display_name} } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
     it_behaves_like :a_post_action_for_beta_testers_only, action: :update
@@ -88,7 +89,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
       end
 
       context "invalid params" do
-        let(:params) { { id: document.id, document: { display_name: '' } } }
+        let(:params) { { client_id: client.id, id: document.id, document: { display_name: '' } } }
 
         it "renders edit and does not update the document with invalid data" do
           post :update, params: params
@@ -103,8 +104,9 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
   end
 
   describe "#show" do
-    let(:document) { create :document, :with_upload }
-    let(:params) { { id: document.id }}
+    let(:client) { create :client }
+    let(:document) { create :document, :with_upload, client: client }
+    let(:params) { { client_id: client.id, id: document.id }}
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
     it_behaves_like :a_get_action_for_beta_testers_only, action: :show
