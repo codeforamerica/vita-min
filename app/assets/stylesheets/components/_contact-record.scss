@@ -11,6 +11,15 @@
       border-radius: 2rem;
     }
   }
+  &--hr {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  &--attachments {
+    &__heading {
+      margin-bottom: 0;
+    }
+  }
 
   &--outgoing_text_message, &--outgoing_email {
    margin-left: 3rem;

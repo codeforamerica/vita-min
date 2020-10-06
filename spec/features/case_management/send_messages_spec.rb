@@ -36,5 +36,20 @@ RSpec.feature "Read and send messages to a client" do
         expect(page).to have_text "Example text message"
       end
     end
+
+    scenario "I can send an email with an attachment" do
+      visit client_messages_path(client_id: client)
+
+      within(".email-form") do
+        fill_in "Send an email", with: "Example email"
+        attach_file("outgoing_email[attachment]", "spec/fixtures/attachments/test-pattern.png")
+        click_on "Send"
+      end
+
+      within(".contact-history") do
+        expect(page).to have_text "Example email"
+        expect(page).to have_text "test-pattern.png"
+      end
+    end
   end
 end
