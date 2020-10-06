@@ -21,7 +21,7 @@ class ZendeskWebhookController < ActionController::Base
       sms_ticket_id: sms_ticket_id,
       phone_number: phone_number,
       message_body: message_body
-    )
+    ) if valid_phone_number?
   end
 
   def updated_ticket
@@ -29,6 +29,10 @@ class ZendeskWebhookController < ActionController::Base
   end
 
   private
+
+  def valid_phone_number?
+    Phonelib.valid?(json_payload["requester_phone_number"])
+  end
 
   def json_payload
     params[:zendesk_webhook]

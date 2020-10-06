@@ -57,32 +57,63 @@ RSpec.describe ZendeskWebhookController, type: :controller do
     before do
       request.env["HTTP_AUTHORIZATION"] = valid_auth_credentials
     end
+    let(:params) do
+      {
+        zendesk_webhook: {
+          method: "updated_sms",
+          requester_phone_number: phone_number,
+          requester_id: "401010335794",
+          message_body: "sms_test heyo!\nsome other stuff on a new line",
+          ticket_id: "1000",
+          ticket_url: "test.zendesk.biz/agent/tickets/1000",
+          ticket_created_at: "2020-02-19T14:05:27-07:00",
+          ticket_updated_at: "2020-04-01T20:41:18-07:00",
+          ticket_via: "SMS"
+        }
+      }
+    end
 
     context "with valid params" do
-      let(:params) do
-        {
-          zendesk_webhook: {
-            method: "updated_sms",
-            requester_phone_number: "+15552341122",
-            requester_id: "401010335794",
-            message_body: "sms_test heyo!\nsome other stuff on a new line",
-            ticket_id: "1000",
-            ticket_url: "test.zendesk.biz/agent/tickets/1000",
-            ticket_created_at: "2020-02-19T14:05:27-07:00",
-            ticket_updated_at: "2020-04-01T20:41:18-07:00",
-            ticket_via: "SMS"
-          }
-        }
-      end
+      let(:phone_number) { "+14155537865"}
 
       it "enqueues an inbound sms job" do
         post :incoming, params: params
 
         expect(ZendeskInboundSmsJob).to have_been_enqueued.with(
           sms_ticket_id: 1000,
-          phone_number: "15552341122",
+          phone_number: "14155537865",
           message_body: "sms_test heyo!\nsome other stuff on a new line",
         )
+      end
+    end
+
+    context "without a valid phone number" do
+      let(:phone_number) { "131432" }
+
+      it "should not enqueue an inbound sms job" do
+        post :incoming, params: params
+
+        expect(ZendeskInboundSmsJob).not_to have_been_enqueued
+      end
+    end
+
+    context "without an empty phone number" do
+      let(:phone_number) { "" }
+
+      it "should not enqueue an inbound sms job" do
+        post :incoming, params: params
+
+        expect(ZendeskInboundSmsJob).not_to have_been_enqueued
+      end
+    end
+
+    context "without just a '+' for phone number" do
+      let(:phone_number) { "+" }
+
+      it "should not enqueue an inbound sms job" do
+        post :incoming, params: params
+
+        expect(ZendeskInboundSmsJob).not_to have_been_enqueued
       end
     end
   end
