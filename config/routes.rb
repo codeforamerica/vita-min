@@ -58,6 +58,8 @@ Rails.application.routes.draw do
 
     resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
 
+    resources :signup, only: [:create, :index]
+
     # FSA routes
     scoped_navigation_routes(:diy, DiyNavigation) do
       root "public_pages#diy_home"
