@@ -259,6 +259,8 @@ es:
       text_message_form:
         label: Enviar un mensaje de texto
         submit: Enviar
+      today: "Hoy"
+
   models:
     intake:
       your_spouse: Su cónyuge

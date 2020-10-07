@@ -8,7 +8,12 @@
   <h2>Contact History</h2>
   <% if @contact_history.present? %>
     <ul class="contact-history">
+      <% last_date = nil %>
       <% @contact_history.each do |contact_record| %>
+        <% if contact_record.datetime.to_date != last_date %>
+          <li class="contact-record__day-heading"><%= if contact_record.datetime.to_date == Date.today then I18n.t("messages.index.today") end %> <%= contact_record.datetime.to_date.strftime("%m/%d/%Y") %></li>
+          <% last_date = contact_record.datetime.to_date %>
+        <% end %>
         <li class="contact-record contact-record--<%= contact_record.contact_record_type %>">
           <div class="contact-record__heading">
             <div>
