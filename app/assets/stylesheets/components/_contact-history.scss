@@ -2,4 +2,15 @@
   border-top: 2rem solid darken($color-grey-light, 50%);
   background-color: darken($color-grey-light, 10%);
   padding: 1rem;
+
+  .contact-record__day-heading:first-of-type {
+    padding-top: inherit;
+  }
+
+  .contact-record__day-heading {
+    text-align: center;
+    color: $color-grey-dark;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
 }
