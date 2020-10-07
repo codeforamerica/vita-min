@@ -254,6 +254,7 @@ en:
       text_message_form:
         label: Send a text message
         submit: Send
+      today: "Today"
   models:
     intake:
       your_spouse: Your spouse

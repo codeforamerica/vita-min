@@ -6,6 +6,16 @@
     justify-content: space-between;
   }
 
+  &__day-heading {
+    text-align: center;
+    color: $color-grey-dark;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    &:first-of-type {
+      padding-top: inherit;
+    }
+  }
+
   &--incoming_text_message, &--outgoing_text_message {
     .contact-record__body {
       border-radius: 2rem;
