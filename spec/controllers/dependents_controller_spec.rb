@@ -98,7 +98,6 @@ RSpec.describe DependentsController do
     end
   end
 
-
   describe "#create" do
     context "with valid params" do
       let(:params) do

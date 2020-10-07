@@ -68,6 +68,11 @@ en:
         file_name: File Name
         upload_date: Upload Date
         uploaded_ago: "%{time} ago"
+    notes:
+      index:
+        note_form:
+          submit: "Save"
+          label: "Add a note"
   email:
     user_message:
       subject: Update from GetYourRefund

@@ -1,0 +1,25 @@
+<% content_for :page_title, "Notes: #{@client.preferred_name} ##{@client.id}" %>
+
+<% content_for :card do %>
+
+  <%= render "clients/client_header" %>
+
+  <%= render "clients/navigation" %>
+
+  <% if @notes.present? %>
+    <ul class="notes">
+    <% @notes.each do |note| %>
+      <li class="note">
+        <%= note.created_at %>
+        <%= note.user.name %>
+        <%= note.body %>
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
+
+  <%= form_with model: [:case_management, @client, @note], local: true, builder: VitaMinFormBuilder, html: {class: 'note-form'} do |f| %>
+    <%= f.cfa_input_field :body, t(".note_form.label") %>
+    <%= f.submit t(".note_form.submit"), class: "button" %>
+  <% end %>
+<% end %>
