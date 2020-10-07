@@ -104,10 +104,9 @@
     <%= f.cfa_textarea :body, t(".email_form.label") %>
     <%= f.hidden_field :client_id %>
     <div class="attachment-uploader">
-      <%= f.file_field :attachment, id: 'attachment-upload' %>
-      <div id="attachment-image-preview-wrapper">
-        <%= image_tag "file-icon.svg", id: "attachment-image-preview-default" %>
-        <div id="attachment-custom-preview"></div>
+      <%= f.cfa_file_field :attachment, t('general.attachment'), classes: ['attachment-upload'] %>
+      <div id="attachment-image-preview-wrapper" %>
+        <%= image_tag "file-icon.svg", id: "attachment-image-preview", alt: t('general.attachment_preview'), title: t('general.attachment_preview') %>
       </div>
       <button id="attachment-image-clear" hidden>Remove Attachment</button>
     </div>

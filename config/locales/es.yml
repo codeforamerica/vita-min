@@ -156,6 +156,8 @@ es:
   general:
     address: Dirección
     affirmative: Sí
+    attachment: "Adjunto"
+    attachment_preview: "Vista previa del archivo adjunto"
     chat_with_us: Hable con nosotros por el chat
     confirm: Confirmar
     continue: Continuar

@@ -1,3 +1,7 @@
+.with-attachment {
+  margin-bottom: 1rem;
+}
+
 .attachment-uploader {
   margin-bottom: 1rem;
   img {
@@ -6,5 +10,13 @@
     height: auto;
     margin-bottom: 1rem;
     margin-right: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+    .form-question {
+      font-size: 2rem;
+      line-height: 2rem;
+    }
   }
 }
