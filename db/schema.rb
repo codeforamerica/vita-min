@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_221043) do
+ActiveRecord::Schema.define(version: 2020_10_06_221136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -396,6 +396,16 @@ ActiveRecord::Schema.define(version: 2020_10_01_221043) do
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.text "body"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["client_id"], name: "index_notes_on_client_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
   create_table "outgoing_emails", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "client_id", null: false
@@ -560,6 +570,8 @@ ActiveRecord::Schema.define(version: 2020_10_01_221043) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
+  add_foreign_key "notes", "clients"
+  add_foreign_key "notes", "users"
   add_foreign_key "outgoing_emails", "clients"
   add_foreign_key "outgoing_emails", "users"
   add_foreign_key "outgoing_text_messages", "clients"

@@ -27,6 +27,7 @@ class Client < ApplicationRecord
   has_many :incoming_text_messages
   has_many :incoming_emails
   has_many :documents
+  has_many :notes
 
   def self.create_from_intake(intake)
     create(
