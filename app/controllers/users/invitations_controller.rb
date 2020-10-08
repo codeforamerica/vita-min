@@ -55,7 +55,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def raw_invitation_token
     # on GET invitation_token is a top-level query param
-    return params[:invitation_token] if request.get?
+    return params[:invitation_token] if action_name == "edit"
     update_resource_params[:invitation_token]
   end
 

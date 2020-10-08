@@ -82,6 +82,17 @@ RSpec.describe Users::InvitationsController do
       expect(assigns(:user).name).to eq "Cherry Cherimoya"
     end
 
+    context "with a HEAD request" do
+      # one of our collaborators encountered this error, unclear why the browser used HEAD, but it happens
+      it "works fine and shows the user's info" do
+        head :edit, params: params
+
+        expect(response.body).to have_content "cherry@example.com"
+        expect(response.body).to have_content vita_partner.name
+        expect(assigns(:user).name).to eq "Cherry Cherimoya"
+      end
+    end
+
     context "without a matching token" do
       let(:params) { { invitation_token: "BrokenToken" } }
 
