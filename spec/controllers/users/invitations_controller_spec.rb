@@ -82,6 +82,12 @@ RSpec.describe Users::InvitationsController do
       expect(assigns(:user).name).to eq "Cherry Cherimoya"
     end
 
+    it "includes a timezone field in the format users expect" do
+      get :edit, params: params
+
+      expect(response.body).to have_text("Eastern Time (US & Canada)")
+    end
+
     context "with a HEAD request" do
       # one of our collaborators encountered this error, unclear why the browser used HEAD, but it happens
       it "works fine and shows the user's info" do
@@ -146,13 +152,13 @@ RSpec.describe Users::InvitationsController do
         invited_user.reload
         expect(invited_user.name).to eq "Cher Cherimoya"
         expect(invited_user.vita_partner).to eq vita_partner
-        expect(invited_user.timezone).to eq "Eastern Time (US & Canada)"
+        expect(invited_user.timezone).to eq "America/New_York"
         expect(response).to redirect_to user_profile_path
         end
       end
 
       context "with a timezone" do
-        let(:timezone) { "Pacific Time (US & Canada)" }
+        let(:timezone) { "America/Los_Angeles" }
 
         it "stores the timezone data" do
           expect do
@@ -161,7 +167,7 @@ RSpec.describe Users::InvitationsController do
           invited_user.reload
           expect(invited_user.name).to eq "Cher Cherimoya"
           expect(invited_user.vita_partner).to eq vita_partner
-          expect(invited_user.timezone).to eq "Pacific Time (US & Canada)"
+          expect(invited_user.timezone).to eq "America/Los_Angeles"
           expect(response).to redirect_to user_profile_path
         end
       end

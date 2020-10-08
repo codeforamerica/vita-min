@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @timezone_options = ActiveSupport::TimeZone.country_zones("us").map(&:name)
+    @timezone_options = ActiveSupport::TimeZone.country_zones("us").map { |tz| [tz.name, tz.tzinfo.name] }
   end
 
   def update

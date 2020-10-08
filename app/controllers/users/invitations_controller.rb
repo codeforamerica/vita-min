@@ -17,6 +17,11 @@ class Users::InvitationsController < Devise::InvitationsController
   authorize_resource :user, only: [:new, :create]
   before_action :require_valid_invitation_token, only: [:edit, :update]
 
+  def edit
+    @timezone_options = ActiveSupport::TimeZone.country_zones("us").map { |tz| [tz.name, tz.tzinfo.name] }
+    super
+  end
+
   def create
     super do |invited_user|
       # set default values
