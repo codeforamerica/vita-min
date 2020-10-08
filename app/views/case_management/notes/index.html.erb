@@ -7,14 +7,13 @@
   <%= render "clients/navigation" %>
 
   <% if @notes.present? %>
-    <ul class="notes">
-    <% @notes.each do |note| %>
-      <li class="note">
-        <%= note.created_at %>
-        <%= note.user.name %>
-        <%= note.body %>
-      </li>
-    <% end %>
+    <ul class="message-list">
+      <% @notes_by_day.each do |datetime, records| %>
+        <li class="message__day-heading"><%= date_heading(datetime) %></li>
+        <% records.each do |note| %>
+          <%= render "note", note: note %>
+        <% end %>
+      <% end %>
     </ul>
   <% end %>
 

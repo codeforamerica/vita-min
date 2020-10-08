@@ -32,7 +32,7 @@ RSpec.feature "Read and send messages to a client", js: true do
         click_on "Send"
       end
 
-      within(".contact-history") do
+      within(".message-list") do
         expect(page).to have_text "Example text message"
       end
     end
@@ -52,12 +52,10 @@ RSpec.feature "Read and send messages to a client", js: true do
         click_on "Send"
       end
 
-      within(".contact-history") do
+      within(".message-list") do
         expect(page).to have_text "Example email"
         expect(page).to have_text "document_bundle.pdf"
       end
     end
-
-
   end
 end

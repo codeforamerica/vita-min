@@ -13,6 +13,7 @@ class MessagesController < ApplicationController
       @client.outgoing_emails.includes(:user) +
       @client.incoming_emails
     ).sort_by(&:datetime)
+    @messages_by_day = @contact_history.group_by { |message| message.datetime.beginning_of_day }
     @outgoing_text_message = OutgoingTextMessage.new(client: @client)
     @outgoing_email = OutgoingEmail.new(client: @client)
   end
