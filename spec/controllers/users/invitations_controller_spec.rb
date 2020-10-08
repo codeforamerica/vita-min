@@ -132,20 +132,41 @@ RSpec.describe Users::InvitationsController do
             name: "Cher Cherimoya",
             password: "secret password",
             password_confirmation: "secret password",
-            invitation_token: raw_invitation_token
+            invitation_token: raw_invitation_token,
+            timezone: timezone,
           }
         }
       end
 
-      it "updates all necessary information on the user and signs them in" do
+      context "without a timezone" do
+        it "updates all necessary information on the user and signs them in" do
         expect do
           post :update, params: params
         end.to change{ controller.current_user }.from(nil).to(invited_user)
         invited_user.reload
         expect(invited_user.name).to eq "Cher Cherimoya"
         expect(invited_user.vita_partner).to eq vita_partner
+        expect(invited_user.timezone).to eq "Eastern Time (US & Canada)"
         expect(response).to redirect_to user_profile_path
+        end
       end
+
+      context "with a timezone" do
+        let(:timezone) { "Pacific Time (US & Canada)" }
+
+        it "stores the timezone data" do
+          expect do
+            post :update, params: params
+          end.to change{ controller.current_user }.from(nil).to(invited_user)
+          invited_user.reload
+          expect(invited_user.name).to eq "Cher Cherimoya"
+          expect(invited_user.vita_partner).to eq vita_partner
+          expect(invited_user.timezone).to eq "Pacific Time (US & Canada)"
+          expect(response).to redirect_to user_profile_path
+        end
+      end
+
+
     end
 
     context "with missing required fields" do
