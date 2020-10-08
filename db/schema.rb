@@ -525,7 +525,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_190415) do
     t.integer "sign_in_count", default: 0, null: false
     t.boolean "suspended"
     t.string "ticket_restriction"
-    t.string "timezone", default: "America/New_York"
+    t.string "timezone", default: "America/New_York", null: false
     t.boolean "two_factor_auth_enabled"
     t.string "uid"
     t.datetime "updated_at", precision: 6, null: false
