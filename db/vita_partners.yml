@@ -39,6 +39,7 @@ vita_partners:
   states:
   - NJ
   - PA
+  weekly_capacity_limit: 500
   logo_path: partner-logos/cwf.png
 - name: Impact America (Save First)
   zendesk_instance_domain: eitc
