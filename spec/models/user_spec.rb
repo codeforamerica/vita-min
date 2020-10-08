@@ -29,7 +29,7 @@
 #  sign_in_count             :integer          default(0), not null
 #  suspended                 :boolean
 #  ticket_restriction        :string
-#  timezone                  :string           default("America/New_York")
+#  timezone                  :string           default("America/New_York"), not null
 #  two_factor_auth_enabled   :boolean
 #  uid                       :string
 #  verified                  :boolean
