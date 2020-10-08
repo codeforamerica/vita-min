@@ -6,7 +6,7 @@
       <strong><%= t("general.email") %>:</strong> <%= @user.email %>
     </p>
     <p>
-      <strong><%= t("general.role") %>:</strong> <%= @user.role.capitalize %>
+      <strong><%= t("general.role") %>:</strong> <%= @user.role&.capitalize || "Role not specified" %>
     </p>
 
     <%= f.cfa_checkbox(:is_beta_tester, t(".is_beta_tester_label"), options: { classes: ["form-width--long"] }) %>
