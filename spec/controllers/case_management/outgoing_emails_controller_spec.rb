@@ -1,8 +1,11 @@
 require "rails_helper"
 
-RSpec.describe OutgoingEmailsController do
+RSpec.describe CaseManagement::OutgoingEmailsController do
   describe "#create" do
     let(:client) { create :client }
+    let(:params) do
+      { client_id: client.id, outgoing_email: { body: "hi client" } }
+    end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
     it_behaves_like :a_post_action_for_beta_testers_only, action: :create
@@ -14,9 +17,13 @@ RSpec.describe OutgoingEmailsController do
 
       context "with body & client_id" do
         let(:params) do
-          { outgoing_email: { client_id: client.id, body: "hi client", attachment:
-            fixture_file_upload("attachments/test-pattern.png")
-           } }
+          {
+            client_id: client.id,
+            outgoing_email: {
+              body: "hi client",
+              attachment: fixture_file_upload("attachments/test-pattern.png")
+            }
+          }
         end
         before { allow(DateTime).to receive(:now).and_return(expected_time) }
 
@@ -32,13 +39,13 @@ RSpec.describe OutgoingEmailsController do
           expect(outgoing_email.sent_at).to eq expected_time
           expect(outgoing_email.to).to eq client.email_address
           expect(outgoing_email.attachment).to be_present
-          expect(response).to redirect_to client_messages_path(client_id: client.id)
+          expect(response).to redirect_to case_management_client_messages_path(client_id: client.id)
         end
       end
 
       context "without body" do
         let(:params) do
-          { outgoing_email: { client_id: client.id } }
+          { client_id: client.id, outgoing_email: { body: " " } }
         end
 
         it "sends no email & redirects to client show" do
@@ -46,7 +53,7 @@ RSpec.describe OutgoingEmailsController do
             post :create, params: params
           end.not_to change(OutgoingEmail, :count)
 
-          expect(response).to redirect_to client_messages_path(client_id: client.id)
+          expect(response).to redirect_to case_management_client_messages_path(client_id: client.id)
         end
       end
     end

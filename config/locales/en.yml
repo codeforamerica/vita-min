@@ -1,14 +1,5 @@
 ---
 en:
-  clients:
-    index:
-      client_id_heading: Client ID
-      title: All clients
-    navigation:
-      client_documents: Documents
-      client_messages: Messages
-      client_notes: Notes
-      client_profile: Client Profile
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
@@ -59,6 +50,15 @@ en:
         someone_invited_you: "%{their_name} (%{their_email}) has invited %{your_name} to create an account on GetYourRefund to help people with their taxes."
         subject: You've been invited to GetYourRefund
   case_management:
+    clients:
+      index:
+        client_id_heading: Client ID
+        title: All clients
+      navigation:
+        client_documents: Documents
+        client_messages: Messages
+        client_notes: Notes
+        client_profile: Client Profile
     documents:
       edit:
         title: Edit Document
@@ -68,6 +68,14 @@ en:
         file_name: File Name
         upload_date: Upload Date
         uploaded_ago: "%{time} ago"
+    messages:
+      index:
+        email_form:
+          label: Send an email
+          submit: Send
+        text_message_form:
+          label: Send a text message
+          submit: Send
     notes:
       index:
         note_form:
@@ -224,6 +232,7 @@ en:
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
     sign_in: Sign in
     sign_out: Sign out
+    sign_up: Sign up
     skip_question: Skip question
     skip_questions: Skip questions
     sorry: We're sorry!
@@ -241,6 +250,7 @@ en:
     zendesk:
       access_denied: You are not authorized to access that page
     today: Today
+    zip_code: ZIP code
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -252,14 +262,6 @@ en:
         create: Resend invitation email
         sent_at: Sent at %{datetime}
       title: Invitations
-  messages:
-    index:
-      email_form:
-        label: Send an email
-        submit: Send
-      text_message_form:
-        label: Send a text message
-        submit: Send
   models:
     intake:
       your_spouse: Your spouse
@@ -267,6 +269,11 @@ en:
       errors:
         choose_file: Please choose a file.
         valid_pickup_date: Please enter a valid month and day (M/D).
+  signups:
+    flash_notice: Thank you! You will receive a notification when we open in January 2021.
+    new:
+      header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
+      subheader: Please sign up here to receive a notification when we open in January 2021.
   users:
     edit:
       is_beta_tester_label: Beta tester?

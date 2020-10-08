@@ -1,14 +1,5 @@
 ---
 es:
-  clients:
-    index:
-      client_id_heading: Cliente ID
-      title: Todos clientes
-    navigation:
-      client_documents: Documentos
-      client_messages: Mensajes
-      client_notes: Notas
-      client_profile: Perfil del cliente
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
@@ -59,6 +50,15 @@ es:
         someone_invited_you: "%{their_name} (%{their_email}) ha invitado a %{your_name} a crear una cuenta en GetYourRefund para ayudar a las personas con sus impuestos."
         subject: Usted ha sido invitado a GetYourRefund
   case_management:
+    clients:
+      index:
+        client_id_heading: Cliente ID
+        title: Todos clientes
+      navigation:
+        client_documents: Documentos
+        client_messages: Mensajes
+        client_notes: Notas
+        client_profile: Perfil del cliente
     documents:
       edit:
         title: Editar Documento
@@ -68,6 +68,14 @@ es:
         file_name: Nombre de archivo
         upload_date: Fecha de carga
         uploaded_ago: "Hace %{time}"
+    messages:
+      index:
+        email_form:
+          label: Send an email
+          submit: Send
+        text_message_form:
+          label: Enviar un mensaje de texto
+          submit: Enviar
     notes:
       index:
         note_form:
@@ -224,6 +232,7 @@ es:
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
     sign_in: Iniciar sesión
     sign_out: Cerrar sesión
+    sign_up: Regístrate
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
     sorry: "¡Ay, no! ¡Lo sentimos!"
@@ -241,6 +250,7 @@ es:
     zendesk:
       access_denied: No tiene autorización para acceder a esa página
     today: Hoy
+    zip_code: Código postal
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -252,14 +262,6 @@ es:
         create: Reenviar email de invitación
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
-  messages:
-    index:
-      email_form:
-        label: Send an email
-        submit: Send
-      text_message_form:
-        label: Enviar un mensaje de texto
-        submit: Enviar
   models:
     intake:
       your_spouse: Su cónyuge
@@ -267,6 +269,11 @@ es:
       errors:
         choose_file: Por favor, elija un archivo.
         valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
+  signups:
+    flash_notice: ¡Gracias! Recibirá una notificación cuando abramos en enero de 2021.
+    new:
+      header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su cheque de estímulo!"
+      subheader: Favor de inscribirse aquí para recibir notificaciones cuando abramos en enero 2021.
   users:
     edit:
       is_beta_tester_label: Probador beta?

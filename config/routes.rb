@@ -58,6 +58,9 @@ Rails.application.routes.draw do
 
     resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
 
+    resources :signups, only: [:new, :create]
+    get "/sign-up", to: "signups#new"
+
     # FSA routes
     scoped_navigation_routes(:diy, DiyNavigation) do
       root "public_pages#diy_home"
@@ -117,21 +120,16 @@ Rails.application.routes.draw do
     end
 
     # New Case Management Admin routes
-    resources :clients, only: [:index, :show, :create] do
-      resources :messages, only: [:index]
-    end
-    
     namespace :case_management do
-      resources :documents, only: [:edit, :update, :show]
-      resources :clients, controller: '/clients' do
-        resources :documents, only: [:index]
+      resources :clients, only: [:index, :show, :create] do
+        resources :documents, only: [:index, :edit, :update, :show]
         resources :notes, only: [:create, :index]
+        resources :messages, only: [:index]
+        resources :outgoing_text_messages, only: [:create]
+        resources :outgoing_emails, only: [:create]
       end
     end
 
-
-    resources :outgoing_text_messages, only: [:create]
-    resources :outgoing_emails, only: [:create]
     devise_for :users, skip: :omniauth_callbacks, controllers: {
       sessions: "users/sessions",
       invitations: "users/invitations"
@@ -139,7 +137,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :edit, :update]
     get "/users/invitations" => "invitations#index", as: :invitations
     get "/users/profile" => "users#profile", as: :user_profile
-    
+
     ### END Case Management Admin routes
 
     # Any other top level slash just goes to home as a source parameter
