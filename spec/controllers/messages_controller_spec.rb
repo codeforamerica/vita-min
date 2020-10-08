@@ -24,7 +24,7 @@ RSpec.describe MessagesController do
             create(:incoming_email, body_plain: "Me too! Happy to get every notification", received_at: DateTime.new(2020, 1, 1, 18, 0, 4), client: client, from: "Georgie <money@banana.stand>" ),
             create(:outgoing_email, body: "We are really excited to work with you", sent_at: DateTime.new(2020, 1, 1, 14, 0, 3), client: client, user: create(:user, name: "Gob"), to: "always@banana.stand"),
             create(:incoming_text_message, body: "Thx appreciate yr gratitude", received_at: DateTime.new(2020, 1, 1, 0, 0, 2), from_phone_number: "14155537865", client: client),
-            create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2020, 1, 1, 0, 0, 1), to_phone_number: '14155532222', client: client, twilio_status: twilio_status, user: create(:user, name: "Lucille")),
+            create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2019, 12, 31, 0, 0, 1), to_phone_number: '14155532222', client: client, twilio_status: twilio_status, user: create(:user, name: "Lucille")),
           ].reverse
         end
 
@@ -35,12 +35,14 @@ RSpec.describe MessagesController do
             it "displays the name of the author, time of message, type, body, and Twilio status" do
               get :index, params: params
 
-              message_record = Nokogiri::HTML.parse(response.body).at_css(".contact-record--outgoing_text_message")
+              message_record = Nokogiri::HTML.parse(response.body).at_css(".message--outgoing_text_message")
               expect(message_record).to have_text("Lucille")
               expect(message_record).to have_text("12:00 AM UTC")
               expect(message_record).to have_text("Text to (415) 553-2222")
               expect(message_record).to have_text("queued")
               expect(message_record).to have_text("Your tax return is great")
+              expect(assigns(:messages_by_day).keys.first).to eq DateTime.new(2019, 12, 31)
+              expect(assigns(:messages_by_day).keys.second).to eq DateTime.new(2020, 1, 1)
             end
           end
 
@@ -59,7 +61,7 @@ RSpec.describe MessagesController do
           it "displays the time of message, type, body" do
             get :index, params: params
 
-            message_record = Nokogiri::HTML.parse(response.body).at_css(".contact-record--incoming_text_message")
+            message_record = Nokogiri::HTML.parse(response.body).at_css(".message--incoming_text_message")
             expect(message_record).to have_text("12:00 AM UTC")
             expect(message_record).to have_text("Text from (415) 553-7865")
             expect(message_record).to have_text("Thx appreciate yr gratitude")
@@ -70,7 +72,7 @@ RSpec.describe MessagesController do
           it "displays the author, time of message, type, body, recipient" do
             get :index, params: params
 
-            message_record = Nokogiri::HTML.parse(response.body).at_css(".contact-record--outgoing_email")
+            message_record = Nokogiri::HTML.parse(response.body).at_css(".message--outgoing_email")
             expect(message_record).to have_text("Gob")
             expect(message_record).to have_text("2:00 PM UTC")
             expect(message_record).to have_text("Email to always@banana.stand")
@@ -82,7 +84,7 @@ RSpec.describe MessagesController do
           it "displays the name of the client, time of message, type, body" do
             get :index, params: params
 
-            message_record = Nokogiri::HTML.parse(response.body).at_css(".contact-record--incoming_email")
+            message_record = Nokogiri::HTML.parse(response.body).at_css(".message--incoming_email")
             expect(message_record).to have_text("6:00 PM UTC")
             expect(message_record).to have_text("Email from Georgie <money@banana.stand>")
             expect(message_record).to have_text("Me too! Happy to get every notification")

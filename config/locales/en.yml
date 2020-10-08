@@ -240,6 +240,7 @@ en:
     you_or_spouse: you or your spouse
     zendesk:
       access_denied: You are not authorized to access that page
+    today: Today
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -259,7 +260,6 @@ en:
       text_message_form:
         label: Send a text message
         submit: Send
-      today: "Today"
   models:
     intake:
       your_spouse: Your spouse

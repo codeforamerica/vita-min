@@ -1,0 +1,13 @@
+<li class="note message message--<%= note.user == current_user ? "outgoing" : "incoming"%>">
+  <div class="message__heading">
+    <span class="message__author">
+      <%= note.user.name %>
+    </span>
+    <span class="message__time">
+      <%= note.created_at %>
+    </span>
+  </div>
+  <div class="message__body">
+    <%= note.body %>
+  </div>
+</li>

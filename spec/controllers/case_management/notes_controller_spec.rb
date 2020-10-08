@@ -56,32 +56,49 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
 
   describe "#index" do
     let(:client) { create :client }
-
     let(:params) { { client_id: client.id } }
+
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
     it_behaves_like :a_get_action_for_beta_testers_only, action: :index
 
     context "as a logged in user loading a clients notes" do
-      render_views
-      let!(:client_note) { create :note, client: client }
-
       before do
         sign_in(create :beta_tester)
         create :note # unrelated note
       end
 
-      it "loads the users notes if there are any" do
-        get :index, params: params
+      context "with an existing note" do
+        render_views
 
-        expect(assigns(:notes)).to eq([client_note])
+        let!(:client_note) { create :note, client: client }
+
+        it "loads the users notes if there are any" do
+          get :index, params: params
+
+          expect(assigns(:notes)).to eq([client_note])
+        end
+
+        it "renders a form" do
+          get :index, params: params
+
+          html = Nokogiri::HTML.parse(response.body)
+          form_element = html.at_css("form.note-form")
+          expect(form_element["action"]).to eq(case_management_client_notes_path(client_id: client.id))
+        end
       end
 
-      it "renders a form" do
-        get :index, params: params
+      context "with notes from different days" do
+        before do
+          create :note, client: client, created_at: DateTime.new(2020, 10, 5, 6)
+          create :note, client: client, created_at: DateTime.new(2019, 10, 5, 9)
+        end
 
-        html = Nokogiri::HTML.parse(response.body)
-        form_element = html.at_css("form.note-form")
-        expect(form_element["action"]).to eq(case_management_client_notes_path(client_id: client.id))
+        it "correctly groups notes by day created" do
+          get :index, params: params
+
+          expect(assigns(:notes_by_day).keys.first).to eq DateTime.new(2019, 10, 5)
+          expect(assigns(:notes_by_day).keys.last).to eq DateTime.new(2020, 10, 5)
+        end
       end
     end
   end

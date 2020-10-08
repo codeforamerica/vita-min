@@ -240,6 +240,7 @@ es:
     you_or_spouse: usted o su cónyuge
     zendesk:
       access_denied: No tiene autorización para acceder a esa página
+    today: Hoy
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -259,8 +260,6 @@ es:
       text_message_form:
         label: Enviar un mensaje de texto
         submit: Enviar
-      today: "Hoy"
-
   models:
     intake:
       your_spouse: Su cónyuge

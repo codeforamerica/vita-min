@@ -6,7 +6,8 @@ module CaseManagement
 
     def index
       @client = Client.find(params[:client_id])
-      @notes = @client.notes
+      @notes = @client.notes.order(:created_at).includes(:user)
+      @notes_by_day = @notes.group_by { |note| note.created_at.beginning_of_day }
       @note = Note.new
     end
 
