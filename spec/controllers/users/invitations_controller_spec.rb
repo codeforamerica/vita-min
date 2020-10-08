@@ -139,7 +139,7 @@ RSpec.describe Users::InvitationsController do
             password: "secret password",
             password_confirmation: "secret password",
             invitation_token: raw_invitation_token,
-            timezone: timezone,
+            # timezone: timezone,
           }
         }
       end
@@ -158,10 +158,10 @@ RSpec.describe Users::InvitationsController do
       end
 
       context "with a timezone" do
-        let(:timezone) { "America/Los_Angeles" }
 
         it "stores the timezone data" do
           expect do
+            params[:user][:timezone] = "America/Los_Angeles"
             post :update, params: params
           end.to change{ controller.current_user }.from(nil).to(invited_user)
           invited_user.reload
