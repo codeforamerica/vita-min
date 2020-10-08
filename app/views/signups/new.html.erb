@@ -1,0 +1,30 @@
+<% @header = t(".header") %>
+<% content_for :page_title do %>
+  <%= @header %>
+<% end %>
+
+<% content_for :main do %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <%= form_with model: @signup, local: true, builder: VitaMinFormBuilder, html: {class: "form-card"} do |f| %>
+            <h1 class="form-question">
+              <%= @header %>
+            </h1>
+            <h2 class="h3"><%= t(".subheader") %></h2>
+
+            <%= f.cfa_input_field(:name, t("general.name"), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:zip_code, t("general.zip_code"), classes: ["form-width--med"]) %>
+            <%= f.cfa_input_field(:email_address, t("general.email"), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:phone_number, t("general.phone_number"), classes: ["form-width--long"]) %>
+
+            <button class="button" type="submit">
+              <%= t("general.sign_up") %>
+            </button>
+          <% end %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>
