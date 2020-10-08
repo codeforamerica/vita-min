@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe OutgoingEmailMailer, type: :mailer do
   describe "#user_message" do
-    let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
+    let(:attachment) { nil }
     let(:outgoing_email) do
       create :outgoing_email, subject: "Update from GetYourRefund", body: body.chomp, to: "different@example.com", attachment: attachment
     end
@@ -13,7 +13,10 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
       BODY
     end
 
-    it "has the right subject and body" do
+    context "with attachment" do
+      let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
+
+      it "has the right subject and body and attachment" do
       email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
       expect do
         email.deliver_now
@@ -26,6 +29,24 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
       expect(email.text_part.decoded.chomp).to eq body
       expect(email.html_part.decoded).to have_selector('div', text: "Line 1")
       expect(email.html_part.decoded).to have_selector('div', text: "Line 2")
+      end
+    end
+
+    context "without attachment" do
+      it "has the right subject and body" do
+        email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
+        expect do
+          email.deliver_now
+        end.to change(ActionMailer::Base.deliveries, :count).by 1
+        expect(email.attachments.length).to eq 0
+
+        expect(email.subject).to eq outgoing_email.subject
+        expect(email.from).to eq ["no-reply@test.localhost"]
+        expect(email.to).to eq [outgoing_email.to]
+        expect(email.text_part.decoded.chomp).to eq body
+        expect(email.html_part.decoded).to have_selector('div', text: "Line 1")
+        expect(email.html_part.decoded).to have_selector('div', text: "Line 2")
+      end
     end
   end
 end
