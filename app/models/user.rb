@@ -29,7 +29,7 @@
 #  sign_in_count             :integer          default(0), not null
 #  suspended                 :boolean
 #  ticket_restriction        :string
-#  timezone                  :string           default("Eastern Time (US & Canada)")
+#  timezone                  :string           default("America/New_York")
 #  two_factor_auth_enabled   :boolean
 #  uid                       :string
 #  verified                  :boolean
@@ -62,7 +62,7 @@ class User < ApplicationRecord
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   validates_presence_of :name
-  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map(&:name)
+  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
 
   def self.from_zendesk_oauth(auth)
     data_source = auth.info

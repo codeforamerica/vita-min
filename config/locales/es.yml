@@ -239,6 +239,7 @@ es:
     start_filing: Comenzar a declarar
     submit: Enviar
     submit_question: Envíe una pregunta a GetYourRefund
+    timezone: Zona horaria
     upload: Subir
     very_well: Muy bien
     visit_free_file: Visite el sitio de declaración de impuestos gratuita del IRS
@@ -277,7 +278,6 @@ es:
   users:
     edit:
       is_beta_tester_label: Probador beta?
-      timezone: Zona horaria
     index:
       title: Todos usuarios
     profile:

@@ -67,7 +67,7 @@ RSpec.describe UsersController do
         expect(response.body).to have_text "Anne"
       end
 
-      it "includes a timezone field" do
+      it "includes a timezone field in the format users expect" do
         get :edit, params: params
 
         expect(response.body).to have_text("Eastern Time (US & Canada)")
@@ -76,7 +76,7 @@ RSpec.describe UsersController do
       it "lists all US timezones in a variable for the template" do
         get :edit, params: params
 
-        expect(assigns(:timezone_options)).to include("Pacific Time (US & Canada)")
+        expect(assigns(:timezone_options)).to include(["Pacific Time (US & Canada)", "America/Los_Angeles"])
       end
     end
   end
@@ -90,7 +90,7 @@ RSpec.describe UsersController do
         user: {
           is_beta_tester: true,
           vita_partner_id: vita_partner.id,
-          timezone: "Central Time (US & Canada)",
+          timezone: "America/Chicago",
         }
       }
     end
@@ -108,7 +108,7 @@ RSpec.describe UsersController do
         user.reload
         expect(user.is_beta_tester?).to eq true
         expect(user.vita_partner).to eq vita_partner
-        expect(user.timezone).to eq "Central Time (US & Canada)"
+        expect(user.timezone).to eq "America/Chicago"
         expect(response).to redirect_to edit_user_path(id: user)
       end
     end

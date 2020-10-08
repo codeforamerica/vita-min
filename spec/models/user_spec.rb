@@ -29,7 +29,7 @@
 #  sign_in_count             :integer          default(0), not null
 #  suspended                 :boolean
 #  ticket_restriction        :string
-#  timezone                  :string           default("Eastern Time (US & Canada)")
+#  timezone                  :string           default("America/New_York")
 #  two_factor_auth_enabled   :boolean
 #  uid                       :string
 #  verified                  :boolean
@@ -167,7 +167,7 @@ RSpec.describe User, type: :model do
       user = User.new(name: "Gary Guava", email: "example@example.com", password: "examplePassword", timezone: "Invalid timezone")
       expect(user).not_to be_valid
       expect(user.errors).to include :timezone
-      user.timezone = "Eastern Time (US & Canada)"
+      user.timezone = "America/New_York"
       expect(user).to be_valid
     end
   end

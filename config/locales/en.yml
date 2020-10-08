@@ -239,6 +239,7 @@ en:
     start_filing: Start filing
     submit: Submit
     submit_question: Submit a question to GetYourRefund
+    timezone: Timezone
     upload: Upload
     very_well: Very well
     visit_free_file: Visit IRS Free File
@@ -277,7 +278,6 @@ en:
   users:
     edit:
       is_beta_tester_label: Beta tester?
-      timezone: Timezone
     index:
       title: All users
     profile:

@@ -9,9 +9,19 @@
     <h2 class="form-question"><%= t(".email_label") %>: <%= resource.email %></h2>
     <%= f.hidden_field :invitation_token, readonly: true %>
     <%= f.cfa_input_field(:name, t(".name_label")) %>
+    <%= f.cfa_select(:timezone, t("general.timezone"), @timezone_options) %>
     <%= f.cfa_input_field(:password, t(".password_label"), type: "password", help_text: t("views.passwords.password_help_text_html")) %>
     <%= f.cfa_input_field(:password_confirmation, t(".password_confirmation_label"), type: "password") %>
 
     <%= f.submit t(".submit"), class: "button button--primary" %>
   <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          document.getElementById('user_timezone').value = timezone;
+      });
+  </script>
 <% end %>
