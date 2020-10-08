@@ -1,7 +1,7 @@
 <% @title = t(".title") %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <%= form_with model: [:case_management, @document], local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+  <%= form_with model: @document, url: [:case_management, @client, @document], local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <h1 class="form-card__title">
       <%= @title %>
     </h1>

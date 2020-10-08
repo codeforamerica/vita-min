@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{@client.preferred_name} ##{@client.id} documents" %>
 
 <% content_for :card do %>
-  <%= render "clients/client_header" %>
+  <%= render "case_management/clients/client_header" %>
 
-  <%= render "clients/navigation" %>
+  <%= render "case_management/clients/navigation" %>
 
   <table class="data-table document-table spacing-above-25">
     <thead>
@@ -32,7 +32,7 @@
           </td>
           <td><%= t(".uploaded_ago", time: time_ago_in_words(document.created_at)) %></td>
           <td class="edit">
-            <%= link_to t("general.edit"), edit_case_management_document_path(id: document.id) %>
+            <%= link_to t("general.edit"), edit_case_management_client_document_path(client_id: @client.id, id: document.id) %>
           </td>
         </tr>
       <% end %>

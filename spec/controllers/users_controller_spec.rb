@@ -16,7 +16,7 @@ RSpec.describe UsersController do
         expect(response).to be_ok
         expect(response.body).to have_content "Adam Avocado"
         expect(response.body).to include invitations_path
-        expect(response.body).to include clients_path
+        expect(response.body).to include case_management_clients_path
         expect(response.body).to include users_path
       end
     end

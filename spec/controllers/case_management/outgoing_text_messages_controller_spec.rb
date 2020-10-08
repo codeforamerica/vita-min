@@ -1,12 +1,12 @@
 require "rails_helper"
 
-RSpec.describe OutgoingTextMessagesController do
+RSpec.describe CaseManagement::OutgoingTextMessagesController do
   describe "#create" do
     let(:client) { create :client, sms_phone_number: "+15105551234", phone_number: "+15105551777" }
-    let(:valid_params) do
+    let(:params) do
       {
+        client_id: client.id,
         outgoing_text_message: {
-          client_id: client.id,
           body: "This is an outgoing text"
         }
       }
@@ -21,7 +21,7 @@ RSpec.describe OutgoingTextMessagesController do
 
       it "sends a text", active_job: true do
         expect {
-          post :create, params: valid_params
+          post :create, params: params
         }.to change(OutgoingTextMessage, :count).from(0).to(1)
 
         outgoing_text_message = OutgoingTextMessage.last
@@ -29,7 +29,7 @@ RSpec.describe OutgoingTextMessagesController do
         expect(outgoing_text_message.to_phone_number).to eq client.sms_phone_number
         expect(outgoing_text_message.client).to eq client
         expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
-        expect(response).to redirect_to(client_messages_path(client_id: client.id))
+        expect(response).to redirect_to(case_management_client_messages_path(client_id: client.id))
       end
     end
   end

@@ -2,8 +2,7 @@ class UsersController < ApplicationController
   include AccessControllable
 
   before_action :require_sign_in
-  before_action :require_beta_tester
-  before_action :get_user, only: [:edit, :update]
+  load_and_authorize_resource
 
   layout "admin"
 
@@ -11,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.includes(:vita_partner)
+    @users = @users.includes(:vita_partner)
   end
 
   def edit
@@ -23,10 +22,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def get_user
-    @user = User.find(params[:id])
-  end
 
   def user_params
     params.require(:user).permit(:is_beta_tester, :vita_partner_id)

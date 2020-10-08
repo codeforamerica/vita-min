@@ -18,7 +18,7 @@
   </div>
 
   <% if !Rails.env.production? && current_user.role == "admin" %>
-    <%= form_with(url: clients_path, method: "post", local: true) do %>
+    <%= form_with(url: case_management_clients_path, method: "post", local: true) do %>
       <button type="submit" name="intake_id" value="<%= @intakes.first.id %>" class="button">
         Create client
       </button>

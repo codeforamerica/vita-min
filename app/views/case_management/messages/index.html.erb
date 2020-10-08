@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{@client.preferred_name}, ##{@client.id}" %>
 
 <% content_for :card do %>
-  <%= render "clients/client_header" %>
+  <%= render "case_management/clients/client_header" %>
 
-  <%= render "clients/navigation" %>
+  <%= render "case_management/clients/navigation" %>
 
   <h2>Contact History</h2>
   <% if @contact_history.present? %>
@@ -94,13 +94,13 @@
     </ul>
   <% end %>
 
-  <%= form_with model: @outgoing_text_message, url: outgoing_text_messages_path, local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
+  <%= form_with model: @outgoing_text_message, url: case_management_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
     <%= f.cfa_input_field :body, t(".text_message_form.label") %>
     <%= f.hidden_field :client_id %>
     <%= f.submit t(".text_message_form.submit"), class: "button" %>
   <% end %>
 
-  <%= form_with model: @outgoing_email, url: outgoing_emails_path, local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
+  <%= form_with model: @outgoing_email, url: case_management_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
     <%= f.cfa_textarea :body, t(".email_form.label") %>
     <%= f.hidden_field :client_id %>
     <div class="attachment-uploader">

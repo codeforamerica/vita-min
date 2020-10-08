@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe MessagesController do
+RSpec.describe CaseManagement::MessagesController do
   let(:client) { create :client }
   let(:params) do
     { client_id: client.id }
@@ -26,6 +26,20 @@ RSpec.describe MessagesController do
             create(:incoming_text_message, body: "Thx appreciate yr gratitude", received_at: DateTime.new(2020, 1, 1, 0, 0, 2), from_phone_number: "14155537865", client: client),
             create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2019, 12, 31, 0, 0, 1), to_phone_number: '14155532222', client: client, twilio_status: twilio_status, user: create(:user, name: "Lucille")),
           ].reverse
+        end
+
+        before do
+          create :outgoing_text_message #unrelated message
+        end
+
+        it "displays all message bodies sorted by date" do
+          get :index, params: params
+
+          expect(assigns(:contact_history)).to eq expected_contact_history
+          expect(response.body).to include("Your tax return is great")
+          expect(response.body).to include("Thx appreciate yr gratitude")
+          expect(response.body).to include("We are really excited to work with you")
+          expect(response.body).to include("Me too! Happy to get every notification")
         end
 
         context "outgoing text messages" do
