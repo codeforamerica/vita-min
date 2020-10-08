@@ -232,6 +232,7 @@ es:
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
     sign_in: Iniciar sesión
     sign_out: Cerrar sesión
+    sign_up: Regístrate
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
     sorry: "¡Ay, no! ¡Lo sentimos!"
@@ -249,6 +250,7 @@ es:
     zendesk:
       access_denied: No tiene autorización para acceder a esa página
     today: Hoy
+    zip_code: Código postal
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -267,6 +269,11 @@ es:
       errors:
         choose_file: Por favor, elija un archivo.
         valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
+  signups:
+    flash_notice: ¡Gracias! Recibirá una notificación cuando abramos en enero de 2021.
+    new:
+      header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su cheque de estímulo!"
+      subheader: Favor de inscribirse aquí para recibir notificaciones cuando abramos en enero 2021.
   users:
     edit:
       is_beta_tester_label: Probador beta?

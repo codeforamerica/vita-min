@@ -13,12 +13,13 @@
 class Signup < ApplicationRecord
   validates_presence_of :name
   validate :phone_number_or_email_address
+  validates :zip_code, zip_code: true, allow_blank: true
 
   private
 
   def phone_number_or_email_address
     if phone_number.blank? and email_address.blank?
-      errors.add(:phone_number, I18n.t("forms.errors.need_one_communication_method"))
+      errors.add(:email_address, I18n.t("forms.errors.need_one_communication_method"))
     end
   end
 end

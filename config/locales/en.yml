@@ -232,6 +232,7 @@ en:
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
     sign_in: Sign in
     sign_out: Sign out
+    sign_up: Sign up
     skip_question: Skip question
     skip_questions: Skip questions
     sorry: We're sorry!
@@ -249,6 +250,7 @@ en:
     zendesk:
       access_denied: You are not authorized to access that page
     today: Today
+    zip_code: ZIP code
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -267,6 +269,11 @@ en:
       errors:
         choose_file: Please choose a file.
         valid_pickup_date: Please enter a valid month and day (M/D).
+  signups:
+    flash_notice: Thank you! You will receive a notification when we open in January 2021.
+    new:
+      header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
+      subheader: Please sign up here to receive a notification when we open in January 2021.
   users:
     edit:
       is_beta_tester_label: Beta tester?
