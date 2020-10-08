@@ -89,7 +89,8 @@ RSpec.describe UsersController do
         id: user.id,
         user: {
           is_beta_tester: true,
-          vita_partner_id: vita_partner.id
+          vita_partner_id: vita_partner.id,
+          timezone: "Central Time (US & Canada)",
         }
       }
     end
@@ -107,6 +108,7 @@ RSpec.describe UsersController do
         user.reload
         expect(user.is_beta_tester?).to eq true
         expect(user.vita_partner).to eq vita_partner
+        expect(user.timezone).to eq "Central Time (US & Canada)"
         expect(response).to redirect_to edit_user_path(id: user)
       end
     end

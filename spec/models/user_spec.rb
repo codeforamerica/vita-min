@@ -162,5 +162,13 @@ RSpec.describe User, type: :model do
       expect(user.errors).to include :password
       expect(user.errors).to include :email
     end
+
+    it "validates timezone" do
+      user = User.new(name: "Gary Guava", email: "example@example.com", password: "examplePassword", timezone: "Invalid timezone")
+      expect(user).not_to be_valid
+      expect(user.errors).to include :timezone
+      user.timezone = "Eastern Time (US & Canada)"
+      expect(user).to be_valid
+    end
   end
 end
