@@ -730,4 +730,34 @@ RSpec.describe ApplicationController do
 
     it_behaves_like :a_ticketed_controller, :index
   end
+
+  describe "#set_time_zone" do
+    controller do
+      def index
+        head :ok
+      end
+    end
+
+    context "with a signed in user" do
+      let(:user) { create :user }
+      before do
+        allow(Time).to receive(:use_zone)
+        sign_in user
+      end
+      it "should call set_time_zone around methods" do
+        get :index
+        expect(Time).to have_received(:use_zone).with(user.timezone)
+      end
+    end
+
+    context "when a user is not signed in" do
+      before do
+        allow(Time).to receive(:use_zone)
+      end
+      it "does not call set_time_zone around methods" do
+        get :index
+        expect(Time).not_to have_received(:use_zone)
+      end
+    end
+  end
 end
