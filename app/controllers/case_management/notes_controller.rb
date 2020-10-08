@@ -8,7 +8,7 @@ module CaseManagement
 
     def index
       @notes = @notes.order(:created_at).includes(:user)
-      @notes_by_day = @notes.group_by { |note| note.created_at.beginning_of_day }
+      @notes_by_day = @notes.group_by { |note| note.created_at.in_time_zone(current_user.timezone).beginning_of_day }
       @note = Note.new
     end
 
