@@ -277,6 +277,7 @@ es:
   users:
     edit:
       is_beta_tester_label: Probador beta?
+      timezone: Zona horaria
     index:
       title: Todos usuarios
     profile:

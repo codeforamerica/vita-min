@@ -66,6 +66,18 @@ RSpec.describe UsersController do
 
         expect(response.body).to have_text "Anne"
       end
+
+      it "includes a timezone field" do
+        get :edit, params: params
+
+        expect(response.body).to have_text("Eastern Time (US & Canada)")
+      end
+
+      it "lists all US timezones in a variable for the template" do
+        get :edit, params: params
+
+        expect(assigns(:timezone_options)).to include("Pacific Time (US & Canada)")
+      end
     end
   end
 
