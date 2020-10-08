@@ -9,7 +9,6 @@ module CaseManagement
       load_and_authorize_resource :outgoing_email, parent: false, through: :client
       load_and_authorize_resource :incoming_email, parent: false, through: :client
 
-
       layout "admin"
 
       def index

@@ -51,12 +51,12 @@ RSpec.describe CaseManagement::MessagesController do
 
               message_record = Nokogiri::HTML.parse(response.body).at_css(".message--outgoing_text_message")
               expect(message_record).to have_text("Lucille")
-              expect(message_record).to have_text("12:00 AM UTC")
+              expect(message_record).to have_text("7:00 PM EST")
               expect(message_record).to have_text("Text to (415) 553-2222")
               expect(message_record).to have_text("queued")
               expect(message_record).to have_text("Your tax return is great")
-              expect(assigns(:messages_by_day).keys.first).to eq DateTime.new(2019, 12, 31)
-              expect(assigns(:messages_by_day).keys.second).to eq DateTime.new(2020, 1, 1)
+              expect(assigns(:messages_by_day).keys.first).to eq DateTime.new(2019, 12, 31).in_time_zone('America/New_York').beginning_of_day
+              expect(assigns(:messages_by_day).keys.second).to eq DateTime.new(2020, 1, 1).in_time_zone('America/New_York').beginning_of_day
             end
           end
 
@@ -76,7 +76,7 @@ RSpec.describe CaseManagement::MessagesController do
             get :index, params: params
 
             message_record = Nokogiri::HTML.parse(response.body).at_css(".message--incoming_text_message")
-            expect(message_record).to have_text("12:00 AM UTC")
+            expect(message_record).to have_text("7:00 PM EST")
             expect(message_record).to have_text("Text from (415) 553-7865")
             expect(message_record).to have_text("Thx appreciate yr gratitude")
           end
@@ -88,7 +88,7 @@ RSpec.describe CaseManagement::MessagesController do
 
             message_record = Nokogiri::HTML.parse(response.body).at_css(".message--outgoing_email")
             expect(message_record).to have_text("Gob")
-            expect(message_record).to have_text("2:00 PM UTC")
+            expect(message_record).to have_text("9:00 AM EST")
             expect(message_record).to have_text("Email to always@banana.stand")
             expect(message_record).to have_text("We are really excited to work with you")
           end
@@ -99,7 +99,7 @@ RSpec.describe CaseManagement::MessagesController do
             get :index, params: params
 
             message_record = Nokogiri::HTML.parse(response.body).at_css(".message--incoming_email")
-            expect(message_record).to have_text("6:00 PM UTC")
+            expect(message_record).to have_text("1:00 PM EST")
             expect(message_record).to have_text("Email from Georgie <money@banana.stand>")
             expect(message_record).to have_text("Me too! Happy to get every notification")
           end

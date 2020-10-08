@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
-
+  around_action :set_time_zone, if: :current_user
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   around_action :switch_locale
   after_action :track_page_view
@@ -238,6 +238,10 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(_user)
     user_profile_path
+  end
+
+  def set_time_zone
+    Time.use_zone(current_user.timezone) { yield }
   end
 
   rescue_from CanCan::AccessDenied do |exception|

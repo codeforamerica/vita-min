@@ -70,7 +70,7 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
       context "with an existing note" do
         render_views
 
-        let!(:client_note) { create :note, client: client }
+        let!(:client_note) { create :note, client: client, created_at: DateTime.new(2020, 9, 3) }
 
         it "loads the users notes if there are any" do
           get :index, params: params
@@ -84,20 +84,25 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
           html = Nokogiri::HTML.parse(response.body)
           form_element = html.at_css("form.note-form")
           expect(form_element["action"]).to eq(case_management_client_notes_path(client_id: client.id))
+          message_record = Nokogiri::HTML.parse(response.body).at_css(".message--incoming")
+          expect(message_record).to have_text("8:00 PM EDT")
         end
+
       end
 
       context "with notes from different days" do
         before do
-          create :note, client: client, created_at: DateTime.new(2020, 10, 5, 6)
-          create :note, client: client, created_at: DateTime.new(2019, 10, 5, 9)
+          create :note, client: client, created_at: DateTime.new(2020, 10, 5, 0) # UTC
+          create :note, client: client, created_at: DateTime.new(2019, 10, 5, 0)
         end
 
         it "correctly groups notes by day created" do
           get :index, params: params
+          oct_4_2019_eastern = Time.new(2019, 10, 4).in_time_zone('America/New_York').beginning_of_day
+          oct_4_2020_eastern = Time.new(2020, 10, 4).in_time_zone('America/New_York').beginning_of_day
 
-          expect(assigns(:notes_by_day).keys.first).to eq DateTime.new(2019, 10, 5)
-          expect(assigns(:notes_by_day).keys.last).to eq DateTime.new(2020, 10, 5)
+          expect(assigns(:notes_by_day).keys.first).to eq oct_4_2019_eastern
+          expect(assigns(:notes_by_day).keys.last).to eq oct_4_2020_eastern
         end
       end
     end
