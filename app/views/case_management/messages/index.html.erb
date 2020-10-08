@@ -97,7 +97,7 @@
   <%= form_with model: @outgoing_text_message, url: case_management_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
     <%= f.cfa_input_field :body, t(".text_message_form.label") %>
     <%= f.hidden_field :client_id %>
-    <%= f.submit t(".text_message_form.submit"), class: "button" %>
+    <%= f.submit t(".text_message_form.submit"), class: "button #{"button--disabled" if @client.sms_phone_number.blank?}", disabled: @client.sms_phone_number.blank? %>
   <% end %>
 
   <%= form_with model: @outgoing_email, url: case_management_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
