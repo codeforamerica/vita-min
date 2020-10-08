@@ -58,6 +58,7 @@ gem 'websocket-extensions', '>= 0.1.5'
 gem 'twilio-ruby', '~> 5.40.1'
 gem 'mailgun-ruby', '~>1.1.6'
 gem 'devise_invitable', '~> 2.0.0'
+gem 'cancancan'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -239,4 +239,10 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(_user)
     user_profile_path
   end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.html { head :forbidden }
+    end
+  end
 end

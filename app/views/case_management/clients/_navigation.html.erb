@@ -1,6 +1,6 @@
 <div class="client-navigation tab-bar is-selected">
-  <%= tab_navigation_link(t(".client_profile"), client_path(id: @client)) %>
-  <%= tab_navigation_link(t(".client_messages"), client_messages_path(client_id: @client)) %>
+  <%= tab_navigation_link(t(".client_profile"), case_management_client_path(id: @client)) %>
+  <%= tab_navigation_link(t(".client_messages"), case_management_client_messages_path(client_id: @client)) %>
   <%= tab_navigation_link(t(".client_documents"), case_management_client_documents_path(client_id: @client)) %>
   <%= tab_navigation_link(t(".client_notes"), case_management_client_notes_path(client_id: @client)) %>
 </div>

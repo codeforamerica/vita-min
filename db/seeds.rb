@@ -14,8 +14,7 @@ additional_user = User.where(email: 'princess@example.com').first_or_initialize
 additional_user.update(
   name: 'Lea',
   password: 'theforcevita',
-  vita_partner: fake_vita_partner,
-  is_beta_tester: true
+  vita_partner: fake_vita_partner
 )
 
 client = Client.find_or_create_by(preferred_name: 'Captain', email_address: 'crunch@example.com', vita_partner: fake_vita_partner)

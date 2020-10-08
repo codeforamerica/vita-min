@@ -114,6 +114,7 @@ GEM
       thor (~> 0.19)
     builder (3.2.4)
     byebug (11.1.3)
+    cancancan (3.1.0)
     capybara (3.33.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -511,6 +512,7 @@ DEPENDENCIES
   axe-matchers
   bootsnap (>= 1.1.0)
   byebug
+  cancancan
   capybara (>= 2.15)
   cfa-styleguide!
   ddtrace

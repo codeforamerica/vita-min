@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ClientsController do
+RSpec.describe CaseManagement::ClientsController do
   describe "#create" do
     let(:intake) { create :intake, email_address: "client@example.com", phone_number: "14155537865", preferred_name: "Casey" }
     let(:params) do
@@ -39,7 +39,7 @@ RSpec.describe ClientsController do
             expect(client.preferred_name).to eq "Casey"
             expect(client.documents.first).to eq(document)
             expect(intake.reload.client).to eq client
-            expect(response).to redirect_to client_path(id: client.id)
+            expect(response).to redirect_to case_management_client_path(id: client.id)
           end
         end
 
@@ -52,7 +52,7 @@ RSpec.describe ClientsController do
               post :create, params: params
             }.not_to change(Client, :count)
 
-            expect(response).to redirect_to client_path(id: client.id)
+            expect(response).to redirect_to case_management_client_path(id: client.id)
           end
         end
       end
@@ -103,7 +103,7 @@ RSpec.describe ClientsController do
         html = Nokogiri::HTML.parse(response.body)
         expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
         expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.intakes.first.vita_partner.display_name)
-        expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq client_path(id: george_sr)
+        expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)
       end
     end
   end

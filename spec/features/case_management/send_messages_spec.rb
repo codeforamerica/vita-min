@@ -9,7 +9,7 @@ RSpec.feature "Read and send messages to a client", js: true do
     end
 
     scenario "I can view a client's information and send them a message" do
-      visit client_path(id: client)
+      visit case_management_client_path(id: client)
 
       within(".client-header") do
         expect(page).to have_text client.preferred_name
@@ -38,7 +38,7 @@ RSpec.feature "Read and send messages to a client", js: true do
     end
 
     scenario "I can send an email with an attachment" do
-      visit client_messages_path(client_id: client)
+      visit case_management_client_messages_path(client_id: client)
 
       within(".email-form") do
         fill_in "Send an email", with: "Example email"
