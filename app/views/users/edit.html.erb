@@ -11,7 +11,7 @@
 
     <%= f.cfa_checkbox(:is_beta_tester, t(".is_beta_tester_label"), options: { classes: ["form-width--long"] }) %>
     <%= f.cfa_select(:vita_partner_id, t("general.organization"), VitaPartner.select_input_options, include_blank: true) %>
-    <%= f.cfa_select(:timezone, t(".timezone"), ["Eastern Time (US & Canada)"]) %>
+    <%= f.cfa_select(:timezone, t(".timezone"), @timezone_options) %>
 
     <button class="button" type="submit">
       <%=t("general.save") %>

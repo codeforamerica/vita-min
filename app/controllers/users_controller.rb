@@ -19,12 +19,13 @@ class UsersController < ApplicationController
 
   def update
     return render :edit unless @user.update(user_params)
+
     redirect_to edit_user_path(id: @user)
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:is_beta_tester, :vita_partner_id)
+    params.require(:user).permit(:is_beta_tester, :vita_partner_id, :timezone)
   end
 end

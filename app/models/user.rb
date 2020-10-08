@@ -56,12 +56,13 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable,
          :omniauthable, omniauth_providers: [:zendesk]
-  
+
   belongs_to :vita_partner, optional: true
 
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
   validates_presence_of :name
+  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map(&:name)
 
   def self.from_zendesk_oauth(auth)
     data_source = auth.info
