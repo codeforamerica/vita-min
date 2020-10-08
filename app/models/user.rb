@@ -29,6 +29,7 @@
 #  sign_in_count             :integer          default(0), not null
 #  suspended                 :boolean
 #  ticket_restriction        :string
+#  timezone                  :string
 #  two_factor_auth_enabled   :boolean
 #  uid                       :string
 #  verified                  :boolean
