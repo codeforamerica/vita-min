@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "@rails/webpacker": "5.2.1"
+  },
+  "devDependencies": {
+    "jest": "^26.5.2",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "roots": [
+      "spec/javascript"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/javascript"
+    ]
+  }
+}

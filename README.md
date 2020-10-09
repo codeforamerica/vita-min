@@ -40,27 +40,14 @@ rails jobs:work
 
 ## Run some tests!
 
-The `[options]` and `[path]` are optional.
-
-To run the test suite:
-
-`bundle exec rspec [options] [path]`
-
-To run only the failing tests:
-
-`bundle exec rspec --only-failures`
-
-To run the test suite with Chrome visible (for feature specs):
-
-`CHROME=y bundle exec rspec`
-
-To run the tests with coverage (path not recommended):
-
-`COVERAGE=y bundle exec rspec [options]`
-
-To run the test suite continuously:
-
-`bundle exec guard`
+```sh
+bin/test # run all test suites (RSpec unit & feature specs, Javascript Jest unit tests)
+yarn jest # run Jest Javascript unit tests
+rspec # run RSpec unit & feature specs
+rspec --only-failures # run RSpec tests that failed on the last run
+CHROME=y rspec # run feature specs with Chrome visible
+COVERAGE=y rspec # run RSpec with test coverage report
+```
 
 ## Tidy Up!
 

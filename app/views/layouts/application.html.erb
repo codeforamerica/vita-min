@@ -34,6 +34,7 @@
         full_path: request.fullpath
       ).inspect.html_safe %>);
     </script>
+    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
