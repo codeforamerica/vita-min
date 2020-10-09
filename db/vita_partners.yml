@@ -111,33 +111,16 @@ vita_partners:
   - uwca
   - uwfm
   states:
+  - AK
   - CA
   - FL
   logo_path: ''
-  weekly_capacity_limit: 500
-- name: United Way Bay Area
-  zendesk_instance_domain: eitc
-  zendesk_group_id: '360007994533'
-  display_name: United Way Bay Area
-  source_parameters:
-  - uwba
-  logo_path: partner-logos/uwba.svg
   weekly_capacity_limit: 500
 - name: "[United Way California] Capital Region"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009708193'
   display_name: United Way California Capital Region
   logo_path: ''
-- name: "[United Way California] Koreatown Youth Community Center"
-  zendesk_instance_domain: eitc
-  zendesk_group_id: '360010314594'
-  display_name: Koreatown Youth Community Center
-  source_parameters:
-  - kycc
-  states:
-  - AK
-  logo_path: ''
-  weekly_capacity_limit: 100
 - name: "[United Way California] Orange County"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009858073'
@@ -450,16 +433,6 @@ vita_partners:
   source_parameters:
   - nccc
   logo_path: partner-logos/ncc-logo.png
-- name: United Way of Racine County (WI)
-  zendesk_instance_domain: eitc
-  zendesk_group_id: '360012007014'
-  display_name: United Way of Racine County
-  source_parameters:
-  - unitedwayracine
-  states:
-  - WI
-  logo_path: 'partner-logos/UWRC.png'
-  weekly_capacity_limit: 20
 - name: La Casa de Esperanza (WI)
   zendesk_instance_domain: eitc
   zendesk_group_id: '360011477453'
