@@ -57,13 +57,13 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
   describe "#index" do
     let(:client) { create :client }
     let(:params) { { client_id: client.id } }
-
+    let(:user) { create :beta_tester }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
     it_behaves_like :a_get_action_for_beta_testers_only, action: :index
 
     context "as a logged in user loading a clients notes" do
       before do
-        sign_in(create :beta_tester)
+        sign_in user
         create :note # unrelated note
       end
 
@@ -91,6 +91,8 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
       end
 
       context "with notes from different days" do
+        let(:user) { create :beta_tester, timezone: "America/Los_Angeles" }
+
         before do
           create :note, client: client, created_at: DateTime.new(2020, 10, 5, 0) # UTC
           create :note, client: client, created_at: DateTime.new(2019, 10, 5, 0)
@@ -98,11 +100,11 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
 
         it "correctly groups notes by day created" do
           get :index, params: params
-          oct_4_2019_eastern = Time.new(2019, 10, 4).in_time_zone('America/New_York').beginning_of_day
-          oct_4_2020_eastern = Time.new(2020, 10, 4).in_time_zone('America/New_York').beginning_of_day
+          day1 = Time.new(2019, 10, 4).in_time_zone('America/Los_Angeles').beginning_of_day
+          day2 = Time.new(2020, 10, 4).in_time_zone('America/Los_Angeles').beginning_of_day
 
-          expect(assigns(:notes_by_day).keys.first).to eq oct_4_2019_eastern
-          expect(assigns(:notes_by_day).keys.last).to eq oct_4_2020_eastern
+          expect(assigns(:notes_by_day).keys.first).to eq day1
+          expect(assigns(:notes_by_day).keys.last).to eq day2
         end
       end
     end

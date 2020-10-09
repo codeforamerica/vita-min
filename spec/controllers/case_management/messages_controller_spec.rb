@@ -5,14 +5,14 @@ RSpec.describe CaseManagement::MessagesController do
   let(:params) do
     { client_id: client.id }
   end
+  let(:user) { create :beta_tester }
 
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
     it_behaves_like :a_get_action_for_beta_testers_only, action: :index
 
     context "as an authenticated beta tester" do
-      let(:beta_user) { create :beta_tester }
-      before { sign_in(beta_user) }
+      before { sign_in(user) }
 
       context "with existing contact history" do
         render_views
@@ -102,6 +102,24 @@ RSpec.describe CaseManagement::MessagesController do
             expect(message_record).to have_text("1:00 PM EST")
             expect(message_record).to have_text("Email from Georgie <money@banana.stand>")
             expect(message_record).to have_text("Me too! Happy to get every notification")
+          end
+        end
+
+        context "with messages from different days" do
+          let(:user) { create :beta_tester, timezone: "America/Los_Angeles" }
+
+          before do
+            create(:incoming_email, received_at: DateTime.new(2020, 10, 4, 18, 0, 4), client: client)
+            create(:outgoing_email, sent_at: DateTime.new(2019, 10, 4, 14, 0, 3), client: client)
+          end
+
+          it "correctly groups notes by day created" do
+            get :index, params: params
+            day1 = Time.new(2019, 10, 4).in_time_zone('America/Los_Angeles').beginning_of_day
+            day2 = Time.new(2020, 10, 4).in_time_zone('America/Los_Angeles').beginning_of_day
+
+            expect(assigns(:messages_by_day).keys.first).to eq day1
+            expect(assigns(:messages_by_day).keys.last).to eq day2
           end
         end
       end
