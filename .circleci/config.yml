@@ -17,29 +17,15 @@ commands:
   install_app_dependencies:
     description: "Install dependencies for specs"
     steps:
-      - restore_cache:
-          name: Restore bundle cache
-          keys:
-            - v1-vita-min-{{ arch }}-{{ checksum "Gemfile.lock" }}
-            - v1-vita-min-{{ arch }}-
       - run:
           name: install dependencies
           command: |
             sudo apt-get update && \
             sudo apt-get install -y pdftk ghostscript && \
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - save_cache:
-          name: Store bundle cache
-          key: v1-vita-min-{{ arch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - ~/.bundle
-            - vendor/bundle
+            bundle install --jobs=4 --retry=3 --path vendor/bundle && \
+            npm install yarn && \
+            yarn install
 jobs:
-  install_dependencies:
-    executor: rails_executor
-    steps:
-      - checkout
-      - install_app_dependencies
   run_tests:
     executor: rails_executor
     steps:
@@ -49,18 +35,20 @@ jobs:
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       - run: bundle exec rake db:insert_states db:upsert_vita_partners
-      - run: mkdir ~/rspec
+      - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
       - run: |
           bundle exec rspec \
               --format RspecJunitFormatter \
-              --out ~/rspec/rspec.xml \
+              --out ~/test-results/rspec/rspec.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - run: yarn add --dev jest-junit
+      - run:
+          command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
       - store_test_results:
-          path: ~/rspec
-      - store_artifacts:
-          path: ~/rspec
-          destination: test-results
+          path: ~/test-results
   deploy_to_aptible--demo:
     executor: rails_executor
     steps:
@@ -79,23 +67,13 @@ workflows:
   version: 2
   build:
     jobs:
-      - install_dependencies:
-          filters:
-            branches:
-              ignore: /^master$/
       - run_tests:
-          requires: [install_dependencies]
           filters:
             branches:
               ignore: /^master$/
   build-and-deploy:
     jobs:
-      - install_dependencies:
-          filters:
-            branches:
-              only: master
       - run_tests:
-          requires: [install_dependencies]
           filters:
             branches:
               only: master
@@ -106,12 +84,7 @@ workflows:
               only: master
   deploy-release-branch-to-production:
     jobs:
-      - install_dependencies:
-          filters:
-            branches:
-              only: release
       - run_tests:
-          requires: [install_dependencies]
           filters:
             branches:
               only: release

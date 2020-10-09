@@ -17,11 +17,15 @@ shared_examples :a_protected_zendesk_ticket_page do |action: :show|
 
     context "tracking zendesk user page views" do
       render_views
-      before { allow(subject).to receive(:current_ticket) }
+      before do
+        allow(subject).to receive(:current_ticket)
+        allow(Rails.logger).to receive(:info)
+      end
 
       it "adds the current_user to the payload request details" do
-        expect(Rails.logger).to receive(:info).with(/\"current_user_id\":#{user.id}/)
         get action, params: valid_params
+
+        expect(Rails.logger).to have_received(:info).with(/\"current_user_id\":#{user.id}/)
       end
     end
 
