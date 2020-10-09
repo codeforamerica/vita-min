@@ -115,7 +115,7 @@ vita_partners:
   - CA
   - FL
   logo_path: ''
-  weekly_capacity_limit: 500
+  weekly_capacity_limit: 0
 - name: "[United Way California] Capital Region"
   zendesk_instance_domain: eitc
   zendesk_group_id: '360009708193'
