@@ -33,19 +33,12 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
     end
 
     context "without attachment" do
-      it "has the right subject and body" do
+      it "can send" do
         email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
         expect do
           email.deliver_now
         end.to change(ActionMailer::Base.deliveries, :count).by 1
         expect(email.attachments.length).to eq 0
-
-        expect(email.subject).to eq outgoing_email.subject
-        expect(email.from).to eq ["no-reply@test.localhost"]
-        expect(email.to).to eq [outgoing_email.to]
-        expect(email.text_part.decoded.chomp).to eq body
-        expect(email.html_part.decoded).to have_selector('div', text: "Line 1")
-        expect(email.html_part.decoded).to have_selector('div', text: "Line 2")
       end
     end
   end
