@@ -1,4 +1,4 @@
-module DateHelper
+module TimeHelper
   def date_heading(datetime)
     prefix = datetime.to_date == Date.today ? I18n.t("general.today") + " " : ""
     prefix + datetime.to_date.strftime("%m/%d/%Y")
@@ -6,5 +6,9 @@ module DateHelper
 
   def formatted_time(datetime)
     datetime.strftime("%l:%M %p #{datetime.zone}").strip
+  end
+
+  def timezone_select_options
+    ActiveSupport::TimeZone.us_zones.map { |tz| [tz.name, tz.tzinfo.name] }
   end
 end

@@ -1,1 +1,4 @@
-require("channels")
+const initListeners = require("listeners");
+require("channels");
+
+initListeners();
