@@ -109,14 +109,14 @@ RSpec.describe CaseManagement::MessagesController do
           let(:user) { create :beta_tester, timezone: "America/Los_Angeles" }
 
           before do
-            create(:incoming_email, received_at: DateTime.new(2020, 10, 4, 18, 0, 4), client: client)
-            create(:outgoing_email, sent_at: DateTime.new(2019, 10, 4, 14, 0, 3), client: client)
+            create(:outgoing_email, sent_at: DateTime.new(2019, 10, 4, 14), client: client)
+            create(:incoming_email, received_at: DateTime.new(2020, 10, 4, 18), client: client)
           end
 
           it "correctly groups notes by day created" do
             get :index, params: params
-            day1 = Time.new(2019, 10, 4).in_time_zone('America/Los_Angeles').beginning_of_day
-            day2 = Time.new(2020, 10, 4).in_time_zone('America/Los_Angeles').beginning_of_day
+            day1 = DateTime.new(2019, 10, 4, 14).in_time_zone('America/Los_Angeles').beginning_of_day
+            day2 = DateTime.new(2020, 10, 4, 18).in_time_zone('America/Los_Angeles').beginning_of_day
 
             expect(assigns(:messages_by_day).keys.first).to eq day1
             expect(assigns(:messages_by_day).keys.last).to eq day2
