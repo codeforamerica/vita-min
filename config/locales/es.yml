@@ -788,6 +788,13 @@ es:
           header: Preguntas
           resolve: Haremos todo lo posible para resolver el problema.
         title: Política de Privacidad
+      stimulus_banner:
+        heading: ¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?
+        subheading: La fecha límite para conseguir tu cheque de estímulo a través de la aplicación en línea del IRS se ha extendido hasta el 21 de noviembre.
+        facts_html:
+          - "Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment'>IRS Get My Payment website</a>"
+          - "Solicita tu cheque de estímulo directamente a través de <a href='https://www.irs.gov/es/coronavirus/non-filers-enter-payment-info-here'>IRS nonfiler tool website</a>"
+          - "Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href='tel:1-844-322-3639'>+1 (844) 322-3639</a>"
       stimulus_payment:
         faq:
           eip:
