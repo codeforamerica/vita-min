@@ -29,7 +29,7 @@
   <div class="slab slab--info-section">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <h3 class="spacing-below-0"><%=t("views.public_pages.home.stimulus_banner.heading")%></h3>
+        <h3 class="spacing-below-0"><%= t("views.public_pages.home.stimulus_banner.heading") %></h3>
         <p class="spacing-below-0"><%=t("views.public_pages.home.stimulus_banner.subheading") %></p>
       </div>
       <div class="grid__item width-one-whole">
@@ -40,6 +40,21 @@
             </li>
           <% end %>
         </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--secondary-cta slab--lavender">
+    <div class="grid">
+      <div class="grid__item width-two-thirds">
+        <p class="cta-text">
+          <strong><%=t("views.public_pages.home.stimulus_faq.info") %></strong>
+        </p>
+      </div>
+      <div class="grid__item width-one-third button-container">
+        <%= link_to stimulus_path, class: "button" do %>
+          <%=t("general.visit_stimulus_faq") %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -63,21 +78,6 @@
       </div>
       <div id="money-fan" class="grid__item width-one-fourth">
         <%= image_tag("money-fan.svg", alt: "") %>
-      </div>
-    </div>
-  </div>
-
-  <div class="slab slab--secondary-cta slab--lavender">
-    <div class="grid">
-      <div class="grid__item width-two-thirds">
-        <p class="cta-text">
-          <strong><%=t("views.public_pages.home.stimulus_faq.info") %></strong>
-        </p>
-      </div>
-      <div class="grid__item width-one-third button-container">
-        <%= link_to stimulus_path, class: "button" do %>
-          <%=t("general.visit_stimulus_faq") %>
-        <% end %>
       </div>
     </div>
   </div>
