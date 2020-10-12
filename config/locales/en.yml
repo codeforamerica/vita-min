@@ -844,8 +844,6 @@ en:
               a_html: The IRS has a %{irs_eip_calculator_link} website to help you calculate how much you will receive.
               calculate_eip_website_title: "“How do I calculate my EIP”"
               q: How much will I receive?
-        footer:
-          header: Get your stimulus check today!
         header: Get your Stimulus Check
         intro:
           benefits:

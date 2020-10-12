@@ -844,8 +844,6 @@ es:
               a_html: El IRS tiene un sitio web %{irs_eip_calculator_link} para ayudarlo a calcular cuánto dinero recibirá.
               calculate_eip_website_title: '"¿Cómo calculo mi EIP?"'
               q: "¿Cuánto dinero recibiré?"
-        footer:
-          header: "¡Reciba su cheque de estímulo hoy!"
         header: Reciba su Cheque de Estímulo
         intro:
           benefits:
