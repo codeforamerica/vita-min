@@ -2,9 +2,8 @@ require "rails_helper"
 
 RSpec.feature "Web Intake New Client with Questions" do
   scenario "new client not filing just has questions" do
-    # Home
-    visit "/"
-    find("#firstCta").click
+    # Navigate straight to the start of the questions
+    visit "/en/questions/welcome"
 
     # Welcome
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
@@ -16,4 +15,3 @@ RSpec.feature "Web Intake New Client with Questions" do
     expect(page).to have_selector("button", text: "Chat with us")
   end
 end
-

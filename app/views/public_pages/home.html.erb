@@ -19,18 +19,27 @@
           </strong>
         </p>
 
-        <%= link_to question_path(:id => QuestionNavigation.first), id: "firstCta", class: "button button--med-wide button--primary" do %>
-          <%=t("general.get_started") %>
+        <%= link_to new_signup_path, id: "firstCta", class: "button button--med-wide button--primary" do %>
+          <%=t("general.register") %>
         <% end %>
       </div>
     </div>
   </div>
 
-  <div class="slab banner">
+  <div class="slab slab--info-section">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <strong><%=t("views.public_pages.home.filing_deadline_banner.title") %></strong>
-        <%=t("views.public_pages.home.filing_deadline_banner.body_html") %>
+        <h3 class="spacing-below-0"><%=t("views.public_pages.home.stimulus_banner.heading")%></h3>
+        <p class="spacing-below-0"><%=t("views.public_pages.home.stimulus_banner.subheading") %></p>
+      </div>
+      <div class="grid__item width-one-whole">
+        <ul>
+          <% t("views.public_pages.home.stimulus_banner.facts_html").each do |item| %>
+            <li>
+              <%= item %>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>

@@ -11,9 +11,7 @@ RSpec.feature "Web Intake EIP Only Filer" do
   end
 
   scenario "new EIP-only client filing joint with a dependent" do
-    # Home
-    visit "/"
-    find("#firstCta").click
+    visit "/en/questions/welcome"
 
     # Welcome
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")

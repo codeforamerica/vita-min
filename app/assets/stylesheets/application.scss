@@ -237,6 +237,23 @@ body {
     }
   }
 
+  .slab--info-section {
+    background-color: white;
+    padding: 6rem 4.5rem;
+    ul {
+      padding-left: 2.4rem;
+    }
+    li {
+      font-size: 1.6rem;
+      &:before {
+        content: "→";
+        font-weight: bold;
+      }
+      a {
+        color: black;
+      }
+    }
+  }
   .banner {
     background-color: $color-orange-light;
     padding: 2rem 6rem;

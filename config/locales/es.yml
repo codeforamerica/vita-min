@@ -224,6 +224,7 @@ es:
       black_african_american: Negro o afroamericano
       native_hawaiian_pacific_islander: Nativo de Hawái u otra isla del Pacífico
       white: Blanco
+    register: Regístrate
     remove: Quitar
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
@@ -647,9 +648,6 @@ es:
           questions: "¿Tiene más preguntas? Visite nuestra página de preguntas frecuentes o hable con nosotros por el chat."
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
-        filing_deadline_banner:
-          body_html: Para poder declarar impuestos para la fecha límite, necesitamos todos los documentos requeridos para el 8 de octubre. ¡Nos daría mucho gusto poder trabajar con usted el próximo año y ayudarle a declarar sus impuestos absolutamente gratis!
-          title: Los servicios de GetYourRefund cerrarán al 12 de octubre.
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
         partners:
           header: Colaboramos con organizaciones de confianza
@@ -657,9 +655,16 @@ es:
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Estamos comprometidos a proteger su información.
+        stimulus_banner:
+          heading: ¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?
+          subheading: La fecha límite para conseguir tu cheque de estímulo a través de la aplicación en línea del IRS se ha extendido hasta el 21 de noviembre.
+          facts_html:
+            - "Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment'>IRS Get My Payment website</a>"
+            - "Solicita tu cheque de estímulo directamente a través de <a href='https://www.irs.gov/es/coronavirus/non-filers-enter-payment-info-here'>IRS nonfiler tool website</a>"
+            - "Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href='tel:1-844-322-3639'>+1 (844) 322-3639</a>"
         stimulus_faq:
           info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
-        subheader: Maximice su reembolso declarando sus impuestos con la ayuda de nuestros voluntarios de confianza.
+        subheader: Te informamos que los servicios ofrecidos por GeYourRefund han cerrado para esta temporada de declaración de impuestos. Tendremos el gusto de ofrecerte nuestra asistencia gratuita de nuevo para declarar tus impuestos a partir de enero.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maintenance:
         contact_html: También puede %{email_link}.

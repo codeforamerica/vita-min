@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.feature "client is not eligible for VITA services" do
   scenario "client checks one of the boxes on the eligibility page" do
-    visit "/"
-    find("#firstCta").click
+    # Start in the questions flow
+    visit "/en/questions/welcome"
 
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
     click_on "File taxes with help"
