@@ -4,8 +4,10 @@ RSpec.feature "Visit home page" do
   scenario "has most critical content" do
     visit "/"
     expect(page).to have_text "Free tax filing, real human support."
-    expect(page).to have_text "Maximize your refund by filing with our trusted volunteers."
-    expect(page).to have_link "Get started"
+    expect(page).to have_text "Sign up for next tax season now. We’ll notify you as soon as our service is back up in January!"
+    expect(page).to have_link "Sign Up"
+    click_on "Sign Up"
+    expect(page).to have_text "sign up here"
   end
 
   context "in non-production environments" do

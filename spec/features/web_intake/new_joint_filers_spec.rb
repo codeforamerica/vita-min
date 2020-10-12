@@ -11,9 +11,7 @@ RSpec.feature "Web Intake Joint Filers" do
   end
 
   scenario "new client filing joint taxes with spouse and dependents" do
-    # Home
-    visit "/"
-    find("#firstCta").click
+    visit "/en/questions/welcome"
 
     # Welcome
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")

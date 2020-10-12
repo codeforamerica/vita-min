@@ -10,9 +10,7 @@ RSpec.feature "Web Intake Single Filer" do
   end
 
   scenario "new client filing single without dependents" do
-    # Home
-    visit "/"
-    find("#firstCta").click
+    visit "/en/questions/welcome"
 
     # Welcome
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")

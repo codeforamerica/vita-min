@@ -13,7 +13,7 @@ RSpec.feature "Web Intake 211 Assisted Filer" do
   scenario "new EIP-only client filing joint with a dependent" do
     # visit home with 211 source param
     visit "/211intake"
-    find("#firstCta").click
+    visit "/en/questions/welcome"
 
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
     click_on "File taxes with help"

@@ -224,6 +224,7 @@ en:
       black_african_american: Black or African American
       native_hawaiian_pacific_islander: Native Hawaiian or other Pacific Islander
       white: White
+    register: Sign Up
     remove: Remove
     return_home: Return to home
     return_search: Return to search
@@ -647,9 +648,6 @@ en:
           questions: Still have questions? Visit our FAQ page or chat with us.
         file:
           header: Get more of your refund dollars back by filing for free today!
-        filing_deadline_banner:
-          body_html: In order to file by the deadline we need all required documents by October 8th. We look forward to providing our free tax assistance next year!
-          title: GetYourRefund services will close on October 12th.
         header: Free tax filing, real human support.
         partners:
           header: We partner with trusted organizations
@@ -657,9 +655,16 @@ en:
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
           header: We're committed to keeping your information secure.
+        stimulus_banner:
+          heading: Need assistance getting your stimulus check?
+          subheading: The deadline to claim your stimulus through the IRS’s online tool has been extended until November 21st.
+          facts_html:
+            - "Check the status of your stimulus check on the <a href='https://www.irs.gov/coronavirus/get-my-payment' target='_blank' rel='noopener noreferrer'>IRS Get My Payment website</a>"
+            - "Request for your stimulus directly through the <a href='https://www.irs.gov/coronavirus/non-filers-enter-payment-info-here' target='_blank' rel='noopener noreferrer'>IRS nonfiler tool website</a>"
+            - "Call the 211 Economic Impact Payment Helpline with questions: <a href='tel:1-844-322-3639'>+1 (844) 322-3639</a>"
         stimulus_faq:
           info: Already filed your taxes and have questions about your stimulus check?
-        subheader: Maximize your refund by filing with our trusted volunteers.
+        subheader: Sign up for next tax season now. We’ll notify you as soon as our service is back up in January!
         title: Free tax help from IRS-certified volunteers.
       maintenance:
         contact_html: You can also %{email_link}.
