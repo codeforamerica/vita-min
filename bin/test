@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
-rspec
+bundle exec rspec
 yarn jest
