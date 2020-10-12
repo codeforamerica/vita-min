@@ -1,4 +1,5 @@
 class PublicPagesController < ApplicationController
+
   skip_before_action :check_maintenance_mode
 
   def include_analytics?
@@ -7,7 +8,11 @@ class PublicPagesController < ApplicationController
 
   def home; end
 
-  def diy_home; end
+  def diy_home
+    if Rails.env.production?
+      redirect_to root_path
+    end
+  end
 
   def other_options; end
 

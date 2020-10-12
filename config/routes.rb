@@ -84,26 +84,12 @@ Rails.application.routes.draw do
     get "/tax-questions", to: "public_pages#tax_questions"
     get "/faq", to: "public_pages#faq"
     get "/stimulus", to: "public_pages#stimulus"
-    get "/full-service", to: "public_pages#full_service_home"
-    get "/eip", to: "public_pages#eip_home"
-    get "/EIP", to: "public_pages#eip_home"
+    get "/full-service", to: redirect('/', status: 302)
+    get "/eip", to: redirect('/', status: 302)
+    get "/EIP", to: redirect('/', status: 302)
     get "/500", to: "public_pages#internal_server_error"
     get "/422", to: "public_pages#internal_server_error"
     get "/404", to: "public_pages#page_not_found"
-
-    # Routes to support a simple URL for mailings from Benefits Data Trust (BDT) to their clients
-    # And for 211 hotline referrals to both full service and EIP
-    # And for FreshEBT (aka Propel) for in-app referrals to EIP
-    # These routes point people to the desired landing pages with the proper source tracking
-    # They can be removed after 10/15/20. When these routes are removed they'll go to the homepage so won't be broken.
-    get "/bdt", to: "public_pages#eip_home", defaults: {"s": "bdt"}
-    get "/BDT", to: "public_pages#eip_home", defaults: {"s": "bdt"}
-    get "/211", to: "public_pages#full_service_home", defaults: {"s": "211"}
-    get "/211-stimulus", to: "public_pages#eip_home", defaults: {"s": "211-stimulus"}
-    get "/211-Stimulus", to: "public_pages#eip_home", defaults: {"s": "211-stimulus"}
-    get "/FreshEBT", to: "public_pages#eip_home", defaults: {"s": "propel-eip"}
-    get "/freshEBT", to: "public_pages#eip_home", defaults: {"s": "propel-eip"}
-    get "/freshebt", to: "public_pages#eip_home", defaults: {"s": "propel-eip"}
 
     # Zendesk Admin routes
     get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
