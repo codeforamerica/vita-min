@@ -244,6 +244,10 @@ class ApplicationController < ActionController::Base
     Time.use_zone(current_user.timezone) { yield }
   end
 
+  def redirect_home
+    redirect_to root_path
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html { head :forbidden }
