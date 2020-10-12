@@ -104,15 +104,57 @@
     <%= f.cfa_textarea :body, t(".email_form.label") %>
     <%= f.hidden_field :client_id %>
     <div class="attachment-uploader">
-      <%= f.file_field :attachment, id: 'attachment-upload' %>
-      <div id="attachment-image-preview-wrapper">
-        <%= image_tag "file-icon.svg", id: "attachment-image-preview-default" %>
-        <div id="attachment-custom-preview"></div>
+      <%= f.cfa_file_field :attachment, t('general.attachment'), classes: ['attachment-upload'] %>
+      <div id="attachment-image-preview-wrapper" %>
+        <%= image_tag "file-icon.svg", id: "attachment-image-preview", alt: "" %>
       </div>
       <button id="attachment-image-clear" hidden>Remove Attachment</button>
     </div>
 
     <%= f.submit t(".email_form.submit"), class: "button" %>
   <% end %>
+<% end %>
 
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function(){
+        var imageUploader = document.querySelector('input.attachment-upload');
+        var previewImage = document.querySelector('#attachment-image-preview');
+        var previewImageDefaultSrc = previewImage.src
+        var clearAttachmentsButton = document.querySelector('button#attachment-image-clear');
+        // Start with preview image hidden
+        previewImage.hidden = true;
+
+        clearAttachmentsButton.addEventListener('click', function(e)  {
+            e.preventDefault();
+            imageUploader.value = '';
+            previewImage.hidden = true;
+            clearAttachmentsButton.hidden = true;
+        });
+
+        imageUploader.addEventListener('change', function (event) {
+            var files = this.files;
+            function readAndPreview(file) {
+                // Show preview if can for filetype
+                if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+                    var reader = new FileReader();
+                    reader.addEventListener("load", function () {
+                        previewImage.title = file.name;
+                        previewImage.src = this.result;
+                    }, false);
+                    reader.readAsDataURL(file);
+
+                } else {
+                    previewImage.src = previewImageDefaultSrc;
+                }
+                previewImage.hidden = false;
+            }
+
+            if (files) {
+                [].forEach.call(files, readAndPreview);
+                clearAttachmentsButton.hidden = false;
+            }
+        });
+      });
+  </script>
 <% end %>

@@ -156,6 +156,7 @@ en:
   general:
     address: Address
     affirmative: 'Yes'
+    attachment: "Attachment"
     chat_with_us: Chat with us
     confirm: Confirm
     continue: Continue
