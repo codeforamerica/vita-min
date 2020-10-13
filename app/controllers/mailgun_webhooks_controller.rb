@@ -10,7 +10,7 @@ class MailgunWebhooksController < ActionController::Base
     unless client.present?
       client = Client.create!(email_address: sender_email)
     end
-    IncomingEmail.create!(
+    contact_record = IncomingEmail.create!(
       client: client,
       received_at: DateTime.now,
       sender: sender_email,
@@ -26,7 +26,7 @@ class MailgunWebhooksController < ActionController::Base
       received: params["Received"],
       attachment_count: params["attachment-count"],
     )
-    ClientChannel.broadcast_to(client, [".message-list", '<p id="#new-message">A new message has arrived. Please reload.</p>'])
+    ClientChannel.broadcast_contact_record(contact_record)
     head :ok
   end
 

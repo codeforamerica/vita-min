@@ -14,13 +14,13 @@ class TwilioWebhooksController < ActionController::Base
       client = Client.create!(phone_number: phone_number, sms_phone_number: phone_number)
     end
 
-    IncomingTextMessage.create!(
+    contact_record = IncomingTextMessage.create!(
       body: params["Body"],
       received_at: DateTime.now,
       from_phone_number: phone_number,
       client: client,
     )
-    ClientChannel.broadcast_to(client, [".message-list", '<p id="#new-message">A new message has arrived. Please reload.</p>'])
+    ClientChannel.broadcast_contact_record(contact_record)
     head :ok
   end
 

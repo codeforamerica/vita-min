@@ -32,10 +32,15 @@ RSpec.describe CaseManagement::OutgoingTextMessagesController do
         expect(response).to redirect_to(case_management_client_messages_path(client_id: client.id))
       end
 
-      it "sends a real-time update to anyone on this client's page" do
-        expect do
+      context "real-time updates" do
+        before do
+          allow(ClientChannel).to receive(:broadcast_contact_record)
+        end
+
+        it "sends a real-time update to anyone on this client's page" do
           post :create, params: params
-        end.to have_broadcasted_to(ClientChannel.broadcasting_for(client))
+          expect(ClientChannel).to have_received(:broadcast_contact_record).with(OutgoingTextMessage.last)
+        end
       end
     end
   end

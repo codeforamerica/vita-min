@@ -30,4 +30,19 @@ RSpec.describe ClientChannel, type: :channel do
       end
     end
   end
+
+  context "publishing a message" do
+    let(:outgoing_text_message) { create(:outgoing_text_message) }
+
+    before do
+      allow(ApplicationController).to receive(:render).and_return("template output")
+    end
+
+    it "renders the message partial with the message" do
+      expect do
+        ClientChannel.broadcast_contact_record(outgoing_text_message)
+      end.to have_broadcasted_to(ClientChannel.broadcasting_for(outgoing_text_message.client)).with([".message-list", "template output"])
+      expect(ApplicationController).to have_received(:render).with hash_including(locals: { contact_record: outgoing_text_message })
+    end
+  end
 end

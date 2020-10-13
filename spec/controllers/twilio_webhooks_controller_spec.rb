@@ -75,10 +75,15 @@ RSpec.describe TwilioWebhooksController do
             expect(message.client).to eq existing_client
           end
 
-          it "sends a real-time update to anyone on this client's page" do
-            expect do
+          context "real-time updates" do
+            before do
+              allow(ClientChannel).to receive(:broadcast_contact_record)
+            end
+
+            it "sends a real-time update to anyone on this client's page" do
               post :create_incoming_text_message, params: incoming_message_params
-            end.to have_broadcasted_to(ClientChannel.broadcasting_for(existing_client))
+              expect(ClientChannel).to have_received(:broadcast_contact_record).with(IncomingTextMessage.last)
+            end
           end
         end
 
