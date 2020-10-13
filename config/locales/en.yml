@@ -659,9 +659,9 @@ en:
           heading: Need assistance getting your stimulus check?
           subheading: The deadline to claim your stimulus through the IRS’s online tool has been extended until November 21st.
           facts_html:
-            - "Check the status of your stimulus check on the <a href='https://www.irs.gov/coronavirus/get-my-payment' target='_blank' rel='noopener noreferrer'>IRS Get My Payment website</a>"
-            - "Request for your stimulus directly through the <a href='https://www.irs.gov/coronavirus/non-filers-enter-payment-info-here' target='_blank' rel='noopener noreferrer'>IRS nonfiler tool website</a>"
-            - "Call the 211 Economic Impact Payment Helpline with questions: <a href='tel:1-844-322-3639'>+1 (844) 322-3639</a>"
+            - "Check the status of your stimulus check on the <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Get My Payment website</a>"
+            - "Request for your stimulus directly through the <a href='https://www.irs.gov/coronavirus/non-filers-enter-payment-info-here' target='_blank' rel='noopener noreferrer' data-track-click='stimulus-irs-enter-payment-info' data-track-attribute-position='homepage'>IRS nonfiler tool website</a>"
+            - "Call the 211 Economic Impact Payment Helpline with questions: <a href='tel:1-844-322-3639' data-track-click='call-211-hotline' data-track-attribute-position='homepage'>+1 (844) 322-3639</a>"
         stimulus_faq:
           info: Already filed your taxes and have questions about your stimulus check?
         subheader: Sign up for next tax season now. We’ll notify you as soon as our service is back up in January!
