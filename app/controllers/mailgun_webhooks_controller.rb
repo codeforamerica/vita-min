@@ -26,6 +26,7 @@ class MailgunWebhooksController < ActionController::Base
       received: params["Received"],
       attachment_count: params["attachment-count"],
     )
+    ClientChannel.broadcast_to(client, [".message-list", '<p id="#new-message">A new message has arrived. Please reload.</p>'])
     head :ok
   end
 

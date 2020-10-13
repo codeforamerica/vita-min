@@ -31,6 +31,12 @@ RSpec.describe CaseManagement::OutgoingTextMessagesController do
         expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
         expect(response).to redirect_to(case_management_client_messages_path(client_id: client.id))
       end
+
+      it "sends a real-time update to anyone on this client's page" do
+        expect do
+          post :create, params: params
+        end.to have_broadcasted_to(ClientChannel.broadcasting_for(client))
+      end
     end
   end
 end

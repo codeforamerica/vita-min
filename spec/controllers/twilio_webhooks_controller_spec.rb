@@ -74,6 +74,12 @@ RSpec.describe TwilioWebhooksController do
             message = IncomingTextMessage.last
             expect(message.client).to eq existing_client
           end
+
+          it "sends a real-time update to anyone on this client's page" do
+            expect do
+              post :create_incoming_text_message, params: incoming_message_params
+            end.to have_broadcasted_to(ClientChannel.broadcasting_for(existing_client))
+          end
         end
 
         context "with multiple matching clients" do

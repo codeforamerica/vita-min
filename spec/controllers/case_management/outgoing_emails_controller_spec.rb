@@ -41,6 +41,12 @@ RSpec.describe CaseManagement::OutgoingEmailsController do
           expect(outgoing_email.attachment).to be_present
           expect(response).to redirect_to case_management_client_messages_path(client_id: client.id)
         end
+
+        it "sends a real-time update to anyone on this client's page", active_job: true do
+          expect do
+            post :create, params: params
+          end.to have_broadcasted_to(ClientChannel.broadcasting_for(client))
+        end
       end
 
       context "without body" do

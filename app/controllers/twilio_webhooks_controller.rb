@@ -20,6 +20,7 @@ class TwilioWebhooksController < ActionController::Base
       from_phone_number: phone_number,
       client: client,
     )
+    ClientChannel.broadcast_to(client, [".message-list", '<p id="#new-message">A new message has arrived. Please reload.</p>'])
     head :ok
   end
 
