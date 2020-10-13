@@ -1,4 +1,3 @@
-const initListeners = require("listeners");
-require("channels");
+import {initListeners} from "../listeners";
 
 initListeners();

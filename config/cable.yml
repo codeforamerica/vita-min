@@ -1,0 +1,14 @@
+development:
+  adapter: postgresql
+
+staging:
+  adapter: postgresql
+
+demo:
+  adapter: postgresql
+
+production:
+  adapter: postgresql
+
+test:
+  adapter: test

@@ -97,3 +97,17 @@ shared_examples :a_post_action_for_beta_testers_only do |action:|
     end
   end
 end
+
+shared_examples :a_channel_for_beta_testers do |action:|
+  let(:params) { {} } unless method_defined?(:params)
+
+  context "with a non-beta user" do
+    before { connect_as( create :user, is_beta_tester: false ) }
+
+    it "rejects the subscription" do
+      subscribe params
+
+      expect(subscription).to be_rejected
+    end
+  end
+end
