@@ -22,11 +22,11 @@ RSpec.describe PublicPagesController do
         expect(response.body).to include "https://www.googletagmanager.com/gtag/js?id=UA-156157414-1"
       end
 
-      it "links to the first question path for digital intake" do
+      it "does not link to the first question path for digital intake" do
         get :home
 
-        expect(response.body).to include "Get started"
-        expect(response.body).to include question_path(:id => QuestionNavigation.first)
+        expect(response.body).not_to include "Get started"
+        expect(response.body).not_to include question_path(:id => QuestionNavigation.first)
       end
     end
 

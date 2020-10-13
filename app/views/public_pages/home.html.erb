@@ -184,5 +184,7 @@
     </div>
   </div>
 
-  <%= render "shared/get_started_slab", link_attributes: {} %>
+  <% unless Rails.env.production? %>
+    <%= render "shared/get_started_slab", link_attributes: {} %>
+  <% end %>
 </main>
