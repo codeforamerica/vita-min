@@ -155,8 +155,9 @@ comment](https://www.pivotaltracker.com/story/show/172323019/comments/213820510)
 
 refs:
 
-- [simplified/immediate modeling, after conversation with @bengolder 4/28](https://github.com/codeforamerica/vita-min/blob/refactor-zendesk-routing-logic-%23172323019/doc/arch/design/intake-routing-simplified.png) describes closer to the refactor described here
-- [original thinking: generic-tracker](https://github.com/codeforamerica/vita-min/blob/refactor-zendesk-routing-logic-%23172323019/doc/arch/design/intake-routing-generic-tracker.png) a generic design with an eye toward replacing Zendesk
+![simplified/immediate modeling, after conversation with @bengolder 4/28](images/intake-routing-simplified.png) describes closer to the refactor described here
+
+![original thinking: generic-tracker](images/intake-routing-generic-tracker.png) a generic design with an eye toward replacing Zendesk
 
 ## Decision
 

@@ -8,8 +8,7 @@ system (CI/CD).
 
 ## Environments
 
-Details about the environments in use can be found in
-[environments.md](environments.md). In summary:
+Details about the environments:
 
 - Staging - an experimental environment. Generally up to date
   with the `master` branch, as it is deployed whenever `master` is
