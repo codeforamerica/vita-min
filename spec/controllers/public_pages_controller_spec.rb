@@ -4,6 +4,11 @@ RSpec.describe PublicPagesController do
   render_views
 
   describe "#home" do
+    it "shows an offseason banner" do
+      get :home
+      expect(response.body).to include("closed for this tax season")
+    end
+
     context "in production" do
       before do
         allow(Rails).to receive(:env).and_return("production".inquiry)

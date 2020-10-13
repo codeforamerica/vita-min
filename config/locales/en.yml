@@ -1377,6 +1377,7 @@ en:
         notice_html: Due to COVID-19, a number of VITA sites and all TCE sites are closed for an undetermined period of time. Please call a site before visiting to confirm hours. To get connected with a VITA site online and have a VITA site assist you with your taxes remotely, visit GetYourRefund.org and click "Get Started." You can also visit the %{free_file_link} to find other free online tax preparation tools.
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
+        off_season: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January.
       footer:
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
         volunteer_sign_in: Volunteer sign in
