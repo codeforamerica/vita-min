@@ -1422,8 +1422,7 @@ es:
           placeholder: Ingrese su código postal
           prepare_your_own_html: También puede preparar su propia declaración de impuestos utilizando el %{free_file_link} para encontrar una manera gratuita de hacerlo en línea.
           results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip} (%{zip_name}).
-          try_another_or_apply_html: Intente otro código postal o con nuestro %{intake_link}.
-          try_intake_form: formulario en línea de VITA gratuito
+          try_another_or_apply_html: Intente otro código postal.
         title: Ubicar
       show:
         appointment_info: Las citas son %{appointment_info}.
