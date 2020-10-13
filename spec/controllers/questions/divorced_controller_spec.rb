@@ -10,6 +10,9 @@ RSpec.describe Questions::DivorcedController do
       end
     end
 
+    it_behaves_like :an_offseason_intake_page, :edit
+    it_behaves_like :an_offseason_intake_page, :update
+
     context "with an intake that has not filled out the ever_married column" do
       let!(:intake) { create :intake, ever_married: "unfilled" }
 

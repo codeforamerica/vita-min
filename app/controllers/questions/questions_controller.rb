@@ -1,7 +1,6 @@
 module Questions
   class QuestionsController < ApplicationController
-    before_action :require_intake
-    before_action :redirect_home, if: -> { Rails.env.production? || Rails.env.demo? }
+    before_action :redirect_offseason_intake, :require_intake
     delegate :form_name, to: :class
     delegate :form_class, to: :class
 

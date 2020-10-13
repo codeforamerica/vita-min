@@ -9,6 +9,9 @@ RSpec.describe Questions::AdditionalInfoController do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
+  it_behaves_like :an_offseason_intake_page, :edit
+  it_behaves_like :an_offseason_intake_page, :update
+
   describe "#update", active_job: true do
     let(:params) do
       { additional_info_form: { additional_info: "I moved here from Alaska." } }
@@ -31,5 +34,6 @@ RSpec.describe Questions::AdditionalInfoController do
         expect(SendIntakePdfToZendeskJob).not_to have_been_enqueued
       end
     end
+
   end
 end

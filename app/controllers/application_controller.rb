@@ -244,8 +244,8 @@ class ApplicationController < ActionController::Base
     Time.use_zone(current_user.timezone) { yield }
   end
 
-  def redirect_home
-    redirect_to root_path
+  def redirect_offseason_intake
+    redirect_to root_path if Rails.env.production?
   end
 
   rescue_from CanCan::AccessDenied do |exception|

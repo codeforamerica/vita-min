@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Questions::BankDetailsController do
+  it_behaves_like :an_offseason_intake_page, :edit
+  it_behaves_like :an_offseason_intake_page, :update
   describe ".show?" do
     let(:refund_method) {nil}
     let(:pay_from_bank) {nil}

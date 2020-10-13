@@ -11,6 +11,9 @@ RSpec.describe Questions::ChatWithUsController do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
+  it_behaves_like :an_offseason_intake_page, :edit
+  it_behaves_like :an_offseason_intake_page, :update
+
   describe "#edit" do
     context "with a non-eip intake" do
       context "with an intake with a ZIP code" do

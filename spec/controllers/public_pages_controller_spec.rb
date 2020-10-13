@@ -16,6 +16,11 @@ RSpec.describe PublicPagesController do
         expect(response.body).not_to include("https://www.getyourrefund.org")
       end
 
+      it "does show a banner telling users that intakes are closed" do
+        get :home
+        expect(response.body).to include("services are closed for this tax season.")
+      end
+
       it "includes GA script in html" do
         get :home
 
@@ -48,6 +53,8 @@ RSpec.describe PublicPagesController do
         expect(response.body).not_to include "https://www.googletagmanager.com/gtag/js?id=UA-156157414-1"
       end
     end
+
+
 
     context "in development env" do
       before do

@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe Questions::BacktaxesController do
   render_views
 
+  it_behaves_like :an_offseason_intake_page, :edit
+  it_behaves_like :an_offseason_intake_page, :update
   describe "#update" do
     before do
       session[:source] = "source_from_session"

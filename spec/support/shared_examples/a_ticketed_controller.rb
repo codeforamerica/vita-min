@@ -1,4 +1,4 @@
-shared_examples :a_ticketed_controller do |get_action|
+shared_examples :a_ticketed_controller do |get_action, bypass_offseason: false|
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
@@ -49,10 +49,11 @@ shared_examples :a_ticketed_controller do |get_action|
 
       it "redirects to the start of the questions workflow" do
         get get_action
-
-        expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
+        expected_path = bypass_offseason ? question_path(:id => QuestionNavigation.first) : root_path
+        expect(response).to redirect_to(expected_path)
       end
     end
+
 
     context "in any other environment" do
       before { allow(Rails).to receive(:env).and_return "demo".inquiry }
@@ -73,8 +74,8 @@ shared_examples :a_ticketed_controller do |get_action|
 
       it "redirects to the start of the questions workflow" do
         get get_action
-
-        expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
+        expected_path = bypass_offseason ? question_path(:id => QuestionNavigation.first) : root_path
+        expect(response).to redirect_to(expected_path)
       end
     end
 

@@ -1,7 +1,6 @@
 module Diy
   class DiyController < ApplicationController
-    before_action :require_diy_intake
-    before_action :redirect_home, if: -> { Rails.env.development? }
+    before_action :require_diy_intake, :redirect_offseason_intake
     delegate :form_name, to: :class
     delegate :form_class, to: :class
 

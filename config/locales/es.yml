@@ -788,13 +788,6 @@ es:
           header: Preguntas
           resolve: Haremos todo lo posible para resolver el problema.
         title: Política de Privacidad
-      stimulus_banner:
-        heading: ¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?
-        subheading: La fecha límite para conseguir tu cheque de estímulo a través de la aplicación en línea del IRS se ha extendido hasta el 21 de noviembre.
-        facts_html:
-          - "Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment'>IRS Get My Payment website</a>"
-          - "Solicita tu cheque de estímulo directamente a través de <a href='https://www.irs.gov/es/coronavirus/non-filers-enter-payment-info-here'>IRS nonfiler tool website</a>"
-          - "Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href='tel:1-844-322-3639'>+1 (844) 322-3639</a>"
       stimulus_payment:
         faq:
           eip:
@@ -1384,6 +1377,7 @@ es:
         notice_html: Por la pandemia de COVID-19, varios centros de VITA y todos los centros TCE permanecerán cerrados durante un período de tiempo indeterminado. Llame antes de visitar las oficinas para confirmar el horario de atención. Para conectarse con un sitio de VITA en línea y recibir ayuda con su declaración de impuestos de forma remota, visite GetYourRefund.org y haga clic en "Get Started" ("Empezar"). También puede visitar %{free_file_link} para encontrar otras herramientas gratuitas de preparación de impuestos en línea.
       environment_warning:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
+        off_season: Los servicios GetYourRefund están cerrados para esta temporada de impuestos. Nos daría mucho gusto poder trabajar con usted el próximo año y ayudarle a declarar sus impuestos absolutamente gratis.
       footer:
         service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
         volunteer_sign_in: Sesión de voluntarios

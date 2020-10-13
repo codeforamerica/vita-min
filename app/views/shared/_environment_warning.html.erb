@@ -8,3 +8,13 @@
     </div>
   </div>
 <% end %>
+
+<% if Rails.env.production? %>
+  <div class="slab slab--flash flash--offseason-warning">
+    <div class="grid">
+      <div class="grid__item">
+        <%= t("views.shared.environment_warning.off_season")%>
+      </div>
+    </div>
+  </div>
+<% end %>

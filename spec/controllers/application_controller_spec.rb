@@ -728,7 +728,7 @@ RSpec.describe ApplicationController do
       end
     end
 
-    it_behaves_like :a_ticketed_controller, :index
+    it_behaves_like :a_ticketed_controller, :index, bypass_offseason: true
   end
 
   describe "#set_time_zone" do

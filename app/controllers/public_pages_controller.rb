@@ -1,7 +1,7 @@
 class PublicPagesController < ApplicationController
 
   skip_before_action :check_maintenance_mode
-  before_action :redirect_home, if: -> { Rails.env.production? }, only: [:diy_home]
+  before_action :redirect_offseason_intake, only: [:diy_home]
   def include_analytics?
     true
   end

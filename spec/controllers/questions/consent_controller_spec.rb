@@ -8,6 +8,9 @@ RSpec.describe Questions::ConsentController do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
+  it_behaves_like :an_offseason_intake_page, :edit
+  it_behaves_like :an_offseason_intake_page, :update
+
   describe "#update" do
     context "with valid params" do
       let (:params) do
