@@ -4,34 +4,48 @@ Vita-Min is a Rails app that helps people access the VITA program through a digi
 
 ## Setup
 
-```bash
-# 1. Install Ruby using your preferred installation method. For example, to
-# install it with rbenv:
-brew install rbenv
-rbenv install
+1.  Install the project dependencies.
+    To do so using homebrew, you can run the following from the project root: 
+    
+    ```bash
+    brew bundle
+    ```
 
-# 2. Install postgresql using your preferred installation method. You'll need
-# the PostGIS extension as well.
-brew install postgresql postgis
+1.  Install Ruby (for example with rbenv):
+ 
+    ```bash
+    rbenv install
+    ```
 
-# 3. Install system dependencies
-brew install imagemagick poppler ghostscript yarn
-gem install bundler
-rbenv rehash
+1.  Install the bundler gem and use to install the project gems:
 
-# 4. Install code dependencies
-yarn
-bundle install
+    ```bash
+    gem install bundler
+    rbenv rehash
+    bundle install
+    ```
 
-# 4. Install PDFtk
-# Download from: https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg
+1.  Install frontend dependencies:
 
-# 5. Get the secret key from LastPass / someone who has it set up.
-echo "[secret key]" > config/master.key
+    ```bash
+    yarn
+    ```
 
-# 6. Initialize the database
-rails db:terraform
-```
+1.  Download and install PDFtk from
+    https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg
+
+1.  Get the secret key from LastPass / someone who has it set up.
+    Add it to your configuration:
+
+    ```bash
+    echo "[secret key]" > config/master.key
+    ```
+
+1.  Initialize the database:
+
+    ```bash
+    rails db:terraform
+    ```
 
 ## Running background jobs in development
 
