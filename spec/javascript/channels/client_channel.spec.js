@@ -4,11 +4,11 @@ import consumer from "../../../app/javascript/channels/consumer";
 
 describe("Client channel", () => {
     test("can add an element to the page", () => {
-        document.body.innerHTML = '<div id="contact-history">old<p>unrelated</p></div>';
+        document.body.innerHTML = '<div class="message-list">old<p>unrelated</p></div>';
 
-        callback.received(["#contact-history", '<p id="#new-message">a message came in</p>']);
+        callback.received(['<p id="#new-message">a message came in</p>']);
         expect(document.body.innerHTML).toEqual(
-            '<div id="contact-history">old<p>unrelated</p><p id="#new-message">a message came in</p></div>'
+            '<div class="message-list">old<p>unrelated</p><p id="#new-message">a message came in</p></div>'
         );
     });
 
