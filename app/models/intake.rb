@@ -454,6 +454,16 @@ class Intake < ApplicationRecord
     (most_recent_filing_year.to_i - 1).to_s if most_recent_filing_year.present?
   end
 
+  def marital_statuses
+    [
+        ("Married" if married_yes?),
+        ("Lived with spouse" if lived_with_spouse_yes?),
+        ("Legally separated #{separated_year}" if separated_yes?),
+        ("Divorced #{divorced_year}" if divorced_yes?),
+        ("Widowed #{widowed_year}" if widowed_yes?)
+    ].compact.presence || ["Single"]
+  end
+
   def assign_vita_partner!
     # don't re-assign if ZD ticket already exists
     return if intake_ticket_id.present?
@@ -587,6 +597,14 @@ class Intake < ApplicationRecord
     text << "    • Text message\n" if sms_notification_opt_in_yes?
     text << "    • Email\n" if email_notification_opt_in_yes?
     text
+  end
+
+  def formatted_mailing_address
+    return "N/A" unless street_address
+    <<~ADDRESS
+      #{street_address}
+      #{city}, #{state} #{zip_code}
+    ADDRESS
   end
 
   private

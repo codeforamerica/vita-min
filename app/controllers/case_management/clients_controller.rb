@@ -23,15 +23,6 @@ module CaseManagement
       redirect_to case_management_client_path(id: client.id)
     end
 
-    def show
-      @contact_history = (
-        @client.outgoing_text_messages.includes(:user) +
-        @client.incoming_text_messages +
-        @client.outgoing_emails.includes(:user) +
-        @client.incoming_emails
-      ).sort_by(&:datetime)
-      @outgoing_text_message = OutgoingTextMessage.new(client: @client)
-      @outgoing_email = OutgoingEmail.new(client: @client)
-    end
+    def show; end
   end
 end
