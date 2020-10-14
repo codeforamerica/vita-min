@@ -41,7 +41,7 @@
     <%= f.hidden_field :client_id %>
     <div class="attachment-uploader">
       <%= f.cfa_file_field :attachment, t('general.attachment'), classes: ['attachment-upload'] %>
-      <div id="attachment-image-preview-wrapper" %>
+      <div id="attachment-image-preview-wrapper">
         <%= image_tag "file-icon.svg", id: "attachment-image-preview", alt: "" %>
       </div>
       <button id="attachment-image-clear" hidden>Remove Attachment</button>
