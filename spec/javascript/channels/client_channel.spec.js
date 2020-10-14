@@ -2,19 +2,19 @@ import {callback, getChannelName} from "channels/client_channel";
 
 describe("callback.received", () => {
     test("can add an element to the page", () => {
-        document.body.innerHTML = '<div class="message-list">old<p>unrelated</p></div>';
+        document.body.innerHTML = '<ul data-js="messages-pub-sub"><li>old</li><li>unrelated</li></ul>';
 
-        callback.received(['<p id="#new-message">a message came in</p>']);
+        callback.received(['<li id="#new-message">a message came in</li>']);
         expect(document.body.innerHTML).toEqual(
-            '<div class="message-list">old<p>unrelated</p><p id="#new-message">a message came in</p></div>'
+            '<ul data-js="messages-pub-sub"><li>old</li><li>unrelated</li><li id="#new-message">a message came in</li></ul>'
         );
     });
 });
 
 describe("getChannelName", () => {
     test("can create a client channel based on id in url", () => {
-        window.clientId = 234219;
+        document.body.innerHTML = '<ul data-js="messages-pub-sub" data-client-id="234219"></ul>';
 
-        expect(getChannelName()).toEqual({channel: "ClientChannel", id: 234219});
+        expect(getChannelName()).toEqual({channel: "ClientChannel", id: "234219"});
     })
 });
