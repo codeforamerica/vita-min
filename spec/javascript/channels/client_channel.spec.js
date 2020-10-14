@@ -1,6 +1,6 @@
 import {callback, getChannelName} from "channels/client_channel";
 
-describe("Client channel", () => {
+describe("callback.received", () => {
     test("can add an element to the page", () => {
         document.body.innerHTML = '<div class="message-list">old<p>unrelated</p></div>';
 
@@ -9,7 +9,9 @@ describe("Client channel", () => {
             '<div class="message-list">old<p>unrelated</p><p id="#new-message">a message came in</p></div>'
         );
     });
+});
 
+describe("getChannelName", () => {
     test("can create a client channel based on id in url", () => {
         window.clientId = 234219;
 
