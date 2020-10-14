@@ -27,10 +27,16 @@ Rails.application.routes.draw do
       collection do
         (QuestionNavigation.controllers + EipOnlyNavigation.controllers).uniq.each do |controller_class|
           { get: :edit, put: :update }.each do |method, action|
-            match "/#{controller_class.to_param}",
-                  action: action,
-                  controller: controller_class.controller_path,
-                  via: method
+            if Rails.configuration.offseason
+              match "/#{controller_class.to_param}",
+                    via: method,
+                    to: redirect { |_, request| "/#{request.params[:locale]}" }
+            else
+              match "/#{controller_class.to_param}",
+                    action: action,
+                    controller: controller_class.controller_path,
+                    via: method
+            end
           end
         end
       end
@@ -40,10 +46,16 @@ Rails.application.routes.draw do
       collection do
         DocumentNavigation.controllers.uniq.each do |controller_class|
           { get: :edit, put: :update }.each do |method, action|
-            match "/#{controller_class.to_param}",
-                  action: action,
-                  controller: controller_class.controller_path,
-                  via: method
+            if Rails.configuration.offseason && (controller_class.to_param.exclude? "requested-documents-later")
+              match "/#{controller_class.to_param}",
+                    via: method,
+                    to: redirect { |_, request| "/#{request.params[:locale]}" }
+            else
+              match "/#{controller_class.to_param}",
+                    action: action,
+                    controller: controller_class.controller_path,
+                    via: method
+            end
           end
         end
       end
@@ -84,9 +96,9 @@ Rails.application.routes.draw do
     get "/tax-questions", to: "public_pages#tax_questions"
     get "/faq", to: "public_pages#faq"
     get "/stimulus", to: "public_pages#stimulus"
-    get "/full-service", to: redirect('/', status: 302)
-    get "/eip", to: redirect('/', status: 302)
-    get "/EIP", to: redirect('/', status: 302)
+    get "/full-service", to: redirect('/')
+    get "/eip", to: redirect('/')
+    get "/EIP", to: redirect('/')
     get "/500", to: "public_pages#internal_server_error"
     get "/422", to: "public_pages#internal_server_error"
     get "/404", to: "public_pages#page_not_found"

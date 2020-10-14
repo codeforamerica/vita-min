@@ -21,6 +21,11 @@ RSpec.describe PublicPagesController do
         expect(response.body).not_to include("https://www.getyourrefund.org")
       end
 
+      it "does show a banner telling users that intakes are closed" do
+        get :home
+        expect(response.body).to include("services are closed for this tax season.")
+      end
+
       it "includes GA script in html" do
         get :home
 
@@ -89,9 +94,9 @@ RSpec.describe PublicPagesController do
       end
     end
 
-    context "in production" do
+    context "when offseason config is true" do
       before do
-        allow(Rails).to receive(:env).and_return("production".inquiry)
+        allow(Rails.configuration).to receive(:offseason).and_return(true)
         allow(I18n).to receive(:locale).and_return(locale)
       end
 

@@ -5,10 +5,19 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
   let(:token) {"t0k3nN0tbr0k3n?"}
   let!(:original_intake) { create :intake, requested_docs_token: token, intake_ticket_id: 123 }
   let!(:documents_request) { create :documents_request, intake: original_intake }
+  before do
+    # everything should still work in the offseason
+    allow(Rails.configuration).to receive(:offseason).and_return true
+    Rails.application.reload_routes!
+  end
+
+  after do
+    allow(Rails.configuration).to receive(:offseason).and_call_original
+    Rails.application.reload_routes!
+  end
 
   describe "#edit" do
     context "with no session" do
-
       context "with no token in the params" do
         it "redirects to an error page" do
           get :edit, params: {}

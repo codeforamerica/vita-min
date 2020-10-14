@@ -43,21 +43,4 @@ describe "partner source routing" do
   it "rejects arbitrary paths that contain non-slug-like characters" do
     expect(get: "/4Rb!_trar-y").not_to be_routable
   end
-
-  context "landing pages during the off-season", type: :request do
-    it "redirects /full-service to the homepage" do
-      get "/full-service"
-      expect(response).to redirect_to("/")
-    end
-
-    it "redirects /EIP to the homepage" do
-      get "/EIP"
-      expect(response).to redirect_to("/")
-    end
-
-    it "redirects /eip to the homepage" do
-      get "/eip"
-      expect(response).to redirect_to("/")
-    end
-  end
 end
