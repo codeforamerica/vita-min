@@ -44,6 +44,10 @@
 
       <%= render "shared/environment_warning" %>
 
+      <% if show_offseason_banner? %>
+        <%= render "shared/offseason_alert" %>
+      <% end %>
+
       <% if flash.any? %>
         <% flash.each do |type, message| %>
           <div class="slab slab--flash flash--<%= type %>">

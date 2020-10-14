@@ -17,6 +17,14 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
   end
 
   describe "#edit" do
+    context "when page renders successfully" do
+      it "doesn't show the closed banner during offseason" do
+        get :edit, params: {token: token}
+
+        expect(response.body).not_to include "closed for this tax season"
+      end
+    end
+
     context "with no session" do
       context "with no token in the params" do
         it "redirects to an error page" do

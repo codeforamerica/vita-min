@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   around_action :switch_locale
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :show_progress?
-
+  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -242,6 +241,10 @@ class ApplicationController < ActionController::Base
 
   def set_time_zone
     Time.use_zone(current_user.timezone) { yield }
+  end
+
+  def show_offseason_banner?
+    true
   end
 
   rescue_from CanCan::AccessDenied do |exception|
