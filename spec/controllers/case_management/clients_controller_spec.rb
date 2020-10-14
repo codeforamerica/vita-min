@@ -38,6 +38,7 @@ RSpec.describe CaseManagement::ClientsController do
             expect(client.phone_number).to eq "14155537865"
             expect(client.preferred_name).to eq "Casey"
             expect(client.documents.first).to eq(document)
+            expect(client.intakes).to include(intake)
             expect(intake.reload.client).to eq client
             expect(response).to redirect_to case_management_client_path(id: client.id)
           end
@@ -60,7 +61,27 @@ RSpec.describe CaseManagement::ClientsController do
   end
 
   describe "#show" do
-    let(:client) { create :client }
+    let(:intake) do
+      create :intake,
+             client: (create :client),
+             primary_first_name: "Legal",
+             primary_last_name: "Name",
+             locale: "en",
+             preferred_interview_language: "es",
+             needs_help_2019: "yes",
+             needs_help_2018: "yes",
+             married: "yes",
+             lived_with_spouse: "yes",
+             filing_joint: "yes",
+             state: "CA",
+             city: "Oakland",
+             zip_code: "94606",
+             street_address: "123 Lilac Grove Blvd",
+             spouse_first_name: "My",
+             spouse_last_name: "Spouse"
+    end
+
+    let(:client) { intake.client }
     let(:params) do
       { id: client.id }
     end
@@ -76,10 +97,21 @@ RSpec.describe CaseManagement::ClientsController do
 
       it "shows client information" do
         get :show, params: params
+        profile = Nokogiri::HTML.parse(response.body).at_css(".client-profile")
 
-        expect(response.body).to include(client.preferred_name)
-        expect(response.body).to include(client.email_address)
-        expect(response.body).to include(client.phone_number)
+        expect(profile).to have_text(client.preferred_name)
+        expect(profile).to have_text(client.legal_name)
+        expect(profile).to have_text("Intake Language: " + client.intake.locale)
+        expect(profile).to have_text("Phone Language: " + client.intake.preferred_interview_language)
+        expect(profile).to have_text("2019, 2018")
+        expect(profile).to have_text(client.email_address)
+        expect(profile).to have_text(client.phone_number)
+        expect(profile).to have_text("Marital Status: Married, Lived with spouse")
+        expect(profile).to have_text("Filing Status: Filing jointly")
+        expect(profile).to have_text("Oakland, CA 94606")
+        expect(profile).to have_text("Spouse Contact Info")
+        # street address
+        # city, state zipcode
       end
     end
   end

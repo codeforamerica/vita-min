@@ -29,6 +29,16 @@ class Client < ApplicationRecord
   has_many :documents
   has_many :notes
 
+  def intake
+    intakes && intakes.first
+  end
+
+  def legal_name
+    return unless intake&.primary_first_name? && intake&.primary_last_name?
+
+    "#{intake.primary_first_name} #{intake.primary_last_name}"
+  end
+
   def self.create_from_intake(intake)
     create(
       preferred_name: intake.preferred_name,
@@ -37,6 +47,7 @@ class Client < ApplicationRecord
       sms_phone_number: intake.sms_phone_number,
       vita_partner: intake.vita_partner,
       documents: intake.documents,
+      intakes: [intake]
     )
   end
 end
