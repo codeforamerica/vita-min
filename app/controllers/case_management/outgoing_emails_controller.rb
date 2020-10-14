@@ -11,6 +11,7 @@ module CaseManagement
       if @outgoing_email.save
         OutgoingEmailMailer.user_message(outgoing_email: @outgoing_email).deliver_later
       end
+      ClientChannel.broadcast_contact_record(@outgoing_email)
       redirect_to case_management_client_messages_path(client_id: @outgoing_email.client_id)
     end
 

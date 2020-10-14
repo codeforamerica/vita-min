@@ -10,6 +10,7 @@ module CaseManagement
       @outgoing_text_message.to_phone_number = @outgoing_text_message.client.sms_phone_number
       if @outgoing_text_message.save
         SendOutgoingTextMessageJob.perform_later(@outgoing_text_message.id)
+        ClientChannel.broadcast_contact_record(@outgoing_text_message)
       end
       redirect_to case_management_client_messages_path(client_id: @client.id)
     end

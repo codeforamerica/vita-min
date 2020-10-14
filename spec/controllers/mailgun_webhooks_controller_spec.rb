@@ -93,6 +93,17 @@ RSpec.describe MailgunWebhooksController do
           email = IncomingEmail.last
           expect(email.client).to eq client
         end
+
+        context "real-time updates" do
+          before do
+            allow(ClientChannel).to receive(:broadcast_contact_record)
+          end
+
+          it "sends a real-time update to anyone on this client's page", active_job: true do
+            post :create_incoming_email, params: params
+            expect(ClientChannel).to have_received(:broadcast_contact_record).with(IncomingEmail.last)
+          end
+        end
       end
 
       context "with multiple matching clients" do

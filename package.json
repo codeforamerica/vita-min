@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@rails/actioncable": "^6.0.3-4",
     "@rails/webpacker": "5.2.1"
   },
   "devDependencies": {
