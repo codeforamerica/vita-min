@@ -82,44 +82,6 @@ RSpec.describe PublicPagesController do
     end
   end
 
-  describe "#diy_home" do
-    context "in demo env" do
-      before do
-        allow(Rails).to receive(:env).and_return("demo".inquiry)
-      end
-
-      it "renders the template" do
-        get :diy_home
-        expect(response).to be_ok
-      end
-    end
-
-    context "when offseason config is true" do
-      before do
-        allow(Rails.configuration).to receive(:offseason).and_return(true)
-        allow(I18n).to receive(:locale).and_return(locale)
-      end
-
-      context "with English locale" do
-        let(:locale) { "en" }
-
-        it "redirects to the English homepage" do
-          get :diy_home
-          expect(response).to redirect_to("/en")
-        end
-      end
-
-      context "with Spanish locale" do
-        let(:locale) { "es" }
-
-        it "redirects to the English homepage" do
-          get :diy_home
-          expect(response).to redirect_to("/es")
-        end
-      end
-    end
-  end
-
   describe "#privacy_policy" do
     it "renders successfully" do
       get :privacy_policy

@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
-  def scoped_navigation_routes(context, navigation)
+  def scoped_navigation_routes(context, navigation, as_redirects: false)
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
         { get: :edit, put: :update }.each do |method, action|
-          match "/#{controller_class.to_param}",
-                action: action,
-                controller: controller_class.controller_path,
-                via: method
+          if as_redirects
+            match "/#{controller_class.to_param}",
+                  via: method,
+                  to: redirect { |_, request| "/#{request.params[:locale]}" }
+          else
+            match "/#{controller_class.to_param}",
+                  action: action,
+                  controller: controller_class.controller_path,
+                  via: method
+          end
         end
       end
       yield if block_given?
@@ -74,15 +80,18 @@ Rails.application.routes.draw do
     get "/sign-up", to: "signups#new"
 
     # FSA routes
-    scoped_navigation_routes(:diy, DiyNavigation) do
-      root "public_pages#diy_home"
-      get "/:token", to: "diy/start_filing#start", as: :start_filing
+    scoped_navigation_routes(:diy, DiyNavigation, as_redirects: Rails.configuration.offseason) do
+      if Rails.configuration.offseason
+        root to: redirect { |_, request| "/#{request.params[:locale]}" }
+        get "/:token", to: redirect { |_, request| "/#{request.params[:locale]}" }, as: :start_filing
+      else
+        root "public_pages#diy_home"
+        get "/:token", to: "diy/start_filing#start", as: :start_filing
+      end
     end
 
     # Stimulus routes
-    scoped_navigation_routes(:stimulus, StimulusNavigation)
-
-    get '/diy/check-email', to: 'public_pages#check_email'
+    scoped_navigation_routes(:stimulus, StimulusNavigation, as_redirects: Rails.configuration.offseason)
 
     get "/:organization/drop-off", to: "intake_site_drop_offs#new", as: :new_drop_off
     post "/:organization/drop-offs", to: "intake_site_drop_offs#create", as: :create_drop_off

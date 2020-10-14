@@ -6,9 +6,7 @@ class PublicPagesController < ApplicationController
 
   def home; end
 
-  def diy_home
-    redirect_to root_path if Rails.configuration.offseason
-  end
+  def diy_home; end
 
   def other_options; end
 
