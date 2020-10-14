@@ -12,9 +12,8 @@ export const callback = {
   },
 
   received(data) {
-    let selector = data[0];
-    let newContent = data[1];
+    let newContent = data[0];
 
-    document.querySelector(selector).innerHTML += newContent;
+    document.querySelector(".message-list").innerHTML += newContent;
   }
 };

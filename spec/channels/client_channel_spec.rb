@@ -41,7 +41,7 @@ RSpec.describe ClientChannel, type: :channel do
     it "renders the message partial with the message" do
       expect do
         ClientChannel.broadcast_contact_record(outgoing_text_message)
-      end.to have_broadcasted_to(ClientChannel.broadcasting_for(outgoing_text_message.client)).with([".message-list", "template output"])
+      end.to have_broadcasted_to(ClientChannel.broadcasting_for(outgoing_text_message.client)).with(["template output"])
       expect(ApplicationController).to have_received(:render).with hash_including(locals: { contact_record: outgoing_text_message })
     end
   end
