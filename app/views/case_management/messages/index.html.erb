@@ -43,7 +43,10 @@
   <% end %>
 <% end %>
 
+
 <% content_for :script do %>
+  <script> window.clientId = <%= @client.id %>;</script>
+
   <script>
       document.addEventListener("DOMContentLoaded", function(){
         var imageUploader = document.querySelector('input.attachment-upload');

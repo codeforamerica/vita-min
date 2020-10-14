@@ -1,6 +1,6 @@
-export function getChannelName(url) {
-  return { channel: "ClientChannel", id: url.match(/\/clients\/(\d*)\/messages/)[1] }
-};
+export function getChannelName() {
+  return { channel: "ClientChannel", id: window.clientId }
+}
 
 export const callback = {
   connected() {

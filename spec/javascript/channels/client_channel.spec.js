@@ -1,6 +1,4 @@
 import {callback, getChannelName} from "channels/client_channel";
-import {describe} from "@jest/globals";
-import consumer from "../../../app/javascript/channels/consumer";
 
 describe("Client channel", () => {
     test("can add an element to the page", () => {
@@ -13,8 +11,8 @@ describe("Client channel", () => {
     });
 
     test("can create a client channel based on id in url", () => {
-        expect(getChannelName("http://www.example.com/en/case_management/clients/14/messages")).toEqual(
-            {channel: "ClientChannel", id: "14"}
-        );
+        window.clientId = 234219;
+
+        expect(getChannelName()).toEqual({channel: "ClientChannel", id: 234219});
     })
 });
