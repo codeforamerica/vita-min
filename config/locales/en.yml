@@ -59,6 +59,20 @@ en:
         client_messages: Messages
         client_notes: Notes
         client_profile: Client Profile
+      show:
+        legal_name: Legal Name
+        preferred_name: Preferred Name
+        intake_language: Intake Language
+        phone_interview_language: Phone Interview Language
+        filing_years: Filing Years
+        marital_status: Marital Status
+        filing_status: Filing Status
+        email: Email
+        phone: Phone
+        texting_phone: Phone For Texting
+        mailing_address: Mailing Address
+        spouse_contact_info: Spouse Contact Info
+        primary_contact_info: Primary Contact Info
     documents:
       edit:
         title: Edit Document
@@ -254,6 +268,12 @@ en:
       access_denied: You are not authorized to access that page
     today: Today
     zip_code: ZIP code
+    married: Married
+    lived_with_spouse: Lived with spouse
+    separated: Separated
+    divorced: Divorced
+    widowed: Widowed
+    single: Single
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

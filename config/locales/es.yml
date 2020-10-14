@@ -59,6 +59,20 @@ es:
         client_messages: Mensajes
         client_notes: Notas
         client_profile: Perfil del cliente
+      show:
+        legal_name: Nombre legal
+        preferred_name: Nombre preferido
+        intake_language: Idioma del formulario de admisión
+        phone_interview_language: Idioma prefiere para la revisión
+        filing_years: Años para declarar
+        marital_status: Estado civil
+        filing_status: Estado civil para declarar
+        email: Email
+        phone: Número de teléfono
+        texting_phone: Número celular
+        mailing_address: Dirección postal
+        spouse_contact_info: Información de contacto del cónyuge
+        primary_contact_info: Información de contacto
     documents:
       edit:
         title: Editar Documento
@@ -254,6 +268,12 @@ es:
       access_denied: No tiene autorización para acceder a esa página
     today: Hoy
     zip_code: Código postal
+    married: Casado
+    lived_with_spouse: Vivieron con su cónyuge
+    separated: Separado
+    divorced: Divorciado
+    widowed: Viudo/a
+    single: Soltera
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
