@@ -25,7 +25,10 @@ RSpec.describe CaseManagement::OutgoingEmailsController do
             }
           }
         end
-        before { allow(DateTime).to receive(:now).and_return(expected_time) }
+        before do
+          allow(DateTime).to receive(:now).and_return(expected_time)
+          allow(ClientChannel).to receive(:broadcast_contact_record)
+        end
 
         it "creates an OutgoingEmail, asks it to deliver itself later, then redirects to client show", active_job: true do
           expect do
@@ -42,15 +45,9 @@ RSpec.describe CaseManagement::OutgoingEmailsController do
           expect(response).to redirect_to case_management_client_messages_path(client_id: client.id)
         end
 
-        context "real-time updates" do
-          before do
-            allow(ClientChannel).to receive(:broadcast_contact_record)
-          end
-
-          it "sends a real-time update to anyone on this client's page", active_job: true do
-            post :create, params: params
-            expect(ClientChannel).to have_received(:broadcast_contact_record).with(OutgoingEmail.last)
-          end
+        it "sends a real-time update to anyone on this client's page", active_job: true do
+          post :create, params: params
+          expect(ClientChannel).to have_received(:broadcast_contact_record).with(OutgoingEmail.last)
         end
       end
 

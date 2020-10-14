@@ -4,25 +4,25 @@ RSpec.describe TwilioWebhooksController do
   describe "#create_incoming_text_message" do
     let(:incoming_message_params) do
       {
-        "ToCountry"=>"US",
-        "ToState"=>"OH",
-        "SmsMessageSid"=>"SM7067f0beef82c65f976dc2386a7sgd7w",
-        "NumMedia"=>"0",
-        "ToCity"=>"",
-        "FromZip"=>"95050",
-        "SmsSid"=>"SM7067f0beef82c65f976dc2386a7sgd7w",
-        "FromState"=>"CA",
-        "SmsStatus"=>"received",
-        "FromCity"=>"LOS GATOS",
-        "Body"=>"Hello, it me",
-        "FromCountry"=>"US",
-        "To"=>"+4158161286",
-        "ToZip"=>"",
-        "NumSegments"=>"1",
-        "MessageSid"=>"SM7067f0beef82c65fb6785v46754v6754",
-        "AccountSid"=>"AC70b4e3aa44fe961398q89we7yr98aw7y",
-        "From"=>"+15552341122",
-        "ApiVersion"=>"2010-04-01"
+          "ToCountry" => "US",
+          "ToState" => "OH",
+          "SmsMessageSid" => "SM7067f0beef82c65f976dc2386a7sgd7w",
+          "NumMedia" => "0",
+          "ToCity" => "",
+          "FromZip" => "95050",
+          "SmsSid" => "SM7067f0beef82c65f976dc2386a7sgd7w",
+          "FromState" => "CA",
+          "SmsStatus" => "received",
+          "FromCity" => "LOS GATOS",
+          "Body" => "Hello, it me",
+          "FromCountry" => "US",
+          "To" => "+4158161286",
+          "ToZip" => "",
+          "NumSegments" => "1",
+          "MessageSid" => "SM7067f0beef82c65fb6785v46754v6754",
+          "AccountSid" => "AC70b4e3aa44fe961398q89we7yr98aw7y",
+          "From" => "+15552341122",
+          "ApiVersion" => "2010-04-01"
       }
     end
 
@@ -64,6 +64,9 @@ RSpec.describe TwilioWebhooksController do
         end
 
         context "with a matching client sms_phone_number" do
+          before do
+            allow(ClientChannel).to receive(:broadcast_contact_record)
+          end
           let!(:existing_client) { create :client, sms_phone_number: "15552341122" }
 
           it "creates a new IncomingTextMessage linked to the client the right data" do
@@ -75,15 +78,9 @@ RSpec.describe TwilioWebhooksController do
             expect(message.client).to eq existing_client
           end
 
-          context "real-time updates" do
-            before do
-              allow(ClientChannel).to receive(:broadcast_contact_record)
-            end
-
-            it "sends a real-time update to anyone on this client's page" do
-              post :create_incoming_text_message, params: incoming_message_params
-              expect(ClientChannel).to have_received(:broadcast_contact_record).with(IncomingTextMessage.last)
-            end
+          it "sends a real-time update to anyone on this client's page" do
+            post :create_incoming_text_message, params: incoming_message_params
+            expect(ClientChannel).to have_received(:broadcast_contact_record).with(IncomingTextMessage.last)
           end
         end
 
@@ -133,7 +130,7 @@ RSpec.describe TwilioWebhooksController do
       end
 
       it "returns a 403 status code" do
-        post :update_outgoing_text_message, params: { id: existing_message.id }
+        post :update_outgoing_text_message, params: {id: existing_message.id}
 
         expect(response.status).to eq 403
       end
@@ -142,15 +139,15 @@ RSpec.describe TwilioWebhooksController do
     context "with a valid request" do
       let(:params) do
         {
-          "SmsSid" => "SM86006fa9b56c465597ce14349as6s7a2",
-          "SmsStatus" => "delivered",
-          "MessageStatus" => "delivered",
-          "To" => "+14083483513",
-          "MessageSid" => "SM86006fa9b56c465597ce14987a3f85a2",
-          "AccountSid" => "AC70b4e3aa44fe96139823d8f00a46fre7",
-          "From" => "+15136133299",
-          "ApiVersion" => "2010-04-01",
-          "id" => existing_message.id
+            "SmsSid" => "SM86006fa9b56c465597ce14349as6s7a2",
+            "SmsStatus" => "delivered",
+            "MessageStatus" => "delivered",
+            "To" => "+14083483513",
+            "MessageSid" => "SM86006fa9b56c465597ce14987a3f85a2",
+            "AccountSid" => "AC70b4e3aa44fe96139823d8f00a46fre7",
+            "From" => "+15136133299",
+            "ApiVersion" => "2010-04-01",
+            "id" => existing_message.id
         }
       end
       before do
