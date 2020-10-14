@@ -17,7 +17,10 @@ RSpec.describe CaseManagement::OutgoingTextMessagesController do
 
     context "as an authenticated beta user" do
       let(:beta_user) { create :beta_tester }
-      before { sign_in beta_user }
+      before do
+        sign_in beta_user
+        allow(ClientChannel).to receive(:broadcast_contact_record)
+      end
 
       it "sends a text", active_job: true do
         expect {
@@ -32,15 +35,9 @@ RSpec.describe CaseManagement::OutgoingTextMessagesController do
         expect(response).to redirect_to(case_management_client_messages_path(client_id: client.id))
       end
 
-      context "real-time updates" do
-        before do
-          allow(ClientChannel).to receive(:broadcast_contact_record)
-        end
-
-        it "sends a real-time update to anyone on this client's page" do
-          post :create, params: params
-          expect(ClientChannel).to have_received(:broadcast_contact_record).with(OutgoingTextMessage.last)
-        end
+      it "sends a real-time update to anyone on this client's page" do
+        post :create, params: params
+        expect(ClientChannel).to have_received(:broadcast_contact_record).with(OutgoingTextMessage.last)
       end
     end
   end
