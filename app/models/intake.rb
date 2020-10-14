@@ -456,12 +456,12 @@ class Intake < ApplicationRecord
 
   def marital_statuses
     [
-        ("Married" if married_yes?),
-        ("Lived with spouse" if lived_with_spouse_yes?),
-        ("Legally separated #{separated_year}" if separated_yes?),
-        ("Divorced #{divorced_year}" if divorced_yes?),
-        ("Widowed #{widowed_year}" if widowed_yes?)
-    ].compact.presence || ["Single"]
+        (I18n.t("general.married") if married_yes?),
+        (I18n.t("general.lived_with_spouse") if lived_with_spouse_yes?),
+        ("#{I18n.t("general.separated")} #{separated_year}" if separated_yes?),
+        ("#{I18n.t("general.divorced")} #{divorced_year}" if divorced_yes?),
+        ("#{I18n.t("general.widowed")} #{widowed_year}" if widowed_yes?)
+    ].compact.presence || [I18n.t("general.single")]
   end
 
   def assign_vita_partner!
