@@ -1,5 +1,6 @@
 export function getChannelName() {
-  return { channel: "ClientChannel", id: window.clientId }
+  const messagesList = document.querySelector("ul[data-js='messages-pub-sub']");
+  return { channel: "ClientChannel", id: messagesList.dataset.clientId }
 }
 
 export const callback = {
@@ -14,6 +15,6 @@ export const callback = {
   received(data) {
     let newContent = data[0];
 
-    document.querySelector(".message-list").innerHTML += newContent;
+    document.querySelector("ul[data-js='messages-pub-sub']").innerHTML += newContent;
   }
 };

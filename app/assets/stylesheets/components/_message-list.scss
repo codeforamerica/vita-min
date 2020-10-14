@@ -3,3 +3,7 @@
   background-color: darken($color-grey-light, 10%);
   padding: 1rem;
 }
+
+.message-list:empty {
+  display: none;
+}
