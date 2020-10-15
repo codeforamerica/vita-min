@@ -675,7 +675,7 @@ es:
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Estamos comprometidos a proteger su información.
-        stimulus_banner:
+        stimulus_banner: &stimulus_help
           heading: ¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?
           subheading: La fecha límite para conseguir tu cheque de estímulo a través de la aplicación en línea del IRS se ha extendido hasta el 21 de noviembre.
           facts_html:
@@ -866,23 +866,12 @@ es:
               q: "¿Cuánto dinero recibiré?"
         header: Reciba su Cheque de Estímulo
         intro:
-          benefits:
-            header: Los beneficios de la declaración
-            info: Sin embargo, si está en alguna de las categorías anteriores y tiene ingresos del trabajo o personas a su cargo, podría tener derecho a créditos tributarios o a beneficios adicionales si presenta su declaración o actualiza su información en el IRS. Comuníquese con nosotros a través del chat para obtener más información.
           common_questions: Sabemos que hay muchas dudas sobre los pagos de impacto económico (EIP, por sus siglas en inglés) y tenemos algunas respuestas. Hemos seleccionado algunas preguntas frecuentes que podrían ayudarlo.
           description: Este año, muchas personas recibirán un pago de impacto económico (también conocido como "pago de estímulo") del gobierno federal. Cada persona recibirá hasta $1,200 ($2,400 para un matrimonio que declare sus impuestos conjuntamente) y obtendrá $500 adicionales por cada hijo menor de 17 años a su cargo.
           eligibility:
             header: "¿Quién es elegible?"
             info: Recibirán el pago completo los declarantes de impuestos con ingresos brutos ajustados de hasta $75,000 por persona y $150,000 por matrimonio que declare sus impuestos de forma conjunta. Para los declarantes con ingresos superiores, el monto del pago se reduce en $5 por cada $100 por encima de los umbrales de $75,000/$150,000. Los declarantes solteros con ingresos superiores a $99,000 y los declarantes conjuntos sin hijos con ingresos superiores a $198,000 no son elegibles.
           irs_info_html: El IRS publicará toda la información clave en %{irs_eip_link} cuanto disponga de ella.
-          payments:
-            exceptions:
-              header: 'A menos que tenga que presentar una declaración de impuestos por otro motivo o que tenga dependientes menores de 17 años a su cargo, usted recibirá automáticamente su pago de $1,200 si se encuentra en alguna de las siguientes categorías, por lo tanto, no tendrá que presentar una declaración:'
-              railroad: Recibe beneficios de jubilación para los trabajadores ferroviarios
-              social_security: Recibe beneficios del Seguro Social por jubilación, discapacidad (SSDI), Seguridad de Ingreso Suplementario (SSI) o para sobrevivientes
-              veterans: Recibe beneficios para veteranos
-            header: Pagos automáticos
-            info: Los contribuyentes elegibles que presentaron declaraciones de impuestos en 2019 o 2018 recibirán automáticamente un pago de impacto económico de hasta $1,200 por persona o $2,400 por matrimonio y hasta $500 por cada hijo que califique.
           tax_deadline: Aún puede recibir su Pago de Impacto Económico (estímulo) aunque haya pasado la fecha límite de impuestos.
         title: Pago de estímulo
       tax_questions:
@@ -894,6 +883,7 @@ es:
         see_faq: Consulte nuestras preguntas frecuentes
         support_html: Nuestro equipo está aquí para ayudarle. %{faq_link} o envíe una pregunta por chat, y nos comunicaremos con usted.
         title: Preguntas sobre los impuestos
+      stimulus: *stimulus_help
     questions:
       additional_info:
         help_text: Comparta cualquier nota o pregunta sobre su situación fiscal. Su preparador de impuestos se asegurará de repasar estas preguntas durante la revisión de su teléfono.

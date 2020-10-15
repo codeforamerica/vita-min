@@ -675,7 +675,7 @@ en:
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
           header: We're committed to keeping your information secure.
-        stimulus_banner:
+        stimulus_banner: &stimulus_help
           heading: Need assistance getting your stimulus check?
           subheading: The deadline to claim your stimulus through the IRS’s online tool has been extended until November 21st.
           facts_html:
@@ -866,23 +866,12 @@ en:
               q: How much will I receive?
         header: Get your Stimulus Check
         intro:
-          benefits:
-            header: The benefits of filing
-            info: However, for those in the categories above, if you have any earned income or dependents, you may be able to access additional tax credits or benefits by filing or updating your info with the IRS. Please reach out via chat for more information.
           common_questions: We know there are many questions around the Economic Impact Payments (EIP) and we have some answers! We’ve broken down some common questions to help you out.
           description: This year, many people will receive an Economic Impact Payment (often called a stimulus payment) from the federal government. You’ll get up to $1,200 for yourself ($2,400 for a married couple filing jointly) and you’ll get an additional $500 for every dependent child under the age of 17.
           eligibility:
             header: Who is eligible?
             info: Tax filers with adjusted gross income up to $75,000 for individuals and up to $150,000 for married couples filing joint returns will receive the full payment. For filers with income above those amounts, the payment amount is reduced by $5 for each $100 above the $75,000/$150,000 thresholds. Single filers with income exceeding $99,000 and $198,000 for joint filers with no children are not eligible.
           irs_info_html: The IRS will post all key information on %{irs_eip_link} as soon as it becomes available.
-          payments:
-            exceptions:
-              header: 'Unless you are otherwise required to file a tax return, or have dependents under the age of 17, you will automatically receive your $1,200 payment if you are in any of the following categories, so you are not required to file:'
-              railroad: Railroad Retirement benefits
-              social_security: Social Security retirement, disability (SSDI), Supplemental Security Income (SSI) or survivor benefits
-              veterans: Veteran’s benefits
-            header: Automatic payments
-            info: Eligible taxpayers who filed tax returns for either 2019 or 2018 will automatically receive an economic impact payment of up to $1,200 for individuals or $2,400 for married couples and up to $500 for each qualifying child.
           tax_deadline: You can still receive your Economic Impact Payment (stimulus) even though the tax deadline has passed.
         title: Stimulus Payment
       tax_questions:
@@ -894,6 +883,7 @@ en:
         see_faq: Please see our FAQ
         support_html: Our team is here to support you. %{faq_link} or submit a question via chat and we will get back to you!
         title: Tax Questions
+      stimulus: *stimulus_help
     questions:
       additional_info:
         help_text: Please share any notes or questions about your tax situation. Your tax preparer will be sure to go over these questions during your phone review.
