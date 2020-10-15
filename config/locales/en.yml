@@ -209,7 +209,8 @@ en:
     invitations: Invitations
     irs_certified_volunteers: IRS Certified Volunteers
     irs_free_file: IRS Free File
-    language:
+    language: Language
+    language_options:
       de: German
       en: English
       es: Spanish
@@ -276,6 +277,8 @@ en:
     widowed: Widowed
     single: Single
     updated_at: Updated At
+    NA: N/A
+    no_intake: No intake for client
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

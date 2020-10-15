@@ -6,7 +6,7 @@ class InterviewSchedulingForm < QuestionsForm
   end
 
   def language_options
-    I18n.backend.translations[I18n.locale][:general][:language].invert
+    I18n.backend.translations[I18n.locale][:general][:language_options].invert
   end
 
   def self.existing_attributes(intake)

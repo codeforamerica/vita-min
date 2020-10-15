@@ -120,9 +120,9 @@ RSpec.describe CaseManagement::ClientsController do
       render_views
 
       before { sign_in create(:beta_tester) }
-      let!(:george_sr) { create :client, preferred_name: "George Sr.", intakes: [ create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2018: "yes") ] }
-      let!(:michael) { create :client, preferred_name: "Michael", intakes: [ create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2017: "yes") ] }
-      let!(:tobias) { create :client, preferred_name: "Tobias", intakes: [ create(:intake, :filled_out, needs_help_2018: "yes") ] }
+      let!(:george_sr) { create :client, preferred_name: "George Sr.", intakes: [create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2018: "yes", locale: "en")] }
+      let!(:michael) { create :client, preferred_name: "Michael", intakes: [create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2017: "yes") ] }
+      let!(:tobias) { create :client, preferred_name: "Tobias", intakes: [create(:intake, :filled_out, needs_help_2018: "yes", locale: "es")] }
 
       it "shows a list of clients and client information" do
         get :index
@@ -134,7 +134,10 @@ RSpec.describe CaseManagement::ClientsController do
         expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.intakes.first.vita_partner.display_name)
         expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)
         expect(html.at_css("#client-#{george_sr.id}")).to have_text("2019, 2018")
+        expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
         expect(html.at_css("#client-#{michael.id}")).to have_text("2019, 2017")
+        expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
+
       end
     end
   end
