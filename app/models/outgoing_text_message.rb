@@ -26,7 +26,7 @@
 class OutgoingTextMessage < ApplicationRecord
   include ContactRecord
 
-  belongs_to :client
+  belongs_to :client, touch: true
   belongs_to :user
   validates_presence_of :body
   validates_presence_of :sent_at

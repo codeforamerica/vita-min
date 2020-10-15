@@ -21,6 +21,6 @@
 #
 class Note < ApplicationRecord
   belongs_to :user
-  belongs_to :client
+  belongs_to :client, touch: true
   validates_presence_of :body
 end

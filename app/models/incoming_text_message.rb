@@ -21,7 +21,7 @@
 class IncomingTextMessage < ApplicationRecord
   include ContactRecord
 
-  belongs_to :client
+  belongs_to :client, touch: true
   validates_presence_of :body
   validates_presence_of :received_at
 

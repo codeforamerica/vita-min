@@ -275,6 +275,7 @@ es:
     divorced: Divorciado
     widowed: Viudo/a
     single: Soltera
+    updated_at: Actualizado en
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
