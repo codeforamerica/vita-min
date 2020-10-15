@@ -13,7 +13,7 @@
     <div><%= t(".phone_interview_language") %>: <%= @client.intake&.preferred_interview_language || "N/A" %></div>
     <br/>
 
-    <div><%= t(".filing_years") %>: <%= @client.intake&.filing_years&.join(", ") %></div>
+    <div><%= t("general.filing_years") %>: <%= @client.intake&.filing_years&.join(", ") %></div>
     <div><%= t(".marital_status") %>: <%= @client.intake&.marital_statuses&.join(", ") %></div>
     <div><%= t(".filing_status") %>: <%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly"  %></div>
 

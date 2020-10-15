@@ -269,11 +269,12 @@ FactoryBot.define do
       primary_consented_to_service_at { 2.weeks.ago }
       completed_at { 1.week.ago }
       after(:build) do |intake|
-        Intake.defined_enums.keys.each_with_object({}) do |key, hash|
-          intake[key] = Intake.send(key.pluralize).keys.sample
+        Intake.defined_enums.each_key do |key|
+          unless intake[key]
+            intake[key] = Intake.send(key.pluralize).keys.sample
+          end
         end
       end
     end
-
   end
 end
