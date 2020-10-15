@@ -306,7 +306,7 @@ class ZendeskIntakeService
   end
 
   def preferred_interview_language_name
-    I18n.t("general.language.#{@intake.preferred_interview_language || I18n.locale}", locale: :en)
+    I18n.t("general.language_options.#{@intake.preferred_interview_language || I18n.locale}", locale: :en)
   end
 
   class CouldNotSendIntakePdfError < ZendeskServiceError;

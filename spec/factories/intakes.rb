@@ -270,6 +270,7 @@ FactoryBot.define do
       completed_at { 1.week.ago }
       after(:build) do |intake|
         Intake.defined_enums.each_key do |key|
+          # only randomize values for keys that have not been supplied
           unless intake[key]
             intake[key] = Intake.send(key.pluralize).keys.sample
           end

@@ -209,7 +209,8 @@ es:
     invitations: Invitaciones
     irs_certified_volunteers: Voluntarios certificados por el IRS
     irs_free_file: Declaración de impuestos gratuita del IRS
-    language:
+    language: Idioma
+    language_options:
       de: Alemán
       en: Inglés
       es: Español
@@ -276,6 +277,8 @@ es:
     widowed: Viudo/a
     single: Soltera
     updated_at: Actualizado en
+    NA: N/A
+    no_intake: Sin ingesta
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
