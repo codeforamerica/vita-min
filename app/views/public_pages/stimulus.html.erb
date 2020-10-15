@@ -30,23 +30,15 @@
         <%= image_tag("stimulus-payments.svg", alt: "") %>
       </div>
       <div class="grid__item width-seven-twelfths">
-        <h2 class="h3"><%=t("views.public_pages.stimulus_payment.intro.payments.header") %></h2>
-        <p><%=t("views.public_pages.stimulus_payment.intro.payments.info") %></p>
-        <p class="note"><%=t("views.public_pages.stimulus_payment.intro.payments.exceptions.header") %></p>
-        <ul class="exceptions last">
-          <li><%=t("views.public_pages.stimulus_payment.intro.payments.exceptions.social_security") %></li>
-          <li><%=t("views.public_pages.stimulus_payment.intro.payments.exceptions.veterans") %></li>
-          <li><%=t("views.public_pages.stimulus_payment.intro.payments.exceptions.railroad") %></li>
+        <h2 class="h3"><%=t("views.public_pages.stimulus.heading") %></h2>
+        <p><%=t("views.public_pages.stimulus.subheading") %></p>
+        <ul class="list--bulleted">
+          <% t("views.public_pages.stimulus.facts_html").each do |item| %>
+            <li>
+              <%= item %>
+            </li>
+          <% end %>
         </ul>
-      </div>
-    </div>
-    <div class="grid spacing-above-35 stimulus-info">
-      <div class="grid__item width-one-twelfth">
-        <%= image_tag("stimulus-benefit.svg", alt: "") %>
-      </div>
-      <div class="grid__item width-two-thirds">
-        <h2 class="h3"><%=t("views.public_pages.stimulus_payment.intro.benefits.header") %></h2>
-        <p class="last"><%=t("views.public_pages.stimulus_payment.intro.benefits.info") %></p>
       </div>
     </div>
     <div class="grid spacing-above-60">
