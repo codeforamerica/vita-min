@@ -64,7 +64,6 @@ es:
         preferred_name: Nombre preferido
         intake_language: Idioma del formulario de admisión
         phone_interview_language: Idioma prefiere para la revisión
-        filing_years: Años para declarar
         marital_status: Estado civil
         filing_status: Estado civil para declarar
         email: Email
@@ -196,6 +195,7 @@ es:
       not_hispanic: No soy Hispano o Latino
     faq: preguntas frecuentes
     file_my_taxes: Declarar mis impuestos
+    filing_years: Años para declarar
     find_location: Buscar una ubicación
     find_vita_site: Encuentre un sitio de VITA cerca de usted
     free_file_html: Si desea declarar sus impuestos sin la ayuda de nuestro personal y servicios, utilice el %{wizard_link} para poder hacerlo en línea gratis.

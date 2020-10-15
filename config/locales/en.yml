@@ -64,7 +64,6 @@ en:
         preferred_name: Preferred Name
         intake_language: Intake Language
         phone_interview_language: Phone Interview Language
-        filing_years: Filing Years
         marital_status: Marital Status
         filing_status: Filing Status
         email: Email
@@ -196,6 +195,7 @@ en:
       not_hispanic: Not Hispanic or Latino
     faq: FAQ
     file_my_taxes: File my taxes
+    filing_years: Filing Years
     find_location: Find a location
     find_vita_site: Find a VITA site near you
     free_file_html: If you'd like to file your taxes without the assistance of our staff and services, use the %{wizard_link} to find a free way to file your taxes online.
