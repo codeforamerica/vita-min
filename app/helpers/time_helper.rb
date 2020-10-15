@@ -11,4 +11,8 @@ module TimeHelper
   def timezone_select_options
     ActiveSupport::TimeZone.us_zones.map { |tz| [tz.name, tz.tzinfo.name] }
   end
+
+  def formatted_datetime(datetime)
+    datetime.strftime("%b %-d, %Y %l:%M %p %Z").strip
+  end
 end

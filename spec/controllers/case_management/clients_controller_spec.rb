@@ -129,6 +129,7 @@ RSpec.describe CaseManagement::ClientsController do
 
         expect(assigns(:clients).count).to eq 3
         html = Nokogiri::HTML.parse(response.body)
+        expect(html).to have_text("Updated At")
         expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
         expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.intakes.first.vita_partner.display_name)
         expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)

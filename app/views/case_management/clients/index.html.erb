@@ -11,6 +11,7 @@
         <th scope="col" class="index-table__header"><%= t("general.name") %></th>
         <th scope="col" class="index-table__header"><%= t(".client_id_heading") %></th>
         <th scope="col" class="index-table__header"><%= t("general.partner") %></th>
+        <th scope="col" class="index-table__header"><%= t("general.updated_at") %></th>
       </tr>
     </thead>
 
@@ -25,6 +26,7 @@
           </th>
           <td class="index-table__cell"><%= client.id %></td>
           <td class="index-table__cell"><%= client.intakes.exists? ? client.intakes.first.vita_partner.display_name : "No intake for this client" %></td>
+          <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
         </tr>
       <% end %>
 

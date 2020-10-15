@@ -29,7 +29,7 @@
 class IncomingEmail < ApplicationRecord
   include ContactRecord
 
-  belongs_to :client
+  belongs_to :client, touch: true
 
   def body
     stripped_text || body_plain

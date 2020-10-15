@@ -32,7 +32,7 @@ class Document < ApplicationRecord
   scope :of_type, ->(type) { where(document_type: type) }
 
   belongs_to :intake, optional: true
-  belongs_to :client, optional: true
+  belongs_to :client, optional: true, touch: true
   belongs_to :documents_request, optional: true
   has_one_attached :upload
 

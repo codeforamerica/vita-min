@@ -196,7 +196,7 @@ class Intake < ApplicationRecord
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
   has_many :ticket_statuses, -> { order(created_at: :asc) }
-  belongs_to :client, optional: true
+  belongs_to :client, optional: true, touch: true
   belongs_to :vita_partner, optional: true
   belongs_to :triage_source, optional: true, polymorphic: true
 

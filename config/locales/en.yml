@@ -275,6 +275,7 @@ en:
     divorced: Divorced
     widowed: Widowed
     single: Single
+    updated_at: Updated At
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
