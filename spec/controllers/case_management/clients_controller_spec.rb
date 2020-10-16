@@ -104,6 +104,7 @@ RSpec.describe CaseManagement::ClientsController do
         expect(profile).to have_text("2019, 2018")
         expect(profile).to have_text(client.email_address)
         expect(profile).to have_text(client.phone_number)
+        expect(profile).to have_text("English")
         expect(profile).to have_text("Marital Status: Married, Lived with spouse")
         expect(profile).to have_text("Filing Status: Filing jointly")
         expect(profile).to have_text("Oakland, CA 94606")
