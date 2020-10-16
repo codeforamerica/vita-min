@@ -9,8 +9,8 @@
     <div><%= t(".preferred_name") %>: <%= @client.preferred_name %></div>
     <br/>
 
-    <div><%= t(".intake_language") %>: <%= @client.intake&.locale || "N/A" %></div>
-    <div><%= t(".phone_interview_language") %>: <%= @client.intake&.preferred_interview_language || "N/A" %></div>
+    <div><%= t(".intake_language") %>: <%= client.intake&.locale ? t("general.language_options.#{client.intake&.locale}") : "N/A" %></div>
+    <div><%= t(".phone_interview_language") %>: <%= @client.intake&.preferred_interview_language ? t("general.language_options.#{client.intake&.preferred_interview_language}") : "N/A" %></div>
     <br/>
 
     <div><%= t("general.filing_years") %>: <%= @client.intake&.filing_years&.join(", ") %></div>
