@@ -13,6 +13,6 @@ module TimeHelper
   end
 
   def formatted_datetime(datetime)
-    datetime.strftime("%b %-d, %Y %l:%M %p %Z").strip
+    datetime.strftime("%b %d %-l:%M %p")
   end
 end
