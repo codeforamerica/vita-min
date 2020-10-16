@@ -4,6 +4,12 @@ Vita-Min is a Rails app that helps people access the VITA program through a digi
 
 ## Setup
 
+Quick start script
+
+```bash
+bin/setup
+```
+
 1.  Install the project dependencies.
     To do so using homebrew, you can run the following from the project root: 
     
