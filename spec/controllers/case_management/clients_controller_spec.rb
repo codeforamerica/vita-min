@@ -62,9 +62,11 @@ RSpec.describe CaseManagement::ClientsController do
   describe "#show" do
     let(:intake) do
       create :intake,
-             client: (create :client),
-             primary_first_name: "Legal",
-             primary_last_name: "Name",
+             preferred_name: "Les",
+             primary_first_name: "Lester",
+             primary_last_name: "Lemon",
+             email_address: "lester.lemon@example.com",
+             phone_number: "5551234567",
              locale: "en",
              preferred_interview_language: "es",
              needs_help_2019: "yes",
@@ -80,7 +82,7 @@ RSpec.describe CaseManagement::ClientsController do
              spouse_last_name: "Spouse"
     end
 
-    let(:client) { intake.client }
+    let(:client) { create :client, intake: intake }
     let(:params) do
       { id: client.id }
     end
@@ -98,11 +100,11 @@ RSpec.describe CaseManagement::ClientsController do
         get :show, params: params
         profile = Nokogiri::HTML.parse(response.body).at_css(".client-profile")
 
-        expect(profile).to have_text(client.preferred_name)
-        expect(profile).to have_text(client.legal_name)
+        expect(profile).to have_text("Les")
+        expect(profile).to have_text("Lester Lemon")
         expect(profile).to have_text("2019, 2018")
-        expect(profile).to have_text(client.email_address)
-        expect(profile).to have_text(client.phone_number)
+        expect(profile).to have_text("lester.lemon@example.com")
+        expect(profile).to have_text("5551234567")
         expect(profile).to have_text("Marital Status: Married, Lived with spouse")
         expect(profile).to have_text("Filing Status: Filing jointly")
         expect(profile).to have_text("Oakland, CA 94606")
@@ -119,9 +121,9 @@ RSpec.describe CaseManagement::ClientsController do
       render_views
 
       before { sign_in create(:beta_tester) }
-      let!(:george_sr) { create :client, :filled_out, preferred_name: "George Sr." }
-      let!(:michael) { create :client, :filled_out, preferred_name: "Michael" }
-      let!(:tobias) { create :client, :filled_out, preferred_name: "Tobias" }
+      let!(:george_sr) { create :client, intake: create(:intake, :filled_out, preferred_name: "George Sr.") }
+      let!(:michael) { create :client, intake: create(:intake, :filled_out, preferred_name: "Michael") }
+      let!(:tobias) { create :client, intake: create(:intake, :filled_out, preferred_name: "Tobias") }
 
       it "shows a list of clients and client information" do
         get :index

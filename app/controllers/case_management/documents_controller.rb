@@ -4,9 +4,18 @@ module CaseManagement
     include FileResponseControllerHelper
 
     before_action :require_sign_in
+    # /case_management/clients/:client_id/documents
     load_and_authorize_resource :client
-    load_and_authorize_resource :intake, through: :client
+    # load_and_authorize_resource :intake, through: :client
     load_and_authorize_resource through: :intake
+
+    # 1. attach documents to client, not intake (eventually move documents off intakes during questions flow)
+    # 2. check permisions using intakes, not clients (this approaches the single model version)
+    # 3. write some custom code, base intake permissions off clients, and use intake_id in the url
+      # /case_management/intakes/:intake_id/documents
+      # load_and_authorize_resource :intake
+      # load_and_authorize_resource through: :intake
+    # 4. try to write custom code and don't rely on load_and_authorize resource to work out of the box
 
     layout "admin"
 

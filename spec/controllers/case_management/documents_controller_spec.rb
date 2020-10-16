@@ -20,14 +20,14 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
                  display_name: "some_file.jpg",
                  document_type: "ID",
                  created_at: 2.days.ago,
-                 intake: intake.client
+                 intake: client.intake
         }
         let!(:second_document) {
           create :document,
                  display_name: "another_file.pdf",
                  document_type: "W-2",
                  created_at: 3.hours.ago,
-                 intake: intake.client
+                 intake: client.intake
         }
 
         it "displays all the documents for the client" do
