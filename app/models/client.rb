@@ -4,6 +4,7 @@
 #
 #  id               :bigint           not null, primary key
 #  email_address    :string
+#  last_response_at :datetime         not null
 #  phone_number     :string
 #  preferred_name   :string
 #  sms_phone_number :string
@@ -32,6 +33,8 @@ class Client < ApplicationRecord
   def intake
     intakes && intakes.first
   end
+
+  before_create { self.last_response_at = created_at }
 
   def legal_name
     return unless intake&.primary_first_name? && intake&.primary_last_name?

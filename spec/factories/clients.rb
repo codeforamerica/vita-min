@@ -4,6 +4,7 @@
 #
 #  id               :bigint           not null, primary key
 #  email_address    :string
+#  last_response_at :datetime         not null
 #  phone_number     :string
 #  preferred_name   :string
 #  sms_phone_number :string
