@@ -21,7 +21,7 @@ RSpec.describe Questions::BacktaxesController do
       end
 
       context "without an intake in the session" do
-        it "creates new intake backtaxes answers" do
+        it "creates new intake with backtaxes answers" do
           expect {
             post :update, params: params
           }.to change(Intake, :count).by(1)
@@ -34,6 +34,15 @@ RSpec.describe Questions::BacktaxesController do
           expect(intake.needs_help_2017).to eq "no"
           expect(intake.needs_help_2018).to eq "yes"
           expect(intake.needs_help_2019).to eq "yes"
+        end
+
+        it "creates a new Client record tied to the intake" do
+          expect {
+            post :update, params: params
+          }.to change(Client, :count).by(1)
+
+          intake = Intake.last
+          expect(intake.client).to eq Client.last
         end
       end
 

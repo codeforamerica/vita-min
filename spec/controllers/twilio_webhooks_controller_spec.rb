@@ -47,7 +47,7 @@ RSpec.describe TwilioWebhooksController do
         end
 
         context "with a matching client phone number" do
-          let!(:existing_client) { create :client, phone_number: "15552341122" }
+          let!(:existing_client) { create :client, intake: create(:intake, phone_number: "15552341122") }
 
           it "creates a new IncomingTextMessage linked to the client the right data" do
             expect do
@@ -67,7 +67,7 @@ RSpec.describe TwilioWebhooksController do
           before do
             allow(ClientChannel).to receive(:broadcast_contact_record)
           end
-          let!(:existing_client) { create :client, sms_phone_number: "15552341122" }
+          let!(:existing_client) { create :client, intake: create(:intake, sms_phone_number: "15552341122") }
 
           it "creates a new IncomingTextMessage linked to the client the right data" do
             expect do
@@ -88,8 +88,8 @@ RSpec.describe TwilioWebhooksController do
           # We have not discussed the best way to handle this scenario
           # This spec is intended to document existing behavior more than
           # prescribe the correct way to handle this.
-          let!(:client1) { create :client, sms_phone_number: "15552341122" }
-          let!(:client2) { create :client, phone_number: "15552341122" }
+          let!(:client1) { create :client, intake: create(:intake, sms_phone_number: "15552341122") }
+          let!(:client2) { create :client, intake: create(:intake, phone_number: "15552341122") }
 
           it "creates a new IncomingTextMessage linked to the first client" do
             expect do

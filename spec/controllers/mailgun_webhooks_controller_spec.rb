@@ -65,14 +65,16 @@ RSpec.describe MailgunWebhooksController do
         let(:current_time) { DateTime.new(2020, 9, 10) }
         before { allow(DateTime).to receive(:now).and_return(current_time) }
 
-        it "creates a new client and creates a related incoming email" do
+        it "creates a new client and intake and creates a related incoming email" do
           expect do
             post :create_incoming_email, params: params
           end.to change(IncomingEmail, :count).by(1).and change(Client, :count).by(1)
 
+          intake = Intake.last
           email = IncomingEmail.last
           client = Client.last
           expect(email.client).to eq client
+          expect(client.intake).to eq intake
           expect(client.email_address).to eq sender_email
           expect(email.sender).to eq sender_email
           expect(email.received_at).to eq current_time
@@ -87,7 +89,7 @@ RSpec.describe MailgunWebhooksController do
           allow(ClientChannel).to receive(:broadcast_contact_record)
         end
 
-        let!(:client) { create :client, email_address: sender_email }
+        let!(:client) { create :client, intake: create(:intake, email_address: sender_email) }
 
         it "creates an incoming email attached to the matching client" do
           expect do
@@ -108,8 +110,8 @@ RSpec.describe MailgunWebhooksController do
         # We have not discussed the best way to handle this scenario
         # This spec is intended to document existing behavior more than
         # prescribe the correct way to handle this.
-        let!(:client1) { create :client, email_address: sender_email }
-        let!(:client2) { create :client, email_address: sender_email }
+        let!(:client1) { create :client, intake: create(:intake, email_address: sender_email) }
+        let!(:client2) { create :client, intake: create(:intake, email_address: sender_email) }
 
         it "creates a new IncomingEmail linked to the first client" do
           expect do

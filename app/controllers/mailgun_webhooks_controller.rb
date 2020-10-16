@@ -6,10 +6,9 @@ class MailgunWebhooksController < ActionController::Base
     # Mailgun param documentation:
     #   https://documentation.mailgun.com/en/latest/user_manual.html#parsed-messages-parameters
     sender_email = params["sender"]
-    client = Client.where(email_address: sender_email).first
-    unless client.present?
-      client = Client.create!(email_address: sender_email)
-    end
+    intake = Intake.where(email_address: sender_email).first
+    intake = Intake.create!(email_address: sender_email) unless intake.present?
+    client = intake.client || Client.create!(intake: intake)
     contact_record = IncomingEmail.create!(
       client: client,
       received_at: DateTime.now,

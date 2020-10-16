@@ -9,10 +9,12 @@ class TwilioWebhooksController < ActionController::Base
 
   def create_incoming_text_message
     phone_number = Phonelib.parse(params["From"]).sanitized
-    client = Client.where(phone_number: phone_number).or(Client.where(sms_phone_number: phone_number)).first
-    unless client.present?
-      client = Client.create!(phone_number: phone_number, sms_phone_number: phone_number)
+
+    intake = Intake.where(phone_number: phone_number).or(Intake.where(sms_phone_number: phone_number)).first
+    unless intake.present?
+      intake = Intake.create!(phone_number: phone_number, sms_phone_number: phone_number)
     end
+    client = intake.client || Client.create(intake: intake)
 
     contact_record = IncomingTextMessage.create!(
       body: params["Body"],

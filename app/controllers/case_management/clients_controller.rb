@@ -8,7 +8,7 @@ module CaseManagement
     layout "admin"
 
     def index
-      @clients = @clients.includes(intakes: :vita_partner)
+      @clients = @clients.includes(intake: :vita_partner)
     end
 
     def create

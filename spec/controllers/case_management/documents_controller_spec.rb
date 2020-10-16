@@ -20,14 +20,14 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
                  display_name: "some_file.jpg",
                  document_type: "ID",
                  created_at: 2.days.ago,
-                 client: client
+                 intake: intake.client
         }
         let!(:second_document) {
           create :document,
                  display_name: "another_file.pdf",
                  document_type: "W-2",
                  created_at: 3.hours.ago,
-                 client: client
+                 intake: intake.client
         }
 
         it "displays all the documents for the client" do
@@ -48,8 +48,8 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
       context "sorting and ordering" do
         context "with a sort param" do
           let(:params) { { client_id: client.id, sort: "created_at", order: "desc" } }
-          let!(:earlier_document) { create :document, display_name: "Alligator doc", created_at: 1.hour.ago, client: client }
-          let!(:later_document) { create :document, display_name: "Zebra doc", created_at: 1.minute.ago, client: client }
+          let!(:earlier_document) { create :document, display_name: "Alligator doc", created_at: 1.hour.ago, intake: client.intake }
+          let!(:later_document) { create :document, display_name: "Zebra doc", created_at: 1.minute.ago, intake: client.intake }
 
           it "orders documents by that column" do
             get :index, params: params
@@ -62,8 +62,8 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
 
         context "with no params" do
           let(:params) { { client_id: client.id } }
-          let!(:identity_document) { create :document, client: client, document_type: DocumentTypes::Identity.key, display_name: "alligator doc" }
-          let!(:employment_document) { create :document, client: client, document_type: DocumentTypes::Employment.key, display_name: "zebra doc" }
+          let!(:identity_document) { create :document, intake: client.intake, document_type: DocumentTypes::Identity.key, display_name: "alligator doc" }
+          let!(:employment_document) { create :document, intake: client.intake, document_type: DocumentTypes::Employment.key, display_name: "zebra doc" }
 
           it "defaults to sorting by document_type" do
             get :index, params: params
@@ -74,8 +74,8 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
         end
 
         context "with bad sort param" do
-          let!(:identity_document) { create :document, client: client, document_type: DocumentTypes::Identity.key, display_name: "alligator doc" }
-          let!(:employment_document) { create :document, client: client, document_type: DocumentTypes::Employment.key, display_name: "zebra doc" }
+          let!(:identity_document) { create :document, intake: client.intake, document_type: DocumentTypes::Identity.key, display_name: "alligator doc" }
+          let!(:employment_document) { create :document, intake: client.intake, document_type: DocumentTypes::Employment.key, display_name: "zebra doc" }
           let(:params) { { client_id: client.id, sort: "bad_param", order: "nonsensical_order" } }
 
           it "defaults to sorting by document_type" do
@@ -92,7 +92,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
 
   describe "#edit" do
     let(:client) { create :client }
-    let(:document) { create :document, :with_upload, client: client }
+    let(:document) { create :document, :with_upload, intake: client.intake }
     let(:params) { { id: document.id, client_id: client.id }}
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
@@ -114,7 +114,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
   describe "#update" do
     let(:new_display_name) { "New Display Name"}
     let(:client) { create :client }
-    let(:document) { create :document, :with_upload, client: client }
+    let(:document) { create :document, :with_upload, intake: client.intake }
     let(:params) { { client_id: client.id, id: document.id, document: { display_name: new_display_name} } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
@@ -150,7 +150,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
 
   describe "#show" do
     let(:client) { create :client }
-    let(:document) { create :document, :with_upload, client: client }
+    let(:document) { create :document, :with_upload, intake: client.intake }
     let(:params) { { client_id: client.id, id: document.id }}
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show

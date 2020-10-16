@@ -5,7 +5,8 @@ module CaseManagement
 
     before_action :require_sign_in
     load_and_authorize_resource :client
-    load_and_authorize_resource through: :client
+    load_and_authorize_resource :intake, through: :client
+    load_and_authorize_resource through: :intake
 
     layout "admin"
 
@@ -26,7 +27,7 @@ module CaseManagement
       @form = CaseManagement::DocumentForm.new(@document, document_params)
       if @form.valid?
         @form.save
-        redirect_to case_management_client_documents_path(client_id: @document.client.id)
+        redirect_to case_management_client_documents_path(client_id: @document.intake.client.id)
       else
         @document.errors.copy!(@form.errors)
         render :edit

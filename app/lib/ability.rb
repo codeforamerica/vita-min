@@ -9,6 +9,7 @@ class Ability
       IncomingEmail,
       Client,
       Document,
+      Intake,
       Note,
       User
     ] if user.is_beta_tester?

@@ -37,8 +37,7 @@ RSpec.describe CaseManagement::ClientsController do
             expect(client.email_address).to eq "client@example.com"
             expect(client.phone_number).to eq "14155537865"
             expect(client.preferred_name).to eq "Casey"
-            expect(client.documents.first).to eq(document)
-            expect(client.intakes).to include(intake)
+            expect(client.intake).to eq(intake)
             expect(intake.reload.client).to eq client
             expect(response).to redirect_to case_management_client_path(id: client.id)
           end
@@ -120,9 +119,9 @@ RSpec.describe CaseManagement::ClientsController do
       render_views
 
       before { sign_in create(:beta_tester) }
-      let!(:george_sr) { create :client, preferred_name: "George Sr.", intakes: [ create(:intake, :filled_out) ] }
-      let!(:michael) { create :client, preferred_name: "Michael", intakes: [ create(:intake, :filled_out) ] }
-      let!(:tobias) { create :client, preferred_name: "Tobias", intakes: [ create(:intake, :filled_out) ] }
+      let!(:george_sr) { create :client, :filled_out, preferred_name: "George Sr." }
+      let!(:michael) { create :client, :filled_out, preferred_name: "Michael" }
+      let!(:tobias) { create :client, :filled_out, preferred_name: "Tobias" }
 
       it "shows a list of clients and client information" do
         get :index
@@ -130,7 +129,7 @@ RSpec.describe CaseManagement::ClientsController do
         expect(assigns(:clients).count).to eq 3
         html = Nokogiri::HTML.parse(response.body)
         expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
-        expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.intakes.first.vita_partner.display_name)
+        expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.intake.vita_partner.display_name)
         expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)
       end
     end
