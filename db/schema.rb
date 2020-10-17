@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_10_16_195233) do
   create_table "clients", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.string "email_address"
-    t.datetime "last_response_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "last_response_at"
     t.string "phone_number"
     t.string "preferred_name"
     t.string "sms_phone_number"

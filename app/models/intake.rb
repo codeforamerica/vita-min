@@ -324,10 +324,6 @@ class Intake < ApplicationRecord
       .first
   end
 
-  def completed?
-    completed_at.present?
-  end
-
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
     Phonelib.parse(phone_number).local_number

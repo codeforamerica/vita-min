@@ -4,7 +4,7 @@
 #
 #  id               :bigint           not null, primary key
 #  email_address    :string
-#  last_response_at :datetime         not null
+#  last_response_at :datetime
 #  phone_number     :string
 #  preferred_name   :string
 #  sms_phone_number :string
@@ -85,9 +85,7 @@ describe Client do
       context "updating last_response_at" do
         context "when completed_at is set" do
           it "does not update the responded at value" do
-            expect {
-              intake.update(completed_at: Time.now)
-            }.to change(intake.client, :last_response_at)
+            expect { intake.update(completed_at: Time.now) }.to change(intake.client, :last_response_at)
           end
         end
 
