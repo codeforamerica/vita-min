@@ -58,6 +58,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:zendesk]
 
   belongs_to :vita_partner, optional: true
+  has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
 
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_16_195233) do
+ActiveRecord::Schema.define(version: 2020_10_19_223124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -485,6 +485,17 @@ ActiveRecord::Schema.define(version: 2020_10_16_195233) do
     t.string "visitor_id"
   end
 
+  create_table "tax_returns", force: :cascade do |t|
+    t.bigint "assigned_user_id"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "year", null: false
+    t.index ["assigned_user_id"], name: "index_tax_returns_on_assigned_user_id"
+    t.index ["client_id"], name: "index_tax_returns_on_client_id"
+    t.index ["year", "client_id"], name: "index_tax_returns_on_year_and_client_id", unique: true
+  end
+
   create_table "ticket_statuses", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.string "eip_status"
@@ -589,6 +600,8 @@ ActiveRecord::Schema.define(version: 2020_10_16_195233) do
   add_foreign_key "outgoing_text_messages", "users"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "states_vita_partners", "vita_partners"
+  add_foreign_key "tax_returns", "clients"
+  add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "ticket_statuses", "intakes"
   add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "users", "vita_partners"

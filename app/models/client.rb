@@ -29,6 +29,7 @@ class Client < ApplicationRecord
   has_many :incoming_emails
   has_many :documents
   has_many :notes
+  has_many :tax_returns
 
   def intake
     intakes && intakes.first
