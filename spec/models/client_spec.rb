@@ -76,7 +76,6 @@ describe Client do
 
     describe "intake" do
       let(:intake) { create :intake, client: client }
-      let(:user) { create :user }
 
       it "updates updated_at when the intake changes" do
         expect { intake.update(needs_help_2019: "yes") }.to change(client, :updated_at)
