@@ -200,6 +200,10 @@ class Intake < ApplicationRecord
   belongs_to :vita_partner, optional: true
   belongs_to :triage_source, optional: true, polymorphic: true
 
+  before_save if: :completed_at_changed? do
+    client&.touch(:last_response_at)
+  end
+
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :spouse_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
   attr_encrypted :bank_name, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }

@@ -25,6 +25,8 @@ class IncomingTextMessage < ApplicationRecord
   validates_presence_of :body
   validates_presence_of :received_at
 
+  before_create { client.touch(:last_response_at) }
+
   def datetime
     received_at
   end

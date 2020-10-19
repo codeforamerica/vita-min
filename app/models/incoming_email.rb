@@ -31,6 +31,8 @@ class IncomingEmail < ApplicationRecord
 
   belongs_to :client, touch: true
 
+  before_create { client.touch(:last_response_at) }
+
   def body
     stripped_text || body_plain
   end

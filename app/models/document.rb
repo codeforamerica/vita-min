@@ -37,6 +37,7 @@ class Document < ApplicationRecord
   has_one_attached :upload
 
   before_save :set_display_name
+  before_create { client&.touch(:last_response_at) }
 
   def set_display_name
     return if display_name
