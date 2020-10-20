@@ -124,6 +124,9 @@ RSpec.describe CaseManagement::ClientsController do
       let!(:george_sr) { create :client, preferred_name: "George Sr.", intakes: [create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2018: "yes", locale: "en")] }
       let!(:michael) { create :client, preferred_name: "Michael", intakes: [create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2017: "yes") ] }
       let!(:tobias) { create :client, preferred_name: "Tobias", intakes: [create(:intake, :filled_out, needs_help_2018: "yes", locale: "es")] }
+      let(:assigned_user) { create :user, name: "Lindsay" }
+      let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user }
+      let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
 
       it "shows a list of clients and client information" do
         get :index
@@ -134,11 +137,23 @@ RSpec.describe CaseManagement::ClientsController do
         expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
         expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.intakes.first.vita_partner.display_name)
         expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)
-        expect(html.at_css("#client-#{george_sr.id}")).to have_text("2019, 2018")
         expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
-        expect(html.at_css("#client-#{michael.id}")).to have_text("2019, 2017")
         expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
+      end
 
+      it "shows all returns for a client and users assigned to those returns" do
+        get :index
+
+        html = Nokogiri::HTML.parse(response.body)
+        tobias_row = html.at_css("#client-#{tobias.id}")
+        tobias_2019_year = tobias_row.at_css("#tax-return-#{tobias_2019_return.id}")
+        expect(tobias_2019_year).to have_text "2019"
+        tobias_2019_assignee = tobias_row.at_css("#tax-return-#{tobias_2019_return.id}")
+        expect(tobias_2019_assignee).to have_text "Lindsay"
+        tobias_2018_year = tobias_row.at_css("#tax-return-#{tobias_2018_return.id}")
+        expect(tobias_2018_year).to have_text "2018"
+        tobias_2018_assignee = tobias_row.at_css("#tax-return-#{tobias_2018_return.id}")
+        expect(tobias_2018_assignee).to have_text "Lindsay"
       end
     end
   end

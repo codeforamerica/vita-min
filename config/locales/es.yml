@@ -53,6 +53,7 @@ es:
     clients:
       index:
         client_id_heading: Cliente ID
+        filing_year: Año para declarar
         title: Todos clientes
       navigation:
         client_documents: Documentos
@@ -285,6 +286,7 @@ es:
     updated_at: Actualizado en
     NA: N/A
     no_intake: Sin ingesta
+    assignee: Asignada a
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

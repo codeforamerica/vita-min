@@ -25,4 +25,11 @@ It expects to be the primary content of the given page (full width).
   .index-table__row:nth-child(2n) {
     background-color: #F7F5F4;
   }
+
+  // for nested tables
+  .index-table__cell {
+    table {
+      width: 100%;
+    }
+  }
 }
