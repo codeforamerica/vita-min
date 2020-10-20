@@ -8,6 +8,7 @@
 
     <thead class="index-table__head">
       <tr class="index-table__row">
+        <th scope="col" class="index-table__header"></th>
         <th scope="col" class="index-table__header"><%= t("general.name") %></th>
         <th scope="col" class="index-table__header"><%= t(".client_id_heading") %></th>
         <th scope="col" class="index-table__header"><%= t("general.partner") %></th>
@@ -22,6 +23,9 @@
 
       <% @clients.each do |client| %>
         <tr id="client-<%= client.id %>" class="index-table__row">
+          <td class="index-table__cell">
+            <%= render "shared/client_needs_attention", client: client %>
+          </td>
           <th class="index-table__row-header client-attribute__name">
             <%= link_to case_management_client_path(id: client) do %>
               <%= client.preferred_name %>

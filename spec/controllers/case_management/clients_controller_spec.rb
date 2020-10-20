@@ -110,6 +110,16 @@ RSpec.describe CaseManagement::ClientsController do
         expect(profile).to have_text("Oakland, CA 94606")
         expect(profile).to have_text("Spouse Contact Info")
       end
+
+      context "when a client needs attention" do
+        before { client.touch(:updated_at, :last_response_at) }
+
+        it "adds the needs attention icon into the DOM" do
+          get :show, params: params
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css(".client-header .needs-attention")).to be_present
+        end
+      end
     end
   end
 
@@ -154,6 +164,16 @@ RSpec.describe CaseManagement::ClientsController do
         expect(tobias_2018_year).to have_text "2018"
         tobias_2018_assignee = tobias_row.at_css("#tax-return-#{tobias_2018_return.id}")
         expect(tobias_2018_assignee).to have_text "Lindsay"
+      end
+
+      describe "when a client needs attention" do
+        it "adds the needs attention icon into the DOM" do
+          tobias.touch(:updated_at, :last_response_at)
+          get :index
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css("#client-#{michael.id} .needs-attention")).not_to be_present
+          expect(html.at_css("#client-#{tobias.id} .needs-attention")).to be_present
+        end
       end
     end
   end

@@ -196,12 +196,16 @@ class Intake < ApplicationRecord
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
   has_many :ticket_statuses, -> { order(created_at: :asc) }
-  belongs_to :client, optional: true, touch: true
+  belongs_to :client, optional: true
   belongs_to :vita_partner, optional: true
   belongs_to :triage_source, optional: true, polymorphic: true
 
-  before_save if: :completed_at_changed? do
-    client&.touch(:last_response_at)
+  before_save do
+    if completed_at_changed?
+      client&.touch(:updated_at, :last_response_at)
+    else
+      client&.touch(:updated_at)
+    end
   end
 
   attr_encrypted :primary_last_four_ssn, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }

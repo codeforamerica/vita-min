@@ -1,6 +1,9 @@
 <div class="client-header">
-  <h1 class="h2">
-    <%= @client.preferred_name %>
-  </h1>
+  <div class="client-header__name-wrapper">
+    <%= render "shared/client_needs_attention", client: @client %>
+    <h1 class="h2">
+      <%= @client.preferred_name %>
+    </h1>
+  </div>
   <h2>#<%= @client.id %></h2>
 </div>

@@ -23,6 +23,71 @@
 require "rails_helper"
 
 describe Client do
+  describe "#needs_attention" do
+
+    context "when last_response_at is nil" do
+      let!(:client) { create :client }
+
+      it "doesn't not need attention" do
+        expect(client.needs_attention?).to eq false
+      end
+    end
+
+    context "when client has a new document" do
+      let!(:client) { create :client }
+      before { create :document, client: client }
+
+      it "needs attention" do
+        expect(client.needs_attention?).to eq true
+      end
+    end
+
+    context "when clients intake was completed" do
+      let!(:client) { create :client, intakes: [create(:intake)] }
+
+      it "needs attention" do
+        client.intake.update(completed_at: Time.now)
+        expect(client.needs_attention?).to eq true
+      end
+    end
+
+    context "when client has a new incoming text message" do
+      let!(:client) { create :client }
+      before { create :incoming_text_message, client: client }
+
+      it "needs attention" do
+        expect(client.needs_attention?).to eq true
+      end
+    end
+
+    context "when client has a new incoming email" do
+      let!(:client) { create :client }
+      before { create :incoming_email, client: client }
+
+      it "needs attention" do
+        expect(client.needs_attention?).to eq true
+      end
+    end
+
+    context "when client has a new outgoing email" do
+      let!(:client) { create :client }
+      before { create :outgoing_email, client: client }
+
+      it "doesn't need attention" do
+        expect(client.needs_attention?).to eq false
+      end
+    end
+
+    context "when client has a new outgoing text" do
+      let!(:client) { create :client }
+      before { create :outgoing_email, client: client }
+
+      it "doesn't need attention" do
+        expect(client.needs_attention?).to eq false
+      end
+    end
+  end
+
   describe "touch behavior" do
     let!(:client) { create :client }
 
@@ -70,7 +135,7 @@ describe Client do
       end
 
       it "updates client last_response_at" do
-        expect { create :document, client: client}.to change(client, :last_response_at)
+        expect { create :document, client: client }.to change(client, :last_response_at)
       end
     end
 

@@ -1,0 +1,26 @@
+.needs-attention {
+  width: 25px;
+  &__dot:before {
+    color: $color-red;
+    font-size: 25px;
+    width: 25px;
+    height: 25px;
+    content: "●";
+  }
+
+  &__screen-reader {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    &:focus {
+      clip: auto;
+      height: auto;
+      overflow: auto;
+      position: absolute;
+      width: auto;
+    }
+  }
+}
