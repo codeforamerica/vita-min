@@ -13,9 +13,10 @@ module CaseManagement
     def update
       return render :edit unless @tax_return.update(tax_return_params)
 
+      no_one = I18n.t("case_management.tax_returns.update.no_one")
       success_message = I18n.t(
         "case_management.tax_returns.update.flash_success",
-        assignee_name: @tax_return.assigned_user.name,
+        assignee_name: @tax_return.assigned_user.present? ? @tax_return.assigned_user.name : no_one,
         client_name: @client.preferred_name,
         tax_year: @tax_return.year,
       )

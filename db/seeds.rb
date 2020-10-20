@@ -25,7 +25,7 @@ Document.find_or_create_by(display_name: 'My Employment', document_type: 'Employ
 Document.find_or_create_by(display_name: 'Identity Document', document_type: 'ID', client: client, created_at: 2.months.ago, intake: intake)
 
 TaxReturn.find_or_create_by(year: 2019, client: client, assigned_user: beta_user)
-TaxReturn.find_or_create_by(year: 2018, client: client, assigned_user: beta_user)
+TaxReturn.find_or_create_by(year: 2018, client: client)
 
 OutgoingTextMessage.create!(client: client, body: "Hey client, nice to meet you", user: beta_user, sent_at: 3.days.ago, to_phone_number: "+14155551212")
 OutgoingTextMessage.create!(client: client, body: "Hope you're having a good day", user: beta_user, sent_at: 2.days.ago, to_phone_number: "+14155551212")

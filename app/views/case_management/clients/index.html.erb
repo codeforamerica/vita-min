@@ -37,7 +37,15 @@
                 <tbody>
                   <tr id="tax-return-<%= tax_return.id %>">
                     <td class="index-table__cell"><%= tax_return.year %></td>
-                    <td class="index-table__cell"><%= tax_return.assigned_user&.name %></td>
+                    <td class="index-table__cell">
+                      <% if tax_return.assigned_user.present? %>
+                        <%= tax_return.assigned_user&.name %>
+                      <% else %>
+                        <%= link_to t(".assign"),
+                            edit_case_management_client_tax_return_path(client_id: client.id, id: tax_return.id),
+                            class: "button button--inline-action" %>
+                      <% end %>
+                    </td>
                   </tr>
                 </tbody>
               </table>

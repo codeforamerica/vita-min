@@ -67,6 +67,24 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
         expect(response).to redirect_to case_management_clients_path
         expect(flash[:notice]).to eq "Assigned Lucille's 2018 tax return to Buster"
       end
+
+      context "unassigning the tax return" do
+        let(:params) {
+          {
+              client_id: client.id,
+              id: tax_return.id,
+              tax_return: { assigned_user_id: "" }
+          }
+        }
+
+        it "removes the assigned user from the tax return" do
+          put :update, params: params
+
+          tax_return.reload
+          expect(tax_return.assigned_user).not_to be_present
+          expect(flash[:notice]).to eq "Assigned Lucille's 2018 tax return to no one"
+        end
+      end
     end
   end
 end

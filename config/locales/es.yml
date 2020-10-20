@@ -55,6 +55,7 @@ es:
         client_id_heading: Cliente ID
         filing_year: Año para declarar
         title: Todos clientes
+        assign: Asignar
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
@@ -101,6 +102,7 @@ es:
         assigned_user_label: Asignar a
       update:
         flash_success: "Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}"
+        no_one: nadie
   email:
     user_message:
       subject: Update from GetYourRefund
