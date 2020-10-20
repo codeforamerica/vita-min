@@ -21,7 +21,7 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 FactoryBot.define do
-  factory :tax_returns do
+  factory :tax_return do
     year { 2019 }
     client
   end

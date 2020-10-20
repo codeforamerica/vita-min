@@ -10,7 +10,8 @@ class Ability
       Client,
       Document,
       Note,
-      User
+      User,
+      TaxReturn,
     ] if user.is_beta_tester?
   end
 end

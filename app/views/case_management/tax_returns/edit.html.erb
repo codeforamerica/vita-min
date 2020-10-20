@@ -1,0 +1,18 @@
+<% @title = t(".title", client_name: @client.preferred_name, tax_year: @tax_return.year) %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <%= form_with model: @tax_return, url: [:case_management, @client, @tax_return], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <h1><%= @title %></h1>
+
+    <%= f.cfa_select(
+          :assigned_user_id,
+          t(".assigned_user_label"),
+          current_user.vita_partner.users.collect { |user| [user.name, user.id] },
+          include_blank: true
+        ) %>
+
+    <button class="button button--cta " type="submit">
+      <%=t("general.save") %>
+    </button>
+  <% end %>
+<% end %>

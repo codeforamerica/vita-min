@@ -94,6 +94,12 @@ es:
         note_form:
           label: "Añadir una nota"
           submit: "Guardar"
+    tax_returns:
+      edit:
+        title: "Asignar la declaración de impuestos %{tax_year} de %{client_name}"
+        assigned_user_label: Asignar a
+      update:
+        flash_success: "Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}"
   email:
     user_message:
       subject: Update from GetYourRefund

@@ -22,5 +22,5 @@
 #
 class TaxReturn < ApplicationRecord
   belongs_to :client
-  belongs_to :assigned_user, class_name: "User"
+  belongs_to :assigned_user, class_name: "User", optional: true
 end

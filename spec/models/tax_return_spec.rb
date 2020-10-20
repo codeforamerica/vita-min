@@ -31,7 +31,7 @@ describe TaxReturn do
 
       expect {
         TaxReturn.create!(client: client, year: 2019)
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      }.to raise_error(ActiveRecord::RecordNotUnique)
     end
   end
 end

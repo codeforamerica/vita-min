@@ -94,6 +94,12 @@ en:
         note_form:
           submit: "Save"
           label: "Add a note"
+    tax_returns:
+      edit:
+        title: "Assign %{client_name}'s %{tax_year} tax return"
+        assigned_user_label: Assign to
+      update:
+        flash_success: "Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}"
   email:
     user_message:
       subject: Update from GetYourRefund
