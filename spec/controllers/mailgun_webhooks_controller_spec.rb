@@ -94,6 +94,10 @@ RSpec.describe MailgunWebhooksController do
             post :create_incoming_email, params: params
           end.to change(IncomingEmail, :count).by(1)
 
+          attachments = ActiveStorage::Attachment.all
+          expect(attachments.count).to eq(2)
+          expect(attachment.blob.map(&:content_type)).to eq(%w[application/pdf image/png])
+
           email = IncomingEmail.last
           expect(email.client).to eq client
         end

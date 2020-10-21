@@ -29,6 +29,7 @@
 class IncomingEmail < ApplicationRecord
   include ContactRecord
 
+  has_many_attached :attachments
   belongs_to :client
 
   before_create { client.touch(:updated_at, :last_response_at) }
