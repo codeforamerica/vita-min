@@ -28,10 +28,11 @@
 #
 class IncomingEmail < ApplicationRecord
   include ContactRecord
+  include InteractionTracking
 
   belongs_to :client
 
-  before_create { client.touch(:updated_at, :last_response_at) }
+  after_create :record_incoming_interaction
 
   def body
     stripped_text || body_plain

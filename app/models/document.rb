@@ -25,6 +25,7 @@
 #
 
 class Document < ApplicationRecord
+  include InteractionTracking
   # Permit all existing document types, plus "Requested", which is superseded by "Requested Later" (but the DB has both)
   validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested"] }
   validates :intake, presence: { unless: :documents_request_id }
@@ -37,7 +38,7 @@ class Document < ApplicationRecord
   has_one_attached :upload
 
   before_save :set_display_name
-  before_create { client&.touch(:updated_at, :last_response_at) }
+  after_create :record_incoming_interaction
 
   def set_display_name
     return if display_name

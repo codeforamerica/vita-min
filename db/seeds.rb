@@ -31,5 +31,6 @@ OutgoingTextMessage.create!(client: client, body: "Hey client, nice to meet you"
 OutgoingTextMessage.create!(client: client, body: "Hope you're having a good day", user: beta_user, sent_at: 2.days.ago, to_phone_number: "+14155551212")
 OutgoingTextMessage.create!(client: client, body: "Thanks and have a good night!", user: beta_user, sent_at: DateTime.now, to_phone_number: "+14155551212")
 
+IncomingTextMessage.create!(client: client, body: "I am sending you some info.", user: beta_user, received_at: 1.day.ago, from_phone_number: client.sms_phone_number)
 Note.create!(client: client, user: additional_user, body: "This is an incoming note!")
 Note.create!(client: client, user: beta_user, body: "This is an outgoing note :)", created_at: 2.days.ago)

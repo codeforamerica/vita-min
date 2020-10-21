@@ -192,6 +192,8 @@
 #
 
 class Intake < ApplicationRecord
+  include InteractionTracking
+
   has_many :users, foreign_key: "intake_id", class_name: "IdmeUser"
   has_many :documents, -> { order(created_at: :asc) }
   has_many :dependents, -> { order(created_at: :asc) }
@@ -201,10 +203,10 @@ class Intake < ApplicationRecord
   belongs_to :triage_source, optional: true, polymorphic: true
 
   before_save do
-    if completed_at_changed?
-      client&.touch(:updated_at, :last_response_at)
-    else
-      client&.touch(:updated_at)
+    if completed_at_changed?(from: nil)
+      record_incoming_interaction # client completed intake
+    elsif completed_at.present?
+      record_internal_interaction # user updated completed intake
     end
   end
 

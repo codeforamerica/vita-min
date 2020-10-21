@@ -229,6 +229,7 @@ en:
       zh: Mandarin
     languages: Languages
     name: Name
+    needs_response: Mark as needs response
     negative: 'No'
     next: Next
     none: None
@@ -251,6 +252,7 @@ en:
       white: White
     register: Sign Up
     remove: Remove
+    resolve: Resolve
     return_home: Return to home
     return_search: Return to search
     role: Role

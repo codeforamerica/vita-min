@@ -20,7 +20,11 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Note < ApplicationRecord
+  include InteractionTracking
+
   belongs_to :user
-  belongs_to :client, touch: true
+  belongs_to :client
   validates_presence_of :body
+
+  after_save :record_internal_interaction
 end

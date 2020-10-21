@@ -112,12 +112,12 @@ RSpec.describe CaseManagement::ClientsController do
       end
 
       context "when a client needs attention" do
-        before { client.touch(:updated_at, :last_response_at) }
+        before { client.touch(:response_needed_since) }
 
         it "adds the needs attention icon into the DOM" do
           get :show, params: params
           html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css(".client-header .needs-attention")).to be_present
+          expect(html.at_css(".client-header .needs-response")).to be_present
         end
       end
     end
@@ -168,13 +168,55 @@ RSpec.describe CaseManagement::ClientsController do
 
       describe "when a client needs attention" do
         it "adds the needs attention icon into the DOM" do
-          tobias.touch(:updated_at, :last_response_at)
+          tobias.touch(:response_needed_since)
           get :index
           html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("#client-#{michael.id} .needs-attention")).not_to be_present
-          expect(html.at_css("#client-#{tobias.id} .needs-attention")).to be_present
+          expect(html.at_css("#client-#{michael.id} .needs-response")).not_to be_present
+          expect(html.at_css("#client-#{tobias.id} .needs-response")).to be_present
         end
       end
     end
+  end
+
+  describe "#flag" do
+    let(:params) do
+      { id: client.id, client: {} }
+    end
+    let(:client) { create :client }
+    let(:current_user) { create :beta_tester }
+    before { sign_in(current_user) }
+
+    it "redirects to case management client path" do
+      patch :response_needed, params: params
+      expect(response).to redirect_to(case_management_client_path(id: client.id))
+    end
+
+    context "with dismiss param" do
+
+      before do
+        params[:client][:action] = "clear"
+      end
+
+      it "removes response_needed_since value from client" do
+        client.touch(:response_needed_since)
+        patch :response_needed, params: params
+        client.reload
+        expect(client.response_needed_since).to be_nil
+      end
+    end
+
+    context "with add flag param" do
+      before do
+        params[:client][:action] = "set"
+      end
+
+      it "adds response_needed_since to client" do
+        client.clear_response_needed
+        patch :response_needed, params: params
+        client.reload
+        expect(client.response_needed_since).to be_present
+      end
+    end
+
   end
 end

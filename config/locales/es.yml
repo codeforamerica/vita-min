@@ -230,6 +230,7 @@ es:
     languages: Idiomas
     name: Nombre
     negative: 'No'
+    needs_response: Marcar como necesita respuesta
     next: Próximo
     none: Ninguna
     none_of_the_above: Ninguna de las anteriores
@@ -251,6 +252,7 @@ es:
       white: Blanco
     register: Regístrate
     remove: Quitar
+    resolve: Resolver
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
     role: Rol
