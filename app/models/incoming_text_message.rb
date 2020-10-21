@@ -20,12 +20,13 @@
 #
 class IncomingTextMessage < ApplicationRecord
   include ContactRecord
+  include InteractionTracking
 
   belongs_to :client
   validates_presence_of :body
   validates_presence_of :received_at
 
-  before_create { client.touch(:updated_at, :last_response_at) }
+  after_create :record_incoming_interaction
 
   def datetime
     received_at

@@ -24,5 +24,12 @@ module CaseManagement
     end
 
     def show; end
+
+    def response_needed
+      @client.clear_response_needed if params.fetch(:client, {})[:action] == "clear"
+      @client.touch(:response_needed_since) if params.fetch(:client, {})[:action] == "set"
+      redirect_to case_management_client_path(id: @client.id)
+    end
+
   end
 end

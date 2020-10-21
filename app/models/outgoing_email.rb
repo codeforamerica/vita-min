@@ -24,13 +24,16 @@
 #
 class OutgoingEmail < ApplicationRecord
   include ContactRecord
+  include InteractionTracking
 
-  belongs_to :client, touch: true
+  belongs_to :client
   belongs_to :user
   validates_presence_of :body
   validates_presence_of :subject
   validates_presence_of :sent_at
   has_one_attached :attachment
+
+  after_create :record_outgoing_interaction
 
   def datetime
     sent_at
