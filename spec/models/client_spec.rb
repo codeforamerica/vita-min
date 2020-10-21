@@ -28,7 +28,7 @@ describe Client do
     context "when last_response_at is nil" do
       let!(:client) { create :client }
 
-      it "doesn't not need attention" do
+      it "doesn't need attention" do
         expect(client.needs_attention?).to eq false
       end
     end
