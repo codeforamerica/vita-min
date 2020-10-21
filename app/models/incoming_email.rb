@@ -30,6 +30,7 @@ class IncomingEmail < ApplicationRecord
   include ContactRecord
   include InteractionTracking
 
+  has_many_attached :documents
   belongs_to :client
 
   after_create :record_incoming_interaction

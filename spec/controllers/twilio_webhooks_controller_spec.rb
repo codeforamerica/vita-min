@@ -117,6 +117,39 @@ RSpec.describe TwilioWebhooksController do
             expect(client.sms_phone_number).to eq "15552341122"
           end
         end
+
+        context "with an attachment" do
+          before do
+            [0, 1].each do |path|
+              stub_request(:any, "https://example.com/#{path}").to_return(status: 200, body: path.to_s, headers: {})
+            end
+
+            allow(ClientChannel).to receive(:broadcast_contact_record)
+          end
+
+          let(:params_with_attachment) do
+            incoming_message_params.update({
+                  "MediaContentType0" => "image/jpeg",
+                  "MediaContentType1" => "application/pdf",
+                  "MediaUrl0" => "https://example.com/0",
+                  "MediaUrl1" => "https://example.com/1",
+                  "NumMedia" => "2",
+              })
+          end
+
+          it "creates a new IncomingTextMessage linked to the client the right data" do
+            post :create_incoming_text_message, params: params_with_attachment
+
+            documents = ActiveStorage::Attachment.all
+            expect(documents.count).to eq(2)
+            expect(documents.all.pluck(:record_type).uniq).to eq(["IncomingTextMessage"])
+            expect(documents.all.pluck(:record_id).uniq).to eq([IncomingTextMessage.last.id])
+            expect(documents.first.blob.download).to eq("0")
+            expect(documents.first.blob.content_type).to eq("image/jpeg")
+            expect(documents.last.blob.download).to eq("1")
+            expect(documents.last.blob.content_type).to eq("application/pdf")
+          end
+        end
       end
     end
   end

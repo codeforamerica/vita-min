@@ -20,6 +20,19 @@ class TwilioWebhooksController < ActionController::Base
       from_phone_number: phone_number,
       client: client,
     )
+    num_media = params['NumMedia'].to_i
+
+    (0..(num_media - 1)).each do |i|
+      media_url = params["MediaUrl#{i}"]
+      content_type = params["MediaContentType#{i}"]
+      extension = MIME::Types[content_type].first.extensions.first
+      filename_with_extension = "#{media_url.split('/').last}.#{extension}"
+      contact_record.documents.attach(io: StringIO.new(Net::HTTP.get(URI(media_url))),
+                                        filename: filename_with_extension,
+                                        content_type: content_type,
+                                        identify: false)
+    end
+
     ClientChannel.broadcast_contact_record(contact_record)
     head :ok
   end

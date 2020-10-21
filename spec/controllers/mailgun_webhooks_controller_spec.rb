@@ -19,7 +19,7 @@ RSpec.describe MailgunWebhooksController do
           "To" => "Alice <alice@mg-demo.getyourrefund-testing.org>",
           "User-Agent" => "Mozilla/5.0 (X11; Linux x86_64; rv:17.0) Gecko/20130308 Thunderbird/17.0.4",
           "X-Mailgun-Variables" => "{\"my_var_1\": \"Mailgun Variable #1\", \"my-var-2\": \"awesome\"}",
-          "attachment-count" => "2",
+          "attachment-count" => "0",
           "body-html" => "<html>\n  <head>\n    <meta content=\"text/html; charset=ISO-8859-1\"\n      http-equiv=\"Content-Type\">\n  </head>\n  <body text=\"#000000\" bgcolor=\"#FFFFFF\">\n    <div class=\"moz-cite-prefix\">\n      <div style=\"color: rgb(34, 34, 34); font-family: arial,\n        sans-serif; font-size: 12.666666984558105px; font-style: normal;\n        font-variant: normal; font-weight: normal; letter-spacing:\n        normal; line-height: normal; orphans: auto; text-align: start;\n        text-indent: 0px; text-transform: none; white-space: normal;\n        widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto;\n        -webkit-text-stroke-width: 0px; background-color: rgb(255, 255,\n        255);\">Hi Alice,</div>\n      <div style=\"color: rgb(34, 34, 34); font-family: arial,\n        sans-serif; font-size: 12.666666984558105px; font-style: normal;\n        font-variant: normal; font-weight: normal; letter-spacing:\n        normal; line-height: normal; orphans: auto; text-align: start;\n        text-indent: 0px; text-transform: none; white-space: normal;\n        widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto;\n        -webkit-text-stroke-width: 0px; background-color: rgb(255, 255,\n        255);\"><br>\n      </div>\n      <div style=\"color: rgb(34, 34, 34); font-family: arial,\n        sans-serif; font-size: 12.666666984558105px; font-style: normal;\n        font-variant: normal; font-weight: normal; letter-spacing:\n        normal; line-height: normal; orphans: auto; text-align: start;\n        text-indent: 0px; text-transform: none; white-space: normal;\n        widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto;\n        -webkit-text-stroke-width: 0px; background-color: rgb(255, 255,\n        255);\">This is Bob.<span class=\"Apple-converted-space\">&nbsp;<img\n            alt=\"\" src=\"cid:part1.04060802.06030207@mg-demo.getyourrefund-testing.org\"\n            height=\"15\" width=\"33\"></span></div>\n      <div style=\"color: rgb(34, 34, 34); font-family: arial,\n        sans-serif; font-size: 12.666666984558105px; font-style: normal;\n        font-variant: normal; font-weight: normal; letter-spacing:\n        normal; line-height: normal; orphans: auto; text-align: start;\n        text-indent: 0px; text-transform: none; white-space: normal;\n        widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto;\n        -webkit-text-stroke-width: 0px; background-color: rgb(255, 255,\n        255);\"><br>\n        I also attached a file.<br>\n        <br>\n      </div>\n      <div style=\"color: rgb(34, 34, 34); font-family: arial,\n        sans-serif; font-size: 12.666666984558105px; font-style: normal;\n        font-variant: normal; font-weight: normal; letter-spacing:\n        normal; line-height: normal; orphans: auto; text-align: start;\n        text-indent: 0px; text-transform: none; white-space: normal;\n        widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto;\n        -webkit-text-stroke-width: 0px; background-color: rgb(255, 255,\n        255);\">Thanks,</div>\n      <div style=\"color: rgb(34, 34, 34); font-family: arial,\n        sans-serif; font-size: 12.666666984558105px; font-style: normal;\n        font-variant: normal; font-weight: normal; letter-spacing:\n        normal; line-height: normal; orphans: auto; text-align: start;\n        text-indent: 0px; text-transform: none; white-space: normal;\n        widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto;\n        -webkit-text-stroke-width: 0px; background-color: rgb(255, 255,\n        255);\">Bob</div>\n      <br>\n      On 04/26/2013 11:29 AM, Alice wrote:<br>\n    </div>\n    <blockquote cite=\"mid:517AC78B.5060404@mg-demo.getyourrefund-testing.org\" type=\"cite\">Hi\n      Bob,\n      <br>\n      <br>\n      This is Alice. How are you doing?\n      <br>\n      <br>\n      Thanks,\n      <br>\n      Alice\n      <br>\n    </blockquote>\n    <br>\n  </body>\n</html>\n",
           "body-plain" => "Hi Alice,\n\nThis is Bob.\n\nI also attached a file.\n\nThanks,\nBob\n\nOn 04/26/2013 11:29 AM, Alice wrote:\n> Hi Bob,\n>\n> This is Alice. How are you doing?\n>\n> Thanks,\n> Alice\n\n",
           "content-id-map" => "{\"<part1.04060802.06030207@mg-demo.getyourrefund-testing.org>\": \"attachment-1\"}",
@@ -34,8 +34,6 @@ RSpec.describe MailgunWebhooksController do
           "subject" => subject,
           "timestamp" => "1599768656",
           "token" => "th15-15-4-t0k3n",
-          "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
-          "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/png"),
       }
     end
     let(:sender_email) { "bob@example.com" }
@@ -89,18 +87,50 @@ RSpec.describe MailgunWebhooksController do
 
         let!(:client) { create :client, email_address: sender_email }
 
-        it "creates an incoming email attached to the matching client" do
-          expect do
-            post :create_incoming_email, params: params
-          end.to change(IncomingEmail, :count).by(1)
-
-          email = IncomingEmail.last
-          expect(email.client).to eq client
-        end
-
         it "sends a real-time update to anyone on this client's page", active_job: true do
           post :create_incoming_email, params: params
           expect(ClientChannel).to have_received(:broadcast_contact_record).with(IncomingEmail.last)
+        end
+
+        context "without an attachment" do
+          it "creates an incoming email attached to the matching client" do
+            expect do
+              post :create_incoming_email, params: params
+            end.to change(IncomingEmail, :count).by(1)
+
+            email = IncomingEmail.last
+            expect(email.client).to eq client
+
+            documents = ActiveStorage::Attachment.all
+            expect(documents.count).to eq(0)
+          end
+        end
+
+        context "with attachments" do
+          it "stores them on the IncomingEmail" do
+            expect do
+              post :create_incoming_email, params: params.update({
+                  "attachment-count": 2,
+                  "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
+                  "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/jpg"),
+                                                                 })
+            end.to change(IncomingEmail, :count).by(1)
+
+            documents = ActiveStorage::Attachment.all
+            expect(documents.count).to eq(2)
+
+            email = IncomingEmail.last
+            expect(email.client).to eq client
+
+            expect(documents.all.pluck(:record_type).uniq).to eq(["IncomingEmail"])
+            expect(documents.all.pluck(:record_id).uniq).to eq([email.id])
+
+            expect(documents.first.blob.download).to eq(open("spec/fixtures/attachments/document_bundle.pdf", "rb").read)
+            expect(documents.first.blob.content_type).to eq("application/pdf")
+            expect(documents.last.blob.download).to eq(open("spec/fixtures/attachments/test-pattern.png", "rb").read)
+            expect(documents.last.blob.content_type).to eq("image/jpg")
+          end
+
         end
       end
 

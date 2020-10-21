@@ -22,6 +22,7 @@ class IncomingTextMessage < ApplicationRecord
   include ContactRecord
   include InteractionTracking
 
+  has_many_attached :documents
   belongs_to :client
   validates_presence_of :body
   validates_presence_of :received_at
