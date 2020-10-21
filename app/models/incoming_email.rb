@@ -29,9 +29,9 @@
 class IncomingEmail < ApplicationRecord
   include ContactRecord
 
-  belongs_to :client, touch: true
+  belongs_to :client
 
-  before_create { client.touch(:last_response_at) }
+  before_create { client.touch(:updated_at, :last_response_at) }
 
   def body
     stripped_text || body_plain

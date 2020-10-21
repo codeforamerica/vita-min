@@ -21,11 +21,11 @@
 class IncomingTextMessage < ApplicationRecord
   include ContactRecord
 
-  belongs_to :client, touch: true
+  belongs_to :client
   validates_presence_of :body
   validates_presence_of :received_at
 
-  before_create { client.touch(:last_response_at) }
+  before_create { client.touch(:updated_at, :last_response_at) }
 
   def datetime
     received_at

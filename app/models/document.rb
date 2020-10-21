@@ -32,12 +32,12 @@ class Document < ApplicationRecord
   scope :of_type, ->(type) { where(document_type: type) }
 
   belongs_to :intake, optional: true
-  belongs_to :client, optional: true, touch: true
+  belongs_to :client, optional: true
   belongs_to :documents_request, optional: true
   has_one_attached :upload
 
   before_save :set_display_name
-  before_create { client&.touch(:last_response_at) }
+  before_create { client&.touch(:updated_at, :last_response_at) }
 
   def set_display_name
     return if display_name

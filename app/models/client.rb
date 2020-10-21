@@ -52,4 +52,8 @@ class Client < ApplicationRecord
       intakes: [intake]
     )
   end
+
+  def needs_attention?
+    last_response_at.present? && last_response_at >= updated_at
+  end
 end
