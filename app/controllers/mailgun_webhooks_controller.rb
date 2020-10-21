@@ -26,6 +26,18 @@ class MailgunWebhooksController < ActionController::Base
       received: params["Received"],
       attachment_count: params["attachment-count"],
     )
+
+    params.each_key do |key|
+      next unless /^attachment-\d+$/.match?(key)
+
+      contact_record.documents.attach(
+        io: params[key],
+        filename: params[key].original_filename,
+        content_type: params[key].content_type,
+        identify: false
+      )
+    end
+
     ClientChannel.broadcast_contact_record(contact_record)
     head :ok
   end
