@@ -116,8 +116,8 @@ RSpec.describe CaseManagement::ClientsController do
 
         it "adds the needs attention icon into the DOM" do
           get :show, params: params
-          html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css(".client-header .needs-response")).to be_present
+          profile = Nokogiri::HTML.parse(response.body)
+          expect(profile).to have_text("Needs Response? Yes")
         end
       end
     end
@@ -171,8 +171,8 @@ RSpec.describe CaseManagement::ClientsController do
           tobias.touch(:response_needed_since)
           get :index
           html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("#client-#{michael.id} .needs-response")).not_to be_present
-          expect(html.at_css("#client-#{tobias.id} .needs-response")).to be_present
+          expect(html.at_css("#client-#{michael.id} .client-attribute__needs-response")).to have_text "No"
+          expect(html.at_css("#client-#{tobias.id} .client-attribute__needs-response")).to have_text "Yes"
         end
       end
     end

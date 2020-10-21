@@ -56,6 +56,7 @@ es:
         filing_year: Año para declarar
         title: Todos clientes
         assign: Asignar
+        needs_response_heading: Necesita respuesta?
       navigation:
         client_documents: Documentos
         client_messages: Mensajes

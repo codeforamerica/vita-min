@@ -1,6 +1,1 @@
-<% if client.needs_response? %>
-  <span class="needs-response">
-    <span class="needs-response__dot"></span>
-    <span class="needs-response__screen-reader">Needs Attention</span>
-  </span>
-<% end %>
+<%= client.needs_response? ? t("general.affirmative") : t("general.negative") %>
