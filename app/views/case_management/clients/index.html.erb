@@ -8,14 +8,13 @@
 
     <thead class="index-table__head">
       <tr class="index-table__row">
-        <th scope="col" class="index-table__header"></th>
+        <th scope="col" class="index-table__header">Needs Attention?</th>
         <th scope="col" class="index-table__header"><%= t("general.name") %></th>
         <th scope="col" class="index-table__header"><%= t(".client_id_heading") %></th>
         <th scope="col" class="index-table__header"><%= t("general.partner") %></th>
         <th scope="col" class="index-table__header"><%= t("general.language") %></th>
         <th scope="col" class="index-table__header"><%= t("general.updated_at") %></th>
-        <th scope="col" class="index-table__header"><%= t(".filing_year") %></th>
-        <th scope="col" class="index-table__header"><%= t("general.assignee") %></th>
+        <th scope="col" class="index-table__header"><%= t(".filing_year") %>, <%= t("general.assignee") %></th>
       </tr>
     </thead>
 
@@ -35,25 +34,23 @@
           <td class="index-table__cell"><%= client.intake&.vita_partner&.display_name || t("general.no_intake")  %></td>
           <td class="index-table__cell"><%= client.intake&.locale ? t("general.language_options.#{client.intake&.locale}") : "N/A" %></td>
           <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
-          <td class="index-table__cell" colspan="2">
-            <% client.tax_returns.each do |tax_return| %>
-              <table>
-                <tbody>
-                  <tr id="tax-return-<%= tax_return.id %>">
-                    <td class="index-table__cell"><%= tax_return.year %></td>
-                    <td class="index-table__cell">
-                      <% if tax_return.assigned_user.present? %>
-                        <%= tax_return.assigned_user&.name %>
-                      <% else %>
-                        <%= link_to t(".assign"),
-                            edit_case_management_client_tax_return_path(client_id: client.id, id: tax_return.id),
-                            class: "button button--inline-action" %>
-                      <% end %>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            <% end %>
+          <td class="index-table__cell">
+            <ul class="tax-return-list">
+              <% client.tax_returns.each do |tax_return| %>
+              <li class="tax-return-listing" id="tax-return-<%= tax_return.id %>">
+                <span class="tax-return-listing__year"><%= tax_return.year %></span>
+                <span class="tax-return-listing__assigned_user">
+                  <% if tax_return.assigned_user.present? %>
+                    <%= tax_return.assigned_user&.name %>
+                  <% else %>
+                    <%= link_to t(".assign"),
+                                edit_case_management_client_tax_return_path(client_id: client.id, id: tax_return.id),
+                                class: "button button--inline-action" %>
+                  <% end %>
+                </span>
+              </li>
+              <% end %>
+            </ul>
           </td>
         </tr>
       <% end %>
