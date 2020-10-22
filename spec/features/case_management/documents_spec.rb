@@ -26,7 +26,6 @@ RSpec.feature "View and edit documents for a client" do
 
       click_on "Save"
 
-      expect(page).to have_selector("h1", text: "Bart Simpson")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Updated Document Title")
     end
 

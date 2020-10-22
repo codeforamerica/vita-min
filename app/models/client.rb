@@ -34,7 +34,7 @@ class Client < ApplicationRecord
   has_many :tax_returns
 
   delegate :documents, to: :intake
-  
+
   def legal_name
     return unless intake&.primary_first_name? && intake&.primary_last_name?
 

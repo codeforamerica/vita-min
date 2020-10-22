@@ -178,7 +178,7 @@ RSpec.describe CaseManagement::ClientsController do
     end
   end
 
-  describe "#flag" do
+  describe "#response_needed" do
     let(:params) do
       { id: client.id, client: {} }
     end
@@ -218,5 +218,78 @@ RSpec.describe CaseManagement::ClientsController do
       end
     end
 
+  end
+
+  describe "#edit" do
+    let(:client) { create :client }
+    let(:params) {
+      { id: client.id }
+    }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
+    it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
+
+    context "with a signed in beta tester" do
+      let(:user) { create :beta_tester }
+      before do
+        sign_in user
+      end
+
+      it "renders edit for the client" do
+        get :edit, params: params
+
+        expect(response).to be_ok
+        expect(assigns(:form)).to be_an_instance_of CaseManagement::ClientIntakeForm
+      end
+    end
+  end
+
+  describe "#update" do
+    let(:client) { create :client, intake: create(:intake) }
+    let(:params) {
+      {
+        id: client.id,
+        case_management_client_intake_form: {
+          primary_first_name: "Updated",
+          primary_last_name: "Name",
+        }
+      }
+    }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
+    it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
+
+    context "with a signed in user" do
+      let(:user) { create :beta_tester }
+      before do
+        sign_in user
+      end
+
+      it "updates the clients intake" do
+        post :update, params: params
+
+        client.reload
+        expect(client.intake.primary_first_name).to eq "Updated"
+        expect(client.legal_name).to eq "Updated Name"
+        expect(response).to redirect_to case_management_client_path(id: client.id)
+      end
+
+      context "with invalid params" do
+        let(:params) {
+          {
+            id: client.id,
+            case_management_client_intake_form: {
+              primary_first_name: "",
+            }
+          }
+        }
+
+        it "renders edit" do
+          post :update, params: params
+
+          expect(response).to render_template :edit
+        end
+      end
+    end
   end
 end

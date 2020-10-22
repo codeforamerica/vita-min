@@ -75,6 +75,10 @@ en:
         mailing_address: Mailing Address
         spouse_contact_info: Spouse Contact Info
         primary_contact_info: Primary Contact Info
+      edit:
+        legal_first_name: Legal first name
+        legal_last_name: Legal last name
+        title: Edit Client Profile
     documents:
       edit:
         title: Edit Document

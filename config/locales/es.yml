@@ -75,6 +75,10 @@ es:
         mailing_address: Dirección postal
         spouse_contact_info: Información de contacto del cónyuge
         primary_contact_info: Información de contacto
+      edit:
+        legal_first_name: Primer nombre legal
+        legal_last_name: Apellido legal
+        title: Editar Perfil del cliente
     documents:
       edit:
         title: Editar Documento

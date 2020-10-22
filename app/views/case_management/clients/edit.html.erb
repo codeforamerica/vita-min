@@ -1,0 +1,16 @@
+<% @title = t(".title") %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <%= form_with model: @form, url: [:case_management, @client], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card' } do |f| %>
+    <h1 class="form-card__title">
+      <%= @title %>
+    </h1>
+
+    <%= f.cfa_input_field(:primary_first_name, t(".legal_first_name"), classes: ["form-width--long"]) %>
+    <%= f.cfa_input_field(:primary_last_name, t(".legal_last_name"), classes: ["form-width--long"]) %>
+
+    <button class="button button--cta " type="submit">
+      <%=t("general.save") %>
+    </button>
+  <% end %>
+<% end %>
