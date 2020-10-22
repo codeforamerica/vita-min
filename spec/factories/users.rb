@@ -70,6 +70,7 @@ FactoryBot.define do
 
     factory :beta_tester do
       is_beta_tester { true }
+      vita_partner
     end
 
     factory :invited_user do

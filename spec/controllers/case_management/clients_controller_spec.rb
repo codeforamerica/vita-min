@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe CaseManagement::ClientsController do
   describe "#create" do
-    let(:intake) { create :intake, email_address: "client@example.com", phone_number: "14155537865", preferred_name: "Casey" }
+    let(:user) { create :beta_tester }
+    let(:intake) { create :intake, email_address: "client@example.com", phone_number: "14155537865", preferred_name: "Casey", vita_partner: user.vita_partner }
     let(:params) do
       { intake_id: intake.id }
     end
@@ -14,7 +15,7 @@ RSpec.describe CaseManagement::ClientsController do
     it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
     context "as an authenticated admin user" do
-      before { sign_in(create :beta_tester) }
+      before { sign_in(user) }
 
       context "without an intake id" do
         it "does nothing and returns invalid request status code" do
@@ -45,7 +46,7 @@ RSpec.describe CaseManagement::ClientsController do
         end
 
         context "with an intake that already has a client" do
-          let(:client) { create :client }
+          let(:client) { create :client, vita_partner: user.vita_partner }
           let!(:intake) { create :intake, client: client }
 
           it "just redirects to the existing client" do
@@ -61,6 +62,8 @@ RSpec.describe CaseManagement::ClientsController do
   end
 
   describe "#show" do
+    let(:vita_partner) { create :vita_partner }
+    let(:user) { create :beta_tester, vita_partner: vita_partner }
     let(:intake) do
       create :intake,
              primary_first_name: "Legal",
@@ -77,10 +80,11 @@ RSpec.describe CaseManagement::ClientsController do
              zip_code: "94606",
              street_address: "123 Lilac Grove Blvd",
              spouse_first_name: "My",
-             spouse_last_name: "Spouse"
+             spouse_last_name: "Spouse",
+             vita_partner: vita_partner
     end
 
-    let(:client) { create :client, intake: intake }
+    let(:client) { create :client, intake: intake, vita_partner: vita_partner }
     let(:params) do
       { id: client.id }
     end
@@ -91,8 +95,7 @@ RSpec.describe CaseManagement::ClientsController do
     context "as an authenticated beta tester" do
       render_views
 
-      let(:current_user) { create :beta_tester }
-      before { sign_in(current_user) }
+      before { sign_in(user) }
 
       it "shows client information" do
         get :show, params: params
@@ -129,11 +132,14 @@ RSpec.describe CaseManagement::ClientsController do
     context "as an authenticated beta tester" do
       render_views
 
-      before { sign_in create(:beta_tester) }
-      let!(:george_sr) { create :client, preferred_name: "George Sr.", intake: create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
-      let!(:michael) { create :client, preferred_name: "Michael", intake: create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2017: "yes") }
-      let!(:tobias) { create :client, preferred_name: "Tobias", intake: create(:intake, :filled_out, needs_help_2018: "yes", locale: "es") }
-      let(:assigned_user) { create :user, name: "Lindsay" }
+      let(:vita_partner) { create(:vita_partner) }
+      let(:user) { create(:beta_tester, vita_partner: vita_partner) }
+
+      before { sign_in user }
+      let!(:george_sr) { create :client, preferred_name: "George Sr.", vita_partner: vita_partner, intake: create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
+      let!(:michael) { create :client, preferred_name: "Michael", vita_partner: vita_partner, intake: create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2017: "yes") }
+      let!(:tobias) { create :client, preferred_name: "Tobias", vita_partner: vita_partner, intake: create(:intake, :filled_out, needs_help_2018: "yes", locale: "es") }
+      let(:assigned_user) { create :user, name: "Lindsay", vita_partner: vita_partner }
       let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user }
       let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
 
@@ -144,7 +150,7 @@ RSpec.describe CaseManagement::ClientsController do
         html = Nokogiri::HTML.parse(response.body)
         expect(html).to have_text("Updated At")
         expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
-        expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.intake.vita_partner.display_name)
+        expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.vita_partner.display_name)
         expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)
         expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
         expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
@@ -181,8 +187,8 @@ RSpec.describe CaseManagement::ClientsController do
     let(:params) do
       { id: client.id, client: {} }
     end
-    let(:client) { create :client }
-    let(:current_user) { create :beta_tester }
+    let(:client) { create :client, vita_partner: create(:vita_partner) }
+    let(:current_user) { create :beta_tester, vita_partner: client.vita_partner }
     before { sign_in(current_user) }
 
     it "redirects to case management client path" do

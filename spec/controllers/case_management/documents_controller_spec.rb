@@ -2,14 +2,15 @@ require 'rails_helper'
 
 RSpec.describe CaseManagement::DocumentsController, type: :controller do
   describe "#index" do
-    let(:client) { create :client, intake: create(:intake) }
+    let(:vita_partner) { create :vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
     let(:params) { { client_id: client.id } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
     it_behaves_like :a_get_action_for_beta_testers_only, action: :index
 
     context "with a signed in beta tester" do
-      let(:beta_user) { create :beta_tester }
+      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
       before { sign_in(beta_user) }
 
       context "with some existing documents" do
@@ -95,7 +96,8 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
   end
 
   describe "#edit" do
-    let(:client) { create :client, intake: create(:intake) }
+    let(:vita_partner) { create :vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
     let(:document) { create :document, :with_upload, client: client, intake: client.intake }
     let(:params) { { id: document.id, client_id: client.id }}
 
@@ -103,7 +105,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
     it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
 
     context "with a signed in beta tester" do
-      let(:beta_user) { create :beta_tester }
+      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
       before { sign_in(beta_user) }
 
       it "renders edit for the document" do
@@ -117,7 +119,8 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
 
   describe "#update" do
     let(:new_display_name) { "New Display Name"}
-    let(:client) { create :client, intake: create(:intake) }
+    let(:vita_partner) { create :vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
     let(:document) { create :document, :with_upload, client: client, intake: client.intake }
     let(:params) { { client_id: client.id, id: document.id, document: { display_name: new_display_name} } }
 
@@ -125,7 +128,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
     it_behaves_like :a_post_action_for_beta_testers_only, action: :update
 
     context "with a signed in beta tester" do
-      let(:beta_user) { create :beta_tester }
+      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
       before { sign_in(beta_user) }
       context "with valid params" do
         it "updates the display name attribute on the document" do
@@ -153,7 +156,8 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
   end
 
   describe "#show" do
-    let(:client) { create :client, intake: create(:intake) }
+    let(:vita_partner) { create :vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
     let(:document) { create :document, :with_upload, client: client, intake: client.intake }
     let(:params) { { client_id: client.id, id: document.id }}
 
@@ -161,7 +165,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
     it_behaves_like :a_get_action_for_beta_testers_only, action: :show
 
     context "with a signed in beta tester" do
-      let(:beta_user) { create :beta_tester }
+      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
       before { sign_in(beta_user) }
 
       it "shows the document" do
