@@ -38,7 +38,7 @@ RSpec.describe CaseManagement::ClientsController do
             expect(client.phone_number).to eq "14155537865"
             expect(client.preferred_name).to eq "Casey"
             expect(client.documents.first).to eq(document)
-            expect(client.intakes).to include(intake)
+            expect(client.intake).to eq(intake)
             expect(intake.reload.client).to eq client
             expect(response).to redirect_to case_management_client_path(id: client.id)
           end
@@ -131,9 +131,9 @@ RSpec.describe CaseManagement::ClientsController do
       render_views
 
       before { sign_in create(:beta_tester) }
-      let!(:george_sr) { create :client, preferred_name: "George Sr.", intakes: [create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2018: "yes", locale: "en")] }
-      let!(:michael) { create :client, preferred_name: "Michael", intakes: [create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2017: "yes") ] }
-      let!(:tobias) { create :client, preferred_name: "Tobias", intakes: [create(:intake, :filled_out, needs_help_2018: "yes", locale: "es")] }
+      let!(:george_sr) { create :client, preferred_name: "George Sr.", intake: create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
+      let!(:michael) { create :client, preferred_name: "Michael", intake: create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2017: "yes") }
+      let!(:tobias) { create :client, preferred_name: "Tobias", intake: create(:intake, :filled_out, needs_help_2018: "yes", locale: "es") }
       let(:assigned_user) { create :user, name: "Lindsay" }
       let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user }
       let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
@@ -145,7 +145,7 @@ RSpec.describe CaseManagement::ClientsController do
         html = Nokogiri::HTML.parse(response.body)
         expect(html).to have_text("Updated At")
         expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
-        expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.intakes.first.vita_partner.display_name)
+        expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.intake.vita_partner.display_name)
         expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)
         expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
         expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")

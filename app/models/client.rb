@@ -24,19 +24,17 @@
 #
 class Client < ApplicationRecord
   belongs_to :vita_partner, optional: true
-  has_many :intakes
+  has_one :intake
+  # has_many :documents
   has_many :outgoing_text_messages
   has_many :outgoing_emails
   has_many :incoming_text_messages
   has_many :incoming_emails
-  has_many :documents
   has_many :notes
   has_many :tax_returns
 
-  def intake
-    intakes && intakes.first
-  end
-
+  delegate :documents, to: :intake
+  
   def legal_name
     return unless intake&.primary_first_name? && intake&.primary_last_name?
 
@@ -50,8 +48,8 @@ class Client < ApplicationRecord
       phone_number: intake.phone_number,
       sms_phone_number: intake.sms_phone_number,
       vita_partner: intake.vita_partner,
-      documents: intake.documents,
-      intakes: [intake]
+      # documents: intake.documents,
+      intake: intake
     )
   end
 
