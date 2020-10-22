@@ -140,7 +140,8 @@ RSpec.describe CaseManagement::ClientsController do
 
       it "shows a list of clients and client information" do
         get :index
-
+        puts(george_sr.inspect)
+        puts(george_sr.intake.inspect)
         expect(assigns(:clients).count).to eq 3
         html = Nokogiri::HTML.parse(response.body)
         expect(html).to have_text("Updated At")

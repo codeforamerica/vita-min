@@ -24,9 +24,20 @@
 #
 FactoryBot.define do
   factory :client do
+    transient do
+    end
     preferred_name { "Casey" }
     email_address { "client@example.com" }
     phone_number { "14155551212" }
     sms_phone_number { "14155551212" }
+
+    after(:create) do |client|
+      if client.intake.present?
+        client.intake.update(preferred_name: client.preferred_name)
+      else
+        intake = create(:intake, preferred_name: client.preferred_name)
+        client.update(intake: intake)
+      end
+    end
   end
 end

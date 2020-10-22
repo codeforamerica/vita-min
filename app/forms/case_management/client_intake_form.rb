@@ -1,7 +1,32 @@
 module CaseManagement
   class ClientIntakeForm < Form
     include FormAttributes
-    set_attributes_for :intake, :primary_first_name, :primary_last_name
+    set_attributes_for :intake,
+                       :primary_first_name,
+                       :primary_last_name,
+                       :preferred_name,
+                       :preferred_interview_language,
+                       :married,
+                       :separated,
+                       :widowed,
+                       :lived_with_spouse,
+                       :divorced,
+                       :divorced_year,
+                       :separated_year,
+                       :widowed_year,
+                       :email_address,
+                       :phone_number,
+                       :sms_phone_number,
+                       :street_address,
+                       :city,
+                       :state,
+                       :zip_code,
+                       :sms_notification_opt_in,
+                       :email_notification_opt_in,
+                       :spouse_first_name,
+                       :spouse_last_name,
+                       :spouse_email_address,
+                       :filing_joint
     validates :primary_first_name, presence: true, allow_blank: false
     validates :primary_last_name, presence: true, allow_blank: false
 
