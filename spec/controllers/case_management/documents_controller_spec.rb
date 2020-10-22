@@ -40,6 +40,8 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
           expect(first_doc_element).to have_text("ID")
           expect(first_doc_element).to have_text("some_file.jpg")
           expect(first_doc_element).to have_text("2 days ago")
+          document_link = first_doc_element.at_css("a:contains(\"some_file.jpg\")")
+          expect(document_link["href"]).to eq case_management_client_document_path(client_id: client.id, id: first_document.id)
           second_doc_element = html.at_css("#document-#{second_document.id}")
           expect(second_doc_element).to have_text("W-2")
           expect(second_doc_element).to have_text("another_file.pdf")
@@ -170,6 +172,5 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
       end
     end
   end
-
 end
 
