@@ -23,6 +23,7 @@ class IncomingTextMessage < ApplicationRecord
   include InteractionTracking
 
   has_many_attached :documents
+  alias_method :attachments, :documents
   belongs_to :client
   validates_presence_of :body
   validates_presence_of :received_at

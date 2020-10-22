@@ -23,15 +23,32 @@ class TwilioWebhooksController < ActionController::Base
     num_media = params['NumMedia'].to_i
 
     (0..(num_media - 1)).each do |i|
-      media_url = params["MediaUrl#{i}"]
       content_type = params["MediaContentType#{i}"]
-      extension = MIME::Types[content_type].first.extensions.first
-      filename_with_extension = "#{media_url.split('/').last}.#{extension}"
-      contact_record.documents.attach(io: StringIO.new(Net::HTTP.get(URI(media_url))),
-                                        filename: filename_with_extension,
-                                        content_type: content_type,
-                                        identify: false)
+      media_url = params["MediaUrl#{i}"]
+      filename = media_url.split('/').last
+
+      if FileTypeAllowedValidator::VALID_MIME_TYPES.include? content_type
+        extension = MIME::Types[content_type].first.extensions.first
+        filename_with_extension = "#{filename}.#{extension}"
+        contact_record.documents.attach(io: StringIO.new(Net::HTTP.get(URI(media_url))),
+                                          filename: filename_with_extension,
+                                          content_type: content_type,
+                                          identify: false)
+      else
+        io = StringIO.new <<~TEXT
+          Unusable file with unknown or unsupported file type.
+          File name: #{filename}
+          File type: #{content_type}
+        TEXT
+        contact_record.documents.attach(
+          io: io,
+          filename: "invalid-" + filename,
+          content_type: "text/plain;charset=UTF-8",
+          identify: false
+        )
+      end
     end
+
 
     ClientChannel.broadcast_contact_record(contact_record)
     head :ok
