@@ -2,8 +2,9 @@ require "rails_helper"
 
 RSpec.feature "View and add internal notes for a client" do
   context "As a beta tester" do
-    let(:beta_tester) { create :beta_tester }
-    let(:client) { create :client, preferred_name: "Bart Simpson" }
+    let(:vita_partner) { create :vita_partner }
+    let(:beta_tester) { create :beta_tester, vita_partner: vita_partner }
+    let(:client) { create :client, preferred_name: "Bart Simpson", vita_partner: vita_partner }
     before do
       login_as beta_tester
     end

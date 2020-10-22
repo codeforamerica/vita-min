@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe CaseManagement::OutgoingEmailsController do
   describe "#create" do
-    let(:client) { create :client }
+    let(:vita_partner) { create :vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner }
     let(:params) do
       { client_id: client.id, outgoing_email: { body: "hi client" } }
     end
@@ -12,7 +13,7 @@ RSpec.describe CaseManagement::OutgoingEmailsController do
 
     context "as an authenticated admin user" do
       let(:expected_time) { DateTime.new(2020, 9, 9) }
-      let(:beta_user) { create :beta_tester }
+      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
       before { sign_in beta_user }
 
       context "with body & client_id" do

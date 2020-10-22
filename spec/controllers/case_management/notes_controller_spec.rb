@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe CaseManagement::NotesController, type: :controller do
-  let(:client) { create :client }
+  let(:vita_partner) { create :vita_partner }
+  let(:client) { create :client, vita_partner: vita_partner }
 
   describe "#create" do
     let(:params) {
@@ -17,7 +18,7 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
     it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
     context "as a logged in beta tester" do
-      let(:current_user) { create :beta_tester }
+      let(:current_user) { create :beta_tester, vita_partner: vita_partner }
       before do
         sign_in current_user
       end
@@ -55,9 +56,9 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
   end
 
   describe "#index" do
-    let(:client) { create :client }
+    let(:client) { create :client, vita_partner: vita_partner }
     let(:params) { { client_id: client.id } }
-    let(:user) { create :beta_tester }
+    let(:user) { create :beta_tester, vita_partner: vita_partner }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
     it_behaves_like :a_get_action_for_beta_testers_only, action: :index
 
@@ -91,7 +92,7 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
       end
 
       context "with notes from different days" do
-        let(:user) { create :beta_tester, timezone: "America/Los_Angeles" }
+        let(:user) { create :beta_tester, timezone: "America/Los_Angeles" , vita_partner: vita_partner}
 
         before do
           create :note, client: client, created_at: DateTime.new(2019, 10, 5, 8) # UTC
