@@ -30,12 +30,27 @@ class MailgunWebhooksController < ActionController::Base
     params.each_key do |key|
       next unless /^attachment-\d+$/.match?(key)
 
-      contact_record.documents.attach(
-        io: params[key],
-        filename: params[key].original_filename,
-        content_type: params[key].content_type,
-        identify: false
-      )
+      attachment = params[key]
+      if FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type
+        contact_record.documents.attach(
+          io: attachment,
+          filename: attachment.original_filename,
+          content_type: attachment.content_type,
+          identify: false # false = don't infer content type from extension
+        )
+      else
+        io = StringIO.new <<~TEXT
+          Unusable file with unknown or unsupported file type.
+          File name:'#{attachment.original_filename}'
+          File type:'#{attachment.content_type}'
+        TEXT
+        contact_record.documents.attach(
+          io: io,
+          filename: "invalid-" + attachment.original_filename,
+          content_type: "text/plain;charset=UTF-8",
+          identify: false
+        )
+      end
     end
 
     ClientChannel.broadcast_contact_record(contact_record)

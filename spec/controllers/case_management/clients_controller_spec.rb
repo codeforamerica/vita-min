@@ -63,7 +63,6 @@ RSpec.describe CaseManagement::ClientsController do
   describe "#show" do
     let(:intake) do
       create :intake,
-             client: (create :client),
              primary_first_name: "Legal",
              primary_last_name: "Name",
              locale: "en",
@@ -81,7 +80,7 @@ RSpec.describe CaseManagement::ClientsController do
              spouse_last_name: "Spouse"
     end
 
-    let(:client) { intake.client }
+    let(:client) { create :client, intake: intake }
     let(:params) do
       { id: client.id }
     end

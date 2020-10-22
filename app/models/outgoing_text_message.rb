@@ -41,4 +41,8 @@ class OutgoingTextMessage < ApplicationRecord
   def author
     user.name
   end
+
+  def attachments
+    []
+  end
 end

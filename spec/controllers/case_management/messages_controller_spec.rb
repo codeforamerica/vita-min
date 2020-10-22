@@ -123,6 +123,35 @@ RSpec.describe CaseManagement::MessagesController do
           end
         end
       end
+
+      context "with messages that have attachments" do
+        render_views
+
+        before do
+          create(:outgoing_email, client: client,
+            attachment: Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/png")
+          )
+          create(:incoming_email, client: client, documents: [
+            Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/png"),
+            Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pdf.pdf", "application/pdf")
+          ])
+          create(:incoming_text_message, client: client, documents: [
+            Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/png")
+          ])
+        end
+
+        it "displays the attachments" do
+          get :index, params: params
+
+          outgoing_email_attachments = Nokogiri::HTML.parse(response.body).at_css(".message--outgoing_email .message__body .attachments-list")
+          expect(outgoing_email_attachments).to have_text "test-pattern.png"
+          incoming_email_attachments = Nokogiri::HTML.parse(response.body).at_css(".message--incoming_email .message__body .attachments-list")
+          expect(incoming_email_attachments).to have_text "test-pattern.png"
+          expect(incoming_email_attachments).to have_text "test-pdf.pdf"
+          text_message_attachments = Nokogiri::HTML.parse(response.body).at_css(".message--incoming_text_message .message__body .attachments-list")
+          expect(text_message_attachments).to have_text "test-pattern.png"
+        end
+      end
     end
   end
 end

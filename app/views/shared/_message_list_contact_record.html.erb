@@ -2,38 +2,38 @@
 
   <div class="message__heading">
     <div>
-                <span class="message__author">
-                  <span role="img" aria-label="client">👤</span>
-                  <% if contact_record.contact_record_type == :outgoing_text_message || contact_record.contact_record_type == :outgoing_email %>
-                    <%= contact_record.author %>
-                  <% end %>
-                </span>
+      <span class="message__author">
+        <span role="img" aria-label="client">👤</span>
+        <% if contact_record.contact_record_type == :outgoing_text_message || contact_record.contact_record_type == :outgoing_email %>
+          <%= contact_record.author %>
+        <% end %>
+      </span>
 
       <% if contact_record.contact_record_type == :outgoing_text_message %>
-                  <span class="message__phone_number">
-                    Text to <%= local_phone_number(contact_record.to_phone_number) %>
-                  </span>
+        <span class="message__phone_number">
+          Text to <%= local_phone_number(contact_record.to_phone_number) %>
+        </span>
         <span class="message__status">
-                    <%= contact_record.twilio_status || "sending..." %>
-                  </span>
+          <%= contact_record.twilio_status || "sending..." %>
+        </span>
       <% end %>
 
       <% if contact_record.contact_record_type == :incoming_text_message %>
-                  <span class="message__phone_number">
-                    Text from <%= local_phone_number(contact_record.from_phone_number) %>
-                  </span>
+        <span class="message__phone_number">
+          Text from <%= local_phone_number(contact_record.from_phone_number) %>
+        </span>
       <% end %>
 
       <% if contact_record.contact_record_type == :outgoing_email %>
-                  <span class="message__phone_number">
-                    Email to <%= contact_record.to %>
-                  </span>
+        <span class="message__phone_number">
+          Email to <%= contact_record.to %>
+        </span>
       <% end %>
 
       <% if contact_record.contact_record_type == :incoming_email %>
-                  <span class="message__phone_number">
-                    Email from <%= contact_record.from %>
-                  </span>
+        <span class="message__phone_number">
+          Email from <%= contact_record.from %>
+        </span>
       <% end %>
 
       <% if contact_record.contact_record_type.to_s.include? "email" %>
@@ -44,30 +44,22 @@
     </div>
 
     <div>
-                <span class="message__time">
-                  <%= formatted_time(contact_record.datetime) %>
-                </span>
+      <span class="message__time">
+        <%= formatted_time(contact_record.datetime) %>
+      </span>
     </div>
   </div>
 
   <div class="message__body">
+    <%= render "shared/email_body", body: contact_record.body %>
 
-    <% if contact_record.contact_record_type == :outgoing_email %>
-
-      <%= render "shared/email_body", body: contact_record.body %>
-      <% if contact_record.attachment.present? && contact_record.attachment.filename %>
-        <hr class="message--hr" />
-        <h4 class="message--attachments__heading">Attachments:</h4>
-        <ul>
-          <li><%= contact_record.attachment.filename %></li>
-        </ul>
-      <% end %>
-
-    <% else %>
-
-      <%= contact_record.body %>
-
+    <% if contact_record.attachments.present? %>
+      <h4 class="message--attachments__heading">Attachments:</h4>
+      <ul class="attachments-list">
+        <% contact_record.attachments.each do |attachment| %>
+          <li><%= attachment.filename %></li>
+        <% end %>
+      </ul>
     <% end %>
   </div>
-
 </li>

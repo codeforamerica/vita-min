@@ -42,4 +42,8 @@ class OutgoingEmail < ApplicationRecord
   def author
     user.name
   end
+
+  def attachments
+    attachment.present? ? [attachment] : nil
+  end
 end
