@@ -45,7 +45,7 @@ describe Client do
     end
 
     context "when clients intake was completed" do
-      let!(:client) { create :client, intakes: [create(:intake)] }
+      let!(:client) { create :client, intake: create(:intake) }
 
       it "needs attention" do
         client.intake.update(completed_at: Time.now)
@@ -184,6 +184,13 @@ describe Client do
 
       it "updates client response_needed_since" do
         expect { create :document, client: client}.to change(client, :response_needed_since)
+      end
+
+      context "without an explicit relationship to client but an intake that has a client id" do
+        let(:client) { create :client, intake: create(:intake) }
+        it "still should update the associated client" do
+          expect { create :document, intake: client.intake }.to change(client, :response_needed_since)
+        end
       end
     end
 

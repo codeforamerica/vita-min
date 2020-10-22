@@ -19,8 +19,7 @@ module CaseManagement
       render_active_storage_attachment @document.upload
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       @form = CaseManagement::DocumentForm.new(@document, document_params)
