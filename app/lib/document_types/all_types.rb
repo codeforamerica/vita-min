@@ -31,5 +31,7 @@ module DocumentTypes
     DocumentTypes::W2G,
     DocumentTypes::Other,
     DocumentTypes::RequestedLater,
+    DocumentTypes::EmailAttachment,
+    DocumentTypes::TextMessageAttachment,
   ].freeze
 end

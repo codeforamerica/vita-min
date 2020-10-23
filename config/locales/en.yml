@@ -186,6 +186,7 @@ en:
     continue_example: Continue to example
     document_type:
       care_provider_statement: Care Provider Statement
+      email_attachment: Email attachment
       employment: Employment tax documents (W2's, 1099, etc)
       id: ID
       ira_statement: IRA Statement
@@ -196,6 +197,7 @@ en:
       selfie: Selfie
       ssn_or_itin: SSN or ITIN
       student_account_statement: Student Account Statement
+      text_message_attachment: Text message attachment
     edit: Edit
     email: Email
     error:

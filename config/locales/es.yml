@@ -186,6 +186,7 @@ es:
     continue_example: Continúe para ver un ejemplo
     document_type:
       care_provider_statement: Declaración del Proveedor de Cuidados
+      email_attachment: Adjunto de email
       employment: Documentos de impuestos de empleo (W2, 1099, etc.)
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
@@ -196,6 +197,7 @@ es:
       selfie: Selfie
       ssn_or_itin: SSN o ITIN
       student_account_statement: Estado de cuenta del estudiante
+      text_message_attachment: Adjunto de mensaje de texto
     edit: Editar
     email: Email
     error:

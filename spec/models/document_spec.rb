@@ -3,20 +3,23 @@
 # Table name: documents
 #
 #  id                   :bigint           not null, primary key
+#  contact_record_type  :string
 #  display_name         :string
 #  document_type        :string           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  client_id            :bigint
+#  contact_record_id    :bigint
 #  documents_request_id :bigint
 #  intake_id            :bigint
 #  zendesk_ticket_id    :bigint
 #
 # Indexes
 #
-#  index_documents_on_client_id             (client_id)
-#  index_documents_on_documents_request_id  (documents_request_id)
-#  index_documents_on_intake_id             (intake_id)
+#  index_documents_on_client_id                                  (client_id)
+#  index_documents_on_contact_record_type_and_contact_record_id  (contact_record_type,contact_record_id)
+#  index_documents_on_documents_request_id                       (documents_request_id)
+#  index_documents_on_intake_id                                  (intake_id)
 #
 # Foreign Keys
 #

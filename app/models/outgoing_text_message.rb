@@ -42,7 +42,7 @@ class OutgoingTextMessage < ApplicationRecord
     user.name
   end
 
-  def attachments
+  def documents
     []
   end
 end

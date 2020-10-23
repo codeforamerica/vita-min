@@ -30,9 +30,8 @@ class IncomingEmail < ApplicationRecord
   include ContactRecord
   include InteractionTracking
 
-  has_many_attached :documents
-  alias attachments documents
   belongs_to :client
+  has_many :documents, as: :contact_record
 
   after_create :record_incoming_interaction
 

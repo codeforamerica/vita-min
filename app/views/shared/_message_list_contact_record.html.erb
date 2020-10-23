@@ -52,13 +52,18 @@
 
   <div class="message__body">
     <%= render "shared/email_body", body: contact_record.body %>
-
-    <% if contact_record.attachments.present? %>
+    <% if contact_record.direction == :incoming && contact_record.documents.present?%>
       <h4 class="message--attachments__heading">Attachments:</h4>
       <ul class="attachments-list">
-        <% contact_record.attachments.each do |attachment| %>
-          <li><%= attachment.filename %></li>
+        <% contact_record.documents.each do |document| %>
+          <li><%= document.display_name %></li>
         <% end %>
+      </ul>
+    <% end %>
+    <% if contact_record.contact_record_type == :outgoing_email && contact_record.attachment.present? %>
+      <h4 class="message--attachments__heading">Attachments:</h4>
+      <ul class="attachments-list">
+        <li><%= contact_record.attachment.filename %></li>
       </ul>
     <% end %>
   </div>

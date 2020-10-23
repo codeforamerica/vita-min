@@ -85,7 +85,7 @@ RSpec.describe MailgunWebhooksController do
           allow(ClientChannel).to receive(:broadcast_contact_record)
         end
 
-        let!(:client) { create :client, email_address: sender_email }
+        let!(:client) { create :client, email_address: sender_email, intake: (create :intake) }
 
         it "sends a real-time update to anyone on this client's page", active_job: true do
           post :create_incoming_email, params: params
@@ -110,39 +110,41 @@ RSpec.describe MailgunWebhooksController do
           it "stores them on the IncomingEmail" do
             expect do
               post :create_incoming_email, params: params.update({
-                "attachment-count": 2,
-                "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
-                "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/jpeg"),
-                "attachment-3" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-spreadsheet.xls", "application/vnd.ms-excel"),
-                "attachment-4" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pdf.pdf", ""),
-              })
-            end.to change(ActiveStorage::Attachment, :count).by(4)
+                                                                     "attachment-count": 4,
+                                                                     "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
+                                                                     "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/jpeg"),
+                                                                     "attachment-3" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-spreadsheet.xls", "application/vnd.ms-excel"),
+                                                                     "attachment-4" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pdf.pdf", ""),
+                                                                 })
+            end.to change(Document, :count).by(4)
 
             email = IncomingEmail.last
             expect(email.client).to eq client
 
-            documents = ActiveStorage::Attachment.all
-            expect(documents.all.pluck(:record_type).uniq).to eq(["IncomingEmail"])
-            expect(documents.all.pluck(:record_id).uniq).to eq([email.id])
+            documents = client.documents
+            expect(documents.all.pluck(:document_type).uniq).to eq([DocumentTypes::EmailAttachment.key])
+            expect(documents.first.contact_record).to eq email
+            expect(documents.first.upload.blob.download).to eq(open("spec/fixtures/attachments/document_bundle.pdf", "rb").read)
+            expect(documents.first.upload.blob.content_type).to eq("application/pdf")
+            expect(documents.second.upload.blob.download).to eq(open("spec/fixtures/attachments/test-pattern.png", "rb").read)
+            expect(documents.second.upload.blob.content_type).to eq("image/jpeg")
+            expect(documents.first.intake_id).to be_present
+            expect(documents.all.pluck(:intake_id).uniq).to eq([client.intake.id])
 
-            expect(documents.first.blob.download).to eq(open("spec/fixtures/attachments/document_bundle.pdf", "rb").read)
-            expect(documents.first.blob.content_type).to eq("application/pdf")
-            expect(documents.second.blob.download).to eq(open("spec/fixtures/attachments/test-pattern.png", "rb").read)
-            expect(documents.second.blob.content_type).to eq("image/jpeg")
             spreadsheet_message = <<~TEXT
               Unusable file with unknown or unsupported file type.
               File name:'test-spreadsheet.xls'
               File type:'application/vnd.ms-excel'
             TEXT
-            expect(documents.third.blob.download).to eq(spreadsheet_message)
-            expect(documents.third.blob.content_type).to eq("text/plain;charset=UTF-8")
+            expect(documents.third.upload.blob.download).to eq(spreadsheet_message)
+            expect(documents.third.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
             no_file_type_message = <<~TEXT
               Unusable file with unknown or unsupported file type.
               File name:'test-pdf.pdf'
               File type:''
             TEXT
-            expect(documents.fourth.blob.download).to eq(no_file_type_message)
-            expect(documents.fourth.blob.content_type).to eq("text/plain;charset=UTF-8")
+            expect(documents.fourth.upload.blob.download).to eq(no_file_type_message)
+            expect(documents.fourth.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
           end
         end
       end
