@@ -34,6 +34,7 @@ FactoryBot.define do
     trait :with_intake do
       intake do
         association(:intake,
+                    :filled_out,
                     :with_contact_info,
                     preferred_name: preferred_name,
                     email_address: email_address,

@@ -99,7 +99,6 @@ RSpec.describe CaseManagement::ClientsController do
       it "shows client information" do
         get :show, params: params
         profile = Nokogiri::HTML.parse(response.body).at_css(".client-profile")
-        binding.pry
         expect(profile).to have_text(client.preferred_name)
         expect(profile).to have_text(client.legal_name)
         expect(profile).to have_text("2019, 2018")
@@ -132,9 +131,9 @@ RSpec.describe CaseManagement::ClientsController do
       render_views
 
       before { sign_in create(:beta_tester) }
-      let!(:george_sr) { create :client, preferred_name: "George Sr.", intake: create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
-      let!(:michael) { create :client, preferred_name: "Michael", intake: create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2017: "yes") }
-      let!(:tobias) { create :client, preferred_name: "Tobias", intake: create(:intake, :filled_out, needs_help_2018: "yes", locale: "es") }
+      let!(:george_sr) { create :client, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
+      let!(:michael) { create :client, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes") }
+      let!(:tobias) { create :client, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es") }
       let(:assigned_user) { create :user, name: "Lindsay" }
       let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user }
       let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
