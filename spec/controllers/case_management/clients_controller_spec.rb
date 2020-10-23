@@ -244,13 +244,37 @@ RSpec.describe CaseManagement::ClientsController do
   end
 
   describe "#update" do
-    let(:client) { create :client, intake: create(:intake) }
+    let(:intake) { create(:intake) }
+    let(:client) { create :client, intake: intake }
     let(:params) {
       {
         id: client.id,
         case_management_client_intake_form: {
           primary_first_name: "Updated",
           primary_last_name: "Name",
+          preferred_name: intake.preferred_name,
+          preferred_interview_language: intake.preferred_interview_language,
+          married: intake.married,
+          separated: intake.separated,
+          widowed: intake.widowed,
+          lived_with_spouse: intake.lived_with_spouse,
+          divorced: intake.divorced,
+          divorced_year: intake.divorced_year,
+          separated_year: intake.separated_year,
+          widowed_year: intake.widowed_year,
+          email_address: intake.email_address,
+          phone_number: intake.phone_number,
+          sms_phone_number: intake.sms_phone_number,
+          street_address: intake.street_address,
+          city: intake.city,
+          state: intake.state,
+          zip_code: intake.zip_code,
+          sms_notification_opt_in: intake.sms_notification_opt_in,
+          email_notification_opt_in: intake.email_notification_opt_in,
+          spouse_first_name: intake.spouse_first_name,
+          spouse_last_name: intake.spouse_last_name,
+          spouse_email_address: intake.spouse_email_address,
+          filing_joint: intake.filing_joint,
         }
       }
     }
