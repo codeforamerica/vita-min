@@ -1,0 +1,10 @@
+.needs-response-wrapper {
+  display: inline;
+  i.needs-response {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: $color-red;
+    border-radius: 20px;
+  }
+}

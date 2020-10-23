@@ -10,7 +10,7 @@
 
     <thead class="index-table__head">
       <tr class="index-table__row">
-        <th scope="col" class="index-table__header"><%= t(".needs_response_heading") %></th>
+        <th scope="col" class="index-table__header"><div class="sr-only"><%= t(".needs_response_heading") %></div></th>
         <th scope="col" class="index-table__header">
           <%= render "shared/column_sort_link", title: t("general.name"), column_name: "preferred_name" %>
         </th>

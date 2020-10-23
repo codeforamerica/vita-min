@@ -263,7 +263,8 @@ en:
     lived_with_spouse: Lived with spouse
     married: Married
     name: Name
-    needs_response: Mark as needs response
+    mark_for_response: Mark as needs response
+    needs_response: Needs Response
     negative: 'No'
     next: Next
     no_intake: No intake for client

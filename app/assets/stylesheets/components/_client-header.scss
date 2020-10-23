@@ -2,7 +2,9 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-
+  i {
+    margin-left: 10px;
+  }
   h1.h2 {
     margin: 0;
   }
@@ -12,5 +14,11 @@
 
   .button {
    margin-left: 0;
+  }
+
+  .response-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 }
