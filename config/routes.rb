@@ -128,7 +128,7 @@ Rails.application.routes.draw do
 
     # New Case Management Admin routes
     namespace :case_management do
-      resources :clients, only: [:index, :show, :create] do
+      resources :clients, only: [:index, :show, :create, :edit, :update] do
         resources :documents, only: [:index, :edit, :update, :show]
         resources :notes, only: [:create, :index]
         resources :messages, only: [:index]

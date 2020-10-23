@@ -46,8 +46,9 @@ RSpec.describe TwilioWebhooksController do
           allow(DateTime).to receive(:now).and_return current_time
         end
 
-        context "with a matching client phone number" do
-          let!(:existing_client) { create :client, phone_number: "15552341122" }
+        context "with a matching intake phone number" do
+          let(:intake) { create(:intake, :filled_out, phone_number: "15552341122")}
+          let!(:existing_client) { create :client, intake: intake }
 
           it "creates a new IncomingTextMessage linked to the client the right data" do
             expect do
@@ -67,7 +68,8 @@ RSpec.describe TwilioWebhooksController do
           before do
             allow(ClientChannel).to receive(:broadcast_contact_record)
           end
-          let!(:existing_client) { create :client, sms_phone_number: "15552341122" }
+          let(:intake) { create(:intake, :filled_out, sms_phone_number: "15552341122")}
+          let!(:existing_client) { create :client, intake: intake }
 
           it "creates a new IncomingTextMessage linked to the client the right data" do
             expect do
@@ -88,8 +90,10 @@ RSpec.describe TwilioWebhooksController do
           # We have not discussed the best way to handle this scenario
           # This spec is intended to document existing behavior more than
           # prescribe the correct way to handle this.
-          let!(:client1) { create :client, sms_phone_number: "15552341122" }
-          let!(:client2) { create :client, phone_number: "15552341122" }
+          let(:intake1) { create :intake, phone_number: "15552341122" }
+          let(:intake2) { create :intake, sms_phone_number: "15552341122" }
+          let!(:client1) { create :client, intake: intake1 }
+          let!(:client2) { create :client, intake: intake2 }
 
           it "creates a new IncomingTextMessage linked to the first client" do
             expect do
@@ -113,8 +117,8 @@ RSpec.describe TwilioWebhooksController do
             expect(message.received_at).to eq current_time
             client = Client.last
             expect(message.client).to eq client
-            expect(client.phone_number).to eq "15552341122"
-            expect(client.sms_phone_number).to eq "15552341122"
+            expect(client.intake.phone_number).to eq "15552341122"
+            expect(client.intake.sms_phone_number).to eq "15552341122"
           end
         end
 

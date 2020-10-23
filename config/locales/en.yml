@@ -75,6 +75,16 @@ en:
         mailing_address: Mailing Address
         spouse_contact_info: Spouse Contact Info
         primary_contact_info: Primary Contact Info
+      edit:
+        legal_first_name: Legal first name
+        legal_last_name: Legal last name
+        preferred_name: Preferred name
+        title: Edit Client Profile
+        preferred_interview_language: Preferred interview language
+        spouse_contact_info: Spouse Contact Info
+        primary_contact_info: Primary Contact Info
+        mailing_address: Mailing Address
+        filing_information: Filing Information
     documents:
       edit:
         title: Edit Document
@@ -205,6 +215,7 @@ en:
       not_hispanic: Not Hispanic or Latino
     faq: FAQ
     file_my_taxes: File my taxes
+    filing_joint: Filing jointly
     filing_years: Filing Years
     find_location: Find a location
     find_vita_site: Find a VITA site near you
@@ -244,6 +255,7 @@ en:
     partner: Partner
     password: Password
     phone_number: Phone number
+    phone_for_texting: Phone for texting
     privacy_policy: privacy policy
     race:
       american_indian_alaska_native: American Indian or Alaska Native
@@ -276,6 +288,7 @@ en:
     visit_stimulus_faq: Visit Stimulus FAQ
     vita_long: 'VITA: Volunteer Income Tax Assistance'
     well: Well
+    year: year
     you: you
     you_or_spouse: you or your spouse
     zendesk:
@@ -292,6 +305,11 @@ en:
     NA: N/A
     no_intake: No intake for client
     assignee: Assignee
+    street_address: Street address
+    city: City
+    state: State
+    opt_in_sms: Opted into sms notifications
+    opt_in_email: Opted into email notifications
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

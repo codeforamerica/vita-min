@@ -24,10 +24,16 @@
 #
 FactoryBot.define do
   factory :client do
-    intake
     preferred_name { "Casey" }
     email_address { "client@example.com" }
     phone_number { "14155551212" }
     sms_phone_number { "14155551212" }
+    intake {
+      create :intake,
+      preferred_name: preferred_name,
+      email_address: email_address,
+      phone_number: phone_number,
+      sms_phone_number: sms_phone_number
+    }
   end
 end

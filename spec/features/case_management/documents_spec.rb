@@ -4,7 +4,7 @@ RSpec.feature "View and edit documents for a client" do
   context "As a beta tester" do
     let(:vita_partner) { create :vita_partner }
     let(:beta_tester) { create :beta_tester, vita_partner: vita_partner }
-    let(:client) { create :client, preferred_name: "Bart Simpson", intake: create(:intake, vita_partner: vita_partner), vita_partner: vita_partner }
+    let(:client) { create :client, preferred_name: "Bart Simpson", vita_partner: vita_partner }
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake }
     let!(:document_2) { create :document, display_name: "W-2.pdf", client: client, intake: client.intake }
     before do

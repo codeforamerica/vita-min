@@ -38,6 +38,7 @@ class Document < ApplicationRecord
   has_one_attached :upload
 
   before_save :set_display_name
+
   after_create do
     client.present? ? record_incoming_interaction : intake&.record_incoming_interaction
   end

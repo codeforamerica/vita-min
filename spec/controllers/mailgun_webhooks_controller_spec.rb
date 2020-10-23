@@ -71,7 +71,7 @@ RSpec.describe MailgunWebhooksController do
           email = IncomingEmail.last
           client = Client.last
           expect(email.client).to eq client
-          expect(client.email_address).to eq sender_email
+          expect(client.intake.email_address).to eq sender_email
           expect(email.sender).to eq sender_email
           expect(email.received_at).to eq current_time
           expect(email.subject).to eq subject
@@ -85,7 +85,7 @@ RSpec.describe MailgunWebhooksController do
           allow(ClientChannel).to receive(:broadcast_contact_record)
         end
 
-        let!(:client) { create :client, email_address: sender_email }
+        let!(:client) { create :client, intake: create(:intake, email_address: sender_email) }
 
         it "sends a real-time update to anyone on this client's page", active_job: true do
           post :create_incoming_email, params: params
@@ -151,8 +151,10 @@ RSpec.describe MailgunWebhooksController do
         # We have not discussed the best way to handle this scenario
         # This spec is intended to document existing behavior more than
         # prescribe the correct way to handle this.
-        let!(:client1) { create :client, email_address: sender_email }
-        let!(:client2) { create :client, email_address: sender_email }
+        let(:intake1) { create :intake, email_address: sender_email }
+        let(:intake2) { create :intake, email_address: sender_email }
+        let!(:client1) { create :client, intake: intake1 }
+        let!(:client2) { create :client, intake: intake2 }
 
         it "creates a new IncomingEmail linked to the first client" do
           expect do

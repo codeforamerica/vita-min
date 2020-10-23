@@ -75,6 +75,16 @@ es:
         mailing_address: Dirección postal
         spouse_contact_info: Información de contacto del cónyuge
         primary_contact_info: Información de contacto
+      edit:
+        legal_first_name: Primer nombre legal
+        legal_last_name: Apellido legal
+        preferred_name: Nombre preferido
+        title: Editar Perfil del cliente
+        preferred_interview_language: idioma preferido
+        mailing_address: Dirección postal
+        spouse_contact_info: Información de contacto del cónyuge
+        primary_contact_info: Información de contacto
+        filing_information: Presentación de información
     documents:
       edit:
         title: Editar Documento
@@ -205,6 +215,7 @@ es:
       not_hispanic: No soy Hispano o Latino
     faq: preguntas frecuentes
     file_my_taxes: Declarar mis impuestos
+    filing_joint: Presentación conjunta
     filing_years: Años para declarar
     find_location: Buscar una ubicación
     find_vita_site: Encuentre un sitio de VITA cerca de usted
@@ -244,6 +255,7 @@ es:
     partner: Socio
     password: Contraseña
     phone_number: Número de teléfono
+    phone_for_texting: Número celular
     privacy_policy: Política de privacidad
     race:
       american_indian_alaska_native: Indio Americano o Nativo de Alaska
@@ -276,6 +288,7 @@ es:
     visit_stimulus_faq: Preguntas Frecuentes
     vita_long: 'VITA: Asistencia Voluntaria al Contribuyente Tributario'
     well: Bien
+    year: año
     you: usted
     you_or_spouse: usted o su cónyuge
     zendesk:
@@ -292,6 +305,11 @@ es:
     NA: N/A
     no_intake: Sin ingesta
     assignee: Asignada a
+    street_address: Dirección
+    city: Ciudad
+    state: Estado
+    opt_in_sms: Ha optado por recibir notificaciones por SMS
+    opt_in_email: Ha optado por recibir notificaciones por email
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

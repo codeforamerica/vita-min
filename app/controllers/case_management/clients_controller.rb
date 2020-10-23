@@ -31,5 +31,24 @@ module CaseManagement
       redirect_to case_management_client_path(id: @client.id)
     end
 
+    def edit
+      @form = ClientIntakeForm.new(@client.intake)
+    end
+
+    def update
+      @form = ClientIntakeForm.new(@client.intake, form_params)
+      if @form.valid?
+        @form.save
+        redirect_to case_management_client_path(id: @client.id)
+      else
+        render :edit
+      end
+    end
+
+    private
+
+    def form_params
+      params.require(:case_management_client_intake_form).permit(ClientIntakeForm.attribute_names)
+    end
   end
 end

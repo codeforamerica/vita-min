@@ -66,6 +66,7 @@ RSpec.describe CaseManagement::ClientsController do
     let(:user) { create :beta_tester, vita_partner: vita_partner }
     let(:intake) do
       create :intake,
+             :with_contact_info,
              primary_first_name: "Legal",
              primary_last_name: "Name",
              locale: "en",
@@ -100,7 +101,6 @@ RSpec.describe CaseManagement::ClientsController do
       it "shows client information" do
         get :show, params: params
         profile = Nokogiri::HTML.parse(response.body).at_css(".client-profile")
-
         expect(profile).to have_text(client.preferred_name)
         expect(profile).to have_text(client.legal_name)
         expect(profile).to have_text("2019, 2018")
@@ -134,18 +134,17 @@ RSpec.describe CaseManagement::ClientsController do
 
       let(:vita_partner) { create(:vita_partner) }
       let(:user) { create(:beta_tester, vita_partner: vita_partner) }
-
-      before { sign_in user }
-      let!(:george_sr) { create :client, preferred_name: "George Sr.", vita_partner: vita_partner, intake: create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
-      let!(:michael) { create :client, preferred_name: "Michael", vita_partner: vita_partner, intake: create(:intake, :filled_out, needs_help_2019: "yes", needs_help_2017: "yes") }
-      let!(:tobias) { create :client, preferred_name: "Tobias", vita_partner: vita_partner, intake: create(:intake, :filled_out, needs_help_2018: "yes", locale: "es") }
+      let!(:george_sr) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
+      let!(:michael) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes") }
+      let!(:tobias) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es") }
       let(:assigned_user) { create :user, name: "Lindsay", vita_partner: vita_partner }
       let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user }
       let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
 
+      before { sign_in user }
+
       it "shows a list of clients and client information" do
         get :index
-
         expect(assigns(:clients).count).to eq 3
         html = Nokogiri::HTML.parse(response.body)
         expect(html).to have_text("Updated At")
@@ -183,7 +182,7 @@ RSpec.describe CaseManagement::ClientsController do
     end
   end
 
-  describe "#flag" do
+  describe "#response_needed" do
     let(:params) do
       { id: client.id, client: {} }
     end
@@ -223,5 +222,104 @@ RSpec.describe CaseManagement::ClientsController do
       end
     end
 
+  end
+
+  describe "#edit" do
+    let(:vita_partner) { create :vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner }
+    let(:params) {
+      { id: client.id }
+    }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
+    it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
+
+    context "with a signed in beta tester" do
+      let(:user) { create :beta_tester, vita_partner: vita_partner }
+      before do
+        sign_in user
+      end
+
+      it "renders edit for the client" do
+        get :edit, params: params
+
+        expect(response).to be_ok
+        expect(assigns(:form)).to be_an_instance_of CaseManagement::ClientIntakeForm
+      end
+    end
+  end
+
+  describe "#update" do
+    let(:vita_partner) { create :vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner }
+    let(:intake) { client.intake }
+    let(:params) {
+      {
+        id: client.id,
+        case_management_client_intake_form: {
+          primary_first_name: "Updated",
+          primary_last_name: "Name",
+          preferred_name: intake.preferred_name,
+          preferred_interview_language: intake.preferred_interview_language,
+          married: intake.married,
+          separated: intake.separated,
+          widowed: intake.widowed,
+          lived_with_spouse: intake.lived_with_spouse,
+          divorced: intake.divorced,
+          divorced_year: intake.divorced_year,
+          separated_year: intake.separated_year,
+          widowed_year: intake.widowed_year,
+          email_address: intake.email_address,
+          phone_number: intake.phone_number,
+          sms_phone_number: intake.sms_phone_number,
+          street_address: intake.street_address,
+          city: intake.city,
+          state: intake.state,
+          zip_code: intake.zip_code,
+          sms_notification_opt_in: intake.sms_notification_opt_in,
+          email_notification_opt_in: intake.email_notification_opt_in,
+          spouse_first_name: intake.spouse_first_name,
+          spouse_last_name: intake.spouse_last_name,
+          spouse_email_address: intake.spouse_email_address,
+          filing_joint: intake.filing_joint,
+        }
+      }
+    }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
+    it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
+
+    context "with a signed in user" do
+      let(:user) { create :beta_tester, vita_partner: vita_partner }
+      before do
+        sign_in user
+      end
+
+      it "updates the clients intake" do
+        post :update, params: params
+
+        client.reload
+        expect(client.intake.primary_first_name).to eq "Updated"
+        expect(client.legal_name).to eq "Updated Name"
+        expect(response).to redirect_to case_management_client_path(id: client.id)
+      end
+
+      context "with invalid params" do
+        let(:params) {
+          {
+            id: client.id,
+            case_management_client_intake_form: {
+              primary_first_name: "",
+            }
+          }
+        }
+
+        it "renders edit" do
+          post :update, params: params
+
+          expect(response).to render_template :edit
+        end
+      end
+    end
   end
 end
