@@ -63,7 +63,8 @@ RSpec.describe CaseManagement::ClientsController do
   describe "#show" do
     let(:intake) do
       create :intake,
-             client: (create :client),
+             :with_contact_info,
+             client: create(:client),
              primary_first_name: "Legal",
              primary_last_name: "Name",
              locale: "en",
@@ -80,8 +81,8 @@ RSpec.describe CaseManagement::ClientsController do
              spouse_first_name: "My",
              spouse_last_name: "Spouse"
     end
-
     let(:client) { intake.client }
+
     let(:params) do
       { id: client.id }
     end
@@ -98,7 +99,7 @@ RSpec.describe CaseManagement::ClientsController do
       it "shows client information" do
         get :show, params: params
         profile = Nokogiri::HTML.parse(response.body).at_css(".client-profile")
-
+        binding.pry
         expect(profile).to have_text(client.preferred_name)
         expect(profile).to have_text(client.legal_name)
         expect(profile).to have_text("2019, 2018")
@@ -140,8 +141,6 @@ RSpec.describe CaseManagement::ClientsController do
 
       it "shows a list of clients and client information" do
         get :index
-        puts(george_sr.inspect)
-        puts(george_sr.intake.inspect)
         expect(assigns(:clients).count).to eq 3
         html = Nokogiri::HTML.parse(response.body)
         expect(html).to have_text("Updated At")

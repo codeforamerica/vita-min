@@ -25,19 +25,23 @@
 FactoryBot.define do
   factory :client do
     transient do
+      preferred_name { "Casey" }
+      email_address { "client@example.com" }
+      phone_number { "14155551212" }
+      sms_phone_number { "14155551212" }
     end
-    preferred_name { "Casey" }
-    email_address { "client@example.com" }
-    phone_number { "14155551212" }
-    sms_phone_number { "14155551212" }
 
-    after(:create) do |client|
-      if client.intake.present?
-        client.intake.update(preferred_name: client.preferred_name)
-      else
-        intake = create(:intake, preferred_name: client.preferred_name)
-        client.update(intake: intake)
+    trait :with_intake do
+      intake do
+        association(:intake,
+                    :with_contact_info,
+                    preferred_name: preferred_name,
+                    email_address: email_address,
+                    phone_number: phone_number,
+                    sms_phone_number: sms_phone_number
+        )
       end
     end
+
   end
 end
