@@ -17,7 +17,7 @@ RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controll
 
   describe "#edit" do
     context "with a documents request in the session" do
-      let!(:document) { create :document, :with_upload, document_type: "Requested Later", documents_request: documents_request }
+      let!(:document) { create :document, :with_upload, document_type: "Requested Later", intake: original_intake, documents_request: documents_request }
 
       before do
         session[:documents_request_id] = documents_request.id
@@ -28,12 +28,6 @@ RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controll
 
         expect(SendRequestedDocumentsToZendeskJob).to have_been_enqueued.with(original_intake.id)
         expect(response).to redirect_to(root_path)
-      end
-
-      it "adds the documents to the original intake" do
-        get :edit
-
-        expect(original_intake.reload.documents).to include(document)
       end
 
       it "clears the session" do

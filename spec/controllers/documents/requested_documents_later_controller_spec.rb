@@ -198,7 +198,7 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
           latest_doc = documents_request.documents.last
           expect(latest_doc.document_type).to eq "Requested Later"
           expect(latest_doc.upload.filename).to eq "test-pattern.png"
-
+          expect(latest_doc.intake_id).to eq documents_request.intake.id
           expect(response).to redirect_to requested_documents_later_documents_path
         end
       end

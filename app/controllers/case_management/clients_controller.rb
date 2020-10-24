@@ -25,12 +25,6 @@ module CaseManagement
 
     def show; end
 
-    def response_needed
-      @client.clear_response_needed if params.fetch(:client, {})[:action] == "clear"
-      @client.touch(:response_needed_since) if params.fetch(:client, {})[:action] == "set"
-      redirect_to case_management_client_path(id: @client.id)
-    end
-
     def edit
       @form = ClientIntakeForm.new(@client.intake)
     end
@@ -43,6 +37,12 @@ module CaseManagement
       else
         render :edit
       end
+    end
+
+    def response_needed
+      @client.clear_response_needed if params.fetch(:client, {})[:action] == "clear"
+      @client.touch(:response_needed_since) if params.fetch(:client, {})[:action] == "set"
+      redirect_back(fallback_location: case_management_client_path(id: @client.id))
     end
 
     private

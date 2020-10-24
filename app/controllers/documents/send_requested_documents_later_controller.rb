@@ -10,7 +10,6 @@ module Documents
         @flash_warning = t("controllers.send_requested_documents_later_controller.not_found")
       else
         intake = documents_request.intake
-        documents_request.documents.update_all(intake_id: intake.id)
         SendRequestedDocumentsToZendeskJob.perform_later(intake.id)
         @flash_notice = t("controllers.send_requested_documents_later_controller.success")
       end
