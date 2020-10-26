@@ -7,7 +7,7 @@
     <%= f.cfa_select(
           :assigned_user_id,
           t(".assigned_user_label"),
-          current_user.vita_partner.users.collect { |user| [user.name, user.id] },
+          @assignable_users.collect { |user| [user.name, user.id] },
           include_blank: true
         ) %>
 

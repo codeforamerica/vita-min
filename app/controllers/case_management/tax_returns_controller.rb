@@ -5,14 +5,14 @@ module CaseManagement
     before_action :require_sign_in
     load_and_authorize_resource :client
     load_and_authorize_resource through: :client
+    before_action :set_assignable_users, only: [:edit]
 
     layout "admin"
 
     def edit; end
 
     def update
-      return render :edit unless @tax_return.update(tax_return_params)
-
+      @tax_return.update!(tax_return_params)
       no_one = I18n.t("case_management.tax_returns.update.no_one")
       success_message = I18n.t(
         "case_management.tax_returns.update.flash_success",
@@ -24,6 +24,10 @@ module CaseManagement
     end
 
     private
+
+    def set_assignable_users
+      @assignable_users = @client.vita_partner.users
+    end
 
     def tax_return_params
       params.require(:tax_return).permit(:assigned_user_id)

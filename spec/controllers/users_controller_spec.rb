@@ -43,7 +43,6 @@ RSpec.describe UsersController do
         expect(assigns(:users).count).to eq 3
         html = Nokogiri::HTML.parse(response.body)
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Leslie")
-        expect(html.at_css("#user-#{leslie.id}")).to have_text("Admin")
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Pawnee Preparers")
         expect(html.at_css("#user-#{leslie.id} a")["href"]).to eq edit_user_path(id: leslie)
       end
@@ -105,6 +104,29 @@ RSpec.describe UsersController do
         expect(user.vita_partner).to eq vita_partner
         expect(user.timezone).to eq "America/Chicago"
         expect(response).to redirect_to edit_user_path(id: user)
+      end
+    end
+
+    context "as an admin" do
+      render_views
+
+      before { sign_in(create(:admin_user)) }
+
+      it "can update admin role" do
+        params = {
+            id: user.id,
+            user: {
+                is_beta_tester: true,
+                is_admin: true,
+                vita_partner_id: vita_partner.id,
+                timezone: "America/Chicago",
+            }
+        }
+
+        post :update, params: params
+
+        user.reload
+        expect(user.is_admin?).to eq true
       end
     end
   end

@@ -188,8 +188,10 @@ en:
       need_phone_number: Please enter a cell phone number.
   general:
     address: Address
+    admin: Admin
     affirmative: 'Yes'
     attachment: "Attachment"
+    beta_tester: Beta tester
     chat_with_us: Chat with us
     confirm: Confirm
     continue: Continue
@@ -338,6 +340,7 @@ en:
   users:
     edit:
       is_beta_tester_label: Beta tester?
+      is_admin_label: Admin?
     index:
       title: All users
     profile:
