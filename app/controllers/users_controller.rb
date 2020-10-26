@@ -25,6 +25,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:is_beta_tester, :vita_partner_id, :timezone)
+    params.require(:user).permit(
+      *(:is_admin if current_user.is_admin?),
+      :is_beta_tester,
+      :vita_partner_id,
+      :timezone
+    )
   end
 end

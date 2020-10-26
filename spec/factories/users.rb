@@ -17,6 +17,7 @@
 #  invitation_sent_at        :datetime
 #  invitation_token          :string
 #  invitations_count         :integer          default(0)
+#  is_admin                  :boolean          default(FALSE), not null
 #  is_beta_tester            :boolean          default(FALSE), not null
 #  last_sign_in_at           :datetime
 #  last_sign_in_ip           :string
@@ -71,6 +72,11 @@ FactoryBot.define do
     factory :beta_tester do
       is_beta_tester { true }
       vita_partner
+    end
+
+    factory :admin_user do
+      is_beta_tester { true }
+      is_admin { true }
     end
 
     factory :invited_user do

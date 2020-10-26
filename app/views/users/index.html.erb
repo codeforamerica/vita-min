@@ -19,11 +19,9 @@
       <% @users.each do |user| %>
         <tr id="user-<%= user.id %>" class="index-table__row">
           <th class="index-table__row-header">
-            <%= link_to edit_user_path(id: user) do %>
-              <%= user.name %><%= user.is_beta_tester? ? " (beta-tester)" : "" %>
-            <% end %>
+            <%= link_to user.name, edit_user_path(id: user) %>
           </th>
-          <td class="index-table__cell"><%= user.role&.capitalize %></td>
+          <td class="index-table__cell"><%= user_roles(user) %></td>
           <td class="index-table__cell"><%= user.vita_partner&.name || t("general.none") %></td>
         </tr>
       <% end %>

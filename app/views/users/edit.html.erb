@@ -5,13 +5,14 @@
     <p>
       <strong><%= t("general.email") %>:</strong> <%= @user.email %>
     </p>
-    <p>
-      <strong><%= t("general.role") %>:</strong> <%= @user.role&.capitalize || "Role not specified" %>
-    </p>
+
+    <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+    <%= f.cfa_select(:vita_partner_id, t("general.organization"), VitaPartner.select_input_options, include_blank: true) %>
+
+    <h2><%= t("general.role") %></h2>
 
     <%= f.cfa_checkbox(:is_beta_tester, t(".is_beta_tester_label"), options: { classes: ["form-width--long"] }) %>
-    <%= f.cfa_select(:vita_partner_id, t("general.organization"), VitaPartner.select_input_options, include_blank: true) %>
-    <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+    <%= f.cfa_checkbox(:is_admin, t(".is_admin_label"), options: {classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
 
     <button class="button" type="submit">
       <%=t("general.save") %>

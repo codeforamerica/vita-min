@@ -27,6 +27,8 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
         get :edit, params: params
 
         expect(response).to be_ok
+        expect(assigns(:assignable_users)).to include(other_user)
+        expect(assigns(:assignable_users)).not_to include(outside_org_user)
         assigned_user_dropdown = Nokogiri::HTML.parse(response.body).at_css("select#tax_return_assigned_user_id")
 
         # does it show a blank option?
@@ -38,6 +40,18 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
         expect(assigned_user_dropdown.at_css("option[value=\"#{user.id}\"]")).to be_present
 
         expect(assigned_user_dropdown.at_css("option[value=\"#{outside_org_user.id}\"]")).not_to be_present
+      end
+    end
+
+    context "as an admin beta tester" do
+      let(:admin) { create :admin_user, vita_partner: create(:vita_partner) }
+      let!(:other_user) { create :user, vita_partner: vita_partner }
+      let!(:outside_org_user) { create :user, vita_partner: admin.vita_partner }
+      before { sign_in admin }
+
+      it "offers a list of users based on client's partner, not admin's org" do
+        get :edit, params: params
+        expect(assigns(:assignable_users)).to eq([other_user])
       end
     end
   end

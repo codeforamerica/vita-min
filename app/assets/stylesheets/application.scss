@@ -406,3 +406,9 @@ body {
 .inherit-color {
   color: inherit;
 }
+
+/* Create disabled checkbox style because Honeycrisp lacks it */
+.checkbox.is-disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}

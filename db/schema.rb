@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_225306) do
+ActiveRecord::Schema.define(version: 2020_10_23_203045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -530,6 +530,7 @@ ActiveRecord::Schema.define(version: 2020_10_22_225306) do
     t.string "invitation_token"
     t.integer "invitations_count", default: 0
     t.bigint "invited_by_id"
+    t.boolean "is_admin", default: false, null: false
     t.boolean "is_beta_tester", default: false, null: false
     t.datetime "last_sign_in_at"
     t.string "last_sign_in_ip"

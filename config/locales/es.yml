@@ -188,8 +188,10 @@ es:
       need_phone_number: Por favor, introduzca un número de teléfono celular.
   general:
     address: Dirección
+    admin: Admin
     affirmative: Sí
     attachment: "Adjunto"
+    beta_tester: Probador beta
     chat_with_us: Hable con nosotros por el chat
     confirm: Confirmar
     continue: Continuar
@@ -338,6 +340,7 @@ es:
   users:
     edit:
       is_beta_tester_label: Probador beta?
+      is_admin_label: Admin?
     index:
       title: Todos usuarios
     profile:
