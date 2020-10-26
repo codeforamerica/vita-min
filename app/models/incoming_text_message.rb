@@ -24,7 +24,6 @@ class IncomingTextMessage < ApplicationRecord
 
   belongs_to :client
   has_many :documents, as: :contact_record
-  validates_presence_of :body
   validates_presence_of :received_at
 
   after_create :record_incoming_interaction
