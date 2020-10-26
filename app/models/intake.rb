@@ -202,9 +202,10 @@ class Intake < ApplicationRecord
   belongs_to :vita_partner, optional: true
   belongs_to :triage_source, optional: true, polymorphic: true
 
-  before_save do
-    if completed_at_changed?(from: nil)
+  after_save do
+    if saved_change_to_completed_at?(from: nil)
       record_incoming_interaction # client completed intake
+      create_original_13614c_document
     elsif completed_at.present?
       record_internal_interaction # user updated completed intake
     end
@@ -618,6 +619,18 @@ class Intake < ApplicationRecord
   end
 
   private
+
+  def create_original_13614c_document
+    pdf_doc = documents.create!(document_type: DocumentTypes::Original13614C.key)
+    pdf_tempfile = pdf
+    pdf_tempfile.seek(0)
+    pdf_doc.upload.attach(
+      io: pdf_tempfile,
+      filename: "Original 13614-C.pdf",
+      content_type: "application/pdf",
+      identify: false
+    )
+  end
 
   def partner_for_eip_only
     return nil unless eip_only
