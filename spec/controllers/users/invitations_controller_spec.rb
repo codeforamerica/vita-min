@@ -47,7 +47,7 @@ RSpec.describe Users::InvitationsController do
       end
 
       context "if the invited user already exists and is an admin" do
-        let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
+        let!(:invited_user) { create :zendesk_admin_user, email: "cherry@example.com" }
 
         it "doesn't change the user's role" do
           post :create, params: params

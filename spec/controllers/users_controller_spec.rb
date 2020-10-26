@@ -34,7 +34,7 @@ RSpec.describe UsersController do
 
       before { sign_in(create :beta_tester, vita_partner: vita_partner ) }
       let(:vita_partner) { create :vita_partner, name: "Pawnee Preparers" }
-      let!(:leslie) { create :admin_user, name: "Leslie", vita_partner: vita_partner }
+      let!(:leslie) { create :zendesk_admin_user, name: "Leslie", vita_partner: vita_partner }
       let!(:ben) { create :agent_user, name: "Ben", vita_partner: vita_partner }
 
       it "displays a list of all users in the org and certain key attributes" do

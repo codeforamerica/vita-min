@@ -60,7 +60,7 @@ FactoryBot.define do
     password { "userExamplePassword" }
     name { "Gary Gnome" }
 
-    factory :admin_user do
+    factory :zendesk_admin_user do
       role { "admin" }
     end
 
@@ -74,9 +74,10 @@ FactoryBot.define do
     end
 
     factory :invited_user do
-      association :invited_by, factory: :admin_user
+      association :invited_by, factory: :beta_tester
       invitation_created_at { 1.day.ago - 1.minute }
       invitation_sent_at { 1.day.ago }
+      vita_partner { invited_by.vita_partner }
       sequence(:invitation_token) do |n|
         Devise.token_generator.digest(User, :invitation_token, "InvitationToken#{n}")
       end
