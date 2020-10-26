@@ -33,5 +33,6 @@ module DocumentTypes
     DocumentTypes::RequestedLater,
     DocumentTypes::EmailAttachment,
     DocumentTypes::TextMessageAttachment,
+    DocumentTypes::Original13614C,
   ].freeze
 end
