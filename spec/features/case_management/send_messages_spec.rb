@@ -4,7 +4,19 @@ RSpec.feature "Read and send messages to a client", js: true do
   context "As a beta tester" do
     let(:vita_partner) { create :vita_partner }
     let(:beta_tester) { create :beta_tester, vita_partner: vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner }
+    let(:client) do
+      create(
+        :client,
+        vita_partner: vita_partner,
+        intake: create(
+          :intake,
+          preferred_name: "Tobias",
+          email_address: "tfunke@example.com",
+          phone_number: "14155551212",
+          sms_phone_number: "14155551212"
+        )
+      )
+    end
     before do
       login_as beta_tester
     end
@@ -13,7 +25,7 @@ RSpec.feature "Read and send messages to a client", js: true do
       visit case_management_client_path(id: client)
 
       within(".client-header") do
-        expect(page).to have_text client.preferred_name
+        expect(page).to have_text "Tobias"
         expect(page).to have_text client.id
       end
 
