@@ -55,7 +55,6 @@ es:
         client_id_heading: Cliente ID
         filing_year: Año para declarar
         title: Todos clientes
-        assign: Asignar
         needs_response_heading: Necesita respuesta?
       navigation:
         client_documents: Documentos
@@ -190,6 +189,7 @@ es:
     address: Dirección
     admin: Admin
     affirmative: Sí
+    assign: Asignar
     attachment: "Adjunto"
     beta_tester: Probador beta
     chat_with_us: Hable con nosotros por el chat

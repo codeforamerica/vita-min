@@ -1,4 +1,8 @@
 .client-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
   h1.h2 {
     margin: 0;
   }

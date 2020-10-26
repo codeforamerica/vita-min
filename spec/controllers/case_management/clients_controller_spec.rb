@@ -85,7 +85,7 @@ RSpec.describe CaseManagement::ClientsController do
              vita_partner: vita_partner
     end
 
-    let(:client) { create :client, intake: intake, vita_partner: vita_partner }
+    let(:client) { create :client, intake: intake, vita_partner: vita_partner, tax_returns: [(create :tax_return, year: 2019)] }
     let(:params) do
       { id: client.id }
     end
@@ -100,6 +100,8 @@ RSpec.describe CaseManagement::ClientsController do
 
       it "shows client information" do
         get :show, params: params
+        header = Nokogiri::HTML.parse(response.body).at_css(".client-header")
+        expect(header).to have_text("2019")
         profile = Nokogiri::HTML.parse(response.body).at_css(".client-profile")
         expect(profile).to have_text(client.preferred_name)
         expect(profile).to have_text(client.legal_name)
