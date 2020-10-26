@@ -17,9 +17,9 @@ additional_user.update(
   vita_partner: fake_vita_partner
 )
 
-client = Client.find_or_create_by(preferred_name: "Captain", email_address: "crunch@example.com", vita_partner: fake_vita_partner)
+client = Client.find_or_create_by(vita_partner: fake_vita_partner)
 
-intake = Intake.create(client: client)
+intake = Intake.create(client: client, preferred_name: "Captain", sms_phone_number: "+14155551212", email_address: "crunch@example.com")
 
 Document.find_or_create_by(display_name: "My Employment", document_type: "Employment", client: client, created_at: 1.day.ago, intake: intake)
 Document.find_or_create_by(display_name: "Identity Document", document_type: "ID", client: client, created_at: 2.months.ago, intake: intake)
@@ -31,11 +31,11 @@ OutgoingTextMessage.create!(client: client, body: "Hey client, nice to meet you"
 OutgoingTextMessage.create!(client: client, body: "Hope you're having a good day", user: beta_user, sent_at: 2.days.ago, to_phone_number: "+14155551212")
 OutgoingTextMessage.create!(client: client, body: "Thanks and have a good night!", user: beta_user, sent_at: 1.day.ago, to_phone_number: "+14155551212")
 
-IncomingTextMessage.create!(client: client, body: "I am sending you some info.", user: beta_user, received_at: 1.day.ago, from_phone_number: client.sms_phone_number)
+IncomingTextMessage.create!(client: client, body: "I am sending you some info.", received_at: 1.day.ago, from_phone_number: intake.sms_phone_number)
 Note.create!(client: client, user: additional_user, body: "This is an incoming note!")
 Note.create!(client: client, user: beta_user, body: "This is an outgoing note :)", created_at: 2.days.ago)
 
 IncomingTextMessage.create!(client: client, body: "What's up with my taxes?", received_at: DateTime.now, from_phone_number: "+14155551212")
 
-other_client = Client.find_or_create_by(preferred_name: "Tony", email_address: "tiger@example.com", vita_partner: fake_vita_partner)
-Intake.create(client: other_client)
+other_client = Client.create!(vita_partner: fake_vita_partner)
+Intake.create(client: other_client, preferred_name: "Tony", email_address: "tiger@example.com")

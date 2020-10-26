@@ -32,6 +32,14 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
                  client: client,
                  intake: client.intake
         }
+        let!(:third_document) {
+          create :document,
+                 display_name: "email-attachment.pdf",
+                 document_type: "Email Attachment",
+                 created_at: 1.hour.ago,
+                 client: client,
+                 intake: client.intake
+        }
 
         it "displays all the documents for the client" do
           get :index, params: params
@@ -47,6 +55,10 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
           expect(second_doc_element).to have_text("W-2")
           expect(second_doc_element).to have_text("another_file.pdf")
           expect(second_doc_element).to have_text("3 hours ago")
+          third_doc_element = html.at_css("#document-#{third_document.id}")
+          expect(third_doc_element).to have_text("Email attachment")
+          expect(third_doc_element).to have_text("email-attachment.pdf")
+          expect(third_doc_element).to have_text("1 hour ago")
         end
       end
 

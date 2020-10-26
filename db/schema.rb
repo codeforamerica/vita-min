@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_160311) do
+ActiveRecord::Schema.define(version: 2020_10_22_225306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,8 @@ ActiveRecord::Schema.define(version: 2020_10_21_160311) do
 
   create_table "documents", force: :cascade do |t|
     t.bigint "client_id"
+    t.bigint "contact_record_id"
+    t.string "contact_record_type"
     t.datetime "created_at", null: false
     t.string "display_name"
     t.string "document_type", null: false
@@ -123,6 +125,7 @@ ActiveRecord::Schema.define(version: 2020_10_21_160311) do
     t.datetime "updated_at", null: false
     t.bigint "zendesk_ticket_id"
     t.index ["client_id"], name: "index_documents_on_client_id"
+    t.index ["contact_record_type", "contact_record_id"], name: "index_documents_on_contact_record_type_and_contact_record_id"
     t.index ["documents_request_id"], name: "index_documents_on_documents_request_id"
     t.index ["intake_id"], name: "index_documents_on_intake_id"
   end

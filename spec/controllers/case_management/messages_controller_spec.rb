@@ -132,12 +132,14 @@ RSpec.describe CaseManagement::MessagesController do
           create(:outgoing_email, client: client,
             attachment: Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/png")
           )
+
           create(:incoming_email, client: client, documents: [
-            Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/png"),
-            Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pdf.pdf", "application/pdf")
+            create(:document, :with_upload, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))),
+            create(:document, :with_upload, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")))
           ])
+
           create(:incoming_text_message, client: client, documents: [
-            Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/png")
+            create(:document, :with_upload, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png")))
           ])
         end
 

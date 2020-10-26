@@ -24,7 +24,7 @@
     <% if @documents.present? %>
       <% @documents.each do |document| %>
         <tr id="document-<%= document.id %>">
-          <td><%= document.document_type %></td>
+          <td><%= document.document_type_label %></td>
           <td>
             <%= link_to case_management_client_document_path(client_id: @client.id, id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
               <%= document.display_name %>

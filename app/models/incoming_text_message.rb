@@ -22,9 +22,8 @@ class IncomingTextMessage < ApplicationRecord
   include ContactRecord
   include InteractionTracking
 
-  has_many_attached :documents
-  alias attachments documents
   belongs_to :client
+  has_many :documents, as: :contact_record
   validates_presence_of :body
   validates_presence_of :received_at
 
