@@ -33,8 +33,6 @@ class Document < ApplicationRecord
   validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested"] }
   validates :intake, presence: { unless: :documents_request_id }
 
-  default_scope { order(created_at: :asc) }
-
   scope :of_type, ->(type) { where(document_type: type) }
 
   belongs_to :intake, optional: true
