@@ -23,6 +23,7 @@ describe Ability do
   context "a beta tester who is a member of one organization" do
     let(:user) { create :beta_tester, vita_partner: create(:vita_partner) }
     let(:accessible_client) { create(:client, vita_partner: user.vita_partner) }
+    let(:accessible_intake) { create(:intake, vita_partner: user.vita_partner) }
     let(:other_vita_partner_client) { create(:client, vita_partner: create(:vita_partner)) }
     let(:nil_vita_partner_client) { create(:client, vita_partner: nil) }
 
@@ -35,6 +36,7 @@ describe Ability do
       expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, User.new(vita_partner: user.vita_partner))).to eq true
       expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, Document.new(intake: accessible_intake ))).to eq true
     end
 
     it "cannot access client data which lack an organization" do
