@@ -37,5 +37,9 @@
       <div><%= t(".legal_name") %>: <%= "#{@client.intake&.spouse_first_name} #{@client.intake&.spouse_last_name}" %></div>
       <div><%= t(".email") %>: <%= @client.intake&.spouse_email_address %> </div>
     <% end %>
+
+    <div>
+      <%= link_to(t("general.edit"), edit_case_management_client_path, class: "button button--small") %>
+    </div>
   </div>
 <% end %>

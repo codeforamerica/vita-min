@@ -25,7 +25,7 @@ module CaseManagement
     def show; end
 
     def edit
-      @form = ClientIntakeForm.new(@client.intake)
+      @form = ClientIntakeForm.from_intake(@client.intake)
     end
 
     def update
