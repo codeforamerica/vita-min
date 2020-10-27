@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
   let(:vita_partner) { create :vita_partner }
-  let(:client) { create :client, preferred_name: "Lucille", vita_partner: vita_partner }
+  let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Lucille") }
   let(:tax_return) { create :tax_return, client: client, year: 2018 }
 
   describe "#edit" do

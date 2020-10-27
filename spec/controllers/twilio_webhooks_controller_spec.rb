@@ -123,7 +123,7 @@ RSpec.describe TwilioWebhooksController do
         end
 
         context "with an attachment" do
-          let!(:client) { create :client, sms_phone_number: "15552341122" }
+          let!(:client) { create :client, intake: create(:intake, sms_phone_number: "15552341122") }
           let(:params_with_attachment) do
             incoming_message_params.update({
                   "MediaContentType0" => "image/jpeg",

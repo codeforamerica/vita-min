@@ -35,11 +35,8 @@ RSpec.describe CaseManagement::ClientsController do
             }.to change(Client, :count).by(1)
 
             client = Client.last
-            expect(client.email_address).to eq "client@example.com"
-            expect(client.phone_number).to eq "14155537865"
-            expect(client.preferred_name).to eq "Casey"
-            expect(client.documents.first).to eq(document)
             expect(client.intake).to eq(intake)
+            expect(client.vita_partner).to eq(intake.vita_partner)
             expect(intake.reload.client).to eq client
             expect(response).to redirect_to case_management_client_path(id: client.id)
           end

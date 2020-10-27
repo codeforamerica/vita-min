@@ -18,8 +18,7 @@ module CaseManagement
       # Don't create additional clients if we already have one
       return redirect_to case_management_client_path(id: intake.client_id) if intake.client_id.present?
 
-      client = Client.create_from_intake(intake)
-      intake.update(client: client)
+      client = Client.create!(intake: intake, vita_partner: intake.vita_partner)
       redirect_to case_management_client_path(id: client.id)
     end
 

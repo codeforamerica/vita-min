@@ -19,7 +19,7 @@ RSpec.describe CaseManagement::MessagesController do
         render_views
 
         let(:twilio_status) { nil }
-        let(:client) { create :client, preferred_name: "George Sr.", phone_number: "4155551233", email_address: "money@banana.stand", vita_partner: vita_partner }
+        let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "George Sr.", phone_number: "4155551233", email_address: "money@banana.stand")  }
         let!(:expected_contact_history) do
           [
             create(:incoming_email, body_plain: "Me too! Happy to get every notification", received_at: DateTime.new(2020, 1, 1, 18, 0, 4), client: client, from: "Georgie <money@banana.stand>" ),

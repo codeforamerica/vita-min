@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe CaseManagement::OutgoingTextMessagesController do
   describe "#create" do
     let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, sms_phone_number: "+15105551234", phone_number: "+15105551777", vita_partner: vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, sms_phone_number: "+15105551234", phone_number: "+15105551777") }
     let(:params) do
       {
         client_id: client.id,

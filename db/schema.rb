@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_23_203045) do
+ActiveRecord::Schema.define(version: 2020_10_26_191626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,13 +53,9 @@ ActiveRecord::Schema.define(version: 2020_10_23_203045) do
 
   create_table "clients", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
-    t.string "email_address"
     t.datetime "last_incoming_interaction_at"
     t.datetime "last_interaction_at"
-    t.string "phone_number"
-    t.string "preferred_name"
     t.datetime "response_needed_since"
-    t.string "sms_phone_number"
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id"
     t.index ["vita_partner_id"], name: "index_clients_on_vita_partner_id"
