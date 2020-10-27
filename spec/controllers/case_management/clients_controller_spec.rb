@@ -133,49 +133,189 @@ RSpec.describe CaseManagement::ClientsController do
 
       let(:vita_partner) { create(:vita_partner) }
       let(:user) { create(:beta_tester, vita_partner: vita_partner) }
-      let!(:george_sr) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
-      let!(:michael) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes") }
-      let!(:tobias) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es") }
-      let(:assigned_user) { create :user, name: "Lindsay", vita_partner: vita_partner }
-      let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user }
-      let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
 
       before { sign_in user }
 
-      it "shows a list of clients and client information" do
-        get :index
-        expect(assigns(:clients).count).to eq 3
-        html = Nokogiri::HTML.parse(response.body)
-        expect(html).to have_text("Updated At")
-        expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
-        expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.vita_partner.display_name)
-        expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)
-        expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
-        expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
-      end
+      context "with some existing clients" do
+        let!(:george_sr) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
+        let!(:michael) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes") }
+        let!(:tobias) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es") }
+        let(:assigned_user) { create :user, name: "Lindsay", vita_partner: vita_partner }
+        let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user }
+        let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
 
-      it "shows all returns for a client and users assigned to those returns" do
-        get :index
-
-        html = Nokogiri::HTML.parse(response.body)
-        tobias_row = html.at_css("#client-#{tobias.id}")
-        tobias_2019_year = tobias_row.at_css("#tax-return-#{tobias_2019_return.id}")
-        expect(tobias_2019_year).to have_text "2019"
-        tobias_2019_assignee = tobias_row.at_css("#tax-return-#{tobias_2019_return.id}")
-        expect(tobias_2019_assignee).to have_text "Lindsay"
-        tobias_2018_year = tobias_row.at_css("#tax-return-#{tobias_2018_return.id}")
-        expect(tobias_2018_year).to have_text "2018"
-        tobias_2018_assignee = tobias_row.at_css("#tax-return-#{tobias_2018_return.id}")
-        expect(tobias_2018_assignee).to have_text "Lindsay"
-      end
-
-      describe "when a client needs attention" do
-        it "adds the needs attention icon into the DOM" do
-          tobias.touch(:response_needed_since)
+        it "shows a list of clients and client information" do
           get :index
+          expect(assigns(:clients).count).to eq 3
           html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("#client-#{michael.id} .client-attribute__needs-response")).to have_text "No"
-          expect(html.at_css("#client-#{tobias.id} .client-attribute__needs-response")).to have_text "Yes"
+          expect(html).to have_text("Updated At")
+          expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
+          expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.vita_partner.display_name)
+          expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)
+          expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
+          expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
+        end
+
+        it "shows all returns for a client and users assigned to those returns" do
+          get :index
+
+          html = Nokogiri::HTML.parse(response.body)
+          tobias_row = html.at_css("#client-#{tobias.id}")
+          tobias_2019_year = tobias_row.at_css("#tax-return-#{tobias_2019_return.id}")
+          expect(tobias_2019_year).to have_text "2019"
+          tobias_2019_assignee = tobias_row.at_css("#tax-return-#{tobias_2019_return.id}")
+          expect(tobias_2019_assignee).to have_text "Lindsay"
+          tobias_2018_year = tobias_row.at_css("#tax-return-#{tobias_2018_return.id}")
+          expect(tobias_2018_year).to have_text "2018"
+          tobias_2018_assignee = tobias_row.at_css("#tax-return-#{tobias_2018_return.id}")
+          expect(tobias_2018_assignee).to have_text "Lindsay"
+        end
+
+        describe "when a client needs attention" do
+          it "adds the needs attention icon into the DOM" do
+            tobias.touch(:response_needed_since)
+            get :index
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("#client-#{michael.id} .client-attribute__needs-response")).to have_text "No"
+            expect(html.at_css("#client-#{tobias.id} .client-attribute__needs-response")).to have_text "Yes"
+          end
+        end
+      end
+
+      context "sorting and ordering" do
+        context "with client  as sort param" do
+          let(:params) { { column: "preferred_name" } }
+          let!(:alex) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
+          let!(:ben) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
+
+          it "orders clients by name asc" do
+            params[:order] = "asc"
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("preferred_name")
+            expect(assigns[:sort_order]).to eq("asc")
+            expect(assigns(:clients).length).to eq 2
+
+            expect(assigns(:clients)).to eq [alex, ben]
+          end
+
+          it "orders clients by name desc" do
+            params[:order] = "desc"
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("preferred_name")
+            expect(assigns[:sort_order]).to eq("desc")
+            expect(assigns(:clients).length).to eq 2
+
+            expect(assigns(:clients)).to eq [ben, alex]
+          end
+        end
+
+        context "with id as sort param" do
+          let(:params) { { column: "id" } }
+          let!(:first_id) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
+          let!(:second_id) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
+
+          it "orders clients by name asc" do
+            params[:order] = "asc"
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("id")
+            expect(assigns[:sort_order]).to eq("asc")
+
+            expect(assigns(:clients)).to eq [first_id, second_id]
+          end
+
+          it "orders clients by name desc" do
+            params[:order] = "desc"
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("id")
+            expect(assigns[:sort_order]).to eq("desc")
+
+            expect(assigns(:clients)).to eq [second_id, first_id]
+          end
+        end
+
+        context "with updated_at as sort param" do
+          let(:params) { { column: "updated_at" } }
+          let!(:one) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
+          let!(:two) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
+
+          it "orders clients by name asc" do
+            params[:order] = "asc"
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("updated_at")
+            expect(assigns[:sort_order]).to eq("asc")
+
+            expect(assigns(:clients)).to eq [one, two]
+
+          end
+
+          it "orders clients by name desc" do
+            params[:order] = "desc"
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("updated_at")
+            expect(assigns[:sort_order]).to eq("desc")
+
+            expect(assigns(:clients)).to eq [two, one]
+
+            one.touch
+            get :index, params: params
+            expect(assigns(:clients)).to eq [one, two]
+          end
+        end
+
+        context "with locale as sort param" do
+          let(:params) { { column: "locale" } }
+          let!(:spanish) { create :client, vita_partner: vita_partner, intake: create(:intake, locale: "es") }
+          let!(:english) { create :client, vita_partner: vita_partner, intake: create(:intake, locale: "en") }
+
+          it "orders clients by locale asc" do
+            params[:order] = "asc"
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("locale")
+            expect(assigns[:sort_order]).to eq("asc")
+
+            expect(assigns(:clients)).to eq [english, spanish]
+
+          end
+
+          it "orders clients by name desc" do
+            params[:order] = "desc"
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("locale")
+            expect(assigns[:sort_order]).to eq("desc")
+
+            expect(assigns(:clients)).to eq [spanish, english]
+          end
+        end
+
+        context "with no or bad params" do
+          let!(:first_id) { create :client, vita_partner: vita_partner, intake: create(:intake) }
+          let!(:second_id) { create :client, vita_partner: vita_partner, intake: create(:intake) }
+
+          it "defaults to sorting by id, desc by default" do
+            get :index
+
+            expect(assigns[:sort_column]).to eq "id"
+            expect(assigns[:sort_order]).to eq "desc"
+
+            expect(assigns(:clients)).to eq [second_id, first_id]
+          end
+
+          it "defaults to sorting by id, desc with bad params" do
+            get :index, params: { column: "bad_sort", order: "no_order" }
+
+            expect(assigns[:sort_column]).to eq "id"
+            expect(assigns[:sort_order]).to eq "desc"
+
+            expect(assigns(:clients)).to eq [second_id, first_id]
+          end
         end
       end
     end

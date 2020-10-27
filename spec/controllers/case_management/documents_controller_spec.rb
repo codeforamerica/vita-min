@@ -64,7 +64,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
 
       context "sorting and ordering" do
         context "with a sort param" do
-          let(:params) { { client_id: client.id, sort: "created_at", order: "desc" } }
+          let(:params) { { client_id: client.id, column: "created_at", order: "desc" } }
           let!(:earlier_document) { create :document, display_name: "Alligator doc", created_at: 1.hour.ago, client: client, intake: client.intake }
           let!(:later_document) { create :document, display_name: "Zebra doc", created_at: 1.minute.ago, client: client, intake: client.intake }
 
@@ -93,7 +93,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
         context "with bad sort param" do
           let!(:identity_document) { create :document, client: client, intake: client.intake, document_type: DocumentTypes::Identity.key, display_name: "alligator doc" }
           let!(:employment_document) { create :document, client: client, intake: client.intake, document_type: DocumentTypes::Employment.key, display_name: "zebra doc" }
-          let(:params) { { client_id: client.id, sort: "bad_param", order: "nonsensical_order" } }
+          let(:params) { { client_id: client.id, column: "bad_param", order: "nonsensical_order" } }
 
           it "defaults to sorting by document_type" do
             get :index, params: params

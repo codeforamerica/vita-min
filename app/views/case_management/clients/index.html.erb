@@ -9,11 +9,19 @@
     <thead class="index-table__head">
       <tr class="index-table__row">
         <th scope="col" class="index-table__header"><%= t(".needs_response_heading") %></th>
-        <th scope="col" class="index-table__header"><%= t("general.name") %></th>
-        <th scope="col" class="index-table__header"><%= t(".client_id_heading") %></th>
+        <th scope="col" class="index-table__header">
+          <%= render "shared/column_sort_link", title: t("general.name"), column_name: "preferred_name" %>
+        </th>
+        <th scope="col" class="index-table__header">
+          <%= render "shared/column_sort_link", title: t(".client_id_heading"), column_name: "id" %>
+        </th>
         <th scope="col" class="index-table__header"><%= t("general.organization") %></th>
-        <th scope="col" class="index-table__header"><%= t("general.language") %></th>
-        <th scope="col" class="index-table__header"><%= t("general.updated_at") %></th>
+        <th scope="col" class="index-table__header">
+          <%= render "shared/column_sort_link", title: t("general.language"), column_name: "locale" %>
+        </th>
+        <th scope="col" class="index-table__header">
+          <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
+        </th>
         <th scope="col" class="index-table__header"><%= t(".filing_year") %>, <%= t("general.assignee") %></th>
       </tr>
     </thead>

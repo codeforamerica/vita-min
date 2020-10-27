@@ -39,7 +39,7 @@ module CaseManagement
     end
 
     def sort_column
-      %w[created_at display_name document_type].include?(params[:sort]) ? params[:sort] : "document_type"
+      %w[created_at display_name document_type].include?(params[:column]) ? params[:column] : "document_type"
     end
 
     def sort_order

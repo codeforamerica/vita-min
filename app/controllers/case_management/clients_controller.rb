@@ -8,7 +8,9 @@ module CaseManagement
     layout "admin"
 
     def index
-      @clients = @clients.includes(intake: :vita_partner)
+      @sort_column = sort_column
+      @sort_order = sort_order
+      @clients = @clients.includes(intake: :vita_partner).delegated_order(@sort_column, @sort_order)
     end
 
     def create
@@ -48,6 +50,14 @@ module CaseManagement
 
     def form_params
       params.require(:case_management_client_intake_form).permit(ClientIntakeForm.attribute_names)
+    end
+
+    def sort_order
+      %w[asc desc].include?(params[:order]) ? params[:order] : "desc"
+    end
+
+    def sort_column
+      %w[preferred_name id updated_at locale].include?(params[:column]) ? params[:column] : "id"
     end
   end
 end
