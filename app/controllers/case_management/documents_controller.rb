@@ -12,7 +12,7 @@ module CaseManagement
     def index
       @sort_order = sort_order
       @sort_column = sort_column
-      @documents = @documents.order({ @sort_column => @sort_order })
+      @documents = @documents.except(:order).order({ @sort_column => @sort_order })
     end
 
     def show
