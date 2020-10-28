@@ -34,7 +34,7 @@ RSpec.describe "a user editing a user" do
 
         check "Admin"
 
-        click_on "Select organizations"
+        click_on "Select supported organizations"
         check "Cabbage Patch Assistance (CPA)"
         check "Brussels Proud"
 

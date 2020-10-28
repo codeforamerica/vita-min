@@ -15,15 +15,16 @@
     <%= f.cfa_checkbox(:is_admin, t(".is_admin_label"), options: {classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
     <% if current_user.is_admin %>
       <div class="reveal">
-        <p><a href="#" class="reveal__link">Select organizations</a></p>
+        <p><a href="#" class="reveal__link">Select supported organizations</a></p>
         <div class="reveal__content">
           <% VitaPartner.all.map do |vp| %>
             <%= f.cfa_checkbox(
-                  :supported_organizations_ids,
+                  :supported_organization_ids,
                   vp.display_name,
                   options: {
-                    checked_value: "supported_organizations_ids-#{vp.id}",
-                    unchecked_value: nil,
+                    checked_value: "#{vp.id}",
+                    unchecked_value: "",
+                    multiple: true,
                   }
               ) %>
           <% end %>
