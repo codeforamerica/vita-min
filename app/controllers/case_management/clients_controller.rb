@@ -1,15 +1,15 @@
 module CaseManagement
   class ClientsController < ApplicationController
     include AccessControllable
+    include ClientSortable
 
     before_action :require_sign_in
+    before_action :setup_sortable_client, only: [:index]
     load_and_authorize_resource except: :create
-
     layout "admin"
 
     def index
-      @sort_column = sort_column
-      @sort_order = sort_order
+      @page_title = I18n.t("case_management.clients.index.title")
       @clients = @clients.delegated_order(@sort_column, @sort_order)
     end
 
@@ -53,14 +53,6 @@ module CaseManagement
 
     def form_params
       params.require(:case_management_client_intake_form).permit(ClientIntakeForm.attribute_names)
-    end
-
-    def sort_order
-      %w[asc desc].include?(params[:order]) ? params[:order] : "desc"
-    end
-
-    def sort_column
-      %w[preferred_name id updated_at locale].include?(params[:column]) ? params[:column] : "id"
     end
   end
 end

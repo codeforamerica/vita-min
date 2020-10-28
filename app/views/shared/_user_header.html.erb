@@ -1,0 +1,6 @@
+<div class="user-header">
+  <h3 class="h2 welcome"> <%= t("views.shared.user_header.welcome", name: current_user.name)%></h3>
+  <div>
+    <%=link_to t("views.shared.user_header.profile_link"), user_profile_path %>
+  </div>
+</div>

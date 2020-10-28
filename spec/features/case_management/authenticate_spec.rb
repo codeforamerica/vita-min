@@ -13,9 +13,9 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     fill_in "Password", with: "goodPassword"
     click_on "Sign in"
 
-    # Expect to be redirected to user profile page
-    expect(page).to have_text "German Geranium"
-    expect(page).to have_text "Agent"
+    # Expect to be redirected to dashboard
+    expect(page).to have_text "Welcome, German Geranium"
+    expect(page).to have_text "Your assigned clients"
 
     click_on "Sign out"
     # Should be redirected to home page
@@ -43,8 +43,8 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     fill_in "Password", with: "goodPassword"
     click_on "Sign in"
     # Expect to be redirected to user profile page
-    expect(page).to have_text "German Geranium"
-    expect(page).to have_text "Agent"
+    expect(page).to have_text "Welcome, German Geranium"
+    expect(page).to have_text "Your assigned clients"
   end
 
   scenario "resetting password" do
