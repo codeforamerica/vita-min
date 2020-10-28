@@ -96,37 +96,62 @@ RSpec.describe UsersController do
 
       before { sign_in(create :beta_tester, vita_partner: vita_partner) }
 
-      it "updates the user and redirects to edit" do
-        post :update, params: params
+      context "when editing user fields that any user can edit" do
+        it "updates the user and redirects to edit" do
+          post :update, params: params
 
-        user.reload
-        expect(user.is_beta_tester?).to eq true
-        expect(user.vita_partner).to eq vita_partner
-        expect(user.timezone).to eq "America/Chicago"
-        expect(response).to redirect_to edit_user_path(id: user)
+          user.reload
+          expect(user.is_beta_tester?).to eq true
+          expect(user.vita_partner).to eq vita_partner
+          expect(user.timezone).to eq "America/Chicago"
+          expect(response).to redirect_to edit_user_path(id: user)
+        end
+      end
+
+      context "when editing user fields that require admin powers" do
+        before do
+          params[:user][:supported_organizations] = [create(:vita_partner).id]
+          params[:user][:is_admin] = true
+        end
+
+        it "does not change the user" do
+          post :update, params: params
+
+          user.reload
+          expect(user.is_admin).to be_falsey
+          expect(user.supported_organization_ids).to be_empty
+        end
       end
     end
 
     context "as an admin" do
       render_views
 
-      before { sign_in(create(:admin_user)) }
+      let(:supported_vita_partner_1) { create(:vita_partner) }
+      let(:supported_vita_partner_2) { create(:vita_partner) }
 
-      it "can update admin role" do
+      before { sign_in(create(:admin_user, supported_organizations: [supported_vita_partner_1, supported_vita_partner_2])) }
+
+      it "can add admin role & supported organizations" do
         params = {
-            id: user.id,
-            user: {
-                is_beta_tester: true,
-                is_admin: true,
-                vita_partner_id: vita_partner.id,
-                timezone: "America/Chicago",
-            }
+          id: user.id,
+          user: {
+            is_beta_tester: true,
+            is_admin: true,
+            vita_partner_id: vita_partner.id,
+            timezone: "America/Chicago",
+            supported_organization_ids: [
+              supported_vita_partner_1.id,
+              supported_vita_partner_2.id
+            ]
+          }
         }
 
         post :update, params: params
 
         user.reload
         expect(user.is_admin?).to eq true
+        expect(user.supported_organization_ids.sort).to eq [supported_vita_partner_1.id, supported_vita_partner_2.id]
       end
     end
   end

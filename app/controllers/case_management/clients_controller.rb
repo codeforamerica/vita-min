@@ -3,7 +3,7 @@ module CaseManagement
     include AccessControllable
 
     before_action :require_sign_in
-    load_and_authorize_resource
+    load_and_authorize_resource except: :create
 
     layout "admin"
 
@@ -14,6 +14,9 @@ module CaseManagement
     end
 
     def create
+      # Manual access control for create method, since there is no client yet
+      return head 403 unless current_user&.is_beta_tester
+
       intake = Intake.find_by(id: params[:intake_id])
       return head 422 unless intake.present?
 

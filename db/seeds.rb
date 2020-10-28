@@ -1,4 +1,9 @@
-fake_vita_partner = VitaPartner.find_or_create_by(name: "Fake Vita Partner", zendesk_group_id: "foo", zendesk_instance_domain: "eitc")
+fake_vita_partner = VitaPartner.find_or_create_by(
+  name: "Fake Vita Partner",
+  display_name: "Fake Vita Partner Display Name",
+  zendesk_group_id: "foo",
+  zendesk_instance_domain: "eitc"
+)
 
 # basic beta tester
 beta_user = User.where(email: "skywalker@example.com").first_or_initialize

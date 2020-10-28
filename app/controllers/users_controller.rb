@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   def update
     return render :edit unless @user.update(user_params)
 
-    redirect_to edit_user_path(id: @user)
+    redirect_to edit_user_path(id: @user), notice: I18n.t("general.changes_saved")
   end
 
   private
@@ -29,7 +29,8 @@ class UsersController < ApplicationController
       *(:is_admin if current_user.is_admin?),
       :is_beta_tester,
       :vita_partner_id,
-      :timezone
+      :timezone,
+      current_user.is_admin ? { supported_organization_ids: [] } : {},
     )
   end
 end

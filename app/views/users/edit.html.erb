@@ -13,6 +13,24 @@
 
     <%= f.cfa_checkbox(:is_beta_tester, t(".is_beta_tester_label"), options: { classes: ["form-width--long"] }) %>
     <%= f.cfa_checkbox(:is_admin, t(".is_admin_label"), options: {classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
+    <% if current_user.is_admin %>
+      <div class="reveal">
+        <p><a href="#" class="reveal__link">Select supported organizations</a></p>
+        <div class="reveal__content">
+          <% VitaPartner.all.map do |vita_partner| %>
+            <%= f.cfa_checkbox(
+                  :supported_organization_ids,
+                  vita_partner.display_name,
+                  options: {
+                    checked_value: vita_partner.id,
+                    unchecked_value: "",
+                    multiple: true,
+                  }
+              ) %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
 
     <button class="button" type="submit">
       <%=t("general.save") %>

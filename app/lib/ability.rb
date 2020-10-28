@@ -18,7 +18,7 @@ class Ability
       end
 
       if user.vita_partner.present?
-        can :manage, [Client, User], vita_partner: user.vita_partner
+        can :manage, [Client, User], vita_partner: [user.vita_partner, *user.supported_organizations]
         can :manage, [
           IncomingTextMessage,
           OutgoingTextMessage,
@@ -27,10 +27,10 @@ class Ability
           Note,
           Document,
           TaxReturn,
-        ], client: { vita_partner: user.vita_partner }
+        ], client: { vita_partner: [user.vita_partner, *user.supported_organizations] }
         can :manage, [
           Document,
-        ], intake: { vita_partner: user.vita_partner }
+        ], intake: { vita_partner: [user.vita_partner, *user.supported_organizations] }
       end
     end
   end
