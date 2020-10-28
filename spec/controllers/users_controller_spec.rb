@@ -76,7 +76,9 @@ RSpec.describe UsersController do
   end
 
   describe "#update" do
-    let!(:vita_partner) { create :vita_partner, name: "Avonlea Tax Aid" }
+    let!(:vita_partner) { create :vita_partner, name: "Pawnee Tax Aid" }
+    let!(:supported_vita_partner_1) { create :vita_partner, name: "Bloomington Tax Aid" }
+    let!(:supported_vita_partner_2) { create :vita_partner, name: "Chicago Tax Aid" }
     let!(:user) { create :agent_user, name: "Anne", vita_partner: vita_partner }
     let(:params) do
       {
@@ -105,6 +107,19 @@ RSpec.describe UsersController do
         expect(user.timezone).to eq "America/Chicago"
         expect(response).to redirect_to edit_user_path(id: user)
       end
+
+      context "trying to edit supported organizations" do
+        before do
+          params[:supported_organization_ids] = [supported_vita_partner_1.id, supported_vita_partner_2.id]
+        end
+
+        it "does not allow them to" do
+          post :update, params: params
+
+          user.reload
+          expect(user.supported_organizations).to be_blank
+        end
+      end
     end
 
     context "as an admin" do
@@ -114,19 +129,24 @@ RSpec.describe UsersController do
 
       it "can update admin role" do
         params = {
-            id: user.id,
-            user: {
-                is_beta_tester: true,
-                is_admin: true,
-                vita_partner_id: vita_partner.id,
-                timezone: "America/Chicago",
-            }
+          id: user.id,
+          user: {
+            is_beta_tester: true,
+            is_admin: true,
+            vita_partner_id: vita_partner.id,
+            timezone: "America/Chicago",
+            supported_organization_ids: [
+              supported_vita_partner_1.id,
+              supported_vita_partner_2.id
+            ]
+          }
         }
 
         post :update, params: params
 
         user.reload
         expect(user.is_admin?).to eq true
+        expect(user.supported_organization_ids.sort).to eq [supported_vita_partner_1.id, supported_vita_partner_2.id]
       end
     end
   end

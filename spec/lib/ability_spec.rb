@@ -60,6 +60,26 @@ describe Ability do
     end
   end
 
+  context "a coalition lead" do
+    context "a beta user who has access to multiple organizations" do
+      let(:user) { create :beta_tester, vita_partner: create(:vita_partner), supported_organizations: [coalition_member_organization] }
+
+      let(:coalition_member_organization) { create(:vita_partner) }
+      let(:accessible_client) { create(:client, vita_partner: coalition_member_organization) }
+
+      it "can access client data from the coalition member organization" do
+        expect(subject.can?(:manage, accessible_client)).to eq true
+        expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
+        expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
+        expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
+        expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
+        expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
+        expect(subject.can?(:manage, User.new(vita_partner: accessible_client.vita_partner))).to eq true
+        expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
+      end
+    end
+  end
+
   context "as a non-beta tester" do
     let(:user) { create :user }
     let(:accessible_client) { create(:client, vita_partner: user.vita_partner) }
