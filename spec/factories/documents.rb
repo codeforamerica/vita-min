@@ -30,6 +30,7 @@
 FactoryBot.define do
   factory :document do
     intake
+    client { intake.client }
     upload { nil }
     document_type { "W-2" }
 

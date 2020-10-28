@@ -21,7 +21,7 @@
 class Client < ApplicationRecord
   belongs_to :vita_partner, optional: true
   has_one :intake
-  # has_many :documents
+  has_many :documents
   has_many :outgoing_text_messages
   has_many :outgoing_emails
   has_many :incoming_text_messages
@@ -33,7 +33,6 @@ class Client < ApplicationRecord
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
   end
 
-  delegate :documents, to: :intake
   delegate *delegated_intake_attributes, to: :intake
   scope :delegated_order, ->(column, direction) do
     raise ArgumentError, "column and direction are required" if !column || !direction

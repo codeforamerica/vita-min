@@ -47,8 +47,8 @@ RSpec.describe TwilioWebhooksController do
         end
 
         context "with a matching intake phone number" do
-          let(:intake) { create(:intake, :filled_out, phone_number: "15552341122")}
-          let!(:existing_client) { create :client, intake: intake }
+          let(:client) { create :client }
+          let!(:intake) { create(:intake, client: client, phone_number: "15552341122") }
 
           it "creates a new IncomingTextMessage linked to the client the right data" do
             expect do
@@ -60,7 +60,7 @@ RSpec.describe TwilioWebhooksController do
             expect(message.body).to eq "Hello, it me"
             expect(message.from_phone_number).to eq "15552341122"
             expect(message.received_at).to eq current_time
-            expect(message.client).to eq existing_client
+            expect(message.client).to eq client
           end
         end
 
@@ -68,8 +68,8 @@ RSpec.describe TwilioWebhooksController do
           before do
             allow(ClientChannel).to receive(:broadcast_contact_record)
           end
-          let(:intake) { create(:intake, :filled_out, sms_phone_number: "15552341122")}
-          let!(:existing_client) { create :client, intake: intake }
+          let(:intake) { create(:intake, sms_phone_number: "15552341122")}
+          let!(:client) { create :client, intake: intake }
 
           it "creates a new IncomingTextMessage linked to the client the right data" do
             expect do
@@ -77,7 +77,7 @@ RSpec.describe TwilioWebhooksController do
             end.to change(IncomingTextMessage, :count).by 1
 
             message = IncomingTextMessage.last
-            expect(message.client).to eq existing_client
+            expect(message.client).to eq client
           end
 
           it "sends a real-time update to anyone on this client's page" do
@@ -123,7 +123,8 @@ RSpec.describe TwilioWebhooksController do
         end
 
         context "with an attachment" do
-          let!(:client) { create :client, intake: create(:intake, sms_phone_number: "15552341122") }
+          let!(:client) { create :client }
+          let!(:intake) { create :intake, client: client, sms_phone_number: "15552341122" }
           let(:params_with_attachment) do
             incoming_message_params.update({
                   "MediaContentType0" => "image/jpeg",

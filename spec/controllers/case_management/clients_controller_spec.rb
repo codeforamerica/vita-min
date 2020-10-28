@@ -3,12 +3,18 @@ require "rails_helper"
 RSpec.describe CaseManagement::ClientsController do
   describe "#create" do
     let(:user) { create :beta_tester }
-    let(:intake) { create :intake, email_address: "client@example.com", phone_number: "14155537865", preferred_name: "Casey", vita_partner: user.vita_partner }
+    let(:intake) do
+      create(
+        :intake,
+        client: nil,
+        email_address: "client@example.com",
+        phone_number: "14155537865",
+        preferred_name: "Casey",
+        vita_partner: user.vita_partner
+      )
+    end
     let(:params) do
       { intake_id: intake.id }
-    end
-    let!(:document) do
-      create(:document, intake: intake)
     end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
@@ -389,7 +395,7 @@ RSpec.describe CaseManagement::ClientsController do
   describe "#update" do
     let(:vita_partner) { create :vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
-    let(:intake) { client.intake }
+    let(:intake) { create :intake, client: client }
     let(:params) {
       {
         id: client.id,

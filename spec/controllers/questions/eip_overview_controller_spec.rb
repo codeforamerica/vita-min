@@ -34,6 +34,7 @@ RSpec.describe Questions::EipOverviewController do
 
       intake = Intake.last
       expect(intake.eip_only).to eq true
+      expect(intake.client).to be_present
     end
 
     it "creates an intake with basic information" do

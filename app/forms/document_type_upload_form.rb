@@ -10,7 +10,7 @@ class DocumentTypeUploadForm < QuestionsForm
   def save
     document_file_upload = attributes_for(:intake)[:document]
     if document_file_upload.present?
-      document = @intake.documents.create(document_type: @document_type)
+      document = @intake.documents.create(document_type: @document_type, client: @intake.client)
       document.upload.attach(document_file_upload)
     end
   end

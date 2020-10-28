@@ -18,13 +18,16 @@ RSpec.describe Questions::FinalInfoController do
       end
 
       let(:intake) { create :intake, intake_ticket_id: 1234 }
+      let(:client) { intake.client }
 
       it "adds the initial 13614-C PDF as a Document", active_job: true do
+        # TODO: test that this calls the "after save trigger" that creates the doc
         expect { post :update, params: params }.to change(Document, :count).by(1)
         expect(intake).to have_received(:pdf)
 
         doc = Document.last
         expect(doc.intake).to eq(intake)
+        expect(doc.client).to eq(client)
         expect(doc.document_type).to eq("Original 13614-C")
         blob = doc.upload.blob
         expect(blob.content_type).to eq("application/pdf")

@@ -28,6 +28,7 @@ RSpec.describe Questions::BacktaxesController do
 
           intake = Intake.last
 
+          expect(intake.client).to be_present
           expect(intake.source).to eq "source_from_session"
           expect(intake.referrer).to eq "referrer_from_session"
           expect(intake.locale).to eq "en"

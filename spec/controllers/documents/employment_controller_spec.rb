@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Documents::EmploymentController, type: :controller do
-  let(:intake) { create :intake, intake_ticket_id: 1234 }
+  let(:intake) { create :intake, intake_ticket_id: 1234, client: create(:client) }
   render_views
 
   before do
@@ -131,6 +131,7 @@ RSpec.describe Documents::EmploymentController, type: :controller do
         }.to change(intake.documents, :count).by 1
 
         latest_doc = intake.documents.last
+        expect(intake.client.documents.last).to eq latest_doc
         expect(latest_doc.document_type).to eq "Employment"
         expect(latest_doc.upload.filename).to eq "test-pattern.png"
 

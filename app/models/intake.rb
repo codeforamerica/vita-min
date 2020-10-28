@@ -621,7 +621,7 @@ class Intake < ApplicationRecord
   private
 
   def create_original_13614c_document
-    pdf_doc = documents.create!(document_type: DocumentTypes::Original13614C.key)
+    pdf_doc = client.documents.create!(document_type: DocumentTypes::Original13614C.key, intake: self)
     pdf_tempfile = pdf
     pdf_tempfile.seek(0)
     pdf_doc.upload.attach(
