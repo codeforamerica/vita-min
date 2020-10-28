@@ -38,7 +38,7 @@ class Client < ApplicationRecord
   scope :delegated_order, ->(column, direction) do
     raise ArgumentError, "column and direction are required" if !column || !direction
 
-    order("#{delegated_query_column(column)} #{direction}")
+    order(Hash[delegated_query_column(column), direction])
   end
 
   def legal_name
