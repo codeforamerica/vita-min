@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "a user editing a user" do
-  # TODO change all of these tests to redirect to show after save, then check the page for relevant info instead of the model
   context "as a beta tester" do
     let(:vita_partner) { create :vita_partner }
     let(:current_user) { create :beta_tester, vita_partner: vita_partner }
@@ -18,7 +17,8 @@ RSpec.describe "a user editing a user" do
 
       click_on "Save"
 
-      expect(user.reload.is_beta_tester).to eq false
+      expect(page).to have_text "Changes saved"
+      expect(page).to have_field("user_is_beta_tester", checked: false)
     end
 
     context "as a admin" do
@@ -39,10 +39,11 @@ RSpec.describe "a user editing a user" do
         check "Brussels Proud"
 
         click_on "Save"
+        expect(page).to have_text "Changes saved"
 
-        user.reload
-        expect(user.is_admin).to eq true
-        expect(user.supported_organization_ids.sort).to eq [vita_partner_1.id, vita_partner_2.id]
+        expect(page).to have_field("user_supported_organization_ids_#{vita_partner_1.id}", checked: true)
+        expect(page).to have_field("user_supported_organization_ids_#{vita_partner_2.id}", checked: true)
+        expect(page).to have_field("user_is_admin", checked: true)
       end
     end
   end

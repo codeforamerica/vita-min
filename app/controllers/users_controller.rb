@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   def update
     return render :edit unless @user.update(user_params)
 
-    redirect_to edit_user_path(id: @user)
+    redirect_to edit_user_path(id: @user), notice: I18n.t("general.changes_saved")
   end
 
   private
@@ -32,7 +32,9 @@ class UsersController < ApplicationController
       :timezone,
       **(current_user.is_admin ? {supported_organization_ids: []} : {}),
     )
-    out[:supported_organization_ids] = out[:supported_organization_ids].filter { |x| x.present? }
+    if current_user.is_admin?
+      out[:supported_organization_ids] = out[:supported_organization_ids].filter { |x| x.present? }
+    end
     out
   end
 end
