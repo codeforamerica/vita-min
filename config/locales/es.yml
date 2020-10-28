@@ -1,5 +1,75 @@
 ---
 es:
+  case_management:
+    assigned_clients:
+      index:
+        title: Tus clientes asignados
+    clients:
+      edit:
+        filing_information: Presentación de información
+        legal_first_name: Primer nombre legal
+        legal_last_name: Apellido legal
+        mailing_address: Dirección postal
+        preferred_interview_language: idioma preferido
+        preferred_name: Nombre preferido
+        primary_contact_info: Información de contacto
+        spouse_contact_info: Información de contacto del cónyuge
+        title: Editar Perfil del cliente
+      index:
+        client_id_heading: Cliente ID
+        filing_year: Año para declarar
+        needs_response_heading: Necesita respuesta?
+        title: Todos clientes
+      navigation:
+        client_documents: Documentos
+        client_messages: Mensajes
+        client_notes: Notas
+        client_profile: Perfil del cliente
+      show:
+        email: Email
+        filing_status: Estado civil para declarar
+        intake_language: Idioma del formulario de admisión
+        legal_name: Nombre legal
+        mailing_address: Dirección postal
+        marital_status: Estado civil
+        phone: Número de teléfono
+        phone_interview_language: Idioma prefiere para la revisión
+        preferred_name: Nombre preferido
+        primary_contact_info: Información de contacto
+        spouse_contact_info: Información de contacto del cónyuge
+        texting_phone: Número celular
+    documents:
+      edit:
+        display_name: Nombre Para Mostrar
+        title: Editar Documento
+      index:
+        document_type: Clase de documento
+        file_name: Nombre de archivo
+        upload_date: Fecha de carga
+        uploaded_ago: Hace %{time}
+    messages:
+      index:
+        email_form:
+          label: Send an email
+          submit: Send
+        text_message_form:
+          label: Enviar un mensaje de texto
+          submit: Enviar
+    notes:
+      index:
+        note_form:
+          label: Añadir una nota
+          submit: Guardar
+    tax_returns:
+      edit:
+        assigned_user_label: Asignar a
+        title: Asignar la declaración de impuestos %{tax_year} de %{client_name}
+      update:
+        flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}
+        no_one: nadie
+    vita_partners:
+      index:
+        title: Socios de VITA
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
@@ -49,73 +119,6 @@ es:
         ignore: Si no desea aceptar la invitación, ignore este correo electrónico.
         someone_invited_you: "%{their_name} (%{their_email}) ha invitado a %{your_name} a crear una cuenta en GetYourRefund para ayudar a las personas con sus impuestos."
         subject: Usted ha sido invitado a GetYourRefund
-  case_management:
-    clients:
-      index:
-        client_id_heading: Cliente ID
-        filing_year: Año para declarar
-        title: Todos clientes
-        needs_response_heading: Necesita respuesta?
-      navigation:
-        client_documents: Documentos
-        client_messages: Mensajes
-        client_notes: Notas
-        client_profile: Perfil del cliente
-      show:
-        legal_name: Nombre legal
-        preferred_name: Nombre preferido
-        intake_language: Idioma del formulario de admisión
-        phone_interview_language: Idioma prefiere para la revisión
-        marital_status: Estado civil
-        filing_status: Estado civil para declarar
-        email: Email
-        phone: Número de teléfono
-        texting_phone: Número celular
-        mailing_address: Dirección postal
-        spouse_contact_info: Información de contacto del cónyuge
-        primary_contact_info: Información de contacto
-      edit:
-        legal_first_name: Primer nombre legal
-        legal_last_name: Apellido legal
-        preferred_name: Nombre preferido
-        title: Editar Perfil del cliente
-        preferred_interview_language: idioma preferido
-        mailing_address: Dirección postal
-        spouse_contact_info: Información de contacto del cónyuge
-        primary_contact_info: Información de contacto
-        filing_information: Presentación de información
-    documents:
-      edit:
-        title: Editar Documento
-        display_name: Nombre Para Mostrar
-      index:
-        document_type: Clase de documento
-        file_name: Nombre de archivo
-        upload_date: Fecha de carga
-        uploaded_ago: "Hace %{time}"
-    messages:
-      index:
-        email_form:
-          label: Send an email
-          submit: Send
-        text_message_form:
-          label: Enviar un mensaje de texto
-          submit: Enviar
-    notes:
-      index:
-        note_form:
-          label: "Añadir una nota"
-          submit: "Guardar"
-    tax_returns:
-      edit:
-        title: "Asignar la declaración de impuestos %{tax_year} de %{client_name}"
-        assigned_user_label: Asignar a
-      update:
-        flash_success: "Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}"
-        no_one: nadie
-    vita_partners:
-      index:
-        title: Socios de VITA
   email:
     user_message:
       subject: Update from GetYourRefund
@@ -189,25 +192,29 @@ es:
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       need_phone_number: Por favor, introduzca un número de teléfono celular.
   general:
+    NA: N/A
     address: Dirección
     admin: Admin
     affirmative: Sí
     assign: Asignar
-    attachment: "Adjunto"
+    assignee: Asignada a
+    attachment: Adjunto
     beta_tester: Probador beta
     changes_saved: Cambios guardados
     chat_with_us: Hable con nosotros por el chat
+    city: Ciudad
     confirm: Confirmar
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
+    divorced: Divorciado
     document_type:
       care_provider_statement: Declaración del Proveedor de Cuidados
       email_attachment: Adjunto de email
       employment: Documentos de impuestos de empleo (W2, 1099, etc.)
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
-      other: Otro
       original_13614-C: Original 13614-C
+      other: Otro
       prior_year_tax_return: Declaración de impuestos del año anterior
       property_tax_statement: 'Declaración de impuestos sobre la propiedad '
       requested_later: Solicitado después
@@ -249,22 +256,27 @@ es:
       ru: Ruso
       zh: Mandarín
     languages: Idiomas
+    lived_with_spouse: Vivieron con su cónyuge
+    married: Casado
     name: Nombre
-    negative: 'No'
     needs_response: Marcar como necesita respuesta
+    negative: 'No'
     next: Próximo
+    no_intake: Sin ingesta
     none: Ninguna
     none_of_the_above: Ninguna de las anteriores
     not_at_all: De ningún modo
     not_well: No muy bein
     oops: "¡Oye!"
     open: Abrir
+    opt_in_email: Ha optado por recibir notificaciones por email
+    opt_in_sms: Ha optado por recibir notificaciones por SMS
     organization: Organización
     other_options: Intente otra opción de declaración gratis
     partner: Socio
     password: Contraseña
-    phone_number: Número de teléfono
     phone_for_texting: Número celular
+    phone_number: Número de teléfono
     privacy_policy: Política de privacidad
     race:
       american_indian_alaska_native: Indio Americano o Nativo de Alaska
@@ -281,44 +293,35 @@ es:
     save: Guardar
     search: Búsqueda
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
+    separated: Separado
     sign_in: Iniciar sesión
     sign_out: Cerrar sesión
     sign_up: Regístrate
+    single: Soltera
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
     sorry: "¡Ay, no! ¡Lo sentimos!"
     start_filing: Comenzar a declarar
+    state: Estado
+    street_address: Dirección
     submit: Enviar
     submit_question: Envíe una pregunta a GetYourRefund
     timezone: Zona horaria
+    today: Hoy
+    updated_at: Actualizado en
     upload: Subir
     very_well: Muy bien
     visit_free_file: Visite el sitio de declaración de impuestos gratuita del IRS
     visit_stimulus_faq: Preguntas Frecuentes
     vita_long: 'VITA: Asistencia Voluntaria al Contribuyente Tributario'
     well: Bien
+    widowed: Viudo/a
     year: año
     you: usted
     you_or_spouse: usted o su cónyuge
     zendesk:
       access_denied: No tiene autorización para acceder a esa página
-    today: Hoy
     zip_code: Código postal
-    married: Casado
-    lived_with_spouse: Vivieron con su cónyuge
-    separated: Separado
-    divorced: Divorciado
-    widowed: Viudo/a
-    single: Soltera
-    updated_at: Actualizado en
-    NA: N/A
-    no_intake: Sin ingesta
-    assignee: Asignada a
-    street_address: Dirección
-    city: Ciudad
-    state: Estado
-    opt_in_sms: Ha optado por recibir notificaciones por SMS
-    opt_in_email: Ha optado por recibir notificaciones por email
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -338,14 +341,14 @@ es:
         choose_file: Por favor, elija un archivo.
         valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
   signups:
-    flash_notice: ¡Gracias! Recibirá una notificación cuando abramos en enero de 2021.
+    flash_notice: "¡Gracias! Recibirá una notificación cuando abramos en enero de 2021."
     new:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su cheque de estímulo!"
       subheader: Favor de inscribirse aquí para recibir notificaciones cuando abramos en enero 2021.
   users:
     edit:
-      is_beta_tester_label: Probador beta?
       is_admin_label: Admin?
+      is_beta_tester_label: Probador beta?
     index:
       title: Usuarios
     profile:
@@ -722,13 +725,13 @@ es:
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Estamos comprometidos a proteger su información.
-        stimulus_banner: &stimulus_help
-          heading: ¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?
+        stimulus_banner:
+          facts_html: &1
+          - Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage'>IRS Get My Payment website</a>
+          - Solicita tu cheque de estímulo directamente a través de <a href='https://www.irs.gov/es/coronavirus/non-filers-enter-payment-info-here' data-track-click='stimulus-irs-enter-payment-info' data-track-attribute-position='homepage'>IRS nonfiler tool website</a>
+          - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
+          heading: "¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?"
           subheading: La fecha límite para conseguir tu cheque de estímulo a través de la aplicación en línea del IRS se ha extendido hasta el 21 de noviembre.
-          facts_html:
-            - "Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage'>IRS Get My Payment website</a>"
-            - "Solicita tu cheque de estímulo directamente a través de <a href='https://www.irs.gov/es/coronavirus/non-filers-enter-payment-info-here' data-track-click='stimulus-irs-enter-payment-info' data-track-attribute-position='homepage'>IRS nonfiler tool website</a>"
-            - "Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href='tel:1-844-322-3639' data-track-click='call-211-hotline' data-track-attribute-position='homepage'>+1 (844) 322-3639</a>"
         stimulus_faq:
           info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
         subheader: Te informamos que los servicios ofrecidos por GeYourRefund han cerrado para esta temporada de declaración de impuestos. Tendremos el gusto de ofrecerte nuestra asistencia gratuita de nuevo para declarar tus impuestos a partir de enero.
@@ -855,6 +858,10 @@ es:
           header: Preguntas
           resolve: Haremos todo lo posible para resolver el problema.
         title: Política de Privacidad
+      stimulus:
+        facts_html: *1
+        heading: "¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?"
+        subheading: La fecha límite para conseguir tu cheque de estímulo a través de la aplicación en línea del IRS se ha extendido hasta el 21 de noviembre.
       stimulus_payment:
         faq:
           eip:
@@ -930,7 +937,6 @@ es:
         see_faq: Consulte nuestras preguntas frecuentes
         support_html: Nuestro equipo está aquí para ayudarle. %{faq_link} o envíe una pregunta por chat, y nos comunicaremos con usted.
         title: Preguntas sobre los impuestos
-      stimulus: *stimulus_help
     questions:
       additional_info:
         help_text: Comparta cualquier nota o pregunta sobre su situación fiscal. Su preparador de impuestos se asegurará de repasar estas preguntas durante la revisión de su teléfono.
@@ -1090,6 +1096,7 @@ es:
         body: Apreciamos cualquier comentario adicional que tenga para servir mejor a nuestros clientes en el futuro.
         title: Gracias por compartir su experiencia.
       file_with_help:
+        closing_notice_html: "<strong>Estamos por cerrar GetYourRefund para la temporada de impuestos el 12 de octubre.</strong> La declaración con ayuda tardará de una semana en procesarse. Para poder declarar impuestos para la fecha límite, necesitamos todos los documentos requeridos para el 8 de octubre. ¡Esperamos poder brindarle nuestra asistencia tributaria gratuita el próximo año!"
         info: Seleccionó nuestra opción de servicio completo. Nosotros haremos que responda una serie de preguntas sobre su situación fiscal (lo mejor que pueda) y que un especialista en impuestos revise todo con usted.
         right_option:
           confused: Su situación fiscal es confusa / complicada
@@ -1097,7 +1104,6 @@ es:
           need_assistance: Necesita ayuda con la declaración de impuestos.
           nervous: Le preocupa preparar su declaración de impuestos por su cuenta
         title: "¡Declara tus impuestos con la ayuda de un experto!"
-        closing_notice_html: <strong>Estamos por cerrar GetYourRefund para la temporada de impuestos el 12 de octubre.</strong> La declaración con ayuda tardará de una semana en procesarse. Para poder declarar impuestos para la fecha límite, necesitamos todos los documentos requeridos para el 8 de octubre. ¡Esperamos poder brindarle nuestra asistencia tributaria gratuita el próximo año!
       filing_joint:
         help_text: Generalmente, declarar sus impuestos juntos es más beneficioso para su reembolso. Su cónyuge necesitará verificar su identidad y firmar la declaración de impuestos final.
         title: "¿Está declarando sus impuestos con su cónyuge?"
@@ -1440,6 +1446,9 @@ es:
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
+      user_header:
+        profile_link: Ver perfil
+        welcome: Saludos, %{name}
     stimulus:
       file_for_stimulus:
         info: Puede que también califique para recibir dinero adicional a través de créditos fiscales. ¡Vamos a ayudarle a máximizar su desembolso!

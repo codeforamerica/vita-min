@@ -1,5 +1,75 @@
 ---
 en:
+  case_management:
+    assigned_clients:
+      index:
+        title: Your assigned clients
+    clients:
+      edit:
+        filing_information: Filing Information
+        legal_first_name: Legal first name
+        legal_last_name: Legal last name
+        mailing_address: Mailing Address
+        preferred_interview_language: Preferred interview language
+        preferred_name: Preferred name
+        primary_contact_info: Primary Contact Info
+        spouse_contact_info: Spouse Contact Info
+        title: Edit Client Profile
+      index:
+        client_id_heading: Client ID
+        filing_year: Filing Year
+        needs_response_heading: Needs Response?
+        title: All clients
+      navigation:
+        client_documents: Documents
+        client_messages: Messages
+        client_notes: Notes
+        client_profile: Client Profile
+      show:
+        email: Email
+        filing_status: Filing Status
+        intake_language: Intake Language
+        legal_name: Legal Name
+        mailing_address: Mailing Address
+        marital_status: Marital Status
+        phone: Phone
+        phone_interview_language: Phone Interview Language
+        preferred_name: Preferred Name
+        primary_contact_info: Primary Contact Info
+        spouse_contact_info: Spouse Contact Info
+        texting_phone: Phone For Texting
+    documents:
+      edit:
+        display_name: Display Name
+        title: Edit Document
+      index:
+        document_type: Document Type
+        file_name: File Name
+        upload_date: Upload Date
+        uploaded_ago: "%{time} ago"
+    messages:
+      index:
+        email_form:
+          label: Send an email
+          submit: Send
+        text_message_form:
+          label: Send a text message
+          submit: Send
+    notes:
+      index:
+        note_form:
+          label: Add a note
+          submit: Save
+    tax_returns:
+      edit:
+        assigned_user_label: Assign to
+        title: Assign %{client_name}'s %{tax_year} tax return
+      update:
+        flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}
+        no_one: no one
+    vita_partners:
+      index:
+        title: VITA partners
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
@@ -49,73 +119,6 @@ en:
         ignore: If you don't want to accept the invitation, please ignore this email.
         someone_invited_you: "%{their_name} (%{their_email}) has invited %{your_name} to create an account on GetYourRefund to help people with their taxes."
         subject: You've been invited to GetYourRefund
-  case_management:
-    clients:
-      index:
-        client_id_heading: Client ID
-        filing_year: Filing Year
-        title: Clients
-        needs_response_heading: Needs Response?
-      navigation:
-        client_documents: Documents
-        client_messages: Messages
-        client_notes: Notes
-        client_profile: Client Profile
-      show:
-        legal_name: Legal Name
-        preferred_name: Preferred Name
-        intake_language: Intake Language
-        phone_interview_language: Phone Interview Language
-        marital_status: Marital Status
-        filing_status: Filing Status
-        email: Email
-        phone: Phone
-        texting_phone: Phone For Texting
-        mailing_address: Mailing Address
-        spouse_contact_info: Spouse Contact Info
-        primary_contact_info: Primary Contact Info
-      edit:
-        legal_first_name: Legal first name
-        legal_last_name: Legal last name
-        preferred_name: Preferred name
-        title: Edit Client Profile
-        preferred_interview_language: Preferred interview language
-        spouse_contact_info: Spouse Contact Info
-        primary_contact_info: Primary Contact Info
-        mailing_address: Mailing Address
-        filing_information: Filing Information
-    documents:
-      edit:
-        title: Edit Document
-        display_name: Display Name
-      index:
-        document_type: Document Type
-        file_name: File Name
-        upload_date: Upload Date
-        uploaded_ago: "%{time} ago"
-    messages:
-      index:
-        email_form:
-          label: Send an email
-          submit: Send
-        text_message_form:
-          label: Send a text message
-          submit: Send
-    notes:
-      index:
-        note_form:
-          submit: "Save"
-          label: "Add a note"
-    tax_returns:
-      edit:
-        title: "Assign %{client_name}'s %{tax_year} tax return"
-        assigned_user_label: Assign to
-      update:
-        flash_success: "Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}"
-        no_one: no one
-    vita_partners:
-      index:
-        title: VITA partners
   email:
     user_message:
       subject: Update from GetYourRefund
@@ -189,25 +192,29 @@ en:
       need_one_communication_method: Please choose some way for us to contact you.
       need_phone_number: Please enter a cell phone number.
   general:
+    NA: N/A
     address: Address
     admin: Admin
     affirmative: 'Yes'
     assign: Assign
-    attachment: "Attachment"
+    assignee: Assignee
+    attachment: Attachment
     beta_tester: Beta tester
     changes_saved: Changes saved
     chat_with_us: Chat with us
+    city: City
     confirm: Confirm
     continue: Continue
     continue_example: Continue to example
+    divorced: Divorced
     document_type:
       care_provider_statement: Care Provider Statement
       email_attachment: Email attachment
       employment: Employment tax documents (W2's, 1099, etc)
       id: ID
       ira_statement: IRA Statement
-      other: Other
       original_13614-C: Original 13614-C
+      other: Other
       prior_year_tax_return: Prior Year Tax Return
       property_tax_statement: Property Tax Statement
       requested_later: Requested Later
@@ -249,22 +256,27 @@ en:
       ru: Russian
       zh: Mandarin
     languages: Languages
+    lived_with_spouse: Lived with spouse
+    married: Married
     name: Name
     needs_response: Mark as needs response
     negative: 'No'
     next: Next
+    no_intake: No intake for client
     none: None
     none_of_the_above: None of the above
     not_at_all: Not at all
     not_well: Not well
     oops: Oops!
     open: Open
+    opt_in_email: Opted into email notifications
+    opt_in_sms: Opted into sms notifications
     organization: Organization
     other_options: Try another free tax filing option
     partner: Partner
     password: Password
-    phone_number: Phone number
     phone_for_texting: Phone for texting
+    phone_number: Phone number
     privacy_policy: privacy policy
     race:
       american_indian_alaska_native: American Indian or Alaska Native
@@ -281,44 +293,35 @@ en:
     save: Save
     search: Search
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
+    separated: Separated
     sign_in: Sign in
     sign_out: Sign out
     sign_up: Sign up
+    single: Single
     skip_question: Skip question
     skip_questions: Skip questions
     sorry: We're sorry!
     start_filing: Start filing
+    state: State
+    street_address: Street address
     submit: Submit
     submit_question: Submit a question to GetYourRefund
     timezone: Timezone
+    today: Today
+    updated_at: Updated At
     upload: Upload
     very_well: Very well
     visit_free_file: Visit IRS Free File
     visit_stimulus_faq: Visit Stimulus FAQ
     vita_long: 'VITA: Volunteer Income Tax Assistance'
     well: Well
+    widowed: Widowed
     year: year
     you: you
     you_or_spouse: you or your spouse
     zendesk:
       access_denied: You are not authorized to access that page
-    today: Today
     zip_code: ZIP code
-    married: Married
-    lived_with_spouse: Lived with spouse
-    separated: Separated
-    divorced: Divorced
-    widowed: Widowed
-    single: Single
-    updated_at: Updated At
-    NA: N/A
-    no_intake: No intake for client
-    assignee: Assignee
-    street_address: Street address
-    city: City
-    state: State
-    opt_in_sms: Opted into sms notifications
-    opt_in_email: Opted into email notifications
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -344,8 +347,8 @@ en:
       subheader: Please sign up here to receive a notification when we open in January 2021.
   users:
     edit:
-      is_beta_tester_label: Beta tester?
       is_admin_label: Admin?
+      is_beta_tester_label: Beta tester?
     index:
       title: Users
     profile:
@@ -722,13 +725,13 @@ en:
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
           header: We're committed to keeping your information secure.
-        stimulus_banner: &stimulus_help
+        stimulus_banner:
+          facts_html: &1
+          - Check the status of your stimulus check on the <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Get My Payment website</a>
+          - Request for your stimulus directly through the <a href='https://www.irs.gov/coronavirus/non-filers-enter-payment-info-here' target='_blank' rel='noopener noreferrer' data-track-click='stimulus-irs-enter-payment-info' data-track-attribute-position='homepage'>IRS nonfiler tool website</a>
+          - 'Call the 211 Economic Impact Payment Helpline with questions: <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
           heading: Need assistance getting your stimulus check?
           subheading: The deadline to claim your stimulus through the IRS’s online tool has been extended until November 21st.
-          facts_html:
-            - "Check the status of your stimulus check on the <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Get My Payment website</a>"
-            - "Request for your stimulus directly through the <a href='https://www.irs.gov/coronavirus/non-filers-enter-payment-info-here' target='_blank' rel='noopener noreferrer' data-track-click='stimulus-irs-enter-payment-info' data-track-attribute-position='homepage'>IRS nonfiler tool website</a>"
-            - "Call the 211 Economic Impact Payment Helpline with questions: <a href='tel:1-844-322-3639' data-track-click='call-211-hotline' data-track-attribute-position='homepage'>+1 (844) 322-3639</a>"
         stimulus_faq:
           info: Already filed your taxes and have questions about your stimulus check?
         subheader: Sign up for next tax season now. We’ll notify you as soon as our service is back up in January!
@@ -855,6 +858,10 @@ en:
           header: Questions
           resolve: We will do our best to resolve the issue.
         title: Privacy Policy
+      stimulus:
+        facts_html: *1
+        heading: Need assistance getting your stimulus check?
+        subheading: The deadline to claim your stimulus through the IRS’s online tool has been extended until November 21st.
       stimulus_payment:
         faq:
           eip:
@@ -930,7 +937,6 @@ en:
         see_faq: Please see our FAQ
         support_html: Our team is here to support you. %{faq_link} or submit a question via chat and we will get back to you!
         title: Tax Questions
-      stimulus: *stimulus_help
     questions:
       additional_info:
         help_text: Please share any notes or questions about your tax situation. Your tax preparer will be sure to go over these questions during your phone review.
@@ -1090,8 +1096,8 @@ en:
         body: We appreciate any additional feedback you have to better serve clients in the future!
         title: Thank you for sharing your experience.
       file_with_help:
+        closing_notice_html: "<strong>We are closing GetYourRefund for the tax season on October 12th.</strong> Filing with help will take around 1 week to process. In order to file by the deadline we need all required documents by October 8th. We look forward to providing our free tax assistance next year!"
         info: You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you.
-        closing_notice_html: <strong>We are closing GetYourRefund for the tax season on October 12th.</strong> Filing with help will take around 1 week to process. In order to file by the deadline we need all required documents by October 8th. We look forward to providing our free tax assistance next year!
         right_option:
           confused: Your tax situation is confusing/complicated
           header: 'This is the right option for you if:'
@@ -1440,6 +1446,9 @@ en:
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
+      user_header:
+        profile_link: View profile
+        welcome: Welcome, %{name}
     stimulus:
       file_for_stimulus:
         info: You might also be eligible for additional money through tax credits. We’ll help you get the most out of your return!

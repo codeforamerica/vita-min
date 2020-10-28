@@ -236,7 +236,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_user)
-    user_profile_path
+    case_management_root_path
   end
 
   def set_time_zone

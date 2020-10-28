@@ -34,6 +34,9 @@ class Client < ApplicationRecord
   end
 
   delegate *delegated_intake_attributes, to: :intake
+
+  scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }) }
+
   scope :delegated_order, ->(column, direction) do
     raise ArgumentError, "column and direction are required" if !column || !direction
 
