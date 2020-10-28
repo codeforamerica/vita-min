@@ -37,8 +37,8 @@ describe Document do
       document = Document.new
 
       expect(document).to_not be_valid
-      expect(document.errors).to include :intake
       expect(document.errors).to include :document_type
+      expect(document.errors).to include :client
     end
 
     describe "#document_type" do

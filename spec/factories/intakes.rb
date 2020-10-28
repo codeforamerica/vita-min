@@ -194,6 +194,7 @@
 FactoryBot.define do
   factory :intake do
     had_wages { :unfilled }
+    client
 
     factory :anonymous_intake do
       anonymous { true }

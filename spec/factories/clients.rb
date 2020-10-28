@@ -20,12 +20,5 @@
 #
 FactoryBot.define do
   factory :client do
-    intake {
-      create :intake,
-      preferred_name: "George Michael",
-      email_address: "gmichael@bluthsoriginalfrozenbanana.com",
-      phone_number: "14155551212",
-      sms_phone_number: "14155551212"
-    }
   end
 end

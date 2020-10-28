@@ -10,7 +10,11 @@ class RequestedDocumentUploadForm < QuestionsForm
   def save
     document_file_upload = attributes_for(:documents_request)[:document]
     if document_file_upload.present?
-      document = @documents_request.documents.create(document_type: "Requested Later", intake_id: @documents_request.intake.id)
+      document = @documents_request.documents.create(
+        document_type: "Requested Later",
+        intake_id: @documents_request.intake.id,
+        client: @documents_request.intake.client
+      )
       document.upload.attach(document_file_upload)
     end
   end

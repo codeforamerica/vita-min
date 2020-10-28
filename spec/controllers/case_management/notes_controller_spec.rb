@@ -1,8 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe CaseManagement::NotesController, type: :controller do
   let(:vita_partner) { create :vita_partner }
   let(:client) { create :client, vita_partner: vita_partner }
+  let!(:intake) { create :intake, client: client }
 
   describe "#create" do
     let(:params) {

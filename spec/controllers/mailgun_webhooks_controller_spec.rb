@@ -110,12 +110,12 @@ RSpec.describe MailgunWebhooksController do
           it "stores them on the IncomingEmail" do
             expect do
               post :create_incoming_email, params: params.update({
-                                                                     "attachment-count": 4,
-                                                                     "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
-                                                                     "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/jpeg"),
-                                                                     "attachment-3" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-spreadsheet.xls", "application/vnd.ms-excel"),
-                                                                     "attachment-4" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pdf.pdf", ""),
-                                                                 })
+                "attachment-count": 4,
+                "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
+                "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/jpeg"),
+                "attachment-3" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-spreadsheet.xls", "application/vnd.ms-excel"),
+                "attachment-4" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pdf.pdf", ""),
+              })
             end.to change(Document, :count).by(4)
 
             email = IncomingEmail.last

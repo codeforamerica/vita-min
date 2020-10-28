@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Documents::AdditionalDocumentsController do
   render_views
 
-  let(:intake) { create :intake, intake_ticket_id: 1234 }
+  let(:intake) { create :intake, intake_ticket_id: 1234, client: create(:client) }
 
   before do
     allow(subject).to receive(:current_intake).and_return intake
@@ -79,6 +79,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
         }.to change(intake.documents, :count).by 1
 
         latest_doc = intake.documents.last
+        expect(intake.client.documents.last).to eq latest_doc
         expect(latest_doc.document_type).to eq "Other"
         expect(latest_doc.upload.filename).to eq "test-pattern.png"
 

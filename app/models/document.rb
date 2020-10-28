@@ -31,7 +31,7 @@ class Document < ApplicationRecord
   include InteractionTracking
   # Permit all existing document types, plus "Requested", which is superseded by "Requested Later" (but the DB has both)
   validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested"] }
-  validates :intake, presence: { unless: :documents_request_id }
+  validates_presence_of :client
 
   default_scope { order(created_at: :asc) }
 
