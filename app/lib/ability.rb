@@ -13,11 +13,13 @@ class Ability
           OutgoingEmail,
           Document,
           Note,
-          TaxReturn
+          TaxReturn,
+          VitaPartner
         ]
       end
 
       if user.vita_partner.present?
+        can :manage, [VitaPartner], id: user.vita_partner_id
         can :manage, [Client, User], vita_partner: [user.vita_partner, *user.supported_organizations]
         can :manage, [
           IncomingTextMessage,
