@@ -38,7 +38,11 @@ class Client < ApplicationRecord
   scope :delegated_order, ->(column, direction) do
     raise ArgumentError, "column and direction are required" if !column || !direction
 
-    order("#{delegated_query_column(column)} #{direction}")
+    if delegated_intake_attributes.include? column.to_sym
+      joins(:intake).merge(Intake.order(Hash[column, direction]))
+    else
+      includes(:intake).order(Hash[column, direction])
+    end
   end
 
   def legal_name
@@ -53,11 +57,5 @@ class Client < ApplicationRecord
 
   def needs_response?
     response_needed_since.present?
-  end
-
-  def self.delegated_query_column(column)
-    return "intakes.#{column}" if column && delegated_intake_attributes.include?(column.to_sym)
-
-    column
   end
 end

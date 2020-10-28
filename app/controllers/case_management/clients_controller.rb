@@ -10,7 +10,7 @@ module CaseManagement
     def index
       @sort_column = sort_column
       @sort_order = sort_order
-      @clients = @clients.includes(intake: :vita_partner).delegated_order(@sort_column, @sort_order)
+      @clients = @clients.delegated_order(@sort_column, @sort_order)
     end
 
     def create

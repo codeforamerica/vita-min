@@ -250,7 +250,6 @@ RSpec.describe CaseManagement::ClientsController do
             expect(assigns[:sort_order]).to eq("asc")
 
             expect(assigns(:clients)).to eq [one, two]
-
           end
 
           it "orders clients by name desc" do
@@ -281,7 +280,6 @@ RSpec.describe CaseManagement::ClientsController do
             expect(assigns[:sort_order]).to eq("asc")
 
             expect(assigns(:clients)).to eq [english, spanish]
-
           end
 
           it "orders clients by name desc" do
