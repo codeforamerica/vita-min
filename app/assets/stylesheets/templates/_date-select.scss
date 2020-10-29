@@ -1,0 +1,10 @@
+.date-select {
+  .select {
+    display: block;
+    clear: both;
+
+    @media screen and (min-width: $tablet-up) {
+      display: inline-block;
+    }
+  }
+}

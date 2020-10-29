@@ -10,7 +10,7 @@
         <%= yield :notices %>
         <%= render "shared/progress_bar" %>
         <main role="main">
-          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card form-card--long"} do |f| %>
             <%= render "shared/consent_agreement" %>
 
             <%= f.cfa_input_field(:spouse_first_name, t("views.questions.spouse_consent.spouse_first_name")) %>
@@ -22,13 +22,18 @@
                     type: :tel,
                     classes: ["form-width--name field--last-four-ssn"]
                 ) %>
-            <%= f.cfa_date_select(:birth_date, t("views.questions.spouse_consent.birth_date"), options: {
-                start_year: Time.now.year - 17,
-                end_year: Time.now.year - 120,
-            }) %>
-
+            <div class="date-select">
+              <%= f.cfa_date_select(
+                      :birth_date,
+                      t("views.questions.spouse_consent.birth_date"),
+                      options: {
+                          start_year: Time.now.year - 17,
+                          end_year: Time.now.year - 120,
+                      }
+                  ) %>
+            </div>
             <button class="button button--primary button--wide" type="submit">
-              <%=t("views.questions.spouse_consent.cta") %>
+              <%= t("views.questions.spouse_consent.cta") %>
             </button>
           <% end %>
         </main>

@@ -9,7 +9,7 @@
       <div class="grid__item width-three-fourths shift-one-eighth">
         <%= yield :notices %>
         <main role="main">
-          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+          <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card form-card--long"} do |f| %>
             <%= render "shared/consent_agreement" %>
 
             <%= f.cfa_input_field(:primary_first_name, t("views.questions.consent.primary_first_name")) %>
@@ -21,13 +21,19 @@
                     type: :tel,
                     classes: ["form-width--name field--last-four-ssn"]
                 ) %>
-            <%= f.cfa_date_select(:birth_date, t("views.questions.consent.birth_date"), options: {
-                start_year: Time.now.year - 17,
-                end_year: Time.now.year - 120,
-            }) %>
+            <div class="date-select">
+              <%= f.cfa_date_select(
+                      :birth_date,
+                      t("views.questions.consent.birth_date"),
+                      options: {
+                          start_year: Time.now.year - 17,
+                          end_year: Time.now.year - 120,
+                      }
+                  ) %>
+            </div>
 
             <button class="button button--primary button--wide spacing-above-60" type="submit">
-              <%=t("views.questions.consent.cta") %>
+              <%= t("views.questions.consent.cta") %>
             </button>
           <% end %>
         </main>
