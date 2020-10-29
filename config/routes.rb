@@ -139,7 +139,7 @@ Rails.application.routes.draw do
           patch "response_needed"
         end
       end
-      resources :vita_partners, only: [:edit, :update, :show]
+      resources :vita_partners, only: [:index, :edit, :update, :show]
     end
 
     devise_for :users, skip: :omniauth_callbacks, controllers: {

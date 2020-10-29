@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe CaseManagement::VitaPartnersController, type: :controller do
+  describe "#index" do
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
+    it_behaves_like :a_get_action_for_beta_testers_only, action: :index
+  end
+
   describe "#show" do
     let(:vita_partner) { create :vita_partner }
     let(:params) { {id: vita_partner} }

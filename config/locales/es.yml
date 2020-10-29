@@ -113,6 +113,9 @@ es:
       update:
         flash_success: "Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}"
         no_one: nadie
+    vita_partners:
+      index:
+        title: Socios de VITA
   email:
     user_message:
       subject: Update from GetYourRefund
@@ -344,10 +347,11 @@ es:
       is_beta_tester_label: Probador beta?
       is_admin_label: Admin?
     index:
-      title: Todos usuarios
+      title: Usuarios
     profile:
-      clients_link: Todos clientes
-      users_link: Todos usuarios
+      clients_link: Clientes
+      users_link: Usuarios
+      vita_partners_link: Socios de VITA
   validators:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.

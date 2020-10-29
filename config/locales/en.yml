@@ -54,7 +54,7 @@ en:
       index:
         client_id_heading: Client ID
         filing_year: Filing Year
-        title: All clients
+        title: Clients
         needs_response_heading: Needs Response?
       navigation:
         client_documents: Documents
@@ -113,6 +113,9 @@ en:
       update:
         flash_success: "Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}"
         no_one: no one
+    vita_partners:
+      index:
+        title: VITA partners
   email:
     user_message:
       subject: Update from GetYourRefund
@@ -344,10 +347,11 @@ en:
       is_beta_tester_label: Beta tester?
       is_admin_label: Admin?
     index:
-      title: All users
+      title: Users
     profile:
-      clients_link: All clients
-      users_link: All users
+      clients_link: Clients
+      users_link: Users
+      vita_partners_link: VITA partners
   validators:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.

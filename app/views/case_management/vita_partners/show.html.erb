@@ -1,5 +1,6 @@
 <% content_for :page_title, "#{@vita_partner.display_name} ##{@vita_partner.id}" %>
 
 <% content_for :card do %>
-  <h1><%= @vita_partner.display_name %></h1>
+  <h1 class="h2"><%= @vita_partner.display_name %></h1>
+  <h2 class="h4">Vita Partner Id: #<%= @vita_partner.id %></h2>
 <% end %>

@@ -24,7 +24,7 @@ RSpec.feature "Assign a user to a tax return" do
       select "Lucille 2", from: "Assign to"
       click_on "Save"
 
-      expect(page).to have_selector("h1", text: "All clients")
+      expect(page).to have_selector("h1", text: "Clients")
       within "#tax-return-#{tax_return_to_assign.id}" do
         expect(page).to have_text "Lucille 2"
       end
