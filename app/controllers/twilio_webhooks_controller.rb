@@ -31,28 +31,32 @@ class TwilioWebhooksController < ActionController::Base
     (0..(num_media - 1)).each do |i|
       content_type = params["MediaContentType#{i}"]
       media_url = params["MediaUrl#{i}"]
-      filename = media_url.split('/').last
       document = client.documents.create!(
         document_type: DocumentTypes::TextMessageAttachment.key,
         contact_record: contact_record
       )
+      response = Net::HTTP.get_response(URI(media_url)) # first we get a redirect from Twilio to S3
+      response = Net::HTTP.get_response(URI(response['location'])) # then we get a redirect from S3 to S3
+      response = Net::HTTP.get_response(URI(response['location'])) # finally we should get a 200 OK with the file
+      filename_from_s3 = response['content-disposition'].split('"').last # S3 gives us the original filename
 
       if FileTypeAllowedValidator::VALID_MIME_TYPES.include? content_type
-        extension = MIME::Types[content_type].first.extensions.first
-        filename_with_extension = "#{filename}.#{extension}"
-        document.upload.attach(io: StringIO.new(Net::HTTP.get(URI(media_url))),
-                                          filename: filename_with_extension,
-                                          content_type: content_type,
-                                          identify: false)
+        document.upload.attach(
+          io: StringIO.new(response.body),
+          filename: filename_from_s3,
+          content_type: content_type,
+          identify: false
+        )
+        document.update(display_name: filename_from_s3)
       else
         io = StringIO.new <<~TEXT
           Unusable file with unknown or unsupported file type.
-          File name:'#{filename}'
+          File name:'#{filename_from_s3}'
           File type:'#{content_type}'
         TEXT
         document.upload.attach(
           io: io,
-          filename: "invalid-#{filename}.txt",
+          filename: "invalid-#{filename_from_s3}.txt",
           content_type: "text/plain;charset=UTF-8",
           identify: false
         )

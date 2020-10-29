@@ -125,23 +125,68 @@ RSpec.describe TwilioWebhooksController do
         context "with an attachment" do
           let!(:client) { create :client }
           let!(:intake) { create :intake, client: client, sms_phone_number: "15552341122" }
+          let(:media_url) { "https://example.com/temporary_redirect" }
           let(:params_with_attachment) do
             incoming_message_params.update({
-                  "MediaContentType0" => "image/jpeg",
-                  "MediaContentType1" => "application/pdf",
-                  "MediaContentType2" => "application/x-ms-dos-executable",
-                  "MediaContentType3" => "",
-                  "MediaUrl0" => "https://example.com/0",
-                  "MediaUrl1" => "https://example.com/1",
-                  "MediaUrl2" => "https://example.com/2",
-                  "MediaUrl3" => "https://example.com/3",
-                  "NumMedia" => "4",
-              })
+               "MediaContentType0" => "image/jpeg",
+               "MediaUrl0" => media_url,
+               "NumMedia" => "1",
+             })
           end
 
           before do
-            (0..3).each do |path|
-              stub_request(:any, "https://example.com/#{path}").to_return(status: 200, body: path.to_s, headers: {})
+            moved_permanently = "https://example.com/moved_permanently"
+            s3_ok = "https://example.com/s3_ok"
+            stub_request(:any, media_url)
+              .to_return(status: 307, body: "no body :(", headers: { location: [moved_permanently] })
+            stub_request(:any, moved_permanently)
+              .to_return(status: 301, body: "still no body :(", headers: { location: [s3_ok] })
+            stub_request(:any, s3_ok)
+              .to_return(status: 200, body: "real body!!", headers: {
+                "content-disposition": ["inline; filename=\"IMG_1410.jpg\""],
+              })
+
+            allow(ClientChannel).to receive(:broadcast_contact_record)
+          end
+
+          it "creates a new IncomingTextMessage linked to the client the right data" do
+            post :create_incoming_text_message, params: params_with_attachment
+
+            documents = client.documents
+
+            expect(documents.count).to eq(1)
+            expect(documents.all.pluck(:document_type).uniq).to eq([DocumentTypes::TextMessageAttachment.key])
+            expect(documents.first.contact_record).to eq IncomingTextMessage.last
+            expect(documents.first.upload.blob.download).to eq("real body!!")
+            expect(documents.first.upload.blob.content_type).to eq("image/jpeg")
+          end
+        end
+
+        context "with attachments with bad or blank file types" do
+          let!(:client) { create :client }
+          let!(:intake) { create :intake, client: client, sms_phone_number: "15552341122" }
+          let(:params_with_attachment) do
+            incoming_message_params.update({
+               "MediaContentType0" => "application/x-ms-dos-executable",
+               "MediaContentType1" => "",
+               "MediaUrl0" => "https://example.com/0",
+               "MediaUrl1" => "https://example.com/1",
+               "NumMedia" => "2",
+             })
+          end
+
+          before do
+            (0..1).each do |path|
+              moved_permanently = "https://example.com/moved_permanently-#{path}"
+              s3_ok = "https://example.com/s3_ok-#{path}"
+              stub_request(:any, "https://example.com/#{path}")
+                .to_return(status: 307, body: "no body :(", headers: { location: [moved_permanently] })
+              stub_request(:any, moved_permanently)
+                .to_return(status: 301, body: "still no body :(", headers: { location: [s3_ok] })
+              stub_request(:any, s3_ok)
+                .to_return(status: 200, body: "real body!!", headers: {
+                  "content-disposition": ["inline; filename=\"bad_file\""],
+                })
             end
 
             allow(ClientChannel).to receive(:broadcast_contact_record)
@@ -152,32 +197,28 @@ RSpec.describe TwilioWebhooksController do
 
             documents = client.documents
 
-            expect(documents.count).to eq(4)
+            expect(documents.count).to eq(2)
             expect(documents.all.pluck(:document_type).uniq).to eq([DocumentTypes::TextMessageAttachment.key])
-            expect(documents.first.contact_record).to eq IncomingTextMessage.last
-            expect(documents.first.upload.blob.download).to eq("0")
-            expect(documents.first.upload.blob.content_type).to eq("image/jpeg")
-            expect(documents.second.upload.blob.download).to eq("1")
-            expect(documents.second.upload.blob.content_type).to eq("application/pdf")
 
             executable_message = <<~TEXT
               Unusable file with unknown or unsupported file type.
-              File name:'2'
+              File name:'bad_file'
               File type:'application/x-ms-dos-executable'
             TEXT
-            expect(documents.third.upload.blob.download).to eq(executable_message)
-            expect(documents.third.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
-            expect(documents.third.upload.blob.filename.to_s).to end_with(".txt")
+            expect(documents.first.upload.blob.download).to eq(executable_message)
+            expect(documents.first.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
+            expect(documents.first.upload.blob.filename.to_s).to end_with(".txt")
 
             unknown_file_type_message = <<~TEXT
               Unusable file with unknown or unsupported file type.
-              File name:'3'
+              File name:'bad_file'
               File type:''
             TEXT
-            expect(documents.fourth.upload.blob.download).to eq(unknown_file_type_message)
-            expect(documents.fourth.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
+            expect(documents.second.upload.blob.download).to eq(unknown_file_type_message)
+            expect(documents.second.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
           end
         end
+
       end
     end
   end
