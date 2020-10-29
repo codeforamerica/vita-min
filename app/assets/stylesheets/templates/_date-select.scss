@@ -3,7 +3,7 @@
     display: block;
     clear: both;
 
-    @media screen and (min-width: $tablet-up) {
+    @media screen and (min-width: $site-max-up) {
       display: inline-block;
     }
   }
