@@ -78,7 +78,7 @@ class EitcZendeskInstance
   EIP_STATUS_ID_UPLOAD = "reached_id_upload_page"
   EIP_STATUS_SUBMITTED = "submitted_eip_only_form"
   EIP_STATUS_READY_FOR_PHONE_CALL = "ready_for_phone_call"
-  EIP_STATUS_PREP_IN_PROGRESSS = "eip_prep_in_progress"
+  EIP_STATUS_PREP_IN_PROGRESS = "eip_prep_in_progress"
   EIP_STATUS_SIGNATURE = "waiting_on_signature"
   EIP_STATUS_COMPLETED = "completed_eip_return"
 
@@ -87,7 +87,7 @@ class EitcZendeskInstance
     EIP_STATUS_ID_UPLOAD => "Reached ID upload page",
     EIP_STATUS_SUBMITTED => "Submitted EIP only form",
     EIP_STATUS_READY_FOR_PHONE_CALL => "Ready for phone call",
-    EIP_STATUS_PREP_IN_PROGRESSS => "EIP prep in progress",
+    EIP_STATUS_PREP_IN_PROGRESS => "EIP prep in progress",
     EIP_STATUS_SIGNATURE => "Waiting on signature",
     EIP_STATUS_COMPLETED => "Completed EIP return",
   }
