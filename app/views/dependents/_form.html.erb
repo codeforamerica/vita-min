@@ -6,64 +6,70 @@
   <% content_for :page_title, @main_heading %>
 <% end %>
 
-  <section class="slab slab--white">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <%= yield :notices %>
-        <%= render "shared/progress_bar" %>
-        <main role="main">
-          <%= form_with model: @dependent, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
-            <h1 class="form-question">
-              <%= @main_heading %>
-            </h1>
+<section class="slab slab--white">
+  <div class="grid">
+    <div class="grid__item width-three-fourths shift-one-eighth">
+      <%= yield :notices %>
+      <%= render "shared/progress_bar" %>
+      <main role="main">
+        <%= form_with model: @dependent, local: true, builder: VitaMinFormBuilder, html: {class: 'form-card form-card--long'} do |f| %>
+          <h1 class="form-question">
+            <%= @main_heading %>
+          </h1>
 
-            <%= f.cfa_input_field(:first_name, t("views.dependents.form.first_name"), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:last_name, t("views.dependents.form.last_name"), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:relationship, t("views.dependents.form.relationship"), classes: ["form-width--med"]) %>
-            <%= f.cfa_date_select(:birth_date, t("views.dependents.form.birth_date"), options: {
-                start_year: Time.now.year,
-                end_year: Time.now.year - 100,
-            }) %>
-            <%= f.cfa_select(
-                    :months_in_home,
-                    t("views.dependents.form.months_in_home", :year => "#{current_intake.most_recent_filing_year}"),
-                    (0..12).map { |i| [i.to_s, i] }.reverse,
-                    help_text: t("views.dependents.form.months_in_home_help", :year => "#{current_intake.most_recent_filing_year}")
-            ) %>
-
-            <label>
-              <p class="form-question"><%=t("views.dependents.form.on_visa") %></p>
-              <%= f.cfa_checkbox(:on_visa, t("general.affirmative"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-            </label>
-
-            <h2 class="form-question"><%=t("views.dependents.form.life_circumstances") %></h2>
-            <p class="text--help"><%=t("views.dependents.form.life_circumstances_help") %></p>
-
-            <div class="form-card__stacked-checkboxes">
-              <%= f.cfa_checkbox(:was_married, t("views.dependents.form.was_married", :year => "#{current_intake.most_recent_filing_year}"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-              <%= f.cfa_checkbox(:was_student, t("views.dependents.form.was_student"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-              <%= f.cfa_checkbox(:north_american_resident, t("views.dependents.form.north_american_resident"), options: { checked_value: "no", unchecked_value: "yes" }) %>
-              <%= f.cfa_checkbox(:disabled, t("views.dependents.form.disabled"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.cfa_input_field(:first_name, t("views.dependents.form.first_name"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:last_name, t("views.dependents.form.last_name"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:relationship, t("views.dependents.form.relationship"), classes: ["form-width--med"]) %>
+          <div class="date-select">
+            <%= f.cfa_date_select(
+                    :birth_date,
+                    t("views.dependents.form.birth_date"),
+                    options: {
+                        start_year: Time.now.year,
+                        end_year: Time.now.year - 100,
+                    }
+                ) %>
             </div>
+          <%= f.cfa_select(
+                  :months_in_home,
+                  t("views.dependents.form.months_in_home", :year => "#{current_intake.most_recent_filing_year}"),
+                  (0..12).map { |i| [i.to_s, i] }.reverse,
+                  help_text: t("views.dependents.form.months_in_home_help", :year => "#{current_intake.most_recent_filing_year}")
+              ) %>
 
-            <% if @allow_deletion %>
-              <%= link_to(
-                dependent_path(@dependent),
-                method: :delete,
-                class: "button button--danger button--wide button--icon",
-                data: { confirm: t("views.dependents.form.delete_confirmation", :name => "#{@dependent.full_name}") }
-            ) do%>
-                <%= image_tag("remove.svg", alt: "") %>
-                <%=t("views.dependents.form.delete_cta") %>
-              <% end %>
+          <label>
+            <p class="form-question"><%= t("views.dependents.form.on_visa") %></p>
+            <%= f.cfa_checkbox(:on_visa, t("general.affirmative"), options: {checked_value: "yes", unchecked_value: "no"}) %>
+          </label>
+
+          <h2 class="form-question"><%= t("views.dependents.form.life_circumstances") %></h2>
+          <p class="text--help"><%= t("views.dependents.form.life_circumstances_help") %></p>
+
+          <div class="form-card__stacked-checkboxes">
+            <%= f.cfa_checkbox(:was_married, t("views.dependents.form.was_married", :year => "#{current_intake.most_recent_filing_year}"), options: {checked_value: "yes", unchecked_value: "no"}) %>
+            <%= f.cfa_checkbox(:was_student, t("views.dependents.form.was_student"), options: {checked_value: "yes", unchecked_value: "no"}) %>
+            <%= f.cfa_checkbox(:north_american_resident, t("views.dependents.form.north_american_resident"), options: {checked_value: "no", unchecked_value: "yes"}) %>
+            <%= f.cfa_checkbox(:disabled, t("views.dependents.form.disabled"), options: {checked_value: "yes", unchecked_value: "no"}) %>
+          </div>
+
+          <% if @allow_deletion %>
+            <%= link_to(
+                    dependent_path(@dependent),
+                    method: :delete,
+                    class: "button button--danger button--wide button--icon",
+                    data: {confirm: t("views.dependents.form.delete_confirmation", :name => "#{@dependent.full_name}")}
+                ) do %>
+              <%= image_tag("remove.svg", alt: "") %>
+              <%= t("views.dependents.form.delete_cta") %>
             <% end %>
+          <% end %>
 
-            <button class="button button--cta button--wide button--icon text--left" type="submit">
-              <%= image_tag("save-dependent.svg", alt: "") %>
-              <%=t("views.dependents.form.save_cta") %>
-            </button>
+          <button class="button button--cta button--wide button--icon text--left" type="submit">
+            <%= image_tag("save-dependent.svg", alt: "") %>
+            <%= t("views.dependents.form.save_cta") %>
+          </button>
         <% end %>
-        </main>
-      </div>
+      </main>
     </div>
-  </section>
+  </div>
+</section>
