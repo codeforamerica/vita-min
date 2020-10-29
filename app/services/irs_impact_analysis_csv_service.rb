@@ -17,7 +17,7 @@ class IrsImpactAnalysisCsvService
 
   # only grab intakes where the user consented.
   def intakes
-    Intake.where.not(primary_consented_to_service_at: nil).includes(:ticket_statuses)
+    Intake.where.not(primary_consented_to_service_at: nil).includes(:ticket_statuses, :documents)
   end
 
   def generate_csv
@@ -64,8 +64,8 @@ class IrsImpactAnalysisCsvService
     end
 
     def reached_gathering_docs
-      key = "online_intake_gathering_documents"
-      ticket_statuses.where(verified_change: true, intake_status: key).present?
+      key = EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS
+      verified_ticket_statuses.detect { |ts| ts.intake_status == key }.present?
     end
 
     def uploaded_documents
@@ -79,11 +79,10 @@ class IrsImpactAnalysisCsvService
     def filed
       if eip_only
         key = EitcZendeskInstance::EIP_STATUS_COMPLETED
-
-        ticket_statuses.where(verified_change: true, eip_status: key).present?
+        verified_ticket_statuses.detect { |ts| ts.eip_status == key }.present?
       else
         key = EitcZendeskInstance::RETURN_STATUS_COMPLETED_RETURNS
-        ticket_statuses.where(verified_change: true, return_status: key).present?
+        verified_ticket_statuses.detect { |ts| ts.return_status == key }.present?
       end
     end
 
@@ -97,5 +96,8 @@ class IrsImpactAnalysisCsvService
       eip_only ? "EIP" : "Full Service"
     end
 
+    def verified_ticket_statuses
+      @statuses ||= ticket_statuses.where(verified_change: true)
+    end
   end
 end
