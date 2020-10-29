@@ -1281,4 +1281,42 @@ describe Intake do
       end
     end
   end
+
+  describe "after_save when the intake is completed" do
+    let(:intake) { create :intake }
+    before do
+      allow(intake).to receive(:create_original_13614c_document)
+    end
+
+    it "should create a pdf document using intake answers in #create_original_13614c_document" do
+      intake.update(completed_at: Time.now)
+      expect(intake).to have_received(:create_original_13614c_document)
+    end
+  end
+
+  describe "#create_original_13614c_document" do
+    let(:client) { create :client }
+    let(:intake) { create(:intake, client: client) }
+    before do
+      example_pdf = Tempfile.new("example.pdf")
+      example_pdf.write("example pdf contents")
+      allow(intake).to receive(:pdf).and_return(example_pdf)
+    end
+    it "should create a new document pdf of original 13614-C answers" do
+      expect {
+        intake.send :create_original_13614c_document
+      }.to change(Document, :count).by 1
+
+      expect(intake).to have_received(:pdf)
+
+      doc = Document.last
+      expect(doc.intake).to eq(intake)
+      expect(doc.client).to eq(client)
+      expect(doc.document_type).to eq("Original 13614-C")
+      blob = doc.upload.blob
+      expect(blob.content_type).to eq("application/pdf")
+      expect(blob.download).to eq("example pdf contents")
+      expect(blob.filename).to eq("Original 13614-C.pdf")
+    end
+  end
 end

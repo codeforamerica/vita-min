@@ -15,24 +15,15 @@ RSpec.describe Questions::FinalInfoController do
         example_pdf = Tempfile.new("example.pdf")
         example_pdf.write("example pdf contents")
         allow(intake).to receive(:pdf).and_return(example_pdf)
+        allow(intake).to receive(:create_original_13614c_document)
       end
 
       let(:intake) { create :intake, intake_ticket_id: 1234 }
       let(:client) { intake.client }
 
-      it "adds the initial 13614-C PDF as a Document", active_job: true do
-        # TODO: test that this calls the "after save trigger" that creates the doc
-        expect { post :update, params: params }.to change(Document, :count).by(1)
-        expect(intake).to have_received(:pdf)
-
-        doc = Document.last
-        expect(doc.intake).to eq(intake)
-        expect(doc.client).to eq(client)
-        expect(doc.document_type).to eq("Original 13614-C")
-        blob = doc.upload.blob
-        expect(blob.content_type).to eq("application/pdf")
-        expect(blob.download).to eq("example pdf contents")
-        expect(blob.filename).to eq("Original 13614-C.pdf")
+      it "should trigger the creation of the 13614c document" do
+        post :update, params: params
+        expect(intake).to have_received(:create_original_13614c_document)
       end
     end
 
