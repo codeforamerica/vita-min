@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AnonymizedIntakeCsvService do
   let!(:vita_partner) { create(:vita_partner, name: "Example", zendesk_group_id: "123") }
-  let(:intake_1) { create(:intake, :filled_out) }
+  let(:intake_1) { create(:intake, :filled_out, demographic_primary_native_hawaiian_pacific_islander: true) }
   let(:intake_2) { create(:intake, :filled_out) }
   let!(:intake_3) { create(:intake) }
 
@@ -136,6 +136,15 @@ RSpec.describe AnonymizedIntakeCsvService do
       expect(extract.record_count).to eq(2)
       expect(extract.upload).to be_attached
       expect(extract.run_at).to be_within(1.second).of(Time.now)
+    end
+  end
+
+  describe "#demographic_primary_race" do
+    let(:csv) { CSV.parse(subject.generate_csv, headers: true) }
+
+    it "parses a readable race" do
+      expect(csv[0]["demographic_primary_race"]).to eq("Hawaiian Pacific Islander")
+      expect(csv[1]["demographic_primary_race"]).to eq("Prefer not to answer race")
     end
   end
 end

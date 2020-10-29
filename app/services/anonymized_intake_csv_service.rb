@@ -16,6 +16,7 @@ class AnonymizedIntakeCsvService
     state
     zip_code
     city
+    demographic_primary_race
     needs_help_with_backtaxes?
     zendesk_instance_domain
     vita_partner_group_id
@@ -142,6 +143,22 @@ class AnonymizedIntakeCsvService
 
     def last_document_uploaded_at
       ordered_documents.last&.created_at
+    end
+
+    def demographic_primary_race
+      if demographic_primary_american_indian_alaska_native
+        "Alaska Native"
+      elsif demographic_primary_asian
+        "Asian"
+      elsif demographic_primary_black_african_american
+        "African American"
+      elsif demographic_primary_native_hawaiian_pacific_islander
+        "Hawaiian Pacific Islander"
+      elsif demographic_primary_white
+        "White"
+      else
+        "Prefer not to answer race"
+      end
     end
 
     private
