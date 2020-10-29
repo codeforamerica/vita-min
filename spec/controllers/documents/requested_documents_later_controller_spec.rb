@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller do
   render_views
   let(:token) {"t0k3nN0tbr0k3n?"}
-  let!(:original_intake) { create :intake, requested_docs_token: token, intake_ticket_id: 123 }
+  let!(:original_intake) { create :intake, requested_docs_token: token, intake_ticket_id: 123, client: (create :client) }
   let!(:documents_request) { create :documents_request, intake: original_intake }
   before do
     # everything should still work in the offseason
@@ -199,6 +199,7 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
           expect(latest_doc.document_type).to eq "Requested Later"
           expect(latest_doc.upload.filename).to eq "test-pattern.png"
           expect(latest_doc.intake_id).to eq documents_request.intake.id
+          expect(latest_doc.client_id).to eq documents_request.intake.client.id
           expect(response).to redirect_to requested_documents_later_documents_path
         end
       end

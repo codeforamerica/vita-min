@@ -12,7 +12,8 @@ class RequestedDocumentUploadForm < QuestionsForm
     if document_file_upload.present?
       document = @documents_request.documents.create(
         document_type: "Requested Later",
-        intake_id: @documents_request.intake.id
+        intake_id: @documents_request.intake.id,
+        client_id: @documents_request.intake&.client_id
       )
       document.upload.attach(document_file_upload)
     end
