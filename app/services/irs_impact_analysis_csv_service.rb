@@ -26,9 +26,9 @@ class IrsImpactAnalysisCsvService
         csv << csv_row(decorated_intake(intake))
       end
     end
-    file = Tempfile.new("impact-analysis", "#{Rails.root.to_s}/tmp/")
+    file = File.open("tmp/impact-analysis.csv", "w")
     file.write(csv_string)
-    file.rewind
+    file.close
     file
   end
 
