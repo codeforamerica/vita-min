@@ -125,100 +125,28 @@ RSpec.describe TwilioWebhooksController do
         context "with an attachment" do
           let!(:client) { create :client }
           let!(:intake) { create :intake, client: client, sms_phone_number: "15552341122" }
-          let(:media_url) { "https://example.com/temporary_redirect" }
-          let(:params_with_attachment) do
-            incoming_message_params.update({
-               "MediaContentType0" => "image/jpeg",
-               "MediaUrl0" => media_url,
-               "NumMedia" => "1",
-             })
-          end
+          let(:parsed_attachments) {
+            [{content_type: "image/jpeg", filename: "some-type-of-image.jpg", body: "image file contents"}]
+          }
 
           before do
-            moved_permanently = "https://example.com/moved_permanently"
-            s3_ok = "https://example.com/s3_ok"
-            stub_request(:any, media_url)
-              .to_return(status: 307, body: "no body :(", headers: { location: [moved_permanently] })
-            stub_request(:any, moved_permanently)
-              .to_return(status: 301, body: "still no body :(", headers: { location: [s3_ok] })
-            stub_request(:any, s3_ok)
-              .to_return(status: 200, body: "real body!!", headers: {
-                "content-disposition": ["inline; filename=\"IMG_1410.jpg\""],
-              })
-
             allow(ClientChannel).to receive(:broadcast_contact_record)
+            #TODO: use fake instead
+            allow_any_instance_of(TwilioService).to receive(:parse_attachments).and_return(parsed_attachments)
           end
 
           it "creates a new IncomingTextMessage linked to the client the right data" do
-            post :create_incoming_text_message, params: params_with_attachment
+            post :create_incoming_text_message, params: incoming_message_params
 
             documents = client.documents
 
             expect(documents.count).to eq(1)
             expect(documents.all.pluck(:document_type).uniq).to eq([DocumentTypes::TextMessageAttachment.key])
             expect(documents.first.contact_record).to eq IncomingTextMessage.last
-            expect(documents.first.upload.blob.download).to eq("real body!!")
+            expect(documents.first.upload.blob.download).to eq("image file contents")
             expect(documents.first.upload.blob.content_type).to eq("image/jpeg")
           end
         end
-
-        context "with attachments with bad or blank file types" do
-          let!(:client) { create :client }
-          let!(:intake) { create :intake, client: client, sms_phone_number: "15552341122" }
-          let(:params_with_attachment) do
-            incoming_message_params.update({
-               "MediaContentType0" => "application/x-ms-dos-executable",
-               "MediaContentType1" => "",
-               "MediaUrl0" => "https://example.com/0",
-               "MediaUrl1" => "https://example.com/1",
-               "NumMedia" => "2",
-             })
-          end
-
-          before do
-            (0..1).each do |path|
-              moved_permanently = "https://example.com/moved_permanently-#{path}"
-              s3_ok = "https://example.com/s3_ok-#{path}"
-              stub_request(:any, "https://example.com/#{path}")
-                .to_return(status: 307, body: "no body :(", headers: { location: [moved_permanently] })
-              stub_request(:any, moved_permanently)
-                .to_return(status: 301, body: "still no body :(", headers: { location: [s3_ok] })
-              stub_request(:any, s3_ok)
-                .to_return(status: 200, body: "real body!!", headers: {
-                  "content-disposition": ["inline; filename=\"bad_file\""],
-                })
-            end
-
-            allow(ClientChannel).to receive(:broadcast_contact_record)
-          end
-
-          it "creates a new IncomingTextMessage linked to the client the right data" do
-            post :create_incoming_text_message, params: params_with_attachment
-
-            documents = client.documents
-
-            expect(documents.count).to eq(2)
-            expect(documents.all.pluck(:document_type).uniq).to eq([DocumentTypes::TextMessageAttachment.key])
-
-            executable_message = <<~TEXT
-              Unusable file with unknown or unsupported file type.
-              File name:'bad_file'
-              File type:'application/x-ms-dos-executable'
-            TEXT
-            expect(documents.first.upload.blob.download).to eq(executable_message)
-            expect(documents.first.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
-            expect(documents.first.upload.blob.filename.to_s).to end_with(".txt")
-
-            unknown_file_type_message = <<~TEXT
-              Unusable file with unknown or unsupported file type.
-              File name:'bad_file'
-              File type:''
-            TEXT
-            expect(documents.second.upload.blob.download).to eq(unknown_file_type_message)
-            expect(documents.second.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
-          end
-        end
-
       end
     end
   end
