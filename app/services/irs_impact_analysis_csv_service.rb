@@ -17,7 +17,7 @@ class IrsImpactAnalysisCsvService
 
   # only grab intakes where the user consented.
   def intakes
-    Intake.where.not(primary_consented_to_service_at: nil).includes(:ticket_statuses, :documents)
+    Intake.includes(:ticket_statuses, :documents).where("ticket_statuses.verified_change": true).where.not(primary_consented_to_service_at: nil)
   end
 
   def generate_csv
@@ -84,12 +84,6 @@ class IrsImpactAnalysisCsvService
         key = EitcZendeskInstance::RETURN_STATUS_COMPLETED_RETURNS
         verified_ticket_statuses.detect { |ts| ts.return_status == key }.present?
       end
-    end
-
-    def return_status
-      # TODO: Can we get the return status? Kelly said there is a status for this on Zendesk called "Status After Filing",
-      # but I wasn't able to find it.
-      "??"
     end
 
     def service_type
