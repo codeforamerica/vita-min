@@ -21,15 +21,15 @@ class IrsImpactAnalysisCsvService
   end
 
   def generate_csv
-    CSV.generate(headers: csv_headers, write_headers: true) do |csv|
+    csv_string = CSV.generate(headers: csv_headers, write_headers: true) do |csv|
       intakes.find_each(batch_size: 100) do |intake|
         csv << csv_row(decorated_intake(intake))
       end
     end
-  end
-
-  def send_csv
-    # TODO: Whats the best way to download this document?
+    file = Tempfile.new("impact-analysis", "#{Rails.root.to_s}/tmp/")
+    file.write(csv_string)
+    file.rewind
+    file
   end
 
   def csv
