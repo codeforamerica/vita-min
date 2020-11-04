@@ -8,7 +8,7 @@ Generate a random password with `cat /dev/urandom | head -c 32 | openssl base64`
 
 Only allow trusted CFA staff to access the Mailgun console.
 
-We have a way to set up credential rotation, but let's skip that for now.
+Optionally implement credential rotation the next time we need to remove someone's access from the Mailgun console.
 
 ## Details
 
