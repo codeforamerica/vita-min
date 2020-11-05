@@ -68,6 +68,9 @@ en:
         flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}
         no_one: no one
     vita_partners:
+      add_site: Add site
+      create_sub_organization:
+        title: Create sub-organization
       index:
         title: VITA partners
   controllers:

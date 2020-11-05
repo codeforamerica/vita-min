@@ -13,7 +13,12 @@
 #  zendesk_instance_domain :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  parent_organization_id  :bigint
 #  zendesk_group_id        :string           not null
+#
+# Indexes
+#
+#  index_vita_partners_on_parent_organization_id  (parent_organization_id)
 #
 require "rails_helper"
 
@@ -45,7 +50,7 @@ describe VitaPartner do
       end
 
       context "recently consented intakes with Zendesk ticket count is above capacity limit" do
-        let(:recent_intake_count) { vita_partner.weekly_capacity_limit + 1}
+        let(:recent_intake_count) { vita_partner.weekly_capacity_limit + 1 }
 
         it "returns true" do
           expect(vita_partner).to be_at_capacity
@@ -167,6 +172,47 @@ describe VitaPartner do
           expect(vita_partner).to have_received(:at_capacity?)
         end
       end
+    end
+  end
+
+  context "select options" do
+    let(:parent_org1) { create(:vita_partner, name: "First Parent Org") }
+    let(:parent_org2) { create(:vita_partner, name: "Second Parent Org") }
+    let(:parent_org3) { create(:vita_partner, name: "No Child Org") }
+    let(:sub_org1) { create(:vita_partner, parent_organization_id: parent_org1.id, name: "The First Child Org") }
+    let(:sub_org2) { create(:vita_partner, parent_organization_id: parent_org1.id, name: "The Second Child Org") }
+    let(:sub_org3) { create(:vita_partner, parent_organization_id: parent_org2.id, name: "The Third Child Org") }
+
+    describe "#select_optgroup_input_options" do
+      it "returns array grouped by parent org" do
+        expected =
+          [
+            ["First Parent Org", [["First Parent Org", parent_org1.id], ["The First Child Org", sub_org1.id], ["The Second Child Org",  sub_org2.id]]],
+            ["Second Parent Org", [["Second Parent Org", parent_org2.id], ["The Third Child Org", sub_org3.id]]],
+            ["No Child Org", [["No Child Org", parent_org3.id]]]
+          ]
+
+        expect(VitaPartner.grouped_org_options).to eq(expected)
+      end
+    end
+  end
+
+  context "sub-organizations" do
+    let(:vita_partner) { create(:vita_partner) }
+
+    it "permits one level of depth" do
+      child = VitaPartner.new(
+        name: "Child", parent_organization: vita_partner, zendesk_group_id: "child_group_id", zendesk_instance_domain: "eitc"
+      )
+      expect(child).to be_valid
+    end
+
+    it "does not permit two levels of depth" do
+      child = create(:vita_partner, parent_organization: vita_partner)
+      grandchild = VitaPartner.new(
+        name: "Grand Child", parent_organization: child, zendesk_group_id: "grandchild_group_id", zendesk_instance_domain: "eitc"
+      )
+      expect(grandchild).not_to be_valid
     end
   end
 end
