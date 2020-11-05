@@ -2,52 +2,24 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    accessible_organizations = user.accessible_organizations
     if user.is_beta_tester
       if user.is_admin
-        can :manage, [
-            Client,
-            User,
-            IncomingTextMessage,
-            OutgoingTextMessage,
-            IncomingEmail,
-            OutgoingEmail,
-            Document,
-            Note,
-            TaxReturn,
-            VitaPartner
-        ]
+        can :manage, :all
       end
 
       if user.vita_partner.present?
-        can :manage, [VitaPartner], id: [
-            user.vita_partner.id,
-            *(user.vita_partner.sub_organizations.map { |o| o.id })
-        ]
-        can :manage, [Client, User], vita_partner: [
-            user.vita_partner,
-            *user.supported_organizations,
-            *user.vita_partner.sub_organizations
-        ]
+        can :manage, [VitaPartner], id: accessible_organizations.pluck(:id)
+        can :manage, [Client, User], vita_partner: accessible_organizations
         can :manage, [
-            IncomingTextMessage,
-            OutgoingTextMessage,
-            IncomingEmail,
-            OutgoingEmail,
-            Note,
-            Document,
-            TaxReturn,
-        ], client: {vita_partner: [
-            user.vita_partner,
-            *user.supported_organizations,
-            *user.vita_partner.sub_organizations
-        ]}
-        can :manage, [
-            Document,
-        ], intake: {vita_partner: [
-            user.vita_partner,
-            *user.supported_organizations,
-            *user.vita_partner.sub_organizations
-        ]}
+          IncomingTextMessage,
+          OutgoingTextMessage,
+          IncomingEmail,
+          OutgoingEmail,
+          Note,
+          Document,
+          TaxReturn,
+        ], client: { vita_partner: accessible_organizations }
       end
     end
   end

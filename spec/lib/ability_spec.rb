@@ -10,7 +10,6 @@ describe Ability do
 
     it "cannot manage any client data" do
       expect(subject.can?(:manage, client)).to eq false
-      expect(subject.can?(:manage, Document.new(intake: intake))).to eq false
       expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
@@ -30,7 +29,6 @@ describe Ability do
 
     it "can manage data in child organizations" do
       expect(subject.can?(:manage, client)).to eq true
-      expect(subject.can?(:manage, Document.new(intake: intake))).to eq true
       expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq true
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq true
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq true
@@ -59,7 +57,6 @@ describe Ability do
       expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, User.new(vita_partner: user.vita_partner))).to eq true
       expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, Document.new(intake: accessible_intake ))).to eq true
       expect(subject.can?(:manage, user.vita_partner)).to eq true
     end
 
@@ -100,7 +97,6 @@ describe Ability do
       expect(subject.can?(:manage, OutgoingEmail.new(client: coalition_member_client))).to eq true
       expect(subject.can?(:manage, IncomingEmail.new(client: coalition_member_client))).to eq true
       expect(subject.can?(:manage, Document.new(client: coalition_member_client))).to eq true
-      expect(subject.can?(:manage, Document.new(intake: intake))).to eq true
       expect(subject.can?(:manage, User.new(vita_partner: coalition_member_client.vita_partner))).to eq true
       expect(subject.can?(:manage, Note.new(client: coalition_member_client))).to eq true
     end

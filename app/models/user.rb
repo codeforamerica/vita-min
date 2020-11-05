@@ -94,4 +94,11 @@ class User < ApplicationRecord
     )
     user
   end
+
+  def accessible_organizations
+    accessible_organization_ids = [vita_partner_id] + supported_organizations.pluck(:id)
+    VitaPartner.where(id: accessible_organization_ids).or(
+      VitaPartner.where(parent_organization_id: accessible_organization_ids)
+    )
+  end
 end
