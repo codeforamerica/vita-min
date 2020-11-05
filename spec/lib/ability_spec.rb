@@ -3,32 +3,44 @@ require "rails_helper"
 describe Ability do
   let(:subject) { Ability.new(user) }
 
-  context "a user and client without a vita partner" do
-    let(:user) { create(:beta_tester, vita_partner: nil) }
-    let(:client) { create(:client, vita_partner: nil) }
-    let(:intake) { create(:intake, vita_partner: nil, client: client) }
+  context "a user who is not a member of an organization" do
+    let(:user) { create :user, vita_partner: nil }
 
-    it "cannot manage any case management models" do
-      expect(subject.can?(:manage, client)).to eq false
-      expect(subject.can?(:manage, Document.new(intake: intake))).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
+    it "cannot manage data linked to an organization" do
+      client_with_org = create(:client, vita_partner: create(:vita_partner))
+      expect(subject.can?(:manage, client_with_org)).to eq false
+      expect(subject.can?(:manage, IncomingTextMessage.new(client: client_with_org))).to eq false
+      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client_with_org))).to eq false
+      expect(subject.can?(:manage, OutgoingEmail.new(client: client_with_org))).to eq false
+      expect(subject.can?(:manage, IncomingEmail.new(client: client_with_org))).to eq false
+      expect(subject.can?(:manage, Document.new(client: client_with_org))).to eq false
+      expect(subject.can?(:manage, User.new(vita_partner: client_with_org.vita_partner))).to eq false
+      expect(subject.can?(:manage, Note.new(client: client_with_org))).to eq false
+      expect(subject.can?(:manage, client_with_org.vita_partner)).to eq false
+    end
+
+    it "cannot manage data unlinked to an organization" do
+      client_without_org = create(:client, vita_partner: nil)
+      intake_without_org = create(:intake, vita_partner: nil, client: client_without_org)
+
+      expect(subject.can?(:manage, client_without_org)).to eq false
+      expect(subject.can?(:manage, Document.new(intake: intake_without_org))).to eq false
+      expect(subject.can?(:manage, IncomingTextMessage.new(client: client_without_org))).to eq false
+      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client_without_org))).to eq false
+      expect(subject.can?(:manage, OutgoingEmail.new(client: client_without_org))).to eq false
+      expect(subject.can?(:manage, IncomingEmail.new(client: client_without_org))).to eq false
       expect(subject.can?(:manage, User.new(vita_partner: nil))).to eq false
-      expect(subject.can?(:manage, Note.new(client: client))).to eq false
+      expect(subject.can?(:manage, Note.new(client: client_without_org))).to eq false
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
     end
   end
 
-  context "a beta tester who is a member of one organization" do
-    let(:user) { create :beta_tester, vita_partner: create(:vita_partner) }
-    let(:accessible_client) { create(:client, vita_partner: user.vita_partner) }
-    let(:accessible_intake) { create(:intake, vita_partner: user.vita_partner) }
-    let(:other_vita_partner_client) { create(:client, vita_partner: create(:vita_partner)) }
-    let(:nil_vita_partner_client) { create(:client, vita_partner: nil) }
+  context "a user who is a member of an organization" do
+    let(:user) { create :user, vita_partner: create(:vita_partner) }
 
-    it "can access case management data from their own organization" do
+    it "can access data linked to the user's organization" do
+      accessible_client = create(:client, vita_partner: user.vita_partner)
+      accessible_intake = create(:intake, vita_partner: user.vita_partner)
       expect(subject.can?(:manage, accessible_client)).to eq true
       expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
@@ -41,18 +53,20 @@ describe Ability do
       expect(subject.can?(:manage, user.vita_partner)).to eq true
     end
 
-    it "cannot access client data which lack an organization" do
-      expect(subject.can?(:manage, nil_vita_partner_client)).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, Document.new(client: nil_vita_partner_client))).to eq false
+    it "cannot access data not linked to any organization" do
+      client_without_org = create(:client, vita_partner: nil)
+      expect(subject.can?(:manage, client_without_org)).to eq false
+      expect(subject.can?(:manage, IncomingTextMessage.new(client: client_without_org))).to eq false
+      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client_without_org))).to eq false
+      expect(subject.can?(:manage, OutgoingEmail.new(client: client_without_org))).to eq false
+      expect(subject.can?(:manage, IncomingEmail.new(client: client_without_org))).to eq false
+      expect(subject.can?(:manage, Document.new(client: client_without_org))).to eq false
       expect(subject.can?(:manage, User.new(vita_partner: nil))).to eq false
-      expect(subject.can?(:manage, Note.new(client: nil_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, Note.new(client: client_without_org))).to eq false
     end
 
-    it "cannot access client data from another organization" do
+    it "cannot access data linked to another organization" do
+      other_vita_partner_client = create(:client, vita_partner: create(:vita_partner))
       expect(subject.can?(:manage, other_vita_partner_client)).to eq false
       expect(subject.can?(:manage, IncomingTextMessage.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: other_vita_partner_client))).to eq false
@@ -66,48 +80,29 @@ describe Ability do
   end
 
   context "a coalition lead" do
-    context "a beta user who has access to multiple organizations" do
-      let(:coalition_member_organization) { create(:vita_partner) }
-      let(:intake) { create(:intake, vita_partner: coalition_member_organization) }
-      let(:user) { create :beta_tester, vita_partner: create(:vita_partner), supported_organizations: [coalition_member_organization] }
-      let(:coalition_member_client) { create(:client, intake: intake, vita_partner: coalition_member_organization) }
+    let(:user) { create :user, vita_partner: create(:vita_partner), supported_organizations: [coalition_member_organization] }
+    let(:coalition_member_organization) { create(:vita_partner) }
+    let(:intake) { create(:intake, vita_partner: coalition_member_organization) }
+    let(:coalition_member_client) { create(:client, intake: intake, vita_partner: coalition_member_organization) }
 
-      it "can access client data from the coalition member organization" do
-        expect(subject.can?(:manage, coalition_member_client)).to eq true
-        expect(subject.can?(:manage, IncomingTextMessage.new(client: coalition_member_client))).to eq true
-        expect(subject.can?(:manage, OutgoingTextMessage.new(client: coalition_member_client))).to eq true
-        expect(subject.can?(:manage, OutgoingEmail.new(client: coalition_member_client))).to eq true
-        expect(subject.can?(:manage, IncomingEmail.new(client: coalition_member_client))).to eq true
-        expect(subject.can?(:manage, Document.new(client: coalition_member_client))).to eq true
-        expect(subject.can?(:manage, Document.new(intake: intake))).to eq true
-        expect(subject.can?(:manage, User.new(vita_partner: coalition_member_client.vita_partner))).to eq true
-        expect(subject.can?(:manage, Note.new(client: coalition_member_client))).to eq true
-      end
+    it "can access data linked to a coalition member organization" do
+      expect(subject.can?(:manage, coalition_member_client)).to eq true
+      expect(subject.can?(:manage, IncomingTextMessage.new(client: coalition_member_client))).to eq true
+      expect(subject.can?(:manage, OutgoingTextMessage.new(client: coalition_member_client))).to eq true
+      expect(subject.can?(:manage, OutgoingEmail.new(client: coalition_member_client))).to eq true
+      expect(subject.can?(:manage, IncomingEmail.new(client: coalition_member_client))).to eq true
+      expect(subject.can?(:manage, Document.new(client: coalition_member_client))).to eq true
+      expect(subject.can?(:manage, Document.new(intake: intake))).to eq true
+      expect(subject.can?(:manage, User.new(vita_partner: coalition_member_organization))).to eq true
+      expect(subject.can?(:manage, Note.new(client: coalition_member_client))).to eq true
     end
   end
 
-  context "as a non-beta tester" do
-    let(:user) { create :user }
-    let(:accessible_client) { create(:client, vita_partner: user.vita_partner) }
-
-    it "cannot manage any case management resources" do
-      expect(subject.can?(:manage, accessible_client)).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq false
-      expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq false
-      expect(subject.can?(:manage, User.new(vita_partner: user.vita_partner))).to eq false
-      expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq false
-      expect(subject.can?(:manage, user.vita_partner)).to eq false
-    end
-  end
-
-  context "as a beta tester admin" do
-    let(:user) { create(:user, is_admin: true, is_beta_tester: true) }
+  context "as an admin" do
+    let(:user) { create(:user, is_admin: true, vita_partner: nil) }
     let(:client) { create(:client, vita_partner: create(:vita_partner)) }
 
-    it "can manage any case management resources" do
+    it "can access all data" do
       expect(subject.can?(:manage, client)).to eq true
       expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq true
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq true
@@ -117,23 +112,6 @@ describe Ability do
       expect(subject.can?(:manage, User.new)).to eq true
       expect(subject.can?(:manage, Note.new(client: client))).to eq true
       expect(subject.can?(:manage, VitaPartner.new)).to eq true
-    end
-  end
-
-  context "as a non-beta tester admin" do
-    let(:user) { create(:user, is_admin: true, is_beta_tester: false) }
-    let(:client) { create(:client, vita_partner: create(:vita_partner)) }
-
-    it "cannot manage any case management resources" do
-      expect(subject.can?(:manage, client)).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, Document.new(client: client))).to eq false
-      expect(subject.can?(:manage, User.new)).to eq false
-      expect(subject.can?(:manage, Note.new(client: client))).to eq false
-      expect(subject.can?(:manage, user.vita_partner)).to eq false
     end
   end
 end
