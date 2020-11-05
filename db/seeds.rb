@@ -5,6 +5,21 @@ fake_vita_partner = VitaPartner.find_or_create_by(
   zendesk_instance_domain: "eitc"
 )
 
+another_vita_partner = VitaPartner.find_or_create_by(
+  name: "Another Vita Partner",
+  display_name: "Another Vita Partner with Children",
+  zendesk_group_id: "foo",
+  zendesk_instance_domain: "eitc"
+)
+
+VitaPartner.find_or_create_by(
+  name: "Child Vita Partner",
+  display_name: "Child of Another Vita Partner",
+  zendesk_group_id: "foo",
+  zendesk_instance_domain: "eitc",
+  parent_organization: another_vita_partner,
+)
+
 # basic beta tester
 beta_user = User.where(email: "skywalker@example.com").first_or_initialize
 beta_user.update(
@@ -20,6 +35,15 @@ additional_user.update(
   name: "Lea",
   password: "theforcevita",
   vita_partner: fake_vita_partner
+)
+
+admin_user = User.where(email: "admin@example.com").first_or_initialize
+admin_user.update(
+  name: "The Admin",
+  password: "theforcevita",
+  vita_partner: fake_vita_partner,
+  is_admin: true,
+  is_beta_tester: true
 )
 
 client = Client.find_or_create_by(vita_partner: fake_vita_partner)

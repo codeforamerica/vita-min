@@ -13,7 +13,12 @@
 #  zendesk_instance_domain :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  parent_organization_id  :bigint
 #  zendesk_group_id        :string           not null
+#
+# Indexes
+#
+#  index_vita_partners_on_parent_organization_id  (parent_organization_id)
 #
 class VitaPartner < ApplicationRecord
   DEFAULT_CAPACITY_LIMIT = 300
@@ -23,11 +28,22 @@ class VitaPartner < ApplicationRecord
   has_and_belongs_to_many :states, association_foreign_key: :state_abbreviation
   has_many :source_parameters
   has_many :users
+  belongs_to :parent_organization, class_name: "VitaPartner", optional: true
+  has_many :sub_organizations, class_name: "VitaPartner", foreign_key: "parent_organization_id"
+  validate :one_level_of_depth
+
+  scope :top_level, -> { where(parent_organization: nil).order(:display_name).order(:name) }
 
   after_initialize :defaults
 
   def self.select_input_options
     all.collect { |v| [v.name, v.id] }
+  end
+
+  def self.grouped_org_options
+    all.top_level.collect do |partner|
+      [partner.name, [[partner.name, partner.id], *partner.sub_organizations.collect { |v| [v.name, v.id] }]]
+    end
   end
 
   def at_capacity?
@@ -42,6 +58,12 @@ class VitaPartner < ApplicationRecord
   end
 
   private
+
+  def one_level_of_depth
+    if parent_organization&.parent_organization.present?
+      errors.add(:parent_organization, "Only one level of sub-organization depth allowed.")
+    end
+  end
 
   def urban_upbound_has_capacity_for?(intake)
     return true if ["source_parameter", "state"].include? intake.routing_criteria
