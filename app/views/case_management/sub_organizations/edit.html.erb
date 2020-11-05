@@ -1,0 +1,11 @@
+<% content_for :page_title, t(".title", name: @vita_partner.display_name) %>
+
+<% content_for :card do %>
+  <%= form_with(model: @form, url: case_management_sub_organization_path, builder: VitaMinFormBuilder, method: :put, local: true) do |f| %>
+    <h1 class="h2"><%=t(".title", name: @vita_partner.display_name)%></h1>
+    <%= f.cfa_input_field(:display_name, t("general.name"), classes: ["form-width--long"]) %>
+    <button type="submit" class="button">
+      Save
+    </button>
+  <% end %>
+<% end %>

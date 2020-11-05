@@ -67,10 +67,11 @@ es:
       update:
         flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}
         no_one: nadie
+    sub_organizations:
+      edit:
+        title: Crear una sub-organización de %{name}
     vita_partners:
       add_site: Agregar sitio
-      create_sub_organization:
-        title: Crear una sub-organización
       index:
         title: Socios de VITA
   controllers:

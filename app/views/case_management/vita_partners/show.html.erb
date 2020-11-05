@@ -14,7 +14,7 @@
   <% end %>
   <h3 class="h5">
     <div>
-      <%= link_to(t("case_management.vita_partners.add_site"), create_sub_organization_case_management_vita_partner_path, class: "button button--small") %>
+      <%= link_to(t("case_management.vita_partners.add_site"), edit_case_management_sub_organization_path(id: @vita_partner), class: "button button--small") %>
     </div>
   </h3>
 <% end %>

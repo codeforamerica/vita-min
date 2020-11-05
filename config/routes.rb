@@ -140,10 +140,8 @@ Rails.application.routes.draw do
           patch "response_needed"
         end
       end
-      resources :vita_partners, only: [:index, :edit, :update, :show] do
-        get "create_sub_organization", on: :member
-        post "create_sub_organization", on: :member
-      end
+      resources :sub_organizations, only: [:edit, :update]
+      resources :vita_partners, only: [:index, :edit, :update, :show]
     end
 
     devise_for :users, skip: :omniauth_callbacks, controllers: {
