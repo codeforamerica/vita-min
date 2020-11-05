@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_29_212035) do
+ActiveRecord::Schema.define(version: 2020_10_27_215509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -568,13 +568,11 @@ ActiveRecord::Schema.define(version: 2020_10_29_212035) do
     t.string "display_name"
     t.string "logo_path"
     t.string "name", null: false
-    t.bigint "parent_organization_id"
     t.string "source_parameter"
     t.datetime "updated_at", precision: 6, null: false
     t.integer "weekly_capacity_limit"
     t.string "zendesk_group_id", null: false
     t.string "zendesk_instance_domain", null: false
-    t.index ["parent_organization_id"], name: "index_vita_partners_on_parent_organization_id"
   end
 
   create_table "vita_providers", force: :cascade do |t|

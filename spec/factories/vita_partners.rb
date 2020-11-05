@@ -13,12 +13,7 @@
 #  zendesk_instance_domain :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  parent_organization_id  :bigint
 #  zendesk_group_id        :string           not null
-#
-# Indexes
-#
-#  index_vita_partners_on_parent_organization_id  (parent_organization_id)
 #
 FactoryBot.define do
   factory :vita_partner do
