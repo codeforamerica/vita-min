@@ -79,7 +79,6 @@ RSpec.describe UsersController do
       {
         id: user.id,
         user: {
-          is_beta_tester: true,
           vita_partner_id: vita_partner.id,
           timezone: "America/Chicago",
         }
@@ -97,7 +96,6 @@ RSpec.describe UsersController do
           post :update, params: params
 
           user.reload
-          expect(user.is_beta_tester?).to eq true
           expect(user.vita_partner).to eq vita_partner
           expect(user.timezone).to eq "America/Chicago"
           expect(response).to redirect_to edit_user_path(id: user)
@@ -132,7 +130,6 @@ RSpec.describe UsersController do
         params = {
           id: user.id,
           user: {
-            is_beta_tester: true,
             is_admin: true,
             vita_partner_id: vita_partner.id,
             timezone: "America/Chicago",

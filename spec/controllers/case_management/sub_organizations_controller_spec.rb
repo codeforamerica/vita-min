@@ -70,7 +70,7 @@ RSpec.describe CaseManagement::SubOrganizationsController, type: :controller do
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
-    context "as a signed-in beta user" do
+    context "as an authenticated user" do
       before { sign_in(user) }
 
       it "shows a form" do
