@@ -7,11 +7,10 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
     let(:params) { { client_id: client.id } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :index
 
-    context "with a signed in beta tester" do
-      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
-      before { sign_in(beta_user) }
+    context "as an authenticated user" do
+      let(:user) { create :user, vita_partner: vita_partner }
+      before { sign_in(user) }
 
       context "with some existing documents" do
         render_views
@@ -111,11 +110,10 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
     let(:params) { { id: document.id, client_id: client.id }}
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
 
-    context "with a signed in beta tester" do
-      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
-      before { sign_in(beta_user) }
+    context "with an authenticated user" do
+      let(:user) { create :user, vita_partner: vita_partner }
+      before { sign_in(user) }
 
       it "renders edit for the document" do
         get :edit, params: params
@@ -134,11 +132,10 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
     let(:params) { { client_id: client.id, id: document.id, document: { display_name: new_display_name} } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
-    it_behaves_like :a_post_action_for_beta_testers_only, action: :update
 
-    context "with a signed in beta tester" do
-      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
-      before { sign_in(beta_user) }
+    context "with an authenticated user" do
+      let(:user) { create :user, vita_partner: vita_partner }
+      before { sign_in(user) }
       context "with valid params" do
         it "updates the display name attribute on the document" do
           post :update, params: params
@@ -171,11 +168,10 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
     let(:params) { { client_id: client.id, id: document.id }}
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :show
 
-    context "with a signed in beta tester" do
-      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
-      before { sign_in(beta_user) }
+    context "with a signed in user" do
+      let(:user) { create :user, vita_partner: vita_partner }
+      before { sign_in(user) }
 
       it "shows the document" do
         get :show, params: params

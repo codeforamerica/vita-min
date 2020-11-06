@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.feature "Assign a user to a tax return" do
   context "As a beta tester" do
     let(:vita_partner) { create :vita_partner}
-    let(:logged_in_user) { create :beta_tester, vita_partner: vita_partner }
-    let!(:user_to_assign) { create :beta_tester, name: "Lucille 2", vita_partner: vita_partner }
+    let(:logged_in_user) { create :user, vita_partner: vita_partner }
+    let!(:user_to_assign) { create :user, name: "Lucille 2", vita_partner: vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
     let!(:intake) { create :intake, client: client }
     let!(:tax_return_to_assign) { create :tax_return, year: 2019, client: client }

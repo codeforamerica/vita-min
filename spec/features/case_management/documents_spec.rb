@@ -1,14 +1,14 @@
 require "rails_helper"
 
 RSpec.feature "View and edit documents for a client" do
-  context "As a beta tester" do
+  context "As an authenticated user" do
     let(:vita_partner) { create :vita_partner }
-    let(:beta_tester) { create :beta_tester, vita_partner: vita_partner }
+    let(:user) { create :user, vita_partner: vita_partner }
     let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Bart Simpson") }
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake }
     let!(:document_2) { create :document, display_name: "W-2.pdf", client: client, intake: client.intake }
     before do
-      login_as beta_tester
+      login_as user
     end
 
     scenario "view document list and change a display name" do

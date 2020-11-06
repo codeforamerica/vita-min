@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.feature "View and add internal notes for a client" do
-  context "As a beta tester" do
+  context "As an authenticated user" do
     let(:vita_partner) { create :vita_partner }
-    let(:beta_tester) { create :beta_tester, vita_partner: vita_partner }
+    let(:user) { create :user, vita_partner: vita_partner }
     let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Bart Simpson") }
     before do
-      login_as beta_tester
+      login_as user
     end
 
     scenario "view document list and change a display name" do
@@ -18,7 +18,7 @@ RSpec.feature "View and add internal notes for a client" do
 
       new_note = Note.last
       expect(new_note.client).to eq client
-      expect(new_note.user).to eq beta_tester
+      expect(new_note.user).to eq user
     end
   end
 end

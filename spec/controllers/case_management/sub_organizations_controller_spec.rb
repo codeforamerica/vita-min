@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CaseManagement::SubOrganizationsController, type: :controller do
   describe "#update" do
     let!(:vita_partner) { create :vita_partner }
-    let(:user) { create :beta_tester, vita_partner: vita_partner }
+    let(:user) { create :user, vita_partner: vita_partner }
     let(:params) { { id: vita_partner } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
@@ -48,7 +48,7 @@ RSpec.describe CaseManagement::SubOrganizationsController, type: :controller do
 
   describe "#edit" do
     let!(:vita_partner) { create :vita_partner }
-    let(:user) { create :beta_tester, vita_partner: vita_partner }
+    let(:user) { create :user, vita_partner: vita_partner }
     let(:params) { { id: vita_partner } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit

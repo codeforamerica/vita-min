@@ -5,11 +5,10 @@ RSpec.describe UsersController do
     let(:vita_partner) { create :vita_partner }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :profile
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :profile
 
-    context "with an authenticated beta tester" do
+    context "with an authenticated user" do
       render_views
-      let(:user) { create :beta_tester, role: "agent", name: "Adam Avocado", vita_partner: vita_partner}
+      let(:user) { create :user_with_org, role: "agent", name: "Adam Avocado", vita_partner: vita_partner}
       before { sign_in user }
 
       it "renders information about the current user with helpful links" do
@@ -27,12 +26,11 @@ RSpec.describe UsersController do
   describe "#index" do
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :profile
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :profile
 
-    context "with an authenticated beta tester" do
+    context "with an authenticated user" do
       render_views
 
-      before { sign_in(create :beta_tester, vita_partner: vita_partner ) }
+      before { sign_in(create :user_with_org, vita_partner: vita_partner ) }
       let(:vita_partner) { create :vita_partner, name: "Pawnee Preparers" }
       let!(:leslie) { create :zendesk_admin_user, name: "Leslie", vita_partner: vita_partner }
       let!(:ben) { create :agent_user, name: "Ben", vita_partner: vita_partner }
@@ -54,12 +52,11 @@ RSpec.describe UsersController do
     let!(:user) { create :agent_user, name: "Anne", vita_partner: vita_partner }
     let(:params) { { id: user.id } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
 
-    context "as an authenticated beta tester" do
+    context "as an authenticated user" do
       render_views
 
-      before { sign_in(create :beta_tester, vita_partner: vita_partner) }
+      before { sign_in(create :user_with_org, vita_partner: vita_partner) }
 
       it "shows a form prefilled with data about the user" do
         get :edit, params: params
@@ -89,12 +86,11 @@ RSpec.describe UsersController do
       }
     end
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
-    it_behaves_like :a_post_action_for_beta_testers_only, action: :update
 
-    context "as an authenticated beta tester" do
+    context "as an authenticated user" do
       render_views
 
-      before { sign_in(create :beta_tester, vita_partner: vita_partner) }
+      before { sign_in(create :user_with_org, vita_partner: vita_partner) }
 
       context "when editing user fields that any user can edit" do
         it "updates the user and redirects to edit" do

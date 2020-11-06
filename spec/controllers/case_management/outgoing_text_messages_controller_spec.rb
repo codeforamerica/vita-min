@@ -14,12 +14,11 @@ RSpec.describe CaseManagement::OutgoingTextMessagesController do
     end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
-    it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
-    context "as an authenticated beta user" do
-      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
+    context "as an authenticated user" do
+      let(:user) { create :user, vita_partner: vita_partner }
       before do
-        sign_in beta_user
+        sign_in user
         allow(ClientChannel).to receive(:broadcast_contact_record)
       end
 

@@ -69,8 +69,7 @@ FactoryBot.define do
       role { "agent" }
     end
 
-    factory :beta_tester do
-      is_beta_tester { true }
+    factory :user_with_org do
       vita_partner
     end
 
@@ -80,7 +79,7 @@ FactoryBot.define do
     end
 
     factory :invited_user do
-      association :invited_by, factory: :beta_tester
+      association :invited_by, factory: :user_with_org
       invitation_created_at { 1.day.ago - 1.minute }
       invitation_sent_at { 1.day.ago }
       vita_partner { invited_by.vita_partner }

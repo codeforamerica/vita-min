@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.feature "Sending and accepting invitations" do
-  context "As a beta tester" do
-    let(:beta_tester) { create :beta_tester, role: "agent" }
+  context "As an authenticated user" do
+    let(:user) { create :user_with_org, role: "agent" }
     let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders" }
     before do
-      login_as beta_tester
+      login_as user
     end
 
     scenario "I can send, review, and revoke invitations" do
@@ -34,7 +34,7 @@ RSpec.feature "Sending and accepting invitations" do
         expect(page).to have_text "colleague@cauliflower.org"
         expect(page).to have_text "Brassica Asset Builders"
       end
-      invited_user = User.where(invited_by: beta_tester).last
+      invited_user = User.where(invited_by: user).last
       expect(invited_user).to be_present
       within("#invitation-#{invited_user.id}") do
         click_on "Resend invitation email"
@@ -42,7 +42,7 @@ RSpec.feature "Sending and accepting invitations" do
       within(".flash--notice") do
         expect(page).to have_text "We sent an email invitation to colleague@cauliflower.org"
       end
-      invited_user = User.where(invited_by: beta_tester).last
+      invited_user = User.where(invited_by: user).last
       expect(invited_user.invitation_token).to be_present
 
       logout
@@ -54,7 +54,7 @@ RSpec.feature "Sending and accepting invitations" do
       expect(mail.subject).to eq "You've been invited to GetYourRefund"
       expect(accept_invite_url).to be_present
       expect(mail.body.encoded).to have_text "Hello,"
-      expect(mail.body.encoded).to have_text "#{beta_tester.name} (#{beta_tester.email}) has invited #{invited_user.name} to create an account on GetYourRefund"
+      expect(mail.body.encoded).to have_text "#{user.name} (#{user.email}) has invited #{invited_user.name} to create an account on GetYourRefund"
       expect(mail.body.encoded).to have_text "If you don't want to accept the invitation, please ignore this email."
 
       # Sign up page

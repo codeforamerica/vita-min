@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe CaseManagement::VitaPartnersController, type: :controller do
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :index
 
     context "for orgs with sub-organizations, i.e., sites" do
       let(:user) { create(:admin_user, vita_partner: vita_partner1) }
@@ -30,7 +29,6 @@ RSpec.describe CaseManagement::VitaPartnersController, type: :controller do
     let(:params) { {id: vita_partner} }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :show
 
     context "sub-organizations" do
       let(:user) { create(:admin_user, vita_partner: vita_partner)}
@@ -48,8 +46,8 @@ RSpec.describe CaseManagement::VitaPartnersController, type: :controller do
       end
     end
 
-    context "as an authenticated beta tester who is not an admin" do
-      let(:user) { create :beta_tester, vita_partner: vita_partner }
+    context "as an authenticated user who is not an admin" do
+      let(:user) { create :user, vita_partner: vita_partner }
       let(:other_vita_partner) { create :vita_partner}
       before { sign_in(user) }
 
@@ -67,7 +65,7 @@ RSpec.describe CaseManagement::VitaPartnersController, type: :controller do
       end
     end
 
-    context "as an authenticated beta tester admin user" do
+    context "as an authenticated admin user" do
       let(:user) { create :admin_user }
       before { sign_in(user) }
       let(:other_vita_partner) { create :vita_partner }

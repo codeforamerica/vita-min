@@ -3,15 +3,14 @@ class Ability
 
   def initialize(user)
     accessible_organizations = user.accessible_organizations
-    if user.is_beta_tester
-      if user.is_admin
-        can :manage, :all
-      end
+    if user.is_admin
+      can :manage, :all
+    end
 
-      if user.vita_partner.present?
-        can :manage, [VitaPartner], id: accessible_organizations.pluck(:id)
-        can :manage, [Client, User], vita_partner: accessible_organizations
-        can :manage, [
+    if user.vita_partner.present?
+      can :manage, [VitaPartner], id: accessible_organizations.pluck(:id)
+      can :manage, [Client, User], vita_partner: accessible_organizations
+      can :manage, [
           IncomingTextMessage,
           OutgoingTextMessage,
           IncomingEmail,
@@ -19,8 +18,7 @@ class Ability
           Note,
           Document,
           TaxReturn,
-        ], client: { vita_partner: accessible_organizations }
-      end
+      ], client: { vita_partner: accessible_organizations }
     end
   end
 end

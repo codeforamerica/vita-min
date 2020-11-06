@@ -14,11 +14,10 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
     }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
 
-    context "as an authenticated beta tester" do
+    context "as an authenticated user" do
       render_views
-      let(:user) { create :beta_tester, vita_partner: vita_partner }
+      let(:user) { create :user, vita_partner: vita_partner }
       let!(:other_user) { create :user, vita_partner: vita_partner }
       let!(:outside_org_user) { create :user }
       before { sign_in user }
@@ -67,10 +66,9 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
     }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
-    it_behaves_like :a_post_action_for_beta_testers_only, action: :update
 
     context "as an authenticated beta tester" do
-      let(:user) { create :beta_tester, vita_partner: vita_partner }
+      let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in user }
 
       it "assigns the user to the tax return" do
