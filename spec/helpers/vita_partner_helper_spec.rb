@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe VitaPartnerHelper do
-  describe "#grouped_organization_options" do
+  skip "#grouped_organization_options" do
     let(:parent_org1) { create(:vita_partner, name: "First Parent Org") }
     let(:parent_org2) { create(:vita_partner, name: "Second Parent Org") }
     let(:parent_org3) { create(:vita_partner, name: "No Child Org") }

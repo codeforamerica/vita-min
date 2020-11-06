@@ -27,11 +27,6 @@ RSpec.describe VitaPartnerImporter do
         .and_return(fake_partners_yaml)
     end
 
-    after do
-      SourceParameter.destroy_all
-      VitaPartner.destroy_all
-    end
-
     context "with a new YAML entry (creating new record)" do
       it "inserts a new partner with all the attributes" do
         expect do
