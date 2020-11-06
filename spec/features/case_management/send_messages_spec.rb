@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.feature "Read and send messages to a client", js: true do
-  context "As a beta tester" do
+  context "As an authenticated user" do
     let(:vita_partner) { create :vita_partner }
-    let(:beta_tester) { create :beta_tester, vita_partner: vita_partner }
+    let(:user) { create :user, vita_partner: vita_partner }
     let(:client) do
       create(
         :client,
@@ -18,7 +18,7 @@ RSpec.feature "Read and send messages to a client", js: true do
       )
     end
     before do
-      login_as beta_tester
+      login_as user
     end
 
     scenario "I can view a client's information and send them a message" do

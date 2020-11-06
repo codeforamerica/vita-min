@@ -16,10 +16,9 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
     }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
-    it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
-    context "as a logged in beta tester" do
-      let(:current_user) { create :beta_tester, vita_partner: vita_partner }
+    context "as an authenticated user" do
+      let(:current_user) { create :user, vita_partner: vita_partner }
       before do
         sign_in current_user
       end
@@ -59,9 +58,8 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
   describe "#index" do
     let(:client) { create :client, vita_partner: vita_partner }
     let(:params) { { client_id: client.id } }
-    let(:user) { create :beta_tester, vita_partner: vita_partner }
+    let(:user) { create :user, vita_partner: vita_partner }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :index
 
     context "as a logged in user loading a clients notes" do
       before do
@@ -93,7 +91,7 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
       end
 
       context "with notes from different days" do
-        let(:user) { create :beta_tester, timezone: "America/Los_Angeles" , vita_partner: vita_partner}
+        let(:user) { create :user, timezone: "America/Los_Angeles" , vita_partner: vita_partner}
 
         before do
           create :note, client: client, created_at: DateTime.new(2019, 10, 5, 8) # UTC

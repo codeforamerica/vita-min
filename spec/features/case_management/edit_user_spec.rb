@@ -1,14 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "a user editing a user" do
-  context "as a beta tester" do
+  context "as an authenticated user" do
     context "as an admin" do
       let!(:colorado_org) { create :vita_partner, name: "Colorado", display_name: "Colorado" }
       let!(:denver_org) { create :vita_partner, parent_organization: colorado_org, name: "Denver", display_name: "Denver" }
       let!(:california_org) { create :vita_partner, name: "California", display_name: "California" }
       let!(:san_fran_org) { create :vita_partner, parent_organization: california_org, name: "San Francisco", display_name: "San Francisco" }
       let(:current_user) { create :admin_user, vita_partner: colorado_org }
-      let(:user_to_edit) { create :beta_tester, vita_partner: colorado_org }
+      let(:user_to_edit) { create :user, vita_partner: colorado_org }
       before { login_as current_user }
 
       scenario "update all fields" do

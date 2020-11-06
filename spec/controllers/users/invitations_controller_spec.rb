@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
-  let(:beta_user) { create :beta_tester }
+  let(:user) { create :user_with_org }
   let(:vita_partner) { create :vita_partner }
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
@@ -10,7 +10,6 @@ RSpec.describe Users::InvitationsController do
 
   describe "#new" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :new
   end
 
   describe "#create" do
@@ -25,10 +24,9 @@ RSpec.describe Users::InvitationsController do
     end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
-    it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
-    context "with an authenticated beta tester" do
-      before { sign_in beta_user }
+    context "with an authenticated user" do
+      before { sign_in user }
 
       it "creates a new invited user" do
         expect do
@@ -40,7 +38,7 @@ RSpec.describe Users::InvitationsController do
         expect(invited_user.email).to eq "cherry@example.com"
         expect(invited_user.is_beta_tester?).to eq true
         expect(invited_user.invitation_token).to be_present
-        expect(invited_user.invited_by).to eq beta_user
+        expect(invited_user.invited_by).to eq user
         expect(invited_user.role).to eq "agent"
         expect(invited_user.vita_partner).to eq vita_partner
         expect(response).to redirect_to invitations_path
@@ -69,7 +67,7 @@ RSpec.describe Users::InvitationsController do
         name: "Cherry Cherimoya",
         email: "cherry@example.com",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
-        invited_by: beta_user,
+        invited_by: user,
         vita_partner: vita_partner
       )
     end
@@ -126,7 +124,7 @@ RSpec.describe Users::InvitationsController do
         :invited_user,
         name: "Cherry Cherimoya",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
-        invited_by: beta_user,
+        invited_by: user,
         vita_partner: vita_partner
       )
     end

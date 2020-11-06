@@ -10,12 +10,11 @@ RSpec.describe CaseManagement::OutgoingEmailsController do
     end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
-    it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
     context "as an authenticated admin user" do
       let(:expected_time) { DateTime.new(2020, 9, 9) }
-      let(:beta_user) { create :beta_tester, vita_partner: vita_partner }
-      before { sign_in beta_user }
+      let(:user) { create :user, vita_partner: vita_partner }
+      before { sign_in user }
 
       context "with body & client_id" do
         let(:params) do
@@ -40,7 +39,7 @@ RSpec.describe CaseManagement::OutgoingEmailsController do
           expect(outgoing_email.subject).to eq("Update from GetYourRefund")
           expect(outgoing_email.body).to eq("hi client")
           expect(outgoing_email.client).to eq client
-          expect(outgoing_email.user).to eq beta_user
+          expect(outgoing_email.user).to eq user
           expect(outgoing_email.sent_at).to eq expected_time
           expect(outgoing_email.to).to eq client.email_address
           expect(outgoing_email.attachment).to be_present

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe CaseManagement::ClientsController do
   describe "#create" do
-    let(:user) { create :beta_tester }
+    let(:user) { create :user_with_org }
     let(:intake) do
       create(
         :intake,
@@ -18,7 +18,6 @@ RSpec.describe CaseManagement::ClientsController do
     end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
-    it_behaves_like :a_post_action_for_beta_testers_only, action: :create
 
     context "as an authenticated admin user" do
       before { sign_in(user) }
@@ -66,7 +65,7 @@ RSpec.describe CaseManagement::ClientsController do
 
   describe "#show" do
     let(:vita_partner) { create :vita_partner }
-    let(:user) { create :beta_tester, vita_partner: vita_partner }
+    let(:user) { create :user, vita_partner: vita_partner }
     let(:intake) do
       create :intake,
              :with_contact_info,
@@ -89,14 +88,11 @@ RSpec.describe CaseManagement::ClientsController do
     end
 
     let(:client) { create :client, intake: intake, vita_partner: vita_partner, tax_returns: [(create :tax_return, year: 2019)] }
-    let(:params) do
-      { id: client.id }
-    end
+    let(:params) { {id: client.id} }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :show
 
-    context "as an authenticated beta tester" do
+    context "as an authenticated user" do
       render_views
 
       before { sign_in(user) }
@@ -132,13 +128,12 @@ RSpec.describe CaseManagement::ClientsController do
 
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :index
 
-    context "as an authenticated beta tester" do
+    context "as an authenticated user" do
       render_views
 
       let(:vita_partner) { create(:vita_partner) }
-      let(:user) { create(:beta_tester, vita_partner: vita_partner) }
+      let(:user) { create(:user_with_org, vita_partner: vita_partner) }
 
       before { sign_in user }
 
@@ -330,7 +325,7 @@ RSpec.describe CaseManagement::ClientsController do
       { id: client.id, client: {} }
     end
     let(:client) { create :client, vita_partner: create(:vita_partner) }
-    let(:current_user) { create :beta_tester, vita_partner: client.vita_partner }
+    let(:current_user) { create :user_with_org, vita_partner: client.vita_partner }
     before { sign_in(current_user) }
 
     it "redirects to case management client path" do
@@ -375,10 +370,9 @@ RSpec.describe CaseManagement::ClientsController do
     }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
 
-    context "with a signed in beta tester" do
-      let(:user) { create :beta_tester, vita_partner: vita_partner }
+    context "as an authenticated user" do
+      let(:user) { create :user, vita_partner: vita_partner }
       before do
         sign_in user
       end
@@ -430,10 +424,9 @@ RSpec.describe CaseManagement::ClientsController do
     }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :edit
 
     context "with a signed in user" do
-      let(:user) { create :beta_tester, vita_partner: vita_partner }
+      let(:user) { create :user, vita_partner: vita_partner }
       before do
         sign_in user
       end

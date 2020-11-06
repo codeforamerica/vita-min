@@ -1,8 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Logging in and out to the volunteer portal" do
-  # Making these users beta testers because profile page is beta tester only for now
-  let!(:user) { create(:beta_tester, name: "German Geranium", email: "german@flowers.orange", password: "goodPassword", role: "agent") }
+  let!(:user) { create(:user_with_org, name: "German Geranium", email: "german@flowers.orange", password: "goodPassword", role: "agent") }
 
   scenario "logging in and out" do
     # go to password-based sign in page

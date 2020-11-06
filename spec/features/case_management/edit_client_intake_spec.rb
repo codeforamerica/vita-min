@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "a user editing a clients intake fields" do
-  context "as a beta tester" do
-    let(:user) { create :beta_tester, vita_partner: create(:vita_partner) }
+  context "as an authenticated user" do
+    let(:user) { create :user, vita_partner: create(:vita_partner) }
     let(:client) { create :client, vita_partner: user.vita_partner, intake: create(:intake, primary_first_name: "Colleen", primary_last_name: "Cauliflower") }
     before { login_as user }
 

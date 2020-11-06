@@ -1,16 +1,10 @@
 <% content_for :toolbar_right do %>
-  <% if current_user.is_beta_tester? %>
-    <%= link_to user_profile_path, class: "toolbar__item" do %>
-      <%=t("views.layouts.admin.welcome_user_html", :name => current_user.name) %>
-    <% end %>
+  <%= link_to user_profile_path, class: "toolbar__item" do %>
+    <%= t("views.layouts.admin.welcome_user_html", :name => current_user.name) %>
+  <% end %>
 
-    <%= form_with url: destroy_user_session_path, local: true, method: :delete, class: "toolbar__item" do |f| %>
-      <%= f.submit value: t("general.sign_out"), class: "button--link" %>
-    <% end %>
-  <% else %>
-    <div class="toolbar__item">
-      <%=t("views.layouts.admin.welcome_user_html", :name => current_user.name) %>
-    </div>
+  <%= form_with url: destroy_user_session_path, local: true, method: :delete, class: "toolbar__item" do |f| %>
+    <%= f.submit value: t("general.sign_out"), class: "button--link" %>
   <% end %>
 <% end if current_user %>
 <% content_for :body_class, "admin" %>

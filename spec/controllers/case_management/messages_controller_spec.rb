@@ -7,11 +7,10 @@ RSpec.describe CaseManagement::MessagesController do
   let(:params) do
     { client_id: client.id }
   end
-  let(:user) { create :beta_tester, vita_partner: vita_partner }
+  let(:user) { create :user, vita_partner: vita_partner }
 
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
-    it_behaves_like :a_get_action_for_beta_testers_only, action: :index
 
     context "as an authenticated beta tester" do
       before { sign_in(user) }
@@ -108,7 +107,7 @@ RSpec.describe CaseManagement::MessagesController do
         end
 
         context "with messages from different days" do
-          let(:user) { create :beta_tester, timezone: "America/Los_Angeles" , vita_partner: vita_partner}
+          let(:user) { create :user, timezone: "America/Los_Angeles" , vita_partner: vita_partner}
 
           before do
             create(:outgoing_email, sent_at: DateTime.new(2019, 10, 4, 14), client: client)

@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe ClientChannel, type: :channel do
   let(:client) { create :client }
-  let(:user) { create :beta_tester }
+  let(:user) { create :user_with_org }
   let(:params) { { id: client.id }}
 
   it_behaves_like :a_channel_for_beta_testers, action: :subscribe
 
-  context "as a beta tester" do
+  context "as a user" do
     before { connect_as(user) }
 
     context 'without params' do
