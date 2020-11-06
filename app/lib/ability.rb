@@ -2,6 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    return unless user.present?
+
     accessible_organizations = user.accessible_organizations
     if user.is_admin
       can :manage, :all

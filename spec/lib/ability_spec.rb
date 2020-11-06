@@ -3,6 +3,24 @@ require "rails_helper"
 describe Ability do
   let(:subject) { Ability.new(user) }
 
+  context "a nil user" do
+    let(:user) { nil }
+    let(:vita_partner) { create :vita_partner }
+    let(:client) { create(:client, vita_partner: vita_partner) }
+    let(:intake) { create(:intake, vita_partner: vita_partner, client: client) }
+
+    it "cannot manage any client data" do
+      expect(subject.can?(:manage, Client)).to eq false
+      expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
+      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
+      expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
+      expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
+      expect(subject.can?(:manage, User.new(vita_partner: vita_partner))).to eq false
+      expect(subject.can?(:manage, Note.new(client: client))).to eq false
+      expect(subject.can?(:manage, VitaPartner.new)).to eq false
+    end
+  end
+
   context "a user and client without an organization" do
     let(:user) { create(:user_with_org, vita_partner: nil) }
     let(:client) { create(:client, vita_partner: nil) }
