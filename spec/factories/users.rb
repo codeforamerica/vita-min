@@ -18,7 +18,6 @@
 #  invitation_token          :string
 #  invitations_count         :integer          default(0)
 #  is_admin                  :boolean          default(FALSE), not null
-#  is_beta_tester            :boolean          default(FALSE), not null
 #  last_sign_in_at           :datetime
 #  last_sign_in_ip           :string
 #  locked_at                 :datetime
