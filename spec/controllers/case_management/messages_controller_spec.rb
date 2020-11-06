@@ -12,7 +12,7 @@ RSpec.describe CaseManagement::MessagesController do
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
-    context "as an authenticated beta tester" do
+    context "as an authenticated user" do
       before { sign_in(user) }
 
       context "with existing contact history" do

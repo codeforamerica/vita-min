@@ -74,7 +74,6 @@ FactoryBot.define do
     end
 
     factory :admin_user do
-      is_beta_tester { true }
       is_admin { true }
     end
 

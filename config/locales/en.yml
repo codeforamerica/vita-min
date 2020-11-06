@@ -203,7 +203,6 @@ en:
     assign: Assign
     assignee: Assignee
     attachment: Attachment
-    beta_tester: Beta tester
     changes_saved: Changes saved
     chat_with_us: Chat with us
     city: City
@@ -352,7 +351,6 @@ en:
   users:
     edit:
       is_admin_label: Admin?
-      is_beta_tester_label: Beta tester?
     index:
       title: Users
     profile:

@@ -42,7 +42,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
       end
     end
 
-    context "as an admin beta tester" do
+    context "as an admin user" do
       let(:admin) { create :admin_user, vita_partner: create(:vita_partner) }
       let!(:other_user) { create :user, vita_partner: vita_partner }
       let!(:outside_org_user) { create :user, vita_partner: admin.vita_partner }
@@ -67,7 +67,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
-    context "as an authenticated beta tester" do
+    context "as an authenticated user" do
       let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in user }
 

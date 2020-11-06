@@ -20,7 +20,7 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     super do |invited_user|
       # set default values
-      invited_user.update(is_beta_tester: true, role: invited_user.role || "agent" )
+      invited_user.update(role: invited_user.role || "agent" )
     end
   end
 

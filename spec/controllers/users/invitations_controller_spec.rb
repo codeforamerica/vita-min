@@ -36,7 +36,6 @@ RSpec.describe Users::InvitationsController do
         invited_user = User.last
         expect(invited_user.name).to eq "Cher Cherimoya"
         expect(invited_user.email).to eq "cherry@example.com"
-        expect(invited_user.is_beta_tester?).to eq true
         expect(invited_user.invitation_token).to be_present
         expect(invited_user.invited_by).to eq user
         expect(invited_user.role).to eq "agent"
@@ -50,7 +49,6 @@ RSpec.describe Users::InvitationsController do
         it "doesn't change the user's role" do
           post :create, params: params
           invited_user.reload
-          expect(invited_user.is_beta_tester?).to eq true
           expect(invited_user.role).to eq "admin"
         end
       end
