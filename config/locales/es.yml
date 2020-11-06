@@ -263,6 +263,7 @@ es:
     lived_with_spouse: Vivieron con su cónyuge
     married: Casado
     name: Nombre
+    mark_for_response: Marcar como necesita respuesta
     needs_response: Marcar como necesita respuesta
     negative: 'No'
     next: Próximo
