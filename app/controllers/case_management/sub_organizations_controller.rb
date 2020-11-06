@@ -22,7 +22,7 @@ module CaseManagement
     private
 
     def form_params
-      params.require(:case_management_sub_organization_form).permit(:display_name).merge(parent_organization_id: @vita_partner.id)
+      params.require(:case_management_sub_organization_form).permit(SubOrganizationForm.attribute_names).merge(parent_organization_id: @vita_partner.id)
     end
   end
 end
