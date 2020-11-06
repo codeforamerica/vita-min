@@ -11,16 +11,33 @@ RSpec.describe CaseManagement::SubOrganizationsController, type: :controller do
     context "with valid params" do
       before { sign_in(user) }
 
-      it "accepts a display_name and redirects to the parent organization's show page" do
+      it "accepts a name (and uses for the display name, too) and redirects to the parent organization's show page" do
         expect do
           put :update, params: { id: vita_partner.id,
                                  case_management_sub_organization_form:
-                                  { display_name: "City Hall Tax Help Center" } }
+                                  { name: "City Hall Tax Help Center" } }
         end.to change(VitaPartner, :count).by(1)
 
         city_hall_tax_help_center = VitaPartner.last
         expect(city_hall_tax_help_center.name).to eq("City Hall Tax Help Center")
         expect(city_hall_tax_help_center.display_name).to eq("City Hall Tax Help Center")
+        expect(city_hall_tax_help_center.parent_organization).to eq(vita_partner)
+
+        expect(response).to redirect_to(case_management_vita_partner_path(id: city_hall_tax_help_center.parent_organization.id))
+      end
+
+      it "accepts a name and display name and redirects to parent organization's show page" do
+        expect do
+          put :update, params: { id: vita_partner.id,
+                                 case_management_sub_organization_form: {
+                                     name: "City Hall Tax Help Center",
+                                     display_name: "City Hall Tax Help Center (Denver)"
+                                 } }
+        end.to change(VitaPartner, :count).by(1)
+
+        city_hall_tax_help_center = VitaPartner.last
+        expect(city_hall_tax_help_center.name).to eq("City Hall Tax Help Center")
+        expect(city_hall_tax_help_center.display_name).to eq("City Hall Tax Help Center (Denver)")
         expect(city_hall_tax_help_center.parent_organization).to eq(vita_partner)
 
         expect(response).to redirect_to(case_management_vita_partner_path(id: city_hall_tax_help_center.parent_organization.id))
@@ -36,7 +53,7 @@ RSpec.describe CaseManagement::SubOrganizationsController, type: :controller do
               params: {
                 id: vita_partner.id,
                 case_management_sub_organization_form:
-                  { display_name: "" },
+                  { name: "" },
               }
         end.not_to change(VitaPartner, :count)
 

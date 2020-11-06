@@ -70,6 +70,7 @@ es:
     sub_organizations:
       edit:
         title: Crear una sub-organización de %{name}
+        display_name: Orientado al cliente nombre (si es diferente)
     vita_partners:
       add_site: Agregar sitio
       index:

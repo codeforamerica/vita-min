@@ -36,16 +36,6 @@ class VitaPartner < ApplicationRecord
 
   after_initialize :defaults
 
-  def self.select_input_options
-    all.collect { |v| [v.name, v.id] }
-  end
-
-  def self.grouped_org_options
-    all.top_level.collect do |partner|
-      [partner.name, [[partner.name, partner.id], *partner.sub_organizations.collect { |v| [v.name, v.id] }]]
-    end
-  end
-
   def at_capacity?
     actionable_intakes_this_week.count >= weekly_capacity_limit
   end
