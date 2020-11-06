@@ -13,6 +13,7 @@
  *= require_self
  */
 @import "cfa_styleguide_main";
+@import "mixins/sr-only";
 @import "atoms/variables";
 @import "atoms/form-elements";
 @import "atoms/typography";
@@ -30,6 +31,7 @@
 @import "components/blockquote";
 @import "components/footer";
 @import "components/form-fields";
+@import "components/needs-response";
 @import "components/slabs";
 @import "components/tab-bar";
 @import "components/toolbar";
@@ -414,4 +416,8 @@ body {
 .checkbox.is-disabled {
   opacity: .5;
   cursor: not-allowed;
+}
+
+.sr-only {
+  @include sr-only;
 }
