@@ -756,8 +756,6 @@ describe Intake do
       # Use transaction rollback to speed up some of the data clearing. Some data still leaks through,
       # so also call destroy_all.
       @transaction_manager.rollback_transaction
-      SourceParameter.delete_all
-      VitaPartner.delete_all
     end
 
     context "when the zendesk instance domain has been saved as UWTSA instance" do
