@@ -8,10 +8,8 @@ class VitaPartnerImporter < CliScriptBase
 
     yaml_partners = YAML.load_file(yml)['vita_partners']
     yaml_zendesk_group_ids = yaml_partners.map { |partner| partner["zendesk_group_id"] }
-    VitaPartner.transaction do
-      yaml_partners.each do |yaml_partner|
-        upsert_vita_partner(yaml_partner)
-      end
+    yaml_partners.each do |yaml_partner|
+      upsert_vita_partner(yaml_partner)
     end
     archive_absent_partners(VitaPartner.where.not(zendesk_group_id: yaml_zendesk_group_ids))
     report_progress "  => done"
