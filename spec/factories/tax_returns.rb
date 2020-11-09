@@ -3,6 +3,7 @@
 # Table name: tax_returns
 #
 #  id               :bigint           not null, primary key
+#  status           :integer
 #  year             :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

@@ -35,7 +35,7 @@
 @import "components/slabs";
 @import "components/tab-bar";
 @import "components/toolbar";
-@import "components/tax-return-assignees";
+@import "components/tax-return-list";
 @import "components/message-list";
 @import "components/message";
 @import "components/index-table";
@@ -418,6 +418,8 @@ body {
   cursor: not-allowed;
 }
 
+// This class overrides the honeycrisp sr-only class with our more comprehensive mixin
 .sr-only {
   @include sr-only;
 }
+

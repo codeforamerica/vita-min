@@ -1,0 +1,22 @@
+<% @title = t("general.take_action") %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <%= form_with model: @tax_return,
+          url: update_status_case_management_client_tax_return_path(id: @tax_return.id, client_id: @client),
+          method: :post, local: true, builder: VitaMinFormBuilder,
+          html: { class: "form-card" } do |f| %>
+    <h1><%= @title %></h1>
+
+     <%= f.cfa_select(
+             :status,
+             t("general.status"),
+             grouped_tax_return_status_options,
+             include_blank: true,
+             selected: params["tax_return"]["status"]
+          ) %>
+
+    <button class="button button--cta " type="submit">
+      <%=t("general.save") %>
+    </button>
+  <% end %>
+<% end %>

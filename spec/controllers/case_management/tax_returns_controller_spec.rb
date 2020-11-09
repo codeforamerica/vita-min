@@ -99,5 +99,50 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
       end
     end
   end
-end
 
+  describe "#update_status" do
+    let(:user) { create :user, vita_partner: (create :vita_partner) }
+    let(:tax_return) { create :tax_return, status: "intake_in_progress", client: (create :client, vita_partner: user.vita_partner) }
+    let(:params) { { tax_return: { status: "review_complete_signature_requested" }, id: tax_return.id, client_id: tax_return.client } }
+
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_status
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      it "redirects to the messages tab" do
+        post :update_status, params: params
+        expect(response).to redirect_to case_management_client_messages_path(client_id: tax_return.client.id)
+      end
+
+      it "updates the status on the indicated tax return" do
+        post :update_status, params: params
+        tax_return.reload
+        expect(tax_return.status).to eq "review_complete_signature_requested"
+      end
+    end
+  end
+
+  describe "#edit_status" do
+    let(:user) { create :user_with_org }
+    let(:tax_return) { create :tax_return, client: create(:client, vita_partner: user.vita_partner) }
+    let(:params) { { id: tax_return.id, client_id: tax_return.client } }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit_status
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      it "returns an ok response" do
+        post :edit_status, params: params
+        expect(response).to be_ok
+      end
+
+      it "finds the tax return" do
+        get :edit_status, params: params
+
+        expect(assigns(:tax_return)).to eq(tax_return)
+      end
+    end
+  end
+end

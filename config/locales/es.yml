@@ -67,6 +67,32 @@ es:
       update:
         flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}
         no_one: nadie
+      stage:
+        intake: Admisión
+        prep: Preparación de impuestos
+        review: Revisión de calidad
+        finalize: Pasos finales
+        filed: Presentación de impuestos completada
+      status:
+        intake_in_progress: En progreso
+        intake_open: Abierto
+        intake_review: En revisión
+        intake_more_info: Necesita más información
+        intake_info_requested: Información solicitada
+        intake_needs_assignment: Necesita asignación
+        prep_ready_for_call: Listo para llama
+        prep_preparing: Entrar en TaxSlayer
+        prep_more_info: Necesita más información
+        prep_ready_for_review: Listo para QR
+        review_in_review: En revisión
+        review_more_info: Necesita más información
+        review_complete_signature_requested: Completo/Firma solicitada
+        finalize_closed: Cerrado
+        finalize_signed: Declaración de impuestos firmada
+        filed_e_file: Declaración de impuestos presentada electrónicamente
+        filed_mail_file: Declaración de impuestos presentada por correo
+        filed_rejected: Rechazado
+        filed_accepted: Aceptado
     sub_organizations:
       edit:
         title: Crear una sub-organización de %{name}
@@ -327,6 +353,8 @@ es:
     zendesk:
       access_denied: No tiene autorización para acceder a esa página
     zip_code: Código postal
+    status: Estado
+    take_action: Tomar acción
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
