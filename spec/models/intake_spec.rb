@@ -743,21 +743,8 @@ describe Intake do
     let(:source) { nil }
     let(:intake) { create :intake, state_of_residence: state, source: source }
 
-    before(:all) do
-      # Per https://relishapp.com/rspec/rspec-rails/docs/transactions,
-      # before(:all) has to manage data clearing explicitly.
-      @transaction_manager = ActiveRecord::Base.connection.transaction_manager
-      @transaction_manager.begin_transaction
-
+    before do
       VitaPartnerImporter.upsert_vita_partners
-    end
-
-    after(:all) do
-      # Use transaction rollback to speed up some of the data clearing. Some data still leaks through,
-      # so also call destroy_all.
-      @transaction_manager.rollback_transaction
-      SourceParameter.destroy_all
-      VitaPartner.destroy_all
     end
 
     context "when the zendesk instance domain has been saved as UWTSA instance" do
