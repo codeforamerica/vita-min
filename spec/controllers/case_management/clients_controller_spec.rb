@@ -142,7 +142,7 @@ RSpec.describe CaseManagement::ClientsController do
         let!(:michael) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes") }
         let!(:tobias) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es") }
         let(:assigned_user) { create :user, name: "Lindsay", vita_partner: vita_partner }
-        let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user }
+        let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
 
         it "shows a list of clients and client information" do
@@ -155,6 +155,8 @@ RSpec.describe CaseManagement::ClientsController do
           expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)
           expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
+          expect(html.at_css("#client-#{tobias.id}")).to have_text("Intake / In progress")
+
         end
 
         it "shows all returns for a client and users assigned to those returns" do

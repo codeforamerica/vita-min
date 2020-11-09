@@ -408,6 +408,12 @@ body {
   }
 }
 
+.grid.wide {
+  @media screen and (min-width: $tablet-up) {
+    max-width: 1200px;
+  }
+}
+
 .inherit-color {
   color: inherit;
 }
