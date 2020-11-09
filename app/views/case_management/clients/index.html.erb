@@ -45,7 +45,7 @@
           <td class="index-table__cell"><%= client.intake&.locale ? t("general.language_options.#{client.intake&.locale}") : "N/A" %></td>
           <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
           <td class="index-table__cell">
-            <%= render "shared/tax_return_assignees", client: client %>
+            <%= render "shared/tax_return_list", client: client %>
           </td>
         </tr>
       <% end %>

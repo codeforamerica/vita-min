@@ -67,6 +67,32 @@ en:
       update:
         flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}
         no_one: no one
+      stage:
+        intake: Intake
+        prep: Tax prep
+        review: Quality review
+        finalize: Final steps
+        filed: Filing completed
+      status:
+        intake_in_progress: In progress
+        intake_open: Open
+        intake_review: In review
+        intake_more_info: Needs more information
+        intake_info_requested: Info requested
+        intake_needs_assignment: Needs assignment
+        prep_ready_for_call: Ready for call
+        prep_more_info: Needs more information
+        prep_preparing: Entering in TaxSlayer
+        prep_ready_for_review: Ready for QR
+        review_in_review: In review
+        review_more_info: Needs more information
+        review_complete_signature_requested: Complete/Signature requested
+        finalize_closed: Closed
+        finalize_signed: Return signed
+        filed_e_file: Return e-filed
+        filed_mail_file: Return filed by mail
+        filed_rejected: Rejected
+        filed_accepted: Accepted
     sub_organizations:
       edit:
         title: Create sub-organization of %{name}
@@ -327,6 +353,8 @@ en:
     zendesk:
       access_denied: You are not authorized to access that page
     zip_code: ZIP code
+    status: Status
+    take_action: Take action
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

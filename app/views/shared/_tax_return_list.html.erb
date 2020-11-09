@@ -1,0 +1,25 @@
+<% status_updateable ||= false %>
+<ul class="tax-return-list">
+  <% client.tax_returns.each do |tax_return| %>
+    <li id="tax-return-<%= tax_return.id %>">
+      <div class="assignment">
+        <div><strong><%= tax_return.year %></strong></div>
+        <div>
+          <% if tax_return.assigned_user.present? %>
+            <%= tax_return.assigned_user&.name %>
+          <% else %>
+            <%= link_to t("general.assign"),
+                        edit_case_management_client_tax_return_path(client_id: client.id, id: tax_return.id),
+                        class: "button button--inline-action" %>
+          <% end %>
+        </div>
+      </div>
+      <% if status_updateable %>
+        <%= form_with model: tax_return, url: edit_status_case_management_client_tax_return_path(id: tax_return.id, client_id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "form-wrapper"} do |f| %>
+          <%= f.cfa_select(:status, t("general.status"), grouped_tax_return_status_options, include_blank: true, selected: tax_return.status) %>
+          <div><%= f.submit "Update", class: "button button--small"%></div>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

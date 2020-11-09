@@ -135,7 +135,12 @@ Rails.application.routes.draw do
         resources :messages, only: [:index]
         resources :outgoing_text_messages, only: [:create]
         resources :outgoing_emails, only: [:create]
-        resources :tax_returns, only: [:edit, :update]
+        resources :tax_returns, only: [:edit, :update] do
+          member do
+            get "edit_status"
+            post "update_status"
+          end
+        end
         member do
           patch "response_needed"
         end

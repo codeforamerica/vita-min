@@ -1,0 +1,47 @@
+.tax-return-list {
+  margin: 0;
+  li {
+    display: flex;
+    line-height: 3.5rem;
+    align-items: center;
+    margin-bottom: 5px;
+    > div {
+      margin-right: 5px;
+    }
+  }
+
+  .assignment {
+    display: flex;
+    flex-grow: 1;
+    > div {
+      margin-right: 5px;
+    }
+  }
+
+  .form-wrapper {
+    display: flex;
+    align-items: center;
+    .form-group {
+      margin: 0;
+    }
+    .select {
+      margin-bottom: 0;
+      margin-right: 5px;
+    }
+
+    .select__element {
+      line-height: 2.5;
+      font-size: 1.6rem;
+      padding: 0 4rem 0 1.5rem;
+      width: 315px;
+    }
+
+    label {
+      @include sr-only;
+    }
+
+    .button {
+      margin: 0;
+    }
+  }
+}

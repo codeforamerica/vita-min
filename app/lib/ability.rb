@@ -13,13 +13,13 @@ class Ability
       can :manage, [VitaPartner], id: accessible_organizations.pluck(:id)
       can :manage, [Client, User], vita_partner: accessible_organizations
       can :manage, [
-          IncomingTextMessage,
-          OutgoingTextMessage,
-          IncomingEmail,
-          OutgoingEmail,
-          Note,
-          Document,
-          TaxReturn,
+        IncomingTextMessage,
+        OutgoingTextMessage,
+        IncomingEmail,
+        OutgoingEmail,
+        Note,
+        Document,
+        TaxReturn,
       ], client: { vita_partner: accessible_organizations }
     end
   end

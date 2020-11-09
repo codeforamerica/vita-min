@@ -104,6 +104,8 @@ ignore_unused:
   - 'errors.*'
   - 'devise.invitations.*'
   - 'devise.failure.*'
+  - 'case_management.tax_returns.stage.*'
+  - 'case_management.tax_returns.status.*'
 # - 'activerecord.attributes.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
@@ -123,6 +125,7 @@ ignore_unused:
 ## Ignore these keys completely:
 # ignore:
 #  - kaminari.*
+#  - case_
 
 ## Sometimes, it isn't possible for i18n-tasks to match the key correctly,
 ## e.g. in case of a relative key defined in a helper method.

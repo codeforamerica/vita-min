@@ -12,7 +12,7 @@ module CaseManagement
     def edit; end
 
     def update
-      @tax_return.update!(tax_return_params)
+      @tax_return.update!(assign_params)
       no_one = I18n.t("case_management.tax_returns.update.no_one")
       success_message = I18n.t(
         "case_management.tax_returns.update.flash_success",
@@ -23,14 +23,26 @@ module CaseManagement
       redirect_to case_management_clients_path, notice: success_message
     end
 
+    def edit_status; end
+
+    def update_status
+      if @tax_return.update(status_params)
+        redirect_to case_management_client_messages_path(client_id: @client.id)
+      end
+    end
+
     private
 
     def set_assignable_users
       @assignable_users = @client.vita_partner.users
     end
 
-    def tax_return_params
+    def assign_params
       params.require(:tax_return).permit(:assigned_user_id)
+    end
+
+    def status_params
+      params.require(:tax_return).permit(:status)
     end
   end
 end
