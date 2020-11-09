@@ -739,7 +739,7 @@ describe Intake do
     end
   end
 
-  describe "Zendesk routing" do
+  skip "Zendesk routing" do
     let(:source) { nil }
     let(:intake) { create :intake, state_of_residence: state, source: source }
 
