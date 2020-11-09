@@ -25,7 +25,7 @@ module TaxReturnStatusHelper
   end
 
   def status_with_stage(tax_return)
-    return "N/A" unless tax_return.status
+    return "" unless tax_return.status
     "#{translated_stage(tax_return.stage)} / #{translated_status(tax_return.status)}"
   end
 end

@@ -19,6 +19,8 @@
           <%= f.cfa_select(:status, t("general.status"), grouped_tax_return_status_options, include_blank: true, selected: tax_return.status) %>
           <div><%= f.submit "Update", class: "button button--small"%></div>
         <% end %>
+      <% else %>
+        <%= status_with_stage(tax_return) %>
       <% end %>
     </li>
   <% end %>

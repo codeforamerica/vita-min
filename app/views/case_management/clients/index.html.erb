@@ -24,7 +24,7 @@
         <th scope="col" class="index-table__header">
           <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
         </th>
-        <th scope="col" class="index-table__header"><%= t(".filing_year") %>, <%= t("general.assignee") %></th>
+        <th scope="col" class="index-table__header"><%= t(".filing_year") %>, <%= t("general.assignee") %>, <%= t("general.status") %></th>
       </tr>
     </thead>
 
@@ -40,7 +40,7 @@
               <%= client.preferred_name %>
             <% end %>
           </th>
-          <td class="index-table__cell"><%= client.id %></td>
+          <td class="index-table__cell" align="center"><%= client.id %></td>
           <td class="index-table__cell"><%= client.vita_partner&.display_name || t("general.none")  %></td>
           <td class="index-table__cell"><%= client.intake&.locale ? t("general.language_options.#{client.intake&.locale}") : "N/A" %></td>
           <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
@@ -49,7 +49,6 @@
           </td>
         </tr>
       <% end %>
-
     </tbody>
   </table>
 <% end %>
