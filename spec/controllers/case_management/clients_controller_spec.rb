@@ -139,15 +139,29 @@ RSpec.describe CaseManagement::ClientsController do
 
       context "with some existing clients" do
         let!(:george_sr) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
+        let!(:george_sr_2019_return) { create :tax_return, client: george_sr, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
+        let!(:george_sr_2018_return) { create :tax_return, client: george_sr, year: 2018, assigned_user: assigned_user, status: "intake_open" }
         let!(:michael) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes") }
+        let!(:michael_2019_return) { create :tax_return, client: michael, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es") }
         let(:assigned_user) { create :user, name: "Lindsay", vita_partner: vita_partner }
         let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
+        let!(:lucille) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Lucille") }
+        let!(:lucille_2018_return) { create(:tax_return, client: lucille, year: 2018, status: "intake_before_consent", assigned_user: assigned_user) }
+
+        it "does not show a client whose tax returns are all before_consent" do
+          get :index
+          expect(assigns(:clients).pluck(:id)).not_to include(lucille.id)
+        end
 
         it "shows a list of clients and client information" do
           get :index
           expect(assigns(:clients).count).to eq 3
+          expect(assigns(:clients)).to include george_sr
+          expect(assigns(:clients)).to include michael
+          expect(assigns(:clients)).to include tobias
+
           html = Nokogiri::HTML.parse(response.body)
           expect(html).to have_text("Updated At")
           expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
@@ -156,7 +170,6 @@ RSpec.describe CaseManagement::ClientsController do
           expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("Intake / In progress")
-
         end
 
         it "shows all returns for a client and users assigned to those returns" do
@@ -188,8 +201,8 @@ RSpec.describe CaseManagement::ClientsController do
       context "sorting and ordering" do
         context "with client  as sort param" do
           let(:params) { { column: "preferred_name" } }
-          let!(:alex) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
-          let!(:ben) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
+          let!(:alex) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
+          let!(:ben) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
 
           it "orders clients by name asc" do
             params[:order] = "asc"
@@ -216,8 +229,8 @@ RSpec.describe CaseManagement::ClientsController do
 
         context "with id as sort param" do
           let(:params) { { column: "id" } }
-          let!(:first_id) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
-          let!(:second_id) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
+          let!(:first_id) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
+          let!(:second_id) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
 
           it "orders clients by name asc" do
             params[:order] = "asc"
@@ -242,8 +255,8 @@ RSpec.describe CaseManagement::ClientsController do
 
         context "with updated_at as sort param" do
           let(:params) { { column: "updated_at" } }
-          let!(:one) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
-          let!(:two) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
+          let!(:one) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
+          let!(:two) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
 
           it "orders clients by name asc" do
             params[:order] = "asc"
@@ -263,17 +276,13 @@ RSpec.describe CaseManagement::ClientsController do
             expect(assigns[:sort_order]).to eq("desc")
 
             expect(assigns(:clients)).to eq [two, one]
-
-            one.touch
-            get :index, params: params
-            expect(assigns(:clients)).to eq [one, two]
           end
         end
 
         context "with locale as sort param" do
           let(:params) { { column: "locale" } }
-          let!(:spanish) { create :client, vita_partner: vita_partner, intake: create(:intake, locale: "es") }
-          let!(:english) { create :client, vita_partner: vita_partner, intake: create(:intake, locale: "en") }
+          let!(:spanish) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, locale: "es") }
+          let!(:english) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, locale: "en") }
 
           it "orders clients by locale asc" do
             params[:order] = "asc"
@@ -297,8 +306,8 @@ RSpec.describe CaseManagement::ClientsController do
         end
 
         context "with no or bad params" do
-          let!(:first_id) { create :client, vita_partner: vita_partner, intake: create(:intake) }
-          let!(:second_id) { create :client, vita_partner: vita_partner, intake: create(:intake) }
+          let!(:first_id) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake) }
+          let!(:second_id) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake) }
 
           it "defaults to sorting by id, desc by default" do
             get :index

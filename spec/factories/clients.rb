@@ -20,5 +20,8 @@
 #
 FactoryBot.define do
   factory :client do
+    trait :with_return do
+      tax_returns { FactoryBot.create_list(:tax_return, 1, status: "intake_open") }
+    end
   end
 end

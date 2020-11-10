@@ -7,8 +7,7 @@ RSpec.feature "Assign a user to a tax return" do
     let!(:user_to_assign) { create :user, name: "Lucille 2", vita_partner: vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
     let!(:intake) { create :intake, client: client }
-    let!(:tax_return_to_assign) { create :tax_return, year: 2019, client: client }
-    let!(:another_tax_return) { create :tax_return, year: 2018, client: client }
+    let!(:tax_return_to_assign) { create :tax_return, status: "intake_open", year: 2019, client: client }
 
     before do
       login_as logged_in_user
