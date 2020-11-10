@@ -3,7 +3,7 @@
 # Table name: tax_returns
 #
 #  id               :bigint           not null, primary key
-#  status           :integer
+#  status           :integer          default("intake_before_consent"), not null
 #  year             :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

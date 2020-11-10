@@ -74,6 +74,7 @@ es:
         finalize: Pasos finales
         filed: Presentación de impuestos completada
       status:
+        intake_before_consent: Antes de consentimiento
         intake_in_progress: En progreso
         intake_open: Abierto
         intake_review: En revisión

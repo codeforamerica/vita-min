@@ -74,6 +74,7 @@ en:
         finalize: Final steps
         filed: Filing completed
       status:
+        intake_before_consent: Before consent
         intake_in_progress: In progress
         intake_open: Open
         intake_review: In review
