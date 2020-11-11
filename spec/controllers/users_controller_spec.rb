@@ -102,6 +102,14 @@ RSpec.describe UsersController do
         end
       end
 
+      context "when trying to change a user's vita_partner to an org we may not access" do
+        it "rejects the change" do
+          expect {
+            post :update, params: { id: user.id, user: { vita_partner_id: create(:vita_partner).id } }
+          }.not_to change { user.reload.vita_partner }
+        end
+      end
+
       context "when editing user fields that require admin powers" do
         before do
           params[:user][:supported_organizations] = [create(:vita_partner).id]

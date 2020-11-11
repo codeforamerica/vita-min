@@ -25,11 +25,15 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(
-      *(:is_admin if current_user.is_admin?),
-      :vita_partner_id,
-      :timezone,
-      current_user.is_admin ? { supported_organization_ids: [] } : {},
-    )
+    vita_partner_id = params.require(:user).require(:vita_partner_id)
+    vita_partner = VitaPartner.find(vita_partner_id)
+    if Ability.new(current_user).can?(:manage, vita_partner)
+      params.require(:user).permit(
+        :vita_partner_id,
+        *(:is_admin if current_user.is_admin?),
+        :timezone,
+        current_user.is_admin ? { supported_organization_ids: [] } : {}
+      )
+    end
   end
 end

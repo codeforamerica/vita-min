@@ -14,6 +14,7 @@
           <%= invitation.name %> &lt;<%= invitation.email %>&gt; <%= invitation.vita_partner&.name %> (<%= t(".invitation.sent_at", datetime: invitation.invitation_sent_at) %>)
           <%= form_with(model: invitation, url: user_invitation_path, method: :post, local: true) do |f| %>
             <%= f.hidden_field :email %>
+            <%= f.hidden_field :vita_partner_id %>
             <%= f.submit value: t(".invitation.create"), class: "button button--small" %>
           <% end %>
         </li>

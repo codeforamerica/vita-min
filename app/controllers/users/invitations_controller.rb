@@ -20,7 +20,7 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     super do |invited_user|
       # set default values
-      invited_user.update(role: invited_user.role || "agent" )
+      invited_user.update(role: invited_user.role || "agent")
     end
   end
 
@@ -28,7 +28,11 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # Override superclass method for default params for newly created invites, allowing us to add attributes
   def invite_params
-    params.require(:user).permit(:name, :email, :vita_partner_id)
+    vita_partner_id = params.require(:user).require(:vita_partner_id)
+    vita_partner = VitaPartner.find(vita_partner_id)
+    if Ability.new(current_user).can?(:manage, vita_partner)
+      params.require(:user).permit(:name, :email, :vita_partner_id)
+    end
   end
 
   # Override superclass method for accepted invite params, allowing us to add attributes

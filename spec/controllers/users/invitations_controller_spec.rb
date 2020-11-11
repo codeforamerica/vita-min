@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
   let(:user) { create :user_with_org }
-  let(:vita_partner) { create :vita_partner }
+  let(:vita_partner) { user.vita_partner }
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
@@ -50,6 +50,25 @@ RSpec.describe Users::InvitationsController do
           post :create, params: params
           invited_user.reload
           expect(invited_user.role).to eq "admin"
+        end
+      end
+
+      context "when inviting a user to an organization that we do not have access to" do
+        let(:inaccessible_vita_partner) { create :vita_partner }
+        let(:params) do
+          {
+            user: {
+              name: "Cher Cherimoya",
+              email: "cherry@example.com",
+              vita_partner_id: inaccessible_vita_partner.id
+            }
+          }
+        end
+
+        it "doesn't create a new user" do
+          expect {
+            post :create, params: params
+          }.not_to change(User, :count)
         end
       end
     end
