@@ -3,13 +3,22 @@ require "rails_helper"
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
   let(:user) { create :user_with_org }
-  let(:vita_partner) { create :vita_partner }
+  let(:vita_partner) { user.vita_partner }
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
   describe "#new" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
+
+    let!(:inaccessible_vita_partner) { create(:vita_partner) }
+
+    it "sets @vita_partners so the template can render a list of partners the user has access to" do
+      sign_in user
+      get :new
+      expect(assigns(:vita_partners)).to include(vita_partner)
+      expect(assigns(:vita_partners)).not_to include(inaccessible_vita_partner)
+    end
   end
 
   describe "#create" do

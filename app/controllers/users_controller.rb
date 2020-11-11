@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   before_action :require_sign_in
   load_and_authorize_resource
+  load_and_authorize_resource :vita_partner, collection: [:edit, :update], parent: false
 
   layout "admin"
 
