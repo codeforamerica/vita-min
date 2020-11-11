@@ -1176,6 +1176,70 @@ describe Intake do
     end
   end
 
+  describe "#advance_tax_return_statuses_to" do
+    let(:intake) { create :intake }
+    let!(:earlier_tax_return) { create :tax_return, year: 2020, client: intake.client, status: "intake_before_consent" }
+    let!(:later_tax_return) { create :tax_return, year: 2019, client: intake.client, status: "intake_needs_assignment" }
+
+    it "advances each tax return" do
+      intake.advance_tax_return_statuses_to("intake_open")
+
+      expect(earlier_tax_return.reload.status).to eq "intake_open"
+      expect(later_tax_return.reload.status).to eq "intake_needs_assignment"
+    end
+  end
+
+  describe "#ready_for_open_status?" do
+    let(:intake) { create :intake }
+
+    context "with all identity docs" do
+      before do
+        create :document, client: intake.client, document_type: DocumentTypes::Identity.key
+        create :document, client: intake.client, document_type: DocumentTypes::Selfie.key
+        create :document, client: intake.client, document_type: DocumentTypes::SsnItin.key
+      end
+
+      context "with an intake that would need employment docs" do
+        let(:intake) { create :intake, had_wages: "yes" }
+
+        context "with just identity docs" do
+          it "returns false" do
+            expect(intake.ready_for_open_status?).to eq false
+          end
+        end
+
+        context "with at least one employment document" do
+          before do
+            create :document, client: intake.client, document_type: DocumentTypes::Employment.key
+          end
+
+          it "returns true" do
+            expect(intake.ready_for_open_status?).to eq true
+          end
+        end
+      end
+
+      context "with an intake that does not need employment docs" do
+        let(:intake) { create :intake, had_wages: "no" }
+
+        it "returns true" do
+          expect(intake.ready_for_open_status?).to eq true
+        end
+      end
+    end
+
+    context "without only some identity docs" do
+      before do
+        create :document, client: intake.client, document_type: DocumentTypes::Identity
+        create :document, client: intake.client, document_type: DocumentTypes::Selfie
+      end
+
+      it "returns false" do
+        expect(intake.ready_for_open_status?).to eq false
+      end
+    end
+  end
+
   describe "#triaged_from_stimulus?" do
     let(:stimulus_triage) { create(:stimulus_triage) }
     let(:intake) { create(:intake) }

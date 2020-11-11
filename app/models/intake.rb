@@ -552,6 +552,29 @@ class Intake < ApplicationRecord
     ticket_statuses.reorder(created_at: :desc).first
   end
 
+  ##
+  # advances all tax returns to a new status, only if the new status is more advanced.
+  # Earlier or equal statuses will be ignored.
+  #
+  # @param [String] new_status: the name of the status to advance to
+  #
+  def advance_tax_return_statuses_to(new_status)
+    client.tax_returns.each do |tax_return|
+      tax_return.advance_to(new_status)
+    end
+  end
+
+  def ready_for_open_status?
+    id_doc_types = [ DocumentTypes::Identity, DocumentTypes::Selfie, DocumentTypes::SsnItin ]
+    has_all_id_docs = id_doc_types.all? { |doc_type| client.documents.where(document_type: doc_type.key).exists? }
+
+    return false unless has_all_id_docs
+
+    return true unless DocumentTypes::Employment.relevant_to?(self) # do they need employment docs?
+
+    client.documents.where(document_type: DocumentTypes::Employment.key).exists?
+  end
+
   def name_for_filename
     # Delete '.' because otherwise Rails will interpret what comes after the dot
     # as the requested MIME type, aka requested format. Deleting other characters
