@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   # All routes in this scope will be prefixed with /locale if an available locale is set. See default_url_options in
   # application_controller.rb and http://guides.rubyonrails.org/i18n.html for more info on this approach.
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
-    get '/:locale' => 'public_pages#home'
     root "public_pages#home"
 
     resources :vita_providers, only: [:index, :show]

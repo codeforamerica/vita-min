@@ -4,11 +4,16 @@ class ApplicationController < ActionController::Base
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   around_action :switch_locale
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?
+  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
     { locale: I18n.locale }.merge(super)
+  end
+
+  def canonical_url(locale=I18n.locale)
+    # Leave the locale out of canonical URLs in the default locale (works ok either way but needs to be consistent)
+    url_for(only_path: false, locale: locale == I18n.default_locale ? nil : locale)
   end
 
   def current_intake
