@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def user_params
     vita_partner_id = params.require(:user).require(:vita_partner_id)
     vita_partner = VitaPartner.find(vita_partner_id)
-    if Ability.new(current_user).can?(:manage, vita_partner)
+    if current_ability.can?(:manage, vita_partner)
       params.require(:user).permit(
         :vita_partner_id,
         *(:is_admin if current_user.is_admin?),

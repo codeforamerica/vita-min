@@ -15,7 +15,16 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   authorize_resource :user, only: [:new, :create]
+  # This line does not do what i would like it to do :(
+  # was hoping to get a @vita_partners that matched the current user's organization (to be used in vita_partner_helper)
+  # load_and_authorize_resource :vita_partner, through: :user
   before_action :require_valid_invitation_token, only: [:edit, :update]
+
+  # maybe this is the way instead?
+  # def new
+  #   @vita_partners = current_user.accessible_organizations
+  #   super
+  # end
 
   def create
     super do |invited_user|
@@ -30,7 +39,7 @@ class Users::InvitationsController < Devise::InvitationsController
   def invite_params
     vita_partner_id = params.require(:user).require(:vita_partner_id)
     vita_partner = VitaPartner.find(vita_partner_id)
-    if Ability.new(current_user).can?(:manage, vita_partner)
+    if current_ability.can?(:manage, vita_partner)
       params.require(:user).permit(:name, :email, :vita_partner_id)
     end
   end

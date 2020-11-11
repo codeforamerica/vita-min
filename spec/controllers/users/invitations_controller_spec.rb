@@ -10,6 +10,8 @@ RSpec.describe Users::InvitationsController do
 
   describe "#new" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
+
+  #  TODO: write test that checks what is shown in dropdown
   end
 
   describe "#create" do
