@@ -56,4 +56,22 @@ class TaxReturn < ApplicationRecord
 
     TaxReturn::STAGES.find { |stage| status.starts_with?(stage) }
   end
+
+  def less_than?(other_status)
+    TaxReturn.statuses[status] < TaxReturn.statuses[other_status]
+  end
+
+  def greater_than?(other_status)
+    TaxReturn.statuses[status] > TaxReturn.statuses[other_status]
+  end
+
+  ##
+  # advance the return to a new status, only if that status more advanced.
+  # An earlier or equal status will be ignored.
+  #
+  # @param [String] new_status: the name of the status to advance to
+  #
+  def advance_to(new_status)
+    update(status: new_status) if less_than?(new_status)
+  end
 end

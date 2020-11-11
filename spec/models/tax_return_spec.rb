@@ -56,7 +56,29 @@ describe TaxReturn do
         end
       end
     end
+  end
 
+  describe "#advance_to" do
+    let(:tax_return) { create :tax_return, status: "intake_open" }
 
+    context "with a status that comes before the current status" do
+      let(:status) { "intake_in_progress" }
+
+      it "does not change the status" do
+        expect do
+          tax_return.advance_to(status)
+        end.not_to change(tax_return, :status)
+      end
+    end
+
+    context "with a status that comes after the current status" do
+      let(:status) { "finalize_signed" }
+
+      it "changes to the new status" do
+        expect do
+          tax_return.advance_to(status)
+        end.to change(tax_return, :status).from("intake_open").to "finalize_signed"
+      end
+    end
   end
 end
