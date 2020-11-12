@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
-  let(:user) { create :user_with_org }
+  let(:user) { create :user_with_org, supported_organizations: [create(:vita_partner)] }
   let(:vita_partner) { user.vita_partner }
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
@@ -17,6 +17,7 @@ RSpec.describe Users::InvitationsController do
       sign_in user
       get :new
       expect(assigns(:vita_partners)).to include(vita_partner)
+      expect(assigns(:vita_partners)).to include(user.supported_organizations.first)
       expect(assigns(:vita_partners)).not_to include(inaccessible_vita_partner)
     end
   end
