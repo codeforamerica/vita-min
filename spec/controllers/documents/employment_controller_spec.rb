@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Documents::EmploymentController, type: :controller do
-  let(:intake) { create :intake, intake_ticket_id: 1234, client: create(:client) }
+  let(:intake) { create :intake, intake_ticket_id: 1234 }
   render_views
 
   before do
@@ -148,6 +148,22 @@ RSpec.describe Documents::EmploymentController, type: :controller do
               file_extension: ".png",
               file_content_type: "image/png"
           })
+      end
+
+      context "for a client with all identity docs" do
+        let!(:tax_return) { create :tax_return, client: intake.client, status: "intake_in_progress" }
+
+        before do
+          create :document, client: intake.client, document_type: DocumentTypes::Identity.key
+          create :document, client: intake.client, document_type: DocumentTypes::Selfie.key
+          create :document, client: intake.client, document_type: DocumentTypes::SsnItin.key
+        end
+
+        it "advances all return statuses to open" do
+          post :update, params: valid_params
+
+          expect(tax_return.reload.status).to eq "intake_open"
+        end
       end
     end
 
