@@ -8,6 +8,10 @@ module Documents
 
     private
 
+    def after_update_success
+      current_intake.advance_tax_return_statuses_to("intake_open") if current_intake.ready_for_open_status?
+    end
+
     def set_household_names
       @names = [current_intake.primary_full_name]
       if current_intake.filing_joint_yes?

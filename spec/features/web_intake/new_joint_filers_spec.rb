@@ -81,9 +81,9 @@ RSpec.feature "Web Intake Joint Filers" do
     select "March", from: "Month"
     select "5", from: "Day"
     select "1971", from: "Year"
-    click_on "I agree"
-
-    expect(intake.tax_returns.map(&:status)).to eq ["intake_in_progress"]
+    expect do
+      click_on "I agree"
+    end.to change { intake.reload.client.tax_returns.pluck(:status) }.from(["intake_before_consent"]).to(["intake_in_progress"])
 
     # right about here, our intake gets an intake_ticket_id in a background job
     allow_any_instance_of(Intake).to receive(:intake_ticket_id).and_return(ticket_id)
@@ -314,7 +314,10 @@ RSpec.feature "Web Intake Joint Filers" do
 
     expect(page).to have_selector("h1", text: "Share your employment documents")
     attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-    click_on "Upload"
+
+    expect do
+      click_on "Upload"
+    end.to change { intake.client.tax_returns.pluck(:status) }.from(["intake_in_progress"]).to(["intake_open"])
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
