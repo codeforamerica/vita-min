@@ -67,30 +67,5 @@ RSpec.describe Documents::SsnItinsController do
       end
     end
   end
-
-  describe "#update" do
-    let(:valid_params) do
-      {
-        document_type_upload_form: {
-          document: fixture_file_upload("attachments/test-pattern.png", "image/png")
-        }
-      }
-    end
-
-    context "for a client with all identity docs" do
-      let!(:tax_return) { create :tax_return, client: intake.client, status: "intake_in_progress" }
-
-      before do
-        create :document, client: intake.client, document_type: DocumentTypes::Identity.key
-        create :document, client: intake.client, document_type: DocumentTypes::Selfie.key
-      end
-
-      it "advances all return statuses to open" do
-        post :update, params: valid_params
-
-        expect(tax_return.reload.status).to eq "intake_open"
-      end
-    end
-  end
 end
 

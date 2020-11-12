@@ -149,22 +149,6 @@ RSpec.describe Documents::EmploymentController, type: :controller do
               file_content_type: "image/png"
           })
       end
-
-      context "for a client with all identity docs" do
-        let!(:tax_return) { create :tax_return, client: intake.client, status: "intake_in_progress" }
-
-        before do
-          create :document, client: intake.client, document_type: DocumentTypes::Identity.key
-          create :document, client: intake.client, document_type: DocumentTypes::Selfie.key
-          create :document, client: intake.client, document_type: DocumentTypes::SsnItin.key
-        end
-
-        it "advances all return statuses to open" do
-          post :update, params: valid_params
-
-          expect(tax_return.reload.status).to eq "intake_open"
-        end
-      end
     end
 
     context "with a nil document" do

@@ -564,17 +564,6 @@ class Intake < ApplicationRecord
     end
   end
 
-  def ready_for_open_status?
-    id_doc_types = [ DocumentTypes::Identity, DocumentTypes::Selfie, DocumentTypes::SsnItin ]
-    has_all_id_docs = id_doc_types.all? { |doc_type| client.documents.where(document_type: doc_type.key).exists? }
-
-    return false unless has_all_id_docs
-
-    return true unless DocumentTypes::Employment.relevant_to?(self) # do they need employment docs?
-
-    client.documents.where(document_type: DocumentTypes::Employment.key).exists?
-  end
-
   def name_for_filename
     # Delete '.' because otherwise Rails will interpret what comes after the dot
     # as the requested MIME type, aka requested format. Deleting other characters
