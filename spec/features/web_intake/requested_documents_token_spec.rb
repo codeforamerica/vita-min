@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Client uploads a requested document" do
   let!(:intake) { create :intake, requested_docs_token: "1234ABCDEF" }
-  scenario "client goes to the follow up documents token link", :js do
+  xscenario "client goes to the follow up documents token link", :js do
     visit "/documents/add/1234ABCDEF"
 
     expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
@@ -18,8 +18,7 @@ RSpec.feature "Client uploads a requested document" do
     click_on "Continue"
 
     expect(current_path).to eq(root_path)
-    # Skipping flaky flash message test https://www.pivotaltracker.com/story/show/175705014
-    # expect(page).to have_text "Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more."
+    expect(page).to have_text "Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more."
 
     # Re-visit token page and see that previously uploaded docs cannot be seen if not logged in
     visit "/documents/add/1234ABCDEF"
@@ -35,8 +34,7 @@ RSpec.feature "Client uploads a requested document" do
 
     click_on "Continue"
 
-    # Skipping flaky flash message test https://www.pivotaltracker.com/story/show/175705014
-    # expect(page).to have_text "Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more."
+    expect(page).to have_text "Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more."
   end
 
   scenario "client goes to the follow up documents link and does not finish the requested docs flow" do
