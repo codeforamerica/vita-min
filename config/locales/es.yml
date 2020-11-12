@@ -939,7 +939,8 @@ es:
               a_html: Si usted no tiene una cuenta bancaria, su cheque EIP podría tardar hasta cinco meses en llegar por correo. Para recibir su pago rápidamente a través de un depósito directo, abra una cuenta bancaria en línea y agregue la información de su cuenta en el sitio web del IRS%{irs_get_my_payment_link}. Si no quiere abrir una cuenta bancaria, puede vincular una tarjeta de débito prepagada. Muchos de nuestros socios de VITA pueden asignarle también una tarjeta de débito prepagada si presenta su declaración a través de GetYourRefund.
               q: "¿Qué debo hacer si no tengo una cuenta bancaria?"
             no_income:
-              a_html: Puede completar nuestro breve formulario y obtener ayuda de nuestros voluntarios certificados por el IRS %{eip_link}.
+              a_html: Debe ingresar su información de pago en el sitio web %{irs_enter_payment_info_link} del IRS para recibir su pago.
+              enter_payment_info_website_title: '"Non-Filers: (sin declaración de impuestos) Ingrese la información de pago aquí"'
               q: "¿Qué ocurre si no tengo ingresos?"
             non_filer:
               a: Si no tiene la obligación de presentar una declaración de impuestos pero tiene ingresos del trabajo, le recomendamos que lo haga a través de GetYourRefund, ya que podría ser elegible para otros créditos tributarios. Si tiene que declarar impuestos pero no lo hizo en 2018 o en 2019, todavía está a tiempo de hacerlo con GetYourRefund.

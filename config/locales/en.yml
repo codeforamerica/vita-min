@@ -939,7 +939,8 @@ en:
               a_html: If you don’t have a bank account, it could take up to five months to receive your EIP check by mail. To get your payment quickly via direct deposit, sign up for a bank account online and add your account information on the IRS %{irs_get_my_payment_link} website. If you don’t want to sign up for a bank account, you can link a prepaid debit card. Many of our VITA partners can also enroll you in a prepaid debit card when you file your return through GetYourRefund.
               q: What if I don’t have a bank account?
             no_income:
-              a_html: You can complete our short form and get assistance from our IRS-certified volunteers %{eip_link}.
+              a_html: You need to enter your payment information on the IRS %{irs_enter_payment_info_link} website to receive your payment.
+              enter_payment_info_website_title: "“Non-Filers: Enter Payment Info Here”"
               q: What if I have no income?
             non_filer:
               a: If you aren’t required to file taxes but you have any earned income we recommend filing your taxes through GetYourRefund as you may be eligible for additional tax credits! If you’re required to file taxes, but didn’t file in 2018 or 2019, you can still file with GetYourRefund.
