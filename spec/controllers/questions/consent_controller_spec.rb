@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Questions::ConsentController do
   let(:eip_only) { false }
   let(:intake) { create :intake, eip_only: eip_only }
+  let!(:tax_return) { create :tax_return, client: intake.client }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
@@ -34,6 +35,12 @@ RSpec.describe Questions::ConsentController do
 
         intake.reload
         expect(intake.primary_consented_to_service_ip).to eq ip_address
+      end
+
+      it "updates all tax return statuses to 'In Progress'" do
+        post :update, params: params
+
+        expect(tax_return.reload.status).to eq "intake_in_progress"
       end
 
       context "for full intake ticket job", active_job: true do
