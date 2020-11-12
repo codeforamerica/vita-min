@@ -26,6 +26,10 @@ RSpec.feature "Web Intake Joint Filers" do
     check "2019"
     click_on "Continue"
 
+    # Creates intake
+    intake = Intake.last
+    expect(intake.client.tax_returns.map(&:year)).to eq [2019]
+
     #Non-production environment warning
     expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
     click_on "Continue to example"
@@ -78,6 +82,8 @@ RSpec.feature "Web Intake Joint Filers" do
     select "5", from: "Day"
     select "1971", from: "Year"
     click_on "I agree"
+
+    expect(intake.tax_returns.map(&:status)).to eq ["intake_in_progress"]
 
     # right about here, our intake gets an intake_ticket_id in a background job
     allow_any_instance_of(Intake).to receive(:intake_ticket_id).and_return(ticket_id)

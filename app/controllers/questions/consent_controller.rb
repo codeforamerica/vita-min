@@ -9,6 +9,7 @@ module Questions
     end
 
     def after_update_success
+      current_intake.advance_tax_return_statuses_to("intake_in_progress")
       if current_intake.eip_only
         CreateZendeskEipIntakeTicketJob.perform_later(current_intake.id)
       else
