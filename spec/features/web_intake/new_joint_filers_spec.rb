@@ -314,10 +314,7 @@ RSpec.feature "Web Intake Joint Filers" do
 
     expect(page).to have_selector("h1", text: "Share your employment documents")
     attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-
-    expect do
-      click_on "Upload"
-    end.to change { intake.client.tax_returns.pluck(:status) }.from(["intake_in_progress"]).to(["intake_open"])
+    click_on "Upload"
 
     expect(page).to have_content("test-pattern.png")
     expect(page).to have_link("Remove")
@@ -330,7 +327,9 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach your 1099-R's")
-    click_on "Continue"
+    expect do
+      click_on "Continue"
+    end.to change { intake.client.tax_returns.pluck(:status) }.from(["intake_in_progress"]).to(["intake_open"])
 
     expect(page).to have_selector("h1", text: "Please share any additional documents.")
     attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
