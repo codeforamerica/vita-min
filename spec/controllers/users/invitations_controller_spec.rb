@@ -2,14 +2,24 @@ require "rails_helper"
 
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
-  let(:user) { create :user_with_org }
-  let(:vita_partner) { create :vita_partner }
+  let(:user) { create :user_with_org, supported_organizations: [create(:vita_partner)] }
+  let(:vita_partner) { user.vita_partner }
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
   describe "#new" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
+
+    let!(:inaccessible_vita_partner) { create(:vita_partner) }
+
+    it "sets @vita_partners so the template can render a list of partners the user has access to" do
+      sign_in user
+      get :new
+      expect(assigns(:vita_partners)).to include(vita_partner)
+      expect(assigns(:vita_partners)).to include(user.supported_organizations.first)
+      expect(assigns(:vita_partners)).not_to include(inaccessible_vita_partner)
+    end
   end
 
   describe "#create" do
@@ -50,6 +60,15 @@ RSpec.describe Users::InvitationsController do
           post :create, params: params
           invited_user.reload
           expect(invited_user.role).to eq "admin"
+        end
+      end
+
+      context "if the invited user's organization is inaccessible by the current user" do
+        it "raises an exception and does not create a new user" do
+          expect do
+            post :create, params: { user: { name: "Cher Cherimoya", email: "cherry@example.com", vita_partner_id: create(:vita_partner).id } }
+          end.to raise_error(ActiveRecord::RecordNotFound)
+          expect(User.where(email: "cherry@example.com").count).to eq(0)
         end
       end
     end
