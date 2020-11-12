@@ -486,6 +486,16 @@ ActiveRecord::Schema.define(version: 2020_11_10_211437) do
     t.string "visitor_id"
   end
 
+  create_table "system_notes", force: :cascade do |t|
+    t.text "body"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["client_id"], name: "index_system_notes_on_client_id"
+    t.index ["user_id"], name: "index_system_notes_on_user_id"
+  end
+
   create_table "tax_returns", force: :cascade do |t|
     t.bigint "assigned_user_id"
     t.bigint "client_id", null: false
@@ -611,6 +621,8 @@ ActiveRecord::Schema.define(version: 2020_11_10_211437) do
   add_foreign_key "outgoing_text_messages", "users"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "states_vita_partners", "vita_partners"
+  add_foreign_key "system_notes", "clients"
+  add_foreign_key "system_notes", "users"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "ticket_statuses", "intakes"

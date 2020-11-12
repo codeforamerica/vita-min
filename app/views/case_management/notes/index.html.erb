@@ -8,7 +8,7 @@
 
   <% if @notes.present? %>
     <ul class="message-list">
-      <% @notes_by_day.each do |datetime, records| %>
+      <% @all_notes_by_day.each do |datetime, records| %>
         <li class="message__day-heading"><%= date_heading(datetime) %></li>
         <% records.each do |note| %>
           <%= render "note", note: note %>

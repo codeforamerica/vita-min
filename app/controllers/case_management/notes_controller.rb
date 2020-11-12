@@ -4,11 +4,12 @@ module CaseManagement
     before_action :require_sign_in
     load_and_authorize_resource :client
     load_and_authorize_resource through: :client
+    load_and_authorize_resource :system_note, parent: false, through: :client
     layout "admin"
 
     def index
-      @notes = @notes.order(:created_at).includes(:user)
-      @notes_by_day = @notes.group_by { |note| note.created_at.beginning_of_day }
+      @all_notes = (@notes.includes(:user) + SystemNote.where(client: @client)).sort_by(&:created_at)
+      @all_notes_by_day = @all_notes.group_by { |note| note.created_at.beginning_of_day }
       @note = Note.new
     end
 

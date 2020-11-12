@@ -169,7 +169,7 @@ RSpec.describe CaseManagement::ClientsController do
           expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq case_management_client_path(id: george_sr)
           expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
-          expect(html.at_css("#client-#{tobias.id}")).to have_text("Intake / In progress")
+          expect(html.at_css("#client-#{tobias.id}")).to have_text("Intake/In progress")
         end
 
         it "shows all returns for a client and users assigned to those returns" do
