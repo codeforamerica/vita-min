@@ -18,7 +18,8 @@ RSpec.feature "Client uploads a requested document" do
     click_on "Continue"
 
     expect(current_path).to eq(root_path)
-    expect(page).to have_text "Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more."
+    # Skipping flaky flash message test https://www.pivotaltracker.com/story/show/175705014
+    # expect(page).to have_text "Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more."
 
     # Re-visit token page and see that previously uploaded docs cannot be seen if not logged in
     visit "/documents/add/1234ABCDEF"
@@ -34,7 +35,8 @@ RSpec.feature "Client uploads a requested document" do
 
     click_on "Continue"
 
-    expect(page).to have_text "Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more."
+    # Skipping flaky flash message test https://www.pivotaltracker.com/story/show/175705014
+    # expect(page).to have_text "Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more."
   end
 
   scenario "client goes to the follow up documents link and does not finish the requested docs flow" do
