@@ -62,6 +62,15 @@ RSpec.describe Users::InvitationsController do
           expect(invited_user.role).to eq "admin"
         end
       end
+
+      context "if the invited user's organization is inaccessible by the current user" do
+        it "raises an exception and does not create a new user" do
+          expect do
+            post :create, params: { user: { name: "Cher Cherimoya", email: "cherry@example.com", vita_partner_id: create(:vita_partner).id } }
+          end.to raise_error(ActiveRecord::RecordNotFound)
+          expect(User.where(email: "cherry@example.com").count).to eq(0)
+        end
+      end
     end
   end
 

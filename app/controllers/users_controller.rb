@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    authorize!(:manage, @vita_partners.find(user_params[:vita_partner_id]))
     return render :edit unless @user.update(user_params)
 
     redirect_to edit_user_path(id: @user), notice: I18n.t("general.changes_saved")
