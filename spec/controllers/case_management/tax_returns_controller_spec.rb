@@ -110,6 +110,11 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
     context "as an authenticated user" do
       before { sign_in user }
 
+      it "creates a system note" do
+        expect(SystemNote).to receive(:create_status_change_note).with(user, tax_return)
+        post :update_status, params: params
+      end
+
       it "redirects to the messages tab" do
         post :update_status, params: params
         expect(response).to redirect_to case_management_client_messages_path(client_id: tax_return.client.id)
@@ -118,7 +123,8 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
       it "updates the status on the indicated tax return" do
         post :update_status, params: params
         tax_return.reload
-        expect(tax_return.status).to eq "review_complete_signature_requested"
+
+        expect(tax_return.status).to eq("review_complete_signature_requested")
       end
     end
   end

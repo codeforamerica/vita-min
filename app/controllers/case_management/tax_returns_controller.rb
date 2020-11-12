@@ -27,6 +27,7 @@ module CaseManagement
 
     def update_status
       if @tax_return.update(status_params)
+        SystemNote.create_status_change_note(current_user, @tax_return)
         redirect_to case_management_client_messages_path(client_id: @client.id)
       end
     end

@@ -18,6 +18,7 @@ describe Ability do
       expect(subject.can?(:manage, User.new(vita_partner: vita_partner))).to eq false
       expect(subject.can?(:manage, Note.new(client: client))).to eq false
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
+      expect(subject.can?(:manage, SystemNote.new)).to eq false
     end
   end
 
@@ -35,6 +36,7 @@ describe Ability do
       expect(subject.can?(:manage, User.new(vita_partner: nil))).to eq false
       expect(subject.can?(:manage, Note.new(client: client))).to eq false
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
+      expect(subject.can?(:manage, SystemNote.new)).to eq false
     end
   end
 
@@ -55,8 +57,8 @@ describe Ability do
       expect(subject.can?(:manage, Note.new(client: client))).to eq true
       expect(subject.can?(:manage, child_org)).to eq true
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
+      expect(subject.can?(:manage, SystemNote.new(client: client))).to eq true
     end
-
   end
 
   context "a user who is a member of an organization without child organizations" do
@@ -75,6 +77,7 @@ describe Ability do
       expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, User.new(vita_partner: user.vita_partner))).to eq true
       expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, user.vita_partner)).to eq true
     end
 
@@ -87,6 +90,7 @@ describe Ability do
       expect(subject.can?(:manage, Document.new(client: nil_vita_partner_client))).to eq false
       expect(subject.can?(:manage, User.new(vita_partner: nil))).to eq false
       expect(subject.can?(:manage, Note.new(client: nil_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, SystemNote.new(client: nil_vita_partner_client))).to eq false
     end
 
     it "cannot manage data from another organization" do
@@ -98,6 +102,7 @@ describe Ability do
       expect(subject.can?(:manage, Document.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, User.new(vita_partner: other_vita_partner_client.vita_partner))).to eq false
       expect(subject.can?(:manage, Note.new(client: other_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, SystemNote.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, other_vita_partner_client.vita_partner)).to eq false
     end
   end
@@ -117,6 +122,7 @@ describe Ability do
       expect(subject.can?(:manage, Document.new(client: coalition_member_client))).to eq true
       expect(subject.can?(:manage, User.new(vita_partner: coalition_member_client.vita_partner))).to eq true
       expect(subject.can?(:manage, Note.new(client: coalition_member_client))).to eq true
+      expect(subject.can?(:manage, SystemNote.new(client: coalition_member_client))).to eq true
     end
   end
 
@@ -134,6 +140,7 @@ describe Ability do
       expect(subject.can?(:manage, User.new)).to eq true
       expect(subject.can?(:manage, Note.new(client: client))).to eq true
       expect(subject.can?(:manage, VitaPartner.new)).to eq true
+      expect(subject.can?(:manage, SystemNote.new)).to eq true
     end
   end
 end
