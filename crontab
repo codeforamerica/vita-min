@@ -1,2 +1,1 @@
-*/30 * * * * bundle exec rake documents:notify_unsent
 0 0 * * 0 bundle exec rake vita_providers:scrape_vita_providers
