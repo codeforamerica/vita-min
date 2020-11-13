@@ -49,7 +49,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
     context "with existing document uploads" do
       it "assigns the documents to the form" do
         doc = create :document, :with_upload, document_type: "Other", intake: intake
-        w2_doc = create :document, :with_upload, document_type: "W-2", intake: intake
+        w2_doc = create :document, :with_upload, document_type: "Employment", intake: intake
 
         get :edit
 

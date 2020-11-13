@@ -25,7 +25,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
         let!(:second_document) {
           create :document,
                  display_name: "another_file.pdf",
-                 document_type: "W-2",
+                 document_type: "Employment",
                  created_at: 3.hours.ago,
                  client: client
         }
@@ -48,7 +48,7 @@ RSpec.describe CaseManagement::DocumentsController, type: :controller do
           document_link = first_doc_element.at_css("a:contains(\"some_file.jpg\")")
           expect(document_link["href"]).to eq case_management_client_document_path(client_id: client.id, id: first_document.id)
           second_doc_element = html.at_css("#document-#{second_document.id}")
-          expect(second_doc_element).to have_text("W-2")
+          expect(second_doc_element).to have_text("Employment")
           expect(second_doc_element).to have_text("another_file.pdf")
           expect(second_doc_element).to have_text("3 hours ago")
           third_doc_element = html.at_css("#document-#{third_document.id}")

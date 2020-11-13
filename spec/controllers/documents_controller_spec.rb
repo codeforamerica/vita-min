@@ -26,7 +26,7 @@ RSpec.describe DocumentsController, type: :controller do
           delete :destroy, params: params
         end.to change(Document, :count).by(-1)
 
-        expect(response).to redirect_to w2s_documents_path
+        expect(response).to redirect_to employment_documents_path
       end
 
       context "with a document id that does not exist" do

@@ -495,12 +495,6 @@ en:
       form1099ints:
         help_text_html: You said that you received income from interest or dividends. If you specifically received income from interest, <strong>you might have this form</strong>. Investment companies are required to file 1099-INT by January 31 each year.
         title: Attach your 1099-INT's
-      form1099ks:
-        help_text_html: "<strong>You might have this form</strong> because you said that you got paid from contract or self-employed work. You receive a 1099-K if you have a high dollar amount or quantity of business transactions during the year. Typically, large-volume online sellers file taxes with a 1099-K."
-        title: Attach your 1099-K's
-      form1099miscs:
-        help_text_html: "<strong>You might have this form</strong> because you said that you got paid from a job, a contract, or self-employed work. You may also have received this for other reasons, including income from rent, royalties, or other income."
-        title: Attach your 1099-MISC's
       form1099rs:
         help_text_html: "<strong>You should have this form</strong> because you said that you received income from a retirement account, pension, or annuity proceeds. This form is used to report distributions from annuities, profit-sharing plans, retirement plans, IRAs, insurance contracts, or pensions. Your retirement plan issuer would have sent this to you."
         title: Attach your 1099-R's
@@ -600,9 +594,6 @@ en:
       w2gs:
         help_text_html: "<strong>You might have this form</strong> because you said that you had income from gambling winnings or the lottery. Depending on how much you won, a gambling facility may send you a form W2-G that records your winnings and any income tax withholdings from the previous year."
         title: Attach your W-2G's
-      w2s:
-        help_text_html: "<strong>You should have this form</strong> because you said that you worked a job with wages or a salary. Your employer should have sent you this form and you can contact them if you haven't recieved it. More information is available %{transcript_link}."
-        title: Attach your W-2's
     intake_site_drop_offs:
       new:
         additional_info: Additional information

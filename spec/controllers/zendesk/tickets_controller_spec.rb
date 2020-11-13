@@ -23,7 +23,7 @@ RSpec.describe Zendesk::TicketsController do
       context "with intakes" do
         let!(:intake) { create :intake, intake_ticket_id: ticket_id, zendesk_instance_domain: "eitc" }
         let!(:id_document) { create :document, :with_upload, intake: intake, document_type: "ID" }
-        let!(:w2_document) { create :document, :with_upload, intake: intake, document_type: "W-2" }
+        let!(:employment_document) { create :document, :with_upload, intake: intake, document_type: "Employment" }
 
         context "with one intake" do
           it "shows all documents for the intake based on ticket id" do
@@ -32,38 +32,38 @@ RSpec.describe Zendesk::TicketsController do
             expect(assigns(:ticket)).to eq ticket
             expect(assigns(:intakes)).to contain_exactly(intake)
             expect(assigns(:document_groups).values.map(&:first).map(&:original_object))
-              .to contain_exactly(id_document, w2_document)
+              .to contain_exactly(id_document, employment_document)
             expect(response.body).to include(pdf_zendesk_intake_path(id: intake.id, filename: intake.intake_pdf_filename))
             expect(response.body).to include(consent_pdf_zendesk_intake_path(
                                                id: intake.id, filename: intake.consent_pdf_filename))
             expect(response.body).to include(zendesk_document_path(id: id_document.id))
-            expect(response.body).to include(zendesk_document_path(id: w2_document.id))
+            expect(response.body).to include(zendesk_document_path(id: employment_document.id))
           end
         end
 
         context "with duplicate linked intakes" do
           let!(:duplicate_intake) { create :intake, intake_ticket_id: ticket_id, zendesk_instance_domain: "eitc" }
           let!(:duplicate_id_document) { create :document, :with_upload, intake: intake, document_type: "ID" }
-          let!(:duplicate_w2_document) { create :document, :with_upload, intake: intake, document_type: "W-2" }
+          let!(:duplicate_employment_document) { create :document, :with_upload, intake: intake, document_type: "Employment" }
 
           it "shows all documents for all intakes with that ticket id" do
             get :show, params: { id: ticket_id }
 
             expect(assigns(:ticket)).to eq ticket
             expect(assigns(:intakes)).to contain_exactly(intake, duplicate_intake)
-            contain_exactly(id_document, duplicate_id_document, w2_document, duplicate_w2_document)
+            contain_exactly(id_document, duplicate_id_document, employment_document, duplicate_employment_document)
 
             expect(response.body).to include(pdf_zendesk_intake_path(id: intake.id, filename: intake.intake_pdf_filename))
             expect(response.body).to include(consent_pdf_zendesk_intake_path(
                                                id: intake.id, filename: intake.consent_pdf_filename))
             expect(response.body).to include(zendesk_document_path(id: id_document.id))
-            expect(response.body).to include(zendesk_document_path(id: w2_document.id))
+            expect(response.body).to include(zendesk_document_path(id: employment_document.id))
 
             expect(response.body).to include(pdf_zendesk_intake_path(id: duplicate_intake.id, filename: duplicate_intake.intake_pdf_filename))
             expect(response.body).to include(consent_pdf_zendesk_intake_path(
                                                id: duplicate_intake.id, filename: duplicate_intake.consent_pdf_filename))
             expect(response.body).to include(zendesk_document_path(id: duplicate_id_document.id))
-            expect(response.body).to include(zendesk_document_path(id: duplicate_w2_document.id))
+            expect(response.body).to include(zendesk_document_path(id: duplicate_employment_document.id))
           end
 
           context "with a UnitedWayTucson intake that coincidentally has the same ticket id" do

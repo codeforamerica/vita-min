@@ -4,15 +4,15 @@ describe DocumentPresenter do
   describe ".grouped_documents" do
     let(:intake) { create(:intake) }
     let(:duplicate_intake) { create(:intake) }
-    let!(:w2_document_a) do
+    let!(:employment_document_a) do
       create :document, :with_upload,
-        document_type: "W-2",
+        document_type: "Employment",
         created_at: 2.day.ago,
         intake: intake
     end
-    let!(:w2_document_b) do
+    let!(:employment_document_b) do
       create :document, :with_upload,
-        document_type: "W-2",
+        document_type: "Employment",
         created_at: 1.day.ago,
         intake: duplicate_intake
     end
@@ -27,7 +27,7 @@ describe DocumentPresenter do
       document_groups = DocumentPresenter.grouped_documents([intake, duplicate_intake])
       expect(document_groups).to eq({
         "SSN or ITIN" => [ssn_document],
-        "W-2" => [w2_document_a, w2_document_b]
+        "Employment" => [employment_document_a, employment_document_b]
       })
     end
   end

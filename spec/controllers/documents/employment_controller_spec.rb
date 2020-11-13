@@ -84,17 +84,13 @@ RSpec.describe Documents::EmploymentController, type: :controller do
 
     context "with existing employment-related uploads" do
       it "assigns the documents to the form" do
-        # legacy document types: W-2, 1099-K, 1099-MISC: these might have been created earlier
-        w2_doc = create :document, :with_upload, document_type: "W-2", intake: intake
-        ten99k_doc = create :document, :with_upload, document_type: "1099-K", intake: intake
-        ten99_misc_doc = create :document, :with_upload, document_type: "1099-MISC", intake: intake
         # Doc type for the EmploymentController
         employment_doc = create :document, :with_upload, document_type: "Employment", intake: intake
         _other_doc = create :document, :with_upload, document_type: "Other", intake: intake
 
         get :edit
 
-        expect(assigns(:documents)).to eq [w2_doc, ten99k_doc, ten99_misc_doc, employment_doc]
+        expect(assigns(:documents)).to eq [employment_doc]
       end
     end
 
