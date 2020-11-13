@@ -16,9 +16,21 @@
    margin-left: 0;
   }
 
+  &__organization {
+    display: flex;
+    h2 {
+      margin-right: 5px;
+      margin-bottom: 0;
+    }
+  }
+
   .response-wrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
+  }
+
+  form.edit_client {
+    margin-top: 10px;
   }
 }
