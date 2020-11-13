@@ -1,8 +1,10 @@
-<li class="note message message--<%= note.user == current_user ? "outgoing" : "incoming"%>">
+<li class="note message message--<%= note.user == current_user ? "outgoing" : "incoming"%> <%= "note--system" if note.class.name == "SystemNote" %>">
   <div class="message__heading">
-    <span class="message__author">
-      <%= note.user.name %>
-    </span>
+    <% if note.class.name != "SystemNote" %>
+      <span class="message__author">
+        <%= note.user.name %>
+      </span>
+    <% end %>
     <span class="message__time">
       <%= formatted_time(note.created_at) %>
     </span>

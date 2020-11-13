@@ -21,6 +21,7 @@
 
   &__subject {
     color: $color-grey-dark;
+
     &::before {
       content: "✉️ ";
     }
@@ -31,6 +32,7 @@
     color: $color-grey-dark;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+
     &:first-of-type {
       padding-top: inherit;
     }
@@ -77,5 +79,17 @@
       padding-left: 1rem;
       padding-right: 2rem;
     }
+  }
+}
+
+.note--system {
+  .message__heading {
+    justify-content: flex-end;
+    padding-left: 3rem;
+  }
+
+  .message__body {
+    background-color: darken($color-grey-light, 2%);
+    padding: 0.2em 0.5em;
   }
 }

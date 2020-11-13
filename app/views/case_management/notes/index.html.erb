@@ -11,7 +11,11 @@
       <% @all_notes_by_day.each do |datetime, records| %>
         <li class="message__day-heading"><%= date_heading(datetime) %></li>
         <% records.each do |note| %>
-          <%= render "note", note: note %>
+          <% if note.class.name == "SystemNote" %>
+            <%= render "system_note", note: note %>
+          <% else %>
+            <%= render "note", note: note %>
+          <% end %>
         <% end %>
       <% end %>
     </ul>
