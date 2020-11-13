@@ -13,11 +13,10 @@ describe VitaPartnerHelper do
       @vita_partners = VitaPartner.all
       expected =
         [
-          ["First Parent Org", [["First Parent Org", parent_org1.id], ["The First Child Org", sub_org1.id], ["The Second Child Org",  sub_org2.id]]],
+          ["First Parent Org", [["First Parent Org", parent_org1.id], ["The First Child Org", sub_org1.id], ["The Second Child Org", sub_org2.id]]],
+          ["No Child Org", [["No Child Org", parent_org3.id]]],
           ["Second Parent Org", [["Second Parent Org", parent_org2.id], ["The Third Child Org", sub_org3.id]]],
-          ["No Child Org", [["No Child Org", parent_org3.id]]]
         ]
-
       expect(helper.grouped_organization_options).to eq(expected)
     end
 
