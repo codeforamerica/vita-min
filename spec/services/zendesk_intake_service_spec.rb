@@ -437,8 +437,8 @@ describe ZendeskIntakeService do
     let(:output) { true }
     let!(:documents) do
       [
-        create(:document, :with_upload, intake: intake, document_type: "W-2"),
-        create(:document, :with_upload, intake: intake, document_type: "1099-MISC"),
+        create(:document, :with_upload, intake: intake, document_type: "Employment"),
+        create(:document, :with_upload, intake: intake, document_type: "1099-A"),
       ]
     end
 

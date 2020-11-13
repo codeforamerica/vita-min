@@ -496,12 +496,6 @@ es:
       form1099ints:
         help_text_html: Nos ha confirmado que recibiste ingresos de intereses o dividendos. Si recibió ingresos específicos de intereses, <strong>es posible que tenga este formulario</strong> . Las compañías de inversión deben presentar 1099-INT antes del 31 de enero de cada año.
         title: Adjunte sus formularios 1099-INT
-      form1099ks:
-        help_text_html: "<strong>Es posible que tenga este formulario</strong> porque nos ha confirmado que le pagaron por contrato o trabajo por cuenta propia. Recibe un 1099-K si tiene una cantidad alta en dólares o una cantidad de transacciones comerciales durante el año. En general, los mayoristas en línea presentan impuestos con un 1099-K."
-        title: Adjunte sus formularios 1099-K
-      form1099miscs:
-        help_text_html: "<strong>Debe tener este formulario</strong> porque nos ha confirmado que recibió un pago por un trabajo. Es posible que lo hayas recibido por otras razones, incluyendo ingresos por alquiler, regalías u otros ingresos."
-        title: Adjunte sus formularios 1099-MISC
       form1099rs:
         help_text_html: "<strong>Debería tener este formulario</strong> porque nos ha confirmado que recibió ingresos de una cuenta de jubilación, pensión o ingresos de anualidad. Este formulario es utilizado para informar distribuciones de anualidades, planes de participación en las ganancias, planes de jubilación, planes de pensiones - IRA, contratos de seguro o pensiones. El repartidor de su plan de jubilación debería de haberle enviado el formulario."
         title: Adjunte sus 1099-R
@@ -601,9 +595,6 @@ es:
       w2gs:
         help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que tenía ingresos de ganancias de apuestas o la lotería. Dependiendo de cuánto ganó, una institución de juegos de azar puede enviarle un formulario W2-G que registra sus ganancias y cualquier retención de impuestos del año anterior."
         title: Adjunte sus W-2G
-      w2s:
-        help_text_html: "<strong>Usted debería tener este formulario</strong> porque dijo que trabajaba con un sueldo o salario. Su empleador le debió haber enviado este formulario y puede comunicarse con ellos si no lo ha recibido. Para mayor información %{transcript_link}."
-        title: Adjunte sus W-2
     intake_site_drop_offs:
       new:
         additional_info: Información adicional

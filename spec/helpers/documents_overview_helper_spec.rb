@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe DocumentsOverviewHelper do
   context "for a known document type" do
-    let(:document_type) { "W-2" }
+    let(:document_type) { DocumentTypes::Employment.key }
 
     it "returns the correct path" do
       result = helper.edit_document_path(document_type)
-      expect(result).to eq(w2s_documents_path)
+      expect(result).to eq(employment_documents_path)
     end
   end
 

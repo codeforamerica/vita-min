@@ -40,7 +40,7 @@ describe UnsentDocumentsService do
         comment = <<~BODY
           New client documents are available to view: #{zendesk_ticket_url(id: intake_docs_not_sent.intake_ticket_id)}
           Files uploaded:
-          * picture_id.jpg (W-2)
+          * picture_id.jpg (Employment)
           * picture_id.jpg (Requested)
         BODY
 
@@ -52,7 +52,7 @@ describe UnsentDocumentsService do
         comment_not_sent = <<~BODY
           New client documents are available to view: #{zendesk_ticket_url(id: intake_docs_sent.intake_ticket_id)}
           Files uploaded:
-          * picture_id.jpg (W-2)
+          * picture_id.jpg (Employment)
         BODY
 
         expect(fake_zendesk_service).not_to have_received(:append_comment_to_ticket).with(
@@ -75,7 +75,7 @@ describe UnsentDocumentsService do
         comment_not_sent = <<~BODY
           New client documents are available to view: #{zendesk_ticket_url(id: intake_new_doc.intake_ticket_id)}
           Files uploaded:
-          * picture_id.jpg (W-2)
+          * picture_id.jpg (Employment)
         BODY
 
         expect(fake_zendesk_service).not_to have_received(:append_comment_to_ticket).with(
