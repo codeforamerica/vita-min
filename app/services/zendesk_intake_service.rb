@@ -225,8 +225,6 @@ class ZendeskIntakeService
       comment: <<~DOCS
         Documents:
         #{@intake.documents.map {|d| "* #{d.upload.filename} (#{d.document_type})\n"}.join}
-        View all client documents here:
-        #{ticket_url}
       DOCS
     )
 

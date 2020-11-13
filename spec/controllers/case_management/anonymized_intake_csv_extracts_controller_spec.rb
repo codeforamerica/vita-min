@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CaseManagement::AnonymizedIntakeCsvExtractsController do
+  let(:is_admin){ true }
   let(:user) { create :user, provider: "zendesk", is_admin: is_admin }
   before { allow(subject).to receive(:current_user).and_return(user) }
 

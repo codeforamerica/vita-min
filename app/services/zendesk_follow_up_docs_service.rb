@@ -23,7 +23,6 @@ class ZendeskFollowUpDocsService
                            .where(zendesk_ticket_id: nil)
     output = append_comment_to_ticket(
       ticket_id: @intake.intake_ticket_id,
-      fields: { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => ticket_url },
       comment: <<~DOCS
         The client added requested follow-up documents:
         #{new_requested_docs.map {|d| "* #{d.upload.filename}\n"}.join }

@@ -45,6 +45,7 @@ describe ZendeskFollowUpDocsService do
           * #{requested_docs[0].upload.filename}
           * #{requested_docs[1].upload.filename}
           * #{requested_docs[2].upload.filename}
+
         DOCS
       )
     end

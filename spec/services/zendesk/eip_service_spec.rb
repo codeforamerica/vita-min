@@ -232,7 +232,6 @@ describe Zendesk::EipService do
           comment: expected_comment,
           fields: {
             EitcZendeskInstance::EIP_STATUS => EitcZendeskInstance::EIP_STATUS_ID_UPLOAD,
-            EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => "http://test.host/en/zendesk/tickets/2",
           }
         )
         expect(DatadogApi).to have_received(:increment).with(
