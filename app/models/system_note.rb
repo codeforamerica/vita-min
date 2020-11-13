@@ -28,13 +28,13 @@ class SystemNote < ApplicationRecord
   def self.create_status_change_note(user, tax_return)
     old_status, new_status = tax_return.saved_change_to_status
 
-    old_status_with_stage = TaxReturnStatusHelper::stage_and_status_translation(old_status)
-    new_status_with_stage = TaxReturnStatusHelper::stage_and_status_translation(new_status)
+    old_status_with_stage = TaxReturnStatusHelper.stage_and_status_translation(old_status)
+    new_status_with_stage = TaxReturnStatusHelper.stage_and_status_translation(new_status)
 
     SystemNote.create(
-        body: "#{user.name} updated #{tax_return.year} tax return status from #{old_status_with_stage} to #{new_status_with_stage}",
-        client: tax_return.client,
-        user: user
+      body: "#{user.name} updated #{tax_return.year} tax return status from #{old_status_with_stage} to #{new_status_with_stage}",
+      client: tax_return.client,
+      user: user
     )
   end
 end

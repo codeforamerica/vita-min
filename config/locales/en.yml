@@ -224,6 +224,7 @@ en:
       need_one_communication_method: Please choose some way for us to contact you.
       need_phone_number: Please enter a cell phone number.
   general:
+    at_time: at %{time}
     NA: N/A
     address: Address
     admin: Admin
