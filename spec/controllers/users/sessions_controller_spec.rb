@@ -28,4 +28,34 @@ RSpec.describe Users::SessionsController do
       end
     end
   end
+
+  describe "#create" do
+    let!(:user) { create :user, email: "user@example.com", password: "p455w0rd" }
+    let(:params) do
+      {
+        user: {
+          email: "user@example.com",
+          password: "p455w0rd"
+        }
+      }
+    end
+
+    it "signs in the user and redirects to hub root path by default" do
+      expect do
+        post :create, params: params
+      end.to change(subject, :current_user).from(nil).to(user)
+
+      expect(response).to redirect_to case_management_root_path
+    end
+
+    context "with 'after_login_path' set in the session" do
+      before { session[:after_login_path] = case_management_clients_path }
+
+      it "redirects to 'after_login_path'" do
+        post :create, params: params
+
+        expect(response).to redirect_to case_management_clients_path
+      end
+    end
+  end
 end

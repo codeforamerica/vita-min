@@ -11,4 +11,9 @@ class Users::SessionsController < Devise::SessionsController
       end
     end
   end
+
+  def create
+    @after_login_path = session.delete("after_login_path")
+    super
+  end
 end

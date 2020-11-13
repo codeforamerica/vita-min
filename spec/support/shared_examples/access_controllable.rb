@@ -23,7 +23,7 @@ shared_examples :a_get_action_for_authenticated_users_only do |action:|
     it "saves the current path to the session and redirects to the zendesk login path" do
       get action, params: params
 
-      expect(response).to redirect_to zendesk_sign_in_path
+      expect(response).to redirect_to new_user_session_path
       expect(session[:after_login_path]).to be_present
     end
   end
@@ -36,7 +36,7 @@ shared_examples :a_post_action_for_authenticated_users_only do |action:|
     it "saves the current path to the session and redirects to the zendesk login path" do
       post action, params: params
 
-      expect(response).to redirect_to zendesk_sign_in_path
+      expect(response).to redirect_to new_user_session_path
       expect(session[:after_login_path]).to be_present
     end
   end
