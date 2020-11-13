@@ -6,7 +6,7 @@
 
   <%= render "case_management/clients/navigation" %>
 
-  <% if @notes.present? %>
+  <% if @all_notes.present? %>
     <ul class="message-list">
       <% @all_notes_by_day.each do |datetime, records| %>
         <li class="message__day-heading"><%= date_heading(datetime) %></li>
