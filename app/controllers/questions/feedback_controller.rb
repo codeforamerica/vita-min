@@ -1,5 +1,5 @@
 module Questions
-  class FeedbackController < TicketedQuestionsController
+  class FeedbackController < QuestionsController
     layout "question"
 
     def current_intake

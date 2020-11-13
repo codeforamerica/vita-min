@@ -1,5 +1,5 @@
 module Questions
-  class MortgageInterestController < TicketedQuestionsController
+  class MortgageInterestController < QuestionsController
     layout "yes_no_question"
   end
 end

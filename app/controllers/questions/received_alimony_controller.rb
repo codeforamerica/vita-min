@@ -1,5 +1,5 @@
 module Questions
-  class ReceivedAlimonyController < TicketedQuestionsController
+  class ReceivedAlimonyController < QuestionsController
     layout "yes_no_question"
 
     def self.show?(intake)

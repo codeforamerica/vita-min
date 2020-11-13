@@ -1,5 +1,5 @@
 module Questions
-  class RetirementContributionsController < TicketedQuestionsController
+  class RetirementContributionsController < QuestionsController
     layout "yes_no_question"
 
     def self.show?(intake)

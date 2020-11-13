@@ -1,5 +1,5 @@
 module Questions
-  class RetirementIncomeController < TicketedQuestionsController
+  class RetirementIncomeController < QuestionsController
     layout "yes_no_question"
 
     def self.show?(intake)

@@ -1,5 +1,5 @@
 module Questions
-  class SoldHomeController < TicketedQuestionsController
+  class SoldHomeController < QuestionsController
     layout "yes_no_question"
   end
 end

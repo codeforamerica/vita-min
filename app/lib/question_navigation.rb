@@ -25,14 +25,14 @@ class QuestionNavigation
     Questions::NotificationPreferenceController,
 
     # Consent
-    Questions::ConsentController, # create Zendesk ticket
+    Questions::ConsentController, # Advances statuses to "In Progress"
 
     # Primary filer personal information
     Questions::LifeSituationsController,
     Questions::IssuedIdentityPinController,
 
     # Marital Status
-    Questions::EverMarriedController, # Begins requiring ZD ticket
+    Questions::EverMarriedController,
     Questions::MarriedController,
     Questions::LivedWithSpouseController,
     Questions::SeparatedController,
@@ -125,7 +125,7 @@ class QuestionNavigation
     Questions::EnergyEfficientPurchasesController,
 
     # Additional Information
-    Questions::AdditionalInfoController, # appends 13614-C & consent PDF to Zendesk ticket
+    Questions::AdditionalInfoController,
 
     # Documents --> See DocumentNavigation
     Questions::OverviewDocumentsController,
@@ -152,7 +152,7 @@ class QuestionNavigation
     Questions::DemographicSpouseEthnicityController,
 
     # Additional Information
-    Questions::FinalInfoController, # appends final 13614-C, bank details & docs to Zendesk
+    Questions::FinalInfoController, # marks 'completed_intake_at' as true
     Questions::SuccessfullySubmittedController,
     Questions::FeedbackController,
   ].freeze

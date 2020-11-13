@@ -1,5 +1,5 @@
 module Questions
-  class EnergyEfficientPurchasesController < TicketedQuestionsController
+  class EnergyEfficientPurchasesController < QuestionsController
     layout "yes_no_question"
   end
 end

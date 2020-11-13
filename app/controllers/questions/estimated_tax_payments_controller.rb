@@ -1,5 +1,5 @@
 module Questions
-  class EstimatedTaxPaymentsController < TicketedQuestionsController
+  class EstimatedTaxPaymentsController < QuestionsController
     layout "yes_no_question"
   end
 end

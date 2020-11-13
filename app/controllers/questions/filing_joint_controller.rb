@@ -1,5 +1,5 @@
 module Questions
-  class FilingJointController < TicketedQuestionsController
+  class FilingJointController < QuestionsController
     layout "yes_no_question"
 
     def self.show?(intake)

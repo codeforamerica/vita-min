@@ -1,5 +1,5 @@
 module Questions
-  class DebtForgivenController < TicketedQuestionsController
+  class DebtForgivenController < QuestionsController
     layout "yes_no_question"
   end
 end

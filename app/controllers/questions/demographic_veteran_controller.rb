@@ -1,5 +1,5 @@
 module Questions
-  class DemographicVeteranController < TicketedQuestionsController
+  class DemographicVeteranController < QuestionsController
     layout "question"
 
     def self.show?(intake)

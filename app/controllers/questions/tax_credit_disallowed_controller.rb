@@ -1,5 +1,5 @@
 module Questions
-  class TaxCreditDisallowedController < TicketedQuestionsController
+  class TaxCreditDisallowedController < QuestionsController
     layout "yes_no_question"
   end
 end
