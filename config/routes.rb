@@ -111,20 +111,6 @@ Rails.application.routes.draw do
     get "/422", to: "public_pages#internal_server_error"
     get "/404", to: "public_pages#page_not_found"
 
-    # Zendesk Admin routes
-    get "/zendesk/sign-in", to: "zendesk#sign_in", as: :zendesk_sign_in
-    namespace :zendesk do
-      resources :tickets, only: [:show]
-      resources :documents, only: [:show]
-      resources :drop_offs, only: [:show]
-      resources :intakes, only: [:pdf, :consent_pdf] do
-        get "13614c/:filename", to: "intakes#intake_pdf", on: :member, as: :pdf
-        get "consent/:filename", to: "intakes#consent_pdf", on: :member, as: :consent_pdf
-        get "banking-info", to: "intakes#banking_info", on: :member, as: :banking_info
-      end
-      resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
-    end
-
     # New Case Management Admin routes
     namespace :case_management do
       root "assigned_clients#index"
@@ -146,9 +132,10 @@ Rails.application.routes.draw do
       end
       resources :sub_organizations, only: [:edit, :update]
       resources :vita_partners, only: [:index, :edit, :update, :show]
+      resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
     end
 
-    devise_for :users, skip: :omniauth_callbacks, controllers: {
+    devise_for :users, controllers: {
       sessions: "users/sessions",
       invitations: "users/invitations"
     }
@@ -163,9 +150,6 @@ Rails.application.routes.draw do
   end
 
   # Routes outside of the locale scope are not internationalized
-  # Omniauth routes
-  devise_for :users, only: :omniauth_callbacks, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
-  get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
 
   # Twilio webhook routes
   post "/outgoing_text_messages/:id", to: "twilio_webhooks#update_outgoing_text_message", as: :outgoing_text_message

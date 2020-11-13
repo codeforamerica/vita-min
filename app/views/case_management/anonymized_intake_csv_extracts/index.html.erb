@@ -1,9 +1,9 @@
-<% content_for :page_title, "Page Title" %>
+<% content_for :page_title, t(".header") %>
 
 <% content_for :card do %>
   <div class="header">
     <h1 class="h2">
-      <%= t("views.zendesk.extracts.header")  %>
+      <%= t(".header")  %>
     </h1>
   </div>
 
@@ -11,13 +11,13 @@
     <thead>
     <tr>
       <th class="extract-column__filename">
-        <%= t("views.zendesk.extracts.filename") %>
+        <%= t(".filename") %>
       </th>
       <th class="extract-column__record-count">
-        <%= t("views.zendesk.extracts.record_count") %>
+        <%= t(".record_count") %>
       </th>
       <th class="extract-column__run_at">
-        <%= t("views.zendesk.extracts.run_at") %>
+        <%= t(".run_at") %>
       </th>
     </tr>
     </thead>
@@ -25,7 +25,7 @@
     <% @extracts.each do |extract| %>
       <tr>
         <td>
-          <%= link_to zendesk_csv_extract_path(extract.id),  target: "_blank" do %>
+          <%= link_to case_management_csv_extract_path(extract.id),  target: "_blank" do %>
             <%= extract.upload.filename %>
           <% end %>
         </td>

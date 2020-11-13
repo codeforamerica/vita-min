@@ -16,7 +16,6 @@ class UnsentDocumentsService
 
           if ticket.present? && ticket.status != "closed"
             comment_body = <<~BODY
-              New client documents are available to view: #{zendesk_ticket_url(id: intake.intake_ticket_id)}
               Files uploaded:
               #{unsent_docs.map {|d| "* #{d.upload.filename} (#{d.document_type})"}.join("\n")}
             BODY

@@ -1,6 +1,12 @@
 ---
 en:
   case_management:
+    anonymized_intake_csv_extracts:
+      index:
+        filename: Filename
+        header: Anonymized Intake CSV Extracts
+        record_count: Record Count
+        run_at: Run At
     assigned_clients:
       index:
         title: Your assigned clients
@@ -1525,29 +1531,3 @@ en:
         no_phone_number_listed: Sorry, no phone number listed.
         phone_number_title: Call %{provider_name}
         search_radius: Within %{distance} miles of %{zip} (%{zip_name})
-    zendesk:
-      extracts:
-        filename: Filename
-        header: Anonymized Intake CSV Extracts
-        record_count: Record Count
-        run_at: Run At
-      intakes:
-        banking_info:
-          account_number: Account number
-          account_type: Account type
-          bank_name: Bank name
-          routing_number: Routing number
-      sign_in:
-        cta: Sign in with Zendesk
-        title: First, we need you to verify with Zendesk!
-      tickets:
-        show:
-          chart:
-            bank_info: Bank Info
-            consent: Consent
-            doc_type: Doc Type
-            drop_off_document_bundle: Document Bundle
-            header: The following chart does not include documents uploaded by VITA volunteers or client support
-            link: Link
-            notes: Notes
-            upload_date: Upload Date

@@ -38,7 +38,6 @@ describe UnsentDocumentsService do
         service.detect_unsent_docs_and_notify
 
         comment = <<~BODY
-          New client documents are available to view: #{zendesk_ticket_url(id: intake_docs_not_sent.intake_ticket_id)}
           Files uploaded:
           * picture_id.jpg (Employment)
           * picture_id.jpg (Requested)
@@ -50,7 +49,6 @@ describe UnsentDocumentsService do
         )
 
         comment_not_sent = <<~BODY
-          New client documents are available to view: #{zendesk_ticket_url(id: intake_docs_sent.intake_ticket_id)}
           Files uploaded:
           * picture_id.jpg (Employment)
         BODY
@@ -73,7 +71,6 @@ describe UnsentDocumentsService do
         service.detect_unsent_docs_and_notify
 
         comment_not_sent = <<~BODY
-          New client documents are available to view: #{zendesk_ticket_url(id: intake_new_doc.intake_ticket_id)}
           Files uploaded:
           * picture_id.jpg (Employment)
         BODY
