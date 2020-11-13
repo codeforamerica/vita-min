@@ -1,5 +1,5 @@
 module Questions
-  class SchoolSuppliesController < TicketedQuestionsController
+  class SchoolSuppliesController < QuestionsController
     layout "yes_no_question"
   end
 end

@@ -180,16 +180,6 @@ class ApplicationController < ActionController::Base
     available_locale('es') if request.domain == 'mireembolso.org'
   end
 
-  ##
-  # when the session's current intake doesn't have a ticket, this will
-  # redirect to the beginning of question navigation
-  def require_ticket
-    # A reload is needed because separate code updates has_enqueued_ticket_creation.
-    unless current_intake&.intake_ticket_id || current_intake&.reload&.has_enqueued_ticket_creation
-      redirect_or_add_flash
-    end
-  end
-
   def require_intake
     redirect_to_beginning_of_intake unless current_intake.present?
   end

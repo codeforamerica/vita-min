@@ -1,5 +1,5 @@
 module Questions
-  class HsaController < TicketedQuestionsController
+  class HsaController < QuestionsController
     layout "yes_no_question"
   end
 end

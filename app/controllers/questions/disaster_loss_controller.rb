@@ -1,5 +1,5 @@
 module Questions
-  class DisasterLossController < TicketedQuestionsController
+  class DisasterLossController < QuestionsController
     layout "yes_no_question"
   end
 end

@@ -1,5 +1,5 @@
 module Questions
-  class SoldAssetsController < TicketedQuestionsController
+  class SoldAssetsController < QuestionsController
     layout "yes_no_question"
 
     def illustration_path

@@ -43,25 +43,6 @@ RSpec.describe Questions::ConsentController do
         expect(tax_return.reload.status).to eq "intake_in_progress"
       end
 
-      context "for full intake ticket job", active_job: true do
-        it "enqueues a job to make an zendesk intake ticket" do
-          post :update, params: params
-
-          expect(CreateZendeskIntakeTicketJob).to have_been_enqueued
-          expect(CreateZendeskEipIntakeTicketJob).not_to have_been_enqueued
-        end
-      end
-
-      context "for EIP-only Intake ticket", active_job: true do
-        let(:eip_only) { true }
-
-        it "enqueues a job to make an EIP Zendesk ticket" do
-          post :update, params: params
-          expect(CreateZendeskEipIntakeTicketJob).to have_been_enqueued
-          expect(CreateZendeskIntakeTicketJob).not_to have_been_enqueued
-        end
-      end
-
       it "sends an event to mixpanel without PII" do
         post :update, params: params
 

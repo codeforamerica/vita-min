@@ -1,5 +1,5 @@
 module Questions
-  class DemographicQuestionsController < TicketedQuestionsController
+  class DemographicQuestionsController < QuestionsController
     layout "question"
   end
 end

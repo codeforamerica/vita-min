@@ -1,5 +1,5 @@
 module Questions
-  class MarriedController < TicketedQuestionsController
+  class MarriedController < QuestionsController
     layout "yes_no_question"
 
     def self.show?(intake)

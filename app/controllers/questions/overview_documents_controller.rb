@@ -1,5 +1,5 @@
 module Questions
-  class OverviewDocumentsController < TicketedQuestionsController
+  class OverviewDocumentsController < QuestionsController
     before_action :require_intake
     layout "application"
 

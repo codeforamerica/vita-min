@@ -1,5 +1,5 @@
 module Questions
-  class AssetSaleLossController < TicketedQuestionsController
+  class AssetSaleLossController < QuestionsController
     layout "yes_no_question"
 
     def self.show?(intake)

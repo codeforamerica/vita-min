@@ -1,5 +1,5 @@
 module Questions
-  class RefundPaymentController < TicketedQuestionsController
+  class RefundPaymentController < QuestionsController
     private
 
     def illustration_path

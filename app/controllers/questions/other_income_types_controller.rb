@@ -1,5 +1,5 @@
 module Questions
-  class OtherIncomeTypesController < TicketedQuestionsController
+  class OtherIncomeTypesController < QuestionsController
     layout "question"
 
     def self.show?(intake)

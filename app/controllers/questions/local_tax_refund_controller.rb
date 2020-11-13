@@ -1,5 +1,5 @@
 module Questions
-  class LocalTaxRefundController < TicketedQuestionsController
+  class LocalTaxRefundController < QuestionsController
     layout "yes_no_question"
   end
 end
