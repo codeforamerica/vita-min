@@ -89,7 +89,6 @@ module Zendesk
         comment: consent_comment,
         fields: {
           EitcZendeskInstance::EIP_STATUS => EitcZendeskInstance::EIP_STATUS_ID_UPLOAD,
-          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: @intake.intake_ticket_id),
         }
       )
       @intake.update(intake_pdf_sent_to_zendesk: true)

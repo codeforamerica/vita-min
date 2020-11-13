@@ -220,10 +220,8 @@ class ZendeskIntakeService
   end
 
   def send_all_docs
-    ticket_url = zendesk_ticket_url(id: @intake.intake_ticket_id)
     output = append_comment_to_ticket(
       ticket_id: @intake.intake_ticket_id,
-      fields: { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => ticket_url },
       comment: <<~DOCS
         Documents:
         #{@intake.documents.map {|d| "* #{d.upload.filename} (#{d.document_type})\n"}.join}
@@ -273,7 +271,6 @@ class ZendeskIntakeService
     if instance_eitc?
       {
         EitcZendeskInstance::INTAKE_STATUS => EitcZendeskInstance::INTAKE_STATUS_GATHERING_DOCUMENTS,
-        EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: @intake.intake_ticket_id),
         EitcZendeskInstance::DOCUMENTS_NEEDED => @intake.document_types_definitely_needed.join(", "),
       }
     else

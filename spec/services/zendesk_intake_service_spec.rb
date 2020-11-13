@@ -457,9 +457,6 @@ describe ZendeskIntakeService do
           Documents:
           * #{documents[0].upload.filename} (#{documents[0].document_type})
           * #{documents[1].upload.filename} (#{documents[1].document_type})
-
-          View all client documents here:
-          #{zendesk_ticket_url(id: 34)}
         DOCS
       )
 
