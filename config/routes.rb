@@ -135,7 +135,7 @@ Rails.application.routes.draw do
       resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
     end
 
-    devise_for :users, skip: :omniauth_callbacks, controllers: {
+    devise_for :users, controllers: {
       sessions: "users/sessions",
       invitations: "users/invitations"
     }
@@ -150,9 +150,6 @@ Rails.application.routes.draw do
   end
 
   # Routes outside of the locale scope are not internationalized
-  # Omniauth routes
-  devise_for :users, only: :omniauth_callbacks, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
-  get "/auth/failure", to: "users/omniauth_callbacks#failure", as: :omniauth_failure
 
   # Twilio webhook routes
   post "/outgoing_text_messages/:id", to: "twilio_webhooks#update_outgoing_text_message", as: :outgoing_text_message

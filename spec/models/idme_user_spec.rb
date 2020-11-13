@@ -155,7 +155,4 @@ RSpec.describe IdmeUser, type: :model do
       end
     end
   end
-
-  describe ".from_omniauth" do
-  end
 end

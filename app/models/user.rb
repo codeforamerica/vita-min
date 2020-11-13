@@ -54,8 +54,7 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class User < ApplicationRecord
-  devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable,
-         :omniauthable, omniauth_providers: [:zendesk]
+  devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
 
   belongs_to :vita_partner, optional: true
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
@@ -67,32 +66,6 @@ class User < ApplicationRecord
 
   validates_presence_of :name
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
-
-  def self.from_zendesk_oauth(auth)
-    data_source = auth.info
-
-    # Watch out for weird capitalization!
-    user = where(email: data_source.email.downcase).first_or_initialize do |new_user|
-      # If creating user via Zendesk auth, give them a random password. They will need to reset their password.
-      new_user.password = Devise.friendly_token[0, 20]
-    end
-
-    # update all other fields with latest values from zendesk
-    user.update(
-      zendesk_user_id: data_source.id,
-      uid: auth.uid,
-      provider: auth.provider,
-      name: data_source.name,
-      role: data_source.role,
-      ticket_restriction: data_source.ticket_restriction,
-      two_factor_auth_enabled: data_source.two_factor_auth_enabled,
-      active: data_source.active,
-      suspended: data_source.suspended,
-      verified: data_source.verified,
-      access_token: auth.credentials.token
-    )
-    user
-  end
 
   def accessible_organizations
     accessible_organization_ids = [vita_partner_id] + supported_organizations.pluck(:id)
