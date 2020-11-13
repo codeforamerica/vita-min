@@ -1,8 +1,8 @@
-module Zendesk
+module CaseManagement
   class AnonymizedIntakeCsvExtractsController < ApplicationController
     include ZendeskAuthenticationControllerHelper
 
-    before_action :require_zendesk_admin
+    before_action :require_admin
 
     layout "admin"
 
