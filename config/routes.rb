@@ -174,8 +174,6 @@ Rails.application.routes.draw do
   post "/incoming_emails", to: "mailgun_webhooks#create_incoming_email", as: :incoming_emails
 
   resources :ajax_mixpanel_events, only: [:create]
-  post "/zendesk-webhook/incoming", to: "zendesk_webhook#incoming", as: :incoming_zendesk_webhook
-  post "/email", to: "email#create"
 
   mount ActionCable.server => '/cable'
 end
