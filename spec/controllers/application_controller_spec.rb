@@ -718,19 +718,6 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#require_ticket" do
-    # for any anonymous controller
-    controller do
-      before_action :require_ticket
-
-      def index
-        head :ok
-      end
-    end
-
-    it_behaves_like :a_ticketed_controller, :index
-  end
-
   describe "#set_time_zone" do
     controller do
       def index

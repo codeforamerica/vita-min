@@ -12,9 +12,6 @@ module Diy
       duplicate_diy_intake = current_diy_intake.duplicate_diy_intakes.first
       if duplicate_diy_intake.present?
         current_diy_intake.update(requester_id: duplicate_diy_intake.requester_id, ticket_id: duplicate_diy_intake.ticket_id)
-        ResendDiyConfirmationEmailJob.perform_later(current_diy_intake.id)
-      else
-        CreateZendeskDiyIntakeTicketJob.perform_later(current_diy_intake.id)
       end
     end
   end

@@ -476,13 +476,6 @@ class Intake < ApplicationRecord
   end
 
   def assign_vita_partner!
-    # don't re-assign if ZD ticket already exists
-    return if intake_ticket_id.present?
-
-    # because we want users to be able to change which group they are routed to up until the ZD ticket has been created,
-    # we only check whether it has been persisted, and do not save it
-    return nil if zendesk_instance == UwtsaZendeskInstance
-
     # this is a RouteOptions struct, defined below
     route_options = partner_for_eip_only || partner_for_source || partner_for_state || partner_for_overflow
 
@@ -500,14 +493,6 @@ class Intake < ApplicationRecord
 
   def might_encounter_delayed_service?
     !vita_partner.has_capacity_for?(self)
-  end
-
-  def zendesk_instance
-    if get_or_create_zendesk_instance_domain == EitcZendeskInstance::DOMAIN
-      EitcZendeskInstance
-    else
-      UwtsaZendeskInstance
-    end
   end
 
   def contact_info_filtered_by_preferences
@@ -531,20 +516,6 @@ class Intake < ApplicationRecord
     return unless spouse_birth_date.present?
 
     tax_year - spouse_birth_date.year
-  end
-
-  def get_or_create_zendesk_instance_domain
-    return zendesk_instance_domain if zendesk_instance_domain.present?
-
-    return vita_partner.zendesk_instance_domain if vita_partner.present?
-
-    domain = determine_zendesk_instance_domain
-    self.update(zendesk_instance_domain: domain)
-    domain
-  end
-
-  def determine_zendesk_instance_domain
-    EitcZendeskInstance::DOMAIN
   end
 
   def current_ticket_status

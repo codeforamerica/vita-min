@@ -27,7 +27,7 @@ FactoryBot.define do
   factory :vita_partner do
     name { generate :name }
     display_name { name }
-    zendesk_instance_domain { EitcZendeskInstance::DOMAIN }
+    zendesk_instance_domain { "eitc" }
     sequence(:zendesk_group_id) { |n| n.to_s }
   end
 end

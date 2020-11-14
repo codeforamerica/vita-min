@@ -1,5 +1,5 @@
 class DependentsController < ApplicationController
-  before_action :require_ticket, :require_intake
+  before_action :require_intake
   helper_method :next_path
 
   def index

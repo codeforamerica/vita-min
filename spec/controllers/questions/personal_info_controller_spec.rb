@@ -27,17 +27,20 @@ RSpec.describe Questions::PersonalInfoController do
         .to change { intake.timezone }.to("America/New_York")
     end
 
-    context "when intake does not have a zendesk ticket id" do
-      it "re-assigns the vita partner" do
+    context "when intake does not have an 'In Progress' or later status tax return" do
+      before { create :tax_return, client: intake.client, status: "intake_before_consent" }
+
+      it "assigns the vita partner" do
         post :update, params: params
 
         expect(intake.reload.vita_partner).to eq vita_partner
       end
     end
 
-    context "when intake has partner assigned but no zendesk ticket id" do
+    context "when intake has partner assigned but no 'In Progress' or later status tax return" do
       let!(:old_vita_partner) { create :vita_partner, zendesk_group_id: "345" }
       let(:intake) { create :intake, vita_partner_group_id: "345", vita_partner: old_vita_partner }
+      before { create :tax_return, client: intake.client, status: "intake_before_consent" }
 
       it "re-assigns the vita partner" do
         post :update, params: params
@@ -46,9 +49,10 @@ RSpec.describe Questions::PersonalInfoController do
       end
     end
 
-    context "when intake already has a zendesk ticket id" do
+    context "when intake already has a return with 'In Progress' or later status" do
       let!(:old_vita_partner) { create :vita_partner, zendesk_group_id: "345" }
       let(:intake) { create :intake, intake_ticket_id: 'some-ticket', vita_partner_group_id: "345", vita_partner: old_vita_partner }
+      before { create :tax_return, client: intake.client, status: "intake_in_progress" }
 
       it "does not re-assign the vita partner" do
         post :update, params: params

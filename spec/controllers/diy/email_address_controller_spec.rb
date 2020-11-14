@@ -38,28 +38,6 @@ RSpec.describe Diy::EmailAddressController do
           post :update, params: params
         }.to change { diy_intake.email_address }.from(nil).to(email_address)
       end
-
-      it "enqueues a job to make a zendesk ticket", active_job: true do
-        post :update, params: params
-        expect(CreateZendeskDiyIntakeTicketJob).to have_been_enqueued
-      end
-
-      context "when a submitted diy intake with that email already exists" do
-        let!(:duplicate_intake) { create :diy_intake, email_address: email_address, requester_id: 1234, ticket_id: 9876}
-
-        it "sets the info from the existing diy intake on the new intake" do
-          expect {
-            post :update, params: params
-          }.to change { diy_intake.requester_id }.from(nil).to(duplicate_intake.requester_id)
-           .and change { diy_intake.ticket_id }.from(nil).to(duplicate_intake.ticket_id)
-        end
-
-        it "enqueues a job to append a comment to the duplicate Zendesk ticket", active_job: true do
-          post :update, params: params
-          expect(ResendDiyConfirmationEmailJob).to have_been_enqueued
-          expect(CreateZendeskDiyIntakeTicketJob).not_to have_been_enqueued
-        end
-      end
     end
 
 
@@ -79,11 +57,6 @@ RSpec.describe Diy::EmailAddressController do
         expect {
           post :update, params: params
         }.not_to change { diy_intake.email_address }.from(nil)
-      end
-
-      it "does not enqueue a job to make a zendesk ticket", active_job: true do
-        post :update, params: params
-        expect(CreateZendeskDiyIntakeTicketJob).not_to have_been_enqueued
       end
     end
   end
