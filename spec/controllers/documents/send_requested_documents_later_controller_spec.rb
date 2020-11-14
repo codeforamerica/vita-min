@@ -23,17 +23,11 @@ RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controll
         session[:documents_request_id] = documents_request.id
       end
 
-      it "adds the document upload job to the queue" do
-        get :edit
-
-        expect(SendRequestedDocumentsToZendeskJob).to have_been_enqueued.with(original_intake.id)
-        expect(response).to redirect_to(root_path)
-      end
-
-      it "clears the session" do
+      it "clears the session and redirects to root path" do
         get :edit
 
         expect(session[:documents_request_id]).to be_nil
+        expect(response).to redirect_to(root_path)
       end
     end
   end

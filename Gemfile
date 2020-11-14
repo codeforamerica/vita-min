@@ -29,7 +29,6 @@ gem 'arel_extensions'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'phonelib'
 gem 'strip_attributes'
-gem 'zendesk_api'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
 gem 'will_paginate'

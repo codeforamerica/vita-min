@@ -7,6 +7,5 @@ class PersonalInfoForm < QuestionsForm
   def save
     state = ZipCodes.details(zip_code)[:state]
     @intake.update(attributes_for(:intake).merge(state_of_residence: state))
-    @intake.assign_vita_partner!
   end
 end
