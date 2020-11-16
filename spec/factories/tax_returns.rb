@@ -25,5 +25,6 @@ FactoryBot.define do
   factory :tax_return do
     year { 2019 }
     client
+    status { "intake_in_progress" }
   end
 end

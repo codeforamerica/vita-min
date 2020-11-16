@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe TaxReturnStatusHelper do
-  describe "#grouped_status_options" do
+  describe "#grouped_status_options_for_select" do
     expected = [
       ["Intake",
        [
@@ -45,7 +45,7 @@ describe TaxReturnStatusHelper do
     ]
 
     it "returns status options formatted to create select optgroups" do
-      expect(helper.grouped_status_options).to eq(expected)
+      expect(helper.grouped_status_options_for_select).to eq(expected)
     end
   end
 

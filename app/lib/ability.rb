@@ -19,7 +19,7 @@ class Ability
         Note,
         Document,
         TaxReturn,
-        SystemNote,
+        SystemNote
       ], client: { vita_partner: accessible_organizations }
     end
   end

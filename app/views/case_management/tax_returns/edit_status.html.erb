@@ -10,7 +10,7 @@
      <%= f.cfa_select(
              :status,
              t("general.status"),
-             grouped_status_options,
+             grouped_status_options_for_select,
              include_blank: true,
              selected: params["tax_return"]["status"]
           ) %>

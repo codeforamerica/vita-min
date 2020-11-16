@@ -199,7 +199,8 @@ RSpec.describe CaseManagement::ClientsController do
       end
 
       context "sorting and ordering" do
-        context "with client  as sort param" do
+        render_views false
+        context "with client as sort param" do
           let(:params) { { column: "preferred_name" } }
           let!(:alex) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
           let!(:ben) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
@@ -325,6 +326,29 @@ RSpec.describe CaseManagement::ClientsController do
             expect(assigns[:sort_order]).to eq "desc"
 
             expect(assigns(:clients)).to eq [second_id, first_id]
+          end
+        end
+      end
+
+      context "filtering" do
+        render_views false
+        context "with a status filter" do
+          let!(:included_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_open")], intake: (create :intake) }
+
+          it "includes clients with tax returns in that status" do
+            get :index, params: { status: "intake_in_progress"}
+            expect(assigns(:clients)).to eq [included_client]
+          end
+        end
+
+        context "with a stage filter" do
+          let!(:included_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "prep_ready_for_call")], intake: (create :intake) }
+
+          it "includes clients with tax returns in that stage" do
+            get :index, params: { status: "intake" }
+            expect(assigns(:clients)).to eq [included_client]
           end
         end
       end

@@ -10,7 +10,7 @@ module CaseManagement
 
     def index
       @page_title = I18n.t("case_management.assigned_clients.index.title")
-      @clients = @clients.assigned_to(current_user).delegated_order(@sort_column, @sort_order)
+      @clients = filtered_and_sorted_clients(assigned_to: current_user)
       render "case_management/clients/index"
     end
   end
