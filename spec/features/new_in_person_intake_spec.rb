@@ -1,11 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Add a new intake case from an in-person drop-off site" do
-  before do
-    zendesk_service_spy = instance_double(ZendeskDropOffService, create_ticket: 23, append_to_existing_ticket: true)
-    allow(ZendeskDropOffService).to receive(:new).and_return(zendesk_service_spy)
-  end
-
   scenario "new client" do
     visit "/thc/drop-off"
     expect(page).to have_text "Drop-off form"
@@ -28,7 +23,6 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
     click_on "Send for prep"
 
     expect(page).to have_text "New drop-off sent for prep!"
-    expect(page).to have_text "Zendesk Ticket ID: 23"
 
     click_on "Add another drop-off"
 
@@ -56,7 +50,6 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
     click_on "Send for prep"
 
     expect(page).to have_text "Found a matching Zendesk ticket!"
-    expect(page).to have_text "Comment with details added to ticket ID: 35"
 
     click_on "Add another drop-off"
 

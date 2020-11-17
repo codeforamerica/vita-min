@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
   render_views
 
-  let(:intake) { create :intake, intake_ticket_id: 1234 }
+  let(:intake) { create :intake }
 
   before do
     allow(MixpanelService).to receive(:send_event)
@@ -31,7 +31,7 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
       it "displays a confirmation number" do
         get :edit
 
-        expect(response.body).to include "Your confirmation number is: #{intake.intake_ticket_id}"
+        expect(response.body).to include "Your confirmation number is: #{intake.client_id}"
       end
 
       it "sends a mixpanel event with the intake in the session" do

@@ -626,11 +626,9 @@ en:
         title: Drop-off form
       show:
         add_another: Add another drop-off
-        comment_added: 'Comment with details added to ticket ID: %{ticket_id}'
         found_ticket: Found a matching Zendesk ticket!
         sent_for_prep: New drop-off sent for prep!
-        ticket_id: 'Zendesk Ticket ID: %{ticket_id}'
-        title: 'Sent for prep! Zendesk Ticket ID: %{ticket_id}'
+        title: 'Sent for prep!'
     layouts:
       admin:
         welcome_user_html: Welcome <strong class="user__name">%{name}</strong>

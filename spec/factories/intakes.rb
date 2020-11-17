@@ -260,7 +260,7 @@ FactoryBot.define do
       city { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").first }
       state { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").last }
       state_of_residence { state }
-      zendesk_instance_domain { EitcZendeskInstance::DOMAIN }
+      zendesk_instance_domain { "eitc" }
       vita_partner_group_id { vita_partner.zendesk_group_id }
       vita_partner_name { vita_partner.name }
       routing_value { vita_partner.states.first&.abbreviation || "az" }

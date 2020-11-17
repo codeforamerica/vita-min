@@ -4,8 +4,6 @@ RSpec.feature "Web Intake EIP Only Filer" do
   let(:ticket_id) { 9876 }
 
   before do
-    allow_any_instance_of(ZendeskIntakeService).to receive(:assign_requester)
-    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(ticket_id)
     # Create the hard-coded VITA partner for EIP-only returns
     create(:vita_partner, display_name: "Get Your Refund", zendesk_group_id: "360012655454")
   end
@@ -49,6 +47,8 @@ RSpec.feature "Web Intake EIP Only Filer" do
     fill_in "ZIP code", with: "20121"
     click_on "Continue"
 
+    intake = Intake.last
+
     # Chat with us
     expect(page).to have_selector("h1", text: "Our team at Get Your Refund is here to help!")
     click_on "Continue"
@@ -82,9 +82,6 @@ RSpec.feature "Web Intake EIP Only Filer" do
     select "5", from: "Day"
     select "1971", from: "Year"
     click_on "I agree"
-
-    # right about here, our intake gets an intake_ticket_id in a background job
-    allow_any_instance_of(Intake).to receive(:intake_ticket_id).and_return(ticket_id)
 
     # Primary Personal Info
     expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
@@ -226,7 +223,7 @@ RSpec.feature "Web Intake EIP Only Filer" do
     click_on "Submit"
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-    expect(page).to have_text("Your confirmation number is: #{ticket_id}")
+    expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
     expect{ track_progress }.to change { @current_progress }.to(100)
     click_on "Great!"
 

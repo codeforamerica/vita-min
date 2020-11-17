@@ -626,11 +626,9 @@ es:
         title: Formulario de entrega
       show:
         add_another: Añadir otra entrega
-        comment_added: 'Se ha añadido un comentario con detalles a la identificación del ticket: %{ticket_id}'
         found_ticket: "¡Se ha encontrado un ticket de Zendesk igual!"
         sent_for_prep: "¡Se envió la nueva entrega al asesor!"
-        ticket_id: 'Identificación del ticket de Zendesk: %{ticket_id}'
-        title: "¡Enviado al asesor! Identificación del ticket de Zendesk: %{ticket_id}"
+        title: "¡Enviado al asesor!"
     layouts:
       admin:
         welcome_user_html: Bienvenido/a<strong class="user__name">%{name}</strong>

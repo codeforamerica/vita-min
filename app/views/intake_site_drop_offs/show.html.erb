@@ -1,5 +1,5 @@
 <% content_for :page_title do %>
-  <%=t("views.intake_site_drop_offs.show.title", :ticket_id => @drop_off.zendesk_ticket_id) %>
+  <%=t("views.intake_site_drop_offs.show.title") %>
 <% end %>
 
 <main role="main">
@@ -15,11 +15,6 @@
             <% end %>
           </header>
           <div class="form-card__content">
-            <% if @drop_off.prior_drop_off.present? %>
-              <h2><%=t("views.intake_site_drop_offs.show.comment_added", :ticket_id => @drop_off.zendesk_ticket_id) %></h2>
-            <% else %>
-              <h2><%=t("views.intake_site_drop_offs.show.ticket_id", :ticket_id => @drop_off.zendesk_ticket_id) %></h2>
-            <% end %>
             <%= link_to new_drop_off_path(organization: @organization), class: "button button--primary" do %>
               <i class="button__icon icon-add"></i>
               <%=t("views.intake_site_drop_offs.show.add_another") %>
