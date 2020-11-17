@@ -1176,6 +1176,19 @@ describe Intake do
     end
   end
 
+  describe "#advance_tax_return_statuses_to" do
+    let(:intake) { create :intake }
+    let!(:earlier_tax_return) { create :tax_return, year: 2020, client: intake.client, status: "intake_before_consent" }
+    let!(:later_tax_return) { create :tax_return, year: 2019, client: intake.client, status: "intake_needs_assignment" }
+
+    it "advances each tax return" do
+      intake.advance_tax_return_statuses_to("intake_open")
+
+      expect(earlier_tax_return.reload.status).to eq "intake_open"
+      expect(later_tax_return.reload.status).to eq "intake_needs_assignment"
+    end
+  end
+
   describe "#triaged_from_stimulus?" do
     let(:stimulus_triage) { create(:stimulus_triage) }
     let(:intake) { create(:intake) }

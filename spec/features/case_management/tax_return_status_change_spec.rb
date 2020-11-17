@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Change tax return status on a client" do
   context "As a beta tester" do
     let(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, vita_partner: vita_partner }
+    let(:user) { create :user, name: "Example Preparer", vita_partner: vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
     let!(:intake) { create :intake, client: client }
     let!(:tax_return) { create :tax_return, year: 2019, client: client, status: "intake_in_progress" }
@@ -28,6 +28,9 @@ RSpec.feature "Change tax return status on a client" do
       click_on "Save"
       expect(current_path).to eq(case_management_client_messages_path(client_id: tax_return.client.id))
       expect(page).to have_select("tax_return_status", selected: "Open")
+
+      click_on "Notes"
+      expect(page).to have_text("Example Preparer updated 2019 tax return status from Intake/In progress to Intake/Open")
     end
   end
 end

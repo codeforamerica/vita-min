@@ -51,9 +51,6 @@ class ZendeskDropOffService
     )
     ticket.save!
 
-    ticket.fields = { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: ticket.id) }
-    ticket.save!
-
     return ticket.id
   end
 

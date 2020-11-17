@@ -20,9 +20,7 @@ module Backfill
                 f.id == EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS.to_i
               end.value
               if existing_url.blank?
-                ticket_url = zendesk_ticket_url(ticket_id)
                 puts "Updating ticket ##{ticket_id} client document link"
-                ticket.fields = { EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => ticket_url }
                 ticket.save
               else
                 puts "ticket ##{ticket_id} already has document link set"

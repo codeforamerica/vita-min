@@ -552,6 +552,18 @@ class Intake < ApplicationRecord
     ticket_statuses.reorder(created_at: :desc).first
   end
 
+  ##
+  # advances all tax returns to a new status, only if the new status is more advanced.
+  # Earlier or equal statuses will be ignored.
+  #
+  # @param [String] new_status: the name of the status to advance to
+  #
+  def advance_tax_return_statuses_to(new_status)
+    client.tax_returns.each do |tax_return|
+      tax_return.advance_to(new_status)
+    end
+  end
+
   def name_for_filename
     # Delete '.' because otherwise Rails will interpret what comes after the dot
     # as the requested MIME type, aka requested format. Deleting other characters

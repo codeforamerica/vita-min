@@ -3,13 +3,21 @@ require "rails_helper"
 RSpec.describe Documents::AdditionalDocumentsController do
   render_views
 
-  let(:intake) { create :intake, intake_ticket_id: 1234, client: create(:client) }
+  let(:intake) { create :intake, intake_ticket_id: 1234 }
 
   before do
     allow(subject).to receive(:current_intake).and_return intake
   end
 
   describe "#edit" do
+    let!(:tax_return) { create :tax_return, client: intake.client, status: "intake_in_progress" }
+
+    it "advances the tax returns to 'Open' status" do
+      get :edit
+
+      expect(tax_return.reload.status).to eq "intake_open"
+    end
+
     context "with no docs that might be needed" do
       it "does not show an extra list of docs" do
         get :edit
@@ -41,7 +49,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
     context "with existing document uploads" do
       it "assigns the documents to the form" do
         doc = create :document, :with_upload, document_type: "Other", intake: intake
-        w2_doc = create :document, :with_upload, document_type: "W-2", intake: intake
+        w2_doc = create :document, :with_upload, document_type: "Employment", intake: intake
 
         get :edit
 

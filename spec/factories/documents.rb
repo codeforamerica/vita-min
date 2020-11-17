@@ -32,7 +32,7 @@ FactoryBot.define do
     intake
     client { intake.client }
     upload { nil }
-    document_type { "W-2" }
+    document_type { DocumentTypes::Employment.key }
 
     trait :with_upload do
       transient do

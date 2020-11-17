@@ -1,6 +1,12 @@
 ---
 en:
   case_management:
+    anonymized_intake_csv_extracts:
+      index:
+        filename: Filename
+        header: Anonymized Intake CSV Extracts
+        record_count: Record Count
+        run_at: Run At
     assigned_clients:
       index:
         title: Your assigned clients
@@ -224,6 +230,7 @@ en:
       need_one_communication_method: Please choose some way for us to contact you.
       need_phone_number: Please enter a cell phone number.
   general:
+    at_time: at %{time}
     NA: N/A
     address: Address
     admin: Admin
@@ -495,12 +502,6 @@ en:
       form1099ints:
         help_text_html: You said that you received income from interest or dividends. If you specifically received income from interest, <strong>you might have this form</strong>. Investment companies are required to file 1099-INT by January 31 each year.
         title: Attach your 1099-INT's
-      form1099ks:
-        help_text_html: "<strong>You might have this form</strong> because you said that you got paid from contract or self-employed work. You receive a 1099-K if you have a high dollar amount or quantity of business transactions during the year. Typically, large-volume online sellers file taxes with a 1099-K."
-        title: Attach your 1099-K's
-      form1099miscs:
-        help_text_html: "<strong>You might have this form</strong> because you said that you got paid from a job, a contract, or self-employed work. You may also have received this for other reasons, including income from rent, royalties, or other income."
-        title: Attach your 1099-MISC's
       form1099rs:
         help_text_html: "<strong>You should have this form</strong> because you said that you received income from a retirement account, pension, or annuity proceeds. This form is used to report distributions from annuities, profit-sharing plans, retirement plans, IRAs, insurance contracts, or pensions. Your retirement plan issuer would have sent this to you."
         title: Attach your 1099-R's
@@ -600,9 +601,6 @@ en:
       w2gs:
         help_text_html: "<strong>You might have this form</strong> because you said that you had income from gambling winnings or the lottery. Depending on how much you won, a gambling facility may send you a form W2-G that records your winnings and any income tax withholdings from the previous year."
         title: Attach your W-2G's
-      w2s:
-        help_text_html: "<strong>You should have this form</strong> because you said that you worked a job with wages or a salary. Your employer should have sent you this form and you can contact them if you haven't recieved it. More information is available %{transcript_link}."
-        title: Attach your W-2's
     intake_site_drop_offs:
       new:
         additional_info: Additional information
@@ -1533,29 +1531,3 @@ en:
         no_phone_number_listed: Sorry, no phone number listed.
         phone_number_title: Call %{provider_name}
         search_radius: Within %{distance} miles of %{zip} (%{zip_name})
-    zendesk:
-      extracts:
-        filename: Filename
-        header: Anonymized Intake CSV Extracts
-        record_count: Record Count
-        run_at: Run At
-      intakes:
-        banking_info:
-          account_number: Account number
-          account_type: Account type
-          bank_name: Bank name
-          routing_number: Routing number
-      sign_in:
-        cta: Sign in with Zendesk
-        title: First, we need you to verify with Zendesk!
-      tickets:
-        show:
-          chart:
-            bank_info: Bank Info
-            consent: Consent
-            doc_type: Doc Type
-            drop_off_document_bundle: Document Bundle
-            header: The following chart does not include documents uploaded by VITA volunteers or client support
-            link: Link
-            notes: Notes
-            upload_date: Upload Date

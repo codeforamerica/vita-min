@@ -21,9 +21,12 @@
 #  index_vita_partners_on_parent_organization_id  (parent_organization_id)
 #
 FactoryBot.define do
+  sequence :name do |n|
+    "Partner #{n}"
+  end
   factory :vita_partner do
-    sequence(:name) { |n| "Partner #{n}"}
-    sequence(:display_name) { |n| "Partner #{n}"}
+    name { generate :name }
+    display_name { name }
     zendesk_instance_domain { EitcZendeskInstance::DOMAIN }
     sequence(:zendesk_group_id) { |n| n.to_s }
   end

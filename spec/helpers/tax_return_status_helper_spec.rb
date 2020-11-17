@@ -45,29 +45,15 @@ describe TaxReturnStatusHelper do
     ]
 
     it "returns status options formatted to create select optgroups" do
-      expect(helper.grouped_tax_return_status_options).to eq(expected)
+      expect(helper.grouped_status_options).to eq(expected)
     end
   end
 
-  describe "#status_with_stage" do
-    describe "intake_in_progress" do
+  describe "#stage_and_status_translation" do
+    describe "with an example status" do
       let(:tax_return) { create :tax_return, status: "intake_in_progress" }
-      it "returns Intake / In progress" do
-        expect(helper.status_with_stage(tax_return)).to eq "Intake / In progress"
-      end
-    end
-
-    describe "prep_more_info" do
-      let(:tax_return) { create :tax_return, status: "prep_more_info" }
-      it "returns Tax prep / Needs more information" do
-        expect(helper.status_with_stage(tax_return)).to eq "Tax prep / Needs more information"
-      end
-    end
-
-    describe "review_complete_signature_requested" do
-      let(:tax_return) { create :tax_return, status: "review_complete_signature_requested" }
-      it "returns Review / Complete / Signature requested" do
-        expect(helper.status_with_stage(tax_return)).to eq "Quality review / Complete/Signature requested"
+      it "returns the expected text" do
+        expect(helper.stage_and_status_translation(tax_return.status)).to eq "Intake/In progress"
       end
     end
   end

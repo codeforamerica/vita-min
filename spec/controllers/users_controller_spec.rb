@@ -116,6 +116,19 @@ RSpec.describe UsersController do
           expect(user.supported_organization_ids).to be_empty
         end
       end
+
+      context "when assigning the user to an organization inaccessible to the current user" do
+        before do
+          params[:user][:vita_partner_id] = create(:vita_partner).id
+        end
+
+        it "raises an exception and does not change the user" do
+          expect do
+            post :update, params: params
+          end.to raise_error(ActiveRecord::RecordNotFound)
+          expect(user.reload).to eq user
+        end
+      end
     end
 
     context "as an admin" do

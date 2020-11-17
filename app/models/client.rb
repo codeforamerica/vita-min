@@ -27,6 +27,7 @@ class Client < ApplicationRecord
   has_many :incoming_text_messages
   has_many :incoming_emails
   has_many :notes
+  has_many :system_notes
   has_many :tax_returns
 
   def self.delegated_intake_attributes

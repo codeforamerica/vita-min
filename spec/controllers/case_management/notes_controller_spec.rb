@@ -65,17 +65,21 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
       before do
         sign_in user
         create :note # unrelated note
+        create :system_note # unrelated system note
       end
 
       context "with an existing note" do
         render_views
 
-        let!(:client_note) { create :note, client: client, created_at: DateTime.new(2020, 9, 3) }
+        let!(:system_note) { create :system_note, client: client, created_at: DateTime.new(2020, 9, 3) }
+        let!(:client_note) { create :note, client: client, created_at: DateTime.new(2020, 10, 3) }
 
         it "loads the users notes if there are any" do
           get :index, params: params
 
           expect(assigns(:notes)).to eq([client_note])
+          expect(assigns(:system_notes)).to eq([system_note])
+          expect(assigns(:all_notes)).to eq([system_note, client_note])
         end
 
         it "renders a form" do
@@ -93,18 +97,19 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
       context "with notes from different days" do
         let(:user) { create :user, timezone: "America/Los_Angeles" , vita_partner: vita_partner}
 
-        before do
-          create :note, client: client, created_at: DateTime.new(2019, 10, 5, 8) # UTC
-          create :note, client: client, created_at: DateTime.new(2020, 10, 5, 5)
-        end
-
         it "correctly groups notes by day created" do
+          day1_client_note = create :note, client: client, created_at: DateTime.new(2019, 10, 5, 8) # UTC
+          day2_client_note = create :note, client: client, created_at: DateTime.new(2020, 10, 5, 5)
+          day1_system_note = create :system_note, client: client, created_at: DateTime.new(2019, 10, 5, 8)
+
           get :index, params: params
+
           day1 = DateTime.new(2019, 10, 5, 8).in_time_zone('America/Los_Angeles').beginning_of_day
           day2 = DateTime.new(2020, 10, 5, 5).in_time_zone('America/Los_Angeles').beginning_of_day
+          expect(assigns(:all_notes_by_day).keys).to eq [day1, day2]
 
-          expect(assigns(:notes_by_day).keys.first).to eq day1
-          expect(assigns(:notes_by_day).keys.last).to eq day2
+          expect(assigns(:all_notes_by_day)[day1]).to eq [day1_client_note, day1_system_note]
+          expect(assigns(:all_notes_by_day)[day2]).to eq [day2_client_note]
         end
       end
     end

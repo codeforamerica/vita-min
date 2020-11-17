@@ -40,17 +40,12 @@ describe ZendeskFollowUpDocsService do
 
       expect(service).to have_received(:append_comment_to_ticket).with(
         ticket_id: 34,
-        fields: {
-          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: 34)
-        },
         comment: <<~DOCS
           The client added requested follow-up documents:
           * #{requested_docs[0].upload.filename}
           * #{requested_docs[1].upload.filename}
           * #{requested_docs[2].upload.filename}
 
-          View all client documents here:
-          #{zendesk_ticket_url(id: 34)}
         DOCS
       )
     end

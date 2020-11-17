@@ -1,14 +1,16 @@
 require "rails_helper"
 
 RSpec.describe "a user editing a clients intake fields" do
-  context "as an authenticated user" do
-    let(:user) { create :user, vita_partner: create(:vita_partner) }
+  context "as an admin user" do
+    let(:user) { create :admin_user, vita_partner: create(:vita_partner) }
     let(:client) { create :client, vita_partner: user.vita_partner, intake: create(:intake, primary_first_name: "Colleen", primary_last_name: "Cauliflower") }
     before { login_as user }
 
     scenario "I can update available fields" do
       visit case_management_client_path(id: client.id)
-      click_on "Edit"
+      within ".client-profile" do
+        click_on "Edit"
+      end
 
       within "#primary-info" do
         expect(find_field("case_management_client_intake_form_primary_first_name").value).to eq "Colleen"

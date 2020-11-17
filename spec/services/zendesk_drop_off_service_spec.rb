@@ -72,10 +72,7 @@ describe ZendeskDropOffService do
         )
         expect(result).to eq 2
 
-        expect(fake_zendesk_ticket).to have_received(:fields=).with({
-          EitcZendeskInstance::LINK_TO_CLIENT_DOCUMENTS => zendesk_ticket_url(id: 2)
-        })
-        expect(fake_zendesk_ticket).to have_received(:save!).twice
+        expect(fake_zendesk_ticket).to have_received(:save!)
       end
 
       context "from Goodwill Industries of the Southern Rivers" do
