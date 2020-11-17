@@ -6,7 +6,7 @@
    elsif params["tax_return"]["status"] == "filed_accepted"
      @status_macro = t('case_management.tax_returns.edit.status_macros.accepted')
    else
-     @status_macro = "*******************"
+     @status_macro = ""
    end
 %>
 <% content_for :page_title, @title %>
@@ -32,10 +32,10 @@
         selected: @tax_return.client.intake&.locale
         ) %>
 
-    <%= f.cfa_input_field(
+    <%= f.cfa_textarea(
             :body,
             t("general.send_message"),
-            help_text: @status_macro
+            options: {value: @status_macro, :rows => "8"}
         )%>
 
     <p><%=t('case_management.tax_returns.edit.send_clarifier')%></p>
