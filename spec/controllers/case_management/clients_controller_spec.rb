@@ -66,9 +66,11 @@ RSpec.describe CaseManagement::ClientsController do
   describe "#show" do
     let(:vita_partner) { create :vita_partner }
     let(:user) { create :user, vita_partner: vita_partner }
-    let(:intake) do
+    let(:client) { create :client, vita_partner: vita_partner, tax_returns: [(create :tax_return, year: 2019)] }
+    let!(:intake) do
       create :intake,
              :with_contact_info,
+             client: client,
              primary_first_name: "Legal",
              primary_last_name: "Name",
              locale: "en",
@@ -87,7 +89,6 @@ RSpec.describe CaseManagement::ClientsController do
              vita_partner: vita_partner
     end
 
-    let(:client) { create :client, intake: intake, vita_partner: vita_partner, tax_returns: [(create :tax_return, year: 2019)] }
     let(:params) { {id: client.id} }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
@@ -99,6 +100,7 @@ RSpec.describe CaseManagement::ClientsController do
 
       it "shows client information" do
         get :show, params: params
+
         header = Nokogiri::HTML.parse(response.body).at_css(".client-header")
         expect(header).to have_text("2019")
         profile = Nokogiri::HTML.parse(response.body).at_css(".client-profile")

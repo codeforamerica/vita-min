@@ -5,9 +5,9 @@
   <h1 class="form-question">
     <%= content_for(:form_question) %>
   </h1>
-  <% if current_intake&.intake_ticket_id.present? %>
+  <% if current_intake.present? %>
     <h2 class="text--teal h3">
-      <%=t("views.questions.successfully_submitted.confirmation_number", :confirmation_number => current_intake.intake_ticket_id) %>
+      <%=t("views.questions.successfully_submitted.confirmation_number", :confirmation_number => current_intake.client_id) %>
     </h2>
   <% end %>
 

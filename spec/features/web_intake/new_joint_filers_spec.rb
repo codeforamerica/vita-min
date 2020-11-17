@@ -5,8 +5,6 @@ RSpec.feature "Web Intake Joint Filers" do
 
   before do
     create :vita_partner, display_name: "Virginia Partner", zendesk_group_id: "123", states: [State.find_by(abbreviation: "VA")]
-    allow_any_instance_of(ZendeskIntakeService).to receive(:assign_requester)
-    allow_any_instance_of(ZendeskIntakeService).to receive(:create_intake_ticket).and_return(ticket_id)
     # see note below about skipping redirects
   end
 
@@ -84,9 +82,6 @@ RSpec.feature "Web Intake Joint Filers" do
     expect do
       click_on "I agree"
     end.to change { intake.reload.client.tax_returns.pluck(:status) }.from(["intake_before_consent"]).to(["intake_in_progress"])
-
-    # right about here, our intake gets an intake_ticket_id in a background job
-    allow_any_instance_of(Intake).to receive(:intake_ticket_id).and_return(ticket_id)
 
     # Primary filer personal information
     expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2019")
@@ -382,7 +377,7 @@ RSpec.feature "Web Intake Joint Filers" do
     click_on "Submit"
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-    expect(page).to have_text("Your confirmation number is: #{ticket_id}")
+    expect(page).to have_text("Your confirmation number is: #{intake.client_id}")
   end
 end
 
