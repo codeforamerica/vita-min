@@ -33,6 +33,7 @@ RSpec.describe "sorting and filtering clients" do
         within ".client-filters" do
           select "Ready for call", from: "status"
           click_button "Apply"
+          expect(page).to have_select("status-filter", selected: "Ready for call")
         end
 
         within ".client-table" do

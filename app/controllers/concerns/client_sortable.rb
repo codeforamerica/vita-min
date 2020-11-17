@@ -24,13 +24,11 @@ module ClientSortable
   end
 
   def filtered_and_sorted_clients(assigned_to: nil)
-    scopes = [
-      :after_consent,
-      [:delegated_order, @sort_column, @sort_order],
-      ([:assigned_to, assigned_to.id] if assigned_to.present?),
-      ([:where, { tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] } }] if @filters[:stage]),
-      ([:where, { tax_returns: { status: @filters[:status] } }] if @filters[:status])
-    ].compact
-    scopes.inject(@clients) { |collection, args| collection.send(*args) }
+    clients = @clients.after_consent
+    clients = clients.delegated_order(@sort_column, @sort_order)
+    clients = clients.assigned_to(assigned_to.id) if assigned_to.present?
+    clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
+    clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
+    clients
   end
 end

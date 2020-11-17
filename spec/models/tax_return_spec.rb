@@ -83,7 +83,7 @@ describe TaxReturn do
   end
 
   describe ".grouped_statuses" do
-    let(:result) { TaxReturn.grouped_statuses }
+    let(:result) { TaxReturnStatus::STATUSES_BY_STAGE }
 
     it "returns a hash with all stage keys" do
       expect(result).to have_key("intake")

@@ -27,14 +27,6 @@ class TaxReturn < ApplicationRecord
 
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
 
-  def self.grouped_statuses
-    TaxReturnStatus::STATUSES_BY_STAGE
-  end
-
-  def self.stages
-    TaxReturnStatus::STAGES
-  end
-
   ##
   # advance the return to a new status, only if that status more advanced.
   # An earlier or equal status will be ignored.

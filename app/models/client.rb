@@ -42,8 +42,8 @@ class Client < ApplicationRecord
     raise ArgumentError, "column and direction are required" if !column || !direction
 
     if delegated_intake_attributes.include? column.to_sym
-      select = delegated_intake_attributes.inject(["clients.*"]) { |arr, attr| arr << ("intakes." + attr.to_s) }
-      select(select).joins(:intake).merge(Intake.order(Hash[column, direction])).distinct
+      column_names = ["clients.*"] + delegated_intake_attributes.map { |intake_column_name| "intakes.#{intake_column_name}" }
+      select(column_names).joins(:intake).merge(Intake.order(Hash[column, direction])).distinct
     else
       includes(:intake).order(Hash[column, direction]).distinct
     end

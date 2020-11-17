@@ -60,7 +60,7 @@
       <% if @filters[:status] %>
         No clients match status <%= stage_and_status_translation(@filters[:status]) %>.
       <% elsif @filters[:stage] %>
-        No clients match stage <%= status_translation(@filters[:stage]) %>
+        No clients match stage <%= stage_translation(@filters[:stage]) %>
       <% else %>
         No clients assigned.
       <% end %>

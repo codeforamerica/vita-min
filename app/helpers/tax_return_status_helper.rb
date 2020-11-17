@@ -1,6 +1,6 @@
 module TaxReturnStatusHelper
   def grouped_status_options_for_select
-    TaxReturn.grouped_statuses.to_a.map do |stage, statuses|
+    TaxReturnStatus::STATUSES_BY_STAGE.to_a.map do |stage, statuses|
       translated_stage = TaxReturnStatusHelper.stage_translation(stage)
       translated_statuses = statuses.map { |status| [TaxReturnStatusHelper.status_translation(status), status.to_s] }
       [translated_stage, translated_statuses]
@@ -9,6 +9,10 @@ module TaxReturnStatusHelper
 
   def stage_and_status_translation(status)
     TaxReturnStatusHelper.stage_and_status_translation(status)
+  end
+
+  def stage_translation(stage)
+    TaxReturnStatusHelper.stage_translation(stage)
   end
 
   def status_translation(status)
