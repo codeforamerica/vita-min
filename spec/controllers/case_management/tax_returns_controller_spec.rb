@@ -15,6 +15,17 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
+    # with a tax_return_status param that has a template (from client profile link)
+      # it prepopulates the form with certain values
+        # it uses the correct template
+        # it fills out the template with the right values
+    # with a certain locale
+      # it pre-selects the langauge based on locale
+      # when the itnerview preference doesn't match the locale
+        # it shows a warning
+    # when the client has certain contact preferences
+      # it shows a warning
+
     context "as an authenticated user" do
       render_views
       let(:user) { create :user, vita_partner: vita_partner }
@@ -79,6 +90,13 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
         expect(response).to redirect_to case_management_clients_path
         expect(flash[:notice]).to eq "Assigned Lucille's 2018 tax return to Buster"
       end
+
+      # when there is content in the note field
+        # it saves a note
+      # when there is content in the email field
+        # it enqueues a email
+      # when there is content in the text message field
+        # it enqueues a text message 
 
       context "unassigning the tax return" do
         let(:params) {
