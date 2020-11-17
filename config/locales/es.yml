@@ -73,7 +73,9 @@ es:
         send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
         status_macros:
           needs_more_information: |
-            Hello! In order to continue filing your taxes, we need you to send us:
+            Hello!
+
+            In order to continue filing your taxes, we need you to send us:
             %{required_documents}
             Securely upload your documents by going to %{document_upload_link}
 
@@ -90,8 +92,10 @@ es:
             Your tax team at GetYourRefund.org
           accepted: |
             Hello!
+
             Your federal and state returns have been accepted! You will not receive any further notifications. If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
             If you have any questions, please reply to this message.
+
             Thanks!
             Your tax team at GetYourRefund.org
       update:
