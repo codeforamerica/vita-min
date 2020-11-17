@@ -130,7 +130,6 @@ RSpec.describe CaseManagement::ClientsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "as an authenticated user" do
-      render_views
 
       let(:vita_partner) { create(:vita_partner) }
       let(:user) { create(:user_with_org, vita_partner: vita_partner) }
@@ -138,6 +137,8 @@ RSpec.describe CaseManagement::ClientsController do
       before { sign_in user }
 
       context "with some existing clients" do
+        render_views
+
         let!(:george_sr) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
         let!(:george_sr_2019_return) { create :tax_return, client: george_sr, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:george_sr_2018_return) { create :tax_return, client: george_sr, year: 2018, assigned_user: assigned_user, status: "intake_open" }
@@ -199,7 +200,8 @@ RSpec.describe CaseManagement::ClientsController do
       end
 
       context "sorting and ordering" do
-        context "with client  as sort param" do
+
+        context "with client as sort param" do
           let(:params) { { column: "preferred_name" } }
           let!(:alex) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
           let!(:ben) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Ben") }
@@ -325,6 +327,29 @@ RSpec.describe CaseManagement::ClientsController do
             expect(assigns[:sort_order]).to eq "desc"
 
             expect(assigns(:clients)).to eq [second_id, first_id]
+          end
+        end
+      end
+
+      context "filtering" do
+
+        context "with a status filter" do
+          let!(:included_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_open")], intake: (create :intake) }
+
+          it "includes clients with tax returns in that status" do
+            get :index, params: { status: "intake_in_progress"}
+            expect(assigns(:clients)).to eq [included_client]
+          end
+        end
+
+        context "with a stage filter" do
+          let!(:included_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "prep_ready_for_call")], intake: (create :intake) }
+
+          it "includes clients with tax returns in that stage" do
+            get :index, params: { status: "intake" }
+            expect(assigns(:clients)).to eq [included_client]
           end
         end
       end

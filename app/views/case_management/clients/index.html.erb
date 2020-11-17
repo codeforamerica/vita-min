@@ -3,7 +3,9 @@
 <% content_for :card do %>
   <%= render 'shared/user_header' %>
   <%= render "shared/dashboard_navigation" %>
-  <table class="index-table client-table">
+  <%= render "shared/client_filters" %>
+  <% if @clients.present? %>
+    <table class="index-table client-table">
     <caption class="index-table__title spacing-above-25">
       <h1 class="h2"><%= @page_title %></h1>
     </caption>
@@ -29,9 +31,8 @@
     </thead>
 
     <tbody class="index-table__body clients-table">
-
       <% @clients.each do |client| %>
-        <tr id="client-<%= client.id %>" class="index-table__row">
+        <tr id="client-<%= client.id %>" class="index-table__row client-row">
           <td class="index-table__cell client-attribute__needs-response">
             <%= render "shared/client_needs_response", client: client %>
           </td>
@@ -51,4 +52,18 @@
       <% end %>
     </tbody>
   </table>
+  <% else %>
+    <div class="spacing-above-25">
+      <h1 class="h2"><%= @page_title %></h1>
+    </div>
+    <div class="empty-clients">
+      <% if @filters[:status] %>
+        No clients match status <%= stage_and_status_translation(@filters[:status]) %>.
+      <% elsif @filters[:stage] %>
+        No clients match stage <%= stage_translation(@filters[:stage]) %>
+      <% else %>
+        No clients assigned.
+      <% end %>
+    </div>
+  <% end %>
 <% end %>

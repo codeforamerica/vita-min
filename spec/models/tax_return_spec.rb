@@ -81,4 +81,37 @@ describe TaxReturn do
       end
     end
   end
+
+  describe ".grouped_statuses" do
+    let(:result) { TaxReturnStatus::STATUSES_BY_STAGE }
+
+    it "returns a hash with all stage keys" do
+      expect(result).to have_key("intake")
+      expect(result).to have_key("prep")
+      expect(result).to have_key("review")
+      expect(result).to have_key("finalize")
+      expect(result).to have_key("filed")
+    end
+
+    it "includes all intake statuses except before consent" do
+      expect(result["intake"].length).to eq 6
+      expect(result["intake"]).not_to include "intake_before_consent"
+    end
+
+    it "includes all prep statuses" do
+      expect(result["prep"].length).to eq 4
+    end
+
+    it "includes all review statuses" do
+      expect(result["review"].length).to eq 3
+    end
+
+    it "includes all finalize statuses" do
+      expect(result["finalize"].length).to eq 2
+    end
+
+    it "includes all filed statuses" do
+      expect(result["filed"].length).to eq 4
+    end
+  end
 end

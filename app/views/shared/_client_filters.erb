@@ -1,0 +1,26 @@
+<div class="client-filters">
+  <%= form_with method: "get", local: true, builder: VitaMinFormBuilder, id: "filter-form" do |f| %>
+    <h3>Filters</h3>
+    <hr/>
+    <label for="status">Stage/Status</label>
+    <div class="select">
+      <select name="status" class="select__element" id="status-filter">
+        <option value></option>
+        <% TaxReturnStatus::STATUSES_BY_STAGE.each do |stage, statuses| %>
+          <option value="<%= stage %>" <%= params[:status] == stage && "selected" %>><%= TaxReturnStatusHelper.stage_translation(stage) %></option>
+          <% statuses.each do |status| %>
+            <option value="<%= status %>" <%= params[:status] == status.to_s && "selected" %>>&emsp;<%= status_translation(status) %></option>
+          <% end %>
+        <% end %>
+      </select>
+    </div>
+    <%= f.hidden_field :order, value: @sort_order %>
+    <%= f.hidden_field :column, value: @sort_column %>
+    <div>
+      <%= submit_tag "Apply", class: "button button--small", name: nil %>
+      <% if @filters && @filters.values.any? %>
+        <%= submit_tag "Clear Filters", class: "button button--small button--danger", name: "clear" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

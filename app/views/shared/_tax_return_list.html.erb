@@ -16,11 +16,11 @@
       </div>
       <% if status_updateable %>
         <%= form_with model: tax_return, url: edit_status_case_management_client_tax_return_path(id: tax_return.id, client_id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "form-wrapper"} do |f| %>
-          <%= f.cfa_select(:status, t("general.status"), grouped_status_options, include_blank: true, selected: tax_return.status) %>
+          <%= f.cfa_select(:status, t("general.status"), grouped_status_options_for_select, include_blank: true, selected: tax_return.status) %>
           <div><%= f.submit "Update", class: "button button--small"%></div>
         <% end %>
       <% else %>
-        <div><%= stage_and_status_translation(tax_return.status) %></div>
+        <%= stage_and_status_translation(tax_return.status) %>
       <% end %>
     </li>
   <% end %>

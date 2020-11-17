@@ -1,27 +1,27 @@
 module TaxReturnStatusHelper
-  def grouped_status_options
-    TaxReturnStatusHelper.grouped_status_options
+  def grouped_status_options_for_select
+    TaxReturnStatus::STATUSES_BY_STAGE.to_a.map do |stage, statuses|
+      translated_stage = TaxReturnStatusHelper.stage_translation(stage)
+      translated_statuses = statuses.map { |status| [TaxReturnStatusHelper.status_translation(status), status.to_s] }
+      [translated_stage, translated_statuses]
+    end
   end
 
   def stage_and_status_translation(status)
     TaxReturnStatusHelper.stage_and_status_translation(status)
   end
 
-  def self.grouped_status_options
-    stages = {}
-    printable_statuses = TaxReturn::STATUSES.except(:intake_before_consent).keys.map(&:to_s)
-    printable_statuses.map do |status|
-      stage = status.split("_")[0]
-      translated_stage = stage_translation(stage)
-      stages[translated_stage] = [] unless stages.key?(translated_stage)
-      stages[translated_stage].push([status_translation(status), status])
-    end
-    stages.to_a
+  def stage_translation(stage)
+    TaxReturnStatusHelper.stage_translation(stage)
+  end
+
+  def status_translation(status)
+    TaxReturnStatusHelper.status_translation(status)
   end
 
   def self.stage_and_status_translation(status)
-    stage = status.split("_")[0]
-    return "#{stage_translation(stage)}/#{status_translation(status)}"
+    stage = status.to_s.split("_")[0]
+    "#{stage_translation(stage)}/#{status_translation(status)}"
   end
 
   private

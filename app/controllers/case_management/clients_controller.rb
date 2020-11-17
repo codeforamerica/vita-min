@@ -10,10 +10,7 @@ module CaseManagement
 
     def index
       @page_title = I18n.t("case_management.clients.index.title")
-      @clients = @clients.delegated_order(@sort_column, @sort_order)
-                         .joins(:tax_returns)
-                         .merge(TaxReturn.where("status > ?", TaxReturn.statuses[:intake_before_consent]))
-                         .uniq
+      @clients = filtered_and_sorted_clients
     end
 
     def create
