@@ -21,22 +21,22 @@ RSpec.feature "Visit home page" do
     #
     # i.e. https://www.getyourrefund.org == https://www.getyourrefund.org/ BUT https://www.getyourrefund.org/es != https://www.getyourrefund.org/es/
     expect(page).to have_css 'link[rel="canonical"][href="http://www.example.com/"]', :visible => false
-    # The default language alternate is always English
+    # The x-default language alternate does not include the locale, so it will match browser settings
     expect(page).to have_css 'link[rel="alternate"][hreflang="x-default"][href="http://www.example.com/"]', :visible => false
-    # The English alternate doesn't include the locale because it's the default
-    expect(page).to have_css 'link[rel="alternate"][hreflang="en"][href="http://www.example.com/"]', :visible => false
+    # The English alternate includes the locale
+    expect(page).to have_css 'link[rel="alternate"][hreflang="en"][href="http://www.example.com/en"]', :visible => false
     # The Spanish alternate includes the locale
     expect(page).to have_css 'link[rel="alternate"][hreflang="es"][href="http://www.example.com/es"]', :visible => false
   end
 
   scenario "it has the correct SEO link tags in Spanish" do
     visit "/?new_locale=es"
-    # We are currently viewing the Spanish homepage so the canonical URL is the Spanish version
+    # We are currently viewing the Spanish homepage so the canonical URL is the Spanish version, with locale included
     expect(page).to have_css 'link[rel="canonical"][href="http://www.example.com/es"]', :visible => false
-    # The default language alternate is always English
+    # The x-default language alternate does not include the locale, so it will match browser settings
     expect(page).to have_css 'link[rel="alternate"][hreflang="x-default"][href="http://www.example.com/"]', :visible => false
-    # The English alternate doesn't include the locale because it's the default
-    expect(page).to have_css 'link[rel="alternate"][hreflang="en"][href="http://www.example.com/"]', :visible => false
+    # The English alternate includes the locale
+    expect(page).to have_css 'link[rel="alternate"][hreflang="en"][href="http://www.example.com/en"]', :visible => false
     # The Spanish alternate includes the locale
     expect(page).to have_css 'link[rel="alternate"][hreflang="es"][href="http://www.example.com/es"]', :visible => false
   end
