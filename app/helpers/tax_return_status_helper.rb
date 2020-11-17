@@ -24,6 +24,10 @@ module TaxReturnStatusHelper
     "#{stage_translation(stage)}/#{status_translation(status)}"
   end
 
+  def language_options
+    I18n.backend.translations[I18n.locale][:general][:language_options].invert
+  end
+
   private
 
   def self.stage_translation(stage)

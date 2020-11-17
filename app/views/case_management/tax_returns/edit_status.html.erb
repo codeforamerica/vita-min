@@ -1,4 +1,14 @@
 <% @title = t("general.take_action") %>
+<% if params["tax_return"]["status"] == ("intake_more_info" || "prep_more_info" || "review_more_info")
+     @status_macro = t('case_management.tax_returns.edit.status_macros.needs_more_information', required_documents: "required docs", document_upload_link: "link")
+   elsif params["tax_return"]["status"] == "prep_ready_for_review"
+     @status_macro = t('case_management.tax_returns.edit.status_macros.ready_for_qr')
+   elsif params["tax_return"]["status"] == "filed_accepted"
+     @status_macro = t('case_management.tax_returns.edit.status_macros.accepted')
+   else
+     @status_macro = "*******************"
+   end
+%>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <%= form_with model: @tax_return,
@@ -15,8 +25,22 @@
              selected: params["tax_return"]["status"]
           ) %>
 
+    <%= f.cfa_select(
+        :language,
+        t("general.language"),
+        language_options,
+        selected: @tax_return.client.intake&.locale
+        ) %>
+
+    <%= f.cfa_input_field(
+            :body,
+            t("general.send_message"),
+            help_text: @status_macro
+        )%>
+
+    <p><%=t('case_management.tax_returns.edit.send_clarifier')%></p>
     <button class="button button--cta " type="submit">
-      <%=t("general.save") %>
+      <%=t("general.send") %>
     </button>
   <% end %>
 <% end %>
