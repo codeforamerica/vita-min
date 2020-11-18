@@ -20,7 +20,7 @@ shared_examples :a_get_action_for_authenticated_users_only do |action:|
   let(:params) { {} } unless method_defined?(:params)
 
   context "with an anonymous user" do
-    it "saves the current path to the session and redirects to the zendesk login path" do
+    it "saves the current path to the session and redirects to the login path" do
       get action, params: params
 
       expect(response).to redirect_to new_user_session_path
@@ -33,7 +33,7 @@ shared_examples :a_post_action_for_authenticated_users_only do |action:|
   let(:params) { {} } unless method_defined?(:params)
 
   context "with an anonymous user" do
-    it "saves the current path to the session and redirects to the zendesk login path" do
+    it "saves the current path to the session and redirects to the login path" do
       post action, params: params
 
       expect(response).to redirect_to new_user_session_path
@@ -48,7 +48,7 @@ shared_examples :a_get_action_for_admins_only do |action:|
   context "with a non-admin user" do
     before { sign_in( create :agent_user ) }
 
-    it "saves the current path to the session and redirects to the zendesk login path" do
+    it "returns 403 Forbidden" do
       get action, params: params
 
       expect(response.status).to eq 403
@@ -62,7 +62,7 @@ shared_examples :a_post_action_for_admins_only do |action:|
   context "with a non-admin user" do
     before { sign_in( create :agent_user ) }
 
-    it "saves the current path to the session and redirects to the zendesk login path" do
+    it "returns 403 Forbidden" do
       post action, params: params
 
       expect(response.status).to eq 403
