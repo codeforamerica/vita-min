@@ -173,7 +173,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
   describe "#update_status" do
     let(:user) { create :user, vita_partner: (create :vita_partner) }
     let(:client) { create :client, vita_partner: user.vita_partner }
-    let(:intake) { create :intake, email_address: "gob@example.com", phone_number: "+14155551212", client: client }
+    let!(:intake) { create :intake, email_address: "gob@example.com", phone_number: "+14155551212", client: client }
     let(:tax_return) { create :tax_return, status: "intake_in_progress", client: client }
     let(:status) { "review_complete_signature_requested"}
     let(:locale) { "en" }
@@ -199,10 +199,11 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
     context "as an authenticated user" do
       before { sign_in user }
 
-      it "redirects to the messages tab" do
+      it "redirects to the messages tab with a basic flash success message" do
         post :update_status, params: params
 
-        expect(response).to redirect_to case_management_client_path(client_id: tax_return.client.id)
+        expect(response).to redirect_to case_management_client_path(id: tax_return.client)
+        expect(flash[:notice]).to eq "Success: Action taken! Updated status."
       end
 
       context "when a new status is submitted" do
@@ -213,6 +214,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
 
           post :update_status, params: params
           expect(tax_return.reload.status).to eq("intake_needs_assignment")
+          expect(flash[:notice]).to match "Updated status"
         end
       end
 
@@ -236,8 +238,10 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
 
           note = Note.last
           expect(note.client).to eq tax_return.client
-          expect(note.body).to eq note_body
+          expect(note.body).to eq internal_note
           expect(note.user).to eq user
+
+          expect(flash[:notice]).to match "added internal note"
         end
       end
 
@@ -268,11 +272,13 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
         context "and the contact method is email" do
           let(:contact_method) { "email" }
           let(:mock_mailer) { double }
+          let(:example_now_time) { DateTime.new(2020, 11, 20) }
 
           before do
             allow(mock_mailer).to receive(:deliver_later)
             allow(OutgoingEmailMailer).to receive(:user_message).and_return mock_mailer
             allow(ClientChannel).to receive(:broadcast_contact_record)
+            allow(DateTime).to receive(:now).and_return example_now_time
           end
 
           it "sends an email" do
@@ -282,33 +288,60 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
 
             outgoing_email = OutgoingEmail.last
             expect(outgoing_email.to).to eq intake.email_address
-            expect(outgoing.body).to eq message_body
+            expect(outgoing_email.body).to eq message_body
+            expect(outgoing_email.subject).to eq "Update from GetYourRefund"
+            expect(outgoing_email.sent_at).to eq example_now_time
+            expect(outgoing_email.client).to eq client
+            expect(outgoing_email.user).to eq user
+
             expect(OutgoingEmailMailer).to have_received(:user_message).with(outgoing_email: outgoing_email)
             expect(mock_mailer).to have_received(:deliver_later)
             expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
+
+            expect(flash[:notice]).to match "sent email"
           end
         end
 
         context "and the contact method is text message" do
-          xit "sends a text message" do
+          let(:contact_method) { "text_message" }
+          let(:example_now_time) { DateTime.new(2020, 11, 20) }
 
+          before do
+            allow(SendOutgoingTextMessageJob).to receive(:perform_later)
+            allow(ClientChannel).to receive(:broadcast_contact_record)
+            allow(DateTime).to receive(:now).and_return example_now_time
+          end
+
+          it "sends a text message" do
+            expect do
+              post :update_status, params: params
+            end.to change(OutgoingTextMessage, :count).by 1
+
+            outgoing_text = OutgoingTextMessage.last
+            expect(outgoing_text.to_phone_number).to eq intake.phone_number
+            expect(outgoing_text.sent_at).to eq example_now_time
+            expect(outgoing_text.client).to eq client
+            expect(outgoing_text.user).to eq user
+            expect(outgoing_text.body).to eq message_body
+
+            expect(SendOutgoingTextMessageJob).to have_received(:perform_later).with(outgoing_text.id)
+            expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_text)
+            expect(flash[:notice]).to match "sent text message"
           end
         end
       end
 
-      # when there is content in the note field
-      # it saves a note
-      # when there is content in the email field
-      # it enqueues a email
-      # when there is content in the text message field
-      # it enqueues a text message
+      context "when status is changed, message body is present, and internal note is present"do
+        let(:status) { "review_in_review" }
+        let(:message_body) { "hi" }
+        let(:internal_note) { "wyd" }
 
-      # context "there is content in the email field" do
-      #   it "enqueues a email" do
-      #     put :update, params: params
-      #     expect(Job).to have_been_enqueued
-      #   end
-      # end
+        it "adds a flash success message listing all the actions taken" do
+          post :update_status, params: params
+
+          expect(flash[:notice]).to eq "Success: Action taken! Updated status, sent email, added internal note."
+        end
+      end
     end
   end
 end

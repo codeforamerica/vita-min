@@ -39,20 +39,53 @@ module CaseManagement
     def update_status
       @take_action_form = CaseManagement::TakeActionForm.new(@client, take_action_form_params)
       if @take_action_form.valid?
-        if @take_action_form.internal_note.present?
-          Note.create!(
-              body: @take_action_form.internal_note,
-              client: @client,
-              user: current_user
-          )
-        end
-
+        action_list = []
         if @take_action_form.status != @tax_return.status
           @tax_return.update!(status: @take_action_form.status)
           SystemNote.create_status_change_note(current_user, @tax_return)
+          action_list << I18n.t('case_management.tax_returns.edit_status.flash_message.status')
         end
 
-        redirect_to case_management_client_messages_path(client_id: @client.id)
+        if @take_action_form.message_body.present?
+          case @take_action_form.contact_method
+          when "email"
+            @outgoing_email = OutgoingEmail.create!(
+              to: @client.email_address,
+              body: @take_action_form.message_body,
+              subject: I18n.t("email.user_message.subject", locale: @take_action_form.locale),
+              sent_at: DateTime.now,
+              client: @client,
+              user: current_user
+            )
+            OutgoingEmailMailer.user_message(outgoing_email: @outgoing_email).deliver_later
+            ClientChannel.broadcast_contact_record(@outgoing_email)
+            action_list << I18n.t('case_management.tax_returns.edit_status.flash_message.email')
+          when "text_message"
+            @outgoing_text_message = OutgoingTextMessage.create!(
+              to_phone_number: @client.phone_number,
+              sent_at: DateTime.now,
+              client: @client,
+              user: current_user,
+              body: @take_action_form.message_body
+            )
+            SendOutgoingTextMessageJob.perform_later(@outgoing_text_message.id)
+            ClientChannel.broadcast_contact_record(@outgoing_text_message)
+            action_list << I18n.t('case_management.tax_returns.edit_status.flash_message.text_message')
+          end
+        end
+
+        if @take_action_form.internal_note.present?
+          Note.create!(
+            body: @take_action_form.internal_note,
+            client: @client,
+            user: current_user
+          )
+          action_list << I18n.t('case_management.tax_returns.edit_status.flash_message.internal_note')
+        end
+
+        flash[:notice] = I18n.t('case_management.tax_returns.edit_status.flash_message.success', action_list: action_list.join(', ').capitalize)
+
+        redirect_to case_management_client_path(id: @client)
       end
 
     end

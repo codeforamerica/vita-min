@@ -103,6 +103,12 @@ en:
 
             Thanks!
             Your tax team at GetYourRefund.org
+        flash_message:
+          success: "Success: Action taken! %{action_list}."
+          status: updated status
+          email: sent email
+          text_message: sent text message
+          internal_note: added internal note
       update:
         flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}
         no_one: no one
