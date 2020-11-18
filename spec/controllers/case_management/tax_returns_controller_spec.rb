@@ -84,13 +84,6 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
         expect(flash[:notice]).to eq "Assigned Lucille's 2018 tax return to Buster"
       end
 
-      # when there is content in the note field
-        # it saves a note
-      # when there is content in the email field
-        # it enqueues a email
-      # when there is content in the text message field
-        # it enqueues a text message 
-
       context "unassigning the tax return" do
         let(:params) {
           {
@@ -179,30 +172,143 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
 
   describe "#update_status" do
     let(:user) { create :user, vita_partner: (create :vita_partner) }
-    let(:tax_return) { create :tax_return, status: "intake_in_progress", client: (create :client, vita_partner: user.vita_partner) }
-    let(:params) { { tax_return: { status: "review_complete_signature_requested" }, id: tax_return.id, client_id: tax_return.client } }
+    let(:client) { create :client, vita_partner: user.vita_partner }
+    let(:intake) { create :intake, email_address: "gob@example.com", phone_number: "+14155551212", client: client }
+    let(:tax_return) { create :tax_return, status: "intake_in_progress", client: client }
+    let(:status) { "review_complete_signature_requested"}
+    let(:locale) { "en" }
+    let(:internal_note) { "" }
+    let(:message_body) { "" }
+    let(:contact_method) { "email" }
+    let(:params) do
+      {
+        client_id: tax_return.client,
+        id: tax_return.id,
+        take_action_form: {
+          status: status,
+          internal_note: internal_note,
+          locale: locale,
+          message_body: message_body,
+          contact_method: contact_method,
+        }
+      }
+    end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_status
 
     context "as an authenticated user" do
       before { sign_in user }
 
-      it "creates a system note" do
-        expect(SystemNote).to receive(:create_status_change_note).with(user, tax_return)
-        post :update_status, params: params
-      end
-
       it "redirects to the messages tab" do
         post :update_status, params: params
-        expect(response).to redirect_to case_management_client_messages_path(client_id: tax_return.client.id)
+
+        expect(response).to redirect_to case_management_client_path(client_id: tax_return.client.id)
       end
 
-      it "updates the status on the indicated tax return" do
-        post :update_status, params: params
-        tax_return.reload
+      context "when a new status is submitted" do
+        let(:status) { "intake_needs_assignment" }
 
-        expect(tax_return.status).to eq("review_complete_signature_requested")
+        it "creates a system note and updates the status" do
+          expect(SystemNote).to receive(:create_status_change_note).with(user, tax_return)
+
+          post :update_status, params: params
+          expect(tax_return.reload.status).to eq("intake_needs_assignment")
+        end
       end
+
+      context "when the status is the same as he current status" do
+        let(:status) { "intake_in_progress" }
+
+        it "does not create a system status change note" do
+          expect(SystemNote).not_to receive(:create_status_change_note).with(user, tax_return)
+
+          post :update_status, params: params
+        end
+      end
+
+      context "there is content in the note field" do
+        let(:internal_note) { 'Lorem ipsum note about client tax return' }
+
+        it "saves a note" do
+          expect do
+            post :update_status, params: params
+          end.to change(Note, :count).by(1)
+
+          note = Note.last
+          expect(note.client).to eq tax_return.client
+          expect(note.body).to eq note_body
+          expect(note.user).to eq user
+        end
+      end
+
+      context "when the note field is blank" do
+        let(:internal_note) { " \n" }
+
+        it "does not save a note" do
+          expect do
+            post :update_status, params: params
+          end.not_to change(Note, :count)
+        end
+      end
+
+      context "when the message body is blank" do
+        let(:message_body) { " \n" }
+        let(:contact_method) { "email" }
+
+        it "does not send a text message nor email" do
+          expect do
+            post :update_status, params: params
+          end.not_to change(OutgoingEmail, :count)
+        end
+      end
+
+      context "when the message body is present" do
+        let(:message_body) { "There's money in the banana stand" }
+
+        context "and the contact method is email" do
+          let(:contact_method) { "email" }
+          let(:mock_mailer) { double }
+
+          before do
+            allow(mock_mailer).to receive(:deliver_later)
+            allow(OutgoingEmailMailer).to receive(:user_message).and_return mock_mailer
+            allow(ClientChannel).to receive(:broadcast_contact_record)
+          end
+
+          it "sends an email" do
+            expect do
+              post :update_status, params: params
+            end.to change(OutgoingEmail, :count).by 1
+
+            outgoing_email = OutgoingEmail.last
+            expect(outgoing_email.to).to eq intake.email_address
+            expect(outgoing.body).to eq message_body
+            expect(OutgoingEmailMailer).to have_received(:user_message).with(outgoing_email: outgoing_email)
+            expect(mock_mailer).to have_received(:deliver_later)
+            expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
+          end
+        end
+
+        context "and the contact method is text message" do
+          xit "sends a text message" do
+
+          end
+        end
+      end
+
+      # when there is content in the note field
+      # it saves a note
+      # when there is content in the email field
+      # it enqueues a email
+      # when there is content in the text message field
+      # it enqueues a text message
+
+      # context "there is content in the email field" do
+      #   it "enqueues a email" do
+      #     put :update, params: params
+      #     expect(Job).to have_been_enqueued
+      #   end
+      # end
     end
   end
 end

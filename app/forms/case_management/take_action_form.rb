@@ -2,9 +2,9 @@ module CaseManagement
   class TakeActionForm < Form
     attr_accessor :status, :locale, :message_body, :contact_method, :internal_note
 
-    def initialize(client, **attributes)
+    def initialize(client, *args, **attributes)
       @client = client
-      super(**attributes)
+      super(*args, **attributes)
     end
 
     def language_difference_help_text

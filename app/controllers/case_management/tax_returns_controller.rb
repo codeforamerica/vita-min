@@ -37,10 +37,24 @@ module CaseManagement
     end
 
     def update_status
-      if @tax_return.update(status_params)
-        SystemNote.create_status_change_note(current_user, @tax_return)
+      @take_action_form = CaseManagement::TakeActionForm.new(@client, take_action_form_params)
+      if @take_action_form.valid?
+        if @take_action_form.internal_note.present?
+          Note.create!(
+              body: @take_action_form.internal_note,
+              client: @client,
+              user: current_user
+          )
+        end
+
+        if @take_action_form.status != @tax_return.status
+          @tax_return.update!(status: @take_action_form.status)
+          SystemNote.create_status_change_note(current_user, @tax_return)
+        end
+
         redirect_to case_management_client_messages_path(client_id: @client.id)
       end
+
     end
 
     private
@@ -73,6 +87,10 @@ module CaseManagement
 
     def status_params
       params.require(:tax_return).permit(:status)
+    end
+
+    def take_action_form_params
+      params.require(:take_action_form).permit(:status, :locale, :message_body, :contact_method, :internal_note)
     end
   end
 end
