@@ -61,6 +61,7 @@ RSpec.describe CaseManagement::AssignedClientsController do
 
       context "filtering and sorting" do
         let!(:starts_with_a_assigned) { create :client, intake: (create :intake, preferred_name: "Aardvark Alan"), vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress", assigned_user: user)] }
+        let!(:starts_with_a_assigned) { create :client, intake: (create :intake, preferred_name: "Aardvark Alan"), vita_partner: user.memberships.first.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress", assigned_user: user)] }
 
         it "preferred_name, asc" do
           get :index, params: { status: "intake_in_progress", column: "preferred_name", order: "asc" }

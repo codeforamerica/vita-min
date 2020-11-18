@@ -22,7 +22,13 @@
             <%= link_to user.name, edit_user_path(id: user) %>
           </th>
           <td class="index-table__cell"><%= user_roles(user) %></td>
-          <td class="index-table__cell"><%= user.vita_partner&.name || t("general.none") %></td>
+          <td class="index-table__cell">
+            <ul>
+              <% user.memberships.each do |membership| %>
+                <li><%= membership.vita_partner&.name || t("general.none") %></li>
+              <% end %>
+            </ul>
+          </td>
         </tr>
       <% end %>
 

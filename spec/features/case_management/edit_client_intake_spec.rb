@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "a user editing a clients intake fields" do
   context "as an admin user" do
     let(:user) { create :admin_user, vita_partner: create(:vita_partner) }
-    let(:client) { create :client, vita_partner: user.vita_partner, intake: create(:intake, primary_first_name: "Colleen", primary_last_name: "Cauliflower") }
+    let(:client) { create :client, vita_partner: user.memberships.first.vita_partner, intake: create(:intake, primary_first_name: "Colleen", primary_last_name: "Cauliflower") }
     before { login_as user }
 
     scenario "I can update available fields" do

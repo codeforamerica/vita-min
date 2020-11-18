@@ -76,31 +76,40 @@ RSpec.describe UsersController do
 
   describe "#update" do
     let!(:vita_partner) { create :vita_partner, name: "Avonlea Tax Aid" }
-    let!(:user) { create :user, name: "Anne", memberships: [build(:membership, vita_partner: vita_partner)]}
+    let!(:user_to_update) { create :user, name: "Anne", memberships: [build(:membership, vita_partner: vita_partner)] }
+    let!(:user) { create :user }
     let(:params) do
       {
-        id: user.id,
-        user: {
-          vita_partner_id: vita_partner.id,
-          timezone: "America/Chicago",
-        }
+          id: user_to_update.id,
+          user: {
+              vita_partner_id: vita_partner.id,
+              timezone: "America/Chicago",
+          }
       }
     end
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
-    context "as an authenticated user" do
+    context "as an authenticated user editing a user they have access to" do
       render_views
+      let(:fake_ability) do
+        a = Ability.new(user)
+        a.can(:manage, User, id: user_to_update.id)
+        a.can(:manage, VitaPartner, id: vita_partner.id)
+        a
+      end
 
-      before { sign_in(create :user_with_membership) }
+      before do
+        sign_in(user)
+        allow(subject).to receive(:current_ability).and_return(fake_ability)
+      end
 
       context "when editing user fields that any user can edit" do
         it "updates the user and redirects to edit" do
           post :update, params: params
 
-          user.reload
-          expect(user.vita_partner).to eq vita_partner
-          expect(user.timezone).to eq "America/Chicago"
-          expect(response).to redirect_to edit_user_path(id: user)
+          user_to_update.reload
+          expect(user_to_update.timezone).to eq "America/Chicago"
+          expect(response).to redirect_to edit_user_path(id: user_to_update)
         end
       end
 
@@ -114,14 +123,22 @@ RSpec.describe UsersController do
           post :update, params: params
 
           user.reload
-          expect(user.is_admin).to be_falsey
-          expect(user.supported_organization_ids).to be_empty
+          expect(user_to_update.is_admin).to be_falsey
+          expect(user_to_update.supported_organization_ids).to be_empty
         end
       end
 
       context "when assigning the user to an organization inaccessible to the current user" do
+        let(:inaccessible_partner) { create(:vita_partner) }
+
         before do
-          params[:user][:vita_partner_id] = create(:vita_partner).id
+          params[:user][:vita_partner_id] = inaccessible_partner.id
+        end
+
+        let(:cannot_ability) do
+          Ability.new(user) do
+            cannot(:manage, VitaPartner, { id: inaccessible_partner.id })
+          end
         end
 
         it "raises an exception and does not change the user" do
@@ -143,16 +160,16 @@ RSpec.describe UsersController do
 
       it "can add admin role & supported organizations" do
         params = {
-          id: user.id,
-          user: {
-            is_admin: true,
-            vita_partner_id: vita_partner.id,
-            timezone: "America/Chicago",
-            supported_organization_ids: [
-              supported_vita_partner_1.id,
-              supported_vita_partner_2.id
-            ]
-          }
+            id: user.id,
+            user: {
+                is_admin: true,
+                vita_partner_id: vita_partner.id,
+                timezone: "America/Chicago",
+                supported_organization_ids: [
+                    supported_vita_partner_1.id,
+                    supported_vita_partner_2.id
+                ]
+            }
         }
 
         post :update, params: params

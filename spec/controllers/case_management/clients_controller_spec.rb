@@ -10,7 +10,7 @@ RSpec.describe CaseManagement::ClientsController do
         email_address: "client@example.com",
         phone_number: "14155537865",
         preferred_name: "Casey",
-        vita_partner: user.vita_partner
+        vita_partner: user.memberships.first.vita_partner
       )
     end
     let(:params) do
@@ -48,7 +48,7 @@ RSpec.describe CaseManagement::ClientsController do
         end
 
         context "with an intake that already has a client" do
-          let(:client) { create :client, vita_partner: user.vita_partner }
+          let(:client) { create :client, vita_partner: user.memberships.first.vita_partner }
           let!(:intake) { create :intake, client: client }
 
           it "just redirects to the existing client" do
@@ -334,8 +334,8 @@ RSpec.describe CaseManagement::ClientsController do
       context "filtering" do
 
         context "with a status filter" do
-          let!(:included_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
-          let!(:excluded_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_open")], intake: (create :intake) }
+          let!(:included_client) { create :client, vita_partner: user.memberships.first.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: user.memberships.first.vita_partner, tax_returns: [(create :tax_return, status: "intake_open")], intake: (create :intake) }
 
           it "includes clients with tax returns in that status" do
             get :index, params: { status: "intake_in_progress"}
@@ -344,8 +344,8 @@ RSpec.describe CaseManagement::ClientsController do
         end
 
         context "with a stage filter" do
-          let!(:included_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
-          let!(:excluded_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "prep_ready_for_call")], intake: (create :intake) }
+          let!(:included_client) { create :client, vita_partner: user.memberships.first.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: user.memberships.first.vita_partner, tax_returns: [(create :tax_return, status: "prep_ready_for_call")], intake: (create :intake) }
 
           it "includes clients with tax returns in that stage" do
             get :index, params: { status: "intake" }
