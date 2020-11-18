@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe CaseManagement::ClientsController do
   describe "#create" do
-    let(:user) { create :user_with_org }
+    let(:user) { create :user_with_membership }
     let(:intake) do
       create(
         :intake,
@@ -64,8 +64,8 @@ RSpec.describe CaseManagement::ClientsController do
   end
 
   describe "#show" do
-    let(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, vita_partner: vita_partner }
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
     let(:intake) do
       create :intake,
              :with_contact_info,
@@ -131,8 +131,8 @@ RSpec.describe CaseManagement::ClientsController do
 
     context "as an authenticated user" do
 
-      let(:vita_partner) { create(:vita_partner) }
-      let(:user) { create(:user_with_org, vita_partner: vita_partner) }
+      let(:user) { create(:user_with_membership) }
+      let(:vita_partner) { user.memberships.first.vita_partner }
 
       before { sign_in user }
 
@@ -360,9 +360,9 @@ RSpec.describe CaseManagement::ClientsController do
     let(:params) do
       { id: client.id, client: {} }
     end
-    let(:client) { create :client, vita_partner: create(:vita_partner) }
-    let(:current_user) { create :user_with_org, vita_partner: client.vita_partner }
-    before { sign_in(current_user) }
+    let(:user) { create :user_with_membership }
+    let(:client) { create :client, vita_partner: user.memberships.first.vita_partner }
+    before { sign_in(user) }
 
     it "redirects to case management client path" do
       patch :response_needed, params: params
@@ -370,7 +370,6 @@ RSpec.describe CaseManagement::ClientsController do
     end
 
     context "with dismiss param" do
-
       before do
         params[:client][:action] = "clear"
       end
@@ -399,7 +398,8 @@ RSpec.describe CaseManagement::ClientsController do
   end
 
   describe "#edit" do
-    let(:vita_partner) { create :vita_partner }
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
     let(:params) {
       { id: client.id }
@@ -408,7 +408,6 @@ RSpec.describe CaseManagement::ClientsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
     context "as an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before do
         sign_in user
       end
@@ -423,7 +422,8 @@ RSpec.describe CaseManagement::ClientsController do
   end
 
   describe "#update" do
-    let(:vita_partner) { create :vita_partner }
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
     let(:intake) { create :intake, client: client }
     let(:params) {
@@ -462,7 +462,7 @@ RSpec.describe CaseManagement::ClientsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
     context "with a signed in user" do
-      let(:user) { create :user, vita_partner: vita_partner }
+
       before do
         sign_in user
       end

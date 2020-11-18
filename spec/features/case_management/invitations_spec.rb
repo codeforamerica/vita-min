@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.feature "Sending and accepting invitations" do
   context "As an authenticated user" do
-    let(:user) { create :user, role: "agent", vita_partner: vita_partner }
     let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders" }
+    let(:user) { create :user, role: "agent", memberships: [build(:membership, vita_partner: vita_partner)] }
     before do
       login_as user
     end
@@ -69,7 +69,7 @@ RSpec.feature "Sending and accepting invitations" do
 
       expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
       expect(page).to have_text "Colleen Cauliflower"
-      expect(page).to have_text "Agent"
+      expect(page).to have_text "Member"
       expect(page).to have_text "Brassica Asset Builders"
     end
   end

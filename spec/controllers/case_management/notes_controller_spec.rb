@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe CaseManagement::NotesController, type: :controller do
-  let(:vita_partner) { create :vita_partner }
+  let(:user) { create :user_with_membership }
+  let(:vita_partner) { user.memberships.first.vita_partner }
   let(:client) { create :client, vita_partner: vita_partner }
   let!(:intake) { create :intake, client: client }
 
@@ -18,9 +19,8 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
     context "as an authenticated user" do
-      let(:current_user) { create :user, vita_partner: vita_partner }
       before do
-        sign_in current_user
+        sign_in user
       end
 
       it "creates a new note" do
@@ -29,7 +29,7 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
         note = Note.last
         expect(note.body).to eq "Note body"
         expect(note.client).to eq client
-        expect(note.user).to eq current_user
+        expect(note.user).to eq user
         expect(response).to redirect_to case_management_client_notes_path(client_id: client.id)
       end
 
@@ -58,7 +58,6 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
   describe "#index" do
     let(:client) { create :client, vita_partner: vita_partner }
     let(:params) { { client_id: client.id } }
-    let(:user) { create :user, vita_partner: vita_partner }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "as a logged in user loading a clients notes" do
@@ -95,7 +94,7 @@ RSpec.describe CaseManagement::NotesController, type: :controller do
       end
 
       context "with notes from different days" do
-        let(:user) { create :user, timezone: "America/Los_Angeles" , vita_partner: vita_partner}
+        let(:user) { create :user_with_membership, timezone: "America/Los_Angeles" }
 
         it "correctly groups notes by day created" do
           day1_client_note = create :note, client: client, created_at: DateTime.new(2019, 10, 5, 8) # UTC

@@ -5,7 +5,7 @@ RSpec.describe CaseManagement::VitaPartnersController, type: :controller do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "for orgs with sub-organizations, i.e., sites" do
-      let(:user) { create(:admin_user, vita_partner: vita_partner1) }
+      let(:user) { create(:admin_user) }
       let!(:vita_partner1) { create(:vita_partner, display_name: "Vita Partner 1") }
       let!(:vita_partner1_site) { create(:vita_partner, display_name: "Library Tax Help of Vita Partner 1", parent_organization: vita_partner1) }
       let!(:vita_partner2) { create(:vita_partner, display_name: "Vita Partner 2") }
@@ -26,12 +26,13 @@ RSpec.describe CaseManagement::VitaPartnersController, type: :controller do
 
   describe "#show" do
     let(:vita_partner) { create :vita_partner }
-    let(:params) { {id: vita_partner} }
+    let(:params) { { id: vita_partner } }
+    let(:params) { { id: vita_partner } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
     context "sub-organizations" do
-      let(:user) { create(:admin_user, vita_partner: vita_partner)}
+      let(:user) { create :admin_user}
       let!(:vita_partner_site) { create(:vita_partner, display_name: "Library Tax Help of Vita Partner", parent_organization: vita_partner) }
 
       before do
@@ -47,8 +48,9 @@ RSpec.describe CaseManagement::VitaPartnersController, type: :controller do
     end
 
     context "as an authenticated user who is not an admin" do
-      let(:user) { create :user, vita_partner: vita_partner }
-      let(:other_vita_partner) { create :vita_partner}
+      let(:user) { create :user_with_membership }
+      let(:vita_partner) { user.memberships.first.vita_partner }
+      let(:other_vita_partner) { create :vita_partner }
       before { sign_in(user) }
 
       it "can access if user has matching vita partner" do

@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
-  let(:vita_partner) { create :vita_partner }
+  let(:user) { create :user_with_membership }
+  let(:vita_partner) { user.memberships.first.vita_partner }
   let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Lucille") }
   let(:tax_return) { create :tax_return, client: client, year: 2018 }
 
@@ -17,8 +18,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
 
     context "as an authenticated user" do
       render_views
-      let(:user) { create :user, vita_partner: vita_partner }
-      let!(:other_user) { create :user, vita_partner: vita_partner }
+      let!(:other_user) { create :user, memberships: [build(:membership, vita_partner: vita_partner)] }
       let!(:outside_org_user) { create :user }
       before { sign_in user }
 
@@ -43,14 +43,15 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
     end
 
     context "as an admin user" do
-      let(:admin) { create :admin_user, vita_partner: create(:vita_partner) }
-      let!(:other_user) { create :user, vita_partner: vita_partner }
-      let!(:outside_org_user) { create :user, vita_partner: admin.vita_partner }
+      let(:admin) { create :admin_user }
+      let!(:other_user) { create :user, memberships: [build(:membership, vita_partner: vita_partner)] }
+      let!(:outside_org_user) { create :user_with_membership }
       before { sign_in admin }
 
       it "offers a list of users based on client's partner, not admin's org" do
         get :edit, params: params
-        expect(assigns(:assignable_users)).to eq([other_user])
+        expect(assigns(:assignable_users)).to include(other_user)
+        expect(assigns(:assignable_users)).not_to include(outside_org_user)
       end
     end
   end
@@ -68,7 +69,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
     context "as an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
+      let(:user) { create :user_with_membership }
       before { sign_in user }
 
       it "assigns the user to the tax return" do
@@ -101,8 +102,8 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
   end
 
   describe "#update_status" do
-    let(:user) { create :user, vita_partner: (create :vita_partner) }
-    let(:tax_return) { create :tax_return, status: "intake_in_progress", client: (create :client, vita_partner: user.vita_partner) }
+    let(:user) { create :user_with_membership }
+    let(:tax_return) { create :tax_return, status: "intake_in_progress", client: (create :client, vita_partner: user.memberships.first.vita_partner) }
     let(:params) { { tax_return: { status: "review_complete_signature_requested" }, id: tax_return.id, client_id: tax_return.client } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_status
@@ -130,8 +131,8 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
   end
 
   describe "#edit_status" do
-    let(:user) { create :user_with_org }
-    let(:tax_return) { create :tax_return, client: create(:client, vita_partner: user.vita_partner) }
+    let(:user) { create :user_with_membership }
+    let(:tax_return) { create :tax_return, client: create(:client, vita_partner: user.memberships.first.vita_partner) }
     let(:params) { { id: tax_return.id, client_id: tax_return.client } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit_status
@@ -140,13 +141,12 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
       before { sign_in user }
 
       it "returns an ok response" do
-        post :edit_status, params: params
+        get :edit_status, params: params
         expect(response).to be_ok
       end
 
       it "finds the tax return" do
         get :edit_status, params: params
-
         expect(assigns(:tax_return)).to eq(tax_return)
       end
     end

@@ -68,8 +68,12 @@ FactoryBot.define do
       role { "agent" }
     end
 
-    factory :user_with_org do
-      vita_partner
+    factory :user_with_membership, parent: :user do |user|
+      memberships { build_list :membership, 1 }
+    end
+
+    factory :user_with_lead_membership, parent: :user do |user|
+      memberships { build_list :lead_membership, 1 }
     end
 
     factory :admin_user do
@@ -77,7 +81,7 @@ FactoryBot.define do
     end
 
     factory :invited_user do
-      association :invited_by, factory: :user_with_org
+      association :invited_by, factory: :user_with_membership
       invitation_created_at { 1.day.ago - 1.minute }
       invitation_sent_at { 1.day.ago }
       vita_partner { invited_by.vita_partner }

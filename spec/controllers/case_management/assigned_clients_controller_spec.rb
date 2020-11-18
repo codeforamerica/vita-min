@@ -7,7 +7,7 @@ RSpec.describe CaseManagement::AssignedClientsController do
 
   context "as an authenticated user" do
     let(:vita_partner) { create(:vita_partner) }
-    let(:user) { create(:user_with_org, vita_partner: vita_partner) }
+    let(:user) { create(:user, memberships: [build(:membership, vita_partner: vita_partner) ])}
 
     before { sign_in user}
     let!(:assigned_to_me) { create :client, vita_partner: vita_partner, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_in_progress")] }

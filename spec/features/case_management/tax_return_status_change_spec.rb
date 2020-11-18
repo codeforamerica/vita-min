@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.feature "Change tax return status on a client" do
   context "As a beta tester" do
-    let(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, name: "Example Preparer", vita_partner: vita_partner }
+    let(:user) { create :user_with_membership, name: "Example Preparer"}
+    let(:vita_partner) { user.memberships.first.vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
     let!(:intake) { create :intake, client: client }
     let!(:tax_return) { create :tax_return, year: 2019, client: client, status: "intake_in_progress" }

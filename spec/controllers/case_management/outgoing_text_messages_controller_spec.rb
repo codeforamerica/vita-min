@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe CaseManagement::OutgoingTextMessagesController do
   describe "#create" do
-    let(:vita_partner) { create :vita_partner }
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
     let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, sms_phone_number: "+15105551234", phone_number: "+15105551777") }
     let(:params) do
       {
@@ -16,7 +17,6 @@ RSpec.describe CaseManagement::OutgoingTextMessagesController do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
     context "as an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before do
         sign_in user
         allow(ClientChannel).to receive(:broadcast_contact_record)

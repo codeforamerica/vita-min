@@ -9,8 +9,13 @@ RSpec.describe CaseManagement::Clients::OrganizationsController, type: :controll
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
     context "as a logged in user with access to the clients organization" do
-      let!(:user) { create :user, vita_partner: client.vita_partner }
-      before { sign_in user }
+      let!(:user) { create :user }
+
+      before do
+        sign_in user
+        allow_any_instance_of(Ability).to receive(:can?).with(:update, VitaPartner).and_return(true)
+        allow_any_instance_of(Ability).to receive(:can?).with(:update, Client).and_return(true)
+      end
 
       it "can change the associated organization on a client" do
         expect {
