@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
+  def response_body_at_css(css_selector)
+    Nokogiri::HTML.parse(response.body).at_css(css_selector)
+  end
+
   let(:vita_partner) { create :vita_partner }
   let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Lucille") }
   let(:tax_return) { create :tax_return, client: client, year: 2018 }
@@ -14,17 +18,6 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
     }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
-
-    # with a tax_return_status param that has a template (from client profile link)
-      # it prepopulates the form with certain values
-        # it uses the correct template
-        # it fills out the template with the right values
-    # with a certain locale
-      # it pre-selects the langauge based on locale
-      # when the itnerview preference doesn't match the locale
-        # it shows a warning
-    # when the client has certain contact preferences
-      # it shows a warning
 
     context "as an authenticated user" do
       render_views
@@ -118,6 +111,72 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
     end
   end
 
+  describe "#edit_status" do
+    let(:user) { create :user_with_org }
+    let(:client) { create(:client, vita_partner: user.vita_partner) }
+    let!(:intake) { create :intake, client: client }
+    let(:tax_return) { create :tax_return, client: client }
+    let(:params) { { id: tax_return.id, client_id: tax_return.client } }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit_status
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      it "returns an ok response" do
+        post :edit_status, params: params
+
+        expect(response).to be_ok
+      end
+
+      it "finds the tax return" do
+        get :edit_status, params: params
+
+        expect(assigns(:tax_return)).to eq(tax_return)
+      end
+
+      context "with a tax_return_status param that has a template (from client profile link)" do
+        render_views
+
+        before do
+          intake.update(locale: "es")
+
+          params.merge!(tax_return: { status: "filed_accepted" } )
+        end
+
+        it "prepopulates the form using the locale, status, and relevant template" do
+          get :edit_status, params: params
+
+          expect(assigns(:take_action_form).status).to eq "filed_accepted"
+          expect(assigns(:take_action_form).locale).to eq "es"
+          expect(assigns(:take_action_form).message_body).to include "¡Se han aceptado sus declaraciones federales y estatales!"
+          expect(assigns(:take_action_form).contact_method).to eq "email"
+        end
+
+        context "with contact preferences" do
+          before { client.intake.update(sms_notification_opt_in: "yes", email_notification_opt_in: "no") }
+
+          it "includes a warning based on contact preferences" do
+            get :edit_status, params: params
+
+            expect(assigns(:take_action_form).contact_method).to eq "text_message"
+            expect(response.body).to have_text "This client prefers text message instead of email"
+          end
+        end
+
+        context "with a locale that differs from the client's preferred interview language" do
+          before { client.intake.update(preferred_interview_language: "fr") }
+
+          it "includes a warning about the client's language preferences" do
+            get :edit_status, params: params
+
+            expect(response.body).to have_text "This client requested French for their interview"
+          end
+        end
+      end
+    end
+  end
+
   describe "#update_status" do
     let(:user) { create :user, vita_partner: (create :vita_partner) }
     let(:tax_return) { create :tax_return, status: "intake_in_progress", client: (create :client, vita_partner: user.vita_partner) }
@@ -143,29 +202,6 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
         tax_return.reload
 
         expect(tax_return.status).to eq("review_complete_signature_requested")
-      end
-    end
-  end
-
-  describe "#edit_status" do
-    let(:user) { create :user_with_org }
-    let(:tax_return) { create :tax_return, client: create(:client, vita_partner: user.vita_partner) }
-    let(:params) { { id: tax_return.id, client_id: tax_return.client } }
-
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit_status
-
-    context "as an authenticated user" do
-      before { sign_in user }
-
-      it "returns an ok response" do
-        post :edit_status, params: params
-        expect(response).to be_ok
-      end
-
-      it "finds the tax return" do
-        get :edit_status, params: params
-
-        expect(assigns(:tax_return)).to eq(tax_return)
       end
     end
   end

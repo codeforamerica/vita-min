@@ -1,44 +1,51 @@
 <% @title = t("general.take_action") %>
-<% if ["intake_more_info", "prep_more_info", "review_more_info"].include?(params["tax_return"]["status"])
-     @status_macro = t('case_management.tax_returns.edit.status_macros.needs_more_information', required_documents: "<<LIST_OF_REQUIRED_DOCS>>", document_upload_link: "<<DOC_LINK>>")
-   elsif params["tax_return"]["status"] == "prep_ready_for_review"
-     @status_macro = t('case_management.tax_returns.edit.status_macros.ready_for_qr')
-   elsif params["tax_return"]["status"] == "filed_accepted"
-     @status_macro = t('case_management.tax_returns.edit.status_macros.accepted')
-   else
-     @status_macro = ""
-   end
-%>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <%= form_with model: @tax_return,
+  <%= form_with model: @take_action_form,
           url: update_status_case_management_client_tax_return_path(id: @tax_return.id, client_id: @client),
           method: :post, local: true, builder: VitaMinFormBuilder,
           html: { class: "form-card" } do |f| %>
     <h1><%= @title %></h1>
 
-     <%= f.cfa_select(
-             :status,
-             t("general.status"),
-             grouped_status_options_for_select,
-             include_blank: true,
-             selected: params["tax_return"]["status"]
-          ) %>
+    <%= f.cfa_select(
+      :status,
+      t("general.status"),
+      grouped_status_options_for_select,
+      include_blank: true,
+    ) %>
 
     <%= f.cfa_select(
-        :language,
+        :locale,
         t("general.language"),
         language_options,
-        selected: @tax_return.client.intake&.locale
-        ) %>
+        help_text: @take_action_form.language_difference_help_text
+    ) %>
+
+    <%= f.cfa_radio_set(
+      :contact_method,
+      label_text: t(".contact_method_label"),
+      collection: [
+        { value: "email", label: t("general.email") },
+        { value: "text_message", label: t("general.text_message") }
+      ],
+      help_text: @take_action_form.contact_method_help_text
+    ) %>
 
     <%= f.cfa_textarea(
-            :body,
+            :message_body,
             t("general.send_message"),
-            options: {value: @status_macro, :rows => "8"}
+            options: {rows: 8}
         )%>
 
-    <p><%=t('case_management.tax_returns.edit.send_clarifier')%></p>
+    <%= f.cfa_textarea(
+            :note_body,
+            t(".note_body_label"),
+            options: {rows: 8}
+        )%>
+
+
+
+    <p><%=t('.send_clarifier')%></p>
     <button class="button button--cta " type="submit">
       <%=t("general.send") %>
     </button>

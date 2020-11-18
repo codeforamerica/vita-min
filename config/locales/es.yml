@@ -70,34 +70,39 @@ es:
       edit:
         assigned_user_label: Asignar a
         title: Asignar la declaración de impuestos %{tax_year} de %{client_name}
-        send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
+      edit_status:
+        contact_method_label: Método de contacto
+        note_body_label: Crear una nota interna
+        language_mismatch: Este cliente prefiere ser entrevistado en %{interview_language}
+        prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}
+        send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
         status_macros:
           needs_more_information: |
-            Hello!
+            ¡Hola!
 
-            In order to continue filing your taxes, we need you to send us:
+            Para continuar presentando sus impuestos, necesitamos que nos envíe:
             %{required_documents}
-            Securely upload your documents by going to %{document_upload_link}
+            Sube tus documentos de forma segura por %{document_upload_link}
 
-            Please let us know if you have any questions. We cannot prepare your taxes without this information.
+            Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
 
-            Thanks!
-            Your tax team at GetYourRefund.org
+            ¡Gracias!
+            Su equipo de impuestos en GetYourRefund.org
           ready_for_qr: |
-            Hello!
+            ¡Hola!
 
-            Your return is now being quality reviewed!
+            ¡Su devolución ahora está siendo revisada en calidad!
 
-            Thanks!
-            Your tax team at GetYourRefund.org
+            ¡Gracias!
+            Su equipo de impuestos en GetYourRefund.org
           accepted: |
-            Hello!
+            ¡Hola!
 
-            Your federal and state returns have been accepted! You will not receive any further notifications. If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
-            If you have any questions, please reply to this message.
+            ¡Se han aceptado sus declaraciones federales y estatales! No recibirá más notificaciones. Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
+            Si tiene alguna pregunta, responda a este mensaje.
 
-            Thanks!
-            Your tax team at GetYourRefund.org
+            ¡Gracias!
+            Su equipo de impuestos en GetYourRefund.org
       update:
         flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}
         no_one: nadie
@@ -374,6 +379,7 @@ es:
     street_address: Dirección
     submit: Enviar
     submit_question: Envíe una pregunta a GetYourRefund
+    text_message: Mensaje de texto
     timezone: Zona horaria
     today: Hoy
     updated_at: Actualizado en
