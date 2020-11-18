@@ -19,7 +19,7 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     let!(:vita_partner) do
-      create :vita_partner, zendesk_group_id: "123", states: [State.find_by(abbreviation: state.upcase)]
+      create :vita_partner, states: [State.find_by(abbreviation: state.upcase)]
     end
 
     it "sets the timezone on the intake" do
@@ -38,8 +38,8 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     context "when intake has partner assigned but no 'In Progress' or later status tax return" do
-      let!(:old_vita_partner) { create :vita_partner, zendesk_group_id: "345" }
-      let(:intake) { create :intake, vita_partner_group_id: "345", vita_partner: old_vita_partner }
+      let!(:old_vita_partner) { create :vita_partner }
+      let(:intake) { create :intake, vita_partner: old_vita_partner }
       before { create :tax_return, client: intake.client, status: "intake_before_consent" }
 
       it "re-assigns the vita partner" do
@@ -50,8 +50,8 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     context "when intake already has a return with 'In Progress' or later status" do
-      let!(:old_vita_partner) { create :vita_partner, zendesk_group_id: "345" }
-      let(:intake) { create :intake, intake_ticket_id: 'some-ticket', vita_partner_group_id: "345", vita_partner: old_vita_partner }
+      let!(:old_vita_partner) { create :vita_partner }
+      let(:intake) { create :intake, vita_partner: old_vita_partner }
       before { create :tax_return, client: intake.client, status: "intake_in_progress" }
 
       it "does not re-assign the vita partner" do

@@ -7,8 +7,7 @@ module Questions
     end
 
     def after_update_success
-      is_in_progress = current_intake.client.tax_returns.where("status >= ?", TaxReturn.statuses["intake_in_progress"]).exists?
-      current_intake.assign_vita_partner! unless is_in_progress
+      current_intake.assign_vita_partner! unless Client.after_consent.where(intake: current_intake).exists?
     end
   end
 end
