@@ -103,6 +103,12 @@ es:
 
             ¡Gracias!
             Su equipo de impuestos en GetYourRefund.org
+        flash_message:
+          success: "Éxito: Acción completo! %{action_list}."
+          status: actualizó estado
+          email: envió email
+          text_message: envió mensjaje de texto
+          internal_note: guardó nota interna
       update:
         flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}
         no_one: nadie
