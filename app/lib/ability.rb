@@ -5,13 +5,14 @@ class Ability
     return unless user.present?
 
     accessible_organizations = user.accessible_organizations
+    alias_action :create, :read, :update, :destroy, to: :administer
 
     if user.is_admin?
-      can :manage, :all
+      can :administer, :all
     else
-      can :manage, [VitaPartner], id: accessible_organizations.pluck(:id)
-      can :manage, [Client, User], vita_partner: accessible_organizations
-      can :manage, [
+      can :administer, [VitaPartner], id: accessible_organizations.pluck(:id)
+      can :administer, [Client, User], vita_partner: accessible_organizations
+      can :administer, [
         IncomingTextMessage,
         OutgoingTextMessage,
         IncomingEmail,
