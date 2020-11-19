@@ -1,30 +1,23 @@
 module CaseManagement
   class OutgoingEmailsController < ApplicationController
     include AccessControllable
+    include MessageSending
 
     before_action :require_sign_in
     load_and_authorize_resource :client
     load_and_authorize_resource through: :client
 
     def create
-      @outgoing_email.to = @outgoing_email.client.email_address
-      if @outgoing_email.save
-        OutgoingEmailMailer.user_message(outgoing_email: @outgoing_email).deliver_later
+      if outgoing_email_params[:body].present?
+        send_email(@client, body: outgoing_email_params[:body], attachment: outgoing_email_params[:attachment])
       end
-      ClientChannel.broadcast_contact_record(@outgoing_email)
       redirect_to case_management_client_messages_path(client_id: @outgoing_email.client_id)
     end
 
     private
 
     def outgoing_email_params
-      # Use client locale someday
-      params.require(:outgoing_email).permit(:body, :attachment).merge(
-        subject: I18n.t("email.user_message.subject", locale: "en"),
-        sent_at: DateTime.now,
-        client: @client,
-        user: current_user
-      )
+      params.require(:outgoing_email).permit(:body, :attachment)
     end
   end
 end
