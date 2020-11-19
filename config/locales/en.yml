@@ -72,7 +72,7 @@ en:
         title: Assign %{client_name}'s %{tax_year} tax return
       edit_status:
         contact_method_label: Contact method
-        note_body_label: Add an internal note
+        internal_note_body_label: Add an internal note
         language_mismatch: This client requested %{interview_language} for their interview
         prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}
         send_clarifier: By clicking send, you will also update status, send a team note, and update followers.

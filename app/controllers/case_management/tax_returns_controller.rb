@@ -58,9 +58,9 @@ module CaseManagement
           end
         end
 
-        if @take_action_form.internal_note.present?
+        if @take_action_form.internal_note_body.present?
           Note.create!(
-            body: @take_action_form.internal_note,
+            body: @take_action_form.internal_note_body,
             client: @client,
             user: current_user
           )
@@ -115,7 +115,7 @@ module CaseManagement
     end
 
     def take_action_form_params
-      params.require(:case_management_take_action_form).permit(:status, :locale, :message_body, :contact_method, :internal_note)
+      params.require(:case_management_take_action_form).permit(:status, :locale, :message_body, :contact_method, :internal_note_body)
     end
   end
 end
