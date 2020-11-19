@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
   def response_body_at_css(css_selector)
@@ -117,7 +117,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
       before { sign_in user }
 
       it "returns an ok response" do
-        post :edit_status, params: params
+        get :edit_status, params: params
 
         expect(response).to be_ok
       end
@@ -133,16 +133,31 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
 
         before do
           intake.update(locale: "es")
-
-          params.merge!(tax_return: { status: "filed_accepted" } )
+          params.merge!(tax_return: { status: "intake_more_info" } )
+          allow_any_instance_of(Intake).to receive(:get_or_create_requested_docs_token).and_return "t0k3n"
         end
 
         it "prepopulates the form using the locale, status, and relevant template" do
           get :edit_status, params: params
 
-          expect(assigns(:take_action_form).status).to eq "filed_accepted"
+          filled_out_template = <<~MESSAGE_BODY
+            ¡Hola!
+
+            Para continuar presentando sus impuestos, necesitamos que nos envíe:
+              - Identificación
+              - Selfie
+              - SSN o ITIN
+            Sube tus documentos de forma segura por http://test.host/es/documents/add/t0k3n
+
+            Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
+
+            ¡Gracias!
+            Su equipo de impuestos en GetYourRefund.org
+          MESSAGE_BODY
+
+          expect(assigns(:take_action_form).status).to eq "intake_more_info"
           expect(assigns(:take_action_form).locale).to eq "es"
-          expect(assigns(:take_action_form).message_body).to include "¡Se han aceptado sus declaraciones federales y estatales!"
+          expect(assigns(:take_action_form).message_body).to eq filled_out_template
           expect(assigns(:take_action_form).contact_method).to eq "email"
         end
 
@@ -184,7 +199,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
       {
         client_id: tax_return.client,
         id: tax_return.id,
-        take_action_form: {
+        case_management_take_action_form: {
           status: status,
           internal_note: internal_note,
           locale: locale,
@@ -229,7 +244,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
       end
 
       context "there is content in the note field" do
-        let(:internal_note) { 'Lorem ipsum note about client tax return' }
+        let(:internal_note) { "Lorem ipsum note about client tax return" }
 
         it "saves a note" do
           expect do

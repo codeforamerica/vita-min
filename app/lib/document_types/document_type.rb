@@ -24,6 +24,10 @@ module DocumentTypes
         I18n.t("general.document_type.#{key.parameterize(separator: "_")}", default: key)
       end
 
+      def translated_label(locale)
+        I18n.t("general.document_type.#{key.parameterize(separator: "_")}", default: key, locale: locale)
+      end
+
       def to_s
         label
       end

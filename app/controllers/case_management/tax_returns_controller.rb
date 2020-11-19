@@ -25,7 +25,7 @@ module CaseManagement
 
     def edit_status
       # prefill status if we received a param
-      preselected_status = params[:tax_return][:status] if params[:tax_return] && params[:tax_return][:status]
+      preselected_status = params.dig(:tax_return, :status)
 
       @take_action_form = CaseManagement::TakeActionForm.new(
         @client,
@@ -43,7 +43,7 @@ module CaseManagement
         if @take_action_form.status != @tax_return.status
           @tax_return.update!(status: @take_action_form.status)
           SystemNote.create_status_change_note(current_user, @tax_return)
-          action_list << I18n.t('case_management.tax_returns.edit_status.flash_message.status')
+          action_list << I18n.t("case_management.tax_returns.edit_status.flash_message.status")
         end
 
         if @take_action_form.message_body.present?
@@ -59,7 +59,7 @@ module CaseManagement
             )
             OutgoingEmailMailer.user_message(outgoing_email: @outgoing_email).deliver_later
             ClientChannel.broadcast_contact_record(@outgoing_email)
-            action_list << I18n.t('case_management.tax_returns.edit_status.flash_message.email')
+            action_list << I18n.t("case_management.tax_returns.edit_status.flash_message.email")
           when "text_message"
             @outgoing_text_message = OutgoingTextMessage.create!(
               to_phone_number: @client.phone_number,
@@ -70,7 +70,7 @@ module CaseManagement
             )
             SendOutgoingTextMessageJob.perform_later(@outgoing_text_message.id)
             ClientChannel.broadcast_contact_record(@outgoing_text_message)
-            action_list << I18n.t('case_management.tax_returns.edit_status.flash_message.text_message')
+            action_list << I18n.t("case_management.tax_returns.edit_status.flash_message.text_message")
           end
         end
 
@@ -80,10 +80,10 @@ module CaseManagement
             client: @client,
             user: current_user
           )
-          action_list << I18n.t('case_management.tax_returns.edit_status.flash_message.internal_note')
+          action_list << I18n.t("case_management.tax_returns.edit_status.flash_message.internal_note")
         end
 
-        flash[:notice] = I18n.t('case_management.tax_returns.edit_status.flash_message.success', action_list: action_list.join(', ').capitalize)
+        flash[:notice] = I18n.t("case_management.tax_returns.edit_status.flash_message.success", action_list: action_list.join(", ").capitalize)
 
         redirect_to case_management_client_path(id: @client)
       end
@@ -99,12 +99,21 @@ module CaseManagement
     end
 
     def status_macro(status)
-      if ["intake_more_info", "prep_more_info", "review_more_info"].include?(status)
-        I18n.t('case_management.tax_returns.edit_status.status_macros.needs_more_information', required_documents: "<<LIST_OF_REQUIRED_DOCS>>", document_upload_link: "<<DOC_LINK>>", locale: @client.intake.locale)
-      elsif status == "prep_ready_for_review"
-        I18n.t('case_management.tax_returns.edit_status.status_macros.ready_for_qr', locale: @client.intake.locale)
-      elsif status == "filed_accepted"
-        I18n.t('case_management.tax_returns.edit_status.status_macros.accepted', locale: @client.intake.locale)
+      case status
+      when "intake_more_info", "prep_more_info", "review_more_info"
+        document_list =  + @client.intake.document_types_definitely_needed.map do |doc_type|
+          "  - " + doc_type.translated_label(@client.intake.locale)
+        end.join("\n")
+        I18n.t(
+          "case_management.tax_returns.edit_status.status_macros.needs_more_information",
+          required_documents: document_list,
+          document_upload_link: @client.intake.requested_docs_token_link,
+          locale: @client.intake.locale
+        )
+      when "prep_ready_for_review"
+        I18n.t("case_management.tax_returns.edit_status.status_macros.ready_for_qr", locale: @client.intake.locale)
+      when "filed_accepted"
+        I18n.t("case_management.tax_returns.edit_status.status_macros.accepted", locale: @client.intake.locale)
       else
         ""
       end
@@ -123,7 +132,7 @@ module CaseManagement
     end
 
     def take_action_form_params
-      params.require(:take_action_form).permit(:status, :locale, :message_body, :contact_method, :internal_note)
+      params.require(:case_management_take_action_form).permit(:status, :locale, :message_body, :contact_method, :internal_note)
     end
   end
 end
