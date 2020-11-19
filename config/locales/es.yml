@@ -71,6 +71,8 @@ es:
         assigned_user_label: Asignar a
         title: Asignar la declaración de impuestos %{tax_year} de %{client_name}
       edit_status:
+        blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
+        blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
         contact_method_label: Método de contacto
         internal_note_body_label: Crear una nota interna
         language_mismatch: Este cliente prefiere ser entrevistado en %{interview_language}

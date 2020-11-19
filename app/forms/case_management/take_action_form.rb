@@ -16,6 +16,13 @@ module CaseManagement
       end
     end
 
+    def contact_method_options
+      methods = []
+      methods += [{ value: "email", label: "Email message" }] if @client.intake.email_notification_opt_in_yes?
+      methods += [{ value: "text_message", label: "Text message" }] if @client.intake.sms_notification_opt_in_yes?
+      methods
+    end
+
     def contact_method_help_text
       if @client.intake.email_notification_opt_in_yes? ^ @client.intake.sms_notification_opt_in_yes? # ^ = XOR operator
         preferred = @client.intake.email_notification_opt_in_yes? ? I18n.t("general.email") : I18n.t("general.text_message")

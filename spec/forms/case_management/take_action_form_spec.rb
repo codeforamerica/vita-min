@@ -59,4 +59,28 @@ RSpec.describe CaseManagement::TakeActionForm do
       end
     end
   end
+
+  describe "#contact_method_options" do
+    let(:form) { CaseManagement::TakeActionForm.new(client) }
+    before do
+      allow(I18n).to receive(:t).with("general.email").and_return("Email message")
+      allow(I18n).to receive(:t).with("general.text_message").and_return("Text message")
+    end
+
+    context "with a client opted-in to just email" do
+      let(:intake) { create :intake, email_notification_opt_in: "yes" }
+
+      it "shows only email as a contact option" do
+        expect(form.contact_method_options).to eq([{value: "email", label: "Email message"}])
+      end
+    end
+
+    context "with a client opted-in to both email and text message" do
+      let(:intake) { create :intake, email_notification_opt_in: "yes", sms_notification_opt_in: "yes" }
+
+      it "shows only text message as a contact option" do
+        expect(form.contact_method_options).to eq([{value: "email", label: "Email message"}, {value: "text_message", label: "Text message"}])
+      end
+    end
+  end
 end
