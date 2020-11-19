@@ -55,7 +55,7 @@ describe TaxReturnStatusHelper do
 
       it "shows the translated locale options" do
         expect(helper.language_options).to eq({
-          "Inglés"=>:en, "Español"=>:es
+          "Inglés" => :en, "Español" => :es
         })
       end
     end

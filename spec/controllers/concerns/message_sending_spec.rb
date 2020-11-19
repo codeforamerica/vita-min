@@ -16,6 +16,14 @@ RSpec.describe MessageSending, type: :controller do
   end
 
   describe "#send_email", active_job: true do
+    context "without @client" do
+      it "raises an error" do
+        expect do
+          subject.send_email("hello")
+        end.to raise_error(StandardError).and not_to change(OutgoingEmail, :count)
+      end
+    end
+
     context "without an authenticated user" do
       it "raises an error" do
         expect do

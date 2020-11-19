@@ -1,11 +1,11 @@
 module MessageSending
-  def send_email(client, body:, attachment: nil, subject_locale: nil)
+  def send_email(body, attachment: nil, subject_locale: nil)
     outgoing_email = OutgoingEmail.create!(
-      to: client.email_address,
+      to: @client.email_address,
       body: body,
-      subject: I18n.t("email.user_message.subject", locale: subject_locale || client.intake.locale),
+      subject: I18n.t("email.user_message.subject", locale: subject_locale || @client.intake.locale),
       sent_at: DateTime.now,
-      client: client,
+      client: @client,
       user: current_user,
       attachment: attachment
     )
