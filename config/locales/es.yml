@@ -198,7 +198,7 @@ es:
         subject: Usted ha sido invitado a GetYourRefund
   email:
     user_message:
-      subject: Update from GetYourRefund
+      subject: Actualización de GetYourRefund
   errors:
     attributes:
       birth_date:

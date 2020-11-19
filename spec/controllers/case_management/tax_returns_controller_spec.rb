@@ -234,9 +234,9 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
         let(:status) { "intake_in_progress" }
 
         it "does not create a system status change note" do
-          expect(SystemNote).not_to receive(:create_status_change_note).with(user, tax_return)
-
-          post :update_status, params: params
+          expect do
+            post :update_status, params: params
+          end.not_to change(SystemNote, :count)
         end
       end
 
@@ -283,70 +283,40 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
 
         context "and the contact method is email" do
           let(:contact_method) { "email" }
-          let(:mock_mailer) { double }
-          let(:example_now_time) { DateTime.new(2020, 11, 20) }
+          let(:locale) { "es" }
+          before { allow(subject).to receive(:send_email) }
 
-          before do
-            allow(mock_mailer).to receive(:deliver_later)
-            allow(OutgoingEmailMailer).to receive(:user_message).and_return mock_mailer
-            allow(ClientChannel).to receive(:broadcast_contact_record)
-            allow(DateTime).to receive(:now).and_return example_now_time
-          end
+          it "sends an email using the form locale and mentions that in the flash message" do
+            post :update_status, params: params
 
-          it "sends an email" do
-            expect do
-              post :update_status, params: params
-            end.to change(OutgoingEmail, :count).by 1
-
-            outgoing_email = OutgoingEmail.last
-            expect(outgoing_email.to).to eq intake.email_address
-            expect(outgoing_email.body).to eq message_body
-            expect(outgoing_email.subject).to eq "Update from GetYourRefund"
-            expect(outgoing_email.sent_at).to eq example_now_time
-            expect(outgoing_email.client).to eq client
-            expect(outgoing_email.user).to eq user
-
-            expect(OutgoingEmailMailer).to have_received(:user_message).with(outgoing_email: outgoing_email)
-            expect(mock_mailer).to have_received(:deliver_later)
-            expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
-
+            expect(subject).to have_received(:send_email).with(
+              client, body: "There's money in the banana stand", subject_locale: "es"
+            )
             expect(flash[:notice]).to match "sent email"
           end
         end
 
         context "and the contact method is text message" do
           let(:contact_method) { "text_message" }
-          let(:example_now_time) { DateTime.new(2020, 11, 20) }
 
           before do
-            allow(SendOutgoingTextMessageJob).to receive(:perform_later)
-            allow(ClientChannel).to receive(:broadcast_contact_record)
-            allow(DateTime).to receive(:now).and_return example_now_time
+            allow(subject).to receive(:send_text_message)
           end
 
-          it "sends a text message" do
-            expect do
-              post :update_status, params: params
-            end.to change(OutgoingTextMessage, :count).by 1
+          it "sends a text message and adds that to the flash message" do
+            post :update_status, params: params
 
-            outgoing_text = OutgoingTextMessage.last
-            expect(outgoing_text.to_phone_number).to eq intake.sms_phone_number
-            expect(outgoing_text.sent_at).to eq example_now_time
-            expect(outgoing_text.client).to eq client
-            expect(outgoing_text.user).to eq user
-            expect(outgoing_text.body).to eq message_body
-
-            expect(SendOutgoingTextMessageJob).to have_received(:perform_later).with(outgoing_text.id)
-            expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_text)
+            expect(subject).to have_received(:send_text_message).with(client, body: "There's money in the banana stand")
             expect(flash[:notice]).to match "sent text message"
           end
         end
       end
 
-      context "when status is changed, message body is present, and internal note is present"do
+      context "when status is changed, message body is present, and internal note is present" do
         let(:status) { "review_in_review" }
         let(:message_body) { "hi" }
         let(:internal_note) { "wyd" }
+        before { allow(subject).to receive(:send_email) }
 
         it "adds a flash success message listing all the actions taken" do
           post :update_status, params: params

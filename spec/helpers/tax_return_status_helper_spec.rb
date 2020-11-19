@@ -50,13 +50,8 @@ describe TaxReturnStatusHelper do
   end
 
   describe "#language_options" do
-    context "with a locale set" do
-      around do |example|
-        existing_locale = I18n.locale
-        I18n.locale = :es
-        example.run
-        I18n.locale = existing_locale
-      end
+    context "with a non default locale set" do
+      before { allow(I18n).to receive(:locale).and_return(:es) }
 
       it "shows the translated locale options" do
         expect(helper.language_options).to eq({
