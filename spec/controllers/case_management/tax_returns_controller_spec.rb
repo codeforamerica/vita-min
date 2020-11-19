@@ -230,7 +230,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
         end
       end
 
-      context "when the status is the same as he current status" do
+      context "when the status is the same as the current status" do
         let(:status) { "intake_in_progress" }
 
         it "does not create a system status change note" do
