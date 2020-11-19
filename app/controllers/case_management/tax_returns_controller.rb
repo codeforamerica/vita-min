@@ -50,10 +50,10 @@ module CaseManagement
         if @take_action_form.message_body.present?
           case @take_action_form.contact_method
           when "email"
-            send_email(@client, body: @take_action_form.message_body, subject_locale: @take_action_form.locale)
+            send_email(@take_action_form.message_body, subject_locale: @take_action_form.locale)
             action_list << I18n.t("case_management.tax_returns.edit_status.flash_message.email")
           when "text_message"
-            send_text_message(@client, body: @take_action_form.message_body)
+            send_text_message(@take_action_form.message_body)
             action_list << I18n.t("case_management.tax_returns.edit_status.flash_message.text_message")
           end
         end

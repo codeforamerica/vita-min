@@ -9,7 +9,7 @@ module CaseManagement
 
     def create
       if outgoing_email_params[:body].present?
-        send_email(@client, body: outgoing_email_params[:body], attachment: outgoing_email_params[:attachment])
+        send_email(outgoing_email_params[:body], attachment: outgoing_email_params[:attachment])
       end
       redirect_to case_management_client_messages_path(client_id: @outgoing_email.client_id)
     end

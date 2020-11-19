@@ -32,7 +32,7 @@ RSpec.describe CaseManagement::OutgoingEmailsController do
         it "calls the send_email method with the right arguments and redirects to messages page" do
           post :create, params: params
 
-          expect(subject).to have_received(:send_email).with(client, body: "hi client", attachment: instance_of(ActionDispatch::Http::UploadedFile))
+          expect(subject).to have_received(:send_email).with("hi client", attachment: instance_of(ActionDispatch::Http::UploadedFile))
           expect(response).to redirect_to case_management_client_messages_path(client_id: client.id)
         end
       end

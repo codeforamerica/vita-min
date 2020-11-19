@@ -9,7 +9,7 @@ module CaseManagement
 
     def create
       if outgoing_text_message_params[:body].present?
-        send_text_message(@client, body: outgoing_text_message_params[:body])
+        send_text_message(outgoing_text_message_params[:body])
       end
       redirect_to case_management_client_messages_path(client_id: @client.id)
     end

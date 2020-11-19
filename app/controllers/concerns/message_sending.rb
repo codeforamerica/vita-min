@@ -1,11 +1,13 @@
 module MessageSending
-  def send_email(client, body:, attachment: nil, subject_locale: nil)
+  # This module expects the controller to assign @client, typically via load_and_authorize_resource.
+
+  def send_email(body, attachment: nil, subject_locale: nil)
     outgoing_email = OutgoingEmail.create!(
-      to: client.email_address,
+      to: @client.email_address,
       body: body,
-      subject: I18n.t("email.user_message.subject", locale: subject_locale || client.intake.locale),
+      subject: I18n.t("email.user_message.subject", locale: subject_locale || @client.intake.locale),
       sent_at: DateTime.now,
-      client: client,
+      client: @client,
       user: current_user,
       attachment: attachment
     )
@@ -13,10 +15,10 @@ module MessageSending
     ClientChannel.broadcast_contact_record(outgoing_email)
   end
 
-  def send_text_message(client, body:)
+  def send_text_message(body)
     outgoing_text_message = OutgoingTextMessage.create!(
-      client: client,
-      to_phone_number: client.sms_phone_number,
+      client: @client,
+      to_phone_number: @client.sms_phone_number,
       sent_at: DateTime.now,
       user: current_user,
       body: body

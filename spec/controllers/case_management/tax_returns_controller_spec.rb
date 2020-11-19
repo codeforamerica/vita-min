@@ -290,7 +290,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
             post :update_status, params: params
 
             expect(subject).to have_received(:send_email).with(
-              client, body: "There's money in the banana stand", subject_locale: "es"
+              "There's money in the banana stand", subject_locale: "es"
             )
             expect(flash[:notice]).to match "sent email"
           end
@@ -306,7 +306,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
           it "sends a text message and adds that to the flash message" do
             post :update_status, params: params
 
-            expect(subject).to have_received(:send_text_message).with(client, body: "There's money in the banana stand")
+            expect(subject).to have_received(:send_text_message).with("There's money in the banana stand")
             expect(flash[:notice]).to match "sent text message"
           end
         end
