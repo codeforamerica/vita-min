@@ -17,7 +17,6 @@ module CaseManagement
     private
 
     def outgoing_email_params
-      # Use client locale someday
       params.require(:outgoing_email).permit(:body, :attachment)
     end
   end

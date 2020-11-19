@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
-  def response_body_at_css(css_selector)
-    Nokogiri::HTML.parse(response.body).at_css(css_selector)
-  end
-
   let(:vita_partner) { create :vita_partner }
   let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Lucille") }
   let(:tax_return) { create :tax_return, client: client, year: 2018 }
@@ -147,6 +143,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
               - Identificación
               - Selfie
               - SSN o ITIN
+              - Otro
             Sube tus documentos de forma segura por http://test.host/es/documents/add/t0k3n
 
             Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.

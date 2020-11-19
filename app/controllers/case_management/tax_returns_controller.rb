@@ -84,7 +84,7 @@ module CaseManagement
     def status_macro(status)
       case status
       when "intake_more_info", "prep_more_info", "review_more_info"
-        document_list =  + @client.intake.document_types_definitely_needed.map do |doc_type|
+        document_list =  + @client.intake.relevant_document_types.map do |doc_type|
           "  - " + doc_type.translated_label(@client.intake.locale)
         end.join("\n")
         I18n.t(
