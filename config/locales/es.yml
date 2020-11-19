@@ -72,7 +72,7 @@ es:
         title: Asignar la declaración de impuestos %{tax_year} de %{client_name}
       edit_status:
         contact_method_label: Método de contacto
-        note_body_label: Crear una nota interna
+        internal_note_body_label: Crear una nota interna
         language_mismatch: Este cliente prefiere ser entrevistado en %{interview_language}
         prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}
         send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.

@@ -1,6 +1,6 @@
 module CaseManagement
   class TakeActionForm < Form
-    attr_accessor :status, :locale, :message_body, :contact_method, :internal_note
+    attr_accessor :status, :locale, :message_body, :contact_method, :internal_note_body
 
     def initialize(client, *args, **attributes)
       @client = client

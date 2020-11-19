@@ -189,7 +189,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
     let(:tax_return) { create :tax_return, status: "intake_in_progress", client: client }
     let(:status) { "review_complete_signature_requested"}
     let(:locale) { "en" }
-    let(:internal_note) { "" }
+    let(:internal_note_body) { "" }
     let(:message_body) { "" }
     let(:contact_method) { "email" }
     let(:params) do
@@ -198,7 +198,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
         id: tax_return.id,
         case_management_take_action_form: {
           status: status,
-          internal_note: internal_note,
+          internal_note_body: internal_note_body,
           locale: locale,
           message_body: message_body,
           contact_method: contact_method,
@@ -241,7 +241,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
       end
 
       context "there is content in the note field" do
-        let(:internal_note) { "Lorem ipsum note about client tax return" }
+        let(:internal_note_body) { "Lorem ipsum note about client tax return" }
 
         it "saves a note" do
           expect do
@@ -250,7 +250,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
 
           note = Note.last
           expect(note.client).to eq tax_return.client
-          expect(note.body).to eq internal_note
+          expect(note.body).to eq internal_note_body
           expect(note.user).to eq user
 
           expect(flash[:notice]).to match "added internal note"
@@ -258,7 +258,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
       end
 
       context "when the note field is blank" do
-        let(:internal_note) { " \n" }
+        let(:internal_note_body) { " \n" }
 
         it "does not save a note" do
           expect do
@@ -315,7 +315,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
       context "when status is changed, message body is present, and internal note is present" do
         let(:status) { "review_in_review" }
         let(:message_body) { "hi" }
-        let(:internal_note) { "wyd" }
+        let(:internal_note_body) { "wyd" }
         before { allow(subject).to receive(:send_email) }
 
         it "adds a flash success message listing all the actions taken" do
