@@ -188,7 +188,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
   describe "#update_status" do
     let(:user) { create :user, vita_partner: (create :vita_partner) }
     let(:client) { create :client, vita_partner: user.vita_partner }
-    let!(:intake) { create :intake, email_address: "gob@example.com", phone_number: "+14155551212", client: client }
+    let!(:intake) { create :intake, email_address: "gob@example.com", sms_phone_number: "+14155551212", client: client }
     let(:tax_return) { create :tax_return, status: "intake_in_progress", client: client }
     let(:status) { "review_complete_signature_requested"}
     let(:locale) { "en" }
@@ -333,7 +333,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
             end.to change(OutgoingTextMessage, :count).by 1
 
             outgoing_text = OutgoingTextMessage.last
-            expect(outgoing_text.to_phone_number).to eq intake.phone_number
+            expect(outgoing_text.to_phone_number).to eq intake.sms_phone_number
             expect(outgoing_text.sent_at).to eq example_now_time
             expect(outgoing_text.client).to eq client
             expect(outgoing_text.user).to eq user

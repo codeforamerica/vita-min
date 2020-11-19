@@ -49,6 +49,23 @@ describe TaxReturnStatusHelper do
     end
   end
 
+  describe "#language_options" do
+    context "with a locale set" do
+      around do |example|
+        existing_locale = I18n.locale
+        I18n.locale = :es
+        example.run
+        I18n.locale = existing_locale
+      end
+
+      it "shows the translated locale options" do
+        expect(helper.language_options).to eq({
+          "Inglés"=>:en, "Español"=>:es
+        })
+      end
+    end
+  end
+
   describe "#stage_and_status_translation" do
     describe "with an example status" do
       let(:tax_return) { create :tax_return, status: "intake_in_progress" }

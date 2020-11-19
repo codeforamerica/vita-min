@@ -25,7 +25,8 @@ module TaxReturnStatusHelper
   end
 
   def language_options
-    I18n.backend.translations[I18n.locale][:general][:language_options].invert
+    all_interview_languages = I18n.backend.translations.dig(I18n.locale, :general, :language_options)
+    all_interview_languages.select { |key, _| I18n.locale_available?(key) }.invert # only show available locales
   end
 
   private

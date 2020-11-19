@@ -35,6 +35,23 @@ RSpec.describe CaseManagement::OutgoingTextMessagesController do
         expect(response).to redirect_to(case_management_client_messages_path(client_id: client.id))
       end
 
+      context "without a body" do
+        let(:params) do
+          {
+            client_id: client.id,
+            outgoing_text_message: {
+              body: " \n\t"
+            }
+          }
+        end
+
+        it "doesn't send a text message" do
+          expect {
+            post :create, params: params
+          }.not_to change(OutgoingTextMessage, :count)
+        end
+      end
+
       it "sends a real-time update to anyone on this client's page" do
         post :create, params: params
         expect(ClientChannel).to have_received(:broadcast_contact_record).with(OutgoingTextMessage.last)

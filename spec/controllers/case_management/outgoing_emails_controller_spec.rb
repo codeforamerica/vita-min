@@ -57,7 +57,7 @@ RSpec.describe CaseManagement::OutgoingEmailsController do
           { client_id: client.id, outgoing_email: { body: " " } }
         end
 
-        it "sends no email & redirects to client show" do
+        it "sends no email & redirects to client messages" do
           expect do
             post :create, params: params
           end.not_to change(OutgoingEmail, :count)

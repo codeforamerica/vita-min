@@ -1,6 +1,7 @@
 module CaseManagement
   class TaxReturnsController < ApplicationController
     include AccessControllable
+    include MessageSending
 
     before_action :require_sign_in
     load_and_authorize_resource :client
@@ -49,27 +50,10 @@ module CaseManagement
         if @take_action_form.message_body.present?
           case @take_action_form.contact_method
           when "email"
-            @outgoing_email = OutgoingEmail.create!(
-              to: @client.email_address,
-              body: @take_action_form.message_body,
-              subject: I18n.t("email.user_message.subject", locale: @take_action_form.locale),
-              sent_at: DateTime.now,
-              client: @client,
-              user: current_user
-            )
-            OutgoingEmailMailer.user_message(outgoing_email: @outgoing_email).deliver_later
-            ClientChannel.broadcast_contact_record(@outgoing_email)
+            send_email(@client, body: @take_action_form.message_body, subject_locale: @take_action_form.locale)
             action_list << I18n.t("case_management.tax_returns.edit_status.flash_message.email")
           when "text_message"
-            @outgoing_text_message = OutgoingTextMessage.create!(
-              to_phone_number: @client.phone_number,
-              sent_at: DateTime.now,
-              client: @client,
-              user: current_user,
-              body: @take_action_form.message_body
-            )
-            SendOutgoingTextMessageJob.perform_later(@outgoing_text_message.id)
-            ClientChannel.broadcast_contact_record(@outgoing_text_message)
+            send_text_message(@client, body: @take_action_form.message_body)
             action_list << I18n.t("case_management.tax_returns.edit_status.flash_message.text_message")
           end
         end
@@ -87,7 +71,6 @@ module CaseManagement
 
         redirect_to case_management_client_path(id: @client)
       end
-
     end
 
     private
