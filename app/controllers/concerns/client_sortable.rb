@@ -1,10 +1,38 @@
 module ClientSortable
-
   def setup_sortable_client
-    params[:status] = nil if params[:clear]
+    reset_filter_params if params[:clear]
     @sort_column = clients_sort_column
     @sort_order = clients_sort_order
-    @filters = { status: clients_tax_return_status_filter, stage: clients_tax_return_stage_filter }
+    @filters = {
+        status: status_filter,
+        stage: stage_filter,
+        assigned_to_me: params[:assigned_to_me],
+        unassigned: params[:unassigned],
+        needs_response: params[:needs_response],
+        year: params[:year]
+    }
+  end
+
+  def filtered_and_sorted_clients
+    clients = @clients.after_consent
+    clients = clients.delegated_order(@sort_column, @sort_order)
+    clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
+    clients = clients.where.not(response_needed_since: nil) if @filters[:needs_response].present?
+    clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
+    clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
+    clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
+    clients
+  end
+
+  private
+
+  # reset the raw parameters for each filter received by the form
+  def reset_filter_params
+    params[:status] = nil
+    params[:unassigned] = nil
+    params[:assigned_to_me] = nil
+    params[:needs_response] = nil
+    params[:year] = nil
   end
 
   def clients_sort_order
@@ -15,20 +43,18 @@ module ClientSortable
     %w[preferred_name id updated_at locale].include?(params[:column]) ? params[:column] : "id"
   end
 
-  def clients_tax_return_status_filter
+  def status_filter
     TaxReturnStatus::STATUSES.keys.find { |status| status == params[:status]&.to_sym }
   end
 
-  def clients_tax_return_stage_filter
+  def stage_filter
     TaxReturnStatus::STAGES.find { |stage| stage == params[:status] }
   end
 
-  def filtered_and_sorted_clients(assigned_to: nil)
-    clients = @clients.after_consent
-    clients = clients.delegated_order(@sort_column, @sort_order)
-    clients = clients.assigned_to(assigned_to.id) if assigned_to.present?
-    clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
-    clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
-    clients
+  def limited_user_ids
+    val = []
+    val.push(current_user.id) if @filters[:assigned_to_me].present? || @always_current_user_assigned
+    val.push(nil) if @filters[:unassigned].present?
+    val
   end
 end

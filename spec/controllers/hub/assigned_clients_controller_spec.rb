@@ -30,6 +30,13 @@ RSpec.describe Hub::AssignedClientsController do
     context "filtering" do
       let!(:second_return) { create :tax_return, year: 2018, assigned_user: user, client: assigned_to_me, status: "intake_open" }
 
+      context "filter always to me" do
+        it "always filters to assigned to me" do
+          get :index
+          expect(assigns(:always_current_user_assigned)).to eq true
+        end
+      end
+
       context "filtering by status" do
         it "filters in with matching tax return (intake_in_progress)" do
           get :index, params: { status: "intake_in_progress" }
@@ -59,6 +66,30 @@ RSpec.describe Hub::AssignedClientsController do
         end
       end
 
+      context "filtering by tax return year" do
+        let!(:return_3020) { create :tax_return, year: 3020, assigned_user: user, client: assigned_to_me, status: "intake_open" }
+        it "filters in" do
+          get :index, params: { year: 3020 }
+          expect(assigns(:clients)).to eq [return_3020.client]
+        end
+      end
+
+      context "filtering by unassigned" do
+        let!(:unassigned) { create :tax_return, year: 2012, assigned_user: nil, client: assigned_to_me, status: "intake_open" }
+        it "filters in" do
+          get :index, params: { unassigned: true }
+          expect(assigns(:clients)).to include unassigned.client
+        end
+      end
+
+      context "filtering by needs response" do
+        let!(:needs_response) { create :client, response_needed_since: DateTime.now, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, assigned_user: user)] }
+        it "filters in" do
+          get :index, params: { needs_response: true }
+          expect(assigns(:clients)).to include needs_response
+        end
+      end
+
       context "filtering and sorting" do
         let!(:starts_with_a_assigned) { create :client, intake: (create :intake, preferred_name: "Aardvark Alan"), vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress", assigned_user: user)] }
 
@@ -72,9 +103,6 @@ RSpec.describe Hub::AssignedClientsController do
           expect(assigns(:clients)).to eq [assigned_to_me, starts_with_a_assigned]
         end
       end
-
-
     end
-
   end
 end

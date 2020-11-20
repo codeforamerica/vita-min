@@ -2,17 +2,41 @@
   <%= form_with method: "get", local: true, builder: VitaMinFormBuilder, id: "filter-form" do |f| %>
     <h3>Filters</h3>
     <hr/>
-    <label for="status">Stage/Status</label>
-    <div class="select">
-      <select name="status" class="select__element" id="status-filter">
-        <option value></option>
-        <% TaxReturnStatus::STATUSES_BY_STAGE.each do |stage, statuses| %>
-          <option value="<%= stage %>" <%= params[:status] == stage && "selected" %>><%= TaxReturnStatusHelper.stage_translation(stage) %></option>
-          <% statuses.each do |status| %>
-            <option value="<%= status %>" <%= params[:status] == status.to_s && "selected" %>>&emsp;<%= status_translation(status) %></option>
-          <% end %>
-        <% end %>
-      </select>
+    <div class="filters-wrapper">
+      <div>
+        <label for="status"><%= t("hub.clients.index.stage_status") %></label>
+        <div class="select">
+          <select name="status" class="select__element" id="status-filter">
+            <option value></option>
+            <% TaxReturnStatus::STATUSES_BY_STAGE.each do |stage, statuses| %>
+              <option value="<%= stage %>" <%= params[:status] == stage && "selected" %>><%= TaxReturnStatusHelper.stage_translation(stage) %></option>
+              <% statuses.each do |status| %>
+                <option value="<%= status %>" <%= params[:status] == status.to_s && "selected" %>>&emsp;<%= status_translation(status) %></option>
+              <% end %>
+            <% end %>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="year"><%= t("hub.clients.index.filing_year").humanize %></label>
+        <div class="select">
+          <%= select_tag :year, options_for_select(TaxReturn.filing_years, params[:year]), include_blank: true, class: "select__element" %>
+        </div>
+      </div>
+      <div>
+        <div class="box-filter">
+          <%= check_box_tag :assigned_to_me, true, params[:assigned_to_me] || @always_current_user_assigned, disabled: @always_current_user_assigned %>
+          <label><%= t("hub.clients.index.assigned_to_me") %></label>
+        </div>
+        <div class="box-filter">
+          <%= check_box_tag :unassigned, true, params[:unassigned] %>
+          <label><%= t("hub.clients.index.unassigned") %></label>
+        </div>
+        <div class="box-filter">
+          <%= check_box_tag :needs_response, true, params[:needs_response] %>
+          <label><%= t("hub.clients.index.needs_response") %></label>
+        </div>
+      </div>
     </div>
     <%= f.hidden_field :order, value: @sort_order %>
     <%= f.hidden_field :column, value: @sort_column %>

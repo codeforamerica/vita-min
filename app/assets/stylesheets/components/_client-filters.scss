@@ -9,18 +9,35 @@
     display: block;
     font-size: 1.6rem;
   }
-  .select {
-    margin-top: .4rem;
-  }
   h3 {
     margin: 0;
   }
   .select {
+    margin-top: .4rem;
     height: 4rem;
     line-height: 4rem;
+    &__element {
+      padding-left: 1.5rem;
+    }
   }
   .button {
     margin-top: .6rem;
+  }
+
+  .filters-wrapper {
+    display: flex;
+    > div {
+      margin-right: 1rem;
+    }
+  }
+
+  .box-filter {
+    > input {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+    display: flex;
+    align-items: center;
   }
 }
 
