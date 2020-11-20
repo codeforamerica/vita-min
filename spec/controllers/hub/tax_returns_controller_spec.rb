@@ -17,8 +17,8 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
 
     context "as an authenticated user" do
       render_views
-      let(:user) { create :user, vita_partner: vita_partner }
-      let!(:other_user) { create :user, vita_partner: vita_partner }
+      let(:user) { create :user, memberships: [build(:membership, vita_partner: vita_partner)] }
+      let!(:other_user) { create :user, memberships: [build(:membership, vita_partner: vita_partner)]  }
       let!(:outside_org_user) { create :user }
       before { sign_in user }
 
@@ -43,9 +43,9 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
     end
 
     context "as an admin user" do
-      let(:admin) { create :admin_user, vita_partner: create(:vita_partner) }
-      let!(:other_user) { create :user, vita_partner: vita_partner }
-      let!(:outside_org_user) { create :user, vita_partner: admin.vita_partner }
+      let(:admin) { create :admin_user }
+      let!(:other_user) { create :user, memberships: [build(:membership, vita_partner: vita_partner)] }
+      let!(:outside_org_user) { create :user, memberships: [build(:membership, vita_partner: create(:vita_partner))] }
       before { sign_in admin }
 
       it "offers a list of users based on client's partner, not admin's org" do
@@ -56,7 +56,8 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
   end
 
   describe "#update" do
-    let(:assigned_user) { create :user, name: "Buster" }
+    let(:vita_partner) { create :vita_partner }
+    let(:assigned_user) { create :user, memberships: [build(:membership, vita_partner: vita_partner)], name: "Buster" }
     let(:params) {
       {
         client_id: client.id,
@@ -68,7 +69,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
     context "as an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
+      let(:user) { create :user, memberships: [build(:membership, vita_partner: vita_partner )] }
       before { sign_in user }
 
       it "assigns the user to the tax return" do

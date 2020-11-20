@@ -4,12 +4,23 @@
   <p>
     <strong><%= t("general.email") %></strong> <%= current_user.email %>
   </p>
-  <p>
-    <strong><%= t("general.role") %>></strong> <%= current_user.role&.capitalize %>
-  </p>
-  <p>
-    <strong><%= t("general.organization") %>></strong> <%= current_user.vita_partner&.name || t("general.none") %>
-  </p>
+
+  <% if current_user.is_admin?  %>
+    <p>
+      <strong><%= t("general.role") %></strong> <%= t("general.admin") %>
+    </p>
+  <% else %>
+    <p>
+      <strong><%= t("general.organization") %></strong>
+      <br />
+      <%=  t("general.none") unless current_user.memberships.present? %>
+      <ul>
+        <% current_user.memberships.each do |membership| %>
+          <li><%= membership.vita_partner.name %>: <%= membership.role&.capitalize %></li>
+        <% end %>
+      <ul>
+    </p>
+  <% end %>
 
   <ul class="actions">
     <li class="user-action-link">

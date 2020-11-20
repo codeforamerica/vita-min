@@ -22,7 +22,9 @@
             <%= link_to user.name, edit_hub_user_path(id: user) %>
           </th>
           <td class="index-table__cell"><%= user_roles(user) %></td>
-          <td class="index-table__cell"><%= user.vita_partner&.name || t("general.none") %></td>
+          <td class="index-table__cell">
+            <%= user.memberships ? user.memberships.map { |m| m.vita_partner&.name }.join(", ") : t("general.none") %>
+          </td>
         </tr>
       <% end %>
 

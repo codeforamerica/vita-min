@@ -6,8 +6,8 @@ RSpec.describe Hub::AssignedClientsController do
   end
 
   context "as an authenticated user" do
-    let(:vita_partner) { create(:vita_partner) }
-    let(:user) { create(:user_with_org, vita_partner: vita_partner) }
+    let(:user) { create(:user_with_membership) }
+    let(:vita_partner) { user.memberships.first.vita_partner }
 
     before { sign_in user}
     let!(:assigned_to_me) { create :client, vita_partner: vita_partner, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_in_progress")] }
@@ -83,7 +83,7 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       context "filtering by needs response" do
-        let!(:needs_response) { create :client, response_needed_since: DateTime.now, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, assigned_user: user)] }
+        let!(:needs_response) { create :client, response_needed_since: DateTime.now, vita_partner: user.memberships.first.vita_partner, tax_returns: [(create :tax_return, assigned_user: user)] }
         it "filters in" do
           get :index, params: { needs_response: true }
           expect(assigns(:clients)).to include needs_response
@@ -91,7 +91,7 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       context "filtering and sorting" do
-        let!(:starts_with_a_assigned) { create :client, intake: (create :intake, preferred_name: "Aardvark Alan"), vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress", assigned_user: user)] }
+        let!(:starts_with_a_assigned) { create :client, intake: (create :intake, preferred_name: "Aardvark Alan"), vita_partner: vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress", assigned_user: user)] }
 
         it "preferred_name, asc" do
           get :index, params: { status: "intake_in_progress", column: "preferred_name", order: "asc" }

@@ -11,6 +11,7 @@ module Hub
       def edit;end
 
       def update
+        authorize!(:edit_organization, @client)
         @client.update(client_params)
         redirect_to hub_client_path(id: @client.id)
       end

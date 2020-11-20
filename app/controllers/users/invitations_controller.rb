@@ -21,8 +21,7 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     authorize!(:manage, @vita_partners.find(invite_params[:vita_partner_id]))
     super do |invited_user|
-      # set default values
-      invited_user.update(role: invited_user.role || "agent")
+      invited_user.memberships.create(vita_partner_id: invite_params[:vita_partner_id])
     end
   end
 

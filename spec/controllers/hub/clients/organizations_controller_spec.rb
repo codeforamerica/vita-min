@@ -9,8 +9,15 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
     context "as a logged in user with access to the clients organization" do
-      let!(:user) { create :user, vita_partner: client.vita_partner }
-      before { sign_in user }
+      let!(:user) { create :user }
+
+      before do
+        sign_in user
+        allow_any_instance_of(Ability).to receive(:can?).with(:update, VitaPartner).and_return(true)
+        allow_any_instance_of(Ability).to receive(:can?).with(:update, Client).and_return(true)
+        allow_any_instance_of(Ability).to receive(:can?).with(:edit_organization, Client).and_return(true)
+
+      end
 
       it "can change the associated organization on a client" do
         expect {
@@ -34,7 +41,7 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
 
     describe "#edit" do
       let!(:client) { create :client, vita_partner: (create :vita_partner) }
-      let!(:new_vita_partner) { create :vita_partner}
+      let!(:new_vita_partner) { create :vita_partner }
       let(:params) { {id: client.id, client: { vita_partner_id: new_vita_partner.id}} }
 
       it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit

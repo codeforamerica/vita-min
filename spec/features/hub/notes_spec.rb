@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.feature "View and add internal notes for a client" do
   context "As an authenticated user" do
-    let(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, vita_partner: vita_partner }
+    let(:user) { create :user_with_membership}
+    let(:vita_partner) { user.memberships.first.vita_partner }
     let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Bart Simpson") }
     before do
       login_as user

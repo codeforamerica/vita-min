@@ -7,8 +7,8 @@ RSpec.describe "a user editing a user" do
       let!(:denver_org) { create :vita_partner, parent_organization: colorado_org, name: "Denver", display_name: "Denver" }
       let!(:california_org) { create :vita_partner, name: "California", display_name: "California" }
       let!(:san_fran_org) { create :vita_partner, parent_organization: california_org, name: "San Francisco", display_name: "San Francisco" }
-      let(:current_user) { create :admin_user, vita_partner: colorado_org }
-      let(:user_to_edit) { create :user, vita_partner: colorado_org }
+      let(:current_user) { create :admin_user }
+      let(:user_to_edit) { create :user, memberships: [build(:membership, vita_partner: colorado_org)] }
       before { login_as current_user }
 
       scenario "update all fields" do
@@ -27,7 +27,14 @@ RSpec.describe "a user editing a user" do
           expect(page).to have_selector("option", text: "San Francisco")
         end
 
-        expect(find_field("user_vita_partner_id").value).to eq user_to_edit.vita_partner.id.to_s
+        expect(find_field("user_vita_partner_id").value).to eq colorado_org.id.to_s
+
+        select "California", from: "Organization"
+
+        click_on "Save"
+
+        expect(find_field("user_vita_partner_id").value).to eq california_org.id.to_s
+
 
         check "Admin"
 

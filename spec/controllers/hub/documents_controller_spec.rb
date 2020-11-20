@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Hub::DocumentsController, type: :controller do
   describe "#index" do
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake) }
     let(:params) { { client_id: client.id } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "as an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in(user) }
 
       context "with some existing documents" do
@@ -104,15 +104,15 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#edit" do
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake) }
     let(:document) { create :document, :with_upload, client: client }
     let(:params) { { id: document.id, client_id: client.id }}
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
     context "with an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in(user) }
 
       it "renders edit for the document" do
@@ -125,16 +125,16 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#update" do
+    let(:user) { create :user_with_membership }
     let(:new_display_name) { "New Display Name"}
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
+    let(:vita_partner) { user.memberships.first.vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake) }
     let(:document) { create :document, :with_upload, client: client }
     let(:params) { { client_id: client.id, id: document.id, document: { display_name: new_display_name} } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
     context "with an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in(user) }
       context "with valid params" do
         it "updates the display name attribute on the document" do
@@ -162,7 +162,8 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#show" do
-    let(:vita_partner) { create :vita_partner }
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
     let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
     let(:document) { create :document, :with_upload, client: client }
     let(:params) { { client_id: client.id, id: document.id }}
@@ -170,7 +171,6 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
     context "with a signed in user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in(user) }
 
       it "shows the document" do

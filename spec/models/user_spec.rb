@@ -74,18 +74,47 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#accessible_organizations" do
-    let!(:user) { create :user, vita_partner: parent_org, supported_organizations: [greetable_org] }
-    let!(:greetable_org) { create :vita_partner, name: "Greetable org" }
+  describe "#memberships" do
+    let!(:member_org) { create :vita_partner, name: "Member org" }
     let!(:parent_org) { create :vita_partner, name: "Parent org" }
     let!(:child_org) { create :vita_partner, parent_organization: parent_org, name: "Child org" }
     let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
+    let!(:user) {
+      create :user, memberships: [
+        build(:membership, vita_partner: parent_org, role: "lead"),
+        build(:membership, vita_partner: member_org)
+      ]
+    }
 
+    it "creates memberships with roles" do
+      coordinator_membership = user.memberships.find_by(vita_partner: parent_org)
+      expect(coordinator_membership).to be_present
+      expect(coordinator_membership.role).to eq "lead"
+
+      member_membership = user.memberships.find_by(vita_partner: member_org)
+      expect(member_membership).to be_present
+      expect(member_membership.role).to eq "member"
+    end
+  end
+
+  describe "#accessible_organizations" do
+    let(:join) { UserVitaPartner.create() }
+    let!(:member_org) { create :vita_partner, name: "Greetable org" }
+    let!(:parent_org) { create :vita_partner, name: "Parent org" }
+    let!(:child_org) { create :vita_partner, parent_organization: parent_org, name: "Child org" }
+    let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
+    let!(:user) {
+      create :user, memberships: [
+        (build :membership, vita_partner: parent_org),
+        (build :membership, vita_partner: member_org)
+      ]
+    }
+    
     it "should return a user's primary org, supportable orgs, and coalition members" do
       accessible_organization_ids = user.accessible_organizations.pluck(:id)
       expect(accessible_organization_ids).to include(parent_org.id)
       expect(accessible_organization_ids).to include(child_org.id)
-      expect(accessible_organization_ids).to include(greetable_org.id)
+      expect(accessible_organization_ids).to include(member_org.id)
       expect(accessible_organization_ids).not_to include(not_accessible_partner.id)
     end
   end

@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Hub::TaxReturns::CertificationsController do
   describe "#update" do
-    let(:vita_partner) { create(:vita_partner) }
-    let(:user) { create(:user_with_org, vita_partner: vita_partner) }
-    let(:tax_return) { create :tax_return, client: (create :client, vita_partner: vita_partner)}
+    let(:user) { create(:user_with_membership) }
+    let(:vita_partner) { user.memberships.first.vita_partner }
+    let(:tax_return) { create :tax_return, client: (create :client, vita_partner: vita_partner) }
     let(:next_path) { "/next/path" }
-    let(:params) { { id: tax_return.id, certification_level: "advanced", is_hsa: true, next: next_path }}
+    let(:params) { { id: tax_return.id, certification_level: "advanced", is_hsa: true, next: next_path } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 

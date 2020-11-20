@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Hub::SubOrganizationsController, type: :controller do
   describe "#update" do
-    let!(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, vita_partner: vita_partner }
+    let(:user) { create :user_with_membership }
+    let!(:vita_partner) { user.memberships.first.vita_partner }
     let(:params) { { id: vita_partner } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
@@ -64,8 +64,8 @@ RSpec.describe Hub::SubOrganizationsController, type: :controller do
   end
 
   describe "#edit" do
-    let!(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, vita_partner: vita_partner }
+    let(:user) { create :user_with_membership }
+    let!(:vita_partner) { user.memberships.first.vita_partner }
     let(:params) { { id: vita_partner } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit

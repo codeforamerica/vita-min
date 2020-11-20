@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe Hub::ClientsController do
   describe "#create" do
-    let(:user) { create :user_with_org }
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
     let(:intake) do
       create(
         :intake,
@@ -10,7 +11,7 @@ RSpec.describe Hub::ClientsController do
         email_address: "client@example.com",
         phone_number: "14155537865",
         preferred_name: "Casey",
-        vita_partner: user.vita_partner
+        vita_partner: vita_partner
       )
     end
     let(:params) do
@@ -48,7 +49,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "with an intake that already has a client" do
-          let(:client) { create :client, vita_partner: user.vita_partner }
+          let(:client) { create :client, vita_partner: vita_partner }
           let!(:intake) { create :intake, client: client }
 
           it "just redirects to the existing client" do
@@ -64,13 +65,12 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#show" do
-    let(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, vita_partner: vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner, tax_returns: [(create :tax_return, year: 2019)] }
-    let!(:intake) do
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: intake, tax_returns: [(create :tax_return, year: 2019)] }
+    let(:intake) do
       create :intake,
              :with_contact_info,
-             client: client,
              primary_first_name: "Legal",
              primary_last_name: "Name",
              locale: "en",
@@ -139,8 +139,8 @@ RSpec.describe Hub::ClientsController do
 
     context "as an authenticated user" do
 
-      let(:vita_partner) { create(:vita_partner) }
-      let(:user) { create(:user_with_org, vita_partner: vita_partner) }
+      let(:user) { create(:user_with_membership) }
+      let(:vita_partner) { user.memberships.first.vita_partner }
 
       before { sign_in user }
 
@@ -341,8 +341,8 @@ RSpec.describe Hub::ClientsController do
       context "filtering" do
 
         context "with a status filter" do
-          let!(:included_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
-          let!(:excluded_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_open")], intake: (create :intake) }
+          let!(:included_client) { create :client, vita_partner: vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: vita_partner, tax_returns: [(create :tax_return, status: "intake_open")], intake: (create :intake) }
 
           it "includes clients with tax returns in that status" do
             get :index, params: { status: "intake_in_progress"}
@@ -351,8 +351,8 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "with a stage filter" do
-          let!(:included_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
-          let!(:excluded_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "prep_ready_for_call")], intake: (create :intake) }
+          let!(:included_client) { create :client, vita_partner: vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: vita_partner, tax_returns: [(create :tax_return, status: "prep_ready_for_call")], intake: (create :intake) }
 
           it "includes clients with tax returns in that stage" do
             get :index, params: { status: "intake" }
@@ -361,7 +361,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by tax return year" do
-          let!(:return_3020) { create :tax_return, year: 3020, client: create(:client, vita_partner: user.vita_partner), status: "intake_open" }
+          let!(:return_3020) { create :tax_return, year: 3020, client: create(:client, vita_partner: user.memberships.first.vita_partner), status: "intake_open" }
           it "filters in" do
             get :index, params: { year: 3020 }
             expect(assigns(:clients)).to eq [return_3020.client]
@@ -369,7 +369,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by unassigned" do
-          let!(:unassigned) { create :tax_return, year: 2012, assigned_user: nil, client: create(:client, vita_partner: user.vita_partner), status: "intake_open" }
+          let!(:unassigned) { create :tax_return, year: 2012, assigned_user: nil, client: create(:client, vita_partner: user.memberships.first.vita_partner), status: "intake_open" }
           it "filters in" do
             get :index, params: { unassigned: true }
             expect(assigns(:clients)).to include unassigned.client
@@ -377,7 +377,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by needs response" do
-          let!(:needs_response) { create :client, response_needed_since: DateTime.now, vita_partner: user.vita_partner, tax_returns: [(create :tax_return)] }
+          let!(:needs_response) { create :client, response_needed_since: DateTime.now, vita_partner: user.memberships.first.vita_partner, tax_returns: [(create :tax_return)] }
           it "filters in" do
             get :index, params: { needs_response: true }
             expect(assigns(:clients)).to include needs_response
@@ -391,9 +391,9 @@ RSpec.describe Hub::ClientsController do
     let(:params) do
       { id: client.id, client: {} }
     end
-    let(:client) { create :client, vita_partner: create(:vita_partner) }
-    let(:current_user) { create :user_with_org, vita_partner: client.vita_partner }
-    before { sign_in(current_user) }
+    let(:user) { create :user_with_membership }
+    let(:client) { create :client, vita_partner: user.memberships.first.vita_partner }
+    before { sign_in(user) }
 
     it "redirects to hub client path" do
       patch :response_needed, params: params
@@ -401,7 +401,6 @@ RSpec.describe Hub::ClientsController do
     end
 
     context "with dismiss param" do
-
       before do
         params[:client][:action] = "clear"
       end
@@ -430,7 +429,8 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#edit" do
-    let(:vita_partner) { create :vita_partner }
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
     let(:params) {
       { id: client.id }
@@ -439,7 +439,6 @@ RSpec.describe Hub::ClientsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
     context "as an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before do
         sign_in user
       end
@@ -454,7 +453,8 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#update" do
-    let(:vita_partner) { create :vita_partner }
+    let(:user) { create :user_with_membership }
+    let(:vita_partner) { user.memberships.first.vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
 
     let(:intake) { create :intake, client: client, dependents: [build(:dependent), build(:dependent)] }
@@ -502,7 +502,7 @@ RSpec.describe Hub::ClientsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
     context "with a signed in user" do
-      let(:user) { create :user, vita_partner: vita_partner }
+
       before do
         sign_in user
       end
@@ -562,8 +562,8 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#edit_take_action" do
-    let(:user) { create :user_with_org }
-    let(:client) { create(:client, vita_partner: user.vita_partner) }
+    let(:user) { create :user_with_membership }
+    let(:client) { create(:client, vita_partner: user.memberships.first.vita_partner) }
     let!(:intake) { create :intake, client: client, email_notification_opt_in: "yes" }
     let!(:tax_return_2019) { create :tax_return, client: client, year: 2019 }
     let!(:tax_return_2018) { create :tax_return, client: client, year: 2018 }
@@ -658,9 +658,9 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#update_take_action" do
-    let(:user) { create :user, vita_partner: (create :vita_partner) }
+    let(:user) { create :user_with_membership }
     let!(:intake) { create :intake, email_address: "gob@example.com", sms_phone_number: "+14155551212", client: client }
-    let(:client) { create :client, vita_partner: user.vita_partner }
+    let(:client) { create :client, vita_partner: user.memberships.first.vita_partner }
     let(:params) do
       {
         id: client,

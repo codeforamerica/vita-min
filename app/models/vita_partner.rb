@@ -27,14 +27,24 @@ class VitaPartner < ApplicationRecord
   has_many :intakes
   has_and_belongs_to_many :states, association_foreign_key: :state_abbreviation
   has_many :source_parameters
-  has_many :users
+
+  has_many :memberships
+  has_many :users, through: :memberships
+  accepts_nested_attributes_for :memberships
+
   belongs_to :parent_organization, class_name: "VitaPartner", optional: true
   has_many :sub_organizations, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
   validate :one_level_of_depth
+  # attribute :user_vita_partner
 
   scope :top_level, -> { where(parent_organization: nil).order(:display_name).order(:name) }
 
   after_initialize :defaults
+
+  # organization + coalition
+  def ancestors
+    [parent_organization, parent_organization&.parent_organization].compact
+  end
 
   def at_capacity?
     actionable_intakes_this_week.count >= weekly_capacity_limit
@@ -74,3 +84,5 @@ class VitaPartner < ApplicationRecord
     self.weekly_capacity_limit ||= DEFAULT_CAPACITY_LIMIT
   end
 end
+
+

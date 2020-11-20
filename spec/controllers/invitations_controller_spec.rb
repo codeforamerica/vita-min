@@ -5,7 +5,7 @@ RSpec.describe InvitationsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "with a user who has prior invites" do
-      let(:user) { create :user_with_org }
+      let(:user) { create :user_with_membership }
       let!(:unaccepted_invite) { create :invited_user, invited_by: user }
       let!(:someone_elses_unaccepted_invite) { create :invited_user }
       let!(:accepted_invite) { create :accepted_invite_user, invited_by: user }

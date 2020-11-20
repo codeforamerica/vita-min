@@ -5,7 +5,9 @@
   <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), method: :put, local: true, builder: VitaMinFormBuilder) do |f| %>
     <h1><%= @main_heading %></h1>
 
-    <h2 class="form-question"><%= t("general.organization") %>: <%= resource.vita_partner.name %></h2>
+    <h2 class="form-question"><%= t("general.organization") %>: <%= resource.memberships&.first.vita_partner.name %></h2>
+    <h2 class="form-question"><%= t("general.role") %>: <%= resource.memberships&.first.role&.capitalize %></h2>
+
     <h2 class="form-question"><%= t(".email_label") %>: <%= resource.email %></h2>
     <%= f.hidden_field :invitation_token, readonly: true %>
     <%= f.cfa_input_field(:name, t(".name_label")) %>

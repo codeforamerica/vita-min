@@ -2,8 +2,14 @@ require "rails_helper"
 
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
-  let(:user) { create :user_with_org, supported_organizations: [create(:vita_partner)] }
-  let(:vita_partner) { user.vita_partner }
+  let(:first_vita_partner) { create :vita_partner }
+  let(:second_vita_partner) { create :vita_partner }
+  let(:user) {
+    create :user, memberships: [
+      build(:membership, role: "lead", vita_partner: first_vita_partner),
+      build(:membership, role: "lead", vita_partner: second_vita_partner)
+    ]
+  }
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
@@ -16,8 +22,8 @@ RSpec.describe Users::InvitationsController do
     it "sets @vita_partners so the template can render a list of partners the user has access to" do
       sign_in user
       get :new
-      expect(assigns(:vita_partners)).to include(vita_partner)
-      expect(assigns(:vita_partners)).to include(user.supported_organizations.first)
+      expect(assigns(:vita_partners)).to include(first_vita_partner)
+      expect(assigns(:vita_partners)).to include(second_vita_partner)
       expect(assigns(:vita_partners)).not_to include(inaccessible_vita_partner)
     end
   end
@@ -28,7 +34,7 @@ RSpec.describe Users::InvitationsController do
         user: {
           name: "Cher Cherimoya",
           email: "cherry@example.com",
-          vita_partner_id: vita_partner.id
+          vita_partner_id: first_vita_partner.id
         }
       }
     end
@@ -48,8 +54,8 @@ RSpec.describe Users::InvitationsController do
         expect(invited_user.email).to eq "cherry@example.com"
         expect(invited_user.invitation_token).to be_present
         expect(invited_user.invited_by).to eq user
-        expect(invited_user.role).to eq "agent"
-        expect(invited_user.vita_partner).to eq vita_partner
+        expect(invited_user.memberships.first.vita_partner).to eq first_vita_partner
+        expect(invited_user.memberships.first.role).to eq "member"
         expect(response).to redirect_to invitations_path
       end
 
@@ -85,7 +91,7 @@ RSpec.describe Users::InvitationsController do
         email: "cherry@example.com",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
         invited_by: user,
-        vita_partner: vita_partner
+        memberships: [build(:membership, vita_partner: first_vita_partner)]
       )
     end
 
@@ -93,7 +99,7 @@ RSpec.describe Users::InvitationsController do
       get :edit, params: params
 
       expect(response.body).to have_content "cherry@example.com"
-      expect(response.body).to have_content vita_partner.name
+      expect(response.body).to have_content first_vita_partner.name
       expect(assigns(:user).name).to eq "Cherry Cherimoya"
     end
 
@@ -109,7 +115,7 @@ RSpec.describe Users::InvitationsController do
         head :edit, params: params
 
         expect(response.body).to have_content "cherry@example.com"
-        expect(response.body).to have_content vita_partner.name
+        expect(response.body).to have_content first_vita_partner.name
         expect(assigns(:user).name).to eq "Cherry Cherimoya"
       end
     end
@@ -142,7 +148,7 @@ RSpec.describe Users::InvitationsController do
         name: "Cherry Cherimoya",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
         invited_by: user,
-        vita_partner: vita_partner
+        memberships: [build(:membership, vita_partner: first_vita_partner)],
       )
     end
 
@@ -162,10 +168,10 @@ RSpec.describe Users::InvitationsController do
       it "updates all necessary information on the user and signs them in" do
         expect do
           post :update, params: params
-        end.to change{ controller.current_user }.from(nil).to(invited_user)
+        end.to change { controller.current_user }.from(nil).to(invited_user)
         invited_user.reload
         expect(invited_user.name).to eq "Cher Cherimoya"
-        expect(invited_user.vita_partner).to eq vita_partner
+        expect(invited_user.accessible_organizations).to include first_vita_partner
         expect(invited_user.timezone).to eq "America/Los_Angeles"
         expect(response).to redirect_to hub_user_profile_path
       end

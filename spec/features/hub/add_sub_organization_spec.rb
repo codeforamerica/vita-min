@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Create a sub-organization" do
   context "as a non-admin user" do
     let(:vita_partner) { create :vita_partner, name: "Example Partner", display_name: "Example Partner" }
-    let(:current_user) { create :user, vita_partner: vita_partner }
+    let(:current_user) { create :user, memberships: [build(:membership, vita_partner: vita_partner)] }
     before { login_as current_user }
 
     scenario "create a sub-org of your own org" do
