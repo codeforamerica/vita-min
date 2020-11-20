@@ -44,6 +44,8 @@ en:
         primary_contact_info: Primary Contact Info
         spouse_contact_info: Spouse Contact Info
         texting_phone: Phone For Texting
+      edit_take_action:
+        contact_method_label: Contact method
     documents:
       edit:
         display_name: Display Name
@@ -73,7 +75,7 @@ en:
       edit_status:
         blank_no_internal_note: If blank, no internal note is added.
         blank_no_message_sent: If blank, no message is sent to the client.
-        contact_method_label: Contact method
+        contact_method_label: Contact method #remove
         internal_note_body_label: Add an internal note
         language_mismatch: This client requested %{interview_language} for their interview
         prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}

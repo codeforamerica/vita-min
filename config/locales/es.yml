@@ -44,6 +44,8 @@ es:
         primary_contact_info: Información de contacto
         spouse_contact_info: Información de contacto del cónyuge
         texting_phone: Número celular
+      edit_take_action:
+        contact_method_label: Método de contacto
     documents:
       edit:
         display_name: Nombre Para Mostrar
@@ -73,7 +75,7 @@ es:
       edit_status:
         blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
         blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
-        contact_method_label: Método de contacto
+        contact_method_label: Método de contacto #remove
         internal_note_body_label: Crear una nota interna
         language_mismatch: Este cliente prefiere ser entrevistado en %{interview_language}
         prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}

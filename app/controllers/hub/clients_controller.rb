@@ -64,7 +64,7 @@ module Hub
         end
       end
 
-      @take_action_form = CaseManagement::TakeActionForm.new(
+      @take_action_form = Hub::TakeActionForm.new(
         @client,
         locale: @client.intake.locale,
         message_body: status_macro(preselected_status),

@@ -500,7 +500,7 @@ RSpec.describe Hub::ClientsController do
   describe "#edit_take_action" do
     let(:user) { create :user_with_org }
     let(:client) { create(:client, vita_partner: user.vita_partner) }
-    let!(:intake) { create :intake, client: client }
+    let!(:intake) { create :intake, client: client, email_notification_opt_in: "yes" }
     let!(:tax_return_2019) { create :tax_return, client: client, year: 2019 }
     let!(:tax_return_2018) { create :tax_return, client: client, year: 2018 }
     let(:params) { { id: client } }
@@ -567,7 +567,7 @@ RSpec.describe Hub::ClientsController do
           expect(assigns(:take_action_form).contact_method).to eq "email"
         end
 
-        xcontext "with contact preferences" do
+        context "with contact preferences" do
           before { client.intake.update(sms_notification_opt_in: "yes", email_notification_opt_in: "no") }
 
           it "includes a warning based on contact preferences" do
@@ -578,7 +578,7 @@ RSpec.describe Hub::ClientsController do
           end
         end
 
-        xcontext "with a locale that differs from the client's preferred interview language" do
+        context "with a locale that differs from the client's preferred interview language" do
           before { client.intake.update(preferred_interview_language: "fr") }
 
           it "includes a warning about the client's language preferences" do
