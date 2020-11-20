@@ -9,7 +9,7 @@ RSpec.feature "Sending and accepting invitations" do
     end
 
     scenario "I can send, review, and revoke invitations" do
-      visit user_profile_path
+      visit hub_user_profile_path
       click_on "Invitations"
 
       # Invitations page

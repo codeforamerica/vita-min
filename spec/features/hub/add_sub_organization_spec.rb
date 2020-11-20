@@ -7,7 +7,7 @@ RSpec.describe "Create a sub-organization" do
     before { login_as current_user }
 
     scenario "create a sub-org of your own org" do
-      visit user_profile_path
+      visit hub_user_profile_path
       click_on "VITA partners"
 
       click_on "Example Partner"

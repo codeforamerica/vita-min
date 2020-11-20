@@ -1,6 +1,15 @@
 ---
 es:
   hub:
+    users:
+      edit:
+        is_admin_label: Admin?
+      index:
+        title: Usuarios
+      profile:
+        clients_link: Clientes
+        users_link: Usuarios
+        vita_partners_link: Socios de VITA
     anonymized_intake_csv_extracts:
       index:
         filename: Nombre de archivo
@@ -436,15 +445,6 @@ es:
     new:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarlo gratuitamente a declarar sus impuestos o a pedir su cheque de estímulo!"
       subheader: Favor de inscribirse aquí para recibir notificaciones cuando abramos en enero 2021.
-  users:
-    edit:
-      is_admin_label: Admin?
-    index:
-      title: Usuarios
-    profile:
-      clients_link: Clientes
-      users_link: Usuarios
-      vita_partners_link: Socios de VITA
   validators:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.

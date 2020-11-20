@@ -12,7 +12,7 @@ RSpec.describe "a user editing a user" do
       before { login_as current_user }
 
       scenario "update all fields" do
-        visit edit_user_path(id: user_to_edit.id)
+        visit edit_hub_user_path(id: user_to_edit.id)
         expect(page).to have_text user_to_edit.name
 
         expect(page).to have_selector("optgroup", text: "Colorado")
