@@ -58,6 +58,10 @@ gem 'devise_invitable', '~> 2.0.0'
 gem 'cancancan'
 gem 'webpacker'
 
+group :demo, :development, :test do
+  gem 'factory_bot_rails' # added to demo for creating fake data
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -65,7 +69,6 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'webdrivers'
-  gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'pry-byebug'
