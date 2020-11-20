@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe UsersController do
+RSpec.describe Hub::UsersController do
   describe "#profile" do
     let(:vita_partner) { create :vita_partner }
 
@@ -18,7 +18,7 @@ RSpec.describe UsersController do
         expect(response.body).to have_content "Adam Avocado"
         expect(response.body).to include invitations_path
         expect(response.body).to include hub_clients_path
-        expect(response.body).to include users_path
+        expect(response.body).to include hub_users_path
       end
     end
   end
@@ -42,7 +42,7 @@ RSpec.describe UsersController do
         html = Nokogiri::HTML.parse(response.body)
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Leslie")
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Pawnee Preparers")
-        expect(html.at_css("#user-#{leslie.id} a")["href"]).to eq edit_user_path(id: leslie)
+        expect(html.at_css("#user-#{leslie.id} a")["href"]).to eq edit_hub_user_path(id: leslie)
       end
     end
   end
@@ -98,7 +98,7 @@ RSpec.describe UsersController do
           user.reload
           expect(user.vita_partner).to eq vita_partner
           expect(user.timezone).to eq "America/Chicago"
-          expect(response).to redirect_to edit_user_path(id: user)
+          expect(response).to redirect_to edit_hub_user_path(id: user)
         end
       end
 

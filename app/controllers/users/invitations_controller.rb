@@ -49,7 +49,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # Path after accepting an invite and setting a password
   def after_accept_path_for(_user)
-    user_profile_path
+    hub_user_profile_path
   end
 
   # replaces #resource_from_invitation_token so we can render a not_found template if the token is bad

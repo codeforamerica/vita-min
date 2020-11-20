@@ -167,7 +167,7 @@ RSpec.describe Users::InvitationsController do
         expect(invited_user.name).to eq "Cher Cherimoya"
         expect(invited_user.vita_partner).to eq vita_partner
         expect(invited_user.timezone).to eq "America/Los_Angeles"
-        expect(response).to redirect_to user_profile_path
+        expect(response).to redirect_to hub_user_profile_path
       end
     end
 

@@ -1,5 +1,5 @@
 <% content_for :toolbar_right do %>
-  <%= link_to user_profile_path, class: "toolbar__item" do %>
+  <%= link_to hub_user_profile_path, class: "toolbar__item" do %>
     <%= t("views.layouts.admin.welcome_user_html", :name => current_user.name) %>
   <% end %>
 

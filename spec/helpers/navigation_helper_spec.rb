@@ -36,17 +36,17 @@ RSpec.describe NavigationHelper do
 
     context "without locale in the current path but otherwise matching" do
       before do
-        controller.request.path = "/users/profile"
+        controller.request.path = "/hub/profile"
       end
 
       it "returns a tab link with is-selected" do
-        link = helper.tab_navigation_link("Tab that is selected", user_profile_path(locale: "en"))
+        link = helper.tab_navigation_link("Tab that is selected", hub_user_profile_path(locale: "en"))
 
         link_html = Nokogiri::HTML.fragment(link).at_css("a")
 
         expect(link_html).to have_text "Tab that is selected"
         expect(link_html["class"]).to eq "tab-bar__tab is-selected"
-        expect(link_html["href"]).to eq user_profile_path(locale: "en")
+        expect(link_html["href"]).to eq hub_user_profile_path(locale: "en")
       end
     end
   end

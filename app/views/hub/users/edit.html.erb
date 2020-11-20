@@ -1,6 +1,6 @@
 <% content_for :page_title, @user.name %>
 <% content_for :card do %>
-  <%= form_with model: @user, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+  <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <h1><%= @user.name %></h1>
     <p>
       <strong><%= t("general.email") %>:</strong> <%= @user.email %>

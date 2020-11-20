@@ -135,15 +135,15 @@ Rails.application.routes.draw do
       resources :sub_organizations, only: [:edit, :update]
       resources :vita_partners, only: [:index, :edit, :update, :show]
       resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
+      resources :users, only: [:index, :edit, :update]
+      get "/profile" => "users#profile", as: :user_profile
     end
 
-    devise_for :users, controllers: {
+    devise_for :users, path: "hub", controllers: {
       sessions: "users/sessions",
       invitations: "users/invitations"
     }
-    resources :users, only: [:index, :edit, :update]
-    get "/users/invitations" => "invitations#index", as: :invitations
-    get "/users/profile" => "users#profile", as: :user_profile
+    get "hub/users/invitations" => "invitations#index", as: :invitations
 
     ### END Hub Admin routes (Case Management)
 

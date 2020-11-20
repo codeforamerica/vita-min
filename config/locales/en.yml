@@ -1,6 +1,15 @@
 ---
 en:
   hub:
+    users:
+      edit:
+        is_admin_label: Admin?
+      index:
+        title: Users
+      profile:
+        clients_link: Clients
+        users_link: Users
+        vita_partners_link: VITA partners
     anonymized_intake_csv_extracts:
       index:
         filename: Filename
@@ -436,15 +445,6 @@ en:
     new:
       header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
       subheader: Please sign up here to receive a notification when we open in January 2021.
-  users:
-    edit:
-      is_admin_label: Admin?
-    index:
-      title: Users
-    profile:
-      clients_link: Clients
-      users_link: Users
-      vita_partners_link: VITA partners
   validators:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
