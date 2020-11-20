@@ -57,7 +57,7 @@
       <h1 class="h2"><%= @page_title %></h1>
     </div>
     <div class="empty-clients">
-      <%= @filters && @filters.values.any? ? t("case_management.clients.index.no_filtered_clients") : t("case_management.clients.index.no_clients") %>
+      <%= @filters&.values.any? ? t("hub.clients.index.no_filtered_clients") : t("hub.clients.index.no_clients") %>
     </div>
   <% end %>
 <% end %>
