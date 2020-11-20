@@ -14,10 +14,10 @@ RSpec.describe "sorting and filtering clients" do
     end
 
     context "with clients to sort and filter" do
-      let!(:alan_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Alan Avocado"), tax_returns: [(create :tax_return, status: "intake_in_progress")] }
-      let!(:betty_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Betty Banana"), tax_returns: [(create :tax_return, status: "intake_in_progress")] }
-      let!(:patty_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Patty Persimmon"), tax_returns: [(create :tax_return, status: "prep_ready_for_call")] }
-      let!(:zach_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Zach Zucchini"), tax_returns: [(create :tax_return, status: "prep_ready_for_call")] }
+      let!(:alan_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Alan Avocado"), tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress", assigned_user: user)] }
+      let!(:betty_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Betty Banana"), tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress")] }
+      let!(:patty_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Patty Persimmon"), tax_returns: [(create :tax_return, year: 2019, status: "prep_ready_for_call", assigned_user: user)] }
+      let!(:zach_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Zach Zucchini"), tax_returns: [(create :tax_return, year: 2018, status: "prep_ready_for_call")] }
 
       scenario "I can view all clients and sort/filter" do
         visit hub_clients_path
@@ -57,6 +57,58 @@ RSpec.describe "sorting and filtering clients" do
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
         end
+
+        within ".client-filters" do
+          select "2019", from: "year"
+          click_button "Apply"
+          expect(page).to have_select("year", selected: "2019")
+        end
+        within ".client-table" do
+          expect(page.all('.client-row').length).to eq 2
+        end
+        within ".client-filters" do
+          click_button "Clear Filters"
+        end
+        within ".client-table" do
+          expect(page.all('.client-row').length).to eq 4
+        end
+        within ".client-filters" do
+          select "2019", from: "year"
+          select "Ready for call", from: "status"
+          click_button "Apply"
+          expect(page).to have_select("status-filter", selected: "Ready for call")
+          expect(page).to have_select("year", selected: "2019")
+        end
+        within ".client-table" do
+          expect(page.all('.client-row').length).to eq 1
+        end
+        within ".client-filters" do
+          click_button "Clear Filters"
+        end
+        within ".client-table" do
+          expect(page.all('.client-row').length).to eq 4
+        end
+        within ".client-filters" do
+          check "assigned_to_me"
+          select "Ready for call", from: "status"
+          select "2019", from: "year"
+          click_button "Apply"
+          expect(page).to have_select("status-filter", selected: "Ready for call")
+          expect(page).to have_select("year", selected: "2019")
+          expect(page).to have_checked_field("assigned_to_me")
+        end
+        within ".client-table" do
+          expect(page.all('.client-row').length).to eq 1
+        end
+        within ".client-filters" do
+          select "2018", from: "year"
+          click_button "Apply"
+          expect(page).to have_select("status-filter", selected: "Ready for call")
+          expect(page).to have_checked_field("assigned_to_me")
+          expect(page).to have_select("year", selected: "2018")
+        end
+        expect(page).not_to have_css ".client-table"
+        expect(page).to have_css ".empty-clients"
       end
     end
   end

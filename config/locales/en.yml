@@ -26,6 +26,12 @@ en:
         filing_year: Filing Year
         needs_response_heading: Needs Response?
         title: All clients
+        no_clients: No clients assigned.
+        no_filtered_clients: No clients match selected filters.
+        assigned_to_me: Assigned to me
+        unassigned: Unassigned
+        needs_response: Needs response
+        stage_status: Tax return stage/status
       navigation:
         client_documents: Documents
         client_messages: Messages

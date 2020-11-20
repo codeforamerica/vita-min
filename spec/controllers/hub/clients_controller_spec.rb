@@ -202,7 +202,6 @@ RSpec.describe Hub::ClientsController do
       end
 
       context "sorting and ordering" do
-
         context "with client as sort param" do
           let(:params) { { column: "preferred_name" } }
           let!(:alex) { create :client, :with_return, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Alex") }
@@ -226,7 +225,6 @@ RSpec.describe Hub::ClientsController do
             expect(assigns[:sort_column]).to eq("preferred_name")
             expect(assigns[:sort_order]).to eq("desc")
             expect(assigns(:clients).length).to eq 2
-
             expect(assigns(:clients)).to eq [ben, alex]
           end
         end
@@ -352,6 +350,30 @@ RSpec.describe Hub::ClientsController do
           it "includes clients with tax returns in that stage" do
             get :index, params: { status: "intake" }
             expect(assigns(:clients)).to eq [included_client]
+          end
+        end
+
+        context "filtering by tax return year" do
+          let!(:return_3020) { create :tax_return, year: 3020, client: create(:client, vita_partner: user.vita_partner), status: "intake_open" }
+          it "filters in" do
+            get :index, params: { year: 3020 }
+            expect(assigns(:clients)).to eq [return_3020.client]
+          end
+        end
+
+        context "filtering by unassigned" do
+          let!(:unassigned) { create :tax_return, year: 2012, assigned_user: nil, client: create(:client, vita_partner: user.vita_partner), status: "intake_open" }
+          it "filters in" do
+            get :index, params: { unassigned: true }
+            expect(assigns(:clients)).to include unassigned.client
+          end
+        end
+
+        context "filtering by needs response" do
+          let!(:needs_response) { create :client, response_needed_since: DateTime.now, vita_partner: user.vita_partner, tax_returns: [(create :tax_return)] }
+          it "filters in" do
+            get :index, params: { needs_response: true }
+            expect(assigns(:clients)).to include needs_response
           end
         end
       end

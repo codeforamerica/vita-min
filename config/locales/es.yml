@@ -26,6 +26,12 @@ es:
         filing_year: Año para declarar
         needs_response_heading: Necesita respuesta?
         title: Todos clientes
+        no_clients: No hay clientes asignadas.
+        no_filtered_clients: Ninguna cliente coincide con los filtros seleccionados.
+        assigned_to_me: Asignado a mí
+        unassigned: No asignado
+        needs_response: Necesita respuesta
+        stage_status: Estado/etapa de declaración de impuestos
       navigation:
         client_documents: Documentos
         client_messages: Mensajes

@@ -36,4 +36,8 @@ class TaxReturn < ApplicationRecord
   def advance_to(new_status)
     update!(status: new_status) if TaxReturn.statuses[status.to_sym] < TaxReturn.statuses[new_status.to_sym]
   end
+
+  def self.filing_years
+    [2020, 2019, 2018, 2017]
+  end
 end
