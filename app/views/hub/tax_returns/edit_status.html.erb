@@ -14,6 +14,15 @@
       include_blank: true,
     ) %>
 
+    <% @tax_returns.map do |tax_return| %>
+      <%= f.cfa_select(
+            "status[#{tax_return.id}]",
+            t("general.status"),
+            grouped_status_options_for_select,
+            include_blank: true,
+            ) %>
+    <% end %>
+
     <%= f.cfa_select(
       :locale,
       t("general.language"),

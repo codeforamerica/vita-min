@@ -496,4 +496,98 @@ RSpec.describe Hub::ClientsController do
       end
     end
   end
+
+  describe "#edit_take_action" do
+    let(:user) { create :user_with_org }
+    let(:client) { create(:client, vita_partner: user.vita_partner) }
+    let!(:intake) { create :intake, client: client }
+    let!(:tax_return_2019) { create :tax_return, client: client, year: 2019 }
+    let!(:tax_return_2018) { create :tax_return, client: client, year: 2018 }
+    let(:params) { { id: client } }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit_take_action
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      it "returns an ok response" do
+        get :edit_take_action, params: params
+
+        expect(response).to be_ok
+      end
+
+      it "finds all tax returns" do
+        get :edit_take_action, params: params
+
+        expect(assigns(:tax_returns).length).to eq 2
+        expect(assigns(:tax_returns)).to include tax_return_2019
+        expect(assigns(:tax_returns)).to include tax_return_2018
+      end
+
+      xcontext "with a tax_return_status param that has a template (from client profile link)" do
+        let(:params) do
+          {
+            id: client,
+            tax_return: {
+              id: tax_return_2019.id,
+              status: "intake_more_info",
+            },
+          }
+        end
+
+        render_views
+
+        before do
+          intake.update(locale: "es")
+          # allow_any_instance_of(Intake).to receive(:get_or_create_requested_docs_token).and_return "t0k3n"
+        end
+
+        it "prepopulates the form using the locale, status, and relevant template" do
+          get :edit_take_action, params: params
+
+          filled_out_template = <<~MESSAGE_BODY
+            ¡Hola!
+
+            Para continuar presentando sus impuestos, necesitamos que nos envíe:
+              - Identificación
+              - Selfie
+              - SSN o ITIN
+              - Otro
+            Sube tus documentos de forma segura por http://test.host/es/documents/add/t0k3n
+
+            Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
+
+            ¡Gracias!
+            Su equipo de impuestos en GetYourRefund.org
+          MESSAGE_BODY
+
+          expect(assigns(:take_action_form).status).to eq "intake_more_info"
+          expect(assigns(:take_action_form).locale).to eq "es"
+          expect(assigns(:take_action_form).message_body).to eq filled_out_template
+          expect(assigns(:take_action_form).contact_method).to eq "email"
+        end
+
+        context "with contact preferences" do
+          before { client.intake.update(sms_notification_opt_in: "yes", email_notification_opt_in: "no") }
+
+          it "includes a warning based on contact preferences" do
+            get :edit_status, params: params
+
+            expect(assigns(:take_action_form).contact_method).to eq "text_message"
+            expect(response.body).to have_text "This client prefers text message instead of email"
+          end
+        end
+
+        context "with a locale that differs from the client's preferred interview language" do
+          before { client.intake.update(preferred_interview_language: "fr") }
+
+          it "includes a warning about the client's language preferences" do
+            get :edit_status, params: params
+
+            expect(response.body).to have_text "This client requested French for their interview"
+          end
+        end
+      end
+    end
+  end
 end

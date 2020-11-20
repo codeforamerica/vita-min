@@ -2,6 +2,7 @@ module Hub
   class ClientsController < ApplicationController
     include AccessControllable
     include ClientSortable
+    include TaxReturnStatusHelper
 
     before_action :require_sign_in
     before_action :setup_sortable_client, only: [:index]
@@ -47,6 +48,23 @@ module Hub
       @client.clear_response_needed if params.fetch(:client, {})[:action] == "clear"
       @client.touch(:response_needed_since) if params.fetch(:client, {})[:action] == "set"
       redirect_back(fallback_location: hub_client_path(id: @client.id))
+    end
+
+    def edit_take_action
+      @tax_returns = @client.tax_returns.to_a
+
+      @take_action_form = CaseManagement::TakeActionForm.new(
+          @client,
+          status: "",
+          locale: @client.intake.locale,
+          message_body: "",
+          contact_method: "",
+          tax_returns: @tax_returns
+      )
+    end
+
+    def update_take_action
+      binding.pry
     end
 
     private

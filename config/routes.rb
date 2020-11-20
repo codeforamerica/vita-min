@@ -130,6 +130,8 @@ Rails.application.routes.draw do
         end
         member do
           patch "response_needed"
+          get "edit_take_action"
+          post "update_take_action"
         end
       end
       resources :sub_organizations, only: [:edit, :update]

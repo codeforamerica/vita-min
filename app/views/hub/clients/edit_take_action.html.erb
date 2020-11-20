@@ -1,0 +1,27 @@
+<% @title = t("general.take_action") %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <%= form_with model: @take_action_form,
+                url: update_take_action_case_management_client_path(id: @client.id),
+                method: :post, local: true, builder: VitaMinFormBuilder,
+                html: { class: "form-card" } do |f| %>
+    <h1><%= @title %></h1>
+
+    <%= f.fields_for :tax_returns do |t| %>
+      <%= t.cfa_select(
+              :status,
+              t("general.status"),
+              grouped_status_options_for_select,
+              include_blank: true,
+              ) %>
+    <% end %>
+
+    <% @tax_returns.map do |t| %>
+      <%= t.year %>
+    <% end %>
+
+    <button class="button button--cta " type="submit">
+      <%=t("general.send") %>
+    </button>
+  <% end %>
+<% end %>
