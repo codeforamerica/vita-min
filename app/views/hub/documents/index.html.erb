@@ -1,0 +1,42 @@
+<% content_for :page_title, "#{@client.preferred_name} ##{@client.id} documents" %>
+
+<% content_for :card do %>
+  <%= render "hub/clients/client_header" %>
+
+  <%= render "hub/clients/navigation" %>
+
+  <table class="data-table document-table spacing-above-25">
+    <thead>
+    <tr>
+      <th class="document-column__doc-type">
+        <%= render "shared/column_sort_link", title: t(".document_type"), column_name: "document_type" %>
+      </th>
+      <th class="document-column__link">
+        <%= render "shared/column_sort_link", title: t(".file_name"), column_name: "display_name" %>
+      </th>
+      <th class="document-column__upload-date">
+        <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
+      </th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% if @documents.present? %>
+      <% @documents.each do |document| %>
+        <tr id="document-<%= document.id %>">
+          <td><%= document.document_type_label %></td>
+          <td>
+            <%= link_to hub_client_document_path(client_id: @client.id, id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
+              <%= document.display_name %>
+            <% end %>
+          </td>
+          <td><%= t(".uploaded_ago", time: time_ago_in_words(document.created_at)) %></td>
+          <td class="edit">
+            <%= link_to t("general.edit"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>

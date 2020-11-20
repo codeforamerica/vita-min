@@ -111,8 +111,8 @@ Rails.application.routes.draw do
     get "/422", to: "public_pages#internal_server_error"
     get "/404", to: "public_pages#page_not_found"
 
-    # New Case Management Admin routes
-    namespace :case_management do
+    # Hub Admin routes (Case Management)
+    namespace :hub do
       root "assigned_clients#index"
       resources :clients, only: [:index, :show, :create, :edit, :update] do
         get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
@@ -145,7 +145,7 @@ Rails.application.routes.draw do
     get "/users/invitations" => "invitations#index", as: :invitations
     get "/users/profile" => "users#profile", as: :user_profile
 
-    ### END Case Management Admin routes
+    ### END Hub Admin routes (Case Management)
 
     # Any other top level slash just goes to home as a source parameter
     get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }

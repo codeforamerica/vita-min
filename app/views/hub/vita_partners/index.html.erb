@@ -1,0 +1,12 @@
+<% content_for :page_title, t(".title") %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title") %></h1>
+  <ul class="list--bulleted">
+    <% @vita_partners.each do |vita_partner| %>
+      <li id="vita_partner-<%= vita_partner.id %>">
+        <%= link_to vita_partner.name, hub_vita_partner_path(id: vita_partner) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

@@ -45,16 +45,16 @@ RSpec.describe Users::SessionsController do
         post :create, params: params
       end.to change(subject, :current_user).from(nil).to(user)
 
-      expect(response).to redirect_to case_management_root_path
+      expect(response).to redirect_to hub_root_path
     end
 
     context "with 'after_login_path' set in the session" do
-      before { session[:after_login_path] = case_management_clients_path }
+      before { session[:after_login_path] = hub_clients_path }
 
       it "redirects to 'after_login_path'" do
         post :create, params: params
 
-        expect(response).to redirect_to case_management_clients_path
+        expect(response).to redirect_to hub_clients_path
       end
     end
   end

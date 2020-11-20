@@ -34,7 +34,7 @@ describe TaxReturnStatusHelper do
          ["Return signed", "finalize_signed"]
        ]
       ],
-      [I18n.t("case_management.tax_returns.stage.filed"),
+      [I18n.t("hub.tax_returns.stage.filed"),
        [
          ["Return e-filed", "filed_e_file"],
          ["Return filed by mail", "filed_mail_file"],

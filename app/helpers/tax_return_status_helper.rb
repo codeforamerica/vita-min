@@ -32,10 +32,10 @@ module TaxReturnStatusHelper
   private
 
   def self.stage_translation(stage)
-    I18n.t("case_management.tax_returns.stage." + stage)
+    I18n.t("hub.tax_returns.stage." + stage)
   end
 
   def self.status_translation(status)
-    I18n.t("case_management.tax_returns.status." + status.to_s)
+    I18n.t("hub.tax_returns.status." + status.to_s)
   end
 end
