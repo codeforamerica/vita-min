@@ -1,0 +1,20 @@
+<% content_for :page_title, "#{@vita_partner.display_name} ##{@vita_partner.id}" %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= @vita_partner.display_name %></h1>
+  <h2 class="h3">Sites</h2>
+  <% if @sub_organizations.present? %>
+    <ul class="list--bulleted">
+    <% @sub_organizations.each do |sub_organization| %>
+        <li><%= sub_organization.display_name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <%= t("general.none") %>
+  <% end %>
+  <h3 class="h5">
+    <div>
+      <%= link_to(t("hub.vita_partners.add_site"), edit_hub_sub_organization_path(id: @vita_partner), class: "button button--small") %>
+    </div>
+  </h3>
+<% end %>

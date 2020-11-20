@@ -8,7 +8,7 @@ export function initListeners() {
         if (window.appData.controller_action == "Users::InvitationsController#edit") {
             helpers.setDefaultTimezone();
         }
-        if (window.appData.controller_action == "CaseManagement::MessagesController#index") {
+        if (window.appData.controller_action == "Hub::MessagesController#index") {
             consumer.subscriptions.create(getChannelName(window.location.href), callback);
         }
     });

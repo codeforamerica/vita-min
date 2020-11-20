@@ -1,6 +1,6 @@
 ---
 en:
-  case_management:
+  hub:
     anonymized_intake_csv_extracts:
       index:
         filename: Filename

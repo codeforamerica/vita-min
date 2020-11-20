@@ -1,0 +1,69 @@
+<% content_for :page_title, @page_title %>
+
+<% content_for :card do %>
+  <%= render 'shared/user_header' %>
+  <%= render "shared/dashboard_navigation" %>
+  <%= render "shared/client_filters" %>
+  <% if @clients.present? %>
+    <table class="index-table client-table">
+    <caption class="index-table__title spacing-above-25">
+      <h1 class="h2"><%= @page_title %></h1>
+    </caption>
+
+    <thead class="index-table__head">
+      <tr class="index-table__row">
+        <th scope="col" class="index-table__header"><div class="sr-only"><%= t(".needs_response_heading") %></div></th>
+        <th scope="col" class="index-table__header">
+          <%= render "shared/column_sort_link", title: t("general.name"), column_name: "preferred_name" %>
+        </th>
+        <th scope="col" class="index-table__header">
+          <%= render "shared/column_sort_link", title: t(".client_id_heading"), column_name: "id" %>
+        </th>
+        <th scope="col" class="index-table__header"><%= t("general.organization") %></th>
+        <th scope="col" class="index-table__header">
+          <%= render "shared/column_sort_link", title: t("general.language"), column_name: "locale" %>
+        </th>
+        <th scope="col" class="index-table__header">
+          <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
+        </th>
+        <th scope="col" class="index-table__header"><%= t(".filing_year") %>, <%= t("general.assignee") %>, <%= t("general.status") %></th>
+      </tr>
+    </thead>
+
+    <tbody class="index-table__body clients-table">
+      <% @clients.each do |client| %>
+        <tr id="client-<%= client.id %>" class="index-table__row client-row">
+          <td class="index-table__cell client-attribute__needs-response">
+            <%= render "shared/client_needs_response", client: client %>
+          </td>
+          <th class="index-table__row-header client-attribute__name">
+            <%= link_to hub_client_path(id: client) do %>
+              <%= client.preferred_name %>
+            <% end %>
+          </th>
+          <td class="index-table__cell" align="center"><%= client.id %></td>
+          <td class="index-table__cell"><%= client.vita_partner&.display_name || t("general.none")  %></td>
+          <td class="index-table__cell"><%= client.intake&.locale ? t("general.language_options.#{client.intake&.locale}") : "N/A" %></td>
+          <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
+          <td class="index-table__cell">
+            <%= render "shared/tax_return_list", client: client %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+    <div class="spacing-above-25">
+      <h1 class="h2"><%= @page_title %></h1>
+    </div>
+    <div class="empty-clients">
+      <% if @filters[:status] %>
+        No clients match status <%= stage_and_status_translation(@filters[:status]) %>.
+      <% elsif @filters[:stage] %>
+        No clients match stage <%= stage_translation(@filters[:stage]) %>
+      <% else %>
+        No clients assigned.
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

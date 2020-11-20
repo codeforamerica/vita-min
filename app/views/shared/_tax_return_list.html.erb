@@ -9,13 +9,13 @@
             <%= tax_return.assigned_user&.name %>
           <% else %>
             <%= link_to t("general.assign"),
-                        edit_case_management_client_tax_return_path(client_id: client.id, id: tax_return.id),
+                        edit_hub_client_tax_return_path(client_id: client.id, id: tax_return.id),
                         class: "button button--inline-action" %>
           <% end %>
         </div>
       </div>
       <% if status_updateable %>
-        <%= form_with model: tax_return, url: edit_status_case_management_client_tax_return_path(id: tax_return.id, client_id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "form-wrapper"} do |f| %>
+        <%= form_with model: tax_return, url: edit_status_hub_client_tax_return_path(id: tax_return.id, client_id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "form-wrapper"} do |f| %>
           <%= f.cfa_select(:status, t("general.status"), grouped_status_options_for_select, include_blank: true, selected: tax_return.status) %>
           <div><%= f.submit "Update", class: "button button--small"%></div>
         <% end %>
