@@ -15,37 +15,34 @@
     ) %>
 
     <%= f.cfa_select(
-        :locale,
-        t("general.language"),
-        language_options,
-        help_text: @take_action_form.language_difference_help_text
+      :locale,
+      t("general.language"),
+      language_options,
+      help_text: @take_action_form.language_difference_help_text
     ) %>
 
     <%= f.cfa_radio_set(
       :contact_method,
       label_text: t(".contact_method_label"),
-      collection: [
-        { value: "email", label: t("general.email") },
-        { value: "text_message", label: t("general.text_message") }
-      ],
-      help_text: @take_action_form.contact_method_help_text
+      help_text: @take_action_form.contact_method_help_text,
+      collection: @take_action_form.contact_method_options,
     ) %>
 
     <%= f.cfa_textarea(
-            :message_body,
-            t("general.send_message"),
-            options: {rows: 8}
-        )%>
+      :message_body,
+      t("general.send_message"),
+      options: {rows: 8},
+      help_text: t(".blank_no_message_sent")
+    )%>
 
     <%= f.cfa_textarea(
-            :internal_note_body,
-            t(".internal_note_body_label"),
-            options: {rows: 8}
-        )%>
+      :internal_note_body,
+      t(".internal_note_body_label"),
+      options: {rows: 8},
+      help_text: t(".blank_no_internal_note")
+    )%>
 
-
-
-    <p><%=t('.send_clarifier')%></p>
+    <p><%=t(".send_clarifier")%></p>
     <button class="button button--cta " type="submit">
       <%=t("general.send") %>
     </button>

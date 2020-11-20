@@ -71,6 +71,8 @@ en:
         assigned_user_label: Assign to
         title: Assign %{client_name}'s %{tax_year} tax return
       edit_status:
+        blank_no_internal_note: If blank, no internal note is added.
+        blank_no_message_sent: If blank, no message is sent to the client.
         contact_method_label: Contact method
         internal_note_body_label: Add an internal note
         language_mismatch: This client requested %{interview_language} for their interview

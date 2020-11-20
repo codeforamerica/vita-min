@@ -103,7 +103,7 @@ RSpec.describe CaseManagement::TaxReturnsController, type: :controller do
   describe "#edit_status" do
     let(:user) { create :user_with_org }
     let(:client) { create(:client, vita_partner: user.vita_partner) }
-    let!(:intake) { create :intake, client: client }
+    let!(:intake) { create :intake, client: client, email_notification_opt_in: "yes" }
     let(:tax_return) { create :tax_return, client: client }
     let(:params) { { id: tax_return.id, client_id: tax_return.client } }
 

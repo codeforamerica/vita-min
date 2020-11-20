@@ -16,6 +16,18 @@ module CaseManagement
       end
     end
 
+    def contact_method_options
+      methods = []
+      methods << { value: "email", label: I18n.t("general.email") } if @client.intake.email_notification_opt_in_yes?
+      methods << { value: "text_message", label: I18n.t("general.text_message") } if @client.intake.sms_notification_opt_in_yes?
+
+      # We should not have an expected case where a client hasn't opted in, but it might occur rarely or on demo
+      # We don't want this form to fail silently if that is the case.
+      raise StandardError.new("Client has not opted in to any communications") unless methods.present?
+
+      methods
+    end
+
     def contact_method_help_text
       if @client.intake.email_notification_opt_in_yes? ^ @client.intake.sms_notification_opt_in_yes? # ^ = XOR operator
         preferred = @client.intake.email_notification_opt_in_yes? ? I18n.t("general.email") : I18n.t("general.text_message")
