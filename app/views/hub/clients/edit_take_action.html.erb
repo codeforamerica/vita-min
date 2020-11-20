@@ -7,13 +7,15 @@
                 html: { class: "form-card" } do |f| %>
     <h1><%= @title %></h1>
 
-    <%= f.fields_for :tax_returns do |t| %>
-      <%= t.cfa_select(
-              :status,
-              t("general.status"),
-              grouped_status_options_for_select,
-              include_blank: true,
-              ) %>
+    <% @tax_returns.map do |tax_return| %>
+      <%= f.fields_for "tax_return[]", tax_return do |t| %>
+        <%= t.cfa_select(
+                :status,
+                t("general.status"),
+                grouped_status_options_for_select,
+                include_blank: true,
+                ) %>
+      <% end %>
     <% end %>
 
     <% @tax_returns.map do |t| %>

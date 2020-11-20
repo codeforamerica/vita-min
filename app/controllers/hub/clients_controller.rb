@@ -53,24 +53,60 @@ module Hub
     def edit_take_action
       @tax_returns = @client.tax_returns.to_a
 
+      # populate tax return statuses with params or existing value
+      tax_return_params = {}
+      preselected_status = params.dig(:tax_return, :status)
+      @tax_returns.each do|tax_return|
+        if params.dig(:tax_return, :id) == tax_return.id.to_s
+          tax_return_params[tax_return.id] = preselected_status
+        else
+          tax_return_params[tax_return.id] = tax_return.status
+        end
+      end
+
       @take_action_form = CaseManagement::TakeActionForm.new(
-          @client,
-          status: "",
-          locale: @client.intake.locale,
-          message_body: "",
-          contact_method: "",
-          tax_returns: @tax_returns
+        @client,
+        locale: @client.intake.locale,
+        message_body: status_macro(preselected_status),
+        contact_method: preferred_contact_method_or_default,
+        tax_return: tax_return_params,
       )
     end
 
-    def update_take_action
-      binding.pry
-    end
+    # def update_take_action
+    # end
 
     private
 
     def form_params
       params.require(:hub_client_intake_form).permit(ClientIntakeForm.attribute_names)
+    end
+
+    def preferred_contact_method_or_default
+      default = "email"
+      prefers_sms_only = @client.intake.sms_notification_opt_in_yes? && @client.intake.email_notification_opt_in_no?
+      prefers_sms_only ? "text_message" : default
+    end
+
+    def status_macro(status)
+      case status
+      when "intake_more_info", "prep_more_info", "review_more_info"
+        document_list = @client.intake.relevant_document_types.map do |doc_type|
+          "  - " + doc_type.translated_label(@client.intake.locale)
+        end.join("\n")
+        I18n.t(
+          "case_management.tax_returns.edit_status.status_macros.needs_more_information",
+          required_documents: document_list,
+          document_upload_link: @client.intake.requested_docs_token_link,
+          locale: @client.intake.locale
+        )
+      when "prep_ready_for_review"
+        I18n.t("case_management.tax_returns.edit_status.status_macros.ready_for_qr", locale: @client.intake.locale)
+      when "filed_accepted"
+        I18n.t("case_management.tax_returns.edit_status.status_macros.accepted", locale: @client.intake.locale)
+      else
+        ""
+      end
     end
   end
 end

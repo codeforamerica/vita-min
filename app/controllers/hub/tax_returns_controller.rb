@@ -75,12 +75,14 @@ module Hub
 
     private
 
+    #remove
     def preferred_contact_method_or_default
       default = "email"
       prefers_sms_only = @client.intake.sms_notification_opt_in_yes? && @client.intake.email_notification_opt_in_no?
       prefers_sms_only ? "text_message" : default
     end
 
+    #remove
     def status_macro(status)
       case status
       when "intake_more_info", "prep_more_info", "review_more_info"
