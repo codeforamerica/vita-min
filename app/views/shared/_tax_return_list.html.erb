@@ -2,9 +2,9 @@
 <ul class="tax-return-list">
   <% client.tax_returns.order(year: :asc).each do |tax_return| %>
     <li id="tax-return-<%= tax_return.id %>">
-      <div class="assignment">
-        <div><strong><%= tax_return.year %></strong></div>
-        <div>
+      <div class="tax-return-list__assignment">
+        <div class="tax-return-list__year"><%= tax_return.year %></div>
+        <div class ="tax-return-list__assignee">
           <% if tax_return.assigned_user.present? %>
             <%= tax_return.assigned_user&.name %>
           <% else %>
@@ -12,8 +12,12 @@
                         edit_hub_client_tax_return_path(client_id: client.id, id: tax_return.id),
                         class: "button button--inline-action" %>
           <% end %>
-        </div>
+        </divclass>
       </div>
+      <div class="tax-return-list__certification">
+        <%= certification_label(tax_return) %>
+      </div>
+
       <% if status_updateable %>
         <%= form_with model: tax_return, url: edit_take_action_hub_client_path(id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "form-wrapper"} do |f| %>
           <%= f.hidden_field "id", value: tax_return.id %>
@@ -21,7 +25,10 @@
           <div><%= f.submit "Update", class: "button button--small"%></div>
         <% end %>
       <% else %>
-        <%= stage_and_status_translation(tax_return.status) %>
+        <div class="tax-return-list__state">
+          <div class="tax-return-list__stage"><%= stage_translation_from_status(tax_return.status) %></div>
+          <div class="tax-return-list__status"><%= status_translation(tax_return.status) %></div>
+        </div>
       <% end %>
     </li>
   <% end %>

@@ -125,7 +125,7 @@ es:
         prep_ready_for_review: Listo para QR
         review_in_review: En revisión
         review_more_info: Necesita más información
-        review_complete_signature_requested: Completo/Firma solicitada
+        review_complete_signature_requested: Firma solicitada
         finalize_closed: Cerrado
         finalize_signed: Declaración de impuestos firmada
         filed_e_file: Declaración de impuestos presentada electrónicamente
