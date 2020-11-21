@@ -117,7 +117,11 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text("Filing Status: Filing jointly")
         expect(profile).to have_text("Oakland, CA 94606")
         expect(profile).to have_text("Spouse Contact Info")
+<<<<<<< HEAD
         expect(profile).to have_text("Pacific Time (US & Canada)")
+=======
+        expect(profile).to have_text("America/Los Angeles")
+>>>>>>> Show and edit timezone and interview timing preference
         expect(profile).to have_text("I'm available every morning except Fridays.")
       end
 
