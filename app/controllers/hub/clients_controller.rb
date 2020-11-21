@@ -3,6 +3,7 @@ module Hub
     include AccessControllable
     include ClientSortable
     include TaxReturnStatusHelper
+    include MessageSending
 
     before_action :require_sign_in
     before_action :setup_sortable_client, only: [:index]
@@ -73,8 +74,54 @@ module Hub
       )
     end
 
-    # def update_take_action
-    # end
+    def update_take_action
+      @take_action_form = Hub::TakeActionForm.new(@client, take_action_form_params)
+
+      if @take_action_form.valid?
+        action_list = []
+
+        # update tax return statuses
+        if @take_action_form.tax_return.present?
+          status_changed = false
+          @take_action_form.tax_return.keys.each do |tax_return_id|
+            tax_return = @client.tax_returns.find(tax_return_id)
+            new_status = @take_action_form.tax_return[tax_return_id]["status"]
+            if new_status != tax_return.status
+              tax_return.update!(status: new_status)
+              SystemNote.create_status_change_note(current_user, tax_return)
+              status_changed = true
+            end
+          end
+          action_list << I18n.t("hub.clients.update_take_action.flash_message.status") if status_changed
+        end
+
+        # send message(s)
+        if @take_action_form.message_body.present?
+          case @take_action_form.contact_method
+          when "email"
+            send_email(@take_action_form.message_body, subject_locale: @take_action_form.locale)
+            action_list << I18n.t("hub.clients.update_take_action.flash_message.email")
+          when "text_message"
+            send_text_message(@take_action_form.message_body)
+            action_list << I18n.t("hub.clients.update_take_action.flash_message.text_message")
+          end
+        end
+
+        # create internal note
+        if @take_action_form.internal_note_body.present?
+          Note.create!(
+            body: @take_action_form.internal_note_body,
+            client: @client,
+            user: current_user
+          )
+          action_list << I18n.t("hub.clients.update_take_action.flash_message.internal_note")
+        end
+
+        flash[:notice] = I18n.t("hub.clients.update_take_action.flash_message.success", action_list: action_list.join(", ").capitalize)
+
+        redirect_to hub_client_path(id: @client)
+      end
+    end
 
     private
 
@@ -95,18 +142,22 @@ module Hub
           "  - " + doc_type.translated_label(@client.intake.locale)
         end.join("\n")
         I18n.t(
-          "case_management.tax_returns.edit_status.status_macros.needs_more_information",
+          "hub.status_macros.needs_more_information",
           required_documents: document_list,
           document_upload_link: @client.intake.requested_docs_token_link,
           locale: @client.intake.locale
         )
       when "prep_ready_for_review"
-        I18n.t("case_management.tax_returns.edit_status.status_macros.ready_for_qr", locale: @client.intake.locale)
+        I18n.t("hub.status_macros.ready_for_qr", locale: @client.intake.locale)
       when "filed_accepted"
-        I18n.t("case_management.tax_returns.edit_status.status_macros.accepted", locale: @client.intake.locale)
+        I18n.t("hub.status_macros.accepted", locale: @client.intake.locale)
       else
         ""
       end
+    end
+
+    def take_action_form_params
+      params.require(:hub_take_action_form).permit(:locale, :message_body, :contact_method, :internal_note_body, {tax_return: {}})
     end
   end
 end

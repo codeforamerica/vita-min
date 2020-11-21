@@ -46,6 +46,17 @@ es:
         texting_phone: Número celular
       edit_take_action:
         contact_method_label: Método de contacto
+        blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
+        internal_note_body_label: Crear una nota interna
+        blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
+        send_clarifier: "Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores."
+      update_take_action:
+        flash_message:
+          success: "Éxito: Acción completo! %{action_list}."
+          status: actualizó estado
+          email: envió email
+          text_message: envió mensjaje de texto
+          internal_note: guardó nota interna.
     documents:
       edit:
         display_name: Nombre Para Mostrar
@@ -68,51 +79,49 @@ es:
         note_form:
           label: Añadir una nota
           submit: Guardar
+    status_macros:
+      needs_more_information: |
+        ¡Hola!
+
+        Para continuar presentando sus impuestos, necesitamos que nos envíe:
+        %{required_documents}
+        Sube tus documentos de forma segura por %{document_upload_link}
+
+        Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
+
+        ¡Gracias!
+        Su equipo de impuestos en GetYourRefund.org
+      ready_for_qr: |
+        ¡Hola!
+
+        ¡Su devolución ahora está siendo revisada en calidad!
+
+        ¡Gracias!
+        Su equipo de impuestos en GetYourRefund.org
+      accepted: |
+        ¡Hola!
+
+        ¡Se han aceptado sus declaraciones federales y estatales! No recibirá más notificaciones. Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
+        Si tiene alguna pregunta, responda a este mensaje.
+
+        ¡Gracias!
+        Su equipo de impuestos en GetYourRefund.org
+    sub_organizations:
+      edit:
+        title: Crear una sub-organización de %{name}
+        display_name: Orientado al cliente nombre (si es diferente)
     tax_returns:
       edit:
         assigned_user_label: Asignar a
         title: Asignar la declaración de impuestos %{tax_year} de %{client_name}
       edit_status:
         blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
-        blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
+        blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente. #remove
         contact_method_label: Método de contacto #remove
-        internal_note_body_label: Crear una nota interna
+        internal_note_body_label: Crear una nota interna # remove
         language_mismatch: Este cliente prefiere ser entrevistado en %{interview_language}
         prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}
-        send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
-        status_macros:
-          needs_more_information: |
-            ¡Hola!
-
-            Para continuar presentando sus impuestos, necesitamos que nos envíe:
-            %{required_documents}
-            Sube tus documentos de forma segura por %{document_upload_link}
-
-            Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
-
-            ¡Gracias!
-            Su equipo de impuestos en GetYourRefund.org
-          ready_for_qr: |
-            ¡Hola!
-
-            ¡Su devolución ahora está siendo revisada en calidad!
-
-            ¡Gracias!
-            Su equipo de impuestos en GetYourRefund.org
-          accepted: |
-            ¡Hola!
-
-            ¡Se han aceptado sus declaraciones federales y estatales! No recibirá más notificaciones. Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
-            Si tiene alguna pregunta, responda a este mensaje.
-
-            ¡Gracias!
-            Su equipo de impuestos en GetYourRefund.org
-        flash_message:
-          success: "Éxito: Acción completo! %{action_list}."
-          status: actualizó estado
-          email: envió email
-          text_message: envió mensjaje de texto
-          internal_note: guardó nota interna
+        send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores. # remove
       update:
         flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}
         no_one: nadie
@@ -143,10 +152,6 @@ es:
         filed_mail_file: Declaración de impuestos presentada por correo
         filed_rejected: Rechazado
         filed_accepted: Aceptado
-    sub_organizations:
-      edit:
-        title: Crear una sub-organización de %{name}
-        display_name: Orientado al cliente nombre (si es diferente)
     vita_partners:
       add_site: Agregar sitio
       index:

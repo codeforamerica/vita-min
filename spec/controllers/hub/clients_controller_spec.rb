@@ -592,18 +592,153 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#update_take_action" do
+    let(:user) { create :user, vita_partner: (create :vita_partner) }
+    let!(:intake) { create :intake, email_address: "gob@example.com", sms_phone_number: "+14155551212", client: client }
+    let(:client) { create :client, vita_partner: user.vita_partner }
     let(:params) do
       {
         id: client,
-        tax_return: {
-          "#{tax_return_2019.id}": {
-            status: "intake_needs_assignment"
+        hub_take_action_form: {
+          tax_return: {
+            "#{tax_return_2019.id}": {
+              status: new_status_2019
+            },
+            "#{tax_return_2018.id}": {
+              status: new_status_2018
+            }
           },
-          "#{tax_return_2018.id}": {
-            status: "intake_more_info"
-          }
+          internal_note_body: internal_note_body,
+          locale: locale,
+          message_body: message_body,
+          contact_method: contact_method,
         }
       }
+    end
+    let(:tax_return_2019) { create :tax_return, status: "intake_in_progress", client: client, year: 2019 }
+    let(:tax_return_2018) { create :tax_return, status: "intake_in_progress", client: client, year: 2018 }
+    let(:new_status_2019) { "intake_in_progress" }
+    let(:new_status_2018) { "intake_in_progress" }
+    let(:locale) { "en" }
+    let(:internal_note_body) { "" }
+    let(:message_body) { "" }
+    let(:contact_method) { "email" }
+
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_take_action
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      it "redirects to the messages tab with a basic flash success message" do
+        post :update_take_action, params: params
+
+        expect(response).to redirect_to hub_client_path(id: client)
+        expect(flash[:notice]).to eq "Success: Action taken! "
+      end
+
+      context "when a new status is submitted" do
+        let(:new_status_2019) { "prep_ready_for_call" }
+
+        it "creates a system note and updates the status" do
+          expect(SystemNote).to receive(:create_status_change_note).with(user, tax_return_2019)
+
+          post :update_take_action, params: params
+          expect(tax_return_2019.reload.status).to eq(new_status_2019)
+          expect(flash[:notice]).to match "Updated status"
+        end
+      end
+
+      context "when the statuses are the same as the current statuses" do
+        let(:new_status_2019) { "intake_in_progress" }
+        let(:new_status_2018) { "intake_in_progress" }
+
+        it "does not create a system status change note" do
+          expect do
+            post :update_take_action, params: params
+          end.not_to change(SystemNote, :count)
+        end
+      end
+
+      context "creating a note" do
+        let(:internal_note_body) { "Lorem ipsum note about client tax return" }
+
+        it "saves a note" do
+          expect do
+            post :update_take_action, params: params
+          end.to change(Note, :count).by(1)
+
+          note = Note.last
+          expect(note.client).to eq client
+          expect(note.body).to eq internal_note_body
+          expect(note.user).to eq user
+
+          expect(flash[:notice]).to match "Added internal note"
+        end
+      end
+
+      context "when the note field is blank" do
+        let(:internal_note_body) { " \n" }
+
+        it "does not save a note" do
+          expect do
+            post :update_take_action, params: params
+          end.not_to change(Note, :count)
+        end
+      end
+
+      context "when the message body is present" do
+        let(:message_body) { "There's always money in the banana stand" }
+
+        context "and the contact method is email" do
+          let(:contact_method) { "email" }
+          let(:locale) { "es" }
+          before { allow(subject).to receive(:send_email) }
+
+          it "sends an email using the form locale and mentions that in the flash message" do
+            post :update_take_action, params: params
+
+            expect(subject).to have_received(:send_email).with(
+              "There's always money in the banana stand", subject_locale: "es"
+            )
+            expect(flash[:notice]).to match "Sent email"
+          end
+        end
+
+        context "and the contact method is text message" do
+          let(:contact_method) { "text_message" }
+          before { allow(subject).to receive(:send_text_message) }
+
+          it "sends a text message and adds that to the flash message" do
+            post :update_take_action, params: params
+
+            expect(subject).to have_received(:send_text_message).with("There's always money in the banana stand")
+            expect(flash[:notice]).to match "Sent text message"
+          end
+        end
+      end
+
+      context "when the message body is blank" do
+        let(:message_body) { " \n" }
+        let(:contact_method) { "email" }
+
+        it "does not send a text message nor email" do
+          expect do
+            post :update_take_action, params: params
+          end.not_to change(OutgoingEmail, :count)
+        end
+      end
+
+      context "when status is changed, message body is present, and internal note is present" do
+        let(:new_status_2019) { "review_in_review" }
+        let(:message_body) { "hi" }
+        let(:internal_note_body) { "wyd" }
+        before { allow(subject).to receive(:send_email) }
+
+        it "adds a flash success message listing all the actions taken" do
+          post :update_take_action, params: params
+
+          expect(flash[:notice]).to eq "Success: Action taken! Updated status, sent email, added internal note."
+        end
+      end
     end
   end
 end
