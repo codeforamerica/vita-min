@@ -26,7 +26,11 @@ module Hub
                        :spouse_first_name,
                        :spouse_last_name,
                        :spouse_email_address,
-                       :filing_joint
+                       :filing_joint,
+                       :interview_timing_preference,
+                       :timezone
+
+
     validates :primary_first_name, presence: true, allow_blank: false
     validates :primary_last_name, presence: true, allow_blank: false
 

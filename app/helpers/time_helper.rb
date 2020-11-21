@@ -12,6 +12,13 @@ module TimeHelper
     ActiveSupport::TimeZone.us_zones.map { |tz| [tz.name, tz.tzinfo.name] }
   end
 
+  def displayed_timezone(timezone)
+    return nil unless timezone.present?
+
+    entry = timezone_select_options.find { |tz| tz[1] == timezone }
+    entry.presence && entry[0]
+  end
+
   def formatted_datetime(datetime)
     datetime.strftime("%b %d %-l:%M %p")
   end

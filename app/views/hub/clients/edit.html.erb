@@ -12,6 +12,8 @@
       <%= f.cfa_input_field(:primary_first_name, t(".legal_first_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_last_name, t(".legal_last_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:preferred_name, t(".preferred_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+      <%= f.cfa_input_field(:interview_timing_preference, t("hub.clients.show.interview_timing_preference")) %>
       <%= f.cfa_select(
               :preferred_interview_language,
               t(".preferred_interview_language"),

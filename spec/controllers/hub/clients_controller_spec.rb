@@ -86,7 +86,10 @@ RSpec.describe Hub::ClientsController do
              street_address: "123 Lilac Grove Blvd",
              spouse_first_name: "My",
              spouse_last_name: "Spouse",
-             vita_partner: vita_partner
+             vita_partner: vita_partner,
+             interview_timing_preference: "I'm available every morning except Fridays.",
+             timezone: "America/Los_Angeles",
+             dependents: [(build :dependent), (build :dependent)]
     end
 
     let(:params) { {id: client.id} }
@@ -114,6 +117,8 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text("Filing Status: Filing jointly")
         expect(profile).to have_text("Oakland, CA 94606")
         expect(profile).to have_text("Spouse Contact Info")
+        expect(profile).to have_text("Pacific Time (US & Canada)")
+        expect(profile).to have_text("I'm available every morning except Fridays.")
       end
 
       context "when a client needs attention" do
@@ -479,6 +484,8 @@ RSpec.describe Hub::ClientsController do
           spouse_last_name: intake.spouse_last_name,
           spouse_email_address: intake.spouse_email_address,
           filing_joint: intake.filing_joint,
+          timezone: "America/Chicago",
+          interview_timing_preference: "Tomorrow!"
         }
       }
     }
@@ -497,6 +504,8 @@ RSpec.describe Hub::ClientsController do
         client.reload
         expect(client.intake.primary_first_name).to eq "Updated"
         expect(client.legal_name).to eq "Updated Name"
+        expect(client.intake.interview_timing_preference).to eq "Tomorrow!"
+        expect(client.intake.timezone).to eq "America/Chicago"
         expect(response).to redirect_to hub_client_path(id: client.id)
       end
 

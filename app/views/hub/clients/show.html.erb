@@ -5,17 +5,20 @@
 
   <%= render "navigation" %>
   <div class="client-profile spacing-above-25">
-    <div><%= t(".legal_name") %>: <%= @client.legal_name || "N/A" %></div>
+    <div><%= t(".legal_name") %>: <%= @client.legal_name || t("general.NA") %></div>
     <div><%= t(".preferred_name") %>: <%= @client.preferred_name %></div>
     <br/>
 
     <div><%= t(".intake_language") %>: <%= @client.intake&.locale ? t("general.language_options.#{@client.intake&.locale}") : "N/A" %></div>
     <div><%= t(".phone_interview_language") %>: <%= @client.intake&.preferred_interview_language ? t("general.language_options.#{@client.intake&.preferred_interview_language}") : "N/A" %></div>
+    <div><%= t(".interview_timing_preference") %>: <%= @client.intake&.interview_timing_preference %></div>
+    <div><%= t("general.timezone") %>: <%= displayed_timezone(@client.intake&.timezone) || t("general.NA") %></div>
     <br/>
 
     <div><%= t("general.filing_years") %>: <%= @client.intake&.filing_years&.join(", ") %></div>
     <div><%= t(".marital_status") %>: <%= @client.intake&.marital_statuses&.join(", ") %></div>
     <div><%= t(".filing_status") %>: <%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly"  %></div>
+
 
     <h3><%= t(".primary_contact_info") %>:</h3>
 

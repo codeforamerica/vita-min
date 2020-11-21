@@ -15,4 +15,15 @@ describe TimeHelper do
       end
     end
   end
+
+  describe "#displayed_timezone" do
+    it "returns the readable for display timezone" do
+      expect(helper.displayed_timezone("America/Los_Angeles")).to eq "Pacific Time (US & Canada)"
+    end
+    context "when there is no matching timezone" do
+      it "returns nil" do
+        expect(helper.displayed_timezone("something whack")).to eq nil
+      end
+    end
+  end
 end
