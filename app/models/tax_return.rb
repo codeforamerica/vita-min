@@ -40,4 +40,12 @@ class TaxReturn < ApplicationRecord
   def self.filing_years
     [2020, 2019, 2018, 2017]
   end
+
+  def certification_level
+    # "advanced"
+  end
+
+  def is_hsa?
+    true
+  end
 end

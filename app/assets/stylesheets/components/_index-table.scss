@@ -28,6 +28,10 @@ It expects to be the primary content of the given page (full width).
 
   // for nested tables
   .index-table__cell {
+    padding-right: 1.6rem;
+    &:last-of-type {
+      padding-right: 0;
+    }
     table {
       width: 100%;
     }

@@ -19,9 +19,12 @@ module TaxReturnStatusHelper
     TaxReturnStatusHelper.status_translation(status)
   end
 
+  def stage_translation_from_status(status)
+    TaxReturnStatusHelper.stage_translation_from_status(status)
+  end
+
   def self.stage_and_status_translation(status)
-    stage = status.to_s.split("_")[0]
-    "#{stage_translation(stage)}/#{status_translation(status)}"
+    "#{stage_translation_from_status(status)}/#{status_translation(status)}"
   end
 
   def language_options
@@ -30,6 +33,29 @@ module TaxReturnStatusHelper
   end
 
   private
+
+  def certification_label(tax_return)
+    text = ""
+    if tax_return.certification_level.blank?
+      text << "N/A"
+      color = "unassigned"
+    end
+    if tax_return.certification_level == "advanced"
+      text << "ADV"
+      unassigned = "magenta"
+    end
+    if tax_return.certification_level == "basic"
+      text << "BAS"
+      unassigned = "teal"
+    end
+    text << " | HSA" if tax_return.certification_level && tax_return.is_hsa?
+    content_tag(:span, text, class: ["label", "label--#{color}", "certification-label"])
+  end
+
+  def self.stage_translation_from_status(status)
+    stage = status.to_s.split("_")[0]
+    stage_translation(stage)
+  end
 
   def self.stage_translation(stage)
     I18n.t("hub.tax_returns.stage." + stage)
