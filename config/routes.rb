@@ -129,6 +129,9 @@ Rails.application.routes.draw do
           post "update_take_action"
         end
       end
+      resources :tax_returns, only: [] do
+        patch "update_certification", to: "tax_returns/certifications#update", on: :member
+      end
       resources :sub_organizations, only: [:edit, :update]
       resources :vita_partners, only: [:index, :edit, :update, :show]
       resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts

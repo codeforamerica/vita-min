@@ -2,13 +2,15 @@
 #
 # Table name: tax_returns
 #
-#  id               :bigint           not null, primary key
-#  status           :integer          default("intake_before_consent"), not null
-#  year             :integer          not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  assigned_user_id :bigint
-#  client_id        :bigint           not null
+#  id                  :bigint           not null, primary key
+#  certification_level :integer
+#  is_hsa              :boolean
+#  status              :integer          default("intake_before_consent"), not null
+#  year                :integer          not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  assigned_user_id    :bigint
+#  client_id           :bigint           not null
 #
 # Indexes
 #
@@ -26,6 +28,7 @@ class TaxReturn < ApplicationRecord
   belongs_to :assigned_user, class_name: "User", optional: true
 
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
+  enum certification_level: { advanced: 1, basic: 2 }
 
   ##
   # advance the return to a new status, only if that status more advanced.
@@ -39,13 +42,5 @@ class TaxReturn < ApplicationRecord
 
   def self.filing_years
     [2020, 2019, 2018, 2017]
-  end
-
-  def certification_level
-    # "advanced"
-  end
-
-  def is_hsa?
-    true
   end
 end

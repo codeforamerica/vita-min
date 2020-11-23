@@ -2,8 +2,6 @@
   font-size: 1.4rem;
   margin: 0;
 
-  &__certification {
-  }
   &__state {
     text-align: right;
     width: 135px;
@@ -76,6 +74,7 @@
       margin: 0;
     }
   }
+
 }
 
 .certification-label {
@@ -86,3 +85,38 @@
     color: $color-grey;
   }
 }
+
+.tax-return-certification-form {
+  position: relative;
+  border: 2px solid black;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  > * {
+    margin: 0 5px 0;
+  }
+
+  button {
+    margin-left: 5px;
+    display: flex;
+
+    img {
+      height: 16px;
+      height: 16px;
+    }
+  }
+
+  .before {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: -30px;
+    margin: 0;
+    a {
+      font-size: smaller;
+    }
+  }
+}
+

@@ -1,0 +1,15 @@
+<%= form_with class: tax_return, url: update_certification_hub_tax_return_path(id: tax_return.id), local: true, method: :patch, builder: VitaMinFormBuilder, html: { class: "tax-return-certification-form" } do |f| %>
+  <div class="before">
+    <label for="certification_level">Certification</label>
+    <%= link_to "Cancel", url_for(:locale => params[:locale]) %>
+  </div>
+  <%= f.select :certification_level, certification_options_for_select, include_blank: true, selected: tax_return.certification_level %>
+  <%= hidden_field_tag :next, request.path.split("?")[0] %>
+  <%= f.check_box :is_hsa, checked: tax_return.is_hsa? %><%= "#{t("general.hsa")}?" %>
+  <div>
+    <%= f.button :submit do %>
+      <span class="sr-only"><%= t("general.save") %></span>
+      <%= image_tag("checkmark.svg", alt: "") %>
+    <% end %>
+  </div>
+<% end %>

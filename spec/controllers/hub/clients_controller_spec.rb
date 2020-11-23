@@ -117,11 +117,7 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text("Filing Status: Filing jointly")
         expect(profile).to have_text("Oakland, CA 94606")
         expect(profile).to have_text("Spouse Contact Info")
-<<<<<<< HEAD
         expect(profile).to have_text("Pacific Time (US & Canada)")
-=======
-        expect(profile).to have_text("America/Los Angeles")
->>>>>>> Show and edit timezone and interview timing preference
         expect(profile).to have_text("I'm available every morning except Fridays.")
       end
 
@@ -181,7 +177,8 @@ RSpec.describe Hub::ClientsController do
           expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq hub_client_path(id: george_sr)
           expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
-          expect(html.at_css("#client-#{tobias.id}")).to have_text("Intake/In progress")
+          expect(html.at_css("#client-#{tobias.id}")).to have_text("Intake")
+          expect(html.at_css("#client-#{tobias.id}")).to have_text("In progress")
         end
 
         it "shows all returns for a client and users assigned to those returns" do

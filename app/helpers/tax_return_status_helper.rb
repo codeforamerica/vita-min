@@ -32,24 +32,19 @@ module TaxReturnStatusHelper
     all_interview_languages.select { |key, _| I18n.locale_available?(key) }.invert # only show available locales
   end
 
+  def certification_options_for_select
+    TaxReturn.certification_levels.map { |cl| [cl[0].titleize, cl[0]] }
+  end
+
   private
 
   def certification_label(tax_return)
-    text = ""
-    if tax_return.certification_level.blank?
-      text << "N/A"
-      color = "unassigned"
-    end
-    if tax_return.certification_level == "advanced"
-      text << "ADV"
-      unassigned = "magenta"
-    end
-    if tax_return.certification_level == "basic"
-      text << "BAS"
-      unassigned = "teal"
-    end
-    text << " | HSA" if tax_return.certification_level && tax_return.is_hsa?
-    content_tag(:span, text, class: ["label", "label--#{color}", "certification-label"])
+    classes = ["label", "certification-label"]
+    classes << "label--unassigned" if tax_return.certification_level.blank?
+    localization_key = tax_return.certification_level.blank? ? "NA" : "certification_abbrev.#{tax_return.certification_level}"
+    text = t("general.#{localization_key}")
+    text = "#{text} | #{t("general.hsa")}" if tax_return.is_hsa?
+    content_tag(:span, text, class: classes)
   end
 
   def self.stage_translation_from_status(status)
