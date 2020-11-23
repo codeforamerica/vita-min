@@ -561,7 +561,10 @@ RSpec.describe Hub::ClientsController do
             Su equipo de impuestos en GetYourRefund.org
           MESSAGE_BODY
 
-          expect(assigns(:take_action_form).tax_return[tax_return_2019.id]).to eq "intake_more_info"
+          expect(assigns(:take_action_form).tax_return[0].id).to eq tax_return_2018.id
+          expect(assigns(:take_action_form).tax_return[0].status).to eq "intake_in_progress"
+          expect(assigns(:take_action_form).tax_return[1].id).to eq tax_return_2019.id
+          expect(assigns(:take_action_form).tax_return[1].status).to eq "intake_more_info"
           expect(assigns(:take_action_form).locale).to eq "es"
           expect(assigns(:take_action_form).message_body).to eq filled_out_template
           expect(assigns(:take_action_form).contact_method).to eq "email"

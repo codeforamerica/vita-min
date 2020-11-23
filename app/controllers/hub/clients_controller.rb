@@ -52,7 +52,7 @@ module Hub
     end
 
     def edit_take_action
-      @tax_returns = @client.tax_returns.to_a
+      @tax_returns = @client.tax_returns.order(year: :asc).to_a
 
       # The `tax_return` param of the form takes an array of ActiveRecord-esque objects
       tax_return_struct = Struct.new(:id, :status, :year, :errors)
