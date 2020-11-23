@@ -76,7 +76,7 @@ module Hub
         locale: @client.intake.locale,
         message_body: status_macro(preselected_status),
         contact_method: preferred_contact_method_or_default,
-        tax_return: tax_return_params,
+        tax_returns: tax_return_params,
       )
     end
 
@@ -87,11 +87,11 @@ module Hub
         action_list = []
 
         # update tax return statuses
-        if @take_action_form.tax_return.present?
+        if @take_action_form.tax_returns.present?
           status_changed = false
-          @take_action_form.tax_return.keys.each do |tax_return_id|
+          @take_action_form.tax_returns.keys.each do |tax_return_id|
             tax_return = @client.tax_returns.find(tax_return_id)
-            new_status = @take_action_form.tax_return[tax_return_id]["status"]
+            new_status = @take_action_form.tax_returns[tax_return_id]["status"]
             if new_status != tax_return.status
               tax_return.update!(status: new_status)
               SystemNote.create_status_change_note(current_user, tax_return)
@@ -163,7 +163,7 @@ module Hub
     end
 
     def take_action_form_params
-      params.require(:hub_take_action_form).permit(:locale, :message_body, :contact_method, :internal_note_body, {tax_return: {}})
+      params.require(:hub_take_action_form).permit(:locale, :message_body, :contact_method, :internal_note_body, {tax_returns: {}})
     end
   end
 end

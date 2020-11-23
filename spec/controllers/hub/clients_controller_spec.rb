@@ -542,7 +542,7 @@ RSpec.describe Hub::ClientsController do
         get :edit_take_action, params: params
 
         expect(assigns(:take_action_form)).to be_present
-        expect(assigns(:take_action_form).tax_return.length).to eq 2
+        expect(assigns(:take_action_form).tax_returns.length).to eq 2
       end
 
       context "with a tax_return_status param that has a template (from client profile link)" do
@@ -582,10 +582,10 @@ RSpec.describe Hub::ClientsController do
             Su equipo de impuestos en GetYourRefund.org
           MESSAGE_BODY
 
-          expect(assigns(:take_action_form).tax_return[0].id).to eq tax_return_2018.id
-          expect(assigns(:take_action_form).tax_return[0].status).to eq "intake_in_progress"
-          expect(assigns(:take_action_form).tax_return[1].id).to eq tax_return_2019.id
-          expect(assigns(:take_action_form).tax_return[1].status).to eq "intake_more_info"
+          expect(assigns(:take_action_form).tax_returns[0].id).to eq tax_return_2018.id
+          expect(assigns(:take_action_form).tax_returns[0].status).to eq "intake_in_progress"
+          expect(assigns(:take_action_form).tax_returns[1].id).to eq tax_return_2019.id
+          expect(assigns(:take_action_form).tax_returns[1].status).to eq "intake_more_info"
           expect(assigns(:take_action_form).locale).to eq "es"
           expect(assigns(:take_action_form).message_body).to eq filled_out_template
           expect(assigns(:take_action_form).contact_method).to eq "email"
@@ -623,7 +623,7 @@ RSpec.describe Hub::ClientsController do
       {
         id: client,
         hub_take_action_form: {
-          tax_return: {
+          tax_returns: {
             "#{tax_return_2019.id}": {
               status: new_status_2019
             },

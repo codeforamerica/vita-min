@@ -1,6 +1,6 @@
 module Hub
   class TakeActionForm < Form
-    attr_accessor :tax_return, :locale, :message_body, :contact_method, :internal_note_body
+    attr_accessor :tax_returns, :locale, :message_body, :contact_method, :internal_note_body
 
     def initialize(client, *args, **attributes)
       @client = client

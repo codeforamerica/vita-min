@@ -34,7 +34,7 @@ en:
         blank_no_internal_note: If blank, no internal note is added.
         blank_no_message_sent: If blank, no message is sent to the client.
         contact_method_label: Contact method
-        internal_note_body_label: If blank, no internal note is added.
+        internal_note_body_label: Add an internal note
         language_mismatch: This client requested %{interview_language} for their interview
         prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}
         send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
