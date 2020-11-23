@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_10_211437) do
+ActiveRecord::Schema.define(version: 2020_11_23_144557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -498,8 +498,10 @@ ActiveRecord::Schema.define(version: 2020_11_10_211437) do
 
   create_table "tax_returns", force: :cascade do |t|
     t.bigint "assigned_user_id"
+    t.integer "certification_level"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.boolean "is_hsa"
     t.integer "status", default: 100, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "year", null: false

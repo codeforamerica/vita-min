@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.describe "a user viewing a client" do
   context "as an admin user" do
     let(:user) { create :admin_user }
-    let(:client) { create :client, vita_partner: (create :vita_partner), intake: create(:intake, :with_contact_info) }
+    let(:client) { create :client, vita_partner: (create :vita_partner), intake: create(:intake, :with_contact_info), tax_returns: [create(:tax_return, certification_level: "advanced")] }
+    let(:tax_return) { client.tax_returns.first }
     let!(:other_vita_partner) { create :vita_partner, name: "Tax Help Test" }
     before { login_as user }
 
@@ -19,6 +20,27 @@ RSpec.describe "a user viewing a client" do
       click_on "Save"
       within ".client-header" do
         expect(page).to have_text other_vita_partner.name
+      end
+    end
+
+    scenario "can view and update tax return certification type" do
+      visit hub_client_path(id: client.id)
+      within "#tax-return-#{tax_return.id}" do
+        expect(page).to have_text("ADV")
+        expect(page).not_to have_css(".tax-return-certification-form")
+        # change from advanced to basic
+        click_on("ADV")
+        expect(page).to have_css(".tax-return-certification-form")
+        select "Basic", from: "Certification"
+        click_button("button")
+        expect(page).to have_text("BAS")
+        expect(page).not_to have_css(".tax-return-certification-form")
+
+        # change from basic to basic hsa
+        click_on("BAS")
+        check "is_hsa"
+        click_button("button")
+        expect(page).to have_text("BAS | HSA")
       end
     end
   end

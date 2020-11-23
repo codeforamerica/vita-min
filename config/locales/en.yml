@@ -125,7 +125,7 @@ en:
         prep_ready_for_review: Ready for QR
         review_in_review: In review
         review_more_info: Needs more information
-        review_complete_signature_requested: Signature requested
+        review_complete_signature_requested: Complete/Signature requested
         finalize_closed: Closed
         finalize_signed: Return signed
         filed_e_file: Return e-filed
@@ -425,6 +425,10 @@ en:
     status: Status
     take_action: Take action
     send_message: Send message
+    certification_abbrev:
+      advanced: "ADV"
+      basic: "BAS"
+    hsa: "HSA"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

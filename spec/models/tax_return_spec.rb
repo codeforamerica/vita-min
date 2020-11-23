@@ -2,13 +2,15 @@
 #
 # Table name: tax_returns
 #
-#  id               :bigint           not null, primary key
-#  status           :integer          default("intake_before_consent"), not null
-#  year             :integer          not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  assigned_user_id :bigint
-#  client_id        :bigint           not null
+#  id                  :bigint           not null, primary key
+#  certification_level :integer
+#  is_hsa              :boolean
+#  status              :integer          default("intake_before_consent"), not null
+#  year                :integer          not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  assigned_user_id    :bigint
+#  client_id           :bigint           not null
 #
 # Indexes
 #
