@@ -50,6 +50,7 @@ es:
         internal_note_body_label: Crear una nota interna
         blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
         send_clarifier: "Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores."
+        status: "Estado de la declaración de impuestos de %{tax_year}"
       update_take_action:
         flash_message:
           success: "Éxito: Acción completo! %{action_list}."

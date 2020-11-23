@@ -50,6 +50,7 @@ en:
         internal_note_body_label: If blank, no internal note is added.
         blank_no_internal_note: If blank, no internal note is added.
         send_clarifier: "By clicking send, you will also update status, send a team note, and update followers."
+        status: "Status of %{tax_year} tax return"
       update_take_action:
         flash_message:
           success: "Success: Action taken! %{action_list}"
