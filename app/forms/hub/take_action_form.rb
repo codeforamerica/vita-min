@@ -1,6 +1,6 @@
 module Hub
   class TakeActionForm < Form
-    attr_accessor :status, :locale, :message_body, :contact_method, :internal_note_body
+    attr_accessor :tax_return, :locale, :message_body, :contact_method, :internal_note_body
 
     def initialize(client, *args, **attributes)
       @client = client
@@ -10,7 +10,7 @@ module Hub
     def language_difference_help_text
       if @client.intake.preferred_interview_language.present? && (locale != @client.intake.preferred_interview_language)
         I18n.t(
-          "hub.tax_returns.edit_status.language_mismatch",
+          "hub.clients.edit_take_action.language_mismatch",
           interview_language: language_label(@client.intake.preferred_interview_language)
         )
       end
@@ -33,7 +33,7 @@ module Hub
         preferred = @client.intake.email_notification_opt_in_yes? ? I18n.t("general.email") : I18n.t("general.text_message")
         other_method = preferred == I18n.t("general.text_message") ? I18n.t("general.email") : I18n.t("general.text_message")
         I18n.t(
-          "hub.tax_returns.edit_status.prefers_one_contact_method",
+          "hub.clients.edit_take_action.prefers_one_contact_method",
           preferred: preferred.downcase,
           other_method: other_method.downcase
         )

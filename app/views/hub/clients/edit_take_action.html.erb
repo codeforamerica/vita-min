@@ -2,17 +2,21 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <%= form_with model: @take_action_form,
-          url: update_status_hub_client_tax_return_path(id: @tax_return.id, client_id: @client),
-          method: :post, local: true, builder: VitaMinFormBuilder,
-          html: { class: "form-card" } do |f| %>
+                url: update_take_action_hub_client_path(id: @client.id),
+                method: :post, local: true, builder: VitaMinFormBuilder,
+                html: { class: "form-card" } do |f| %>
     <h1><%= @title %></h1>
 
-    <%= f.cfa_select(
-      :status,
-      t("general.status"),
-      grouped_status_options_for_select,
-      include_blank: true,
-    ) %>
+    <% @take_action_form.tax_return.map do |tax_return| %>
+      <%= f.fields_for "tax_return[#{tax_return.id}]", tax_return do |tax_return_form| %>
+        <%= tax_return_form.cfa_select(
+                :status,
+                t(".status", tax_year: tax_return.year),
+                grouped_status_options_for_select,
+                include_blank: true,
+                ) %>
+      <% end %>
+    <% end %>
 
     <%= f.cfa_select(
       :locale,
@@ -44,7 +48,7 @@
 
     <p><%=t(".send_clarifier")%></p>
     <button class="button button--cta " type="submit">
-      <%=t("general.send") %>
+      <%= t("general.send") %>
     </button>
   <% end %>
 <% end %>

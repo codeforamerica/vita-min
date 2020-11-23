@@ -122,14 +122,11 @@ Rails.application.routes.draw do
         resources :messages, only: [:index]
         resources :outgoing_text_messages, only: [:create]
         resources :outgoing_emails, only: [:create]
-        resources :tax_returns, only: [:edit, :update] do
-          member do
-            get "edit_status"
-            post "update_status"
-          end
-        end
+        resources :tax_returns, only: [:edit, :update]
         member do
           patch "response_needed"
+          get "edit_take_action"
+          post "update_take_action"
         end
       end
       resources :sub_organizations, only: [:edit, :update]

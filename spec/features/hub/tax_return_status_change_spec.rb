@@ -7,6 +7,7 @@ RSpec.feature "Change tax return status on a client" do
     let(:client) { create :client, vita_partner: vita_partner }
     let!(:intake) { create :intake, client: client, locale: "en", email_address: "client@example.com", email_notification_opt_in: "yes" }
     let!(:tax_return) { create :tax_return, year: 2019, client: client, status: "intake_in_progress" }
+    let!(:other_tax_return) { create :tax_return, year: 2018, client: client, status: "intake_in_progress" }
 
     before do
       login_as user
@@ -21,8 +22,8 @@ RSpec.feature "Change tax return status on a client" do
         click_on "Update"
       end
 
-      expect(current_path).to eq(edit_status_hub_client_tax_return_path(id: tax_return, client_id: tax_return.client))
-      expect(page).to have_select("hub_take_action_form_status", selected: "Accepted")
+      expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
+      expect(page).to have_select("hub_take_action_form_tax_return_#{tax_return.id}__status", selected: "Accepted")
       expect(page).to have_select("hub_take_action_form_locale", selected: "English")
 
       expect(page).to have_text("Send message")
@@ -32,7 +33,9 @@ RSpec.feature "Change tax return status on a client" do
       click_on "Send"
 
       expect(current_path).to eq(hub_client_path(id: tax_return.client))
-      expect(page).to have_select("tax_return_status", selected: "Accepted")
+      within "#tax-return-#{tax_return.id}" do
+        expect(page).to have_select("tax_return_status", selected: "Accepted")
+      end
 
       click_on "Notes"
       expect(page).to have_text("Example Preparer updated 2019 tax return status from Intake/In progress to Filing completed/Accepted")

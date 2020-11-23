@@ -30,6 +30,22 @@ en:
         primary_contact_info: Primary Contact Info
         spouse_contact_info: Spouse Contact Info
         title: Edit Client Profile
+      edit_take_action:
+        blank_no_internal_note: If blank, no internal note is added.
+        blank_no_message_sent: If blank, no message is sent to the client.
+        contact_method_label: Contact method
+        internal_note_body_label: If blank, no internal note is added.
+        language_mismatch: This client requested %{interview_language} for their interview
+        prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}
+        send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
+        status: Status of %{tax_year} tax return
+      update_take_action:
+        flash_message:
+          email: sent email
+          internal_note: added internal note.
+          status: updated status
+          success: 'Success: Action taken! %{action_list}'
+          text_message: sent text message
       index:
         client_id_heading: Client ID
         filing_year: Filing Year
@@ -85,47 +101,6 @@ en:
       edit:
         assigned_user_label: Assign to
         title: Assign %{client_name}'s %{tax_year} tax return
-      edit_status:
-        blank_no_internal_note: If blank, no internal note is added.
-        blank_no_message_sent: If blank, no message is sent to the client.
-        contact_method_label: Contact method
-        internal_note_body_label: Add an internal note
-        language_mismatch: This client requested %{interview_language} for their interview
-        prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}
-        send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
-        status_macros:
-          needs_more_information: |
-            Hello!
-
-            In order to continue filing your taxes, we need you to send us:
-            %{required_documents}
-            Securely upload your documents by going to %{document_upload_link}
-
-            Please let us know if you have any questions. We cannot prepare your taxes without this information.
-
-            Thanks!
-            Your tax team at GetYourRefund.org
-          ready_for_qr: |
-            Hello!
-
-            Your return is now being quality reviewed!
-
-            Thanks!
-            Your tax team at GetYourRefund.org
-          accepted: |
-            Hello!
-
-            Your federal and state returns have been accepted! You will not receive any further notifications. If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
-            If you have any questions, please reply to this message.
-
-            Thanks!
-            Your tax team at GetYourRefund.org
-        flash_message:
-          success: "Success: Action taken! %{action_list}."
-          status: updated status
-          email: sent email
-          text_message: sent text message
-          internal_note: added internal note
       update:
         flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}
         no_one: no one
@@ -156,6 +131,33 @@ en:
         filed_mail_file: Return filed by mail
         filed_rejected: Rejected
         filed_accepted: Accepted
+    status_macros:
+      needs_more_information: |
+        Hello!
+
+        In order to continue filing your taxes, we need you to send us:
+        %{required_documents}
+        Securely upload your documents by going to %{document_upload_link}
+
+        Please let us know if you have any questions. We cannot prepare your taxes without this information.
+
+        Thanks!
+        Your tax team at GetYourRefund.org
+      ready_for_qr: |
+        Hello!
+
+        Your return is now being quality reviewed!
+
+        Thanks!
+        Your tax team at GetYourRefund.org
+      accepted: |
+        Hello!
+
+        Your federal and state returns have been accepted! You will not receive any further notifications. If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
+        If you have any questions, please reply to this message.
+
+        Thanks!
+        Your tax team at GetYourRefund.org
     sub_organizations:
       edit:
         title: Create sub-organization of %{name}

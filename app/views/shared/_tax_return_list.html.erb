@@ -1,6 +1,6 @@
 <% status_updateable ||= false %>
 <ul class="tax-return-list">
-  <% client.tax_returns.each do |tax_return| %>
+  <% client.tax_returns.order(year: :asc).each do |tax_return| %>
     <li id="tax-return-<%= tax_return.id %>">
       <div class="assignment">
         <div><strong><%= tax_return.year %></strong></div>
@@ -15,7 +15,8 @@
         </div>
       </div>
       <% if status_updateable %>
-        <%= form_with model: tax_return, url: edit_status_hub_client_tax_return_path(id: tax_return.id, client_id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "form-wrapper"} do |f| %>
+        <%= form_with model: tax_return, url: edit_take_action_hub_client_path(id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "form-wrapper"} do |f| %>
+          <%= f.hidden_field "id", value: tax_return.id %>
           <%= f.cfa_select(:status, t("general.status"), grouped_status_options_for_select, include_blank: true, selected: tax_return.status) %>
           <div><%= f.submit "Update", class: "button button--small"%></div>
         <% end %>
