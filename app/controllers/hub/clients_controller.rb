@@ -54,15 +54,21 @@ module Hub
     def edit_take_action
       @tax_returns = @client.tax_returns.to_a
 
+      # The `tax_return` param of the form takes an array of ActiveRecord-esque objects
+      tax_return_struct = Struct.new(:id, :status, :year, :errors)
+      no_errors_hash = Hash.new(Struct.new(:any?).new(false))
+
       # populate tax return statuses with params or existing value
-      tax_return_params = {}
+      tax_return_params = []
       preselected_status = params.dig(:tax_return, :status)
-      @tax_returns.each do|tax_return|
-        if params.dig(:tax_return, :id) == tax_return.id.to_s
-          tax_return_params[tax_return.id] = preselected_status
-        else
-          tax_return_params[tax_return.id] = tax_return.status
-        end
+      @tax_returns.each do |tax_return|
+        status =
+          if params.dig(:tax_return, :id) == tax_return.id.to_s
+            preselected_status
+          else
+            tax_return.status
+          end
+        tax_return_params.push(tax_return_struct.new(tax_return.id, status, tax_return.year, no_errors_hash))
       end
 
       @take_action_form = Hub::TakeActionForm.new(

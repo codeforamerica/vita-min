@@ -7,9 +7,9 @@
                 html: { class: "form-card" } do |f| %>
     <h1><%= @title %></h1>
 
-    <% @tax_returns.map do |tax_return| %>
-      <%= f.fields_for "tax_return[]", tax_return do |t| %>
-        <%= t.cfa_select(
+    <% @take_action_form.tax_return.map do |tax_return| %>
+      <%= f.fields_for "tax_return[#{tax_return.id}]", tax_return do |tax_return_form| %>
+        <%= tax_return_form.cfa_select(
                 :status,
                 t(".status", tax_year: tax_return.year),
                 grouped_status_options_for_select,
