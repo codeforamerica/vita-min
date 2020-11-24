@@ -212,4 +212,48 @@ describe Client do
       end
     end
   end
+
+  describe "#destroy_completely" do
+    context "with many associated records" do
+      let(:vita_partner) { create :vita_partner }
+      let(:user) { create :user, vita_partner: vita_partner }
+      let(:client) { create :client, vita_partner: vita_partner }
+      let(:intake) { create :intake, client: client, vita_partner: vita_partner }
+      let!(:unrelated_intake) { create :intake }
+      let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
+      before do
+        create_list :document, 2, client: client, intake: intake
+        create_list :dependent, 2, intake: intake
+        create :tax_return, client: client, assigned_user: user
+        create :note, client: client, user: user
+        create :system_note, client: client
+        create :incoming_email, client: client
+        create :incoming_text_message, client: client
+        create :outgoing_email, client: client, attachment: attachment
+        create :outgoing_text_message, client: client
+        create :documents_request, intake: intake
+        create :ticket_status, intake: intake
+      end
+
+      it "destroys everything associated with the client" do
+        client.destroy_completely
+
+        expect(Client.count).to eq 1
+        expect(Client.last).to eq unrelated_intake.client
+        expect(Intake.count).to eq 1
+        expect(Intake.last).to eq unrelated_intake
+        expect(Document.count).to eq 0
+        expect(Dependent.count).to eq 0
+        expect(TaxReturn.count).to eq 0
+        expect(Note.count).to eq 0
+        expect(SystemNote.count).to eq 0
+        expect(IncomingEmail.count).to eq 0
+        expect(IncomingTextMessage.count).to eq 0
+        expect(OutgoingEmail.count).to eq 0
+        expect(OutgoingTextMessage.count).to eq 0
+        expect(DocumentsRequest.count).to eq 0
+        expect(TicketStatus.count).to eq 0
+      end
+    end
+  end
 end

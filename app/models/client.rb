@@ -62,4 +62,21 @@ class Client < ApplicationRecord
   def needs_response?
     response_needed_since.present?
   end
+
+  def destroy_completely
+    intake.ticket_statuses.destroy_all
+    intake.dependents.destroy_all
+    DocumentsRequest.where(intake: intake).destroy_all
+    documents.destroy_all
+    intake.documents.destroy_all
+    incoming_emails.destroy_all
+    incoming_text_messages.destroy_all
+    outgoing_emails.destroy_all
+    outgoing_text_messages.destroy_all
+    notes.destroy_all
+    system_notes.destroy_all
+    tax_returns.destroy_all
+    intake.destroy
+    destroy
+  end
 end
