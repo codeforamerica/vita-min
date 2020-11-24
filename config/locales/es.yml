@@ -441,7 +441,6 @@ es:
       your_spouse: Su cónyuge
     intake_site_drop_off:
       errors:
-        choose_file: Por favor, elija un archivo.
         valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
   signups:
     flash_notice: "¡Gracias! Recibirá una notificación cuando abramos en enero de 2021."
@@ -658,7 +657,6 @@ es:
       new:
         additional_info: Información adicional
         certification_level: Nivel de certificación
-        document_bundle: Paquete de documentos
         email: Correo electrónico del cliente
         hsa: HSA (cuenta de ahorros para gastos médicos)
         intake_site: Sitio de admisión

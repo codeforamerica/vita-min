@@ -441,7 +441,6 @@ en:
       your_spouse: Your spouse
     intake_site_drop_off:
       errors:
-        choose_file: Please choose a file.
         valid_pickup_date: Please enter a valid month and day (M/D).
   signups:
     flash_notice: Thank you! You will receive a notification when we open in January 2021.
@@ -658,7 +657,6 @@ en:
       new:
         additional_info: Additional information
         certification_level: Certification level
-        document_bundle: Documents bundle
         email: Client email
         hsa: HSA
         intake_site: Intake Site

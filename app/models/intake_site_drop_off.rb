@@ -108,7 +108,6 @@ class IntakeSiteDropOff < ApplicationRecord
   validates :phone_number, allow_blank: true, phone: true
   validate :has_valid_pickup_date?
 
-  has_one_attached :document_bundle
   belongs_to :prior_drop_off, class_name: self.name, optional: true
 
   def phone_number=(value)
