@@ -19,8 +19,9 @@ module Hub
       :signature_method,
       :certification_level,
       :intake_site,
-      :organization,
-      :document_bundle
+      :organization
+    set_attributes_for :document,
+      :upload
 
     def initialize(params = {})
       @intake = Intake.new
@@ -33,14 +34,22 @@ module Hub
       @intake.filing_years.each do |year|
         TaxReturn.create(client: client, year: year, status: "intake_needs_assignment")
       end
-      IntakeSiteDropOff.create(
+      IntakeSiteDropOff.create!(
         attributes_for(:intake_site_drop_off)
           .merge(
             client: client,
             name: @intake.preferred_name,
             state: @intake.state,
+            document_bundle: upload
           )
         )
+      Document.create!(
+        attributes_for(:document)
+          .merge(
+            client: client,
+            document_type: "Drop-off",
+          )
+      )
     end
   end
 end

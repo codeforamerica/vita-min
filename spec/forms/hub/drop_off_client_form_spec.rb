@@ -21,7 +21,7 @@ RSpec.describe Hub::DropOffClientForm do
         certification_level: "Advanced",
         intake_site: "Adams City High School",
         organization: "thc",
-        document_bundle: fixture_file_upload("attachments/document_bundle.pdf"),
+        upload: fixture_file_upload("attachments/document_bundle.pdf"),
       )
       expect {
         form.save
@@ -29,6 +29,7 @@ RSpec.describe Hub::DropOffClientForm do
         .and change(Client, :count).by(1)
         .and change(TaxReturn, :count).by(1)
         .and change(IntakeSiteDropOff, :count).by(1)
+        .and change(Document, :count).by(1)
       client = Client.last
       intake = client.intake
       expect(intake.preferred_name).to eq("Gene Parmesan")
@@ -51,7 +52,8 @@ RSpec.describe Hub::DropOffClientForm do
       expect(client.intake_site_drop_off.intake_site).to eq("Adams City High School")
       expect(client.intake_site_drop_off.organization).to eq("thc")
       expect(client.intake_site_drop_off.name).to eq("Gene Parmesan")
-      # TODO: consider moving this and putting the validation on the original form instead (unless we wnat to require it)
+      expect(client.documents.first.upload).to be_attached
+      # TODO: consider moving this and putting the validation on the original form instead (unless we want to require it)
       expect(client.intake_site_drop_off.document_bundle).to be_attached
     end
   end

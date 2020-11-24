@@ -30,7 +30,7 @@
 class Document < ApplicationRecord
   include InteractionTracking
   # Permit all existing document types, plus "Requested", which is superseded by "Requested Later" (but the DB has both)
-  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested"] }
+  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested", "Drop-off"] }
   # validates_presence_of :client  -- Uncomment after clients are done adding requested documents for 2020
 
   default_scope { order(created_at: :asc) }
