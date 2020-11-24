@@ -17,15 +17,18 @@
 #  timezone            :string
 #  created_at          :datetime
 #  updated_at          :datetime
+#  client_id           :bigint
 #  prior_drop_off_id   :bigint
 #  zendesk_ticket_id   :string
 #
 # Indexes
 #
+#  index_intake_site_drop_offs_on_client_id          (client_id)
 #  index_intake_site_drop_offs_on_prior_drop_off_id  (prior_drop_off_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (prior_drop_off_id => intake_site_drop_offs.id)
 #
 
@@ -110,6 +113,7 @@ class IntakeSiteDropOff < ApplicationRecord
   validate :has_valid_pickup_date?
 
   has_one_attached :document_bundle
+  belongs_to :client
   belongs_to :prior_drop_off, class_name: self.name, optional: true
 
   def has_document_bundle?

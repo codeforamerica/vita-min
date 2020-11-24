@@ -21,6 +21,7 @@
 class Client < ApplicationRecord
   belongs_to :vita_partner, optional: true
   has_one :intake
+  has_one :intake_site_drop_off
   has_many :documents
   has_many :outgoing_text_messages
   has_many :outgoing_emails
