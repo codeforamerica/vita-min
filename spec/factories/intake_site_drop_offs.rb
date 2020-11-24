@@ -36,7 +36,6 @@ FactoryBot.define do
     organization { "thc" }
     state { "CO" }
     signature_method { :e_signature }
-    document_bundle { Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf") }
 
     trait :optional_fields do
       email { "gguava@example.com" }

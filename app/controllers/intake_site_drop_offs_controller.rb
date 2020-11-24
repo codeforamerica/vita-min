@@ -81,7 +81,6 @@ class IntakeSiteDropOffsController < ApplicationController
       :state,
       :signature_method,
       :pickup_date_string,
-      :document_bundle,
       :certification_level,
       :hsa,
       :additional_info,

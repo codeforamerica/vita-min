@@ -35,7 +35,6 @@
                                         classes: ["form-width--phone"]
                     }
                 ) %>
-            <%= f.cfa_file_field(:document_bundle, t("views.intake_site_drop_offs.new.document_bundle")) %>
             <%= f.cfa_select(:state, t("views.intake_site_drop_offs.new.state.label"), States.name_value_pairs, help_text: t("views.intake_site_drop_offs.new.state.help_text")) %>
             <%= f.cfa_radio_set(
                     :certification_level,

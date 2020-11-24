@@ -101,7 +101,6 @@ RSpec.describe IntakeSiteDropOffsController do
               certification_level: "Advanced",
               hsa: "1",
               additional_info: "Needs to double check if they have another W-2",
-              document_bundle: fixture_file_upload("attachments/document_bundle.pdf"),
               timezone: "America/Juneau",
             }
           }
@@ -125,7 +124,6 @@ RSpec.describe IntakeSiteDropOffsController do
           expect(drop_off.certification_level).to eq "Advanced"
           expect(drop_off.hsa).to eq true
           expect(drop_off.additional_info).to eq "Needs to double check if they have another W-2"
-          expect(drop_off.document_bundle).to be_attached
           expect(drop_off.timezone).to eq "America/Juneau"
 
           expect(response).to redirect_to show_drop_off_path(id: drop_off.id, organization: "thc")
@@ -251,7 +249,7 @@ RSpec.describe IntakeSiteDropOffsController do
           }.not_to change(IntakeSiteDropOff, :count)
 
           expect(assigns(:drop_off)).not_to be_valid
-          expect(assigns(:drop_off).errors).to include(:document_bundle)
+          expect(assigns(:drop_off).errors).to include(:phone_number)
           expect(response).to render_template(:new)
         end
 
@@ -262,7 +260,6 @@ RSpec.describe IntakeSiteDropOffsController do
             organization: "thc",
             intake_site: "Denver Main Library",
             state: nil,
-            invalid_document_bundle: true,
             invalid_signature_method: true,
             invalid_phone_number: true,
             invalid_intake_site: true,
