@@ -41,8 +41,8 @@ module Hub
             name: @intake.preferred_name,
             state: @intake.state,
             document_bundle: upload
-          )
         )
+      )
       Document.create!(
         attributes_for(:document)
           .merge(

@@ -1,8 +1,35 @@
 require "rails_helper"
 
+# Question for product:
+# - Do we delete the other form?
+
 RSpec.describe Hub::DropOffClientForm do
+  let(:form) do
+    Hub::DropOffClientForm.new(
+      preferred_name: "Gene Parmesan",
+      primary_first_name: "Gene",
+      primary_last_name: "Parmesan",
+      email_address: "gene@example.com",
+      phone_number: "+14155551212",
+      street_address: "123 Main St",
+      city: "Anytown",
+      state: "CA",
+      zip_code: "94612",
+      email_notification_opt_in: "yes",
+      needs_help_2019: "yes",
+      signature_method: "e_signature",
+      state_of_residence: "OR",
+      additional_info: "FYI this client is very nice",
+      certification_level: "Advanced",
+      intake_site: "Adams City High School",
+      organization: "thc",
+      upload: fixture_file_upload("attachments/document_bundle.pdf"),
+    )
+  end
+
   context "required fields" do
     it "accepts the required parameters and creates a client etc" do
+      # additional info can update notes tab
       form = Hub::DropOffClientForm.new(
         preferred_name: "Gene Parmesan",
         primary_first_name: "Gene",
@@ -21,7 +48,6 @@ RSpec.describe Hub::DropOffClientForm do
         certification_level: "Advanced",
         intake_site: "Adams City High School",
         organization: "thc",
-        upload: fixture_file_upload("attachments/document_bundle.pdf"),
       )
       expect {
         form.save
