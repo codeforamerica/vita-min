@@ -34,6 +34,7 @@ RSpec.describe Questions::PersonalInfoController do
         post :update, params: params
 
         expect(intake.reload.vita_partner).to eq vita_partner
+        expect(intake.client.vita_partner).to eq vita_partner
       end
     end
 
@@ -46,18 +47,21 @@ RSpec.describe Questions::PersonalInfoController do
         post :update, params: params
 
         expect(intake.reload.vita_partner).to eq vita_partner
+        expect(intake.client.vita_partner).to eq vita_partner
       end
     end
 
     context "when intake already has a return with 'In Progress' or later status" do
       let!(:old_vita_partner) { create :vita_partner }
-      let(:intake) { create :intake, vita_partner: old_vita_partner }
+      let(:client) { create :client, vita_partner: old_vita_partner }
+      let(:intake) { create :intake, vita_partner: old_vita_partner, client: client }
       before { create :tax_return, client: intake.client, status: "intake_in_progress" }
 
       it "does not re-assign the vita partner" do
         post :update, params: params
 
         expect(intake.reload.vita_partner).to eq old_vita_partner
+        expect(intake.client.vita_partner).to eq old_vita_partner
       end
     end
   end

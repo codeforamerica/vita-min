@@ -7,7 +7,10 @@ module Questions
     end
 
     def after_update_success
-      current_intake.assign_vita_partner! unless Client.after_consent.where(intake: current_intake).exists?
+      unless Client.after_consent.where(intake: current_intake).exists?
+        current_intake.assign_vita_partner!
+        current_intake.client.update(vita_partner: current_intake.vita_partner)
+      end
     end
   end
 end
