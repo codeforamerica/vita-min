@@ -200,7 +200,6 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hashdiff (1.0.1)
-    hashie (4.1.0)
     highline (2.0.3)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -221,7 +220,6 @@ GEM
     image_processing (1.12.0)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
-    inflection (1.0.0)
     jaro_winkler (1.5.4)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
@@ -487,12 +485,6 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.0)
-    zendesk_api (1.28.0)
-      faraday (>= 0.9.0, < 2.0.0)
-      hashie (>= 3.5.2, < 5.0.0)
-      inflection
-      mime-types
-      multipart-post (~> 2.0)
 
 PLATFORMS
   ruby
@@ -566,7 +558,6 @@ DEPENDENCIES
   webpacker
   websocket-extensions (>= 0.1.5)
   will_paginate
-  zendesk_api
 
 RUBY VERSION
    ruby 2.6.5p114
