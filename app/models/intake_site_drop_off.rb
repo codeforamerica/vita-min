@@ -106,17 +106,10 @@ class IntakeSiteDropOff < ApplicationRecord
   validates :certification_level, allow_blank: true, inclusion: { in: CERTIFICATION_LEVELS }
   validates :email, allow_blank: true, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, phone: true
-  validate :has_document_bundle?
   validate :has_valid_pickup_date?
 
   has_one_attached :document_bundle
   belongs_to :prior_drop_off, class_name: self.name, optional: true
-
-  def has_document_bundle?
-    doc_is_attached = document_bundle.attached?
-    errors.add(:document_bundle, I18n.t("models.intake_site_drop_off.errors.choose_file")) unless doc_is_attached
-    doc_is_attached
-  end
 
   def phone_number=(value)
     if value.present? && value.is_a?(String)

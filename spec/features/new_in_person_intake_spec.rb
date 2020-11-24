@@ -15,7 +15,6 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
     choose "In-person"
     expect(page).to have_text "M/D"
     fill_in "Pick-up date", with: "2/20"
-    attach_file("Documents bundle", "spec/fixtures/attachments/document_bundle.pdf")
     choose "Advanced"
     check "HSA"
     fill_in "Additional information", with: "Needs to double check if they have another W-2"
@@ -44,7 +43,6 @@ RSpec.feature "Add a new intake case from an in-person drop-off site" do
     choose "In-person"
     expect(page).to have_text "M/D"
     fill_in "Pick-up date", with: "2/20"
-    attach_file("Documents bundle", "spec/fixtures/attachments/document_bundle.pdf")
     fill_in "Additional information", with: "Needs to double check if they have another W-2"
 
     click_on "Send for prep"

@@ -58,10 +58,8 @@ describe IntakeSiteDropOff do
       expect(invalid_drop_off.errors).to include(:name)
       expect(invalid_drop_off.errors).to include(:intake_site)
       expect(invalid_drop_off.errors).to include(:signature_method)
-      expect(invalid_drop_off.errors).to include(:document_bundle)
       expect(invalid_drop_off.errors).to include(:organization)
       expect(invalid_drop_off.errors).to include(:state)
-      expect(invalid_drop_off.errors.messages[:document_bundle]).to include "Please choose a file."
     end
 
     describe "#signature_method" do
@@ -142,16 +140,6 @@ describe IntakeSiteDropOff do
 
         expect(drop_off.error_summary).to eq "Errors: Please enter a valid phone number. Please enter a valid month and day (M/D)."
       end
-    end
-  end
-
-
-  describe "#document_bundle" do
-    it "can attach a document bundle" do
-      drop_off.save
-      drop_off.document_bundle.attach(io: File.open('spec/fixtures/attachments/document_bundle.pdf'), filename: 'document_bundle.pdf')
-
-      expect(drop_off.document_bundle).to be_an_instance_of(ActiveStorage::Attached::One)
     end
   end
 
