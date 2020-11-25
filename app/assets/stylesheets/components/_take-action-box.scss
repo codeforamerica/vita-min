@@ -1,5 +1,10 @@
 .take-action-box {
+  background: white;
   display: flex;
   justify-content: flex-end;
-  border-top: 1px solid black; padding-top: 1em;
+  border-top: 1px solid black;
+  padding-top: 1.6rem;
+  .button {
+    margin-bottom: 1.6rem;
+  }
 }

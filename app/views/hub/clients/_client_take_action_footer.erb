@@ -1,5 +1,7 @@
-<div class="take-action-box">
-  <div>
-    <%= link_to(t("general.take_action"), edit_take_action_hub_client_path(id: @client.id), class: "button button--small") %>
+<%= content_for :sticky_action_footer do %>
+  <div class="take-action-box">
+    <div>
+      <%= link_to(t("general.take_action"), edit_take_action_hub_client_path(id: @client.id), class: "button button--small") %>
+    </div>
   </div>
-</div>
+<% end %>
