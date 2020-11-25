@@ -81,6 +81,7 @@ module Hub
       prefers_sms_only ? "text_message" : default
     end
 
+    # TODO: This needs to be unit tested
     def status_macro(status)
       case status
       when "intake_more_info", "prep_more_info", "review_more_info"
@@ -91,12 +92,23 @@ module Hub
           "hub.tax_returns.edit_status.status_macros.needs_more_information",
           required_documents: document_list,
           document_upload_link: @client.intake.requested_docs_token_link,
-          locale: @client.intake.locale
+          locale: @client.intake.locale,
+          client_preferred_name: @client.preferred_name,
+          tax_preparer_name: current_user.name
         )
       when "prep_ready_for_review"
-        I18n.t("hub.tax_returns.edit_status.status_macros.ready_for_qr", locale: @client.intake.locale)
+        I18n.t(
+          "hub.tax_returns.edit_status.status_macros.ready_for_qr",
+          locale: @client.intake.locale,
+          client_preferred_name: @client.preferred_name,
+          tax_preparer_name: current_user.name
+        )
       when "filed_accepted"
-        I18n.t("hub.tax_returns.edit_status.status_macros.accepted", locale: @client.intake.locale)
+        I18n.t(
+          "hub.tax_returns.edit_status.status_macros.accepted",
+          locale: @client.intake.locale,
+          client_preferred_name: @client.preferred_name
+        )
       else
         ""
       end

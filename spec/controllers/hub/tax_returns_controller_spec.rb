@@ -103,7 +103,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
   describe "#edit_status" do
     let(:user) { create :user_with_org }
     let(:client) { create(:client, vita_partner: user.vita_partner) }
-    let!(:intake) { create :intake, client: client, email_notification_opt_in: "yes" }
+    let!(:intake) { create :intake, client: client, preferred_name: "Feith Klint", email_notification_opt_in: "yes" }
     let(:tax_return) { create :tax_return, client: client }
     let(:params) { { id: tax_return.id, client_id: tax_return.client } }
 
@@ -137,7 +137,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           get :edit_status, params: params
 
           filled_out_template = <<~MESSAGE_BODY
-            ¡Hola!
+            ¡Hola Feith Klint!
 
             Para continuar presentando sus impuestos, necesitamos que nos envíe:
               - Identificación
@@ -149,7 +149,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
             Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
 
             ¡Gracias!
-            Su equipo de impuestos en GetYourRefund.org
+            Gary Gnome en GetYourRefund.org
           MESSAGE_BODY
 
           expect(assigns(:take_action_form).status).to eq "intake_more_info"

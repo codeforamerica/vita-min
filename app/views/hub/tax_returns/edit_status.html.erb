@@ -46,5 +46,8 @@
     <button class="button button--cta " type="submit">
       <%=t("general.send") %>
     </button>
+    <%= content_tag :div, class: "client_information", data: {client_name: @take_action_form.client.intake.preferred_name} do %>
+    <% end %>
   <% end %>
 <% end %>
+

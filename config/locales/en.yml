@@ -86,7 +86,7 @@ en:
         send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
         status_macros:
           needs_more_information: |
-            Hello!
+            Hello %{client_preferred_name}!
 
             In order to continue filing your taxes, we need you to send us:
             %{required_documents}
@@ -95,16 +95,16 @@ en:
             Please let us know if you have any questions. We cannot prepare your taxes without this information.
 
             Thanks!
-            Your tax team at GetYourRefund.org
+            %{tax_preparer_name} at GetYourRefund.org
           ready_for_qr: |
-            Hello!
+            Hello %{client_preferred_name}!
 
             Your return is now being quality reviewed!
 
             Thanks!
-            Your tax team at GetYourRefund.org
+            %{tax_preparer_name} at GetYourRefund.org
           accepted: |
-            Hello!
+            Hello %{client_preferred_name},
 
             Your federal and state returns have been accepted! You will not receive any further notifications. If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
             If you have any questions, please reply to this message.
