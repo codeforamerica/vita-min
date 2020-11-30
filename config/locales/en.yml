@@ -30,6 +30,8 @@ en:
         primary_contact_info: Primary Contact Info
         spouse_contact_info: Spouse Contact Info
         title: Edit Client Profile
+        add_dependent: Add dependent
+        remove: Remove
       edit_take_action:
         blank_no_internal_note: If blank, no internal note is added.
         blank_no_message_sent: If blank, no message is sent to the client.
@@ -64,6 +66,7 @@ en:
         client_profile: Client Profile
       show:
         email: Email
+        dependents: Dependents
         filing_status: Filing Status
         intake_language: Intake Language
         interview_timing_preference: Preferred Interview Time
@@ -288,6 +291,11 @@ en:
       at_least_one_year: Please pick at least one year.
       need_one_communication_method: Please choose some way for us to contact you.
       need_phone_number: Please enter a cell phone number.
+      dependents: Please enter the %{attrs} of each dependent.
+      dependents_attributes:
+        first_name: first name
+        last_name: last name
+        birth_date: birth date
   general:
     at_time: at %{time}
     NA: N/A

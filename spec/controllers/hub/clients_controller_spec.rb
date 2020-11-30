@@ -92,7 +92,7 @@ RSpec.describe Hub::ClientsController do
              dependents: [(build :dependent), (build :dependent)]
     end
 
-    let(:params) { {id: client.id} }
+    let(:params) { { id: client.id } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
@@ -119,6 +119,7 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text("Spouse Contact Info")
         expect(profile).to have_text("Pacific Time (US & Canada)")
         expect(profile).to have_text("I'm available every morning except Fridays.")
+        expect(profile).to have_text("Dependents: 2")
       end
 
       context "when a client needs attention" do
@@ -455,7 +456,9 @@ RSpec.describe Hub::ClientsController do
   describe "#update" do
     let(:vita_partner) { create :vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
-    let(:intake) { create :intake, client: client }
+
+    let(:intake) { create :intake, client: client, dependents: [build(:dependent), build(:dependent)] }
+    let(:first_dependent) { intake.dependents.first }
     let(:params) {
       {
         id: client.id,
@@ -486,7 +489,12 @@ RSpec.describe Hub::ClientsController do
           spouse_email_address: intake.spouse_email_address,
           filing_joint: intake.filing_joint,
           timezone: "America/Chicago",
-          interview_timing_preference: "Tomorrow!"
+          interview_timing_preference: "Tomorrow!",
+          dependents_attributes: {
+              "0" => { id: intake.dependents.first.id, first_name: "Updated Dependent", last_name: "Name", birth_date_year: "2001", birth_date_month: "10", birth_date_day: "9" },
+              "1" => { first_name: "A New", last_name: "Dependent", birth_date_year: "2007", birth_date_month: "12", birth_date_day: "1" },
+              "2" => { id: intake.dependents.last.id, _destroy: "1" }
+          }
         }
       }
     }
@@ -501,12 +509,14 @@ RSpec.describe Hub::ClientsController do
 
       it "updates the clients intake" do
         post :update, params: params
-
         client.reload
         expect(client.intake.primary_first_name).to eq "Updated"
         expect(client.legal_name).to eq "Updated Name"
         expect(client.intake.interview_timing_preference).to eq "Tomorrow!"
         expect(client.intake.timezone).to eq "America/Chicago"
+        first_dependent.reload
+        expect(first_dependent.first_name).to eq "Updated Dependent"
+        expect(client.intake.dependents.count).to eq 2
         expect(response).to redirect_to hub_client_path(id: client.id)
       end
 
@@ -524,6 +534,28 @@ RSpec.describe Hub::ClientsController do
           post :update, params: params
 
           expect(response).to render_template :edit
+        end
+      end
+
+      context "with invalid dependent params" do
+        let(:params) {
+          {
+              id: client.id,
+              hub_client_intake_form: {
+                  dependents_attributes: { 0 => {"first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: ""}},
+              }
+          }
+        }
+
+        it "renders edit" do
+          post :update, params: params
+
+          expect(response).to render_template :edit
+        end
+
+        it "displays a flash message" do
+          post :update, params: params
+          expect(flash[:warning]).to eq "Please enter the first name, last name, birth date of each dependent."
         end
       end
     end

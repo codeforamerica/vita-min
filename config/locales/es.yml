@@ -30,6 +30,8 @@ es:
         primary_contact_info: Información de contacto
         spouse_contact_info: Información de contacto del cónyuge
         title: Editar Perfil del cliente
+        add_dependent: Agregar dependiente
+        remove: Eliminado
       index:
         client_id_heading: Cliente ID
         filing_year: Año para declarar
@@ -48,6 +50,7 @@ es:
         client_profile: Perfil del cliente
       show:
         email: Email
+        dependents: Dependents
         filing_status: Estado civil para declarar
         intake_language: Idioma del formulario de admisión
         interview_timing_preference: Preferencia de tiempo de entrevista
@@ -288,6 +291,11 @@ es:
       at_least_one_year: Por favor, elija al menos un año.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       need_phone_number: Por favor, introduzca un número de teléfono celular.
+      dependents: Por favor, ingrese %{attrs} de su dependiente.
+      dependents_attributes:
+        first_name: el primer nombre
+        last_name: el apellido
+        birth_date: la fecha de nacimiento completa
   general:
     at_time: a las %{time}
     NA: N/A

@@ -3,10 +3,17 @@ require "rails_helper"
 RSpec.describe "a user editing a clients intake fields" do
   context "as an admin user" do
     let(:user) { create :admin_user, vita_partner: create(:vita_partner) }
-    let(:client) { create :client, vita_partner: user.vita_partner, intake: create(:intake, primary_first_name: "Colleen", primary_last_name: "Cauliflower") }
+    let(:client) {
+      create :client,
+             vita_partner: user.vita_partner,
+             intake: create(:intake, primary_first_name: "Colleen", primary_last_name: "Cauliflower", dependents: [
+               create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06"),
+             ])
+
+    }
     before { login_as user }
 
-    scenario "I can update available fields" do
+    scenario "I can update available fields", js: true do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
         click_on "Edit"
@@ -27,7 +34,6 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Divorced year", with: "2018"
 
         check "Filing jointly"
-
         fill_in "Email", with: "hello@cauliflower.com"
         fill_in "Phone number", with: "5108675309"
         fill_in "Phone for texting", with: "8001234567"
@@ -39,11 +45,56 @@ RSpec.describe "a user editing a clients intake fields" do
         check "Opted into sms notifications"
       end
 
+      within "#dependent-info" do
+        fill_in "Legal first name", with: "Laura"
+        expect(find_field("hub_client_intake_form[dependents_attributes][0][first_name]").value).to eq "Laura"
+        fill_in "Legal last name", with: "Peaches"
+        select "December", from: "Month"
+        select "1", from: "Day"
+        select "2008", from: "Year"
+
+        click_on "Add dependent"
+
+        new_field_id = all(".dependent-form")[1].first("input")["id"].tr('^0-9', '')
+        expect(find_field("hub_client_intake_form[dependents_attributes][#{new_field_id}][first_name]").value).to eq ""
+        fill_in "hub_client_intake_form_dependents_attributes_#{new_field_id}_first_name", with: "Paul"
+        fill_in "hub_client_intake_form_dependents_attributes_#{new_field_id}_last_name", with: "Pumpkin"
+        select "October", from: "hub_client_intake_form_dependents_attributes_#{new_field_id}_birth_date_month"
+        select "31", from: "hub_client_intake_form_dependents_attributes_#{new_field_id}_birth_date_day"
+        select "2020", from: "hub_client_intake_form_dependents_attributes_#{new_field_id}_birth_date_year"
+
+        click_on "Add dependent"
+        new_field_id = all(".dependent-form")[2].first("input")["id"].tr('^0-9', '')
+        expect(find_field("hub_client_intake_form[dependents_attributes][#{new_field_id}][first_name]").value).to eq ""
+        fill_in "hub_client_intake_form_dependents_attributes_#{new_field_id}_first_name", with: "Cranberry"
+        select "November", from: "hub_client_intake_form_dependents_attributes_#{new_field_id}_birth_date_month"
+        select "25", from: "hub_client_intake_form_dependents_attributes_#{new_field_id}_birth_date_day"
+        select "2019", from: "hub_client_intake_form_dependents_attributes_#{new_field_id}_birth_date_year"
+
+        click_on "Add dependent"
+        new_section = all(".dependent-form")[3]
+        expect(all(".dependent-form").length).to eq 4
+        within new_section do
+          click_on "Remove"
+        end
+        expect(all(".dependent-form").length).to eq 3
+      end
+
       within "#spouse-info" do
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"
         fill_in "Email", with: "spicypeter@pepper.com"
       end
+
+      click_on "Save"
+      expect(page).to have_text("Please enter the last name of each dependent.")
+
+      within "#dependent-info" do
+        new_field_id = all(".dependent-form").last.first("input")["id"].tr('^0-9', '')
+        fill_in "hub_client_intake_form_dependents_attributes_#{new_field_id}_last_name", with: "Chung"
+        select "2019", from: "hub_client_intake_form_dependents_attributes_#{new_field_id}_birth_date_year"
+      end
+
       click_on "Save"
 
       expect(page).to have_text "Colleen Cauliflower"
@@ -55,6 +106,15 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "Lived with spouse"
       expect(page).to have_text "Divorced 2018"
       expect(page).to have_text "Filing jointly"
+      expect(page).to have_text "Dependents: 3"
+      within "#dependents-list" do
+        expect(page).to have_text "Laura Peaches"
+        expect(page).to have_text "12/01/2008"
+        expect(page).to have_text "Paul Pumpkin"
+        expect(page).to have_text "10/31/2020"
+        expect(page).to have_text "Cranberry Chung"
+        expect(page).to have_text "11/25/2019"
+      end
       expect(page).to have_text "hello@cauliflower.com"
       expect(page).to have_text "5108675309"
       expect(page).to have_text "8001234567"

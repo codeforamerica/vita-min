@@ -201,6 +201,7 @@ class Intake < ApplicationRecord
   belongs_to :client, optional: true
   belongs_to :vita_partner, optional: true
   belongs_to :triage_source, optional: true, polymorphic: true
+  accepts_nested_attributes_for :dependents, allow_destroy: true
 
   after_save do
     if saved_change_to_completed_at?(from: nil)
