@@ -1022,6 +1022,19 @@ en:
         see_faq: Please see our FAQ
         support_html: Our team is here to support you. %{faq_link} or submit a question via chat and we will get back to you!
         title: Tax Questions
+      sms_terms:
+        header: GetYourRefund Short Code Terms and Conditions
+        title: SMS terms
+        terms:
+          carrier_disclaimer: "Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages."
+          carriers_heading_html: "<strong>We are able to deliver messages to the following mobile phone carriers:</strong>"
+          keywords_html: "If at any time you forget what keywords are supported, just text \"<strong>HELP</strong>\" to <strong>58750</strong>. After you send the SMS message \"<strong>HELP</strong>\" to us, we will respond with instructions on how to use our service as well as how to unsubscribe."
+          major_carriers_html: "<strong>Major carriers:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, and Virgin Mobile."
+          minor_carriers_html: "<strong>Minor carriers:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless)."
+          privacy_html: "If you have any questions regarding privacy, please read our privacy policy: <a href=\"https://www.getyourrefund.org/privacy\">www.getyourrefund.org/privacy</a>"
+          rates_html: "As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider. For all questions about the services provided by this short code, you can send an email to <strong>hello@getyourrefund.org</strong>."
+          sms_cancellation_html: "You can cancel the SMS service at any time. Just text \"<strong>STOP</strong>\" to <strong>58750</strong>. After you send the SMS message \"<strong>STOP</strong>\" to us, we will send you an SMS message to confirm that you have been unsubscribed. After this, you will no longer receive SMS messages from us. If you want to join again, just reply \"<strong>START</strong>\" and we will start sending SMS messages to you again."
+          sms_confirmation: "When you opt-in to the service, we will send you an SMS message to confirm your signup and text you updates on your tax return."
     questions:
       additional_info:
         help_text: Please share any notes or questions about your tax situation. Your tax preparer will be sure to go over these questions during your phone review.

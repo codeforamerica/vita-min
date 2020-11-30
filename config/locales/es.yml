@@ -1022,6 +1022,19 @@ es:
         see_faq: Consulte nuestras preguntas frecuentes
         support_html: Nuestro equipo está aquí para ayudarle. %{faq_link} o envíe una pregunta por chat, y nos comunicaremos con usted.
         title: Preguntas sobre los impuestos
+      sms_terms:
+        header: Términos y condiciones de código abreviado para GetYourRefund
+        title: Términos de código
+        terms:
+          carrier_disclaimer: ""
+          carriers_heading_html: "<strong>Nuestros mensajes pueden ser enviados por medio de los teléfonos de las siguientes compañías:</strong>"
+          keywords_html: "Si en cualquier momento se le olvidan las palabras claves que se utilizan, simplemente envíe el texto \"<strong>HELP</strong>\" al <strong>58750</strong>. Después de que mande el mensaje SMS de \"<strong>HELP</strong>\", le reponderemos dándole las instrucciones de cómo utilizar el servicio y cómo darse."
+          major_carriers_html: "<strong>Compañías principales:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile."
+          minor_carriers_html: "<strong>Compañías reducidas:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless)."
+          privacy_html: "Si tiene cualquier pregunta con respecto a privacidad, favor de leer nuestra política de privacidad: <a href=\"https://www.getyourrefund.org/privacy\">www.getyourrefund.org/privacy</a>"
+          rates_html: "Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>hello@getyourrefund.org</strong>."
+          sms_cancellation_html: "Puede cancelar el servicio SMS en cualquier momento. Simplemente envíe el texto \"<strong>STOP</strong>\" al <strong>58750</strong>. Después de enviarnos el mensaje SMS de \"<strong>STOP</strong>\", le enviaremos un mensaje SMS confirmando que ha sido dado de baja. Habiendo recibido esto, no recibirá más mensajes de nosotros. Si desea volver a suscribirse, simplemente responda \"<strong>START</strong>\" y volveremos a mandarle mensajes SMS."
+          sms_confirmation: Cuando se suscriba al servicio, le enviaremos un mensaje SMS para confirmar su suscripción y le enviaremos un mensaje de texto con las actualizaciones de su declaración de impuestos.
     questions:
       additional_info:
         help_text: Comparta cualquier nota o pregunta sobre su situación fiscal. Su preparador de impuestos se asegurará de repasar estas preguntas durante la revisión de su teléfono.
