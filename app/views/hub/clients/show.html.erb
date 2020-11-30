@@ -18,8 +18,13 @@
     <div><%= t("general.filing_years") %>: <%= @client.intake&.filing_years&.join(", ") %></div>
     <div><%= t(".marital_status") %>: <%= @client.intake&.marital_statuses&.join(", ") %></div>
     <div><%= t(".filing_status") %>: <%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly"  %></div>
-
-
+    <br/>
+    <div><%= t(".dependents") %>: <%= @client.intake&.dependents.count %></div>
+    <ul id="dependents-list">
+      <% @client.intake&.dependents.each do |d| %>
+        <li><%= "#{d.first_name} #{d.last_name} , #{default_date_format(d.birth_date)}" %></li>
+      <% end %>
+    </ul>
     <h3><%= t(".primary_contact_info") %>:</h3>
 
     <div><%= t(".email") %>: <%= @client.email_address %></div>

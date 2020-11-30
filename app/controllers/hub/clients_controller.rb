@@ -37,10 +37,12 @@ module Hub
 
     def update
       @form = ClientIntakeForm.new(@client.intake, form_params)
+
       if @form.valid?
         @form.save
         redirect_to hub_client_path(id: @client.id)
       else
+        flash[:warning] = @form.errors[:dependents_attributes].join("") if @form.errors[:dependents_attributes].present?
         render :edit
       end
     end
@@ -132,7 +134,7 @@ module Hub
     private
 
     def form_params
-      params.require(:hub_client_intake_form).permit(ClientIntakeForm.attribute_names)
+      params.require(:hub_client_intake_form).permit(ClientIntakeForm.permitted_params)
     end
 
     def preferred_contact_method_or_default
@@ -165,5 +167,6 @@ module Hub
     def take_action_form_params
       params.require(:hub_take_action_form).permit(:locale, :message_body, :contact_method, :internal_note_body, {tax_returns: {}})
     end
+
   end
 end

@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "@rails/actioncable": "^6.0.3-4",
-    "@rails/webpacker": "5.2.1"
+    "@rails/webpacker": "5.2.1",
+    "jquery": "^3.5.1"
   },
   "devDependencies": {
     "jest": "^26.5.2",
@@ -17,6 +18,9 @@
     "moduleDirectories": [
       "node_modules",
       "app/javascript"
+    ],
+    "setupFiles": [
+      "./spec/javascript/setup-jest.js"
     ]
   }
 }

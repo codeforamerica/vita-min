@@ -1,0 +1,21 @@
+.client-edit {
+  .form-question {
+    font-size: 1.9rem;
+    margin-bottom: 0;
+  }
+  .form-group {
+    margin-bottom: 1.9rem;
+  }
+  &__row {
+    display: flex;
+    align-items: flex-end;
+
+    > * {
+      margin-right: 1rem;
+    }
+
+    &.align-center {
+      align-items: center;
+    }
+  }
+}

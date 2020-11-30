@@ -1,7 +1,11 @@
 module TimeHelper
   def date_heading(datetime)
     prefix = datetime.to_date == Date.today ? I18n.t("general.today") + " " : ""
-    prefix + datetime.to_date.strftime("%m/%d/%Y")
+    prefix + default_date_format(datetime)
+  end
+
+  def default_date_format(datetime)
+    datetime&.to_date&.strftime("%m/%d/%Y")
   end
 
   def formatted_time(datetime)
