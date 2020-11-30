@@ -1,0 +1,44 @@
+<% content_for :page_title, t("views.public_pages.sms_terms.title") %>
+<% content_for :body_class, "template--static-page" %>
+
+<%= render("shared/breadcrumb")%>
+
+<main role="main">
+  <section class="slab slab--header slab--white">
+    <div class="grid">
+      <div class="grid__item">
+          <h1><%=t("views.public_pages.sms_terms.header") %></h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="slab">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
+        <ul class="list--numbered">
+          <li>
+            <p><%=t("views.public_pages.sms_terms.terms.sms_confirmation") %></p>
+          </li>
+          <li>
+            <p><%=t("views.public_pages.sms_terms.terms.sms_cancellation_html") %></p>
+          </li>
+          <li>
+            <p><%=t("views.public_pages.sms_terms.terms.keywords_html") %></p>
+          </li>
+          <li>
+            <p><%=t("views.public_pages.sms_terms.terms.carriers_heading_html") %></p>
+          </li>
+          <p><%=t("views.public_pages.sms_terms.terms.major_carriers_html") %></p>
+          <p><%=t("views.public_pages.sms_terms.terms.minor_carriers_html") %></p>
+          <p><%=t("views.public_pages.sms_terms.terms.carrier_disclaimer") %></p>
+          <li>
+            <p><%=t("views.public_pages.sms_terms.terms.rates_html") %></p>
+          </li>
+          <li>
+            <p><%=t("views.public_pages.sms_terms.terms.privacy_html") %></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
