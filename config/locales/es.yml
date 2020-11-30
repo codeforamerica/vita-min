@@ -43,6 +43,7 @@ es:
         unassigned: No asignado
         needs_response: Necesita respuesta
         stage_status: Estado/etapa de declaración de impuestos
+        service_type: Tipo de Servicio
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
@@ -437,6 +438,7 @@ es:
       advanced: "AVA"
       basic: "BAS"
     hsa: "HSA"
+    drop_off: Entrega
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

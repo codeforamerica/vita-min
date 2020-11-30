@@ -59,6 +59,7 @@ en:
         unassigned: Unassigned
         needs_response: Needs response
         stage_status: Tax return stage/status
+        service_type: Service Type
       navigation:
         client_documents: Documents
         client_messages: Messages
@@ -437,6 +438,7 @@ en:
       advanced: "ADV"
       basic: "BAS"
     hsa: "HSA"
+    drop_off: Drop Off
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
