@@ -5,6 +5,7 @@
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
 #  is_hsa              :boolean
+#  service_type        :integer          default("online_intake")
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
@@ -29,6 +30,7 @@ class TaxReturn < ApplicationRecord
 
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2 }
+  enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type
 
   ##
   # advance the return to a new status, only if that status more advanced.
