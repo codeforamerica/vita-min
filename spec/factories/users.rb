@@ -84,7 +84,7 @@ FactoryBot.define do
       association :invited_by, factory: :user_with_membership
       invitation_created_at { 1.day.ago - 1.minute }
       invitation_sent_at { 1.day.ago }
-      vita_partner { invited_by.vita_partner }
+      memberships { [build(:membership, vita_partner: invited_by.memberships.first.vita_partner)] }
       sequence(:invitation_token) do |n|
         Devise.token_generator.digest(User, :invitation_token, "InvitationToken#{n}")
       end

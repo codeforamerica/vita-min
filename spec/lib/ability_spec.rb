@@ -15,7 +15,7 @@ describe Ability do
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, User.new(vita_partner: vita_partner))).to eq false
+      expect(subject.can?(:manage, User.new(memberships: [build(:membership, vita_partner: vita_partner)]))).to eq false
       expect(subject.can?(:manage, Note.new(client: client))).to eq false
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
       expect(subject.can?(:manage, SystemNote.new)).to eq false
@@ -23,7 +23,7 @@ describe Ability do
   end
 
   context "a user and client without an organization" do
-    let(:user) { create(:user_with_membership, vita_partner: nil) }
+    let(:user) { create(:user) }
     let(:client) { create(:client, vita_partner: nil) }
     let(:intake) { create(:intake, vita_partner: nil, client: client) }
 
@@ -33,7 +33,7 @@ describe Ability do
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, User.new(vita_partner: nil))).to eq false
+      expect(subject.can?(:manage, User.new)).to eq false
       expect(subject.can?(:manage, Note.new(client: client))).to eq false
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
       expect(subject.can?(:manage, SystemNote.new)).to eq false
@@ -105,7 +105,7 @@ describe Ability do
       expect(subject.can?(:manage, OutgoingEmail.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, Document.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, User.new(vita_partner: other_vita_partner_client.vita_partner))).to eq false
+      expect(subject.can?(:manage, User.new(memberships: [build(:membership, vita_partner: other_vita_partner_client.vita_partner)]))).to eq false
       expect(subject.can?(:manage, Note.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, SystemNote.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:crud, other_vita_partner_client.vita_partner)).to eq false

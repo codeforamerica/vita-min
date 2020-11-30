@@ -35,7 +35,6 @@ class VitaPartner < ApplicationRecord
   belongs_to :parent_organization, class_name: "VitaPartner", optional: true
   has_many :sub_organizations, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
   validate :one_level_of_depth
-  # attribute :user_vita_partner
 
   scope :top_level, -> { where(parent_organization: nil).order(:display_name).order(:name) }
 

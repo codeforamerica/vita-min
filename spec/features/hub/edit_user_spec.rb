@@ -35,12 +35,7 @@ RSpec.describe "a user editing a user" do
 
         expect(find_field("user_vita_partner_id").value).to eq california_org.id.to_s
 
-
         check "Admin"
-
-        click_on "Select supported organizations"
-        check "Colorado"
-        check "Denver"
 
         click_on "Save"
         expect(page).to have_text "Changes saved"

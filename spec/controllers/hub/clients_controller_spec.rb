@@ -153,7 +153,7 @@ RSpec.describe Hub::ClientsController do
         let!(:michael) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes") }
         let!(:michael_2019_return) { create :tax_return, client: michael, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es") }
-        let(:assigned_user) { create :user, name: "Lindsay", vita_partner: vita_partner }
+        let(:assigned_user) { create :user, name: "Lindsay", memberships: [build(:membership, vita_partner: vita_partner)] }
         let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
         let!(:lucille) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Lucille") }

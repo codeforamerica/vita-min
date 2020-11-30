@@ -58,15 +58,9 @@ class User < ApplicationRecord
 
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
 
-  #
-  belongs_to :vita_partner, optional: true
-  has_and_belongs_to_many :supported_organizations,
-           join_table: "users_vita_partners",
-           class_name: "VitaPartner"
-  #
-
   has_many :memberships
-  accepts_nested_attributes_for :memberships
+  accepts_nested_attributes_for :memberships, allow_destroy: true
+  has_many :vita_partners, through: :memberships
 
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
@@ -87,10 +81,9 @@ class User < ApplicationRecord
 
   # returns organizations a user is a member of, and their children (if any).
   def accessible_organizations
-    member_org_ids = memberships.pluck(:vita_partner_id)
-    VitaPartner.where(id: member_org_ids).or(
-      VitaPartner.where(parent_organization_id: member_org_ids)
-    )
+    return VitaPartner.all if is_admin?
+
+    VitaPartner.where("id IN (?) OR parent_organization_id IN (?)", vita_partner_ids, vita_partner_ids)
   end
 end
 

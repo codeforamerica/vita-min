@@ -71,11 +71,6 @@ RSpec.describe Hub::UsersController do
 
         expect(response.body).to have_text("Eastern Time (US & Canada)")
       end
-
-      it "assigns user vita_partner id to the member membership vita_partner_id" do
-        get :edit, params: params
-        expect(assigns(:user).vita_partner_id).to eq vita_partner.id
-      end
     end
   end
 
@@ -86,7 +81,7 @@ RSpec.describe Hub::UsersController do
       {
         id: user.id,
         user: {
-          vita_partner_id: vita_partner.id,
+          memberships_attributes: { "0" => { id: user.memberships.first, vita_partner_id: vita_partner.id, role: "member"} },
           timezone: "America/Chicago",
         }
       }
@@ -111,7 +106,6 @@ RSpec.describe Hub::UsersController do
 
       context "when editing user fields that require admin powers" do
         before do
-          params[:user][:supported_organizations] = [create(:vita_partner).id]
           params[:user][:is_admin] = true
         end
 
@@ -120,33 +114,17 @@ RSpec.describe Hub::UsersController do
 
           user.reload
           expect(user.is_admin).to be_falsey
-          expect(user.supported_organization_ids).to be_empty
         end
       end
 
       context "when assigning the user to an organization inaccessible to the current user" do
         before do
-          params[:user][:vita_partner_id] = create(:vita_partner).id
+          params[:user][:memberships_attributes] = { "0" => { vita_partner_id: create(:vita_partner).id, role: "member" } }
         end
 
-        it "raises an exception and does not change the user" do
-          expect do
-            post :update, params: params
-          end.to raise_error(ActiveRecord::RecordNotFound)
-          expect(user.reload).to eq user
-        end
-      end
-
-      context "when creating lead memberships to inaccessible organization" do
-        before do
-          params[:user][:vita_partner_id] = vita_partner.id
-          params[:user][:supported_organization_ids] = [create(:vita_partner).id, create(:vita_partner).id]
-        end
-
-        it "raises an exception and does not change the user" do
-          expect do
-            post :update, params: params
-          end.to raise_error(ActiveRecord::RecordNotFound)
+        it "is forbidden" do
+          post :update, params: params
+          expect(response.status).to eq 403
           expect(user.reload).to eq user
         end
       end
@@ -160,7 +138,7 @@ RSpec.describe Hub::UsersController do
 
       before { sign_in(create(:admin_user)) }
 
-      it "can add admin role & organization memberships" do
+      it "can add memberships" do
         expect(user.memberships.count).to eq 1
 
         params = {
@@ -169,10 +147,11 @@ RSpec.describe Hub::UsersController do
             is_admin: true,
             vita_partner_id: vita_partner.id,
             timezone: "America/Chicago",
-            supported_organization_ids: [
-              supported_vita_partner_1.id,
-              supported_vita_partner_2.id
-            ]
+            memberships_attributes: {
+                "0" => { vita_partner_id: supported_vita_partner_1.id, role: "lead" },
+                "1" => { vita_partner_id: supported_vita_partner_2.id, role: "lead" },
+                "2" => { vita_partner_id: user.memberships.first.vita_partner.id, role: "member", id: user.memberships.first }
+            }
           }
         }
 
@@ -187,23 +166,25 @@ RSpec.describe Hub::UsersController do
       end
 
       it "can remove memberships" do
-        user.memberships.create(vita_partner: supported_vita_partner_2, role: "lead")
+        delete_membership = user.memberships.create(vita_partner: supported_vita_partner_2, role: "lead")
         expect(user.memberships.count).to eq 2
 
         params = {
           id: user.id,
           user: {
-            is_admin: true,
+            is_admin: false,
             vita_partner_id: vita_partner.id,
             timezone: "America/Chicago",
-            supported_organization_ids: []
+            memberships_attributes: {
+                "0" => { vita_partner_id: vita_partner.id, role: "member", id: user.memberships.first.id },
+                "1" => { id: delete_membership.id, _destroy: "1", vita_partner_id: delete_membership.vita_partner_id },
+            }
           }
         }
 
         post :update, params: params
 
         user.reload
-        expect(user.is_admin?).to eq true
         expect(user.memberships.count).to eq 1
         expect(user.memberships).to include(have_attributes(vita_partner_id: vita_partner.id, role: "member"))
       end
@@ -211,7 +192,7 @@ RSpec.describe Hub::UsersController do
       it "can change supported organizations" do
         old_vita_partner = create(:vita_partner)
         new_vita_partner = create(:vita_partner)
-        user.memberships.create(vita_partner: old_vita_partner, role: "lead")
+        delete_membership = user.memberships.create(vita_partner: old_vita_partner, role: "lead")
 
         expect(user.memberships.count).to eq 2
         expect(user.memberships).to include(have_attributes(vita_partner_id: vita_partner.id, role: "member"))
@@ -223,7 +204,11 @@ RSpec.describe Hub::UsersController do
             is_admin: true,
             vita_partner_id: vita_partner.id,
             timezone: "America/Chicago",
-            supported_organization_ids: [new_vita_partner.id]
+            memberships_attributes: {
+                "1" => { vita_partner_id: new_vita_partner.id, role: "lead" },
+                "2" => { vita_partner_id: vita_partner.id, role: "member", id: user.memberships.first.id },
+                "3" => { id: delete_membership.id, _destroy: "1", vita_partner_id: delete_membership.vita_partner.id }
+            }
           }
         }
 
@@ -233,125 +218,6 @@ RSpec.describe Hub::UsersController do
         expect(user.memberships.count).to eq 2
         expect(user.memberships).to include(have_attributes(vita_partner_id: vita_partner.id, role: "member"))
         expect(user.memberships).to include(have_attributes(vita_partner_id: new_vita_partner.id, role: "lead"))
-      end
-
-      it "omits bad supported organization ids" do
-        user = create :user, memberships: [build(:membership, vita_partner: vita_partner)]
-        params = { id: user.id, user: { vita_partner_id: vita_partner.id, supported_organization_ids: ["", nil] } }
-
-        put :update, params: params
-
-        user.reload
-        expect(user.memberships.length).to eq 1
-        expect(user.memberships).to include(have_attributes(vita_partner_id: vita_partner.id, role: "member"))
-      end
-
-      it "does not persist vita_partner_id to user" do
-        new_vita_partner = create(:vita_partner)
-        params = { id: user.id, user: { vita_partner_id: new_vita_partner.id } }
-        expect {
-          put :update, params: params
-          user.reload
-        }.not_to change(user, :vita_partner_id)
-      end
-
-      it "does not persist supported_organization_ids to user" do
-        new_vita_partner = create(:vita_partner)
-        params = { id: user.id, user: { supported_organization_ids: [new_vita_partner.id] } }
-        expect {
-          put :update, params: params
-          user.reload
-        }.not_to change(user.supported_organizations, :count)
-
-        expect(user.memberships).to include(have_attributes(vita_partner_id: new_vita_partner.id, role: "lead"))
-      end
-
-      it "can change primary vita partner membership" do
-        new_vita_partner = create(:vita_partner)
-        params = { id: user.id, user: { vita_partner_id: new_vita_partner.id } }
-        put :update, params: params
-        user.reload
-
-        expect(user.memberships.length).to eq 1
-        expect(user.memberships).to include(have_attributes(vita_partner_id: new_vita_partner.id, role: "member"))
-      end
-
-
-      it "can set primary vita partner membership" do
-        new_vita_partner = create(:vita_partner)
-        user = create :user, memberships: []
-        params = { id: user.id, user: { vita_partner_id: new_vita_partner.id, supported_organization_ids: [] } }
-
-        put :update, params: params
-
-        user.reload
-        expect(user.memberships.length).to eq 1
-        expect(user.memberships).to include(have_attributes(vita_partner_id: new_vita_partner.id, role: "member"))
-      end
-
-      it "can set supported organization without vita_partner_id" do
-        new_vita_partner = create(:vita_partner)
-        user = create :user, memberships: []
-        params = { id: user.id, user: { supported_organization_ids: [new_vita_partner.id] } }
-
-        put :update, params: params
-
-        user.reload
-        expect(user.memberships.length).to eq 1
-        expect(user.memberships).to include(have_attributes(vita_partner_id: new_vita_partner.id, role: "lead"))
-      end
-
-      it "can set supported organization with nil" do
-        new_vita_partner = create(:vita_partner)
-        user = create :user, memberships: []
-        params = { id: user.id, user: {vita_partner_id: nil, supported_organization_ids: [new_vita_partner.id] } }
-
-        put :update, params: params
-
-        user.reload
-        expect(user.memberships.length).to eq 1
-        expect(user.memberships).to include(have_attributes(vita_partner_id: new_vita_partner.id, role: "lead"))
-      end
-
-      it "can set supported organization with empty vita_partner_id" do
-        new_vita_partner = create(:vita_partner)
-        user = create :user, memberships: []
-        params = { id: user.id, user: { vita_partner_id: "", supported_organization_ids: [new_vita_partner.id] } }
-
-        put :update, params: params
-
-        user.reload
-        expect(user.memberships.length).to eq 1
-        expect(user.memberships).to include(have_attributes(vita_partner_id: new_vita_partner.id, role: "lead"))
-      end
-
-      it "can remove primary vita partner membership" do
-        new_vita_partner = create(:vita_partner)
-        user = create :user, memberships: [build(:membership, vita_partner: create(:vita_partner))]
-        params = { id: user.id, user: { vita_partner_id: new_vita_partner.id } }
-
-        put :update, params: params
-
-        user.reload
-        expect(user.memberships.length).to eq 1
-        expect(user.memberships).to include(have_attributes(vita_partner_id: new_vita_partner.id, role: "member"))
-      end
-
-      context "when the user does not successfully update" do
-        before do
-          allow_any_instance_of(User).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
-        end
-
-        it "should rollback transaction and not destroy the existing memberships" do
-          new_vita_partner = create(:vita_partner)
-          user = create :user, memberships: [build(:membership, vita_partner: vita_partner)]
-          params = { id: user.id, user: { vita_partner_id: new_vita_partner.id } }
-          put :update, params: params
-
-          user.reload
-          expect(user.memberships.length).to eq 1
-          expect(user.memberships).to include(have_attributes(vita_partner_id: vita_partner.id, role: "member"))
-        end
       end
     end
   end
