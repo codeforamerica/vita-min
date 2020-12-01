@@ -13,6 +13,7 @@ module Hub
       @sort_order = sort_order
       @sort_column = sort_column
       @documents = @documents.except(:order).order({ @sort_column => @sort_order })
+      @document = Document.new # used for form to upload documents
     end
 
     def show
@@ -20,6 +21,18 @@ module Hub
     end
 
     def edit; end
+
+    def create
+      document_params[:upload].each do |file_upload|
+        Document.create!(
+          client: @client,
+          intake: @client.intake,
+          document_type: DocumentTypes::Other,
+          upload: file_upload
+        )
+      end
+      redirect_to(hub_client_documents_path(client_id: @client))
+    end
 
     def update
       @form = Hub::DocumentForm.new(@document, document_params)
@@ -35,7 +48,7 @@ module Hub
     private
 
     def document_params
-      params.require(:document).permit(:display_name)
+      params.require(:document).permit(:display_name, upload: [])
     end
 
     def sort_column

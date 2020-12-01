@@ -181,5 +181,42 @@ RSpec.describe Hub::DocumentsController, type: :controller do
       end
     end
   end
+
+  describe "#create" do
+    let(:vita_partner) { create :vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner }
+    let!(:intake) { create :intake, client: client }
+    let(:params) do
+      { client_id: client.id,
+        document: {
+          upload: [
+              fixture_file_upload("attachments/test-pattern.png", "image/png"),
+              fixture_file_upload("attachments/document_bundle.pdf", "application/pdf")
+          ]
+        }
+      }
+    end
+
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
+
+    context "with an authenticated user" do
+      let(:user) { create :user, vita_partner: vita_partner }
+      before { sign_in(user) }
+
+      it "appends the documents to the client's documents list" do
+        expect {
+          post :create, params: params
+        }.to change(Document, :count).by 2
+
+        latest_docs = Document.last(2)
+        expect(latest_docs.map(&:document_type).uniq).to eq ["Other"]
+        expect(latest_docs.first.upload.filename).to eq "test-pattern.png"
+        expect(latest_docs.second.upload.filename).to eq "document_bundle.pdf"
+        expect(latest_docs.map(&:intake).uniq).to eq [intake]
+        expect(latest_docs.map(&:client).uniq).to eq [client]
+        expect(response).to redirect_to(hub_client_documents_path(client_id: client.id))
+      end
+    end
+  end
 end
 

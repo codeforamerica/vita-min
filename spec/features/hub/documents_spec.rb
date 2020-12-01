@@ -47,5 +47,18 @@ RSpec.feature "View and edit documents for a client" do
 
       expect(page).to have_selector("#document_display_name__errors", text: "Can't be blank.")
     end
+
+    scenario "uploading a document to a client's documents page" do
+      visit hub_client_documents_path(client_id: client.id)
+
+      attach_file "document_upload", [
+        Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"),
+        Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf"),
+      ]
+      click_on "Upload"
+
+      expect(page).to have_content("test-pattern.png")
+      expect(page).to have_content("document_bundle.pdf")
+    end
   end
 end
