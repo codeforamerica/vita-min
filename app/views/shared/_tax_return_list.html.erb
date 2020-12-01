@@ -5,7 +5,9 @@
       <div class="tax-return-list__assignment">
         <div class="tax-return-list__year"><%= tax_return.year %></div>
           <div class="tax-return-list__service-type">
-            <%= t("general.drop_off") if tax_return.service_type == "drop_off" %>
+            <% if tax_return.service_type == "drop_off" %>
+              <i class="icon-move_to_inbox" aria-label="<%= t("general.drop_off") %>"></i>
+            <% end %>
           </div>
         <div class ="tax-return-list__assignee">
           <% if tax_return.assigned_user.present? %>
