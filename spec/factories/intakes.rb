@@ -269,6 +269,12 @@ FactoryBot.define do
       preferred_interview_language { ["en", "es"].sample }
       primary_consented_to_service_at { 2.weeks.ago }
       completed_at { 1.week.ago }
+      demographic_primary_american_indian_alaska_native { true }
+      demographic_primary_black_african_american { true }
+      demographic_primary_native_hawaiian_pacific_islander { true }
+      demographic_primary_asian { true }
+      demographic_primary_white { true }
+      demographic_primary_prefer_not_to_answer_race { true }
       after(:build) do |intake|
         Intake.defined_enums.each_key do |key|
           # only randomize values for keys that have not been supplied
