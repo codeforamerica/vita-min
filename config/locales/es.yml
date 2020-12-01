@@ -43,7 +43,6 @@ es:
         unassigned: No asignado
         needs_response: Necesita respuesta
         stage_status: Estado/etapa de declaración de impuestos
-        service_type: Tipo de Servicio
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
