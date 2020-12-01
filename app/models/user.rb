@@ -79,11 +79,23 @@ class User < ApplicationRecord
     }).exists?
   end
 
-  # returns organizations a user is a member of, and their children (if any).
+  # Returns a role specific to the vita_partner provided, so that we can scope behaviors and hide/show things on
+  # a specific client page (based on their organization) to users
+  # @param [VitaPartner || Int] vita_partner
+  def role_for(vita_partner)
+    memberships.find_by(vita_partner: vita_partner)&.specific_role
+  end
+
+  # returns organizations a user is a member of, and their children if any.
+  # Also includes coalition member organizations if a user has a lead role in a coalition.
   def accessible_organizations
     return VitaPartner.all if is_admin?
 
-    VitaPartner.where("id IN (?) OR parent_organization_id IN (?)", vita_partner_ids, vita_partner_ids)
+    ids = vita_partner_ids
+    # coalition_leads = memberships.joins(:vita_partner).where(role: "lead", "vita_partners.coalition_lead": true)
+    # coalition_leads.each { |org| ids << org.coalition.member_organization_ids }
+
+    VitaPartner.where("id IN (?) OR parent_organization_id IN (?)", ids, ids)
   end
 end
 

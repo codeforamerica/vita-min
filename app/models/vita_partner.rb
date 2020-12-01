@@ -33,6 +33,7 @@ class VitaPartner < ApplicationRecord
   accepts_nested_attributes_for :memberships
 
   belongs_to :parent_organization, class_name: "VitaPartner", optional: true
+  belongs_to :coalition, optional: true
   has_many :sub_organizations, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
   validate :one_level_of_depth
 
@@ -40,14 +41,27 @@ class VitaPartner < ApplicationRecord
 
   after_initialize :defaults
 
+  # would require a coalition model that indicates a coalition lead organization
   # organization + coalition
   def ancestors
-    [parent_organization, parent_organization&.parent_organization].compact
+    [
+      parent_organization,
+      # coalition,
+      # parent_organization&.coalition
+    ].compact
   end
 
   def at_capacity?
     actionable_intakes_this_week.count >= weekly_capacity_limit
   end
+
+  def is_site?
+    parent_organization.present?
+  end
+
+  # def is_coalition_lead?
+  #   coalition.present? && coalition_lead?
+  # end
 
   def has_capacity_for?(intake)
     if intake.vita_partner.name == "Urban Upbound (NY)"

@@ -24,4 +24,13 @@ class Membership < ApplicationRecord
   belongs_to :vita_partner
 
   enum role: { member: 1, lead: 2 }
+
+  default_scope -> { includes(:vita_partner) }
+
+  def specific_role
+    return :member if read_attribute(:role) == "member"
+    return :site_coordinator if vita_partner.is_site?
+    # return :coalition_coordinator if vita_partner.is_coalition_lead?
+    :organization_coordinator
+  end
 end
