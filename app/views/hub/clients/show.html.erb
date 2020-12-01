@@ -22,7 +22,7 @@
     <div><%= t(".dependents") %>: <%= @client.intake&.dependents.count %></div>
     <ul id="dependents-list">
       <% @client.intake&.dependents.each do |d| %>
-        <li><%= "#{d.first_name} #{d.last_name} , #{default_date_format(d.birth_date)}" %></li>
+        <li><%= "#{d.first_name} #{d.last_name}, #{default_date_format(d.birth_date)}" %></li>
       <% end %>
     </ul>
     <h3><%= t(".primary_contact_info") %>:</h3>
