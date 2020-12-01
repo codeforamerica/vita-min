@@ -118,7 +118,7 @@ Rails.application.routes.draw do
       resources :clients, only: [:index, :show, :create, :edit, :update] do
         get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
         patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
-        resources :documents, only: [:index, :edit, :update, :show]
+        resources :documents, only: [:index, :edit, :update, :show, :create]
         resources :notes, only: [:create, :index]
         resources :messages, only: [:index]
         resources :outgoing_text_messages, only: [:create]

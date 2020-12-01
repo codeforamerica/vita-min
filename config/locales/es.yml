@@ -438,6 +438,8 @@ es:
       basic: "BAS"
     hsa: "HSA"
     drop_off: Entrega
+    select_files: Seleccionar archivos
+    take_picture: Sacar foto
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
