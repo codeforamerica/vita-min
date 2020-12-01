@@ -21,6 +21,11 @@
     font-size: 1.6rem;
   }
 
+  &__service-type {
+    font-size: 1.4rem;
+    min-width: 4em;
+  }
+
   li {
     display: flex;
     line-height: 3.5rem;
@@ -46,6 +51,8 @@
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: 120px;
+    font-size: 1.6rem;
+    font-weight: bold;
   }
 
   .form-wrapper {

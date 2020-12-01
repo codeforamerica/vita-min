@@ -66,7 +66,7 @@ RSpec.describe Hub::ClientsController do
   describe "#show" do
     let(:vita_partner) { create :vita_partner }
     let(:user) { create :user, vita_partner: vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner, tax_returns: [(create :tax_return, year: 2019)] }
+    let(:client) { create :client, vita_partner: vita_partner, tax_returns: [(create :tax_return, year: 2019, service_type: "drop_off"), (create :tax_return, year: 2018, service_type: "online_intake")] }
     let!(:intake) do
       create :intake,
              :with_contact_info,
@@ -106,6 +106,10 @@ RSpec.describe Hub::ClientsController do
 
         header = Nokogiri::HTML.parse(response.body).at_css(".client-header")
         expect(header).to have_text("2019")
+        header_tax_return_2019 = header.at_css("#tax-return-#{client.tax_returns.where(year: "2019").first.id}")
+        header_tax_return_2018 = header.at_css("#tax-return-#{client.tax_returns.where(year: "2018").first.id}")
+        expect(header_tax_return_2019).to have_text("Drop Off")
+        expect(header_tax_return_2018).not_to have_text("Drop Off")
         profile = Nokogiri::HTML.parse(response.body).at_css(".client-profile")
         expect(profile).to have_text(client.preferred_name)
         expect(profile).to have_text(client.legal_name)
