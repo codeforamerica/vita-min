@@ -30,6 +30,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'phonelib'
 gem 'strip_attributes'
 gem 'pg'
+gem 'pg_search'
 gem 'activerecord-postgis-adapter'
 gem 'will_paginate'
 gem 'sentry-raven'

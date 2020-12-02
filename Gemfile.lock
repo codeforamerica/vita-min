@@ -283,6 +283,9 @@ GEM
       cliver (~> 0.3.2)
       safe_shell (>= 1.0.3, < 2.0)
     pg (1.2.3)
+    pg_search (2.3.5)
+      activerecord (>= 5.2)
+      activesupport (>= 5.2)
     phonelib (0.6.45)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -527,6 +530,7 @@ DEPENDENCIES
   nokogiri (>= 1.10.8)
   pdf-forms
   pg
+  pg_search
   phonelib
   pry-byebug
   puma (>= 4.3.5)
