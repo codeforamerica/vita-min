@@ -44,7 +44,7 @@ RSpec.describe Hub::ClientsController do
           sms_phone_number: "+15005550006",
           street_address: "972 Mission St.",
           city: "San Francisco",
-          state: "CA",
+          state_of_residence: "CA",
           zip_code: "94103",
           sms_notification_opt_in: "yes",
           email_notification_opt_in: "no",
