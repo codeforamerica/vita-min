@@ -49,6 +49,7 @@ module Hub
     validates :email_address, 'valid_email_2/email': true, if: -> { email_address.present? }
     validates :email_address, presence: true, allow_blank: false, if: -> { opted_in_email? }
     validates :signature_method, presence: true
+    validates :state_of_residence, inclusion: { in: States.keys }
     validate :tax_return_required_fields_valid
     validate :at_least_one_tax_return_present
 
