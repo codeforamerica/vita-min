@@ -40,6 +40,10 @@ module Hub
       end
     end
 
+    def self.permitted_params
+      [:tax_returns, :locale, :message_body, :contact_method, :internal_note_body, { tax_returns: {} }]
+    end
+
     private
 
     def language_label(key)

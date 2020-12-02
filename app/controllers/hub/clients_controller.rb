@@ -2,12 +2,12 @@ module Hub
   class ClientsController < ApplicationController
     include AccessControllable
     include ClientSortable
-    include TaxReturnStatusHelper
     include MessageSending
 
     before_action :require_sign_in
     before_action :setup_sortable_client, only: [:index]
-    load_and_authorize_resource except: :create
+    before_action :load_vita_partners, only: [:new, :create]
+    load_and_authorize_resource except: [:new, :create]
     layout "admin"
 
     def index
@@ -15,18 +15,18 @@ module Hub
       @clients = filtered_and_sorted_clients
     end
 
+    def new
+      @form = CreateClientForm.new
+    end
+
     def create
-      # Manual access control for create method, since there is no client yet
-      return head 403 unless current_user.present?
-
-      intake = Intake.find_by(id: params[:intake_id])
-      return head 422 unless intake.present?
-
-      # Don't create additional clients if we already have one
-      return redirect_to hub_client_path(id: intake.client_id) if intake.client_id.present?
-
-      client = Client.create!(intake: intake, vita_partner: intake.vita_partner)
-      redirect_to hub_client_path(id: client.id)
+      @form = CreateClientForm.new(create_client_form_params)
+      if @form.valid? && @form.save
+        flash[:notice] = I18n.t("hub.clients.create.success_message")
+        redirect_to hub_client_path(id: @form.client)
+      else
+        render :new
+      end
     end
 
     def show; end
@@ -36,10 +36,9 @@ module Hub
     end
 
     def update
-      @form = ClientIntakeForm.new(@client.intake, form_params)
+      @form = ClientIntakeForm.new(@client.intake, client_intake_form_params)
 
-      if @form.valid?
-        @form.save
+      if @form.valid? && @form.save
         redirect_to hub_client_path(id: @client.id)
       else
         flash[:warning] = @form.errors[:dependents_attributes].join("") if @form.errors[:dependents_attributes].present?
@@ -133,8 +132,20 @@ module Hub
 
     private
 
-    def form_params
-      params.require(:hub_client_intake_form).permit(ClientIntakeForm.permitted_params)
+    def load_vita_partners
+      @vita_partners = VitaPartner.accessible_by(Ability.new(current_user))
+    end
+
+    def client_intake_form_params
+      params.require(ClientIntakeForm.form_param).permit(ClientIntakeForm.permitted_params)
+    end
+
+    def create_client_form_params
+      params.require(CreateClientForm.form_param).permit(CreateClientForm.permitted_params)
+    end
+
+    def take_action_form_params
+      params.require(TakeActionForm.form_param).permit(TakeActionForm.permitted_params)
     end
 
     def preferred_contact_method_or_default
@@ -163,10 +174,5 @@ module Hub
         ""
       end
     end
-
-    def take_action_form_params
-      params.require(:hub_take_action_form).permit(:locale, :message_body, :contact_method, :internal_note_body, {tax_returns: {}})
-    end
-
   end
 end

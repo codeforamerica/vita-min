@@ -35,5 +35,4 @@ module FormAttributes
       hash
     end
   end
-
 end

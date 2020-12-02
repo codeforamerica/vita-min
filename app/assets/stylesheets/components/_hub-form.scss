@@ -1,4 +1,4 @@
-.client-edit {
+.hub-form {
   .form-question {
     font-size: 1.9rem;
     margin-bottom: 0;
@@ -9,7 +9,14 @@
   &__row {
     display: flex;
     align-items: flex-end;
-
+    &.fill {
+      > .form-group {
+        flex-grow: 1
+      }
+      label.checkbox {
+        margin-top: 30px
+      }
+    }
     > * {
       margin-right: 1rem;
     }

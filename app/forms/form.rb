@@ -10,4 +10,8 @@ class Form
       "Errors: " + concatenated_message_strings
     end
   end
+
+  def self.form_param
+    name.delete("::").underscore
+  end
 end

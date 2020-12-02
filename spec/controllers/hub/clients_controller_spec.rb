@@ -1,63 +1,133 @@
 require "rails_helper"
 
 RSpec.describe Hub::ClientsController do
-  describe "#create" do
-    let(:user) { create :user_with_org }
-    let(:intake) do
-      create(
-        :intake,
-        client: nil,
-        email_address: "client@example.com",
-        phone_number: "14155537865",
-        preferred_name: "Casey",
-        vita_partner: user.vita_partner
-      )
+  let(:vita_partner) { create :vita_partner }
+  let(:user) { create :user, vita_partner: vita_partner }
+
+  describe "#new" do
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      it "responds with ok" do
+        get :new, params: {}
+        expect(response).to be_ok
+      end
+
+      it "assigns vita_partners to accessible organizations" do
+        get :new, params: {}
+        expect(assigns(:vita_partners)).to eq [vita_partner]
+      end
     end
+  end
+
+  describe "#create" do
+    let!(:other_vita_partner) { create :vita_partner, parent_organization: vita_partner }
     let(:params) do
-      { intake_id: intake.id }
+      {
+          hub_create_client_form: {
+          primary_first_name: "New",
+          primary_last_name: "Name",
+          preferred_name: "Newly",
+          preferred_interview_language: "es",
+          married: "yes",
+          separated: "no",
+          widowed: "no",
+          lived_with_spouse: "yes",
+          divorced: "no",
+          divorced_year: "",
+          separated_year: "",
+          widowed_year: "",
+          email_address: "someone@example.com",
+          phone_number: "+15005550006",
+          sms_phone_number: "+15005550006",
+          street_address: "972 Mission St.",
+          city: "San Francisco",
+          state: "CA",
+          zip_code: "94103",
+          sms_notification_opt_in: "yes",
+          email_notification_opt_in: "no",
+          spouse_first_name: "Newly",
+          spouse_last_name: "Wed",
+          spouse_email_address: "spouse@example.com",
+          filing_joint: "yes",
+          timezone: "America/Chicago",
+          needs_help_2020: "yes",
+          needs_help_2019: "yes",
+          needs_help_2018: "yes",
+          needs_help_2017: "no",
+          signature_method: "online",
+          vita_partner_id: other_vita_partner.id,
+          service_type: "drop_off",
+          tax_returns_attributes: {
+              "0": {
+                  year: "2020",
+                  is_hsa: true,
+                  certification_level: "advanced"
+              },
+              "1": {
+                  year: "2019",
+                  is_hsa: false,
+                  certification_level: "basic"
+              },
+              "2": {
+                  year: "2018",
+                  is_hsa: false,
+                  certification_level: "basic"
+              },
+              "3": {
+                  year: "2017",
+                  is_hsa: false,
+                  certification_level: "advanced"
+              },
+          }
+        },
+      }
     end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
-    context "as an authenticated admin user" do
-      before { sign_in(user) }
+    context "as an authenticated user" do
+      before { sign_in user }
 
-      context "without an intake id" do
-        it "does nothing and returns invalid request status code" do
-          expect {
-            post :create, params: {}
-          }.not_to change(Client, :count)
-
-          expect(response.status).to eq 422
+      context "with valid params" do
+        it "saves a new client and redirects to the new client's profile page" do
+          expect do
+            post :create, params: params
+          end.to change(Client, :count).by 1
+          client = Client.last
+          expect(client.preferred_name).to eq "Newly"
+          expect(client.vita_partner).to eq other_vita_partner
+          expect(client.tax_returns.count).to eq 3
+          expect(client.tax_returns.where(status: "intake_needs_assignment").count).to eq 3
+          expect(client.tax_returns.where(service_type: "drop_off").count).to eq 3
+          expect(client.tax_returns.find_by(year: 2020).is_hsa).to eq true
+          expect(client.tax_returns.find_by(year: 2020).certification_level).to eq "advanced"
+          expect(client.tax_returns.find_by(year: 2018).is_hsa).to eq false
+          expect(client.tax_returns.find_by(year: 2018).certification_level).to eq "basic"
+          expect(client.tax_returns.find_by(year: 2017)).to be_nil
+          expect(flash[:notice]).to eq "Client successfully created."
+          expect(response).to redirect_to(hub_client_path(id: client))
         end
       end
 
-      context "with an intake id" do
-        context "with an intake that does not yet have a client" do
-          it "creates a client linked to the intake and redirects to show" do
-            expect {
-              post :create, params: params
-            }.to change(Client, :count).by(1)
-
-            client = Client.last
-            expect(client.intake).to eq(intake)
-            expect(client.vita_partner).to eq(intake.vita_partner)
-            expect(intake.reload.client).to eq client
-            expect(response).to redirect_to hub_client_path(id: client.id)
-          end
+      context "with invalid params" do
+        let(:params) do
+          {
+              hub_create_client_form: {
+              primary_first_name: "",
+            }
+          }
         end
 
-        context "with an intake that already has a client" do
-          let(:client) { create :client, vita_partner: user.vita_partner }
-          let!(:intake) { create :intake, client: client }
+        it "renders new" do
+          expect do
+            post :create, params: params
+          end.not_to change(Client, :count)
 
-          it "just redirects to the existing client" do
-            expect {
-              post :create, params: params
-            }.not_to change(Client, :count)
-
-            expect(response).to redirect_to hub_client_path(id: client.id)
-          end
+          expect(response).to be_ok
+          expect(response).to render_template(:new)
         end
       end
     end
@@ -67,6 +137,7 @@ RSpec.describe Hub::ClientsController do
     let(:vita_partner) { create :vita_partner }
     let(:user) { create :user, vita_partner: vita_partner }
     let(:client) { create :client, vita_partner: vita_partner, tax_returns: [(create :tax_return, year: 2019, service_type: "drop_off"), (create :tax_return, year: 2018, service_type: "online_intake")] }
+
     let!(:intake) do
       create :intake,
              :with_contact_info,
@@ -142,10 +213,6 @@ RSpec.describe Hub::ClientsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "as an authenticated user" do
-
-      let(:vita_partner) { create(:vita_partner) }
-      let(:user) { create(:user_with_org, vita_partner: vita_partner) }
-
       before { sign_in user }
 
       context "with some existing clients" do
@@ -343,7 +410,6 @@ RSpec.describe Hub::ClientsController do
       end
 
       context "filtering" do
-
         context "with a status filter" do
           let!(:included_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
           let!(:excluded_client) { create :client, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_open")], intake: (create :intake) }
@@ -395,9 +461,8 @@ RSpec.describe Hub::ClientsController do
     let(:params) do
       { id: client.id, client: {} }
     end
-    let(:client) { create :client, vita_partner: create(:vita_partner) }
-    let(:current_user) { create :user_with_org, vita_partner: client.vita_partner }
-    before { sign_in(current_user) }
+    let(:client) { create :client, vita_partner: vita_partner }
+    before { sign_in(user) }
 
     it "redirects to hub client path" do
       patch :response_needed, params: params
@@ -443,10 +508,7 @@ RSpec.describe Hub::ClientsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
     context "as an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
-      before do
-        sign_in user
-      end
+      before { sign_in user }
 
       it "renders edit for the client" do
         get :edit, params: params
@@ -458,7 +520,6 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#update" do
-    let(:vita_partner) { create :vita_partner }
     let(:client) { create :client, vita_partner: vita_partner }
 
     let(:intake) { create :intake, client: client, dependents: [build(:dependent), build(:dependent)] }
@@ -566,8 +627,7 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#edit_take_action" do
-    let(:user) { create :user_with_org }
-    let(:client) { create(:client, vita_partner: user.vita_partner) }
+    let(:client) { create(:client, vita_partner: vita_partner) }
     let!(:intake) { create :intake, client: client, email_notification_opt_in: "yes" }
     let!(:tax_return_2019) { create :tax_return, client: client, year: 2019 }
     let!(:tax_return_2018) { create :tax_return, client: client, year: 2018 }

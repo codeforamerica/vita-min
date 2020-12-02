@@ -59,6 +59,11 @@ FactoryBot.define do
     sequence(:email) { |n| "gary.gardengnome#{n}@example.green" }
     password { "userExamplePassword" }
     name { "Gary Gnome" }
+    vita_partner
+
+    factory :admin_user do
+      is_admin { true }
+    end
 
     factory :zendesk_admin_user do
       role { "admin" }
@@ -70,10 +75,6 @@ FactoryBot.define do
 
     factory :user_with_org do
       vita_partner
-    end
-
-    factory :admin_user do
-      is_admin { true }
     end
 
     factory :invited_user do

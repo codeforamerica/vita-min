@@ -20,15 +20,24 @@ en:
       index:
         title: Your assigned clients
     clients:
-      edit:
-        filing_information: Filing Information
+      create:
+        success_message: Client successfully created.
+      fields:
         legal_first_name: Legal first name
         legal_last_name: Legal last name
         mailing_address: Mailing Address
-        preferred_interview_language: Preferred interview language
         preferred_name: Preferred name
+        filing_information: Filing Information
+        preferred_interview_language: Preferred language
         primary_contact_info: Primary Contact Info
         spouse_contact_info: Spouse Contact Info
+        state_of_residence: State of residence
+      new:
+        title: Add a new client
+        assign_to_label: Assign to
+        send_for_prep: Send for prep
+        tax_years: Tax years
+      edit:
         title: Edit Client Profile
         add_dependent: Add dependent
         remove: Remove
@@ -269,6 +278,8 @@ en:
         blank: Please enter your last name.
       signature_method:
         inclusion: Please select a pickup method.
+      sms_phone_number:
+        invalid: Please enter a valid phone number.
       spouse_email_address:
         invalid: Please enter a valid email address.
       spouse_email_address_confirmation:
@@ -296,6 +307,10 @@ en:
         first_name: first name
         last_name: last name
         birth_date: birth date
+      tax_returns: "Please provide all required fields for tax returns: %{attrs}."
+      tax_returns_attributes:
+        is_hsa: is HSA
+        certification_level: certification level
   general:
     at_time: at %{time}
     NA: N/A
@@ -375,8 +390,8 @@ en:
     not_well: Not well
     oops: Oops!
     open: Open
-    opt_in_email: Opted into email notifications
-    opt_in_sms: Opted into sms notifications
+    opt_in_email: Opt into email notifications
+    opt_in_sms: Opt into sms notifications
     organization: Organization
     other_options: Try another free tax filing option
     partner: Partner

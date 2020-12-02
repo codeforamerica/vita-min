@@ -115,7 +115,7 @@ Rails.application.routes.draw do
     # Hub Admin routes (Case Management)
     namespace :hub do
       root "assigned_clients#index"
-      resources :clients, only: [:index, :show, :create, :edit, :update] do
+      resources :clients do
         get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
         patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
         resources :documents, only: [:index, :edit, :update, :show, :create]
