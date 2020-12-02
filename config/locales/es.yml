@@ -20,15 +20,24 @@ es:
       index:
         title: Tus clientes asignados
     clients:
-      edit:
+      create:
+        success_message: Cliente creado correctamente.
+      fields:
         filing_information: Presentación de información
         legal_first_name: Primer nombre legal
         legal_last_name: Apellido legal
         mailing_address: Dirección postal
-        preferred_interview_language: idioma preferido
+        preferred_interview_language: Idioma preferido
         preferred_name: Nombre preferido
         primary_contact_info: Información de contacto
         spouse_contact_info: Información de contacto del cónyuge
+        state_of_residence: Estado de residencia
+      new:
+        title: Agregar un nuevo cliente
+        assign_to_label: Asignado a
+        send_for_prep: Enviar para preparar
+        tax_years: Años de impuestos
+      edit:
         title: Editar Perfil del cliente
         add_dependent: Agregar dependiente
         remove: Eliminado
@@ -269,6 +278,8 @@ es:
         blank: Por favor, ingrese su apellido.
       signature_method:
         inclusion: Por favor, seleccione un método de recogida.
+      sms_phone_number:
+        invalid: Por favor, introduzca un número de teléfono válido.
       spouse_email_address:
         invalid: Por favor, introduzca una dirección de correo electrónico válida.
       spouse_email_address_confirmation:
@@ -296,6 +307,10 @@ es:
         first_name: el primer nombre
         last_name: el apellido
         birth_date: la fecha de nacimiento completa
+      tax_returns: "Por favor, proporcione todos los campos obligatorios para las declaraciones de impuestos:: %{attrs}."
+      tax_returns_attributes:
+        is_hsa: es HSA
+        certification_level: nivel de certificación
   general:
     at_time: a las %{time}
     NA: N/A

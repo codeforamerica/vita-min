@@ -23,7 +23,7 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(find_field("hub_client_intake_form_primary_first_name").value).to eq "Colleen"
         expect(find_field("hub_client_intake_form_primary_last_name").value).to eq "Cauliflower"
         fill_in "Preferred name", with: "Colly Cauliflower"
-        select "Mandarin", from: "Preferred interview language"
+        select "Mandarin", from: "Preferred language"
         check "Married"
         check "Separated"
         fill_in "Separated year", with: "2017"
@@ -41,8 +41,8 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "City", with: "Brassicaville"
         select "California", from: "State"
         fill_in "ZIP code", with: "95032"
-        check "Opted into email notifications"
-        check "Opted into sms notifications"
+        check "Opt into email notifications"
+        check "Opt into sms notifications"
       end
 
       within "#dependent-info" do

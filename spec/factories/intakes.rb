@@ -94,6 +94,7 @@
 #  needs_help_2017                                      :integer          default("unfilled"), not null
 #  needs_help_2018                                      :integer          default("unfilled"), not null
 #  needs_help_2019                                      :integer          default("unfilled"), not null
+#  needs_help_2020                                      :integer          default("unfilled"), not null
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
 #  no_ssn                                               :integer          default("unfilled"), not null
 #  other_income_types                                   :string
@@ -133,6 +134,7 @@
 #  savings_split_refund                                 :integer          default("unfilled"), not null
 #  separated                                            :integer          default("unfilled"), not null
 #  separated_year                                       :string
+#  signature_method                                     :integer          default("online"), not null
 #  sms_notification_opt_in                              :integer          default("unfilled"), not null
 #  sms_phone_number                                     :string
 #  sold_a_home                                          :integer          default("unfilled"), not null

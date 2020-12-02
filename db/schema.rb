@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_215059) do
+ActiveRecord::Schema.define(version: 2020_12_02_004742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -312,6 +312,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_215059) do
     t.integer "needs_help_2017", default: 0, null: false
     t.integer "needs_help_2018", default: 0, null: false
     t.integer "needs_help_2019", default: 0, null: false
+    t.integer "needs_help_2020", default: 0, null: false
     t.integer "no_eligibility_checks_apply", default: 0, null: false
     t.integer "no_ssn", default: 0, null: false
     t.string "other_income_types"
@@ -352,6 +353,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_215059) do
     t.integer "savings_split_refund", default: 0, null: false
     t.integer "separated", default: 0, null: false
     t.string "separated_year"
+    t.integer "signature_method", default: 0, null: false
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "sms_phone_number"
     t.integer "sold_a_home", default: 0, null: false

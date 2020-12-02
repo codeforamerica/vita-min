@@ -13,6 +13,7 @@
     <div><%= t(".phone_interview_language") %>: <%= @client.intake&.preferred_interview_language ? t("general.language_options.#{@client.intake&.preferred_interview_language}") : "N/A" %></div>
     <div><%= t(".interview_timing_preference") %>: <%= @client.intake&.interview_timing_preference %></div>
     <div><%= t("general.timezone") %>: <%= displayed_timezone(@client.intake&.timezone) || t("general.NA") %></div>
+    <div><%= t("hub.clients.fields.state_of_residence") %>: <%= @client.intake.state_of_residence %></div>
     <br/>
 
     <div><%= t("general.filing_years") %>: <%= @client.intake&.filing_years&.join(", ") %></div>

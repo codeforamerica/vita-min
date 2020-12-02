@@ -32,4 +32,7 @@ module ApplicationHelper
     link_to_locale('en', 'English', additional_attributes)
   end
 
+  def signature_methods_for_select
+    Intake.signature_methods.map { |method| [method[0].titleize, method[0]]}
+  end
 end

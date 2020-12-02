@@ -1,0 +1,38 @@
+<% @title = t(".title") %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="hub-form">
+    <%= form_with model: @form, url: hub_clients_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
+      <h1 class="form-card__title">
+        <%= @title %>
+      </h1>
+      <%= f.cfa_select(:service_type, "Service Type", [["Drop off", "drop_off"]], options: { selected: "drop_off" } ) %>
+      <%= f.cfa_select(:signature_method, "Signature Method", signature_methods_for_select, options: { selected: "online" }) %>
+      <%= f.cfa_select(:vita_partner_id, t(".assign_to_label"), grouped_organization_options) %>
+      <%= render "primary_info_fields", f: f, is_dropoff: true %>
+      <%= render "spouse_info_fields", f: f %>
+
+      <h2><%= t(".tax_years") %></h2>
+      <% if @form&.errors.messages[:tax_returns_attributes].present? %>
+        <div class="text--error">
+          <i class="icon-warning"></i>
+          <%= @form&.errors.messages[:tax_returns_attributes].join(", ") %>
+        </div>
+      <% end %>
+      <div class="form-card__stacked-checkboxes spacing-above-0">
+        <%= f.fields_for :tax_returns do |ff| %>
+          <div class="hub-form__row">
+            <span><%= f.cfa_checkbox("needs_help_#{ff.object.year}", ff.object.year, options: { checked_value: "yes", unchecked_value: "no" }) %></span>
+            <%= ff.hidden_field :year %>
+            <%= ff.cfa_select(:certification_level, "Certification Level", certification_options_for_select, include_blank: true) %>
+            <%= ff.cfa_checkbox(:is_hsa, t("general.hsa"))%>
+          </div>
+        <% end %>
+      </div>
+
+      <button class="button button--primary button--wide" type="submit">
+        <%= t(".send_for_prep") %>
+      </button>
+  <% end %>
+  </div>
+<% end %>

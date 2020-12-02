@@ -14,8 +14,8 @@ RSpec.describe BacktaxesForm do
       }.to change(Client, :count).by(1)
       client = Client.last
       expect(client.intake).to eq(intake.reload)
-      expect(client.tax_returns.pluck(:year).sort).to eq([2017, 2019])
-      expect(client.tax_returns.where(service_type: "online_intake").count).to eq 2
+      expect(client.tax_returns.map(&:year).sort).to eq([2017, 2019])
+      expect(client.tax_returns.map(&:service_type).uniq).to eq ["online_intake"]
     end
   end
 end
