@@ -58,6 +58,7 @@ en:
           success: 'Success: Action taken! %{action_list}'
           text_message: sent text message
       index:
+        add_client: Add client
         client_id_heading: Client ID
         filing_year: Filing Year
         needs_response_heading: Needs Response?
