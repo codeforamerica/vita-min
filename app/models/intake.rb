@@ -193,6 +193,14 @@
 
 class Intake < ApplicationRecord
   include InteractionTracking
+  include PgSearch::Model
+  # we can add custom search scopes. the symbol given (:search in this case), adds a .search method to the model class
+  # works like a scope we can append to any existing query. It should also return a query we can combine with other scopes
+  # afterwards.
+  # We could add other custom search scopes, such as :search_messages, that could search the bodies of multiple message models.
+  pg_search_scope :search, against: [
+    :preferred_name, :primary_first_name, :primary_last_name, :email_address, :phone_number, :sms_phone_number
+  ]
 
   has_many :users, foreign_key: "intake_id", class_name: "IdmeUser"
   has_many :documents

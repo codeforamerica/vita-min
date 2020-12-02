@@ -1,5 +1,14 @@
 <div class="client-filters">
   <%= form_with method: "get", local: true, builder: VitaMinFormBuilder, id: "filter-form" do |f| %>
+    <div class="vita-min-searchbar form-group" role="search">
+      <div class="">
+        <label for="search"><%= t("general.search") %></label>
+        <div>
+          <%= text_field_tag("search", params[:search], id: "search", class: "text-input") %>
+        </div>
+      </div>
+    </div>
+
     <h3>Filters</h3>
     <hr/>
     <div class="filters-wrapper">

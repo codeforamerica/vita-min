@@ -4,6 +4,7 @@ module ClientSortable
     @sort_column = clients_sort_column
     @sort_order = clients_sort_order
     @filters = {
+        search: params[:search],
         status: status_filter,
         stage: stage_filter,
         assigned_to_me: params[:assigned_to_me],
@@ -21,6 +22,10 @@ module ClientSortable
     clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
     clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
     clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
+    if @filters[:search].present?
+      # I didn't want to search the entire Intake table, so I limited it to the intakes for these clients
+      clients = clients.where(intake: Intake.where(client: clients).search(@filters[:search]))
+    end
     clients
   end
 
@@ -28,6 +33,7 @@ module ClientSortable
 
   # reset the raw parameters for each filter received by the form
   def reset_filter_params
+    params[:search] = nil
     params[:status] = nil
     params[:unassigned] = nil
     params[:assigned_to_me] = nil
