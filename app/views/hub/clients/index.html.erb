@@ -3,6 +3,9 @@
 <% content_for :card do %>
   <%= render 'shared/user_header' %>
   <%= render "shared/dashboard_navigation" %>
+  <div class="actions-wrapper actions-wrapper__align-end">
+    <%= link_to t(".add_client"), new_hub_client_path, class: "button button--small" %>
+  </div>
   <%= render "shared/client_filters" %>
   <% if @clients.present? %>
     <table class="index-table client-table">

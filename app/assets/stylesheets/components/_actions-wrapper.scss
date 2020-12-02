@@ -1,0 +1,12 @@
+.actions-wrapper {
+  display: flex;
+
+  .button {
+    margin-bottom: 0;
+  }
+  margin-bottom: 0;
+  margin-top: 1rem;
+  &__align-end {
+    justify-content: flex-end;
+  }
+}

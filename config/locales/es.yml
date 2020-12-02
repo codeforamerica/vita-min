@@ -42,6 +42,7 @@ es:
         add_dependent: Agregar dependiente
         remove: Eliminado
       index:
+        add_client: Agregar cliente
         client_id_heading: Cliente ID
         filing_year: Año para declarar
         needs_response_heading: Necesita respuesta?

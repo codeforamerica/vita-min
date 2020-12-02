@@ -10,7 +10,8 @@ RSpec.feature "Creating new drop off clients" do
     end
 
     scenario "I can create a new client" do
-      visit new_hub_client_path
+      visit hub_clients_path
+      click_on "Add client"
 
       within("h1") do
         expect(page).to have_text "Add a new client"
