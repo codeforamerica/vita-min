@@ -196,6 +196,46 @@
 require 'rails_helper'
 
 describe Intake do
+  describe ".search" do
+    context "with some clients" do
+      let(:client) { create :client, id: 222 }
+      let(:other_client) { create :client, id: 333 }
+      let!(:intake) { create :intake, id: 444, client: client, primary_first_name: "Jeremy", primary_last_name: "Fisher", preferred_name: "Jerry", spouse_first_name: "Jenny", spouse_last_name: "Fishy", email_address: "jerry@example.com", sms_phone_number: "+15005550006", phone_number: "+15005550007" }
+      let!(:other_intake) { create :intake, id: 555, client: other_client, primary_first_name: "Geoffrey", primary_last_name: "Foster", preferred_name: "Jeff", spouse_first_name: "Jennifer", spouse_last_name: "Frosty", email_address: "jeff@example.com", sms_phone_number: "+15005550008", phone_number: "+15005550009" }
+
+      it "can match on each required field" do
+        expect(described_class.search("222")).to eq [intake] # client_id
+        expect(described_class.search("jeremy")).to eq [intake] # primary_first_name
+        expect(described_class.search("fisher")).to eq [intake] # primary_last_name
+        expect(described_class.search("jerry")).to eq [intake] # preferred_name
+        expect(described_class.search("jenny")).to eq [intake] # spouse_first_name
+        expect(described_class.search("fishy")).to eq [intake] # spouse_last_name
+        expect(described_class.search("jerry@example.com")).to eq [intake] # email_address
+        expect(described_class.search("+15005550006")).to eq [intake] # sms_phone_number
+        expect(described_class.search("+15005550007")).to eq [intake] # phone_number
+      end
+
+      it "can do a partial match for the beginning of a field" do
+        expect(described_class.search("jerr")).to eq [intake]
+      end
+
+      it "can do a match on two fields in the same search" do
+        expect(described_class.search("jerry fisher")).to eq [intake]
+      end
+
+      it "cannot do partial matches for the latter portion of a field" do
+        # including this test as documentation, we want to change this behavior in the future
+        expect(described_class.search("y@example.com")).to eq []
+        expect(described_class.search("5005550007")).to eq []
+      end
+
+      it "cannot match on a formatted phone number" do
+        # including this test as documentation, we want to change this behavior in the future
+        expect(described_class.search("(500)555-0007")).to eq []
+      end
+    end
+  end
+
   describe ".create_anonymous_intake" do
     let(:original_intake) { create :intake,
                                    intake_ticket_id: 123,

@@ -195,6 +195,12 @@
 
 class Intake < ApplicationRecord
   include InteractionTracking
+  include PgSearch::Model
+
+  pg_search_scope :search, against: [
+    :client_id, :primary_first_name, :primary_last_name, :preferred_name, :spouse_first_name, :spouse_last_name,
+    :email_address, :phone_number, :sms_phone_number
+  ], using: { tsearch: { prefix: true } }
 
   has_many :users, foreign_key: "intake_id", class_name: "IdmeUser"
   has_many :documents
