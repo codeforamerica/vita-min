@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_215059) do
   create_table "intake_site_drop_offs", force: :cascade do |t|
     t.string "additional_info"
     t.string "certification_level"
+    t.bigint "client_id"
     t.datetime "created_at"
     t.string "email"
     t.boolean "hsa", default: false
@@ -213,6 +214,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_215059) do
     t.string "timezone"
     t.datetime "updated_at"
     t.string "zendesk_ticket_id"
+    t.index ["client_id"], name: "index_intake_site_drop_offs_on_client_id"
     t.index ["prior_drop_off_id"], name: "index_intake_site_drop_offs_on_prior_drop_off_id"
   end
 
@@ -614,6 +616,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_215059) do
   add_foreign_key "documents_requests", "intakes"
   add_foreign_key "idme_users", "intakes"
   add_foreign_key "incoming_text_messages", "clients"
+  add_foreign_key "intake_site_drop_offs", "clients"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
