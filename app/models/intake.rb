@@ -199,8 +199,12 @@ class Intake < ApplicationRecord
   # afterwards.
   # We could add other custom search scopes, such as :search_messages, that could search the bodies of multiple message models.
   pg_search_scope :search, against: [
-    :preferred_name, :primary_first_name, :primary_last_name, :email_address, :phone_number, :sms_phone_number
-  ]
+    :id, :preferred_name, :primary_first_name, :primary_last_name, :email_address, :phone_number, :sms_phone_number
+  ], using: {
+      tsearch: {
+          prefix: true
+      }
+  }
 
   has_many :users, foreign_key: "intake_id", class_name: "IdmeUser"
   has_many :documents
