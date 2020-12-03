@@ -478,9 +478,6 @@ en:
   models:
     intake:
       your_spouse: Your spouse
-    intake_site_drop_off:
-      errors:
-        valid_pickup_date: Please enter a valid month and day (M/D).
   signups:
     flash_notice: Thank you! You will receive a notification when we open in January 2021.
     new:
@@ -692,33 +689,6 @@ en:
       w2gs:
         help_text_html: "<strong>You might have this form</strong> because you said that you had income from gambling winnings or the lottery. Depending on how much you won, a gambling facility may send you a form W2-G that records your winnings and any income tax withholdings from the previous year."
         title: Attach your W-2G's
-    intake_site_drop_offs:
-      new:
-        additional_info: Additional information
-        certification_level: Certification level
-        email: Client email
-        hsa: HSA
-        intake_site: Intake Site
-        name: Client name
-        phone_number: Client phone number
-        signature_method:
-          e_signature: E-Signature
-          in_person: In-person
-          label: Pick-up method
-          pickup_date:
-            help_text: 'Format: M/D'
-            label: Pick-up date
-            postfix: "/2020"
-        state:
-          help_text: For state tax return
-          label: State
-        submit: Send for prep
-        title: Drop-off form
-      show:
-        add_another: Add another drop-off
-        found_ticket: Found a matching Zendesk ticket!
-        sent_for_prep: New drop-off sent for prep!
-        title: 'Sent for prep!'
     layouts:
       admin:
         welcome_user_html: Welcome <strong class="user__name">%{name}</strong>
