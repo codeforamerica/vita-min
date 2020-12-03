@@ -451,12 +451,7 @@ class Intake < ApplicationRecord
   end
 
   def filing_years
-    [
-      ("2019" if needs_help_2019_yes?),
-      ("2018" if needs_help_2018_yes?),
-      ("2017" if needs_help_2017_yes?),
-      ("2016" if needs_help_2016_yes?),
-    ].compact
+    TaxReturn.filing_years.map { |year| year if send("needs_help_#{year}_yes?") }.compact.map(&:to_s)
   end
 
   def most_recent_filing_year

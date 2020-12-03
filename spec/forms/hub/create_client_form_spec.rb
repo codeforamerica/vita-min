@@ -200,6 +200,7 @@ RSpec.describe Hub::CreateClientForm do
           before do
             params[:sms_phone_number] = nil
             params[:sms_notification_opt_in] = "no"
+            params[:email_notification_opt_in] = "yes"
           end
 
           it "is valid" do
@@ -244,31 +245,14 @@ RSpec.describe Hub::CreateClientForm do
           end
         end
 
-        context "when not provided and no email opt in" do
+        context "when not provided" do
           before do
             params[:email_address] = nil
             params[:email_notification_opt_in] = "no"
           end
 
-          it "is valid" do
-            expect(described_class.new(params).valid?).to eq true
-          end
-        end
-
-        context "when not provided and email opt in" do
-          before do
-            params[:email_address] = nil
-            params[:email_notification_opt_in] = "yes"
-          end
-
-          it "is valid" do
+          it "is not valid" do
             expect(described_class.new(params).valid?).to eq false
-          end
-
-          it "pushes errors for vita_partner_id into the errors" do
-            obj = described_class.new(params)
-            obj.valid?
-            expect(obj.errors[:email_address]).to eq ["Can't be blank."]
           end
         end
       end
@@ -378,6 +362,31 @@ RSpec.describe Hub::CreateClientForm do
           obj = described_class.new(params)
           obj.valid?
           expect(obj.errors[:tax_returns_attributes]).to include "Please pick at least one year."
+        end
+      end
+
+      context "when no communication preference is specified" do
+        before do
+          params[:email_notification_opt_in] = "no"
+          params[:sms_notification_opt_in] = "no"
+        end
+
+        it "pushes an attribute error" do
+          obj = described_class.new(params)
+          expect(obj.valid?).to be false
+          expect(obj.errors[:communication_preference]).to include "Please choose some way for us to contact you."
+        end
+      end
+
+      context "preferred_interview_language" do
+        before do
+          params[:preferred_interview_language] = ""
+        end
+
+        it "pushes an attribute error" do
+          obj = described_class.new(params)
+          expect(obj.valid?).to be false
+          expect(obj.errors[:preferred_interview_language]).to include "Can't be blank."
         end
       end
     end

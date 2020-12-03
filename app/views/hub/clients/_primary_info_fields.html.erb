@@ -6,15 +6,17 @@
     <%= f.cfa_input_field(:primary_last_name, t("hub.clients.fields.legal_last_name"), classes: ["form-width--long"]) %>
   </div>
   <%= f.cfa_input_field(:preferred_name, t("hub.clients.fields.preferred_name"), classes: ["form-width--long"]) %>
-  <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+  <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options, selected: current_user.timezone) %>
   <% unless is_dropoff %>
     <%= f.cfa_input_field(:interview_timing_preference, t("hub.clients.show.interview_timing_preference")) %>
   <% end %>
   <%= f.cfa_select(
           :preferred_interview_language,
           t("hub.clients.fields.preferred_interview_language"),
-          I18n.backend.translations[I18n.locale][:general][:language_options].invert
+          I18n.backend.translations[I18n.locale][:general][:language_options].invert,
+          include_blank: true
       ) %>
+  <%= error_message(@form, :communication_preference) %>
   <div class="hub-form__row fill align-center">
     <%= f.cfa_input_field(:email_address, t("general.email"), classes: ["form-width--long"]) %>
     <%= f.cfa_checkbox(:email_notification_opt_in, t("general.opt_in_email"), options: { checked_value: "yes", unchecked_value: "no" }) %>

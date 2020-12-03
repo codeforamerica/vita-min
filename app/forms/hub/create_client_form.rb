@@ -46,12 +46,13 @@ module Hub
     validates :phone_number, allow_blank: true, phone: true
     validates :sms_phone_number, phone: true, if: -> { sms_phone_number.present? }
     validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
-    validates :email_address, 'valid_email_2/email': true, if: -> { email_address.present? }
-    validates :email_address, presence: true, allow_blank: false, if: -> { opted_in_email? }
+    validates :email_address, presence: true, allow_blank: false, 'valid_email_2/email': true
+    validates :preferred_interview_language, presence: true, allow_blank: false
     validates :signature_method, presence: true
     validates :state_of_residence, inclusion: { in: States.keys }
     validate :tax_return_required_fields_valid
     validate :at_least_one_tax_return_present
+    validate :at_least_one_contact_method
 
     def opted_in_sms?
       attributes_for(:intake)[:sms_notification_opt_in] == "yes"
@@ -133,6 +134,12 @@ module Hub
           value = "1#{value}"
         end
         send("#{attr}=", Phonelib.parse(value).sanitized)
+      end
+    end
+
+    def at_least_one_contact_method
+      unless opted_in_email? || opted_in_sms?
+        errors.add(:communication_preference, I18n.t("forms.errors.need_one_communication_method"))
       end
     end
   end

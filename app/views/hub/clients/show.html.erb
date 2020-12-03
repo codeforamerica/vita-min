@@ -17,6 +17,7 @@
     <br/>
 
     <div><%= t("general.filing_years") %>: <%= @client.intake&.filing_years&.join(", ") %></div>
+    <div><%= t("hub.clients.fields.signature_method") %>: <%= I18n.t("hub.clients.fields.signature_methods.#{@client.intake&.signature_method}") %></div>
     <div><%= t(".marital_status") %>: <%= @client.intake&.marital_statuses&.join(", ") %></div>
     <div><%= t(".filing_status") %>: <%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly"  %></div>
     <br/>

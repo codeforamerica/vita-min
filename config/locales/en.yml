@@ -32,6 +32,11 @@ en:
         primary_contact_info: Primary Contact Info
         spouse_contact_info: Spouse Contact Info
         state_of_residence: State of residence
+        signature_method: Signature method
+        service_type: Service type
+        signature_methods:
+          online: Online
+          in_person: In person
       new:
         title: Add a new client
         assign_to_label: Assign to

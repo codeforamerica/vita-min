@@ -32,6 +32,11 @@ es:
         primary_contact_info: Información de contacto
         spouse_contact_info: Información de contacto del cónyuge
         state_of_residence: Estado de residencia
+        signature_method: Método para recoger
+        service_type: Service type
+        signature_methods:
+          online: Firma electrónica
+          in_person: En persona
       new:
         title: Agregar un nuevo cliente
         assign_to_label: Asignado a
