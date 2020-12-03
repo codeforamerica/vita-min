@@ -92,10 +92,6 @@ Rails.application.routes.draw do
     # Stimulus routes
     scoped_navigation_routes(:stimulus, StimulusNavigation, as_redirects: Rails.configuration.offseason)
 
-    get "/:organization/drop-off", to: "intake_site_drop_offs#new", as: :new_drop_off
-    post "/:organization/drop-offs", to: "intake_site_drop_offs#create", as: :create_drop_off
-    get "/:organization/drop-off/:id", to: "intake_site_drop_offs#show", as: :show_drop_off
-
     get "/other-options", to: "public_pages#other_options"
     get "/maybe-ineligible", to: "public_pages#maybe_ineligible"
     get "/maintenance", to: "public_pages#maintenance"

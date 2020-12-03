@@ -477,9 +477,6 @@ es:
   models:
     intake:
       your_spouse: Su cónyuge
-    intake_site_drop_off:
-      errors:
-        valid_pickup_date: Por favor, introduzca un mes y día válido (M/D).
   signups:
     flash_notice: "¡Gracias! Recibirá una notificación cuando abramos en enero de 2021."
     new:
@@ -691,33 +688,6 @@ es:
       w2gs:
         help_text_html: "<strong>Es posible que tenga este formulario</strong> porque dijo que tenía ingresos de ganancias de apuestas o la lotería. Dependiendo de cuánto ganó, una institución de juegos de azar puede enviarle un formulario W2-G que registra sus ganancias y cualquier retención de impuestos del año anterior."
         title: Adjunte sus W-2G
-    intake_site_drop_offs:
-      new:
-        additional_info: Información adicional
-        certification_level: Nivel de certificación
-        email: Correo electrónico del cliente
-        hsa: HSA (cuenta de ahorros para gastos médicos)
-        intake_site: Sitio de admisión
-        name: Nombre del cliente
-        phone_number: Número de teléfono del cliente
-        signature_method:
-          e_signature: Firma electrónica
-          in_person: En persona
-          label: Método para recoger
-          pickup_date:
-            help_text: 'Formato: M/D'
-            label: Fecha para recoger
-            postfix: "/2020"
-        state:
-          help_text: Para la declaración de impuestos estatales
-          label: Estado
-        submit: Enviar al asesor
-        title: Formulario de entrega
-      show:
-        add_another: Añadir otra entrega
-        found_ticket: "¡Se ha encontrado un ticket de Zendesk igual!"
-        sent_for_prep: "¡Se envió la nueva entrega al asesor!"
-        title: "¡Enviado al asesor!"
     layouts:
       admin:
         welcome_user_html: Bienvenido/a<strong class="user__name">%{name}</strong>
