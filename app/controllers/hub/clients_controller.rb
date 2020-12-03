@@ -5,7 +5,6 @@ module Hub
     include MessageSending
 
     before_action :require_sign_in
-    before_action :setup_sortable_client, only: [:index]
     before_action :load_vita_partners, only: [:new, :create]
     load_and_authorize_resource except: [:new, :create]
     layout "admin"
