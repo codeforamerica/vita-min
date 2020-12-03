@@ -43,6 +43,8 @@ es:
         remove: Eliminado
       index:
         add_client: Agregar cliente
+        clear_filters: Filtros claros
+        filter: Aplicar
         client_id_heading: Cliente ID
         filing_year: Año para declarar
         needs_response_heading: Necesita respuesta?

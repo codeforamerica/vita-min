@@ -60,6 +60,8 @@ en:
       index:
         add_client: Add client
         client_id_heading: Client ID
+        clear_filters: Clear filters
+        filter: Apply
         filing_year: Filing Year
         needs_response_heading: Needs Response?
         title: All clients

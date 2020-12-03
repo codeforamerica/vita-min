@@ -1,5 +1,12 @@
 <div class="client-filters">
   <%= form_with method: "get", local: true, builder: VitaMinFormBuilder, id: "filter-form" do |f| %>
+    <div role="search">
+      <label for="search">
+        <h3><%= t("general.search") %></h3>
+      </label>
+      <%= text_field_tag("search", params[:search], id: "search", class: "text-input") %>
+    </div>
+
     <h3>Filters</h3>
     <hr/>
     <div class="filters-wrapper">
@@ -41,9 +48,9 @@
     <%= f.hidden_field :order, value: @sort_order %>
     <%= f.hidden_field :column, value: @sort_column %>
     <div>
-      <%= submit_tag "Apply", class: "button button--small", name: nil %>
+      <%= submit_tag t("hub.clients.index.filter"), class: "button button--small", name: nil %>
       <% if @filters && @filters.values.any? %>
-        <%= submit_tag "Clear Filters", class: "button button--small button--danger", name: "clear" %>
+        <%= submit_tag t("hub.clients.index.clear_filters"), class: "button button--small button--danger", name: "clear" %>
       <% end %>
     </div>
   <% end %>

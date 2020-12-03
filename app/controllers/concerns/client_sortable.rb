@@ -31,6 +31,7 @@ module ClientSortable
 
   # reset the raw parameters for each filter received by the form
   def reset_filter_params
+    params[:search] = nil
     params[:status] = nil
     params[:unassigned] = nil
     params[:assigned_to_me] = nil

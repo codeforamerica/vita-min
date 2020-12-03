@@ -34,5 +34,39 @@ RSpec.describe ClientSortable, type: :controller do
         expect(clients_query_double).to have_received(:where).with(intake: intakes_query_double)
       end
     end
+
+    context "with a 'search' param and additional filters" do
+      let(:params) do
+        {
+          search: "query",
+          status: "intake_in_progress"
+        }
+      end
+
+      it "creates a query for the search and scopes by other provided queries" do
+        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+        expect(clients_query_double).to have_received(:where).with({ tax_returns: { status: params[:status].to_sym } })
+        expect(clients_query_double).to have_received(:where).with(intake: intakes_query_double)
+      end
+    end
+
+    context "with a clear param" do
+      let(:params) do
+        {
+            clear: true,
+            search: "query",
+            status: "intake_in_progress",
+            year: "2019",
+            needs_response: true,
+            assigned_to_me: true,
+            unassigned: true,
+        }
+      end
+
+      it "clears all of the existing params" do
+        subject.filtered_and_sorted_clients
+        expect(assigns(:filters).values.compact).to be_empty
+      end
+    end
   end
 end
