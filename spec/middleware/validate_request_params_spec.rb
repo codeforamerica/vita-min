@@ -88,11 +88,11 @@ describe ValidateRequestParams do
     end
   end
 
-  context "with invalid characters in my_session cookie" do
+  context "with invalid characters in _vita_min_session cookie" do
     let(:null_byte) { "%00" }
 
     it "responds with 400 BadRequest" do
-      set_cookie "my_session=adfec7as9413db963b5#{null_byte}"
+      set_cookie "_vita_min_session=adfec7as9413db963b5#{null_byte}"
 
       get "/login"
 
@@ -100,9 +100,9 @@ describe ValidateRequestParams do
     end
   end
 
-  context "WITH valid characters in my_session cookie" do
+  context "with valid characters in my_session cookie" do
     it "responds with a 200 ok" do
-      set_cookie "my_session=adfec7as9413db963b5"
+      set_cookie "_vita_min_session=adfec7as9413db963b5"
 
       get "/login"
 

@@ -14,7 +14,7 @@ class ValidateRequestParams
       return [400, {}, ["Bad Request"]]
     end
 
-    if request.cookies["my_session"].present? && string_contains_invalid_character?(request.cookies["my_session"])
+    if request.cookies["_vita_min_session"].present? && string_contains_invalid_character?(request.cookies["_vita_min_session"])
       return [400, {}, ["Bad Request"]]
     end
 
