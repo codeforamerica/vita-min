@@ -33,6 +33,6 @@ module ApplicationHelper
   end
 
   def signature_methods_for_select
-    Intake.signature_methods.map { |method| [method[0].titleize, method[0]]}
+    Intake.signature_methods.map { |method| [I18n.t("hub.clients.fields.signature_methods.#{method[0]}"), method[0]]}
   end
 end

@@ -6,19 +6,14 @@
       <h1 class="form-card__title">
         <%= @title %>
       </h1>
-      <%= f.cfa_select(:service_type, "Service Type", [["Drop off", "drop_off"]], options: { selected: "drop_off" } ) %>
-      <%= f.cfa_select(:signature_method, "Signature Method", signature_methods_for_select, options: { selected: "online" }) %>
+      <%= f.cfa_select(:service_type, t("hub.clients.fields.service_type"), [["Drop off", "drop_off"]], options: { selected: "drop_off" } ) %>
+      <%= f.cfa_select(:signature_method, t("hub.clients.fields.signature_method"), signature_methods_for_select, options: { selected: "online" }) %>
       <%= f.cfa_select(:vita_partner_id, t(".assign_to_label"), grouped_organization_options) %>
       <%= render "primary_info_fields", f: f, is_dropoff: true %>
       <%= render "spouse_info_fields", f: f %>
 
       <h2><%= t(".tax_years") %></h2>
-      <% if @form&.errors.messages[:tax_returns_attributes].present? %>
-        <div class="text--error">
-          <i class="icon-warning"></i>
-          <%= @form&.errors.messages[:tax_returns_attributes].join(", ") %>
-        </div>
-      <% end %>
+      <%= error_message(f.object, :tax_returns_attributes) %>
       <div class="form-card__stacked-checkboxes spacing-above-0">
         <%= f.fields_for :tax_returns do |ff| %>
           <div class="hub-form__row">
