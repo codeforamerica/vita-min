@@ -241,8 +241,8 @@ FactoryBot.define do
       preferred_name { "Cherry" }
       primary_first_name { "Cher" }
       primary_last_name { "Cherimoya" }
-      phone_number { "14155551212" }
-      sms_phone_number { "14155551212" }
+      phone_number { "+14155551212" }
+      sms_phone_number { "+14155551212" }
       email_address { "cher@example.com" }
     end
 

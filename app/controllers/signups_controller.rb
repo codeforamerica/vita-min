@@ -19,6 +19,7 @@ class SignupsController < ApplicationController
   private
 
   def signup_params
-    params.require(:signup).permit(:name, :zip_code, :email_address, :phone_number)
+    permitted_params = params.require(:signup).permit(:name, :zip_code, :email_address, :phone_number)
+    permitted_params.merge(phone_number: PhoneParser.normalize(permitted_params[:phone_number]))
   end
 end

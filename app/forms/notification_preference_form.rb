@@ -18,12 +18,7 @@ class NotificationPreferenceForm < QuestionsForm
   private
 
   def parse_sms_phone_number
-    if sms_phone_number.present?
-      unless sms_phone_number[0] == "1" || sms_phone_number[0..1] == "+1"
-        self.sms_phone_number = "1#{sms_phone_number}"
-      end
-      self.sms_phone_number = Phonelib.parse(sms_phone_number).sanitized
-    end
+    self.sms_phone_number = PhoneParser.normalize(sms_phone_number) if sms_phone_number.present?
   end
 
   def need_phone_number_for_sms_opt_in

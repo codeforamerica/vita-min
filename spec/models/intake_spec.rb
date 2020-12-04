@@ -196,6 +196,47 @@
 require 'rails_helper'
 
 describe Intake do
+  describe "validations" do
+    context "phone_number & sms_phone_number" do
+      let(:intake) { build :intake, phone_number: input_number, sms_phone_number: input_number }
+      before { intake.valid? }
+
+      context "with e164" do
+        let(:input_number) { "+15005550006" }
+        it "is valid" do
+          expect(intake.errors).not_to include :phone_number
+          expect(intake.errors).not_to include :sms_phone_number
+        end
+      end
+
+      context "without a + but otherwise correct" do
+        let(:input_number) { "15005550006" }
+        it "is not valid" do
+          expect(intake.errors).to include :phone_number
+          expect(intake.errors).to include :sms_phone_number
+        end
+      end
+
+      context "without a +1 but otherwise correct" do
+        let(:input_number) { "5005550006" }
+
+        it "is not valid" do
+          expect(intake.errors).to include :phone_number
+          expect(intake.errors).to include :sms_phone_number
+        end
+      end
+
+      context "with any non-numeric characters" do
+        let(:input_number) { "+1500555-006" }
+
+        it "is not valid" do
+          expect(intake.errors).to include :phone_number
+          expect(intake.errors).to include :sms_phone_number
+        end
+      end
+    end
+  end
+
   describe ".search" do
     context "with some clients" do
       let(:client) { create :client, id: 222 }

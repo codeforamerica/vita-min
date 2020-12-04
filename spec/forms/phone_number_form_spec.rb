@@ -17,7 +17,7 @@ RSpec.describe PhoneNumberForm do
           )
 
           expect(form).to be_valid
-          expect(form.attributes_for(:intake)[:phone_number]).to eq "14155537865"
+          expect(form.attributes_for(:intake)[:phone_number]).to eq "+14155537865"
         end
       end
 
@@ -33,7 +33,7 @@ RSpec.describe PhoneNumberForm do
           )
 
           expect(form).to be_valid
-          expect(form.attributes_for(:intake)[:phone_number]).to eq "14155537865"
+          expect(form.attributes_for(:intake)[:phone_number]).to eq "+14155537865"
         end
       end
     end
@@ -51,7 +51,7 @@ RSpec.describe PhoneNumberForm do
 
         expect(form).not_to be_valid
         expect(form.errors[:phone_number]).to be_present
-        expect(form.attributes_for(:intake)[:phone_number]).to eq "1415"
+        expect(form.attributes_for(:intake)[:phone_number]).to eq "415"
       end
     end
 

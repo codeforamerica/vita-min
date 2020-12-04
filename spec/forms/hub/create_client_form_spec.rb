@@ -25,8 +25,8 @@ RSpec.describe Hub::CreateClientForm do
           separated_year: "",
           widowed_year: "",
           email_address: "someone@example.com",
-          phone_number: "+15005550006",
-          sms_phone_number: "+15005550006",
+          phone_number: "5005550006",
+          sms_phone_number: "500-555-(0006)",
           street_address: "972 Mission St.",
           city: "San Francisco",
           state: "CA",
@@ -99,6 +99,15 @@ RSpec.describe Hub::CreateClientForm do
         expect(tax_returns.map(&:year)).to eq [2020, 2019, 2018]
         expect(tax_returns.map(&:client).uniq).to eq [intake.client]
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]
+      end
+
+      context "phone numbers" do
+        it "normalizes phone_number and sms_phone_number" do
+          described_class.new(params.update(sms_phone_number: "650-555-1212", phone_number: "(650) 555-1212")).save
+          client = Client.last
+          expect(client.intake.sms_phone_number).to eq "+16505551212"
+          expect(client.intake.phone_number).to eq "+16505551212"
+        end
       end
     end
 

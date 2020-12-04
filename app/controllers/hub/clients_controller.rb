@@ -20,7 +20,7 @@ module Hub
 
     def create
       @form = CreateClientForm.new(create_client_form_params)
-      if @form.valid? && @form.save
+      if @form.save
         flash[:notice] = I18n.t("hub.clients.create.success_message")
         redirect_to hub_client_path(id: @form.client)
       else

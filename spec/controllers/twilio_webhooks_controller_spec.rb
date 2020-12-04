@@ -16,12 +16,12 @@ RSpec.describe TwilioWebhooksController do
           "FromCity" => "LOS GATOS",
           "Body" => "Hello, it me",
           "FromCountry" => "US",
-          "To" => "+4158161286",
+          "To" => "+14158161286",
           "ToZip" => "",
           "NumSegments" => "1",
           "MessageSid" => "SM7067f0beef82c65fb6785v46754v6754",
           "AccountSid" => "AC70b4e3aa44fe961398q89we7yr98aw7y",
-          "From" => "+15552341122",
+          "From" => "+15005550006",
           "ApiVersion" => "2010-04-01"
       }
     end
@@ -48,7 +48,7 @@ RSpec.describe TwilioWebhooksController do
 
         context "with a matching intake phone number" do
           let(:client) { create :client }
-          let!(:intake) { create(:intake, client: client, phone_number: "15552341122") }
+          let!(:intake) { create(:intake, client: client, phone_number: "+15005550006") }
 
           it "creates a new IncomingTextMessage linked to the client the right data" do
             expect do
@@ -58,7 +58,7 @@ RSpec.describe TwilioWebhooksController do
             expect(response).to be_ok
             message = IncomingTextMessage.last
             expect(message.body).to eq "Hello, it me"
-            expect(message.from_phone_number).to eq "15552341122"
+            expect(message.from_phone_number).to eq "+15005550006"
             expect(message.received_at).to eq current_time
             expect(message.client).to eq client
           end
@@ -68,7 +68,7 @@ RSpec.describe TwilioWebhooksController do
           before do
             allow(ClientChannel).to receive(:broadcast_contact_record)
           end
-          let(:intake) { create(:intake, sms_phone_number: "15552341122")}
+          let(:intake) { create(:intake, sms_phone_number: "+15005550006")}
           let!(:client) { create :client, intake: intake }
 
           it "creates a new IncomingTextMessage linked to the client the right data" do
@@ -90,8 +90,8 @@ RSpec.describe TwilioWebhooksController do
           # We have not discussed the best way to handle this scenario
           # This spec is intended to document existing behavior more than
           # prescribe the correct way to handle this.
-          let(:intake1) { create :intake, phone_number: "15552341122" }
-          let(:intake2) { create :intake, sms_phone_number: "15552341122" }
+          let(:intake1) { create :intake, phone_number: "+15005550006" }
+          let(:intake2) { create :intake, sms_phone_number: "+15005550006" }
           let!(:client1) { create :client, intake: intake1 }
           let!(:client2) { create :client, intake: intake2 }
 
@@ -113,18 +113,18 @@ RSpec.describe TwilioWebhooksController do
 
             message = IncomingTextMessage.last
             expect(message.body).to eq "Hello, it me"
-            expect(message.from_phone_number).to eq "15552341122"
+            expect(message.from_phone_number).to eq "+15005550006"
             expect(message.received_at).to eq current_time
             client = Client.last
             expect(message.client).to eq client
-            expect(client.intake.phone_number).to eq "15552341122"
-            expect(client.intake.sms_phone_number).to eq "15552341122"
+            expect(client.intake.phone_number).to eq "+15005550006"
+            expect(client.intake.sms_phone_number).to eq "+15005550006"
           end
         end
 
         context "with an attachment" do
           let!(:client) { create :client }
-          let!(:intake) { create :intake, client: client, sms_phone_number: "15552341122" }
+          let!(:intake) { create :intake, client: client, sms_phone_number: "+15005550006" }
           let(:parsed_attachments) {
             [{content_type: "image/jpeg", filename: "some-type-of-image.jpg", body: "image file contents"}]
           }

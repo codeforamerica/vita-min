@@ -7,7 +7,7 @@ RSpec.describe SignupsController do
         allow(subject).to receive(:send_mixpanel_event)
       end
 
-      let(:params) { {signup: {name: "Gary Guava", zip_code: "94110", email_address: "example@example.com", phone_number: "14155551212"}} }
+      let(:params) { {signup: {name: "Gary Guava", zip_code: "94110", email_address: "example@example.com", phone_number: "415-555-1212"}} }
 
       it "creates a signup" do
         expect {
@@ -17,7 +17,7 @@ RSpec.describe SignupsController do
         expect(signup.name).to eq("Gary Guava")
         expect(signup.zip_code).to eq("94110")
         expect(signup.email_address).to eq("example@example.com")
-        expect(signup.phone_number).to eq("14155551212")
+        expect(signup.phone_number).to eq("+14155551212")
         expect(response).to redirect_to root_path
         expect(flash[:notice]).to eq("Thank you! You will receive a notification when we open in January 2021.")
       end

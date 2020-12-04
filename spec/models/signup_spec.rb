@@ -16,7 +16,7 @@ RSpec.describe Signup, type: :model do
   describe "validations" do
     context "with valid fields" do
       context "with name & phone" do
-        let(:signup) { Signup.new(name: "Gary Guava", phone_number: "4155551212") }
+        let(:signup) { Signup.new(name: "Gary Guava", phone_number: "+14155551212") }
 
         it "is valid" do
           expect(signup).to be_valid
@@ -60,6 +60,15 @@ RSpec.describe Signup, type: :model do
           expect(signup.errors).to include :email_address
           expect(signup.errors).not_to include :phone_number
           expect(signup.errors[:email_address]).to eq(["Please choose some way for us to contact you."])
+        end
+      end
+
+      context "with an invalid phone number" do
+        let(:signup) { build(:signup, phone_number: "5123456789") }
+
+        it "is not valid and adds an error to the phone number" do
+          expect(signup).not_to be_valid
+          expect(signup.errors).to include :phone_number
         end
       end
     end

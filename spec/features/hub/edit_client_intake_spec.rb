@@ -35,8 +35,8 @@ RSpec.describe "a user editing a clients intake fields" do
 
         check "Filing jointly"
         fill_in "Email", with: "hello@cauliflower.com"
-        fill_in "Phone number", with: "5108675309"
-        fill_in "Phone for texting", with: "8001234567"
+        fill_in "Phone number", with: "(500) 555-0006"
+        fill_in "Phone for texting", with: "500-555-0006"
         fill_in "Street address", with: "123 Garden Ln"
         fill_in "City", with: "Brassicaville"
         select "California", from: "State"
@@ -116,8 +116,8 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(page).to have_text "11/25/2019"
       end
       expect(page).to have_text "hello@cauliflower.com"
-      expect(page).to have_text "5108675309"
-      expect(page).to have_text "8001234567"
+      expect(page).to have_text "+15005550006"
+      expect(page).to have_text "+15005550006"
       expect(page).to have_text "123 Garden Ln"
       expect(page).to have_text "Brassicaville, CA 95032"
       expect(page).to have_text "• Text message"

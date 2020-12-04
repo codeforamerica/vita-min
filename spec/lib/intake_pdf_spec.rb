@@ -191,7 +191,7 @@ RSpec.describe IntakePdf do
           primary_last_name: "Heifer",
           primary_birth_date: Date.new(1961, 4, 19),
           email_address: "hoofie@heifer.horse",
-          phone_number: "14158161286",
+          phone_number: "+14158161286",
           spouse_first_name: "Hattie",
           spouse_last_name: "Heifer",
           spouse_birth_date: Date.new(1959, 11, 1),

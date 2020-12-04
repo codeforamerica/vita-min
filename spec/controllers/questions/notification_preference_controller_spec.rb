@@ -11,7 +11,7 @@ RSpec.describe Questions::NotificationPreferenceController do
   end
 
   describe "#edit" do
-    let!(:intake) { create :intake, phone_number: "15552223333", phone_number_can_receive_texts: "yes" }
+    let!(:intake) { create :intake, phone_number: "+15005550006", phone_number_can_receive_texts: "yes" }
 
     it "renders successfully" do
       get :edit
@@ -21,7 +21,7 @@ RSpec.describe Questions::NotificationPreferenceController do
     it "pre-populates the cell phone field if they said they can receive texts" do
       get :edit
 
-      expect(response.body).to include("15552223333")
+      expect(response.body).to include("+15005550006")
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe Questions::NotificationPreferenceController do
           notification_preference_form: {
             email_notification_opt_in: "yes",
             sms_notification_opt_in: "no",
-            sms_phone_number: "555-333-4444"
+            sms_phone_number: "500-555-0006"
           }
         }
       end
@@ -66,7 +66,7 @@ RSpec.describe Questions::NotificationPreferenceController do
         intake.reload
         expect(intake.sms_notification_opt_in).to eq("no")
         expect(intake.email_notification_opt_in).to eq("yes")
-        expect(intake.sms_phone_number).to eq("15553334444")
+        expect(intake.sms_phone_number).to eq("+15005550006")
       end
 
       it "sends an event to mixpanel with relevant data" do

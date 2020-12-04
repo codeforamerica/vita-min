@@ -8,7 +8,7 @@ class TwilioWebhooksController < ActionController::Base
   end
 
   def create_incoming_text_message
-    phone_number = Phonelib.parse(params["From"]).sanitized
+    phone_number = PhoneParser.normalize(params["From"])
     intake_by_phone_number = Intake.where(phone_number: phone_number).where.not(client: nil)
     intake_by_sms_phone_number = Intake.where(sms_phone_number: phone_number).where.not(client: nil)
     if intake_by_phone_number.count > 0

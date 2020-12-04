@@ -37,7 +37,7 @@ module Hub
                        :needs_help_2017,
                        :signature_method
     set_attributes_for :tax_return, :service_type
-    before_validation :parse_phone_numbers
+    before_validation :normalize_phone_numbers
 
     attr_accessor :tax_returns, :tax_returns_attributes, :client, :intake
     validates :primary_first_name, presence: true, allow_blank: false
@@ -68,6 +68,7 @@ module Hub
     end
 
     def save
+      return false unless valid?
       vita_partner_id = attributes_for(:intake)[:vita_partner_id]
       ActiveRecord::Base.transaction do
         @intake = Intake.create!(attributes_for(:intake).merge(
@@ -124,17 +125,9 @@ module Hub
       errors.add(:tax_returns_attributes, I18n.t("forms.errors.at_least_one_year")) unless tax_return_count.positive?
     end
 
-    def parse_phone_numbers
-      phone_number_attrs = [:phone_number, :sms_phone_number]
-      phone_number_attrs.each do |attr|
-        value = send(attr)
-        next unless value.present?
-
-        unless value[0] == "1" || value[0..1] == "+1"
-          value = "1#{value}"
-        end
-        send("#{attr}=", Phonelib.parse(value).sanitized)
-      end
+    def normalize_phone_numbers
+      self.phone_number = PhoneParser.normalize(phone_number) if phone_number.present?
+      self.sms_phone_number = PhoneParser.normalize(sms_phone_number) if sms_phone_number.present?
     end
 
     def at_least_one_contact_method

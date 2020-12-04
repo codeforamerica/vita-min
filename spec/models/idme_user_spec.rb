@@ -150,8 +150,8 @@ RSpec.describe IdmeUser, type: :model do
       let(:sms){ "yes" }
       let(:phone_number) { nil }
 
-      it "returns nil" do
-        expect(user.contact_info_filtered_by_preferences).to include(phone_number: nil)
+      it "returns the empty string" do
+        expect(user.contact_info_filtered_by_preferences).to include(phone_number: "")
       end
     end
   end

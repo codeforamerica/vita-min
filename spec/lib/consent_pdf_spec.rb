@@ -39,7 +39,7 @@ RSpec.describe ConsentPdf do
            primary_consented_to_service_ip: "127.0.0.1",
            primary_last_four_ssn: "5555",
            primary_birth_date: Date.new(1955, 9, 4),
-           phone_number: "14158161286",
+           phone_number: "+14158161286",
            email_address: "me@oscar.orange",
            spouse_first_name: "Owen",
            spouse_last_name: "Orange",

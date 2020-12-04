@@ -34,7 +34,7 @@ RSpec.describe Questions::PhoneNumberController do
           post :update, params: params
         end.to change { intake.reload.phone_number }
           .from(nil)
-          .to("14155537865")
+          .to("+14155537865")
       end
 
       it "sends an event to mixpanel without the phone number data" do

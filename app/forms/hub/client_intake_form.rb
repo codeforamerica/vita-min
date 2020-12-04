@@ -30,6 +30,10 @@ module Hub
                        :interview_timing_preference,
                        :timezone,
                        :dependents_attributes
+    before_validation do
+      self.sms_phone_number = PhoneParser.normalize(sms_phone_number)
+      self.phone_number = PhoneParser.normalize(phone_number)
+    end
     validates :primary_first_name, presence: true, allow_blank: false
     validates :primary_last_name, presence: true, allow_blank: false
     validate :dependents_attributes_required_fields

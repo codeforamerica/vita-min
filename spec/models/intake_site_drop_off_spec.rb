@@ -135,7 +135,7 @@ describe IntakeSiteDropOff do
         expect(drop_off.error_summary).to eq nil
 
         drop_off.pickup_date_string = "02/30"
-        drop_off.phone_number = "(555) 123-4567"
+        drop_off.phone_number = "(555) 555-5555"
         expect(drop_off).to_not be_valid
 
         expect(drop_off.error_summary).to eq "Errors: Please enter a valid phone number. Please enter a valid month and day (M/D)."
@@ -146,13 +146,13 @@ describe IntakeSiteDropOff do
   describe "#phone_number" do
     it "normalizes phone numbers" do
       drop_off.phone_number = "4158161286"
-      expect(drop_off.phone_number).to eq "14158161286"
+      expect(drop_off.phone_number).to eq "+14158161286"
       drop_off.phone_number = "(415) 816-1286"
-      expect(drop_off.phone_number).to eq "14158161286"
+      expect(drop_off.phone_number).to eq "+14158161286"
       drop_off.phone_number = "+1(415) 816-1286"
-      expect(drop_off.phone_number).to eq "14158161286"
+      expect(drop_off.phone_number).to eq "+14158161286"
       drop_off.phone_number = "+14158161286"
-      expect(drop_off.phone_number).to eq "14158161286"
+      expect(drop_off.phone_number).to eq "+14158161286"
     end
   end
 

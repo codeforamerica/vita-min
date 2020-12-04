@@ -27,8 +27,8 @@ RSpec.describe DuplicateIntakeGuard do
     end
 
     context "intake with matching phone number exists" do
-      let!(:existing_intake) { create(:intake, phone_number: "1234567890") }
-      let(:matching_intake) { create(:intake, phone_number: "1234567890") }
+      let!(:existing_intake) { create(:intake, phone_number: "+15005550006") }
+      let(:matching_intake) { create(:intake, phone_number: "+15005550006") }
 
       it "returns false if the intake pdf has not been sent to zendesk" do
         expect(subject).not_to have_duplicate
@@ -54,7 +54,7 @@ RSpec.describe DuplicateIntakeGuard do
       end
 
       it "there is no match with phone number" do
-        matching_intake.update(phone_number: "1234567890")
+        matching_intake.update(phone_number: "+15005550006")
         expect(subject).not_to have_duplicate
       end
     end

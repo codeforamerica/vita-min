@@ -112,10 +112,7 @@ class IntakeSiteDropOff < ApplicationRecord
 
   def phone_number=(value)
     if value.present? && value.is_a?(String)
-      unless value[0] == "1" || value[0..1] == "+1"
-        value = "1#{value}" # add USA country code
-      end
-      self[:phone_number] = Phonelib.parse(value).sanitized
+      self[:phone_number] = PhoneParser.normalize(value)
     else
       self[:phone_number] = value
     end
@@ -128,7 +125,7 @@ class IntakeSiteDropOff < ApplicationRecord
 
   # Returns the phone number in the E164 standardized format, e.g.: "+15105551234"
   def standardized_phone_number
-    Phonelib.parse(phone_number, "US").e164
+    PhoneParser.normalize(phone_number)
   end
 
   def pickup_date_string=(input_value)

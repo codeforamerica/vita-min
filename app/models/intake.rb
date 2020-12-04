@@ -211,6 +211,8 @@ class Intake < ApplicationRecord
   belongs_to :triage_source, optional: true, polymorphic: true
   accepts_nested_attributes_for :dependents, allow_destroy: true
 
+  validates :phone_number, :sms_phone_number, allow_blank: true, phone: true, format: { with: /\+1[0-9]{10}/ }
+
   after_save do
     if saved_change_to_completed_at?(from: nil)
       record_incoming_interaction # client completed intake
@@ -348,7 +350,7 @@ class Intake < ApplicationRecord
 
   # Returns the sms phone number in the E164 standardized format, e.g.: "+15105551234"
   def standardized_sms_phone_number
-    Phonelib.parse(sms_phone_number, "US").e164
+    PhoneParser.normalize(sms_phone_number)
   end
 
   def primary_full_name

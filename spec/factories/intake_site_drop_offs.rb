@@ -39,7 +39,7 @@ FactoryBot.define do
 
     trait :optional_fields do
       email { "gguava@example.com" }
-      phone_number { "14158161286" }
+      phone_number { "+14158161286" }
       pickup_date { Date.new(2020, 4, 10) }
       additional_info { "Gary is missing a document" }
       timezone { "America/Denver" }

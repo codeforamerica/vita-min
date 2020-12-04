@@ -31,6 +31,7 @@ class OutgoingTextMessage < ApplicationRecord
   belongs_to :user
   validates_presence_of :body
   validates_presence_of :sent_at
+  validates :to_phone_number, phone: true, format: { with: /\+1[0-9]{10}/ }
 
   after_create :record_outgoing_interaction
 

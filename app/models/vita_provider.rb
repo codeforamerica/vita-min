@@ -134,7 +134,7 @@ class VitaProvider < ApplicationRecord
   private
 
   def phone_data
-    Phonelib.parse("1#{phone_number}")
+    Phonelib.parse(phone_number, "US")
   end
 
   def get_phone_number(lines)

@@ -22,7 +22,7 @@ FactoryBot.define do
   factory :incoming_text_message do
     client
     body { "nothin" }
-    from_phone_number { "14155537865" }
+    from_phone_number { "+14155537865" }
     sequence(:received_at) { |n| DateTime.new(2020, 9, 2, 15, 1, 30) + n.minutes }
   end
 end

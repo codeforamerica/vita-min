@@ -15,6 +15,6 @@ FactoryBot.define do
     name { "Gary Guava" }
     zip_code { "94110" }
     email_address { "example@example.com" }
-    phone_number { "4155551212" }
+    phone_number { "+14155551212" }
   end
 end

@@ -8,8 +8,8 @@ FactoryBot.define do
         :intake,
         client: client,
         email_address: "gyr-test-client+#{client.id}@codeforamerica.org",
-        phone_number: "15005550006", # Valid Twilio number for testing https://www.twilio.com/docs/iam/test-credentials
-        sms_phone_number: "15005550006",
+        phone_number: "+15005550006", # Valid Twilio number for testing https://www.twilio.com/docs/iam/test-credentials
+        sms_phone_number: "+15005550006",
         preferred_name: "#{first_name} #{last_name}",
         primary_first_name: first_name,
         primary_last_name: last_name,

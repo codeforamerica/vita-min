@@ -31,6 +31,18 @@ RSpec.describe Hub::ClientIntakeForm do
       end
     end
 
+    context "when updating phone numbers" do
+      let(:intake) { create :intake, :filled_out, :with_contact_info }
+      let(:form) { Hub::ClientIntakeForm.from_intake(intake, { sms_phone_number: "6105551212", phone_number: "610-555-1212" }) }
+
+      it "normalizes the numbers before saving them" do
+        form.save
+        intake.reload
+        expect(intake.sms_phone_number).to eq "+16105551212"
+        expect(intake.phone_number).to eq "+16105551212"
+      end
+    end
+
     context "adding/updating dependents" do
       before do
         form_attributes[:dependents_attributes]["0"] = {

@@ -36,6 +36,7 @@ RSpec.describe OutgoingTextMessage, type: :model do
         expect(message.errors).to include :client
         expect(message.errors).to include :sent_at
         expect(message.errors).to include :body
+        expect(message.errors).to include :to_phone_number
       end
     end
 
@@ -45,7 +46,8 @@ RSpec.describe OutgoingTextMessage, type: :model do
           user: create(:user),
           client: create(:client),
           body: "hi",
-          sent_at: DateTime.now
+          sent_at: DateTime.now,
+          to_phone_number: "+15005550006"
         )
       end
 
@@ -55,6 +57,42 @@ RSpec.describe OutgoingTextMessage, type: :model do
       end
     end
   end
+
+  describe "#to_phone_number" do
+    let(:outgoing_text_message) { build :outgoing_text_message, to_phone_number: input_number }
+    before { outgoing_text_message.valid? }
+
+    context "with e164" do
+      let(:input_number) { "+15005550006" }
+      it "is valid" do
+        expect(outgoing_text_message.errors).not_to include :to_phone_number
+      end
+    end
+
+    context "without a + but otherwise correct" do
+      let(:input_number) { "15005550006" }
+      it "is not valid" do
+        expect(outgoing_text_message.errors).to include :to_phone_number
+      end
+    end
+
+    context "without a +1 but otherwise correct" do
+      let(:input_number) { "5005550006" }
+
+      it "is not valid" do
+        expect(outgoing_text_message.errors).to include :to_phone_number
+      end
+    end
+
+    context "with any non-numeric characters" do
+      let(:input_number) { "+1500555-006" }
+
+      it "is not valid" do
+        expect(outgoing_text_message.errors).to include :to_phone_number
+      end
+    end
+  end
+
 
   describe "#formatted_time" do
     let(:message) { create :outgoing_text_message, sent_at: DateTime.new(2020, 2, 1, 2, 45, 1) }
