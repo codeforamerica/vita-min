@@ -14,7 +14,7 @@ class Signup < ApplicationRecord
   validates_presence_of :name
   validate :phone_number_or_email_address
   validates :zip_code, zip_code: true, allow_blank: true
-  validates :phone_number, phone: true, allow_blank: true, format: { with: /\+1[0-9]{10}/ }
+  validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
 
   private
 
