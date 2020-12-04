@@ -522,7 +522,7 @@ RSpec.describe Hub::ClientsController do
   describe "#update" do
     let(:client) { create :client, vita_partner: vita_partner }
 
-    let(:intake) { create :intake, client: client, dependents: [build(:dependent), build(:dependent)] }
+    let(:intake) { create :intake, :with_contact_info, client: client, dependents: [build(:dependent), build(:dependent)] }
     let(:first_dependent) { intake.dependents.first }
     let(:params) {
       {

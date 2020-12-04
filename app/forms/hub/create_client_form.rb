@@ -37,8 +37,11 @@ module Hub
                        :needs_help_2017,
                        :signature_method
     set_attributes_for :tax_return, :service_type
-    before_validation :normalize_phone_numbers
-
+    before_validation do
+      self.sms_phone_number = PhoneParser.normalize(sms_phone_number)
+      self.phone_number = PhoneParser.normalize(phone_number)
+      self.preferred_name = preferred_name.presence || "#{primary_first_name} #{primary_last_name}"
+    end
     attr_accessor :tax_returns, :tax_returns_attributes, :client, :intake
     validates :primary_first_name, presence: true, allow_blank: false
     validates :primary_last_name, presence: true, allow_blank: false
@@ -54,14 +57,6 @@ module Hub
     validate :at_least_one_tax_return_present
     validate :at_least_one_contact_method
 
-    def opted_in_sms?
-      attributes_for(:intake)[:sms_notification_opt_in] == "yes"
-    end
-
-    def opted_in_email?
-      attributes_for(:intake)[:email_notification_opt_in] == "yes"
-    end
-
     def initialize(attributes = {})
       @tax_returns = TaxReturn.filing_years.map { |year| TaxReturn.new(year: year) }
       super(attributes)
@@ -71,10 +66,7 @@ module Hub
       return false unless valid?
       vita_partner_id = attributes_for(:intake)[:vita_partner_id]
       ActiveRecord::Base.transaction do
-        @intake = Intake.create!(attributes_for(:intake).merge(
-                                   client: Client.create!(vita_partner_id: vita_partner_id),
-                                   preferred_name: calc_preferred_name
-                                 ))
+        @intake = Intake.create!(attributes_for(:intake).merge(client: Client.create!(vita_partner_id: vita_partner_id)))
         @tax_returns_attributes&.each do |_, v|
           intake.client.tax_returns.create(tax_return_defaults.merge(v)) if create_tax_return_for_year?(v[:year])
         end
@@ -86,11 +78,6 @@ module Hub
       params = CreateClientForm.attribute_names
       params.delete(:tax_returns_attributes)
       params.push(tax_returns_attributes: {})
-    end
-
-    def calc_preferred_name
-      attributes_for(:intake)[:preferred_name].presence ||
-        "#{attributes_for(:intake)[:primary_first_name]} #{attributes_for(:intake)[:primary_last_name]}"
     end
 
     private
@@ -117,17 +104,20 @@ module Hub
       end
     end
 
+    def opted_in_sms?
+      sms_notification_opt_in == "yes"
+    end
+
+    def opted_in_email?
+      email_notification_opt_in == "yes"
+    end
+
     def at_least_one_tax_return_present
       tax_return_count = 0
       @tax_returns_attributes&.each do |_, v|
         tax_return_count += 1 if create_tax_return_for_year?(v[:year])
       end
       errors.add(:tax_returns_attributes, I18n.t("forms.errors.at_least_one_year")) unless tax_return_count.positive?
-    end
-
-    def normalize_phone_numbers
-      self.phone_number = PhoneParser.normalize(phone_number) if phone_number.present?
-      self.sms_phone_number = PhoneParser.normalize(sms_phone_number) if sms_phone_number.present?
     end
 
     def at_least_one_contact_method

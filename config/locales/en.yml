@@ -26,7 +26,7 @@ en:
         legal_first_name: Legal first name
         legal_last_name: Legal last name
         mailing_address: Mailing Address
-        preferred_name: Preferred name
+        preferred_name: Preferred full name
         filing_information: Filing Information
         preferred_interview_language: Preferred language
         primary_contact_info: Primary Contact Info

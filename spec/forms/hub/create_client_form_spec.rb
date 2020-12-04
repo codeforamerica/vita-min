@@ -225,11 +225,11 @@ RSpec.describe Hub::CreateClientForm do
             params[:sms_notification_opt_in] = "yes"
           end
 
-          it "is valid" do
+          it "is not valid" do
             expect(described_class.new(params).valid?).to eq false
           end
 
-          it "pushes errors for vita_partner_id into the errors" do
+          it "pushes errors for sms_phone_number into the errors" do
             obj = described_class.new(params)
             obj.valid?
             expect(obj.errors[:sms_phone_number]).to include "Can't be blank."
@@ -247,7 +247,7 @@ RSpec.describe Hub::CreateClientForm do
             expect(described_class.new(params).valid?).to eq false
           end
 
-          it "pushes errors for vita_partner_id into the errors" do
+          it "pushes errors for email_address into the errors" do
             obj = described_class.new(params)
             obj.valid?
             expect(obj.errors[:email_address]).to eq ["Please enter a valid email address."]

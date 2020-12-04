@@ -22,7 +22,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within "#primary-info" do
         expect(find_field("hub_client_intake_form_primary_first_name").value).to eq "Colleen"
         expect(find_field("hub_client_intake_form_primary_last_name").value).to eq "Cauliflower"
-        fill_in "Preferred name", with: "Colly Cauliflower"
+        fill_in "Preferred full name", with: "Colly Cauliflower"
         select "Mandarin", from: "Preferred language"
         check "Married"
         check "Separated"
