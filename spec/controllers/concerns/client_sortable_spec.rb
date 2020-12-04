@@ -33,6 +33,17 @@ RSpec.describe ClientSortable, type: :controller do
         expect(Intake).to have_received(:search).with "que"
         expect(clients_query_double).to have_received(:where).with(intake: intakes_query_double)
       end
+
+      context "with a phone number in the search query" do
+        let(:params) do
+          { search: "colleen 415555(1212)" }
+        end
+
+        it "normalizes the number before passing it to Intake#search" do
+          expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+          expect(Intake).to have_received(:search).with "colleen +14155551212"
+        end
+      end
     end
 
     context "with a 'search' param and additional filters" do

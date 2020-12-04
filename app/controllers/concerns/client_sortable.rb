@@ -14,12 +14,28 @@ module ClientSortable
 
   private
 
+  def normalized_search_query(query)
+    return nil if query.nil?
+
+    query.split(" ").map do |word|
+      has_only_phone_number_characters = word.match(/^+?1?[0-9()-.].*$/)
+      starts_with_one = (word[0] == "1")
+      phone_number_component = starts_with_one ? word[1...] : word
+      number_count = phone_number_component.scan(/[0-9]/).count
+      if has_only_phone_number_characters && number_count == 10
+        PhoneParser.normalize(word)
+      else
+        word
+      end
+    end.join(" ")
+  end
+
   def setup_sortable_client
     reset_filter_params if params[:clear]
     @sort_column = clients_sort_column
     @sort_order = clients_sort_order
     @filters = {
-      search: params[:search],
+      search: normalized_search_query(params[:search]),
       status: status_filter,
       stage: stage_filter,
       assigned_to_me: params[:assigned_to_me],
