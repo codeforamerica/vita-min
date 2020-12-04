@@ -19,7 +19,7 @@ module ClientSortable
     @sort_column = clients_sort_column
     @sort_order = clients_sort_order
     @filters = {
-      search: params[:search],
+      search: normalize_phone_number_if_present(params[:search]),
       status: status_filter,
       stage: stage_filter,
       assigned_to_me: params[:assigned_to_me],
@@ -60,5 +60,18 @@ module ClientSortable
     val.push(current_user.id) if @filters[:assigned_to_me].present? || @always_current_user_assigned
     val.push(nil) if @filters[:unassigned].present?
     val
+  end
+
+  def normalize_phone_number_if_present(full_query)
+    return if full_query.nil?
+
+    # Regex tested at https://regex101.com/r/4C0dgE/3
+    phone_match = full_query.match(/ ?(?<phone>\(?(\d[ \.\(\)-]{0,2}){10,11})/)
+    if phone_match.present?
+      phone_numberish_substring = phone_match["phone"]
+      full_query = full_query.sub(phone_numberish_substring, PhoneParser.normalize(phone_numberish_substring))
+    end
+
+    full_query
   end
 end
