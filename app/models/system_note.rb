@@ -37,4 +37,19 @@ class SystemNote < ApplicationRecord
       user: user
     )
   end
+
+  def self.create_client_change_note(user, intake)
+    old_first_name, new_first_name = intake.saved_change_to_primary_first_name
+    text = ""
+
+    changes = intake.changes.each do |k, v|
+
+    end
+
+    SystemNote.create(
+        body: "#{user.name} changed first name from #{old_first_name} to #{new_first_name} at #{DateTime.now.strftime("%l:%M %p #{DateTime.now.zone}").strip}",
+        client: intake.client,
+        user: user
+    )
+  end
 end

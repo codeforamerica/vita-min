@@ -522,7 +522,7 @@ RSpec.describe Hub::ClientsController do
   describe "#update" do
     let(:client) { create :client, vita_partner: vita_partner }
 
-    let(:intake) { create :intake, client: client, dependents: [build(:dependent), build(:dependent)] }
+    let!(:intake) { create :intake, :with_contact_info, client: client, dependents: [build(:dependent), build(:dependent)] }
     let(:first_dependent) { intake.dependents.first }
     let(:params) {
       {
@@ -572,8 +572,12 @@ RSpec.describe Hub::ClientsController do
         sign_in user
       end
 
-      it "updates the clients intake" do
+      it "updates the clients intake and creates a system note" do
+        old_first_name = intake.primary_first_name
+        new_first_name = params[:hub_client_intake_form][:primary_first_name]
+
         post :update, params: params
+
         client.reload
         expect(client.intake.primary_first_name).to eq "Updated"
         expect(client.legal_name).to eq "Updated Name"
@@ -583,6 +587,7 @@ RSpec.describe Hub::ClientsController do
         expect(first_dependent.first_name).to eq "Updated Dependent"
         expect(client.intake.dependents.count).to eq 2
         expect(response).to redirect_to hub_client_path(id: client.id)
+        expect(SystemNote).to receive(:create_client_change_note).with(user, old_first_name, new_first_name)
       end
 
       context "with invalid params" do

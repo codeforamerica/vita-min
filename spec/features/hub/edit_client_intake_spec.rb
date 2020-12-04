@@ -125,5 +125,22 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "Peter Pepper"
       expect(page).to have_text "spicypeter@pepper.com"
     end
+
+    it "creates a system note for client profile change" do
+      visit hub_client_path(id: client.id)
+      within ".client-profile" do
+        click_on "Edit"
+      end
+
+      within "#primary-info" do
+        fill_in "Preferred name", with: "Colly Cauliflower"
+      end
+
+      click_on "Save"
+
+      click_on "Notes"
+
+      expect(page).to have_text "#{user.name} changed preferred name from Colleen Cauliflower to Colly Cauliflower at #{DateTime.now.strftime("%l:%M %p #{DateTime.now.zone}").strip}"
+    end
   end
 end

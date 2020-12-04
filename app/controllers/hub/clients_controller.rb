@@ -36,8 +36,11 @@ module Hub
 
     def update
       @form = ClientIntakeForm.new(@client.intake, client_intake_form_params)
+      old_first_name = @client.intake.primary_first_name
+      new_first_name = client_intake_form_params["primary_first_name"]
 
       if @form.valid? && @form.save
+        SystemNote.create_client_change_note(current_user, old_first_name, new_first_name)
         redirect_to hub_client_path(id: @client.id)
       else
         flash[:warning] = @form.errors[:dependents_attributes].join("") if @form.errors[:dependents_attributes].present?
