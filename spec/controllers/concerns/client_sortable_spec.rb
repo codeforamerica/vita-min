@@ -68,5 +68,51 @@ RSpec.describe ClientSortable, type: :controller do
         expect(assigns(:filters).values.compact).to be_empty
       end
     end
+
+    context "searching for phone numbers" do
+      before { subject.filtered_and_sorted_clients }
+
+      context "with a simple phone number digit-only search" do
+        let(:params) { { search: "4155551212" } }
+
+        it "normalizes the number before passing it to Intake#search" do
+          expect(Intake).to have_received(:search).with "+14155551212"
+        end
+      end
+
+      context "with a phone number in a common local format" do
+        let(:params) { { search: "(415) 555-1212" } }
+
+        it "normalizes the number before passing it to Intake#search" do
+          expect(Intake).to have_received(:search).with "+14155551212"
+        end
+      end
+
+      context "with a phone number in an unofficial but commonly entered format" do
+        let(:params) { { search: "415.555.1212" } }
+
+        it "normalizes the number before passing it to Intake#search" do
+          expect(Intake).to have_received(:search).with "+14155551212"
+        end
+      end
+
+      context "with the last seven digits of a phone number" do
+        let(:params) { { search: "555-1212" } }
+
+        it "passes the number to search with no normalization" do
+          expect(Intake).to have_received(:search).with "555-1212"
+        end
+      end
+
+      context "with a phone number and another field in the search query" do
+        let(:params) do
+          { search: "colleen 415555(1212)" }
+        end
+
+        it "normalizes the number before passing it to Intake#search" do
+          expect(Intake).to have_received(:search).with "colleen +14155551212"
+        end
+      end
+    end
   end
 end
