@@ -24,9 +24,8 @@ class IncomingTextMessage < ApplicationRecord
 
   belongs_to :client
   has_many :documents, as: :contact_record
-
   validates_presence_of :received_at, :body
-  validates :from_phone_number, presence: true, phone: true, format: { with: /\+1[0-9]{10}/ }
+  validates :from_phone_number, presence: true, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
 
   after_create :record_incoming_interaction
 
