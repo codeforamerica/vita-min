@@ -29,6 +29,9 @@
         <th scope="col" class="index-table__header">
           <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
         </th>
+        <th scope="col" class="index-table__header">
+          <%= render "shared/column_sort_link", title: t("general.state"), column_name: "state" %>
+        </th>
         <th scope="col" class="index-table__header" style="width: 35%"><%= t(".filing_year") %>, <%= t("general.assignee") %>, <%= t("general.certification") %>, <%= t("general.status") %></th>
       </tr>
     </thead>
@@ -48,6 +51,7 @@
           <td class="index-table__cell"><%= client.vita_partner&.display_name || t("general.none")  %></td>
           <td class="index-table__cell"><%= client.intake&.locale ? t("general.language_options.#{client.intake&.locale}") : "N/A" %></td>
           <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
+          <td class="index-table__cell"><%= client.intake.state_of_residence %></td>
           <td class="index-table__cell">
             <%= render "shared/tax_return_list", client: client %>
           </td>

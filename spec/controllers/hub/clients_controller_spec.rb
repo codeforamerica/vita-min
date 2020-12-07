@@ -221,9 +221,9 @@ RSpec.describe Hub::ClientsController do
         let!(:george_sr) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
         let!(:george_sr_2019_return) { create :tax_return, client: george_sr, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:george_sr_2018_return) { create :tax_return, client: george_sr, year: 2018, assigned_user: assigned_user, status: "intake_open" }
-        let!(:michael) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes") }
+        let!(:michael) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes", state_of_residence: nil) }
         let!(:michael_2019_return) { create :tax_return, client: michael, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
-        let!(:tobias) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es") }
+        let!(:tobias) { create :client, vita_partner: vita_partner, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es", state_of_residence: "TX") }
         let(:assigned_user) { create :user, name: "Lindsay", vita_partner: vita_partner }
         let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
@@ -251,6 +251,7 @@ RSpec.describe Hub::ClientsController do
           expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("Intake")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("In progress")
+          expect(html.at_css("#client-#{tobias.id}")).to have_text("TX")
         end
 
         it "shows all returns for a client and users assigned to those returns" do
