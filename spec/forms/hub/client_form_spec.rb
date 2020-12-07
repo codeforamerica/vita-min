@@ -15,6 +15,36 @@ RSpec.describe Hub::ClientForm do
       end
     end
 
+    describe "#state_of_residence" do
+      context "when not provided" do
+        before do
+          form_attributes[:state_of_residence] = nil
+        end
+
+        it "is not valid" do
+          expect(described_class.new(form_attributes).valid?).to eq false
+        end
+
+        it "adds an error to the attribute" do
+          obj = described_class.new(form_attributes)
+          obj.valid?
+          expect(obj.errors[:state_of_residence]).to eq ["Please select a state from the list."]
+        end
+      end
+
+      context "when not in list of US States/territories" do
+        before do
+          form_attributes[:state_of_residence] = "France"
+        end
+
+        it "adds an error to the attribute" do
+          obj = described_class.new(form_attributes)
+          obj.valid?
+          expect(obj.errors[:state_of_residence]).to eq ["Please select a state from the list."]
+        end
+      end
+    end
+
     describe "#primary_last_name" do
       before do
         form_attributes[:primary_last_name] = nil

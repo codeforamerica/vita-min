@@ -319,6 +319,7 @@ en:
       tax_returns_attributes:
         is_hsa: is HSA
         certification_level: certification level
+      general: Please fix indicated errors before continuing.
   general:
     at_time: at %{time}
     NA: N/A

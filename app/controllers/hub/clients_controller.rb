@@ -24,6 +24,7 @@ module Hub
         flash[:notice] = I18n.t("hub.clients.create.success_message")
         redirect_to hub_client_path(id: @form.client)
       else
+        flash[:alert] = I18n.t("forms.errors.general")
         render :new
       end
     end
@@ -31,7 +32,7 @@ module Hub
     def show; end
 
     def edit
-      @form = UpdateClientForm.from_client(@client.intake)
+      @form = UpdateClientForm.from_client(@client)
     end
 
     def update
@@ -41,7 +42,7 @@ module Hub
         SystemNote.create_client_change_note(current_user, @client.intake)
         redirect_to hub_client_path(id: @client.id)
       else
-        flash[:warning] = @form.errors[:dependents_attributes].join("") if @form.errors[:dependents_attributes].present?
+        flash[:alert] = I18n.t("forms.errors.general")
         render :edit
       end
     end

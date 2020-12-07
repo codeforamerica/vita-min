@@ -79,6 +79,12 @@ RSpec.describe Hub::CreateClientForm do
         expect(client.vita_partner).to eq vita_partner
       end
 
+      it "assigns client to an instance on the form object" do
+        form = described_class.new(params)
+        form.save
+        expect(form.client).to eq Client.last
+      end
+
       it "creates an intake" do
         expect do
           described_class.new(params).save
@@ -142,36 +148,6 @@ RSpec.describe Hub::CreateClientForm do
           obj = described_class.new(params)
           obj.valid?
           expect(obj.errors[:signature_method]).to include "Can't be blank."
-        end
-      end
-
-      context "state_of_residence" do
-        context "when not provided" do
-          before do
-            params[:state_of_residence] = nil
-          end
-
-          it "is not valid" do
-            expect(described_class.new(params).valid?).to eq false
-          end
-
-          it "adds an error to the attribute" do
-            obj = described_class.new(params)
-            obj.valid?
-            expect(obj.errors[:state_of_residence]).to eq ["Please select a state from the list."]
-          end
-        end
-
-        context "when not in list of US States/territories" do
-          before do
-            params[:state_of_residence] = "France"
-          end
-
-          it "adds an error to the attribute" do
-            obj = described_class.new(params)
-            obj.valid?
-            expect(obj.errors[:state_of_residence]).to eq ["Please select a state from the list."]
-          end
         end
       end
 

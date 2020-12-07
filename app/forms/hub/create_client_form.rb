@@ -39,10 +39,9 @@ module Hub
     set_attributes_for :tax_return, :service_type
     attr_accessor :tax_returns, :tax_returns_attributes, :client, :intake
 
-    # Additional validations inherited from parent ClientForm
+    # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
     validates :signature_method, presence: true
-    validates :state_of_residence, inclusion: { in: States.keys }
     validate :tax_return_required_fields_valid
     validate :at_least_one_tax_return_present
 
@@ -54,7 +53,7 @@ module Hub
     def save
       return false unless valid?
 
-      Client.create(
+      @client = Client.create(
         vita_partner_id: attributes_for(:intake)[:vita_partner_id],
         intake_attributes: attributes_for(:intake),
         tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
@@ -92,26 +91,12 @@ module Hub
       end
     end
 
-    def opted_in_sms?
-      sms_notification_opt_in == "yes"
-    end
-
-    def opted_in_email?
-      email_notification_opt_in == "yes"
-    end
-
     def at_least_one_tax_return_present
       tax_return_count = 0
       @tax_returns_attributes&.each do |_, v|
         tax_return_count += 1 if create_tax_return_for_year?(v[:year])
       end
       errors.add(:tax_returns_attributes, I18n.t("forms.errors.at_least_one_year")) unless tax_return_count.positive?
-    end
-
-    def at_least_one_contact_method
-      unless opted_in_email? || opted_in_sms?
-        errors.add(:communication_preference, I18n.t("forms.errors.need_one_communication_method"))
-      end
     end
   end
 end

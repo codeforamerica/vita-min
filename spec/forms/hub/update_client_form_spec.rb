@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Hub::UpdateClientForm do
-  describe ".save" do
+  describe "#save" do
     let(:intake) {
       create :intake,
              :with_contact_info,
@@ -53,59 +53,6 @@ RSpec.describe Hub::UpdateClientForm do
               }
           }
       }
-    end
-
-    context "with invalid form attributes" do
-      context "state_of_residence" do
-        context "when state_of_residence is not provided" do
-          before do
-            form_attributes[:state_of_residence] = ""
-          end
-
-          it "is valid" do
-            expect(described_class.new(client, form_attributes).valid?).to eq true
-          end
-        end
-
-        context "when state_of_residence is not in list" do
-          before do
-            form_attributes[:state_of_residence] = "France"
-          end
-
-          it "adds an error to the attribute" do
-            form = described_class.new(client, form_attributes)
-            form.valid?
-            expect(form.errors[:state_of_residence]).to eq ["Please select a state from the list."]
-          end
-        end
-      end
-    end
-
-    context "preferred name" do
-      context "when blank" do
-        before do
-          intake.update(preferred_name: "")
-          form_attributes[:preferred_name] = nil
-        end
-
-        it "uses legal name to create preferred name" do
-          described_class.new(client, form_attributes).save
-          expect(Client.last.preferred_name).to eq form_attributes[:primary_first_name] + " " + form_attributes[:primary_last_name]
-        end
-      end
-
-      context "when present" do
-        before do
-          form_attributes[:preferred_name] = "Preferred Name"
-        end
-
-        it "uses provided name to create preferred name" do
-          form = described_class.new(client, form_attributes)
-          form.save
-          expect(form.errors).to be_blank
-          expect(Client.last.preferred_name).to eq "Preferred Name"
-        end
-      end
     end
 
     context "adding/updating dependents" do

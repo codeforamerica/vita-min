@@ -32,10 +32,6 @@ module Hub
                        :state_of_residence
     attr_accessor :dependents_attributes
 
-    # Historical intakes don't always have state_of_residence set, which indicates we may not ask about it
-    #   in traditional flow. Holding off on requiring during update until we explicitly always require it.
-    validates :state_of_residence, allow_blank: true, inclusion: { in: States.keys }
-    validate :at_least_one_contact_method
     validate :dependents_attributes_required_fields
 
     def initialize(client, params = {})
@@ -51,24 +47,24 @@ module Hub
         next if v["_destroy"] == "1"
 
         v.delete :_destroy # delete falsey _destroy value on reload to initialize dependent again
-        @intake.dependents.new formatted_dependent_attrs(v)
+        @client.intake.dependents.new formatted_dependent_attrs(v)
       end
-      @intake.dependents
+      @client.intake.dependents
     end
 
     def self.from_client(client)
       intake = client.intake
       attribute_keys = Attributes.new(attribute_names).to_sym
-      new(intake, existing_attributes(intake).slice(*attribute_keys))
+      new(client, existing_attributes(intake).slice(*attribute_keys))
     end
 
     def save
       return false unless valid?
 
-      @dependents_attributes&.map do |k, v|
+      formatted_dependents_attributes = @dependents_attributes&.each do |k, v|
         { k => formatted_dependent_attrs(v) }
       end
-      @client.intake.update(attributes_for(:intake).merge(dependents_attributes: @dependents_attributes))
+      @client.intake.update(attributes_for(:intake).merge(dependents_attributes: formatted_dependents_attributes))
     end
 
     def self.permitted_params
@@ -92,19 +88,6 @@ module Hub
       if empty_fields.present?
         error_message = I18n.t("forms.errors.dependents", attrs: empty_fields.uniq.map { |field| I18n.t("forms.errors.dependents_attributes.#{field}") }.join(", "))
         errors.add(:dependents_attributes, error_message)
-      end
-    end
-
-    def parse_phone_numbers
-      phone_number_attrs = [:phone_number, :sms_phone_number]
-      phone_number_attrs.each do |attr|
-        value = send(attr)
-        next unless value.present?
-
-        unless value[0] == "1" || value[0..1] == "+1"
-          value = "1#{value}"
-        end
-        send("#{attr}=", Phonelib.parse(value).sanitized)
       end
     end
 
