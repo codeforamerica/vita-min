@@ -1320,6 +1320,8 @@ describe Intake do
     before do
       example_pdf = Tempfile.new("example.pdf")
       example_pdf.write("example pdf contents")
+      allow(intake).to receive(:create_original_13614c_document).and_call_original
+
       allow(intake).to receive(:pdf).and_return(example_pdf)
     end
     it "should create a new document pdf of original 13614-C answers" do
