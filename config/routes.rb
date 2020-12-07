@@ -125,7 +125,7 @@ Rails.application.routes.draw do
         resources :outgoing_emails, only: [:create]
         resources :tax_returns, only: [:edit, :update]
         member do
-          patch "response_needed"
+          patch "attention_needed"
           get "edit_take_action"
           post "update_take_action"
         end

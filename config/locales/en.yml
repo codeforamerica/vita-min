@@ -68,13 +68,13 @@ en:
         clear_filters: Clear filters
         filter: Apply
         filing_year: Filing Year
-        needs_response_heading: Needs Response?
+        needs_attention_heading: Needs attention?
         title: All clients
         no_clients: No clients assigned.
         no_filtered_clients: No clients match selected filters.
         assigned_to_me: Assigned to me
         unassigned: Unassigned
-        needs_response: Needs response
+        needs_attention: Needs attention
         stage_status: Tax return stage/status
       navigation:
         client_documents: Documents
@@ -387,8 +387,8 @@ en:
     lived_with_spouse: Lived with spouse
     married: Married
     name: Name
-    mark_for_response: Mark as needs response
-    needs_response: Needs Response
+    mark_for_attention: Mark as needs attention
+    needs_attention: Needs attention
     negative: 'No'
     next: Next
     no_intake: No intake for client

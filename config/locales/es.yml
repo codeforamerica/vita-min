@@ -52,13 +52,13 @@ es:
         filter: Aplicar
         client_id_heading: Cliente ID
         filing_year: Año para declarar
-        needs_response_heading: Necesita respuesta?
+        needs_attention_heading: Necesita attentión?
         title: Todos clientes
         no_clients: No hay clientes asignadas.
         no_filtered_clients: Ninguna cliente coincide con los filtros seleccionados.
         assigned_to_me: Asignado a mí
         unassigned: No asignado
-        needs_response: Necesita respuesta
+        needs_attention: Necesita attentión
         stage_status: Estado/etapa de declaración de impuestos
       navigation:
         client_documents: Documentos
@@ -387,8 +387,8 @@ es:
     lived_with_spouse: Vivieron con su cónyuge
     married: Casado
     name: Nombre
-    mark_for_response: Marcar como necesita respuesta
-    needs_response: Marcar como necesita respuesta
+    mark_for_attention: Marcar como necesita attentión
+    needs_attention: Necesita attentión
     negative: 'No'
     next: Próximo
     no_intake: Sin ingesta

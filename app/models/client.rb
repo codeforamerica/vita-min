@@ -3,9 +3,9 @@
 # Table name: clients
 #
 #  id                           :bigint           not null, primary key
+#  attention_needed_since       :datetime
 #  last_incoming_interaction_at :datetime
 #  last_interaction_at          :datetime
-#  response_needed_since        :datetime
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  vita_partner_id              :bigint
@@ -55,12 +55,12 @@ class Client < ApplicationRecord
     "#{intake.primary_first_name} #{intake.primary_last_name}"
   end
 
-  def clear_response_needed
-    update(response_needed_since: nil)
+  def clear_attention_needed
+    update(attention_needed_since: nil)
   end
 
-  def needs_response?
-    response_needed_since.present?
+  def needs_attention?
+    attention_needed_since.present?
   end
 
   def destroy_completely
