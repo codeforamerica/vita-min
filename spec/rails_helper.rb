@@ -92,6 +92,8 @@ RSpec.configure do |config|
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
     allow(EnvironmentCredentials).to receive(:dig).and_call_original
     allow(EnvironmentCredentials).to receive(:dig).with(:db_encryption_key).and_return('any-32-character-string-here!!!!')
+
+    allow_any_instance_of(Intake).to receive(:create_original_13614c_document)
   end
 
 end
