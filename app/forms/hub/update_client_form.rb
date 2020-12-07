@@ -1,5 +1,5 @@
 module Hub
-  class ClientIntakeForm < Form
+  class UpdateClientForm < ClientForm
     include FormAttributes
     set_attributes_for :intake,
                        :primary_first_name,
@@ -31,23 +31,15 @@ module Hub
                        :timezone,
                        :state_of_residence
     attr_accessor :dependents_attributes
-    before_validation do
-      self.sms_phone_number = PhoneParser.normalize(sms_phone_number)
-      self.phone_number = PhoneParser.normalize(phone_number)
-    end
-    validates :primary_first_name, presence: true, allow_blank: false
-    validates :primary_last_name, presence: true, allow_blank: false
-    validates :sms_phone_number, phone: true, if: -> { sms_phone_number.present? }
-    validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
-    validates :email_address, presence: true, allow_blank: false, 'valid_email_2/email': true
+
     # Historical intakes don't always have state_of_residence set, which indicates we may not ask about it
     #   in traditional flow. Holding off on requiring during update until we explicitly always require it.
     validates :state_of_residence, allow_blank: true, inclusion: { in: States.keys }
     validate :at_least_one_contact_method
     validate :dependents_attributes_required_fields
 
-    def initialize(intake, params = {})
-      @intake = intake
+    def initialize(client, params = {})
+      @client = client
       @dependents_attributes ||= []
       super(params)
       # parent Form class creates setters for each attribute -- won't work til super is called!
@@ -64,35 +56,28 @@ module Hub
       @intake.dependents
     end
 
-    def self.from_intake(intake)
+    def self.from_client(client)
+      intake = client.intake
       attribute_keys = Attributes.new(attribute_names).to_sym
       new(intake, existing_attributes(intake).slice(*attribute_keys))
     end
 
     def save
       return false unless valid?
+
       @dependents_attributes&.map do |k, v|
         { k => formatted_dependent_attrs(v) }
       end
-      @intake.update(attributes_for(:intake).merge(dependents_attributes: @dependents_attributes))
+      @client.intake.update(attributes_for(:intake).merge(dependents_attributes: @dependents_attributes))
     end
 
     def self.permitted_params
-      client_intake_attributes = ClientIntakeForm.attribute_names
+      client_intake_attributes = attribute_names
       client_intake_attributes.delete(:dependents_attributes)
       client_intake_attributes.push({ dependents_attributes: {} })
-      client_intake_attributes
     end
 
     private
-
-    def opted_in_sms?
-      sms_notification_opt_in == "yes"
-    end
-
-    def opted_in_email?
-      email_notification_opt_in == "yes"
-    end
 
     def dependents_attributes_required_fields
       empty_fields = []
@@ -128,12 +113,6 @@ module Hub
         attrs[:birth_date] = "#{attrs[:birth_date_year]}-#{attrs[:birth_date_month]}-#{attrs[:birth_date_day]}"
       end
       attrs.except!(:birth_date_month, :birth_date_day, :birth_date_year)
-    end
-
-    def at_least_one_contact_method
-      unless email_notification_opt_in == "yes" || sms_notification_opt_in == "yes"
-        errors.add(:communication_preference, I18n.t("forms.errors.need_one_communication_method"))
-      end
     end
   end
 end

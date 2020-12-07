@@ -69,6 +69,7 @@ RSpec.describe Hub::CreateClientForm do
           }
       }
     end
+
     context "with valid params and context" do
       it "creates a client" do
         expect do
@@ -112,38 +113,6 @@ RSpec.describe Hub::CreateClientForm do
     end
 
     context "with invalid params" do
-      context "primary_first_name" do
-        before do
-          params[:primary_first_name] = nil
-        end
-
-        it "is not valid" do
-          expect(described_class.new(params).valid?).to eq false
-        end
-
-        it "pushes errors for primary_first_name into the errors" do
-          obj = described_class.new(params)
-          obj.valid?
-          expect(obj.errors[:primary_first_name]).to eq ["Please enter your first name."]
-        end
-      end
-
-      context "primary_last_name" do
-        before do
-          params[:primary_last_name] = nil
-        end
-
-        it "is not valid" do
-          expect(described_class.new(params).valid?).to eq false
-        end
-
-        it "pushes errors for attribute into the errors" do
-          obj = described_class.new(params)
-          obj.valid?
-          expect(obj.errors[:primary_last_name]).to eq ["Please enter your last name."]
-        end
-      end
-
       context "vita_partner_id" do
         before do
           params[:vita_partner_id] = nil
@@ -157,112 +126,6 @@ RSpec.describe Hub::CreateClientForm do
           obj = described_class.new(params)
           obj.valid?
           expect(obj.errors[:vita_partner_id]).to eq ["Can't be blank."]
-        end
-      end
-
-      context "phone_number" do
-        context "when provided but not a valid phone number" do
-          before do
-            params[:phone_number] = "1"
-          end
-
-          it "is not valid" do
-            expect(described_class.new(params).valid?).to eq false
-          end
-
-          it "pushes errors for attribute into the errors" do
-            obj = described_class.new(params)
-            obj.valid?
-            expect(obj.errors[:phone_number]).to eq ["Please enter a valid phone number."]
-          end
-        end
-
-        context "when not provided" do
-          before do
-            params[:phone_number] = ""
-          end
-
-          it "is not required" do
-            expect(described_class.new(params).valid?).to eq true
-          end
-        end
-      end
-
-      context "sms_phone_number" do
-        context "when provided but not valid" do
-          before do
-            params[:sms_phone_number] = "1"
-          end
-
-          it "is not valid" do
-            expect(described_class.new(params).valid?).to eq false
-          end
-
-          it "pushes errors for attribute into the errors" do
-            obj = described_class.new(params)
-            obj.valid?
-            expect(obj.errors[:sms_phone_number]).to eq ["Please enter a valid phone number."]
-          end
-        end
-
-        context "when not provided and no text opt in" do
-          before do
-            params[:sms_phone_number] = nil
-            params[:sms_notification_opt_in] = "no"
-            params[:email_notification_opt_in] = "yes"
-          end
-
-          it "is valid" do
-            a = described_class.new(params)
-            a.valid?
-            expect(described_class.new(params).valid?).to eq true
-          end
-        end
-
-        context "when not provided and texting opt in" do
-          before do
-            params[:sms_phone_number] = nil
-            params[:sms_notification_opt_in] = "yes"
-          end
-
-          it "is not valid" do
-            expect(described_class.new(params).valid?).to eq false
-          end
-
-          it "pushes errors for sms_phone_number into the errors" do
-            obj = described_class.new(params)
-            obj.valid?
-            expect(obj.errors[:sms_phone_number]).to include "Can't be blank."
-          end
-        end
-      end
-
-      context "email_address" do
-        context "when provided but not valid" do
-          before do
-            params[:email_address] = "not_valid!!"
-          end
-
-          it "is not valid" do
-            expect(described_class.new(params).valid?).to eq false
-          end
-
-          it "pushes errors for email_address into the errors" do
-            obj = described_class.new(params)
-            obj.valid?
-            expect(obj.errors[:email_address]).to eq ["Please enter a valid email address."]
-          end
-        end
-
-        context "when not provided" do
-          before do
-            params[:email_address] = nil
-            params[:email_notification_opt_in] = "no"
-          end
-
-          it "is not valid" do
-            expect(described_class.new(params).valid?).to eq false
-          end
         end
       end
 
@@ -282,32 +145,8 @@ RSpec.describe Hub::CreateClientForm do
         end
       end
 
-      context "preferred name" do
-        context "when blank" do
-          before do
-            params["preferred_name"] = nil
-          end
-
-          it "uses legal name to create preferred name" do
-            described_class.new(params).save
-            expect(Client.last.preferred_name).to eq params[:primary_first_name] + " " + params[:primary_last_name]
-          end
-        end
-
-        context "when present" do
-          before do
-            params["preferred_name"] = "Preferred Name"
-          end
-
-          it "uses provided name to create preferred name" do
-            described_class.new(params).save
-            expect(Client.last.preferred_name).to eq "Preferred Name"
-          end
-        end
-      end
-
       context "state_of_residence" do
-        context "when state_of_residence is not provided" do
+        context "when not provided" do
           before do
             params[:state_of_residence] = nil
           end
@@ -323,7 +162,7 @@ RSpec.describe Hub::CreateClientForm do
           end
         end
 
-        context "when state_of_residence is not in list" do
+        context "when not in list of US States/territories" do
           before do
             params[:state_of_residence] = "France"
           end
@@ -371,31 +210,6 @@ RSpec.describe Hub::CreateClientForm do
           obj = described_class.new(params)
           obj.valid?
           expect(obj.errors[:tax_returns_attributes]).to include "Please pick at least one year."
-        end
-      end
-
-      context "when no communication preference is specified" do
-        before do
-          params[:email_notification_opt_in] = "no"
-          params[:sms_notification_opt_in] = "no"
-        end
-
-        it "pushes an attribute error" do
-          obj = described_class.new(params)
-          expect(obj.valid?).to be false
-          expect(obj.errors[:communication_preference]).to include "Please choose some way for us to contact you."
-        end
-      end
-
-      context "preferred_interview_language" do
-        before do
-          params[:preferred_interview_language] = ""
-        end
-
-        it "pushes an attribute error" do
-          obj = described_class.new(params)
-          expect(obj.valid?).to be false
-          expect(obj.errors[:preferred_interview_language]).to include "Can't be blank."
         end
       end
     end

@@ -1,5 +1,5 @@
 module Hub
-  class CreateClientForm < Form
+  class CreateClientForm < ClientForm
     include FormAttributes
     set_attributes_for :intake,
                        :primary_first_name,
@@ -37,25 +37,14 @@ module Hub
                        :needs_help_2017,
                        :signature_method
     set_attributes_for :tax_return, :service_type
-    before_validation do
-      self.sms_phone_number = PhoneParser.normalize(sms_phone_number)
-      self.phone_number = PhoneParser.normalize(phone_number)
-      self.preferred_name = preferred_name.presence || "#{primary_first_name} #{primary_last_name}"
-    end
     attr_accessor :tax_returns, :tax_returns_attributes, :client, :intake
-    validates :primary_first_name, presence: true, allow_blank: false
-    validates :primary_last_name, presence: true, allow_blank: false
+
+    # Additional validations inherited from parent ClientForm
     validates :vita_partner_id, presence: true, allow_blank: false
-    validates :phone_number, allow_blank: true, phone: true
-    validates :sms_phone_number, phone: true, if: -> { sms_phone_number.present? }
-    validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
-    validates :email_address, presence: true, allow_blank: false, 'valid_email_2/email': true
-    validates :preferred_interview_language, presence: true, allow_blank: false
     validates :signature_method, presence: true
     validates :state_of_residence, inclusion: { in: States.keys }
     validate :tax_return_required_fields_valid
     validate :at_least_one_tax_return_present
-    validate :at_least_one_contact_method
 
     def initialize(attributes = {})
       @tax_returns = TaxReturn.filing_years.map { |year| TaxReturn.new(year: year) }
@@ -64,14 +53,12 @@ module Hub
 
     def save
       return false unless valid?
-      vita_partner_id = attributes_for(:intake)[:vita_partner_id]
-      ActiveRecord::Base.transaction do
-        @intake = Intake.create!(attributes_for(:intake).merge(client: Client.create!(vita_partner_id: vita_partner_id)))
-        @tax_returns_attributes&.each do |_, v|
-          intake.client.tax_returns.create(tax_return_defaults.merge(v)) if create_tax_return_for_year?(v[:year])
-        end
-      end
-      @client = @intake.client
+
+      Client.create(
+        vita_partner_id: attributes_for(:intake)[:vita_partner_id],
+        intake_attributes: attributes_for(:intake),
+        tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
+      )
     end
 
     def self.permitted_params
@@ -95,6 +82,7 @@ module Hub
       missing_attrs = []
       @tax_returns_attributes&.each do |_, v|
         next unless create_tax_return_for_year?(v[:year])
+
         values = HashWithIndifferentAccess.new(v)
         required_attrs.each { |attr| missing_attrs.push(attr) if values[attr].blank? }
       end

@@ -29,6 +29,8 @@ class Client < ApplicationRecord
   has_many :notes
   has_many :system_notes
   has_many :tax_returns
+  accepts_nested_attributes_for :tax_returns
+  accepts_nested_attributes_for :intake
 
   def self.delegated_intake_attributes
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]

@@ -31,11 +31,11 @@ module Hub
     def show; end
 
     def edit
-      @form = ClientIntakeForm.from_intake(@client.intake)
+      @form = UpdateClientForm.from_client(@client.intake)
     end
 
     def update
-      @form = ClientIntakeForm.new(@client.intake, client_intake_form_params)
+      @form = UpdateClientForm.new(@client, update_client_form_params)
 
       if @form.valid? && @form.save
         SystemNote.create_client_change_note(current_user, @client.intake)
@@ -136,8 +136,8 @@ module Hub
       @vita_partners = VitaPartner.accessible_by(Ability.new(current_user))
     end
 
-    def client_intake_form_params
-      params.require(ClientIntakeForm.form_param).permit(ClientIntakeForm.permitted_params)
+    def update_client_form_params
+      params.require(UpdateClientForm.form_param).permit(UpdateClientForm.permitted_params)
     end
 
     def create_client_form_params
