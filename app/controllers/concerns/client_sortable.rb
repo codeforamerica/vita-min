@@ -4,7 +4,7 @@ module ClientSortable
     clients = @clients.after_consent
     clients = clients.delegated_order(@sort_column, @sort_order)
     clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
-    clients = clients.where.not(response_needed_since: nil) if @filters[:needs_response].present?
+    clients = clients.where.not(attention_needed_since: nil) if @filters[:needs_attention].present?
     clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
     clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
     clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
@@ -24,7 +24,7 @@ module ClientSortable
       stage: stage_filter,
       assigned_to_me: params[:assigned_to_me],
       unassigned: params[:unassigned],
-      needs_response: params[:needs_response],
+      needs_attention: params[:needs_attention],
       year: params[:year]
     }
   end
@@ -35,7 +35,7 @@ module ClientSortable
     params[:status] = nil
     params[:unassigned] = nil
     params[:assigned_to_me] = nil
-    params[:needs_response] = nil
+    params[:needs_attention] = nil
     params[:year] = nil
   end
 

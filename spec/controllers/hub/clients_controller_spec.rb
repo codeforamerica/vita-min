@@ -198,12 +198,12 @@ RSpec.describe Hub::ClientsController do
       end
 
       context "when a client needs attention" do
-        before { client.touch(:response_needed_since) }
+        before { client.touch(:attention_needed_since) }
 
         it "adds the needs attention icon into the DOM" do
           get :show, params: params
           profile = Nokogiri::HTML.parse(response.body)
-          expect(profile).to have_css("i.needs-response")
+          expect(profile).to have_css("i.needs-attention")
         end
       end
     end
@@ -271,11 +271,11 @@ RSpec.describe Hub::ClientsController do
 
         describe "when a client needs attention" do
           it "adds the needs attention icon into the DOM" do
-            tobias.touch(:response_needed_since)
+            tobias.touch(:attention_needed_since)
             get :index
             html = Nokogiri::HTML.parse(response.body)
-            expect(html.at_css("#client-#{michael.id}")).not_to have_css("i.needs-response")
-            expect(html.at_css("#client-#{tobias.id}")).to have_css("i.needs-response")
+            expect(html.at_css("#client-#{michael.id}")).not_to have_css("i.needs-attention")
+            expect(html.at_css("#client-#{tobias.id}")).to have_css("i.needs-attention")
           end
         end
       end
@@ -447,11 +447,11 @@ RSpec.describe Hub::ClientsController do
           end
         end
 
-        context "filtering by needs response" do
-          let!(:needs_response) { create :client, response_needed_since: DateTime.now, vita_partner: user.vita_partner, tax_returns: [(create :tax_return)] }
+        context "filtering by needs attention" do
+          let!(:needs_attention) { create :client, attention_needed_since: DateTime.now, vita_partner: user.vita_partner, tax_returns: [(create :tax_return)] }
           it "filters in" do
-            get :index, params: { needs_response: true }
-            expect(assigns(:clients)).to include needs_response
+            get :index, params: { needs_attention: true }
+            expect(assigns(:clients)).to include needs_attention
           end
         end
       end
@@ -466,7 +466,7 @@ RSpec.describe Hub::ClientsController do
     before { sign_in(user) }
 
     it "redirects to hub client path" do
-      patch :response_needed, params: params
+      patch :attention_needed, params: params
       expect(response).to redirect_to(hub_client_path(id: client.id))
     end
 
@@ -476,11 +476,11 @@ RSpec.describe Hub::ClientsController do
         params[:client][:action] = "clear"
       end
 
-      it "removes response_needed_since value from client" do
-        client.touch(:response_needed_since)
-        patch :response_needed, params: params
+      it "removes attention_needed_since value from client" do
+        client.touch(:attention_needed_since)
+        patch :attention_needed, params: params
         client.reload
-        expect(client.response_needed_since).to be_nil
+        expect(client.attention_needed_since).to be_nil
       end
     end
 
@@ -489,11 +489,11 @@ RSpec.describe Hub::ClientsController do
         params[:client][:action] = "set"
       end
 
-      it "adds response_needed_since to client" do
-        client.clear_response_needed
-        patch :response_needed, params: params
+      it "adds attention_needed_since to client" do
+        client.clear_attention_needed
+        patch :attention_needed, params: params
         client.reload
-        expect(client.response_needed_since).to be_present
+        expect(client.attention_needed_since).to be_present
       end
     end
 

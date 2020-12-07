@@ -3,9 +3,9 @@
 # Table name: clients
 #
 #  id                           :bigint           not null, primary key
+#  attention_needed_since       :datetime
 #  last_incoming_interaction_at :datetime
 #  last_interaction_at          :datetime
-#  response_needed_since        :datetime
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  vita_partner_id              :bigint
@@ -27,7 +27,7 @@ describe Client do
       let!(:client) { create :client }
 
       it "doesn't need attention" do
-        expect(client.needs_response?).to eq false
+        expect(client.needs_attention?).to eq false
       end
     end
 
@@ -36,7 +36,7 @@ describe Client do
       before { create :document, client: client }
 
       it "needs attention" do
-        expect(client.needs_response?).to eq true
+        expect(client.needs_attention?).to eq true
       end
     end
 
@@ -45,7 +45,7 @@ describe Client do
 
       it "needs attention" do
         client.intake.update(completed_at: Time.now)
-        expect(client.needs_response?).to eq true
+        expect(client.needs_attention?).to eq true
       end
     end
 
@@ -54,7 +54,7 @@ describe Client do
       before { create :incoming_text_message, client: client }
 
       it "needs attention" do
-        expect(client.needs_response?).to eq true
+        expect(client.needs_attention?).to eq true
       end
     end
 
@@ -63,7 +63,7 @@ describe Client do
       before { create :incoming_email, client: client }
 
       it "needs attention" do
-        expect(client.needs_response?).to eq true
+        expect(client.needs_attention?).to eq true
       end
     end
 
@@ -72,7 +72,7 @@ describe Client do
       before { create :outgoing_email, client: client }
 
       it "doesn't need attention" do
-        expect(client.needs_response?).to eq false
+        expect(client.needs_attention?).to eq false
       end
     end
 
@@ -81,7 +81,7 @@ describe Client do
       before { create :outgoing_email, client: client }
 
       it "doesn't need attention" do
-        expect(client.needs_response?).to eq false
+        expect(client.needs_attention?).to eq false
       end
     end
   end
@@ -98,8 +98,8 @@ describe Client do
         expect { create :incoming_text_message, client: client }.to change(client, :last_incoming_interaction_at)
       end
 
-      it "updates client#response_needed_since" do
-        expect { create :incoming_email, client: client }.to change(client, :response_needed_since)
+      it "updates client#attention_needed_since" do
+        expect { create :incoming_email, client: client }.to change(client, :attention_needed_since)
       end
     end
 
@@ -112,14 +112,14 @@ describe Client do
         expect { create :incoming_email, client: client }.to change(client, :last_incoming_interaction_at)
       end
 
-      it "updates client#response_needed_since" do
-        expect { create :incoming_email, client: client }.to change(client, :response_needed_since)
+      it "updates client#attention_needed_since" do
+        expect { create :incoming_email, client: client }.to change(client, :attention_needed_since)
       end
     end
 
     describe "outgoing email" do
 
-      before { client.touch(:response_needed_since) }
+      before { client.touch(:attention_needed_since) }
       it "updates client updated_at" do
         expect { create :outgoing_email, client: client }.to change(client, :updated_at)
       end
@@ -128,14 +128,14 @@ describe Client do
         expect { create :outgoing_email, client: client }.to change(client, :last_interaction_at)
       end
 
-      it "clears #response_needed_since" do
+      it "clears #attention_needed_since" do
         create :outgoing_email, client: client
-        expect(client.response_needed_since).to be nil
+        expect(client.attention_needed_since).to be nil
       end
     end
 
     describe "outgoing text" do
-      before { client.touch(:response_needed_since) }
+      before { client.touch(:attention_needed_since) }
 
       it "updates client updated_at" do
         expect { create :note, client: client }.to change(client, :updated_at)
@@ -145,9 +145,9 @@ describe Client do
         expect { create :outgoing_text_message, client: client }.to change(client, :last_interaction_at)
       end
 
-      it "clears response_needed_since" do
+      it "clears attention_needed_since" do
         create :outgoing_text_message, client: client
-        expect(client.response_needed_since).to be nil
+        expect(client.attention_needed_since).to be nil
       end
     end
 
@@ -160,8 +160,8 @@ describe Client do
         expect { create :note, client: client }.to change(client, :last_interaction_at)
       end
 
-      it "does not update the response_needed_since" do
-        expect { create :note, client: client }.not_to change(client, :response_needed_since)
+      it "does not update the attention_needed_since" do
+        expect { create :note, client: client }.not_to change(client, :attention_needed_since)
       end
     end
 
@@ -178,14 +178,14 @@ describe Client do
         expect { create :document, client: client }.to change(client, :last_incoming_interaction_at)
       end
 
-      it "updates client response_needed_since" do
-        expect { create :document, client: client}.to change(client, :response_needed_since)
+      it "updates client attention_needed_since" do
+        expect { create :document, client: client}.to change(client, :attention_needed_since)
       end
 
       context "without an explicit relationship to client but an intake that has a client id" do
         let(:client) { create :client, intake: create(:intake) }
         it "still should update the associated client" do
-          expect { create :document, intake: client.intake }.to change(client, :response_needed_since)
+          expect { create :document, intake: client.intake }.to change(client, :attention_needed_since)
         end
       end
     end

@@ -3,9 +3,9 @@
 # Table name: clients
 #
 #  id                           :bigint           not null, primary key
+#  attention_needed_since       :datetime
 #  last_incoming_interaction_at :datetime
 #  last_interaction_at          :datetime
-#  response_needed_since        :datetime
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  vita_partner_id              :bigint

@@ -15,7 +15,7 @@
 
     <thead class="index-table__head">
       <tr class="index-table__row">
-        <th scope="col" class="index-table__header"><div class="sr-only"><%= t(".needs_response_heading") %></div></th>
+        <th scope="col" class="index-table__header"><div class="sr-only"><%= t(".needs_attention_heading") %></div></th>
         <th scope="col" class="index-table__header">
           <%= render "shared/column_sort_link", title: t("general.name"), column_name: "preferred_name" %>
         </th>
@@ -39,8 +39,8 @@
     <tbody class="index-table__body clients-table">
       <% @clients.each do |client| %>
         <tr id="client-<%= client.id %>" class="index-table__row client-row">
-          <td class="index-table__cell client-attribute__needs-response">
-            <%= render "shared/client_needs_response", client: client %>
+          <td class="index-table__cell client-attribute__needs-attention">
+            <%= render "shared/client_needs_attention", client: client %>
           </td>
           <th class="index-table__row-header client-attribute__name">
             <%= link_to hub_client_path(id: client) do %>

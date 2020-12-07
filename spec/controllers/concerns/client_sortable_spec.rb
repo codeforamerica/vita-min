@@ -57,7 +57,7 @@ RSpec.describe ClientSortable, type: :controller do
             search: "query",
             status: "intake_in_progress",
             year: "2019",
-            needs_response: true,
+            needs_attention: true,
             assigned_to_me: true,
             unassigned: true,
         }
