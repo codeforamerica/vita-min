@@ -85,4 +85,29 @@ RSpec.describe SystemNote do
       end
     end
   end
+
+  describe "#create_assignment_change_note" do
+    let(:intake) { create :intake, :with_contact_info }
+    let(:tax_return) { create :tax_return, client: Client.new(intake: intake) }
+    let(:current_user) { create :user, name: "Example User" }
+    let(:user_to_assign) { create :user, name: "Alice" }
+
+    context "with a recent change to tax return assignment" do
+      before do
+        tax_return.update(assigned_user: user_to_assign)
+      end
+
+      it "creates a system note" do
+        expect {
+          SystemNote.create_assignment_change_note(current_user, tax_return)
+        }.to change(SystemNote, :count).by 1
+      end
+
+      it "describes the change" do
+        SystemNote.create_assignment_change_note(current_user, tax_return)
+        expect(SystemNote.last.client).to eq(tax_return.client)
+        expect(SystemNote.last.body).to eq("Example User assigned 2019 return to Alice")
+      end
+    end
+  end
 end

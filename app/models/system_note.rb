@@ -56,4 +56,12 @@ class SystemNote < ApplicationRecord
       )
     end
   end
+
+  def self.create_assignment_change_note(user, tax_return)
+    SystemNote.create!(
+      user: user,
+      client: tax_return.client,
+      body: "#{user.name} assigned #{tax_return.year} return to #{tax_return.assigned_user.name}"
+    )
+  end
 end

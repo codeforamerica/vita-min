@@ -20,6 +20,7 @@ module Hub
         client_name: @client.preferred_name,
         tax_year: @tax_return.year,
       )
+      SystemNote.create_assignment_change_note(current_user, @tax_return)
       redirect_to hub_clients_path, notice: success_message
     end
 

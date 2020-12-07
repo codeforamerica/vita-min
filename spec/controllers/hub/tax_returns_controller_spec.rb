@@ -69,7 +69,10 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
 
     context "as an authenticated user" do
       let(:user) { create :user, vita_partner: vita_partner }
-      before { sign_in user }
+      before do
+        sign_in user
+        allow(SystemNote).to receive(:create_assignment_change_note)
+      end
 
       it "assigns the user to the tax return" do
         put :update, params: params
@@ -78,6 +81,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         expect(tax_return.assigned_user).to eq assigned_user
         expect(response).to redirect_to hub_clients_path
         expect(flash[:notice]).to eq "Assigned Lucille's 2018 tax return to Buster"
+        expect(SystemNote).to have_received(:create_assignment_change_note).with(user, tax_return)
       end
 
       context "unassigning the tax return" do
