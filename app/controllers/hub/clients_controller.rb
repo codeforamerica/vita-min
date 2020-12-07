@@ -38,6 +38,7 @@ module Hub
       @form = ClientIntakeForm.new(@client.intake, client_intake_form_params)
 
       if @form.valid? && @form.save
+        SystemNote.create_client_change_note(current_user, @client.intake)
         redirect_to hub_client_path(id: @client.id)
       else
         flash[:warning] = @form.errors[:dependents_attributes].join("") if @form.errors[:dependents_attributes].present?

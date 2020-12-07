@@ -37,4 +37,23 @@ class SystemNote < ApplicationRecord
       user: user
     )
   end
+
+  def self.create_client_change_note(user, intake)
+    return unless intake.saved_changes.present?
+
+    changes_list = ""
+    intake.saved_changes.each do |k, v|
+      next if k == "updated_at"
+
+      changes_list += "\n\u2022 #{k.tr('_', ' ')} from #{v[0]} to #{v[1]}"
+    end
+
+    if changes_list.present?
+      SystemNote.create(
+        body: "#{user.name} changed: #{changes_list}",
+        client: intake.client,
+        user: user
+      )
+    end
+  end
 end

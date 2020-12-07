@@ -42,6 +42,47 @@ RSpec.describe SystemNote do
         expect(note.body).to eq("Olive Oil updated 3020 tax return status from Intake/In progress to Intake/Open")
       end
     end
+  end
 
+  describe "#create_client_change_note" do
+    let(:user) { create :user }
+    let(:intake) { create :intake, :with_contact_info, primary_first_name: "Original first name", primary_last_name: "Original last name" }
+
+    context "with changes to the client profile" do
+      before do
+        intake.update(primary_first_name: "New first name", primary_last_name: "New last name")
+      end
+
+      it "creates a system note summarizing all changes" do
+        expect {
+          SystemNote.create_client_change_note(user, intake)
+        }.to change(SystemNote, :count).by 1
+
+        note = SystemNote.last
+
+        expect(note.client).to eq intake.client
+        expect(note.user).to eq user
+        expect(note.body).to include("primary first name from Original first name to New first name")
+        expect(note.body).to include("primary last name from Original last name to New last name")
+      end
+    end
+
+    context "without any changes" do
+      it "creates no system note" do
+        expect {
+          SystemNote.create_client_change_note(user, Intake.find(intake.id))
+        }.not_to change(SystemNote, :count)
+      end
+    end
+
+    context "when updated_at is the only thing that changes" do
+      it "creates no system note" do
+        intake.update(updated_at: Time.now)
+
+        expect {
+          SystemNote.create_client_change_note(user, intake)
+        }.not_to change(SystemNote, :count)
+      end
+    end
   end
 end

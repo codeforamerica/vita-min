@@ -6,7 +6,7 @@ RSpec.describe "a user editing a clients intake fields" do
     let(:client) {
       create :client,
              vita_partner: user.vita_partner,
-             intake: create(:intake, primary_first_name: "Colleen", primary_last_name: "Cauliflower", dependents: [
+             intake: create(:intake, primary_first_name: "Colleen", primary_last_name: "Cauliflower", preferred_name: "Colleen Cauliflower", dependents: [
                create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06"),
              ])
 
@@ -124,6 +124,23 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "• Email"
       expect(page).to have_text "Peter Pepper"
       expect(page).to have_text "spicypeter@pepper.com"
+    end
+
+    it "creates a system note for client profile change" do
+      visit hub_client_path(id: client.id)
+      within ".client-profile" do
+        click_on "Edit"
+      end
+
+      within "#primary-info" do
+        fill_in "Preferred name", with: "Colly Cauliflower"
+      end
+
+      click_on "Save"
+
+      click_on "Notes"
+
+      expect(page).to have_text "#{user.name} changed: \u2022 preferred name from Colleen Cauliflower to Colly Cauliflower"
     end
   end
 end
