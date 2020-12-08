@@ -31,27 +31,34 @@ class MailgunWebhooksController < ActionController::Base
       next unless /^attachment-\d+$/.match?(key)
 
       attachment = params[key]
-      document = client.documents.create(document_type: DocumentTypes::EmailAttachment.key, contact_record: contact_record)
-      if FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type
-        document.upload.attach(
+
+      upload_params =
+        if FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type
+          {
             io: attachment,
             filename: attachment.original_filename,
             content_type: attachment.content_type,
             identify: false # false = don't infer content type from extension
-        )
-      else
-        io = StringIO.new <<~TEXT
-          Unusable file with unknown or unsupported file type.
-          File name:'#{attachment.original_filename}'
-          File type:'#{attachment.content_type}'
-        TEXT
-        document.upload.attach(
-          io: io,
-          filename: "invalid-#{attachment.original_filename}.txt",
-          content_type: "text/plain;charset=UTF-8",
-          identify: false
-        )
-      end
+          }
+        else
+          io = StringIO.new <<~TEXT
+            Unusable file with unknown or unsupported file type.
+            File name:'#{attachment.original_filename}'
+            File type:'#{attachment.content_type}'
+          TEXT
+          {
+            io: io,
+            filename: "invalid-#{attachment.original_filename}.txt",
+            content_type: "text/plain;charset=UTF-8",
+            identify: false
+          }
+        end
+
+      client.documents.create!(
+        document_type: DocumentTypes::EmailAttachment.key,
+        contact_record: contact_record,
+        upload: upload_params
+      )
     end
 
     ClientChannel.broadcast_contact_record(contact_record)

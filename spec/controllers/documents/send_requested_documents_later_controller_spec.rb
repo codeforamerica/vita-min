@@ -17,7 +17,7 @@ RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controll
 
   describe "#edit" do
     context "with a documents request in the session" do
-      let!(:document) { create :document, :with_upload, document_type: "Requested Later", intake: original_intake, documents_request: documents_request }
+      let!(:document) { create :document, document_type: "Requested Later", intake: original_intake, documents_request: documents_request }
 
       before do
         session[:documents_request_id] = documents_request.id

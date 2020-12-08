@@ -4,8 +4,7 @@ class AdditionalDocumentsForm < QuestionsForm
   def save
     document_file_upload = attributes_for(:intake)[:document]
     if document_file_upload.present?
-      document = @intake.documents.create(document_type: "Other")
-      document.upload.attach(document_file_upload)
+      @intake.documents.create(document_type: "Other", upload: document_file_upload)
     end
   end
 end

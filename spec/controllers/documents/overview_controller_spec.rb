@@ -33,8 +33,8 @@ RSpec.describe Documents::OverviewController do
       let(:attributes) { { had_wages: "yes" } }
       let(:documents) do
         [
-          create(:document, :with_upload, intake: intake, document_type: "Employment"),
-          create(:document, :with_upload, intake: intake, document_type: "Other"),
+          create(:document, intake: intake, document_type: "Employment"),
+          create(:document, intake: intake, document_type: "Other"),
         ]
       end
 

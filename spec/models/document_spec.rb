@@ -38,6 +38,7 @@ describe Document do
 
       expect(document).to_not be_valid
       expect(document.errors).to include :document_type
+      expect(document.errors).to include :upload
     end
 
     describe "#document_type" do
@@ -50,7 +51,7 @@ describe Document do
   end
 
   describe "before_save" do
-    context "when there is already a display name" do
+    context "when created with a display_name and attachment" do
       let(:document) { build :document, display_name: "HumanReadable.jpg" }
 
       it "keeps the given display name" do
@@ -61,22 +62,12 @@ describe Document do
     end
 
     context "when there is no display name and there is an attachment" do
-      let(:document) { build :document, :with_upload, upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png") }
+      let(:document) { build :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png") }
 
       it "sets the default display name to the attachment filename" do
         document.save
 
         expect(document.display_name).to eq "test-pattern.png"
-      end
-    end
-
-    context "when there is no display name and no attachment" do
-      let(:document) { build :document }
-
-      it "sets the default display name to Untitled" do
-        document.save
-
-        expect(document.display_name).to eq "Untitled"
       end
     end
   end

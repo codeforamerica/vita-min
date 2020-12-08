@@ -611,15 +611,14 @@ class Intake < ApplicationRecord
   private
 
   def create_original_13614c_document
-    pdf_doc = client.documents.create!(document_type: DocumentTypes::Original13614C.key, intake: self)
     pdf_tempfile = pdf
     pdf_tempfile.seek(0)
-    pdf_doc.upload.attach(
+    client.documents.create!(document_type: DocumentTypes::Original13614C.key, intake: self, upload: {
       io: pdf_tempfile,
       filename: "Original 13614-C.pdf",
       content_type: "application/pdf",
       identify: false
-    )
+    })
   end
 
   def partner_for_eip_only

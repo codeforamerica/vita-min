@@ -72,7 +72,7 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
 
           context "when they have uploaded one document" do
             before do
-              create :document, :with_upload, documents_request: documents_request, document_type: controller.document_type_key
+              create :document, documents_request: documents_request, document_type: controller.document_type_key
             end
 
             it "renders a link to the next path" do
@@ -118,8 +118,8 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
       end
 
       context "with existing requested document uploads" do
-        let!(:old_document) {create :document, :with_upload, document_type: "Requested Later", intake: original_intake}
-        let!(:new_document) {create :document, :with_upload, document_type: "Requested Later", documents_request: documents_request}
+        let!(:old_document) {create :document, document_type: "Requested Later", intake: original_intake}
+        let!(:new_document) {create :document, document_type: "Requested Later", documents_request: documents_request}
 
         it "does not show documents on the original intake" do
           get :edit, params: {token: token}
