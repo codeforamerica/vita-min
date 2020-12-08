@@ -27,7 +27,7 @@ module Hub
         Document.create!(
           client: @client,
           intake: @client.intake,
-          document_type: DocumentTypes::Other,
+          document_type: DocumentTypes::Other.key,
           upload: file_upload
         )
       end

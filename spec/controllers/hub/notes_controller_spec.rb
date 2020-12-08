@@ -69,47 +69,26 @@ RSpec.describe Hub::NotesController, type: :controller do
       end
 
       context "with an existing note" do
-        render_views
-
         let!(:system_note) { create :system_note, client: client, created_at: DateTime.new(2020, 9, 3) }
         let!(:client_note) { create :note, client: client, created_at: DateTime.new(2020, 10, 3) }
 
-        it "loads the users notes if there are any" do
-          get :index, params: params
-
-          expect(assigns(:notes)).to eq([client_note])
-          expect(assigns(:system_notes)).to eq([system_note])
-          expect(assigns(:all_notes)).to eq([system_note, client_note])
-        end
-
         it "renders a form" do
           get :index, params: params
-
-          html = Nokogiri::HTML.parse(response.body)
-          form_element = html.at_css("form.note-form")
-          expect(form_element["action"]).to eq(hub_client_notes_path(client_id: client.id))
-          message_record = Nokogiri::HTML.parse(response.body).at_css(".message--incoming")
-          expect(message_record).to have_text("8:00 PM EDT")
+          expect(assigns(:note)).to be_a(Note)
         end
-
       end
 
-      context "with notes from different days" do
+      context "loads notes" do
+        before do
+          allow(NotesPresenter).to receive(:grouped_notes).with(client).and_return({})
+        end
+
         let(:user) { create :user, timezone: "America/Los_Angeles" , vita_partner: vita_partner}
 
-        it "correctly groups notes by day created" do
-          day1_client_note = create :note, client: client, created_at: DateTime.new(2019, 10, 5, 8) # UTC
-          day2_client_note = create :note, client: client, created_at: DateTime.new(2020, 10, 5, 5)
-          day1_system_note = create :system_note, client: client, created_at: DateTime.new(2019, 10, 5, 8)
-
+        it "assigns grouped notes for use in template" do
           get :index, params: params
-
-          day1 = DateTime.new(2019, 10, 5, 8).in_time_zone('America/Los_Angeles').beginning_of_day
-          day2 = DateTime.new(2020, 10, 5, 5).in_time_zone('America/Los_Angeles').beginning_of_day
-          expect(assigns(:all_notes_by_day).keys).to eq [day1, day2]
-
-          expect(assigns(:all_notes_by_day)[day1]).to eq [day1_client_note, day1_system_note]
-          expect(assigns(:all_notes_by_day)[day2]).to eq [day2_client_note]
+          expect(NotesPresenter).to have_received(:grouped_notes).with(client)
+          expect(assigns(:all_notes_by_day)).not_to be_nil
         end
       end
     end

@@ -3,13 +3,11 @@ module Hub
     include AccessControllable
     before_action :require_sign_in
     load_and_authorize_resource :client
-    load_and_authorize_resource through: :client
-    load_and_authorize_resource :system_note, parent: false, through: :client
+    load_and_authorize_resource through: :client, only: [:create]
     layout "admin"
 
     def index
-      @all_notes = (@notes.includes(:user) + SystemNote.where(client: @client)).sort_by(&:created_at)
-      @all_notes_by_day = @all_notes.group_by { |note| note.created_at.beginning_of_day }
+      @all_notes_by_day = NotesPresenter.grouped_notes(@client)
       @note = Note.new
     end
 

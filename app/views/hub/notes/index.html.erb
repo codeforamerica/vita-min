@@ -6,12 +6,12 @@
 
   <%= render "hub/clients/navigation" %>
 
-  <% if @all_notes.present? %>
+  <% if @all_notes_by_day.present? %>
     <ul class="message-list">
       <% @all_notes_by_day.each do |datetime, records| %>
         <li class="message__day-heading"><%= date_heading(datetime) %></li>
         <% records.each do |note| %>
-          <%= render note.class.name == "SystemNote" ? "system_note" : "note", note: note %>
+          <%= render note.class.name == "Note" ? "note" : "system_note", note: note %>
         <% end %>
       <% end %>
     </ul>

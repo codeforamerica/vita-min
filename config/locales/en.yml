@@ -118,6 +118,9 @@ en:
         note_form:
           label: Add a note
           submit: Save
+        document_note:
+          one: Client added 1 document.
+          other: Client added %{count} documents.
     tax_returns:
       edit:
         assigned_user_label: Assign to
