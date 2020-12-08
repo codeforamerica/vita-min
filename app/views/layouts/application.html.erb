@@ -53,6 +53,10 @@
         <%= render "shared/offseason_alert" %>
       <% end %>
 
+      <% if content_for(:user_return_link_name) && content_for(:user_return_link_path) %>
+        <%= render "hub/user_navigation", user_return_link_name: content_for(:user_return_link_name), user_return_link_path: content_for(:user_return_link_path) %>
+      <% end %>
+
       <% if flash.any? %>
         <% flash.each do |type, message| %>
           <div class="slab slab--flash flash--<%= type %>">

@@ -43,6 +43,13 @@ RSpec.describe "a user viewing a client" do
         expect(page).to have_text("BAS | HSA")
       end
     end
+
+    scenario "can return to the client list page" do
+      visit hub_client_path(id: client.id)
+      click_on("Return to all clients")
+
+      expect(current_path).to eq(hub_clients_path)
+    end
   end
 
   context "user without admin access" do

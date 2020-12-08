@@ -1,9 +1,13 @@
+<%= content_for :user_return_link_name, "Return to all clients" %>
+<%= content_for :user_return_link_path, hub_clients_path %>
+
 <% content_for :page_title, "#{@client.preferred_name} ##{@client.id}" %>
 
 <% content_for :card do %>
-  <%= render "client_header" %>
 
+  <%= render "client_header" %>
   <%= render "navigation" %>
+
   <div class="client-profile spacing-above-25">
     <div><%= t(".legal_name") %>: <%= @client.legal_name || t("general.NA") %></div>
     <div><%= t(".preferred_name") %>: <%= @client.preferred_name %></div>
