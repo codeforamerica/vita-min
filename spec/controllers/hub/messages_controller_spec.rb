@@ -134,12 +134,12 @@ RSpec.describe Hub::MessagesController do
           )
 
           create(:incoming_email, client: client, documents: [
-            create(:document, :with_upload, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))),
-            create(:document, :with_upload, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")))
+            create(:document, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))),
+            create(:document, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")))
           ])
 
           create(:incoming_text_message, client: client, documents: [
-            create(:document, :with_upload, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png")))
+            create(:document, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png")))
           ])
         end
 

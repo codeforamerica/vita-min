@@ -5,7 +5,6 @@ class FormChildcareStatementsForm < QuestionsForm
     document_file_upload = attributes_for(:intake)[:document]
     return unless document_file_upload.present?
 
-    document = @intake.documents.create(document_type: "childcare_statement")
-    document.upload.attach(document_file_upload)
+    @intake.documents.create(document_type: "childcare_statement", upload: document_file_upload)
   end
 end

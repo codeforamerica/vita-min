@@ -48,8 +48,8 @@ RSpec.describe Documents::AdditionalDocumentsController do
 
     context "with existing document uploads" do
       it "assigns the documents to the form" do
-        doc = create :document, :with_upload, document_type: "Other", intake: intake
-        w2_doc = create :document, :with_upload, document_type: "Employment", intake: intake
+        doc = create :document, document_type: "Other", intake: intake
+        w2_doc = create :document, document_type: "Employment", intake: intake
 
         get :edit
 
@@ -62,7 +62,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
       let(:document_path) { Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf") }
 
       it "renders the thumbnails" do
-        doc = create :document, :with_upload, document_type: "Other", intake: intake,
+        create :document, document_type: "Other", intake: intake,
           upload_path: document_path
 
         expect { get :edit }.not_to raise_error

@@ -13,7 +13,7 @@ shared_examples :a_required_document_controller do
 
     context "when they have uploaded one document" do
       before do
-        create :document, :with_upload, intake: intake, document_type: controller.document_type_key
+        create :document, intake: intake, document_type: controller.document_type_key
       end
 
       it "renders a link to the next path" do

@@ -85,8 +85,8 @@ RSpec.describe Documents::EmploymentController, type: :controller do
     context "with existing employment-related uploads" do
       it "assigns the documents to the form" do
         # Doc type for the EmploymentController
-        employment_doc = create :document, :with_upload, document_type: "Employment", intake: intake
-        _other_doc = create :document, :with_upload, document_type: "Other", intake: intake
+        employment_doc = create :document, document_type: "Employment", intake: intake
+        _other_doc = create :document, document_type: "Other", intake: intake
 
         get :edit
 
@@ -98,7 +98,7 @@ RSpec.describe Documents::EmploymentController, type: :controller do
       let(:document_path) { Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf") }
 
       it "renders the thumbnails" do
-        w2_doc = create :document, :with_upload, document_type: "Employment", intake: intake,
+        create :document, document_type: "Employment", intake: intake,
                         upload_path: document_path
 
         expect { get :edit }.not_to raise_error

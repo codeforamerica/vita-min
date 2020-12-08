@@ -29,16 +29,15 @@ class TwilioWebhooksController < ActionController::Base
 
     attachments = TwilioService.new(params).parse_attachments
     attachments.each do |attachment|
-      document = client.documents.create!(
-          document_type: DocumentTypes::TextMessageAttachment.key,
-          contact_record: contact_record
-      )
-
-      document.upload.attach(
+      client.documents.create!(
+        document_type: DocumentTypes::TextMessageAttachment.key,
+        contact_record: contact_record,
+        upload: {
           io: StringIO.new(attachment[:body]),
           filename: attachment[:filename],
           content_type: attachment[:content_type],
           identify: false
+        }
       )
     end
 

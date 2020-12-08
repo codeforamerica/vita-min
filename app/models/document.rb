@@ -42,6 +42,7 @@ class Document < ApplicationRecord
   belongs_to :documents_request, optional: true
   belongs_to :contact_record, polymorphic: true, optional: true
   has_one_attached :upload
+  validates :upload, presence: true
 
   before_save :set_display_name
 
@@ -56,10 +57,6 @@ class Document < ApplicationRecord
   def set_display_name
     return if display_name
 
-    if upload.present?
-      self.display_name = upload.attachment.filename
-    else
-      self.display_name = "Untitled"
-    end
+    self.display_name = upload.attachment.filename
   end
 end

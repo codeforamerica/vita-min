@@ -5,19 +5,19 @@ describe DocumentPresenter do
     let(:intake) { create(:intake) }
     let(:duplicate_intake) { create(:intake) }
     let!(:employment_document_a) do
-      create :document, :with_upload,
+      create :document,
         document_type: "Employment",
         created_at: 2.day.ago,
         intake: intake
     end
     let!(:employment_document_b) do
-      create :document, :with_upload,
+      create :document,
         document_type: "Employment",
         created_at: 1.day.ago,
         intake: duplicate_intake
     end
     let!(:ssn_document) do
-      create :document, :with_upload,
+      create :document,
         document_type: "SSN or ITIN",
         created_at: 1.day.ago,
         intake: duplicate_intake
