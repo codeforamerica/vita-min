@@ -19,11 +19,11 @@ fi
 # want a different editor? set your EDITOR in your shell's rc file
 EDITOR=${EDITOR:-$(which vim)}
 
-# check to see if the user is on the master branch, otherwise
+# check to see if the user is on the main branch, otherwise
 # provide an opportunity to bail
 branch_name=$(git rev-parse --abbrev-ref HEAD)
-if [ ! $branch_name == "master" ]; then
-  echo "WARNING! you're not on the \`master\` branch!"
+if [ ! $branch_name == "main" ]; then
+  echo "WARNING! you're not on the \`main\` branch!"
   echo "Hit <ctrl>-c to bail, or <enter> to continue."
   read continue_response
 fi
@@ -39,8 +39,8 @@ git fetch "$origin_git_remote" --quiet
 latest_version=$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)
 
 # show the user a list of commits that will be deployed
-echo '🚀 *Will merge and push `'$(git log -1 --pretty=format:%h ${latest_version})'`..`'$(git log -1 --pretty=format:%h ${origin_git_remote}/master)'` to release, initiating a production deployment*:'
-GIT_PAGER= git log --pretty="format:* %s" ${latest_version}...${origin_git_remote}/master
+echo '🚀 *Will merge and push `'$(git log -1 --pretty=format:%h ${latest_version})'`..`'$(git log -1 --pretty=format:%h ${origin_git_remote}/main)'` to release, initiating a production deployment*:'
+GIT_PAGER= git log --pretty="format:* %s" ${latest_version}...${origin_git_remote}/main
 
 # ask the user for the new tag name/version number, accepting the default if
 # nothing is entered.
@@ -68,7 +68,7 @@ Note: everything within the HTML comment block won't be displayed.
 
 Full list of changes:
 
-$(git log --pretty="format: * %s" ${latest_version}...${origin_git_remote}/master)
+$(git log --pretty="format: * %s" ${latest_version}...${origin_git_remote}/main)
 -->
 TEMPLATE
 
@@ -84,7 +84,7 @@ git merge --ff $branch_name
 if [ ! $? ] ; then
   # merge failed
   echo "unable to merge via fast-forward. likely conflict."
-  echo "try: \`git merge -ff master\` and resolve conflicts."
+  echo "try: \`git merge -ff main\` and resolve conflicts."
   # if something's broken, ensure user ends up on original branch
   git checkout $branch_name
   exit 1

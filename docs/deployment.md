@@ -11,10 +11,10 @@ system (CI/CD).
 Details about the environments:
 
 - Staging - an experimental environment. Generally up to date
-  with the `master` branch, as it is deployed whenever `master` is
+  with the `main` branch, as it is deployed whenever `main` is
   updated on GitHub, provided the test suite passes.
 - Demo - a quality check and demonstration environment. Like Staging,
-  it remains up to date with `master` thanks to continuous deployment.
+  it remains up to date with `main` thanks to continuous deployment.
   Unlike Stating, it is rarely used for experimentation.
 - Production - the public, visible environment. The Production environment
   is the deploy target of the `release` branch. Like other environments,
@@ -22,22 +22,22 @@ Details about the environments:
 
 ## Branches
 
-- `master` - this is the central trunk of `vita-min` development. This branch
+- `main` - this is the central trunk of `vita-min` development. This branch
   contains the most up-to-date code, merged in from various work branches. The
-  `master` branch is deployed to the Demo and Staging environments
+  `main` branch is deployed to the Demo and Staging environments
   automatically.
 - `release` - this branch represents the code currently in the Production
-  environment. It tends to lag behind `master` by a few commits. The `release`
+  environment. It tends to lag behind `main` by a few commits. The `release`
   branch is deployed to the Production environment automatically.
 - work branches - most development occurs in a work branch. These branches form
   the sources for Pull Requests on GitHub, and a place to work without
-  disrupting the `master` branch.
+  disrupting the `main` branch.
 
 ## How to Deploy
 
 ## To the Staging and Demo Environments
 
-To deploy to Demo and Staging, commit/merge to `master` and push to
+To deploy to Demo and Staging, commit/merge to `main` and push to
 Github. This will trigger a CI/CD build and deploy to both the Demo and Staging
 environments.
 
@@ -58,12 +58,12 @@ Good candidates:
 ## To The Production Environment
 
 To deploy to Production, run the `bin/release` script from the project root. In
-most cases, you will want to run this from the `master` branch. It can be run
+most cases, you will want to run this from the `main` branch. It can be run
 from a different branch, however this may complicate subsequent releases
-_unless_ the `release` branch is merged back into `master` after the fact.
+_unless_ the `release` branch is merged back into `main` after the fact.
 
 This script will undertake all the necessary steps for a deployment. If there is
-a merge conflict when merging `master` into `release`, the conflicts must be
+a merge conflict when merging `main` into `release`, the conflicts must be
 resolved by hand, then re-run `bin/release`.
 
 The script also creates a tag. For regular releases, we use `version-N.N.N`,
@@ -75,7 +75,7 @@ The steps the `bin/release` script automates are as follows:
 1. fetches from origin
 2. prompts for new tag name
 3. opens editor with template, includes list of changes
-4. merges current branch (usually `master`) into `release`
+4. merges current branch (usually `main`) into `release`
 5. creates tag and GitHub release using `hub` tool
 
 After this, CircleCI runs and deploys if the tests pass.
@@ -84,8 +84,8 @@ After this, CircleCI runs and deploys if the tests pass.
 
 To issue a release without using the script, follow the steps listed above:
 
-1. `git pull` the master and release branches
-2. from the `release` branch, `git merge --ff master`
+1. `git pull` the main and release branches
+2. from the `release` branch, `git merge --ff main`
 3. `git tag <version name>` with the next version
 4. `git push && git push --tags`
 
@@ -97,19 +97,19 @@ Github provides useful documentation [here](https://help.github.com/en/github/ad
 
 It may be necessary to issue a hotfix in some circumstances. This can be
 accomplished a couple of ways. Note that a subsequent release may have merging
-issues that have to be resolved manually. Merging from `release` into `master`
+issues that have to be resolved manually. Merging from `release` into `main`
 helps resolve conflicts pre-emptively.
 
 #### Work on the `release` Branch
 
 You can check out and work directly on the `release` branch, performing a `push`
-when complete. You should immediately merge `release` into `master`.
+when complete. You should immediately merge `release` into `main`.
 
 #### Work on a Hotfix Branch
 
-Create a hotfix branch directly from `release` (rather than `master`) if a PR is
+Create a hotfix branch directly from `release` (rather than `main`) if a PR is
 recommended. When creating the PR, set the PR to target `release` rather than
-`master`. When reviewed and merged, merge `release` back into `master`.
+`main`. When reviewed and merged, merge `release` back into `main`.
 
 ## Other Release-related Tools
 
