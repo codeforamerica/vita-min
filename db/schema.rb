@@ -61,6 +61,13 @@ ActiveRecord::Schema.define(version: 2020_12_10_232524) do
     t.index ["vita_partner_id"], name: "index_clients_on_vita_partner_id"
   end
 
+  create_table "coalitions", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.string "name", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_coalitions_on_name", unique: true
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "attempts", default: 0, null: false
     t.datetime "created_at"
