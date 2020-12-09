@@ -1,46 +1,58 @@
 require "rails_helper"
 
-RSpec.describe Hub::ClientIntakeForm do
-
-  describe ".save" do
-    let!(:intake) { create :intake, :with_contact_info, :with_dependents }
+RSpec.describe Hub::UpdateClientForm do
+  describe "#save" do
+    let(:intake) {
+      create :intake,
+             :with_contact_info,
+             :with_dependents,
+             email_notification_opt_in: "yes",
+             state_of_residence: "CA",
+             preferred_interview_language: "es"
+    }
+    let!(:client) {
+      create :client, intake: intake
+    }
     let(:form_attributes) do
-      {   primary_first_name: intake.primary_first_name,
-          primary_last_name: intake.primary_last_name,
-          dependents_attributes: {
+      { primary_first_name: intake.primary_first_name,
+        primary_last_name: intake.primary_last_name,
+        preferred_name: intake.preferred_name,
+        preferred_interview_language: intake.preferred_interview_language,
+        married: intake.married,
+        separated: intake.separated,
+        widowed: intake.widowed,
+        lived_with_spouse: intake.lived_with_spouse,
+        divorced: intake.divorced,
+        divorced_year: intake.divorced_year,
+        separated_year: intake.separated_year,
+        widowed_year: intake.widowed_year,
+        email_address: intake.email_address,
+        phone_number: intake.phone_number,
+        sms_phone_number: intake.sms_phone_number,
+        street_address: intake.street_address,
+        city: intake.city,
+        state: intake.state,
+        zip_code: intake.zip_code,
+        sms_notification_opt_in: intake.sms_notification_opt_in,
+        email_notification_opt_in: intake.email_notification_opt_in,
+        spouse_first_name: intake.spouse_first_name,
+        spouse_last_name: intake.spouse_last_name,
+        spouse_email_address: intake.spouse_email_address,
+        filing_joint: intake.filing_joint,
+        interview_timing_preference: intake.interview_timing_preference,
+        timezone: intake.timezone,
+        state_of_residence: intake.state_of_residence,
+        dependents_attributes: {
               "0" => {
                   id: intake.dependents.first.id,
                   first_name: intake.dependents.first.first_name,
                   last_name: intake.dependents.first.last_name,
                   birth_date_month: "May",
                   birth_date_day: "9",
-                  birth_date_year: "2013"
+                  birth_date_year: "2013",
               }
           }
       }
-    end
-
-    context "when some attributes on the intake are updated" do
-      let(:intake) { create :intake, :filled_out, :with_contact_info }
-      let(:form) { Hub::ClientIntakeForm.from_intake(intake, { primary_first_name: "Patty" }) }
-
-      it "updates the provided attributes" do
-        form.save
-        intake.reload
-        expect(intake.primary_first_name).to eq "Patty"
-      end
-    end
-
-    context "when updating phone numbers" do
-      let(:intake) { create :intake, :filled_out, :with_contact_info }
-      let(:form) { Hub::ClientIntakeForm.from_intake(intake, { sms_phone_number: "6105551212", phone_number: "610-555-1212" }) }
-
-      it "normalizes the numbers before saving them" do
-        form.save
-        intake.reload
-        expect(intake.sms_phone_number).to eq "+16105551212"
-        expect(intake.phone_number).to eq "+16105551212"
-      end
     end
 
     context "adding/updating dependents" do
@@ -66,7 +78,7 @@ RSpec.describe Hub::ClientIntakeForm do
 
       it "updates the related dependent objects too" do
         expect do
-          form = Hub::ClientIntakeForm.new(intake, form_attributes)
+          form = described_class.new(client, form_attributes)
           form.save
           intake.reload
         end.to change(intake.dependents, :count).by 1
@@ -91,7 +103,7 @@ RSpec.describe Hub::ClientIntakeForm do
         }
 
         expect do
-          form = Hub::ClientIntakeForm.new(intake, form_attributes)
+          form = described_class.new(client, form_attributes)
           form.save
           intake.reload
         end.to change(intake.dependents, :count).by 2
@@ -112,7 +124,7 @@ RSpec.describe Hub::ClientIntakeForm do
       end
 
       it "adds an error onto the form object for dependents_attributes" do
-        form = Hub::ClientIntakeForm.new(intake, form_attributes)
+        form = described_class.new(client, form_attributes)
         form.save
         expect(form.valid?).to be false
         expect(form.errors[:dependents_attributes]).to be_present
@@ -126,7 +138,7 @@ RSpec.describe Hub::ClientIntakeForm do
 
       it "removes the dependent marked with _destroy" do
         expect do
-          form = Hub::ClientIntakeForm.new(intake, form_attributes)
+          form = described_class.new(client, form_attributes)
           form.save
           intake.reload
         end.to change(intake.dependents, :count).by -1
@@ -146,41 +158,45 @@ RSpec.describe Hub::ClientIntakeForm do
       end
 
       it "will show a validation message" do
-        form = Hub::ClientIntakeForm.new(intake, form_attributes)
+        form = described_class.new(client, form_attributes)
         form.save
         expect(form).not_to be_valid
         expect(form.errors).to include :dependents_attributes
         expect(form.errors[:dependents_attributes]).to eq(["Please enter the last name of each dependent."])
       end
     end
-  end
 
-  describe "#dependents_attributes" do
-    context "without dependents_attributes or current dependents" do
-      let(:intake) { create :intake, :filled_out, :with_contact_info }
-      let(:form) { Hub::ClientIntakeForm.new(intake, { primary_first_name: "Patty" }) }
-      it "returns nil" do
-        expect(form.dependents_attributes).to eq nil
+    describe "#dependents_attributes" do
+      context "without dependents_attributes or current dependents" do
+        let(:form) { described_class.new(client, form_attributes) }
+        before { form_attributes.delete(:dependents_attributes) }
+
+        it "returns an empty array" do
+          expect(form.dependents_attributes).to eq []
+        end
       end
-    end
 
-    context "with current dependents and no dependents attributes" do
-      let(:intake) { create :intake, :filled_out, :with_contact_info, dependents: [create(:dependent)] }
-      let(:form) { Hub::ClientIntakeForm.new(intake, { primary_first_name: "Patty" }) }
-      it "returns nil" do
-        expect(form.dependents_attributes).to eq nil
+      context "with current dependents and no dependents attributes" do
+        let(:intake) { create :intake, :filled_out, :with_contact_info, dependents: [create(:dependent)] }
+        let(:client) { create :client, intake: intake }
+        let(:form) { described_class.new(client, form_attributes) }
+        before { form_attributes.delete(:dependents_attributes) }
+
+        it "returns an empty array" do
+          expect(form.dependents_attributes).to eq []
+        end
       end
-    end
 
-    context "with dependents attributes" do
-      let(:intake) { create :intake, dependents: [(create :dependent)] }
-      let(:form) { Hub::ClientIntakeForm.new(intake, dependents_attributes: [{ id: intake.dependents.first.id, first_name: "Paul", last_name: "Persimmon", birth_date: "2009-12-12" }]) }
-      it "returns an array with dependent attributes" do
-        expect(form.dependents_attributes.length).to eq 1
-        expect(form.dependents_attributes.first).to have_key(:birth_date)
-        expect(form.dependents_attributes.first).to have_key(:first_name)
-        expect(form.dependents_attributes.first).to have_key(:id)
-        expect(form.dependents_attributes.first).to have_key(:last_name)
+      context "with dependents attributes" do
+        let(:intake) { create :intake, dependents: [(create :dependent)] }
+        let(:form) { described_class.new(client, dependents_attributes: [{ id: intake.dependents.first.id, first_name: "Paul", last_name: "Persimmon", birth_date: "2009-12-12" }]) }
+        it "returns an array with dependent attributes" do
+          expect(form.dependents_attributes.length).to eq 1
+          expect(form.dependents_attributes.first).to have_key(:birth_date)
+          expect(form.dependents_attributes.first).to have_key(:first_name)
+          expect(form.dependents_attributes.first).to have_key(:id)
+          expect(form.dependents_attributes.first).to have_key(:last_name)
+        end
       end
     end
   end

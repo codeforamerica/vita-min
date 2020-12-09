@@ -20,7 +20,7 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "Drop off"
       select "Floret Financial Readiness", from: "Assign to"
 
-      fill_in "Preferred name", with: "Colly Cauliflower"
+      fill_in "Preferred full name", with: "Colly Cauliflower"
       within "#primary-info" do
         fill_in "Legal first name", with: "Colleen"
         fill_in "Legal last name", with: "Cauliflower"

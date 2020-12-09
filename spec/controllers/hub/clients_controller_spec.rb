@@ -96,19 +96,8 @@ RSpec.describe Hub::ClientsController do
           expect do
             post :create, params: params
           end.to change(Client, :count).by 1
-          client = Client.last
-          expect(client.preferred_name).to eq "Newly"
-          expect(client.vita_partner).to eq other_vita_partner
-          expect(client.tax_returns.count).to eq 3
-          expect(client.tax_returns.where(status: "intake_needs_assignment").count).to eq 3
-          expect(client.tax_returns.where(service_type: "drop_off").count).to eq 3
-          expect(client.tax_returns.find_by(year: 2020).is_hsa).to eq true
-          expect(client.tax_returns.find_by(year: 2020).certification_level).to eq "advanced"
-          expect(client.tax_returns.find_by(year: 2018).is_hsa).to eq false
-          expect(client.tax_returns.find_by(year: 2018).certification_level).to eq "basic"
-          expect(client.tax_returns.find_by(year: 2017)).to be_nil
           expect(flash[:notice]).to eq "Client successfully created."
-          expect(response).to redirect_to(hub_client_path(id: client))
+          expect(response).to redirect_to(hub_client_path(id: Client.last.id))
         end
       end
 
@@ -501,7 +490,7 @@ RSpec.describe Hub::ClientsController do
 
   describe "#edit" do
     let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: (create :intake) }
     let(:params) {
       { id: client.id }
     }
@@ -515,20 +504,20 @@ RSpec.describe Hub::ClientsController do
         get :edit, params: params
 
         expect(response).to be_ok
-        expect(assigns(:form)).to be_an_instance_of Hub::ClientIntakeForm
+        expect(assigns(:form)).to be_an_instance_of Hub::UpdateClientForm
       end
     end
   end
 
   describe "#update" do
-    let(:client) { create :client, vita_partner: vita_partner }
+    let(:client) { create :client, vita_partner: vita_partner, intake: intake }
 
-    let(:intake) { create :intake, client: client, dependents: [build(:dependent), build(:dependent)] }
+    let(:intake) { create :intake, :with_contact_info, preferred_interview_language: "en", dependents: [build(:dependent), build(:dependent)] }
     let(:first_dependent) { intake.dependents.first }
     let(:params) {
       {
         id: client.id,
-        hub_client_intake_form: {
+        hub_update_client_form: {
           primary_first_name: "Updated",
           primary_last_name: "Name",
           preferred_name: intake.preferred_name,
@@ -553,6 +542,7 @@ RSpec.describe Hub::ClientsController do
           spouse_first_name: intake.spouse_first_name,
           spouse_last_name: intake.spouse_last_name,
           spouse_email_address: intake.spouse_email_address,
+          state_of_residence: "CA",
           filing_joint: intake.filing_joint,
           timezone: "America/Chicago",
           interview_timing_preference: "Tomorrow!",
@@ -576,7 +566,6 @@ RSpec.describe Hub::ClientsController do
 
       it "updates the clients intake and creates a system note" do
         post :update, params: params
-
         client.reload
         expect(client.intake.primary_first_name).to eq "Updated"
         expect(client.legal_name).to eq "Updated Name"
@@ -593,7 +582,7 @@ RSpec.describe Hub::ClientsController do
         let(:params) {
           {
             id: client.id,
-            hub_client_intake_form: {
+            hub_update_client_form: {
               primary_first_name: "",
             }
           }
@@ -610,7 +599,7 @@ RSpec.describe Hub::ClientsController do
         let(:params) {
           {
               id: client.id,
-              hub_client_intake_form: {
+              hub_update_client_form: {
                   dependents_attributes: { 0 => {"first_name": "", last_name: "", birth_date_month: "", birth_date_year: "", birth_date_day: ""}},
               }
           }
@@ -624,7 +613,7 @@ RSpec.describe Hub::ClientsController do
 
         it "displays a flash message" do
           post :update, params: params
-          expect(flash[:warning]).to eq "Please enter the first name, last name, birth date of each dependent."
+          expect(flash[:alert]).to eq "Please fix indicated errors before continuing."
         end
       end
     end

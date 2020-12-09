@@ -14,7 +14,8 @@
           :preferred_interview_language,
           t("hub.clients.fields.preferred_interview_language"),
           I18n.backend.translations[I18n.locale][:general][:language_options].invert,
-          include_blank: true
+          include_blank: true,
+          selected: @form.preferred_interview_language
       ) %>
   <%= error_message(@form, :communication_preference) %>
   <div class="hub-form__row fill align-center">
