@@ -30,6 +30,7 @@ RSpec.describe "a user editing a user" do
         expect(find_field("user_vita_partner_id").value).to eq user_to_edit.vita_partner.id.to_s
 
         check "Admin"
+        check "Client support"
 
         click_on "Select supported organizations"
         check "Colorado"
@@ -43,6 +44,7 @@ RSpec.describe "a user editing a user" do
         expect(page).to have_field("user_supported_organization_ids_#{california_org.id}", checked: false)
         expect(page).to have_field("user_supported_organization_ids_#{san_fran_org.id}", checked: false)
         expect(page).to have_field("user_is_admin", checked: true)
+        expect(page).to have_field("user_is_client_support", checked: true)
       end
     end
   end

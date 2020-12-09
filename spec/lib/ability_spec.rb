@@ -143,4 +143,20 @@ describe Ability do
       expect(subject.can?(:manage, SystemNote.new)).to eq true
     end
   end
+
+  context "as a client support user" do
+    let!(:user) { create :user, is_client_support: true }
+    let(:client_1) { create(:client, vita_partner: create(:vita_partner)) }
+    let(:client_2) { create(:client, vita_partner: create(:vita_partner)) }
+
+    it "can see all clients from any organization" do
+      expect(subject.can?(:read, client_1)).to eq true
+      expect(subject.can?(:read, client_2)).to eq true
+    end
+
+    it "can not manage any client" do
+      expect(subject.can?(:manage, client_1)).to eq false
+      expect(subject.can?(:manage, client_2)).to eq false
+    end
+  end
 end

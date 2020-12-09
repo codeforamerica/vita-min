@@ -4,6 +4,7 @@ en:
     users:
       edit:
         is_admin_label: Admin?
+        is_client_support_label: Client support?
       index:
         title: Users
       profile:
@@ -468,6 +469,7 @@ en:
     select_files: Select files
     take_picture: Take picture
     certification: Certification
+    client_support: Client support
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
