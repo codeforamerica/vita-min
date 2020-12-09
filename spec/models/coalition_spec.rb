@@ -16,11 +16,11 @@ require "rails_helper"
 describe Coalition, type: :model do
   describe "#name" do
     context "with an existing coalition" do
-      before { Coalition.create(name: "Cola Coalition")}
+      before { Coalition.create(name: "Koala Koalition")}
 
       context "when instantiating a second coalition with the same name" do
         it "adds a validation error" do
-          coalition = Coalition.new(name: "Cola Coalition")
+          coalition = Coalition.new(name: "Koala Koalition")
 
           expect(coalition).not_to be_valid
           expect(coalition.errors).to include :name

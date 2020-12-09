@@ -12,5 +12,7 @@
 #  index_coalitions_on_name  (name) UNIQUE
 #
 class Coalition < ApplicationRecord
+  has_many :organizations
+
   validates :name, uniqueness: true
 end

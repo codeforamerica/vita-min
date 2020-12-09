@@ -366,6 +366,15 @@ ActiveRecord::Schema.define(version: 2020_12_10_232524) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "organizations", force: :cascade do |t|
+    t.bigint "coalition_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.string "name", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coalition_id"], name: "index_organizations_on_coalition_id"
+    t.index ["name"], name: "index_organizations_on_name", unique: true
+  end
+
   create_table "outgoing_emails", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "client_id", null: false

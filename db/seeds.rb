@@ -1,3 +1,8 @@
+
+# Coalitions
+koalas = Coalition.find_or_create_by(name: "Koala Koalition")
+colas = Coalition.find_or_create_by(name: "Cola Coalition")
+
 fake_vita_partner = VitaPartner.find_or_create_by(
   name: "Fake Vita Partner",
   display_name: "Fake Vita Partner Display Name",
