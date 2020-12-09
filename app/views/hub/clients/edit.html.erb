@@ -9,6 +9,7 @@
 
       <%= render "primary_info_fields", f: f %>
 
+      <%= error_message(@form, :dependents_attributes) %>
       <div id="dependent-info">
         <h2>Dependents:</h2>
         <%= f.fields_for :dependents do |ff| %>

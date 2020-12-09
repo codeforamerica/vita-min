@@ -244,6 +244,7 @@ FactoryBot.define do
       phone_number { "+14155551212" }
       sms_phone_number { "+14155551212" }
       email_address { "cher@example.com" }
+      email_notification_opt_in { "yes" }
     end
 
     trait :filled_out do

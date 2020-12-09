@@ -31,6 +31,7 @@ class TaxReturn < ApplicationRecord
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2 }
   enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type
+  validates :year, presence: true
 
   ##
   # advance the return to a new status, only if that status more advanced.

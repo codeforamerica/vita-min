@@ -1,5 +1,5 @@
 module Hub
-  class CreateClientForm < Form
+  class CreateClientForm < ClientForm
     include FormAttributes
     set_attributes_for :intake,
                        :primary_first_name,
@@ -37,30 +37,13 @@ module Hub
                        :needs_help_2017,
                        :signature_method
     set_attributes_for :tax_return, :service_type
-    before_validation :normalize_phone_numbers
-
     attr_accessor :tax_returns, :tax_returns_attributes, :client, :intake
-    validates :primary_first_name, presence: true, allow_blank: false
-    validates :primary_last_name, presence: true, allow_blank: false
+
+    # See parent ClientForm for additional validations.
     validates :vita_partner_id, presence: true, allow_blank: false
-    validates :phone_number, allow_blank: true, phone: true
-    validates :sms_phone_number, phone: true, if: -> { sms_phone_number.present? }
-    validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
-    validates :email_address, presence: true, allow_blank: false, 'valid_email_2/email': true
-    validates :preferred_interview_language, presence: true, allow_blank: false
     validates :signature_method, presence: true
-    validates :state_of_residence, inclusion: { in: States.keys }
     validate :tax_return_required_fields_valid
     validate :at_least_one_tax_return_present
-    validate :at_least_one_contact_method
-
-    def opted_in_sms?
-      attributes_for(:intake)[:sms_notification_opt_in] == "yes"
-    end
-
-    def opted_in_email?
-      attributes_for(:intake)[:email_notification_opt_in] == "yes"
-    end
 
     def initialize(attributes = {})
       @tax_returns = TaxReturn.filing_years.map { |year| TaxReturn.new(year: year) }
@@ -69,28 +52,18 @@ module Hub
 
     def save
       return false unless valid?
-      vita_partner_id = attributes_for(:intake)[:vita_partner_id]
-      ActiveRecord::Base.transaction do
-        @intake = Intake.create!(attributes_for(:intake).merge(
-                                   client: Client.create!(vita_partner_id: vita_partner_id),
-                                   preferred_name: calc_preferred_name
-                                 ))
-        @tax_returns_attributes&.each do |_, v|
-          intake.client.tax_returns.create(tax_return_defaults.merge(v)) if create_tax_return_for_year?(v[:year])
-        end
-      end
-      @client = @intake.client
+
+      @client = Client.create!(
+        vita_partner_id: attributes_for(:intake)[:vita_partner_id],
+        intake_attributes: attributes_for(:intake),
+        tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
+      )
     end
 
     def self.permitted_params
       params = CreateClientForm.attribute_names
       params.delete(:tax_returns_attributes)
       params.push(tax_returns_attributes: {})
-    end
-
-    def calc_preferred_name
-      attributes_for(:intake)[:preferred_name].presence ||
-        "#{attributes_for(:intake)[:primary_first_name]} #{attributes_for(:intake)[:primary_last_name]}"
     end
 
     private
@@ -108,6 +81,7 @@ module Hub
       missing_attrs = []
       @tax_returns_attributes&.each do |_, v|
         next unless create_tax_return_for_year?(v[:year])
+
         values = HashWithIndifferentAccess.new(v)
         required_attrs.each { |attr| missing_attrs.push(attr) if values[attr].blank? }
       end
@@ -123,17 +97,6 @@ module Hub
         tax_return_count += 1 if create_tax_return_for_year?(v[:year])
       end
       errors.add(:tax_returns_attributes, I18n.t("forms.errors.at_least_one_year")) unless tax_return_count.positive?
-    end
-
-    def normalize_phone_numbers
-      self.phone_number = PhoneParser.normalize(phone_number) if phone_number.present?
-      self.sms_phone_number = PhoneParser.normalize(sms_phone_number) if sms_phone_number.present?
-    end
-
-    def at_least_one_contact_method
-      unless opted_in_email? || opted_in_sms?
-        errors.add(:communication_preference, I18n.t("forms.errors.need_one_communication_method"))
-      end
     end
   end
 end

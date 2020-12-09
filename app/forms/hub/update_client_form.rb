@@ -1,5 +1,5 @@
 module Hub
-  class ClientIntakeForm < Form
+  class UpdateClientForm < ClientForm
     include FormAttributes
     set_attributes_for :intake,
                        :primary_first_name,
@@ -29,58 +29,55 @@ module Hub
                        :filing_joint,
                        :interview_timing_preference,
                        :timezone,
-                       :dependents_attributes
-    before_validation do
-      self.sms_phone_number = PhoneParser.normalize(sms_phone_number)
-      self.phone_number = PhoneParser.normalize(phone_number)
-    end
-    validates :primary_first_name, presence: true, allow_blank: false
-    validates :primary_last_name, presence: true, allow_blank: false
+                       :state_of_residence
+    attr_accessor :dependents_attributes
+
     validate :dependents_attributes_required_fields
 
-    def initialize(intake, params = {})
-      @intake = intake
+    def initialize(client, params = {})
+      @client = client
+      @dependents_attributes ||= []
       super(params)
+      # parent Form class creates setters for each attribute -- won't work til super is called!
+      self.preferred_name = preferred_name.presence || "#{primary_first_name} #{primary_last_name}"
     end
 
     def dependents
-      dependents_attributes = attributes_for(:intake)[:dependents_attributes]
-      dependents_attributes&.each do |k, v|
+      @dependents_attributes&.each do |_, v|
         next if v["_destroy"] == "1"
 
         v.delete :_destroy # delete falsey _destroy value on reload to initialize dependent again
-        @intake.dependents.new formatted_dependent_attrs(v)
+        @client.intake.dependents.new formatted_dependent_attrs(v)
       end
-      @intake.dependents
+      @client.intake.dependents
     end
 
-    def self.from_intake(intake, params = {})
+    def self.from_client(client)
+      intake = client.intake
       attribute_keys = Attributes.new(attribute_names).to_sym
-      new(intake, existing_attributes(intake).slice(*attribute_keys).merge(params))
+      new(client, existing_attributes(intake).slice(*attribute_keys))
     end
 
     def save
       return false unless valid?
 
-      updated_attributes = attributes_for(:intake).reject { |_k, v| v.nil? }
-      updated_attributes[:dependents_attributes]&.map do |k, v|
+      formatted_dependents_attributes = @dependents_attributes&.each do |k, v|
         { k => formatted_dependent_attrs(v) }
       end
-      @intake.update(updated_attributes)
+      @client.intake.update(attributes_for(:intake).merge(dependents_attributes: formatted_dependents_attributes))
     end
 
     def self.permitted_params
-      client_intake_attributes = ClientIntakeForm.attribute_names
+      client_intake_attributes = attribute_names
       client_intake_attributes.delete(:dependents_attributes)
       client_intake_attributes.push({ dependents_attributes: {} })
-      client_intake_attributes
     end
 
     private
 
     def dependents_attributes_required_fields
       empty_fields = []
-      attributes_for(:intake)[:dependents_attributes]&.each do |_, v|
+      @dependents_attributes&.each do |_, v|
         vals = HashWithIndifferentAccess.new v
         next if vals["_destroy"] == "1"
 
