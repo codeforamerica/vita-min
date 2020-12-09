@@ -32,7 +32,7 @@ RSpec.describe Hub::UsersController do
 
       before { sign_in(create :user_with_org, vita_partner: vita_partner ) }
       let(:vita_partner) { create :vita_partner, name: "Pawnee Preparers" }
-      let!(:leslie) { create :zendesk_admin_user, name: "Leslie", vita_partner: vita_partner }
+      let!(:leslie) { create :zendesk_admin_user, name: "Leslie", vita_partner: vita_partner, is_admin: true, is_client_support: true }
       let!(:ben) { create :agent_user, name: "Ben", vita_partner: vita_partner }
 
       it "displays a list of all users in the org and certain key attributes" do
@@ -42,6 +42,7 @@ RSpec.describe Hub::UsersController do
         html = Nokogiri::HTML.parse(response.body)
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Leslie")
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Pawnee Preparers")
+        expect(html.at_css("#user-#{leslie.id}")).to have_text("Admin, Client support")
         expect(html.at_css("#user-#{leslie.id} a")["href"]).to eq edit_hub_user_path(id: leslie)
       end
     end
@@ -158,6 +159,21 @@ RSpec.describe Hub::UsersController do
         user.reload
         expect(user.is_admin?).to eq true
         expect(user.supported_organization_ids.sort).to eq [supported_vita_partner_1.id, supported_vita_partner_2.id]
+      end
+
+      it "can add client support role" do
+        params = {
+          id: user.id,
+          user: {
+            is_client_support: true,
+            vita_partner_id: vita_partner.id
+          }
+        }
+
+        post :update, params: params
+
+        user.reload
+        expect(user.is_client_support?).to eq true
       end
     end
   end

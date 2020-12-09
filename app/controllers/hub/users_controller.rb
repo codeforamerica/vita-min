@@ -30,6 +30,7 @@ module Hub
     def user_params
       params.require(:user).permit(
         *(:is_admin if current_user.is_admin?),
+        *(:is_client_support if current_user.is_admin?),
         :vita_partner_id,
         :timezone,
         current_user.is_admin ? { supported_organization_ids: [] } : {},

@@ -4,6 +4,7 @@ es:
     users:
       edit:
         is_admin_label: Admin?
+        is_client_support_label: Soporte al cliente?
       index:
         title: Usuarios
       profile:
@@ -464,6 +465,7 @@ es:
     select_files: Seleccionar archivos
     take_picture: Sacar foto
     certification: Certificación
+    client_support: Soporte al cliente
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

@@ -12,6 +12,7 @@
     <h2><%= t("general.role") %></h2>
 
     <%= f.cfa_checkbox(:is_admin, t(".is_admin_label"), options: {classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
+    <%= f.cfa_checkbox(:is_client_support, t(".is_client_support_label"), options: { classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
     <% if current_user.is_admin %>
       <div class="reveal">
         <p><a href="#" class="reveal__link">Select supported organizations</a></p>
