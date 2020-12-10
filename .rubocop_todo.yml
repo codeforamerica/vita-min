@@ -532,7 +532,6 @@ RSpec/AnyInstance:
 RSpec/ContextMethod:
   Exclude:
     - 'spec/controllers/documents_controller_spec.rb'
-    - 'spec/lib/strategies/idme_spec.rb'
 
 # Offense count: 105
 # Configuration parameters: Prefixes.
@@ -557,7 +556,6 @@ RSpec/EmptyLineAfterFinalLet:
 RSpec/EmptyLineAfterHook:
   Exclude:
     - 'spec/controllers/zendesk_webhook_controller_spec.rb'
-    - 'spec/lib/strategies/idme_spec.rb'
 
 # Offense count: 145
 # Configuration parameters: Max.
@@ -569,7 +567,6 @@ RSpec/ExampleLength:
 # Configuration parameters: CustomTransform, IgnoredWords.
 RSpec/ExampleWording:
   Exclude:
-    - 'spec/lib/strategies/idme_spec.rb'
     - 'spec/models/intake_spec.rb'
     - 'spec/models/user_spec.rb'
 
@@ -578,7 +575,6 @@ RSpec/ExampleWording:
 RSpec/FilePath:
   Exclude:
     - 'spec/controllers/backtaxes_controller_spec.rb'
-    - 'spec/lib/strategies/idme_spec.rb'
 
 # Offense count: 5
 # Cop supports --auto-correct.
@@ -588,15 +584,8 @@ RSpec/HookArgument:
   Exclude:
     - 'spec/lib/document_navigation_spec.rb'
     - 'spec/lib/question_navigation_spec.rb'
-    - 'spec/lib/strategies/idme_spec.rb'
     - 'spec/rails_helper.rb'
     - 'spec/support/active_job.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-RSpec/LeadingSubject:
-  Exclude:
-    - 'spec/lib/strategies/idme_spec.rb'
 
 # Offense count: 14
 RSpec/LeakyConstantDeclaration:
@@ -633,7 +622,6 @@ RSpec/MessageChain:
 RSpec/MessageSpies:
   Exclude:
     - 'spec/controllers/users/omniauth_callbacks_controller_spec.rb'
-    - 'spec/lib/strategies/idme_spec.rb'
 
 # Offense count: 235
 # Configuration parameters: AggregateFailuresByDefault.
@@ -781,8 +769,6 @@ Style/HashSyntax:
     - 'app/helpers/application_helper.rb'
     - 'config/routes.rb'
     - 'db/schema.rb'
-    - 'lib/strategies/idme.rb'
-    - 'spec/lib/strategies/idme_spec.rb'
 
 # Offense count: 36
 # Cop supports --auto-correct.

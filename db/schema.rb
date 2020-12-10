@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_193021) do
+ActiveRecord::Schema.define(version: 2020_12_10_205143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,37 +131,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_193021) do
     t.bigint "intake_id"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
-  end
-
-  create_table "idme_users", force: :cascade do |t|
-    t.string "birth_date"
-    t.string "city"
-    t.integer "consented_to_service", default: 0, null: false
-    t.datetime "consented_to_service_at"
-    t.string "consented_to_service_ip"
-    t.datetime "created_at", null: false
-    t.datetime "current_sign_in_at"
-    t.inet "current_sign_in_ip"
-    t.string "email"
-    t.integer "email_notification_opt_in", default: 0, null: false
-    t.string "encrypted_ssn"
-    t.string "encrypted_ssn_iv"
-    t.string "first_name"
-    t.bigint "intake_id", null: false
-    t.boolean "is_spouse", default: false
-    t.string "last_name"
-    t.datetime "last_sign_in_at"
-    t.inet "last_sign_in_ip"
-    t.string "phone_number"
-    t.string "provider"
-    t.integer "sign_in_count", default: 0, null: false
-    t.integer "sms_notification_opt_in", default: 0, null: false
-    t.string "state"
-    t.string "street_address"
-    t.string "uid"
-    t.datetime "updated_at", null: false
-    t.string "zip_code"
-    t.index ["intake_id"], name: "index_idme_users_on_intake_id"
   end
 
   create_table "incoming_emails", force: :cascade do |t|
@@ -615,7 +584,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_193021) do
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents_requests", "intakes"
-  add_foreign_key "idme_users", "intakes"
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
