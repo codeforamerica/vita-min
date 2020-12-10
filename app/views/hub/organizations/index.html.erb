@@ -1,0 +1,22 @@
+<% @title = t("general.organizations") %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <h1><%= @title %></h1>
+
+  <%= link_to t("hub.organizations.new.title"), new_hub_organization_path, class: "button button--cta"%>
+
+  <% @coalitions.each do |coalition| %>
+    <h2><%= coalition.name %></h2>
+
+    <% coalition.organizations.each do |organization| %>
+      <h3><%= organization.name %></h3>
+    <% end %>
+  <% end %>
+
+  <% if @independent_organizations.present? %>
+    <h3><%= t(".independent_organizations") %></h3>
+    <% @independent_organizations.each do |organization| %>
+      <h3><%= organization.name %></h3>
+    <% end %>
+  <% end %>
+<% end %>

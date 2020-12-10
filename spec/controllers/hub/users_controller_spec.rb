@@ -6,19 +6,41 @@ RSpec.describe Hub::UsersController do
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :profile
 
-    context "with an authenticated user" do
+    context "with an authenticated non-admin user" do
       render_views
       let(:user) { create :user_with_org, role: "agent", name: "Adam Avocado", vita_partner: vita_partner}
       before { sign_in user }
 
-      it "renders information about the current user with helpful links" do
+      it "renders information about the current user" do
         get :profile
 
         expect(response).to be_ok
         expect(response.body).to have_content "Adam Avocado"
+      end
+
+      it "includes links that haven't yet been properly scoped to admins only" do
+        get :profile
+
         expect(response.body).to include invitations_path
         expect(response.body).to include hub_clients_path
         expect(response.body).to include hub_users_path
+      end
+
+      it "does not include admin-only links" do
+        get :profile
+
+        expect(response.body).not_to include hub_organizations_path
+      end
+    end
+
+    context "as an authenticated admin user" do
+      render_views
+      before { sign_in(create :admin_user) }
+
+      it "renders admin-only action links" do
+        get :profile
+
+        expect(response.body).to include hub_organizations_path
       end
     end
   end

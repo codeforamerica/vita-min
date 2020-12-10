@@ -35,5 +35,13 @@
         <%= t(".vita_partners_link") %>
       <% end %>
     </li>
+
+    <% if can? :manage, Organization %>
+      <li class="user-action-link">
+        <%= link_to hub_organizations_path, class: "button button--small" do %>
+          <%= t("general.organizations") %>
+        <% end %>
+      </li>
+  <% end %>
   </ul>
 <% end %>

@@ -191,6 +191,11 @@ en:
       add_site: Add site
       index:
         title: VITA partners
+    organizations:
+      index:
+        independent_organizations: "Independent Organizations"
+      new:
+        title: "New Organization"
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
@@ -471,6 +476,8 @@ en:
     take_picture: Take picture
     certification: Certification
     client_support: Client support
+    organizations: "Organizations"
+    coalition: "Coalition"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
