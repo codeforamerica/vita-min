@@ -1,7 +1,7 @@
 module Hub
   class DocumentsController < ApplicationController
     include AccessControllable
-    include FileResponseControllerHelper
+    include FilesConcern
 
     before_action :require_sign_in
     load_and_authorize_resource :client
@@ -17,7 +17,7 @@ module Hub
     end
 
     def show
-      render_active_storage_attachment @document.upload
+      redirect_to transient_storage_url(@document.upload.blob, disposition: :inline)
     end
 
     def edit; end

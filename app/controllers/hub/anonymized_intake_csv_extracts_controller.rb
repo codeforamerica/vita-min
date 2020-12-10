@@ -1,5 +1,6 @@
 module Hub
   class AnonymizedIntakeCsvExtractsController < ApplicationController
+    include FilesConcern
     layout "admin"
 
     load_and_authorize_resource
@@ -9,10 +10,7 @@ module Hub
     end
 
     def show
-      if @anonymized_intake_csv_extract
-        attachment = @anonymized_intake_csv_extract.upload
-        send_data(attachment.download, filename: attachment.filename.to_s, type: attachment.content_type, disposition: "attachment")
-      end
+      redirect_to transient_storage_url(@anonymized_intake_csv_extract.upload.blob, disposition: "attachment")
     end
   end
 end

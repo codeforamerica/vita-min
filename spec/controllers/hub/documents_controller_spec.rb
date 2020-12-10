@@ -170,14 +170,18 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
     context "with a signed in user" do
+      let(:document_transient_url) { "https://gyr-demo.s3.amazonaws.com/document.pdf?sig=whatever&expires=whatever" }
       let(:user) { create :user, vita_partner: vita_partner }
-      before { sign_in(user) }
+      before do
+        sign_in(user)
+        allow(subject).to receive(:transient_storage_url).and_return(document_transient_url)
+      end
 
       it "shows the document" do
         get :show, params: params
 
-        expect(response).to be_ok
-        expect(response.headers["Content-Type"]).to eq("image/jpeg")
+        expect(response).to redirect_to(document_transient_url)
+        expect(subject).to have_received(:transient_storage_url).with(document.upload.blob, disposition: :inline)
       end
     end
   end
@@ -219,4 +223,3 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     end
   end
 end
-
