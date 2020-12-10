@@ -9,10 +9,7 @@ module Hub
     end
 
     def show
-      if @anonymized_intake_csv_extract
-        attachment = @anonymized_intake_csv_extract.upload
-        send_data(attachment.download, filename: attachment.filename.to_s, type: attachment.content_type, disposition: "attachment")
-      end
+      redirect_to rails_blob_path(@anonymized_intake_csv_extract.upload.blob, disposition: "attachment")
     end
   end
 end

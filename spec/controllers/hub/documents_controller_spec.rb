@@ -176,8 +176,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
       it "shows the document" do
         get :show, params: params
 
-        expect(response).to be_ok
-        expect(response.headers["Content-Type"]).to eq("image/jpeg")
+        expect(response).to redirect_to(Rails.application.routes.url_helpers.rails_blob_path(document.upload, disposition: :inline))
       end
     end
   end
@@ -219,4 +218,3 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     end
   end
 end
-

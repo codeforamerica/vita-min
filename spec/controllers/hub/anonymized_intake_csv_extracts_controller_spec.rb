@@ -35,8 +35,7 @@ RSpec.describe Hub::AnonymizedIntakeCsvExtractsController do
       it "sends the csv file as a download attachment" do
         get :show, params: { id: extract.id }
 
-        expect(response.headers["Content-Type"]).to eq("text/csv")
-        expect(response.headers["Content-Disposition"]).to include("attachment")
+        expect(response).to redirect_to(Rails.application.routes.url_helpers.rails_blob_url(extract.upload, disposition: "attachment"))
       end
     end
   end

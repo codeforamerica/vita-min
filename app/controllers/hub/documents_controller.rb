@@ -1,7 +1,6 @@
 module Hub
   class DocumentsController < ApplicationController
     include AccessControllable
-    include FileResponseControllerHelper
 
     before_action :require_sign_in
     load_and_authorize_resource :client
@@ -17,7 +16,7 @@ module Hub
     end
 
     def show
-      render_active_storage_attachment @document.upload
+      redirect_to rails_blob_url(@document.upload, disposition: :inline)
     end
 
     def edit; end
