@@ -2,6 +2,7 @@
 create schema if not exists anon2020;
 
 -- COPY DATA
+drop table if exists anon2020.active_storage_attachments;
 create table anon2020.active_storage_attachments as (select * from public.active_storage_attachments);
 drop table if exists anon2020.active_storage_blobs;
 create table anon2020.active_storage_blobs as (select * from public.active_storage_blobs);
