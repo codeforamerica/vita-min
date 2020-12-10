@@ -88,11 +88,11 @@ set birth_date = to_date(concat('1/1/', extract(year from birth_date)), 'MM/DD/Y
   , first_name = 'ANONYMIZED'
   , last_name  = 'ANONYMIZED';
 
--- intakes
+-- documents
 update anon2020.documents
 set display_name = 'ANONYMIZED';
 
--- documents
+-- intakes
 update anon2020.intakes
 set additional_info                    = 'ANONYMIZED'
   , email_address                      = 'ANONYMIZED'
