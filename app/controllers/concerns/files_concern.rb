@@ -5,10 +5,10 @@ module FilesConcern
     #
     # Expiration is controlled via `Rails.application.config.active_storage.service_urls_expire_in`
     #
-    # Use this instead of rails_blob_url because rails_blob_url creates long-lasting URLs which redirect to transient URLs.
-    # We want no long-lasting URLs.
+    # Use this instead of #rails_blob_url because #rails_blob_url creates long-lasting URLs which redirect to transient URLs.
+    # We want no long-lasting URLs because those are not revocable when we remove users' accounts.
 
-    # ActiveStorage's #service_url requires us to set `host`;  see https://stackoverflow.com/questions/51110789/activestorage-service-url-rails-blob-path-cannot-generate-full-url-when-not-u
+    # In dev & test, we use ActiveStorage's local disk backend. In that case, #service_url requires us to set `host`; see https://stackoverflow.com/questions/51110789/activestorage-service-url-rails-blob-path-cannot-generate-full-url-when-not-u
     ActiveStorage::Current.set(host: request.base_url) do
       attachment.service_url(disposition: disposition || :inline) # :inline is the default for #service_url
     end
