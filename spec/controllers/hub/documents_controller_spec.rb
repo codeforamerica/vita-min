@@ -181,7 +181,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         get :show, params: params
 
         expect(response).to redirect_to(document_transient_url)
-        expect(subject).to have_received(:transient_storage_url).with(document.upload.blob, disposition: :inline)
+        expect(subject).to have_received(:transient_storage_url).with(document.upload.blob)
       end
     end
   end

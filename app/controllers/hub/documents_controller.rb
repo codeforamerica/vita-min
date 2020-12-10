@@ -17,7 +17,7 @@ module Hub
     end
 
     def show
-      redirect_to transient_storage_url(@document.upload.blob, disposition: :inline)
+      redirect_to transient_storage_url(@document.upload.blob)
     end
 
     def edit; end
