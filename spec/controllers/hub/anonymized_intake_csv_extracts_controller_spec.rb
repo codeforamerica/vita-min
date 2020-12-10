@@ -30,13 +30,18 @@ RSpec.describe Hub::AnonymizedIntakeCsvExtractsController do
     it_behaves_like :a_get_action_for_admins_only, action: :show
 
     context "with an authenticated user" do
-      before { sign_in create(:admin_user) }
+      let(:csv_transient_url) { "https://gyr-demo.s3.amazonaws.com/data.csv?sig=whatever&expires=whatever" }
+
+      before do
+        sign_in create(:admin_user)
+        allow(subject).to receive(:transient_storage_url).and_return(csv_transient_url)
+      end
 
       it "sends the csv file as a download attachment" do
         get :show, params: { id: extract.id }
 
-        expect(response.headers["Content-Type"]).to eq("text/csv")
-        expect(response.headers["Content-Disposition"]).to include("attachment")
+        expect(response).to redirect_to(csv_transient_url)
+        expect(subject).to have_received(:transient_storage_url).with(extract.upload.blob, disposition: "attachment")
       end
     end
   end

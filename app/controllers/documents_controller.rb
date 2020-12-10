@@ -1,6 +1,5 @@
 class DocumentsController < ApplicationController
   include AccessControllable
-  include FileResponseControllerHelper
   before_action :require_intake
 
   def destroy
