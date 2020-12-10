@@ -419,6 +419,13 @@ ActiveRecord::Schema.define(version: 2020_12_10_232524) do
     t.string "zip_code"
   end
 
+  create_table "sites", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "organization_id", null: false
+    t.index ["organization_id", "name"], name: "index_sites_on_organization_id_and_name", unique: true
+    t.index ["organization_id"], name: "index_sites_on_organization_id"
+  end
+
   create_table "source_parameters", force: :cascade do |t|
     t.string "code"
     t.datetime "created_at", precision: 6, null: false
@@ -576,6 +583,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_232524) do
   add_foreign_key "outgoing_emails", "users"
   add_foreign_key "outgoing_text_messages", "clients"
   add_foreign_key "outgoing_text_messages", "users"
+  add_foreign_key "sites", "organizations"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "states_vita_partners", "vita_partners"
   add_foreign_key "system_notes", "clients"
