@@ -24,6 +24,8 @@ drop table if exists anon2020.documents;
 create table anon2020.documents as (select * from public.documents);
 drop table if exists anon2020.documents_requests;
 create table anon2020.documents_requests as (select * from public.documents_requests);
+drop table if exists anon2020.idme_users;
+create table anon2020.idme_users as (select * from public.idme_users);
 drop table if exists anon2020.incoming_emails;
 create table anon2020.incoming_emails as (select * from public.incoming_emails);
 drop table if exists anon2020.incoming_text_messages;
@@ -92,6 +94,9 @@ set birth_date = to_date(concat('1/1/', extract(year from birth_date)), 'MM/DD/Y
 -- documents
 update anon2020.documents
 set display_name = 'ANONYMIZED';
+
+-- delayed_jobs
+truncate anon2020.idme_users;
 
 -- intakes
 update anon2020.intakes
