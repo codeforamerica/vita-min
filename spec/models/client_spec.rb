@@ -232,12 +232,10 @@ describe Client do
         create :outgoing_email, client: client, attachment: attachment
         create :outgoing_text_message, client: client
         create :documents_request, intake: intake
-        create :ticket_status, intake: intake
       end
 
       it "destroys everything associated with the client" do
         client.destroy_completely
-
         expect(Client.count).to eq 1
         expect(Client.last).to eq unrelated_intake.client
         expect(Intake.count).to eq 1
@@ -252,7 +250,6 @@ describe Client do
         expect(OutgoingEmail.count).to eq 0
         expect(OutgoingTextMessage.count).to eq 0
         expect(DocumentsRequest.count).to eq 0
-        expect(TicketStatus.count).to eq 0
       end
     end
   end

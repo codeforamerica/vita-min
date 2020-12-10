@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_193021) do
+ActiveRecord::Schema.define(version: 2020_12_10_232524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,26 +194,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_193021) do
     t.datetime "received_at", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_incoming_text_messages_on_client_id"
-  end
-
-  create_table "intake_site_drop_offs", force: :cascade do |t|
-    t.string "additional_info"
-    t.string "certification_level"
-    t.datetime "created_at"
-    t.string "email"
-    t.boolean "hsa", default: false
-    t.string "intake_site", null: false
-    t.string "name", null: false
-    t.string "organization"
-    t.string "phone_number"
-    t.date "pickup_date"
-    t.bigint "prior_drop_off_id"
-    t.string "signature_method", null: false
-    t.string "state"
-    t.string "timezone"
-    t.datetime "updated_at"
-    t.string "zendesk_ticket_id"
-    t.index ["prior_drop_off_id"], name: "index_intake_site_drop_offs_on_prior_drop_off_id"
   end
 
   create_table "intakes", force: :cascade do |t|
@@ -513,18 +493,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_193021) do
     t.index ["year", "client_id"], name: "index_tax_returns_on_year_and_client_id", unique: true
   end
 
-  create_table "ticket_statuses", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.string "eip_status"
-    t.bigint "intake_id"
-    t.string "intake_status"
-    t.string "return_status"
-    t.integer "ticket_id"
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "verified_change", default: true
-    t.index ["intake_id"], name: "index_ticket_statuses_on_intake_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.boolean "active"
     t.datetime "created_at", precision: 6, null: false
@@ -617,7 +585,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_193021) do
   add_foreign_key "documents_requests", "intakes"
   add_foreign_key "idme_users", "intakes"
   add_foreign_key "incoming_text_messages", "clients"
-  add_foreign_key "intake_site_drop_offs", "intake_site_drop_offs", column: "prior_drop_off_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
   add_foreign_key "notes", "users"
@@ -631,7 +598,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_193021) do
   add_foreign_key "system_notes", "users"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
-  add_foreign_key "ticket_statuses", "intakes"
   add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "users", "vita_partners"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
