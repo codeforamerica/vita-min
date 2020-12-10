@@ -76,7 +76,6 @@ Layout/EmptyLineAfterGuardClause:
     - 'app/helpers/birth_date_helper.rb'
     - 'app/lib/consent_pdf.rb'
     - 'app/models/intake.rb'
-    - 'app/models/intake_site_drop_off.rb'
     - 'app/models/vita_provider.rb'
     - 'app/services/scrape_vita_providers_service.rb'
     - 'app/services/zendesk_follow_up_docs_service.rb'
@@ -92,7 +91,6 @@ Layout/EmptyLines:
     - 'spec/controllers/dependents_controller_spec.rb'
     - 'spec/controllers/public_pages_controller_spec.rb'
     - 'spec/features/web_intake/new_joint_filers_spec.rb'
-    - 'spec/models/intake_site_drop_off_spec.rb'
     - 'spec/models/user_spec.rb'
 
 # Offense count: 7
@@ -289,7 +287,6 @@ Layout/SpaceInsideBlockBraces:
     - 'spec/controllers/application_controller_spec.rb'
     - 'spec/controllers/dependents_controller_spec.rb'
     - 'spec/controllers/documents/requested_documents_later_controller_spec.rb'
-    - 'spec/controllers/intake_site_drop_offs_controller_spec.rb'
     - 'spec/models/intake_spec.rb'
 
 # Offense count: 80
@@ -385,7 +382,6 @@ Lint/UnusedBlockArgument:
   Exclude:
     - 'app/forms/form.rb'
     - 'app/models/dependent.rb'
-    - 'app/models/intake_site_drop_off.rb'
     - 'spec/support/pdf_spec_helper.rb'
 
 # Offense count: 4
@@ -413,12 +409,6 @@ Lint/UselessAssignment:
     - 'spec/controllers/documents/w2s_controller_spec.rb'
     - 'spec/services/zendesk_follow_up_docs_service_spec.rb'
     - 'spec/services/zendesk_intake_service_spec.rb'
-
-# Offense count: 1
-# Configuration parameters: CheckForMethodsWithNoSideEffects.
-Lint/Void:
-  Exclude:
-    - 'app/models/intake_site_drop_off.rb'
 
 # Offense count: 33
 # Configuration parameters: IgnoredMethods.
@@ -489,7 +479,6 @@ Naming/MethodName:
 Naming/PredicateName:
   Exclude:
     - 'spec/**/*'
-    - 'app/models/intake_site_drop_off.rb'
     - 'app/models/vita_provider.rb'
 
 # Offense count: 4
@@ -499,7 +488,6 @@ Naming/RescuedExceptionsVariableName:
   Exclude:
     - 'app/controllers/dependents_controller.rb'
     - 'app/helpers/birth_date_helper.rb'
-    - 'app/models/intake_site_drop_off.rb'
     - 'app/services/mixpanel_service.rb'
 
 # Offense count: 1
@@ -611,7 +599,6 @@ RSpec/LetSetup:
   Exclude:
     - 'spec/controllers/dependents_controller_spec.rb'
     - 'spec/controllers/documents/send_requested_documents_later_controller_spec.rb'
-    - 'spec/controllers/intake_site_drop_offs_controller_spec.rb'
     - 'spec/controllers/questions/notification_preference_controller_spec.rb'
     - 'spec/controllers/vita_providers_controller_spec.rb'
     - 'spec/features/web_intake/requested_documents_token_spec.rb'
@@ -657,7 +644,6 @@ RSpec/NotToNot:
   Exclude:
     - 'spec/models/dependent_spec.rb'
     - 'spec/models/document_spec.rb'
-    - 'spec/models/intake_site_drop_off_spec.rb'
     - 'spec/models/provider_scrape_spec.rb'
 
 # Offense count: 2
@@ -710,7 +696,6 @@ Style/BlockDelimiters:
     - 'spec/controllers/documents/requested_documents_later_controller_spec.rb'
     - 'spec/controllers/documents/send_requested_documents_later_controller_spec.rb'
     - 'spec/controllers/documents/w2s_controller_spec.rb'
-    - 'spec/controllers/intake_site_drop_offs_controller_spec.rb'
     - 'spec/controllers/questions/feelings_controller_spec.rb'
     - 'spec/controllers/users/omniauth_callbacks_controller_spec.rb'
     - 'spec/helpers/zendesk_service_helper_spec.rb'
@@ -789,13 +774,6 @@ Style/HashSyntax:
 Style/IfUnlessModifier:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: InverseMethods, InverseBlocks.
-Style/InverseMethods:
-  Exclude:
-    - 'app/models/intake_site_drop_off.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoredMethods.
@@ -803,7 +781,6 @@ Style/MethodCallWithoutArgsParentheses:
   Exclude:
     - 'app/controllers/location_searches_controller.rb'
     - 'app/services/scrape_vita_providers_service.rb'
-    - 'spec/models/intake_site_drop_off_spec.rb'
     - 'spec/models/vita_provider_spec.rb'
 
 # Offense count: 1
@@ -864,7 +841,6 @@ Style/PercentLiteralDelimiters:
   Exclude:
     - 'Guardfile'
     - 'app/helpers/eitc_zendesk_instance.rb'
-    - 'app/models/intake_site_drop_off.rb'
     - 'config/initializers/lograge.rb'
     - 'config/initializers/sentry.rb'
     - 'spec/controllers/users/omniauth_callbacks_controller_spec.rb'
@@ -907,7 +883,6 @@ Style/RedundantReturn:
   Exclude:
     - 'app/controllers/application_controller.rb'
     - 'app/helpers/vita_min_form_builder.rb'
-    - 'app/models/intake_site_drop_off.rb'
     - 'app/services/zendesk_drop_off_service.rb'
 
 # Offense count: 10
@@ -918,7 +893,6 @@ Style/RedundantSelf:
     - 'app/helpers/birth_date_helper.rb'
     - 'app/helpers/states.rb'
     - 'app/models/intake.rb'
-    - 'app/models/intake_site_drop_off.rb'
     - 'app/models/provider_scrape.rb'
     - 'config/environments/development.rb'
     - 'config/environments/shared_deployment_config.rb'
