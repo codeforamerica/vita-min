@@ -1,6 +1,7 @@
 module FilesConcern
   def transient_storage_url(attachment, disposition: nil)
     # Create a quickly-expiring URL for a given ActiveStorage attachment.
+    # When using S3 storage, the URL is not on our domain, protecting users from possible Javascript in the storage object.
     #
     # Expiration is controlled via `Rails.application.config.active_storage.service_urls_expire_in`
     #
