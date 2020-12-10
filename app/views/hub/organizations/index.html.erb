@@ -9,7 +9,9 @@
     <h2><%= coalition.name %></h2>
 
     <% coalition.organizations.each do |organization| %>
-      <h3><%= organization.name %></h3>
+      <h3>
+        <%= link_to organization.name, edit_hub_organization_path(id: organization) %>
+      </h3>
     <% end %>
   <% end %>
 

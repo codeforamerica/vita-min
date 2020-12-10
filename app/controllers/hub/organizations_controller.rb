@@ -6,6 +6,11 @@ module Hub
 
     layout "admin"
 
+    def index
+      @coalitions = Coalition.includes(:organizations)
+      @independent_organizations = @organizations.where(coalition: nil)
+    end
+
     def new
       @coalitions = Coalition.all
     end
@@ -16,9 +21,14 @@ module Hub
       redirect_to hub_organizations_path
     end
 
-    def index
-      @coalitions = Coalition.includes(:organizations)
-      @independent_organizations = @organizations.where(coalition: nil)
+    def edit
+      @coalitions = Coalition.all
+    end
+
+    def update
+      render :edit unless @organization.update(organization_params)
+
+      redirect_to hub_organizations_path
     end
 
     private

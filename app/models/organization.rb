@@ -15,6 +15,7 @@
 #
 class Organization < ApplicationRecord
   belongs_to :coalition, optional: true
+  has_many :sites
   
   validates :name, uniqueness: true
 end

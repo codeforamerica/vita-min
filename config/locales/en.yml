@@ -196,6 +196,8 @@ en:
         independent_organizations: "Independent Organizations"
       new:
         title: "New Organization"
+      edit:
+        no_sites: "No sites"
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
@@ -478,6 +480,7 @@ en:
     client_support: Client support
     organizations: "Organizations"
     coalition: "Coalition"
+    sites: "Sites"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

@@ -196,6 +196,8 @@ es:
         independent_organizations: "Organizaciones Independientes"
       new:
         title: "Nueva Organización"
+      edit:
+        no_sites: "Ningunos sitios"
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
@@ -478,6 +480,7 @@ es:
     client_support: Soporte al cliente
     organizations: "Organizaciones"
     coalition: "Coalición"
+    sites: "Sitios"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
