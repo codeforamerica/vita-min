@@ -11,6 +11,7 @@ es:
         clients_link: Clientes
         users_link: Usuarios
         vita_partners_link: Socios de VITA
+        return_to_dashboard: < Volver a tablero
     anonymized_intake_csv_extracts:
       index:
         filename: Nombre de archivo
@@ -81,6 +82,7 @@ es:
         primary_contact_info: Información de contacto
         spouse_contact_info: Información de contacto del cónyuge
         texting_phone: Número celular
+        return_to_clients: < Volver a todos los clientes
       edit_take_action:
         blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
         blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
@@ -470,6 +472,7 @@ es:
     select_files: Seleccionar archivos
     take_picture: Sacar foto
     certification: Certificación
+    my_profile: Mi perfil
     client_support: Soporte al cliente
   helpers:
     birth_date_helper:
