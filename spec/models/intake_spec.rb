@@ -1161,16 +1161,6 @@ describe Intake do
     end
   end
 
-  describe "#current_ticket_status" do
-    let!(:intake) {create :intake}
-    let!(:old_status) {create :ticket_status, intake: intake, created_at: 3.days.ago}
-    let!(:new_status) {create :ticket_status, intake: intake, created_at: 1.days.ago}
-
-    it "returns the ticket status with the most recent created_at" do
-      expect(intake.current_ticket_status).to eq new_status
-    end
-  end
-
   describe "#advance_tax_return_statuses_to" do
     let(:intake) { create :intake }
     let!(:earlier_tax_return) { create :tax_return, year: 2020, client: intake.client, status: "intake_before_consent" }

@@ -66,7 +66,6 @@ class Client < ApplicationRecord
   end
 
   def destroy_completely
-    intake.ticket_statuses.destroy_all
     intake.dependents.destroy_all
     DocumentsRequest.where(intake: intake).destroy_all
     documents.destroy_all

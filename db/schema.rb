@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_225714) do
+ActiveRecord::Schema.define(version: 2020_12_10_232524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -462,18 +462,6 @@ ActiveRecord::Schema.define(version: 2020_12_10_225714) do
     t.index ["year", "client_id"], name: "index_tax_returns_on_year_and_client_id", unique: true
   end
 
-  create_table "ticket_statuses", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.string "eip_status"
-    t.bigint "intake_id"
-    t.string "intake_status"
-    t.string "return_status"
-    t.integer "ticket_id"
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "verified_change", default: true
-    t.index ["intake_id"], name: "index_ticket_statuses_on_intake_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.boolean "active"
     t.datetime "created_at", precision: 6, null: false
@@ -578,7 +566,6 @@ ActiveRecord::Schema.define(version: 2020_12_10_225714) do
   add_foreign_key "system_notes", "users"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
-  add_foreign_key "ticket_statuses", "intakes"
   add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "users", "vita_partners"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"

@@ -204,7 +204,6 @@ class Intake < ApplicationRecord
 
   has_many :documents
   has_many :dependents, -> { order(created_at: :asc) }
-  has_many :ticket_statuses, -> { order(created_at: :asc) }
   belongs_to :client, optional: true
   belongs_to :vita_partner, optional: true
   belongs_to :triage_source, optional: true, polymorphic: true
@@ -522,11 +521,6 @@ class Intake < ApplicationRecord
     return unless spouse_birth_date.present?
 
     tax_year - spouse_birth_date.year
-  end
-
-  def current_ticket_status
-    # we think this is faster than doing ticket_statuses.last
-    ticket_statuses.reorder(created_at: :desc).first
   end
 
   ##

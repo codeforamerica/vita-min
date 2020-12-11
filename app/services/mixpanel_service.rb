@@ -140,8 +140,6 @@ class MixpanelService
           data.merge!(data_from_controller(entry))
         when ActionDispatch::Request
           data.merge!(data_from_request(entry, path_exclusions: path_exclusions))
-        when TicketStatus
-          data.merge!(data_from_ticket_status(entry))
         when StimulusTriage
           data.merge!(data_from_stimulus_triage(entry))
         else
@@ -224,25 +222,6 @@ class MixpanelService
         already_applied_for_stimulus: intake.already_applied_for_stimulus,
         no_ssn: intake.no_ssn,
       }
-    end
-
-    ##
-    # creates Mixpanel data from a ticket_status object
-    def data_from_ticket_status(ticket_status)
-      if ticket_status.eip_status.present?
-        status_labels = { eip_status: EitcZendeskInstance::EIP_STATUS_LABELS[ticket_status.eip_status] }
-      else
-        status_labels = {
-          intake_status: EitcZendeskInstance::INTAKE_STATUS_LABELS[ticket_status.intake_status],
-          return_status: EitcZendeskInstance::RETURN_STATUS_LABELS[ticket_status.return_status]
-        }
-      end
-
-      {
-        verified_change: ticket_status.verified_change,
-        ticket_id: ticket_status.ticket_id,
-        created_at: ticket_status.created_at.utc.iso8601,
-      }.merge(status_labels)
     end
 
     ##

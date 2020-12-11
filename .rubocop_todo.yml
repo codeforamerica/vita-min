@@ -652,13 +652,6 @@ RSpec/SubjectStub:
 RSpec/VerifiedDoubles:
   Exclude:
     - 'spec/controllers/application_controller_spec.rb'
-    - 'spec/helpers/zendesk_service_helper_spec.rb'
-    - 'spec/jobs/create_zendesk_intake_ticket_job_spec.rb'
-    - 'spec/jobs/zendesk_inbound_sms_job_spec.rb'
-    - 'spec/lib/zendesk_requested_docs_link_backfill_spec.rb'
-    - 'spec/services/zendesk_drop_off_service_spec.rb'
-    - 'spec/services/zendesk_intake_service_spec.rb'
-    - 'spec/services/zendesk_sms_service_spec.rb'
 
 # Offense count: 1
 Security/Open:
@@ -686,7 +679,6 @@ Style/BlockDelimiters:
     - 'spec/controllers/documents/w2s_controller_spec.rb'
     - 'spec/controllers/questions/feelings_controller_spec.rb'
     - 'spec/controllers/users/omniauth_callbacks_controller_spec.rb'
-    - 'spec/helpers/zendesk_service_helper_spec.rb'
     - 'spec/jobs/scrape_vita_providers_job_spec.rb'
     - 'spec/models/intake_spec.rb'
     - 'spec/models/user_spec.rb'
@@ -699,14 +691,6 @@ Style/ClassAndModuleChildren:
   Exclude:
     - 'app/controllers/users/omniauth_callbacks_controller.rb'
     - 'app/controllers/users/sessions_controller.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'app/services/zendesk_intake_service.rb'
 
 # Offense count: 356
 Style/Documentation:
@@ -782,8 +766,6 @@ Style/MutableConstant:
   Exclude:
     - 'app/controllers/email_controller.rb'
     - 'app/helpers/documents_helper.rb'
-    - 'app/helpers/eitc_zendesk_instance.rb'
-    - 'app/helpers/uwtsa_zendesk_instance.rb'
     - 'app/lib/user_data_to_intake_backfill.rb'
     - 'app/validators/zip_code_validator.rb'
 

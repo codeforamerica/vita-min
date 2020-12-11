@@ -41,17 +41,10 @@ describe MixpanelService do
 
     describe '#data_from(obj)' do
       let(:intake) { create :intake }
-      let(:ticket_status) do
-        create(
-          :ticket_status,
-          intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_REVIEW,
-          return_status: EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS
-        )
-      end
 
       it 'behaves identically to the class version' do
-        expect(MixpanelService.instance.data_from([intake, ticket_status]))
-          .to eq(MixpanelService.data_from([intake, ticket_status]))
+        expect(MixpanelService.instance.data_from([intake]))
+          .to eq(MixpanelService.data_from([intake]))
         expect(MixpanelService.instance.data_from([]))
           .to eq(MixpanelService.data_from([]))
         expect(MixpanelService.instance.data_from({ returns: 'empty' }))
@@ -199,13 +192,7 @@ describe MixpanelService do
         )
       end
 
-      let(:ticket_status) do
-        create(
-          :ticket_status,
-          intake_status: EitcZendeskInstance::INTAKE_STATUS_IN_REVIEW,
-          return_status: EitcZendeskInstance::RETURN_STATUS_IN_PROGRESS
-        )
-      end
+      let(:intake2) { create :intake }
 
       before do
         intake.dependents << create(:dependent, birth_date: Date.new(2017, 4, 21), intake: intake)
@@ -215,8 +202,8 @@ describe MixpanelService do
 
       context 'when obj is an array' do
         it 'returns data for all objects in the array' do
-          enumerable_data = MixpanelService.data_from([intake, ticket_status])
-          individual_data = MixpanelService.data_from(intake).merge(MixpanelService.data_from(ticket_status))
+          enumerable_data = MixpanelService.data_from([intake, intake2])
+          individual_data = MixpanelService.data_from(intake).merge(MixpanelService.data_from(intake2))
 
           expect(enumerable_data).to eq(individual_data)
         end
@@ -330,18 +317,6 @@ describe MixpanelService do
                                                 :stimulus_triage_need_to_file
                                             )
           end
-        end
-      end
-
-      context 'when object is a TicketStatus' do
-        it 'returns the expected hash' do
-          expect(MixpanelService.data_from(ticket_status)).to eq({
-            verified_change: true,
-            ticket_id: ticket_status.intake.intake_ticket_id,
-            intake_status: "In Review",
-            return_status: "In Progress",
-            created_at: ticket_status.created_at.utc.iso8601
-          })
         end
       end
     end
