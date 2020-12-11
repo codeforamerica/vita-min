@@ -22,9 +22,9 @@
     <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
 
     <link rel="canonical" href="<%= canonical_url %>" />
-    <link rel="alternate" href="<%= hreflang_url %>" hreflang="x-default" />
-    <link rel="alternate" href="<%= hreflang_url(:en) %>" hreflang="en" />
-    <link rel="alternate" href="<%= hreflang_url(:es) %>" hreflang="es" />
+    <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="x-default" />
+    <link rel="alternate" href="<%= canonical_url(:en) %>" hreflang="en" />
+    <link rel="alternate" href="<%= canonical_url(:es) %>" hreflang="es" />
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

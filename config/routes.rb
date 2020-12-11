@@ -20,6 +20,12 @@ Rails.application.routes.draw do
   end
 
   mount Cfa::Styleguide::Engine => "/cfa"
+
+  # In order to disambiguate versions of english pages with and without locales, we redirect to URLs including the locale
+  # If we redirect here in the route declarations, we can't inspect accept headers to determine the proper default locale,
+  # hence the redirect actions in public_pages.
+  root "public_pages#redirect_locale_home", as: :redirected_root
+
   # All routes in this scope will be prefixed with /locale if an available locale is set. See default_url_options in
   # application_controller.rb and http://guides.rubyonrails.org/i18n.html for more info on this approach.
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
@@ -145,7 +151,7 @@ Rails.application.routes.draw do
     ### END Hub Admin routes (Case Management)
 
     # Any other top level slash just goes to home as a source parameter
-    get "/:source" => "public_pages#home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
+    get "/:source" => "public_pages#redirect_locale_home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
   end
 
   # Routes outside of the locale scope are not internationalized

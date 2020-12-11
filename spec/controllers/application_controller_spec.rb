@@ -283,43 +283,6 @@ RSpec.describe ApplicationController do
             }.not_to raise_error
           end
         end
-
-        context "and a :new_locale param" do
-          before { @params.merge!(new_locale: new_locale) }
-
-          context "that does exist" do
-            let(:new_locale) { 'yy' }
-
-            it "uses the :new_locale param" do
-              get :index, params: @params
-
-              expect(I18n).to have_received(:with_locale).with('yy', any_args)
-            end
-          end
-
-          context "that doesn't exist" do
-            let(:available_locales) { ['en', 'es'] }
-            before do
-              allow(I18n).to receive(:with_locale).and_call_original
-              allow(I18n).to receive(:default_locale).and_return('en')
-              request.headers['HTTP_ACCEPT_LANGUAGE'] = nil
-            end
-
-            let(:new_locale) { 'xx' }
-
-            it "doesn't explode" do
-              expect {
-                get :index, params: @params
-              }.not_to raise_error
-            end
-
-            it "falls back to :locale" do
-              get :index, params: {locale: 'es', new_locale: 'xx'}
-
-              expect(I18n).to have_received(:with_locale).with('es', any_args)
-            end
-          end
-        end
       end
     end
   end

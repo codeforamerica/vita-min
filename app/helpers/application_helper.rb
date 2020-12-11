@@ -16,7 +16,7 @@ module ApplicationHelper
 
   def link_to_locale(locale, label, additional_attributes = {})
     link_to(label,
-            "?" + request.query_parameters.merge("new_locale" => locale).to_query,
+            { :locale=>locale, :params=>request.query_parameters },
             lang: locale,
             "data-track-click": "intake-language-changed",
             "data-track-attributes-to_locale": locale,
