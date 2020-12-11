@@ -12,44 +12,33 @@ class ValidateRequestParams
   def call(env)
     request = Rack::Request.new(env)
 
-    if has_invalid_character?(request.params.values)
-      return [400, {}, ["Bad Request"]]
-    end
-
-    if request.cookies["_vita_min_session"].present? && string_contains_invalid_character?(request.cookies["_vita_min_session"])
-      return [400, {}, ["Bad Request"]]
-    end
+    return bad_request_response if includes_invalid_character?(request.params.values) || includes_invalid_character?(request.cookies["_vita_min_session"])
 
     @app.call(env)
   end
 
   private
 
-  def has_invalid_character?(param_values)
-    param_values.any? do |value|
-      check_for_invalid_characters_recursively(value)
-    end
+  def includes_invalid_character?(param_values)
+    return false unless param_values.present?
+
+    check_for_invalid_characters_recursively(param_values)
   end
 
   def check_for_invalid_characters_recursively(value, depth = 0)
-    return false if depth > 2
+    return false if depth > 3
+    return contains_invalid_character?(value) if value.respond_to?(:match)
 
     depth += 1
-    if value.respond_to?(:match)
-      string_contains_invalid_character?(value)
-    elsif value.respond_to?(:values)
-      value.values.any? do |hash_value|
-        check_for_invalid_characters_recursively(hash_value, depth)
-      end
-    elsif value.is_a?(Array)
-      value.any? do |array_value|
-        check_for_invalid_characters_recursively(array_value, depth)
-      end
-    end
+    value = value.values if value.respond_to?(:values)
+    value.map { |val| return check_for_invalid_characters_recursively(val, depth) }
   end
 
-  def string_contains_invalid_character?(string)
+  def bad_request_response
+    [400, {}, ["Bad Request"]]
+  end
 
-    string.match?(INVALID_CHARS_REGEX)
+  def contains_invalid_character?(value)
+    value.match?(INVALID_CHARS_REGEX)
   end
 end

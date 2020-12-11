@@ -56,35 +56,61 @@ describe ValidateRequestParams, type: :controller do
 
       expect(last_response.bad_request?).to eq true
     end
+
+    # there is a limit to how deep the nesting for params go...
+    # anything deeper will fall through to the controller and result in a 500 error.
+    it "works up to three layers deep" do
+      post "/dummy", key: { key: { key: null_byte } }
+
+      expect(last_response.bad_request?).to eq true
+
+      post "/dummy", key: { key: { key: { key: { key: null_byte } } } }
+
+      expect(last_response.bad_request?).to eq false
+
+    end
+
   end
 
   context "without invalid characters" do
-    it "responds with a 204 no content" do
+    it "continues the request" do
       post "/dummy"
 
       expect(last_response.no_content?).to eq true
     end
 
-    it "responds with a 204 no content for strings" do
+    it "continues the request for strings" do
       post "/dummy", name: "safe name"
 
       expect(last_response.no_content?).to eq true
     end
 
-    it "responds with a 204 no content for hashes with strings" do
-      post "/dummy", name: { inner_key: "safe name" }
+    it "continues the request for integers" do
+      post "/dummy", name: 12
 
       expect(last_response.no_content?).to eq true
     end
 
-    it "responds with a 204 no content for arrays with strings" do
-      post "/dummy", name: ["safe name"]
+    it "continues the request for booleans" do
+      post "/dummy", name: true
 
       expect(last_response.no_content?).to eq true
     end
 
-    it "responds with a 204 no content for arrays containing hashes with string values" do
-      post "/dummy", name: [{ inner_key: "safe name" }]
+    it "continues the request for hashes with strings" do
+      post "/dummy", name: { inner_key: "safe name", another_key: "safe name" }
+
+      expect(last_response.no_content?).to eq true
+    end
+
+    it "continues the request for safe arrays" do
+      post "/dummy", name: ["safe name", "safe_name", true, 12]
+
+      expect(last_response.no_content?).to eq true
+    end
+
+    it "continues the request arrays containing hashes with string values" do
+      post "/dummy", name: [{ inner_key: "safe name", another_key: "safe name" }]
 
       expect(last_response.no_content?).to eq true
     end
