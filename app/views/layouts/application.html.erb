@@ -68,11 +68,14 @@
           </div>
         <% end %>
       <% end %>
-
       <%= content_for?(:main) ? yield(:main) : yield %>
-
-      <%= render 'shared/footer' %>
+      <%= content_for?(:footer) ? yield(:footer) : render('shared/footer') %>
     </div>
+    <% if content_for?(:sticky_action_footer) %>
+      <div class="sticky-action-footer">
+        <%= yield(:sticky_action_footer) %>
+      </div>
+    <% end %>
     <%= yield(:script) if content_for?(:script) %>
   </body>
 </html>
