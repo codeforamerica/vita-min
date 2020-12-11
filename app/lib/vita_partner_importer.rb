@@ -36,9 +36,6 @@ class VitaPartnerImporter < CliScriptBase
     db_partner.source_parameters.destroy(db_partner.source_parameters)
     yaml_partner["source_parameters"].each { |code| db_partner.source_parameters.create!(code: code.downcase) } if yaml_partner["source_parameters"].present?
 
-    db_partner.states.clear
-    yaml_partner["states"].each { |st| db_partner.states << State.find_by!(abbreviation: st.upcase) } if yaml_partner["states"].present?
-
     db_partner.save!
   end
 
@@ -48,7 +45,6 @@ class VitaPartnerImporter < CliScriptBase
       # This removes the source parameter. If you need a list of all historically-used source parameters, do a query
       # against Intake objects.
       db_partner.source_parameters.destroy(db_partner.source_parameters)
-      db_partner.states.clear
     end
   end
 end

@@ -2,7 +2,8 @@ fake_vita_partner = VitaPartner.find_or_create_by(
   name: "Fake Vita Partner",
   display_name: "Fake Vita Partner Display Name",
   zendesk_group_id: "foo",
-  zendesk_instance_domain: "eitc"
+  zendesk_instance_domain: "eitc",
+  accepts_overflow: true
 )
 
 another_vita_partner = VitaPartner.find_or_create_by(

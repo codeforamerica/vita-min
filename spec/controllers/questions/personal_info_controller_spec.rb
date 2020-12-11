@@ -19,7 +19,7 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     let!(:vita_partner) do
-      create :vita_partner, states: [State.find_by(abbreviation: state.upcase)]
+      create :vita_partner, accepts_overflow: true
     end
 
     it "sets the timezone on the intake" do

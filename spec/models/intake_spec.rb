@@ -799,56 +799,6 @@ describe Intake do
       it_behaves_like :source_group_matching, "uwfm", "360009415834"
       it_behaves_like :source_group_matching, "RefundDay-C", "360009704354"
       it_behaves_like :source_group_matching, "catalyst", "360009704354"
-
-      context "when there is a source parameter that does not match an organization" do
-        let(:source) { "propel" }
-        let(:state) { "ne" }
-
-        before do
-          intake.assign_vita_partner!
-        end
-
-        it "uses the state to route" do
-          expect(intake.reload.vita_partner.name).to eq "Tax Help Colorado (Piton Foundation)"
-        end
-      end
-    end
-
-    context "with state routing" do
-      shared_examples :state_level_routing do |state_criteria, partner_name|
-        context "given a state" do
-          let(:state) { state_criteria } # might not be necessary?
-          let(:partner) { VitaPartner.find_by!(name: partner_name) }
-
-          before do
-            intake.assign_vita_partner!
-          end
-
-          it "assigns to the correct group" do
-            expect(intake.reload.vita_partner_group_id).to eq partner.zendesk_group_id
-          end
-        end
-      end
-
-      it_behaves_like :state_level_routing, "CO", "Tax Help Colorado (Piton Foundation)", "eitc"
-      it_behaves_like :state_level_routing, "CA", "[United Way California] Online Intake", "eitc"
-      it_behaves_like :state_level_routing, "FL", "[United Way California] Online Intake", "eitc"
-      it_behaves_like :state_level_routing, "TX", "BakerRipley Neighborhood Tax Centers", "eitc"
-      it_behaves_like :state_level_routing, "WA", "United Way of King County", "eitc"
-      it_behaves_like :state_level_routing, "PA", "Campaign for Working Families", "eitc"
-      it_behaves_like :state_level_routing, "NV", "Nevada Free Taxes Coalition", "eitc"
-      it_behaves_like :state_level_routing, "VA", "United Way of Greater Richmond and Petersburg", "eitc"
-      it_behaves_like :state_level_routing, "MD", "Urban Upbound (NY)", "eitc"
-      it_behaves_like :state_level_routing, "NY", "Urban Upbound (NY)", "eitc"
-      it_behaves_like :state_level_routing, "RI", "Urban Upbound (NY)", "eitc"
-      it_behaves_like :state_level_routing, "DE", "Urban Upbound (NY)", "eitc"
-      it_behaves_like :state_level_routing, "VT", "Urban Upbound (NY)", "eitc"
-      it_behaves_like :state_level_routing, "ME", "Urban Upbound (NY)", "eitc"
-      it_behaves_like :state_level_routing, "CT", "Virtual VITA Inc", "eitc"
-      it_behaves_like :state_level_routing, "TN", "United Way of Greater Nashville", "eitc"
-      it_behaves_like :state_level_routing, "GA", "United Way of Greater Nashville", "eitc"
-      it_behaves_like :state_level_routing, "AL", "United Way of Central Alabama", "eitc"
-      it_behaves_like :state_level_routing, "MA", "[MA/BTH] Online Intake (w/Boston Tax Help)", "eitc"
     end
   end
 
@@ -880,7 +830,6 @@ describe Intake do
       let!(:source_partner) { create(:vita_partner) }
       let(:intake_source) { "example" }
       let(:state) { 'CO' }
-      let!(:state_partner) { create(:vita_partner, states: [State.find(state)]) }
       let!(:overflow_partner) { create(:vita_partner, zendesk_group_id: "456", accepts_overflow: true) }
       let(:intake) { create :intake }
 
@@ -890,15 +839,6 @@ describe Intake do
         it "assigns the partner matching the source parameter" do
           intake.assign_vita_partner!
           expect(intake.vita_partner).to eq(source_partner)
-        end
-      end
-
-      context "with an invalid source parameter (and valid state)" do
-        let(:intake) { create :intake, source: 'inspiration', state_of_residence: state }
-
-        it "assigns the partner matching the state" do
-          intake.assign_vita_partner!
-          expect(intake.vita_partner).to eq(state_partner)
         end
       end
 
@@ -917,7 +857,6 @@ describe Intake do
       let(:source_parameter) { 'a-source-parameter' }
       let!(:vita_partner) do
         partner = create :vita_partner, zendesk_group_id: zendesk_group_id, accepts_overflow: true
-        partner.states.create(abbreviation: state, name: 'doesn\'t matter')
         partner.source_parameters.create(code: source_parameter)
         partner
       end
@@ -929,16 +868,6 @@ describe Intake do
 
       it 'captures the routing timestamp' do
         expect(intake.routed_at).to be_within(2.seconds).of(Time.now)
-      end
-
-      context 'when routing by state' do
-        let(:intake) { create :intake, state_of_residence: state }
-
-        it "captures the routing method and target" do
-          expect(intake.vita_partner_group_id).to eq(zendesk_group_id)
-          expect(intake.routing_criteria).to eq("state")
-          expect(intake.routing_value).to eq(state)
-        end
       end
 
       context 'when routing by source parameter' do

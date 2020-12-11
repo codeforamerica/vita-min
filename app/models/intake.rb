@@ -482,7 +482,7 @@ class Intake < ApplicationRecord
 
   def assign_vita_partner!
     # this is a RouteOptions struct, defined below
-    route_options = partner_for_eip_only || partner_for_source || partner_for_state || partner_for_overflow
+    route_options = partner_for_eip_only || partner_for_source || partner_for_overflow
 
     raise "Unable to route to any partner" unless route_options&.partner # this shouldn't happen unless the data is horked!
 
@@ -628,14 +628,6 @@ class Intake < ApplicationRecord
     return nil unless partner.present?
 
     RouteOptions.new(partner, "source_parameter", source)
-  end
-
-  def partner_for_state
-    state = State.find_by(abbreviation: state_of_residence&.upcase || state&.upcase)
-    partner = state.vita_partners.first if state.present? && !state.vita_partners.empty?
-    return nil unless partner.present?
-
-    RouteOptions.new(partner, "state", state_of_residence)
   end
 
   def partner_for_overflow

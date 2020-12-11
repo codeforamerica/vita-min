@@ -12,7 +12,6 @@ RSpec.describe VitaPartnerImporter do
             "zendesk_group_id" => zendesk_group_id,
             "display_name" => "Tax Help Colorado",
             "source_parameters" => ["test-source"],
-            "states" => ["CO"],
             "logo_path" => "",
             "weekly_capacity_limit" => 500,
             "accepts_overflow" => true,
@@ -38,8 +37,6 @@ RSpec.describe VitaPartnerImporter do
         expect(created.zendesk_group_id).to eq(zendesk_group_id)
         expect(created.source_parameters.length).to eq(1)
         expect(created.source_parameters.first.code).to eq("test-source")
-        expect(created.states.length).to eq(1)
-        expect(created.states.first.abbreviation).to eq("CO")
         expect(created.weekly_capacity_limit).to eq(500)
         expect(created.accepts_overflow).to be(true)
       end
@@ -108,14 +105,13 @@ RSpec.describe VitaPartnerImporter do
         end
       end
 
-      context "when a source code and state are removed" do
+      context "when a source code is removed" do
         before do
           partner = create(
             :vita_partner,
             name: "Fake Name",
             zendesk_instance_domain: "eitc",
             zendesk_group_id: zendesk_group_id,
-            states: [create(:state)],
           )
           create :source_parameter, code: "hello", vita_partner: partner
         end
@@ -140,7 +136,6 @@ RSpec.describe VitaPartnerImporter do
 
           modified_partner = VitaPartner.find_by(zendesk_group_id: zendesk_group_id)
           expect(modified_partner.source_parameters.count).to eq 0
-          expect(modified_partner.states.count).to eq 0
         end
       end
     end
@@ -153,7 +148,6 @@ RSpec.describe VitaPartnerImporter do
           zendesk_instance_domain: "eitc",
           zendesk_group_id: zendesk_group_id,
           weekly_capacity_limit: 1,
-          states: [create(:state, abbreviation: "XYZ")],
           logo_path: "partner-logos/ia.png",
         )
         create :source_parameter, code: "hello", vita_partner: partner
@@ -176,7 +170,6 @@ RSpec.describe VitaPartnerImporter do
         expect(archived_partner.logo_path).to eq("partner-logos/ia.png")
         # Remove routing-related data
         expect(archived_partner.source_parameters.count).to eq 0
-        expect(archived_partner.states.count).to eq 0
         # Mark archived
         expect(archived_partner.archived).to be(true)
       end

@@ -266,8 +266,8 @@ FactoryBot.define do
       zendesk_instance_domain { "eitc" }
       vita_partner_group_id { vita_partner.zendesk_group_id }
       vita_partner_name { vita_partner.name }
-      routing_value { vita_partner.states.first&.abbreviation || "az" }
-      routing_criteria { "state" }
+      routing_value { "az" }
+      routing_criteria { "overflow" }
       job_count { [1, 2, 3].sample }
       preferred_interview_language { ["en", "es"].sample }
       primary_consented_to_service_at { 2.weeks.ago }
