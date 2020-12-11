@@ -202,7 +202,6 @@ class Intake < ApplicationRecord
     :email_address, :phone_number, :sms_phone_number
   ], using: { tsearch: { prefix: true } }
 
-  has_many :users, foreign_key: "intake_id", class_name: "IdmeUser"
   has_many :documents
   has_many :dependents, -> { order(created_at: :asc) }
   belongs_to :client, optional: true

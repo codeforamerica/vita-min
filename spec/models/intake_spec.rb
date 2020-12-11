@@ -431,31 +431,6 @@ describe Intake do
     end
   end
 
-  describe "#users" do
-    it "should have many users" do
-      relation = Intake.reflect_on_association(:users).macro
-      expect(relation).to eq :has_many
-    end
-  end
-
-  describe "#primary_user" do
-    let(:intake) { create :intake }
-
-    context "with no user" do
-      it "returns nil" do
-        expect(intake.primary_user).to be_nil
-      end
-    end
-
-    context "with one user" do
-      let!(:primary) { create :idme_user, intake: intake }
-
-      it "returns that one user" do
-        expect(intake.primary_user).to eq primary
-      end
-    end
-  end
-
   describe "#referrer_domain" do
     let(:intake) { build :intake, referrer: referrer }
 

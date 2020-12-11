@@ -1435,12 +1435,6 @@ en:
         spouse_email_address: E-mail address
         spouse_email_address_confirmation: Confirm e-mail address
         title: Please share your spouse's e-mail address.
-      spouse_identity:
-        info_later: If not, we can send them a sign in link through text or e-mail.
-        info_now: If your spouse is sitting with you, you can go ahead and sign in with ID.me
-        sign_in_html: Sign in spouse with <span class="sr-only">ID.me</span>
-        skip_for_now: Skip this step for now
-        title: Spouse Identity
       spouse_issued_identity_pin:
         title: Has your spouse been issued an Identity Protection PIN?
       spouse_life_situations:
