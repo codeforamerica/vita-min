@@ -1435,12 +1435,6 @@ es:
         spouse_email_address: Dirección de correo electrónico
         spouse_email_address_confirmation: Confirme su correo
         title: Por favor comparte el correo electrónico de su cónyuge.
-      spouse_identity:
-        info_later: Si no, podemos enviarles un enlace de inicio de sesión a través de texto o correo electrónico.
-        info_now: Si su cónyuge está sentado con usted, puede seguir adelante e iniciar sesión con ID.me
-        sign_in_html: Inicie sesión de su cónyuge con <span class="sr-only">ID.me</span>
-        skip_for_now: Sáltese esta etapa por ahora
-        title: Identidad de su cónyuge
       spouse_issued_identity_pin:
         title: "¿Se le ha emitido a su pareja un PIN de protección de identidad?"
       spouse_life_situations:
