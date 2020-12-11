@@ -2,6 +2,10 @@
 # Coalitions
 koalas = Coalition.find_or_create_by(name: "Koala Koalition")
 colas = Coalition.find_or_create_by(name: "Cola Coalition")
+first_org = Organization.find_or_create_by(name: "Oregano Org", coalition: koalas)
+second_org = Organization.find_or_create_by(name: "Orangutan Organization", coalition: koalas)
+
+first_site = Site.find_or_create_by(name: "Liberry", organization: first_org)
 
 fake_vita_partner = VitaPartner.find_or_create_by(
   name: "Fake Vita Partner",

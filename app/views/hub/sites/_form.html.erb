@@ -1,0 +1,14 @@
+<div class="hub-form">
+  <%= form_with model: @site, url: url, method: http_method, local: true, builder: VitaMinFormBuilder do |f| %>
+    <h1 class="form-card__title">
+      <%= @title %>
+    </h1>
+
+    <%= f.cfa_input_field :name, t("general.name") %>
+    <%= f.cfa_select :organization_id, t("general.organization"), @organizations.map { |c| [c.name, c.id] } %>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%= t("general.save") %>
+    </button>
+  <% end %>
+</div>

@@ -1,0 +1,5 @@
+<% @title = @site.name %>
+<% content_for :page_title, @site %>
+<% content_for :card do %>
+  <%= render "hub/sites/form", url: hub_organization_site_path(organization_id: @organization, id: @site), http_method: :put %>
+<% end %>

@@ -10,15 +10,17 @@
 
     <% coalition.organizations.each do |organization| %>
       <h3>
-        <%= link_to organization.name, edit_hub_organization_path(id: organization) %>
+        <%= render "hub/organizations/listing", organization: organization %>
       </h3>
     <% end %>
   <% end %>
 
   <% if @independent_organizations.present? %>
-    <h3><%= t(".independent_organizations") %></h3>
+    <h2><%= t(".independent_organizations") %></h2>
     <% @independent_organizations.each do |organization| %>
-      <h3><%= organization.name %></h3>
+      <h3>
+        <%= render "hub/organizations/listing", organization: organization %>
+      </h3>
     <% end %>
   <% end %>
 <% end %>
