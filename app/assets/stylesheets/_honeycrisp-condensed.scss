@@ -1,0 +1,49 @@
+.honeycrisp-condensed {
+  .admin {
+    line-height: 2.5rem;
+  }
+  .form-group {
+    margin-bottom: 2.5rem;
+  }
+
+  .password {
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    a {
+      font-size: 1.5rem;
+    }
+    padding-bottom: 7rem;
+  }
+
+  .form-question {
+    color: rgba(117, 117, 117, 1);
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+
+  .text-input {
+    background-color: rgba(247, 247, 247, 1);
+    font-weight: normal;
+    font-size: 1.5rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .h1 {
+    line-height: 25px;
+    font-size: 2rem;
+  }
+
+  input[type="submit"] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 4px;
+  }
+}
