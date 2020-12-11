@@ -3,6 +3,8 @@ class ValidateRequestParams
       "\u0000" # null bytes
   ].freeze
 
+  INVALID_CHARS_REGEX = Regexp.union(INVALID_CHARACTERS).freeze
+
   def initialize(app)
     @app = app
   end
@@ -47,8 +49,7 @@ class ValidateRequestParams
   end
 
   def string_contains_invalid_character?(string)
-    invalid_characters_regex = Regexp.union(INVALID_CHARACTERS)
 
-    string.match?(invalid_characters_regex)
+    string.match?(INVALID_CHARS_REGEX)
   end
 end

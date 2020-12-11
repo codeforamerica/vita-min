@@ -10,18 +10,21 @@ describe ValidateRequestParams, type: :controller do
     def create; end
   end
 
-  begin
-    _routes = Rails.application.routes
-    _routes.disable_clear_and_finalize = true
-    _routes.clear!
-    Rails.application.routes_reloader.paths.each { |path| load(path) }
-    _routes.draw do
-      post '/dummy' => 'dummy#create'
+  before(:all) do
+    begin
+      _routes = Rails.application.routes
+      _routes.disable_clear_and_finalize = true
+      _routes.clear!
+      Rails.application.routes_reloader.paths.each { |path| load(path) }
+      _routes.draw do
+        post '/dummy' => 'dummy#create'
+      end
+      ActiveSupport.on_load(:action_controller) { _routes.finalize! }
+    ensure
+      _routes.disable_clear_and_finalize = false
     end
-    ActiveSupport.on_load(:action_controller) { _routes.finalize! }
-  ensure
-    _routes.disable_clear_and_finalize = false
   end
+
 
   context "with invalid characters" do
     let(:null_byte) { "\u0000" }
