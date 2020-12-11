@@ -10,6 +10,7 @@ en:
         clients_link: Clients
         users_link: Users
         vita_partners_link: VITA partners
+        return_to_dashboard: < Return to dashboard
     anonymized_intake_csv_extracts:
       index:
         filename: Filename
@@ -96,6 +97,7 @@ en:
         primary_contact_info: Primary Contact Info
         spouse_contact_info: Spouse Contact Info
         texting_phone: Phone For Texting
+        return_to_clients: < Return to all clients
     documents:
       edit:
         display_name: Display Name
@@ -464,6 +466,7 @@ en:
     select_files: Select files
     take_picture: Take picture
     certification: Certification
+    my_profile: My profile
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
