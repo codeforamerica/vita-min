@@ -2,8 +2,8 @@
   <div class="toolbar">
     <div class="toolbar__left">
       <div class="toolbar__item main-header__title">
-        <%= link_to root_path, class: "toolbar__logo-text main-header__logo" do %>
-          GetYourRefund.org
+        <%= link_to hub_clients_path, class: "toolbar__logo-text main-header__logo" do %>
+          The Hub
         <% end %>
       </div>
     </div>
@@ -14,6 +14,7 @@
       <% if I18n.locale != :es %>
         <%= link_to_spanish(class: "toolbar__item text--small") %>
       <% end %>
+      <%= yield :toolbar_right %>
     </div>
   </div>
 </header>

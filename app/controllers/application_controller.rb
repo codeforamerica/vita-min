@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   around_action :switch_locale
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url
+  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     # The default hreflang URL shouldn't include locale but all other hreflang links should
     # So unlike canonical_url we will not replace the default locale with nil
     url_for(only_path: false, locale: locale)
+  end
+
+  def hub?
+    request.path.include?("hub")
   end
 
   def current_intake

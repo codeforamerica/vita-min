@@ -45,7 +45,11 @@
 
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% end %>>
     <div class="page-wrapper">
-      <%= render 'shared/header' %>
+      <% if hub? %>
+        <%= render 'shared/hub_header' %>
+      <% else %>
+        <%= render 'shared/header' %>
+      <% end %>
 
       <%= render "shared/environment_warning" %>
 

@@ -3,6 +3,9 @@ require "rails_helper"
 RSpec.feature "Visit home page" do
   scenario "has most critical content" do
     visit "/"
+    within(".main-header") do
+      expect(page).to have_link("GetYourRefund.org", href: root_path)
+    end
     expect(page).to have_text "Free tax filing, real human support."
     expect(page).to have_text "Sign up for next tax season now. We’ll notify you as soon as our service is back up in January!"
     expect(page).to have_link "Sign Up"
