@@ -18,8 +18,8 @@ RSpec.describe Questions::PersonalInfoController do
       }
     end
 
-    let!(:vita_partner) do
-      create :vita_partner, states: [State.find_by(abbreviation: state.upcase)]
+    before do
+      allow(ClientRouter).to receive(:route)
     end
 
     it "sets the timezone on the intake" do
@@ -27,41 +27,25 @@ RSpec.describe Questions::PersonalInfoController do
         .to change { intake.timezone }.to("America/New_York")
     end
 
-    context "when intake does not have an 'In Progress' or later status tax return" do
+    context "when a client has not yet consented" do
       before { create :tax_return, client: intake.client, status: "intake_before_consent" }
 
-      it "assigns the vita partner" do
+      it "gets routed" do
         post :update, params: params
 
-        expect(intake.reload.vita_partner).to eq vita_partner
-        expect(intake.client.vita_partner).to eq vita_partner
+        expect(ClientRouter).to have_received(:route).with(intake.client)
       end
     end
 
-    context "when intake has partner assigned but no 'In Progress' or later status tax return" do
-      let!(:old_vita_partner) { create :vita_partner }
-      let(:intake) { create :intake, vita_partner: old_vita_partner }
-      before { create :tax_return, client: intake.client, status: "intake_before_consent" }
-
-      it "re-assigns the vita partner" do
-        post :update, params: params
-
-        expect(intake.reload.vita_partner).to eq vita_partner
-        expect(intake.client.vita_partner).to eq vita_partner
-      end
-    end
-
-    context "when intake already has a return with 'In Progress' or later status" do
-      let!(:old_vita_partner) { create :vita_partner }
-      let(:client) { create :client, vita_partner: old_vita_partner }
-      let(:intake) { create :intake, vita_partner: old_vita_partner, client: client }
+    context "when a client has consented" do
+      let(:client) { create :client }
+      let(:intake) { create :intake, client: client }
       before { create :tax_return, client: intake.client, status: "intake_in_progress" }
 
-      it "does not re-assign the vita partner" do
+      it "does not route" do
         post :update, params: params
 
-        expect(intake.reload.vita_partner).to eq old_vita_partner
-        expect(intake.client.vita_partner).to eq old_vita_partner
+        expect(ClientRouter).not_to have_received(:route)
       end
     end
   end
