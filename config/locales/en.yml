@@ -98,6 +98,8 @@ en:
         spouse_contact_info: Spouse Contact Info
         texting_phone: Phone For Texting
         return_to_clients: < Return to all clients
+        tax_info: Tax Info
+        basic_info: Basic Info
     documents:
       edit:
         display_name: Display Name
@@ -467,6 +469,7 @@ en:
     take_picture: Take picture
     certification: Certification
     my_profile: My profile
+    edit_info: Edit info
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

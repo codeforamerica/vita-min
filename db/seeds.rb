@@ -66,3 +66,18 @@ IncomingTextMessage.create!(client: client, body: "What's up with my taxes?", re
 
 other_client = Client.create!(vita_partner: fake_vita_partner)
 Intake.create(client: other_client, preferred_name: "Tony", email_address: "tiger@example.com", email_notification_opt_in: :yes)
+
+married_client = Client.create!(vita_partner: fake_vita_partner)
+
+married_intake = Intake.create(
+  client: married_client,
+  preferred_name: "Lucky",
+  sms_phone_number: "+14155551212",
+  email_address: "charms@example.com",
+  sms_notification_opt_in: :yes,
+  email_notification_opt_in: :yes,
+  filing_joint: "yes",
+  spouse_first_name: "Marsha",
+  spouse_last_name: "Charms",
+  spouse_email_address: "justthegoodparts@example.com",
+)

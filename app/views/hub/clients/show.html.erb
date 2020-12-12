@@ -8,64 +8,64 @@
   <%= render "client_header" %>
   <%= render "navigation" %>
 
-  <div class="client-profile spacing-above-25">
-    <div class="grid">
+  <div class="client-profile spacing-above-35">
+    <div class="grid hc-grid">
       <div class="grid__item width-one-third">
-        <div>
-          <h2>Basic Info</h2>
-          <div>
+        <div class="spacing-below-35">
+          <h2 class="text--small text--bold"><%= t(".basic_info") %></h2>
+          <p>
             <span class="hc-label"><%= t(".legal_name") %>:</span>
             <span class="label-value"><%= @client.legal_name || t("general.NA") %></span>
-          </div>
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t(".preferred_name") %>:</span>
             <span class="label-value"><%= @client.preferred_name %></span>
-          </div>
+          </p>
 
-          <div>
+          <p>
             <span class="hc-label"><%= t(".intake_language") %>:</span>
             <span class="label-value"><%= @client.intake&.locale ? t("general.language_options.#{@client.intake&.locale}") : "N/A" %></span>
-          </div>
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t(".phone_interview_language") %>:</span>
             <span class="label-value"><%= @client.intake&.preferred_interview_language ? t("general.language_options.#{@client.intake&.preferred_interview_language}") : "N/A" %></span>
-          </div>
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t(".interview_timing_preference") %>:</span>
             <span class="label-value"><%= @client.intake&.interview_timing_preference %></span>
-          </div>
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t("general.timezone") %>:</span>
             <span class="label-value"><%= displayed_timezone(@client.intake&.timezone) || t("general.NA") %></span>
-          </div>
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t("hub.clients.fields.state_of_residence") %>:</span>
             <span class="label-value"><%= @client.intake.state_of_residence %></span>
-          </div>
+          </p>
         </div>
 
-        <div>
-          <h2>Tax Info</h2>
-          <div>
+        <div class="spacing-below-35">
+          <h2 class="text--small text--bold"><%= t(".tax_info") %></h2>
+          <p>
             <span class="hc-label"><%= t("general.filing_years") %>:</span>
             <span class="label-value"><%= @client.intake&.filing_years&.join(", ") %></span>
-          </div>
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t("hub.clients.fields.signature_method") %>:</span>
             <span class="label-value"><%= I18n.t("hub.clients.fields.signature_methods.#{@client.intake&.signature_method}") %> </span>
-          </div>
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t(".marital_status") %>:</span>
             <span class="label-value"><%= @client.intake&.marital_statuses&.join(", ") %></span>
-          </div>
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t(".filing_status") %>:</span>
             <span class="label-value"><%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly"  %></span>
-          </div>
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t(".dependents") %>:</span>
             <span class="label-value"><%= @client.intake&.dependents.count %></span>
-          </div>
+          </p>
           <ul id="dependents-list">
             <% @client.intake&.dependents.each do |d| %>
               <li><%= "#{d.first_name} #{d.last_name}, #{default_date_format(d.birth_date)}" %></li>
@@ -75,45 +75,47 @@
       </div>
 
       <div class="grid__item width-one-third">
-        <div>
-          <h2><%= t(".primary_contact_info") %></h2>
-          <div>
+        <div class="spacing-below-35">
+          <h2 class="text--small text--bold"><%= t(".primary_contact_info") %></h2>
+          <p>
             <span class="hc-label"><%= t(".email") %>:</span>
             <span class="label-value"><%= @client.email_address %></span>
-          </div>
-
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t(".phone") %>:</span>
             <span class="label-value"><%= @client.phone_number %></span>
-          </div>
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t(".texting_phone") %>:</span>
             <span class="label-value"><%= @client.sms_phone_number || 'N/A' %></span>
-          </div>
-
-          <div>
+          </p>
+          <p>
             <span class="hc-label"><%= t(".mailing_address") %>:</span>
-            <span class="label-value"><div style="white-space:pre-wrap"><%= @client.intake&.formatted_mailing_address %></div></span>
-          </div>
+            <span class="label-value" style="white-space:pre-wrap">
+                <%= @client.intake&.formatted_mailing_address %>
+            </span>
+          </p>
         </div>
         <% if @client.intake&.filing_joint_yes? %>
-          <div>
-            <h2><%= t(".spouse_contact_info") %>:</h2>
-            <div>
+          <div class="spacing-below-35">
+            <h2 class="text--small text--bold"><%= t(".spouse_contact_info") %></h2>
+            <p>
               <span class="hc-label"><%= t(".legal_name") %>:</span>
-              <span class="label-value>"<%= "#{@client.intake&.spouse_first_name} #{@client.intake&.spouse_last_name}" %></span>
-            </div>
-            <div>
+              <span class="label-value">
+                <%= "#{@client.intake&.spouse_first_name} #{@client.intake&.spouse_last_name}" %>
+              </span>
+            </p>
+            <p>
               <span class="hc-label"><%= t(".email") %>:</span>
               <span class="label-value"><%= @client.intake&.spouse_email_address %> </span>
-            </div>
+            </p>
           </div>
         <% end %>
       </div>
     </div>
 
     <div>
-      <%= link_to(t("general.edit"), edit_hub_client_path, class: "button button--small") %>
+      <%= link_to(t("general.edit_info"), edit_hub_client_path, class: "button hc-button--wide") %>
     </div>
   </div>
 

@@ -3,6 +3,20 @@
     line-height: 2.5rem;
   }
 
+  .button {
+    border-width: 2px;
+    border-radius: 4px;
+    font-size: 15px;
+    line-height: 15px;
+    padding: 10px 15px;
+  }
+
+  .client-profile {
+    p {
+      margin-bottom: 16px;
+    }
+  }
+
   .form-group {
     margin-bottom: 2.5rem;
   }
@@ -15,6 +29,15 @@
   .h1 {
     line-height: 25px;
     font-size: 2rem;
+  }
+
+  .hc-button--wide {
+    padding: 10px 45px;
+    text-align: center;
+  }
+
+  .hc-grid {
+    margin: 0;
   }
 
   .hc-label {

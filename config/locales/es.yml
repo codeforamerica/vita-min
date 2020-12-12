@@ -82,6 +82,8 @@ es:
         spouse_contact_info: Información de contacto del cónyuge
         texting_phone: Número celular
         return_to_clients: < Volver a todos los clientes
+        tax_info: Información de impuestos
+        basic_info: Información básica
       edit_take_action:
         blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
         blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
@@ -467,6 +469,7 @@ es:
     take_picture: Sacar foto
     certification: Certificación
     my_profile: Mi perfil
+    edit_info: Editar información
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
