@@ -480,22 +480,6 @@ class Intake < ApplicationRecord
     ].compact.presence || [I18n.t("general.single")]
   end
 
-  def assign_vita_partner!
-    # this is a RouteOptions struct, defined below
-    route_options = partner_for_eip_only || partner_for_source || partner_for_state || partner_for_overflow
-
-    raise "Unable to route to any partner" unless route_options&.partner # this shouldn't happen unless the data is horked!
-
-    update(
-      vita_partner_id: route_options.partner.id,
-      vita_partner_name: route_options.partner.name,
-      vita_partner_group_id: route_options.partner.zendesk_group_id,
-      routed_at: Time.now,
-      routing_criteria: route_options.routing_criteria,
-      routing_value: route_options.routing_value,
-    )
-  end
-
   def might_encounter_delayed_service?
     !vita_partner.has_capacity_for?(self)
   end
@@ -613,43 +597,4 @@ class Intake < ApplicationRecord
       identify: false
     })
   end
-
-  def partner_for_eip_only
-    return nil unless eip_only
-
-    # There is one partner record we use for all eip-only intakes
-    RouteOptions.new(VitaPartner.find_by!(zendesk_group_id: "360012655454"), "eip_only", "eip_only")
-  end
-
-  def partner_for_source
-    return nil unless source.present?
-
-    partner = SourceParameter.find_by(code: source.downcase)&.vita_partner
-    return nil unless partner.present?
-
-    RouteOptions.new(partner, "source_parameter", source)
-  end
-
-  def partner_for_state
-    state = State.find_by(abbreviation: state_of_residence&.upcase || state&.upcase)
-    partner = state.vita_partners.first if state.present? && !state.vita_partners.empty?
-    return nil unless partner.present?
-
-    RouteOptions.new(partner, "state", state_of_residence)
-  end
-
-  def partner_for_overflow
-    # assign overflow intakes to available overflow partners evenly by using the intake id modulo the number of
-    # available overflow partners
-    partners = VitaPartner.where(accepts_overflow: true)
-    return nil if partners.empty?
-
-    partner = partners[self.id % partners.length]
-    return nil unless partner.present?
-
-    RouteOptions.new(partner, "overflow", state_of_residence)
-  end
-
-  RouteOptions = Struct.new(:partner, :routing_criteria, :routing_value)
 end
-
