@@ -24,6 +24,14 @@ module TimeHelper
   end
 
   def formatted_datetime(datetime)
+    return unless datetime
+
     datetime.strftime("%b %d %-l:%M %p")
+  end
+
+  def formatted_datetime_with_break(datetime)
+    return unless datetime
+
+    content_tag(:span, datetime.strftime("%b %d")) + tag(:br) + content_tag(:span, datetime.strftime("%-l:%M %p"))
   end
 end

@@ -14,10 +14,10 @@ RSpec.describe "searching, sorting, and filtering clients" do
     end
 
     context "with existing clients" do
-      let!(:alan_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Alan Avocado"), tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress", assigned_user: user)] }
-      let!(:betty_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Betty Banana"), tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress")] }
-      let!(:patty_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Patty Banana"), tax_returns: [(create :tax_return, year: 2019, status: "prep_ready_for_call", assigned_user: user)] }
-      let!(:zach_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Zach Zucchini"), tax_returns: [(create :tax_return, year: 2018, status: "prep_ready_for_call")] }
+      let!(:alan_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Alan Avocado", primary_consented_to_service_at: 1.day.ago), tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress", assigned_user: user)] }
+      let!(:betty_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Betty Banana", primary_consented_to_service_at: 2.days.ago), tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress")] }
+      let!(:patty_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Patty Banana", primary_consented_to_service_at: 1.day.ago), tax_returns: [(create :tax_return, year: 2019, status: "prep_ready_for_call", assigned_user: user)] }
+      let!(:zach_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Zach Zucchini", primary_consented_to_service_at: 2.days.ago), tax_returns: [(create :tax_return, year: 2018, status: "prep_ready_for_call")] }
 
       scenario "I can view all clients and search, sort, and filter" do
         visit hub_clients_path
@@ -57,6 +57,16 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row').length).to eq 2 # make sure filter is retained
           expect(page.all('.client-row')[1]).to have_text(patty_prep_ready_for_call.preferred_name)
           expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
+
+          click_link "sort-primary_consented_to_service_at"
+          expect(page.all('.client-row').length).to eq 2 # make sure filter is retained
+          expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
+          expect(page.all('.client-row')[1]).to have_text(patty_prep_ready_for_call.preferred_name)
+
+          click_link "sort-primary_consented_to_service_at"
+          expect(page.all('.client-row').length).to eq 2 # make sure filter is retained
+          expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
+          expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
         end
         within ".client-filters" do
           click_button "Clear filters"

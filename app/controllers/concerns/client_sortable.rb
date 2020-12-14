@@ -44,7 +44,8 @@ module ClientSortable
   end
 
   def clients_sort_column
-    %w[preferred_name id updated_at locale].include?(params[:column]) ? params[:column] : "id"
+    sortable_columns = [:id, :updated_at] + Client.sortable_intake_attributes
+    sortable_columns.include?(params[:column]&.to_sym) ? params[:column] : "id"
   end
 
   def status_filter
