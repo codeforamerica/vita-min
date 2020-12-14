@@ -11,7 +11,6 @@ class ValidateRequestParams
 
   def call(env)
     request = Rack::Request.new(env)
-
     return bad_request_response if includes_invalid_character?(request.params.values) || includes_invalid_character?(request.cookies["_vita_min_session"])
 
     @app.call(env)
@@ -27,11 +26,11 @@ class ValidateRequestParams
 
   def check_for_invalid_characters_recursively(value, depth = 0)
     return false if depth > 3
-    return contains_invalid_character?(value) if value.respond_to?(:match)
+    return contains_invalid_character?(value) if value.respond_to?(:match) || value.nil?
 
     depth += 1
     value = value.values if value.respond_to?(:values)
-    value.map { |val| return check_for_invalid_characters_recursively(val, depth) }
+    return value.map.any? { |val| check_for_invalid_characters_recursively(val, depth) }
   end
 
   def bad_request_response

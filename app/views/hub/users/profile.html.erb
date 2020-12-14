@@ -3,47 +3,49 @@
 
 <% content_for :page_title, current_user.name %>
 <% content_for :card do %>
-  <h1 class="h1"><%= t("general.my_profile") %></h1>
-  <p>
-    <span class="hc-label"><%= t("general.name") %></span>
-    <span class="label-value"><%= current_user.name %></span>
-  </p>
-  <p>
-    <span class="hc-label"><%= t("general.email") %></span>
-    <span class="label-value"><%= current_user.email %></span>
-  </p>
-  <p>
-    <span class="hc-label"><%= t("general.role") %></span>
-    <span class="label-value"><%= current_user.role&.capitalize %></span>
-  </p>
-  <p>
-    <span class="hc-label"><%= t("general.organization") %></span>
-    <span class="label-value"><%= current_user.vita_partner&.name || t("general.none") %></span>
-  </p>
+  <div class="hub-section">
+    <h1 class="h1"><%= t("general.my_profile") %></h1>
+    <p>
+      <span class="hc-label"><%= t("general.name") %></span>
+      <span class="label-value"><%= current_user.name %></span>
+    </p>
+    <p>
+      <span class="hc-label"><%= t("general.email") %></span>
+      <span class="label-value"><%= current_user.email %></span>
+    </p>
+    <p>
+      <span class="hc-label"><%= t("general.role") %></span>
+      <span class="label-value"><%= current_user.role&.capitalize %></span>
+    </p>
+    <p>
+      <span class="hc-label"><%= t("general.organization") %></span>
+      <span class="label-value"><%= current_user.vita_partner&.name || t("general.none") %></span>
+    </p>
 
-  <ul class="actions">
-    <li class="user-action-link">
-      <%= link_to invitations_path, class: "button button--small" do %>
-        <%= t("general.invitations") %>
-      <% end %>
-    </li>
+    <ul class="actions">
+      <li class="user-action-link">
+        <%= link_to invitations_path, class: "button button--small" do %>
+          <%= t("general.invitations") %>
+        <% end %>
+      </li>
 
-    <li class="user-action-link">
-      <%= link_to hub_clients_path, class: "button button--small" do %>
-        <%= t(".clients_link") %>
-      <% end %>
-    </li>
+      <li class="user-action-link">
+        <%= link_to hub_clients_path, class: "button button--small" do %>
+          <%= t(".clients_link") %>
+        <% end %>
+      </li>
 
-    <li class="user-action-link">
-      <%= link_to hub_users_path, class: "button button--small" do %>
-        <%= t(".users_link") %>
-      <% end %>
-    </li>
+      <li class="user-action-link">
+        <%= link_to hub_users_path, class: "button button--small" do %>
+          <%= t(".users_link") %>
+        <% end %>
+      </li>
 
-    <li class="user-action-link">
-      <%= link_to hub_vita_partners_path, class: "button button--small" do %>
-        <%= t(".vita_partners_link") %>
-      <% end %>
-    </li>
-  </ul>
+      <li class="user-action-link">
+        <%= link_to hub_vita_partners_path, class: "button button--small" do %>
+          <%= t(".vita_partners_link") %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
 <% end %>

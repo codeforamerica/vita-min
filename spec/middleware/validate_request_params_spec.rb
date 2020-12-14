@@ -35,8 +35,17 @@ describe ValidateRequestParams, type: :controller do
       expect(last_response.bad_request?).to eq true
     end
 
-    it "responds with 400 BadRequest for hashes with strings" do
-      post "/dummy", name: { inner_key: "I am #{null_byte} bad" }
+    it "responds with 400 BadRequest for strings that are encoded into a null byte" do
+      post "/dummy", name: { inner_key: "I am \0x7\0x7\0x7 bad" }
+
+      expect(last_response.bad_request?).to eq true
+    end
+
+    it "responds with 400 Bad Request for this" do
+      post "/dummy", {
+          "utf8":"✓",
+          "authenticity_token":"vkZX4EqCbq7BF03x0NSVjwa+RTbnLPtciP5SNTcnaUgXHKw8LOML80CaXlEgdoN3Yhwd2PcglMsPAE1Yuk0ciw==",
+          "signup": { "name": "Camila\0x7\0x7\0x7", "zip_code": "94606" }}
 
       expect(last_response.bad_request?).to eq true
     end
@@ -128,13 +137,13 @@ describe ValidateRequestParams, type: :controller do
     end
   end
 
-  context "with valid characters in my_session cookie" do
-    it "does not respond with error" do
+  context "without invalid characters in _vita_min_session cookie" do
+    it "does not respond with a 400/Bad Request error" do
       set_cookie "_vita_min_session=adfec7as9413db963b5"
 
       get "/login"
 
-      expect(last_response).not_to have_http_status(:error)
+      expect(last_response.bad_request?).to eq false
     end
   end
 end
