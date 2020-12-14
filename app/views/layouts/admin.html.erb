@@ -9,17 +9,11 @@
 <% end if current_user %>
 <% content_for :body_class, "admin" %>
 <% content_for :main do %>
-  <section class="slab slab--white">
-    <div class="grid wide">
-      <div class="grid__item">
-        <main role="main">
-          <div class="form-card">
-            <%= yield(:card) %>
-          </div>
-        </main>
-      </div>
+  <main role="main">
+    <div class="hub-content-wrapper">
+      <%= yield(:card) %>
     </div>
-  </section>
+  </main>
 <% end %>
 
 <% content_for :footer do %>

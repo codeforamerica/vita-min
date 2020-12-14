@@ -2,12 +2,22 @@
 index-table is for displaying tabular information in the hub views.
 It expects to be the primary content of the given page (full width).
  */
+.scrollable-table-wrapper {
+  overflow-x: scroll;
+}
 
 .index-table {
   // inherits from honeycrisp table until we have more design on index views
   @extend .data-table;
 
+  td:first-child {
+    padding-left: 1.6rem;
+  }
+
   .index-table__title {
+    h1 {
+      margin-bottom: 0;
+    }
     text-align: left;
   }
 
@@ -26,9 +36,10 @@ It expects to be the primary content of the given page (full width).
     background-color: #F7F5F4;
   }
 
-  // for nested tables
   .index-table__cell {
-    padding-right: 1.6rem;
+
+
+    padding-right: .5rem;
     &:last-of-type {
       padding-right: 0;
     }

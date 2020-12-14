@@ -1,7 +1,22 @@
 .admin {
+  background: white;
 
+  .hub-content-wrapper {
+    margin-top: 3rem;
+  }
+  .hub-section {
+    margin: 3.5rem;
+  }
+
+  .page-wrapper {
+    padding: 0;
+  }
+
+  .client-navigation {
+    padding-left: 7rem;
+    @extend .spacing-below-35;
+  }
   .header {
-
     * {
       margin: 0;
       margin-bottom: 1.0rem;
