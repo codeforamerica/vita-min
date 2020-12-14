@@ -11,6 +11,10 @@
 <div class="consent-details">
   <h2 class="h3"><%=t("views.shared.consent_agreement.details.header") %></h2>
   <p>
+    <%= t("views.shared.consent_agreement.details.civil_rights_understanding_html") %>
+  </p>
+
+  <p>
     <%=t("views.shared.consent_agreement.details.provide_required_info") %>
   </p>
   <p>
@@ -42,11 +46,6 @@
   </p>
   <p>
     <%=t("views.shared.consent_agreement.details.responsible") %>
-  </p>
-  <p>
-    <%= t("views.shared.consent_agreement.details.civil_rights_understanding") %>
-    <%= link_to(t("views.shared.consent_agreement.details.civil_rights_link"),
-                "https://www.irs.gov/pub/irs-pdf/p4053csp.pdf") %>
   </p>
   <p>
     <%=t("views.shared.consent_agreement.details.irs") %>
