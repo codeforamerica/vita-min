@@ -13,16 +13,23 @@
 #  zendesk_instance_domain :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  coalition_id            :bigint
 #  parent_organization_id  :bigint
 #  zendesk_group_id        :string           not null
 #
 # Indexes
 #
+#  index_vita_partners_on_coalition_id            (coalition_id)
 #  index_vita_partners_on_parent_organization_id  (parent_organization_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (coalition_id => coalitions.id)
 #
 class VitaPartner < ApplicationRecord
   DEFAULT_CAPACITY_LIMIT = 300
 
+  belongs_to :coalition, optional: true
   has_many :clients
   has_many :intakes
   has_and_belongs_to_many :states, association_foreign_key: :state_abbreviation
@@ -33,6 +40,8 @@ class VitaPartner < ApplicationRecord
   validate :one_level_of_depth
 
   scope :top_level, -> { where(parent_organization: nil).order(:display_name).order(:name) }
+  scope :organizations, -> { where(parent_organization: nil) }
+  scope :sites, -> { where.not(parent_organization: nil) }
 
   after_initialize :defaults
 
@@ -45,6 +54,14 @@ class VitaPartner < ApplicationRecord
       return urban_upbound_has_capacity_for? intake
     end
     !at_capacity?
+  end
+
+  def organization?
+    parent_organization_id.blank?
+  end
+
+  def site?
+    parent_organization_id.present?
   end
 
   private

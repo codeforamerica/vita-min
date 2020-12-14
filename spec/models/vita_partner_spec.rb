@@ -13,12 +13,18 @@
 #  zendesk_instance_domain :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  coalition_id            :bigint
 #  parent_organization_id  :bigint
 #  zendesk_group_id        :string           not null
 #
 # Indexes
 #
+#  index_vita_partners_on_coalition_id            (coalition_id)
 #  index_vita_partners_on_parent_organization_id  (parent_organization_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (coalition_id => coalitions.id)
 #
 require "rails_helper"
 
@@ -171,6 +177,31 @@ describe VitaPartner do
           expect(vita_partner.has_capacity_for?(intake)).to eq true
           expect(vita_partner).to have_received(:at_capacity?)
         end
+      end
+    end
+  end
+
+  context "site-specific properties" do
+    context "with a parent_organization_id" do
+      let(:organization) { create(:vita_partner) }
+      let(:site) { create(:vita_partner, parent_organization: organization) }
+
+      it "is a site" do
+        expect(site.site?).to eq(true)
+        expect(site.organization?).to eq(false)
+        expect(VitaPartner.sites).to eq [site]
+      end
+    end
+  end
+
+  context "organization-specific properties" do
+    context "without a parent_organization_id" do
+      let(:organization) { create(:vita_partner, parent_organization: nil) }
+
+      it "is an organization" do
+        expect(organization.organization?).to eq(true)
+        expect(organization.site?).to eq(false)
+        expect(VitaPartner.organizations).to eq [organization]
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_232524) do
+ActiveRecord::Schema.define(version: 2020_12_14_184717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -524,6 +524,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_232524) do
   create_table "vita_partners", force: :cascade do |t|
     t.boolean "accepts_overflow", default: false
     t.boolean "archived", default: false
+    t.bigint "coalition_id"
     t.datetime "created_at", precision: 6, null: false
     t.string "display_name"
     t.string "logo_path"
@@ -534,6 +535,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_232524) do
     t.integer "weekly_capacity_limit"
     t.string "zendesk_group_id", null: false
     t.string "zendesk_instance_domain", null: false
+    t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"
     t.index ["parent_organization_id"], name: "index_vita_partners_on_parent_organization_id"
   end
 
@@ -575,5 +577,6 @@ ActiveRecord::Schema.define(version: 2020_12_10_232524) do
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "users", "vita_partners"
+  add_foreign_key "vita_partners", "coalitions"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
 end
