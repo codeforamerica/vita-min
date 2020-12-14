@@ -6,9 +6,23 @@
   .button {
     border-width: 2px;
     border-radius: 4px;
-    font-size: 15px;
+    font-size: 1.5rem;
     line-height: 15px;
     padding: 10px 15px;
+  }
+
+  .button--tiny {
+    padding: 5px 10px;
+  }
+
+  .client-header__organization {
+    display: flex;
+    align-items: center;
+    
+    h2 {
+      font-size: 1.5rem;
+      font-weight: normal;
+    }
   }
 
   .client-profile {
