@@ -1,17 +1,19 @@
 <% @main_heading = t("general.sign_in") %>
 <% content_for :page_title, @main_heading %>
 <% content_for :card do %>
-  <h1 class="h1"><%= @main_heading %></h1>
+  <div class="hub-section">
+    <h1 class="h1"><%= @main_heading %></h1>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), local: true, builder: VitaMinFormBuilder ) do |f| %>
-    <%= f.cfa_input_field(:email, t("general.email"), type: 'email', classes: ['form-width--email']) %>
-    <%= f.cfa_input_field(:password, t("general.password"), type: 'password', classes: ['form-width--email']) %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), local: true, builder: VitaMinFormBuilder ) do |f| %>
+      <%= f.cfa_input_field(:email, t("general.email"), type: 'email', classes: ['form-width--email']) %>
+      <%= f.cfa_input_field(:password, t("general.password"), type: 'password', classes: ['form-width--email']) %>
 
-    <div class="actions">
-      <%= f.submit t("general.sign_in"), class: "button button--primary" %>
-    </div>
-  <% end %>
+      <div class="actions">
+        <%= f.submit t("general.sign_in"), class: "button button--primary" %>
+      </div>
+    <% end %>
 
-  <%= link_to "Forgot your password?", new_password_path(resource_name, email: resource.email) %><br />
+    <%= link_to t("general.forgot_password"), new_password_path(resource_name, email: resource.email) %><br />
+  </div>
 <% end %>
 

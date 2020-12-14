@@ -3,29 +3,31 @@
 
 <% content_for :card do %>
   <h1 class="h1"><%= @main_heading %></h1>
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), method: :put, local: true, builder: VitaMinFormBuilder) do |f| %>
-    <% if resource.errors.include? :reset_password_token %>
-      <% # If Devise shows an error about the password reset token, replace the form with a useful link. %>
-      <p><%= t("general.error.sorry_something_went_wrong") %></p>
-      <p><%= link_to "Forgot your password?", new_password_path(resource_name) %></p>
-    <% else %>
-      <%= f.hidden_field :reset_password_token %>
-      <div class="field">
-        <%= f.cfa_input_field(:password,
-                              t("views.passwords.edit.new_password"),
-                              type: 'password',
-                              classes: ['form-width--email'],
-                              help_text: t("views.passwords.password_help_text_html"),
-            ) %>
-      </div>
+  <div class="hub-section">
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), method: :put, local: true, builder: VitaMinFormBuilder) do |f| %>
+      <% if resource.errors.include? :reset_password_token %>
+        <% # If Devise shows an error about the password reset token, replace the form with a useful link. %>
+        <p><%= t("general.error.sorry_something_went_wrong") %></p>
+        <p><%= link_to "Forgot your password?", new_password_path(resource_name) %></p>
+      <% else %>
+        <%= f.hidden_field :reset_password_token %>
+        <div class="field">
+          <%= f.cfa_input_field(:password,
+                                t("views.passwords.edit.new_password"),
+                                type: 'password',
+                                classes: ['form-width--email'],
+                                help_text: t("views.passwords.password_help_text_html"),
+                                ) %>
+        </div>
 
-      <div class="field">
-        <%= f.cfa_input_field(:password_confirmation, t("views.passwords.edit.confirm_new_password"), type: 'password', classes: ['form-width--email']) %>
-      </div>
+        <div class="field">
+          <%= f.cfa_input_field(:password_confirmation, t("views.passwords.edit.confirm_new_password"), type: 'password', classes: ['form-width--email']) %>
+        </div>
 
-      <div class="actions">
-        <%= f.submit t("views.passwords.edit.change_my_password"), class: "button button--primary" %>
-      </div>
+        <div class="actions">
+          <%= f.submit t("views.passwords.edit.change_my_password"), class: "button button--primary" %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 <% end %>
