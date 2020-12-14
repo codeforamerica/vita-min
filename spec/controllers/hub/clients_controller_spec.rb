@@ -177,13 +177,13 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text(client.email_address)
         expect(profile).to have_text(client.phone_number)
         expect(profile).to have_text("English")
-        expect(profile).to have_text("Marital Status: Married, Lived with spouse")
-        expect(profile).to have_text("Filing Status: Filing jointly")
+        expect(profile).to have_text("Married, Lived with spouse")
+        expect(profile).to have_text("Filing jointly")
         expect(profile).to have_text("Oakland, CA 94606")
         expect(profile).to have_text("Spouse Contact Info")
         expect(profile).to have_text("Pacific Time (US & Canada)")
         expect(profile).to have_text("I'm available every morning except Fridays.")
-        expect(profile).to have_text("Dependents: 2")
+        expect(profile).to have_text("2")
       end
 
       context "when a client needs attention" do

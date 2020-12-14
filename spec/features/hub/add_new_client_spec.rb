@@ -83,8 +83,6 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "123 Garden Ln"
       expect(page).to have_text "Brassicaville, CA 95032"
       expect(page).to have_text "TX"
-      expect(page).to have_text "• Text message"
-      expect(page).to have_text "• Email"
       expect(page).to have_text "Peter Pepper"
       expect(page).to have_text "spicypeter@pepper.com"
 
