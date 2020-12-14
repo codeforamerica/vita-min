@@ -129,12 +129,12 @@ describe ValidateRequestParams, type: :controller do
   end
 
   context "with valid characters in my_session cookie" do
-    it "responds with a 200 ok" do
+    it "does not respond with error" do
       set_cookie "_vita_min_session=adfec7as9413db963b5"
 
       get "/login"
 
-      expect(last_response.ok?).to eq true
+      expect(last_response).not_to have_http_status(:error)
     end
   end
 end
