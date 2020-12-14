@@ -4,6 +4,10 @@ class PublicPagesController < ApplicationController
     true
   end
 
+  def redirect_locale_home
+    redirect_to root_path, { locale: I18n.locale }
+  end
+
   def home; end
 
   def diy_home; end

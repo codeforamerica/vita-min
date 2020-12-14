@@ -13,12 +13,6 @@ class ApplicationController < ActionController::Base
 
   def canonical_url(locale=I18n.locale)
     # Leave the locale out of canonical URLs in the default locale (works ok either way but needs to be consistent)
-    url_for(only_path: false, locale: locale == I18n.default_locale ? nil : locale)
-  end
-
-  def hreflang_url(locale=nil)
-    # The default hreflang URL shouldn't include locale but all other hreflang links should
-    # So unlike canonical_url we will not replace the default locale with nil
     url_for(only_path: false, locale: locale)
   end
 
@@ -164,8 +158,7 @@ class ApplicationController < ActionController::Base
   end
 
   def switch_locale(&action)
-    locale = available_locale(params[:new_locale]) ||
-      available_locale(params[:locale]) ||
+    locale = available_locale(params[:locale]) ||
       available_locale_from_domain ||
       http_accept_language.compatible_language_from(I18n.available_locales) ||
       I18n.default_locale
