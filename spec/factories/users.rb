@@ -64,6 +64,7 @@ FactoryBot.define do
 
     factory :admin_user do
       is_admin { true }
+      vita_partner { nil }
     end
 
     factory :zendesk_admin_user do
@@ -79,7 +80,7 @@ FactoryBot.define do
     end
 
     factory :invited_user do
-      association :invited_by, factory: :user_with_org
+      association :invited_by, factory: :admin_user
       invitation_created_at { 1.day.ago - 1.minute }
       invitation_sent_at { 1.day.ago }
       vita_partner { invited_by.vita_partner }

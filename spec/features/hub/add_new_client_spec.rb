@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Creating new drop off clients" do
-  context "As an authenticated user" do
-    let(:user) { create :user, vita_partner: vita_partner }
+  context "As an authenticated admin user" do
+    let(:user) { create :admin_user }
     let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders" }
     let!(:child_partner) { create :vita_partner, parent_organization: vita_partner, name: "Floret Financial Readiness" }
     before do
@@ -45,7 +45,7 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Divorced year", with: "2018"
         check "Filing jointly"
       end
-      
+
       within "#spouse-info" do
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"
