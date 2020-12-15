@@ -142,7 +142,6 @@ describe ValidateRequestParams, type: :controller do
       set_cookie "_vita_min_session=adfec7as9413db963b5"
 
       get "/login"
-
       expect(last_response.bad_request?).to eq false
     end
   end

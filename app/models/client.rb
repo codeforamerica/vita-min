@@ -36,6 +36,10 @@ class Client < ApplicationRecord
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
   end
 
+  def self.sortable_intake_attributes
+    [:primary_consented_to_service_at, :state_of_residence] + delegated_intake_attributes
+  end
+
   delegate *delegated_intake_attributes, to: :intake
   scope :after_consent, -> { distinct.joins(:tax_returns).merge(TaxReturn.where("status > 100")) }
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
@@ -43,8 +47,8 @@ class Client < ApplicationRecord
   scope :delegated_order, ->(column, direction) do
     raise ArgumentError, "column and direction are required" if !column || !direction
 
-    if delegated_intake_attributes.include? column.to_sym
-      column_names = ["clients.*"] + delegated_intake_attributes.map { |intake_column_name| "intakes.#{intake_column_name}" }
+    if sortable_intake_attributes.include? column.to_sym
+      column_names = ["clients.*"] + sortable_intake_attributes.map { |intake_column_name| "intakes.#{intake_column_name}" }
       select(column_names).joins(:intake).merge(Intake.order(Hash[column, direction])).distinct
     else
       includes(:intake).order(Hash[column, direction]).distinct

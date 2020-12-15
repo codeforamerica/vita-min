@@ -3,8 +3,8 @@ module ErrorMessageHelper
     errors = object.errors.messages[error_attribute.to_sym]
     return unless errors.present?
 
-    content_tag :div, class: "text--error" do
-      content_tag(:i, "", class: "icon-warning") + content_tag(:span, errors.join(", "))
+    tag.div class: "text--error" do
+      tag.i(class: "icon-warning") + tag.span(errors.join(", "))
     end
   end
 end
