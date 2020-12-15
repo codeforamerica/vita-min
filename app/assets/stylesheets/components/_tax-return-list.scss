@@ -2,57 +2,14 @@
   font-size: 1.4rem;
   margin: 0;
 
-  &__state {
-    text-align: right;
-    width: 135px;
-  }
-  &__stage {
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    line-height: 1;
-  }
-  &__status {
-    line-height: 1;
-    font-size: 1.4rem;
-  }
+  .certification-label {
+    width: 80px;
+    text-align: center;
 
-  &__year {
-    font-weight: bold;
-    font-size: 1.6rem;
-  }
-
-  &__service-type {
-    font-size: 2rem;
-    min-width: 3rem;
-  }
-
-  li {
-    display: flex;
-    line-height: 3.5rem;
-    align-items: center;
-    margin-bottom: 5px;
-    > div {
-      margin-right: 5px;
+    &.label--unassigned {
+      background: $color-grey-light;
+      color: $color-grey;
     }
-  }
-
-  &__assignment {
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    justify-content: space-between;
-    line-height: 1;
-    > div {
-      margin-right: 5px;
-    }
-  }
-  &__assignee {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 120px;
-    font-size: 1.6rem;
-    font-weight: bold;
   }
 
   .form-wrapper {
@@ -82,48 +39,100 @@
     }
   }
 
-}
-
-.certification-label {
-  width: 80px;
-  text-align: center;
-  &.label--unassigned {
-    background: $color-grey-light;
-    color: $color-grey;
-  }
-}
-
-.tax-return-certification-form {
-  position: relative;
-  border: 2px solid black;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  > * {
-    margin: 0 5px 0;
-  }
-
-  button {
-    margin-left: 5px;
-    display: flex;
-
-    img {
-      height: 16px;
-      height: 16px;
-    }
-  }
-
-  .before {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  li {
     align-items: center;
-    position: absolute;
-    top: -30px;
-    margin: 0;
-    a {
-      font-size: smaller;
+    display: flex;
+    justify-content: flex-end;
+    line-height: 3.5rem;
+  }
+
+  .tax-return-certification-form {
+    position: relative;
+    border: 2px solid black;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    > * {
+      margin: 0 5px 0;
     }
+
+    button {
+      margin-left: 5px;
+      display: flex;
+
+      img {
+        height: 16px;
+        height: 16px;
+      }
+    }
+
+    .before {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      top: -30px;
+      margin: 0;
+      a {
+        font-size: smaller;
+      }
+    }
+  }
+
+  &__assignee {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-right: 1.25rem;
+
+    .button {
+      margin-right: 0;
+    }
+  }
+
+  &__assignment {
+    font-size: 1.4rem;
+
+    > div {
+      margin-right: 5px;
+    }
+  }
+
+  &__certification {
+    margin-right: 1.5rem;
+  }
+
+  &__stage {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  &__state {
+    text-align: right;
+    width: 135px;
+  }
+
+  &__status {
+    line-height: 1;
+    font-size: 1.4rem;
+  }
+
+  &__status-form {
+    .button {
+      height: 44px;
+    }
+  }
+
+  &__service-type {
+    font-size: 2rem;
+    min-width: 3rem;
+  }
+
+  &__year {
+    font-weight: bold;
+    font-size: 1.6rem;
+    margin-right: 1.5rem;
   }
 }
 

@@ -6,9 +6,29 @@
   .button {
     border-width: 2px;
     border-radius: 4px;
-    font-size: 15px;
+    font-size: 1.5rem;
     line-height: 15px;
     padding: 10px 15px;
+    margin-bottom: 1.5rem;
+  }
+
+  .button--subtle {
+    font-weight: 500;
+  }
+
+  .button--tiny {
+    padding: 5px 10px;
+    margin-bottom: 0;
+  }
+
+  .client-header__organization {
+    display: flex;
+    align-items: center;
+    
+    h2 {
+      font-size: 1.5rem;
+      font-weight: normal;
+    }
   }
 
   .client-profile {
@@ -72,6 +92,13 @@
       font-size: 1.5rem;
     }
     padding-bottom: 7rem;
+  }
+
+  .text--help {
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    color: $color-grey-dark;
+    margin: 0;
   }
 
   .text-input {
