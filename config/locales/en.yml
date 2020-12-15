@@ -195,6 +195,14 @@ en:
       add_site: Add site
       index:
         title: VITA partners
+    bank_accounts:
+      info_displayed: Displaying bank account information
+      bank_name: Bank name
+      account_type: Account type
+      account_number: Account number
+      routing_number: Routing number
+      checking: Checking
+      savings: Savings
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.

@@ -195,6 +195,14 @@ es:
       add_site: Agregar sitio
       index:
         title: Socios de VITA
+    bank_accounts:
+      info_displayed: Visualización de la información de la cuenta bancaria
+      bank_name: Nombre del banco
+      account_number: Número de cuenta
+      routing_number: Número de ruta
+      account_type: Tipo de cuenta
+      checking: Cuenta de Cheques
+      savings: Ahorros
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
