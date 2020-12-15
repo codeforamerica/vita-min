@@ -134,7 +134,7 @@ module Hub
     private
 
     def load_vita_partners
-      @vita_partners = VitaPartner.accessible_by(Ability.new(current_user))
+      @vita_partners = VitaPartner.accessible_by(current_ability)
     end
 
     def update_client_form_params
@@ -142,7 +142,9 @@ module Hub
     end
 
     def create_client_form_params
-      params.require(CreateClientForm.form_param).permit(CreateClientForm.permitted_params)
+      filtered_params = params.require(CreateClientForm.form_param).permit(CreateClientForm.permitted_params)
+      filtered_params = filtered_params.merge(vita_partner_id: current_user.vita_partner_id) unless can?(:manage, VitaPartner)
+      filtered_params
     end
 
     def take_action_form_params

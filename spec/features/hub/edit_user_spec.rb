@@ -15,20 +15,6 @@ RSpec.describe "a user editing a user" do
         visit edit_hub_user_path(id: user_to_edit.id)
         expect(page).to have_text user_to_edit.name
 
-        expect(page).to have_selector("optgroup", text: "Colorado")
-        within(:xpath, './/optgroup[@label="Colorado"]') do
-          expect(page).to have_selector("option", text: "Colorado")
-          expect(page).to have_selector("option", text: "Denver")
-        end
-
-        expect(page).to have_selector("optgroup", text: "California")
-        within(:xpath, './/optgroup[@label="California"]') do
-          expect(page).to have_selector("option", text: "California")
-          expect(page).to have_selector("option", text: "San Francisco")
-        end
-
-        expect(find_field("user_vita_partner_id").value).to eq user_to_edit.vita_partner.id.to_s
-
         check "Admin"
         check "Client support"
 

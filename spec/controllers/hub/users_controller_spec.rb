@@ -24,40 +24,56 @@ RSpec.describe Hub::UsersController do
   end
 
   describe "#index" do
-
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :profile
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "with an authenticated user" do
+      let(:vita_partner) { create :vita_partner }
+      let(:user) { create(:user, vita_partner: vita_partner) }
+      before do
+        sign_in user
+        create :user, vita_partner: vita_partner
+      end
+
+      it "displays only the user who is logged in" do
+        get :index
+
+        expect(assigns(:users)).to eq [user]
+      end
+    end
+
+    context "with an authenticated admin user" do
       render_views
 
-      before { sign_in(create :user_with_org, vita_partner: vita_partner ) }
-      let(:vita_partner) { create :vita_partner, name: "Pawnee Preparers" }
-      let!(:leslie) { create :zendesk_admin_user, name: "Leslie", vita_partner: vita_partner, is_admin: true, is_client_support: true }
-      let!(:ben) { create :agent_user, name: "Ben", vita_partner: vita_partner }
+      let!(:leslie) { create :admin_user, name: "Leslie", vita_partner: create(:vita_partner, name: "Pawnee Preparers") }
+      before do
+        sign_in create(:admin_user)
+        create :user
+      end
 
-      it "displays a list of all users in the org and certain key attributes" do
+      it "displays a list of all users and certain key attributes" do
         get :index
 
         expect(assigns(:users).count).to eq 3
         html = Nokogiri::HTML.parse(response.body)
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Leslie")
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Pawnee Preparers")
-        expect(html.at_css("#user-#{leslie.id}")).to have_text("Admin, Client support")
+        expect(html.at_css("#user-#{leslie.id}")).to have_text("Admin")
         expect(html.at_css("#user-#{leslie.id} a")["href"]).to eq edit_hub_user_path(id: leslie)
       end
     end
   end
 
   describe "#edit" do
-    let(:vita_partner) { create :vita_partner }
-    let!(:user) { create :agent_user, name: "Anne", vita_partner: vita_partner }
+    let!(:user) { create :user, name: "Anne", vita_partner: create(:vita_partner) }
     let(:params) { { id: user.id } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
-    context "as an authenticated user" do
-      render_views
+    context "as an authenticated user editing yourself" do
+      before do
+        sign_in user
+      end
 
-      before { sign_in(create :user_with_org, vita_partner: vita_partner) }
+      render_views
 
       it "shows a form prefilled with data about the user" do
         get :edit, params: params
@@ -71,34 +87,54 @@ RSpec.describe Hub::UsersController do
         expect(response.body).to have_text("Eastern Time (US & Canada)")
       end
     end
+
+    context "as an admin user" do
+      before do
+        sign_in create(:admin_user)
+      end
+
+      it "returns 200 OK" do
+        get :edit, params: params
+
+        expect(response).to be_ok
+      end
+    end
+
+    context "as an authenticated user editing someone else at the same org" do
+      before { sign_in(create(:user, vita_partner: user.vita_partner)) }
+
+      it "is forbidden" do
+        get :edit, params: params
+
+        expect(response).to be_forbidden
+      end
+    end
   end
 
   describe "#update" do
     let!(:vita_partner) { create :vita_partner, name: "Avonlea Tax Aid" }
-    let!(:user) { create :agent_user, name: "Anne", vita_partner: vita_partner }
+    let!(:user) { create :user, name: "Anne", vita_partner: vita_partner }
     let(:params) do
       {
         id: user.id,
         user: {
-          vita_partner_id: vita_partner.id,
           timezone: "America/Chicago",
         }
       }
     end
+
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
-    context "as an authenticated user" do
+    context "as an authenticated user editing yourself" do
       render_views
 
-      before { sign_in(create :user_with_org, vita_partner: vita_partner) }
+      before { sign_in(user) }
 
-      context "when editing user fields that any user can edit" do
+      context "when editing user fields that any user can edit about themselves" do
         it "updates the user and redirects to edit" do
           post :update, params: params
 
-          user.reload
-          expect(user.vita_partner).to eq vita_partner
-          expect(user.timezone).to eq "America/Chicago"
+          expect(user.reload.timezone).to eq "America/Chicago"
           expect(response).to redirect_to edit_hub_user_path(id: user)
         end
       end
@@ -117,19 +153,6 @@ RSpec.describe Hub::UsersController do
           expect(user.supported_organization_ids).to be_empty
         end
       end
-
-      context "when assigning the user to an organization inaccessible to the current user" do
-        before do
-          params[:user][:vita_partner_id] = create(:vita_partner).id
-        end
-
-        it "raises an exception and does not change the user" do
-          expect do
-            post :update, params: params
-          end.to raise_error(ActiveRecord::RecordNotFound)
-          expect(user.reload).to eq user
-        end
-      end
     end
 
     context "as an admin" do
@@ -145,7 +168,6 @@ RSpec.describe Hub::UsersController do
           id: user.id,
           user: {
             is_admin: true,
-            vita_partner_id: vita_partner.id,
             timezone: "America/Chicago",
             supported_organization_ids: [
               supported_vita_partner_1.id,
@@ -166,7 +188,6 @@ RSpec.describe Hub::UsersController do
           id: user.id,
           user: {
             is_client_support: true,
-            vita_partner_id: vita_partner.id
           }
         }
 
@@ -174,6 +195,16 @@ RSpec.describe Hub::UsersController do
 
         user.reload
         expect(user.is_client_support?).to eq true
+      end
+    end
+
+    context "as an authenticated user editing someone else at the same org" do
+      before { sign_in(create(:user, vita_partner: user.vita_partner)) }
+
+      it "is forbidden" do
+        get :update, params: params
+
+        expect(response).to be_forbidden
       end
     end
   end

@@ -1,23 +1,38 @@
 require "rails_helper"
 
 RSpec.describe Hub::ClientsController do
-  let(:vita_partner) { create :vita_partner }
+  let!(:vita_partner) { create :vita_partner }
   let(:user) { create :user, vita_partner: vita_partner }
 
   describe "#new" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
+    render_views
 
     context "as an authenticated user" do
       before { sign_in user }
 
       it "responds with ok" do
-        get :new, params: {}
+        get :new
         expect(response).to be_ok
       end
 
-      it "assigns vita_partners to accessible organizations" do
-        get :new, params: {}
-        expect(assigns(:vita_partners)).to eq [vita_partner]
+      it "does not display an input for choosing an organization" do
+        get :new
+        expect(response.body).not_to have_text("Assign to")
+      end
+    end
+
+    context "as an admin" do
+      before { sign_in create(:admin_user) }
+
+      let!(:other_vita_partner) { create :vita_partner }
+
+      it "loads all the vita partners and shows a select input" do
+        get :new
+
+        expect(assigns(:vita_partners)).to include vita_partner
+        expect(assigns(:vita_partners)).to include other_vita_partner
+        expect(response.body).to have_text("Assign to")
       end
     end
   end
@@ -58,7 +73,6 @@ RSpec.describe Hub::ClientsController do
           needs_help_2018: "yes",
           needs_help_2017: "no",
           signature_method: "online",
-          vita_partner_id: other_vita_partner.id,
           service_type: "drop_off",
           tax_returns_attributes: {
               "0": {
@@ -92,10 +106,11 @@ RSpec.describe Hub::ClientsController do
       before { sign_in user }
 
       context "with valid params" do
-        it "saves a new client and redirects to the new client's profile page" do
+        it "creates a new client in the user's organization and redirects to the new client's profile page" do
           expect do
             post :create, params: params
           end.to change(Client, :count).by 1
+          expect(Client.last.vita_partner).to eq(user.vita_partner)
           expect(flash[:notice]).to eq "Client successfully created."
           expect(response).to redirect_to(hub_client_path(id: Client.last.id))
         end
@@ -120,6 +135,25 @@ RSpec.describe Hub::ClientsController do
         end
       end
     end
+
+    context "as an authenticated admin user" do
+      let(:other_vita_partner) { create(:vita_partner) }
+
+      before { sign_in create(:admin_user) }
+
+      context "when assigning to an org you are not in" do
+        before do
+          params[:hub_create_client_form][:vita_partner_id] = other_vita_partner.id
+        end
+        it "creates a new client in that org" do
+          expect do
+            post :create, params: params
+          end.to change(Client, :count).by 1
+          expect(Client.last.vita_partner).to eq(other_vita_partner)
+        end
+      end
+    end
+
   end
 
   describe "#show" do

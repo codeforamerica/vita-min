@@ -4,7 +4,6 @@ module Hub
 
     before_action :require_sign_in
     load_and_authorize_resource
-    load_and_authorize_resource :vita_partner, collection: [:edit, :update], parent: false
 
     layout "admin"
 
@@ -19,7 +18,6 @@ module Hub
     end
 
     def update
-      authorize!(:manage, @vita_partners.find(user_params[:vita_partner_id]))
       return render :edit unless @user.update(user_params)
 
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("general.changes_saved")
@@ -31,7 +29,6 @@ module Hub
       params.require(:user).permit(
         *(:is_admin if current_user.is_admin?),
         *(:is_client_support if current_user.is_admin?),
-        :vita_partner_id,
         :timezone,
         current_user.is_admin ? { supported_organization_ids: [] } : {},
       )
