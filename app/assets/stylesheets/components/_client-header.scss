@@ -2,13 +2,12 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  i {
+
+  i.needs-attention {
     margin-left: 10px;
   }
-  h1.h2 {
-    margin: 0;
-  }
-  h2.h4 {
+
+  h1.h1 {
     margin: 0;
   }
 
@@ -18,8 +17,9 @@
 
   &__organization {
     display: flex;
+
     h2 {
-      margin-right: 5px;
+      margin-right: 1rem;
       margin-bottom: 0;
     }
   }
@@ -28,9 +28,19 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    .text--help {
+      margin-left: 1.5rem;
+    }
   }
 
   form.edit_client {
     margin-top: 10px;
+  }
+
+  .tax-return-list {
+    .button {
+      margin-bottom: 0;
+    }
   }
 }
