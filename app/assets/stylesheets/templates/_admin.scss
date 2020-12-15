@@ -1,5 +1,6 @@
 .admin {
   background: white;
+  line-height: 2.5rem;
 
   .hub-content-wrapper {
     margin-top: 3rem;
@@ -17,6 +18,7 @@
     padding-left: 7rem;
     @extend .spacing-below-35;
   }
+
   .header {
     * {
       margin: 0;

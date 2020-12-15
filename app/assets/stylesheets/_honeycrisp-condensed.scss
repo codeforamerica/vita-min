@@ -1,8 +1,4 @@
 .honeycrisp-condensed {
-  .admin {
-    line-height: 2.5rem;
-  }
-
   .button {
     border-width: 2px;
     border-radius: 4px;
@@ -19,22 +15,6 @@
   .button--tiny {
     padding: 5px 10px;
     margin-bottom: 0;
-  }
-
-  .client-header__organization {
-    display: flex;
-    align-items: center;
-    
-    h2 {
-      font-size: 1.5rem;
-      font-weight: normal;
-    }
-  }
-
-  .client-profile {
-    p {
-      margin-bottom: 16px;
-    }
   }
 
   .form-group {
