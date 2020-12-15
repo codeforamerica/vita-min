@@ -7,17 +7,13 @@
                   method: :post, local: true, builder: VitaMinFormBuilder,
                   html: { class: "form-card" } do |f| %>
       <h1><%= @title %></h1>
-
-      <% @take_action_form.tax_returns.map do |tax_return| %>
-        <%= f.fields_for "tax_returns[#{tax_return.id}]", tax_return do |tax_return_form| %>
-          <%= tax_return_form.cfa_select(
-                  :status,
-                  t(".status", tax_year: tax_return.year),
-                  grouped_status_options_for_select,
-                  include_blank: true,
-                  ) %>
-        <% end %>
-      <% end %>
+      <%= f.cfa_select(:tax_return_id, "Filing year", @take_action_form.tax_returns.pluck(:year, :id), include_blank: true) %>
+      <%= f.cfa_select(
+              :status,
+              "Updated status",
+              grouped_status_options_for_select,
+              include_blank: true,
+      ) %>
 
       <%= f.cfa_select(
         :locale,

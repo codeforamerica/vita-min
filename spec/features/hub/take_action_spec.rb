@@ -19,10 +19,10 @@ RSpec.feature "Change tax return status on a client" do
       click_on "Take action"
 
       expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
-      expect(page).to have_select("hub_take_action_form_tax_returns_#{tax_return.id}__status", selected: "In progress")
-      within "#hub_take_action_form_tax_returns_#{tax_return.id}__status" do
-        select "Entering in TaxSlayer"
-      end
+      expect(page).to have_select("hub_take_action_form_status")
+      select "Entering in TaxSlayer", from: "Updated status"
+      select "2019", from: "Filing year"
+
       expect(page).to have_select("hub_take_action_form_locale", selected: "English")
       choose "Text Message"
       fill_in "Send message", with: "Heads up! I am still working on it."
@@ -48,7 +48,8 @@ RSpec.feature "Change tax return status on a client" do
       end
 
       expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
-      expect(page).to have_select("hub_take_action_form_tax_returns_#{tax_return.id}__status", selected: "Accepted")
+      expect(page).to have_select("hub_take_action_form_tax_return_id", selected: "2019")
+      expect(page).to have_select("hub_take_action_form_status", selected: "Accepted")
       expect(page).to have_select("hub_take_action_form_locale", selected: "English")
 
       expect(page).to have_text("Send message")

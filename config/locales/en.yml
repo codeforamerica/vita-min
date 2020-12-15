@@ -56,13 +56,12 @@ en:
         language_mismatch: This client requested %{interview_language} for their interview
         prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}
         send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
-        status: Status of %{tax_year} tax return
       update_take_action:
         flash_message:
           email: sent email
-          internal_note: added internal note.
+          internal_note: added internal note
           status: updated status
-          success: 'Success: Action taken! %{action_list}'
+          success: 'Success: Action taken! %{action_list}.'
           text_message: sent text message
       index:
         add_client: Add client
@@ -316,6 +315,8 @@ en:
   forms:
     errors:
       at_least_one_year: Please pick at least one year.
+      status_must_change: Can't initiate status change to current status.
+      tax_return_belongs_to_client: Can't update tax return unrelated to current client.
       need_one_communication_method: Please choose some way for us to contact you.
       need_phone_number: Please enter a cell phone number.
       dependents: Please enter the %{attrs} of each dependent.
