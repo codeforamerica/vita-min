@@ -69,6 +69,10 @@ class Client < ApplicationRecord
     attention_needed_since.present?
   end
 
+  def bank_account_info?
+    intake.encrypted_bank_name || intake.encrypted_bank_routing_number || intake.encrypted_bank_account_number
+  end
+
   def destroy_completely
     intake.dependents.destroy_all
     DocumentsRequest.where(intake: intake).destroy_all

@@ -114,10 +114,77 @@
       </div>
     </div>
 
+    <div id="bai">
+      <div class="spacing-below-35">
+        <h2 class="text--small text--bold"><%= "Bank Account Info" %>
+          <span>
+            <% if @client.bank_account_info? %>
+              <%= @show_bank_account_info ? link_to("Hide", hub_client_path(anchor: "bai")) : link_to("View", hub_client_path(bai: true, anchor: "bai"))  %>
+            <% end %>
+          </span>
+        </h2>
+        <% if @show_bank_account_info && @client.bank_account_info? %>
+          <p>
+            <span class="hc-label"><%= "Bank Name" %>:</span>
+            <span class="label-value"><%= @client.intake.bank_name %> </span>
+          </p>
+          <p>
+            <span class="hc-label"><%= "Bank Account Type" %>:</span>
+            <span class="label-value"><%= @client.intake.bank_account_type == "unfilled" ? t("general.NA") : @client.intake.bank_account_type %> </span>
+          </p>
+          <p>
+            <span class="hc-label"><%= "Bank Account Number" %>:</span>
+            <span class="label-value"><%= @client.intake.bank_account_number %> </span>
+          </p>
+          <p>
+            <span class="hc-label"><%= "Bank Routing Number" %>:</span>
+            <span class="label-value"><%= @client.intake.bank_routing_number %> </span>
+          </p>
+        <% elsif @client.bank_account_info? %>
+          <p>
+            <span class="hc-label"><%= "Bank Name" %>:</span>
+            <span class="label-value">●●●●●●●●●● </span>
+          </p>
+          <p>
+            <span class="hc-label"><%= "Account Type" %>:</span>
+            <span class="label-value">●●●●●●●●●●●</span>
+          </p>
+          <p>
+            <span class="hc-label"><%= "Account Number" %>:</span>
+            <span class="label-value">●●●●●●●●●●●</span>
+          </p>
+          <p>
+            <span class="hc-label"><%= "Routing Number" %>:</span>
+            <span class="label-value">●●●●●●●●●●●</span>
+          </p>
+        <% else %>
+          <span class="label-value">No bank account info provided.</span>
+        <% end %>
+      </div>
+    </div>
+
     <div>
       <%= link_to(t("general.edit_info"), edit_hub_client_path, class: "button hc-button--wide") %>
     </div>
   </div>
 
+
   <%= render "client_take_action_footer" %>
+
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      if (window.location.search.includes("bai")) {
+          // when user views bank account info, log it into history's state for this view
+          if (!history.state || !history.state["bai"]) {
+              history.pushState({ "bai_<% @client.id %>": true }, null);
+          } else {
+              // if a bai view is present in the state for this history object, we've used the back/forward buttons to get here
+              // and we should redirect to the base version of this page so that bank account info is not viewable.
+              history.pushState({}, null);
+              window.location.replace(window.location.pathname)
+          }
+      }
+  </script>
 <% end %>

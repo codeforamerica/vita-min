@@ -29,7 +29,9 @@ module Hub
       end
     end
 
-    def show; end
+    def show
+      @show_bank_account_info = params[:bai]
+    end
 
     def edit
       @form = UpdateClientForm.from_client(@client)
