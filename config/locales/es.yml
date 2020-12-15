@@ -1525,7 +1525,7 @@ es:
       consent_agreement:
         details:
           cfa: Entiendo que GetYourRefund.org es un sitio web dirigido por Code for America, una organización sin fines de lucro, que enviará mi información tributaria a un sitio de preparación de VITA.
-          civil_rights_understanding_html: Comprendo esta Asistencia Voluntaria al Contribuyente Tributario (VITA) es una <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf"></a>que <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protege mis derechos civiles</a>.
+          civil_rights_understanding_html: Comprendo esta Asistencia Voluntaria al Contribuyente Tributario (VITA) es una <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">Programas de Impuestos Gratuitos Ofrecidos</a> que <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protege mis derechos civiles</a>.
           collects_pii: Entiendo que este sitio recopila la información de identificación personal que proporciono (números del Seguro Social, formularios W-2 o 1099, identificación con foto y otros documentos) para preparar mi declaración de impuestos y hacer un control de calidad de ella.
           contacted: Entiendo que alguien podría comunicarse conmigo a través del medio que yo prefiera para obtener más información. Si el preparador tiene todo lo necesario para preparar la declaración, nadie se comunicará conmigo hasta que la declaración esté lista.
           e_signature: Entiendo que tendré que firmar el formulario 8879 (SP), la autorización de firma electrónica del IRS para presentar la declaración por Internet, mediante una firma electrónica que enviaré por correo electrónico, después de completar control de calidad para que un sitio de preparación de VITA pueda presentar mi declaración de impuestos en línea.
