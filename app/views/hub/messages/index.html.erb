@@ -4,51 +4,51 @@
   <%= render "hub/clients/client_header" %>
 
   <%= render "hub/clients/navigation" %>
+  <div class="hub-section">
+    <h2>Contact History</h2>
+    <% if @contact_history.present? %>
+      <ul class="message-list" aria-live="polite" data-js="messages-pub-sub" data-client-id="<%=@client.id%>">
 
-  <h2>Contact History</h2>
-  <% if @contact_history.present? %>
-    <ul class="message-list" aria-live="polite" data-js="messages-pub-sub" data-client-id="<%=@client.id%>">
+        <% @messages_by_day.each do |datetime, contact_records| %>
 
-      <% @messages_by_day.each do |datetime, contact_records| %>
+          <li class="message__day-heading"><%= date_heading(datetime) %></li>
 
-        <li class="message__day-heading"><%= date_heading(datetime) %></li>
+          <% contact_records.each do |contact_record| %>
+            <%= render "shared/message_list_contact_record", contact_record: contact_record %>
+          <% end %>
 
-        <% contact_records.each do |contact_record| %>
-          <%= render "shared/message_list_contact_record", contact_record: contact_record %>
-        <% end %>
+        <% end %> <%# end of day %>
 
-      <% end %> <%# end of day %>
-
-    </ul>
-  <% else %>
-    <%#
+      </ul>
+    <% else %>
+      <%#
         In order to hide this message list using :empty css pseudo selector and
         not break the realtime messaging functionality, we need to render an
         element that has no body whatsoever (even whitespace).
         https://css-tricks.com/almanac/selectors/e/empty/#will-not-match
-    %>
-    <ul class="message-list" data-js="messages-pub-sub" data-client-id="<%=@client.id%>"></ul>
-  <% end %>
+      %>
+      <ul class="message-list" data-js="messages-pub-sub" data-client-id="<%=@client.id%>"></ul>
+    <% end %>
+    <%= form_with model: @outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
+      <%= f.cfa_input_field :body, t(".text_message_form.label") %>
+      <%= f.hidden_field :client_id %>
+      <%= f.submit t(".text_message_form.submit"), class: "button #{"button--disabled" if @client.sms_phone_number.blank?}", disabled: @client.sms_phone_number.blank? %>
+    <% end %>
 
-  <%= form_with model: @outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
-    <%= f.cfa_input_field :body, t(".text_message_form.label") %>
-    <%= f.hidden_field :client_id %>
-    <%= f.submit t(".text_message_form.submit"), class: "button #{"button--disabled" if @client.sms_phone_number.blank?}", disabled: @client.sms_phone_number.blank? %>
-  <% end %>
-
-  <%= form_with model: @outgoing_email, url: hub_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
-    <%= f.cfa_textarea :body, t(".email_form.label") %>
-    <%= f.hidden_field :client_id %>
-    <div class="attachment-uploader">
-      <%= f.cfa_file_field :attachment, t('general.attachment'), classes: ['attachment-upload'] %>
-      <div id="attachment-image-preview-wrapper">
-        <%= image_tag "file-icon.svg", id: "attachment-image-preview", alt: "" %>
+    <%= form_with model: @outgoing_email, url: hub_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
+      <%= f.cfa_textarea :body, t(".email_form.label") %>
+      <%= f.hidden_field :client_id %>
+      <div class="attachment-uploader">
+        <%= f.cfa_file_field :attachment, t('general.attachment'), classes: ['attachment-upload'] %>
+        <div id="attachment-image-preview-wrapper">
+          <%= image_tag "file-icon.svg", id: "attachment-image-preview", alt: "" %>
+        </div>
+        <button id="attachment-image-clear" hidden>Remove Attachment</button>
       </div>
-      <button id="attachment-image-clear" hidden>Remove Attachment</button>
-    </div>
 
-    <%= f.submit t(".email_form.submit"), class: "button" %>
-  <% end %>
+      <%= f.submit t(".email_form.submit"), class: "button" %>
+    <% end %>
+  </div>
 
   <%= render "hub/clients/client_take_action_footer" %>
 <% end %>
