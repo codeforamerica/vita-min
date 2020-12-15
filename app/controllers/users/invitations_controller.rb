@@ -13,7 +13,7 @@ class Users::InvitationsController < Devise::InvitationsController
     # If an anonymous user tries to send an invitation, send them to the invitation page after sign-in.
     require_sign_in(redirect_after_login: new_user_invitation_path)
   end
-  before_action :load_vita_partners, only: [:new, :create]
+  before_action :load_and_authorize_vita_partners, only: [:new, :create]
 
   authorize_resource :user, only: [:new, :create]
   before_action :require_valid_invitation_token, only: [:edit, :update]
@@ -28,8 +28,9 @@ class Users::InvitationsController < Devise::InvitationsController
 
   private
 
-  def load_vita_partners
-    @vita_partners = VitaPartner.accessible_by(Ability.new(current_user))
+  def load_and_authorize_vita_partners
+    @vita_partners = VitaPartner.accessible_by(current_ability)
+    authorize!(:manage, @vita_partners)
   end
 
   # Override superclass method for default params for newly created invites, allowing us to add attributes

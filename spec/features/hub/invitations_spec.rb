@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Sending and accepting invitations" do
-  context "As an authenticated user" do
-    let(:user) { create :user, role: "agent", vita_partner: vita_partner }
+  context "As an admin user" do
+    let(:user) { create :admin_user }
     let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders" }
     before do
       login_as user

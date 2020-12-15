@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe Hub::SubOrganizationsController, type: :controller do
   describe "#update" do
     let!(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, vita_partner: vita_partner }
+    let(:user) { create :admin_user }
     let(:params) { { id: vita_partner } }
 
-    it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
+    it_behaves_like :a_post_action_for_admins_only, action: :update
 
-    context "with valid params" do
+    context "as an authenticated admin user" do
       before { sign_in(user) }
 
       it "accepts a name (and uses for the display name, too) and redirects to the parent organization's show page" do
@@ -42,33 +42,31 @@ RSpec.describe Hub::SubOrganizationsController, type: :controller do
 
         expect(response).to redirect_to(hub_vita_partner_path(id: city_hall_tax_help_center.parent_organization.id))
       end
-    end
 
-    context "with invalid params" do
-      before { sign_in(user) }
+      context "with invalid params" do
+        it "re-renders the form with the errors" do
+          expect do
+            put :update,
+                params: {
+                  id: vita_partner.id,
+                  hub_sub_organization_form:
+                    { name: "" },
+                }
+          end.not_to change(VitaPartner, :count)
 
-      it "re-renders the form with the errors" do
-        expect do
-          put :update,
-              params: {
-                id: vita_partner.id,
-                hub_sub_organization_form:
-                  { name: "" },
-              }
-        end.not_to change(VitaPartner, :count)
-
-        expect(response).to be_ok
-        expect(assigns(:form).errors).to be_present
+          expect(response).to be_ok
+          expect(assigns(:form).errors).to be_present
+        end
       end
     end
   end
 
   describe "#edit" do
     let!(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, vita_partner: vita_partner }
+    let(:user) { create :admin_user }
     let(:params) { { id: vita_partner } }
 
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
+    it_behaves_like :a_get_action_for_admins_only, action: :edit
 
     context "as an authenticated user" do
       before { sign_in(user) }

@@ -2,23 +2,24 @@ require "rails_helper"
 
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
-  let(:user) { create :user_with_org, supported_organizations: [create(:vita_partner)] }
-  let(:vita_partner) { user.vita_partner }
+  let!(:vita_partner) { create :vita_partner }
+
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
   describe "#new" do
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
+    it_behaves_like :a_get_action_for_admins_only, action: :new
+    let(:user) { create :admin_user }
 
-    let!(:inaccessible_vita_partner) { create(:vita_partner) }
+    context "as an authenticated admin user" do
+      before { sign_in user }
 
-    it "sets @vita_partners so the template can render a list of partners the user has access to" do
-      sign_in user
-      get :new
-      expect(assigns(:vita_partners)).to include(vita_partner)
-      expect(assigns(:vita_partners)).to include(user.supported_organizations.first)
-      expect(assigns(:vita_partners)).not_to include(inaccessible_vita_partner)
+      it "sets @vita_partners so the template can render a list of partners the user has access to" do
+        get :new
+
+        expect(assigns(:vita_partners)).to eq [vita_partner]
+      end
     end
   end
 
@@ -33,9 +34,10 @@ RSpec.describe Users::InvitationsController do
       }
     end
 
-    it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
+    it_behaves_like :a_post_action_for_admins_only, action: :create
 
-    context "with an authenticated user" do
+    context "with an authenticated admin user" do
+      let!(:user) { create :admin_user }
       before { sign_in user }
 
       it "creates a new invited user" do
@@ -54,21 +56,12 @@ RSpec.describe Users::InvitationsController do
       end
 
       context "if the invited user already exists and is an admin" do
-        let!(:invited_user) { create :zendesk_admin_user, email: "cherry@example.com" }
+        let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
 
         it "doesn't change the user's role" do
           post :create, params: params
           invited_user.reload
-          expect(invited_user.role).to eq "admin"
-        end
-      end
-
-      context "if the invited user's organization is inaccessible by the current user" do
-        it "raises an exception and does not create a new user" do
-          expect do
-            post :create, params: { user: { name: "Cher Cherimoya", email: "cherry@example.com", vita_partner_id: create(:vita_partner).id } }
-          end.to raise_error(ActiveRecord::RecordNotFound)
-          expect(User.where(email: "cherry@example.com").count).to eq(0)
+          expect(invited_user.is_admin).to be_truthy
         end
       end
     end
@@ -77,6 +70,7 @@ RSpec.describe Users::InvitationsController do
   describe "#edit" do
     render_views
 
+    let(:user) { create :admin_user }
     let(:params) { { invitation_token: raw_invitation_token } }
     let!(:invited_user) do
       create(
@@ -141,7 +135,6 @@ RSpec.describe Users::InvitationsController do
         :invited_user,
         name: "Cherry Cherimoya",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
-        invited_by: user,
         vita_partner: vita_partner
       )
     end
