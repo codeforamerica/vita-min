@@ -198,6 +198,7 @@ RSpec.describe Hub::TakeActionForm do
     end
   end
   describe "#take_action" do
+
     context "when tax_return_id is not part of clients tax returns" do
       let(:intake) { create :intake }
       let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: create(:tax_return).id }) }
