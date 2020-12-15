@@ -69,7 +69,7 @@ Intake.create(client: other_client, preferred_name: "Tony", email_address: "tige
 
 married_client = Client.create!(vita_partner: fake_vita_partner)
 
-married_intake = Intake.create(
+married_intake = Intake.create!(
   client: married_client,
   preferred_name: "Lucky",
   sms_phone_number: "+14155551212",
@@ -81,3 +81,5 @@ married_intake = Intake.create(
   spouse_last_name: "Charms",
   spouse_email_address: "justthemarshmallows@example.com",
 )
+
+Coalition.create!(name: "CA")

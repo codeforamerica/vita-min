@@ -223,6 +223,16 @@ describe VitaPartner do
         new_org = build(:organization, coalition: coalition, name: "Oregano Org")
         expect(new_org).not_to be_valid
       end
+
+      describe "#child_sites" do
+        before do
+          create_list(:site, 3, parent_organization: organization)
+        end
+
+        it "includes the sites an org has" do
+          expect(organization.child_sites.count).to eq(3)
+        end
+      end
     end
   end
 
