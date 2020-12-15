@@ -6,29 +6,31 @@
   <%= render "hub/clients/navigation" %>
   <div class="hub-section">
     <h2>Contact History</h2>
-    <% if @contact_history.present? %>
-      <ul class="message-list" aria-live="polite" data-js="messages-pub-sub" data-client-id="<%=@client.id%>">
+  </div>
+  <% if @contact_history.present? %>
+    <ul class="message-list" aria-live="polite" data-js="messages-pub-sub" data-client-id="<%=@client.id%>">
 
-        <% @messages_by_day.each do |datetime, contact_records| %>
+      <% @messages_by_day.each do |datetime, contact_records| %>
 
-          <li class="message__day-heading"><%= date_heading(datetime) %></li>
+        <li class="message__day-heading"><%= date_heading(datetime) %></li>
 
-          <% contact_records.each do |contact_record| %>
-            <%= render "shared/message_list_contact_record", contact_record: contact_record %>
-          <% end %>
+        <% contact_records.each do |contact_record| %>
+          <%= render "shared/message_list_contact_record", contact_record: contact_record %>
+        <% end %>
 
-        <% end %> <%# end of day %>
+      <% end %> <%# end of day %>
 
-      </ul>
-    <% else %>
-      <%#
-        In order to hide this message list using :empty css pseudo selector and
-        not break the realtime messaging functionality, we need to render an
-        element that has no body whatsoever (even whitespace).
-        https://css-tricks.com/almanac/selectors/e/empty/#will-not-match
-      %>
-      <ul class="message-list" data-js="messages-pub-sub" data-client-id="<%=@client.id%>"></ul>
-    <% end %>
+    </ul>
+  <% else %>
+    <%#
+      In order to hide this message list using :empty css pseudo selector and
+      not break the realtime messaging functionality, we need to render an
+      element that has no body whatsoever (even whitespace).
+      https://css-tricks.com/almanac/selectors/e/empty/#will-not-match
+    %>
+    <ul class="message-list" data-js="messages-pub-sub" data-client-id="<%=@client.id%>"></ul>
+  <% end %>
+  <div class="hub-section">
     <%= form_with model: @outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
       <%= f.cfa_input_field :body, t(".text_message_form.label") %>
       <%= f.hidden_field :client_id %>
