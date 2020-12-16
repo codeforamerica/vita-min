@@ -688,6 +688,7 @@ RSpec.describe Hub::ClientsController do
             tax_return: {
               id: tax_return_2019.id,
               status: "intake_more_info",
+              locale: "es"
             },
           }
         end
@@ -695,33 +696,17 @@ RSpec.describe Hub::ClientsController do
         render_views
 
         before do
-          intake.update(locale: "es")
           allow_any_instance_of(Intake).to receive(:get_or_create_requested_docs_token).and_return "t0k3n"
         end
 
         it "prepopulates the form using the locale, status, and relevant template" do
           get :edit_take_action, params: params
 
-          filled_out_template = <<~MESSAGE_BODY
-            ¡Hola!
-
-            Para continuar presentando sus impuestos, necesitamos que nos envíe:
-              - Identificación
-              - Selfie
-              - SSN o ITIN
-              - Otro
-            Sube tus documentos de forma segura por http://test.host/es/documents/add/t0k3n
-
-            Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
-
-            ¡Gracias!
-            Su equipo de impuestos en GetYourRefund.org
-          MESSAGE_BODY
-
+          filled_out_template = I18n.t("hub.status_macros.needs_more_information", locale: "es")[0..10]
           expect(assigns(:take_action_form).tax_return_id).to eq tax_return_2019.id
           expect(assigns(:take_action_form).status).to eq "intake_more_info"
           expect(assigns(:take_action_form).locale).to eq "es"
-          expect(assigns(:take_action_form).message_body).to eq filled_out_template
+          expect(assigns(:take_action_form).message_body).to include filled_out_template
           expect(assigns(:take_action_form).contact_method).to eq "email"
         end
 

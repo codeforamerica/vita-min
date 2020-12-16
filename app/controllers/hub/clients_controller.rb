@@ -61,10 +61,9 @@ module Hub
       @take_action_form = Hub::TakeActionForm.new(
         @client,
         current_user,
-
-        locale: @client.intake.locale,
         tax_return_id: params.dig(:tax_return, :id)&.to_i,
         status: params.dig(:tax_return, :status),
+        locale: params.dig(:tax_return, :locale)
       )
     end
 

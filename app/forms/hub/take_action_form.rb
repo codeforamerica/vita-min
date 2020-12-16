@@ -119,12 +119,12 @@ module Hub
                             "hub.status_macros.needs_more_information",
                             required_documents: document_list,
                             document_upload_link: @client.intake.requested_docs_token_link,
-                            locale: @client.intake.locale
+                            locale: locale
                         )
                       when "prep_ready_for_review"
-                        I18n.t("hub.status_macros.ready_for_qr", locale: @client.intake.locale)
+                        I18n.t("hub.status_macros.ready_for_qr", locale: locale)
                       when "filed_accepted"
-                        I18n.t("hub.status_macros.accepted", locale: @client.intake.locale)
+                        I18n.t("hub.status_macros.accepted", locale: locale)
                       else
                         ""
                       end
