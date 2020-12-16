@@ -12,10 +12,8 @@ VitaPartner.find_or_create_by!(
 )
 
 VitaPartner.find_or_create_by!(
-    name: "Liberry Site",
-    parent_organization: first_org,
-    zendesk_group_id: "unused",
-    zendesk_instance_domain: "unused",
+  name: "Liberry Site",
+  parent_organization: first_org,
 )
 
 # basic user
