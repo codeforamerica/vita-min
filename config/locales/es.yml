@@ -1,216 +1,5 @@
 ---
 es:
-  hub:
-    users:
-      edit:
-        is_admin_label: Admin?
-        is_client_support_label: Soporte al cliente?
-      index:
-        title: Usuarios
-      profile:
-        clients_link: Clientes
-        users_link: Usuarios
-        vita_partners_link: Socios de VITA
-        return_to_dashboard: < Volver a tablero
-    anonymized_intake_csv_extracts:
-      index:
-        filename: Nombre de archivo
-        header: Extractos anónimos CSV de Intakes
-        record_count: Número de registros
-        run_at: Ejecutado a
-    assigned_clients:
-      index:
-        title: Tus clientes asignados
-    clients:
-      create:
-        success_message: Cliente creado correctamente.
-      fields:
-        filing_information: Presentación de información
-        legal_first_name: Primer nombre legal
-        legal_last_name: Apellido legal
-        mailing_address: Dirección postal
-        preferred_interview_language: Idioma preferido
-        preferred_name: Nombre completo preferido
-        primary_contact_info: Información de contacto
-        spouse_contact_info: Información de contacto del cónyuge
-        state_of_residence: Estado de residencia
-        signature_method: Método para recoger
-        service_type: Service type
-        signature_methods:
-          online: Firma electrónica
-          in_person: En persona
-      new:
-        title: Agregar un nuevo cliente
-        assign_to_label: Asignado a
-        send_for_prep: Enviar para preparar
-        tax_years: Años de impuestos
-      edit:
-        title: Editar Perfil del cliente
-        add_dependent: Agregar dependiente
-        remove: Eliminado
-      index:
-        add_client: Agregar cliente
-        clear_filters: Filtros claros
-        filter: Aplicar
-        client_id_heading: Cliente ID
-        filing_year: Año para declarar
-        needs_attention_heading: Necesita attentión?
-        title: Todos clientes
-        no_clients: No hay clientes asignadas.
-        no_filtered_clients: Ninguna cliente coincide con los filtros seleccionados.
-        assigned_to_me: Asignado a mí
-        unassigned: No asignado
-        needs_attention: Necesita attentión
-        stage_status: Estado/etapa de declaración de impuestos
-      navigation:
-        client_documents: Documentos
-        client_messages: Mensajes
-        client_notes: Notas
-        client_profile: Perfil del cliente
-      show:
-        email: Email
-        dependents: Dependents
-        filing_status: Estado civil para declarar
-        intake_language: Idioma del formulario de admisión
-        interview_timing_preference: Preferencia de tiempo de entrevista
-        legal_name: Nombre legal
-        mailing_address: Dirección postal
-        marital_status: Estado civil
-        phone: Número de teléfono
-        phone_interview_language: Idioma prefiere para la revisión
-        preferred_name: Nombre preferido
-        primary_contact_info: Información de contacto
-        spouse_contact_info: Información de contacto del cónyuge
-        texting_phone: Número celular
-        return_to_clients: < Volver a todos los clientes
-        tax_info: Información de impuestos
-        basic_info: Información básica
-      edit_take_action:
-        blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
-        blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
-        contact_method_label: Método de contacto
-        internal_note_body_label: Crear una nota interna
-        language_mismatch: Este cliente prefiere ser entrevistado en %{interview_language}
-        prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}
-        send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
-        status: Estado de la declaración de impuestos de %{tax_year}
-      update_take_action:
-        flash_message:
-          email: envió email
-          internal_note: guardó nota interna.
-          status: actualizó estado
-          success: 'Éxito: Acción completo! %{action_list}.'
-          text_message: envió mensjaje de texto
-    documents:
-      edit:
-        display_name: Nombre Para Mostrar
-        title: Editar Documento
-      index:
-        document_type: Clase de documento
-        file_name: Nombre de archivo
-        upload_date: Fecha de carga
-        uploaded_ago: Hace %{time}
-    messages:
-      index:
-        email_form:
-          label: Send an email
-          submit: Send
-        text_message_form:
-          label: Enviar un mensaje de texto
-          submit: Enviar
-    notes:
-      index:
-        note_form:
-          label: Añadir una nota
-          submit: Guardar
-        document_note:
-          one: El cliente agregó 1 documento.
-          other: El cliente agregó %{count} documentos.
-    tax_returns:
-      edit:
-        assigned_user_label: Asignar a
-        title: Asignar la declaración de impuestos %{tax_year} de %{client_name}
-      update:
-        flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}
-        no_one: nadie
-      stage:
-        intake: Admisión
-        prep: Preparación de impuestos
-        review: Revisión de calidad
-        finalize: Pasos finales
-        filed: Presentación de impuestos completada
-      status:
-        intake_before_consent: Antes de consentimiento
-        intake_in_progress: En progreso
-        intake_open: Abierto
-        intake_review: En revisión
-        intake_more_info: Necesita más información
-        intake_info_requested: Información solicitada
-        intake_needs_assignment: Necesita asignación
-        prep_ready_for_call: Listo para llama
-        prep_preparing: Entrar en TaxSlayer
-        prep_more_info: Necesita más información
-        prep_ready_for_review: Listo para QR
-        review_in_review: En revisión
-        review_more_info: Necesita más información
-        review_complete_signature_requested: Completo/Firma solicitada
-        finalize_closed: Cerrado
-        finalize_signed: Declaración de impuestos firmada
-        filed_e_file: Declaración de impuestos presentada electrónicamente
-        filed_mail_file: Declaración de impuestos presentada por correo
-        filed_rejected: Rechazado
-        filed_accepted: Aceptado
-    status_macros:
-      needs_more_information: |
-        ¡Hola!
-
-        Para continuar presentando sus impuestos, necesitamos que nos envíe:
-        %{required_documents}
-        Sube tus documentos de forma segura por %{document_upload_link}
-
-        Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
-
-        ¡Gracias!
-        Su equipo de impuestos en GetYourRefund.org
-      ready_for_qr: |
-        ¡Hola!
-
-        ¡Su devolución ahora está siendo revisada en calidad!
-
-        ¡Gracias!
-        Su equipo de impuestos en GetYourRefund.org
-      accepted: |
-        ¡Hola!
-
-        ¡Se han aceptado sus declaraciones federales y estatales! No recibirá más notificaciones. Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
-        Si tiene alguna pregunta, responda a este mensaje.
-
-        ¡Gracias!
-        Su equipo de impuestos en GetYourRefund.org
-    sub_organizations:
-      edit:
-        title: Crear una sub-organización de %{name}
-        display_name: Orientado al cliente nombre (si es diferente)
-    vita_partners:
-      add_site: Agregar sitio
-      index:
-        title: Socios de VITA
-    organizations:
-      new:
-        title: "Nueva Organización"
-      edit:
-        no_sites: "Ningunos sitios"
-      index:
-        independent_organizations: "Organizaciones Independientes"
-        no_organizations: "Sin organizaciones"
-        organizations_by_coalition: "Organizaciones por coalición:"
-      listing:
-        site_count:
-          one: "%{count} sitio"
-          other: "%{count} sitios"
-    sites:
-      new:
-        title: "Agregar sitio"
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
@@ -332,32 +121,37 @@ es:
   forms:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
-      need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
-      need_phone_number: Por favor, introduzca un número de teléfono celular.
       dependents: Por favor, ingrese %{attrs} de su dependiente.
       dependents_attributes:
+        birth_date: la fecha de nacimiento completa
         first_name: el primer nombre
         last_name: el apellido
-        birth_date: la fecha de nacimiento completa
-      tax_returns: "Por favor, proporcione todos los campos obligatorios para las declaraciones de impuestos:: %{attrs}."
-      tax_returns_attributes:
-        is_hsa: es HSA
-        certification_level: nivel de certificación
       general: Por favor, corrija los errores indicados antes de continuar.
+      need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
+      need_phone_number: Por favor, introduzca un número de teléfono celular.
+      tax_returns: 'Por favor, proporcione todos los campos obligatorios para las declaraciones de impuestos:: %{attrs}.'
+      tax_returns_attributes:
+        certification_level: nivel de certificación
+        is_hsa: es HSA
   general:
-    at_time: a las %{time}
     NA: N/A
     address: Dirección
     admin: Admin
     affirmative: Sí
-    all_organizations: "Todas organizaciones"
+    all_organizations: Todas organizaciones
     assign: Asignar
     assignee: Asignada a
+    at_time: a las %{time}
     attachment: Adjunto
     cancel: Cancelar
+    certification: Certificación
+    certification_abbrev:
+      advanced: AVA
+      basic: BAS
     changes_saved: Cambios guardados
     chat_with_us: Hable con nosotros por el chat
     city: Ciudad
+    client_support: Soporte al cliente
     coalition: Coalición
     confirm: Confirmar
     continue: Continuar
@@ -378,7 +172,9 @@ es:
       ssn_or_itin: SSN o ITIN
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto
+    drop_off: Entrega
     edit: Editar
+    edit_info: Editar información
     email: Email
     error:
       sorry_something_went_wrong: Lo sentimos, algo salió mal.
@@ -390,8 +186,8 @@ es:
     filing_joint: Presentación conjunta
     filing_years: Años para declarar
     find_location: Buscar una ubicación
-    forgot_password: "¿Ha olvidado su contraseña?"
     find_vita_site: Encuentre un sitio de VITA cerca de usted
+    forgot_password: "¿Ha olvidado su contraseña?"
     free_file_html: Si desea declarar sus impuestos sin la ayuda de nuestro personal y servicios, utilice el %{wizard_link} para poder hacerlo en línea gratis.
     free_file_lookup_tool: Herramienta de búsqueda de declaración de impuestos gratuita del IRS
     get_help: Pedir ayuda
@@ -400,6 +196,7 @@ es:
     here: aquí
     home: Inicio
     hours: Horas
+    hsa: HSA
     invitations: Invitaciones
     irs_certified_volunteers: Voluntarios certificados por el IRS
     irs_free_file: Declaración de impuestos gratuita del IRS
@@ -414,9 +211,10 @@ es:
       zh: Mandarín
     languages: Idiomas
     lived_with_spouse: Vivieron con su cónyuge
-    married: Casado
-    name: Nombre
     mark_for_attention: Marcar como necesita attentión
+    married: Casado
+    my_profile: Mi perfil
+    name: Nombre
     needs_attention: Necesita attentión
     negative: 'No'
     next: Próximo
@@ -452,21 +250,26 @@ es:
     save: Guardar
     search: Búsqueda
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
+    select_files: Seleccionar archivos
     send: Enviar
+    send_message: Enviar un mensaje
     separated: Separado
     sign_in: Iniciar sesión
     sign_out: Cerrar sesión
     sign_up: Regístrate
     single: Soltera
-    sites: "Sitios"
+    sites: Sitios
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
     sorry: "¡Ay, no! ¡Lo sentimos!"
     start_filing: Comenzar a declarar
     state: Estado
+    status: Estado
     street_address: Dirección
     submit: Enviar
     submit_question: Envíe una pregunta a GetYourRefund
+    take_action: Tomar acción
+    take_picture: Sacar foto
     text_message: Mensaje de texto
     timezone: Zona horaria
     today: Hoy
@@ -484,23 +287,220 @@ es:
     zendesk:
       access_denied: No tiene autorización para acceder a esa página
     zip_code: Código postal
-    status: Estado
-    take_action: Tomar acción
-    send_message: Enviar un mensaje
-    certification_abbrev:
-      advanced: "AVA"
-      basic: "BAS"
-    hsa: "HSA"
-    drop_off: Entrega
-    select_files: Seleccionar archivos
-    take_picture: Sacar foto
-    certification: Certificación
-    my_profile: Mi perfil
-    client_support: Soporte al cliente
-    edit_info: Editar información
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
+  hub:
+    anonymized_intake_csv_extracts:
+      index:
+        filename: Nombre de archivo
+        header: Extractos anónimos CSV de Intakes
+        record_count: Número de registros
+        run_at: Ejecutado a
+    assigned_clients:
+      index:
+        title: Tus clientes asignados
+    clients:
+      create:
+        success_message: Cliente creado correctamente.
+      edit:
+        add_dependent: Agregar dependiente
+        remove: Eliminado
+        title: Editar Perfil del cliente
+      edit_take_action:
+        blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
+        blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
+        contact_method_label: Método de contacto
+        internal_note_body_label: Crear una nota interna
+        language_mismatch: Este cliente prefiere ser entrevistado en %{interview_language}
+        prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}
+        send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
+        status: Estado de la declaración de impuestos de %{tax_year}
+      fields:
+        filing_information: Presentación de información
+        legal_first_name: Primer nombre legal
+        legal_last_name: Apellido legal
+        mailing_address: Dirección postal
+        preferred_interview_language: Idioma preferido
+        preferred_name: Nombre completo preferido
+        primary_contact_info: Información de contacto
+        service_type: Service type
+        signature_method: Método para recoger
+        signature_methods:
+          in_person: En persona
+          online: Firma electrónica
+        spouse_contact_info: Información de contacto del cónyuge
+        state_of_residence: Estado de residencia
+      index:
+        add_client: Agregar cliente
+        assigned_to_me: Asignado a mí
+        clear_filters: Filtros claros
+        client_id_heading: Cliente ID
+        filing_year: Año para declarar
+        filter: Aplicar
+        needs_attention: Necesita attentión
+        needs_attention_heading: Necesita attentión?
+        no_clients: No hay clientes asignadas.
+        no_filtered_clients: Ninguna cliente coincide con los filtros seleccionados.
+        stage_status: Estado/etapa de declaración de impuestos
+        title: Todos clientes
+        unassigned: No asignado
+      navigation:
+        client_documents: Documentos
+        client_messages: Mensajes
+        client_notes: Notas
+        client_profile: Perfil del cliente
+      new:
+        assign_to_label: Asignado a
+        send_for_prep: Enviar para preparar
+        tax_years: Años de impuestos
+        title: Agregar un nuevo cliente
+      show:
+        basic_info: Información básica
+        dependents: Dependents
+        email: Email
+        filing_status: Estado civil para declarar
+        intake_language: Idioma del formulario de admisión
+        interview_timing_preference: Preferencia de tiempo de entrevista
+        legal_name: Nombre legal
+        mailing_address: Dirección postal
+        marital_status: Estado civil
+        phone: Número de teléfono
+        phone_interview_language: Idioma prefiere para la revisión
+        preferred_name: Nombre preferido
+        primary_contact_info: Información de contacto
+        return_to_clients: "< Volver a todos los clientes"
+        spouse_contact_info: Información de contacto del cónyuge
+        tax_info: Información de impuestos
+        texting_phone: Número celular
+      update_take_action:
+        flash_message:
+          email: envió email
+          internal_note: guardó nota interna.
+          status: actualizó estado
+          success: 'Éxito: Acción completo! %{action_list}.'
+          text_message: envió mensjaje de texto
+    documents:
+      edit:
+        display_name: Nombre Para Mostrar
+        title: Editar Documento
+      index:
+        document_type: Clase de documento
+        file_name: Nombre de archivo
+        upload_date: Fecha de carga
+        uploaded_ago: Hace %{time}
+    messages:
+      index:
+        email_form:
+          label: Send an email
+          submit: Send
+        text_message_form:
+          label: Enviar un mensaje de texto
+          submit: Enviar
+    notes:
+      index:
+        document_note:
+          one: El cliente agregó 1 documento.
+          other: El cliente agregó %{count} documentos.
+        note_form:
+          label: Añadir una nota
+          submit: Guardar
+    organizations:
+      edit:
+        no_sites: Ningunos sitios
+      index:
+        independent_organizations: Organizaciones Independientes
+        no_organizations: Sin organizaciones
+        organizations_by_coalition: 'Organizaciones por coalición:'
+      listing:
+        site_count:
+          one: "%{count} sitio"
+          other: "%{count} sitios"
+      new:
+        title: Nueva Organización
+    sites:
+      new:
+        title: Agregar sitio
+    status_macros:
+      accepted: |
+        ¡Hola!
+
+        ¡Se han aceptado sus declaraciones federales y estatales! No recibirá más notificaciones. Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
+        Si tiene alguna pregunta, responda a este mensaje.
+
+        ¡Gracias!
+        Su equipo de impuestos en GetYourRefund.org
+      needs_more_information: |
+        ¡Hola!
+
+        Para continuar presentando sus impuestos, necesitamos que nos envíe:
+        %{required_documents}
+        Sube tus documentos de forma segura por %{document_upload_link}
+
+        Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
+
+        ¡Gracias!
+        Su equipo de impuestos en GetYourRefund.org
+      ready_for_qr: |
+        ¡Hola!
+
+        ¡Su devolución ahora está siendo revisada en calidad!
+
+        ¡Gracias!
+        Su equipo de impuestos en GetYourRefund.org
+    sub_organizations:
+      edit:
+        display_name: Orientado al cliente nombre (si es diferente)
+        title: Crear una sub-organización de %{name}
+    tax_returns:
+      edit:
+        assigned_user_label: Asignar a
+        title: Asignar la declaración de impuestos %{tax_year} de %{client_name}
+      stage:
+        filed: Presentación de impuestos completada
+        finalize: Pasos finales
+        intake: Admisión
+        prep: Preparación de impuestos
+        review: Revisión de calidad
+      status:
+        filed_accepted: Aceptado
+        filed_e_file: Declaración de impuestos presentada electrónicamente
+        filed_mail_file: Declaración de impuestos presentada por correo
+        filed_rejected: Rechazado
+        finalize_closed: Cerrado
+        finalize_signed: Declaración de impuestos firmada
+        intake_before_consent: Antes de consentimiento
+        intake_in_progress: En progreso
+        intake_info_requested: Información solicitada
+        intake_more_info: Necesita más información
+        intake_needs_assignment: Necesita asignación
+        intake_open: Abierto
+        intake_review: En revisión
+        prep_more_info: Necesita más información
+        prep_preparing: Entrar en TaxSlayer
+        prep_ready_for_call: Listo para llama
+        prep_ready_for_review: Listo para QR
+        review_complete_signature_requested: Completo/Firma solicitada
+        review_in_review: En revisión
+        review_more_info: Necesita más información
+      update:
+        flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}
+        no_one: nadie
+    users:
+      edit:
+        is_admin_label: Admin?
+        is_client_support_label: Soporte al cliente?
+      index:
+        title: Usuarios
+      profile:
+        clients_link: Clientes
+        return_to_dashboard: "< Volver a tablero"
+        users_link: Usuarios
+        vita_partners_link: Socios de VITA
+    vita_partners:
+      add_site: Agregar sitio
+      index:
+        title: Socios de VITA
   invitations:
     index:
       actions:
@@ -979,6 +979,19 @@ es:
           header: Preguntas
           resolve: Haremos todo lo posible para resolver el problema.
         title: Política de Privacidad
+      sms_terms:
+        header: Términos y condiciones de código abreviado para GetYourRefund
+        terms:
+          carrier_disclaimer: ''
+          carriers_heading_html: "<strong>Nuestros mensajes pueden ser enviados por medio de los teléfonos de las siguientes compañías:</strong>"
+          keywords_html: Si en cualquier momento se le olvidan las palabras claves que se utilizan, simplemente envíe el texto "<strong>HELP</strong>" al <strong>58750</strong>. Después de que mande el mensaje SMS de "<strong>HELP</strong>", le reponderemos dándole las instrucciones de cómo utilizar el servicio y cómo darse.
+          major_carriers_html: "<strong>Compañías principales:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile."
+          minor_carriers_html: "<strong>Compañías reducidas:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless)."
+          privacy_html: 'Si tiene cualquier pregunta con respecto a privacidad, favor de leer nuestra política de privacidad: <a href="https://www.getyourrefund.org/privacy">www.getyourrefund.org/privacy</a>'
+          rates_html: Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>hello@getyourrefund.org</strong>.
+          sms_cancellation_html: Puede cancelar el servicio SMS en cualquier momento. Simplemente envíe el texto "<strong>STOP</strong>" al <strong>58750</strong>. Después de enviarnos el mensaje SMS de "<strong>STOP</strong>", le enviaremos un mensaje SMS confirmando que ha sido dado de baja. Habiendo recibido esto, no recibirá más mensajes de nosotros. Si desea volver a suscribirse, simplemente responda "<strong>START</strong>" y volveremos a mandarle mensajes SMS.
+          sms_confirmation: Cuando se suscriba al servicio, le enviaremos un mensaje SMS para confirmar su suscripción y le enviaremos un mensaje de texto con las actualizaciones de su declaración de impuestos.
+        title: Términos de código
       stimulus:
         facts_html: *1
         heading: "¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?"
@@ -1058,19 +1071,6 @@ es:
         see_faq: Consulte nuestras preguntas frecuentes
         support_html: Nuestro equipo está aquí para ayudarle. %{faq_link} o envíe una pregunta por chat, y nos comunicaremos con usted.
         title: Preguntas sobre los impuestos
-      sms_terms:
-        header: Términos y condiciones de código abreviado para GetYourRefund
-        title: Términos de código
-        terms:
-          carrier_disclaimer: ""
-          carriers_heading_html: "<strong>Nuestros mensajes pueden ser enviados por medio de los teléfonos de las siguientes compañías:</strong>"
-          keywords_html: "Si en cualquier momento se le olvidan las palabras claves que se utilizan, simplemente envíe el texto \"<strong>HELP</strong>\" al <strong>58750</strong>. Después de que mande el mensaje SMS de \"<strong>HELP</strong>\", le reponderemos dándole las instrucciones de cómo utilizar el servicio y cómo darse."
-          major_carriers_html: "<strong>Compañías principales:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile."
-          minor_carriers_html: "<strong>Compañías reducidas:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless)."
-          privacy_html: "Si tiene cualquier pregunta con respecto a privacidad, favor de leer nuestra política de privacidad: <a href=\"https://www.getyourrefund.org/privacy\">www.getyourrefund.org/privacy</a>"
-          rates_html: "Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>hello@getyourrefund.org</strong>."
-          sms_cancellation_html: "Puede cancelar el servicio SMS en cualquier momento. Simplemente envíe el texto \"<strong>STOP</strong>\" al <strong>58750</strong>. Después de enviarnos el mensaje SMS de \"<strong>STOP</strong>\", le enviaremos un mensaje SMS confirmando que ha sido dado de baja. Habiendo recibido esto, no recibirá más mensajes de nosotros. Si desea volver a suscribirse, simplemente responda \"<strong>START</strong>\" y volveremos a mandarle mensajes SMS."
-          sms_confirmation: Cuando se suscriba al servicio, le enviaremos un mensaje SMS para confirmar su suscripción y le enviaremos un mensaje de texto con las actualizaciones de su declaración de impuestos.
     questions:
       additional_info:
         help_text: Comparta cualquier nota o pregunta sobre su situación fiscal. Su preparador de impuestos se asegurará de repasar estas preguntas durante la revisión de su teléfono.

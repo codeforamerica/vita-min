@@ -1,216 +1,5 @@
 ---
 en:
-  hub:
-    users:
-      edit:
-        is_admin_label: Admin?
-        is_client_support_label: Client support?
-      index:
-        title: Users
-      profile:
-        clients_link: Clients
-        users_link: Users
-        vita_partners_link: VITA partners
-        return_to_dashboard: < Return to dashboard
-    anonymized_intake_csv_extracts:
-      index:
-        filename: Filename
-        header: Anonymized Intake CSV Extracts
-        record_count: Record Count
-        run_at: Run At
-    assigned_clients:
-      index:
-        title: Your assigned clients
-    clients:
-      create:
-        success_message: Client successfully created.
-      fields:
-        legal_first_name: Legal first name
-        legal_last_name: Legal last name
-        mailing_address: Mailing Address
-        preferred_name: Preferred full name
-        filing_information: Filing Information
-        preferred_interview_language: Preferred language
-        primary_contact_info: Primary Contact Info
-        spouse_contact_info: Spouse Contact Info
-        state_of_residence: State of residence
-        signature_method: Signature method
-        service_type: Service type
-        signature_methods:
-          online: Online
-          in_person: In person
-      new:
-        title: Add a new client
-        assign_to_label: Assign to
-        send_for_prep: Send for prep
-        tax_years: Tax years
-      edit:
-        title: Edit Client Profile
-        add_dependent: Add dependent
-        remove: Remove
-      edit_take_action:
-        blank_no_internal_note: If blank, no internal note is added.
-        blank_no_message_sent: If blank, no message is sent to the client.
-        contact_method_label: Contact method
-        internal_note_body_label: Add an internal note
-        language_mismatch: This client requested %{interview_language} for their interview
-        prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}
-        send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
-        status: Status of %{tax_year} tax return
-      update_take_action:
-        flash_message:
-          email: sent email
-          internal_note: added internal note.
-          status: updated status
-          success: 'Success: Action taken! %{action_list}'
-          text_message: sent text message
-      index:
-        add_client: Add client
-        client_id_heading: Client ID
-        clear_filters: Clear filters
-        filter: Apply
-        filing_year: Filing Year
-        needs_attention_heading: Needs attention?
-        title: All clients
-        no_clients: No clients assigned.
-        no_filtered_clients: No clients match selected filters.
-        assigned_to_me: Assigned to me
-        unassigned: Unassigned
-        needs_attention: Needs attention
-        stage_status: Tax return stage/status
-      navigation:
-        client_documents: Documents
-        client_messages: Messages
-        client_notes: Notes
-        client_profile: Client Profile
-      show:
-        email: Email
-        dependents: Dependents
-        filing_status: Filing Status
-        intake_language: Intake Language
-        interview_timing_preference: Preferred Interview Time
-        legal_name: Legal Name
-        mailing_address: Mailing Address
-        marital_status: Marital Status
-        phone: Phone
-        phone_interview_language: Phone Interview Language
-        preferred_name: Preferred Name
-        primary_contact_info: Primary Contact Info
-        spouse_contact_info: Spouse Contact Info
-        texting_phone: Phone For Texting
-        return_to_clients: < Return to all clients
-        tax_info: Tax Info
-        basic_info: Basic Info
-    documents:
-      edit:
-        display_name: Display Name
-        title: Edit Document
-      index:
-        document_type: Document Type
-        file_name: File Name
-        upload_date: Upload Date
-        uploaded_ago: "%{time} ago"
-    messages:
-      index:
-        email_form:
-          label: Send an email
-          submit: Send
-        text_message_form:
-          label: Send a text message
-          submit: Send
-    notes:
-      index:
-        note_form:
-          label: Add a note
-          submit: Save
-        document_note:
-          one: Client added 1 document.
-          other: Client added %{count} documents.
-    tax_returns:
-      edit:
-        assigned_user_label: Assign to
-        title: Assign %{client_name}'s %{tax_year} tax return
-      update:
-        flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}
-        no_one: no one
-      stage:
-        intake: Intake
-        prep: Tax prep
-        review: Quality review
-        finalize: Final steps
-        filed: Filing completed
-      status:
-        intake_before_consent: Before consent
-        intake_in_progress: In progress
-        intake_open: Open
-        intake_review: In review
-        intake_more_info: Needs more information
-        intake_info_requested: Info requested
-        intake_needs_assignment: Needs assignment
-        prep_ready_for_call: Ready for call
-        prep_more_info: Needs more information
-        prep_preparing: Entering in TaxSlayer
-        prep_ready_for_review: Ready for QR
-        review_in_review: In review
-        review_more_info: Needs more information
-        review_complete_signature_requested: Complete/Signature requested
-        finalize_closed: Closed
-        finalize_signed: Return signed
-        filed_e_file: Return e-filed
-        filed_mail_file: Return filed by mail
-        filed_rejected: Rejected
-        filed_accepted: Accepted
-    status_macros:
-      needs_more_information: |
-        Hello!
-
-        In order to continue filing your taxes, we need you to send us:
-        %{required_documents}
-        Securely upload your documents by going to %{document_upload_link}
-
-        Please let us know if you have any questions. We cannot prepare your taxes without this information.
-
-        Thanks!
-        Your tax team at GetYourRefund.org
-      ready_for_qr: |
-        Hello!
-
-        Your return is now being quality reviewed!
-
-        Thanks!
-        Your tax team at GetYourRefund.org
-      accepted: |
-        Hello!
-
-        Your federal and state returns have been accepted! You will not receive any further notifications. If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
-        If you have any questions, please reply to this message.
-
-        Thanks!
-        Your tax team at GetYourRefund.org
-    sub_organizations:
-      edit:
-        title: Create sub-organization of %{name}
-        display_name: Client-facing display name (if different)
-    vita_partners:
-      add_site: Add site
-      index:
-        title: VITA partners
-    organizations:
-      new:
-        title: "New Organization"
-      edit:
-        no_sites: "No sites"
-      listing:
-        site_count:
-          one: "%{count} site"
-          other: "%{count} sites"
-      index:
-        independent_organizations: "Independent Organizations"
-        no_organizations: "No organizations"
-        organizations_by_coalition: "Organizations grouped by coalition:"
-    sites:
-      new:
-        title: "Add site"
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
@@ -332,32 +121,37 @@ en:
   forms:
     errors:
       at_least_one_year: Please pick at least one year.
-      need_one_communication_method: Please choose some way for us to contact you.
-      need_phone_number: Please enter a cell phone number.
       dependents: Please enter the %{attrs} of each dependent.
       dependents_attributes:
+        birth_date: birth date
         first_name: first name
         last_name: last name
-        birth_date: birth date
-      tax_returns: "Please provide all required fields for tax returns: %{attrs}."
-      tax_returns_attributes:
-        is_hsa: is HSA
-        certification_level: certification level
       general: Please fix indicated errors before continuing.
+      need_one_communication_method: Please choose some way for us to contact you.
+      need_phone_number: Please enter a cell phone number.
+      tax_returns: 'Please provide all required fields for tax returns: %{attrs}.'
+      tax_returns_attributes:
+        certification_level: certification level
+        is_hsa: is HSA
   general:
-    all_organizations: "All organizations"
-    at_time: at %{time}
     NA: N/A
     address: Address
     admin: Admin
     affirmative: 'Yes'
+    all_organizations: All organizations
     assign: Assign
     assignee: Assignee
+    at_time: at %{time}
     attachment: Attachment
     cancel: Cancel
+    certification: Certification
+    certification_abbrev:
+      advanced: ADV
+      basic: BAS
     changes_saved: Changes saved
     chat_with_us: Chat with us
     city: City
+    client_support: Client support
     coalition: Coalition
     confirm: Confirm
     continue: Continue
@@ -378,7 +172,9 @@ en:
       ssn_or_itin: SSN or ITIN
       student_account_statement: Student Account Statement
       text_message_attachment: Text message attachment
+    drop_off: Drop Off
     edit: Edit
+    edit_info: Edit info
     email: Email
     error:
       sorry_something_went_wrong: Oops, we're sorry, but something went wrong.
@@ -400,6 +196,7 @@ en:
     here: here
     home: Home
     hours: Hours
+    hsa: HSA
     invitations: Invitations
     irs_certified_volunteers: IRS Certified Volunteers
     irs_free_file: IRS Free File
@@ -414,9 +211,10 @@ en:
       zh: Mandarin
     languages: Languages
     lived_with_spouse: Lived with spouse
-    married: Married
-    name: Name
     mark_for_attention: Mark as needs attention
+    married: Married
+    my_profile: My profile
+    name: Name
     needs_attention: Needs attention
     negative: 'No'
     next: Next
@@ -452,7 +250,9 @@ en:
     save: Save
     search: Search
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
+    select_files: Select files
     send: Send
+    send_message: Send message
     separated: Separated
     sign_in: Sign in
     sign_out: Sign out
@@ -464,9 +264,12 @@ en:
     sorry: We're sorry!
     start_filing: Start filing
     state: State
+    status: Status
     street_address: Street address
     submit: Submit
     submit_question: Submit a question to GetYourRefund
+    take_action: Take action
+    take_picture: Take picture
     text_message: Text Message
     timezone: Timezone
     today: Today
@@ -484,23 +287,220 @@ en:
     zendesk:
       access_denied: You are not authorized to access that page
     zip_code: ZIP code
-    status: Status
-    take_action: Take action
-    send_message: Send message
-    certification_abbrev:
-      advanced: "ADV"
-      basic: "BAS"
-    hsa: "HSA"
-    drop_off: Drop Off
-    select_files: Select files
-    take_picture: Take picture
-    certification: Certification
-    client_support: Client support
-    my_profile: My profile
-    edit_info: Edit info
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
+  hub:
+    anonymized_intake_csv_extracts:
+      index:
+        filename: Filename
+        header: Anonymized Intake CSV Extracts
+        record_count: Record Count
+        run_at: Run At
+    assigned_clients:
+      index:
+        title: Your assigned clients
+    clients:
+      create:
+        success_message: Client successfully created.
+      edit:
+        add_dependent: Add dependent
+        remove: Remove
+        title: Edit Client Profile
+      edit_take_action:
+        blank_no_internal_note: If blank, no internal note is added.
+        blank_no_message_sent: If blank, no message is sent to the client.
+        contact_method_label: Contact method
+        internal_note_body_label: Add an internal note
+        language_mismatch: This client requested %{interview_language} for their interview
+        prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}
+        send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
+        status: Status of %{tax_year} tax return
+      fields:
+        filing_information: Filing Information
+        legal_first_name: Legal first name
+        legal_last_name: Legal last name
+        mailing_address: Mailing Address
+        preferred_interview_language: Preferred language
+        preferred_name: Preferred full name
+        primary_contact_info: Primary Contact Info
+        service_type: Service type
+        signature_method: Signature method
+        signature_methods:
+          in_person: In person
+          online: Online
+        spouse_contact_info: Spouse Contact Info
+        state_of_residence: State of residence
+      index:
+        add_client: Add client
+        assigned_to_me: Assigned to me
+        clear_filters: Clear filters
+        client_id_heading: Client ID
+        filing_year: Filing Year
+        filter: Apply
+        needs_attention: Needs attention
+        needs_attention_heading: Needs attention?
+        no_clients: No clients assigned.
+        no_filtered_clients: No clients match selected filters.
+        stage_status: Tax return stage/status
+        title: All clients
+        unassigned: Unassigned
+      navigation:
+        client_documents: Documents
+        client_messages: Messages
+        client_notes: Notes
+        client_profile: Client Profile
+      new:
+        assign_to_label: Assign to
+        send_for_prep: Send for prep
+        tax_years: Tax years
+        title: Add a new client
+      show:
+        basic_info: Basic Info
+        dependents: Dependents
+        email: Email
+        filing_status: Filing Status
+        intake_language: Intake Language
+        interview_timing_preference: Preferred Interview Time
+        legal_name: Legal Name
+        mailing_address: Mailing Address
+        marital_status: Marital Status
+        phone: Phone
+        phone_interview_language: Phone Interview Language
+        preferred_name: Preferred Name
+        primary_contact_info: Primary Contact Info
+        return_to_clients: "< Return to all clients"
+        spouse_contact_info: Spouse Contact Info
+        tax_info: Tax Info
+        texting_phone: Phone For Texting
+      update_take_action:
+        flash_message:
+          email: sent email
+          internal_note: added internal note.
+          status: updated status
+          success: 'Success: Action taken! %{action_list}'
+          text_message: sent text message
+    documents:
+      edit:
+        display_name: Display Name
+        title: Edit Document
+      index:
+        document_type: Document Type
+        file_name: File Name
+        upload_date: Upload Date
+        uploaded_ago: "%{time} ago"
+    messages:
+      index:
+        email_form:
+          label: Send an email
+          submit: Send
+        text_message_form:
+          label: Send a text message
+          submit: Send
+    notes:
+      index:
+        document_note:
+          one: Client added 1 document.
+          other: Client added %{count} documents.
+        note_form:
+          label: Add a note
+          submit: Save
+    organizations:
+      edit:
+        no_sites: No sites
+      index:
+        independent_organizations: Independent Organizations
+        no_organizations: No organizations
+        organizations_by_coalition: 'Organizations grouped by coalition:'
+      listing:
+        site_count:
+          one: "%{count} site"
+          other: "%{count} sites"
+      new:
+        title: New Organization
+    sites:
+      new:
+        title: Add site
+    status_macros:
+      accepted: |
+        Hello!
+
+        Your federal and state returns have been accepted! You will not receive any further notifications. If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
+        If you have any questions, please reply to this message.
+
+        Thanks!
+        Your tax team at GetYourRefund.org
+      needs_more_information: |
+        Hello!
+
+        In order to continue filing your taxes, we need you to send us:
+        %{required_documents}
+        Securely upload your documents by going to %{document_upload_link}
+
+        Please let us know if you have any questions. We cannot prepare your taxes without this information.
+
+        Thanks!
+        Your tax team at GetYourRefund.org
+      ready_for_qr: |
+        Hello!
+
+        Your return is now being quality reviewed!
+
+        Thanks!
+        Your tax team at GetYourRefund.org
+    sub_organizations:
+      edit:
+        display_name: Client-facing display name (if different)
+        title: Create sub-organization of %{name}
+    tax_returns:
+      edit:
+        assigned_user_label: Assign to
+        title: Assign %{client_name}'s %{tax_year} tax return
+      stage:
+        filed: Filing completed
+        finalize: Final steps
+        intake: Intake
+        prep: Tax prep
+        review: Quality review
+      status:
+        filed_accepted: Accepted
+        filed_e_file: Return e-filed
+        filed_mail_file: Return filed by mail
+        filed_rejected: Rejected
+        finalize_closed: Closed
+        finalize_signed: Return signed
+        intake_before_consent: Before consent
+        intake_in_progress: In progress
+        intake_info_requested: Info requested
+        intake_more_info: Needs more information
+        intake_needs_assignment: Needs assignment
+        intake_open: Open
+        intake_review: In review
+        prep_more_info: Needs more information
+        prep_preparing: Entering in TaxSlayer
+        prep_ready_for_call: Ready for call
+        prep_ready_for_review: Ready for QR
+        review_complete_signature_requested: Complete/Signature requested
+        review_in_review: In review
+        review_more_info: Needs more information
+      update:
+        flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}
+        no_one: no one
+    users:
+      edit:
+        is_admin_label: Admin?
+        is_client_support_label: Client support?
+      index:
+        title: Users
+      profile:
+        clients_link: Clients
+        return_to_dashboard: "< Return to dashboard"
+        users_link: Users
+        vita_partners_link: VITA partners
+    vita_partners:
+      add_site: Add site
+      index:
+        title: VITA partners
   invitations:
     index:
       actions:
@@ -979,6 +979,19 @@ en:
           header: Questions
           resolve: We will do our best to resolve the issue.
         title: Privacy Policy
+      sms_terms:
+        header: GetYourRefund Short Code Terms and Conditions
+        terms:
+          carrier_disclaimer: Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages.
+          carriers_heading_html: "<strong>We are able to deliver messages to the following mobile phone carriers:</strong>"
+          keywords_html: If at any time you forget what keywords are supported, just text "<strong>HELP</strong>" to <strong>58750</strong>. After you send the SMS message "<strong>HELP</strong>" to us, we will respond with instructions on how to use our service as well as how to unsubscribe.
+          major_carriers_html: "<strong>Major carriers:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, and Virgin Mobile."
+          minor_carriers_html: "<strong>Minor carriers:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless)."
+          privacy_html: 'If you have any questions regarding privacy, please read our privacy policy: <a href="https://www.getyourrefund.org/privacy">www.getyourrefund.org/privacy</a>'
+          rates_html: As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider. For all questions about the services provided by this short code, you can send an email to <strong>hello@getyourrefund.org</strong>.
+          sms_cancellation_html: You can cancel the SMS service at any time. Just text "<strong>STOP</strong>" to <strong>58750</strong>. After you send the SMS message "<strong>STOP</strong>" to us, we will send you an SMS message to confirm that you have been unsubscribed. After this, you will no longer receive SMS messages from us. If you want to join again, just reply "<strong>START</strong>" and we will start sending SMS messages to you again.
+          sms_confirmation: When you opt-in to the service, we will send you an SMS message to confirm your signup and text you updates on your tax return.
+        title: SMS terms
       stimulus:
         facts_html: *1
         heading: Need assistance getting your stimulus check?
@@ -1058,19 +1071,6 @@ en:
         see_faq: Please see our FAQ
         support_html: Our team is here to support you. %{faq_link} or submit a question via chat and we will get back to you!
         title: Tax Questions
-      sms_terms:
-        header: GetYourRefund Short Code Terms and Conditions
-        title: SMS terms
-        terms:
-          carrier_disclaimer: "Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages."
-          carriers_heading_html: "<strong>We are able to deliver messages to the following mobile phone carriers:</strong>"
-          keywords_html: "If at any time you forget what keywords are supported, just text \"<strong>HELP</strong>\" to <strong>58750</strong>. After you send the SMS message \"<strong>HELP</strong>\" to us, we will respond with instructions on how to use our service as well as how to unsubscribe."
-          major_carriers_html: "<strong>Major carriers:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, and Virgin Mobile."
-          minor_carriers_html: "<strong>Minor carriers:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless)."
-          privacy_html: "If you have any questions regarding privacy, please read our privacy policy: <a href=\"https://www.getyourrefund.org/privacy\">www.getyourrefund.org/privacy</a>"
-          rates_html: "As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider. For all questions about the services provided by this short code, you can send an email to <strong>hello@getyourrefund.org</strong>."
-          sms_cancellation_html: "You can cancel the SMS service at any time. Just text \"<strong>STOP</strong>\" to <strong>58750</strong>. After you send the SMS message \"<strong>STOP</strong>\" to us, we will send you an SMS message to confirm that you have been unsubscribed. After this, you will no longer receive SMS messages from us. If you want to join again, just reply \"<strong>START</strong>\" and we will start sending SMS messages to you again."
-          sms_confirmation: "When you opt-in to the service, we will send you an SMS message to confirm your signup and text you updates on your tax return."
     questions:
       additional_info:
         help_text: Please share any notes or questions about your tax situation. Your tax preparer will be sure to go over these questions during your phone review.
