@@ -45,6 +45,9 @@ class VitaPartner < ApplicationRecord
   scope :top_level, -> { where(parent_organization: nil).order(:display_name).order(:name) }
   scope :organizations, -> { where(parent_organization: nil) }
   scope :sites, -> { where.not(parent_organization: nil) }
+  has_many :child_sites, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
+
+  default_scope { includes(:child_sites) }
 
   after_initialize :defaults
 

@@ -195,6 +195,22 @@ en:
       add_site: Add site
       index:
         title: VITA partners
+    organizations:
+      new:
+        title: "New Organization"
+      edit:
+        no_sites: "No sites"
+      listing:
+        site_count:
+          one: "%{count} site"
+          other: "%{count} sites"
+      index:
+        independent_organizations: "Independent Organizations"
+        no_organizations: "No organizations"
+        organizations_by_coalition: "Organizations grouped by coalition:"
+    sites:
+      new:
+        title: "Add site"
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
@@ -329,6 +345,7 @@ en:
         certification_level: certification level
       general: Please fix indicated errors before continuing.
   general:
+    all_organizations: "All organizations"
     at_time: at %{time}
     NA: N/A
     address: Address
@@ -341,6 +358,7 @@ en:
     changes_saved: Changes saved
     chat_with_us: Chat with us
     city: City
+    coalition: Coalition
     confirm: Confirm
     continue: Continue
     continue_example: Continue to example
@@ -412,6 +430,7 @@ en:
     opt_in_email: Opt into email notifications
     opt_in_sms: Opt into sms notifications
     organization: Organization
+    organizations: Organizations
     other_options: Try another free tax filing option
     partner: Partner
     password: Password
@@ -439,6 +458,7 @@ en:
     sign_out: Sign out
     sign_up: Sign up
     single: Single
+    sites: Sites
     skip_question: Skip question
     skip_questions: Skip questions
     sorry: We're sorry!

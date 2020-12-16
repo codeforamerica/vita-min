@@ -195,6 +195,22 @@ es:
       add_site: Agregar sitio
       index:
         title: Socios de VITA
+    organizations:
+      new:
+        title: "Nueva Organización"
+      edit:
+        no_sites: "Ningunos sitios"
+      index:
+        independent_organizations: "Organizaciones Independientes"
+        no_organizations: "Sin organizaciones"
+        organizations_by_coalition: "Organizaciones por coalición:"
+      listing:
+        site_count:
+          one: "%{count} sitio"
+          other: "%{count} sitios"
+    sites:
+      new:
+        title: "Agregar sitio"
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
@@ -334,6 +350,7 @@ es:
     address: Dirección
     admin: Admin
     affirmative: Sí
+    all_organizations: "Todas organizaciones"
     assign: Asignar
     assignee: Asignada a
     attachment: Adjunto
@@ -341,6 +358,7 @@ es:
     changes_saved: Cambios guardados
     chat_with_us: Hable con nosotros por el chat
     city: Ciudad
+    coalition: Coalición
     confirm: Confirmar
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
@@ -412,6 +430,7 @@ es:
     opt_in_email: Ha optado por recibir notificaciones por email
     opt_in_sms: Ha optado por recibir notificaciones por SMS
     organization: Organización
+    organizations: Organizaciones
     other_options: Intente otra opción de declaración gratis
     partner: Socio
     password: Contraseña
@@ -439,6 +458,7 @@ es:
     sign_out: Cerrar sesión
     sign_up: Regístrate
     single: Soltera
+    sites: "Sitios"
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
     sorry: "¡Ay, no! ¡Lo sentimos!"

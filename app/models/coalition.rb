@@ -13,4 +13,6 @@
 #
 class Coalition < ApplicationRecord
   validates :name, uniqueness: true
+  # Use the VitaPartner.organizations scope to ensure we only find Organizations, not Sites.
+  has_many :organizations, -> { organizations }, class_name: "VitaPartner", foreign_key: "coalition_id"
 end
