@@ -17,7 +17,12 @@ VitaPartner.find_or_create_by!(
   zendesk_instance_domain: "unused",
 )
 
-VitaPartner.find_or_create_by(name: "Liberry Site", parent_organization: first_org)
+VitaPartner.find_or_create_by!(
+    name: "Liberry Site",
+    parent_organization: first_org,
+    zendesk_group_id: "unused",
+    zendesk_instance_domain: "unused",
+)
 
 # basic user
 user = User.where(email: "skywalker@example.com").first_or_initialize
