@@ -13,8 +13,10 @@ describe Ability do
       expect(subject.can?(:manage, Client)).to eq false
       expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
+      expect(subject.can?(:manage, SystemTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
+      expect(subject.can?(:manage, SystemEmail.new(client: client))).to eq false
       expect(subject.can?(:manage, User.new(vita_partner: vita_partner))).to eq false
       expect(subject.can?(:manage, Note.new(client: client))).to eq false
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
@@ -31,8 +33,10 @@ describe Ability do
       expect(subject.can?(:manage, client)).to eq false
       expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
+      expect(subject.can?(:manage, SystemTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
+      expect(subject.can?(:manage, SystemEmail.new(client: client))).to eq false
       expect(subject.can?(:manage, User.new(vita_partner: nil))).to eq false
       expect(subject.can?(:manage, Note.new(client: client))).to eq false
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
@@ -51,8 +55,10 @@ describe Ability do
       expect(subject.can?(:manage, client)).to eq true
       expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq true
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq true
+      expect(subject.can?(:manage, SystemTextMessage.new(client: client))).to eq true
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq true
       expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq true
+      expect(subject.can?(:manage, SystemEmail.new(client: client))).to eq true
       expect(subject.can?(:manage, Note.new(client: client))).to eq true
       expect(subject.can?(:manage, SystemNote.new(client: client))).to eq true
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
@@ -71,8 +77,10 @@ describe Ability do
       expect(subject.can?(:manage, accessible_client)).to eq true
       expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, SystemTextMessage.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, SystemEmail.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
@@ -83,8 +91,10 @@ describe Ability do
       expect(subject.can?(:manage, nil_vita_partner_client)).to eq false
       expect(subject.can?(:manage, IncomingTextMessage.new(client: nil_vita_partner_client))).to eq false
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: nil_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, SystemTextMessage.new(client: nil_vita_partner_client))).to eq false
       expect(subject.can?(:manage, OutgoingEmail.new(client: nil_vita_partner_client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: nil_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, SystemEmail.new(client: nil_vita_partner_client))).to eq false
       expect(subject.can?(:manage, Document.new(client: nil_vita_partner_client))).to eq false
       expect(subject.can?(:manage, User.new(vita_partner: nil))).to eq false
       expect(subject.can?(:manage, Note.new(client: nil_vita_partner_client))).to eq false
@@ -95,8 +105,10 @@ describe Ability do
       expect(subject.can?(:manage, other_vita_partner_client)).to eq false
       expect(subject.can?(:manage, IncomingTextMessage.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: other_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, SystemTextMessage.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, OutgoingEmail.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: other_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, SystemEmail.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, Document.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, User.new(vita_partner: other_vita_partner_client.vita_partner))).to eq false
       expect(subject.can?(:manage, Note.new(client: other_vita_partner_client))).to eq false
@@ -115,8 +127,10 @@ describe Ability do
       expect(subject.can?(:manage, coalition_member_client)).to eq true
       expect(subject.can?(:manage, IncomingTextMessage.new(client: coalition_member_client))).to eq true
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: coalition_member_client))).to eq true
+      expect(subject.can?(:manage, SystemTextMessage.new(client: coalition_member_client))).to eq true
       expect(subject.can?(:manage, OutgoingEmail.new(client: coalition_member_client))).to eq true
       expect(subject.can?(:manage, IncomingEmail.new(client: coalition_member_client))).to eq true
+      expect(subject.can?(:manage, SystemEmail.new(client: coalition_member_client))).to eq true
       expect(subject.can?(:manage, Document.new(client: coalition_member_client))).to eq true
       expect(subject.can?(:manage, Note.new(client: coalition_member_client))).to eq true
       expect(subject.can?(:manage, SystemNote.new(client: coalition_member_client))).to eq true
@@ -131,8 +145,10 @@ describe Ability do
       expect(subject.can?(:manage, client)).to eq true
       expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq true
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq true
+      expect(subject.can?(:manage, SystemTextMessage.new(client: client))).to eq true
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq true
       expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq true
+      expect(subject.can?(:manage, SystemEmail.new(client: client))).to eq true
       expect(subject.can?(:manage, Document.new(client: client))).to eq true
       expect(subject.can?(:manage, User.new)).to eq true
       expect(subject.can?(:manage, Note.new(client: client))).to eq true

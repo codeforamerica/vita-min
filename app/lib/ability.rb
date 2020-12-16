@@ -16,12 +16,14 @@ class Ability
       can :manage, [
         IncomingTextMessage,
         OutgoingTextMessage,
+        SystemTextMessage,
         IncomingEmail,
         OutgoingEmail,
+        SystemEmail,
         Note,
         Document,
         TaxReturn,
-        SystemNote
+        SystemNote,
       ], client: { vita_partner: accessible_organizations }
     end
   end
