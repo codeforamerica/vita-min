@@ -30,7 +30,7 @@ RSpec.describe "create VITA organization hierarchy" do
       select "Coati Coalition", from: "Coalition"
       click_on "Save"
 
-      expect(page).to have_selector("h3", text: "Origami Organization")
+      expect(page).to have_selector("h3", text: "Oregano Org")
 
       # Add a site to an organization
       click_on "Oregano Org"
