@@ -23,6 +23,7 @@
 #  last_sign_in_ip           :string
 #  locked_at                 :datetime
 #  name                      :string
+#  otp_secret_key            :string
 #  provider                  :string
 #  reset_password_sent_at    :datetime
 #  reset_password_token      :string
@@ -62,6 +63,8 @@ class User < ApplicationRecord
   has_and_belongs_to_many :supported_organizations,
            join_table: "users_vita_partners",
            class_name: "VitaPartner"
+
+  has_one_time_password
 
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 

@@ -23,6 +23,7 @@
 #  last_sign_in_ip           :string
 #  locked_at                 :datetime
 #  name                      :string
+#  otp_secret_key            :string
 #  provider                  :string
 #  reset_password_sent_at    :datetime
 #  reset_password_token      :string
