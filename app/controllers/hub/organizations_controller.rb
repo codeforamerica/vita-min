@@ -8,13 +8,14 @@ module Hub
 
     def new
       @coalitions = Coalition.all
+      @organization = @vita_partner
     end
 
     def create
-      @coalitions = Coalition.all
       if @vita_partner.save
         redirect_to hub_organizations_path
       else
+        @coalitions = Coalition.all
         render :new
       end
     end

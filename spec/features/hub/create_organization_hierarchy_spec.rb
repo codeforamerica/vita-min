@@ -23,7 +23,6 @@ RSpec.describe "create VITA organization hierarchy" do
       click_on "Save"
 
       # update the organization
-      # update the organization
       click_on "Origami Organization"
       expect(page).to have_text("No sites")
 
