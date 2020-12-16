@@ -32,9 +32,13 @@ module Hub
     end
 
     def update
-      render :edit unless @vita_partner.update(vita_partner_params)
-
-      redirect_to hub_organizations_path
+      if @vita_partner.update(vita_partner_params)
+        redirect_to hub_organizations_path
+      else
+        @coalitions = Coalition.all
+        @organization = @vita_partner
+        render :edit
+      end
     end
 
     private

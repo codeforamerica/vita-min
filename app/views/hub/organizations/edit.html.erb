@@ -4,7 +4,7 @@
   <div class="hub-form">
     <%= link_to t("general.all_organizations"), hub_organizations_path, class: "button button--small" %>
 
-    <%= form_with model: @organization, url: hub_organizations_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
+    <%= form_with model: @organization, url: hub_organization_path, method: :put, local: true, builder: VitaMinFormBuilder do |f| %>
       <h1 class="form-card__title">
         <%= @title %>
       </h1>
