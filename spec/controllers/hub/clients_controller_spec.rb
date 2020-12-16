@@ -671,11 +671,14 @@ RSpec.describe Hub::ClientsController do
         expect(response).to be_ok
       end
 
-      it "finds all tax returns" do
-        get :edit_take_action, params: params
+      context "without a selected tax return and status" do
+        it "initializes the form without default values" do
+          get :edit_take_action, params: params
 
-        expect(assigns(:take_action_form)).to be_present
-        expect(assigns(:take_action_form).tax_returns.length).to eq 2
+          expect(assigns(:take_action_form)).to be_present
+          expect(assigns(:take_action_form).status).to be_nil
+          expect(assigns(:take_action_form).tax_return_id).to be_nil
+        end
       end
 
       context "with a tax_return_status param that has a template (from client profile link)" do
@@ -715,10 +718,8 @@ RSpec.describe Hub::ClientsController do
             Su equipo de impuestos en GetYourRefund.org
           MESSAGE_BODY
 
-          expect(assigns(:take_action_form).tax_returns[0].id).to eq tax_return_2018.id
-          expect(assigns(:take_action_form).tax_returns[0].status).to eq "intake_in_progress"
-          expect(assigns(:take_action_form).tax_returns[1].id).to eq tax_return_2019.id
-          expect(assigns(:take_action_form).tax_returns[1].status).to eq "intake_more_info"
+          expect(assigns(:take_action_form).tax_return_id).to eq tax_return_2019.id
+          expect(assigns(:take_action_form).status).to eq "intake_more_info"
           expect(assigns(:take_action_form).locale).to eq "es"
           expect(assigns(:take_action_form).message_body).to eq filled_out_template
           expect(assigns(:take_action_form).contact_method).to eq "email"
@@ -756,14 +757,8 @@ RSpec.describe Hub::ClientsController do
       {
         id: client,
         hub_take_action_form: {
-          tax_returns: {
-            "#{tax_return_2019.id}": {
-              status: new_status_2019
-            },
-            "#{tax_return_2018.id}": {
-              status: new_status_2018
-            }
-          },
+          tax_return_id: tax_return_2019,
+          status: new_status_2019,
           internal_note_body: internal_note_body,
           locale: locale,
           message_body: message_body,
@@ -771,10 +766,9 @@ RSpec.describe Hub::ClientsController do
         }
       }
     end
+
     let(:tax_return_2019) { create :tax_return, status: "intake_in_progress", client: client, year: 2019 }
-    let(:tax_return_2018) { create :tax_return, status: "intake_in_progress", client: client, year: 2018 }
-    let(:new_status_2019) { "intake_in_progress" }
-    let(:new_status_2018) { "intake_in_progress" }
+    let(:new_status_2019) { "intake_open" }
     let(:locale) { "en" }
     let(:internal_note_body) { "" }
     let(:message_body) { "" }
@@ -785,117 +779,34 @@ RSpec.describe Hub::ClientsController do
     context "as an authenticated user" do
       before { sign_in user }
 
-      it "redirects to the messages tab with a basic flash success message" do
-        post :update_take_action, params: params
+      let(:new_status_2019) { tax_return_2019.status }
 
-        expect(response).to redirect_to hub_client_path(id: client)
-        expect(flash[:notice].strip).to eq "Success: Action taken!"
-      end
-
-      context "when a new status is submitted" do
-        let(:new_status_2019) { "prep_ready_for_call" }
-
-        it "updates the status and creates a system note" do
-          expect(SystemNote).to receive(:create_status_change_note).with(user, tax_return_2019)
-
+      context "when there is an error" do
+        before do
+          allow_any_instance_of(Hub::TakeActionForm).to receive(:take_action).and_return false
+        end
+        it "flashes an error, and renders edit" do
           post :update_take_action, params: params
-          expect(tax_return_2019.reload.status).to eq(new_status_2019)
-          expect(flash[:notice]).to match "Updated status"
+          client.reload
+          expect(flash[:alert]).to eq "Please fix indicated errors before continuing."
+          expect(response).to render_template :edit_take_action
         end
       end
 
-      context "when the statuses are the same as the current statuses" do
-        let(:new_status_2019) { "intake_in_progress" }
-        let(:new_status_2018) { "intake_in_progress" }
-
-        it "does not create a system status change note" do
-          expect do
-            post :update_take_action, params: params
-          end.not_to change(SystemNote, :count)
-        end
-      end
-
-      context "creating a note" do
-        let(:internal_note_body) { "Lorem ipsum note about client tax return" }
-
-        it "saves a note" do
-          expect do
-            post :update_take_action, params: params
-          end.to change(Note, :count).by(1)
-
-          note = Note.last
-          expect(note.client).to eq client
-          expect(note.body).to eq internal_note_body
-          expect(note.user).to eq user
-
-          expect(flash[:notice]).to match "Added internal note"
-        end
-      end
-
-      context "when the note field is blank" do
-        let(:internal_note_body) { " \n" }
-
-        it "does not save a note" do
-          expect do
-            post :update_take_action, params: params
-          end.not_to change(Note, :count)
-        end
-      end
-
-      context "when the message body is present" do
-        let(:message_body) { "There's always money in the banana stand" }
-
-        context "and the contact method is email" do
-          let(:contact_method) { "email" }
-          let(:locale) { "es" }
-          before { allow(subject).to receive(:send_email) }
-
-          it "sends an email using the form locale and mentions that in the flash message" do
-            post :update_take_action, params: params
-
-            expect(subject).to have_received(:send_email).with(
-              "There's always money in the banana stand", subject_locale: "es"
-            )
-            expect(flash[:notice]).to match "Sent email"
-          end
+      context "when successful" do
+        before do
+          allow_any_instance_of(Hub::TakeActionForm).to receive(:take_action).and_return true
+          allow_any_instance_of(Hub::TakeActionForm).to receive(:action_list).and_return ['updated status', 'sent email', 'added internal note']
         end
 
-        context "and the contact method is text message" do
-          let(:contact_method) { "text_message" }
-          before { allow(subject).to receive(:send_text_message) }
-
-          it "sends a text message and adds that to the flash message" do
-            post :update_take_action, params: params
-
-            expect(subject).to have_received(:send_text_message).with("There's always money in the banana stand")
-            expect(flash[:notice]).to match "Sent text message"
-          end
-        end
-      end
-
-      context "when the message body is blank" do
-        let(:message_body) { " \n" }
-        let(:contact_method) { "email" }
-
-        it "does not send a message using the chosen contact method" do
-          expect do
-            post :update_take_action, params: params
-          end.not_to change(OutgoingEmail, :count)
-        end
-      end
-
-      context "when status is changed, message body is present, and internal note is present" do
-        let(:new_status_2019) { "review_in_review" }
-        let(:message_body) { "hi" }
-        let(:internal_note_body) { "wyd" }
-        before { allow(subject).to receive(:send_email) }
-
-        it "adds a flash success message listing all the actions taken" do
+        it "redirects to client show and flashes message based on actions list" do
           post :update_take_action, params: params
-
+          expect(response).to redirect_to hub_client_path(id: client.id)
           expect(flash[:notice]).to eq "Success: Action taken! Updated status, sent email, added internal note."
         end
       end
+
+
     end
   end
 end

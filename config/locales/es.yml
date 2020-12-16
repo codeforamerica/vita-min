@@ -93,11 +93,10 @@ es:
         language_mismatch: Este cliente prefiere ser entrevistado en %{interview_language}
         prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}
         send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
-        status: Estado de la declaración de impuestos de %{tax_year}
       update_take_action:
         flash_message:
           email: envió email
-          internal_note: guardó nota interna.
+          internal_note: guardó nota interna
           status: actualizó estado
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
@@ -339,6 +338,8 @@ es:
   forms:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
+      status_must_change: No se puede iniciar el cambio de estado al estado actual.
+      tax_return_belongs_to_client: No se puede actualizar la declaración de impuestos que no esté relacionada con el cliente actual.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       need_phone_number: Por favor, introduzca un número de teléfono celular.
       dependents: Por favor, ingrese %{attrs} de su dependiente.
