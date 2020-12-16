@@ -4,12 +4,12 @@
     <div>
       <span class="message__author">
         <span role="img" aria-label="client">👤</span>
-        <% if contact_record.contact_record_type == :outgoing_text_message || contact_record.contact_record_type == :outgoing_email %>
+        <% if [:outgoing_text_message, :outgoing_email, :system_email, :system_text_message].include? contact_record.contact_record_type %>
           <%= contact_record.author %>
         <% end %>
       </span>
 
-      <% if contact_record.contact_record_type == :outgoing_text_message %>
+      <% if :outgoing_text_message == contact_record.contact_record_type %>
         <span class="message__phone_number">
           Text to <%= local_phone_number(contact_record.to_phone_number) %>
         </span>
@@ -18,7 +18,16 @@
         </span>
       <% end %>
 
-      <% if contact_record.contact_record_type == :incoming_text_message %>
+      <% if :system_text_message == contact_record.contact_record_type %>
+        <span class="message__phone_number">
+          Automated text message to <%= local_phone_number(contact_record.to_phone_number) %>
+        </span>
+        <span class="message__status">
+          <%= contact_record.twilio_status || "sending..." %>
+        </span>
+      <% end %>
+
+    <% if contact_record.contact_record_type == :incoming_text_message %>
         <span class="message__phone_number">
           Text from <%= local_phone_number(contact_record.from_phone_number) %>
         </span>
@@ -27,6 +36,12 @@
       <% if contact_record.contact_record_type == :outgoing_email %>
         <span class="message__phone_number">
           Email to <%= contact_record.to %>
+        </span>
+      <% end %>
+
+      <% if contact_record.contact_record_type == :system_email %>
+        <span class="message__phone_number">
+          Automated email to <%= contact_record.to %>
         </span>
       <% end %>
 

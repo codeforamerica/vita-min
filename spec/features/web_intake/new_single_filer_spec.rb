@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Web Intake Single Filer" do
+RSpec.feature "Web Intake Single Filer", active_job: true do
   let(:ticket_id) { 9876 }
 
   before do
@@ -73,7 +73,7 @@ RSpec.feature "Web Intake Single Filer" do
     expect(page).to have_text("How can we update you on your tax return?")
     check "Email Me"
     check "Text Me"
-    fill_in "Cell phone number", with: "555-231-4321"
+    fill_in "Cell phone number", with: "(415) 553-7865"
     click_on "Continue"
 
     # Consent form
@@ -308,7 +308,9 @@ RSpec.feature "Web Intake Single Filer" do
 
     # Additional Information
     fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
-    click_on "Submit"
+    expect do
+      click_on "Submit"
+    end.to change(SystemTextMessage, :count).by(1).and change(SystemEmail, :count).by(1)
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
     expect(page).to have_text("Your confirmation number is: #{intake.client_id}")

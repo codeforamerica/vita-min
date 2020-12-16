@@ -258,9 +258,6 @@ es:
         ignore: Si no desea aceptar la invitación, ignore este correo electrónico.
         someone_invited_you: "%{their_name} (%{their_email}) ha invitado a %{your_name} a crear una cuenta en GetYourRefund para ayudar a las personas con sus impuestos."
         subject: Usted ha sido invitado a GetYourRefund
-  email:
-    user_message:
-      subject: Actualización de GetYourRefund
   errors:
     attributes:
       birth_date:
@@ -509,6 +506,32 @@ es:
         create: Reenviar email de invitación
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
+  messages:
+    default_subject: Actualización de GetYourRefund
+    successful_submission:
+      subject: ¡Su información de impuestos ha sido enviada con éxito!
+      email_body: |
+        Hola %{preferred_name},
+
+        ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su número de confirmación es %{client_id}.
+
+        Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
+
+        Use este enlace para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{document_upload_url}
+
+        Si tiene alguna pregunta, por favor responda a este mensaje.
+
+        ¡Estamos aquí para ayudar!
+
+        Su equipo de impuestos en GetYourRefund.org
+      sms_body: |
+        Hola %{preferred_name},
+        ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su número de confirmación es %{client_id}.
+        Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
+        Use este enlace para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{document_upload_url}
+        Si tiene alguna pregunta, por favor responda a este mensaje.
+        ¡Estamos aquí para ayudar!
+        Su equipo de impuestos en GetYourRefund.org
   models:
     intake:
       your_spouse: Su cónyuge

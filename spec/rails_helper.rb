@@ -87,6 +87,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    stub_request(:post, /.*api\.twilio\.com.*/).to_return(status: 200, body: "", headers: {})
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
 
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test

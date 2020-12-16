@@ -258,9 +258,6 @@ en:
         ignore: If you don't want to accept the invitation, please ignore this email.
         someone_invited_you: "%{their_name} (%{their_email}) has invited %{your_name} to create an account on GetYourRefund to help people with their taxes."
         subject: You've been invited to GetYourRefund
-  email:
-    user_message:
-      subject: Update from GetYourRefund
   errors:
     attributes:
       birth_date:
@@ -509,6 +506,32 @@ en:
         create: Resend invitation email
         sent_at: Sent at %{datetime}
       title: Invitations
+  messages:
+    default_subject: Update from GetYourRefund
+    successful_submission:
+      subject: Your tax information has been successfully submitted!
+      email_body: |
+        Hello %{preferred_name},
+
+        Your tax information has been successfully submitted to your tax preparer! Your confirmation number is %{client_id}.
+
+        Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
+
+        Use this link to securely submit additional information or documents you’d like to share with your tax preparer: %{document_upload_url}
+
+        If you have any questions, please reply to this message.
+
+        We’re here to help!
+
+        Your tax team at GetYourRefund.org
+      sms_body: |
+        Hello %{preferred_name},
+        Your tax information has been successfully submitted to your tax preparer! Your confirmation number is %{client_id}.
+        Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
+        Use this link to securely submit additional information or documents you’d like to share with your tax preparer: %{document_upload_url}
+        If you have any questions, please reply to this message.
+        We’re here to help!
+        Your tax team at GetYourRefund.org
   models:
     intake:
       your_spouse: Your spouse

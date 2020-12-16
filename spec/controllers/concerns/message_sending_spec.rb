@@ -92,6 +92,52 @@ RSpec.describe MessageSending, type: :controller do
     end
   end
 
+  describe "#send_system_email", active_job: true do
+    context "without @client" do
+      it "raises an error and doesn't make an system email" do
+        expect do
+          expect do
+            subject.send_system_email("hello", "subject")
+          end.to raise_error(StandardError)
+        end.not_to change(SystemEmail, :count)
+      end
+    end
+
+    context "with @client" do
+      before { subject.instance_variable_set(:@client, client) }
+
+      it "saves a new outgoing email with the right info, enqueues email, and broadcasts to ClientChannel" do
+        expect do
+          subject.send_system_email("hello", "subject")
+        end.to change(SystemEmail, :count).by(1).and have_enqueued_mail(OutgoingEmailMailer, :user_message)
+
+        system_email = SystemEmail.last
+        expect(system_email.subject).to eq("subject")
+        expect(system_email.body).to eq("hello")
+        expect(system_email.client).to eq client
+        expect(system_email.sent_at).to eq expected_time
+        expect(system_email.to).to eq client.email_address
+        expect(ClientChannel).to have_received(:broadcast_contact_record).with(system_email)
+      end
+
+      context "with blank body" do
+        it "raises an error" do
+          expect do
+            subject.send_system_email(" \n", "subject")
+          end.to raise_error(ActiveRecord::RecordInvalid)
+        end
+      end
+
+      context "with blank subject" do
+        it "raises an error" do
+          expect do
+            subject.send_system_email("body", " \n")
+          end.to raise_error(ActiveRecord::RecordInvalid)
+        end
+      end
+    end
+  end
+
   describe "#send_text_message", active_job: true do
     context "without @client" do
       it "raises an error and doesn't make an outgoing text message" do
@@ -129,7 +175,7 @@ RSpec.describe MessageSending, type: :controller do
           expect(outgoing_text_message.sent_at).to eq expected_time
           expect(outgoing_text_message.to_phone_number).to eq client.sms_phone_number
           expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_text_message)
-          expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
+          expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message)
         end
 
         context "with blank body" do
@@ -139,6 +185,36 @@ RSpec.describe MessageSending, type: :controller do
             end.to raise_error(ActiveRecord::RecordInvalid)
           end
         end
+      end
+    end
+  end
+
+  describe "#send_system_text_message", active_job: true do
+    context "without @client" do
+      it "raises an error and doesn't make an system text message" do
+        expect do
+          expect do
+            subject.send_system_text_message("hello")
+          end.to raise_error(StandardError)
+        end.not_to change(SystemTextMessage, :count)
+      end
+    end
+
+    context "with @client" do
+      before { subject.instance_variable_set(:@client, client) }
+
+      it "saves a new system text message with the right info, enqueues job, and broadcasts to ClientChannel" do
+        expect do
+          subject.send_system_text_message("hello")
+        end.to change(SystemTextMessage, :count).by(1)
+
+        system_text_message = SystemTextMessage.last
+        expect(system_text_message.body).to eq("hello")
+        expect(system_text_message.client).to eq client
+        expect(system_text_message.sent_at).to eq expected_time
+        expect(system_text_message.to_phone_number).to eq client.sms_phone_number
+        expect(ClientChannel).to have_received(:broadcast_contact_record).with(system_text_message)
+        expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(system_text_message)
       end
     end
   end
