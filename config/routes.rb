@@ -140,8 +140,6 @@ Rails.application.routes.draw do
       end
       resources :organizations, only: [:index, :create, :new, :edit, :update]
       resources :sites, only: [:new, :create, :edit, :update]
-      resources :sub_organizations, only: [:edit, :update]
-      resources :vita_partners, only: [:index, :edit, :update, :show]
       resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
       resources :users, only: [:index, :edit, :update]
       get "/profile" => "users#profile", as: :user_profile

@@ -10,7 +10,6 @@ en:
       profile:
         clients_link: Clients
         users_link: Users
-        vita_partners_link: VITA partners
         return_to_dashboard: < Return to dashboard
     anonymized_intake_csv_extracts:
       index:
@@ -187,13 +186,6 @@ en:
 
         Thanks!
         Your tax team at GetYourRefund.org
-    sub_organizations:
-      edit:
-        title: Create sub-organization of %{name}
-    vita_partners:
-      add_site: Add site
-      index:
-        title: VITA partners
     bank_accounts:
       info_displayed: Displaying bank account information
       bank_name: Bank name
