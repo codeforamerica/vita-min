@@ -84,11 +84,12 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         create :site, parent_organization: organization, name: "Sea Lion Site"
       end
 
-      it "displays a list of existing sites" do
+      it "displays a list of existing sites and a link to the site" do
         get :edit, params: params
 
         expect(response.body).to include "Salmon Site"
         expect(response.body).to include "Sea Lion Site"
+        expect(response.body).to include new_hub_site_path(parent_organization_id: organization)
       end
     end
   end

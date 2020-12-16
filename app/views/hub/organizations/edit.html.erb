@@ -2,6 +2,8 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="hub-form">
+    <%= link_to t("general.all_organizations"), hub_organizations_path, class: "button button--small" %>
+
     <%= form_with model: @organization, url: hub_organizations_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
       <h1 class="form-card__title">
         <%= @title %>
@@ -14,10 +16,12 @@
         <%= t("general.save") %>
       </button>
 
+      <h2><%= t("general.sites") %></h2>
+      <%= link_to t("hub.sites.new.title"), new_hub_site_path(parent_organization_id: @organization), class: "button button--cta" %>
+
       <% if @organization.child_sites.exists? %>
-        <h2><%= t("general.sites") %></h2>
         <% @organization.child_sites.map do |site| %>
-          <h3><%= site.name %></h3>
+          <h3><%= link_to site.name, edit_hub_site_path(parent_organization_id: @organization, id: site) %></h3>
         <% end %>
       <% else %>
         <%= t(".no_sites") %>
