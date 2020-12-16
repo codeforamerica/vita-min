@@ -114,6 +114,25 @@
       </div>
     </div>
 
+    <div class="client-bank-account-info">
+      <div class="spacing-below-35">
+        <h2 class="text--small text--bold"><%= "Bank Account Info" %>
+          <% if @client.bank_account_info? %>
+            <span id="js-toggle-bank-account-info">
+              <%= link_to("View", show_bank_account_hub_client_path, remote: true)  %>
+            </span>
+          <% end %>
+        </h2>
+        <% if @client.bank_account_info? %>
+          <div id="js-bank-account-info">
+            <%= render "hub/clients/hidden_bank_account_info" %>
+          </div>
+        <% else %>
+          <span class="label-value">No bank account info provided.</span>
+        <% end %>
+      </div>
+    </div>
+
     <div>
       <%= link_to(t("general.edit_info"), edit_hub_client_path, class: "button hc-button--wide") %>
     </div>

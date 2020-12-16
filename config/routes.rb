@@ -120,6 +120,8 @@ Rails.application.routes.draw do
       resources :clients do
         get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
         patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
+        get "/bai", to: "clients/bank_accounts#show", on: :member, as: :show_bank_account
+        get "/hide-bai", to: "clients/bank_accounts#hide", on: :member, as: :hide_bank_account
         resources :documents, only: [:index, :edit, :update, :show, :create]
         resources :notes, only: [:create, :index]
         resources :messages, only: [:index]
@@ -132,6 +134,7 @@ Rails.application.routes.draw do
           post "update_take_action"
         end
       end
+
       resources :tax_returns, only: [] do
         patch "update_certification", to: "tax_returns/certifications#update", on: :member
       end

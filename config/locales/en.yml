@@ -195,6 +195,14 @@ en:
       add_site: Add site
       index:
         title: VITA partners
+    bank_accounts:
+      info_displayed: Displaying bank account information
+      bank_name: Bank name
+      account_type: Account type
+      account_number: Account number
+      routing_number: Routing number
+      checking: Checking
+      savings: Savings
     organizations:
       new:
         title: "New Organization"

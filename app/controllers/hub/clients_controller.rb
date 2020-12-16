@@ -29,7 +29,12 @@ module Hub
       end
     end
 
-    def show; end
+    def show;end
+
+    def request_bank_account_info
+      @client = Client.find(params[:id])
+      respond_to :js
+    end
 
     def edit
       @form = UpdateClientForm.from_client(@client)

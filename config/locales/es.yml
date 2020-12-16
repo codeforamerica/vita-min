@@ -195,6 +195,14 @@ es:
       add_site: Agregar sitio
       index:
         title: Socios de VITA
+    bank_accounts:
+      info_displayed: Visualización de la información de la cuenta bancaria
+      bank_name: Nombre del banco
+      account_number: Número de cuenta
+      routing_number: Número de ruta
+      account_type: Tipo de cuenta
+      checking: Cuenta de Cheques
+      savings: Ahorros
     organizations:
       new:
         title: "Nueva Organización"
