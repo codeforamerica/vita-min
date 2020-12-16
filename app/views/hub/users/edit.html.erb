@@ -19,7 +19,7 @@
           <% VitaPartner.all.map do |vita_partner| %>
             <%= f.cfa_checkbox(
                   :supported_organization_ids,
-                  vita_partner.display_name,
+                  vita_partner.name,
                   options: {
                     checked_value: vita_partner.id,
                     unchecked_value: "",

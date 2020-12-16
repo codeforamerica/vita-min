@@ -6,9 +6,9 @@ RSpec.describe Hub::VitaPartnersController, type: :controller do
 
     context "for orgs with sub-organizations, i.e., sites" do
       let(:user) { create(:admin_user, vita_partner: vita_partner1) }
-      let!(:vita_partner1) { create(:vita_partner, display_name: "Vita Partner 1") }
-      let!(:vita_partner1_site) { create(:vita_partner, display_name: "Library Tax Help of Vita Partner 1", parent_organization: vita_partner1) }
-      let!(:vita_partner2) { create(:vita_partner, display_name: "Vita Partner 2") }
+      let!(:vita_partner1) { create(:vita_partner, name: "Vita Partner 1") }
+      let!(:vita_partner1_site) { create(:vita_partner, name: "Library Tax Help of Vita Partner 1", parent_organization: vita_partner1) }
+      let!(:vita_partner2) { create(:vita_partner, name: "Vita Partner 2") }
 
       before do
         sign_in(user)
@@ -32,7 +32,7 @@ RSpec.describe Hub::VitaPartnersController, type: :controller do
 
     context "sub-organizations" do
       let(:user) { create(:admin_user, vita_partner: vita_partner)}
-      let!(:vita_partner_site) { create(:vita_partner, display_name: "Library Tax Help of Vita Partner", parent_organization: vita_partner) }
+      let!(:vita_partner_site) { create(:vita_partner, name: "Library Tax Help of Vita Partner", parent_organization: vita_partner) }
 
       before do
         sign_in(user)

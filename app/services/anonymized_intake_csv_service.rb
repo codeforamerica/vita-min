@@ -17,8 +17,6 @@ class AnonymizedIntakeCsvService
     zip_code
     city
     needs_help_with_backtaxes?
-    zendesk_instance_domain
-    vita_partner_group_id
     vita_partner_name
     routing_criteria
     routing_value

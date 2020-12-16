@@ -52,7 +52,7 @@
               <% end %>
             </th>
             <td class="index-table__cell" align="center"><%= client.id %></td>
-            <td class="index-table__cell"><%= client.vita_partner&.display_name || t("general.none")  %></td>
+            <td class="index-table__cell"><%= client.vita_partner&.name || t("general.none")  %></td>
             <td class="index-table__cell"><%= client.intake&.locale ? t("general.language_options.#{client.intake&.locale}") : t('general.NA') %></td>
             <td class="index-table__cell" align="center"><%= formatted_datetime_with_break(client.updated_at) %></td>
             <td class="index-table__cell" align="center"><%= formatted_datetime_with_break(client.intake.primary_consented_to_service_at) || "-"%> </td>

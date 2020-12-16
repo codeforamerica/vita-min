@@ -268,7 +268,7 @@ RSpec.describe Hub::ClientsController do
           html = Nokogiri::HTML.parse(response.body)
           expect(html).to have_text("Updated At")
           expect(html.at_css("#client-#{george_sr.id}")).to have_text("George Sr.")
-          expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.vita_partner.display_name)
+          expect(html.at_css("#client-#{george_sr.id}")).to have_text(george_sr.vita_partner.name)
           expect(html.at_css("#client-#{george_sr.id} a")["href"]).to eq hub_client_path(id: george_sr)
           expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")

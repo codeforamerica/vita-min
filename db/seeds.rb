@@ -3,18 +3,12 @@ Coalition.find_or_create_by(name: "Cola Coalition")
 
 first_org = VitaPartner.find_or_create_by!(
   name: "Oregano Org",
-  display_name: "Oregano Org",
-  coalition: koalas,
-  zendesk_group_id: "unused",
-  zendesk_instance_domain: "unused",
+  coalition: koalas
 )
 
 VitaPartner.find_or_create_by!(
   name: "Orangutan Organization",
-  display_name: "Orangutan Organization",
   coalition: koalas,
-  zendesk_group_id: "unused",
-  zendesk_instance_domain: "unused",
 )
 
 VitaPartner.find_or_create_by!(

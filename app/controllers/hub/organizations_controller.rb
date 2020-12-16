@@ -40,10 +40,7 @@ module Hub
     private
 
     def vita_partner_params
-      params.require(:vita_partner).permit(:name, :coalition_id).merge(
-        zendesk_group_id: "unused",
-        zendesk_instance_domain: "unused"
-      )
+      params.require(:vita_partner).permit(:name, :coalition_id)
     end
   end
 end

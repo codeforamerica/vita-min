@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_184717) do
+ActiveRecord::Schema.define(version: 2020_12_16_012857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -337,7 +337,6 @@ ActiveRecord::Schema.define(version: 2020_12_14_184717) do
     t.datetime "updated_at"
     t.boolean "viewed_at_capacity", default: false
     t.string "visitor_id"
-    t.string "vita_partner_group_id"
     t.bigint "vita_partner_id"
     t.string "vita_partner_name"
     t.integer "was_blind", default: 0, null: false
@@ -345,7 +344,6 @@ ActiveRecord::Schema.define(version: 2020_12_14_184717) do
     t.integer "was_on_visa", default: 0, null: false
     t.integer "widowed", default: 0, null: false
     t.string "widowed_year"
-    t.string "zendesk_instance_domain"
     t.string "zip_code"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["email_address"], name: "index_intakes_on_email_address"
@@ -526,15 +524,12 @@ ActiveRecord::Schema.define(version: 2020_12_14_184717) do
     t.boolean "archived", default: false
     t.bigint "coalition_id"
     t.datetime "created_at", precision: 6, null: false
-    t.string "display_name"
     t.string "logo_path"
     t.string "name", null: false
     t.bigint "parent_organization_id"
     t.string "source_parameter"
     t.datetime "updated_at", precision: 6, null: false
     t.integer "weekly_capacity_limit"
-    t.string "zendesk_group_id", null: false
-    t.string "zendesk_instance_domain", null: false
     t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"
     t.index ["parent_organization_id", "name", "coalition_id"], name: "index_vita_partners_on_parent_name_and_coalition", unique: true
     t.index ["parent_organization_id"], name: "index_vita_partners_on_parent_organization_id"

@@ -211,8 +211,6 @@ class MixpanelService
         needs_help_2017: intake.needs_help_2017,
         needs_help_2016: intake.needs_help_2016,
         needs_help_backtaxes: intake.needs_help_with_backtaxes? ? "yes" : "no",
-        zendesk_instance_domain: intake.vita_partner&.zendesk_instance_domain,
-        vita_partner_group_id: intake.vita_partner&.zendesk_group_id,
         vita_partner_name: intake.vita_partner&.name,
         triaged_from_stimulus: intake.triaged_from_stimulus? ? "yes" : "no",
         timezone: intake.timezone,
