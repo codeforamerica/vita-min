@@ -8,12 +8,15 @@
                   html: { class: "form-card" } do |f| %>
       <h1><%= @title %></h1>
       <%= f.cfa_select(:tax_return_id, "Filing year", @take_action_form.tax_returns.pluck(:year, :id), include_blank: true) %>
-      <%= f.cfa_select(
-              :status,
-              "Updated status",
-              grouped_status_options_for_select,
-              include_blank: true,
-      ) %>
+      <div id="status">
+        <%= f.cfa_select(
+                :status,
+                "Updated status",
+                grouped_status_options_for_select,
+                include_blank: true,
+                ) %>
+      </div>
+
 
       <%= f.cfa_select(
         :locale,
