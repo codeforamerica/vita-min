@@ -61,7 +61,7 @@ RSpec.describe "a user viewing a client" do
     scenario "can view and cannot update organization" do
       visit hub_client_path(id: client.id)
       within ".client-header__organization" do
-        expect(page).to have_text client.vita_partner.display_name
+        expect(page).to have_text client.vita_partner.name
         expect(page).not_to have_text "Edit"
       end
     end
@@ -76,15 +76,15 @@ RSpec.describe "a user viewing a client" do
     scenario "can view and update client organization" do
       visit hub_client_path(id: client.id)
       within ".client-header" do
-        expect(page).to have_text client.vita_partner.display_name
+        expect(page).to have_text client.vita_partner.name
         click_on "Edit"
       end
       expect(page.current_path).to eq edit_organization_hub_client_path(id: client.id)
       expect(page).to have_text "Edit Organization for #{client.preferred_name}"
-      select other_vita_partner.display_name, from: "Organization"
+      select other_vita_partner.name, from: "Organization"
       click_on "Save"
       within ".client-header" do
-        expect(page).to have_text other_vita_partner.display_name
+        expect(page).to have_text other_vita_partner.name
       end
     end
   end

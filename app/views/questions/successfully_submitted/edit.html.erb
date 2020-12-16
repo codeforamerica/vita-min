@@ -21,14 +21,14 @@
     </li>
     <li>
       <% if current_intake&.vita_partner.present? %>
-        <%=t("views.questions.successfully_submitted.next_steps.partner_review", :partner_name => current_intake.vita_partner.display_name) %>
+        <%=t("views.questions.successfully_submitted.next_steps.partner_review", :partner_name => current_intake.vita_partner.name) %>
       <% else %>
         <%=t("views.questions.successfully_submitted.next_steps.review") %>
       <% end %>
     </li>
     <li>
       <% if current_intake&.vita_partner.present? %>
-        <%=t("views.questions.successfully_submitted.next_steps.partner_timing", :partner_name => current_intake.vita_partner.display_name) %>
+        <%=t("views.questions.successfully_submitted.next_steps.partner_timing", :partner_name => current_intake.vita_partner.name) %>
       <% else %>
         <%=t("views.questions.successfully_submitted.next_steps.timing") %>
       <% end %>

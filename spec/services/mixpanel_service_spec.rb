@@ -159,7 +159,6 @@ describe MixpanelService do
         partner = create(
           :vita_partner,
           name: "test_partner",
-          zendesk_group_id: "1234567890123456"
         )
         partner.states << state
         partner
@@ -249,8 +248,6 @@ describe MixpanelService do
             needs_help_2017: "yes",
             needs_help_2016: "unfilled",
             needs_help_backtaxes: "yes",
-            zendesk_instance_domain: "eitc",
-            vita_partner_group_id: vita_partner.zendesk_group_id,
             vita_partner_name: vita_partner.name,
             triaged_from_stimulus: "no",
             timezone: "America/Los_Angeles",

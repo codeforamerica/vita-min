@@ -165,7 +165,6 @@
 #  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
-#  zendesk_instance_domain                              :string
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
@@ -175,7 +174,6 @@
 #  primary_intake_id                                    :integer
 #  triage_source_id                                     :bigint
 #  visitor_id                                           :string
-#  vita_partner_group_id                                :string
 #  vita_partner_id                                      :bigint
 #
 # Indexes
@@ -263,8 +261,6 @@ FactoryBot.define do
       city { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").first }
       state { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").last }
       state_of_residence { state }
-      zendesk_instance_domain { "eitc" }
-      vita_partner_group_id { vita_partner.zendesk_group_id }
       vita_partner_name { vita_partner.name }
       routing_value { vita_partner.states.first&.abbreviation || "az" }
       routing_criteria { "state" }

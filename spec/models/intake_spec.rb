@@ -165,7 +165,6 @@
 #  was_on_visa                                          :integer          default("unfilled"), not null
 #  widowed                                              :integer          default("unfilled"), not null
 #  widowed_year                                         :string
-#  zendesk_instance_domain                              :string
 #  zip_code                                             :string
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
@@ -175,7 +174,6 @@
 #  primary_intake_id                                    :integer
 #  triage_source_id                                     :bigint
 #  visitor_id                                           :string
-#  vita_partner_group_id                                :string
 #  vita_partner_id                                      :bigint
 #
 # Indexes

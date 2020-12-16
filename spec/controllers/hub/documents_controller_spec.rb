@@ -125,11 +125,11 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#update" do
-    let(:new_display_name) { "New Display Name"}
+    let(:new_display_name) { "New Display Name" }
     let(:vita_partner) { create :vita_partner }
     let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
     let(:document) { create :document, client: client }
-    let(:params) { { client_id: client.id, id: document.id, document: { display_name: new_display_name} } }
+    let(:params) { { client_id: client.id, id: document.id, document: { display_name: new_display_name } } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 

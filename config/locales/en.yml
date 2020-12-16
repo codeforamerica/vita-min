@@ -190,7 +190,6 @@ en:
     sub_organizations:
       edit:
         title: Create sub-organization of %{name}
-        display_name: Client-facing display name (if different)
     vita_partners:
       add_site: Add site
       index:

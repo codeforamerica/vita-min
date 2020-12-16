@@ -1,12 +1,12 @@
-<% content_for :page_title, "#{@vita_partner.display_name} ##{@vita_partner.id}" %>
+<% content_for :page_title, "#{@vita_partner.name} ##{@vita_partner.id}" %>
 
 <% content_for :card do %>
-  <h1 class="h2"><%= @vita_partner.display_name %></h1>
+  <h1 class="h2"><%= @vita_partner.name %></h1>
   <h2 class="h3">Sites</h2>
   <% if @sub_organizations.present? %>
     <ul class="list--bulleted">
     <% @sub_organizations.each do |sub_organization| %>
-        <li><%= sub_organization.display_name %></li>
+        <li><%= sub_organization.name %></li>
       <% end %>
     </ul>
   <% else %>

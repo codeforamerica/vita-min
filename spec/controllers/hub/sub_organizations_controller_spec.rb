@@ -11,7 +11,7 @@ RSpec.describe Hub::SubOrganizationsController, type: :controller do
     context "as an authenticated admin user" do
       before { sign_in(user) }
 
-      it "accepts a name (and uses for the display name, too) and redirects to the parent organization's show page" do
+      it "accepts a name and redirects to the parent organization's show page" do
         expect do
           put :update, params: { id: vita_partner.id,
                                  hub_sub_organization_form:
@@ -20,7 +20,6 @@ RSpec.describe Hub::SubOrganizationsController, type: :controller do
 
         city_hall_tax_help_center = VitaPartner.last
         expect(city_hall_tax_help_center.name).to eq("City Hall Tax Help Center")
-        expect(city_hall_tax_help_center.display_name).to eq("City Hall Tax Help Center")
         expect(city_hall_tax_help_center.parent_organization).to eq(vita_partner)
 
         expect(response).to redirect_to(hub_vita_partner_path(id: city_hall_tax_help_center.parent_organization.id))
@@ -31,13 +30,11 @@ RSpec.describe Hub::SubOrganizationsController, type: :controller do
           put :update, params: { id: vita_partner.id,
                                  hub_sub_organization_form: {
                                      name: "City Hall Tax Help Center",
-                                     display_name: "City Hall Tax Help Center (Denver)"
                                  } }
         end.to change(VitaPartner, :count).by(1)
 
         city_hall_tax_help_center = VitaPartner.last
         expect(city_hall_tax_help_center.name).to eq("City Hall Tax Help Center")
-        expect(city_hall_tax_help_center.display_name).to eq("City Hall Tax Help Center (Denver)")
         expect(city_hall_tax_help_center.parent_organization).to eq(vita_partner)
 
         expect(response).to redirect_to(hub_vita_partner_path(id: city_hall_tax_help_center.parent_organization.id))

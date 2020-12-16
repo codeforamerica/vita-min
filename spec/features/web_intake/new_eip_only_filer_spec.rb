@@ -5,7 +5,7 @@ RSpec.feature "Web Intake EIP Only Filer" do
 
   before do
     # Create the hard-coded VITA partner for EIP-only returns
-    create(:vita_partner, display_name: "Get Your Refund", zendesk_group_id: "360012655454")
+    create(:vita_partner, name: "Get Your Refund")
   end
 
   scenario "new EIP-only client filing joint with a dependent" do
