@@ -198,6 +198,8 @@ es:
     organizations:
       new:
         title: "Nueva Organización"
+      edit:
+        no_sites: "Ningunos sitios"
       index:
         independent_organizations: "Organizaciones Independientes"
         no_organizations: "Sin organizaciones"
@@ -447,6 +449,7 @@ es:
     sign_out: Cerrar sesión
     sign_up: Regístrate
     single: Soltera
+    sites: "Sitios"
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
     sorry: "¡Ay, no! ¡Lo sentimos!"

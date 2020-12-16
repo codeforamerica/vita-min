@@ -198,6 +198,8 @@ en:
     organizations:
       new:
         title: "New Organization"
+      edit:
+        no_sites: "No sites"
       index:
         independent_organizations: "Independent Organizations"
         no_organizations: "No organizations"
@@ -447,6 +449,7 @@ en:
     sign_out: Sign out
     sign_up: Sign up
     single: Single
+    sites: Sites
     skip_question: Skip question
     skip_questions: Skip questions
     sorry: We're sorry!

@@ -53,6 +53,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
     context "as a logged in admin user" do
       before { sign_in admin_user }
+
       let(:organizations) do
         create_list :organization, 5
       end
@@ -61,6 +62,62 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         get :index
 
         expect(assigns(:organizations)).to eq organizations
+      end
+    end
+  end
+
+  describe "#edit" do
+    let(:organization) { create :organization }
+    let(:params) do
+      { id: organization.id }
+    end
+
+    it_behaves_like :a_get_action_for_admins_only, action: :edit
+
+    context "as an authenticated admin user" do
+      render_views
+
+      before do
+        sign_in admin_user
+
+        create :site, parent_organization: organization, name: "Salmon Site"
+        create :site, parent_organization: organization, name: "Sea Lion Site"
+      end
+
+      it "displays a list of existing sites" do
+        get :edit, params: params
+
+        expect(response.body).to include "Salmon Site"
+        expect(response.body).to include "Sea Lion Site"
+      end
+    end
+  end
+
+  describe "#update" do
+    let(:organization) { create :organization, coalition: parent_coalition }
+    let(:new_coalition) { create :coalition, name: "Carrot Coalition" }
+    let(:params) do
+      {
+        id: organization.id,
+        vita_partner: {
+          coalition_id: new_coalition.id,
+          name: "Oregano Organization",
+        }
+      }
+    end
+
+    it_behaves_like :a_post_action_for_admins_only, action: :update
+
+    context "as a logged in admin" do
+      before { sign_in admin_user }
+
+      it "updates the name and coalition" do
+        post :update, params: params
+
+        organization.reload
+        expect(organization.name).to eq "Oregano Organization"
+        expect(organization.coalition).to eq new_coalition
+        expect(response).to redirect_to(hub_organizations_path)
       end
     end
   end

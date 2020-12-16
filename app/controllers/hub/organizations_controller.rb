@@ -11,15 +11,29 @@ module Hub
     end
 
     def create
-      render :new unless @vita_partner.save!
-
-      redirect_to hub_organizations_path
+      @coalitions = Coalition.all
+      if @vita_partner.save
+        redirect_to hub_organizations_path
+      else
+        render :new
+      end
     end
 
     def index
       @coalitions = Coalition.includes(:organizations)
       @organizations = @vita_partners.organizations
       @independent_organizations = @vita_partners.organizations.where(coalition: nil)
+    end
+
+    def edit
+      @coalitions = Coalition.all
+      @organization = @vita_partner
+    end
+
+    def update
+      render :edit unless @vita_partner.update(vita_partner_params)
+
+      redirect_to hub_organizations_path
     end
 
     private

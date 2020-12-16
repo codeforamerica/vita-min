@@ -5,6 +5,7 @@ RSpec.describe "create VITA organization hierarchy" do
     let(:admin_user) { create :admin_user }
     before { login_as admin_user }
     let(:coalition) { create :coalition, name: "Koala Koalition" }
+    let!(:other_coalition) { create :coalition, name: "Coati Coalition" } # https://en.wikipedia.org/wiki/Coati
     let!(:organization) { create :organization, name: "Orangutan Organization", coalition: coalition }
 
     scenario "create a new organization" do
@@ -15,9 +16,19 @@ RSpec.describe "create VITA organization hierarchy" do
       expect(page).to have_selector("h2", text: "Koala Koalition")
       expect(page).to have_selector("h3", text: "Orangutan Organization")
 
+      # create a new organization
       click_on "New Organization"
       fill_in "Name", with: "Origami Organization"
       select "Koala Koalition", from: "Coalition"
+      click_on "Save"
+
+      # update the organization
+      # update the organization
+      click_on "Origami Organization"
+      expect(page).to have_text("No sites")
+
+      fill_in "Name", with: "Oregano Org"
+      select "Coati Coalition", from: "Coalition"
       click_on "Save"
 
       expect(page).to have_selector("h3", text: "Origami Organization")
