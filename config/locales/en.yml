@@ -203,6 +203,22 @@ en:
       routing_number: Routing number
       checking: Checking
       savings: Savings
+    organizations:
+      new:
+        title: "New Organization"
+      edit:
+        no_sites: "No sites"
+      listing:
+        site_count:
+          one: "%{count} site"
+          other: "%{count} sites"
+      index:
+        independent_organizations: "Independent Organizations"
+        no_organizations: "No organizations"
+        organizations_by_coalition: "Organizations grouped by coalition:"
+    sites:
+      new:
+        title: "Add site"
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
@@ -337,6 +353,7 @@ en:
         certification_level: certification level
       general: Please fix indicated errors before continuing.
   general:
+    all_organizations: "All organizations"
     at_time: at %{time}
     NA: N/A
     address: Address
@@ -345,9 +362,11 @@ en:
     assign: Assign
     assignee: Assignee
     attachment: Attachment
+    cancel: Cancel
     changes_saved: Changes saved
     chat_with_us: Chat with us
     city: City
+    coalition: Coalition
     confirm: Confirm
     continue: Continue
     continue_example: Continue to example
@@ -419,6 +438,7 @@ en:
     opt_in_email: Opt into email notifications
     opt_in_sms: Opt into sms notifications
     organization: Organization
+    organizations: Organizations
     other_options: Try another free tax filing option
     partner: Partner
     password: Password
@@ -446,6 +466,7 @@ en:
     sign_out: Sign out
     sign_up: Sign up
     single: Single
+    sites: Sites
     skip_question: Skip question
     skip_questions: Skip questions
     sorry: We're sorry!
@@ -1533,7 +1554,7 @@ en:
       consent_agreement:
         details:
           cfa: I understand that GetYourRefund.org is a website run by Code for America, a non-profit organization, that will submit your tax information to a VITA preparation site.
-          civil_rights_understanding_html: I understand that VITA is a <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">free tax program</a> that <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protects my civil rights</a>."
+          civil_rights_understanding_html: I understand that VITA is a <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">free tax program</a> that <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protects my civil rights</a>.
           collects_pii: I understand that this site collects personally identifiable information I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review my tax return.
           contacted: I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed.
           e_signature: I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through an electronic signature delivered via email after Quality Review is completed in order for a VITA preparation site to e-file my tax return.

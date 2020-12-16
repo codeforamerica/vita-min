@@ -1,20 +1,20 @@
 .honeycrisp-condensed {
-  .admin {
-    line-height: 2.5rem;
-  }
-
   .button {
     border-width: 2px;
     border-radius: 4px;
-    font-size: 15px;
+    font-size: 1.5rem;
     line-height: 15px;
     padding: 10px 15px;
+    margin-bottom: 1.5rem;
   }
 
-  .client-profile {
-    p {
-      margin-bottom: 16px;
-    }
+  .button--subtle {
+    font-weight: 500;
+  }
+
+  .button--tiny {
+    padding: 5px 10px;
+    margin-bottom: 0;
   }
 
   .form-group {
@@ -73,6 +73,13 @@
       font-size: 1.5rem;
     }
     padding-bottom: 7rem;
+  }
+
+  .text--help {
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    color: $color-grey-dark;
+    margin: 0;
   }
 
   .text-input {

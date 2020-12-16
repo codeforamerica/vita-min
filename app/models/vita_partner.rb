@@ -13,16 +13,24 @@
 #  zendesk_instance_domain :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  coalition_id            :bigint
 #  parent_organization_id  :bigint
 #  zendesk_group_id        :string           not null
 #
 # Indexes
 #
-#  index_vita_partners_on_parent_organization_id  (parent_organization_id)
+#  index_vita_partners_on_coalition_id               (coalition_id)
+#  index_vita_partners_on_parent_name_and_coalition  (parent_organization_id,name,coalition_id) UNIQUE
+#  index_vita_partners_on_parent_organization_id     (parent_organization_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (coalition_id => coalitions.id)
 #
 class VitaPartner < ApplicationRecord
   DEFAULT_CAPACITY_LIMIT = 300
 
+  belongs_to :coalition, optional: true
   has_many :clients
   has_many :intakes
   has_and_belongs_to_many :states, association_foreign_key: :state_abbreviation
@@ -31,8 +39,15 @@ class VitaPartner < ApplicationRecord
   belongs_to :parent_organization, class_name: "VitaPartner", optional: true
   has_many :sub_organizations, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
   validate :one_level_of_depth
+  validate :no_coalitions_for_sites
+  validates :name, uniqueness: { scope: [:coalition, :parent_organization] }
 
   scope :top_level, -> { where(parent_organization: nil).order(:display_name).order(:name) }
+  scope :organizations, -> { where(parent_organization: nil) }
+  scope :sites, -> { where.not(parent_organization: nil) }
+  has_many :child_sites, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
+
+  default_scope { includes(:child_sites) }
 
   after_initialize :defaults
 
@@ -47,7 +62,21 @@ class VitaPartner < ApplicationRecord
     !at_capacity?
   end
 
+  def organization?
+    parent_organization_id.blank?
+  end
+
+  def site?
+    parent_organization_id.present?
+  end
+
   private
+
+  def no_coalitions_for_sites
+    if site? && coalition_id.present?
+      errors.add(:coalition, "Sites cannot be direct members of coalitions")
+    end
+  end
 
   def one_level_of_depth
     if parent_organization&.parent_organization.present?

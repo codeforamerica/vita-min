@@ -20,6 +20,19 @@ RSpec.describe "a user editing a clients intake fields" do
       end
 
       within "#primary-info" do
+        fill_in "Preferred full name", with: "Bennet Basil"
+      end
+
+      click_on "Cancel"
+
+      expect(page).to have_text "Colleen Cauliflower"
+      expect(page).not_to have_text "Bennet Basil"
+
+      within ".client-profile" do
+        click_on "Edit"
+      end
+
+      within "#primary-info" do
         expect(find_field("hub_update_client_form_primary_first_name").value).to eq "Colleen"
         expect(find_field("hub_update_client_form_primary_last_name").value).to eq "Cauliflower"
         fill_in "Preferred full name", with: "Colly Cauliflower"
@@ -80,12 +93,6 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(all(".dependent-form").length).to eq 3
       end
 
-      within "#spouse-info" do
-        fill_in "Legal first name", with: "Peter"
-        fill_in "Legal last name", with: "Pepper"
-        fill_in "Email", with: "spicypeter@pepper.com"
-      end
-
       click_on "Save"
       expect(page).to have_text("Please enter the last name of each dependent.")
 
@@ -120,8 +127,6 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "+15005550006"
       expect(page).to have_text "123 Garden Ln"
       expect(page).to have_text "Brassicaville, CA 95032"
-      expect(page).to have_text "Peter Pepper"
-      expect(page).to have_text "spicypeter@pepper.com"
     end
 
     it "creates a system note for client profile change" do

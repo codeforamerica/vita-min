@@ -13,12 +13,19 @@
 #  zendesk_instance_domain :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  coalition_id            :bigint
 #  parent_organization_id  :bigint
 #  zendesk_group_id        :string           not null
 #
 # Indexes
 #
-#  index_vita_partners_on_parent_organization_id  (parent_organization_id)
+#  index_vita_partners_on_coalition_id               (coalition_id)
+#  index_vita_partners_on_parent_name_and_coalition  (parent_organization_id,name,coalition_id) UNIQUE
+#  index_vita_partners_on_parent_organization_id     (parent_organization_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (coalition_id => coalitions.id)
 #
 require "rails_helper"
 
@@ -170,6 +177,60 @@ describe VitaPartner do
         it "just checks for the partner's default capacity" do
           expect(vita_partner.has_capacity_for?(intake)).to eq true
           expect(vita_partner).to have_received(:at_capacity?)
+        end
+      end
+    end
+  end
+
+  context "site-specific properties" do
+    context "with a parent_organization_id" do
+      let(:organization) { create(:vita_partner) }
+      let(:site) { create(:vita_partner, parent_organization: organization) }
+
+      it "is a site" do
+        expect(site.site?).to eq(true)
+        expect(site.organization?).to eq(false)
+        expect(VitaPartner.sites).to eq [site]
+      end
+
+      it "cannot be added to a coalition" do
+        coalition = create(:coalition)
+        site.coalition = coalition
+        expect(site).not_to be_valid
+      end
+
+      it "cannot have the same name as another site in the same organization" do
+        create(:site, parent_organization: organization, name: "Salty Site")
+        new_site = build(:site, parent_organization: organization, name: "Salty Site")
+        expect(new_site).not_to be_valid
+      end
+    end
+  end
+
+  context "organization-specific properties" do
+    context "without a parent_organization_id" do
+      let(:organization) { create(:vita_partner, parent_organization: nil) }
+
+      it "is an organization" do
+        expect(organization.organization?).to eq(true)
+        expect(organization.site?).to eq(false)
+        expect(VitaPartner.organizations).to eq [organization]
+      end
+
+      it "cannot have the same name as another organization in the same coalition" do
+        coalition = create :coalition
+        create(:organization, coalition: coalition, name: "Oregano Org")
+        new_org = build(:organization, coalition: coalition, name: "Oregano Org")
+        expect(new_org).not_to be_valid
+      end
+
+      describe "#child_sites" do
+        before do
+          create_list(:site, 3, parent_organization: organization)
+        end
+
+        it "includes the sites an org has" do
+          expect(organization.child_sites.count).to eq(3)
         end
       end
     end

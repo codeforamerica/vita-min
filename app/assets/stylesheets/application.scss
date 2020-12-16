@@ -55,19 +55,20 @@
 @import "organisms/provider-list";
 @import "organisms/provider-details";
 @import "organisms/welcome";
+@import "templates/additional-documents";
 @import "templates/admin";
 @import "templates/about-us";
+@import "templates/chat-bubble";
+@import "templates/client-profile";
 @import "templates/consent-form";
 @import "templates/date-select";
 @import "templates/dependents-index";
-@import "templates/overview";
-@import "templates/stimulus";
-@import "templates/chat-bubble";
-@import "templates/diy-start-filing-start";
-@import "templates/satisfaction-survey";
-@import "templates/additional-documents";
 @import "templates/document-intro";
 @import "templates/document-overview";
+@import "templates/diy-start-filing-start";
+@import "templates/overview";
+@import "templates/stimulus";
+@import "templates/satisfaction-survey";
 
 html {
   background-color: black;
