@@ -33,7 +33,7 @@ class OutgoingTextMessage < ApplicationRecord
   validates_presence_of :sent_at
   validates :to_phone_number, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
 
-  after_create :record_outgoing_interaction
+  after_create :record_outgoing_interaction, :deliver, :broadcast
 
   def datetime
     sent_at
@@ -45,5 +45,13 @@ class OutgoingTextMessage < ApplicationRecord
 
   def documents
     []
+  end
+
+  def deliver
+    SendOutgoingTextMessageJob.perform_later(self)
+  end
+
+  def broadcast
+    ClientChannel.broadcast_contact_record(self)
   end
 end

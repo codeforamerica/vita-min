@@ -26,6 +26,11 @@
 require "rails_helper"
 
 RSpec.describe OutgoingTextMessage, type: :model do
+
+  before do
+    allow(ClientChannel).to receive(:broadcast_contact_record)
+  end
+
   describe "required fields" do
     context "without required fields" do
       let(:message) { OutgoingTextMessage.new }
@@ -54,6 +59,19 @@ RSpec.describe OutgoingTextMessage, type: :model do
       it "is valid and does not have errors" do
         expect(message).to be_valid
         expect(message.errors).to be_blank
+      end
+
+      context "after create" do
+        it "enqueues a job to sent the text" do
+          expect {
+            message.save
+          }.to have_enqueued_job.on_queue("default").with(message)
+        end
+
+        it "broadcasts the text message" do
+          message.save
+          expect(ClientChannel).to have_received(:broadcast_contact_record).with(message)
+        end
       end
     end
   end

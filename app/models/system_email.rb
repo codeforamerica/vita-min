@@ -21,6 +21,8 @@ class SystemEmail < ApplicationRecord
   validates_presence_of :sent_at
   has_one_attached :attachment
 
+  after_create :deliver, :broadcast
+
   def author
     "GetYourRefund Team"
   end
@@ -31,5 +33,15 @@ class SystemEmail < ApplicationRecord
 
   def attachment
     nil
+  end
+
+  private
+
+  def deliver
+    OutgoingEmailMailer.user_message(outgoing_email: self).deliver_later
+  end
+
+  def broadcast
+    ClientChannel.broadcast_contact_record(self)
   end
 end

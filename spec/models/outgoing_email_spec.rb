@@ -13,14 +13,14 @@
 #
 require "rails_helper"
 
-RSpec.describe SystemEmail, type: :model do
+RSpec.describe OutgoingEmail, type: :model do
+  before do
+    allow(ClientChannel).to receive(:broadcast_contact_record)
+  end
+
   describe "required fields" do
     context "without required fields" do
-      let(:email) { SystemEmail.new }
-
-      before do
-        allow(ClientChannel).to receive(:broadcast_contact_record)
-      end
+      let(:email) { OutgoingEmail.new }
 
       it "is not valid and adds an error to each field" do
         expect(email).not_to be_valid
@@ -34,13 +34,14 @@ RSpec.describe SystemEmail, type: :model do
 
     context "with all required fields" do
       let(:message) do
-        SystemEmail.new(
+        OutgoingEmail.new(
             client: create(:client),
             to: "someone@example.com",
             subject: "this is a subject",
             body: "hi",
             sent_at: DateTime.now,
-        )
+            user: create(:user)
+            )
       end
 
       it "is valid and does not have errors" do

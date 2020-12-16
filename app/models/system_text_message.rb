@@ -28,11 +28,23 @@ class SystemTextMessage < ApplicationRecord
   validates_presence_of :sent_at
   validates :to_phone_number, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
 
+  after_create :deliver, :broadcast
+
   def datetime
     sent_at
   end
 
   def author
     "GetYourRefund Team"
+  end
+
+  private
+
+  def deliver
+    SendOutgoingTextMessageJob.perform_later(self)
+  end
+
+  def broadcast
+    ClientChannel.broadcast_contact_record(self)
   end
 end

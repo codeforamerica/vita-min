@@ -28,12 +28,13 @@ class OutgoingEmail < ApplicationRecord
 
   belongs_to :client
   belongs_to :user
+  validates_presence_of :to
   validates_presence_of :body
   validates_presence_of :subject
   validates_presence_of :sent_at
   has_one_attached :attachment
 
-  after_create :record_outgoing_interaction
+  after_create :record_outgoing_interaction, :deliver, :broadcast
 
   def datetime
     sent_at
@@ -45,5 +46,15 @@ class OutgoingEmail < ApplicationRecord
 
   def attachments
     attachment.present? ? [attachment] : nil
+  end
+
+  private
+
+  def deliver
+    OutgoingEmailMailer.user_message(outgoing_email: self).deliver_later
+  end
+
+  def broadcast
+    ClientChannel.broadcast_contact_record(self)
   end
 end
