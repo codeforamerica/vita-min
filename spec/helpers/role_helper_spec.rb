@@ -8,5 +8,16 @@ describe RoleHelper do
         expect(helper.user_roles(user)).to eq "Admin"
       end
     end
+
+    context "as an org lead" do
+      let(:user) { create :user }
+      before do
+        create :organization_lead_role, user: user
+      end
+
+      it 'shows they are an org lead' do
+        expect(helper.user_roles(user)).to eq "Organization lead"
+      end
+    end
   end
 end

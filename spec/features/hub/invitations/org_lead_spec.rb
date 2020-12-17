@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Sending and accepting invitations" do
+RSpec.feature "Inviting organization leads" do
   context "As an admin user" do
     let(:user) { create :admin_user }
     let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders" }
@@ -16,7 +16,7 @@ RSpec.feature "Sending and accepting invitations" do
       within("h1") do
         expect(page).to have_text "Invitations"
       end
-      click_on "Invite a new user"
+      click_on "Invite a new organization lead"
 
       # new invitation page
       expect(page).to have_text "Send a new invitation"
@@ -69,7 +69,7 @@ RSpec.feature "Sending and accepting invitations" do
 
       expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
       expect(page).to have_text "Colleen Cauliflower"
-      expect(page).to have_text "Agent"
+      expect(page).to have_text "Organization lead"
       expect(page).to have_text "Brassica Asset Builders"
     end
   end
