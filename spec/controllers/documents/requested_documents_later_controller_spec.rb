@@ -1,20 +1,9 @@
 require "rails_helper"
 
 RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller do
-  render_views
   let(:token) {"t0k3nN0tbr0k3n?"}
   let!(:original_intake) { create :intake, requested_docs_token: token, intake_ticket_id: 123, client: (create :client) }
   let!(:documents_request) { create :documents_request, intake: original_intake }
-  before do
-    # everything should still work in the offseason
-    allow(Rails.configuration).to receive(:offseason).and_return true
-    Rails.application.reload_routes!
-  end
-
-  after do
-    allow(Rails.configuration).to receive(:offseason).and_call_original
-    Rails.application.reload_routes!
-  end
 
   describe "#edit" do
     context "when page renders successfully" do
@@ -205,6 +194,7 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
       end
 
       context "with invalid params" do
+        render_views
         let(:invalid_params) do
           {
             requested_document_upload_form: {
