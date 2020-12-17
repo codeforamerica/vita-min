@@ -23,7 +23,7 @@ describe Ability do
   end
 
   context "a user and client without an organization" do
-    let(:user) { create(:user_with_org, vita_partner: nil) }
+    let(:user) { create(:user, vita_partner: nil) }
     let(:client) { create(:client, vita_partner: nil) }
     let(:intake) { create(:intake, vita_partner: nil, client: client) }
 
@@ -41,13 +41,15 @@ describe Ability do
   end
 
   context "a user who is a member of a parent organization" do
-    let(:child_org) { create :vita_partner }
-    let(:parent_org) { create :vita_partner, sub_organizations: [child_org] }
-    let(:user) { create :user_with_org, vita_partner: parent_org }
-    let(:intake) { create(:intake, vita_partner: child_org, client: (create :client, vita_partner: child_org)) }
+    let(:organization) { create :organization }
+    let!(:site) { create :site, parent_organization: organization }
+    let(:user) { create :user }
+    let(:intake) { create(:intake, vita_partner: site, client: (create :client, vita_partner: site)) }
     let(:client) { intake.client }
 
-    it "can manage clients assigned to suborganizations but not the org itself" do
+    before { create :organization_lead_role, user: user, organization: organization }
+
+    it "can manage clients assigned to suborganizations but not manage the org itself" do
       expect(subject.can?(:manage, client)).to eq true
       expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq true
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq true
@@ -56,16 +58,21 @@ describe Ability do
       expect(subject.can?(:manage, Note.new(client: client))).to eq true
       expect(subject.can?(:manage, SystemNote.new(client: client))).to eq true
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
-      expect(subject.can?(:manage, child_org)).to eq false
+      expect(subject.can?(:manage, site)).to eq false
     end
   end
 
-  context "a user who is a member of an organization without child organizations" do
-    let(:user) { create :user_with_org, vita_partner: create(:vita_partner) }
-    let(:accessible_client) { create(:client, vita_partner: user.vita_partner) }
-    let(:accessible_intake) { create(:intake, vita_partner: user.vita_partner) }
-    let(:other_vita_partner_client) { create(:client, vita_partner: create(:vita_partner)) }
+  context "an organization lead" do
+    let(:organization) { create(:organization) }
+    let(:user) { create :user }
+    let(:accessible_client) { create(:client, vita_partner: organization) }
+    let(:accessible_intake) { create(:intake, vita_partner: organization) }
+    let(:other_vita_partner_client) { create(:client, vita_partner: create(:organization)) }
     let(:nil_vita_partner_client) { create(:client, vita_partner: nil) }
+
+    before do
+      create(:organization_lead_role, user: user, organization: organization)
+    end
 
     it "can manage data from their own organization's clients but not the org itself" do
       expect(subject.can?(:manage, accessible_client)).to eq true
@@ -108,7 +115,7 @@ describe Ability do
   context "a coalition lead" do
     let(:coalition_member_organization) { create(:vita_partner) }
     let(:intake) { create(:intake, vita_partner: coalition_member_organization) }
-    let(:user) { create :user_with_org, vita_partner: create(:vita_partner), supported_organizations: [coalition_member_organization] }
+    let(:user) { create :user, supported_organizations: [coalition_member_organization] }
     let(:coalition_member_client) { create(:client, intake: intake, vita_partner: coalition_member_organization) }
 
     it "can manage data from the coalition member organization" do

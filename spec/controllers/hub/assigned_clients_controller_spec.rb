@@ -6,12 +6,16 @@ RSpec.describe Hub::AssignedClientsController do
   end
 
   context "as an authenticated user" do
-    let(:vita_partner) { create(:vita_partner) }
-    let(:user) { create(:user_with_org, vita_partner: vita_partner) }
+    let(:organization) { create(:organization) }
+    let(:user) { create(:user) }
 
-    before { sign_in user}
-    let!(:assigned_to_me) { create :client, vita_partner: vita_partner, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_in_progress")] }
-    let!(:not_assigned_to_me) { create :client, vita_partner: vita_partner, intake: (create :intake), tax_returns: [(create :tax_return)] }
+    before do
+      create :organization_lead_role, user: user, organization: organization
+      sign_in user
+    end
+
+    let!(:assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_in_progress")] }
+    let!(:not_assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return)] }
 
     it "should allow me to see only clients with tax returns assigned to me" do
       get :index
@@ -83,7 +87,7 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       context "filtering by needs attention" do
-        let!(:needs_attention) { create :client, attention_needed_since: DateTime.now, vita_partner: user.vita_partner, tax_returns: [(create :tax_return, assigned_user: user)] }
+        let!(:needs_attention) { create :client, attention_needed_since: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return, assigned_user: user)] }
         it "filters in" do
           get :index, params: { needs_attention: true }
           expect(assigns(:clients)).to include needs_attention
@@ -91,7 +95,7 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       context "filtering and sorting" do
-        let!(:starts_with_a_assigned) { create :client, intake: (create :intake, preferred_name: "Aardvark Alan"), vita_partner: user.vita_partner, tax_returns: [(create :tax_return, status: "intake_in_progress", assigned_user: user)] }
+        let!(:starts_with_a_assigned) { create :client, intake: (create :intake, preferred_name: "Aardvark Alan"), vita_partner: organization, tax_returns: [(create :tax_return, status: "intake_in_progress", assigned_user: user)] }
 
         it "preferred_name, asc" do
           get :index, params: { status: "intake_in_progress", column: "preferred_name", order: "asc" }

@@ -6,7 +6,7 @@ RSpec.describe Hub::UsersController do
 
     context "with an authenticated user" do
       render_views
-      let(:user) { create :user_with_org, name: "Adam Avocado" }
+      let(:user) { create :user, name: "Adam Avocado" }
 
       before do
         create :organization_lead_role, user: user
