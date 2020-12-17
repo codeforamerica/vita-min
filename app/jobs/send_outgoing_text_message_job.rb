@@ -2,7 +2,9 @@ class SendOutgoingTextMessageJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
 
-  def perform(outgoing_text_message)
+  def perform(outgoing_text_message_id)
+    outgoing_text_message = OutgoingTextMessage.find(outgoing_text_message_id)
+
     twilio_client = Twilio::REST::Client.new(
       EnvironmentCredentials.dig(:twilio, :account_sid),
       EnvironmentCredentials.dig(:twilio, :auth_token)

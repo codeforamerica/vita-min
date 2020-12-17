@@ -17,7 +17,7 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
     end
 
     it "send the message to Twilio along with a status callback URL and saves the status into the model" do
-      SendOutgoingTextMessageJob.perform_now(outgoing_text_message)
+      SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id)
       expect(fake_twilio_messages).to have_received(:create).with(
         messaging_service_sid: "f@k3s!d",
         to: outgoing_text_message.to_phone_number,

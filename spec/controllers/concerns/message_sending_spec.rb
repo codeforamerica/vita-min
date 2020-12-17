@@ -175,7 +175,7 @@ RSpec.describe MessageSending, type: :controller do
           expect(outgoing_text_message.sent_at).to eq expected_time
           expect(outgoing_text_message.to_phone_number).to eq client.sms_phone_number
           expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_text_message)
-          expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message)
+          expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
         end
 
         context "with blank body" do
@@ -214,7 +214,7 @@ RSpec.describe MessageSending, type: :controller do
         expect(system_text_message.sent_at).to eq expected_time
         expect(system_text_message.to_phone_number).to eq client.sms_phone_number
         expect(ClientChannel).to have_received(:broadcast_contact_record).with(system_text_message)
-        expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(system_text_message)
+        expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(system_text_message.id)
       end
     end
   end
