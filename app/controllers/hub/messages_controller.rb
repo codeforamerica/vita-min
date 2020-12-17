@@ -8,8 +8,6 @@ module Hub
     load_and_authorize_resource :incoming_text_message, parent: false, through: :client
     load_and_authorize_resource :outgoing_email, parent: false, through: :client
     load_and_authorize_resource :incoming_email, parent: false, through: :client
-    load_and_authorize_resource :system_email, parent: false, through: :client
-    load_and_authorize_resource :system_text_message, parent: false, through: :client
 
     layout "admin"
 
@@ -18,9 +16,7 @@ module Hub
         @outgoing_text_messages.includes(:user) +
         @incoming_text_messages +
         @outgoing_emails.includes(:user) +
-        @incoming_emails +
-        @system_emails +
-        @system_text_messages
+        @incoming_emails
       ).sort_by(&:datetime)
       @messages_by_day = @contact_history.group_by { |message| message.datetime.beginning_of_day }
       @outgoing_text_message = OutgoingTextMessage.new(client: @client)

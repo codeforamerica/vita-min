@@ -42,7 +42,7 @@ RSpec.describe ClientChannel, type: :channel do
 
   describe ".broadcast_contact_record" do
     context "publishing a message" do
-      let(:outgoing_text_message) { create(:outgoing_text_message) }
+      let!(:outgoing_text_message) { create(:outgoing_text_message) }
 
       before do
         allow(ApplicationController).to receive(:render).and_return("template output")

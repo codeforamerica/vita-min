@@ -16,10 +16,8 @@ class Ability
       can :manage, [
         IncomingTextMessage,
         OutgoingTextMessage,
-        SystemTextMessage,
         IncomingEmail,
         OutgoingEmail,
-        SystemEmail,
         Note,
         Document,
         TaxReturn,

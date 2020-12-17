@@ -381,7 +381,7 @@ ActiveRecord::Schema.define(version: 2020_12_17_174546) do
     t.string "subject", null: false
     t.string "to", null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.index ["client_id"], name: "index_outgoing_emails_on_client_id"
     t.index ["user_id"], name: "index_outgoing_emails_on_user_id"
   end
@@ -395,7 +395,7 @@ ActiveRecord::Schema.define(version: 2020_12_17_174546) do
     t.string "twilio_sid"
     t.string "twilio_status"
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.index ["client_id"], name: "index_outgoing_text_messages_on_client_id"
     t.index ["user_id"], name: "index_outgoing_text_messages_on_user_id"
   end
@@ -451,16 +451,6 @@ ActiveRecord::Schema.define(version: 2020_12_17_174546) do
     t.string "visitor_id"
   end
 
-  create_table "system_emails", force: :cascade do |t|
-    t.string "body", null: false
-    t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "sent_at", null: false
-    t.string "subject", null: false
-    t.string "to", null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "system_notes", force: :cascade do |t|
     t.text "body"
     t.bigint "client_id", null: false
@@ -469,18 +459,6 @@ ActiveRecord::Schema.define(version: 2020_12_17_174546) do
     t.bigint "user_id"
     t.index ["client_id"], name: "index_system_notes_on_client_id"
     t.index ["user_id"], name: "index_system_notes_on_user_id"
-  end
-
-  create_table "system_text_messages", force: :cascade do |t|
-    t.string "body", null: false
-    t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "sent_at", null: false
-    t.string "to_phone_number", null: false
-    t.string "twilio_sid"
-    t.string "twilio_status"
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_system_text_messages_on_client_id"
   end
 
   create_table "tax_returns", force: :cascade do |t|
@@ -602,7 +580,6 @@ ActiveRecord::Schema.define(version: 2020_12_17_174546) do
   add_foreign_key "states_vita_partners", "vita_partners"
   add_foreign_key "system_notes", "clients"
   add_foreign_key "system_notes", "users"
-  add_foreign_key "system_text_messages", "clients"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "users", "users", column: "invited_by_id"

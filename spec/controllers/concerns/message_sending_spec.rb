@@ -99,7 +99,7 @@ RSpec.describe MessageSending, type: :controller do
           expect do
             subject.send_system_email("hello", "subject")
           end.to raise_error(StandardError)
-        end.not_to change(SystemEmail, :count)
+        end.not_to change(OutgoingEmail, :count)
       end
     end
 
@@ -109,9 +109,9 @@ RSpec.describe MessageSending, type: :controller do
       it "saves a new outgoing email with the right info, enqueues email, and broadcasts to ClientChannel" do
         expect do
           subject.send_system_email("hello", "subject")
-        end.to change(SystemEmail, :count).by(1).and have_enqueued_mail(OutgoingEmailMailer, :user_message)
+        end.to change(OutgoingEmail, :count).by(1).and have_enqueued_mail(OutgoingEmailMailer, :user_message)
 
-        system_email = SystemEmail.last
+        system_email = OutgoingEmail.last
         expect(system_email.subject).to eq("subject")
         expect(system_email.body).to eq("hello")
         expect(system_email.client).to eq client
@@ -196,7 +196,7 @@ RSpec.describe MessageSending, type: :controller do
           expect do
             subject.send_system_text_message("hello")
           end.to raise_error(StandardError)
-        end.not_to change(SystemTextMessage, :count)
+        end.not_to change(OutgoingTextMessage, :count)
       end
     end
 
@@ -206,9 +206,9 @@ RSpec.describe MessageSending, type: :controller do
       it "saves a new system text message with the right info, enqueues job, and broadcasts to ClientChannel" do
         expect do
           subject.send_system_text_message("hello")
-        end.to change(SystemTextMessage, :count).by(1)
+        end.to change(OutgoingTextMessage, :count).by(1)
 
-        system_text_message = SystemTextMessage.last
+        system_text_message = OutgoingTextMessage.last
         expect(system_text_message.body).to eq("hello")
         expect(system_text_message.client).to eq client
         expect(system_text_message.sent_at).to eq expected_time

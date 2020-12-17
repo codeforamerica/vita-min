@@ -86,6 +86,15 @@ RSpec.describe IncomingTextMessage, type: :model do
     end
   end
 
+  describe "#from" do
+    let(:incoming_text_message) { build :incoming_text_message, from_phone_number: input_number }
+    let(:input_number) { "+15005550006" }
+
+    it "formats the provided phone number" do
+      expect(incoming_text_message.from).to eq "(500) 555-0006"
+    end
+  end
+
   describe "#formatted_time" do
     let(:message) { create :incoming_text_message, received_at: DateTime.new(2020, 2, 1, 2, 45, 1) }
 

@@ -1,11 +1,19 @@
 require "rails_helper"
 
 RSpec.describe OutgoingEmailMailer, type: :mailer do
+  before do
+    allow(ClientChannel).to receive(:broadcast_contact_record)
+  end
+
   describe "#user_message" do
     let(:attachment) { nil }
     let(:outgoing_email) do
       create :outgoing_email, subject: "Update from GetYourRefund", body: body.chomp, to: "different@example.com", attachment: attachment
     end
+    let(:built_email) do
+      build :outgoing_email, subject: "Update from GetYourRefund", body: body.chomp, to: "different@example.com", attachment: attachment
+    end
+
     let(:body) do
       <<~BODY
         Line 1

@@ -116,6 +116,11 @@ es:
         text_message_form:
           label: Enviar un mensaje de texto
           submit: Enviar
+      email_from: Email de
+      email_to: Email a
+      automated: Automatizado
+      text_from: Texto de
+      text_to: Texto a
     notes:
       index:
         note_form:

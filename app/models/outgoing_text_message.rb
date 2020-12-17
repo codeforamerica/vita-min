@@ -11,7 +11,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  client_id       :bigint           not null
-#  user_id         :bigint           not null
+#  user_id         :bigint
 #
 # Indexes
 #
@@ -28,22 +28,36 @@ class OutgoingTextMessage < ApplicationRecord
   include InteractionTracking
 
   belongs_to :client
-  belongs_to :user
+  belongs_to :user, optional: true
   validates_presence_of :body
   validates_presence_of :sent_at
   validates :to_phone_number, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
 
-  after_create :record_outgoing_interaction
+  after_create :record_outgoing_interaction, :deliver, :broadcast
 
   def datetime
     sent_at
   end
 
   def author
-    user.name
+    user&.name
   end
 
   def documents
     []
+  end
+
+  def to
+    Phonelib.parse(to_phone_number, "US").local_number
+  end
+
+  private
+
+  def deliver
+    SendOutgoingTextMessageJob.perform_later(self)
+  end
+
+  def broadcast
+    ClientChannel.broadcast_contact_record(self)
   end
 end

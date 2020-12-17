@@ -10,7 +10,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  client_id  :bigint           not null
-#  user_id    :bigint           not null
+#  user_id    :bigint
 #
 # Indexes
 #
@@ -27,23 +27,34 @@ class OutgoingEmail < ApplicationRecord
   include InteractionTracking
 
   belongs_to :client
-  belongs_to :user
+  belongs_to :user, optional: true
+  validates_presence_of :to
   validates_presence_of :body
   validates_presence_of :subject
   validates_presence_of :sent_at
   has_one_attached :attachment
 
-  after_create :record_outgoing_interaction
+  after_create :record_outgoing_interaction, :deliver, :broadcast
 
   def datetime
     sent_at
   end
 
   def author
-    user.name
+    user&.name
   end
 
   def attachments
     attachment.present? ? [attachment] : nil
+  end
+
+  private
+
+  def deliver
+    OutgoingEmailMailer.user_message(outgoing_email: self).deliver_later
+  end
+
+  def broadcast
+    ClientChannel.broadcast_contact_record(self)
   end
 end
