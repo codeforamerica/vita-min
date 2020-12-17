@@ -10,7 +10,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  client_id  :bigint           not null
-#  user_id    :bigint           not null
+#  user_id    :bigint
 #
 # Indexes
 #
@@ -27,7 +27,7 @@ class OutgoingEmail < ApplicationRecord
   include InteractionTracking
 
   belongs_to :client
-  belongs_to :user
+  belongs_to :user, optional: true
   validates_presence_of :to
   validates_presence_of :body
   validates_presence_of :subject
@@ -41,7 +41,7 @@ class OutgoingEmail < ApplicationRecord
   end
 
   def author
-    user.name
+    user&.name
   end
 
   def attachments

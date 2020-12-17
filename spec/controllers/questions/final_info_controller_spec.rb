@@ -34,9 +34,9 @@ RSpec.describe Questions::FinalInfoController do
         it "sends a success email" do
           expect do
             post :update, params: params
-          end.to change(SystemEmail, :count).by(1).and change(SystemTextMessage, :count).by(0)
+          end.to change(OutgoingEmail, :count).by(1).and change(OutgoingTextMessage, :count).by(0)
 
-          expect(SystemEmail.last.body).to eq I18n.t(
+          expect(OutgoingEmail.last.body).to eq I18n.t(
               "messages.successful_submission.email_body",
               locale: "en",
               preferred_name: intake.preferred_name,
@@ -49,7 +49,7 @@ RSpec.describe Questions::FinalInfoController do
           intake.update(locale: "es")
           post :update, params: params
 
-          expect(SystemEmail.last.body).to eq I18n.t(
+          expect(OutgoingEmail.last.body).to eq I18n.t(
               "messages.successful_submission.email_body",
               locale: "es",
               preferred_name: intake.preferred_name,
@@ -67,14 +67,14 @@ RSpec.describe Questions::FinalInfoController do
         it "sends a success sms" do
           expect do
             post :update, params: params
-          end.to change(SystemTextMessage, :count).by(1).and change(SystemEmail, :count).by(0)
+          end.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(0)
         end
 
         it "sends a success sms in the correct language" do
           intake.update(locale: "es")
           post :update, params: params
 
-          expect(SystemTextMessage.last.body).to eq I18n.t(
+          expect(OutgoingTextMessage.last.body).to eq I18n.t(
               "messages.successful_submission.sms_body",
               locale: "es",
               preferred_name: intake.preferred_name,
@@ -92,7 +92,7 @@ RSpec.describe Questions::FinalInfoController do
         it "sends a success sms and email" do
           expect do
             post :update, params: params
-          end.to change(SystemTextMessage, :count).by(1).and change(SystemEmail, :count).by(1)
+          end.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
         end
       end
     end

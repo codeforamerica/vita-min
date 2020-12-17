@@ -310,7 +310,7 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "Nope."
     expect do
       click_on "Submit"
-    end.to change(SystemTextMessage, :count).by(1).and change(SystemEmail, :count).by(1)
+    end.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
 
     expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
     expect(page).to have_text("Your confirmation number is: #{intake.client_id}")

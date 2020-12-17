@@ -2,6 +2,8 @@ module MessageSending
   # This module expects the controller to assign @client, typically via load_and_authorize_resource.
 
   def send_email(body, attachment: nil, subject_locale: nil)
+    raise ActiveRecord::RecordInvalid unless current_user
+
     OutgoingEmail.create!(
       to: @client.email_address,
       body: body,
@@ -14,7 +16,7 @@ module MessageSending
   end
 
   def send_system_email(body, subject)
-    SystemEmail.create!(
+    OutgoingEmail.create!(
       to: @client.email_address,
       body: body,
       subject: subject,
@@ -25,6 +27,8 @@ module MessageSending
   end
 
   def send_text_message(body)
+    raise ActiveRecord::RecordInvalid unless current_user
+
     OutgoingTextMessage.create!(
       client: @client,
       to_phone_number: @client.sms_phone_number,
@@ -35,7 +39,7 @@ module MessageSending
   end
 
   def send_system_text_message(body)
-    SystemTextMessage.create!(
+    OutgoingTextMessage.create!(
       client: @client,
       body: body,
       to_phone_number: @client.sms_phone_number,

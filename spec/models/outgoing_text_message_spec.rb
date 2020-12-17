@@ -11,7 +11,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  client_id       :bigint           not null
-#  user_id         :bigint           not null
+#  user_id         :bigint
 #
 # Indexes
 #
@@ -37,7 +37,6 @@ RSpec.describe OutgoingTextMessage, type: :model do
 
       it "is not valid and adds an error to each field" do
         expect(message).not_to be_valid
-        expect(message.errors).to include :user
         expect(message.errors).to include :client
         expect(message.errors).to include :sent_at
         expect(message.errors).to include :body
@@ -111,6 +110,14 @@ RSpec.describe OutgoingTextMessage, type: :model do
     end
   end
 
+  describe "#to" do
+    let(:outgoing_text_message) { build :outgoing_text_message, to_phone_number: input_number }
+    let(:input_number) { "+15005550006" }
+
+    it "formats the provided phone number" do
+      expect(outgoing_text_message.to).to eq "(500) 555-0006"
+    end
+  end
 
   describe "#formatted_time" do
     let(:message) { create :outgoing_text_message, sent_at: DateTime.new(2020, 2, 1, 2, 45, 1) }

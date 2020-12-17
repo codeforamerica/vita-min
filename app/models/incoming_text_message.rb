@@ -36,4 +36,8 @@ class IncomingTextMessage < ApplicationRecord
   def author
     client.preferred_name
   end
+
+  def from
+    Phonelib.parse(from_phone_number, "US").local_number
+  end
 end

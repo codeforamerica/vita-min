@@ -27,8 +27,6 @@ RSpec.describe Hub::MessagesController do
             create(:outgoing_email, body: "We are really excited to work with you", sent_at: DateTime.new(2020, 1, 1, 14, 0, 3), client: client, user: create(:user, name: "Gob"), to: "always@banana.stand"),
             create(:incoming_text_message, body: "Thx appreciate yr gratitude", received_at: DateTime.new(2020, 1, 1, 0, 0, 2), from_phone_number: "+14155537865", client: client),
             create(:outgoing_text_message, body: "Your tax return is great", sent_at: DateTime.new(2019, 12, 31, 0, 0, 1), to_phone_number: '+14155532222', client: client, twilio_status: twilio_status, user: create(:user, name: "Lucille")),
-            create(:system_email, body: "Your tax information has been successfully submitted!", subject: "Confirmation Message", sent_at: DateTime.new(2019, 12, 28, 11, 0, 1), to: client.intake.email_address, client: client),
-            create(:system_text_message, body: "Successful submission text message!", sent_at: DateTime.new(2019, 12, 26, 11, 0, 1), to_phone_number: '+14155532222', client: client)
           ].reverse
         end
 
@@ -43,12 +41,10 @@ RSpec.describe Hub::MessagesController do
 
           messages = Nokogiri::HTML.parse(response.body).css(".message__body")
 
-          expect(messages[0]).to have_text("Successful submission text message!")
-          expect(messages[1]).to have_text("Your tax information has been successfully submitted!")
-          expect(messages[2]).to have_text("Your tax return is great")
-          expect(messages[3]).to have_text("Thx appreciate yr gratitude")
-          expect(messages[4]).to have_text("We are really excited to work with you")
-          expect(messages[5]).to have_text("Me too! Happy to get every notification")
+          expect(messages[0]).to have_text("Your tax return is great")
+          expect(messages[1]).to have_text("Thx appreciate yr gratitude")
+          expect(messages[2]).to have_text("We are really excited to work with you")
+          expect(messages[3]).to have_text("Me too! Happy to get every notification")
         end
 
         it "groups messages by date" do
@@ -56,12 +52,10 @@ RSpec.describe Hub::MessagesController do
 
           expect(assigns(:contact_history)).to eq expected_contact_history
 
-          expect(assigns(:messages_by_day).keys.count).to eq 5
-          expect(assigns(:messages_by_day).keys[0]).to eq DateTime.new(2019, 12, 26, 11, 0, 1).in_time_zone('America/New_York').beginning_of_day
-          expect(assigns(:messages_by_day).keys[1]).to eq DateTime.new(2019, 12, 28, 11, 0, 1).in_time_zone('America/New_York').beginning_of_day
-          expect(assigns(:messages_by_day).keys[2]).to eq DateTime.new(2019, 12, 31, 0, 0, 1).in_time_zone('America/New_York').beginning_of_day
-          expect(assigns(:messages_by_day).keys[3]).to eq DateTime.new(2020, 1, 1, 0, 0, 2).in_time_zone('America/New_York').beginning_of_day
-          expect(assigns(:messages_by_day).keys[4]).to eq DateTime.new(2020, 1, 1, 14, 0, 3).in_time_zone('America/New_York').beginning_of_day
+          expect(assigns(:messages_by_day).keys.count).to eq 3
+          expect(assigns(:messages_by_day).keys[0]).to eq DateTime.new(2019, 12, 31, 0, 0, 1).in_time_zone('America/New_York').beginning_of_day
+          expect(assigns(:messages_by_day).keys[1]).to eq DateTime.new(2020, 1, 1, 0, 0, 2).in_time_zone('America/New_York').beginning_of_day
+          expect(assigns(:messages_by_day).keys[2]).to eq DateTime.new(2020, 1, 1, 14, 0, 3).in_time_zone('America/New_York').beginning_of_day
         end
 
         context "outgoing text messages" do
@@ -122,31 +116,6 @@ RSpec.describe Hub::MessagesController do
             expect(message_record).to have_text("1:00 PM EST")
             expect(message_record).to have_text("Email from Georgie <money@banana.stand>")
             expect(message_record).to have_text("Me too! Happy to get every notification")
-          end
-        end
-
-        context "system emails" do
-          it "displays the time of message, type, body, recipient" do
-            get :index, params: params
-
-            message_record = Nokogiri::HTML.parse(response.body).at_css(".message--system_email")
-            expect(message_record).to have_text("GetYourRefund Team")
-            expect(message_record).to have_text("6:00 AM EST")
-            expect(message_record).to have_text("Automated email to #{client.intake.email_address}")
-            expect(message_record).to have_text("Confirmation Message")
-            expect(message_record).to have_text("Your tax information has been successfully submitted!")
-          end
-        end
-
-        context "system text messages" do
-          it "displays the time of message, type, body, recipient" do
-            get :index, params: params
-
-            message_record = Nokogiri::HTML.parse(response.body).at_css(".message--system_text_message")
-            expect(message_record).to have_text("GetYourRefund Team")
-            expect(message_record).to have_text("6:00 AM EST")
-            expect(message_record).to have_text("Automated text message to #{client.intake.sms_phone_number}")
-            expect(message_record).to have_text("Successful submission text message!")
           end
         end
 
