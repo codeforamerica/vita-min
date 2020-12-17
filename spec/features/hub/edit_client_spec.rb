@@ -93,6 +93,12 @@ RSpec.describe "a user editing a clients intake fields" do
         expect(all(".dependent-form").length).to eq 3
       end
 
+      within "#spouse-info" do
+        fill_in "Legal first name", with: "Peter"
+        fill_in "Legal last name", with: "Pepper"
+        fill_in "Email", with: "spicypeter@pepper.com"
+      end
+
       click_on "Save"
       expect(page).to have_text("Please enter the last name of each dependent.")
 
@@ -127,6 +133,8 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "+15005550006"
       expect(page).to have_text "123 Garden Ln"
       expect(page).to have_text "Brassicaville, CA 95032"
+      expect(page).to have_text "Peter Pepper"
+      expect(page).to have_text "spicypeter@pepper.com"
     end
 
     it "creates a system note for client profile change" do
