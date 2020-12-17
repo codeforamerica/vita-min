@@ -2,7 +2,7 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="hub-form">
-    <%= link_to t("general.all_organizations"), hub_organizations_path, class: "button button--small" %>
+    <%= link_to t("general.all_organizations"), hub_organizations_path %>
 
     <%= form_with model: @organization, url: hub_organization_path, method: :put, local: true, builder: VitaMinFormBuilder do |f| %>
       <h1 class="form-card__title">
