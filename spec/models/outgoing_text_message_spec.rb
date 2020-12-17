@@ -64,7 +64,7 @@ RSpec.describe OutgoingTextMessage, type: :model do
         it "enqueues a job to sent the text" do
           expect {
             message.save
-          }.to have_enqueued_job.on_queue("default").with(message)
+          }.to have_enqueued_job.on_queue("default").with(message.id)
         end
 
         it "broadcasts the text message" do

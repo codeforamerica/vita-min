@@ -54,7 +54,7 @@ class OutgoingTextMessage < ApplicationRecord
   private
 
   def deliver
-    SendOutgoingTextMessageJob.perform_later(self)
+    SendOutgoingTextMessageJob.perform_later(id)
   end
 
   def broadcast
