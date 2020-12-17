@@ -13,6 +13,16 @@ class TaxReturnStatus
       end
       stages
     end
+
+    def message_templates
+      {
+          intake_more_info: "hub.status_macros.needs_more_information",
+          prep_more_info: "hub.status_macros.needs_more_information",
+          review_more_info: "hub.status_macros.needs_more_information",
+          prep_ready_for_review: "hub.status_macros.ready_for_qr",
+          filed_accepted: "hub.status_macros.accepted"
+      }
+    end
   end
   # If we ever need to add statuses between these numbers, we can multiply these by 100, do a data migration, and
   # then insert a value in between.
@@ -28,4 +38,8 @@ class TaxReturnStatus
 
   STATUSES_BY_STAGE = determine_statuses_by_stage.freeze
   STAGES = STATUSES_BY_STAGE.keys.freeze
+
+  def self.message_template_for(status, locale = "en")
+    message_templates[status.to_sym] ? I18n.t(message_templates[status.to_sym], locale: locale) : ""
+  end
 end

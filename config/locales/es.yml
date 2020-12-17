@@ -165,31 +165,31 @@ es:
         filed_accepted: Aceptado
     status_macros:
       needs_more_information: |
-        ¡Hola!
+        ¡Hola <<Client.PreferredName>>!
 
         Para continuar presentando sus impuestos, necesitamos que nos envíe:
-        %{required_documents}
-        Sube tus documentos de forma segura por %{document_upload_link}
+        <<Documents.List>>
+        Sube tus documentos de forma segura por <<Documents.UploadLink>>
 
         Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
 
         ¡Gracias!
-        Su equipo de impuestos en GetYourRefund.org
+        <<Preparer.FirstName>> en GetYourRefund.org
       ready_for_qr: |
-        ¡Hola!
+        ¡Hola <<Client.PreferredName>>!
 
         ¡Su devolución ahora está siendo revisada en calidad!
 
         ¡Gracias!
-        Su equipo de impuestos en GetYourRefund.org
+        <<Preparer.FirstName>> en GetYourRefund.org
       accepted: |
-        ¡Hola!
+        ¡Hola <<Client.PreferredName>>!
 
         ¡Se han aceptado sus declaraciones federales y estatales! No recibirá más notificaciones. Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
         Si tiene alguna pregunta, responda a este mensaje.
 
         ¡Gracias!
-        Su equipo de impuestos en GetYourRefund.org
+        <<Preparer.FirstName>> en GetYourRefund.org
     bank_accounts:
       info_displayed: Visualización de la información de la cuenta bancaria
       bank_name: Nombre del banco
@@ -483,6 +483,7 @@ es:
     year: año
     you: usted
     you_or_spouse: usted o su cónyuge
+    tax_team: Su equipo de impuestos
     zendesk:
       access_denied: No tiene autorización para acceder a esa página
     zip_code: Código postal

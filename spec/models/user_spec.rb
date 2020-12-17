@@ -90,4 +90,27 @@ RSpec.describe User, type: :model do
       expect(accessible_organization_ids).not_to include(not_accessible_partner.id)
     end
   end
+
+  describe "first_name" do
+    context "Luke" do
+      let(:user) { build :user, name: "Luke"}
+      it "returns nil" do
+        expect(user.first_name).to eq "Luke"
+      end
+    end
+
+    context "Luke Skywalker" do
+      let(:user) { build :user, name: "Luke Skywalker"}
+      it "returns nil" do
+        expect(user.first_name).to eq "Luke"
+      end
+    end
+
+    context "without name" do
+      let(:user) { build :user, name: nil}
+      it "returns nil" do
+        expect(user.first_name).to eq nil
+      end
+    end
+  end
 end

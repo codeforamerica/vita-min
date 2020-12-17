@@ -702,11 +702,10 @@ RSpec.describe Hub::ClientsController do
         it "prepopulates the form using the locale, status, and relevant template" do
           get :edit_take_action, params: params
 
-          filled_out_template = I18n.t("hub.status_macros.needs_more_information", locale: "es")[0..10]
           expect(assigns(:take_action_form).tax_return_id).to eq tax_return_2019.id
           expect(assigns(:take_action_form).status).to eq "intake_more_info"
           expect(assigns(:take_action_form).locale).to eq "es"
-          expect(assigns(:take_action_form).message_body).to include filled_out_template
+          expect(assigns(:take_action_form).message_body).not_to be_blank
           expect(assigns(:take_action_form).contact_method).to eq "email"
         end
 
@@ -790,8 +789,6 @@ RSpec.describe Hub::ClientsController do
           expect(flash[:notice]).to eq "Success: Action taken! Updated status, sent email, added internal note."
         end
       end
-
-
     end
   end
 end
