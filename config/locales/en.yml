@@ -165,31 +165,31 @@ en:
         filed_accepted: Accepted
     status_macros:
       needs_more_information: |
-        Hello!
+        Hello <<Client.PreferredName>>!
 
         In order to continue filing your taxes, we need you to send us:
-        %{required_documents}
-        Securely upload your documents by going to %{document_upload_link}
+        <<Documents.List>>
+        Securely upload your documents by going to <<Documents.UploadLink>>.
 
         Please let us know if you have any questions. We cannot prepare your taxes without this information.
 
         Thanks!
-        Your tax team at GetYourRefund.org
+        <<Preparer.FirstName>> at GetYourRefund.org
       ready_for_qr: |
-        Hello!
+        Hello <<Client.PreferredName>>!
 
         Your return is now being quality reviewed!
 
         Thanks!
-        Your tax team at GetYourRefund.org
+        <<Preparer.FirstName>> at GetYourRefund.org
       accepted: |
-        Hello!
+        Hello <<Client.PreferredName>>!
 
         Your federal and state returns have been accepted! You will not receive any further notifications. If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
         If you have any questions, please reply to this message.
 
         Thanks!
-        Your tax team at GetYourRefund.org
+        <<Preparer.FirstName>> at GetYourRefund.org
     bank_accounts:
       info_displayed: Displaying bank account information
       bank_name: Bank name
@@ -483,6 +483,7 @@ en:
     year: year
     you: you
     you_or_spouse: you or your spouse
+    tax_team: Your tax team
     zendesk:
       access_denied: You are not authorized to access that page
     zip_code: ZIP code

@@ -74,4 +74,8 @@ class User < ApplicationRecord
       VitaPartner.where(parent_organization_id: accessible_organization_ids)
     )
   end
+
+  def first_name
+    name&.split(" ")&.first
+  end
 end

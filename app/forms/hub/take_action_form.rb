@@ -9,7 +9,10 @@ module Hub
                   :message_body, 
                   :contact_method, 
                   :internal_note_body, 
-                  :action_list
+                  :action_list,
+                  :current_user,
+                  :client
+    validates :status, presence: true, allow_blank: false
     validate :belongs_to_client
     validate :status_has_changed
 
@@ -26,7 +29,7 @@ module Hub
     end
 
     def language_difference_help_text
-      if @client.intake.preferred_interview_language.present? && (locale != @client.intake.preferred_interview_language)
+      if client.intake.preferred_interview_language.present? && (locale != @client.intake.preferred_interview_language)
         I18n.t(
           "hub.clients.edit_take_action.language_mismatch",
           interview_language: language_label(@client.intake.preferred_interview_language)
@@ -36,8 +39,8 @@ module Hub
 
     def contact_method_options
       methods = []
-      methods << { value: "email", label: I18n.t("general.email") } if @client.intake.email_notification_opt_in_yes?
-      methods << { value: "text_message", label: I18n.t("general.text_message") } if @client.intake.sms_notification_opt_in_yes?
+      methods << { value: "email", label: I18n.t("general.email") } if client.intake.email_notification_opt_in_yes?
+      methods << { value: "text_message", label: I18n.t("general.text_message") } if client.intake.sms_notification_opt_in_yes?
 
       # We should not have an expected case where a client hasn't opted in, but it might occur rarely or on demo
       # We don't want this form to fail silently if that is the case.
@@ -47,8 +50,8 @@ module Hub
     end
 
     def contact_method_help_text
-      if @client.intake.email_notification_opt_in_yes? ^ @client.intake.sms_notification_opt_in_yes? # ^ = XOR operator
-        preferred = @client.intake.email_notification_opt_in_yes? ? I18n.t("general.email") : I18n.t("general.text_message")
+      if client.intake.email_notification_opt_in_yes? ^ client.intake.sms_notification_opt_in_yes? # ^ = XOR operator
+        preferred = client.intake.email_notification_opt_in_yes? ? I18n.t("general.email") : I18n.t("general.text_message")
         other_method = preferred == I18n.t("general.text_message") ? I18n.t("general.email") : I18n.t("general.text_message")
         I18n.t(
           "hub.clients.edit_take_action.prefers_one_contact_method",
@@ -63,7 +66,7 @@ module Hub
 
       tax_return.status = status
       if tax_return.save
-        SystemNote.create_status_change_note(@current_user, tax_return)
+        SystemNote.create_status_change_note(current_user, tax_return)
         @action_list << I18n.t("hub.clients.update_take_action.flash_message.status")
         send_message if message_body.present?
         create_note if internal_note_body.present?
@@ -76,7 +79,7 @@ module Hub
     end
 
     def tax_return
-      @tax_return ||= @client.tax_returns.find_by(id: tax_return_id)
+      @tax_return ||= client.tax_returns.find_by(id: tax_return_id)
     end
 
     private
@@ -95,14 +98,10 @@ module Hub
     def create_note
       Note.create!(
           body: internal_note_body,
-          client: @client,
-          user: @current_user
+          client: client,
+          user: current_user
       )
       @action_list << I18n.t("hub.clients.update_take_action.flash_message.internal_note")
-    end
-
-    def current_user
-      @current_user
     end
 
     def language_label(key)
@@ -110,34 +109,20 @@ module Hub
     end
 
     def set_default_message_body
-      @message_body = case status
-                      when "intake_more_info", "prep_more_info", "review_more_info"
-                        document_list = @client.intake.relevant_document_types.map do |doc_type|
-                          "  - " + doc_type.translated_label(@client.intake.locale)
-                        end.join("\n")
-                        I18n.t(
-                            "hub.status_macros.needs_more_information",
-                            required_documents: document_list,
-                            document_upload_link: @client.intake.requested_docs_token_link,
-                            locale: locale
-                        )
-                      when "prep_ready_for_review"
-                        I18n.t("hub.status_macros.ready_for_qr", locale: locale)
-                      when "filed_accepted"
-                        I18n.t("hub.status_macros.accepted", locale: locale)
-                      else
-                        ""
-                      end
+      @message_body = "" and return unless status.present?
+
+      template = TaxReturnStatus.message_template_for(status, locale)
+      @message_body = ReplacementParametersService.new(body: template, client: client, preparer: current_user, locale: locale).process
     end
 
     def set_default_contact_method
       default = "email"
-      prefers_sms_only = @client.intake.sms_notification_opt_in_yes? && @client.intake.email_notification_opt_in_no?
+      prefers_sms_only = client.intake.sms_notification_opt_in_yes? && client.intake.email_notification_opt_in_no?
       @contact_method = prefers_sms_only ? "text_message" : default
     end
 
     def set_default_locale
-      @locale = @client.intake.locale
+      @locale = client.intake.locale
     end
 
     def status_has_changed

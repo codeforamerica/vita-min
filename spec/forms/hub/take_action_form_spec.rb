@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Hub::TakeActionForm do
   let(:client) { intake.client }
-  let(:current_user) { create :admin_user }
+  let(:current_user) { create :admin_user, name: "Marilyn Mango" }
 
   before do
     allow(SendOutgoingTextMessageJob).to receive(:perform_later)
@@ -11,7 +11,7 @@ RSpec.describe Hub::TakeActionForm do
   end
 
   describe "setting default values" do
-    let(:intake) { create :intake, locale: "es" }
+    let(:intake) { create :intake, locale: "es", preferred_name: "Luna Lemon" }
     context "default locale" do
       context "when not explicitly provided" do
         let(:form) { Hub::TakeActionForm.new(client, current_user) }
@@ -52,11 +52,46 @@ RSpec.describe Hub::TakeActionForm do
         end
       end
 
-      context "when a status that has a message template is provided" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_more_info"}) }
+      context "when a status that has a message template is provided and locale is english" do
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_more_info", locale: "en" }) }
 
-        it "sets message body as an empty string" do
-          expect(form.message_body).not_to eq ""
+        it "sets message body to the template with replacement parameters substituted" do
+          expect(form.message_body).to start_with("Hello")
+          expect(form.message_body).to include client.preferred_name
+          expect(form.message_body).to include current_user.first_name
+        end
+      end
+
+      context "when a status that has a message template is provided and locale is spanish" do
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_more_info", locale: "es" }) }
+        let(:filled_out_template) {
+          <<~MESSAGE
+            ¡Hola Luna Lemon!
+
+            Para continuar presentando sus impuestos, necesitamos que nos envíe:
+              - Identificación
+              - Selfie
+              - SSN o ITIN
+              - Otro
+            Sube tus documentos de forma segura por https://example.com/my-token-link
+
+            Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
+
+            ¡Gracias!
+            Marilyn en GetYourRefund.org
+          MESSAGE
+        }
+
+        before do
+          allow(client.intake).to receive(:relevant_document_types).and_return [DocumentTypes::Identity, DocumentTypes::Selfie, DocumentTypes::SsnItin, DocumentTypes::Other]
+          allow(client.intake).to receive(:requested_docs_token_link).and_return "https://example.com/my-token-link"
+        end
+
+        it "sets message body to the template with replacement parameters substituted" do
+          puts(form.message_body)
+          expect(form.message_body).to eq filled_out_template
+          expect(form.message_body).to include client.preferred_name
+          expect(form.message_body).to include current_user.first_name
         end
       end
 

@@ -106,6 +106,7 @@ ignore_unused:
   - 'devise.failure.*'
   - 'hub.tax_returns.stage.*'
   - 'hub.tax_returns.status.*'
+  - 'hub.status_macros.*'
 # - 'activerecord.attributes.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
