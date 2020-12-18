@@ -21,7 +21,10 @@ module Hub
     end
 
     def index
-      @users = @users.includes(:vita_partner)
+      # TODO: Fix me!
+      my_org = OrganizationLeadRole.find_by_user_id(current_user.id)
+      my_fellow_users = OrganizationLeadRole.find_by_organization_id(my_org.id)
+      @users = @users.where(vita_partner: my_org.id)
     end
 
     def edit

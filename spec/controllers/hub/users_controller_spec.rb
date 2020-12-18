@@ -30,11 +30,13 @@ RSpec.describe Hub::UsersController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "with an authenticated user" do
-      let(:vita_partner) { create :vita_partner }
-      let(:user) { create(:user, vita_partner: vita_partner) }
+      let(:organization) { create :organization }
+      let(:user) { create(:user) }
+
       before do
+        create :organization_lead_role, user: user, organization: organization
         sign_in user
-        create :user, vita_partner: vita_partner
+        create :organization_lead_role, user: create(:user), organization: organization
       end
 
       it "displays only the user who is logged in" do
@@ -47,8 +49,9 @@ RSpec.describe Hub::UsersController do
     context "with an authenticated admin user" do
       render_views
 
-      let!(:leslie) { create :admin_user, name: "Leslie", vita_partner: create(:vita_partner, name: "Pawnee Preparers") }
+      let!(:leslie) { create :admin_user, name: "Leslie" }
       before do
+        create :organization_lead_role, user: leslie, organization: create(:vita_partner, name: "Pawnee Preparers")
         sign_in create(:admin_user)
         create :user
       end
@@ -67,7 +70,11 @@ RSpec.describe Hub::UsersController do
   end
 
   describe "#edit" do
-    let!(:user) { create :user, name: "Anne", vita_partner: create(:vita_partner) }
+    let!(:user) { create :user, name: "Anne" }
+    before do
+      create :organization_lead_role, user: user, organization: create(:organization)
+    end
+
     let(:params) { { id: user.id } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
@@ -104,7 +111,13 @@ RSpec.describe Hub::UsersController do
     end
 
     context "as an authenticated user editing someone else at the same org" do
-      before { sign_in(create(:user, vita_partner: user.vita_partner)) }
+      let(:organization) { create(:organization) }
+
+      before do
+        other_user = create(:user)
+        create :organization_lead_role, user: other_user, organization: organization
+        sign_in(other_user)
+      end
 
       it "is forbidden" do
         get :edit, params: params
@@ -115,8 +128,13 @@ RSpec.describe Hub::UsersController do
   end
 
   describe "#update" do
-    let!(:vita_partner) { create :vita_partner, name: "Avonlea Tax Aid" }
-    let!(:user) { create :user, name: "Anne", vita_partner: vita_partner }
+    let!(:organization) { create :organization, name: "Avonlea Tax Aid" }
+    let!(:user) { create :user, name: "Anne" }
+    before do
+      create :organization_lead_role, user: user, organization: organization
+    end
+
+
     let(:params) do
       {
         id: user.id,
@@ -221,7 +239,11 @@ RSpec.describe Hub::UsersController do
     end
 
     context "as an authenticated user editing someone else at the same org" do
-      before { sign_in(create(:user, vita_partner: user.vita_partner)) }
+      before do
+        other_user = create(:user)
+        create :organization_lead_role, user: other_user, organization: organization
+        sign_in(other_user)
+      end
 
       it "is forbidden" do
         get :update, params: params

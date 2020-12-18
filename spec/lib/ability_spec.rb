@@ -5,9 +5,9 @@ describe Ability do
 
   context "a nil user" do
     let(:user) { nil }
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create(:client, vita_partner: vita_partner) }
-    let(:intake) { create(:intake, vita_partner: vita_partner, client: client) }
+    let(:organization) { create :organization }
+    let(:client) { create(:client, vita_partner: organization) }
+    let(:intake) { create(:intake, vita_partner: organization, client: client) }
 
     it "cannot manage any client data" do
       expect(subject.can?(:manage, Client)).to eq false
@@ -15,7 +15,7 @@ describe Ability do
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, User.new(vita_partner: vita_partner))).to eq false
+      expect(subject.can?(:manage, User)).to eq false
       expect(subject.can?(:manage, Note.new(client: client))).to eq false
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
       expect(subject.can?(:manage, SystemNote.new)).to eq false
@@ -23,7 +23,7 @@ describe Ability do
   end
 
   context "a user and client without an organization" do
-    let(:user) { create(:user, vita_partner: nil) }
+    let(:user) { create(:user) }
     let(:client) { create(:client, vita_partner: nil) }
     let(:intake) { create(:intake, vita_partner: nil, client: client) }
 
@@ -33,7 +33,7 @@ describe Ability do
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, User.new(vita_partner: nil))).to eq false
+      expect(subject.can?(:manage, User.new)).to eq false
       expect(subject.can?(:manage, Note.new(client: client))).to eq false
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
       expect(subject.can?(:manage, SystemNote.new)).to eq false
@@ -83,7 +83,7 @@ describe Ability do
       expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, user.vita_partner)).to eq false
+      expect(subject.can?(:manage, organization)).to eq false
     end
 
     it "cannot manage data which lack an organization" do
@@ -93,7 +93,7 @@ describe Ability do
       expect(subject.can?(:manage, OutgoingEmail.new(client: nil_vita_partner_client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: nil_vita_partner_client))).to eq false
       expect(subject.can?(:manage, Document.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, User.new(vita_partner: nil))).to eq false
+      expect(subject.can?(:manage, User.new)).to eq false
       expect(subject.can?(:manage, Note.new(client: nil_vita_partner_client))).to eq false
       expect(subject.can?(:manage, SystemNote.new(client: nil_vita_partner_client))).to eq false
     end
@@ -105,7 +105,7 @@ describe Ability do
       expect(subject.can?(:manage, OutgoingEmail.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, Document.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, User.new(vita_partner: other_vita_partner_client.vita_partner))).to eq false
+      expect(subject.can?(:manage, User.new)).to eq false
       expect(subject.can?(:manage, Note.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, SystemNote.new(client: other_vita_partner_client))).to eq false
       expect(subject.can?(:manage, other_vita_partner_client.vita_partner)).to eq false
@@ -132,7 +132,7 @@ describe Ability do
 
   context "as an admin" do
     let(:user) { create(:user, is_admin: true) }
-    let(:client) { create(:client, vita_partner: create(:vita_partner)) }
+    let(:client) { create(:client, vita_partner: create(:organization)) }
 
     it "can manage any data" do
       expect(subject.can?(:manage, client)).to eq true
@@ -150,8 +150,8 @@ describe Ability do
 
   context "as a client support user" do
     let!(:user) { create :user, is_client_support: true }
-    let(:client_1) { create(:client, vita_partner: create(:vita_partner)) }
-    let(:client_2) { create(:client, vita_partner: create(:vita_partner)) }
+    let(:client_1) { create(:client, vita_partner: create(:organization)) }
+    let(:client_2) { create(:client, vita_partner: create(:organization)) }
 
     it "can see all clients from any organization" do
       expect(subject.can?(:read, client_1)).to eq true
@@ -165,6 +165,9 @@ describe Ability do
   end
 
   context "User" do
+    let(:organization) { create :organization }
+    before { create :organization_lead_role, user: user, organization: organization }
+
     context "when current user is the User" do
       let(:user) { create(:user) }
       let(:target_user) { user }
@@ -184,8 +187,10 @@ describe Ability do
     end
 
     context "when current user is in the same org" do
-      let(:user) { create(:user, vita_partner: create(:vita_partner)) }
-      let(:target_user) { create(:user, vita_partner: user.vita_partner) }
+      let(:user) { create :user }
+      let(:target_user) { create :user }
+
+      before { create :organization_lead_role, user: target_user, organization: organization }
 
       it "can not manage" do
         expect(subject.can?(:manage, target_user)).to eq false
@@ -195,6 +200,8 @@ describe Ability do
     context "for any other user" do
       let(:user) { create(:user) }
       let(:target_user) { create(:user) }
+
+      before { create :organization_lead_role, user: target_user, organization: create(:organization) }
 
       it "can not manage" do
         expect(subject.can?(:manage, target_user)).to eq false

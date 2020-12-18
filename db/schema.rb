@@ -538,14 +538,12 @@ ActiveRecord::Schema.define(version: 2020_12_21_034618) do
     t.string "uid"
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "verified"
-    t.bigint "vita_partner_id"
     t.bigint "zendesk_user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["vita_partner_id"], name: "index_users_on_vita_partner_id"
   end
 
   create_table "users_vita_partners", id: false, force: :cascade do |t|
@@ -612,7 +610,6 @@ ActiveRecord::Schema.define(version: 2020_12_21_034618) do
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "users", "users", column: "invited_by_id"
-  add_foreign_key "users", "vita_partners"
   add_foreign_key "vita_partners", "coalitions"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
 end

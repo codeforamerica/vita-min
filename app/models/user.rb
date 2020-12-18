@@ -38,7 +38,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  invited_by_id             :bigint
-#  vita_partner_id           :bigint
 #  zendesk_user_id           :bigint
 #
 # Indexes
@@ -48,20 +47,16 @@
 #  index_users_on_invitations_count     (invitations_count)
 #  index_users_on_invited_by_id         (invited_by_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_vita_partner_id       (vita_partner_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (invited_by_id => users.id)
-#  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class User < ApplicationRecord
   devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
 
-  belongs_to :vita_partner, optional: true
   before_validation :format_phone_number
   validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
-
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_and_belongs_to_many :supported_organizations,
            join_table: "users_vita_partners",
