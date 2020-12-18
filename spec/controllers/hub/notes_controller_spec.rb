@@ -1,9 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Hub::NotesController, type: :controller do
-  let(:vita_partner) { create :vita_partner }
-  let(:client) { create :client, vita_partner: vita_partner }
+  let(:organization) { create :organization }
+  let(:client) { create :client, vita_partner: organization }
   let!(:intake) { create :intake, client: client }
+  let(:user) { create :user }
+  before { create :organization_lead_role, user: user, organization: organization }
 
   describe "#create" do
     let(:params) {
@@ -18,9 +20,8 @@ RSpec.describe Hub::NotesController, type: :controller do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
     context "as an authenticated user" do
-      let(:current_user) { create :user, vita_partner: vita_partner }
       before do
-        sign_in current_user
+        sign_in user
       end
 
       it "creates a new note" do
@@ -29,7 +30,7 @@ RSpec.describe Hub::NotesController, type: :controller do
         note = Note.last
         expect(note.body).to eq "Note body"
         expect(note.client).to eq client
-        expect(note.user).to eq current_user
+        expect(note.user).to eq user
         expect(response).to redirect_to hub_client_notes_path(client_id: client.id)
       end
 
@@ -56,9 +57,8 @@ RSpec.describe Hub::NotesController, type: :controller do
   end
 
   describe "#index" do
-    let(:client) { create :client, vita_partner: vita_partner }
+    let(:client) { create :client, vita_partner: organization }
     let(:params) { { client_id: client.id } }
-    let(:user) { create :user, vita_partner: vita_partner }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "as a logged in user loading a clients notes" do
@@ -83,7 +83,7 @@ RSpec.describe Hub::NotesController, type: :controller do
           allow(NotesPresenter).to receive(:grouped_notes).with(client).and_return({})
         end
 
-        let(:user) { create :user, timezone: "America/Los_Angeles" , vita_partner: vita_partner}
+        let(:user) { create :user, timezone: "America/Los_Angeles" }
 
         it "assigns grouped notes for use in template" do
           get :index, params: params
@@ -94,4 +94,3 @@ RSpec.describe Hub::NotesController, type: :controller do
     end
   end
 end
-

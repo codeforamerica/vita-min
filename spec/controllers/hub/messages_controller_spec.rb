@@ -1,13 +1,14 @@
 require "rails_helper"
 
 RSpec.describe Hub::MessagesController do
-  let(:vita_partner) { create :vita_partner }
-  let(:client) { create :client, vita_partner: vita_partner }
+  let(:organization) { create :vita_partner }
+  let(:client) { create :client, vita_partner: organization }
   let!(:intake) { create :intake, client: client }
   let(:params) do
     { client_id: client.id }
   end
-  let(:user) { create :user, vita_partner: vita_partner }
+  let(:user) { create :user }
+  before { create :organization_lead_role, user: user, organization: organization }
 
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
@@ -19,7 +20,7 @@ RSpec.describe Hub::MessagesController do
         render_views
 
         let(:twilio_status) { nil }
-        let(:client) { create(:client, vita_partner: vita_partner) }
+        let(:client) { create(:client, vita_partner: organization) }
         let(:intake) { create(:intake, client: client, preferred_name: "George Sr.", phone_number: "+14155551233", email_address: "money@banana.stand") }
         let!(:expected_contact_history) do
           [
@@ -120,7 +121,7 @@ RSpec.describe Hub::MessagesController do
         end
 
         context "with messages from different days" do
-          let(:user) { create :user, timezone: "America/Los_Angeles" , vita_partner: vita_partner}
+          let(:user) { create :user, timezone: "America/Los_Angeles" }
 
           before do
             create(:outgoing_email, sent_at: DateTime.new(2019, 10, 4, 14), client: client)

@@ -27,7 +27,7 @@ module Hub
     private
 
     def set_assignable_users
-      @assignable_users = @client.vita_partner.users
+      @assignable_users = User.where(id: OrganizationLeadRole.where(organization: @client.vita_partner).pluck(:user_id))
     end
 
     def assign_params

@@ -1,9 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Hub::OutgoingEmailsController do
+  let(:organization) { create :organization }
+  let(:user) { create :user }
+  before { create :organization_lead_role, user: user, organization: organization }
+
   describe "#create" do
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner }
+    let(:client) { create :client, vita_partner: organization }
     let!(:intake) { create :intake, client: client, email_address: "loose.seal@example.com" }
     let(:params) do
       { client_id: client.id, outgoing_email: { body: "hi client" } }
@@ -12,7 +15,6 @@ RSpec.describe Hub::OutgoingEmailsController do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
     context "as an authenticated admin user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before do
         sign_in user
         allow(subject).to receive(:send_email)
