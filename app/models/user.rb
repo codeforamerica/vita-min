@@ -71,13 +71,7 @@ class User < ApplicationRecord
   def accessible_organizations
     organization_lead_role = OrganizationLeadRole.find_by_user_id(id)
 
-    accessible_organization_ids =
-      if organization_lead_role.present?
-        [organization_lead_role.organization.id]
-      else
-        []
-      end
-
+    accessible_organization_ids = organization_lead_role.present? ? [organization_lead_role.organization.id] : []
     accessible_organization_ids += supported_organizations.pluck(:id)
 
     VitaPartner.organizations.where(id: accessible_organization_ids).or(

@@ -1,19 +1,20 @@
 require "rails_helper"
 
 RSpec.feature "Change tax return status on a client" do
-  context "As a beta tester" do
-    let(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, name: "Example Preparer", vita_partner: vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner }
+  context "As an authenticated user" do
+    let(:organization) { create :organization }
+    let(:user) { create :user, name: "Example Preparer" }
+    let(:client) { create :client, vita_partner: organization }
     let!(:intake) { create :intake, client: client, locale: "en", email_address: "client@example.com", phone_number: "+14155551212", sms_phone_number: "+14155551212", email_notification_opt_in: "yes", sms_notification_opt_in: "yes" }
     let!(:tax_return) { create :tax_return, year: 2019, client: client, status: "intake_in_progress" }
     let!(:other_tax_return) { create :tax_return, year: 2018, client: client, status: "intake_in_progress" }
 
     before do
+      create :organization_lead_role, user: user, organization: organization
       login_as user
     end
 
-    scenario "logged in user changes status from any hub page, sends a message, and creates an internal note" do
+    scenario "can changes status from any hub page, sends a message, and creates an internal note" do
       # One day, when switching the status causes a page reload, this test can expect a templated message.
       visit hub_client_notes_path(client_id: client.id)
       click_on "Take action"
@@ -38,7 +39,7 @@ RSpec.feature "Change tax return status on a client" do
       expect(page).to have_text "Heads up! I am still working on it."
     end
 
-    scenario "logged in user can change a status on a tax return and send a templated message" do
+    scenario "can change a status on a tax return and send a templated message" do
       visit hub_client_path(id: client.id)
       expect(page).to have_select("tax_return_status", selected: "In progress")
 

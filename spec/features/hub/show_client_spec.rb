@@ -6,7 +6,9 @@ RSpec.describe "a user viewing a client" do
     let(:client) { create :client, vita_partner: (create :vita_partner), intake: create(:intake, :with_contact_info), tax_returns: [create(:tax_return, certification_level: "advanced")] }
     let(:tax_return) { client.tax_returns.first }
     let!(:other_vita_partner) { create :vita_partner, name: "Tax Help Test" }
-    before { login_as user }
+    before do
+      login_as user
+    end
 
     scenario "can view and update client organization" do
       visit hub_client_path(id: client.id)
@@ -53,10 +55,14 @@ RSpec.describe "a user viewing a client" do
   end
 
   context "user without admin access" do
-    let!(:client) { create :client, vita_partner: (create :vita_partner), intake: create(:intake, :with_contact_info) }
+    let(:organization) {create :organization}
+    let!(:client) { create :client, vita_partner: organization, intake: create(:intake, :with_contact_info) }
 
-    let!(:user) { create :user, vita_partner_id: client.vita_partner_id }
-    before { login_as user }
+    let!(:user) { create :user }
+    before do
+      create :organization_lead_role, user: user, organization: organization
+      login_as user
+    end
 
     scenario "can view and cannot update organization" do
       visit hub_client_path(id: client.id)
