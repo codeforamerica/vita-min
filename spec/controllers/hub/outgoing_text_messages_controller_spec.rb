@@ -1,9 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Hub::OutgoingTextMessagesController do
+  let(:organization) { create :organization }
+  let(:user) { create :user }
+  before { create :organization_lead_role, user: user, organization: organization }
+
   describe "#create" do
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, sms_phone_number: "+15105551234", phone_number: "+15105551777") }
+    let(:client) { create :client, vita_partner: organization, intake: create(:intake, sms_phone_number: "+15105551234", phone_number: "+15105551777") }
     let(:params) do
       {
         client_id: client.id,
@@ -18,7 +21,6 @@ RSpec.describe Hub::OutgoingTextMessagesController do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
     context "as an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in user }
 
       it "calls send_text_message with the right arguments and redirects to messages" do

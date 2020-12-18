@@ -1,9 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Hub::TaxReturnsController, type: :controller do
-  let(:vita_partner) { create :vita_partner }
-  let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Lucille") }
+  let(:organization) { create :organization }
+  let(:client) { create :client, intake: create(:intake, preferred_name: "Lucille", vita_partner: organization), vita_partner: organization }
   let(:tax_return) { create :tax_return, client: client, year: 2018 }
+  let(:user) { create :user }
+  before { create :organization_lead_role, user: user, organization: organization }
 
   describe "#edit" do
     let(:params) {
@@ -17,9 +19,14 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
 
     context "as an authenticated user" do
       render_views
-      let(:user) { create :user, vita_partner: vita_partner }
-      let!(:other_user) { create :user, vita_partner: vita_partner }
+      let!(:other_user) { create :user }
       let!(:outside_org_user) { create :user }
+
+      before do
+        create :organization_lead_role, user: other_user, organization: organization
+        create :organization_lead_role, user: outside_org_user, organization: create(:organization)
+      end
+
       before { sign_in user }
 
       it "offers me a list of other users in my organization for assignment" do
@@ -41,18 +48,6 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         expect(assigned_user_dropdown.at_css("option[value=\"#{outside_org_user.id}\"]")).not_to be_present
       end
     end
-
-    context "as an admin user" do
-      let(:admin) { create :admin_user, vita_partner: create(:vita_partner) }
-      let!(:other_user) { create :user, vita_partner: vita_partner }
-      let!(:outside_org_user) { create :user, vita_partner: admin.vita_partner }
-      before { sign_in admin }
-
-      it "offers a list of users based on client's partner, not admin's org" do
-        get :edit, params: params
-        expect(assigns(:assignable_users)).to eq([other_user])
-      end
-    end
   end
 
   describe "#update" do
@@ -68,7 +63,6 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
     context "as an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before do
         sign_in user
         allow(SystemNote).to receive(:create_assignment_change_note)

@@ -1,15 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Hub::DocumentsController, type: :controller do
+  let(:organization) { create :organization }
+  let(:user) { create :user }
+  before { create :organization_lead_role, user: user, organization: organization }
+
   describe "#index" do
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
+    let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
     let(:params) { { client_id: client.id } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "as an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in(user) }
 
       context "with some existing documents" do
@@ -104,15 +106,13 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#edit" do
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
+    let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
     let(:document) { create :document, client: client }
     let(:params) { { id: document.id, client_id: client.id }}
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
     context "with an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in(user) }
 
       it "renders edit for the document" do
@@ -126,16 +126,15 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
   describe "#update" do
     let(:new_display_name) { "New Display Name" }
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
+    let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
     let(:document) { create :document, client: client }
     let(:params) { { client_id: client.id, id: document.id, document: { display_name: new_display_name } } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
     context "with an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in(user) }
+
       context "with valid params" do
         it "updates the display name attribute on the document" do
           post :update, params: params
@@ -162,8 +161,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#show" do
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, vita_partner: vita_partner) }
+    let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
     let(:document) { create :document, client: client }
     let(:params) { { client_id: client.id, id: document.id }}
 
@@ -171,7 +169,6 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
     context "with a signed in user" do
       let(:document_transient_url) { "https://gyr-demo.s3.amazonaws.com/document.pdf?sig=whatever&expires=whatever" }
-      let(:user) { create :user, vita_partner: vita_partner }
       before do
         sign_in(user)
         allow(subject).to receive(:transient_storage_url).and_return(document_transient_url)
@@ -187,8 +184,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#create" do
-    let(:vita_partner) { create :vita_partner }
-    let(:client) { create :client, vita_partner: vita_partner }
+    let(:client) { create :client, vita_partner: organization }
     let!(:intake) { create :intake, client: client }
     let(:params) do
       { client_id: client.id,
@@ -204,7 +200,6 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
     context "with an authenticated user" do
-      let(:user) { create :user, vita_partner: vita_partner }
       before { sign_in(user) }
 
       it "appends the documents to the client's documents list" do

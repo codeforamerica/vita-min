@@ -2,20 +2,23 @@ require "rails_helper"
 
 RSpec.describe Hub::UsersController do
   describe "#profile" do
-    let(:vita_partner) { create :vita_partner }
-
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :profile
 
     context "with an authenticated user" do
       render_views
-      let(:user) { create :user_with_org, role: "agent", name: "Adam Avocado", vita_partner: vita_partner}
-      before { sign_in user }
+      let(:user) { create :user, name: "Adam Avocado" }
+
+      before do
+        create :organization_lead_role, user: user
+        sign_in user
+      end
 
       it "renders information about the current user with helpful links" do
         get :profile
 
         expect(response).to be_ok
         expect(response.body).to have_content "Adam Avocado"
+        expect(response.body).to have_content "Organization lead"
         expect(response.body).to include invitations_path
         expect(response.body).to include hub_clients_path
         expect(response.body).to include hub_users_path

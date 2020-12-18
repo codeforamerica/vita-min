@@ -432,6 +432,7 @@ es:
     opt_in_email: Ha optado por recibir notificaciones por email
     opt_in_sms: Ha optado por recibir notificaciones por SMS
     organization: Organización
+    organization_lead: "Líder de organización"
     organizations: Organizaciones
     other_options: Intente otra opción de declaración gratis
     partner: Socio
@@ -507,7 +508,7 @@ es:
   invitations:
     index:
       actions:
-        new_invite: Invitar a alguien nuevo
+        new_org_lead_invite: Invite a un nuevo líder de la organización
       invitation:
         create: Reenviar email de invitación
         sent_at: Enviado a las %{datetime}

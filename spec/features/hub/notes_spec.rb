@@ -2,11 +2,12 @@ require "rails_helper"
 
 RSpec.feature "View and add internal notes for a client" do
   context "As an authenticated user" do
-    let(:vita_partner) { create :vita_partner }
-    let(:user) { create :user, vita_partner: vita_partner, timezone: "America/Los_Angeles" }
+    let(:organization) { create :organization }
+    let(:user) { create :user, timezone: "America/Los_Angeles" }
     let(:documents) { create_list(:document, 3, created_at: DateTime.new(2020, 3, 1).utc, document_type: "Employment") }
-    let(:client) { create :client, vita_partner: vita_partner, intake: create(:intake, preferred_name: "Bart Simpson"), documents: documents }
+    let(:client) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Bart Simpson"), documents: documents }
     before do
+      create :organization_lead_role, user: user, organization: organization
       login_as user
     end
 

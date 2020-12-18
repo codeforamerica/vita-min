@@ -43,14 +43,18 @@ RSpec.describe Users::InvitationsController do
       it "creates a new invited user" do
         expect do
           post :create, params: params
-        end.to change(User, :count).by 1
+        end.to (change(User, :count).by 1).and(change(OrganizationLeadRole, :count).by(1))
+
+        org_lead_role = OrganizationLeadRole.last
+        expect(org_lead_role.organization).to eq vita_partner
 
         invited_user = User.last
+        expect(org_lead_role.user_id).to eq invited_user.id
+
         expect(invited_user.name).to eq "Cher Cherimoya"
         expect(invited_user.email).to eq "cherry@example.com"
         expect(invited_user.invitation_token).to be_present
         expect(invited_user.invited_by).to eq user
-        expect(invited_user.role).to eq "agent"
         expect(invited_user.vita_partner).to eq vita_partner
         expect(response).to redirect_to invitations_path
       end

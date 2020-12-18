@@ -73,7 +73,7 @@ module Hub
         flash[:notice] = I18n.t("hub.clients.update_take_action.flash_message.success", action_list: @take_action_form.action_list.join(", ").capitalize)
         redirect_to hub_client_path(id: @client)
       else
-        flash[:alert] = I18n.t("forms.errors.general");
+        flash[:alert] = I18n.t("forms.errors.general")
         render :edit_take_action
       end
     end
@@ -89,8 +89,9 @@ module Hub
     end
 
     def create_client_form_params
+      default_vita_partner_id = OrganizationLeadRole.find_by_user_id(current_user.id)&.organization&.id
       filtered_params = params.require(CreateClientForm.form_param).permit(CreateClientForm.permitted_params)
-      filtered_params = filtered_params.merge(vita_partner_id: current_user.vita_partner_id) unless can?(:manage, VitaPartner)
+      filtered_params = filtered_params.merge(vita_partner_id: default_vita_partner_id) unless can?(:manage, VitaPartner)
       filtered_params
     end
 

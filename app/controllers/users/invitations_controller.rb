@@ -19,10 +19,13 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :require_valid_invitation_token, only: [:edit, :update]
 
   def create
-    authorize!(:manage, @vita_partners.find(invite_params[:vita_partner_id]))
+    organization = @vita_partners.find(invite_params[:vita_partner_id])
+    authorize!(:manage, organization)
     super do |invited_user|
-      # set default values
-      invited_user.update(role: invited_user.role || "agent")
+      OrganizationLeadRole.create(
+        user: invited_user,
+        organization: organization,
+      )
     end
   end
 
