@@ -31,16 +31,16 @@ RSpec.feature "Toggle bank account info" do
         expect(page).not_to have_text client.intake.bank_routing_number
         expect(page).not_to have_text client.intake.bank_account_type
 
-        expect {
+        expect do
           click_on "View"
-        }.to change(AccessLog, :count).by(1)
 
-        expect(page).to have_text "Account type"
-        expect(page).to have_text "Account number"
-        expect(page).to have_text "Routing number"
-        expect(page).to have_text client.intake.bank_account_number
-        expect(page).to have_text client.intake.bank_routing_number
-        expect(page).to have_text client.intake.bank_account_type.titleize
+          expect(page).to have_text "Account type"
+          expect(page).to have_text "Account number"
+          expect(page).to have_text "Routing number"
+          expect(page).to have_text client.intake.bank_account_number
+          expect(page).to have_text client.intake.bank_routing_number
+          expect(page).to have_text client.intake.bank_account_type.titleize
+        end.to change(AccessLog, :count).by(1)
 
         click_on "Hide"
 
