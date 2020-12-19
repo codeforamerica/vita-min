@@ -8,7 +8,16 @@ describe Hub::Clients::BankAccountsController, type: :controller do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
     context "with a logged in user" do
-      before { sign_in (create :admin_user) }
+      let(:back_to_the_future_day) { DateTime.new(2015, 10, 21, 0, 0, 0)}
+      let(:user) { create(:admin_user) }
+      let(:user_agent_header) { "CERN-NextStep-WorldWideWeb.app/1.1 libwww/2.07" }
+
+      before do
+        allow(DateTime).to receive(:now).and_return(back_to_the_future_day)
+        request.remote_ip = "1.1.1.1"
+        request.headers["HTTP_USER_AGENT"] = user_agent_header
+        sign_in user
+      end
 
       it "loads the appropriate client" do
         get :show, params: params, format: :js, xhr: true
@@ -22,6 +31,17 @@ describe Hub::Clients::BankAccountsController, type: :controller do
 
       it "does not respond with html" do
         expect { get :show, params: params }.to raise_error ActionController::UnknownFormat
+      end
+
+      it "creates an AccessLog" do
+        expect { get :show, params: params, format: :js, xhr: true }.to change(AccessLog, :count).by(1)
+        record = AccessLog.last
+        expect(record.user).to eq(user)
+        expect(record.client).to eq(client)
+        expect(record.event_type).to eq("read_bank_account_info")
+        expect(record.created_at).to eq(back_to_the_future_day)
+        expect(record.ip_address).to eq("1.1.1.1")
+        expect(record.user_agent).to eq(user_agent_header)
       end
     end
   end

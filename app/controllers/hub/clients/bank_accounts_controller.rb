@@ -6,6 +6,13 @@ module Hub
       load_and_authorize_resource :client, parent: false
 
       def show
+        AccessLog.create(
+          user: current_user,
+          client: @client,
+          created_at: DateTime.now,
+          ip_address: request.remote_ip,
+          user_agent: request.user_agent,
+        )
         respond_to :js
       end
 

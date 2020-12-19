@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_172751) do
+ActiveRecord::Schema.define(version: 2020_12_18_232809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "access_logs", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.inet "ip_address"
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "user_agent", null: false
+    t.bigint "user_id", null: false
+    t.index ["client_id"], name: "index_access_logs_on_client_id"
+    t.index ["user_id"], name: "index_access_logs_on_user_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
@@ -561,6 +572,8 @@ ActiveRecord::Schema.define(version: 2020_12_18_172751) do
     t.index ["last_scrape_id"], name: "index_vita_providers_on_last_scrape_id"
   end
 
+  add_foreign_key "access_logs", "clients"
+  add_foreign_key "access_logs", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "documents", "clients"

@@ -31,6 +31,7 @@ class Client < ApplicationRecord
   has_many :system_emails
   has_many :system_text_messages
   has_many :tax_returns
+  has_many :access_logs
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
 

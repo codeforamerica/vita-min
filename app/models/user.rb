@@ -62,6 +62,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :supported_organizations,
            join_table: "users_vita_partners",
            class_name: "VitaPartner"
+  has_many :access_logs
 
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
