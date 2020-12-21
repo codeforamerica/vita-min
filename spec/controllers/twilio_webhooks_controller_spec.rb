@@ -125,9 +125,9 @@ RSpec.describe TwilioWebhooksController do
         context "with an attachment" do
           let!(:client) { create :client }
           let!(:intake) { create :intake, client: client, sms_phone_number: "+15005550006" }
-          let(:parsed_attachments) {
+          let(:parsed_attachments) do
             [{content_type: "image/jpeg", filename: "some-type-of-image.jpg", body: "image file contents"}]
-          }
+          end
 
           before do
             allow(ClientChannel).to receive(:broadcast_contact_record)
@@ -189,6 +189,70 @@ RSpec.describe TwilioWebhooksController do
 
         expect(response).to be_ok
         expect(existing_message.reload.twilio_status).to eq "delivered"
+      end
+    end
+  end
+  
+  describe "#update_outbound_call" do
+    let!(:outbound_call) { create :outbound_call, twilio_sid: "CA9c1f259a39bcf0e773bbbb2c4c736c9f" }
+    let(:params) do
+      {
+          "Called" => "+18324658840",
+          "ToState" => "TX",
+          "CallerCountry" => "US",
+          "Direction" => "outbound-api",
+          "Timestamp" => "Mon, 21 Dec 2020 15:19:52 +0000",
+          "CallbackSource" => "call-progress-events",
+          "SipResponseCode" => "200",
+          "CallerState" => "CA",
+          "ToZip" => "77097",
+          "SequenceNumber" => "0",
+          "CallSid" => "CA9c1f259a39bcf0e773bbbb2c4c736c9f",
+          "To" => "+18324658840",
+          "CallerZip" => "94937",
+          "ToCountry" => "US",
+          "CalledZip" => "77097",
+          "ApiVersion" => "2010-04-01",
+          "CalledCity" => "HOUSTON",
+          "CallStatus" => "completed",
+          "Duration" => "1",
+          "From" => "+14156393361",
+          "CallDuration" => "11",
+          "AccountSid" => "ACXXXXXXXXXXXXX",
+          "CalledCountry" => "US",
+          "CallerCity" => "INVERNESS",
+          "ToCity" => "HOUSTON",
+          "FromCountry" => "US",
+          "Caller" => "+14156393361",
+          "FromCity" => "INVERNESS",
+          "CalledState" => "TX",
+          "FromZip" => "94937",
+          "FromState" => "CA"
+      }
+    end
+
+    context "a signed request" do
+      before do
+        allow(TwilioService).to receive(:valid_request?).and_return true
+      end
+
+      it "finds the corresponding outbound call object and updates the status and call duration" do
+        post :update_outbound_call, params: params
+        outbound_call.reload
+        expect(outbound_call.twilio_status).to eq "completed"
+        expect(outbound_call.call_duration).to eq "11"
+      end
+    end
+
+    context "an unsigned request" do
+      before do
+        allow(TwilioService).to receive(:valid_request?).and_return false
+      end
+
+      it "returns a 403 status code" do
+        post :update_outbound_call, params: params
+
+        expect(response.status).to eq 403
       end
     end
   end

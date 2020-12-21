@@ -23,6 +23,7 @@
 #  last_sign_in_ip           :string
 #  locked_at                 :datetime
 #  name                      :string
+#  phone_number              :string
 #  provider                  :string
 #  reset_password_sent_at    :datetime
 #  reset_password_token      :string
@@ -58,6 +59,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
 
   belongs_to :vita_partner, optional: true
+  before_validation :format_phone_number
+  validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
+
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_and_belongs_to_many :supported_organizations,
            join_table: "users_vita_partners",
@@ -82,5 +86,9 @@ class User < ApplicationRecord
 
   def first_name
     name&.split(" ")&.first
+  end
+
+  def format_phone_number
+    self.phone_number = PhoneParser.normalize(phone_number) if phone_number_changed?
   end
 end

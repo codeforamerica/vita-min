@@ -7,6 +7,15 @@ class TwilioWebhooksController < ActionController::Base
     head :ok
   end
 
+  def update_outbound_call
+    call = OutboundCall.find_by(twilio_sid: params["CallSid"])
+    return unless call.present?
+
+    update_params = { twilio_status: params["CallStatus"] }
+    update_params[:call_duration] = params["CallDuration"] if params["CallDuration"].present?
+    call.update(update_params)
+  end
+
   def create_incoming_text_message
     phone_number = PhoneParser.normalize(params["From"])
     intake_by_phone_number = Intake.where(phone_number: phone_number).where.not(client: nil)

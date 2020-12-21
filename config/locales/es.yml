@@ -129,6 +129,20 @@ es:
         document_note:
           one: El cliente agregó 1 documento.
           other: El cliente agregó %{count} documentos.
+    outbound_calls:
+      new:
+        title: Llamar al cliente
+        your_phone_number: Su número de teléfono
+        client_phone_number: Número de teléfono del cliente
+        call: Llámalos ahora
+      show:
+        body_html: |
+          <p>Se está inicializando una llamada a %{from_phone_number}.</p>
+
+          <p>Una vez que responda, intentaremos conectarlo con %{to_phone_number}.</p>
+
+          <p>No es necesario que permanezca en esta página para continuar la llamada.</p>
+        back: Volver al cliente
     tax_returns:
       edit:
         assigned_user_label: Asignar a

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_232809) do
+ActiveRecord::Schema.define(version: 2020_12_21_034618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -384,6 +384,21 @@ ActiveRecord::Schema.define(version: 2020_12_18_232809) do
     t.index ["vita_partner_id"], name: "index_organization_lead_roles_on_vita_partner_id"
   end
 
+  create_table "outbound_calls", force: :cascade do |t|
+    t.string "call_duration"
+    t.bigint "client_id"
+    t.datetime "completed_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.string "from_phone_number", null: false
+    t.string "to_phone_number", null: false
+    t.string "twilio_sid"
+    t.string "twilio_status"
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["client_id"], name: "index_outbound_calls_on_client_id"
+    t.index ["user_id"], name: "index_outbound_calls_on_user_id"
+  end
+
   create_table "outgoing_emails", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "client_id", null: false
@@ -510,6 +525,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_232809) do
     t.string "last_sign_in_ip"
     t.datetime "locked_at"
     t.string "name"
+    t.string "phone_number"
     t.string "provider"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"

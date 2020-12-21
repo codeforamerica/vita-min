@@ -129,6 +129,20 @@ en:
         document_note:
           one: Client added 1 document.
           other: Client added %{count} documents.
+    outbound_calls:
+      new:
+        title: Call client
+        your_phone_number: Your phone number
+        client_phone_number: Client phone number
+        call: Call
+      show:
+        body_html: |
+          <p>A call is being initialized to %{from_phone_number}.</p>
+
+          <p>Once you answer, we'll attempt to connect you to %{to_phone_number}.</p>
+
+          <p>You don't need to remain on this page to continue the call.</p>
+        back: Back to client
     tax_returns:
       edit:
         assigned_user_label: Assign to
