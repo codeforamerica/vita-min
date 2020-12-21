@@ -7,9 +7,10 @@ module Hub
 
     def create
       @form = OutboundCallForm.new(permitted_params, client: @client, user: current_user)
-      sid = @form.call!
-      render :new unless sid.present?
-      redirect_to hub_client_outbound_call_path(client_id: @client.id, id: sid)
+      call = @form.call!
+      render :new and return unless call.present?
+      
+      redirect_to hub_client_outbound_call_path(client_id: @client.id, id: call.id)
     end
 
     def show; end

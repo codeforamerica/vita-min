@@ -28,13 +28,14 @@ describe Hub::OutboundCallsController, type: :controller do
       end
 
       context "when @form.call! is successful" do
+        let!(:outbound_call) { create :outbound_call, client: client, user: user }
         before do
-          allow_any_instance_of(Hub::OutboundCallForm).to receive(:call!).and_return "123"
+          allow_any_instance_of(Hub::OutboundCallForm).to receive(:call!).and_return outbound_call
         end
 
         it "redirects to show" do
           post :create, params: params
-          expect(response).to redirect_to (hub_client_outbound_call_path(client_id: client.id, id: "123"))
+          expect(response).to redirect_to (hub_client_outbound_call_path(client_id: client.id, id: outbound_call.id))
         end
       end
     end

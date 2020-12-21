@@ -88,7 +88,6 @@ RSpec.describe Hub::TakeActionForm do
         end
 
         it "sets message body to the template with replacement parameters substituted" do
-          puts(form.message_body)
           expect(form.message_body).to eq filled_out_template
           expect(form.message_body).to include client.preferred_name
           expect(form.message_body).to include current_user.first_name

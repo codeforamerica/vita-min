@@ -34,7 +34,7 @@ describe Hub::OutboundCallForm do
     subject { described_class.new(client: client, user: user) }
     let(:twilio_double) { double(Twilio::REST::Client) }
     let(:twilio_calls_double) { double }
-    let(:twilio_response_double) { double(Twilio::REST::Api::V2010::AccountContext::CallInstance, sid: "123456") }
+    let(:twilio_response_double) { double(Twilio::REST::Api::V2010::AccountContext::CallInstance, sid: "123456", status: "initiated") }
 
     before do
       allow(Twilio::REST::Client).to receive(:new).and_return(twilio_double)
@@ -49,11 +49,23 @@ describe Hub::OutboundCallForm do
 
     it "creates a twilio call with appropriate params" do
       subject.call!
-      expect(twilio_calls_double).to have_received(:create).with({ url: call_hub_client_url(id: client.id, phone_number: client.phone_number), to: user.phone_number, from: '+14156393361' })
+      expect(twilio_calls_double).to have_received(:create).with({
+                                                                   url: call_hub_client_url(id: client.id, phone_number: client.phone_number),
+                                                                   to: user.phone_number,
+                                                                   from: '+14156393361',
+                                                                   status_callback: outbound_calls_webhook_url(locale: nil)
+                                                                 })
     end
 
-    it "returns the twilio call instance sid" do
-      expect(subject.call!).to eq "123456"
+    it "returns an OutboundCall object" do
+      expect { subject.call! }.to change(OutboundCall, :count).by(1)
+      call = OutboundCall.last
+      call.twilio_status = twilio_response_double.status
+      call.twilio_sid = twilio_response_double.sid
+      call.user = user
+      call.client = client
+      call.to_phone_number = user.phone_number
+      call.from_phone_number = client.phone_number
     end
   end
 
