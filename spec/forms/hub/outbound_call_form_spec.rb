@@ -40,6 +40,7 @@ describe Hub::OutboundCallForm do
       allow(Twilio::REST::Client).to receive(:new).and_return(twilio_double)
       allow(twilio_double).to receive(:calls).and_return(twilio_calls_double)
       allow(twilio_calls_double).to receive(:create).and_return(twilio_response_double)
+      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :voice_phone_number).and_return '+14156393361'
     end
 
     it "initializes a twilio instance" do
