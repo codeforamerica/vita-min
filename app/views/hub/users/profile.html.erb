@@ -15,11 +15,11 @@
     </p>
     <p>
       <span class="hc-label"><%= t("general.role") %></span>
-      <span class="label-value"><%= @role_name %></span>
+      <span class="label-value"><%= user_roles(current_user) %></span>
     </p>
     <p>
       <span class="hc-label"><%= t("general.organization") %></span>
-      <span class="label-value"><%= current_user.vita_partner&.name || t("general.none") %></span>
+      <span class="label-value"><%= user_org(current_user) || t("general.none") %></span>
     </p>
 
     <ul class="actions">

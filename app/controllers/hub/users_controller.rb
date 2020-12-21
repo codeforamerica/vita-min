@@ -7,28 +7,11 @@ module Hub
 
     layout "admin"
 
-    def profile
-      @role_name =
-        if OrganizationLeadRole.exists?(user: current_user)
-          t("general.organization_lead")
-        elsif current_user.is_admin
-          t("general.admin")
-        elsif current_user.is_client_support
-          t("general.client_support")
-        else
-          ""
-        end
-    end
+    def profile; end
 
-    def index
-      # TODO: Fix me!
-      my_org = OrganizationLeadRole.find_by_user_id(current_user.id)
-      my_fellow_users = OrganizationLeadRole.find_by_organization_id(my_org.id)
-      @users = @users.where(vita_partner: my_org.id)
-    end
+    def index; end
 
-    def edit
-    end
+    def edit; end
 
     def update
       return render :edit unless @user.update(user_params)

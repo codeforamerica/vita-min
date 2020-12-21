@@ -20,4 +20,26 @@ describe RoleHelper do
       end
     end
   end
+
+  describe "#user_org" do
+    context "for a user in no org" do
+      let(:user) { create :user }
+
+      it "returns a blank value" do
+        expect(helper.user_org(user)).to be_blank
+      end
+    end
+
+    context "for an org lead user" do
+      let(:user) { create :user }
+      let(:organization) { create :organization, name: "Orange Organization" }
+      before do
+        create :organization_lead_role, user: user, organization: organization
+      end
+
+      it "returns the name of the org that they are a lead for" do
+        expect(helper.user_org(user)).to eq("Orange Organization")
+      end
+    end
+  end
 end

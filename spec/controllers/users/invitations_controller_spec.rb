@@ -28,9 +28,9 @@ RSpec.describe Users::InvitationsController do
       {
         user: {
           name: "Cher Cherimoya",
-          email: "cherry@example.com",
-          vita_partner_id: vita_partner.id
-        }
+          email: "cherry@example.com"
+        },
+        organization_id: vita_partner.id
       }
     end
 
@@ -55,7 +55,6 @@ RSpec.describe Users::InvitationsController do
         expect(invited_user.email).to eq "cherry@example.com"
         expect(invited_user.invitation_token).to be_present
         expect(invited_user.invited_by).to eq user
-        expect(invited_user.vita_partner).to eq vita_partner
         expect(response).to redirect_to invitations_path
       end
 
@@ -82,9 +81,12 @@ RSpec.describe Users::InvitationsController do
         name: "Cherry Cherimoya",
         email: "cherry@example.com",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
-        invited_by: user,
-        vita_partner: vita_partner
+        invited_by: user
       )
+    end
+
+    before do
+      create(:organization_lead_role, user: invited_user, organization: vita_partner)
     end
 
     it "shows the user's existing information" do
@@ -139,7 +141,6 @@ RSpec.describe Users::InvitationsController do
         :invited_user,
         name: "Cherry Cherimoya",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
-        vita_partner: vita_partner
       )
     end
 
@@ -162,7 +163,6 @@ RSpec.describe Users::InvitationsController do
         end.to change{ controller.current_user }.from(nil).to(invited_user)
         invited_user.reload
         expect(invited_user.name).to eq "Cher Cherimoya"
-        expect(invited_user.vita_partner).to eq vita_partner
         expect(invited_user.timezone).to eq "America/Los_Angeles"
         expect(response).to redirect_to hub_user_profile_path
       end

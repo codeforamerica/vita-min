@@ -11,10 +11,10 @@
     <ul class="invitations list--bulleted">
       <% @unaccepted_invitations.each do |invitation| %>
         <li id="invitation-<%= invitation.id %>" class="invitation">
-          <%= invitation.name %> &lt;<%= invitation.email %>&gt; <%= invitation.vita_partner&.name %> (<%= t(".invitation.sent_at", datetime: invitation.invitation_sent_at) %>)
+          <%= invitation.name %> &lt;<%= invitation.email %>&gt; <%= user_org(invitation) %> (<%= t(".invitation.sent_at", datetime: invitation.invitation_sent_at) %>)
           <%= form_with(model: invitation, url: user_invitation_path, method: :post, local: true) do |f| %>
             <%= f.hidden_field :email %>
-            <%= f.hidden_field :vita_partner_id %>
+            <%= hidden_field_tag :organization_id, OrganizationLeadRole.find_by_user_id(invitation.id).organization.id %>
             <%= f.submit value: t(".invitation.create"), class: "button button--small" %>
           <% end %>
         </li>

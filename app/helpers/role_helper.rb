@@ -6,4 +6,8 @@ module RoleHelper
         *(I18n.t('general.organization_lead') if OrganizationLeadRole.exists?(user: user))
     ].join(", ")
   end
+
+  def user_org(user)
+    OrganizationLeadRole.where(user: user).first&.organization&.name
+  end
 end

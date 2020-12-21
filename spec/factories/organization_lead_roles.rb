@@ -21,5 +21,6 @@
 FactoryBot.define do
   factory :organization_lead_role do
     organization { create(:organization) }
+    user { create(:user) }
   end
 end

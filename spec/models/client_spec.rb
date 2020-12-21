@@ -216,7 +216,8 @@ describe Client do
   describe "#destroy_completely" do
     context "with many associated records" do
       let(:vita_partner) { create :vita_partner }
-      let(:user) { create :user, vita_partner: vita_partner }
+      let(:user) { create :user }
+      let(:organization_lead_role) { create :organization_lead_role, user: user, organization: vita_partner }
       let(:client) { create :client, vita_partner: vita_partner }
       let(:intake) { create :intake, client: client, vita_partner: vita_partner }
       let!(:unrelated_intake) { create :intake }

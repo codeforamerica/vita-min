@@ -9,7 +9,7 @@ RSpec.describe Hub::UsersController do
       let(:user) { create :user, name: "Adam Avocado" }
 
       before do
-        create :organization_lead_role, user: user
+        create :organization_lead_role, user: user, organization: (create :organization, name: "Orange organization")
         sign_in user
       end
 
@@ -19,6 +19,7 @@ RSpec.describe Hub::UsersController do
         expect(response).to be_ok
         expect(response.body).to have_content "Adam Avocado"
         expect(response.body).to have_content "Organization lead"
+        expect(response.body).to have_content "Orange organization"
         expect(response.body).to include invitations_path
         expect(response.body).to include hub_clients_path
         expect(response.body).to include hub_users_path
@@ -29,29 +30,12 @@ RSpec.describe Hub::UsersController do
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
-    context "with an authenticated user" do
-      let(:organization) { create :organization }
-      let(:user) { create(:user) }
-
-      before do
-        create :organization_lead_role, user: user, organization: organization
-        sign_in user
-        create :organization_lead_role, user: create(:user), organization: organization
-      end
-
-      it "displays only the user who is logged in" do
-        get :index
-
-        expect(assigns(:users)).to eq [user]
-      end
-    end
-
     context "with an authenticated admin user" do
       render_views
 
       let!(:leslie) { create :admin_user, name: "Leslie" }
       before do
-        create :organization_lead_role, user: leslie, organization: create(:vita_partner, name: "Pawnee Preparers")
+        create :organization_lead_role, user: leslie, organization: create(:organization, name: "Pawnee Preparers")
         sign_in create(:admin_user)
         create :user
       end
