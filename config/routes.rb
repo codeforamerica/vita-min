@@ -127,6 +127,8 @@ Rails.application.routes.draw do
         resources :messages, only: [:index]
         resources :outgoing_text_messages, only: [:create]
         resources :outgoing_emails, only: [:create]
+        resources :outbound_calls, only: [:new, :create, :show]
+        post "/call/:phone_number", to: "outbound_calls#call", on: :member, defaults: { format: 'xml' }, as: :call
         resources :tax_returns, only: [:edit, :update]
         member do
           patch "attention_needed"

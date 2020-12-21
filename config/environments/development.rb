@@ -73,4 +73,5 @@ Rails.application.configure do
   # Allow incoming connections over ngrok
   config.hosts << /[a-z0-9]+\.ngrok\.io/
   config.offseason = false
+  config.ngrok_url = "http://eb88a060ff64.ngrok.io"
 end

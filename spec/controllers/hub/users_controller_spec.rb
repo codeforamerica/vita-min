@@ -122,6 +122,7 @@ RSpec.describe Hub::UsersController do
         id: user.id,
         user: {
           timezone: "America/Chicago",
+          phone_number: "8324658840"
         }
       }
     end
@@ -136,9 +137,27 @@ RSpec.describe Hub::UsersController do
       context "when editing user fields that any user can edit about themselves" do
         it "updates the user and redirects to edit" do
           post :update, params: params
-
-          expect(user.reload.timezone).to eq "America/Chicago"
+          user.reload
+          expect(user.timezone).to eq "America/Chicago"
+          expect(user.phone_number).to eq "+18324658840"
           expect(response).to redirect_to edit_hub_user_path(id: user)
+        end
+      end
+
+      context "when the phone number is invalid" do
+        render_views
+        let(:params) { {
+          id: user.id,
+          user: {
+              timezone: "America/Chicago",
+              phone_number: "123456"
+          }
+        } }
+        it "adds errors to the user and renders them on the page" do
+          post :update, params: params
+          expect(assigns(:user).errors.messages[:phone_number]).to include "Please enter a valid phone number."
+          expect(response).to render_template :edit
+          expect(response.body).to include "Please enter a valid phone number"
         end
       end
 

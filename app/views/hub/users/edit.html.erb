@@ -6,6 +6,7 @@
       <strong><%= t("general.email") %>:</strong> <%= @user.email %>
     </p>
 
+    <%= f.cfa_input_field(:phone_number, t("general.phone_number"), type: "phone") %>
     <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
 
     <h2><%= t("general.role") %></h2>

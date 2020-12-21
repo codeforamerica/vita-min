@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_232809) do
+ActiveRecord::Schema.define(version: 2020_12_20_015616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -510,6 +510,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_232809) do
     t.string "last_sign_in_ip"
     t.datetime "locked_at"
     t.string "name"
+    t.string "phone_number"
     t.string "provider"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"

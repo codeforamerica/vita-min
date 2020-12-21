@@ -39,6 +39,7 @@ module Hub
       params.require(:user).permit(
         *(:is_admin if current_user.is_admin?),
         *(:is_client_support if current_user.is_admin?),
+        :phone_number,
         :timezone,
         current_user.is_admin ? { supported_organization_ids: [] } : {},
       )
