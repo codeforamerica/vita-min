@@ -5,6 +5,8 @@ module Hub
     skip_before_action :verify_authenticity_token, only: :call
     load_and_authorize_resource :client, except: :call
 
+    layout "admin"
+
     def create
       @form = OutboundCallForm.new(permitted_params, client: @client, user: current_user)
       call = @form.call!
@@ -13,7 +15,9 @@ module Hub
       redirect_to hub_client_outbound_call_path(client_id: @client.id, id: call.id)
     end
 
-    def show; end
+    def show
+      @outbound_call = OutboundCall.find(params[:id])
+    end
 
     def call
       twiml = Twilio::TwiML::VoiceResponse.new

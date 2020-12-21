@@ -1,39 +1,41 @@
 <% content_for :page_title, @user.name %>
 <% content_for :card do %>
-  <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
-    <h1><%= @user.name %></h1>
-    <p>
-      <strong><%= t("general.email") %>:</strong> <%= @user.email %>
-    </p>
+  <div class="hub-form">
+    <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+      <h1><%= @user.name %></h1>
+      <p>
+        <strong><%= t("general.email") %>:</strong> <%= @user.email %>
+      </p>
 
-    <%= f.cfa_input_field(:phone_number, t("general.phone_number"), type: "phone") %>
-    <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+      <%= f.cfa_input_field(:phone_number, t("general.phone_number"), type: "phone") %>
+      <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
 
-    <h2><%= t("general.role") %></h2>
+      <h2><%= t("general.role") %></h2>
 
-    <%= f.cfa_checkbox(:is_admin, t(".is_admin_label"), options: {classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
-    <%= f.cfa_checkbox(:is_client_support, t(".is_client_support_label"), options: { classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
-    <% if current_user.is_admin %>
-      <div class="reveal">
-        <p><a href="#" class="reveal__link">Select supported organizations</a></p>
-        <div class="reveal__content">
-          <% VitaPartner.all.map do |vita_partner| %>
-            <%= f.cfa_checkbox(
-                  :supported_organization_ids,
-                  vita_partner.name,
-                  options: {
-                    checked_value: vita_partner.id,
-                    unchecked_value: "",
-                    multiple: true,
-                  }
-              ) %>
-          <% end %>
+      <%= f.cfa_checkbox(:is_admin, t(".is_admin_label"), options: {classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
+      <%= f.cfa_checkbox(:is_client_support, t(".is_client_support_label"), options: { classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
+      <% if current_user.is_admin %>
+        <div class="reveal">
+          <p><a href="#" class="reveal__link">Select supported organizations</a></p>
+          <div class="reveal__content">
+            <% VitaPartner.all.map do |vita_partner| %>
+              <%= f.cfa_checkbox(
+                      :supported_organization_ids,
+                      vita_partner.name,
+                      options: {
+                          checked_value: vita_partner.id,
+                          unchecked_value: "",
+                          multiple: true,
+                      }
+                  ) %>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
 
-    <button class="button" type="submit">
-      <%=t("general.save") %>
-    </button>
-  <% end %>
+      <button class="button" type="submit">
+        <%=t("general.save") %>
+      </button>
+    <% end %>
+  </div>
 <% end %>

@@ -1,19 +1,26 @@
-<div class="hub-form">
-  <%= form_for(@form, url: hub_client_outbound_calls_path, method: :post, local: true, builder: VitaMinFormBuilder) do |f| %>
-    <%= f.cfa_input_field(:user_phone_number,
-                          "Your phone number",
-                          type: 'phone',
-                          classes: ['form-width--phone'],
-                          ) %>
-    <%= f.cfa_input_field(:client_phone_number,
-                          "Client phone number",
-                          type: 'phone',
-                          classes: ['form-width--phone'],
-                          ) %>
+<% @title = t(".title") %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="hub-form">
+    <%= form_for(@form, url: hub_client_outbound_calls_path, method: :post, local: true, builder: VitaMinFormBuilder) do |f| %>
+      <h1 class="form-card__title">
+        <%= @title %>
+      </h1>
+      <%= f.cfa_input_field(:user_phone_number,
+                            t(".your_phone_number"),
+                            type: 'phone',
+                            classes: ['form-width--phone'],
+                            ) %>
+      <%= f.cfa_input_field(:client_phone_number,
+                            t(".client_phone_number"),
+                            type: 'phone',
+                            classes: ['form-width--phone'],
+                            ) %>
 
-    <div class="actions">
-      <%= f.submit "Call", class: "button button--primary" %>
-    </div>
-  <% end %>
-</div>
+      <div class="actions">
+        <%= f.submit t(".call"), class: "button button--primary" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
