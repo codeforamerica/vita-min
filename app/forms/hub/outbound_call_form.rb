@@ -38,8 +38,7 @@ module Hub
         twilio_call = twilio_client.calls.create(
           url: dial_callback_url,
           to: user_phone_number,
-          from: EnvironmentCredentials.dig(:twilio, :voice_phone_number),
-          status_callback: webhook_url
+          from: EnvironmentCredentials.dig(:twilio, :voice_phone_number)
         )
 
         outbound_call.update(twilio_sid: twilio_call.sid, twilio_status: twilio_call.status)

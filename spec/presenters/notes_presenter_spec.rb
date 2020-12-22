@@ -5,7 +5,7 @@ RSpec.describe NotesPresenter do
     let(:vita_partner) { create :vita_partner }
     let(:client) { create :client, vita_partner: vita_partner, intake: (create :intake) }
     let(:params) { { client_id: client.id } }
-    let(:user) { create :user, vita_partner: vita_partner }
+    let(:user) { create :admin_user }
 
     before do
       create :note # unrelated note
@@ -71,7 +71,6 @@ RSpec.describe NotesPresenter do
         result = NotesPresenter.grouped_notes(client)
         notes = result.values.flatten
         expect(notes.length).to eq 1
-        puts(result.values)
         expect(notes[0].body).to include "Called by Gary Gnome. Call was completed and lasted 1m15s."
         expect(notes[0].body).to include "I talked to them!"
       end

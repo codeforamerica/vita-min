@@ -55,8 +55,7 @@ describe Hub::OutboundCallForm do
       expect(twilio_calls_double).to have_received(:create).with({
                                                                    url: dial_url(id: OutboundCall.last.id, locale: nil),
                                                                    to: user.phone_number,
-                                                                   from: '+14156393361',
-                                                                   status_callback: outbound_calls_webhook_url(id: OutboundCall.last.id, locale: nil)
+                                                                   from: '+14156393361'
                                                                  })
     end
 
