@@ -2,10 +2,11 @@ require "rails_helper"
 
 RSpec.describe "a user editing a clients intake fields" do
   context "as an admin user" do
-    let(:user) { create :admin_user, vita_partner: create(:vita_partner) }
+    let(:organization) { create(:organization) }
+    let(:user) { create :admin_user }
     let(:client) {
       create :client,
-             vita_partner: user.vita_partner,
+             vita_partner: organization,
              intake: create(:intake, email_address: "colleen@example.com", primary_first_name: "Colleen", primary_last_name: "Cauliflower", preferred_interview_language: "es", state_of_residence: "CA", preferred_name: "Colleen Cauliflower", email_notification_opt_in: "yes", dependents: [
                create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06"),
              ])

@@ -19,7 +19,7 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :require_valid_invitation_token, only: [:edit, :update]
 
   def create
-    organization = @vita_partners.find(invite_params[:vita_partner_id])
+    organization = @vita_partners.find(params.require(:organization_id))
     authorize!(:manage, organization)
     super do |invited_user|
       OrganizationLeadRole.create(
@@ -38,7 +38,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # Override superclass method for default params for newly created invites, allowing us to add attributes
   def invite_params
-    params.require(:user).permit(:name, :email, :vita_partner_id)
+    params.require(:user).permit(:name, :email)
   end
 
   # Override superclass method for accepted invite params, allowing us to add attributes

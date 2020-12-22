@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "searching, sorting, and filtering clients" do
   context "as an admin user" do
-    let(:user) { create :admin_user, vita_partner: create(:vita_partner) }
+    let(:user) { create :admin_user }
 
     before { login_as user }
 

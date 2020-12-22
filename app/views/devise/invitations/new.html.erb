@@ -7,7 +7,9 @@
 
     <%= f.cfa_input_field(:name, t(".name_label")) %>
     <%= f.cfa_input_field(:email, t(".email_label"), type: 'email', classes: ['form-width--email']) %>
-    <%= f.cfa_select(:vita_partner_id, t(".vita_partner_label"), grouped_organization_options) %>
+
+    <%= label_tag(:organization_id, t(".vita_partner_label")) %>
+    <%= select_tag(:organization_id, options_for_select(VitaPartner.organizations.map { |org| [org.name, org.id] })) %>
 
     <%= f.submit t(".submit"), class: "button button--primary" %>
   <% end %>

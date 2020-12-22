@@ -159,9 +159,9 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#show" do
-    let(:vita_partner) { create :organization }
-    let(:user) { create :user, vita_partner: organization }
+    let(:user) { create :user }
     let(:client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, year: 2019, service_type: "drop_off"), (create :tax_return, year: 2018, service_type: "online_intake")] }
+    before { create :organization_lead_role, user: user, organization: organization }
 
     let!(:intake) do
       create :intake,
@@ -249,7 +249,7 @@ RSpec.describe Hub::ClientsController do
         let!(:michael) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes", state_of_residence: nil) }
         let!(:michael_2019_return) { create :tax_return, client: michael, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es", state_of_residence: "TX") }
-        let(:assigned_user) { create :user, name: "Lindsay", vita_partner: organization }
+        let(:assigned_user) { create :user, name: "Lindsay" }
         let!(:tobias_2019_return) { create :tax_return, client: tobias, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias_2018_return) { create :tax_return, client: tobias, year: 2018, assigned_user: assigned_user }
         let!(:lucille) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Lucille") }
@@ -594,7 +594,7 @@ RSpec.describe Hub::ClientsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
     context "with a signed in user" do
-      let(:user) { create :user, vita_partner: organization }
+      let(:user) { create :user }
       before do
         sign_in user
         allow(SystemNote).to receive(:create_client_change_note)
@@ -736,9 +736,9 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#update_take_action" do
-    let(:user) { create :user, vita_partner: (create :organization) }
     let!(:intake) { create :intake, email_address: "gob@example.com", sms_phone_number: "+14155551212", client: client }
     let(:client) { create :client, vita_partner: organization }
+
     let(:params) do
       {
         id: client,

@@ -38,7 +38,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  invited_by_id             :bigint
-#  vita_partner_id           :bigint
 #  zendesk_user_id           :bigint
 #
 # Indexes
@@ -48,12 +47,10 @@
 #  index_users_on_invitations_count     (invitations_count)
 #  index_users_on_invited_by_id         (invited_by_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_vita_partner_id       (vita_partner_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (invited_by_id => users.id)
-#  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 require "rails_helper"
 
