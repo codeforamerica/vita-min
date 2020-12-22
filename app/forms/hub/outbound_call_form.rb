@@ -1,8 +1,8 @@
 module Hub
   class OutboundCallForm < Form
-    attr_accessor :user_phone_number, :client_phone_number
-    delegate :call_hub_client_path,
-      :call_hub_client_url,
+    attr_accessor :user_phone_number, :client_phone_number, :outbound_call
+    delegate :dial_path,
+      :dial_url,
       :outbound_calls_webhook_path,
       :outbound_calls_webhook_url, to: 'Rails.application.routes.url_helpers'
 
@@ -23,48 +23,50 @@ module Hub
       super(attrs)
     end
 
-    def call!
+    def dial
       return false unless valid?
 
       twilio_client = Twilio::REST::Client.new(EnvironmentCredentials.dig(:twilio, :account_sid),
-                                                EnvironmentCredentials.dig(:twilio, :auth_token))
-      call = twilio_client.calls.create(
-        url: call_url,
-        to: user_phone_number,
-        from: EnvironmentCredentials.dig(:twilio, :voice_phone_number),
-        status_callback: webhook_url
-      )
-      return false unless call.sid.present?
+                                               EnvironmentCredentials.dig(:twilio, :auth_token))
+      OutboundCall.transaction do
+        @outbound_call = @client.outbound_calls.create(
+          user_id: @user.id,
+          to_phone_number: client_phone_number,
+          from_phone_number: user_phone_number
+        )
 
-      @client.outbound_calls.create(
-        user_id: @user.id,
-        to_phone_number: client_phone_number,
-        from_phone_number: user_phone_number,
-        twilio_sid: call.sid,
-        twilio_status: call.status
-      )
+        twilio_call = twilio_client.calls.create(
+          url: dial_callback_url,
+          to: user_phone_number,
+          from: EnvironmentCredentials.dig(:twilio, :voice_phone_number),
+          status_callback: webhook_url
+        )
+
+        outbound_call.update(twilio_sid: twilio_call.sid, twilio_status: twilio_call.status)
+      end
     end
 
     private
 
-    def call_url
-      params = { id: @client.id, phone_number: client_phone_number }
-
+    def dial_callback_url
+      params = { id: @outbound_call.id, locale: nil }
       if Rails.env.development?
         raise NgrokNeededError unless Rails.configuration.try(:ngrok_url).present?
 
-        return Rails.configuration.ngrok_url + call_hub_client_path(params)
+        return Rails.configuration.ngrok_url + dial_path(params)
       end
-      call_hub_client_url(params)
+      dial_url(params)
     end
 
     def webhook_url
+      params = { id: @outbound_call.id, locale: nil }
+
       if Rails.env.development?
         raise NgrokNeededError unless Rails.configuration.try(:ngrok_url).present?
 
-        return Rails.configuration.ngrok_url + outbound_calls_webhook_path(locale: nil)
+        return Rails.configuration.ngrok_url + outbound_calls_webhook_path(params)
       end
-      outbound_calls_webhook_url(locale: nil)
+      outbound_calls_webhook_url(params)
     end
 
     class NgrokNeededError < StandardError

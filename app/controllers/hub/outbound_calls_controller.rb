@@ -9,22 +9,14 @@ module Hub
 
     def create
       @form = OutboundCallForm.new(permitted_params, client: @client, user: current_user)
-      call = @form.call!
-      render :new and return unless call.present?
+      @form.dial
+      render :new and return unless @form.outbound_call&.id
       
-      redirect_to hub_client_outbound_call_path(client_id: @client.id, id: call.id)
+      redirect_to hub_client_outbound_call_path(client_id: @client.id, id: @form.outbound_call.id)
     end
 
     def show
       @outbound_call = OutboundCall.find(params[:id])
-    end
-
-    def call
-      twiml = Twilio::TwiML::VoiceResponse.new
-      twiml.say(message: 'Please wait while we connect your call.')
-      twiml.dial(number: params[:phone_number])
-
-      render xml: twiml.to_xml
     end
 
     def new

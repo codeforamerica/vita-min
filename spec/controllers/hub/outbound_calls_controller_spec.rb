@@ -16,9 +16,9 @@ describe Hub::OutboundCallsController, type: :controller do
         expect(assigns(:form)).to be_an_instance_of(Hub::OutboundCallForm)
       end
 
-      context "when @form.call! fails" do
+      context "when @form.dial fails" do
         before do
-          allow_any_instance_of(Hub::OutboundCallForm).to receive(:call!).and_return false
+          allow_any_instance_of(Hub::OutboundCallForm).to receive(:dial).and_return false
         end
 
         it "renders the new template" do
@@ -27,15 +27,16 @@ describe Hub::OutboundCallsController, type: :controller do
         end
       end
 
-      context "when @form.call! is successful" do
+      context "when @form.dial is successful" do
         let!(:outbound_call) { create :outbound_call, client: client, user: user }
         before do
-          allow_any_instance_of(Hub::OutboundCallForm).to receive(:call!).and_return outbound_call
+          allow_any_instance_of(Hub::OutboundCallForm).to receive(:dial)
+          allow_any_instance_of(Hub::OutboundCallForm).to receive(:outbound_call).and_return outbound_call
         end
 
         it "redirects to show" do
           post :create, params: params
-          expect(response).to redirect_to (hub_client_outbound_call_path(client_id: client.id, id: outbound_call.id))
+          expect(response).to redirect_to hub_client_outbound_call_path(client_id: client.id, id: outbound_call.id)
         end
       end
     end
@@ -59,20 +60,6 @@ describe Hub::OutboundCallsController, type: :controller do
       it "instantiates an outbound call form" do
         get :new, params: params
         expect(assigns(:form)).to be_an_instance_of(Hub::OutboundCallForm)
-      end
-    end
-  end
-
-  describe "#call" do
-    render_views
-    let(:client) { create :client }
-    let(:params) { { id: client.id, phone_number: "+18324658840" } }
-
-    context "with an authenticated user" do
-      it "responds with xml" do
-        post :call, params: params, format: :xml
-        expect(response.body).to include "<Say>Please wait while we connect your call.</Say>"
-        expect(response.body).to include "<Dial>+18324658840</Dial>"
       end
     end
   end

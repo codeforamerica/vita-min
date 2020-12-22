@@ -23,7 +23,7 @@ FactoryBot.define do
   factory :outbound_call do
     client
     user
-    to_phone_number { "+18324658840" }
-    from_phone_number { "+18324651680" }
+    to_phone_number { "+15005550006" }
+    from_phone_number { "+18324650000" }
   end
 end

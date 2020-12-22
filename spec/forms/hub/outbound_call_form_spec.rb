@@ -30,7 +30,7 @@ describe Hub::OutboundCallForm do
     end
   end
 
-  context "call!" do
+  context "dial" do
     subject { described_class.new(client: client, user: user) }
     let(:twilio_double) { double(Twilio::REST::Client) }
     let(:twilio_calls_double) { double }
@@ -41,25 +41,27 @@ describe Hub::OutboundCallForm do
       allow(twilio_double).to receive(:calls).and_return(twilio_calls_double)
       allow(twilio_calls_double).to receive(:create).and_return(twilio_response_double)
       allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :voice_phone_number).and_return '+14156393361'
+      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :account_sid).and_return "abc"
+      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :auth_token).and_return "123"
     end
 
     it "initializes a twilio instance" do
-      subject.call!
-      expect(Twilio::REST::Client).to have_received(:new).with(EnvironmentCredentials.dig(:twilio, :account_sid), EnvironmentCredentials.dig(:twilio, :auth_token))
+      subject.dial
+      expect(Twilio::REST::Client).to have_received(:new).with("abc", "123")
     end
 
     it "creates a twilio call with appropriate params" do
-      subject.call!
+      subject.dial
       expect(twilio_calls_double).to have_received(:create).with({
-                                                                   url: call_hub_client_url(id: client.id, phone_number: client.phone_number),
+                                                                   url: dial_url(id: OutboundCall.last.id, locale: nil),
                                                                    to: user.phone_number,
                                                                    from: '+14156393361',
-                                                                   status_callback: outbound_calls_webhook_url(locale: nil)
+                                                                   status_callback: outbound_calls_webhook_url(id: OutboundCall.last.id, locale: nil)
                                                                  })
     end
 
     it "returns an OutboundCall object" do
-      expect { subject.call! }.to change(OutboundCall, :count).by(1)
+      expect { subject.dial }.to change(OutboundCall, :count).by(1)
       call = OutboundCall.last
       call.twilio_status = twilio_response_double.status
       call.twilio_sid = twilio_response_double.sid
@@ -78,7 +80,7 @@ describe Hub::OutboundCallForm do
     subject { described_class.new(client: client, user: user) }
 
     it "raises an error" do
-      expect { subject.call! }.to raise_error Hub::OutboundCallForm::NgrokNeededError
+      expect { subject.dial }.to raise_error Hub::OutboundCallForm::NgrokNeededError
     end
   end
 end

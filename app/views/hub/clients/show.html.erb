@@ -84,7 +84,7 @@
           <p>
             <span class="hc-label"><%= t(".phone") %>:</span>
             <span class="label-value"><%= @client.phone_number %></span>
-            <span><%= link_to "Call", new_hub_client_outbound_call_path(client_id: @client.id) %></span>
+            <span><%= link_to t("general.call"), new_hub_client_outbound_call_path(client_id: @client.id) %></span>
           </p>
           <p>
             <span class="hc-label"><%= t(".texting_phone") %>:</span>
