@@ -4,8 +4,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
   let(:organization) { create :organization }
   let(:client) { create :client, intake: create(:intake, preferred_name: "Lucille", vita_partner: organization), vita_partner: organization }
   let(:tax_return) { create :tax_return, client: client, year: 2018 }
-  let(:user) { create :user }
-  before { create :organization_lead_role, user: user, organization: organization }
+  let(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
 
   describe "#edit" do
     let(:params) {
@@ -17,19 +16,14 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
-    context "as an authenticated user" do
+    context "as an org lead" do
       render_views
-      let!(:other_user) { create :user }
-      let!(:outside_org_user) { create :user }
-
-      before do
-        create :organization_lead_role, user: other_user, organization: organization
-        create :organization_lead_role, user: outside_org_user, organization: create(:organization)
-      end
+      let!(:other_user) { create :user, role: create(:organization_lead_role, organization: organization) }
+      let!(:outside_org_user) { create :user, role: create(:organization_lead_role, organization: create(:organization)) }
 
       before { sign_in user }
 
-      it "offers me a list of other users in my organization for assignment" do
+      it "offers me a list of other users in the client's organization for assignment" do
         get :edit, params: params
 
         expect(response).to be_ok

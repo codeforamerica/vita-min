@@ -3,12 +3,11 @@ require "rails_helper"
 RSpec.feature "View and edit documents for a client" do
   context "As an authenticated user" do
     let(:organization) { create :organization }
-    let(:user) { create :user }
+    let(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
     let(:client) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Bart Simpson") }
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake }
     let!(:document_2) { create :document, display_name: "W-2.pdf", client: client, intake: client.intake }
     before do
-      create :organization_lead_role, user: user, organization: organization
       login_as user
     end
 

@@ -7,8 +7,8 @@ RSpec.describe Hub::MessagesController do
   let(:params) do
     { client_id: client.id }
   end
-  let(:user) { create :user }
-  before { create :organization_lead_role, user: user, organization: organization }
+  let(:timezone) { "America/New_York" }
+  let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: timezone) }
 
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
@@ -121,7 +121,7 @@ RSpec.describe Hub::MessagesController do
         end
 
         context "with messages from different days" do
-          let(:user) { create :user, timezone: "America/Los_Angeles" }
+          let(:timezone) { "America/Los_Angeles" }
 
           before do
             create(:outgoing_email, sent_at: DateTime.new(2019, 10, 4, 14), client: client)

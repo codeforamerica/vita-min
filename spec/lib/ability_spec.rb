@@ -40,16 +40,14 @@ describe Ability do
     end
   end
 
-  context "a user who is a member of a parent organization" do
+  context "a user who is an org lead at an organization that has some sites" do
     let(:organization) { create :organization }
     let!(:site) { create :site, parent_organization: organization }
-    let(:user) { create :user }
+    let(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
     let(:intake) { create(:intake, vita_partner: site, client: (create :client, vita_partner: site)) }
     let(:client) { intake.client }
 
-    before { create :organization_lead_role, user: user, organization: organization }
-
-    it "can manage clients assigned to suborganizations but not manage the org itself" do
+    it "can manage clients assigned to sites but not manage the org itself" do
       expect(subject.can?(:manage, client)).to eq true
       expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq true
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq true
@@ -64,15 +62,11 @@ describe Ability do
 
   context "an organization lead" do
     let(:organization) { create(:organization) }
-    let(:user) { create :user }
+    let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
     let(:accessible_client) { create(:client, vita_partner: organization) }
     let(:accessible_intake) { create(:intake, vita_partner: organization) }
     let(:other_vita_partner_client) { create(:client, vita_partner: create(:organization)) }
     let(:nil_vita_partner_client) { create(:client, vita_partner: nil) }
-
-    before do
-      create(:organization_lead_role, user: user, organization: organization)
-    end
 
     it "can manage data from their own organization's clients but not the org itself" do
       expect(subject.can?(:manage, accessible_client)).to eq true
@@ -166,10 +160,9 @@ describe Ability do
 
   context "User" do
     let(:organization) { create :organization }
-    before { create :organization_lead_role, user: user, organization: organization }
 
     context "when current user is the User" do
-      let(:user) { create(:user) }
+      let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
       let(:target_user) { user }
 
       it "can manage" do
@@ -187,10 +180,8 @@ describe Ability do
     end
 
     context "when current user is in the same org" do
-      let(:user) { create :user }
+      let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
       let(:target_user) { create :user }
-
-      before { create :organization_lead_role, user: target_user, organization: organization }
 
       it "can not manage" do
         expect(subject.can?(:manage, target_user)).to eq false
@@ -199,9 +190,7 @@ describe Ability do
 
     context "for any other user" do
       let(:user) { create(:user) }
-      let(:target_user) { create(:user) }
-
-      before { create :organization_lead_role, user: target_user, organization: create(:organization) }
+      let(:target_user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
 
       it "can not manage" do
         expect(subject.can?(:manage, target_user)).to eq false

@@ -4,8 +4,8 @@ RSpec.describe Hub::NotesController, type: :controller do
   let(:organization) { create :organization }
   let(:client) { create :client, vita_partner: organization }
   let!(:intake) { create :intake, client: client }
-  let(:user) { create :user }
-  before { create :organization_lead_role, user: user, organization: organization }
+  let(:timezone) { "America/New_York" }
+  let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: timezone) }
 
   describe "#create" do
     let(:params) {
@@ -83,7 +83,7 @@ RSpec.describe Hub::NotesController, type: :controller do
           allow(NotesPresenter).to receive(:grouped_notes).with(client).and_return({})
         end
 
-        let(:user) { create :user, timezone: "America/Los_Angeles" }
+        let(:timezone) { "America/Los_Angeles" }
 
         it "assigns grouped notes for use in template" do
           get :index, params: params

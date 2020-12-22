@@ -49,7 +49,7 @@ RSpec.describe Users::InvitationsController do
         expect(org_lead_role.organization).to eq vita_partner
 
         invited_user = User.last
-        expect(org_lead_role.user_id).to eq invited_user.id
+        expect(invited_user.role).to eq org_lead_role
 
         expect(invited_user.name).to eq "Cher Cherimoya"
         expect(invited_user.email).to eq "cherry@example.com"
@@ -81,12 +81,9 @@ RSpec.describe Users::InvitationsController do
         name: "Cherry Cherimoya",
         email: "cherry@example.com",
         invitation_token: Devise.token_generator.digest(User, :invitation_token, raw_invitation_token),
-        invited_by: user
+        invited_by: user,
+        role: create(:organization_lead_role, organization: vita_partner)
       )
-    end
-
-    before do
-      create(:organization_lead_role, user: invited_user, organization: vita_partner)
     end
 
     it "shows the user's existing information" do

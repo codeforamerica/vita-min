@@ -7,10 +7,9 @@ RSpec.describe Hub::AssignedClientsController do
 
   context "as an authenticated user" do
     let(:organization) { create(:organization) }
-    let(:user) { create(:user) }
+    let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
 
     before do
-      create :organization_lead_role, user: user, organization: organization
       sign_in user
     end
 

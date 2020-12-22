@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_22_165105) do
+ActiveRecord::Schema.define(version: 2020_12_22_174316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -378,9 +378,7 @@ ActiveRecord::Schema.define(version: 2020_12_22_165105) do
   create_table "organization_lead_roles", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
     t.bigint "vita_partner_id", null: false
-    t.index ["user_id"], name: "index_organization_lead_roles_on_user_id"
     t.index ["vita_partner_id"], name: "index_organization_lead_roles_on_vita_partner_id"
   end
 
@@ -529,6 +527,8 @@ ActiveRecord::Schema.define(version: 2020_12_22_165105) do
     t.string "provider"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
+    t.bigint "role_id"
+    t.string "role_type"
     t.integer "sign_in_count", default: 0, null: false
     t.boolean "suspended"
     t.string "ticket_restriction"
@@ -543,6 +543,7 @@ ActiveRecord::Schema.define(version: 2020_12_22_165105) do
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["role_type", "role_id"], name: "index_users_on_role_type_and_role_id"
   end
 
   create_table "users_vita_partners", id: false, force: :cascade do |t|
@@ -596,7 +597,6 @@ ActiveRecord::Schema.define(version: 2020_12_22_165105) do
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
   add_foreign_key "notes", "users"
-  add_foreign_key "organization_lead_roles", "users"
   add_foreign_key "organization_lead_roles", "vita_partners"
   add_foreign_key "outgoing_emails", "clients"
   add_foreign_key "outgoing_emails", "users"

@@ -58,9 +58,8 @@ RSpec.describe "a user viewing a client" do
     let(:organization) {create :organization}
     let!(:client) { create :client, vita_partner: organization, intake: create(:intake, :with_contact_info) }
 
-    let!(:user) { create :user }
+    let!(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
     before do
-      create :organization_lead_role, user: user, organization: organization
       login_as user
     end
 
