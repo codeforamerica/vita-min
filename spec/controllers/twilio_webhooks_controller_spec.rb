@@ -196,7 +196,7 @@ RSpec.describe TwilioWebhooksController do
   describe "#update_outbound_call" do
     let!(:outbound_call) { create :outbound_call, twilio_sid: "CA9c1f259a39bcf0e773bbbb2c4c736c9f" }
     let(:params) do
-      {
+      {   "id" => outbound_call.id,
           "Called" => "+18324658840",
           "ToState" => "TX",
           "CallerCountry" => "US",
@@ -253,6 +253,24 @@ RSpec.describe TwilioWebhooksController do
         post :update_outbound_call, params: params
 
         expect(response.status).to eq 403
+      end
+    end
+
+    describe "#dial" do
+      render_views
+      let(:client) { create :client }
+      let(:outbound_call) { create :outbound_call }
+      let(:params) { { id: outbound_call.id } }
+      before do
+        allow(TwilioService).to receive(:valid_request?).and_return true
+      end
+
+      context "with an authenticated user" do
+        it "responds with xml" do
+          post :dial, params: params, format: :xml
+          expect(response.body).to include "<Say>Please wait while we connect your call.</Say>"
+          expect(response.body).to include "<Dial>#{outbound_call.to_phone_number}</Dial>"
+        end
       end
     end
   end

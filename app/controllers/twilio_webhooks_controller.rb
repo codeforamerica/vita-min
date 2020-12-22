@@ -8,12 +8,21 @@ class TwilioWebhooksController < ActionController::Base
   end
 
   def update_outbound_call
-    call = OutboundCall.find_by(twilio_sid: params["CallSid"])
+    call = OutboundCall.find(params[:id])
     return unless call.present?
 
     update_params = { twilio_status: params["CallStatus"] }
     update_params[:call_duration] = params["CallDuration"] if params["CallDuration"].present?
     call.update(update_params)
+  end
+
+  def dial
+    @outbound_call = OutboundCall.find(params[:id])
+    twiml = Twilio::TwiML::VoiceResponse.new
+    twiml.say(message: 'Please wait while we connect your call.')
+    twiml.dial(number: @outbound_call.to_phone_number)
+
+    render xml: twiml.to_xml
   end
 
   def create_incoming_text_message
