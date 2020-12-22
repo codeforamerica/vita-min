@@ -73,7 +73,7 @@ class User < ApplicationRecord
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
 
   def accessible_organizations
-    organization_lead_role = role.class.name == "OrganizationLeadRole"
+    organization_lead_role = role_type == "OrganizationLeadRole"
 
     accessible_organization_ids = organization_lead_role.present? ? [role.organization.id] : []
     accessible_organization_ids += supported_organizations.pluck(:id)

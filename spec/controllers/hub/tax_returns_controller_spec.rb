@@ -1,10 +1,9 @@
 require "rails_helper"
 
 RSpec.describe Hub::TaxReturnsController, type: :controller do
-  let(:organization) { create :organization }
-  let(:client) { create :client, intake: create(:intake, preferred_name: "Lucille", vita_partner: organization), vita_partner: organization }
+  let(:user) { create :organization_lead_user }
+  let(:client) { create :client, intake: create(:intake, preferred_name: "Lucille", vita_partner: user.role.organization), vita_partner: user.role.organization }
   let(:tax_return) { create :tax_return, client: client, year: 2018 }
-  let(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
 
   describe "#edit" do
     let(:params) {
@@ -18,8 +17,8 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
 
     context "as an org lead" do
       render_views
-      let!(:other_user) { create :user, role: create(:organization_lead_role, organization: organization) }
-      let!(:outside_org_user) { create :user, role: create(:organization_lead_role, organization: create(:organization)) }
+      let!(:other_user) { create :organization_lead_user, organization: user.role.organization }
+      let!(:outside_org_user) { create :organization_lead_user }
 
       before { sign_in user }
 

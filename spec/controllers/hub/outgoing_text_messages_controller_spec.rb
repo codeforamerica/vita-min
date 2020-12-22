@@ -1,11 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Hub::OutgoingTextMessagesController do
-  let(:organization) { create :organization }
-  let(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
+  let(:user) { create :organization_lead_user }
 
   describe "#create" do
-    let(:client) { create :client, vita_partner: organization, intake: create(:intake, sms_phone_number: "+15105551234", phone_number: "+15105551777") }
+    let(:client) { create :client, vita_partner: user.role.organization, intake: create(:intake, sms_phone_number: "+15105551234", phone_number: "+15105551777") }
     let(:params) do
       {
         client_id: client.id,

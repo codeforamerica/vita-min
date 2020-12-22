@@ -5,7 +5,7 @@ describe RoleHelper do
     context "an admin" do
       let(:user) { create :admin_user }
       it 'returns the user roles' do
-        expect(helper.user_roles(user)).to eq "Admin"
+        expect(helper.user_role(user)).to eq "Admin"
       end
     end
 
@@ -13,7 +13,7 @@ describe RoleHelper do
       let(:user) { create :user, role: create(:organization_lead_role) }
 
       it 'shows they are an org lead' do
-        expect(helper.user_roles(user)).to eq "Organization lead"
+        expect(helper.user_role(user)).to eq "Organization lead"
       end
     end
   end
@@ -28,8 +28,8 @@ describe RoleHelper do
     end
 
     context "for an org lead user" do
-      let(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
       let(:organization) { create :organization, name: "Orange Organization" }
+      let(:user) { create :organization_lead_user, organization: organization }
 
       it "returns the name of the org that they are a lead for" do
         expect(helper.user_org(user)).to eq("Orange Organization")

@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ClientChannel, type: :channel do
   let(:client) { create :client }
-  let(:organization) { create :organization }
-  let(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
+  let(:user) { create :organization_lead_user }
   let(:params) { { id: client.id } }
 
   context "as an unauthenticated user" do
@@ -30,7 +29,7 @@ RSpec.describe ClientChannel, type: :channel do
     end
 
     context 'with valid params' do
-      let(:client) { create(:client, vita_partner: organization) }
+      let(:client) { create(:client, vita_partner: user.role.organization) }
 
       it 'subscribes to a client' do
         subscribe params

@@ -61,6 +61,14 @@ FactoryBot.define do
     password { "userExamplePassword" }
     name { "Gary Gnome" }
 
+    factory :organization_lead_user do
+      transient do
+        organization { nil }
+      end
+
+      role { create(:organization_lead_role, organization: organization || create(:organization)) }
+    end
+
     factory :admin_user do
       is_admin { true }
     end

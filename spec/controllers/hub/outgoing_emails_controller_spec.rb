@@ -1,11 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Hub::OutgoingEmailsController do
-  let(:organization) { create :organization }
-  let(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
+  let(:user) { create :organization_lead_user }
 
   describe "#create" do
-    let(:client) { create :client, vita_partner: organization }
+    let(:client) { create :client, vita_partner: user.role.organization }
     let!(:intake) { create :intake, client: client, email_address: "loose.seal@example.com" }
     let(:params) do
       { client_id: client.id, outgoing_email: { body: "hi client" } }

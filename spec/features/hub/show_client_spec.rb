@@ -55,10 +55,9 @@ RSpec.describe "a user viewing a client" do
   end
 
   context "user without admin access" do
-    let(:organization) {create :organization}
-    let!(:client) { create :client, vita_partner: organization, intake: create(:intake, :with_contact_info) }
 
-    let!(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
+    let!(:user) { create :organization_lead_user }
+    let!(:client) { create :client, vita_partner: user.role.organization, intake: create(:intake, :with_contact_info) }
     before do
       login_as user
     end

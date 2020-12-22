@@ -2,12 +2,11 @@ require "rails_helper"
 
 RSpec.feature "Read and send messages to a client", js: true do
   context "As an authenticated user" do
-    let(:organization) { create :organization }
-    let(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
+    let(:user) { create :organization_lead_user }
     let(:client) do
       create(
         :client,
-        vita_partner: organization,
+        vita_partner: user.role.organization,
         intake: create(
           :intake,
           preferred_name: "Tobias",
