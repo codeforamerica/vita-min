@@ -25,8 +25,8 @@ class ValidateRequestParams
   end
 
   def check_for_invalid_characters_recursively(value, depth = 0)
-    return false if depth > 3
-    return contains_invalid_character?(value) if value.respond_to?(:match) || value.nil?
+    return false if depth > 3 || value.nil?
+    return contains_invalid_character?(value) if value.respond_to?(:match?)
 
     depth += 1
     value = value.values if value.respond_to?(:values)

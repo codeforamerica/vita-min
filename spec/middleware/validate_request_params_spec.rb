@@ -76,15 +76,18 @@ describe ValidateRequestParams, type: :controller do
       post "/dummy", key: { key: { key: { key: { key: null_byte } } } }
 
       expect(last_response.bad_request?).to eq false
-
     end
-
   end
 
   context "without invalid characters" do
     it "continues the request" do
       post "/dummy"
 
+      expect(last_response.no_content?).to eq true
+    end
+
+    it "continues the request for null values" do
+      post "/dummy", name: nil
       expect(last_response.no_content?).to eq true
     end
 
