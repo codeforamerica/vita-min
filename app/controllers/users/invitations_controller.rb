@@ -22,10 +22,11 @@ class Users::InvitationsController < Devise::InvitationsController
     organization = @vita_partners.find(params.require(:organization_id))
     authorize!(:manage, organization)
     super do |invited_user|
-      OrganizationLeadRole.create(
-        user: invited_user,
+      role = OrganizationLeadRole.create(
         organization: organization,
       )
+
+      invited_user.update(role: role)
     end
   end
 

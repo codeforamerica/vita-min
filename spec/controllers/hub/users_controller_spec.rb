@@ -6,10 +6,9 @@ RSpec.describe Hub::UsersController do
 
     context "with an authenticated user" do
       render_views
-      let(:user) { create :user, name: "Adam Avocado" }
+      let(:user) { create :user, name: "Adam Avocado", role: create(:organization_lead_role, organization: (create :organization, name: "Orange organization")) }
 
       before do
-        create :organization_lead_role, user: user, organization: (create :organization, name: "Orange organization")
         sign_in user
       end
 
@@ -35,7 +34,6 @@ RSpec.describe Hub::UsersController do
 
       let!(:leslie) { create :admin_user, name: "Leslie" }
       before do
-        create :organization_lead_role, user: leslie, organization: create(:organization, name: "Pawnee Preparers")
         sign_in create(:admin_user)
         create :user
       end
@@ -46,7 +44,6 @@ RSpec.describe Hub::UsersController do
         expect(assigns(:users).count).to eq 3
         html = Nokogiri::HTML.parse(response.body)
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Leslie")
-        expect(html.at_css("#user-#{leslie.id}")).to have_text("Pawnee Preparers")
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Admin")
         expect(html.at_css("#user-#{leslie.id} a")["href"]).to eq edit_hub_user_path(id: leslie)
       end
@@ -54,10 +51,7 @@ RSpec.describe Hub::UsersController do
   end
 
   describe "#edit" do
-    let!(:user) { create :user, name: "Anne" }
-    before do
-      create :organization_lead_role, user: user, organization: create(:organization)
-    end
+    let!(:user) { create :user, name: "Anne", role: create(:organization_lead_role, organization: create(:organization)) }
 
     let(:params) { { id: user.id } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
@@ -98,8 +92,7 @@ RSpec.describe Hub::UsersController do
       let(:organization) { create(:organization) }
 
       before do
-        other_user = create(:user)
-        create :organization_lead_role, user: other_user, organization: organization
+        other_user = create(:user, role: create(:organization_lead_role, organization: organization))
         sign_in(other_user)
       end
 
@@ -113,11 +106,7 @@ RSpec.describe Hub::UsersController do
 
   describe "#update" do
     let!(:organization) { create :organization, name: "Avonlea Tax Aid" }
-    let!(:user) { create :user, name: "Anne" }
-    before do
-      create :organization_lead_role, user: user, organization: organization
-    end
-
+    let!(:user) { create :user, name: "Anne", role: create(:organization_lead_role, organization: organization) }
 
     let(:params) do
       {
@@ -224,8 +213,7 @@ RSpec.describe Hub::UsersController do
 
     context "as an authenticated user editing someone else at the same org" do
       before do
-        other_user = create(:user)
-        create :organization_lead_role, user: other_user, organization: organization
+        other_user = create(:user, role: create(:organization_lead_role, organization: organization))
         sign_in(other_user)
       end
 

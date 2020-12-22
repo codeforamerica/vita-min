@@ -21,7 +21,7 @@ user = User.where(email: "skywalker@example.com").first_or_initialize
 user.update(
   name: "Luke",
   password: "theforcevita",
-  vita_partner: first_org
+  role: OrganizationLeadRole.create(organization: first_org)
 )
 
 # additional user
@@ -29,14 +29,13 @@ additional_user = User.where(email: "princess@example.com").first_or_initialize
 additional_user.update(
   name: "Lea",
   password: "theforcevita",
-  vita_partner: first_org
+  role: OrganizationLeadRole.create(organization: first_org)
 )
 
 admin_user = User.where(email: "admin@example.com").first_or_initialize
 admin_user.update(
   name: "The Admin",
   password: "theforcevita",
-  vita_partner: first_org,
   is_admin: true
 )
 

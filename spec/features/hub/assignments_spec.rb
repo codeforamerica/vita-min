@@ -3,15 +3,13 @@ require "rails_helper"
 RSpec.feature "Assign a user to a tax return" do
   context "As an authenticated user" do
     let(:organization) { create :organization}
-    let(:logged_in_user) { create :user, name: "Lucille 1" }
-    let!(:user_to_assign) { create :user, name: "Lucille 2" }
+    let(:logged_in_user) { create :user, name: "Lucille 1", role: create(:organization_lead_role, organization: organization) }
+    let!(:user_to_assign) { create :user, name: "Lucille 2", role: create(:organization_lead_role, organization: organization) }
     let(:client) { create :client, vita_partner: organization }
     let!(:intake) { create :intake, :with_contact_info, client: client }
     let!(:tax_return_to_assign) { create :tax_return, status: "intake_open", year: 2019, client: client }
 
     before do
-      create :organization_lead_role, user: logged_in_user, organization: organization
-      create :organization_lead_role, user: user_to_assign, organization: organization
       login_as logged_in_user
     end
 

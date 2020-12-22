@@ -2,9 +2,7 @@ require "rails_helper"
 
 RSpec.describe Hub::ClientsController do
   let!(:organization) { create :organization }
-  let(:user) { create :user }
-
-  before { create :organization_lead_role, user: user, organization: organization }
+  let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
 
   describe "#new" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
@@ -159,9 +157,8 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#show" do
-    let(:user) { create :user }
+    let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
     let(:client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, year: 2019, service_type: "drop_off"), (create :tax_return, year: 2018, service_type: "online_intake")] }
-    before { create :organization_lead_role, user: user, organization: organization }
 
     let!(:intake) do
       create :intake,
@@ -594,7 +591,8 @@ RSpec.describe Hub::ClientsController do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
     context "with a signed in user" do
-      let(:user) { create :user }
+      let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
       before do
         sign_in user
         allow(SystemNote).to receive(:create_client_change_note)

@@ -27,6 +27,7 @@
 #  provider                  :string
 #  reset_password_sent_at    :datetime
 #  reset_password_token      :string
+#  role_type                 :string
 #  sign_in_count             :integer          default(0), not null
 #  suspended                 :boolean
 #  ticket_restriction        :string
@@ -37,15 +38,17 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  invited_by_id             :bigint
+#  role_id                   :bigint
 #  zendesk_user_id           :bigint
 #
 # Indexes
 #
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_invitation_token      (invitation_token) UNIQUE
-#  index_users_on_invitations_count     (invitations_count)
-#  index_users_on_invited_by_id         (invited_by_id)
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_email                  (email) UNIQUE
+#  index_users_on_invitation_token       (invitation_token) UNIQUE
+#  index_users_on_invitations_count      (invitations_count)
+#  index_users_on_invited_by_id          (invited_by_id)
+#  index_users_on_reset_password_token   (reset_password_token) UNIQUE
+#  index_users_on_role_type_and_role_id  (role_type,role_id)
 #
 # Foreign Keys
 #
@@ -61,6 +64,8 @@ class User < ApplicationRecord
            join_table: "users_vita_partners",
            class_name: "VitaPartner"
   has_many :access_logs
+  belongs_to :role, polymorphic: true, optional: true
+  belongs_to :organization_lead_role, -> { where(users: { role_type: 'OrganizationLeadRole' }) }, foreign_key: 'role_id', optional: true
 
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
 
@@ -68,9 +73,9 @@ class User < ApplicationRecord
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
 
   def accessible_organizations
-    organization_lead_role = OrganizationLeadRole.find_by_user_id(id)
+    organization_lead_role = role.class.name == "OrganizationLeadRole"
 
-    accessible_organization_ids = organization_lead_role.present? ? [organization_lead_role.organization.id] : []
+    accessible_organization_ids = organization_lead_role.present? ? [role.organization.id] : []
     accessible_organization_ids += supported_organizations.pluck(:id)
 
     VitaPartner.organizations.where(id: accessible_organization_ids).or(

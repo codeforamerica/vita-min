@@ -3,14 +3,10 @@ require 'rails_helper'
 RSpec.describe Hub::TaxReturns::CertificationsController do
   describe "#update" do
     let(:organization) { create(:organization) }
-    let(:user) { create(:user) }
+    let(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
     let(:tax_return) { create :tax_return, client: (create :client, vita_partner: organization) }
     let(:next_path) { "/next/path" }
     let(:params) { { id: tax_return.id, certification_level: "advanced", is_hsa: true, next: next_path } }
-
-    before do
-      create(:organization_lead_role, user: user, organization: organization)
-    end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 

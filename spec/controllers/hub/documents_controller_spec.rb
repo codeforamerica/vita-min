@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Hub::DocumentsController, type: :controller do
   let(:organization) { create :organization }
-  let(:user) { create :user }
-  before { create :organization_lead_role, user: user, organization: organization }
+  let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
 
   describe "#index" do
     let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
