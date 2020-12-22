@@ -4,8 +4,8 @@
 #
 #  id                :bigint           not null, primary key
 #  call_duration     :string
-#  completed_at      :datetime
 #  from_phone_number :string           not null
+#  note              :text
 #  to_phone_number   :string           not null
 #  twilio_sid        :string
 #  twilio_status     :string

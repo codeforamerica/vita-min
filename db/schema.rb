@@ -390,9 +390,9 @@ ActiveRecord::Schema.define(version: 2020_12_23_171455) do
   create_table "outbound_calls", force: :cascade do |t|
     t.string "call_duration"
     t.bigint "client_id"
-    t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.string "from_phone_number", null: false
+    t.text "note"
     t.string "to_phone_number", null: false
     t.string "twilio_sid"
     t.string "twilio_status"

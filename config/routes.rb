@@ -127,7 +127,7 @@ Rails.application.routes.draw do
         resources :messages, only: [:index]
         resources :outgoing_text_messages, only: [:create]
         resources :outgoing_emails, only: [:create]
-        resources :outbound_calls, only: [:new, :create, :show]
+        resources :outbound_calls, only: [:new, :create, :show, :update]
         resources :tax_returns, only: [:edit, :update]
         member do
           patch "attention_needed"

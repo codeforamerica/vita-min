@@ -19,6 +19,12 @@ module Hub
       @outbound_call = OutboundCall.find(params[:id])
     end
 
+    def update
+      @outbound_call = OutboundCall.find(params[:id])
+      @outbound_call.update(params.require(:outbound_call).permit(:note))
+      redirect_to hub_client_notes_path(client_id: @client.id)
+    end
+
     def new
       @form = OutboundCallForm.new(client: @client, user: current_user)
     end
