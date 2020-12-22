@@ -27,7 +27,6 @@
 #  provider                  :string
 #  reset_password_sent_at    :datetime
 #  reset_password_token      :string
-#  role                      :string
 #  sign_in_count             :integer          default(0), not null
 #  suspended                 :boolean
 #  ticket_restriction        :string

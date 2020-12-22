@@ -27,7 +27,6 @@
 #  provider                  :string
 #  reset_password_sent_at    :datetime
 #  reset_password_token      :string
-#  role                      :string
 #  sign_in_count             :integer          default(0), not null
 #  suspended                 :boolean
 #  ticket_restriction        :string
@@ -61,10 +60,6 @@ FactoryBot.define do
 
     factory :admin_user do
       is_admin { true }
-    end
-
-    factory :agent_user do
-      role { "agent" }
     end
 
     factory :invited_user do

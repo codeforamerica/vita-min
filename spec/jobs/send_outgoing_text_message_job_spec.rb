@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe SendOutgoingTextMessageJob, type: :job do
   describe "#perform" do
-    let(:user) { create(:user, role: "admin") }
+    let(:user) { create(:user) }
     let(:client) { create(:client) }
     let(:fake_twilio_client) { double(Twilio::REST::Client) }
     let(:fake_twilio_messages) { double }

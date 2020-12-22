@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Logging in and out to the volunteer portal" do
-  let!(:user) { create(:user, name: "German Geranium", email: "german@flowers.orange", password: "goodPassword", role: "agent") }
+  let!(:user) { create(:user, name: "German Geranium", email: "german@flowers.orange", password: "goodPassword") }
 
   scenario "logging in and out" do
     # go to password-based sign in page
