@@ -11,6 +11,7 @@ es:
         clients_link: Clientes
         users_link: Usuarios
         return_to_dashboard: < Volver a tablero
+        start_date: "Fecha de inicio"
     anonymized_intake_csv_extracts:
       index:
         filename: Nombre de archivo
@@ -19,7 +20,7 @@ es:
         run_at: Ejecutado a
     assigned_clients:
       index:
-        title: Tus clientes asignados
+        title: Clientes asignados
     clients:
       create:
         success_message: Cliente creado correctamente.
@@ -1627,8 +1628,7 @@ es:
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
       user_header:
-        profile_link: Ver perfil
-        welcome: Saludos, %{name}
+        welcome_html: Saludos, <a href="%{url}"><strong>%{name}</strong></a>
     stimulus:
       file_for_stimulus:
         info: Puede que también califique para recibir dinero adicional a través de créditos fiscales. ¡Vamos a ayudarle a máximizar su desembolso!

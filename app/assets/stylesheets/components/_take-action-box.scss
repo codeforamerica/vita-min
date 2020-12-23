@@ -1,10 +1,9 @@
 .take-action-box {
   background: white;
-  display: flex;
-  justify-content: flex-end;
-  border-top: 1px solid black;
-  padding-top: 1.6rem;
+  border-top: 1px solid $color-grey-medium;
+  padding: $s15 3rem;
+  text-align: right;
   .button {
-    margin-bottom: 1.6rem;
+    margin: 0;
   }
 }

@@ -1,40 +1,41 @@
 .client-header {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+  position: relative;
 
-  i.needs-attention {
-    margin-left: 10px;
+  &__left {
+    display: inline-block;
+  }
+  &__right {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .h1 {
+    margin-right: $s10;
+    margin-bottom: $s10;
+    display: inline-block;
   }
 
-  h1.h1 {
-    margin: 0;
+  .needs-attention-wrapper {
+    margin-right: $s15;
   }
 
   .button {
-   margin-left: 0;
+    margin-left: 0;
   }
 
   &__organization {
-    display: flex;
-    align-items: center;
-
     h2 {
-      font-size: 1.5rem;
-      font-weight: normal;
-      margin-right: 1rem;
+      display: inline;
+      font-size: $font-size-19;
+      line-height: $s19;
+      font-weight: $font-weight-normal;
+      margin-right: $s15;
       margin-bottom: 0;
     }
-  }
-
-  .attention-indicator-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    .text--help {
-      margin-left: 1.5rem;
+    .button {
+      margin-bottom: 0;
     }
+    margin-bottom: $s10;
   }
 
   form.edit_client {

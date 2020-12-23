@@ -2,7 +2,7 @@
 <% content_for :page_title, @main_heading %>
 <% content_for :card do %>
   <div class="hub-section">
-    <h1 class="h1"><%= @main_heading %></h1>
+    <h1 class="h1 spacing-above-60"><%= @main_heading %></h1>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), local: true, builder: VitaMinFormBuilder ) do |f| %>
       <%= f.cfa_input_field(:email, t("general.email"), type: 'email', classes: ['form-width--long']) %>
@@ -12,7 +12,7 @@
       </div>
 
       <div class="actions">
-        <%= f.submit t("general.sign_in"), class: "button button--primary" %>
+        <%= f.submit t("general.sign_in"), class: "button button--cta spacing-above-60" %>
       </div>
     <% end %>
   </div>

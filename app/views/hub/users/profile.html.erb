@@ -3,26 +3,31 @@
 
 <% content_for :page_title, current_user.name %>
 <% content_for :card do %>
-  <div class="hub-section">
-    <h1 class="h1"><%= t("general.my_profile") %></h1>
-    <p>
-      <span class="hc-label"><%= t("general.name") %></span>
-      <span class="label-value"><%= current_user.name %></span>
-    </p>
-    <p>
-      <span class="hc-label"><%= t("general.email") %></span>
-      <span class="label-value"><%= current_user.email %></span>
-    </p>
-    <p>
-      <span class="hc-label"><%= t("general.role") %></span>
-      <span class="label-value"><%= user_role(current_user) %></span>
-    </p>
-    <p>
-      <span class="hc-label"><%= t("general.organization") %></span>
-      <span class="label-value"><%= user_org(current_user) || t("general.none") %></span>
-    </p>
+  <section class="slab slab--padded">
 
-    <ul class="actions">
+    <h1 class="h1 spacing-below-35"><%= t("general.my_profile") %></h1>
+    <div class="field-display">
+      <span class="form-question"><%= t("general.name") %></span>
+      <span class="label-value"><%= current_user.name %></span>
+    </div>
+    <div class="field-display">
+      <span class="form-question"><%= t("general.email") %></span>
+      <span class="label-value"><%= current_user.email %></span>
+    </div>
+    <div class="field-display">
+      <span class="form-question"><%= t("general.role") %></span>
+      <span class="label-value"><%= user_role(current_user) %></span>
+    </div>
+    <div class="field-display">
+      <span class="form-question"><%= t("general.organization") %></span>
+      <span class="label-value"><%= user_org(current_user) || t("general.none") %></span>
+    </div>
+    <div class="field-display">
+      <span class="form-question"><%= t(".start_date") %></span>
+      <span class="label-value"><%= default_date_format(current_user.start_date) %></span>
+    </div>
+
+    <ul class="actions spacing-above-25">
       <li class="user-action-link">
         <%= link_to invitations_path, class: "button button--small" do %>
           <%= t("general.invitations") %>
@@ -49,5 +54,5 @@
         </li>
       <% end %>
     </ul>
-  </div>
+  </section>
 <% end %>

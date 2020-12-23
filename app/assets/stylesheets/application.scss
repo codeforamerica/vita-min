@@ -14,7 +14,6 @@
  */
 
 @import "cfa_styleguide_main";
-@import "honeycrisp-condensed";
 @import "mixins/sr-only";
 @import "atoms/variables";
 @import "atoms/form-elements";
@@ -24,6 +23,7 @@
 @import 'molecules/breadcrumb';
 @import "molecules/form-molecules";
 @import "molecules/partner-logos";
+@import "honeycrisp-compact";
 @import "components/actions-wrapper";
 @import "components/checkmark-list";
 @import "components/client-header";

@@ -8,120 +8,79 @@
   <%= render "client_header" %>
   <%= render "navigation" %>
 
-  <div class="hub-section client-profile spacing-above-35">
-    <div class="grid hc-grid">
-      <div class="grid__item width-one-third">
-        <div class="spacing-below-35">
-          <h2 class="text--small text--bold"><%= t(".basic_info") %></h2>
-          <p>
-            <span class="hc-label"><%= t(".legal_name") %>:</span>
-            <span class="label-value"><%= @client.legal_name || t("general.NA") %></span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t(".preferred_name") %>:</span>
-            <span class="label-value"><%= @client.preferred_name %></span>
-          </p>
+  <section class="client-profile slab slab--padded">
+    <div class="client-profile__column">
 
-          <p>
-            <span class="hc-label"><%= t(".intake_language") %>:</span>
-            <span class="label-value"><%= @client.intake&.locale ? t("general.language_options.#{@client.intake&.locale}") : "N/A" %></span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t(".phone_interview_language") %>:</span>
-            <span class="label-value"><%= @client.intake&.preferred_interview_language ? t("general.language_options.#{@client.intake&.preferred_interview_language}") : "N/A" %></span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t(".interview_timing_preference") %>:</span>
-            <p class="label-value"><%= @client.intake&.interview_timing_preference %></p>
-          </p>
-          <p>
-            <span class="hc-label"><%= t("general.timezone") %>:</span>
-            <span class="label-value"><%= displayed_timezone(@client.intake&.timezone) || t("general.NA") %></span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t("hub.clients.fields.state_of_residence") %>:</span>
-            <span class="label-value"><%= @client.intake.state_of_residence %></span>
-          </p>
+      <!-- Basic info-->
+      <div class="client-profile__field-group">
+        <h2 class="text--bold"><%= t(".basic_info") %></h2>
+        <div class="field-display">
+          <span class="form-question"><%= t(".legal_name") %>:</span>
+          <span class="label-value"><%= @client.legal_name || t("general.NA") %></span>
         </div>
-
-        <div class="spacing-below-35">
-          <h2 class="text--small text--bold"><%= t(".tax_info") %></h2>
-          <p>
-            <span class="hc-label"><%= t("general.filing_years") %>:</span>
-            <span class="label-value"><%= @client.intake&.filing_years&.join(", ") %></span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t("hub.clients.fields.signature_method") %>:</span>
-            <span class="label-value"><%= I18n.t("hub.clients.fields.signature_methods.#{@client.intake&.signature_method}") %> </span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t(".marital_status") %>:</span>
-            <span class="label-value"><%= @client.intake&.marital_statuses&.join(", ") %></span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t(".filing_status") %>:</span>
-            <span class="label-value"><%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly"  %></span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t(".dependents") %>:</span>
-            <span class="label-value"><%= @client.intake&.dependents.count %></span>
-          </p>
-          <ul id="dependents-list">
-            <% @client.intake&.dependents.each do |d| %>
-              <li><%= "#{d.first_name} #{d.last_name}, #{default_date_format(d.birth_date)}" %></li>
-            <% end %>
-          </ul>
+        <div class="field-display">
+          <span class="form-question"><%= t(".preferred_name") %>:</span>
+          <span class="label-value"><%= @client.preferred_name %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t(".intake_language") %>:</span>
+          <span class="label-value"><%= @client.intake&.locale ? t("general.language_options.#{@client.intake&.locale}") : "N/A" %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t(".phone_interview_language") %>:</span>
+          <span class="label-value"><%= @client.intake&.preferred_interview_language ? t("general.language_options.#{@client.intake&.preferred_interview_language}") : "N/A" %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t(".interview_timing_preference") %>:</span>
+          <span class="label-value"><%= @client.intake&.interview_timing_preference %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t("general.timezone") %>:</span>
+          <span class="label-value"><%= displayed_timezone(@client.intake&.timezone) || t("general.NA") %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t("hub.clients.fields.state_of_residence") %>:</span>
+          <span class="label-value"><%= @client.intake.state_of_residence %></span>
         </div>
       </div>
 
-      <div class="grid__item width-one-third">
-        <div class="spacing-below-35">
-          <h2 class="text--small text--bold"><%= t(".primary_contact_info") %></h2>
-          <p>
-            <span class="hc-label"><%= t(".email") %>:</span>
-            <span class="label-value"><%= @client.email_address %></span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t(".phone") %>:</span>
-            <span class="label-value"><%= @client.phone_number %></span>
-            <span><%= link_to t("general.call"), new_hub_client_outbound_call_path(client_id: @client.id) %></span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t(".texting_phone") %>:</span>
-            <span class="label-value"><%= @client.sms_phone_number || 'N/A' %></span>
-          </p>
-          <p>
-            <span class="hc-label"><%= t(".mailing_address") %>:</span>
-            <p class="label-value">
-                <%= @client.intake&.formatted_mailing_address %>
-            </p>
-          </p>
+      <!-- Tax info-->
+      <div class="client-profile__field-group">
+        <h2 class="text--bold"><%= t(".tax_info") %></h2>
+        <div class="field-display">
+          <span class="form-question"><%= t("general.filing_years") %>:</span>
+          <span class="label-value"><%= @client.intake&.filing_years&.join(", ") %></span>
         </div>
-        <% if @client.intake&.filing_joint_yes? %>
-          <div class="spacing-below-35">
-            <h2 class="text--small text--bold"><%= t(".spouse_contact_info") %></h2>
-            <p>
-              <span class="hc-label"><%= t(".legal_name") %>:</span>
-              <span class="label-value">
-                <%= "#{@client.intake&.spouse_first_name} #{@client.intake&.spouse_last_name}" %>
-              </span>
-            </p>
-            <p>
-              <span class="hc-label"><%= t(".email") %>:</span>
-              <span class="label-value"><%= @client.intake&.spouse_email_address %> </span>
-            </p>
-          </div>
-        <% end %>
+        <div class="field-display">
+          <span class="form-question"><%= t("hub.clients.fields.signature_method") %>:</span>
+          <span class="label-value"><%= I18n.t("hub.clients.fields.signature_methods.#{@client.intake&.signature_method}") %> </span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t(".marital_status") %>:</span>
+          <span class="label-value"><%= @client.intake&.marital_statuses&.join(", ") %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t(".filing_status") %>:</span>
+          <span class="label-value"><%= @client.intake&.filing_joint_yes? ? "Filing jointly" : "Not filing jointly"  %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t(".dependents") %>:</span>
+          <span class="label-value"><%= @client.intake&.dependents.count %></span>
+        </div>
+        <ul id="dependents-list">
+          <% @client.intake&.dependents.each do |d| %>
+            <li><%= "#{d.first_name} #{d.last_name}, #{default_date_format(d.birth_date)}" %></li>
+          <% end %>
+        </ul>
       </div>
-    </div>
 
-    <div class="client-bank-account-info">
-      <div class="spacing-below-35">
-        <h2 class="text--small text--bold"><%= "Bank Account Info" %>
+      <!-- Bank info-->
+      <div class="client-profile__field-group client-bank-account-info">
+        <h2 class="text--bold"><%= "Bank Account Info" %>
           <% if @client.bank_account_info? %>
-            <span id="js-toggle-bank-account-info">
-              <%= link_to("View", show_bank_account_hub_client_path, remote: true)  %>
-            </span>
+          <span id="js-toggle-bank-account-info">
+            <%= link_to("View", show_bank_account_hub_client_path, remote: true)  %>
+          </span>
           <% end %>
         </h2>
         <% if @client.bank_account_info? %>
@@ -134,10 +93,52 @@
       </div>
     </div>
 
-    <div>
-      <%= link_to(t("general.edit_info"), edit_hub_client_path, class: "button hc-button--wide") %>
+    <div class="client-profile__column">
+      <!-- Primary contact info-->
+      <div class="client-profile__field-group">
+        <h2 class="text--bold"><%= t(".primary_contact_info") %></h2>
+        <div class="field-display">
+          <span class="form-question"><%= t(".email") %>:</span>
+          <span class="label-value"><%= @client.email_address %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t(".phone") %>:</span>
+          <span class="label-value"><%= @client.phone_number %></span>
+          <span><%= link_to t("general.call"), new_hub_client_outbound_call_path(client_id: @client.id) %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t(".texting_phone") %>:</span>
+          <span class="label-value"><%= @client.sms_phone_number || 'N/A' %></span>
+        </div>
+        <div class="field-display">
+          <span class="form-question"><%= t(".mailing_address") %>:</span>
+          <span class="label-value">
+              <%= @client.intake&.formatted_mailing_address %>
+          </span>
+        </div>
+      </div>
+
+      <!-- Spouse contact info-->
+      <% if @client.intake&.filing_joint_yes? %>
+        <div class="client-profile__field-group">
+          <h2 class="text--bold"><%= t(".spouse_contact_info") %></h2>
+          <div class="field-display">
+            <span class="form-question"><%= t(".legal_name") %>:</span>
+            <span class="label-value">
+              <%= "#{@client.intake&.spouse_first_name} #{@client.intake&.spouse_last_name}" %>
+            </span>
+          </div>
+          <div class="field-display">
+            <span class="form-question"><%= t(".email") %>:</span>
+            <span class="label-value"><%= @client.intake&.spouse_email_address %> </span>
+          </div>
+        </div>
+      <% end %>
     </div>
-  </div>
+
+
+    <div class="client-profile__actions"><%= link_to(t("general.edit_info"), edit_hub_client_path, class: "button hc-button--wide") %></div>
+  </section>
 
   <%= render "client_take_action_footer" %>
 <% end %>

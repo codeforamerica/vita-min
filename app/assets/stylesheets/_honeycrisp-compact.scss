@@ -1,0 +1,113 @@
+
+// likely needed in main repo
+.honeycrisp-compact {
+  .form-question {
+    font-size: $font-size-19;
+    line-height: $s19;
+  }
+  .button:first-of-type {
+    margin-left: 0;
+  }
+  .button:last-of-type {
+    margin-right: 0;
+  }
+  .index-table {
+    th{
+      font-size: inherit;
+    }
+  }
+  .text--help {
+    font-size: $font-size-19;
+  }
+}
+
+.background--white {
+  background-color: white;
+}
+
+// GYR customizations
+.honeycrisp-compact {
+  .grid {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .slab {
+    margin-left: -3rem;
+    margin-right: -3rem;
+  }
+
+  .slab--padded {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .toolbar {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0 3rem;
+    max-width: 100%;
+  }
+
+  .h1 {
+    line-height: 25px;
+    font-size: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: $s25;
+  }
+  .form-question {
+    color: $color-grey-medium;
+    margin-bottom: $s10;
+  }
+
+  .button {
+    padding-left: $s15;
+    padding-right: $s15;
+    box-shadow: none;
+  }
+
+  .button--cta {
+    background-color: black;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+
+  .button--small {
+    font-size: $font-size-19;
+    line-height: 1.6rem;
+    padding: $s5 $s10;
+  }
+
+  .checkbox--gyr {
+    font-size: $font-size-25-small;
+    font-weight: $font-weight-normal;
+    display: flex;
+    align-items: center;
+    margin-bottom: .8rem;
+    input[type="checkbox"] {
+      width: 2rem;
+      height: 2rem;
+      margin-right: 1rem;
+    }
+  }
+
+  .field-display {
+    margin-bottom: $s15;
+    .form-question {
+      display: inline;
+      margin-right: $s15 ;
+    }
+  }
+
+
+  .password {
+    .form-group {
+      margin-bottom: $s10;
+    }
+    .text-input {
+      margin-bottom: 0;
+    }
+  }
+
+}

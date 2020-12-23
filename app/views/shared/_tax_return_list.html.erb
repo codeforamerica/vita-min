@@ -4,14 +4,13 @@
   <% client.tax_returns.order(year: :asc).each do |tax_return| %>
     <li id="tax-return-<%= tax_return.id %>">
       <div class="tax-return-list__assignment">
-        <span class="tax-return-list__year"><%= tax_return.year %></span>
-        <span class="tax-return-list__service-type">
-          <% if tax_return.service_type == "drop_off" %>
-            <span class="icon-move_to_inbox" aria-hidden="true" role="img" aria-label="<%=t("general.drop_off")%>"></span>
-            <span class="sr-only"><%=t("general.drop_off")%></span>
-          <% end %>
-        </span>
-        <span class="tax-return-list__assignee">
+        <span class="tax-return-list__year"><%=
+          tax_return.year
+        %></span><span class="tax-return-list__service-type"><%
+          if tax_return.service_type == "drop_off"
+        %><span class="icon-move_to_inbox" aria-hidden="true" role="img"></span><span class="sr-only"><%=
+          t("general.drop_off")
+        %></span><% end %></span><span class ="tax-return-list__assignee">
           <%= render "hub/tax_returns/assignee", tax_return: tax_return %>
         </span>
       </div>
@@ -52,10 +51,7 @@
           <%= f.submit "Update", class: "button button--small"%>
         <% end %>
       <% else %>
-        <div class="tax-return-list__state">
-          <div class="tax-return-list__stage"><%= stage_translation_from_status(tax_return.status) %></div>
-          <div class="tax-return-list__status"><%= status_translation(tax_return.status) %></div>
-        </div>
+        <div class="tax-return-list__status label label--status"><%= stage_translation_from_status(tax_return.status) %>/<%= status_translation(tax_return.status) %></div>
       <% end %>
     </li>
   <% end %>

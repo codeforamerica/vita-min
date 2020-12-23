@@ -121,22 +121,6 @@
     margin-right: 1.5rem;
   }
 
-  &__stage {
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    line-height: 1;
-  }
-
-  &__state {
-    text-align: right;
-    width: 135px;
-  }
-
-  &__status {
-    line-height: 1;
-    font-size: 1.4rem;
-  }
-
   &__status-form {
     .button {
       height: 44px;
@@ -152,6 +136,7 @@
   &__year {
     font-weight: bold;
     font-size: 1.6rem;
+    margin-right: $s10;
   }
 }
 
@@ -165,3 +150,14 @@
     width: 4rem;
   }
 }
+
+.label--status {
+  background-color: $color-green-money;
+  color: black;
+  text-transform: none;
+  font-size: $font-size-19;
+  line-height: 1.6rem;
+  padding: $s5 $s10;
+  border: 1px solid $color-green-money;
+}
+

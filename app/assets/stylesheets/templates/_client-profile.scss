@@ -1,5 +1,15 @@
 .client-profile {
-  p {
-    margin-bottom: 16px;
+  &__column {
+    display: inline-block;
+    vertical-align:top;
+    margin-right: $s60;
+  }
+  &__field-group {
+    margin-bottom: $s35;
+    > h2 {
+      font-size: $font-size-19;
+      line-height: $s19;
+      margin-bottom: $s15;
+    }
   }
 }

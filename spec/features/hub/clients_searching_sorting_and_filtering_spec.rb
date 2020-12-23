@@ -39,7 +39,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
         click_button "Clear filters"
 
-        within ".client-filters" do
+        within ".filter-form" do
           select "Ready for call", from: "status"
           click_button "Apply"
           expect(page).to have_select("status-filter", selected: "Ready for call")
@@ -70,7 +70,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
           expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
         end
-        within ".client-filters" do
+        within ".filter-form" do
           click_button "Clear filters"
         end
         within ".client-table" do
@@ -93,7 +93,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         # return to default filter order
         click_link "sort-id"
 
-        within ".client-filters" do
+        within ".filter-form" do
           select "2019", from: "year"
           click_button "Apply"
           expect(page).to have_select("year", selected: "2019")
@@ -108,13 +108,13 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
 
-        within ".client-filters" do
+        within ".filter-form" do
           click_button "Clear filters"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
         end
-        within ".client-filters" do
+        within ".filter-form" do
           select "2019", from: "year"
           select "Ready for call", from: "status"
           click_button "Apply"
@@ -124,13 +124,13 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 1
         end
-        within ".client-filters" do
+        within ".filter-form" do
           click_button "Clear filters"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
         end
-        within ".client-filters" do
+        within ".filter-form" do
           check "assigned_to_me"
           select "Ready for call", from: "status"
           select "2019", from: "year"
@@ -142,7 +142,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 1
         end
-        within ".client-filters" do
+        within ".filter-form" do
           select "2018", from: "year"
           click_button "Apply"
           expect(page).to have_select("status-filter", selected: "Ready for call")

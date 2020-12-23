@@ -86,6 +86,10 @@ class User < ApplicationRecord
     name&.split(" ")&.first
   end
 
+  def start_date
+    invitation_accepted_at || created_at
+  end
+
   def format_phone_number
     self.phone_number = PhoneParser.normalize(phone_number) if phone_number_changed?
   end

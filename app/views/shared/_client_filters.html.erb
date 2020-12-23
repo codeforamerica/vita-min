@@ -1,0 +1,61 @@
+<%= form_with method: "get", local: true, builder: VitaMinFormBuilder, class: "filter-form" do |f| %>
+  <%= f.hidden_field :order, value: @sort_order %>
+  <%= f.hidden_field :column, value: @sort_column %>
+
+  <h3>Filters</h3>
+  <div class="filters-wrapper">
+
+    <div class="form-group">
+      <label for="status-filter" class="form-question"><%= t("hub.clients.index.stage_status") %></label>
+      <div class="select">
+        <select name="status" class="select__element" id="status-filter">
+          <option value></option>
+          <% TaxReturnStatus::STATUSES_BY_STAGE.each do |stage, statuses| %>
+            <option value="<%= stage %>" <%= params[:status] == stage && "selected" %>><%= TaxReturnStatusHelper.stage_translation(stage) %></option>
+            <% statuses.each do |status| %>
+              <option value="<%= status %>" <%= params[:status] == status.to_s && "selected" %>>&emsp;<%= status_translation(status) %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="year" class="form-question"><%= t("hub.clients.index.filing_year").humanize %></label>
+      <div class="select">
+        <%= select_tag :year, options_for_select(TaxReturn.filing_years, params[:year]), include_blank: true, class: "select__element" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="checkbox--gyr">
+        <%= check_box_tag :assigned_to_me, true, params[:assigned_to_me] || @always_current_user_assigned, disabled: @always_current_user_assigned %>
+        <%= t("hub.clients.index.assigned_to_me") %>
+      </label>
+
+      <label class="checkbox--gyr">
+        <%= check_box_tag :unassigned, true, params[:unassigned] %>
+        <%= t("hub.clients.index.unassigned") %>
+      </label>
+
+      <label class="checkbox--gyr">
+        <%= check_box_tag :needs_attention, true, params[:needs_attention] %>
+        <%= t("hub.clients.index.needs_attention") %>
+      </label>
+    </div>
+  </div>
+
+  <div class="search-wrapper form-group" role="search">
+    <label for="search" class="form-question">
+      <%= t("general.search") %>
+    </label>
+    <%= text_field_tag("search", params[:search], id: "search", class: "text-input") %>
+  </div>
+
+  <div>
+    <%= submit_tag t("hub.clients.index.filter"), class: "button spacing-below-35", name: nil %>
+    <% if @filters && @filters.values.any? %>
+      <%= submit_tag t("hub.clients.index.clear_filters"), class: "button button--danger", name: "clear" %>
+    <% end %>
+  </div>
+<% end %>

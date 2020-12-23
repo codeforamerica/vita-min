@@ -1,52 +1,62 @@
 /*
 index-table is for displaying tabular information in the hub views.
 It expects to be the primary content of the given page (full width).
- */
+*/
+
 .scrollable-table-wrapper {
   overflow-x: scroll;
 }
 
 .index-table {
-  // inherits from honeycrisp table until we have more design on index views
-  @extend .data-table;
-  font-size: 1.6rem;
-
-  td:first-child {
-    padding-left: 1.6rem;
-  }
-
-  .index-table__title {
-    h1 {
-      margin-bottom: 0;
-    }
+  // table resets
+  border-collapse: collapse;
+  width: 100%;
+  th {
     text-align: left;
   }
 
-  .index-table__row-header {
-    font-weight: bold;
-    border: none;
-  }
-
-  .index-table__row-header, .index-table__cell {
-    a {
-      text-decoration: underline;
-    }
-  }
-
-  .index-table__row:nth-child(2n) {
-    background-color: #F7F5F4;
-  }
-
-  .index-table__cell {
-    &:last-of-type {
-      padding-right: 1rem;
-    }
-    table {
-      width: 100%;
-    }
-  }
-
-  a.button {
+  a {
+    color: inherit;
     text-decoration: none;
+  }
+  .button {
+    margin: 0;
+  }
+
+  &__head {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+
+  &__header {
+    padding: 0.8rem $s25/2;
+    font-weight: $font-weight-normal;
+    white-space: nowrap;
+    &:first-child {
+      padding-left: 3rem;
+    }
+    &:last-child {
+      padding-right: 3rem;
+    }
+  }
+
+  &__row-header {
+    white-space: nowrap;
+    padding: 0.8rem $s25/2;
+  }
+
+  &__cell {
+    padding: 0.8rem $s25/2;
+    white-space: nowrap;
+    &:first-child {
+      padding-left: 3rem;
+    }
+    &:last-child {
+      padding-right: 3rem;
+    }
+  }
+
+  &__row:nth-child(2n) {
+    background-color: #F7F5F4;
   }
 }

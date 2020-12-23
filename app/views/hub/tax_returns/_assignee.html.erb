@@ -3,7 +3,7 @@
     <%= tax_return.assigned_user&.name %>
   <% end %>
 <% else %>
-  <%= link_to edit_hub_tax_return_path(id: tax_return.id), remote: true, class: "button button--subtle button--tiny" do %>
+  <%= link_to edit_hub_tax_return_path(id: tax_return.id), remote: true, class: "button button--small" do %>
     <%= t("general.assign") %>
     <i class="icon-add"></i>
   <% end %>

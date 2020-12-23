@@ -1,4 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
+  layout "admin"
+
   def new
     super do |user|
       # When warden and devise threw an authentication error (invalid password)
