@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe RoleHelper do
-  describe '#user_roles' do
+  describe '#user_role' do
     context "an admin" do
       let(:user) { create :admin_user }
       it 'returns the user roles' do

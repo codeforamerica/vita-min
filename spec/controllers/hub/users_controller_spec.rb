@@ -105,8 +105,7 @@ RSpec.describe Hub::UsersController do
   end
 
   describe "#update" do
-    let!(:organization) { create :organization, name: "Avonlea Tax Aid" }
-    let!(:user) { create :user, name: "Anne", role: create(:organization_lead_role, organization: organization) }
+    let!(:user) { create :organization_lead_user, name: "Anne" }
 
     let(:params) do
       {
@@ -154,16 +153,11 @@ RSpec.describe Hub::UsersController do
 
       context "when editing user fields that require admin powers" do
         before do
-          params[:user][:supported_organizations] = [create(:vita_partner).id]
           params[:user][:is_admin] = true
         end
 
         it "does not change the user" do
-          post :update, params: params
-
-          user.reload
-          expect(user.is_admin).to be_falsey
-          expect(user.supported_organization_ids).to be_empty
+          expect { post :update, params: params }.not_to change { user.reload.role }
         end
       end
     end
@@ -171,29 +165,22 @@ RSpec.describe Hub::UsersController do
     context "as an admin" do
       render_views
 
-      let(:supported_vita_partner_1) { create(:vita_partner) }
-      let(:supported_vita_partner_2) { create(:vita_partner) }
+      before { sign_in(create(:admin_user)) }
 
-      before { sign_in(create(:admin_user, supported_organizations: [supported_vita_partner_1, supported_vita_partner_2])) }
-
-      it "can add admin role & supported organizations" do
+      it "can add admin role" do
         params = {
           id: user.id,
           user: {
             is_admin: true,
-            timezone: "America/Chicago",
-            supported_organization_ids: [
-              supported_vita_partner_1.id,
-              supported_vita_partner_2.id
-            ]
+            timezone: "America/Chicago"
           }
         }
-
-        post :update, params: params
+        expect {
+          post :update, params: params
+        }.to change(OrganizationLeadRole, :count).by(-1).and change(AdminRole, :count).by(1)
 
         user.reload
-        expect(user.is_admin?).to eq true
-        expect(user.supported_organization_ids.sort).to eq [supported_vita_partner_1.id, supported_vita_partner_2.id]
+        expect(user.role_type).to eq "AdminRole"
       end
 
       it "can add client support role" do
@@ -213,7 +200,7 @@ RSpec.describe Hub::UsersController do
 
     context "as an authenticated user editing someone else at the same org" do
       before do
-        other_user = create(:user, role: create(:organization_lead_role, organization: organization))
+        other_user = create(:organization_lead_user)
         sign_in(other_user)
       end
 

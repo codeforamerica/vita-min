@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_22_174316) do
+ActiveRecord::Schema.define(version: 2020_12_23_171455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,11 @@ ActiveRecord::Schema.define(version: 2020_12_22_174316) do
     t.string "key", null: false
     t.text "metadata"
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "admin_roles", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "anonymized_diy_intake_csv_extracts", force: :cascade do |t|
@@ -517,7 +522,6 @@ ActiveRecord::Schema.define(version: 2020_12_22_174316) do
     t.string "invitation_token"
     t.integer "invitations_count", default: 0
     t.bigint "invited_by_id"
-    t.boolean "is_admin", default: false, null: false
     t.boolean "is_client_support"
     t.datetime "last_sign_in_at"
     t.string "last_sign_in_ip"

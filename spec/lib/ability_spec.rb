@@ -123,7 +123,7 @@ describe Ability do
   end
 
   context "as an admin" do
-    let(:user) { create(:user, is_admin: true) }
+    let(:user) { create(:user, role: create(:admin_role)) }
     let(:client) { create(:client, vita_partner: create(:organization)) }
 
     it "can manage any data" do
