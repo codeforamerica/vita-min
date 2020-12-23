@@ -12,7 +12,7 @@ RSpec.describe Hub::OutgoingEmailsController do
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
-    context "as an authenticated admin user" do
+    context "as an authenticated user with access to the client" do
       before do
         sign_in user
         allow(subject).to receive(:send_email)
