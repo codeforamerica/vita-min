@@ -12,9 +12,15 @@
 
       <h2><%= t("general.role") %></h2>
 
-      <%= f.cfa_checkbox(:is_admin, t(".is_admin_label"), options: {classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
-      <%= f.cfa_checkbox(:is_client_support, t(".is_client_support_label"), options: { classes: ["form-width--long"], disabled: !current_user.is_admin }) %>
-      <% if current_user.is_admin %>
+      <fieldset class="input-group form-group">
+        <label class="checkbox">
+          <%= check_box_tag("user[is_admin]", true, @user.role_type == "AdminRole", classes: ["form-width--long"], disabled: current_user.role_type != "AdminRole") %>
+          <%= t('.is_admin_label') %>
+        </label>
+      </fieldset>
+
+      <%= f.cfa_checkbox(:is_client_support, t(".is_client_support_label"), options: { classes: ["form-width--long"], disabled: current_user.role_type != "AdminRole" }) %>
+      <% if current_user.role_type == "AdminRole" %>
         <div class="reveal">
           <p><a href="#" class="reveal__link">Select supported organizations</a></p>
           <div class="reveal__content">

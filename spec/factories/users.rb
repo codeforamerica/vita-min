@@ -17,7 +17,6 @@
 #  invitation_sent_at        :datetime
 #  invitation_token          :string
 #  invitations_count         :integer          default(0)
-#  is_admin                  :boolean          default(FALSE), not null
 #  is_client_support         :boolean
 #  last_sign_in_at           :datetime
 #  last_sign_in_ip           :string
@@ -70,7 +69,7 @@ FactoryBot.define do
     end
 
     factory :admin_user do
-      is_admin { true }
+      role { create(:admin_role) }
     end
 
     factory :invited_user do

@@ -62,9 +62,8 @@ RSpec.describe Users::InvitationsController do
         let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
 
         it "doesn't change the user's role" do
-          post :create, params: params
-          invited_user.reload
-          expect(invited_user.is_admin).to be_truthy
+          expect { post :create, params: params }.not_to change { invited_user.reload.role }
+          expect(response).to redirect_to invitations_path
         end
       end
     end

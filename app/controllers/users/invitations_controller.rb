@@ -19,6 +19,8 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :require_valid_invitation_token, only: [:edit, :update]
 
   def create
+    redirect_to invitations_path and return if already_invited_other_role?
+
     organization = @vita_partners.find(params.require(:organization_id))
     authorize!(:manage, organization)
     super do |invited_user|
@@ -31,6 +33,10 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   private
+
+  def already_invited_other_role?
+    User.where(email: invite_params[:email]).where.not(role_type: "OrganizationLeadRole").exists?
+  end
 
   def load_and_authorize_vita_partners
     @vita_partners = VitaPartner.accessible_by(current_ability)
@@ -67,6 +73,7 @@ class Users::InvitationsController < Devise::InvitationsController
   def raw_invitation_token
     # on GET invitation_token is a top-level query param
     return params[:invitation_token] if action_name == "edit"
+
     update_resource_params[:invitation_token]
   end
 
