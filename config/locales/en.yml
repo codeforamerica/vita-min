@@ -130,7 +130,7 @@ en:
           one: Client added 1 document.
           other: Client added %{count} documents.
         outbound_call_note_html: |
-          <p>Called by %{user_name}. Call was %{status} and lasted %{duration}.</p>
+          Called by %{user_name}. Call was %{status} and lasted %{duration}.
         outbound_call_note_body_html: |
           <p>Call notes:<br/>%{note}</p>
     outbound_calls:
@@ -139,6 +139,10 @@ en:
         your_phone_number: Your phone number
         client_phone_number: Client phone number
         call: Call
+        notice_html: Expect a call from <strong>%{receiving_number}</strong> when you press 'Call'.
+        notice_list:
+          - Your phone number will remain private -- it is not accessible to the client.
+          - We'll always call from this number -- consider adding it to your contacts.
       show:
         body_html: |
           <p>A call is being initialized to %{from_phone_number}.</p>

@@ -140,6 +140,11 @@ es:
         your_phone_number: Su número de teléfono
         client_phone_number: Número de teléfono del cliente
         call: Llámalos ahora
+        notice_html: Espere una llamada de <strong>%{receiving_number}</strong> cuando presione 'Llámalos ahora'.
+        notice_list:
+          - Su número de teléfono permanecerá privado, no es accesible para el cliente.
+          - Siempre llamaremos desde este número; considere agregarlo a sus contactos.
+
       show:
         body_html: |
           <p>Se está inicializando una llamada a %{from_phone_number}.</p>

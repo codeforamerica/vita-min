@@ -163,7 +163,7 @@ Rails.application.routes.draw do
   # Twilio webhook routes
   post "/outgoing_text_messages/:id", to: "twilio_webhooks#update_outgoing_text_message", as: :outgoing_text_message
   post "/outbound_calls/:id", to: "twilio_webhooks#update_outbound_call", as: :outbound_calls_webhook
-  post "/dial/:id", to: "twilio_webhooks#dial", defaults: { format: 'xml' }, as: :dial
+  post "/dial_client/:id", to: "twilio_webhooks#dial_client", defaults: { format: 'xml' }, as: :dial_client
 
   post "/incoming_text_messages", to: "twilio_webhooks#create_incoming_text_message", as: :incoming_text_messages
   # Mailgun webhook routes

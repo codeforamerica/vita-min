@@ -15,8 +15,10 @@ class TwilioWebhooksController < ActionController::Base
     update_params[:call_duration] = params["CallDuration"] if params["CallDuration"].present?
     call.update(update_params)
   end
-  
-  def dial
+
+  # This url is used to provide instructions to Twilio for how to handle calls from the user to the client from the
+  # OutboundCallForm. Once the user picks up and connects, we dial the clients phone number.
+  def dial_client
     @outbound_call = OutboundCall.find(params[:id])
     twiml = Twilio::TwiML::VoiceResponse.new
     twiml.say(message: 'Please wait while we connect your call.')

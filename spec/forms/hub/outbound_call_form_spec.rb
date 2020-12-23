@@ -53,7 +53,7 @@ describe Hub::OutboundCallForm do
     it "creates a twilio call with appropriate params" do
       subject.dial
       expect(twilio_calls_double).to have_received(:create).with({
-                                                                   url: dial_url(id: OutboundCall.last.id, locale: nil),
+                                                                   url: dial_client_url(id: OutboundCall.last.id, locale: nil),
                                                                    to: user.phone_number,
                                                                    from: '+14156393361'
                                                                  })

@@ -267,7 +267,7 @@ RSpec.describe TwilioWebhooksController do
 
       context "with an authenticated user" do
         it "responds with xml" do
-          post :dial, params: params, format: :xml
+          post :dial_client, params: params, format: :xml
           expect(response.body).to include "<Say>Please wait while we connect your call.</Say>"
           expect(response.body).to include "<Dial>\n<Number statusCallback=\"http://test.host/outbound_calls/#{outbound_call.id}\" statusCallbackEvent=\"answered completed\" statusCallbackMethod=\"POST\">#{outbound_call.to_phone_number}</Number>\n</Dial>"
         end

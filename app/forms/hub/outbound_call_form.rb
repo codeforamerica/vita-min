@@ -1,8 +1,8 @@
 module Hub
   class OutboundCallForm < Form
-    attr_accessor :user_phone_number, :client_phone_number, :outbound_call
-    delegate :dial_path,
-      :dial_url,
+    attr_accessor :user_phone_number, :client_phone_number, :outbound_call, :twilio_phone_number
+    delegate :dial_client_path,
+      :dial_client_url,
       :outbound_calls_webhook_path,
       :outbound_calls_webhook_url, to: 'Rails.application.routes.url_helpers'
 
@@ -18,6 +18,7 @@ module Hub
       @user = kwargs[:user]
       @client = kwargs[:client]
 
+      self.twilio_phone_number = EnvironmentCredentials.dig(:twilio, :voice_phone_number)
       self.user_phone_number = @user&.phone_number
       self.client_phone_number = @client&.phone_number
       super(attrs)
@@ -38,7 +39,7 @@ module Hub
         twilio_call = twilio_client.calls.create(
           url: dial_callback_url,
           to: user_phone_number,
-          from: EnvironmentCredentials.dig(:twilio, :voice_phone_number)
+          from: twilio_phone_number
         )
 
         outbound_call.update(twilio_sid: twilio_call.sid, twilio_status: twilio_call.status)
@@ -52,9 +53,9 @@ module Hub
       if Rails.env.development?
         raise NgrokNeededError unless Rails.configuration.try(:ngrok_url).present?
 
-        return Rails.configuration.ngrok_url + dial_path(params)
+        return Rails.configuration.ngrok_url + dial_client_path(params)
       end
-      dial_url(params)
+      dial_client_url(params)
     end
 
     def webhook_url
