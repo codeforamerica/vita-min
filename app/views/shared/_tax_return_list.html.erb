@@ -2,7 +2,7 @@
 
 <ul class="tax-return-list">
   <% client.tax_returns.order(year: :asc).each do |tax_return| %>
-    <li id="tax-return-<%= tax_return.id %>">
+    <li id="tax-return-<%= tax_return.id %>" class="tax-return-item">
       <div class="tax-return-list__assignment">
         <span class="tax-return-list__year"><%= tax_return.year %></span>
         <span class="tax-return-list__service-type">
@@ -11,16 +11,8 @@
             <span class="sr-only"><%=t("general.drop_off")%></span>
           <% end %>
         </span>
-        <span class ="tax-return-list__assignee">
-          <% if tax_return.assigned_user.present? %>
-            <%= tax_return.assigned_user&.name %>
-          <% else %>
-            <%= link_to edit_hub_client_tax_return_path(client_id: client.id, id: tax_return.id),
-                        class: "button button--subtle button--tiny" do %>
-              <%= t("general.assign") %>
-              <i class="icon-add"></i>
-            <% end %>
-          <% end %>
+        <span class="tax-return-list__assignee">
+          <%= render "hub/tax_returns/assignee", tax_return: tax_return %>
         </span>
       </div>
 

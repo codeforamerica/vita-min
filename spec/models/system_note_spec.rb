@@ -106,8 +106,12 @@ RSpec.describe SystemNote do
       it "describes the change" do
         SystemNote.create_assignment_change_note(current_user, tax_return)
         expect(SystemNote.last.client).to eq(tax_return.client)
-        expect(SystemNote.last.body).to eq("Example User assigned 2019 return to Alice")
+        expect(SystemNote.last.body).to eq("Example User assigned 2019 return to Alice.")
       end
+    end
+
+    context "when the tax return is currently unassigned" do
+      let(:tax_return) { create :tax_return, assigned_user: nil }
     end
   end
 end

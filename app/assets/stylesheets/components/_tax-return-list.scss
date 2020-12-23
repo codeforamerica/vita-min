@@ -1,6 +1,10 @@
 .tax-return-list {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   margin: 0;
+
+  a {
+    color: black;
+  }
 
   .certification-label {
     width: 80px;
@@ -44,14 +48,20 @@
     display: flex;
     justify-content: flex-end;
     line-height: 3.5rem;
+    height: 60px;
   }
 
-  .tax-return-certification-form {
+  .tax-return-element-form {
     position: relative;
     border: 2px solid black;
     height: 44px;
     display: flex;
     align-items: center;
+    font-weight: normal;
+    font-size: 14px;
+    select {
+      flex-grow: 1;
+    }
     > * {
       margin: 0 5px 0;
     }
@@ -74,9 +84,6 @@
       position: absolute;
       top: -30px;
       margin: 0;
-      a {
-        font-size: smaller;
-      }
     }
   }
 
@@ -84,7 +91,7 @@
     font-size: 1.6rem;
     font-weight: bold;
     margin-right: 1.25rem;
-
+    flex-grow: 1;
     .button {
       margin-right: 0;
     }
@@ -92,7 +99,10 @@
 
   &__assignment {
     font-size: 1.4rem;
-
+    flex-grow: 1;
+    display: flex;
+    height: 60px;
+    align-items: center;
     > div {
       margin-right: 5px;
     }
@@ -127,12 +137,22 @@
   &__service-type {
     font-size: 2rem;
     min-width: 3rem;
+    text-align: center;
   }
 
   &__year {
     font-weight: bold;
     font-size: 1.6rem;
-    margin-right: 1.5rem;
   }
 }
 
+// Style the component a bit differently on the client header where we have more room.
+.client-header {
+  .tax-return-list__assignment {
+    width: 300px;
+  }
+
+  .tax-return-list__service-type {
+    width: 4rem;
+  }
+}

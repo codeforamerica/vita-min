@@ -153,9 +153,8 @@ en:
     tax_returns:
       edit:
         assigned_user_label: Assign to
-        title: Assign %{client_name}'s %{tax_year} tax return
       update:
-        flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}
+        flash_success: Assigned %{client_name}'s %{tax_year} tax return to %{assignee_name}.
         no_one: no one
       stage:
         intake: Intake

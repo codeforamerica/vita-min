@@ -154,9 +154,8 @@ es:
     tax_returns:
       edit:
         assigned_user_label: Asignar a
-        title: Asignar la declaración de impuestos %{tax_year} de %{client_name}
       update:
-        flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}
+        flash_success: Se ha asignado la declaración de impuestos %{tax_year} de %{client_name} a %{assignee_name}.
         no_one: nadie
       stage:
         intake: Admisión

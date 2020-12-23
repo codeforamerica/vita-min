@@ -1,0 +1,2 @@
+$('<%="#tax-return-#{@tax_return.id}"%> .tax-return-list__assignee').html("<%= escape_javascript render("assign", tax_return: @tax_return, assignable_users: @assignable_users) %>")
+

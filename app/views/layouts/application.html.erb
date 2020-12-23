@@ -60,18 +60,10 @@
       <% if content_for(:user_return_link_name) && content_for(:user_return_link_path) %>
         <%= render "hub/user_navigation", user_return_link_name: content_for(:user_return_link_name), user_return_link_path: content_for(:user_return_link_path) %>
       <% end %>
+      <div class="flash-alerts">
+        <%= render "shared/alerts", flash: flash %>
+      </div>
 
-      <% if flash.any? %>
-        <% flash.each do |type, message| %>
-          <div class="slab slab--flash flash--<%= type %>">
-            <div class="grid">
-              <div class="grid__item">
-                <%= message %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
       <%= content_for?(:main) ? yield(:main) : yield %>
       <%= content_for?(:footer) ? yield(:footer) : render('shared/footer') %>
     </div>
