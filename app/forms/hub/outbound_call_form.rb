@@ -37,26 +37,31 @@ module Hub
         )
 
         twilio_call = twilio_client.calls.create(
-          url: dial_callback_url,
+          twiml: twiml,
           to: user_phone_number,
           from: twilio_phone_number
         )
 
-        outbound_call.update(twilio_sid: twilio_call.sid, twilio_status: twilio_call.status)
+        @outbound_call.update(twilio_sid: twilio_call.sid, twilio_status: twilio_call.status)
       end
+    end
+
+    def twiml
+      twiml = Twilio::TwiML::VoiceResponse.new
+      twiml.say(message: 'Please wait while we connect your call.')
+      # The status callback for the call is attached to the dial event to the client.
+      # This means that the length of the call will be based on how long the user was connected to the client,
+      # And the status will be based on whether the client picked up the call.
+      twiml.dial do |dial|
+        dial.number(@outbound_call.to_phone_number,
+                    status_callback_event: 'answered completed',
+                    status_callback: webhook_url,
+                    status_callback_method: 'POST')
+      end
+      twiml.to_xml
     end
 
     private
-
-    def dial_callback_url
-      params = { id: @outbound_call.id, locale: nil }
-      if Rails.env.development?
-        raise NgrokNeededError unless Rails.configuration.try(:ngrok_url).present?
-
-        return Rails.configuration.ngrok_url + dial_client_path(params)
-      end
-      dial_client_url(params)
-    end
 
     def webhook_url
       params = { id: @outbound_call.id, locale: nil }

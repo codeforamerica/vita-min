@@ -19,6 +19,7 @@ module Hub
       @outbound_call = OutboundCall.find(params[:id])
     end
 
+    # The form that posts to update is on the show page, and only includes a textarea to update the note.
     def update
       @outbound_call = OutboundCall.find(params[:id])
       @outbound_call.update(params.require(:outbound_call).permit(:note))
@@ -28,6 +29,8 @@ module Hub
     def new
       @form = OutboundCallForm.new(client: @client, user: current_user)
     end
+
+    private
 
     def permitted_params
       params.require(OutboundCallForm.form_param).permit(:user_phone_number, :client_phone_number)

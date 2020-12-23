@@ -2,17 +2,17 @@
 #
 # Table name: outbound_calls
 #
-#  id                :bigint           not null, primary key
-#  call_duration     :string
-#  from_phone_number :string           not null
-#  note              :text
-#  to_phone_number   :string           not null
-#  twilio_sid        :string
-#  twilio_status     :string
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  client_id         :bigint
-#  user_id           :bigint
+#  id                   :bigint           not null, primary key
+#  from_phone_number    :string           not null
+#  note                 :text
+#  to_phone_number      :string           not null
+#  twilio_call_duration :integer
+#  twilio_sid           :string
+#  twilio_status        :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  client_id            :bigint
+#  user_id              :bigint
 #
 # Indexes
 #
@@ -24,4 +24,10 @@ class OutboundCall < ApplicationRecord
   belongs_to :client
   validates :to_phone_number, phone: true, presence: true
   validates :from_phone_number, phone: true, presence: true
+
+  # twilio_status, twilio_sid, and call_duration are set by responses from twilio
+  # twilio_status is set to "queued" on creation of the twilio call which triggers a call to the from_phone_number
+  # a webhook on the "dial" to the to_phone_number will trigger updates to the twilio_status
+  # This means that if a user ends the call before completing the dial event to the client, the call will remain in
+  # the "queued" status until the dial event to the client is completed.
 end

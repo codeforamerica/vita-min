@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_23_171455) do
+ActiveRecord::Schema.define(version: 2020_12_23_232203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -388,12 +388,12 @@ ActiveRecord::Schema.define(version: 2020_12_23_171455) do
   end
 
   create_table "outbound_calls", force: :cascade do |t|
-    t.string "call_duration"
     t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.string "from_phone_number", null: false
     t.text "note"
     t.string "to_phone_number", null: false
+    t.integer "twilio_call_duration"
     t.string "twilio_sid"
     t.string "twilio_status"
     t.datetime "updated_at", precision: 6, null: false

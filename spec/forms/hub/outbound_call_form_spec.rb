@@ -53,7 +53,7 @@ describe Hub::OutboundCallForm do
     it "creates a twilio call with appropriate params" do
       subject.dial
       expect(twilio_calls_double).to have_received(:create).with({
-                                                                   url: dial_client_url(id: OutboundCall.last.id, locale: nil),
+                                                                   twiml: subject.twiml,
                                                                    to: user.phone_number,
                                                                    from: '+14156393361'
                                                                  })
@@ -68,6 +68,16 @@ describe Hub::OutboundCallForm do
       call.client = client
       call.to_phone_number = user.phone_number
       call.from_phone_number = client.phone_number
+    end
+  end
+
+  context "twiml" do
+    subject { described_class.new(client: client, user: user)  }
+
+    it "responds with xml" do
+      subject.dial
+      expect(subject.twiml).to include "<Say>Please wait while we connect your call.</Say>"
+      expect(subject.twiml).to include "<Dial>\n<Number statusCallback=\"http://test.host/outbound_calls/#{subject.outbound_call.id}\" statusCallbackEvent=\"answered completed\" statusCallbackMethod=\"POST\">#{subject.outbound_call.to_phone_number}</Number>\n</Dial>"
     end
   end
 

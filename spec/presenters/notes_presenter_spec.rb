@@ -65,7 +65,7 @@ RSpec.describe NotesPresenter do
     context "with outbound calls" do
       let(:day1) { DateTime.new(2019, 10, 5, 8, 1).utc }
       let(:day2) { DateTime.new(2020, 10, 5, 5, 1).utc }
-      let!(:outbound_call_completed) { create :outbound_call, twilio_status: "completed", created_at: day1, call_duration: "75", client: client, user: user, note: "I talked to them!" }
+      let!(:outbound_call_completed) { create :outbound_call, twilio_status: "completed", created_at: day1, twilio_call_duration: 75, client: client, user: user, note: "I talked to them!" }
       let!(:outbound_call_queued) { create :outbound_call, twilio_status: "queued", created_at: day2, client: client, user: user }
       it "does not include outbound_calls in status queued" do
         result = NotesPresenter.grouped_notes(client)

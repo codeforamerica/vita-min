@@ -129,11 +129,9 @@ es:
         document_note:
           one: El cliente agregó 1 documento.
           other: El cliente agregó %{count} documentos.
-        outbound_call_note_html: |
-          <p>Llamado por %{user_name}. La llamada se %{status} y duró %{duration}.</p>
-        outbound_call_note_body_html: |
-          <p>Notas de llamada:<br/>%{note}</p>
-
+        outbound_call_synthetic_note: Llamado por %{user_name}. La llamada se %{status} y duró %{duration}.
+        outbound_call_synthetic_note_body: |
+          Notas de llamada:
     outbound_calls:
       new:
         title: Llamar al cliente
