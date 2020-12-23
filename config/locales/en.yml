@@ -11,6 +11,7 @@ en:
         clients_link: Clients
         users_link: Users
         return_to_dashboard: < Return to dashboard
+        start_date: "Start date"
     anonymized_intake_csv_extracts:
       index:
         filename: Filename
@@ -19,7 +20,7 @@ en:
         run_at: Run At
     assigned_clients:
       index:
-        title: Your assigned clients
+        title: Assigned clients
     clients:
       create:
         success_message: Client successfully created.
@@ -1626,8 +1627,7 @@ en:
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
       user_header:
-        profile_link: View profile
-        welcome: Welcome, %{name}
+        welcome_html: Welcome, <a href="%{url}"><strong>%{name}</strong></a>
     stimulus:
       file_for_stimulus:
         info: You might also be eligible for additional money through tax credits. We’ll help you get the most out of your return!

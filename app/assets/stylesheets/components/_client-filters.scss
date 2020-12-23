@@ -1,43 +1,26 @@
-.client-filters {
-  background: $color-grey-light;
-  padding: 1rem;
-  margin-top: 1rem;
-  hr {
-    margin: .6rem 0;
+.filter-form {
+  margin-top: 2rem;
+  .form-group{
+    margin-bottom: 0;
   }
-  label {
-    display: block;
-    font-size: 1.6rem;
-  }
+
   h3 {
     margin: 0;
-  }
-  .select {
-    margin-top: .4rem;
-    height: 4rem;
-    line-height: 4rem;
-    &__element {
-      padding-left: 1.5rem;
-    }
-  }
-  .button {
-    margin-top: .6rem;
+    margin-bottom: $s5;
   }
 
   .filters-wrapper {
-    display: flex;
-    > div {
-      margin-right: 1rem;
+    display: inline-flex;
+    align-items: top;
+    .form-group {
+      margin-right: $s25;
     }
   }
 
-  .box-filter {
-    > input {
-      margin-left: 1rem;
-      margin-right: 1rem;
-    }
-    display: flex;
-    align-items: center;
+  .search-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    width: 37.5rem;
   }
 }
 

@@ -1,6 +1,3 @@
-<div class="hub-section user-header">
-  <h3 class="h2 welcome"> <%= t("views.shared.user_header.welcome", name: current_user.name)%></h3>
-  <div>
-    <%=link_to t("views.shared.user_header.profile_link"), hub_user_profile_path %>
-  </div>
+<div class="user-header">
+  <p class="spacing-below-25"><%= t("views.shared.user_header.welcome_html", name: current_user.name, url: hub_user_profile_path)%></p>
 </div>

@@ -1,6 +1,5 @@
 .admin {
   background: white;
-  line-height: 2.5rem;
 
   .hub-content-wrapper {
     margin-top: 3rem;
@@ -12,11 +11,6 @@
 
   .page-wrapper {
     padding: 0;
-  }
-
-  .client-navigation {
-    padding-left: 7rem;
-    @extend .spacing-below-35;
   }
 
   .header {
@@ -58,4 +52,8 @@
     margin-left: 75px;
     width: 164px;
   }
+}
+
+section.client-index-header.slab--padded {
+  padding-bottom: 0;
 }

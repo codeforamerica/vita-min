@@ -1,13 +1,18 @@
 // Prevents anchor tag from taking on :visited color in tabs
 a.tab-bar__tab {
+  line-height: $s25;
   color: inherit;
+  margin-right: $s25;
+  font-weight: $font-weight-normal;
+  padding: $s5 2rem;
+  min-width: 0;
 }
 
 // Fixes a bug in honeycrisp styleguide https://github.com/codeforamerica/honeycrisp-gem/issues/214
 .tab-bar__tab.is-selected {
   background-color: white;
   color: $color-grey-darkest;
-  font-weight: 600;
+  font-weight: $font-weight-normal;
   z-index: 2;
 
   &:before {

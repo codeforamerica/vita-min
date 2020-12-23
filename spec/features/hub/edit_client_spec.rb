@@ -123,7 +123,7 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "Dependents: 3"
       within "#dependents-list" do
         expect(page).to have_text "Laura Peaches"
-        expect(page).to have_text "12/01/2008"
+        expect(page).to have_text "12/1/2008"
         expect(page).to have_text "Paul Pumpkin"
         expect(page).to have_text "10/31/2020"
         expect(page).to have_text "Cranberry Chung"

@@ -5,7 +5,7 @@ module TimeHelper
   end
 
   def default_date_format(datetime)
-    datetime&.to_date&.strftime("%m/%d/%Y")
+    datetime&.to_date&.strftime("%-m/%-d/%Y")
   end
 
   def formatted_time(datetime)
@@ -29,9 +29,9 @@ module TimeHelper
     datetime.strftime("%b %d %-l:%M %p")
   end
 
-  def formatted_datetime_with_break(datetime)
+  def formatted_datetime(datetime)
     return unless datetime
 
-    tag.span(datetime.strftime("%b %d")) + tag(:br) + tag.span(datetime.strftime("%-l:%M %p"))
+    tag.span(datetime.strftime("%b %d %-l:%M %p"))
   end
 end

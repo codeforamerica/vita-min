@@ -1,7 +1,6 @@
 <% if client.needs_attention? %>
-  <div class="needs-attention-wrapper">
+  <span class="needs-attention-wrapper">
     <i class="needs-attention" aria-hidden="true"></i>
-    <div class="sr-only"><% t("general.needs_attention") %></div>
-  </div>
-<% else %>
+    <span class="sr-only"><%= t("general.needs_attention") %></span>
+  </span>
 <% end %>

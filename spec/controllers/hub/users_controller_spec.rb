@@ -6,7 +6,18 @@ RSpec.describe Hub::UsersController do
 
     context "with an authenticated user" do
       render_views
-      let(:user) { create :user, name: "Adam Avocado", role: create(:organization_lead_role, organization: (create :organization, name: "Orange organization")) }
+      let(:accepted_invite_time) { DateTime.new(2015, 2, 11) }
+      let(:created_at_time) { DateTime.new(2015, 1, 10) }
+      let(:user) do
+        create(
+          :user,
+          name: "Adam Avocado",
+          created_at: created_at_time,
+          invitation_accepted_at: accepted_invite_time,
+          timezone: "America/New_York",
+          role: create(:organization_lead_role, organization: (create :organization, name: "Orange organization"))
+        )
+      end
 
       before do
         sign_in user
@@ -22,6 +33,26 @@ RSpec.describe Hub::UsersController do
         expect(response.body).to include invitations_path
         expect(response.body).to include hub_clients_path
         expect(response.body).to include hub_users_path
+      end
+
+      context "with a datetime for when the user accepted an invitation" do
+        let(:accepted_invite_time) { DateTime.new(2015, 2, 11) }
+
+        it "displays the time the user accepted their invitation" do
+          get :profile
+
+          expect(response.body).to have_content "2/10/2015"
+        end
+      end
+
+      context "without an 'accepted_invite_at' time" do
+        let(:accepted_invite_time) { nil }
+
+        it "displays the time the user record was created" do
+          get :profile
+
+          expect(response.body).to have_content "1/9/2015"
+        end
       end
     end
   end
