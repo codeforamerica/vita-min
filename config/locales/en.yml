@@ -495,6 +495,7 @@ en:
     timezone: Timezone
     today: Today
     updated_at: Updated At
+    unassigned: Unassigned
     upload: Upload
     very_well: Very well
     visit_free_file: Visit IRS Free File

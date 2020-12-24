@@ -40,7 +40,7 @@ RSpec.feature "Change tax return status on a client" do
 
     scenario "can change a status on a tax return and send a templated message" do
       visit hub_client_path(id: client.id)
-      expect(page).to have_select("tax_return_status", selected: "In progress")
+      expect(page).to have_select("tax_return[status]", selected: "In progress")
 
       within "#tax-return-#{tax_return.id}" do
         select "Accepted"

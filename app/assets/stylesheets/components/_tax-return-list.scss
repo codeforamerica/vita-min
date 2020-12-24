@@ -11,8 +11,8 @@
     text-align: center;
 
     &.label--unassigned {
-      background: $color-grey-light;
-      color: $color-grey;
+      background: $color-grey;
+      color: black;
     }
   }
 
@@ -32,10 +32,6 @@
       font-size: 1.6rem;
       padding: 0 4rem 0 1.5rem;
       width: 315px;
-    }
-
-    label {
-      @include sr-only;
     }
 
     .button {
@@ -59,8 +55,13 @@
     align-items: center;
     font-weight: normal;
     font-size: 14px;
-    select {
+    label {
       flex-grow: 1;
+      display: flex;
+      align-items: center;
+      select {
+        width: 100%;
+      }
     }
     > * {
       margin: 0 5px 0;
@@ -79,11 +80,19 @@
     .before {
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       position: absolute;
-      top: -30px;
+      top: -28px;
       margin: 0;
+    }
+
+    .offset-label {
+      position: absolute;
+      top: -24px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      left: 0;
     }
   }
 
