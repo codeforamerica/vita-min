@@ -9,6 +9,7 @@ It expects to be the primary content of the given page (full width).
 .index-table {
   // inherits from honeycrisp table until we have more design on index views
   @extend .data-table;
+  font-size: 1.6rem;
 
   td:first-child {
     padding-left: 1.6rem;
@@ -37,11 +38,8 @@ It expects to be the primary content of the given page (full width).
   }
 
   .index-table__cell {
-
-
-    padding-right: .5rem;
     &:last-of-type {
-      padding-right: 0;
+      padding-right: 1rem;
     }
     table {
       width: 100%;

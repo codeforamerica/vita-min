@@ -35,4 +35,8 @@ module ApplicationHelper
   def signature_methods_for_select
     Intake.signature_methods.map { |method| [I18n.t("hub.clients.fields.signature_methods.#{method[0]}"), method[0]]}
   end
+
+  def flash_alerts
+    "$('.flash-alerts').html('#{escape_javascript(render("shared/flash_alerts", flash: flash))}');".html_safe
+  end
 end

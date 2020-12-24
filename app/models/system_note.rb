@@ -58,10 +58,18 @@ class SystemNote < ApplicationRecord
   end
 
   def self.create_assignment_change_note(user, tax_return)
+    return unless tax_return.saved_change_to_assigned_user_id? # if the assigned user didn't change, don't persist
+
+    action = if tax_return.assigned_user.present?
+      "assigned #{tax_return.year} return to #{tax_return.assigned_user.name}."
+    else
+      "removed assignment from #{tax_return.year} return."
+    end
+
     SystemNote.create!(
       user: user,
       client: tax_return.client,
-      body: "#{user.name} assigned #{tax_return.year} return to #{tax_return.assigned_user.name}"
+      body: "#{user.name} #{action}"
     )
   end
 end

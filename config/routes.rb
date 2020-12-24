@@ -117,6 +117,7 @@ Rails.application.routes.draw do
     # Hub Admin routes (Case Management)
     namespace :hub do
       root "assigned_clients#index"
+      resources :tax_returns, only: [:edit, :update, :show]
       resources :clients do
         get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
         patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
@@ -128,7 +129,6 @@ Rails.application.routes.draw do
         resources :outgoing_text_messages, only: [:create]
         resources :outgoing_emails, only: [:create]
         resources :outbound_calls, only: [:new, :create, :show, :update]
-        resources :tax_returns, only: [:edit, :update]
         member do
           patch "attention_needed"
           get "edit_take_action"

@@ -11,16 +11,8 @@
             <span class="sr-only"><%=t("general.drop_off")%></span>
           <% end %>
         </span>
-        <span class ="tax-return-list__assignee">
-          <% if tax_return.assigned_user.present? %>
-            <%= tax_return.assigned_user&.name %>
-          <% else %>
-            <%= link_to edit_hub_client_tax_return_path(client_id: client.id, id: tax_return.id),
-                        class: "button button--subtle button--tiny" do %>
-              <%= t("general.assign") %>
-              <i class="icon-add"></i>
-            <% end %>
-          <% end %>
+        <span class="tax-return-list__assignee">
+          <%= render "hub/tax_returns/assignee", tax_return: tax_return %>
         </span>
       </div>
 
@@ -41,7 +33,22 @@
       <% if status_updateable %>
         <%= form_with model: tax_return, url: edit_take_action_hub_client_path(id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "tax-return-list__status-form form-wrapper"} do |f| %>
           <%= f.hidden_field "id", value: tax_return.id %>
-          <%= f.cfa_select(:status, t("general.status"), grouped_status_options_for_select, include_blank: true, selected: tax_return.status) %>
+          <div>
+            <label for=<%= "tax_return_status_#{tax_return.id}"%>>
+              <div class="sr-only"><%= t("general.status") %></div>
+              <div class="select">
+                <select name="tax_return[status]" class="select__element" id=<%= "tax_return_status_#{tax_return.id}"%>>
+                  <option value></option>
+                  <% TaxReturnStatus::STATUSES_BY_STAGE.each do |stage, statuses| %>
+                    <optgroup label=<%= stage_translation(stage) %>/>
+                    <% statuses.each do |status| %>
+                      <option value="<%= status %>" <%= tax_return.status == status.to_s && "selected" %>>&emsp;<%= status_translation(status) %></option>
+                    <% end %>
+                  <% end %>
+                </select>
+              </div>
+            </label>
+          </div>
           <%= f.submit "Update", class: "button button--small"%>
         <% end %>
       <% else %>

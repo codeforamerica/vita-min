@@ -11,7 +11,8 @@
     <hr/>
     <div class="filters-wrapper">
       <div>
-        <label for="status"><%= t("hub.clients.index.stage_status") %></label>
+        <label for="status-filter">
+        <div><%= t("hub.clients.index.stage_status") %></div>
         <div class="select">
           <select name="status" class="select__element" id="status-filter">
             <option value></option>
@@ -23,6 +24,7 @@
             <% end %>
           </select>
         </div>
+        </label>
       </div>
       <div>
         <label for="year"><%= t("hub.clients.index.filing_year").humanize %></label>
@@ -32,16 +34,22 @@
       </div>
       <div>
         <div class="box-filter">
-          <%= check_box_tag :assigned_to_me, true, params[:assigned_to_me] || @always_current_user_assigned, disabled: @always_current_user_assigned %>
-          <label><%= t("hub.clients.index.assigned_to_me") %></label>
+          <label for="assigned_to_me">
+            <%= check_box_tag :assigned_to_me, true, params[:assigned_to_me] || @always_current_user_assigned, disabled: @always_current_user_assigned %>
+            <%= t("hub.clients.index.assigned_to_me") %>
+          </label>
         </div>
         <div class="box-filter">
-          <%= check_box_tag :unassigned, true, params[:unassigned] %>
-          <label><%= t("hub.clients.index.unassigned") %></label>
+          <label for="unassigned">
+            <%= check_box_tag :unassigned, true, params[:unassigned] %>
+            <%= t("hub.clients.index.unassigned") %>
+          </label>
         </div>
         <div class="box-filter">
-          <%= check_box_tag :needs_attention, true, params[:needs_attention] %>
-          <label><%= t("hub.clients.index.needs_attention") %></label>
+          <label for="needs_attention">
+            <%= check_box_tag :needs_attention, true, params[:needs_attention] %>
+            <%= t("hub.clients.index.needs_attention") %>
+          </label>
         </div>
       </div>
     </div>
