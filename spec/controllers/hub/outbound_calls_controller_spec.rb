@@ -48,6 +48,24 @@ describe Hub::OutboundCallsController, type: :controller do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
   end
 
+  describe "#update" do
+    let(:client) { create :client }
+    let(:user) { create :admin_user }
+    let(:outbound_call) { create :outbound_call, client: client }
+    let(:params) { { client_id: client.id, id: outbound_call.id, outbound_call: { note: "I talked to them!"} } }
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
+
+    context "with a logged in user" do
+      before { sign_in user }
+
+      it "updates the outbound call with the note body" do
+        put :update, params: params
+
+        expect(outbound_call.reload.note).to eq "I talked to them!"
+      end
+    end
+  end
+
   describe "#new" do
     let(:client) { create :client, intake: (create :intake, phone_number: "+18324658840") }
     let(:user) { create :admin_user }

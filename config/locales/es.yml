@@ -129,12 +129,20 @@ es:
         document_note:
           one: El cliente agregó 1 documento.
           other: El cliente agregó %{count} documentos.
+        outbound_call_synthetic_note: Llamado por %{user_name}. La llamada se %{status} y duró %{duration}.
+        outbound_call_synthetic_note_body: |
+          Notas de llamada:
     outbound_calls:
       new:
         title: Llamar al cliente
         your_phone_number: Su número de teléfono
         client_phone_number: Número de teléfono del cliente
         call: Llámalos ahora
+        notice_html: Espere una llamada de <strong>%{receiving_number}</strong> cuando presione 'Llámalos ahora'.
+        notice_list:
+          - Su número de teléfono permanecerá privado, no es accesible para el cliente.
+          - Siempre llamaremos desde este número; considere agregarlo a sus contactos.
+
       show:
         body_html: |
           <p>Se está inicializando una llamada a %{from_phone_number}.</p>
