@@ -1,4 +1,4 @@
-<%= form_with class: tax_return, url: update_certification_hub_tax_return_path(id: tax_return.id), local: true, method: :patch, builder: VitaMinFormBuilder, html: { class: "tax-return-element-form" } do |f| %>
+<%= form_with class: tax_return, url: update_certification_hub_tax_return_path(id: tax_return.id), local: true, method: :patch, builder: VitaMinFormBuilder, html: { class: "tax-return-inline-form" } do |f| %>
   <div class="before">
     <label for="certification_level">Certification</label>
     <%= link_to "Cancel", url_for(:locale => params[:locale]) %>

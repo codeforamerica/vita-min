@@ -37,7 +37,6 @@ module ApplicationHelper
   end
 
   def flash_alerts
-    response = "$('.flash-alerts').html('#{escape_javascript(render("shared/alerts", flash: flash))}');"
-    response.html_safe
+    "$('.flash-alerts').html('#{escape_javascript(render("shared/flash_alerts", flash: flash))}');".html_safe
   end
 end

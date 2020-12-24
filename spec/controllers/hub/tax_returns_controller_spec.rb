@@ -22,13 +22,14 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
 
       before { sign_in user }
       
-      it "offers me a list of other users in the client's organization for assignment" do
+      it "offers me a list of other users in the client's organization for assignment + the assigned user and current user" do
         get :edit, params: params, format: :js, xhr: true
 
         expect(response).to be_ok
         expect(assigns(:assignable_users)).to include(other_user)
         expect(assigns(:assignable_users)).not_to include(outside_org_user)
         expect(assigns(:assignable_users)).to include(tax_return.assigned_user)
+        expect(assigns(:assignable_users)).to include(user)
       end
     end
   end
@@ -37,7 +38,6 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
     let(:assigned_user) { create :user, name: "Buster" }
     let(:params) {
       {
-        client_id: client.id,
         id: tax_return.id,
         assigned_user_id: assigned_user.id
       }
@@ -64,7 +64,6 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
       context "unassigning the tax return" do
         let(:params) {
           {
-              client_id: client.id,
               id: tax_return.id,
               assigned_user_id: ""
           }

@@ -29,14 +29,14 @@ RSpec.describe "a user viewing a client" do
       visit hub_client_path(id: client.id)
       within "#tax-return-#{tax_return.id}" do
         expect(page).to have_text("ADV")
-        expect(page).not_to have_css(".tax-return-element-form")
+        expect(page).not_to have_css(".tax-return-inline-form")
         # change from advanced to basic
         click_on("ADV")
-        expect(page).to have_css(".tax-return-element-form")
+        expect(page).to have_css(".tax-return-inline-form")
         select "Basic", from: "Certification"
         click_button("button")
         expect(page).to have_text("BAS")
-        expect(page).not_to have_css(".tax-return-element-form")
+        expect(page).not_to have_css(".tax-return-inline-form")
 
         # change from basic to basic hsa
         click_on("BAS")

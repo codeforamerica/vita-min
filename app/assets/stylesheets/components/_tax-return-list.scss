@@ -48,13 +48,13 @@
     display: flex;
     justify-content: flex-end;
     line-height: 3.5rem;
-    height: 60px;
+    min-height: 60px;
   }
 
-  .tax-return-element-form {
+  .tax-return-inline-form {
     position: relative;
     border: 2px solid black;
-    height: 44px;
+    min-height: 44px;
     display: flex;
     align-items: center;
     font-weight: normal;
@@ -101,7 +101,7 @@
     font-size: 1.4rem;
     flex-grow: 1;
     display: flex;
-    height: 60px;
+    min-height: 60px;
     align-items: center;
     > div {
       margin-right: 5px;

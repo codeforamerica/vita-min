@@ -88,7 +88,7 @@ RSpec.describe SystemNote do
 
   describe "#create_assignment_change_note" do
     let(:intake) { create :intake, :with_contact_info }
-    let(:tax_return) { create :tax_return, client: Client.new(intake: intake) }
+    let(:tax_return) { create :tax_return, client: Client.new(intake: intake), year: 2019 }
     let(:current_user) { create :user, name: "Example User" }
     let(:user_to_assign) { create :user, name: "Alice" }
 
@@ -110,8 +110,29 @@ RSpec.describe SystemNote do
       end
     end
 
-    context "when the tax return is currently unassigned" do
-      let(:tax_return) { create :tax_return, assigned_user: nil }
+    context "when the tax return assignment is updated to the same user as before" do
+      let(:user) { create :admin_user }
+      let(:tax_return) { create :tax_return, assigned_user: user, year: 2019 }
+      before do
+        tax_return.update(assigned_user: user)
+      end
+
+      it "does not create a note" do
+        expect(SystemNote.create_assignment_change_note(current_user, tax_return)).to be_nil
+      end
+    end
+
+    context "when the tax return assignment changes to nil" do
+      let(:user) { create :admin_user }
+      let(:tax_return) { create :tax_return, assigned_user: user, year: 2019 }
+      before do
+        tax_return.update(assigned_user: nil)
+      end
+
+      it "creates a note indicating it was unassigned" do
+        expect { SystemNote.create_assignment_change_note(current_user, tax_return)} .to change(SystemNote, :count).by 1
+        expect(SystemNote.last.body).to eq "Example User removed assignment from 2019 return."
+      end
     end
   end
 end

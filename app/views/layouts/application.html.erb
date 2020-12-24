@@ -61,7 +61,7 @@
         <%= render "hub/user_navigation", user_return_link_name: content_for(:user_return_link_name), user_return_link_path: content_for(:user_return_link_path) %>
       <% end %>
       <div class="flash-alerts">
-        <%= render "shared/alerts", flash: flash %>
+        <%= render "shared/flash_alerts", flash: flash %>
       </div>
 
       <%= content_for?(:main) ? yield(:main) : yield %>

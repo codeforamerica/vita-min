@@ -1,11 +1,10 @@
 <div role="alert">
-  <%= form_with class: tax_return, url: [:hub, tax_return], method: :put, builder: VitaMinFormBuilder, html: { class: "tax-return-element-form" } do |f| %>
+  <%= form_with class: tax_return, url: [:hub, tax_return], method: :put, builder: VitaMinFormBuilder, html: { class: "tax-return-inline-form" } do |f| %>
     <div class="before">
       <label for="assigned_user_id"><%= t("hub.tax_returns.edit.assigned_user_label")%></label>
       <%= link_to "Cancel", hub_tax_return_path(id: tax_return.id), remote: true %>
     </div>
     <%= f.select :assigned_user_id, assignable_users.map { |u| [u.name, u.id] }, include_blank: true, selected: tax_return.assigned_user_id %>
-    <%= f.hidden_field :next, value: request.path.split("?")[0] %>
     <div>
       <%= f.button :submit do %>
         <span class="sr-only"><%= t("general.save") %></span>
