@@ -1,4 +1,3 @@
 before_release:
     - bundle exec rake db:migrate
     - bundle exec rake db:insert_states
-    - bundle exec rake db:update_tax_return_statuses
