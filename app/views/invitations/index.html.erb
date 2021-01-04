@@ -2,8 +2,11 @@
   <h1><%= t(".title") %></h1>
 
   <div class="actions">
-    <%= link_to new_user_invitation_path, class: "button" do %>
+    <%= link_to new_user_invitation_path(role: "OrganizationLeadRole"), class: "button" do %>
       <%= t(".actions.new_org_lead_invite") %>
+    <% end %>
+    <%= link_to new_user_invitation_path(role: "AdminRole"), class: "button" do %>
+      <%= t(".actions.new_admin_invite") %>
     <% end %>
   </div>
 
@@ -11,10 +14,16 @@
     <ul class="invitations list--bulleted">
       <% @unaccepted_invitations.each do |invitation| %>
         <li id="invitation-<%= invitation.id %>" class="invitation">
-          <%= invitation.name %> &lt;<%= invitation.email %>&gt; <%= user_org(invitation) %> (<%= t(".invitation.sent_at", datetime: invitation.invitation_sent_at) %>)
+          <%= invitation.name %> (<%= invitation.role_type %>) &lt;<%= invitation.email %>&gt; <%= user_org(invitation) %> (<%= t(".invitation.sent_at", datetime: invitation.invitation_sent_at) %>)
           <%= form_with(model: invitation, url: user_invitation_path, method: :post, local: true) do |f| %>
             <%= f.hidden_field :email %>
-            <%= hidden_field_tag :organization_id, invitation.role.organization.id %>
+            <% if invitation.role_type == "OrganizationLeadRole" %>
+              <%= hidden_field_tag :organization_id, invitation.role.organization.id %>
+              <%= f.hidden_field :role, value: invitation.role_type %>
+            <% elsif invitation.role_type == "AdminRole" %>
+              <%= f.hidden_field :role, value: invitation.role_type %>
+            <% end %>
+
             <%= f.submit value: t(".invitation.create"), class: "button button--small" %>
           <% end %>
         </li>

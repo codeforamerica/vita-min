@@ -21,21 +21,30 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     redirect_to invitations_path and return if already_invited_other_role?
 
-    organization = @vita_partners.find(params.require(:organization_id))
-    authorize!(:manage, organization)
-    super do |invited_user|
-      role = OrganizationLeadRole.create(
-        organization: organization,
-      )
+    if params[:user][:role] == "OrganizationLeadRole"
+      organization = @vita_partners.find(params.require(:organization_id))
+      # check that current_user can manage the organization they are assigning the new user to
+      authorize!(:manage, organization)
+      super do |invited_user|
+        role = OrganizationLeadRole.create(
+          organization: organization,
+        )
 
-      invited_user.update(role: role)
+        invited_user.update(role: role)
+      end
+    elsif params[:user][:role] == "AdminRole"
+      super do |invited_user|
+        role = AdminRole.create
+
+        invited_user.update(role: role)
+      end
     end
   end
 
   private
 
   def already_invited_other_role?
-    User.where(email: invite_params[:email]).where.not(role_type: "OrganizationLeadRole").exists?
+    User.where(email: invite_params[:email]).where.not(role_type: params[:user][:role]).exists?
   end
 
   def load_and_authorize_vita_partners
