@@ -24,48 +24,90 @@ RSpec.describe Users::InvitationsController do
   end
 
   describe "#create" do
-    let(:params) do
-      {
-        user: {
-          name: "Cher Cherimoya",
-          email: "cherry@example.com"
-        },
-        organization_id: vita_partner.id
-      }
-    end
-
     it_behaves_like :a_post_action_for_admins_only, action: :create
 
     context "with an authenticated admin user" do
       let!(:user) { create :admin_user }
       before { sign_in user }
 
-      it "creates a new invited user" do
-        expect do
-          post :create, params: params
-        end.to (change(User, :count).by 1).and(change(OrganizationLeadRole, :count).by(1))
+      context "inviting an org lead user" do
+        let(:params) do
+          {
+            user: {
+              name: "Cher Cherimoya",
+              email: "cherry@example.com",
+              role: "OrganizationLeadRole",
+            },
+            organization_id: vita_partner.id
+          }
+        end
 
-        org_lead_role = OrganizationLeadRole.last
-        expect(org_lead_role.organization).to eq vita_partner
+        it "creates a new invited org lead user" do
+          expect do
+            post :create, params: params
+          end.to (change(User, :count).by 1).and(change(OrganizationLeadRole, :count).by(1))
 
-        invited_user = User.last
-        expect(invited_user.role).to eq org_lead_role
+          org_lead_role = OrganizationLeadRole.last
+          expect(org_lead_role.organization).to eq vita_partner
 
-        expect(invited_user.name).to eq "Cher Cherimoya"
-        expect(invited_user.email).to eq "cherry@example.com"
-        expect(invited_user.invitation_token).to be_present
-        expect(invited_user.invited_by).to eq user
-        expect(response).to redirect_to invitations_path
-      end
+          invited_user = User.last
+          expect(invited_user.role).to eq org_lead_role
 
-      context "if the invited user already exists and is an admin" do
-        let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
-
-        it "doesn't change the user's role" do
-          expect { post :create, params: params }.not_to change { invited_user.reload.role }
+          expect(invited_user.name).to eq "Cher Cherimoya"
+          expect(invited_user.email).to eq "cherry@example.com"
+          expect(invited_user.invitation_token).to be_present
+          expect(invited_user.invited_by).to eq user
           expect(response).to redirect_to invitations_path
         end
+
+        context "if the invited user already exists and is an admin" do
+          let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
+
+          it "doesn't change the user's role" do
+            expect { post :create, params: params }.not_to change { invited_user.reload.role }
+            expect(response).to redirect_to invitations_path
+          end
+        end
       end
+
+      context "inviting an admin user" do
+        let(:params) do
+          {
+            user: {
+              name: "Adam Apple",
+              email: "adam@example.com",
+              role: "AdminRole"
+            },
+          }
+        end
+
+        it "creates a new invited admin user" do
+          expect do
+            post :create, params: params
+          end.to (change(User, :count).by 1).and(change(AdminRole, :count).by(1))
+
+          admin_role = AdminRole.last
+
+          invited_user = User.last
+          expect(invited_user.role).to eq admin_role
+
+          expect(invited_user.name).to eq "Adam Apple"
+          expect(invited_user.email).to eq "adam@example.com"
+          expect(invited_user.invitation_token).to be_present
+          expect(invited_user.invited_by).to eq user
+          expect(response).to redirect_to invitations_path
+        end
+
+        context "if the invited user already exists and is an organization lead" do
+          let!(:invited_user) { create :organization_lead_user, email: "adam@example.com" }
+
+          it "doesn't change the user's role" do
+            expect { post :create, params: params }.not_to change { invited_user.reload.role }
+            expect(response).to redirect_to invitations_path
+          end
+        end
+      end
+
     end
   end
 

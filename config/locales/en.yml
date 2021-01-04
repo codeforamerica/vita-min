@@ -531,6 +531,7 @@ en:
     index:
       actions:
         new_org_lead_invite: Invite a new organization lead
+        new_admin_invite: Invite a new admin
       invitation:
         create: Resend invitation email
         sent_at: Sent at %{datetime}

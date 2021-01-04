@@ -1,9 +1,8 @@
 require "rails_helper"
 
-RSpec.feature "Inviting organization leads" do
+RSpec.feature "Inviting admin users" do
   context "As an admin user" do
     let(:user) { create :admin_user }
-    let!(:vita_partner) { create :vita_partner, name: "Brassica Asset Builders" }
     before do
       login_as user
     end
@@ -16,23 +15,22 @@ RSpec.feature "Inviting organization leads" do
       within("h1") do
         expect(page).to have_text "Invitations"
       end
-      click_on "Invite a new organization lead"
+      click_on "Invite a new admin"
 
       # new invitation page
       expect(page).to have_text "Send a new invitation"
-      fill_in "What is their name?", with: "Colleen Cauliflower"
-      fill_in "What is their email?", with: "colleague@cauliflower.org"
-      select "Brassica Asset Builders", from: "Which organization?"
+      fill_in "What is their name?", with: "Aileen Artichoke"
+      fill_in "What is their email?", with: "aileen@artichoke.org"
       click_on "Send invitation email"
 
       # back on the invitations page
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to colleague@cauliflower.org"
+        expect(page).to have_text "We sent an email invitation to aileen@artichoke.org"
       end
       within(".invitations") do
-        expect(page).to have_text "Colleen Cauliflower"
-        expect(page).to have_text "colleague@cauliflower.org"
-        expect(page).to have_text "Brassica Asset Builders"
+        expect(page).to have_text "Aileen Artichoke"
+        expect(page).to have_text "aileen@artichoke.org"
+        expect(page).to have_text "Admin"
       end
       invited_user = User.where(invited_by: user).last
       expect(invited_user).to be_present
@@ -42,7 +40,7 @@ RSpec.feature "Inviting organization leads" do
         click_on "Resend invitation email"
       end
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to colleague@cauliflower.org"
+        expect(page).to have_text "We sent an email invitation to aileen@artichoke.org"
       end
       invited_user = User.where(invited_by: user).last
       expect(invited_user.invitation_token).to be_present
@@ -62,17 +60,15 @@ RSpec.feature "Inviting organization leads" do
       # Sign up page
       visit accept_invite_url
       expect(page).to have_text "Thank you for signing up to help!"
-      expect(page).to have_text "colleague@cauliflower.org"
-      expect(page).to have_text "Brassica Asset Builders"
-      expect(find_field("What is your name?").value).to eq "Colleen Cauliflower"
+      expect(page).to have_text "aileen@artichoke.org"
+      expect(find_field("What is your name?").value).to eq "Aileen Artichoke"
       fill_in "Please choose a strong password", with: "c0v3rt-c4ul1fl0wer"
       fill_in "Enter your new password again", with: "c0v3rt-c4ul1fl0wer"
       click_on "Get started"
 
       expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
-      expect(page).to have_text "Colleen Cauliflower"
-      expect(page).to have_text "Organization lead"
-      expect(page).to have_text "Brassica Asset Builders"
+      expect(page).to have_text "Aileen Artichoke"
+      expect(page).to have_text "Admin"
     end
   end
 end

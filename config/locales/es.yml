@@ -532,6 +532,7 @@ es:
     index:
       actions:
         new_org_lead_invite: Invite a un nuevo líder de la organización
+        new_admin_invite: Invite a un nuevo admin
       invitation:
         create: Reenviar email de invitación
         sent_at: Enviado a las %{datetime}

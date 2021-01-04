@@ -8,10 +8,16 @@
     <%= f.cfa_input_field(:name, t(".name_label")) %>
     <%= f.cfa_input_field(:email, t(".email_label"), type: 'email', classes: ['form-width--email']) %>
 
-    <%= label_tag(:organization_id, t(".vita_partner_label")) %>
-    <%= select_tag(:organization_id, options_for_select(VitaPartner.organizations.map { |org| [org.name, org.id] })) %>
+    <% if params[:role] == "OrganizationLeadRole" %>
+      <%= label_tag(:organization_id, t(".vita_partner_label")) %>
+      <%= select_tag(:organization_id, options_for_select(VitaPartner.organizations.map { |org| [org.name, org.id] })) %>
+
+      <%= f.hidden_field :role, value: params[:role] %>
+    <% end %>
+    <% if params[:role] == "AdminRole" %>
+      <%= f.hidden_field :role, value: params[:role] %>
+    <% end %>
 
     <%= f.submit t(".submit"), class: "button button--primary" %>
   <% end %>
 <% end %>
-
