@@ -20,7 +20,7 @@ RSpec.feature "Change tax return status on a client" do
 
       expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
       expect(page).to have_select("hub_take_action_form_status")
-      select "Entering in TaxSlayer", from: "Updated status"
+      select "Preparing", from: "Updated status"
       select "2019", from: "Filing year"
 
       expect(page).to have_select("hub_take_action_form_locale", selected: "English")
@@ -28,7 +28,7 @@ RSpec.feature "Change tax return status on a client" do
       fill_in "Send message", with: "Heads up! I am still working on it."
       fill_in "Add an internal note", with: "Leaving a note to the client"
       click_on "Send"
-      expect(page).to have_text "Entering in TaxSlayer"
+      expect(page).to have_text "Preparing"
 
       expect(current_path).to eq hub_client_path(id: client.id)
       click_on "Notes"
@@ -40,7 +40,7 @@ RSpec.feature "Change tax return status on a client" do
 
     scenario "can change a status on a tax return and send a templated message" do
       visit hub_client_path(id: client.id)
-      expect(page).to have_select("tax_return[status]", selected: "In progress")
+      expect(page).to have_select("tax_return[status]", selected: "Not ready")
 
       within "#tax-return-#{tax_return.id}" do
         select "Accepted"
@@ -64,7 +64,7 @@ RSpec.feature "Change tax return status on a client" do
       end
 
       click_on "Notes"
-      expect(page).to have_text("Example Preparer updated 2019 tax return status from Intake/In progress to Filing completed/Accepted")
+      expect(page).to have_text("Example Preparer updated 2019 tax return status from Intake/Not ready to Final steps/Accepted")
     end
   end
 end

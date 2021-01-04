@@ -5,41 +5,37 @@ describe TaxReturnStatusHelper do
     expected = [
       ["Intake",
        [
-         ["In progress", "intake_in_progress"],
-         ["Open", "intake_open"],
-         ["In review", "intake_review"],
-         ["Needs more information", "intake_more_info"],
+         ["Not ready", "intake_in_progress"],
+         ["Ready for review", "intake_ready"],
+         ["Reviewing", "intake_reviewing"],
+         ["Ready for call", "intake_ready_for_call"],
          ["Info requested", "intake_info_requested"],
-         ["Needs assignment", "intake_needs_assignment"]
        ]
       ],
       ["Tax prep",
        [
-         ["Ready for call", "prep_ready_for_call"],
-         ["Needs more information", "prep_more_info"],
-         ["Entering in TaxSlayer", "prep_preparing"],
-         ["Ready for QR", "prep_ready_for_review"]
+         ["Ready for prep", "prep_ready_for_prep"],
+         ["Preparing", "prep_preparing"],
+         ["Info requested", "prep_info_requested"]
        ]
       ],
       ["Quality review",
        [
-         ["In review", "review_in_review"],
-         ["Complete/Signature requested", "review_complete_signature_requested"],
-         ["Needs more information", "review_more_info"]
+         ["Ready for QR", "review_ready_for_qr"],
+         ["Reviewing", "review_reviewing"],
+         ["Ready for call", "review_ready_for_call"],
+         ["Signature requested", "review_signature_requested"],
+         ["Info requested", "review_info_requested"]
        ]
       ],
-      ["Final steps",
+      [I18n.t("hub.tax_returns.stage.file"),
        [
-         ["Closed", "finalize_closed"],
-         ["Return signed", "finalize_signed"]
-       ]
-      ],
-      [I18n.t("hub.tax_returns.stage.filed"),
-       [
-         ["Return e-filed", "filed_e_file"],
-         ["Return filed by mail", "filed_mail_file"],
-         ["Rejected", "filed_rejected"],
-         ["Accepted", "filed_accepted"]
+         ["Ready to file", "file_ready_to_file"],
+         ['E-filed', "file_efiled"],
+         ["Filed by mail", "file_mailed"],
+         ["Rejected", "file_rejected"],
+         ["Accepted", "file_accepted"],
+         ["Not filing", "file_not_filing"]
        ]
       ]
     ]
@@ -65,7 +61,7 @@ describe TaxReturnStatusHelper do
     describe "with an example status" do
       let(:tax_return) { create :tax_return, status: "intake_in_progress" }
       it "returns the expected text" do
-        expect(helper.stage_and_status_translation(tax_return.status)).to eq "Intake/In progress"
+        expect(helper.stage_and_status_translation(tax_return.status)).to eq "Intake/Not ready"
       end
     end
   end

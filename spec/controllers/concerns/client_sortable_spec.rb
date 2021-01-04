@@ -39,7 +39,7 @@ RSpec.describe ClientSortable, type: :controller do
       let(:params) do
         {
           search: "query",
-          status: "intake_in_progress"
+          status: "intake_ready"
         }
       end
 

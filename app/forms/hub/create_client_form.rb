@@ -69,7 +69,7 @@ module Hub
     private
 
     def tax_return_defaults
-      { status: :intake_needs_assignment }.merge(attributes_for(:tax_return))
+      { status: :prep_ready_for_prep }.merge(attributes_for(:tax_return))
     end
 
     def create_tax_return_for_year?(year)

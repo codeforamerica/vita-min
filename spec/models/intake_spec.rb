@@ -933,13 +933,13 @@ describe Intake do
   describe "#advance_tax_return_statuses_to" do
     let(:intake) { create :intake }
     let!(:earlier_tax_return) { create :tax_return, year: 2020, client: intake.client, status: "intake_before_consent" }
-    let!(:later_tax_return) { create :tax_return, year: 2019, client: intake.client, status: "intake_needs_assignment" }
+    let!(:later_tax_return) { create :tax_return, year: 2019, client: intake.client, status: "prep_ready_for_prep" }
 
     it "advances each tax return" do
-      intake.advance_tax_return_statuses_to("intake_open")
+      intake.advance_tax_return_statuses_to("intake_ready")
 
-      expect(earlier_tax_return.reload.status).to eq "intake_open"
-      expect(later_tax_return.reload.status).to eq "intake_needs_assignment"
+      expect(earlier_tax_return.reload.status).to eq "intake_ready"
+      expect(later_tax_return.reload.status).to eq "prep_ready_for_prep"
     end
   end
 

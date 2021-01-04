@@ -1,6 +1,6 @@
 module Documents
   class AdditionalDocumentsController < DocumentUploadQuestionController
-    before_action :advance_to_open, only: [:edit]
+    before_action :advance_to_ready, only: [:edit]
 
     def self.show?(_intake)
       true
@@ -12,8 +12,8 @@ module Documents
 
     private
 
-    def advance_to_open
-      current_intake.advance_tax_return_statuses_to("intake_open")
+    def advance_to_ready
+      current_intake.advance_tax_return_statuses_to("intake_ready")
     end
   end
 end

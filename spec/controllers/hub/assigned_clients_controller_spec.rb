@@ -13,7 +13,7 @@ RSpec.describe Hub::AssignedClientsController do
       sign_in user
     end
 
-    let!(:assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_in_progress")] }
+    let!(:assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return, assigned_user: user, status: "intake_ready")] }
     let!(:not_assigned_to_me) { create :client, vita_partner: organization, intake: (create :intake), tax_returns: [(create :tax_return)] }
 
     it "should allow me to see only clients with tax returns assigned to me" do
@@ -31,7 +31,7 @@ RSpec.describe Hub::AssignedClientsController do
     end
 
     context "filtering" do
-      let!(:second_return) { create :tax_return, year: 2018, assigned_user: user, client: assigned_to_me, status: "intake_open" }
+      let!(:second_return) { create :tax_return, year: 2018, assigned_user: user, client: assigned_to_me, status: "intake_in_progress" }
 
       context "filter always to me" do
         it "always filters to assigned to me" do
@@ -41,18 +41,18 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       context "filtering by status" do
+        it "filters in with matching tax return (intake_ready)" do
+          get :index, params: { status: "intake_ready" }
+          expect(assigns(:clients)).to eq [assigned_to_me]
+        end
+
         it "filters in with matching tax return (intake_in_progress)" do
           get :index, params: { status: "intake_in_progress" }
           expect(assigns(:clients)).to eq [assigned_to_me]
         end
 
-        it "filters in with matching tax return (intake_open)" do
-          get :index, params: { status: "intake_open" }
-          expect(assigns(:clients)).to eq [assigned_to_me]
-        end
-
         it "filters out" do
-          get :index, params: { status: "review_in_review" }
+          get :index, params: { status: "review_reviewing" }
           expect(assigns(:clients)).to eq []
         end
       end
@@ -70,7 +70,7 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       context "filtering by tax return year" do
-        let!(:return_3020) { create :tax_return, year: 3020, assigned_user: user, client: assigned_to_me, status: "intake_open" }
+        let!(:return_3020) { create :tax_return, year: 3020, assigned_user: user, client: assigned_to_me, status: "intake_ready" }
         it "filters in" do
           get :index, params: { year: 3020 }
           expect(assigns(:clients)).to eq [return_3020.client]
@@ -78,7 +78,7 @@ RSpec.describe Hub::AssignedClientsController do
       end
 
       context "filtering by unassigned" do
-        let!(:unassigned) { create :tax_return, year: 2012, assigned_user: nil, client: assigned_to_me, status: "intake_open" }
+        let!(:unassigned) { create :tax_return, year: 2012, assigned_user: nil, client: assigned_to_me, status: "intake_ready" }
         it "filters in" do
           get :index, params: { unassigned: true }
           expect(assigns(:clients)).to include unassigned.client

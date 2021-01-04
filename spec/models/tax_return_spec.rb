@@ -62,7 +62,7 @@ describe TaxReturn do
   end
 
   describe "#advance_to" do
-    let(:tax_return) { create :tax_return, status: "intake_open" }
+    let(:tax_return) { create :tax_return, status: status }
 
     context "with a status that comes before the current status" do
       let(:status) { "intake_in_progress" }
@@ -75,12 +75,13 @@ describe TaxReturn do
     end
 
     context "with a status that comes after the current status" do
-      let(:status) { "finalize_signed" }
+      let(:status) { "intake_in_progress" }
+      let(:new_status) { "file_ready_to_file"}
 
       it "changes to the new status" do
         expect do
-          tax_return.advance_to(status)
-        end.to change(tax_return, :status).from("intake_open").to "finalize_signed"
+          tax_return.advance_to(new_status)
+        end.to change(tax_return, :status).from(status).to new_status
       end
     end
   end
@@ -92,29 +93,24 @@ describe TaxReturn do
       expect(result).to have_key("intake")
       expect(result).to have_key("prep")
       expect(result).to have_key("review")
-      expect(result).to have_key("finalize")
-      expect(result).to have_key("filed")
+      expect(result).to have_key("file")
     end
 
     it "includes all intake statuses except before consent" do
-      expect(result["intake"].length).to eq 6
+      expect(result["intake"].length).to eq 5
       expect(result["intake"]).not_to include "intake_before_consent"
     end
 
     it "includes all prep statuses" do
-      expect(result["prep"].length).to eq 4
+      expect(result["prep"].length).to eq 3
     end
 
     it "includes all review statuses" do
-      expect(result["review"].length).to eq 3
-    end
-
-    it "includes all finalize statuses" do
-      expect(result["finalize"].length).to eq 2
+      expect(result["review"].length).to eq 5
     end
 
     it "includes all filed statuses" do
-      expect(result["filed"].length).to eq 4
+      expect(result["file"].length).to eq 6
     end
   end
 end

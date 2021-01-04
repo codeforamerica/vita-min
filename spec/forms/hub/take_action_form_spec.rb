@@ -53,7 +53,7 @@ RSpec.describe Hub::TakeActionForm do
       end
 
       context "when a status that has a message template is provided and locale is english" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_more_info", locale: "en" }) }
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_info_requested", locale: "en" }) }
 
         it "sets message body to the template with replacement parameters substituted" do
           expect(form.message_body).to start_with("Hello")
@@ -63,7 +63,7 @@ RSpec.describe Hub::TakeActionForm do
       end
 
       context "when a status that has a message template is provided and locale is spanish" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_more_info", locale: "es" }) }
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_info_requested", locale: "es" }) }
         let(:filled_out_template) {
           <<~MESSAGE
             ¡Hola Luna Lemon!
@@ -259,13 +259,13 @@ RSpec.describe Hub::TakeActionForm do
       let(:tax_return) { create :tax_return, client: client, year: 2019 }
 
       context "only status change" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, status: "intake_more_info", message_body: "" }) }
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, status: "intake_info_requested", message_body: "" }) }
 
         it "changes the status of the client" do
           expect {
             form.take_action
             tax_return.reload
-          }.to change(tax_return, :status).to "intake_more_info"
+          }.to change(tax_return, :status).to "intake_info_requested"
         end
 
         it "does not send an email" do
@@ -293,14 +293,14 @@ RSpec.describe Hub::TakeActionForm do
       end
 
       context "status change with default message" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, status: "intake_more_info" }) }
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, status: "intake_info_requested" }) }
         it "changes the status of the client" do
           expect(SystemNote).to receive(:create_status_change_note).with(current_user, tax_return)
 
           expect {
             form.take_action
             tax_return.reload
-          }.to change(tax_return, :status).to "intake_more_info"
+          }.to change(tax_return, :status).to "intake_info_requested"
         end
 
         it "sends an email" do
@@ -348,7 +348,7 @@ RSpec.describe Hub::TakeActionForm do
 
       context "status change with note" do
         let(:internal_note_body) { "hi" }
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, internal_note_body: internal_note_body, message_body: "", status: "intake_more_info" }) }
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, internal_note_body: internal_note_body, message_body: "", status: "intake_info_requested" }) }
         it "creates an action list" do
           form.take_action
           expect(form.action_list).to eq ["updated status", "added internal note"]
@@ -370,7 +370,7 @@ RSpec.describe Hub::TakeActionForm do
         let(:internal_note_body) { " \n" }
         let(:message_body) { " \n" }
 
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, internal_note_body: internal_note_body, message_body: "", status: "intake_more_info" }) }
+        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, internal_note_body: internal_note_body, message_body: "", status: "intake_info_requested" }) }
 
         it "does not save a note" do
           expect do

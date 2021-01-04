@@ -162,29 +162,28 @@ es:
         intake: Admisión
         prep: Preparación de impuestos
         review: Revisión de calidad
-        finalize: Pasos finales
-        filed: Presentación de impuestos completada
+        file: Pasos finales
       status:
         intake_before_consent: Antes de consentimiento
-        intake_in_progress: En progreso
-        intake_open: Abierto
-        intake_review: En revisión
-        intake_more_info: Necesita más información
+        intake_in_progress: No listo
+        intake_ready: Ready for review
+        intake_reviewing: Revisando
+        intake_ready_for_call: Listo para llama
         intake_info_requested: Información solicitada
-        intake_needs_assignment: Necesita asignación
-        prep_ready_for_call: Listo para llama
-        prep_preparing: Entrar en TaxSlayer
-        prep_more_info: Necesita más información
-        prep_ready_for_review: Listo para QR
-        review_in_review: En revisión
-        review_more_info: Necesita más información
-        review_complete_signature_requested: Completo/Firma solicitada
-        finalize_closed: Cerrado
-        finalize_signed: Declaración de impuestos firmada
-        filed_e_file: Declaración de impuestos presentada electrónicamente
-        filed_mail_file: Declaración de impuestos presentada por correo
-        filed_rejected: Rechazado
-        filed_accepted: Aceptado
+        prep_ready_for_prep: Listo para la preparación
+        prep_preparing: Preparando
+        prep_info_requested: Información solicitada
+        review_ready_for_qr: Listo para QR
+        review_reviewing: Revisando
+        review_ready_for_call: Listo para llama
+        review_signature_requested: Firma solicitada
+        review_info_requested: Información solicitada
+        file_ready_to_file: Listo para presentar
+        file_efiled: Presentada electrónicamente
+        file_mailed: Presentada por correo
+        file_rejected: Rechazado
+        file_accepted: Aceptado
+        file_not_filing: No archivar
     status_macros:
       needs_more_information: |
         ¡Hola <<Client.PreferredName>>!

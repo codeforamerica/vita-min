@@ -28,7 +28,7 @@ RSpec.describe SystemNote do
 
     context "with recently persisted changes" do
       before do
-        tax_return.update(status: "intake_open")
+        tax_return.update(status: "intake_ready")
       end
       it "can track the changes" do
         expect {
@@ -39,7 +39,7 @@ RSpec.describe SystemNote do
 
         expect(note.user).to eq(user)
         expect(note.client).to eq(tax_return.client)
-        expect(note.body).to eq("Olive Oil updated 3020 tax return status from Intake/In progress to Intake/Open")
+        expect(note.body).to eq("Olive Oil updated 3020 tax return status from Intake/Not ready to Intake/Ready for review")
       end
     end
   end

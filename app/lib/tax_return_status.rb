@@ -16,11 +16,11 @@ class TaxReturnStatus
 
     def message_templates
       {
-          intake_more_info: "hub.status_macros.needs_more_information",
-          prep_more_info: "hub.status_macros.needs_more_information",
-          review_more_info: "hub.status_macros.needs_more_information",
-          prep_ready_for_review: "hub.status_macros.ready_for_qr",
-          filed_accepted: "hub.status_macros.accepted"
+          intake_info_requested: "hub.status_macros.needs_more_information",
+          prep_info_requested: "hub.status_macros.needs_more_information",
+          review_info_requested: "hub.status_macros.needs_more_information",
+          review_ready_for_qr: "hub.status_macros.ready_for_qr",
+          file_accepted: "hub.status_macros.accepted"
       }
     end
   end
@@ -29,11 +29,13 @@ class TaxReturnStatus
   #
   # The first word of each status name is treated as a "stage" when grouping these in the interface.
   STATUSES = {
-      intake_before_consent: 100, intake_in_progress: 101, intake_open: 102, intake_review: 103, intake_more_info: 104, intake_info_requested: 105, intake_needs_assignment: 106,
-      prep_ready_for_call: 201, prep_more_info: 202, prep_preparing: 203, prep_ready_for_review: 204,
-      review_in_review: 301, review_complete_signature_requested: 302, review_more_info: 303,
-      finalize_closed: 401, finalize_signed: 402,
-      filed_e_file: 501, filed_mail_file: 502, filed_rejected: 503, filed_accepted: 504
+      intake_before_consent: 100, intake_in_progress: 101, intake_ready: 102, intake_reviewing: 103, intake_ready_for_call: 104, intake_info_requested: 105,
+
+      prep_ready_for_prep: 201, prep_preparing: 202, prep_info_requested: 203,
+
+      review_ready_for_qr: 301, review_reviewing: 302, review_ready_for_call: 303, review_signature_requested: 304, review_info_requested: 305,
+
+      file_ready_to_file: 401, file_efiled: 402, file_mailed: 403, file_rejected: 404, file_accepted: 405, file_not_filing: 406
   }.freeze
 
   STATUSES_BY_STAGE = determine_statuses_by_stage.freeze
