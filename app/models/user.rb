@@ -58,6 +58,7 @@ class User < ApplicationRecord
 
   before_validation :format_phone_number
   validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
+  validates :role_id, uniqueness: { scope: :role_type }, presence: true
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_and_belongs_to_many :supported_organizations,
            join_table: "users_vita_partners",

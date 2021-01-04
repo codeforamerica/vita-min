@@ -66,11 +66,45 @@ RSpec.describe User, type: :model do
     end
 
     it "validates timezone" do
-      user = User.new(name: "Gary Guava", email: "example@example.com", password: "examplePassword", timezone: "Invalid timezone")
+      user = User.new(name: "Gary Guava", email: "example@example.com", password: "examplePassword", timezone: "Invalid timezone", role: create(:admin_role))
       expect(user).not_to be_valid
       expect(user.errors).to include :timezone
       user.timezone = "America/New_York"
       expect(user).to be_valid
+    end
+
+    context "when role is blank" do
+      let(:user)  { build(:user, role_type: nil, role_id: nil) }
+
+      it "is invalid" do
+        expect(user).to be_invalid
+      end
+    end
+
+    context "when adding a role" do
+      context "when the role is already attached to a different user" do
+        let(:user) { create(:user) }
+        let(:other_user) { create(:organization_lead_user) }
+
+        it "is invalid" do
+          expect(other_user).to be_valid
+          expect(user).to be_valid
+          user.role = other_user.role
+          expect(user).not_to be_valid
+        end
+      end
+
+      context "when two users have the same role type but different role id" do
+        it "is valid" do
+          role1 = create(:admin_role)
+          role2 = create(:admin_role)
+          user1 = create(:user, role: role1)
+          user2 = build(:user, role: role2)
+
+          expect(user1).to be_valid
+          expect(user2).to be_valid
+        end
+      end
     end
   end
 

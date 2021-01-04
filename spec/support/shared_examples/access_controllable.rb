@@ -46,7 +46,7 @@ shared_examples :a_get_action_for_admins_only do |action:|
   let(:params) { {} } unless method_defined?(:params)
 
   context "with a non-admin user" do
-    before { sign_in( create :user ) }
+    before { sign_in( create :organization_lead_user ) }
 
     it "returns 403 Forbidden" do
       get action, params: params
@@ -60,7 +60,7 @@ shared_examples :a_post_action_for_admins_only do |action:|
   let(:params) { {} } unless method_defined?(:params)
 
   context "with a non-admin user" do
-    before { sign_in( create :user ) }
+    before { sign_in( create :organization_lead_user ) }
 
     it "returns 403 Forbidden" do
       post action, params: params

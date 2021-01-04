@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe MessageSending, type: :controller do
   let(:intake) { create :intake, email_address: "client@example.com", sms_phone_number: "+14155551212"}
   let!(:client) { intake.client }
-  let!(:user) { create :user }
+  let!(:user) { create :admin_user }
   let(:expected_time) { DateTime.new(2020, 9, 9) }
 
   controller(ApplicationController) do

@@ -22,24 +22,6 @@ describe Ability do
     end
   end
 
-  context "a user and client without an organization" do
-    let(:user) { create(:user) }
-    let(:client) { create(:client, vita_partner: nil) }
-    let(:intake) { create(:intake, vita_partner: nil, client: client) }
-
-    it "cannot manage any client data" do
-      expect(subject.can?(:manage, client)).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, User.new)).to eq false
-      expect(subject.can?(:manage, Note.new(client: client))).to eq false
-      expect(subject.can?(:manage, VitaPartner.new)).to eq false
-      expect(subject.can?(:manage, SystemNote.new)).to eq false
-    end
-  end
-
   context "a user who is an org lead at an organization that has some sites" do
     let(:user) { create :organization_lead_user }
     let!(:site) { create :site, parent_organization: user.role.organization }

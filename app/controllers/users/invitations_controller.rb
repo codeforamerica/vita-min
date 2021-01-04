@@ -23,13 +23,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
     organization = @vita_partners.find(params.require(:organization_id))
     authorize!(:manage, organization)
-    super do |invited_user|
-      role = OrganizationLeadRole.create(
-        organization: organization,
-      )
-
-      invited_user.update(role: role)
-    end
+    super
   end
 
   private
@@ -45,7 +39,10 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # Override superclass method for default params for newly created invites, allowing us to add attributes
   def invite_params
-    params.require(:user).permit(:name, :email)
+    # This will create role records before user validation completes, which will generate some garbage but is largely harmless.
+    # We use ||= to make sure we only create one role record per request.
+    @org_lead_role ||= OrganizationLeadRole.create(vita_partner_id: params.require(:organization_id))
+    params.require(:user).permit(:name, :email).merge(role: @org_lead_role)
   end
 
   # Override superclass method for accepted invite params, allowing us to add attributes

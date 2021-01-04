@@ -54,11 +54,12 @@
 #  fk_rails_...  (invited_by_id => users.id)
 #
 FactoryBot.define do
-  factory :user do
+  factory :admin_user do
     sequence(:uid)
     sequence(:email) { |n| "gary.gardengnome#{n}@example.green" }
     password { "userExamplePassword" }
     name { "Gary Gnome" }
+    role { create(:admin_role) }
 
     factory :organization_lead_user do
       transient do
@@ -68,11 +69,7 @@ FactoryBot.define do
       role { create(:organization_lead_role, organization: organization || create(:organization)) }
     end
 
-    factory :admin_user do
-      role { create(:admin_role) }
-    end
-
-    factory :invited_user do
+    factory :invited_admin_user do
       association :invited_by, factory: :admin_user
       invitation_created_at { 1.day.ago - 1.minute }
       invitation_sent_at { 1.day.ago }
@@ -80,7 +77,7 @@ FactoryBot.define do
         Devise.token_generator.digest(User, :invitation_token, "InvitationToken#{n}")
       end
 
-      factory :accepted_invite_user do
+      factory :accepted_invite_admin_user do
         invitation_accepted_at { 1.minute.ago }
       end
     end
