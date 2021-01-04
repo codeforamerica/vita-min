@@ -30,7 +30,7 @@ FactoryBot.define do
       create(:document, document_type: DocumentTypes::SsnItin, intake: intake, client: client)
 
       [2017, 2018, 2019, 2020].sample(rand(1..4)).each do |year|
-        create(:tax_return, year: year, client: client, status: "intake_open")
+        create(:tax_return, year: year, client: client, status: "intake_ready")
       end
     end
   end

@@ -43,8 +43,8 @@ intake = Intake.create(client: client, preferred_name: "Captain", sms_phone_numb
 Document.find_or_create_by(display_name: "My Employment", document_type: "Employment", client: client, created_at: 1.day.ago, intake: intake)
 Document.find_or_create_by(display_name: "Identity Document", document_type: "ID", client: client, created_at: 2.months.ago, intake: intake)
 
-TaxReturn.find_or_create_by(year: 2019, client: client, assigned_user: user).update(status: "intake_open")
-TaxReturn.find_or_create_by(year: 2018, client: client).update(status: "intake_open")
+TaxReturn.find_or_create_by(year: 2019, client: client, assigned_user: user).update(status: "intake_ready")
+TaxReturn.find_or_create_by(year: 2018, client: client).update(status: "intake_ready")
 
 OutgoingTextMessage.create!(client: client, body: "Hey client, nice to meet you", user: user, sent_at: 3.days.ago, to_phone_number: "+14155551212")
 OutgoingTextMessage.create!(client: client, body: "Hope you're having a good day", user: user, sent_at: 2.days.ago, to_phone_number: "+14155551212")

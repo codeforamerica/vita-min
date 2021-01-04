@@ -66,7 +66,7 @@ class BetaTestDataGenerator
   ]
 
   STATUSES_AFTER_OPEN = TaxReturnStatus::STATUSES.select do |_, value|
-    value >= TaxReturnStatus::STATUSES[:intake_open]
+    value >= TaxReturnStatus::STATUSES[:intake_ready]
   end.keys.freeze
 
   def self.get_name
