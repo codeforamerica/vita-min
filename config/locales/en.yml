@@ -161,29 +161,28 @@ en:
         intake: Intake
         prep: Tax prep
         review: Quality review
-        finalize: Final steps
-        filed: Filing completed
+        file: Final steps
       status:
         intake_before_consent: Before consent
-        intake_in_progress: In progress
-        intake_open: Open
-        intake_review: In review
-        intake_more_info: Needs more information
+        intake_in_progress: Not ready
+        intake_ready: Ready for review
+        intake_reviewing: Reviewing
+        intake_ready_for_call: Ready for call
         intake_info_requested: Info requested
-        intake_needs_assignment: Needs assignment
-        prep_ready_for_call: Ready for call
-        prep_more_info: Needs more information
-        prep_preparing: Entering in TaxSlayer
-        prep_ready_for_review: Ready for QR
-        review_in_review: In review
-        review_more_info: Needs more information
-        review_complete_signature_requested: Complete/Signature requested
-        finalize_closed: Closed
-        finalize_signed: Return signed
-        filed_e_file: Return e-filed
-        filed_mail_file: Return filed by mail
-        filed_rejected: Rejected
-        filed_accepted: Accepted
+        prep_ready_for_prep: Ready for prep
+        prep_preparing: Preparing
+        prep_info_requested: Info requested
+        review_ready_for_qr: Ready for QR
+        review_reviewing: Reviewing
+        review_ready_for_call: Ready for call
+        review_signature_requested: Signature requested
+        review_info_requested: Info requested
+        file_ready_to_file: Ready to file
+        file_efiled: E-filed
+        file_mailed: Filed by mail
+        file_rejected: Rejected
+        file_accepted: Accepted
+        file_not_filing: Not filing
     status_macros:
       needs_more_information: |
         Hello <<Client.PreferredName>>!

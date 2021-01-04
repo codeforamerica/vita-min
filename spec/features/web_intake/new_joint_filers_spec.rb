@@ -324,7 +324,7 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Attach your 1099-R's")
     expect do
       click_on "Continue"
-    end.to change { intake.client.tax_returns.pluck(:status) }.from(["intake_in_progress"]).to(["intake_open"])
+    end.to change { intake.client.tax_returns.pluck(:status) }.from(["intake_in_progress"]).to(["intake_ready"])
 
     expect(page).to have_selector("h1", text: "Please share any additional documents.")
     attach_file("document_type_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))

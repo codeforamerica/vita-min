@@ -242,7 +242,7 @@ RSpec.describe Hub::ClientsController do
 
         let!(:george_sr) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", locale: "en") }
         let!(:george_sr_2019_return) { create :tax_return, client: george_sr, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
-        let!(:george_sr_2018_return) { create :tax_return, client: george_sr, year: 2018, assigned_user: assigned_user, status: "intake_open" }
+        let!(:george_sr_2018_return) { create :tax_return, client: george_sr, year: 2018, assigned_user: assigned_user, status: "intake_ready" }
         let!(:michael) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", needs_help_2017: "yes", state_of_residence: nil) }
         let!(:michael_2019_return) { create :tax_return, client: michael, year: 2019, assigned_user: assigned_user, status: "intake_in_progress" }
         let!(:tobias) { create :client, vita_partner: organization, intake: create(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", locale: "es", state_of_residence: "TX") }
@@ -272,7 +272,7 @@ RSpec.describe Hub::ClientsController do
           expect(html.at_css("#client-#{george_sr.id}")).to have_text("English")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("Spanish")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("Intake")
-          expect(html.at_css("#client-#{tobias.id}")).to have_text("In progress")
+          expect(html.at_css("#client-#{tobias.id}")).to have_text("Not ready")
           expect(html.at_css("#client-#{tobias.id}")).to have_text("TX")
         end
 
@@ -435,7 +435,7 @@ RSpec.describe Hub::ClientsController do
       context "filtering" do
         context "with a status filter" do
           let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
-          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "intake_open")], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "intake_ready")], intake: (create :intake) }
 
           it "includes clients with tax returns in that status" do
             get :index, params: { status: "intake_in_progress" }
@@ -445,7 +445,7 @@ RSpec.describe Hub::ClientsController do
 
         context "with a stage filter" do
           let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }
-          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "prep_ready_for_call")], intake: (create :intake) }
+          let!(:excluded_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "prep_ready_for_prep")], intake: (create :intake) }
 
           it "includes clients with tax returns in that stage" do
             get :index, params: { status: "intake" }
@@ -454,7 +454,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by tax return year" do
-          let!(:return_3020) { create :tax_return, year: 3020, client: create(:client, vita_partner: organization), status: "intake_open" }
+          let!(:return_3020) { create :tax_return, year: 3020, client: create(:client, vita_partner: organization) }
           it "filters in" do
             get :index, params: { year: 3020 }
             expect(assigns(:clients)).to eq [return_3020.client]
@@ -462,7 +462,7 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "filtering by unassigned" do
-          let!(:unassigned) { create :tax_return, year: 2012, assigned_user: nil, client: create(:client, vita_partner: organization), status: "intake_open" }
+          let!(:unassigned) { create :tax_return, year: 2012, assigned_user: nil, client: create(:client, vita_partner: organization) }
           it "filters in" do
             get :index, params: { unassigned: true }
             expect(assigns(:clients)).to include unassigned.client
@@ -687,7 +687,7 @@ RSpec.describe Hub::ClientsController do
             id: client,
             tax_return: {
               id: tax_return_2019.id,
-              status: "intake_more_info",
+              status: "intake_info_requested",
               locale: "es"
             },
           }
@@ -703,7 +703,7 @@ RSpec.describe Hub::ClientsController do
           get :edit_take_action, params: params
 
           expect(assigns(:take_action_form).tax_return_id).to eq tax_return_2019.id
-          expect(assigns(:take_action_form).status).to eq "intake_more_info"
+          expect(assigns(:take_action_form).status).to eq "intake_info_requested"
           expect(assigns(:take_action_form).locale).to eq "es"
           expect(assigns(:take_action_form).message_body).not_to be_blank
           expect(assigns(:take_action_form).contact_method).to eq "email"
@@ -752,7 +752,7 @@ RSpec.describe Hub::ClientsController do
     end
 
     let(:tax_return_2019) { create :tax_return, status: "intake_in_progress", client: client, year: 2019 }
-    let(:new_status_2019) { "intake_open" }
+    let(:new_status_2019) { "intake_ready" }
     let(:locale) { "en" }
     let(:internal_note_body) { "" }
     let(:message_body) { "" }
