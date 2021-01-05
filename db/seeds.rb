@@ -21,20 +21,20 @@ user = User.where(email: "skywalker@example.com").first_or_initialize
 user.update(
   name: "Luke",
   password: "theforcevita")
-user.update(role: OrganizationLeadRole.create(organization: first_org)) if user.role_type != "OrganizationLeadRole"
+user.update(role: OrganizationLeadRole.create(organization: first_org)) if user.role_type != OrganizationLeadRole::TYPE
 
 # additional user
 additional_user = User.where(email: "princess@example.com").first_or_initialize
 additional_user.update(
   name: "Lea",
   password: "theforcevita")
-additional_user.update(role: OrganizationLeadRole.create(organization: first_org)) if additional_user.role_type != "OrganizationLeadRole"
+additional_user.update(role: OrganizationLeadRole.create(organization: first_org)) if additional_user.role_type != OrganizationLeadRole::TYPE
 
 admin_user = User.where(email: "admin@example.com").first_or_initialize
 admin_user.update(
   name: "The Admin",
   password: "theforcevita")
-admin_user.update(role: AdminRole.create) if admin_user.role_type != "AdminRole"
+admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::TYPE
 
 client = Client.find_or_create_by(vita_partner: first_org)
 

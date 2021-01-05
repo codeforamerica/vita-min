@@ -17,7 +17,7 @@ module Hub
       model_params = user_params.except(:is_admin)
       saved_ok = @user.update(model_params)
       if saved_ok
-        if user_params[:is_admin] && @user.role_type != "AdminRole"
+        if user_params[:is_admin] && @user.role_type != AdminRole::TYPE
           @user.role.destroy if @user.role.present?
           @user.update!(role: AdminRole.create)
         end
@@ -31,11 +31,11 @@ module Hub
 
     def user_params
       params.require(:user).permit(
-        *(:is_admin if current_user.role_type == "AdminRole"),
-        *(:is_client_support if current_user.role_type == "AdminRole"),
+        *(:is_admin if current_user.role_type == AdminRole::TYPE),
+        *(:is_client_support if current_user.role_type == AdminRole::TYPE),
         :phone_number,
         :timezone,
-        current_user.role_type == "AdminRole" ? { supported_organization_ids: [] } : {},
+        current_user.role_type == AdminRole::TYPE ? { supported_organization_ids: [] } : {},
       )
     end
   end

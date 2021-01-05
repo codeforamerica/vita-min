@@ -16,6 +16,9 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class OrganizationLeadRole < ApplicationRecord
+  TYPE = "OrganizationLeadRole"
+  DISPLAY_NAME = "Organization Lead"
+
   belongs_to :organization, foreign_key: "vita_partner_id", class_name: "VitaPartner"
   validate :no_sites
 

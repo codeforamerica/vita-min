@@ -7,4 +7,6 @@
 #  updated_at :datetime         not null
 #
 class AdminRole < ApplicationRecord
+  TYPE = "AdminRole"
+  DISPLAY_NAME = "Administrator"
 end

@@ -6,7 +6,7 @@ class Ability
 
     accessible_organizations = user.accessible_organizations
 
-    if user.role_type == "AdminRole"
+    if user.role_type == AdminRole::TYPE
       can :manage, :all
     elsif user.is_client_support?
       can :read, Client
