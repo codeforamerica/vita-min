@@ -211,7 +211,7 @@ RSpec.describe Hub::UsersController do
         }.to change(OrganizationLeadRole, :count).by(-1).and change(AdminRole, :count).by(1)
 
         user.reload
-        expect(user.role_type).to eq "AdminRole"
+        expect(user.role_type).to eq AdminRole::TYPE
       end
 
       it "can add client support role" do

@@ -36,7 +36,7 @@ RSpec.describe Users::InvitationsController do
             user: {
               name: "Cher Cherimoya",
               email: "cherry@example.com",
-              role: "OrganizationLeadRole",
+              role: OrganizationLeadRole::TYPE,
             },
             organization_id: vita_partner.id
           }
@@ -76,7 +76,7 @@ RSpec.describe Users::InvitationsController do
             user: {
               name: "Adam Apple",
               email: "adam@example.com",
-              role: "AdminRole"
+              role: AdminRole::TYPE
             },
           }
         end
