@@ -46,7 +46,7 @@
             <td class="index-table__cell client-attribute__needs-attention">
               <%= render "shared/client_needs_attention", client: client %>
             </td>
-            <th class="index-table__row-header client-attribute__name">
+            <th scope="row" class="index-table__row-header client-attribute__name">
               <%= link_to hub_client_path(id: client) do %>
                 <%= client.preferred_name %>
               <% end %>

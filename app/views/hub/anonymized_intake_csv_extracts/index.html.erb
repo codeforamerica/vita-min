@@ -10,13 +10,13 @@
   <table class="data-table document-table">
     <thead>
     <tr>
-      <th class="extract-column__filename">
+      <th scope="col" class="extract-column__filename">
         <%= t(".filename") %>
       </th>
-      <th class="extract-column__record-count">
+      <th scope="col"  class="extract-column__record-count">
         <%= t(".record_count") %>
       </th>
-      <th class="extract-column__run_at">
+      <th scope="col" class="extract-column__run_at">
         <%= t(".run_at") %>
       </th>
     </tr>
@@ -24,7 +24,7 @@
     <tbody>
     <% @extracts.each do |extract| %>
       <tr>
-        <td>
+        <td scope="row">
           <%= link_to hub_csv_extract_path(extract.id),  target: "_blank" do %>
             <%= extract.upload.filename %>
           <% end %>
