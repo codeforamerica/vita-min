@@ -54,7 +54,33 @@ class TwilioWebhooksController < ActionController::Base
     head :ok
   end
 
+  def outbound_call_connect
+    @outbound_call = OutboundCall.find(params[:id])
+    twiml = Twilio::TwiML::VoiceResponse.new
+    # The status callback for the call is attached to the dial event to the client.
+    # This means that the length of the call will be based on how long the user was connected to the client,
+    # And the status will be based on whether the client picked up the call.
+    twiml.dial do |dial|
+      dial.number(@outbound_call.to_phone_number,
+                  status_callback_event: 'answered completed',
+                  status_callback: webhook_url,
+                  status_callback_method: 'POST')
+    end
+    render xml: twiml.to_xml
+  end
+
   private
+
+  def webhook_url
+    params = { id: @outbound_call.id, locale: nil }
+
+    if Rails.env.development?
+      raise NgrokRequiredError unless Rails.configuration.try(:ngrok_url).present?
+
+      return Rails.configuration.ngrok_url + outbound_calls_webhook_path(params)
+    end
+    outbound_calls_webhook_url(params)
+  end
 
   def validate_twilio_request
     return head 403 unless TwilioService.valid_request?(request)

@@ -72,12 +72,11 @@ describe Hub::OutboundCallForm do
   end
 
   context "twiml" do
-    subject { described_class.new(client: client, user: user)  }
+    subject { described_class.new(client: client, user: user) }
 
     it "responds with xml" do
       subject.dial
-      expect(subject.twiml).to include "<Say>Please wait while we connect your call.</Say>"
-      expect(subject.twiml).to include "<Dial>\n<Number statusCallback=\"http://test.host/outbound_calls/#{subject.outbound_call.id}\" statusCallbackEvent=\"answered completed\" statusCallbackMethod=\"POST\">#{subject.outbound_call.to_phone_number}</Number>\n</Dial>"
+      expect(subject.twiml).to include "<Say>Press any number to connect your Get Your Refund call.</Say>"
     end
   end
 
@@ -89,7 +88,7 @@ describe Hub::OutboundCallForm do
     subject { described_class.new(client: client, user: user) }
 
     it "raises an error" do
-      expect { subject.dial }.to raise_error Hub::OutboundCallForm::NgrokNeededError
+      expect { subject.dial }.to raise_error NgrokRequiredError
     end
   end
 end
