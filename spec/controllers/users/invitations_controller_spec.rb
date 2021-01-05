@@ -70,6 +70,38 @@ RSpec.describe Users::InvitationsController do
         end
       end
 
+      context "inviting a coalition lead user" do
+        let(:coalition) { create :coalition }
+        let(:params) do
+          {
+            user: {
+              name: "Cher Cherimoya",
+              email: "cherry@example.com",
+              role: CoalitionLeadRole::TYPE,
+            },
+            coalition_id: coalition.id
+          }
+        end
+
+        it "creates a new invited coalition lead user" do
+          expect do
+            post :create, params: params
+          end.to (change(User, :count).by 1).and(change(CoalitionLeadRole, :count).by(1))
+
+          coalition_lead_role = CoalitionLeadRole.last
+          expect(coalition_lead_role.coalition).to eq coalition
+
+          invited_user = User.last
+          expect(invited_user.role).to eq coalition_lead_role
+
+          expect(invited_user.name).to eq "Cher Cherimoya"
+          expect(invited_user.email).to eq "cherry@example.com"
+          expect(invited_user.invitation_token).to be_present
+          expect(invited_user.invited_by).to eq user
+          expect(response).to redirect_to invitations_path
+        end
+      end
+
       context "inviting an admin user" do
         let(:params) do
           {

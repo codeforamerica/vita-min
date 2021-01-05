@@ -68,6 +68,14 @@ FactoryBot.define do
       role { create(:organization_lead_role, organization: organization || create(:organization)) }
     end
 
+    factory :coalition_lead_user do
+      transient do
+        coalition { nil }
+      end
+
+      role { create(:coalition_lead_role, coalition: coalition || create(:coalition)) }
+    end
+
     factory :admin_user do
       role { create(:admin_role) }
     end

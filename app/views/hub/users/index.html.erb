@@ -22,7 +22,7 @@
             <%= link_to user.name, edit_hub_user_path(id: user) %>
           </th>
           <td class="index-table__cell"><%= user_role(user) %></td>
-          <td class="index-table__cell"><%= user_org(user) || t("general.none") %></td>
+          <td class="index-table__cell"><%= user_group(user) || t("general.none") %></td>
         </tr>
       <% end %>
 

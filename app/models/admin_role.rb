@@ -8,5 +8,5 @@
 #
 class AdminRole < ApplicationRecord
   TYPE = "AdminRole"
-  DISPLAY_NAME = "Administrator"
+  DISPLAY_NAME = I18n.t("general.admin")
 end
