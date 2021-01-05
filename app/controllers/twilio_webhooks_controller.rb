@@ -54,6 +54,21 @@ class TwilioWebhooksController < ActionController::Base
     head :ok
   end
 
+  def outbound_call_connect
+    @outbound_call = OutboundCall.find(params[:id])
+    twiml = Twilio::TwiML::VoiceResponse.new
+    # The status callback for the call is attached to the dial event to the client.
+    # This means that the length of the call will be based on how long the user was connected to the client,
+    # And the status will be based on whether the client picked up the call.
+    twiml.dial do |dial|
+      dial.number(@outbound_call.to_phone_number,
+                  status_callback_event: 'answered completed',
+                  status_callback: outbound_calls_webhook_url(id: @outbound_call.id, locale: nil),
+                  status_callback_method: 'POST')
+    end
+    render xml: twiml.to_xml
+  end
+
   private
 
   def validate_twilio_request

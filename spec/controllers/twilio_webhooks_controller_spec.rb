@@ -256,4 +256,37 @@ RSpec.describe TwilioWebhooksController do
       end
     end
   end
+
+  describe "#outbound_call_connect" do
+    let!(:outbound_call) { create :outbound_call, to_phone_number: "+15005551234" }
+    let(:params) {{ id: outbound_call.id}}
+
+    context "a signed request" do
+      before do
+        allow(TwilioService).to receive(:valid_request?).and_return true
+      end
+
+      it "responds with xml" do
+        post :outbound_call_connect, params: params
+        expect(response.media_type).to eq "application/xml"
+      end
+
+      it "responds with formatted twiml" do
+        post :outbound_call_connect, params: params
+        expect(response.body).to include "<Dial>\n<Number statusCallback=\"http://test.host/outbound_calls/#{outbound_call.id}\" statusCallbackEvent=\"answered completed\" statusCallbackMethod=\"POST\">+15005551234</Number>\n</Dial>"
+      end
+    end
+
+    context "an unsigned request" do
+      before do
+        allow(TwilioService).to receive(:valid_request?).and_return false
+      end
+
+      it "returns a 403 status code" do
+        post :update_outbound_call, params: params
+
+        expect(response.status).to eq 403
+      end
+    end
+  end
 end

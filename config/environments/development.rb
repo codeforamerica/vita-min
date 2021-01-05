@@ -36,9 +36,14 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  ngrok_host = ENV["NGROK_HOST"] # for example: 'd90d61a5caf9.ngrok.io'
   config.action_mailer.default_options = { from: 'no-reply@localhost' }
   config.address_for_transactional_authentication_emails = 'devise-no-reply@test.localhost'
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  if ngrok_host.present?
+    config.action_mailer.default_url_options = { protocol: 'https', host: ngrok_host, port: 80 }
+  else
+    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  end
   Rails.application.default_url_options = config.action_mailer.default_url_options
 
   # Print deprecation notices to the Rails logger.

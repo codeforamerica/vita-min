@@ -3,8 +3,7 @@ module Hub
     attr_accessor :user_phone_number, :client_phone_number, :outbound_call, :twilio_phone_number
     delegate :dial_client_path,
       :dial_client_url,
-      :outbound_calls_webhook_path,
-      :outbound_calls_webhook_url, to: 'Rails.application.routes.url_helpers'
+      :twilio_connect_to_client_url, to: 'Rails.application.routes.url_helpers'
 
     before_validation do
       self.user_phone_number = PhoneParser.normalize(user_phone_number)
@@ -46,35 +45,20 @@ module Hub
       end
     end
 
-    def twiml
-      twiml = Twilio::TwiML::VoiceResponse.new
-      twiml.say(message: 'Please wait while we connect your call.')
-      # The status callback for the call is attached to the dial event to the client.
-      # This means that the length of the call will be based on how long the user was connected to the client,
-      # And the status will be based on whether the client picked up the call.
-      twiml.dial do |dial|
-        dial.number(@outbound_call.to_phone_number,
-                    status_callback_event: 'answered completed',
-                    status_callback: webhook_url,
-                    status_callback_method: 'POST')
-      end
-      twiml.to_xml
-    end
-
     private
 
-    def webhook_url
-      params = { id: @outbound_call.id, locale: nil }
-
-      if Rails.env.development?
-        raise NgrokNeededError unless Rails.configuration.try(:ngrok_url).present?
-
-        return Rails.configuration.ngrok_url + outbound_calls_webhook_path(params)
+    # initiates a call to the from phone number when any number is pressed.
+    # If a number is pressed, the call will redirect to another twilio url that connects the call to the client
+    # After 5 seconds without a response the call will hang up.
+    def twiml
+      twiml = Twilio::TwiML::VoiceResponse.new
+      twiml.gather(action: twilio_connect_to_client_url(id: @outbound_call.id, locale: nil), num_digits: 1, timeout: 15) do |g|
+        g.say(message: "Press any number to connect your Get Your Refund call.")
       end
-      outbound_calls_webhook_url(params)
-    end
-
-    class NgrokNeededError < StandardError
+      # this code only executes if the user does not enter a digit within the timeout period (5 secs)
+      twiml.say(message: "We didn't hear from you so we're hanging up!")
+      twiml.hangup
+      twiml.to_xml
     end
   end
 end

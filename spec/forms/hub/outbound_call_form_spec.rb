@@ -30,17 +30,18 @@ describe Hub::OutboundCallForm do
     end
   end
 
-  context "dial" do
+  describe "#dial" do
     subject { described_class.new(client: client, user: user) }
     let(:twilio_double) { double(Twilio::REST::Client) }
     let(:twilio_calls_double) { double }
     let(:twilio_response_double) { double(Twilio::REST::Api::V2010::AccountContext::CallInstance, sid: "123456", status: "initiated") }
+    let(:twilio_phone_number) { "+14156393361" }
 
     before do
       allow(Twilio::REST::Client).to receive(:new).and_return(twilio_double)
       allow(twilio_double).to receive(:calls).and_return(twilio_calls_double)
       allow(twilio_calls_double).to receive(:create).and_return(twilio_response_double)
-      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :voice_phone_number).and_return '+14156393361'
+      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :voice_phone_number).and_return twilio_phone_number
       allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :account_sid).and_return "abc"
       allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :auth_token).and_return "123"
     end
@@ -52,11 +53,23 @@ describe Hub::OutboundCallForm do
 
     it "creates a twilio call with appropriate params" do
       subject.dial
-      expect(twilio_calls_double).to have_received(:create).with({
-                                                                   twiml: subject.twiml,
-                                                                   to: user.phone_number,
-                                                                   from: '+14156393361'
-                                                                 })
+
+      call = OutboundCall.last
+      expected_twiml = <<~TWIML
+        <?xml version="1.0" encoding="UTF-8"?>
+        <Response>
+        <Gather action="http://test.host/outbound_calls/connect/#{call.id}" numDigits="1" timeout="15">
+        <Say>Press any number to connect your Get Your Refund call.</Say>
+        </Gather>
+        <Say>We didn't hear from you so we're hanging up!</Say>
+        <Hangup/>
+        </Response>
+      TWIML
+      expect(twilio_calls_double).to have_received(:create).with(
+        twiml: expected_twiml,
+        to: user.phone_number,
+        from: twilio_phone_number
+      )
     end
 
     it "returns an OutboundCall object" do
@@ -68,28 +81,6 @@ describe Hub::OutboundCallForm do
       call.client = client
       call.to_phone_number = user.phone_number
       call.from_phone_number = client.phone_number
-    end
-  end
-
-  context "twiml" do
-    subject { described_class.new(client: client, user: user)  }
-
-    it "responds with xml" do
-      subject.dial
-      expect(subject.twiml).to include "<Say>Please wait while we connect your call.</Say>"
-      expect(subject.twiml).to include "<Dial>\n<Number statusCallback=\"http://test.host/outbound_calls/#{subject.outbound_call.id}\" statusCallbackEvent=\"answered completed\" statusCallbackMethod=\"POST\">#{subject.outbound_call.to_phone_number}</Number>\n</Dial>"
-    end
-  end
-
-  context "development environment without ngrok_url set" do
-    before do
-      allow(Rails).to receive(:env).and_return("development".inquiry)
-    end
-
-    subject { described_class.new(client: client, user: user) }
-
-    it "raises an error" do
-      expect { subject.dial }.to raise_error Hub::OutboundCallForm::NgrokNeededError
     end
   end
 end
