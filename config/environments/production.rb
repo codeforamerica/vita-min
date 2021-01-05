@@ -2,6 +2,7 @@ require_relative "./shared_deployment_config"
 
 Rails.application.configure do
   config.active_storage.service = :s3_prod
+  config.signature_log_bucket = "vita-min-prod-signatures"
 
   config.action_mailer.default_options = { from: "hello@getyourrefund.org" }
   config.address_for_transactional_authentication_emails = 'no-reply@getyourrefund.org'
