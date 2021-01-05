@@ -13,7 +13,7 @@ class Users::InvitationsController < Devise::InvitationsController
     # If an anonymous user tries to send an invitation, send them to the invitation page after sign-in.
     require_sign_in(redirect_after_login: new_user_invitation_path)
   end
-  before_action :load_and_authorize_vita_partners, only: [:new, :create]
+  before_action :load_and_authorize_groups, only: [:new, :create]
 
   authorize_resource :user, only: [:new, :create]
   before_action :require_valid_invitation_token, only: [:edit, :update]
@@ -23,13 +23,18 @@ class Users::InvitationsController < Devise::InvitationsController
 
     if params[:user][:role] == OrganizationLeadRole::TYPE
       organization = @vita_partners.find(params.require(:organization_id))
-      # check that current_user can manage the organization they are assigning the new user to
       authorize!(:manage, organization)
-      super do |invited_user|
-        role = OrganizationLeadRole.create(
-          organization: organization,
-        )
 
+      super do |invited_user|
+        role = OrganizationLeadRole.create(organization: organization)
+        invited_user.update(role: role)
+      end
+    elsif params[:user][:role] == CoalitionLeadRole::TYPE
+      coalition = @coalitions.find(params.require(:coalition_id))
+      authorize!(:manage, coalition)
+
+      super do |invited_user|
+        role = CoalitionLeadRole.create(coalition: coalition)
         invited_user.update(role: role)
       end
     elsif params[:user][:role] == AdminRole::TYPE
@@ -47,9 +52,12 @@ class Users::InvitationsController < Devise::InvitationsController
     User.where(email: invite_params[:email]).where.not(role_type: params[:user][:role]).exists?
   end
 
-  def load_and_authorize_vita_partners
+  def load_and_authorize_groups
     @vita_partners = VitaPartner.accessible_by(current_ability)
     authorize!(:manage, @vita_partners)
+
+    @coalitions = Coalition.accessible_by(current_ability)
+    authorize!(:manage, @coalitions)
   end
 
   # Override superclass method for default params for newly created invites, allowing us to add attributes

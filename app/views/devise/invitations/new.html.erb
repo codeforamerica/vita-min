@@ -18,6 +18,13 @@
       <%= f.hidden_field :role, value: params[:role] %>
     <% end %>
 
+    <% if params[:role] == CoalitionLeadRole::TYPE %>
+      <%= label_tag(:coalition_id, t(".coalition_label")) %>
+      <%= select_tag(:coalition_id, options_for_select(Coalition.all.map { |coalition| [coalition.name, coalition.id] })) %>
+
+      <%= f.hidden_field :role, value: params[:role] %>
+    <% end %>
+
     <%= f.submit t(".submit"), class: "button button--primary" %>
   <% end %>
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_04_224344) do
+ActiveRecord::Schema.define(version: 2021_01_05_011809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,13 @@ ActiveRecord::Schema.define(version: 2021_01_04_224344) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id"
     t.index ["vita_partner_id"], name: "index_clients_on_vita_partner_id"
+  end
+
+  create_table "coalition_lead_roles", force: :cascade do |t|
+    t.bigint "coalition_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coalition_id"], name: "index_coalition_lead_roles_on_coalition_id"
   end
 
   create_table "coalitions", force: :cascade do |t|
@@ -594,6 +601,7 @@ ActiveRecord::Schema.define(version: 2021_01_04_224344) do
   add_foreign_key "access_logs", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "clients", "vita_partners"
+  add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents_requests", "intakes"
