@@ -57,8 +57,8 @@
         <%= render "shared/offseason_alert" %>
       <% end %>
 
-      <% if content_for(:user_return_link_name) && content_for(:user_return_link_path) %>
-        <%= render "hub/user_navigation", user_return_link_name: content_for(:user_return_link_name), user_return_link_path: content_for(:user_return_link_path) %>
+      <% if content_for(:back_to) %>
+        <%= render "hub/back_to", back_to: content_for(:back_to)%>
       <% end %>
       <div class="flash-alerts">
         <%= render "shared/flash_alerts", flash: flash %>

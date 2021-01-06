@@ -1,6 +1,10 @@
 ---
 es:
   hub:
+    back_to:
+      return_to_dashboard: Regresar al tablero
+      return_to_clients: Volver a todos los clientes
+      return_to_profile: Volver al perfil
     users:
       edit:
         is_admin_label: Admin?
@@ -10,7 +14,6 @@ es:
       profile:
         clients_link: Clientes
         users_link: Usuarios
-        return_to_dashboard: < Volver a tablero
         start_date: "Fecha de inicio"
     anonymized_intake_csv_extracts:
       index:
@@ -82,7 +85,6 @@ es:
         primary_contact_info: Información de contacto
         spouse_contact_info: Información de contacto del cónyuge
         texting_phone: Número celular
-        return_to_clients: < Volver a todos los clientes
         tax_info: Información de impuestos
         basic_info: Información básica
       edit_take_action:

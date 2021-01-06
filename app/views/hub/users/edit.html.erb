@@ -39,9 +39,11 @@
         </div>
       <% end %>
 
-      <button class="button" type="submit">
+      <button class="button button--cta" type="submit">
         <%=t("general.save") %>
       </button>
+
+      <%= link_to t("general.cancel"), hub_users_path, class: "button button--cta"%>
     <% end %>
   </div>
 <% end %>

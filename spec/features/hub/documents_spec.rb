@@ -10,6 +10,12 @@ RSpec.feature "View and edit documents for a client" do
       login_as user
     end
 
+    scenario "navigation" do
+      visit hub_client_documents_path(client_id: client.id)
+      click_on "Return to all clients"
+      expect(page).to have_current_path(hub_clients_path)
+    end
+
     scenario "view document list and change a display name" do
       visit hub_client_documents_path(client_id: client.id)
 
