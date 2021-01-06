@@ -171,6 +171,35 @@ RSpec.describe Users::InvitationsController do
           end
         end
       end
+
+      context "inviting a client success user" do
+        let(:params) do
+          {
+              user: {
+                  name: "Cleo Squash",
+                  email: "cleo@example.com",
+                  role: ClientSuccessRole::TYPE
+              },
+          }
+        end
+
+        it "creates a new invited client success user" do
+          expect do
+            post :create, params: params
+          end.to (change(User, :count).by 1).and(change(ClientSuccessRole, :count).by(1))
+
+          client_success_role = ClientSuccessRole.last
+
+          invited_user = User.last
+          expect(invited_user.role).to eq client_success_role
+
+          expect(invited_user.name).to eq "Cleo Squash"
+          expect(invited_user.email).to eq "cleo@example.com"
+          expect(invited_user.invitation_token).to be_present
+          expect(invited_user.invited_by).to eq user
+          expect(response).to redirect_to invitations_path
+        end
+      end
     end
   end
 
