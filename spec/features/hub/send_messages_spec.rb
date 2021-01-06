@@ -20,6 +20,12 @@ RSpec.feature "Read and send messages to a client", js: true do
       login_as user
     end
 
+    scenario "navigation" do
+      visit hub_client_path(id: client)
+      click_on "Return to all clients"
+      expect(page).to have_current_path(hub_clients_path)
+    end
+
     scenario "I can view a client's information and send them a message" do
       visit hub_client_path(id: client)
 
