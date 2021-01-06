@@ -102,6 +102,38 @@ RSpec.describe Users::InvitationsController do
         end
       end
 
+      context "inviting a site coordinator user" do
+        let(:site) { create :site }
+        let(:params) do
+          {
+            user: {
+              name: "Cher Cherimoya",
+              email: "cherry@example.com",
+              role: SiteCoordinatorRole::TYPE,
+            },
+            site_id: site.id
+          }
+        end
+
+        it "creates a new invited site coordinator user" do
+          expect do
+            post :create, params: params
+          end.to (change(User, :count).by 1).and(change(SiteCoordinatorRole, :count).by(1))
+
+          site_coordinator_role = SiteCoordinatorRole.last
+          expect(site_coordinator_role.site).to eq site
+
+          invited_user = User.last
+          expect(invited_user.role).to eq site_coordinator_role
+
+          expect(invited_user.name).to eq "Cher Cherimoya"
+          expect(invited_user.email).to eq "cherry@example.com"
+          expect(invited_user.invitation_token).to be_present
+          expect(invited_user.invited_by).to eq user
+          expect(response).to redirect_to invitations_path
+        end
+      end
+
       context "inviting an admin user" do
         let(:params) do
           {
@@ -139,7 +171,6 @@ RSpec.describe Users::InvitationsController do
           end
         end
       end
-
     end
   end
 

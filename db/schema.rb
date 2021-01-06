@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_011809) do
+ActiveRecord::Schema.define(version: 2021_01_05_224857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -453,6 +453,13 @@ ActiveRecord::Schema.define(version: 2021_01_05_011809) do
     t.string "zip_code"
   end
 
+  create_table "site_coordinator_roles", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "vita_partner_id", null: false
+    t.index ["vita_partner_id"], name: "index_site_coordinator_roles_on_vita_partner_id"
+  end
+
   create_table "source_parameters", force: :cascade do |t|
     t.string "code"
     t.datetime "created_at", precision: 6, null: false
@@ -614,6 +621,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_011809) do
   add_foreign_key "outgoing_emails", "users"
   add_foreign_key "outgoing_text_messages", "clients"
   add_foreign_key "outgoing_text_messages", "users"
+  add_foreign_key "site_coordinator_roles", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "states_vita_partners", "vita_partners"
   add_foreign_key "system_notes", "clients"

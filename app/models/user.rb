@@ -64,6 +64,7 @@ class User < ApplicationRecord
            class_name: "VitaPartner"
   has_many :access_logs
   belongs_to :role, polymorphic: true, optional: true
+
   belongs_to :organization_lead_role, -> { where(users: { role_type: 'OrganizationLeadRole' }) }, foreign_key: 'role_id', optional: true
 
   attr_encrypted :access_token, key: ->(_) { EnvironmentCredentials.dig(:db_encryption_key) }
