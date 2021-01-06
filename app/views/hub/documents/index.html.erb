@@ -10,10 +10,13 @@
     <thead>
     <tr>
       <th scope="col" class="document-column__doc-type">
-        <%= render "shared/column_sort_link", title: t(".document_type"), column_name: "document_type" %>
+        <%= render "shared/column_sort_link", title: t("general.document_type"), column_name: "document_type" %>
       </th>
       <th scope="col" class="document-column__link">
         <%= render "shared/column_sort_link", title: t(".file_name"), column_name: "display_name" %>
+      </th>
+      <th class="document-column__link">
+        <%= render "shared/column_sort_link", title: t("general.tax_return"), column_name: "tax_return" %>
       </th>
       <th scope="col" class="document-column__upload-date">
         <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
@@ -31,6 +34,9 @@
               <%= document.display_name %>
             <% end %>
           </td>
+          <td>
+            <%= document.tax_return&.year %>
+          </td>
           <td><%= t(".uploaded_ago", time: time_ago_in_words(document.created_at)) %></td>
           <td class="edit">
             <%= link_to t("general.edit"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
@@ -40,6 +46,8 @@
     <% end %>
     </tbody>
   </table>
+
+  <%= link_to t(".add_client_envelope_doc"), new_hub_client_document_path, class: "button" %>
 
   <%= form_with model: @document, url: [:hub, @client, :documents], local: true, method: "post", builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
     <div class="document-upload">

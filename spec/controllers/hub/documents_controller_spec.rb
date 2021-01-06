@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Hub::DocumentsController, type: :controller do
   let(:organization) { create :organization }
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+  let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
 
   describe "#index" do
-    let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
     let(:params) { { client_id: client.id } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
@@ -104,30 +104,71 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     end
   end
 
+  describe "#new" do
+    let!(:tax_return_1) { create :tax_return, client: client, year: 2020 }
+    let!(:tax_return_2) { create :tax_return, client: client, year: 2019 }
+    let(:params) do
+      { client_id: client.id }
+    end
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
+
+    context "as an authenticated user" do
+      render_views
+
+      before { sign_in user }
+
+      it "lists the available tax returns" do
+        get :new, params: params
+
+        tax_return_select = Nokogiri::HTML.parse(response.body).at_css("select#document_tax_return_id")
+        expect(tax_return_select).to have_text "2020"
+        expect(tax_return_select).to have_text "2019"
+      end
+    end
+  end
+
   describe "#edit" do
-    let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
     let(:document) { create :document, client: client }
     let(:params) { { id: document.id, client_id: client.id }}
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
-    context "with an authenticated user" do
-      before { sign_in(user) }
+    context "as an authenticated user" do
+      render_views
 
-      it "renders edit for the document" do
-        get :edit, params: params
+      before do
+        sign_in user
+        create :tax_return, client: client, year: 2020
+        create :tax_return, client: client, year: 2019
+      end
 
-        expect(response).to be_ok
-        expect(assigns(:document)).to eq(document)
+      it "lists the available tax returns" do
+        get :new, params: params
+
+        tax_return_select = Nokogiri::HTML.parse(response.body).at_css("select#document_tax_return_id")
+        expect(tax_return_select).to have_text "2020"
+        expect(tax_return_select).to have_text "2019"
       end
     end
   end
 
   describe "#update" do
     let(:new_display_name) { "New Display Name" }
-    let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
+    let(:new_tax_return) { create :tax_return, client: client }
+    let(:new_doc_type) { DocumentTypes::Employment }
     let(:document) { create :document, client: client }
-    let(:params) { { client_id: client.id, id: document.id, document: { display_name: new_display_name } } }
+    let(:params) do
+      {
+        client_id: client.id,
+        id: document.id,
+        document: {
+          display_name: new_display_name,
+          tax_return_id: new_tax_return.id,
+          document_type: new_doc_type.key
+        }
+      }
+    end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
@@ -135,17 +176,29 @@ RSpec.describe Hub::DocumentsController, type: :controller do
       before { sign_in(user) }
 
       context "with valid params" do
-        it "updates the display name attribute on the document" do
+        it "updates the document attributes" do
           post :update, params: params
 
           expect(response).to redirect_to(hub_client_documents_path(client_id: client.id))
           document.reload
           expect(document.display_name).to eq new_display_name
+          expect(document.document_type).to eq new_doc_type.key
+          expect(document.tax_return_id).to eq new_tax_return.id
         end
       end
 
       context "invalid params" do
-        let(:params) { { client_id: client.id, id: document.id, document: { display_name: '' } } }
+        render_views
+
+        let(:params) do
+          {
+            client_id: client.id,
+            id: document.id,
+            document: {
+              document_type: 'Nonexistent'
+            }
+          }
+        end
 
         it "renders edit and does not update the document with invalid data" do
           post :update, params: params
@@ -160,7 +213,6 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#show" do
-    let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
     let(:document) { create :document, client: client }
     let(:params) { { client_id: client.id, id: document.id }}
 
@@ -183,15 +235,19 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   end
 
   describe "#create" do
-    let(:client) { create :client, vita_partner: organization }
-    let!(:intake) { create :intake, client: client }
+    let!(:intake) { client.intake }
+    let!(:tax_return) { create :tax_return, client: client, year: 2017 }
+
     let(:params) do
       { client_id: client.id,
         document: {
           upload: [
               fixture_file_upload("attachments/test-pattern.png", "image/png"),
               fixture_file_upload("attachments/document_bundle.pdf", "application/pdf")
-          ]
+          ],
+          tax_return_id: tax_return.id,
+          display_name: "This is a document for the client",
+          document_type: DocumentTypes::Form1098E.key
         }
       }
     end
@@ -207,12 +263,39 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         }.to change(Document, :count).by 2
 
         latest_docs = Document.last(2)
-        expect(latest_docs.map(&:document_type).uniq).to eq ["Other"]
+        expect(latest_docs.map(&:document_type).uniq).to eq ["1098-E"]
         expect(latest_docs.first.upload.filename).to eq "test-pattern.png"
         expect(latest_docs.second.upload.filename).to eq "document_bundle.pdf"
+        expect(latest_docs.first.display_name).to eq "This is a document for the client"
+        expect(latest_docs.second.display_name).to eq "This is a document for the client"
         expect(latest_docs.map(&:intake).uniq).to eq [intake]
         expect(latest_docs.map(&:client).uniq).to eq [client]
+        expect(latest_docs.map(&:tax_return_id).uniq).to eq [tax_return.id]
         expect(response).to redirect_to(hub_client_documents_path(client_id: client.id))
+      end
+
+      context "with no display name, or tax return" do
+        let(:params) do
+          { client_id: client.id,
+            document: {
+              upload: [
+                fixture_file_upload("attachments/test-pattern.png", "image/png"),
+                fixture_file_upload("attachments/document_bundle.pdf", "application/pdf")
+              ],
+              display_name: "",
+              document_type: DocumentTypes::Other.key
+            }
+          }
+        end
+
+        it "sets default file name, does not set tax return" do
+          post :create, params: params
+
+          latest_docs = Document.last(2)
+          expect(latest_docs.first.display_name).to eq "test-pattern.png"
+          expect(latest_docs.second.display_name).to eq "document_bundle.pdf"
+          expect(latest_docs.map(&:tax_return_id).uniq).to eq [nil]
+        end
       end
     end
   end

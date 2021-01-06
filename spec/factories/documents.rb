@@ -5,13 +5,14 @@
 #  id                   :bigint           not null, primary key
 #  contact_record_type  :string
 #  display_name         :string
-#  document_type        :string           not null
+#  document_type        :string           default("Other"), not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  client_id            :bigint
 #  contact_record_id    :bigint
 #  documents_request_id :bigint
 #  intake_id            :bigint
+#  tax_return_id        :bigint
 #  zendesk_ticket_id    :bigint
 #
 # Indexes
@@ -20,11 +21,13 @@
 #  index_documents_on_contact_record_type_and_contact_record_id  (contact_record_type,contact_record_id)
 #  index_documents_on_documents_request_id                       (documents_request_id)
 #  index_documents_on_intake_id                                  (intake_id)
+#  index_documents_on_tax_return_id                              (tax_return_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (documents_request_id => documents_requests.id)
+#  fk_rails_...  (tax_return_id => tax_returns.id)
 #
 
 FactoryBot.define do

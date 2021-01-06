@@ -123,7 +123,7 @@ Rails.application.routes.draw do
         patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
         get "/bai", to: "clients/bank_accounts#show", on: :member, as: :show_bank_account
         get "/hide-bai", to: "clients/bank_accounts#hide", on: :member, as: :hide_bank_account
-        resources :documents, only: [:index, :edit, :update, :show, :create]
+        resources :documents, only: [:index, :edit, :update, :show, :create, :new]
         resources :notes, only: [:create, :index]
         resources :messages, only: [:index]
         resources :outgoing_text_messages, only: [:create]

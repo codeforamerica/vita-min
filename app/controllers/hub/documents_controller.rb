@@ -20,6 +20,8 @@ module Hub
       redirect_to transient_storage_url(@document.upload.blob)
     end
 
+    def new; end
+
     def edit; end
 
     def create
@@ -27,20 +29,19 @@ module Hub
         Document.create!(
           client: @client,
           intake: @client.intake,
-          document_type: DocumentTypes::Other.key,
-          upload: file_upload
+          document_type: document_params[:document_type],
+          upload: file_upload,
+          display_name: document_params[:display_name],
+          tax_return_id: document_params[:tax_return_id]
         )
       end
       redirect_to(hub_client_documents_path(client_id: @client))
     end
 
     def update
-      @form = Hub::DocumentForm.new(@document, document_params)
-      if @form.valid?
-        @form.save
+      if @document.update(document_params)
         redirect_to hub_client_documents_path(client_id: @document.client.id)
       else
-        @document.errors.copy!(@form.errors)
         render :edit
       end
     end
@@ -48,7 +49,7 @@ module Hub
     private
 
     def document_params
-      params.require(:document).permit(:display_name, upload: [])
+      params.require(:document).permit(:document_type, :display_name, :tax_return_id, upload: [])
     end
 
     def sort_column

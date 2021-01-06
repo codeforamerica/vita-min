@@ -103,13 +103,13 @@ en:
         basic_info: Basic Info
     documents:
       edit:
-        display_name: Display Name
         title: Edit Document
       index:
-        document_type: Document Type
         file_name: File Name
         upload_date: Upload Date
         uploaded_ago: "%{time} ago"
+        add_client_envelope_doc: "Add client envelope document"
+      display_name: Display name
     messages:
       index:
         email_form:
@@ -389,7 +389,8 @@ en:
     continue: Continue
     continue_example: Continue to example
     divorced: Divorced
-    document_type:
+    document_type: Document type
+    document_types:
       care_provider_statement: Care Provider Statement
       email_attachment: Email attachment
       employment: Employment tax documents (W2's, 1099, etc)
@@ -529,6 +530,7 @@ en:
     coalition_lead: Coalition lead
     site_coordinator: Site coordinator
     client_success: Client success
+    tax_return: Tax return
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
