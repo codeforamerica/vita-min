@@ -5,12 +5,17 @@
     <%= link_to new_user_invitation_path(role: OrganizationLeadRole::TYPE), class: "button" do %>
       <%= t(".actions.new_org_lead_invite") %>
     <% end %>
+
     <%= link_to new_user_invitation_path(role: AdminRole::TYPE), class: "button" do %>
       <%= t(".actions.new_admin_invite") %>
     <% end %>
 
     <%= link_to new_user_invitation_path(role: CoalitionLeadRole::TYPE), class: "button" do %>
       <%= t(".actions.new_coalition_lead_invite") %>
+    <% end %>
+
+    <%= link_to new_user_invitation_path(role: SiteCoordinatorRole::TYPE), class: "button" do %>
+      <%= t(".actions.new_site_coordinator_invite") %>
     <% end %>
   </div>
 
@@ -23,13 +28,12 @@
             <%= f.hidden_field :email %>
             <% if invited_user.role_type == OrganizationLeadRole::TYPE %>
               <%= hidden_field_tag :organization_id, invited_user.role.organization.id %>
-              <%= f.hidden_field :role, value: invited_user.role_type %>
-            <% elsif invited_user.role_type == AdminRole::TYPE %>
-              <%= f.hidden_field :role, value: invited_user.role_type %>
             <% elsif invited_user.role_type == CoalitionLeadRole::TYPE %>
               <%= hidden_field_tag :coalition_id, invited_user.role.coalition.id %>
-              <%= f.hidden_field :role, value: invited_user.role_type %>
+            <% elsif invited_user.role_type == SiteCoordinatorRole::TYPE %>
+              <%= hidden_field_tag :site_id, invited_user.role.site.id %>
             <% end %>
+            <%= f.hidden_field :role, value: invited_user.role_type %>
 
             <%= f.submit value: t(".invitation.create"), class: "button button--small" %>
           <% end %>

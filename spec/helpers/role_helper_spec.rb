@@ -24,6 +24,14 @@ describe RoleHelper do
         expect(helper.user_role(user)).to eq "Coalition lead"
       end
     end
+
+    context "as a site coordinator" do
+      let(:user) { create :user, role: create(:site_coordinator_role) }
+
+      it "shows they are a site coordinator" do
+        expect(helper.user_role(user)).to eq "Site coordinator"
+      end
+    end
   end
 
   describe "#user_group" do
@@ -44,12 +52,21 @@ describe RoleHelper do
       end
     end
 
-    context "for a coalition lead" do
+    context "for a coalition lead user" do
       let(:coalition) { create :coalition, name: "Candy coalition" }
       let(:user) { create :coalition_lead_user, coalition: coalition }
 
       it "returns the name of the coalition that they are a lead for" do
         expect(helper.user_group(user)).to eq("Candy coalition")
+      end
+    end
+
+    context "for a site coordinator user" do
+      let(:site) { create :site, name: "Soda Site" }
+      let(:user) { create :site_coordinator_user, site: site }
+
+      it "returns the name of the site that they are a coordinator for" do
+        expect(helper.user_group(user)).to eq("Soda Site")
       end
     end
   end

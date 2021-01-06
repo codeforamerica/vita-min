@@ -270,6 +270,7 @@ es:
         title: Envíe una nueva invitación
         vita_partner_label: "¿Cúal organización?"
         coalition_label: "¿Cúal coalición?"
+        site_label: "¿Cúal sitio?"
       not_found:
         check_your_email: 'Intente buscar en su correo electrónico mensajes con el asunto: "%{subject}"'
         contact_support: Si está atascado, puede ponerse en contacto con el soporte en support@getyourrefund.org
@@ -527,6 +528,7 @@ es:
     client_support: Soporte al cliente
     edit_info: Editar información
     coalition_lead: Líder de coalición
+    site_coordinator: Coordinadora del sitio
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -536,6 +538,7 @@ es:
         new_org_lead_invite: Invite a un nuevo líder de la organización
         new_admin_invite: Invite a un nuevo admin
         new_coalition_lead_invite: Invite a un nuevo líder de la coalición
+        new_site_coordinator_invite: Invitar a una nueva coordinadora del sitio
       invitation:
         create: Reenviar email de invitación
         sent_at: Enviado a las %{datetime}

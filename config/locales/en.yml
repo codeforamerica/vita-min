@@ -269,6 +269,7 @@ en:
         title: Send a new invitation
         vita_partner_label: Which organization?
         coalition_label: "Which coalition?"
+        site_label: "Which site?"
       not_found:
         check_your_email: 'Try searching your email for messages with the subject: "%{subject}"'
         contact_support: If you're stuck, you can contact support at support@getyourrefund.org
@@ -525,7 +526,8 @@ en:
     client_support: Client support
     my_profile: My profile
     edit_info: Edit info
-    coalition_lead: "Coalition lead"
+    coalition_lead: Coalition lead
+    site_coordinator: Site coordinator
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -535,6 +537,7 @@ en:
         new_org_lead_invite: Invite a new organization lead
         new_admin_invite: Invite a new admin
         new_coalition_lead_invite: Invite a new coalition lead
+        new_site_coordinator_invite: Invite a new site coordinator
       invitation:
         create: Resend invitation email
         sent_at: Sent at %{datetime}

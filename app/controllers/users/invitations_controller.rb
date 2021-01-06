@@ -23,7 +23,6 @@ class Users::InvitationsController < Devise::InvitationsController
 
     if params[:user][:role] == OrganizationLeadRole::TYPE
       organization = @vita_partners.find(params.require(:organization_id))
-      authorize!(:manage, organization)
 
       super do |invited_user|
         role = OrganizationLeadRole.create(organization: organization)
@@ -31,7 +30,6 @@ class Users::InvitationsController < Devise::InvitationsController
       end
     elsif params[:user][:role] == CoalitionLeadRole::TYPE
       coalition = @coalitions.find(params.require(:coalition_id))
-      authorize!(:manage, coalition)
 
       super do |invited_user|
         role = CoalitionLeadRole.create(coalition: coalition)
@@ -41,6 +39,13 @@ class Users::InvitationsController < Devise::InvitationsController
       super do |invited_user|
         role = AdminRole.create
 
+        invited_user.update(role: role)
+      end
+    elsif params[:user][:role] == SiteCoordinatorRole::TYPE
+      site = @vita_partners.find(params.require(:site_id))
+
+      super do |invited_user|
+        role = SiteCoordinatorRole.create(site: site)
         invited_user.update(role: role)
       end
     end
