@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2021_01_08_180823) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -162,12 +161,15 @@ ActiveRecord::Schema.define(version: 2021_01_08_180823) do
     t.bigint "intake_id"
     t.bigint "tax_return_id"
     t.datetime "updated_at", null: false
+    t.bigint "uploaded_by_id"
+    t.string "uploaded_by_type"
     t.bigint "zendesk_ticket_id"
     t.index ["client_id"], name: "index_documents_on_client_id"
     t.index ["contact_record_type", "contact_record_id"], name: "index_documents_on_contact_record_type_and_contact_record_id"
     t.index ["documents_request_id"], name: "index_documents_on_documents_request_id"
     t.index ["intake_id"], name: "index_documents_on_intake_id"
     t.index ["tax_return_id"], name: "index_documents_on_tax_return_id"
+    t.index ["uploaded_by_type", "uploaded_by_id"], name: "index_documents_on_uploaded_by_type_and_uploaded_by_id"
   end
 
   create_table "documents_requests", force: :cascade do |t|

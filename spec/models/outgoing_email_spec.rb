@@ -29,6 +29,12 @@ RSpec.describe OutgoingEmail, type: :model do
     allow(ClientChannel).to receive(:broadcast_contact_record)
   end
 
+  context "interaction tracking" do
+    it_behaves_like "an outgoing interaction" do
+      let(:subject) { build :outgoing_email }
+    end
+  end
+
   describe "required fields" do
     context "without required fields" do
       let(:email) { OutgoingEmail.new }

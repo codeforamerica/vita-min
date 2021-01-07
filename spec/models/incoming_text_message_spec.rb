@@ -21,6 +21,11 @@
 require "rails_helper"
 
 RSpec.describe IncomingTextMessage, type: :model do
+  context "on create" do
+    it_behaves_like "an incoming interaction" do
+      let(:subject) { build :incoming_text_message }
+    end
+  end
   describe "required fields" do
     context "without required fields" do
       let(:message) { described_class.new }

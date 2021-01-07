@@ -6,6 +6,7 @@
 #  contact_record_type  :string
 #  display_name         :string
 #  document_type        :string           default("Other"), not null
+#  uploaded_by_type     :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  client_id            :bigint
@@ -13,6 +14,7 @@
 #  documents_request_id :bigint
 #  intake_id            :bigint
 #  tax_return_id        :bigint
+#  uploaded_by_id       :bigint
 #  zendesk_ticket_id    :bigint
 #
 # Indexes
@@ -22,6 +24,7 @@
 #  index_documents_on_documents_request_id                       (documents_request_id)
 #  index_documents_on_intake_id                                  (intake_id)
 #  index_documents_on_tax_return_id                              (tax_return_id)
+#  index_documents_on_uploaded_by_type_and_uploaded_by_id        (uploaded_by_type,uploaded_by_id)
 #
 # Foreign Keys
 #
@@ -33,9 +36,9 @@
 require "rails_helper"
 
 describe Document do
+  let(:attachment) { Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png") }
   describe "validations" do
     let(:document) { build :document }
-
     it "requires essential fields" do
       document = Document.new(document_type: nil)
 
@@ -101,12 +104,35 @@ describe Document do
     end
 
     context "when there is no display name and there is an attachment" do
-      let(:document) { build :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png") }
+      let(:document) { build :document, upload_path: attachment }
 
       it "sets the default display name to the attachment filename" do
         document.save
 
         expect(document.display_name).to eq "test-pattern.png"
+      end
+    end
+  end
+
+  describe "creating a document" do
+    let(:document) { build :document }
+    let(:object) { document }
+
+    context "when client is the uploader" do
+      it_behaves_like "an incoming interaction" do
+        let(:client) { create :client }
+        let(:subject) { build :document, client: client, uploaded_by: client }
+      end
+    end
+
+    context "when an explicit uploader is not set" do
+      let(:document) { build :document }
+      it "sets the uploaded_by to the client" do
+        expect { document.save }.to change(document, :uploaded_by).from(nil).to(document.client)
+      end
+
+      it_behaves_like "an incoming interaction" do
+        let(:subject) { build :document }
       end
     end
   end

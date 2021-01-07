@@ -27,6 +27,7 @@ module Hub
     def create
       document_params[:upload].each do |file_upload|
         Document.create!(
+          uploaded_by: current_user,
           client: @client,
           intake: @client.intake,
           document_type: document_params[:document_type],
