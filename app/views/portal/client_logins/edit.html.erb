@@ -1,0 +1,17 @@
+<section class="slab slab--padded">
+  <div class="grid">
+    <div class="grid__item">
+      <%= form_with model: @form, local: true, method: "post", builder: VitaMinFormBuilder do |f| %>
+        <h1>Please enter a secret number</h1>
+
+        <%= f.hidden_field :token %>
+        <%= f.cfa_input_field(:ssn_last_four, "Last four of your SSN/ITIN", classes: ["form-width--short"]) %>
+        <%= f.cfa_input_field(:client_id, "Confirmation number", classes: ["form-width--short"]) %>
+
+        <button class="button button--primary button--wide" type="submit">
+           Sign in
+        </button>
+      <% end %>
+    </div>
+  </div>
+</section>

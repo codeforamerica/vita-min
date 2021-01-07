@@ -114,6 +114,13 @@ Rails.application.routes.draw do
     get "/422", to: "public_pages#internal_server_error"
     get "/404", to: "public_pages#page_not_found"
 
+    # Client portal routes
+    namespace :portal do
+      resources :client_logins, only: [:new, :create, :edit, :update] do
+        get "/link-sent", to: "client_logins#link_sent", as: :portal_client_login_link_sent
+      end
+    end
+
     # Hub Admin routes (Case Management)
     namespace :hub do
       root "assigned_clients#index"

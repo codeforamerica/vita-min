@@ -1,0 +1,16 @@
+<section class="slab slab--padded">
+  <div class="grid">
+    <div class="grid__item">
+      <%= form_with model: @form, url: [:portal, :client_logins], local: true, method: "post", builder: VitaMinFormBuilder do |f| %>
+        <h1>Request a secure link</h1>
+
+        <%= f.cfa_input_field(:email_address, t("views.diy.email_address.edit.email_address"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:phone_number, t("general.phone_number"), classes: ["form-width--long"]) %>
+
+        <button class="button button--primary button--wide" type="submit">
+          Send link
+        </button>
+      <% end %>
+    </div>
+  </div>
+</section>
