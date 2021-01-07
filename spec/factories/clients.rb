@@ -4,14 +4,23 @@
 #
 #  id                           :bigint           not null, primary key
 #  attention_needed_since       :datetime
+#  current_sign_in_at           :datetime
+#  current_sign_in_ip           :string
+#  failed_attempts              :integer          default(0), not null
 #  last_incoming_interaction_at :datetime
 #  last_interaction_at          :datetime
+#  last_sign_in_at              :datetime
+#  last_sign_in_ip              :string
+#  locked_at                    :datetime
+#  sign_in_count                :integer          default(0), not null
+#  unlock_token                 :string
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  vita_partner_id              :bigint
 #
 # Indexes
 #
+#  index_clients_on_unlock_token     (unlock_token) UNIQUE
 #  index_clients_on_vita_partner_id  (vita_partner_id)
 #
 # Foreign Keys

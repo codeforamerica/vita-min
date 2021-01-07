@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :clients
   def scoped_navigation_routes(context, navigation, as_redirects: false)
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
@@ -115,7 +116,10 @@ Rails.application.routes.draw do
     get "/404", to: "public_pages#page_not_found"
 
     # Client portal routes
+    devise_for :clients, skip: [:sessions] # Skip all Devise routes for client login
     namespace :portal do
+      get "/whoami-client", to: "client_logins#whoami_client"
+      get "/sign-in-client", to: "client_logins#abruptly_sign_in_client"
       resources :client_logins, only: [:new, :create, :edit, :update] do
         get "/link-sent", to: "client_logins#link_sent", as: :portal_client_login_link_sent
       end

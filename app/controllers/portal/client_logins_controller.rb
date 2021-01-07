@@ -8,6 +8,14 @@ module Portal
       @form = RequestClientLoginForm.new
     end
 
+    def abruptly_sign_in_client
+      sign_in Client.last
+    end
+
+    def whoami_client
+      render plain: current_client&.id
+    end
+
     def create
       @form = RequestClientLoginForm.new(request_client_login_form_params)
       if @form.valid?
@@ -46,7 +54,7 @@ module Portal
         @client = @clients.where(id: @form.confirmation_number)
 
         # authenticate the client
-        sign_in(@client)
+        sign_in @client
 
         redirect_to portal_root_path
       else
