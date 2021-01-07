@@ -72,9 +72,11 @@ RSpec.describe "a user viewing a client" do
   end
 
   skip "user without admin access, but is coalition lead for client organization" do
-    let(:user) { create :user, supported_organizations: [client.vita_partner, other_vita_partner] }
+    # this test may not be entirely correct
+    let(:coalition) { create :coalition }
+    let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
     let(:client) { create :client, vita_partner: (create :vita_partner), intake: create(:intake, :with_contact_info) }
-    let!(:other_vita_partner) { create :vita_partner }
+    let!(:coalition_member_organization) { create :vita_partner, coalition: coalition }
     before { login_as user }
 
     scenario "can view and update client organization" do
@@ -85,10 +87,10 @@ RSpec.describe "a user viewing a client" do
       end
       expect(page.current_path).to eq edit_organization_hub_client_path(id: client.id)
       expect(page).to have_text "Edit Organization for #{client.preferred_name}"
-      select other_vita_partner.name, from: "Organization"
+      select coalition_member_organization.name, from: "Organization"
       click_on "Save"
       within ".client-header" do
-        expect(page).to have_text other_vita_partner.name
+        expect(page).to have_text coalition_member_organization.name
       end
     end
   end

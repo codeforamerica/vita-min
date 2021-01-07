@@ -104,10 +104,11 @@ describe Ability do
     end
   end
 
-  context "a coalition lead" do
-    let(:coalition_member_organization) { create(:vita_partner) }
+  xcontext "a coalition lead" do
+    let(:coalition) { create(:coalition) }
+    let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
+    let(:coalition_member_organization) { create(:vita_partner, coalition: coalition) }
     let(:intake) { create(:intake, vita_partner: coalition_member_organization) }
-    let(:user) { create :user, supported_organizations: [coalition_member_organization] }
     let(:coalition_member_client) { create(:client, intake: intake, vita_partner: coalition_member_organization) }
 
     it "can manage data from the coalition member organization" do

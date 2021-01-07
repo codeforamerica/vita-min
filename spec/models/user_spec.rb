@@ -75,8 +75,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "#accessible_organizations" do
-    let!(:user) { create :user, supported_organizations: [greetable_org], role: create(:organization_lead_role, organization: organization) }
-    let!(:greetable_org) { create :vita_partner, name: "Greetable org" }
+    let!(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
     let!(:organization) { create :organization, name: "Parent org" }
     let!(:site) { create :site, parent_organization: organization, name: "Child org" }
     let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
@@ -85,7 +84,6 @@ RSpec.describe User, type: :model do
       accessible_organization_ids = user.accessible_organizations.pluck(:id)
       expect(accessible_organization_ids).to include(organization.id)
       expect(accessible_organization_ids).to include(site.id)
-      expect(accessible_organization_ids).to include(greetable_org.id)
       expect(accessible_organization_ids).not_to include(not_accessible_partner.id)
     end
   end
