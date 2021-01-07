@@ -88,6 +88,10 @@ FactoryBot.define do
       role { create(:admin_role) }
     end
 
+    factory :client_success_user do
+      role { create(:client_success_role) }
+    end
+
     factory :invited_user do
       association :invited_by, factory: :admin_user
       invitation_created_at { 1.day.ago - 1.minute }

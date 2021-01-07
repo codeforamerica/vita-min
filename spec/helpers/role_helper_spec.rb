@@ -4,8 +4,15 @@ describe RoleHelper do
   describe "#user_role" do
     context "an admin" do
       let(:user) { create :admin_user }
-      it "returns the user roles" do
+      it "returns the user role" do
         expect(helper.user_role(user)).to eq "Admin"
+      end
+    end
+
+    context "a client success user" do
+      let(:user) { create :client_success_user }
+      it "returns the user role" do
+        expect(helper.user_role(user)).to eq "Client success"
       end
     end
 

@@ -48,6 +48,12 @@ class Users::InvitationsController < Devise::InvitationsController
         role = SiteCoordinatorRole.create(site: site)
         invited_user.update(role: role)
       end
+    elsif params[:user][:role] == ClientSuccessRole::TYPE
+      super do |invited_user|
+        role = ClientSuccessRole.create
+
+        invited_user.update(role: role)
+      end
     end
   end
 

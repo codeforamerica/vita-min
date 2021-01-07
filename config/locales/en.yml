@@ -530,6 +530,7 @@ en:
     edit_info: Edit info
     coalition_lead: Coalition lead
     site_coordinator: Site coordinator
+    client_success: Client success
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -540,6 +541,7 @@ en:
         new_admin_invite: Invite a new admin
         new_coalition_lead_invite: Invite a new coalition lead
         new_site_coordinator_invite: Invite a new site coordinator
+        new_client_success_invite: Invite a new client success
       invitation:
         create: Resend invitation email
         sent_at: Sent at %{datetime}
