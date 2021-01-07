@@ -9,13 +9,13 @@
   <table class="data-table spacing-above-25">
     <thead>
     <tr>
-      <th class="document-column__doc-type">
+      <th scope="col" class="document-column__doc-type">
         <%= render "shared/column_sort_link", title: t(".document_type"), column_name: "document_type" %>
       </th>
-      <th class="document-column__link">
+      <th scope="col" class="document-column__link">
         <%= render "shared/column_sort_link", title: t(".file_name"), column_name: "display_name" %>
       </th>
-      <th class="document-column__upload-date">
+      <th scope="col" class="document-column__upload-date">
         <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
       </th>
       <th></th>
