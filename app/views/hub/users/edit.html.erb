@@ -19,26 +19,6 @@
         </label>
       </fieldset>
 
-      <%= f.cfa_checkbox(:is_client_support, t(".is_client_support_label"), options: { classes: ["form-width--long"], disabled: current_user.role_type != AdminRole::TYPE }) %>
-      <% if current_user.role_type == AdminRole::TYPE %>
-        <div class="reveal">
-          <p><a href="#" class="reveal__link">Select supported organizations</a></p>
-          <div class="reveal__content">
-            <% VitaPartner.all.map do |vita_partner| %>
-              <%= f.cfa_checkbox(
-                      :supported_organization_ids,
-                      vita_partner.name,
-                      options: {
-                          checked_value: vita_partner.id,
-                          unchecked_value: "",
-                          multiple: true,
-                      }
-                  ) %>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-
       <button class="button button--cta" type="submit">
         <%=t("general.save") %>
       </button>

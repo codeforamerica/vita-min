@@ -35,7 +35,6 @@ module Hub
         *(:is_client_support if current_user.role_type == AdminRole::TYPE),
         :phone_number,
         :timezone,
-        current_user.role_type == AdminRole::TYPE ? { supported_organization_ids: [] } : {},
       )
     end
   end
