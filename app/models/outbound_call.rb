@@ -20,10 +20,13 @@
 #  index_outbound_calls_on_user_id    (user_id)
 #
 class OutboundCall < ApplicationRecord
+  include InteractionTracking
   belongs_to :user
   belongs_to :client
   validates :to_phone_number, phone: true, presence: true
   validates :from_phone_number, phone: true, presence: true
+
+  after_create :record_outgoing_interaction
 
   # twilio_status, twilio_sid, and call_duration are set by responses from twilio
   # twilio_status is set to "queued" on creation of the twilio call which triggers a call to the from_phone_number

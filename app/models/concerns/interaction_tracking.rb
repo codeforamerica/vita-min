@@ -18,9 +18,9 @@ module InteractionTracking
     )
   end
 
-  # When we take an "internal" action on a client
-  # (i.e. write a note, we want to update our last touch but NOT alter the attention flag)
+  # When we take an "internal" action on a client we only want to touch updated_at on the associated client without
+  # recording it as an "interaction" or clearing the needs_attention flag
   def record_internal_interaction
-    client&.touch(:updated_at)
+    client&.touch
   end
 end

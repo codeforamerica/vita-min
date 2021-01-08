@@ -163,10 +163,6 @@ describe Client do
         expect { create :note, client: client }.to change(client, :updated_at)
       end
 
-      it "updates client last_interaction_at" do
-        expect { create :note, client: client }.to change(client, :last_interaction_at)
-      end
-
       it "does not update the attention_needed_since" do
         expect { create :note, client: client }.not_to change(client, :attention_needed_since)
       end
@@ -193,6 +189,16 @@ describe Client do
         let(:client) { create :client, intake: create(:intake) }
         it "still should update the associated client" do
           expect { create :document, intake: client.intake }.to change(client, :attention_needed_since)
+        end
+      end
+
+      context "when a user is uploading the document" do
+        it "does not update client last_interaction_at" do
+          expect { create :document, client: client, uploaded_by: (create :user) }.not_to change(client, :last_interaction_at)
+        end
+
+        it "touches client updated_at" do
+          expect { create :document, client: client, uploaded_by: (create :user) }.to change(client, :updated_at)
         end
       end
     end

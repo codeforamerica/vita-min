@@ -53,7 +53,7 @@ module Hub
 
     def attention_needed
       @client.clear_attention_needed if params.fetch(:client, {})[:action] == "clear"
-      @client.touch(:attention_needed_since) if params.fetch(:client, {})[:action] == "set"
+      @client.set_attention_needed if params.fetch(:client, {})[:action] == "set"
       redirect_back(fallback_location: hub_client_path(id: @client.id))
     end
 
