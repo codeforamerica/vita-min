@@ -8,5 +8,4 @@
 #
 class ClientSuccessRole < ApplicationRecord
   TYPE = "ClientSuccessRole"
-  DISPLAY_NAME = I18n.t("general.client_success")
 end
