@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_003707) do
+ActiveRecord::Schema.define(version: 2021_01_08_180823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,8 +75,15 @@ ActiveRecord::Schema.define(version: 2021_01_08_003707) do
   create_table "clients", force: :cascade do |t|
     t.datetime "attention_needed_since"
     t.datetime "created_at", precision: 6, null: false
+    t.datetime "current_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.integer "failed_attempts", default: 0, null: false
     t.datetime "last_incoming_interaction_at"
     t.datetime "last_interaction_at"
+    t.datetime "last_sign_in_at"
+    t.inet "last_sign_in_ip"
+    t.datetime "locked_at"
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id"
     t.index ["vita_partner_id"], name: "index_clients_on_vita_partner_id"
