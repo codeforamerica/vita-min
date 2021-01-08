@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_07_220645) do
+ActiveRecord::Schema.define(version: 2021_01_08_003707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -566,13 +566,6 @@ ActiveRecord::Schema.define(version: 2021_01_07_220645) do
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_type", "role_id"], name: "index_users_on_role_type_and_role_id"
-  end
-
-  create_table "users_vita_partners", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "vita_partner_id", null: false
-    t.index ["user_id"], name: "index_users_vita_partners_on_user_id"
-    t.index ["vita_partner_id"], name: "index_users_vita_partners_on_vita_partner_id"
   end
 
   create_table "vita_partners", force: :cascade do |t|
