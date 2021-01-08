@@ -17,7 +17,6 @@
 #
 class OrganizationLeadRole < ApplicationRecord
   TYPE = "OrganizationLeadRole"
-  DISPLAY_NAME = I18n.t("general.organization_lead")
 
   belongs_to :organization, foreign_key: "vita_partner_id", class_name: "VitaPartner"
   validate :no_sites

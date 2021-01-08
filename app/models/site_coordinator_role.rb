@@ -17,7 +17,6 @@
 #
 class SiteCoordinatorRole < ApplicationRecord
   TYPE = "SiteCoordinatorRole"
-  DISPLAY_NAME = I18n.t("general.site_coordinator")
 
   belongs_to :site, foreign_key: "vita_partner_id", class_name: "VitaPartner"
   validate :no_organizations

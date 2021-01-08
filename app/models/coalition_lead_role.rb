@@ -17,7 +17,6 @@
 #
 class CoalitionLeadRole < ApplicationRecord
   TYPE = "CoalitionLeadRole"
-  DISPLAY_NAME = I18n.t("general.coalition_lead")
 
   belongs_to :coalition
 end
