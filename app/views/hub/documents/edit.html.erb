@@ -1,15 +1,5 @@
 <% @title = t(".title") %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <%= form_with model: @document, url: [:hub, @client, @document], local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
-    <h1 class="form-card__title">
-      <%= @title %>
-    </h1>
-
-    <%= f.cfa_input_field(:display_name, t(".display_name"), classes: ["form-width--long"]) %>
-
-    <button class="button button--cta " type="submit">
-      <%=t("general.save") %>
-    </button>
-  <% end %>
+  <%= render 'form', url: [:hub, @client, @document], method: "patch", file_upload_enabled: false %>
 <% end %>

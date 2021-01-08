@@ -103,13 +103,13 @@ es:
           text_message: envió mensjaje de texto
     documents:
       edit:
-        display_name: Nombre Para Mostrar
         title: Editar Documento
       index:
-        document_type: Clase de documento
         file_name: Nombre de archivo
         upload_date: Fecha de carga
         uploaded_ago: Hace %{time}
+        add_client_envelope_doc: "Agregar documento al sobre de cliente"
+      display_name: Nombre Para Mostrar
     messages:
       index:
         email_form:
@@ -390,7 +390,8 @@ es:
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
     divorced: Divorciado
-    document_type:
+    document_type: Clase de documento
+    document_types:
       care_provider_statement: Declaración del Proveedor de Cuidados
       email_attachment: Adjunto de email
       employment: Documentos de impuestos de empleo (W2, 1099, etc.)
@@ -530,6 +531,7 @@ es:
     coalition_lead: Líder de coalición
     site_coordinator: Coordinadora del sitio
     client_success: Éxito del cliente
+    tax_return: Declaración de impuestos
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

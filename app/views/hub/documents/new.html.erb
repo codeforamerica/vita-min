@@ -1,0 +1,6 @@
+<% @title = t("hub.documents.index.add_client_envelope_doc") %>
+<% content_for :page_title, @title %>
+
+<% content_for :card do %>
+  <%= render 'form', url: hub_client_documents_path, method: "post", file_upload_enabled: true %>
+<% end %>

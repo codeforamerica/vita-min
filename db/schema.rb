@@ -157,15 +157,17 @@ ActiveRecord::Schema.define(version: 2021_01_08_180823) do
     t.string "contact_record_type"
     t.datetime "created_at", null: false
     t.string "display_name"
-    t.string "document_type", null: false
+    t.string "document_type", default: "Other", null: false
     t.bigint "documents_request_id"
     t.bigint "intake_id"
+    t.bigint "tax_return_id"
     t.datetime "updated_at", null: false
     t.bigint "zendesk_ticket_id"
     t.index ["client_id"], name: "index_documents_on_client_id"
     t.index ["contact_record_type", "contact_record_id"], name: "index_documents_on_contact_record_type_and_contact_record_id"
     t.index ["documents_request_id"], name: "index_documents_on_documents_request_id"
     t.index ["intake_id"], name: "index_documents_on_intake_id"
+    t.index ["tax_return_id"], name: "index_documents_on_tax_return_id"
   end
 
   create_table "documents_requests", force: :cascade do |t|
@@ -615,6 +617,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_180823) do
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
+  add_foreign_key "documents", "tax_returns"
   add_foreign_key "documents_requests", "intakes"
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intakes", "vita_partners"
