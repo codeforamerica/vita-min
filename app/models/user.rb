@@ -17,7 +17,6 @@
 #  invitation_sent_at        :datetime
 #  invitation_token          :string
 #  invitations_count         :integer          default(0)
-#  is_client_support         :boolean
 #  last_sign_in_at           :datetime
 #  last_sign_in_ip           :string
 #  locked_at                 :datetime

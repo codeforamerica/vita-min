@@ -24,17 +24,11 @@ RSpec.describe "a user editing a user" do
         expect(page).to have_text user_to_edit.name
 
         check "Admin"
-        check "Client support"
-
-        click_on "Select supported organizations"
-        check "Colorado"
-        check "Denver"
 
         click_on "Save"
         expect(page).to have_text "Changes saved"
 
         expect(page).to have_field("user_is_admin", checked: true)
-        expect(page).to have_field("user_is_client_support", checked: true)
       end
     end
   end

@@ -8,8 +8,6 @@ class Ability
 
     if user.role_type == AdminRole::TYPE
       can :manage, :all
-    elsif user.is_client_support?
-      can :read, Client
     else
       can :manage, User, id: user.id
       can :manage, Client, vita_partner: accessible_organizations
