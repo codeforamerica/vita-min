@@ -10,9 +10,12 @@ module Portal
 
     def abruptly_sign_in_client
       sign_in Client.last
+      render plain: current_client&.id
     end
 
     def whoami_client
+      puts('hi this is the session')
+      puts(session.to_h)
       render plain: current_client&.id
     end
 

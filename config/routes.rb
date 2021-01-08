@@ -118,8 +118,8 @@ Rails.application.routes.draw do
     # Client portal routes
     devise_for :clients, skip: [:sessions] # Skip all Devise routes for client login
     namespace :portal do
-      get "/whoami-client", to: "client_logins#whoami_client"
-      get "/sign-in-client", to: "client_logins#abruptly_sign_in_client"
+      get "/whoami", to: "client_logins#whoami_client"
+      get "/login", to: "client_logins#abruptly_sign_in_client"
       resources :client_logins, only: [:new, :create, :edit, :update] do
         get "/link-sent", to: "client_logins#link_sent", as: :portal_client_login_link_sent
       end

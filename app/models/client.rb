@@ -30,8 +30,8 @@
 class Client < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  #devise :database_authenticatable, :registerable,
+  #       :recoverable, :rememberable, :validatable
   devise :lockable, :timeoutable, :trackable
 
   belongs_to :vita_partner, optional: true
@@ -71,7 +71,7 @@ class Client < ApplicationRecord
       includes(:intake).order(Hash[column, direction]).distinct
     end
   end
-
+  
   def legal_name
     return unless intake&.primary_first_name? && intake&.primary_last_name?
 
