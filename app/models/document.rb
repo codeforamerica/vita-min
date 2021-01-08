@@ -66,6 +66,6 @@ class Document < ApplicationRecord
   end
 
   def tax_return_belongs_to_client
-    errors.add(:tax_return) unless tax_return.blank? || tax_return.client == client
+    errors.add(:tax_return, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client
   end
 end

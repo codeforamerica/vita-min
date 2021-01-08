@@ -1,5 +1,5 @@
 <% @title = t(".title") %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <%= render 'form', url: [:hub, @client, @document], method: "patch" %>
+  <%= render 'form', url: [:hub, @client, @document], method: "patch", file_upload_enabled: false %>
 <% end %>
