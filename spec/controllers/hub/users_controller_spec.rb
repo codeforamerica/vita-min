@@ -213,20 +213,6 @@ RSpec.describe Hub::UsersController do
         user.reload
         expect(user.role_type).to eq AdminRole::TYPE
       end
-
-      it "can add client support role" do
-        params = {
-          id: user.id,
-          user: {
-            is_client_support: true,
-          }
-        }
-
-        post :update, params: params
-
-        user.reload
-        expect(user.is_client_support?).to eq true
-      end
     end
 
     context "as an authenticated user editing someone else at the same org" do

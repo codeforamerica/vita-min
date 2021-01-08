@@ -32,7 +32,6 @@ module Hub
     def user_params
       params.require(:user).permit(
         *(:is_admin if current_user.role_type == AdminRole::TYPE),
-        *(:is_client_support if current_user.role_type == AdminRole::TYPE),
         :phone_number,
         :timezone,
       )
