@@ -939,7 +939,7 @@ en:
         info: We are excited to help you with your taxes, but we need to verify your identity to get started. Identify verification is important to ensure that your information is safe and secure, but if it's not for you, you can learn about other free filing options below.
         title: Let's find a way to help you!
       page_not_found:
-        info: The page you're trying to access isn't available.
+        info_html: The page you're trying to access isn't available. If you landed here through a user invitation link, please reset your password <a href="https://getyourrefund.org/hub/password/new">here</a>.
         let_us_know_html: If you followed a link here, please let us know using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
         title: Oops, we're sorry, but the page you're looking for can't be found.
       privacy_policy:

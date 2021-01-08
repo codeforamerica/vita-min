@@ -940,7 +940,7 @@ es:
         info: Estamos encantados de ayudarlo con sus impuestos, pero necesitamos verificar su identidad antes. La verificación de identidad es importante porque nos permite asegurarnos de que su información está protegida. Si no está de acuerdo con esto, a continuación tiene información sobre otras opciones gratuitas para presentar su declaración.
         title: "¡Veamos cómo podemos ayudarlo!"
       page_not_found:
-        info: La página a la que intenta acceder no está disponible.
+        info_html: La página a la que intenta acceder no está disponible. Si llegó aquí a través de un enlace de invitación de usuario, restablezca su contraseña <a href="https://getyourrefund.org/en/hub/password/new">aquí</a>.
         let_us_know_html: Si llegó aquí a través de un enlace, haga clic en el botón "Ayuda"/"Chat" en la parte inferior derecha, o envíenos un correo electrónico a %{email_link}para avisarnos.
         title: Lo sentimos, no encontramos la página que busca.
       privacy_policy:
