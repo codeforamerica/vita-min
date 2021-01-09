@@ -200,6 +200,42 @@ RSpec.describe Users::InvitationsController do
           expect(response).to redirect_to invitations_path
         end
       end
+
+      context "inviting a greeter" do
+        let(:coalition) { create(:coalition) }
+        let(:organization) { create(:organization) }
+
+        let(:params) do
+          {
+            user: {
+              name: "Gary Guava",
+              email: "gary@example.com",
+              role: GreeterRole::TYPE,
+              coalition_ids: [coalition.id],
+              organization_ids: [organization.id],
+            }
+          }
+        end
+
+        it "creates a new invited greeter user" do
+          expect do
+            post :create, params: params
+          end.to (change(User, :count).by 1).and(change(GreeterRole, :count).by(1))
+
+          greeter_role = GreeterRole.last
+
+          invited_user = User.last
+          expect(invited_user.role).to eq greeter_role
+          expect(greeter_role.organization_ids).to eq([organization.id])
+          expect(greeter_role.coalition_ids).to eq([coalition.id])
+
+          expect(invited_user.name).to eq "Gary Guava"
+          expect(invited_user.email).to eq "gary@example.com"
+          expect(invited_user.invitation_token).to be_present
+          expect(invited_user.invited_by).to eq user
+          expect(response).to redirect_to invitations_path
+        end
+      end
     end
   end
 

@@ -271,6 +271,7 @@ en:
         vita_partner_label: Which organization?
         coalition_label: "Which coalition?"
         site_label: "Which site?"
+        select_coalition_and_or_organization: "Select coalition(s) and/or organizations(s)"
       not_found:
         check_your_email: 'Try searching your email for messages with the subject: "%{subject}"'
         contact_support: If you're stuck, you can contact support at support@getyourrefund.org
@@ -531,6 +532,7 @@ en:
     site_coordinator: Site coordinator
     client_success: Client success
     tax_return: Tax return
+    greeter: "Greeter"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -542,6 +544,7 @@ en:
         new_coalition_lead_invite: Invite a new coalition lead
         new_site_coordinator_invite: Invite a new site coordinator
         new_client_success_invite: Invite a new client success
+        new_greeter_invite: "Invite a new greeter"
       invitation:
         create: Resend invitation email
         sent_at: Sent at %{datetime}

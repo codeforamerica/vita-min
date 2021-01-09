@@ -5,7 +5,8 @@ module RoleHelper
       *(I18n.t("general.organization_lead") if user.role_type == OrganizationLeadRole::TYPE),
       *(I18n.t("general.coalition_lead") if user.role_type == CoalitionLeadRole::TYPE),
       *(I18n.t("general.site_coordinator") if user.role_type == SiteCoordinatorRole::TYPE),
-      *(I18n.t("general.client_success") if user.role_type == ClientSuccessRole::TYPE)
+      *(I18n.t("general.client_success") if user.role_type == ClientSuccessRole::TYPE),
+      *(I18n.t("general.greeter") if user.role_type == GreeterRole::TYPE),
     ].join(", ")
   end
 

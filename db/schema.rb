@@ -177,6 +177,29 @@ ActiveRecord::Schema.define(version: 2021_01_08_180823) do
     t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
   end
 
+  create_table "greeter_coalition_join_records", force: :cascade do |t|
+    t.bigint "coalition_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "greeter_role_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coalition_id"], name: "index_greeter_coalition_join_records_on_coalition_id"
+    t.index ["greeter_role_id"], name: "index_greeter_coalition_join_records_on_greeter_role_id"
+  end
+
+  create_table "greeter_organization_join_records", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "greeter_role_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "vita_partner_id", null: false
+    t.index ["greeter_role_id"], name: "index_greeter_organization_join_records_on_greeter_role_id"
+    t.index ["vita_partner_id"], name: "index_greeter_organization_join_records_on_vita_partner_id"
+  end
+
+  create_table "greeter_roles", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "incoming_emails", force: :cascade do |t|
     t.integer "attachment_count"
     t.string "body_html"
@@ -619,6 +642,10 @@ ActiveRecord::Schema.define(version: 2021_01_08_180823) do
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"
   add_foreign_key "documents_requests", "intakes"
+  add_foreign_key "greeter_coalition_join_records", "coalitions"
+  add_foreign_key "greeter_coalition_join_records", "greeter_roles"
+  add_foreign_key "greeter_organization_join_records", "greeter_roles"
+  add_foreign_key "greeter_organization_join_records", "vita_partners"
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"

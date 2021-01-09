@@ -272,6 +272,7 @@ es:
         vita_partner_label: "¿Cúal organización?"
         coalition_label: "¿Cúal coalición?"
         site_label: "¿Cúal sitio?"
+        select_coalition_and_or_organization: "Seleccione coalición (es) y / u organización (es)"
       not_found:
         check_your_email: 'Intente buscar en su correo electrónico mensajes con el asunto: "%{subject}"'
         contact_support: Si está atascado, puede ponerse en contacto con el soporte en support@getyourrefund.org
@@ -532,6 +533,7 @@ es:
     site_coordinator: Coordinadora del sitio
     client_success: Éxito del cliente
     tax_return: Declaración de impuestos
+    greeter: "Saludador"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -543,6 +545,7 @@ es:
         new_coalition_lead_invite: Invite a un nuevo líder de la coalición
         new_site_coordinator_invite: Invitar a una nueva coordinadora del sitio
         new_client_success_invite: Invitar a un nuevo cliente al éxito
+        new_greeter_invite: "Invitar a un nuevo saludador"
       invitation:
         create: Reenviar email de invitación
         sent_at: Enviado a las %{datetime}
