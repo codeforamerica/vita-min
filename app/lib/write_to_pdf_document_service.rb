@@ -1,6 +1,6 @@
 # This is a wrapper around CombinePDF that allows you to pass in a
 # Document object we need to write new information to, and write to it.
-class WriteToDocumentService
+class WriteToPdfDocumentService
   # @param document Document
   # @param document_type_klass DocumentType::ALL_TYPES type
   #

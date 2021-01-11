@@ -59,6 +59,7 @@ gem 'devise_invitable', '~> 2.0.0'
 gem 'cancancan'
 gem 'webpacker'
 gem 'combine_pdf'
+gem 'pdf-reader'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data

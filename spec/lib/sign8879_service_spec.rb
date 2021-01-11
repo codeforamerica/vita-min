@@ -4,7 +4,7 @@ describe Sign8879Service do
   subject { described_class.new(document) }
 
   context 'when the document type is not a Form 8879' do
-    let(:document) { create :document, document_type: 'Not 8879'}
+    let(:document) { create :document, document_type: 'Not 8879' }
     it 'raises an error' do
       expect { subject }.to raise_error StandardError
     end

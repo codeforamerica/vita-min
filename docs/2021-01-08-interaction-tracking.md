@@ -2,7 +2,7 @@
 *Last updated 1/11/2021 by Shannon Byrne*
 
 ### “Internal Interactions”: record_internal_interation
-Writes *last_interation_at*. (We record it as an interaction, but it doesn't alter attention_needed status for client)
+Writes *last_interaction_at*. (We record it as an interaction, but it doesn't alter attention_needed status for client)
 
 - Vita User uploads a writes a Note
 - VITA User uploads a Document

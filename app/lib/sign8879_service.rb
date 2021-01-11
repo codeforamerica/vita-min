@@ -3,7 +3,7 @@ class Sign8879Service
     raise StandardError, 'Document is not Form 8879' unless unsigned8879.document_type == DocumentTypes::Form8879.key
 
     @tax_return = unsigned8879.tax_return
-    @document_writer = WriteToDocumentService.new(unsigned8879, DocumentTypes::Form8879)
+    @document_writer = WriteToPdfDocumentService.new(unsigned8879, DocumentTypes::Form8879)
   end
 
   def sign_and_save
