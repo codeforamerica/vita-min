@@ -23,7 +23,7 @@ module RoleHelper
       user.role.organization.name
     elsif user.role_type == CoalitionLeadRole::TYPE
       user.role.coalition.name
-    elsif user.role_type == SiteCoordinatorRole::TYPE || TeamMemberRole::TYPE
+    elsif user.role_type == SiteCoordinatorRole::TYPE || user.role_type == TeamMemberRole::TYPE
       user.role.site.name
     elsif user.role_type == GreeterRole::TYPE
       (user.role.coalitions + user.role.organizations).map(&:name).join(', ')
