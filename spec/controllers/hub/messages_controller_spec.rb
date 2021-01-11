@@ -8,7 +8,7 @@ RSpec.describe Hub::MessagesController do
     { client_id: client.id }
   end
   let(:timezone) { "America/New_York" }
-  let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: timezone) }
+  let(:user) { create(:organization_lead_user, organization: organization, timezone: timezone) }
 
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
