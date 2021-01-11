@@ -47,8 +47,8 @@ RSpec.feature "Client uploads a requested document" do
     expect(current_path).to eq(welcome_questions_path())
   end
 
-  scenario "partner goes to multiple documents link and attaches doc to last intake", :js  do
-    second_intake = create(:intake, requested_docs_token: "A1B2C3D4")
+  scenario "partner goes to multiple documents link and attaches doc to last intake", :js do
+    second_intake = create(:intake, requested_docs_token: "A1B2C3D4", client: (create :client))
     visit "/documents/add/#{intake.requested_docs_token}"
     visit "/documents/add/#{second_intake.requested_docs_token}"
     expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")

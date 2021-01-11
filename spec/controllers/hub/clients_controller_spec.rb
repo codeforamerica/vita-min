@@ -513,9 +513,10 @@ RSpec.describe Hub::ClientsController do
 
       it "adds attention_needed_since to client" do
         client.clear_attention_needed
-        patch :attention_needed, params: params
-        client.reload
-        expect(client.attention_needed_since).to be_present
+        expect {
+          patch :attention_needed, params: params
+          client.reload
+        }.to change(client, :attention_needed_since)
       end
     end
 

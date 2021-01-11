@@ -70,6 +70,10 @@ class Client < ApplicationRecord
     "#{intake.primary_first_name} #{intake.primary_last_name}"
   end
 
+  def set_attention_needed
+    touch(:attention_needed_since) unless needs_attention?
+  end
+
   def clear_attention_needed
     update(attention_needed_since: nil)
   end

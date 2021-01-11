@@ -1046,6 +1046,17 @@ describe Intake do
       intake.update(completed_at: Time.now)
       expect(intake).to have_received(:create_original_13614c_document)
     end
+
+    it_behaves_like "an incoming interaction" do
+      let(:subject) { create :intake }
+      before { subject.completed_at = Time.now }
+    end
+  end
+
+  describe "after_save when the intake has already been completed" do
+    it_behaves_like "an internal interaction" do
+      let(:subject) { create :intake, completed_at: Time.now }
+    end
   end
 
   describe "#create_original_13614c_document" do
