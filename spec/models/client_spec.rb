@@ -193,8 +193,8 @@ describe Client do
       end
 
       context "when a user is uploading the document" do
-        it "does not update client last_interaction_at" do
-          expect { create :document, client: client, uploaded_by: (create :user) }.not_to change(client, :last_interaction_at)
+        it "does updates client last_interaction_at" do
+          expect { create :document, client: client, uploaded_by: (create :user) }.to change(client, :last_interaction_at)
         end
 
         it "touches client updated_at" do

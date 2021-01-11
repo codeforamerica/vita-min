@@ -1,40 +1,37 @@
 ## Interaction Tracking for SLA
-*Last updated 1/8/2021 by Shannon Byrne*
+*Last updated 1/11/2021 by Shannon Byrne*
 
 ### “Internal Interactions”: record_internal_interation
-Changes client *updated_at*. (We record that the client was touched, but we don't count it as an interaction for SLA tracking purposes)
+Writes *last_interation_at*. (We record it as an interaction, but it doesn't alter attention_needed status for client)
 
 - Vita User uploads a writes a Note
 - VITA User uploads a Document
 
 ### “Incoming interaction”: record_incoming_interaction
-Changes *needs_response_since, last_interaction_at, and last_incoming_interaction, updated_at*
+Writes *last_interaction_at, and last_incoming_interaction, updated_at*.
+Writes *attention_needed since* only if it was not already set (we don't want to overwrite the value if they already needed attention!)
+Will only change 
 - Client sends us an email
 - Client sends us a text message
 - Client uploads a document
 
 ### “Outgoing interactions”: record_outgoing_interaction
-Changes *last_interaction_at*, clears *needs_response_since*, *updated_at* value
+Changes *last_interaction_at*, clears *attention_needed_since*, *updated_at* value
 - VITA partner sends client an email
 - VITA partner sends a text message
 - VITA partner initiates a call to the client
 
 ### Manually marking as “needs attention”
-Sets *needs_attention_since* and manually sets *last_incoming_interaction_at*
+Sets *attention_needed_since* IF it is not already set.
 
-Feature is intended to capture interactions with the client that occur outside of the application.
 
 ### Manually marking as resolved
-Clears *needs_attention_since* and manually records an interaction with the client *last_interaction_at*
-
-Feature is intended to capture interactions with the client that occur outside of the application.
+Clears *attention_needed_since*.
 
 
 ### Calculating SLA Value
 
-Calculating whether someone is past SLA can be determined as such:
+Calculating whether someone is past SLA can be determined using needs_attention_since:
 
-last_interaction_at == last_incoming_interaction && last_incoming_interaction > 72.hours.ago
-
-If the last_incoming_interaction_at does not match the last_interaction_at value, we're not in danger of going over SLA for them and the value should be nil!
+attention_needed_since >= 72.hours.ago
 

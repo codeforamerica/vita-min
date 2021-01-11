@@ -48,16 +48,12 @@ class Document < ApplicationRecord
   belongs_to :documents_request, optional: true
   belongs_to :contact_record, polymorphic: true, optional: true
   belongs_to :tax_return, optional: true
-  belongs_to :uploaded_by, polymorphic: true
+  belongs_to :uploaded_by, polymorphic: true, optional: true
   has_one_attached :upload
   validates :upload, presence: true
   validate :tax_return_belongs_to_client
 
   before_save :set_display_name
-
-  before_validation do
-    self.uploaded_by = client unless uploaded_by.present?
-  end
 
   after_create do
     uploaded_by.is_a?(User) ? record_internal_interaction : record_incoming_interaction

@@ -90,7 +90,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
         expect(intake.client.documents.last).to eq latest_doc
         expect(latest_doc.document_type).to eq "Other"
         expect(latest_doc.upload.filename).to eq "test-pattern.png"
-
+        expect(latest_doc.uploaded_by).to eq intake.client
         expect(response).to redirect_to additional_documents_documents_path
       end
     end

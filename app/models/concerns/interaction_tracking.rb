@@ -1,13 +1,12 @@
 module InteractionTracking
   extend ActiveSupport::Concern
 
-  # When a client contacts us, flag client for attention and update last incoming response.
+  # When a client contacts us, update last incoming interaction and last interaction
+  # Only update attention_needed_since if the client did not already need attention.
   def record_incoming_interaction
-    client&.touch(
-      :attention_needed_since,
-      :last_incoming_interaction_at,
-      :last_interaction_at
-    )
+    touches = [:last_incoming_interaction_at, :last_interaction_at]
+    touches.push(:attention_needed_since) unless client.attention_needed_since.present?
+    client&.touch(*touches)
   end
 
   # When we contact a client, update our last touch to them for SLA purposes and clear the attention flag
@@ -18,9 +17,8 @@ module InteractionTracking
     )
   end
 
-  # When we take an "internal" action on a client we only want to touch updated_at on the associated client without
-  # recording it as an "interaction" or clearing the needs_attention flag
+  # "Internal" interactions do not clear needs_attention_since
   def record_internal_interaction
-    client&.touch
+    client&.touch(:last_interaction_at)
   end
 end

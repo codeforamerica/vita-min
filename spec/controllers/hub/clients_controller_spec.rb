@@ -511,13 +511,12 @@ RSpec.describe Hub::ClientsController do
         params[:client][:action] = "set"
       end
 
-      it "adds attention_needed_since to client and touches last_incoming_interaction_at" do
+      it "adds attention_needed_since to client" do
         client.clear_attention_needed
         expect {
           patch :attention_needed, params: params
           client.reload
         }.to change(client, :attention_needed_since)
-         .and change(client, :last_incoming_interaction_at)
       end
     end
 

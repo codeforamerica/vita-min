@@ -70,13 +70,12 @@ class Client < ApplicationRecord
     "#{intake.primary_first_name} #{intake.primary_last_name}"
   end
 
-  # Manually setting attention needed counts for SLA purposes as an incoming interaction (resets the SLA clock)
   def set_attention_needed
-    touch(:attention_needed_since, :last_incoming_interaction_at)
+    touch(:attention_needed_since) unless needs_attention?
   end
 
   def clear_attention_needed
-    update(attention_needed_since: nil, last_interaction_at: Time.now.to_datetime)
+    update(attention_needed_since: nil)
   end
 
   def needs_attention?

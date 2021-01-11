@@ -125,12 +125,7 @@ describe Document do
       end
     end
 
-    context "when an explicit uploader is not set" do
-      let(:document) { build :document }
-      it "sets the uploaded_by to the client" do
-        expect { document.save }.to change(document, :uploaded_by).from(nil).to(document.client)
-      end
-
+    context "when an user is the uploader" do
       it_behaves_like "an incoming interaction" do
         let(:subject) { build :document }
       end
