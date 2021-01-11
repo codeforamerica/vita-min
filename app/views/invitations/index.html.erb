@@ -25,6 +25,10 @@
     <%= link_to new_user_invitation_path(role: GreeterRole::TYPE), class: "button" do %>
       <%= t(".actions.new_greeter_invite") %>
     <% end %>
+
+    <%= link_to new_user_invitation_path(role: TeamMemberRole::TYPE), class: "button" do %>
+      <%= t(".actions.new_team_member_invite") %>
+    <% end %>
   </div>
 
   <% if @unaccepted_invitations.present? %>

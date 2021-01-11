@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_180823) do
+ActiveRecord::Schema.define(version: 2021_01_11_192742) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -558,6 +559,15 @@ ActiveRecord::Schema.define(version: 2021_01_08_180823) do
     t.index ["year", "client_id"], name: "index_tax_returns_on_year_and_client_id", unique: true
   end
 
+  create_table "team_member_roles", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.bigint "vita_partner_id", null: false
+    t.index ["user_id"], name: "index_team_member_roles_on_user_id"
+    t.index ["vita_partner_id"], name: "index_team_member_roles_on_vita_partner_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "active"
     t.datetime "created_at", precision: 6, null: false
@@ -664,6 +674,8 @@ ActiveRecord::Schema.define(version: 2021_01_08_180823) do
   add_foreign_key "system_notes", "users"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
+  add_foreign_key "team_member_roles", "users"
+  add_foreign_key "team_member_roles", "vita_partners"
   add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "vita_partners", "coalitions"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"

@@ -545,6 +545,7 @@ en:
         new_site_coordinator_invite: Invite a new site coordinator
         new_client_success_invite: Invite a new client success
         new_greeter_invite: "Invite a new greeter"
+        new_team_member_invite: "Invite a new team member"
       invitation:
         create: Resend invitation email
         sent_at: Sent at %{datetime}
