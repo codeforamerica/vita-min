@@ -58,13 +58,14 @@ FactoryBot.define do
     sequence(:email) { |n| "gary.gardengnome#{n}@example.green" }
     password { "userExamplePassword" }
     name { "Gary Gnome" }
+    role { build(:greeter_role) }
 
     factory :organization_lead_user do
       transient do
         organization { nil }
       end
 
-      role { create(:organization_lead_role, organization: organization || create(:organization)) }
+      role { build(:organization_lead_role, organization: organization || build(:organization)) }
     end
 
     factory :coalition_lead_user do
@@ -72,7 +73,7 @@ FactoryBot.define do
         coalition { nil }
       end
 
-      role { create(:coalition_lead_role, coalition: coalition || create(:coalition)) }
+      role { build(:coalition_lead_role, coalition: coalition || build(:coalition)) }
     end
 
     factory :site_coordinator_user do
@@ -80,7 +81,7 @@ FactoryBot.define do
         site { nil }
       end
 
-      role { create(:site_coordinator_role, site: site || create(:site)) }
+      role { build(:site_coordinator_role, site: site || build(:site)) }
     end
 
     factory :team_member_user do
@@ -88,19 +89,19 @@ FactoryBot.define do
         site { nil }
       end
 
-      role { create(:team_member_role, site: site || create(:site)) }
+      role { build(:team_member_role, site: site || build(:site)) }
     end
 
     factory :admin_user do
-      role { create(:admin_role) }
+      role { build(:admin_role) }
     end
 
     factory :greeter_user do
-      role { create(:greeter_role) }
+      role { build(:greeter_role) }
     end
 
     factory :client_success_user do
-      role { create(:client_success_role) }
+      role { build(:client_success_role) }
     end
 
     factory :invited_user do
