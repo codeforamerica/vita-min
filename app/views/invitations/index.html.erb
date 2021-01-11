@@ -21,6 +21,10 @@
     <%= link_to new_user_invitation_path(role: ClientSuccessRole::TYPE), class: "button" do %>
       <%= t(".actions.new_client_success_invite") %>
     <% end %>
+
+    <%= link_to new_user_invitation_path(role: GreeterRole::TYPE), class: "button" do %>
+      <%= t(".actions.new_greeter_invite") %>
+    <% end %>
   </div>
 
   <% if @unaccepted_invitations.present? %>
@@ -36,6 +40,15 @@
               <%= hidden_field_tag :coalition_id, invited_user.role.coalition.id %>
             <% elsif invited_user.role_type == SiteCoordinatorRole::TYPE %>
               <%= hidden_field_tag :site_id, invited_user.role.site.id %>
+            <% elsif invited_user.role_type == GreeterRole::TYPE %>
+              <%= hidden_field_tag "greeter_coalition_join_record[coalition_ids][]", "" %>
+              <% invited_user.role.coalition_ids.each do |coalition_id| %>
+                <%= hidden_field_tag "greeter_coalition_join_record[coalition_ids][]", coalition_id %>
+              <% end %>
+              <%= hidden_field_tag "greeter_organization_join_record[organization_ids][]", "" %>
+              <% invited_user.role.organization_ids.each do |organization_id| %>
+                <%= hidden_field_tag "greeter_organization_join_record[organization_ids][]", organization_id %>
+              <% end %>
             <% end %>
             <%= f.hidden_field :role, value: invited_user.role_type %>
 

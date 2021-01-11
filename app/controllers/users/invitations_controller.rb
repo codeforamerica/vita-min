@@ -54,6 +54,19 @@ class Users::InvitationsController < Devise::InvitationsController
 
         invited_user.update(role: role)
       end
+    elsif params[:user][:role] == GreeterRole::TYPE
+      super do |invited_user|
+        greeter_params = params.require(:greeter_organization_join_record).permit(organization_ids: []).merge(
+          params.require(:greeter_coalition_join_record).permit(coalition_ids: [])
+        )
+
+        role = GreeterRole.create(
+          coalitions: @coalitions.where(id: greeter_params[:coalition_ids]),
+          organizations: @vita_partners.organizations.where(id: greeter_params[:organization_ids]),
+        )
+
+        invited_user.update(role: role)
+      end
     end
   end
 

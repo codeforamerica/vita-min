@@ -39,6 +39,14 @@ describe RoleHelper do
         expect(helper.user_role(user)).to eq "Site coordinator"
       end
     end
+
+    context "as a greeter" do
+      let(:user) { create :user, role: create(:greeter_role) }
+
+      it "shows the role name" do
+        expect(helper.user_role(user)).to eq "Greeter"
+      end
+    end
   end
 
   describe "#user_group" do
