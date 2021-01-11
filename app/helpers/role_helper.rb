@@ -1,13 +1,21 @@
 module RoleHelper
   def user_role(user)
-    [
-      *(I18n.t("general.admin") if user.role_type == AdminRole::TYPE),
-      *(I18n.t("general.organization_lead") if user.role_type == OrganizationLeadRole::TYPE),
-      *(I18n.t("general.coalition_lead") if user.role_type == CoalitionLeadRole::TYPE),
-      *(I18n.t("general.site_coordinator") if user.role_type == SiteCoordinatorRole::TYPE),
-      *(I18n.t("general.client_success") if user.role_type == ClientSuccessRole::TYPE),
-      *(I18n.t("general.greeter") if user.role_type == GreeterRole::TYPE),
-    ].join(", ")
+    case user.role_type
+    when AdminRole::TYPE
+      I18n.t("general.admin")
+    when OrganizationLeadRole::TYPE
+      I18n.t("general.organization_lead")
+    when CoalitionLeadRole::TYPE
+      I18n.t("general.coalition_lead")
+    when SiteCoordinatorRole::TYPE
+      I18n.t("general.site_coordinator")
+    when ClientSuccessRole::TYPE
+      I18n.t("general.client_success")
+    when GreeterRole::TYPE
+      I18n.t("general.greeter")
+    when TeamMemberRole::TYPE
+      I18n.t("general.team_member")
+    end
   end
 
   def user_group(user)
@@ -15,7 +23,7 @@ module RoleHelper
       user.role.organization.name
     elsif user.role_type == CoalitionLeadRole::TYPE
       user.role.coalition.name
-    elsif user.role_type == SiteCoordinatorRole::TYPE
+    elsif user.role_type == SiteCoordinatorRole::TYPE || TeamMemberRole::TYPE
       user.role.site.name
     elsif user.role_type == GreeterRole::TYPE
       (user.role.coalitions + user.role.organizations).map(&:name).join(', ')

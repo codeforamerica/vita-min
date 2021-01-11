@@ -83,6 +83,14 @@ FactoryBot.define do
       role { create(:site_coordinator_role, site: site || create(:site)) }
     end
 
+    factory :team_member_user do
+      transient do
+        site { nil }
+      end
+
+      role { create(:team_member_role, site: site || create(:site)) }
+    end
+
     factory :admin_user do
       role { create(:admin_role) }
     end

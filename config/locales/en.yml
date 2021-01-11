@@ -268,7 +268,7 @@ en:
         name_label: What is their name?
         submit: Send invitation email
         title: Send a new invitation
-        vita_partner_label: Which organization?
+        organization_label: Which organization?
         coalition_label: "Which coalition?"
         site_label: "Which site?"
         select_coalition_and_or_organization: "Select coalition(s) and/or organizations(s)"
@@ -533,6 +533,7 @@ en:
     client_success: Client success
     tax_return: Tax return
     greeter: "Greeter"
+    team_member: "Team member"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

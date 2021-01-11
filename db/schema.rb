@@ -562,9 +562,7 @@ ActiveRecord::Schema.define(version: 2021_01_11_192742) do
   create_table "team_member_roles", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
     t.bigint "vita_partner_id", null: false
-    t.index ["user_id"], name: "index_team_member_roles_on_user_id"
     t.index ["vita_partner_id"], name: "index_team_member_roles_on_vita_partner_id"
   end
 
@@ -674,7 +672,6 @@ ActiveRecord::Schema.define(version: 2021_01_11_192742) do
   add_foreign_key "system_notes", "users"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
-  add_foreign_key "team_member_roles", "users"
   add_foreign_key "team_member_roles", "vita_partners"
   add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "vita_partners", "coalitions"

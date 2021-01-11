@@ -269,7 +269,7 @@ es:
         name_label: "¿Cúal es el nombre del invitado?"
         submit: Enviar email de invitación
         title: Envíe una nueva invitación
-        vita_partner_label: "¿Cúal organización?"
+        organization_label: "¿Cúal organización?"
         coalition_label: "¿Cúal coalición?"
         site_label: "¿Cúal sitio?"
         select_coalition_and_or_organization: "Seleccione coalición (es) y / u organización (es)"
@@ -534,6 +534,7 @@ es:
     client_success: Éxito del cliente
     tax_return: Declaración de impuestos
     greeter: "Saludador"
+    team_member: "Miembro del equipo"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

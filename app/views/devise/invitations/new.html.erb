@@ -10,7 +10,7 @@
     <%= f.hidden_field :role, value: params[:role] %>
 
     <% if params[:role] == OrganizationLeadRole::TYPE %>
-      <%= label_tag(:organization_id, t(".vita_partner_label")) %>
+      <%= label_tag(:organization_id, t(".organization_label")) %>
       <%= select_tag(:organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] })) %>
     <% end %>
 
@@ -33,11 +33,16 @@
           <% end %>
       </div>
       <div class="form-group">
-        <p class="form-question"><%= t(".vita_partner_label") %></p>
+        <p class="form-question"><%= t(".organization_label") %></p>
         <%= collection_check_boxes(:greeter_organization_join_record, :organization_ids, @vita_partners.organizations, :id, :name) do |b| %>
           <%= b.label(class: "checkbox") { b.check_box + b.text } %>
         <% end %>
       </div>
+    <% end %>
+
+    <% if params[:role] == TeamMemberRole::TYPE %>
+      <%= label_tag(:site_id, t(".site_label")) %>
+      <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
     <% end %>
 
     <%= f.submit t(".submit"), class: "button button--primary" %>

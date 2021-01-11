@@ -67,6 +67,13 @@ class Users::InvitationsController < Devise::InvitationsController
 
         invited_user.update(role: role)
       end
+    elsif params[:user][:role] == TeamMemberRole::TYPE
+      site = @vita_partners.sites.find(params.require(:site_id))
+
+      super do |invited_user|
+        role = TeamMemberRole.create(site: site)
+        invited_user.update(role: role)
+      end
     end
   end
 
