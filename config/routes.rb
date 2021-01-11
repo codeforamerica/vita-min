@@ -151,6 +151,7 @@ Rails.application.routes.draw do
       invitations: "users/invitations"
     }
     get "hub/users/invitations" => "invitations#index", as: :invitations
+    post "hub/users/invitations/resend" => "invitations#resend"
 
     ### END Hub Admin routes (Case Management)
 
