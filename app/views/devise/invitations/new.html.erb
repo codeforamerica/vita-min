@@ -7,24 +7,24 @@
 
     <%= f.cfa_input_field(:name, t(".name_label")) %>
     <%= f.cfa_input_field(:email, t(".email_label"), type: 'email', classes: ['form-width--email']) %>
-    <%= f.hidden_field :role, value: params[:role] %>
+    <%= f.hidden_field :role, value: params.dig(:user, :role) %>
 
-    <% if params[:role] == OrganizationLeadRole::TYPE %>
+    <% if params.dig(:user, :role) == OrganizationLeadRole::TYPE %>
       <%= label_tag(:organization_id, t(".organization_label")) %>
       <%= select_tag(:organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] })) %>
     <% end %>
 
-    <% if params[:role] == CoalitionLeadRole::TYPE %>
+    <% if params.dig(:user, :role) == CoalitionLeadRole::TYPE %>
       <%= label_tag(:coalition_id, t(".coalition_label")) %>
       <%= select_tag(:coalition_id, options_for_select(@coalitions.all.map { |coalition| [coalition.name, coalition.id] })) %>
     <% end %>
 
-    <% if params[:role] == SiteCoordinatorRole::TYPE %>
+    <% if params.dig(:user, :role) == SiteCoordinatorRole::TYPE %>
       <%= label_tag(:site_id, t(".site_label")) %>
       <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
     <% end %>
 
-    <% if params[:role] == GreeterRole::TYPE %>
+    <% if params.dig(:user, :role) == GreeterRole::TYPE %>
       <p><%= t(".select_coalition_and_or_organization") %></p>
       <div class="form-group">
         <p class="form-question"><%= t(".coalition_label") %></p>
@@ -40,7 +40,7 @@
       </div>
     <% end %>
 
-    <% if params[:role] == TeamMemberRole::TYPE %>
+    <% if params.dig(:user, :role) == TeamMemberRole::TYPE %>
       <%= label_tag(:site_id, t(".site_label")) %>
       <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
     <% end %>
