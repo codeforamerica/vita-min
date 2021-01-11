@@ -22,6 +22,7 @@ module DocumentTypes
     DocumentTypes::Ssa1099,
     DocumentTypes::Form5498Sa,
     DocumentTypes::Form8879,
+    DocumentTypes::CompletedForm8879,
     DocumentTypes::IraStatement,
     DocumentTypes::PriorYearTaxReturn,
     DocumentTypes::CareProviderStatement,

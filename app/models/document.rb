@@ -60,7 +60,7 @@ class Document < ApplicationRecord
   end
 
   def document_type_label
-    DocumentTypes::ALL_TYPES.find { |doc_type_class| doc_type_class.key == document_type }
+    DocumentTypes::ALL_TYPES.find { |doc_type_class| doc_type_class.key == document_type } || document_type
   end
 
   def set_display_name

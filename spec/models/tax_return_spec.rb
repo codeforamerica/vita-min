@@ -113,4 +113,40 @@ describe TaxReturn do
       expect(result["file"].length).to eq 6
     end
   end
+
+  describe "#sign_8879" do
+    let(:tax_return) { create :tax_return, client: (create :client) }
+
+    context "there is already a completed 8879" do
+      before do
+        create :document, document_type: DocumentTypes::CompletedForm8879.key, tax_return: tax_return, client: tax_return.client
+      end
+
+      it "raises an error" do
+        expect { tax_return.sign_8879 }.to raise_error StandardError
+      end
+    end
+
+    context "there is no unsigned 8879 available to sign" do
+      it "raises an error" do
+        expect { tax_return.sign_8879 }.to raise_error StandardError
+      end
+    end
+
+    context "with an unsigned 8879 available to sign" do
+      let(:sign8879_service_double) { double }
+      let!(:unsigned_8879) { create :document, document_type: DocumentTypes::Form8879.key, tax_return: tax_return, client: tax_return.client }
+
+      before do
+        allow(Sign8879Service).to receive(:new).and_return sign8879_service_double
+        allow(sign8879_service_double).to receive(:sign_and_save)
+      end
+
+      it "signs the 8879 using the Sign8879 service" do
+        tax_return.sign_8879
+        expect(Sign8879Service).to have_received(:new).with(unsigned_8879)
+        expect(sign8879_service_double).to have_received(:sign_and_save)
+      end
+    end
+  end
 end

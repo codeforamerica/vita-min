@@ -34,14 +34,14 @@ RSpec.feature "View and edit documents for a client" do
 
       fill_in("Display name", with: "Updated Document Title")
       select("2017", from: "Tax return")
-      select("Form 8879", from: "Document type")
+      select("Form 8879 (Unsigned)", from: "Document type")
 
       click_on "Save"
 
       expect(page).to have_selector("h1", text: "Bart Simpson")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Updated Document Title")
       expect(page).to have_selector("#document-#{document_1.id}", text: "2017")
-      expect(page).to have_selector("#document-#{document_1.id}", text: "Form 8879")
+      expect(page).to have_selector("#document-#{document_1.id}", text: "Form 8879 (Unsigned)")
     end
 
     scenario "uploading a document to a client's documents page" do

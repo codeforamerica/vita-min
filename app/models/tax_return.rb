@@ -27,6 +27,7 @@
 class TaxReturn < ApplicationRecord
   belongs_to :client
   belongs_to :assigned_user, class_name: "User", optional: true
+  has_many :documents
 
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2 }
@@ -45,5 +46,14 @@ class TaxReturn < ApplicationRecord
 
   def self.filing_years
     [2020, 2019, 2018, 2017]
+  end
+
+  def sign_8879
+    raise StandardError, 'Tax return already signed.' if documents.find_by(document_type: DocumentTypes::CompletedForm8879.key)
+
+    unsigned8879 = documents.find_by(document_type: DocumentTypes::Form8879.key)
+    raise StandardError, 'No 8879 available to sign.' unless unsigned8879.present?
+
+    Sign8879Service.new(unsigned8879).sign_and_save
   end
 end
