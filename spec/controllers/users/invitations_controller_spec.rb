@@ -241,6 +241,47 @@ RSpec.describe Users::InvitationsController do
           expect(response).to redirect_to invitations_path
         end
       end
+
+      context "inviting a team member user" do
+        let(:site) { create(:site) }
+        let(:params) do
+          {
+            user: {
+              name: "Cher Cherimoya",
+              email: "cherry@example.com",
+              role: TeamMemberRole::TYPE,
+            },
+            site_id: site.id
+          }
+        end
+
+        it "creates a new invited team member user" do
+          expect do
+            post :create, params: params
+          end.to (change(User, :count).by 1).and(change(TeamMemberRole, :count).by(1))
+
+          role = TeamMemberRole.last
+          expect(role.organization).to eq site
+
+          invited_user = User.last
+          expect(invited_user.role).to eq role
+
+          expect(invited_user.name).to eq "Cher Cherimoya"
+          expect(invited_user.email).to eq "cherry@example.com"
+          expect(invited_user.invitation_token).to be_present
+          expect(invited_user.invited_by).to eq user
+          expect(response).to redirect_to invitations_path
+        end
+
+        context "if the invited user already exists and is an admin" do
+          let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
+
+          it "doesn't change the user's role" do
+            expect { post :create, params: params }.not_to change { invited_user.reload.role }
+            expect(response).to redirect_to invitations_path
+          end
+        end
+      end
     end
   end
 
