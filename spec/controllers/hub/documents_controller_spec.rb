@@ -270,6 +270,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         expect(latest_docs.second.display_name).to eq "This is a document for the client"
         expect(latest_docs.map(&:client).uniq).to eq [client]
         expect(latest_docs.map(&:tax_return_id).uniq).to eq [tax_return.id]
+        expect(latest_docs.map(&:uploaded_by).uniq).to eq [user]
         expect(response).to redirect_to(hub_client_documents_path(client_id: client.id))
       end
 

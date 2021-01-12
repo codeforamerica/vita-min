@@ -26,7 +26,7 @@ module Hub
 
     def create
       file_uploads = document_params.delete(:upload)
-      file_uploads.each { |upload| Document.create!(document_params.merge(upload: upload)) }
+      file_uploads.each { |upload| Document.create!(document_params.merge(upload: upload, uploaded_by: current_user)) }
       redirect_to(hub_client_documents_path(client_id: @client))
     end
 
@@ -43,7 +43,7 @@ module Hub
     def document_params
       params.require(:document)
           .permit(:document_type, :display_name, :tax_return_id, upload: [])
-          .merge({ client: @client, uploaded_by: @client })
+          .merge({ client: @client })
     end
 
     def sort_column
