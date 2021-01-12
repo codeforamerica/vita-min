@@ -19,6 +19,11 @@
   .text--help {
     font-size: $font-size-19;
   }
+  // In Honeycrisp, a form group with help text has a negative margin-top.
+  // This is unnecessary and troublesome in honeycrisp-compact.
+  .form-group .form-question + .text--help, .form-group .data-table .form-question + th, .data-table .form-group .form-question + th, .form-group .form-question + .summary-table__label, .form-group .form-question + .statistic-card__label {
+    margin-top: inherit;
+  }
 }
 
 .background--white {
