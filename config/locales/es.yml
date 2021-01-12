@@ -552,6 +552,8 @@ es:
         create: Reenviar email de invitación
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
+    resend:
+      cannot_because_accepted: "No se puede volver a invitar a un usuario que ya aceptó la invitación."
   messages:
     default_subject: Actualización de GetYourRefund
     successful_submission:

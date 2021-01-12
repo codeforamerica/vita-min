@@ -551,6 +551,8 @@ en:
         create: Resend invitation email
         sent_at: Sent at %{datetime}
       title: Invitations
+    resend:
+      cannot_because_accepted: "Cannot re-invite a user who already accepted the invite."
   messages:
     default_subject: Update from GetYourRefund
     successful_submission:
