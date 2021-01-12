@@ -19,7 +19,10 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :require_valid_invitation_token, only: [:edit, :update]
 
   def create
-    redirect_to invitations_path and return if already_invited_other_role?
+    if already_invited?
+      flash[:warning] = "Cannot invite user because they already have an account."
+      redirect_to invitations_path and return
+    end
 
     if params[:user][:role] == OrganizationLeadRole::TYPE
       organization = @vita_partners.find(params.require(:organization_id))
@@ -79,8 +82,8 @@ class Users::InvitationsController < Devise::InvitationsController
 
   private
 
-  def already_invited_other_role?
-    User.where(email: invite_params[:email]).where.not(role_type: params[:user][:role]).exists?
+  def already_invited?
+    User.where(email: invite_params[:email]).exists?
   end
 
   def load_and_authorize_groups

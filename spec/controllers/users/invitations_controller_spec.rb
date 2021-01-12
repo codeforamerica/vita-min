@@ -273,6 +273,25 @@ RSpec.describe Users::InvitationsController do
           expect(response).to redirect_to invitations_path
         end
       end
+
+      context "inviting a user who already has an account" do
+        let(:params) do
+          {
+            user: {
+              name: "Cher Cherimoya",
+              email: user.email,
+              role: AdminRole::TYPE,
+            }
+          }
+        end
+
+        it "shows a validation error on the email field" do
+          expect do
+            post :create, params: params
+          end.to (change(User, :count).by(0)).and(change(AdminRole, :count).by(0))
+          expect(flash[:warning]).to eq("Cannot invite user because they already have an account.")
+        end
+      end
     end
   end
 
