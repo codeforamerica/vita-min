@@ -10,6 +10,7 @@
     <thead class="index-table__head">
       <tr class="index-table__row">
         <th scope="col" class="index-table__header"><%= t("general.name") %></th>
+        <th scope="col" class="index-table__header"><%= t("general.email") %></th>
         <th scope="col" class="index-table__header"><%= t("general.role") %></th>
         <th scope="col" class="index-table__header"><%= t("general.organization") %></th>
       </tr>
@@ -22,6 +23,7 @@
           <th scope="row" class="index-table__row-header">
             <%= link_to user.name, edit_hub_user_path(id: user) %>
           </th>
+          <td class="index-table__cell"><%= user.email %></td>
           <td class="index-table__cell"><%= user_role(user) %></td>
           <td class="index-table__cell"><%= user_group(user) || t("general.none") %></td>
         </tr>

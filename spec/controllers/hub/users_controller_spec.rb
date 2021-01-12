@@ -63,7 +63,7 @@ RSpec.describe Hub::UsersController do
     context "with an authenticated admin user" do
       render_views
 
-      let!(:leslie) { create :admin_user, name: "Leslie" }
+      let!(:leslie) { create :admin_user, name: "Leslie", email: "leslie@example.com" }
       before do
         sign_in create(:admin_user)
         create :user
@@ -74,6 +74,7 @@ RSpec.describe Hub::UsersController do
 
         expect(assigns(:users).count).to eq 3
         html = Nokogiri::HTML.parse(response.body)
+        expect(html.at_css("#user-#{leslie.id}")).to have_text("leslie@example.com")
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Leslie")
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Admin")
         expect(html.at_css("#user-#{leslie.id} a")["href"]).to eq edit_hub_user_path(id: leslie)
