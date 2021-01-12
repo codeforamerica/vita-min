@@ -262,7 +262,7 @@ FactoryBot.define do
       state { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").last }
       state_of_residence { state }
       vita_partner_name { vita_partner.name }
-      routing_value { vita_partner.states.first&.abbreviation || "az" }
+      routing_value { "az" }
       routing_criteria { "state" }
       job_count { [1, 2, 3].sample }
       preferred_interview_language { ["en", "es"].sample }

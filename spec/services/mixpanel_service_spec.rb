@@ -151,18 +151,7 @@ describe MixpanelService do
 
     describe '#data_from(obj)' do
       let(:state_of_residence) { 'CA' }
-      let(:state) { State.find_by!(abbreviation: state_of_residence) }
-      let(:vita_partner) do
-        partner = state.vita_partners.first
-        return partner if partner.present?
-
-        partner = create(
-          :vita_partner,
-          name: "test_partner",
-        )
-        partner.states << state
-        partner
-      end
+      let(:vita_partner) { create(:vita_partner, name: "test_partner")}
       let(:intake) do
         create(
           :intake,

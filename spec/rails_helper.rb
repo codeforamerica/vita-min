@@ -82,9 +82,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-  config.before(:suite) do
-    StateImporter.insert_states
-  end
 
   config.before(:each) do
     stub_request(:post, /.*api\.twilio\.com.*/).to_return(status: 200, body: "", headers: {})

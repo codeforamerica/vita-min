@@ -1,6 +1,5 @@
 module States
-  STATE_OPTIONS = State.all.order(:name).map { |state| [state.name, state.abbreviation] }
-  STATE_OPTIONS.freeze
+  STATE_OPTIONS = (YAML.load_file(Rails.root.join("db/states.yml"))['states']).map { |state| [state["name"], state["abbreviation"]] }.sort.freeze
 
   def self.hash
     @state_hash ||= STATE_OPTIONS.to_h.invert

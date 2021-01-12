@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_11_192742) do
+ActiveRecord::Schema.define(version: 2021_01_12_193119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -509,18 +509,6 @@ ActiveRecord::Schema.define(version: 2021_01_11_192742) do
     t.index ["vita_partner_id"], name: "index_source_parameters_on_vita_partner_id"
   end
 
-  create_table "states", primary_key: "abbreviation", id: :string, force: :cascade do |t|
-    t.string "name"
-    t.index ["name"], name: "index_states_on_name"
-  end
-
-  create_table "states_vita_partners", id: false, force: :cascade do |t|
-    t.string "state_abbreviation"
-    t.bigint "vita_partner_id"
-    t.index ["state_abbreviation"], name: "index_states_vita_partners_on_state_abbreviation"
-    t.index ["vita_partner_id"], name: "index_states_vita_partners_on_vita_partner_id"
-  end
-
   create_table "stimulus_triages", force: :cascade do |t|
     t.integer "chose_to_file", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -667,7 +655,6 @@ ActiveRecord::Schema.define(version: 2021_01_11_192742) do
   add_foreign_key "outgoing_text_messages", "users"
   add_foreign_key "site_coordinator_roles", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
-  add_foreign_key "states_vita_partners", "vita_partners"
   add_foreign_key "system_notes", "clients"
   add_foreign_key "system_notes", "users"
   add_foreign_key "tax_returns", "clients"
