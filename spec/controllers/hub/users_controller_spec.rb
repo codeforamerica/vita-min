@@ -79,6 +79,19 @@ RSpec.describe Hub::UsersController do
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Admin")
         expect(html.at_css("#user-#{leslie.id} a")["href"]).to eq edit_hub_user_path(id: leslie)
       end
+
+      context "invitation acceptance status" do
+        let!(:unaccepted_invited_user) { create(:invited_user) }
+        let!(:accepted_invite_user) { create(:accepted_invite_user) }
+
+        it "shows the invitation status" do
+          get :index
+
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css("#user-#{unaccepted_invited_user.id}")).to have_text("Yes")
+          expect(html.at_css("#user-#{accepted_invite_user.id}")).not_to have_text("Yes")
+        end
+      end
     end
   end
 

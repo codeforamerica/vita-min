@@ -13,6 +13,7 @@
         <th scope="col" class="index-table__header"><%= t("general.email") %></th>
         <th scope="col" class="index-table__header"><%= t("general.role") %></th>
         <th scope="col" class="index-table__header"><%= t("general.organization") %></th>
+        <th scope="col" class="index-table__header"><%= t(".needs_to_accept_invite") %></th>
       </tr>
     </thead>
 
@@ -26,6 +27,7 @@
           <td class="index-table__cell"><%= user.email %></td>
           <td class="index-table__cell"><%= user_role(user) %></td>
           <td class="index-table__cell"><%= user_group(user) || t("general.none") %></td>
+          <td class="index-table__cell"><%= t("general.affirmative") if user.invitation_sent_at.present? && user.invitation_accepted_at.nil? %></td>
         </tr>
       <% end %>
 

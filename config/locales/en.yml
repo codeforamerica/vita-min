@@ -10,6 +10,7 @@ en:
         is_admin_label: Admin?
       index:
         title: Users
+        needs_to_accept_invite: "Needs to accept invite"
       profile:
         clients_link: Clients
         users_link: Users
