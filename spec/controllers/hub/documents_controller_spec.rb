@@ -268,7 +268,6 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         expect(latest_docs.second.upload.filename).to eq "document_bundle.pdf"
         expect(latest_docs.first.display_name).to eq "This is a document for the client"
         expect(latest_docs.second.display_name).to eq "This is a document for the client"
-        expect(latest_docs.map(&:intake).uniq).to eq [intake]
         expect(latest_docs.map(&:client).uniq).to eq [client]
         expect(latest_docs.map(&:tax_return_id).uniq).to eq [tax_return.id]
         expect(response).to redirect_to(hub_client_documents_path(client_id: client.id))
@@ -295,6 +294,21 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           expect(latest_docs.first.display_name).to eq "test-pattern.png"
           expect(latest_docs.second.display_name).to eq "document_bundle.pdf"
           expect(latest_docs.map(&:tax_return_id).uniq).to eq [nil]
+        end
+      end
+
+      context "without an explicit document_type specified" do
+        before do
+          params[:document].delete(:document_type)
+        end
+
+        it "successfully creates the documents and set the document type to the default doc type, Other" do
+          expect {
+            post :create, params: params
+          }.to change(Document, :count).by 2
+          latest_docs = Document.last(2)
+
+          expect(latest_docs.map(&:document_type).uniq).to eq ["Other"]
         end
       end
     end

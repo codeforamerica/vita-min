@@ -25,17 +25,8 @@ module Hub
     def edit; end
 
     def create
-      document_params[:upload].each do |file_upload|
-        Document.create!(
-          uploaded_by: current_user,
-          client: @client,
-          intake: @client.intake,
-          document_type: document_params[:document_type],
-          upload: file_upload,
-          display_name: document_params[:display_name],
-          tax_return_id: document_params[:tax_return_id]
-        )
-      end
+      file_uploads = document_params.delete(:upload)
+      file_uploads.each { |upload| Document.create!(document_params.merge(upload: upload)) }
       redirect_to(hub_client_documents_path(client_id: @client))
     end
 
@@ -50,7 +41,9 @@ module Hub
     private
 
     def document_params
-      params.require(:document).permit(:document_type, :display_name, :tax_return_id, upload: [])
+      params.require(:document)
+          .permit(:document_type, :display_name, :tax_return_id, upload: [])
+          .merge({ client: @client, uploaded_by: @client })
     end
 
     def sort_column
