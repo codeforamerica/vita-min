@@ -453,8 +453,7 @@ class Intake < ApplicationRecord
   end
 
   def most_recent_filing_year
-    # TODO: should the default be changed to 2020?
-    filing_years.first || "2019"
+    filing_years.first || "2020"
   end
 
   def filer_count
