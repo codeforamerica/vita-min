@@ -59,6 +59,21 @@ describe Ability do
     end
   end
 
+  context "a team member" do
+    let(:user) { create :team_member_user }
+    let(:accessible_client) { create(:client, vita_partner: user.role.site) }
+    let(:other_vita_partner_client) { create(:client, vita_partner: create(:organization)) }
+
+    it "can manage their own data" do
+      expect(subject.can?(:manage, user)).to eq true
+    end
+
+    it "can view clients from their own organization but not clients in another organization" do
+      expect(subject.can?(:read, accessible_client)).to eq true
+      expect(subject.can?(:read, other_vita_partner_client)).to eq false
+    end
+  end
+
   context "an organization lead" do
     let(:user) { create :organization_lead_user }
     let(:accessible_client) { create(:client, vita_partner: user.role.organization) }
