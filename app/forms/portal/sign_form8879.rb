@@ -1,6 +1,6 @@
 module Portal
   class SignForm8879 < Form
-    attr_accessor :primary_accepts_terms, :primary_confirms_identity, :ip, :transaction_failed
+    attr_accessor :primary_accepts_terms, :primary_confirms_identity, :spouse_accepts_terms, :spouse_confirms_identity, :ip, :transaction_failed
     validate :terms_accepted
     validate :identity_confirmed
 
@@ -55,6 +55,7 @@ module Portal
     end
 
     private
+
     def terms_accepted
       errors.add(:primary_accepts_terms, :blank) unless primary_accepts_terms == "yes"
     end

@@ -4,7 +4,15 @@ class TaxReturnsController < ApplicationController
   before_action :check_for_forms, only: [:sign, :authorize_signature]
 
   def authorize_signature
+    @primary_signer = true
     @form = Portal::SignForm8879.new(@tax_return)
+  end
+
+  def spouse_authorize_signature
+    @primary_signer = false
+    @form = Portal::SignForm8879.new(@tax_return)
+
+    render :authorize_signature
   end
 
   def sign

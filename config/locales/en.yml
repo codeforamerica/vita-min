@@ -1705,6 +1705,7 @@ en:
     authorize_signature:
       efile_acceptance: I authorize GetYourRefund to enter or generate my PIN as my signature on my tax year %{year} electronically filed income tax return.
       efile_identity_primary: I confirm that I am %{name}, listed as the taxpayer on this %{year} tax document.
+      efile_identity_spouse: I confirm that I am %{spouse_name}, listed as the spouse of taxpayer %{primary_name} on this %{year} tax document.
       heading: Submit your final e-file signature!
       subheader: You declare that you have examined a copy of your electronic individual income tax return and accompanying schedules and statements for the tax year ending December 31, %{year}, and to the best of your knowledge and belief, they are true, correct, and complete.
       full_declaration:
