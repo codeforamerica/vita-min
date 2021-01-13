@@ -70,13 +70,15 @@ class User < ApplicationRecord
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
 
   def accessible_organizations
-    organization_lead_role = role_type == OrganizationLeadRole::TYPE
-
-    accessible_organization_ids = organization_lead_role.present? ? [role.organization.id] : []
-
-    VitaPartner.organizations.where(id: accessible_organization_ids).or(
-      VitaPartner.sites.where(parent_organization_id: accessible_organization_ids)
-    )
+    if role_type == OrganizationLeadRole::TYPE
+      VitaPartner.organizations.where(id: role.organization.id).or(
+          VitaPartner.sites.where(parent_organization_id: role.organization.id)
+      )
+    elsif role_type == TeamMemberRole::TYPE || role_type == SiteCoordinatorRole::TYPE
+      VitaPartner.sites.where(id: role.site.id)
+    else
+      []
+    end
   end
 
   def first_name

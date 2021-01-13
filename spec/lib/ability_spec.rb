@@ -123,6 +123,32 @@ describe Ability do
     end
   end
 
+  context "a site coordinator" do
+    let(:user) { create :site_coordinator_user }
+    let(:accessible_client) { create(:client, vita_partner: user.role.site) }
+    let(:other_vita_partner_client) { create(:client, vita_partner: create(:site)) }
+
+    it "can manage their own data" do
+      expect(subject.can?(:manage, user)).to eq true
+    end
+
+    it "can view clients from their own site" do
+      expect(subject.can?(:read, accessible_client)).to eq true
+    end
+
+    it "can not view clients from other sites" do
+      expect(subject.can?(:read, other_vita_partner_client)).to eq false
+    end
+
+    it "can manage data from clients in their site" do
+      expect(subject.can?(:manage, accessible_client)).to eq true
+    end
+
+    it "cannot manage data from clients in other sites" do
+      expect(subject.can?(:manage, other_vita_partner_client)).to eq false
+    end
+  end
+
   context "as an admin" do
     let(:user) { create(:user, role: create(:admin_role)) }
     let(:client) { create(:client, vita_partner: create(:organization)) }

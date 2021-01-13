@@ -11,7 +11,7 @@ VitaPartner.find_or_create_by!(
   coalition: koalas,
 )
 
-VitaPartner.find_or_create_by!(
+first_site = VitaPartner.find_or_create_by!(
   name: "Liberry Site",
   parent_organization: first_org,
 )
@@ -22,6 +22,13 @@ user.update(
   name: "Luke",
   password: "theforcevita")
 user.update(role: OrganizationLeadRole.create(organization: first_org)) if user.role_type != OrganizationLeadRole::TYPE
+
+# site coordinator user
+user = User.where(email: "cucumber@example.com").first_or_initialize
+user.update(
+    name: "Sally Cucumber",
+    password: "theforcevita")
+user.update(role: SiteCoordinatorRole.create(site: first_site)) if user.role_type != SiteCoordinatorRole::TYPE
 
 # additional user
 additional_user = User.where(email: "princess@example.com").first_or_initialize
