@@ -8,6 +8,9 @@ class Ability
 
     if user.role_type == AdminRole::TYPE
       can :manage, :all
+    elsif user.role_type == SiteCoordinatorRole::TYPE
+      can :manage, User, id: user.id
+      can :manage, Client, vita_partner: accessible_organizations
     else
       can :manage, User, id: user.id
       can :manage, Client, vita_partner: accessible_organizations

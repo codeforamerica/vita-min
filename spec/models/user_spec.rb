@@ -111,6 +111,17 @@ RSpec.describe User, type: :model do
       expect(accessible_organization_ids).to include(site.id)
       expect(accessible_organization_ids).not_to include(not_accessible_partner.id)
     end
+
+    context "site coordinator user" do
+      let!(:user) { create :site_coordinator_user }
+      let!(:unaccessible_site) { create :site }
+
+      it "should return the user's site" do
+        accessible_group_ids = user.accessible_organizations.pluck(:id)
+        expect(accessible_group_ids).to include(user.role.site.id)
+        expect(accessible_group_ids).not_to include(unaccessible_site.id)
+      end
+    end
   end
 
   describe "first_name" do
