@@ -28,7 +28,7 @@ describe WriteToPdfDocumentService do
         it 'raises an error' do
           expect {
             subject.write(:unknown_attr, 'Raises error')
-          }.to raise_error WriteToDocumentService::UnknownDocumentAttributeError
+          }.to raise_error WriteToPdfDocumentSerive::UnknownDocumentAttributeError
         end
       end
 
@@ -54,7 +54,7 @@ describe WriteToPdfDocumentService do
           it 'raises an error' do
             expect {
               subject.write(:unknown_attr, 'Raises error')
-            }.to raise_error WriteToDocumentService::UnknownDocumentAttributeError
+            }.to raise_error WriteToPdfDocumentService::UnknownDocumentAttributeError
           end
         end
 

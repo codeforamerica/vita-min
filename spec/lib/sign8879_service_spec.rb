@@ -17,7 +17,7 @@ describe Sign8879Service do
     let!(:document) { create :document, document_type: DocumentTypes::Form8879.key, tax_return: tax_return, client: client }
 
     before do
-      allow(WriteToDocumentService).to receive(:new).and_return document_service_double
+      allow(WriteToPdfDocumentService).to receive(:new).and_return document_service_double
       allow(document_service_double).to receive(:tempfile_output).and_return Tempfile.new
       allow(document_service_double).to receive(:write)
     end
