@@ -69,7 +69,7 @@ class User < ApplicationRecord
   validates_presence_of :name
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
 
-  def accessible_organizations
+  def accessible_groups
     if role_type == OrganizationLeadRole::TYPE
       VitaPartner.organizations.where(id: role.organization.id).or(
         VitaPartner.sites.where(parent_organization_id: role.organization.id)

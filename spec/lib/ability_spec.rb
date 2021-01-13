@@ -68,9 +68,20 @@ describe Ability do
       expect(subject.can?(:manage, user)).to eq true
     end
 
-    it "can view clients from their own organization but not clients in another organization" do
+    it "can view clients from their own site" do
       expect(subject.can?(:read, accessible_client)).to eq true
+    end
+
+    it "cannot view clients from another group" do
       expect(subject.can?(:read, other_vita_partner_client)).to eq false
+    end
+
+    it "can manage data from clients in their site" do
+      expect(subject.can?(:manage, accessible_client)).to eq true
+    end
+
+    it "cannot manage data from clients in other sites" do
+      expect(subject.can?(:manage, other_vita_partner_client)).to eq false
     end
   end
 
