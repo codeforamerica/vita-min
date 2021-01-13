@@ -116,7 +116,7 @@ RSpec.feature "Web Intake EIP Only Filer" do
     click_on "No"
 
     # Dependents
-    expect(page).to have_selector("h1", text: "Would you or your spouse like to claim anyone for 2019?")
+    expect(page).to have_selector("h1", text: "Would you or your spouse like to claim anyone for 2020?")
     click_on "Yes"
 
     click_on "Add a person"
@@ -126,9 +126,9 @@ RSpec.feature "Web Intake EIP Only Filer" do
     select "24", from: "Day"
     select "2005", from: "Year"
     fill_in "Relationship to you", with: "Nibling"
-    select "2", from: "How many months did they live in your home in 2019?"
+    select "2", from: "How many months did they live in your home in 2020?"
     check "Is this person here on a VISA?"
-    check "Married as of 12/31/2019"
+    check "Married as of 12/31/2020"
     click_on "Save this person"
     expect(page).to have_text("Gallagher Gnome")
 

@@ -21,18 +21,19 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     # Ask about backtaxes
     expect(page).to have_selector("h1", text: "What years do you need to file for?")
 
+    check "2020"
     check "2017"
-    check "2019"
     click_on "Continue"
 
     intake = Intake.last
-    expect(intake.client.tax_returns.pluck(:year).sort).to eq [2017, 2019]
+    expect(intake.client.tax_returns.pluck(:year).sort).to eq [2017, 2020]
 
     #Non-production environment warning
     expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
     click_on "Continue to example"
 
     expect(page).to have_selector("h1", text: "Let's get started")
+    expect(page).to have_text("We’ll start by asking about your situation in 2020.")
     click_on "Continue"
 
     # VITA eligibility checks
@@ -87,7 +88,7 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     click_on "I agree"
 
     # Primary filer personal information
-    expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2019")
+    expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2020")
     expect(track_progress).to eq(0)
     click_on "Continue"
 
@@ -100,95 +101,95 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     click_on "No"
 
     # Dependents
-    expect(page).to have_selector("h1", text: "Would you like to claim anyone for 2019?")
+    expect(page).to have_selector("h1", text: "Would you like to claim anyone for 2020?")
     click_on "No"
 
     # Related to dependents
-    expect(page).to have_selector("h1", text: "In 2019, did you pay any child or dependent care expenses?")
+    expect(page).to have_selector("h1", text: "In 2020, did you pay any child or dependent care expenses?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you adopt a child?")
+    expect(page).to have_selector("h1", text: "In 2020, did you adopt a child?")
     click_on "No"
 
     # Students
-    expect(page).to have_selector("h1", text: "In 2019, was someone in your family a college or other post high school student?")
+    expect(page).to have_selector("h1", text: "In 2020, was someone in your family a college or other post high school student?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you pay any student loan interest?")
+    expect(page).to have_selector("h1", text: "In 2020, did you pay any student loan interest?")
     click_on "No"
 
     # Income from working
-    select "3 jobs", from: "In 2019, how many jobs did you have?"
+    select "3 jobs", from: "In 2020, how many jobs did you have?"
     click_on "Next"
-    expect(page).to have_selector("h1", text: "In 2019, did you live or work in any other states besides Virginia?")
+    expect(page).to have_selector("h1", text: "In 2020, did you live or work in any other states besides Virginia?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "Tell us about your work in 2019")
+    expect(page).to have_selector("h1", text: "Tell us about your work in 2020")
     click_on "Continue"
 
     # Income from benefits
-    expect(page).to have_selector("h1", text: "In 2019, did you receive any disability benefits?")
+    expect(page).to have_selector("h1", text: "In 2020, did you receive any disability benefits?")
     click_on "No"
 
     # Investment income/loss
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from interest or dividends?")
+    expect(page).to have_selector("h1", text: "In 2020, did you have any income from interest or dividends?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did you sell any stocks, bonds, or real estate?")
+    expect(page).to have_selector("h1", text: "In 2020, did you sell any stocks, bonds, or real estate?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from the sale of stocks, bonds, or real estate?")
+    expect(page).to have_selector("h1", text: "In 2020, did you have any income from the sale of stocks, bonds, or real estate?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "Did you report a loss from the sale of stocks, bonds, or real estate on your 2018 return?")
+    expect(page).to have_selector("h1", text: "Did you report a loss from the sale of stocks, bonds, or real estate on your 2019 return?")
     click_on "Yes"
 
     # Retirement income/contributions
-    expect(page).to have_selector("h1", text: "In 2019, did you have Social Security income, retirement income, or retirement contributions?")
+    expect(page).to have_selector("h1", text: "In 2020, did you have Social Security income, retirement income, or retirement contributions?")
     click_on "No"
 
     # Other income
-    expect(page).to have_selector("h1", text: "In 2019, did you receive any other money?")
+    expect(page).to have_selector("h1", text: "In 2020, did you receive any other money?")
     click_on "Yes"
     fill_in "What were the other types of income that you received?", with: "cash from gardening"
     click_on "Next"
 
     # Health insurance
-    expect(page).to have_selector("h1", text: "In 2019, did you purchase health insurance through the marketplace or exchange?")
+    expect(page).to have_selector("h1", text: "In 2020, did you purchase health insurance through the marketplace or exchange?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did you have a Health Savings Account?")
+    expect(page).to have_selector("h1", text: "In 2020, did you have a Health Savings Account?")
     click_on "No"
 
     # Itemizing
-    expect(page).to have_selector("h1", text: "In 2019, did you pay any medical, dental, or prescription expenses?")
+    expect(page).to have_selector("h1", text: "In 2020, did you pay any medical, dental, or prescription expenses?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you make any charitable contributions?")
+    expect(page).to have_selector("h1", text: "In 2020, did you make any charitable contributions?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you have any income from gambling winnings, including the lottery?")
+    expect(page).to have_selector("h1", text: "In 2020, did you have any income from gambling winnings, including the lottery?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did you pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
+    expect(page).to have_selector("h1", text: "In 2020, did you pay for any eligible school supplies as a teacher, teacher's aide, or other educator?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you pay any state, local, real estate, sales, or other taxes?")
+    expect(page).to have_selector("h1", text: "In 2020, did you pay any state, local, real estate, sales, or other taxes?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you receive a state or local income tax refund?")
+    expect(page).to have_selector("h1", text: "In 2020, did you receive a state or local income tax refund?")
     click_on "Yes"
 
     # Related to home ownership
-    expect(page).to have_selector("h1", text: "In 2019, did you sell a home?")
+    expect(page).to have_selector("h1", text: "In 2020, did you sell a home?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did you pay any mortgage interest?")
+    expect(page).to have_selector("h1", text: "In 2020, did you pay any mortgage interest?")
     click_on "No"
     expect(page).to have_selector("h1", text: "Did you receive the First Time Homebuyer Credit in 2008?")
     click_on "Yes"
 
     # Miscellaneous
-    expect(page).to have_selector("h1", text: "In 2019, did you have a loss related to a declared Federal Disaster Area?")
+    expect(page).to have_selector("h1", text: "In 2020, did you have a loss related to a declared Federal Disaster Area?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did you have debt cancelled or forgiven by a lender?")
+    expect(page).to have_selector("h1", text: "In 2020, did you have debt cancelled or forgiven by a lender?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did you receive any letter or bill from the IRS?")
+    expect(page).to have_selector("h1", text: "In 2020, did you receive any letter or bill from the IRS?")
     click_on "Yes"
     expect(page).to have_selector("h1", text: "Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "In 2019, did you make any estimated tax payments or apply your 2018 refund to your 2019 taxes?")
+    expect(page).to have_selector("h1", text: "In 2020, did you make any estimated tax payments or apply your 2019 refund to your 2020 taxes?")
     click_on "Yes"
-    expect(page).to have_selector("h1", text: "Did you report a business loss on your 2018 tax return?")
+    expect(page).to have_selector("h1", text: "Did you report a business loss on your 2019 tax return?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "In 2019, did you purchase energy efficient home items?")
+    expect(page).to have_selector("h1", text: "In 2020, did you purchase energy efficient home items?")
     click_on "Yes"
 
     # Additional Information

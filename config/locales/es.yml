@@ -1376,7 +1376,7 @@ es:
           was_blind: Yo estaba legalmente ciego 
           was_full_time_student: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
           was_on_visa: Yo estaba en los Estados Unidos con una visa
-        title: Seleccione las situaciones que fueron verdaderas para usted en el 2019
+        title: Seleccione las situaciones que fueron verdaderas para usted en el %{year}
       lived_with_spouse:
         title: "¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de %{year}?"
       local_tax:

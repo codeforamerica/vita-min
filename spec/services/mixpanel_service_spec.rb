@@ -164,6 +164,7 @@ describe MixpanelService do
           state_of_residence: state_of_residence,
           zip_code: "94609",
           intake_ticket_id: 9876,
+          needs_help_2020: "no",
           needs_help_2019: "yes",
           needs_help_2018: "no",
           needs_help_2017: "yes",
@@ -232,6 +233,7 @@ describe MixpanelService do
             had_earned_income: "yes",
             state: intake.state_of_residence,
             zip_code: "94609",
+            needs_help_2020: "no",
             needs_help_2019: "yes",
             needs_help_2018: "no",
             needs_help_2017: "yes",
@@ -260,7 +262,8 @@ describe MixpanelService do
           let(:intake) do
             build(
               :intake,
-              needs_help_2019: "yes",
+              needs_help_2020: "yes",
+              needs_help_2019: "no",
               needs_help_2018: "no",
               needs_help_2017: "no",
               needs_help_2016: "no"
@@ -280,14 +283,14 @@ describe MixpanelService do
 
           it "includes stimulus triage data" do
             expect(data_from_intake).to include(
-                                            stimulus_triage_source: nil,
-                                            stimulus_triage_referrer: nil,
-                                            stimulus_triage_chose_to_file: "unfilled",
-                                            stimulus_triage_filed_prior_years: "unfilled",
-                                            stimulus_triage_filed_recently: "unfilled",
-                                            stimulus_triage_need_to_correct: "unfilled",
-                                            stimulus_triage_need_to_file: "unfilled"
-                                        )
+              stimulus_triage_source: nil,
+              stimulus_triage_referrer: nil,
+              stimulus_triage_chose_to_file: "unfilled",
+              stimulus_triage_filed_prior_years: "unfilled",
+              stimulus_triage_filed_recently: "unfilled",
+              stimulus_triage_need_to_correct: "unfilled",
+              stimulus_triage_need_to_file: "unfilled"
+            )
           end
         end
 
