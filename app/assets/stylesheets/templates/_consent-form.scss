@@ -8,4 +8,17 @@
     max-height: 37.5rem;
     overflow-y: auto;
   }
+
+  .consent-checkboxes{
+    label.checkbox {
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+    .form-group:last-of-type {
+      margin-bottom: 6rem;
+    }
+  }
 }

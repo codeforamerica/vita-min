@@ -53,6 +53,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :tax_returns, only: [] do
+      get '/sign', to: 'tax_returns#authorize_signature', as: :authorize_signature
+      get '/success', to: 'tax_returns#success', as: :success
+      post '/sign', to: 'tax_returns#sign', as: :sign
+    end
+
     resources :documents, only: [:destroy], controller: :documents do
       collection do
         DocumentNavigation.controllers.uniq.each do |controller_class|

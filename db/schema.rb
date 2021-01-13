@@ -538,6 +538,8 @@ ActiveRecord::Schema.define(version: 2021_01_12_193119) do
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.boolean "is_hsa"
+    t.datetime "primary_signed_at"
+    t.inet "primary_signed_ip"
     t.integer "service_type", default: 0
     t.integer "status", default: 100, null: false
     t.datetime "updated_at", precision: 6, null: false

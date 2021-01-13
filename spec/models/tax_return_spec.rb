@@ -5,6 +5,8 @@
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
 #  is_hsa              :boolean
+#  primary_signed_at   :datetime
+#  primary_signed_ip   :inet
 #  service_type        :integer          default("online_intake")
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null

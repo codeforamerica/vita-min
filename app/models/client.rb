@@ -71,7 +71,9 @@ class Client < ApplicationRecord
   end
 
   def set_attention_needed
-    touch(:attention_needed_since) unless needs_attention?
+    return true if needs_attention?
+
+    return touch(:attention_needed_since)
   end
 
   def clear_attention_needed

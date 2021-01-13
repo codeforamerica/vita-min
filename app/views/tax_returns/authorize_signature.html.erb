@@ -1,0 +1,23 @@
+<% content_for :page_title, t(".heading") %>
+
+<div class="slab consent-form">
+  <h1 class="form-question">
+    <%= content_for(:page_title) %>
+  </h1>
+
+  <p><%=t(".subheader", year: @tax_return.year)%></p>
+
+  <div class="consent-details">
+    <h2 class="h3"><%=t(".full_declaration.title") %></h2>
+    <p><%=t(".full_declaration.body_html", year: @tax_return.year)%></p>
+  </div>
+
+  <%= form_for @form, url: tax_return_sign_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
+    <div class="consent-checkboxes">
+      <%= f.cfa_checkbox(:primary_accepts_terms, t(".efile_acceptance", year: @tax_return.year), options: { checked_value: "yes", unchecked_value: "no", classes: ['checkbox--full-width'] }) %>
+      <%= f.cfa_checkbox(:primary_confirms_identity, t(".efile_identity_primary", name: @tax_return.client.legal_name.upcase, year: @tax_return.year), options: { checked_value: "yes", unchecked_value: "no", classes: ['checkbox--full-width'] }) %>
+    </div>
+    <%= f.submit "Submit", class: 'button button--primary button--wide' %>
+  <% end %>
+</div>
+
