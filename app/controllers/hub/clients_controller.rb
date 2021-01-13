@@ -28,7 +28,7 @@ module Hub
       end
     end
 
-    def show;end
+    def show; end
 
     def request_bank_account_info
       @client = Client.find(params[:id])

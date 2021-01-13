@@ -105,9 +105,9 @@ RSpec.describe User, type: :model do
       let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
 
       it "should return a user's site" do
-        accessible_organization_ids = user.accessible_organizations.pluck(:id)
-        expect(accessible_organization_ids).to include(user.role.site.id)
-        expect(accessible_organization_ids).not_to include(not_accessible_partner.id)
+        accessible_group_ids = user.accessible_groups.pluck(:id)
+        expect(accessible_group_ids).to include(user.role.site.id)
+        expect(accessible_group_ids).not_to include(not_accessible_partner.id)
       end
     end
 
@@ -118,10 +118,10 @@ RSpec.describe User, type: :model do
       let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
 
       it "should return a user's primary org, supportable orgs, and coalition members" do
-        accessible_organization_ids = user.accessible_organizations.pluck(:id)
-        expect(accessible_organization_ids).to include(organization.id)
-        expect(accessible_organization_ids).to include(site.id)
-        expect(accessible_organization_ids).not_to include(not_accessible_partner.id)
+        accessible_group_ids = user.accessible_groups.pluck(:id)
+        expect(accessible_group_ids).to include(organization.id)
+        expect(accessible_group_ids).to include(site.id)
+        expect(accessible_group_ids).not_to include(not_accessible_partner.id)
       end
     end
 
@@ -130,7 +130,7 @@ RSpec.describe User, type: :model do
       let!(:unaccessible_site) { create :site }
 
       it "should return the user's site" do
-        accessible_group_ids = user.accessible_organizations.pluck(:id)
+        accessible_group_ids = user.accessible_groups.pluck(:id)
         expect(accessible_group_ids).to include(user.role.site.id)
         expect(accessible_group_ids).not_to include(unaccessible_site.id)
       end
