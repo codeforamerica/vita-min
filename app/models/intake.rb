@@ -453,6 +453,7 @@ class Intake < ApplicationRecord
   end
 
   def most_recent_filing_year
+    # TODO: should the default be changed to 2020?
     filing_years.first || "2019"
   end
 
@@ -541,7 +542,7 @@ class Intake < ApplicationRecord
   end
 
   def needs_help_with_backtaxes?
-    needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?
+    needs_help_2019_yes? || needs_help_2018_yes? || needs_help_2017_yes? || needs_help_2016_yes?
   end
 
   def triaged_from_stimulus?

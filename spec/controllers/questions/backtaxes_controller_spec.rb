@@ -16,6 +16,7 @@ RSpec.describe Questions::BacktaxesController do
             needs_help_2017: "no",
             needs_help_2018: "yes",
             needs_help_2019: "yes",
+            needs_help_2020: "no",
           }
         }
       end
@@ -61,6 +62,7 @@ RSpec.describe Questions::BacktaxesController do
             needs_help_2017: "no",
             needs_help_2018: "no",
             needs_help_2019: "no",
+            needs_help_2020: "no",
           }
         }
       end
@@ -82,6 +84,7 @@ RSpec.describe Questions::BacktaxesController do
             needs_help_2017: "yes",
             needs_help_2018: "no",
             needs_help_2019: "no",
+            needs_help_2020: "no",
           }
         }
       end
