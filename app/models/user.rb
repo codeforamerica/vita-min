@@ -72,7 +72,7 @@ class User < ApplicationRecord
   def accessible_organizations
     if role_type == OrganizationLeadRole::TYPE
       VitaPartner.organizations.where(id: role.organization.id).or(
-          VitaPartner.sites.where(parent_organization_id: role.organization.id)
+        VitaPartner.sites.where(parent_organization_id: role.organization.id)
       )
     elsif role_type == TeamMemberRole::TYPE || role_type == SiteCoordinatorRole::TYPE
       VitaPartner.sites.where(id: role.site.id)

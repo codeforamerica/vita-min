@@ -30,8 +30,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_text(zach_prep_ready_for_call.preferred_name)
         end
 
-
-
         # search for client
         fill_in "Search", with: "Zach"
         click_button "Apply"
