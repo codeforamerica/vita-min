@@ -15,14 +15,13 @@ FileUtils.chdir APP_ROOT do
 
   puts "== Install Homebrew dependencies =="
   system! "brew bundle install"
-  system! "brew cask install aptible"
 
   puts "== Installing Ruby =="
-  system! "rbenv install"
+  system! "rbenv install --skip-existing"
 
   puts "== Install Bundler =="
   system! "gem update --system"
-  system! "gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ")"
+  system! "gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d \" \")"
 
   puts "== Install Ruby dependencies =="
   system! "gem install bundler --conservative"
