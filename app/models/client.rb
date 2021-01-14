@@ -12,6 +12,8 @@
 #  last_sign_in_at              :datetime
 #  last_sign_in_ip              :inet
 #  locked_at                    :datetime
+#  login_requested_at           :datetime
+#  login_token                  :string
 #  sign_in_count                :integer          default(0), not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
@@ -26,6 +28,8 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Client < ApplicationRecord
+  devise :lockable, :timeoutable, :trackable
+
   belongs_to :vita_partner, optional: true
   has_one :intake
   has_many :documents
@@ -62,6 +66,14 @@ class Client < ApplicationRecord
     else
       includes(:intake).order(Hash[column, direction]).distinct
     end
+  end
+
+  scope :by_contact_info, ->(email_address:, phone_number:) do
+    email_matches = email_address.present? ? Intake.where(email_address: email_address) : Intake.none
+    spouse_email_matches = email_address.present? ? Intake.where(spouse_email_address: email_address) : Intake.none
+    phone_number_matches = phone_number.present? ? Intake.where(phone_number: phone_number) : Intake.none
+    sms_phone_number_matches = phone_number.present? ? Intake.where(sms_phone_number: phone_number) : Intake.none
+    where(intake: email_matches.or(spouse_email_matches).or(phone_number_matches).or(sms_phone_number_matches))
   end
 
   def legal_name
@@ -102,5 +114,22 @@ class Client < ApplicationRecord
     tax_returns.destroy_all
     intake.destroy
     destroy
+  end
+
+  def increment_failed_attempts
+    super
+    if attempts_exceeded?
+      lock_access! unless access_locked?
+    end
+  end
+
+  def login_link
+    # Compute a new login URL. This invalidates any existing login URLs.
+    raw_token, encrypted_token = Devise.token_generator.generate(Client, :login_token)
+    update(
+      login_token: encrypted_token,
+      login_requested_at: DateTime.now
+    )
+    Rails.application.routes.url_helpers.edit_portal_client_login_url(id: raw_token)
   end
 end

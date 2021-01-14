@@ -24,7 +24,7 @@ RSpec.describe Users::SessionsController do
 
         new_user_form = Nokogiri::HTML.fragment(response.body).at_css("form#new_user")
         expect(new_user_form).to have_content "Correo o contraseña incorrectos."
-        expect(new_user_form).to have_content "Después de 5 intentos de inicio de sesión, las cuentas se bloquean durante 30 minutos."
+        expect(new_user_form).to have_content "Después de 5 intentos de inicio de sesión, las cuentas se bloquean."
       end
     end
   end

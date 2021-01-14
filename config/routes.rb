@@ -120,6 +120,16 @@ Rails.application.routes.draw do
     get "/422", to: "public_pages#internal_server_error"
     get "/404", to: "public_pages#page_not_found"
 
+    devise_for :clients, skip: [:sessions]
+    namespace :portal do
+      root "portal#home"
+      get "account-locked", to: "client_logins#account_locked", as: :account_locked
+      resources :client_logins, only: [:new, :create, :edit, :update] do
+        get "link-sent", to: "client_logins#link_sent", as: :login_link_sent, on: :collection
+        get "invalid-token", to: "client_logins#invalid_token", as: :invalid_token, on: :collection
+      end
+    end
+
     # Hub Admin routes (Case Management)
     namespace :hub do
       root "assigned_clients#index"

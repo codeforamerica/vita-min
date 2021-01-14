@@ -233,7 +233,7 @@ Devise.setup do |config|
   # :time  = Re-enables login after a certain amount of time (see :unlock_in below)
   # :both  = Enables both strategies
   # :none  = No unlock strategy. You should handle unlocking by yourself.
-  config.unlock_strategy = :time
+  config.unlock_strategy = :none
 
   # Number of authentication tries before locking an account if lock_strategy
   # is failed attempts.
@@ -277,7 +277,7 @@ Devise.setup do |config|
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
-  # config.default_scope = :user
+  config.default_scope = :user
 
   # Set this configuration to false if you want /users/sign_out to sign out
   # only the current scope. By default, Devise signs out all scopes.
