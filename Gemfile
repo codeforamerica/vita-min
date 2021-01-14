@@ -100,7 +100,6 @@ group :test do
   gem 'webmock'
   gem 'simplecov', require: false
   gem 'shoulda-matchers', '~> 4.3.0'
-  gem 'database_cleaner'
   gem 'spring-commands-rspec'
 end
 

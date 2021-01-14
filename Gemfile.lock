@@ -141,7 +141,6 @@ GEM
     concurrent-ruby (1.1.7)
     crack (0.4.4)
     crass (1.0.6)
-    database_cleaner (1.8.5)
     ddtrace (0.41.0)
       msgpack
     delayed_job (4.1.8)
@@ -528,7 +527,6 @@ DEPENDENCIES
   capybara (>= 2.15)
   cfa-styleguide!
   combine_pdf
-  database_cleaner
   ddtrace
   delayed_job_active_record
   device_detector
