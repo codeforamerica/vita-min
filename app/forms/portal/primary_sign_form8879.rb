@@ -11,7 +11,7 @@ module Portal
 
     def sign
       return false unless valid?
-
+      @tax_return.sign_primary!()
       # if @tax_return.sign_primary!(ip)
       #   return true
       # else

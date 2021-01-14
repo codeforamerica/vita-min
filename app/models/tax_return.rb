@@ -81,7 +81,12 @@ class TaxReturn < ApplicationRecord
   end
 
   def sign_primary!(ip)
-    if ActiveRecord::Base.transaction do
+    # if(already_signed)
+    #   raise "Our custom expection"
+    # end
+    # raise StandardError, 'Primary has already signed' if primary_has_signed?
+
+    return_value = ActiveRecord::Base.transaction do
       self.primary_signed_at = DateTime.current
       self.primary_signed_ip = ip
       self.primary_signature = client.legal_name
@@ -93,6 +98,11 @@ class TaxReturn < ApplicationRecord
       end
       save!
     end
+    # if(return_value)
+    #   return true
+    # else
+    #   raise "An error"
+    # end
   end
 
   private
@@ -120,3 +130,5 @@ class TaxReturn < ApplicationRecord
     )
   end
 end
+
+class FailedToSignReturn < StandardError; end

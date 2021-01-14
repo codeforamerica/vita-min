@@ -369,7 +369,6 @@ describe TaxReturn do
     let(:client) { create :client, intake: (create :intake, primary_first_name: "Primary", primary_last_name: "Taxpayer", timezone: "Central Time (US & Canada)") }
     let(:tax_return) { create :tax_return, year: 2019, client: client }
     let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
-    let!(:request) { OpenStruct.new(remote_ip: fake_ip) }
 
     before do
       allow(tax_return).to receive(:filing_joint?).and_return false
@@ -429,11 +428,6 @@ describe TaxReturn do
             tax_return.reload
           }.to not_change(tax_return, :primary_signed_at).and not_change(tax_return, :primary_signed_ip)
         end
-
-        it "adds an error to the form object" do
-          expect(tax_return.sign_primary!(fake_ip)).to eq false
-          expect(subject.errors[:transaction_failed]).to be_present
-        end
       end
 
       context "when tax_return update fails" do
@@ -443,14 +437,15 @@ describe TaxReturn do
 
         it "does not save the document" do
           expect {
-            subject.sign
+            tax_return.sign_primary!(fake_ip)
             tax_return.reload
           }.to not_change(tax_return.documents, :count)
         end
 
-        it "pushes an error to the form object" do
-          subject.sign
-          expect(subject.errors[:transaction_failed]).to be_present
+        it "raises an exception" do
+          expect {
+            tax_return.sign_primary!(fake_ip)
+          }.to raise_error(FailedToSignReturn)
         end
       end
     end
@@ -461,14 +456,14 @@ describe TaxReturn do
       end
 
       it "updates the tax_return with primary signature fields" do
-        expect { subject.sign }
+        expect { tax_return.sign_primary!(fake_ip) }
           .to change(tax_return, :primary_signed_at)
                 .and change(tax_return, :primary_signature)
                        .and change(tax_return, :primary_signed_ip)
       end
 
       it "does not create a document, change tax return status, or set needs attention" do
-        expect { subject.sign }
+        expect { tax_return.sign_primary!(fake_ip) }
           .to not_change(tax_return.documents, :count)
                 .and not_change(tax_return, :status)
                        .and not_change(tax_return.client, :attention_needed_since)
