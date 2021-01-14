@@ -7,10 +7,3 @@ Datadog.configure do |c|
   c.tracer.enabled = Rails.env.staging? || Rails.env.demo? || Rails.env.production?
   c.tracer hostname: Rails.application.credentials.dig(:datadog_agent_host)
 end
-
-DatadogApi.configure do |c|
-  c.env = Rails.env
-  c.api_key = Rails.application.credentials.dig(:datadog_api_key)
-  c.namespace = "vita-min.dogapi"
-  c.enabled = Rails.env.staging? || Rails.env.demo? || Rails.env.production?
-end

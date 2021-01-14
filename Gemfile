@@ -82,6 +82,7 @@ group :development, :test do
   gem 'i18n-tasks', require: false
   gem 'easy_translate'
   gem 'bundle-audit'
+  gem 'parallel_tests'
 end
 
 group :development do
@@ -101,6 +102,7 @@ group :test do
   gem 'simplecov', require: false
   gem 'shoulda-matchers', '~> 4.3.0'
   gem 'spring-commands-rspec'
+  gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

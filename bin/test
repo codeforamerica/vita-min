@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-rspec
+RAILS_CACHE_CLASSES=1 bundle exec parallel_test spec -t rspec || { echo "Not running JS tests due to rspec failure." ; exit 1; }
 yarn jest

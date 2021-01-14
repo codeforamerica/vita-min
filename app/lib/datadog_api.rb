@@ -1,5 +1,3 @@
-require 'dogapi'
-
 module DatadogApi
 
   METRIC_TYPES = {
@@ -9,7 +7,21 @@ module DatadogApi
   }.freeze
 
   class Configuration
-    attr_accessor :enabled, :env, :api_key, :namespace
+    def env
+      Rails.env
+    end
+
+    def api_key
+      Rails.application.credentials.dig(:datadog_api_key)
+    end
+
+    def namespace
+      "vita-min.dogapi"
+    end
+
+    def enabled
+      Rails.env.staging? || Rails.env.demo? || Rails.env.production?
+    end
   end
 
   class << self
