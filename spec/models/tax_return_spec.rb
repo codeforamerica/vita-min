@@ -143,7 +143,7 @@ describe TaxReturn do
     end
   end
 
-  describe "filing_joint" do
+  describe "#filing_joint?" do
     context "the associated client intake is not filing joint" do
       let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
       let(:tax_return) {
@@ -281,6 +281,197 @@ describe TaxReturn do
             expect(spouse_signed_tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq false
           end
         end
+      end
+    end
+  end
+
+  describe "#ready_to_file?" do
+    context "not filing jointly" do
+      let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
+
+      context "when the return has not been signed" do
+        let(:tax_return) { create :tax_return, primary_signed_at: nil, primary_signed_ip: nil, primary_signature: nil, client: client }
+
+        it "return false" do
+          expect(tax_return.ready_to_file?).to eq false
+        end
+      end
+
+      context "when the return has been signed" do
+        let(:tax_return) { create :tax_return, primary_signed_at: DateTime.current, primary_signed_ip: "127.0.1.1", primary_signature: "Joe Crabapple" , client: client }
+
+        it "return false" do
+          expect(tax_return.ready_to_file?).to eq true
+        end
+      end
+    end
+
+    context "filing jointly" do
+      let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
+
+      context "the return has not been signed by the primary or the spouse" do
+        let(:tax_return) {
+          create :tax_return,
+                 primary_signed_at: nil, primary_signed_ip: nil, primary_signature: nil,
+                 spouse_signed_at: nil, spouse_signed_ip: nil, spouse_signature: nil,
+                 client: client
+        }
+
+        it "returns false" do
+          expect(tax_return.ready_to_file?).to eq false
+        end
+      end
+
+      context "the return has been signed by the primary but not the spouse" do
+        let(:tax_return) {
+          create :tax_return,
+                 primary_signed_at: DateTime.current, primary_signed_ip: "127.0.2.1", primary_signature: "Jill Kiwi",
+                 spouse_signed_at: nil, spouse_signed_ip: nil, spouse_signature: nil,
+                 client: client
+        }
+
+        it "returns false" do
+          expect(tax_return.ready_to_file?).to eq false
+        end
+      end
+
+      context "the return has been signed by the spouse but not the primary" do
+        let(:tax_return) {
+          create :tax_return,
+                 primary_signed_at: nil, primary_signed_ip: nil, primary_signature: nil,
+                 spouse_signed_at: DateTime.current, spouse_signed_ip: "127.0.3.1", spouse_signature: "George Grapefruit",
+                 client: client
+        }
+
+        it "returns false" do
+          expect(tax_return.ready_to_file?).to eq false
+        end
+      end
+
+      context "the return has been signed by both the primary and the spouse" do
+        let(:tax_return) {
+          create :tax_return,
+                 primary_signed_at: DateTime.current, primary_signed_ip: "127.0.4.1", primary_signature: "Abe Apple",
+                 spouse_signed_at: DateTime.current, spouse_signed_ip: "127.0.5.1", spouse_signature: "Beatrice Blueberry",
+                 client: client
+        }
+
+        it "returns true" do
+          expect(tax_return.ready_to_file?).to eq true
+        end
+      end
+    end
+  end
+
+  describe "#sign_primary!" do
+    let(:fake_ip) { IPAddr.new }
+    let(:document_service_double) { double }
+    let(:client) { create :client, intake: (create :intake, primary_first_name: "Primary", primary_last_name: "Taxpayer", timezone: "Central Time (US & Canada)") }
+    let(:tax_return) { create :tax_return, year: 2019, client: client }
+    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
+    let!(:request) { OpenStruct.new(remote_ip: fake_ip) }
+
+    before do
+      allow(tax_return).to receive(:filing_joint?).and_return false
+      allow(WriteToPdfDocumentService).to receive(:new).and_return document_service_double
+      allow(document_service_double).to receive(:tempfile_output).and_return Tempfile.new
+      allow(document_service_double).to receive(:write)
+    end
+
+    context "when we dont need a spouse signature and can create the 8879 document" do
+      context "when the transaction is successful" do
+        it "writes the primary taxpayers legal name to the document" do
+          tax_return.sign_primary!(fake_ip)
+          expect(document_service_double).to have_received(:write).with(:primary_signature, "Primary Taxpayer")
+        end
+
+        it "writes today's date to the document, formatted mm/dd/yyyy" do
+          tax_return.sign_primary!(fake_ip)
+          expect(document_service_double).to have_received(:write).with(:primary_signed_on, Date.today.strftime("%m/%d/%Y"))
+        end
+
+        it "creates a signed document for the tax return" do
+          expect { tax_return.sign_primary!(fake_ip) }.to change(tax_return.documents, :count).by 1
+          new_doc = Document.last
+          expect(new_doc.document_type).to eq "Form 8879 (Signed)"
+          expect(new_doc.display_name).to eq "Taxpayer Signed 2019 8879"
+        end
+
+        it "saves the primary_signed_on date and primary_signed_ip to the tax return" do
+          expect { tax_return.sign_primary!(fake_ip) }.to change(tax_return, :primary_signed_at).and change(tax_return, :primary_signed_ip).to(fake_ip)
+        end
+
+        it "updates the tax return's client to needs_attention" do
+          expect {
+            tax_return.sign_primary!(fake_ip)
+          }.to change(tax_return.client, :needs_attention?).to(true)
+        end
+
+        it "updates the tax return's status to ready to file" do
+          expect {
+            tax_return.sign_primary!(fake_ip)
+          }.to change(tax_return, :status).to("file_ready_to_file")
+        end
+
+        it "returns true" do
+          expect(tax_return.sign_primary!(fake_ip)).to eq true
+        end
+      end
+
+      context "when document creation fails" do
+        before do
+          allow(tax_return.documents).to receive(:create!).and_raise ActiveRecord::Rollback
+        end
+
+        it "does not update the other tax_return signature fields" do
+          expect {
+            tax_return.sign_primary!(fake_ip)
+            tax_return.reload
+          }.to not_change(tax_return, :primary_signed_at).and not_change(tax_return, :primary_signed_ip)
+        end
+
+        it "adds an error to the form object" do
+          expect(tax_return.sign_primary!(fake_ip)).to eq false
+          expect(subject.errors[:transaction_failed]).to be_present
+        end
+      end
+
+      context "when tax_return update fails" do
+        before do
+          allow(tax_return).to receive(:save!).and_raise ActiveRecord::Rollback
+        end
+
+        it "does not save the document" do
+          expect {
+            subject.sign
+            tax_return.reload
+          }.to not_change(tax_return.documents, :count)
+        end
+
+        it "pushes an error to the form object" do
+          subject.sign
+          expect(subject.errors[:transaction_failed]).to be_present
+        end
+      end
+    end
+
+    context "we're waiting on a spouse signature before we make the document" do
+      before do
+        allow(tax_return).to receive(:filing_joint?).and_return true
+      end
+
+      it "updates the tax_return with primary signature fields" do
+        expect { subject.sign }
+          .to change(tax_return, :primary_signed_at)
+                .and change(tax_return, :primary_signature)
+                       .and change(tax_return, :primary_signed_ip)
+      end
+
+      it "does not create a document, change tax return status, or set needs attention" do
+        expect { subject.sign }
+          .to not_change(tax_return.documents, :count)
+                .and not_change(tax_return, :status)
+                       .and not_change(tax_return.client, :attention_needed_since)
       end
     end
   end

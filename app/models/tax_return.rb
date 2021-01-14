@@ -75,4 +75,48 @@ class TaxReturn < ApplicationRecord
 
     documents.find_by(document_type: DocumentTypes::UnsignedForm8879.key).present?
   end
+
+  def ready_to_file?
+    (filing_joint? && primary_has_signed? && spouse_has_signed?) || (!filing_joint? && primary_has_signed?)
+  end
+
+  def sign_primary!(ip)
+    if ActiveRecord::Base.transaction do
+      self.primary_signed_at = DateTime.current
+      self.primary_signed_ip = ip
+      self.primary_signature = client.legal_name
+
+      if ready_to_file?
+        self.status = :file_ready_to_file
+        create_signed_8879
+        client.set_attention_needed
+      end
+      save!
+    end
+  end
+
+  private
+
+  def create_signed_8879
+    unsigned8879 = documents.find_by(document_type: DocumentTypes::UnsignedForm8879.key)
+    document_writer = WriteToPdfDocumentService.new(unsigned8879, DocumentTypes::UnsignedForm8879)
+    document_writer.write(:primary_signature, primary_signature)
+    document_writer.write(:primary_signed_on, primary_signed_at.strftime("%m/%d/%Y"))
+    if spouse_has_signed?
+      document_writer.write(:spouse_signature, spouse_signature)
+      document_writer.write(:spouse_signed_on, spouse_signed_at.strftime("%m/%d/%Y"))
+    end
+    tempfile = document_writer.tempfile_output
+    documents.create!(
+      client: client,
+      document_type: DocumentTypes::CompletedForm8879.key,
+      display_name: "Taxpayer Signed #{year} 8879",
+      upload: {
+        io: tempfile,
+        filename: "Signed-f8879.pdf",
+        content_type: "application/pdf",
+        identify: false
+      }
+    )
+  end
 end
