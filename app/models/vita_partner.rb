@@ -33,6 +33,7 @@ class VitaPartner < ApplicationRecord
   has_many :source_parameters
   has_many :users
   belongs_to :parent_organization, class_name: "VitaPartner", optional: true
+  # what is the difference between this and child_sites?
   has_many :sub_organizations, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
   validate :one_level_of_depth
   validate :no_coalitions_for_sites
