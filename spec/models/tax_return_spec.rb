@@ -5,9 +5,13 @@
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
 #  is_hsa              :boolean
+#  primary_signature   :string
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
 #  service_type        :integer          default("online_intake")
+#  spouse_signature    :string
+#  spouse_signed_at    :datetime
+#  spouse_signed_ip    :inet
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
@@ -84,6 +88,57 @@ describe TaxReturn do
         expect do
           tax_return.advance_to(new_status)
         end.to change(tax_return, :status).from(status).to new_status
+      end
+    end
+  end
+
+  describe "#primary_has_signed?" do
+    context "when primary_signed_at and primary_signed_ip are true" do
+      let(:tax_return) { create :tax_return, primary_signed_at: DateTime.now, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
+      it "returns true" do
+        expect(tax_return.primary_has_signed?).to be true
+
+      end
+    end
+
+    context "when signed_at is empty" do
+      let(:tax_return) { create :tax_return, primary_signed_at: nil, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
+
+      it "returns false" do
+        expect(tax_return.primary_has_signed?).to be false
+      end
+    end
+
+    context "when ip is empty" do
+      let(:tax_return) { create :tax_return, primary_signed_at: DateTime.now, primary_signed_ip: nil, primary_signature: "Primary Taxpayer" }
+
+      it "returns false" do
+        expect(tax_return.primary_has_signed?).to be false
+      end
+    end
+  end
+
+  describe "#spouse_has_signed?" do
+    context "when spouse_signed_at and spouse_signed_ip are true" do
+      let(:tax_return) { create :tax_return, spouse_signed_at: DateTime.now, spouse_signed_ip: IPAddr.new, spouse_signature: "Spouse Name" }
+      it "returns true" do
+        expect(tax_return.spouse_has_signed?).to be true
+      end
+    end
+
+    context "when spouse_signed_at is empty" do
+      let(:tax_return) { create :tax_return, spouse_signed_at: nil, spouse_signed_ip: IPAddr.new, spouse_signature: "Spouse Name" }
+
+      it "returns false" do
+        expect(tax_return.spouse_has_signed?).to be false
+      end
+    end
+
+    context "when ip is empty" do
+      let(:tax_return) { create :tax_return, spouse_signed_at: DateTime.now, spouse_signed_ip: nil, spouse_signature: "Spouse Name" }
+
+      it "returns false" do
+        expect(tax_return.spouse_has_signed?).to be false
       end
     end
   end

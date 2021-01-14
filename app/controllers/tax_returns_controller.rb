@@ -5,24 +5,28 @@ class TaxReturnsController < ApplicationController
 
   def authorize_signature
     @primary_signer = true
-    @form = Portal::SignForm8879.new(@tax_return)
+    @form = Portal::PrimarySignForm8879.new(@tax_return)
   end
 
   def spouse_authorize_signature
     @primary_signer = false
-    @form = Portal::SignForm8879.new(@tax_return)
+    @form = Portal::SpouseSignForm8879.new(@tax_return)
 
     render :authorize_signature
   end
 
   def sign
-    @form = Portal::SignForm8879.new(@tax_return, permitted_params)
+    @form = Portal::PrimarySignForm8879.new(@tax_return, permitted_params)
     if @form.sign
       redirect_to tax_return_success_path(params[:tax_return_id])
     else
       flash.now[:alert] = I18n.t("controllers.tax_returns_controller.errors.#{@form.errors.keys.first}")
       render :authorize_signature
     end
+  end
+
+  def spouse_sign
+
   end
 
   def success; end

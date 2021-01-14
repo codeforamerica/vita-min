@@ -5,9 +5,13 @@
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
 #  is_hsa              :boolean
+#  primary_signature   :string
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
 #  service_type        :integer          default("online_intake")
+#  spouse_signature    :string
+#  spouse_signed_at    :datetime
+#  spouse_signed_ip    :inet
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null
@@ -48,5 +52,17 @@ class TaxReturn < ApplicationRecord
 
   def self.filing_years
     [2020, 2019, 2018, 2017]
+  end
+
+  def primary_has_signed?
+    primary_signed_at? && primary_signed_ip? && primary_signature
+  end
+
+  def spouse_has_signed?
+    spouse_signed_at? && spouse_signed_ip? && spouse_signature
+  end
+
+  def only_needs_primary_signature?
+    !client.intake.filing_joint?
   end
 end
