@@ -1,1 +1,2 @@
+--require rspec/instafail
 --require spec_helper

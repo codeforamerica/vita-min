@@ -18,7 +18,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *local_default
-  database: vita-min_test
+  database: vita-min_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 production:
   <<: *deploy_default

@@ -100,8 +100,12 @@ group :test do
   gem 'webmock'
   gem 'simplecov', require: false
   gem 'shoulda-matchers', '~> 4.3.0'
+  gem 'database_cleaner'
   gem 'spring-commands-rspec'
 end
+
+gem 'parallel_tests', group: [:development, :test]
+gem 'rspec-instafail', require: false, group: [:development, :test]
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

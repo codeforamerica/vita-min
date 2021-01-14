@@ -37,6 +37,7 @@ describe DocumentPresenter do
     let(:document) { build(:document, created_at: 32.days.ago) }
 
     it "returns the when the document was created in human friendly words" do
+      expect(1).to eq(0)
       expect(subject.uploaded_ago).to eq("about 1 month ago")
     end
 

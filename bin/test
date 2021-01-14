@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-rspec
+# If the command below fails, create the databases with `rake parallel:create && rake parallel:setup` then try again
+bundle exec parallel_test spec -t rspec || exit 1
 yarn jest

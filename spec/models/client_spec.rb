@@ -12,6 +12,8 @@
 #  last_sign_in_at              :datetime
 #  last_sign_in_ip              :inet
 #  locked_at                    :datetime
+#  login_requested_at           :datetime
+#  login_token                  :string
 #  sign_in_count                :integer          default(0), not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
