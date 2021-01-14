@@ -67,7 +67,7 @@ RSpec.describe OutgoingTextMessage, type: :model do
       end
 
       context "after create" do
-        it "enqueues a job to sent the text" do
+        it "enqueues a job to send the text" do
           expect {
             message.save
           }.to have_enqueued_job.on_queue("default").with(message.id)

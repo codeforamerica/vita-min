@@ -248,7 +248,7 @@ en:
     users:
       sessions_controller:
         new:
-          invalid_email_or_password: Incorrect email or password. After 5 login attempts, accounts are locked for 30 minutes.
+          invalid_email_or_password: Incorrect email or password. After 5 login attempts, accounts are locked.
     tax_returns_controller:
       errors:
         primary_accepts_terms: Please click the authorize checkbox to continue.
@@ -262,7 +262,7 @@ en:
       long: "%B %-d, %Y"
   devise:
     failure:
-      invalid: Incorrect email or password. After 5 login attempts, accounts are locked for 30 minutes.
+      invalid: Incorrect email or password. After 5 login attempts, accounts are locked.
     invitations:
       edit:
         email_label: Your email
@@ -542,6 +542,7 @@ en:
     tax_return: Tax return
     greeter: "Greeter"
     team_member: "Team member"
+    email_address: "Email address"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -588,6 +589,32 @@ en:
   models:
     intake:
       your_spouse: Your spouse
+  portal:
+    client_logins:
+      form:
+        errors:
+          at_least_one: "Please fill out one of the two fields."
+          bad_confirmation_number: "Incorrect confirmation number. After 5 failed attempts, accounts are locked."
+          bad_last_four: "Incorrect last four. After 5 failed attempts, accounts are locked."
+      new:
+        title: "To view your progress, we’ll send you a secure link."
+      link_sent:
+        link_sent: "To protect your identity, we sent a secure link to your contact info."
+        title: "To continue, please visit your secure link."
+      edit:
+        title: "Authentication needed to continue."
+        confirm_identity: "Protecting your tax information is our priority. To continue, please confirm your identity below."
+        last_four: "Last 4 of SSN/ITIN"
+        confirmation_number: "Confirmation number"
+      account_locked:
+        title: This account has been locked
+        body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:support@getyourrefund.org">support@getyourrefund.org</a>.
+      invalid_token:
+        title: "It looks like you need a new link"
+        body_html: The link you used is expired or broken. Please <a href="mailto:support@getyourrefund.org">email support</a> to get a new link.
+    portal:
+      home:
+        title: Welcome back, %{name}!
   signups:
     flash_notice: Thank you! You will receive a notification when we open in January 2021.
     new:

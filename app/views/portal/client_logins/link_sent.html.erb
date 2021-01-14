@@ -1,0 +1,9 @@
+<% content_for :form_question, t(".title") %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= t(".title") %></h1>
+
+  <p><%= t(".link_sent") %></p>
+
+  <%= link_to t("general.return_home"), root_path, class: "button button--wide button--primary" %>
+<% end %>

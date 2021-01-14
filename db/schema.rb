@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_193119) do
+ActiveRecord::Schema.define(version: 2021_01_13_173733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 2021_01_12_193119) do
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.datetime "locked_at"
+    t.datetime "login_requested_at"
+    t.string "login_token"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id"

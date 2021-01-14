@@ -1,0 +1,5 @@
+<% content_for :form_question, t(".title", name: current_client.intake.primary_full_name) %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= t(".title", name: current_client.intake.primary_full_name) %></h1>
+<% end %>

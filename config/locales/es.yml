@@ -249,7 +249,7 @@ es:
     users:
       sessions_controller:
         new:
-          invalid_email_or_password: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean durante 30 minutos.
+          invalid_email_or_password: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
     tax_returns_controller:
       errors:
         primary_accepts_terms: Haga clic en la casilla de verificación autorizar para continuar.
@@ -263,7 +263,7 @@ es:
       long: "%-d de %B de %Y"
   devise:
     failure:
-      invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean durante 30 minutos.
+      invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
     invitations:
       edit:
         email_label: Su email
@@ -541,6 +541,7 @@ es:
     site_coordinator: Coordinadora del sitio
     client_success: Éxito del cliente
     tax_return: Declaración de impuestos
+    email_address: "Dirección de correo electrónico"
     greeter: "Saludador"
     team_member: "Miembro del equipo"
   helpers:
@@ -1711,3 +1712,29 @@ es:
       full_declaration:
         title: Declaración del contribuyente y autorización para la firma
         body_html: Bajo pena de perjurio, declaro haber examinado una copia de mi declaración electrónica del impuesto sobre el ingreso y todo anexo y documento acompañante para el año tributario que termina el 31 de diciembre de %{year} y, según mi leal saber y entender, son verídicos, correctos y completos. Declaro además que las cantidades provistas anteriormente en la Parte I son las mismas indicadas en mi declaración electrónica del impuesto sobre el ingreso. Autorizo a que mi proveedor intermediario de servicios, transmisor o iniciador de declaraciones electrónicas (ERO, por sus siglas en inglés) envíe mi declaración al IRS y que reciba del mismo (a) acuse de recibo o justificación de rechazo de la transmisión, (b) la razón por toda demora en la tramitación de la declaración o reembolso y (c) la fecha de todo reembolso. Si corresponde, autorizo al U.S. Treasury (Departamento del Tesoro de los Estados Unidos) y a su Agente Financiero designado para que tramiten ante la ACH una transacción de retiro electrónico de fondos (débito directo) en la cuenta de la institución financiera indicada en el programa de computadora (software) de preparación de declaraciones para pagar los impuestos federales que adeudo en esta declaración y/o pagar el impuesto estimado, y además autorizo a la institución financiera para que cargue la entrada a esta cuenta. Esta autorización quedará en pleno vigor hasta que yo notifique al Agente Financiero del Departamento del Tesoro de los Estados Unidos para que éste cancele la autorización. Para revocar (cancelar) un pago, tengo que comunicarme con el Agente Financiero del Departamento del Tesoro de los Estados Unidos llamando al 1-888-353-4537. Las solicitudes de cancelación de pago se tienen que recibir a más tardar 2 días laborables antes de la fecha de pago (liquidación). También autorizo a las instituciones financieras que participan en la tramitación del pago electrónico de impuestos para que reciban información confidencial necesaria para responder a preguntas y resolver dudas relacionadas con dicho pago. Certifico además que el número de identificación personal (PIN, por sus siglas en inglés) que aparece a continuación es el que he escogido como firma para mi declaración electrónica del impuesto sobre el ingreso y, si corresponde, mi autorización para el retiro de fondos por vías electrónicas.
+  portal:
+    client_logins:
+      form:
+        errors:
+          at_least_one: Complete una de las dos entradas.
+          bad_confirmation_number: Número de confirmación incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
+          bad_last_four: "TODO Incorrect last four. After 5 failed attempts, accounts are locked."
+      new:
+        title: Le mandaremos un enlace seguro para que pueda ver su progreso.
+      link_sent:
+        link_sent: "Para proteger su identidad, le enviamos un enlace seguro a su información de contacto."
+        title: "Para continuar, por favor visite su enlace seguro."
+      edit:
+        title: "TODO Authentication needed to continue."
+        confirm_identity: "TODO Protecting your tax information is our priority. To continue, please confirm your identity below."
+        last_four: Últimos 4 de SSN / ITIN
+        confirmation_number: "TODO Confirmation number"
+      account_locked:
+        title: Esta cuenta ha sido bloqueada
+        body_html: Esta cuenta se ha bloqueado debido a demasiados intentos fallidos de inicio de sesión. Si necesita ayuda para desbloquear esta cuenta, envíenos un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org </a>.
+      invalid_token:
+        title: "Parece que necesita un nuevo enlace"
+        body_html: El enlace que usted usó está caducado o roto. <a href="mailto:support@getyourrefund.org">Envíe un correo electrónico a soporte</a> para obtener un nuevo enlace.
+    portal:
+      home:
+        title: "TODO Welcome back, %{name}!"

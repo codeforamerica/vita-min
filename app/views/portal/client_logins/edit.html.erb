@@ -1,0 +1,15 @@
+<% content_for :form_question, t(".title") %>
+
+<% content_for :form_card do %>
+  <h1 class="h2"><%= t(".title") %></h1>
+
+  <p><%= t(".confirm_identity") %></p>
+
+  <%= form_for(@form, url: portal_client_login_path(id: params[:id]), method: :put, local: true, builder: VitaMinFormBuilder) do |f| %>
+    <%= f.cfa_input_field(:last_four, t(".last_four")) %>
+
+    <%= f.cfa_input_field(:confirmation_number, t(".confirmation_number")) %>
+
+    <%= f.submit t("general.sign_in"), class: "button button--primary" %>
+  <% end %>
+<% end %>

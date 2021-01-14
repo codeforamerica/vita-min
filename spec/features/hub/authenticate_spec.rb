@@ -36,18 +36,8 @@ RSpec.feature "Logging in and out to the volunteer portal" do
       fill_in "Email", with: "german@flowers.orange"
       fill_in "Password", with: "wrongPassword"
       click_on "Sign in"
-      expect(page).to have_text "Incorrect email or password. After 5 login attempts, accounts are locked for 30 minutes."
+      expect(page).to have_text "Incorrect email or password. After 5 login attempts, accounts are locked."
     end.to change { user.reload.failed_attempts }.by(1).and change { user.reload.locked_at.present? }.from(false).to(true)
-
-    # Move locked-at to be 31 minutes ago, since the lockout duration is 30 minutes
-    user.update(locked_at: 31.minutes.ago)
-    visit new_user_session_path
-    fill_in "Email", with: "german@flowers.orange"
-    fill_in "Password", with: "goodPassword"
-    click_on "Sign in"
-    # Expect to be redirected to user profile page
-    expect(page).to have_text "Welcome, German Geranium"
-    expect(page).to have_text "Assigned clients"
   end
 
   scenario "resetting password" do

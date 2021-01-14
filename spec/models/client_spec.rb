@@ -12,6 +12,8 @@
 #  last_sign_in_at              :datetime
 #  last_sign_in_ip              :inet
 #  locked_at                    :datetime
+#  login_requested_at           :datetime
+#  login_token                  :string
 #  sign_in_count                :integer          default(0), not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
@@ -265,6 +267,66 @@ describe Client do
         expect(OutgoingTextMessage.count).to eq 0
         expect(DocumentsRequest.count).to eq 0
       end
+    end
+  end
+
+  describe "#by_contact_info" do
+    context "given an email" do
+      let(:email_address) { "client@example.com" }
+
+      context "with a client whose email matches" do
+        let!(:client) { create(:client, intake: create(:intake, email_address: email_address))}
+
+        it "finds the client" do
+          expect(described_class.by_contact_info(email_address: "client@example.com", phone_number: nil)).to include(client)
+        end
+      end
+
+      context "with a client whose spouse email matches" do
+        let!(:client) { create(:client, intake: create(:intake, spouse_email_address: email_address))}
+
+        it "finds the client" do
+          expect(described_class.by_contact_info(email_address: "client@example.com", phone_number: nil)).to include(client)
+        end
+      end
+    end
+
+    context "given a phone number" do
+      let(:phone_number) { "+15105551234" }
+
+      context "with a client whose phone_number matches" do
+        let!(:client) { create(:client, intake: create(:intake, phone_number: phone_number))}
+
+        it "finds the client" do
+          expect(described_class.by_contact_info(email_address: nil, phone_number: phone_number)).to include(client)
+        end
+      end
+
+      context "with a client whose sms_phone_number matches" do
+        let!(:client) { create(:client, intake: create(:intake, sms_phone_number: phone_number))}
+
+        it "finds the client" do
+          expect(described_class.by_contact_info(email_address: nil, phone_number: phone_number)).to include(client)
+        end
+      end
+    end
+  end
+
+  describe "#login_link" do
+    let(:fake_time) { DateTime.new(2021, 1, 1) }
+    let(:client) { build(:client) }
+
+    before do
+      allow(Devise.token_generator).to receive(:generate).and_return(['raw_token', 'encrypted_token'])
+      allow(DateTime).to receive(:now).and_return(fake_time)
+    end
+
+    it "generates a new login URL" do
+      login_url = client.login_link
+      expect(login_url).to eq("http://test.host/en/portal/client_logins/raw_token/edit")
+      expect(Devise.token_generator).to have_received(:generate).with(Client, :login_token)
+      expect(client.reload.login_token).to eq('encrypted_token')
+      expect(client.reload.login_requested_at).to eq(fake_time)
     end
   end
 end
