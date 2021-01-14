@@ -81,54 +81,45 @@ class TaxReturn < ApplicationRecord
   end
 
   def sign_primary!(ip)
-    # if(already_signed)
-    #   raise "Our custom expection"
-    # end
-    # raise StandardError, 'Primary has already signed' if primary_has_signed?
+    raise AlreadySignedError if primary_has_signed?
 
-    return_value = ActiveRecord::Base.transaction do
+    sign_successful = ActiveRecord::Base.transaction do
       self.primary_signed_at = DateTime.current
       self.primary_signed_ip = ip
       self.primary_signature = client.legal_name
 
       if ready_to_file?
         self.status = :file_ready_to_file
-        create_signed_8879
+        Sign8879Service.create(self)
         client.set_attention_needed
       end
       save!
     end
-    # if(return_value)
-    #   return true
-    # else
-    #   raise "An error"
-    # end
+
+    raise FailedToSignReturnError if !sign_successful
+    true
   end
 
-  private
+  def sign_spouse!(ip)
+    raise AlreadySignedError if spouse_has_signed?
 
-  def create_signed_8879
-    unsigned8879 = documents.find_by(document_type: DocumentTypes::UnsignedForm8879.key)
-    document_writer = WriteToPdfDocumentService.new(unsigned8879, DocumentTypes::UnsignedForm8879)
-    document_writer.write(:primary_signature, primary_signature)
-    document_writer.write(:primary_signed_on, primary_signed_at.strftime("%m/%d/%Y"))
-    if spouse_has_signed?
-      document_writer.write(:spouse_signature, spouse_signature)
-      document_writer.write(:spouse_signed_on, spouse_signed_at.strftime("%m/%d/%Y"))
+    sign_successful = ActiveRecord::Base.transaction do
+      self.spouse_signed_at = DateTime.current
+      self.spouse_signed_ip = ip
+      self.spouse_signature = client.spouse_legal_name
+
+      if ready_to_file?
+        self.status = :file_ready_to_file
+        Sign8879Service.create(self)
+        client.set_attention_needed
+      end
+      save!
     end
-    tempfile = document_writer.tempfile_output
-    documents.create!(
-      client: client,
-      document_type: DocumentTypes::CompletedForm8879.key,
-      display_name: "Taxpayer Signed #{year} 8879",
-      upload: {
-        io: tempfile,
-        filename: "Signed-f8879.pdf",
-        content_type: "application/pdf",
-        identify: false
-      }
-    )
+
+    raise FailedToSignReturnError if !sign_successful
+    true
   end
 end
 
-class FailedToSignReturn < StandardError; end
+class FailedToSignReturnError < StandardError; end
+class AlreadySignedError < StandardError; end

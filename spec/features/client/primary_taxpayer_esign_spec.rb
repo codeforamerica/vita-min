@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Submitting an e-file signature" do
+RSpec.feature "Submitting a primary e-file signature" do
   let(:client) { create :client, intake: (create :intake, primary_first_name: "Martha", primary_last_name: "Mango") }
   let(:tax_return) { create :tax_return, year: 2019, client: client }
   let!(:document) do

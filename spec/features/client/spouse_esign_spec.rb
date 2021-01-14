@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Submitting an e-file signature" do
+RSpec.feature "Submitting a spouse e-file signature" do
   let(:client) { create :client,
                         intake:
                             (create :intake,

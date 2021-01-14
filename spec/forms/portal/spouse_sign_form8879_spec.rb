@@ -6,6 +6,38 @@ describe Portal::SpouseSignForm8879 do
   let(:fake_ip) { IPAddr.new }
   let(:params) { {} }
 
+  describe "validations" do
+    let(:tax_return) { create :tax_return }
+    let(:valid_params) {
+      {
+        spouse_accepts_terms: "yes",
+        spouse_confirms_identity: "yes"
+      }
+    }
+
+    subject { described_class.new(tax_return, valid_params) }
+
+    it "can be valid" do
+      expect(subject.valid?).to eq true
+    end
+
+    it "validates that spouse_accepts_terms equals 'yes'" do
+      subject.spouse_accepts_terms = "no"
+
+      subject.valid?
+
+      expect(subject.errors[:spouse_accepts_terms]).to be_present
+    end
+
+    it "validates that spouse_confirms_identity equals 'yes'" do
+      subject.spouse_confirms_identity = "no"
+
+      subject.valid?
+
+      expect(subject.errors[:spouse_confirms_identity]).to be_present
+    end
+  end
+
   describe ".permitted_params" do
     it "returns the permitted params for the form" do
       expect(described_class.permitted_params).to eq [:spouse_accepts_terms, :spouse_confirms_identity]
@@ -19,136 +51,40 @@ describe Portal::SpouseSignForm8879 do
   end
 
   context "#sign" do
-    let(:document_service_double) { double }
-    let(:client) { create :client, intake: (create :intake, primary_first_name: "Primary", primary_last_name: "Taxpayer", spouse_first_name: "Primary", spouse_last_name: "Taxpayer", timezone: "Central Time (US & Canada)") }
-    let(:tax_return) { create :tax_return, year: 2019, client: client }
-    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
-    let!(:request) { OpenStruct.new(remote_ip: fake_ip) }
+    let(:tax_return) { create :tax_return }
     let(:params) { { spouse_accepts_terms: 'yes', spouse_confirms_identity: 'yes', ip: fake_ip } }
 
-    before do
-      allow(tax_return).to receive(:filing_joint?).and_return true
-      allow(WriteToPdfDocumentService).to receive(:new).and_return document_service_double
-      allow(document_service_double).to receive(:tempfile_output).and_return Tempfile.new
-      allow(document_service_double).to receive(:write)
-    end
+    context "when the form fails validation" do
+      let(:params) { { spouse_accepts_terms: 'no', spouse_confirms_identity: 'yes', ip: fake_ip } }
 
-    context "when spouse_accepts_terms is no" do
-      let(:params) { { spouse_accepts_terms: 'no' } }
-
-      it "adds an error to the field" do
-        subject.sign
-        expect(subject.errors[:spouse_accepts_terms]).to be_present
+      it "returns false" do
+        expect(subject.sign).to eq false
       end
     end
 
-    context "when spouse_confirms_identity is 'no'" do
-      let(:params) { { spouse_accepts_terms: 'yes', spouse_confirms_identity: 'no' } }
-      it "adds an error to the field" do
-        subject.sign
-        expect(subject.errors.keys.first).to eq :spouse_confirms_identity
+    context "when the return is successfully signed" do
+      it "return true" do
+        expect(tax_return).to receive(:sign_spouse!).with(fake_ip).and_return(true)
+
+        expect(subject.sign).to eq true
       end
     end
 
-    context "when the primary taxpayer has not signed" do
-      before do
-        allow(tax_return).to receive(:primary_has_signed?).and_return false
-      end
+    context "when the signing process raises AlreadySignedError" do
+      it "returns false and adds errors" do
+        expect(tax_return).to receive(:sign_spouse!).and_raise(AlreadySignedError)
 
-      it "updates the tax_return with primary signature fields" do
-        expect { subject.sign }
-          .to change(tax_return, :spouse_signed_at)
-          .and change(tax_return, :spouse_signature)
-          .and change(tax_return, :spouse_signed_ip)
-      end
-
-      it "does not create a document, change tax return status, or set needs attention" do
-        expect { subject.sign }
-          .to not_change(tax_return.documents, :count)
-          .and not_change(tax_return, :status)
-          .and not_change(tax_return.client, :attention_needed_since)
+        expect(subject.sign).to eq false
+        expect(subject.errors[:transaction_failed]).to be_present
       end
     end
 
+    context "when the signing process raises FailedToSignReturnError" do
+      it "returns false and adds errors" do
+        expect(tax_return).to receive(:sign_spouse!).and_raise(FailedToSignReturnError)
 
-    context "when the primary taxpayer has signed" do
-      before do
-        tax_return.update(primary_signed_at: DateTime.now, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer")
-      end
-
-      context "creating the pdf" do
-        it "writes the primary taxpayers legal name to the document" do
-          subject.sign
-          expect(document_service_double).to have_received(:write).with(:primary_signature, "Primary Taxpayer")
-        end
-
-        it "writes today's date to the document, formatted mm/dd/yyyy" do
-          subject.sign
-          expect(document_service_double).to have_received(:write).with(:primary_signed_on, Date.today.strftime("%m/%d/%Y"))
-        end
-
-        it "creates a signed document for the tax return" do
-          expect { subject.sign }.to change(tax_return.documents, :count).by 1
-          new_doc = Document.last
-          expect(new_doc.document_type).to eq "Form 8879 (Signed)"
-          expect(new_doc.display_name).to eq "Taxpayer Signed 2019 8879"
-        end
-
-        it "saves the spouse_signed_on date and spouse_signed_ip to the tax return" do
-          expect { subject.sign }.to change(tax_return, :spouse_signed_at).and change(tax_return, :spouse_signed_ip).to(fake_ip)
-        end
-
-        it "updates the tax return's client to needs_attention" do
-          expect {
-            subject.sign
-          }.to change(tax_return.client, :needs_attention?).to(true)
-        end
-
-        it "updates the tax return's status to ready to file" do
-          expect {
-            subject.sign
-          }.to change(tax_return, :status).to("file_ready_to_file")
-        end
-
-        it "returns true" do
-          expect(subject.sign).to eq true
-        end
-      end
-
-      context "when document creation fails" do
-        before do
-          allow(tax_return.documents).to receive(:create!).and_raise ActiveRecord::Rollback
-        end
-
-        it "does not update the other tax_return signature fields" do
-          expect {
-            subject.sign
-            tax_return.reload
-          }.to not_change(tax_return, :spouse_signed_at).and not_change(tax_return, :spouse_signed_ip)
-        end
-
-        it "adds an error to the form object" do
-          subject.sign
-          expect(subject.errors[:transaction_failed]).to be_present
-        end
-      end
-
-      context "when tax_return update fails" do
-        before do
-          allow(tax_return).to receive(:save!).and_raise ActiveRecord::Rollback
-        end
-
-        it "does not save the document" do
-          expect {
-            subject.sign
-            tax_return.reload
-          }.to not_change(tax_return.documents, :count)
-        end
-
-        it "pushes an error to the form object" do
-          subject.sign
-          expect(subject.errors[:transaction_failed]).to be_present
-        end
+        expect(subject.sign).to eq false
+        expect(subject.errors[:transaction_failed]).to be_present
       end
     end
   end

@@ -371,33 +371,19 @@ describe TaxReturn do
     let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
 
     before do
-      allow(tax_return).to receive(:filing_joint?).and_return false
-      allow(WriteToPdfDocumentService).to receive(:new).and_return document_service_double
-      allow(document_service_double).to receive(:tempfile_output).and_return Tempfile.new
-      allow(document_service_double).to receive(:write)
+      allow(Sign8879Service).to receive(:create)
     end
 
     context "when we dont need a spouse signature and can create the 8879 document" do
       context "when the transaction is successful" do
-        it "writes the primary taxpayers legal name to the document" do
+        it "creates a signed document" do
+          expect(Sign8879Service).to receive(:create).with(tax_return)
+
           tax_return.sign_primary!(fake_ip)
-          expect(document_service_double).to have_received(:write).with(:primary_signature, "Primary Taxpayer")
         end
 
-        it "writes today's date to the document, formatted mm/dd/yyyy" do
-          tax_return.sign_primary!(fake_ip)
-          expect(document_service_double).to have_received(:write).with(:primary_signed_on, Date.today.strftime("%m/%d/%Y"))
-        end
-
-        it "creates a signed document for the tax return" do
-          expect { tax_return.sign_primary!(fake_ip) }.to change(tax_return.documents, :count).by 1
-          new_doc = Document.last
-          expect(new_doc.document_type).to eq "Form 8879 (Signed)"
-          expect(new_doc.display_name).to eq "Taxpayer Signed 2019 8879"
-        end
-
-        it "saves the primary_signed_on date and primary_signed_ip to the tax return" do
-          expect { tax_return.sign_primary!(fake_ip) }.to change(tax_return, :primary_signed_at).and change(tax_return, :primary_signed_ip).to(fake_ip)
+        it "saves the primary_signed_at date, primary_signed_ip, and primary signature to the tax return" do
+          expect { tax_return.sign_primary!(fake_ip) }.to change(tax_return, :primary_signed_at).and change(tax_return, :primary_signed_ip).to(fake_ip).and change(tax_return, :primary_signature).to("Primary Taxpayer")
         end
 
         it "updates the tax return's client to needs_attention" do
@@ -419,12 +405,15 @@ describe TaxReturn do
 
       context "when document creation fails" do
         before do
-          allow(tax_return.documents).to receive(:create!).and_raise ActiveRecord::Rollback
+          allow(Sign8879Service).to receive(:create).and_raise ActiveRecord::Rollback
         end
 
         it "does not update the other tax_return signature fields" do
           expect {
-            tax_return.sign_primary!(fake_ip)
+            begin
+              tax_return.sign_primary!(fake_ip)
+            rescue FailedToSignReturnError
+            end
             tax_return.reload
           }.to not_change(tax_return, :primary_signed_at).and not_change(tax_return, :primary_signed_ip)
         end
@@ -437,7 +426,10 @@ describe TaxReturn do
 
         it "does not save the document" do
           expect {
-            tax_return.sign_primary!(fake_ip)
+            begin
+              tax_return.sign_primary!(fake_ip)
+            rescue FailedToSignReturnError
+            end
             tax_return.reload
           }.to not_change(tax_return.documents, :count)
         end
@@ -445,14 +437,14 @@ describe TaxReturn do
         it "raises an exception" do
           expect {
             tax_return.sign_primary!(fake_ip)
-          }.to raise_error(FailedToSignReturn)
+          }.to raise_error(FailedToSignReturnError)
         end
       end
     end
 
     context "we're waiting on a spouse signature before we make the document" do
       before do
-        allow(tax_return).to receive(:filing_joint?).and_return true
+        tax_return.client.intake.filing_joint = "yes"
       end
 
       it "updates the tax_return with primary signature fields" do
@@ -463,10 +455,136 @@ describe TaxReturn do
       end
 
       it "does not create a document, change tax return status, or set needs attention" do
+        expect(Sign8879Service).to_not receive(:create)
+
         expect { tax_return.sign_primary!(fake_ip) }
-          .to not_change(tax_return.documents, :count)
-                .and not_change(tax_return, :status)
+          .to not_change(tax_return, :status)
                        .and not_change(tax_return.client, :attention_needed_since)
+      end
+    end
+
+    context "the return is already signed" do
+      context "the primary has already signed" do
+        let(:tax_return) { create :tax_return, year: 2019, client: client, primary_signature: "Charles Clementine", primary_signed_ip: "127.0.10.1", primary_signed_at: DateTime.current }
+
+        it "raises and error" do
+          expect {
+            tax_return.sign_primary!(fake_ip)
+          }.to raise_error(AlreadySignedError)
+        end
+      end
+    end
+  end
+
+  describe "#sign_spouse!" do
+    let(:fake_ip) { IPAddr.new }
+    let(:document_service_double) { double }
+    let(:client) { create :client,
+                          intake: (create :intake,
+                                          primary_first_name: "Primary",
+                                          primary_last_name: "Taxpayer",
+                                          spouse_first_name: "Spouse",
+                                          spouse_last_name: "Taxpayer"
+                                          )
+    }
+    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
+
+    before do
+      allow(Sign8879Service).to receive(:create)
+    end
+
+    context "when the primary has already signed and we can create the 8879 document" do
+      let(:tax_return) { create :tax_return, year: 2019, client: client, primary_signature: "Primary Taxpayer", primary_signed_at: DateTime.current, primary_signed_ip: fake_ip }
+
+      context "when the transaction is successful" do
+        it "creates a signed document" do
+          expect(Sign8879Service).to receive(:create).with(tax_return)
+
+          tax_return.sign_spouse!(fake_ip)
+        end
+
+        it "saves the spouse_signed_at date, spouse_signed_ip and spouse_signature to the tax return" do
+          expect {
+            tax_return.sign_spouse!(fake_ip)
+            tax_return.reload
+          }.to change(tax_return, :spouse_signed_at).and change(tax_return, :spouse_signed_ip).to(fake_ip).and change(tax_return, :spouse_signature).to("Spouse Taxpayer")
+        end
+
+        it "updates the tax return's client to needs_attention" do
+          expect {
+            tax_return.sign_spouse!(fake_ip)
+          }.to change(tax_return.client, :needs_attention?).to(true)
+        end
+
+        it "updates the tax return's status to ready to file" do
+          expect {
+            tax_return.sign_spouse!(fake_ip)
+          }.to change(tax_return, :status).to("file_ready_to_file")
+        end
+
+        it "returns true" do
+          expect(tax_return.sign_spouse!(fake_ip)).to eq true
+        end
+      end
+
+      context "when document creation fails" do
+        before do
+          allow(Sign8879Service).to receive(:create).and_raise ActiveRecord::Rollback
+        end
+
+        it "does not update the other tax_return signature fields" do
+          expect {
+            begin
+              tax_return.sign_spouse!(fake_ip)
+            rescue FailedToSignReturnError
+            end
+            tax_return.reload
+          }.to not_change { tax_return }
+        end
+      end
+
+      context "when tax_return update fails" do
+        before do
+          allow(tax_return).to receive(:save!).and_raise ActiveRecord::Rollback
+        end
+
+        it "raises an exception" do
+          expect {
+            tax_return.sign_spouse!(fake_ip)
+          }.to raise_error(FailedToSignReturnError)
+        end
+      end
+    end
+
+    context "we're waiting on a primary signature before we make the document" do
+      let(:tax_return) { create :tax_return, year: 2019, client: client, primary_signature: nil, primary_signed_at: nil, primary_signed_ip: nil }
+      before do
+        tax_return.client.intake.filing_joint = "yes"
+      end
+
+      it "updates the tax_return with spouse signature fields" do
+        expect { tax_return.sign_spouse!(fake_ip) }
+          .to change(tax_return, :spouse_signed_at)
+                .and change(tax_return, :spouse_signature)
+                       .and change(tax_return, :spouse_signed_ip)
+      end
+
+      it "does not create a document, change tax return status, or set needs attention" do
+        expect(Sign8879Service).to_not receive(:create)
+
+        expect { tax_return.sign_spouse!(fake_ip) }.to not_change(tax_return, :status).and not_change(tax_return.client, :attention_needed_since)
+      end
+    end
+
+    context "the return is already signed" do
+      context "the spouse has already signed" do
+        let(:tax_return) { create :tax_return, year: 2019, client: client, spouse_signature: "Charles Clementine", spouse_signed_ip: "127.0.10.1", spouse_signed_at: DateTime.current }
+
+        it "raises and error" do
+          expect {
+            tax_return.sign_spouse!(fake_ip)
+          }.to raise_error(AlreadySignedError)
+        end
       end
     end
   end

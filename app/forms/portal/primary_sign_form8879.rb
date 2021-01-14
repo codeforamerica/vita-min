@@ -11,25 +11,14 @@ module Portal
 
     def sign
       return false unless valid?
-      @tax_return.sign_primary!()
-      # if @tax_return.sign_primary!(ip)
-      #   return true
-      # else
-      #   errors.add(:transaction_failed)
-      #   return false
-      # end
-
 
       begin
         @tax_return.sign_primary!(ip)
-        return true
-      rescue ExceptionWithResponse
+      rescue ::AlreadySignedError, ::FailedToSignReturnError
         errors.add(:transaction_failed)
-        return false
+        false
       end
     end
-
-    private
 
     def self.permitted_params
       [:primary_accepts_terms, :primary_confirms_identity]
@@ -45,7 +34,4 @@ module Portal
       errors.add(:primary_confirms_identity, :blank) unless primary_confirms_identity == "yes"
     end
   end
-
-  class NotReadyToSignError < StandardError; end
-  class AlreadySignedError < StandardError; end
 end
