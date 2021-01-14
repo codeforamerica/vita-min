@@ -27,7 +27,7 @@ RSpec.feature "Search for VITA locations" do
       expect(page).to have_text "1. Chinese Newcomers Service Ctr"
       expect(page).to have_text "2. Chinese Newcomers - VITA"
 
-      expect(page).to have_link("Next", href: vita_providers_path(zip: "94609", page: "2", utf8: "✓"))
+      expect(page).to have_link("Next", href: vita_providers_path(zip: "94609", page: "2"))
 
       click_on "2"
 
