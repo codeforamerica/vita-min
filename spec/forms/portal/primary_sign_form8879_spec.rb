@@ -22,12 +22,12 @@ describe Portal::PrimarySignForm8879 do
     let(:document_service_double) { double }
     let(:client) { create :client, intake: (create :intake, primary_first_name: "Primary", primary_last_name: "Taxpayer", timezone: "Central Time (US & Canada)") }
     let(:tax_return) { create :tax_return, year: 2019, client: client }
-    let!(:document) { create :document, document_type: DocumentTypes::Form8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
+    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
     let!(:request) { OpenStruct.new(remote_ip: fake_ip) }
     let(:params) { { primary_accepts_terms: 'yes', primary_confirms_identity: 'yes', ip: fake_ip } }
 
     before do
-      allow(tax_return).to receive(:only_needs_primary_signature?).and_return true
+      allow(tax_return).to receive(:filing_joint?).and_return false
       allow(WriteToPdfDocumentService).to receive(:new).and_return document_service_double
       allow(document_service_double).to receive(:tempfile_output).and_return Tempfile.new
       allow(document_service_double).to receive(:write)
@@ -129,7 +129,7 @@ describe Portal::PrimarySignForm8879 do
 
     context "we're waiting on a spouse signature before we make the document" do
       before do
-        allow(tax_return).to receive(:only_needs_primary_signature?).and_return false
+        allow(tax_return).to receive(:filing_joint?).and_return true
       end
 
       it "updates the tax_return with primary signature fields" do

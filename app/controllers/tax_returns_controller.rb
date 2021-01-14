@@ -1,8 +1,8 @@
 class TaxReturnsController < ApplicationController
   before_action :block_access_on_production, only: [:authorize_signature, :sign, :success]
   before_action :load_tax_return, except: [:success]
-  before_action :redirect_unless_primary_signature_required, only: [:sign, :authorize_signature]
   before_action :redirect_unless_spouse_signature_required, only: [:spouse_sign, :spouse_authorize_signature]
+  before_action :redirect_unless_primary_signature_required, only: [:sign, :authorize_signature]
 
   def authorize_signature
     @primary_signer = true
@@ -53,34 +53,20 @@ class TaxReturnsController < ApplicationController
       .merge(ip: request.remote_ip)
   end
 
-  def redirect_unless_primary_signature_required
-    if @tax_return.primary_has_signed?
+  def redirect_unless_signature_required(signature_type)
+    unless @tax_return.ready_for_signature?(signature_type)
       flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
-      return redirect_to :root
+      redirect_to :root
     end
-    check_for_forms
+  end
+
+  def redirect_unless_primary_signature_required
+    redirect_unless_signature_required(TaxReturn::PRIMARY_SIGNATURE)
   end
 
   def redirect_unless_spouse_signature_required
-    if @tax_return.only_needs_primary_signature? || @tax_return.spouse_has_signed?
-      flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
-      return redirect_to :root
-    end
-    check_for_forms
+    redirect_unless_signature_required(TaxReturn::SPOUSE_SIGNATURE)
   end
-
-  def check_for_forms
-    if @tax_return.documents.find_by(document_type: DocumentTypes::CompletedForm8879.key).present?
-      flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.already_signed")
-      return redirect_to :root
-    end
-
-    unless @tax_return.documents.find_by(document_type: DocumentTypes::Form8879.key).present?
-      flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.not_ready_to_sign")
-      return redirect_to :root
-    end
-  end
-
 
   # This is a WIP MVP feature that isn't ready for prime time, but we want to get it onto demo for testing.
   # Let's send anyone trying to access this on prod back to root.

@@ -30,9 +30,9 @@ module Portal
     private
 
     def create_signed_8879
-      unsigned8879 = @tax_return.documents.find_by(document_type: DocumentTypes::Form8879.key)
+      unsigned8879 = @tax_return.documents.find_by(document_type: DocumentTypes::UnsignedForm8879.key)
       timezone = @tax_return.client.intake.timezone || "America/New York"
-      @document_writer = WriteToPdfDocumentService.new(unsigned8879, DocumentTypes::Form8879)
+      @document_writer = WriteToPdfDocumentService.new(unsigned8879, DocumentTypes::UnsignedForm8879)
       @document_writer.write(:primary_signature, @tax_return.primary_signature)
       @document_writer.write(:primary_signed_on, @tax_return.primary_signed_at.in_time_zone(timezone).strftime("%m/%d/%Y"))
       if @tax_return.spouse_has_signed?

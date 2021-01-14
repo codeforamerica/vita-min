@@ -143,6 +143,148 @@ describe TaxReturn do
     end
   end
 
+  describe "filing_joint" do
+    context "the associated client intake is not filing joint" do
+      let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
+      let(:tax_return) {
+        create :tax_return,
+               client: client
+      }
+      it "returns false" do
+        expect(tax_return.filing_joint?).to eq false
+
+      end
+    end
+
+    context "the associated client intake is filing joint" do
+      let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
+      let(:tax_return) {
+        create :tax_return,
+               client: client
+      }
+      it "returns true" do
+        expect(tax_return.filing_joint?).to eq true
+      end
+    end
+
+  end
+
+  describe "#ready_for_signature?" do
+    let(:tax_return) { create :tax_return }
+
+    context "when signed 8879 already exists" do
+      before do
+        create :document,
+              document_type: DocumentTypes::CompletedForm8879.key,
+              tax_return: tax_return,
+              client: tax_return.client,
+              upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
+      end
+
+      it "returns false" do
+        expect(tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
+      end
+    end
+
+    context "when uploaded 8879 does not exist" do
+      it "return false" do
+        expect(tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
+      end
+    end
+
+    context "when unsigned 8879 already exists and signed 8879 does not exist" do
+      before do
+        create :document,
+              document_type: DocumentTypes::UnsignedForm8879.key,
+              tax_return: tax_return,
+              client: tax_return.client,
+              upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
+      end
+
+      context "checking for primary" do
+        context "the primary hasn't signed yet" do
+          it "returns true" do
+            expect(tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq true
+          end
+        end
+
+        context "the primary has signed" do
+          let(:primary_signed_tax_return) {
+            create :tax_return,
+                   primary_signature: "Bob Pineapple",
+                   primary_signed_ip: "127.0.0.1",
+                   primary_signed_at: DateTime.current
+          }
+
+          before do
+            create :document,
+                   document_type: DocumentTypes::UnsignedForm8879.key,
+                   tax_return: primary_signed_tax_return,
+                   client: primary_signed_tax_return.client,
+                   upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
+          end
+
+          it "returns false" do
+            expect(primary_signed_tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
+          end
+        end
+      end
+
+      context "checking for spouse" do
+        context "the spouse signature is not required for filing status" do
+          let(:client) { create :client, intake: (create :intake, filing_joint: "no") }
+          let(:spouse_not_required_tax_return) {
+            create :tax_return,
+                   client: client
+          }
+          before do
+            create :document,
+                   document_type: DocumentTypes::UnsignedForm8879.key,
+                   tax_return: spouse_not_required_tax_return,
+                   client: spouse_not_required_tax_return.client,
+                   upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
+          end
+
+          it "returns false" do
+            expect(spouse_not_required_tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq false
+          end
+        end
+
+        context "spouse signature is required and the spouse hasn't signed yet" do
+          let(:client) { create :client, intake: (create :intake, filing_joint: "yes") }
+          let(:tax_return) {
+            create :tax_return,
+                   client: client
+          }
+          it "returns true" do
+            expect(tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq true
+          end
+        end
+
+        context "the spouse has signed" do
+          let(:spouse_signed_tax_return) {
+            create :tax_return,
+                   spouse_signature: "Jane Pineapple",
+                   spouse_signed_ip: "127.0.0.99",
+                   spouse_signed_at: DateTime.current
+          }
+
+          before do
+            create :document,
+                   document_type: DocumentTypes::UnsignedForm8879.key,
+                   tax_return: spouse_signed_tax_return,
+                   client: spouse_signed_tax_return.client,
+                   upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
+          end
+
+          it "returns false" do
+            expect(spouse_signed_tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq false
+          end
+        end
+      end
+    end
+  end
+
   describe ".grouped_statuses" do
     let(:result) { TaxReturnStatus::STATUSES_BY_STAGE }
 

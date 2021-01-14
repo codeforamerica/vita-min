@@ -31,6 +31,8 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class TaxReturn < ApplicationRecord
+  PRIMARY_SIGNATURE = "primary".freeze
+  SPOUSE_SIGNATURE = "spouse".freeze
   belongs_to :client
   belongs_to :assigned_user, class_name: "User", optional: true
   has_many :documents
@@ -55,14 +57,22 @@ class TaxReturn < ApplicationRecord
   end
 
   def primary_has_signed?
-    primary_signed_at? && primary_signed_ip? && primary_signature
+    primary_signature.present? && primary_signed_at? && primary_signed_ip?
   end
 
   def spouse_has_signed?
-    spouse_signed_at? && spouse_signed_ip? && spouse_signature
+    spouse_signature.present? && spouse_signed_at? && spouse_signed_ip?
   end
 
-  def only_needs_primary_signature?
-    !client.intake.filing_joint?
+  def filing_joint?
+    client.intake.filing_joint_yes?
+  end
+
+  def ready_for_signature?(signature_type)
+    return false if signature_type == TaxReturn::PRIMARY_SIGNATURE && primary_has_signed?
+    return false if signature_type == TaxReturn::SPOUSE_SIGNATURE && (spouse_has_signed? || !filing_joint?)
+    return false if documents.find_by(document_type: DocumentTypes::CompletedForm8879.key).present?
+
+    documents.find_by(document_type: DocumentTypes::UnsignedForm8879.key).present?
   end
 end

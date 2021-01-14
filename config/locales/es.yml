@@ -252,8 +252,10 @@ es:
           invalid_email_or_password: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean durante 30 minutos.
     tax_returns_controller:
       errors:
-        primary_accepts_terms: Haga clic en la casilla de verificación autorizar para continuar.
-        primary_confirms_identity: Confirme que es el contribuyente que figura en la lista para continuar.
+        primary_accepts_terms: &accepts_terms Haga clic en la casilla de verificación autorizar para continuar.
+        spouse_accepts_terms: *accepts_terms
+        primary_confirms_identity: &confirms_identity Confirme que es el contribuyente que figura en la lista para continuar.
+        spouse_confirms_identity: *confirms_identity
         transaction_failed: Error al firmar la declaración de impuestos. Inténtelo de nuevo o póngase en contacto con el servicio de asistencia.
         cannot_sign: Este formulario de declaración de impuestos no se puede firmar.
         already_signed: Este formulario de declaración de impuestos ya ha sido firmado.
@@ -1707,6 +1709,7 @@ es:
     authorize_signature:
       efile_acceptance: Autorizo a GetYourRefund a ingresar o generar mi PIN como firma mía en mi declaración de impuestos del año %{year} que presentó electrónicamente.
       efile_identity_primary: Confirmo que soy %{name}, que figura como contribuyente en este documento fiscal de %{year}.
+      efile_identity_spouse: Confirmo que soy %{spouse_name}, que figura como cónyuge del contribuyente %{primary_name} en este documento fiscal de %{year}.
       heading: "¡Entregue su firma electrónica/e-file final!"
       subheader: Usted declara que ha examinado una copia de su declaración electrónica individual de impuestos y los calendarios acompañantes y estados de cuenta para el año fiscal que termina el 31 de diciembre de %{year}, y que en la mejor inteligencia da fe de que son verdaderos, correctos y completos.
       full_declaration:

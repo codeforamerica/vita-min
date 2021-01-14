@@ -17,7 +17,7 @@ describe TaxReturnsController do
         create :document,
                tax_return: tax_return,
                client: tax_return.client,
-               document_type: DocumentTypes::Form8879.key
+               document_type: DocumentTypes::UnsignedForm8879.key
       end
 
       it "renders a template" do
@@ -53,7 +53,7 @@ describe TaxReturnsController do
     let(:params) { { tax_return_id: tax_return.id } }
 
     before do
-      allow_any_instance_of(TaxReturn).to receive(:only_needs_primary_signature?).and_return false
+      allow_any_instance_of(TaxReturn).to receive(:filing_joint?).and_return true
     end
 
     context "without a tax form that is ready to sign" do
@@ -69,7 +69,7 @@ describe TaxReturnsController do
         create :document,
                tax_return: tax_return,
                client: tax_return.client,
-               document_type: DocumentTypes::Form8879.key
+               document_type: DocumentTypes::UnsignedForm8879.key
       end
 
       it "renders a template" do
@@ -100,7 +100,7 @@ describe TaxReturnsController do
         }
         let!(:document_to_sign) {
           create :document,
-                 document_type: DocumentTypes::Form8879.key,
+                 document_type: DocumentTypes::UnsignedForm8879.key,
                  tax_return: tax_return,
                  client: tax_return.client,
                  upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
@@ -110,7 +110,7 @@ describe TaxReturnsController do
 
         it "redirects to homepage" do
           post :sign, params: params
-          expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.already_signed")
+          expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
           expect(response).to redirect_to root_path
         end
       end
@@ -121,7 +121,7 @@ describe TaxReturnsController do
 
         it "redirects to home" do
           post :sign, params: params
-          expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.not_ready_to_sign")
+          expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
           expect(response).to redirect_to root_path
         end
       end
@@ -142,7 +142,7 @@ describe TaxReturnsController do
       let(:params) { { tax_return_id: tax_return.id, portal_primary_sign_form8879: { primary_accepts_terms: "yes", primary_confirms_identity: "yes" } } }
       let!(:document_to_sign) {
         create :document,
-               document_type: DocumentTypes::Form8879.key,
+               document_type: DocumentTypes::UnsignedForm8879.key,
                tax_return: tax_return,
                client: tax_return.client,
                upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
@@ -210,9 +210,8 @@ describe TaxReturnsController do
   describe "#spouse_sign" do
     let(:tax_return) { create :tax_return, client: (create :client, intake: (create :intake, filing_joint: "no")) }
     before do
-      allow_any_instance_of(TaxReturn).to receive(:only_needs_primary_signature?).and_return false
+      allow_any_instance_of(TaxReturn).to receive(:filing_joint?).and_return true
     end
-
     context "tax return cannot be signed" do
 
       context "because the signed tax return document is already created" do
@@ -225,7 +224,7 @@ describe TaxReturnsController do
         }
         let!(:document_to_sign) {
           create :document,
-                 document_type: DocumentTypes::Form8879.key,
+                 document_type: DocumentTypes::UnsignedForm8879.key,
                  tax_return: tax_return,
                  client: tax_return.client,
                  upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
@@ -235,7 +234,7 @@ describe TaxReturnsController do
 
         it "redirects to homepage" do
           post :spouse_sign, params: params
-          expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.already_signed")
+          expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
           expect(response).to redirect_to root_path
         end
       end
@@ -246,7 +245,7 @@ describe TaxReturnsController do
 
         it "redirects to home" do
           post :spouse_sign, params: params
-          expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.not_ready_to_sign")
+          expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
           expect(response).to redirect_to root_path
         end
       end
@@ -256,7 +255,7 @@ describe TaxReturnsController do
         let(:params) { { tax_return_id: tax_return.id } }
 
         before do
-          allow_any_instance_of(TaxReturn).to receive(:only_needs_primary_signature?).and_return true
+          allow_any_instance_of(TaxReturn).to receive(:filing_joint?).and_return false
         end
 
         it "redirects to home" do
@@ -283,12 +282,12 @@ describe TaxReturnsController do
 
       before do
         create :document,
-               document_type: DocumentTypes::Form8879.key,
+               document_type: DocumentTypes::UnsignedForm8879.key,
                tax_return: tax_return,
                client: tax_return.client,
                upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
 
-        allow_any_instance_of(TaxReturn).to receive(:only_needs_primary_signature?).and_return false
+        allow_any_instance_of(TaxReturn).to receive(:filing_joint?).and_return true
       end
 
       it "sets @tax_return from the params[:tax_return_id]" do
