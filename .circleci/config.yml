@@ -22,6 +22,7 @@ commands:
           command: |
             sudo apt-get update && \
             sudo apt-get install -y pdftk ghostscript && \
+            gem install bundler:2.2.5 && \
             bundle install --jobs=4 --retry=3 --path vendor/bundle && \
             npm install yarn && \
             yarn install
