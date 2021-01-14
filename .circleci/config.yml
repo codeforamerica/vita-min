@@ -37,7 +37,7 @@ jobs:
       - run: bundle exec rake db:schema:load
       - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
       - run: |
-          bundle exec rspec \
+          RAILS_CACHE_CLASSES=1 bundle exec rspec \
               --format RspecJunitFormatter \
               --out ~/test-results/rspec/rspec.xml \
               --format progress \

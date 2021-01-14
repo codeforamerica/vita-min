@@ -1,20 +1,20 @@
 ##
-# provides constants indicating severity
-# the strings associated with the constants match the method names and
-# severity in `logger.rb` for ease of programmability
-module Severity
-  DEBUG = 'debug'.freeze
-  INFO = 'info'.freeze
-  WARN = 'warn'.freeze
-  ERROR = 'error'.freeze
-  FATAL = 'fatal'.freeze
-  UNKNOWN = 'unknown'.freeze
-end
-
-##
 # provides functions for recording error information for traceability. submits
 # to both the rails logger and to Raven (Sentry).
 module ConsolidatedTraceHelper
+
+  ##
+  # provides constants indicating severity
+  # the strings associated with the constants match the method names and
+  # severity in `logger.rb` for ease of programmability
+  module Severity
+    DEBUG = 'debug'.freeze
+    INFO = 'info'.freeze
+    WARN = 'warn'.freeze
+    ERROR = 'error'.freeze
+    FATAL = 'fatal'.freeze
+    UNKNOWN = 'unknown'.freeze
+  end
 
   ##
   # when wrapped around a block of code, this will add the included
