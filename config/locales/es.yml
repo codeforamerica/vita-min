@@ -255,6 +255,7 @@ es:
         primary_accepts_terms: Haga clic en la casilla de verificación autorizar para continuar.
         primary_confirms_identity: Confirme que es el contribuyente que figura en la lista para continuar.
         transaction_failed: Error al firmar la declaración de impuestos. Inténtelo de nuevo o póngase en contacto con el servicio de asistencia.
+        cannot_sign: Este formulario de declaración de impuestos no se puede firmar.
         already_signed: Este formulario de declaración de impuestos ya ha sido firmado.
         not_ready_to_sign: Este formulario de declaración de impuestos no está listo para ser firmado.
   date:

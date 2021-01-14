@@ -1,7 +1,8 @@
 class TaxReturnsController < ApplicationController
   before_action :block_access_on_production, only: [:authorize_signature, :sign, :success]
   before_action :load_tax_return, except: [:success]
-  before_action :check_for_forms, only: [:sign, :authorize_signature]
+  before_action :redirect_unless_primary_signature_required, only: [:sign, :authorize_signature]
+  before_action :redirect_unless_spouse_signature_required, only: [:spouse_sign, :spouse_authorize_signature]
 
   def authorize_signature
     @primary_signer = true
@@ -16,7 +17,8 @@ class TaxReturnsController < ApplicationController
   end
 
   def sign
-    @form = Portal::PrimarySignForm8879.new(@tax_return, permitted_params)
+    form_class = Portal::PrimarySignForm8879
+    @form = form_class.new(@tax_return, permitted_params(form_class))
     if @form.sign
       redirect_to tax_return_success_path(params[:tax_return_id])
     else
@@ -26,7 +28,14 @@ class TaxReturnsController < ApplicationController
   end
 
   def spouse_sign
-
+    form_class = Portal::SpouseSignForm8879
+    @form = form_class.new(@tax_return, permitted_params(form_class))
+    if @form.sign
+      redirect_to tax_return_success_path(params[:tax_return_id])
+    else
+      flash.now[:alert] = I18n.t("controllers.tax_returns_controller.errors.#{@form.errors.keys.first}")
+      render :authorize_signature
+    end
   end
 
   def success; end
@@ -34,14 +43,30 @@ class TaxReturnsController < ApplicationController
   private
 
   def load_tax_return
-    @tax_return = TaxReturn.find(params[:tax_return_id])
+    @tax_return = TaxReturn.includes(client: [:intake]).find(params[:tax_return_id])
   end
 
-  def permitted_params
+  def permitted_params(form_class)
     params
-      .require(Portal::SignForm8879.form_param)
-      .permit(:primary_accepts_terms, :primary_confirms_identity)
+      .require(form_class.form_param)
+      .permit(*form_class.permitted_params)
       .merge(ip: request.remote_ip)
+  end
+
+  def redirect_unless_primary_signature_required
+    if @tax_return.primary_has_signed?
+      flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
+      return redirect_to :root
+    end
+    check_for_forms
+  end
+
+  def redirect_unless_spouse_signature_required
+    if @tax_return.only_needs_primary_signature? || @tax_return.spouse_has_signed?
+      flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
+      return redirect_to :root
+    end
+    check_for_forms
   end
 
   def check_for_forms
@@ -55,6 +80,7 @@ class TaxReturnsController < ApplicationController
       return redirect_to :root
     end
   end
+
 
   # This is a WIP MVP feature that isn't ready for prime time, but we want to get it onto demo for testing.
   # Let's send anyone trying to access this on prod back to root.

@@ -5,6 +5,13 @@ describe Portal::SpouseSignForm8879 do
 
   let(:fake_ip) { IPAddr.new }
   let(:params) { {} }
+
+  describe ".permitted_params" do
+    it "returns the permitted params for the form" do
+      expect(described_class.permitted_params).to eq [:spouse_accepts_terms, :spouse_confirms_identity]
+    end
+  end
+
   context "when there is no form 8879 available on the tax return to sign" do
     it "raises an error" do
       expect { subject }.to raise_error StandardError

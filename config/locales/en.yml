@@ -251,9 +251,12 @@ en:
           invalid_email_or_password: Incorrect email or password. After 5 login attempts, accounts are locked for 30 minutes.
     tax_returns_controller:
       errors:
-        primary_accepts_terms: Please click the authorize checkbox to continue.
-        primary_confirms_identity: Please confirm that you are the listed taxpayer to continue.
+        primary_accepts_terms: &accepts_terms Please click the authorize checkbox to continue.
+        spouse_accepts_terms: *accepts_terms
+        primary_confirms_identity: &confirms_identity Please confirm that you are the listed taxpayer to continue.
+        spouse_confirms_identity: *confirms_identity
         transaction_failed: Error signing tax return. Try again or contact support.
+        cannot_sign: This tax return form cannot be signed.
         already_signed: This tax return form has already been signed.
         not_ready_to_sign: This tax return form is not ready to be signed.
   date:

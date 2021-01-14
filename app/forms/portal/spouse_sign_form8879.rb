@@ -53,6 +53,10 @@ module Portal
       )
     end
 
+    def self.permitted_params
+      [:spouse_accepts_terms, :spouse_confirms_identity]
+    end
+
     private
 
     def terms_accepted

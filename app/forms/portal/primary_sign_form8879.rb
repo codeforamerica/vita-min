@@ -53,6 +53,10 @@ module Portal
       )
     end
 
+    def self.permitted_params
+      [:primary_accepts_terms, :primary_confirms_identity]
+    end
+
     private
 
     def terms_accepted
