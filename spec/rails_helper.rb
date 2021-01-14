@@ -18,6 +18,7 @@ else
   Capybara.javascript_driver = :selenium_chrome_headless
 end
 Capybara.server = :puma, { Silent: true }
+Capybara.server_host = '127.0.0.1'
 Capybara.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
 
 # Prevent database truncation if the environment is production
