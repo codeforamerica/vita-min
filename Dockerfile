@@ -27,6 +27,7 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
 ADD Gemfile /app/
 ADD Gemfile.lock /app/
 WORKDIR /app
+RUN gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ")
 RUN bundle install --without test development
 
 ADD . /app
