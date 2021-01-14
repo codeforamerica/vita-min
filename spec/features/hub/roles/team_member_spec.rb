@@ -48,7 +48,7 @@ RSpec.feature "Team member role" do
       end
     end
     
-    scenario "Editing client list" do
+    scenario "Editing client" do
       visit hub_clients_path
 
       within ".client-table" do
@@ -65,7 +65,9 @@ RSpec.feature "Team member role" do
 
         # the below line should pass because `email_notification_opt_in: "yes"` is included in the :with_contact_info trait on the intake factory
         # instead, it intermittently fails and the print statement `puts hester_intake.email_notification_opt_in` returns "yes" "no" and "unfilled" seemingly at random
-        # expect(page).to have_field("Opt into email notifications", checked: true)
+        #   expect(page).to have_field("Opt into email notifications", checked: true)
+        # ^ this expectation did not originally exist but better illustrates the problem than line 76 (which was originally failing)
+        # note that the other specs in this directory (roles) will have to be fixed as well
         check "Opt into email notifications"
       end
 

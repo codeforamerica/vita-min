@@ -76,6 +76,13 @@ class User < ApplicationRecord
       )
     elsif role_type == TeamMemberRole::TYPE || role_type == SiteCoordinatorRole::TYPE
       VitaPartner.sites.where(id: role.site.id)
+    elsif role_type == CoalitionLeadRole::TYPE
+      coalition = Coalition.find(role.coalition.id)
+      organizations = coalition.organizations
+      sites = organizations.reduce([]) do |sites, organization|
+        [*sites, *organization.child_sites]
+      end
+      [coalition, *organizations, *sites]
     else
       []
     end

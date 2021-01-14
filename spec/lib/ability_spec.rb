@@ -85,6 +85,32 @@ describe Ability do
     end
   end
 
+  context "a site coordinator" do
+    let(:user) { create :site_coordinator_user }
+    let(:accessible_client) { create(:client, vita_partner: user.role.site) }
+    let(:other_vita_partner_client) { create(:client, vita_partner: create(:site)) }
+
+    it "can manage their own data" do
+      expect(subject.can?(:manage, user)).to eq true
+    end
+
+    it "can view clients from their own site" do
+      expect(subject.can?(:read, accessible_client)).to eq true
+    end
+
+    it "can not view clients from other sites" do
+      expect(subject.can?(:read, other_vita_partner_client)).to eq false
+    end
+
+    it "can manage data from clients in their site" do
+      expect(subject.can?(:manage, accessible_client)).to eq true
+    end
+
+    it "cannot manage data from clients in other sites" do
+      expect(subject.can?(:manage, other_vita_partner_client)).to eq false
+    end
+  end
+
   context "an organization lead" do
     let(:user) { create :organization_lead_user }
     let(:accessible_client) { create(:client, vita_partner: user.role.organization) }
@@ -130,48 +156,35 @@ describe Ability do
     end
   end
 
-  xcontext "a coalition lead" do
-    let(:coalition) { create(:coalition) }
+  context "a coalition lead" do
+    let(:coalition) { create :coalition }
+    let!(:organization) { create :organization, coalition: coalition }
+    let!(:site) { create :site, parent_organization: organization }
     let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
-    let(:coalition_member_organization) { create(:vita_partner, coalition: coalition) }
-    let(:intake) { create(:intake, vita_partner: coalition_member_organization) }
-    let(:coalition_member_client) { create(:client, intake: intake, vita_partner: coalition_member_organization) }
-
-    it "can manage data from the coalition member organization" do
-      expect(subject.can?(:manage, coalition_member_client)).to eq true
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: coalition_member_client))).to eq true
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: coalition_member_client))).to eq true
-      expect(subject.can?(:manage, OutgoingEmail.new(client: coalition_member_client))).to eq true
-      expect(subject.can?(:manage, IncomingEmail.new(client: coalition_member_client))).to eq true
-      expect(subject.can?(:manage, Document.new(client: coalition_member_client))).to eq true
-      expect(subject.can?(:manage, Note.new(client: coalition_member_client))).to eq true
-      expect(subject.can?(:manage, SystemNote.new(client: coalition_member_client))).to eq true
-    end
-  end
-
-  context "a site coordinator" do
-    let(:user) { create :site_coordinator_user }
-    let(:accessible_client) { create(:client, vita_partner: user.role.site) }
-    let(:other_vita_partner_client) { create(:client, vita_partner: create(:site)) }
+    let(:coalition_org_client) { create(:client, vita_partner: organization) }
+    let(:coalition_site_client) { create(:client, vita_partner: site) }
+    let(:other_client) { create(:client, vita_partner: create(:vita_partner)) }
 
     it "can manage their own data" do
       expect(subject.can?(:manage, user)).to eq true
     end
 
-    it "can view clients from their own site" do
-      expect(subject.can?(:read, accessible_client)).to eq true
+    it "can view clients from groups in their coalition" do
+      expect(subject.can?(:read, coalition_org_client)).to eq true
+      expect(subject.can?(:read, coalition_site_client)).to eq true
     end
 
-    it "can not view clients from other sites" do
-      expect(subject.can?(:read, other_vita_partner_client)).to eq false
+    it "cannot view clients from another coalition" do
+      expect(subject.can?(:read, other_client)).to eq false
     end
 
-    it "can manage data from clients in their site" do
-      expect(subject.can?(:manage, accessible_client)).to eq true
+    it "can manage data from clients in their coalition" do
+      expect(subject.can?(:manage, coalition_org_client)).to eq true
+      expect(subject.can?(:manage, coalition_site_client)).to eq true
     end
 
-    it "cannot manage data from clients in other sites" do
-      expect(subject.can?(:manage, other_vita_partner_client)).to eq false
+    it "cannot manage data from clients in other groups" do
+      expect(subject.can?(:manage, other_client)).to eq false
     end
   end
 

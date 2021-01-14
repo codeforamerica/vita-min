@@ -22,8 +22,7 @@ Bundler.require(*Rails.groups)
 module VitaMin
   class Application < Rails::Application
     require "./app/middleware/validate_request_params.rb"
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
 
     config.i18n.default_locale = :en
     config.i18n.fallbacks = [I18n.default_locale]
