@@ -1724,7 +1724,7 @@ es:
       link_sent:
         link_sent: "Para proteger su identidad, le enviamos un enlace seguro a su información de contacto."
         title: "Para continuar, por favor visite su enlace seguro."
-      edit:
+      show:
         title: "TODO Authentication needed to continue."
         confirm_identity: "TODO Protecting your tax information is our priority. To continue, please confirm your identity below."
         last_four: Últimos 4 de SSN / ITIN

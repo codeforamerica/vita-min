@@ -79,7 +79,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
     end
   end
 
-  describe "#edit" do
+  describe "#show" do
     before do
       allow(Devise.token_generator).to receive(:generate).and_return(['raw_token', 'encrypted_token'])
       client.update(login_token: "encrypted_token")
@@ -94,7 +94,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         end
 
         it "it is ok" do
-          get :edit, params: params
+          get :show, params: params
 
           expect(response).to be_ok
         end
@@ -105,9 +105,9 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           end
 
           it "redirects to the lockout page" do
-            get :edit, params: params
+            get :show, params: params
 
-            expect(response).to redirect_to portal_account_locked_path
+            expect(response).to redirect_to account_locked_portal_client_logins_path
           end
         end
       end
@@ -118,7 +118,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         end
 
         it "redirects to a page saying you need a new token" do
-          get :edit, params: { id: "invalid_token" }
+          get :show, params: { id: "invalid_token" }
 
           expect(response).to redirect_to(invalid_token_portal_client_logins_path)
         end
@@ -131,7 +131,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
 
       it "redirects to client portal" do
-        get :edit, params: params
+        get :show, params: params
 
         expect(response).to redirect_to(portal_root_path)
       end
@@ -185,7 +185,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
             it "redirects to an account-locked page" do
               post :update, params: params
 
-              expect(response).to redirect_to portal_account_locked_path
+              expect(response).to redirect_to account_locked_portal_client_logins_path
             end
           end
         end
@@ -202,13 +202,13 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
           render_views
 
-          it "renders the :edit template and increments a lockout number" do
+          it "renders the :show template and increments a lockout number" do
             expect do
               post :update, params: params
             end.to change { client.reload.failed_attempts }.by 1
 
             expect(subject.current_client).to eq(nil)
-            expect(response).to render_template(:edit)
+            expect(response).to render_template(:show)
           end
 
           context "with 4 previous failed attempts" do
@@ -222,7 +222,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
               end.to change { client.reload.failed_attempts }.by 1
               expect(client.reload.access_locked?).to be_truthy
 
-              expect(response).to redirect_to(portal_account_locked_path)
+              expect(response).to redirect_to(account_locked_portal_client_logins_path)
             end
           end
         end

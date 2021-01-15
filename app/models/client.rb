@@ -131,6 +131,6 @@ class Client < ApplicationRecord
       login_token: encrypted_token,
       login_requested_at: DateTime.now
     )
-    Rails.application.routes.url_helpers.edit_portal_client_login_url(id: raw_token)
+    Rails.application.routes.url_helpers.portal_client_login_url(id: raw_token)
   end
 end
