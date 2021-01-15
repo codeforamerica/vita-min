@@ -175,10 +175,10 @@ describe TaxReturn do
     context "when signed 8879 already exists" do
       before do
         create :document,
-              document_type: DocumentTypes::CompletedForm8879.key,
-              tax_return: tax_return,
-              client: tax_return.client,
-              upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
+               document_type: DocumentTypes::CompletedForm8879.key,
+               tax_return: tax_return,
+               client: tax_return.client,
+               upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
       end
 
       it "returns false" do
@@ -195,10 +195,10 @@ describe TaxReturn do
     context "when unsigned 8879 already exists and signed 8879 does not exist" do
       before do
         create :document,
-              document_type: DocumentTypes::UnsignedForm8879.key,
-              tax_return: tax_return,
-              client: tax_return.client,
-              upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
+               document_type: DocumentTypes::UnsignedForm8879.key,
+               tax_return: tax_return,
+               client: tax_return.client,
+               upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
       end
 
       context "checking for primary" do
@@ -364,11 +364,11 @@ describe TaxReturn do
   end
 
   describe "#sign_primary!" do
+    let(:tax_return) { create :tax_return, :ready_to_sign }
     let(:fake_ip) { IPAddr.new }
     let(:document_service_double) { double }
     let(:client) { create :client, intake: (create :intake, primary_first_name: "Primary", primary_last_name: "Taxpayer", timezone: "Central Time (US & Canada)") }
     let(:tax_return) { create :tax_return, year: 2019, client: client, status: "intake_in_progress" }
-    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
 
     before do
       allow(Sign8879Service).to receive(:create)
@@ -456,8 +456,8 @@ describe TaxReturn do
       it "updates the tax_return with primary signature fields" do
         expect { tax_return.sign_primary!(fake_ip) }
           .to change(tax_return, :primary_signed_at)
-                .and change(tax_return, :primary_signature)
-                       .and change(tax_return, :primary_signed_ip)
+          .and change(tax_return, :primary_signature)
+          .and change(tax_return, :primary_signed_ip)
       end
 
       it "does not create a document, change tax return status, or set needs attention" do
@@ -465,7 +465,7 @@ describe TaxReturn do
 
         expect { tax_return.sign_primary!(fake_ip) }
           .to not_change(tax_return, :status)
-                       .and not_change(tax_return.client, :attention_needed_since)
+          .and not_change(tax_return.client, :attention_needed_since)
       end
 
       it "creates a system note" do
@@ -499,17 +499,18 @@ describe TaxReturn do
   end
 
   describe "#sign_spouse!" do
+    let(:tax_return) { create :tax_return, :ready_to_sign }
     let(:fake_ip) { IPAddr.new }
     let(:document_service_double) { double }
-    let(:client) { create :client,
-                          intake: (create :intake,
-                                          primary_first_name: "Primary",
-                                          primary_last_name: "Taxpayer",
-                                          spouse_first_name: "Spouse",
-                                          spouse_last_name: "Taxpayer"
-                                          )
+    let(:client) { 
+      create :client,
+             intake: (create :intake,
+                             primary_first_name: "Primary",
+                             primary_last_name: "Taxpayer",
+                             spouse_first_name: "Spouse",
+                             spouse_last_name: "Taxpayer"
+                             )
     }
-    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
 
     before do
       allow(Sign8879Service).to receive(:create)
