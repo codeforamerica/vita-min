@@ -10,9 +10,9 @@
   <p><%= t(".confirm_identity") %></p>
 
   <%= form_for(@form, url: portal_client_login_path(id: params[:id]), method: :put, local: true, builder: VitaMinFormBuilder) do |f| %>
-    <%= f.cfa_input_field(:last_four, t(".last_four")) %>
+    <%= f.cfa_input_field(:last_four, t(".last_four"), type: "password", classes: ["form-width--short"], options: { pattern: "[0-9]{4}", inputmode: "numeric", maxLength: "4" }) %>
 
-    <%= f.cfa_input_field(:confirmation_number, t(".confirmation_number")) %>
+    <%= f.cfa_input_field(:confirmation_number, t(".confirmation_number"), type: "tel", classes: ["form-width--short"], options: { pattern: "[0-9]*", inputmode: "numeric" }) %>
 
     <%= f.submit t("general.sign_in"), class: "button button--primary" %>
   <% end %>
