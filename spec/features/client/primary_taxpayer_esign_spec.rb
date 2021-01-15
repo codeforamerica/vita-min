@@ -1,11 +1,11 @@
 require "rails_helper"
 
-RSpec.feature "Submitting an e-file signature" do
+RSpec.feature "Submitting a primary e-file signature" do
   let(:client) { create :client, intake: (create :intake, primary_first_name: "Martha", primary_last_name: "Mango") }
   let(:tax_return) { create :tax_return, year: 2019, client: client }
   let!(:document) do
     create :document,
-           document_type: DocumentTypes::Form8879.key,
+           document_type: DocumentTypes::UnsignedForm8879.key,
            tax_return: tax_return,
            client: tax_return.client,
            upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")

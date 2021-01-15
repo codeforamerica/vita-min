@@ -5,9 +5,13 @@
 #  id                  :bigint           not null, primary key
 #  certification_level :integer
 #  is_hsa              :boolean
+#  primary_signature   :string
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
 #  service_type        :integer          default("online_intake")
+#  spouse_signature    :string
+#  spouse_signed_at    :datetime
+#  spouse_signed_ip    :inet
 #  status              :integer          default("intake_before_consent"), not null
 #  year                :integer          not null
 #  created_at          :datetime         not null

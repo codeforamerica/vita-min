@@ -1,14 +1,20 @@
 class TaxReturnsController < ApplicationController
   before_action :block_access_on_production, only: [:authorize_signature, :sign, :success]
   before_action :load_tax_return, except: [:success]
-  before_action :check_for_forms, only: [:sign, :authorize_signature]
+  before_action :redirect_unless_spouse_signature_required, only: [:spouse_sign, :spouse_authorize_signature]
+  before_action :redirect_unless_primary_signature_required, only: [:sign, :authorize_signature]
 
   def authorize_signature
-    @form = Portal::SignForm8879.new(@tax_return)
+    @form = Portal::PrimarySignForm8879.new(@tax_return)
+  end
+
+  def spouse_authorize_signature
+    @form = Portal::SpouseSignForm8879.new(@tax_return)
   end
 
   def sign
-    @form = Portal::SignForm8879.new(@tax_return, permitted_params)
+    form_class = Portal::PrimarySignForm8879
+    @form = form_class.new(@tax_return, permitted_params(form_class))
     if @form.sign
       redirect_to tax_return_success_path(params[:tax_return_id])
     else
@@ -17,36 +23,50 @@ class TaxReturnsController < ApplicationController
     end
   end
 
+  def spouse_sign
+    form_class = Portal::SpouseSignForm8879
+    @form = form_class.new(@tax_return, permitted_params(form_class))
+    if @form.sign
+      redirect_to tax_return_success_path(params[:tax_return_id])
+    else
+      flash.now[:alert] = I18n.t("controllers.tax_returns_controller.errors.#{@form.errors.keys.first}")
+      render :spouse_authorize_signature
+    end
+  end
+
   def success; end
 
   private
 
   def load_tax_return
-    @tax_return = TaxReturn.find(params[:tax_return_id])
+    @tax_return = TaxReturn.includes(client: [:intake]).find(params[:tax_return_id])
   end
 
-  def permitted_params
+  def permitted_params(form_class)
     params
-      .require(Portal::SignForm8879.form_param)
-      .permit(:primary_accepts_terms, :primary_confirms_identity)
+      .require(form_class.form_param)
+      .permit(*form_class.permitted_params)
       .merge(ip: request.remote_ip)
   end
 
-  def check_for_forms
-    if @tax_return.documents.find_by(document_type: DocumentTypes::CompletedForm8879.key).present?
-      flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.already_signed")
-      return redirect_to :root
+  def redirect_unless_signature_required(signature_type)
+    unless @tax_return.ready_for_signature?(signature_type)
+      flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
+      redirect_to :root
     end
+  end
 
-    unless @tax_return.documents.find_by(document_type: DocumentTypes::Form8879.key).present?
-      flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.not_ready_to_sign")
-      return redirect_to :root
-    end
+  def redirect_unless_primary_signature_required
+    redirect_unless_signature_required(TaxReturn::PRIMARY_SIGNATURE)
+  end
+
+  def redirect_unless_spouse_signature_required
+    redirect_unless_signature_required(TaxReturn::SPOUSE_SIGNATURE)
   end
 
   # This is a WIP MVP feature that isn't ready for prime time, but we want to get it onto demo for testing.
   # Let's send anyone trying to access this on prod back to root.
   def block_access_on_production
-    return redirect_to :root if Rails.env.production?
+    redirect_to :root if Rails.env.production?
   end
 end

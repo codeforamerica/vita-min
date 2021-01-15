@@ -49,8 +49,10 @@ Rails.application.routes.draw do
 
     resources :tax_returns, only: [] do
       get '/sign', to: 'tax_returns#authorize_signature', as: :authorize_signature
+      put '/sign', to: 'tax_returns#sign', as: :sign
+      get '/spouse_sign', to: 'tax_returns#spouse_authorize_signature', as: :spouse_authorize_signature
+      put '/spouse_sign', to: 'tax_returns#spouse_sign', as: :spouse_sign
       get '/success', to: 'tax_returns#success', as: :success
-      post '/sign', to: 'tax_returns#sign', as: :sign
     end
 
     resources :documents, only: [:destroy], controller: :documents do

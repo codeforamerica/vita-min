@@ -1,5 +1,3 @@
-RSpec::Matchers.define_negated_matcher :not_change, :change
-
 shared_examples_for "an incoming interaction" do
   context "when attention_needed_since value is empty" do
     it "updates the associated client" do

@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2021_01_15_165125) do
 
   # These are extensions that must be enabled in order to support this database
@@ -541,9 +542,13 @@ ActiveRecord::Schema.define(version: 2021_01_15_165125) do
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.boolean "is_hsa"
+    t.string "primary_signature"
     t.datetime "primary_signed_at"
     t.inet "primary_signed_ip"
     t.integer "service_type", default: 0
+    t.string "spouse_signature"
+    t.datetime "spouse_signed_at"
+    t.inet "spouse_signed_ip"
     t.integer "status", default: 100, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "year", null: false

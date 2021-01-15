@@ -83,6 +83,12 @@ class Client < ApplicationRecord
     "#{intake.primary_first_name} #{intake.primary_last_name}"
   end
 
+  def spouse_legal_name
+    return unless intake&.spouse_first_name? && intake&.spouse_last_name?
+
+    "#{intake.spouse_first_name} #{intake.spouse_last_name}"
+  end
+
   def set_attention_needed
     return true if needs_attention?
 
