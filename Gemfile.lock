@@ -111,7 +111,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.16)
     bindex (0.8.1)
-    bootsnap (1.4.8)
+    bootsnap (1.5.1)
       msgpack (~> 1.0)
     bourbon (6.0.0)
       thor (~> 0.19)
@@ -519,7 +519,7 @@ DEPENDENCIES
   auto_strip_attributes
   aws-sdk-s3
   axe-matchers
-  bootsnap (>= 1.1.0)
+  bootsnap (>= 1.5.1)
   bundle-audit
   byebug
   cancancan
