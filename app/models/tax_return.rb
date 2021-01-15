@@ -89,10 +89,16 @@ class TaxReturn < ApplicationRecord
       self.primary_signature = client.legal_name
 
       if ready_to_file?
-        self.status = :file_ready_to_file
+        system_change_status(:file_ready_to_file)
         Sign8879Service.create(self)
         client.set_attention_needed
+      else
+        SystemNote.create!(
+          body: "Primary taxpayer signed #{year} form 8879. Waiting on spouse to sign.",
+          client: client
+        )
       end
+
       save!
     end
 
@@ -109,15 +115,27 @@ class TaxReturn < ApplicationRecord
       self.spouse_signature = client.spouse_legal_name
 
       if ready_to_file?
-        self.status = :file_ready_to_file
+        system_change_status(:file_ready_to_file)
         Sign8879Service.create(self)
         client.set_attention_needed
+      else
+        SystemNote.create!(
+          body: "Spouse of taxpayer signed #{year} form 8879. Waiting on primary taxpayer to sign.",
+          client: client
+        )
       end
       save!
     end
 
     raise FailedToSignReturnError if !sign_successful
     true
+  end
+
+  private
+
+  def system_change_status(new_status)
+    SystemNote.create_system_status_change_note!(self, self.status, new_status)
+    self.status = new_status
   end
 end
 

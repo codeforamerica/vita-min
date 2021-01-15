@@ -22,7 +22,33 @@
 require 'rails_helper'
 
 RSpec.describe SystemNote do
-  describe "#create_status_change_note" do
+  describe ".create_system_status_change_note!" do
+    let(:tax_return) { create :tax_return, client: (create :client), year: 3020 }
+
+    before do
+      tax_return.status = :file_ready_to_file
+    end
+
+    it "creates a system status change note" do
+      expect {
+        SystemNote.create_system_status_change_note!(tax_return, "intake_in_progress", :file_ready_to_file)
+      }.to change {SystemNote.count}.by(1)
+
+      system_note = SystemNote.last
+      expect(system_note.body).to eq "Automated update of #{tax_return.year} tax return status from Intake/Not ready to Final steps/Ready to file"
+      expect(system_note.client_id).to eq tax_return.client_id
+    end
+
+    it "raises an exception if the system note fails to save" do
+      tax_return.client = nil
+
+      expect {
+        SystemNote.create_system_status_change_note!(tax_return, "intake_in_progress", :file_ready_to_file)
+      }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+
+  describe ".create_status_change_note" do
     let(:user) { create :user, name: "Olive Oil" }
     let(:tax_return) { create :tax_return, client: (create :client), status: "intake_in_progress", year: 3020 }
 

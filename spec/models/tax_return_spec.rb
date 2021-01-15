@@ -367,7 +367,7 @@ describe TaxReturn do
     let(:fake_ip) { IPAddr.new }
     let(:document_service_double) { double }
     let(:client) { create :client, intake: (create :intake, primary_first_name: "Primary", primary_last_name: "Taxpayer", timezone: "Central Time (US & Canada)") }
-    let(:tax_return) { create :tax_return, year: 2019, client: client }
+    let(:tax_return) { create :tax_return, year: 2019, client: client, status: "intake_in_progress" }
     let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
 
     before do
@@ -396,6 +396,12 @@ describe TaxReturn do
           expect {
             tax_return.sign_primary!(fake_ip)
           }.to change(tax_return, :status).to("file_ready_to_file")
+        end
+
+        it "creates a system note" do
+          expect(SystemNote).to receive(:create_system_status_change_note!).with(tax_return, "intake_in_progress", :file_ready_to_file)
+
+          tax_return.sign_primary!(fake_ip)
         end
 
         it "returns true" do
@@ -461,6 +467,22 @@ describe TaxReturn do
           .to not_change(tax_return, :status)
                        .and not_change(tax_return.client, :attention_needed_since)
       end
+
+      it "creates a system note" do
+        expect {
+          tax_return.sign_primary!(fake_ip)
+        }.to change { SystemNote.count }.by(1)
+
+        system_note = SystemNote.last
+        expect(system_note.body).to eq "Primary taxpayer signed 2019 form 8879. Waiting on spouse to sign."
+        expect(system_note.client).to eq tax_return.client
+      end
+
+      it "rolls back the transaction if the system note fails to save" do
+        expect(SystemNote).to receive(:create!)
+
+        tax_return.sign_primary!(fake_ip)
+      end
     end
 
     context "the return is already signed" do
@@ -522,6 +544,12 @@ describe TaxReturn do
           }.to change(tax_return, :status).to("file_ready_to_file")
         end
 
+        it "creates a system note" do
+          expect(SystemNote).to receive(:create_system_status_change_note!).with(tax_return, "intake_in_progress", :file_ready_to_file)
+
+          tax_return.sign_spouse!(fake_ip)
+        end
+
         it "returns true" do
           expect(tax_return.sign_spouse!(fake_ip)).to eq true
         end
@@ -573,6 +601,22 @@ describe TaxReturn do
         expect(Sign8879Service).to_not receive(:create)
 
         expect { tax_return.sign_spouse!(fake_ip) }.to not_change(tax_return, :status).and not_change(tax_return.client, :attention_needed_since)
+      end
+
+      it "creates a system note" do
+        expect {
+          tax_return.sign_spouse!(fake_ip)
+        }.to change { SystemNote.count }.by(1)
+
+        system_note = SystemNote.last
+        expect(system_note.body).to eq "Spouse of taxpayer signed 2019 form 8879. Waiting on primary taxpayer to sign."
+        expect(system_note.client).to eq tax_return.client
+      end
+
+      it "rolls back the transaction if the system note fails to save" do
+        expect(SystemNote).to receive(:create!)
+
+        tax_return.sign_primary!(fake_ip)
       end
     end
 
