@@ -35,5 +35,48 @@ FactoryBot.define do
     year { 2019 }
     client
     status { 101 }
+
+    trait :ready_to_sign do
+      status { "review_signature_requested" }
+      after(:build) do |tax_return|
+        create(:document,
+               client: tax_return.client,
+               tax_return: tax_return,
+               upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf") ,
+               document_type: DocumentTypes::UnsignedForm8879.key
+        )
+      end
+    end
+
+    trait :ready_to_file_solo do
+      status { "file_ready_to_file" }
+      primary_signature { client.legal_name }
+      primary_signed_at { DateTime.current }
+      primary_signed_ip { IPAddr.new }
+      after(:build) do |tax_return|
+        create :document,
+               tax_return: tax_return,
+               client: tax_return.client,
+               upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf") ,
+               document_type: DocumentTypes::CompletedForm8879.key
+      end
+    end
+
+    trait :ready_to_file_joint do
+      status { "file_ready_to_file" }
+      primary_signature { client.legal_name }
+      primary_signed_at { DateTime.current }
+      primary_signed_ip { IPAddr.new }
+      spouse_signature { client.spouse_legal_name }
+      spouse_signed_at { DateTime.current }
+      spouse_signed_ip { IPAddr.new }
+      after(:build) do |tax_return|
+        create :document,
+               tax_return: tax_return,
+               client: tax_return.client,
+               upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf") ,
+               document_type: DocumentTypes::CompletedForm8879.key
+      end
+    end
   end
 end

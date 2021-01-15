@@ -1,7 +1,6 @@
 module Hub
   class TaxReturnsController < ApplicationController
     include AccessControllable
-
     before_action :require_sign_in
     load_and_authorize_resource
     before_action :set_assignable_users, only: [:edit]
