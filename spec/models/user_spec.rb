@@ -99,13 +99,13 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#accessible_organizations" do
+  describe "#accessible_vita_partners" do
     context "team member user" do
       let!(:user) { create :team_member_user }
       let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
 
       it "should return a user's site" do
-        accessible_group_ids = user.accessible_groups.pluck(:id)
+        accessible_group_ids = user.accessible_vita_partners.pluck(:id)
         expect(accessible_group_ids).to include(user.role.site.id)
         expect(accessible_group_ids).not_to include(not_accessible_partner.id)
       end
@@ -116,7 +116,7 @@ RSpec.describe User, type: :model do
       let!(:unaccessible_site) { create :site }
 
       it "should return the user's site" do
-        accessible_group_ids = user.accessible_groups.pluck(:id)
+        accessible_group_ids = user.accessible_vita_partners.pluck(:id)
         expect(accessible_group_ids).to include(user.role.site.id)
         expect(accessible_group_ids).not_to include(unaccessible_site.id)
       end
@@ -129,7 +129,7 @@ RSpec.describe User, type: :model do
       let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
 
       it "should return a user's primary org and child sites" do
-        accessible_group_ids = user.accessible_groups.pluck(:id)
+        accessible_group_ids = user.accessible_vita_partners.pluck(:id)
         expect(accessible_group_ids).to include(organization.id)
         expect(accessible_group_ids).to include(site.id)
         expect(accessible_group_ids).not_to include(not_accessible_partner.id)
@@ -143,9 +143,9 @@ RSpec.describe User, type: :model do
       let!(:user) { create :user, role: create(:coalition_lead_role, coalition: coalition) }
       let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
 
-      it "should return a user's coalition, child orgs, and those orgs' child sites" do
-        accessible_group_ids = user.accessible_groups.pluck(:id)
-        expect(accessible_group_ids).to include(coalition.id)
+      it "should return a user's child orgs, and those orgs' child sites, but not coalition" do
+        accessible_group_ids = user.accessible_vita_partners.pluck(:id)
+        expect(accessible_group_ids).not_to include(coalition.id)
         expect(accessible_group_ids).to include(organization.id)
         expect(accessible_group_ids).to include(site.id)
         expect(accessible_group_ids).not_to include(not_accessible_partner.id)

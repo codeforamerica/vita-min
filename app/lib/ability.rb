@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     return unless user.present?
 
-    accessible_groups = user.accessible_groups
+    accessible_groups = user.accessible_vita_partners
 
     if user.role_type == AdminRole::TYPE
       can :manage, :all
