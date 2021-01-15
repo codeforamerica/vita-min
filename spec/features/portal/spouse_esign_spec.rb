@@ -12,17 +12,9 @@ RSpec.feature "Submitting a spouse e-file signature" do
                        filing_joint: "yes"
                )
   }
-  let(:tax_return) { create :tax_return, year: 2019, client: client }
+  let(:tax_return) { create :tax_return, :ready_to_sign, year: 2019, client: client }
 
-  before do
-    create :document,
-           document_type: DocumentTypes::UnsignedForm8879.key,
-           tax_return: tax_return,
-           client: tax_return.client,
-           upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
-
-    login_as client, scope: :client
-  end
+  before { login_as client, scope: :client }
 
   scenario "Signing form 8879" do
     visit portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id)
