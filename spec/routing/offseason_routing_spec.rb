@@ -29,19 +29,14 @@ RSpec.describe "offseason routes", type: :request do
       Rails.application.reload_routes!
     end
 
-    it "redirects question routes to root" do
+    it "redirects the question welcome page to root" do
       get QuestionNavigation.first.to_path_helper
       expect(response).to redirect_to root_path
     end
 
-    it "redirects document routes to root" do
-      get "/documents/#{DocumentNavigation.first.to_param}"
-      expect(response).to redirect_to "/"
-    end
-
-    it "redirects EIP routes to root" do
-      get EipOnlyNavigation.first.to_path_helper
-      expect(response).to redirect_to root_path
+    it "other question routes return 200" do
+      get QuestionNavigation.controllers.second.to_path_helper
+      expect(response).to be_ok
     end
 
     it "redirects Stimulus routes to root" do

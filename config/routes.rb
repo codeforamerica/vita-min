@@ -38,16 +38,10 @@ Rails.application.routes.draw do
       collection do
         (QuestionNavigation.controllers + EipOnlyNavigation.controllers).uniq.each do |controller_class|
           { get: :edit, put: :update }.each do |method, action|
-            if Rails.configuration.offseason
-              match "/#{controller_class.to_param}",
-                    via: method,
-                    to: redirect { |_, request| "/#{request.params[:locale]}" }
-            else
-              match "/#{controller_class.to_param}",
-                    action: action,
-                    controller: controller_class.controller_path,
-                    via: method
-            end
+            match "/#{controller_class.to_param}",
+                  action: action,
+                  controller: controller_class.controller_path,
+                  via: method
           end
         end
       end
