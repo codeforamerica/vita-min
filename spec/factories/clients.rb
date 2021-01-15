@@ -21,6 +21,7 @@
 #
 # Indexes
 #
+#  index_clients_on_login_token      (login_token)
 #  index_clients_on_vita_partner_id  (vita_partner_id)
 #
 # Foreign Keys
