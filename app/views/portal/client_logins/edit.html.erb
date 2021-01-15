@@ -1,6 +1,10 @@
 <% content_for :form_question, t(".title") %>
 
 <% content_for :form_card do %>
+  <div class="question__illustration spacing-above-0">
+    <%= image_tag("check-box-shield.svg", alt: "") %>
+  </div>
+
   <h1 class="h2"><%= t(".title") %></h1>
 
   <p><%= t(".confirm_identity") %></p>
