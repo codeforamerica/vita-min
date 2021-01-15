@@ -42,9 +42,8 @@ module Portal
     private
 
     def load_client_tax_return
-      @tax_return = current_client.tax_returns.includes(client: [:intake]).find(params[:tax_return_id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to :root
+      @tax_return = current_client.tax_returns.includes(client: [:intake]).find_by(id: params[:tax_return_id])
+      redirect_to :portal_root if @tax_return.nil?
     end
 
     def permitted_params(form_class)
@@ -57,7 +56,7 @@ module Portal
     def redirect_unless_signature_required(signature_type)
       unless @tax_return.ready_for_signature?(signature_type)
         flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
-        redirect_to :root
+        redirect_to :portal_root
       end
     end
 

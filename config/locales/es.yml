@@ -619,7 +619,14 @@ es:
         body_html: El enlace que usted usó está caducado o roto. <a href="mailto:support@getyourrefund.org">Envíe un correo electrónico a soporte</a> para obtener un nuevo enlace.
     portal:
       home:
-        title: "TODO Welcome back, %{name}!"
+        title: "Bienvenido de nuevo, %{name}!"
+        tax_returns:
+          heading: Documentos fiscales %{year}
+          view_signed: Ver/descargar documento fiscal firmado
+          view_unsigned: Ver/descargar formulario 8879
+          submit_primary: Presentar la firma del contribuyente principal
+          submit_spouse: Presentar la firma del cónyuge
+          empty_state: Aún no hay documentos listos para revisar; vuelva a consultar más tarde.
     tax_returns:
       authorize_signature:
         efile_acceptance: Autorizo a GetYourRefund a ingresar o generar mi PIN como firma mía en mi declaración de impuestos del año %{year} que presentó electrónicamente.

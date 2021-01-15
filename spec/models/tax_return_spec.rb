@@ -363,6 +363,45 @@ describe TaxReturn do
     end
   end
 
+  describe "#unsigned_8879" do
+    subject { tax_return.unsigned_8879 }
+
+    context "when an unsigned form 8879 exists for the tax return" do
+      let(:tax_return) { create :tax_return, :ready_to_sign }
+      it "returns the document object" do
+        expect(subject).to be_a Document
+        expect(subject.document_type).to eq "Form 8879 (Unsigned)"
+      end
+    end
+
+    context "when an unsigned 8879 does not exist" do
+      let(:tax_return) { create :tax_return }
+
+      it "returns nil" do
+        expect(subject).to be nil
+      end
+    end
+  end
+
+  describe "#signed_8879" do
+    subject { tax_return.signed_8879 }
+
+    context "when a signed form 8879 exists" do
+      let(:tax_return) { create :tax_return, :ready_to_file_solo }
+      it "returns the document object" do
+        expect(subject).to be_a Document
+        expect(subject.document_type).to eq "Form 8879 (Signed)"
+      end
+    end
+
+    context "when a signed form 8879 does not exist" do
+      let(:tax_return) { create :tax_return }
+      it "returns nil" do
+        expect(subject).to be nil
+      end
+    end
+  end
+
   describe "#sign_primary!" do
     let(:tax_return) { create :tax_return, :ready_to_sign }
     let(:fake_ip) { IPAddr.new }

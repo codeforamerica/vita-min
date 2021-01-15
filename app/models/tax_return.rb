@@ -71,13 +71,21 @@ class TaxReturn < ApplicationRecord
   def ready_for_signature?(signature_type)
     return false if signature_type == TaxReturn::PRIMARY_SIGNATURE && primary_has_signed?
     return false if signature_type == TaxReturn::SPOUSE_SIGNATURE && (spouse_has_signed? || !filing_joint?)
-    return false if documents.find_by(document_type: DocumentTypes::CompletedForm8879.key).present?
+    return false if signed_8879.present?
 
-    documents.find_by(document_type: DocumentTypes::UnsignedForm8879.key).present?
+    unsigned_8879.present?
   end
 
   def ready_to_file?
     (filing_joint? && primary_has_signed? && spouse_has_signed?) || (!filing_joint? && primary_has_signed?)
+  end
+
+  def unsigned_8879
+    documents.find_by(document_type: DocumentTypes::UnsignedForm8879.key)
+  end
+
+  def signed_8879
+    documents.find_by(document_type: DocumentTypes::CompletedForm8879.key)
   end
 
   def sign_primary!(ip)

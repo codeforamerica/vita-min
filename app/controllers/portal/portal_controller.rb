@@ -7,7 +7,9 @@ module Portal
 
     def illustration_path; end
 
-    def home; end
+    def home
+      @tax_returns = current_client.tax_returns.order(year: :desc)
+    end
 
     private
 
