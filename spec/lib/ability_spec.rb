@@ -161,12 +161,18 @@ describe Ability do
     let!(:organization) { create :organization, coalition: coalition }
     let!(:site) { create :site, parent_organization: organization }
     let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
+    let(:other_coalition_lead_user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
     let(:coalition_org_client) { create(:client, vita_partner: organization) }
     let(:coalition_site_client) { create(:client, vita_partner: site) }
     let(:other_client) { create(:client, vita_partner: create(:vita_partner)) }
 
     it "can manage their own data" do
       expect(subject.can?(:manage, user)).to eq true
+    end
+
+    # TODO figure out whether we need to restrict editing somehow? (since story is for inviting only)
+    it "can manage data of other coalition leads in their coalition" do
+      expect(subject.can?(:manage, other_coalition_lead_user)).to eq true
     end
 
     it "can view clients from groups in their coalition" do

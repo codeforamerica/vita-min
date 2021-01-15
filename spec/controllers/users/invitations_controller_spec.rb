@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
+  let!(:coalition) { create :coalition }
   let!(:vita_partner) { create :vita_partner }
 
   before do
@@ -9,16 +10,35 @@ RSpec.describe Users::InvitationsController do
   end
 
   describe "#new" do
-    it_behaves_like :a_get_action_for_admins_only, action: :new
-    let(:user) { create :admin_user }
-
     context "as an authenticated admin user" do
+      let(:user) { create :admin_user }
       before { sign_in user }
 
-      it "sets @vita_partners so the template can render a list of partners the user has access to" do
+      it "sets @vita_partners and @coalitions so the template can render a list of all groups" do
         get :new
 
+        expect(response).to be_ok
         expect(assigns(:vita_partners)).to eq [vita_partner]
+        expect(assigns(:coalitions)).to eq [coalition]
+      end
+    end
+
+    context "as an authenticated coalition lead user" do
+      let(:user) { create :coalition_lead_user }
+      let(:coalition_member_organization) { create :organization, coalition: user.role.coalition }
+      let(:coalition_member_site) { create :site, parent_organization: coalition_member_organization }
+      before { sign_in user }
+
+      it "sets @vita_partners and @coalitions so the template can render a list of groups the user has access to" do
+        get :new
+
+        ability = Ability.new(user)
+        puts '-----------------------------'
+        puts User.accessible_by(ability)
+        puts '-----------------------------'
+        expect(response).to be_ok
+        expect(assigns(:vita_partners)).to eq [coalition_member_organization, coalition_member_site]
+        expect(assigns(:coalitions)).to eq [coalition]
       end
     end
   end
