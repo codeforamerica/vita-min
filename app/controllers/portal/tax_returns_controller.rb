@@ -1,6 +1,5 @@
 module Portal
   class TaxReturnsController < PortalController
-    before_action :block_access_on_production, only: [:authorize_signature, :sign, :success]
     before_action :load_client_tax_return, except: [:success]
     before_action :redirect_unless_spouse_signature_required, only: [:spouse_sign, :spouse_authorize_signature]
     before_action :redirect_unless_primary_signature_required, only: [:sign, :authorize_signature]
@@ -68,12 +67,6 @@ module Portal
 
     def redirect_unless_spouse_signature_required
       redirect_unless_signature_required(TaxReturn::SPOUSE_SIGNATURE)
-    end
-
-    # This is a WIP MVP feature that isn't ready for prime time, but we want to get it onto demo for testing.
-    # Let's send anyone trying to access this on prod back to root.
-    def block_access_on_production
-      redirect_to :root if Rails.env.production?
     end
   end
 end
