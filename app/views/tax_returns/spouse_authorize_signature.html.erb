@@ -1,0 +1,14 @@
+l<% content_for :page_title, t(".heading") %>
+
+<div class="slab consent-form">
+  <%= render 'authorize_signature_header' %>
+
+  <%= form_for @form, url: tax_return_spouse_sign_path, method: :put, local: true, builder: VitaMinFormBuilder do |f| %>
+    <div class="consent-checkboxes">
+      <%= f.cfa_checkbox(:spouse_accepts_terms, t(".efile_acceptance", year: @tax_return.year), options: { checked_value: "yes", unchecked_value: "no", classes: ['checkbox--full-width'] }) %>
+      <%= f.cfa_checkbox(:spouse_confirms_identity, t(".efile_identity_spouse", spouse_name: "#{@tax_return.client.intake.spouse_first_name.upcase} #{@tax_return.client.intake.spouse_last_name.upcase}",primary_name: @tax_return.client.legal_name.upcase, year: @tax_return.year), options: { checked_value: "yes", unchecked_value: "no", classes: ['checkbox--full-width'] }) %>
+    </div>
+    <%= f.submit "Submit", class: 'button button--primary button--wide' %>
+  <% end %>
+</div>
+

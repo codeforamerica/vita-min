@@ -5,15 +5,11 @@ class TaxReturnsController < ApplicationController
   before_action :redirect_unless_primary_signature_required, only: [:sign, :authorize_signature]
 
   def authorize_signature
-    @primary_signer = true
     @form = Portal::PrimarySignForm8879.new(@tax_return)
   end
 
   def spouse_authorize_signature
-    @primary_signer = false
     @form = Portal::SpouseSignForm8879.new(@tax_return)
-
-    render :authorize_signature
   end
 
   def sign

@@ -25,11 +25,6 @@ describe TaxReturnsController do
 
         expect(response).to render_template("authorize_signature")
       end
-
-      it "sets the signer as primary" do
-        get :authorize_signature, params: params
-        expect(assigns(:primary_signer)).to eq true
-      end
     end
 
     context "with an already signed tax form" do
@@ -70,18 +65,6 @@ describe TaxReturnsController do
                tax_return: tax_return,
                client: tax_return.client,
                document_type: DocumentTypes::UnsignedForm8879.key
-      end
-
-      it "renders a template" do
-        get :spouse_authorize_signature, params: params
-
-        expect(response).to render_template("authorize_signature")
-      end
-
-      it "sets primary_signer to be false" do
-        get :spouse_authorize_signature, params: params
-
-        expect(assigns(:primary_signer)).to eq false
       end
     end
   end

@@ -1709,8 +1709,12 @@ es:
     authorize_signature:
       efile_acceptance: Autorizo a GetYourRefund a ingresar o generar mi PIN como firma mía en mi declaración de impuestos del año %{year} que presentó electrónicamente.
       efile_identity_primary: Confirmo que soy %{name}, que figura como contribuyente en este documento fiscal de %{year}.
-      efile_identity_spouse: Confirmo que soy %{spouse_name}, que figura como cónyuge del contribuyente %{primary_name} en este documento fiscal de %{year}.
       heading: "¡Entregue su firma electrónica/e-file final!"
+    spouse_authorize_signature:
+      heading: "¡Entregue su firma electrónica/e-file final!"
+      efile_acceptance: Autorizo a GetYourRefund a ingresar o generar mi PIN como firma mía en mi declaración de impuestos del año %{year} que presentó electrónicamente.
+      efile_identity_spouse: Confirmo que soy %{spouse_name}, que figura como cónyuge del contribuyente %{primary_name} en este documento fiscal de %{year}.
+    authorize_signature_header:
       subheader: Usted declara que ha examinado una copia de su declaración electrónica individual de impuestos y los calendarios acompañantes y estados de cuenta para el año fiscal que termina el 31 de diciembre de %{year}, y que en la mejor inteligencia da fe de que son verdaderos, correctos y completos.
       full_declaration:
         title: Declaración del contribuyente y autorización para la firma
