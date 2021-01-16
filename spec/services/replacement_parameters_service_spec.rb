@@ -58,6 +58,17 @@ describe ReplacementParametersService do
     end
   end
 
+  context "<<Link.E-signature>>" do
+    describe "#process_sensitive_data" do
+      before { allow(client).to receive(:login_link).and_return("https://getyourrefund.org/portal/account/raw_token")}
+
+      let(:body) { "Click here to sign your tax return: <<Link.E-signature>>" }
+      it "replaces with correct link" do
+        expect(subject.process_sensitive_data).to eq "Click here to sign your tax return: https://getyourrefund.org/portal/account/raw_token"
+      end
+    end
+  end
+
   context "replacement params with extra whitespace" do
     let(:body) { "Sincerely, << Preparer.FirstName >>" }
 
@@ -95,7 +106,6 @@ describe ReplacementParametersService do
           expect(subject.process).to include "- ID\n  - Selfie\n  - SSN or ITIN\n  - Other"
           expect(subject.process).to include "https://example.com/my-token-link"
           expect(subject.process).to include user.first_name
-
         end
       end
 

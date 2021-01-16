@@ -9,18 +9,38 @@ class ReplacementParametersService
   end
 
   def process
-    replacements.each_key { |k| body.gsub!(/<<\s*#{k}\s*>>/i, "%{#{k}}") }
-    body % replacements
+    process_replacements_hash(replacements)
+  end
+
+  def process_sensitive_data
+    process_replacements_hash(sensitive_replacements)
   end
 
   private
+
+  def process_replacements_hash(replacements_hash)
+    convert_template_keys_to_string_format_syntax(replacements_hash.keys)
+    body % replacements_hash
+  end
+
+  def convert_template_keys_to_string_format_syntax(keys)
+    keys.each{ |key| body.gsub!(/<<\s*#{key}\s*>>/i, "%{#{key}}") }
+  end
 
   def replacements
     {
         "Client.PreferredName": client&.preferred_name,
         "Preparer.FirstName": preparer_first_name,
         "Documents.List": documents_list,
-        "Documents.UploadLink": client.intake.requested_docs_token_link
+        "Documents.UploadLink": client.intake.requested_docs_token_link,
+    }
+  end
+
+  # this should only be called when we aren't saving the output to our database
+  # for example, when adding a link to send to the client only
+  def sensitive_replacements
+    {
+      "Link.E-signature": client.login_link
     }
   end
 

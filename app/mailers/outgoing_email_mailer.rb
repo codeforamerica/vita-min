@@ -3,6 +3,12 @@ class OutgoingEmailMailer < ApplicationMailer
     @outgoing_email = outgoing_email
     attachment = outgoing_email.attachment
 
+    @body = ReplacementParametersService.new(
+      body: outgoing_email.body,
+      client: outgoing_email.client,
+      locale: outgoing_email.client.intake.locale
+    ).process_sensitive_data
+
     if attachment.present?
       attachments[attachment.filename.to_s] = attachment.blob.download
     end
