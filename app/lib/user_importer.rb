@@ -50,7 +50,7 @@ class UserImporter
         record[key] = (record[key] || "").strip
       end
 
-      if User.where(email: record["Email Address"]).exists?
+      if User.where(email: record["Email Address"].downcase).exists?
         warning = "Skipping #{record['Email Address']} because already exists"
         puts "W: #{warning}"
         warnings.push(warning)
