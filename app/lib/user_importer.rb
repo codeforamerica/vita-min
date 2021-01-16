@@ -40,17 +40,31 @@ class UserImporter
   def self.invite(filename, max_count, inviter_email)
     # If this goes wrong, we'll see in rails c, and the code will explode, so we can fix that record,
     # then delete all records before it, then re-start.
+    warnings = []
     count = 0
     in_data = CSV.read(filename, headers: true)
-    in_data.each do |datum|
-      next if datum["Email Address"].strip.blank?
+    in_data.each do |record|
+      next if record["Email Address"].strip.blank?
 
-      invite_one(datum, inviter_email)
+      record.headers.each do |key|
+        record[key] = (record[key] || "").strip
+      end
+
+      if User.where(email: record["Email Address"]).exists?
+        warning = "Skipping #{record['Email Address']} because already exists"
+        puts "W: #{warning}"
+        warnings.push(warning)
+        next
+      end
+
+      invite_one(record, inviter_email)
       count += 1
       if count >= max_count
-        return
+        return warnings
       end
     end
+
+    warnings
   end
 
   def self.validate_one(record)
@@ -74,10 +88,6 @@ class UserImporter
 
   def self.invite_one(record, inviter_email)
     puts("Inviting #{record.to_h}")
-
-    record.headers.each do |key|
-      record[key] = (record[key] || "").strip
-    end
 
     addr = record["Email Address"]
     raise StandardError, "Email address invalid #{addr}" unless ValidEmail2::Address.new(addr).valid?
