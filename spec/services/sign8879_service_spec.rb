@@ -34,7 +34,7 @@ describe Sign8879Service do
 
     it "writes today's date to the document, formatted mm/dd/yyyy" do
       Sign8879Service.create(tax_return)
-      expect(document_service_double).to have_received(:write).with(:primary_signed_on, Date.today.strftime("%m/%d/%Y"))
+      expect(document_service_double).to have_received(:write).with(:primary_signed_on, DateTime.current.to_date.strftime("%m/%d/%Y"))
     end
 
     it "creates a signed document for the tax return" do
