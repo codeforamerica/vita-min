@@ -76,7 +76,7 @@ class UserImporter
     puts("Inviting #{record.to_h}")
 
     record.headers.each do |key|
-      record[key] = record[key].strip
+      record[key] = (record[key] || "").strip
     end
 
     addr = record["Email Address"]
