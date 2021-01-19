@@ -1,5 +1,26 @@
 #!/usr/bin/env bash
 
+# Exit immediately if any task fails
+set -e
+
+# Configure Ruby/Rails to cache class objects
+export RAILS_CACHE_CLASSES=1
+
+# Increase max # of open files
+ulimit -Sn 10240
+# Ensure JS assets are up to date
+echo "[I] Initializing webpack"
+bin/webpack --silent || { echo "Not running Rails tests due to webpack failure" ; exit 1; }
+# Precompile 'bootsnap' Rails cache
 bundle exec bootsnap precompile --gemfile app/ lib/
-RAILS_CACHE_CLASSES=1 bundle exec parallel_test spec -t rspec || { echo "Not running JS tests due to rspec failure." ; exit 1; }
+# Run Rails tests
+echo "[I] Running Ruby/rspec tests"
+bundle exec parallel_test spec -t rspec || { echo "Not running JS tests due to rspec failure." ; exit 1; }
+# Run webpack/JS tests
+echo "[I] Running JS/jest tests"
 yarn jest
+# Validate i18n
+echo "[I] Running i18n validation tasks. Feel free to interrupt if you are not yet pushing to main."
+bundle exec i18n-tasks check-consistent-interpolations || { echo "Exiting due to i18n test failure." ; exit 1; }
+bundle exec i18n-tasks missing || { echo "Exiting due to i18n test failure." ; exit 1; }
+bundle exec i18n-tasks unused

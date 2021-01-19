@@ -17,7 +17,7 @@ FileUtils.chdir APP_ROOT do
   system! "brew bundle install"
 
   puts "== Installing Ruby =="
-  system! "rbenv install --skip-existing"
+  system! "rbenv install --skip-existing || rbenv install"
 
   puts "== Install Bundler =="
   system! "gem update --system"
@@ -30,6 +30,10 @@ FileUtils.chdir APP_ROOT do
 
   puts "== Install JavaScript dependencies =="
   system! "yarn install"
+
+  puts "== Disabling Postgres durability, for performance =="
+  system! "grep -q fsync=off /usr/local/var/postgres/postgresql.conf || printf 'fsync=off\nsynchronous_commit=off\nfull_page_writes=off\nrandom_page_cost=1.0\n' >> /usr/local/var/postgres/postgresql.conf"
+  system! "brew services restart postgresql"
 
   # puts "\n== Copying sample files =="
   # unless File.exist?("config/database.yml")

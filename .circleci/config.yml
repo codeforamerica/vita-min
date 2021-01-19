@@ -1,54 +1,111 @@
 ---
 version: 2.1
 
+orbs:
+  ruby: circleci/ruby@1.1.2
+  node: circleci/node@4.1.0
+
 executors:
   rails_executor:
     working_directory: ~/vita-min
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:2.7.2-node-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
+          RAILS_ENV: test
+          # Configure vita-min-specific class cache option; see config/environments/test.rb for details
+          RAILS_CACHE_CLASSES: 1
       - image: circleci/postgres:9.6.8-alpine-postgis
         environment:
           POSTGRES_USER: root
-          POSTGRES_DB: circle-test_test
+          POSTGRES_DB: vita-min_test
+        # Disable postgres durability features
+        command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0
+
 commands:
   install_app_dependencies:
+    # Download packages with Ubuntu/Debian apt-get, using two performance optimizations.
+    #
+    # Cache apt-get's data, with a cache key of the current year and week. This means at the start of the
+    # week, the apt-get cache will be rebuilt.
+    #
+    # Use 'unsafe i/o' for dpkg, a component of apt-get. This avoids filesystem syncs before renames; see
+    # https://manpages.debian.org/buster/dpkg/dpkg.1.en.html . This is OK in circle-ci since its environments are ephemeral.
     description: "Install dependencies for specs"
     steps:
       - run:
+          name: compute current year and week (used for apt caching)
+          command: date +%Y-%m > tmp/year-and-week
+      - restore_cache:
+          key: apt-cache-{{ checksum "tmp/year-and-week" }}
+      - run:
           name: install dependencies
           command: |
+            echo "force-unsafe-io" | sudo tee /etc/dpkg/dpkg.cfg.d/force-unsafe-io > /dev/null &&
             sudo apt-get update && \
-            sudo apt-get install -y pdftk ghostscript && \
-            gem install bundler:2.2.5 && \
-            bundle install --jobs=4 --retry=3 --path vendor/bundle && \
-            npm install yarn && \
-            yarn install
+            sudo apt-get install -y pdftk ghostscript
+      - save_cache:
+          paths:
+            - /var/lib/apt
+            - /var/cache/apt
+          key: apt-cache-{{ checksum "tmp/year-and-week" }}
 jobs:
-  run_tests:
+  run_i18n_tests_check_consistent_interpolations:
+    executor: rails_executor
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: I18N check-consistent-interpolations
+          command: bundle exec i18n-tasks check-consistent-interpolations
+  run_i18n_tests_missing:
+    executor: rails_executor
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: I18N missing
+          command: bundle exec i18n-tasks bundle exec i18n-tasks missing
+  run_i18n_tests_unused:
+    executor: rails_executor
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: I18N unused
+          command: bundle exec i18n-tasks unused
+  run_ruby_tests:
+    parallelism: 8
     executor: rails_executor
     steps:
       - checkout
       - install_app_dependencies
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
-      - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
-      - run: |
-          RAILS_CACHE_CLASSES=1 bundle exec rspec \
-              --format RspecJunitFormatter \
-              --out ~/test-results/rspec/rspec.xml \
-              --format progress \
-              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - run: yarn add --dev jest-junit
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      - run:
+          name: Build JS code
+          command: bin/webpack --silent || { echo "Not running Rails tests due to webpack failure" ; exit 1; }
+      - ruby/rspec-test
+  run_js_tests:
+    executor: rails_executor
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
       - run:
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
           environment:
-            JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
+            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
       - store_test_results:
-          path: ~/test-results
+          path: ~/reports/junit/
   deploy_to_aptible--demo:
     executor: rails_executor
     steps:
@@ -69,29 +126,41 @@ workflows:
   version: 2
   build:
     jobs:
-      - run_tests:
+      - run_ruby_tests:
+          filters:
+            branches:
+              ignore: /^main$/
+      - run_js_tests:
           filters:
             branches:
               ignore: /^main$/
   build-and-deploy:
     jobs:
-      - run_tests:
+      - run_ruby_tests:
+          filters:
+            branches:
+              only: main
+      - run_js_tests:
           filters:
             branches:
               only: main
       - deploy_to_aptible--demo:
-          requires: [run_tests]
+          requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: main
   deploy-release-branch-to-production:
     jobs:
-      - run_tests:
+      - run_js_tests:
+          filters:
+            branches:
+              only: release
+      - run_ruby_tests:
           filters:
             branches:
               only: release
       - deploy_to_aptible--production:
-          requires: [run_tests]
+          requires: [run_ruby_tests, run_ruby_tests]
           filters:
             branches:
               only: release

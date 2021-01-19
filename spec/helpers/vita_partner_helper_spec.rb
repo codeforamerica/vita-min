@@ -17,7 +17,7 @@ describe VitaPartnerHelper do
           ["No Child Org", [["No Child Org", parent_org3.id]]],
           ["Second Parent Org", [["Second Parent Org", parent_org2.id], ["The Third Child Org", sub_org3.id]]],
         ]
-      expect(helper.grouped_organization_options).to eq(expected)
+      expect(helper.grouped_organization_options).to match_array(expected)
     end
 
   end

@@ -1,4 +1,4 @@
-FROM ruby:2.6.5
+FROM ruby:2.7.2
 
 # System prerequisites
 RUN apt-get update \
