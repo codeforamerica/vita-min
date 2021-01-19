@@ -1,6 +1,6 @@
 class MailgunWebhooksController < ActionController::Base
   skip_before_action :verify_authenticity_token
-  before_action :validate_mailgun_params
+  before_action :authenticate_mailgun_request
 
   def create_incoming_email
     # Mailgun param documentation:
@@ -67,7 +67,12 @@ class MailgunWebhooksController < ActionController::Base
 
   private
 
-  def validate_mailgun_params
-    return head 403 unless MailgunService.valid_post?(params)
+  def authenticate_mailgun_request
+    authenticate_or_request_with_http_basic do |name, password|
+      expected_name = EnvironmentCredentials.dig(:mailgun, :basic_auth_name)
+      expected_password = EnvironmentCredentials.dig(:mailgun, :basic_auth_password)
+      ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
+        ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
+    end
   end
 end

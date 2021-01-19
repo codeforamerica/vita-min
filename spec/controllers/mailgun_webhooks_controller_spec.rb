@@ -1,6 +1,19 @@
 require "rails_helper"
 
 RSpec.describe MailgunWebhooksController do
+  let(:valid_auth_credentials) do
+    ActionController::HttpAuthentication::Basic.encode_credentials("validuser", "p@sswrd!")
+  end
+
+  let(:invalid_auth_credentials) do
+    ActionController::HttpAuthentication::Basic.encode_credentials("H4x0rD00D", "H4XnU")
+  end
+
+  before do
+    allow(EnvironmentCredentials).to receive(:dig).with(:mailgun, :basic_auth_name).and_return("validuser")
+    allow(EnvironmentCredentials).to receive(:dig).with(:mailgun, :basic_auth_password).and_return("p@sswrd!")
+  end
+
   describe "#create_incoming_email" do
     let(:params) do
       # Mailgun param documentation:
@@ -40,18 +53,20 @@ RSpec.describe MailgunWebhooksController do
     let(:from) { "Bob <#{sender_email}>" }
     let(:subject) { "Re: Update from GetYourRefund" }
 
-    context "without a valid Mailgun POST" do
-      before { allow(MailgunService).to receive(:valid_post?).and_return(false) }
+    context "without valid HTTP basic auth credentials" do
+      before { request.env["HTTP_AUTHORIZATION"] = invalid_auth_credentials }
 
-      it "returns 403" do
+      it "returns 401 Not Authorized" do
         post :create_incoming_email, params: params
 
-        expect(response.status).to eq 403
+        expect(response.status).to eq 401
       end
     end
 
-    context "with a valid Mailgun POST" do
-      before { allow(MailgunService).to receive(:valid_post?).and_return(true) }
+    context "with HTTP basic auth credentials" do
+      before do
+        request.env["HTTP_AUTHORIZATION"] = valid_auth_credentials
+      end
 
       it "returns 200 OK" do
         post :create_incoming_email, params: params
