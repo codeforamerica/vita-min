@@ -11,12 +11,24 @@ RSpec.describe Portal::PortalController, type: :controller do
     end
 
     context "as an authenticated client" do
-      before { sign_in create :client }
+      let(:client) { create :client }
+
+      before do
+        create :tax_return, year: 2018, client: client
+        create :tax_return, year: 2017, client: client
+        create :tax_return, year: 2020, client: client
+        sign_in client
+      end
 
       it "is ok" do
         get :home
 
         expect(response).to be_ok
+      end
+
+      it "loads the client tax returns in desc order" do
+        get :home
+        expect(assigns(:tax_returns).map(&:year)).to eq [2020, 2018, 2017]
       end
     end
   end

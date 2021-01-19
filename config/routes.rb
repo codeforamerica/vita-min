@@ -123,6 +123,7 @@ Rails.application.routes.draw do
         put '/spouse-sign', to: 'tax_returns#spouse_sign', as: :spouse_sign
         get '/success', to: 'tax_returns#success', as: :success
       end
+      resources :documents, only: [:show]
     end
 
     # Hub Admin routes (Case Management)

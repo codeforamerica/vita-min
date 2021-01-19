@@ -19,7 +19,7 @@ describe Portal::TaxReturnsController do
 
       it "it redirects to root" do
         get :authorize_signature, params: params
-        expect(response).to redirect_to :root
+        expect(response).to redirect_to :portal_root
       end
     end
 
@@ -28,10 +28,10 @@ describe Portal::TaxReturnsController do
 
       context "without a tax form that is ready to sign" do
         let(:tax_return) { create :tax_return }
-        it "redirects to root" do
+        it "redirects to client portal root" do
           get :authorize_signature, params: params
 
-          expect(response).to redirect_to :root
+          expect(response).to redirect_to :portal_root
         end
       end
 
@@ -48,10 +48,10 @@ describe Portal::TaxReturnsController do
       context "with an already signed tax form" do
         let(:tax_return) { create :tax_return, :ready_to_file_solo }
 
-        it "redirects to the root path" do
+        it "redirects to the client portal root path" do
           get :authorize_signature, params: params
 
-          expect(response).to redirect_to :root
+          expect(response).to redirect_to :portal_root
         end
       end
     end
@@ -66,7 +66,7 @@ describe Portal::TaxReturnsController do
 
     context "when not logged in as a client" do
       let(:tax_return) { create :tax_return, :ready_to_sign }
-      it "redirects to root" do
+      it "redirects to unauthenticated root" do
         get :spouse_authorize_signature, params: params
 
         expect(response).to redirect_to :root
@@ -77,10 +77,10 @@ describe Portal::TaxReturnsController do
       let(:tax_return) { create :tax_return, :ready_to_sign }
       before { sign_in create :client }
 
-      it "redirects to root" do
+      it "redirects to client portal root" do
         get :spouse_authorize_signature, params: params
 
-        expect(response).to redirect_to :root
+        expect(response).to redirect_to :portal_root
       end
     end
 
@@ -89,10 +89,10 @@ describe Portal::TaxReturnsController do
 
       context "without a tax form that is ready to sign" do
         let(:tax_return) { create :tax_return }
-        it "redirects to root" do
+        it "redirects to client portal root" do
           get :spouse_authorize_signature, params: params
 
-          expect(response).to redirect_to :root
+          expect(response).to redirect_to :portal_root
         end
       end
 
@@ -140,10 +140,10 @@ describe Portal::TaxReturnsController do
 
           let(:params) { { tax_return_id: tax_return.id } }
 
-          it "redirects to homepage" do
+          it "redirects to client portal root" do
             post :sign, params: params
             expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
-            expect(response).to redirect_to root_path
+            expect(response).to redirect_to :portal_root
           end
         end
 
@@ -152,10 +152,10 @@ describe Portal::TaxReturnsController do
 
           let(:params) { { tax_return_id: tax_return.id }}
 
-          it "redirects to home" do
+          it "redirects to client portal" do
             post :sign, params: params
             expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
-            expect(response).to redirect_to root_path
+            expect(response).to redirect_to :portal_root
           end
         end
 
@@ -163,10 +163,10 @@ describe Portal::TaxReturnsController do
           let(:tax_return) { create :tax_return, :ready_to_file_solo }
           let(:params) { { tax_return_id: tax_return.id } }
 
-          it "redirects to home" do
+          it "redirects to client portal dashboard" do
             post :sign, params: params
             expect(flash[:notice]).to eq "This tax return form cannot be signed."
-            expect(response).to redirect_to root_path
+            expect(response).to redirect_to :portal_root
           end
         end
       end
@@ -257,9 +257,9 @@ describe Portal::TaxReturnsController do
 
       before { sign_in create :client }
 
-      it "redirects to root" do
+      it "redirects to client portal root" do
         get :sign, params: params
-        expect(response).to redirect_to :root
+        expect(response).to redirect_to :portal_root
       end
     end
 
@@ -272,10 +272,10 @@ describe Portal::TaxReturnsController do
 
           let(:params) { { tax_return_id: tax_return.id } }
 
-          it "redirects to homepage" do
+          it "redirects to client portal root" do
             post :spouse_sign, params: params
             expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
-            expect(response).to redirect_to root_path
+            expect(response).to redirect_to :portal_root
           end
         end
 
@@ -283,10 +283,10 @@ describe Portal::TaxReturnsController do
           let(:tax_return) { create :tax_return }
           let(:params) { { tax_return_id: tax_return.id } }
 
-          it "redirects to home" do
+          it "redirects to client portal root" do
             post :spouse_sign, params: params
             expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
-            expect(response).to redirect_to root_path
+            expect(response).to redirect_to :portal_root
           end
         end
 
@@ -298,10 +298,10 @@ describe Portal::TaxReturnsController do
             allow_any_instance_of(TaxReturn).to receive(:filing_joint?).and_return false
           end
 
-          it "redirects to home" do
+          it "redirects to client portal root" do
             post :spouse_sign, params: params
             expect(flash[:notice]).to eq "This tax return form cannot be signed."
-            expect(response).to redirect_to root_path
+            expect(response).to redirect_to :portal_root
           end
         end
 
@@ -309,10 +309,10 @@ describe Portal::TaxReturnsController do
           let(:tax_return) { create :tax_return, :ready_to_file_joint }
           let(:params) { { tax_return_id: tax_return.id } }
 
-          it "redirects to home" do
+          it "redirects to client portal root" do
             post :spouse_sign, params: params
             expect(flash[:notice]).to eq "This tax return form cannot be signed."
-            expect(response).to redirect_to root_path
+            expect(response).to redirect_to :portal_root
           end
         end
       end
@@ -335,7 +335,7 @@ describe Portal::TaxReturnsController do
             it "redirects to success page" do
               post :spouse_sign, params: params
               expect(flash[:success]).to eq "Successfully signed 2019 tax form!"
-              expect(response).to redirect_to(portal_root_path)
+              expect(response).to redirect_to :portal_root
             end
           end
 
