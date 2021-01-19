@@ -2,6 +2,7 @@ module Hub
   class OrganizationsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
+    before_action :require_admin, only: [:index]
     load_and_authorize_resource :vita_partner, parent: false
 
     layout "admin"
@@ -42,6 +43,10 @@ module Hub
     end
 
     private
+
+    def require_admin
+      render nothing: true, status: 403 if current_user.role_type != AdminRole::TYPE
+    end
 
     def vita_partner_params
       params.require(:vita_partner).permit(:name, :coalition_id)

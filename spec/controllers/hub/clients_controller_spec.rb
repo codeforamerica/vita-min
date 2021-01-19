@@ -16,9 +16,9 @@ RSpec.describe Hub::ClientsController do
         expect(response).to be_ok
       end
 
-      it "does not display an input for choosing an organization" do
+      it "does display an input for choosing an organization" do
         get :new
-        expect(response.body).not_to have_text("Assign to")
+        expect(response.body).to have_text("Assign to")
       end
     end
 
@@ -73,6 +73,7 @@ RSpec.describe Hub::ClientsController do
           needs_help_2017: "no",
           signature_method: "online",
           service_type: "drop_off",
+          vita_partner_id: user.role.vita_partner_id,
           tax_returns_attributes: {
               "0": {
                   year: "2020",
@@ -131,6 +132,20 @@ RSpec.describe Hub::ClientsController do
 
           expect(response).to be_ok
           expect(response).to render_template(:new)
+        end
+      end
+    end
+
+    context "as a team member user" do
+      let(:user) { create(:user, role: create(:team_member_role, site: create(:site))) }
+      before { sign_in user }
+
+      context "with valid params" do
+        it "assigns the client to the team member's site" do
+          expect do
+            post :create, params: params
+          end.to change(Client, :count).by 1
+          expect(Client.last.vita_partner).to eq(user.role.site)
         end
       end
     end

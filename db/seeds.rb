@@ -30,6 +30,20 @@ user.update(
     password: "theforcevita")
 user.update(role: SiteCoordinatorRole.create(site: first_site)) if user.role_type != SiteCoordinatorRole::TYPE
 
+# site team member user
+user = User.where(email: "melon@example.com").first_or_initialize
+user.update(
+    name: "Tim Melon",
+    password: "theforcevita")
+user.update(role: TeamMemberRole.create(site: first_site)) if user.role_type != TeamMemberRole::TYPE
+
+# coalition lead user
+user = User.where(email: "lemon@example.com").first_or_initialize
+user.update(
+  name: "Charles Lemon",
+  password: "theforcevita")
+user.update(role: CoalitionLeadRole.create(coalition: koalas)) if user.role_type != CoalitionLeadRole::TYPE
+
 # additional user
 additional_user = User.where(email: "princess@example.com").first_or_initialize
 additional_user.update(

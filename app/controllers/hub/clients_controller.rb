@@ -89,10 +89,7 @@ module Hub
     end
 
     def create_client_form_params
-      default_vita_partner_id = current_user.role_type == OrganizationLeadRole::TYPE ? current_user.role.organization.id : nil
-      filtered_params = params.require(CreateClientForm.form_param).permit(CreateClientForm.permitted_params)
-      filtered_params = filtered_params.merge(vita_partner_id: default_vita_partner_id) unless can?(:manage, VitaPartner)
-      filtered_params
+      params.require(CreateClientForm.form_param).permit(CreateClientForm.permitted_params)
     end
 
     def take_action_form_params
