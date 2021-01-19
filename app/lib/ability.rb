@@ -25,5 +25,10 @@ class Ability
         SystemNote,
       ], client: { vita_partner: accessible_groups }
     end
+
+    if user.role_type == CoalitionLeadRole::TYPE
+      can :read, Coalition, id: user.role.coalition.id
+      can :read, VitaPartner, id: accessible_groups.pluck(:id)
+    end
   end
 end

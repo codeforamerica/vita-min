@@ -161,12 +161,18 @@ describe Ability do
     let!(:organization) { create :organization, coalition: coalition }
     let!(:site) { create :site, parent_organization: organization }
     let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
+    let(:other_coalition_lead_user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
     let(:coalition_org_client) { create(:client, vita_partner: organization) }
     let(:coalition_site_client) { create(:client, vita_partner: site) }
     let(:other_client) { create(:client, vita_partner: create(:vita_partner)) }
 
     it "can manage their own data" do
       expect(subject.can?(:manage, user)).to eq true
+    end
+
+    it "cannot manage data of other coalition leads in their coalition" do
+      # At the moment, only admins can manage other users once the other users are created.
+      expect(subject.can?(:manage, other_coalition_lead_user)).to eq false
     end
 
     it "can view clients from groups in their coalition" do
@@ -185,6 +191,21 @@ describe Ability do
 
     it "cannot manage data from clients in other groups" do
       expect(subject.can?(:manage, other_client)).to eq false
+    end
+
+    it "can read but not manage the coalition itself" do
+      expect(subject.can?(:read, coalition)).to be_truthy
+      expect(subject.can?(:manage, coalition)).to be_falsey
+    end
+
+    it "can read but not manage an org in the coalition" do
+      expect(subject.can?(:read, organization)).to be_truthy
+      expect(subject.can?(:manage, organization)).to be_falsey
+    end
+
+    it "can read but not manage a site in an org in the coalition" do
+      expect(subject.can?(:read, site)).to be_truthy
+      expect(subject.can?(:manage, site)).to be_falsey
     end
   end
 
