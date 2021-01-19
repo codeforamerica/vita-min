@@ -14,6 +14,7 @@ class Users::InvitationsController < Devise::InvitationsController
     require_sign_in(redirect_after_login: new_user_invitation_path)
   end
   before_action :load_and_authorize_groups, only: [:new, :create]
+  before_action :authorize_new_role, only: [:create]
 
   authorize_resource :user, only: [:new, :create]
   before_action :require_valid_invitation_token, only: [:edit, :update]
@@ -21,59 +22,8 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     redirect_to invitations_path and return if already_invited_other_role?
 
-    if params[:user][:role] == OrganizationLeadRole::TYPE
-      organization = @vita_partners.find(params.require(:organization_id))
-
-      super do |invited_user|
-        role = OrganizationLeadRole.create(organization: organization)
-        invited_user.update(role: role)
-      end
-    elsif params[:user][:role] == CoalitionLeadRole::TYPE
-      coalition = @coalitions.find(params.require(:coalition_id))
-
-      super do |invited_user|
-        role = CoalitionLeadRole.create(coalition: coalition)
-        invited_user.update(role: role)
-      end
-    elsif params[:user][:role] == AdminRole::TYPE
-      super do |invited_user|
-        role = AdminRole.create
-
-        invited_user.update(role: role)
-      end
-    elsif params[:user][:role] == SiteCoordinatorRole::TYPE
-      site = @vita_partners.find(params.require(:site_id))
-
-      super do |invited_user|
-        role = SiteCoordinatorRole.create(site: site)
-        invited_user.update(role: role)
-      end
-    elsif params[:user][:role] == ClientSuccessRole::TYPE
-      super do |invited_user|
-        role = ClientSuccessRole.create
-
-        invited_user.update(role: role)
-      end
-    elsif params[:user][:role] == GreeterRole::TYPE
-      super do |invited_user|
-        greeter_params = params.require(:greeter_organization_join_record).permit(organization_ids: []).merge(
-          params.require(:greeter_coalition_join_record).permit(coalition_ids: [])
-        )
-
-        role = GreeterRole.create(
-          coalitions: @coalitions.where(id: greeter_params[:coalition_ids]),
-          organizations: @vita_partners.organizations.where(id: greeter_params[:organization_ids]),
-        )
-
-        invited_user.update(role: role)
-      end
-    elsif params[:user][:role] == TeamMemberRole::TYPE
-      site = @vita_partners.sites.find(params.require(:site_id))
-
-      super do |invited_user|
-        role = TeamMemberRole.create(site: site)
-        invited_user.update(role: role)
-      end
+    super do |invited_user|
+      invited_user.update!(role: @role)
     end
   end
 
@@ -89,6 +39,34 @@ class Users::InvitationsController < Devise::InvitationsController
 
     @coalitions = Coalition.accessible_by(current_ability)
     authorize!(:manage, @coalitions)
+  end
+
+  def authorize_new_role
+    @role =
+      case params.dig(:user, :role)
+      when OrganizationLeadRole::TYPE
+        OrganizationLeadRole.new(organization: @vita_partners.find(params.require(:organization_id)))
+      when CoalitionLeadRole::TYPE
+        CoalitionLeadRole.new(coalition: @coalitions.find(params.require(:coalition_id)))
+      when AdminRole::TYPE
+        AdminRole.new
+      when SiteCoordinatorRole::TYPE
+        SiteCoordinatorRole.new(site: @vita_partners.find(params.require(:site_id)))
+      when ClientSuccessRole::TYPE
+        ClientSuccessRole.new
+      when GreeterRole::TYPE
+        greeter_params = params.require(:greeter_organization_join_record).permit(organization_ids: []).merge(
+          params.require(:greeter_coalition_join_record).permit(coalition_ids: [])
+        )
+        GreeterRole.new(
+          coalitions: @coalitions.where(id: greeter_params[:coalition_ids]),
+          organizations: @vita_partners.organizations.where(id: greeter_params[:organization_ids]),
+        )
+      when TeamMemberRole::TYPE
+        TeamMemberRole.new(site: @vita_partners.sites.find(params.require(:site_id)))
+      end
+
+    authorize!(:create, @role)
   end
 
   # Override superclass method for default params for newly created invites, allowing us to add attributes
