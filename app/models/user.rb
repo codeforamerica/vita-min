@@ -69,15 +69,37 @@ class User < ApplicationRecord
   validates_presence_of :name
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
 
+  def accessible_coalitions
+    case role_type
+    when AdminRole::TYPE
+      Coalition.all
+    when CoalitionLeadRole::TYPE
+      Coalition.where(id: role.coalition)
+    when GreeterRole::TYPE
+      role.coalitions
+    else
+      Coalition.none
+    end
+  end
+
   def accessible_vita_partners
-    if role_type == OrganizationLeadRole::TYPE
-      VitaPartner.organizations.where(id: role.organization.id).or(
-        VitaPartner.sites.where(parent_organization_id: role.organization.id)
+    case role_type
+    when AdminRole::TYPE
+      VitaPartner.all
+    when OrganizationLeadRole::TYPE
+      VitaPartner.organizations.where(id: role.organization).or(
+        VitaPartner.sites.where(parent_organization_id: role.organization)
       )
-    elsif role_type == TeamMemberRole::TYPE || role_type == SiteCoordinatorRole::TYPE
-      VitaPartner.sites.where(id: role.site.id)
-    elsif role_type == CoalitionLeadRole::TYPE
+    when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
+      VitaPartner.sites.where(id: role.site)
+    when CoalitionLeadRole::TYPE
       organizations = role.coalition.organizations
+      sites = VitaPartner.sites.where(parent_organization: organizations)
+      organizations.or(sites)
+    when GreeterRole::TYPE
+      organizations = VitaPartner.where(coalition: role.coalitions).or(
+        VitaPartner.organizations.where(id: role.organizations)
+      )
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organizations.or(sites)
     else

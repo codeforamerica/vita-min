@@ -99,6 +99,61 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#accessible_coalitions" do
+    let!(:coalition) { create(:coalition) }
+    let!(:organization) { create(:organization, coalition: coalition) }
+    let!(:site) { create(:site, parent_organization: organization) }
+    let!(:other_coalition) { create(:coalition) }
+
+    context "team member user" do
+      let(:user) { create(:team_member_user, site: site) }
+
+      it "does not include coalition" do
+        expect(user.accessible_coalitions).to be_empty
+      end
+    end
+
+    context "site coordinator user" do
+      let(:user) { create(:site_coordinator_user, site: site) }
+
+      it "does not include coalition" do
+        expect(user.accessible_coalitions).to be_empty
+      end
+    end
+
+    context "organization lead user" do
+      let(:user) { create(:organization_lead_user, organization: organization) }
+
+      it "does not include coalition" do
+        expect(user.accessible_coalitions).to be_empty
+      end
+    end
+
+    context "coalition lead user" do
+      let(:user) { create(:coalition_lead_user, coalition: coalition) }
+
+      it "includes the coalition" do
+        expect(user.accessible_coalitions).to eq [coalition]
+      end
+    end
+
+    context "admin user" do
+      let(:user) { create(:admin_user) }
+
+      it "includes all coalitions" do
+        expect(user.accessible_coalitions).to match_array([coalition, other_coalition])
+      end
+    end
+
+    context "greeter user" do
+      let(:user) { create :user, role: create(:greeter_role, coalitions: [coalition])}
+
+      it "includes the coalition" do
+        expect(user.accessible_coalitions).to eq([coalition])
+      end
+    end
+  end
+
   describe "#accessible_vita_partners" do
     context "team member user" do
       let!(:user) { create :team_member_user }
@@ -123,9 +178,9 @@ RSpec.describe User, type: :model do
     end
 
     context "organization lead user" do
-      let!(:user) { create :user, role: create(:organization_lead_role, organization: organization) }
       let!(:organization) { create :organization, name: "Parent org" }
       let!(:site) { create :site, parent_organization: organization, name: "Child org" }
+      let!(:user) { create :organization_lead_user, organization: organization }
       let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
 
       it "should return a user's primary org and child sites" do
@@ -140,15 +195,46 @@ RSpec.describe User, type: :model do
       let!(:coalition) { create :coalition }
       let!(:organization) { create :organization, coalition: coalition }
       let!(:site) { create :site, parent_organization: organization }
-      let!(:user) { create :user, role: create(:coalition_lead_role, coalition: coalition) }
+      let!(:user) { create :coalition_lead_user, coalition: coalition }
       let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
 
       it "should return a user's child orgs, and those orgs' child sites, but not coalition" do
-        accessible_group_ids = user.accessible_vita_partners.pluck(:id)
-        expect(accessible_group_ids).not_to include(coalition.id)
-        expect(accessible_group_ids).to include(organization.id)
-        expect(accessible_group_ids).to include(site.id)
-        expect(accessible_group_ids).not_to include(not_accessible_partner.id)
+        accessible_groups = user.accessible_vita_partners
+        expect(accessible_groups).not_to include(coalition)
+        expect(accessible_groups).to include(organization)
+        expect(accessible_groups).to include(site)
+        expect(accessible_groups).not_to include(not_accessible_partner)
+      end
+    end
+
+    context "greeter user" do
+      let!(:coalition) { create :coalition }
+      let!(:organization) { create :organization, coalition: coalition }
+      let!(:site) { create :site, parent_organization: organization }
+      let!(:other_organization) { create :organization }
+      let!(:other_site) { create :site, parent_organization: other_organization }
+      let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
+      let(:user) { create :user, role: create(:greeter_role, coalitions: [coalition], organizations: [other_organization]) }
+
+      it "includes sites and organizations based on the hierarchy" do
+        accessible_groups = user.accessible_vita_partners
+        expect(accessible_groups).to match_array([organization, other_organization, site, other_site])
+        expect(accessible_groups).not_to include(not_accessible_partner)
+      end
+    end
+
+    context "admin user" do
+      let!(:coalition) { create :coalition }
+      let!(:organization) { create :organization, coalition: coalition }
+      let!(:site) { create :site, parent_organization: organization }
+      let!(:user) { create :admin_user }
+      let!(:other_partner) { create :vita_partner, name: "accessible to admins" }
+
+      it "should return all orgs and sites" do
+        accessible_groups = user.accessible_vita_partners
+        expect(accessible_groups).to include(organization)
+        expect(accessible_groups).to include(other_partner)
+        expect(accessible_groups).to include(site)
       end
     end
   end
