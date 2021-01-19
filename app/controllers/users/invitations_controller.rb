@@ -34,11 +34,8 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def load_and_authorize_groups
-    @vita_partners = VitaPartner.accessible_by(current_ability)
-    authorize!(:manage, @vita_partners)
-
-    @coalitions = Coalition.accessible_by(current_ability)
-    authorize!(:manage, @coalitions)
+    @vita_partners = current_user.accessible_vita_partners
+    @coalitions = current_user.accessible_coalitions
   end
 
   def load_and_authorize_role

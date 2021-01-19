@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe Users::InvitationsController do
   let(:raw_invitation_token) { "exampleToken" }
+  let!(:coalition) { create :coalition }
   let!(:vita_partner) { create :vita_partner }
 
   before do
@@ -9,16 +10,31 @@ RSpec.describe Users::InvitationsController do
   end
 
   describe "#new" do
-    it_behaves_like :a_get_action_for_admins_only, action: :new
-    let(:user) { create :admin_user }
-
     context "as an authenticated admin user" do
+      let(:user) { create :admin_user }
       before { sign_in user }
 
-      it "sets @vita_partners so the template can render a list of partners the user has access to" do
+      it "sets @vita_partners and @coalitions so the template can render a list of all groups" do
         get :new
 
+        expect(response).to be_ok
         expect(assigns(:vita_partners)).to eq [vita_partner]
+        expect(assigns(:coalitions)).to eq [coalition]
+      end
+    end
+
+    context "as an authenticated coalition lead user" do
+      let(:user) { create :coalition_lead_user }
+      let(:coalition_member_organization) { create :organization, coalition: user.role.coalition }
+      let(:coalition_member_site) { create :site, parent_organization: coalition_member_organization }
+      before { sign_in user }
+
+      it "sets @vita_partners and @coalitions so the template can render a list of groups the user has access to" do
+        get :new
+
+        expect(response).to be_ok
+        expect(assigns(:vita_partners)).to eq [coalition_member_organization, coalition_member_site]
+        expect(assigns(:coalitions)).to eq [user.role.coalition]
       end
     end
   end
@@ -27,250 +43,252 @@ RSpec.describe Users::InvitationsController do
     it_behaves_like :a_post_action_for_admins_only, action: :create
 
     context "with an authenticated admin user" do
-      let!(:user) { create :admin_user }
-      before { sign_in user }
+      context "as an admin user" do
+        let!(:user) { create :admin_user }
+        before { sign_in user }
 
-      context "inviting an org lead user" do
-        let(:params) do
-          {
-            user: {
-              name: "Cher Cherimoya",
-              email: "cherry@example.com",
-              role: OrganizationLeadRole::TYPE,
-            },
-            organization_id: vita_partner.id
-          }
-        end
-
-        it "creates a new invited org lead user" do
-          expect do
-            post :create, params: params
-          end.to (change(User, :count).by 1).and(change(OrganizationLeadRole, :count).by(1))
-
-          org_lead_role = OrganizationLeadRole.last
-          expect(org_lead_role.organization).to eq vita_partner
-
-          invited_user = User.last
-          expect(invited_user.role).to eq org_lead_role
-
-          expect(invited_user.name).to eq "Cher Cherimoya"
-          expect(invited_user.email).to eq "cherry@example.com"
-          expect(invited_user.invitation_token).to be_present
-          expect(invited_user.invited_by).to eq user
-          expect(response).to redirect_to invitations_path
-        end
-
-        context "if the invited user already exists and is an admin" do
-          let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
-
-          it "doesn't change the user's role" do
-            expect { post :create, params: params }.not_to change { invited_user.reload.role }
-            expect(response).to redirect_to invitations_path
-          end
-        end
-      end
-
-      context "inviting a coalition lead user" do
-        let(:coalition) { create :coalition }
-        let(:params) do
-          {
-            user: {
-              name: "Cher Cherimoya",
-              email: "cherry@example.com",
-              role: CoalitionLeadRole::TYPE,
-            },
-            coalition_id: coalition.id
-          }
-        end
-
-        it "creates a new invited coalition lead user" do
-          expect do
-            post :create, params: params
-          end.to (change(User, :count).by 1).and(change(CoalitionLeadRole, :count).by(1))
-
-          coalition_lead_role = CoalitionLeadRole.last
-          expect(coalition_lead_role.coalition).to eq coalition
-
-          invited_user = User.last
-          expect(invited_user.role).to eq coalition_lead_role
-
-          expect(invited_user.name).to eq "Cher Cherimoya"
-          expect(invited_user.email).to eq "cherry@example.com"
-          expect(invited_user.invitation_token).to be_present
-          expect(invited_user.invited_by).to eq user
-          expect(response).to redirect_to invitations_path
-        end
-      end
-
-      context "inviting a site coordinator user" do
-        let(:site) { create :site }
-        let(:params) do
-          {
-            user: {
-              name: "Cher Cherimoya",
-              email: "cherry@example.com",
-              role: SiteCoordinatorRole::TYPE,
-            },
-            site_id: site.id
-          }
-        end
-
-        it "creates a new invited site coordinator user" do
-          expect do
-            post :create, params: params
-          end.to (change(User, :count).by 1).and(change(SiteCoordinatorRole, :count).by(1))
-
-          site_coordinator_role = SiteCoordinatorRole.last
-          expect(site_coordinator_role.site).to eq site
-
-          invited_user = User.last
-          expect(invited_user.role).to eq site_coordinator_role
-
-          expect(invited_user.name).to eq "Cher Cherimoya"
-          expect(invited_user.email).to eq "cherry@example.com"
-          expect(invited_user.invitation_token).to be_present
-          expect(invited_user.invited_by).to eq user
-          expect(response).to redirect_to invitations_path
-        end
-      end
-
-      context "inviting an admin user" do
-        let(:params) do
-          {
-            user: {
-              name: "Adam Apple",
-              email: "adam@example.com",
-              role: AdminRole::TYPE
-            },
-          }
-        end
-
-        it "creates a new invited admin user" do
-          expect do
-            post :create, params: params
-          end.to (change(User, :count).by 1).and(change(AdminRole, :count).by(1))
-
-          admin_role = AdminRole.last
-
-          invited_user = User.last
-          expect(invited_user.role).to eq admin_role
-
-          expect(invited_user.name).to eq "Adam Apple"
-          expect(invited_user.email).to eq "adam@example.com"
-          expect(invited_user.invitation_token).to be_present
-          expect(invited_user.invited_by).to eq user
-          expect(response).to redirect_to invitations_path
-        end
-
-        context "if the invited user already exists and is an organization lead" do
-          let!(:invited_user) { create :organization_lead_user, email: "adam@example.com" }
-
-          it "doesn't change the user's role" do
-            expect { post :create, params: params }.not_to change { invited_user.reload.role }
-            expect(response).to redirect_to invitations_path
-          end
-        end
-      end
-
-      context "inviting a client success user" do
-        let(:params) do
-          {
+        context "inviting an org lead user" do
+          let(:params) do
+            {
               user: {
-                  name: "Cleo Squash",
-                  email: "cleo@example.com",
-                  role: ClientSuccessRole::TYPE
+                name: "Cher Cherimoya",
+                email: "cherry@example.com",
+                role: OrganizationLeadRole::TYPE,
               },
-          }
-        end
-
-        it "creates a new invited client success user" do
-          expect do
-            post :create, params: params
-          end.to (change(User, :count).by 1).and(change(ClientSuccessRole, :count).by(1))
-
-          client_success_role = ClientSuccessRole.last
-
-          invited_user = User.last
-          expect(invited_user.role).to eq client_success_role
-
-          expect(invited_user.name).to eq "Cleo Squash"
-          expect(invited_user.email).to eq "cleo@example.com"
-          expect(invited_user.invitation_token).to be_present
-          expect(invited_user.invited_by).to eq user
-          expect(response).to redirect_to invitations_path
-        end
-      end
-
-      context "inviting a greeter" do
-        let(:coalition) { create(:coalition) }
-        let(:coalition_2) { create(:coalition) }
-        let(:organization) { create(:organization) }
-
-        let(:params) do
-          {
-            user: {
-              name: "Gary Guava",
-              email: "gary@example.com",
-              role: GreeterRole::TYPE,
-            },
-            greeter_coalition_join_record: {
-              coalition_ids: [coalition.id, coalition_2.id],
-            },
-            greeter_organization_join_record: {
-              organization_ids: [organization.id],
+              organization_id: vita_partner.id
             }
-          }
+          end
+
+          it "creates a new invited org lead user" do
+            expect do
+              post :create, params: params
+            end.to (change(User, :count).by 1).and(change(OrganizationLeadRole, :count).by(1))
+
+            org_lead_role = OrganizationLeadRole.last
+            expect(org_lead_role.organization).to eq vita_partner
+
+            invited_user = User.last
+            expect(invited_user.role).to eq org_lead_role
+
+            expect(invited_user.name).to eq "Cher Cherimoya"
+            expect(invited_user.email).to eq "cherry@example.com"
+            expect(invited_user.invitation_token).to be_present
+            expect(invited_user.invited_by).to eq user
+            expect(response).to redirect_to invitations_path
+          end
+
+          context "if the invited user already exists and is an admin" do
+            let!(:invited_user) { create :admin_user, email: "cherry@example.com" }
+
+            it "doesn't change the user's role" do
+              expect { post :create, params: params }.not_to change { invited_user.reload.role }
+              expect(response).to redirect_to invitations_path
+            end
+          end
         end
 
-        it "creates a new invited greeter user" do
-          expect do
-            post :create, params: params
-          end.to (change(User, :count).by 1).and(change(GreeterRole, :count).by(1))
+        context "inviting a coalition lead user" do
+          let(:coalition) { create :coalition }
+          let(:params) do
+            {
+              user: {
+                name: "Cher Cherimoya",
+                email: "cherry@example.com",
+                role: CoalitionLeadRole::TYPE,
+              },
+              coalition_id: coalition.id
+            }
+          end
 
-          greeter_role = GreeterRole.last
+          it "creates a new invited coalition lead user" do
+            expect do
+              post :create, params: params
+            end.to (change(User, :count).by 1).and(change(CoalitionLeadRole, :count).by(1))
 
-          invited_user = User.last
-          expect(invited_user.role).to eq greeter_role
-          expect(greeter_role.organization_ids).to eq([organization.id])
-          expect(greeter_role.coalition_ids).to eq([coalition.id, coalition_2.id])
+            coalition_lead_role = CoalitionLeadRole.last
+            expect(coalition_lead_role.coalition).to eq coalition
 
-          expect(invited_user.name).to eq "Gary Guava"
-          expect(invited_user.email).to eq "gary@example.com"
-          expect(invited_user.invitation_token).to be_present
-          expect(invited_user.invited_by).to eq user
-          expect(response).to redirect_to invitations_path
+            invited_user = User.last
+            expect(invited_user.role).to eq coalition_lead_role
+
+            expect(invited_user.name).to eq "Cher Cherimoya"
+            expect(invited_user.email).to eq "cherry@example.com"
+            expect(invited_user.invitation_token).to be_present
+            expect(invited_user.invited_by).to eq user
+            expect(response).to redirect_to invitations_path
+          end
         end
-      end
 
-      context "inviting a team member user" do
-        let(:site) { create(:site) }
-        let(:params) do
-          {
-            user: {
-              name: "Cher Cherimoya",
-              email: "cherry@example.com",
-              role: TeamMemberRole::TYPE,
-            },
-            site_id: site.id
-          }
+        context "inviting a site coordinator user" do
+          let(:site) { create :site }
+          let(:params) do
+            {
+              user: {
+                name: "Cher Cherimoya",
+                email: "cherry@example.com",
+                role: SiteCoordinatorRole::TYPE,
+              },
+              site_id: site.id
+            }
+          end
+
+          it "creates a new invited site coordinator user" do
+            expect do
+              post :create, params: params
+            end.to (change(User, :count).by 1).and(change(SiteCoordinatorRole, :count).by(1))
+
+            site_coordinator_role = SiteCoordinatorRole.last
+            expect(site_coordinator_role.site).to eq site
+
+            invited_user = User.last
+            expect(invited_user.role).to eq site_coordinator_role
+
+            expect(invited_user.name).to eq "Cher Cherimoya"
+            expect(invited_user.email).to eq "cherry@example.com"
+            expect(invited_user.invitation_token).to be_present
+            expect(invited_user.invited_by).to eq user
+            expect(response).to redirect_to invitations_path
+          end
         end
 
-        it "creates a new invited team member user" do
-          expect do
-            post :create, params: params
-          end.to (change(User, :count).by 1).and(change(TeamMemberRole, :count).by(1))
+        context "inviting an admin user" do
+          let(:params) do
+            {
+              user: {
+                name: "Adam Apple",
+                email: "adam@example.com",
+                role: AdminRole::TYPE
+              },
+            }
+          end
 
-          role = TeamMemberRole.last
-          expect(role.site).to eq site
+          it "creates a new invited admin user" do
+            expect do
+              post :create, params: params
+            end.to (change(User, :count).by 1).and(change(AdminRole, :count).by(1))
 
-          invited_user = User.last
-          expect(invited_user.role).to eq role
+            admin_role = AdminRole.last
 
-          expect(invited_user.name).to eq "Cher Cherimoya"
-          expect(invited_user.email).to eq "cherry@example.com"
-          expect(invited_user.invitation_token).to be_present
-          expect(invited_user.invited_by).to eq user
-          expect(response).to redirect_to invitations_path
+            invited_user = User.last
+            expect(invited_user.role).to eq admin_role
+
+            expect(invited_user.name).to eq "Adam Apple"
+            expect(invited_user.email).to eq "adam@example.com"
+            expect(invited_user.invitation_token).to be_present
+            expect(invited_user.invited_by).to eq user
+            expect(response).to redirect_to invitations_path
+          end
+
+          context "if the invited user already exists and is an organization lead" do
+            let!(:invited_user) { create :organization_lead_user, email: "adam@example.com" }
+
+            it "doesn't change the user's role" do
+              expect { post :create, params: params }.not_to change { invited_user.reload.role }
+              expect(response).to redirect_to invitations_path
+            end
+          end
+        end
+
+        context "inviting a client success user" do
+          let(:params) do
+            {
+                user: {
+                    name: "Cleo Squash",
+                    email: "cleo@example.com",
+                    role: ClientSuccessRole::TYPE
+                },
+            }
+          end
+
+          it "creates a new invited client success user" do
+            expect do
+              post :create, params: params
+            end.to (change(User, :count).by 1).and(change(ClientSuccessRole, :count).by(1))
+
+            client_success_role = ClientSuccessRole.last
+
+            invited_user = User.last
+            expect(invited_user.role).to eq client_success_role
+
+            expect(invited_user.name).to eq "Cleo Squash"
+            expect(invited_user.email).to eq "cleo@example.com"
+            expect(invited_user.invitation_token).to be_present
+            expect(invited_user.invited_by).to eq user
+            expect(response).to redirect_to invitations_path
+          end
+        end
+
+        context "inviting a greeter" do
+          let(:coalition) { create(:coalition) }
+          let(:coalition_2) { create(:coalition) }
+          let(:organization) { create(:organization) }
+
+          let(:params) do
+            {
+              user: {
+                name: "Gary Guava",
+                email: "gary@example.com",
+                role: GreeterRole::TYPE,
+              },
+              greeter_coalition_join_record: {
+                coalition_ids: [coalition.id, coalition_2.id],
+              },
+              greeter_organization_join_record: {
+                organization_ids: [organization.id],
+              }
+            }
+          end
+
+          it "creates a new invited greeter user" do
+            expect do
+              post :create, params: params
+            end.to (change(User, :count).by 1).and(change(GreeterRole, :count).by(1))
+
+            greeter_role = GreeterRole.last
+
+            invited_user = User.last
+            expect(invited_user.role).to eq greeter_role
+            expect(greeter_role.organization_ids).to eq([organization.id])
+            expect(greeter_role.coalition_ids).to eq([coalition.id, coalition_2.id])
+
+            expect(invited_user.name).to eq "Gary Guava"
+            expect(invited_user.email).to eq "gary@example.com"
+            expect(invited_user.invitation_token).to be_present
+            expect(invited_user.invited_by).to eq user
+            expect(response).to redirect_to invitations_path
+          end
+        end
+
+        context "inviting a team member user" do
+          let(:site) { create(:site) }
+          let(:params) do
+            {
+              user: {
+                name: "Cher Cherimoya",
+                email: "cherry@example.com",
+                role: TeamMemberRole::TYPE,
+              },
+              site_id: site.id
+            }
+          end
+
+          it "creates a new invited team member user" do
+            expect do
+              post :create, params: params
+            end.to (change(User, :count).by 1).and(change(TeamMemberRole, :count).by(1))
+
+            role = TeamMemberRole.last
+            expect(role.site).to eq site
+
+            invited_user = User.last
+            expect(invited_user.role).to eq role
+
+            expect(invited_user.name).to eq "Cher Cherimoya"
+            expect(invited_user.email).to eq "cherry@example.com"
+            expect(invited_user.invitation_token).to be_present
+            expect(invited_user.invited_by).to eq user
+            expect(response).to redirect_to invitations_path
+          end
         end
       end
     end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Inviting coalition leads" do
+RSpec.feature "Inviting coalition leads and inviting as a coalition lead" do
   context "As an admin user" do
     let(:user) { create :admin_user }
     let!(:coalition) { create :coalition, name: "Kohlrabi Koalition" }
@@ -74,5 +74,50 @@ RSpec.feature "Inviting coalition leads" do
       expect(page).to have_text "Coalition lead"
       expect(page).to have_text "Kohlrabi Koalition"
     end
+  end
+
+  context "As a coalition lead" do
+    let!(:coalition) { create :coalition, name: "Kohlrabi Koalition" }
+    let(:user) { create :user, role: create(:coalition_lead_role, coalition: coalition) }
+    before do
+      login_as user
+    end
+
+    scenario "Inviting a new coalition lead for my coalition" do
+      visit hub_user_profile_path
+      click_on "Invitations"
+
+      # Invitations page
+      within("h1") do
+        expect(page).to have_text "Invitations"
+      end
+      click_on "Invite a new coalition lead"
+
+      # new invitation page
+      expect(page).to have_text "Send a new invitation"
+      fill_in "What is their name?", with: "Colleen Cauliflower"
+      fill_in "What is their email?", with: "colleague@cauliflower.org"
+      expect(page).to have_select("Which coalition?", options: ["Kohlrabi Koalition"])
+      select "Kohlrabi Koalition", from: "Which coalition?"
+      click_on "Send invitation email"
+
+      # back on the invitations page
+      within(".flash--notice") do
+        expect(page).to have_text "We sent an email invitation to colleague@cauliflower.org"
+      end
+      within(".invitations") do
+        expect(page).to have_text "Colleen Cauliflower"
+        expect(page).to have_text "colleague@cauliflower.org"
+        expect(page).to have_text "Coalition lead"
+      end
+      invited_user = User.where(invited_by: user).last
+      expect(invited_user).to be_present
+
+      # TODO: resend invitation
+    end
+
+    scenario "Inviting a new organization lead for an organization in my coalition" do; end
+    scenario "Inviting a new site coordinator for a site in my coalition" do; end
+    scenario "Inviting a new team member for a site in my coalition" do; end
   end
 end

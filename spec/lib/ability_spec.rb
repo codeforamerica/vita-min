@@ -161,6 +161,7 @@ describe Ability do
     let!(:organization) { create :organization, coalition: coalition }
     let!(:site) { create :site, parent_organization: organization }
     let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
+    let(:other_coalition_lead_user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
     let(:coalition_org_client) { create(:client, vita_partner: organization) }
     let(:coalition_site_client) { create(:client, vita_partner: site) }
     let(:other_client) { create(:client, vita_partner: create(:vita_partner)) }
@@ -207,7 +208,6 @@ describe Ability do
   end
 
   context "User" do
-
     context "when current user is the User" do
       let(:user) { create :organization_lead_user }
       let(:target_user) { user }
@@ -242,6 +242,117 @@ describe Ability do
       it "can not manage" do
         expect(subject.can?(:manage, target_user)).to eq false
       end
+    end
+  end
+
+  context "Managing roles" do
+    context "AdminRole" do
+      let(:target_role) { AdminRole }
+      context "current user is an admin" do
+        let(:user) { build(:admin_user) }
+
+        it "can manage" do
+          expect(subject.can?(:manage, target_role)).to eq true
+        end
+      end
+
+      context "otherwise" do
+        let(:user) { build(:coalition_lead_user) }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+    end
+
+    xcontext "greeter roles" do
+
+    end
+
+    xcontext "client support roles" do
+
+    end
+
+    context "CoalitionLeadRole" do
+      let(:target_role) { create :coalition_lead_role }
+      let(:coalition) { target_role.coalition }
+
+      context "current user is coalition lead in the same coalition" do
+        let(:user) { build :coalition_lead_user, coalition: coalition }
+
+        it "can manage" do
+          expect(subject.can?(:manage, target_role)).to eq true
+        end
+      end
+
+      context "current user is coalition lead in a different coalition" do
+        let(:user) { build :coalition_lead_user }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+
+      context "otherwise" do
+        let(:user) { build :organization_lead_user, organization: build(:organization, coalition: coalition) }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+    end
+
+    context "OrganizationLeadRole" do
+      let(:target_role) { create :organization_lead_role }
+      let(:organization) { target_role.organization }
+
+      context "current user is coalition lead in a parent coalition" do
+        let(:coalition) { create :coalition, organizations: [organization] }
+        let(:user) { build :coalition_lead_user, coalition: coalition }
+
+        it "can manage" do
+          expect(subject.can?(:manage, target_role)).to eq true
+        end
+      end
+
+      context "current user is coalition lead in a different coalition" do
+        let(:user) { build :coalition_lead_user }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+
+      context "current user is organization lead in the same organization" do
+        let(:user) { build :organization_lead_user, organization: organization }
+
+        it "can manage" do
+          expect(subject.can?(:manage, target_role)).to eq true
+        end
+      end
+
+      context "current user is organization lead in another organization" do
+        let(:user) { build :organization_lead_user }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+
+      context "anyone else" do
+        let(:user) { build :site_coordinator_user, site: create(:site, parent_organization: organization) }
+
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+    end
+
+    xcontext "site coordinator roles" do
+    end
+
+    xcontext "team member roles" do
     end
   end
 end
