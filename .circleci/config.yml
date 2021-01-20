@@ -42,7 +42,7 @@ commands:
           name: set cache permissions so circleci can save/restore them, see https://discuss.circleci.com/t/unable-to-restore-bundle-from-cache-using-circleci-ruby-docker-images/24249
           command: for dir in /var/lib/apt /var/cache/apt /opt/google/chrome ; do sudo mkdir -p $dir ; sudo chown -R circleci.circleci $dir ; done
       - restore_cache:
-          key: app-dependencies-cache-{{ checksum "tmp/year-and-week" }}
+          key: apt-cache-{{ checksum "tmp/year-and-week" }}
       - run:
           name: install dependencies
           command: |
@@ -60,14 +60,13 @@ commands:
             - /var/lib/apt
             - /var/cache/apt
             - /opt/google/chrome
-          key: app-dependencies-cache-{{ checksum "tmp/year-and-week" }}
+          key: apt-cache-{{ checksum "tmp/year-and-week" }}
 jobs:
   run_i18n_tests_check_consistent_interpolations:
     executor: rails_executor
     steps:
       - checkout
-      - ruby/install-deps:
-          path: vendor/bundlee
+      - ruby/install-deps
       - run:
           name: I18N check-consistent-interpolations
           command: bundle exec i18n-tasks check-consistent-interpolations
@@ -75,8 +74,7 @@ jobs:
     executor: rails_executor
     steps:
       - checkout
-      - ruby/install-deps:
-          path: vendor/bundlee
+      - ruby/install-deps
       - run:
           name: I18N missing
           command: bundle exec i18n-tasks bundle exec i18n-tasks missing
@@ -84,8 +82,7 @@ jobs:
     executor: rails_executor
     steps:
       - checkout
-      - ruby/install-deps:
-          path: vendor/bundlee
+      - ruby/install-deps
       - run:
           name: I18N unused
           command: bundle exec i18n-tasks unused
@@ -95,8 +92,7 @@ jobs:
     steps:
       - checkout
       - install_app_dependencies
-      - ruby/install-deps:
-          path: vendor/bundlee
+      - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
       - run:
