@@ -27,11 +27,13 @@
     </div>
 
     <ul class="actions spacing-above-25">
-      <li class="user-action-link">
-        <%= link_to invitations_path, class: "button button--small" do %>
-          <%= t("general.invitations") %>
-        <% end %>
-      </li>
+      <% if can? :manage, TeamMemberRole %>
+        <li class="user-action-link">
+          <%= link_to invitations_path, class: "button button--small" do %>
+            <%= t("general.invitations") %>
+          <% end %>
+        </li>
+      <% end %>
 
       <li class="user-action-link">
         <%= link_to hub_clients_path, class: "button button--small" do %>

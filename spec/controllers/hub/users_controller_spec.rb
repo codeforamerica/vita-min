@@ -54,6 +54,17 @@ RSpec.describe Hub::UsersController do
           expect(response.body).to have_content "1/9/2015"
         end
       end
+
+      context "as a team member" do
+        let(:user) { create(:team_member_user) }
+
+        it "does not show invitations navigation links" do
+          get :profile
+
+          expect(response).to be_ok
+          expect(response.body).not_to include invitations_path
+        end
+      end
     end
   end
 
