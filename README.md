@@ -19,7 +19,7 @@ bin/setup
     ```
 
 
-## Running background jobs in development
+## Development
 
 In development, you'll need to manually start the delayed_job worker using the following command:
 
@@ -27,7 +27,12 @@ In development, you'll need to manually start the delayed_job worker using the f
 rails jobs:work
 ```
 
-## Run some tests!
+### Emails
+
+To see emails in development, run `rails jobs:work`. All emails are printed to its output console.
+They are also logged in `tmp/mail/#{to_address}`.
+
+### Run some tests!
 
 ```sh
 bin/test # run all test suites (RSpec unit & feature specs, Javascript Jest unit tests)
@@ -38,7 +43,7 @@ CHROME=y rspec # run feature specs with Chrome visible
 COVERAGE=y rspec # run RSpec with test coverage report
 ```
 
-## Tidy Up!
+### Linter
 
 This repo has `rubocop` installed. To check:
 
