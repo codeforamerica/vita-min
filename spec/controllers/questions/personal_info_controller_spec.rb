@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Questions::PersonalInfoController do
+  let(:vita_partner) { create :vita_partner }
+  let(:organization_router) { double }
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
@@ -19,7 +21,10 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     before do
-      allow(ClientRouter).to receive(:route)
+      allow(OrganizationRoutingService).to receive(:new).and_return organization_router
+      allow(organization_router).to receive(:determine_organization).and_return vita_partner
+      allow(organization_router).to receive(:routing_method).and_return :direct
+
     end
 
     it "sets the timezone on the intake" do
@@ -28,12 +33,30 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     context "when a client has not yet consented" do
-      before { create :tax_return, client: intake.client, status: "intake_before_consent" }
+      before do
+        create :tax_return, client: intake.client, status: "intake_before_consent"
+        session[:referring_organization_id] = vita_partner.id
+      end
 
       it "gets routed" do
         post :update, params: params
 
-        expect(ClientRouter).to have_received(:route).with(intake.client)
+        expect(OrganizationRoutingService).to have_received(:new).with(
+          {
+            referring_organization_id: vita_partner.id,
+            zip_code: "80309"
+          }
+        )
+        expect(organization_router).to have_received(:determine_organization)
+      end
+
+      it "updates the intake and the client with the routed organization" do
+        expect {
+          post :update, params: params
+          intake.reload
+        }.to change(intake, :vita_partner_id).to(vita_partner.id)
+         .and change(intake.client, :vita_partner_id).to(vita_partner.id)
+         .and change(intake.client, :routing_method).to eq("direct")
       end
     end
 
@@ -45,7 +68,7 @@ RSpec.describe Questions::PersonalInfoController do
       it "does not route" do
         post :update, params: params
 
-        expect(ClientRouter).not_to have_received(:route)
+        expect(organization_router).not_to have_received(:determine_organization)
       end
     end
   end

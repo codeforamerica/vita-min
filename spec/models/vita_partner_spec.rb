@@ -7,7 +7,6 @@
 #  archived               :boolean          default(FALSE)
 #  logo_path              :string
 #  name                   :string           not null
-#  source_parameter       :string
 #  weekly_capacity_limit  :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null

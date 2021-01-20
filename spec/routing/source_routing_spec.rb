@@ -2,14 +2,15 @@ require "rails_helper"
 
 describe "partner source routing" do
   let(:code) { "example" }
+  let(:vita_partner) { create :vita_partner }
   before do
-    create(:source_parameter, code: "example", vita_partner: create(:vita_partner))
+    create(:source_parameter, code: "example", vita_partner: vita_partner)
   end
 
   it "converts the source in the url to a parameter" do
     expect(get: "/#{code}").to route_to(
       controller: "public_pages",
-        action: "redirect_locale_home",
+        action: "source_routing",
         source: code,
     )
   end
@@ -18,7 +19,7 @@ describe "partner source routing" do
     mangled_code = "eXAMpLe"
     expect(get: "/#{mangled_code}").to route_to(
       controller: "public_pages",
-        action: "redirect_locale_home",
+        action: "source_routing",
         source: mangled_code,
     )
   end
@@ -26,7 +27,7 @@ describe "partner source routing" do
   it "routes correctly with locale" do
     expect(get: "/es/#{code}").to route_to(
       controller: "public_pages",
-        action: "redirect_locale_home",
+        action: "source_routing",
         locale: "es",
         source: code,
     )
@@ -35,7 +36,7 @@ describe "partner source routing" do
   it "accepts arbitrary source parameters that contain only slug-like characters" do
     expect(get: "/4Rb1_trar-y").to route_to(
       controller: "public_pages",
-      action: "redirect_locale_home",
+      action: "source_routing",
       source: "4Rb1_trar-y",
      )
   end
