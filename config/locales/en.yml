@@ -983,7 +983,7 @@ en:
           heading: Need assistance getting your stimulus check?
         stimulus_faq:
           info: Already filed your taxes and have questions about your stimulus check?
-        subheader_html: GetYourRefund services will be opening at the end of January for the 2021 tax season.  For stimulus questions, visit our <a target="_blank" href="https://www.getyourrefund.org/en/stimulus">FAQ</a>. Sign up and we'll notify you when our service is open!
+        subheader_html: GetYourRefund services will be opening at the end of January for the 2021 tax season. Sign up and we'll notify you when our service is open!
         title: Free tax help from IRS-certified volunteers.
       maintenance:
         contact_html: You can also %{email_link}.
