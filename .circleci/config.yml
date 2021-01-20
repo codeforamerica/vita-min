@@ -40,7 +40,7 @@ commands:
           command: date +%Y-%m > tmp/year-and-week
       - run:
           name: set cache permissions so circleci can save/restore them, see https://discuss.circleci.com/t/unable-to-restore-bundle-from-cache-using-circleci-ruby-docker-images/24249
-          command: sudo chown -R circleci.circleci /var/lib/apt /var/cache/apt
+          command: sudo chown -R circleci.circleci /var/lib/apt /var/cache/apt /opt/google/chrome
       - restore_cache:
           key: apt-cache-{{ checksum "tmp/year-and-week" }}
       - run:
@@ -54,11 +54,12 @@ commands:
       - browser-tools/install-chromedriver
       - run:
           name: set cache permissions so circleci can save/restore them, see https://discuss.circleci.com/t/unable-to-restore-bundle-from-cache-using-circleci-ruby-docker-images/24249
-          command: sudo chown -R circleci.circleci /var/lib/apt /var/cache/apt
+          command: sudo chown -R circleci.circleci /var/lib/apt /var/cache/apt /opt/google/chrome
       - save_cache:
           paths:
             - /var/lib/apt
             - /var/cache/apt
+            - /opt/google/chrome
           key: apt-cache-{{ checksum "tmp/year-and-week" }}
 jobs:
   run_i18n_tests_check_consistent_interpolations:
