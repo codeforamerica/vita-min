@@ -43,12 +43,12 @@ describe VitaPartnerHelper do
     end
 
     context "when the user's role is Admin" do
-      let(:parent_org1) { create(:vita_partner, name: "First Parent Org") }
-      let(:parent_org2) { create(:vita_partner, name: "Second Parent Org") }
-      let(:parent_org3) { create(:vita_partner, name: "No Child Org") }
-      let(:sub_org1) { create(:vita_partner, parent_organization_id: parent_org1.id, name: "The First Child Org") }
-      let(:sub_org2) { create(:vita_partner, parent_organization_id: parent_org1.id, name: "The Second Child Org") }
-      let(:sub_org3) { create(:vita_partner, parent_organization_id: parent_org2.id, name: "The Third Child Org") }
+      let(:org_1) { create(:vita_partner, name: "First Parent Org") }
+      let(:org_2) { create(:vita_partner, name: "Second Parent Org") }
+      let(:org_3) { create(:vita_partner, name: "No Child Org") }
+      let(:site_1) { create(:vita_partner, parent_organization_id: org_1.id, name: "The First Child Org") }
+      let(:site_2) { create(:vita_partner, parent_organization_id: org_1.id, name: "The Second Child Org") }
+      let(:site_3) { create(:vita_partner, parent_organization_id: org_2.id, name: "The Third Child Org") }
 
       let(:admin) { create :admin_user }
 
@@ -60,22 +60,22 @@ describe VitaPartnerHelper do
         @vita_partners = VitaPartner.accessible_by(Ability.new(admin))
         expected =
           [
-            ["First Parent Org", [["First Parent Org", parent_org1.id], ["The First Child Org", sub_org1.id], ["The Second Child Org", sub_org2.id]]],
-            ["No Child Org", [["No Child Org", parent_org3.id]]],
-            ["Second Parent Org", [["Second Parent Org", parent_org2.id], ["The Third Child Org", sub_org3.id]]],
+            ["First Parent Org", [["First Parent Org", org_1.id], ["The First Child Org", site_1.id], ["The Second Child Org", site_2.id]]],
+            ["No Child Org", [["No Child Org", org_3.id]]],
+            ["Second Parent Org", [["Second Parent Org", org_2.id], ["The Third Child Org", site_3.id]]],
           ]
         expect(helper.grouped_organization_options).to eq(expected)
       end
     end
 
     context "when the user's role is Coalition Lead" do
-      let!(:parent_org1) { create(:organization, name: "First Parent Org", coalition: coalition_lead.role.coalition) }
-      let!(:parent_org2) { create(:organization, name: "Second Parent Org", coalition: coalition_lead.role.coalition) }
-      let!(:parent_org3) { create(:organization, name: "No Child Org", coalition: coalition_lead.role.coalition) }
+      let!(:org_1) { create(:organization, name: "First Parent Org", coalition: coalition_lead.role.coalition) }
+      let!(:org_2) { create(:organization, name: "Second Parent Org", coalition: coalition_lead.role.coalition) }
+      let!(:org_3) { create(:organization, name: "No Child Org", coalition: coalition_lead.role.coalition) }
 
-      let!(:sub_org1) { create(:site, parent_organization_id: parent_org1.id, name: "The First Child Site") }
-      let!(:sub_org2) { create(:site, parent_organization_id: parent_org1.id, name: "The Second Child Site") }
-      let!(:sub_org3) { create(:site, parent_organization_id: parent_org2.id, name: "The Third Child Site") }
+      let!(:site_1) { create(:site, parent_organization_id: org_1.id, name: "The First Child Site") }
+      let!(:site_2) { create(:site, parent_organization_id: org_1.id, name: "The Second Child Site") }
+      let!(:site_3) { create(:site, parent_organization_id: org_2.id, name: "The Third Child Site") }
 
       let!(:coalition_lead) { create :coalition_lead_user }
 
@@ -87,9 +87,9 @@ describe VitaPartnerHelper do
         @vita_partners = VitaPartner.accessible_by(Ability.new(coalition_lead))
         expected =
           [
-            ["First Parent Org", [["First Parent Org", parent_org1.id], ["The First Child Site", sub_org1.id], ["The Second Child Site", sub_org2.id]]],
-            ["Second Parent Org", [["Second Parent Org", parent_org2.id], ["The Third Child Site", sub_org3.id]]],
-            ["No Child Org", [["No Child Org", parent_org3.id]]],
+            ["First Parent Org", [["First Parent Org", org_1.id], ["The First Child Site", site_1.id], ["The Second Child Site", site_2.id]]],
+            ["Second Parent Org", [["Second Parent Org", org_2.id], ["The Third Child Site", site_3.id]]],
+            ["No Child Org", [["No Child Org", org_3.id]]],
           ]
         expect(helper.grouped_organization_options).to eq(expected)
       end

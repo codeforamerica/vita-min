@@ -10,12 +10,12 @@ class Ability
       can :manage, :all
     elsif user.role_type == SiteCoordinatorRole::TYPE || user.role_type == TeamMemberRole::TYPE || user.role_type == CoalitionLeadRole::TYPE
       can :manage, User, id: user.id
-      can :read, VitaPartner, id: accessible_groups.map(&:id)
+      can :read, VitaPartner, id: accessible_groups.pluck(:id)
       can :manage, Client, vita_partner: accessible_groups
     else
       can :manage, User, id: user.id
       can :manage, Client, vita_partner: accessible_groups
-      can :read, VitaPartner, id: accessible_groups.map(&:id)
+      can :read, VitaPartner, id: accessible_groups.pluck(:id)
       can :manage, [
         IncomingTextMessage,
         OutgoingTextMessage,

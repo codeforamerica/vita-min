@@ -101,7 +101,7 @@ describe Ability do
       expect(subject.can?(:manage, user)).to eq true
     end
 
-    it "can read Vita Parters on their own site and no other groups" do
+    it "can read Vita Partners on their own site and no other groups" do
       expect(subject.can?(:read, user.role.site)).to eq true
       expect(subject.can?(:read, inaccessible_site)).to eq false
     end
@@ -190,7 +190,7 @@ describe Ability do
       expect(subject.can?(:manage, user)).to eq true
     end
 
-    it "can read VitaParters under it's own coalition and children orgs/sites and not others" do
+    it "can read Vita Partners under it's own coalition and children orgs/sites and not others" do
       expect(subject.can?(:read, organization)).to eq true
       expect(subject.can?(:read, site)).to eq true
       expect(subject.can?(:read, inaccessible_site)).to eq false

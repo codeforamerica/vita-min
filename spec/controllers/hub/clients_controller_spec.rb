@@ -16,7 +16,7 @@ RSpec.describe Hub::ClientsController do
         expect(response).to be_ok
       end
 
-      it "does display an input for choosing an organization" do
+      it "displays an input for choosing an organization" do
         get :new
         expect(response.body).to have_text("Assign to")
       end
@@ -38,6 +38,7 @@ RSpec.describe Hub::ClientsController do
   end
 
   describe "#create" do
+    let(:vita_partner_id) { user.role.vita_partner_id }
     let(:params) do
       {
           hub_create_client_form: {
@@ -73,7 +74,7 @@ RSpec.describe Hub::ClientsController do
           needs_help_2017: "no",
           signature_method: "online",
           service_type: "drop_off",
-          vita_partner_id: user.role.vita_partner_id,
+          vita_partner_id: vita_partner_id,
           tax_returns_attributes: {
               "0": {
                   year: "2020",
@@ -125,7 +126,20 @@ RSpec.describe Hub::ClientsController do
           }
         end
 
-        it "renders new" do
+        it "does not save the client and renders new" do
+          expect do
+            post :create, params: params
+          end.not_to change(Client, :count)
+
+          expect(response).to be_ok
+          expect(response).to render_template(:new)
+        end
+      end
+
+      context "with a vita partner they do not have access to" do
+        let(:vita_partner_id) { create(:vita_partner).id }
+
+        it "does not save the client and renders new" do
           expect do
             post :create, params: params
           end.not_to change(Client, :count)
@@ -168,7 +182,6 @@ RSpec.describe Hub::ClientsController do
         end
       end
     end
-
   end
 
   describe "#show" do
