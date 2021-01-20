@@ -37,6 +37,9 @@ commands:
       - run:
           name: compute current year and week (used for apt caching)
           command: date +%Y-%m > tmp/year-and-week
+      - run:
+          name: set cache permissions so circleci can save/restore them, see https://discuss.circleci.com/t/unable-to-restore-bundle-from-cache-using-circleci-ruby-docker-images/24249
+          command: sudo chown -R circleci.circleci /var/lib/apt /var/cache/apt
       - restore_cache:
           key: apt-cache-{{ checksum "tmp/year-and-week" }}
       - run:
@@ -45,6 +48,9 @@ commands:
             echo "force-unsafe-io" | sudo tee /etc/dpkg/dpkg.cfg.d/force-unsafe-io > /dev/null &&
             sudo apt-get update && \
             sudo apt-get install -y pdftk ghostscript
+      - run:
+          name: set cache permissions so circleci can save/restore them, see https://discuss.circleci.com/t/unable-to-restore-bundle-from-cache-using-circleci-ruby-docker-images/24249
+          command: sudo chown -R circleci.circleci /var/lib/apt /var/cache/apt
       - save_cache:
           paths:
             - /var/lib/apt
