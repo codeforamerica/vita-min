@@ -26,9 +26,23 @@ user.update(role: OrganizationLeadRole.create(organization: first_org)) if user.
 # site coordinator user
 user = User.where(email: "cucumber@example.com").first_or_initialize
 user.update(
-    name: "Sally Cucumber",
+    name: "Cindy Cucumber",
     password: "theforcevita")
 user.update(role: SiteCoordinatorRole.create(site: first_site)) if user.role_type != SiteCoordinatorRole::TYPE
+
+# site team member user
+user = User.where(email: "melon@example.com").first_or_initialize
+user.update(
+    name: "Marty Melon",
+    password: "theforcevita")
+user.update(role: TeamMemberRole.create(site: first_site)) if user.role_type != TeamMemberRole::TYPE
+
+# coalition lead user
+user = User.where(email: "lemon@example.com").first_or_initialize
+user.update(
+  name: "Lola Lemon",
+  password: "theforcevita")
+user.update(role: CoalitionLeadRole.create(coalition: koalas)) if user.role_type != CoalitionLeadRole::TYPE
 
 # additional user
 additional_user = User.where(email: "princess@example.com").first_or_initialize

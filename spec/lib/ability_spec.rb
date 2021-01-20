@@ -62,10 +62,16 @@ describe Ability do
   context "a team member" do
     let(:user) { create :team_member_user }
     let(:accessible_client) { create(:client, vita_partner: user.role.site) }
+    let!(:inaccessible_site) { create :site }
     let(:other_vita_partner_client) { create(:client, vita_partner: create(:organization)) }
 
     it "can manage their own data" do
       expect(subject.can?(:manage, user)).to eq true
+    end
+
+    it "can read Vita Partners on their own site and no other groups" do
+      expect(subject.can?(:read, user.role.site)).to eq true
+      expect(subject.can?(:read, inaccessible_site)).to eq false
     end
 
     it "can view clients from their own site" do
@@ -87,11 +93,17 @@ describe Ability do
 
   context "a site coordinator" do
     let(:user) { create :site_coordinator_user }
+    let!(:inaccessible_site) { create :site }
     let(:accessible_client) { create(:client, vita_partner: user.role.site) }
     let(:other_vita_partner_client) { create(:client, vita_partner: create(:site)) }
 
     it "can manage their own data" do
       expect(subject.can?(:manage, user)).to eq true
+    end
+
+    it "can read Vita Partners on their own site and no other groups" do
+      expect(subject.can?(:read, user.role.site)).to eq true
+      expect(subject.can?(:read, inaccessible_site)).to eq false
     end
 
     it "can view clients from their own site" do
@@ -113,10 +125,17 @@ describe Ability do
 
   context "an organization lead" do
     let(:user) { create :organization_lead_user }
+    let!(:site) { create :site, parent_organization_id: user.role.organization.id }
     let(:accessible_client) { create(:client, vita_partner: user.role.organization) }
     let(:accessible_intake) { create(:intake, vita_partner: user.role.organization) }
     let(:other_vita_partner_client) { create(:client, vita_partner: create(:organization)) }
     let(:nil_vita_partner_client) { create(:client, vita_partner: nil) }
+
+    it "can read Vita Partners on their own organization and children sites and not others" do
+      expect(subject.can?(:read, user.role.organization)).to eq true
+      expect(subject.can?(:read, site)).to eq true
+      expect(subject.can?(:read, other_vita_partner_client.vita_partner)).to eq false
+    end
 
     it "can manage data from their own organization's clients but not the org itself" do
       expect(subject.can?(:manage, accessible_client)).to eq true
@@ -164,9 +183,18 @@ describe Ability do
     let(:coalition_org_client) { create(:client, vita_partner: organization) }
     let(:coalition_site_client) { create(:client, vita_partner: site) }
     let(:other_client) { create(:client, vita_partner: create(:vita_partner)) }
+    let!(:inaccessible_site) { create :site }
+    let!(:inaccessible_org) { create :organization }
 
     it "can manage their own data" do
       expect(subject.can?(:manage, user)).to eq true
+    end
+
+    it "can read Vita Partners under it's own coalition and children orgs/sites and not others" do
+      expect(subject.can?(:read, organization)).to eq true
+      expect(subject.can?(:read, site)).to eq true
+      expect(subject.can?(:read, inaccessible_site)).to eq false
+      expect(subject.can?(:read, inaccessible_org)).to eq false
     end
 
     it "can view clients from groups in their coalition" do

@@ -19,7 +19,9 @@ module Hub
 
     def create
       @form = CreateClientForm.new(create_client_form_params)
-      if @form.save
+      assigned_vita_partner = VitaPartner.find_by(id: create_client_form_params["vita_partner_id"])
+
+      if can?(:read, assigned_vita_partner) && @form.save
         flash[:notice] = I18n.t("hub.clients.create.success_message")
         redirect_to hub_client_path(id: @form.client)
       else
@@ -89,10 +91,7 @@ module Hub
     end
 
     def create_client_form_params
-      default_vita_partner_id = current_user.role_type == OrganizationLeadRole::TYPE ? current_user.role.organization.id : nil
-      filtered_params = params.require(CreateClientForm.form_param).permit(CreateClientForm.permitted_params)
-      filtered_params = filtered_params.merge(vita_partner_id: default_vita_partner_id) unless can?(:manage, VitaPartner)
-      filtered_params
+      params.require(CreateClientForm.form_param).permit(CreateClientForm.permitted_params)
     end
 
     def take_action_form_params
