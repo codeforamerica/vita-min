@@ -48,14 +48,16 @@ describe Ability do
 
     it "cannot manage any client data" do
       expect(subject.can?(:manage, client)).to eq false
+      expect(subject.can?(:manage, Document.new(client: client))).to eq false
       expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
       expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
       expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, User.new)).to eq false
       expect(subject.can?(:manage, Note.new(client: client))).to eq false
+      expect(subject.can?(:manage, SystemNote.new(client: client))).to eq false
+      expect(subject.can?(:manage, TaxReturn.new(client: client))).to eq false
+      expect(subject.can?(:manage, User.new)).to eq false
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
-      expect(subject.can?(:manage, SystemNote.new)).to eq false
     end
   end
 
@@ -63,16 +65,18 @@ describe Ability do
     let(:user) { create :organization_lead_user }
     let!(:site) { create :site, parent_organization: user.role.organization }
     let(:intake) { create(:intake, vita_partner: site, client: (create :client, vita_partner: site)) }
-    let(:client) { intake.client }
+    let(:accessible_client) { intake.client }
 
     it "can manage clients assigned to sites but not manage the org itself" do
-      expect(subject.can?(:manage, client)).to eq true
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq true
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq true
-      expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq true
-      expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq true
-      expect(subject.can?(:manage, Note.new(client: client))).to eq true
-      expect(subject.can?(:manage, SystemNote.new(client: client))).to eq true
+      expect(subject.can?(:manage, accessible_client)).to eq true
+      expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
       expect(subject.can?(:manage, VitaPartner.new)).to eq false
       expect(subject.can?(:manage, site)).to eq false
     end
@@ -136,10 +140,27 @@ describe Ability do
     it "can manage data from clients in their site" do
       expect(subject.can?(:manage, accessible_client)).to eq true
       expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
+      expect(subject.can?(:manage, VitaPartner.new)).to eq false
+      expect(subject.can?(:manage, user.role.site)).to eq false
     end
 
     it "cannot manage data from clients in other sites" do
       expect(subject.can?(:manage, other_vita_partner_client)).to eq false
+      expect(subject.can?(:manage, Document.new(client: other_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, IncomingEmail.new(client: other_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, IncomingTextMessage.new(client: other_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, Note.new(client: other_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, OutgoingEmail.new(client: other_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, OutgoingTextMessage.new(client: other_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, SystemNote.new(client: other_vita_partner_client))).to eq false
+      expect(subject.can?(:manage, TaxReturn.new(client: other_vita_partner_client))).to eq false
     end
   end
 

@@ -24,7 +24,9 @@ class Ability
     # Anyone can read info about an organization or site they can access
     can :read, VitaPartner, id: accessible_groups.pluck(:id)
 
-    unless user.role_type == SiteCoordinatorRole::TYPE || user.role_type == TeamMemberRole::TYPE || user.role_type == CoalitionLeadRole::TYPE
+    unless user.role_type == TeamMemberRole::TYPE || user.role_type == CoalitionLeadRole::TYPE
+      # With cancancan, the easiest way to write controllers that do access control is if the
+      # model for that controller has permissions assigned to it.
       can :manage, [
         IncomingTextMessage,
         OutgoingTextMessage,
@@ -34,13 +36,6 @@ class Ability
         Document,
         TaxReturn,
         SystemNote,
-      ], client: { vita_partner: accessible_groups }
-    end
-
-    # Site coordinator permissions in progress
-    if user.role_type == SiteCoordinatorRole::TYPE
-      can :manage, [
-        Document,
       ], client: { vita_partner: accessible_groups }
     end
 
