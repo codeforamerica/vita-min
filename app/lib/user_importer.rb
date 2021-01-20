@@ -115,7 +115,7 @@ class UserImporter
     raise StandardError, u.errors.to_h.to_s unless u.valid?
 
     u.save!
-    u.invite!
+    u.invite!(nil, { subject: "Your Invitation to the Live / Production GetYourRefund Hub Site" })
     puts(u.inspect)
     puts(u.role.inspect)
   end
