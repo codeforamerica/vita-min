@@ -29,10 +29,19 @@ class Ability
     if user.role_type == CoalitionLeadRole::TYPE
       can :manage, CoalitionLeadRole, coalition: user.role.coalition
       can :manage, OrganizationLeadRole, organization: { coalition_id: user.role.coalition_id }
+      can :manage, SiteCoordinatorRole, site: { parent_organization: { coalition: user.role.coalition } }
+      can :manage, TeamMemberRole, site: { parent_organization: { coalition: user.role.coalition } }
     end
 
     if user.role_type == OrganizationLeadRole::TYPE
       can :manage, OrganizationLeadRole, organization: user.role.organization
+      can :manage, SiteCoordinatorRole, site: { parent_organization: user.role.organization }
+      can :manage, TeamMemberRole, site: { parent_organization: user.role.organization }
+    end
+
+    if user.role_type == SiteCoordinatorRole::TYPE
+      can :manage, SiteCoordinatorRole, site: user.role.site
+      can :manage, TeamMemberRole, site: user.role.site
     end
   end
 end

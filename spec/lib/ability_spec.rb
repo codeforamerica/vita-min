@@ -339,10 +339,134 @@ describe Ability do
       end
     end
 
-    xcontext "site coordinator roles" do
+    context "SiteCoordinatorRole" do
+      let(:coalition) { create :coalition }
+      let(:organization) { create :organization, coalition: coalition }
+      let(:another_organization) { create :organization, coalition: coalition }
+      let(:site) { create(:site, parent_organization: organization) }
+      let(:another_site) { create(:site, parent_organization: organization)}
+      let(:target_role) { create :site_coordinator_role, site: site }
+
+      context "current user is coalition lead in the site's coalition" do
+        let(:user) { create :coalition_lead_user, coalition: coalition }
+
+        it "can manage" do
+          expect(subject.can?(:manage, target_role)).to eq true
+        end
+      end
+
+      context "current user is coalition lead in a different coalition" do
+        let(:user) { create :coalition_lead_user }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+
+      context "current user is organization lead in the site's parent organization" do
+        let(:user) { create :organization_lead_user, organization: organization }
+
+        it "can manage" do
+          expect(subject.can?(:manage, target_role)).to eq true
+        end
+      end
+
+      context "current user is organization lead in another organization" do
+        let(:user) { create :organization_lead_user, organization: another_organization }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+
+      context "current user is site coordinator in the same site" do
+        let(:user) { create :site_coordinator_user, site: site }
+
+        it "can manage" do
+          expect(subject.can?(:manage, target_role)).to eq true
+        end
+      end
+
+      context "current user is site coordinator in another site" do
+        let(:user) { create :site_coordinator_user, site: another_site }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+
+      context "anyone else" do
+        let(:user) { create :team_member_user, site: site }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
     end
 
-    xcontext "team member roles" do
+    context "TeamMemberRole" do
+      let(:coalition) { create :coalition }
+      let(:organization) { create :organization, coalition: coalition }
+      let(:another_organization) { create :organization, coalition: coalition }
+      let(:site) { create(:site, parent_organization: organization) }
+      let(:another_site) { create(:site, parent_organization: organization)}
+      let(:target_role) { create :team_member_role, site: site }
+
+      context "current user is coalition lead in the site's coalition" do
+        let(:user) { create :coalition_lead_user, coalition: coalition }
+
+        it "can manage" do
+          expect(subject.can?(:manage, target_role)).to eq true
+        end
+      end
+
+      context "current user is coalition lead in a different coalition" do
+        let(:user) { create :coalition_lead_user }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+
+      context "current user is organization lead in the site's parent organization" do
+        let(:user) { create :organization_lead_user, organization: organization }
+
+        it "can manage" do
+          expect(subject.can?(:manage, target_role)).to eq true
+        end
+      end
+
+      context "current user is organization lead in another organization" do
+        let(:user) { create :organization_lead_user, organization: another_organization }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+
+      context "current user is site coordinator in the same site" do
+        let(:user) { create :site_coordinator_user, site: site }
+
+        it "can manage" do
+          expect(subject.can?(:manage, target_role)).to eq true
+        end
+      end
+
+      context "current user is site coordinator in another site" do
+        let(:user) { create :site_coordinator_user, site: another_site }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
+
+      context "anyone else" do
+        let(:user) { create :team_member_user, site: site }
+
+        it "cannot manage" do
+          expect(subject.can?(:manage, target_role)).to eq false
+        end
+      end
     end
   end
 end
