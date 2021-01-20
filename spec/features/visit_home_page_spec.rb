@@ -7,7 +7,8 @@ RSpec.feature "Visit home page" do
       expect(page).to have_link("GetYourRefund.org", href: root_path)
     end
     expect(page).to have_text "Free tax filing, real human support."
-    expect(page).to have_text "Sign up for next tax season now. We’ll notify you as soon as our service is back up in January!"
+    expect(page).to have_text "GetYourRefund services will be opening at the end of January for the 2021 tax season. For stimulus questions, visit our FAQ. Sign up and we'll notify you when our service is open!"
+    expect(page).to have_link "FAQ"
     expect(page).to have_link "Sign Up"
     click_on "Sign Up"
     expect(page).to have_text "sign up here"

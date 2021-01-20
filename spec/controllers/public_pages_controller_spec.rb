@@ -18,7 +18,6 @@ RSpec.describe PublicPagesController do
         get :home
 
         expect(response.body).not_to include("This site is for example purposes only. If you want help with your taxes, go to")
-        expect(response.body).not_to include("https://www.getyourrefund.org")
       end
 
       it "does show a banner telling users that intakes are closed" do
