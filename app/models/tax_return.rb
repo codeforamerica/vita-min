@@ -88,6 +88,10 @@ class TaxReturn < ApplicationRecord
     documents.find_by(document_type: DocumentTypes::CompletedForm8879.key)
   end
 
+  def final_tax_documents
+    documents.where(document_type: DocumentTypes::FinalTaxDocument.key)
+  end
+
   def sign_primary!(ip)
     raise AlreadySignedError if primary_has_signed?
 

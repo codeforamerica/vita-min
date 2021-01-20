@@ -621,11 +621,13 @@ en:
         title: Welcome back, %{name}!
         tax_returns:
           heading: "%{year} tax documents"
-          view_signed: View/download signed tax document
-          view_unsigned: View/download form 8879
+          view_signed_8879: View/download signed form 8879
+          view_unsigned_8879: View/download form 8879
           submit_primary: Submit primary taxpayer signature
           submit_spouse:  Submit spouse signature
           empty_state: No documents ready to review yet - check back later.
+          view_document: "View/download %{display_name}"
+          view_final_tax_document: "View/download final %{year} tax document"
     tax_returns:
       authorize_signature:
         efile_acceptance: I authorize GetYourRefund to enter or generate my PIN as my signature on my tax year %{year} electronically filed income tax return.
