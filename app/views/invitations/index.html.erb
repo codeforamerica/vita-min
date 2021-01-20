@@ -2,32 +2,46 @@
   <h1><%= t(".title") %></h1>
 
   <div class="actions">
-    <%= link_to new_user_invitation_path(user: {role: OrganizationLeadRole::TYPE}), class: "button" do %>
-      <%= t(".actions.new_org_lead_invite") %>
+    <% if can? :manage, OrganizationLeadRole %>
+      <%= link_to new_user_invitation_path(user: {role: OrganizationLeadRole::TYPE}), class: "button" do %>
+        <%= t(".actions.new_org_lead_invite") %>
+      <% end %>
     <% end %>
 
-    <%= link_to new_user_invitation_path(user: {role: AdminRole::TYPE}), class: "button" do %>
-      <%= t(".actions.new_admin_invite") %>
+    <% if can? :manage, AdminRole %>
+      <%= link_to new_user_invitation_path(user: {role: AdminRole::TYPE}), class: "button" do %>
+        <%= t(".actions.new_admin_invite") %>
+      <% end %>
     <% end %>
 
-    <%= link_to new_user_invitation_path(user: {role: CoalitionLeadRole::TYPE}), class: "button" do %>
-      <%= t(".actions.new_coalition_lead_invite") %>
+    <% if can? :manage, CoalitionLeadRole %>
+      <%= link_to new_user_invitation_path(user: {role: CoalitionLeadRole::TYPE}), class: "button" do %>
+        <%= t(".actions.new_coalition_lead_invite") %>
+      <% end %>
     <% end %>
 
-    <%= link_to new_user_invitation_path(user: {role: SiteCoordinatorRole::TYPE}), class: "button" do %>
-      <%= t(".actions.new_site_coordinator_invite") %>
+    <% if can? :manage, SiteCoordinatorRole %>
+      <%= link_to new_user_invitation_path(user: {role: SiteCoordinatorRole::TYPE}), class: "button" do %>
+        <%= t(".actions.new_site_coordinator_invite") %>
+      <% end %>
     <% end %>
 
-    <%= link_to new_user_invitation_path(user: {role: ClientSuccessRole::TYPE}), class: "button" do %>
-      <%= t(".actions.new_client_success_invite") %>
+    <% if can? :manage, ClientSuccessRole %>
+      <%= link_to new_user_invitation_path(user: {role: ClientSuccessRole::TYPE}), class: "button" do %>
+        <%= t(".actions.new_client_success_invite") %>
+      <% end %>
     <% end %>
 
-    <%= link_to new_user_invitation_path(user: {role: GreeterRole::TYPE}), class: "button" do %>
-      <%= t(".actions.new_greeter_invite") %>
+    <% if can? :manage, GreeterRole %>
+      <%= link_to new_user_invitation_path(user: {role: GreeterRole::TYPE}), class: "button" do %>
+        <%= t(".actions.new_greeter_invite") %>
+      <% end %>
     <% end %>
 
-    <%= link_to new_user_invitation_path(user: {role: TeamMemberRole::TYPE}), class: "button" do %>
-      <%= t(".actions.new_team_member_invite") %>
+    <% if can? :manage, TeamMemberRole %>
+      <%= link_to new_user_invitation_path(user: {role: TeamMemberRole::TYPE}), class: "button" do %>
+        <%= t(".actions.new_team_member_invite") %>
+      <% end %>
     <% end %>
   </div>
 

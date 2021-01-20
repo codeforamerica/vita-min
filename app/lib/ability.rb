@@ -25,5 +25,14 @@ class Ability
         SystemNote,
       ], client: { vita_partner: accessible_groups }
     end
+
+    if user.role_type == CoalitionLeadRole::TYPE
+      can :manage, CoalitionLeadRole, coalition: user.role.coalition
+      can :manage, OrganizationLeadRole, organization: { coalition_id: user.role.coalition_id }
+    end
+
+    if user.role_type == OrganizationLeadRole::TYPE
+      can :manage, OrganizationLeadRole, organization: user.role.organization
+    end
   end
 end
