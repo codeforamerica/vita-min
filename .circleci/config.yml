@@ -47,7 +47,8 @@ commands:
           command: |
             echo "force-unsafe-io" | sudo tee /etc/dpkg/dpkg.cfg.d/force-unsafe-io > /dev/null &&
             sudo apt-get update && \
-            sudo apt-get install -y pdftk ghostscript
+            sudo apt-get install -y pdftk ghostscript &&
+            grep -q -F '<policy domain="coder" rights="none" pattern="PDF" />' /etc/ImageMagick-6/policy.xml && sudo rm /etc/ImageMagick-6/policy.xml # enable PDFs for convert, see https://imagemagick.org/script/security-policy.php
       - run:
           name: set cache permissions so circleci can save/restore them, see https://discuss.circleci.com/t/unable-to-restore-bundle-from-cache-using-circleci-ruby-docker-images/24249
           command: sudo chown -R circleci.circleci /var/lib/apt /var/cache/apt
