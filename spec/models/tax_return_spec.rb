@@ -402,6 +402,30 @@ describe TaxReturn do
     end
   end
 
+  describe "#final_tax_documents" do
+    let(:tax_return) { create :tax_return }
+    subject { tax_return.final_tax_documents }
+
+    context "with final tax documents" do
+      before do
+        create :document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: tax_return.client
+        create :document, document_type: DocumentTypes::Other, tax_return: tax_return, client: tax_return.client
+        create :document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: tax_return.client
+      end
+
+      it "returns all documents of type DocumentTypes::FinalTaxDocument associated with the tax return" do
+        expect(tax_return.final_tax_documents.length).to eq 2
+        expect(tax_return.final_tax_documents.map(&:document_type).uniq).to eq [DocumentTypes::FinalTaxDocument.key]
+      end
+    end
+
+    context "with no final tax documents " do
+      it "returns an empty array" do
+        expect(subject).to eq []
+      end
+    end
+  end
+
   describe "#sign_primary!" do
     let(:tax_return) { create :tax_return, :ready_to_sign }
     let(:fake_ip) { IPAddr.new }
