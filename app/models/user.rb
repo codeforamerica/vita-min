@@ -121,6 +121,10 @@ class User < ApplicationRecord
 
   # Send Devise emails via job, per https://github.com/heartcombo/devise#activejob-integration
   def send_devise_notification(notification, *args)
-    devise_mailer.send(notification, self, *args).deliver_later
+    if Rails.env.development?
+      devise_mailer.send(notification, self, *args).deliver_later
+    else
+      super
+    end
   end
 end
