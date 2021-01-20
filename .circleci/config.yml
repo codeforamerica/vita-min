@@ -4,6 +4,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.2
   node: circleci/node@4.1.0
+  browser-tools: circleci/browser-tools@1.1.1
 
 executors:
   rails_executor:
@@ -49,6 +50,8 @@ commands:
             sudo apt-get update && \
             sudo apt-get install -y imagemagick pdftk ghostscript &&
             grep -q -F '<policy domain="coder" rights="none" pattern="PDF" />' /etc/ImageMagick-6/policy.xml && sudo rm /etc/ImageMagick-6/policy.xml # enable PDFs for convert, see https://imagemagick.org/script/security-policy.php
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - run:
           name: set cache permissions so circleci can save/restore them, see https://discuss.circleci.com/t/unable-to-restore-bundle-from-cache-using-circleci-ruby-docker-images/24249
           command: sudo chown -R circleci.circleci /var/lib/apt /var/cache/apt
