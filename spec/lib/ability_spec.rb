@@ -135,6 +135,7 @@ describe Ability do
 
     it "can manage data from clients in their site" do
       expect(subject.can?(:manage, accessible_client)).to eq true
+      expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
     end
 
     it "cannot manage data from clients in other sites" do
@@ -264,8 +265,8 @@ describe Ability do
     end
 
     context "when current user is an admin" do
-      let(:user) { build(:admin_user) }
-      let(:target_user) { build(:user) }
+      let(:user) { create(:admin_user) }
+      let(:target_user) { create(:user) }
 
       it "can manage" do
         expect(subject.can?(:manage, target_user)).to eq true
@@ -295,7 +296,7 @@ describe Ability do
     context "AdminRole" do
       let(:target_role) { AdminRole }
       context "current user is an admin" do
-        let(:user) { build(:admin_user) }
+        let(:user) { create(:admin_user) }
 
         it "can manage" do
           expect(subject.can?(:manage, target_role)).to eq true
@@ -303,7 +304,7 @@ describe Ability do
       end
 
       context "otherwise" do
-        let(:user) { build(:coalition_lead_user) }
+        let(:user) { create(:coalition_lead_user) }
 
         it "cannot manage" do
           expect(subject.can?(:manage, target_role)).to eq false

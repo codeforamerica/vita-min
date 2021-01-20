@@ -37,6 +37,13 @@ class Ability
       ], client: { vita_partner: accessible_groups }
     end
 
+    # Site coordinator permissions in progress
+    if user.role_type == SiteCoordinatorRole::TYPE
+      can :manage, [
+        Document,
+      ], client: { vita_partner: accessible_groups }
+    end
+
     # Limit the types of new users one can create:
 
     # Coalition leads can create coalition leads, organization leads, site coordinators, and team members in their coalition
