@@ -212,6 +212,15 @@ en:
 
         Thanks!
         <<Preparer.FirstName>> at GetYourRefund.org
+      signature_requested: |
+        Hello!
+
+        Your tax return is now ready for your electronic signature if you choose to file with us.
+        Click here to sign your tax return:
+        <<Link.E-signature>>
+
+        Thanks!
+        - Your tax team
     bank_accounts:
       info_displayed: Displaying bank account information
       bank_name: Bank name

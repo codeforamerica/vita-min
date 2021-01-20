@@ -20,6 +20,7 @@ class TaxReturnStatus
           prep_info_requested: "hub.status_macros.needs_more_information",
           review_info_requested: "hub.status_macros.needs_more_information",
           review_ready_for_qr: "hub.status_macros.ready_for_qr",
+          review_signature_requested: "hub.status_macros.signature_requested",
           file_accepted: "hub.status_macros.accepted"
       }
     end
