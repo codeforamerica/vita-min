@@ -6,16 +6,25 @@ class Ability
 
     accessible_groups = user.accessible_vita_partners
 
+    # If role is nil, no permissions
+    if user.role_type.nil? || user.role_id.nil?
+      return
+    end
+
+    # Admins can do everything
     if user.role_type == AdminRole::TYPE
       can :manage, :all
-    elsif user.role_type == SiteCoordinatorRole::TYPE || user.role_type == TeamMemberRole::TYPE || user.role_type == CoalitionLeadRole::TYPE
-      can :manage, User, id: user.id
-      can :read, VitaPartner, id: accessible_groups.pluck(:id)
-      can :manage, Client, vita_partner: accessible_groups
-    else
-      can :manage, User, id: user.id
-      can :manage, Client, vita_partner: accessible_groups
-      can :read, VitaPartner, id: accessible_groups.pluck(:id)
+      return
+    end
+
+    # Anyone can manage themselves
+    can :manage, User, id: user.id
+    # Anyone can manage clients in the groups they can access
+    can :manage, Client, vita_partner: accessible_groups
+    # Anyone can read info about an organization or site they can access
+    can :read, VitaPartner, id: accessible_groups.pluck(:id)
+
+    unless user.role_type == SiteCoordinatorRole::TYPE || user.role_type == TeamMemberRole::TYPE || user.role_type == CoalitionLeadRole::TYPE
       can :manage, [
         IncomingTextMessage,
         OutgoingTextMessage,
@@ -28,6 +37,9 @@ class Ability
       ], client: { vita_partner: accessible_groups }
     end
 
+    # Limit the types of new users one can create:
+
+    # Coalition leads can create coalition leads, organization leads, site coordinators, and team members in their coalition
     if user.role_type == CoalitionLeadRole::TYPE
       can :manage, CoalitionLeadRole, coalition: user.role.coalition
       can :manage, OrganizationLeadRole, organization: { coalition_id: user.role.coalition_id }
@@ -35,12 +47,14 @@ class Ability
       can :manage, TeamMemberRole, site: { parent_organization: { coalition: user.role.coalition } }
     end
 
+    # Organization leads can create organization leads, site coordinators, and team members in their org
     if user.role_type == OrganizationLeadRole::TYPE
       can :manage, OrganizationLeadRole, organization: user.role.organization
       can :manage, SiteCoordinatorRole, site: { parent_organization: user.role.organization }
       can :manage, TeamMemberRole, site: { parent_organization: user.role.organization }
     end
 
+    # Site coordinators can create site coordinators and team members in their site
     if user.role_type == SiteCoordinatorRole::TYPE
       can :manage, SiteCoordinatorRole, site: user.role.site
       can :manage, TeamMemberRole, site: user.role.site
