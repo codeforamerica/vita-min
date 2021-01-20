@@ -982,7 +982,7 @@ es:
           heading: "¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?"
         stimulus_faq:
           info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
-        subheader: Te informamos que los servicios ofrecidos por GeYourRefund han cerrado para esta temporada de declaración de impuestos. Tendremos el gusto de ofrecerte nuestra asistencia gratuita de nuevo para declarar tus impuestos a partir de enero.
+        subheader_html: GetYour Refund reanudará sus servicios al final de enero por la temporada de impuestos 2021. Para preguntas acerca del estímulo, visite <a href="https://www.getyourrefund.org/es/stimulus">FAQ</a> en nuestra página principal. Regístrese ahora, para ser notificado cuando empecemos nuestro servicio nuevamente.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maintenance:
         contact_html: También puede %{email_link}.
