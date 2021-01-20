@@ -173,14 +173,14 @@ es:
         intake_in_progress: No listo
         intake_ready: Ready for review
         intake_reviewing: Revisando
-        intake_ready_for_call: Listo para llama
+        intake_ready_for_call: Listo para llamada
         intake_info_requested: Información solicitada
         prep_ready_for_prep: Listo para la preparación
         prep_preparing: Preparando
         prep_info_requested: Información solicitada
         review_ready_for_qr: Listo para QR
         review_reviewing: Revisando
-        review_ready_for_call: Listo para llama
+        review_ready_for_call: Listo para llamada
         review_signature_requested: Firma solicitada
         review_info_requested: Información solicitada
         file_ready_to_file: Listo para presentar
@@ -216,6 +216,17 @@ es:
 
         ¡Gracias!
         <<Preparer.FirstName>> en GetYourRefund.org
+      signature_requested: |
+        ¡Hola!
+
+        Su declaración de impuestos ya está lista para su firma electrónica si usted decide continuar con nosotros.
+        Puede presentar su firma aquí:
+        <<Link.E-signature>>
+
+        No dude en comunicarse con nosotros si tiene alguna pregunta.
+
+        Muchas gracias,
+        - Su equipo de impuestos
     bank_accounts:
       info_displayed: Visualización de la información de la cuenta bancaria
       bank_name: Nombre del banco
