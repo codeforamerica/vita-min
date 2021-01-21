@@ -1,6 +1,5 @@
 module Hub
   class TakeActionForm < Form
-    include MessageSending
     attr_accessor :tax_return,
                   :tax_return_id, 
                   :tax_returns, 
@@ -87,10 +86,10 @@ module Hub
     def send_message
       case contact_method
       when "email"
-        send_email(message_body, subject_locale: locale)
+        ClientMessagingService.send_email(@client, current_user, message_body, subject_locale: locale)
         @action_list << I18n.t("hub.clients.update_take_action.flash_message.email")
       when "text_message"
-        send_text_message(message_body)
+        ClientMessagingService.send_text_message(@client, current_user, message_body)
         @action_list << I18n.t("hub.clients.update_take_action.flash_message.text_message")
       end
     end

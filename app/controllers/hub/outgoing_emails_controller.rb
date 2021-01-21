@@ -1,7 +1,6 @@
 module Hub
   class OutgoingEmailsController < ApplicationController
     include AccessControllable
-    include MessageSending
 
     before_action :require_sign_in
     load_and_authorize_resource :client
@@ -9,7 +8,7 @@ module Hub
 
     def create
       if outgoing_email_params[:body].present?
-        send_email(outgoing_email_params[:body], attachment: outgoing_email_params[:attachment])
+        ClientMessagingService.send_email(@client, current_user, outgoing_email_params[:body], attachment: outgoing_email_params[:attachment])
       end
       redirect_to hub_client_messages_path(client_id: @outgoing_email.client_id)
     end

@@ -15,7 +15,7 @@ RSpec.describe Hub::OutgoingEmailsController do
     context "as an authenticated user with access to the client" do
       before do
         sign_in user
-        allow(subject).to receive(:send_email)
+        allow(ClientMessagingService).to receive(:send_email)
       end
 
       context "with body & client_id" do
@@ -32,7 +32,7 @@ RSpec.describe Hub::OutgoingEmailsController do
         it "calls the send_email method with the right arguments and redirects to messages page" do
           post :create, params: params
 
-          expect(subject).to have_received(:send_email).with("hi client", attachment: instance_of(ActionDispatch::Http::UploadedFile))
+          expect(ClientMessagingService).to have_received(:send_email).with(client, user, "hi client", attachment: instance_of(ActionDispatch::Http::UploadedFile))
           expect(response).to redirect_to hub_client_messages_path(client_id: client.id)
         end
       end
@@ -45,7 +45,7 @@ RSpec.describe Hub::OutgoingEmailsController do
         it "doesn't call send_email but still redirects to messages" do
           post :create, params: params
 
-          expect(subject).not_to have_received(:send_email)
+          expect(ClientMessagingService).not_to have_received(:send_email)
           expect(response).to redirect_to hub_client_messages_path(client_id: client.id)
         end
       end

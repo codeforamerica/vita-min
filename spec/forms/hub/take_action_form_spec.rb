@@ -4,12 +4,6 @@ RSpec.describe Hub::TakeActionForm do
   let(:client) { intake.client }
   let(:current_user) { create :admin_user, name: "Marilyn Mango" }
 
-  before do
-    allow(SendOutgoingTextMessageJob).to receive(:perform_later)
-    allow(ClientChannel).to receive(:broadcast_contact_record)
-    allow(OutgoingEmailMailer).to receive_message_chain(:user_message, :deliver_later)
-  end
-
   describe "setting default values" do
     let(:intake) { create :intake, locale: "es", preferred_name: "Luna Lemon" }
     context "default locale" do
