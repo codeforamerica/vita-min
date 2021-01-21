@@ -4,8 +4,7 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
   let(:ticket_id) { 9876 }
 
   before do
-    create :vita_partner, name: "Virginia Partner", id: 1
-    create :vita_partner_zip_code, vita_partner_id: 1, zip_code: "20121"
+    create :vita_partner, name: "Virginia Partner"
   end
 
   scenario "new client filing single without dependents" do

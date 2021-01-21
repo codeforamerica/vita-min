@@ -10,8 +10,8 @@
 #
 # Indexes
 #
-#  index_vita_partner_zip_codes_on_vita_partner_id               (vita_partner_id)
-#  index_vita_partner_zip_codes_on_zip_code_and_vita_partner_id  (zip_code,vita_partner_id) UNIQUE
+#  index_vita_partner_zip_codes_on_vita_partner_id  (vita_partner_id)
+#  index_vita_partner_zip_codes_on_zip_code         (zip_code) UNIQUE
 #
 # Foreign Keys
 #
@@ -20,8 +20,10 @@
 require 'rails_helper'
 
 RSpec.describe VitaPartnerZipCode, type: :model do
-  describe "required fields" do
-    context "record of zip code in helper/zip_codes ZIP_CODES hash and vita partner" do
+  describe "validations" do
+    let!(:existing_record) { create :vita_partner_zip_code }
+
+    context "record of zip code in helper/zip_codes ZIP_CODES hash and vita partner is present" do
       it "is valid" do
         vita_partner_zip_code = described_class.new(zip_code: "28806", vita_partner: create(:vita_partner))
         expect(vita_partner_zip_code).to be_valid
@@ -30,7 +32,10 @@ RSpec.describe VitaPartnerZipCode, type: :model do
 
     context "no vita partner" do
       it "is not valid" do
-        expect(described_class.new(zip_code: "28806")).not_to be_valid
+        vita_partner_zip_code = described_class.new(zip_code: "28806")
+
+        expect(vita_partner_zip_code).not_to be_valid
+        expect(vita_partner_zip_code.errors).to include :vita_partner
       end
     end
 
@@ -42,10 +47,7 @@ RSpec.describe VitaPartnerZipCode, type: :model do
         expect(vita_partner_zip_code.errors).to include :zip_code
       end
     end
-  end
 
-  describe "validations" do
-    let!(:existing_record) { create :vita_partner_zip_code }
     context "when a record already exists with same vita_partner and zipcode" do
       it "is not valid" do
         new_record = described_class.new(zip_code: existing_record.zip_code, vita_partner: existing_record.vita_partner)
@@ -56,18 +58,14 @@ RSpec.describe VitaPartnerZipCode, type: :model do
     end
 
     context "when a record exists with duplicate zip code and different vita partner" do
-      let!(:existing_record) { create :vita_partner_zip_code }
-
-      it "is valid" do
+      it "is not valid" do
         new_record = described_class.new(zip_code: existing_record.zip_code, vita_partner: create(:vita_partner))
 
-        expect(new_record).to be_valid
+        expect(new_record).not_to be_valid
       end
     end
 
     context "when a record exists with different zip code and duplicate vita partner" do
-      let!(:existing_record) { create :vita_partner_zip_code }
-
       it "is valid" do
         new_record = described_class.new(zip_code: "94117", vita_partner: existing_record.vita_partner)
 

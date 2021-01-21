@@ -9,16 +9,16 @@ class PartnerRoutingService
 
   # @return VitaPartner the object of the vita_partner we recommend routing to.
   def determine_organization
-    return route_from_source_param if route_from_source_param.present?
+    return vita_partner_from_source_param if vita_partner_from_source_param.present?
 
-    return route_from_zip_code if @zip_code.present?
+    return vita_partner_from_zip_code if @zip_code.present? && vita_partner_from_zip_code.present?
 
     fallback_organization
   end
 
   private
 
-  def route_from_source_param
+  def vita_partner_from_source_param
     return false unless source_param.present?
 
     vita_partner = SourceParameter.includes(:vita_partner).find_by(code: source_param)&.vita_partner
@@ -29,7 +29,7 @@ class PartnerRoutingService
     end
   end
 
-  def route_from_zip_code
+  def vita_partner_from_zip_code
     return false unless @zip_code.present?
 
     vita_partner = VitaPartnerZipCode.where(zip_code: @zip_code).first&.vita_partner

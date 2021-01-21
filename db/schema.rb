@@ -614,7 +614,7 @@ ActiveRecord::Schema.define(version: 2021_01_21_185003) do
     t.bigint "vita_partner_id", null: false
     t.string "zip_code", null: false
     t.index ["vita_partner_id"], name: "index_vita_partner_zip_codes_on_vita_partner_id"
-    t.index ["zip_code", "vita_partner_id"], name: "index_vita_partner_zip_codes_on_zip_code_and_vita_partner_id", unique: true
+    t.index ["zip_code"], name: "index_vita_partner_zip_codes_on_zip_code", unique: true
   end
 
   create_table "vita_partners", force: :cascade do |t|
