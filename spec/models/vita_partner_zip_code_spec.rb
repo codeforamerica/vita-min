@@ -10,7 +10,8 @@
 #
 # Indexes
 #
-#  index_vita_partner_zip_codes_on_vita_partner_id  (vita_partner_id)
+#  index_vita_partner_zip_codes_on_vita_partner_id               (vita_partner_id)
+#  index_vita_partner_zip_codes_on_zip_code_and_vita_partner_id  (zip_code,vita_partner_id) UNIQUE
 #
 # Foreign Keys
 #
@@ -39,6 +40,19 @@ RSpec.describe VitaPartnerZipCode, type: :model do
 
         expect(vita_partner_zip_code).not_to be_valid
         expect(vita_partner_zip_code.errors).to include :zip_code
+      end
+    end
+  end
+
+  describe "validations" do
+    context "when a record already exists with same vita_partner and zipcode" do
+      let!(:existing_record) { create :vita_partner_zip_code }
+
+      it "is not valid" do
+        new_record = described_class.new(zip_code: existing_record.zip_code, vita_partner: existing_record.vita_partner)
+
+        expect(existing_record).to be_valid
+        expect(new_record).not_to be_valid
       end
     end
   end

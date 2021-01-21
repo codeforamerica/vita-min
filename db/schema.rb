@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_20_220654) do
+ActiveRecord::Schema.define(version: 2021_01_21_185003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -614,6 +614,7 @@ ActiveRecord::Schema.define(version: 2021_01_20_220654) do
     t.bigint "vita_partner_id", null: false
     t.string "zip_code", null: false
     t.index ["vita_partner_id"], name: "index_vita_partner_zip_codes_on_vita_partner_id"
+    t.index ["zip_code", "vita_partner_id"], name: "index_vita_partner_zip_codes_on_zip_code_and_vita_partner_id", unique: true
   end
 
   create_table "vita_partners", force: :cascade do |t|

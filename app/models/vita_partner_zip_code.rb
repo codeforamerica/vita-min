@@ -10,7 +10,8 @@
 #
 # Indexes
 #
-#  index_vita_partner_zip_codes_on_vita_partner_id  (vita_partner_id)
+#  index_vita_partner_zip_codes_on_vita_partner_id               (vita_partner_id)
+#  index_vita_partner_zip_codes_on_zip_code_and_vita_partner_id  (zip_code,vita_partner_id) UNIQUE
 #
 # Foreign Keys
 #
@@ -19,6 +20,7 @@
 class VitaPartnerZipCode < ApplicationRecord
   belongs_to :vita_partner
   validate :record_of_zip_code
+  validates :zip_code, uniqueness: { scope: :vita_partner }
 
   private
 
