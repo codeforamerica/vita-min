@@ -11,7 +11,7 @@ module Hub
                   :action_list,
                   :current_user,
                   :client
-    validates :status, presence: true, allow_blank: false
+    validates_presence_of :status
     validate :belongs_to_client
     validate :status_has_changed
 
@@ -60,19 +60,6 @@ module Hub
       end
     end
 
-    def take_action
-      return false unless valid?
-
-      tax_return.status = status
-      if tax_return.save
-        SystemNote.create_status_change_note(current_user, tax_return)
-        @action_list << I18n.t("hub.clients.update_take_action.flash_message.status")
-        send_message if message_body.present?
-        create_note if internal_note_body.present?
-      end
-      true
-    end
-
     def self.permitted_params
       [:tax_return_id, :status, :locale, :message_body, :contact_method, :internal_note_body]
     end
@@ -82,26 +69,6 @@ module Hub
     end
 
     private
-
-    def send_message
-      case contact_method
-      when "email"
-        ClientMessagingService.send_email(@client, current_user, message_body, subject_locale: locale)
-        @action_list << I18n.t("hub.clients.update_take_action.flash_message.email")
-      when "text_message"
-        ClientMessagingService.send_text_message(@client, current_user, message_body)
-        @action_list << I18n.t("hub.clients.update_take_action.flash_message.text_message")
-      end
-    end
-
-    def create_note
-      Note.create!(
-          body: internal_note_body,
-          client: client,
-          user: current_user
-      )
-      @action_list << I18n.t("hub.clients.update_take_action.flash_message.internal_note")
-    end
 
     def language_label(key)
       I18n.t("general.language_options.#{key}")

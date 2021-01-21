@@ -34,7 +34,7 @@ FactoryBot.define do
   factory :tax_return do
     year { 2019 }
     client
-    status { 101 }
+    status { "intake_in_progress" }
 
     trait :ready_to_sign do
       status { "review_signature_requested" }

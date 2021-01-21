@@ -71,8 +71,9 @@ module Hub
 
     def update_take_action
       @take_action_form = Hub::TakeActionForm.new(@client, current_user, take_action_form_params)
-      if @take_action_form.take_action
-        flash[:notice] = I18n.t("hub.clients.update_take_action.flash_message.success", action_list: @take_action_form.action_list.join(", ").capitalize)
+      if @take_action_form.valid?
+        action_list = TaxReturnService.handle_status_change(@take_action_form)
+        flash[:notice] = I18n.t("hub.clients.update_take_action.flash_message.success", action_list: action_list.join(", ").capitalize)
         redirect_to hub_client_path(id: @client)
       else
         flash[:alert] = I18n.t("forms.errors.general")

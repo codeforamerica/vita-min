@@ -3,6 +3,38 @@ require "rails_helper"
 RSpec.describe Hub::TakeActionForm do
   let(:client) { intake.client }
   let(:current_user) { create :admin_user, name: "Marilyn Mango" }
+  let(:intake) { create :intake }
+  let(:tax_return) { create :tax_return, client: client, year: 2019 }
+  let(:form) { Hub::TakeActionForm.new(client, current_user, form_params) }
+
+  describe "validations" do
+    context "when tax_return_id is not part of clients tax returns" do
+      let(:form_params) {{ tax_return_id: create(:tax_return).id }}
+
+      it "add an error to the object" do
+        expect(form).not_to be_valid
+        expect(form.errors[:tax_return_id]).to include "Can't update tax return unrelated to current client."
+      end
+    end
+
+    context "when new status is same as current status" do
+      let(:form_params) {{ status: tax_return.status, tax_return_id: tax_return.id }}
+
+      it "add an error to the object" do
+        expect(form).not_to be_valid
+        expect(form.errors[:status]).to include "Can't initiate status change to current status."
+      end
+    end
+
+    context "when the status is blank" do
+      let(:form_params) {{ tax_return_id: tax_return.id, status: " \n" }}
+
+      it "add an error to the object" do
+        expect(form).not_to be_valid
+        expect(form.errors[:status]).to include "Can't be blank."
+      end
+    end
+  end
 
   describe "setting default values" do
     let(:intake) { create :intake, locale: "es", preferred_name: "Luna Lemon" }
@@ -222,167 +254,6 @@ RSpec.describe Hub::TakeActionForm do
         expect do
           form.contact_method_options
         end.to raise_error(StandardError, "Client has not opted in to any communications")
-      end
-    end
-  end
-  describe "#take_action" do
-
-    context "when tax_return_id is not part of clients tax returns" do
-      let(:intake) { create :intake }
-      let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: create(:tax_return).id }) }
-
-      it "add an error to the object" do
-        form.take_action
-        expect(form.errors[:tax_return_id]).to include "Can't update tax return unrelated to current client."
-      end
-    end
-
-    context "when new status is same as current status" do
-      let(:intake) { create :intake }
-      let(:tax_return) { create :tax_return, client: client, year: 2019 }
-      let(:form) { Hub::TakeActionForm.new(client, current_user, { status: tax_return.status, tax_return_id: tax_return.id }) }
-
-      it "add an error to the object" do
-        form.take_action
-        expect(form.errors[:status]).to include "Can't initiate status change to current status."
-      end
-    end
-
-    context "a successful action" do
-      let(:intake) { create :intake, email_address: "client@exaple.com", sms_phone_number: "+18324658840" }
-      let(:tax_return) { create :tax_return, client: client, year: 2019 }
-
-      context "only status change" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, status: "intake_info_requested", message_body: "" }) }
-
-        it "changes the status of the client" do
-          expect {
-            form.take_action
-            tax_return.reload
-          }.to change(tax_return, :status).to "intake_info_requested"
-        end
-
-        it "does not send an email" do
-          expect {
-            form.take_action
-          }.not_to change(OutgoingEmail, :count)
-        end
-
-        it "does not send a text" do
-          expect {
-            form.take_action
-          }.not_to change(OutgoingTextMessage, :count)
-        end
-
-        it "does not create a note" do
-          expect {
-            form.take_action
-          }.not_to change(Note, :count)
-        end
-
-        it "creates an action list that only includes changing status" do
-          form.take_action
-          expect(form.action_list).to eq ["updated status"]
-        end
-      end
-
-      context "status change with default message" do
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, status: "intake_info_requested" }) }
-        it "changes the status of the client" do
-          expect(SystemNote).to receive(:create_status_change_note).with(current_user, tax_return)
-
-          expect {
-            form.take_action
-            tax_return.reload
-          }.to change(tax_return, :status).to "intake_info_requested"
-        end
-
-        it "sends an email" do
-          expect {
-            form.take_action
-          }.to change(OutgoingEmail, :count).by(1)
-        end
-
-        it "does not send a text" do
-          expect {
-            form.take_action
-          }.not_to change(OutgoingTextMessage, :count)
-        end
-
-        context "when client has an sms preference" do
-          before do
-            allow(client.intake).to receive(:email_notification_opt_in_no?).and_return true
-            allow(client.intake).to receive(:sms_notification_opt_in_yes?).and_return true
-          end
-
-          it "sends an email" do
-            expect {
-              form.take_action
-            }.to change(OutgoingEmail, :count).by(0)
-          end
-
-          it "does not send a text" do
-            expect {
-              form.take_action
-            }.to change(OutgoingTextMessage, :count).by(1)
-          end
-        end
-
-        it "does not create a note" do
-          expect {
-            form.take_action
-          }.not_to change(Note, :count)
-        end
-
-        it "creates an action list" do
-          form.take_action
-          expect(form.action_list).to eq ["updated status", "sent email"]
-        end
-      end
-
-      context "status change with note" do
-        let(:internal_note_body) { "hi" }
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, internal_note_body: internal_note_body, message_body: "", status: "intake_info_requested" }) }
-        it "creates an action list" do
-          form.take_action
-          expect(form.action_list).to eq ["updated status", "added internal note"]
-        end
-
-        it "creates a note" do
-          expect {
-            form.take_action
-          }.to change(Note, :count).by(1)
-
-          note = Note.last
-          expect(note.user).to eq current_user
-          expect(note.body).to eq internal_note_body
-          expect(note.client).to eq client
-        end
-      end
-
-      context "status change with provided but empty note / message" do
-        let(:internal_note_body) { " \n" }
-        let(:message_body) { " \n" }
-
-        let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: tax_return.id, internal_note_body: internal_note_body, message_body: "", status: "intake_info_requested" }) }
-
-        it "does not save a note" do
-          expect do
-            form.take_action
-          end.not_to change(Note, :count)
-        end
-
-        it "does not send a message" do
-          expect do
-            form.take_action
-          end.not_to change(OutgoingEmail, :count)
-        end
-
-        it "does not save a message" do
-          expect do
-            form.take_action
-          end.not_to change(OutgoingTextMessage, :count)
-        end
       end
     end
   end

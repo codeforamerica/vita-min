@@ -786,20 +786,28 @@ RSpec.describe Hub::ClientsController do
     let(:internal_note_body) { "" }
     let(:message_body) { "" }
     let(:contact_method) { "email" }
+    let(:action_list) { ["updated status", "sent email", "added internal note"] }
+    let(:fake_form) { double("fake form") }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_take_action
 
     context "as an authenticated user" do
-      before { sign_in user }
+      before do
+        sign_in user
+        allow(Hub::TakeActionForm).to receive(:new).and_return(fake_form)
+        allow(TaxReturnService).to receive(:handle_status_change).and_return(action_list)
+      end
 
       let(:new_status_2019) { tax_return_2019.status }
 
       context "when there is an error" do
         before do
-          allow_any_instance_of(Hub::TakeActionForm).to receive(:take_action).and_return false
+          allow(fake_form).to receive(:valid?).and_return false
         end
+
         it "flashes an error, and renders edit" do
           post :update_take_action, params: params
+
           client.reload
           expect(flash[:alert]).to eq "Please fix indicated errors before continuing."
           expect(response).to render_template :edit_take_action
@@ -808,14 +816,15 @@ RSpec.describe Hub::ClientsController do
 
       context "when successful" do
         before do
-          allow_any_instance_of(Hub::TakeActionForm).to receive(:take_action).and_return true
-          allow_any_instance_of(Hub::TakeActionForm).to receive(:action_list).and_return ['updated status', 'sent email', 'added internal note']
+          allow(fake_form).to receive(:valid?).and_return true
         end
 
-        it "redirects to client show and flashes message based on actions list" do
+        it "handles the status change, adds a flashes message, and redirects to client show page" do
           post :update_take_action, params: params
-          expect(response).to redirect_to hub_client_path(id: client.id)
+
+          expect(TaxReturnService).to have_received(:handle_status_change).with(fake_form)
           expect(flash[:notice]).to eq "Success: Action taken! Updated status, sent email, added internal note."
+          expect(response).to redirect_to hub_client_path(id: client.id)
         end
       end
     end
