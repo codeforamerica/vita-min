@@ -220,7 +220,7 @@ es:
         ¡Hola!
 
         Su declaración de impuestos ya está lista para su firma electrónica si usted decide continuar con nosotros.
-        Puede presentar su firma aquí:
+        <<Client.YouOrMaybeYourSpouse>> puede presentar su firma aquí:
         <<Link.E-signature>>
 
         No dude en comunicarse con nosotros si tiene alguna pregunta.

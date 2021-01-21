@@ -219,7 +219,7 @@ en:
         Hello!
 
         Your tax return is now ready for your electronic signature if you choose to file with us.
-        Click here to sign your tax return:
+        <<Client.YouOrMaybeYourSpouse>> can sign at this link:
         <<Link.E-signature>>
 
         Thanks!

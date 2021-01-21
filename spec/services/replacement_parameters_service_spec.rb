@@ -58,6 +58,30 @@ describe ReplacementParametersService do
     end
   end
 
+  context "<<Client.YouOrMaybeYourSpouse>>" do
+    let(:body) { "<<Client.YouOrMaybeYourSpouse>> can sign your return at this link" }
+
+    context "when the client is filing joint" do
+      before do
+        allow(client.intake).to receive(:filing_joint_yes?).and_return true
+      end
+
+      it "says 'You or your' with capitalization" do
+        expect(subject.process).to eq "You or your spouse can sign your return at this link"
+      end
+    end
+
+    context "when the client is not filing joint" do
+      before do
+        allow(client.intake).to receive(:filing_joint_yes?).and_return false
+      end
+
+      it "just says 'You' (capitalized)" do
+        expect(subject.process).to eq "You can sign your return at this link"
+      end
+    end
+  end
+
   context "<<Link.E-signature>>" do
     describe "#process_sensitive_data" do
       before { allow(client).to receive(:login_link).and_return("https://getyourrefund.org/portal/account/raw_token")}

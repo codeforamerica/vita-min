@@ -33,7 +33,13 @@ class ReplacementParametersService
         "Preparer.FirstName": preparer_first_name,
         "Documents.List": documents_list,
         "Documents.UploadLink": client.intake.requested_docs_token_link,
+        "Client.YouOrMaybeYourSpouse": you_or_your,
     }
+  end
+
+  def you_or_your
+    value = client.intake.filing_joint_yes? ? I18n.t("general.you_or_spouse") : I18n.t("general.you")
+    value.capitalize
   end
 
   # this should only be called when we aren't saving the output to our database
