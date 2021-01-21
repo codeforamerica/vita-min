@@ -1,6 +1,9 @@
 ---
 version: 2.1
 
+orbs:
+  node: circleci/node@2
+
 executors:
   rails_executor:
     working_directory: ~/vita-min
@@ -22,15 +25,18 @@ commands:
           command: |
             sudo apt-get update && \
             sudo apt-get install -y pdftk ghostscript && \
-            gem install bundler:2.2.5 && \
-            bundle install --jobs=4 --retry=3 --path vendor/bundle && \
-            npm install yarn && \
-            yarn install
+            gem install bundler:2.2.5 --no-document && \
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
 jobs:
   run_tests:
     executor: rails_executor
     steps:
       - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+          app-dir: "~/vita-min"
+          cache-version: 2021-01
       - install_app_dependencies
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create
@@ -42,7 +48,6 @@ jobs:
               --out ~/test-results/rspec/rspec.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - run: yarn add --dev jest-junit
       - run:
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
           environment:
