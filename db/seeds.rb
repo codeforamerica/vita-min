@@ -22,6 +22,16 @@ first_site = VitaPartner.find_or_create_by!(
 
 SourceParameter.find_or_create_by(code: "libeery", vita_partner_id: first_site.id)
 
+VitaPartnerZipCode.find_or_create_by!(
+  zip_code: "94117",
+  vita_partner: first_org,
+)
+
+VitaPartnerZipCode.find_or_create_by!(
+  zip_code: "94016",
+  vita_partner: first_site,
+)
+
 # basic user
 user = User.where(email: "skywalker@example.com").first_or_initialize
 user.update(
