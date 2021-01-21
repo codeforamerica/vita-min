@@ -25,11 +25,17 @@ commands:
           command: |
             sudo apt-get update && \
             sudo apt-get install -y pdftk ghostscript
+      - restore_cache:
+          keys:
+            - ruby-{{ checksum "Gemfile.lock" }}
       - run:
           name: install bundler & ruby dependencies
           command: |
             gem install bundler:2.2.5 --no-document && \
             bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          key: ruby-{{ checksum "Gemfile.lock" }}
+          paths: [vendor/bundle]
 jobs:
   run_tests:
     executor: rails_executor
