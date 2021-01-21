@@ -17,27 +17,25 @@ class Ability
       return
     end
 
-    # Anyone can manage themselves
+    # Anyone can manage their name & email address (roles are handled separately)
     can :manage, User, id: user.id
     # Anyone can manage clients in the groups they can access
     can :manage, Client, vita_partner: accessible_groups
     # Anyone can read info about an organization or site they can access
     can :read, VitaPartner, id: accessible_groups.pluck(:id)
 
-    unless user.role_type == TeamMemberRole::TYPE || user.role_type == CoalitionLeadRole::TYPE
-      # With cancancan, the easiest way to write controllers that do access control is if the
-      # model for that controller has permissions assigned to it.
-      can :manage, [
-        IncomingTextMessage,
-        OutgoingTextMessage,
-        IncomingEmail,
-        OutgoingEmail,
-        Note,
-        Document,
-        TaxReturn,
-        SystemNote,
-      ], client: { vita_partner: accessible_groups }
-    end
+    # With cancancan, the easiest way to write controllers that do access control is if the
+    # model for that controller has permissions assigned to it.
+    can :manage, [
+      Document,
+      IncomingEmail,
+      IncomingTextMessage,
+      Note,
+      OutgoingEmail,
+      OutgoingTextMessage,
+      SystemNote,
+      TaxReturn,
+    ], client: { vita_partner: accessible_groups }
 
     # Limit the types of new users one can create:
 
