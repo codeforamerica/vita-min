@@ -11,7 +11,8 @@ class PartnerRoutingService
   def determine_organization
     return route_from_source_param if route_from_source_param.present?
 
-    # add zip_code routing logic here
+    return route_from_zip_code if @zip_code.present?
+
     fallback_organization
   end
 
@@ -28,8 +29,15 @@ class PartnerRoutingService
     end
   end
 
-  def vita_partner_from_zip_code
-    # @routing_method = :zip_code
+  def route_from_zip_code
+    return false unless @zip_code.present?
+
+    vita_partner = VitaPartnerZipCode.where(zip_code: @zip_code).first&.vita_partner
+
+    if vita_partner.present?
+      @routing_method = :zip_code
+      vita_partner
+    end
   end
 
   # This fallback logic SHOULD BE REMOVED once all routing tickets are implemented --

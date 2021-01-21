@@ -6,6 +6,7 @@ describe PartnerRoutingService do
   before do
     create :source_parameter, code: code, vita_partner: vita_partner
     create :organization_lead_role, organization: create(:vita_partner)
+    create :vita_partner_zip_code, zip_code: "94606", vita_partner: vita_partner
   end
 
   describe '#determine_organization' do
@@ -27,8 +28,13 @@ describe PartnerRoutingService do
       end
     end
 
-    xcontext "routing by zip code" do
+    context "when a zip code is provided but a source param is not" do
       subject { PartnerRoutingService.new(zip_code: "94606") }
+
+      it "returns the vita partner that has the associated vita partner zip code" do
+        expect(subject.determine_organization).to eq vita_partner
+        expect(subject.routing_method).to eq :zip_code
+      end
     end
   end
 end
