@@ -1,25 +1,30 @@
-class OrganizationRoutingService
-  attr_accessor :referring_organization_id, :routing_method
+class RoutingService
+  attr_accessor :source_param, :routing_method
 
-  def initialize(referring_organization_id: nil, zip_code: zip_code)
-    @referring_organization_id = referring_organization_id
+  def initialize(source_param: nil, zip_code: nil)
+    @source_param = source_param
     @zip_code = zip_code
     @routing_method = nil
   end
 
   # @return VitaPartner the object of the vita_partner we recommend routing to.
   def determine_organization
-    return vita_partner_from_referring_organization if vita_partner_from_referring_organization.present?
+    return route_from_source_param if route_from_source_param.present?
+
     # add zip_code routing logic here
     fallback_organization
   end
 
   private
 
-  def vita_partner_from_referring_organization
-    if referring_organization_id.present?
-      @routing_method = :direct
-      VitaPartner.find(referring_organization_id)
+  def route_from_source_param
+    return false unless source_param.present?
+
+    vita_partner = SourceParameter.includes(:vita_partner).find_by(code: source_param)&.vita_partner
+
+    if vita_partner.present?
+      @routing_method = :source_param
+      vita_partner
     end
   end
 

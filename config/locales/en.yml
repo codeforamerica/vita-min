@@ -102,6 +102,9 @@ en:
         texting_phone: Phone For Texting
         tax_info: Tax Info
         basic_info: Basic Info
+        metadata: Metadata
+        routing_method: Initial Routing Method
+        source_param: Source Param
     documents:
       edit:
         title: Edit Document

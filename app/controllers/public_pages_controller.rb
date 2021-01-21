@@ -8,14 +8,6 @@ class PublicPagesController < ApplicationController
     redirect_to root_path, { locale: I18n.locale }
   end
 
-  def source_routing
-    source_parameter = SourceParameter.find_by(code: params[:source])
-    if source_parameter&.vita_partner_id
-      session[:referring_organization_id] = source_parameter.vita_partner_id
-    end
-    redirect_locale_home
-  end
-
   def home; end
 
   def diy_home; end

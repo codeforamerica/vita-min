@@ -1,13 +1,15 @@
 require 'rails_helper'
 
-describe OrganizationRoutingService do
+describe RoutingService do
   let(:vita_partner) { create :vita_partner }
+  let(:code) { "SourceParam" }
   before do
+    create :source_parameter, code: code, vita_partner: vita_partner
     create :organization_lead_role, organization: create(:vita_partner)
   end
 
   describe '#determine_organization' do
-    subject { OrganizationRoutingService.new }
+    subject { RoutingService.new }
 
     context "initialized without custom client data" do
       it 'still returns a vita partner' do
@@ -16,17 +18,17 @@ describe OrganizationRoutingService do
       end
     end
 
-    context "when a referring organization id is provided" do
-      subject { OrganizationRoutingService.new(referring_organization_id: vita_partner.id) }
+    context "when a source param is provided" do
+      subject { RoutingService.new(source_param: code) }
 
       it "returns the referring organization" do
         expect(subject.determine_organization).to eq vita_partner
-        expect(subject.routing_method).to eq :direct
+        expect(subject.routing_method).to eq :source_param
       end
     end
 
     xcontext "routing by zip code" do
-      subject { OrganizationRoutingService.new(zip_code: "94606") }
+      subject { RoutingService.new(zip_code: "94606") }
     end
   end
 end

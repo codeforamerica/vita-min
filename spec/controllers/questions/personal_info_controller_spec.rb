@@ -21,9 +21,9 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     before do
-      allow(OrganizationRoutingService).to receive(:new).and_return organization_router
+      allow(RoutingService).to receive(:new).and_return organization_router
       allow(organization_router).to receive(:determine_organization).and_return vita_partner
-      allow(organization_router).to receive(:routing_method).and_return :direct
+      allow(organization_router).to receive(:routing_method).and_return :source_param
 
     end
 
@@ -35,15 +35,15 @@ RSpec.describe Questions::PersonalInfoController do
     context "when a client has not yet consented" do
       before do
         create :tax_return, client: intake.client, status: "intake_before_consent"
-        session[:referring_organization_id] = vita_partner.id
+        session[:source] = "SourceParam"
       end
 
       it "gets routed" do
         post :update, params: params
 
-        expect(OrganizationRoutingService).to have_received(:new).with(
+        expect(RoutingService).to have_received(:new).with(
           {
-            referring_organization_id: vita_partner.id,
+            source_param: "SourceParam",
             zip_code: "80309"
           }
         )
@@ -56,7 +56,7 @@ RSpec.describe Questions::PersonalInfoController do
           intake.reload
         }.to change(intake, :vita_partner_id).to(vita_partner.id)
          .and change(intake.client, :vita_partner_id).to(vita_partner.id)
-         .and change(intake.client, :routing_method).to eq("direct")
+         .and change(intake.client, :routing_method).to eq("source_param")
       end
     end
 

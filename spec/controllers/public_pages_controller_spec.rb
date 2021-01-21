@@ -82,37 +82,6 @@ RSpec.describe PublicPagesController do
     end
   end
 
-  describe "#source_routing" do
-    let(:code) { "SourceParameter" }
-    let(:params) { { source: code }}
-    context "when the source param matches an existing SourceParameter entry associated to an organization" do
-      let!(:source_parameter) { create :source_parameter, code: code, vita_partner: create(:vita_partner) }
-      it "sets the referring_organization_id to the session" do
-        get :source_routing, params: params
-        expect(session[:referring_organization_id]).to eq source_parameter.vita_partner.id
-      end
-
-      it "redirects to root" do
-        expect(
-          get :source_routing, params: params
-        ).to redirect_to :root
-      end
-    end
-
-    context "when the source parameter passed does not match an existing SourceParameter entry associated to an organization" do
-      it "does not set a referring_organization_id to the session" do
-        get :source_routing, params: params
-        expect(session[:referring_organization_id]).to eq nil
-      end
-
-      it "redirects to root" do
-        expect(
-          get :source_routing, params: params
-        ).to redirect_to :root
-      end
-    end
-  end
-
   describe "#privacy_policy" do
     it "renders successfully" do
       get :privacy_policy
