@@ -6,7 +6,7 @@ orbs:
 
 executors:
   rails_executor:
-    working_directory: ~/vita-min
+    working_directory: /mnt/ramdisk
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
@@ -35,7 +35,7 @@ commands:
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           key: ruby-{{ checksum "Gemfile.lock" }}
-          paths: [vendor/bundle]
+          paths: [/mnt/ramdisk/vendor/bundle]
 jobs:
   run_tests:
     executor: rails_executor
@@ -44,8 +44,8 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
-          app-dir: "~/vita-min"
           cache-version: 2021-01
+          app-dir: /mnt/ramdisk
       - install_app_dependencies
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create
