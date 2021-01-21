@@ -44,7 +44,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
-          cache-version: 2021-01
+          cache-version: 2021-01.1
           app-dir: /mnt/ramdisk
       - install_app_dependencies
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
