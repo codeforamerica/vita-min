@@ -1,4 +1,4 @@
-class RoutingService
+class PartnerRoutingService
   attr_accessor :source_param, :routing_method
 
   def initialize(source_param: nil, zip_code: nil)

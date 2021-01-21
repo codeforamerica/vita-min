@@ -7,6 +7,7 @@ require "capybara/rails"
 require "capybara/rspec"
 require "selenium/webdriver"
 require "webdrivers"
+require "rack_session_access/capybara"
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("lib/strategies/**/*.rb")].each { |f| require f }
 
@@ -23,6 +24,7 @@ Capybara.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
+
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

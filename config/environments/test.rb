@@ -41,9 +41,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   config.active_support.deprecation = :stderr
-
   # Raises error for missing translations
   config.action_view.raise_on_missing_translations = true
   config.i18n.available_locales = [:en, :es]
   config.offseason = false
+
+  # Access to rack session
+  config.middleware.use RackSessionAccess::Middleware
+
 end

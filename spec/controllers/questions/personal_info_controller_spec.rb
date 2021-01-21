@@ -8,7 +8,7 @@ RSpec.describe Questions::PersonalInfoController do
   end
 
   describe "#update" do
-    let(:intake) { create :intake }
+    let(:intake) { create :intake, source: "SourceParam" }
     let(:state) { 'CO' }
     let(:params) do
       {
@@ -21,7 +21,7 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     before do
-      allow(RoutingService).to receive(:new).and_return organization_router
+      allow(PartnerRoutingService).to receive(:new).and_return organization_router
       allow(organization_router).to receive(:determine_organization).and_return vita_partner
       allow(organization_router).to receive(:routing_method).and_return :source_param
 
@@ -35,13 +35,12 @@ RSpec.describe Questions::PersonalInfoController do
     context "when a client has not yet consented" do
       before do
         create :tax_return, client: intake.client, status: "intake_before_consent"
-        session[:source] = "SourceParam"
       end
 
       it "gets routed" do
         post :update, params: params
 
-        expect(RoutingService).to have_received(:new).with(
+        expect(PartnerRoutingService).to have_received(:new).with(
           {
             source_param: "SourceParam",
             zip_code: "80309"

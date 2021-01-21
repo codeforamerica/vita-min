@@ -8,8 +8,8 @@ module Questions
 
     def after_update_success
       unless Client.after_consent.where(intake: current_intake).exists?
-        routing_service = RoutingService.new(
-          source_param: current_intake.source || source,
+        routing_service = PartnerRoutingService.new(
+          source_param: current_intake.source,
           zip_code: current_intake.zip_code,
         )
         vita_partner = routing_service.determine_organization
