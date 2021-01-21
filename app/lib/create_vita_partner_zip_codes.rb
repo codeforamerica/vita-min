@@ -1,13 +1,16 @@
 require 'csv'
 
 class CreateVitaPartnerZipCodes
-  def from(filename)
+  def from_csv(filename)
     # To use, run "CreateVitaPartnerZipCodes.new().from_csv('./wave_1_routing.csv')" in console
+    successes = []
+    problems = []
+    unfound_vita_partners = []
 
     headers = CSV.foreach(filename).first
 
-    if headers[5] != "Zip Routing" || headers[0] != "Organization Name"
-      puts "Headers are not aligned"
+    unless headers[5]&.strip == "Zip Routing" || headers[0]&.strip == "Organization Name"
+      puts "Unable to process file b/c headers are not aligned #{headers[0]}"
       return
     end
 
@@ -17,21 +20,27 @@ class CreateVitaPartnerZipCodes
       zip_codes = row[5]
       next unless zip_codes
 
-      organization_name = row[0]
+      organization_name = row[0]&.strip
       vita_partner = VitaPartner.where(name: organization_name)&.first
       if vita_partner.nil?
-        puts "Unable to find VitaPartner with name '#{organization_name}'"
+        unfound_vita_partners << organization_name
         next
       end
 
       zip_codes.to_s.split(",").map do |zip_code|
         begin
-          VitaPartnerZipCode.create!(zip_code: zip_code, vita_partner: vita_partner)
-          puts "Created VitaPartnerZipCode with #{zip_code} for #{vita_partner&.name}"
+          VitaPartnerZipCode.create!(zip_code: zip_code&.strip, vita_partner: vita_partner&.strip)
+          successes << "Created VitaPartnerZipCode with #{zip_code} for #{vita_partner&.name}"
         rescue => e
-          puts "Unable to create VitaPartnerZipCode with #{zip_code} for #{vita_partner&.name} because: #{ e.message }"
+          problems << "SKIPPED Unable to create VitaPartnerZipCode with #{zip_code} for #{vita_partner&.name} because: #{ e.message }"
         end
       end
     end
+
+    problems << "SKIPPED Unable to find VitaPartner for organization names:\n#{unfound_vita_partners.join(", ")}"
+    puts "**** #{successes.length} SUCCESSES FOR THESE CODES ****"
+    puts successes
+    puts "**** LOOK INTO THESE #{problems.length} ISSUES ****"
+    puts problems
   end
 end

@@ -64,5 +64,15 @@ RSpec.describe VitaPartnerZipCode, type: :model do
         expect(new_record).to be_valid
       end
     end
+
+    context "when a record exists with different zip code and duplicate vita partner" do
+      let!(:existing_record) { create :vita_partner_zip_code }
+
+      it "is valid" do
+        new_record = described_class.new(zip_code: "94117", vita_partner: existing_record.vita_partner)
+
+        expect(new_record).to be_valid
+      end
+    end
   end
 end
