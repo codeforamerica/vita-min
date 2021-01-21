@@ -41,7 +41,20 @@ class TaxReturn < ApplicationRecord
   enum certification_level: { advanced: 1, basic: 2 }
   enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type
   validates :year, presence: true
-  
+
+  attr_accessor :status_last_changed_by
+  after_update do
+    if saved_change_to_status?
+      data = MixpanelService.data_from([status_last_changed_by, client, self].compact).merge({from_status: status_before_last_save})
+
+      MixpanelService.send_event(
+        event_id: client.intake.visitor_id,
+        event_name: "status_change",
+        data: data
+      )
+    end
+  end
+
   ##
   # advance the return to a new status, only if that status more advanced.
   # An earlier or equal status will be ignored.

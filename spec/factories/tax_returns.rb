@@ -33,7 +33,8 @@
 FactoryBot.define do
   factory :tax_return do
     year { 2019 }
-    client
+    # when creating a client, also create an intake, since tax returns are made after intake begins
+    client { create(:intake).client }
     status { "intake_in_progress" }
 
     trait :ready_to_sign do

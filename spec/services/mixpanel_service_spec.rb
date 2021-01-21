@@ -151,7 +151,7 @@ describe MixpanelService do
 
     describe '#data_from(obj)' do
       let(:state_of_residence) { 'CA' }
-      let(:vita_partner) { create(:vita_partner, name: "test_partner")}
+      let(:vita_partner) { create(:vita_partner, name: "test_partner") }
       let(:intake) do
         create(
           :intake,
@@ -219,35 +219,35 @@ describe MixpanelService do
 
         it "returns the expected hash" do
           expect(data_from_intake).to eq({
-            intake_source: "beep",
-            intake_referrer: "http://boop.horse/mane",
-            intake_referrer_domain: "boop.horse",
-            primary_filer_age_at_end_of_tax_year: "26",
-            spouse_age_at_end_of_tax_year: "27",
-            primary_filer_disabled: "no",
-            spouse_disabled: "yes",
-            had_dependents: "yes",
-            number_of_dependents: "2",
-            had_dependents_under_6: "yes",
-            filing_joint: "no",
-            had_earned_income: "yes",
-            state: intake.state_of_residence,
-            zip_code: "94609",
-            needs_help_2020: "no",
-            needs_help_2019: "yes",
-            needs_help_2018: "no",
-            needs_help_2017: "yes",
-            needs_help_2016: "unfilled",
-            needs_help_backtaxes: "yes",
-            vita_partner_name: vita_partner.name,
-            triaged_from_stimulus: "no",
-            timezone: "America/Los_Angeles",
-            csat: "neutral",
-            eip_only: true,
-            claimed_by_another: "yes",
-            already_applied_for_stimulus: "no",
-            no_ssn: "yes",
-          })
+                                           intake_source: "beep",
+                                           intake_referrer: "http://boop.horse/mane",
+                                           intake_referrer_domain: "boop.horse",
+                                           primary_filer_age_at_end_of_tax_year: "26",
+                                           spouse_age_at_end_of_tax_year: "27",
+                                           primary_filer_disabled: "no",
+                                           spouse_disabled: "yes",
+                                           had_dependents: "yes",
+                                           number_of_dependents: "2",
+                                           had_dependents_under_6: "yes",
+                                           filing_joint: "no",
+                                           had_earned_income: "yes",
+                                           state: intake.state_of_residence,
+                                           zip_code: "94609",
+                                           needs_help_2020: "no",
+                                           needs_help_2019: "yes",
+                                           needs_help_2018: "no",
+                                           needs_help_2017: "yes",
+                                           needs_help_2016: "unfilled",
+                                           needs_help_backtaxes: "yes",
+                                           vita_partner_name: vita_partner.name,
+                                           triaged_from_stimulus: "no",
+                                           timezone: "America/Los_Angeles",
+                                           csat: "neutral",
+                                           eip_only: true,
+                                           claimed_by_another: "yes",
+                                           already_applied_for_stimulus: "no",
+                                           no_ssn: "yes",
+                                         })
         end
 
         context "when the intake is anonymous" do
@@ -290,21 +290,181 @@ describe MixpanelService do
               stimulus_triage_filed_recently: "unfilled",
               stimulus_triage_need_to_correct: "unfilled",
               stimulus_triage_need_to_file: "unfilled"
-            )
+                                        )
           end
         end
 
         context "when the intake does not have a triage source from stimulus triage" do
           it "does not includes stimulus triage data" do
             expect(data_from_intake).not_to include(
-                                                :stimulus_triage_source,
-                                                :stimulus_triage_referrer,
-                                                :stimulus_triage_chose_to_file,
-                                                :stimulus_triage_filed_prior_years,
-                                                :stimulus_triage_filed_recently,
-                                                :stimulus_triage_need_to_correct,
-                                                :stimulus_triage_need_to_file
+              :stimulus_triage_source,
+                                              :stimulus_triage_referrer,
+                                              :stimulus_triage_chose_to_file,
+                                              :stimulus_triage_filed_prior_years,
+                                              :stimulus_triage_filed_recently,
+                                              :stimulus_triage_need_to_correct,
+                                              :stimulus_triage_need_to_file
                                             )
+          end
+        end
+      end
+
+      context 'when obj is a TaxReturn' do
+        let(:tax_return) { create :tax_return, year: "2019", certification_level: "basic", service_type: "online_intake", status: "intake_info_requested" }
+        let(:data_from_intake) { MixpanelService.data_from(tax_return) }
+
+        it 'returns relevant data' do
+          expect(data_from_intake).to eq(
+            {
+              year: "2019",
+              certification_level: "basic",
+              service_type: "online_intake",
+              status: "intake_info_requested"
+            }
+          )
+        end
+      end
+
+      context 'when obj is a User' do
+        context "when the role is AdminRole" do
+          let(:user) { create :admin_user }
+
+          it 'returns just the user id' do
+            expected = {
+              user_id: user.id,
+              user_site_name: nil,
+              user_organization_name: nil,
+              user_organization_id: nil,
+              user_site_id: nil,
+              user_coalition_name: nil,
+              user_coalition_id: nil,
+            }
+            expect(MixpanelService.data_from(user)).to eq(expected)
+          end
+        end
+
+        context "when the role is CoalitionLeadRole" do
+          let(:user) { create :coalition_lead_user }
+
+          it 'returns user and coalition data' do
+            expected = {
+              user_id: user.id,
+              user_coalition_name: user.role.coalition.name,
+              user_coalition_id: user.role.coalition.id,
+              user_organization_name: nil,
+              user_organization_id: nil,
+              user_site_name: nil,
+              user_site_id: nil,
+            }
+            expect(MixpanelService.data_from(user)).to eq(expected)
+          end
+        end
+
+        context "when the role is OrganizationLeadRole" do
+          let(:coalition) { create(:coalition) }
+          let(:user) { create :organization_lead_user, organization: create(:organization, coalition: coalition) }
+
+          it 'returns user, coalition, and organization data' do
+            expected = {
+              user_id: user.id,
+              user_coalition_name: coalition.name,
+              user_coalition_id: coalition.id,
+              user_organization_name: user.role.organization.name,
+              user_organization_id: user.role.organization.id,
+              user_site_name: nil,
+              user_site_id: nil,
+            }
+            expect(MixpanelService.data_from(user)).to eq(expected)
+          end
+        end
+
+        context "when the role is SiteCoordinatorRole" do
+          let(:coalition) { create :coalition }
+          let(:organization) { create :organization, coalition: coalition }
+          let(:site) { create :site, parent_organization: organization }
+          let(:user) { create :site_coordinator_user, site: site }
+
+          it 'returns all user fields' do
+            expected = {
+              user_id: user.id,
+              user_coalition_name: coalition.name,
+              user_coalition_id: coalition.id,
+              user_organization_name: organization.name,
+              user_organization_id: organization.id,
+              user_site_name: site.name,
+              user_site_id: site.id
+            }
+            expect(MixpanelService.data_from(user)).to eq(expected)
+          end
+        end
+
+        context "when the role is TeamMemberRole" do
+          let(:coalition) { create :coalition }
+          let(:organization) { create :organization, coalition: coalition }
+          let(:site) { create :site, parent_organization: organization }
+          let(:user) { create :team_member_user, site: site }
+
+          it 'returns all user fields' do
+            expected = {
+              user_id: user.id,
+              user_coalition_name: coalition.name,
+              user_coalition_id: coalition.id,
+              user_organization_name: organization.name,
+              user_organization_id: organization.id,
+              user_site_name: site.name,
+              user_site_id: site.id
+            }
+            expect(MixpanelService.data_from(user)).to eq(expected)
+          end
+        end
+      end
+
+      context 'when obj is a Client' do
+        context 'when client.vita_partner is an organization' do
+          let(:vita_partner) { create :organization }
+          let(:client) { create :client, vita_partner: vita_partner }
+
+          it 'returns client organization data' do
+            expect(MixpanelService.data_from(client)).to eq(
+              {
+                client_organization_name: vita_partner.name,
+                client_organization_id: vita_partner.id,
+                client_site_name: nil,
+                client_site_id: nil,
+              }
+            )
+          end
+        end
+
+        context 'when client.vita_partner is a site' do
+          let(:organization) { create :organization }
+          let(:vita_partner) { create :site, parent_organization: organization}
+          let(:client) { create :client, vita_partner: vita_partner }
+
+          it 'returns client site & organization data' do
+            expect(MixpanelService.data_from(client)).to eq(
+              {
+                client_organization_name: organization.name,
+                client_organization_id: organization.id,
+                client_site_name: vita_partner.name,
+                client_site_id: vita_partner.id,
+              }
+           )
+          end
+        end
+
+        context 'when the client.vita_partner is nil' do
+          let(:client) { create :client, vita_partner: nil }
+
+          it 'returns client fields as nil' do
+            expect(MixpanelService.data_from(client)).to eq(
+              {
+                client_organization_name: nil,
+                client_organization_id: nil,
+                client_site_name: nil,
+                client_site_id: nil,
+              }
+            )
           end
         end
       end
@@ -370,7 +530,7 @@ describe ApplicationController, type: :controller do
 
     it 'strips :intake_id from paths' do
       routes.draw { get "req_test/:intake_id/rest?the-id=9999998" => "anonymous#req_test" }
-      params = {intake_id: 9999998}
+      params = { intake_id: 9999998 }
       get :req_test, params: params
 
       expect(fake_tracker).to have_received(:track).with(

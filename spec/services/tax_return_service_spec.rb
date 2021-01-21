@@ -29,7 +29,17 @@ describe TaxReturnService do
     it "updates the tax return status" do
       expect {
         TaxReturnService.handle_status_change(form)
-      }.to change{ tax_return.reload.status }.to("intake_info_requested")
+      }.to change { tax_return.reload.status }.to("intake_info_requested")
+    end
+
+    context "setting TaxReturn.status_last_changed_by" do
+      before do
+        expect_any_instance_of(TaxReturn).to receive(:status_last_changed_by=).with(user)
+      end
+
+      it "sets it to the current_user" do
+        TaxReturnService.handle_status_change(form)
+      end
     end
 
     it "record the status change in the action list" do

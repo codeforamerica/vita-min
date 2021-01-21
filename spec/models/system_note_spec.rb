@@ -50,7 +50,7 @@ RSpec.describe SystemNote do
 
   describe ".create_status_change_note" do
     let(:user) { create :user, name: "Olive Oil" }
-    let(:tax_return) { create :tax_return, client: (create :client), status: "intake_in_progress", year: 3020 }
+    let(:tax_return) { create :tax_return, status: "intake_in_progress", year: 3020 }
 
     context "with recently persisted changes" do
       before do

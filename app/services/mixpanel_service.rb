@@ -142,6 +142,12 @@ class MixpanelService
           data.merge!(data_from_request(entry, path_exclusions: path_exclusions))
         when StimulusTriage
           data.merge!(data_from_stimulus_triage(entry))
+        when TaxReturn
+          data.merge!(data_from_tax_return(entry))
+        when User
+          data.merge!(data_from_user(entry))
+        when Client
+          data.merge!(data_from_client(entry))
         else
           {}
         end
@@ -234,6 +240,54 @@ class MixpanelService
         filed_recently: stimulus_triage.filed_recently,
         need_to_correct: stimulus_triage.need_to_correct,
         need_to_file: stimulus_triage.need_to_file
+      }
+    end
+
+    def data_from_tax_return(tax_return)
+      {
+        year: tax_return.year.to_s,
+        certification_level: tax_return.certification_level,
+        service_type: tax_return.service_type,
+        status: tax_return.status,
+      }
+    end
+
+    def data_from_user(user)
+      site = nil
+      organization = nil
+      coalition = nil
+
+      case user.role_type
+      when CoalitionLeadRole::TYPE
+        coalition = user.role.coalition
+      when OrganizationLeadRole::TYPE
+        organization = user.role.organization
+        coalition = organization.coalition
+      when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
+        site = user.role.site
+        organization = site.parent_organization
+        coalition = organization.coalition
+      end
+
+      {
+        user_id: user.id,
+        user_site_name: site&.name,
+        user_site_id: site&.id,
+        user_organization_name: organization&.name,
+        user_organization_id: organization&.id,
+        user_coalition_name: coalition&.name,
+        user_coalition_id: coalition&.id,
+      }
+    end
+
+    def data_from_client(client)
+      site = client.vita_partner&.site? ? client.vita_partner : nil
+      organization = site ? site.parent_organization : client.vita_partner
+      {
+        client_organization_name: organization&.name,
+        client_organization_id: organization&.id,
+        client_site_name: site&.name,
+        client_site_id: site&.id,
       }
     end
 

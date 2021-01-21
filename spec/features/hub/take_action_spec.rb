@@ -13,7 +13,7 @@ RSpec.feature "Change tax return status on a client" do
       login_as user
     end
 
-    scenario "can changes status from any hub page, sends a message, and creates an internal note" do
+  scenario "can changes status from any hub page, sends a message, and creates an internal note" do
       # One day, when switching the status causes a page reload, this test can expect a templated message.
       visit hub_client_notes_path(client_id: client.id)
       click_on "Take action"

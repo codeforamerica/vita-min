@@ -724,4 +724,62 @@ describe TaxReturn do
       expect(result["file"].length).to eq 6
     end
   end
+
+  context "after_update" do
+    let(:fake_tracker) { double('mixpanel tracker') }
+    let(:client) { create(:intake).client }
+    let(:tax_return) { create(:tax_return, status: "intake_ready", client: client) }
+
+    context "when status changes" do
+      context "when caused by a user" do
+        let(:fake_mixpanel_client_and_user_and_tax_return_data) { {} }
+        let(:user) { create :user }
+
+        before do
+          tax_return.status_last_changed_by = user
+          allow(MixpanelService).to receive(:data_from).and_return(fake_mixpanel_client_and_user_and_tax_return_data)
+          allow(MixpanelService).to receive(:send_event)
+        end
+
+        it "sends user, client, and tax return data to Mixpanel" do
+          tax_return.update(status: "prep_info_requested")
+          expect(MixpanelService).to have_received(:send_event).with(
+            event_id: client.intake.visitor_id,
+            event_name: "status_change",
+            data: hash_including({ from_status: "intake_ready" }))
+          expect(MixpanelService).to have_received(:data_from).with([user, tax_return.client, tax_return])
+        end
+      end
+
+      context "when not caused by a user" do
+        let(:fake_mixpanel_client_and_tax_return_data) { {} }
+
+        before do
+          allow(MixpanelService).to receive(:data_from).and_return(fake_mixpanel_client_and_tax_return_data)
+          allow(MixpanelService).to receive(:send_event)
+        end
+
+        it "sends client, and tax return data to Mixpanel" do
+          tax_return.update(status: "intake_reviewing")
+          expect(MixpanelService).to have_received(:send_event).with(
+            event_id: client.intake.visitor_id,
+            event_name: "status_change",
+            data: hash_including({ from_status: "intake_ready" }))
+          expect(MixpanelService).to have_received(:data_from).with([tax_return.client, tax_return])
+        end
+      end
+    end
+
+    context "when status did not change" do
+      let(:tax_return) { create(:tax_return, is_hsa: false) }
+      before do
+        tax_return.update(is_hsa: true)
+        allow(MixpanelService).to receive(:send_event)
+      end
+
+      it "sends no event to Mixpanel" do
+        expect(MixpanelService).not_to have_received(:send_event)
+      end
+    end
+  end
 end

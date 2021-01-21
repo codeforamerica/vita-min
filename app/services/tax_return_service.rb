@@ -2,6 +2,7 @@ class TaxReturnService
   def self.handle_status_change(form)
     action_list = []
 
+    form.tax_return.status_last_changed_by = form.current_user
     form.tax_return.update(status: form.status)
     action_list << I18n.t("hub.clients.update_take_action.flash_message.status")
     SystemNote.create_status_change_note(form.current_user, form.tax_return)
