@@ -31,7 +31,7 @@ class VitaPartner < ApplicationRecord
   has_many :intakes
   has_many :source_parameters
   has_many :users
-  has_many :vita_partner_zip_codes
+  has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode"
   belongs_to :parent_organization, class_name: "VitaPartner", optional: true
   validate :one_level_of_depth
   validate :no_coalitions_for_sites

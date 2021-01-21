@@ -1,8 +1,15 @@
 require 'csv'
 
-class VitaPartnerZipCodeRoutingImporter
-  def create_vita_partner_zip_codes_from_csv(filename)
-    # To use, run "VitaPartnerZipCodeRoutingImporter.new().create_vita_partner_zip_codes_from_csv('./wave_1_routing.csv')" in console
+class CreateVitaPartnerZipCodes
+  def from(filename)
+    # To use, run "CreateVitaPartnerZipCodes.new().from_csv('./wave_1_routing.csv')" in console
+
+    headers = CSV.foreach(filename).first
+
+    if headers[5] != "Zip Routing" || headers[0] != "Organization Name"
+      puts "Headers are not aligned"
+      return
+    end
 
     data = CSV.read(filename, headers: true)
 
