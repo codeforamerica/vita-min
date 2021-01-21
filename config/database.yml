@@ -19,6 +19,7 @@ development:
 test:
   <<: *local_default
   database: vita-min_test<%= ENV['TEST_ENV_NUMBER'] %>
+  schema_cache_path: tmp/test_db_schema.rb
 
 production:
   <<: *deploy_default
