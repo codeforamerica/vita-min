@@ -51,7 +51,19 @@ commands:
             - /mnt/ramdisk/node_modules
             - ~/.npm
 jobs:
-  run_tests:
+  run_js_tests:
+    executor: rails_executor
+    steps:
+      - checkout
+      - install_js_dependencies
+      - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
+      - run:
+          command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
+      - store_test_results:
+          path: ~/test-results
+  run_ruby_tests:
     executor: rails_executor
     steps:
       - checkout
@@ -60,17 +72,12 @@ jobs:
       - install_ruby_dependencies
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create db:schema:load
-      - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
       - run: |
           RAILS_CACHE_CLASSES=1 bundle exec rspec \
               --format RspecJunitFormatter \
               --out ~/test-results/rspec/rspec.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - run:
-          command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
       - store_test_results:
           path: ~/test-results
   deploy_to_aptible--demo:
@@ -93,29 +100,41 @@ workflows:
   version: 2
   build:
     jobs:
-      - run_tests:
+      - run_js_tests:
+          filters:
+            branches:
+              ignore: /^main$/
+      - run_ruby_tests:
           filters:
             branches:
               ignore: /^main$/
   build-and-deploy:
     jobs:
-      - run_tests:
+      - run_js_tests:
+          filters:
+            branches:
+              only: main
+      - run_ruby_tests:
           filters:
             branches:
               only: main
       - deploy_to_aptible--demo:
-          requires: [run_tests]
+          requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: main
   deploy-release-branch-to-production:
     jobs:
-      - run_tests:
+      - run_js_tests:
+          filters:
+            branches:
+              only: release
+      - run_ruby_tests:
           filters:
             branches:
               only: release
       - deploy_to_aptible--production:
-          requires: [run_tests]
+          requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: release
