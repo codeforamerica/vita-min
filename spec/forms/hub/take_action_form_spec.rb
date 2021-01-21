@@ -231,8 +231,8 @@ RSpec.describe Hub::TakeActionForm do
       end
     end
   end
-  describe "#take_action" do
 
+  describe "#take_action" do
     context "when tax_return_id is not part of clients tax returns" do
       let(:intake) { create :intake }
       let(:form) { Hub::TakeActionForm.new(client, current_user, { tax_return_id: create(:tax_return).id }) }
@@ -268,11 +268,7 @@ RSpec.describe Hub::TakeActionForm do
           }.to change(tax_return, :status).to "intake_info_requested"
         end
 
-        it "does not send an email" do
-          expect {
-            form.take_action
-          }.not_to change(OutgoingEmail, :count)
-        end
+
 
         it "does not send a text" do
           expect {

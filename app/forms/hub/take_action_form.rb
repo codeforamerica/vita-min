@@ -62,7 +62,13 @@ module Hub
     end
 
     def take_action
-      return false unless valid?
+      if valid? && tax_return.update(status: status)
+        @action_list = TaxReturnService.handle_status_change(self)
+        true
+      else
+        false
+      end
+
 
       tax_return.status = status
       if tax_return.save
