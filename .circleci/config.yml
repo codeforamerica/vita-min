@@ -21,10 +21,13 @@ commands:
     description: "Install dependencies for specs"
     steps:
       - run:
-          name: install dependencies
+          name: install system dependencies
           command: |
             sudo apt-get update && \
-            sudo apt-get install -y pdftk ghostscript && \
+            sudo apt-get install -y pdftk ghostscript
+      - run:
+          name: install bundler & ruby dependencies
+          command: |
             gem install bundler:2.2.5 --no-document && \
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 jobs:
