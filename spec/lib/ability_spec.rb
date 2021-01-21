@@ -3,537 +3,467 @@ require "rails_helper"
 describe Ability do
   let(:subject) { Ability.new(user) }
 
-  context "a nil user" do
-    let(:user) { nil }
-    let(:organization) { create :organization }
-    let(:client) { create(:client, vita_partner: organization) }
-    let(:intake) { create(:intake, vita_partner: organization, client: client) }
-
-    it "cannot manage any client data" do
-      expect(subject.can?(:manage, Client)).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, User)).to eq false
-      expect(subject.can?(:manage, Note.new(client: client))).to eq false
-      expect(subject.can?(:manage, VitaPartner.new)).to eq false
-      expect(subject.can?(:manage, SystemNote.new)).to eq false
-    end
-  end
-
-  context "a user with a nil role" do
-    let(:user) { create(:user, role_type: nil, role_id: nil) }
-    let(:organization) { create :organization }
-    let(:client) { create(:client, vita_partner: organization) }
-    let(:intake) { create(:intake, vita_partner: organization, client: client) }
-
-    it "cannot manage any client data" do
-      expect(subject.can?(:manage, Client)).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, User)).to eq false
-      expect(subject.can?(:manage, Note.new(client: client))).to eq false
-      expect(subject.can?(:manage, VitaPartner.new)).to eq false
-      expect(subject.can?(:manage, SystemNote.new)).to eq false
-    end
-  end
-
-  context "a user and client without an organization" do
-    let(:user) { create(:user) }
-    let(:client) { create(:client, vita_partner: nil) }
-    let(:intake) { create(:intake, vita_partner: nil, client: client) }
-
-    it "cannot manage any client data" do
-      expect(subject.can?(:manage, client)).to eq false
-      expect(subject.can?(:manage, Document.new(client: client))).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
-      expect(subject.can?(:manage, Note.new(client: client))).to eq false
-      expect(subject.can?(:manage, SystemNote.new(client: client))).to eq false
-      expect(subject.can?(:manage, TaxReturn.new(client: client))).to eq false
-      expect(subject.can?(:manage, User.new)).to eq false
-      expect(subject.can?(:manage, VitaPartner.new)).to eq false
-    end
-  end
-
-  context "a user who is an org lead at an organization that has some sites" do
-    let(:user) { create :organization_lead_user }
-    let!(:site) { create :site, parent_organization: user.role.organization }
-    let(:intake) { create(:intake, vita_partner: site, client: (create :client, vita_partner: site)) }
-    let(:accessible_client) { intake.client }
-
-    it "can manage clients assigned to sites but not manage the org itself" do
-      expect(subject.can?(:manage, accessible_client)).to eq true
-      expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, VitaPartner.new)).to eq false
-      expect(subject.can?(:manage, site)).to eq false
-    end
-  end
-
-  context "a team member" do
-    let(:user) { create :team_member_user }
-    let(:accessible_client) { create(:client, vita_partner: user.role.site) }
-    let!(:inaccessible_site) { create :site }
-    let(:other_vita_partner_client) { create(:client, vita_partner: create(:organization)) }
-
-    it "can manage their own data" do
-      expect(subject.can?(:manage, user)).to eq true
-    end
-
-    it "can read Vita Partners on their own site and no other groups" do
-      expect(subject.can?(:read, user.role.site)).to eq true
-      expect(subject.can?(:read, inaccessible_site)).to eq false
-    end
-
-    it "can view clients from their own site" do
-      expect(subject.can?(:read, accessible_client)).to eq true
-    end
-
-    it "cannot view clients from another group" do
-      expect(subject.can?(:read, other_vita_partner_client)).to eq false
-    end
-
-    it "can manage data from clients in their site" do
-      expect(subject.can?(:manage, accessible_client)).to eq true
-    end
-
-    it "cannot manage data from clients in other sites" do
-      expect(subject.can?(:manage, other_vita_partner_client)).to eq false
-    end
-  end
-
-  context "a site coordinator" do
-    let(:user) { create :site_coordinator_user }
-    let!(:inaccessible_site) { create :site }
-    let(:accessible_client) { create(:client, vita_partner: user.role.site) }
-    let(:other_vita_partner_client) { create(:client, vita_partner: create(:site)) }
-
-    it "can manage their own data" do
-      expect(subject.can?(:manage, user)).to eq true
-    end
-
-    it "can read Vita Partners on their own site and no other groups" do
-      expect(subject.can?(:read, user.role.site)).to eq true
-      expect(subject.can?(:read, inaccessible_site)).to eq false
-    end
-
-    it "can view clients from their own site" do
-      expect(subject.can?(:read, accessible_client)).to eq true
-    end
-
-    it "can not view clients from other sites" do
-      expect(subject.can?(:read, other_vita_partner_client)).to eq false
-    end
-
-    it "can manage data from clients in their site" do
-      expect(subject.can?(:manage, accessible_client)).to eq true
-      expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, VitaPartner.new)).to eq false
-      expect(subject.can?(:manage, user.role.site)).to eq false
-    end
-
-    it "cannot manage data from clients in other sites" do
-      expect(subject.can?(:manage, other_vita_partner_client)).to eq false
-      expect(subject.can?(:manage, Document.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, Note.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, SystemNote.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, TaxReturn.new(client: other_vita_partner_client))).to eq false
-    end
-  end
-
-  context "an organization lead" do
-    let(:user) { create :organization_lead_user }
-    let!(:site) { create :site, parent_organization_id: user.role.organization.id }
-    let(:accessible_client) { create(:client, vita_partner: user.role.organization) }
-    let(:accessible_intake) { create(:intake, vita_partner: user.role.organization) }
-    let(:other_vita_partner_client) { create(:client, vita_partner: create(:organization)) }
-    let(:nil_vita_partner_client) { create(:client, vita_partner: nil) }
-
-    it "can read Vita Partners on their own organization and children sites and not others" do
-      expect(subject.can?(:read, user.role.organization)).to eq true
-      expect(subject.can?(:read, site)).to eq true
-      expect(subject.can?(:read, other_vita_partner_client.vita_partner)).to eq false
-    end
-
-    it "can manage data from their own organization's clients but not the org itself" do
-      expect(subject.can?(:manage, accessible_client)).to eq true
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
-      expect(subject.can?(:manage, user.role.organization)).to eq false
-    end
-
-    it "cannot manage data which lack an organization" do
-      expect(subject.can?(:manage, nil_vita_partner_client)).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, Document.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, User.new)).to eq false
-      expect(subject.can?(:manage, Note.new(client: nil_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, SystemNote.new(client: nil_vita_partner_client))).to eq false
-    end
-
-    it "cannot manage data from another organization" do
-      expect(subject.can?(:manage, other_vita_partner_client)).to eq false
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, OutgoingEmail.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, IncomingEmail.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, Document.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, User.new)).to eq false
-      expect(subject.can?(:manage, Note.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, SystemNote.new(client: other_vita_partner_client))).to eq false
-      expect(subject.can?(:manage, other_vita_partner_client.vita_partner)).to eq false
-    end
-  end
-
-  context "a coalition lead" do
-    let(:coalition) { create :coalition }
-    let!(:organization) { create :organization, coalition: coalition }
-    let!(:site) { create :site, parent_organization: organization }
-    let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
-    let(:coalition_org_client) { create(:client, vita_partner: organization) }
-    let(:coalition_site_client) { create(:client, vita_partner: site) }
-    let(:other_client) { create(:client, vita_partner: create(:vita_partner)) }
-    let!(:inaccessible_site) { create :site }
-    let!(:inaccessible_org) { create :organization }
-
-    it "can manage their own data" do
-      expect(subject.can?(:manage, user)).to eq true
-    end
-
-    it "can read Vita Partners under it's own coalition and children orgs/sites and not others" do
-      expect(subject.can?(:read, organization)).to eq true
-      expect(subject.can?(:read, site)).to eq true
-      expect(subject.can?(:read, inaccessible_site)).to eq false
-      expect(subject.can?(:read, inaccessible_org)).to eq false
-    end
-
-    it "can view clients from groups in their coalition" do
-      expect(subject.can?(:read, coalition_org_client)).to eq true
-      expect(subject.can?(:read, coalition_site_client)).to eq true
-    end
-
-    it "cannot view clients from another coalition" do
-      expect(subject.can?(:read, other_client)).to eq false
-    end
-
-    it "can manage data from clients in their coalition" do
-      expect(subject.can?(:manage, coalition_org_client)).to eq true
-      expect(subject.can?(:manage, coalition_site_client)).to eq true
-    end
-
-    it "cannot manage data from clients in other groups" do
-      expect(subject.can?(:manage, other_client)).to eq false
-    end
-  end
-
   context "as an admin" do
     let(:user) { create(:user, role: create(:admin_role)) }
-    let(:client) { create(:client, vita_partner: create(:organization)) }
 
-    it "can manage any data" do
-      expect(subject.can?(:manage, client)).to eq true
-      expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq true
-      expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq true
-      expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq true
-      expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq true
-      expect(subject.can?(:manage, Document.new(client: client))).to eq true
-      expect(subject.can?(:manage, User.new)).to eq true
-      expect(subject.can?(:manage, Note.new(client: client))).to eq true
-      expect(subject.can?(:manage, VitaPartner.new)).to eq true
+    it "can manage everything" do
+      expect(subject.can?(:manage, Document.new)).to eq true
+      expect(subject.can?(:manage, IncomingEmail.new)).to eq true
+      expect(subject.can?(:manage, IncomingTextMessage.new)).to eq true
+      expect(subject.can?(:manage, Note.new)).to eq true
+      expect(subject.can?(:manage, OutgoingEmail.new)).to eq true
+      expect(subject.can?(:manage, OutgoingTextMessage.new)).to eq true
       expect(subject.can?(:manage, SystemNote.new)).to eq true
-    end
-  end
-
-  context "User" do
-    context "when current user is the User" do
-      let(:user) { create :organization_lead_user }
-      let(:target_user) { user }
-
-      it "can manage" do
-        expect(subject.can?(:manage, target_user)).to eq true
-      end
+      expect(subject.can?(:manage, User.new)).to eq true
+      expect(subject.can?(:manage, VitaPartner.new)).to eq true
     end
 
-    context "when current user is an admin" do
-      let(:user) { create(:admin_user) }
-      let(:target_user) { create(:user) }
+    context "with a client data unrelated to the user" do
+      let(:client) { create(:client, vita_partner: create(:organization)) }
 
-      it "can manage" do
-        expect(subject.can?(:manage, target_user)).to eq true
-      end
-    end
-
-    context "when current user is in the same org" do
-      let(:user) { create :organization_lead_user  }
-      let(:target_user) { create :organization_lead_user, organization: user.role.organization }
-
-      it "can not manage" do
-        expect(subject.can?(:manage, target_user)).to eq false
-      end
-    end
-
-    context "for any other user" do
-      let(:user) { create(:user) }
-      let(:target_user) { create :organization_lead_user }
-
-      it "can not manage" do
-        expect(subject.can?(:manage, target_user)).to eq false
+      it "can manage all" do
+        expect(subject.can?(:manage, client)).to eq true
+        expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq true
+        expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq true
+        expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq true
+        expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq true
+        expect(subject.can?(:manage, Document.new(client: client))).to eq true
+        expect(subject.can?(:manage, Note.new(client: client))).to eq true
       end
     end
   end
 
-  context "Managing roles" do
-    context "AdminRole" do
-      let(:target_role) { AdminRole }
-      context "current user is an admin" do
-        let(:user) { create(:admin_user) }
+  context "as a non-admin" do
+    context "Clients and their data" do
+      shared_examples :cannot_manage_any_sites_or_orgs do
+        it "cannot manage any VitaPartner records" do
+          expect(subject.can?(:manage, VitaPartner)).to eq(false)
+        end
 
-        it "can manage" do
-          expect(subject.can?(:manage, target_role)).to eq true
+        context "when the user can access a particular site" do
+          let(:accessible_site) { create(:site) }
+          let(:accessible_client) { create(:client, vita_partner: accessible_site) }
+          before do
+            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: accessible_site))
+          end
+
+          it "cannot manage the site" do
+            expect(subject.can?(:manage, accessible_site)).to eq false
+          end
         end
       end
 
-      context "otherwise" do
-        let(:user) { create(:coalition_lead_user) }
+      shared_examples :can_only_read_accessible_org_or_site do
+        let(:accessible_site) { create(:site) }
+        before do
+          allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: accessible_site))
+        end
 
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+        it "can read the site" do
+          expect(subject.can?(:read, accessible_site)).to eq true
+        end
+
+        it "cannot read a random site" do
+          expect(subject.can?(:read, create(:site))).to eq false
+        end
+      end
+
+      shared_examples :can_manage_accessible_client do
+        context "when the user can access a particular site" do
+          let(:accessible_site) { create(:site) }
+          let(:accessible_client) { create(:client, vita_partner: accessible_site) }
+          before do
+            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: accessible_site))
+          end
+
+          it "can access all data for the client" do
+            expect(subject.can?(:manage, accessible_client)).to eq true
+            expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
+          end
+        end
+      end
+
+      shared_examples :cannot_manage_inaccessible_client do
+        context "when the user cannot access a particular site" do
+          let(:inaccessible_site) { create(:site) }
+          let(:inaccessible_client) { create(:client, vita_partner: inaccessible_site) }
+          before do
+            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.none)
+          end
+
+          it "can access no data for the client" do
+            expect(subject.can?(:manage, inaccessible_client)).to eq false
+            expect(subject.can?(:manage, Document.new(client: inaccessible_client))).to eq false
+            expect(subject.can?(:manage, IncomingEmail.new(client: inaccessible_client))).to eq false
+            expect(subject.can?(:manage, IncomingTextMessage.new(client: inaccessible_client))).to eq false
+            expect(subject.can?(:manage, Note.new(client: inaccessible_client))).to eq false
+            expect(subject.can?(:manage, OutgoingEmail.new(client: inaccessible_client))).to eq false
+            expect(subject.can?(:manage, OutgoingTextMessage.new(client: inaccessible_client))).to eq false
+            expect(subject.can?(:manage, SystemNote.new(client: inaccessible_client))).to eq false
+            expect(subject.can?(:manage, TaxReturn.new(client: inaccessible_client))).to eq false
+          end
+        end
+
+      end
+
+      context "users with valid non-admin roles" do
+        context "a coalition lead" do
+          let(:user) { create :coalition_lead_user }
+
+          it_behaves_like :can_manage_accessible_client
+          it_behaves_like :cannot_manage_inaccessible_client
+          it_behaves_like :can_only_read_accessible_org_or_site
+          it_behaves_like :cannot_manage_any_sites_or_orgs
+        end
+
+        context "an organization lead" do
+          let(:user) { create :organization_lead_user }
+
+          it_behaves_like :can_manage_accessible_client
+          it_behaves_like :cannot_manage_inaccessible_client
+          it_behaves_like :can_only_read_accessible_org_or_site
+          it_behaves_like :cannot_manage_any_sites_or_orgs
+        end
+
+        context "a site coordinator" do
+          let(:user) { create :site_coordinator_user }
+
+          it_behaves_like :can_manage_accessible_client
+          it_behaves_like :cannot_manage_inaccessible_client
+          it_behaves_like :can_only_read_accessible_org_or_site
+          it_behaves_like :cannot_manage_any_sites_or_orgs
+        end
+
+        context "a team member" do
+          let(:user) { create :team_member_user }
+
+          it_behaves_like :can_manage_accessible_client
+          it_behaves_like :cannot_manage_inaccessible_client
+          it_behaves_like :can_only_read_accessible_org_or_site
+          it_behaves_like :cannot_manage_any_sites_or_orgs
+        end
+      end
+
+      context "users in invalid states" do
+        context "a nil user" do
+          let(:user) { nil }
+          let(:organization) { create :organization }
+          let(:client) { create(:client, vita_partner: organization) }
+          let(:intake) { create(:intake, vita_partner: organization, client: client) }
+
+          it "cannot manage any client data" do
+            expect(subject.can?(:manage, Client)).to eq false
+            expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
+            expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
+            expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
+            expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
+            expect(subject.can?(:manage, User)).to eq false
+            expect(subject.can?(:manage, Note.new(client: client))).to eq false
+            expect(subject.can?(:manage, VitaPartner.new)).to eq false
+            expect(subject.can?(:manage, SystemNote.new)).to eq false
+          end
+        end
+
+        context "a user with a nil role" do
+          let(:user) { create(:user, role_type: nil, role_id: nil) }
+          let(:organization) { create :organization }
+          let(:client) { create(:client, vita_partner: organization) }
+          let(:intake) { create(:intake, vita_partner: organization, client: client) }
+
+          it "cannot manage any client data" do
+            expect(subject.can?(:manage, Client)).to eq false
+            expect(subject.can?(:manage, IncomingTextMessage.new(client: client))).to eq false
+            expect(subject.can?(:manage, OutgoingTextMessage.new(client: client))).to eq false
+            expect(subject.can?(:manage, OutgoingEmail.new(client: client))).to eq false
+            expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq false
+            expect(subject.can?(:manage, User)).to eq false
+            expect(subject.can?(:manage, Note.new(client: client))).to eq false
+            expect(subject.can?(:manage, VitaPartner.new)).to eq false
+            expect(subject.can?(:manage, SystemNote.new)).to eq false
+          end
         end
       end
     end
 
-    context "CoalitionLeadRole" do
-      let(:target_role) { create :coalition_lead_role }
-      let(:coalition) { target_role.coalition }
+    context "Users" do
+      shared_examples :user_cannot_manage_other_users_in_their_site do
+        let(:target_user) { create :site_coordinator_user }
+        before do
+          allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: target_user.role.site))
+        end
 
-      context "current user is coalition lead in the same coalition" do
-        let(:user) { create :coalition_lead_user, coalition: coalition }
-
-        it "can manage" do
-          expect(subject.can?(:manage, target_role)).to eq true
+        it "cannot manage other users in a site they have access to" do
+          expect(subject.can?(:manage, target_user)).to eq false
         end
       end
 
-      context "current user is coalition lead in a different coalition" do
-        let(:user) { create :coalition_lead_user }
-
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+      shared_examples :user_can_manage_themselves do
+        it "can manage themselves" do
+          expect(subject.can?(:manage, user)).to eq true
         end
       end
 
-      context "otherwise" do
-        let(:user) { create :organization_lead_user, organization: build(:organization, coalition: coalition) }
+      context "users with valid non-admin roles" do
+        context "a coalition lead" do
+          let(:user) { create :coalition_lead_user }
 
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+          it_behaves_like :user_can_manage_themselves
+          it_behaves_like :user_cannot_manage_other_users_in_their_site
         end
-      end
-    end
 
-    context "OrganizationLeadRole" do
-      let(:target_role) { create :organization_lead_role }
-      let(:organization) { target_role.organization }
+        context "an organization lead" do
+          let(:user) { create :organization_lead_user }
 
-      context "current user is coalition lead in a parent coalition" do
-        let(:coalition) { create :coalition, organizations: [organization] }
-        let(:user) { create :coalition_lead_user, coalition: coalition }
-
-        it "can manage" do
-          expect(subject.can?(:manage, target_role)).to eq true
+          it_behaves_like :user_can_manage_themselves
+          it_behaves_like :user_cannot_manage_other_users_in_their_site
         end
-      end
 
-      context "current user is coalition lead in a different coalition" do
-        let(:user) { create :coalition_lead_user }
+        context "a site coordinator" do
+          let(:user) { create :site_coordinator_user }
 
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+          it_behaves_like :user_can_manage_themselves
+          it_behaves_like :user_cannot_manage_other_users_in_their_site
         end
-      end
 
-      context "current user is organization lead in the same organization" do
-        let(:user) { create :organization_lead_user, organization: organization }
+        context "a team member" do
+          let(:user) { create :team_member_user }
 
-        it "can manage" do
-          expect(subject.can?(:manage, target_role)).to eq true
-        end
-      end
-
-      context "current user is organization lead in another organization" do
-        let(:user) { create :organization_lead_user }
-
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
-        end
-      end
-
-      context "anyone else" do
-        let(:user) { create :site_coordinator_user, site: create(:site, parent_organization: organization) }
-
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+          it_behaves_like :user_can_manage_themselves
+          it_behaves_like :user_cannot_manage_other_users_in_their_site
         end
       end
     end
 
-    context "SiteCoordinatorRole" do
-      let(:coalition) { create :coalition }
-      let(:organization) { create :organization, coalition: coalition }
-      let(:another_organization) { create :organization, coalition: coalition }
-      let(:site) { create(:site, parent_organization: organization) }
-      let(:another_site) { create(:site, parent_organization: organization)}
-      let(:target_role) { create :site_coordinator_role, site: site }
+    context "Various non-admin roles" do
+      context "AdminRole" do
+        let(:target_role) { AdminRole }
+        
+        context "current user is an admin" do
+          let(:user) { create(:admin_user) }
 
-      context "current user is coalition lead in the site's coalition" do
-        let(:user) { create :coalition_lead_user, coalition: coalition }
+          it "can manage" do
+            expect(subject.can?(:manage, target_role)).to eq true
+          end
+        end
 
-        it "can manage" do
-          expect(subject.can?(:manage, target_role)).to eq true
+        context "anyone else" do
+          let(:user) { create(:coalition_lead_user) }
+
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
         end
       end
 
-      context "current user is coalition lead in a different coalition" do
-        let(:user) { create :coalition_lead_user }
+      context "CoalitionLeadRole" do
+        let(:target_role) { create :coalition_lead_role }
+        let(:coalition) { target_role.coalition }
 
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+        context "current user is coalition lead in the same coalition" do
+          let(:user) { create :coalition_lead_user, coalition: coalition }
+
+          it "can manage" do
+            expect(subject.can?(:manage, target_role)).to eq true
+          end
+        end
+
+        context "current user is coalition lead in a different coalition" do
+          let(:user) { create :coalition_lead_user }
+
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
+        end
+
+        context "anyone else" do
+          let(:user) { create :organization_lead_user, organization: build(:organization, coalition: coalition) }
+
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
         end
       end
 
-      context "current user is organization lead in the site's parent organization" do
-        let(:user) { create :organization_lead_user, organization: organization }
+      context "OrganizationLeadRole" do
+        let(:target_role) { create :organization_lead_role }
+        let(:organization) { target_role.organization }
 
-        it "can manage" do
-          expect(subject.can?(:manage, target_role)).to eq true
+        context "current user is coalition lead in a parent coalition" do
+          let(:coalition) { create :coalition, organizations: [organization] }
+          let(:user) { create :coalition_lead_user, coalition: coalition }
+
+          it "can manage" do
+            expect(subject.can?(:manage, target_role)).to eq true
+          end
+        end
+
+        context "current user is coalition lead in a different coalition" do
+          let(:user) { create :coalition_lead_user }
+
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
+        end
+
+        context "current user is organization lead in the same organization" do
+          let(:user) { create :organization_lead_user, organization: organization }
+
+          it "can manage" do
+            expect(subject.can?(:manage, target_role)).to eq true
+          end
+        end
+
+        context "current user is organization lead in another organization" do
+          let(:user) { create :organization_lead_user }
+
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
+        end
+
+        context "anyone else" do
+          let(:user) { create :site_coordinator_user, site: create(:site, parent_organization: organization) }
+
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
         end
       end
 
-      context "current user is organization lead in another organization" do
-        let(:user) { create :organization_lead_user, organization: another_organization }
+      context "SiteCoordinatorRole" do
+        let(:coalition) { create :coalition }
+        let(:organization) { create :organization, coalition: coalition }
+        let(:another_organization) { create :organization, coalition: coalition }
+        let(:site) { create(:site, parent_organization: organization) }
+        let(:another_site) { create(:site, parent_organization: organization)}
+        let(:target_role) { create :site_coordinator_role, site: site }
 
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+        context "current user is coalition lead in the site's coalition" do
+          let(:user) { create :coalition_lead_user, coalition: coalition }
+
+          it "can manage" do
+            expect(subject.can?(:manage, target_role)).to eq true
+          end
+        end
+
+        context "current user is coalition lead in a different coalition" do
+          let(:user) { create :coalition_lead_user }
+
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
+        end
+
+        context "current user is organization lead in the site's parent organization" do
+          let(:user) { create :organization_lead_user, organization: organization }
+
+          it "can manage" do
+            expect(subject.can?(:manage, target_role)).to eq true
+          end
+        end
+
+        context "current user is organization lead in another organization" do
+          let(:user) { create :organization_lead_user, organization: another_organization }
+
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
+        end
+
+        context "current user is site coordinator in the same site" do
+          let(:user) { create :site_coordinator_user, site: site }
+
+          it "can manage" do
+            expect(subject.can?(:manage, target_role)).to eq true
+          end
+        end
+
+        context "current user is site coordinator in another site" do
+          let(:user) { create :site_coordinator_user, site: another_site }
+
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
+        end
+
+        context "anyone else" do
+          let(:user) { create :team_member_user, site: site }
+
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
         end
       end
 
-      context "current user is site coordinator in the same site" do
-        let(:user) { create :site_coordinator_user, site: site }
+      context "TeamMemberRole" do
+        let(:coalition) { create :coalition }
+        let(:organization) { create :organization, coalition: coalition }
+        let(:another_organization) { create :organization, coalition: coalition }
+        let(:site) { create(:site, parent_organization: organization) }
+        let(:another_site) { create(:site, parent_organization: organization)}
+        let(:target_role) { create :team_member_role, site: site }
 
-        it "can manage" do
-          expect(subject.can?(:manage, target_role)).to eq true
+        context "current user is coalition lead in the site's coalition" do
+          let(:user) { create :coalition_lead_user, coalition: coalition }
+
+          it "can manage" do
+            expect(subject.can?(:manage, target_role)).to eq true
+          end
         end
-      end
 
-      context "current user is site coordinator in another site" do
-        let(:user) { create :site_coordinator_user, site: another_site }
+        context "current user is coalition lead in a different coalition" do
+          let(:user) { create :coalition_lead_user }
 
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
         end
-      end
 
-      context "anyone else" do
-        let(:user) { create :team_member_user, site: site }
+        context "current user is organization lead in the site's parent organization" do
+          let(:user) { create :organization_lead_user, organization: organization }
 
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+          it "can manage" do
+            expect(subject.can?(:manage, target_role)).to eq true
+          end
         end
-      end
-    end
 
-    context "TeamMemberRole" do
-      let(:coalition) { create :coalition }
-      let(:organization) { create :organization, coalition: coalition }
-      let(:another_organization) { create :organization, coalition: coalition }
-      let(:site) { create(:site, parent_organization: organization) }
-      let(:another_site) { create(:site, parent_organization: organization)}
-      let(:target_role) { create :team_member_role, site: site }
+        context "current user is organization lead in another organization" do
+          let(:user) { create :organization_lead_user, organization: another_organization }
 
-      context "current user is coalition lead in the site's coalition" do
-        let(:user) { create :coalition_lead_user, coalition: coalition }
-
-        it "can manage" do
-          expect(subject.can?(:manage, target_role)).to eq true
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
         end
-      end
 
-      context "current user is coalition lead in a different coalition" do
-        let(:user) { create :coalition_lead_user }
+        context "current user is site coordinator in the same site" do
+          let(:user) { create :site_coordinator_user, site: site }
 
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+          it "can manage" do
+            expect(subject.can?(:manage, target_role)).to eq true
+          end
         end
-      end
 
-      context "current user is organization lead in the site's parent organization" do
-        let(:user) { create :organization_lead_user, organization: organization }
+        context "current user is site coordinator in another site" do
+          let(:user) { create :site_coordinator_user, site: another_site }
 
-        it "can manage" do
-          expect(subject.can?(:manage, target_role)).to eq true
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
         end
-      end
 
-      context "current user is organization lead in another organization" do
-        let(:user) { create :organization_lead_user, organization: another_organization }
+        context "anyone else" do
+          let(:user) { create :team_member_user, site: site }
 
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
-        end
-      end
-
-      context "current user is site coordinator in the same site" do
-        let(:user) { create :site_coordinator_user, site: site }
-
-        it "can manage" do
-          expect(subject.can?(:manage, target_role)).to eq true
-        end
-      end
-
-      context "current user is site coordinator in another site" do
-        let(:user) { create :site_coordinator_user, site: another_site }
-
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
-        end
-      end
-
-      context "anyone else" do
-        let(:user) { create :team_member_user, site: site }
-
-        it "cannot manage" do
-          expect(subject.can?(:manage, target_role)).to eq false
+          it "cannot manage" do
+            expect(subject.can?(:manage, target_role)).to eq false
+          end
         end
       end
     end
