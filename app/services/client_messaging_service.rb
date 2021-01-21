@@ -3,17 +3,14 @@ class ClientMessagingService
 
   class << self
     def send_email(client, user, body, attachment: nil, subject_locale: nil)
-      raise ArgumentError.new("User required") unless user
+      create_outgoing_email(attachment, body, client, client.email_address, subject_locale, user)
+    end
 
-      OutgoingEmail.create!(
-        to: client.email_address,
-        body: body,
-        subject: I18n.t("messages.default_subject", locale: subject_locale || client.intake.locale),
-        sent_at: DateTime.now,
-        client: client,
-        user: user,
-        attachment: attachment
-      )
+    def send_email_to_all_signers(client, user, body, attachment: nil, subject_locale: nil)
+      to = client.email_address
+      to += ",#{client.intake.spouse_email_address}" if client.intake.filing_joint_yes?
+
+      create_outgoing_email(attachment, body, client, to, subject_locale, user)
     end
 
     def send_system_email(client, body, subject)
@@ -45,6 +42,22 @@ class ClientMessagingService
         body: body,
         to_phone_number: client.sms_phone_number,
         sent_at: DateTime.now
+      )
+    end
+
+    private
+
+    def create_outgoing_email(attachment, body, client, to, subject_locale, user)
+      raise ArgumentError.new("User required") unless user
+
+      OutgoingEmail.create!(
+        to: to,
+        body: body,
+        subject: I18n.t("messages.default_subject", locale: subject_locale || client.intake.locale),
+        sent_at: DateTime.now,
+        client: client,
+        user: user,
+        attachment: attachment
       )
     end
   end

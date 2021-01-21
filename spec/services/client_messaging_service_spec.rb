@@ -72,6 +72,72 @@ RSpec.describe ClientMessagingService do
     end
   end
 
+
+  describe ".send_email_to_all_signers", active_job: true do
+    context "with a nil user" do
+      it "raises an error" do
+        expect do
+          described_class.send_email_to_all_signers(client, nil, "hello")
+        end.to raise_error(ArgumentError, "User required")
+      end
+    end
+
+    context "with an authenticated user" do
+      it "saves a new outgoing email with the right info, enqueues email, and broadcasts to ClientChannel" do
+        expect do
+          described_class.send_email_to_all_signers(client, user, "hello")
+        end.to change(OutgoingEmail, :count).by(1).and have_enqueued_mail(OutgoingEmailMailer, :user_message)
+
+        outgoing_email = OutgoingEmail.last
+        expect(outgoing_email.subject).to eq("Update from GetYourRefund")
+        expect(outgoing_email.body).to eq("hello")
+        expect(outgoing_email.client).to eq client
+        expect(outgoing_email.user).to eq user
+        expect(outgoing_email.sent_at).to eq expected_time
+        expect(outgoing_email.to).to eq client.email_address
+        expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
+      end
+
+      context "when the client is filing joint" do
+        let(:intake) do
+          create :intake, email_address: "client@example.com", spouse_email_address: "spouse@example.com", filing_joint: "yes"
+        end
+
+        it "includes the spouse email in the 'to' field" do
+          described_class.send_email_to_all_signers(client, user, "hello")
+
+          expect(OutgoingEmail.last.to).to eq "client@example.com,spouse@example.com"
+        end
+      end
+
+      context "with an attachment" do
+        let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
+
+        it "saves the attachment" do
+          described_class.send_email_to_all_signers(client, user, "hello", attachment: attachment)
+
+          expect(OutgoingEmail.last.attachment).to be_present
+        end
+      end
+
+      context "with a custom subject locale" do
+        it "uses that locale" do
+          described_class.send_email_to_all_signers(client, user, "hola", subject_locale: "es")
+          expect(OutgoingEmail.last.subject).to eq "Actualización de GetYourRefund"
+        end
+      end
+
+      context "with a client whose locale differs from the current request" do
+        before { intake.update(locale: "es") }
+
+        it "uses the client locale" do
+          described_class.send_email_to_all_signers(client, user, "hola")
+          expect(OutgoingEmail.last.subject).to eq "Actualización de GetYourRefund"
+        end
+      end
+    end
+  end
+
   describe ".send_system_email", active_job: true do
     it "saves a new outgoing email with the right info, enqueues email, and broadcasts to ClientChannel" do
       expect do

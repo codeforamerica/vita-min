@@ -154,6 +154,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         expect(response).to redirect_to portal_root_path
       end
     end
+
     context "as an unauthenticated client" do
       context "with a valid token" do
         before do

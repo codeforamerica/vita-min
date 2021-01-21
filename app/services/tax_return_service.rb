@@ -9,7 +9,11 @@ class TaxReturnService
     if form.message_body.present?
       case form.contact_method
       when "email"
-        ClientMessagingService.send_email(form.client, form.current_user, form.message_body, subject_locale: form.locale)
+        if form.status == "review_signature_requested"
+          ClientMessagingService.send_email_to_all_signers(form.client, form.current_user, form.message_body, subject_locale: form.locale)
+        else
+          ClientMessagingService.send_email(form.client, form.current_user, form.message_body, subject_locale: form.locale)
+        end
         action_list << I18n.t("hub.clients.update_take_action.flash_message.email")
       when "text_message"
         ClientMessagingService.send_text_message(form.client, form.current_user, form.message_body)

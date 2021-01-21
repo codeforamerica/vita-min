@@ -23,9 +23,17 @@ RSpec.feature "Signing in" do
       # from the email.
     end
 
-    scenario "signing in from a link" do
+    scenario "signing in from a link with confirmation" do
       visit client.login_link
       fill_in "Confirmation number", with: client.id
+      click_on "Sign in"
+
+      expect(page).to have_text("Carrie Carrot")
+    end
+
+    scenario "signing in from a link with last four" do
+      visit client.login_link
+      fill_in "Last 4 of SSN/ITIN", with: "9876"
       click_on "Sign in"
 
       expect(page).to have_text("Carrie Carrot")

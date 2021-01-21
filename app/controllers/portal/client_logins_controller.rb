@@ -57,7 +57,7 @@ module Portal
     end
 
     def client_login_params
-      params.require(:portal_client_login_form).permit(:last_four_ssn, :confirmation_number).merge(possible_clients: @clients)
+      params.require(:portal_client_login_form).permit(:last_four, :confirmation_number).merge(possible_clients: @clients)
     end
 
     def validate_token

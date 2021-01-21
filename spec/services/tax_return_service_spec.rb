@@ -22,6 +22,7 @@ describe TaxReturnService do
 
     before do
       allow(ClientMessagingService).to receive(:send_email)
+      allow(ClientMessagingService).to receive(:send_email_to_all_signers)
       allow(ClientMessagingService).to receive(:send_text_message)
     end
 
@@ -76,6 +77,18 @@ describe TaxReturnService do
           TaxReturnService.handle_status_change(form)
 
           expect(ClientMessagingService).not_to have_received(:send_text_message)
+        end
+
+        context "when the status is signature requested" do
+          let(:form_params) {
+            { tax_return_id: tax_return.id, message_body: "message body", contact_method: contact_method, status: "review_signature_requested" }
+          }
+
+          it "sends an email addressed to all filers" do
+            TaxReturnService.handle_status_change(form)
+
+            expect(ClientMessagingService).to have_received(:send_email_to_all_signers).with(client, user, "message body", subject_locale: "es")
+          end
         end
       end
 
