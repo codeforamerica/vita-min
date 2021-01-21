@@ -9,7 +9,7 @@ executors:
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
-      - image: circleci/postgres:9.6.8-alpine-postgis
+      - image: circleci/postgres:9.6.8-alpine-postgis-ram
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle-test_test
