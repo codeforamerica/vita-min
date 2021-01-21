@@ -1,9 +1,6 @@
 ---
 version: 2.1
 
-orbs:
-  node: circleci/node@2
-
 executors:
   rails_executor:
     working_directory: /mnt/ramdisk
@@ -17,14 +14,17 @@ executors:
           POSTGRES_USER: root
           POSTGRES_DB: circle-test_test
 commands:
-  install_app_dependencies:
-    description: "Install dependencies for specs"
+  install_system_dependencies:
+    description: "Install system dependencies"
     steps:
       - run:
           name: install system dependencies
           command: |
             sudo apt-get update && \
             sudo apt-get install -y pdftk ghostscript
+  install_ruby_dependencies:
+    description: "Install Ruby dependencies"
+    steps:
       - restore_cache:
           keys:
             - ruby-{{ checksum "Gemfile.lock" }}-2
@@ -36,17 +36,28 @@ commands:
       - save_cache:
           key: ruby-{{ checksum "Gemfile.lock" }}-2
           paths: [/mnt/ramdisk/vendor/bundle]
+  install_js_dependencies:
+    description: "Install JS dependencies"
+    steps:
+      - restore_cache:
+          keys:
+            - js-{{ checksum "yarn.lock" }}-2
+      - run:
+          name: yarn install --frozen-lockfile
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: js-{{ checksum "yarn.lock" }}-2
+          paths:
+            - /mnt/ramdisk/node_modules
+            - ~/.npm
 jobs:
   run_tests:
     executor: rails_executor
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
-          cache-version: 2021-01.1
-          app-dir: /mnt/ramdisk
-      - install_app_dependencies
+      - install_js_dependencies
+      - install_system_dependencies
+      - install_ruby_dependencies
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
