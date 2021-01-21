@@ -2,8 +2,9 @@ require "rails_helper"
 
 describe "partner source routing" do
   let(:code) { "example" }
+  let(:vita_partner) { create :vita_partner }
   before do
-    create(:source_parameter, code: "example", vita_partner: create(:vita_partner))
+    create(:source_parameter, code: "example", vita_partner: vita_partner)
   end
 
   it "converts the source in the url to a parameter" do

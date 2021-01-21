@@ -14,6 +14,7 @@
 #  locked_at                    :datetime
 #  login_requested_at           :datetime
 #  login_token                  :string
+#  routing_method               :integer
 #  sign_in_count                :integer          default(0), not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null

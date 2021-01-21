@@ -163,7 +163,6 @@ Rails.application.routes.draw do
     # Any other top level slash just goes to home as a source parameter
     get "/:source" => "public_pages#redirect_locale_home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
   end
-
   # Routes outside of the locale scope are not internationalized
 
   # Twilio webhook routes

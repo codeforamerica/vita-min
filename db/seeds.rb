@@ -1,20 +1,26 @@
 koalas = Coalition.find_or_create_by(name: "Koala Koalition")
 Coalition.find_or_create_by(name: "Cola Coalition")
 
-first_org = VitaPartner.find_or_create_by!(
+vp1 = first_org = VitaPartner.find_or_create_by!(
   name: "Oregano Org",
   coalition: koalas
 )
+SourceParameter.find_or_create_by(code: "oregano", vita_partner_id: vp1.id)
 
-VitaPartner.find_or_create_by!(
+
+vp2 = VitaPartner.find_or_create_by!(
   name: "Orangutan Organization",
   coalition: koalas,
 )
+
+SourceParameter.find_or_create_by(code: "orangutan", vita_partner_id: vp2.id)
 
 first_site = VitaPartner.find_or_create_by!(
   name: "Liberry Site",
   parent_organization: first_org,
 )
+
+SourceParameter.find_or_create_by(code: "libeery", vita_partner_id: first_site.id)
 
 # basic user
 user = User.where(email: "skywalker@example.com").first_or_initialize

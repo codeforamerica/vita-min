@@ -14,6 +14,7 @@
 #  locked_at                    :datetime
 #  login_requested_at           :datetime
 #  login_token                  :string
+#  routing_method               :integer
 #  sign_in_count                :integer          default(0), not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
@@ -45,6 +46,7 @@ class Client < ApplicationRecord
   has_many :outbound_calls
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
+  enum routing_method: { most_org_leads: 0, source_param: 1 }
 
   def self.delegated_intake_attributes
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]

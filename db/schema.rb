@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_15_165125) do
+ActiveRecord::Schema.define(version: 2021_01_20_184610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_165125) do
     t.datetime "locked_at"
     t.datetime "login_requested_at"
     t.string "login_token"
+    t.integer "routing_method"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id"
@@ -615,7 +616,6 @@ ActiveRecord::Schema.define(version: 2021_01_15_165125) do
     t.string "logo_path"
     t.string "name", null: false
     t.bigint "parent_organization_id"
-    t.string "source_parameter"
     t.datetime "updated_at", precision: 6, null: false
     t.integer "weekly_capacity_limit"
     t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"

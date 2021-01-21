@@ -1,12 +1,14 @@
 require "rails_helper"
 
 RSpec.describe Questions::PersonalInfoController do
+  let(:vita_partner) { create :vita_partner }
+  let(:organization_router) { double }
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
   describe "#update" do
-    let(:intake) { create :intake }
+    let(:intake) { create :intake, source: "SourceParam" }
     let(:state) { 'CO' }
     let(:params) do
       {
@@ -19,7 +21,10 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     before do
-      allow(ClientRouter).to receive(:route)
+      allow(PartnerRoutingService).to receive(:new).and_return organization_router
+      allow(organization_router).to receive(:determine_organization).and_return vita_partner
+      allow(organization_router).to receive(:routing_method).and_return :source_param
+
     end
 
     it "sets the timezone on the intake" do
@@ -28,12 +33,29 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     context "when a client has not yet consented" do
-      before { create :tax_return, client: intake.client, status: "intake_before_consent" }
+      before do
+        create :tax_return, client: intake.client, status: "intake_before_consent"
+      end
 
       it "gets routed" do
         post :update, params: params
 
-        expect(ClientRouter).to have_received(:route).with(intake.client)
+        expect(PartnerRoutingService).to have_received(:new).with(
+          {
+            source_param: "SourceParam",
+            zip_code: "80309"
+          }
+        )
+        expect(organization_router).to have_received(:determine_organization)
+      end
+
+      it "updates the intake and the client with the routed organization" do
+        expect {
+          post :update, params: params
+          intake.reload
+        }.to change(intake, :vita_partner_id).to(vita_partner.id)
+         .and change(intake.client, :vita_partner_id).to(vita_partner.id)
+         .and change(intake.client, :routing_method).to eq("source_param")
       end
     end
 
@@ -45,7 +67,7 @@ RSpec.describe Questions::PersonalInfoController do
       it "does not route" do
         post :update, params: params
 
-        expect(ClientRouter).not_to have_received(:route)
+        expect(organization_router).not_to have_received(:determine_organization)
       end
     end
   end
