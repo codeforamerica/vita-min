@@ -2,14 +2,12 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    return unless user.present?
-
-    accessible_groups = user.accessible_vita_partners
-
-    # If role is nil, no permissions
-    if user.role_type.nil? || user.role_id.nil?
+    # If user or role is nil, no permissions
+    if user.nil? || user.role_type.nil? || user.role_id.nil?
       return
     end
+
+    accessible_groups = user.accessible_vita_partners
 
     # Admins can do everything
     if user.role_type == AdminRole::TYPE
@@ -19,13 +17,12 @@ class Ability
 
     # Anyone can manage their name & email address (roles are handled separately)
     can :manage, User, id: user.id
-    # Anyone can manage clients in the groups they can access
-    can :manage, Client, vita_partner: accessible_groups
+
     # Anyone can read info about an organization or site they can access
     can :read, VitaPartner, id: accessible_groups.pluck(:id)
 
-    # With cancancan, the easiest way to write controllers that do access control is if the
-    # model for that controller has permissions assigned to it.
+    # Anyone can manage clients and client data in the groups they can access
+    can :manage, Client, vita_partner: accessible_groups
     can :manage, [
       Document,
       IncomingEmail,
