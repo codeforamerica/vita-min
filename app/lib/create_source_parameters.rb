@@ -17,14 +17,8 @@ class CreateSourceParameters
       record = record.to_ary
       org_name = record[0][1]&.strip
       code = record[1][1]&.strip
-      launch_date = record[2][1]&.strip
-
-      # In production, might only want to create params once the launch date has passed.
-      # if Rails.env.production?
-      #   next unless launch_date.present?
-      #   next if Date.strptime(launch_date, "%m/%d/%Y") >= Date.today
-      # end
-
+      # launch_date = record[2][1]&.strip
+      
       vita_partner = VitaPartner.find_by(name: org_name)
       if vita_partner.nil?
         problems << "Vita Partner with '#{org_name}' does not exist in this env. skipping."
