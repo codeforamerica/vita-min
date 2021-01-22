@@ -1,9 +1,10 @@
 class PartnerRoutingService
   attr_accessor :source_param, :routing_method
 
-  def initialize(source_param: nil, zip_code: nil)
+  def initialize(source_param: nil, zip_code: nil, state: nil)
     @source_param = source_param
     @zip_code = zip_code
+    @state = state
     @routing_method = nil
   end
 
@@ -13,13 +14,15 @@ class PartnerRoutingService
 
     return vita_partner_from_zip_code if @zip_code.present? && vita_partner_from_zip_code.present?
 
+    return vita_partner_from_state if @state.present? && vita_partner_from_state.present?
+
     fallback_organization
   end
 
   private
 
   def vita_partner_from_source_param
-    return false unless source_param.present?
+    return nil unless source_param.present?
 
     vita_partner = SourceParameter.includes(:vita_partner).find_by(code: source_param)&.vita_partner
 
@@ -30,12 +33,22 @@ class PartnerRoutingService
   end
 
   def vita_partner_from_zip_code
-    return false unless @zip_code.present?
+    return nil unless @zip_code.present?
 
-    vita_partner = VitaPartnerZipCode.where(zip_code: @zip_code).first&.vita_partner
+    vita_partner = VitaPartnerZipCode.find_by(zip_code: @zip_code)&.vita_partner
 
     if vita_partner.present?
       @routing_method = :zip_code
+      vita_partner
+    end
+  end
+
+  def vita_partner_from_state
+    return unless @state.present?
+
+    vita_partner = VitaPartnerState.where(state: @state).first&.vita_partner
+    if vita_partner.present?
+      @routing_method = :state
       vita_partner
     end
   end
