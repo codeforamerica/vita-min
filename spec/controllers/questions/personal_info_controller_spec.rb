@@ -22,7 +22,7 @@ RSpec.describe Questions::PersonalInfoController do
 
     before do
       allow(PartnerRoutingService).to receive(:new).and_return organization_router
-      allow(organization_router).to receive(:determine_organization).and_return vita_partner
+      allow(organization_router).to receive(:determine_partner).and_return vita_partner
       allow(organization_router).to receive(:routing_method).and_return :source_param
 
     end
@@ -46,7 +46,7 @@ RSpec.describe Questions::PersonalInfoController do
             zip_code: "80309"
           }
         )
-        expect(organization_router).to have_received(:determine_organization)
+        expect(organization_router).to have_received(:determine_partner)
       end
 
       it "updates the intake and the client with the routed organization" do
@@ -67,7 +67,7 @@ RSpec.describe Questions::PersonalInfoController do
       it "does not route" do
         post :update, params: params
 
-        expect(organization_router).not_to have_received(:determine_organization)
+        expect(organization_router).not_to have_received(:determine_partner)
       end
     end
   end

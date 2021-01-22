@@ -46,6 +46,7 @@ en:
           source_param: Direct URL
           zip_code: Zip code
           most_org_leads: Greatest number of org leads (2021 season WIP fallback)
+          national_overflow: National overflow
       new:
         title: Add a new client
         assign_to_label: Assign to

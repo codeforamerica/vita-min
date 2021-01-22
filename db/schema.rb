@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_185003) do
+ActiveRecord::Schema.define(version: 2021_01_22_155255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -618,12 +618,12 @@ ActiveRecord::Schema.define(version: 2021_01_21_185003) do
   end
 
   create_table "vita_partners", force: :cascade do |t|
-    t.boolean "accepts_overflow", default: false
     t.boolean "archived", default: false
     t.bigint "coalition_id"
     t.datetime "created_at", precision: 6, null: false
     t.string "logo_path"
     t.string "name", null: false
+    t.boolean "national_overflow_location", default: false
     t.bigint "parent_organization_id"
     t.datetime "updated_at", precision: 6, null: false
     t.integer "weekly_capacity_limit"

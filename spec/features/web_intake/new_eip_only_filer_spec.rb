@@ -5,7 +5,7 @@ RSpec.feature "Web Intake EIP Only Filer" do
 
   before do
     # Create the hard-coded VITA partner for EIP-only returns
-    create(:vita_partner, name: "Get Your Refund")
+    create :vita_partner, name: "Get Your Refund", national_overflow_location: true
   end
 
   scenario "new EIP-only client filing joint with a dependent" do

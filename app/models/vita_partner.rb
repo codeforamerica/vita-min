@@ -2,16 +2,16 @@
 #
 # Table name: vita_partners
 #
-#  id                     :bigint           not null, primary key
-#  accepts_overflow       :boolean          default(FALSE)
-#  archived               :boolean          default(FALSE)
-#  logo_path              :string
-#  name                   :string           not null
-#  weekly_capacity_limit  :integer
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  coalition_id           :bigint
-#  parent_organization_id :bigint
+#  id                         :bigint           not null, primary key
+#  archived                   :boolean          default(FALSE)
+#  logo_path                  :string
+#  name                       :string           not null
+#  national_overflow_location :boolean          default(FALSE)
+#  weekly_capacity_limit      :integer
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#  coalition_id               :bigint
+#  parent_organization_id     :bigint
 #
 # Indexes
 #
