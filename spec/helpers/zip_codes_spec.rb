@@ -14,4 +14,18 @@ RSpec.describe ZipCodes do
       end
     end
   end
+
+  describe ".has_key?" do
+    context "with an existing zip_code" do
+      it "returns true" do
+        expect(ZipCodes.has_key?("99692")).to eq true
+      end
+    end
+
+    context "with a non-existent zip code" do
+      it "returns false" do
+        expect(ZipCodes.has_key?("1982379128738")).to eq false
+      end
+    end
+  end
 end

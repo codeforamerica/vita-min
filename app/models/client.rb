@@ -46,7 +46,7 @@ class Client < ApplicationRecord
   has_many :outbound_calls
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
-  enum routing_method: { most_org_leads: 0, source_param: 1 }
+  enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2 }
 
   def self.delegated_intake_attributes
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
