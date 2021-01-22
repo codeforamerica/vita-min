@@ -1,8 +1,8 @@
 require 'csv'
 
-class CreateVitaPartnerZipCodes
+class VitaPartnerZipCodesImporter
   def from_csv(filename)
-    # To use, run "CreateVitaPartnerZipCodes.new().from_csv('./wave_1_routing.csv')" in console
+    # To use, run "VitaPartnerZipCodesImporter.new().from_csv('./wave_1_routing.csv')" in console
     successes = []
     problems = []
     unfound_vita_partners = []
