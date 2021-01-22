@@ -36,13 +36,16 @@ Rails.application.routes.draw do
 
     resources :questions, controller: :questions do
       collection do
-        (QuestionNavigation.controllers + EipOnlyNavigation.controllers).uniq.each do |controller_class|
+        QuestionNavigation.controllers.uniq.each do |controller_class|
           { get: :edit, put: :update }.each do |method, action|
             match "/#{controller_class.to_param}",
                   action: action,
                   controller: controller_class.controller_path,
                   via: method
           end
+        end
+        EipOnlyNavigation.controllers.uniq.each do |controller_class|
+          get "/#{controller_class.to_param}", to: redirect('/')
         end
       end
     end
@@ -74,13 +77,8 @@ Rails.application.routes.draw do
 
     # FSA routes
     scoped_navigation_routes(:diy, DiyNavigation, as_redirects: Rails.configuration.offseason) do
-      if Rails.configuration.offseason
-        root to: redirect { |_, request| "/#{request.params[:locale]}" }
-        get "/:token", to: redirect { |_, request| "/#{request.params[:locale]}" }, as: :start_filing
-      else
-        root "public_pages#diy_home"
-        get "/:token", to: "diy/start_filing#start", as: :start_filing
-      end
+      root to: redirect { |_, request| "/#{request.params[:locale]}" }
+      get "/:token", to: redirect { |_, request| "/#{request.params[:locale]}" }, as: :start_filing
     end
 
     # Stimulus routes
