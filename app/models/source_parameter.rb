@@ -23,4 +23,12 @@ class SourceParameter < ApplicationRecord
   validates_presence_of :vita_partner_id
   validates_presence_of :code
   validates_uniqueness_of :code
+
+  before_validation :downcase_code
+
+  private
+
+  def downcase_code
+    self.code = code.downcase if code_changed?
+  end
 end
