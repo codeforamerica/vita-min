@@ -3,7 +3,7 @@ require 'csv'
 # Use lrzsz package to load in csv files
 # https://gist.github.com/alaroia-cfa/9c28bbb5ac991fe871369c3862d00763
 #
-class CreateSourceParameters
+class SourceParametersImporter
   # This expects the org CSV with three columns
   # Col 1: Organization Name
   # Col 2: URL
