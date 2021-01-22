@@ -52,7 +52,7 @@ RSpec.feature "Inviting greeters" do
         click_on "Resend invitation email"
       end
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to colleague@ginger.org"
+        expect(page).to have_text "Invitation re-sent to colleague@ginger.org"
       end
       within(".invitations") do
         expect(page).to have_text "Gavin Ginger"

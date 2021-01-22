@@ -20,17 +20,20 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :require_valid_invitation_token, only: [:edit, :update]
 
   def create
-    redirect_to invitations_path and return if already_invited_other_role?
+    if user_already_exists?
+      flash[:alert] = "Cannot invite #{invite_params[:email]} - user already exists."
+      redirect_to invitations_path and return
+    end
 
     super do |invited_user|
-      invited_user.update!(role: @role)
+      invited_user.update!(role: @role) if invited_user.errors.empty?
     end
   end
 
   private
 
-  def already_invited_other_role?
-    User.where(email: invite_params[:email]).where.not(role_type: params[:user][:role]).exists?
+  def user_already_exists?
+    User.find_by(email: invite_params[:email]).present?
   end
 
   def load_and_authorize_groups

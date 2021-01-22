@@ -22,7 +22,6 @@ RSpec.feature "Inviting client success" do
       fill_in "What is their name?", with: "Chard Swiss"
       fill_in "What is their email?", with: "chard@clientsuccess.org"
       click_on "Send invitation email"
-
       # back on the invitations page
       within(".flash--notice") do
         expect(page).to have_text "We sent an email invitation to chard@clientsuccess.org"
@@ -40,7 +39,7 @@ RSpec.feature "Inviting client success" do
         click_on "Resend invitation email"
       end
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to chard@clientsuccess.org"
+        expect(page).to have_text "Invitation re-sent to chard@clientsuccess.org"
       end
       invited_user = User.where(invited_by: user).last
       expect(invited_user.invitation_token).to be_present

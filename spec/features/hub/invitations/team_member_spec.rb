@@ -46,7 +46,7 @@ RSpec.feature "Inviting team members" do
         click_on "Resend invitation email"
       end
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to colleague@tomato.org"
+        expect(page).to have_text "Invitation re-sent to colleague@tomato.org"
       end
       within(".invitations") do
         expect(page).to have_text "Tammy Tomato"

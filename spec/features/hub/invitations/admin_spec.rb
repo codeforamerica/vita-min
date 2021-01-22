@@ -37,13 +37,13 @@ RSpec.feature "Inviting admin users" do
 
       # resend invitation
       within("#invitation-#{invited_user.id}") do
-        click_on "Resend invitation email"
+        click_on "Resend invitation"
       end
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to aileen@artichoke.org"
+        expect(page).to have_text "Invitation re-sent to aileen@artichoke.org"
       end
       invited_user = User.where(invited_by: user).last
-      expect(invited_user.invitation_token).to be_present
+      expect(invited_user.invitation_sent_at).to be_within(2.seconds).of(Time.now)
 
       logout
 

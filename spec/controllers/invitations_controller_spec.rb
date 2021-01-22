@@ -40,4 +40,46 @@ RSpec.describe InvitationsController do
       end
     end
   end
+
+  describe "#resend_invitation" do
+    context "invited by current user" do
+      let(:creating_user) { create :user }
+      let(:invited_user) { create :user, invited_by: creating_user }
+
+      before { sign_in creating_user }
+
+      it "updates invitation_sent_at value" do
+        expect {
+          put :resend_invitation, params: { user_id: invited_user.id }
+          invited_user.reload
+        }.to change(invited_user, :invitation_sent_at)
+      end
+
+      it "redirects after saving" do
+        put :resend_invitation, params: { user_id: invited_user.id }
+        expect(flash[:notice]).to eq "Invitation re-sent to #{invited_user.email}"
+        expect(response).to redirect_to invitations_path
+      end
+    end
+
+    context "invited by someone else" do
+      let(:logged_in_user) { create :user }
+      let(:invited_user) { create :user, invited_by: (create :user) }
+
+      before { sign_in logged_in_user }
+
+      it "does not resend the invitation" do
+        expect {
+          put :resend_invitation, params: { user_id: invited_user.id }
+          invited_user.reload
+        }.not_to change(invited_user, :invitation_sent_at)
+      end
+
+      it "redirects without saving" do
+        put :resend_invitation, params: { user_id: invited_user.id }
+        expect(flash[:notice]).to eq "Could not resend invitation."
+        expect(response).to redirect_to invitations_path
+      end
+    end
+  end
 end

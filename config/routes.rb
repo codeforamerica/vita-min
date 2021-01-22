@@ -157,7 +157,7 @@ Rails.application.routes.draw do
       invitations: "users/invitations"
     }
     get "hub/users/invitations" => "invitations#index", as: :invitations
-
+    put "hub/users/invitations/:user_id/resend", to: "invitations#resend_invitation", as: :user_resend_invitation
     ### END Hub Admin routes (Case Management)
 
     # Any other top level slash just goes to home as a source parameter

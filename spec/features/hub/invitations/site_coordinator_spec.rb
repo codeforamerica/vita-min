@@ -27,7 +27,7 @@ RSpec.feature "Inviting site coordinator" do
 
       # back on the invitations page
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to colleague@cauliflower.org"
+        expect(page).to have_text "We sent an email invitation to colleague@cauliflower.org."
       end
       within(".invitations") do
         expect(page).to have_text "Colleen Cauliflower"
@@ -42,11 +42,10 @@ RSpec.feature "Inviting site coordinator" do
         click_on "Resend invitation email"
       end
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to colleague@cauliflower.org"
+        expect(page).to have_text "Invitation re-sent to colleague@cauliflower.org"
       end
       invited_user = User.where(invited_by: user).last
-      # TODO: why does checking the token mean anything about _resending_ the invite?
-      expect(invited_user.invitation_token).to be_present
+      expect(invited_user.invitation_sent_at).to be_within(2.seconds).of(Time.now)
 
       logout
 
