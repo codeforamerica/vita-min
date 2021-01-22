@@ -2,7 +2,7 @@ class PartnerRoutingService
   attr_accessor :source_param, :routing_method
 
   def initialize(source_param: nil, zip_code: nil)
-    @source_param = source_param
+    @source_param = source_param&.downcase
     @zip_code = zip_code
     @routing_method = nil
   end

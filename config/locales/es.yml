@@ -42,6 +42,10 @@ es:
         signature_methods:
           online: Firma electrónica
           in_person: En persona
+        routing_methods:
+          source_param: URL directa
+          zip_code: Código postal
+          most_org_leads: Mayor número de clientes potenciales de la organización (reserva de WIP para la temporada 2021)
       new:
         title: Agregar un nuevo cliente
         assign_to_label: Asignado a
@@ -87,7 +91,7 @@ es:
         texting_phone: Número celular
         tax_info: Información de impuestos
         basic_info: Información básica
-        metadata: Metadatos
+        other_info: Other info
         routing_method: Método de enrutamiento inicial
         source_param: Fuente param
       edit_take_action:

@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 describe PartnerRoutingService do
+  subject { PartnerRoutingService.new }
+
   let(:vita_partner) { create :vita_partner }
   let(:default_vita_partner) { create :vita_partner }
   let(:code) { "SourceParam" }
-  subject { PartnerRoutingService.new }
   before do
     create :source_parameter, code: code, vita_partner: vita_partner
     create :organization_lead_role, organization: create(:vita_partner)
@@ -21,6 +22,15 @@ describe PartnerRoutingService do
 
     context "when a source param is provided and valid" do
       subject { PartnerRoutingService.new(source_param: code) }
+
+      it "returns the referring organization" do
+        expect(subject.determine_organization).to eq vita_partner
+        expect(subject.routing_method).to eq :source_param
+      end
+    end
+
+    context "when a source param is provided with different casing" do
+      subject { PartnerRoutingService.new(source_param: code.upcase ) }
 
       it "returns the referring organization" do
         expect(subject.determine_organization).to eq vita_partner

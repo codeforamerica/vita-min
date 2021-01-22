@@ -42,6 +42,10 @@ en:
         signature_methods:
           online: Online
           in_person: In person
+        routing_methods:
+          source_param: Direct URL
+          zip_code: Zip code
+          most_org_leads: Greatest number of org leads (2021 season WIP fallback)
       new:
         title: Add a new client
         assign_to_label: Assign to
@@ -102,7 +106,7 @@ en:
         texting_phone: Phone For Texting
         tax_info: Tax Info
         basic_info: Basic Info
-        metadata: Metadata
+        other_info: Other Info
         routing_method: Initial Routing Method
         source_param: Source Param
     documents:
