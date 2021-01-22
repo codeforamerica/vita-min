@@ -7,6 +7,7 @@ RSpec.describe Questions::BacktaxesController do
     before do
       session[:source] = "source_from_session"
       session[:referrer] = "referrer_from_session"
+      cookies[:visitor_id] = "some_visitor_id"
     end
 
     context "with valid params" do
@@ -36,6 +37,7 @@ RSpec.describe Questions::BacktaxesController do
           expect(intake.needs_help_2017).to eq "no"
           expect(intake.needs_help_2018).to eq "yes"
           expect(intake.needs_help_2019).to eq "yes"
+          expect(intake.visitor_id).to eq "some_visitor_id"
         end
       end
 

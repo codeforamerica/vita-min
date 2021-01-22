@@ -42,6 +42,7 @@ module Questions
         source: current_intake.source || source,
         referrer: current_intake.referrer || referrer,
         locale: I18n.locale,
+        visitor_id: visitor_id
       )
     end
   end

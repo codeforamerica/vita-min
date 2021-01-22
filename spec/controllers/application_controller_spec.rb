@@ -69,19 +69,6 @@ RSpec.describe ApplicationController do
 
           expect(cookies[:visitor_id]).to eq "123"
         end
-
-        context "with current intake" do
-          let(:intake) { create :intake }
-
-          before do
-            allow(subject).to receive(:current_intake).and_return(intake)
-          end
-
-          it "saves the visitor id to the intake" do
-            get :index
-            expect(intake.visitor_id).to eq "123"
-          end
-        end
       end
 
       context "on current_intake AND cookie" do
@@ -509,7 +496,8 @@ RSpec.describe ApplicationController do
           had_disability: "yes",
           spouse_had_disability: "no",
           primary_birth_date: Date.new(1993, 5, 16),
-          spouse_birth_date: Date.new(1992, 11, 4)
+          spouse_birth_date: Date.new(1992, 11, 4),
+          visitor_id: "current_intake_visitor_id"
         )
       end
 
@@ -521,7 +509,7 @@ RSpec.describe ApplicationController do
         get :index
 
         expect(mixpanel_spy).to have_received(:run).with(
-          unique_id: "123",
+          unique_id: "current_intake_visitor_id",
           event_name: "page_view",
           data: hash_including(
             intake_source: "horse-ad-campaign-26",

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_22_155255) do
+ActiveRecord::Schema.define(version: 2021_01_22_191853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -403,7 +403,7 @@ ActiveRecord::Schema.define(version: 2021_01_22_155255) do
     t.string "triage_source_type"
     t.datetime "updated_at"
     t.boolean "viewed_at_capacity", default: false
-    t.string "visitor_id"
+    t.string "visitor_id", null: false
     t.bigint "vita_partner_id"
     t.string "vita_partner_name"
     t.integer "was_blind", default: 0, null: false
