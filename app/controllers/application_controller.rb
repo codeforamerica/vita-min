@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
     url_for(only_path: false, locale: locale)
   end
 
+  # TODO: This logic may be too aggressive if we have other paths that include "hub". Like... "/questions/chub"
   def hub?
     request.path.include?("hub")
   end
