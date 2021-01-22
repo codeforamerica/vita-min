@@ -54,22 +54,6 @@ RSpec.describe "a user viewing a client" do
     end
   end
 
-  context "user without admin access" do
-    let!(:user) { create :organization_lead_user }
-    let!(:client) { create :client, vita_partner: user.role.organization, intake: create(:intake, :with_contact_info) }
-    before do
-      login_as user
-    end
-
-    scenario "can view and cannot update organization" do
-      visit hub_client_path(id: client.id)
-      within ".client-header__organization" do
-        expect(page).to have_text client.vita_partner.name
-        expect(page).not_to have_text "Edit"
-      end
-    end
-  end
-
   xcontext "user without admin access, but is coalition lead for client organization" do
     # we have not yet implemented coalition leads
     let(:coalition) { create :coalition }

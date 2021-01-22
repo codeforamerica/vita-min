@@ -32,7 +32,7 @@ VitaPartnerZipCode.find_or_create_by!(
   vita_partner: first_site,
 )
 
-# basic user
+# organization lead user
 user = User.where(email: "skywalker@example.com").first_or_initialize
 user.update(
   name: "Luke",

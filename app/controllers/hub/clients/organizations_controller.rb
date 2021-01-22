@@ -3,10 +3,11 @@ module Hub
     class OrganizationsController < ApplicationController
       include AccessControllable
       before_action :require_sign_in
+      before_action :load_vita_partners, only: [:edit, :update]
+      before_action :authorize_vita_partner, only: [:update]
 
       layout "admin"
       load_and_authorize_resource :client, parent: false
-      load_and_authorize_resource :vita_partner, collection: [:edit, :update], parent: false
 
       def edit;end
 
@@ -15,8 +16,18 @@ module Hub
         redirect_to hub_client_path(id: @client.id)
       end
 
+      private
+
       def client_params
         params.require(:client).permit(:vita_partner_id)
+      end
+
+      def load_vita_partners
+        @vita_partners = VitaPartner.accessible_by(current_ability)
+      end
+
+      def authorize_vita_partner
+        raise CanCan::AccessDenied unless @vita_partners.find_by(id: client_params[:vita_partner_id]).present?
       end
     end
   end
