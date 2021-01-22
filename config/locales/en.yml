@@ -1651,18 +1651,12 @@ en:
           one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
       welcome:
-        diy:
-          header: File taxes myself
-          info: File quickly with our DIY tool.
         intake:
           header: File taxes with help
           info: Review and file with the help of a tax expert.
         question:
           header: Ask a question
           info: Get your tax related questions answered.
-        stimulus:
-          header: Get your Stimulus
-          info: Find answers to your stimulus questions and file if needed.
         title: Welcome! How can we help you?
       widowed:
         title: As of December 31, %{year}, were you widowed?

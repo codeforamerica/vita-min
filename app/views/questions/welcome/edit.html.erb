@@ -9,21 +9,6 @@
             <%= content_for(:page_title) %>
           </h1>
 
-          <%= link_to diy_file_yourself_path do %>
-            <div class="link-box">
-              <div class="link-box--content">
-                <div>
-                  <%= image_tag("start-filing-yourself.svg", alt: "") %>
-                </div>
-                <div>
-                  <h2 class="file-myself"><%=t("views.questions.welcome.diy.header") %></h2>
-                  <p><%=t("views.questions.welcome.diy.info") %></p>
-                </div>
-              </div>
-              <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
-            </div>
-          <% end %>
-
           <%= link_to file_with_help_questions_path do %>
             <div class="link-box">
               <div class="link-box--content">
@@ -33,21 +18,6 @@
                 <div>
                   <h2 class="file-with-help"><%=t("views.questions.welcome.intake.header") %></h2>
                   <p><%=t("views.questions.welcome.intake.info") %></p>
-                </div>
-              </div>
-              <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
-            </div>
-          <% end %>
-
-          <%= link_to stimulus_filed_recently_path do %>
-            <div class="link-box">
-              <div class="link-box--content">
-                <div>
-                  <%= image_tag("stimulus/get-your-stimulus.svg", alt: t('views.questions.welcome.stimulus.header')) %>
-                </div>
-                <div>
-                  <h2 class="get-your-stimulus"><%=t("views.questions.welcome.stimulus.header") %></h2>
-                  <p><%=t("views.questions.welcome.stimulus.info") %></p>
                 </div>
               </div>
               <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
