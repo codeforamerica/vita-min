@@ -23,18 +23,6 @@ RSpec.describe Questions::QuestionsController do
         expect(subject.form_navigation).to be_an_instance_of(QuestionNavigation)
       end
     end
-
-    context "eip only intake" do
-      let(:eip_intake) { create :intake, :eip_only }
-
-      before do
-        allow(subject).to receive(:current_intake).and_return(eip_intake)
-      end
-
-      it "uses the QuestionNavigation" do
-        expect(subject.form_navigation).to be_an_instance_of(EipOnlyNavigation)
-      end
-    end
   end
 
   describe ".to_path_helper" do

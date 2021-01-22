@@ -44,9 +44,6 @@ Rails.application.routes.draw do
                   via: method
           end
         end
-        EipOnlyNavigation.controllers.uniq.each do |controller_class|
-          get "/#{controller_class.to_param}", to: redirect('/')
-        end
       end
     end
 

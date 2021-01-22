@@ -3,7 +3,6 @@ class QuestionNavigation
     # Triage
     Questions::WelcomeController,
     Questions::FileWithHelpController,
-    Questions::EipOnlyController,
     # FilingMightHelpController redirects to BackTaxesController to start a full intake from stimulus triage
     Questions::BacktaxesController, # create Intake record
     Questions::EnvironmentWarningController,

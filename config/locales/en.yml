@@ -909,13 +909,6 @@ en:
         header: File taxes on your own for free!
         send_link: Send me a link
         subheader: We provide free access to an online tax prep site called TaxSlayer. We’ll send you a link to create your own TaxSlayer login, so you can file on your own.
-      eip_home:
-        header: Get your stimulus check
-        questions_cta: Stimulus FAQ
-        questions_html: Questions? Visit our %{faq_link}
-        subheader1: You might be missing out on a payment of over $1,200. Trained IRS certified volunteers are ready to help you apply for free.
-        subheader2: It takes less than 30 minutes to fill out the form. Get your stimulus check today!
-        title: Get help claiming your stimulus check for free!
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
         contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
