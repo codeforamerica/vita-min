@@ -5,6 +5,7 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
   let!(:site) { create :site, parent_organization: organization }
   let!(:other_site) { create :site, parent_organization: organization }
   let!(:client) { create :client, vita_partner: organization }
+  let!(:intake) { create :intake, client: client }
   let(:user) { create :organization_lead_user, organization: organization }
 
   describe "#edit" do
@@ -40,6 +41,23 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
         expect(response).to redirect_to hub_client_path(id: client.id)
       end
 
+      context "when reassigning would remove access for one or more tax return assignees" do
+        let(:tax_return_assignee) { create :team_member_user, site: site }
+        let(:client) { create :client, vita_partner: site }
+        let!(:tax_return) { create :tax_return, client: client, assigned_user: tax_return_assignee }
+        let(:params) { { id: client.id, client: { vita_partner_id: other_site.id } } }
+
+        render_views
+        it "adds a validation error and does not reassign the client" do
+          patch :update, params: params
+
+          expect(response).to be_ok
+          expect(client.reload.vita_partner).to eq site
+          expect(response).to render_template :edit
+          expect(assigns(:client).errors).to include :vita_partner
+        end
+      end
+
       context "when assigning to an vite partner that you don't have access to" do
         let(:other_org) { create :organization}
         let(:params) { { id: client.id, client: { vita_partner_id: other_org.id } } }
@@ -50,8 +68,6 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
           expect(response).to be_forbidden
         end
       end
-
     end
-
   end
 end

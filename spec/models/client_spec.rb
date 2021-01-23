@@ -32,8 +32,31 @@
 require "rails_helper"
 
 describe Client do
-  describe "#needs_attention" do
+  describe "valid?" do
+    context "when assigning to a new partner would remove access for a tax return assignee" do
+      let(:current_site) { create :site }
+      let(:client) { create :client, vita_partner: current_site }
+      let(:other_site) { create :site, parent_organization: current_site.parent_organization }
+      let(:assigned_user) { create :team_member_user, site: current_site }
+      let(:another_assigned_user) { create :site_coordinator_user, site: current_site }
+      before do
+        create :tax_return, year: 2019, client: client, assigned_user: assigned_user
+        create :tax_return, year: 2020, client: client, assigned_user: another_assigned_user
+      end
 
+      it "adds a useful validation error message to vita_partner" do
+        client.vita_partner = other_site
+
+        expect(client).not_to be_valid
+        expected_error_message = "#{assigned_user.name}, #{another_assigned_user.name} would lose access "\
+          "if you assign this client to #{other_site.name}. Please change tax return assignments before "\
+          "reassigning this client."
+        expect(client.errors[:vita_partner]).to include expected_error_message
+      end
+    end
+  end
+
+  describe "#needs_attention" do
     context "when last_response_at is nil" do
       let!(:client) { create :client }
 

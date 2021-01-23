@@ -12,8 +12,11 @@ module Hub
       def edit;end
 
       def update
-        @client.update(client_params)
-        redirect_to hub_client_path(id: @client.id)
+        if @client.update(client_params)
+          redirect_to hub_client_path(id: @client.id)
+        else
+          render :edit
+        end
       end
 
       private

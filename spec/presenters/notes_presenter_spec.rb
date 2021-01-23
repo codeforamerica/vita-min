@@ -13,7 +13,6 @@ RSpec.describe NotesPresenter do
     end
 
     context "with notes from different days" do
-
       it "correctly groups notes by day created" do
         day1 = DateTime.new(2019, 10, 5, 8, 1).utc
         day2 = DateTime.new(2020, 10, 5, 5, 1).utc
@@ -71,7 +70,7 @@ RSpec.describe NotesPresenter do
         result = NotesPresenter.grouped_notes(client)
         notes = result.values.flatten
         expect(notes.length).to eq 1
-        expect(notes[0].body).to include "Called by Gary Gnome. Call was completed and lasted 1m15s."
+        expect(notes[0].body).to include "Called by #{user.name}. Call was completed and lasted 1m15s."
         expect(notes[0].body).to include "I talked to them!"
       end
     end
