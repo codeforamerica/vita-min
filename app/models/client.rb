@@ -44,9 +44,12 @@ class Client < ApplicationRecord
   has_many :tax_returns
   has_many :access_logs
   has_many :outbound_calls
+  has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
   enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3 }
+
+  validate :tax_return_assigned_user_access_maintained, if: :vita_partner_id_changed?
 
   def self.delegated_intake_attributes
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
@@ -140,5 +143,28 @@ class Client < ApplicationRecord
       login_requested_at: DateTime.now
     )
     Rails.application.routes.url_helpers.portal_client_login_url(id: raw_token)
+  end
+
+  private
+
+  def tax_return_assigned_user_access_maintained
+    # assuming the vita_partner was changed
+    # if any tax returns have assigned users ...
+    if persisted? && users_assigned_to_tax_returns.exists?
+      # ... find out who would lose access based on the new partner
+      users_who_would_lose_access = users_assigned_to_tax_returns.select do |user|
+        user.accessible_vita_partners.where(id: vita_partner_id).empty?
+      end
+      if users_who_would_lose_access.present?
+        affected_user_names = users_who_would_lose_access.map(&:name).join(", ")
+        errors.add(:vita_partner,
+          I18n.t(
+            "clients.errors.tax_return_assigned_user_access",
+            new_partner: vita_partner.name,
+            affected_users: affected_user_names
+          )
+        )
+      end
+    end
   end
 end

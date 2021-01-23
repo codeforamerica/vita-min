@@ -93,17 +93,46 @@ class User < ApplicationRecord
     when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
       VitaPartner.sites.where(id: role.site)
     when CoalitionLeadRole::TYPE
-      organizations = role.coalition.organizations
+      organizations = VitaPartner.organizations.where(coalition: role.coalition)
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organizations.or(sites)
     when GreeterRole::TYPE
-      organizations = VitaPartner.where(coalition: role.coalitions).or(
-        VitaPartner.organizations.where(id: role.organizations)
-      )
+      direct_organizations = VitaPartner.organizations.where(id: role.organizations)
+      child_organizations = VitaPartner.where(coalition: role.coalitions)
+      organizations = direct_organizations.or(child_organizations)
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organizations.or(sites)
     else
       VitaPartner.none
+    end
+  end
+
+  def accessible_users
+    case role_type
+    when AdminRole::TYPE
+      User.all
+    when CoalitionLeadRole::TYPE
+      coalitions_leads = User.where(role: CoalitionLeadRole.where(coalition: role.coalition))
+      organizations = VitaPartner.organizations.where(coalition: role.coalition)
+      sites = VitaPartner.sites.where(parent_organization: organizations)
+      organization_leads = User.where(role: OrganizationLeadRole.where(organization: organizations))
+      site_coordinators = User.where(role: SiteCoordinatorRole.where(site: sites))
+      team_members = User.where(role: TeamMemberRole.where(site: sites))
+      coalitions_leads.or(organization_leads).or(site_coordinators).or(team_members)
+    when OrganizationLeadRole::TYPE
+      organization_leads = User.where(role: OrganizationLeadRole.where(organization: role.organization))
+      sites = VitaPartner.sites.where(parent_organization: role.organization)
+      site_coordinators = User.where(role: SiteCoordinatorRole.where(site: sites))
+      team_members = User.where(role: TeamMemberRole.where(site: sites))
+      organization_leads.or(site_coordinators).or(team_members)
+    when SiteCoordinatorRole::TYPE
+      site_coordinators = User.where(role: SiteCoordinatorRole.where(site: role.site))
+      team_members = User.where(role: TeamMemberRole.where(site: role.site))
+      site_coordinators.or(team_members)
+    when TeamMemberRole::TYPE
+      User.where(id: self)
+    else
+      User.none
     end
   end
 

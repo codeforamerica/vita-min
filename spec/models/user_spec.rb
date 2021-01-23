@@ -239,6 +239,78 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#accessible_users" do
+    let!(:coalition) { create :coalition }
+    let!(:coalition_lead) { create :coalition_lead_user, coalition: coalition }
+    let!(:sibling_coalition_lead) { create :coalition_lead_user, coalition: coalition }
+
+    let!(:sibling_coalition) { create :coalition }
+    let!(:cousin_coalition_lead) { create :coalition_lead_user, coalition: sibling_coalition }
+
+    let!(:organization) { create :organization, coalition: coalition }
+    let!(:organization_lead) { create :organization_lead_user, organization: organization }
+    let!(:sibling_organization_lead) { create :organization_lead_user, organization: organization }
+
+    let!(:sibling_organization) { create :organization, coalition: coalition }
+    let!(:cousin_organization_lead) { create :organization_lead_user, organization: sibling_organization }
+
+    let!(:site) { create :site, parent_organization: organization }
+    let!(:site_coordinator) { create :site_coordinator_user, site: site }
+    let!(:sibling_site_coordinator) { create :site_coordinator_user, site: site }
+    let!(:team_member) { create :team_member_user, site: site }
+    let!(:sibling_team_member) { create :team_member_user, site: site }
+
+    let!(:sibling_site) { create :site, parent_organization: organization }
+    let!(:cousin_site_coordinator) { create :site_coordinator_user, site: sibling_site }
+
+    let(:admin) { create :admin_user }
+
+    context "team member user" do
+      it "return only the current user" do
+        expect(team_member.accessible_users).to match_array([team_member])
+      end
+    end
+
+    context "site coordinator user" do
+      it "should return all the site coordinators and team members at the site" do
+        expected_results = [
+          site_coordinator, sibling_site_coordinator,
+          team_member, sibling_team_member
+        ]
+        expect(site_coordinator.accessible_users).to match_array(expected_results)
+      end
+    end
+
+    context "organization lead user" do
+      it "should return all the team members, site coordinators, and organization leads under the organization" do
+        expected_result = [
+          organization_lead, sibling_organization_lead,
+          site_coordinator, sibling_site_coordinator, cousin_site_coordinator,
+          team_member, sibling_team_member
+        ]
+        expect(organization_lead.accessible_users).to match_array(expected_result)
+      end
+    end
+
+    context "coalition lead user" do
+      it "should return all team members, site coordinators, org leads, & coalition leads under the same coalition" do
+        expected_result = [
+          coalition_lead, sibling_coalition_lead,
+          organization_lead, sibling_organization_lead, cousin_organization_lead,
+          site_coordinator, sibling_site_coordinator, cousin_site_coordinator,
+          team_member, sibling_team_member
+        ]
+        expect(coalition_lead.accessible_users).to match_array(expected_result)
+      end
+    end
+
+    context "admin user" do
+      it "should return all users" do
+        expect(admin.accessible_users).to eq User.all
+      end
+    end
+  end
+
   describe "first_name" do
     context "Luke" do
       let(:user) { build :user, name: "Luke"}
