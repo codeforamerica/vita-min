@@ -161,7 +161,7 @@ Rails.application.routes.draw do
     ### END Hub Admin routes (Case Management)
 
     # Any other top level slash just goes to home as a source parameter
-    get "/:source" => "public_pages#redirect_locale_home", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
+    get "/:source" => "public_pages#source_routing", constraints: { source: /[0-9a-zA-Z_-]{1,100}/ }
   end
   # Routes outside of the locale scope are not internationalized
 

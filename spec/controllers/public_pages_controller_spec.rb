@@ -81,6 +81,35 @@ RSpec.describe PublicPagesController do
     end
   end
 
+  describe "source_routing" do
+    context "when it can find a matching source parameter" do
+      let(:source_parameter) { create :source_parameter, vita_partner: (create :vita_partner, name: "Oregano Organization") }
+
+      it "renders the home template with a welcome message" do
+        get :source_routing, params: { source: source_parameter.code }
+        expect(flash[:notice]).to eq "Thanks for visiting via Oregano Organization!"
+        expect(response).to redirect_to :root
+      end
+
+      it "sets the cookie intake_open" do
+        get :source_routing, params: { source: source_parameter.code }
+        expect(cookies[:intake_open]).to be_present
+      end
+    end
+
+    context "when there is no matching source parameter" do
+      it "redirects to home" do
+        get :source_routing, params: { source: "no-match" }
+        expect(response).to redirect_to :root
+      end
+
+      it "does not set the session intake_open" do
+        get :source_routing, params: { source: "no-match" }
+        expect(cookies[:intake_open]).to be_nil
+      end
+    end
+  end
+
   describe "#privacy_policy" do
     it "renders successfully" do
       get :privacy_policy
