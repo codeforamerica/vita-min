@@ -14,12 +14,16 @@ feature "Intake Routing Spec" do
   }
 
   scenario "routing by source param" do
+    visit "/"
+    expect(page).to have_text "Free tax filing, real human support."
+
     visit "/cobra"
     # expect redirect to locale path
-    expect(current_path).to eq '/en'
 
     # must set the session param directly.
-    page.set_rack_session(source: "cobra")
+    # page.set_rack_session(source: "cobra")
+
+    expect(page).to have_text "Free tax filing, made simple."
 
     visit "/questions/welcome"
     click_on "File taxes with help"
