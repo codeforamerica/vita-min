@@ -18,6 +18,9 @@ class Ability
     # Anyone can manage their name & email address (roles are handled separately)
     can :manage, User, id: user.id
 
+    # Anyone can read info about users that they can access
+    can :read, User, id: user.accessible_users.pluck(:id)
+
     # Anyone can read info about an organization or site they can access
     can :read, VitaPartner, id: accessible_groups.pluck(:id)
 

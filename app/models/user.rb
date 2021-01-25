@@ -125,12 +125,10 @@ class User < ApplicationRecord
       site_coordinators = User.where(role: SiteCoordinatorRole.where(site: sites))
       team_members = User.where(role: TeamMemberRole.where(site: sites))
       organization_leads.or(site_coordinators).or(team_members)
-    when SiteCoordinatorRole::TYPE
+    when SiteCoordinatorRole::TYPE, TeamMemberRole::TYPE
       site_coordinators = User.where(role: SiteCoordinatorRole.where(site: role.site))
       team_members = User.where(role: TeamMemberRole.where(site: role.site))
       site_coordinators.or(team_members)
-    when TeamMemberRole::TYPE
-      User.where(id: self)
     else
       User.none
     end

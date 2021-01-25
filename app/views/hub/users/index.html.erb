@@ -22,7 +22,11 @@
       <% @users.each do |user| %>
         <tr id="user-<%= user.id %>" class="index-table__row">
           <th scope="row" class="index-table__row-header">
-            <%= link_to user.name, edit_hub_user_path(id: user) %>
+            <% if can?(:edit, user) %>
+              <%= link_to user.name, edit_hub_user_path(id: user) %>
+            <% else %>
+              <%= user.name %>
+            <% end %>
           </th>
           <td class="index-table__cell"><%= user.email %></td>
           <td class="index-table__cell"><%= user_role(user) %></td>

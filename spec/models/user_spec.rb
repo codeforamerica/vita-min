@@ -267,7 +267,11 @@ RSpec.describe User, type: :model do
 
     context "team member user" do
       it "return only the current user" do
-        expect(team_member.accessible_users).to match_array([team_member])
+        expected_results = [
+          site_coordinator, sibling_site_coordinator,
+          team_member, sibling_team_member
+        ]
+        expect(team_member.accessible_users).to match_array(expected_results)
       end
     end
 

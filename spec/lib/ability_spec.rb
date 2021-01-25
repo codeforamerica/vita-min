@@ -34,7 +34,7 @@ describe Ability do
   end
 
   context "as a non-admin" do
-    context "Clients and their data" do
+    context "Permissions regarding Clients and their data" do
       shared_examples :cannot_manage_any_sites_or_orgs do
         it "cannot manage any VitaPartner records" do
           expect(subject.can?(:manage, VitaPartner)).to eq(false)
@@ -192,56 +192,76 @@ describe Ability do
       end
     end
 
-    context "Users" do
-      shared_examples :user_cannot_manage_other_users_in_their_site do
-        let(:target_user) { create :site_coordinator_user }
+    context "Permissions regarding Users" do
+      context "Managing users" do
+        shared_examples :user_cannot_manage_other_users_in_their_site do
+          let(:target_user) { create :site_coordinator_user }
+          before do
+            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: target_user.role.site))
+          end
+
+          it "cannot manage other users in a site they have access to" do
+            expect(subject.can?(:manage, target_user)).to eq false
+          end
+        end
+
+        shared_examples :user_can_manage_themselves do
+          it "can manage themselves" do
+            expect(subject.can?(:manage, user)).to eq true
+          end
+        end
+
+        context "users with valid non-admin roles" do
+          context "a coalition lead" do
+            let(:user) { create :coalition_lead_user }
+
+            it_behaves_like :user_can_manage_themselves
+            it_behaves_like :user_cannot_manage_other_users_in_their_site
+          end
+
+          context "an organization lead" do
+            let(:user) { create :organization_lead_user }
+
+            it_behaves_like :user_can_manage_themselves
+            it_behaves_like :user_cannot_manage_other_users_in_their_site
+          end
+
+          context "a site coordinator" do
+            let(:user) { create :site_coordinator_user }
+
+            it_behaves_like :user_can_manage_themselves
+            it_behaves_like :user_cannot_manage_other_users_in_their_site
+          end
+
+          context "a team member" do
+            let(:user) { create :team_member_user }
+
+            it_behaves_like :user_can_manage_themselves
+            it_behaves_like :user_cannot_manage_other_users_in_their_site
+          end
+        end
+      end
+
+      context "Viewing users" do
+        let(:user) { create :team_member_user } # role is arbitrary in this test
+        let(:other_user) { create :team_member_user }
+        let(:inaccessible_user) { create :team_member_user }
         before do
-          allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: target_user.role.site))
+          allow(user).to receive(:accessible_users).and_return([user, other_user])
         end
 
-        it "cannot manage other users in a site they have access to" do
-          expect(subject.can?(:manage, target_user)).to eq false
-        end
-      end
-
-      shared_examples :user_can_manage_themselves do
-        it "can manage themselves" do
-          expect(subject.can?(:manage, user)).to eq true
-        end
-      end
-
-      context "users with valid non-admin roles" do
-        context "a coalition lead" do
-          let(:user) { create :coalition_lead_user }
-
-          it_behaves_like :user_can_manage_themselves
-          it_behaves_like :user_cannot_manage_other_users_in_their_site
+        it "allows read permission on all users returned by accessible_users" do
+          expect(subject.can?(:read, user)).to eq true
+          expect(subject.can?(:read, other_user)).to eq true
         end
 
-        context "an organization lead" do
-          let(:user) { create :organization_lead_user }
-
-          it_behaves_like :user_can_manage_themselves
-          it_behaves_like :user_cannot_manage_other_users_in_their_site
-        end
-
-        context "a site coordinator" do
-          let(:user) { create :site_coordinator_user }
-
-          it_behaves_like :user_can_manage_themselves
-          it_behaves_like :user_cannot_manage_other_users_in_their_site
-        end
-
-        context "a team member" do
-          let(:user) { create :team_member_user }
-
-          it_behaves_like :user_can_manage_themselves
-          it_behaves_like :user_cannot_manage_other_users_in_their_site
+        it "does not allow read permission on users that are not returned by accessible_users" do
+          expect(subject.can?(:read, inaccessible_user)).to eq false
         end
       end
     end
 
-    context "Various non-admin roles" do
+    context "Permissions regarding Role objects" do
       context "AdminRole" do
         let(:target_role) { AdminRole }
         
