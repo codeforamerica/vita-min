@@ -612,6 +612,21 @@ es:
         Si tiene alguna pregunta, por favor responda a este mensaje.
         ¡Estamos aquí para ayudar!
         Su equipo de impuestos en GetYourRefund.org
+    getting_started:
+      email_body: |
+        Hola %{preferred_name}:
+
+        Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! No podremos preparar sus impuestos hasta que recibamos toda la información requerida y los documentos de sus impuestos. ¡En cuanto los recibamos, le ayudaremos a conseguir los créditos fiscales que le pertenecen!
+
+        Trate de completar el formulario en una sola sesión, y ¡asegúrese de tener sus documentos fiscales a la mano!  Recuerde, revisaremos todo con usted antes de presentar sus documentos, así que procure hacer lo mejor posible.
+
+        Siempre puede enviar un correo electrónico a hello@getyourrefund.org, chatear con nuestros especialistas usando el chat de getyourrefund.org/es/tax-questions o enviar más documentos a su enlace de envío seguro: %{requested_docs_link}
+
+        ¡Estamos aquí para servirle!
+
+        Su Equipo de Impuestos de GetYourRefund.org
+      email_subject: "Comience a tramitar sus impuestos con GetYourRefund"
+      sms_body: "Hola %{preferred_name}: Gracias por comenzar a tramitar sus impuestos con GetYourRefund--¡ya le falta poco! Tenga los documentos de sus impuestos listos y trate de terminarlos en una sola sesión. Recuerde que los revisaremos todos con usted antes de presentarlos, así que haga su mejor esfuerzo. Responda a este mensaje de texto si tiene preguntas o vuelva más tarde y suba documentos a este enlace de envío seguro: %{requested_docs_link} No nos será posible preparar sus impuestos hasta que tengamos toda la información y los documentos de impuestos requeridos. ¡Tan luego como eso suceda le ayudaremos a conseguir los créditos fiscales que le pertenecen!"
   models:
     intake:
       your_spouse: Su cónyuge

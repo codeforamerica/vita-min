@@ -609,6 +609,20 @@ en:
         If you have any questions, please reply to this message.
         We’re here to help!
         Your tax team at GetYourRefund.org
+    getting_started:
+      email_body: |
+        Hello %{preferred_name},
+
+        Thanks for starting your taxes with GetYourRefund - you’re almost there! We will prepare your taxes once we have all of your required information and tax documents.
+
+        If you have more documents to send or have any questions about your case you can email your tax preparer at hello@getyourrefund.org, chat with our specialists using the chat box on getyourrefund.org/tax-questions or submit more documents at your secure submission link: %{requested_docs_link}
+
+        Remember, we’ll review everything with you before filing so just do the best you can. Then we’ll help you get the tax credits that belong to you!
+
+        We’re here to help!
+        Your tax team at GetYourRefund.org
+      email_subject: Getting your taxes started with GetYourRefund
+      sms_body: "Hello %{preferred_name}, thanks for starting your taxes with GetYourRefund, you’re almost there! Get your tax documents ready and try to complete in one sitting. Remember, we’ll review everything with you before filing so do the best you can. Respond to this text message if you have a question or come back later and upload documents at this secure submission link: %{requested_docs_link} We won’t be able to prepare your taxes until we have all of your required information and tax documents. Then we’ll help you get the tax credits that belong to you!"
   models:
     intake:
       your_spouse: Your spouse
