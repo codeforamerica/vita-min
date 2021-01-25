@@ -21,7 +21,7 @@ module Questions
       session[:intake_id] = @form.intake.id
       stimulus_triage_id = session.delete(:stimulus_triage_id)
       if stimulus_triage_id.present?
-        current_intake.update(triage_source: StimulusTriage.find(stimulus_triage_id), visitor_id: visitor_id)
+        @form.intake.update(triage_source: StimulusTriage.find(stimulus_triage_id))
       end
     end
   end
