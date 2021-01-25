@@ -18,9 +18,10 @@
             <%= open_for_intake? ? t("views.public_pages.home.subheader") : t("views.public_pages.home.subheader_offseason") %>
           </strong>
         </p>
-
-        <%= link_to new_signup_path, id: "firstCta", class: "button button--med-wide button--primary" do %>
-          <%= open_for_intake? ? t("general.get_started") : t("general.register") %>
+        <% if open_for_intake? %>
+          <%= link_to t("general.get_started"), welcome_questions_path, id: "firstCta", class: "button button--med-wide button--primary" %>
+        <% else %>
+          <%= link_to t("general.register"), new_signup_path, id: "firstCta", class: "button button--med-wide button--primary" %>
         <% end %>
       </div>
     </div>

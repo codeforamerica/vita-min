@@ -19,7 +19,10 @@ feature "Intake Routing Spec" do
 
     expect(page).to have_text "Free tax filing, made simple."
 
-    visit "/questions/welcome"
+    within ".slab--hero" do
+      click_on "Get started"
+    end
+
     click_on "File taxes with help"
 
     expect(page).to have_text "File with the help of a tax expert!"
