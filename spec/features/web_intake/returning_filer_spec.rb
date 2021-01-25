@@ -5,7 +5,7 @@ RSpec.feature "Web Intake Single Filer" do
     create(
       :intake,
       email_address: "returning@client.com",
-      completed_at: DateTime.current
+      primary_consented_to_service: "yes",
     )
   end
 
