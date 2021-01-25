@@ -1569,7 +1569,7 @@ es:
           one: En %{year}, ¿tuvo algún ingreso de una cuenta de jubilación, pensión o ingresos de la anualidad?
           other: En el %{year}, ¿tuvo usted o su pareja algún ingreso de una cuenta de jubilación, pensión o anualidad?
       returning_client:
-        next_steps_html: Consulte el correo electrónico de confirmación o el texto de su preparador de impuestos con los siguientes pasos. Si tiene preguntas, debe enviar un correo electrónico a %{email_link}
+        next_steps_html: Debería haber recibido un correo electrónico de confirmación o un mensaje de texto de su preparador de impuestos con los siguientes pasos. Si no ha tenido noticias de su preparador de impuestos en los últimos 3 días, o tiene preguntas adicionales, puede enviar un correo electrónico a %{email_link}
         title: Parece que ya ha comenzado su formulario de impuestos.
       savings_options:
         savings_purchase_bond: Compra de bonos de ahorro de Estados Unidos
