@@ -195,6 +195,7 @@ FactoryBot.define do
   factory :intake do
     had_wages { :unfilled }
     client
+    sequence(:visitor_id) { |n| "visitor_id_#{n}" }
 
     factory :anonymous_intake do
       anonymous { true }

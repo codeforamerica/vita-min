@@ -5,6 +5,7 @@ RSpec.describe BacktaxesForm do
     it "makes a new client with tax returns for each year they need" do
       intake = Intake.new
       form = BacktaxesForm.new(intake, {
+        visitor_id: "some_visitor_id",
         needs_help_2017: "yes",
         needs_help_2018: "no",
         needs_help_2019: "yes",

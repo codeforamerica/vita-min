@@ -233,6 +233,13 @@ describe Intake do
         end
       end
     end
+
+    context "mandatory fields" do
+      it "requires visitor_id" do
+        expect(Intake.new).not_to be_valid
+        expect(Intake.new(visitor_id: "present")).to be_valid
+      end
+    end
   end
 
   describe ".search" do

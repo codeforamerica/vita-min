@@ -108,6 +108,28 @@ RSpec.describe Hub::CreateClientForm do
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]
       end
 
+      context "mixpanel" do
+        let(:fake_tracker) { double('mixpanel tracker') }
+        let(:fake_mixpanel_data) { {} }
+
+        before do
+          allow(MixpanelService).to receive(:data_from).and_return(fake_mixpanel_data)
+          allow(MixpanelService).to receive(:send_event)
+        end
+
+        it "sends drop_off_submitted event to Mixpanel" do
+          described_class.new(params).save
+
+          expect(MixpanelService).to have_received(:send_event).with(
+            event_id: Client.last.intake.visitor_id,
+            event_name: "drop_off_submitted",
+            data: fake_mixpanel_data
+          )
+
+          expect(MixpanelService).to have_received(:data_from).with([Client.last, Client.last.intake])
+        end
+      end
+
       context "phone numbers" do
         it "normalizes phone_number and sms_phone_number" do
           described_class.new(params.update(sms_phone_number: "650-555-1212", phone_number: "(650) 555-1212")).save

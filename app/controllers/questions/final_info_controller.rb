@@ -8,6 +8,11 @@ module Questions
 
     def after_update_success
       current_intake.update(completed_at: Time.now)
+      MixpanelService.send_event(
+        event_id: current_intake.visitor_id,
+        event_name: "intake_finished",
+        data: MixpanelService.data_from([current_intake.client, current_intake])
+      )
       send_confirmation_message
     end
 
