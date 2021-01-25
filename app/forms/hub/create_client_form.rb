@@ -50,7 +50,7 @@ module Hub
       super(attributes)
     end
 
-    def save
+    def save(current_user)
       return false unless valid?
 
       @client = Client.create!(
@@ -58,11 +58,14 @@ module Hub
         intake_attributes: attributes_for(:intake).merge(visitor_id: SecureRandom.hex(26)),
         tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
       )
-      MixpanelService.send_event(
-        event_id: @client.intake.visitor_id,
-        event_name: "drop_off_submitted",
-        data: MixpanelService.data_from([@client, @client.intake])
-      )
+
+      @client.tax_returns.each do |tax_return|
+        MixpanelService.send_event(
+          event_id: @client.intake.visitor_id,
+          event_name: "drop_off_submitted",
+          data: MixpanelService.data_from([@client, tax_return, current_user])
+        )
+      end
     end
 
     def self.permitted_params

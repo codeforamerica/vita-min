@@ -69,11 +69,12 @@ RSpec.describe Hub::CreateClientForm do
           }
       }
     end
+    let(:current_user) { create :user }
 
     context "with valid params and context" do
       it "creates a client" do
         expect do
-          described_class.new(params).save
+          described_class.new(params).save(current_user)
         end.to change(Client, :count).by 1
         client = Client.last
         expect(client.vita_partner).to eq vita_partner
@@ -81,13 +82,13 @@ RSpec.describe Hub::CreateClientForm do
 
       it "assigns client to an instance on the form object" do
         form = described_class.new(params)
-        form.save
+        form.save(current_user)
         expect(form.client).to eq Client.last
       end
 
       it "creates an intake" do
         expect do
-          described_class.new(params).save
+          described_class.new(params).save(current_user)
         end.to change(Intake, :count).by 1
         intake = Intake.last
         expect(intake.vita_partner).to eq vita_partner
@@ -95,7 +96,7 @@ RSpec.describe Hub::CreateClientForm do
 
       it "creates tax returns for each tax_return where _create is true" do
         expect do
-          described_class.new(params).save
+          described_class.new(params).save(current_user)
         end.to change(TaxReturn, :count).by 3
         tax_returns = Client.last.tax_returns
         intake = Intake.last
@@ -118,21 +119,24 @@ RSpec.describe Hub::CreateClientForm do
         end
 
         it "sends drop_off_submitted event to Mixpanel" do
-          described_class.new(params).save
+          described_class.new(params).save(current_user)
+          tax_returns = Client.last.tax_returns
 
           expect(MixpanelService).to have_received(:send_event).with(
             event_id: Client.last.intake.visitor_id,
             event_name: "drop_off_submitted",
             data: fake_mixpanel_data
-          )
+          ).exactly(3).times
 
-          expect(MixpanelService).to have_received(:data_from).with([Client.last, Client.last.intake])
+          expect(MixpanelService).to have_received(:data_from).with([Client.last, tax_returns[0], current_user])
+          expect(MixpanelService).to have_received(:data_from).with([Client.last, tax_returns[1], current_user])
+          expect(MixpanelService).to have_received(:data_from).with([Client.last, tax_returns[2], current_user])
         end
       end
 
       context "phone numbers" do
         it "normalizes phone_number and sms_phone_number" do
-          described_class.new(params.update(sms_phone_number: "650-555-1212", phone_number: "(650) 555-1212")).save
+          described_class.new(params.update(sms_phone_number: "650-555-1212", phone_number: "(650) 555-1212")).save(current_user)
           client = Client.last
           expect(client.intake.sms_phone_number).to eq "+16505551212"
           expect(client.intake.phone_number).to eq "+16505551212"
@@ -148,7 +152,7 @@ RSpec.describe Hub::CreateClientForm do
         end
 
         it "does not save the associations" do
-          expect { form.save }.to raise_error ActiveRecord::RecordInvalid
+          expect { form.save(current_user) }.to raise_error ActiveRecord::RecordInvalid
         end
       end
     end

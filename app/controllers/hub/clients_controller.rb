@@ -21,7 +21,7 @@ module Hub
       @form = CreateClientForm.new(create_client_form_params)
       assigned_vita_partner = VitaPartner.find_by(id: create_client_form_params["vita_partner_id"])
 
-      if can?(:read, assigned_vita_partner) && @form.save
+      if can?(:read, assigned_vita_partner) && @form.save(current_user)
         flash[:notice] = I18n.t("hub.clients.create.success_message")
         redirect_to hub_client_path(id: @form.client)
       else
