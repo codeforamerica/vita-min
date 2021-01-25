@@ -117,12 +117,6 @@ RSpec.describe Hub::CreateClientForm do
           allow(MixpanelService).to receive(:send_event)
         end
 
-        it "sets intake.visitor_id" do
-          described_class.new(params).save
-
-          expect(Intake.last.visitor_id).to be_present
-        end
-
         it "sends drop_off_submitted event to Mixpanel" do
           described_class.new(params).save
 
