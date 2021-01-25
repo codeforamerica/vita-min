@@ -72,7 +72,9 @@ RSpec.describe Questions::EipOverviewController do
       before { session[:stimulus_triage_id] = stimulus_triage.id }
 
       it "links it to the new intake and deletes it from the session" do
-        put :update, params: valid_params
+        expect {
+          put :update, params: valid_params
+        }.to change(Intake, :count).by(1)
 
         intake = Intake.last
         expect(intake.triage_source).to eq stimulus_triage
