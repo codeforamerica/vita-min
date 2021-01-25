@@ -257,6 +257,8 @@ es:
       new:
         title: "Agregar sitio"
   controllers:
+    public_pages:
+      partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
     application_controller:
       maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
       redirect: Usted ha perdidio su tiquete. En producción,  lo redireccionaremos al inicio.
@@ -989,6 +991,7 @@ es:
           questions: "¿Tiene más preguntas? Visite nuestra página de preguntas frecuentes o hable con nosotros por el chat."
         file:
           header: "¡Maximice su reembolso declarando sus impuestos gratis hoy!"
+        header_offseason: Una manera simple y gratuita de declarar sus impuestos.
         header: Personas reales, proporcionando apoyo gratuito para su declaración de impuestos
         partners:
           header: Colaboramos con organizaciones de confianza
@@ -1003,7 +1006,8 @@ es:
           heading: "¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?"
         stimulus_faq:
           info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
-        subheader_html: GetYour Refund reanudará sus servicios al final de enero por la temporada de impuestos 2021. Regístrese ahora, para ser notificado cuando empecemos nuestro servicio nuevamente.
+        subheader_offseason: GetYour Refund reanudará sus servicios al final de enero por la temporada de impuestos 2021. Regístrese ahora, para ser notificado cuando empecemos nuestro servicio nuevamente.
+        subheader: Maximice su reembolso al declarar sus impuestos de manera virtual, con nuestros profesionales certificados en impuestos.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maintenance:
         contact_html: También puede %{email_link}.

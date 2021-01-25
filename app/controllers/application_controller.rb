@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   around_action :switch_locale
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?
+  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -16,9 +16,10 @@ class ApplicationController < ActionController::Base
     url_for(only_path: false, locale: locale)
   end
 
-  # TODO: This logic may be too aggressive if we have other paths that include "hub". Like... "/questions/chub"
+  # It would be preferable to always get this from the controller namespace in all cases,
+  # but the devise controllers are not under the hub namespace so I'm leaving the request.path.include? string as well.
   def hub?
-    request.path.include?("hub")
+    self.class.name.include?("Hub::") || request.path.include?("hub")
   end
 
   def current_intake
@@ -174,6 +175,17 @@ class ApplicationController < ActionController::Base
     false
   end
 
+  # Do not show the offseason banner in the hub
+  # Do not show offseason banner if we are open for intake for the session
+  def show_offseason_banner?
+    return false if hub?
+    !open_for_intake?
+  end
+
+  def open_for_intake?
+    cookies[:intake_open].present?
+  end
+
   private
 
   def available_locale(locale)
@@ -240,10 +252,6 @@ class ApplicationController < ActionController::Base
 
   def set_time_zone
     Time.use_zone(current_user.timezone) { yield }
-  end
-
-  def show_offseason_banner?
-    true
   end
 
   rescue_from CanCan::AccessDenied do |exception|

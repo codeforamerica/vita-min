@@ -7,7 +7,6 @@ require "capybara/rails"
 require "capybara/rspec"
 require "selenium/webdriver"
 require "webdrivers"
-require "rack_session_access/capybara"
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("lib/strategies/**/*.rb")].each { |f| require f }
 
@@ -64,7 +63,6 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ChannelHelpers, type: :channel
-
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and

@@ -7,19 +7,17 @@ feature "Intake Routing Spec" do
   let!(:zip_code) { "94606" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: zip_code, vita_partner: vita_partner2 }
 
-  # this is temporary and should go away with PartnerRoutingService#default_organization
-  let(:default_vita_partner) { create :organization, name: "Default Organization" }
-  let!(:organization_leads) {
-    create_list(:organization_lead_user, 5, organization: default_vita_partner)
-  }
+  let(:default_vita_partner) { create :vita_partner, name: "Default Organization", national_overflow_location: true }
 
   scenario "routing by source param" do
+    visit "/"
+    expect(page).to have_text "Free tax filing, real human support."
+
     visit "/cobra"
     # expect redirect to locale path
-    expect(current_path).to eq '/en'
+    # expect that this sets a cookie that routes to cobra.
 
-    # must set the session param directly.
-    page.set_rack_session(source: "cobra")
+    expect(page).to have_text "Free tax filing, made simple."
 
     visit "/questions/welcome"
     click_on "File taxes with help"

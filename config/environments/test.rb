@@ -46,7 +46,4 @@ Rails.application.configure do
   config.i18n.available_locales = [:en, :es]
   config.offseason = false
 
-  # Access to rack session
-  config.middleware.use RackSessionAccess::Middleware
-
 end

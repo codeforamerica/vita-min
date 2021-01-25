@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake EIP Only Filer" do
-  let(:ticket_id) { 9876 }
-
   before do
     # Create the hard-coded VITA partner for EIP-only returns
     create :vita_partner, name: "Get Your Refund", national_overflow_location: true

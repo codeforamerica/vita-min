@@ -11,16 +11,16 @@
     <div class="grid">
       <div class="grid__item width-one-half">
         <h1>
-          <%=t("views.public_pages.home.header") %>
+          <%= open_for_intake? ? t("views.public_pages.home.header") : t("views.public_pages.home.header_offseason") %>
         </h1>
         <p class="spacing-below-60">
           <strong>
-            <%=t("views.public_pages.home.subheader_html") %>
+            <%= open_for_intake? ? t("views.public_pages.home.subheader") : t("views.public_pages.home.subheader_offseason") %>
           </strong>
         </p>
 
         <%= link_to new_signup_path, id: "firstCta", class: "button button--med-wide button--primary" do %>
-          <%=t("general.register") %>
+          <%= open_for_intake? ? t("general.get_started") : t("general.register") %>
         <% end %>
       </div>
     </div>

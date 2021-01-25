@@ -254,6 +254,8 @@ en:
       new:
         title: "Add site"
   controllers:
+    public_pages:
+      partner_welcome_notice: Thanks for visiting via %{partner_name}!
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
       redirect: You're missing a ticket or intake. In production, we would have redirected you to the beginning.
@@ -986,7 +988,8 @@ en:
           questions: Still have questions? Visit our FAQ page or chat with us.
         file:
           header: Get more of your refund dollars back by filing for free today!
-        header: Free tax filing, real human support.
+        header: Free tax filing, made simple.
+        header_offseason: Free tax filing, real human support.
         partners:
           header: We partner with trusted organizations
           learn_more_html: Learn more about us &rsaquo;
@@ -1000,7 +1003,9 @@ en:
           heading: Need assistance getting your stimulus check?
         stimulus_faq:
           info: Already filed your taxes and have questions about your stimulus check?
-        subheader_html: GetYourRefund services will be opening at the end of January for the 2021 tax season. Sign up and we'll notify you when our service is open!
+        subheader: Maximize your refund by filing with our certified tax specialists virtually.
+        subheader_offseason: GetYourRefund services will be opening at the end of January for the 2021 tax season. Sign up and we'll notify you when our service is open!
+
         title: Free tax help from IRS-certified volunteers.
       maintenance:
         contact_html: You can also %{email_link}.
