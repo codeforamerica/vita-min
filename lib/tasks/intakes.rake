@@ -10,7 +10,7 @@ namespace :intake do
       updated_at
       anonymous
       email_address
-      intake_pdf_sent_to_zendesk
+      completed_at
       phone_number
       preferred_name
       referrer

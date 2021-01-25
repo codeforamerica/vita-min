@@ -5,7 +5,7 @@ RSpec.feature "Web Intake Single Filer" do
     create(
       :intake,
       email_address: "returning@client.com",
-      intake_pdf_sent_to_zendesk: "yes"
+      completed_at: DateTime.current
     )
   end
 
