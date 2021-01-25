@@ -5,7 +5,7 @@ RSpec.describe DuplicateIntakeGuard do
     create(
       :intake,
       email_address: "existing@client.com",
-      completed_at: DateTime.current
+      primary_consented_to_service: "yes"
     )
   end
 
@@ -20,8 +20,8 @@ RSpec.describe DuplicateIntakeGuard do
         expect(subject).not_to have_duplicate
       end
 
-      it "returns true if the intake is completed" do
-        existing_intake.update(completed_at: DateTime.current)
+      it "returns true if the primary filer has consented" do
+        existing_intake.update(primary_consented_to_service: "yes")
         expect(subject).to have_duplicate
       end
     end
@@ -34,14 +34,14 @@ RSpec.describe DuplicateIntakeGuard do
         expect(subject).not_to have_duplicate
       end
 
-      it "returns true if the intake has been completed" do
-        existing_intake.update(completed_at: DateTime.current)
+      it "returns true if the primary filer has consented" do
+        existing_intake.update(primary_consented_to_service: "yes")
         expect(subject).to have_duplicate
       end
     end
 
     context "existing intake is missing email address and phone number" do
-      let!(:existing_intake) { create(:intake, completed_at: DateTime.current) }
+      let!(:existing_intake) { create(:intake, primary_consented_to_service: "yes") }
       let(:matching_intake) { create(:intake) }
 
       it "there is no match without phone and email" do
@@ -60,7 +60,7 @@ RSpec.describe DuplicateIntakeGuard do
     end
 
     context "existing intake has same eip flag as current intake" do
-      let(:existing_eip_intake) { create(:intake, :eip_only, email_address: "eip@client.com", completed_at: DateTime.current) }
+      let(:existing_eip_intake) { create(:intake, :eip_only, email_address: "eip@client.com", primary_consented_to_service: "yes") }
       let(:current_eip_intake) { create(:intake, :eip_only, email_address: existing_eip_intake.email_address) }
       let(:current_full_intake) { create(:intake, email_address: existing_intake.email_address) }
 
@@ -71,7 +71,7 @@ RSpec.describe DuplicateIntakeGuard do
     end
 
     context "existing intake has different eip flag from current intake" do
-      let(:existing_eip_intake) { create(:intake, :eip_only, email_address: "was_eip@client.com", completed_at: DateTime.current) }
+      let(:existing_eip_intake) { create(:intake, :eip_only, email_address: "was_eip@client.com", primary_consented_to_service: "yes") }
       let(:current_full_intake) { create(:intake, email_address: existing_eip_intake.email_address) }
       let(:current_eip_intake) { create(:intake, :eip_only, email_address: existing_intake.email_address) }
 
