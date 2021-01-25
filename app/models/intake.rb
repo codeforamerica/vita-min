@@ -173,7 +173,7 @@
 #  intake_ticket_requester_id                           :bigint
 #  primary_intake_id                                    :integer
 #  triage_source_id                                     :bigint
-#  visitor_id                                           :string
+#  visitor_id                                           :string           not null
 #  vita_partner_id                                      :bigint
 #
 # Indexes
@@ -208,6 +208,7 @@ class Intake < ApplicationRecord
   accepts_nested_attributes_for :dependents, allow_destroy: true
 
   validates :phone_number, :sms_phone_number, allow_blank: true, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
+  validates_presence_of :visitor_id
 
   after_save do
     if saved_change_to_completed_at?(from: nil)

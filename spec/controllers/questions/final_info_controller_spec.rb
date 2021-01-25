@@ -111,6 +111,28 @@ RSpec.describe Questions::FinalInfoController do
 
         expect(intake.completed_at).to be_within(2.seconds).of(Time.now)
       end
+
+      context "mixpanel" do
+        let(:fake_tracker) { double('mixpanel tracker') }
+        let(:fake_mixpanel_data) { {} }
+
+        before do
+          allow(MixpanelService).to receive(:data_from).and_return(fake_mixpanel_data)
+          allow(MixpanelService).to receive(:send_event)
+        end
+
+        it "sends intake_finished event to Mixpanel" do
+          post :update, params: params
+
+          expect(MixpanelService).to have_received(:send_event).with(
+            event_id: intake.visitor_id,
+            event_name: "intake_finished",
+            data: fake_mixpanel_data
+          )
+
+          expect(MixpanelService).to have_received(:data_from).with([intake.client, intake])
+        end
+      end
     end
   end
 end

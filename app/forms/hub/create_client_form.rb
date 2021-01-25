@@ -55,8 +55,13 @@ module Hub
 
       @client = Client.create!(
         vita_partner_id: attributes_for(:intake)[:vita_partner_id],
-        intake_attributes: attributes_for(:intake),
+        intake_attributes: attributes_for(:intake).merge(visitor_id: SecureRandom.hex(26)),
         tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
+      )
+      MixpanelService.send_event(
+        event_id: @client.intake.visitor_id,
+        event_name: "drop_off_submitted",
+        data: MixpanelService.data_from([@client, @client.intake])
       )
     end
 

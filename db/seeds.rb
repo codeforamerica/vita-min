@@ -75,7 +75,7 @@ admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::
 
 client = Client.find_or_create_by(vita_partner: first_org)
 
-intake = Intake.create(client: client, preferred_name: "Captain", sms_phone_number: "+14155551212", email_address: "crunch@example.com", sms_notification_opt_in: :yes, email_notification_opt_in: :yes)
+intake = Intake.create(client: client, preferred_name: "Captain", sms_phone_number: "+14155551212", email_address: "crunch@example.com", sms_notification_opt_in: :yes, email_notification_opt_in: :yes, visitor_id: "test_visitor_id")
 
 Document.find_or_create_by(display_name: "My Employment", document_type: "Employment", client: client, created_at: 1.day.ago, intake: intake)
 Document.find_or_create_by(display_name: "Identity Document", document_type: "ID", client: client, created_at: 2.months.ago, intake: intake)
@@ -94,7 +94,7 @@ Note.create!(client: client, user: user, body: "This is an outgoing note :)", cr
 IncomingTextMessage.create!(client: client, body: "What's up with my taxes?", received_at: DateTime.now, from_phone_number: "+14155551212")
 
 other_client = Client.create!(vita_partner: first_org)
-Intake.create(client: other_client, preferred_name: "Tony", email_address: "tiger@example.com", email_notification_opt_in: :yes)
+Intake.create(client: other_client, preferred_name: "Tony", email_address: "tiger@example.com", email_notification_opt_in: :yes, visitor_id: "another_test_visitor_id")
 
 married_client = Client.create!(vita_partner: first_org)
 
@@ -109,4 +109,5 @@ married_intake = Intake.create!(
   spouse_first_name: "Marsha",
   spouse_last_name: "Charms",
   spouse_email_address: "justthemarshmallows@example.com",
+  visitor_id: "married_visitor_id"
 )

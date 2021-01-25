@@ -173,7 +173,7 @@
 #  intake_ticket_requester_id                           :bigint
 #  primary_intake_id                                    :integer
 #  triage_source_id                                     :bigint
-#  visitor_id                                           :string
+#  visitor_id                                           :string           not null
 #  vita_partner_id                                      :bigint
 #
 # Indexes
@@ -231,6 +231,13 @@ describe Intake do
           expect(intake.errors).to include :phone_number
           expect(intake.errors).to include :sms_phone_number
         end
+      end
+    end
+
+    context "mandatory fields" do
+      it "requires visitor_id" do
+        expect(Intake.new).not_to be_valid
+        expect(Intake.new(visitor_id: "present")).to be_valid
       end
     end
   end

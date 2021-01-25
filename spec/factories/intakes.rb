@@ -173,7 +173,7 @@
 #  intake_ticket_requester_id                           :bigint
 #  primary_intake_id                                    :integer
 #  triage_source_id                                     :bigint
-#  visitor_id                                           :string
+#  visitor_id                                           :string           not null
 #  vita_partner_id                                      :bigint
 #
 # Indexes
@@ -195,6 +195,7 @@ FactoryBot.define do
   factory :intake do
     had_wages { :unfilled }
     client
+    sequence(:visitor_id) { |n| "visitor_id_#{n}" }
 
     factory :anonymous_intake do
       anonymous { true }
