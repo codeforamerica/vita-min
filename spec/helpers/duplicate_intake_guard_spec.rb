@@ -5,7 +5,7 @@ RSpec.describe DuplicateIntakeGuard do
     create(
       :intake,
       email_address: "existing@client.com",
-      intake_pdf_sent_to_zendesk: "yes"
+      completed_at: DateTime.current
     )
   end
 
@@ -16,12 +16,12 @@ RSpec.describe DuplicateIntakeGuard do
       let!(:existing_intake) { create(:intake, email_address: "existing@client.com") }
       let(:matching_intake) { create(:intake, email_address: "existing@client.com") }
 
-      it "returns false if the intake pdf has not been sent to zendesk" do
+      it "returns false if the intake is not completed" do
         expect(subject).not_to have_duplicate
       end
 
-      it "returns true if the intake pdf has been sent to zendesk" do
-        existing_intake.update(intake_pdf_sent_to_zendesk: true)
+      it "returns true if the intake is completed" do
+        existing_intake.update(completed_at: DateTime.current)
         expect(subject).to have_duplicate
       end
     end
@@ -30,18 +30,18 @@ RSpec.describe DuplicateIntakeGuard do
       let!(:existing_intake) { create(:intake, phone_number: "+15005550006") }
       let(:matching_intake) { create(:intake, phone_number: "+15005550006") }
 
-      it "returns false if the intake pdf has not been sent to zendesk" do
+      it "returns false if the intake is not completed" do
         expect(subject).not_to have_duplicate
       end
 
-      it "returns true if the intake pdf has been sent to zendesk" do
-        existing_intake.update(intake_pdf_sent_to_zendesk: true)
+      it "returns true if the intake has been completed" do
+        existing_intake.update(completed_at: DateTime.current)
         expect(subject).to have_duplicate
       end
     end
 
     context "existing intake is missing email address and phone number" do
-      let!(:existing_intake) { create(:intake, intake_pdf_sent_to_zendesk: true) }
+      let!(:existing_intake) { create(:intake, completed_at: DateTime.current) }
       let(:matching_intake) { create(:intake) }
 
       it "there is no match without phone and email" do
@@ -60,7 +60,7 @@ RSpec.describe DuplicateIntakeGuard do
     end
 
     context "existing intake has same eip flag as current intake" do
-      let(:existing_eip_intake) { create(:intake, :eip_only, email_address: "eip@client.com", intake_pdf_sent_to_zendesk: "yes") }
+      let(:existing_eip_intake) { create(:intake, :eip_only, email_address: "eip@client.com", completed_at: DateTime.current) }
       let(:current_eip_intake) { create(:intake, :eip_only, email_address: existing_eip_intake.email_address) }
       let(:current_full_intake) { create(:intake, email_address: existing_intake.email_address) }
 
@@ -71,7 +71,7 @@ RSpec.describe DuplicateIntakeGuard do
     end
 
     context "existing intake has different eip flag from current intake" do
-      let(:existing_eip_intake) { create(:intake, :eip_only, email_address: "was_eip@client.com", intake_pdf_sent_to_zendesk: "yes") }
+      let(:existing_eip_intake) { create(:intake, :eip_only, email_address: "was_eip@client.com", completed_at: DateTime.current) }
       let(:current_full_intake) { create(:intake, email_address: existing_eip_intake.email_address) }
       let(:current_eip_intake) { create(:intake, :eip_only, email_address: existing_intake.email_address) }
 
