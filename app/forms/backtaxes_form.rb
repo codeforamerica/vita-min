@@ -7,6 +7,14 @@ class BacktaxesForm < QuestionsForm
     @intake.filing_years.each do |year|
       TaxReturn.create!(year: year, client: @intake.client)
     end
+
+    data = MixpanelService.data_from([@intake.client, @intake])
+
+    MixpanelService.send_event(
+      event_id: @intake.visitor_id,
+      event_name: "intake_started",
+      data: data
+    )
   end
 
   private
