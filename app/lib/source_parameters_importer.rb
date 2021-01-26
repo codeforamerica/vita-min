@@ -18,7 +18,7 @@ class SourceParametersImporter
       org_name = record[0][1]&.strip
       code = record[1][1]&.strip
       # launch_date = record[2][1]&.strip
-      
+
       vita_partner = VitaPartner.find_by(name: org_name)
       if vita_partner.nil?
         problems << "Vita Partner with '#{org_name}' does not exist in this env. skipping."
