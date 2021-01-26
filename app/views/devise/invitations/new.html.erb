@@ -4,12 +4,6 @@
 
   <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), local: true, builder: VitaMinFormBuilder, html: { method: :post }) do |f| %>
     <h1><%= @main_heading %></h1>
-
-    <ul>
-      <%= resource.errors.full_messages.each do |error_message| %>
-        <li><%= error_message %></li>
-      <% end %>
-    </ul>
     
     <%= f.cfa_input_field(:name, t(".name_label")) %>
     <%= f.cfa_input_field(:email, t(".email_label"), type: 'email', classes: ['form-width--email']) %>
