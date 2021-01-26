@@ -10,7 +10,7 @@ module Hub
 
     def index
       @page_title = I18n.t("hub.assigned_clients.index.title")
-      @clients = filtered_and_sorted_clients
+      @clients = filtered_and_sorted_clients.with_eager_loaded_associations
       render "hub/clients/index"
     end
 
