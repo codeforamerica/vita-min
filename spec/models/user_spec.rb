@@ -337,4 +337,20 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#admin?" do
+    context "when the user has AdminRole type" do
+      let(:user) { create :user, role: AdminRole.new }
+      it "returns true" do
+        expect(user.admin?).to be true
+      end
+    end
+
+    context "when the user does not have AdminRole type" do
+      let(:user) { create :user, role: GreeterRole.new }
+      it "returns false" do
+        expect(user.admin?).to be false
+      end
+    end
+  end
 end
