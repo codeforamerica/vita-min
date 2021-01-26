@@ -8,6 +8,7 @@
 #  primary_signature   :string
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
+#  ready_for_prep_at   :datetime
 #  service_type        :integer          default("online_intake")
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
@@ -749,6 +750,62 @@ describe TaxReturn do
             data: hash_including({ from_status: "intake_ready" }))
           expect(MixpanelService).to have_received(:data_from).with([user, tax_return.client, tax_return])
         end
+
+        context "when changing the status to file_rejected" do
+          before do
+            tax_return.update_column(:ready_for_prep_at, 28.hours.ago)
+            tax_return.update_column(:created_at, 2.days.ago)
+          end
+
+          it "sends a custom mix panel event" do
+            tax_return.update(status: "file_rejected")
+
+            expect(MixpanelService).to have_received(:send_event).with(
+              event_id: client.intake.visitor_id,
+              event_name: "filing_rejected",
+              data: hash_including(
+                {
+                  days_since_ready_for_prep: 1,
+                  hours_since_ready_for_prep: 28,
+                  days_since_tax_return_created: 2,
+                  hours_since_tax_return_created: 48
+                }
+              ),
+            )
+
+            expect(MixpanelService).to have_received(:data_from).with([user, tax_return.client, tax_return])
+          end
+
+          it "does not include the previous status in the Mixpanel data" do
+            tax_return.update(status: "file_rejected")
+
+            expect(MixpanelService).to have_received(:send_event).with(
+              event_id: client.intake.visitor_id,
+              event_name: "filing_rejected",
+              data: hash_excluding(
+                {
+                  from_status: "intake_ready"
+                }
+              )
+            )
+          end
+        end
+
+        context "when status is not changed to file_rjected" do
+          it "does not send filing_rejected Mixpanel event" do
+            tax_return.update(status: "prep_info_requested")
+
+            expect(MixpanelService).not_to have_received(:send_event).with(
+              event_id: client.intake.visitor_id,
+              event_name: "filing_rejected",
+              data: hash_including(
+                {
+                  from_status: "intake_ready"
+                }
+              )
+            )
+          end
+        end
       end
 
       context "when not caused by a user" do
@@ -779,6 +836,31 @@ describe TaxReturn do
 
       it "sends no event to Mixpanel" do
         expect(MixpanelService).not_to have_received(:send_event)
+      end
+    end
+  end
+
+  context "before_save" do
+    context "when the status changes to prep_ready_for_prep" do
+      it "sets the ready_for_prep_at" do
+        current_timestamp = DateTime.new
+        expect(DateTime).to receive(:current).and_return(current_timestamp)
+
+        tax_return = create :tax_return, { status: "intake_ready" }
+
+        expect {
+          tax_return.update(status: "prep_ready_for_prep")
+        }.to change{ tax_return.reload.ready_for_prep_at }.from(nil).to(current_timestamp)
+      end
+    end
+
+    context "when tax return status is currently prep_ready_for_prep, and something other than the status is changed" do
+      it "does not update ready_for_prep_at" do
+        tax_return = create :tax_return, { status: "prep_ready_for_prep" }
+
+        expect {
+          tax_return.update(certification_level: "advanced")
+        }.not_to change{ tax_return.reload.ready_for_prep_at }
       end
     end
   end
