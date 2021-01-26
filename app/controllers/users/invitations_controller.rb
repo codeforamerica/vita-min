@@ -26,7 +26,10 @@ class Users::InvitationsController < Devise::InvitationsController
     end
 
     super do |invited_user|
-      invited_user.update!(role: @role) if invited_user.errors.empty?
+      if invited_user.errors.empty?
+        @role.save!
+        invited_user.update!(role: @role)
+      end
     end
   end
 
