@@ -157,33 +157,16 @@ class TaxReturn < ApplicationRecord
 
   def send_mixpanel_status_change_event
     if saved_change_to_status?
-      data = MixpanelService.data_from([status_last_changed_by, client, self].compact)
-
-      MixpanelService.send_event(
-        event_id: client.intake.visitor_id,
-        event_name: "status_change",
-        data: data.merge({ from_status: status_before_last_save })
-      )
+      MixpanelService.send_status_change_event(self)
 
       if status == "file_rejected"
-        ready_to_rejection_hours = (DateTime.current.to_time - ready_for_prep_at.to_time)/1.hour
-        ready_to_rejection_days = (ready_to_rejection_hours/24).floor
-
-        start_to_rejection_hours = (DateTime.current.to_time - created_at.to_time)/1.hour
-        start_to_rejection_days = (start_to_rejection_hours/24).floor
-
-        MixpanelService.send_event(
-          event_id: client.intake.visitor_id,
-          event_name: "filing_rejected",
-          data: data.merge(
-            {
-              days_since_ready_for_prep: ready_to_rejection_days,
-              hours_since_ready_for_prep: ready_to_rejection_hours.floor,
-              days_since_tax_return_created: start_to_rejection_days,
-              hours_since_tax_return_created: start_to_rejection_hours.floor
-            }
-          )
-        )
+        MixpanelService.send_file_rejected_event(self)
+      elsif status == "file_accepted"
+        MixpanelService.send_file_accepted_event(self)
+      elsif status == "prep_ready_for_prep"
+        MixpanelService.send_tax_return_event(self, "ready_for_prep")
+      elsif status == "file_efiled"
+        MixpanelService.send_tax_return_event(self, "filing_filed")
       end
     end
   end

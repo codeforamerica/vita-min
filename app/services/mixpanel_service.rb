@@ -119,6 +119,27 @@ class MixpanelService
       )
     end
 
+    def send_tax_return_event(tax_return, event_name, additional_data = {})
+      user_data = tax_return.status_last_changed_by.present? ? data_from_user(tax_return.status_last_changed_by) : {}
+      MixpanelService.instance.run(
+        unique_id: tax_return.client.intake.visitor_id,
+        event_name: event_name,
+        data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(additional_data)
+      )
+    end
+
+    def send_status_change_event(tax_return)
+      send_tax_return_event(tax_return, "status_change", { from_status: tax_return.status_before_last_save })
+    end
+
+    def send_file_accepted_event(tax_return)
+      send_file_completed_event(tax_return, "filing_completed")
+    end
+
+    def send_file_rejected_event(tax_return)
+      send_file_completed_event(tax_return, "filing_rejected")
+    end
+
     ##
     # creates Mixpanel-specific data from objects submitted, stripping included path exclusions.
     # data will be merged in the order it is submitted: the last object included in `objs` will overwrite
@@ -306,6 +327,36 @@ class MixpanelService
           stimulus_triage_need_to_correct: stimulus_triage.need_to_correct,
           stimulus_triage_need_to_file: stimulus_triage.need_to_file
       }
+    end
+
+    private
+
+    def send_file_completed_event(tax_return, event_name)
+      user_data = tax_return.status_last_changed_by.present? ? data_from_user(tax_return.status_last_changed_by) : {}
+
+      if tax_return.ready_for_prep_at.present?
+        hours_since_ready_for_prep = (DateTime.current.to_time - tax_return.ready_for_prep_at.to_time) / 1.hour
+        days_since_ready_for_prep = (hours_since_ready_for_prep / 24).floor
+        hours_since_ready_for_prep = hours_since_ready_for_prep.floor
+      else
+        hours_since_ready_for_prep = days_since_ready_for_prep = "N/A"
+      end
+
+      hours_since_tax_return_created = ((DateTime.current.to_time - tax_return.created_at.to_time) / 1.hour).floor
+      days_since_tax_return_created = (hours_since_tax_return_created / 24).floor
+
+      MixpanelService.instance.run(
+        unique_id: tax_return.client.intake.visitor_id,
+        event_name: event_name,
+        data: data_from_tax_return(tax_return).merge(data_from_client(tax_return.client)).merge(user_data).merge(
+          {
+            days_since_ready_for_prep: days_since_ready_for_prep,
+            hours_since_ready_for_prep: hours_since_ready_for_prep,
+            days_since_tax_return_created: days_since_tax_return_created,
+            hours_since_tax_return_created: hours_since_tax_return_created
+          }
+        )
+      )
     end
   end
 end
