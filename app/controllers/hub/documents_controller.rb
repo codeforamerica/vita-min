@@ -25,9 +25,17 @@ module Hub
     def edit; end
 
     def create
-      file_uploads = document_params.delete(:upload)
-      file_uploads.each { |upload| Document.create!(document_params.merge(upload: upload, uploaded_by: current_user)) }
-      redirect_to(hub_client_documents_path(client_id: @client))
+      file_uploads = document_params.delete(:upload) || []
+      # Validate that at least one doc is present
+      @document = Document.new(document_params.merge(upload: file_uploads.first, uploaded_by: current_user))
+      if @document.valid?
+        file_uploads.each do |upload|
+          Document.create!(document_params.merge(upload: upload, uploaded_by: current_user))
+        end
+        redirect_to(hub_client_documents_path(client_id: @client))
+      else
+        render :new
+      end
     end
 
     def update

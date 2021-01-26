@@ -312,6 +312,20 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           expect(latest_docs.map(&:document_type).uniq).to eq ["Other"]
         end
       end
+
+      context "with no file chosen" do
+        before do
+          params[:document].delete(:upload)
+        end
+
+        it "shows a validation error and creates no documents" do
+          expect {
+            post :create, params: params
+          }.not_to change(Document, :count)
+          expect(assigns(:document).errors).to include(:upload)
+          expect(response).to be_ok
+        end
+      end
     end
   end
 end
