@@ -14,7 +14,7 @@
 
       <fieldset class="input-group form-group">
         <label class="checkbox">
-          <%= check_box_tag("user[is_admin]", true, @user.role_type == AdminRole::TYPE, classes: ["form-width--long"], disabled: current_user.role_type != AdminRole::TYPE) %>
+          <%= check_box_tag("user[is_admin]", true, @user.admin?, classes: ["form-width--long"], disabled: !current_user.admin?) %>
           <%= t('.is_admin_label') %>
         </label>
       </fieldset>
