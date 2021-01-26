@@ -64,6 +64,12 @@ class VitaPartner < ApplicationRecord
     parent_organization_id.present?
   end
 
+  def self.find_or_create_national_org
+    VitaPartner.find_or_create_by(name: "GYR National Organization")
+  rescue ActiveRecord::RecordNotUnique
+    VitaPartner.find_by(name: "GYR National Organization")
+  end
+
   private
 
   def no_coalitions_for_sites

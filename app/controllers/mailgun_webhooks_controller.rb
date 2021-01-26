@@ -8,7 +8,10 @@ class MailgunWebhooksController < ActionController::Base
     sender_email = params["sender"]
     client = Intake.where(email_address: sender_email).first&.client
     unless client.present?
-      client = Client.create!(intake: Intake.create!(email_address: sender_email, visitor_id: SecureRandom.hex(26)))
+      client = Client.create!(
+        intake: Intake.create!(email_address: sender_email, visitor_id: SecureRandom.hex(26)),
+        vita_partner: VitaPartner.find_or_create_national_org,
+      )
     end
     contact_record = IncomingEmail.create!(
         client: client,

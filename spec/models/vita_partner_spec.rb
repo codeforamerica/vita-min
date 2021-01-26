@@ -249,4 +249,24 @@ describe VitaPartner do
       expect(grandchild).not_to be_valid
     end
   end
+
+  context ".find_or_create_national_org" do
+    context "national org already exists" do
+      let!(:national_org) { create :organization, name: "GYR National Organization" }
+
+      it "returns the org" do
+        expect(described_class.find_or_create_national_org).to eq national_org
+      end
+    end
+
+    context "national org does not exist" do
+      it "creates and returns the org" do
+        org = nil
+        expect {
+          org = described_class.find_or_create_national_org
+        }.to change(VitaPartner, :count).by(1)
+        expect(org.name).to eq "GYR National Organization"
+      end
+    end
+  end
 end
