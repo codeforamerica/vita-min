@@ -8,6 +8,7 @@
 #  primary_signature   :string
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
+#  ready_for_prep_at   :datetime
 #  service_type        :integer          default("online_intake")
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
