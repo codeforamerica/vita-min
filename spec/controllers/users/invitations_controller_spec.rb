@@ -192,11 +192,11 @@ RSpec.describe Users::InvitationsController do
       context "inviting a client success user" do
         let(:params) do
           {
-              user: {
-                  name: "Cleo Squash",
-                  email: "cleo@example.com",
-                  role: ClientSuccessRole::TYPE
-              },
+            user: {
+              name: "Cleo Squash",
+              email: "cleo@example.com",
+              role: ClientSuccessRole::TYPE
+            },
           }
         end
 
@@ -260,36 +260,36 @@ RSpec.describe Users::InvitationsController do
       end
 
       context "inviting a team member user" do
-          let(:site) { create(:site) }
-          let(:params) do
-            {
-              user: {
-                name: "Cher Cherimoya",
-                email: "cherry@example.com",
-                role: TeamMemberRole::TYPE,
-              },
-              site_id: site.id
-            }
-          end
-
-          it "creates a new invited team member user" do
-            expect do
-              post :create, params: params
-            end.to (change(User, :count).by 1).and(change(TeamMemberRole, :count).by(1))
-
-            role = TeamMemberRole.last
-            expect(role.site).to eq site
-
-            invited_user = User.last
-            expect(invited_user.role).to eq role
-
-            expect(invited_user.name).to eq "Cher Cherimoya"
-            expect(invited_user.email).to eq "cherry@example.com"
-            expect(invited_user.invitation_token).to be_present
-            expect(invited_user.invited_by).to eq user
-            expect(response).to redirect_to invitations_path
-          end
+        let(:site) { create(:site) }
+        let(:params) do
+          {
+            user: {
+              name: "Cher Cherimoya",
+              email: "cherry@example.com",
+              role: TeamMemberRole::TYPE,
+            },
+            site_id: site.id
+          }
         end
+
+        it "creates a new invited team member user" do
+          expect do
+            post :create, params: params
+          end.to (change(User, :count).by 1).and(change(TeamMemberRole, :count).by(1))
+
+          role = TeamMemberRole.last
+          expect(role.site).to eq site
+
+          invited_user = User.last
+          expect(invited_user.role).to eq role
+
+          expect(invited_user.name).to eq "Cher Cherimoya"
+          expect(invited_user.email).to eq "cherry@example.com"
+          expect(invited_user.invitation_token).to be_present
+          expect(invited_user.invited_by).to eq user
+          expect(response).to redirect_to invitations_path
+        end
+      end
     end
   end
 
@@ -380,7 +380,7 @@ RSpec.describe Users::InvitationsController do
       it "updates all necessary information on the user and signs them in" do
         expect do
           post :update, params: params
-        end.to change{ controller.current_user }.from(nil).to(invited_user)
+        end.to change { controller.current_user }.from(nil).to(invited_user)
         invited_user.reload
         expect(invited_user.name).to eq "Cher Cherimoya"
         expect(invited_user.timezone).to eq "America/Los_Angeles"

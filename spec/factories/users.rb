@@ -25,7 +25,7 @@
 #  provider                  :string
 #  reset_password_sent_at    :datetime
 #  reset_password_token      :string
-#  role_type                 :string
+#  role_type                 :string           not null
 #  sign_in_count             :integer          default(0), not null
 #  suspended                 :boolean
 #  ticket_restriction        :string
@@ -36,7 +36,7 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  invited_by_id             :bigint
-#  role_id                   :bigint
+#  role_id                   :bigint           not null
 #  zendesk_user_id           :bigint
 #
 # Indexes
@@ -46,7 +46,7 @@
 #  index_users_on_invitations_count      (invitations_count)
 #  index_users_on_invited_by_id          (invited_by_id)
 #  index_users_on_reset_password_token   (reset_password_token) UNIQUE
-#  index_users_on_role_type_and_role_id  (role_type,role_id)
+#  index_users_on_role_type_and_role_id  (role_type,role_id) UNIQUE
 #
 # Foreign Keys
 #
