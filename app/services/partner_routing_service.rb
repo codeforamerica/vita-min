@@ -13,6 +13,8 @@ class PartnerRoutingService
 
     return vita_partner_from_zip_code if @zip_code.present? && vita_partner_from_zip_code.present?
 
+    return vita_partner_from_state if @zip_code.present? && vita_partner_from_state.present?
+
     route_to_national_overflow_partner
   end
 
@@ -37,6 +39,47 @@ class PartnerRoutingService
 
     if vita_partner.present?
       @routing_method = :zip_code
+      vita_partner
+    end
+  end
+
+  def vita_partner_from_state
+    return false unless @zip_code.present?
+
+    state = ZipCodes.details(@zip_code)[:state]
+    vita_partners_for_state = VitaPartnerState.where(state: state)
+    return if vita_partners_for_state.nil?
+
+    vps_options = vita_partners_for_state.first.state_routing_options
+    num = Random.rand(0..1.0)
+
+    vita_partner_id = for i in 1..vps_options.count do
+      # between vps_options[i-1] && vps_options[i]
+
+      if i == 1
+        low_range = 0
+        high_range = vps_options[i][1]
+      end
+
+      low_range = vps_options[i][1] unless low_range == 0
+      high_range = vps_options[i+1][1] if high_range.nil?
+
+      return vps_options[i][0] if num.between?(low_range, high_range)
+    end
+
+    #get routing options [[id, fraction], [id, fraction]]
+    #
+    # does the order of these ranges matter?
+    # in VitaPartnerStates.where(state: "CA").pluck(:vita_partner_id)
+    # .3 / sum = .2
+    #
+    # 0.3, 0.2, 0.5
+    # 0.0-0.3; 0.3-0.5; 0.5-1.0
+    # rand 0-1 => .2
+
+    vita_partner = VitaPartner.find(vita_partner_id)
+    if vita_partner.present?
+      @routing_method = :state
       vita_partner
     end
   end
