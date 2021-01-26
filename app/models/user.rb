@@ -57,10 +57,10 @@ class User < ApplicationRecord
 
   before_validation :format_phone_number
   validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
-  validates :role_id, uniqueness: { scope: :role_type }
+  validates :role_type, uniqueness: { scope: :role_id }
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_many :access_logs
-  belongs_to :role, polymorphic: true, optional: true
+  belongs_to :role, polymorphic: true
 
   belongs_to :organization_lead_role, -> { where(users: { role_type: 'OrganizationLeadRole' }) }, foreign_key: 'role_id', optional: true
 
@@ -153,5 +153,9 @@ class User < ApplicationRecord
     else
       super
     end
+  end
+
+  def admin?
+    role_type == AdminRole::TYPE
   end
 end

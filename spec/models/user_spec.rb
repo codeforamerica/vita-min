@@ -62,10 +62,11 @@ RSpec.describe User, type: :model do
       expect(user.errors).to include :name
       expect(user.errors).to include :password
       expect(user.errors).to include :email
+      expect(user.errors).to include :role
     end
 
     it "validates timezone" do
-      user = User.new(name: "Gary Guava", email: "example@example.com", password: "examplePassword", timezone: "Invalid timezone")
+      user = User.new(name: "Gary Guava", email: "example@example.com", password: "examplePassword", timezone: "Invalid timezone", role: AdminRole.new)
       expect(user).not_to be_valid
       expect(user.errors).to include :timezone
       user.timezone = "America/New_York"
@@ -79,7 +80,6 @@ RSpec.describe User, type: :model do
 
         it "is invalid" do
           expect(other_user).to be_valid
-          expect(user).to be_valid
           user.role = other_user.role
           expect(user).not_to be_valid
         end

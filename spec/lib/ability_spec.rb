@@ -172,7 +172,7 @@ describe Ability do
         end
 
         context "a user with a nil role" do
-          let(:user) { create(:user, role_type: nil, role_id: nil) }
+          let(:user) { build(:user, role_type: nil, role_id: nil) }
           let(:organization) { create :organization }
           let(:client) { create(:client, vita_partner: organization) }
           let(:intake) { create(:intake, vita_partner: organization, client: client) }

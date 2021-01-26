@@ -25,12 +25,7 @@ class Users::InvitationsController < Devise::InvitationsController
       redirect_to invitations_path and return
     end
 
-    super do |invited_user|
-      if invited_user.errors.empty?
-        @role.save!
-        invited_user.update!(role: @role)
-      end
-    end
+    super
   end
 
   private
@@ -74,7 +69,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # Override superclass method for default params for newly created invites, allowing us to add attributes
   def invite_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email).merge(role: @role)
   end
 
   # Override superclass method for accepted invite params, allowing us to add attributes

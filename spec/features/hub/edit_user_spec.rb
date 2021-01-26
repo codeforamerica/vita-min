@@ -26,6 +26,7 @@ RSpec.describe "a user editing a user" do
         check "Admin"
 
         click_on "Save"
+
         expect(page).to have_text "Changes saved"
 
         expect(page).to have_field("user_is_admin", checked: true)

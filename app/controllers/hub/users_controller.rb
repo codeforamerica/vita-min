@@ -14,13 +14,14 @@ module Hub
     def edit; end
 
     def update
-      model_params = user_params.except(:is_admin)
-      saved_ok = @user.update(model_params)
-      if saved_ok
-        if user_params[:is_admin] && @user.role_type != AdminRole::TYPE
-          @user.role.destroy if @user.role.present?
-          @user.update!(role: AdminRole.create)
-        end
+      update_params = user_params
+      old_role = nil
+      if current_user.admin? && !@user.admin? && params[:user][:is_admin] == "true"
+        update_params = user_params.merge!(role: AdminRole.new)
+        old_role = @user.role
+      end
+      if @user.update(update_params)
+        old_role&.destroy
         redirect_to edit_hub_user_path(id: @user), notice: I18n.t("general.changes_saved")
       else
         render :edit
@@ -31,7 +32,6 @@ module Hub
 
     def user_params
       params.require(:user).permit(
-        *(:is_admin if current_user.role_type == AdminRole::TYPE),
         :phone_number,
         :timezone,
       )
