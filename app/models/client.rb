@@ -62,6 +62,7 @@ class Client < ApplicationRecord
   delegate *delegated_intake_attributes, to: :intake
   scope :after_consent, -> { distinct.joins(:tax_returns).merge(TaxReturn.where("status > 100")) }
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
+  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, tax_returns: [:assigned_user]) }
 
   scope :delegated_order, ->(column, direction) do
     raise ArgumentError, "column and direction are required" if !column || !direction
