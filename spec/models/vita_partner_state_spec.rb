@@ -78,9 +78,9 @@ RSpec.describe VitaPartnerState, type: :model do
         let!(:third_vps) { create :vita_partner_state, routing_fraction: 0.0, state: "RI" }
 
         it "returns an empty array" do
-          expect(first_vps.state_routing_options).to eq []
-          expect(second_vps.state_routing_options).to eq []
-          expect(third_vps.state_routing_options).to eq []
+          expect(first_vps.weighted_state_routing_ranges("RI")).to eq []
+          expect(second_vps.weighted_state_routing_ranges("RI")).to eq []
+          expect(third_vps.weighted_state_routing_ranges("RI")).to eq []
         end
       end
 
@@ -88,6 +88,7 @@ RSpec.describe VitaPartnerState, type: :model do
         let!(:first_vps) { create :vita_partner_state, routing_fraction: 0.2, state: "RI" }
         let!(:second_vps) { create :vita_partner_state, routing_fraction: 0.9, state: "RI" }
         let!(:third_vps) { create :vita_partner_state, routing_fraction: 0.0, state: "RI" }
+        let!(:out_of_state_vps) { create :vita_partner_state, routing_fraction: 0.9, state: "MD" }
 
         it "returns an array with vita partner ids and routing fraction range for all vita partners in that state" do
           expected_array = [
@@ -95,7 +96,7 @@ RSpec.describe VitaPartnerState, type: :model do
               [second_vps.vita_partner_id, 0.18181818181818182, 1.0]
           ]
 
-          expect(first_vps.state_routing_options).to eq expected_array
+          expect(first_vps.weighted_state_routing_ranges("RI")).to eq expected_array
         end
       end
     end

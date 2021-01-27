@@ -25,24 +25,27 @@ class VitaPartnerState < ApplicationRecord
     routing_fraction / VitaPartnerState.where(state: state).sum(:routing_fraction)
   end
 
-  def state_routing_options
-    routing_options = []
+  def weighted_state_routing_ranges(state)
+    routing_options_for_state = []
     VitaPartnerState.where(state: state).where.not(routing_fraction: 0.0).map do |vps|
-      routing_options << [vps.vita_partner_id, vps.balanced_routing_fraction]
+      routing_options_for_state << [vps.vita_partner_id, vps.balanced_routing_fraction]
     end
+
     routing_ranges = []
 
-    vita_partner_id = for i in 0..routing_options.count-1 do
-      # between vps_options[i-1] && vps_options[i]
+    (0..routing_options_for_state.count - 1).each { |i|
       if i == 0
         low_range = 0.0
-        high_range = routing_options[i][1]
+        high_range = routing_options_for_state[i][1]
+      elsif i == routing_options_for_state.count - 1
+        low_range = routing_options_for_state[i - 1][1]
+        high_range = 1
       else
-        low_range = routing_options[i-1][1]
-        high_range = routing_options[i][1]
+        low_range = routing_options_for_state[i - 1][1]
+        high_range = routing_options_for_state[i][1]
       end
-      routing_ranges << [routing_options[i][0], low_range, high_range]
-    end
+      routing_ranges << [routing_options_for_state[i][0], low_range, high_range]
+    }
 
     routing_ranges
   end
