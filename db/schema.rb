@@ -403,7 +403,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_212403) do
     t.string "triage_source_type"
     t.datetime "updated_at"
     t.boolean "viewed_at_capacity", default: false
-    t.string "visitor_id", null: false
+    t.string "visitor_id"
     t.bigint "vita_partner_id"
     t.string "vita_partner_name"
     t.integer "was_blind", default: 0, null: false
