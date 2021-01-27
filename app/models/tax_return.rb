@@ -34,7 +34,7 @@
 class TaxReturn < ApplicationRecord
   PRIMARY_SIGNATURE = "primary".freeze
   SPOUSE_SIGNATURE = "spouse".freeze
-  belongs_to :client
+  belongs_to :client, touch: true
   belongs_to :assigned_user, class_name: "User", optional: true
   has_many :documents
 
