@@ -5,7 +5,7 @@ RSpec.describe Hub::UnlinkedClientsController do
     it_behaves_like :a_get_action_for_admins_only, action: :index
 
     context "as an admin" do
-      let(:user)  { create(:admin_user) }
+      let(:user) { create(:admin_user) }
       let!(:gyr_org) { create :organization, name: "GYR National Organization" }
       let!(:national_client) { create(:client, vita_partner: gyr_org) }
       let!(:unrelated_client) { create(:client, vita_partner: create(:organization)) }
