@@ -61,15 +61,20 @@ describe PartnerRoutingService do
 
       context "when clients zip code doesn't correspond to a Vita Partner" do
         context "when state for that zip code has associated Vita Partners" do
-          let!(:vps_same_state) { create :vita_partner_state, state: "NC", vita_partner: create(:vita_partner), routing_fraction: 0.4 }
-          let!(:vps_to_route_to) { create :vita_partner_state, state: "NC", vita_partner: create(:vita_partner), routing_fraction: 0.5 }
-          let!(:second_vps_same_state) { create :vita_partner_state, state: "NC", vita_partner: create(:vita_partner), routing_fraction: 0.2 }
-          let!(:vps_other_state) { create :vita_partner_state, state: "MD", vita_partner: create(:vita_partner), routing_fraction: 0.1 }
+          let!(:expected_vita_partner) { create :vita_partner }
           subject { PartnerRoutingService.new(zip_code: "28806") }
 
           it "routes a Vita Partner in that state and based on percentage" do
+            allow(VitaPartnerState).to receive(:weighted_state_routing_ranges).with("NC").and_return(
+                [
+                  { id: 1, low: 0.0, high: 0.2 },
+                  { id: expected_vita_partner.id, low: 0.2, high: 0.6 },
+                  { id: 3, low: 0.6, high: 1.0 }
+                ]
+            )
             allow(Random).to receive(:rand).and_return(0.6)
-            expect(subject.determine_partner).to eq(vps_to_route_to.vita_partner)
+
+            expect(subject.determine_partner).to eq(expected_vita_partner)
           end
         end
 
