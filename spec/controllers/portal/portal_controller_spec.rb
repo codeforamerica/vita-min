@@ -1,6 +1,28 @@
 require "rails_helper"
 
 RSpec.describe Portal::PortalController, type: :controller do
+  describe "#current_intake" do
+    let(:session_intake) { create :intake }
+    let(:client) { create :client, intake: (create :intake) }
+
+    before do
+      session[:intake_id] = session_intake.id
+    end
+
+    context "when the client is authenticated" do
+      before do
+        sign_in client, scope: :client
+      end
+      it "is the clients intake" do
+        expect(subject.current_intake).to eq client.intake
+      end
+    end
+    context "when the client is not authenticated" do
+      it "is nil" do
+        expect(subject.current_intake).to eq nil
+      end
+    end
+  end
   describe "#home" do
     context "when unauthenticated" do
       it "redirects to home page" do
