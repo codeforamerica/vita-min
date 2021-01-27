@@ -1021,7 +1021,7 @@ es:
           heading: "¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?"
         stimulus_faq:
           info: "¿Ya declaró sus impuestos y tiene preguntas sobre su cheque de estímulo?"
-        subheader_offseason: GetYour Refund reanudará sus servicios al final de enero por la temporada de impuestos 2021. Regístrese ahora, para ser notificado cuando empecemos nuestro servicio nuevamente.
+        subheader_offseason: GetYour Refund reanudará sus servicios en febrero para la temporada de impuestos 2021. Regístrese ahora, para ser notificado cuando empecemos nuestro servicio nuevamente.
         subheader: Maximice su reembolso al declarar sus impuestos de manera virtual, con nuestros profesionales certificados en impuestos.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maintenance:
@@ -1397,7 +1397,6 @@ es:
         body: Apreciamos cualquier comentario adicional que tenga para servir mejor a nuestros clientes en el futuro.
         title: Gracias por compartir su experiencia.
       file_with_help:
-        closing_notice_html: "<strong>Estamos por cerrar GetYourRefund para la temporada de impuestos el 12 de octubre.</strong> La declaración con ayuda tardará de una semana en procesarse. Para poder declarar impuestos para la fecha límite, necesitamos todos los documentos requeridos para el 8 de octubre. ¡Esperamos poder brindarle nuestra asistencia tributaria gratuita el próximo año!"
         info: Seleccionó nuestra opción de servicio completo. Nosotros haremos que responda una serie de preguntas sobre su situación fiscal (lo mejor que pueda) y que un especialista en impuestos revise todo con usted.
         right_option:
           confused: Su situación fiscal es confusa / complicada
@@ -1728,7 +1727,7 @@ es:
         notice_html: Por la pandemia de COVID-19, varios centros de VITA y todos los centros TCE permanecerán cerrados durante un período de tiempo indeterminado. Llame antes de visitar las oficinas para confirmar el horario de atención. Para conectarse con un sitio de VITA en línea y recibir ayuda con su declaración de impuestos de forma remota, visite GetYourRefund.org y haga clic en "Get Started" ("Empezar"). También puede visitar %{free_file_link} para encontrar otras herramientas gratuitas de preparación de impuestos en línea.
       environment_warning:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
-        off_season_html: Los servicios GetYourRefund están cerrados para esta temporada de impuestos. Nos daría mucho gusto poder trabajar con usted el próximo año y ayudarle a declarar sus impuestos absolutamente gratis. Para preguntas sobre verificación de estímulos, visite nuestras %{faq_link}.
+        off_season_html: Los servicios Get Your Refund aún no se han abierto para esta temporada de impuestos. Esperamos volver poder ofrecerle nuestra asistencia gratuita a partir de febrero. Para preguntas de estímulo, visite nuestro %{faq_link}
       footer:
         service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
         volunteer_sign_in: Sesión de voluntarios

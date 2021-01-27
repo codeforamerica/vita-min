@@ -6,7 +6,8 @@ RSpec.describe PublicPagesController do
   describe "#home" do
     it "shows an offseason banner" do
       get :home
-      expect(response.body).to include("closed for this tax season")
+
+      expect(response.body).to include("services have not yet opened for this tax season")
     end
 
     context "in production" do
@@ -20,9 +21,10 @@ RSpec.describe PublicPagesController do
         expect(response.body).not_to include("This site is for example purposes only. If you want help with your taxes, go to")
       end
 
-      it "does show a banner telling users that intakes are closed" do
+      it "does show a banner telling users that intakes are not yet open" do
         get :home
-        expect(response.body).to include("services are closed for this tax season.")
+
+        expect(response.body).to include("services have not yet opened for this tax season")
       end
 
       it "includes GA script in html" do
