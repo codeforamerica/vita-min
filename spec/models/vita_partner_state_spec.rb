@@ -54,8 +54,8 @@ RSpec.describe VitaPartnerState, type: :model do
     let!(:vps_3) { create :vita_partner_state, routing_fraction: 0.5, state: "NC" }
 
     it "returns the balanced routing fraction based on the other vita partners in state" do
-      expect(vps_1.balanced_routing_fraction).to eq 0.6363636363636362
-      expect(vps_2.balanced_routing_fraction).to eq 0.36363636363636365
+      expect(vps_1.balanced_routing_fraction).to eq 0.6364
+      expect(vps_2.balanced_routing_fraction).to eq 0.3636
       expect(vps_3.balanced_routing_fraction).to eq 1.0
     end
 
@@ -94,16 +94,16 @@ RSpec.describe VitaPartnerState, type: :model do
             {
               id: first_vps.vita_partner_id,
               low: 0.0,
-              high: 0.14285714285714285
+              high: 0.1429
             },
             {
               id: second_vps.vita_partner_id,
-              low: 0.14285714285714285,
-              high: 0.7857142857142856
+              low: 0.1429,
+              high: 0.7858
             },
             {
               id: fourth_vps.vita_partner_id,
-              low: 0.7857142857142856,
+              low: 0.7858,
               high: 1.0
             }
           ]

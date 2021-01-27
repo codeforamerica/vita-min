@@ -22,7 +22,7 @@ class VitaPartnerState < ApplicationRecord
   validate :invalid_state
 
   def balanced_routing_fraction
-    routing_fraction / VitaPartnerState.where(state: state).sum(:routing_fraction)
+    (routing_fraction / VitaPartnerState.where(state: state).sum(:routing_fraction)).round(4)
   end
 
   def self.weighted_state_routing_ranges(state)
