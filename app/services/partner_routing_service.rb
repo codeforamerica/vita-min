@@ -54,7 +54,7 @@ class PartnerRoutingService
       range[:id] if random_num.between?(range[:low], range[:high])
     end
 
-    vita_partner = VitaPartner.find(vita_partner_id)&.first
+    vita_partner = VitaPartner.where(id: vita_partner_id)&.first
     if vita_partner.present?
       @routing_method = :state
       vita_partner
