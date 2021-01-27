@@ -23,6 +23,7 @@ class Ability
 
     # Anyone can read info about an organization or site they can access
     can :read, VitaPartner, id: accessible_groups.pluck(:id)
+    can :read, Coalition, id: user.accessible_coalitions.pluck(:id)
 
     # Anyone can manage clients and client data in the groups they can access
     can :manage, Client, vita_partner: accessible_groups

@@ -33,6 +33,7 @@ RSpec.describe Hub::UsersController do
         expect(response.body).to include invitations_path
         expect(response.body).to include hub_clients_path
         expect(response.body).to include hub_users_path
+        expect(response.body).to include hub_organizations_path
       end
 
       context "with a datetime for when the user accepted an invitation" do
@@ -58,13 +59,17 @@ RSpec.describe Hub::UsersController do
       context "as a team member" do
         let(:user) { create(:team_member_user) }
 
-        it "does not show invitations navigation links" do
+        it "shows links for clients and users, but no invitations or organizations links" do
           get :profile
 
           expect(response).to be_ok
+          expect(response.body).to include hub_clients_path
+          expect(response.body).to include hub_users_path
+          expect(response.body).not_to include hub_organizations_path
           expect(response.body).not_to include invitations_path
         end
       end
+
     end
   end
 

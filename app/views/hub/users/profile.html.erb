@@ -47,7 +47,7 @@
         <% end %>
       </li>
 
-      <% if can? :manage, VitaPartner %>
+      <% if [AdminRole::TYPE, CoalitionLeadRole::TYPE, OrganizationLeadRole::TYPE].include? current_user.role_type %>
         <li class="user-action-link">
           <%= link_to hub_organizations_path, class: "button button--small" do %>
             <%= t("general.organizations") %>

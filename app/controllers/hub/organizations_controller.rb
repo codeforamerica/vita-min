@@ -2,7 +2,6 @@ module Hub
   class OrganizationsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    before_action :require_admin, only: [:index]
     load_and_authorize_resource :vita_partner, parent: false
 
     layout "admin"
@@ -22,7 +21,7 @@ module Hub
     end
 
     def index
-      @coalitions = Coalition.includes(:organizations)
+      @coalitions = Coalition.accessible_by(current_ability).includes(:organizations)
       @organizations = @vita_partners.organizations
       @independent_organizations = @vita_partners.organizations.where(coalition: nil)
     end

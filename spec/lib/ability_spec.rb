@@ -192,6 +192,25 @@ describe Ability do
       end
     end
 
+    context "Permissions regarding Coalitions" do
+      context "Viewing coalitions" do
+        let(:user) { create :user }
+        let(:coalition) { create :coalition }
+        let(:inaccessible_coalition) { create :coalition }
+        before do
+          allow(user).to receive(:accessible_coalitions).and_return([coalition])
+        end
+
+        it "allows read permission on all users returned by accessible_coalitions" do
+          expect(subject.can?(:read, coalition)).to eq true
+        end
+
+        it "does not allow read permission on users that are not returned by accessible_users" do
+          expect(subject.can?(:read, inaccessible_coalition)).to eq false
+        end
+      end
+    end
+
     context "Permissions regarding Users" do
       context "Managing users" do
         shared_examples :user_cannot_manage_other_users_in_their_site do
