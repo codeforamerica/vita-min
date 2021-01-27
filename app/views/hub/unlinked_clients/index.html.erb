@@ -1,0 +1,54 @@
+<% content_for :page_title, @page_title %>
+
+<% content_for :card do %>
+  <section class="slab slab--padded client-index-header">
+    <%= render 'shared/user_header' %>
+    <%= render "shared/dashboard_navigation" %>
+  </section>
+
+  <section class="slab slab--padded">
+    <p><%= t(".description") %></p>
+  </section>
+
+  <section class="scrollable-table-wrapper">
+    <% if @clients.present? %>
+      <table class="index-table client-table">
+        <thead class="index-table__head">
+        <tr class="index-table__row">
+          <th scope="col" class="index-table__header">!<div class="sr-only"><%= t("hub.clients.index.needs_attention_heading") %></div></th>
+          <th scope="col" class="index-table__header"><%= t(".phone_number_or_email") %></th>
+          <th scope="col" class="index-table__header"><%= t("hub.clients.index.client_id_heading") %></th>
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody class="index-table__body clients-table">
+        <% @clients.each do |client| %>
+          <tr id="client-<%= client.id %>" class="index-table__row client-row">
+            <td class="index-table__cell client-attribute__needs-attention">
+              <%= render "shared/client_needs_attention", client: client %>
+            </td>
+            <th scope="row" class="index-table__row-header">
+              <%= link_to hub_client_messages_path(client_id: client, back_to: "unlinked_clients") do %>
+                <%= client.phone_number %> <%= client.email_address %>
+            <% end %>
+            </th>
+            <td class="index-table__cell"><%= client.id %></td>
+            <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      </section>
+    <% else %>
+      <div class="spacing-above-25">
+        <h1 class="h2"><%= @page_title %></h1>
+      </div>
+      <div class="empty-clients">
+        <%= t("general.none") %>
+      </div>
+    <% end %>
+  </section>
+<% end %>

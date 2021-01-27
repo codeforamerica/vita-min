@@ -110,6 +110,8 @@ es:
           status: actualizó estado
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
+      unlinked_clients:
+        title: "Clientes no vinculados"
     documents:
       edit:
         title: Editar Documento
@@ -256,6 +258,10 @@ es:
     sites:
       new:
         title: "Agregar sitio"
+    unlinked_clients:
+      index:
+        description: "Mensajes de personas cuya información de contacto no coincide con la de un cliente."
+        phone_number_or_email: "Número de teléfono / correo electrónico"
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!

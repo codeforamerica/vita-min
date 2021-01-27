@@ -85,6 +85,8 @@ en:
         unassigned: Unassigned
         needs_attention: Needs attention
         stage_status: Tax return stage/status
+      unlinked_clients:
+        title: Unlinked clients
       navigation:
         client_documents: Documents
         client_messages: Messages
@@ -253,6 +255,10 @@ en:
     sites:
       new:
         title: "Add site"
+    unlinked_clients:
+      index:
+        description: "Messages from people whose contact info did not match a client."
+        phone_number_or_email: "Phone number/email"
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
