@@ -4,7 +4,7 @@ module Hub
     include ClientSortable
 
     before_action :require_sign_in
-    before_action :load_and_authorize_national_org
+    before_action :load_and_authorize_unlinked_clients
     layout "admin"
 
     def index
@@ -16,8 +16,8 @@ module Hub
 
     private
 
-    def load_and_authorize_national_org
-      @vita_partner = VitaPartner.find_or_create_national_org
+    def load_and_authorize_unlinked_clients
+      @vita_partner = VitaPartner.unlinked_clients_org
       authorize!(:manage, @vita_partner)
     end
   end

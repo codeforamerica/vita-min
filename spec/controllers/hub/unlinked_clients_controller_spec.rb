@@ -11,7 +11,7 @@ RSpec.describe Hub::UnlinkedClientsController do
       let!(:unrelated_client) { create(:client, vita_partner: create(:organization)) }
 
       before do
-        allow(VitaPartner).to receive(:find_or_create_national_org).and_return(gyr_org)
+        allow(VitaPartner).to receive(:unlinked_clients_org).and_return(gyr_org)
         sign_in user
       end
 

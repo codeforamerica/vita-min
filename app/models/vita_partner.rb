@@ -65,7 +65,9 @@ class VitaPartner < ApplicationRecord
     parent_organization_id.present?
   end
 
-  def self.find_or_create_national_org
+  def self.unlinked_clients_org
+    # When a person messages us, but their contact info does not match any Client, link them to this org.
+
     # Use upsert, which is atomic, rather than find_or_create, which is not.
     VitaPartner.upsert({ created_at: DateTime.current, updated_at: DateTime.current, coalition_id: nil, parent_organization_id: nil, name: "GYR National Organization" }, unique_by: :index_vita_partners_on_parent_name_and_coalition)
     VitaPartner.find_by!(name: "GYR National Organization")
