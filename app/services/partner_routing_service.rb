@@ -13,6 +13,8 @@ class PartnerRoutingService
 
     return vita_partner_from_zip_code if @zip_code.present? && vita_partner_from_zip_code.present?
 
+    return vita_partner_from_state if @zip_code.present? && vita_partner_from_state.present?
+
     route_to_national_overflow_partner
   end
 
@@ -37,6 +39,24 @@ class PartnerRoutingService
 
     if vita_partner.present?
       @routing_method = :zip_code
+      vita_partner
+    end
+  end
+
+  def vita_partner_from_state
+    return false unless @zip_code.present?
+
+    state = ZipCodes.details(@zip_code)[:state]
+    routing_ranges = VitaPartnerState.weighted_state_routing_ranges(state)
+    random_num = Random.rand(0..1.0)
+
+    vita_partner_id = routing_ranges.map do |range|
+      range[:id] if random_num.between?(range[:low], range[:high])
+    end
+
+    vita_partner = VitaPartner.where(id: vita_partner_id)&.first
+    if vita_partner.present?
+      @routing_method = :state
       vita_partner
     end
   end
