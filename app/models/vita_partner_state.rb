@@ -34,19 +34,16 @@ class VitaPartnerState < ApplicationRecord
     routing_ranges = []
     (0..routing_options_for_state.count - 1).each do |i|
       range = { id: routing_options_for_state[i][0] }
-      if i == 0
+      if i.zero?
         range[:low] = 0.0
         range[:high] = routing_options_for_state[i][1]
-      elsif i == routing_options_for_state.count - 1
-        range[:low] = routing_options_for_state[i - 1][1]
-        range[:high] = 1
       else
-        range[:low] = routing_options_for_state[i - 1][1]
-        range[:high] = routing_options_for_state[i][1]
+        range[:low] = routing_ranges[i-1][:high]
+        range[:high] = i == routing_options_for_state.count - 1 ? 1.0 : range[:low] + routing_options_for_state[i][1]
       end
       routing_ranges << range
     end
-
+    
     routing_ranges
   end
 

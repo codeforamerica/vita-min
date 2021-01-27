@@ -86,6 +86,7 @@ RSpec.describe VitaPartnerState, type: :model do
         let!(:first_vps) { create :vita_partner_state, routing_fraction: 0.2, state: "RI" }
         let!(:second_vps) { create :vita_partner_state, routing_fraction: 0.9, state: "RI" }
         let!(:third_vps) { create :vita_partner_state, routing_fraction: 0.0, state: "RI" }
+        let!(:fourth_vps) { create :vita_partner_state, routing_fraction: 0.3, state: "RI" }
         let!(:out_of_state_vps) { create :vita_partner_state, routing_fraction: 0.9, state: "MD" }
 
         it "returns an array with vita partner ids and routing fraction range for all vita partners in that state" do
@@ -93,12 +94,17 @@ RSpec.describe VitaPartnerState, type: :model do
             {
               id: first_vps.vita_partner_id,
               low: 0.0,
-              high: 0.18181818181818182
+              high: 0.14285714285714285
             },
             {
               id: second_vps.vita_partner_id,
-              low: 0.18181818181818182,
-              high: 1
+              low: 0.14285714285714285,
+              high: 0.7857142857142856
+            },
+            {
+              id: fourth_vps.vita_partner_id,
+              low: 0.7857142857142856,
+              high: 1.0
             }
           ]
 
