@@ -11,6 +11,10 @@ module Portal
       @tax_returns = current_client.tax_returns.order(year: :desc)
     end
 
+    def current_intake
+      current_client&.intake
+    end
+
     private
 
     def require_client_sign_in

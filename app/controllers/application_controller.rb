@@ -59,6 +59,8 @@ class ApplicationController < ActionController::Base
       visitor_id = SecureRandom.hex(26)
       cookies.permanent[:visitor_id] = { value: visitor_id, httponly: true }
     end
+    # If we run into cases where the intake does not have an associated visitor_id persisted onto it,
+    # let's make sure it gets updated onto the record.
     if visitor_record.present? && visitor_record.persisted? && visitor_record.visitor_id.blank?
       visitor_record.update(visitor_id: visitor_id)
     end
