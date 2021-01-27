@@ -45,6 +45,17 @@ describe TaxReturn do
     end
   end
 
+  describe "touch behavior" do
+    context "when the tax return is updated" do
+      let(:tax_return) { create :tax_return }
+      it "updates the associated client updated at" do
+        expect {
+          tax_return.update(status: :file_ready_to_file)
+        }.to change(tax_return.client, :updated_at)
+      end
+    end
+  end
+
   describe "translation keys" do
     context "english keys" do
       it "has a key for each tax_return status" do
