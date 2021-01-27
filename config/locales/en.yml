@@ -1018,8 +1018,7 @@ en:
         stimulus_faq:
           info: Already filed your taxes and have questions about your stimulus check?
         subheader: Maximize your refund by filing with our certified tax specialists virtually.
-        subheader_offseason: GetYourRefund services will be opening at the end of January for the 2021 tax season. Sign up and we'll notify you when our service is open!
-
+        subheader_offseason: GetYourRefund services will be opening in February for the 2021 tax season. Sign up and we'll notify you when our service is open!
         title: Free tax help from IRS-certified volunteers.
       maintenance:
         contact_html: You can also %{email_link}.
@@ -1394,7 +1393,6 @@ en:
         body: We appreciate any additional feedback you have to better serve clients in the future!
         title: Thank you for sharing your experience.
       file_with_help:
-        closing_notice_html: "<strong>We are closing GetYourRefund for the tax season on October 12th.</strong> Filing with help will take around 1 week to process. In order to file by the deadline we need all required documents by October 8th. We look forward to providing our free tax assistance next year!"
         info: You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you.
         right_option:
           confused: Your tax situation is confusing/complicated
@@ -1725,7 +1723,7 @@ en:
         notice_html: Due to COVID-19, a number of VITA sites and all TCE sites are closed for an undetermined period of time. Please call a site before visiting to confirm hours. To get connected with a VITA site online and have a VITA site assist you with your taxes remotely, visit GetYourRefund.org and click "Get Started." You can also visit the %{free_file_link} to find other free online tax preparation tools.
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
-        off_season_html: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January. For stimulus questions, visit our %{faq_link}.
+        off_season_html: GetYourRefund services have not yet opened for this tax season. We look forward to providing our free tax assistance again starting in February. For stimulus questions, visit our %{faq_link}.
       footer:
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
         volunteer_sign_in: Volunteer sign in
