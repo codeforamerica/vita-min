@@ -107,7 +107,7 @@ RSpec.describe TwilioWebhooksController do
         end
 
         context "without a matching client" do
-          it "creates a new client assigned to national org and creates a new incoming text message linked to that client" do
+          it "creates a new incoming text message attached to a new client" do
             expect do
               post :create_incoming_text_message, params: incoming_message_params
             end.to change(IncomingTextMessage, :count).by(1).and change(Client, :count).by(1)
@@ -120,6 +120,7 @@ RSpec.describe TwilioWebhooksController do
             expect(message.client).to eq client
             expect(client.intake.phone_number).to eq "+15005550006"
             expect(client.intake.sms_phone_number).to eq "+15005550006"
+            expect(client.intake.sms_notification_opt_in).to eq("yes")
             expect(client.vita_partner).to eq VitaPartner.client_support_org
           end
         end
