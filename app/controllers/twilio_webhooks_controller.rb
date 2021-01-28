@@ -32,18 +32,11 @@ class TwilioWebhooksController < ActionController::Base
       )
     end
 
-    contact_record = IncomingTextMessage.create!(
-      body: params["Body"],
-      received_at: DateTime.now,
-      from_phone_number: phone_number,
-      client: client,
-    )
-
     attachments = TwilioService.new(params).parse_attachments
-    attachments.each do |attachment|
-      client.documents.create!(
+    documents = attachments.map do |attachment|
+      Document.new(
+        client: client,
         document_type: DocumentTypes::TextMessageAttachment.key,
-        contact_record: contact_record,
         upload: {
           io: StringIO.new(attachment[:body]),
           filename: attachment[:filename],
@@ -52,6 +45,14 @@ class TwilioWebhooksController < ActionController::Base
         }
       )
     end
+
+    contact_record = IncomingTextMessage.create!(
+      body: params["Body"],
+      received_at: DateTime.now,
+      from_phone_number: phone_number,
+      client: client,
+      documents: documents
+    )
 
     ClientChannel.broadcast_contact_record(contact_record)
     head :ok

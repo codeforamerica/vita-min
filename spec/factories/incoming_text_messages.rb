@@ -3,7 +3,7 @@
 # Table name: incoming_text_messages
 #
 #  id                :bigint           not null, primary key
-#  body              :string           not null
+#  body              :string
 #  from_phone_number :string           not null
 #  received_at       :datetime         not null
 #  created_at        :datetime         not null

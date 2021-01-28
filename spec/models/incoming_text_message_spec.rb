@@ -3,7 +3,7 @@
 # Table name: incoming_text_messages
 #
 #  id                :bigint           not null, primary key
-#  body              :string           not null
+#  body              :string
 #  from_phone_number :string           not null
 #  received_at       :datetime         not null
 #  created_at        :datetime         not null
@@ -26,32 +26,63 @@ RSpec.describe IncomingTextMessage, type: :model do
       let(:subject) { build :incoming_text_message }
     end
   end
-  describe "required fields" do
-    context "without required fields" do
-      let(:message) { described_class.new }
 
-      it "is not valid and adds an error to each field" do
-        expect(message).not_to be_valid
-        expect(message.errors).to include :body
-        expect(message.errors).to include :from_phone_number
-        expect(message.errors).to include :received_at
-        expect(message.errors).to include :client
+  describe "#valid?" do
+    describe "required fields" do
+      context "without required fields" do
+        let(:message) { described_class.new }
+
+        it "is not valid and adds an error to each field" do
+          expect(message).not_to be_valid
+          expect(message.errors).to include :body # since there's no attachment
+          expect(message.errors).to include :from_phone_number
+          expect(message.errors).to include :received_at
+          expect(message.errors).to include :client
+        end
+      end
+
+      context "with all required fields" do
+        let(:message) do
+          described_class.new(
+            body: "hi",
+            from_phone_number: "+15005550006",
+            received_at: DateTime.now,
+            client: create(:client)
+          )
+        end
+
+        it "is valid and does not have errors" do
+          expect(message).to be_valid
+          expect(message.errors).to be_blank
+        end
       end
     end
 
-    context "with all required fields" do
-      let(:message) do
-        described_class.new(
-          body: "hi",
-          from_phone_number: "+15005550006",
-          received_at: DateTime.now,
-          client: create(:client)
-        )
+    describe "requires either an attachment or a body" do
+      context "with no attachment or body" do
+        let(:message) { build(:incoming_text_message, body: " \n") }
+
+        it "is not valid and adds an error to body" do
+          expect(message).not_to be_valid
+          expect(message.errors).to include :body
+        end
       end
 
-      it "is valid and does not have errors" do
-        expect(message).to be_valid
-        expect(message.errors).to be_blank
+      context "with a body and no attachment" do
+        let(:message) { build(:incoming_text_message, body: "hello") }
+
+        it "is valid" do
+          expect(message).to be_valid
+        end
+      end
+
+      context "with an attachment and no body" do
+        let(:document) { build :document, document_type: DocumentTypes::TextMessageAttachment.key }
+        let(:message) { build :incoming_text_message, body: nil, documents: [document]  }
+
+        it "is valid" do
+          expect(message).to be_valid
+        end
       end
     end
   end
