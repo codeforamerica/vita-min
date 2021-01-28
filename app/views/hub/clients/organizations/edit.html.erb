@@ -6,10 +6,6 @@
   </h2>
   <%= form_with model: @client, url: organization_hub_client_path(id: @client.id), local: true, method: :patch, builder: VitaMinFormBuilder do |f|%>
 
-    <% @client.errors.full_messages do |message| %>
-      <li><%= message %></li>
-    <% end %>
-
     <%= f.cfa_select(:vita_partner_id, t("general.organization"), grouped_organization_options) %>
     <%= f.submit t("general.save"), class: "button button--primary" %>
   <% end %>
