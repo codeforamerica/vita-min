@@ -125,7 +125,7 @@ class QuestionNavigation
     Questions::EnergyEfficientPurchasesController,
 
     # Additional Information
-    Questions::AdditionalInfoController,
+    Questions::AdditionalInfoController, # sets 'completed_yes_no_questions_at' & creates Preliminary 13614-C
 
     # Documents --> See DocumentNavigation
     Questions::OverviewDocumentsController,
@@ -152,7 +152,7 @@ class QuestionNavigation
     Questions::DemographicSpouseEthnicityController,
 
     # Additional Information
-    Questions::FinalInfoController, # marks 'completed_intake_at' as true
+    Questions::FinalInfoController, # sets 'completed_intake_at' & creates Original 13614-C
     Questions::SuccessfullySubmittedController,
     Questions::FeedbackController,
   ].freeze

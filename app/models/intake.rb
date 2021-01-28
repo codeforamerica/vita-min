@@ -216,7 +216,7 @@ class Intake < ApplicationRecord
   after_save do
     if saved_change_to_completed_at?(from: nil)
       record_incoming_interaction # client completed intake
-      create_original_13614c_document
+      create_13614c_document("Original 13614-C.pdf")
     elsif completed_at.present?
       record_internal_interaction # user updated completed intake
     end
@@ -572,14 +572,12 @@ class Intake < ApplicationRecord
     ADDRESS
   end
 
-  private
-
-  def create_original_13614c_document
+  def create_13614c_document(filename)
     pdf_tempfile = pdf
     pdf_tempfile.seek(0)
     client.documents.create!(document_type: DocumentTypes::Original13614C.key, intake: self, upload: {
       io: pdf_tempfile,
-      filename: "Original 13614-C.pdf",
+      filename: filename,
       content_type: "application/pdf",
       identify: false
     })

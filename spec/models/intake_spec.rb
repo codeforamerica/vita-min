@@ -1028,12 +1028,12 @@ describe Intake do
   describe "after_save when the intake is completed" do
     let(:intake) { create :intake }
     before do
-      allow(intake).to receive(:create_original_13614c_document)
+      allow(intake).to receive(:create_13614c_document)
     end
 
-    it "should create a pdf document using intake answers in #create_original_13614c_document" do
+    it "should create a pdf document using intake answers in #create_13614c_document" do
       intake.update(completed_at: Time.now)
-      expect(intake).to have_received(:create_original_13614c_document)
+      expect(intake).to have_received(:create_13614c_document)
     end
 
     it_behaves_like "an incoming interaction" do
@@ -1048,33 +1048,23 @@ describe Intake do
     end
   end
 
-  describe "#create_original_13614c_document" do
-    let(:client) { create :client }
-    let(:intake) { create(:intake, client: client) }
-
+  describe "#create_13614c_document" do
     before do
       example_pdf = Tempfile.new("example.pdf")
       example_pdf.write("example pdf contents")
-
-      allow(intake).to receive(:create_original_13614c_document).and_call_original
       allow(intake).to receive(:pdf).and_return(example_pdf)
+      allow(intake).to receive(:create_13614c_document).and_call_original
     end
 
-    it "should create a new document pdf of original 13614-C answers" do
-      expect {
-        intake.send :create_original_13614c_document
-      }.to change(Document, :count).by 1
+    let(:intake) { create(:intake) }
 
-      expect(intake).to have_received(:pdf)
+    it "creates a preliminary 13614-C PDF with a given filename" do
+      expect { intake.create_13614c_document("filename.pdf") }.to change(Document, :count).by(1)
 
       doc = Document.last
-      expect(doc.intake).to eq(intake)
-      expect(doc.client).to eq(client)
-      expect(doc.document_type).to eq("Original 13614-C")
-      blob = doc.upload.blob
-      expect(blob.content_type).to eq("application/pdf")
-      expect(blob.download).to eq("example pdf contents")
-      expect(blob.filename).to eq("Original 13614-C.pdf")
+      expect(doc.display_name).to eq("filename.pdf")
+      expect(doc.document_type).to eq(DocumentTypes::Original13614C.key)
+      expect(intake).to have_received(:pdf)
     end
   end
 end
