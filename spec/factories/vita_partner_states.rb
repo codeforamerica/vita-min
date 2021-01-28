@@ -11,7 +11,8 @@
 #
 # Indexes
 #
-#  index_vita_partner_states_on_vita_partner_id  (vita_partner_id)
+#  index_vita_partner_states_on_state_and_vita_partner_id  (state,vita_partner_id) UNIQUE
+#  index_vita_partner_states_on_vita_partner_id            (vita_partner_id)
 #
 # Foreign Keys
 #

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_164534) do
+ActiveRecord::Schema.define(version: 2021_01_28_170810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -615,6 +615,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_164534) do
     t.string "state", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id", null: false
+    t.index ["state", "vita_partner_id"], name: "index_vita_partner_states_on_state_and_vita_partner_id", unique: true
     t.index ["vita_partner_id"], name: "index_vita_partner_states_on_vita_partner_id"
   end
 
