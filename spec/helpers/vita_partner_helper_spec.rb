@@ -10,7 +10,7 @@ describe VitaPartnerHelper do
       end
 
       it "returns just the user's site and the org" do
-        @vita_partners = VitaPartner.accessible_by(Ability.new(team_member))
+        @vita_partners = team_member.accessible_vita_partners
         expected = [
           [
             team_member.role.site.parent_organization.name,
@@ -60,6 +60,7 @@ describe VitaPartnerHelper do
         @vita_partners = VitaPartner.accessible_by(Ability.new(admin))
         expected =
           [
+            [VitaPartner.client_support_org.name, [[VitaPartner.client_support_org.name, VitaPartner.client_support_org.id]]],
             ["First Parent Org", [["First Parent Org", org_1.id], ["The First Child Org", site_1.id], ["The Second Child Org", site_2.id]]],
             ["No Child Org", [["No Child Org", org_3.id]]],
             ["Second Parent Org", [["Second Parent Org", org_2.id], ["The Third Child Org", site_3.id]]],

@@ -75,11 +75,9 @@ RSpec.describe MailgunWebhooksController do
       end
 
       context "without a matching client" do
-        let!(:gyr_org) { create :organization, name: "GYR National Organization" }
         let(:current_time) { DateTime.new(2020, 9, 10) }
         before do
           allow(DateTime).to receive(:now).and_return(current_time)
-          allow(VitaPartner).to receive(:client_support_org).and_return(gyr_org)
         end
 
         it "creates a new client and creates a related incoming email" do
@@ -89,7 +87,7 @@ RSpec.describe MailgunWebhooksController do
 
           email = IncomingEmail.last
           client = Client.last
-          expect(client.vita_partner).to eq(gyr_org)
+          expect(client.vita_partner).to eq(VitaPartner.client_support_org)
           expect(email.client).to eq client
           expect(client.intake.email_address).to eq sender_email
           expect(email.sender).to eq sender_email

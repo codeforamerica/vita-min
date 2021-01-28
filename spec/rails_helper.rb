@@ -84,6 +84,11 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  config.before(:all) do
+    # Create client support org
+    VitaPartner.find_or_create_by!(name: "GYR National Organization")
+  end
+
   config.before(:each) do
     stub_request(:post, /.*api\.twilio\.com.*/).to_return(status: 200, body: "", headers: {})
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})

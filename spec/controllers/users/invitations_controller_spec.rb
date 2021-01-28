@@ -18,7 +18,7 @@ RSpec.describe Users::InvitationsController do
         get :new
 
         expect(response).to be_ok
-        expect(assigns(:vita_partners)).to eq [vita_partner]
+        expect(assigns(:vita_partners)).to include(vita_partner)
         expect(assigns(:coalitions)).to eq [coalition]
       end
     end

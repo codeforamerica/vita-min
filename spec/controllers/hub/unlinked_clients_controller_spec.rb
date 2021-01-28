@@ -6,12 +6,10 @@ RSpec.describe Hub::UnlinkedClientsController do
 
     context "as an admin" do
       let(:user) { create(:admin_user) }
-      let!(:gyr_org) { create :organization, name: "GYR National Organization" }
-      let!(:national_client) { create(:client, vita_partner: gyr_org) }
+      let!(:national_client) { create(:client, vita_partner: VitaPartner.client_support_org) }
       let!(:unrelated_client) { create(:client, vita_partner: create(:organization)) }
 
       before do
-        allow(VitaPartner).to receive(:client_support_org).and_return(gyr_org)
         sign_in user
       end
 

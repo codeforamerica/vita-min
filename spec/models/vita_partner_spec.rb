@@ -209,7 +209,7 @@ describe VitaPartner do
       it "is an organization" do
         expect(organization.organization?).to eq(true)
         expect(organization.site?).to eq(false)
-        expect(VitaPartner.organizations).to eq [organization]
+        expect(VitaPartner.organizations).to include organization
       end
 
       it "cannot have the same name as another organization in the same coalition" do
@@ -250,22 +250,22 @@ describe VitaPartner do
     end
   end
 
-  context ".client_support_org" do
+  describe ".client_support_org" do
     context "national org already exists" do
-      let!(:national_org) { create :organization, name: "GYR National Organization" }
+      # The national org is created in rails_helper
 
       it "returns the org" do
-        expect(described_class.client_support_org).to eq national_org
+        expect(described_class.client_support_org.name).to eq("GYR National Organization")
       end
     end
 
     context "national org does not exist" do
-      it "creates and returns the org" do
-        org = nil
+      before { VitaPartner.client_support_org.delete }
+
+      it "raises an error" do
         expect {
-          org = described_class.client_support_org
-        }.to change(VitaPartner, :count).by(1)
-        expect(org.name).to eq "GYR National Organization"
+          described_class.client_support_org
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
