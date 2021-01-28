@@ -1098,4 +1098,24 @@ describe Intake do
       expect(intake).to have_received(:pdf)
     end
   end
+
+  describe "#create_14446_document" do
+    let(:intake) { create(:intake) }
+
+    before do
+      example_pdf = Tempfile.new("example.pdf")
+      example_pdf.write("example pdf contents")
+      allow(ConsentPdf).to receive(:new).and_return(double(output_file: example_pdf))
+    end
+
+    it "creates a 14446 PDF with a given filename" do
+      expect { intake.create_14446_document("filename.pdf") }.to change(Document, :count).by(1)
+
+      doc = Document.last
+      expect(doc.display_name).to eq("filename.pdf")
+      expect(doc.document_type).to eq(DocumentTypes::ConsentForm.key)
+      expect(doc.client).to eq(intake.client)
+      expect(doc.upload.content_type).to eq("application/pdf")
+    end
+  end
 end

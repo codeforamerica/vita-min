@@ -580,11 +580,30 @@ class Intake < ApplicationRecord
     filename ||= "2020 13614-C with 15080.pdf"
     pdf_tempfile = pdf
     pdf_tempfile.seek(0)
-    client.documents.create!(document_type: DocumentTypes::Form13614CForm15080.key, intake: self, upload: {
-      io: pdf_tempfile,
-      filename: filename,
-      content_type: "application/pdf",
-      identify: false
-    })
+    client.documents.create!(
+      document_type: DocumentTypes::Form13614CForm15080.key,
+      intake: self,
+      upload: {
+        io: pdf_tempfile,
+        filename: filename,
+        content_type: "application/pdf",
+        identify: false
+      }
+    )
+  end
+
+  def create_14446_document(filename)
+    pdf_tempfile = consent_pdf
+    pdf_tempfile.seek(0)
+    client.documents.create!(
+      document_type: DocumentTypes::ConsentForm.key,
+      intake: self,
+      upload: {
+        io: pdf_tempfile,
+        filename: filename,
+        content_type: "application/pdf",
+        identify: false
+      }
+    )
   end
 end
