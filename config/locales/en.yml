@@ -1034,14 +1034,7 @@ en:
         questions: If you have any questions in the meantime, feel free to reach out via the chat/help button in the bottom right.
         title: GetYourRefund is temporarily down for maintenance
       maybe_ineligible:
-        alternatives: We also have two alternative free tax filing options for you. File with our DIY tool, where we provide chat support as you file or try IRS Free File, an online service that lets you prepare your own taxes.
-        diy_button: File with DIY tool
-        diy_criteria_list:
-          header: 'Use our DIY tool! A great choice if:'
-          item_1: You are only filing for 2019 (not previous years)
-          item_2: You’re comfortable using online tax services
-          item_3: Your tax situation is simple/straightforward
-          item_4: You need a quick option
+        alternatives: Try IRS Free File, an online service that lets you prepare your own taxes.
         info: We’re happy to answer any questions you may have about GetYourRefund! Contact us by using our chat feature below.
         title: We’re unsure if you qualify for our services.
       other_options:
@@ -1264,9 +1257,7 @@ en:
           one: Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
           other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
       at_capacity:
-        alternative_html: To file immediately, you can try our free DIY option, an online service that lets you prepare your own taxes for free.
         body: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. Current wait times for the File with Help option are 2-3 weeks. We apologize for the wait.
-        file_with_diy: File with DIY option
         file_with_help: File with help
         title: Wow, it looks like we are at capacity right now.
       backtaxes:
