@@ -575,11 +575,30 @@ class Intake < ApplicationRecord
   def create_13614c_document(filename)
     pdf_tempfile = pdf
     pdf_tempfile.seek(0)
-    client.documents.create!(document_type: DocumentTypes::Original13614C.key, intake: self, upload: {
-      io: pdf_tempfile,
-      filename: filename,
-      content_type: "application/pdf",
-      identify: false
-    })
+    client.documents.create!(
+      document_type: DocumentTypes::Original13614C.key,
+      intake: self,
+      upload: {
+        io: pdf_tempfile,
+        filename: filename,
+        content_type: "application/pdf",
+        identify: false
+      }
+    )
+  end
+
+  def create_14446_document(filename)
+    pdf_tempfile = consent_pdf
+    pdf_tempfile.seek(0)
+    client.documents.create!(
+      document_type: DocumentTypes::ConsentForm.key,
+      intake: self,
+      upload: {
+        io: pdf_tempfile,
+        filename: filename,
+        content_type: "application/pdf",
+        identify: false
+      }
+    )
   end
 end

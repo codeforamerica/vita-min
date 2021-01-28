@@ -34,5 +34,6 @@ module DocumentTypes
     DocumentTypes::EmailAttachment,
     DocumentTypes::TextMessageAttachment,
     DocumentTypes::Original13614C,
+    DocumentTypes::ConsentForm,
   ].freeze
 end

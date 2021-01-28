@@ -87,6 +87,12 @@ RSpec.describe Questions::ConsentController do
       allow(ClientMessagingService).to receive(:send_system_text_message)
     end
 
+    it "enqueues a job to generate the consent form pdf" do
+      expect(Intake14446PdfJob).to receive(:perform_later).with(intake, "Consent Form.pdf")
+
+      subject.after_update_success
+    end
+
     context "notification preferences" do
       context "when the client has opted in to just email" do
         before do
