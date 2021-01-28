@@ -31,7 +31,7 @@
               <%= render "shared/client_needs_attention", client: client %>
             </td>
             <th scope="row" class="index-table__row-header">
-              <%= link_to hub_client_messages_path(client_id: client, back_to: "unlinked_clients") do %>
+              <%= link_to hub_client_messages_path(client_id: client) do %>
                 <%= client.phone_number %> <%= client.email_address %>
             <% end %>
             </th>
