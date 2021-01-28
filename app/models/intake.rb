@@ -16,6 +16,7 @@
 #  claimed_by_another                                   :integer          default("unfilled"), not null
 #  completed_at                                         :datetime
 #  completed_intake_sent_to_zendesk                     :boolean
+#  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
@@ -206,6 +207,8 @@ class Intake < ApplicationRecord
   belongs_to :vita_partner, optional: true
   belongs_to :triage_source, optional: true, polymorphic: true
   accepts_nested_attributes_for :dependents, allow_destroy: true
+
+  scope :completed_yes_no_questions, -> { where.not(completed_yes_no_questions_at: nil) }
 
   validates :phone_number, :sms_phone_number, allow_blank: true, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
   validates_presence_of :visitor_id
@@ -516,21 +519,6 @@ class Intake < ApplicationRecord
     client.tax_returns.each do |tax_return|
       tax_return.advance_to(new_status)
     end
-  end
-
-  def name_for_filename
-    # Delete '.' because otherwise Rails will interpret what comes after the dot
-    # as the requested MIME type, aka requested format. Deleting other characters
-    # to avoid interfering with file paths when people download, or URLs.
-    primary_full_name.split(" ").map(&:capitalize).join.delete("/.:\\")
-  end
-
-  def intake_pdf_filename
-    "13614c_#{name_for_filename}.pdf"
-  end
-
-  def consent_pdf_filename
-    "Consent_#{name_for_filename}.pdf"
   end
 
   def had_earned_income?

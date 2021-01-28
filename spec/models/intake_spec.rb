@@ -16,6 +16,7 @@
 #  claimed_by_another                                   :integer          default("unfilled"), not null
 #  completed_at                                         :datetime
 #  completed_intake_sent_to_zendesk                     :boolean
+#  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
@@ -191,7 +192,7 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Intake do
   describe "validations" do
@@ -336,6 +337,15 @@ describe Intake do
     end
   end
 
+  describe ".completed_yes_no_questions" do
+    let!(:included_intake) { create :intake, completed_yes_no_questions_at: DateTime.now }
+    let!(:excluded_intake) { create :intake, completed_yes_no_questions_at: nil }
+
+    it "returns intakes with a non-nil completed_yes_no_questions_at value" do
+      expect(described_class.completed_yes_no_questions).to match_array [included_intake]
+    end
+  end
+
   describe "#eligible_for_eip_only?" do
     context "when any of the disqualifiers are 'yes'" do
       let(:intake) { build :intake, claimed_by_another: "yes", already_applied_for_stimulus: "no", no_ssn: "no" }
@@ -369,34 +379,6 @@ describe Intake do
       expect(IntakePdf).to have_received(:new).with(intake)
       expect(intake_pdf_spy).to have_received(:output_file)
       expect(result).to eq "i am a pdf"
-    end
-  end
-
-  describe "#name_for_filename" do
-    let(:intake) do
-      build(
-        :intake,
-        primary_first_name: "Ben",
-        primary_last_name: "Banana"
-      )
-    end
-
-    it "returns the full name with no spaces" do
-      expect(intake.name_for_filename).to eq "BenBanana"
-    end
-
-    context "with tricky characters in the name" do
-      let(:intake) do
-        build(
-          :intake,
-          primary_first_name: "Dr. Ben: Benjamin",
-          primary_last_name: "Banana/\\Berry Sr. "
-        )
-      end
-
-      it "returns a filename without the tricky characters" do
-        expect(intake.name_for_filename).to eq "DrBenBenjaminBananaberrySr"
-      end
     end
   end
 

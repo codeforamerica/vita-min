@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_26_212403) do
+ActiveRecord::Schema.define(version: 2021_01_28_003203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -254,6 +254,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_212403) do
     t.bigint "client_id"
     t.datetime "completed_at"
     t.boolean "completed_intake_sent_to_zendesk"
+    t.datetime "completed_yes_no_questions_at"
     t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
     t.integer "demographic_disability", default: 0, null: false
