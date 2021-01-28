@@ -47,7 +47,6 @@ RSpec.feature "Toggle bank account info" do
         expect(page).not_to have_text client.intake.bank_account_number
         expect(page).not_to have_text client.intake.bank_routing_number
         expect(page).not_to have_text client.intake.bank_account_type
-
       end
     end
   end

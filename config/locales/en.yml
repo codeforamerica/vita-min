@@ -271,6 +271,8 @@ en:
       index:
         description: "Messages from people whose contact info did not match a client."
         phone_number_or_email: "Phone number/email"
+    ssn_itins:
+      displayed: Displaying SSN or ITIN
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
@@ -588,6 +590,8 @@ en:
     email_address: "Email address"
     unique_link: "Unique link"
     delete: "Delete"
+    last_four_ssn: Last 4 of SSN/ITIN
+    hidden: Hidden
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

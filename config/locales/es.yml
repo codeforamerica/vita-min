@@ -273,6 +273,8 @@ es:
       index:
         description: "Mensajes de personas cuya información de contacto no coincide con la de un cliente."
         phone_number_or_email: "Número de teléfono / correo electrónico"
+    ssn_itins:
+      displayed: Visualización de la SSN o ITIN
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
@@ -590,6 +592,8 @@ es:
     new: "Nuevo"
     unique_link: "Enlace único"
     delete: "Eliminar"
+    last_four_ssn: Últimos 4 de SSN / ITIN
+    hidden: Encubierto
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
