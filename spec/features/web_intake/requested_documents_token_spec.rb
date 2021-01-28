@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Client uploads a requested document" do
   let!(:intake) { create :intake, requested_docs_token: "1234ABCDEF" }
+
   xscenario "client goes to the follow up documents token link", :js do
     visit "/documents/add/1234ABCDEF"
 
@@ -59,38 +60,5 @@ RSpec.feature "Client uploads a requested document" do
 
     expect(intake.documents.count).to eq(0)
     expect(second_intake.documents.count).to eq(1)
-  end
-
-
-  context "with forgery protection" do
-    around do |example|
-      ActionController::Base.allow_forgery_protection = true
-      Capybara.raise_server_errors = false
-      example.run
-      Capybara.raise_server_errors = true
-      ActionController::Base.allow_forgery_protection = false
-    end
-
-    scenario "client completes requested docs and gets message when trying to go back", :js do
-      visit "/documents/add/1234ABCDEF"
-
-      expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
-      attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-      click_on "Continue"
-      expect(current_path).to eq(root_path)
-      expect(page).to have_text "Thank you! Your documents have been submitted. If you have additional documents to share, please follow the link from your tax specialist to add more."
-
-      go_back
-      click_on "Continue"
-      expect(current_path).to eq(root_path)
-      expect(page)
-        .to have_content("We're sorry, we couldn't upload your document! To upload another document, please return to the link from your tax specialist.")
-
-      go_back
-      attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
-      expect(current_path).to eq(root_path)
-      expect(page)
-        .to have_content("We're sorry, we couldn't upload your document! To upload another document, please return to the link from your tax specialist.")
-    end
   end
 end
