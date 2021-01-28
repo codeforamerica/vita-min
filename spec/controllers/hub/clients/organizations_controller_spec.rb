@@ -54,7 +54,7 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
           expect(response).to be_ok
           expect(client.reload.vita_partner).to eq site
           expect(response).to render_template :edit
-          expect(assigns(:client).errors).to include :vita_partner
+          expect(assigns(:client).errors).to include :vita_partner_id
         end
       end
 

@@ -2,17 +2,34 @@ require "rails_helper"
 
 RSpec.describe "a user editing a clients intake fields" do
   context "as an admin user" do
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, name: "Assigned Org") }
+    let!(:new_site) { create(:site, name: "Other Site")}
+
     let(:user) { create :admin_user }
+    let(:tax_return) { create :tax_return, year: 2019, assigned_user: (create :user, role: create(:organization_lead_role, organization: organization)) }
     let(:client) {
       create :client,
              vita_partner: organization,
+             tax_returns: [tax_return],
              intake: create(:intake, email_address: "colleen@example.com", primary_first_name: "Colleen", primary_last_name: "Cauliflower", preferred_interview_language: "es", state_of_residence: "CA", preferred_name: "Colleen Cauliflower", email_notification_opt_in: "yes", dependents: [
                create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06"),
              ])
 
     }
     before { login_as user }
+
+    scenario "I see a warning if I try to update a clients' organization that an assigned tax return user cannot access" do
+      visit hub_client_path(id: client.id)
+      within ".client-header__organization" do
+        click_on "Edit"
+      end
+
+      expect(page).to have_text "Edit Organization for #{client.preferred_name}"
+      select "Other Site", from: "Organization"
+      click_on "Save"
+
+      expect(page).to have_text "would lose access if you assign"
+    end
 
     scenario "I can update available fields", js: true do
       visit hub_client_path(id: client.id)

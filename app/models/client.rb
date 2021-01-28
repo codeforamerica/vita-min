@@ -158,7 +158,7 @@ class Client < ApplicationRecord
       end
       if users_who_would_lose_access.present?
         affected_user_names = users_who_would_lose_access.map(&:name).join(", ")
-        errors.add(:vita_partner,
+        errors.add(:vita_partner_id,
           I18n.t(
             "clients.errors.tax_return_assigned_user_access",
             new_partner: vita_partner.name,
