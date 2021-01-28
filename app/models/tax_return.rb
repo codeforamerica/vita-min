@@ -8,6 +8,7 @@
 #  primary_signature   :string
 #  primary_signed_at   :datetime
 #  primary_signed_ip   :inet
+#  ready_for_prep_at   :datetime
 #  service_type        :integer          default("online_intake")
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
@@ -43,15 +44,11 @@ class TaxReturn < ApplicationRecord
   validates :year, presence: true
 
   attr_accessor :status_last_changed_by
-  after_update do
-    if saved_change_to_status?
-      data = MixpanelService.data_from([status_last_changed_by, client, self].compact).merge({from_status: status_before_last_save})
+  after_update :send_mixpanel_status_change_event
 
-      MixpanelService.send_event(
-        event_id: client.intake.visitor_id,
-        event_name: "status_change",
-        data: data
-      )
+  before_save do
+    if status == "prep_ready_for_prep" && status_changed?
+      self.ready_for_prep_at = DateTime.current
     end
   end
 
@@ -158,6 +155,22 @@ class TaxReturn < ApplicationRecord
 
   private
 
+  def send_mixpanel_status_change_event
+    if saved_change_to_status?
+      MixpanelService.send_status_change_event(self)
+
+      if status == "file_rejected"
+        MixpanelService.send_file_rejected_event(self)
+      elsif status == "file_accepted"
+        MixpanelService.send_file_accepted_event(self)
+      elsif status == "prep_ready_for_prep"
+        MixpanelService.send_tax_return_event(self, "ready_for_prep")
+      elsif status == "file_efiled"
+        MixpanelService.send_tax_return_event(self, "filing_filed")
+      end
+    end
+  end
+
   def system_change_status(new_status)
     SystemNote.create_system_status_change_note!(self, self.status, new_status)
     self.status = new_status
@@ -165,4 +178,5 @@ class TaxReturn < ApplicationRecord
 end
 
 class FailedToSignReturnError < StandardError; end
+
 class AlreadySignedError < StandardError; end

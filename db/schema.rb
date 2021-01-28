@@ -546,6 +546,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_180337) do
     t.string "primary_signature"
     t.datetime "primary_signed_at"
     t.inet "primary_signed_ip"
+    t.datetime "ready_for_prep_at"
     t.integer "service_type", default: 0
     t.string "spouse_signature"
     t.datetime "spouse_signed_at"
