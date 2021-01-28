@@ -2,14 +2,14 @@ require 'csv'
 
 class VitaPartnerZipCodesImporter
   def from_csv(filename)
-    # To use, run "VitaPartnerZipCodesImporter.new().from_csv('./wave_1_routing.csv')" in console
+    # To use, run "VitaPartnerZipCodesImporter.from_csv('./wave_1_routing.csv')" in console
     successes = []
     problems = []
     unfound_vita_partners = []
 
     headers = CSV.foreach(filename).first
 
-    unless headers[5]&.strip == "Zip Routing" || headers[0]&.strip == "Organization Name"
+    unless headers[1]&.strip == "Zip Routing" || headers[0]&.strip == "Organization Name"
       puts "Unable to process file b/c headers are not aligned #{headers[0]}"
       return
     end
@@ -17,7 +17,7 @@ class VitaPartnerZipCodesImporter
     data = CSV.read(filename, headers: true)
 
     data.map do |row|
-      zip_codes = row[5]
+      zip_codes = row[1]
       next unless zip_codes
 
       organization_name = row[0]&.strip

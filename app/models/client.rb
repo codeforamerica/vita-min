@@ -47,7 +47,7 @@ class Client < ApplicationRecord
   has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
-  enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3 }
+  enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3, state: 4 }
 
   validate :tax_return_assigned_user_access_maintained, if: :vita_partner_id_changed?
 

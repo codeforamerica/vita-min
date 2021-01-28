@@ -47,6 +47,7 @@ es:
           zip_code: Código postal
           most_org_leads: Mayor número de clientes potenciales de la organización (reserva de WIP para la temporada 2021)
           national_overflow: Desbordamiento nacional
+          state: Estado
       new:
         title: Agregar un nuevo cliente
         assign_to_label: Asignado a
