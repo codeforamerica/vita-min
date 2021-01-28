@@ -109,7 +109,7 @@ RSpec.describe TwilioWebhooksController do
           let!(:gyr_org) { create :organization, name: "GYR National Organization" }
 
           before do
-            allow(VitaPartner).to receive(:find_or_create_national_org).and_return(gyr_org)
+            allow(VitaPartner).to receive(:client_support_org).and_return(gyr_org)
           end
 
           it "creates a new client assigned to national org and creates a new incoming text message linked to that client" do
@@ -199,7 +199,7 @@ RSpec.describe TwilioWebhooksController do
       end
     end
   end
-  
+
   describe "#update_outbound_call" do
     let!(:outbound_call) { create :outbound_call, twilio_sid: "CA9c1f259a39bcf0e773bbbb2c4c736c9f" }
     let(:params) do

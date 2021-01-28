@@ -79,7 +79,7 @@ RSpec.describe MailgunWebhooksController do
         let(:current_time) { DateTime.new(2020, 9, 10) }
         before do
           allow(DateTime).to receive(:now).and_return(current_time)
-          allow(VitaPartner).to receive(:find_or_create_national_org).and_return(gyr_org)
+          allow(VitaPartner).to receive(:client_support_org).and_return(gyr_org)
         end
 
         it "creates a new client and creates a related incoming email" do
