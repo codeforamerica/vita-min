@@ -30,9 +30,8 @@ module Hub
 
     def resend_invitation
       user = User.find_by(id: params[:user_id])
-      ability = Ability.new(current_user)
 
-      if ability.can?(:manage, user)
+      if current_ability.can?(:manage, user)
         user&.invite!(current_user)
         flash[:notice] = "Invitation re-sent to #{user.email}"
 
