@@ -19,6 +19,10 @@
         </label>
       </fieldset>
 
+      <div>
+        <%= link_to t("general.resend_invitation"), user_profile_resend_invitation_path(user_id: @user.id), class: "button button-small", method: :put %>
+      </div>
+
       <button class="button button--cta" type="submit">
         <%=t("general.save") %>
       </button>

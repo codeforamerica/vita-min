@@ -512,6 +512,7 @@ en:
       white: White
     register: Sign Up
     remove: Remove
+    resend_invitation: Resend invitation email
     resolve: Resolve
     return_home: Return to home
     return_search: Return to search
@@ -587,7 +588,6 @@ en:
         new_greeter_invite: "Invite a new greeter"
         new_team_member_invite: "Invite a new team member"
       invitation:
-        create: Resend invitation email
         sent_at: Sent at %{datetime}
       title: Invitations
   messages:

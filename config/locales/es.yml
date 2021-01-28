@@ -515,6 +515,7 @@ es:
       white: Blanco
     register: Regístrate
     remove: Quitar
+    resend_invitation: Reenviar email de invitación
     resolve: Resolver
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
@@ -590,7 +591,6 @@ es:
         new_greeter_invite: "Invitar a un nuevo saludador"
         new_team_member_invite: "Invitar a un nuevo miembro del equipo"
       invitation:
-        create: Reenviar email de invitación
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
   messages:
