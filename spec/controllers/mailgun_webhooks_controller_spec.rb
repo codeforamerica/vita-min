@@ -80,7 +80,7 @@ RSpec.describe MailgunWebhooksController do
           allow(DateTime).to receive(:now).and_return(current_time)
         end
 
-        it "creates a new client and creates a related incoming email" do
+        it "creates a an incoming email attached to a new client" do
           expect do
             post :create_incoming_email, params: params
           end.to change(IncomingEmail, :count).by(1).and change(Client, :count).by(1)
@@ -90,6 +90,7 @@ RSpec.describe MailgunWebhooksController do
           expect(client.vita_partner).to eq(VitaPartner.client_support_org)
           expect(email.client).to eq client
           expect(client.intake.email_address).to eq sender_email
+          expect(client.intake.email_notification_opt_in).to eq("yes")
           expect(email.sender).to eq sender_email
           expect(email.received_at).to eq current_time
           expect(email.subject).to eq subject
