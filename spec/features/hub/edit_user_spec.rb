@@ -31,6 +31,19 @@ RSpec.describe "a user editing a user" do
 
         expect(page).to have_field("user_is_admin", checked: true)
       end
+
+      scenario "resending invitations" do
+        visit edit_hub_user_path(id: user_to_edit.id)
+
+        click_on "Resend invitation email"
+
+        within(".flash--notice") do
+          expect(page).to have_text "Invitation re-sent to #{user_to_edit.email}"
+        end
+
+        invited_user = User.where(invited_by: current_user).last
+        expect(invited_user.invitation_token).to be_present
+      end
     end
   end
 end

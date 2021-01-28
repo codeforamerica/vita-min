@@ -152,6 +152,8 @@ Rails.application.routes.draw do
       get "/profile" => "users#profile", as: :user_profile
     end
 
+    put "hub/users/:user_id/resend", to: "hub/users#resend_invitation", as: :user_profile_resend_invitation
+
     devise_for :users, path: "hub", controllers: {
       sessions: "users/sessions",
       invitations: "users/invitations"

@@ -270,4 +270,39 @@ RSpec.describe Hub::UsersController do
       end
     end
   end
+
+  describe "#resend_invitation" do
+    context "with a logged in user" do
+      let!(:resending_user) { create :user }
+      let(:original_invited_by_user) { create :user }
+      let(:invited_user) { create :user, invited_by: original_invited_by_user }
+
+      before { sign_in resending_user }
+
+      it "updates the invited_by value" do
+        put :resend_invitation, params: { user_id: invited_user.id }
+          invited_user.reload
+
+          expect(invited_user.invited_by).to eq(resending_user)
+        end
+
+      it "updates the invitation_sent_at value" do
+        expect {
+          put :resend_invitation, params: { user_id: invited_user.id }
+          invited_user.reload
+        }.to change(invited_user, :invitation_sent_at)
+      end
+
+      it "displays an invitation reset flash notice and redirects to the users page" do
+        put :resend_invitation, params: { user_id: invited_user.id }
+        expect(flash[:notice]).to eq "Invitation re-sent to #{invited_user.email}"
+      end
+
+      it "redirects after saving" do
+        put :resend_invitation, params: { user_id: invited_user.id }
+        expect(flash[:notice]).to eq "Invitation re-sent to #{invited_user.email}"
+        expect(response).to redirect_to hub_users_path
+      end
+    end
+  end
 end

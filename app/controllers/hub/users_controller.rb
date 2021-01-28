@@ -28,6 +28,14 @@ module Hub
       end
     end
 
+    def resend_invitation
+      user = User.find_by(id: params[:user_id])
+      user&.invite!(current_user)
+      flash[:notice] = "Invitation re-sent to #{user.email}"
+
+      redirect_to hub_users_path
+    end
+
     private
 
     def user_params
