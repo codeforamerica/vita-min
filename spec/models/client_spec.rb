@@ -48,7 +48,7 @@ describe Client do
         client.vita_partner = other_site
 
         expect(client).not_to be_valid
-        access_loss_error_message = client.errors[:vita_partner][0]
+        access_loss_error_message = client.errors[:vita_partner_id][0]
         expect(access_loss_error_message).to include assigned_user.name
         expect(access_loss_error_message).to include another_assigned_user.name
         expect(access_loss_error_message).to include "would lose access if you assign this client to "\
