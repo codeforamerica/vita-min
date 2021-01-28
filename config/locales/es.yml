@@ -256,6 +256,8 @@ es:
     sites:
       new:
         title: "Agregar sitio"
+    ssn_itins:
+      displayed: Visualización de la SSN o ITIN
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
@@ -569,6 +571,8 @@ es:
     email_address: "Dirección de correo electrónico"
     greeter: "Saludador"
     team_member: "Miembro del equipo"
+    last_four_ssn: Últimos 4 de SSN / ITIN
+    hidden: Encubierto
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
