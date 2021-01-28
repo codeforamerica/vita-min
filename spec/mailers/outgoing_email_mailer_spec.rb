@@ -73,5 +73,15 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
         expect(email.attachments.length).to eq 0
       end
     end
+
+    context "with a plain text link in the body" do
+      let(:sensitive_body) { "Hi user, you need to visit https://example.com/ and then come back to https://getyourrefund.org/" }
+
+      it "makes it into a link in the HTML part" do
+        email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
+        expect(email.html_part.decoded).to have_selector("a[href=\"https://example.com/\"]", text: "https://example.com/")
+        expect(email.html_part.decoded).to have_selector("a[href=\"https://getyourrefund.org/\"]", text: "https://getyourrefund.org/")
+      end
+    end
   end
 end

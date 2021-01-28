@@ -1,1 +1,7 @@
-<%= render "shared/email_body", body: @body %>
+<% @body.split("\n") do |line| %>
+  <% if line.present? %>
+    <div><%= auto_link(line) %></div>
+  <% else %>
+    <br />
+  <% end %>
+<% end %>

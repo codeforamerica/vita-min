@@ -43,6 +43,15 @@ RSpec.describe "a user editing a user" do
 
         invited_user = User.where(invited_by: current_user).last
         expect(invited_user.invitation_token).to be_present
+
+        mail = ActionMailer::Base.deliveries.last
+        html_body = mail.body.parts[1].decoded
+        accept_invite_url = Nokogiri::HTML.parse(html_body).at_css("a")["href"]
+        expect(mail.subject).to eq "You've been invited to GetYourRefund"
+        expect(accept_invite_url).to be_present
+        expect(mail.body.encoded).to have_text "Hello,"
+        expect(mail.body.encoded).to have_text "#{current_user.name} (#{current_user.email}) has invited #{user_to_edit.name} to create an account on GetYourRefund"
+        expect(mail.body.encoded).to have_text "If you don't want to accept the invitation, please ignore this email."
       end
     end
   end

@@ -31,7 +31,7 @@ class DocumentNavigation
     Documents::CareProviderStatementsController,
     Documents::W2gsController,
     Documents::PriorTaxReturnsController,
-    Documents::AdditionalDocumentsController, # Advances statuses to Open
+    Documents::AdditionalDocumentsController, # Advances statuses to Ready
     Documents::RequestedDocumentsLaterController,
     Documents::OverviewController,
     Documents::SendRequestedDocumentsLaterController,

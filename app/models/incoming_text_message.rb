@@ -3,7 +3,7 @@
 # Table name: incoming_text_messages
 #
 #  id                :bigint           not null, primary key
-#  body              :string           not null
+#  body              :string
 #  from_phone_number :string           not null
 #  received_at       :datetime         not null
 #  created_at        :datetime         not null
@@ -24,7 +24,9 @@ class IncomingTextMessage < ApplicationRecord
 
   belongs_to :client
   has_many :documents, as: :contact_record
-  validates_presence_of :received_at, :body
+  validates_presence_of :received_at
+  validates_presence_of :body, if: -> { documents.blank? }
+  validates_presence_of :documents, if: -> { body.blank? }
   validates :from_phone_number, presence: true, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
 
   after_create :record_incoming_interaction

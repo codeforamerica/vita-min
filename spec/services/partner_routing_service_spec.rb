@@ -61,18 +61,19 @@ describe PartnerRoutingService do
 
       context "when clients zip code doesn't correspond to a Vita Partner" do
         context "when state for that zip code has associated Vita Partners" do
-          let!(:expected_vita_partner) { create :vita_partner }
           subject { PartnerRoutingService.new(zip_code: "28806") }
+
+          let!(:expected_vita_partner) { create :vita_partner }
 
           it "routes a Vita Partner in that state and based on percentage" do
             allow(VitaPartnerState).to receive(:weighted_state_routing_ranges).with("NC").and_return(
-                [
-                  { id: 1, low: 0.0, high: 0.2 },
-                  { id: expected_vita_partner.id, low: 0.2, high: 0.6 },
-                  { id: 3, low: 0.6, high: 1.0 }
-                ]
+              [
+                { id: 1, low: 0.0, high: 0.2 },
+                { id: expected_vita_partner.id, low: 0.2, high: 0.6 },
+                { id: 3, low: 0.6, high: 1.0 }
+              ]
             )
-            allow(Random).to receive(:rand).and_return(0.6)
+            allow(Random).to receive(:rand).and_return(0.5)
 
             expect(subject.determine_partner).to eq(expected_vita_partner)
           end

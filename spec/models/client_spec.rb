@@ -48,10 +48,11 @@ describe Client do
         client.vita_partner = other_site
 
         expect(client).not_to be_valid
-        expected_error_message = "#{assigned_user.name}, #{another_assigned_user.name} would lose access "\
-          "if you assign this client to #{other_site.name}. Please change tax return assignments before "\
-          "reassigning this client."
-        expect(client.errors[:vita_partner]).to include expected_error_message
+        access_loss_error_message = client.errors[:vita_partner_id][0]
+        expect(access_loss_error_message).to include assigned_user.name
+        expect(access_loss_error_message).to include another_assigned_user.name
+        expect(access_loss_error_message).to include "would lose access if you assign this client to "\
+          "#{other_site.name}. Please change tax return assignments before reassigning this client."
       end
     end
   end

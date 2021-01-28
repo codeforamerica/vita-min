@@ -16,6 +16,7 @@
 #  claimed_by_another                                   :integer          default("unfilled"), not null
 #  completed_at                                         :datetime
 #  completed_intake_sent_to_zendesk                     :boolean
+#  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null

@@ -124,6 +124,7 @@ Rails.application.routes.draw do
     namespace :hub do
       root "assigned_clients#index"
       resources :tax_returns, only: [:edit, :update, :show]
+      resources :unlinked_clients, only: [:index]
       resources :clients do
         get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
         patch "/organization", to: "clients/organizations#update", on: :member, as: :organization

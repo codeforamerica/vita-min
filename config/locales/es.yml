@@ -47,6 +47,7 @@ es:
           zip_code: Código postal
           most_org_leads: Mayor número de clientes potenciales de la organización (reserva de WIP para la temporada 2021)
           national_overflow: Desbordamiento nacional
+          state: Estado
       new:
         title: Agregar un nuevo cliente
         assign_to_label: Asignado a
@@ -110,6 +111,8 @@ es:
           status: actualizó estado
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
+      unlinked_clients:
+        title: "Clientes no vinculados"
     documents:
       edit:
         title: Editar Documento
@@ -256,6 +259,10 @@ es:
     sites:
       new:
         title: "Agregar sitio"
+    unlinked_clients:
+      index:
+        description: "Mensajes de personas cuya información de contacto no coincide con la de un cliente."
+        phone_number_or_email: "Número de teléfono / correo electrónico"
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!

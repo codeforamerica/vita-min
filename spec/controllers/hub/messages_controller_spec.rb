@@ -152,7 +152,7 @@ RSpec.describe Hub::MessagesController do
             create(:document, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")))
           ])
 
-          create(:incoming_text_message, client: client, documents: [
+          create(:incoming_text_message, body: nil, client: client, documents: [
             create(:document, upload_path: (Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png")))
           ])
         end
@@ -160,12 +160,13 @@ RSpec.describe Hub::MessagesController do
         it "displays the attachments" do
           get :index, params: params
 
-          outgoing_email_attachments = Nokogiri::HTML.parse(response.body).at_css(".message--outgoing_email .message__body .attachments-list")
+          html_body = Nokogiri::HTML.parse(response.body)
+          outgoing_email_attachments = html_body.at_css(".message--outgoing_email .message__body .attachments-list")
           expect(outgoing_email_attachments).to have_text "test-pattern.png"
-          incoming_email_attachments = Nokogiri::HTML.parse(response.body).at_css(".message--incoming_email .message__body .attachments-list")
+          incoming_email_attachments = html_body.at_css(".message--incoming_email .message__body .attachments-list")
           expect(incoming_email_attachments).to have_text "test-pattern.png"
           expect(incoming_email_attachments).to have_text "test-pdf.pdf"
-          text_message_attachments = Nokogiri::HTML.parse(response.body).at_css(".message--incoming_text_message .message__body .attachments-list")
+          text_message_attachments = html_body.at_css(".message--incoming_text_message .message__body .attachments-list")
           expect(text_message_attachments).to have_text "test-pattern.png"
         end
       end

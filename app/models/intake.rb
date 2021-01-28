@@ -16,6 +16,7 @@
 #  claimed_by_another                                   :integer          default("unfilled"), not null
 #  completed_at                                         :datetime
 #  completed_intake_sent_to_zendesk                     :boolean
+#  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
@@ -207,13 +208,15 @@ class Intake < ApplicationRecord
   belongs_to :triage_source, optional: true, polymorphic: true
   accepts_nested_attributes_for :dependents, allow_destroy: true
 
+  scope :completed_yes_no_questions, -> { where.not(completed_yes_no_questions_at: nil) }
+
   validates :phone_number, :sms_phone_number, allow_blank: true, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
   validates_presence_of :visitor_id
 
   after_save do
     if saved_change_to_completed_at?(from: nil)
       record_incoming_interaction # client completed intake
-      create_original_13614c_document
+      create_13614c_document("Original 13614-C.pdf")
     elsif completed_at.present?
       record_internal_interaction # user updated completed intake
     end
@@ -518,21 +521,6 @@ class Intake < ApplicationRecord
     end
   end
 
-  def name_for_filename
-    # Delete '.' because otherwise Rails will interpret what comes after the dot
-    # as the requested MIME type, aka requested format. Deleting other characters
-    # to avoid interfering with file paths when people download, or URLs.
-    primary_full_name.split(" ").map(&:capitalize).join.delete("/.:\\")
-  end
-
-  def intake_pdf_filename
-    "13614c_#{name_for_filename}.pdf"
-  end
-
-  def consent_pdf_filename
-    "Consent_#{name_for_filename}.pdf"
-  end
-
   def had_earned_income?
     had_a_job? || had_wages_yes? || had_self_employment_income_yes?
   end
@@ -584,14 +572,12 @@ class Intake < ApplicationRecord
     ADDRESS
   end
 
-  private
-
-  def create_original_13614c_document
+  def create_13614c_document(filename)
     pdf_tempfile = pdf
     pdf_tempfile.seek(0)
     client.documents.create!(document_type: DocumentTypes::Original13614C.key, intake: self, upload: {
       io: pdf_tempfile,
-      filename: "Original 13614-C.pdf",
+      filename: filename,
       content_type: "application/pdf",
       identify: false
     })

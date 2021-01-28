@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe TwilioWebhooksController do
   describe "#create_incoming_text_message" do
+    let(:body) { "Hello, it me" }
     let(:incoming_message_params) do
       {
           "ToCountry" => "US",
@@ -14,7 +15,7 @@ RSpec.describe TwilioWebhooksController do
           "FromState" => "CA",
           "SmsStatus" => "received",
           "FromCity" => "LOS GATOS",
-          "Body" => "Hello, it me",
+          "Body" => body,
           "FromCountry" => "US",
           "To" => "+14158161286",
           "ToZip" => "",
@@ -109,7 +110,7 @@ RSpec.describe TwilioWebhooksController do
           let!(:gyr_org) { create :organization, name: "GYR National Organization" }
 
           before do
-            allow(VitaPartner).to receive(:find_or_create_national_org).and_return(gyr_org)
+            allow(VitaPartner).to receive(:client_support_org).and_return(gyr_org)
           end
 
           it "creates a new client assigned to national org and creates a new incoming text message linked to that client" do
@@ -132,6 +133,7 @@ RSpec.describe TwilioWebhooksController do
         context "with an attachment" do
           let!(:client) { create :client }
           let!(:intake) { create :intake, client: client, sms_phone_number: "+15005550006" }
+          let(:body) { "" }
           let(:parsed_attachments) do
             [{content_type: "image/jpeg", filename: "some-type-of-image.jpg", body: "image file contents"}]
           end
@@ -199,7 +201,7 @@ RSpec.describe TwilioWebhooksController do
       end
     end
   end
-  
+
   describe "#update_outbound_call" do
     let!(:outbound_call) { create :outbound_call, twilio_sid: "CA9c1f259a39bcf0e773bbbb2c4c736c9f" }
     let(:params) do

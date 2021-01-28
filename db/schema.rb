@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_26_212403) do
+ActiveRecord::Schema.define(version: 2021_01_28_170810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -230,7 +230,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_212403) do
   end
 
   create_table "incoming_text_messages", force: :cascade do |t|
-    t.string "body", null: false
+    t.string "body"
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.string "from_phone_number", null: false
@@ -254,6 +254,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_212403) do
     t.bigint "client_id"
     t.datetime "completed_at"
     t.boolean "completed_intake_sent_to_zendesk"
+    t.datetime "completed_yes_no_questions_at"
     t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
     t.integer "demographic_disability", default: 0, null: false
@@ -614,6 +615,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_212403) do
     t.string "state", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id", null: false
+    t.index ["state", "vita_partner_id"], name: "index_vita_partner_states_on_state_and_vita_partner_id", unique: true
     t.index ["vita_partner_id"], name: "index_vita_partner_states_on_vita_partner_id"
   end
 
