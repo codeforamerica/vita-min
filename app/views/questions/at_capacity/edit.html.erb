@@ -16,14 +16,10 @@
             <p>
               <%=t("views.questions.at_capacity.body") %>
             </p>
-            <h2 class="h3">
-              <%=t("views.questions.at_capacity.alternative_html") %>
-            </h2>
           </div>
 
           <div class="buttons--vertical-stack">
             <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
-              <%= link_to t("views.questions.at_capacity.file_with_diy"), diy_file_yourself_path, class: "button button--primary button--wide text--centered spacing-above-60" %>
               <button class="button button--wide" type="submit">
                 <%=t("views.questions.at_capacity.file_with_help") %>
               </button>
