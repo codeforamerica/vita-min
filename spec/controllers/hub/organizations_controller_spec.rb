@@ -61,7 +61,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
       it "loads all organizations" do
         get :index
 
-        expect(assigns(:organizations)).to eq organizations
+        expect(assigns(:organizations)).to include(*organizations)
       end
     end
   end
