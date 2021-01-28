@@ -3,7 +3,7 @@ version: 2.1
 
 executors:
   rails_executor:
-    working_directory: ~/vita-min
+    working_directory: /mnt/ramdisk
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
@@ -14,39 +14,78 @@ executors:
           POSTGRES_USER: root
           POSTGRES_DB: circle-test_test
 commands:
-  install_app_dependencies:
-    description: "Install dependencies for specs"
+  install_system_dependencies:
+    description: "Install system dependencies"
     steps:
       - run:
-          name: install dependencies
+          name: install system dependencies
           command: |
             sudo apt-get update && \
-            sudo apt-get install -y pdftk ghostscript && \
-            gem install bundler:2.2.5 && \
-            bundle install --jobs=4 --retry=3 --path vendor/bundle && \
-            npm install yarn && \
-            yarn install
+            sudo apt-get install -y pdftk ghostscript
+  install_js_dependencies:
+    description: "Install JS dependencies"
+    steps:
+      - restore_cache:
+          key: yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: yarn install --frozen-lockfile
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - /mnt/ramdisk/node_modules
+            - ~/.npm
+  install_ruby_dependencies:
+    description: "Install Ruby dependencies"
+    steps:
+      - restore_cache:
+          key: bundle-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: install bundler & ruby dependencies
+          command: |
+            gem install bundler:2.2.5 --no-document && \
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          key: bundle-{{ checksum "Gemfile.lock" }}
+          paths: [/mnt/ramdisk/vendor/bundle]
+  setup_test_db:
+    description: "Setup test database"
+    steps:
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - restore_cache:
+          key: schema-{{ checksum "db/schema.rb" }}
+      - run: bundle exec rake db:create db:schema:load db:schema:cache:dump
+      - save_cache:
+          key: schema-{{ checksum "db/schema.rb" }}
+          paths: [tmp/test_db_schema.rb]
 jobs:
-  run_tests:
+  run_js_tests:
     executor: rails_executor
     steps:
       - checkout
-      - install_app_dependencies
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - install_js_dependencies
       - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
+      - run:
+          command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
+      - store_test_results:
+          path: ~/test-results
+  run_ruby_tests:
+    executor: rails_executor
+    parallelism: 4
+    steps:
+      - checkout
+      - install_js_dependencies
+      - install_system_dependencies
+      - install_ruby_dependencies
+      - setup_test_db
       - run: |
           RAILS_CACHE_CLASSES=1 bundle exec rspec \
               --format RspecJunitFormatter \
               --out ~/test-results/rspec/rspec.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - run: yarn add --dev jest-junit
-      - run:
-          command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
       - store_test_results:
           path: ~/test-results
   deploy_to_aptible--demo:
@@ -69,29 +108,41 @@ workflows:
   version: 2
   build:
     jobs:
-      - run_tests:
+      - run_js_tests:
+          filters:
+            branches:
+              ignore: /^main$/
+      - run_ruby_tests:
           filters:
             branches:
               ignore: /^main$/
   build-and-deploy:
     jobs:
-      - run_tests:
+      - run_js_tests:
+          filters:
+            branches:
+              only: main
+      - run_ruby_tests:
           filters:
             branches:
               only: main
       - deploy_to_aptible--demo:
-          requires: [run_tests]
+          requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: main
   deploy-release-branch-to-production:
     jobs:
-      - run_tests:
+      - run_js_tests:
+          filters:
+            branches:
+              only: release
+      - run_ruby_tests:
           filters:
             branches:
               only: release
       - deploy_to_aptible--production:
-          requires: [run_tests]
+          requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: release
