@@ -17,7 +17,7 @@ module Hub
     private
 
     def load_and_authorize_unlinked_clients
-      @vita_partner = VitaPartner.unlinked_clients_org
+      @vita_partner = VitaPartner.client_support_org
       authorize!(:manage, @vita_partner)
     end
   end

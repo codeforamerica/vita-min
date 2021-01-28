@@ -28,7 +28,7 @@ class TwilioWebhooksController < ActionController::Base
     unless client.present?
       client = Client.create!(
         intake: Intake.create!(phone_number: phone_number, sms_phone_number: phone_number, visitor_id: SecureRandom.hex(26)),
-        vita_partner: VitaPartner.unlinked_clients_org,
+        vita_partner: VitaPartner.client_support_org,
       )
     end
 

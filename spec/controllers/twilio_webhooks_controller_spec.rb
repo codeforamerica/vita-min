@@ -109,7 +109,7 @@ RSpec.describe TwilioWebhooksController do
           let!(:gyr_org) { create :organization, name: "GYR National Organization" }
 
           before do
-            allow(VitaPartner).to receive(:unlinked_clients_org).and_return(gyr_org)
+            allow(VitaPartner).to receive(:client_support_org).and_return(gyr_org)
           end
 
           it "creates a new client assigned to national org and creates a new incoming text message linked to that client" do

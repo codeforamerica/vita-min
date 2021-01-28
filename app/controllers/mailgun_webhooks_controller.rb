@@ -10,7 +10,7 @@ class MailgunWebhooksController < ActionController::Base
     unless client.present?
       client = Client.create!(
         intake: Intake.create!(email_address: sender_email, visitor_id: SecureRandom.hex(26)),
-        vita_partner: VitaPartner.unlinked_clients_org,
+        vita_partner: VitaPartner.client_support_org,
       )
     end
     contact_record = IncomingEmail.create!(

@@ -250,12 +250,12 @@ describe VitaPartner do
     end
   end
 
-  context ".unlinked_clients_org" do
+  context ".client_support_org" do
     context "national org already exists" do
       let!(:national_org) { create :organization, name: "GYR National Organization" }
 
       it "returns the org" do
-        expect(described_class.unlinked_clients_org).to eq national_org
+        expect(described_class.client_support_org).to eq national_org
       end
     end
 
@@ -263,7 +263,7 @@ describe VitaPartner do
       it "creates and returns the org" do
         org = nil
         expect {
-          org = described_class.unlinked_clients_org
+          org = described_class.client_support_org
         }.to change(VitaPartner, :count).by(1)
         expect(org.name).to eq "GYR National Organization"
       end

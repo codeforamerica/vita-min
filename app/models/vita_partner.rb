@@ -65,7 +65,7 @@ class VitaPartner < ApplicationRecord
     parent_organization_id.present?
   end
 
-  def self.unlinked_clients_org
+  def self.client_support_org
     # When a person messages us, but their contact info does not match any Client, link them to this org.
 
     # Use upsert, which is atomic, rather than find_or_create, which is not.
