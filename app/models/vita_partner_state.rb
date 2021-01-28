@@ -43,7 +43,6 @@ class VitaPartnerState < ApplicationRecord
       end
       routing_ranges << range
     end
-
     routing_ranges
   end
 
