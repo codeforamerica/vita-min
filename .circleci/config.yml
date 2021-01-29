@@ -122,7 +122,8 @@ jobs:
       - store_test_results:
           path: ~/test-results
   mark_ruby_tests_success:
-    executor: rails_executor
+    docker:
+      - image: circleci/ruby:2.6.5-node-browsers
     steps:
       - checkout
       - skip_if_already_passed:
