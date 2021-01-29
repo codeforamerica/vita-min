@@ -42,15 +42,18 @@ commands:
     description: "Install Ruby dependencies"
     steps:
       - restore_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}
       - run:
           name: install bundler & ruby dependencies
           command: |
             gem install bundler:2.2.5 --no-document && \
             bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run:
+          name: precompile gems with bootsnap
+          command: bundle exec bootsnap precompile --gemfile
       - save_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
-          paths: [/mnt/ramdisk/vendor/bundle]
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}
+          paths: [/mnt/ramdisk/vendor/bundle, tmp/cache/bootsnap-load-path-cache, tmp/cache/bootsnap-compile-cache]
   setup_test_db:
     description: "Setup test database"
     steps:
