@@ -58,11 +58,40 @@ commands:
       - save_cache:
           key: schema-{{ checksum "db/schema.rb" }}
           paths: [tmp/test_db_schema.rb]
+  skip_if_already_passed:
+    description: Compute git tree ID, then check if the tree ID already passed this build step in another Circle job. Skip the job if so.
+    parameters:
+      step_name:
+        type: string
+    steps:
+      - run:
+          command: git cat-file -p $CIRCLE_SHA1 | grep tree | awk '{ print $2 }' > .git/tree-id
+      - restore_cache:
+          key: already-passed-v2-<<parameters.step_name>>-{{ checksum ".git/tree-id" }}
+      - run:
+          command: |
+            FILE=~/.cache/already-passed/<<parameters.step_name>>
+            if [ -f "$FILE" ] ; then circleci step halt ; fi
+  mark_already_passed:
+    description: If this build job passed, make a note & upload to cache indexed by git tree ID. git tree is a hash of all files in this git commit. Pair with skip_if_already_passed.
+    parameters:
+      step_name:
+        type: string
+    steps:
+      - run:
+          command: mkdir -p ~/.cache/already-passed && touch ~/.cache/already-passed/<<parameters.step_name>>
+      - save_cache:
+          name: Mark job passed for <<parameters.step_name>> for this git tree
+          key: already-passed-v2-<<parameters.step_name>>-{{ checksum ".git/tree-id" }}
+          paths:
+            - ~/.cache/already-passed/<<parameters.step_name>>
 jobs:
   run_js_tests:
     executor: rails_executor
     steps:
       - checkout
+      - skip_if_already_passed:
+          step_name: run_js_tests
       - install_js_dependencies
       - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
       - run:
@@ -71,11 +100,15 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
       - store_test_results:
           path: ~/test-results
+      - mark_already_passed:
+          step_name: run_js_tests
   run_ruby_tests:
     executor: rails_executor
     parallelism: 4
     steps:
       - checkout
+      - skip_if_already_passed:
+          step_name: run_ruby_tests
       - install_js_dependencies
       - install_system_dependencies
       - install_ruby_dependencies
@@ -88,6 +121,14 @@ jobs:
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - store_test_results:
           path: ~/test-results
+  mark_ruby_tests_success:
+    executor: rails_executor
+    steps:
+      - checkout
+      - skip_if_already_passed:
+          step_name: run_ruby_tests
+      - mark_already_passed:
+          step_name: run_ruby_tests
   deploy_to_aptible--demo:
     executor: rails_executor
     steps:
@@ -110,6 +151,8 @@ workflows:
     jobs:
       - run_js_tests
       - run_ruby_tests
+      - mark_ruby_tests_success:
+          requires: [run_ruby_tests]
       - deploy_to_aptible--demo:
           requires: [run_js_tests, run_ruby_tests]
           filters:
