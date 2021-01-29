@@ -1,0 +1,21 @@
+<% @title = @organization.name %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="hub-form">
+    <%= link_to t("general.all_organizations"), hub_organizations_path %>
+
+    <h1 class="form-card__title">
+      <%= @title %>
+    </h1>
+
+    <h2><%= t("general.sites") %></h2>
+
+    <% if @organization.child_sites.exists? %>
+      <% @organization.child_sites.map do |site| %>
+        <h3><%= site.name %></h3>
+      <% end %>
+    <% else %>
+      <%= t("hub.organizations.no_sites") %>
+    <% end %>
+  </div>
+<% end %>

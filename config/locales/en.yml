@@ -244,8 +244,7 @@ en:
     organizations:
       new:
         title: "New Organization"
-      edit:
-        no_sites: "No sites"
+      no_sites: "No sites"
       listing:
         site_count:
           one: "%{count} site"

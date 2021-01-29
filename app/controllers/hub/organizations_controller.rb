@@ -2,7 +2,6 @@ module Hub
   class OrganizationsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    before_action :require_admin, only: [:index]
     load_and_authorize_resource :vita_partner, parent: false
 
     layout "admin"
@@ -21,8 +20,13 @@ module Hub
       end
     end
 
+    def show
+      @organization = VitaPartner.organizations.find(params[:id])
+      @sites = @organization.child_sites
+    end
+
     def index
-      @coalitions = Coalition.includes(:organizations)
+      @coalitions = Coalition.accessible_by(current_ability).includes(:organizations)
       @organizations = @vita_partners.organizations
       @independent_organizations = @vita_partners.organizations.where(coalition: nil)
     end
@@ -43,10 +47,6 @@ module Hub
     end
 
     private
-
-    def require_admin
-      render nothing: true, status: 403 if current_user.role_type != AdminRole::TYPE
-    end
 
     def vita_partner_params
       params.require(:vita_partner).permit(:name, :coalition_id)

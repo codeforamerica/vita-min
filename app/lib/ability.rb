@@ -37,25 +37,25 @@ class Ability
       TaxReturn,
     ], client: { vita_partner: accessible_groups }
 
-    # Limit the types of new users one can create:
-
-    # Coalition leads can create coalition leads, organization leads, site coordinators, and team members in their coalition
     if user.role_type == CoalitionLeadRole::TYPE
+      can :read, Coalition, id: user.role.coalition_id
+
+      # Coalition leads can create coalition leads, organization leads, site coordinators, and team members in their coalition
       can :manage, CoalitionLeadRole, coalition: user.role.coalition
       can :manage, OrganizationLeadRole, organization: { coalition_id: user.role.coalition_id }
       can :manage, SiteCoordinatorRole, site: { parent_organization: { coalition: user.role.coalition } }
       can :manage, TeamMemberRole, site: { parent_organization: { coalition: user.role.coalition } }
     end
 
-    # Organization leads can create organization leads, site coordinators, and team members in their org
     if user.role_type == OrganizationLeadRole::TYPE
+      # Organization leads can create organization leads, site coordinators, and team members in their org
       can :manage, OrganizationLeadRole, organization: user.role.organization
       can :manage, SiteCoordinatorRole, site: { parent_organization: user.role.organization }
       can :manage, TeamMemberRole, site: { parent_organization: user.role.organization }
     end
 
-    # Site coordinators can create site coordinators and team members in their site
     if user.role_type == SiteCoordinatorRole::TYPE
+      # Site coordinators can create site coordinators and team members in their site
       can :manage, SiteCoordinatorRole, site: user.role.site
       can :manage, TeamMemberRole, site: user.role.site
     end

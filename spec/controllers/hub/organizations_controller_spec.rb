@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe Hub::OrganizationsController, type: :controller do
   let(:parent_coalition) { create :coalition }
-  let(:admin_user) { create :admin_user }
+  let(:user) { create :admin_user }
 
   describe "#new" do
     it_behaves_like :a_get_action_for_admins_only, action: :new
 
     context "as an authenticated admin user" do
       let!(:coalitions) { create_list :coalition, 2 }
-      before { sign_in admin_user }
+      before { sign_in user }
 
       it "includes coalitions" do
         get :new
@@ -29,10 +29,10 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
       }
     end
 
-    it_behaves_like :a_post_action_for_admins_only, action: :create
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
     context "as a logged in admin user" do
-      before { sign_in admin_user }
+      before { sign_in user }
 
       it "saves a new organization" do
         expect {
@@ -48,20 +48,79 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     end
   end
 
-  describe "#index" do
-    it_behaves_like :a_get_action_for_admins_only, action: :index
+  describe "#show" do
+    let(:organization) { create :organization }
+    let!(:site) { create :site, parent_organization: organization }
+    let!(:second_site) { create :site, parent_organization: organization }
+    let(:params) do
+      { id: organization.id }
+    end
 
-    context "as a logged in admin user" do
-      before { sign_in admin_user }
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
-      let(:organizations) do
-        create_list :organization, 5
+    context "as an authenticated organization lead" do
+      let(:user) { create :organization_lead_user, organization: organization }
+      before { sign_in user }
+      it "shows the sites in my organization" do
+        get :show, params: params
+
+        expect(response.status).to eq 200
+        expect(assigns(:sites)).to match_array [site, second_site]
       end
 
-      it "loads all organizations" do
-        get :index
 
-        expect(assigns(:organizations)).to include(*organizations)
+      context "with a site id" do
+        let(:params) { { id: site.id } }
+
+        it "is not found" do
+          expect do
+            get :show, params: params
+          end.to raise_error(ActiveRecord::RecordNotFound) # in deployment configs, this would be a 404
+        end
+      end
+    end
+  end
+
+
+  describe "#index" do
+    let(:coalition) { create :coalition}
+    let!(:external_coalition) { create :coalition }
+    let!(:external_organization) { create :organization, coalition: external_coalition }
+    let!(:organization) { create :organization, coalition: coalition }
+    let!(:second_organization) { create :organization, coalition: coalition }
+    let!(:site) { create :site, parent_organization: organization }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :new
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      context "as a coalition lead user" do
+        let(:user) { create :coalition_lead_user, coalition: coalition }
+
+        render_views
+        it "shows my coalition and child organizations but no link to add an org" do
+          get :index
+
+          expect(response).to be_ok
+          expect(assigns(:coalitions)).to match_array [coalition]
+          expect(assigns(:organizations)).to match_array [organization, second_organization]
+          expect(response.body).not_to include new_hub_organization_path
+        end
+      end
+
+      context "as an admin user " do
+        let(:user) { create :admin_user }
+
+        render_views
+        it "shows all coalitions and organizations, with a link to add a new org" do
+          get :index
+
+          expect(response).to be_ok
+          expect(assigns(:coalitions)).to match_array [coalition, external_coalition]
+          expect(assigns(:organizations)).to match_array VitaPartner.organizations.all
+          expect(response.body).to include new_hub_organization_path
+        end
       end
     end
   end
@@ -78,7 +137,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
       render_views
 
       before do
-        sign_in admin_user
+        sign_in user
 
         create :site, parent_organization: organization, name: "Salmon Site"
         create :site, parent_organization: organization, name: "Sea Lion Site"
@@ -110,7 +169,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     it_behaves_like :a_post_action_for_admins_only, action: :update
 
     context "as a logged in admin" do
-      before { sign_in admin_user }
+      before { sign_in user }
 
       it "updates the name and coalition" do
         post :update, params: params

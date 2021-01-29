@@ -8,14 +8,15 @@ RSpec.describe Hub::UsersController do
       render_views
       let(:accepted_invite_time) { DateTime.new(2015, 2, 11) }
       let(:created_at_time) { DateTime.new(2015, 1, 10) }
+      let(:organization) { create :organization, name: "Orange organization" }
       let(:user) do
         create(
-          :user,
+          :organization_lead_user,
           name: "Adam Avocado",
           created_at: created_at_time,
           invitation_accepted_at: accepted_invite_time,
           timezone: "America/New_York",
-          role: create(:organization_lead_role, organization: (create :organization, name: "Orange organization"))
+          organization: organization
         )
       end
 
@@ -33,6 +34,7 @@ RSpec.describe Hub::UsersController do
         expect(response.body).to include invitations_path
         expect(response.body).to include hub_clients_path
         expect(response.body).to include hub_users_path
+        expect(response.body).to include hub_organization_path(id: organization)
       end
 
       context "with a datetime for when the user accepted an invitation" do
@@ -58,11 +60,28 @@ RSpec.describe Hub::UsersController do
       context "as a team member" do
         let(:user) { create(:team_member_user) }
 
-        it "does not show invitations navigation links" do
+        it "shows links for clients and users, but no invitations or organizations links" do
           get :profile
 
           expect(response).to be_ok
+          expect(response.body).to include hub_clients_path
+          expect(response.body).to include hub_users_path
+          expect(response.body).not_to include hub_organizations_path
           expect(response.body).not_to include invitations_path
+        end
+      end
+
+      context "as a coalition lead user" do
+        let(:user) { create :coalition_lead_user }
+
+        it "shows links for invitaionts, clients, users, and organizations" do
+          get :profile
+
+          expect(response).to be_ok
+          expect(response.body).to include hub_clients_path
+          expect(response.body).to include hub_users_path
+          expect(response.body).to include hub_organizations_path
+          expect(response.body).to include invitations_path
         end
       end
     end

@@ -246,8 +246,7 @@ es:
     organizations:
       new:
         title: "Nueva Organización"
-      edit:
-        no_sites: "Ningunos sitios"
+      no_sites: "Ningunos sitios"
       index:
         independent_organizations: "Organizaciones Independientes"
         no_organizations: "Sin organizaciones"
