@@ -57,13 +57,11 @@
           <% end %>
         </li>
 
-        <% unless Rails.env.production? %>
-          <li>
-            <%= link_to new_user_session_path do %>
-              <%= t("views.shared.footer.volunteer_sign_in") %>
-            <% end %>
-          </li>
-        <% end %>
+        <li>
+          <%= link_to new_user_session_path do %>
+            <%= t("views.shared.footer.volunteer_sign_in") %>
+          <% end %>
+        </li>
       </ul>
 
     </div>
