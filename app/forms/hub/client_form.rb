@@ -26,7 +26,7 @@ module Hub
 
     validates :sms_phone_number, phone: true, if: -> { sms_phone_number.present? }
     validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
-    validates :email_address, presence: true, allow_blank: false, 'valid_email_2/email': true
+    validates :email_address, 'valid_email_2/email': true
     validates :preferred_interview_language, presence: true, allow_blank: false
     validate :at_least_one_contact_method
 

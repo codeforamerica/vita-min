@@ -151,8 +151,8 @@ RSpec.describe Hub::ClientForm do
             form.valid?
           end
 
-          it "adds an error to the attribute" do
-            expect(form.errors[:email_address]).to eq ["Can't be blank."]
+          it "does not add an email error" do
+            expect(form.errors).not_to include(:email_address)
           end
         end
 
