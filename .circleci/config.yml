@@ -61,7 +61,7 @@ commands:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - restore_cache:
           key: schema-{{ checksum "db/schema.rb" }}
-      - run: bundle exec rake db:create db:schema:load db:schema:cache:dump
+      - run: bundle exec spring rake db:create db:schema:load db:schema:cache:dump
       - save_cache:
           key: schema-{{ checksum "db/schema.rb" }}
           paths: [tmp/test_db_schema.rb]
@@ -88,7 +88,7 @@ jobs:
       - install_ruby_dependencies
       - setup_test_db
       - run: |
-          RAILS_CACHE_CLASSES=1 bundle exec rspec \
+          RAILS_CACHE_CLASSES=1 bundle exec spring rspec \
               --format RspecJunitFormatter \
               --out ~/test-results/rspec/rspec.xml \
               --format progress \
