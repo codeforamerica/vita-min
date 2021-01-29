@@ -192,6 +192,23 @@ describe Ability do
       end
     end
 
+    context "Permissions regarding Coalitions" do
+      context "as a coalition lead" do
+        let(:coalition) { create :coalition }
+        let(:user) { create :coalition_lead_user, coalition: coalition }
+        let(:inaccessible_coalition) { create :coalition }
+
+        it "allows read access on your coalition" do
+          expect(subject.can?(:read, Coalition)).to eq true
+          expect(subject.can?(:read, coalition)).to eq true
+        end
+
+        it "does not allow read access on other coalitions" do
+          expect(subject.can?(:read, inaccessible_coalition)).to eq false
+        end
+      end
+    end
+
     context "Permissions regarding Users" do
       context "Managing users" do
         shared_examples :user_cannot_manage_other_users_in_their_site do

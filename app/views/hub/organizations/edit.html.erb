@@ -23,7 +23,7 @@
           <h3><%= link_to site.name, edit_hub_site_path(parent_organization_id: @organization, id: site) %></h3>
         <% end %>
       <% else %>
-        <%= t(".no_sites") %>
+        <%= t("hub.organizations.no_sites") %>
       <% end %>
     <% end %>
   </div>

@@ -47,10 +47,16 @@
         <% end %>
       </li>
 
-      <% if can? :manage, VitaPartner %>
+      <% if can? :read, Coalition %>
         <li class="user-action-link">
           <%= link_to hub_organizations_path, class: "button button--small" do %>
             <%= t("general.organizations") %>
+          <% end %>
+        </li>
+      <% elsif current_user.role_type == OrganizationLeadRole::TYPE %>
+        <li class="user-action-link">
+          <%= link_to hub_organization_path(id: current_user.role.organization), class: "button button--small" do %>
+            <%= t("general.organization") %>
           <% end %>
         </li>
       <% end %>

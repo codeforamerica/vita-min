@@ -7,7 +7,9 @@ module Hub
 
     layout "admin"
 
-    def profile; end
+    def profile
+      puts "Can read coalition?? #{can?(:read, Coalition)}"
+    end
 
     def index; end
 
