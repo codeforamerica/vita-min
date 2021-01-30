@@ -150,11 +150,26 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         expect(response.body).to include "Sea Lion Site"
         expect(response.body).to include new_hub_site_path(parent_organization_id: organization)
       end
+
+      context "with SourceParameters for this org" do
+        before do
+          create(:source_parameter, code: "shortlink1", vita_partner: organization)
+          create(:source_parameter, code: "shortlink2", vita_partner: organization)
+        end
+
+        it "displays the link names" do
+          get :edit, params: params
+
+          expect(response.body).to include("shortlink1")
+          expect(response.body).to include("shortlink2")
+        end
+      end
     end
   end
 
   describe "#update" do
     let(:organization) { create :organization, coalition: parent_coalition }
+    let(:source_parameter) { create(:source_parameter, vita_partner: organization, code: "shortlink") }
     let(:new_coalition) { create :coalition, name: "Carrot Coalition" }
     let(:params) do
       {
@@ -162,6 +177,16 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         vita_partner: {
           coalition_id: new_coalition.id,
           name: "Oregano Organization",
+          source_parameters_attributes: {
+            "0": {
+              id: source_parameter.id.to_s,
+              _destroy: true,
+              code: "shortlink",
+            },
+            "1": {
+              code: "newshortlink",
+            }
+          }
         }
       }
     end
@@ -171,13 +196,15 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     context "as a logged in admin" do
       before { sign_in user }
 
-      it "updates the name and coalition" do
+      it "updates the name and coalition and source parameters" do
         post :update, params: params
 
         organization.reload
         expect(organization.name).to eq "Oregano Organization"
         expect(organization.coalition).to eq new_coalition
-        expect(response).to redirect_to(hub_organizations_path)
+        expect(response).to redirect_to(edit_hub_organization_path(id: organization.id))
+        expect(SourceParameter.find_by(code: "shortlink")).to be_nil
+        expect(organization.reload.source_parameters.pluck(:code)).to eq(["newshortlink"])
       end
     end
   end

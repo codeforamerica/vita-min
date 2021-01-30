@@ -255,6 +255,8 @@ es:
     organizations:
       new:
         title: "Nueva Organización"
+      edit:
+        source_parameters_heading: "Enlaces únicos"
       no_sites: "Ningunos sitios"
       index:
         independent_organizations: "Organizaciones Independientes"
@@ -585,6 +587,8 @@ es:
     email_address: "Dirección de correo electrónico"
     greeter: "Saludador"
     team_member: "Miembro del equipo"
+    new: "Nuevo"
+    unique_link: "Enlace único"
     delete: "Eliminar"
   helpers:
     birth_date_helper:

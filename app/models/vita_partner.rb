@@ -45,6 +45,7 @@ class VitaPartner < ApplicationRecord
   default_scope { includes(:child_sites) }
 
   after_initialize :defaults
+  accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: lambda { |attributes| attributes['code'].blank? }
 
   def at_capacity?
     actionable_intakes_this_week.count >= weekly_capacity_limit

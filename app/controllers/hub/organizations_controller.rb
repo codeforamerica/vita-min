@@ -38,7 +38,7 @@ module Hub
 
     def update
       if @vita_partner.update(vita_partner_params)
-        redirect_to hub_organizations_path
+        redirect_to edit_hub_organization_path(id: @vita_partner.id)
       else
         @coalitions = Coalition.all
         @organization = @vita_partner
@@ -49,7 +49,7 @@ module Hub
     private
 
     def vita_partner_params
-      params.require(:vita_partner).permit(:name, :coalition_id)
+      params.require(:vita_partner).permit(:name, :coalition_id, source_parameters_attributes: [:_destroy, :id, :code])
     end
   end
 end
