@@ -125,13 +125,14 @@ workflows:
     jobs:
       - run_js_tests
       - run_ruby_tests
+      - run_i18n_tests
       - deploy_to_aptible--demo:
-          requires: [run_js_tests, run_ruby_tests]
+          requires: [run_js_tests, run_ruby_tests, run_i18n_tests]
           filters:
             branches:
               only: main
       - deploy_to_aptible--production:
-          requires: [run_js_tests, run_ruby_tests]
+          requires: [run_js_tests, run_ruby_tests, run_i18n_tests]
           filters:
             branches:
               only: release
