@@ -1,8 +1,16 @@
 <% content_for :page_title, @user.name %>
 <% content_for :card do %>
   <div class="hub-form">
-    <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+
       <h1><%= @user.name %></h1>
+
+    <%= link_to t("general.delete"), hub_user_path(id: @user), method: :delete, class: "button button--danger", data: {confirm: t(".delete_confirmation", name: @user.name)} %>
+
+    <% if @user.access_locked? %>
+      <%= link_to t(".unlock_account"), unlock_hub_user_path(id: @user), method: :patch, class: "button button--danger", data: {confirm: t(".unlock_confirmation", name: @user.name )} %>
+    <% end %>
+
+    <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
       <p>
         <strong><%= t("general.email") %>:</strong> <%= @user.email %>
       </p>

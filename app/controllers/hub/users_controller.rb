@@ -13,6 +13,24 @@ module Hub
 
     def edit; end
 
+    def destroy
+      if @user.assigned_tax_returns.exists?
+        redirect_to edit_hub_user_path(id: @user), alert: I18n.t("hub.users.destroy.user_has_assignments", name: @user.name, client_id: @user.assigned_tax_returns.first.client_id)
+      else
+        # For now, raise an error if more things are linked to the user. In the future, we probably want to "suspend" or "archive".
+        @user.role.destroy!
+        @user.destroy!
+        redirect_to hub_users_path, notice: I18n.t("hub.users.destroy.success", name: @user.name)
+      end
+    end
+
+    def unlock
+      authorize!(:update, @user)
+      @user.unlock_access! if @user.access_locked?
+      flash[:notice] = I18n.t("hub.users.unlock.account_unlocked", name: @user.name)
+      redirect_to(hub_users_path)
+    end
+
     def update
       update_params = user_params
       old_role = nil

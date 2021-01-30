@@ -8,13 +8,22 @@ es:
     users:
       edit:
         is_admin_label: Admin?
+        unlock_account: "Desbloquear cuenta"
+        unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
+        delete_confirmation: "¿Desea eliminar la cuenta de %{name}?"
       index:
         title: Usuarios
         needs_to_accept_invite: "Necesita aceptar la invitación"
+        locked: "Bloqueada"
       profile:
         clients_link: Clientes
         users_link: Usuarios
         start_date: "Fecha de inicio"
+      unlock:
+        account_unlocked: "La cuenta de %{name} se ha desbloqueado"
+      destroy:
+        user_has_assignments: "No se puede borrar la cuenta de %{name}. %{name} todavía está asignado a una declaración de impuestos del cliente #%{client_id}"
+        success: "La cuenta de %{name} se ha eliminado"
     anonymized_intake_csv_extracts:
       index:
         filename: Nombre de archivo
@@ -580,6 +589,7 @@ es:
     team_member: "Miembro del equipo"
     new: "Nuevo"
     unique_link: "Enlace único"
+    delete: "Eliminar"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

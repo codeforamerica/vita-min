@@ -123,6 +123,18 @@ RSpec.describe Hub::UsersController do
         end
       end
 
+      context "with a user whose account is locked" do
+        let!(:locked_user) { create :user }
+        before { locked_user.lock_access! }
+
+        it "shows that the account is locked" do
+          get :index
+
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css("#user-#{locked_user.id}")).to have_text("Locked")
+        end
+      end
+
       context "with a team member user" do
         let!(:team_member) { create :team_member_user }
         let!(:other_team_member) { create :team_member_user, site: team_member.role.site }
@@ -173,10 +185,24 @@ RSpec.describe Hub::UsersController do
         sign_in create(:admin_user)
       end
 
-      it "returns 200 OK" do
+      render_views
+
+      it "renders a page successfully and shows a delete button" do
         get :edit, params: params
 
         expect(response).to be_ok
+        expect(response.body).to have_text "Delete"
+      end
+
+      context "editing a locked user" do
+        before { user.lock_access! }
+
+        render_views
+        it "shows a button to unlock the user's account" do
+          get :edit, params: params
+
+          expect(response.body).to have_text "Unlock account"
+        end
       end
     end
 
@@ -335,6 +361,75 @@ RSpec.describe Hub::UsersController do
           put :resend_invitation, params: { user_id: invited_user.id }
           invited_user.reload
         }.not_to change(invited_user, :invitation_sent_at)
+      end
+    end
+  end
+
+  describe "#unlock" do
+    let(:user) { create :user }
+    let(:params) do
+      { id: user.id }
+    end
+
+    it_behaves_like :a_post_action_for_admins_only, action: :unlock
+
+    context "as an admin" do
+      before do
+        user.lock_access!
+        sign_in create(:admin_user)
+      end
+
+      it "unlocks the user and redirects to the user index page" do
+        patch :unlock, params: params
+
+        expect(user.reload.access_locked?).to eq false
+        expect(response).to redirect_to(hub_users_path)
+        expect(flash[:notice]).to eq "Unlocked #{user.name}'s account"
+      end
+    end
+  end
+
+  describe "#destroy" do
+    let!(:user) { create :team_member_user }
+    let(:params) do
+      { id: user.id }
+    end
+
+    it_behaves_like :a_post_action_for_admins_only, action: :destroy
+
+    context "as an authenticated admin user" do
+      before { sign_in create(:admin_user) }
+
+      it "deletes the user and shows a confirmation message" do
+        expect do
+          delete :destroy, params: params
+        end.to change(User, :count).by(-1).and(change(TeamMemberRole, :count).by(-1))
+
+        expect(flash[:notice]).to eq "Deleted #{user.name}'s account"
+        expect(response).to redirect_to hub_users_path
+      end
+
+      context "when the user has sent a message to a client" do
+        before { create :outgoing_text_message, user: user }
+
+        it "raises an error" do
+          expect do
+            delete :destroy, params: params
+          end.to raise_error ActiveRecord::InvalidForeignKey
+        end
+      end
+
+      context "when the user is assigned to a tax return" do
+        let!(:tax_return) { create :tax_return, assigned_user: user }
+
+        it "adds a flash warning and redirects to the user's edit page" do
+          expect do
+            delete :destroy, params: params
+          end.not_to change(User, :count)
+
+          expect(flash[:alert]).to eq "Cannot delete #{user.name}'s account. #{user.name} is still assigned to a tax return on client ##{tax_return.client_id}"
+          expect(response).to redirect_to edit_hub_user_path(id: user)
+        end
       end
     end
   end
