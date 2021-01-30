@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_180337) do
+ActiveRecord::Schema.define(version: 2021_01_30_015122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_180337) do
   create_table "access_logs", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.string "event_type", null: false
     t.inet "ip_address"
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_agent", null: false

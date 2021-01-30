@@ -9,6 +9,7 @@ module Hub
         AccessLog.create(
           user: current_user,
           client: @client,
+          event_type: "read_ssn_itin",
           created_at: DateTime.now,
           ip_address: request.remote_ip,
           user_agent: request.user_agent,
