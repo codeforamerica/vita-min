@@ -13,7 +13,7 @@ executors:
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
-      - image: circleci/postgres:9.6-alpine-postgis
+      - image: circleci/postgres:13-postgis-ram
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: vita-min_test
@@ -83,7 +83,7 @@ jobs:
       - install_ruby_dependencies
       - setup_test_db
       - run: |
-          RAILS_CACHE_CLASSES=1 bundle exec spring rspec \
+          DISABLE_DATABASE_ENVIRONMENT_CHECK=1 RAILS_ENV=test RAILS_CACHE_CLASSES=1 bundle exec rspec \
               --format RspecJunitFormatter \
               --out ~/test-results/rspec/rspec.xml \
               --format progress \
