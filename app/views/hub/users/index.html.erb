@@ -28,7 +28,12 @@
               <%= user.name %>
             <% end %>
           </th>
-          <td class="index-table__cell"><%= user.email %></td>
+          <td class="index-table__cell">
+            <%= user.email %>
+            <% if user.access_locked? %>
+              <span class="locked label label--red"><%= t(".locked")  %></span>
+            <% end %>
+          </td>
           <td class="index-table__cell"><%= user_role(user) %></td>
           <td class="index-table__cell"><%= user_group(user) || t("general.none") %></td>
           <td class="index-table__cell"><%= t("general.affirmative") if user.invitation_sent_at.present? && user.invitation_accepted_at.nil? %></td>

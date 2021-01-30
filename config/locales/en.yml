@@ -8,13 +8,18 @@ en:
     users:
       edit:
         is_admin_label: Admin?
+        unlock_account: "Unlock account"
+        unlock_confirmation: "Unlock %{name}'s account? Have they confirmed their identity?"
       index:
         title: Users
         needs_to_accept_invite: "Needs to accept invite"
+        locked: "Locked"
       profile:
         clients_link: Clients
         users_link: Users
         start_date: "Start date"
+      unlock:
+        account_unlocked: Unlocked %{name}'s account
     anonymized_intake_csv_extracts:
       index:
         filename: Filename

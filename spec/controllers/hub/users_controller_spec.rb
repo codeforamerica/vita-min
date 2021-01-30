@@ -123,6 +123,18 @@ RSpec.describe Hub::UsersController do
         end
       end
 
+      context "with a user whose account is locked" do
+        let!(:locked_user) { create :user }
+        before { locked_user.lock_access! }
+
+        it "shows that the account is locked" do
+          get :index
+
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css("#user-#{locked_user.id}")).to have_text("Locked")
+        end
+      end
+
       context "with a team member user" do
         let!(:team_member) { create :team_member_user }
         let!(:other_team_member) { create :team_member_user, site: team_member.role.site }
@@ -177,6 +189,17 @@ RSpec.describe Hub::UsersController do
         get :edit, params: params
 
         expect(response).to be_ok
+      end
+
+      context "editing a locked user" do
+        before { user.lock_access! }
+
+        render_views
+        it "shows a button to unlock the user's account" do
+          get :edit, params: params
+
+          expect(response.body).to have_text "Unlock account"
+        end
       end
     end
 
@@ -335,6 +358,30 @@ RSpec.describe Hub::UsersController do
           put :resend_invitation, params: { user_id: invited_user.id }
           invited_user.reload
         }.not_to change(invited_user, :invitation_sent_at)
+      end
+    end
+  end
+
+  describe "#unlock" do
+    let(:user) { create :user }
+    let(:params) do
+      { id: user.id }
+    end
+
+    it_behaves_like :a_post_action_for_admins_only, action: :unlock
+
+    context "as an admin" do
+      before do
+        user.lock_access!
+        sign_in create(:admin_user)
+      end
+
+      it "unlocks the user and redirects to the user index page" do
+        patch :unlock, params: params
+
+        expect(user.reload.access_locked?).to eq false
+        expect(response).to redirect_to(hub_users_path)
+        expect(flash[:notice]).to eq "Unlocked #{user.name}'s account"
       end
     end
   end

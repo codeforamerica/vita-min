@@ -13,6 +13,13 @@ module Hub
 
     def edit; end
 
+    def unlock
+      authorize!(:update, @user)
+      @user.unlock_access! if @user.access_locked?
+      flash[:notice] = I18n.t("hub.users.unlock.account_unlocked", name: @user.name)
+      redirect_to(hub_users_path)
+    end
+
     def update
       update_params = user_params
       old_role = nil
