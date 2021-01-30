@@ -20,6 +20,7 @@ module Questions
         ClientMessagingService.send_system_text_message(current_intake.client, body)
       end
       Intake14446PdfJob.perform_later(current_intake, "Consent Form.pdf")
+      Intake13614CPdfJob.perform_later(current_intake, "Preliminary 13614-C.pdf")
     end
   end
 end

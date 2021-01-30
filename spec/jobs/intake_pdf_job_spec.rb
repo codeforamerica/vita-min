@@ -13,7 +13,7 @@ RSpec.describe IntakePdfJob, type: :job do
     it "creates a 13614-C PDF with the chosen filename" do
       subject.perform(1, "filename.pdf")
 
-      expect(intake_mock).to have_received(:create_intake_document).with("filename.pdf")
+      expect(intake_mock).to have_received(:update_or_create_13614c_document).with("filename.pdf")
     end
   end
 end
