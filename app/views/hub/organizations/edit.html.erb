@@ -1,7 +1,7 @@
 <% @title = @organization.name %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <div class="hub-form">
+  <section class="slab slab--padded">
     <%= link_to t("general.all_organizations"), hub_organizations_path %>
 
     <%= form_with model: @organization, url: hub_organization_path, method: :put, local: true, builder: VitaMinFormBuilder do |f| %>
@@ -9,7 +9,26 @@
         <%= @title %>
       </h1>
 
+      <% if @organization.errors.present? %>
+        <%= @organization.error_summary %>
+      <% end %>
+
       <%= render "hub/organizations/edit_organization", f: f %>
+
+      <h2><%= t(".source_parameters_heading") %></h2>
+
+      <% @organization.source_parameters.each do |source_parameter| %>
+        <%= f.fields_for :source_parameters, source_parameter, builder: VitaMinFormBuilder do |source_parameter_form| %>
+          <%= source_parameter_form.cfa_input_field :code, t("general.unique_link"), classes: ["form-width--short"] %>
+          <%= source_parameter_form.cfa_checkbox(:_destroy, t("general.remove")) %>
+        <% end %>
+      <% end %>
+
+      <h3><%= f.label t("general.new") %></h3>
+
+      <%= f.fields_for :source_parameters, @organization.source_parameters.build do |source_parameter_form| %>
+        <%= source_parameter_form.cfa_input_field :code, t("general.unique_link"), classes: ["form-width--short"] %>
+      <% end %>
 
       <button class="button button--primary button--wide" type="submit">
         <%= t("general.save") %>
@@ -26,5 +45,5 @@
         <%= t("hub.organizations.no_sites") %>
       <% end %>
     <% end %>
-  </div>
+  </section>
 <% end %>
