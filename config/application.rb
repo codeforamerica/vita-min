@@ -31,6 +31,7 @@ module VitaMin
     config.active_job.queue_adapter = :delayed_job
     config.action_view.automatically_disable_submit_tag = false
     config.middleware.insert_before Rack::Head, ValidateRequestParams
+    config.active_record.schema_format = :sql
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
