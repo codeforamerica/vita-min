@@ -74,10 +74,27 @@ RSpec.describe Hub::SitesController, type: :controller do
         expect(assigns(:organizations)).to include other_org
         expect(response).to be_ok
       end
+
+      context "with SourceParameters for this site" do
+        before do
+          create(:source_parameter, code: "shortlink1", vita_partner: site)
+          create(:source_parameter, code: "shortlink2", vita_partner: site)
+        end
+
+        render_views
+
+        it "displays the link names" do
+          get :edit, params: params
+
+          expect(response.body).to include("shortlink1")
+          expect(response.body).to include("shortlink2")
+        end
+      end
     end
   end
 
   describe "#update" do
+    let(:source_parameter) { create(:source_parameter, vita_partner: site, code: "shortlink") }
     let(:site) { create :site, parent_organization: organization }
     let(:other_organization) { create :organization }
     let(:params) do
@@ -85,7 +102,17 @@ RSpec.describe Hub::SitesController, type: :controller do
         id: site.id,
         vita_partner: {
           name: "Silly Site",
-          parent_organization_id: other_organization.id
+          parent_organization_id: other_organization.id,
+          source_parameters_attributes: {
+            "0": {
+              id: source_parameter.id.to_s,
+              _destroy: true,
+              code: "shortlink",
+            },
+            "1": {
+              code: "newshortlink",
+            }
+          }
         }
       }
     end
@@ -101,7 +128,8 @@ RSpec.describe Hub::SitesController, type: :controller do
         site.reload
         expect(site.name).to eq "Silly Site"
         expect(site.parent_organization).to eq other_organization
-        expect(response).to redirect_to edit_hub_organization_path(id: other_organization)
+        expect(site.source_parameters.pluck(:code)).to eq(["newshortlink"])
+        expect(response).to redirect_to edit_hub_site_path(id: site.id)
       end
     end
   end

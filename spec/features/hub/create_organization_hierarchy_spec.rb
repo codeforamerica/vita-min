@@ -39,12 +39,14 @@ RSpec.describe "create VITA organization hierarchy" do
       expect(page).to have_selector("h1", text: "Oregano Org")
       expect(page).to have_text("Llama Library")
 
-      # Update a site
+      # Update the site
       click_on "Llama Library"
       fill_in "Name", with: "Lima Bean Library"
       click_on "Save"
+      expect(page).to have_selector("h1", text: "Lima Bean Library")
 
-      expect(page).to have_selector("h1", text: "Oregano Org")
+      # Navigate to the org
+      click_on "Oregano Org"
       expect(page).to have_text("Lima Bean Library")
 
       # Go back to organization index

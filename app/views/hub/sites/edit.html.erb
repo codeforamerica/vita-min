@@ -1,5 +1,8 @@
 <% @title = @site.name %>
-<% content_for :page_title, @site %>
+<% content_for :page_title, @title %>
 <% content_for :card do %>
-  <%= render "form", url: hub_site_path(organization_id: @organization, id: @site), http_method: :put %>
+  <div class="hub-form">
+    <%= link_to(@site.parent_organization.name, edit_hub_organization_path(id: @site.parent_organization)) %>
+    <%= render "form", url: hub_site_path(organization_id: @organization, id: @site), http_method: :put %>
+  </div>
 <% end %>

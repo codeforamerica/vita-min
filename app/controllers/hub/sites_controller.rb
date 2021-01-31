@@ -23,12 +23,13 @@ module Hub
 
     def edit
       @site = @vita_partner
+      @show_unique_links = true
     end
 
     def update
       render :edit unless @vita_partner.update(vita_partner_params)
 
-      redirect_to edit_hub_organization_path(id: @vita_partner.parent_organization_id)
+      redirect_to edit_hub_site_path(id: @vita_partner.id)
     end
 
     private
@@ -38,7 +39,7 @@ module Hub
     end
 
     def vita_partner_params
-      params.require(:vita_partner).permit(:name, :parent_organization_id)
+      params.require(:vita_partner).permit(:name, :parent_organization_id, source_parameters_attributes: [:_destroy, :id, :code])
     end
   end
 end
