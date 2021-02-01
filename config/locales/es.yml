@@ -1064,101 +1064,121 @@ es:
       privacy_policy:
         changes:
           header: Cambios
-          info: Podríamos hacer cambios a la Política de Privacidad ocasionalmente. Revise esta página con frecuencia para consultar las actualizaciones, ya que el uso continuo de este sitio luego de que se modifique la Política de Privacidad indicará la aceptación de los cambios.
+          info: Podemos cambiar esta Política de Privacidad ocasionalmente. Consulte esta página con frecuencia para obtener actualizaciones, ya que el uso continuo de nuestros Servicios después de cualquier cambio en esta Política de privacidad indicará su aceptación de los cambios.
+        childrens_privacy:
+          description: No recopilamos información personal a sabiendas de menores de 16 años no emancipados.
+          header: Privacidad de menores
+        data_retention:
+          description: 'Conservaremos su información el tiempo necesario para: proporcionarle Servicios, llevar a cabo nuestra labor de manera consistente con este Aviso, o demostrar cumplimiento con las leyes y obligaciones legales. Eliminaremos su información dentro de 60 días a la finalización de los Servicios, a menos que la ley nos exija conservar su información. En ese caso, sólo conservaremos su información el tiempo que requiera dicha ley.'
+          header: Retención de Datos
+        description: Esta Política de privacidad describe cómo recopilamos, usamos, compartimos y protegemos su información personal. Al utilizar nuestros Servicios, usted acepta los términos de esta Política de privacidad. Este Aviso de privacidad se aplica independientemente del tipo de dispositivo que utilice para acceder a nuestros Servicios.
         effective_date:
-          header: Fecha efectiva
-          info: Esta versión de la política es efectiva desde el %{effective_date}
+          header: Fecha de vigencia
+          info: Esta versión de la política entra en vigor el %{effective_date}
         information_collection:
-          header: La información personal que recopilamos
-          service:
+          header: Información que recopilamos
+          how_we_collect:
             data:
-              '1099': Los formularios 1099
-              address: Su dirección
-              contact_info: Su información de contacto
-              dependent_cards: Las fotos de las tarjetas de Seguro Social de las personas dependientes, si corresponde
-              financial_info: Su información financiera, las fotos de su licencia de conducir
-              header: 'Recopilamos toda la información proporcionada a través del Sitio para dar el servicio, incluido y no limitado a:'
-              name: Su nombre
-              ssn: Su número de Seguro Social
-              w2: Los formularios W-2
-            header: Al utilizar el servicio
-            irs_forms:
-              consent: El consentimiento para el modelo de servicio de GetYourRefund
-              efile: El formulario 8879 de consentimiento para presentar una declaración electrónica (se enviará a través de DocuSign para que lo firme antes de presentar la declaración electrónica)
-              header: 'Solo se recopilará y conservará la información necesaria para preparar y realizar el servicio. Al usar el servicio, todos los formularios específicos del IRS se completarán con la información que proporcionó, incluyendo:'
-              intake: El formulario 13614-C de admisión para la VITA
-            retention_html: En este momento, conservamos indefinidamente todos los datos que nos proporciona cuando visita el sitio, a menos que usted pida específicamente que los eliminemos. Puede pedirnos que eliminemos esta información enviándonos un correo electrónico a %{email_link}.
-            use_and_storage: No guardaremos esta información, a menos que usted dé su consentimiento para el servicio de manera electrónica en el formulario de admisión de GetYourRefund. No se podrán presentar sus declaraciones de impuestos en línea hasta que no complete los formularios de consentimiento anteriores. Si decide no utilizar el servicio, su información personal se eliminará.
+              communicate: Comuníquese con nosotros (por ejemplo a través de correo electrónico, chat, redes sociales o de otro tipo)
+              header: Recopilamos su información de varias fuentes, como cuando usted o los miembros de su hogar
+              provide_documents: Proporciónenos sus documentos para utilizar nuestros Servicios
+              visit_site: Visite nuestro Sitio, llene formularios en nuestro Sitio, o utilice nuestros Servicios
+            header: La manera en que recopilamos su información
+            irs: El Servicio de Rentas Internas ("IRS") u otras agencias gubernamentales relacionadas con nuestros Servicios
+            partners: Nuestros socios que le están ayudando con servicios de preparación de impuestos o cualquier otro programa de beneficios que usted solicite
+            third_parties: Es posible que también recopilemos su información de terceros como
           site:
             data:
-              date_time: La fecha y hora de su visita.
-              domain: El nombre del dominio desde el que accede a Internet.
-              header: 'Además de la información que usted proporciona, nosotros automáticamente recopilamos y guardamos información sobre la visita al Sitio:'
-              ip: La dirección IP (un IP, o dirección de protocolo de Internet, es un número asignado automáticamente a una computadora cuando se conecta a Internet).
-              os_browser: 'El sistema operativo de su computadora y la información sobre el navegador que usó para visitar el sitio. '
-              pages: Las páginas que visitó.
-              referrer: La dirección del sitio web que lo enlazó al Sitio (como google.com o bing.com).
-            header: Al visitar el sitio
-            knowledge_and_consent: No recopilaremos información personal sin su conocimiento y consentimiento, excepto en algunas circunstancias limitadas, como se describe en esta Política.
-            use_and_storage: Utilizamos esta información para entender cómo utiliza el Sitio, para mejorar el Sitio y para supervisar el uso por motivos de seguridad. Estos datos se guardan por separado de la información personal que usted presentó en la solicitud de GetYourRefund.
+              date_of_birth: Fecha de nacimiento
+              demographic: Información demográfica, como la edad y estado marital
+              device_information: Información de su computadora o dispositivo, como dirección IP, sistema operativo, navegador, fecha y hora de visita, y datos de flujo de clics (el sitio web o dominio del que procede, las páginas que visita y los elementos sobre los que hace clic durante su sesión).
+              financial_information: Información financiera, como empleo, ingresos y fuentes de ingresos
+              header: Podríamos recopilar la siguiente información sobre usted, sus dependientes o miembros de su hogar.
+              personal_identifiers: Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
+              protected_classifications: Características de las clasificaciones protegidas, como género, raza y etnia
+              state_information: Identificación emitida por el estado, como el número de licencia de manejar
+              tax_information: Información fiscal, como el número de seguridad social o el número de identificación individual del contribuyente (por sus siglas en inglés, ITIN)
         information_protection:
-          complete_security: Aunque hacemos todo lo posible para proteger la privacidad de su información personal, no podemos garantizar su seguridad por completo. La transmisión de la información mediante Internet no es completamente segura. El ingreso o el uso no autorizado, las fallas de software o de hardware, y otros factores pueden comprometer la información del usuario en cualquier momento.
           header: Cómo protegemos su información
-          important: Proteger su información personal es extremadamente importante para nosotros, por lo que tomamos todas las medidas necesarias para hacerlo. Tomamos precauciones para proteger su información, de modo que, cuando envía información confidencial a través del sitio web, estará protegida en internet en línea como fuera de línea.
-          offline: Si bien encriptamos la información confidencial que nos envía por Internet para garantizar su seguridad, también protegemos el acceso a la información fuera de la red. Solamente tienen acceso a su información de identificación personal los empleados que necesiten dicha información para realizar un trabajo específico. Los ordenadores/servidores en los que guardamos la información de identificación personal están en un entorno protegido.
-          online: La información confidencial que recopilamos, sea del origen que sea, se encripta y transmite de forma segura. Puede comprobarlo buscando el icono del candado en la barra de direcciones y el protocolo "https" al inicio de la dirección de la página web.
-          security_practices:
-            doc_deletion: La documentación del contribuyente se eliminará en un plazo de 5 días desde el tercer intento de comunicación con el contribuyente (si este no responde a las solicitudes de contacto)
-            doc_storage: Los documentos estarán protegidos en todo momento (contraseñas, información encriptada, sobres sellados, depósitos/cabinas de archivos con bloqueo, etc.)
-            header: 'Estas son algunas prácticas de seguridad específicas que utilizamos:'
-            incident_response: El sitio mantiene un plan de respuesta a incidentes que puede reportar incidentes de seguridad al IRS
-            pii_deletion: Toda la información de identificación personal (PII) de los contribuyentes será eliminada del sistema antes del 31 de octubre de 2020.
-            ssl: Todas las conexiones se encriptarán mediante certificados SSL
-            tls: Cuando ingresa su información en nuestro sitio, nosotros encriptamos la transmisión de esa información utilizando seguridad de capa de transporte (TLS, por sus siglas en inglés).
-            training: Solo tendrán acceso a la información de los contribuyentes los voluntarios de VITA que tengan la capacitación necesaria y los administradores del sitio de Code for America
+          important: Proteger su información personal es extremadamente importante para nosotros, por lo que tomamos precauciones administrativas, técnicas y físicas razonables para proteger su información tanto en línea como fuera de línea.
         information_sharing:
-          communication_with_others:
-            header: Comunicaciones con otros sitios, servicios y personas
-            need_to_know: Los empleados de Code for America, sus contratistas y organizaciones asociadas que necesiten saber la información para prestar los servicios del Sitio también tendrán acceso limitado a su información personal.
-            non-partners: Además de con los sitios VITA y las personas asociadas al Sitio, no compartimos su información personal con ninguna otra persona u organización, excepto en la medida exigida por la ley.
-            partners:
-              docusign: DocuSign
-              header: 'Una vez que envíe al Sitio la información para la admisión a VITA, la difundiremos a nuestros sitios VITA asociados a través del sistema de admisión segura. Para prestar sus servicios, el Sitio compartirá datos e información con otros sistemas seguros que también almacenarán su información, como:'
-              taxslayer: TaxSlayer (cuando da su consentimiento para trabajar con VITA, que utiliza este sistema para preparar su declaración y presentarla en línea, si usted da su consentimiento para la presentación electrónica)
-              zendesk: Zendesk
-            responsibility: Tenga en cuenta que no nos hacemos responsables por el contenido o las prácticas de privacidad de estos sitios. Recomendamos a nuestros usuarios que presten atención cuando salen de nuestro sitio y que lean las declaraciones de privacidad de cualquier otro sitio que recopile información de identificación personal.
-          communication_with_you:
-            header: Comunicación con usted
-            notifications:
-              email_consent: No le enviaremos ningún correo electrónico, a menos que dé su consentimiento en la aplicación para que nos comuniquemos por correo electrónico o que usted nos envíe un correo electrónico primero.
-              header: Le enviaremos notificaciones para informarlo del progreso mientras VITA prepara sus declaraciones de impuestos. Es posible que nos comuniquemos con usted para hacerle preguntas o pedirle más información.
-              sms_consent: No le enviaremos ningún mensaje de texto, a menos que dé su consentimiento en la aplicación para que nos comuniquemos por mensaje de texto o usted nos envíe un mensaje de texto primero.
-              sms_email: Si da su consentimiento para recibir comunicaciones por SMS y por correo electrónico en el formulario de admisión, le enviaremos notificaciones de Zendesk por SMS y por correo electrónico, según sus preferencias de comunicación
-              vita: Los sitios VITA podrían ponerse en contacto con usted para obtener más información que usarán para completar su declaración (podrían, por ejemplo, pedirle más documentos y hacerle preguntas). También revelamos su información personal a los empleados de Code for America, sus contratistas y organizaciones asociadas que necesitan saber la información para prestar los servicios del Sitio.
-          header: Cómo compartimos su información
+          choices:
+            additional:
+              description: Puede ser que le proporcionemos enlaces adicionales a recursos que consideramos que le serán útiles. Estos enlaces pueden llevarlo a sitios que están afiliados con nosotros que pudieran operar bajo diferentes prácticas de privacidad. No somos responsables del contenido ni de las prácticas de dichos sitios. Animamos a nuestros visitantes y usuarios a estar atentos cuando salgan de nuestro sitio y de leer las declaraciones de privacidad de cualquier otro sitio, ya que no controlamos la manera en la cual los demás sitios recopilan información personal.
+              header: Servicios y Recursos Adicionales
+            analytics:
+              header: Analítica
+              mixpanel_html: |
+                Utilizamos MixPanel para entender la manera en la que los visitantes utilizan nuestro sitio y para reunir métricas de rendimiento agregadas.
+
+                Para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece, haga clic <a href="https://mixpanel.com/">AQUÍ</a>. También puede enviar un correo electrónico a support@getYourRefund.org para mayor información.
+            cookies:
+              consent: Su uso de nuestros Sitios indica su consentimiento para dicho uso de cookies.
+              description: Las cookies son pequeños archivos de texto que los sitios web colocan en las computadoras y dispositivos móviles de las personas que visitan esos sitios web. Las etiquetas de píxel (también llamadas web beacons) son pequeños bloques de código colocados en sitios web y correos electrónicos.
+              header: Cookies
+              restrict: La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de "Ayuda" en su navegador debe incluir una explicación de cómo hacerlo. La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de ayuda en su navegador debe incluir una explicación de cómo hacerlo. Asimismo, puede visitar www.aboutcookies.org, donde hallará información completa sobre cómo hacer esto en una amplia variedad de navegadores. Encontrará información general sobre las cookies y detalles sobre cómo eliminar las cookies de su computadora o dispositivo.
+              why: Utilizamos cookies y otras tecnologías como etiquetas de píxeles para recordar sus preferencias, mejorar su experiencia en línea y recopilar datos sobre cómo utiliza nuestros Sitios para mejorar la forma en que promovemos nuestro contenido, programas y eventos.
+            header: Sus opciones con respecto a su información
+            post:
+              email_html: comunicarse con nosotros a %{email_link} y solicitar que se le elimine de la lista de correos electrónicos promocionales
+              header: Correo postal, correo electrónico, y promociones
+              opt_out_instructions: seguir las instrucciones proporcionadas para darse de baja de correos electrónicos o correos postales
+              unsubscribe: seleccionar el enlace para "darse de baja" que se encuentra en nuestros correos electrónicos promocionales de Code for America
+              unsubscribe_note: Favor de tener en cuenta que incluso si se da de baja de ofertas y actualizaciones de correo electrónico promocionales, aún así podremos comunicarnos con usted para fines transaccionales. Por ejemplo, podremos enviar comunicaciones con respecto a su estado de declaración de impuestos, recordatorios o alertarle de información adicional necesaria.
+              update_information: Para actualizar sus preferencias o sus datos de contacto, puede
+            respect: Valoramos y respetamos su privacidad, y le ofrecemos opciones sobre la manera en que recopilamos, usamos y compartimos su información.
+            sms:
+              header: Mensajes SMS transaccionales (texto)
+              unsubscribe: Puede darse de baja de los mensajes transaccionales enviando STOP a 58750 en cualquier momento. Después de recibir su solicitud de exclusión, le enviaremos un mensaje de texto final para confirmar su exclusión. Por favor, consulte los Términos de SMS de CFA, para más detalles e instrucciones de exclusión para estos servicios.
+          examples:
+            business_relationship: Terceros con los que tenemos una relación profesional para enviarle a usted información sobre otros programas y servicios
+            research: Terceros para distribuir encuestas, grupos especializados u otros fines administrativos, analíticos y de marketing
+            vita_providers: Proveedores de VITA para ayudar a preparar y presentar sus declaraciones de impuestos
+          header: Información compartida con terceros
+          limited_personal_information: 'Podemos compartir información personal limitada, agregada o anónima con agencias gubernamentales, como el IRS, para analizar el uso de nuestros Servicios, proveedores de servicios de preparación de impuestos gratuitos y el Crédito Tributario por Ingresos Devengados--en inglés: "Earned Income Tax Credit--con el fin de mejorar y ampliar nuestros Servicios. No compartiremos ninguna información con el IRS que no haya sido ya revelada en su declaración de impuestos.'
+          sell: No vendemos su información personal.
+          special_situations: Podemos compartir su información con terceros en situaciones especiales, como cuando lo requiere la ley, o cuando creemos que compartir dicha información ayudará a proteger la seguridad, propiedad o derechos de Code for America, las personas a las que servimos, nuestros asociados u otras personas.
+          third_party: No compartimos información personal con terceros, excepto según lo dispuesto en esta Política de privacidad. Podemos revelar información a contratistas, organizaciones afiliadas y/o terceros no afiliados para proporcionarle los Servicios a usted, para llevar a cabo nuestra tarea o para ayudar con las actividades de nuestra organización. Por ejemplo, podemos compartir su información con
+          third_party_security: Requerimos que nuestros terceros actúen a nombre nuestro para mantener su información personal segura, y no permitimos que estos terceros utilicen o compartan su información personal para ningún propósito que no sea proporcionar servicios a nombre nuestro.
         information_use:
-          header: Como utilizamos su información
-          research: Enviaremos al IRS una versión con hash/anonimizada de su SSN solo con fines de investigación y recibiremos métricas agregadas para nuestra investigación que nos ayudarán a mejorar el servicio.
-          vita_services:
-            docs: Enviaremos los documentos que usted suba a una ubicación de carga de archivos segura para que el personal y los voluntarios certificados de los sitios VITA los revisen
-            efile: VITA presentará sus declaraciones electrónicamente mediante TaxSlayer y enviará su información al IRS, si da su consentimiento para presentar la declaración electrónica, firmando electrónicamente el formulario 8879 en DocuSign
-            header: 'Solamente utilizamos su información personal para ayudarlo a acceder a los servicios de VITA. Si da su consentimiento para que VITA prepare su declaración de impuestos, nosotros:'
-            intake: Enviaremos su formulario de admisión de VITA al programa VITA, que asignará un voluntario certificado para que prepare su declaración de impuestos
-            notifications: Lo informaremos del progreso durante el proceso, según sus preferencias de contacto.
-            support: Lo ayudaremos durante todo el proceso de preparación de impuestos.
-        intro: GetYourRefund.org es un sitio web sin fines de lucro dirigido por Code for America Labs, Inc ("Code for America", "nosotros", "nuestro"). Esta Política de Privacidad describe cómo el sitio web GetYourRefund.org (el "Sitio"), recopila, utiliza y protege su información personal. Al enviar su información personal a este Sitio, usted acepta los términos en esta Política de Privacidad. Si no está de acuerdo con estos términos, no utilice este Sitio.
+          complete: Para completar los formularios requeridos para el uso de los Servicios o para la presentación de sus impuestos
+          comply: Para cumplir con los requisitos y obligaciones legales
+          connect: Para ayudarle a conectarse con los servicios gratuitos de preparación de impuestos o cualquier otro programa de beneficios que solicite
+          fraud: Para la detección de fraude, su prevención, y propósitos de seguridad
+          header: El uso de información que recopilamos
+          improve: Para mejorar la calidad o el alcance del Sitio o de nuestros Servicios
+          monitor: Para seguir y comprender cómo se utilizan el Sitio y nuestros Servicios
+          research: Para el estudio
+          sub_header: Utilizamos su información para propósitos de nuestra organización e intereses legítimos como, por ejemplo
+          suggest: Para sugerir otros servicios o programas de asistencia que puedan serle útiles
+          support: Para proporcionarle apoyo durante el proceso y comunicarnos con usted
+        intro: GetYourRefund es un servicio creado por Code for America Labs, Inc. (Code for America, nosotros, nuestro) para ayudar a los hogares de bajos a moderados ingresos a aprovechar el beneficio del Crédito Tributario por Renta del Trabajo (EITC) con el fin de eliminar las barreras a la presentación de impuestos y hacer más accesibles los servicios de Asistencia Voluntaria por Impuesto a la Renta (VITA).
         overview:
-          data_use:
-            header: 'Solo utilizaremos su información personal para:'
-            suggestions: Sugerirle otros servicios o programas de asistencia que puedan serle útiles. Solo usaremos su información personal para presentarle esos servicios o programas como una opción, pero nunca enviaremos su información personal a ningún otro servicio o programa sin su consentimiento.
-            vita: Ayudarlo a comunicarse con los servicios de preparación de declaraciones de impuestos de la Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) y con otros programas de beneficios para los que se presente en futuras versiones de este Sitio ("GetYourRefund" se refiere aquí a todos estos programas).
           header: Resumen
-          no_disclosure: No divulgaremos ni venderemos deliberadamente su información personal a terceros, excepto si se cumplen las circunstancias expuestas en esta Política de Privacidad. Tomaremos todas las medidas necesarias para proteger su información personal.
         questions:
-          contact_us_html: 'Si tiene preguntas, comentarios, preocupaciones o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a %{email_link} o por correo postal a:'
+          address_html: |
+            GetYourRefund</br>
+            c/o Code for America</br>
+            972 Mission Street</br>
+            San Francisco, CA 94103
+          description_html: 'Si tiene preguntas, comentarios, inquietudes o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a support@getyourrefund.org o por correo postal a: %{email_link}'
           header: Preguntas
           resolve: Haremos todo lo posible para resolver el problema.
+        questions_html: Si tiene preguntas, comentarios, inquietudes o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a %{email_link}
         title: Política de Privacidad
+      sms_terms:
+        header: Términos y condiciones de código abreviado para GetYourRefund
+        terms:
+          carrier_disclaimer: ''
+          carriers_heading_html: "<strong>Nuestros mensajes pueden ser enviados por medio de los teléfonos de las siguientes compañías:</strong>"
+          keywords_html: Si en cualquier momento se le olvidan las palabras claves que se utilizan, simplemente envíe el texto "<strong>HELP</strong>" al <strong>58750</strong>. Después de que mande el mensaje SMS de "<strong>HELP</strong>", le reponderemos dándole las instrucciones de cómo utilizar el servicio y cómo darse.
+          major_carriers_html: "<strong>Compañías principales:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile."
+          minor_carriers_html: "<strong>Compañías reducidas:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless)."
+          privacy_html: 'Si tiene cualquier pregunta con respecto a privacidad, favor de leer nuestra política de privacidad: <a href="https://www.getyourrefund.org/privacy">www.getyourrefund.org/privacy</a>'
+          rates_html: Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>support@getyourrefund.org</strong>.
+          sms_cancellation_html: Puede cancelar el servicio SMS en cualquier momento. Simplemente envíe el texto "<strong>STOP</strong>" al <strong>58750</strong>. Después de enviarnos el mensaje SMS de "<strong>STOP</strong>", le enviaremos un mensaje SMS confirmando que ha sido dado de baja. Habiendo recibido esto, no recibirá más mensajes de nosotros. Si desea volver a suscribirse, simplemente responda "<strong>START</strong>" y volveremos a mandarle mensajes SMS.
+          sms_confirmation: Cuando se suscriba al servicio, le enviaremos un mensaje SMS para confirmar su suscripción y le enviaremos un mensaje de texto con las actualizaciones de su declaración de impuestos.
+        title: Términos de código
       stimulus:
         facts_html: *1
         heading: "¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?"
