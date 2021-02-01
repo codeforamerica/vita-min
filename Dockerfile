@@ -26,15 +26,13 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
 
 RUN mkdir -p /app/
 WORKDIR /app
-ADD package.json yarn.lock ./
+ADD package.json yarn.lock /app/
 RUN NODE_ENV=production yarn install --frozen-lockfile
-ADD Gemfile ./
-ADD Gemfile.lock ./
+ADD Gemfile Gemfile.lock /app/
 RUN gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document
-RUN bundle config set --local without 'test development' && bundle install
-RUN bundle exec bootsnap precompile --gemfile
+ && bundle config set --local without 'test development'
+ && bundle install
 
-ADD crontab /app/crontab
 ADD . /app
 
 # Collect assets. This approach is not fully production-ready, but
