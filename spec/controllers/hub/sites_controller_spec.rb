@@ -128,6 +128,7 @@ RSpec.describe Hub::SitesController, type: :controller do
         site.reload
         expect(site.name).to eq "Silly Site"
         expect(site.parent_organization).to eq other_organization
+        expect { source_parameter.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(site.source_parameters.pluck(:code)).to eq(["newshortlink"])
         expect(response).to redirect_to edit_hub_site_path(id: site.id)
       end
