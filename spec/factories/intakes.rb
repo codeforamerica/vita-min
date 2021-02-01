@@ -247,7 +247,7 @@ FactoryBot.define do
       email_notification_opt_in { "yes" }
     end
 
-    trait :with_intake_questions_completed do
+    trait :with_deterministic_yes_no_answers do
       married { "yes" }
       divorced { "yes" }
       divorced_year { "2018" }
@@ -347,10 +347,11 @@ FactoryBot.define do
       demographic_primary_prefer_not_to_answer_race { true }
       demographic_english_reading { "well" }
       demographic_english_conversation { "not_well" }
+      bought_energy_efficient_items { "unfilled" } # no default value in db for this enum.
       after(:build) do |intake|
         Intake.defined_enums.each_key do |key|
           # only randomize values for keys that have not been supplied
-          unless intake[key] == "unfilled"
+          if intake[key] == "unfilled"
             intake[key] = Intake.send(key.pluralize).keys.sample
           end
         end

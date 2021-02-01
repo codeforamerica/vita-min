@@ -1,5 +1,5 @@
 module DocumentTypes
-  class F13614CF150802020 < DocumentType
+  class Form13614CForm15080 < DocumentType
     class << self
       def relevant_to?(intake)
         # This is not used in a flow or to determine relevant types for an intake

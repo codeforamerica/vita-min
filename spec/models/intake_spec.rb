@@ -1080,7 +1080,7 @@ describe Intake do
 
       doc = Document.last
       expect(doc.display_name).to eq("filename.pdf")
-      expect(doc.document_type).to eq(DocumentTypes::F13614CF150802020.key)
+      expect(doc.document_type).to eq(DocumentTypes::Form13614CForm15080.key)
       expect(intake).to have_received(:pdf)
     end
   end

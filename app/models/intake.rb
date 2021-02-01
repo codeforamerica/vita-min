@@ -580,7 +580,7 @@ class Intake < ApplicationRecord
     filename ||= "2020 13614-C with 15080.pdf"
     pdf_tempfile = pdf
     pdf_tempfile.seek(0)
-    client.documents.create!(document_type: DocumentTypes::F13614CF150802020.key, intake: self, upload: {
+    client.documents.create!(document_type: DocumentTypes::Form13614CForm15080.key, intake: self, upload: {
       io: pdf_tempfile,
       filename: filename,
       content_type: "application/pdf",

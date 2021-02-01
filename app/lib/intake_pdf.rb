@@ -180,6 +180,22 @@ class IntakePdf
     "unfilled"
   end
 
+
+  # Oddly, 0 is checked and 1 is unchecked in the 2020 f13614-c.
+  def yes_no_unfilled_to_checkbox_0(value)
+    value == "yes" ? 0 : nil
+  end
+
+  # Oddly, 0 is checked value in the 2020 f13614-c.
+  def yes_no_unfilled_to_opposite_checkbox_0(value)
+    value == "no" ? 0 : nil
+  end
+
+  # Oddly, 0 is checked value in the 2020 f13614-c.
+  def bool_checkbox_0(value)
+    value ? 0 : nil
+  end
+
   def yes_no_unfilled_to_YN(yes_no_unfilled)
     {
       "yes" => "Y",
