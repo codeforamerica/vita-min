@@ -10,119 +10,113 @@
           <h1 class="h2"><%= content_for(:page_title) %></h1>
 
           <p class="text--help"><%=t("views.public_pages.privacy_policy.intro") %></p>
+          <p class="text--help"><%=t("views.public_pages.privacy_policy.description") %></p>
+          <p><%=t("views.public_pages.privacy_policy.questions_html", :email_link => mail_to("support@getyourrefund.org")) %></p>
 
           <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.overview.header") %></h2>
-          <p><%=t("views.public_pages.privacy_policy.overview.data_use.header") %></p>
-          <ul class="list--bulleted">
-            <li><%=t("views.public_pages.privacy_policy.overview.data_use.vita") %></li>
-            <li><%=t("views.public_pages.privacy_policy.overview.data_use.suggestions") %></li>
-          </ul>
-          <p><%=t("views.public_pages.privacy_policy.overview.no_disclosure") %></p>
-
-          <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.information_collection.header") %></h2>
-          <h3><%=t("views.public_pages.privacy_policy.information_collection.site.header") %></h3>
+          <h3><%=t("views.public_pages.privacy_policy.information_collection.header") %></h3>
           <p><%=t("views.public_pages.privacy_policy.information_collection.site.data.header") %></p>
           <ul class="list--bulleted">
-            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.domain") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.ip") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.os_browser") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.date_time") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.pages") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.referrer") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.personal_identifiers") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.date_of_birth") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.demographic") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.protected_classifications") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.tax_information") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.state_information") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.financial_information") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.site.data.device_information") %></li>
           </ul>
-          <p><%=t("views.public_pages.privacy_policy.information_collection.site.use_and_storage") %></p>
-          <p><%=t("views.public_pages.privacy_policy.information_collection.site.knowledge_and_consent") %></p>
 
-          <h3><%=t("views.public_pages.privacy_policy.information_collection.service.header") %></h3>
-          <p><%=t("views.public_pages.privacy_policy.information_collection.service.data.header") %></p>
+          <h3><%=t("views.public_pages.privacy_policy.information_collection.how_we_collect.header") %></h3>
+          <p><%=t("views.public_pages.privacy_policy.information_collection.how_we_collect.data.header") %></p>
           <ul class="list--bulleted">
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.data.name") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.data.address") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.data.contact_info") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.data.ssn") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.data.financial_info") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.data.dependent_cards") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.data.w2") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.data.1099") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.how_we_collect.data.visit_site") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.how_we_collect.data.provide_documents") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.how_we_collect.data.communicate") %></li>
           </ul>
 
-          <p><%=t("views.public_pages.privacy_policy.information_collection.service.irs_forms.header") %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_collection.how_we_collect.third_parties") %></p>
           <ul class="list--bulleted">
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.irs_forms.intake") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.irs_forms.consent") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_collection.service.irs_forms.efile") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.how_we_collect.partners") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_collection.how_we_collect.irs") %></li>
           </ul>
 
-          <p><%=t("views.public_pages.privacy_policy.information_collection.service.use_and_storage") %></p>
-          <p><%=t("views.public_pages.privacy_policy.information_collection.service.retention_html", :email_link => mail_to("support@getyourrefund.org")) %></p>
-
-          <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.information_use.header") %></h2>
-          <p><%=t("views.public_pages.privacy_policy.information_use.vita_services.header") %></p>
+          <h3><%=t("views.public_pages.privacy_policy.information_use.header") %></h3>
+          <p><%=t("views.public_pages.privacy_policy.information_use.sub_header") %></p>
           <ul class="list--bulleted">
-            <li><%=t("views.public_pages.privacy_policy.information_use.vita_services.intake") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_use.vita_services.notifications") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_use.vita_services.support") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_use.vita_services.docs") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_use.vita_services.efile") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_use.connect") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_use.complete") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_use.support") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_use.monitor") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_use.improve") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_use.suggest") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_use.fraud") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_use.comply") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_use.research") %></li>
           </ul>
-          <p><%=t("views.public_pages.privacy_policy.information_use.research") %></p>
 
-          <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.information_sharing.header") %></h2>
-          <h3><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_you.header") %></h3>
-          <p><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_you.notifications.header") %></p>
+          <h3><%=t("views.public_pages.privacy_policy.information_sharing.header") %></h3>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.sell") %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.third_party") %></p>
           <ul class="list--bulleted">
-            <li><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_you.notifications.sms_email") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_you.notifications.email_consent") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_you.notifications.sms_consent") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_you.notifications.vita") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_sharing.examples.vita_providers") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_sharing.examples.research") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_sharing.examples.business_relationship") %></li>
           </ul>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.third_party_security") %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.special_situations") %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.limited_personal_information") %></p>
 
-          <h3><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_others.header") %></h3>
-          <p><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_others.need_to_know") %></p>
-          <p><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_others.partners.header") %></p>
+
+          <h3><%=t("views.public_pages.privacy_policy.information_sharing.choices.header") %></h3>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.respect") %></p>
+          <p class="text--underline"><%=t("views.public_pages.privacy_policy.information_sharing.choices.post.header") %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.post.update_information") %></p>
           <ul class="list--bulleted">
-            <li><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_others.partners.zendesk") %>
-            <li><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_others.partners.docusign") %>
-            <li><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_others.partners.taxslayer") %>
+            <li><%=t("views.public_pages.privacy_policy.information_sharing.choices.post.email_html", :email_link => mail_to("support@getyourrefund.org")) %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_sharing.choices.post.opt_out_instructions") %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_sharing.choices.post.unsubscribe") %></li>
           </ul>
-          <p><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_others.responsibility") %></p>
-          <p><%=t("views.public_pages.privacy_policy.information_sharing.communication_with_others.non-partners") %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.post.unsubscribe_note") %></p>
 
-          <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.information_protection.header") %></h2>
+          <p class="text--underline"><%=t("views.public_pages.privacy_policy.information_sharing.choices.cookies.header") %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.cookies.description") %></p>
+          <ul class="list--bulleted">
+            <li><%=t("views.public_pages.privacy_policy.information_sharing.choices.cookies.why", :email_link => mail_to("support@getyourrefund.org")) %></li>
+            <li><%=t("views.public_pages.privacy_policy.information_sharing.choices.cookies.consent") %></li>
+          </ul>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.cookies.restrict") %></p>
+
+          <p class="text--underline"><%=t("views.public_pages.privacy_policy.information_sharing.choices.sms.header") %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.sms.unsubscribe") %></p>
+
+          <p class="text--underline"><%=t("views.public_pages.privacy_policy.information_sharing.choices.analytics.header") %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.analytics.mixpanel_html") %></p>
+
+          <p class="text--underline"><%=t("views.public_pages.privacy_policy.information_sharing.choices.additional.header") %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.additional.description") %></p>
+
+
+          <h3><%=t("views.public_pages.privacy_policy.information_protection.header") %></h3>
           <p><%=t("views.public_pages.privacy_policy.information_protection.important") %></p>
-          <p><%=t("views.public_pages.privacy_policy.information_protection.online") %></p>
-          <p><%=t("views.public_pages.privacy_policy.information_protection.offline") %></p>
 
-          <p><%=t("views.public_pages.privacy_policy.information_protection.security_practices.header") %></p>
-          <ul class="list--bulleted">
-            <li><%=t("views.public_pages.privacy_policy.information_protection.security_practices.tls") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_protection.security_practices.ssl") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_protection.security_practices.incident_response") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_protection.security_practices.doc_storage") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_protection.security_practices.doc_deletion") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_protection.security_practices.pii_deletion") %></li>
-            <li><%=t("views.public_pages.privacy_policy.information_protection.security_practices.training") %></li>
-          </ul>
-          <p><%=t("views.public_pages.privacy_policy.information_protection.complete_security") %></p>
+          <h3><%=t("views.public_pages.privacy_policy.data_retention.header") %></h3>
+          <p><%=t("views.public_pages.privacy_policy.data_retention.description") %></p>
+
+          <h3><%=t("views.public_pages.privacy_policy.childrens_privacy.header") %></h3>
+          <p><%=t("views.public_pages.privacy_policy.childrens_privacy.description") %></p>
 
           <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.changes.header") %></h2>
           <p><%=t("views.public_pages.privacy_policy.changes.info") %></p>
 
           <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.effective_date.header") %></h2>
-          <p><%=t("views.public_pages.privacy_policy.effective_date.info", :effective_date => l(Date.new(2020, 2, 1), :format => :long)) %></p>
+          <p><%=t("views.public_pages.privacy_policy.effective_date.info", :effective_date => l(Date.new(2021, 1, 27), :format => :long)) %></p>
 
           <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.questions.header") %></h2>
-          <p><%=t("views.public_pages.privacy_policy.questions.contact_us_html", :email_link => mail_to("support@getyourrefund.org")) %>
-          <p>
-            GetYourRefund
-            <br/>
-            c/o Code for America
-            <br/>
-            972 Mission Street
-            <br/>
-            San Francisco, CA 94103
-          </p>
+          <p><%=t("views.public_pages.privacy_policy.questions.description_html",  :email_link => mail_to("support@getyourrefund.org")) %></p>
+          <p><%=t("views.public_pages.privacy_policy.questions.address_html") %></p>
           <p><%=t("views.public_pages.privacy_policy.questions.resolve") %></p>
+
         </main>
       </div>
     </div>

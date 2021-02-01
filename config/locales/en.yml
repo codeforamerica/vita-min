@@ -1061,101 +1061,121 @@ en:
       privacy_policy:
         changes:
           header: Changes
-          info: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of this site after any changes in this Privacy Policy will constitute your acceptance of the changes.
+          info: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes.
+        childrens_privacy:
+          description: We do not knowingly collect personal information from unemancipated minors under 16 years of age.
+          header: Children’s privacy
+        data_retention:
+          description: 'We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations. If you decide to terminate the Services, we will delete your information within 90 days of when the Services are terminated unless we are required by law to retain your information.  In that case, we will only retain your information as long as required by such law.'
+          header: Data Retention
+        description: This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.
         effective_date:
           header: Effective Date
           info: This version of the policy is effective %{effective_date}
         information_collection:
-          header: The personal information we collect
-          service:
+          header: Information we collect
+          how_we_collect:
             data:
-              '1099': 1099’s
-              address: address
-              contact_info: contact information
-              dependent_cards: Pictures of social security cards for dependents if applicable
-              financial_info: financial information, pictures of your driver’s license
-              header: 'We collect all information provided through the Site in order to use the service, including but not limited to:'
-              name: your name
-              ssn: social security number
-              w2: W-2’s
-            header: When using the service
-            irs_forms:
-              consent: Consent to GetYourRefund service model
-              efile: Form 8879 consent to e-file (will be sent via DocuSign for signature prior to e-filing)
-              header: 'Only information required to prepare and complete the service will be collected and retained. By using the service, specific IRS forms will be completed with your information provided, including:'
-              intake: 13614-C VITA intake form
-            retention_html: We currently retain all site visit data indefinitely unless you specifically request that we delete it. You can make this request by emailing us at %{email_link}.
-            use_and_storage: We do not store any of this information unless you electronically consent to the service on the GetYourRefund intake form. Your taxes will not be e-filed until you complete the above consent forms. If you decide not to move forward with using the service, the personal information will be deleted.
+              communicate: Communicate with us (for instance through email, chat, social media, or otherwise)
+              header: We collect your information from various sources, such as when you or your household members
+              provide_documents: Provide us with documents to use our Services
+              visit_site: Visit our Site, fill out forms on our Site, or use our Services
+            header: How we collect your information
+            irs: The Internal Revenue Service (“IRS”) or other government agencies relating to our Services
+            partners: Our partners who are assisting you with tax preparation services or any other benefit programs that you apply for
+            third_parties: We may also collect your information from third-parties such as
           site:
             data:
-              date_time: Date and time of your visit.
-              domain: Domain from which you access the Internet.
-              header: 'In addition to the information you provide, we automatically collect and store information about your visit to the Site:'
-              ip: IP address (an IP or internet protocol address is a number that is automatically given to a computer connected to the Web).
-              os_browser: Operating system on your computer and information about the browser you used when visiting the site.
-              pages: Pages you visited.
-              referrer: Address of the website that connected you to the Site (such as google.com or bing.com).
-            header: When visiting the site
-            knowledge_and_consent: We will not collect personal information from you without your knowledge and consent, except in a few limited circumstances as described in this Policy.
-            use_and_storage: We use this information to understand how the Site is used, improve the Site, and monitor usage for security purposes. This data is stored separately from the personal information you submit in the GetYourRefund application.
+              date_of_birth: Date of birth
+              demographic: Demographic information, such as age and marital status
+              device_information: Information from your computer or device, such as IP address, operating system, browser, date and time of visit, and click-stream data (the website or domain you came from, the pages you visit, and the items you click on during your session)
+              financial_information: Financial information, such as employment, income and income sources
+              header: 'We may collect the following information about you, your dependents, or members of your household:'
+              personal_identifiers: Personal identifiers such as name, addresses, phone numbers, and email addresses
+              protected_classifications: Characteristics of protected classifications, such as gender, race, and ethnicity
+              state_information: State-issued identification, such as driver’s license number
+              tax_information: Tax information, such as social security number or individual taxpayer identification number (ITIN)
         information_protection:
-          complete_security: Although we try our best to protect the privacy of your personal information, we cannot guarantee complete security. The transmission of information via the Internet is not completely secure. Unauthorized entry or use, hardware or software failure, and other factors, may compromise the security of user information at any time.
           header: How we protect your information
-          important: Protecting your personal information is extremely important to us and we take all reasonable measures to do so. We take precautions to protect your information. When you submit sensitive information via the website, your information is protected both online and offline.
-          offline: While we use encryption to protect sensitive information transmitted online, we also protect your information offline. Only employees who need the information to perform a specific job are granted access to personally identifiable information. The computers/servers in which we store personally identifiable information are kept in a secure environment.
-          online: Wherever we collect sensitive information, that information is encrypted and transmitted to us in a secure way. You can verify this by looking for a lock icon in the address bar and looking for "https" at the beginning of the address of the Web page.
-          security_practices:
-            doc_deletion: Taxpayer documentation will be deleted within 5 days after 3rd attempt to contact the taxpayer (if the taxpayer is not responsive to requests for contact)
-            doc_storage: Documents will be kept secure at all times - passwords, encryption, sealed envelopes, locking file holders/cabinets, etc
-            header: 'Here are some specific security practices we use:'
-            incident_response: Site maintains an incident response plan that includes reporting security incidents to the IRS
-            pii_deletion: All taxpayer personally identifiable information (PII) will be deleted from the system by October 31st, 2020.
-            ssl: All connections will be encrypted using SSL certificates
-            tls: When you enter your information on our site we encrypt the transmission of that information using transport layer security (TLS).
-            training: Only VITA volunteers completing the necessary training and Code for America site administrators will have access to taxpayer information
+          important: Protecting your personal information is extremely important to us so we take reasonable administrative, technical, and physical precautions to protect your information both online and offline.
         information_sharing:
-          communication_with_others:
-            header: Communications with other sites, services, and individuals
-            need_to_know: Code for America employees, contractors, and affiliated organizations with a need to know information in order to provide the services of the Site will also be provided limited access to personal information.
-            non-partners: Besides VITA sites and individuals affiliated with the Site, we do not share your personal information with any other individuals or organizations, except to the minimal extent required by law.
-            partners:
-              docusign: DocuSign
-              header: 'Once you submit your VITA intake information on the Site, we share this information with our partner VITA sites via the secure intake system. In order to provide services, the Site will share data and information other secure systems that will house your information, including:'
-              taxslayer: TaxSlayer (through consenting to work with VITA, system they use to prepare your return and e-file if you consent to e-filing)
-              zendesk: Zendesk
-            responsibility: Please be aware that we are not responsible for the content or privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information.
-          communication_with_you:
-            header: Communication with you
-            notifications:
-              email_consent: We will not send you an email unless you consent to email communication in the application or you email us first.
-              header: We will send you notifications to update you with progress as a VITA site prepares your tax returns. We may reach out to you with questions or requests for additional information.
-              sms_consent: We will not send you a text message unless you consent to text message communication in the application or you text us first.
-              sms_email: If you consent to SMS and email communications on the intake form, we will send Zendesk notifications via SMS and email depending on your indicated communication preferences
-              vita: VITA sites may contact you for more information to help complete your return (ex. requesting additional documents and clarifying questions). We also disclose your personal information to Code for America employees, contractors, and affiliated organizations that need to know the information in order to provide the services of the Site.
-          header: How we share your information
+          choices:
+            additional:
+              description: We may provide additional links to resources we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information
+              header: Additional Services and Resources
+            analytics:
+              header: Analytics
+              mixpanel_html: |
+                We use MixPanel to understand how visitors use our site and to gather aggregate performance metrics.
+
+                To learn more about MixPanel’s privacy practices and any opt-out choices it offers, click <a href="https://mixpanel.com/">HERE</a>. You can also email support@getYourRefund.org for additional information.
+            cookies:
+              consent: Your use of our Sites indicates your consent to such use of Cookies.
+              description: Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites. Pixel tags (also called web beacons) are small blocks of code placed on websites and emails.
+              header: Cookies
+              restrict: Most browsers are initially set up to accept HTTP cookies. If you want to restrict or block the cookies that are set by our Site, or any other site, you can do so through your browser setting. The ‘Help’ function in your browser should explain how. Alternatively, you can visit www.aboutcookies.org, which contains comprehensive information on how to do this on a wide variety of browsers. You will find general information about cookies and details on how to delete cookies from your machine.
+              why: We use cookies and other technologies like pixel tags to remember your preferences, enhance your online experience, and to gather data on how you use our Sites to improve the way we promote our content, programs, and events.
+            header: Your choices regarding your information
+            post:
+              email_html: contact us at %{email_link} and request removal from the GetYourRefund promotional emails
+              header: Postal mail, email, and promotions
+              opt_out_instructions: follow the opt-out instructions provided in emails or postal mail
+              unsubscribe: click on the “unsubscribe” hyperlink contained in our promotional emails from Code for America
+              unsubscribe_note: Please note that even if you unsubscribe from promotional email offers and updates, we may still contact you for transactional purposes. For example, we may send communications regarding your tax return status, reminders, or to alert you of additional information needed.
+              update_information: To update your preferences or contact information, you may
+            respect: We value and respect your privacy and offer you choices over how we collect, use, and share your information.
+            sms:
+              header: Transactional SMS (Text) Messages
+              unsubscribe: You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see CFA’s SMS Terms, for additional details and opt-out instructions for these services.
+          examples:
+            business_relationship: Third parties with whom we have a business relationship to send you information about other programs and services
+            research: Third parties to distribute surveys, focus groups, or for other administrative, analytical, and marketing purposes
+            vita_providers: VITA providers to help prepare and submit your tax returns
+          header: Information shared with others
+          limited_personal_information: We may share limited, aggregated, or anonymized personal information with government agencies, such as the IRS, to analyze the use of our Services, free tax preparation service providers, and the Earned Income Tax Credit in order to improve and expand our Services. We will not share any information with the IRS that has not already been disclosed on your tax return.
+          sell: We do not sell your personal information.
+          special_situations: We may share your information with third parties in special situations, such as when required by law, or we believe sharing will help to protect the safety, property, or rights of Code for America, the people we serve, our associates, or other persons.
+          third_party: We do not share personal information to any third party, except as provided in this Privacy Policy. We may disclose information to contractors, affiliated organizations, and/or unaffiliated third parties to provide the Services to you, to conduct our business, or to help with our business activities. For example, we may share your information with
+          third_party_security: We require our third parties acting on our behalf to keep your personal information secure, and do not allow these third parties to use or share your personal information for any purpose other than providing services on our behalf.
         information_use:
-          header: How we use your information
-          research: We will send a hashed/anonymized version of your SSN to the IRS for research purposes only, we will receive back aggregate metrics for our research to help us improve the service.
-          vita_services:
-            docs: Send the documents you upload to a secure file upload location for certified staff and volunteers at VITA sites to review
-            efile: VITA will e-file your returns through TaxSlayer and submit your information to the IRS if you consent to e-filing via e-signing form 8879 in DocuSign
-            header: 'We only use your personal information to help you access VITA services. If you consent to allow VITA to prepare your taxes, we will:'
-            intake: Submit your VITA intake form to the VITA program who will assign a certified volunteer to prepare your taxes
-            notifications: Notify you of your progress in the process, depending on your contact preferences.
-            support: Provide you support throughout the tax preparation process.
-        intro: GetYourRefund.org is a non-profit website run by Code for America Labs, Inc. ("Code for America", "we", "us", "our"). This Privacy Policy describes how the GetYourRefund.org website (the "Site") collects, uses, and protects your personal information. By submitting your personal information on the Site, you agree to the terms in this Privacy Policy. If you do not agree with these terms, please do not use the Site.
+          complete: To complete forms required for use of the Services or filing of your taxes
+          comply: To comply with legal requirements and obligations
+          connect: To help connect you with the free tax preparation services or any other benefit programs that you apply for
+          fraud: For fraud detection, prevention, and security purposes
+          header: Using information we have collected
+          improve: To improve the quality or scope of the Site or our Services
+          monitor: To monitor and understand how the Site and our Services are used
+          research: For research
+          sub_header: We use your information for our business purposes and legitimate interests such as
+          suggest: To suggest other services or assistance programs that may be useful to you
+          support: To provide support to you through the process and communicate with you
+        intro: GetYourRefund.org is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help low to moderate-income households take advantage of the Earned Income Tax Credit (EITC) benefit by breaking down barriers to tax filing and making Volunteer Income Tax Assistance (VITA) services more accessible.
         overview:
-          data_use:
-            header: 'We will only use your personal information to:'
-            suggestions: Suggest other services or assistance programs that may be useful to you. We will only use your personal information in order to present those services or programs to you as an option, but will never send your personal information to any other services or programs without your permission.
-            vita: Help connect you with Volunteer Income Tax Assistance (VITA) free tax preparation services and any other benefit programs that you apply for on future versions of the Site ("GetYourRefund" herein refers to all such programs).
           header: Overview
-          no_disclosure: We will not knowingly disclose or sell your personal information to any third party, except as provided in this Privacy Policy. We will take all reasonable measures to protect your personal information.
         questions:
-          contact_us_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:'
+          address_html: |
+            GetYourRefund</br>
+            c/o Code for America</br>
+            972 Mission Street</br>
+            San Francisco, CA 94103
+          description_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:'
           header: Questions
-          resolve: We will do our best to resolve the issue.
+          resolve: We will do our best to resolve the issue
+        questions_html: If you have any questions or concerns about this Privacy Notice, please contact us at %{email_link}
         title: Privacy Policy
+      sms_terms:
+        header: GetYourRefund Short Code Terms and Conditions
+        terms:
+          carrier_disclaimer: Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages.
+          carriers_heading_html: "<strong>We are able to deliver messages to the following mobile phone carriers:</strong>"
+          keywords_html: If at any time you forget what keywords are supported, just text "<strong>HELP</strong>" to <strong>58750</strong>. After you send the SMS message "<strong>HELP</strong>" to us, we will respond with instructions on how to use our service as well as how to unsubscribe.
+          major_carriers_html: "<strong>Major carriers:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, and Virgin Mobile."
+          minor_carriers_html: "<strong>Minor carriers:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless)."
+          privacy_html: 'If you have any questions regarding privacy, please read our privacy policy: <a href="https://www.getyourrefund.org/privacy">www.getyourrefund.org/privacy</a>'
+          rates_html: As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider. For all questions about the services provided by this short code, you can send an email to <strong>support@getyourrefund.org</strong>.
+          sms_cancellation_html: You can cancel the SMS service at any time. Just text "<strong>STOP</strong>" to <strong>58750</strong>. After you send the SMS message "<strong>STOP</strong>" to us, we will send you an SMS message to confirm that you have been unsubscribed. After this, you will no longer receive SMS messages from us. If you want to join again, just reply "<strong>START</strong>" and we will start sending SMS messages to you again.
+          sms_confirmation: When you opt-in to the service, we will send you an SMS message to confirm your signup and text you updates on your tax return.
+        title: SMS terms
       stimulus:
         facts_html: *1
         heading: Need assistance getting your stimulus check?
