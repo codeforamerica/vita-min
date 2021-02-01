@@ -24,14 +24,14 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-ADD Gemfile /app/
-ADD Gemfile.lock /app/
 WORKDIR /app
-RUN gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ")
-RUN bundle install --without test development
+ADD package.json yarn.lock /app/
+RUN NODE_ENV=production yarn install --frozen-lockfile
+ADD Gemfile Gemfile.lock /app/
+RUN gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \
+ && bundle install --without test development
 
 ADD . /app
-ADD crontab /app/crontab
 
 # Collect assets. This approach is not fully production-ready, but
 # will help you experiment with Aptible Deploy before bothering with assets.
