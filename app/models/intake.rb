@@ -216,7 +216,7 @@ class Intake < ApplicationRecord
   after_save do
     if saved_change_to_completed_at?(from: nil)
       record_incoming_interaction # client completed intake
-      create_13614c_document("Original 13614-C.pdf")
+      Intake13614CPdfJob.perform_later(self, "Original 13614-C.pdf")
     elsif completed_at.present?
       record_internal_interaction # user updated completed intake
     end

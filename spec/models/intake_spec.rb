@@ -1046,12 +1046,12 @@ describe Intake do
   describe "after_save when the intake is completed" do
     let(:intake) { create :intake }
     before do
-      allow(intake).to receive(:create_13614c_document)
+      allow(Intake13614CPdfJob).to receive(:perform_later)
     end
 
-    it "should create a pdf document using intake answers in #create_13614c_document" do
+    it "should enqueue a background job to create a 13614C document." do
       intake.update(completed_at: Time.now)
-      expect(intake).to have_received(:create_13614c_document)
+      expect(Intake13614CPdfJob).to have_received(:perform_later).with(intake, "Original 13614-C.pdf")
     end
 
     it_behaves_like "an incoming interaction" do

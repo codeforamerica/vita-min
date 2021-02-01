@@ -12,18 +12,15 @@ RSpec.describe Questions::FinalInfoController do
 
     context "for any intake" do
       before do
-        example_pdf = Tempfile.new("example.pdf")
-        example_pdf.write("example pdf contents")
-        allow(intake).to receive(:pdf).and_return(example_pdf)
-        allow(intake).to receive(:create_13614c_document)
+        allow(Intake13614CPdfJob).to receive(:perform_later)
       end
 
       let(:intake) { create :intake, intake_ticket_id: 1234, sms_phone_number: "+15105551234", email_address: "someone@example.com" }
       let(:client) { intake.client }
 
-      it "should trigger the creation of the 13614c document" do
+      it "the model after_update when completed at changes should enqueue the creation of the 13614c document" do
         post :update, params: params
-        expect(intake).to have_received(:create_13614c_document)
+        expect(Intake13614CPdfJob).to have_received(:perform_later).with(intake, "Original 13614-C.pdf")
       end
 
       context "client is opted into emails" do
