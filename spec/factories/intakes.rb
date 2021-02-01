@@ -174,7 +174,7 @@
 #  intake_ticket_requester_id                           :bigint
 #  primary_intake_id                                    :integer
 #  triage_source_id                                     :bigint
-#  visitor_id                                           :string
+#  visitor_id                                           :string           not null
 #  vita_partner_id                                      :bigint
 #
 # Indexes
@@ -247,18 +247,87 @@ FactoryBot.define do
       email_notification_opt_in { "yes" }
     end
 
+    trait :with_intake_questions_completed do
+      married { "yes" }
+      divorced { "yes" }
+      divorced_year { "2018" }
+      ever_married { "yes" }
+      lived_with_spouse { "yes" }
+      widowed { "no" }
+      widowed_year { "2016" }
+      separated { "yes" }
+      separated_year { "2017" }
+      had_wages { "yes" }
+      job_count { 6 }
+      had_tips { "yes" }
+      had_retirement_income { "no" }
+      had_social_security_income { "no" }
+      had_unemployment_income { "yes" }
+      had_disability_income { "yes" }
+      had_interest_income { "no" }
+      had_asset_sale_income { "yes" }
+      multiple_states { "yes" }
+      reported_asset_sale_loss { "no" }
+      received_alimony { "yes" }
+      had_rental_income { "no" }
+      had_farm_income { "yes" }
+      had_gambling_income { "yes" }
+      had_local_tax_refund { "yes" }
+      had_self_employment_income { "yes" }
+      reported_self_employment_loss { "no" }
+      had_other_income { "yes" }
+      other_income_types { "Doordash, Babysitting" }
+      paid_mortgage_interest { "yes" }
+      paid_local_tax { "yes" }
+      paid_medical_expenses { "yes" }
+      paid_charitable_contributions { "yes" }
+      paid_student_loan_interest { "yes" }
+      paid_dependent_care { "yes" }
+      paid_retirement_contributions { "yes" }
+      paid_school_supplies { "unfilled" }
+      paid_alimony { "no" }
+      had_student_in_family { "yes" }
+      sold_a_home { "no" }
+      had_hsa { "yes" }
+      bought_health_insurance { "no" }
+      received_homebuyer_credit { "yes" }
+      had_debt_forgiven { "no" }
+      had_disaster_loss { "yes" }
+      adopted_child { "no" }
+      had_tax_credit_disallowed { "no" }
+      received_irs_letter { "no" }
+      made_estimated_tax_payments { "no" }
+      additional_info { "This is some critical information I'd like my tax preparer to know during intake process." }
+      was_on_visa { "yes" }
+      spouse_was_on_visa { "no" }
+      was_full_time_student { "no" }
+      spouse_was_full_time_student { "yes" }
+      was_blind { "yes" }
+      spouse_was_blind { "yes" }
+      had_disability { "yes" }
+      spouse_had_disability { "yes" }
+      issued_identity_pin { "yes" }
+      spouse_issued_identity_pin { "no" }
+      refund_payment_method { "direct_deposit" }
+      savings_split_refund { "yes" }
+      savings_purchase_bond { "yes" }
+      balance_pay_from_bank { "yes" }
+      demographic_questions_opt_in { "yes" }
+    end
+
     trait :filled_out do
       document_count  { [1, 2, 3].sample }
       dependent_count { [1, 2, 3].sample }
       with_dependents
-      intake_ticket_id { 192 }
       with_documents
+      intake_ticket_id { "unused" }
       vita_partner
       locale { ["en", "es"].sample }
-      source { vita_partner.source_parameters.first || "none" }
+      source { vita_partner.source_parameters.first&.code || "none" }
       referrer { "/" }
       primary_birth_date { (20..100).to_a.sample.years.ago }
       spouse_birth_date { (20..100).to_a.sample.years.ago }
+      street_address { "123 Cherry Lane" }
       zip_code { ZipCodes::ZIP_CODES.keys.sample }
       city { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").first }
       state { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").last }
@@ -276,6 +345,8 @@ FactoryBot.define do
       demographic_primary_asian { true }
       demographic_primary_white { true }
       demographic_primary_prefer_not_to_answer_race { true }
+      demographic_english_reading { "well" }
+      demographic_english_conversation { "not_well" }
       after(:build) do |intake|
         Intake.defined_enums.each_key do |key|
           # only randomize values for keys that have not been supplied

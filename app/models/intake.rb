@@ -174,7 +174,7 @@
 #  intake_ticket_requester_id                           :bigint
 #  primary_intake_id                                    :integer
 #  triage_source_id                                     :bigint
-#  visitor_id                                           :string
+#  visitor_id                                           :string           not null
 #  vita_partner_id                                      :bigint
 #
 # Indexes
@@ -367,6 +367,10 @@ class Intake < ApplicationRecord
 
   def spouse
     users.where(is_spouse: true).first
+  end
+
+  def consented?
+    primary_consented_to_service_at.present?
   end
 
   def pdf
