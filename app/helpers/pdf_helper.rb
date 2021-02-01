@@ -1,7 +1,7 @@
 module PdfHelper
 
   def yes_no_unfilled_to_checkbox(value)
-    value == "Yes" ? 0 : nil
+    value == "yes" ? "Yes" : nil
   end
 
   # Oddly, 0 is checked and 1 is unchecked in the 2020 f13614-c.

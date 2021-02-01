@@ -572,6 +572,24 @@ describe Intake do
     end
   end
 
+  describe "#consented?" do
+    context "when primary_consented_to_service_at is present" do
+      subject { create(:intake, primary_consented_to_service_at: Date.current) }
+
+      it "is true" do
+        expect(subject.consented?).to be true
+      end
+    end
+
+    context "when primary_consented_at is not present" do
+      subject { create(:intake, primary_consented_to_service_at: nil) }
+
+      it "is false" do
+        expect(subject.consented?).to be false
+      end
+    end
+  end
+
   describe "#external_id" do
     let(:intake) { build :intake }
 
