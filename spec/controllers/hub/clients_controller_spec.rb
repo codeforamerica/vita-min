@@ -245,8 +245,6 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text("Pacific Time (US & Canada)")
         expect(profile).to have_text("I'm available every morning except Fridays.")
         expect(profile).to have_text("2")
-        ssn_section = Nokogiri::HTML.parse(response.body).at_css("#last-four-ssn")
-        expect
       end
 
       context "when a client needs attention" do

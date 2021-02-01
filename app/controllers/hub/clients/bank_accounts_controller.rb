@@ -10,6 +10,7 @@ module Hub
           user: current_user,
           client: @client,
           created_at: DateTime.now,
+          event_type: "read_bank_account_info",
           ip_address: request.remote_ip,
           user_agent: request.user_agent,
         )
