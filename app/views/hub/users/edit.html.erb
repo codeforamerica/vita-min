@@ -4,8 +4,6 @@
 
       <h1><%= @user.name %></h1>
 
-    <%= link_to t("general.delete"), hub_user_path(id: @user), method: :delete, class: "button button--danger", data: {confirm: t(".delete_confirmation", name: @user.name)} %>
-
     <% if @user.access_locked? %>
       <%= link_to t(".unlock_account"), unlock_hub_user_path(id: @user), method: :patch, class: "button button--danger", data: {confirm: t(".unlock_confirmation", name: @user.name )} %>
     <% end %>

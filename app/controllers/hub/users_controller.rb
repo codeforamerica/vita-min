@@ -14,6 +14,8 @@ module Hub
     def edit; end
 
     def destroy
+      return
+
       if @user.assigned_tax_returns.exists?
         redirect_to edit_hub_user_path(id: @user), alert: I18n.t("hub.users.destroy.user_has_assignments", name: @user.name, client_id: @user.assigned_tax_returns.first.client_id)
       else

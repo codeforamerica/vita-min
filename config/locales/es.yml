@@ -10,7 +10,6 @@ es:
         is_admin_label: Admin?
         unlock_account: "Desbloquear cuenta"
         unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
-        delete_confirmation: "¿Desea eliminar la cuenta de %{name}?"
       index:
         title: Usuarios
         needs_to_accept_invite: "Necesita aceptar la invitación"
