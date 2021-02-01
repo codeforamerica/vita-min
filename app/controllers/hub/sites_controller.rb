@@ -2,7 +2,7 @@ module Hub
   class SitesController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    before_action :load_organizations, only: [:new, :edit]
+    before_action :load_organizations, only: [:new, :edit, :update]
 
     load_and_authorize_resource :vita_partner, parent: false
 
@@ -27,9 +27,13 @@ module Hub
     end
 
     def update
-      render :edit unless @vita_partner.update(vita_partner_params)
-
-      redirect_to edit_hub_site_path(id: @vita_partner.id)
+      if @vita_partner.update(vita_partner_params)
+        redirect_to edit_hub_site_path(id: @vita_partner.id)
+      else
+        @show_unique_links = true
+        @site = @vita_partner
+        render :edit
+      end
     end
 
     private

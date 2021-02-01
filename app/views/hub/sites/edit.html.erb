@@ -3,6 +3,6 @@
 <% content_for :card do %>
   <div class="hub-form">
     <%= link_to(@site.parent_organization.name, edit_hub_organization_path(id: @site.parent_organization)) %>
-    <%= render "form", url: hub_site_path(organization_id: @organization, id: @site), http_method: :put %>
+    <%= render "form", url: hub_site_path(id: @site), http_method: :put %>
   </div>
 <% end %>
