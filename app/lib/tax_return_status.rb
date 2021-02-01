@@ -45,4 +45,8 @@ class TaxReturnStatus
   def self.message_template_for(status, locale = "en")
     message_templates[status.to_sym] ? I18n.t(message_templates[status.to_sym], locale: locale) : ""
   end
+
+  def self.statuses_that_count_towards_capacity
+    STATUSES.keys - [:intake_before_consent, :intake_in_progress, :file_accepted, :file_not_filing]
+  end
 end

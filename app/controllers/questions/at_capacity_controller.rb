@@ -15,7 +15,7 @@ module Questions
       def show?(intake)
         return false unless intake.vita_partner
 
-        intake.might_encounter_delayed_service?
+        intake.vita_partner.at_capacity?
       end
     end
   end

@@ -27,153 +27,114 @@
 require "rails_helper"
 
 describe VitaPartner do
-  context "capacity" do
-    let(:routing_criteria) { "source_parameter" }
-    let(:recent_intake_count) { 0 }
+  describe "#at_capacity?" do
+    let(:out_of_range_statuses) { TaxReturnStatus::STATUSES.keys - TaxReturnStatus.statuses_that_count_towards_capacity }
+    let(:in_range_statuses) { TaxReturnStatus::statuses_that_count_towards_capacity }
 
-    before do
-      create_list(
-        :intake,
-        recent_intake_count,
-        vita_partner: vita_partner,
-        primary_consented_to_service_at: rand(1...6).days.ago,
-        intake_ticket_id: 12345,
-        routing_criteria: routing_criteria,
-      )
-    end
+    context "an organization" do
+      let(:organization) { create :organization, weekly_capacity_limit: 10 }
 
-    describe "#at_capacity?" do
-      let(:vita_partner) { create(:vita_partner, weekly_capacity_limit: 10) }
-
-      context "recently consented intakes with Zendesk ticket count is at capacity limit" do
-        let(:recent_intake_count) { vita_partner.weekly_capacity_limit }
-
-        it "returns true" do
-          expect(vita_partner).to be_at_capacity
-        end
-      end
-
-      context "recently consented intakes with Zendesk ticket count is above capacity limit" do
-        let(:recent_intake_count) { vita_partner.weekly_capacity_limit + 1 }
-
-        it "returns true" do
-          expect(vita_partner).to be_at_capacity
-        end
-      end
-
-      context "recently consented intakes with Zendesk ticket count is less than capacity limit" do
-        let(:recent_intake_count) do
-          vita_partner.weekly_capacity_limit - 1
-        end
-
-        it "returns false" do
-          expect(vita_partner).not_to be_at_capacity
-        end
-
-        context "when there are partner intakes consented more than a week ago" do
+      context "at or over capacity" do
+        context "at capacity" do
           before do
-            create(
-              :intake,
-              primary_consented_to_service_at: 7.days.ago,
-              vita_partner: vita_partner
-            )
-          end
-
-          it "returns false" do
-            expect(vita_partner).not_to be_at_capacity
-          end
-        end
-
-        context "when there are recently consented partner intakes without tickets" do
-          before do
-            create(
-              :intake,
-              primary_consented_to_service_at: 1.days.ago,
-              vita_partner: vita_partner
-            )
-          end
-
-          it "returns false" do
-            expect(vita_partner).not_to be_at_capacity
-          end
-        end
-
-        context "when there are partner intakes that have not been consented to" do
-          before do
-            create(
-              :intake,
-              primary_consented_to_service_at: nil,
-              intake_ticket_id: 123,
-              vita_partner: vita_partner
-            )
-          end
-
-          it "returns false" do
-            expect(vita_partner).not_to be_at_capacity
-          end
-        end
-      end
-    end
-
-    describe "#has_capacity_for?" do
-      let(:intake) { create :intake, vita_partner: vita_partner, routing_criteria: routing_criteria }
-
-      context "for the special situation of Urban Upbound" do
-        let(:vita_partner) do
-          create(
-            :vita_partner,
-            name: "Urban Upbound (NY)",
-          )
-        end
-
-        context "with an intake referred by source parameter" do
-          let(:routing_criteria) { "source_parameter" }
-
-          it "always has capacity" do
-            expect(vita_partner.has_capacity_for?(intake)).to eq true
-          end
-        end
-
-        context "with an intake in UUNY's list of states" do
-          let(:routing_criteria) { "state" }
-
-          it "always has capacity" do
-            expect(vita_partner.has_capacity_for?(intake)).to eq true
-          end
-        end
-
-        context "with an overflow intake" do
-          let(:routing_criteria) { "overflow" }
-
-          context "under 50 overflow intakes this week" do
-            let(:recent_intake_count) { 5 }
-
-            it "has capacity for the intake" do
-              expect(vita_partner.has_capacity_for?(intake)).to eq true
+            organization.weekly_capacity_limit.times do
+              client = create :client, vita_partner: organization
+              create :tax_return, status: "intake_ready", client: client
             end
           end
 
-          context "more than 50 overflow intakes this week" do
-            let(:recent_intake_count) { 51 }
+          it "returns true" do
+            expect(organization).to be_at_capacity
+          end
+        end
 
-            it "does not have capacity for this intake" do
-              expect(vita_partner.has_capacity_for?(intake)).to eq false
+        context "over capacity" do
+          context "clients assigned to organization exceed capacity limit" do
+            before do
+              (organization.weekly_capacity_limit + 1).times do
+                client = create :client, vita_partner: organization
+                create :tax_return, status: in_range_statuses.sample, client: client
+              end
+            end
+
+            it "returns true" do
+              expect(organization).to be_at_capacity
+            end
+          end
+
+          context "sum of clients assigned to sites within organization exceed capacity limit" do
+            let(:site_1) { create :site, parent_organization: organization }
+            let(:site_2) { create :site, parent_organization: organization }
+
+            before do
+              (organization.weekly_capacity_limit + 1).times do
+                client = create :client, vita_partner: [site_1, site_2, organization].sample
+                create :tax_return, status: in_range_statuses.sample, client: client
+              end
+            end
+
+            it "returns true" do
+              expect(organization).to be_at_capacity
             end
           end
         end
       end
 
-      context "in all other cases" do
-        let(:vita_partner) { create :vita_partner }
+      context "under capacity" do
+        context "total number of clients is less than capacity limit" do
+          before do
+            (organization.weekly_capacity_limit - 1).times do
+              client = create :client, vita_partner: organization
+              create :tax_return, client: client
+            end
+          end
 
-        before do
-          allow(vita_partner).to receive(:at_capacity?).and_return(false)
+          it "returns false" do
+            expect(organization).not_to be_at_capacity
+          end
         end
 
-        it "just checks for the partner's default capacity" do
-          expect(vita_partner.has_capacity_for?(intake)).to eq true
-          expect(vita_partner).to have_received(:at_capacity?)
+        context "number of clients in status range is less than capacity limit" do
+          before do
+            (organization.weekly_capacity_limit / 2).times do
+              client = create :client, vita_partner: organization
+              create :tax_return, status: out_of_range_statuses.sample, client: client
+            end
+
+            (organization.weekly_capacity_limit / 2).times do
+              client = create :client, vita_partner: organization
+              create :tax_return, status: in_range_statuses.sample, client: client
+            end
+          end
+
+          it "returns false" do
+            expect(organization).not_to be_at_capacity
+          end
         end
+      end
+    end
+
+    context "with no capacity set" do
+      let(:organization) { create :organization }
+      before do
+        100.times do
+          client = create :client, vita_partner: organization
+          create :tax_return, status: "intake_ready", client: client
+        end
+      end
+
+      it "always returns false" do
+        expect(organization).not_to be_at_capacity
+      end
+    end
+
+    context "a site" do
+      let(:site) { create :site }
+
+      it "throws an error because sites do not have capacity" do
+        expect do
+          site.at_capacity?
+        end.to raise_error(StandardError)
       end
     end
   end
@@ -200,6 +161,11 @@ describe VitaPartner do
         new_site = build(:site, parent_organization: organization, name: "Salty Site")
         expect(new_site).not_to be_valid
       end
+    end
+
+    it "cannot be assigned a capacity" do
+      site = VitaPartner.new(parent_organization: create(:organization), weekly_capacity_limit: 1)
+      expect(site.valid?).to eq false
     end
   end
 
