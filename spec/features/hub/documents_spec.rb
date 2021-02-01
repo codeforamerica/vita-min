@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "View and edit documents for a client" do
   context "As an authenticated user" do
     let(:user) { create :organization_lead_user }
-    let(:client) { create :client, vita_partner: user.role.organization, intake: create(:intake, preferred_name: "Bart Simpson") }
+    let(:client) { create :client, vita_partner: user.role.organization, intake: create(:intake, preferred_name: "Bart Simpson", primary_consented_to_service_at: DateTime.new(2021, 1, 26)) }
     let(:tax_return_1) { create :tax_return, client: client, year: 2019 }
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement" }
     let!(:document_2) { create :document, display_name: "W-2.pdf", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement" }
@@ -42,6 +42,17 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_1.id}", text: "Updated Document Title")
       expect(page).to have_selector("#document-#{document_1.id}", text: "2017")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Form 8879 (Unsigned)")
+    end
+
+    scenario "view consent form when the client has signed the consent form" do
+      visit hub_client_documents_path(client_id: client.id)
+
+      expect(page).to have_selector("#document-#{document_1.id}", text: "consent_form.pdf")
+      expect(page).to have_selector("#document-#{document_1.id}", text: "14446 Consent Form")
+
+      within "#document-#{document_1.id}" do
+        click_on "14446 Consent Form"
+      end
     end
 
     scenario "uploading a document to a client's documents page" do
