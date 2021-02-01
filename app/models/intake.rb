@@ -216,7 +216,7 @@ class Intake < ApplicationRecord
   after_save do
     if saved_change_to_completed_at?(from: nil)
       record_incoming_interaction # client completed intake
-      create_13614c_document("Original 13614-C.pdf")
+      IntakePdfJob.perform_later(self.id)
     elsif completed_at.present?
       record_internal_interaction # user updated completed intake
     end
@@ -367,6 +367,10 @@ class Intake < ApplicationRecord
 
   def spouse
     users.where(is_spouse: true).first
+  end
+
+  def consented?
+    primary_consented_to_service_at.present?
   end
 
   def pdf
@@ -572,10 +576,11 @@ class Intake < ApplicationRecord
     ADDRESS
   end
 
-  def create_13614c_document(filename)
+  def create_intake_document(filename)
+    filename ||= "2020 13614-C with 15080.pdf"
     pdf_tempfile = pdf
     pdf_tempfile.seek(0)
-    client.documents.create!(document_type: DocumentTypes::Original13614C.key, intake: self, upload: {
+    client.documents.create!(document_type: DocumentTypes::Form13614CForm15080.key, intake: self, upload: {
       io: pdf_tempfile,
       filename: filename,
       content_type: "application/pdf",

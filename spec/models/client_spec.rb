@@ -53,6 +53,7 @@ describe Client do
         expect(access_loss_error_message).to include another_assigned_user.name
         expect(access_loss_error_message).to include "would lose access if you assign this client to "\
           "#{other_site.name}. Please change tax return assignments before reassigning this client."
+
       end
     end
   end

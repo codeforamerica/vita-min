@@ -572,6 +572,24 @@ describe Intake do
     end
   end
 
+  describe "#consented?" do
+    context "when primary_consented_to_service_at is present" do
+      subject { create(:intake, primary_consented_to_service_at: Date.current) }
+
+      it "is true" do
+        expect(subject.consented?).to be true
+      end
+    end
+
+    context "when primary_consented_at is not present" do
+      subject { create(:intake, primary_consented_to_service_at: nil) }
+
+      it "is false" do
+        expect(subject.consented?).to be false
+      end
+    end
+  end
+
   describe "#external_id" do
     let(:intake) { build :intake }
 
@@ -1028,12 +1046,12 @@ describe Intake do
   describe "after_save when the intake is completed" do
     let(:intake) { create :intake }
     before do
-      allow(intake).to receive(:create_13614c_document)
+      allow(IntakePdfJob).to receive(:perform_later)
     end
 
-    it "should create a pdf document using intake answers in #create_13614c_document" do
+    it "should enqueue a background job to create a 13614C document." do
       intake.update(completed_at: Time.now)
-      expect(intake).to have_received(:create_13614c_document)
+      expect(IntakePdfJob).to have_received(:perform_later).with(intake.id)
     end
 
     it_behaves_like "an incoming interaction" do
@@ -1048,22 +1066,21 @@ describe Intake do
     end
   end
 
-  describe "#create_13614c_document" do
+  describe "#create_intake_document" do
     before do
       example_pdf = Tempfile.new("example.pdf")
       example_pdf.write("example pdf contents")
       allow(intake).to receive(:pdf).and_return(example_pdf)
-      allow(intake).to receive(:create_13614c_document).and_call_original
     end
 
     let(:intake) { create(:intake) }
 
-    it "creates a preliminary 13614-C PDF with a given filename" do
-      expect { intake.create_13614c_document("filename.pdf") }.to change(Document, :count).by(1)
+    it "creates an intake PDF with a given filename" do
+      expect { intake.create_intake_document("filename.pdf") }.to change(Document, :count).by(1)
 
       doc = Document.last
       expect(doc.display_name).to eq("filename.pdf")
-      expect(doc.document_type).to eq(DocumentTypes::Original13614C.key)
+      expect(doc.document_type).to eq(DocumentTypes::Form13614CForm15080.key)
       expect(intake).to have_received(:pdf)
     end
   end
