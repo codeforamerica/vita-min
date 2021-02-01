@@ -1046,12 +1046,12 @@ describe Intake do
   describe "after_save when the intake is completed" do
     let(:intake) { create :intake }
     before do
-      allow(Intake13614CPdfJob).to receive(:perform_later)
+      allow(IntakePdfJob).to receive(:perform_later)
     end
 
     it "should enqueue a background job to create a 13614C document." do
       intake.update(completed_at: Time.now)
-      expect(Intake13614CPdfJob).to have_received(:perform_later).with(intake, "Original 13614-C.pdf")
+      expect(IntakePdfJob).to have_received(:perform_later).with(intake.id)
     end
 
     it_behaves_like "an incoming interaction" do
@@ -1066,22 +1066,21 @@ describe Intake do
     end
   end
 
-  describe "#create_13614c_document" do
+  describe "#create_intake_document" do
     before do
       example_pdf = Tempfile.new("example.pdf")
       example_pdf.write("example pdf contents")
       allow(intake).to receive(:pdf).and_return(example_pdf)
-      allow(intake).to receive(:create_13614c_document).and_call_original
     end
 
     let(:intake) { create(:intake) }
 
-    it "creates a preliminary 13614-C PDF with a given filename" do
-      expect { intake.create_13614c_document("filename.pdf") }.to change(Document, :count).by(1)
+    it "creates an intake PDF with a given filename" do
+      expect { intake.create_intake_document("filename.pdf") }.to change(Document, :count).by(1)
 
       doc = Document.last
       expect(doc.display_name).to eq("filename.pdf")
-      expect(doc.document_type).to eq(DocumentTypes::Original13614C.key)
+      expect(doc.document_type).to eq(DocumentTypes::F13614CF150802020.key)
       expect(intake).to have_received(:pdf)
     end
   end
