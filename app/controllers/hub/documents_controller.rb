@@ -10,7 +10,7 @@ module Hub
     layout "admin"
 
     def index
-      ConsentPdf.new(@client.intake).create_consent_document if Document.where(document_type: "Consent Form 14446", intake: @intake).empty?
+      ConsentPdf.new(@client.intake).create_consent_document if Document.where(document_type: "Consent Form 14446", intake: @client.intake).count.zero?
 
       @sort_order = sort_order
       @sort_column = sort_column

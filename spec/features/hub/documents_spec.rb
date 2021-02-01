@@ -47,12 +47,15 @@ RSpec.feature "View and edit documents for a client" do
     scenario "view consent form when the client has signed the consent form" do
       visit hub_client_documents_path(client_id: client.id)
 
-      expect(page).to have_selector("#document-#{document_1.id}", text: "consent_form.pdf")
-      expect(page).to have_selector("#document-#{document_1.id}", text: "14446 Consent Form")
+      expect(page).to have_content("Consent Form 14446")
+      expect(page).to have_content("14446 Consent Form")
 
-      within "#document-#{document_1.id}" do
-        click_on "14446 Consent Form"
-      end
+      visit hub_client_path(id: client.id)
+      visit hub_client_documents_path(client_id: client.id)
+
+      expect(Document.where(document_type: "Consent Form 14446", intake: client.intake).count).to eq 1
+
+      click_on "14446 Consent Form"
     end
 
     scenario "uploading a document to a client's documents page" do

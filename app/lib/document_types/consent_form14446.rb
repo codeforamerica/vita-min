@@ -2,7 +2,8 @@ module DocumentTypes
   class ConsentForm14446 < DocumentType
     class << self
       def relevant_to?(_intake)
-        true
+        # This is not used in a flow or to determine relevant types for an intake
+        false
       end
 
       def key
