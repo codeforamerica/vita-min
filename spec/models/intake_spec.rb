@@ -1057,26 +1057,48 @@ describe Intake do
     end
   end
 
-  describe "after_save when the intake is completed" do
+  describe "#after_save" do
     let(:intake) { create :intake }
-    before do
-      allow(IntakePdfJob).to receive(:perform_later)
+
+    context "when the intake is completed" do
+      before do
+        allow(IntakePdfJob).to receive(:perform_later)
+      end
+
+      it "should enqueue a background job to create a 13614C document." do
+        intake.update(completed_at: Time.now)
+        expect(IntakePdfJob).to have_received(:perform_later).with(intake.id)
+      end
+
+      context "when the intake has already been completed" do
+        it_behaves_like "an internal interaction" do
+          let(:subject) { create :intake, completed_at: Time.now }
+        end
+      end
     end
 
-    it "should enqueue a background job to create a 13614C document." do
-      intake.update(completed_at: Time.now)
-      expect(IntakePdfJob).to have_received(:perform_later).with(intake.id)
+    context "when filing status is set to single" do
+      let(:intake) { create :intake, primary_consented_to_service_at: DateTime.now }
+      before do
+        allow(intake).to receive(:create_consent_document)
+      end
+
+      it "creates a consent form document" do
+        intake.update(filing_joint: "no")
+        expect(intake).to have_received(:create_consent_document)
+      end
     end
 
-    it_behaves_like "an incoming interaction" do
-      let(:subject) { create :intake }
-      before { subject.completed_at = Time.now }
-    end
-  end
+    context "when filing status is set to joint" do
+      let(:intake) { create :intake, primary_consented_to_service_at: DateTime.current, filing_joint: "yes" }
+      before do
+        allow(intake).to receive(:create_consent_document)
+      end
 
-  describe "after_save when the intake has already been completed" do
-    it_behaves_like "an internal interaction" do
-      let(:subject) { create :intake, completed_at: Time.now }
+      it "creates a consent form document" do
+        intake.update(spouse_consented_to_service_at: DateTime.current)
+        expect(intake).to have_received(:create_consent_document)
+      end
     end
   end
 
@@ -1096,6 +1118,20 @@ describe Intake do
       expect(doc.display_name).to eq("filename.pdf")
       expect(doc.document_type).to eq(DocumentTypes::Form13614CForm15080.key)
       expect(intake).to have_received(:pdf)
+    end
+  end
+
+  describe "#create_consent_document" do
+    let(:intake) { create(:intake, primary_consented_to_service_at: DateTime.current) }
+
+    context "when the primary client consented to service" do
+      it "creates a 14446 consent document for the intake" do
+        expect { intake.create_consent_document }.to change(Document, :count).by(1)
+
+        doc = Document.last
+        expect(doc.display_name).to eq("14446 Consent Form")
+        expect(doc.document_type).to eq(DocumentTypes::ConsentForm14446.key)
+      end
     end
   end
 end

@@ -9,7 +9,6 @@ module Questions
     end
 
     def after_update_success
-      ConsentPdf.new(current_intake).create_consent_document
       current_intake.advance_tax_return_statuses_to("intake_in_progress")
       if current_intake.email_notification_opt_in_yes?
         body = I18n.t("messages.getting_started.email_body", preferred_name: current_intake.preferred_name, requested_docs_link: current_intake.requested_docs_token_link, locale: current_intake.locale)

@@ -32,24 +32,4 @@ class ConsentPdf
     end
     data
   end
-
-  def create_consent_document
-    return unless @intake&.primary_consented_to_service_at&.present?
-
-    document = Document.new(
-      client: @intake.client,
-      intake: @intake,
-      document_type: DocumentTypes::ConsentForm14446,
-      display_name: "14446 Consent Form",
-      created_at: @intake.primary_consented_to_service_at
-    )
-
-    document.upload.attach(
-      io: File.open(@intake.consent_pdf.path),
-      filename: "consent_form.pdf",
-      content_type: "application/pdf"
-    )
-
-    document.save!
-  end
 end

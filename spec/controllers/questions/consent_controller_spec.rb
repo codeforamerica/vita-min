@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Questions::ConsentController do
-  let(:intake) { create :intake, preferred_name: "Ruthie Rutabaga", primary_consented_to_service_at: DateTime.now }
+  let(:intake) { create :intake, preferred_name: "Ruthie Rutabaga" }
   let!(:tax_return) { create :tax_return, client: intake.client }
 
   before do
@@ -220,15 +220,5 @@ RSpec.describe Questions::ConsentController do
         end
       end
     end
-
-    it "creates a consent form document for the client" do
-      expect do
-        subject.after_update_success
-      end.to change(Document, :count).by 1
-
-      document = Document.last
-      expect(document.display_name).to eq "14446 Consent Form"
-    end
   end
-
 end

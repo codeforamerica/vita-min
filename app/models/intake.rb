@@ -214,7 +214,11 @@ class Intake < ApplicationRecord
   validates_presence_of :visitor_id
 
   after_save do
-    if saved_change_to_completed_at?(from: nil)
+    if saved_change_to_filing_joint?(to: "no")
+      create_consent_document
+    elsif saved_change_to_spouse_consented_to_service_at?(from: nil)
+      create_consent_document
+    elsif saved_change_to_completed_at?(from: nil)
       record_incoming_interaction # client completed intake
       IntakePdfJob.perform_later(self.id)
     elsif completed_at.present?
@@ -586,5 +590,21 @@ class Intake < ApplicationRecord
       content_type: "application/pdf",
       identify: false
     })
+  end
+
+  def create_consent_document
+    return unless primary_consented_to_service_at&.present?
+
+    client.documents.create!(
+      intake: self,
+      document_type: DocumentTypes::ConsentForm14446.key,
+      display_name: "14446 Consent Form",
+      created_at: primary_consented_to_service_at,
+      upload: {
+        io: File.open(consent_pdf.path),
+        filename: "consent_form_#{preferred_name}.pdf",
+        content_type: "application/pdf"
+      }
+    )
   end
 end
