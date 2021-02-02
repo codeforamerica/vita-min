@@ -40,7 +40,7 @@
 #  divorced                                             :integer          default("unfilled"), not null
 #  divorced_year                                        :string
 #  eip_only                                             :boolean
-#  email_address                                        :string
+#  email_address                                        :citext
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
 #  encrypted_bank_account_number                        :string
 #  encrypted_bank_account_number_iv                     :string
@@ -146,7 +146,7 @@
 #  spouse_consented_to_service                          :integer          default("unfilled"), not null
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
-#  spouse_email_address                                 :string
+#  spouse_email_address                                 :citext
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default("unfilled"), not null
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
@@ -240,6 +240,20 @@ describe Intake do
         expect(Intake.new).not_to be_valid
         expect(Intake.new(visitor_id: "present")).to be_valid
       end
+    end
+  end
+
+  describe "email_address" do
+    it "searches case-insensitively" do
+      intake = Intake.create!(email_address: "eXample@EXAMPLE.COM", visitor_id: "visitor_id")
+      expect(Intake.where(email_address: "example@example.com")).to include(intake)
+    end
+  end
+
+  describe "spouse_email_address" do
+    it "searches case-insensitively" do
+      intake = Intake.create!(spouse_email_address: "eXample@EXAMPLE.COM", visitor_id: "visitor_id")
+      expect(Intake.where(spouse_email_address: "example@example.com")).to include(intake)
     end
   end
 
