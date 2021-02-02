@@ -19,21 +19,23 @@ class ReplacementParametersService
   private
 
   def process_replacements_hash(replacements_hash)
-    convert_template_keys_to_string_format_syntax(replacements_hash.keys)
+    # escape existing percent signs
+    body.gsub!(/%/, "%%")
+
+    # replace valid <<key>> with %{key}
+    replacements_hash.each_key { |key| body.gsub!(/<<\s*#{key}\s*>>/i, "%{#{key}}") }
+
     body % replacements_hash
   end
 
-  def convert_template_keys_to_string_format_syntax(keys)
-    keys.each{ |key| body.gsub!(/<<\s*#{key}\s*>>/i, "%{#{key}}") }
-  end
 
   def replacements
     {
-        "Client.PreferredName": client&.preferred_name,
-        "Preparer.FirstName": preparer_first_name,
-        "Documents.List": documents_list,
-        "Documents.UploadLink": client.intake.requested_docs_token_link,
-        "Client.YouOrMaybeYourSpouse": you_or_your,
+        "Client.PreferredName" => client&.preferred_name,
+        "Preparer.FirstName" => preparer_first_name,
+        "Documents.List" => documents_list,
+        "Documents.UploadLink" => client.intake.requested_docs_token_link,
+        "Client.YouOrMaybeYourSpouse" => you_or_your,
     }
   end
 
@@ -46,7 +48,7 @@ class ReplacementParametersService
   # for example, when adding a link to send to the client only
   def sensitive_replacements
     {
-      "Link.E-signature": client.login_link
+      "Link.E-signature" => client.login_link
     }
   end
 
