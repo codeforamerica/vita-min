@@ -29,6 +29,7 @@ RSpec.describe Hub::UpdateClientForm do
         email_address: intake.email_address,
         phone_number: intake.phone_number,
         sms_phone_number: intake.sms_phone_number,
+        primary_last_four_ssn: intake.primary_last_four_ssn,
         street_address: intake.street_address,
         city: intake.city,
         state: intake.state,
