@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_30_015122) do
+ActiveRecord::Schema.define(version: 2021_02_02_002736) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "citext"
   enable_extension "plpgsql"
   enable_extension "postgis"
 
@@ -280,7 +281,7 @@ ActiveRecord::Schema.define(version: 2021_01_30_015122) do
     t.integer "divorced", default: 0, null: false
     t.string "divorced_year"
     t.boolean "eip_only"
-    t.string "email_address"
+    t.citext "email_address"
     t.integer "email_notification_opt_in", default: 0, null: false
     t.string "encrypted_bank_account_number"
     t.string "encrypted_bank_account_number_iv"
@@ -389,7 +390,7 @@ ActiveRecord::Schema.define(version: 2021_01_30_015122) do
     t.integer "spouse_consented_to_service", default: 0, null: false
     t.datetime "spouse_consented_to_service_at"
     t.inet "spouse_consented_to_service_ip"
-    t.string "spouse_email_address"
+    t.citext "spouse_email_address"
     t.string "spouse_first_name"
     t.integer "spouse_had_disability", default: 0, null: false
     t.integer "spouse_issued_identity_pin", default: 0, null: false

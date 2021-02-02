@@ -40,7 +40,7 @@
 #  divorced                                             :integer          default("unfilled"), not null
 #  divorced_year                                        :string
 #  eip_only                                             :boolean
-#  email_address                                        :string
+#  email_address                                        :citext
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
 #  encrypted_bank_account_number                        :string
 #  encrypted_bank_account_number_iv                     :string
@@ -146,7 +146,7 @@
 #  spouse_consented_to_service                          :integer          default("unfilled"), not null
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
-#  spouse_email_address                                 :string
+#  spouse_email_address                                 :citext
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default("unfilled"), not null
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
