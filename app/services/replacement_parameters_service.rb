@@ -27,7 +27,7 @@ class ReplacementParametersService
 
     body % replacements_hash
   end
-  
+
   def replacements
     {
         "Client.PreferredName": client&.preferred_name,

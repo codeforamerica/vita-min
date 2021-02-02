@@ -8,11 +8,13 @@
     <div class="grid">
       <div class="grid__item width-two-thirds">
         <h1 class="h2"><%=t("views.public_pages.stimulus_payment.header") %></h1>
-        <p><%=t("views.public_pages.stimulus_payment.intro.description") %></p>
-        <p><%=t("views.public_pages.stimulus_payment.intro.tax_deadline") %></p>
+        <div><%=t("views.public_pages.stimulus_payment.intro.description_html") %></div>
         <p><%=t("views.public_pages.stimulus_payment.intro.common_questions") %></p>
+        <p class="hint">
+          <%= t("views.public_pages.stimulus_payment.intro.irs_info_html", :irs_eip_link => link_to("IRS.gov/eip", "https://irs.gov/eip", target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-eip", "data-track-attribute-position": "intro")) %>
+        </p>
         <p class="hint last">
-          <%=t("views.public_pages.stimulus_payment.intro.irs_info_html", :irs_eip_link => link_to("IRS.gov/eip", "https://irs.gov/eip", target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-eip", "data-track-attribute-position": "intro")) %>
+          <%= t("views.public_pages.stimulus_payment.intro.last_updated") %>
         </p>
       </div>
     </div>
@@ -22,7 +24,11 @@
       </div>
       <div class="grid__item width-seven-twelfths">
         <h2 class="h3"><%=t("views.public_pages.stimulus_payment.intro.eligibility.header") %></h2>
-        <p class="last"><%=t("views.public_pages.stimulus_payment.intro.eligibility.info") %></p>
+        <p class="last"><%=t("views.public_pages.stimulus_payment.intro.eligibility.info_html") %></p>
+      </div>
+      <div class="grid__item width-seven-twelfths">
+        <h2 class="h3"><%=t("views.public_pages.stimulus_payment.intro.mixed_status_eligibility.header") %></h2>
+        <p class="last"><%=t("views.public_pages.stimulus_payment.intro.mixed_status_eligibility.info_html") %></p>
       </div>
     </div>
     <div class="grid spacing-above-35 stimulus-info">
@@ -118,6 +124,7 @@
               <%=t("views.public_pages.stimulus_payment.faq.how_to_get_paid.change_address.a_html", :irs_address_change_link => link_to(t("views.public_pages.stimulus_payment.faq.how_to_get_paid.change_address.address_change"), "https://www.irs.gov/faqs/irs-procedures/address-changes", target: "_blank", rel: "noopener", "data-track-click": "stimulus-irs-address-changes", "data-track-attribute-position": "faq8")) %>
             </p>
           </div>
+
         </div>
         <div class="accordion">
           <a href="#" class="accordion__button" aria-expanded="true" aria-controls="a9">

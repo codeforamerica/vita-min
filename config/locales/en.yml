@@ -1204,10 +1204,26 @@ en:
               a: Economic Impact Payments will arrive in bank accounts through direct deposit starting on April 9th, 2020. If you don't have a bank account it could take up to five months to receive your check by mail.
               q: When will I receive my check?
           how_to_get_paid:
-            change_address:
-              a_html: If you want your EIP check mailed to you, make sure your address is up to date on the IRS %{irs_address_change_link} website. There may be delays – it could take up to five months to receive your check by mail.
-              address_change: address change
-              q: What if I moved since filing my taxes?
+            header: How to get paid
+            faq:
+              - title: How do I get my Economic Impact Payment check?
+                content_html: If the IRS has not sent your first or second round stimulus payment yet, or if you received the wrong amount for either payment, you will need to file a 2020 tax return in order to receive it.
+              - title: How do I determine if the IRS has sent my stimulus check?
+                content_html: If you are not sure if the IRS has sent your payment(s) or want to check the status, you can search at the IRS Get My Payment website.
+              - title: What if there are issues with my bank account information?
+               content_html:  If you provided bank account information earlier to the IRS that has since changed or do not recognize the number in their system, please see the IRS website for more information.
+              - title: How much will I receive?
+                content_html: Eligible taxpayers will receive an economic impact payment of up to $600 for individuals or $1,200 for married couples and up to $600 for each qualifying child.The IRS has a “How do I calculate my EIP” website to help you calculate how much you will receive for the first round of payments. For the second round of payments, you will need to complete the Recovery Rebate Credit Worksheet for line 30 of the 2020 1040 tax form. We can assist you with these forms if you file your return through GetYourRefund.
+              - title: What if I haven’t filed federal taxes?
+                content_html: We recommend that you file your taxes in order to access the Economic Impact Payments and any additional tax credits you may be eligible for. You can file 2017, 2018, 2019, and 2020 returns for free with GetYourRefund.
+              - title: What if I don’t have a bank account?
+                content_html: If you don’t have a bank account, it could take up to five months to receive your EIP check by mail. To get your payment quickly via direct deposit, sign up for a bank account online and add your account information on the IRS Get My Payment website. If you don’t want to sign up for a bank account, you can link your prepaid debit card or Cash App instead. Many of our VITA partners can also enroll you in a prepaid debit card when you file your return through GetYourRefund.
+              - title: What if I moved since filing my taxes?
+                content_html: If you want your EIP check mailed to you, make sure your address is up to date on the <a href="https://www.irs.gov/faqs/irs-procedures/address-changes" rel="nofollow" target="blank" data-track-click="stimulus-irs-address-changes" data-track-attribute-position="stimulus-faq7">IRS address change website</a>. There may be delays – it could take up to five months to receive your check by mail.
+#            change_address:
+#              a_html: If you want your EIP check mailed to you, make sure your address is up to date on the IRS %{irs_address_change_link} website. There may be delays – it could take up to five months to receive your check by mail.
+#              address_change: address change
+#              q: What if I moved since filing my taxes?
             change_information:
               a_html: You can update your information on the IRS %{irs_get_my_payment_link} website.
               q: What if I need to change the information I provided in 2018 or 2019?
@@ -1238,12 +1254,28 @@ en:
         header: Get your Stimulus Check
         intro:
           common_questions: We know there are many questions around the Economic Impact Payments (EIP) and we have some answers! We’ve broken down some common questions to help you out.
-          description: This year, many people will receive an Economic Impact Payment (often called a stimulus payment) from the federal government. You’ll get up to $1,200 for yourself ($2,400 for a married couple filing jointly) and you’ll get an additional $500 for every dependent child under the age of 17.
+          description_html: |
+            <p>Since the COVID-19 pandemic started, the federal government has sent out two rounds of Economic Impact Payments (often called a stimulus check). For the first round, individuals received up to $1,200 for themselves ($2,400 for a married couple filing jointly) and an additional $500 for every dependent child under the age of 17.</p>
+
+            <p>For the second round, individuals receive up to $600 for themselves ($1,200 for a married couple filing jointly) and an additional $600 for every dependent child under the age of 17. If you have not yet received either rounds of payments yet, it is not too late! You can still claim them by filing a tax return this year.</p>
           eligibility:
             header: Who is eligible?
-            info: Tax filers with adjusted gross income up to $75,000 for individuals and up to $150,000 for married couples filing joint returns will receive the full payment. For filers with income above those amounts, the payment amount is reduced by $5 for each $100 above the $75,000/$150,000 thresholds. Single filers with income exceeding $99,000 and $198,000 for joint filers with no children are not eligible.
+            info_html: |
+              <p>There are different eligibility levels for the two rounds of stimulus checks. For the first round, tax filers with adjusted gross income up to $75,000 for individuals and up to $150,000 for married couples filing joint returns will receive the full payment. For filers with income above those amounts, the payment amount is reduced by $5 for each $100 above the $75,000/$150,000 thresholds. Single filers with income exceeding $99,000 and $198,000 for joint filers with no children are not eligible.</p>
+
+              <p>For the first round, eligible taxpayers received an economic impact payment of up to $1,200 for individuals or $2,400 for married couples and up to $500 for each qualifying child.</p>
+
+              <p>For the second round, income tax filers with adjusted gross income up to $75,000 for individuals and up to $150,000 for married couples filing joint returns will again receive the full payment. For filers with income above those amounts, the payment amount phases out more quickly than in the first round. Single filers with income exceeding $87,000 and $174,000 for joint filers with no children are not eligible.</p>
+
+              <p>For the second round, eligible taxpayers will receive an economic impact payment of up to $600 for individuals or $1,200 for married couples and up to $600 for each qualifying child.<p>
+
+              <p>If you have any earned income or dependents, you may be able to access additional tax credits or benefits by filing or updating your info with the IRS. Please reach out via chat for more information.</p>
+          mixed_status_eligibility:
+            header: Are mixed immigration status families eligible?
+            info_html: |
+              <p>Originally, mixed status families were not eligible for the first round of payments. However, now mixed status families can claim both the first and second round of payments on this year’s tax return. For the second round of payments, if you jointly file with your spouse and only one of you has a valid Social Security Number, the spouse with the valid SSN will receive up to $600 and up to $600 for any qualifying children with SSNs. However, the spouse without a valid SSN is not eligible. The same rules now apply for the first round of payments as well.</p>
           irs_info_html: The IRS will post all key information on %{irs_eip_link} as soon as it becomes available.
-          tax_deadline: You can still receive your Economic Impact Payment (stimulus) even though the tax deadline has passed.
+          last_updated: Updated on January 25, 2021
         title: Stimulus Payment
       tax_questions:
         cannot_answer:
