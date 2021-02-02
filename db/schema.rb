@@ -633,6 +633,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_161854) do
 
   create_table "vita_partners", force: :cascade do |t|
     t.boolean "archived", default: false
+    t.integer "capacity_limit"
     t.bigint "coalition_id"
     t.datetime "created_at", precision: 6, null: false
     t.string "logo_path"
@@ -641,7 +642,6 @@ ActiveRecord::Schema.define(version: 2021_02_03_161854) do
     t.bigint "parent_organization_id"
     t.string "timezone", default: "America/New_York"
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "weekly_capacity_limit"
     t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"
     t.index ["parent_organization_id", "name", "coalition_id"], name: "index_vita_partners_on_parent_name_and_coalition", unique: true
     t.index ["parent_organization_id"], name: "index_vita_partners_on_parent_organization_id"

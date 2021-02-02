@@ -4,11 +4,11 @@
 #
 #  id                         :bigint           not null, primary key
 #  archived                   :boolean          default(FALSE)
+#  capacity_limit             :integer
 #  logo_path                  :string
 #  name                       :string           not null
 #  national_overflow_location :boolean          default(FALSE)
 #  timezone                   :string           default("America/New_York")
-#  weekly_capacity_limit      :integer
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  coalition_id               :bigint
@@ -46,13 +46,14 @@ class VitaPartner < ApplicationRecord
   accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: lambda { |attributes| attributes['code'].blank? }
 
   def at_capacity?
-    raise StandardError if site?
-    return false if weekly_capacity_limit.blank?
+    return parent_organization.at_capacity? if site?
+
+    return false if capacity_limit.blank?
 
     Client
       .where(vita_partner_id: [id, *child_site_ids])
       .joins(:tax_returns).where(tax_returns: { status: TaxReturnStatus.statuses_that_count_towards_capacity })
-      .count >= weekly_capacity_limit
+      .count >= capacity_limit
   end
 
   def organization?
@@ -77,8 +78,8 @@ class VitaPartner < ApplicationRecord
   end
 
   def no_capacity_for_sites
-    if site? && weekly_capacity_limit.present?
-      errors.add(:weekly_capacity_limit, "Sites cannot be assigned a capacity")
+    if site? && capacity_limit.present?
+      errors.add(:capacity_limit, "Sites cannot be assigned a capacity")
     end
   end
 

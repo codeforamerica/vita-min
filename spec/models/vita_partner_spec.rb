@@ -4,11 +4,11 @@
 #
 #  id                         :bigint           not null, primary key
 #  archived                   :boolean          default(FALSE)
+#  capacity_limit             :integer
 #  logo_path                  :string
 #  name                       :string           not null
 #  national_overflow_location :boolean          default(FALSE)
 #  timezone                   :string           default("America/New_York")
-#  weekly_capacity_limit      :integer
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  coalition_id               :bigint
@@ -32,14 +32,27 @@ describe VitaPartner do
     let(:in_range_statuses) { TaxReturnStatus::statuses_that_count_towards_capacity }
 
     context "an organization" do
-      let(:organization) { create :organization, weekly_capacity_limit: 10 }
+      let(:organization) { create :organization, capacity_limit: 10 }
 
-      context "at or over capacity" do
-        context "at capacity" do
+      context "at capacity" do
+        before do
+          organization.capacity_limit.times do
+            client = create :client, vita_partner: organization
+            create :tax_return, status: "intake_ready", client: client
+          end
+        end
+
+        it "returns true" do
+          expect(organization).to be_at_capacity
+        end
+      end
+
+      context "over capacity" do
+        context "clients assigned to organization exceed capacity limit" do
           before do
-            organization.weekly_capacity_limit.times do
+            (organization.capacity_limit + 1).times do
               client = create :client, vita_partner: organization
-              create :tax_return, status: "intake_ready", client: client
+              create :tax_return, status: in_range_statuses.sample, client: client
             end
           end
 
@@ -48,34 +61,19 @@ describe VitaPartner do
           end
         end
 
-        context "over capacity" do
-          context "clients assigned to organization exceed capacity limit" do
-            before do
-              (organization.weekly_capacity_limit + 1).times do
-                client = create :client, vita_partner: organization
-                create :tax_return, status: in_range_statuses.sample, client: client
-              end
-            end
+        context "sum of clients assigned to sites within organization exceed capacity limit" do
+          let(:site_1) { create :site, parent_organization: organization }
+          let(:site_2) { create :site, parent_organization: organization }
 
-            it "returns true" do
-              expect(organization).to be_at_capacity
+          before do
+            (organization.capacity_limit + 1).times do
+              client = create :client, vita_partner: [site_1, site_2, organization].sample
+              create :tax_return, status: in_range_statuses.sample, client: client
             end
           end
 
-          context "sum of clients assigned to sites within organization exceed capacity limit" do
-            let(:site_1) { create :site, parent_organization: organization }
-            let(:site_2) { create :site, parent_organization: organization }
-
-            before do
-              (organization.weekly_capacity_limit + 1).times do
-                client = create :client, vita_partner: [site_1, site_2, organization].sample
-                create :tax_return, status: in_range_statuses.sample, client: client
-              end
-            end
-
-            it "returns true" do
-              expect(organization).to be_at_capacity
-            end
+          it "returns true" do
+            expect(organization).to be_at_capacity
           end
         end
       end
@@ -83,7 +81,7 @@ describe VitaPartner do
       context "under capacity" do
         context "total number of clients is less than capacity limit" do
           before do
-            (organization.weekly_capacity_limit - 1).times do
+            (organization.capacity_limit - 1).times do
               client = create :client, vita_partner: organization
               create :tax_return, client: client
             end
@@ -96,12 +94,12 @@ describe VitaPartner do
 
         context "number of clients in status range is less than capacity limit" do
           before do
-            (organization.weekly_capacity_limit / 2).times do
+            (organization.capacity_limit / 2).times do
               client = create :client, vita_partner: organization
               create :tax_return, status: out_of_range_statuses.sample, client: client
             end
 
-            (organization.weekly_capacity_limit / 2).times do
+            (organization.capacity_limit / 2).times do
               client = create :client, vita_partner: organization
               create :tax_return, status: in_range_statuses.sample, client: client
             end
@@ -117,7 +115,7 @@ describe VitaPartner do
     context "with no capacity set" do
       let(:organization) { create :organization }
       before do
-        100.times do
+        20.times do
           client = create :client, vita_partner: organization
           create :tax_return, status: "intake_ready", client: client
         end
@@ -129,12 +127,34 @@ describe VitaPartner do
     end
 
     context "a site" do
-      let(:site) { create :site }
+      let(:parent_organization) { create :organization, capacity_limit: 10 }
+      let(:site) { create :site, parent_organization: parent_organization }
 
-      it "throws an error because sites do not have capacity" do
-        expect do
-          site.at_capacity?
-        end.to raise_error(StandardError)
+
+      context "when parent org is at capacity" do
+        before do
+          10.times do
+            client = create :client, vita_partner: site
+            create :tax_return, status: "intake_ready", client: client
+          end
+        end
+
+        it "returns true" do
+          expect(site.at_capacity?).to eq true
+        end
+      end
+
+      context "when parent org is not at capacity" do
+        before do
+          2.times do
+            client = create :client, vita_partner: site
+            create :tax_return, status: "intake_ready", client: client
+          end
+        end
+
+        it "returns false" do
+          expect(site.at_capacity?).to eq false
+        end
       end
     end
   end
@@ -164,7 +184,7 @@ describe VitaPartner do
     end
 
     it "cannot be assigned a capacity" do
-      site = VitaPartner.new(parent_organization: create(:organization), weekly_capacity_limit: 1)
+      site = VitaPartner.new(parent_organization: create(:organization), capacity_limit: 1)
       expect(site.valid?).to eq false
     end
   end
