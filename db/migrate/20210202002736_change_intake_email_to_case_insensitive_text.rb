@@ -6,7 +6,7 @@ class ChangeIntakeEmailToCaseInsensitiveText < ActiveRecord::Migration[6.0]
   end
 
   def down
-    change_column :intakes, :email_address, :text
-    change_column :intakes, :spouse_email_address, :text
+    change_column :intakes, :email_address, :string
+    change_column :intakes, :spouse_email_address, :string
   end
 end
