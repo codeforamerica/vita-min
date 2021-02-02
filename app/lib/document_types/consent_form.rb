@@ -8,7 +8,7 @@ module DocumentTypes
       end
 
       def key
-        "Consent Form"
+        "Consent Form 14446"
       end
 
       def blocks_progress?
