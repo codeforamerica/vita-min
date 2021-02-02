@@ -96,9 +96,23 @@ Github provides useful documentation [here](https://help.github.com/en/github/ad
 ### Hotfixing
 
 It may be necessary to issue a hotfix in some circumstances. This can be
-accomplished a couple of ways. Note that a subsequent release may have merging
-issues that have to be resolved manually. Merging from `release` into `main`
-helps resolve conflicts pre-emptively.
+accomplished a couple of ways. For example:
+
+1. `git fetch` to make sure you have the latest code
+1. `git checkout release` to switch to the release branch
+1. `git log` to validate that you're on an identical commit to `origin/release`
+1. Make whatever commits you need to make. Consider `git cherry-pick` to grab individual commits from main. For example `git cherry-pick commitId` will grab a commit whose ID is `commitId`.
+1. `git tag version-N.N.N` with the next version. You can find the previous versions listed on the GitHub releases page, or in the output of `git tag`.
+1. `git push --tags` to push the tag to GitHub
+1. `git push origin release` to push the release branch to GitHub. This will trigger the hotfix deploy.
+
+Check CircleCI and see that it's going out.
+
+Now we'll merge the hotfix code into main to avoid merge conflict confusion down the road.
+
+1. `git checkout main` to switch to the main branch
+1. `git merge release` to merge the code into main
+1. `git push` to push the changes to main to GitHub
 
 #### Work on the `release` Branch
 
