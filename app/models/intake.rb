@@ -215,9 +215,9 @@ class Intake < ApplicationRecord
 
   after_save do
     if saved_change_to_filing_joint?(to: "no")
-      create_consent_document
+      Consent14446PdfJob.perform_now(self.id) # client single and consented
     elsif saved_change_to_spouse_consented_to_service_at?(from: nil)
-      create_consent_document
+      Consent14446PdfJob.perform_now(self.id) #client filing joint and spouse consented
     elsif saved_change_to_completed_at?(from: nil)
       record_incoming_interaction # client completed intake
       IntakePdfJob.perform_later(self.id)

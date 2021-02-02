@@ -1058,9 +1058,8 @@ describe Intake do
   end
 
   describe "#after_save" do
-    let(:intake) { create :intake }
-
     context "when the intake is completed" do
+      let(:intake) { create :intake }
       before do
         allow(IntakePdfJob).to receive(:perform_later)
       end
@@ -1080,24 +1079,24 @@ describe Intake do
     context "when filing status is set to single" do
       let(:intake) { create :intake, primary_consented_to_service_at: DateTime.now }
       before do
-        allow(intake).to receive(:create_consent_document)
+        allow(Consent14446PdfJob).to receive(:perform_now)
       end
 
       it "creates a consent form document" do
         intake.update(filing_joint: "no")
-        expect(intake).to have_received(:create_consent_document)
+        expect(Consent14446PdfJob).to have_received(:perform_now).with(intake.id)
       end
     end
 
     context "when filing status is set to joint" do
       let(:intake) { create :intake, primary_consented_to_service_at: DateTime.current, filing_joint: "yes" }
       before do
-        allow(intake).to receive(:create_consent_document)
+        allow(Consent14446PdfJob).to receive(:perform_now)
       end
 
-      it "creates a consent form document" do
+      it "creates a consent form document when spouse has consented" do
         intake.update(spouse_consented_to_service_at: DateTime.current)
-        expect(intake).to have_received(:create_consent_document)
+        expect(Consent14446PdfJob).to have_received(:perform_now).with(intake.id)
       end
     end
   end
