@@ -611,6 +611,7 @@ es:
       title: Invitaciones
   messages:
     default_subject: Actualización de GetYourRefund
+    sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission:
       subject: ¡Su información de impuestos ha sido enviada con éxito!
       email_body: |
@@ -1539,7 +1540,7 @@ es:
           one: En %{year}, ¿pagó algún interés hipotecario?
           other: En %{year}, ¿Pagó usted o su pareja algún interés hipotecario?
       notification_preference:
-        note: 'Nota: No compartiremos su información con terceros.'
+        note_html: La frecuencia del mensaje variará. Pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Envíe el texto "HELP" al 58750 para ayuda. Envía STOP al 58750 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes retrasados o no entregados. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
         options:
           email_notification_opt_in: Envíeme un correo electrónico
           header: Nos pondremos en contacto con preguntas y actualizaciones. ¡Seleccione la opcion(es) que prefiera!
