@@ -6,7 +6,7 @@ RSpec.describe IntakePdfJob, type: :job do
 
     before do
       allow(intake_mock).to receive(:id).and_return 1
-      allow(intake_mock).to receive(:create_intake_document)
+      allow(intake_mock).to receive(:update_or_create_13614c_document)
       allow(Intake).to receive(:find).and_return intake_mock
     end
 
