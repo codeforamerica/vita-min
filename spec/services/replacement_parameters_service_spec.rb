@@ -204,5 +204,4 @@ describe ReplacementParametersService do
       end
     end
   end
-
 end
