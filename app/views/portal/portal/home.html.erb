@@ -19,7 +19,7 @@
           <% else %>
             <% tax_return.final_tax_documents.each do |tax_doc| %>
               <div class="tax-return-status__row tax-return-status__solo">
-                <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), target: "_blank" %>
+                <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
               </div>
             <% end %>
           <% end %>
