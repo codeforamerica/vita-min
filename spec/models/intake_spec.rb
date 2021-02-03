@@ -1120,7 +1120,7 @@ describe Intake do
 
         doc = Document.last
         expect(doc.display_name).to eq("filename.pdf")
-        expect(doc.document_type).to eq(DocumentTypes::ConsentForm.key)
+        expect(doc.document_type).to eq(DocumentTypes::Form14446.key)
         expect(doc.client).to eq(intake.client)
         expect(doc.upload.content_type).to eq("application/pdf")
       end

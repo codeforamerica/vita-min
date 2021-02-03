@@ -595,7 +595,7 @@ class Intake < ApplicationRecord
   def update_or_create_14446_document(filename)
     pdf_tempfile = consent_pdf
     pdf_tempfile.seek(0)
-    document = client.documents.find_or_initialize_by(document_type: DocumentTypes::ConsentForm.key)
+    document = client.documents.find_or_initialize_by(document_type: DocumentTypes::Form14446.key)
     document.update!(
       intake: self,
       upload: {
