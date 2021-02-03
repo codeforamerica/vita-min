@@ -1098,9 +1098,10 @@ describe Intake do
       it "updates the existing document with a regenerated form" do
         expect {
           expect {
-            intake.update_or_create_13614c_document("filename.pdf")
+            intake.update_or_create_13614c_document("new-filename.pdf")
           }.not_to change(Document, :count)
         }.to change{document.reload.updated_at}
+        expect(document.display_name).to eq "new-filename.pdf"
       end
     end
   end
@@ -1132,9 +1133,10 @@ describe Intake do
       it "updates the existing document with a regenerated form" do
         expect {
           expect {
-            intake.update_or_create_14446_document("filename.pdf")
+            intake.update_or_create_14446_document("new-filename.pdf")
           }.not_to change(Document, :count)
         }.to change{document.reload.updated_at}
+        expect(document.display_name).to eq "new-filename.pdf"
       end
     end
   end

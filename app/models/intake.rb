@@ -582,6 +582,7 @@ class Intake < ApplicationRecord
     document.update!(
       document_type: DocumentTypes::Form13614CForm15080.key,
       intake: self,
+      display_name: filename,
       upload: {
         io: pdf_tempfile,
         filename: filename,
@@ -598,6 +599,7 @@ class Intake < ApplicationRecord
     document = client.documents.find_or_initialize_by(document_type: DocumentTypes::Form14446.key)
     document.update!(
       intake: self,
+      display_name: filename,
       upload: {
         io: pdf_tempfile,
         filename: filename,
