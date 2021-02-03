@@ -32,7 +32,8 @@
           t("general.last_four_ssn"),
           prefix: "XXX-XX-",
           type: :tel,
-          classes: ["form-width--name field--last-four-ssn"]
+          classes: ["form-width--name field--last-four-ssn"],
+          options: { maxlength: 4 }
       ) %>
 
   <h3 class="h2"><%= t("hub.clients.fields.filing_information") %>:</h3>
