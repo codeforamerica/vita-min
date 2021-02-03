@@ -1059,14 +1059,6 @@ describe Intake do
 
   describe "after_save when the intake is completed" do
     let(:intake) { create :intake }
-    before do
-      allow(IntakePdfJob).to receive(:perform_later)
-    end
-
-    it "should enqueue a background job to create a 13614C document." do
-      intake.update(completed_at: Time.now)
-      expect(IntakePdfJob).to have_received(:perform_later).with(intake.id)
-    end
 
     it_behaves_like "an incoming interaction" do
       let(:subject) { create :intake }
@@ -1080,7 +1072,7 @@ describe Intake do
     end
   end
 
-  describe "#create_intake_document" do
+  describe "#update_or_create_13614c_document" do
     before do
       example_pdf = Tempfile.new("example.pdf")
       example_pdf.write("example pdf contents")
@@ -1089,13 +1081,61 @@ describe Intake do
 
     let(:intake) { create(:intake) }
 
-    it "creates an intake PDF with a given filename" do
-      expect { intake.create_intake_document("filename.pdf") }.to change(Document, :count).by(1)
+    context "when there is not an existing 13614-C document" do
+      it "creates a preliminary 13614-C PDF with a given filename" do
+        expect { intake.update_or_create_13614c_document("filename.pdf") }.to change(Document, :count).by(1)
 
-      doc = Document.last
-      expect(doc.display_name).to eq("filename.pdf")
-      expect(doc.document_type).to eq(DocumentTypes::Form13614CForm15080.key)
-      expect(intake).to have_received(:pdf)
+        doc = Document.last
+        expect(doc.display_name).to eq("filename.pdf")
+        expect(doc.document_type).to eq(DocumentTypes::Form13614CForm15080.key)
+        expect(intake).to have_received(:pdf)
+      end
+    end
+
+    context "when there is an existing 13614-C document" do
+      let!(:document) { intake.update_or_create_13614c_document("filename.pdf") }
+
+      it "updates the existing document with a regenerated form" do
+        expect {
+          expect {
+            intake.update_or_create_13614c_document("filename.pdf")
+          }.not_to change(Document, :count)
+        }.to change{document.reload.updated_at}
+      end
+    end
+  end
+
+  describe "#update_or_create_14446_document" do
+    let(:intake) { create(:intake) }
+
+    before do
+      example_pdf = Tempfile.new("example.pdf")
+      example_pdf.write("example pdf contents")
+      allow(ConsentPdf).to receive(:new).and_return(double(output_file: example_pdf))
+    end
+
+    context "when there is not an existing 14446 document" do
+      it "creates a 14446 PDF with a given filename" do
+        expect { intake.update_or_create_14446_document("filename.pdf") }.to change(Document, :count).by(1)
+
+        doc = Document.last
+        expect(doc.display_name).to eq("filename.pdf")
+        expect(doc.document_type).to eq(DocumentTypes::ConsentForm.key)
+        expect(doc.client).to eq(intake.client)
+        expect(doc.upload.content_type).to eq("application/pdf")
+      end
+    end
+
+    context "when there is an existing document 14446" do
+      let!(:document) { intake.update_or_create_14446_document("filename.pdf") }
+
+      it "updates the existing document with a regenerated form" do
+        expect {
+          expect {
+            intake.update_or_create_14446_document("filename.pdf")
+          }.not_to change(Document, :count)
+        }.to change{document.reload.updated_at}
+      end
     end
   end
 end

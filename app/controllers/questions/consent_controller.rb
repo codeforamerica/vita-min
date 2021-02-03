@@ -19,6 +19,8 @@ module Questions
         body = I18n.t("messages.getting_started.sms_body", preferred_name: current_intake.preferred_name, requested_docs_link: current_intake.requested_docs_token_link, locale: current_intake.locale)
         ClientMessagingService.send_system_text_message(current_intake.client, body)
       end
+      Intake14446PdfJob.perform_later(current_intake, "Consent Form 14446.pdf")
+      IntakePdfJob.perform_later(current_intake.id, "Preliminary 13614-C with 15080.pdf")
     end
   end
 end

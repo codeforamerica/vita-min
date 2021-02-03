@@ -42,6 +42,8 @@ RSpec.describe Questions::SpouseConsentController do
 
       before do
         request.remote_ip = ip_address
+        allow(Intake14446PdfJob).to receive(:perform_later)
+        allow(IntakePdfJob).to receive(:perform_later)
       end
 
       it "saves the answer with an ip address" do
@@ -49,6 +51,13 @@ RSpec.describe Questions::SpouseConsentController do
 
         intake.reload
         expect(intake.spouse_consented_to_service_ip).to eq ip_address
+      end
+
+      it "queues a job to regenerate the 14446 and the 13614-C" do
+        post :update, params: params
+
+        expect(Intake14446PdfJob).to have_received(:perform_later).with(intake, "Consent Form 14446.pdf")
+        expect(IntakePdfJob).to have_received(:perform_later).with(intake.id, "Preliminary 13614-C with 15080.pdf")
       end
     end
 
