@@ -1184,60 +1184,127 @@ es:
       stimulus_payment:
         faq:
           eip:
-            additional_eip:
-              a: En la mayoría de los casos, el resto del EIP (pago de impacto económico) se pagará en 2021.
-              q: "¿Qué debo hacer si no proporcioné la información adicional dentro del plazo establecido o si recibí un EIP menor de lo que esperaba?"
-            deadline:
-              a: Para la tranquilidad de aquellos que quieran consultar en persona a un profesional o a una organización comunitaria local especializados en impuestos para que los ayuden con la declaración, estos pagos de impacto económico estarán disponibles durante todo el 2020 y durante la temporada de declaración de impuestos de 2021.
-              q: Aún no presenté mi declaración de impuestos. ¿Durante cuánto tiempo estarán disponibles los pagos de impacto económico?
-            header: Preguntas frecuentes sobre el pago de impacto económico (pago de estímulo)
-            one_time:
-              a: El gobierno de los Estados Unidos anunció solamente un paquete de estímulo. Actualizaremos esta página si hay algún cambio.
-              q: "¿Es un pago único?"
-            other_benefits:
-              a: No, los cheques del EIP se tratan como un crédito tributario, lo que significa que no afectará a los beneficios que reciba ahora o en el futuro.
-              q: Si recibo el EIP, ¿Afectará mis otros beneficios del gobierno?
-            owe_taxes:
-              a: Sí, pero con una excepción. El pago se compensará con los pagos atrasados de manutención de menores. La Oficina del Servicio Fiscal le enviará un aviso si este es su caso.
-              q: "¿Puedo recibir el EIP si debo impuestos, si tengo un acuerdo de pagos con el IRS o si tengo otras deudas federales o estatales?"
-            scams:
-              a: No haga clic en enlaces en los que no confíe al 100 %. Tenga cuidado con las estafas. Si parece demasiado bueno para ser verdad, probablemente lo sea. Tampoco envíe dinero a nadie que no conozca.
-              q: "¿Qué debo hacer si me ofrecen un pago más rápido?"
-            when:
-              a: Los pagos de impacto económico se acreditarán en las cuentas bancarias mediante depósito directo a partir del 9 de abril de 2020. Si no tiene una cuenta bancaria, su cheque podría tardar hasta cinco meses en llegar por correo.
-              q: "¿Cuándo recibiré mi cheque?"
+            header: Economic Impact Payment (stimulus payment) FAQs
+            items:
+              - title: When will I receive my check?
+                content_html: >-
+                  The second Economic Impact Payments were sent beginning in December 2020.
+                  If you have not received your payment you can check the
+                  status on the IRS <a
+                    href="https://www.irs.gov/coronavirus/get-my-payment"
+                    rel="nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-get-my-payment"
+                    data-track-attribute-position="stimulus-general-faq1">
+                  Get My Payment website</a>.
+                  If you do not see a status on the Get My Payment portal
+                  you will need to file your 2020 tax return to access your stimulus.
+              - title: Will the EIP check affect my other government benefits?
+                content_html: >-
+                  No, the EIP checks are treated as a tax credit. This means your payment will not impact the
+                  benefits you receive now or in the future.
+              - title: I still need to file a tax return. How long are the economic impact payments available?
+                content_html: >-
+                  For those concerned about visiting a tax professional or local community
+                  organization in person to get help with a tax return, these economic impact
+                  payments will be available throughout the 2021 tax filing season.
+              - title: If I owe taxes, or have a payment agreement with the IRS, or owe other federal or state debts, will I still get the EIP?
+                content_html: >-
+                  Yes, the stimulus payments were recently made exempt from most forms of government and private garnishment.
+              - title: Will there be more payments?
+                content_html: >-
+                  Currently, only two rounds of stimulus payments have been authorized by the U.S.
+                  government. We will update this page with any changes.
+              - title: What if someone offers a quicker payment?
+                content_html: >-
+                  Don’t click on links whose origins you aren’t 100% sure of. Be wary of scams.
+                  If it looks too good to be true, it probably is. And don’t send money to someone
+                  you don’t know.
           how_to_get_paid:
-            change_address:
-              a_html: Si quiere que le envíen su cheque de EIP por correo, asegúrese que su dirección esté actualizada en el sitio web %{irs_address_change_link} del IRS. Podría haber retrasos; su cheque podría tardar hasta cinco meses en llegar por correo.
-              address_change: cambio de dirección
-              q: "¿Qué debo hacer si me mudé después de haber presentado mi declaración de impuestos?"
-            change_information:
-              a_html: Puede actualizar su información en el sitio web %{irs_get_my_payment_link} del IRS.
-              q: "¿Qué debo hacer si tengo que cambiar la información que proporcioné en 2018 o 2019?"
-            did_not_provide_bank_account:
-              a_html: Si no indicó un número de ruta de una cuenta bancaria, su devolución podría demorar más tiempo. Puede enviarle esta información al IRS a través de su sitio web %{irs_get_my_payment_link}.
-              q: "¿Qué debo hacer si no indiqué ninguna cuenta bancaria al IRS?"
-            eip_check:
-              a: Si presentó su declaración de impuestos de 2019, le enviarán su pago de impacto económico (o pago de estímulo) de la misma manera en que recibió su reembolso de 2019 (por correo o por depósito directo en la cuenta bancaria que indicó en su declaración de 2019). Si no presentó su declaración de 2019, el IRS usará la información de la declaración de 2018.
-              q: "¿Cómo recibo mi cheque del pago de impacto económico?"
-            header: Cómo recibir el pago
-            no_bank_account:
-              a_html: Si usted no tiene una cuenta bancaria, su cheque EIP podría tardar hasta cinco meses en llegar por correo. Para recibir su pago rápidamente a través de un depósito directo, abra una cuenta bancaria en línea y agregue la información de su cuenta en el sitio web del IRS%{irs_get_my_payment_link}. Si no quiere abrir una cuenta bancaria, puede vincular una tarjeta de débito prepagada. Muchos de nuestros socios de VITA pueden asignarle también una tarjeta de débito prepagada si presenta su declaración a través de GetYourRefund.
-              q: "¿Qué debo hacer si no tengo una cuenta bancaria?"
-            no_income:
-              a_html: Debe ingresar su información de pago en el sitio web %{irs_enter_payment_info_link} del IRS para recibir su pago.
-              enter_payment_info_website_title: '"Non-Filers: (sin declaración de impuestos) Ingrese la información de pago aquí"'
-              q: "¿Qué ocurre si no tengo ingresos?"
-            non_filer:
-              a: Si no tiene la obligación de presentar una declaración de impuestos pero tiene ingresos del trabajo, le recomendamos que lo haga a través de GetYourRefund, ya que podría ser elegible para otros créditos tributarios. Si tiene que declarar impuestos pero no lo hizo en 2018 o en 2019, todavía está a tiempo de hacerlo con GetYourRefund.
-              q: "¿Qué debo hacer si no presenté una declaración de impuestos federales?"
-            other_benefits:
-              a_html: Debe recibir el pago automáticamente y no es necesario llenar un formulario. Si desea cambiar los detalles de su pago, visite el sitio web %{irs_get_my_payment_link} del IRS.
-              q: "¿Qué pasa si obtengo beneficios del Seguro Social, SSDI, beneficios de jubilación ferroviaria, C&P?"
-            payment_amount:
-              a_html: El IRS tiene un sitio web %{irs_eip_calculator_link} para ayudarlo a calcular cuánto dinero recibirá.
-              calculate_eip_website_title: '"¿Cómo calculo mi EIP?"'
-              q: "¿Cuánto dinero recibiré?"
+            header: How to get paid
+            items:
+              - title: How do I get my Economic Impact Payment check?
+                content_html: >-
+                  If the IRS has not sent your first or second round stimulus payment yet,
+                  or if you received the wrong amount for either payment,
+                  you will need to file a 2020 tax return in order to receive it.
+              - title: How do I determine if the IRS has sent my stimulus check?
+                content_html: >-
+                  If you are not sure if the IRS has sent your payment(s) or want to check the status, you can search at the IRS
+                  <a
+                    href="https://www.irs.gov/coronavirus/get-my-payment"
+                    rel="nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-get-my-payment"
+                    data-track-attribute-position="stimulus-how-faq2">
+                  Get My Payment</a>
+                  website.
+              - title: What if there are issues with my bank account information?
+                content_html: >-
+                  If you provided bank account information earlier to the IRS that has since changed
+                  or do not recognize the number in their system, please see the
+                  <a href="https://www.irs.gov/newsroom/irs-statement-update-on-economic-impact-payments"
+                    rel="nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-website"
+                    data-track-attribute-position="stimulus-how-faq3">
+                  the IRS website</a>
+                  for more information.
+              - title: How much will I receive?
+                content_html: >-
+                  Eligible taxpayers will receive an economic impact payment of up to $600 for individuals or
+                  $1,200 for married couples and up to $600 for each qualifying child. The
+                  <a
+                    href="https://www.irs.gov/pub/irs-utl/how_do_I_calculate_my_eip.pdf"
+                    rel="nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-calculate-eip"
+                    data-track-attribute-position="stimulus-how-faq4">
+                  IRS has a "How do I calculate my EIP" website</a>
+                  website to help you calculate how much you will receive for the first round of payments. For the second round of payments, you will need to complete <a href="https://www.irs.gov/instructions/i1040gi#idm140693714589984" rel="nofollow" target="_blank" data-track-click="stimulus-irs-rebate-worksheet" data-track-attribute-position="stimulus-how-faq4">the Recovery Rebate Credit Worksheet</a> for line 30 of the 2020 1040 tax form. We can assist you with these forms if you file your return through GetYourRefund.
+              - title: What if I haven’t filed federal taxes?
+                content_html: >-
+                  We recommend that you file your taxes in order to access the Economic Impact Payments and any
+                  additional tax credits you may be eligible for. You can file 2017, 2018, 2019, and 2020 returns for
+                  free with GetYourRefund.
+              - title: What if I don’t have a bank account?
+                content_html: >-
+                  If you don’t have a bank account, it could take up to five months to receive your EIP check by mail.
+                  To get your payment quickly via direct deposit,
+                  <a
+                    href="https://joinbankon.org/home/remotebanking/"
+                    rel="nofollow" target="_blank" data-track-click="stimulus-irs-online-banking"
+                    data-track-attribute-position="stimulus-how-faq6">
+                    sign up for a bank account online</a>
+                  and add your account information on the
+                  <a
+                    href="https://www.irs.gov/coronavirus/get-my-payment"
+                    rel="nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-get-my-payment"
+                    data-track-attribute-position="stimulus-how-faq6">
+                    IRS Get My Payment website</a>.
+                  If you don’t want to sign up for a bank account, you can link your prepaid debit card or
+                  <a
+                    href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
+                    rel="nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-cash-app"
+                    data-track-attribute-position="stimulus-how-faq6">
+                  Cash App</a>
+                  instead. Many of our VITA partners can also enroll you in a prepaid debit card when you file your
+                  return through GetYourRefund.
+              - title: What if I moved since filing my taxes?
+                content_html: >-
+                  If you want your EIP check mailed to you, make sure your address is up to date on the
+                  <a
+                    href="https://www.irs.gov/faqs/irs-procedures/address-changes"
+                    rel="nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-address-changes"
+                    data-track-attribute-position="stimulus-faq7">
+                    IRS address change website</a>.
+                  There may be delays – it could take up to five months to receive your check by mail.
         header: Reciba su Cheque de Estímulo
         intro:
           common_questions: Sabemos que hay muchas dudas sobre los pagos de impacto económico (EIP, por sus siglas en inglés) y tenemos algunas respuestas. Hemos seleccionado algunas preguntas frecuentes que podrían ayudarlo.
@@ -1247,7 +1314,12 @@ es:
             info: Recibirán el pago completo los declarantes de impuestos con ingresos brutos ajustados de hasta $75,000 por persona y $150,000 por matrimonio que declare sus impuestos de forma conjunta. Para los declarantes con ingresos superiores, el monto del pago se reduce en $5 por cada $100 por encima de los umbrales de $75,000/$150,000. Los declarantes solteros con ingresos superiores a $99,000 y los declarantes conjuntos sin hijos con ingresos superiores a $198,000 no son elegibles.
           irs_info_html: El IRS publicará toda la información clave en %{irs_eip_link} cuanto disponga de ella.
           tax_deadline: Aún puede recibir su Pago de Impacto Económico (estímulo) aunque haya pasado la fecha límite de impuestos.
+          mixed_status_eligibility:
+            header: TODO
+            info: >-
+              TODO
         title: Pago de estímulo
+        last_updated: TODO Updated on January 25, 2021
       tax_questions:
         cannot_answer:
           different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&R Block o TurboTax)
