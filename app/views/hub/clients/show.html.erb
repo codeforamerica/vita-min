@@ -44,12 +44,16 @@
         <!-- SSN/ITIN hidden -->
         <div class="field-display last-four-ssn">
           <span class="form-question"><%= t("general.last_four_ssn") %>:</span>
-          <span id="js-ssn-itin">
-            <%= render "hub/clients/hidden_ssn_itin" %>
-          </span>
-          <span id="js-toggle-ssn-itin">
-            <%= link_to("View", show_ssn_itin_hub_client_path, remote: true)  %>
-          </span>
+          <% if @client.intake.primary_last_four_ssn.present? %>
+            <span id="js-ssn-itin">
+              <%= render "hub/clients/hidden_ssn_itin" %>
+            </span>
+            <span id="js-toggle-ssn-itin">
+              <%= link_to("View", show_ssn_itin_hub_client_path, remote: true)  %>
+            </span>
+          <% else %>
+            <span class="label-value"><%= t("general.NA") %></span>
+          <% end %>
         </div>
       </div>
 
