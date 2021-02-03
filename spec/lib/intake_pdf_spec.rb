@@ -12,7 +12,6 @@ RSpec.describe IntakePdf do
       it "returns a pdf with default fields and values" do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
-
         expect(result).to match(hash_including({
           "first_name" => "",
           "middle_initial" => "",
@@ -35,6 +34,8 @@ RSpec.describe IntakePdf do
           "email_address" => "",
           "student" => "unfilled",
           "spouse_student" => "unfilled",
+          "primary_was_on_visa" => "",
+          "spouse_was_on_visa" => "",
           "blind" => "unfilled",
           "spouse_blind" => "unfilled",
           "is_disabled" => "unfilled",
@@ -223,6 +224,7 @@ RSpec.describe IntakePdf do
           bought_energy_efficient_items: "no",
           made_estimated_tax_payments: "yes",
           additional_info: "if there is another gnome living in my garden but only i have an income, does that make me head of household?",
+          final_info: "Also here are some additional notes.",
           demographic_disability: "yes",
           demographic_english_conversation: "well",
           demographic_english_reading: "not_well",
@@ -243,12 +245,12 @@ RSpec.describe IntakePdf do
           demographic_spouse_white: false,
           demographic_veteran: "no",
           was_full_time_student: "no",
-          was_on_visa: "no",
+          was_on_visa: "yes",
           had_disability: "yes",
           was_blind: "no",
           issued_identity_pin: "no",
           spouse_was_full_time_student: "yes",
-          spouse_was_on_visa: "no",
+          spouse_was_on_visa: "unfilled",
           spouse_had_disability: "no",
           spouse_was_blind: "no",
           spouse_issued_identity_pin: "no",
@@ -257,7 +259,7 @@ RSpec.describe IntakePdf do
           savings_split_refund: "no",
           balance_pay_from_bank: "no",
           claimed_by_another: "no",
-          job_count: 5
+          job_count: 5,
         )
       end
       before do
@@ -334,6 +336,8 @@ RSpec.describe IntakePdf do
            "spouse_date_of_birth" => "11/1/1959",
            "spouse_job" => "",
            "claimed_by_another" => "no",
+           "spouse_was_on_visa" => "",
+           "primary_was_on_visa" => "0",
 
            "street_address" => "789 Garden Green Ln",
            "apt" => "",
@@ -390,7 +394,7 @@ RSpec.describe IntakePdf do
            "dependent_3_relationship" => "Progeny",
            "dependent_3_months_in_home" => "12",
            "dependent_3_marital_status" => "S",
-           "dependent_3_citizen" => "",
+           "dependent_3_citizen" => "On Visa",
            "dependent_3_resident" => "Y",
            "dependent_3_student" => "N",
            "dependent_3_disabled" => "Y",
@@ -458,7 +462,7 @@ RSpec.describe IntakePdf do
            "had_tax_credit_disallowed" => "yes",
            "received_irs_letter" => "no",
            "made_estimated_tax_payments" => "yes",
-         "additional_comments" => "if there is another gnome living in my garden but only i have an income, does that make me head of household?",
+           "additional_comments" => "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.",
         }))
       end
     end
