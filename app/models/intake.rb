@@ -593,16 +593,18 @@ class Intake < ApplicationRecord
   end
 
   def create_consent_document
+    #return unless filing_joint_yes? ? spouse_consented_to_service_at&.present? && primary_consented_to_service_at&.present? : primary_consented_to_service_at&.present?
     return unless primary_consented_to_service_at&.present?
 
+    file_name = "consent_form_#{primary_last_name&.downcase&.parameterize&.underscore}.pdf"
     client.documents.create!(
       intake: self,
       document_type: DocumentTypes::ConsentForm14446.key,
-      display_name: "14446 Consent Form",
+      display_name: "Consent Form",
       created_at: primary_consented_to_service_at,
       upload: {
         io: File.open(consent_pdf.path),
-        filename: "consent_form_#{preferred_name}.pdf",
+        filename: file_name,
         content_type: "application/pdf"
       }
     )

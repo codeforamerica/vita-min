@@ -10,8 +10,6 @@ module Hub
     layout "admin"
 
     def index
-      @client.intake.create_consent_document if Document.where(document_type: DocumentTypes::ConsentForm14446.key, intake: @client.intake).count.zero?
-
       @sort_order = sort_order
       @sort_column = sort_column
       @documents = @documents.except(:order).order({ @sort_column => @sort_order })

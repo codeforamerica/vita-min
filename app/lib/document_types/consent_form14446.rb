@@ -7,7 +7,7 @@ module DocumentTypes
       end
 
       def key
-        "Consent Form 14446"
+        "Form 14446"
       end
     end
   end
