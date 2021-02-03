@@ -95,8 +95,7 @@ Github provides useful documentation [here](https://help.github.com/en/github/ad
 
 ### Hotfixing
 
-It may be necessary to issue a hotfix in some circumstances. This can be
-accomplished a couple of ways. For example:
+It may be necessary in some circumstances to trigger a deploy of code that isn't on master. Here is a set of steps you can follow.
 
 1. `git fetch` to make sure you have the latest code
 1. `git checkout release` to switch to the release branch
