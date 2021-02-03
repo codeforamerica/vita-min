@@ -3,6 +3,7 @@
 # Table name: access_logs
 #
 #  id         :bigint           not null, primary key
+#  event_type :string           not null
 #  ip_address :inet
 #  user_agent :string           not null
 #  created_at :datetime         not null

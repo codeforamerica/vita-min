@@ -9,7 +9,7 @@ RSpec.feature "Creating new drop off clients" do
       login_as user
     end
 
-    scenario "I can create a new client" do
+    scenario "I can create a new client", js: true do
       visit hub_clients_path
       click_on "Add client"
 
@@ -32,6 +32,7 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "City", with: "Brassicaville"
         select "California", from: "State"
         fill_in "ZIP code", with: "95032"
+        fill_in "Last 4 of SSN/ITIN", with: "4444"
         check "Opt into email notifications"
         check "Opt into sms notifications"
         select "Mandarin", from: "Preferred language"
@@ -90,6 +91,14 @@ RSpec.feature "Creating new drop off clients" do
         expect(page).to have_text "2020"
         expect(page).to have_text "2019"
         expect(page).to have_text "2017"
+      end
+
+      within ".last-four-ssn" do
+        expect do
+          click_on "View"
+          expect(page).to have_text "4444"
+        end.to change(AccessLog, :count).by(1)
+        expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
     end
   end

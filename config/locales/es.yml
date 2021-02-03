@@ -272,6 +272,8 @@ es:
       index:
         description: "Mensajes de personas cuya información de contacto no coincide con la de un cliente."
         phone_number_or_email: "Número de teléfono / correo electrónico"
+    ssn_itins:
+      displayed: Visualización de la SSN o ITIN
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
@@ -589,6 +591,8 @@ es:
     new: "Nuevo"
     unique_link: "Enlace único"
     delete: "Eliminar"
+    last_four_ssn: Últimos 4 de SSN / ITIN
+    hidden: Encubierto
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -607,6 +611,7 @@ es:
       title: Invitaciones
   messages:
     default_subject: Actualización de GetYourRefund
+    sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission:
       subject: ¡Su información de impuestos ha sido enviada con éxito!
       email_body: |
@@ -1151,7 +1156,7 @@ es:
           sub_header: Utilizamos su información para propósitos de nuestra organización e intereses legítimos como, por ejemplo
           suggest: Para sugerir otros servicios o programas de asistencia que puedan serle útiles
           support: Para proporcionarle apoyo durante el proceso y comunicarnos con usted
-        intro: GetYourRefund es un servicio creado por Code for America Labs, Inc. (Code for America, nosotros, nuestro) para ayudar a los hogares de bajos a moderados ingresos a aprovechar el beneficio del Crédito Tributario por Renta del Trabajo (EITC) con el fin de eliminar las barreras a la presentación de impuestos y hacer más accesibles los servicios de Asistencia Voluntaria por Impuesto a la Renta (VITA).
+        intro: GetYourRefund es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nuestro") para ayudar a los hogares de bajos a moderados ingresos a aprovechar el beneficio del Crédito Tributario por Renta del Trabajo (EITC) con el fin de eliminar las barreras a la presentación de impuestos y hacer más accesibles los servicios de Asistencia Voluntaria por Impuesto a la Renta (VITA).
         overview:
           header: Resumen
         questions:
@@ -1535,7 +1540,7 @@ es:
           one: En %{year}, ¿pagó algún interés hipotecario?
           other: En %{year}, ¿Pagó usted o su pareja algún interés hipotecario?
       notification_preference:
-        note: 'Nota: No compartiremos su información con terceros.'
+        note_html: La frecuencia del mensaje variará. Pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Envíe el texto "HELP" al 58750 para ayuda. Envía STOP al 58750 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes retrasados o no entregados. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
         options:
           email_notification_opt_in: Envíeme un correo electrónico
           header: Nos pondremos en contacto con preguntas y actualizaciones. ¡Seleccione la opcion(es) que prefiera!
@@ -1750,6 +1755,9 @@ es:
           return_prep_process: 'Proceso de preparación de la declaración: GetYourRefund utilizará su información/documentación para completar una declaración de impuestos.'
           review_return: Entiendo que tengo que revisar mi declaración de impuestos cuando esté lista para verificar que los nombres, números del Seguro Social, la dirección, la información bancaria, los ingresos y gastos sean correctos a mi entender.
           sign_below: Al firmar, usted quiere participar en este proceso y permite que GetYourRefund lo ayude con su declaración de impuestos. Asimismo, acepta los términos de la política de dilvulgación de información privada de GetYourRefund, disponible en www.GetYourRefund.org/privacy.
+          efin: Entiendo que el sitio VITA con el que estoy conectado puede tener un número EFIN relacional (es decir que su sitio reporta a una organización matriz de VITA ), y entiendo que el sitio VITA tiene la capacidad de ver los datos de presentación de informes para todas las EFIN bajo la EFIN relacional (primaria). Este formulario de consentimiento reemplaza el formulario de consentimiento EFIN Relacional del software de preparación de impuestos.
+          personal_tax_info: "Consentimiento para divulgar y usar información personal de declaración de impuestos: Acepto permitir que el sitio de preparación de VITA utilice datos de declaración agregados para fines estadísticos. Este formulario de consentimiento reemplaza el formulario de consentimiento de uso y divulgación."
+          carry_forward: "Consentimiento para Global Forward: Doy mi consentimiento y permito que TaxSlayer LLC, el proveedor del software de impuestos VITA/TCE, ponga mi información de declaración de impuestos a disposición de CUALQUIER sitio voluntario que participe en el programa VITA/TCE del IRS que yo seleccione para preparar la declaración de impuestos para la próxima temporada. Entiendo que podré visitar cualquier sitio voluntario usando TaxSlayer el año siguiente y dejar que mi declaración de impuestos se llene con sus datos del año actual, independientemente de dónde haya presentado su declaración de impuestos este año. Este consentimiento es válido hasta el 12 de noviembre de 2022."
         information_you_provide: Usted entiende que la información que proporciona en este sitio de web (GetYourRefund.org) se envía a un sitio de preparación de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) para que un voluntario certificado por el Servicio de Rentas Internas (SRI) revise su información, realice una entrevista de admisión por teléfono, prepare su declaración de impuestos y haga un control de calidad antes de presentarla.
         proceed_and_confirm: Al continuar, usted confirma que las siguientes declaraciones son verdaderas y completas hasta donde se sabe.
         terms_html: Usted está de acuerdo con los términos de la política de divulgación de información privada de GetYourRefund disponible en %{privacy_link}

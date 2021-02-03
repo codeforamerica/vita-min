@@ -68,6 +68,7 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Email", with: "hello@cauliflower.com"
         fill_in "Phone number", with: "(500) 555-0006"
         fill_in "Phone for texting", with: "500-555-0006"
+        fill_in "Last 4 of SSN/ITIN", with: "4444"
         fill_in "Street address", with: "123 Garden Ln"
         fill_in "City", with: "Brassicaville"
         select "California", from: "State"
@@ -153,6 +154,13 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "Brassicaville, CA 95032"
       expect(page).to have_text "Peter Pepper"
       expect(page).to have_text "spicypeter@pepper.com"
+      within ".last-four-ssn" do
+        expect do
+          click_on "View"
+          expect(page).to have_text "4444"
+        end.to change(AccessLog, :count).by(1)
+        expect(AccessLog.last.event_type).to eq "read_ssn_itin"
+      end
     end
 
     it "creates a system note for client profile change" do

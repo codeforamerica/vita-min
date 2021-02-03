@@ -5,24 +5,46 @@
     font-size: $font-size-19;
     line-height: $s19;
   }
+
   .button:first-of-type {
     margin-left: 0;
   }
+
   .button:last-of-type {
     margin-right: 0;
   }
+
   .index-table {
-    th{
+    th {
       font-size: inherit;
     }
   }
+
   .text--help {
     font-size: $font-size-19;
   }
+
   // In Honeycrisp, a form group with help text has a negative margin-top.
   // This is unnecessary and troublesome in honeycrisp-compact.
   .form-group .form-question + .text--help, .form-group .data-table .form-question + th, .data-table .form-group .form-question + th, .form-group .form-question + .summary-table__label, .form-group .form-question + .statistic-card__label {
     margin-top: inherit;
+  }
+
+  .text-input-group {
+    border: 1px solid rgb(18,17,17) !important;
+  }
+
+  // custom ssn logic for hub.
+  .field--last-four-ssn {
+    .text-input-group__prefix {
+      width: 100px;
+      padding-right: 0;
+      padding-top: 2px;
+    }
+    > input.field--last-four-ssn {
+      margin-bottom: 0;
+      padding: 0;
+    }
   }
 }
 

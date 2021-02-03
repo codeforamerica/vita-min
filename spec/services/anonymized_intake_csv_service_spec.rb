@@ -40,6 +40,7 @@ RSpec.describe AnonymizedIntakeCsvService do
       [intake_1, intake_2].each_with_index do |intake, index|
         row = csv[index]
         csv_mapping.each do |header, field|
+          puts(header) unless row[header].present?
           expect(row[header].to_s)
             .to eq(subject.decorated_intake(intake).send(field).to_s)
             .and be_present # this expects the sample intake to have every field filled out, so that we can check the value

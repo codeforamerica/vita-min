@@ -45,6 +45,7 @@ RSpec.describe Hub::CreateClientForm do
           state_of_residence: "CA",
           service_type: "drop_off",
           signature_method: "online",
+          primary_last_four_ssn: "1234",
           tax_returns_attributes: {
               "0" => {
                   year: "2020",
@@ -92,6 +93,7 @@ RSpec.describe Hub::CreateClientForm do
         end.to change(Intake, :count).by 1
         intake = Intake.last
         expect(intake.vita_partner).to eq vita_partner
+        expect(intake.primary_last_four_ssn).to eq "1234"
       end
 
       it "creates tax returns for each tax_return where _create is true" do

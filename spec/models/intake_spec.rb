@@ -40,7 +40,7 @@
 #  divorced                                             :integer          default("unfilled"), not null
 #  divorced_year                                        :string
 #  eip_only                                             :boolean
-#  email_address                                        :string
+#  email_address                                        :citext
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
 #  encrypted_bank_account_number                        :string
 #  encrypted_bank_account_number_iv                     :string
@@ -146,7 +146,7 @@
 #  spouse_consented_to_service                          :integer          default("unfilled"), not null
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
-#  spouse_email_address                                 :string
+#  spouse_email_address                                 :citext
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default("unfilled"), not null
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
@@ -240,6 +240,20 @@ describe Intake do
         expect(Intake.new).not_to be_valid
         expect(Intake.new(visitor_id: "present")).to be_valid
       end
+    end
+  end
+
+  describe "email_address" do
+    it "searches case-insensitively" do
+      intake = Intake.create!(email_address: "eXample@EXAMPLE.COM", visitor_id: "visitor_id")
+      expect(Intake.where(email_address: "example@example.com")).to include(intake)
+    end
+  end
+
+  describe "spouse_email_address" do
+    it "searches case-insensitively" do
+      intake = Intake.create!(spouse_email_address: "eXample@EXAMPLE.COM", visitor_id: "visitor_id")
+      expect(Intake.where(spouse_email_address: "example@example.com")).to include(intake)
     end
   end
 
@@ -568,6 +582,24 @@ describe Intake do
 
       it "shows a placeholder for the spouse name" do
         expect(intake.student_names).to eq(["Henrietta Huckleberry", "Your spouse"])
+      end
+    end
+  end
+
+  describe "#consented?" do
+    context "when primary_consented_to_service_at is present" do
+      subject { create(:intake, primary_consented_to_service_at: Date.current) }
+
+      it "is true" do
+        expect(subject.consented?).to be true
+      end
+    end
+
+    context "when primary_consented_at is not present" do
+      subject { create(:intake, primary_consented_to_service_at: nil) }
+
+      it "is false" do
+        expect(subject.consented?).to be false
       end
     end
   end
@@ -1027,14 +1059,6 @@ describe Intake do
 
   describe "after_save when the intake is completed" do
     let(:intake) { create :intake }
-    before do
-      allow(intake).to receive(:create_13614c_document)
-    end
-
-    it "should create a pdf document using intake answers in #create_13614c_document" do
-      intake.update(completed_at: Time.now)
-      expect(intake).to have_received(:create_13614c_document)
-    end
 
     it_behaves_like "an incoming interaction" do
       let(:subject) { create :intake }
@@ -1048,23 +1072,72 @@ describe Intake do
     end
   end
 
-  describe "#create_13614c_document" do
+  describe "#update_or_create_13614c_document" do
     before do
       example_pdf = Tempfile.new("example.pdf")
       example_pdf.write("example pdf contents")
       allow(intake).to receive(:pdf).and_return(example_pdf)
-      allow(intake).to receive(:create_13614c_document).and_call_original
     end
 
     let(:intake) { create(:intake) }
 
-    it "creates a preliminary 13614-C PDF with a given filename" do
-      expect { intake.create_13614c_document("filename.pdf") }.to change(Document, :count).by(1)
+    context "when there is not an existing 13614-C document" do
+      it "creates a preliminary 13614-C PDF with a given filename" do
+        expect { intake.update_or_create_13614c_document("filename.pdf") }.to change(Document, :count).by(1)
 
-      doc = Document.last
-      expect(doc.display_name).to eq("filename.pdf")
-      expect(doc.document_type).to eq(DocumentTypes::Original13614C.key)
-      expect(intake).to have_received(:pdf)
+        doc = Document.last
+        expect(doc.display_name).to eq("filename.pdf")
+        expect(doc.document_type).to eq(DocumentTypes::Form13614CForm15080.key)
+        expect(intake).to have_received(:pdf)
+      end
+    end
+
+    context "when there is an existing 13614-C document" do
+      let!(:document) { intake.update_or_create_13614c_document("filename.pdf") }
+
+      it "updates the existing document with a regenerated form" do
+        expect {
+          expect {
+            intake.update_or_create_13614c_document("new-filename.pdf")
+          }.not_to change(Document, :count)
+        }.to change{document.reload.updated_at}
+        expect(document.display_name).to eq "new-filename.pdf"
+      end
+    end
+  end
+
+  describe "#update_or_create_14446_document" do
+    let(:intake) { create(:intake) }
+
+    before do
+      example_pdf = Tempfile.new("example.pdf")
+      example_pdf.write("example pdf contents")
+      allow(ConsentPdf).to receive(:new).and_return(double(output_file: example_pdf))
+    end
+
+    context "when there is not an existing 14446 document" do
+      it "creates a 14446 PDF with a given filename" do
+        expect { intake.update_or_create_14446_document("filename.pdf") }.to change(Document, :count).by(1)
+
+        doc = Document.last
+        expect(doc.display_name).to eq("filename.pdf")
+        expect(doc.document_type).to eq(DocumentTypes::Form14446.key)
+        expect(doc.client).to eq(intake.client)
+        expect(doc.upload.content_type).to eq("application/pdf")
+      end
+    end
+
+    context "when there is an existing document 14446" do
+      let!(:document) { intake.update_or_create_14446_document("filename.pdf") }
+
+      it "updates the existing document with a regenerated form" do
+        expect {
+          expect {
+            intake.update_or_create_14446_document("new-filename.pdf")
+          }.not_to change(Document, :count)
+        }.to change{document.reload.updated_at}
+        expect(document.display_name).to eq "new-filename.pdf"
+      end
     end
   end
 end

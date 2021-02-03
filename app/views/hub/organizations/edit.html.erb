@@ -9,10 +9,6 @@
         <%= @title %>
       </h1>
 
-      <% if @organization.errors.present? %>
-        <%= @organization.error_summary %>
-      <% end %>
-
       <%= render "hub/organizations/edit_organization", f: f %>
 
       <h2><%= t(".source_parameters_heading") %></h2>

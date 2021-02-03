@@ -41,6 +41,20 @@
           <span class="form-question"><%= t("hub.clients.fields.state_of_residence") %>:</span>
           <span class="label-value"><%= @client.intake.state_of_residence %></span>
         </div>
+        <!-- SSN/ITIN hidden -->
+        <div class="field-display last-four-ssn">
+          <span class="form-question"><%= t("general.last_four_ssn") %>:</span>
+          <% if @client.intake.primary_last_four_ssn.present? %>
+            <span id="js-ssn-itin">
+              <%= render "hub/clients/hidden_ssn_itin" %>
+            </span>
+            <span id="js-toggle-ssn-itin">
+              <%= link_to("View", show_ssn_itin_hub_client_path, remote: true)  %>
+            </span>
+          <% else %>
+            <span class="label-value"><%= t("general.NA") %></span>
+          <% end %>
+        </div>
       </div>
 
       <!-- Tax info-->
@@ -150,7 +164,6 @@
         </div>
       </div>
     </div>
-
 
     <div class="client-profile__actions"><%= link_to(t("general.edit_info"), edit_hub_client_path, class: "button hc-button--wide") %></div>
   </section>

@@ -4,9 +4,11 @@
   <% client.tax_returns.order(year: :asc).each do |tax_return| %>
     <li id="tax-return-<%= tax_return.id %>">
       <div class="tax-return-list__assignment">
-        <span class="tax-return-list__year"><%=
-          tax_return.year
-        %></span><span class="tax-return-list__service-type"><%
+        <span class="tax-return-list__year">
+          <%= tax_return.year %>
+          &nbsp;
+        </span>
+        <span class="tax-return-list__service-type"><%
           if tax_return.service_type == "drop_off"
         %><span class="icon-move_to_inbox" aria-hidden="true" role="img"></span><span class="sr-only"><%=
           t("general.drop_off")

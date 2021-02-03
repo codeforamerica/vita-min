@@ -1,1 +1,6 @@
 tmp
+log
+node_modules
+.git
+storage/[a-z0-9]*
+public/assets

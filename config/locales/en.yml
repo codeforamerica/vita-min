@@ -270,6 +270,8 @@ en:
       index:
         description: "Messages from people whose contact info did not match a client."
         phone_number_or_email: "Phone number/email"
+    ssn_itins:
+      displayed: Displaying SSN or ITIN
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
@@ -587,6 +589,8 @@ en:
     email_address: "Email address"
     unique_link: "Unique link"
     delete: "Delete"
+    last_four_ssn: Last 4 of SSN/ITIN
+    hidden: Hidden
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -605,6 +609,7 @@ en:
       title: Invitations
   messages:
     default_subject: Update from GetYourRefund
+    sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     successful_submission:
       subject: Your tax information has been successfully submitted!
       email_body: |
@@ -1532,7 +1537,7 @@ en:
           one: In %{year}, did you pay any mortgage interest?
           other: In %{year}, did you or your spouse pay any mortgage interest?
       notification_preference:
-        note: 'Note: We will not share your information with any outside parties.'
+        note_html: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply. Text HELP to 58750 for help. Text STOP to 58750 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a href="%{terms_url}">Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.
         options:
           email_notification_opt_in: Email Me
           header: We will reach out with questions and updates. Select the option(s) that you prefer!
@@ -1747,6 +1752,9 @@ en:
           return_prep_process: Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return.
           review_return: I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge.
           sign_below: By signing below, you agree to participate in the process and consent to allow GetYourRefund assist you with your taxes. You agree to the terms of the GetYourRefund privacy policy at www.GetYourRefund.org/privacy.
+          efin: I understand that the VITA site I am connected with may have a Relational EFIN number (meaning their site reports to a parent VITA organization), and I understand the VITA site has the ability to see reporting data for all EFINs under the relational (primary) EFIN. This consent form replaces the Relational EFIN consent form from the tax preparation software.
+          personal_tax_info: "Consent to Disclose and Use Personal Tax Return Information: I agree to allow the VITA preparation site to use aggregate return data for statistical purposes. This consent form replaces the Use and Disclose Consent form."
+          carry_forward: "Consent to Global Carry Forward: I consent to allow TaxSlayer LLC, the provider of the VITA/TCE tax software, to make my tax return information available to ANY volunteer site participating in the IRS's VITA/TCE program that I select to prepare a tax return in the next filing season. I understand I will be able to visit any volunteer site using TaxSlayer next year and have my tax return populate with your current year data, regardless of where you filed your tax return this year. This consent is valid through November 12, 2022."
         information_you_provide: You understand the information you provide this site (GetYourRefund.org) is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order for an IRS-certified volunteer to review your information, conduct an intake interview on the phone, prepare the tax return, and perform a quality review before filing your taxes.
         proceed_and_confirm: By proceeding, you confirm that the following statements are true and complete to the best of your knowledge.
         terms_html: You agree to the terms of the GetYourRefund privacy policy at %{privacy_link}

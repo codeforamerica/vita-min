@@ -40,7 +40,7 @@
 #  divorced                                             :integer          default("unfilled"), not null
 #  divorced_year                                        :string
 #  eip_only                                             :boolean
-#  email_address                                        :string
+#  email_address                                        :citext
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
 #  encrypted_bank_account_number                        :string
 #  encrypted_bank_account_number_iv                     :string
@@ -146,7 +146,7 @@
 #  spouse_consented_to_service                          :integer          default("unfilled"), not null
 #  spouse_consented_to_service_at                       :datetime
 #  spouse_consented_to_service_ip                       :inet
-#  spouse_email_address                                 :string
+#  spouse_email_address                                 :citext
 #  spouse_first_name                                    :string
 #  spouse_had_disability                                :integer          default("unfilled"), not null
 #  spouse_issued_identity_pin                           :integer          default("unfilled"), not null
@@ -216,7 +216,6 @@ class Intake < ApplicationRecord
   after_save do
     if saved_change_to_completed_at?(from: nil)
       record_incoming_interaction # client completed intake
-      create_13614c_document("Original 13614-C.pdf")
     elsif completed_at.present?
       record_internal_interaction # user updated completed intake
     end
@@ -367,6 +366,10 @@ class Intake < ApplicationRecord
 
   def spouse
     users.where(is_spouse: true).first
+  end
+
+  def consented?
+    primary_consented_to_service_at.present?
   end
 
   def pdf
@@ -572,14 +575,38 @@ class Intake < ApplicationRecord
     ADDRESS
   end
 
-  def create_13614c_document(filename)
+  def update_or_create_13614c_document(filename)
     pdf_tempfile = pdf
     pdf_tempfile.seek(0)
-    client.documents.create!(document_type: DocumentTypes::Original13614C.key, intake: self, upload: {
-      io: pdf_tempfile,
-      filename: filename,
-      content_type: "application/pdf",
-      identify: false
-    })
+    document = client.documents.find_or_initialize_by(document_type: DocumentTypes::Form13614CForm15080.key)
+    document.update!(
+      document_type: DocumentTypes::Form13614CForm15080.key,
+      intake: self,
+      display_name: filename,
+      upload: {
+        io: pdf_tempfile,
+        filename: filename,
+        content_type: "application/pdf",
+        identify: false
+      }
+    )
+    document
+  end
+
+  def update_or_create_14446_document(filename)
+    pdf_tempfile = consent_pdf
+    pdf_tempfile.seek(0)
+    document = client.documents.find_or_initialize_by(document_type: DocumentTypes::Form14446.key)
+    document.update!(
+      intake: self,
+      display_name: filename,
+      upload: {
+        io: pdf_tempfile,
+        filename: filename,
+        content_type: "application/pdf",
+        identify: false
+      }
+    )
+    document
   end
 end

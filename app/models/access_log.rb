@@ -3,6 +3,7 @@
 # Table name: access_logs
 #
 #  id         :bigint           not null, primary key
+#  event_type :string           not null
 #  ip_address :inet
 #  user_agent :string           not null
 #  created_at :datetime         not null
@@ -21,10 +22,14 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class AccessLog < ApplicationRecord
+  EVENT_TYPES = ["read_bank_account_info", "read_ssn_itin"]
   belongs_to :client
   belongs_to :user
+  validate :valid_event_type
 
-  def event_type
-    "read_bank_account_info"
+  private
+
+  def valid_event_type
+    errors.add(:event_type, "Not a valid access log event") unless EVENT_TYPES.include?(event_type)
   end
 end
