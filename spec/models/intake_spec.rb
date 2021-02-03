@@ -1128,7 +1128,7 @@ describe Intake do
         expect { intake.create_consent_document }.to change(Document, :count).by(1)
 
         doc = Document.last
-        expect(doc.display_name).to eq("Consent Form")
+        expect(doc.display_name).to eq("sConsent Form")
         expect(doc.document_type).to eq(DocumentTypes::ConsentForm14446.key)
       end
     end
