@@ -605,4 +605,8 @@ class Intake < ApplicationRecord
     )
     document
   end
+
+  def might_encounter_delayed_service?
+    vita_partner.at_capacity?
+  end
 end
