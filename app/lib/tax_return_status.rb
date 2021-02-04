@@ -39,6 +39,7 @@ class TaxReturnStatus
       file_ready_to_file: 401, file_efiled: 402, file_mailed: 403, file_rejected: 404, file_accepted: 405, file_not_filing: 406
   }.freeze
 
+  STATUS_KEYS_INCLUDED_IN_CAPACITY = STATUSES.keys - [:intake_before_consent, :intake_in_progress, :file_accepted, :file_not_filing].freeze
   STATUSES_BY_STAGE = determine_statuses_by_stage.freeze
   STAGES = STATUSES_BY_STAGE.keys.freeze
 

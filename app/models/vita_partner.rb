@@ -4,11 +4,11 @@
 #
 #  id                         :bigint           not null, primary key
 #  archived                   :boolean          default(FALSE)
+#  capacity_limit             :integer
 #  logo_path                  :string
 #  name                       :string           not null
 #  national_overflow_location :boolean          default(FALSE)
 #  timezone                   :string           default("America/New_York")
-#  weekly_capacity_limit      :integer
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  coalition_id               :bigint
@@ -25,8 +25,6 @@
 #  fk_rails_...  (coalition_id => coalitions.id)
 #
 class VitaPartner < ApplicationRecord
-  DEFAULT_CAPACITY_LIMIT = 300
-
   belongs_to :coalition, optional: true
   has_many :clients
   has_many :intakes
@@ -37,6 +35,7 @@ class VitaPartner < ApplicationRecord
   belongs_to :parent_organization, class_name: "VitaPartner", optional: true
   validate :one_level_of_depth
   validate :no_coalitions_for_sites
+  validate :no_capacity_for_sites
   validates :name, uniqueness: { scope: [:coalition, :parent_organization] }
 
   scope :organizations, -> { where(parent_organization: nil) }
@@ -44,19 +43,17 @@ class VitaPartner < ApplicationRecord
   has_many :child_sites, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
 
   default_scope { includes(:child_sites) }
-
-  after_initialize :defaults
   accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: lambda { |attributes| attributes['code'].blank? }
 
   def at_capacity?
-    actionable_intakes_this_week.count >= weekly_capacity_limit
-  end
+    return parent_organization.at_capacity? if site?
 
-  def has_capacity_for?(intake)
-    if intake.vita_partner.name == "Urban Upbound (NY)"
-      return urban_upbound_has_capacity_for? intake
-    end
-    !at_capacity?
+    return false if capacity_limit.blank?
+
+    Client
+      .where(vita_partner_id: [id, *child_site_ids])
+      .joins(:tax_returns).where(tax_returns: { status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY })
+      .count >= capacity_limit
   end
 
   def organization?
@@ -80,28 +77,15 @@ class VitaPartner < ApplicationRecord
     end
   end
 
+  def no_capacity_for_sites
+    if site? && capacity_limit.present?
+      errors.add(:capacity_limit, "Sites cannot be assigned a capacity")
+    end
+  end
+
   def one_level_of_depth
     if parent_organization&.parent_organization.present?
       errors.add(:parent_organization, "Only one level of sub-organization depth allowed.")
     end
-  end
-
-  def urban_upbound_has_capacity_for?(intake)
-    return true if ["source_parameter", "state"].include? intake.routing_criteria
-    actionable_overflow_intakes_this_week.count < 50
-  end
-
-  def actionable_overflow_intakes_this_week
-    actionable_intakes_this_week.where(routing_criteria: "overflow")
-  end
-
-  def actionable_intakes_this_week
-    intakes.where(
-      Intake.arel_table[:primary_consented_to_service_at].gt(7.days.ago),
-    ).where.not(intake_ticket_id: nil)
-  end
-
-  def defaults
-    self.weekly_capacity_limit ||= DEFAULT_CAPACITY_LIMIT
   end
 end

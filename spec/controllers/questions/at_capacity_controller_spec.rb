@@ -12,7 +12,7 @@ RSpec.describe Questions::AtCapacityController do
   describe ".show?" do
     context "when vita partner is at capacity" do
       before do
-        allow(intake).to receive(:might_encounter_delayed_service?).and_return true
+        allow(vita_partner).to receive(:at_capacity?).and_return true
       end
 
       it "returns true" do
@@ -22,7 +22,7 @@ RSpec.describe Questions::AtCapacityController do
 
     context "when vita partner is not yet at capacity" do
       before do
-        allow(intake).to receive(:might_encounter_delayed_service?).and_return false
+        allow(vita_partner).to receive(:at_capacity?).and_return false
       end
 
       it "returns false" do
