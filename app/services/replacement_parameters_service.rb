@@ -19,14 +19,15 @@ class ReplacementParametersService
   private
 
   def process_replacements_hash(replacements_hash)
-    convert_template_keys_to_string_format_syntax(replacements_hash.keys)
+    # escape existing percent signs
+    body.gsub!(/%(?!{\S*})/, "%%")
+
+    # replace valid <<key>> with %{key}
+    replacements_hash.each_key { |key| body.gsub!(/<<\s*#{key}\s*>>/i, "%{#{key}}") }
+
     body % replacements_hash
   end
-
-  def convert_template_keys_to_string_format_syntax(keys)
-    keys.each{ |key| body.gsub!(/<<\s*#{key}\s*>>/i, "%{#{key}}") }
-  end
-
+  
   def replacements
     {
         "Client.PreferredName": client&.preferred_name,
