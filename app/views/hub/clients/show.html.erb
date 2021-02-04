@@ -145,6 +145,20 @@
             <span class="form-question"><%= t(".email") %>:</span>
             <span class="label-value"><%= @client.intake&.spouse_email_address %> </span>
           </div>
+          <div class="field-display spouse-last-four-ssn">
+            <span class="form-question"><%= t("general.last_four_ssn") %>:</span>
+            <% if @client.intake.spouse_last_four_ssn.present? %>
+            <span id="js-spouse-ssn-itin">
+              <%= render "hub/clients/hidden_ssn_itin" %>
+            </span>
+              <span id="js-toggle-spouse-ssn-itin">
+              <%= link_to("View", show_spouse_ssn_itin_hub_client_path, remote: true)  %>
+            </span>
+            <% else %>
+              <span class="label-value"><%= t("general.NA") %></span>
+            <% end %>
+          </div>
+
         </div>
       <% end %>
 

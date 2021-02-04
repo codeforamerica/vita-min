@@ -11,7 +11,7 @@ RSpec.describe "a user editing a clients intake fields" do
       create :client,
              vita_partner: organization,
              tax_returns: [tax_return],
-             intake: create(:intake, email_address: "colleen@example.com", primary_first_name: "Colleen", primary_last_name: "Cauliflower", preferred_interview_language: "es", state_of_residence: "CA", preferred_name: "Colleen Cauliflower", email_notification_opt_in: "yes", dependents: [
+             intake: create(:intake, email_address: "colleen@example.com", filing_joint: "yes", primary_first_name: "Colleen", primary_last_name: "Cauliflower", preferred_interview_language: "es", state_of_residence: "CA", preferred_name: "Colleen Cauliflower", email_notification_opt_in: "yes", dependents: [
                create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06"),
              ])
 
@@ -116,6 +116,7 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "Legal first name", with: "Peter"
         fill_in "Legal last name", with: "Pepper"
         fill_in "Email", with: "spicypeter@pepper.com"
+        fill_in "Last 4 of SSN/ITIN", with: "3456"
       end
 
       click_on "Save"
@@ -161,6 +162,21 @@ RSpec.describe "a user editing a clients intake fields" do
         end.to change(AccessLog, :count).by(1)
         expect(AccessLog.last.event_type).to eq "read_ssn_itin"
       end
+
+      within ".spouse-last-four-ssn" do
+        expect do
+          click_on "View"
+          expect(page).to have_text "3456"
+        end.to change(AccessLog, :count).by(1)
+        expect(AccessLog.last.event_type).to eq "read_ssn_itin"
+      end
+
+      within ".client-profile" do
+        click_on "Edit"
+      end
+
+      expect(find_field("hub_update_client_form[spouse_last_four_ssn]").value).to eq "3456"
+      expect(find_field("hub_update_client_form[primary_last_four_ssn]").value).to eq "4444"
     end
 
     it "creates a system note for client profile change" do

@@ -36,6 +36,7 @@ RSpec.describe Hub::CreateClientForm do
           spouse_first_name: "Newly",
           spouse_last_name: "Wed",
           spouse_email_address: "spouse@example.com",
+          spouse_last_four_ssn: "5678",
           filing_joint: "yes",
           timezone: "America/Chicago",
           needs_help_2020: "yes",
@@ -94,6 +95,7 @@ RSpec.describe Hub::CreateClientForm do
         intake = Intake.last
         expect(intake.vita_partner).to eq vita_partner
         expect(intake.primary_last_four_ssn).to eq "1234"
+        expect(intake.spouse_last_four_ssn).to eq "5678"
       end
 
       it "creates tax returns for each tax_return where _create is true" do
