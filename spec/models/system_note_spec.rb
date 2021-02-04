@@ -76,7 +76,7 @@ RSpec.describe SystemNote do
 
     context "with changes to the client profile" do
       before do
-        intake.update(primary_first_name: "New first name", primary_last_name: "New last name")
+        intake.update(primary_first_name: "New first name", primary_last_name: "New last name", primary_last_four_ssn: "2345", spouse_last_four_ssn: "1234")
       end
 
       it "creates a system note summarizing all changes" do
@@ -88,6 +88,9 @@ RSpec.describe SystemNote do
 
         expect(note.client).to eq intake.client
         expect(note.user).to eq user
+        expect(note.body).not_to include("encrypted spouse last four ssn")
+        expect(note.body).not_to include("encrypted primary last four ssn")
+
         expect(note.body).to include("primary first name from Original first name to New first name")
         expect(note.body).to include("primary last name from Original last name to New last name")
       end

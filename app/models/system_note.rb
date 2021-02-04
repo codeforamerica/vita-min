@@ -54,6 +54,7 @@ class SystemNote < ApplicationRecord
     changes_list = ""
     intake.saved_changes.each do |k, v|
       next if k == "updated_at"
+      next if k.include?("encrypted")
 
       changes_list += "\n\u2022 #{k.tr('_', ' ')} from #{v[0]} to #{v[1]}"
     end
