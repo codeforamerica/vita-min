@@ -21,7 +21,7 @@ commands:
           name: install system dependencies
           command: |
             sudo apt-get update && \
-            sudo apt-get install -y pdftk ghostscript
+            sudo apt-get install -y pdftk ghostscript libjemalloc-dev
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:
@@ -81,7 +81,7 @@ jobs:
       - install_ruby_dependencies
       - setup_test_db
       - run: |
-          RAILS_CACHE_CLASSES=1 bundle exec rspec \
+          LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so RAILS_CACHE_CLASSES=1 bundle exec rspec \
               --format RspecJunitFormatter \
               --out ~/test-results/rspec/rspec.xml \
               --format progress \
