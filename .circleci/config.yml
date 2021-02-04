@@ -2,6 +2,10 @@
 version: 2.1
 
 executors:
+  ruby_executor:
+    working_directory: /mnt/ramdisk
+    docker:
+      - image: circleci/ruby:2.6.5-node-browsers
   rails_executor:
     working_directory: /mnt/ramdisk
     docker:
@@ -60,7 +64,7 @@ commands:
           paths: [tmp/test_db_schema.rb]
 jobs:
   run_js_tests:
-    executor: rails_executor
+    executor: ruby_executor
     steps:
       - checkout
       - install_js_dependencies
@@ -89,7 +93,7 @@ jobs:
       - store_test_results:
           path: ~/test-results
   deploy_to_aptible--demo:
-    executor: rails_executor
+    executor: ruby_executor
     steps:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
@@ -97,7 +101,7 @@ jobs:
       - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:master
     parallelism: 1
   deploy_to_aptible--production:
-    executor: rails_executor
+    executor: ruby_executor
     steps:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
