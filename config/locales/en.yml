@@ -459,6 +459,7 @@ en:
     edit: Edit
     email: Email
     error:
+      form_failed: Please fix indicated errors and try again.
       sorry_something_went_wrong: Oops, we're sorry, but something went wrong.
     ethnicity:
       hispanic: Hispanic or Latino

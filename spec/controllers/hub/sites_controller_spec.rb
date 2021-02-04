@@ -103,6 +103,7 @@ RSpec.describe Hub::SitesController, type: :controller do
         vita_partner: {
           name: "Silly Site",
           parent_organization_id: other_organization.id,
+          timezone: "America/Chicago",
           source_parameters_attributes: {
             "0": {
               id: source_parameter.id.to_s,
@@ -122,15 +123,32 @@ RSpec.describe Hub::SitesController, type: :controller do
     context "as an authenticated admin user" do
       before { sign_in admin_user }
 
-      it "updates the site with the new attributes and redirects to the input organization edit page" do
-        post :update, params: params
+      context "when site object is valid" do
+        it "updates the site with the new attributes and reloads page." do
+          post :update, params: params
 
-        site.reload
-        expect(site.name).to eq "Silly Site"
-        expect(site.parent_organization).to eq other_organization
-        expect { source_parameter.reload }.to raise_error ActiveRecord::RecordNotFound
-        expect(site.source_parameters.pluck(:code)).to eq(["newshortlink"])
-        expect(response).to redirect_to edit_hub_site_path(id: site.id)
+          site.reload
+          expect(site.name).to eq "Silly Site"
+          expect(site.parent_organization).to eq other_organization
+          expect(site.timezone).to eq "America/Chicago"
+          expect { source_parameter.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect(site.source_parameters.pluck(:code)).to eq(["newshortlink"])
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to redirect_to edit_hub_site_path(id: site.id)
+        end
+      end
+
+      context "when the site object is not valid" do
+        before do
+          allow_any_instance_of(VitaPartner).to receive(:update).and_return false
+        end
+
+        it "re-renders edit with an error message" do
+          post :update, params: params
+
+          expect(flash.now[:alert]).to eq "Please fix indicated errors and try again."
+          expect(response).to render_template :edit
+        end
       end
     end
   end
