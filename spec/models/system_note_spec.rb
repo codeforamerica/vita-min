@@ -90,6 +90,8 @@ RSpec.describe SystemNote do
         expect(note.user).to eq user
         expect(note.body).not_to include("encrypted spouse last four ssn")
         expect(note.body).not_to include("encrypted primary last four ssn")
+        expect(note.body).to include("primary last four ssn changed")
+        expect(note.body).to include("spouse last four ssn changed")
 
         expect(note.body).to include("primary first name from Original first name to New first name")
         expect(note.body).to include("primary last name from Original last name to New last name")
