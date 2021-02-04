@@ -28,8 +28,8 @@ require "rails_helper"
 
 describe VitaPartner do
   describe "#at_capacity?" do
-    let(:out_of_range_statuses) { TaxReturnStatus::STATUSES.keys - TaxReturnStatus.statuses_that_count_towards_capacity }
-    let(:in_range_statuses) { TaxReturnStatus::statuses_that_count_towards_capacity }
+    let(:out_of_range_statuses) { TaxReturnStatus::STATUSES.keys - TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
+    let(:in_range_statuses) { TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY }
 
     context "an organization" do
       let(:organization) { create :organization, capacity_limit: 10 }

@@ -52,7 +52,7 @@ class VitaPartner < ApplicationRecord
 
     Client
       .where(vita_partner_id: [id, *child_site_ids])
-      .joins(:tax_returns).where(tax_returns: { status: TaxReturnStatus.statuses_that_count_towards_capacity })
+      .joins(:tax_returns).where(tax_returns: { status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY })
       .count >= capacity_limit
   end
 
