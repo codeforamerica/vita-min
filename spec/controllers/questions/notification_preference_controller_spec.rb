@@ -57,6 +57,10 @@ RSpec.describe Questions::NotificationPreferenceController do
         }
       end
 
+      before do
+        allow(ClientMessagingService).to receive(:send_system_text_message)
+      end
+
       it "updates the intake's notification preferences" do
         expect(intake.sms_notification_opt_in).to eq("unfilled")
         expect(intake.email_notification_opt_in).to eq("unfilled")
@@ -67,6 +71,13 @@ RSpec.describe Questions::NotificationPreferenceController do
         expect(intake.sms_notification_opt_in).to eq("no")
         expect(intake.email_notification_opt_in).to eq("yes")
         expect(intake.sms_phone_number).to eq("+15005550006")
+        expect(ClientMessagingService).to_not have_received(:send_system_text_message).with(
+          intake,
+          I18n.t(
+            "messages.sms_opt_in",
+            locale: intake.locale
+          )
+        )
       end
 
       it "sends an event to mixpanel with relevant data" do
@@ -79,6 +90,30 @@ RSpec.describe Questions::NotificationPreferenceController do
             sms_notification_opt_in: "no",
           }
         )
+      end
+
+      context "when the client opts into sms messages" do
+        let(:params) do
+          {
+            notification_preference_form: {
+              email_notification_opt_in: "no",
+              sms_notification_opt_in: "yes",
+              sms_phone_number: "500-555-0006"
+            }
+          }
+        end
+
+        it "sends the client the opt-in sms message" do
+          post :update, params: params
+
+          expect(ClientMessagingService).to have_received(:send_system_text_message).with(
+            intake.client,
+            I18n.t(
+              "messages.sms_opt_in",
+              locale: intake.locale,
+            )
+          )
+        end
       end
     end
   end

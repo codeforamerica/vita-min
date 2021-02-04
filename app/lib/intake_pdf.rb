@@ -74,7 +74,7 @@ class IntakePdf
       had_tax_credit_disallowed: @intake.had_tax_credit_disallowed,
       received_irs_letter: @intake.received_irs_letter,
       made_estimated_tax_payments: @intake.made_estimated_tax_payments,
-      additional_comments: @intake.additional_info,
+      additional_comments: "#{@intake.additional_info} #{@intake.final_info}",
       student: @intake.was_full_time_student,
       spouse_student: @intake.spouse_was_full_time_student,
       blind: @intake.was_blind,
@@ -88,7 +88,8 @@ class IntakePdf
       savings_split_refund: @intake.savings_split_refund,
       savings_purchase_bond: @intake.savings_purchase_bond,
       balance_due_transfer: @intake.balance_pay_from_bank,
-
+      spouse_was_on_visa: yes_no_unfilled_to_checkbox_0(@intake.spouse_was_on_visa),
+      primary_was_on_visa: yes_no_unfilled_to_checkbox_0(@intake.was_on_visa)
     }
     answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes?
     answers.merge!(primary_info)
@@ -127,10 +128,9 @@ class IntakePdf
         months_in_home: dependent.months_in_home.to_s,
         disabled: yes_no_unfilled_to_YN(dependent.disabled),
         resident: yes_no_unfilled_to_YN(dependent.north_american_resident),
-        # on_visa: yes_no_unfilled_to_YN(dependent.on_visa),
+        citizen: dependent.on_visa_yes? ? "On Visa" : "",
         student: yes_no_unfilled_to_YN(dependent.was_student),
-        marital_status: married_to_SM(dependent.was_married),
-        citizen: nil
+        marital_status: married_to_SM(dependent.was_married)
       }.each do |key, value|
         full_key = "#{prefix}_#{key}".to_sym
         answers[full_key] = value

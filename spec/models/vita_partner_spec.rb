@@ -7,6 +7,7 @@
 #  logo_path                  :string
 #  name                       :string           not null
 #  national_overflow_location :boolean          default(FALSE)
+#  timezone                   :string           default("America/New_York")
 #  weekly_capacity_limit      :integer
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null

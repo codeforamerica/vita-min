@@ -86,9 +86,21 @@ describe ReplacementParametersService do
     describe "#process_sensitive_data" do
       before { allow(client).to receive(:login_link).and_return("https://getyourrefund.org/portal/account/raw_token")}
 
-      let(:body) { "Click here to sign your tax return: <<Link.E-signature>>" }
-      it "replaces with correct link" do
-        expect(subject.process_sensitive_data).to eq "Click here to sign your tax return: https://getyourrefund.org/portal/account/raw_token"
+      context "when <<Link.E-signature>> exists in the body" do
+        let(:body) { "Click here to sign your tax return: <<Link.E-signature>>" }
+        it "replaces with correct link" do
+          expect(subject.process_sensitive_data).to eq "Click here to sign your tax return: https://getyourrefund.org/portal/account/raw_token"
+        end
+      end
+
+      context "when <<<<Link.E-signature>> does not exist in the body" do
+        let(:body) { "Just a message" }
+
+        it "does not regenerate the login link if it is not required for the body of the message" do
+          subject.process_sensitive_data
+
+          expect(client).to_not have_received(:login_link)
+        end
       end
     end
   end
@@ -185,6 +197,22 @@ describe ReplacementParametersService do
           expect(subject.process).to include client.preferred_name
           expect(subject.process).to include user.first_name
         end
+      end
+    end
+  end
+
+  context "handling percent signs in emails" do
+    let(:body) { "¿Esta persona proveyo más del 50% de su propio apoyo?" }
+    describe "when there is a % in an email" do
+      it "does not fail" do
+        expect(subject.process).to eq "¿Esta persona proveyo más del 50% de su propio apoyo?"
+      end
+    end
+
+    describe "when there is a %{ not related to a replacement param in an email" do
+      let(:body) { "with some weird%{ string" }
+      it "does not fail" do
+        expect(subject.process).to eq "with some weird%{ string"
       end
     end
   end

@@ -28,10 +28,12 @@ module Hub
 
     def update
       if @vita_partner.update(vita_partner_params)
+        flash[:notice] = I18n.t("general.changes_saved")
         redirect_to edit_hub_site_path(id: @vita_partner.id)
       else
         @show_unique_links = true
         @site = @vita_partner
+        flash.now[:alert] = I18n.t("general.error.form_failed")
         render :edit
       end
     end
@@ -43,7 +45,7 @@ module Hub
     end
 
     def vita_partner_params
-      params.require(:vita_partner).permit(:name, :parent_organization_id, source_parameters_attributes: [:_destroy, :id, :code])
+      params.require(:vita_partner).permit(:name, :parent_organization_id, :timezone, source_parameters_attributes: [:_destroy, :id, :code])
     end
   end
 end
