@@ -19,12 +19,13 @@ class ReplacementParametersService
   private
 
   def process_replacements_hash(replacements_hash)
-    convert_template_keys_to_string_format_syntax(replacements_hash.keys)
-    body % replacements_hash
-  end
+    # escape existing percent signs
+    body.gsub!(/%(?!{\S*})/, "%%")
 
-  def convert_template_keys_to_string_format_syntax(keys)
-    keys.each{ |key| body.gsub!(/<<\s*#{key}\s*>>/i, "%{#{key}}") }
+    # replace valid <<key>> with %{key}
+    replacements_hash.each_key { |key| body.gsub!(/<<\s*#{key}\s*>>/i, "%{#{key}}") }
+
+    body % replacements_hash
   end
 
   def replacements
@@ -47,7 +48,7 @@ class ReplacementParametersService
   def sensitive_replacements
     if body.match(/<<\s*Link\.E-signature\s*>>/i)
       {
-        "Link.E-signature": client.login_link
+        "Link.E-signature": client.generate_login_link
       }
     else
       {}

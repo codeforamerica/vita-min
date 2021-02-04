@@ -4,10 +4,11 @@
 #
 #  id                         :bigint           not null, primary key
 #  archived                   :boolean          default(FALSE)
+#  capacity_limit             :integer
 #  logo_path                  :string
 #  name                       :string           not null
 #  national_overflow_location :boolean          default(FALSE)
-#  weekly_capacity_limit      :integer
+#  timezone                   :string           default("America/New_York")
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  coalition_id               :bigint
@@ -32,6 +33,7 @@ FactoryBot.define do
 
     factory :organization do
       sequence(:name) { |n| "Organization #{n}" }
+      capacity_limit { 100 }
       parent_organization { nil }
     end
 

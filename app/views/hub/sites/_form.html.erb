@@ -5,19 +5,20 @@
 
     <%= f.cfa_input_field :name, t("general.name") %>
     <%= f.cfa_select :parent_organization_id, t("general.organization"), @organizations.map { |c| [c.name, c.id] } %>
+    <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
 
     <% if @show_unique_links %>
       <% @site.source_parameters.each do |source_parameter| %>
         <%= f.fields_for :source_parameters, source_parameter, builder: VitaMinFormBuilder do |source_parameter_form| %>
-          <%= source_parameter_form.cfa_input_field :code, t("general.unique_link"), classes: ["form-width--short"] %>
-          <%= source_parameter_form.cfa_checkbox(:_destroy, t("general.remove")) %>
+          <div class="inline-form-items-wrapper no-bottom-margin-children">
+            <%= source_parameter_form.cfa_input_field :code, t("general.unique_link"), classes: ["form-width--short"] %>
+            <%= source_parameter_form.cfa_checkbox(:_destroy, t("general.remove")) %>
+          </div>
         <% end %>
       <% end %>
 
-      <h3><%= f.label t("general.new") %></h3>
-
       <%= f.fields_for :source_parameters, @site.source_parameters.build do |source_parameter_form| %>
-        <%= source_parameter_form.cfa_input_field :code, t("general.unique_link"), classes: ["form-width--short"] %>
+        <%= source_parameter_form.cfa_input_field :code, t("general.new_unique_link"), classes: ["form-width--short"] %>
       <% end %>
     <% end %>
 

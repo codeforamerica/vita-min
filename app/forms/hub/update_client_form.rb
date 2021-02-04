@@ -22,6 +22,7 @@ module Hub
                        :state,
                        :zip_code,
                        :primary_last_four_ssn,
+                       :spouse_last_four_ssn,
                        :sms_notification_opt_in,
                        :email_notification_opt_in,
                        :spouse_first_name,
@@ -51,6 +52,11 @@ module Hub
         @client.intake.dependents.new formatted_dependent_attrs(v)
       end
       @client.intake.dependents
+    end
+
+    def self.existing_attributes(intake)
+      non_model_attrs = { primary_last_four_ssn: intake.primary_last_four_ssn, spouse_last_four_ssn: intake.spouse_last_four_ssn }
+      super.merge(non_model_attrs)
     end
 
     def self.from_client(client)

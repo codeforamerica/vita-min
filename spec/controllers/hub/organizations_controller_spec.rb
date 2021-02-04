@@ -170,7 +170,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
   end
 
   describe "#update" do
-    let(:organization) { create :organization, coalition: parent_coalition }
+    let(:organization) { create :organization, coalition: parent_coalition, capacity_limit: 100 }
     let(:source_parameter) { create(:source_parameter, vita_partner: organization, code: "shortlink") }
     let(:new_coalition) { create :coalition, name: "Carrot Coalition" }
     let(:params) do
@@ -179,6 +179,8 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         vita_partner: {
           coalition_id: new_coalition.id,
           name: "Oregano Organization",
+          timezone: "America/Chicago",
+          capacity_limit: "200",
           source_parameters_attributes: {
             "0": {
               id: source_parameter.id.to_s,
@@ -198,15 +200,32 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
     context "as a logged in admin" do
       before { sign_in user }
 
-      it "updates the name and coalition and source parameters" do
-        post :update, params: params
+      context "the organization object is valid" do
+        it "updates the name and coalition and source parameters" do
+          post :update, params: params
 
-        organization.reload
-        expect(organization.name).to eq "Oregano Organization"
-        expect(organization.coalition).to eq new_coalition
-        expect(response).to redirect_to(edit_hub_organization_path(id: organization.id))
-        expect(SourceParameter.find_by(code: "shortlink")).to be_nil
-        expect(organization.reload.source_parameters.pluck(:code)).to eq(["newshortlink"])
+          organization.reload
+          expect(organization.name).to eq "Oregano Organization"
+          expect(organization.coalition).to eq new_coalition
+          expect(organization.timezone).to eq "America/Chicago"
+          expect(organization.capacity_limit).to eq 200
+          expect(response).to redirect_to(edit_hub_organization_path(id: organization.id))
+          expect(SourceParameter.find_by(code: "shortlink")).to be_nil
+          expect(organization.reload.source_parameters.pluck(:code)).to eq(["newshortlink"])
+        end
+      end
+
+      context "the organization object is not valid" do
+        before do
+          allow_any_instance_of(VitaPartner).to receive(:update).and_return false
+        end
+
+        it "re-renders edit with an error message" do
+          post :update, params: params
+
+          expect(flash.now[:alert]).to eq "Please fix indicated errors and try again."
+          expect(response).to render_template :edit
+        end
       end
     end
   end

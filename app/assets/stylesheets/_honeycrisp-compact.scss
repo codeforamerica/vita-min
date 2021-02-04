@@ -140,4 +140,18 @@
   .label {
     padding: 0.5rem 0.75rem;
   }
+
+  .inline-form-items-wrapper {
+    display: flex;
+    align-items: center;
+    > * {
+      margin-right: 1rem;
+    }
+  }
+
+  .no-bottom-margin-children {
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
 }
