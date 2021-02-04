@@ -42,7 +42,7 @@ RSpec.describe "create VITA organization hierarchy" do
       # Update the site
       click_on "Llama Library"
       fill_in "Name", with: "Lima Bean Library"
-      fill_in "Unique link", with: "limabean"
+      fill_in "Additional unique link", with: "limabean"
       click_on "Save"
       expect(page).to have_selector("h1", text: "Lima Bean Library")
       expect(page).to have_selector("input[value='limabean']")

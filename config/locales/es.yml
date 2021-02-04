@@ -254,8 +254,6 @@ es:
     organizations:
       new:
         title: "Nueva Organización"
-      edit:
-        source_parameters_heading: "Enlaces únicos"
       no_sites: "Ningunos sitios"
       index:
         independent_organizations: "Organizaciones Independientes"
@@ -593,6 +591,7 @@ es:
     team_member: "Miembro del equipo"
     new: "Nuevo"
     unique_link: "Enlace único"
+    new_unique_link: "Nuevo Enlace único"
     delete: "Eliminar"
     last_four_ssn: Últimos 4 de SSN / ITIN
     hidden: Encubierto

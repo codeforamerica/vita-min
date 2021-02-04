@@ -252,8 +252,6 @@ en:
     organizations:
       new:
         title: "New Organization"
-      edit:
-        source_parameters_heading: "Unique links"
       no_sites: "No sites"
       listing:
         site_count:
@@ -590,6 +588,7 @@ en:
     team_member: "Team member"
     email_address: "Email address"
     unique_link: "Unique link"
+    new_unique_link: "Additional unique link"
     delete: "Delete"
     last_four_ssn: Last 4 of SSN/ITIN
     hidden: Hidden
