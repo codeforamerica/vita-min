@@ -23,6 +23,7 @@ module Hub
                        :state_of_residence,
                        :zip_code,
                        :primary_last_four_ssn,
+                       :spouse_last_four_ssn,
                        :sms_notification_opt_in,
                        :email_notification_opt_in,
                        :spouse_first_name,

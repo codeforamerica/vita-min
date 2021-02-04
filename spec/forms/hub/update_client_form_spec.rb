@@ -8,7 +8,8 @@ RSpec.describe Hub::UpdateClientForm do
              :with_dependents,
              email_notification_opt_in: "yes",
              state_of_residence: "CA",
-             preferred_interview_language: "es"
+             preferred_interview_language: "es",
+             spouse_last_four_ssn: "5678"
     }
     let!(:client) {
       create :client, intake: intake
@@ -30,6 +31,7 @@ RSpec.describe Hub::UpdateClientForm do
         phone_number: intake.phone_number,
         sms_phone_number: intake.sms_phone_number,
         primary_last_four_ssn: intake.primary_last_four_ssn,
+        spouse_last_four_ssn: intake.spouse_last_four_ssn,
         street_address: intake.street_address,
         city: intake.city,
         state: intake.state,
@@ -54,6 +56,22 @@ RSpec.describe Hub::UpdateClientForm do
               }
           }
       }
+    end
+
+    context "updating a client" do
+      context "updating spouse ssn" do
+        before do
+          form_attributes[:spouse_last_four_ssn] = "3456"
+        end
+
+        it "persists valid changes to spouse ssn" do
+          expect do
+            form = described_class.new(client, form_attributes)
+            form.save
+            intake.reload
+          end.to change(intake, :spouse_last_four_ssn).to "3456"
+        end
+      end
     end
 
     context "adding/updating dependents" do
@@ -199,6 +217,28 @@ RSpec.describe Hub::UpdateClientForm do
           expect(form.dependents_attributes.first).to have_key(:last_name)
         end
       end
+    end
+  end
+
+  describe ".from_client" do
+    let(:intake) {
+      create :intake,
+             :with_contact_info,
+             :with_dependents,
+             email_notification_opt_in: "yes",
+             state_of_residence: "CA",
+             preferred_interview_language: "es",
+             spouse_last_four_ssn: "5678",
+             primary_last_four_ssn: "1234"
+    }
+    let!(:client) {
+      create :client, intake: intake
+    }
+
+    it "includes non-model primary_last_four_ssn and spouse_last_four_ssn" do
+      form = described_class.from_client(client)
+      expect(form.spouse_last_four_ssn).to eq "5678"
+      expect(form.primary_last_four_ssn).to eq "1234"
     end
   end
 end
