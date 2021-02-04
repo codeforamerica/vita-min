@@ -136,7 +136,7 @@ class Client < ApplicationRecord
     end
   end
 
-  def login_link
+  def generate_login_link
     # Compute a new login URL. This invalidates any existing login URLs.
     raw_token, encrypted_token = Devise.token_generator.generate(Client, :login_token)
     update(

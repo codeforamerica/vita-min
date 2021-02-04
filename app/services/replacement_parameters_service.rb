@@ -47,7 +47,7 @@ class ReplacementParametersService
   def sensitive_replacements
     if body.match(/<<\s*Link\.E-signature\s*>>/i)
       {
-        "Link.E-signature": client.login_link
+        "Link.E-signature": client.generate_login_link
       }
     else
       {}
