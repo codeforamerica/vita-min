@@ -37,7 +37,7 @@ RSpec.feature "Toggle ssn display" do
           click_on "View"
 
           expect(page).to have_text "Last 4 of SSN/ITIN"
-          expect(page).to have_text "View"
+          expect(page).to have_text("View", wait: 10) # can be slow
 
           expect(page).to have_text client.intake.primary_last_four_ssn
 
