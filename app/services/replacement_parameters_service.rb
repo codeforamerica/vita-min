@@ -45,9 +45,13 @@ class ReplacementParametersService
   # this should only be called when we aren't saving the output to our database
   # for example, when adding a link to send to the client only
   def sensitive_replacements
-    {
-      "Link.E-signature": client.login_link
-    }
+    if body.match(/<<\s*Link\.E-signature\s*>>/i)
+      {
+        "Link.E-signature": client.login_link
+      }
+    else
+      {}
+    end
   end
 
   def preparer_first_name
