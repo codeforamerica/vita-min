@@ -33,6 +33,7 @@ FactoryBot.define do
 
     factory :organization do
       sequence(:name) { |n| "Organization #{n}" }
+      capacity_limit { 100 }
       parent_organization { nil }
     end
 

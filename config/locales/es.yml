@@ -434,6 +434,7 @@ es:
     attachment: Adjunto
     cancel: Cancelar
     call: Llamada
+    capacity_limit: Límite de capacidad
     changes_saved: Cambios guardados
     chat_with_us: Hable con nosotros por el chat
     city: Ciudad

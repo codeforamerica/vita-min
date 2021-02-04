@@ -432,6 +432,7 @@ en:
     attachment: Attachment
     cancel: Cancel
     call: Call
+    capacity_limit: Capacity limit
     changes_saved: Changes saved
     chat_with_us: Chat with us
     city: City
