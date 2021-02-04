@@ -1265,7 +1265,7 @@ en:
                   data-track-click="stimulus-irs-calculate-eip"
                   data-track-attribute-position="stimulus-how-faq4">
                 IRS has a "How do I calculate my EIP" website</a>
-                website to help you calculate how much you will receive for the first round of payments. For the second round of payments, you will need to complete <a href="https://www.irs.gov/instructions/i1040gi#idm140693714589984" rel="nofollow" target="_blank" data-track-click="stimulus-irs-rebate-worksheet" data-track-attribute-position="stimulus-how-faq4">the Recovery Rebate Credit Worksheet</a> for line 30 of the 2020 1040 tax form. We can assist you with these forms if you file your return through GetYourRefund.
+                to help you calculate how much you will receive for the first round of payments. For the second round of payments, you will need to complete <a href="https://www.irs.gov/instructions/i1040gi#idm140693714589984" rel="nofollow" target="_blank" data-track-click="stimulus-irs-rebate-worksheet" data-track-attribute-position="stimulus-how-faq4">the Recovery Rebate Credit Worksheet</a> for line 30 of the 2020 1040 tax form. We can assist you with these forms if you file your return through GetYourRefund.
             - title: What if I haven’t filed federal taxes?
               content_html: >-
                 We recommend that you file your taxes in order to access the Economic Impact Payments and any
