@@ -200,4 +200,21 @@ describe ReplacementParametersService do
       end
     end
   end
+
+  context "handling percent signs in emails" do
+    let(:body) { "¿Esta persona proveyo más del 50% de su propio apoyo?" }
+    describe "when there is a % in an email" do
+      it "does not fail" do
+        expect(subject.process).to eq "¿Esta persona proveyo más del 50% de su propio apoyo?"
+      end
+    end
+
+    describe "when there is a %{ not related to a replacement param in an email" do
+      let(:body) { "with some weird%{ string" }
+      it "does not fail" do
+        expect(subject.process).to eq "with some weird%{ string"
+      end
+    end
+  end
 end
+

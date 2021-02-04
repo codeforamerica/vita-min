@@ -38,10 +38,12 @@ module Hub
 
     def update
       if @vita_partner.update(vita_partner_params)
+        flash[:notice] = I18n.t("general.changes_saved")
         redirect_to edit_hub_organization_path(id: @vita_partner.id)
       else
         @coalitions = Coalition.all
         @organization = @vita_partner
+        flash.now[:alert] = I18n.t("general.error.form_failed")
         render :edit
       end
     end
@@ -49,7 +51,7 @@ module Hub
     private
 
     def vita_partner_params
-      params.require(:vita_partner).permit(:name, :coalition_id, source_parameters_attributes: [:_destroy, :id, :code])
+      params.require(:vita_partner).permit(:name, :coalition_id, :timezone, source_parameters_attributes: [:_destroy, :id, :code])
     end
   end
 end
