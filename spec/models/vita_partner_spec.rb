@@ -256,4 +256,27 @@ describe VitaPartner do
       end
     end
   end
+
+  describe "validations" do
+    let!(:valid_params) {
+      {
+        name: "Coala Org"
+      }
+    }
+    it "can be valid" do
+      expect(described_class.new(valid_params)).to be_valid
+    end
+
+    it "validates that capacity limit is a number" do
+      valid_params[:capacity_limit] = "not number"
+
+      expect(described_class.new(valid_params)).not_to be_valid
+    end
+
+    it "validates that capacity limit is a positive number" do
+      valid_params[:capacity_limit] = -1
+
+      expect(described_class.new(valid_params)).not_to be_valid
+    end
+  end
 end

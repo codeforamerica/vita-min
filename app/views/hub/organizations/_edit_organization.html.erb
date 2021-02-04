@@ -1,3 +1,4 @@
 <%= f.cfa_input_field :name, t("general.name") %>
 <%= f.cfa_select :coalition_id, t("general.coalition"), @coalitions.map { |c| [c.name, c.id] }, include_blank: true %>
 <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+<%= f.cfa_input_field :capacity_limit, t("general.capacity_limit"), classes: ["form-width--short"] %>

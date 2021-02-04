@@ -37,6 +37,7 @@ class VitaPartner < ApplicationRecord
   validate :no_coalitions_for_sites
   validate :no_capacity_for_sites
   validates :name, uniqueness: { scope: [:coalition, :parent_organization] }
+  validates :capacity_limit, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
 
   scope :organizations, -> { where(parent_organization: nil) }
   scope :sites, -> { where.not(parent_organization: nil) }

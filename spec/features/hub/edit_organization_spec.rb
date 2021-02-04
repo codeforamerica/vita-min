@@ -4,7 +4,7 @@ RSpec.describe "a user editing an organization" do
   context "as an authenticated user" do
     context "as an admin" do
       let(:current_user) { create :admin_user }
-      let(:organization) { create :organization }
+      let(:organization) { create :organization, capacity_limit: 100 }
       let!(:site) { create :site, parent_organization: organization, name: "Child Site" }
       before { login_as current_user }
 
@@ -15,23 +15,27 @@ RSpec.describe "a user editing an organization" do
 
       end
 
-      scenario "updating timezone" do
+      scenario "updating an organization" do
         visit edit_hub_organization_path(id: organization.id)
         expect(page).to have_select("Timezone", selected: "Eastern Time (US & Canada)")
+        expect(find_field('Capacity limit').value).to eq "100"
 
         select "Central Time (US & Canada)", from: "Timezone"
+        fill_in "Capacity limit", with: "200"
 
         click_on "Save"
 
         expect(page).to have_text "Changes saved"
 
         expect(page).to have_select("Timezone", selected: "Central Time (US & Canada)")
+        expect(find_field('Capacity limit').value).to eq "200"
 
         # Now do the same for the child site
 
         click_on "Child Site"
 
         expect(find_field('Name').value).to eq 'Child Site'
+        expect(page).to_not have_text("Capacity limit")
 
         expect(page).to have_select("Timezone", selected: "Eastern Time (US & Canada)")
 
