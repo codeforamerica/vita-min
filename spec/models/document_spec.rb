@@ -114,6 +114,30 @@ describe Document do
     end
   end
 
+  describe "after_create" do
+    context "when the file extension is .heic" do
+      it "creates a job to convert the file to jpg" do
+        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "IMG_4851.HEIC")
+        allow(HeicToJpgJob).to receive(:perform_later)
+
+        document.save!
+
+        expect(HeicToJpgJob).to have_received(:perform_later).with(document.id)
+      end
+    end
+
+    context "when the file extension is not .heic" do
+      it "does not create a job to covert the file to jpg" do
+        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg")
+        allow(HeicToJpgJob).to receive(:perform_later)
+
+        document.save!
+
+        expect(HeicToJpgJob).to_not have_received(:perform_later).with(document.id)
+      end
+    end
+  end
+
   describe "creating a document" do
     let(:document) { build :document }
     let(:object) { document }
@@ -129,6 +153,16 @@ describe Document do
       it_behaves_like "an incoming interaction" do
         let(:subject) { build :document }
       end
+    end
+  end
+
+  describe "#convert_heic_upload_to_jpg!" do
+    it "converts a heic attachment to jpg" do
+      document = create :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "IMG_4851.HEIC")
+
+      expect {
+        document.convert_heic_upload_to_jpg!
+      }.to change { document.upload.attachment.filename.extension }.from("HEIC").to("jpg")
     end
   end
 end
