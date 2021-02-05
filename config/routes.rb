@@ -73,18 +73,13 @@ Rails.application.routes.draw do
     get "/sign-up", to: "signups#new"
 
     # FSA routes
-    scoped_navigation_routes(:diy, DiyNavigation, as_redirects: Rails.configuration.offseason) do
-      if Rails.configuration.offseason
-        root to: redirect { |_, request| "/#{request.params[:locale]}" }
-        get "/:token", to: redirect { |_, request| "/#{request.params[:locale]}" }, as: :start_filing
-      else
-        root "public_pages#diy_home"
-        get "/:token", to: "diy/start_filing#start", as: :start_filing
-      end
+    scoped_navigation_routes(:diy, DiyNavigation) do
+      root "public_pages#diy_home"
+      get "/:token", to: "diy/start_filing#start", as: :start_filing
     end
 
     # Stimulus routes
-    scoped_navigation_routes(:stimulus, StimulusNavigation, as_redirects: Rails.configuration.offseason)
+    scoped_navigation_routes(:stimulus, StimulusNavigation)
 
     get "/other-options", to: "public_pages#other_options"
     get "/maybe-ineligible", to: "public_pages#maybe_ineligible"

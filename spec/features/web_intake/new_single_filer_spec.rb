@@ -320,7 +320,7 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
 
     fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
     click_on "Return to home"
-    expect(page).to have_selector("h1", text: "Free tax filing, real human support.")
+    expect(page).to have_selector("h1", text: "Free tax filing, made simple.")
 
     # going back to another page after submit redirects to beginning
     visit "/questions/work-situations"

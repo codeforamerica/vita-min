@@ -333,22 +333,6 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#open_for_intake?" do
-    context "when the cookie intake_open value is set" do
-      before { request.cookies[:intake_open] = { value: DateTime.current } }
-
-      it "returns true" do
-        expect(subject.open_for_intake?).to eq true
-      end
-    end
-
-    context "when the cookie intake_open value is not set" do
-      it "returns false" do
-        expect(subject.open_for_intake?).to eq false
-      end
-    end
-  end
-
   describe "#referrer" do
     context "with an existing referrer in the session" do
       before do
@@ -711,59 +695,6 @@ RSpec.describe ApplicationController do
       it "does not call set_time_zone around methods" do
         get :index
         expect(Time).not_to have_received(:use_zone)
-      end
-    end
-  end
-
-  describe "#open_for_intake?" do
-    context "when session key for intake is true" do
-      before do
-        request.cookies[:intake_open] = { value: DateTime.current }
-      end
-      it "is true" do
-        expect(subject.open_for_intake?).to eq true
-      end
-    end
-
-    context "when session key for intake is not set" do
-      it "is false" do
-        expect(subject.open_for_intake?).to eq false
-      end
-    end
-
-    context "when session key for intake is false" do
-      before do
-        request.cookies[:intake_open] = false
-      end
-      it "is false" do
-        expect(subject.open_for_intake?).to eq false
-      end
-    end
-  end
-
-  describe '#show_offseason_banner?' do
-    context "when open for intake" do
-      before do
-        allow(subject).to receive(:open_for_intake?).and_return true
-      end
-
-      it "is false" do
-        expect(subject.show_offseason_banner?).to be false
-      end
-    end
-
-    context "when it is a hub path or controller method" do
-      controller(Hub::UsersController) do
-        def hub_path;end
-      end
-      it "is false" do
-        expect(subject.show_offseason_banner?).to be false
-      end
-    end
-
-    context "when not open for intake and not a hub path" do
-      it "is true" do
-        expect(subject.show_offseason_banner?).to be true
       end
     end
   end

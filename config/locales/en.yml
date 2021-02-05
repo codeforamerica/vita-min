@@ -1029,7 +1029,6 @@ en:
         file:
           header: Get more of your refund dollars back by filing for free today!
         header: Free tax filing, made simple.
-        header_offseason: Free tax filing, real human support.
         partners:
           header: We partner with trusted organizations
           learn_more_html: Learn more about us &rsaquo;
@@ -1044,7 +1043,6 @@ en:
         stimulus_faq:
           info: Already filed your taxes and have questions about your stimulus check?
         subheader: Maximize your refund by filing with our certified tax specialists virtually.
-        subheader_offseason: GetYourRefund services will be opening in February for the 2021 tax season. Sign up and we'll notify you when our service is open!
         title: Free tax help from IRS-certified volunteers.
       maintenance:
         contact_html: You can also %{email_link}.
@@ -1877,7 +1875,6 @@ en:
         notice_html: Due to COVID-19, a number of VITA sites and all TCE sites are closed for an undetermined period of time. Please call a site before visiting to confirm hours. To get connected with a VITA site online and have a VITA site assist you with your taxes remotely, visit GetYourRefund.org and click "Get Started." You can also visit the %{free_file_link} to find other free online tax preparation tools.
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
-        off_season_html: GetYourRefund services have not yet opened for this tax season. We look forward to providing our free tax assistance again starting in February. For stimulus questions, visit our %{faq_link}.
       footer:
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
         volunteer_sign_in: Volunteer sign in

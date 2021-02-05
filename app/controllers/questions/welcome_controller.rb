@@ -3,9 +3,7 @@ module Questions
     skip_before_action :require_intake
     layout "application"
 
-    def edit
-      redirect_to root_path if Rails.configuration.offseason
-    end
+    def edit; end
 
     private
 

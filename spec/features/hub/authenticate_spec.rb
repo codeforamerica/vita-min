@@ -23,7 +23,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     click_on "Sign out"
     # Should be redirected to home page
     expect(page).to have_text "You've been successfully signed out."
-    expect(page).to have_text "Free tax filing, real human support"
+    expect(page).to have_text "Free tax filing, made simple"
   end
 
   scenario "getting locked out due to using the wrong password a lot" do

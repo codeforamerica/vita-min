@@ -4,12 +4,6 @@ RSpec.describe PublicPagesController do
   render_views
 
   describe "#home" do
-    it "shows an offseason banner" do
-      get :home
-
-      expect(response.body).to include("services have not yet opened for this tax season")
-    end
-
     context "in production" do
       before do
         allow(Rails).to receive(:env).and_return("production".inquiry)
@@ -21,23 +15,17 @@ RSpec.describe PublicPagesController do
         expect(response.body).not_to include("This site is for example purposes only. If you want help with your taxes, go to")
       end
 
-      it "does show a banner telling users that intakes are not yet open" do
-        get :home
-
-        expect(response.body).to include("services have not yet opened for this tax season")
-      end
-
       it "includes GA script in html" do
         get :home
 
         expect(response.body).to include "https://www.googletagmanager.com/gtag/js?id=UA-156157414-1"
       end
 
-      it "does not link to the first question path for digital intake" do
+      it "links to the first question path for digital intake" do
         get :home
 
-        expect(response.body).not_to include "Get started"
-        expect(response.body).not_to include question_path(:id => QuestionNavigation.first)
+        expect(response.body).to include "Get started"
+        expect(response.body).to include question_path(:id => QuestionNavigation.first)
       end
     end
 
@@ -91,11 +79,6 @@ RSpec.describe PublicPagesController do
         get :source_routing, params: { source: source_parameter.code }
         expect(flash[:notice]).to eq "Thanks for visiting via Oregano Organization!"
         expect(response).to redirect_to :root
-      end
-
-      it "sets the cookie intake_open" do
-        get :source_routing, params: { source: source_parameter.code }
-        expect(cookies[:intake_open]).to be_present
       end
     end
 

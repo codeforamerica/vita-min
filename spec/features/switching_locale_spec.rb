@@ -8,12 +8,12 @@ RSpec.feature "Switching Locale" do
     within(".footer") do
       click_on "Español"
     end
-    expect(page).to have_content(I18n.t("views.public_pages.home.header_offseason", locale: :es))
+    expect(page).to have_content(I18n.t("views.public_pages.home.header", locale: :es))
 
     within(".footer") do
       click_on "English"
     end
-    expect(page).to have_content(I18n.t("views.public_pages.home.header_offseason", locale: :en))
+    expect(page).to have_content(I18n.t("views.public_pages.home.header", locale: :en))
   end
 
   scenario "client switches between Spanish and English versions of website using the header link" do
@@ -22,12 +22,12 @@ RSpec.feature "Switching Locale" do
     within(".main-header") do
       click_on "Español"
     end
-    expect(page).to have_content(I18n.t("views.public_pages.home.header_offseason", locale: :es))
+    expect(page).to have_content(I18n.t("views.public_pages.home.header", locale: :es))
 
     within(".main-header") do
       click_on "English"
     end
-    expect(page).to have_content(I18n.t("views.public_pages.home.header_offseason", locale: :en))
+    expect(page).to have_content(I18n.t("views.public_pages.home.header", locale: :en))
   end
 end
 

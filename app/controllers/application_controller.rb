@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
   around_action :switch_locale
   after_action :track_page_view
-  helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?
+  helper_method :include_analytics?, :current_intake, :show_progress?, :canonical_url, :hreflang_url, :hub?
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -175,17 +175,6 @@ class ApplicationController < ActionController::Base
 
   def show_progress?
     false
-  end
-
-  # Do not show the offseason banner in the hub
-  # Do not show offseason banner if we are open for intake for the session
-  def show_offseason_banner?
-    return false if hub?
-    !open_for_intake?
-  end
-
-  def open_for_intake?
-    cookies[:intake_open].present?
   end
 
   private

@@ -13,7 +13,7 @@ feature "Intake Routing Spec" do
 
   scenario "routing by source param" do
     visit "/"
-    expect(page).to have_text "Free tax filing, real human support."
+    expect(page).to have_text "Free tax filing, made simple."
 
     visit "/cobra"
     # expect redirect to locale path

@@ -117,9 +117,5 @@ module Documents
         redirect_to documents_requested_docs_not_found_path
       end
     end
-
-    def show_offseason_banner?
-      false
-    end
   end
 end
