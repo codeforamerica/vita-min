@@ -5,6 +5,13 @@ RSpec.describe Diy::EmailAddressController do
 
   before do
     allow(subject).to receive(:current_diy_intake).and_return(diy_intake)
+    allow(Rails.configuration).to receive(:diy_off).and_return false
+    Rails.application.reload_routes!
+  end
+
+  after do
+    allow(Rails.configuration).to receive(:diy_off).and_call_original
+    Rails.application.reload_routes!
   end
 
   describe "#edit" do

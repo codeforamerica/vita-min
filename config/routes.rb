@@ -73,8 +73,8 @@ Rails.application.routes.draw do
     get "/sign-up", to: "signups#new"
 
     # FSA routes
-    scoped_navigation_routes(:diy, DiyNavigation, as_redirects: Rails.configuration.offseason) do
-      if Rails.configuration.offseason
+    scoped_navigation_routes(:diy, DiyNavigation, as_redirects: Rails.configuration.diy_off) do
+      if Rails.configuration.diy_off
         root to: redirect { |_, request| "/#{request.params[:locale]}" }
         get "/:token", to: redirect { |_, request| "/#{request.params[:locale]}" }, as: :start_filing
       else
