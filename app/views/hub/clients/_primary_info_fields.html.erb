@@ -6,7 +6,13 @@
     <%= f.cfa_input_field(:primary_last_name, t("hub.clients.fields.legal_last_name"), classes: ["form-width--long"]) %>
   </div>
   <%= f.cfa_input_field(:preferred_name, t("hub.clients.fields.preferred_name"), classes: ["form-width--long"]) %>
-  <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+
+  <% if is_dropoff %>
+    <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options, selected: current_user.timezone) %>
+  <% else %>
+    <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
+  <% end %>
+
   <% unless is_dropoff %>
     <%= f.cfa_input_field(:interview_timing_preference, t("hub.clients.show.interview_timing_preference")) %>
   <% end %>
