@@ -17,50 +17,7 @@ class TwilioWebhooksController < ActionController::Base
   end
 
   def create_incoming_text_message
-    phone_number = PhoneParser.normalize(params["From"])
-    intake_by_phone_number = Intake.where(phone_number: phone_number).where.not(client: nil)
-    intake_by_sms_phone_number = Intake.where(sms_phone_number: phone_number).where.not(client: nil)
-    if intake_by_phone_number.count > 0
-      client = intake_by_phone_number.first.client
-    else
-      client = intake_by_sms_phone_number.first&.client
-    end
-    unless client.present?
-      client = Client.create!(
-        intake: Intake.create!(
-          phone_number: phone_number,
-          sms_phone_number: phone_number,
-
-          visitor_id: SecureRandom.hex(26),
-          sms_notification_opt_in: "yes",
-        ),
-        vita_partner: VitaPartner.client_support_org,
-      )
-    end
-
-    attachments = TwilioService.new(params).parse_attachments
-    documents = attachments.map do |attachment|
-      Document.new(
-        client: client,
-        document_type: DocumentTypes::TextMessageAttachment.key,
-        upload: {
-          io: StringIO.new(attachment[:body]),
-          filename: attachment[:filename],
-          content_type: attachment[:content_type],
-          identify: false
-        }
-      )
-    end
-
-    contact_record = IncomingTextMessage.create!(
-      body: params["Body"],
-      received_at: DateTime.now,
-      from_phone_number: phone_number,
-      client: client,
-      documents: documents
-    )
-
-    ClientChannel.broadcast_contact_record(contact_record)
+    IncomingTextMessageService.process(params)
     head :ok
   end
 
