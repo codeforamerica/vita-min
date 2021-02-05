@@ -63,6 +63,18 @@ commands:
           key: schema-{{ checksum "db/schema.rb" }}
           paths: [tmp/test_db_schema.rb]
 jobs:
+  run_i18n_tests:
+    executor: ruby_executor
+    steps:
+      - checkout
+      - install_ruby_dependencies
+      - run: |
+          RAILS_CACHE_CLASSES=1 bundle exec rspec spec/i18n_spec.rb \
+              --format RspecJunitFormatter \
+              --out ~/test-results/rspec/rspec.xml \
+              --format progress
+      - store_test_results:
+          path: ~/test-results
   run_js_tests:
     executor: ruby_executor
     steps:
@@ -89,7 +101,7 @@ jobs:
               --format RspecJunitFormatter \
               --out ~/test-results/rspec/rspec.xml \
               --format progress \
-              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+              $(circleci tests glob "spec/**/*_spec.rb" | grep -v i18n_spec | circleci tests split --split-by=timings)
       - store_test_results:
           path: ~/test-results
   deploy_to_aptible--demo:
@@ -112,15 +124,16 @@ workflows:
   version: 2
   ci-and-deploy:
     jobs:
+      - run_i18n_tests
       - run_js_tests
       - run_ruby_tests
       - deploy_to_aptible--demo:
-          requires: [run_js_tests, run_ruby_tests]
+          requires: [run_i18n_tests, run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: main
       - deploy_to_aptible--production:
-          requires: [run_js_tests, run_ruby_tests]
+          requires: [run_i18n_tests, run_js_tests, run_ruby_tests]
           filters:
             branches:
               only: release
