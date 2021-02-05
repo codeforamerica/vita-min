@@ -167,21 +167,17 @@ RSpec.describe MailgunWebhooksController do
       end
 
       context "with multiple matching clients" do
-        # We have not discussed the best way to handle this scenario
-        # This spec is intended to document existing behavior more than
-        # prescribe the correct way to handle this.
         let(:intake1) { create :intake, email_address: sender_email }
         let(:intake2) { create :intake, email_address: sender_email }
         let!(:client1) { create :client, intake: intake1 }
         let!(:client2) { create :client, intake: intake2 }
 
-        it "creates a new IncomingEmail linked to the first client" do
+        it "creates a new IncomingEmail linked to both clients" do
+
           expect do
             post :create_incoming_email, params: params
-          end.to change(IncomingEmail, :count).by 1
+          end.to change(IncomingEmail.where(client_id: [client1, client2]), :count).by 2
 
-          email = IncomingEmail.last
-          expect(email.client).to eq client1
         end
       end
     end

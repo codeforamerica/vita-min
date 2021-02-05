@@ -6,69 +6,74 @@ class MailgunWebhooksController < ActionController::Base
     # Mailgun param documentation:
     #   https://documentation.mailgun.com/en/latest/user_manual.html#parsed-messages-parameters
     sender_email = params["sender"]
-    client = Intake.where(email_address: sender_email).first&.client
-    unless client.present?
-      client = Client.create!(
+    clients = Client.joins(:intake).where(intakes: { email_address: sender_email})
+    unless clients.exists?
+      clients = [Client.create!(
         intake: Intake.create!(
           email_address: sender_email,
           visitor_id: SecureRandom.hex(26),
           email_notification_opt_in: "yes",
         ),
         vita_partner: VitaPartner.client_support_org,
-      )
+      )]
     end
-    contact_record = IncomingEmail.create!(
-        client: client,
-        received_at: DateTime.now,
-        sender: sender_email,
-        to: params["To"],
-        from: params["From"],
-        recipient: params["recipient"],
-        subject: params["subject"],
-        body_html: params["body-html"],
-        body_plain: params["body-plain"],
-        stripped_html: params["stripped-html"],
-        stripped_text: params["stripped-text"],
-        stripped_signature: params["stripped-signature"],
-        received: params["Received"],
-        attachment_count: params["attachment-count"],
-        )
+    clients.each do |client|
+      contact_record = IncomingEmail.create!(
+          client: client,
+          received_at: DateTime.now,
+          sender: sender_email,
+          to: params["To"],
+          from: params["From"],
+          recipient: params["recipient"],
+          subject: params["subject"],
+          body_html: params["body-html"],
+          body_plain: params["body-plain"],
+          stripped_html: params["stripped-html"],
+          stripped_text: params["stripped-text"],
+          stripped_signature: params["stripped-signature"],
+          received: params["Received"],
+          attachment_count: params["attachment-count"],
+          )
+      processed_attachments = []
+      params.each_key do |key|
+        next unless /^attachment-\d+$/.match?(key)
 
-    params.each_key do |key|
-      next unless /^attachment-\d+$/.match?(key)
+        attachment = params[key]
 
-      attachment = params[key]
-
-      upload_params =
-        if FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type
-          {
-            io: attachment,
-            filename: attachment.original_filename,
-            content_type: attachment.content_type,
-            identify: false # false = don't infer content type from extension
-          }
-        else
-          io = StringIO.new <<~TEXT
+        processed_attachments <<
+            if FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type
+              {
+                  io: attachment,
+                  filename: attachment.original_filename,
+                  content_type: attachment.content_type,
+                  identify: false # false = don't infer content type from extension
+              }
+            else
+              io = StringIO.new <<~TEXT
             Unusable file with unknown or unsupported file type.
             File name:'#{attachment.original_filename}'
             File type:'#{attachment.content_type}'
-          TEXT
-          {
-            io: io,
-            filename: "invalid-#{attachment.original_filename}.txt",
-            content_type: "text/plain;charset=UTF-8",
-            identify: false
-          }
-        end
+              TEXT
+              {
+                  io: io,
+                  filename: "invalid-#{attachment.original_filename}.txt",
+                  content_type: "text/plain;charset=UTF-8",
+                  identify: false
+              }
+            end
+      end
 
-      client.documents.create!(
-        document_type: DocumentTypes::EmailAttachment.key,
-        contact_record: contact_record,
-        upload: upload_params
+      processed_attachments.each do |upload_params|
+        client.documents.create!(
+          document_type: DocumentTypes::EmailAttachment.key,
+          contact_record: contact_record,
+          upload: upload_params
       )
+      end
+
+      ClientChannel.broadcast_contact_record(contact_record)
     end
 
-    ClientChannel.broadcast_contact_record(contact_record)
     head :ok
   end
 

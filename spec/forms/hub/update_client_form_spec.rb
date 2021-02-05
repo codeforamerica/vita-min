@@ -229,7 +229,8 @@ RSpec.describe Hub::UpdateClientForm do
              state_of_residence: "CA",
              preferred_interview_language: "es",
              spouse_last_four_ssn: "5678",
-             primary_last_four_ssn: "1234"
+             primary_last_four_ssn: "1234",
+             timezone: "America/Chicago"
     }
     let!(:client) {
       create :client, intake: intake
@@ -239,6 +240,7 @@ RSpec.describe Hub::UpdateClientForm do
       form = described_class.from_client(client)
       expect(form.spouse_last_four_ssn).to eq "5678"
       expect(form.primary_last_four_ssn).to eq "1234"
+      expect(form.timezone).to eq "America/Chicago"
     end
   end
 end
