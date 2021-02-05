@@ -11,9 +11,19 @@ RSpec.describe "a user editing a clients intake fields" do
       create :client,
              vita_partner: organization,
              tax_returns: [tax_return],
-             intake: create(:intake, email_address: "colleen@example.com", filing_joint: "yes", primary_first_name: "Colleen", primary_last_name: "Cauliflower", preferred_interview_language: "es", state_of_residence: "CA", preferred_name: "Colleen Cauliflower", email_notification_opt_in: "yes", dependents: [
-               create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06"),
-             ])
+             intake: create(:intake,
+                            email_address: "colleen@example.com",
+                            filing_joint: "yes",
+                            primary_first_name: "Colleen",
+                            primary_last_name: "Cauliflower",
+                            preferred_interview_language: "es",
+                            state_of_residence: "CA",
+                            preferred_name: "Colleen Cauliflower",
+                            email_notification_opt_in: "yes",
+                            timezone: "America/Chicago",
+                            dependents: [
+                              create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06"),
+                          ])
 
     }
     before { login_as user }
@@ -53,6 +63,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within "#primary-info" do
         expect(find_field("hub_update_client_form_primary_first_name").value).to eq "Colleen"
         expect(find_field("hub_update_client_form_primary_last_name").value).to eq "Cauliflower"
+        expect(find_field("hub_update_client_form_timezone").value).to eq "America/Chicago"
         fill_in "Preferred full name", with: "Colly Cauliflower"
         select "Mandarin", from: "Preferred language"
         check "Married"
@@ -73,6 +84,7 @@ RSpec.describe "a user editing a clients intake fields" do
         fill_in "City", with: "Brassicaville"
         select "California", from: "State"
         fill_in "ZIP code", with: "95032"
+        select "Pacific Time (US & Canada)", from: "Timezone"
         check "Opt into email notifications"
         check "Opt into sms notifications"
       end
@@ -139,6 +151,7 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "Lived with spouse"
       expect(page).to have_text "Divorced 2018"
       expect(page).to have_text "Filing jointly"
+      expect(page).to have_text "Pacific Time (US & Canada)"
       expect(page).to have_text "Dependents: 3", normalize_ws: true
       within "#dependents-list" do
         expect(page).to have_text "Laura Peaches"
