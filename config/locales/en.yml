@@ -4,6 +4,7 @@ en:
     back_to:
       return_to_dashboard: Return to dashboard
       return_to_clients: Return to all clients
+      return_to_search: Return to search
       return_to_profile: Return to profile
     users:
       edit:
@@ -90,10 +91,13 @@ en:
         title: All clients
         no_clients: No clients assigned.
         no_filtered_clients: No clients match selected filters.
+        apply_filters: Apply search / filter to find matching clients.
         assigned_to_me: Assigned to me
         unassigned: Unassigned
         needs_attention: Needs attention
         stage_status: Tax return stage/status
+      search_clients:
+        title: Search clients
       unlinked_clients:
         title: Unlinked clients
       navigation:

@@ -72,7 +72,13 @@
       <h1 class="h2"><%= @page_title %></h1>
     </div>
     <div class="empty-clients">
-      <%= @filters&.values.any? ? t("hub.clients.index.no_filtered_clients") : t("hub.clients.index.no_clients") %>
+      <% if !@filters %>
+        <%= t("hub.clients.index.apply_filters") %>
+      <% elsif @filters&.values&.any? %>
+        <%= t("hub.clients.index.no_filtered_clients")  %>
+      <% else %>
+        <%= t("hub.clients.index.no_clients") %>
+      <% end %>
     </div>
   <% end %>
   </section

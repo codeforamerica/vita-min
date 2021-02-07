@@ -46,15 +46,15 @@ RSpec.describe "a user viewing a client" do
       end
     end
 
-    scenario "can return to the client list page" do
+    scenario "returns to the client search page" do
       visit hub_client_path(id: client.id)
-      click_on("Return to all clients")
+      click_on("Return to search")
 
-      expect(current_path).to eq(hub_clients_path)
+      expect(current_path).to eq(search_hub_clients_path)
     end
   end
 
-  xcontext "user without admin access, but is coalition lead for client organization" do
+  context "user without admin access, but is coalition lead for client organization" do
     # we have not yet implemented coalition leads
     let(:coalition) { create :coalition }
     let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
@@ -62,6 +62,13 @@ RSpec.describe "a user viewing a client" do
     let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info) }
     let!(:second_org) { create :organization, coalition: coalition }
     before { login_as user }
+
+    scenario "returns to the client search page" do
+      visit hub_client_path(id: client.id)
+      click_on("Return to all clients")
+
+      expect(current_path).to eq(hub_clients_path)
+    end
 
     scenario "can view and update client organization" do
       visit hub_client_path(id: client.id)

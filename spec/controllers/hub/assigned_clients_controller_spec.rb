@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe Hub::AssignedClientsController do
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
-  end
 
-  context "as an authenticated user" do
+    context "as an authenticated user" do
     let(:organization) { create(:organization) }
     let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
 
@@ -106,6 +105,7 @@ RSpec.describe Hub::AssignedClientsController do
           expect(assigns(:clients)).to eq [assigned_to_me, starts_with_a_assigned]
         end
       end
+    end
     end
   end
 end

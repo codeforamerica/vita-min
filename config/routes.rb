@@ -126,6 +126,8 @@ Rails.application.routes.draw do
       resources :tax_returns, only: [:edit, :update, :show]
       resources :unlinked_clients, only: [:index]
       resources :clients do
+        get '/search', to: "search_clients#index", on: :collection, as: :search
+
         get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
         patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
         get "/bai", to: "clients/bank_accounts#show", on: :member, as: :show_bank_account
