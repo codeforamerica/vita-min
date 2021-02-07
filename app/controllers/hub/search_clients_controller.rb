@@ -8,7 +8,7 @@ module Hub
     layout 'admin'
 
     def index
-      @page_title = 'Search clients'
+      @page_title = I18n.t("hub.clients.search_clients.title")
       if has_search_and_sort_params? && !params[:clear].present?
         @clients = Client.accessible_by(current_ability)
         @clients = filtered_and_sorted_clients.with_eager_loaded_associations
