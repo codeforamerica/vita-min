@@ -25,7 +25,7 @@ commands:
           name: install system dependencies
           command: |
             sudo apt-get update && \
-            sudo apt-get install -y pdftk ghostscript
+            sudo apt-get install -y pdftk ghostscript postgresql-client
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:
@@ -55,8 +55,22 @@ commands:
   setup_test_db:
     description: "Setup test database"
     steps:
+      - run:
+          name: Preparing DB checksum
+          command: git log --pretty=format:'%H' -n 1 -- db/ > /tmp/db-checksum
+      - restore_cache:
+          key: pg-dump-v1-{{ checksum "/tmp/db-checksum" }}
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: bundle exec rake db:schema:load
+      - run:
+          name: Preparing databases
+          command: |
+            if [ -e /tmp/pg_dump.sql ] ; then psql < /tmp/pg_dump.sql ; exit ; fi
+            echo "Creating databases"
+            bundle exec rake db:schema:load
+            pg_dump -d vita-min_test > /tmp/pg_dump.sql
+      - save_cache:
+          key: pg-dump-v1-{{ checksum "/tmp/db-checksum" }}
+          paths: [/tmp/pg_dump.sql]
 jobs:
   run_js_tests:
     executor: ruby_executor
