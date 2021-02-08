@@ -115,4 +115,57 @@ RSpec.describe ClientSortable, type: :controller do
       end
     end
   end
+
+  describe "#has_search_and_sort_params?" do
+    context "when containing a sort or search param" do
+      context "search" do
+        let(:params) { { search: "que" } }
+        it "returns true" do
+          expect(subject.has_search_and_sort_params?).to eq true
+        end
+      end
+
+      context "status" do
+        let(:params) { { search: "prep_ready_for_prep" } }
+        it "returns true" do
+          expect(subject.has_search_and_sort_params?).to eq true
+        end
+      end
+
+      context "unassigned" do
+        let(:params) { { unassigned: true } }
+        it "returns true" do
+          expect(subject.has_search_and_sort_params?).to eq true
+        end
+      end
+
+      context "assigned_to_me" do
+        let(:params) { { assigned_to_me: true } }
+        it "returns true" do
+          expect(subject.has_search_and_sort_params?).to eq true
+        end
+      end
+
+      context "needs_attention" do
+        let(:params) { { needs_attention: true } }
+        it "returns true" do
+          expect(subject.has_search_and_sort_params?).to eq true
+        end
+      end
+
+      context "year" do
+        let(:params) { { year: 2019 } }
+        it "returns true" do
+          expect(subject.has_search_and_sort_params?).to eq true
+        end
+      end
+    end
+
+    context "without a search or sort param" do
+      let(:params) { { something: 'hello' } }
+      it "returns false" do
+        expect(subject.has_search_and_sort_params?).to eq false
+      end
+    end
+  end
 end

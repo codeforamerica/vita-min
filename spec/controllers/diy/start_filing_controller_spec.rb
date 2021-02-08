@@ -3,6 +3,16 @@ require "rails_helper"
 RSpec.describe Diy::StartFilingController, type: :controller do
   let(:diy_intake) { create :diy_intake }
 
+  before do
+    allow(Rails.configuration).to receive(:diy_off).and_return false
+    Rails.application.reload_routes!
+  end
+
+  after do
+    allow(Rails.configuration).to receive(:diy_off).and_call_original
+    Rails.application.reload_routes!
+  end
+
   describe "#start" do
     render_views
 

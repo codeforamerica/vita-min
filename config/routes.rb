@@ -73,8 +73,8 @@ Rails.application.routes.draw do
     get "/sign-up", to: "signups#new"
 
     # FSA routes
-    scoped_navigation_routes(:diy, DiyNavigation, as_redirects: Rails.configuration.offseason) do
-      if Rails.configuration.offseason
+    scoped_navigation_routes(:diy, DiyNavigation, as_redirects: Rails.configuration.diy_off) do
+      if Rails.configuration.diy_off
         root to: redirect { |_, request| "/#{request.params[:locale]}" }
         get "/:token", to: redirect { |_, request| "/#{request.params[:locale]}" }, as: :start_filing
       else
@@ -126,6 +126,8 @@ Rails.application.routes.draw do
       resources :tax_returns, only: [:edit, :update, :show]
       resources :unlinked_clients, only: [:index]
       resources :clients do
+        get '/search', to: "search_clients#index", on: :collection, as: :search
+
         get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
         patch "/organization", to: "clients/organizations#update", on: :member, as: :organization
         get "/bai", to: "clients/bank_accounts#show", on: :member, as: :show_bank_account

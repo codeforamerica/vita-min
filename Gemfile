@@ -61,6 +61,7 @@ gem 'webpacker'
 gem 'combine_pdf'
 gem 'pdf-reader'
 gem 'rails_autolink'
+gem 'ice_nine'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data
@@ -84,6 +85,7 @@ group :development, :test do
   gem 'easy_translate'
   gem 'bundle-audit'
   gem 'parallel_tests'
+  gem 'turbo_tests'
 end
 
 group :development do

@@ -1,8 +1,12 @@
 <div class="breadcrumb user-navigation">
   <% if back_to == "dashboard" %>
     <%= link_to "< #{t('.return_to_dashboard')}", hub_root_path, class: "breadcrumb-item link--grey" %>
-  <% elsif back_to == "all_clients" %>
-    <%= link_to "< #{t('.return_to_clients')}", hub_clients_path, class: "breadcrumb-item link--grey" %>
+  <% elsif back_to == "clients" %>
+    <% if current_user.admin? %>
+      <%= link_to "< #{t('.return_to_search')}", search_hub_clients_path, class: "breadcrumb-item link--grey" %>
+    <% else %>
+      <%= link_to "< #{t('.return_to_clients')}", hub_clients_path, class: "breadcrumb-item link--grey" %>
+    <% end %>
   <% elsif back_to == "profile" %>
     <%= link_to "< #{t('.return_to_profile')}", hub_user_profile_path, class: "breadcrumb-item link--grey" %>
   <% else %>
