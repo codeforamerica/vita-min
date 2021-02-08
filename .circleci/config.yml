@@ -64,7 +64,7 @@ commands:
       - run:
           name: Preparing databases
           command: |
-            if [ -e /tmp/pg_dump.sql ] ; then psql < /tmp/pg_dump.sql ; exit ; fi
+            if [ -e /tmp/pg_dump.sql ] ; then psql --single-transaction vita-min_test < /tmp/pg_dump.sql ; exit ; fi
             echo "Creating databases"
             bundle exec rake db:schema:load
             pg_dump -d vita-min_test > /tmp/pg_dump.sql
