@@ -1,8 +1,6 @@
 module States
-  STATE_OPTIONS = (YAML.load_file(Rails.root.join("db/states.yml"))['states']).map { |state| [state["name"], state["abbreviation"]] }.sort.freeze
-
   def self.hash
-    @state_hash ||= STATE_OPTIONS.to_h.invert
+    @hash ||= IceNine.deep_freeze!(self.states.to_h.invert)
   end
 
   def self.keys
@@ -18,6 +16,14 @@ module States
   end
 
   def self.name_value_pairs
-    STATE_OPTIONS
+    self.states
+  end
+
+  private
+
+  def self.states
+    @states ||= IceNine.deep_freeze!(
+      (YAML.load_file(Rails.root.join("db/states.yml"))['states']).map { |state| [state["name"], state["abbreviation"]] }.sort
+    )
   end
 end

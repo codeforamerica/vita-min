@@ -9,7 +9,6 @@ require:
 AllCops:
   NewCops: enable
   Exclude:
-    - 'app/helpers/zip_codes.rb'
     - 'db/schema.rb'
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'

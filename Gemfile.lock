@@ -543,6 +543,7 @@ DEPENDENCIES
   guard-rspec
   http_accept_language
   i18n-tasks
+  ice_nine
   image_processing
   jbuilder (~> 2.5)
   listen (>= 3.4.0)
