@@ -30,12 +30,12 @@ commands:
     description: "Install JS dependencies"
     steps:
       - restore_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-v1-{{ checksum "yarn.lock" }}
       - run:
           name: yarn install --frozen-lockfile
           command: yarn install --frozen-lockfile
       - save_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-v1-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
             - ~/.npm
@@ -43,7 +43,7 @@ commands:
     description: "Install Ruby dependencies"
     steps:
       - restore_cache:
-          key: bundle-v1-{{ checksum "Gemfile.lock" }}
+          key: bundle-v2-{{ checksum "Gemfile.lock" }}
       - run:
           name: install bundler & ruby dependencies
           command: |
@@ -51,7 +51,7 @@ commands:
             bundle install --jobs=4 --retry=3 --path vendor/bundle && \
             if [ ! -e tmp/cache/bootsnap-compile-cache ] ; then bundle exec bootsnap precompile --gemfile app/ lib/ ; fi
       - save_cache:
-          key: bundle-v1-{{ checksum "Gemfile.lock" }}
+          key: bundle-v2-{{ checksum "Gemfile.lock" }}
           paths: [vendor/bundle, tmp/cache/bootsnap-compile-cache]
   setup_test_db:
     description: "Setup test database"
@@ -60,7 +60,7 @@ commands:
           name: Preparing DB checksum
           command: git log --pretty=format:'%H' -n 1 -- db/ > /tmp/db-checksum
       - restore_cache:
-          key: pg-dump-v2-{{ checksum "/tmp/db-checksum" }}
+          key: pg-dump-v3-{{ checksum "/tmp/db-checksum" }}
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: createdb vita-min_test
       - run:
@@ -71,7 +71,7 @@ commands:
             RAILS_ENV=test bundle exec rake db:schema:load
             pg_dump vita-min_test > /tmp/pg_dump.sql
       - save_cache:
-          key: pg-dump-v2-{{ checksum "/tmp/db-checksum" }}
+          key: pg-dump-v3-{{ checksum "/tmp/db-checksum" }}
           paths: [/tmp/pg_dump.sql]
 jobs:
   run_js_tests:
