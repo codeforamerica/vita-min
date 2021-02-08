@@ -84,6 +84,7 @@ group :development, :test do
   gem 'easy_translate'
   gem 'bundle-audit'
   gem 'parallel_tests'
+  gem 'turbo_tests'
 end
 
 group :development do
