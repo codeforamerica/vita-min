@@ -5,7 +5,7 @@ class RoutingFractionImporter
   FIRST_STATE_INDEX = 2
   LAST_STATE_INDEX = 43
 
-  # To use, run "RoutingFractionImporter.new.from_csv('/Users/emilybarnard/Downloads/state_route.csv')" in console
+  # To use, run "RoutingFractionImporter.new.from_csv('state_route.csv')" in console
   def from_csv(filename)
     @successes = []
     @problems = []
