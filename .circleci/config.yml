@@ -16,7 +16,7 @@ executors:
       - image: circleci/postgres:9.6.8-alpine-postgis
         environment:
           POSTGRES_USER: root
-          POSTGRES_DB: vita-min_test
+          POSTGRES_DB: circle-ci_test
 commands:
   install_system_dependencies:
     description: "Install system dependencies"
@@ -59,17 +59,18 @@ commands:
           name: Preparing DB checksum
           command: git log --pretty=format:'%H' -n 1 -- db/ > /tmp/db-checksum
       - restore_cache:
-          key: pg-dump-v1-{{ checksum "/tmp/db-checksum" }}
+          key: pg-dump-v2-{{ checksum "/tmp/db-checksum" }}
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: createdb vita-min_test
       - run:
           name: Preparing databases
           command: |
             if [ -e /tmp/pg_dump.sql ] ; then psql --single-transaction vita-min_test < /tmp/pg_dump.sql ; exit ; fi
             echo "Creating databases"
-            bundle exec rake db:schema:load
-            pg_dump -d vita-min_test > /tmp/pg_dump.sql
+            RAILS_ENV=test bundle exec rake db:schema:load
+            pg_dump vita-min_test > /tmp/pg_dump.sql
       - save_cache:
-          key: pg-dump-v1-{{ checksum "/tmp/db-checksum" }}
+          key: pg-dump-v2-{{ checksum "/tmp/db-checksum" }}
           paths: [/tmp/pg_dump.sql]
 jobs:
   run_js_tests:
