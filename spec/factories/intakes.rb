@@ -328,9 +328,9 @@ FactoryBot.define do
       primary_birth_date { (20..100).to_a.sample.years.ago }
       spouse_birth_date { (20..100).to_a.sample.years.ago }
       street_address { "123 Cherry Lane" }
-      zip_code { ZipCodes::ZIP_CODES.keys.sample }
-      city { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").first }
-      state { ZipCodes::ZIP_CODES[zip_code][:name].split(", ").last }
+      zip_code { "94103" }
+      city { "San Francisco" }
+      state { "CA" }
       state_of_residence { state }
       vita_partner_name { vita_partner.name }
       routing_value { "az" }
