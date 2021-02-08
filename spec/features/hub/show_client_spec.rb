@@ -55,7 +55,6 @@ RSpec.describe "a user viewing a client" do
   end
 
   context "user without admin access, but is coalition lead for client organization" do
-    # we have not yet implemented coalition leads
     let(:coalition) { create :coalition }
     let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
     let(:first_org) { create :organization, coalition: coalition }

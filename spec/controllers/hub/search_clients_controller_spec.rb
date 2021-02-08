@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 describe Hub::SearchClientsController do
-  before do
-    # Do nothing
-  end
-
-  after do
-    # Do nothing
-  end
-
   context "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
@@ -27,8 +19,6 @@ describe Hub::SearchClientsController do
       let(:current_user) { create :admin_user }
       before {
         sign_in current_user
-        create(:client, intake: (create :intake, primary_first_name: 'Matching', primary_last_name: 'Client'), tax_returns: [(create :tax_return, status: 'prep_ready_for_prep')])
-        create(:client, intake: (create :intake, primary_first_name: 'Matching', primary_last_name: 'Client'), tax_returns: [(create :tax_return, status: 'prep_ready_for_prep')])
         create(:client, intake: (create :intake, primary_first_name: 'Matching', primary_last_name: 'Client'), tax_returns: [(create :tax_return, status: 'prep_ready_for_prep')])
         create(:client, intake: (create :intake, primary_first_name: 'Matching', primary_last_name: 'Client'), tax_returns: [(create :tax_return, status: 'prep_ready_for_prep')])
       }
