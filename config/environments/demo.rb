@@ -7,5 +7,6 @@ Rails.application.configure do
   config.address_for_transactional_authentication_emails = 'no-reply@mg-demo.getyourrefund-testing.org'
   config.action_mailer.default_url_options = { host: 'demo.getyourrefund.org' }
   config.offseason = false
+  config.diy_off = true
   Rails.application.default_url_options = config.action_mailer.default_url_options
 end

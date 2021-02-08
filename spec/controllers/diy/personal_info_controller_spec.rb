@@ -3,6 +3,16 @@ require "rails_helper"
 RSpec.describe Diy::PersonalInfoController do
   render_views
 
+  before do
+    allow(Rails.configuration).to receive(:diy_off).and_return false
+    Rails.application.reload_routes!
+  end
+
+  after do
+    allow(Rails.configuration).to receive(:diy_off).and_call_original
+    Rails.application.reload_routes!
+  end
+
   describe "#update" do
     before do
       session[:source] = "source_from_session"
