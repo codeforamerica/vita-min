@@ -4,10 +4,12 @@ version: 2.1
 executors:
   ruby_executor:
     working_directory: /mnt/ramdisk
+    resource_class: small
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
   rails_executor:
     working_directory: /mnt/ramdisk
+    resource_class: small
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
@@ -88,7 +90,7 @@ jobs:
           path: ~/test-results
   run_ruby_tests:
     executor: rails_executor
-    parallelism: 1
+    parallelism: 8
     steps:
       - checkout
       - install_js_dependencies
