@@ -16,7 +16,7 @@ executors:
       - image: circleci/postgres:9.6.8-alpine-postgis
         environment:
           POSTGRES_USER: root
-          POSTGRES_DB: circle-test_test
+          POSTGRES_DB: vita-min_test
 commands:
   install_system_dependencies:
     description: "Install system dependencies"
@@ -56,12 +56,7 @@ commands:
     description: "Setup test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - restore_cache:
-          key: schema-{{ checksum "db/schema.rb" }}
-      - run: bundle exec rake db:create db:schema:load db:schema:cache:dump
-      - save_cache:
-          key: schema-{{ checksum "db/schema.rb" }}
-          paths: [tmp/test_db_schema.rb]
+      - run: bundle exec rake db:schema:load
 jobs:
   run_js_tests:
     executor: ruby_executor
