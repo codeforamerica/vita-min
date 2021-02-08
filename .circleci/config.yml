@@ -3,12 +3,10 @@ version: 2.1
 
 executors:
   ruby_executor:
-    working_directory: /mnt/ramdisk
     resource_class: small
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
   rails_executor:
-    working_directory: /mnt/ramdisk
     resource_class: small
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
@@ -39,7 +37,7 @@ commands:
       - save_cache:
           key: yarn-{{ checksum "yarn.lock" }}
           paths:
-            - /mnt/ramdisk/node_modules
+            - node_modules
             - ~/.npm
   install_ruby_dependencies:
     description: "Install Ruby dependencies"
@@ -54,7 +52,7 @@ commands:
             if [ ! -e tmp/cache/bootsnap-compile-cache ] ; then bundle exec bootsnap precompile --gemfile app/ lib/ ; fi
       - save_cache:
           key: bundle-v1-{{ checksum "Gemfile.lock" }}
-          paths: [/mnt/ramdisk/vendor/bundle, /mnt/ramdisk/tmp/cache/bootsnap-compile-cache]
+          paths: [vendor/bundle, tmp/cache/bootsnap-compile-cache]
   setup_test_db:
     description: "Setup test database"
     steps:
