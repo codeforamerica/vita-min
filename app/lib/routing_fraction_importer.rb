@@ -18,7 +18,7 @@ class RoutingFractionImporter
 
     state_routing_pairs = generate_state_routing_pairs(data)
 
-    create_vps_for_state_routing_pairs(state_routing_pairs)
+    create_records_for_state_routing_pairs(state_routing_pairs)
 
     print_script_messages
     true
@@ -65,7 +65,7 @@ class RoutingFractionImporter
     state_routing_pairs
   end
 
-  def create_vps_for_state_routing_pairs(state_routing_pairs)
+  def create_records_for_state_routing_pairs(state_routing_pairs)
     state_routing_pairs.map do |org|
       vita_partner = VitaPartner.where(name: org[:org_name]).first
 
@@ -80,13 +80,14 @@ class RoutingFractionImporter
           previous_routing_fraction = vps.routing_fraction
           vps.update!(routing_fraction: pair[:routing_fraction])
 
-          record_status = if vps.new_record?
-                            "Created"
-                          elsif previous_routing_fraction != pair[:routing_fraction]
-                            "Updated"
-                          else
-                            "No change to"
-                          end
+          record_status =
+              if vps.new_record?
+                "Created"
+              elsif previous_routing_fraction != pair[:routing_fraction]
+                "Updated"
+              else
+                "No change to"
+              end
 
           @successes << "#{record_status} VitaPartnerState (#{vps.id}) record with [#{vps.state}, #{vps.routing_fraction}] for \"#{vps.vita_partner.name}\" (#{vps.vita_partner.id})"
         rescue => e
