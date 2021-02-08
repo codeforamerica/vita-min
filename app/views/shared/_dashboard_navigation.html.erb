@@ -1,7 +1,8 @@
 <div class="client-navigation tab-bar is-selected">
-    <%= tab_navigation_link(t("hub.assigned_clients.index.title"), hub_root_path) %>
-    <%= tab_navigation_link(t("hub.clients.index.title"), hub_clients_path) %>
-    <% if current_user.admin? %>
-      <%= tab_navigation_link(t("hub.clients.unlinked_clients.title"), hub_unlinked_clients_path) %>
-    <% end %>
+  <%= tab_navigation_link(t("hub.assigned_clients.index.title"), hub_root_path) %>
+  <%= tab_navigation_link(t("hub.clients.index.title"), hub_clients_path) %>
+  <% if current_user.admin? %>
+    <%= tab_navigation_link(t("hub.clients.search_clients.title"), search_hub_clients_path) %>
+    <%= tab_navigation_link(t("hub.clients.unlinked_clients.title"), hub_unlinked_clients_path) %>
+  <% end %>
 </div>

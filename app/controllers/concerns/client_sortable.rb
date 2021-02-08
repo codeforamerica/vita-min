@@ -12,6 +12,11 @@ module ClientSortable
     clients
   end
 
+  # see if there are any overlapping keys in the provied params and search/sort set
+  def has_search_and_sort_params?
+    (params.keys.map(&:to_sym) & search_and_sort_params).any?
+  end
+
   private
 
   def setup_sortable_client
@@ -29,14 +34,15 @@ module ClientSortable
     }
   end
 
+  def search_and_sort_params
+    [:search, :status, :unassigned, :assigned_to_me, :needs_attention, :year]
+  end
+
   # reset the raw parameters for each filter received by the form
   def reset_filter_params
-    params[:search] = nil
-    params[:status] = nil
-    params[:unassigned] = nil
-    params[:assigned_to_me] = nil
-    params[:needs_attention] = nil
-    params[:year] = nil
+    search_and_sort_params.each do |param|
+      params[param] = nil
+    end
   end
 
   def clients_sort_order
