@@ -1878,7 +1878,7 @@ en:
         proceed_and_confirm: By proceeding, you confirm that the following statements are true and complete to the best of your knowledge.
         terms_html: You agree to the terms of the GetYourRefund privacy policy at %{privacy_link}
       covid_warning:
-        notice_html: Due to COVID-19, a number of VITA sites and all TCE sites are closed for an undetermined period of time. Please call a site before visiting to confirm hours. To get connected with a VITA site online and have a VITA site assist you with your taxes remotely, visit GetYourRefund.org and click "Get Started." You can also visit the %{free_file_link} to find other free online tax preparation tools.
+        notice_html: "Note: In person services may currently be on hold due to COVID-19"
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_html: GetYourRefund services have not yet opened for this tax season. We look forward to providing our free tax assistance again starting in February. For stimulus questions, visit our %{faq_link}.
