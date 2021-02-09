@@ -28,7 +28,7 @@ commands:
           name: allow circleci to write to APT cache
           command: sudo chown -R $(id -u) /var/lib/apt/lists /var/cache/apt/archives
       - restore_cache:
-          key: apt-{{ checksum "/tmp/week" }}
+          key: apt-v1-{{ checksum "/tmp/week" }}
       - run:
           name: allow apt to read/write the APT cache
           command: sudo chown -R _apt:root /var/lib/apt/lists /var/cache/apt/archives
@@ -39,7 +39,7 @@ commands:
             sudo apt-get update && \
             sudo apt-get install -y pdftk ghostscript
       - save_cache:
-          key: apt-{{ checksum "/tmp/week" }}
+          key: apt-v1-{{ checksum "/tmp/week" }}
           paths:
             - /var/lib/apt/lists
             - /var/cache/apt/archives
