@@ -46,5 +46,4 @@ Rails.application.configure do
   config.i18n.available_locales = [:en, :es]
   config.offseason = false
   config.diy_off = true
-
 end

@@ -92,7 +92,7 @@ RSpec.configure do |config|
   config.before(:each) do
     stub_request(:post, /.*api\.twilio\.com.*/).to_return(status: 200, body: "", headers: {})
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
-
+    Aws.config.update(stub_responses: true)
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
     allow(EnvironmentCredentials).to receive(:dig).and_call_original
     allow(EnvironmentCredentials).to receive(:dig).with(:db_encryption_key).and_return('any-32-character-string-here!!!!')
