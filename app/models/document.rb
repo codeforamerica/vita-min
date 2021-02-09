@@ -32,6 +32,7 @@
 #  fk_rails_...  (documents_request_id => documents_requests.id)
 #  fk_rails_...  (tax_return_id => tax_returns.id)
 #
+require "mini_magick"
 
 class Document < ApplicationRecord
   include InteractionTracking
@@ -57,6 +58,10 @@ class Document < ApplicationRecord
 
   after_create do
     uploaded_by.is_a?(User) ? record_internal_interaction : record_incoming_interaction
+
+    if upload.filename.extension_without_delimiter.downcase == "heic"
+      HeicToJpgJob.perform_later(id)
+    end
   end
 
   def document_type_label
@@ -71,5 +76,13 @@ class Document < ApplicationRecord
 
   def tax_return_belongs_to_client
     errors.add(:tax_return, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client
+  end
+
+  def convert_heic_upload_to_jpg!
+    image = MiniMagick::Image.open(ActiveStorage::Blob.service.path_for(upload.key))
+
+    jpg_image = image.format("jpg")
+
+    upload.attach(io: File.open(jpg_image.path), filename: "#{display_name}.jpg", content_type: "image/jpg")
   end
 end
