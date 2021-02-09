@@ -26,7 +26,7 @@ commands:
           command: date +"Week %U of %Y" > /tmp/week
       - run:
           name: allow circleci to write to APT cache
-          command: sudo chown -R $USER /var/lib/apt/lists /var/cache/apt/archives
+          command: sudo chown -R $(id -u) /var/lib/apt/lists /var/cache/apt/archives
       - restore_cache:
           key: apt-{{ checksum "/tmp/week" }}
       - run:
