@@ -12,10 +12,10 @@ RSpec.describe "a user editing a user" do
         click_on "Cancel"
         expect(page).to have_current_path(hub_users_path)
 
-        click_on "Return to profile"
+        click_on "Return to Profile"
         expect(page).to have_current_path(hub_user_profile_path)
 
-        click_on "Return to dashboard"
+        click_on "Return to Dashboard"
         expect(page).to have_current_path(hub_root_path)
       end
 

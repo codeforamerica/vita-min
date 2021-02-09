@@ -46,11 +46,13 @@ RSpec.describe "a user viewing a client" do
       end
     end
 
-    scenario "returns to the client search page" do
-      visit hub_client_path(id: client.id)
-      click_on("Return to search")
+    context "navigation bar" do
+      scenario "returns to the client search page" do
+        visit hub_client_path(id: client.id)
+        click_on("Search Clients")
 
-      expect(current_path).to eq(search_hub_clients_path)
+        expect(current_path).to eq(search_hub_clients_path)
+      end
     end
   end
 
@@ -62,11 +64,27 @@ RSpec.describe "a user viewing a client" do
     let!(:second_org) { create :organization, coalition: coalition }
     before { login_as user }
 
-    scenario "returns to the client search page" do
-      visit hub_client_path(id: client.id)
-      click_on("Return to all clients")
+    context "navigation bar" do
+      scenario "returns to all clients" do
+        visit hub_client_path(id: client.id)
+        click_on("All Clients")
 
-      expect(current_path).to eq(hub_clients_path)
+        expect(current_path).to eq(hub_clients_path)
+      end
+
+      scenario "returns to user's profile" do
+        visit hub_client_path(id: client.id)
+        click_on("My Profile")
+
+        expect(current_path).to eq(hub_user_profile_path)
+      end
+
+      scenario "returns to user's clients" do
+        visit hub_client_path(id: client.id)
+        click_on("My Clients")
+
+        expect(current_path).to eq(hub_root_path)
+      end
     end
 
     scenario "can view and update client organization" do

@@ -45,6 +45,14 @@
   .user-navigation {
     .breadcrumb-item {
       margin-left: 2.5rem;
+      font-weight: bold;
+      color: $color-grey-medium;
+      text-decoration: none;
+      font-size: 1.5rem;
+    }
+
+    .breadcrumb-item:hover, .breadcrumb-item:active {
+      text-decoration: underline;
     }
   }
 
