@@ -2,10 +2,12 @@
 en:
   hub:
     back_to:
-      return_to_dashboard: Return to dashboard
-      return_to_clients: Return to all clients
-      return_to_search: Return to search
-      return_to_profile: Return to profile
+      return_to_dashboard: Return to Dashboard
+      all_clients: All Clients
+      search_clients: Search Clients
+      return_to_profile: Return to Profile
+      my_clients: My Clients
+      my_profile: My Profile
     users:
       edit:
         is_admin_label: Admin?
