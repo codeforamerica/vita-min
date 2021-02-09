@@ -81,4 +81,5 @@ Rails.application.configure do
   config.hosts << /[a-z0-9]+\.ngrok\.io/
   config.offseason = false
   config.diy_off = true
+  config.signature_log_bucket = "vita-min-development"
 end

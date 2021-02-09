@@ -9,4 +9,5 @@ Rails.application.configure do
   config.offseason = false
   config.diy_off = true
   Rails.application.default_url_options = config.action_mailer.default_url_options
+  config.signature_log_bucket = "vita-min-development"
 end
