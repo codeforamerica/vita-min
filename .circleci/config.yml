@@ -24,8 +24,14 @@ commands:
       - run:
           name: generate weekly cache key
           command: date +"Week %U of %Y" > /tmp/week
+      - run:
+          name: allow circleci to write to APT cache
+          command: sudo chown -R $USER /var/lib/apt/lists /var/cache/apt/archives
       - restore_cache:
           key: apt-{{ checksum "/tmp/week" }}
+      - run:
+          name: allow apt to read/write the APT cache
+          command: sudo chown -R _apt:root /var/lib/apt/lists /var/cache/apt/archives
       - run:
           name: install system dependencies
           command: |
