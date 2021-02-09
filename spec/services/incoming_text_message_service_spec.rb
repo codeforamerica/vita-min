@@ -32,6 +32,7 @@ describe IncomingTextMessageService do
       allow(TwilioService).to receive(:valid_request?).and_return true
       allow(DateTime).to receive(:now).and_return current_time
       allow(ClientChannel).to receive(:broadcast_contact_record)
+      allow(DatadogApi).to receive(:increment)
     end
 
     context "with a matching intake phone number" do
@@ -54,6 +55,13 @@ describe IncomingTextMessageService do
         IncomingTextMessageService.process(incoming_message_params)
         expect(ClientChannel).to have_received(:broadcast_contact_record).with(IncomingTextMessage.last)
       end
+
+      it "sends a metric to Datadog" do
+        IncomingTextMessageService.process(incoming_message_params)
+
+        expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.received")
+        expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.client_found")
+      end
     end
 
     context "without a matching client" do
@@ -73,6 +81,13 @@ describe IncomingTextMessageService do
         expect(client.intake.sms_notification_opt_in).to eq("yes")
         expect(client.vita_partner).to eq VitaPartner.client_support_org
       end
+
+      it "sends a metric to Datadog" do
+        IncomingTextMessageService.process(incoming_message_params)
+
+        expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.received")
+        expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.client_not_found")
+      end
     end
 
     context "with three matching client intakes" do
@@ -81,10 +96,17 @@ describe IncomingTextMessageService do
       let!(:client3) { create(:client, intake: (create :intake, sms_phone_number: "+15005550006")) }
       let!(:client4) { create(:client, intake: (create :intake, sms_phone_number: "+15005550005")) }
 
-      it 'associates the messages with each existing client' do
+      it "associates the messages with each existing client" do
         expect do
           IncomingTextMessageService.process(incoming_message_params)
         end.to change(IncomingTextMessage.where(client: [client1, client2, client3, client4]), :count).by(3).and change(Client, :count).by(0)
+      end
+
+      it "sends a metric to Datadog" do
+        IncomingTextMessageService.process(incoming_message_params)
+
+        expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.received")
+        expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.client_found_multiple")
       end
     end
 

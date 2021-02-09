@@ -3,7 +3,9 @@ class TwilioWebhooksController < ActionController::Base
   before_action :validate_twilio_request
 
   def update_outgoing_text_message
-    OutgoingTextMessage.find(params[:id]).update(twilio_status: params["MessageStatus"])
+    status = params["MessageStatus"]
+    DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")
+    OutgoingTextMessage.find(params[:id]).update(twilio_status: status)
     head :ok
   end
 
@@ -12,7 +14,13 @@ class TwilioWebhooksController < ActionController::Base
     return unless call.present?
 
     update_params = { twilio_status: params["CallStatus"] }
-    update_params[:twilio_call_duration] = params["CallDuration"] if params["CallDuration"].present?
+    DatadogApi.increment("twilio.outbound_calls.updated.status.#{params["CallStatus"]}")
+
+    if params["CallDuration"].present?
+      update_params[:twilio_call_duration] = params["CallDuration"]
+      DatadogApi.gauge("twilio.outbound_calls.updated.duration", params["CallDuration"].to_i)
+    end
+
     call.update(update_params)
   end
 
@@ -33,6 +41,7 @@ class TwilioWebhooksController < ActionController::Base
                   status_callback: outbound_calls_webhook_url(id: @outbound_call.id, locale: nil),
                   status_callback_method: 'POST')
     end
+    DatadogApi.increment("twilio.outbound_calls.connected")
     render xml: twiml.to_xml
   end
 

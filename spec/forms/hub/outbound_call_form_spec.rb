@@ -44,6 +44,7 @@ describe Hub::OutboundCallForm do
       allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :voice_phone_number).and_return twilio_phone_number
       allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :account_sid).and_return "abc"
       allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :auth_token).and_return "123"
+      allow(DatadogApi).to receive(:increment)
     end
 
     it "initializes a twilio instance" do
@@ -82,5 +83,12 @@ describe Hub::OutboundCallForm do
       call.to_phone_number = user.phone_number
       call.from_phone_number = client.phone_number
     end
+
+    it "sends a metric to Datadog" do
+      subject.dial
+
+      expect(DatadogApi).to have_received(:increment).with "twilio.outbound_calls.initiated"
+    end
+
   end
 end

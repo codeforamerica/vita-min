@@ -31,6 +31,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
     before do
       allow(ReplacementParametersService).to receive(:new).and_return(fake_replacement_parameters_service)
       allow(fake_replacement_parameters_service).to receive(:process_sensitive_data).and_return(sensitive_body)
+      allow(DatadogApi).to receive(:increment)
     end
 
     it "delivers the email with the right subject, and processes sensitive parameters in the body" do
@@ -52,6 +53,12 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
       expect(email.text_part.decoded.strip).to eq sensitive_body.strip
       expect(email.html_part.decoded).to have_selector('div', text: "Line 1")
       expect(email.html_part.decoded).to have_selector('div', text: "Secret Link")
+    end
+
+    it "sends a metric to Datadog" do
+      OutgoingEmailMailer.user_message(outgoing_email: outgoing_email).deliver_now
+
+      expect(DatadogApi).to have_received(:increment).with "mailgun.outgoing_emails.sent"
     end
 
     context "with attachment" do

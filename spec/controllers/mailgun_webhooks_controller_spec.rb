@@ -66,6 +66,7 @@ RSpec.describe MailgunWebhooksController do
     context "with HTTP basic auth credentials" do
       before do
         request.env["HTTP_AUTHORIZATION"] = valid_auth_credentials
+        allow(DatadogApi).to receive(:increment)
       end
 
       it "returns 200 OK" do
@@ -78,6 +79,7 @@ RSpec.describe MailgunWebhooksController do
         let(:current_time) { DateTime.new(2020, 9, 10) }
         before do
           allow(DateTime).to receive(:now).and_return(current_time)
+          allow(DatadogApi).to receive(:increment)
         end
 
         it "creates a an incoming email attached to a new client" do
@@ -96,6 +98,13 @@ RSpec.describe MailgunWebhooksController do
           expect(email.subject).to eq subject
           expect(email.from).to eq from
           expect(email.body_plain).to include "Hi Alice,\n\nThis is Bob."
+        end
+
+        it "sends a metric to Datadog" do
+          post :create_incoming_email, params: params
+
+          expect(DatadogApi).to have_received(:increment).with("mailgun.incoming_emails.received")
+          expect(DatadogApi).to have_received(:increment).with("mailgun.incoming_emails.client_not_found")
         end
       end
 
@@ -122,6 +131,13 @@ RSpec.describe MailgunWebhooksController do
 
             documents = ActiveStorage::Attachment.all
             expect(documents.count).to eq(0)
+          end
+
+          it "sends a metric to Datadog" do
+            post :create_incoming_email, params: params
+
+            expect(DatadogApi).to have_received(:increment).with("mailgun.incoming_emails.received")
+            expect(DatadogApi).to have_received(:increment).with("mailgun.incoming_emails.client_found")
           end
         end
 
@@ -173,11 +189,16 @@ RSpec.describe MailgunWebhooksController do
         let!(:client2) { create :client, intake: intake2 }
 
         it "creates a new IncomingEmail linked to both clients" do
-
           expect do
             post :create_incoming_email, params: params
           end.to change(IncomingEmail.where(client_id: [client1, client2]), :count).by 2
+        end
 
+        it "sends a metric to Datadog" do
+          post :create_incoming_email, params: params
+
+          expect(DatadogApi).to have_received(:increment).with("mailgun.incoming_emails.received")
+          expect(DatadogApi).to have_received(:increment).with("mailgun.incoming_emails.client_found_multiple")
         end
       end
     end
