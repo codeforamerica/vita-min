@@ -22,10 +22,20 @@ commands:
     description: "Install system dependencies"
     steps:
       - run:
+          name: generate weekly cache key
+          command: date +"Week %U of %Y" > /tmp/week
+      - restore_cache:
+          key: apt-{{ checksum "/tmp/week" }}
+      - run:
           name: install system dependencies
           command: |
             sudo apt-get update && \
             sudo apt-get install -y pdftk ghostscript
+      - save_cache:
+          key: apt-{{ checksum "/tmp/week" }}
+          paths:
+            - /var/lib/apt/lists
+            - /var/cache/apt/archives
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:
