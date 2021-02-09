@@ -79,10 +79,11 @@ class Document < ApplicationRecord
   end
 
   def convert_heic_upload_to_jpg!
-    image = MiniMagick::Image.open(ActiveStorage::Blob.service.path_for(upload.key))
+    image = MiniMagick::Image.read(upload.download)
 
     jpg_image = image.format("jpg")
 
     upload.attach(io: File.open(jpg_image.path), filename: "#{display_name}.jpg", content_type: "image/jpg")
+    update!(display_name: upload.attachment.filename)
   end
 end

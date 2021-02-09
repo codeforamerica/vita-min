@@ -162,7 +162,8 @@ describe Document do
 
       expect {
         document.convert_heic_upload_to_jpg!
-      }.to change { document.upload.attachment.filename.extension }.from("HEIC").to("jpg")
+      }.to (change{ document.upload.attachment.filename.extension }.from("HEIC").to("jpg")).and(
+        change { document.reload.display_name }.from("IMG_4851.HEIC").to("IMG_4851.HEIC.jpg"))
     end
   end
 end
