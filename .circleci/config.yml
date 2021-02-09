@@ -33,8 +33,9 @@ commands:
           name: allow apt to read/write the APT cache
           command: sudo chown -R _apt:root /var/lib/apt/lists /var/cache/apt/archives
       - run:
-          name: install system dependencies
+          name: install system dependencies & allow apt to save its cache
           command: |
+            sudo rm -f /etc/apt/apt.conf.d/docker-clean && \
             sudo apt-get update && \
             sudo apt-get install -y pdftk ghostscript
       - save_cache:
