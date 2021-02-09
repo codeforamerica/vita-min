@@ -13,6 +13,8 @@ class OutgoingEmailMailer < ApplicationMailer
       attachments[attachment.filename.to_s] = attachment.blob.download
     end
 
+    DatadogApi.increment("mailgun.outgoing_emails.sent")
+
     mail(
       to: outgoing_email.to,
       subject: outgoing_email.subject,

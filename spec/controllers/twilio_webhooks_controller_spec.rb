@@ -86,6 +86,7 @@ RSpec.describe TwilioWebhooksController do
       end
       before do
         allow(TwilioService).to receive(:valid_request?).and_return true
+        allow(DatadogApi).to receive(:increment)
       end
 
       it "updates the status of the existing message" do
@@ -93,6 +94,11 @@ RSpec.describe TwilioWebhooksController do
 
         expect(response).to be_ok
         expect(existing_message.reload.twilio_status).to eq "delivered"
+      end
+
+      it "signals Datadog" do
+        post :update_outgoing_text_message, params: params
+        expect(DatadogApi).to have_received(:increment).with "twilio.outgoing_text_messages.updated.status.delivered"
       end
     end
   end
@@ -138,6 +144,8 @@ RSpec.describe TwilioWebhooksController do
     context "a signed request" do
       before do
         allow(TwilioService).to receive(:valid_request?).and_return true
+        allow(DatadogApi).to receive(:increment)
+        allow(DatadogApi).to receive(:gauge)
       end
 
       it "finds the corresponding outbound call object and updates the status and call duration" do
@@ -145,6 +153,13 @@ RSpec.describe TwilioWebhooksController do
         outbound_call.reload
         expect(outbound_call.twilio_status).to eq "completed"
         expect(outbound_call.twilio_call_duration).to eq 11
+      end
+
+      it "sends a metric to Datadog" do
+        post :update_outbound_call, params: params
+
+        expect(DatadogApi).to have_received(:gauge).with("twilio.outbound_calls.updated.duration", 11)
+        expect(DatadogApi).to have_received(:increment).with("twilio.outbound_calls.updated.status.completed")
       end
     end
 
@@ -168,6 +183,7 @@ RSpec.describe TwilioWebhooksController do
     context "a signed request" do
       before do
         allow(TwilioService).to receive(:valid_request?).and_return true
+        allow(DatadogApi).to receive(:increment)
       end
 
       it "responds with xml" do
@@ -178,6 +194,12 @@ RSpec.describe TwilioWebhooksController do
       it "responds with formatted twiml" do
         post :outbound_call_connect, params: params
         expect(response.body).to include "<Dial>\n<Number statusCallback=\"http://test.host/outbound_calls/#{outbound_call.id}\" statusCallbackEvent=\"answered completed\" statusCallbackMethod=\"POST\">+15005551234</Number>\n</Dial>"
+      end
+
+      it "sends an event to Datadog" do
+        post :outbound_call_connect, params: params
+
+        expect(DatadogApi).to have_received(:increment).with "twilio.outbound_calls.connected"
       end
     end
 

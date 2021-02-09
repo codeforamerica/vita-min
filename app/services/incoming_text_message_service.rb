@@ -3,10 +3,13 @@ class IncomingTextMessageService
 
   def self.process(params)
     phone_number = PhoneParser.normalize(params["From"])
+    DatadogApi.increment("twilio.incoming_text_messages.received")
 
     clients = Client.joins(:intake).where(intakes: { phone_number: phone_number} ).or(Client.joins(:intake).where(intakes: { sms_phone_number: phone_number}))
 
-    unless clients.exists?
+    client_count = clients.count
+    if client_count == 0
+      DatadogApi.increment("twilio.incoming_text_messages.client_not_found")
       clients = [Client.create!(
         intake: Intake.create!(
           phone_number: phone_number,
@@ -17,6 +20,10 @@ class IncomingTextMessageService
         ),
         vita_partner: VitaPartner.client_support_org,
       )]
+    elsif client_count == 1
+      DatadogApi.increment("twilio.incoming_text_messages.client_found")
+    elsif client_count > 1
+      DatadogApi.increment("twilio.incoming_text_messages.client_found_multiple")
     end
 
     # process attachments once

@@ -5,9 +5,12 @@ class MailgunWebhooksController < ActionController::Base
   def create_incoming_email
     # Mailgun param documentation:
     #   https://documentation.mailgun.com/en/latest/user_manual.html#parsed-messages-parameters
+    DatadogApi.increment("mailgun.incoming_emails.received")
     sender_email = params["sender"]
     clients = Client.joins(:intake).where(intakes: { email_address: sender_email})
-    unless clients.exists?
+    client_count = clients.count
+    if client_count == 0
+      DatadogApi.increment("mailgun.incoming_emails.client_not_found")
       clients = [Client.create!(
         intake: Intake.create!(
           email_address: sender_email,
@@ -16,7 +19,12 @@ class MailgunWebhooksController < ActionController::Base
         ),
         vita_partner: VitaPartner.client_support_org,
       )]
+    elsif client_count == 1
+      DatadogApi.increment("mailgun.incoming_emails.client_found")
+    elsif client_count > 1
+      DatadogApi.increment("mailgun.incoming_emails.client_found_multiple")
     end
+
     clients.each do |client|
       contact_record = IncomingEmail.create!(
           client: client,

@@ -41,6 +41,8 @@ module Hub
           from: twilio_phone_number
         )
 
+        DatadogApi.increment("twilio.outbound_calls.initiated")
+
         @outbound_call.update(twilio_sid: twilio_call.sid, twilio_status: twilio_call.status)
       end
     end

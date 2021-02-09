@@ -24,6 +24,8 @@ class SendOutgoingTextMessageJob < ApplicationJob
       status_callback: outgoing_text_message_url(outgoing_text_message, locale: nil)
     )
 
+    DatadogApi.increment("twilio.outgoing_text_messages.sent")
+
     outgoing_text_message.update(
       twilio_status: message.status,
       twilio_sid: message.sid,
