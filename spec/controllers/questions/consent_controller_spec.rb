@@ -153,14 +153,16 @@ RSpec.describe Questions::ConsentController do
           email_body = <<~BODY
             Hello Ruthie Rutabaga,
 
-            Thanks for starting your taxes with GetYourRefund - you’re almost there! We will prepare your taxes once we have all of your required information and tax documents.
+            Thanks for starting your taxes with GetYourRefund - you’re almost there! Your case number is #{intake.client_id}. We will prepare your taxes once we have all of your required information and tax documents.
 
-            If you have more documents to send or have any questions about your case you can email your tax preparer at hello@getyourrefund.org, chat with our specialists using the chat box on getyourrefund.org/tax-questions or submit more documents at your secure submission link: #{intake.requested_docs_token_link}
+            You can securely upload your ID and additional tax documents here: #{intake.requested_docs_token_link}
+
+            If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> or text message 58750.
 
             Remember, we’ll review everything with you before filing so just do the best you can. Then we’ll help you get the tax credits that belong to you!
 
             We’re here to help!
-            Your tax team at GetYourRefund.org
+            Your Tax Team at GetYourRefund.org
           BODY
 
           expect(ClientMessagingService).to have_received(:send_system_email).with(
@@ -174,7 +176,10 @@ RSpec.describe Questions::ConsentController do
           subject.after_update_success
 
           body = <<~BODY
-            Hello Ruthie Rutabaga, thanks for starting your taxes with GetYourRefund, you’re almost there! Get your tax documents ready and try to complete in one sitting. Remember, we’ll review everything with you before filing so do the best you can. Respond to this text message if you have a question or come back later and upload documents at this secure submission link: #{intake.requested_docs_token_link} We won’t be able to prepare your taxes until we have all of your required information and tax documents. Then we’ll help you get the tax credits that belong to you!
+            Hello Ruthie Rutabaga, thanks for starting your taxes with GetYourRefund, you’re almost there! Your case number is #{intake.client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Upload documents securely here: #{intake.requested_docs_token_link}
+
+            Respond to this message if you have any questions. We’re here to help!
+
           BODY
 
           expect(ClientMessagingService).to have_received(:send_system_text_message).with(
@@ -193,16 +198,18 @@ RSpec.describe Questions::ConsentController do
           subject.after_update_success
 
           email_body = <<~BODY
-            Hola Ruthie Rutabaga:
-            
-            Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! No podremos preparar sus impuestos hasta que recibamos toda la información requerida y los documentos de sus impuestos. ¡En cuanto los recibamos, le ayudaremos a conseguir los créditos fiscales que le pertenecen!
-            
-            Trate de completar el formulario en una sola sesión, y ¡asegúrese de tener sus documentos fiscales a la mano!  Recuerde, revisaremos todo con usted antes de presentar sus documentos, así que procure hacer lo mejor posible.
-            
-            Siempre puede enviar un correo electrónico a hello@getyourrefund.org, chatear con nuestros especialistas usando el chat de getyourrefund.org/es/tax-questions o enviar más documentos a su enlace de envío seguro: #{intake.requested_docs_token_link}
-            
+            Hola Ruthie Rutabaga,
+
+            Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! Su número de caso es #{intake.client_id}. Empezaremos a preparar sus impuestos una vez que recibamos toda la información requerida y los documentos de sus impuestos.
+
+            Puede subir su identificación o documentos de impuestos adicionales a su enlace de envío seguro aquí: #{intake.requested_docs_token_link}
+
+            Si tiene alguna pregunta puede contactar a su equipo de preparación de impuestos por correo electrónico a <a href="mailto:hello@getyourrefund.org"></a>, o enviar un mensaje de texto al 58750.
+
+            Recuerde, nosotros revisaremos todo con usted antes de presentar sus documentos, así que procure hacer lo mejor posible. ¡Así le ayudaremos a conseguir los créditos fiscales que le pertenecen!
+
             ¡Estamos aquí para servirle!
-            
+
             Su Equipo de Impuestos de GetYourRefund.org
           BODY
 
@@ -217,7 +224,9 @@ RSpec.describe Questions::ConsentController do
           subject.after_update_success
 
           body = <<~BODY
-            Hola Ruthie Rutabaga: Gracias por comenzar a tramitar sus impuestos con GetYourRefund--¡ya le falta poco! Tenga los documentos de sus impuestos listos y trate de terminarlos en una sola sesión. Recuerde que los revisaremos todos con usted antes de presentarlos, así que haga su mejor esfuerzo. Responda a este mensaje de texto si tiene preguntas o vuelva más tarde y suba documentos a este enlace de envío seguro: #{intake.requested_docs_token_link} No nos será posible preparar sus impuestos hasta que tengamos toda la información y los documentos de impuestos requeridos. ¡Tan luego como eso suceda le ayudaremos a conseguir los créditos fiscales que le pertenecen!
+            Hola Ruthie Rutabaga, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su número de caso es #{intake.client_id}. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Suba sus documentos a su enlace de envío seguro aquí: #{intake.requested_docs_token_link}
+            Responda a este mensaje con cualquier pregunta. ¡Estamos aquí para servirle!
+
           BODY
 
           expect(ClientMessagingService).to have_received(:send_system_text_message).with(
