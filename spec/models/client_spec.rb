@@ -58,6 +58,32 @@ describe Client do
     end
   end
 
+  describe ".sla_tracked scope" do
+    let(:client_before_consent) { create(:client) }
+    let(:client_in_progress) { create(:client) }
+    let(:client_file_accepted) { create(:client) }
+    let(:client_file_not_filing) { create(:client) }
+    let(:client_multiple) { create(:client) }
+
+    before do
+      create :tax_return, status: :intake_before_consent, client: client_before_consent
+      create :tax_return, status: :intake_in_progress, client: client_in_progress
+      create :tax_return, status: :file_accepted, client: client_file_accepted
+      create :tax_return, status: :file_not_filing, client: client_file_not_filing
+      create :tax_return, year: 2019, status: :intake_before_consent, client: client_multiple
+      create :tax_return, year: 2018, status: :prep_ready_for_prep, client: client_multiple
+    end
+
+    it "excludes those with tax returns in :intake_before_consent, :intake_in_progress, :file_accepted, :file_completed" do
+      sla_tracked_clients = described_class.sla_tracked
+      expect(sla_tracked_clients).to include client_multiple
+      expect(sla_tracked_clients).not_to include client_file_not_filing
+      expect(sla_tracked_clients).not_to include client_file_accepted
+      expect(sla_tracked_clients).not_to include client_in_progress
+      expect(sla_tracked_clients).not_to include client_before_consent
+    end
+  end
+
   describe "#needs_attention" do
     context "when last_response_at is nil" do
       let!(:client) { create :client }

@@ -123,6 +123,7 @@ Rails.application.routes.draw do
     # Hub Admin routes (Case Management)
     namespace :hub do
       root "assigned_clients#index"
+      resources :metrics, only: [:index]
       resources :tax_returns, only: [:edit, :update, :show]
       resources :unlinked_clients, only: [:index]
       resources :clients do
