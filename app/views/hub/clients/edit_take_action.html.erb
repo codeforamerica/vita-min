@@ -50,7 +50,8 @@
       <button class="button button--cta " type="submit">
         <%= t("general.send") %>
       </button>
-    </div>
+      <%= link_to t("general.cancel"), hub_client_path(id: @client.id), class: "button" %>
+      </div>
 
   <% end %>
 <% end %>
