@@ -1,9 +1,8 @@
 class DiyNavigation
   FLOW = [
     Diy::FileYourselfController,
-    Diy::PersonalInfoController,
-    Diy::EmailAddressController,
-    Diy::CheckEmailController,
+    Diy::OverviewController,
+    Diy::LocationController
   ].freeze
 
   include ControllerNavigation

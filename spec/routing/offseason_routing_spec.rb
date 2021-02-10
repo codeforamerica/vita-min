@@ -66,23 +66,9 @@ RSpec.describe "offseason routes", type: :request do
       expect(response).to redirect_to root_path
     end
 
-    context "with a valid diy link" do
-      let(:diy_intake) { create :diy_intake }
-
-      it "redirects /diy/token path to root" do
-        get diy_start_filing_path(token: diy_intake.token)
-        expect(response).to redirect_to root_path
-      end
-    end
-
     it "redirects /diy path to root" do
       get diy_root_path
       expect(response).to redirect_to root_path
-    end
-
-    it "redirects diy_check_email path to root" do
-      get "/diy/check-email"
-      expect(response).to redirect_to "/"
     end
   end
 end

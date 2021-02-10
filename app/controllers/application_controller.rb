@@ -243,8 +243,6 @@ class ApplicationController < ActionController::Base
       params[:id],
       params[:ticket_id],
       current_intake&.intake_ticket_id,
-      current_diy_intake&.ticket_id,
-      (defined?(zendesk_ticket_id) && zendesk_ticket_id),
     ].filter { |e| e && !e.to_s.empty? }.uniq
   end
 

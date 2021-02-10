@@ -739,19 +739,9 @@ en:
         info: We will need an ITIN or SSN for each person you add. We’ll ask you to share images of these at the end.
         title: Let’s claim someone!
     diy:
-      check_email:
-        edit:
-          questions_html: If you have questions you should email %{email_link}.
-          sent_secure_link: We just sent you a secure link for our DIY service.
-          title: Please check your e-mail for a confirmation link.
-      email_address:
-        edit:
-          confirm_email_address: Confirm e-mail address
-          email_address: E-mail address
-          title: Please share your e-mail address.
-          will_send_secure_link: We will send a secure link to your e-mail so that you can file.
       file_yourself:
         edit:
+          assistance: Actually, I need assistance filing.
           info: You selected our do it yourself option. We'll provide the tools so you can file yourself.
           right_option:
             2019_only: You are only filing for 2019 (not previous years)
@@ -760,20 +750,19 @@ en:
             quick: You need a quick option
             simple_situation: Your tax situation is simple/straightforward
           title: File your taxes yourself!
-      personal_info:
+      location:
         edit:
-          info: Welcome, we're excited to help you. We need some basic information to get started.
-          preferred_name: Preferred name
-          state_of_residence: State of residence
-          title: First, let's get some basic information.
-      start_filing:
-        help_html: "<strong>We are unable to provide chat support in TaxSlayer, but we’re here to help!</strong><br/> If any questions come up, please chat with us on this page."
-        start:
-          tips:
-            create_login: To start filing, create a login in Taxslayer
-            no_navigation: Do not click ‘back’ or navigate away from the TaxSlayer page
-            spelling: Double check your spelling
-          title: Welcome to our DIY tax service!
+          title: Where are you located?
+          zip_code: ZIP Code
+      overview:
+        edit:
+          title: Let's get started!
+          taxslayer_header: Enter info into TaxSlayer
+          taxslayer_description: TaxSlayer is a form where you'll enter all your tax info.
+          documents_header: Submit Documents
+          documents_description: You'll be asked to share all necessary documents (ID, W-2's, 1099, 1095-A, B, C)
+          refund_header: Get Your Refund
+          refund_description: Submit your return and get your refund!
     documents:
       additional_documents:
         document_list_title: 'Based on your earlier answers, you might have the following:'
@@ -1825,6 +1814,9 @@ en:
           one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
       welcome:
+        diy:
+          header: File taxes myself
+          info: File quickly with our DIY tool.
         intake:
           header: File taxes with help
           info: Review and file with the help of a tax expert.

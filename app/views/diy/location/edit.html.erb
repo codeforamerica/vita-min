@@ -1,15 +1,13 @@
-<% @main_question = t("views.diy.email_address.edit.title") %>
+<% @main_question = t("views.diy.location.edit.title") %>
 
 <% content_for :page_title, @main_question %>
 
 <% content_for :form_card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= @main_question %></h1>
-    <p class="text--help"><%=t("views.diy.email_address.edit.will_send_secure_link") %></p>
 
     <div class="form-card__content">
-      <%= f.cfa_input_field(:email_address, t("views.diy.email_address.edit.email_address"), classes: ["form-width--long"]) %>
-      <%= f.cfa_input_field(:email_address_confirmation, t("views.diy.email_address.edit.confirm_email_address"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:zip_code, t("views.diy.location.edit.zip_code"), classes: ["form-width--long"]) %>
     </div>
 
     <button class="button button--primary button--wide" type="submit">
