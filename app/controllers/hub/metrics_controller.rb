@@ -16,6 +16,9 @@ module Hub
         }
       end
       data[:total_breaches] = data[:breach_counts].slice(*@vita_partners.map(&:id)).values.inject(:+)
+      # Cast UTC stored data in the cache to the current_user's timezone.
+      data[:breach_threshold] = data[:breach_threshold].in_time_zone(current_user.timezone)
+      data[:current_as_of] = data[:current_as_of].in_time_zone(current_user.timezone)
       @attention_needed = OpenStruct.new(data)
     end
   end

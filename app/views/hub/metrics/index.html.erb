@@ -4,11 +4,11 @@
     <div style="display: flex" class="spacing-below-25">
       <div style="margin:0; margin-right: 20px">
         <strong>Report run at:<br/></strong>
-        <%= @attention_needed.current_as_of.strftime("%a %m/%d/%Y at %I:%M%p") %>
+        <%= @attention_needed.current_as_of.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@attention_needed.breach_threshold) %>
       </div>
       <div style="margin:0">
-        <strong>Breach threshold:<br/></strong></strong>
-        <%= @attention_needed.breach_threshold.strftime("%a %m/%d/%Y at %I:%M%p") %>
+        <strong>Breach threshold:<br/></strong>
+        <%= @attention_needed.breach_threshold.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@attention_needed.breach_threshold) %>
       </div>
     </div>
   </div>
@@ -18,15 +18,22 @@
       <thead class="index-table__head">
         <tr class="index-table__row">
           <th scope="col" class="index-table__header">Organization Name</th>
-          <th scope="col" class="index-table__header">Needs attention breaches</th>
+          <th scope="col" class="index-table__header">Needs attention breaches*</th>
         </tr>
       </thead>
       <tbody class="index-table__body">
       <% @vita_partners.each do |vita_partner| %>
+        <% next unless vita_partner.organization? %>
         <tr class="index-table__row">
           <td class="index-table__cell"><%= vita_partner.name %> </td>
           <td class="index-table__cell"><%= @attention_needed.breach_counts[vita_partner.id] || 0%></td>
         </tr>
+        <% vita_partner.child_sites.each do |site| %>
+          <tr class="index-table__row">
+            <td class="index-table__cell" style="padding-left: 60px"><%= site.name %> </td>
+            <td class="index-table__cell"><%= @attention_needed.breach_counts[site.id] || 0%></td>
+          </tr>
+        <% end %>
       <% end %>
       <tr>
         <td></td>
@@ -40,6 +47,9 @@
   <div class="slab slab--not-padded spacing-above-25">
     <div style="text-align: right">
       <small>Reports update approx. every 10 mins.</small>
+    </div>
+    <div style="text-align: right">
+      <small>Client needs attention indicator has been on for more than 3 business days.*</small>
     </div>
   </div>
 <% end %>

@@ -1,7 +1,7 @@
 class SLABreachService
   attr_accessor :report_generated_at
   def initialize
-    @report_generated_at = DateTime.current
+    @report_generated_at = Time.now.utc
   end
 
   def breach_threshold
