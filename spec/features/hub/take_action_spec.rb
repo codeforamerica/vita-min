@@ -13,7 +13,7 @@ RSpec.feature "Change tax return status on a client" do
       login_as user
     end
 
-  scenario "can changes status from any hub page, sends a message, and creates an internal note" do
+    scenario "can changes status from any hub page, sends a message, and creates an internal note" do
       # One day, when switching the status causes a page reload, this test can expect a templated message.
       visit hub_client_notes_path(client_id: client.id)
       click_on "Take action"
@@ -65,6 +65,22 @@ RSpec.feature "Change tax return status on a client" do
 
       click_on "Notes"
       expect(page).to have_text("Example Preparer updated 2019 tax return status from Intake/Not ready to Final steps/Accepted")
+    end
+
+    scenario "can cancel the updates and return to client's profile" do
+      visit hub_client_path(id: client.id)
+      expect(page).to have_select("tax_return[status]", selected: "Not ready")
+
+      within "#tax-return-#{tax_return.id}" do
+        select "Accepted"
+        click_on "Update"
+      end
+
+      expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
+      click_on "Cancel"
+
+      expect(current_path).to eq(hub_client_path(id: client.id))
+      expect(page).to have_select("tax_return[status]", selected: "Not ready")
     end
   end
 end
