@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_161854) do
+ActiveRecord::Schema.define(version: 2021_02_09_221455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -145,16 +145,11 @@ ActiveRecord::Schema.define(version: 2021_02_03_161854) do
     t.datetime "created_at", precision: 6, null: false
     t.string "email_address"
     t.string "locale"
-    t.string "preferred_name"
     t.string "referrer"
-    t.bigint "requester_id"
     t.string "source"
-    t.string "state_of_residence"
-    t.bigint "ticket_id"
-    t.string "token"
     t.datetime "updated_at", precision: 6, null: false
     t.string "visitor_id"
-    t.index ["token"], name: "index_diy_intakes_on_token", unique: true
+    t.string "zip_code"
   end
 
   create_table "documents", force: :cascade do |t|

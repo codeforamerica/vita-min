@@ -743,19 +743,9 @@ es:
         info: Necesitaremos un ITIN o SSN para cada persona que agregue. Le pediremos que suba imágenes del documento al final.
         title: "¡Pidámosle ayuda a alguien!"
     diy:
-      check_email:
-        edit:
-          questions_html: Si tiene alguna pregunta, envíe un correo electrónico a %{email_link}.
-          sent_secure_link: Acabamos de enviarle un enlace seguro de nuestro servicio DIY.
-          title: Por favor, compruebe si ha recibido un enlace de confirmación por correo electrónico.
-      email_address:
-        edit:
-          confirm_email_address: Confirme la dirección de correo electrónico
-          email_address: Dirección de correo electrónico
-          title: Por favor, informe su dirección de correo electrónico.
-          will_send_secure_link: Le enviaremos un enlace seguro a su correo electrónico para que pueda hacer la declaración.
       file_yourself:
         edit:
+          assistance: TBD
           info: Seleccionaste la opción para hacerlo usted mismo. Le proveeremos las herramientas necesarias para que pueda hacer su propia declaración.
           right_option:
             2019_only: Solo está declarando del 2019 (no de los años anteriores)
@@ -764,20 +754,19 @@ es:
             quick: Necesita una solución rápida
             simple_situation: Su situación fiscal es simple/clara
           title: "¡Declare aquí sus impuestos usted mismo!"
-      personal_info:
+      location:
         edit:
-          info: "¡Hola! Estamos emocionados por ayudarle. Necesitamos información básica para empezar."
-          preferred_name: Nombre que prefiere
-          state_of_residence: Estado de residencia
-          title: Primero, vamos a empezar con su información básica.
-      start_filing:
-        help_html: "<strong>No podemos proporcionar asistencia por chat en TaxSlayer, ¡pero estamos aquí para ayudar!</strong><br/> Si tiene alguna pregunta, chatee con nosotros en esta página."
-        start:
-          tips:
-            create_login: Para comenzar a declarar, regístrese  en Taxslayer
-            no_navigation: No haga clic en "Regresar" ni salga de la página de TaxSlayer
-            spelling: Compruebe la ortografía
-          title: "¡Le damos la bienvenida al servicio que le permite presentar su propia declaración de impuestos!"
+          title: TBD
+          zip_code: TBD
+      overview:
+        edit:
+          title: TBD
+          taxslayer_header: TBD
+          taxslayer_description: TBD
+          documents_header: TBD
+          documents_description: TBD
+          refund_header: TBD
+          refund_description: TBD
     documents:
       additional_documents:
         document_list_title: 'Basado en sus respuestas previas, es possible que tenga los siguientes documentos:'
@@ -1853,6 +1842,9 @@ es:
           one: "¿Ha sido rechazado en el año anterior el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos, el Crédito por Oportunidad Estadounidense o el estado civil de Jefe de Familia?"
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
       welcome:
+        diy:
+          header: Declarar impuestos mi mismo
+          info: Declare rápidamente con nuestra herramienta DIY.
         intake:
           header: Declarar impuestos con ayuda
           info: Revise y declare con la ayuda de un experto de impuestos.

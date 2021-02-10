@@ -759,9 +759,6 @@ describe ApplicationController, type: :controller do
         MixpanelService.send_event(event_id: '72347236', event_name: 'inst_test_event', data: {}, request: request, path_exclusions: all_identifiers)
         render plain: 'nope'
       end
-
-      ## mimic ZendeskController behavior
-      def zendesk_ticket_id; "1212123"; end
     end
 
     it 'includes controller (source) information, if present' do
@@ -860,20 +857,6 @@ describe ApplicationController, type: :controller do
       )
     end
 
-    it 'strips zendesk_ticket_id from paths' do
-      routes.draw { get "inst_test/1212123/rest?the-id=1212123" => "anonymous#inst_test" }
-      get :inst_test
-
-      expect(fake_tracker).to have_received(:track).with(
-        '72347236',
-        'inst_test_event',
-        hash_including(
-          path: '/inst_test/***/rest?the-id=***',
-          full_path: '/inst_test/***/rest?the-id=***',
-        )
-      )
-    end
-
     it 'strips current_intake.id and current_intake.zendesk_ticket_id from paths' do
       intake = create(:intake, intake_ticket_id: 83224)
       routes.draw { get "inst_test/:intake_id/rest?the-id=83224" => "anonymous#inst_test" }
@@ -889,17 +872,17 @@ describe ApplicationController, type: :controller do
       )
     end
 
-    it 'strips current_diy_intake.id and current_diy_intake.ticket_id from paths' do
-      diy_intake = create(:diy_intake, ticket_id: 9999988)
-      routes.draw { get "inst_test/:diy_intake_id/rest?the-id=9999988" => "anonymous#inst_test" }
+    it 'strips current_diy_intake.id from paths' do
+      diy_intake = create(:diy_intake)
+      routes.draw { get "inst_test/:diy_intake_id/rest" => "anonymous#inst_test" }
       get :inst_test, params: { diy_intake_id: diy_intake.id }
 
       expect(fake_tracker).to have_received(:track).with(
         '72347236',
         'inst_test_event',
         hash_including(
-          path: '/inst_test/***/rest?the-id=***',
-          full_path: '/inst_test/***/rest?the-id=***',
+          path: '/inst_test/***/rest',
+          full_path: '/inst_test/***/rest',
         )
       )
     end

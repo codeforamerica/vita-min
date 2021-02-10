@@ -45,6 +45,6 @@ Rails.application.configure do
   config.action_view.raise_on_missing_translations = true
   config.i18n.available_locales = [:en, :es]
   config.offseason = false
-  config.diy_off = true
+  config.diy_off = false
   config.signature_log_bucket = "vita-min-test-signatures"
 end

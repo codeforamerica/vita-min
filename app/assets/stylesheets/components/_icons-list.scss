@@ -1,0 +1,21 @@
+ul.icons-list {
+  font-size: 16px;
+  li {
+    margin-bottom: 3.3rem;
+    position: relative;
+
+    h2 {
+      margin: 0 0 10px 0;
+    }
+  }
+  li > * {
+    display: inline-block;
+  }
+  li > div {
+    margin-left: 6rem;
+  }
+  img {
+    position: absolute;
+    top: 7px;
+   }
+}
