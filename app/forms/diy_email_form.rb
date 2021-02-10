@@ -1,4 +1,4 @@
-class DiyEmailAddressForm < DiyForm
+class DiyEmailForm < DiyForm
   set_attributes_for :diy_intake, :email_address, :email_address_confirmation
 
   validates :email_address, 'valid_email_2/email': true

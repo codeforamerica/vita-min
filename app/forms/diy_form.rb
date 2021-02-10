@@ -13,4 +13,7 @@ class DiyForm < Form
     new(diy_intake, existing_attributes(diy_intake).slice(*attribute_keys))
   end
 
+  def save
+    @diy_intake.update(attributes_for(:diy_intake))
+  end
 end

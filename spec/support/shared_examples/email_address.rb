@@ -43,5 +43,33 @@ shared_examples "email address validation" do |form_class|
       expect(form).to be_valid
     end
   end
+
+  context "when the email address is missing" do
+    it "is not valid" do
+      form = form_class.new(
+        form_object,
+        {
+          email_address: "",
+          email_address_confirmation: ""
+        }
+      )
+
+      expect(form).to be_invalid
+    end
+  end
+
+  context "when the email and email confirmation do not match" do
+    it "is not valid" do
+      form = form_class.new(
+        form_object,
+        {
+          email_address: "test@example.com",
+          email_address_confirmation: "bob@example.com"
+        }
+      )
+
+      expect(form).to be_invalid
+    end
+  end
 end
 

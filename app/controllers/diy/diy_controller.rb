@@ -22,8 +22,7 @@ module Diy
 
     def update
       @form = form_class.new(current_diy_intake, form_params)
-      if @form.valid?
-        @form.save
+      if @form.save
         after_update_success
         redirect_to(next_path)
       else
@@ -85,7 +84,7 @@ module Diy
       end
 
       def form_name
-        controller_name + "_form"
+        "diy_" + controller_name + "_form"
       end
 
       def form_class

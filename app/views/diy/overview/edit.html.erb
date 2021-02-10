@@ -1,4 +1,4 @@
-<% @main_heading = t("views.diy.overview.edit.title") %>
+<% @main_heading = t(".title") %>
 <% content_for :page_title, @main_heading %>
 
 <main role="main">
@@ -14,9 +14,9 @@
             <li>
               <%= image_tag("diy/info.svg") %>
               <div>
-                <h2>1. <%= t("views.diy.overview.edit.taxslayer_header") %></h2>
+                <h2>1. <%= t(".taxslayer_header") %></h2>
                 <span>
-                  <%= t("views.diy.overview.edit.taxslayer_description") %>
+                  <%= t(".taxslayer_description") %>
                 </span>
 
               </div>
@@ -24,18 +24,18 @@
             <li>
               <%= image_tag("diy/documents.svg") %>
               <div>
-                <h2>2. <%= t("views.diy.overview.edit.documents_header") %></h2>
+                <h2>2. <%= t(".documents_header") %></h2>
                 <span>
-                  <%= t("views.diy.overview.edit.documents_description") %>
+                  <%= t(".documents_description") %>
                 </span>
               </div>
             </li>
             <li>
               <%= image_tag("diy/refund.svg") %>
               <div>
-                <h2>3. <%= t("views.diy.overview.edit.refund_header") %></h2>
+                <h2>3. <%= t(".refund_header") %></h2>
                 <span>
-                  <%= t("views.diy.overview.edit.refund_description") %>
+                  <%= t(".refund_description") %>
                 </span>
               </div>
             </li>

@@ -343,6 +343,37 @@ es:
         ignore: Si no desea aceptar la invitación, ignore este correo electrónico.
         someone_invited_you: "%{their_name} (%{their_email}) ha invitado a %{your_name} a crear una cuenta en GetYourRefund para ayudar a las personas con sus impuestos."
         subject: Usted ha sido invitado a GetYourRefund
+  diy:
+    email:
+      edit:
+        title: TBD
+        email_you_a_link: TBD
+        email_address: TBD
+        email_address_confirmation: TBD
+    file_yourself:
+      edit:
+        assistance: TBD
+        info: Seleccionaste la opción para hacerlo usted mismo. Le proveeremos las herramientas necesarias para que pueda hacer su propia declaración.
+        right_option:
+          2019_only: Solo está declarando del 2019 (no de los años anteriores)
+          comfortable_online: Le resulta cómodo usar servicios de declaración de impuestos en línea
+          header: 'Esta es la opción adecuada para usted si:'
+          quick: Necesita una solución rápida
+          simple_situation: Su situación fiscal es simple/clara
+        title: "¡Declare aquí sus impuestos usted mismo!"
+    location:
+      edit:
+        title: TBD
+        zip_code: TBD
+    overview:
+      edit:
+        title: TBD
+        taxslayer_header: TBD
+        taxslayer_description: TBD
+        documents_header: TBD
+        documents_description: TBD
+        refund_header: TBD
+        refund_description: TBD
   errors:
     attributes:
       birth_date:
@@ -746,31 +777,6 @@ es:
         done: "¡Este paso fue finalizado!"
         info: Necesitaremos un ITIN o SSN para cada persona que agregue. Le pediremos que suba imágenes del documento al final.
         title: "¡Pidámosle ayuda a alguien!"
-    diy:
-      file_yourself:
-        edit:
-          assistance: TBD
-          info: Seleccionaste la opción para hacerlo usted mismo. Le proveeremos las herramientas necesarias para que pueda hacer su propia declaración.
-          right_option:
-            2019_only: Solo está declarando del 2019 (no de los años anteriores)
-            comfortable_online: Le resulta cómodo usar servicios de declaración de impuestos en línea
-            header: 'Esta es la opción adecuada para usted si:'
-            quick: Necesita una solución rápida
-            simple_situation: Su situación fiscal es simple/clara
-          title: "¡Declare aquí sus impuestos usted mismo!"
-      location:
-        edit:
-          title: TBD
-          zip_code: TBD
-      overview:
-        edit:
-          title: TBD
-          taxslayer_header: TBD
-          taxslayer_description: TBD
-          documents_header: TBD
-          documents_description: TBD
-          refund_header: TBD
-          refund_description: TBD
     documents:
       additional_documents:
         document_list_title: 'Basado en sus respuestas previas, es possible que tenga los siguientes documentos:'

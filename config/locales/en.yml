@@ -341,6 +341,37 @@ en:
         ignore: If you don't want to accept the invitation, please ignore this email.
         someone_invited_you: "%{their_name} (%{their_email}) has invited %{your_name} to create an account on GetYourRefund to help people with their taxes."
         subject: You've been invited to GetYourRefund
+  diy:
+    email:
+      edit:
+        title: Please share your email address.
+        email_you_a_link: We will email you a secure link so that you can file later if interested.
+        email_address: Email address
+        email_address_confirmation: Confirm email address
+    file_yourself:
+      edit:
+        assistance: Actually, I need assistance filing.
+        info: You selected our do it yourself option. We'll provide the tools so you can file yourself.
+        right_option:
+          2019_only: You are only filing for 2019 (not previous years)
+          comfortable_online: You’re comfortable using online tax services
+          header: 'This is the right option for you if:'
+          quick: You need a quick option
+          simple_situation: Your tax situation is simple/straightforward
+        title: File your taxes yourself!
+    location:
+      edit:
+        title: Where are you located?
+        zip_code: ZIP Code
+    overview:
+      edit:
+        title: Let's get started!
+        taxslayer_header: Enter info into TaxSlayer
+        taxslayer_description: TaxSlayer is a form where you'll enter all your tax info.
+        documents_header: Submit Documents
+        documents_description: You'll be asked to share all necessary documents (ID, W-2's, 1099, 1095-A, B, C)
+        refund_header: Get Your Refund
+        refund_description: Submit your return and get your refund!
   errors:
     attributes:
       birth_date:
@@ -743,31 +774,6 @@ en:
         done: Done with this step
         info: We will need an ITIN or SSN for each person you add. We’ll ask you to share images of these at the end.
         title: Let’s claim someone!
-    diy:
-      file_yourself:
-        edit:
-          assistance: Actually, I need assistance filing.
-          info: You selected our do it yourself option. We'll provide the tools so you can file yourself.
-          right_option:
-            2019_only: You are only filing for 2019 (not previous years)
-            comfortable_online: You’re comfortable using online tax services
-            header: 'This is the right option for you if:'
-            quick: You need a quick option
-            simple_situation: Your tax situation is simple/straightforward
-          title: File your taxes yourself!
-      location:
-        edit:
-          title: Where are you located?
-          zip_code: ZIP Code
-      overview:
-        edit:
-          title: Let's get started!
-          taxslayer_header: Enter info into TaxSlayer
-          taxslayer_description: TaxSlayer is a form where you'll enter all your tax info.
-          documents_header: Submit Documents
-          documents_description: You'll be asked to share all necessary documents (ID, W-2's, 1099, 1095-A, B, C)
-          refund_header: Get Your Refund
-          refund_description: Submit your return and get your refund!
     documents:
       additional_documents:
         document_list_title: 'Based on your earlier answers, you might have the following:'
