@@ -360,8 +360,8 @@ es:
           description:
             - Solo está declarando del 2020 (no de los años anteriores)
             - Le resulta cómodo usar servicios de declaración de impuestos en línea
-            - Necesita una solución rápida
             - Su situación fiscal es simple/clara
+            - Necesita una solución rápida
         title: "¡Declare aquí sus impuestos usted mismo!"
         continue_through_my_free_taxes: "Continuar con MyFreeTaxes"
     location:

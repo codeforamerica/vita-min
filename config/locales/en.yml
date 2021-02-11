@@ -358,8 +358,8 @@ en:
           description:
             - You are only filing for 2020 (not previous years)
             - You’re comfortable using online tax services
-            - You need a quick option
             - Your tax situation is simple/straightforward
+            - You need a quick option
         title: File your taxes yourself!
         continue_through_my_free_taxes: "Continue through MyFreeTaxes"
     location:
