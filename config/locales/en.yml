@@ -341,12 +341,6 @@ en:
         someone_invited_you: "%{their_name} (%{their_email}) has invited %{your_name} to create an account on GetYourRefund to help people with their taxes."
         subject: You've been invited to GetYourRefund
   diy:
-    email:
-      edit:
-        title: Please share your email address.
-        email_you_a_link: We will email you a secure link so that you can file later if interested.
-        email_address: Email address
-        email_address_confirmation: Confirm email address
     file_yourself:
       edit:
         assistance: Actually, I need assistance filing.
@@ -360,19 +354,6 @@ en:
             - You need a quick option
         title: File your taxes yourself!
         continue_through_my_free_taxes: "Continue through MyFreeTaxes"
-    location:
-      edit:
-        title: Where are you located?
-        zip_code: ZIP Code
-    overview:
-      edit:
-        title: Let's get started!
-        taxslayer_header: Enter info into TaxSlayer
-        taxslayer_description: TaxSlayer is a form where you'll enter all your tax info.
-        documents_header: Submit Documents
-        documents_description: You'll be asked to share all necessary documents (ID, W-2's, 1099, 1095-A, B, C)
-        refund_header: Get Your Refund
-        refund_description: Submit your return and get your refund!
   errors:
     attributes:
       birth_date:
