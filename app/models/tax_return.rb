@@ -32,9 +32,11 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class TaxReturn < ApplicationRecord
+  include InteractionTracking
+
   PRIMARY_SIGNATURE = "primary".freeze
   SPOUSE_SIGNATURE = "spouse".freeze
-  belongs_to :client, touch: true
+  belongs_to :client
   belongs_to :assigned_user, class_name: "User", optional: true
   has_many :documents
 
@@ -44,7 +46,7 @@ class TaxReturn < ApplicationRecord
   validates :year, presence: true
 
   attr_accessor :status_last_changed_by
-  after_update :send_mixpanel_status_change_event
+  after_update :send_mixpanel_status_change_event, :record_internal_interaction
 
   before_save do
     if status == "prep_ready_for_prep" && status_changed?
