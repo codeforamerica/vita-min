@@ -52,23 +52,17 @@ commands:
       - save_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
           paths: [/mnt/ramdisk/vendor/bundle]
-  setup_test_db:
-    description: "Setup test database"
+  await_test_db:
+    description: "Await test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - restore_cache:
-          key: schema-{{ checksum "db/schema.rb" }}
-      - run: bundle exec rake db:create db:schema:load db:schema:cache:dump
-      - save_cache:
-          key: schema-{{ checksum "db/schema.rb" }}
-          paths: [tmp/test_db_schema.rb]
 jobs:
   run_js_tests:
     executor: ruby_executor
     steps:
       - checkout
       - install_js_dependencies
-      - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
+      - run: mkdir -p ~/test-results/jest
       - run:
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
           environment:
@@ -83,15 +77,11 @@ jobs:
       - install_js_dependencies
       - install_system_dependencies
       - install_ruby_dependencies
-      - setup_test_db
-      - run: |
-          RAILS_CACHE_CLASSES=1 bundle exec rspec \
-              --format RspecJunitFormatter \
-              --out ~/test-results/rspec/rspec.xml \
-              --format progress \
-              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - await_test_db
+      - run: bundle exec rails parallel:setup
+      - run: bundle exec parallel_test -t rspec -- -- $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - store_test_results:
-          path: ~/test-results
+          path: tmp/test-results-xml/
   deploy_to_aptible--demo:
     executor: ruby_executor
     steps:
