@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Hub::MetricsController do
   describe '#index' do
-    let(:sla_service_double) { double }
+    let(:sla_service_double) { instance_double(SLABreachService) }
     let(:vita_partner_1) { create :vita_partner, name: "Vita Partner 1" }
     let(:vita_partner_2) { create :vita_partner, name: "Vita Partner 2" }
     let(:vita_partner_3) { create :vita_partner, name: "Vita Partner 3" }
@@ -14,7 +14,7 @@ describe Hub::MetricsController do
       allow(SLABreachService).to receive(:new).and_return(sla_service_double)
       allow(sla_service_double).to receive(:report_generated_at).and_return generated_at
       allow(sla_service_double).to receive(:breach_threshold).and_return breach_threshold
-      allow(sla_service_double).to receive(:attention_needed_breach).and_return breach_data
+      allow(sla_service_double).to receive(:attention_needed_breaches).and_return breach_data
     end
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index

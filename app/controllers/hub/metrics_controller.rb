@@ -12,7 +12,7 @@ module Hub
         sla_service = SLABreachService.new
         { breach_threshold: sla_service.breach_threshold,
           current_as_of: sla_service.report_generated_at,
-          breach_counts: sla_service.attention_needed_breach
+          breach_counts: sla_service.attention_needed_breaches
         }
       end
       data[:total_breaches] = data[:breach_counts].slice(*@vita_partners.map(&:id)).values.inject(:+)
