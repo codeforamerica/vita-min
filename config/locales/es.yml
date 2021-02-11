@@ -1041,7 +1041,6 @@ es:
         questions: Si tiene alguna pregunta mientras tanto, no dude en comunicarse con nosotros haciendo clic en el botón "Chat"/"Ayuda", en la parte inferior derecha.
         title: GetYourRefund no está disponible temporalmente por tareas de mantenimiento
       maybe_ineligible:
-        alternatives: Prueba IRS Free File, un servicio en línea que le permite declarar sus propios impuestos.
         info: "¡Nos complace responder cualquier pregunta que pueda tener sobre GetYourRefund! Contáctenos usando nuestra función de chat abajo de esta pagina."
         title: No estamos seguros de que califique para nuestros servicios.
       other_options:

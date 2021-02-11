@@ -1038,7 +1038,6 @@ en:
         questions: If you have any questions in the meantime, feel free to reach out via the chat/help button in the bottom right.
         title: GetYourRefund is temporarily down for maintenance
       maybe_ineligible:
-        alternatives: Try IRS Free File, an online service that lets you prepare your own taxes.
         info: We’re happy to answer any questions you may have about GetYourRefund! Contact us by using our chat feature below.
         title: We’re unsure if you qualify for our services.
       other_options:
