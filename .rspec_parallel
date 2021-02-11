@@ -1,2 +1,4 @@
 --format progress
 --format ParallelTests::RSpec::RuntimeLogger --out tmp/parallel_runtime_rspec.log
+--format RspecJunitFormatter
+--out tmp/test-results-xml/tests<%= ENV["TEST_ENV_NUMBER"] %>.xml
