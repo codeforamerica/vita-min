@@ -9,21 +9,19 @@
             <%= content_for(:page_title) %>
           </h1>
 
-          <% unless Rails.configuration.diy_off %>
-            <%= link_to diy_file_yourself_path do %>
-              <div class="link-box">
-                <div class="link-box--content">
-                  <div>
-                    <%= image_tag("start-filing-yourself.svg", alt: "") %>
-                  </div>
-                  <div>
-                    <h2 class="file-myself"><%=t("views.questions.welcome.diy.header") %></h2>
-                    <p><%=t("views.questions.welcome.diy.info") %></p>
-                  </div>
+          <%= link_to diy_file_yourself_path do %>
+            <div class="link-box">
+              <div class="link-box--content">
+                <div>
+                  <%= image_tag("start-filing-yourself.svg", alt: "") %>
                 </div>
-                <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
+                <div>
+                  <h2 class="file-myself"><%=t("views.questions.welcome.diy.header") %></h2>
+                  <p><%=t("views.questions.welcome.diy.info") %></p>
+                </div>
               </div>
-            <% end %>
+              <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
+            </div>
           <% end %>
 
           <%= link_to file_with_help_questions_path do %>

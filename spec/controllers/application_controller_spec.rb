@@ -645,7 +645,6 @@ RSpec.describe ApplicationController do
 
     before do
       allow(controller).to receive(:current_intake).and_return(intake)
-      allow(controller).to receive(:current_diy_intake).and_return(diy_intake)
     end
 
     context "for any user" do
@@ -661,15 +660,6 @@ RSpec.describe ApplicationController do
       it "includes an intake_id" do
         controller.append_info_to_payload(fake_payload)
         expect(fake_payload).to include(request_details: include(intake_id: intake.id))
-      end
-    end
-
-    context "for a user with a diy intake" do
-      let(:diy_intake) { create(:diy_intake) }
-
-      it "includes a diy_intake_id" do
-        controller.append_info_to_payload(fake_payload)
-        expect(fake_payload).to include(request_details: include(diy_intake_id: diy_intake.id))
       end
     end
 

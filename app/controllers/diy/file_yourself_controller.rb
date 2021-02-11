@@ -1,7 +1,5 @@
 module Diy
-  class FileYourselfController < DiyController
-    skip_before_action :require_diy_intake
-
+  class FileYourselfController < ApplicationController
     layout "application"
 
     def edit; end

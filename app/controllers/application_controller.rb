@@ -30,10 +30,6 @@ class ApplicationController < ActionController::Base
     Intake.find_by_id(session[:completed_intake_id])
   end
 
-  def current_diy_intake
-    DiyIntake.find_by_id(session[:diy_intake_id])
-  end
-
   def current_stimulus_triage
     StimulusTriage.find_by_id(session[:stimulus_triage_id])
   end
@@ -148,7 +144,6 @@ class ApplicationController < ActionController::Base
     payload[:request_details] = {
       current_user_id: current_user&.id,
       intake_id: current_intake&.id,
-      diy_intake_id: current_diy_intake&.id,
       stimulus_triage_id: current_stimulus_triage&.id,
       device_type: user_agent.device_type,
       browser_name: user_agent.name,
@@ -238,8 +233,6 @@ class ApplicationController < ActionController::Base
       params[:token],
       params[:intake_id],
       session[:intake_id],
-      params[:diy_intake_id],
-      session[:diy_intake_id],
       params[:id],
       params[:ticket_id],
       current_intake&.intake_ticket_id,

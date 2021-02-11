@@ -72,13 +72,8 @@ Rails.application.routes.draw do
     resources :signups, only: [:new, :create]
     get "/sign-up", to: "signups#new"
 
-    # Facilitated Self-Assistance, aka DIY
-    scoped_navigation_routes(:diy, DiyNavigation, as_redirects: Rails.configuration.diy_off || Rails.configuration.offseason) do
-      if Rails.configuration.diy_off || Rails.configuration.offseason
-        root to: redirect { |_, request| "/#{request.params[:locale]}" }
-      else
-        root "public_pages#diy_home"
-      end
+    namespace :diy do
+      get "/file-yourself", to: "file_yourself#edit"
     end
 
     # Stimulus routes

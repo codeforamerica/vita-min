@@ -755,7 +755,7 @@ describe ApplicationController, type: :controller do
       end
 
       def inst_test
-        [:intake_id, :diy_intake_id].each { |k| session[k] = params[k] }
+        session[:intake_id] = params[:intake_id]
         MixpanelService.send_event(event_id: '72347236', event_name: 'inst_test_event', data: {}, request: request, path_exclusions: all_identifiers)
         render plain: 'nope'
       end
@@ -780,22 +780,6 @@ describe ApplicationController, type: :controller do
     it 'strips :intake_id from paths' do
       routes.draw { get "req_test/:intake_id/rest?the-id=9999998" => "anonymous#req_test" }
       params = { intake_id: 9999998 }
-      get :req_test, params: params
-
-      expect(fake_tracker).to have_received(:track).with(
-        '72347235',
-        'req_test_event',
-        hash_including(
-          path: '/req_test/***/rest?the-id=***',
-          full_path: '/req_test/***/rest?the-id=***',
-          referrer: 'http://test.dev/***/rest'
-        )
-      )
-    end
-
-    it 'strips :diy_intake_id from paths' do
-      routes.draw { get "req_test/:diy_intake_id/rest?the-id=9999998" => "anonymous#req_test" }
-      params = { diy_intake_id: 9999998 }
       get :req_test, params: params
 
       expect(fake_tracker).to have_received(:track).with(
@@ -868,21 +852,6 @@ describe ApplicationController, type: :controller do
         hash_including(
           path: '/inst_test/***/rest?the-id=***',
           full_path: '/inst_test/***/rest?the-id=***',
-        )
-      )
-    end
-
-    it 'strips current_diy_intake.id from paths' do
-      diy_intake = create(:diy_intake)
-      routes.draw { get "inst_test/:diy_intake_id/rest" => "anonymous#inst_test" }
-      get :inst_test, params: { diy_intake_id: diy_intake.id }
-
-      expect(fake_tracker).to have_received(:track).with(
-        '72347236',
-        'inst_test_event',
-        hash_including(
-          path: '/inst_test/***/rest',
-          full_path: '/inst_test/***/rest',
         )
       )
     end

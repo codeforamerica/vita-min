@@ -43,32 +43,5 @@ RSpec.describe "offseason routes", type: :request do
       get stimulus_filed_recently_path
       expect(response).to redirect_to root_path
     end
-
-    it "redirects diy routes to root" do
-      get diy_file_yourself_path
-      expect(response).to redirect_to root_path
-    end
-  end
-
-  context "when diy_off is true" do
-    before do
-      allow(Rails.configuration).to receive(:diy_off).and_return true
-      Rails.application.reload_routes!
-    end
-
-    after do
-      allow(Rails.configuration).to receive(:diy_off).and_call_original
-      Rails.application.reload_routes!
-    end
-
-    it "redirects diy routes to root" do
-      get diy_file_yourself_path
-      expect(response).to redirect_to root_path
-    end
-
-    it "redirects /diy path to root" do
-      get diy_root_path
-      expect(response).to redirect_to root_path
-    end
   end
 end
