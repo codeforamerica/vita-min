@@ -1,5 +1,5 @@
 namespace :fuica do
-  describe "seeds appropriate fuica value onto all existing clients."
+  desc "seeds appropriate fuica value onto all existing clients."
   task "seed" => :environment do
     client_groups = Client.all.size / 1000
     puts("client count", Client.all.size)
