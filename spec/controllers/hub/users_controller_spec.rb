@@ -187,6 +187,13 @@ RSpec.describe Hub::UsersController do
 
       render_views
 
+      it "renders a page successfully and shows a delete button" do
+        get :edit, params: params
+
+        expect(response).to be_ok
+        expect(response.body).to have_text "Delete"
+      end
+
       context "editing a locked user" do
         before { user.lock_access! }
 
@@ -378,6 +385,52 @@ RSpec.describe Hub::UsersController do
         expect(user.reload.access_locked?).to eq false
         expect(response).to redirect_to(hub_users_path)
         expect(flash[:notice]).to eq "Unlocked #{user.name}'s account"
+      end
+    end
+  end
+
+  describe "#destroy" do
+    let!(:user) { create :team_member_user }
+    let(:params) do
+      { id: user.id }
+    end
+
+    it_behaves_like :a_post_action_for_admins_only, action: :destroy
+
+    context "as an authenticated admin user" do
+      before { sign_in create(:admin_user) }
+
+      it "deletes the user and shows a confirmation message" do
+        expect do
+          delete :destroy, params: params
+        end.to change(User, :count).by(-1).and(change(TeamMemberRole, :count).by(-1))
+
+        expect(flash[:notice]).to eq "Deleted #{user.name}'s account"
+        expect(response).to redirect_to hub_users_path
+      end
+
+      context "when the user has sent a message to a client" do
+        before { create :outgoing_text_message, user: user }
+
+        it "raises an error and does not destroy the role" do
+          expect do
+            delete :destroy, params: params
+          end.to raise_error ActiveRecord::InvalidForeignKey
+          expect(user.reload.role).to be_present
+        end
+      end
+
+      context "when the user is assigned to a tax return" do
+        let!(:tax_return) { create :tax_return, assigned_user: user }
+
+        it "adds a flash warning and redirects to the user's edit page" do
+          expect do
+            delete :destroy, params: params
+          end.not_to change(User, :count)
+
+          expect(flash[:alert]).to eq "Cannot delete #{user.name}'s account. #{user.name} is still assigned to a tax return on client ##{tax_return.client_id}"
+          expect(response).to redirect_to edit_hub_user_path(id: user)
+        end
       end
     end
   end

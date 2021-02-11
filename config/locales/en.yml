@@ -13,6 +13,7 @@ en:
     users:
       edit:
         is_admin_label: Admin?
+        delete_confirmation: "Are you sure you want to delete %{name}'s account?"
       index:
         title: Users
         needs_to_accept_invite: "Needs to accept invite"
