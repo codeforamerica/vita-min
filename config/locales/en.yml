@@ -354,12 +354,14 @@ en:
         assistance: Actually, I need assistance filing.
         info: You selected our do it yourself option. We'll provide the tools so you can file yourself.
         right_option:
-          2019_only: You are only filing for 2019 (not previous years)
-          comfortable_online: You’re comfortable using online tax services
           header: 'This is the right option for you if:'
-          quick: You need a quick option
-          simple_situation: Your tax situation is simple/straightforward
+          description:
+            - You are only filing for 2020 (not previous years)
+            - You’re comfortable using online tax services
+            - You need a quick option
+            - Your tax situation is simple/straightforward
         title: File your taxes yourself!
+        continue_through_my_free_taxes: "Continue through MyFreeTaxes"
     location:
       edit:
         title: Where are you located?

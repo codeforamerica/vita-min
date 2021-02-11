@@ -16,31 +16,22 @@
           <p><%=t(".info") %></p>
 
           <div class="text--semibold spacing-below-35">
-            <p><%=t(".right_option.header") %></p>
+            <p><%= t(".right_option.header") %></p>
             <ul class="checkmark-list">
+              <% t(".right_option.description").each do |item| %>
               <li>
                 <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t(".right_option.2019_only") %> </span>
+                <span><%= item %> </span>
               </li>
-              <li>
-                <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t(".right_option.comfortable_online") %> </span>
-              </li>
-              <li>
-                <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t(".right_option.simple_situation") %> </span>
-              </li>
-              <li>
-                <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%=t(".right_option.quick") %> </span>
-              </li>
+              <% end %>
             </ul>
           </div>
 
           <%= link_to t(".assistance"), file_with_help_questions_path %>
 
-          <%= link_to t("general.continue"), next_path, class: "button button--primary text--centered button--wide spacing-above-60" %>
-
+          <a href="https://www.myfreetaxes.com/" class="button button--primary text--centered button--wide spacing-above-60">
+            <%= t(".continue_through_my_free_taxes") %>
+          </a>
         </main>
       </div>
     </div>
