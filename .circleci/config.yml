@@ -85,7 +85,7 @@ jobs:
       - install_ruby_dependencies
       - setup_test_db
       - run: |
-          RAILS_CACHE_CLASSES=1 bundle exec rspec \
+          EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec rspec \
               --format RspecJunitFormatter \
               --out ~/test-results/rspec/rspec.xml \
               --format progress \
