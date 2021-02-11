@@ -4,7 +4,13 @@ namespace :documents do
     Document.where.not(client: nil).find_each do |document|
       if document.upload.present? && document.upload.filename.extension_without_delimiter.downcase == "heic"
         puts "Converting document #{document.id}"
-        document.convert_heic_upload_to_jpg!
+        begin
+          document.convert_heic_upload_to_jpg!
+        rescue StandardError
+          # Empirically, there are HEIC files on demo that fail to convert on demo
+          # but seem to convert fine on development workstations.
+          puts("[E] Unable to convert")
+        end
       end
     end
   end
