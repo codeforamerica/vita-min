@@ -78,9 +78,7 @@ jobs:
       - install_ruby_dependencies
       - await_test_db
       - run: bundle exec rake db:create db:schema:load
-      - run: createdb vita-min_test2
-      - run: pg_dump -Fc -d vita-min_test | pg_restore -d vita-min_test2 --single-transaction
-      - run: RAILS_CACHE_CLASSES=1 PARALLEL_TEST_PROCESSORS=2 bundle exec parallel_test -t rspec -- -- $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - run: bundle exec "knapsack_pro:queue:rspec[--format documentation]"
       - store_test_results:
           path: tmp/test-results-xml/
   deploy_to_aptible--demo:

@@ -88,6 +88,7 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'turbo_tests'
   gem 'timecop'
+  gem 'knapsack_pro'
 end
 
 group :development do
