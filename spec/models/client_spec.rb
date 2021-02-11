@@ -2,23 +2,24 @@
 #
 # Table name: clients
 #
-#  id                           :bigint           not null, primary key
-#  attention_needed_since       :datetime
-#  current_sign_in_at           :datetime
-#  current_sign_in_ip           :inet
-#  failed_attempts              :integer          default(0), not null
-#  last_incoming_interaction_at :datetime
-#  last_interaction_at          :datetime
-#  last_sign_in_at              :datetime
-#  last_sign_in_ip              :inet
-#  locked_at                    :datetime
-#  login_requested_at           :datetime
-#  login_token                  :string
-#  routing_method               :integer
-#  sign_in_count                :integer          default(0), not null
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  vita_partner_id              :bigint
+#  id                                       :bigint           not null, primary key
+#  attention_needed_since                   :datetime
+#  current_sign_in_at                       :datetime
+#  current_sign_in_ip                       :inet
+#  failed_attempts                          :integer          default(0), not null
+#  first_unanswered_incoming_interaction_at :datetime
+#  last_incoming_interaction_at             :datetime
+#  last_interaction_at                      :datetime
+#  last_sign_in_at                          :datetime
+#  last_sign_in_ip                          :inet
+#  locked_at                                :datetime
+#  login_requested_at                       :datetime
+#  login_token                              :string
+#  routing_method                           :integer
+#  sign_in_count                            :integer          default(0), not null
+#  created_at                               :datetime         not null
+#  updated_at                               :datetime         not null
+#  vita_partner_id                          :bigint
 #
 # Indexes
 #
