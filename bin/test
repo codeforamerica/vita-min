@@ -6,5 +6,5 @@ if [ $(sysctl -n hw.logicalcpu) != "1" ] && ! psql "postgresql://localhost/vita-
   exit 1
 fi
 
-RAILS_CACHE_CLASSES=1 bundle exec turbo_tests || { echo "Not running JS tests due to rspec failure." ; exit 1; }
+EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec turbo_tests || { echo "Not running JS tests due to rspec failure." ; exit 1; }
 yarn jest
