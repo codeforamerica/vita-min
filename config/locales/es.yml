@@ -345,7 +345,7 @@ es:
   diy:
     file_yourself:
       edit:
-        assistance: TBD
+        assistance: De hecho, necesito ayuda para declarar.
         info: Seleccionaste la opción para hacerlo usted mismo. Le proveeremos las herramientas necesarias para que pueda hacer su propia declaración.
         right_option:
           header: 'Esta es la opción adecuada para usted si:'
