@@ -659,7 +659,7 @@ en:
       email_body: |
         Hello %{preferred_name},
 
-        Thanks for starting your taxes with GetYourRefund - you’re almost there! Your case number is %{client_id}. We will prepare your taxes once we have all of your required information and tax documents.
+        Thanks for starting your taxes with GetYourRefund - you’re almost there! Your client id is %{client_id}. We will prepare your taxes once we have all of your required information and tax documents.
 
         You can securely upload your ID and additional tax documents here: %{requested_docs_link}
 
@@ -671,7 +671,7 @@ en:
         Your Tax Team at GetYourRefund.org
       email_subject: Getting your taxes started with GetYourRefund
       sms_body: |
-        Hello %{preferred_name}, thanks for starting your taxes with GetYourRefund, you’re almost there! Your case number is %{client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Upload documents securely here: %{requested_docs_link}
+        Hello %{preferred_name}, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is %{client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Upload documents securely here: %{requested_docs_link}
 
         Respond to this message if you have any questions. We’re here to help!
   models:

@@ -153,7 +153,7 @@ RSpec.describe Questions::ConsentController do
           email_body = <<~BODY
             Hello Ruthie Rutabaga,
 
-            Thanks for starting your taxes with GetYourRefund - you’re almost there! Your case number is #{intake.client_id}. We will prepare your taxes once we have all of your required information and tax documents.
+            Thanks for starting your taxes with GetYourRefund - you’re almost there! Your client id is #{intake.client_id}. We will prepare your taxes once we have all of your required information and tax documents.
 
             You can securely upload your ID and additional tax documents here: #{intake.requested_docs_token_link}
 
@@ -176,7 +176,7 @@ RSpec.describe Questions::ConsentController do
           subject.after_update_success
 
           body = <<~BODY
-            Hello Ruthie Rutabaga, thanks for starting your taxes with GetYourRefund, you’re almost there! Your case number is #{intake.client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Upload documents securely here: #{intake.requested_docs_token_link}
+            Hello Ruthie Rutabaga, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is #{intake.client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Upload documents securely here: #{intake.requested_docs_token_link}
 
             Respond to this message if you have any questions. We’re here to help!
 
@@ -200,7 +200,7 @@ RSpec.describe Questions::ConsentController do
           email_body = <<~BODY
             Hola Ruthie Rutabaga,
 
-            Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! Su número de caso es #{intake.client_id}. Empezaremos a preparar sus impuestos una vez que recibamos toda la información requerida y los documentos de sus impuestos.
+            Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! Su cliente id es #{intake.client_id}. Empezaremos a preparar sus impuestos una vez que recibamos toda la información requerida y los documentos de sus impuestos.
 
             Puede subir su identificación o documentos de impuestos adicionales a su enlace de envío seguro aquí: #{intake.requested_docs_token_link}
 
@@ -224,7 +224,7 @@ RSpec.describe Questions::ConsentController do
           subject.after_update_success
 
           body = <<~BODY
-            Hola Ruthie Rutabaga, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su número de caso es #{intake.client_id}. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Suba sus documentos a su enlace de envío seguro aquí: #{intake.requested_docs_token_link}
+            Hola Ruthie Rutabaga, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es #{intake.client_id}. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Suba sus documentos a su enlace de envío seguro aquí: #{intake.requested_docs_token_link}
             Responda a este mensaje con cualquier pregunta. ¡Estamos aquí para servirle!
 
           BODY
