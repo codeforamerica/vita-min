@@ -3,11 +3,9 @@ version: 2.1
 
 executors:
   ruby_executor:
-    working_directory: /mnt/ramdisk
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
   rails_executor:
-    working_directory: /mnt/ramdisk
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
@@ -25,56 +23,51 @@ commands:
           name: install system dependencies
           command: |
             sudo apt-get update && \
-            sudo apt-get install -y pdftk ghostscript
+            sudo apt-get install -y pdftk ghostscript postgresql-client
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:
       - restore_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-v1-{{ checksum "yarn.lock" }}
       - run:
           name: yarn install --frozen-lockfile
           command: yarn install --frozen-lockfile
       - save_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-v1-{{ checksum "yarn.lock" }}
           paths:
-            - /mnt/ramdisk/node_modules
+            - node_modules
             - ~/.npm
   install_ruby_dependencies:
     description: "Install Ruby dependencies"
     steps:
       - restore_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-v3-{{ checksum "Gemfile.lock" }}
       - run:
           name: install bundler & ruby dependencies
           command: |
             gem install bundler:2.2.5 --no-document && \
             bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run: if [ ! -e ~/.webdrivers/chromedriver ] ; then bundle exec rake webdrivers:chromedriver:update ; fi
       - save_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
-          paths: [/mnt/ramdisk/vendor/bundle]
-  setup_test_db:
-    description: "Setup test database"
+          key: bundle-v3-{{ checksum "Gemfile.lock" }}
+          paths: [vendor/bundle, ~/.webdrivers]
+  await_test_db:
+    description: "Await test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - restore_cache:
-          key: schema-{{ checksum "db/schema.rb" }}
-      - run: bundle exec rake db:create db:schema:load db:schema:cache:dump
-      - save_cache:
-          key: schema-{{ checksum "db/schema.rb" }}
-          paths: [tmp/test_db_schema.rb]
 jobs:
   run_js_tests:
     executor: ruby_executor
     steps:
       - checkout
       - install_js_dependencies
-      - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
+      - run: mkdir -p test-results/jest
       - run:
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
           environment:
-            JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
+            JEST_JUNIT_OUTPUT_DIR: test-results/jest/
       - store_test_results:
-          path: ~/test-results
+          path: test-results
   run_ruby_tests:
     executor: rails_executor
     parallelism: 4
@@ -83,15 +76,13 @@ jobs:
       - install_js_dependencies
       - install_system_dependencies
       - install_ruby_dependencies
-      - setup_test_db
-      - run: |
-          RAILS_CACHE_CLASSES=1 bundle exec rspec \
-              --format RspecJunitFormatter \
-              --out ~/test-results/rspec/rspec.xml \
-              --format progress \
-              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - await_test_db
+      - run: bundle exec rake db:create db:schema:load
+      - run: createdb vita-min_test2
+      - run: pg_dump -Fc -d vita-min_test | pg_restore -d vita-min_test2 --single-transaction
+      - run: RAILS_CACHE_CLASSES=1 PARALLEL_TEST_PROCESSORS=2 bundle exec parallel_test -t rspec -- -- $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - store_test_results:
-          path: ~/test-results
+          path: tmp/test-results-xml/
   deploy_to_aptible--demo:
     executor: ruby_executor
     steps:
