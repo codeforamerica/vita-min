@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe Hub::MetricsController do
   describe '#index' do
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
     let(:sla_service_double) { double }
     let(:vita_partner_1) { create :vita_partner, name: "Vita Partner 1" }
     let(:vita_partner_2) { create :vita_partner, name: "Vita Partner 2" }
@@ -10,12 +9,16 @@ describe Hub::MetricsController do
     let(:generated_at) { DateTime.new(2020, 9, 2) }
     let(:breach_threshold) { DateTime.new(2020, 8, 30) }
     let(:breach_data) {{ vita_partner_1.id => 2, vita_partner_2.id => 1} }
+
     before do
       allow(SLABreachService).to receive(:new).and_return(sla_service_double)
       allow(sla_service_double).to receive(:report_generated_at).and_return generated_at
       allow(sla_service_double).to receive(:breach_threshold).and_return breach_threshold
       allow(sla_service_double).to receive(:attention_needed_breach).and_return breach_data
     end
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
+
     context 'when authenticated as an admin' do
       before do
         sign_in (create :admin_user)
