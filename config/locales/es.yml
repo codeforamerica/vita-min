@@ -356,12 +356,14 @@ es:
         assistance: TBD
         info: Seleccionaste la opción para hacerlo usted mismo. Le proveeremos las herramientas necesarias para que pueda hacer su propia declaración.
         right_option:
-          2019_only: Solo está declarando del 2019 (no de los años anteriores)
-          comfortable_online: Le resulta cómodo usar servicios de declaración de impuestos en línea
           header: 'Esta es la opción adecuada para usted si:'
-          quick: Necesita una solución rápida
-          simple_situation: Su situación fiscal es simple/clara
+          description:
+            - Solo está declarando del 2020 (no de los años anteriores)
+            - Le resulta cómodo usar servicios de declaración de impuestos en línea
+            - Su situación fiscal es simple/clara
+            - Necesita una solución rápida
         title: "¡Declare aquí sus impuestos usted mismo!"
+        continue_through_my_free_taxes: "Continuar con MyFreeTaxes"
     location:
       edit:
         title: TBD
@@ -1345,7 +1347,7 @@ es:
               ($1,200 para una pareja casada que presenta una declaración conjunta) y $ 600 adicionales por
               cada hijo(a) dependiente menor de 17 años. Si aún no ha recibido ninguna de las rondas de pagos,
               no es ¡demasiado tarde! Aún puede reclamarlos presentando una declaración de impuestos este año.
-              
+
           eligibility:
             header: "¿Quién es elegible?"
             info:

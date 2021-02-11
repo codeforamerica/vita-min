@@ -1,21 +1,16 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake New Client wants to file on their own" do
-  xscenario "a new client files through TaxSlayer" do
+  scenario "a new client files through My Free Taxes", js: true do
+    allow(MixpanelService).to receive(:send_event)
+
     visit "/questions/welcome"
     click_on "File taxes myself"
 
     expect(page).to have_selector("h1", text: "File your taxes yourself!")
-    click_on "Continue"
+    click_on "Continue through MyFreeTaxes"
+    expect(current_url).to eq("https://www.myfreetaxes.com/")
 
-    expect(page).to have_selector("h1", text: "Let's get started!")
-    click_on "Continue"
-
-    fill_in "ZIP Code", with: 90210
-    click_on "Continue"
-
-    fill_in "Email address", with: "test@example.com"
-    fill_in "Confirm email address", with: "test@example.com"
-    click_on "Continue to TaxSlayer"
+    expect(MixpanelService).to have_received(:send_event).with(hash_including({event_name: "click_mft-diy-referral"}))
   end
 end
