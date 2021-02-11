@@ -5,6 +5,15 @@
   <table class="index-table user-table">
     <caption class="index-table__title">
       <h1 class="h2"><%= t(".title") %></h1>
+      <%= page_entries_info @users, model: "entry" %>
+      <%= will_paginate(
+            @users,
+            previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\"> Previous</span>",
+            next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+            inner_window: 1,
+            outer_window: 1,
+            param_name: "page",
+      ) %>
     </caption>
 
     <thead class="index-table__head">

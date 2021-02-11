@@ -32,6 +32,8 @@
 class Client < ApplicationRecord
   devise :lockable, :timeoutable, :trackable
 
+  self.per_page = 25
+
   belongs_to :vita_partner, optional: true
   has_one :intake
   has_many :documents

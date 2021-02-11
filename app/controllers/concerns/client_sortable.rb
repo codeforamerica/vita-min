@@ -12,7 +12,7 @@ module ClientSortable
     clients
   end
 
-  # see if there are any overlapping keys in the provied params and search/sort set
+  # see if there are any overlapping keys in the provided params and search/sort set
   def has_search_and_sort_params?
     (params.keys.map(&:to_sym) & search_and_sort_params).any?
   end

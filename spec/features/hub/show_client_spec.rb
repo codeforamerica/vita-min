@@ -45,15 +45,6 @@ RSpec.describe "a user viewing a client" do
         expect(page).to have_text("BAS | HSA")
       end
     end
-
-    context "navigation bar" do
-      scenario "returns to the client search page" do
-        visit hub_client_path(id: client.id)
-        click_on("Search Clients")
-
-        expect(current_path).to eq(search_hub_clients_path)
-      end
-    end
   end
 
   context "user without admin access, but is coalition lead for client organization" do

@@ -7,22 +7,22 @@
 
 .pagination {
   @extend .pagination__buttons;
-  > a {
+  > a { // page links
     @extend .button;
     @extend .button--small;
   }
-  > em {
+  > em { // current page
     font-style: normal;
     @extend .button;
     @extend .button--small;
     @extend .pagination__selected;
   }
-  > span.disabled {
+  > span.disabled { // disabled page links
     @extend .button;
     @extend .button--small;
     @extend .button--disabled;
   }
-  > span.gap {
+  > span.gap { // ellipsis between pages
     @extend .pagination__ellipsis;
   }
 

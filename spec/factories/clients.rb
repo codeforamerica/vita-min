@@ -34,5 +34,15 @@ FactoryBot.define do
     trait :with_return do
       tax_returns { FactoryBot.create_list(:tax_return, 1, status: 101) }
     end
+
+    factory :client_with_intake_and_return do
+      with_return
+      transient do
+        preferred_name { "Maeby" }
+      end
+      after(:create) do |client, evaluator|
+        create :intake, client: client, preferred_name: evaluator.preferred_name
+      end
+    end
   end
 end

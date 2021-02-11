@@ -9,7 +9,9 @@ module Hub
 
     def profile; end
 
-    def index; end
+    def index
+      @users = @users.page(params[:page])
+    end
 
     def edit; end
 

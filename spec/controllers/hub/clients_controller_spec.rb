@@ -488,6 +488,25 @@ RSpec.describe Hub::ClientsController do
         end
       end
 
+      context "with 26 clients and a page 2 param" do
+        let!(:extra_clients) { create_list :client_with_intake_and_return, 25, vita_partner: organization }
+        let!(:last_client) { create :client_with_intake_and_return, preferred_name: "Zed", vita_partner: organization }
+        let(:params) do
+          {
+            page: "2",
+            column: "preferred_name",
+            order: "asc"
+          }
+        end
+
+        it "only shows the 26th client" do
+          get :index, params: params
+
+          expect(assigns(:clients).length).to eq 1
+          expect(assigns(:clients)).to match_array [last_client]
+        end
+      end
+
       context "filtering" do
         context "with a status filter" do
           let!(:included_client) { create :client, vita_partner: organization, tax_returns: [(create :tax_return, status: "intake_in_progress")], intake: (create :intake) }

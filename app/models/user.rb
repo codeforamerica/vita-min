@@ -55,6 +55,8 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
 
+  self.per_page = 25
+
   before_validation :format_phone_number
   validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
