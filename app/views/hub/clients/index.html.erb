@@ -2,13 +2,23 @@
 
 <% content_for :card do %>
   <section class="slab slab--padded client-index-header">
-    <%= render 'shared/user_header' %>
+    <%= render "shared/user_header" %>
     <%= render "shared/dashboard_navigation" %>
     <%= render "shared/client_filters" %>
 
     <div class="actions-wrapper">
       <%= link_to t(".add_client"), new_hub_client_path, class: "button" %>
     </div>
+
+    <%= page_entries_info @clients, model: "entry" %>
+    <%= will_paginate(
+          @clients,
+          previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\"> Previous</span>",
+          next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+          inner_window: 1,
+          outer_window: 1,
+          param_name: "page",
+    ) %>
   </section>
 
   <section class="scrollable-table-wrapper">

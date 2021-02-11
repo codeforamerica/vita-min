@@ -6,7 +6,6 @@ es:
     back_to:
       return_to_dashboard: Regresar al Tablero
       all_clients: Todos los Clientes
-      search_clients: Buscar Clientes
       return_to_profile: Volver al Perfil
       my_clients: Mis Clientes
       my_profile: Mi Perfil
@@ -123,8 +122,6 @@ es:
           status: actualizó estado
           success: 'Éxito: Acción completo! %{action_list}.'
           text_message: envió mensjaje de texto
-      search_clients:
-        title: Buscar clientes
       unlinked_clients:
         title: "Clientes no vinculados"
       unlock:
