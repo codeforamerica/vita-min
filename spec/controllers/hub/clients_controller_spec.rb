@@ -257,6 +257,21 @@ RSpec.describe Hub::ClientsController do
         end
       end
     end
+
+    context "as an authenticated admin" do
+      before { sign_in create(:admin_user) }
+
+      context "when a client's account has been locked" do
+        before { client.lock_access! }
+
+        render_views
+        it "shows a link to unlock the client's account" do
+          get :show, params: params
+
+          expect(response.body).to have_text "Unlock account"
+        end
+      end
+    end
   end
 
   describe "#index" do
@@ -319,13 +334,26 @@ RSpec.describe Hub::ClientsController do
           expect(tobias_2018_assignee).to have_text "Lindsay"
         end
 
-        describe "when a client needs attention" do
+        context "when a client needs attention" do
+          before { tobias.touch(:attention_needed_since) }
+
           it "adds the needs attention icon into the DOM" do
-            tobias.touch(:attention_needed_since)
             get :index
+
             html = Nokogiri::HTML.parse(response.body)
             expect(html.at_css("#client-#{michael.id}")).not_to have_css("i.needs-attention")
             expect(html.at_css("#client-#{tobias.id}")).to have_css("i.needs-attention")
+          end
+        end
+
+        context "when a client's account is locked" do
+          before { george_sr.lock_access! }
+
+          it "shows that their account is locked" do
+            get :index
+
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("#client-#{george_sr.id}")).to have_text("Locked")
           end
         end
       end
@@ -849,6 +877,28 @@ RSpec.describe Hub::ClientsController do
           expect(flash[:notice]).to eq "Success: Action taken! Updated status, sent email, added internal note."
           expect(response).to redirect_to hub_client_path(id: client.id)
         end
+      end
+    end
+  end
+
+  describe "#unlock" do
+    let(:client) { create(:intake, preferred_name: "Maeby").client }
+    let(:params) do
+      { id: client.id }
+    end
+    before { client.lock_access! }
+
+    it_behaves_like :a_post_action_for_admins_only, action: :unlock
+
+    context "as an admin" do
+      before { sign_in create(:admin_user) }
+
+      it "unlocks the client and redirects to the client profile page" do
+        patch :unlock, params: params
+
+        expect(client.reload.access_locked?).to eq false
+        expect(response).to redirect_to(hub_client_path(id: client))
+        expect(flash[:notice]).to eq "Unlocked #{client.preferred_name}'s account."
       end
     end
   end
