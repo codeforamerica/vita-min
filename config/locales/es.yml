@@ -1425,6 +1425,8 @@ es:
         body: Estamos experimentando un gran volumen de clientes en este momento. Nuestro objetivo es brindar un servicio de alta calidad a todos nuestros clientes. Los tiempos de espera actuales para la opción Declara con Ayuda son de 2-3 semanas. Pedimos disculpas por la espera.
         file_with_help: Declarar con ayuda
         title: Vaya, parece que estamos saturados en este momento.
+        diy_html: "TBD"
+        file_through_my_free_taxes: "TBD"
       backtaxes:
         select_all_that_apply: Seleccione todas las que correspondan.
         title: "¿Qué años necesita presentar?"
