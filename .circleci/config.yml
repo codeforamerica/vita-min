@@ -41,7 +41,7 @@ commands:
     description: "Install Ruby dependencies"
     steps:
       - restore_cache:
-          key: bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: bundle-v3-{{ checksum "Gemfile.lock" }}
       - run:
           name: install bundler & ruby dependencies
           command: |
@@ -49,7 +49,7 @@ commands:
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - run: if [ ! -e ~/.webdrivers/chromedriver ] ; then bundle exec rake webdrivers:chromedriver:update ; fi
       - save_cache:
-          key: bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: bundle-v3-{{ checksum "Gemfile.lock" }}
           paths: [vendor/bundle, ~/.webdrivers]
   await_test_db:
     description: "Await test database"
