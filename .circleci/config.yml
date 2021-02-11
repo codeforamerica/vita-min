@@ -77,6 +77,7 @@ jobs:
       - install_js_dependencies
       - install_system_dependencies
       - install_ruby_dependencies
+      - run: bundle exec bundle exec bootsnap precompile --gemfile app/ lib/
       - await_test_db
       - run: bundle exec rails parallel:setup
       - run: bundle exec parallel_test -t rspec -- -- $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
