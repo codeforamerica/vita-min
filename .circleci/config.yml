@@ -3,11 +3,9 @@ version: 2.1
 
 executors:
   ruby_executor:
-    working_directory: ~
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
   rails_executor:
-    working_directory: ~
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
@@ -37,7 +35,7 @@ commands:
       - save_cache:
           key: yarn-v1-{{ checksum "yarn.lock" }}
           paths:
-            - ~/node_modules
+            - node_modules
             - ~/.npm
   install_ruby_dependencies:
     description: "Install Ruby dependencies"
@@ -62,13 +60,13 @@ jobs:
     steps:
       - checkout
       - install_js_dependencies
-      - run: mkdir -p ~/test-results/jest
+      - run: mkdir -p test-results/jest
       - run:
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
           environment:
-            JEST_JUNIT_OUTPUT_DIR: ./test-results/jest/
+            JEST_JUNIT_OUTPUT_DIR: test-results/jest/
       - store_test_results:
-          path: ~/test-results
+          path: test-results
   run_ruby_tests:
     executor: rails_executor
     parallelism: 4
