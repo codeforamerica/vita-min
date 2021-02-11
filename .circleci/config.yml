@@ -3,11 +3,11 @@ version: 2.1
 
 executors:
   ruby_executor:
-    working_directory: /mnt/ramdisk
+    working_directory: ~
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
   rails_executor:
-    working_directory: /mnt/ramdisk
+    working_directory: ~
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
@@ -30,28 +30,28 @@ commands:
     description: "Install JS dependencies"
     steps:
       - restore_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-v1-{{ checksum "yarn.lock" }}
       - run:
           name: yarn install --frozen-lockfile
           command: yarn install --frozen-lockfile
       - save_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-v1-{{ checksum "yarn.lock" }}
           paths:
-            - /mnt/ramdisk/node_modules
+            - ~/node_modules
             - ~/.npm
   install_ruby_dependencies:
     description: "Install Ruby dependencies"
     steps:
       - restore_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}
       - run:
           name: install bundler & ruby dependencies
           command: |
             gem install bundler:2.2.5 --no-document && \
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
-          paths: [/mnt/ramdisk/vendor/bundle]
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}
+          paths: [vendor/bundle]
   await_test_db:
     description: "Await test database"
     steps:
