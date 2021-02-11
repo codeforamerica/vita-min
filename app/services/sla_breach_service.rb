@@ -16,6 +16,6 @@ class SLABreachService
 
   # clients who messaged us and have not been responded to _with a message, call or email_ within the breach threshold
   def outgoing_communication_breaches
-    Client.sla_tracked.group(:vita_partner_id).where(Client.arel_table[:first_unanswered_incoming_correspondence_at].lteq(breach_threshold)).count(:id)
+    Client.sla_tracked.group(:vita_partner_id).where(Client.arel_table[:first_unanswered_incoming_interaction_at].lteq(breach_threshold)).count(:id)
   end
 end

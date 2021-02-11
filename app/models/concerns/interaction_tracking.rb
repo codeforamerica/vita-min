@@ -5,7 +5,7 @@ module InteractionTracking
   # Only update attention_needed_since if the client did not already need attention.
   def record_incoming_interaction
     touches = [:last_incoming_interaction_at, :last_interaction_at]
-    touches.push(:first_unanswered_incoming_correspondence_at) unless client.first_unanswered_incoming_correspondence_at.present?
+    touches.push(:first_unanswered_incoming_interaction_at) unless client.first_unanswered_incoming_interaction_at.present?
     touches.push(:attention_needed_since) unless client.attention_needed_since.present?
     client&.touch(*touches)
   end
@@ -15,7 +15,7 @@ module InteractionTracking
     client&.update(
       last_interaction_at: Time.now.to_datetime,
       attention_needed_since: nil,
-      first_unanswered_incoming_correspondence_at: nil, # we've explicitly responded to them somehow, so we can clear this value.
+      first_unanswered_incoming_interaction_at: nil, # we've explicitly responded to them somehow, so we can clear this value.
     )
   end
 

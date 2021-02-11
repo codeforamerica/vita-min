@@ -147,15 +147,15 @@ describe SLABreachService do
         t = Time.utc(2021, 2, 6, 10, 5) # 2/6/21, Saturday
         Timecop.freeze(t.prev_occurring(:friday)) # 2/5/21, Friday
         # breaches at vita_partner_1
-        create(:client, first_unanswered_incoming_correspondence_at: t.prev_occurring(:monday), vita_partner_id: vita_partner_1.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
+        create(:client, first_unanswered_incoming_interaction_at: t.prev_occurring(:monday), vita_partner_id: vita_partner_1.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
 
         # breaches at vita_partner_2
-        create(:client, first_unanswered_incoming_correspondence_at: 6.days.ago, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        create(:client, first_unanswered_incoming_correspondence_at: t.prev_occurring(:monday), vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
+        create(:client, first_unanswered_incoming_interaction_at: 6.days.ago, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
+        create(:client, first_unanswered_incoming_interaction_at: t.prev_occurring(:monday), vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
 
         # not in breach
-        create(:client, first_unanswered_incoming_correspondence_at: t.prev_occurring(:wednesday), vita_partner_id: vita_partner_2.id,  tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
-        create(:client, first_unanswered_incoming_correspondence_at: nil, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
+        create(:client, first_unanswered_incoming_interaction_at: t.prev_occurring(:wednesday), vita_partner_id: vita_partner_2.id,  tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
+        create(:client, first_unanswered_incoming_interaction_at: nil, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
       end
 
       after do
@@ -177,17 +177,17 @@ describe SLABreachService do
         t = Time.utc(2021, 2, 6, 0, 0, 0) # 2/6/21
         Timecop.freeze(t.next_occurring(:monday) + 10.hours + 5.minutes) # 2/8/21, Monday 10:05am
         # breaches at vita_partner_1
-        create(:client, first_unanswered_incoming_correspondence_at: t.prev_occurring(:monday), vita_partner_id: vita_partner_1.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
+        create(:client, first_unanswered_incoming_interaction_at: t.prev_occurring(:monday), vita_partner_id: vita_partner_1.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
         # breaches at vita_partner_2
-        create(:client, first_unanswered_incoming_correspondence_at: 6.days.ago, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
+        create(:client, first_unanswered_incoming_interaction_at: 6.days.ago, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
         wednesday_1am = t.prev_occurring(:wednesday) + 1.hour # Wednesday 2/3/21 @ 1:00am UTC
-        create(:client, first_unanswered_incoming_correspondence_at: wednesday_1am, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
+        create(:client, first_unanswered_incoming_interaction_at: wednesday_1am, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
 
         wednesday_1055am = t.prev_occurring(:wednesday) + 10.hour + 55.minutes # Wednesday 2/3/21 @ 10:55am UTC
-        create(:client, first_unanswered_incoming_correspondence_at: wednesday_1055am, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # not in breach t1, in breach t2
+        create(:client, first_unanswered_incoming_interaction_at: wednesday_1055am, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # not in breach t1, in breach t2
 
         # not in breach
-        create(:client, first_unanswered_incoming_correspondence_at: nil, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
+        create(:client, first_unanswered_incoming_interaction_at: nil, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
       end
 
       after do

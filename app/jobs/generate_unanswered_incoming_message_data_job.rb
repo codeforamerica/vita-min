@@ -1,7 +1,7 @@
-class GenerateUnansweredIncomingMessageDataJob < ApplicationJob
+class GenerateUnansweredIncomingInteractionDataJob < ApplicationJob
   def perform(start: 0, finish: nil)
     Client.includes(:outbound_calls, :outgoing_text_messages, :outgoing_emails, :incoming_emails, :incoming_text_messages).find_each(start: start, finish: finish) do |client|
-      if client.first_unanswered_incoming_correspondence_at.present?
+      if client.first_unanswered_incoming_interaction_at.present?
         puts "SKIPPING #{client.id}: fuica already set."
         next
       end
@@ -22,7 +22,7 @@ class GenerateUnansweredIncomingMessageDataJob < ApplicationJob
       fuica = [doc, itm, ie].compact.min_by { |msg| msg&.created_at }
 
       if fuica.present?
-        if client.update(first_unanswered_incoming_correspondence_at: fuica.created_at)
+        if client.update(first_unanswered_incoming_interaction_at: fuica.created_at)
           puts "SUCCESS #{client.id}: updated fuica to #{fuica.created_at}"
         else
           puts "ERROR #{client.id}: could not persist fuica to #{fuica.created_at}"

@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2021_02_10_212319) do
     t.datetime "current_sign_in_at"
     t.inet "current_sign_in_ip"
     t.integer "failed_attempts", default: 0, null: false
-    t.datetime "first_unanswered_incoming_correspondence_at"
+    t.datetime "first_unanswered_incoming_interaction_at"
     t.datetime "last_incoming_interaction_at"
     t.datetime "last_interaction_at"
     t.datetime "last_sign_in_at"
