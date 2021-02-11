@@ -12,10 +12,14 @@ class GenerateUnansweredIncomingMessageDataJob < ApplicationJob
       if last_outbound.present?
         itm = client.incoming_text_messages.find { |itm| itm.created_at > last_outbound.created_at }
         ie = client.incoming_emails.find { |ie| ie.created_at > last_outbound.created_at }
-        fuica = [itm, ie].compact.min_by { |a| a&.created_at }
+        doc = client.documents.find { |doc| doc.uploaded_by == client && doc.created_at > last_outbound.created_at }
       else
-        fuica = [client.incoming_text_messages.first, client.incoming_emails.first].compact.min_by { |msg| msg&.created_at }
+        doc = client.documents.find { |doc| doc.uploaded_by == client }
+        itm = client.incoming_text_messages.first
+        ie = client.incoming_emails.first
       end
+
+      fuica = [doc, itm, ie].compact.min_by { |msg| msg&.created_at }
 
       if fuica.present?
         if client.update(first_unanswered_incoming_correspondence_at: fuica.created_at)

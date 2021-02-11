@@ -36,7 +36,7 @@ describe SLABreachService do
 
       it "time is previous Friday at 10:05 am UTC" do
         expect(subject.breach_threshold).to eq Time.utc(2021, 2, 5, 10, 5)
-
+      end
     end
 
     context "running on a Wednesday at 6:05pm UTC" do
@@ -51,8 +51,6 @@ describe SLABreachService do
       end
     end
   end
-  end
-
 
   describe '.attention_needed_breaches' do
     let(:vita_partner_1) { create(:organization) }
