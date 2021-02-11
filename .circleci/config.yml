@@ -47,10 +47,10 @@ commands:
           command: |
             gem install bundler:2.2.5 --no-document && \
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - run: bundle exec rake webdrivers:chromedriver:update
+      - run: if [ ! -e ~/.webdrivers/chromedriver ] ; then bundle exec rake webdrivers:chromedriver:update ; fi
       - save_cache:
           key: bundle-v2-{{ checksum "Gemfile.lock" }}
-          paths: [vendor/bundle, ~/.webdriver]
+          paths: [vendor/bundle, ~/.webdrivers]
   await_test_db:
     description: "Await test database"
     steps:
