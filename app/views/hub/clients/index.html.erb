@@ -50,6 +50,9 @@
               <%= link_to hub_client_path(id: client) do %>
                 <%= client.preferred_name %>
               <% end %>
+              <% if client.access_locked? %>
+                <span class="locked label label--red"><%= t("general.locked") %></span>
+              <% end %>
             </th>
             <td class="index-table__cell"><%= client.id %></td>
             <td class="index-table__cell"><%= client.vita_partner&.name || t("general.none")  %></td>

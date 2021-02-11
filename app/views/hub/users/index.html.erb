@@ -31,7 +31,7 @@
           <td class="index-table__cell">
             <%= user.email %>
             <% if user.access_locked? %>
-              <span class="locked label label--red"><%= t(".locked")  %></span>
+              <span class="locked label label--red"><%= t("general.locked") %></span>
             <% end %>
           </td>
           <td class="index-table__cell"><%= user_role(user) %></td>

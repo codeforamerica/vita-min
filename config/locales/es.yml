@@ -1,6 +1,8 @@
 ---
 es:
   hub:
+    unlock_account: "Desbloquear cuenta"
+    unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
     back_to:
       return_to_dashboard: Regresar al Tablero
       all_clients: Todos los Clientes
@@ -11,12 +13,9 @@ es:
     users:
       edit:
         is_admin_label: Admin?
-        unlock_account: "Desbloquear cuenta"
-        unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
       index:
         title: Usuarios
         needs_to_accept_invite: "Necesita aceptar la invitación"
-        locked: "Bloqueada"
       profile:
         clients_link: Clientes
         users_link: Usuarios
@@ -127,6 +126,8 @@ es:
         title: Buscar clientes
       unlinked_clients:
         title: "Clientes no vinculados"
+      unlock:
+        account_unlocked: "La cuenta de %{name} se ha desbloqueado."
     documents:
       edit:
         title: Editar Documento
@@ -601,6 +602,7 @@ es:
     delete: "Eliminar"
     last_four_ssn: Últimos 4 de SSN / ITIN
     hidden: Encubierto
+    locked: "Bloqueada"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
