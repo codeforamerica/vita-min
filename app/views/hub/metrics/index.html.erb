@@ -4,11 +4,11 @@
     <div style="display: flex" class="spacing-below-25">
       <div style="margin:0; margin-right: 20px">
         <strong>Report run at:<br/></strong>
-        <%= @attention_needed.current_as_of.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@attention_needed.breach_threshold) %>
+        <%= @attention_needed.current_as_of.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@attention_needed.breach_threshold_date) %>
       </div>
       <div style="margin:0">
         <strong>Breach threshold:<br/></strong>
-        <%= @attention_needed.breach_threshold.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@attention_needed.breach_threshold) %>
+        <%= @attention_needed.breach_threshold_date.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@attention_needed.breach_threshold_date) %>
       </div>
     </div>
   </div>

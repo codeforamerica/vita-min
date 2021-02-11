@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SLABreachService do
-  describe "#breach_threshold" do
+  describe "#breach_threshold_date" do
     after do
       Timecop.return
     end
@@ -13,7 +13,7 @@ describe SLABreachService do
       end
 
       it "time is 2/8/11, Monday at 10:05am UTC (2:05am PST)" do
-        expect(subject.breach_threshold).to eq Time.utc(2021, 2, 8, 10, 5, 0)
+        expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 8, 10, 5, 0)
       end
     end
 
@@ -24,7 +24,7 @@ describe SLABreachService do
       end
 
       it "time is Monday at 6:05pm  UTC" do
-        expect(subject.breach_threshold).to eq Time.utc(2021, 2, 8, 18, 5, 0)
+        expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 8, 18, 5, 0)
       end
     end
 
@@ -35,7 +35,7 @@ describe SLABreachService do
       end
 
       it "time is previous Friday at 10:05 am UTC" do
-        expect(subject.breach_threshold).to eq Time.utc(2021, 2, 5, 10, 5)
+        expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 5, 10, 5)
       end
     end
 
@@ -46,7 +46,7 @@ describe SLABreachService do
       end
 
       it "time is previous Friday at 6:05pm UTC" do
-        expect(described_class.new.breach_threshold).to eq Time.utc(2021, 2, 5, 18, 5)
+        expect(described_class.new.breach_threshold_date).to eq Time.utc(2021, 2, 5, 18, 5)
 
       end
     end
@@ -111,7 +111,7 @@ describe SLABreachService do
 
       context "on Monday @10:05am UTC" do
         it 'returns a hash of total SLA breaches of attention_needed_breach_since by vita_partner_id' do
-          expect(subject.breach_threshold).to eq(Time.utc(2021, 2, 3, 10, 5)) # Wednesday 2/3/21 @ 10:05am UTC
+          expect(subject.breach_threshold_date).to eq(Time.utc(2021, 2, 3, 10, 5)) # Wednesday 2/3/21 @ 10:05am UTC
           expect(subject.attention_needed_breaches).to eq(
             {
               vita_partner_1.id => 1,
@@ -125,7 +125,7 @@ describe SLABreachService do
         it "trips the 10:55am client into SLA breach" do
           t = Time.utc(2021, 2, 6, 0, 0, 0) # 2/6/21
           Timecop.freeze(t.next_occurring(:monday) + 11.hours + 25.minutes) do
-            expect(subject.breach_threshold).to eq(Time.utc(2021, 2, 3, 11, 25)) # Wednesday 2/3/21 @ 11:25am UTC
+            expect(subject.breach_threshold_date).to eq(Time.utc(2021, 2, 3, 11, 25)) # Wednesday 2/3/21 @ 11:25am UTC
             expect(subject.attention_needed_breaches).to eq(
               {
                 vita_partner_1.id => 1,
@@ -196,7 +196,7 @@ describe SLABreachService do
 
       context "on Monday @10:05am UTC" do
         it 'returns a hash of total SLA breaches of attention_needed_breacheseses_since by vita_partner_id' do
-          expect(subject.breach_threshold).to eq(Time.utc(2021, 2, 3, 10, 5)) # Wednesday 2/3/21 @ 10:05am UTC
+          expect(subject.breach_threshold_date).to eq(Time.utc(2021, 2, 3, 10, 5)) # Wednesday 2/3/21 @ 10:05am UTC
           expect(subject.outgoing_communication_breaches).to eq(
             {
               vita_partner_1.id => 1,
@@ -210,7 +210,7 @@ describe SLABreachService do
         it "trips the 10:55am client into SLA breach" do
           t = Time.utc(2021, 2, 6, 0, 0, 0) # 2/6/21
           Timecop.freeze(t.next_occurring(:monday) + 11.hours + 25.minutes) do
-            expect(subject.breach_threshold).to eq(Time.utc(2021, 2, 3, 11, 25)) # Wednesday 2/3/21 @ 11:25am UTC
+            expect(subject.breach_threshold_date).to eq(Time.utc(2021, 2, 3, 11, 25)) # Wednesday 2/3/21 @ 11:25am UTC
             expect(subject.outgoing_communication_breaches).to eq(
               {
                 vita_partner_1.id => 1,
