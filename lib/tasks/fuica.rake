@@ -10,7 +10,7 @@ namespace :fuica do
 
       start = i * 1000
       finish = start + 999
-      GenerateUnansweredIncomingMessageDataJob.perform_later(start: start, finish: finish)
+      GenerateUnansweredIncomingInteractionDataJob.perform_later(start: start, finish: finish)
     end
   end
 end
