@@ -8,7 +8,7 @@ namespace :fuica do
 
       next if i > Client.last.id
 
-      start = i * 1000
+      start = i
       finish = start + 999
       GenerateUnansweredIncomingInteractionDataJob.perform_later(start: start, finish: finish)
     end
