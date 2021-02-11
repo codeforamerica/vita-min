@@ -10,6 +10,7 @@ module Hub
     def profile; end
 
     def index
+      @users = @users.search(params[:search]) if params[:search].present?
       @users = @users.page(params[:page])
     end
 

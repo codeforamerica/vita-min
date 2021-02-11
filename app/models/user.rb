@@ -53,7 +53,13 @@
 #  fk_rails_...  (invited_by_id => users.id)
 #
 class User < ApplicationRecord
+  include PgSearch::Model
+
   devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
+
+  pg_search_scope :search, against: [
+    :email, :id, :name, :phone_number, :role_type
+  ], using: { tsearch: { prefix: true } }
 
   self.per_page = 25
 

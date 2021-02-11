@@ -151,6 +151,21 @@ RSpec.describe Hub::UsersController do
           expect(html.at_css("#user-#{site_coordinator.id} a")).to be_nil
         end
       end
+
+      context "with a search param" do
+        let(:params) do
+          { search: "someone@" }
+        end
+        let!(:first_match) { create :user, email: "someone@example.com" }
+        let!(:second_match) { create :user, email: "someone@example.org" }
+        let!(:nonmatch) { create :user, email: "else@example.com" }
+
+        it "returns the set of matching users" do
+          get :index, params: params
+
+          expect(assigns(:users)).to match_array([first_match, second_match])
+        end
+      end
     end
   end
 
