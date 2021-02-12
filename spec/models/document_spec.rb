@@ -150,8 +150,14 @@ describe Document do
     end
 
     context "when an user is the uploader" do
-      it_behaves_like "an incoming interaction" do
-        let(:subject) { build :document }
+      it_behaves_like "an internal interaction" do
+        let(:subject) { build :document, uploaded_by: (create :user) }
+      end
+    end
+
+    context "when uploaded_by is nil" do
+      it_behaves_like "an internal interaction" do
+        let(:subject) { build :document, uploaded_by: nil }
       end
     end
   end
