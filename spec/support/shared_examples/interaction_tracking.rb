@@ -5,7 +5,7 @@ shared_examples_for "an incoming interaction" do
         .to change(subject.client, :attention_needed_since)
         .and change(subject.client, :first_unanswered_incoming_interaction_at)
         .and change(subject.client, :last_incoming_interaction_at)
-        .and change(subject.client, :last_interaction_at)
+        .and not_change(subject.client, :last_internal_or_outgoing_interaction_at)
         .and change(subject.client, :updated_at)
     end
   end
@@ -17,9 +17,6 @@ shared_examples_for "an incoming interaction" do
     it "updates the associated client, but does not change attention_needed_since" do
       expect { subject.save }
         .to not_change(subject.client, :attention_needed_since)
-        .and change(subject.client, :first_unanswered_incoming_interaction_at)
-        .and change(subject.client, :last_incoming_interaction_at)
-        .and change(subject.client, :last_interaction_at)
         .and change(subject.client, :updated_at)
     end
   end
@@ -37,7 +34,7 @@ end
 shared_examples_for "an internal interaction" do
   it "updates the associated client" do
     expect { subject.save }
-      .to change(subject.client, :last_interaction_at)
+      .to change(subject.client, :last_internal_or_outgoing_interaction_at)
       .and not_change(subject.client, :attention_needed_since)
       .and not_change(subject.client, :last_incoming_interaction_at)
       .and change(subject.client, :updated_at)
@@ -55,7 +52,7 @@ shared_examples_for "an outgoing interaction" do
     expect { subject.save }
       .to change(subject.client, :attention_needed_since).to(nil)
       .and change(subject.client, :first_unanswered_incoming_interaction_at).to(nil)
-      .and change(subject.client, :last_interaction_at)
+      .and change(subject.client, :last_internal_or_outgoing_interaction_at)
       .and change(subject.client, :updated_at)
       .and not_change(subject.client, :last_incoming_interaction_at)
   end

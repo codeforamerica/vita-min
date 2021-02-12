@@ -48,11 +48,8 @@ describe TaxReturn do
 
   describe "touch behavior" do
     context "when the tax return is updated" do
-      let(:tax_return) { create :tax_return }
-      it "updates the associated client updated at" do
-        expect {
-          tax_return.update(status: :file_ready_to_file)
-        }.to change(tax_return.client, :updated_at)
+      it_behaves_like "an internal interaction" do
+        let(:subject) { create :tax_return }
       end
     end
   end
