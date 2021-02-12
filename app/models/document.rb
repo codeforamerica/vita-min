@@ -57,7 +57,7 @@ class Document < ApplicationRecord
   before_save :set_display_name
 
   after_create do
-    uploaded_by.is_a?(User) ? record_internal_interaction : record_incoming_interaction
+    uploaded_by.is_a?(Client) ? record_incoming_interaction : record_internal_interaction
 
     if upload.filename.extension_without_delimiter.downcase == "heic"
       HeicToJpgJob.perform_later(id)
