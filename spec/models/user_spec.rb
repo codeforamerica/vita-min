@@ -350,12 +350,12 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe ".default_scope" do
+  describe ".active" do
     let!(:user) { create :user }
     let!(:suspended_user) { create :user, suspended_at: DateTime.now }
 
     it "does not include suspended users" do
-      expect(User.all).to match_array([user])
+      expect(User.active).to match_array([user])
     end
   end
 end

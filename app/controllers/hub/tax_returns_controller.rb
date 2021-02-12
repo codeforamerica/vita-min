@@ -38,6 +38,8 @@ module Hub
           @assignable_users = @assignable_users.or(org_leads)
         end
       end
+
+      @assignable_users = @assignable_users.active
     end
 
     def assign_params

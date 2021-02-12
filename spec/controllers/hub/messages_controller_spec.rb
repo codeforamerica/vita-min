@@ -16,6 +16,18 @@ RSpec.describe Hub::MessagesController do
     context "as an authenticated user" do
       before { sign_in(user) }
 
+      context "with a message from a suspended user" do
+        before do
+          create(:outgoing_email, client: client, user: create(:user, suspended_at: DateTime.now, name: "Suspended Succotash"))
+        end
+
+        it "shows the suspended user's name with the message" do
+          get :index, params: params
+
+          expect(assigns(:contact_history)[0].user.name).to eq("Suspended Succotash")
+        end
+      end
+
       context "with existing contact history" do
         render_views
 

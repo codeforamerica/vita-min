@@ -113,10 +113,11 @@ RSpec.describe Hub::UsersController do
       context "with a suspended user" do
         let!(:suspended_user) { create :user, suspended_at: DateTime.now }
 
-        it "does not display the suspended user" do
+        it "shows that the user is suspended" do
           get :index
 
-          expect(assigns(:users)).not_to include suspended_user
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css("#user-#{suspended_user.id}")).to have_text("Suspended")
         end
       end
 
