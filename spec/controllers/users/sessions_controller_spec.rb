@@ -57,5 +57,15 @@ RSpec.describe Users::SessionsController do
         expect(response).to redirect_to hub_clients_path
       end
     end
+
+    context "when a user has been suspended" do
+      before { user.update!(suspended_at: DateTime.now) }
+
+      it "the user cannot log in" do
+        post :create, params: params
+
+        expect(subject.current_user).to be_nil
+      end
+    end
   end
 end

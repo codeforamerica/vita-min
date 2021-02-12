@@ -27,7 +27,7 @@
 #  reset_password_token      :string
 #  role_type                 :string           not null
 #  sign_in_count             :integer          default(0), not null
-#  suspended                 :boolean
+#  suspended_at              :datetime
 #  ticket_restriction        :string
 #  timezone                  :string           default("America/New_York"), not null
 #  two_factor_auth_enabled   :boolean
@@ -354,6 +354,15 @@ RSpec.describe User, type: :model do
       it "returns false" do
         expect(user.admin?).to be false
       end
+    end
+  end
+
+  describe ".default_scope" do
+    let!(:user) { create :user }
+    let!(:suspended_user) { create :user, suspended_at: DateTime.now }
+
+    it "does not include suspended users" do
+      expect(User.all).to match_array([user])
     end
   end
 end

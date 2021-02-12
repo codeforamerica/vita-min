@@ -27,7 +27,7 @@
 #  reset_password_token      :string
 #  role_type                 :string           not null
 #  sign_in_count             :integer          default(0), not null
-#  suspended                 :boolean
+#  suspended_at              :datetime
 #  ticket_restriction        :string
 #  timezone                  :string           default("America/New_York"), not null
 #  two_factor_auth_enabled   :boolean
@@ -75,6 +75,8 @@ class User < ApplicationRecord
 
   validates_presence_of :name
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
+
+  default_scope { where(suspended_at: nil) }
 
   def accessible_coalitions
     case role_type
@@ -164,5 +166,10 @@ class User < ApplicationRecord
 
   def admin?
     role_type == AdminRole::TYPE
+  end
+
+  def active_for_authentication?
+    # overrides
+    super && suspended_at.blank?
   end
 end

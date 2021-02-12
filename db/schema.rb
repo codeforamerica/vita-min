@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_212319) do
+ActiveRecord::Schema.define(version: 2021_02_12_145650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -592,7 +592,7 @@ ActiveRecord::Schema.define(version: 2021_02_10_212319) do
     t.bigint "role_id", null: false
     t.string "role_type", null: false
     t.integer "sign_in_count", default: 0, null: false
-    t.boolean "suspended"
+    t.datetime "suspended_at"
     t.string "ticket_restriction"
     t.string "timezone", default: "America/New_York", null: false
     t.boolean "two_factor_auth_enabled"
