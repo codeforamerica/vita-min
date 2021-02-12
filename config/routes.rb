@@ -150,6 +150,8 @@ Rails.application.routes.draw do
       resources :anonymized_intake_csv_extracts, only: [:index, :show], path: "/csv-extracts", as: :csv_extracts
       resources :users, only: [:index, :edit, :update, :destroy] do
         patch "/unlock", to: "users#unlock", on: :member, as: :unlock
+        get "/edit_role", to: "users#edit_role", on: :member, as: :edit_role
+        patch "/update_role", to: "users#update_role", on: :member, as: :update_role
       end
       get "/profile" => "users#profile", as: :user_profile
     end

@@ -248,6 +248,51 @@ RSpec.describe Hub::UsersController do
     end
   end
 
+  describe "#edit_role" do
+    let!(:user) { create :user, name: "Anne", role: create(:organization_lead_role, organization: create(:organization)) }
+
+    let(:params) { { id: user.id, user: { role: "AdminRole" } } }
+    it_behaves_like :a_get_action_for_admins_only, action: :edit
+
+    context "as an admin user" do
+      before do
+        sign_in create(:admin_user)
+      end
+
+      it "renders a page successfully and shows the user" do
+        get :edit_role, params: params
+
+        expect(response).to be_ok
+        expect(assigns(:user)).to eq(user)
+      end
+    end
+  end
+
+  describe "#update_role" do
+    let!(:user) { create :user, name: "Anne", role: create(:organization_lead_role, organization: create(:organization)) }
+
+    let(:params) { { id: user.id, user: { role: "AdminRole" } } }
+    it_behaves_like :a_post_action_for_admins_only, action: :edit
+
+    context "as an admin user" do
+      before do
+        sign_in create(:admin_user)
+      end
+
+      it "updates the user's role & redirects to the user list" do
+        expect { post :update_role, params: params }.to(
+          change(AdminRole, :count).by(1).and(
+            change(OrganizationLeadRole, :count).by(-1)))
+
+        expect(user.reload.role_type).to eq("AdminRole")
+
+        expect(flash[:notice]).to eq("Updated Anne's role")
+        expect(response).to redirect_to edit_hub_user_path(id: user.id)
+      end
+    end
+  end
+
+
   describe "#update" do
     let!(:user) { create :organization_lead_user, name: "Anne" }
 

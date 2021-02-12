@@ -11,8 +11,8 @@ es:
       my_profile: Mi Perfil
     users:
       edit:
-        is_admin_label: Admin?
         delete_confirmation: "¿Desea eliminar la cuenta de %{name}?"
+        reassign: "Reasignar"
       index:
         title: Usuarios
         needs_to_accept_invite: "Necesita aceptar la invitación"
@@ -26,6 +26,8 @@ es:
         success: "La cuenta de %{name} se ha eliminado"
       suspend:
         success: La cuenta de %{name} se ha suspendida
+      update_role:
+        success: "Se actualizó el rol de %{name}"
     anonymized_intake_csv_extracts:
       index:
         filename: Nombre de archivo
