@@ -221,7 +221,7 @@ describe SLABreachService do
       end
 
       context "on Monday @10:05am UTC" do
-        it 'returns a hash of total SLA breaches of attention_needed_breacheseses_since by vita_partner_id' do
+        it 'returns a hash of total SLA breaches of attention needed breaches by vita_partner_id' do
           expect(subject.breach_threshold_date).to eq(Time.utc(2021, 2, 3, 10, 5)) # Wednesday 2/3/21 @ 10:05am UTC
           expect(subject.outgoing_communication_breaches).to eq(
             {

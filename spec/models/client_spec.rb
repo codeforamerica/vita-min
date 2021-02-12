@@ -225,28 +225,28 @@ describe Client do
     end
 
     describe "document" do
-      it "updates client updated_at" do
-        expect { create :document, client: client }.to change(client, :updated_at)
-      end
+      context "when a client is uploading a document" do
+        it "updates client updated_at" do
+          expect { create :document, client: client }.to change(client, :updated_at)
+        end
 
-      it "updates client last_interaction_at" do
-        expect { create :document, client: client }.to change(client, :last_interaction_at)
-      end
+        it "updates client last_incoming_interaction" do
+          expect { create :document, client: client }.to change(client, :last_incoming_interaction_at)
+        end
 
-      it "updates client last_incoming_interaction" do
-        expect { create :document, client: client }.to change(client, :last_incoming_interaction_at)
-      end
+        it "updates client attention_needed_since" do
+          expect { create :document, client: client}.to change(client, :attention_needed_since)
+        end
 
-      it "updates client attention_needed_since" do
-        expect { create :document, client: client}.to change(client, :attention_needed_since)
-      end
-
-      context "without an explicit relationship to client but an intake that has a client id" do
-        let(:client) { create :client, intake: create(:intake) }
-        it "still should update the associated client" do
-          expect { create :document, intake: client.intake }.to change(client, :attention_needed_since)
+        context "without an explicit relationship to client but an intake that has a client id" do
+          let(:client) { create :client, intake: create(:intake) }
+          it "still should update the associated client" do
+            expect { create :document, intake: client.intake }.to change(client, :attention_needed_since)
+          end
         end
       end
+
+
 
       context "when a user is uploading the document" do
         it "does updates client last_interaction_at" do
