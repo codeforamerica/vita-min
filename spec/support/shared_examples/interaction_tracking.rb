@@ -5,7 +5,7 @@ shared_examples_for "an incoming interaction" do
         .to change(subject.client, :attention_needed_since)
         .and change(subject.client, :first_unanswered_incoming_interaction_at)
         .and change(subject.client, :last_incoming_interaction_at)
-        .and change(subject.client, :last_interaction_at)
+        .and not_change(subject.client, :last_interaction_at) # last interaction only records the
         .and change(subject.client, :updated_at)
     end
   end
@@ -17,9 +17,9 @@ shared_examples_for "an incoming interaction" do
     it "updates the associated client, but does not change attention_needed_since" do
       expect { subject.save }
         .to not_change(subject.client, :attention_needed_since)
+        .and not_change(subject.client, :last_interaction_at)
         .and change(subject.client, :first_unanswered_incoming_interaction_at)
         .and change(subject.client, :last_incoming_interaction_at)
-        .and change(subject.client, :last_interaction_at)
         .and change(subject.client, :updated_at)
     end
   end

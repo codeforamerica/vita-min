@@ -4,7 +4,7 @@ module InteractionTracking
   # When a client contacts us, update last incoming interaction and last interaction
   # Only update attention_needed_since if the client did not already need attention.
   def record_incoming_interaction
-    touches = [:last_incoming_interaction_at, :last_interaction_at]
+    touches = [:last_incoming_interaction_at]
     touches.push(:first_unanswered_incoming_interaction_at) unless client.first_unanswered_incoming_interaction_at.present?
     touches.push(:attention_needed_since) unless client.attention_needed_since.present?
     client&.touch(*touches)
