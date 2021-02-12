@@ -23,8 +23,9 @@ es:
       unlock:
         account_unlocked: "La cuenta de %{name} se ha desbloqueado"
       destroy:
-        user_has_assignments: "No se puede borrar la cuenta de %{name}. %{name} todavía está asignado a una declaración de impuestos del cliente #%{client_id}"
         success: "La cuenta de %{name} se ha eliminado"
+      suspend:
+        success: La cuenta de %{name} se ha suspendida
     anonymized_intake_csv_extracts:
       index:
         filename: Nombre de archivo
@@ -615,6 +616,7 @@ es:
     last_four_ssn: Últimos 4 de SSN / ITIN
     hidden: Encubierto
     locked: "Bloqueada"
+    suspended: "Suspendida"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -1041,7 +1043,6 @@ es:
         questions: Si tiene alguna pregunta mientras tanto, no dude en comunicarse con nosotros haciendo clic en el botón "Chat"/"Ayuda", en la parte inferior derecha.
         title: GetYourRefund no está disponible temporalmente por tareas de mantenimiento
       maybe_ineligible:
-        alternatives: Prueba IRS Free File, un servicio en línea que le permite declarar sus propios impuestos.
         info: "¡Nos complace responder cualquier pregunta que pueda tener sobre GetYourRefund! Contáctenos usando nuestra función de chat abajo de esta pagina."
         title: No estamos seguros de que califique para nuestros servicios.
       other_options:
@@ -1425,6 +1426,8 @@ es:
         body: Estamos experimentando un gran volumen de clientes en este momento. Nuestro objetivo es brindar un servicio de alta calidad a todos nuestros clientes. Los tiempos de espera actuales para la opción Declara con Ayuda son de 2-3 semanas. Pedimos disculpas por la espera.
         file_with_help: Declarar con ayuda
         title: Vaya, parece que estamos saturados en este momento.
+        diy_html: Para declarar de inmediato, puede probar a servicio online con <a data-track-click="mft-diy-referral" href="https://www.myfreetaxes.com/">MyFreeTaxes</a> para preparar sus propios impuestos de manera gratuita (DIY por sus siglas en inglés).
+        file_through_my_free_taxes: Presente su declaración a través de MyFreeTaxes
       backtaxes:
         select_all_that_apply: Seleccione todas las que correspondan.
         title: "¿Qué años necesita presentar?"

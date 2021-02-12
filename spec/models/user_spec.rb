@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                        :bigint           not null, primary key
-#  active                    :boolean
 #  current_sign_in_at        :datetime
 #  current_sign_in_ip        :string
 #  email                     :string           not null
@@ -22,22 +21,16 @@
 #  locked_at                 :datetime
 #  name                      :string
 #  phone_number              :string
-#  provider                  :string
 #  reset_password_sent_at    :datetime
 #  reset_password_token      :string
 #  role_type                 :string           not null
 #  sign_in_count             :integer          default(0), not null
-#  suspended                 :boolean
-#  ticket_restriction        :string
+#  suspended_at              :datetime
 #  timezone                  :string           default("America/New_York"), not null
-#  two_factor_auth_enabled   :boolean
-#  uid                       :string
-#  verified                  :boolean
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  invited_by_id             :bigint
 #  role_id                   :bigint           not null
-#  zendesk_user_id           :bigint
 #
 # Indexes
 #
@@ -354,6 +347,15 @@ RSpec.describe User, type: :model do
       it "returns false" do
         expect(user.admin?).to be false
       end
+    end
+  end
+
+  describe ".active" do
+    let!(:user) { create :user }
+    let!(:suspended_user) { create :user, suspended_at: DateTime.now }
+
+    it "does not include suspended users" do
+      expect(User.active).to match_array([user])
     end
   end
 end

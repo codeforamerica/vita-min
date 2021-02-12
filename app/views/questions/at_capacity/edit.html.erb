@@ -18,7 +18,19 @@
             </p>
           </div>
 
+          <div class="offboarding--help-text">
+            <p>
+              <strong>
+                <%=t("views.questions.at_capacity.diy_html") %>
+              </strong>
+            </p>
+          </div>
+
           <div class="buttons--vertical-stack">
+            <a data-track-click="mft-diy-referral" href="https://www.myfreetaxes.com/" class="button button--primary text--centered button--wide spacing-above-60">
+              <%= t("views.questions.at_capacity.file_through_my_free_taxes") %>
+            </a>
+
             <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
               <button class="button button--wide" type="submit">
                 <%=t("views.questions.at_capacity.file_with_help") %>

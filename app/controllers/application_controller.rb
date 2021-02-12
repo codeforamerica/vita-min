@@ -180,7 +180,7 @@ class ApplicationController < ActionController::Base
   end
 
   def open_for_intake?
-    cookies[:intake_open].present?
+    true
   end
 
   private

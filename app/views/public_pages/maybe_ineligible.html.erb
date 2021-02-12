@@ -14,11 +14,16 @@
 
           <div class="offboarding--help-text">
             <p><%=t("views.public_pages.maybe_ineligible.info") %></p>
-            <p><%=t("views.public_pages.maybe_ineligible.alternatives") %></p>
+
+            <strong>
+              <%=t("views.questions.at_capacity.diy_html") %>
+            </strong>
           </div>
 
           <div class="buttons--vertical-stack">
-            <%= link_to t("general.visit_free_file"), "https://apps.irs.gov/app/freeFile/jsp/wizard.jsp", class: "button button--wide text--centered", rel: "noopener", target: "_blank", "data-track-click": "freefile" %>
+            <a data-track-click="mft-diy-referral" href="https://www.myfreetaxes.com/" class="button button--primary text--centered button--wide spacing-above-60">
+              <%= t("views.questions.at_capacity.file_through_my_free_taxes") %>
+            </a>
           </div>
         </main>
       </div>

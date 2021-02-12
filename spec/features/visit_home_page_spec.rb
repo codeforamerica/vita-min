@@ -6,11 +6,12 @@ RSpec.feature "Visit home page" do
     within(".main-header") do
       expect(page).to have_link("GetYourRefund.org", href: root_path)
     end
-    expect(page).to have_text "Free tax filing, real human support."
-    expect(page).to have_text "GetYourRefund services will be opening in February for the 2021 tax season. Sign up and we'll notify you when our service is open!"
-    expect(page).to have_link "Sign Up"
-    click_on "Sign Up"
-    expect(page).to have_text "sign up here"
+    expect(page).to have_text "Free tax filing"
+    expect(page).to have_link "Get started"
+    within ".slab--hero" do
+      click_on "Get started"
+    end
+    expect(page).to have_text "Welcome! How can we help you?"
   end
 
   scenario "it has the correct SEO link tags in English" do

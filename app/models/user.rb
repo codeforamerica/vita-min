@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                        :bigint           not null, primary key
-#  active                    :boolean
 #  current_sign_in_at        :datetime
 #  current_sign_in_ip        :string
 #  email                     :string           not null
@@ -22,22 +21,16 @@
 #  locked_at                 :datetime
 #  name                      :string
 #  phone_number              :string
-#  provider                  :string
 #  reset_password_sent_at    :datetime
 #  reset_password_token      :string
 #  role_type                 :string           not null
 #  sign_in_count             :integer          default(0), not null
-#  suspended                 :boolean
-#  ticket_restriction        :string
+#  suspended_at              :datetime
 #  timezone                  :string           default("America/New_York"), not null
-#  two_factor_auth_enabled   :boolean
-#  uid                       :string
-#  verified                  :boolean
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  invited_by_id             :bigint
 #  role_id                   :bigint           not null
-#  zendesk_user_id           :bigint
 #
 # Indexes
 #
@@ -53,7 +46,13 @@
 #  fk_rails_...  (invited_by_id => users.id)
 #
 class User < ApplicationRecord
+  include PgSearch::Model
+
   devise :database_authenticatable, :lockable, :validatable, :timeoutable, :trackable, :invitable, :recoverable
+
+  pg_search_scope :search, against: [
+    :email, :id, :name, :phone_number, :role_type
+  ], using: { tsearch: { prefix: true } }
 
   self.per_page = 25
 
@@ -69,6 +68,8 @@ class User < ApplicationRecord
 
   validates_presence_of :name
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
+
+  scope :active, -> { where(suspended_at: nil) }
 
   def accessible_coalitions
     case role_type
@@ -158,5 +159,14 @@ class User < ApplicationRecord
 
   def admin?
     role_type == AdminRole::TYPE
+  end
+
+  def suspended?
+    suspended_at.present?
+  end
+
+  def active_for_authentication?
+    # overrides
+    super && !suspended?
   end
 end
