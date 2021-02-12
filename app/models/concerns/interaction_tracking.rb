@@ -13,7 +13,7 @@ module InteractionTracking
   # When we contact a client, update our last touch to them for SLA purposes and clear the attention flag
   def record_outgoing_interaction
     client&.update(
-      last_interaction_at: Time.now.to_datetime,
+      last_interaction_at: Time.now.to_datetime, # latest USER/SYSTEM touch to a client.
       attention_needed_since: nil,
       first_unanswered_incoming_interaction_at: nil, # we've explicitly responded to them somehow, so we can clear this value.
     )
@@ -21,6 +21,6 @@ module InteractionTracking
 
   # "Internal" interactions do not clear needs_attention_since
   def record_internal_interaction
-    client&.touch(:last_interaction_at)
+    client&.touch(:last_interaction_at) # latest USER/SYSTEM touch to a client.
   end
 end
