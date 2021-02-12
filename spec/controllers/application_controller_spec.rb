@@ -343,8 +343,8 @@ RSpec.describe ApplicationController do
     end
 
     context "when the cookie intake_open value is not set" do
-      it "returns false" do
-        expect(subject.open_for_intake?).to eq false
+      it "returns true" do
+        expect(subject.open_for_intake?).to eq true
       end
     end
   end
@@ -716,8 +716,8 @@ RSpec.describe ApplicationController do
     end
 
     context "when session key for intake is not set" do
-      it "is false" do
-        expect(subject.open_for_intake?).to eq false
+      it "is true" do
+        expect(subject.open_for_intake?).to eq true
       end
     end
 
@@ -725,8 +725,8 @@ RSpec.describe ApplicationController do
       before do
         request.cookies[:intake_open] = false
       end
-      it "is false" do
-        expect(subject.open_for_intake?).to eq false
+      it "is true" do
+        expect(subject.open_for_intake?).to eq true
       end
     end
   end
@@ -752,6 +752,10 @@ RSpec.describe ApplicationController do
     end
 
     context "when not open for intake and not a hub path" do
+      before do
+        allow(subject).to receive(:open_for_intake?).and_return false
+      end
+
       it "is true" do
         expect(subject.show_offseason_banner?).to be true
       end

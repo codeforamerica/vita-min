@@ -12,9 +12,6 @@ feature "Intake Routing Spec" do
   let(:default_vita_partner) { create :vita_partner, name: "Default Organization", national_overflow_location: true }
 
   scenario "routing by source param" do
-    visit "/"
-    expect(page).to have_text "Free tax filing, real human support."
-
     visit "/cobra"
     # expect redirect to locale path
     # expect that this sets a cookie that routes to cobra.
