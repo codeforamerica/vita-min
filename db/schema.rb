@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_212319) do
+ActiveRecord::Schema.define(version: 2021_02_12_171912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2021_02_10_212319) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "first_unanswered_incoming_interaction_at"
     t.datetime "last_incoming_interaction_at"
-    t.datetime "last_interaction_at"
+    t.datetime "last_internal_or_outgoing_interaction_at"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.datetime "locked_at"
@@ -565,7 +565,6 @@ ActiveRecord::Schema.define(version: 2021_02_10_212319) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.boolean "active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "current_sign_in_at"
     t.string "current_sign_in_ip"
@@ -586,20 +585,14 @@ ActiveRecord::Schema.define(version: 2021_02_10_212319) do
     t.datetime "locked_at"
     t.string "name"
     t.string "phone_number"
-    t.string "provider"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
     t.bigint "role_id", null: false
     t.string "role_type", null: false
     t.integer "sign_in_count", default: 0, null: false
-    t.boolean "suspended"
-    t.string "ticket_restriction"
+    t.datetime "suspended_at"
     t.string "timezone", default: "America/New_York", null: false
-    t.boolean "two_factor_auth_enabled"
-    t.string "uid"
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "verified"
-    t.bigint "zendesk_user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

@@ -9,7 +9,7 @@
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
 #  last_incoming_interaction_at             :datetime
-#  last_interaction_at                      :datetime
+#  last_internal_or_outgoing_interaction_at :datetime
 #  last_sign_in_at                          :datetime
 #  last_sign_in_ip                          :inet
 #  locked_at                                :datetime

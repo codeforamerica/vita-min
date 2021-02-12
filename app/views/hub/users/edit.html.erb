@@ -8,7 +8,7 @@
       <% if @user.access_locked? %>
         <%= link_to t("hub.unlock_account"), unlock_hub_user_path(id: @user), method: :patch, class: "button button--danger", data: {confirm: t("hub.unlock_confirmation", name: @user.name )} %>
       <% end %>
-      <%= link_to t("general.delete"), hub_user_path(id: @user), method: :delete, class: "button button--danger", data: {confirm: t(".delete_confirmation", name: @user.name)} %>
+        <%= link_to t("general.delete"), hub_user_path(id: @user), method: :delete, class: "button button--danger", data: {confirm: t(".delete_confirmation", name: @user.name)} %>
     <% end %>
 
     <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
