@@ -30,7 +30,7 @@ class SLABreachService
     clients = Client.arel_table
     Client.sla_tracked
       .where(clients[:first_unanswered_incoming_interaction_at].lteq(breach_threshold_date))
-      .where(clients[:last_interaction_at].lt(clients[:first_unanswered_incoming_interaction_at]).or(clients[:last_interaction_at].eq(nil)))
+      .where(clients[:last_internal_or_outgoing_interaction_at].lt(clients[:first_unanswered_incoming_interaction_at]).or(clients[:last_internal_or_outgoing_interaction_at].eq(nil)))
       .group(:vita_partner_id)
       .count(:id)
   end

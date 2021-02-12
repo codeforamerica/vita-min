@@ -9,7 +9,7 @@
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
 #  last_incoming_interaction_at             :datetime
-#  last_interaction_at                      :datetime
+#  last_internal_or_outgoing_interaction_at :datetime
 #  last_sign_in_at                          :datetime
 #  last_sign_in_ip                          :inet
 #  locked_at                                :datetime
@@ -187,8 +187,8 @@ describe Client do
         expect { create :outgoing_email, client: client }.to change(client, :updated_at)
       end
 
-      it "updates client#last_interaction_at" do
-        expect { create :outgoing_email, client: client }.to change(client, :last_interaction_at)
+      it "updates client#last_internal_or_outgoing_interaction_at" do
+        expect { create :outgoing_email, client: client }.to change(client, :last_internal_or_outgoing_interaction_at)
       end
 
       it "clears #attention_needed_since" do
@@ -204,8 +204,8 @@ describe Client do
         expect { create :note, client: client }.to change(client, :updated_at)
       end
 
-      it "updates client #last_interaction_at" do
-        expect { create :outgoing_text_message, client: client }.to change(client, :last_interaction_at)
+      it "updates client #last_internal_or_outgoing_interaction_at" do
+        expect { create :outgoing_text_message, client: client }.to change(client, :last_internal_or_outgoing_interaction_at)
       end
 
       it "clears attention_needed_since" do
@@ -249,8 +249,8 @@ describe Client do
 
 
       context "when a user is uploading the document" do
-        it "does updates client last_interaction_at" do
-          expect { create :document, client: client, uploaded_by: (create :user) }.to change(client, :last_interaction_at)
+        it "does updates client last_internal_or_outgoing_interaction_at" do
+          expect { create :document, client: client, uploaded_by: (create :user) }.to change(client, :last_internal_or_outgoing_interaction_at)
         end
 
         it "touches client updated_at" do
