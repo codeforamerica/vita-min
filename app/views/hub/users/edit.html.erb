@@ -32,13 +32,13 @@
 
       <%= render('components/molecules/reveal', title: 'Reassign') do %>
         <ul class="list--bulleted">
-          <li><%= link_to "Admin", edit_role_admin_hub_user_path %></li>
-          <li>Greeter</li>
-          <li>Organization lead</li>
-          <li>Coalition lead</li>
-          <li>Site coordinator</li>
-          <li>Client success</li>
-          <li>Team member</li>
+          <li><%= link_to "Admin", edit_role_hub_user_path({user: {role: AdminRole::TYPE}}) %></li>
+          <li><%= link_to "Greeter", edit_role_hub_user_path({user: {role: GreeterRole::TYPE}}) %></li>
+          <li><%= link_to "Organization lead", edit_role_hub_user_path({user: {role: OrganizationLeadRole::TYPE}}) %></li>
+          <li><%= link_to "Coalition lead", edit_role_hub_user_path({user: {role: CoalitionLeadRole::TYPE}}) %></li>
+          <li><%= link_to "Site coordinator", edit_role_hub_user_path({user: {role: SiteCoordinatorRole::TYPE}}) %></li>
+          <li><%= link_to "Client success", edit_role_hub_user_path({user: {role: ClientSuccessRole::TYPE}}) %></li>
+          <li><%= link_to "Team member", edit_role_hub_user_path({user: {role: TeamMemberRole::TYPE}}) %></li>
         </ul>
       <% end %>
     <% end %>

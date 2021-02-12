@@ -1,0 +1,65 @@
+<% content_for :page_title, @user.name %>
+<% content_for :card do %>
+  <h1><%= @user.name %></h1>
+
+  <h2>Current role</h2>
+
+  <p><%= [user_role(@user), user_group(@user)].compact.join(", ") %></p>
+
+  <h2>New role</h2>
+
+  <%= form_for(@user, method: :patch, url: update_role_hub_user_path, local: true, builder: VitaMinFormBuilder) do |f| %>
+
+    <%= f.hidden_field :role, value: params.dig(:user, :role) %>
+    <% if params.dig(:user, :role) == AdminRole::TYPE %>
+      <p>Admin</p>
+    <% end %>
+
+    <% if params.dig(:user, :role) == OrganizationLeadRole::TYPE %>
+      <p>Organization Lead</p>
+      <%= label_tag(:organization_id, t("devise.invitations.new.organization_label")) %>
+      <%= select_tag(:organization_id, options_for_select(@vita_partners.organizations.map { |org| [org.name, org.id] })) %>
+    <% end %>
+
+    <% if params.dig(:user, :role) == CoalitionLeadRole::TYPE %>
+      <p>Coalition Lead</p>
+      <%= label_tag(:coalition_id, t("devise.invitations.new.coalition_label")) %>
+      <%= select_tag(:coalition_id, options_for_select(@coalitions.all.map { |coalition| [coalition.name, coalition.id] })) %>
+    <% end %>
+
+    <% if params.dig(:user, :role) == SiteCoordinatorRole::TYPE %>
+      <p>Site Coordinator</p>
+      <%= label_tag(:site_id, t("devise.invitations.new.site_label")) %>
+      <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
+    <% end %>
+
+    <% if params.dig(:user, :role) == GreeterRole::TYPE %>
+      <p>Greeter</p>
+      <p><%= t("devise.invitations.new.select_coalition_and_or_organization") %></p>
+      <div class="form-group">
+        <p class="form-question"><%= t("devise.invitations.new.coalition_label") %></p>
+        <%= collection_check_boxes(:greeter_coalition_join_record, :coalition_ids, @coalitions.all, :id, :name) do |b| %>
+          <%= b.label(class: "checkbox") { b.check_box + b.text } %>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <p class="form-question"><%= t("devise.invitations.new.organization_label") %></p>
+        <%= collection_check_boxes(:greeter_organization_join_record, :organization_ids, @vita_partners.organizations, :id, :name) do |b| %>
+          <%= b.label(class: "checkbox") { b.check_box + b.text } %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if params.dig(:user, :role) == TeamMemberRole::TYPE %>
+      <p>Team member</p>
+      <%= label_tag(:site_id, t("devise.invitations.new.site_label")) %>
+      <%= select_tag(:site_id, options_for_select(@vita_partners.sites.map { |site| [site.name, site.id] })) %>
+    <% end %>
+
+    <div>
+      <%= f.submit t("general.submit"), class: "button button--primary" %>
+
+      <%= link_to t("general.cancel"), edit_hub_user_path, class: "button" %>
+    </div>
+  <% end %>
+<% end %>

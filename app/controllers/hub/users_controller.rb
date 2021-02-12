@@ -3,6 +3,8 @@ module Hub
     include AccessControllable
 
     before_action :require_sign_in
+    before_action :load_and_authorize_groups, only: [:edit_role, :update_role]
+    before_action :load_and_authorize_role, only: [:update_role]
     load_and_authorize_resource
 
     layout "admin"
@@ -16,9 +18,16 @@ module Hub
 
     def edit; end
 
-    def edit_role_admin; end
+    def edit_role
+    end
 
-    def update_role; end
+    def update_role
+      old_role = @user.role
+      @user.update!(role: @role)
+      old_role.delete
+      flash[:notice] = "Updated role"
+      redirect_to hub_users_path
+    end
 
     def destroy
       begin
@@ -76,6 +85,40 @@ module Hub
         :phone_number,
         :timezone,
       )
+    end
+
+    def load_and_authorize_groups
+      @vita_partners = current_user.accessible_vita_partners
+      @coalitions = current_user.accessible_coalitions
+    end
+
+    def load_and_authorize_role
+      puts(params)
+      @role =
+        case params.dig(:user, :role)
+        when OrganizationLeadRole::TYPE
+          OrganizationLeadRole.new(organization: @vita_partners.find(params.require(:organization_id)))
+        when CoalitionLeadRole::TYPE
+          CoalitionLeadRole.new(coalition: @coalitions.find(params.require(:coalition_id)))
+        when AdminRole::TYPE
+          AdminRole.new
+        when SiteCoordinatorRole::TYPE
+          SiteCoordinatorRole.new(site: @vita_partners.find(params.require(:site_id)))
+        when ClientSuccessRole::TYPE
+          ClientSuccessRole.new
+        when GreeterRole::TYPE
+          greeter_params = params.require(:greeter_organization_join_record).permit(organization_ids: []).merge(
+            params.require(:greeter_coalition_join_record).permit(coalition_ids: [])
+          )
+          GreeterRole.new(
+            coalitions: @coalitions.where(id: greeter_params[:coalition_ids]),
+            organizations: @vita_partners.organizations.where(id: greeter_params[:organization_ids]),
+            )
+        when TeamMemberRole::TYPE
+          TeamMemberRole.new(site: @vita_partners.sites.find(params.require(:site_id)))
+        end
+
+      authorize!(:create, @role)
     end
   end
 end
