@@ -23,13 +23,15 @@ RSpec.describe "a user editing a user" do
         visit edit_hub_user_path(id: user_to_edit.id)
         expect(page).to have_text user_to_edit.name
 
-        check "Admin"
+        fill_in "Name", with: "Nathan Namely"
+        fill_in "Phone number", with: "(415) 553-7865"
 
         click_on "Save"
 
         expect(page).to have_text "Changes saved"
 
-        expect(page).to have_field("user_is_admin", checked: true)
+        expect(page).to have_text("Nathan Namely")
+        expect(page).to have_selector("input[value='+14155537865']")
       end
 
       scenario "resending invitations" do
@@ -62,6 +64,135 @@ RSpec.describe "a user editing a user" do
 
         within "#user-#{user_to_edit.id}" do
           expect(page).to have_text("Suspended")
+        end
+      end
+
+      context "editing user roles" do
+        scenario "assigning an admin role" do
+          user_to_edit = create(:coalition_lead_user)
+
+          visit edit_hub_user_path(id: user_to_edit)
+          click_on "Admin"
+
+          click_on "Submit"
+
+          within "#current-role" do
+            expect(page).to have_text "Admin"
+          end
+        end
+
+        scenario "assigning a client success role" do
+          user_to_edit = create(:coalition_lead_user)
+
+          visit edit_hub_user_path(id: user_to_edit)
+          click_on "Client success"
+
+          click_on "Submit"
+
+          within "#current-role" do
+            expect(page).to have_text "Client success"
+          end
+        end
+
+        context "assigning to a greeter role" do
+          let!(:yes_coalition) { create :coalition, name: "Koala Koalition" }
+          let!(:no_coalition) { create :coalition, name: "Coal Coalition" }
+          let!(:yes_organization) { create :organization, name: "Orange Organization" }
+          let!(:no_organization) { create :organization, name: "Odious Organization" }
+
+          scenario "editing an admin user to be a greeter" do
+            user_to_edit = create(:admin_user)
+
+            visit edit_hub_user_path(id: user_to_edit)
+            click_on "Greeter"
+
+            expect(page).to have_text("Coal Coalition")
+            expect(page).to have_text("Odious Organization")
+
+            check "Koala Koalition"
+            check "Orange Organization"
+
+            click_on "Submit"
+
+            within "#current-role" do
+              expect(page).to have_text "Greeter, Koala Koalition, Orange Organization"
+            end
+          end
+        end
+
+        scenario "assigning a coalition lead role" do
+          user_to_edit = create(:admin_user)
+          create :coalition, name: "Koala Koalition"
+          create :coalition, name: "Coal Coalition"
+
+          visit edit_hub_user_path(id: user_to_edit)
+          click_on "Coalition lead"
+
+          expect(page).to have_text("Coal Coalition")
+
+          select "Koala Koalition"
+
+          click_on "Submit"
+
+          within "#current-role" do
+            expect(page).to have_text "Coalition lead, Koala Koalition"
+          end
+        end
+
+        scenario "assigning a organization lead role" do
+          create :organization, name: "Orange Organization"
+          create :organization, name: "Odious Organization"
+
+          visit edit_hub_user_path(id: user_to_edit)
+          click_on "Organization lead"
+
+          expect(page).to have_text("Odious Organization")
+
+          select "Orange Organization"
+
+          click_on "Submit"
+
+          within "#current-role" do
+            expect(page).to have_text "Organization lead, Orange Organization"
+          end
+        end
+
+        scenario "assigning a site coordinator role" do
+          user_to_edit = create(:admin_user)
+          create :site, name: "Suite Site"
+          create :site, name: "Sour Site"
+
+          visit edit_hub_user_path(id: user_to_edit)
+          click_on "Site coordinator"
+
+          expect(page).to have_text("Sour Site")
+
+          select "Suite Site"
+
+          click_on "Submit"
+
+          within "#current-role" do
+            expect(page).to have_text "Site coordinator, Suite Site"
+          end
+        end
+
+        scenario "assigning a team member role" do
+          user_to_edit = create(:admin_user)
+          create :site, name: "Suite Site"
+          create :site, name: "Sour Site"
+
+          visit edit_hub_user_path(id: user_to_edit)
+          click_on "Team member"
+
+          expect(page).to have_text("Sour Site")
+
+          select "Suite Site"
+
+          click_on "Submit"
+
+          within "#current-role" do
+            expect(page).to have_text "Team member, Suite Site"
+          end
         end
       end
     end
