@@ -96,7 +96,7 @@ describe Client do
 
     context "when client has a new document" do
       let!(:client) { create :client }
-      before { create :document, client: client }
+      before { create :document, client: client, uploaded_by: client }
 
       it "needs attention" do
         expect(client.needs_attention?).to eq true
@@ -227,21 +227,21 @@ describe Client do
     describe "document" do
       context "when a client is uploading a document" do
         it "updates client updated_at" do
-          expect { create :document, client: client }.to change(client, :updated_at)
+          expect { create :document, client: client, uploaded_by: client }.to change(client, :updated_at)
         end
 
         it "updates client last_incoming_interaction" do
-          expect { create :document, client: client }.to change(client, :last_incoming_interaction_at)
+          expect { create :document, client: client, uploaded_by: client }.to change(client, :last_incoming_interaction_at)
         end
 
         it "updates client attention_needed_since" do
-          expect { create :document, client: client}.to change(client, :attention_needed_since)
+          expect { create :document, client: client, uploaded_by: client }.to change(client, :attention_needed_since)
         end
 
         context "without an explicit relationship to client but an intake that has a client id" do
           let(:client) { create :client, intake: create(:intake) }
           it "still should update the associated client" do
-            expect { create :document, intake: client.intake }.to change(client, :attention_needed_since)
+            expect { create :document, intake: client.intake, uploaded_by: client }.to change(client, :attention_needed_since)
           end
         end
       end
