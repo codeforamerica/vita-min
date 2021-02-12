@@ -17,17 +17,19 @@ module Hub
     def edit; end
 
     def destroy
-      if @user.assigned_tax_returns.exists?
-        redirect_to edit_hub_user_path(id: @user), alert: I18n.t("hub.users.destroy.user_has_assignments", name: @user.name, client_id: @user.assigned_tax_returns.first.client_id)
-      else
-        # For now, raise an error if more things are linked to the user. In the future, we probably want to "suspend" or "archive".
+      begin
         ActiveRecord::Base.transaction do
           # if user deletion fails, don't destroy their role
           @user.role.destroy!
           @user.destroy!
         end
-        redirect_to hub_users_path, notice: I18n.t("hub.users.destroy.success", name: @user.name)
+        flash_message = I18n.t("hub.users.destroy.success", name: @user.name)
+      rescue ActiveRecord::InvalidForeignKey
+        @user.assigned_tax_returns.update(assigned_user: nil)
+        @user.update!(suspended_at: DateTime.now)
+        flash_message = I18n.t("hub.users.suspend.success", name: @user.name)
       end
+      redirect_to hub_users_path, notice: flash_message
     end
 
     def unlock

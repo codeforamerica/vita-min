@@ -50,6 +50,20 @@ RSpec.describe "a user editing a user" do
         expect(mail.body.encoded).to have_text "#{current_user.name} (#{current_user.email}) has invited #{user_to_edit.name} to create an account on GetYourRefund"
         expect(mail.body.encoded).to have_text "If you don't want to accept the invitation, please ignore this email."
       end
+
+      scenario "deleting a user" do
+        create(:tax_return, assigned_user: user_to_edit) # ensure soft delete
+
+        visit edit_hub_user_path(id: user_to_edit)
+        click_on "Delete"
+
+        expect(page).to have_current_path(hub_users_path)
+        expect(page).to have_text("Suspended")
+
+        within ".user-table" do
+          expect(page).not_to have_text(user_to_edit.name)
+        end
+      end
     end
   end
 end

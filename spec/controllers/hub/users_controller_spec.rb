@@ -74,7 +74,7 @@ RSpec.describe Hub::UsersController do
       context "as a coalition lead user" do
         let(:user) { create :coalition_lead_user }
 
-        it "shows links for invitaionts, clients, users, and organizations" do
+        it "shows links for invitations, clients, users, and organizations" do
           get :profile
 
           expect(response).to be_ok
@@ -108,6 +108,16 @@ RSpec.describe Hub::UsersController do
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Leslie")
         expect(html.at_css("#user-#{leslie.id}")).to have_text("Admin")
         expect(html.at_css("#user-#{leslie.id} a")["href"]).to eq edit_hub_user_path(id: leslie)
+      end
+
+      context "with a suspended user" do
+        let!(:suspended_user) { create :user, suspended_at: DateTime.now }
+
+        it "does not display the suspended user" do
+          get :index
+
+          expect(assigns(:users)).not_to include suspended_user
+        end
       end
 
       context "invitation acceptance status" do
@@ -424,27 +434,24 @@ RSpec.describe Hub::UsersController do
         expect(response).to redirect_to hub_users_path
       end
 
-      context "when the user has sent a message to a client" do
+      context "when the user has sent a message to a client and has assigned tax returns" do
+        let!(:tax_return) { create :tax_return, assigned_user: user }
         before { create :outgoing_text_message, user: user }
 
-        it "raises an error and does not destroy the role" do
-          expect do
-            delete :destroy, params: params
-          end.to raise_error ActiveRecord::InvalidForeignKey
+        it "suspends the user and unassigns them from all tax returns" do
+          delete :destroy, params: params
+
           expect(user.reload.role).to be_present
+          expect(user.suspended_at).to be_present
+          expect(tax_return.reload.assigned_user).to be_nil
+          expect(tax_return.reload.assigned_user_id).to be_nil
         end
-      end
 
-      context "when the user is assigned to a tax return" do
-        let!(:tax_return) { create :tax_return, assigned_user: user }
+        it "redirects to the users list with a flash message saying the user was suspended" do
+          delete :destroy, params: params
 
-        it "adds a flash warning and redirects to the user's edit page" do
-          expect do
-            delete :destroy, params: params
-          end.not_to change(User, :count)
-
-          expect(flash[:alert]).to eq "Cannot delete #{user.name}'s account. #{user.name} is still assigned to a tax return on client ##{tax_return.client_id}"
-          expect(response).to redirect_to edit_hub_user_path(id: user)
+          expect(response).to redirect_to hub_users_path
+          expect(flash[:notice]).to eq("Suspended #{user.name}'s account")
         end
       end
     end

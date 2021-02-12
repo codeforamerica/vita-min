@@ -23,8 +23,9 @@ es:
       unlock:
         account_unlocked: "La cuenta de %{name} se ha desbloqueado"
       destroy:
-        user_has_assignments: "No se puede borrar la cuenta de %{name}. %{name} todavía está asignado a una declaración de impuestos del cliente #%{client_id}"
         success: "La cuenta de %{name} se ha eliminado"
+      suspend:
+        success: La cuenta de %{name} se ha suspendida
     anonymized_intake_csv_extracts:
       index:
         filename: Nombre de archivo
