@@ -6,7 +6,8 @@ deploy_default: &deploy_default
 
 test:
   service: Disk
-  root: <%= Rails.root.join("tmp/storage") %>
+  # Use /tmp which is autocleared periodically on macOS
+  root: "/tmp/vita-min-test-storage"
 
 local:
   service: Disk
