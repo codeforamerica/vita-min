@@ -14,29 +14,33 @@
     <%= form_with model: [:hub, @user], method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
       <p>
         <strong><%= t("general.email") %>:</strong> <%= @user.email %>
+        <%= link_to t("general.resend_invitation"), user_profile_resend_invitation_path(user_id: @user.id), class: "button button-small", method: :put %>
       </p>
 
       <%= f.cfa_input_field(:phone_number, t("general.phone_number"), type: "phone") %>
       <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
-
-      <h2><%= t("general.role") %></h2>
-
-      <fieldset class="input-group form-group">
-        <label class="checkbox">
-          <%= check_box_tag("user[is_admin]", true, @user.admin?, classes: ["form-width--long"], disabled: !current_user.admin?) %>
-          <%= t('.is_admin_label') %>
-        </label>
-      </fieldset>
-
-      <div>
-        <%= link_to t("general.resend_invitation"), user_profile_resend_invitation_path(user_id: @user.id), class: "button button-small", method: :put %>
-      </div>
 
       <button class="button button--cta" type="submit">
         <%=t("general.save") %>
       </button>
 
       <%= link_to t("general.cancel"), hub_users_path, class: "button" %>
+
+      <h2><%= t("general.role") %></h2>
+
+      <p><%= [user_role(@user), user_group(@user)].compact.join(", ") %></p>
+
+      <%= render('components/molecules/reveal', title: 'Reassign') do %>
+        <ul class="list--bulleted">
+          <li><%= link_to "Admin", edit_role_admin_hub_user_path %></li>
+          <li>Greeter</li>
+          <li>Organization lead</li>
+          <li>Coalition lead</li>
+          <li>Site coordinator</li>
+          <li>Client success</li>
+          <li>Team member</li>
+        </ul>
+      <% end %>
     <% end %>
   </div>
 <% end %>

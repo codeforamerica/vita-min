@@ -16,6 +16,10 @@ module Hub
 
     def edit; end
 
+    def edit_role_admin; end
+
+    def update_role; end
+
     def destroy
       begin
         ActiveRecord::Base.transaction do
