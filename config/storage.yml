@@ -7,7 +7,7 @@ deploy_default: &deploy_default
 test:
   service: Disk
   # Use /tmp which is autocleared periodically on macOS
-  root: "/tmp/via-min-test-storage"
+  root: "/tmp/vita-min-test-storage"
 
 local:
   service: Disk
