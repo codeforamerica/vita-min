@@ -43,12 +43,12 @@ describe VitaPartnerHelper do
     end
 
     context "when the user's role is Admin" do
-      let(:org_1) { create(:vita_partner, name: "First Parent Org") }
-      let(:org_2) { create(:vita_partner, name: "Second Parent Org") }
-      let(:org_3) { create(:vita_partner, name: "No Child Org") }
-      let(:site_1) { create(:vita_partner, parent_organization_id: org_1.id, name: "The First Child Org") }
-      let(:site_2) { create(:vita_partner, parent_organization_id: org_1.id, name: "The Second Child Org") }
-      let(:site_3) { create(:vita_partner, parent_organization_id: org_2.id, name: "The Third Child Org") }
+      let(:org_1) { create(:organization, name: "First Org") }
+      let(:org_2) { create(:organization, name: "Second Org") }
+      let(:org_3) { create(:organization, name: "Org Without Sites") }
+      let(:site_1) { create(:site, parent_organization_id: org_1.id, name: "1st Site of 1st Org") }
+      let(:site_2) { create(:site, parent_organization_id: org_1.id, name: "2nd Site of 1st Org") }
+      let(:site_3) { create(:site, parent_organization_id: org_2.id, name: "Site Of 2nd Org") }
 
       let(:admin) { create :admin_user }
 
@@ -56,27 +56,27 @@ describe VitaPartnerHelper do
         allow(view).to receive(:current_user).and_return(admin)
       end
 
-      it "returns arrays of sites grouped by parent orgs" do
+      it "returns orgs & sites grouped by org including client support org" do
         @vita_partners = VitaPartner.accessible_by(Ability.new(admin))
         expected =
           [
             [VitaPartner.client_support_org.name, [[VitaPartner.client_support_org.name, VitaPartner.client_support_org.id]]],
-            ["First Parent Org", [["First Parent Org", org_1.id], ["The First Child Org", site_1.id], ["The Second Child Org", site_2.id]]],
-            ["No Child Org", [["No Child Org", org_3.id]]],
-            ["Second Parent Org", [["Second Parent Org", org_2.id], ["The Third Child Org", site_3.id]]],
+            ["First Org", [["First Org", org_1.id], ["1st Site of 1st Org", site_1.id], ["2nd Site of 1st Org", site_2.id]]],
+            ["Org Without Sites", [["Org Without Sites", org_3.id]]],
+            ["Second Org", [["Second Org", org_2.id], ["Site Of 2nd Org", site_3.id]]],
           ]
-        expect(helper.grouped_organization_options).to eq(expected)
+        expect(helper.grouped_organization_options).to match_array(expected)
       end
     end
 
     context "when the user's role is Coalition Lead" do
-      let!(:org_1) { create(:organization, name: "First Parent Org", coalition: coalition_lead.role.coalition) }
-      let!(:org_2) { create(:organization, name: "Second Parent Org", coalition: coalition_lead.role.coalition) }
-      let!(:org_3) { create(:organization, name: "No Child Org", coalition: coalition_lead.role.coalition) }
+      let!(:org_1) { create(:organization, name: "First Org", coalition: coalition_lead.role.coalition) }
+      let!(:org_2) { create(:organization, name: "Second Org", coalition: coalition_lead.role.coalition) }
+      let!(:org_3) { create(:organization, name: "Org Without Sites", coalition: coalition_lead.role.coalition) }
 
-      let!(:site_1) { create(:site, parent_organization_id: org_1.id, name: "The First Child Site") }
-      let!(:site_2) { create(:site, parent_organization_id: org_1.id, name: "The Second Child Site") }
-      let!(:site_3) { create(:site, parent_organization_id: org_2.id, name: "The Third Child Site") }
+      let!(:site_1) { create(:site, parent_organization_id: org_1.id, name: "1st Site of 1st Org") }
+      let!(:site_2) { create(:site, parent_organization_id: org_1.id, name: "2nd Site of 2nd Org") }
+      let!(:site_3) { create(:site, parent_organization_id: org_2.id, name: "Site of 2nd Org") }
 
       let!(:coalition_lead) { create :coalition_lead_user }
 
@@ -84,15 +84,15 @@ describe VitaPartnerHelper do
         allow(view).to receive(:current_user).and_return(coalition_lead)
       end
 
-      it "returns array grouped by parent org" do
+      it "returns orgs & sites grouped by org excluding client support org" do
         @vita_partners = VitaPartner.accessible_by(Ability.new(coalition_lead))
         expected =
           [
-            ["First Parent Org", [["First Parent Org", org_1.id], ["The First Child Site", site_1.id], ["The Second Child Site", site_2.id]]],
-            ["Second Parent Org", [["Second Parent Org", org_2.id], ["The Third Child Site", site_3.id]]],
-            ["No Child Org", [["No Child Org", org_3.id]]],
+            ["First Org", [["First Org", org_1.id], ["1st Site of 1st Org", site_1.id], ["2nd Site of 2nd Org", site_2.id]]],
+            ["Second Org", [["Second Org", org_2.id], ["Site of 2nd Org", site_3.id]]],
+            ["Org Without Sites", [["Org Without Sites", org_3.id]]],
           ]
-        expect(helper.grouped_organization_options).to eq(expected)
+        expect(helper.grouped_organization_options).to match_array(expected)
       end
     end
 
