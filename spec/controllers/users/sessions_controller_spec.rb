@@ -61,10 +61,10 @@ RSpec.describe Users::SessionsController do
     context "when a user has been suspended" do
       before { user.update!(suspended_at: DateTime.now) }
 
-      it "the user cannot log in" do
+      it "raises an error from warden" do
         post :create, params: params
 
-        expect(subject.current_user).to be_nil
+        expect{ subject.current_user }.to raise_error(UncaughtThrowError)
       end
     end
   end

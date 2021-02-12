@@ -57,6 +57,16 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           expect(assigns(:assignable_users)).to match_array([user, currently_assigned_coalition_lead, site_coordinator, team_member])
         end
       end
+
+      context "with a suspended user at the associated vita_partner" do
+        let!(:suspended_user) { create :organization_lead_user, suspended_at: DateTime.now, organization: client.vita_partner }
+
+        it "does not include the suspended user" do
+          get :edit, params: params, format: :js, xhr: true
+
+          expect(assigns(:assignable_users)).not_to include suspended_user
+        end
+      end
     end
   end
 

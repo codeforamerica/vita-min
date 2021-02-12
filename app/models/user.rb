@@ -69,7 +69,7 @@ class User < ApplicationRecord
   validates_presence_of :name
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }
 
-  default_scope { where(suspended_at: nil) }
+  scope :active, -> { where(suspended_at: nil) }
 
   def accessible_coalitions
     case role_type
@@ -161,8 +161,12 @@ class User < ApplicationRecord
     role_type == AdminRole::TYPE
   end
 
+  def suspended?
+    suspended_at.present?
+  end
+
   def active_for_authentication?
     # overrides
-    super && suspended_at.blank?
+    super && !suspended?
   end
 end

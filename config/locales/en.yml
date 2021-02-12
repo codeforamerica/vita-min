@@ -613,6 +613,7 @@ en:
     last_four_ssn: Last 4 of SSN/ITIN
     hidden: Hidden
     locked: "Locked"
+    suspended: "Suspended"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

@@ -616,6 +616,7 @@ es:
     last_four_ssn: Últimos 4 de SSN / ITIN
     hidden: Encubierto
     locked: "Bloqueada"
+    suspended: "Suspendida"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

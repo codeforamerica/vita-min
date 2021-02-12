@@ -27,7 +27,6 @@
     </thead>
 
     <tbody class="index-table__body">
-
       <% @users.each do |user| %>
         <tr id="user-<%= user.id %>" class="index-table__row">
           <th scope="row" class="index-table__row-header">
@@ -41,6 +40,9 @@
             <%= user.email %>
             <% if user.access_locked? %>
               <span class="locked label label--red"><%= t("general.locked") %></span>
+            <% end %>
+            <% if user.suspended? %>
+              <span class="locked label label--red"><%= t("general.suspended") %></span>
             <% end %>
           </td>
           <td class="index-table__cell"><%= user_role(user) %></td>

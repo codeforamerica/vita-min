@@ -58,10 +58,10 @@ RSpec.describe "a user editing a user" do
         click_on "Delete"
 
         expect(page).to have_current_path(hub_users_path)
-        expect(page).to have_text("Suspended")
+        expect(page).to have_text("Suspended #{user_to_edit.name}")
 
-        within ".user-table" do
-          expect(page).not_to have_text(user_to_edit.name)
+        within "#user-#{user_to_edit.id}" do
+          expect(page).to have_text("Suspended")
         end
       end
     end
