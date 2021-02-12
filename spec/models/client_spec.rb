@@ -236,6 +236,7 @@ describe Client do
 
         it "updates client attention_needed_since" do
           expect { create :document, client: client, uploaded_by: client }.to change(client, :attention_needed_since)
+
         end
 
         context "without an explicit relationship to client but an intake that has a client id" do
