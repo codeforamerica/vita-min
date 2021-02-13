@@ -13,11 +13,15 @@
     </div>
   </div>
 
+  <button class="toggle-sites" data-expand-text="Expand Sites" data-collapse-text="Collapse Sites">Collapse Sites</button>
+
+  <button class="toggle-zeros" data-expand-text="Expand 0s" data-collapse-text="Collapse 0s">Collapse 0s</button>
+
   <div>
     <table class="index-table">
       <thead class="index-table__head">
         <tr class="index-table__row">
-          <th scope="col" class="index-table__header">Organization Name</th>
+          <th scope="col" class="index-table__header" width="40%">Organization Name</th>
           <th scope="col" class="index-table__header">Needs attention breaches<sup>1</sup></th>
           <th scope="col" class="index-table__header">Outgoing communication breaches<sup>2</sup></th>
           <th scope="col" class="index-table__header">Profile interaction breaches<sup>3</sup></th>
@@ -26,19 +30,31 @@
       <tbody class="index-table__body">
       <% @vita_partners.each do |vita_partner| %>
         <% next unless vita_partner.organization? %>
-        <tr class="index-table__row org-metrics-row">
+        <tr class="index-table__row org-metrics-row" data-js-vita-partner-id=<%= vita_partner.id %>>
           <td class="index-table__cell"><%= vita_partner.name %> </td>
-          <td class="index-table__cell attention-needed-org" data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+          <td class="index-table__cell attention-needed-org"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
             <%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>
           </td>
-          <td class="index-table__cell communication-site" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+          <td class="index-table__cell communication-org" data-js-vita-partner-id=data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
             <%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>
           </td>
-          <td class="index-table__cell interaction-site" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+          <td class="index-table__cell interaction-org" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
             <%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>
           </td>
         </tr>
         <% vita_partner.child_sites.each do |site| %>
+          <tr class="index-table__row site-metrics-row" data-js-vita-partner-id=<%= vita_partner.id %>>
+            <td class="index-table__cell" style="padding-left: 60px; font-style: italic;"><%= vita_partner.name %></td>
+            <td class="index-table__cell attention-needed-site-<%= vita_partner.id %>"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+              <%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>
+            </td>
+            <td class="index-table__cell communication-site-<%= vita_partner.id %>" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+              <%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>
+            </td>
+            <td class="index-table__cell interaction-site-<%= vita_partner.id %>" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+              <%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>
+            </td>
+          </tr>
           <tr class="index-table__row site-metrics-row">
             <td class="index-table__cell" style="padding-left: 60px"><%= site.name %> </td>
             <td class="index-table__cell attention-needed-site-<%= vita_partner.id %>" data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[site.id] || 0 %>>
@@ -53,7 +69,7 @@
           </tr>
         <% end %>
       <% end %>
-      <tr class="">
+      <tr class="metrics-totals">
         <td></td>
         <td class="index-table__cell"><strong><%= @breach_data.attention_needed_breach_count || 0%></strong></td>
         <td class="index-table__cell"><strong><%= @breach_data.communication_breach_count || 0 %></strong></td>
@@ -83,16 +99,90 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       $(".org-metrics-row").each(function() {
-          let
-      })
-      $(".site-metrics-row, .org-metrics-row").each(function() {
-          let values = [];
-          $(this).children('td').each(function() {
-              values.push($(this).attr('data-js-count'));
+          const vitaPartnerId = $(this).attr('data-js-vita-partner-id');
+          let attention_needed_count = 0;
+          let communication_count = 0;
+          let interaction_count = 0;
+
+          $(`.attention-needed-site-${vitaPartnerId}`).each(function() {
+              attention_needed_count += parseInt($(this).attr('data-js-count'));
           });
-          // are all values in this row 0? then hide it!
-          const no_breaches = values.filter(function(v) { return v != undefined; }).every(function(v) { return v == 0 });
-          if(no_breaches) { $(this).hide();}
+
+          $(`.communication-site-${vitaPartnerId}`).each(function() {
+              communication_count += parseInt($(this).attr('data-js-count'));
+          });
+
+          $(`.interaction-site-${vitaPartnerId}`).each(function() {
+              interaction_count += parseInt($(this).attr('data-js-count'));
+          });
+
+          if (attention_needed_count > 0) $(this).find('.attention-needed-org').text(attention_needed_count)
+          if (communication_count > 0) $(this).find('.communication-org').text(communication_count)
+          if (interaction_count > 0) $(this).find('.interaction-org').text(interaction_count)
+
+
+          console.log(attention_needed_count)
+          console.log(communication_count)
+          console.log(interaction_count)
+      });
+
+        $(".site-metrics-row, .org-metrics-row").each(function() {
+            let values = [];
+
+            $(this).children('td').each(function() {
+                values.push($(this).attr('data-js-count'));
+            });
+
+            // are all values in this row 0? then hide it!
+            const noBreaches = values.filter(function(v) { return v != undefined; }).every(function(v) { return v == 0 });
+            if (noBreaches) {
+                $(this).addClass('no-breaches');
+            } else {
+                $(this).addClass('with-breaches');
+            }
+        });
+
+      $("button.toggle-sites").click(function() {
+          if (!$(this).attr('data-collapse')) {
+            $(".site-metrics-row").each(function() {
+                $(this).hide();
+            });
+            $(this).attr('data-collapse', true)
+            $(this).text($(this).attr('data-expand-text'));
+          } else {
+              let elements = ".site-metrics-row";
+              if ($("button.toggle-zeros").attr('data-collapse')) {
+                  elements += ".with-breaches"
+              }
+              $(elements).each(function() {
+                  $(this).show();
+              });
+              $(this).text($(this).attr('data-collapse-text'));
+              $(this).removeAttr('data-collapse');
+          }
+      });
+
+      $("button.toggle-zeros").click(function() {
+          if (!$(this).attr('data-collapse')) {
+              let elements = ".org-metrics-row";
+              if (!$("button.toggle-sites").attr('data-collapse')) {
+                  elements += ", .site-metrics-row"
+              }
+              $(elements).each(function () {
+                  if ($(this).hasClass('no-breaches')) {
+                      $(this).hide();
+                  }
+              });
+
+              $(this).attr('data-collapse', true)
+              $(this).text($(this).attr('data-expand-text'));
+          } else {
+              $(".no-breaches").each(function() {
+                  $(this).show();
+              });
+              $(this).text($(this).attr('data-collapse-text'));
+              $(this).removeAttr('data-collapse');
+          }
       });
     });
   </script>
