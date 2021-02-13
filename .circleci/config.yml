@@ -78,7 +78,7 @@ jobs:
       - install_ruby_dependencies
       - await_test_db
       - run: bundle exec rake db:create db:schema:load
-      - run: bundle exec spring rake 'knapsack_pro:queue:rspec[--format documentation]'
+      - run: EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec spring rake 'knapsack_pro:queue:rspec[--format documentation]'
       - store_test_results:
           path: tmp/test-results-xml/
   deploy_to_aptible--demo:
