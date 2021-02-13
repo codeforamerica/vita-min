@@ -200,21 +200,6 @@ RSpec.describe MailgunWebhooksController do
           expect(DatadogApi).to have_received(:increment).with("mailgun.incoming_emails.received")
           expect(DatadogApi).to have_received(:increment).with("mailgun.incoming_emails.client_found_multiple")
         end
-
-        context "with attachments" do
-          it "stores them on each client" do
-            expect do
-              post :create_incoming_email, params: params.update({
-                                                                   "attachment-count": 1,
-                                                                   "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
-                                                                 })
-            end.to change(Document, :count).by(2)
-
-            documents = Document.where(client: [client1, client2])
-            expect(documents.first.upload.blob.download).to eq(open("spec/fixtures/attachments/document_bundle.pdf", "rb").read)
-            expect(documents.second.upload.blob.download).to eq(open("spec/fixtures/attachments/document_bundle.pdf", "rb").read)
-          end
-        end
       end
     end
   end
