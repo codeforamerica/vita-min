@@ -56,24 +56,19 @@ commands:
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
 jobs:
-  run_js_tests:
-    executor: ruby_executor
+  run_tests:
+    executor: rails_executor
+    parallelism: 6
     steps:
       - checkout
       - install_js_dependencies
-      - run: mkdir -p test-results/jest
+      - run: if $CIRCLE_NODE_INDEX -eq 0 ; then mkdir -p test-results/jest ; end
       - run:
-          command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
+          command: if $CIRCLE_NODE_INDEX -eq 0 ; then npm test --ci --runInBand --reporters=default --reporters=jest-junit ; fi
           environment:
             JEST_JUNIT_OUTPUT_DIR: test-results/jest/
       - store_test_results:
           path: test-results
-  run_ruby_tests:
-    executor: rails_executor
-    parallelism: 4
-    steps:
-      - checkout
-      - install_js_dependencies
       - install_system_dependencies
       - install_ruby_dependencies
       - await_test_db
@@ -101,15 +96,14 @@ workflows:
   version: 2
   ci-and-deploy:
     jobs:
-      - run_js_tests
-      - run_ruby_tests
+      - run_tests
       - deploy_to_aptible--demo:
-          requires: [run_js_tests, run_ruby_tests]
+          requires: [run_tests]
           filters:
             branches:
               only: main
       - deploy_to_aptible--production:
-          requires: [run_js_tests, run_ruby_tests]
+          requires: [run_tests]
           filters:
             branches:
               only: release
