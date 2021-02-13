@@ -62,9 +62,9 @@ jobs:
     steps:
       - checkout
       - install_js_dependencies
-      - run: if $CIRCLE_NODE_INDEX -eq 0 ; then mkdir -p test-results/jest ; fi
+      - run: if [ "$CIRCLE_NODE_INDEX" == 0 ] ; then mkdir -p test-results/jest ; fi
       - run:
-          command: if $CIRCLE_NODE_INDEX -eq 0 ; then npm test --ci --runInBand --reporters=default --reporters=jest-junit ; fi
+          command: if [ "$CIRCLE_NODE_INDEX" == 0 ] ; then npm test --ci --runInBand --reporters=default --reporters=jest-junit ; fi
           environment:
             JEST_JUNIT_OUTPUT_DIR: test-results/jest/
       - store_test_results:
