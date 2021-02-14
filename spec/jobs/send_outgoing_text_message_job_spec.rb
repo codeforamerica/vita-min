@@ -18,7 +18,6 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
       allow(fake_twilio_messages).to receive(:create).and_return(fake_twilio_message)
       allow(ReplacementParametersService).to receive(:new).and_return(fake_replacement_parameters_service)
       allow(fake_replacement_parameters_service).to receive(:process_sensitive_data).and_return("sensitive body")
-      allow(DatadogApi).to receive(:increment)
     end
 
     it "replaces sensitive parameters, sends the message to Twilio with a callback URL and saves the status" do
@@ -39,7 +38,6 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
         locale: intake.locale
       )
       expect(fake_replacement_parameters_service).to have_received(:process_sensitive_data)
-      expect(DatadogApi).to have_received(:increment).with "twilio.outgoing_text_messages.sent"
     end
   end
 end

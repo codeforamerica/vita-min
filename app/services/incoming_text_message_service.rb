@@ -27,7 +27,7 @@ class IncomingTextMessageService
     end
 
     # process attachments once
-    attachments = TwilioService.new(params).parse_attachments
+    attachments = TwilioService.parse_attachments(params)
 
     clients.map do |client|
       documents = attachments.map do |attachment|
