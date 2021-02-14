@@ -5,7 +5,7 @@
 #  id                        :bigint           not null, primary key
 #  current_sign_in_at        :datetime
 #  current_sign_in_ip        :string
-#  email                     :string           not null
+#  email                     :citext           not null
 #  encrypted_access_token    :string
 #  encrypted_access_token_iv :string
 #  encrypted_password        :string           default(""), not null

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_171912) do
+ActiveRecord::Schema.define(version: 2021_02_14_022857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -211,7 +211,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_171912) do
     t.string "body_plain", null: false
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
-    t.string "from", null: false
+    t.citext "from", null: false
     t.string "message_id"
     t.string "received"
     t.datetime "received_at", null: false
@@ -221,7 +221,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_171912) do
     t.string "stripped_signature"
     t.string "stripped_text"
     t.string "subject"
-    t.string "to", null: false
+    t.citext "to", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_agent"
     t.index ["client_id"], name: "index_incoming_emails_on_client_id"
@@ -458,7 +458,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_171912) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "sent_at", null: false
     t.string "subject", null: false
-    t.string "to", null: false
+    t.citext "to", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.index ["client_id"], name: "index_outgoing_emails_on_client_id"
@@ -489,7 +489,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_171912) do
 
   create_table "signups", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
-    t.string "email_address"
+    t.citext "email_address"
     t.string "name"
     t.string "phone_number"
     t.datetime "updated_at", precision: 6, null: false
@@ -568,7 +568,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_171912) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "current_sign_in_at"
     t.string "current_sign_in_ip"
-    t.string "email", null: false
+    t.citext "email", null: false
     t.string "encrypted_access_token"
     t.string "encrypted_access_token_iv"
     t.string "encrypted_password", default: "", null: false

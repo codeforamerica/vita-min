@@ -3,7 +3,7 @@
 # Table name: signups
 #
 #  id            :bigint           not null, primary key
-#  email_address :string
+#  email_address :citext
 #  name          :string
 #  phone_number  :string
 #  zip_code      :string
@@ -15,6 +15,7 @@ class Signup < ApplicationRecord
   validate :phone_number_or_email_address
   validates :zip_code, zip_code: true, allow_blank: true
   validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
+  validates :email_address, 'valid_email_2/email': true
 
   private
 
