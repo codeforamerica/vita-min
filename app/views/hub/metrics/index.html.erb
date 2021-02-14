@@ -21,15 +21,23 @@
     <table class="index-table">
       <thead class="index-table__head">
         <tr class="index-table__row">
-          <th scope="col" class="index-table__header" width="40%">Organization Name</th>
-          <th scope="col" class="index-table__header">Needs attention breaches<sup>1</sup></th>
-          <th scope="col" class="index-table__header">Outgoing communication breaches<sup>2</sup></th>
-          <th scope="col" class="index-table__header">Profile interaction breaches<sup>3</sup></th>
+          <th scope="col" class="index-table__header" id="organization-name" width="40%">
+            Organization Name
+          </th>
+          <th scope="col" class="index-table__header" id="needs-attention-breaches">
+            Needs attention breaches<a href="#sup-1"><sup>1</sup></a>
+          </th>
+          <th scope="col" class="index-table__header" id="outgoing-communication-breaches">
+            Outgoing communication breaches<a href="#sup-2"><sup>2</sup></a>
+          </th>
+          <th scope="col" class="index-table__header" if="profile-interaction-breaches">
+            Profile interaction breaches<a href="#sup-3"><sup>3</sup></a>
+          </th>
         </tr>
       </thead>
-      <tbody class="index-table__body">
       <% @vita_partners.each do |vita_partner| %>
         <% next unless vita_partner.organization? %>
+        <tbody class="index-table__body org-metrics" data-js-vita-partner-name="<%= vita_partner.name %>">
         <tr class="index-table__row org-metrics-row" data-js-vita-partner-id=<%= vita_partner.id %>>
           <td class="index-table__cell"><%= vita_partner.name %> </td>
           <td class="index-table__cell attention-needed-org"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
@@ -68,13 +76,15 @@
             </td>
           </tr>
         <% end %>
+        </tbody>
       <% end %>
-      <tr class="metrics-totals">
-        <td></td>
-        <td class="index-table__cell"><strong><%= @breach_data.attention_needed_breach_count || 0%></strong></td>
-        <td class="index-table__cell"><strong><%= @breach_data.communication_breach_count || 0 %></strong></td>
-        <td class="index-table__cell"><strong><%= @breach_data.interaction_breach_count || 0 %></strong></td>
-      </tr>
+      <tbody>
+        <tr class="metrics-totals">
+          <td></td>
+          <td class="index-table__cell"><strong><%= @breach_data.attention_needed_breach_count || 0%></strong></td>
+          <td class="index-table__cell"><strong><%= @breach_data.communication_breach_count || 0 %></strong></td>
+          <td class="index-table__cell"><strong><%= @breach_data.interaction_breach_count || 0 %></strong></td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -90,7 +100,7 @@
       <small><sup>2 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not contacted them by text/call/email.</small>
     </div>
     <div id="sup-3">
-      <small><sup>3</sup>Client messaged us or uploaded document more than 3 business days ago, and we have not interacted with their profile (written internal note, changed status, assigned user, etc).</small>
+      <small><sup>3 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not interacted with their profile (written internal note, changed status, assigned user, etc).</small>
     </div>
   </div>
 <% end %>
@@ -98,7 +108,71 @@
 <% content_for :script do %>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      $(".org-metrics-row").each(function() {
+      const orgs = $("tbody.org-metrics");
+      orgs.sort(function(a, b) {
+        const nameA = $($(a).children('tr')[0]).attr('data-js-vita-partner-name'),
+              nameB = $($(b).children('tr')[0]).attr('data-js-vita-partner-name')
+        if (nameA < nameB)
+            return -1;
+        if (nameA > nameB)
+            return 1;
+        return 0;
+      });
+
+      function sortTableByName(direction = 'asc') {
+          let switching = true;
+
+          // Run loop until no switching is needed
+          while (switching) {
+            let i;
+            switching = false;
+            const orgs = $("tbody.org-metrics");
+            let makeSwitch = false;
+            // Loop to go through all rows
+            for (i = 0; i < (orgs.length - 1); i++) {
+
+                // Fetch 2 elements that need to be compared
+                let x = $(orgs[i]).attr('data-js-vita-partner-name');
+                let y = $(orgs[i + 1]).attr('data-js-vita-partner-name');
+                if (direction == 'desc') {
+                    if (x.toLowerCase() < y.toLowerCase()) {
+                        makeSwitch = true
+                        break;
+                    }
+                } else {
+                    if (x.toLowerCase() > y.toLowerCase()) {
+                        makeSwitch = true
+                        break;
+                    }
+                }
+            }
+            if (makeSwitch) {
+                // Function to switch rows and mark switch as completed
+                orgs[i].parentNode.insertBefore(orgs[i + 1], orgs[i]);
+                switching = true;
+            }
+        }
+      }
+
+
+      $('th#organization-name').click(function() {
+          if($(this).data('attr-direction') == 'asc') {
+              $(this).data('attr-direction', 'desc')
+              sortTableByName('desc');
+          } else {
+              $(this).data('attr-direction', 'asc')
+
+              sortTableByName('asc');
+          }
+      });
+
+
+
+
+
+
+
+    $(".org-metrics-row").each(function() {
           const vitaPartnerId = $(this).attr('data-js-vita-partner-id');
           let attention_needed_count = 0;
           let communication_count = 0;
@@ -119,11 +193,6 @@
           if (attention_needed_count > 0) $(this).find('.attention-needed-org').text(attention_needed_count)
           if (communication_count > 0) $(this).find('.communication-org').text(communication_count)
           if (interaction_count > 0) $(this).find('.interaction-org').text(interaction_count)
-
-
-          console.log(attention_needed_count)
-          console.log(communication_count)
-          console.log(interaction_count)
       });
 
         $(".site-metrics-row, .org-metrics-row").each(function() {
