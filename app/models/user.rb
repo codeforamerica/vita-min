@@ -5,7 +5,7 @@
 #  id                        :bigint           not null, primary key
 #  current_sign_in_at        :datetime
 #  current_sign_in_ip        :string
-#  email                     :string           not null
+#  email                     :citext           not null
 #  encrypted_access_token    :string
 #  encrypted_access_token_iv :string
 #  encrypted_password        :string           default(""), not null
@@ -58,6 +58,7 @@ class User < ApplicationRecord
 
   before_validation :format_phone_number
   validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
+  validates :email, 'valid_email_2/email': true
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_many :access_logs
   belongs_to :role, polymorphic: true

@@ -162,6 +162,16 @@ RSpec.describe Hub::CreateClientForm do
     end
 
     context "validations" do
+      context "with an invalid email" do
+        before { params[:email_address] = "someone@example" }
+        let(:form) { described_class.new(params) }
+
+        it "is not valid and adds an error to the email field" do
+          expect(form).not_to be_valid
+          expect(form.errors).to include :email_address
+        end
+      end
+
       context "vita_partner_id" do
         before do
           params[:vita_partner_id] = nil
