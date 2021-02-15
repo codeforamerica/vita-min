@@ -37,41 +37,41 @@
       </thead>
       <% @vita_partners.each do |vita_partner| %>
         <% next unless vita_partner.organization? || @vita_partners.length == 1 %>
-        <tbody class="index-table__body org-metrics" data-js-vita-partner-name="<%= vita_partner.name %>">
-        <tr class="index-table__row org-metrics-row" data-js-vita-partner-id=<%= vita_partner.id %>>
-          <td class="index-table__cell"><%= vita_partner.name %> </td>
-          <td class="index-table__cell attention-needed-org"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+        <tbody class="index-table__body org-metrics" data-js-vita-partner-name="<%= vita_partner.name %>" data-js-vita-partner-id=<%= vita_partner.id %>>
+        <tr class="index-table__row org">
+          <td class="index-table__cell"><%= vita_partner.name %></td>
+          <td class="index-table__cell attention-needed-breach"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
             <%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>
           </td>
-          <td class="index-table__cell communication-org" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+          <td class="index-table__cell communication-breach" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
             <%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>
           </td>
-          <td class="index-table__cell interaction-org" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+          <td class="index-table__cell interaction-breach" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
             <%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>
           </td>
         </tr>
         <% vita_partner.child_sites.each do |site| %>
-          <tr class="index-table__row site-metrics-row" data-js-vita-partner-id=<%= vita_partner.id %>>
+          <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px; font-style: italic;"><%= vita_partner.name %></td>
-            <td class="index-table__cell attention-needed-site-<%= vita_partner.id %>"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+            <td class="index-table__cell attention-needed-breach"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
               <%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>
             </td>
-            <td class="index-table__cell communication-site-<%= vita_partner.id %>" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+            <td class="index-table__cell communication-site-breach" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
               <%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>
             </td>
-            <td class="index-table__cell interaction-site-<%= vita_partner.id %>" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+            <td class="index-table__cell interaction-site-breach" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
               <%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>
             </td>
           </tr>
-          <tr class="index-table__row site-metrics-row">
+          <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px"><%= site.name %> </td>
-            <td class="index-table__cell attention-needed-site-<%= vita_partner.id %>" data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[site.id] || 0 %>>
+            <td class="index-table__cell attention-needed-breach" data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[site.id] || 0 %>>
               <%= @breach_data.attention_needed_breaches_by_vita_partner[site.id] || 0 %>
             </td>
-            <td class="index-table__cell communication-site-<%= vita_partner.id %>" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[site.id] || 0 %>>
+            <td class="index-table__cell communication-breach" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[site.id] || 0 %>>
               <%= @breach_data.communication_breaches_by_vita_partner[site.id] || 0 %>
             </td>
-            <td class="index-table__cell interaction-site-<%= vita_partner.id %>" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[site.id] || 0 %>>
+            <td class="index-table__cell interaction-breach" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[site.id] || 0 %>>
               <%= @breach_data.interaction_breaches_by_vita_partner[site.id] || 0 %>
             </td>
           </tr>

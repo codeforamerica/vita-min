@@ -2,40 +2,38 @@ import { initSortableColumn } from './table_sort';
 
 // Sum site-level counts into org-level values for org row.
 function setupOrgLevelCounts() {
-    $(".org-metrics-row").each(function() {
-        const vitaPartnerId = $(this).attr('data-js-vita-partner-id');
+    $(".org-metrics").each(function() {
         let attention_count = 0;
         let communication_count = 0;
         let interaction_count = 0;
-
-        $(`.attention-needed-site-${vitaPartnerId}`).each(function() {
+        $(this).find('tr.site td.attention-needed-breach').each(function() {
             attention_count += parseInt($(this).attr('data-js-count'));
         });
 
-        $(`.communication-site-${vitaPartnerId}`).each(function() {
+        $(this).find('tr.site td.communication-breach').each(function() {
             communication_count += parseInt($(this).attr('data-js-count'));
         });
 
-        $(`.interaction-site-${vitaPartnerId}`).each(function() {
+        $(this).find('tr.site td.interaction-breach').each(function() {
             interaction_count += parseInt($(this).attr('data-js-count'));
         });
 
         // Set viewable value and sortable data-js-count value for org based on accumulated value.
         if (attention_count > 0) {
-            $(this).find('.attention-needed-org').text(attention_count).attr('data-js-count', attention_count);
+            $(this).find('.attention-needed-breach').first().text(attention_count).attr('data-js-count', attention_count);
         }
         if (communication_count > 0) {
-            $(this).find('.communication-org').text(communication_count).attr('data-js-count', communication_count);
+            $(this).find('.communication-breach').first().text(communication_count).attr('data-js-count', communication_count);
         }
         if (interaction_count > 0) {
-            $(this).find('.interaction-org').text(interaction_count).attr('data-js-count', interaction_count);
+            $(this).find('.interaction-breach').first().text(interaction_count).attr('data-js-count', interaction_count);
         }
     });
 }
 
 // Use attribute data-js-count to determine whether a row or set of rows includes any breaches.
 function setupBreachDataClasses() {
-    $(".site-metrics-row, .org-metrics-row").each(function() {
+    $(".site, .org").each(function() {
         let values = [];
 
         $(this).children('td').each(function() {
@@ -53,15 +51,15 @@ function setupBreachDataClasses() {
 
 // Logic for expanding/collapsing sites
 function initToggleableSites() {
-    $("button.toggle-sites").click(function() {
+    $('button.toggle-sites').click(function() {
         if (!$(this).attr('data-collapse')) {
-            $(".site-metrics-row").each(function() {
+            $(".site").each(function() {
                 $(this).hide();
             });
             $(this).attr('data-collapse', true)
             $(this).text($(this).attr('data-expand-text'));
         } else {
-            let elements = ".site-metrics-row";
+            let elements = ".site";
             if ($("button.toggle-zeros").attr('data-collapse')) {
                 elements += ".with-breaches"
             }
@@ -77,10 +75,12 @@ function initToggleableSites() {
 // Logic for collapsing/expanding orgs + sites that have 0 breaches.
 function initToggleableZeroValues() {
     $("button.toggle-zeros").click(function() {
+        console.log("clicked")
         if (!$(this).attr('data-collapse')) {
-            let elements = ".org-metrics-row";
+            let elements = ".org";
+            debugger
             if (!$("button.toggle-sites").attr('data-collapse')) {
-                elements += ", .site-metrics-row"
+                elements += ", .site"
             }
             $(elements).each(function () {
                 if ($(this).hasClass('no-breaches')) {
@@ -91,7 +91,11 @@ function initToggleableZeroValues() {
             $(this).attr('data-collapse', true)
             $(this).text($(this).attr('data-expand-text'));
         } else {
-            $(".no-breaches").each(function() {
+            let elements = ".org.no-breaches"
+            if (!$("button.toggle-sites").attr('data-collapse')) {
+                elements += ", .site.no-breaches"
+            }
+            $(elements).each(function() {
                 $(this).show();
             });
             $(this).text($(this).attr('data-collapse-text'));
@@ -100,14 +104,13 @@ function initToggleableZeroValues() {
     });
 }
 
-
 export function initMetricsTableSortAndFilter() {
     setupOrgLevelCounts();
     setupBreachDataClasses();
-    //
+
     initToggleableSites();
     initToggleableZeroValues();
-    console.log("here")
+
     initSortableColumn("tbody.org-metrics", "th#outgoing-communication-breaches", function(row) {
         return $(row).find('.communication-org').attr('data-js-count');
     });

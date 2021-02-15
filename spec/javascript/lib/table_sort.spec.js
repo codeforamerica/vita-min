@@ -18,7 +18,6 @@ beforeAll(() => {
                 <tr class="member">
                     <td>Harry</td>
                     <td data-age="27">27</td>
-
                 </tr>
                 <tr class="member">
                     <td>Liam</td>
