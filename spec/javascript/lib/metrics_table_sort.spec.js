@@ -107,12 +107,12 @@ test('collapses & expands 0-count orgs/sites', () => {
     expect(perfectOrg.css('display')).toEqual('table-row');
     expect(perfectSite.css('display')).toEqual('table-row');
 
-    $('button.toggle-zeros').click();
+    $('button#toggle-zeros').click();
 
     expect(perfectOrg.css('display')).toEqual('none');
     expect(perfectSite.css('display')).toEqual('none');
 
-    $('button.toggle-zeros').click();
+    $('button#toggle-zeros').click();
     expect(perfectOrg.css('display')).toEqual('table-row');
     expect(perfectSite.css('display')).toEqual('table-row');
 });
@@ -144,7 +144,7 @@ test("collapse and expand sites and zeros simultaneously", () => {
     initMetricsTableSortAndFilter();
 
     // collapses zeros
-    $('button.toggle-zeros').click();
+    $('button#toggle-zeros').click();
 
     expect(perfectOrg.css('display')).toEqual('none');
     expect(perfectSite.css('display')).toEqual('none');
