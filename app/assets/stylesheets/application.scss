@@ -444,15 +444,35 @@ ul.with-bullets {
   margin-left: 20px;
   list-style-type: disc;
 }
-.org-metrics-row:first-of-type {
-  border-top-color: inherit;
-}
-.org-metrics-row {
-  border-top: 1px solid darken($color-grey-light, 10%);
-  font-weight: bold;
-}
 
-.metrics-totals {
-  border-top: 2px solid $color-teal-dark;
-  background-color: $color-teal-light;
+
+
+.org-metrics-table {
+  thead {
+    th {
+      border-bottom: 1px solid black;
+    }
+  }
+  th {
+    user-select: none;
+    &.sortable {
+      cursor: pointer;
+      &[attr-direction = "asc"]::after {
+        content: "↑"
+      }
+      &[attr-direction = "desc"]::after {
+        content: "↓"
+      }
+    }
+  }
+
+  .org-metrics-row {
+    border-top: 1px solid darken($color-grey-light, 20%);
+    font-weight: bold;
+  }
+
+  .metrics-totals {
+    border-top: 2px solid $color-teal-dark;
+    background-color: $color-teal-light;
+  }
 }

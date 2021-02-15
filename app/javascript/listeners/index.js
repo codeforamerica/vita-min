@@ -2,7 +2,8 @@ import consumer from "../channels/consumer";
 import { callback, getChannelName } from "../channels/client_channel";
 import { initNestedAttributesListeners } from "../lib/nested_attributes";
 import helpers from "helpers";
-import {initTakeActionOnChangeHandlers} from "../lib/dynamic_take_action_changes";
+import { initTakeActionOnChangeHandlers } from "../lib/dynamic_take_action_changes";
+import { initMetricsTableSortAndFilter } from "../lib/metrics_table_sort";
 
 export function initListeners() {
     document.addEventListener("DOMContentLoaded", function() {
@@ -17,6 +18,7 @@ export function initListeners() {
             initTakeActionOnChangeHandlers();
         }
 
+        initMetricsTableSortAndFilter();
         // enables the link_to_add_fields and link_to_remove_fields helper methods to work globally
         initNestedAttributesListeners();
     });

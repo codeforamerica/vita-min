@@ -36,6 +36,7 @@ beforeAll(() => {
         },
     )
 })
+
 beforeEach(() => {
     window.location.replace.mockReset()
 })

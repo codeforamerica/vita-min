@@ -18,32 +18,32 @@
   <button class="toggle-zeros" data-expand-text="Expand 0s" data-collapse-text="Collapse 0s">Collapse 0s</button>
 
   <div>
-    <table class="index-table">
+    <table class="index-table org-metrics-table">
       <thead class="index-table__head">
         <tr class="index-table__row">
-          <th scope="col" class="index-table__header" id="organization-name" width="40%">
+          <th scope="col" class="index-table__header sortable" id="organization-name" width="40%">
             Organization Name
           </th>
-          <th scope="col" class="index-table__header" id="needs-attention-breaches">
-            Needs attention breaches<a href="#sup-1"><sup>1</sup></a>
+          <th scope="col" class="index-table__header sortable" id="needs-attention-breaches">
+            Needs attention breaches<sup>1</sup>
           </th>
-          <th scope="col" class="index-table__header" id="outgoing-communication-breaches">
-            Outgoing communication breaches<a href="#sup-2"><sup>2</sup></a>
+          <th scope="col" class="index-table__header sortable" id="outgoing-communication-breaches">
+            Outgoing communication breaches<sup>2</sup>
           </th>
-          <th scope="col" class="index-table__header" if="profile-interaction-breaches">
-            Profile interaction breaches<a href="#sup-3"><sup>3</sup></a>
+          <th scope="col" class="index-table__header sortable" id="profile-interaction-breaches">
+            Profile interaction breaches<sup>3</sup>
           </th>
         </tr>
       </thead>
       <% @vita_partners.each do |vita_partner| %>
-        <% next unless vita_partner.organization? %>
+        <% next unless vita_partner.organization? || @vita_partners.length == 1 %>
         <tbody class="index-table__body org-metrics" data-js-vita-partner-name="<%= vita_partner.name %>">
         <tr class="index-table__row org-metrics-row" data-js-vita-partner-id=<%= vita_partner.id %>>
           <td class="index-table__cell"><%= vita_partner.name %> </td>
           <td class="index-table__cell attention-needed-org"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
             <%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>
           </td>
-          <td class="index-table__cell communication-org" data-js-vita-partner-id=data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+          <td class="index-table__cell communication-org" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
             <%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>
           </td>
           <td class="index-table__cell interaction-org" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
@@ -90,169 +90,14 @@
   </div>
 
   <div class="slab slab--not-padded spacing-above-25">
-    <div id="sup-3">
-      <small>Reports update approx. every 10 mins.</small>
-    </div>
-    <div id="sup-2">
+    <div>
       <small><sup>1 </sup>Client needs attention indicator has been on for more than 3 business days.</small>
     </div>
     <div>
       <small><sup>2 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not contacted them by text/call/email.</small>
     </div>
-    <div id="sup-3">
+    <div>
       <small><sup>3 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not interacted with their profile (written internal note, changed status, assigned user, etc).</small>
     </div>
   </div>
-<% end %>
-
-<% content_for :script do %>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const orgs = $("tbody.org-metrics");
-      orgs.sort(function(a, b) {
-        const nameA = $($(a).children('tr')[0]).attr('data-js-vita-partner-name'),
-              nameB = $($(b).children('tr')[0]).attr('data-js-vita-partner-name')
-        if (nameA < nameB)
-            return -1;
-        if (nameA > nameB)
-            return 1;
-        return 0;
-      });
-
-      function sortTableByName(direction = 'asc') {
-          let switching = true;
-
-          // Run loop until no switching is needed
-          while (switching) {
-            let i;
-            switching = false;
-            const orgs = $("tbody.org-metrics");
-            let makeSwitch = false;
-            // Loop to go through all rows
-            for (i = 0; i < (orgs.length - 1); i++) {
-
-                // Fetch 2 elements that need to be compared
-                let x = $(orgs[i]).attr('data-js-vita-partner-name');
-                let y = $(orgs[i + 1]).attr('data-js-vita-partner-name');
-                if (direction == 'desc') {
-                    if (x.toLowerCase() < y.toLowerCase()) {
-                        makeSwitch = true
-                        break;
-                    }
-                } else {
-                    if (x.toLowerCase() > y.toLowerCase()) {
-                        makeSwitch = true
-                        break;
-                    }
-                }
-            }
-            if (makeSwitch) {
-                // Function to switch rows and mark switch as completed
-                orgs[i].parentNode.insertBefore(orgs[i + 1], orgs[i]);
-                switching = true;
-            }
-        }
-      }
-
-
-      $('th#organization-name').click(function() {
-          if($(this).data('attr-direction') == 'asc') {
-              $(this).data('attr-direction', 'desc')
-              sortTableByName('desc');
-          } else {
-              $(this).data('attr-direction', 'asc')
-
-              sortTableByName('asc');
-          }
-      });
-
-
-
-
-
-
-
-    $(".org-metrics-row").each(function() {
-          const vitaPartnerId = $(this).attr('data-js-vita-partner-id');
-          let attention_needed_count = 0;
-          let communication_count = 0;
-          let interaction_count = 0;
-
-          $(`.attention-needed-site-${vitaPartnerId}`).each(function() {
-              attention_needed_count += parseInt($(this).attr('data-js-count'));
-          });
-
-          $(`.communication-site-${vitaPartnerId}`).each(function() {
-              communication_count += parseInt($(this).attr('data-js-count'));
-          });
-
-          $(`.interaction-site-${vitaPartnerId}`).each(function() {
-              interaction_count += parseInt($(this).attr('data-js-count'));
-          });
-
-          if (attention_needed_count > 0) $(this).find('.attention-needed-org').text(attention_needed_count)
-          if (communication_count > 0) $(this).find('.communication-org').text(communication_count)
-          if (interaction_count > 0) $(this).find('.interaction-org').text(interaction_count)
-      });
-
-        $(".site-metrics-row, .org-metrics-row").each(function() {
-            let values = [];
-
-            $(this).children('td').each(function() {
-                values.push($(this).attr('data-js-count'));
-            });
-
-            // are all values in this row 0? then hide it!
-            const noBreaches = values.filter(function(v) { return v != undefined; }).every(function(v) { return v == 0 });
-            if (noBreaches) {
-                $(this).addClass('no-breaches');
-            } else {
-                $(this).addClass('with-breaches');
-            }
-        });
-
-      $("button.toggle-sites").click(function() {
-          if (!$(this).attr('data-collapse')) {
-            $(".site-metrics-row").each(function() {
-                $(this).hide();
-            });
-            $(this).attr('data-collapse', true)
-            $(this).text($(this).attr('data-expand-text'));
-          } else {
-              let elements = ".site-metrics-row";
-              if ($("button.toggle-zeros").attr('data-collapse')) {
-                  elements += ".with-breaches"
-              }
-              $(elements).each(function() {
-                  $(this).show();
-              });
-              $(this).text($(this).attr('data-collapse-text'));
-              $(this).removeAttr('data-collapse');
-          }
-      });
-
-      $("button.toggle-zeros").click(function() {
-          if (!$(this).attr('data-collapse')) {
-              let elements = ".org-metrics-row";
-              if (!$("button.toggle-sites").attr('data-collapse')) {
-                  elements += ", .site-metrics-row"
-              }
-              $(elements).each(function () {
-                  if ($(this).hasClass('no-breaches')) {
-                      $(this).hide();
-                  }
-              });
-
-              $(this).attr('data-collapse', true)
-              $(this).text($(this).attr('data-expand-text'));
-          } else {
-              $(".no-breaches").each(function() {
-                  $(this).show();
-              });
-              $(this).text($(this).attr('data-collapse-text'));
-              $(this).removeAttr('data-collapse');
-          }
-      });
-    });
-  </script>
 <% end %>
