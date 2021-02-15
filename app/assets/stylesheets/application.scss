@@ -68,6 +68,7 @@
 @import "templates/document-intro";
 @import "templates/document-overview";
 @import "templates/diy-start-filing-start";
+@import "templates/hub-metrics";
 @import "templates/overview";
 @import "templates/stimulus";
 @import "templates/satisfaction-survey";
@@ -444,8 +445,6 @@ ul.with-bullets {
   margin-left: 20px;
   list-style-type: disc;
 }
-
-
 
 .org-metrics-table {
   thead {

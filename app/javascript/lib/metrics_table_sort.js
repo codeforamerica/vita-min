@@ -51,7 +51,9 @@ function setupBreachDataClasses() {
 
 // Logic for expanding/collapsing sites
 function initToggleableSites() {
-    $('button.toggle-sites').click(function() {
+    $('button#toggle-sites').click(function() {
+        $(this).toggleClass('button--inverted');
+
         if (!$(this).attr('data-collapse')) {
             $(".site").each(function() {
                 $(this).hide();
@@ -60,7 +62,7 @@ function initToggleableSites() {
             $(this).text($(this).attr('data-expand-text'));
         } else {
             let elements = ".site";
-            if ($("button.toggle-zeros").attr('data-collapse')) {
+            if ($("button#toggle-zeros").attr('data-collapse')) {
                 elements += ".with-breaches"
             }
             $(elements).each(function() {
@@ -74,10 +76,11 @@ function initToggleableSites() {
 
 // Logic for collapsing/expanding orgs + sites that have 0 breaches.
 function initToggleableZeroValues() {
-    $("button.toggle-zeros").click(function() {
+    $("button#toggle-zeros").click(function() {
+        $(this).toggleClass('button--inverted');
         if (!$(this).attr('data-collapse')) {
             let elements = ".org";
-            if (!$("button.toggle-sites").attr('data-collapse')) {
+            if (!$("button#toggle-sites").attr('data-collapse')) {
                 elements += ", .site"
             }
             $(elements).each(function () {
@@ -90,7 +93,7 @@ function initToggleableZeroValues() {
             $(this).text($(this).attr('data-expand-text'));
         } else {
             let elements = ".org.no-breaches"
-            if (!$("button.toggle-sites").attr('data-collapse')) {
+            if (!$("button#toggle-sites").attr('data-collapse')) {
                 elements += ", .site.no-breaches"
             }
             $(elements).each(function() {

@@ -1,21 +1,25 @@
 <% content_for :card do %>
-  <div class="slab slab--not-padded spacing-above-25">
+  <div class="slab slab--not-padded spacing-above-25 hub-metrics">
     <h1 class="h2">SLA Breaches</h1>
-    <div style="display: flex" class="spacing-below-25">
-      <div style="margin:0; margin-right: 20px">
-        <strong>Report run at:<br/></strong>
-        <%= @breach_data.current_as_of.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@breach_data.breach_threshold_date) %>
+    <div class="header">
+      <div style="display: flex">
+        <div>
+          <strong>Report run at:<br/></strong>
+          <%= @breach_data.current_as_of.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@breach_data.breach_threshold_date) %>
+        </div>
+        <div>
+          <strong>Breach threshold:<br/></strong>
+          <%= @breach_data.breach_threshold_date.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@breach_data.breach_threshold_date) %>
+        </div>
       </div>
-      <div style="margin:0">
-        <strong>Breach threshold:<br/></strong>
-        <%= @breach_data.breach_threshold_date.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@breach_data.breach_threshold_date) %>
+      <div>
+        <div role="group" class="button-bar">
+          <button class="button" id="toggle-sites" style="width: 150px" data-expand-text="Expand Sites" data-collapse-text="Collapse Sites">Collapse Sites</button>
+          <button class="button" id="toggle-zeros" style="width: 150px" data-expand-text="Expand Zeros" data-collapse-text="Collapse Zeros">Collapse Zeros</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <button class="toggle-sites" data-expand-text="Expand Sites" data-collapse-text="Collapse Sites">Collapse Sites</button>
-
-  <button class="toggle-zeros" data-expand-text="Expand 0s" data-collapse-text="Collapse 0s">Collapse 0s</button>
 
   <div>
     <table class="index-table org-metrics-table">

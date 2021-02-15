@@ -3,8 +3,8 @@ import { initMetricsTableSortAndFilter } from 'lib/metrics_table_sort';
 
 beforeEach(() => {
     document.body.innerHTML = `
-    <button class="toggle-zeros" data-expand-text="Expand" data-collapse-text="Collapse"></button>
-    <button class="toggle-sites" data-expand-text="Expand" data-collapse-text="Collapse"></button>
+    <button id="toggle-zeros" data-expand-text="Expand" data-collapse-text="Collapse"></button>
+    <button id="toggle-sites" data-expand-text="Expand" data-collapse-text="Collapse"></button>
     <table>
         <thead>
             <th id="organization-name"></th>
@@ -124,12 +124,12 @@ test('collapses & expands sites', () => {
 
     initMetricsTableSortAndFilter();
 
-    $('button.toggle-sites').click();
+    $('button#toggle-sites').click();
 
     expect(perfectOrg.css('display')).toEqual('table-row');
     expect(perfectSite.css('display')).toEqual('none');
 
-    $('button.toggle-sites').click();
+    $('button#toggle-sites').click();
 
     expect(perfectOrg.css('display')).toEqual('table-row');
     expect(perfectSite.css('display')).toEqual('table-row');
@@ -152,20 +152,20 @@ test("collapse and expand sites and zeros simultaneously", () => {
     expect(orangeSite.css('display')).toEqual('table-row');
 
     // collapses sites
-    $('button.toggle-sites').click();
+    $('button#toggle-sites').click();
 
     expect(orangeSite.css('display')).toEqual('none');
     expect(perfectSite.css('display')).toEqual('none');
 
     // expands org non-zeros, but keeps all sites closed
-    $('button.toggle-zeros').click();
+    $('button#toggle-zeros').click();
     expect(perfectOrg.css('display')).toEqual('table-row');
     expect(perfectSite.css('display')).toEqual('none');
     expect(orangeOrg.css('display')).toEqual('table-row');
     expect(orangeSite.css('display')).toEqual('none');
 
     // expands sites
-    $('button.toggle-sites').click();
+    $('button#toggle-sites').click();
     expect(orangeSite.css('display')).toEqual('table-row');
     expect(perfectSite.css('display')).toEqual('table-row');
 });
