@@ -1,6 +1,5 @@
 import { initMetricsTableSortAndFilter } from 'lib/metrics_table_sort';
 
-
 beforeEach(() => {
     document.body.innerHTML = `
     <button id="toggle-zeros" data-expand-text="Expand" data-collapse-text="Collapse"></button>
