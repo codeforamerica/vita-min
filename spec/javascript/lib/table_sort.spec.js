@@ -1,5 +1,5 @@
 import { initSortableColumn } from 'lib/table_sort';
-beforeAll(() => {
+beforeEach(() => {
     document.body.innerHTML = `
         <table class="one-direction-table">
             <thead>
@@ -8,24 +8,24 @@ beforeAll(() => {
             </thead>
             <tbody>
                 <tr class="member">
-                    <td>Niall</td>
+                    <td class="name">Niall</td>
                     <td data-age="26">26</td>
                 </tr>
                 <tr class="member">
-                    <td>Zayn</td>
+                    <td class="name">Zayn</td>
                     <td data-age="28">28</td>
                 </tr>
                 <tr class="member">
-                    <td>Harry</td>
+                    <td class="name">Harry</td>
                     <td data-age="27">27</td>
                 </tr>
                 <tr class="member">
-                    <td>Liam</td>
+                    <td class="name">Liam</td>
                     <td data-age="27">27</td>
 
                 </tr>
                 <tr class="member">
-                    <td>Louis</td>
+                    <td class="name">Louis</td>
                     <td data-age="29">29</td>
                 </tr>
             </tbody>
@@ -34,19 +34,19 @@ beforeAll(() => {
 });
 
 test('sorts rows asc and desc', () => {
-    expect($('tr td').first().text()).toEqual("Niall");
+    expect($('tr td.name').first().text()).toEqual("Niall");
 
     initSortableColumn("tr.member", "th#name", function(row) {
-        return $(row).find('td').first().text();
+        return $(row).find('td.name').first().text();
     });
 
     $("th#name")[0].click();
 
-    expect($('tr td').first().text()).toEqual("Harry");
+    expect($('tr td.name').first().text()).toEqual("Harry");
 
     $("th#name")[0].click();
 
-    expect($('tr td').first().text()).toEqual("Zayn");
+    expect($('tr td.name').first().text()).toEqual("Zayn");
 });
 
 test('sorts by multiple rows', () => {
@@ -61,16 +61,14 @@ test('sorts by multiple rows', () => {
 
     $("th#name")[0].click();
 
-    expect($('tr td').first().text()).toEqual("Harry");
+    expect($('tr td.name').first().text()).toEqual("Harry");
 
     $("th#name")[0].click();
 
-    expect($('tr td').first().text()).toEqual("Zayn");
-
-    expect($('tr td')[3].text()).toEqual("Louis");
+    expect($('tr td.name').first().text()).toEqual("Zayn");
 
     $("th#age")[0].click();
 
-    expect($('tr td').last().text()).toEqual("Louis");
-    expect($('tr td').first().text()).toEqual("Niall");
+    expect($('tr td.name').last().text()).toEqual("Louis");
+    expect($('tr td.name').first().text()).toEqual("Niall");
 });

@@ -1,15 +1,15 @@
 import { initMetricsTableSortAndFilter } from 'lib/metrics_table_sort';
 
 
-beforeAll(() => {
+beforeEach(() => {
     document.body.innerHTML = `
     <button class="toggle-zeros" data-expand-text="Expand" data-collapse-text="Collapse"></button>
     <button class="toggle-sites" data-expand-text="Expand" data-collapse-text="Collapse"></button>
     <table>
         <thead>
             <th id="organization-name"></th>
-            <th id="profile-interaction-breaches"></th>
             <th id="needs-attention-breaches"></th>
+            <th id="profile-interaction-breaches"></th>
             <th id="outgoing-communication-breaches"></th>
         </thead>
         <tbody class="org-metrics" data-js-vita-partner-name="Orange Org">
@@ -29,7 +29,7 @@ beforeAll(() => {
                 <td class="interaction-breach" data-js-count="1"></td>
             </tr>
         </tbody>
-        <tbody class="org-metrics" data-js-vita-partner-name="Orange Org">
+        <tbody class="org-metrics" data-js-vita-partner-name="Apple Org">
             <tr class="org">
                 <td class="attention-needed-breach"></td>
                 <td class="communication-breach"></td>
@@ -107,9 +107,7 @@ test('collapses & expands 0-count orgs/sites', () => {
     expect(perfectOrg.css('display')).toEqual('table-row');
     expect(perfectSite.css('display')).toEqual('table-row');
 
-    expect($('button.toggle-zeros').text()).toEqual('Expand');
     $('button.toggle-zeros').click();
-    expect($('button.toggle-zeros').text()).toEqual('Collapse');
 
     expect(perfectOrg.css('display')).toEqual('none');
     expect(perfectSite.css('display')).toEqual('none');
@@ -131,9 +129,7 @@ test('collapses & expands sites', () => {
     expect(perfectOrg.css('display')).toEqual('table-row');
     expect(perfectSite.css('display')).toEqual('none');
 
-    expect($('button.toggle-sites').text()).toEqual('Expand');
     $('button.toggle-sites').click();
-    expect($('button.toggle-sites').text()).toEqual('Collapse');
 
     expect(perfectOrg.css('display')).toEqual('table-row');
     expect(perfectSite.css('display')).toEqual('table-row');
@@ -172,4 +168,49 @@ test("collapse and expand sites and zeros simultaneously", () => {
     $('button.toggle-sites').click();
     expect(orangeSite.css('display')).toEqual('table-row');
     expect(perfectSite.css('display')).toEqual('table-row');
+});
+
+test('sorting by name', () => {
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Orange Org");
+    initMetricsTableSortAndFilter();
+    $('th#organization-name').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    $('th#organization-name').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+});
+
+test('sorting by attention needed breaches', () => {
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Orange Org");
+    initMetricsTableSortAndFilter();
+    // give the init function enough time to calculate
+    setTimeout(function () {
+        $('th#needs-attention-breaches').click();
+        expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+        $('th#needs-attention-breaches').click();
+        expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+    }, 1)
+});
+
+test('sorting by communication breaches', () => {
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Orange Org");
+    initMetricsTableSortAndFilter();
+    // give the init function enough time to calculate
+    setTimeout(function () {
+        $('th#communication-breaches').click();
+        expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+        $('th#communication-breaches').click();
+        expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+    }, 1)
+});
+
+test('sorting by interaction breaches', () => {
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Orange Org");
+    initMetricsTableSortAndFilter();
+    // give the init function enough time to calculate
+    setTimeout(function () {
+        $('th#interaction-breaches').click();
+        expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+        $('th#interaction-breaches').click();
+        expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+    }, 1)
 });

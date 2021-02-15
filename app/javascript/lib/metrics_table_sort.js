@@ -75,10 +75,8 @@ function initToggleableSites() {
 // Logic for collapsing/expanding orgs + sites that have 0 breaches.
 function initToggleableZeroValues() {
     $("button.toggle-zeros").click(function() {
-        console.log("clicked")
         if (!$(this).attr('data-collapse')) {
             let elements = ".org";
-            debugger
             if (!$("button.toggle-sites").attr('data-collapse')) {
                 elements += ", .site"
             }
@@ -112,15 +110,15 @@ export function initMetricsTableSortAndFilter() {
     initToggleableZeroValues();
 
     initSortableColumn("tbody.org-metrics", "th#outgoing-communication-breaches", function(row) {
-        return $(row).find('.communication-org').attr('data-js-count');
+        return $(row).find('.communication-breach').attr('data-js-count');
     });
 
     initSortableColumn("tbody.org-metrics", "th#profile-interaction-breaches", function(row) {
-        return $(row).find('.interaction-org').attr('data-js-count');
+        return $(row).find('.interaction-breach').attr('data-js-count');
     });
 
     initSortableColumn("tbody.org-metrics", "th#needs-attention-breaches", function(row) {
-        return $(row).find('.attention-needed-org').attr('data-js-count');
+        return $(row).find('.attention-needed-breach').attr('data-js-count');
     });
 
     initSortableColumn("tbody.org-metrics", "th#organization-name", function (row) {

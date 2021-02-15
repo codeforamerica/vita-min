@@ -35,8 +35,12 @@ describe Hub::MetricsController do
         get :index
         expect(assigns(:breach_data).current_as_of).to eq generated_at
         expect(assigns(:breach_data).breach_threshold_date).to eq breach_threshold_date
-        expect(assigns(:breach_data).total_breaches).to eq 3
-        expect(assigns(:breach_data).breach_counts).to eq breach_data
+        expect(assigns(:breach_data).attention_needed_breach_count).to eq 3
+        expect(assigns(:breach_data).attention_needed_breaches_by_vita_partner).to eq breach_data
+        expect(assigns(:breach_data).interaction_breach_count).to eq 3
+        expect(assigns(:breach_data).interaction_breaches_by_vita_partner).to eq breach_data
+        expect(assigns(:breach_data).communication_breach_count).to eq 3
+        expect(assigns(:breach_data).communication_breaches_by_vita_partner).to eq breach_data
       end
     end
 
@@ -55,7 +59,7 @@ describe Hub::MetricsController do
         expect(assigns(:breach_data).breach_threshold_date).to eq breach_threshold_date
         expect(assigns(:breach_data).attention_needed_breaches_by_vita_partner).to eq breach_data
         expect(assigns(:breach_data).communication_breaches_by_vita_partner).to eq breach_data
-        expect(assigns(:breach_data).interaction_breachs_by_vita_partner).to eq breach_data
+        expect(assigns(:breach_data).interaction_breaches_by_vita_partner).to eq breach_data
         expect(assigns(:breach_data).attention_needed_breach_count).to eq 2
         expect(assigns(:breach_data).communication_breach_count).to eq 2
         expect(assigns(:breach_data).interaction_breach_count).to eq 2

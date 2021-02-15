@@ -11,9 +11,9 @@ module Hub
       # The view will only display values for vita partners the user has access to view.
       data = Rails.cache.fetch("metrics/sla_breaches/attention_needed", expires_in: 10.minutes) do
         sla_service = SLABreachService.new
-        attention_needed_breaches = sla_service.attention_needed_breaches.merge({ 2 => 5, 3 => 6 })
-        outgoing_communication_breaches = sla_service.outgoing_communication_breaches.merge( { 3 => 4 })
-        outgoing_interaction_breaches = sla_service.outgoing_interaction_breaches.merge( { 3 => 8 })
+        attention_needed_breaches = sla_service.attention_needed_breaches
+        outgoing_communication_breaches = sla_service.outgoing_communication_breaches
+        outgoing_interaction_breaches = sla_service.outgoing_interaction_breaches
         {
           breach_threshold_date: sla_service.breach_threshold_date,
           current_as_of: sla_service.report_generated_at,
