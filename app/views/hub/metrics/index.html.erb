@@ -5,11 +5,11 @@
       <div style="display: flex">
         <div>
           <strong>Report run at:<br/></strong>
-          <%= @breach_data.current_as_of.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@breach_data.breach_threshold_date) %>
+          <%= long_formatted_datetime(@report.generated_at) %>
         </div>
         <div>
           <strong>Breach threshold:<br/></strong>
-          <%= @breach_data.breach_threshold_date.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@breach_data.breach_threshold_date) %>
+          <%= long_formatted_datetime(@report.breached_at) %>
         </div>
       </div>
       <div>
@@ -44,39 +44,40 @@
         <tbody class="index-table__body org-metrics" data-js-vita-partner-name="<%= vita_partner.name %>">
         <tr class="index-table__row org">
           <td class="index-table__cell"><%= vita_partner.name %></td>
-          <td class="index-table__cell attention-needed-breach"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
-            <%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>
+          <td class="index-table__cell attention-needed-breach"  data-js-count=<%= @report.attention_needed_breaches[vita_partner.id] %>>
+            <%= @report.attention_needed_breaches[vita_partner.id]%>
           </td>
-          <td class="index-table__cell communication-breach" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
-            <%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>
+          <td class="index-table__cell communication-breach" data-js-count=<%= @report.communication_breaches[vita_partner.id] %>>
+            <%= @report.communication_breaches[vita_partner.id]%>
           </td>
-          <td class="index-table__cell interaction-breach" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
-            <%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>
+          <td class="index-table__cell interaction-breach" data-js-count=<%= @report.interaction_breaches[vita_partner.id] %>>
+            <%= @report.interaction_breaches[vita_partner.id]%>
           </td>
         </tr>
         <% vita_partner.child_sites.each do |site| %>
+
           <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px; font-style: italic;"><%= vita_partner.name %></td>
-            <td class="index-table__cell attention-needed-breach"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
-              <%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>
+            <td class="index-table__cell attention-needed-breach"  data-js-count=<%= @report.attention_needed_breaches[vita_partner.id] %>>
+              <%= @report.attention_needed_breaches[vita_partner.id] %>
             </td>
-            <td class="index-table__cell communication-site-breach" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
-              <%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>
+            <td class="index-table__cell communication-site-breach" data-js-count=<%= @report.communication_breaches[vita_partner.id] %>>
+              <%= @report.communication_breaches[vita_partner.id]%>
             </td>
-            <td class="index-table__cell interaction-site-breach" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
-              <%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>
+            <td class="index-table__cell interaction-site-breach" data-js-count=<%= @report.interaction_breaches[vita_partner.id] %>>
+              <%= @report.interaction_breaches[vita_partner.id] %>
             </td>
           </tr>
           <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px"><%= site.name %> </td>
-            <td class="index-table__cell attention-needed-breach" data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[site.id] || 0 %>>
-              <%= @breach_data.attention_needed_breaches_by_vita_partner[site.id] || 0 %>
+            <td class="index-table__cell attention-needed-breach" data-js-count=<%= @report.attention_needed_breaches[site.id] %>>
+              <%= @report.attention_needed_breaches[site.id] %>
             </td>
-            <td class="index-table__cell communication-breach" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[site.id] || 0 %>>
-              <%= @breach_data.communication_breaches_by_vita_partner[site.id] || 0 %>
+            <td class="index-table__cell communication-breach" data-js-count=<%= @report.communication_breaches[site.id] %>>
+              <%= @report.communication_breaches[site.id] %>
             </td>
-            <td class="index-table__cell interaction-breach" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[site.id] || 0 %>>
-              <%= @breach_data.interaction_breaches_by_vita_partner[site.id] || 0 %>
+            <td class="index-table__cell interaction-breach" data-js-count=<%= @report.interaction_breaches[site.id] %>>
+              <%= @report.interaction_breaches[site.id] %>
             </td>
           </tr>
         <% end %>
@@ -85,9 +86,9 @@
       <tbody>
         <tr class="metrics-totals">
           <td></td>
-          <td class="index-table__cell"><strong><%= @breach_data.attention_needed_breach_count || 0%></strong></td>
-          <td class="index-table__cell"><strong><%= @breach_data.communication_breach_count || 0 %></strong></td>
-          <td class="index-table__cell"><strong><%= @breach_data.interaction_breach_count || 0 %></strong></td>
+          <td class="index-table__cell"><strong><%= @total_breaches[:attention_needed] %></strong></td>
+          <td class="index-table__cell"><strong><%= @total_breaches[:communication] %></strong></td>
+          <td class="index-table__cell"><strong><%= @total_breaches[:interaction] %></strong></td>
         </tr>
       </tbody>
     </table>
