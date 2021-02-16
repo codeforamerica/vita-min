@@ -54,8 +54,8 @@
             <%= @report.interaction_breaches[vita_partner.id]%>
           </td>
         </tr>
-        <% vita_partner.child_sites.each do |site| %>
-
+        <% if vita_partner.child_sites.present? %>
+          <!--           Add a row for the organization to track org-level breaches.-->
           <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px; font-style: italic;"><%= vita_partner.name %></td>
             <td class="index-table__cell attention-needed-breach"  data-js-count=<%= @report.attention_needed_breaches[vita_partner.id] %>>
@@ -68,18 +68,21 @@
               <%= @report.interaction_breaches[vita_partner.id] %>
             </td>
           </tr>
-          <tr class="index-table__row site">
-            <td class="index-table__cell" style="padding-left: 60px"><%= site.name %> </td>
-            <td class="index-table__cell attention-needed-breach" data-js-count=<%= @report.attention_needed_breaches[site.id] %>>
-              <%= @report.attention_needed_breaches[site.id] %>
-            </td>
-            <td class="index-table__cell communication-breach" data-js-count=<%= @report.communication_breaches[site.id] %>>
-              <%= @report.communication_breaches[site.id] %>
-            </td>
-            <td class="index-table__cell interaction-breach" data-js-count=<%= @report.interaction_breaches[site.id] %>>
-              <%= @report.interaction_breaches[site.id] %>
-            </td>
-          </tr>
+
+          <% vita_partner.child_sites.each do |site| %>
+            <tr class="index-table__row site">
+              <td class="index-table__cell" style="padding-left: 60px"><%= site.name %> </td>
+              <td class="index-table__cell attention-needed-breach" data-js-count=<%= @report.attention_needed_breaches[site.id] %>>
+                <%= @report.attention_needed_breaches[site.id] %>
+              </td>
+              <td class="index-table__cell communication-breach" data-js-count=<%= @report.communication_breaches[site.id] %>>
+                <%= @report.communication_breaches[site.id] %>
+              </td>
+              <td class="index-table__cell interaction-breach" data-js-count=<%= @report.interaction_breaches[site.id] %>>
+                <%= @report.interaction_breaches[site.id] %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
         </tbody>
       <% end %>
