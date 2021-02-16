@@ -62,8 +62,8 @@ RSpec.describe Questions::QuestionsController do
   end
 
   describe '#prev_path' do
-    before do
-      allow(subject).to receive(:form_navigation).and_return QuestionNavigation.new
+    controller(Questions::DemographicSpouseRaceController) do
+      def index;end
     end
 
     it "returns the previous path based on the form_navigation object" do

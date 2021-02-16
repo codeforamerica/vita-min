@@ -57,7 +57,6 @@ module Questions
     end
 
     def form_navigation
-      byebug
       navigation_class = current_intake&.eip_only ? EipOnlyNavigation : QuestionNavigation
       navigation_class.new(self)
     end
