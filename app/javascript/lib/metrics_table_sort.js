@@ -123,7 +123,7 @@ export function initMetricsTableSortAndFilter() {
     });
 
     initSortableColumn("tbody.org-metrics", "th#needs-attention-breaches", function(row) {
-        const calc = $(row).find('.interaction-breach').attr('data-js-count');
+        const calc = $(row).find('.attention-needed-breach').attr('data-js-count');
         return isNaN(calc) ? 0 : calc;
     });
 

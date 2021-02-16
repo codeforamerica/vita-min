@@ -6,20 +6,21 @@ function sort(rowSelector, direction, sortableParamCallback) {
         stillSwitching = false;
         let willSwitch = false;
         let rows = $(rowSelector);
-        // console.log('rows', rows)
         // Loop to go through all rows
         for (i = 0; i < (rows.length - 1); i++) {
             let x,y;
             x = sortableParamCallback(rows[i]);
             y = sortableParamCallback(rows[i + 1]);
+            x = typeof x == "string" ? x.toLowerCase() : x;
+            y = typeof y == "string" ? y.toLowerCase() : y;
 
             if (direction == 'desc') {
-                if (x.toLowerCase() > y.toLowerCase()) {
+                if (x > y) {
                     willSwitch = true
                     break;
                 }
             } else {
-                if (x.toLowerCase() < y.toLowerCase()) {
+                if (x < y) {
                     willSwitch = true
                     break;
                 }
