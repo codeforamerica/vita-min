@@ -113,15 +113,18 @@ export function initMetricsTableSortAndFilter() {
     initToggleableZeroValues();
 
     initSortableColumn("tbody.org-metrics", "th#outgoing-communication-breaches", function(row) {
-        return $(row).find('.communication-breach').attr('data-js-count');
+        const calc = parseInt($(row).find('.communication-breach').attr('data-js-count'));
+        return isNaN(calc) ? 0 : calc;
     });
 
     initSortableColumn("tbody.org-metrics", "th#profile-interaction-breaches", function(row) {
-        return $(row).find('.interaction-breach').attr('data-js-count');
+        const calc = $(row).find('.interaction-breach').attr('data-js-count');
+        return isNaN(calc) ? 0 : calc;
     });
 
     initSortableColumn("tbody.org-metrics", "th#needs-attention-breaches", function(row) {
-        return $(row).find('.attention-needed-breach').attr('data-js-count');
+        const calc = $(row).find('.interaction-breach').attr('data-js-count');
+        return isNaN(calc) ? 0 : calc;
     });
 
     initSortableColumn("tbody.org-metrics", "th#organization-name", function (row) {
