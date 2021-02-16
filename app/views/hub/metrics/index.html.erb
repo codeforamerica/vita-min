@@ -41,7 +41,7 @@
       </thead>
       <% @vita_partners.each do |vita_partner| %>
         <% next unless vita_partner.organization? || @vita_partners.length == 1 %>
-        <tbody class="index-table__body org-metrics" data-js-vita-partner-name="<%= vita_partner.name %>" data-js-vita-partner-id=<%= vita_partner.id %>>
+        <tbody class="index-table__body org-metrics" data-js-vita-partner-name="<%= vita_partner.name %>">
         <tr class="index-table__row org">
           <td class="index-table__cell"><%= vita_partner.name %></td>
           <td class="index-table__cell attention-needed-breach"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
