@@ -24,6 +24,13 @@ module ControllerNavigation
     seek(controllers_until_end)
   end
 
+  def prev
+    return unless index
+
+    controllers_to_beginning = controllers[0..index - 1].reverse
+    seek(controllers_to_beginning)
+  end
+
   private
 
   def index
@@ -35,5 +42,4 @@ module ControllerNavigation
       controller_class.show?(@current_controller.visitor_record)
     end
   end
-
 end

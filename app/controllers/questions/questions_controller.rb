@@ -5,10 +5,7 @@ module Questions
     delegate :form_name, to: :class
     delegate :form_class, to: :class
 
-    helper_method :current_path
-    helper_method :illustration_folder
-    helper_method :illustration_path
-    helper_method :next_path
+    helper_method :current_path, :illustration_folder,:illustration_path, :next_path, :prev_path
 
     layout "question"
 
@@ -35,7 +32,12 @@ module Questions
 
     def next_path
       next_step = form_navigation.next
-      next_step.to_path_helper if next_step
+      next_step&.to_path_helper
+    end
+
+    def prev_path
+      prev_step = form_navigation&.prev
+      prev_step&.to_path_helper
     end
 
     def illustration_folder
@@ -55,6 +57,7 @@ module Questions
     end
 
     def form_navigation
+      byebug
       navigation_class = current_intake&.eip_only ? EipOnlyNavigation : QuestionNavigation
       navigation_class.new(self)
     end
@@ -84,6 +87,10 @@ module Questions
       return {} unless @form.class.scoped_attributes.key?(:intake)
 
       @form.attributes_for(:intake).except(*Rails.application.config.filter_parameters)
+    end
+
+    def back_path
+      byebug
     end
 
     class << self
