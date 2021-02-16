@@ -6,7 +6,6 @@ module Hub
     load_and_authorize_resource :vita_partner, parent: false
 
     def index
-      # @vita_partners = @vita_partners.order(name: :asc)
       # Run SLA queries and cache the result for 10 minutes.
       # The view will only display values for vita partners the user has access to view.
       data = Rails.cache.fetch("metrics/sla_breaches/attention_needed", expires_in: 10.minutes) do

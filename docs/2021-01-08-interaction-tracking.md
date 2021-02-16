@@ -2,16 +2,9 @@
 *Last updated 2/12/2021 by Shannon Byrne*
 
 ## Interaction attributes
-
-<<<<<<< HEAD
 - first_unanswered_incoming_interaction_at: The first interaction from a client that _has not been explicitly replied to (email/recorded call/text).
 - last_incoming_interaction_at: Latest interaction from a client to us - can include client doc uploads, texts, emails.
 - last_internal_or_outgoing_interaction_at: Latest _internal_ (user or system initiated) interaction with client properties. Includes internal notes, touches to tax returns, etc.
-=======
-- first_unanswered_internal_interaction_at: The first interaction from a client that _has not been explicitly replied to (email/recorded call/text).
-- last_incoming_interaction_at: Latest interaction from a client to us - can include client doc uploads, texts, emails.
-- last_interaction_at: Latest _internal_ (user or system initiated) interaction with client properties. Includes internal notes, touches to tax returns, etc.
->>>>>>> Improve docs for interaction tracking based on recent updates
 - attention_needed_since: Tied to the manual resolve / mark as needs attention button. Sets as needs attention at same time as setting first_unanswered_incoming_interaction, clears on explict outreach to client OR when a user manually unmarks as needs attention in UI.
 
 ## Known limitations
