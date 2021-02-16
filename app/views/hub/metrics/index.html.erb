@@ -1,55 +1,107 @@
 <% content_for :card do %>
-  <div class="slab slab--not-padded spacing-above-25">
+  <div class="slab slab--not-padded spacing-above-25 hub-metrics">
     <h1 class="h2">SLA Breaches</h1>
-    <div style="display: flex" class="spacing-below-25">
-      <div style="margin:0; margin-right: 20px">
-        <strong>Report run at:<br/></strong>
-        <%= @attention_needed.current_as_of.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@attention_needed.breach_threshold_date) %>
+    <div class="header">
+      <div style="display: flex">
+        <div>
+          <strong>Report run at:<br/></strong>
+          <%= @breach_data.current_as_of.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@breach_data.breach_threshold_date) %>
+        </div>
+        <div>
+          <strong>Breach threshold:<br/></strong>
+          <%= @breach_data.breach_threshold_date.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@breach_data.breach_threshold_date) %>
+        </div>
       </div>
-      <div style="margin:0">
-        <strong>Breach threshold:<br/></strong>
-        <%= @attention_needed.breach_threshold_date.strftime("%a %m/%d/%Y") %> at <%= formatted_time(@attention_needed.breach_threshold_date) %>
+      <div>
+        <div role="group" class="button-bar">
+          <button class="button" id="toggle-sites" style="width: 150px" data-expand-text="Expand Sites" data-collapse-text="Collapse Sites">Collapse Sites</button>
+          <button class="button" id="toggle-zeros" style="width: 150px" data-expand-text="Expand Zeros" data-collapse-text="Collapse Zeros">Collapse Zeros</button>
+        </div>
       </div>
     </div>
   </div>
 
   <div>
-    <table class="index-table">
+    <table class="index-table org-metrics-table">
       <thead class="index-table__head">
         <tr class="index-table__row">
-          <th scope="col" class="index-table__header">Organization Name</th>
-          <th scope="col" class="index-table__header">Needs attention breaches*</th>
+          <th scope="col" class="index-table__header sortable" id="organization-name" width="40%">
+            Organization Name
+          </th>
+          <th scope="col" class="index-table__header sortable" id="needs-attention-breaches">
+            Needs attention breaches<sup>1</sup>
+          </th>
+          <th scope="col" class="index-table__header sortable" id="outgoing-communication-breaches">
+            Outgoing communication breaches<sup>2</sup>
+          </th>
+          <th scope="col" class="index-table__header sortable" id="profile-interaction-breaches">
+            Profile interaction breaches<sup>3</sup>
+          </th>
         </tr>
       </thead>
-      <tbody class="index-table__body">
       <% @vita_partners.each do |vita_partner| %>
-        <% next unless vita_partner.organization? %>
-        <tr class="index-table__row">
-          <td class="index-table__cell"><%= vita_partner.name %> </td>
-          <td class="index-table__cell"><%= @attention_needed.breach_counts[vita_partner.id] || 0%></td>
+        <% next unless vita_partner.organization? || @vita_partners.length == 1 %>
+        <tbody class="index-table__body org-metrics" data-js-vita-partner-name="<%= vita_partner.name %>">
+        <tr class="index-table__row org">
+          <td class="index-table__cell"><%= vita_partner.name %></td>
+          <td class="index-table__cell attention-needed-breach"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+            <%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>
+          </td>
+          <td class="index-table__cell communication-breach" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+            <%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>
+          </td>
+          <td class="index-table__cell interaction-breach" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+            <%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>
+          </td>
         </tr>
         <% vita_partner.child_sites.each do |site| %>
-          <tr class="index-table__row">
+          <tr class="index-table__row site">
+            <td class="index-table__cell" style="padding-left: 60px; font-style: italic;"><%= vita_partner.name %></td>
+            <td class="index-table__cell attention-needed-breach"  data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+              <%= @breach_data.attention_needed_breaches_by_vita_partner[vita_partner.id] || 0 %>
+            </td>
+            <td class="index-table__cell communication-site-breach" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+              <%= @breach_data.communication_breaches_by_vita_partner[vita_partner.id] || 0 %>
+            </td>
+            <td class="index-table__cell interaction-site-breach" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>>
+              <%= @breach_data.interaction_breaches_by_vita_partner[vita_partner.id] || 0 %>
+            </td>
+          </tr>
+          <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px"><%= site.name %> </td>
-            <td class="index-table__cell"><%= @attention_needed.breach_counts[site.id] || 0%></td>
+            <td class="index-table__cell attention-needed-breach" data-js-count=<%= @breach_data.attention_needed_breaches_by_vita_partner[site.id] || 0 %>>
+              <%= @breach_data.attention_needed_breaches_by_vita_partner[site.id] || 0 %>
+            </td>
+            <td class="index-table__cell communication-breach" data-js-count=<%= @breach_data.communication_breaches_by_vita_partner[site.id] || 0 %>>
+              <%= @breach_data.communication_breaches_by_vita_partner[site.id] || 0 %>
+            </td>
+            <td class="index-table__cell interaction-breach" data-js-count=<%= @breach_data.interaction_breaches_by_vita_partner[site.id] || 0 %>>
+              <%= @breach_data.interaction_breaches_by_vita_partner[site.id] || 0 %>
+            </td>
           </tr>
         <% end %>
+        </tbody>
       <% end %>
-      <tr>
-        <td></td>
-        <td class="index-table__cell"><strong><%= @attention_needed.total_breaches %></strong></td>
-
-      </tr>
+      <tbody>
+        <tr class="metrics-totals">
+          <td></td>
+          <td class="index-table__cell"><strong><%= @breach_data.attention_needed_breach_count || 0%></strong></td>
+          <td class="index-table__cell"><strong><%= @breach_data.communication_breach_count || 0 %></strong></td>
+          <td class="index-table__cell"><strong><%= @breach_data.interaction_breach_count || 0 %></strong></td>
+        </tr>
       </tbody>
     </table>
   </div>
 
   <div class="slab slab--not-padded spacing-above-25">
-    <div style="text-align: right">
-      <small>Reports update approx. every 10 mins.</small>
+    <div>
+      <small><sup>1 </sup>Client needs attention indicator has been on for more than 3 business days.</small>
     </div>
-    <div style="text-align: right">
-      <small>Client needs attention indicator has been on for more than 3 business days.*</small>
+    <div>
+      <small><sup>2 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not contacted them by text/call/email.</small>
+    </div>
+    <div>
+      <small><sup>3 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not interacted with their profile (written internal note, changed status, assigned user, etc).</small>
     </div>
   </div>
 <% end %>

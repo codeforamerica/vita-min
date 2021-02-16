@@ -69,7 +69,6 @@ describe SLABreachService do
         client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
         Timecop.freeze(6.days.ago) { client2.set_attention_needed }
 
-
         client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
         Timecop.freeze(t.prev_occurring(:monday)) { client3.set_attention_needed }
 
@@ -100,15 +99,15 @@ describe SLABreachService do
         t = Time.utc(2021, 2, 6, 0, 0, 0) # 2/6/21
         Timecop.freeze(t.next_occurring(:monday) + 10.hours + 5.minutes) # 2/8/21, Monday 10:05am
         # breaches at vita_partner_1
-        client1 = create(:client, vita_partner_id: vita_partner_1.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
+        client1 = create(:client, vita_partner_id: vita_partner_1.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
         Timecop.freeze(t.prev_occurring(:monday)) { client1.set_attention_needed }
 
         # breaches at vita_partner_2
-        client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
+        client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
         Timecop.freeze(6.days.ago) { client2.set_attention_needed }
 
         wednesday_1am = t.prev_occurring(:wednesday) + 1.hour # Wednesday 2/3/21 @ 1:00am UTC
-        client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
+        client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
         Timecop.freeze(wednesday_1am) { client3.set_attention_needed }
 
         wednesday_1055am = t.prev_occurring(:wednesday) + 10.hour + 55.minutes # Wednesday 2/3/21 @ 10:55am UTC
@@ -263,6 +262,7 @@ describe SLABreachService do
         Timecop.freeze(t.prev_occurring(:monday)) { client1.tax_returns.first.record_incoming_interaction }
         client1.update(last_internal_or_outgoing_interaction_at: nil)
 
+
         # breaches at vita_partner_2
         client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
         # Timecop doesn't play too nicely with "ago", so do some old-fashioned subtraction
@@ -314,7 +314,6 @@ describe SLABreachService do
         client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
         client3.update(last_internal_or_outgoing_interaction_at: nil)
         Timecop.freeze(wednesday_1am) { client3.tax_returns.first.record_incoming_interaction }
-
 
         wednesday_1055am = t.prev_occurring(:wednesday) + 10.hour + 55.minutes # Wednesday 2/3/21 @ 10:55am UTC
         client4 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # not in breach t1, in breach t2
