@@ -1,6 +1,6 @@
 module ControllerNavigation
   extend ActiveSupport::Concern
-  attr_accessor :current_controller
+  attr_reader :current_controller
   included do
     class << self
       delegate :first, to: :controllers

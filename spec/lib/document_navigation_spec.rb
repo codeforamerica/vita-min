@@ -7,10 +7,12 @@ RSpec.describe DocumentNavigation do
         true
       end
 
-      def current_intake; end
+      def visitor_record; end
+
     end
 
     class FirstController < BaseController
+
       def self.document_type_key
         "Doc-1"
       end
@@ -29,6 +31,7 @@ RSpec.describe DocumentNavigation do
     end
 
     class ThirdController < BaseController
+
       def self.document_type_key
         "Doc-3"
       end
@@ -71,6 +74,26 @@ RSpec.describe DocumentNavigation do
 
     it "returns the first relevant controller for the given input" do
       expect(described_class.first_for_intake(intake)).to eq SecondController
+    end
+  end
+
+  describe "#prev" do
+    before do
+      allow(ThirdController).to receive(:show?) { true }
+
+      allow(SecondController).to receive(:show?) { false }
+    end
+
+    it "returns numeric index for next non-skipped controller in main flow" do
+      navigation = described_class.new(ThirdController.new)
+      expect(navigation.prev).to eq SignpostController
+    end
+
+    context "when current controller is the first" do
+      it "returns nil" do
+        navigation = described_class.new(FirstController.new)
+        expect(navigation.prev).to eq Questions::OverviewDocumentsController
+      end
     end
   end
 end

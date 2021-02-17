@@ -1,6 +1,6 @@
 module Documents
   class IdGuidanceController < DocumentUploadQuestionController
-    layout "question"
+    layout "intake"
 
     def edit; end
 

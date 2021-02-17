@@ -1,8 +1,6 @@
 module Documents
   class SelfieInstructionsController < DocumentUploadQuestionController
-    layout "question"
-
-    def illustration_path;end
+    layout "intake"
 
     def self.document_type
       nil

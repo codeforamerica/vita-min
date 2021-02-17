@@ -1,6 +1,6 @@
 module Questions
   class EligibilityController < QuestionsController
-    layout "question"
+    layout "intake"
 
     private
 

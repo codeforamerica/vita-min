@@ -7,7 +7,7 @@ module Questions
 
     helper_method :current_path, :illustration_folder,:illustration_path, :next_path, :prev_path
 
-    layout "question"
+    layout "intake"
 
     def edit
       @form = form_class.from_intake(current_intake)

@@ -1,10 +1,8 @@
 module Documents
   class OverviewController < DocumentUploadQuestionController
-    layout "question"
+    layout "intake"
 
     helper_method :document_type_keys
-
-    def illustration_path;end
 
     def edit
       @documents = current_intake.documents

@@ -2,7 +2,7 @@ module Questions
   class BacktaxesController < QuestionsController
     skip_before_action :require_intake
     before_action :check_for_triage, only: [:edit]
-    layout "question"
+    layout "intake"
 
     def current_intake
       Intake.new

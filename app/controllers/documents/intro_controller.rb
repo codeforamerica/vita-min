@@ -1,8 +1,6 @@
 module Documents
   class IntroController < DocumentUploadQuestionController
-    layout "question"
-
-    def illustration_path;end
+    layout "intake"
 
     def edit
       data = MixpanelService.data_from([current_intake.client, current_intake])

@@ -1,6 +1,6 @@
 module Questions
   class OtherIncomeTypesController < QuestionsController
-    layout "question"
+    layout "intake"
 
     def self.show?(intake)
       intake.had_other_income_yes?

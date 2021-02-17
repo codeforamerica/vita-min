@@ -1,6 +1,6 @@
 module Questions
   class EnvironmentWarningController < QuestionsController
-    layout "question"
+    layout "intake"
 
     def self.show?(_)
       !Rails.env.production?

@@ -163,6 +163,4 @@ class QuestionNavigation
     Questions::SuccessfullySubmittedController,
     Questions::FeedbackController,
   ].freeze
-
-  LAST_BEFORE_DOCUMENTS = Questions::AdditionalInfoController
 end

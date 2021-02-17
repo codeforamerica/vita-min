@@ -57,7 +57,7 @@ class DocumentNavigation
   delegate :controllers, to: :class
 
   def prev
-    return QuestionNavigation::LAST_BEFORE_DOCUMENTS if index.zero?
+    return Questions::OverviewDocumentsController if index.zero?
 
     super
   end

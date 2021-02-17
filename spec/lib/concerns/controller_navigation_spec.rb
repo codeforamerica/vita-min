@@ -1,5 +1,11 @@
-shared_examples "controller navigation flow" do |navigation_class|
-  before(:each) do
+require "rails_helper"
+
+RSpec.describe ControllerNavigation do
+  class ConcernedWithControllerNavigation
+    include ControllerNavigation
+  end
+  let(:navigation_class) { ConcernedWithControllerNavigation }
+  before do
     class BaseController
       def self.show?(_)
         true
@@ -19,6 +25,8 @@ shared_examples "controller navigation flow" do |navigation_class|
                    ThirdController,
                ]
     )
+
+
   end
 
   describe ".controllers" do
@@ -64,16 +72,16 @@ shared_examples "controller navigation flow" do |navigation_class|
       allow(SecondController).to receive(:show?) { false }
     end
 
-    it "returns numeric index for next non-skipped controller in main flow" do
+    it "returns path for next non-skipped controller in main flow" do
       navigation = navigation_class.new(ThirdController.new)
       expect(navigation.prev).to eq(FirstController)
     end
-  end
 
-  context "when current controller is the first" do
-    it "returns nil" do
-      navigation = navigation_class.new(FirstController.new)
-      expect(navigation.prev).to be_nil
+    context "when current controller is the first" do
+      it "returns nil" do
+        navigation = navigation_class.new(FirstController.new)
+        expect(navigation.prev).to be_nil
+      end
     end
   end
 end

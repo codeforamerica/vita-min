@@ -1,6 +1,6 @@
 module Stimulus
   class FilingMightHelpController < StimulusController
-    layout "question"
+    layout "intake"
 
     def update
       @form = form_class.new(current_stimulus_triage, form_params)

@@ -1,6 +1,6 @@
 module Questions
   class InterviewSchedulingController < QuestionsController
-    layout "question"
+    layout "intake"
 
     def edit
       super

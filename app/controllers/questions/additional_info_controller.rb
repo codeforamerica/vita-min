@@ -1,6 +1,6 @@
 module Questions
   class AdditionalInfoController < QuestionsController
-    layout "question"
+    layout "intake"
 
     def tracking_data
       {}

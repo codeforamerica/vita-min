@@ -1,6 +1,8 @@
 class DocumentsController < ApplicationController
   include AccessControllable
   before_action :require_intake
+  
+  def illustration_path; end
 
   def destroy
     document = current_intake.documents.find_by(id: params[:id])
