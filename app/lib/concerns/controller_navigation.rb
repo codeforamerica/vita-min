@@ -26,6 +26,7 @@ module ControllerNavigation
 
   def prev
     return unless index&.nonzero?
+
     controllers_to_beginning = controllers[0..index - 1].reverse
     seek(controllers_to_beginning)
   end

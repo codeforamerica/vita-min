@@ -1,4 +1,6 @@
 class QuestionNavigation
+  include ControllerNavigation
+
   FLOW = [
     # Triage
     Questions::WelcomeController,
@@ -162,6 +164,5 @@ class QuestionNavigation
     Questions::FeedbackController,
   ].freeze
 
-  include ControllerNavigation
-
+  LAST_BEFORE_DOCUMENTS = Questions::AdditionalInfoController
 end

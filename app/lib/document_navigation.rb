@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DocumentNavigation
+  include ControllerNavigation
+
   FLOW = [
     Documents::IdGuidanceController,
     Documents::IdsController,
@@ -37,17 +39,12 @@ class DocumentNavigation
     Documents::SendRequestedDocumentsLaterController,
   ].freeze
 
+
   CONTROLLER_BY_DOCUMENT_TYPE = FLOW
     .find_all(&:document_type_key)
     .index_by(&:document_type_key)
 
   class << self
-    delegate :first, to: :controllers
-
-    def controllers
-      FLOW
-    end
-
     def first_for_intake(intake)
       controllers.find { |c| c.show?(intake) }
     end
@@ -59,14 +56,9 @@ class DocumentNavigation
 
   delegate :controllers, to: :class
 
-  def initialize(current_controller)
-    @current_controller = current_controller
-  end
+  def prev
+    return QuestionNavigation::LAST_BEFORE_DOCUMENTS if index.zero?
 
-  def next
-    current_index = controllers.index(@current_controller.class)
-    return if current_index.nil?
-
-    controllers[(current_index + 1)..-1].find { |c| c.show?(@current_controller.visitor_record) }
+    super
   end
 end

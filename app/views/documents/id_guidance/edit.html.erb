@@ -1,38 +1,26 @@
-<% content_for :page_title, t("views.documents.id_guidance.title") %>
+<% content_for :form_question, t("views.documents.id_guidance.title") %>
 
-<% content_for :main do %>
-  <section class="slab slab--white">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <%= render "shared/progress_bar" %>
-        <main role="main">
-          <div class="question__illustration spacing-above-0">
-            <%= image_tag("questions/#{illustration_path}", alt: "") %>
-          </div>
+<% content_for :form_card do %>
+    <h1 class="form-question">
+      <%= content_for(:form_question) %>
+    </h1>
 
-          <h1 class="form-question">
-            <%= content_for(:page_title) %>
-          </h1>
+    <p>
+      <%=t("views.documents.id_guidance.info") %>
+    </p>
+    <p>
+      <%=t("views.documents.id_guidance.multiple_forms") %>
+    </p>
 
-          <p>
-            <%=t("views.documents.id_guidance.info") %>
-          </p>
-          <p>
-            <%=t("views.documents.id_guidance.multiple_forms") %>
-          </p>
-
-          <div class="security-blurb spacing-below-60">
-            <%= image_tag("lock.svg", alt: "", class: "lock-icon") %>
-            <p>
-              <%=t("general.security_html", :privacy_link => link_to(t("general.privacy_policy"), privacy_path, target: "_blank")) %>
-            </p>
-          </div>
-
-          <%= link_to next_path, class: "button button--primary button--wide text--centered" do %>
-            <%=t("general.continue") %>
-          <% end %>
-        </main>
-      </div>
+    <div class="security-blurb spacing-below-60">
+      <%= image_tag("lock.svg", alt: "", class: "lock-icon") %>
+      <p>
+        <%=t("general.security_html", :privacy_link => link_to(t("general.privacy_policy"), privacy_path, target: "_blank")) %>
+      </p>
     </div>
-  </section>
+
+    <%= link_to next_path, class: "button button--primary button--wide text--centered" do %>
+      <%=t("general.continue") %>
+    <% end %>
+
 <% end %>

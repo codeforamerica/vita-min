@@ -1,6 +1,6 @@
 <% content_for :page_title, (yield :form_question) %>
 <% content_for :main do %>
-  <section class="slab slab--white">
+  <section class="slab slab--white slab--not-padded question-layout">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <%= render "shared/progress_bar" %>
@@ -96,6 +96,11 @@
             <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}" do %>
               <%=t("general.continue") %>
             <% end %>
+          <% end %>
+          <% if prev_path %>
+            <div class="back grid">
+              <%= link_to '< Back', prev_path %>
+            </div>
           <% end %>
         </main>
       </div>

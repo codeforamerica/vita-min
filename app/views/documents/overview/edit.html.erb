@@ -1,49 +1,41 @@
 <% content_for :page_title, t("views.documents.overview.title") %>
 
-<% content_for :main do %>
-  <section class="slab slab--white">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <%= render "shared/progress_bar" %>
-        <main role="main">
-          <h1 class="form-question">
-            <%= content_for(:page_title) %>
-          </h1>
+<% content_for :form_card do %>
+    <h1 class="form-question">
+      <%= content_for(:page_title) %>
+    </h1>
 
-          <div class="document-overview-list">
-            <% documents_by_type = @documents.group_by(&:document_type) %>
-            <% document_type_keys.each do |type| %>
-              <% documents = documents_by_type[type] || [] %>
-              <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__item-text">
-                <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
-              </h2>
+    <div class="document-overview-list">
+      <% documents_by_type = @documents.group_by(&:document_type) %>
+      <% document_type_keys.each do |type| %>
+        <% documents = documents_by_type[type] || [] %>
+        <%= image_tag "paper.svg", alt: "", class: "document-overview-list__icon" %><h2 class="h3 document-overview-list__item-text">
+          <%= t("general.document_type.#{type.parameterize(separator: "_")}", default: type) %>
+        </h2>
 
-              <%= link_to t("general.edit").downcase, edit_document_path(type), class: "button button--inline-action" %>
+        <%= link_to t("general.edit").downcase, edit_document_path(type), class: "button button--inline-action" %>
 
-              <ul class="document-overview-list__filenames">
-                <% if documents.empty? %>
-                  <li><em><%=t("views.documents.overview.empty") %></em></li>
-                <% end %>
-                <% documents.each do |document| %>
-                  <li>
-                    <%= document.upload.filename %>
-                  </li>
-                <% end %>
-              </ul>
-            <% end %>
-          </div>
-
-          <p>
-            <strong>
-              <%=t("views.documents.overview.schedule_appointment") %>
-            </strong>
-          </p>
-
-          <%= link_to interview_scheduling_questions_path, class: "button button--wide button--primary text--centered spacing-above-60" do %>
-            <%=t("views.documents.overview.finished") %>
+        <ul class="document-overview-list__filenames">
+          <% if documents.empty? %>
+            <li><em><%=t("views.documents.overview.empty") %></em></li>
           <% end %>
-        </main>
-      </div>
+          <% documents.each do |document| %>
+            <li>
+              <%= document.upload.filename %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
-  </section>
+
+    <p>
+      <strong>
+        <%=t("views.documents.overview.schedule_appointment") %>
+      </strong>
+    </p>
+
+    <%= link_to interview_scheduling_questions_path, class: "button button--wide button--primary text--centered spacing-above-60" do %>
+      <%=t("views.documents.overview.finished") %>
+    <% end %>
+
 <% end %>
