@@ -106,6 +106,15 @@
     padding: $s5 $s10;
   }
 
+  .button--inverted {
+    background-color: $color-grey-darkest;
+    color: white;
+    &:hover {
+      color: white;
+      background-color: transparentize($color-grey-darkest, .1);
+    }
+  }
+
   .checkbox--gyr {
     font-size: $font-size-25-small;
     font-weight: $font-weight-normal;
@@ -152,6 +161,27 @@
   .no-bottom-margin-children {
     .form-group {
       margin-bottom: 0;
+    }
+  }
+
+  .button-bar {
+    display: flex;
+    margin-bottom: 0;
+
+    button {
+      border-radius: $s5;
+      margin: 0 !important;
+      border-left: none;
+    }
+
+    button:first-of-type {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+      border-left: 1px solid $color-grey-darkest;
+    }
+    button:last-of-type {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
   }
 }

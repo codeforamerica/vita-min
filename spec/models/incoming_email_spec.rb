@@ -6,7 +6,7 @@
 #  attachment_count   :integer
 #  body_html          :string
 #  body_plain         :string           not null
-#  from               :string           not null
+#  from               :citext           not null
 #  received           :string
 #  received_at        :datetime         not null
 #  recipient          :string           not null
@@ -15,7 +15,7 @@
 #  stripped_signature :string
 #  stripped_text      :string
 #  subject            :string
-#  to                 :string           not null
+#  to                 :citext           not null
 #  user_agent         :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

@@ -196,6 +196,15 @@ require "rails_helper"
 
 describe Intake do
   describe "validations" do
+    context "with an invalid email" do
+      let(:intake) { build(:intake, email_address: "someone@example .com") }
+
+      it "is not valid and adds an error to the email" do
+        expect(intake).not_to be_valid
+        expect(intake.errors).to include :email_address
+      end
+    end
+
     context "phone_number & sms_phone_number" do
       let(:intake) { build :intake, phone_number: input_number, sms_phone_number: input_number }
       before { intake.valid? }

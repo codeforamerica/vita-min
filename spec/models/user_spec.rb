@@ -5,7 +5,7 @@
 #  id                        :bigint           not null, primary key
 #  current_sign_in_at        :datetime
 #  current_sign_in_ip        :string
-#  email                     :string           not null
+#  email                     :citext           not null
 #  encrypted_access_token    :string
 #  encrypted_access_token_iv :string
 #  encrypted_password        :string           default(""), not null
@@ -56,6 +56,15 @@ RSpec.describe User, type: :model do
       expect(user.errors).to include :password
       expect(user.errors).to include :email
       expect(user.errors).to include :role
+    end
+
+    context "with an invalid email" do
+      let(:user) { build(:user, email: "someone@example") }
+
+      it "is not valid and adds an error to the email" do
+        expect(user).not_to be_valid
+        expect(user.errors).to include :email
+      end
     end
 
     it "validates timezone" do

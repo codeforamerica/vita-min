@@ -1,5 +1,6 @@
 class SLABreachService
   attr_accessor :report_generated_at
+
   def initialize
     @report_generated_at = Time.now.utc
   end
@@ -33,5 +34,22 @@ class SLABreachService
       .where(clients[:last_internal_or_outgoing_interaction_at].lt(clients[:first_unanswered_incoming_interaction_at]).or(clients[:last_internal_or_outgoing_interaction_at].eq(nil)))
       .group(:vita_partner_id)
       .count(:id)
+  end
+
+  def self.generate_report
+    report = SLABreachService.new
+    communication_breaches = report.outgoing_communication_breaches
+    interaction_breaches = report.outgoing_interaction_breaches
+    attention_breaches = report.attention_needed_breaches
+    {
+        breached_at: report.breach_threshold_date,
+        generated_at: report.report_generated_at,
+        attention_needed_breaches_by_vita_partner_id: attention_breaches,
+        attention_needed_breach_count: attention_breaches.values.inject(:+) || 0,
+        communication_breaches_by_vita_partner_id: communication_breaches,
+        communication_breach_count: communication_breaches.values.inject(:+) || 0,
+        interaction_breaches_by_vita_partner_id: interaction_breaches,
+        interaction_breach_count: interaction_breaches.values.inject(:+) || 0,
+    }
   end
 end

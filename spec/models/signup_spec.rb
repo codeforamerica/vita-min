@@ -3,7 +3,7 @@
 # Table name: signups
 #
 #  id            :bigint           not null, primary key
-#  email_address :string
+#  email_address :citext
 #  name          :string
 #  phone_number  :string
 #  zip_code      :string
@@ -69,6 +69,15 @@ RSpec.describe Signup, type: :model do
         it "is not valid and adds an error to the phone number" do
           expect(signup).not_to be_valid
           expect(signup.errors).to include :phone_number
+        end
+      end
+
+      context "with an invalid email" do
+        let(:signup) { build(:signup, email_address: "someone@example .com") }
+
+        it "is not valid and adds an error to the email" do
+          expect(signup).not_to be_valid
+          expect(signup.errors).to include :email_address
         end
       end
     end

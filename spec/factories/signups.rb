@@ -3,7 +3,7 @@
 # Table name: signups
 #
 #  id            :bigint           not null, primary key
-#  email_address :string
+#  email_address :citext
 #  name          :string
 #  phone_number  :string
 #  zip_code      :string
