@@ -57,33 +57,21 @@ RSpec.describe Questions::QuestionsController do
     end
   end
 
-  describe "#next_path" do
-
-  end
-
-  describe '#prev_path' do
-    controller(Questions::DemographicSpouseRaceController) do
-      def index;end
-    end
-
+  describe "#prev_path" do
     before do
-      allow(Intake).to receive(:find_by_id).and_return intake
+      allow_any_instance_of(QuestionNavigation).to receive(:current_controller).and_return Questions::AdoptedChildController.new
+      allow_any_instance_of(Questions::AdoptedChildController).to receive(:current_intake).and_return nil
+      stub_const("QuestionNavigation::FLOW",
+                 [
+                     Questions::WelcomeController,
+                     Questions::AdoptedChildController,
+                     Questions::AdditionalInfoController,
+                 ]
+      )
     end
 
-    context "opted in to demo questions" do
-      let(:intake) { create :intake, demographic_questions_opt_in: "yes" }
-
-      it "returns the previous path based on form_navigation show? question response" do
-        expect(subject.prev_path).to eq Questions::DemographicPrimaryRaceController.to_path_helper
-      end
-    end
-
-    context "havent opted into demo questions but end up on a deep demo question" do
-      let(:intake) { create :intake, demographic_questions_opt_in: "no" }
-
-      it "returns the previous path based on form_navigation show? question response" do
-        expect(subject.prev_path).to eq Questions::DemographicQuestionsController.to_path_helper
-      end
+    it "returns the path to the previous controller in the flow" do
+      expect(subject.prev_path).to eq Questions::WelcomeController.to_path_helper
     end
   end
 end

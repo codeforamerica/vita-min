@@ -1,6 +1,6 @@
 module ControllerNavigation
   extend ActiveSupport::Concern
-
+  attr_accessor :current_controller
   included do
     class << self
       delegate :first, to: :controllers
@@ -25,8 +25,7 @@ module ControllerNavigation
   end
 
   def prev
-    return unless index
-
+    return unless index&.nonzero?
     controllers_to_beginning = controllers[0..index - 1].reverse
     seek(controllers_to_beginning)
   end
@@ -34,12 +33,12 @@ module ControllerNavigation
   private
 
   def index
-    controllers.index(eval(@current_controller.class.name))
+    controllers.index(current_controller.class)
   end
 
   def seek(list)
     list.detect do |controller_class|
-      controller_class.show?(@current_controller.visitor_record)
+      controller_class.show?(current_controller.visitor_record)
     end
   end
 end

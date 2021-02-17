@@ -13,23 +13,23 @@ shared_examples "controller navigation flow" do |navigation_class|
     class ThirdController < BaseController; end
 
     stub_const("#{navigation_class.name}::FLOW",
-      [
-        FirstController,
-        SecondController,
-        ThirdController,
-      ]
+               [
+                   FirstController,
+                   SecondController,
+                   ThirdController,
+               ]
     )
   end
 
   describe ".controllers" do
     it "returns the main flow" do
       expect(navigation_class.controllers).to match_array(
-        [
-          FirstController,
-          SecondController,
-          ThirdController,
-        ]
-      )
+                                                  [
+                                                      FirstController,
+                                                      SecondController,
+                                                      ThirdController,
+                                                  ]
+                                              )
     end
   end
 
@@ -56,6 +56,24 @@ shared_examples "controller navigation flow" do |navigation_class|
         navigation = navigation_class.new(ThirdController.new)
         expect(navigation.next).to be_nil
       end
+    end
+  end
+
+  describe "#prev" do
+    before do
+      allow(SecondController).to receive(:show?) { false }
+    end
+
+    it "returns numeric index for next non-skipped controller in main flow" do
+      navigation = navigation_class.new(ThirdController.new)
+      expect(navigation.prev).to eq(FirstController)
+    end
+  end
+
+  context "when current controller is the first" do
+    it "returns nil" do
+      navigation = navigation_class.new(FirstController.new)
+      expect(navigation.prev).to be_nil
     end
   end
 end
