@@ -34,7 +34,7 @@ module ControllerNavigation
   private
 
   def index
-    controllers.index(@current_controller.class)
+    controllers.index(eval(@current_controller.class.name))
   end
 
   def seek(list)

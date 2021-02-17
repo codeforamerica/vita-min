@@ -1,11 +1,7 @@
 module Portal
   class PortalController < ApplicationController
     before_action :require_client_sign_in
-    layout "question"
-
-    helper_method :illustration_path
-
-    def illustration_path; end
+    layout "portal"
 
     def home
       @tax_returns = current_client.tax_returns.order(year: :desc)

@@ -1,6 +1,6 @@
-<% content_for :form_question, t(".title", name: current_client.intake.primary_full_name) %>
+<% content_for :title, t(".title", name: current_client.intake.primary_full_name) %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <h1 class="h2"><%= t(".title", name: current_client.intake.primary_full_name) %></h1>
 
   <% @tax_returns.each do |tax_return| %>

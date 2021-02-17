@@ -66,9 +66,24 @@ RSpec.describe Questions::QuestionsController do
       def index;end
     end
 
-    it "returns the previous path based on the form_navigation object" do
-      expect(subject.prev_path).to eq Questions::DemographicPrimaryRaceController.to_path_helper
+    before do
+      allow(Intake).to receive(:find_by_id).and_return intake
+    end
 
+    context "opted in to demo questions" do
+      let(:intake) { create :intake, demographic_questions_opt_in: "yes" }
+
+      it "returns the previous path based on form_navigation show? question response" do
+        expect(subject.prev_path).to eq Questions::DemographicPrimaryRaceController.to_path_helper
+      end
+    end
+
+    context "havent opted into demo questions but end up on a deep demo question" do
+      let(:intake) { create :intake, demographic_questions_opt_in: "no" }
+
+      it "returns the previous path based on form_navigation show? question response" do
+        expect(subject.prev_path).to eq Questions::DemographicQuestionsController.to_path_helper
+      end
     end
   end
 end

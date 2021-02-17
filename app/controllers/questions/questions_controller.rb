@@ -88,10 +88,6 @@ module Questions
       @form.attributes_for(:intake).except(*Rails.application.config.filter_parameters)
     end
 
-    def back_path
-      byebug
-    end
-
     class << self
       def to_param
         controller_name.dasherize
