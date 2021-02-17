@@ -12,6 +12,10 @@ module TimeHelper
     datetime.strftime("%l:%M %p #{datetime.zone}").strip
   end
 
+  def long_formatted_datetime(datetime)
+    "#{datetime.strftime('%a')} #{default_date_format(datetime)} at #{formatted_time(datetime)}"
+  end
+
   def timezone_select_options
     ActiveSupport::TimeZone.us_zones.map { |tz| [tz.name, tz.tzinfo.name] }
   end

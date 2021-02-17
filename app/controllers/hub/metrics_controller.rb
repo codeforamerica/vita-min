@@ -6,20 +6,15 @@ module Hub
     load_and_authorize_resource :vita_partner, parent: false
 
     def index
-      # Run SLA queries and cache the result for 10 minutes.
-      # The view will only display values for vita partners the user has access to view.
-      data = Rails.cache.fetch("metrics/sla_breaches/attention_needed", expires_in: 10.minutes) do
-        sla_service = SLABreachService.new
-        { breach_threshold_date: sla_service.breach_threshold_date,
-          current_as_of: sla_service.report_generated_at,
-          breach_counts: sla_service.attention_needed_breaches
-        }
-      end
-      data[:total_breaches] = data[:breach_counts].slice(*@vita_partners.map(&:id)).values.inject(:+)
-      # Cast UTC stored data in the cache to the current_user's timezone.
-      data[:breach_threshold_date] = data[:breach_threshold_date].in_time_zone(current_user.timezone)
-      data[:current_as_of] = data[:current_as_of].in_time_zone(current_user.timezone)
-      @attention_needed = OpenStruct.new(data)
+      generated_in_last_10_minutes = Report.arel_table[:generated_at].gteq(10.minutes.ago)
+      @report = Report::SLABreachReport.where(generated_in_last_10_minutes).last || Report::SLABreachReport.generate!
+      # Recalculate total breaches based on limited vita partner collection if necessary
+      limited_partners = @vita_partners unless current_user.admin?
+      @total_breaches = {
+        attention_needed: @report.attention_needed_breach_count(limited_partners),
+        communication: @report.communication_breach_count(limited_partners),
+        interaction: @report.interaction_breach_count(limited_partners)
+      }
     end
   end
 end
