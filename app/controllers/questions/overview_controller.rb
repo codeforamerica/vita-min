@@ -1,6 +1,8 @@
 module Questions
   class OverviewController < QuestionsController
-    layout "application"
+    layout "question"
+
+    def illustration_path;end
 
     def self.form_class
       NullForm

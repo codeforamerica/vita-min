@@ -71,6 +71,8 @@
 @import "templates/overview";
 @import "templates/stimulus";
 @import "templates/satisfaction-survey";
+@import "templates/question";
+
 
 html {
   background-color: black;
@@ -444,3 +446,4 @@ ul.with-bullets {
   margin-left: 20px;
   list-style-type: disc;
 }
+
