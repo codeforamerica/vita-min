@@ -3,11 +3,7 @@ module Portal
     before_action :redirect_to_portal_if_client_authenticated
     before_action :validate_token, only: [:show, :update]
     before_action :redirect_locked_clients, only: [:show, :update]
-    layout "question"
-
-    helper_method :illustration_path
-
-    def illustration_path; end
+    layout "portal"
 
     def new
       @form = RequestClientLoginForm.new

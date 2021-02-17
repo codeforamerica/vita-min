@@ -1,7 +1,7 @@
 module Questions
   class FileWithHelpController < QuestionsController
     skip_before_action :require_intake
-    layout "question"
+    layout "intake"
 
     def next_path
       backtaxes_questions_path

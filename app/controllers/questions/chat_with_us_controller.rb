@@ -1,6 +1,6 @@
 module Questions
   class ChatWithUsController < QuestionsController
-    layout "question"
+    layout "intake"
 
     def edit
       @zip_name = ZipCodes.details(current_intake.zip_code)&.fetch(:name)

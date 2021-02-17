@@ -744,7 +744,7 @@ RSpec.describe ApplicationController do
 
     context "when it is a hub path or controller method" do
       controller(Hub::UsersController) do
-        def hub_path;end
+        def hub_path; end
       end
       it "is false" do
         expect(subject.show_offseason_banner?).to be false

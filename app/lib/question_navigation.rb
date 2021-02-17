@@ -1,4 +1,6 @@
 class QuestionNavigation
+  include ControllerNavigation
+
   FLOW = [
     # Triage
     Questions::WelcomeController,
@@ -161,7 +163,4 @@ class QuestionNavigation
     Questions::SuccessfullySubmittedController,
     Questions::FeedbackController,
   ].freeze
-
-  include ControllerNavigation
-
 end

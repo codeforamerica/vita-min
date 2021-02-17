@@ -1,73 +1,65 @@
 <% @main_heading = t("views.questions.overview.title") %>
-<% content_for :page_title, @main_heading %>
+<% content_for :form_question, @main_heading %>
 
-<% content_for :main do %>
-  <section class="slab slab--white">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <main role="main">
-          <h1 class="form-question"><%= @main_heading %></h1>
-          <p class="spacing-below-35">
-            <strong>
-              <%=t("views.questions.overview.info") %>
-            </strong>
+<% content_for :form_card do %>
+    <h1 class="form-question"><%= @main_heading %></h1>
+    <p class="spacing-below-35">
+      <strong>
+        <%=t("views.questions.overview.info") %>
+      </strong>
+    </p>
+
+    <div class="steps--wrapper">
+      <div class="step">
+        <div class="step-icon-wrapper">
+          <%= image_tag("questions.svg", alt: "") %>
+        </div>
+        <div class="step-text">
+          <h3><%=t("views.questions.overview.questions.header") %></h3>
+          <p class="text--small with-padding-small">
+            <%=t("views.questions.overview.questions.info") %>
           </p>
+        </div>
+      </div>
 
-          <div class="steps--wrapper">
-            <div class="step">
-              <div class="step-icon-wrapper">
-                <%= image_tag("questions.svg", alt: "") %>
-              </div>
-              <div class="step-text">
-                <h3><%=t("views.questions.overview.questions.header") %></h3>
-                <p class="text--small with-padding-small">
-                  <%=t("views.questions.overview.questions.info") %>
-                </p>
-              </div>
-            </div>
+      <div class="step">
+        <div class="step-icon-wrapper">
+          <%= image_tag("documents.svg", alt: "") %>
+        </div>
+        <div class="step-text">
+          <h3><%=t("views.questions.overview.documents.header") %></h3>
+          <p class="text--small with-padding-small">
+            <%=t("views.questions.overview.documents.info") %>
+          </p>
+        </div>
+      </div>
 
-            <div class="step">
-              <div class="step-icon-wrapper">
-                <%= image_tag("documents.svg", alt: "") %>
-              </div>
-              <div class="step-text">
-                <h3><%=t("views.questions.overview.documents.header") %></h3>
-                <p class="text--small with-padding-small">
-                  <%=t("views.questions.overview.documents.info") %>
-                </p>
-              </div>
-            </div>
+      <div class="step">
+        <div class="step-icon-wrapper">
+          <%= image_tag("phone-review.svg", alt: "") %>
+        </div>
+        <div class="step-text">
+          <h3><%=t("views.questions.overview.phone_review.header") %></h3>
+          <p class="text--small with-padding-small">
+            <%=t("views.questions.overview.phone_review.info") %>
+          </p>
+        </div>
+      </div>
 
-            <div class="step">
-              <div class="step-icon-wrapper">
-                <%= image_tag("phone-review.svg", alt: "") %>
-              </div>
-              <div class="step-text">
-                <h3><%=t("views.questions.overview.phone_review.header") %></h3>
-                <p class="text--small with-padding-small">
-                  <%=t("views.questions.overview.phone_review.info") %>
-                </p>
-              </div>
-            </div>
-
-            <div class="step">
-              <div class="step-icon-wrapper">
-                <%= image_tag("income-and-expenses.svg", alt: "") %>
-              </div>
-              <div class="step-text">
-                <h3><%=t("views.questions.overview.refund.header") %></h3>
-                <p class="text--small with-padding-small">
-                  <%=t("views.questions.overview.refund.info") %>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
-            <%=t("general.continue") %>
-          <% end %>
-        </main>
+      <div class="step">
+        <div class="step-icon-wrapper">
+          <%= image_tag("income-and-expenses.svg", alt: "") %>
+        </div>
+        <div class="step-text">
+          <h3><%=t("views.questions.overview.refund.header") %></h3>
+          <p class="text--small with-padding-small">
+            <%=t("views.questions.overview.refund.info") %>
+          </p>
+        </div>
       </div>
     </div>
-  </section>
+
+    <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
+      <%=t("general.continue") %>
+    <% end %>
 <% end %>

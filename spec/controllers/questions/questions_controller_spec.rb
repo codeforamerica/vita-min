@@ -56,4 +56,22 @@ RSpec.describe Questions::QuestionsController do
       end
     end
   end
+
+  describe "#prev_path" do
+    before do
+      allow_any_instance_of(QuestionNavigation).to receive(:current_controller).and_return Questions::AdoptedChildController.new
+      allow_any_instance_of(Questions::AdoptedChildController).to receive(:current_intake).and_return nil
+      stub_const("QuestionNavigation::FLOW",
+                 [
+                     Questions::WelcomeController,
+                     Questions::AdoptedChildController,
+                     Questions::AdditionalInfoController,
+                 ]
+      )
+    end
+
+    it "returns the path to the previous controller in the flow" do
+      expect(subject.prev_path).to eq Questions::WelcomeController.to_path_helper
+    end
+  end
 end

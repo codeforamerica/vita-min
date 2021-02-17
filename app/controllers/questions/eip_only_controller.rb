@@ -1,7 +1,7 @@
 module Questions
   class EipOnlyController < QuestionsController
     # this is a placeholder until we finish the streamlined eip intake
-    layout "question"
+    layout "intake"
 
     def self.show?(_intake)
       false

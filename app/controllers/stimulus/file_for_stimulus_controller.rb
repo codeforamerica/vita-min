@@ -1,6 +1,6 @@
 module Stimulus
   class FileForStimulusController < StimulusController
-    layout 'question'
+    layout 'intake'
 
     class << self
       def show?(triage)

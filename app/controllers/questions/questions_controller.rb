@@ -5,12 +5,9 @@ module Questions
     delegate :form_name, to: :class
     delegate :form_class, to: :class
 
-    helper_method :current_path
-    helper_method :illustration_folder
-    helper_method :illustration_path
-    helper_method :next_path
+    helper_method :current_path, :illustration_folder,:illustration_path, :next_path, :prev_path
 
-    layout "question"
+    layout "intake"
 
     def edit
       @form = form_class.from_intake(current_intake)
@@ -35,7 +32,12 @@ module Questions
 
     def next_path
       next_step = form_navigation.next
-      next_step.to_path_helper if next_step
+      next_step&.to_path_helper
+    end
+
+    def prev_path
+      prev_step = form_navigation&.prev
+      prev_step&.to_path_helper
     end
 
     def illustration_folder

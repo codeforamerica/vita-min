@@ -1,6 +1,6 @@
 module Questions
   class StartWithCurrentYearController < QuestionsController
-    layout "question"
+    layout "intake"
 
     private
 

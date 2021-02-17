@@ -201,7 +201,7 @@ class ApplicationController < ActionController::Base
   # convenience method for redirection to beginning of
   # intake process
   def redirect_to_beginning_of_intake
-    redirect_to(question_path(:id => QuestionNavigation.first))
+    redirect_to(question_path(id: QuestionNavigation.first))
   end
 
   def redirect_or_add_flash

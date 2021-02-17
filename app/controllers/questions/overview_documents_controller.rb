@@ -1,7 +1,9 @@
 module Questions
   class OverviewDocumentsController < QuestionsController
     before_action :require_intake
-    layout "application"
+    layout "intake"
+
+    def illustration_path; end
 
     def self.show?(intake)
       return false if intake.source == "211intake"

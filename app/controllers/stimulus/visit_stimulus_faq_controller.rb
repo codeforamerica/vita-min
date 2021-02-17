@@ -1,6 +1,6 @@
 module Stimulus
   class VisitStimulusFaqController < StimulusController
-    layout 'question'
+    layout 'intake'
     after_action :clear_stimulus_triage_session
 
     class << self

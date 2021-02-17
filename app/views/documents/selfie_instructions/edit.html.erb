@@ -1,47 +1,38 @@
-<% content_for :page_title, "" %>
+<% content_for :form_question, t("views.documents.selfie_instructions.header") %>
 
-<% content_for :main do %>
-  <section class="slab slab--white">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <%= render "shared/progress_bar" %>
-        <main role="main">
-          <h1 class="form-question">
-            <%=t("views.documents.selfie_instructions.header") %>
-          </h1>
-          <div class="text--centered with-padding-med">
-            <%= image_tag("selfie-illustration.svg", alt: "") %>
-          </div>
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for :form_question %>
+  </h1>
+  <div class="text--centered with-padding-med">
+    <%= image_tag("selfie-illustration.svg", alt: "") %>
+  </div>
 
-          <p>
-            <%=t("views.documents.selfie_instructions.info") %>
-          </p>
+  <p>
+    <%=t("views.documents.selfie_instructions.info") %>
+  </p>
 
-          <div class="selfie-instructions-list with-padding-large">
-            <div class="text--centered">
-              <span class="emoji emoji--small emoji--star"></span>
-            </div>
-
-            <p class="text--bold">
-              <%=t("views.documents.selfie_instructions.steps.header") %>
-            </p>
-
-            <ul class="list--bulleted">
-              <li><%=t("views.documents.selfie_instructions.steps.face_visible") %></li>
-              <li><%=t("views.documents.selfie_instructions.steps.id_visible") %></li>
-              <li><%=t("views.documents.selfie_instructions.steps.face_camera") %></li>
-              <li><%=t("views.documents.selfie_instructions.steps.plain_background") %></li>
-              <li><%=t("views.documents.selfie_instructions.steps.wear_glasses") %></li>
-            </ul>
-          </div>
-
-        </main>
-        <div class="text--centered">
-          <%= link_to selfies_documents_path, class: "button button--wide button--primary button--centered" do %>
-            <%=t("views.documents.selfie_instructions.submit_photo") %>
-          <% end %>
-        </div>
-      </div>
+  <div class="selfie-instructions-list with-padding-large">
+    <div class="text--centered">
+      <span class="emoji emoji--small emoji--star"></span>
     </div>
-  </section>
+
+    <p class="text--bold">
+      <%=t("views.documents.selfie_instructions.steps.header") %>
+    </p>
+
+    <ul class="list--bulleted">
+      <li><%=t("views.documents.selfie_instructions.steps.face_visible") %></li>
+      <li><%=t("views.documents.selfie_instructions.steps.id_visible") %></li>
+      <li><%=t("views.documents.selfie_instructions.steps.face_camera") %></li>
+      <li><%=t("views.documents.selfie_instructions.steps.plain_background") %></li>
+      <li><%=t("views.documents.selfie_instructions.steps.wear_glasses") %></li>
+    </ul>
+  </div>
+
+<div class="text--centered">
+  <%= link_to next_path, class: "button button--wide button--primary" do %>
+    <%=t("views.documents.selfie_instructions.submit_photo") %>
+  <% end %>
+</div>
 <% end %>

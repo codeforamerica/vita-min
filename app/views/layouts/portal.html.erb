@@ -2,7 +2,7 @@
   <% if @form&.errors.present? %>
     <%= @form.error_summary %>
   <% end %>
-  <%= yield :form_question %>
+  <%= yield :title %>
 <% end %>
 
 <% content_for :main do %>
@@ -10,14 +10,8 @@
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <%= yield :notices %>
-        <%= render "shared/progress_bar" %>
         <main role="main">
-          <% if illustration_path.present? %>
-            <div class="question__illustration spacing-above-0">
-              <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
-            </div>
-          <% end %>
-          <%= yield :form_card %>
+          <%= yield :card %>
         </main>
       </div>
     </div>

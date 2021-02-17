@@ -1,5 +1,5 @@
 module Questions
   class DemographicQuestionsController < QuestionsController
-    layout "question"
+    layout "intake"
   end
 end

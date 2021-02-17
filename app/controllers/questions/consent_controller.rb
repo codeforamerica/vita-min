@@ -1,6 +1,8 @@
 module Questions
   class ConsentController < QuestionsController
-    layout "application"
+    layout "intake"
+
+    def illustration_path; end
 
     def form_params
       super.merge(

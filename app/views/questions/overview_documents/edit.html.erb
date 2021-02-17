@@ -1,41 +1,32 @@
 <% @main_heading = t("views.questions.overview_documents.title") %>
-<% content_for :page_title, @main_heading %>
+<% content_for :form_question, @main_heading %>
 
-<% content_for :main do %>
-  <section class="slab slab--white">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <%= render "shared/progress_bar" %>
-        <main role="main">
-          <div class="form-card">
-            <h1 class="form-question">
-              <%= @main_heading %>
-            </h1>
+<% content_for :form_card do %>
+    <div class="form-card">
+      <h1 class="form-question">
+        <%= @main_heading %>
+      </h1>
 
-            <div class="question__illustration">
-              <%= image_tag("questions/#{illustration_path}", alt: "") %>
-            </div>
-
-            <p>
-              <%=t("views.questions.overview_documents.documents_list.header") %>
-            </p>
-            <ul class="list--bulleted text--small">
-              <li><%=t("views.questions.overview_documents.documents_list.ssn_itn") %></li>
-              <li><%=t("views.questions.overview_documents.documents_list.id") %></li>
-              <li><%=t("views.questions.overview_documents.documents_list.employment_tax") %></li>
-              <li><%=t("views.questions.overview_documents.documents_list.other_tax") %></li>
-            </ul>
-
-            <p>
-              <strong><%=t("views.questions.overview_documents.valid_phone_email") %></strong>
-            </p>
-
-            <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
-              <%=t("general.continue") %>
-            <% end %>
-          </div>
-        </main>
+      <div class="question__illustration">
+        <%= image_tag("questions/#{illustration_path}", alt: "") %>
       </div>
+
+      <p>
+        <%=t("views.questions.overview_documents.documents_list.header") %>
+      </p>
+      <ul class="list--bulleted text--small">
+        <li><%=t("views.questions.overview_documents.documents_list.ssn_itn") %></li>
+        <li><%=t("views.questions.overview_documents.documents_list.id") %></li>
+        <li><%=t("views.questions.overview_documents.documents_list.employment_tax") %></li>
+        <li><%=t("views.questions.overview_documents.documents_list.other_tax") %></li>
+      </ul>
+
+      <p>
+        <strong><%=t("views.questions.overview_documents.valid_phone_email") %></strong>
+      </p>
+
+      <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
+        <%=t("general.continue") %>
+      <% end %>
     </div>
-  </section>
 <% end %>

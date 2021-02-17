@@ -1,6 +1,6 @@
 module Documents
   class OverviewController < DocumentUploadQuestionController
-    layout "application"
+    layout "intake"
 
     helper_method :document_type_keys
 

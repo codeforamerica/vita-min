@@ -1,47 +1,38 @@
-<% content_for :page_title, t("views.documents.intro.title") %>
+<% content_for :form_question, t("views.documents.intro.title") %>
 
-<% content_for :main do %>
-  <section class="slab slab--white">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <%= render "shared/progress_bar" %>
-        <main role="main">
-          <h1 class="form-question">
-            <%= content_for(:page_title) %>
-          </h1>
-          <p>
-            <%= t("views.documents.intro.info") %>
-          </p>
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for(:form_question) %>
+  </h1>
+  <p>
+    <%= t("views.documents.intro.info") %>
+  </p>
 
-          <div class="document-intro-list">
-            <% if current_intake.document_types_definitely_needed.present? %>
-              <h2 class="h3">
-                <strong><%= t("views.documents.intro.should_have") %></strong>
-              </h2>
-              <ul>
-                <% current_intake.document_types_definitely_needed.each do |type| %>
-                  <li class="spacing-above-25">
-                    <div class="document-intro-list__icon-wrapper">
-                      <%= image_tag "paper.svg", alt: "", class: "document-intro-list__icon" %>
-                    </div>
-                    <h3 class="document-intro-list__item-text">
-                      <%= type %>
-                    </h3>
-                  </li>
-                <% end %>
-              </ul>
-            <% end %>
-          </div>
+  <div class="document-intro-list">
+    <% if current_intake.document_types_definitely_needed.present? %>
+      <h2 class="h3">
+        <strong><%= t("views.documents.intro.should_have") %></strong>
+      </h2>
+      <ul>
+        <% current_intake.document_types_definitely_needed.each do |type| %>
+          <li class="spacing-above-25">
+            <div class="document-intro-list__icon-wrapper">
+              <%= image_tag "paper.svg", alt: "", class: "document-intro-list__icon" %>
+            </div>
+            <h3 class="document-intro-list__item-text">
+              <%= type %>
+            </h3>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
 
-          <p class="text--small">
-            <%= t("views.documents.intro.note") %>
-          </p>
+  <p class="text--small">
+    <%= t("views.documents.intro.note") %>
+  </p>
 
-          <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
-            <%=t("general.continue") %>
-          <% end %>
-        </main>
-      </div>
-    </div>
-  </section>
+  <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
+    <%=t("general.continue") %>
+  <% end %>
 <% end %>

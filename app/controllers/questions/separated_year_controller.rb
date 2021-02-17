@@ -1,6 +1,6 @@
 module Questions
   class SeparatedYearController < QuestionsController
-    layout "question"
+    layout "intake"
 
     def self.show?(intake)
       intake.separated_yes?

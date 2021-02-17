@@ -1,6 +1,6 @@
 module Questions
   class FinalInfoController < QuestionsController
-    layout "question"
+    layout "intake"
 
     private
 

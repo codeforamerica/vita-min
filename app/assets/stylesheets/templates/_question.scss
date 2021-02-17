@@ -1,0 +1,20 @@
+.question-layout {
+  position: relative;
+  padding-top: 6rem;
+  .back {
+    margin-top: $s25;
+    padding-bottom: $s10;
+    display: block;
+    bottom: 0;
+    a {
+      color: $color-grey-medium;
+      font-weight: bold;
+      &:hover {
+        color: darken($color-grey-medium, 10%)
+      }
+      &:visited {
+        color: $color-grey-medium;
+      }
+    }
+  }
+}

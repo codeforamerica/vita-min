@@ -7,6 +7,8 @@ module Documents
     helper_method :document_type
     helper_method :destroy_document_path
 
+    def illustration_path; end
+
     def edit
       return if document_type.nil?
 

@@ -1,6 +1,6 @@
 module Questions
   class FeedbackController < QuestionsController
-    layout "question"
+    layout "intake"
 
     def current_intake
       intake_from_completed_session
