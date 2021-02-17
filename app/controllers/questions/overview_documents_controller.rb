@@ -3,10 +3,9 @@ module Questions
     before_action :require_intake
     layout "intake"
 
-    def illustration_path; end
-
     def self.show?(intake)
       return false if intake.source == "211intake"
+
       super
     end
 
