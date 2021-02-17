@@ -199,12 +199,10 @@ RSpec.describe Report::SLABreachReport, type: :model do
       }, generated_at: DateTime.current)
     end
 
-    before do
-      Time.zone = 'Hawaii'
-    end
-
     it "returns the breached_at value from the json data, informed by set time zone" do
-      expect(report.breached_at).to eq t.in_time_zone('Hawaii')
+      Time.use_zone("Hawaii") do
+        expect(report.breached_at).to eq t.in_time_zone('Hawaii')
+      end
     end
   end
 end
