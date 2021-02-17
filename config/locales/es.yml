@@ -690,22 +690,22 @@ es:
         errors:
           at_least_one: Complete una de las dos entradas.
           bad_confirmation_number: Número de confirmación incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
-          bad_last_four: "TODO Incorrect last four. After 5 failed attempts, accounts are locked."
+          bad_last_four: Incorrecto últimos cuatro. Después de 5 intentos fallidos, las cuentas se bloquean
       new:
         title: Le mandaremos un enlace seguro para que pueda ver su progreso.
       link_sent:
         link_sent: "Para proteger su identidad, le enviamos un enlace seguro a su información de contacto."
         title: "Para continuar, por favor visite su enlace seguro."
       show:
-        title: "TODO Authentication needed to continue."
-        confirm_identity: "TODO Protecting your tax information is our priority. To continue, please confirm your identity below."
+        title: Autenticación necesaria para continuar
+        confirm_identity: Proteger su información fiscal es nuestra prioridad. Para continuar, confirme su identidad.
         last_four: Últimos 4 de SSN / ITIN
-        confirmation_number: "TODO Confirmation number"
+        confirmation_number: Número de confirmación
       account_locked:
         title: Esta cuenta ha sido bloqueada
         body_html: Esta cuenta se ha bloqueado debido a demasiados intentos fallidos de inicio de sesión. Si necesita ayuda para desbloquear esta cuenta, envíenos un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org </a>.
       invalid_token:
-        title: "Parece que necesita un nuevo enlace"
+        title: Parece que necesita un nuevo enlace
         body_html: El enlace que usted usó está caducado o roto. <a href="mailto:support@getyourrefund.org">Envíe un correo electrónico a soporte</a> para obtener un nuevo enlace.
     portal:
       home:
