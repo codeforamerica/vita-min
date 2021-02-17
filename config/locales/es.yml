@@ -442,6 +442,7 @@ es:
         is_hsa: es HSA
         certification_level: nivel de certificación
       general: Por favor, corrija los errores indicados antes de continuar.
+      invalid_value: "Valor no válido: %{value}"
   general:
     at_time: a las %{time}
     NA: N/A

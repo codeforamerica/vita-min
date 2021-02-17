@@ -435,6 +435,7 @@ en:
         first_name: first name
         last_name: last name
         birth_date: birth date
+      invalid_value: "Invalid value: %{value}"
       tax_returns: "Please provide all required fields for tax returns: %{attrs}."
       tax_returns_attributes:
         is_hsa: is HSA

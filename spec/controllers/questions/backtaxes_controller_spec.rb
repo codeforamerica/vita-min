@@ -78,6 +78,30 @@ RSpec.describe Questions::BacktaxesController do
       end
     end
 
+    context "with crazy params" do
+      let(:params) do
+        {
+          backtaxes_form: {
+            needs_help_2016: "omg -nox",
+            needs_help_2017: "omg-nox",
+            needs_help_2018: "no",
+            needs_help_2019: "no",
+            needs_help_2020: "noooooo",
+          }
+        }
+      end
+
+      it "renders edit with validation error" do
+        post :update, params: params
+
+        expect(response).to be_ok
+        expect(response).to render_template(:edit)
+
+        expect(response.body).to include "Please pick at least one year."
+      end
+    end
+
+
     context "with a triage source" do
       let(:stimulus_triage) { create :stimulus_triage }
       let(:params) do

@@ -104,7 +104,7 @@ RSpec.describe Stimulus::FiledPriorYearsController do
         expect(stimulus_triage.filed_prior_years).to eq('unfilled')
         expect {
           post :update, params: params
-        }.to raise_error(ArgumentError)
+        }.not_to change { stimulus_triage.reload.filed_prior_years }
       end
     end
   end
