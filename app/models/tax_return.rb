@@ -155,6 +155,21 @@ class TaxReturn < ApplicationRecord
     true
   end
 
+  def assign!(assigned_user_id: nil, assigned_by: nil)
+    if update!(assigned_user_id: assigned_user_id)
+      SystemNote.create_assignment_change_note(assigned_by, self)
+      if assigned_user_id.present?
+        assigned_user = User.find(assigned_user_id)
+        UserMailer.assignment_email(
+          assigned_user: assigned_user,
+          assigning_user: assigned_by,
+          assigned_at: updated_at,
+          tax_return: self
+        ).deliver_later
+      end
+    end
+  end
+
   private
 
   def send_mixpanel_status_change_event
