@@ -67,6 +67,21 @@ class Client < ApplicationRecord
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
   scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
   scope :sla_tracked, -> { distinct.joins(:tax_returns).where.not(tax_returns: { status: TaxReturnStatus::EXCLUDED_STATUSES })}
+  scope :outgoing_communication_breaches, ->(breach_threshold_datetime) do
+    sla_tracked.where(arel_table[:first_unanswered_incoming_interaction_at].lteq(breach_threshold_datetime))
+  end
+  scope :attention_needed_breaches, ->(breach_threshold_datetime) do
+    sla_tracked.where(arel_table[:attention_needed_since].lteq(breach_threshold_datetime))
+  end
+  scope :outgoing_interaction_breaches, ->(breach_threshold_datetime) do
+    sla_tracked.where(
+      arel_table[:first_unanswered_incoming_interaction_at].lteq(breach_threshold_datetime)
+    ).where(
+      arel_table[:last_internal_or_outgoing_interaction_at].lt(
+        arel_table[:first_unanswered_incoming_interaction_at]
+      ).or(arel_table[:last_internal_or_outgoing_interaction_at].eq(nil))
+    )
+  end
   scope :delegated_order, ->(column, direction) do
     raise ArgumentError, "column and direction are required" if !column || !direction
 
