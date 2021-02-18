@@ -52,13 +52,48 @@ RSpec.describe ClientSortable, type: :controller do
 
     context "with a vita partner id" do
       let(:vita_partner) { create :vita_partner }
-      let(:params) {{
+      let(:params) {
+        {
           vita_partner_id: vita_partner.id
-      }}
+        }
+      }
 
       it "creates a query for the search and scopes to vita partner" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
         expect(clients_query_double).to have_received(:where).with('vita_partners.id = ? OR vita_partners.parent_organization_id = ?', vita_partner.id, vita_partner.id)
+      end
+    end
+
+    context "with a selected assigned user id" do
+      let(:user) { create :user }
+      let(:params) {
+        {
+            assigned_user_id: user.id
+        }
+      }
+
+      it "creates a query that includes the call to limit to assigned user" do
+        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+        expect(clients_query_double).to have_received(:where).with({ tax_returns: { assigned_user: [user.id] } })
+      end
+    end
+
+    context "with a selected assigned user id AND assigned to me selected" do
+      let(:user) { create :user }
+      let(:current_user) { create :user }
+      let(:params) {
+        {
+            assigned_user_id: user.id,
+            assigned_to_me: true
+        }
+      }
+      before do
+        allow(subject).to receive(:current_user).and_return(current_user)
+      end
+
+      it "creates a query that includes a call to limit to assigned to current user AND some other user" do
+        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+        expect(clients_query_double).to have_received(:where).with({ tax_returns: { assigned_user: [current_user.id, user.id] } })
       end
     end
 
@@ -72,7 +107,8 @@ RSpec.describe ClientSortable, type: :controller do
             needs_attention: true,
             assigned_to_me: true,
             unassigned: true,
-            vita_partner_id: 1
+            vita_partner_id: 1,
+            assigned_user_id: 1
         }
       end
 

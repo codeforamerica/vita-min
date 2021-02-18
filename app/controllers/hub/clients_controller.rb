@@ -5,6 +5,7 @@ module Hub
 
     before_action :require_sign_in
     before_action :load_vita_partners, only: [:new, :create, :index]
+    before_action :load_users, only: [:index]
     load_and_authorize_resource except: [:new, :create]
     layout "admin"
 
@@ -89,10 +90,6 @@ module Hub
     end
 
     private
-
-    def load_vita_partners
-      @vita_partners = VitaPartner.accessible_by(current_ability)
-    end
 
     def update_client_form_params
       params.require(UpdateClientForm.form_param).permit(UpdateClientForm.permitted_params)

@@ -35,12 +35,13 @@ module ClientSortable
       unassigned: params[:unassigned],
       needs_attention: params[:needs_attention],
       year: params[:year],
-      vita_partner_id: params[:vita_partner_id].present? ? params[:vita_partner_id].to_i : nil
+      vita_partner_id: params[:vita_partner_id].present? ? params[:vita_partner_id].to_i : nil,
+      assigned_user_id: params[:assigned_user_id].present? ? params[:assigned_user_id].to_i : nil,
     }
   end
 
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :needs_attention, :year, :vita_partner_id]
+    [:search, :status, :unassigned, :assigned_to_me, :needs_attention, :year, :vita_partner_id, :assigned_user_id]
   end
 
   # reset the raw parameters for each filter received by the form
@@ -71,6 +72,7 @@ module ClientSortable
     val = []
     val.push(current_user.id) if @filters[:assigned_to_me].present? || @always_current_user_assigned
     val.push(nil) if @filters[:unassigned].present?
+    val.push(@filters[:assigned_user_id]) if @filters[:assigned_user_id].present?
     val
   end
 
