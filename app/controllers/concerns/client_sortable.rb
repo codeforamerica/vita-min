@@ -1,5 +1,6 @@
 module ClientSortable
-  def filtered_and_sorted_clients
+  def filtered_and_sorted_clients(default_order: nil)
+    @default_order = default_order || { "id" => "desc" }
     setup_sortable_client unless @filters.present?
     clients = @clients.after_consent
     clients = clients.delegated_order(@sort_column, @sort_order)
@@ -46,12 +47,12 @@ module ClientSortable
   end
 
   def clients_sort_order
-    %w[asc desc].include?(params[:order]) ? params[:order] : "desc"
+    %w[asc desc].include?(params[:order]) ? params[:order] : @default_order.values.first
   end
 
   def clients_sort_column
-    sortable_columns = [:id, :updated_at] + Client.sortable_intake_attributes
-    sortable_columns.include?(params[:column]&.to_sym) ? params[:column] : "id"
+    sortable_columns = [:id, :updated_at, :first_unanswered_incoming_interaction_at] + Client.sortable_intake_attributes
+    sortable_columns.include?(params[:column]&.to_sym) ? params[:column] : @default_order.keys.first
   end
 
   def status_filter
