@@ -8,6 +8,10 @@ module ClientSortable
     clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
     clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
     clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
+    if @filters[:vita_partner_id].present?
+      id = @filters[:vita_partner_id]
+      clients = clients.where('vita_partners.id = ? OR vita_partners.parent_organization_id = ?', id, id)
+    end
     clients = clients.where(intake: Intake.search(@filters[:search])) if @filters[:search].present?
     clients
   end
@@ -30,12 +34,13 @@ module ClientSortable
       assigned_to_me: params[:assigned_to_me],
       unassigned: params[:unassigned],
       needs_attention: params[:needs_attention],
-      year: params[:year]
+      year: params[:year],
+      vita_partner_id: params[:vita_partner_id].present? ? params[:vita_partner_id].to_i : nil
     }
   end
 
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :needs_attention, :year]
+    [:search, :status, :unassigned, :assigned_to_me, :needs_attention, :year, :vita_partner_id]
   end
 
   # reset the raw parameters for each filter received by the form

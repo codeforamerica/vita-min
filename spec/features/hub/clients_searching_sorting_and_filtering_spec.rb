@@ -14,7 +14,8 @@ RSpec.describe "searching, sorting, and filtering clients" do
     end
 
     context "with existing clients" do
-      let!(:alan_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Alan Avocado", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"), tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress", assigned_user: user)] }
+      let(:vita_partner) { create :vita_partner, name: "Alan's Org" }
+      let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (create :intake, preferred_name: "Alan Avocado", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"), tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress", assigned_user: user)] }
       let!(:betty_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Betty Banana", primary_consented_to_service_at: 2.days.ago, state_of_residence: "TX"), tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress")] }
       let!(:patty_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Patty Banana", primary_consented_to_service_at: 1.day.ago, state_of_residence: "AL"), tax_returns: [(create :tax_return, year: 2019, status: "prep_ready_for_prep", assigned_user: user)] }
       let!(:zach_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Zach Zucchini", primary_consented_to_service_at: 2.days.ago, state_of_residence: "WI"), tax_returns: [(create :tax_return, year: 2018, status: "prep_ready_for_prep")] }
@@ -35,6 +36,16 @@ RSpec.describe "searching, sorting, and filtering clients" do
         click_button "Apply"
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
+        click_button "Clear filters"
+
+        within ".filter-form" do
+          select "Alan's Org", from: "vita_partner_id"
+          click_button "Apply"
+          expect(page).to have_select("vita_partner_id", selected: "Alan's Org")
+        end
+
+        expect(page.all('.client-row').length).to eq 1
+        # expect(page.all('.client-row')[0]).to have_text alan_intake_in_progress.preferred_name
         click_button "Clear filters"
 
         within ".filter-form" do

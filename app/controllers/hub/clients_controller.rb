@@ -4,7 +4,7 @@ module Hub
     include ClientSortable
 
     before_action :require_sign_in
-    before_action :load_vita_partners, only: [:new, :create]
+    before_action :load_vita_partners, only: [:new, :create, :index]
     load_and_authorize_resource except: [:new, :create]
     layout "admin"
 
