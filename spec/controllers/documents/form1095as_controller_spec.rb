@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Documents::Form1095asController do
   let(:attributes) { {} }
-  let(:intake) { create :intake, intake_ticket_id: 1234, **attributes }
+  let(:intake) { create :intake, **attributes }
 
   describe ".show?" do
     context "when they purchased health insurance" do

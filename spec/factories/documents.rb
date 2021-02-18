@@ -16,7 +16,6 @@
 #  intake_id            :bigint
 #  tax_return_id        :bigint
 #  uploaded_by_id       :bigint
-#  zendesk_ticket_id    :bigint
 #
 # Indexes
 #

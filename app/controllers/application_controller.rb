@@ -235,7 +235,6 @@ class ApplicationController < ActionController::Base
       session[:intake_id],
       params[:id],
       params[:ticket_id],
-      current_intake&.intake_ticket_id,
     ].filter { |e| e && !e.to_s.empty? }.uniq
   end
 

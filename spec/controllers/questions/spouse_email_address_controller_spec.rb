@@ -4,7 +4,7 @@ RSpec.describe Questions::SpouseEmailAddressController do
   render_views
 
   let(:filing_joint) { "yes" }
-  let(:intake) { create :intake, intake_ticket_id: 1234, filing_joint: filing_joint }
+  let(:intake) { create :intake, filing_joint: filing_joint }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)

@@ -15,7 +15,7 @@ RSpec.describe Questions::FinalInfoController do
         allow(IntakePdfJob).to receive(:perform_later)
       end
 
-      let(:intake) { create :intake, intake_ticket_id: 1234, sms_phone_number: "+15105551234", email_address: "someone@example.com" }
+      let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com" }
       let(:client) { intake.client }
 
       it "the model after_update when completed at changes should enqueue the creation of the 13614c document" do
@@ -102,7 +102,7 @@ RSpec.describe Questions::FinalInfoController do
         allow(intake).to receive(:pdf).and_return(example_pdf)
       end
 
-      let(:intake) { create :intake, intake_ticket_id: 1234 }
+      let(:intake) { create :intake }
 
       it "updates completed_intake_at" do
         post :update, params: params

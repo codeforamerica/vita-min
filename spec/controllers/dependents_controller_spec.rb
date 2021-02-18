@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe DependentsController do
   render_views
 
-  let(:intake) { create :intake, intake_ticket_id: 1234 }
+  let(:intake) { create :intake }
 
   before do
     allow(subject).to receive(:current_intake).and_return intake
@@ -18,7 +18,7 @@ RSpec.describe DependentsController do
     end
 
     context "with an eip only return" do
-      let(:intake) { create :intake, :eip_only, intake_ticket_id: 1234 }
+      let(:intake) { create :intake, :eip_only }
 
       it "navigates to additional info" do
         expect(subject.next_path).to include additional_info_questions_path

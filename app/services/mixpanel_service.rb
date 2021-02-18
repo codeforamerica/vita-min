@@ -216,8 +216,7 @@ class MixpanelService
 
     ##
     # creates Mixpanel data from an intake object
-    def data_from_intake(source)
-      intake = source.anonymous? ? Intake.find_original_intake(source) : source
+    def data_from_intake(intake)
       {
         intake_source: intake.source,
         intake_referrer: intake.referrer,

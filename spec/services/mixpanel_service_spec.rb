@@ -415,7 +415,6 @@ describe MixpanelService do
           had_wages: "yes",
           state_of_residence: state_of_residence,
           zip_code: "94609",
-          intake_ticket_id: 9876,
           needs_help_2020: "no",
           needs_help_2019: "yes",
           needs_help_2018: "no",
@@ -500,14 +499,6 @@ describe MixpanelService do
                                            already_applied_for_stimulus: "no",
                                            no_ssn: "yes",
                                          })
-        end
-
-        context "when the intake is anonymous" do
-          let(:anonymous_intake) { create :anonymous_intake, intake_ticket_id: 9876 }
-
-          it "returns the data for the original intake" do
-            expect(MixpanelService.data_from(anonymous_intake)).to eq(data_from_intake)
-          end
         end
 
         context "with no backtax help needed" do
@@ -841,17 +832,17 @@ describe ApplicationController, type: :controller do
       )
     end
 
-    it 'strips current_intake.id and current_intake.zendesk_ticket_id from paths' do
-      intake = create(:intake, intake_ticket_id: 83224)
-      routes.draw { get "inst_test/:intake_id/rest?the-id=83224" => "anonymous#inst_test" }
+    it 'strips current_intake.id from paths' do
+      intake = create(:intake)
+      routes.draw { get "inst_test/:intake_id/rest" => "anonymous#inst_test" }
       get :inst_test, params: { intake_id: intake.id }
 
       expect(fake_tracker).to have_received(:track).with(
         '72347236',
         'inst_test_event',
         hash_including(
-          path: '/inst_test/***/rest?the-id=***',
-          full_path: '/inst_test/***/rest?the-id=***',
+          path: '/inst_test/***/rest',
+          full_path: '/inst_test/***/rest',
         )
       )
     end

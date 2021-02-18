@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Questions::InterviewSchedulingController do
   render_views
 
-  let(:intake) { create :intake, intake_ticket_id: 1234 }
+  let(:intake) { create :intake }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
