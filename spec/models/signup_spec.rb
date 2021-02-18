@@ -93,7 +93,7 @@ RSpec.describe Signup, type: :model do
       end
 
       it "returns each valid email" do
-        expect(Signup.valid_emails.map(&:downcase)).to eq %w[sally@example.com spinach@example.com]
+        expect(Signup.valid_emails.map(&:downcase)).to match_array %w[sally@example.com spinach@example.com]
       end
     end
   end
