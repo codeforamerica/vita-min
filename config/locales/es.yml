@@ -72,8 +72,8 @@ es:
         remove: Eliminado
       index:
         add_client: Agregar cliente
-        clear_filters: Filtros claros
-        filter: Aplicar
+        clear_filters: Claros
+        filter: Filtrar resultados
         client_id_heading: Cliente ID
         filing_year: Año para declarar
         needs_attention_heading: Necesita attentión?

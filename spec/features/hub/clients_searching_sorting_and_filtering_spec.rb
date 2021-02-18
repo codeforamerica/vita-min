@@ -33,24 +33,24 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         # search for client
         fill_in "Search", with: "Zach"
-        click_button "Apply"
+        click_button "Filter results"
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
-        click_button "Clear filters"
+        click_button "Clear"
 
         within ".filter-form" do
           select "Alan's Org", from: "vita_partner_id"
-          click_button "Apply"
+          click_button "Filter results"
           expect(page).to have_select("vita_partner_id", selected: "Alan's Org")
         end
 
         expect(page.all('.client-row').length).to eq 1
         # expect(page.all('.client-row')[0]).to have_text alan_intake_in_progress.preferred_name
-        click_button "Clear filters"
+        click_button "Clear"
 
         within ".filter-form" do
           select "Ready for prep", from: "status"
-          click_button "Apply"
+          click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
         end
 
@@ -80,7 +80,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
         end
         within ".filter-form" do
-          click_button "Clear filters"
+          click_button "Clear"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
@@ -104,7 +104,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         within ".filter-form" do
           select "2019", from: "year"
-          click_button "Apply"
+          click_button "Filter results"
           expect(page).to have_select("year", selected: "2019")
         end
         within ".client-table" do
@@ -113,12 +113,12 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         # search for client within 2019 filtered results
         fill_in "Search", with: "Banana"
-        click_button "Apply"
+        click_button "Filter results"
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
 
         within ".filter-form" do
-          click_button "Clear filters"
+          click_button "Clear"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
@@ -126,7 +126,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           select "2019", from: "year"
           select "Ready for prep", from: "status"
-          click_button "Apply"
+          click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
           expect(page).to have_select("year", selected: "2019")
         end
@@ -134,7 +134,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row').length).to eq 1
         end
         within ".filter-form" do
-          click_button "Clear filters"
+          click_button "Clear"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
@@ -143,7 +143,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           check "assigned_to_me"
           select "Ready for prep", from: "status"
           select "2019", from: "year"
-          click_button "Apply"
+          click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
           expect(page).to have_select("year", selected: "2019")
           expect(page).to have_checked_field("assigned_to_me")
@@ -153,7 +153,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         end
         within ".filter-form" do
           select "2018", from: "year"
-          click_button "Apply"
+          click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
           expect(page).to have_checked_field("assigned_to_me")
           expect(page).to have_select("year", selected: "2018")
