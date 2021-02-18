@@ -24,8 +24,8 @@ class Signup < ApplicationRecord
   end
 
   def self.send_followup_emails
-    valid_emails.each do |email|
-      SignupFollowupMailer.followup(email).deliver_later
+    valid_emails.each_with_index do |email, index|
+      SignupFollowupMailer.followup(email).deliver_later(wait: index * 2)
     end
   end
 

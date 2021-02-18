@@ -99,17 +99,19 @@ RSpec.describe Signup, type: :model do
   end
 
   describe ".send_followup_emails", active_job: true do
+    let(:fake_current_time) { Time.utc(2021, 2, 11, 10, 5, 0) }
+
     before do
       allow(Signup).to receive(:valid_emails).and_return(%w[sally@example.com spinach@example.com])
     end
 
-    it "queues one message per valid email" do
+    it "queues one message per valid email with a delay between them" do
       expect {
-        Signup.send_followup_emails
-      }.to have_enqueued_job.on_queue('mailers').with(
-        "SignupFollowupMailer", "followup", "deliver_now", { args: ["spinach@example.com"] }
-      ).and have_enqueued_job.on_queue("mailers").with(
+        Timecop.freeze(fake_current_time) { Signup.send_followup_emails }
+      }.to have_enqueued_job.on_queue('mailers').at(fake_current_time).with(
         "SignupFollowupMailer", "followup", "deliver_now", { args: ["sally@example.com"] }
+      ).and have_enqueued_job.on_queue("mailers").at(fake_current_time + 2.seconds).with(
+        "SignupFollowupMailer", "followup", "deliver_now", { args: ["spinach@example.com"] }
       )
     end
   end
