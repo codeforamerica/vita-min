@@ -49,7 +49,7 @@
       <div class="select">
         <select name="vita_partner_id" class="select__element" id="status-filter">
           <option value></option>
-          <% @vita_partners.each do |vita_partner| %>
+          <% @vita_partners.organizations.each do |vita_partner| %>
             <option value="<%= vita_partner.id %>" <%= params[:vita_partner_id] == vita_partner.id.to_s && "selected" %>><%= vita_partner.name %></option>
             <% vita_partner.child_sites.each do |site| %>
               <option value="<%= site.id %>" <%= params[:vita_partner_id] == site.id.to_s && "selected" %>>&emsp;<%= site.name %></option>
