@@ -43,7 +43,8 @@ class VitaPartner < ApplicationRecord
   scope :sites, -> { where.not(parent_organization: nil) }
   has_many :child_sites, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
 
-  default_scope { includes(:child_sites) }
+  default_scope { includes(:child_sites).order(name: :asc) }
+
   accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: lambda { |attributes| attributes['code'].blank? }
 
   def at_capacity?

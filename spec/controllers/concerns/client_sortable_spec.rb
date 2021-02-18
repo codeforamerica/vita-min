@@ -50,6 +50,18 @@ RSpec.describe ClientSortable, type: :controller do
       end
     end
 
+    context "with a vita partner id" do
+      let(:vita_partner) { create :vita_partner }
+      let(:params) {{
+          vita_partner_id: vita_partner.id
+      }}
+
+      it "creates a query for the search and scopes to vita partner" do
+        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+        expect(clients_query_double).to have_received(:where).with('vita_partners.id = ? OR vita_partners.parent_organization_id = ?', vita_partner.id, vita_partner.id)
+      end
+    end
+
     context "with a clear param" do
       let(:params) do
         {
@@ -60,6 +72,7 @@ RSpec.describe ClientSortable, type: :controller do
             needs_attention: true,
             assigned_to_me: true,
             unassigned: true,
+            vita_partner_id: 1
         }
       end
 
@@ -155,6 +168,13 @@ RSpec.describe ClientSortable, type: :controller do
 
       context "year" do
         let(:params) { { year: 2019 } }
+        it "returns true" do
+          expect(subject.has_search_and_sort_params?).to eq true
+        end
+      end
+
+      context "vita_partner_id" do
+        let(:params) { { vita_partner_id: 1 } }
         it "returns true" do
           expect(subject.has_search_and_sort_params?).to eq true
         end
