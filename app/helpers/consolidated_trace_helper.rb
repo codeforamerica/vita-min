@@ -57,34 +57,11 @@ module ConsolidatedTraceHelper
   end
 
   ##
-  # generic trace method providing severity options, and reporting out
-  # to both Raven (Sentry) and the Rails logger. the format of the body of the
-  # message can be found in the `log_body` method.
-  #
-  # === Example
-  #
-  #     if bad_thing.has_happened?
-  #       trace('not critical, but bad thing should not happen',
-  #             {bad_thing_id: bad_thing.id, bad_thing_args: **args},
-  #             Severity::DEBUG)
-  #
-  def trace(message, extra_context = {}, severity = Severity::UNKNOWN)
-    trace_message = log_body(message, extra_context)
-    Rails.logger.send(severity, trace_message)
-
-    unwind_extra_context(extra_context, severity) do
-      Raven.capture_message(trace_message)
-    end
-  end
-
-  ##
   # given an intake, provides consistent context using the fields
   # that are most likely to be needed to isolate a problem
   def intake_context(intake)
     {
       intake_id: intake.id,
-      ticket_id: intake.intake_ticket_id,
-      requester_id: intake.intake_ticket_requester_id
     }
   end
 

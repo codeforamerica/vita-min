@@ -5,7 +5,6 @@ RSpec.describe Documents::IdsController do
   let(:intake) do
     create(
       :intake,
-      intake_ticket_id: 1234,
       primary_first_name: "Gary",
       primary_last_name: "Gnome",
       **attributes

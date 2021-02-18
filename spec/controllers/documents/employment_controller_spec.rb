@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Documents::EmploymentController, type: :controller do
-  let(:intake) { create :intake, intake_ticket_id: 1234 }
+  let(:intake) { create :intake }
   render_views
 
   before do
@@ -9,7 +9,7 @@ RSpec.describe Documents::EmploymentController, type: :controller do
   end
 
   describe ".show?" do
-    let(:intake) { create :intake, intake_ticket_id: 1234, **attributes }
+    let(:intake) { create :intake, **attributes }
 
     # W-2s
 
@@ -80,7 +80,7 @@ RSpec.describe Documents::EmploymentController, type: :controller do
 
   describe "#edit" do
     let(:attributes) { { had_wages: "yes" } }
-    let(:intake) { create :intake, intake_ticket_id: 1234, **attributes }
+    let(:intake) { create :intake, **attributes }
 
     context "with existing employment-related uploads" do
       it "assigns the documents to the form" do

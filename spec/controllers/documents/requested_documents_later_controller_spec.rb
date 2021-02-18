@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller do
   let(:token) {"t0k3nN0tbr0k3n?"}
-  let!(:original_intake) { create :intake, requested_docs_token: token, intake_ticket_id: 123, client: (create :client) }
+  let!(:original_intake) { create :intake, requested_docs_token: token, client: (create :client) }
   let!(:documents_request) { create :documents_request, intake: original_intake }
 
   describe "#edit" do

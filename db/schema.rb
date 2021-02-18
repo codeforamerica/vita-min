@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_201713) do
+ActiveRecord::Schema.define(version: 2021_02_18_014835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -166,7 +166,6 @@ ActiveRecord::Schema.define(version: 2021_02_15_201713) do
     t.datetime "updated_at", null: false
     t.bigint "uploaded_by_id"
     t.string "uploaded_by_type"
-    t.bigint "zendesk_ticket_id"
     t.index ["client_id"], name: "index_documents_on_client_id"
     t.index ["contact_record_type", "contact_record_id"], name: "index_documents_on_contact_record_type_and_contact_record_id"
     t.index ["documents_request_id"], name: "index_documents_on_documents_request_id"
@@ -242,7 +241,6 @@ ActiveRecord::Schema.define(version: 2021_02_15_201713) do
     t.integer "adopted_child", default: 0, null: false
     t.integer "already_applied_for_stimulus", default: 0, null: false
     t.integer "already_filed", default: 0, null: false
-    t.boolean "anonymous", default: false, null: false
     t.integer "balance_pay_from_bank", default: 0, null: false
     t.integer "bank_account_type", default: 0, null: false
     t.integer "bought_energy_efficient_items"
@@ -251,7 +249,6 @@ ActiveRecord::Schema.define(version: 2021_02_15_201713) do
     t.integer "claimed_by_another", default: 0, null: false
     t.bigint "client_id"
     t.datetime "completed_at"
-    t.boolean "completed_intake_sent_to_zendesk"
     t.datetime "completed_yes_no_questions_at"
     t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
@@ -317,11 +314,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_201713) do
     t.integer "had_tips", default: 0, null: false
     t.integer "had_unemployment_income", default: 0, null: false
     t.integer "had_wages", default: 0, null: false
-    t.boolean "has_enqueued_ticket_creation", default: false
     t.integer "income_over_limit", default: 0, null: false
-    t.boolean "intake_pdf_sent_to_zendesk", default: false, null: false
-    t.bigint "intake_ticket_id"
-    t.bigint "intake_ticket_requester_id"
     t.string "interview_timing_preference"
     t.integer "issued_identity_pin", default: 0, null: false
     t.integer "job_count"
@@ -356,7 +349,6 @@ ActiveRecord::Schema.define(version: 2021_02_15_201713) do
     t.datetime "primary_consented_to_service_at"
     t.inet "primary_consented_to_service_ip"
     t.string "primary_first_name"
-    t.integer "primary_intake_id"
     t.string "primary_last_name"
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
@@ -413,7 +405,6 @@ ActiveRecord::Schema.define(version: 2021_02_15_201713) do
     t.string "zip_code"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["email_address"], name: "index_intakes_on_email_address"
-    t.index ["intake_ticket_id"], name: "index_intakes_on_intake_ticket_id"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
     t.index ["triage_source_type", "triage_source_id"], name: "index_intakes_on_triage_source_type_and_triage_source_id"

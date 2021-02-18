@@ -5,7 +5,6 @@ RSpec.describe Documents::SelfiesController do
   let(:intake) do
     create(
       :intake,
-      intake_ticket_id: 1234,
       filing_joint: filing_joint,
       primary_first_name: "Gary",
       primary_last_name: "Gnome"
