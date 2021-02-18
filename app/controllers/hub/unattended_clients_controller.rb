@@ -7,6 +7,7 @@ module Hub
     before_action :require_admin
 
     load_and_authorize_resource :client, parent: false
+    load_and_authorize_resource :vita_partner, parent: false
 
     layout "admin"
 
