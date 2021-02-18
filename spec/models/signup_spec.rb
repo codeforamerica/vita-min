@@ -82,4 +82,35 @@ RSpec.describe Signup, type: :model do
       end
     end
   end
+
+  describe ".valid_emails" do
+    context "with signups that have valid emails and invalid emails" do
+      before do
+        Signup.new(email_address: nil, name: "Sarah Squash").save!(validate: false)
+        create_list(:signup, 2, email_address: "sally@example.com")
+        Signup.create!(email_address: "spiNacH@example.com", name: "Sally Spinach")
+        Signup.create!(email_address: "sPInach@example.com", name: "Sally Spinach")
+      end
+
+      it "returns each valid email" do
+        expect(Signup.valid_emails.map(&:downcase)).to eq %w[sally@example.com spinach@example.com]
+      end
+    end
+  end
+
+  describe ".send_followup_emails", active_job: true do
+    before do
+      allow(Signup).to receive(:valid_emails).and_return(%w[sally@example.com spinach@example.com])
+    end
+
+    it "queues one message per valid email" do
+      expect {
+        Signup.send_followup_emails
+      }.to have_enqueued_job.on_queue('mailers').with(
+        "SignupFollowupMailer", "followup", "deliver_now", { args: ["spinach@example.com"] }
+      ).and have_enqueued_job.on_queue("mailers").with(
+        "SignupFollowupMailer", "followup", "deliver_now", { args: ["sally@example.com"] }
+      )
+    end
+  end
 end

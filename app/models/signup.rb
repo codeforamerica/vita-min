@@ -17,6 +17,18 @@ class Signup < ApplicationRecord
   validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
   validates :email_address, 'valid_email_2/email': true
 
+  def self.valid_emails
+    distinct(:email_address).pluck(:email_address).filter do |email|
+      ValidEmail2::Address.new(email).valid?
+    end
+  end
+
+  def self.send_followup_emails
+    valid_emails.each do |email|
+      SignupFollowupMailer.followup(email).deliver_later
+    end
+  end
+
   private
 
   def phone_number_or_email_address
