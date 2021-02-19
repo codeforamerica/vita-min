@@ -18,7 +18,9 @@ describe Hub::MetricsController do
         interaction_breaches_by_vita_partner_id: breach_data,
         attention_needed_breach_count: breach_count,
         interaction_breach_count: breach_count,
-        communication_breach_count: breach_count
+        communication_breach_count: breach_count,
+        active_sla_clients_by_vita_partner_id: breach_data,
+        active_sla_clients_count: breach_count
       }
     end
 
