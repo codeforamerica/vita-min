@@ -88,8 +88,8 @@ en:
       index:
         add_client: Add client
         client_id_heading: Client ID
-        clear_filters: Clear filters
-        filter: Apply
+        clear_filters: Clear
+        filter: Filter results
         filing_year: Filing Year
         needs_attention_heading: Needs attention?
         title: All clients

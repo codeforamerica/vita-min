@@ -3,7 +3,6 @@ require 'csv'
 class AnonymizedIntakeCsvService
   CSV_FIELDS = Intake.defined_enums.keys + %w{
     external_id
-    intake_ticket_id
     locale
     source
     referrer

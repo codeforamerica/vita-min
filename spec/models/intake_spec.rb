@@ -7,7 +7,6 @@
 #  adopted_child                                        :integer          default("unfilled"), not null
 #  already_applied_for_stimulus                         :integer          default("unfilled"), not null
 #  already_filed                                        :integer          default("unfilled"), not null
-#  anonymous                                            :boolean          default(FALSE), not null
 #  balance_pay_from_bank                                :integer          default("unfilled"), not null
 #  bank_account_type                                    :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
@@ -15,7 +14,6 @@
 #  city                                                 :string
 #  claimed_by_another                                   :integer          default("unfilled"), not null
 #  completed_at                                         :datetime
-#  completed_intake_sent_to_zendesk                     :boolean
 #  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
 #  demographic_disability                               :integer          default("unfilled"), not null
@@ -80,9 +78,7 @@
 #  had_tips                                             :integer          default("unfilled"), not null
 #  had_unemployment_income                              :integer          default("unfilled"), not null
 #  had_wages                                            :integer          default("unfilled"), not null
-#  has_enqueued_ticket_creation                         :boolean          default(FALSE)
 #  income_over_limit                                    :integer          default("unfilled"), not null
-#  intake_pdf_sent_to_zendesk                           :boolean          default(FALSE), not null
 #  interview_timing_preference                          :string
 #  issued_identity_pin                                  :integer          default("unfilled"), not null
 #  job_count                                            :integer
@@ -170,9 +166,6 @@
 #  created_at                                           :datetime
 #  updated_at                                           :datetime
 #  client_id                                            :bigint
-#  intake_ticket_id                                     :bigint
-#  intake_ticket_requester_id                           :bigint
-#  primary_intake_id                                    :integer
 #  triage_source_id                                     :bigint
 #  visitor_id                                           :string
 #  vita_partner_id                                      :bigint
@@ -181,7 +174,6 @@
 #
 #  index_intakes_on_client_id                                (client_id)
 #  index_intakes_on_email_address                            (email_address)
-#  index_intakes_on_intake_ticket_id                         (intake_ticket_id)
 #  index_intakes_on_phone_number                             (phone_number)
 #  index_intakes_on_sms_phone_number                         (sms_phone_number)
 #  index_intakes_on_triage_source_type_and_triage_source_id  (triage_source_type,triage_source_id)
@@ -306,57 +298,14 @@ describe Intake do
     end
   end
 
-  describe ".create_anonymous_intake" do
-    let(:original_intake) { create :intake,
-                                   intake_ticket_id: 123,
-                                   visitor_id: "ABC987",
-                                   anonymous: false,
-                                   referrer: "https://coolsite.org"
-    }
-    it "returns an intake with select data copied from the original intake" do
-      anonymous_intake = Intake.create_anonymous_intake(original_intake)
-
-      expect(anonymous_intake.intake_ticket_id).to eq 123
-      expect(anonymous_intake.visitor_id).to eq "ABC987"
-    end
-
-    it "returns an intake with the anonymous field set to true" do
-      anonymous_intake = Intake.create_anonymous_intake(original_intake)
-
-      expect(anonymous_intake.anonymous).to eq true
-    end
-  end
-
-  describe ".find_original_intake" do
-    let!(:original_intake) { create :intake, intake_ticket_id: 123, visitor_id: "ABC987", anonymous: false, created_at: 5.days.ago }
-    let!(:anonymous_intake) { create :intake, intake_ticket_id: 123, visitor_id: "ABC987", anonymous: true }
-
-    it "returns the oldest intake with a matching ticket ID where anonymous is false" do
-      intake = Intake.find_original_intake(anonymous_intake)
-
-      expect(intake).to eq original_intake
-    end
-
-    context "when multiple original intakes match the ticket ID" do
-      let!(:older_intake) { create :intake, intake_ticket_id: 123, visitor_id: "ABC987", anonymous: false, created_at: 7.days.ago }
-
-      it "returns the oldest matching non-anonymous intake" do
-        intake = Intake.find_original_intake(anonymous_intake)
-
-        expect(intake).to eq older_intake
-      end
-    end
-  end
-
   describe ".find_for_requested_docs_token" do
-    let!(:original_intake) { create :intake, requested_docs_token: "ABC987", anonymous: false }
-    let!(:anonymous_intake) { create :intake, requested_docs_token: "ABC987", anonymous: true }
+    let!(:original_intake) { create :intake, requested_docs_token: "ABC987" }
+    let!(:second_intake) { create :intake, requested_docs_token: "ABC987" }
 
-    it "returns the first non-anonymous intake with a matching token" do
+    it "returns the first intake with a matching token" do
       intake = Intake.find_for_requested_docs_token("ABC987")
 
       expect(intake).to eq original_intake
-      expect(intake.anonymous).to eq false
     end
   end
 

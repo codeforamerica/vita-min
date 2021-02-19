@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Questions::OtherStatesController do
-  let(:intake) { create :intake, intake_ticket_id: 1234, state_of_residence: "ND" }
+  let(:intake) { create :intake, state_of_residence: "ND" }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)

@@ -13,7 +13,8 @@ module Hub
       @total_breaches = {
         attention_needed: @report.attention_needed_breach_count(limited_partners),
         communication: @report.communication_breach_count(limited_partners),
-        interaction: @report.interaction_breach_count(limited_partners)
+        interaction: @report.interaction_breach_count(limited_partners),
+        total_count: @report.active_sla_clients_count(limited_partners)
       }
     end
   end

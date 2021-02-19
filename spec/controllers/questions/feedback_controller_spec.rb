@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Questions::FeedbackController, type: :controller do
-  let(:intake) { create :intake, intake_ticket_id: 1234 }
+  let(:intake) { create :intake }
 
   describe "#edit" do
     context "with a completed intake in the session" do

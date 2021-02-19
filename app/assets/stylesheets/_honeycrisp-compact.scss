@@ -83,6 +83,7 @@
   .form-group {
     margin-bottom: $s25;
   }
+
   .form-question {
     color: $color-grey-medium;
     margin-bottom: $s10;
@@ -120,7 +121,6 @@
     font-weight: $font-weight-normal;
     display: flex;
     align-items: center;
-    margin-bottom: .8rem;
     input[type="checkbox"] {
       width: 2rem;
       height: 2rem;
@@ -135,7 +135,6 @@
       margin-right: $s15 ;
     }
   }
-
 
   .password {
     .form-group {
@@ -185,3 +184,4 @@
     }
   }
 }
+

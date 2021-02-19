@@ -3,5 +3,6 @@
   <%= tab_navigation_link(t("hub.clients.index.title"), hub_clients_path) %>
   <% if current_user.admin? %>
     <%= tab_navigation_link(t("hub.clients.unlinked_clients.title"), hub_unlinked_clients_path) %>
+    <%= tab_navigation_link("SLA breaches", sla_breaches_hub_clients_path) %>
   <% end %>
 </div>

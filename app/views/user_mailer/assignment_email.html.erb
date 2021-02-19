@@ -1,0 +1,15 @@
+<p>
+  <%= @assigning_user.name %> assigned you to client <%= @client.id %> on <%= long_formatted_datetime(@assigned_at) %>.
+</p>
+
+<p>
+  To access the client, please visit the following link and log in to the hub:
+</p>
+
+<p>
+  <%= link_to hub_client_url(id: @client.id), hub_client_url(id: @client.id) %>
+</p>
+
+<p>As a reminder, please contact the client within three business days to ensure high quality service.</p>
+
+<p>Thanks for supporting clients with GetYourRefund!</p>

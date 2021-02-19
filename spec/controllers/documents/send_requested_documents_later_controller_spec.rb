@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controller do
-  let!(:original_intake) { create :intake, intake_ticket_id: 123, created_at: 3.days.ago }
+  let!(:original_intake) { create :intake, created_at: 3.days.ago }
   let!(:documents_request) { create :documents_request, intake: original_intake }
 
   describe "#edit" do

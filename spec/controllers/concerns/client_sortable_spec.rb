@@ -58,6 +58,7 @@ RSpec.describe ClientSortable, type: :controller do
         }
       }
 
+
       it "creates a query for the search and scopes to vita partner" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
         expect(clients_query_double).to have_received(:where).with('vita_partners.id = ? OR vita_partners.parent_organization_id = ?', vita_partner.id, vita_partner.id)
@@ -96,7 +97,7 @@ RSpec.describe ClientSortable, type: :controller do
         expect(clients_query_double).to have_received(:where).with({ tax_returns: { assigned_user: [current_user.id, user.id] } })
       end
     end
-
+    
     context "with a clear param" do
       let(:params) do
         {

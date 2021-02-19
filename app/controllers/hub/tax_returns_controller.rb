@@ -14,8 +14,7 @@ module Hub
     def show; end
 
     def update
-      @tax_return.update!(assign_params)
-      SystemNote.create_assignment_change_note(current_user, @tax_return)
+      @tax_return.assign!(assigned_user_id: assign_params[:assigned_user_id], assigned_by: current_user)
       flash.now[:notice] = I18n.t("hub.tax_returns.update.flash_success",
                                   client_name: @tax_return.client.preferred_name,
                                   tax_year: @tax_return.year,

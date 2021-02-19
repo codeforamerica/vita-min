@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Documents::IntroController do
   render_views
   let(:attributes) { {} }
-  let(:intake) { create :intake, visitor_id: "visitor_id", intake_ticket_id: 1234, **attributes }
+  let(:intake) { create :intake, visitor_id: "visitor_id", **attributes }
 
   before do
     allow(subject).to receive(:current_intake).and_return intake

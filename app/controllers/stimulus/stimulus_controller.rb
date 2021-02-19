@@ -9,6 +9,7 @@ module Stimulus
     helper_method :illustration_folder
     helper_method :illustration_path
     helper_method :next_path
+    helper_method :prev_path
 
     layout "yes_no_question"
 
@@ -39,6 +40,10 @@ module Stimulus
     def next_path(params = {})
       next_step = form_navigation.next
       polymorphic_path([:stimulus, next_step.controller_name], params) if next_step
+    end
+
+    def prev_path
+      nil
     end
 
     def illustration_folder
