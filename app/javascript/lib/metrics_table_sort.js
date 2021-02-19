@@ -175,4 +175,19 @@ export function initMetricsTableSortAndFilter() {
     initSortableColumn("tbody.org-metrics", "th#organization-name", function (row) {
         return $(row).attr('data-js-vita-partner-name');
     });
+
+    initSortableColumn("tbody.org-metrics", "th#needs-attention-percentage", function (row) {
+        const calc = parseInt($(row).find('.attention-needed-breach-percentage').attr('data-js-percentage'));
+        return isNaN(calc) ? 0 : calc;
+    });
+
+    initSortableColumn("tbody.org-metrics", "th#outgoing-communication-percentage", function (row) {
+        const calc = parseInt($(row).find('.communication-breach-percentage').attr('data-js-percentage'));
+        return isNaN(calc) ? 0 : calc;
+    });
+
+    initSortableColumn("tbody.org-metrics", "th#profile-interaction-percentage", function (row) {
+        const calc = parseInt($(row).find('.interaction-breach-percentage').attr('data-js-percentage'));
+        return isNaN(calc) ? 0 : calc;
+    });
 }

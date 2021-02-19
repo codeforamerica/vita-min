@@ -35,12 +35,12 @@ function sort(rowSelector, direction, sortableParamCallback) {
 
 export function initSortableColumn(sortableElementsSelector, headerSelector, callback) {
     $(headerSelector).click(function() {
-        if($(this).attr('attr-direction') == 'desc') {
-            $(this).attr('attr-direction', 'asc')
-            sort(sortableElementsSelector, 'asc', callback);
-        } else {
-            $(this).attr('attr-direction', 'desc');
+        if($(this).attr('attr-direction') == 'asc') {
+            $(this).attr('attr-direction', 'desc')
             sort(sortableElementsSelector, 'desc', callback);
+        } else {
+            $(this).attr('attr-direction', 'asc');
+            sort(sortableElementsSelector, 'asc', callback);
         }
     });
 }
