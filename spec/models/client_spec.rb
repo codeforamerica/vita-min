@@ -78,9 +78,9 @@ describe Client do
     it "excludes those with tax returns in :intake_before_consent, :intake_in_progress, :file_accepted, :file_completed" do
       sla_tracked_clients = described_class.sla_tracked
       expect(sla_tracked_clients).to include client_multiple
+      expect(sla_tracked_clients).to include client_in_progress
       expect(sla_tracked_clients).not_to include client_file_not_filing
       expect(sla_tracked_clients).not_to include client_file_accepted
-      expect(sla_tracked_clients).not_to include client_in_progress
       expect(sla_tracked_clients).not_to include client_before_consent
     end
   end

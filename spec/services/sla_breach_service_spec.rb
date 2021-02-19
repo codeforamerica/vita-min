@@ -52,6 +52,24 @@ describe SLABreachService do
     end
   end
 
+  describe "#active_sla_clients_count" do
+    let(:vita_partners) { create_list(:vita_partner, 2) }
+    let(:clients_first) { create_list(:client, 3, vita_partner: vita_partners.first) }
+    let(:clients_second) { create_list(:client, 2, vita_partner: vita_partners.second) }
+    before do
+      allow(Client).to receive(:sla_tracked).and_return Client.where(id: clients_first + clients_second)
+    end
+
+    it "relies directly on '.sla_tracked' and returns a hash by vita partner id" do
+      expect(subject.active_sla_clients_count).to eq(
+        {
+          vita_partners.first.id => 3,
+          vita_partners.second.id => 2,
+        }
+      )
+    end
+  end
+
   describe '#attention_needed_breaches' do
     let(:vita_partner_1) { create(:organization) }
     let(:vita_partner_2) { create(:organization) }
@@ -373,6 +391,8 @@ describe SLABreachService do
         report_hash = {
             breached_at: 3.business_days.before(t),
             generated_at: t,
+            active_sla_clients_by_vita_partner_id: {},
+            active_sla_clients_count: 0,
             attention_needed_breaches_by_vita_partner_id: {},
             attention_needed_breach_count: 0,
             communication_breaches_by_vita_partner_id: {},
@@ -413,6 +433,8 @@ describe SLABreachService do
         report_hash = {
             breached_at: 3.business_days.before(t),
             generated_at: t,
+            active_sla_clients_by_vita_partner_id: { vita_partner_1.id => 1, vita_partner_2.id => 3 },
+            active_sla_clients_count: 4,
             attention_needed_breaches_by_vita_partner_id: { vita_partner_1.id => 1, vita_partner_2.id => 2 },
             attention_needed_breach_count: 3,
             communication_breaches_by_vita_partner_id: { vita_partner_2.id => 1 },
