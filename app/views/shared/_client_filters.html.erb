@@ -2,7 +2,6 @@
   <%= f.hidden_field :order, value: @sort_order %>
   <%= f.hidden_field :column, value: @sort_column %>
 
-  <h3>Filters</h3>
   <div class="filters-wrapper">
 
     <div class="form-group">
@@ -27,22 +26,6 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="checkbox--gyr">
-        <%= check_box_tag :assigned_to_me, true, params[:assigned_to_me] || @always_current_user_assigned, disabled: @always_current_user_assigned %>
-        <%= t("hub.clients.index.assigned_to_me") %>
-      </label>
-
-      <label class="checkbox--gyr">
-        <%= check_box_tag :unassigned, true, params[:unassigned] %>
-        <%= t("hub.clients.index.unassigned") %>
-      </label>
-
-      <label class="checkbox--gyr">
-        <%= check_box_tag :needs_attention, true, params[:needs_attention] %>
-        <%= t("hub.clients.index.needs_attention") %>
-      </label>
-    </div>
 
     <!--    Only show vita partner filtering if user has more than one available vita partner to select from.-->
     <% if @vita_partners.size > 1 %>
@@ -61,18 +44,37 @@
         </div>
       </div>
     <% end %>
+
+    <div class="search-wrapper form-group" role="search">
+      <label for="search" class="form-question">
+        <%= t("general.search") %>
+      </label>
+      <%= text_field_tag("search", params[:search], id: "search", class: "text-input") %>
+    </div>
   </div>
 
-  <div class="search-wrapper form-group" role="search">
-    <label for="search" class="form-question">
-      <%= t("general.search") %>
+  <div class="form-group filters-wrapper checkboxes-wrapper">
+    <h4>Marked as:</h4>
+    <label class="checkbox--gyr">
+      <%= check_box_tag :assigned_to_me, true, params[:assigned_to_me] || @always_current_user_assigned, disabled: @always_current_user_assigned %>
+      <%= t("hub.clients.index.assigned_to_me") %>
     </label>
-    <%= text_field_tag("search", params[:search], id: "search", class: "text-input") %>
+
+    <label class="checkbox--gyr">
+      <%= check_box_tag :unassigned, true, params[:unassigned] %>
+      <%= t("hub.clients.index.unassigned") %>
+    </label>
+
+    <label class="checkbox--gyr">
+      <%= check_box_tag :needs_attention, true, params[:needs_attention] %>
+      <%= t("hub.clients.index.needs_attention") %>
+    </label>
   </div>
+
 
 
   <div>
-    <%= submit_tag t("hub.clients.index.filter"), class: "button spacing-below-35", name: nil %>
+    <%= submit_tag t("hub.clients.index.filter"), class: "button button--cta spacing-below-35", name: nil %>
     <% if @filters && @filters.values.any? %>
       <%= submit_tag t("hub.clients.index.clear_filters"), class: "button button--danger", name: "clear" %>
     <% end %>
