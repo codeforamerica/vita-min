@@ -36,19 +36,19 @@ class Report::SLABreachReport < Report
   def attention_needed_breach_count(vita_partners = nil)
     return data["attention_needed_breach_count"] unless vita_partners.present?
 
-    attention_needed_breaches.slice(*vita_partners.map(&:id)).values.inject(:+) || 0
+    attention_needed_breaches.slice(*vita_partners.map(&:id)).values.sum
   end
 
   def communication_breach_count(vita_partners = nil)
     return data["communication_breach_count"] unless vita_partners.present?
 
-    communication_breaches.slice(*vita_partners.map(&:id)).values.inject(:+) || 0
+    communication_breaches.slice(*vita_partners.map(&:id)).values.sum
   end
 
   def interaction_breach_count(vita_partners = nil)
     return data["interaction_breach_count"] unless vita_partners.present?
 
-    interaction_breaches.slice(*vita_partners.map(&:id)).values.inject(:+) || 0
+    interaction_breaches.slice(*vita_partners.map(&:id)).values.sum
   end
 
 
