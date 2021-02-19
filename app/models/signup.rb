@@ -18,14 +18,14 @@ class Signup < ApplicationRecord
   validates :email_address, 'valid_email_2/email': true
 
   def self.valid_emails
-    distinct(:email_address).pluck(:email_address).filter do |email|
-      ValidEmail2::Address.new(email).valid?
+    distinct(:email_address).pluck(:email_address, :name).filter do |signup|
+      ValidEmail2::Address.new(signup[0]).valid?
     end
   end
 
   def self.send_followup_emails
-    valid_emails.each_with_index do |email, index|
-      SignupFollowupMailer.followup(email).deliver_later(wait: index * 2)
+    valid_emails.each_with_index do |signup, index|
+      SignupFollowupMailer.followup(signup[0], signup[1]).deliver_later(wait: index * 2)
     end
   end
 
