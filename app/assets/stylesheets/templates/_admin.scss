@@ -1,16 +1,14 @@
 .admin {
   background: white;
-
   .hub-content-wrapper {
     margin-top: 3rem;
   }
-
   .hub-section {
     margin: 3.5rem;
   }
-
   .page-wrapper {
     padding: 0;
+    overflow: unset;
   }
 
   .header {

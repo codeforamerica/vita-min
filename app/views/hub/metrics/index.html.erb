@@ -20,37 +20,36 @@
       </div>
     </div>
   </div>
-
   <div class="scrollable-table-wrapper">
     <table class="index-table org-metrics-table">
       <thead class="index-table__head">
-        <tr class="index-table__row">
-          <th scope="col" class="index-table__header sortable" id="organization-name" attr-dir="asc" width="40%">
-            Organization Name
-          </th>
-          <th scope="col" class="index-table__header sortable" id="needs-attention-breaches">
-            Attention breaches<sup>1</sup>
-          </th>
-          <th scope="col" class="index-table__header sortable" id="needs-attention-percentage">
-            Attention %
-          </th>
+      <tr class="index-table__row">
+        <th scope="col" class="sticky index-table__header sortable" id="organization-name" width="40%" attr-direction="asc">
+          Organization Name
+        </th>
+        <th scope="col" class="index-table__header sortable" id="needs-attention-breaches" >
+          Attention breaches<sup>1</sup>
+        </th>
+        <th scope="col" class="index-table__header sortable" id="needs-attention-percentage">
+          Attention %
+        </th>
 
-          <th scope="col" class="index-table__header sortable" id="outgoing-communication-breaches">
-            Outgoing comm. breaches<sup>2</sup>
-          </th>
+        <th scope="col" class="index-table__header sortable" id="outgoing-communication-breaches" >
+          Outgoing comm. breaches<sup>2</sup>
+        </th>
 
-          <th scope="col" class="index-table__header sortable" id="outgoing-communication-percentage">
-            Outgoing comm. %
-          </th>
+        <th scope="col" class="index-table__header sortable" id="outgoing-communication-percentage" >
+          Outgoing comm. %
+        </th>
 
-          <th scope="col" class="index-table__header sortable" id="profile-interaction-breaches">
-             Interaction breaches<sup>3</sup>
-          </th>
+        <th scope="col" class="index-table__header sortable" id="profile-interaction-breaches" >
+          Interaction breaches<sup>3</sup>
+        </th>
 
-          <th scope="col" class="index-table__header sortable" id="profile-interaction-percentage">
-            Interaction %
-          </th>
-        </tr>
+        <th scope="col" class="index-table__header sortable" id="profile-interaction-percentage" >
+          Interaction %
+        </th>
+      </tr>
       </thead>
       <% @vita_partners.each do |vita_partner| %>
         <% next unless vita_partner.organization? || @vita_partners.length == 1 %>
@@ -164,41 +163,40 @@
         </tbody>
       <% end %>
       <tbody>
-        <tr class="metrics-totals" data-js-count=<%= @total_breaches[:total_count] %>>
-          <td></td>
-          <td class="index-table__cell attention-needed-breach" data-js-count=<%= @total_breaches[:attention_needed] %>>
-            <strong><%= @total_breaches[:attention_needed] %></strong>
-          </td>
-          <td class="index-table__cell attention-needed-breach-percentage">
-          </td>
+      <tr class="metrics-totals" data-js-count=<%= @total_breaches[:total_count] %>>
+        <td></td>
+        <td class="index-table__cell attention-needed-breach" data-js-count=<%= @total_breaches[:attention_needed] %>>
+          <strong><%= @total_breaches[:attention_needed] %></strong>
+        </td>
+        <td class="index-table__cell attention-needed-breach-percentage">
+        </td>
 
-          <td class="index-table__cell communication-breach" data-js-count="<%= @total_breaches[:communication] %>">
-            <strong><%= @total_breaches[:communication] %></strong>
-          </td>
-          <td class="index-table__cell communication-breach-percentage">
-          </td>
+        <td class="index-table__cell communication-breach" data-js-count="<%= @total_breaches[:communication] %>">
+          <strong><%= @total_breaches[:communication] %></strong>
+        </td>
+        <td class="index-table__cell communication-breach-percentage">
+        </td>
 
-          <td class="index-table__cell interaction-breach" data-js-count=<%= @total_breaches[:interaction] %>>
-            <strong><%= @total_breaches[:interaction] %></strong>
-          </td>
-          <td class="index-table__cell interaction-breach-percentage">
-          </td>
-
-        </tr>
+        <td class="index-table__cell interaction-breach" data-js-count=<%= @total_breaches[:interaction] %>>
+          <strong><%= @total_breaches[:interaction] %></strong>
+        </td>
+        <td class="index-table__cell interaction-breach-percentage">
+        </td>
+      </tr>
       </tbody>
-
     </table>
+    <div class="slab slab--not-padded spacing-above-25">
+      <div>
+        <small><sup>1 </sup>Client needs attention indicator has been on for more than 3 business days.</small>
+      </div>
+      <div>
+        <small><sup>2 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not contacted them by text/call/email.</small>
+      </div>
+      <div>
+        <small><sup>3 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not interacted with their profile (written internal note, changed status, assigned user, etc).</small>
+      </div>
+    </div>
   </div>
 
-  <div class="slab slab--not-padded spacing-above-25">
-    <div>
-      <small><sup>1 </sup>Client needs attention indicator has been on for more than 3 business days.</small>
-    </div>
-    <div>
-      <small><sup>2 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not contacted them by text/call/email.</small>
-    </div>
-    <div>
-      <small><sup>3 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not interacted with their profile (written internal note, changed status, assigned user, etc).</small>
-    </div>
-  </div>
+
 <% end %>
