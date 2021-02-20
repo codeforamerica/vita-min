@@ -54,6 +54,20 @@ RSpec.describe ClientChannel, type: :channel do
         end.to have_broadcasted_to(ClientChannel.broadcasting_for(outgoing_text_message.client)).with(["template output"])
         expect(ApplicationController).to have_received(:render).with hash_including(locals: { contact_record: outgoing_text_message })
       end
+
+      context "when the rendered template is longer than 7 kilobytes" do
+        before do
+          allow(ApplicationController).to receive(:render).and_return("X" * 7001)
+          allow(I18n).to receive(:t).with("hub.client_channel.please_reload_html").and_return("Plz reload")
+        end
+
+        it "renders the a note saying the user should reload the page" do
+          expect do
+            ClientChannel.broadcast_contact_record(outgoing_text_message)
+          end.to have_broadcasted_to(ClientChannel.broadcasting_for(outgoing_text_message.client)).with(["Plz reload"])
+          expect(ApplicationController).to have_received(:render).with hash_including(locals: { contact_record: outgoing_text_message })
+        end
+      end
     end
   end
 end
