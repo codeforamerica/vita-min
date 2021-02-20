@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Hub::TakeActionForm do
   let(:client) { intake.client }
   let(:current_user) { create :admin_user, name: "Marilyn Mango" }
-  let(:intake) { create :intake }
+  let(:intake) { create :intake, email_address: "example@example.com" }
   let(:tax_return) { create :tax_return, client: client, year: 2019 }
   let(:form) { Hub::TakeActionForm.new(client, current_user, form_params) }
 
@@ -37,7 +37,7 @@ RSpec.describe Hub::TakeActionForm do
   end
 
   describe "setting default values" do
-    let(:intake) { create :intake, locale: "es", preferred_name: "Luna Lemon" }
+    let(:intake) { create :intake, locale: "es", preferred_name: "Luna Lemon", email_address: "example@example.com" }
     context "default locale" do
       context "when not explicitly provided" do
         let(:form) { Hub::TakeActionForm.new(client, current_user) }
@@ -138,9 +138,9 @@ RSpec.describe Hub::TakeActionForm do
       end
 
       context "when not provided" do
-        context "when user prefers sms" do
-          let(:form) { Hub::TakeActionForm.new(client, current_user) }
+        let(:form) { Hub::TakeActionForm.new(client, current_user) }
 
+        context "when user prefers sms" do
           before do
             allow(client.intake).to receive(:sms_notification_opt_in_yes?).and_return true
             allow(client.intake).to receive(:email_notification_opt_in_no?).and_return true
@@ -152,8 +152,6 @@ RSpec.describe Hub::TakeActionForm do
         end
 
         context "when user does not only prefer sms" do
-          let(:form) { Hub::TakeActionForm.new(client, current_user) }
-
           before do
             allow(client.intake).to receive(:sms_notification_opt_in_yes?).and_return true
             allow(client.intake).to receive(:email_notification_opt_in_no?).and_return false
@@ -161,6 +159,16 @@ RSpec.describe Hub::TakeActionForm do
 
           it "sets to email" do
             expect(form.contact_method).to eq "email"
+          end
+        end
+
+        context "when user prefers email but their email address is blank" do
+          before do
+            client.intake.update!(email_notification_opt_in: "yes", email_address: "")
+          end
+
+          it "is nil" do
+            expect(form.contact_method).to eq nil
           end
         end
       end
@@ -232,7 +240,7 @@ RSpec.describe Hub::TakeActionForm do
     end
 
     context "with a client opted-in to just email" do
-      let(:intake) { create :intake, email_notification_opt_in: "yes" }
+      let(:intake) { create :intake, email_notification_opt_in: "yes", email_address: "example@example.com" }
 
       it "shows only email as a contact option" do
         expect(form.contact_method_options).to eq([{value: "email", label: "Email message"}])
@@ -240,20 +248,26 @@ RSpec.describe Hub::TakeActionForm do
     end
 
     context "with a client opted-in to both email and text message" do
-      let(:intake) { create :intake, email_notification_opt_in: "yes", sms_notification_opt_in: "yes" }
+      let(:intake) { create :intake, email_notification_opt_in: "yes", email_address: "example@example.com", sms_notification_opt_in: "yes" }
 
       it "shows only text message as a contact option" do
         expect(form.contact_method_options).to eq([{value: "email", label: "Email message"}, {value: "text_message", label: "Text message"}])
       end
     end
 
+    context "with a client opted-in to email but with a blank email address" do
+      let(:intake) { create :intake, email_notification_opt_in: "yes", email_address: "" }
+
+      it "does not show email address as a contact option" do
+        expect(form.contact_method_options).not_to include({ value: "email", label: "Email message" })
+      end
+    end
+
     context "with a client that hasn't opted into anything" do
       let(:intake) { create :intake }
 
-      it "raises an error" do
-        expect do
-          form.contact_method_options
-        end.to raise_error(StandardError, "Client has not opted in to any communications")
+      it "returns no contact options" do
+        expect(form.contact_method_options).to eq([])
       end
     end
   end
