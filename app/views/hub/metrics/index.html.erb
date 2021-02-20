@@ -66,6 +66,29 @@
             <%= render 'breach_row', type: 'org', id: 0, name: "Unassigned Clients" %>
           </tbody>
         <% end %>
+        <tfoot>
+          <tr class="metrics-totals" data-js-count=<%= @total_breaches[:total_count] %>>
+            <th></th>
+            <th class="index-table__cell attention-needed-breach" data-js-count=<%= @total_breaches[:attention_needed] %>>
+              <strong><%= @total_breaches[:attention_needed] %></strong>
+            </th>
+            <th class="index-table__cell attention-needed-breach-percentage">
+            </th>
+
+            <th class="index-table__cell communication-breach" data-js-count="<%= @total_breaches[:communication] %>">
+              <strong><%= @total_breaches[:communication] %></strong>
+            </th>
+            <th class="index-table__cell communication-breach-percentage">
+            </th>
+
+            <th class="index-table__cell interaction-breach" data-js-count=<%= @total_breaches[:interaction] %>>
+              <strong><%= @total_breaches[:interaction] %></strong>
+            </th>
+            <th class="index-table__cell interaction-breach-percentage">
+            </th>
+
+          </tr>
+        </tfoot>
       </table>
     </div>
 
