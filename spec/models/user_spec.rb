@@ -65,6 +65,18 @@ RSpec.describe User, type: :model do
         expect(user).not_to be_valid
         expect(user.errors).to include :email
       end
+
+      context "when the email address looks valid, but the domain's DNS configuration doesn't accept email" do
+        let(:user) { build(:user, email: "someone@example.com") }
+        before do
+          allow_any_instance_of(ValidEmail2::Address).to receive(:valid_mx?).and_return(false)
+        end
+
+        it "is not valid and adds an error to the email" do
+          expect(user).not_to be_valid
+          expect(user.errors).to include :email
+        end
+      end
     end
 
     it "validates timezone" do
