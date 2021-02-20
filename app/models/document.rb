@@ -51,6 +51,13 @@ class Document < ApplicationRecord
   belongs_to :uploaded_by, polymorphic: true, optional: true
   has_one_attached :upload
   validates :upload, presence: true
+  validate :upload_must_have_data
+  def upload_must_have_data
+    if upload.attached? && upload.blob.byte_size.zero?
+      errors[:upload] << I18n.t("validators.file_zero_length")
+    end
+  end
+
   validate :tax_return_belongs_to_client
 
   before_save :set_display_name

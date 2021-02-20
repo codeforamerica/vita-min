@@ -736,6 +736,7 @@ en:
       header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
       subheader: Please sign up here to receive a notification when we open in January 2021.
   validators:
+    file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
   views:

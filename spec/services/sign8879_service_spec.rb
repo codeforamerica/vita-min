@@ -22,7 +22,7 @@ describe Sign8879Service do
     before do
       allow(tax_return).to receive(:filing_joint?).and_return false
       allow(WriteToPdfDocumentService).to receive(:new).and_return document_service_double
-      allow(document_service_double).to receive(:tempfile_output).and_return Tempfile.new
+      allow(document_service_double).to receive(:tempfile_output).and_return File.open(Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"), "r")
       allow(document_service_double).to receive(:write)
     end
 
