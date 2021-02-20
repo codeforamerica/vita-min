@@ -139,6 +139,7 @@ en:
         upload_date: Upload Date
         uploaded_ago: "%{time} ago"
         add_client_envelope_doc: "Add client envelope document"
+        empty_file: "(empty file)"
       display_name: Display name
     messages:
       index:
