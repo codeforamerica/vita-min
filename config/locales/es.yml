@@ -138,6 +138,7 @@ es:
         upload_date: Fecha de carga
         uploaded_ago: Hace %{time}
         add_client_envelope_doc: "Agregar documento al sobre de cliente"
+        empty_file: "(archivo vacío)"
       display_name: Nombre Para Mostrar
     messages:
       index:
