@@ -60,17 +60,6 @@
     left: 0;
     right: 0;
   }
-
-  @include media($tablet-up) {
-    margin: {
-      left: 0;
-      right: 0;
-    }
-    padding: {
-      left: 0;
-      right: 0;
-    }
-  }
 }
 
 // GYR customizations
