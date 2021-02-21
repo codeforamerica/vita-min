@@ -34,7 +34,8 @@ class OutgoingEmail < ApplicationRecord
   validates_presence_of :sent_at
   has_one_attached :attachment
 
-  after_create :record_outgoing_interaction, :deliver, :broadcast
+  after_create :deliver, :broadcast
+  after_create :record_outgoing_interaction, if: ->(email) { email.user.present? }
 
   def datetime
     sent_at
