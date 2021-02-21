@@ -33,7 +33,8 @@ class OutgoingTextMessage < ApplicationRecord
   validates_presence_of :sent_at
   validates :to_phone_number, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
 
-  after_create :record_outgoing_interaction, :deliver, :broadcast
+  after_create :deliver, :broadcast
+  after_create :record_outgoing_interaction, if: ->(msg) { msg.user.present? }
 
   def datetime
     sent_at
