@@ -11,6 +11,24 @@ beforeEach(() => {
             <th id="profile-interaction-breaches"></th>
             <th id="outgoing-communication-breaches"></th>
         </thead>
+        <tbody class="org-metrics" data-js-vita-partner-name="Apple Org">
+            <tr class="org">
+                <td class="attention-needed-breach"></td>
+                <td class="communication-breach"></td>
+                <td class="interaction-breach"></td>
+            </tr>
+            <tr class="site">
+                <td class="attention-needed-breach" data-js-count="1"></td>
+                <td class="communication-breach" data-js-count="14"></td>
+                <td class="interaction-breach" data-js-count="14"></td>
+            </tr>
+            <tr class="site">
+                <td class="attention-needed-breach" data-js-count="1"></td>
+                <td class="communication-breach" data-js-count="1"></td>
+                <td class="interaction-breach" data-js-count="1"></td>
+            </tr>
+        </tbody>
+
         <tbody class="org-metrics" data-js-vita-partner-name="Perfect Org">
             <tr class="org">
                 <td class="attention-needed-breach"></td>
@@ -114,23 +132,6 @@ beforeEach(() => {
               <td class="index-table__cell interaction-breach" data-js-count=3>
                 3
               </td>
-            </tr>
-        </tbody>
-        <tbody class="org-metrics" data-js-vita-partner-name="Apple Org">
-            <tr class="org">
-                <td class="attention-needed-breach"></td>
-                <td class="communication-breach"></td>
-                <td class="interaction-breach"></td>
-            </tr>
-            <tr class="site">
-                <td class="attention-needed-breach" data-js-count="15"></td>
-                <td class="communication-breach" data-js-count="15"></td>
-                <td class="interaction-breach" data-js-count="15"></td>
-            </tr>
-            <tr class="site">
-                <td class="attention-needed-breach" data-js-count="1"></td>
-                <td class="communication-breach" data-js-count="1"></td>
-                <td class="interaction-breach" data-js-count="1"></td>
             </tr>
         </tbody>
     </table>
@@ -241,13 +242,69 @@ test("collapse and expand sites and zeros simultaneously", () => {
 });
 
 test('sorting by name', () => {
-    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
     initMetricsTableSortAndFilter();
     $('th#organization-name').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("United Way of Greater Richmond and Petersburg");
+    $('th#organization-name').click();
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+});
+
+test('sorting by breach count', () => {
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    initMetricsTableSortAndFilter();
     $('th#organization-name').click();
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("United Way of Greater Richmond and Petersburg");
+    $('th#organization-name').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+});
+
+test('sorting by attention breach count', () => {
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    initMetricsTableSortAndFilter();
+    $('th#needs-attention-breaches').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("United Way of Greater Richmond and Petersburg");
+    expect($('.org-metrics').first().find('.org .attention-needed-breach').attr('data-js-count')).toEqual('3')
+    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+
+    $('th#needs-attention-breaches').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+    expect($('.org-metrics').first().find('.org .attention-needed-breach').attr('data-js-count')).toEqual('0')
+
+    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("United Way of Greater Richmond and Petersburg");
+    $('th#organization-name').click();
 });
 
 
+test('sorting by profile-interaction-breaches count', () => {
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    initMetricsTableSortAndFilter();
+    $('th#profile-interaction-breaches').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    expect($('.org-metrics').first().find('.org .interaction-breach').attr('data-js-count')).toEqual('15')
+    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
 
+    $('th#profile-interaction-breaches').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+    expect($('.org-metrics').first().find('.org .interaction-breach').attr('data-js-count')).toEqual('0')
+
+    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    $('th#organization-name').click();
+});
+
+
+test('sorting by communication-interaction-breaches count', () => {
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    initMetricsTableSortAndFilter();
+    $('th#profile-interaction-breaches').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    expect($('.org-metrics').first().find('.org .interaction-breach').attr('data-js-count')).toEqual('15')
+    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+
+    $('th#profile-interaction-breaches').click();
+    expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
+    expect($('.org-metrics').first().find('.org .interaction-breach').attr('data-js-count')).toEqual('0')
+
+    expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Apple Org");
+    $('th#organization-name').click();
+});

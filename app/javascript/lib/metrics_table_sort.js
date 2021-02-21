@@ -4,9 +4,9 @@ import { initSortableColumn } from './table_sort';
 function setupOrgLevelCounts() {
     $(".org-metrics").each(function() {
         let denominator = 0;
-        let attention_count = 0;
-        let communication_count = 0;
-        let interaction_count = 0;
+        let attentionCount = 0;
+        let communicationCount = 0;
+        let interactionCount = 0;
 
         if ($(this).find('tr.site').length == 0) {
             denominator += parseInt($(this).find('tr.org').first().attr('data-js-count'));
@@ -17,60 +17,47 @@ function setupOrgLevelCounts() {
         });
 
         $(this).find('tr.site td.attention-needed-breach').each(function() {
-            attention_count += parseInt($(this).attr('data-js-count'));
+            attentionCount += parseInt($(this).attr('data-js-count'));
         });
 
         $(this).find('tr.site td.communication-breach').each(function() {
-            communication_count += parseInt($(this).attr('data-js-count'));
+            communicationCount += parseInt($(this).attr('data-js-count'));
         });
 
         $(this).find('tr.site td.interaction-breach').each(function() {
-            interaction_count += parseInt($(this).attr('data-js-count'));
+            interactionCount += parseInt($(this).attr('data-js-count'));
         });
 
         // Set viewable value and sortable data-js-count value for org based on accumulated value.
-        $(this).find('.attention-needed-breach').first().text(attention_count).attr('data-js-count', attention_count);
-        let attention_percentage, attention_percentage_text;
-        [attention_percentage, attention_percentage_text] = determineBreaches(attention_count, denominator);
-        $(this).find('.attention-needed-breach-percentage').first().text(attention_percentage_text).attr('data-js-percentage', attention_percentage);
+        $(this).find('.attention-needed-breach').first().text(attentionCount).attr('data-js-count', attentionCount);
+        $(this).find('.communication-breach').first().text(communicationCount).attr('data-js-count', communicationCount);
+        $(this).find('.interaction-breach').first().text(interactionCount).attr('data-js-count', interactionCount);
+        updatePercentages(this, '.attention-needed-breach', denominator);
+        updatePercentages(this, '.communication-breach', denominator);
+        updatePercentages(this, '.interaction-breach', denominator);
 
-        $(this).find('.communication-breach').first().text(communication_count).attr('data-js-count', communication_count);
-        let comm_percentage, comm_percentage_text;
-        [comm_percentage, comm_percentage_text] = determineBreaches(communication_count, denominator);
-        $(this).find('.communication-breach-percentage').first().text(comm_percentage_text).attr('data-js-percentage', comm_percentage);
-
-        $(this).find('.interaction-breach').first().text(interaction_count).attr('data-js-count', interaction_count);
-        let interaction_percentage, interaction_percentage_text;
-        [interaction_percentage, interaction_percentage_text] = determineBreaches(interaction_count, denominator);
-        $(this).find('.interaction-breach-percentage').first().text(interaction_percentage_text).attr('data-js-percentage', interaction_percentage);
-
-        // Loop through all sites to set breach percentages
+        // // Loop through all sites to set breach percentages
         $(this).find('tr.site').each(function() {
-            let attention_percentage, attention_percentage_text;
-            [attention_percentage, attention_percentage_text] = determineBreaches(parseInt($(this).find('.attention-needed-breach').attr('data-js-count')), parseInt($(this).attr('data-js-count')));
-            $(this).find('.attention-needed-breach-percentage').first().text(attention_percentage_text).attr('data-js-percentage', attention_percentage);
-            let comm_percentage, comm_percentage_text;
-            [comm_percentage, comm_percentage_text] = determineBreaches(parseInt($(this).find('.communication-breach').attr('data-js-count')), parseInt($(this).attr('data-js-count')));
-            $(this).find('.communication-breach-percentage').first().text(comm_percentage_text).attr('data-js-percentage', comm_percentage);
-            let interaction_percentage, interaction_percentage_text;
-            [interaction_percentage, interaction_percentage_text] = determineBreaches(parseInt($(this).find('.interaction-breach').attr('data-js-count')), parseInt($(this).attr('data-js-count')));
-            $(this).find('.interaction-breach-percentage').first().text(interaction_percentage_text).attr('data-js-percentage', interaction_percentage);
+            const siteDenominator = parseInt($(this).attr('data-js-count'))
+            updatePercentages(this, '.attention-needed-breach', siteDenominator);
+            updatePercentages(this, '.communication-breach', siteDenominator);
+            updatePercentages(this, '.interaction-breach', siteDenominator);
         });
     });
-
     let totalSLATracked = $('.metrics-totals').attr('data-js-count');
-    let attention_percentage, attention_percentage_text;
-    [attention_percentage, attention_percentage_text] = determineBreaches(parseInt($('.metrics-totals').find('.attention-needed-breach').attr('data-js-count')), totalSLATracked);
-    $('.metrics-totals').find('.attention-needed-breach-percentage').first().text(attention_percentage_text).attr('data-js-percentage', attention_percentage);
-    let comm_percentage, comm_percentage_text;
-    [comm_percentage, comm_percentage_text] = determineBreaches(parseInt($('.metrics-totals').find('.communication-breach').attr('data-js-count')), totalSLATracked);
-    $('.metrics-totals').find('.communication-breach-percentage').first().text(comm_percentage_text).attr('data-js-percentage', comm_percentage);
-    let interaction_percentage, interaction_percentage_text;
-    [interaction_percentage, interaction_percentage_text] = determineBreaches(parseInt($('.metrics-totals').find('.interaction-breach').attr('data-js-count')), totalSLATracked);
-    $('.metrics-totals').find('.interaction-breach-percentage').first().text(interaction_percentage_text).attr('data-js-percentage', interaction_percentage);
+    updatePercentages('.metrics-totals', '.attention-needed-breach', totalSLATracked);
+    updatePercentages('.metrics-totals', '.communication-breach', totalSLATracked);
+    updatePercentages('.metrics-totals', '.interaction-breach', totalSLATracked);
 }
 
-function determineBreaches(breachCount, totalCount) {
+function updatePercentages(sectionSelector, breachTypeSelector, denominator) {
+    let percentageSelector = breachTypeSelector + "-percentage";
+    let percentage, percentageText;
+    [percentage, percentageText] = determineBreachPercentages($(sectionSelector).find(breachTypeSelector).attr('data-js-count'), denominator);
+    $(sectionSelector).find(percentageSelector).first().text(percentageText).attr('data-js-percentage', percentage);
+}
+
+function determineBreachPercentages(breachCount, totalCount) {
     let percentage = isNaN(breachCount/totalCount) ? 0 : (breachCount/totalCount * 100).toFixed(2).replace(/[.,]00$/, "");
     let text = `${breachCount}/${totalCount} (${percentage}%)`;
     return [percentage, text];

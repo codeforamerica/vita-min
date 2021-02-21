@@ -33,6 +33,8 @@ function sort(rowSelector, direction, sortableParamCallback) {
     }
 }
 
+// Sorts desc by default on first click -- generally expects the table to already be sorted asc on primary column.
+// Add attr-direction="asc" to sortable column clickable selector if you'd like to sort asc on first click.
 export function initSortableColumn(sortableElementsSelector, headerSelector, callback) {
     $(headerSelector).click(function() {
         if($(this).attr('attr-direction') == 'asc') {
