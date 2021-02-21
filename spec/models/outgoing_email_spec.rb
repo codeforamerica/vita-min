@@ -76,19 +76,31 @@ RSpec.describe OutgoingEmail, type: :model do
         expect(message).to be_valid
         expect(message.errors).to be_blank
       end
+    end
+  end
 
-      context "after create" do
-        it "enqueues delivery of the message" do
-          expect {
-            message.save
-          }.to have_enqueued_email
-        end
+  context "after save" do
+    let(:message) do
+      OutgoingEmail.new(
+        client: create(:client),
+        to: "someone@example.com",
+        subject: "this is a subject",
+        body: "hi",
+        sent_at: DateTime.now,
+        user: create(:user),
+        attachment: fixture_file_upload("attachments/test-pattern.png"),
+      )
+    end
 
-        it "broadcasts a message" do
-          message.save
-          expect(ClientChannel).to have_received(:broadcast_contact_record).with(message)
-        end
-      end
+    it "enqueues delivery of the message" do
+      expect {
+        message.save
+      }.to have_enqueued_email
+    end
+
+    it "broadcasts a message" do
+      message.save
+      expect(ClientChannel).to have_received(:broadcast_contact_record).with(message)
     end
   end
 end

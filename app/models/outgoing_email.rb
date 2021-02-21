@@ -32,10 +32,12 @@ class OutgoingEmail < ApplicationRecord
   validates_presence_of :body
   validates_presence_of :subject
   validates_presence_of :sent_at
+  # Use `after_create_commit` so that the attachment is fully saved to S3 before delivering it
+  after_create_commit :deliver, :broadcast
+  after_create_commit :record_outgoing_interaction, if: ->(email) { email.user.present? }
+  # Use `has_one_attached` below `after_create_commit`; ActiveRecord runs callbacks in last-in, first-out order
+  # See also https://github.com/rails/rails/issues/37304#issuecomment-546246357
   has_one_attached :attachment
-
-  after_create :deliver, :broadcast
-  after_create :record_outgoing_interaction, if: ->(email) { email.user.present? }
 
   def datetime
     sent_at
