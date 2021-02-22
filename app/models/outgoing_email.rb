@@ -35,8 +35,7 @@ class OutgoingEmail < ApplicationRecord
   # Use `after_create_commit` so that the attachment is fully saved to S3 before delivering it
   after_create_commit :deliver, :broadcast
   after_create_commit :record_outgoing_interaction, if: ->(email) { email.user.present? }
-  # Use `has_one_attached` below `after_create_commit`; ActiveRecord runs callbacks in last-in, first-out order
-  # See also https://github.com/rails/rails/issues/37304#issuecomment-546246357
+  # has_one_attached needs to be called after defining any callbacks that access attachments, like :deliver; see https://github.com/rails/rails/issues/37304
   has_one_attached :attachment
 
   def datetime
