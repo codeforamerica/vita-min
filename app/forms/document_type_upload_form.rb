@@ -10,12 +10,20 @@ class DocumentTypeUploadForm < QuestionsForm
   def save
     document_file_upload = attributes_for(:intake)[:document]
     if document_file_upload.present?
-      @intake.documents.create(
+      doc = @intake.documents.new(
         document_type: @document_type,
         client: @intake.client,
-        uploaded_by: @intake.client,
-        upload: document_file_upload
+        uploaded_by: @intake.client
       )
+      # Rewind to avoid IntegrityError
+      document_file_upload.tempfile.rewind
+      # Remove non-utf-8 characters from the original filename
+      doc.upload.attach(
+        io: document_file_upload.tempfile,
+        filename: document_file_upload.original_filename.encode("UTF-8", invalid: :replace, replace: ""),
+        content_type: document_file_upload.content_type
+      )
+      doc.save
     end
   end
 end
