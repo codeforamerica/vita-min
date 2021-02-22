@@ -1,6 +1,6 @@
 <li class="note note--system message">
 <span class="message__time">
-      <%= formatted_time(note.created_at) %>
+      <%= long_formatted_datetime(note.created_at) %>
     </span>
   <div class="message__body"><%= simple_format(note.body, {}, wrapper_tag: "span") %></div>
 </li>
