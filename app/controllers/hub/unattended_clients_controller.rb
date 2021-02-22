@@ -16,7 +16,12 @@ module Hub
       @breach_date = day_param.business_days.ago
       @clients = filtered_and_sorted_clients(
         default_order: { first_unanswered_incoming_interaction_at: :asc }
-      ).outgoing_communication_breaches(@breach_date).with_eager_loaded_associations.page(params[:page])
+      )
+      response_breaches = Client.where("first_unanswered_incoming_interaction_at <= ?", @breach_date)
+      attention_breaches = Client.where("attention_needed_since <= ?", @breach_date)
+      any_breach = response_breaches.or(attention_breaches).sla_tracked
+      @clients = @clients.where(id: any_breach)
+      @clients = @clients.with_eager_loaded_associations.page(params[:page])
       render "hub/clients/index"
     end
 
