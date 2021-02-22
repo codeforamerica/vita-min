@@ -37,7 +37,7 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
           get :index
 
           header_row = Nokogiri::HTML.parse(response.body).at_css(".index-table__head")
-          expect(header_row).to have_text("No response since")
+          expect(header_row).to have_text("Waiting on response")
           expect(header_row).to have_text("Attention needed since")
           expect(header_row).not_to have_text("Updated at")
           expect(header_row).not_to have_text("Consented at")

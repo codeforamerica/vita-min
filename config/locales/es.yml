@@ -1968,3 +1968,6 @@ es:
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
+    response_needed_since: "Esperando respuesta"
+    attention_needed_since: "Atención necesaria desde"
+    consented_at: "Consentido en"
