@@ -37,13 +37,14 @@ describe Sign8879Service do
       expect(document_service_double).to have_received(:write).with(:primary_signed_on, DateTime.current.to_date.strftime("%m/%d/%Y"))
     end
 
-    it "creates a signed document for the tax return" do
+    it "creates a signed document for the tax return, uploaded by the client" do
       expect {
         Sign8879Service.create(tax_return)
       }.to change(tax_return.documents, :count).by 1
       new_doc = Document.last
       expect(new_doc.document_type).to eq "Form 8879 (Signed)"
       expect(new_doc.display_name).to eq "Taxpayer Signed 2019 8879"
+      expect(new_doc.uploaded_by).to eq client
     end
 
     context "there is a spouse signature" do

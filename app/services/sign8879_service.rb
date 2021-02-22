@@ -16,6 +16,7 @@ class Sign8879Service
 
     tax_return.documents.create!(
       client: tax_return.client,
+      uploaded_by: tax_return.client,
       document_type: DocumentTypes::CompletedForm8879.key,
       display_name: "Taxpayer Signed #{tax_return.year} 8879",
       upload: {
