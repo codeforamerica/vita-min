@@ -6,6 +6,7 @@
 #  email_address :citext
 #  name          :string
 #  phone_number  :string
+#  sent_followup :boolean          default(FALSE)
 #  zip_code      :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null

@@ -6,6 +6,7 @@
 #  email_address :citext
 #  name          :string
 #  phone_number  :string
+#  sent_followup :boolean          default(FALSE)
 #  zip_code      :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -17,15 +18,20 @@ class Signup < ApplicationRecord
   validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
   validates :email_address, 'valid_email_2/email': true
 
-  def self.valid_emails
-    distinct(:email_address).pluck(:email_address, :name).filter do |signup|
-      ValidEmail2::Address.new(signup[0]).valid?
+  def self.valid_emails_with_unsent_followups
+    distinct(:email_address).where(sent_followup: false).pluck(:email_address, :name).filter do |signup_info|
+      ValidEmail2::Address.new(signup_info[0]).valid?
     end
   end
 
-  def self.send_followup_emails
-    valid_emails.each_with_index do |signup, index|
-      SignupFollowupMailer.followup(signup[0], signup[1]).deliver_later(wait: index * 2)
+  def self.send_followup_emails(batch_size = nil)
+    emails_to_send = batch_size.present? ? valid_emails_with_unsent_followups.slice(0, batch_size) : valid_emails_with_unsent_followups
+
+    emails_to_send.each_with_index do |signup_info, index|
+      SignupFollowupMailer.followup(signup_info[0], signup_info[1]).deliver_later(wait: index * 2)
+      Signup.where(email_address: signup_info[0]).each do |signup|
+        signup.update!(sent_followup: true)
+      end
     end
   end
 
