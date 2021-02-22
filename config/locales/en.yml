@@ -1061,12 +1061,18 @@ en:
           description: We do not knowingly collect personal information from unemancipated minors under 16 years of age.
           header: Children’s privacy
         data_retention:
-          description: 'We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations. If you decide to terminate the Services, we will delete your information within 90 days of when the Services are terminated unless we are required by law to retain your information.  In that case, we will only retain your information as long as required by such law.'
+          description: >-
+            We will retain your information as long as necessary to: provide Services to you,
+            operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations.
+            If you no longer wish to proceed with GetYourRefund and request to remove your information from our Services,
+            we will delete your information within 90 days of when the Services are terminated
+            unless we are required by law to retain your information.
+            In that case, we will only retain your information as long as required by such law.
           header: Data Retention
         description: This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.
         effective_date:
           header: Effective Date
-          info: This version of the policy is effective %{effective_date}
+          info: This version of the policy is effective %{effective_date}.
         information_collection:
           header: Information we collect
           how_we_collect:

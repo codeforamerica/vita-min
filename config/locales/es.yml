@@ -1064,12 +1064,18 @@ es:
           description: No recopilamos información personal a sabiendas de menores de 16 años no emancipados.
           header: Privacidad de menores
         data_retention:
-          description: 'Conservaremos su información el tiempo necesario para: proporcionarle Servicios, llevar a cabo nuestra labor de manera consistente con este Aviso, o demostrar cumplimiento con las leyes y obligaciones legales. Eliminaremos su información dentro de 60 días a la finalización de los Servicios, a menos que la ley nos exija conservar su información. En ese caso, sólo conservaremos su información el tiempo que requiera dicha ley.'
+          description: >-
+            Conservaremos su información el tiempo necesario para: proporcionarle Servicios,
+            llevar a cabo nuestra labor de manera consistente con este Aviso, o demostrar cumplimiento con las
+            leyes y obligaciones legales. Si no desea continuar con Getyourrefund, y desea que removamos su información
+            de nuestros servicios eliminaremos su información dentro de 90 días de la finalización de los Servicios,
+            a menos que la ley nos exija conservar su información. En ese caso, sólo conservaremos su información
+            el tiempo que requiera dicha ley.
           header: Retención de Datos
         description: Esta Política de privacidad describe cómo recopilamos, usamos, compartimos y protegemos su información personal. Al utilizar nuestros Servicios, usted acepta los términos de esta Política de privacidad. Este Aviso de privacidad se aplica independientemente del tipo de dispositivo que utilice para acceder a nuestros Servicios.
         effective_date:
           header: Fecha de vigencia
-          info: Esta versión de la política entra en vigor el %{effective_date}
+          info: Esta versión de la política entra en vigor el %{effective_date}.
         information_collection:
           header: Información que recopilamos
           how_we_collect:
