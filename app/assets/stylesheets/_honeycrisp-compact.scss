@@ -2,8 +2,8 @@
 // likely needed in main repo
 .honeycrisp-compact {
   .form-question {
-    font-size: $font-size-19;
-    line-height: $s19;
+    font-size: $font-size-18;
+    line-height: $s18;
   }
 
   .button:first-of-type {
@@ -21,7 +21,7 @@
   }
 
   .text--help {
-    font-size: $font-size-19;
+    font-size: $font-size-18;
   }
 
   // In Honeycrisp, a form group with help text has a negative margin-top.
@@ -102,7 +102,7 @@
   }
 
   .button--small {
-    font-size: $font-size-19;
+    font-size: $font-size-18;
     line-height: 1.6rem;
     padding: $s5 $s10;
   }
