@@ -79,7 +79,7 @@ RSpec.describe OutgoingEmail, type: :model do
     end
   end
 
-  context "after save" do
+  context "after create" do
     let(:message) do
       OutgoingEmail.new(
         client: create(:client),
