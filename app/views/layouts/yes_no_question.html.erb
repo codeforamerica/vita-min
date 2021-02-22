@@ -26,18 +26,27 @@
                   <%= yield :form_help_text %>
                 </p>
               <% end %>
-              <div class="yes-no-buttons">
-                <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "yes", class: "button button--icon button--icon--centered", "aria-describedby": "main-question" do %>
-                  <%= image_tag("checkmark.svg", alt: "") %><%=t("general.affirmative") %>
+              <div class="options-wrapper">
+                <div class="yes-no-buttons">
+                  <%= f.button :submit, name: "#{f.object_name}[#{method_name}]", value: "yes", class: "button button--icon button--icon--centered", "aria-describedby": "main-question" do %>
+                    <%= image_tag("checkmark.svg", alt: "") %><%=t("general.affirmative") %>
+                  <% end %>
+                  <%= f.button :submit, name: "#{f.object_name}[#{method_name}]", value: "no", class: "button button--icon button--icon--centered", "aria-describedby": "main-question" do %>
+                    <%= image_tag("crossmark.svg", alt: "") %><%=t("general.negative") %>
+                  <% end %>
+                </div>
+                <% if has_unsure_option? %>
+                  <div>
+                    <%= f.button :submit, name: "#{f.object_name}[#{method_name}", value: "unsure", class: "button button--link", "aria-describedby": "main-question" do %>
+                      <%= "I don't know." %>
+                    <% end %>
+                  </div>
                 <% end %>
-                <%= f.button :submit, name: "#{f.object_name}[#{yield :method_name}]", value: "no", class: "button button--icon button--icon--centered", "aria-describedby": "main-question" do %>
-                  <%= image_tag("crossmark.svg", alt: "") %><%=t("general.negative") %>
-                <% end %>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
             <% if prev_path %>
               <div class="back grid">
-                <%= link_to '< Back', prev_path %>
+                <%= link_to t("general.back"), prev_path %>
               </div>
             <% end %>
           </main>

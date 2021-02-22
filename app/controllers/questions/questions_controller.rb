@@ -5,7 +5,7 @@ module Questions
     delegate :form_name, to: :class
     delegate :form_class, to: :class
 
-    helper_method :current_path, :illustration_folder,:illustration_path, :next_path, :prev_path
+    helper_method :current_path, :illustration_folder, :illustration_path, :next_path, :prev_path, :has_unsure_option?, :method_name
 
     layout "intake"
 
@@ -38,6 +38,17 @@ module Questions
     def prev_path
       prev_step = form_navigation&.prev
       prev_step&.to_path_helper
+    end
+
+    def has_unsure_option?
+      layout = self.send :_layout, self.lookup_context, [""]
+      return false unless layout == "yes_no_question"
+      enum_options = Intake.try(method_name.pluralize)
+      enum_options&.has_key?("unsure")
+    end
+
+    def method_name
+      controller_name
     end
 
     def illustration_folder

@@ -18,14 +18,14 @@
             </div>
           <% end %>
           <%= yield :form_card %>
+          <% if prev_path %>
+            <div class="back grid">
+              <%= link_to t("general.back"), prev_path %>
+            </div>
+          <% end %>
         </main>
       </div>
     </div>
-    <% if prev_path %>
-      <div class="back grid">
-        <%= link_to '< Back', prev_path %>
-      </div>
-    <% end %>
   </section>
 <% end %>
 
