@@ -86,6 +86,7 @@ es:
         needs_attention: Necesita attentión
         stage_status: Estado/etapa de declaración de impuestos
         organization: Organización/Sitio
+        assigned_user: Asignado a
       navigation:
         client_documents: Documentos
         client_messages: Mensajes

@@ -246,6 +246,14 @@ class ApplicationController < ActionController::Base
     Time.use_zone(current_user.timezone) { yield }
   end
 
+  def load_vita_partners
+    @vita_partners = VitaPartner.accessible_by(current_ability)
+  end
+
+  def load_users
+    @users = User.accessible_by(current_ability)
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html { head :forbidden }

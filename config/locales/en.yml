@@ -101,6 +101,7 @@ en:
         needs_attention: Needs attention
         stage_status: Tax return stage/status
         organization: Organization/site
+        assigned_user: Assigned to
       unlinked_clients:
         title: Unlinked clients
       navigation:

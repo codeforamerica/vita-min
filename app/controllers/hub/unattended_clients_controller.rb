@@ -3,8 +3,7 @@ module Hub
     include AccessControllable
     include ClientSortable
 
-    before_action :require_sign_in
-    before_action :require_admin
+    before_action :require_sign_in, :require_admin, :load_users
 
     load_and_authorize_resource :client, parent: false
     load_and_authorize_resource :vita_partner, parent: false

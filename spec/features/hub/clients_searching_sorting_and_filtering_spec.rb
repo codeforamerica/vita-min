@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "searching, sorting, and filtering clients" do
   context "as an admin user" do
     let(:user) { create :admin_user }
+    let(:mona_user) { create :user, name: "Mona Mandarin" }
 
     before { login_as user }
 
@@ -16,7 +17,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
     context "with existing clients" do
       let(:vita_partner) { create :vita_partner, name: "Alan's Org" }
       let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (create :intake, preferred_name: "Alan Avocado", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"), tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress", assigned_user: user)] }
-      let!(:betty_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Betty Banana", primary_consented_to_service_at: 2.days.ago, state_of_residence: "TX"), tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress")] }
+      let!(:betty_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Betty Banana", primary_consented_to_service_at: 2.days.ago, state_of_residence: "TX"), tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress", assigned_user: mona_user)] }
       let!(:patty_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Patty Banana", primary_consented_to_service_at: 1.day.ago, state_of_residence: "AL"), tax_returns: [(create :tax_return, year: 2019, status: "prep_ready_for_prep", assigned_user: user)] }
       let!(:zach_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Zach Zucchini", primary_consented_to_service_at: 2.days.ago, state_of_residence: "WI"), tax_returns: [(create :tax_return, year: 2018, status: "prep_ready_for_prep")] }
 
@@ -46,6 +47,26 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         expect(page.all('.client-row').length).to eq 1
         # expect(page.all('.client-row')[0]).to have_text alan_intake_in_progress.preferred_name
+        click_button "Clear"
+
+        within ".filter-form" do
+          select "Alan's Org", from: "vita_partner_id"
+          click_button "Filter results"
+          expect(page).to have_select("vita_partner_id", selected: "Alan's Org")
+        end
+
+        expect(page.all('.client-row').length).to eq 1
+        expect(page.all('.client-row')[0]).to have_text alan_intake_in_progress.preferred_name
+        click_button "Clear"
+
+        within ".filter-form" do
+          select "Mona Mandarin", from: "assigned_user_id"
+          click_button "Filter results"
+          expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
+        end
+
+        expect(page.all('.client-row').length).to eq 1
+        expect(page.all('.client-row')[0]).to have_text betty_intake_in_progress.preferred_name
         click_button "Clear"
 
         within ".filter-form" do
