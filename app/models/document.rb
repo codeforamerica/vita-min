@@ -49,7 +49,6 @@ class Document < ApplicationRecord
   belongs_to :contact_record, polymorphic: true, optional: true
   belongs_to :tax_return, optional: true
   belongs_to :uploaded_by, polymorphic: true, optional: true
-  has_one_attached :upload
   validates :upload, presence: true
   validate :tax_return_belongs_to_client
 
