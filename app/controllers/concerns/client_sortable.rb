@@ -56,7 +56,7 @@ module ClientSortable
   end
 
   def clients_sort_column
-    sortable_columns = [:id, :updated_at, :first_unanswered_incoming_interaction_at] + Client.sortable_intake_attributes
+    sortable_columns = [:id, :updated_at, :first_unanswered_incoming_interaction_at, :attention_needed_since] + Client.sortable_intake_attributes
     sortable_columns.include?(params[:column]&.to_sym) ? params[:column] : @default_order.keys.first
   end
 
