@@ -21,7 +21,6 @@ Bundler.require(*Rails.groups)
 
 module VitaMin
   class Application < Rails::Application
-    require "./app/middleware/validate_request_params.rb"
     config.load_defaults 6.0
 
     config.i18n.default_locale = :en
@@ -30,7 +29,6 @@ module VitaMin
 
     config.active_job.queue_adapter = :delayed_job
     config.action_view.automatically_disable_submit_tag = false
-    config.middleware.insert_before Rack::Head, ValidateRequestParams
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
