@@ -65,7 +65,7 @@ class Client < ApplicationRecord
   delegate *delegated_intake_attributes, to: :intake
   scope :after_consent, -> { distinct.joins(:tax_returns).merge(TaxReturn.where("status > 100")) }
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
-  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]) }
+  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :intake, :tax_returns, tax_returns: [:assigned_user]).order('tax_returns.year') }
   scope :sla_tracked, -> { distinct.joins(:tax_returns).where(tax_returns: { status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_SLA })}
   scope :any_breach, ->(breach_threshold_datetime) do
     where("first_unanswered_incoming_interaction_at <= ?", breach_threshold_datetime).or(
