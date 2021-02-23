@@ -23,7 +23,7 @@ class DocumentTypeUploadForm < QuestionsForm
         filename: document_file_upload.original_filename.encode("UTF-8", invalid: :replace, replace: ""),
         content_type: document_file_upload.content_type
       )
-      doc.save
+      doc.save!
     end
   end
 end
