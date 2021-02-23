@@ -5,9 +5,5 @@ module Questions
     def illustration_path
       "married.svg"
     end
-
-    def method_name
-      "ever_married"
-    end
   end
 end
