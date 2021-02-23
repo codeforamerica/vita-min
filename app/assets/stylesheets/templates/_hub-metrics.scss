@@ -1,5 +1,7 @@
 .hub-metrics {
   .header {
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between;
     margin-bottom: $s25;
@@ -13,31 +15,74 @@
 }
 
 .org-metrics-table {
+  position: relative;
+  border-collapse: separate;
+  white-space: nowrap;
+  border-spacing: 0 1px;
+  border-top: 1px solid black;
+  background: darken($color-grey-light, 20%);
+  max-height: 500px;
+  margin-bottom: 0;
   thead {
+    th:first-child {
+      left: 0;
+      z-index: 3;
+    }
     th {
-      border-bottom: 1px solid black;
+      user-select: none;
+      background: white;
+      top: 0; /* Don't forget this, required for the stickiness */
+      &.sortable {
+        cursor: pointer;
+        &[attr-direction = "asc"]::after {
+          content: "↑"
+        }
+        &[attr-direction = "desc"]::after {
+          content: "↓"
+        }
+      }
     }
   }
+
+  tr {
+    background: white;
+  }
+
+  tr > :first-child {
+    position: sticky;
+    left: 0;
+  }
+
+  tfoot th {
+    position: sticky;
+    bottom: 94px;
+    z-index: 5;
+    background: $color-teal-light;
+  }
+
+  tfoot th:first-child {
+    background: $color-teal-light;
+  }
+
   th {
-    user-select: none;
-    &.sortable {
-      cursor: pointer;
-      &[attr-direction = "asc"]::after {
-        content: "↑"
-      }
-      &[attr-direction = "desc"]::after {
-        content: "↓"
-      }
-    }
+    background: white;
+    border-bottom: 1px solid black;
+    position:sticky;
+    top:0;
+    left: 0;
+  }
+
+  tbody {
+    overflow: scroll;
   }
 
   .org {
-    border-top: 1px solid darken($color-grey-light, 20%);
     font-weight: bold;
   }
 
-  .metrics-totals {
-    border-top: 2px solid $color-teal-dark;
-    background-color: $color-teal-light;
+  .site {
+    td:first-child {
+      padding-left: $s60;
+    }
   }
 }

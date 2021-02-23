@@ -8,6 +8,10 @@ a.tab-bar__tab {
   min-width: 0;
 }
 
+a.tab-bar__tab:first-of-type {
+  margin-left: $s25;
+}
+
 // Fixes a bug in honeycrisp styleguide https://github.com/codeforamerica/honeycrisp-gem/issues/214
 .tab-bar__tab.is-selected {
   background-color: white;

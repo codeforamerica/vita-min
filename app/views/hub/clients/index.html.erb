@@ -3,9 +3,12 @@
 <% content_for :card do %>
   <section class="slab slab--padded client-index-header">
     <%= render "shared/user_header" %>
-    <%= render "shared/dashboard_navigation" %>
+  </section>
+  <%= render "shared/dashboard_navigation" %>
+  <section class="slab slab--padded">
     <%= render "shared/client_filters" %>
-
+  </section>
+  <section class="slab slab--padded">
     <div class="actions-wrapper">
       <%= link_to t(".add_client"), new_hub_client_path, class: "button" %>
     </div>
