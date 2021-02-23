@@ -76,14 +76,12 @@ es:
         filter: Filtrar resultados
         client_id_heading: Cliente ID
         filing_year: Año para declarar
-        needs_attention_heading: Necesita attentión?
         title: Todos clientes
         no_clients: No hay clientes asignadas.
         no_filtered_clients: Ninguna cliente coincide con los filtros seleccionados.
         apply_filters: Aplicar búsqueda / filtro para encontrar clientes coincidentes.
         assigned_to_me: Asignado a mí
         unassigned: No asignado
-        needs_attention: Necesita attentión
         stage_status: Estado/etapa de declaración de impuestos
         organization: Organización/Sitio
         assigned_user: Asignado a
@@ -528,8 +526,6 @@ es:
     lived_with_spouse: Vivieron con su cónyuge
     married: Casado
     name: Nombre
-    mark_for_attention: Marcar como necesita attentión
-    needs_attention: Necesita attentión
     negative: 'No'
     next: Próximo
     no_intake: Sin ingesta
@@ -630,6 +626,7 @@ es:
     suspended: "Suspendida"
     responded_to_client: "Respondido al cliente"
     mark_for_response: "Marcar respuesta necesaria"
+    needs_response: "Necesita respuesta"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

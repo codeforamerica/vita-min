@@ -5,7 +5,7 @@
         <h1 class="h1">
           <%= @client.preferred_name %>
         </h1>
-        <%= render "shared/client_needs_attention", client: @client %>
+        <%= render "shared/urgent_icon", client: @client %>
         <span class="text--help">#<%= @client.id %></span>
 
         <% if @client.access_locked? %>

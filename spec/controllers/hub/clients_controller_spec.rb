@@ -253,7 +253,7 @@ RSpec.describe Hub::ClientsController do
         it "adds the needs attention icon into the DOM" do
           get :show, params: params
           profile = Nokogiri::HTML.parse(response.body)
-          expect(profile).to have_css("i.needs-attention")
+          expect(profile).to have_css("i.urgent")
         end
       end
     end
@@ -341,8 +341,8 @@ RSpec.describe Hub::ClientsController do
             get :index
 
             html = Nokogiri::HTML.parse(response.body)
-            expect(html.at_css("#client-#{michael.id}")).not_to have_css("i.needs-attention")
-            expect(html.at_css("#client-#{tobias.id}")).to have_css("i.needs-attention")
+            expect(html.at_css("#client-#{michael.id}")).not_to have_css("i.urgent")
+            expect(html.at_css("#client-#{tobias.id}")).to have_css("i.urgent")
           end
         end
 
