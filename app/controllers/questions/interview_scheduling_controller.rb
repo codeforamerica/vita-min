@@ -9,5 +9,9 @@ module Questions
     def tracking_data
       {}
     end
+
+    def illustration_path
+      "phone-number.svg"
+    end
   end
 end

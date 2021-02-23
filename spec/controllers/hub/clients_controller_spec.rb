@@ -356,6 +356,17 @@ RSpec.describe Hub::ClientsController do
             expect(html.at_css("#client-#{george_sr.id}")).to have_text("Locked")
           end
         end
+
+        context "when a client has no preferred name" do
+          before { george_sr.intake.update(preferred_name: nil) }
+
+          it "shows a default value so you can still click on the client" do
+            get :index
+
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("#client-#{george_sr.id}")).to have_text("Name left blank")
+          end
+        end
       end
 
       context "sorting and ordering" do
@@ -465,25 +476,25 @@ RSpec.describe Hub::ClientsController do
         end
 
         context "with no or bad params" do
-          let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake) }
-          let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake) }
+          let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 2.days.ago }
+          let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 1.day.ago }
 
-          it "defaults to sorting by id, desc by default" do
+          it "defaults to sorting by first_unanswered_incoming_interaction_at, asc by default" do
             get :index
 
-            expect(assigns[:sort_column]).to eq "id"
-            expect(assigns[:sort_order]).to eq "desc"
+            expect(assigns[:sort_column]).to eq "first_unanswered_incoming_interaction_at"
+            expect(assigns[:sort_order]).to eq "asc"
 
-            expect(assigns(:clients)).to eq [second_id, first_id]
+            expect(assigns(:clients)).to eq [first_id, second_id]
           end
 
           it "defaults to sorting by id, desc with bad params" do
             get :index, params: { column: "bad_sort", order: "no_order" }
 
-            expect(assigns[:sort_column]).to eq "id"
-            expect(assigns[:sort_order]).to eq "desc"
+            expect(assigns[:sort_column]).to eq "first_unanswered_incoming_interaction_at"
+            expect(assigns[:sort_order]).to eq "asc"
 
-            expect(assigns(:clients)).to eq [second_id, first_id]
+            expect(assigns(:clients)).to eq [first_id, second_id]
           end
         end
       end
@@ -754,7 +765,7 @@ RSpec.describe Hub::ClientsController do
 
   describe "#edit_take_action" do
     let(:client) { create(:client, vita_partner: organization) }
-    let!(:intake) { create :intake, client: client, email_notification_opt_in: "yes" }
+    let!(:intake) { create :intake, client: client, email_notification_opt_in: "yes", email_address: "intake@example.com" }
     let!(:tax_return_2019) { create :tax_return, client: client, year: 2019 }
     let!(:tax_return_2018) { create :tax_return, client: client, year: 2018 }
     let(:params) { { id: client } }

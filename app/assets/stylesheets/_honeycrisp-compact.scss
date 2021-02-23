@@ -51,18 +51,42 @@
 .background--white {
   background-color: white;
 }
+@mixin no-bleed() {
+  margin: {
+    left: 0;
+    right: 0;
+  }
+  padding: {
+    left: 0;
+    right: 0;
+  }
+}
 
 // GYR customizations
 .honeycrisp-compact {
+  .main-header {
+    @include no-bleed();
+    background: black;
+    height: $s60;
+    line-height: $s60;
+  }
+
   .grid {
     margin-left: 0;
     margin-right: 0;
   }
-  .slab {
-    margin-left: -3rem;
-    margin-right: -3rem;
-  }
 
+  // Override the negative margin and padding on the full-bleed classes that messes with default 100% width in browser.
+  .slab {
+    margin: {
+      left: 0;
+      right: 0;
+    }
+    padding: {
+      left: $s25;
+      right: $s25;
+    }
+  }
   .slab--padded {
     padding-top: 1.5rem;
     padding-bottom: 2rem;
@@ -182,6 +206,10 @@
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
+  }
+
+  .client-navigation {
+    @include no-bleed();
   }
 }
 

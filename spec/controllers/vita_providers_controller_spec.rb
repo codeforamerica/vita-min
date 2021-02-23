@@ -136,6 +136,20 @@ RSpec.describe VitaProvidersController do
           expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_search", data: expected_data)
         end
       end
+
+      context "with invalid page number" do
+        let!(:closest_providers) { create_list :vita_provider, 5, :with_coordinates, lat_lon: [37.834519, -122.263273] }
+        let!(:next_closest_providers) { create_list :vita_provider, 5, :with_coordinates, lat_lon: [37.826387, -122.269738] }
+        let(:params) do
+          { zip: "94609", page: "invalid" }
+        end
+
+        it "shows no search results" do
+          get :index, params: params
+
+          expect(assigns(:providers)).to eq([])
+        end
+      end
     end
   end
 

@@ -3,9 +3,12 @@
 <% content_for :card do %>
   <section class="slab slab--padded client-index-header">
     <%= render "shared/user_header" %>
-    <%= render "shared/dashboard_navigation" %>
+  </section>
+  <%= render "shared/dashboard_navigation" %>
+  <section class="slab slab--padded">
     <%= render "shared/client_filters" %>
-
+  </section>
+  <section class="slab slab--padded">
     <div class="actions-wrapper">
       <%= link_to t(".add_client"), new_hub_client_path, class: "button" %>
     </div>
@@ -40,17 +43,20 @@
 
           <% if @breach_date.present? %>
             <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: "No response since", column_name: "first_unanswered_incoming_interaction_at" %>
+              <%= render "shared/column_sort_link", title: t("clients.response_needed_since"), column_name: "first_unanswered_incoming_interaction_at" %>
             </th>
             <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: "Attention needed since", column_name: "attention_needed_since" %>
+              <%= render "shared/column_sort_link", title: t("clients.attention_needed_since"), column_name: "attention_needed_since" %>
             </th>
           <% else %>
             <th scope="col" class="index-table__header">
               <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
             </th>
             <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: "Consented At", column_name: "primary_consented_to_service_at" %>
+              <%= render "shared/column_sort_link", title: t("clients.response_needed_since"), column_name: "first_unanswered_incoming_interaction_at" %>
+            </th>
+            <th scope="col" class="index-table__header">
+              <%= render "shared/column_sort_link", title: t("clients.consented_at"), column_name: "primary_consented_to_service_at" %>
             </th>
           <% end %>
 
@@ -69,7 +75,7 @@
             </td>
             <th scope="row" class="index-table__row-header client-attribute__name">
               <%= link_to hub_client_path(id: client) do %>
-                <%= client.preferred_name %>
+                <%= client.preferred_name || t(".no_name_given") %>
               <% end %>
               <% if client.access_locked? %>
                 <span class="locked label label--red"><%= t("general.locked") %></span>
@@ -83,6 +89,7 @@
               <td class="index-table__cell"><%= formatted_datetime(client.attention_needed_since) %></td>
             <% else %>
               <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
+              <td class="index-table__cell"><%= formatted_datetime(client.first_unanswered_incoming_interaction_at) %></td>
               <td class="index-table__cell"><%= formatted_datetime(client.intake.primary_consented_to_service_at) || "-"%> </td>
             <% end %>
             <td class="index-table__cell"><%= client.intake.state_of_residence %></td>

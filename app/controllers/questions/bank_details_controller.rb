@@ -1,7 +1,5 @@
 module Questions
   class BankDetailsController < QuestionsController
-    def illustration_path; end
-
     def tracking_data
       {}
     end

@@ -27,48 +27,51 @@ class MailgunWebhooksController < ActionController::Base
 
     clients.each do |client|
       contact_record = IncomingEmail.create!(
-          client: client,
-          received_at: DateTime.now,
-          sender: sender_email,
-          to: params["To"],
-          from: params["From"],
-          recipient: params["recipient"],
-          subject: params["subject"],
-          body_html: params["body-html"],
-          body_plain: params["body-plain"],
-          stripped_html: params["stripped-html"],
-          stripped_text: params["stripped-text"],
-          stripped_signature: params["stripped-signature"],
-          received: params["Received"],
-          attachment_count: params["attachment-count"],
-          )
+        client: client,
+        received_at: DateTime.now,
+        sender: sender_email,
+        to: params["To"],
+        from: params["From"],
+        recipient: params["recipient"],
+        subject: params["subject"],
+        body_html: params["body-html"],
+        body_plain: params["body-plain"],
+        stripped_html: params["stripped-html"],
+        stripped_text: params["stripped-text"],
+        stripped_signature: params["stripped-signature"],
+        received: params["Received"],
+        attachment_count: params["attachment-count"],
+      )
       processed_attachments = []
       params.each_key do |key|
         next unless /^attachment-\d+$/.match?(key)
 
         attachment = params[key]
+        attachment.tempfile.seek(0) # just in case we read the same file for multiple clients
+        size = attachment.tempfile.size
 
         processed_attachments <<
-            if FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type
-              {
-                  io: attachment,
-                  filename: attachment.original_filename,
-                  content_type: attachment.content_type,
-                  identify: false # false = don't infer content type from extension
-              }
-            else
-              io = StringIO.new <<~TEXT
-            Unusable file with unknown or unsupported file type.
-            File name:'#{attachment.original_filename}'
-            File type:'#{attachment.content_type}'
-              TEXT
-              {
-                  io: io,
-                  filename: "invalid-#{attachment.original_filename}.txt",
-                  content_type: "text/plain;charset=UTF-8",
-                  identify: false
-              }
-            end
+          if (FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type) && (size > 0)
+            {
+                io: attachment,
+                filename: attachment.original_filename,
+                content_type: attachment.content_type,
+                identify: false # false = don't infer content type from extension
+            }
+          else
+            io = StringIO.new <<~TEXT
+              Unusable file with unknown or unsupported file type.
+              File name:'#{attachment.original_filename}'
+              File type:'#{attachment.content_type}'
+              File size: #{attachment.size} bytes
+            TEXT
+            {
+                io: io,
+                filename: "invalid-#{attachment.original_filename}.txt",
+                content_type: "text/plain;charset=UTF-8",
+                identify: false
+            }
+          end
       end
 
       processed_attachments.each do |upload_params|
@@ -76,7 +79,8 @@ class MailgunWebhooksController < ActionController::Base
           document_type: DocumentTypes::EmailAttachment.key,
           contact_record: contact_record,
           upload: upload_params
-      )
+        )
+
       end
 
       ClientChannel.broadcast_contact_record(contact_record)

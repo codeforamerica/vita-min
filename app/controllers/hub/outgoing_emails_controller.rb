@@ -4,13 +4,12 @@ module Hub
 
     before_action :require_sign_in
     load_and_authorize_resource :client
-    load_and_authorize_resource through: :client
 
     def create
       if outgoing_email_params[:body].present?
         ClientMessagingService.send_email(@client, current_user, outgoing_email_params[:body], attachment: outgoing_email_params[:attachment])
       end
-      redirect_to hub_client_messages_path(client_id: @outgoing_email.client_id)
+      redirect_to hub_client_messages_path(client_id: @client)
     end
 
     private

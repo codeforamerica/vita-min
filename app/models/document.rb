@@ -49,19 +49,29 @@ class Document < ApplicationRecord
   belongs_to :contact_record, polymorphic: true, optional: true
   belongs_to :tax_return, optional: true
   belongs_to :uploaded_by, polymorphic: true, optional: true
-  has_one_attached :upload
   validates :upload, presence: true
+  validate :upload_must_have_data
+  def upload_must_have_data
+    if upload.attached? && upload.blob.byte_size.zero?
+      errors[:upload] << I18n.t("validators.file_zero_length")
+    end
+  end
+
   validate :tax_return_belongs_to_client
 
   before_save :set_display_name
 
-  after_create do
+  after_create_commit do
     uploaded_by.is_a?(Client) ? record_incoming_interaction : record_internal_interaction
 
     if upload.filename.extension_without_delimiter.downcase == "heic"
       HeicToJpgJob.perform_later(id)
     end
   end
+
+  # has_one_attached needs to be called after defining any callbacks that access attachments, like
+  # the HEIC conversion; see https://github.com/rails/rails/issues/37304
+  has_one_attached :upload
 
   def document_type_label
     DocumentTypes::ALL_TYPES.find { |doc_type_class| doc_type_class.key == document_type } || document_type

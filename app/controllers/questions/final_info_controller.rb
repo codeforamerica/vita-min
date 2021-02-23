@@ -4,8 +4,6 @@ module Questions
 
     private
 
-    def illustration_path; end
-
     def after_update_success
       current_intake.update(completed_at: Time.now)
       IntakePdfJob.perform_later(current_intake.id, "Original 13614-C with 15080.pdf")

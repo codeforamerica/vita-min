@@ -6,6 +6,7 @@
 #  email_address :citext
 #  name          :string
 #  phone_number  :string
+#  sent_followup :boolean          default(FALSE)
 #  zip_code      :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -83,36 +84,58 @@ RSpec.describe Signup, type: :model do
     end
   end
 
-  describe ".valid_emails" do
-    context "with signups that have valid emails and invalid emails" do
+  describe ".valid_emails_with_unsent_followups_count" do
+    context "with signups with valid emails and invalid emails" do
       before do
         Signup.new(email_address: nil, name: "Sarah Squash").save!(validate: false)
-        create_list(:signup, 2, email_address: "sally@example.com")
-        Signup.create!(email_address: "spiNacH@example.com", name: "Sally Spinach")
-        Signup.create!(email_address: "sPInach@example.com", name: "Sally Spinach")
+        create_list(:signup, 2, email_address: "beatrice@example.com", name: "Beatrice Basil", sent_followup: false)
+        Signup.create!(email_address: "spinach@example.com", name: "Sally Spinach", sent_followup: true)
       end
 
-      it "returns each valid email" do
-        expect(Signup.valid_emails.map(&:downcase)).to match_array %w[sally@example.com spinach@example.com]
+      it "returns number of valid emails with unsent followups" do
+        expect(Signup.valid_emails_with_unsent_followups_count).to eq 1
       end
     end
   end
 
   describe ".send_followup_emails", active_job: true do
     let(:fake_current_time) { Time.utc(2021, 2, 11, 10, 5, 0) }
-
-    before do
-      allow(Signup).to receive(:valid_emails).and_return(%w[sally@example.com spinach@example.com])
-    end
+    let!(:first_signup) { create :signup, email_address: "beatrice@example.com", name: "Beatrice Basil", sent_followup: false }
+    let!(:second_signup) { create :signup, email_address: "spinach@example.com", name: "Sally Spinach", sent_followup: false }
+    let!(:third_signup) { create :signup, email_address: "beatrice@example.com", name: "Beatrice Basil", sent_followup: false }
 
     it "queues one message per valid email with a delay between them" do
       expect {
-        Timecop.freeze(fake_current_time) { Signup.send_followup_emails }
-      }.to have_enqueued_job.on_queue('mailers').at(fake_current_time).with(
-        "SignupFollowupMailer", "followup", "deliver_now", { args: ["sally@example.com"] }
-      ).and have_enqueued_job.on_queue("mailers").at(fake_current_time + 2.seconds).with(
-        "SignupFollowupMailer", "followup", "deliver_now", { args: ["spinach@example.com"] }
-      )
+        Signup.send_followup_emails
+      }.to have_enqueued_job.on_queue('mailers').exactly(:thrice)
+    end
+
+    it "sets sent_folowup to true for signups with enqueued jobs" do
+      Signup.send_followup_emails
+
+      expect(first_signup.reload.sent_followup).to eq true
+      expect(second_signup.reload.sent_followup).to eq true
+      expect(third_signup.reload.sent_followup).to eq true
+    end
+
+    context "when batch_size is passed in" do
+      it "only sends those number of emails" do
+        expect {
+          Signup.send_followup_emails(1)
+        }.to have_enqueued_job.on_queue('mailers').exactly(:once)
+      end
+    end
+
+    context "when send_followup_emails is called more than once" do
+      it "only sends one email to an email address with multiple signup records" do
+        expect {
+          Signup.send_followup_emails(1)
+          Signup.send_followup_emails(1)
+          Signup.send_followup_emails(1)
+        }.to have_enqueued_job.on_queue('mailers').with(
+          "SignupFollowupMailer", "followup", "deliver_now", { args: ['beatrice@example.com', 'Beatrice Basil'] }
+        ).once
+      end
     end
   end
 end

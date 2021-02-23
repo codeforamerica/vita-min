@@ -3,7 +3,7 @@ module Questions
     layout "yes_no_question"
 
     def illustration_path
-      "wages.svg"
+      "retirement-income.svg"
     end
 
     def method_name

@@ -83,6 +83,14 @@ describe Document do
         end
       end
     end
+
+    context "with a 0-byte upload" do
+      let(:document) { build :document, upload_path: Rails.root.join("spec", "fixtures", "attachments", "zero-bytes.jpg") }
+      it "rejects the file as invalid" do
+        expect(document).not_to be_valid
+        expect(document.errors).to include :upload
+      end
+    end
   end
 
   describe "#document_type" do

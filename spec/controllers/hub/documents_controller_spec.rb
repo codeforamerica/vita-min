@@ -37,6 +37,16 @@ RSpec.describe Hub::DocumentsController, type: :controller do
                  created_at: 1.hour.ago,
                  client: client
         }
+        let!(:fourth_document) do
+          doc = build :document,
+                      display_name: "zero-bytes.jpg",
+                      document_type: "Email Attachment",
+                      created_at: 1.hour.ago,
+                      client: client,
+                      upload_path: Rails.root.join("spec", "fixtures", "attachments", "zero-bytes.jpg")
+          doc.save(validate: false)
+          doc
+        end
 
         it "displays all the documents for the client" do
           get :index, params: params
@@ -56,6 +66,10 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           expect(third_doc_element).to have_text("Email attachment")
           expect(third_doc_element).to have_text("email-attachment.pdf")
           expect(third_doc_element).to have_text("1 hour ago")
+          fourth_doc_element = html.at_css("#document-#{fourth_document.id}")
+          expect(fourth_doc_element).to have_text("Email attachment")
+          expect(fourth_doc_element).to have_text("zero-bytes.jpg (empty file)")
+          expect(fourth_doc_element).to have_text("1 hour ago")
         end
       end
 

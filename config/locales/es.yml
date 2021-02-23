@@ -87,6 +87,7 @@ es:
         stage_status: Estado/etapa de declaración de impuestos
         organization: Organización/Sitio
         assigned_user: Asignado a
+        no_name_given: "Nombre dejado en blanco"
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
@@ -120,6 +121,7 @@ es:
         language_mismatch: Este cliente prefiere ser entrevistado en %{interview_language}
         prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}
         send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
+        no_opt_in: "El cliente no será notificado porque no ha optado por recibir notificaciones por correo electrónico o mensaje de texto."
       update_take_action:
         flash_message:
           email: envió email
@@ -139,6 +141,7 @@ es:
         upload_date: Fecha de carga
         uploaded_ago: Hace %{time}
         add_client_envelope_doc: "Agregar documento al sobre de cliente"
+        empty_file: "(archivo vacío)"
       display_name: Nombre Para Mostrar
     messages:
       index:
@@ -148,6 +151,7 @@ es:
         text_message_form:
           label: Enviar un mensaje de texto
           submit: Enviar
+        no_email_address: "No se encontró la dirección de correo electrónico de este cliente."
       email_from: Email de
       email_to: Email a
       automated: Automatizado
@@ -282,6 +286,8 @@ es:
         phone_number_or_email: "Número de teléfono / correo electrónico"
     ssn_itins:
       displayed: Visualización de la SSN o ITIN
+    client_channel:
+      please_reload_html: "↻ Vuelva a cargar la página para ver un mensaje nuevo."
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
@@ -742,6 +748,7 @@ es:
   validators:
     file_type: Por favor, sube un tipo de documento válido. Los tipos aceptados incluyen jpg, pdf y png.
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
+    file_zero_length: "Sube un archivo válido. El archivo que cargó parece estar vacío."
   views:
     dependents:
       form:
@@ -1967,3 +1974,6 @@ es:
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
+    response_needed_since: "Esperando respuesta"
+    attention_needed_since: "Atención necesaria desde"
+    consented_at: "Consentido en"

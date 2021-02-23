@@ -120,7 +120,7 @@ describe IncomingTextMessageService do
 
       before do
         allow(ClientChannel).to receive(:broadcast_contact_record)
-        allow_any_instance_of(TwilioService).to receive(:parse_attachments).and_return(parsed_attachments)
+        allow(TwilioService).to receive(:parse_attachments).and_return(parsed_attachments)
       end
 
       it "creates an incoming text message with the attachments associated" do

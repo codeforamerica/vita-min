@@ -1,40 +1,36 @@
 require 'rails_helper'
 
 describe TwilioService do
-  let(:request) { double }
-  let(:post_data) do
-    {
-      "ToCountry"=>"US",
-      "ToState"=>"OH",
-      "SmsMessageSid"=>"SM7067f0beef82c65f976dc2386a7sgd7w",
-      "NumMedia"=>"0",
-      "ToCity"=>"",
-      "FromZip"=>"95050",
-      "SmsSid"=>"SM7067f0beef82c65f976dc2386a7sgd7w",
-      "FromState"=>"CA",
-      "SmsStatus"=>"received",
-      "FromCity"=>"LOS GATOS",
-      "Body"=>"Hello, it me",
-      "FromCountry"=>"US",
-      "To"=>"+4158161286",
-      "ToZip"=>"",
-      "NumSegments"=>"1",
-      "MessageSid"=>"SM7067f0beef82c65fb6785v46754v6754",
-      "AccountSid"=>"AC70b4e3aa44fe961398q89we7yr98aw7y",
-      "From"=>"+15552341122",
-      "ApiVersion"=>"2010-04-01"
-    }
-  end
-
-  before do
-    allow(request).to receive(:url).and_return("https://getyourrefund.org/twilio/incoming-message")
-    allow(request).to receive(:headers).and_return({"X-Twilio-Signature" => "3n9j719k64iDJt6DfjT6cHWZJHG="})
-    allow(request).to receive(:POST).and_return(post_data)
-  end
-
   describe ".valid_request?" do
+    let(:request) { double }
+    let(:post_data) do
+      {
+        "ToCountry"=>"US",
+        "ToState"=>"OH",
+        "SmsMessageSid"=>"SM7067f0beef82c65f976dc2386a7sgd7w",
+        "NumMedia"=>"0",
+        "ToCity"=>"",
+        "FromZip"=>"95050",
+        "SmsSid"=>"SM7067f0beef82c65f976dc2386a7sgd7w",
+        "FromState"=>"CA",
+        "SmsStatus"=>"received",
+        "FromCity"=>"LOS GATOS",
+        "Body"=>"Hello, it me",
+        "FromCountry"=>"US",
+        "To"=>"+4158161286",
+        "ToZip"=>"",
+        "NumSegments"=>"1",
+        "MessageSid"=>"SM7067f0beef82c65fb6785v46754v6754",
+        "AccountSid"=>"AC70b4e3aa44fe961398q89we7yr98aw7y",
+        "From"=>"+15552341122",
+        "ApiVersion"=>"2010-04-01"
+      }
+    end
     let(:request_validator) { instance_double(Twilio::Security::RequestValidator) }
     before do
+      allow(request).to receive(:url).and_return("https://getyourrefund.org/twilio/incoming-message")
+      allow(request).to receive(:headers).and_return({"X-Twilio-Signature" => "3n9j719k64iDJt6DfjT6cHWZJHG="})
+      allow(request).to receive(:POST).and_return(post_data)
       allow(Twilio::Security::RequestValidator).to receive(:new).and_return(request_validator)
       allow(request_validator).to receive(:validate).and_return(true)
     end
@@ -51,7 +47,7 @@ describe TwilioService do
     end
   end
 
-  describe "#parse_attachments" do
+  describe ".parse_attachments" do
     context "with valid attachments" do
       let(:image_url) { "https://example.com/128eiuwe32" }
       let(:pdf_url) { "https://example.com/ljk12ekewf98" }
@@ -64,21 +60,20 @@ describe TwilioService do
           "MediaUrl1" => pdf_url,
         }
       }
-      let(:service) { TwilioService.new(params) }
 
       before do
-        allow(service).to receive(:fetch_attachment).with(image_url).and_return({
+        allow(TwilioService).to receive(:fetch_attachment).with(image_url).and_return({
           filename: "a_real_image.jpg",
           body: "image body"
         })
-        allow(service).to receive(:fetch_attachment).with(pdf_url).and_return({
+        allow(TwilioService).to receive(:fetch_attachment).with(pdf_url).and_return({
           filename: "a_real_document.pdf",
           body: "pdf body"
         })
       end
 
       it "creates attachment objects from params" do
-        result = service.parse_attachments
+        result = TwilioService.parse_attachments(params)
 
         expected_result = [
           {
@@ -102,10 +97,9 @@ describe TwilioService do
           "NumMedia" => "0",
         }
       }
-      let(:service) { TwilioService.new(params) }
 
       it "returns an empty array" do
-        expect(service.parse_attachments).to eq []
+        expect(TwilioService.parse_attachments(params)).to eq []
       end
     end
 
@@ -118,17 +112,15 @@ describe TwilioService do
           "MediaUrl0" => invalid_file_url,
         }
       }
-      let(:service) { TwilioService.new(params) }
-
       before do
-        allow(service).to receive(:fetch_attachment).with(invalid_file_url).and_return({
+        allow(TwilioService).to receive(:fetch_attachment).with(invalid_file_url).and_return({
           filename: "a-bad.file",
           body: "some bad content"
         })
       end
 
       it "returns modified filename, modified content, and text/plain content type" do
-        result = service.parse_attachments
+        result = TwilioService.parse_attachments(params)
         contents = <<~TEXT
           Unusable file with unknown or unsupported file type.
           File name:'a-bad.file'
@@ -147,7 +139,7 @@ describe TwilioService do
     end
   end
 
-  describe "#fetch_attachment" do
+  describe ".fetch_attachment" do
     let(:media_url) { "https://example.com/temporary_redirect" }
     let(:params) {
       {
@@ -156,8 +148,6 @@ describe TwilioService do
         "MediaUrl0" => media_url,
       }
     }
-    let(:service) { TwilioService.new(params) }
-
     before do
       moved_permanently = "https://example.com/moved_permanently"
       s3_ok = "https://example.com/s3_ok"
@@ -177,7 +167,72 @@ describe TwilioService do
         body: "~the content~"
       }
 
-      expect(service.fetch_attachment(media_url)).to eq result
+      expect(TwilioService.fetch_attachment(media_url)).to eq result
+    end
+  end
+
+  describe ".client" do
+    let(:fake_client) { double }
+    before do
+      allow(Twilio::REST::Client).to receive(:new).and_return fake_client
+      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :account_sid).and_return "account_sid"
+      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :auth_token).and_return "auth_token"
+    end
+
+    it "uses environment credentials to instantiate a twilio client" do
+      result = TwilioService.client
+      expect(result).to eq fake_client
+      expect(Twilio::REST::Client).to have_received(:new).with("account_sid", "auth_token")
+    end
+  end
+
+  describe ".send_text_message" do
+    let(:fake_client) { double }
+    let(:fake_messages_resource) { double }
+    let(:fake_message) { double }
+    before do
+      allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :messaging_service_sid).and_return "service_sid"
+      allow(TwilioService).to receive(:client).and_return fake_client
+      allow(fake_client).to receive(:messages).and_return fake_messages_resource
+      allow(fake_messages_resource).to receive(:create).and_return fake_message
+      allow(DatadogApi).to receive(:increment)
+    end
+
+    it "sends a text message using the twilio client" do
+      result = TwilioService.send_text_message(
+        to: "+15855551212",
+        body: "hello there",
+        status_callback: "http://example.com"
+      )
+
+      expect(result).to eq fake_message
+      expect(fake_messages_resource).to have_received(:create).with(
+        messaging_service_sid: "service_sid",
+        to: "+15855551212",
+        body: "hello there",
+        status_callback: "http://example.com"
+      )
+    end
+
+    it "doesn't relay a status callback if not given" do
+      TwilioService.send_text_message(
+        to: "+15855551212",
+        body: "hello there"
+      )
+
+      expect(fake_messages_resource).to have_received(:create).with(
+        messaging_service_sid: "service_sid",
+        to: "+15855551212",
+        body: "hello there",
+      )
+    end
+
+    it "sends a metric to Datadog" do
+      TwilioService.send_text_message(
+        to: "+15855551212",
+        body: "hello there"
+      )
+      expect(DatadogApi).to have_received(:increment).with "twilio.outgoing_text_messages.sent"
     end
   end
 end

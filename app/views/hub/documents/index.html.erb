@@ -31,7 +31,7 @@
           <td><%= document.document_type_label %></td>
           <td>
             <%= link_to hub_client_document_path(client_id: @client.id, id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
-              <%= document.display_name %>
+              <%= document.display_name %> <%= t(".empty_file") if document.upload.blob.byte_size.zero? %>
             <% end %>
           </td>
           <td>

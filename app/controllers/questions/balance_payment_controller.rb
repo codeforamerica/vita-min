@@ -4,10 +4,6 @@ module Questions
 
     private
 
-    def illustration_path
-      "banking.svg"
-    end
-
     def method_name
       "balance_pay_from_bank"
     end

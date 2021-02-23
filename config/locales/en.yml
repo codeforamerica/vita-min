@@ -78,6 +78,7 @@ en:
         language_mismatch: This client requested %{interview_language} for their interview
         prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}
         send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
+        no_opt_in: "The client will not be notified because they have not opted-in to notifications by email or text."
       update_take_action:
         flash_message:
           email: sent email
@@ -102,6 +103,7 @@ en:
         stage_status: Tax return stage/status
         organization: Organization/site
         assigned_user: Assigned to
+        no_name_given: "Name left blank"
       unlinked_clients:
         title: Unlinked clients
       navigation:
@@ -139,6 +141,7 @@ en:
         upload_date: Upload Date
         uploaded_ago: "%{time} ago"
         add_client_envelope_doc: "Add client envelope document"
+        empty_file: "(empty file)"
       display_name: Display name
     messages:
       index:
@@ -148,6 +151,7 @@ en:
         text_message_form:
           label: Send a text message
           submit: Send
+        no_email_address: "No email address for this client found."
       email_from: Email from
       email_to: Email to
       automated: Automated
@@ -280,6 +284,8 @@ en:
         phone_number_or_email: "Phone number/email"
     ssn_itins:
       displayed: Displaying SSN or ITIN
+    client_channel:
+      please_reload_html: "<li style='text-align: right'>↻ Please reload the page to see a new message.</li>"
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
@@ -737,6 +743,7 @@ en:
       header: We'd love to work with you next year to help you file your taxes or claim your stimulus for free!
       subheader: Please sign up here to receive a notification when we open in January 2021.
   validators:
+    file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
   views:
@@ -1940,5 +1947,8 @@ en:
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
+    response_needed_since: "Waiting on response"
+    attention_needed_since: "Attention needed since"
+    consented_at: "Consented at"
 
 
