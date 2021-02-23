@@ -95,6 +95,13 @@ RSpec.configure do |config|
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
     allow(EnvironmentCredentials).to receive(:dig).and_call_original
     allow(EnvironmentCredentials).to receive(:dig).with(:db_encryption_key).and_return('any-32-character-string-here!!!!')
+    # Stub valid_email2's network-dependent functionality per https://github.com/micke/valid_email2
+    allow_any_instance_of(ValidEmail2::Address).to receive(:valid_mx?) { true }
+    # Stub DNS implementation to avoid network calls from test suite; valid_email2 uses this
+    fake_dns = instance_double(Resolv::DNS)
+    allow(fake_dns).to receive(:open) { raise StandardError, "Cannot use DNS from test suite" }
+    allow(fake_dns).to receive(:close)
+    allow(Resolv::DNS).to receive(:new).and_return(fake_dns)
   end
 end
 
