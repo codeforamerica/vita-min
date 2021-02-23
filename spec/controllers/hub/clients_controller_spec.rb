@@ -765,7 +765,7 @@ RSpec.describe Hub::ClientsController do
 
   describe "#edit_take_action" do
     let(:client) { create(:client, vita_partner: organization) }
-    let!(:intake) { create :intake, client: client, email_notification_opt_in: "yes" }
+    let!(:intake) { create :intake, client: client, email_notification_opt_in: "yes", email_address: "intake@example.com" }
     let!(:tax_return_2019) { create :tax_return, client: client, year: 2019 }
     let!(:tax_return_2018) { create :tax_return, client: client, year: 2018 }
     let(:params) { { id: client } }

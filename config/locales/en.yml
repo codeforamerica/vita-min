@@ -78,6 +78,7 @@ en:
         language_mismatch: This client requested %{interview_language} for their interview
         prefers_one_contact_method: This client prefers %{preferred} instead of %{other_method}
         send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
+        no_opt_in: "The client will not be notified because they have not opted-in to notifications by email or text."
       update_take_action:
         flash_message:
           email: sent email
@@ -150,6 +151,7 @@ en:
         text_message_form:
           label: Send a text message
           submit: Send
+        no_email_address: "No email address for this client found."
       email_from: Email from
       email_to: Email to
       automated: Automated

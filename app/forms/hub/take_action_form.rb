@@ -1,13 +1,13 @@
 module Hub
   class TakeActionForm < Form
     attr_accessor :tax_return,
-                  :tax_return_id, 
-                  :tax_returns, 
-                  :status, 
-                  :locale, 
-                  :message_body, 
-                  :contact_method, 
-                  :internal_note_body, 
+                  :tax_return_id,
+                  :tax_returns,
+                  :status,
+                  :locale,
+                  :message_body,
+                  :contact_method,
+                  :internal_note_body,
                   :action_list,
                   :current_user,
                   :client
@@ -37,14 +37,11 @@ module Hub
     end
 
     def contact_method_options
+      # Clients who went through online intake always have a contact method,
+      # but drop-off clients might not have opted-in to sms or email.
       methods = []
-      methods << { value: "email", label: I18n.t("general.email") } if client.intake.email_notification_opt_in_yes?
+      methods << { value: "email", label: I18n.t("general.email") } if client.intake.email_notification_opt_in_yes? && client.intake.email_address.present?
       methods << { value: "text_message", label: I18n.t("general.text_message") } if client.intake.sms_notification_opt_in_yes?
-
-      # We should not have an expected case where a client hasn't opted in, but it might occur rarely or on demo
-      # We don't want this form to fail silently if that is the case.
-      raise StandardError.new("Client has not opted in to any communications") unless methods.present?
-
       methods
     end
 
@@ -82,7 +79,7 @@ module Hub
     end
 
     def set_default_contact_method
-      default = "email"
+      default = "email" if client.intake.email_address.present?
       prefers_sms_only = client.intake.sms_notification_opt_in_yes? && client.intake.email_notification_opt_in_no?
       @contact_method = prefers_sms_only ? "text_message" : default
     end

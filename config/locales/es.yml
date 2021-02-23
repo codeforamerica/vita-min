@@ -121,6 +121,7 @@ es:
         language_mismatch: Este cliente prefiere ser entrevistado en %{interview_language}
         prefers_one_contact_method: Este cliente prefiere %{preferred} en vez de %{other_method}
         send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
+        no_opt_in: "El cliente no será notificado porque no ha optado por recibir notificaciones por correo electrónico o mensaje de texto."
       update_take_action:
         flash_message:
           email: envió email
@@ -150,6 +151,7 @@ es:
         text_message_form:
           label: Enviar un mensaje de texto
           submit: Enviar
+        no_email_address: "No se encontró la dirección de correo electrónico de este cliente."
       email_from: Email de
       email_to: Email a
       automated: Automatizado
