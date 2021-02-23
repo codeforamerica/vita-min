@@ -99,6 +99,10 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'git-pair'
   gem 'annotate'
+  gem 'rack-mini-profiler'
+  gem 'flamegraph'
+  gem 'stackprof'
+  gem 'memory_profiler'
 end
 
 group :test do
