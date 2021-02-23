@@ -145,18 +145,19 @@ RSpec.describe MailgunWebhooksController do
           it "stores them on the IncomingEmail" do
             expect do
               post :create_incoming_email, params: params.update({
-                "attachment-count": 4,
+                "attachment-count": 5,
                 "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
                 "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/jpeg"),
                 "attachment-3" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-spreadsheet.xls", "application/vnd.ms-excel"),
                 "attachment-4" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pdf.pdf", ""),
+                "attachment-5" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/zero-bytes.jpg", "image/jpeg"),
               })
-            end.to change(Document, :count).by(4)
+            end.to change(Document, :count).by(5)
 
             email = IncomingEmail.last
             expect(email.client).to eq client
 
-            documents = client.documents
+            documents = client.documents.order(:id)
             expect(documents.all.pluck(:document_type).uniq).to eq([DocumentTypes::EmailAttachment.key])
             expect(documents.first.contact_record).to eq email
             expect(documents.first.upload.blob.download).to eq(open("spec/fixtures/attachments/document_bundle.pdf", "rb").read)
@@ -167,6 +168,7 @@ RSpec.describe MailgunWebhooksController do
               Unusable file with unknown or unsupported file type.
               File name:'test-spreadsheet.xls'
               File type:'application/vnd.ms-excel'
+              File size: 25600 bytes
             TEXT
             expect(documents.third.upload.blob.download).to eq(spreadsheet_message)
             expect(documents.third.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
@@ -175,9 +177,18 @@ RSpec.describe MailgunWebhooksController do
               Unusable file with unknown or unsupported file type.
               File name:'test-pdf.pdf'
               File type:''
+              File size: 13723 bytes
             TEXT
             expect(documents.fourth.upload.blob.download).to eq(no_file_type_message)
             expect(documents.fourth.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
+            empty_file_message = <<~TEXT
+              Unusable file with unknown or unsupported file type.
+              File name:'zero-bytes.jpg'
+              File type:'image/jpeg'
+              File size: 0 bytes
+            TEXT
+            expect(documents.fifth.upload.blob.download).to eq(empty_file_message)
+            expect(documents.fifth.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
           end
         end
       end
