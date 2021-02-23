@@ -286,6 +286,8 @@ es:
         phone_number_or_email: "Número de teléfono / correo electrónico"
     ssn_itins:
       displayed: Visualización de la SSN o ITIN
+    client_channel:
+      please_reload_html: "↻ Vuelva a cargar la página para ver un mensaje nuevo."
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!

@@ -284,6 +284,8 @@ en:
         phone_number_or_email: "Phone number/email"
     ssn_itins:
       displayed: Displaying SSN or ITIN
+    client_channel:
+      please_reload_html: "<li style='text-align: right'>↻ Please reload the page to see a new message.</li>"
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
