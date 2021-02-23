@@ -16,7 +16,7 @@ class VitaProvidersController < ApplicationController
         @providers = VitaProvider.sort_by_distance_from_zipcode(@zip, @page)
         @zip_name = ZipCodes.details(@zip)[:name]
 
-        if @providers.total_entries > 0
+        if @providers.count > 0
           track_provider_search
         else
           track_provider_search_no_results
