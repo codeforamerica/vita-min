@@ -48,9 +48,10 @@ class MailgunWebhooksController < ActionController::Base
 
         attachment = params[key]
         attachment.tempfile.seek(0) # just in case we read the same file for multiple clients
+        size = attachment.tempfile.size
 
         processed_attachments <<
-          if FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type
+          if (FileTypeAllowedValidator::VALID_MIME_TYPES.include? attachment.content_type) && (size > 0)
             {
                 io: attachment,
                 filename: attachment.original_filename,
@@ -62,6 +63,7 @@ class MailgunWebhooksController < ActionController::Base
               Unusable file with unknown or unsupported file type.
               File name:'#{attachment.original_filename}'
               File type:'#{attachment.content_type}'
+              File size: #{attachment.size} bytes
             TEXT
             {
                 io: io,
@@ -78,6 +80,7 @@ class MailgunWebhooksController < ActionController::Base
           contact_record: contact_record,
           upload: upload_params
         )
+
       end
 
       ClientChannel.broadcast_contact_record(contact_record)
