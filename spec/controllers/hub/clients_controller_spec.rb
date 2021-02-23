@@ -356,6 +356,17 @@ RSpec.describe Hub::ClientsController do
             expect(html.at_css("#client-#{george_sr.id}")).to have_text("Locked")
           end
         end
+
+        context "when a client has no preferred name" do
+          before { george_sr.intake.update(preferred_name: nil) }
+
+          it "shows a default value so you can still click on the client" do
+            get :index
+
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("#client-#{george_sr.id}")).to have_text("Name left blank")
+          end
+        end
       end
 
       context "sorting and ordering" do

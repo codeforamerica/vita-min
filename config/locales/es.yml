@@ -87,6 +87,7 @@ es:
         stage_status: Estado/etapa de declaración de impuestos
         organization: Organización/Sitio
         assigned_user: Asignado a
+        no_name_given: "Nombre dejado en blanco"
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
