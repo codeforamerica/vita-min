@@ -32,13 +32,27 @@ RSpec.describe NotesPresenter do
 
     context "with documents on one day" do
       let(:day1) { DateTime.new(2019, 10, 5, 8, 1).utc }
-      let!(:documents) { create_list(:document, 5, created_at: day1, client: client) }
+      let!(:documents) { create_list(:document, 5, created_at: day1, client: client, uploaded_by: client) }
 
       it "groups recently created documents into one message" do
         result = NotesPresenter.grouped_notes(client)
         expect(result[day1.beginning_of_day][0].created_at).to eq day1
         expect(result[day1.beginning_of_day][0].body).to eq "Client added 5 documents."
       end
+
+      context "when there are documents uploaded by the system or a user" do
+        before do
+          create_list(:document, 2, created_at: day1, client: client)
+          create_list(:document, 1, created_at: day1, client: client, uploaded_by: create(:user))
+        end
+
+        it "does not include docs that are not uploaded by the client" do
+          result = NotesPresenter.grouped_notes(client)
+          expect(result[day1.beginning_of_day][0].created_at).to eq day1
+          expect(result[day1.beginning_of_day][0].body).to eq "Client added 5 documents."
+        end
+      end
+
     end
 
     context "with documents on multiple days" do
@@ -47,9 +61,9 @@ RSpec.describe NotesPresenter do
       let(:day2_noon) { DateTime.new(2019, 10, 8, 12).utc }
 
       before do
-        create_list(:document, 1, created_at: day1, client: client)
-        create_list(:document, 2, created_at: day2, client: client)
-        create_list(:document, 2, created_at: day2_noon, client: client)
+        create_list(:document, 1, created_at: day1, client: client, uploaded_by: client)
+        create_list(:document, 2, created_at: day2, client: client, uploaded_by: client)
+        create_list(:document, 2, created_at: day2_noon, client: client, uploaded_by: client)
       end
 
       it "groups recently created documents into one message" do

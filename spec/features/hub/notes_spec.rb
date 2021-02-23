@@ -4,8 +4,9 @@ RSpec.feature "View and add internal notes for a client" do
   context "As an authenticated user" do
     let(:organization) { create :organization }
     let(:user) { create :user, timezone: "America/Los_Angeles", role: create(:organization_lead_role, organization: organization) }
-    let(:documents) { create_list(:document, 3, created_at: DateTime.new(2020, 3, 1).utc, document_type: "Employment") }
-    let(:client) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Bart Simpson"), documents: documents }
+    let!(:documents) { create_list(:document, 3, created_at: DateTime.new(2020, 3, 1).utc, document_type: "Employment", uploaded_by: client, client: client) }
+    let!(:not_included_docs) { create_list(:document, 2, created_at: DateTime.new(2020, 3,1).utc, uploaded_by: user, client: client) }
+    let(:client) { create :client, vita_partner: organization, intake: create(:intake, preferred_name: "Bart Simpson") }
     before do
       login_as user
     end
