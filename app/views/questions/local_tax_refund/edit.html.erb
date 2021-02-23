@@ -1,5 +1,3 @@
 <% content_for :form_question, t("views.questions.local_tax_refund.title", :year => current_intake.most_recent_filing_year, :count => current_intake.filer_count) %>
 
 <% content_for :form_help_text, t("views.questions.local_tax_refund.help_text", :prior_year => current_intake.year_before_most_recent_filing_year) %>
-
-<% content_for :method_name, :had_local_tax_refund %>

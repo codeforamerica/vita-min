@@ -460,6 +460,7 @@ es:
     assign: Asignar
     assignee: Asignada a
     attachment: Adjunto
+    back: Regresa
     cancel: Cancelar
     call: Llamada
     capacity_limit: Límite de capacidad
@@ -1692,7 +1693,7 @@ es:
           sms_phone_number: Número Celular
         title: "¿Cómo podemos actualizarlo en su declaración de impuestos?"
       other_income:
-        help_text: Tales como pagos en efectivo, deberes de jurado, premios, moneda virtual, regalías o beneficios de huelga sindical.
+        help_text: Tales como pagos en efectivo, deberes de jurado, premios, moneda virtual, regalías o beneficios de huelga sindical (sin incluir un pago de estímulo).
         title:
           one: En %{year}, ¿recibió algún otro dinero?
           other: En el %{year}, ¿Recibió usted o su pareja algún otro dinero?

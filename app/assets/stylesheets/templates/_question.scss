@@ -1,16 +1,23 @@
 .question-layout {
-  position: relative;
-  padding-top: 6rem;
+  padding-top: 2.5rem;
+  padding-bottom: 6rem;
   .back {
-    margin-top: $s25;
-    padding-bottom: $s10;
+    margin-bottom: 3.5rem;
     display: block;
-    bottom: 0;
     a {
+      &:before {
+        content:'←';
+        padding-right: .5rem;
+      }
+      font-size: 1.6rem;
+      border: 1px solid $color-grey-medium;
+      border-radius: 4px;
+      background: $color-grey-light;
+      padding: .75rem 1rem;
       color: $color-grey-medium;
-      font-weight: bold;
+      text-decoration: none;
       &:hover {
-        color: darken($color-grey-medium, 10%)
+        background: darken($color-grey-light, 10%);
       }
       &:visited {
         color: $color-grey-medium;

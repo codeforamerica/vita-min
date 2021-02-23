@@ -19,27 +19,27 @@ require 'rails_helper'
 RSpec.describe StimulusTriage, type: :model do
   it do
     is_expected.to define_enum_for(:need_to_correct)
-      .with_values({ unfilled: 0, yes: 1, no: 2 })
+      .with_values({ unfilled: 0, yes: 1, no: 2, unsure: 3 })
       .with_prefix(:need_to_correct)
   end
   it do
     is_expected.to define_enum_for(:filed_prior_years)
-      .with_values({ unfilled: 0, yes: 1, no: 2 })
+      .with_values({ unfilled: 0, yes: 1, no: 2, unsure: 3 })
       .with_prefix(:filed_prior_years)
   end
   it do
     is_expected.to define_enum_for(:need_to_file)
-      .with_values({ unfilled: 0, yes: 1, no: 2 })
+      .with_values({ unfilled: 0, yes: 1, no: 2, unsure: 3 })
       .with_prefix(:need_to_file)
   end
   it do
     is_expected.to define_enum_for(:filed_recently)
-      .with_values({ unfilled: 0, yes: 1, no: 2 })
+      .with_values({ unfilled: 0, yes: 1, no: 2, unsure: 3 })
       .with_prefix(:filed_recently)
   end
   it do
     is_expected.to define_enum_for(:chose_to_file)
-      .with_values({ unfilled: 0, yes: 1, no: 2 })
+      .with_values({ unfilled: 0, yes: 1, no: 2, unsure: 3 })
       .with_prefix(:chose_to_file)
   end
 end

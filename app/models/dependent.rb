@@ -25,11 +25,11 @@
 class Dependent < ApplicationRecord
   belongs_to :intake
 
-  enum was_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_student
-  enum on_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :on_visa
-  enum north_american_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :north_american_resident
-  enum disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :disabled
-  enum was_married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_married
+  enum was_student: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_student
+  enum on_visa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :on_visa
+  enum north_american_resident: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :north_american_resident
+  enum disabled: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :disabled
+  enum was_married: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_married
 
   validates_presence_of :first_name
   validates_presence_of :last_name

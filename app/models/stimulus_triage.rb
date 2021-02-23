@@ -17,9 +17,9 @@
 class StimulusTriage < ApplicationRecord
   has_one :intake, as: :triage_source
 
-  enum filed_recently: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_recently
-  enum need_to_correct: { unfilled: 0, yes: 1, no: 2 }, _prefix: :need_to_correct
-  enum filed_prior_years: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_prior_years
-  enum need_to_file: { unfilled: 0, yes: 1, no: 2 }, _prefix: :need_to_file
-  enum chose_to_file: { unfilled: 0, yes: 1, no: 2 }, _prefix: :chose_to_file
+  enum filed_recently: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :filed_recently
+  enum need_to_correct: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :need_to_correct
+  enum filed_prior_years: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :filed_prior_years
+  enum need_to_file: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :need_to_file
+  enum chose_to_file: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :chose_to_file
 end

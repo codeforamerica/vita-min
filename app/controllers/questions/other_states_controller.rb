@@ -6,5 +6,11 @@ module Questions
       @assumed_state_of_residency = States.name_for_key(current_intake.state)
       super
     end
+
+    private
+
+    def method_name
+      "multiple_states"
+    end
   end
 end

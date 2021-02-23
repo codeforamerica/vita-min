@@ -458,6 +458,7 @@ en:
     assign: Assign
     assignee: Assignee
     attachment: Attachment
+    back: Go back
     cancel: Cancel
     call: Call
     capacity_limit: Capacity limit
@@ -1665,7 +1666,7 @@ en:
           sms_phone_number: Cell phone number
         title: How can we update you on your tax return?
       other_income:
-        help_text: Such as cash payments, jury duty, awards, virtual currency, royalties, or union strike benefits.
+        help_text: Such as cash payments, jury duty, awards, virtual currency, royalties, or union strike benefits (not including a stimulus payment).
         title:
           one: In %{year}, did you receive any other money?
           other: In %{year}, did you or your spouse receive any other money?
