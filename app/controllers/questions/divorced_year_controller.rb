@@ -6,6 +6,8 @@ module Questions
       intake.divorced_yes?
     end
 
-    def illustration_path; end
+    def illustration_path
+      "calendar.svg"
+    end
   end
 end

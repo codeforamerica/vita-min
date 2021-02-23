@@ -9,5 +9,9 @@ module Questions
         super
       end
     end
+
+    def illustration_path
+      "dependents.svg"
+    end
   end
 end
