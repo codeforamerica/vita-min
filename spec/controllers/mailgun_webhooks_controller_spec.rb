@@ -190,6 +190,30 @@ RSpec.describe MailgunWebhooksController do
             expect(documents.fifth.upload.blob.download).to eq(empty_file_message)
             expect(documents.fifth.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
           end
+
+          context "when the attachment is already stored" do
+            before do
+              client.documents.create!(
+                document_type: DocumentTypes::EmailAttachment.key,
+                contact_record: create(:incoming_email, client: client),
+                upload: Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png")
+              )
+            end
+
+            it "saves only the new attachments" do
+              expect {
+                post :create_incoming_email, params: params.update({
+                    "attachment-count": 2,
+                    "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/document_bundle.pdf", "application/pdf"),
+                    "attachment-2" => Rack::Test::UploadedFile.new("spec/fixtures/attachments/test-pattern.png", "image/jpeg"),
+                                                                     })
+              }.to change(Document, :count).by(1)
+
+              documents = client.documents
+              expect(documents.all.pluck(:document_type).uniq).to eq([DocumentTypes::EmailAttachment.key])
+              expect(Document.last.upload.filename).to eq("document_bundle.pdf")
+            end
+          end
         end
       end
 

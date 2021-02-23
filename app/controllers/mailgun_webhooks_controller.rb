@@ -74,7 +74,40 @@ class MailgunWebhooksController < ActionController::Base
           end
       end
 
+      # Check for duplicates
+      processed_attachments.reject do |upload_params|
+        md5 = Digest::MD5.new
+          while chunk = s.read(1024000)
+            md5.update chunk
+          end
+        end
+        upload_params.io
+        # Check blobs by digest first for speed
+
+        digest = Digest::MD5.file(attachment.tempfile).base64digest
+        matching_blobs_by_digest = ActiveStorage::Blob.where(digest: digest)
+        if matching_blobs_by_digest.exists?
+          # Check if there's a matching blob is related to this doc & client
+        end
+
+      end
+
       processed_attachments.each do |upload_params|
+        digest = Digest::MD5.file(attachment.tempfile).base64digest
+        # Check blobs by digest first for speed
+        matching_blobs_by_digest = ActiveStorage::Blob.where(digest: digest)
+        if matching_blobs_by_digest.exists?
+          # Check if there's a matching blob is related to this doc & client
+        end
+
+        matching_blobs = ActiveStorage::Blob.where(digest: digest).where()
+
+        existing_client_email_attachments = ActiveStorage::Attachment.where(record: Document.where(document_type: DocumentTypes::EmailAttachment.key, client: client)
+        client_email_blob_ids = client_email_attachments.select(:blob_id).pluck(:blob_id)
+        client_email_blobs = ActiveStorage::Blob.where(id: client_email_attachments.pluck(:blob_id))
+        ActiveStorage::Blob.where(id: ActiveStorage::Attachment.where(record: Document.where(document_type: DocumentTypes::EmailAttachment.key, client: Client.find(794))).pluck(:blob_id)).checksum
+        # Rewind file before uploading
+        upload.io.rewind
         client.documents.create!(
           document_type: DocumentTypes::EmailAttachment.key,
           contact_record: contact_record,
