@@ -10,19 +10,21 @@
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <%= yield :notices %>
-        <%= render "shared/progress_bar" %>
+        <% if prev_path %>
+          <div class="back grid">
+            <%= link_to t("general.back"), prev_path %>
+          </div>
+        <% end %>
+        <div>
+          <%= render "shared/progress_bar" %>
+        </div>
         <main role="main">
           <% if illustration_path.present? %>
-            <div class="question__illustration spacing-above-0">
+            <div class="question__illustration">
               <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
             </div>
           <% end %>
           <%= yield :form_card %>
-          <% if prev_path %>
-            <div class="back grid">
-              <%= link_to t("general.back"), prev_path %>
-            </div>
-          <% end %>
         </main>
       </div>
     </div>

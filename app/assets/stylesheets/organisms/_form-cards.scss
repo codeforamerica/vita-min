@@ -19,6 +19,7 @@
 
 .form-question {
   @extend .h2;
+  margin-top: 0;
 }
 
 .form-card--long {
@@ -44,17 +45,16 @@
     margin-left: 0;
   }
   .options-wrapper {
-    //display: flex;
-    //flex-direction: column;
-    //align-items: center;
-    //width: 35rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 35rem;
     .yes-no-buttons {
-      max-width: 35rem;
       display: flex;
+      width: 100%;
       justify-content: space-between;
-      margin: 6rem auto 0;
+      margin: 3.5rem auto 0;
       @media screen and (min-width: $tablet-up) {
-        margin: 6rem 0 0 0;
+        margin: 3.5rem 0 0 0;
       }
 
       .button {
@@ -64,8 +64,15 @@
         }
       }
     }
+    .i-dont-know {
+      display: flex;
+      justify-content: center;
+    }
     .button--link {
+      margin-bottom: -1.5rem; // Account for the "secret" hover padding added to the object.
       color: black;
+      font-weight: bold;
+
       &:hover {
         background: $color-grey-light;
       }
@@ -84,7 +91,7 @@
 }
 
 .question__illustration {
-  margin: 0 0 5rem 0;
+  margin: 0 0 2.5rem 0;
   text-align: center;
   @media screen and (min-width: $tablet-up) {
     text-align: left;

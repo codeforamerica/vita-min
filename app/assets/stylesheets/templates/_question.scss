@@ -1,8 +1,8 @@
 .question-layout {
-  padding-top: 6rem;
-  padding-bottom: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 6rem;
   .back {
-    margin-top: $s25;
+    margin-bottom: 3.5rem;
     display: block;
     a {
       &:before {
@@ -13,7 +13,7 @@
       border: 1px solid $color-grey-medium;
       border-radius: 4px;
       background: $color-grey-light;
-      padding: 1rem;
+      padding: .75rem 1rem;
       color: $color-grey-medium;
       text-decoration: none;
       &:hover {

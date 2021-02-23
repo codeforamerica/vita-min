@@ -9,7 +9,7 @@ module Questions
     end
 
     def method_name
-      :balance_pay_from_bank
+      "balance_pay_from_bank"
     end
   end
 end

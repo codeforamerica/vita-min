@@ -5,7 +5,7 @@ module Questions
     private
 
     def method_name
-      :had_debt_forgiven
+      "had_debt_forgiven"
     end
   end
 end

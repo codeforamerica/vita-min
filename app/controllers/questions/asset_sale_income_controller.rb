@@ -9,7 +9,7 @@ module Questions
     private
 
     def method_name
-      :had_asset_sale_income
+      "had_asset_sale_income"
     end
   end
 end
