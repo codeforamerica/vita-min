@@ -628,6 +628,8 @@ es:
     hidden: Encubierto
     locked: "Bloqueada"
     suspended: "Suspendida"
+    responded_to_client: "Respondido al cliente"
+    mark_for_response: "Marcar respuesta necesaria"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

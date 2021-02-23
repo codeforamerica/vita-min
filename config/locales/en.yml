@@ -625,6 +625,8 @@ en:
     hidden: Hidden
     locked: "Locked"
     suspended: "Suspended"
+    responded_to_client: "Responded to client"
+    mark_for_response: "Mark as response needed"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
