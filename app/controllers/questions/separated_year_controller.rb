@@ -6,6 +6,8 @@ module Questions
       intake.separated_yes?
     end
 
-    def illustration_path; end
+    def illustration_path
+      "calendar.svg"
+    end
   end
 end

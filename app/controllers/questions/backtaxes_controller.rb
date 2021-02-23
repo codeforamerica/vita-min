@@ -45,5 +45,9 @@ module Questions
         visitor_id: visitor_id
       )
     end
+
+    def illustration_path
+      "calendar.svg"
+    end
   end
 end
