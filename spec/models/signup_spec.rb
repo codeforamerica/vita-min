@@ -84,16 +84,16 @@ RSpec.describe Signup, type: :model do
     end
   end
 
-  describe ".valid_emails_with_unsent_followups" do
-    context "with signups that have valid emails and invalid emails" do
+  describe ".valid_emails_with_unsent_followups_count" do
+    context "with signups with valid emails and invalid emails" do
       before do
         Signup.new(email_address: nil, name: "Sarah Squash").save!(validate: false)
         create_list(:signup, 2, email_address: "beatrice@example.com", name: "Beatrice Basil", sent_followup: false)
         Signup.create!(email_address: "spinach@example.com", name: "Sally Spinach", sent_followup: true)
       end
 
-      it "returns each valid email and the client's name from signups with unsent followups" do
-        expect(Signup.valid_emails_with_unsent_followups).to match_array [['beatrice@example.com', 'Beatrice Basil']]
+      it "returns number of valid emails with unsent followups" do
+        expect(Signup.valid_emails_with_unsent_followups_count).to eq 1
       end
     end
   end
@@ -106,12 +106,8 @@ RSpec.describe Signup, type: :model do
 
     it "queues one message per valid email with a delay between them" do
       expect {
-        Timecop.freeze(fake_current_time) { Signup.send_followup_emails }
-      }.to have_enqueued_job.on_queue('mailers').at(fake_current_time).with(
-        "SignupFollowupMailer", "followup", "deliver_now", { args: ['beatrice@example.com', 'Beatrice Basil'] }
-      ).and have_enqueued_job.on_queue("mailers").at(fake_current_time + 2.seconds).with(
-        "SignupFollowupMailer", "followup", "deliver_now", { args: ['spinach@example.com', 'Sally Spinach'] }
-      )
+        Signup.send_followup_emails
+      }.to have_enqueued_job.on_queue('mailers').exactly(:thrice)
     end
 
     it "sets sent_folowup to true for signups with enqueued jobs" do

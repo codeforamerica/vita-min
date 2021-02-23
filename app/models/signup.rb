@@ -18,21 +18,28 @@ class Signup < ApplicationRecord
   validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
   validates :email_address, 'valid_email_2/email': true
 
-  def self.valid_emails_with_unsent_followups
-    distinct(:email_address).where(sent_followup: false).pluck(:email_address, :name).filter do |signup_info|
-      ValidEmail2::Address.new(signup_info[0]).valid?
-    end
+
+  def self.valid_emails_with_unsent_followups_count
+    distinct(:email_address).where(sent_followup: false).pluck(:email_address).filter do |email|
+      ValidEmail2::Address.new(email).valid?
+    end.count
   end
 
-  def self.send_followup_emails(batch_size = nil)
-    emails_to_send = batch_size.present? ? valid_emails_with_unsent_followups.slice(0, batch_size) : valid_emails_with_unsent_followups
+  def self.with_unsent_followups
+    distinct(:email_address).where(sent_followup: false)
+  end
 
-    emails_to_send.each_with_index do |signup_info, index|
-      SignupFollowupMailer.followup(signup_info[0], signup_info[1]).deliver_later(wait: index * 2)
-      Signup.where(email_address: signup_info[0]).each do |signup|
-        signup.update!(sent_followup: true)
-      end
+
+  def self.send_followup_emails(batch_size = nil)
+    valid_count = 0
+    with_unsent_followups.limit(batch_size).find_each do |signup|
+      next unless ValidEmail2::Address.new(signup.email_address).valid?
+
+      valid_count += 1
+      SignupFollowupMailer.followup(signup.email_address, signup.name).deliver_later
+      Signup.where(email_address: signup.email_address).update_all(sent_followup: true)
     end
+    puts(valid_count)
   end
 
   private
