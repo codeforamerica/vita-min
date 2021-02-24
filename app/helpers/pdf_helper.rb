@@ -10,7 +10,7 @@ module PdfHelper
 
   def collective_yes_no_unfilled(*values)
     return "yes" if values.any?("yes")
-    return "unfilled" if values.all?("unfilled")
+    return "unsure" if values.any?("unsure")
 
     "no"
   end
