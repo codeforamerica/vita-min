@@ -102,7 +102,7 @@ en:
         organization: Organization/site
         assigned_user: Assigned to
         no_name_given: "Name left blank"
-        no_toggle_response_needed: "Waiting on hub response"
+        first_unanswered_incoming_interaction_at: "Oldest unanswered action"
       unlinked_clients:
         title: Unlinked clients
       navigation:
@@ -132,6 +132,7 @@ en:
         source_param: Source Param
       unlock:
         account_unlocked: "Unlocked %{name}'s account."
+      urgent: "Urgent"
     documents:
       edit:
         title: Edit Document

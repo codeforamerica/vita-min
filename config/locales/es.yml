@@ -86,7 +86,7 @@ es:
         organization: Organización/Sitio
         assigned_user: Asignado a
         no_name_given: "Nombre dejado en blanco"
-        no_toggle_response_needed: "Esperando respuesta hub"
+        first_unanswered_incoming_interaction_at: Acción más antiguo sin respuesta
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
@@ -132,6 +132,7 @@ es:
         title: "Clientes no vinculados"
       unlock:
         account_unlocked: "La cuenta de %{name} se ha desbloqueado."
+      urgent: "Urgente"
     documents:
       edit:
         title: Editar Documento
