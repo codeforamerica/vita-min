@@ -27,11 +27,11 @@
           <th scope="col" class="sticky index-table__header sortable" id="organization-name" width="40%" attr-direction="asc">
             Organization Name
           </th>
-          <th scope="col" class="index-table__header sortable" id="needs-attention-breaches" >
-            Attention breaches<sup>1</sup>
+          <th scope="col" class="index-table__header sortable" id="needs-response-breaches" >
+            Response breaches<sup>1</sup>
           </th>
-          <th scope="col" class="index-table__header sortable" id="needs-attention-percentage">
-            Attention %
+          <th scope="col" class="index-table__header sortable" id="needs-response-percentage">
+            Response %
           </th>
           <th scope="col" class="index-table__header sortable" id="outgoing-communication-breaches" >
             Outgoing comm. breaches<sup>2</sup>
@@ -69,10 +69,10 @@
         <tfoot>
           <tr class="metrics-totals" data-js-count=<%= @total_breaches[:total_count] %>>
             <th></th>
-            <th class="index-table__cell attention-needed-breach" data-js-count=<%= @total_breaches[:attention_needed] %>>
-              <strong><%= @total_breaches[:attention_needed] %></strong>
+            <th class="index-table__cell response-needed-breach" data-js-count=<%= @total_breaches[:response_needed] %>>
+              <strong><%= @total_breaches[:response_needed] %></strong>
             </th>
-            <th class="index-table__cell attention-needed-breach-percentage">
+            <th class="index-table__cell response-needed-breach-percentage">
             </th>
             <th class="index-table__cell communication-breach" data-js-count="<%= @total_breaches[:communication] %>">
               <strong><%= @total_breaches[:communication] %></strong>
@@ -92,7 +92,7 @@
   <%= content_for :sticky_action_footer do %>
     <section class="take-action-box">
       <div>
-        <small><sup>1 </sup>Client needs attention indicator has been on for more than 3 business days.</small>
+        <small><sup>1 </sup>Client needs response indicator has been on for more than 3 business days.</small>
       </div>
       <div>
         <small><sup>2 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not contacted them by text/call/email.</small>

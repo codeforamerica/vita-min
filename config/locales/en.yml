@@ -102,6 +102,7 @@ en:
         organization: Organization/site
         assigned_user: Assigned to
         no_name_given: "Name left blank"
+        no_toggle_response_needed: "Waiting on hub response"
       unlinked_clients:
         title: Unlinked clients
       navigation:
@@ -1947,7 +1948,6 @@ en:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
     response_needed_since: "Waiting on response"
-    attention_needed_since: "Attention needed since"
     consented_at: "Consented at"
 
 

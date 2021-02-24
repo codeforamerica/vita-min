@@ -70,7 +70,7 @@ describe SLABreachService do
     end
   end
 
-  describe '#attention_needed_breaches' do
+  describe '#response_needed_breaches' do
     let(:vita_partner_1) { create(:organization) }
     let(:vita_partner_2) { create(:organization) }
 
@@ -81,29 +81,29 @@ describe SLABreachService do
         # breaches at vita_partner_1
 
         client1 = create(:client, vita_partner_id: vita_partner_1.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(t.prev_occurring(:monday)) { client1.set_attention_needed }
+        Timecop.freeze(t.prev_occurring(:monday)) { client1.set_response_needed! }
 
         # breaches at vita_partner_2
         client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(6.days.ago) { client2.set_attention_needed }
+        Timecop.freeze(6.days.ago) { client2.set_response_needed! }
 
         client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(t.prev_occurring(:monday)) { client3.set_attention_needed }
+        Timecop.freeze(t.prev_occurring(:monday)) { client3.set_response_needed! }
 
         # not in breach
         client4 = create(:client, vita_partner_id: vita_partner_2.id,  tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
-        Timecop.freeze(t.prev_occurring(:wednesday)) { client4.set_attention_needed }
+        Timecop.freeze(t.prev_occurring(:wednesday)) { client4.set_response_needed! }
 
         client5 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
-        client5.clear_attention_needed
+        client5.clear_response_needed
       end
 
       after do
         Timecop.return
       end
 
-      it 'returns a hash of total SLA breaches of attention_needed breaches by vita_partner_id' do
-        expect(subject.attention_needed_breaches).to eq(
+      it 'returns a hash of total SLA breaches of response_needed breaches by vita_partner_id' do
+        expect(subject.response_needed_breaches).to eq(
           {
             vita_partner_1.id => 1,
             vita_partner_2.id => 2
@@ -118,22 +118,22 @@ describe SLABreachService do
         Timecop.freeze(t.next_occurring(:monday) + 10.hours + 5.minutes) # 2/8/21, Monday 10:05am
         # breaches at vita_partner_1
         client1 = create(:client, vita_partner_id: vita_partner_1.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(t.prev_occurring(:monday)) { client1.set_attention_needed }
+        Timecop.freeze(t.prev_occurring(:monday)) { client1.set_response_needed! }
 
         # breaches at vita_partner_2
         client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(6.days.ago) { client2.set_attention_needed }
+        Timecop.freeze(6.days.ago) { client2.set_response_needed! }
 
         wednesday_1am = t.prev_occurring(:wednesday) + 1.hour # Wednesday 2/3/21 @ 1:00am UTC
         client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(wednesday_1am) { client3.set_attention_needed }
+        Timecop.freeze(wednesday_1am) { client3.set_response_needed! }
 
         wednesday_1055am = t.prev_occurring(:wednesday) + 10.hour + 55.minutes # Wednesday 2/3/21 @ 10:55am UTC
         client4 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # not in breach t1, in breach t2
-        Timecop.freeze(wednesday_1055am) { client4.set_attention_needed }
+        Timecop.freeze(wednesday_1055am) { client4.set_response_needed! }
 
         # not in breach
-        create(:client, attention_needed_since: nil, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
+        create(:client, response_needed_since: nil, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # no breach
       end
 
       after do
@@ -141,9 +141,9 @@ describe SLABreachService do
       end
 
       context "on Monday @10:05am UTC" do
-        it 'returns a hash of total SLA breaches of attention_needed_breach_since by vita_partner_id' do
+        it 'returns a hash of total SLA breaches of response_needed_breach_since by vita_partner_id' do
           expect(subject.breach_threshold_date).to eq(Time.utc(2021, 2, 3, 10, 5)) # Wednesday 2/3/21 @ 10:05am UTC
-          expect(subject.attention_needed_breaches).to eq(
+          expect(subject.response_needed_breaches).to eq(
             {
               vita_partner_1.id => 1,
               vita_partner_2.id => 2
@@ -157,7 +157,7 @@ describe SLABreachService do
           t = Time.utc(2021, 2, 6, 0, 0, 0) # 2/6/21
           Timecop.freeze(t.next_occurring(:monday) + 11.hours + 25.minutes) do
             expect(subject.breach_threshold_date).to eq(Time.utc(2021, 2, 3, 11, 25)) # Wednesday 2/3/21 @ 11:25am UTC
-            expect(subject.attention_needed_breaches).to eq(
+            expect(subject.response_needed_breaches).to eq(
               {
                 vita_partner_1.id => 1,
                 vita_partner_2.id => 3
@@ -239,7 +239,7 @@ describe SLABreachService do
       end
 
       context "on Monday @10:05am UTC" do
-        it 'returns a hash of total SLA breaches of attention needed breaches by vita_partner_id' do
+        it 'returns a hash of total SLA breaches of response needed breaches by vita_partner_id' do
           expect(subject.breach_threshold_date).to eq(Time.utc(2021, 2, 3, 10, 5)) # Wednesday 2/3/21 @ 10:05am UTC
           expect(subject.outgoing_communication_breaches).to eq(
             {
@@ -348,7 +348,7 @@ describe SLABreachService do
       end
 
       context "on Monday @10:05am UTC" do
-        it 'returns a hash of total SLA breaches of attention_needed_breaches_since by vita_partner_id' do
+        it 'returns a hash of total SLA breaches of response_needed_breaches_since by vita_partner_id' do
           expect(subject.breach_threshold_date).to eq(Time.utc(2021, 2, 3, 10, 5)) # Wednesday 2/3/21 @ 10:05am UTC
           expect(subject.outgoing_interaction_breaches).to eq(
            {
@@ -393,8 +393,8 @@ describe SLABreachService do
             generated_at: t,
             active_sla_clients_by_vita_partner_id: {},
             active_sla_clients_count: 0,
-            attention_needed_breaches_by_vita_partner_id: {},
-            attention_needed_breach_count: 0,
+            response_needed_breaches_by_vita_partner_id: {},
+            response_needed_breach_count: 0,
             communication_breaches_by_vita_partner_id: {},
             communication_breach_count: 0,
             interaction_breaches_by_vita_partner_id: {},
@@ -410,21 +410,21 @@ describe SLABreachService do
       before do
         # breaches at vita_partner_1
         client1 = create(:client, vita_partner_id: vita_partner_1.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(t.prev_occurring(:monday)) { client1.set_attention_needed }
+        Timecop.freeze(t.prev_occurring(:monday)) { client1.set_response_needed! }
 
         # breaches at vita_partner_2
         client2 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(6.days.ago) { client2.set_attention_needed }
+        Timecop.freeze(6.days.ago) { client2.set_response_needed! }
 
         tuesday_1am = t.prev_occurring(:tuesday) + 1.hour # Wednesday 2/3/21 @ 1:00am UTC
         client3 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns:  [create(:tax_return, status: 'prep_ready_for_prep')]) # breach
-        Timecop.freeze(tuesday_1am) { client3.set_attention_needed }
+        Timecop.freeze(tuesday_1am) { client3.set_response_needed! }
 
         monday_1055am = t.prev_occurring(:monday) + 10.hour + 55.minutes # Wednesday 2/3/21 @ 10:55am UTC
         client4 = create(:client, vita_partner_id: vita_partner_2.id, tax_returns: [create(:tax_return, status: 'prep_ready_for_prep')]) # not in breach t1, in breach t2
         Timecop.freeze(monday_1055am) {
           client4.tax_returns.first.record_incoming_interaction
-          client4.set_attention_needed
+          client4.set_response_needed!
         }
         Timecop.freeze(t.prev_occurring(:sunday)) { client4.tax_returns.first.record_internal_interaction }
       end
@@ -435,8 +435,8 @@ describe SLABreachService do
             generated_at: t,
             active_sla_clients_by_vita_partner_id: { vita_partner_1.id => 1, vita_partner_2.id => 3 },
             active_sla_clients_count: 4,
-            attention_needed_breaches_by_vita_partner_id: { vita_partner_1.id => 1, vita_partner_2.id => 2 },
-            attention_needed_breach_count: 3,
+            response_needed_breaches_by_vita_partner_id: { vita_partner_1.id => 1, vita_partner_2.id => 2 },
+            response_needed_breach_count: 3,
             communication_breaches_by_vita_partner_id: { vita_partner_2.id => 1 },
             communication_breach_count: 1,
             interaction_breaches_by_vita_partner_id: { vita_partner_2.id => 1 },

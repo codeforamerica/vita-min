@@ -70,14 +70,16 @@ class Client < ApplicationRecord
   scope :sla_tracked, -> { distinct.joins(:tax_returns).where(tax_returns: { status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_SLA })}
   scope :any_breach, ->(breach_threshold_datetime) do
     where("first_unanswered_incoming_interaction_at <= ?", breach_threshold_datetime).or(
+      where("response_needed_since <= ?", breach_threshold_datetime)
+    ).or(
       where("attention_needed_since <= ?", breach_threshold_datetime)
     ).sla_tracked
   end
   scope :outgoing_communication_breaches, ->(breach_threshold_datetime) do
     sla_tracked.where(arel_table[:first_unanswered_incoming_interaction_at].lteq(breach_threshold_datetime))
   end
-  scope :attention_needed_breaches, ->(breach_threshold_datetime) do
-    sla_tracked.where(arel_table[:attention_needed_since].lteq(breach_threshold_datetime))
+  scope :response_needed_breaches, ->(breach_threshold_datetime) do
+    sla_tracked.where(arel_table[:response_needed_since].lteq(breach_threshold_datetime))
   end
   scope :outgoing_interaction_breaches, ->(breach_threshold_datetime) do
     sla_tracked.where(
@@ -119,18 +121,17 @@ class Client < ApplicationRecord
     "#{intake.spouse_first_name} #{intake.spouse_last_name}"
   end
 
-  def set_attention_needed
-    return true if needs_attention?
-
-    return touch(:attention_needed_since)
+  def set_response_needed!
+    # we don't want to change older dates if response is already needed
+    touch(:response_needed_since) unless needs_response?
   end
 
-  def clear_attention_needed
-    update(attention_needed_since: nil)
+  def clear_response_needed
+    update(response_needed_since: nil)
   end
 
-  def needs_attention?
-    attention_needed_since.present?
+  def needs_response?
+    response_needed_since.present?
   end
 
   def bank_account_info?

@@ -116,7 +116,7 @@ class TaxReturn < ApplicationRecord
         system_change_status(:file_ready_to_file)
         Sign8879Service.create(self)
         SystemNote::SignedDocument.generate!(signed_by_type: :primary, tax_return: self)
-        client.set_attention_needed
+        client.set_response_needed!
       else
         SystemNote::SignedDocument.generate!(signed_by_type: :primary, waiting: true, tax_return: self)
       end
@@ -141,7 +141,7 @@ class TaxReturn < ApplicationRecord
         system_change_status(:file_ready_to_file)
         Sign8879Service.create(self)
         SystemNote::SignedDocument.generate!(signed_by_type: :spouse, tax_return: self)
-        client.set_attention_needed
+        client.set_response_needed!
       else
         SystemNote::SignedDocument.generate!(signed_by_type: :spouse, waiting: true, tax_return: self)
       end

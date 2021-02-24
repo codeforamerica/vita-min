@@ -84,11 +84,11 @@ RSpec.describe Hub::AssignedClientsController do
         end
       end
 
-      context "filtering by needs attention" do
-        let!(:needs_attention) { create :client, attention_needed_since: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return, assigned_user: user)] }
+      context "filtering by needs response" do
+        let!(:needs_response) { create :client, response_needed_since: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return, assigned_user: user)] }
         it "filters in" do
-          get :index, params: { needs_attention: true }
-          expect(assigns(:clients)).to include needs_attention
+          get :index, params: { needs_response: true }
+          expect(assigns(:clients)).to include needs_response
         end
       end
 

@@ -17,8 +17,8 @@ module Hub
         default_order: { first_unanswered_incoming_interaction_at: :asc }
       )
       response_breaches = Client.where("first_unanswered_incoming_interaction_at <= ?", @breach_date)
-      attention_breaches = Client.where("attention_needed_since <= ?", @breach_date)
-      any_breach = response_breaches.or(attention_breaches).sla_tracked
+      manual_response_breaches = Client.where("response_needed_since <= ?", @breach_date)
+      any_breach = response_breaches.or(manual_response_breaches).sla_tracked
       @clients = @clients.where(id: any_breach)
       @clients = @clients.with_eager_loaded_associations.page(params[:page])
       render "hub/clients/index"

@@ -137,7 +137,7 @@ Rails.application.routes.draw do
         resources :outgoing_emails, only: [:create]
         resources :outbound_calls, only: [:new, :create, :show, :update]
         member do
-          patch "attention_needed"
+          patch "response_needed"
           get "edit_take_action"
           post "update_take_action"
         end

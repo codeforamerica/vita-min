@@ -13,10 +13,10 @@ class SLABreachService
     count_by_vita_partner(Client.sla_tracked)
   end
 
-  # attention_needed_since is present and is before breach threshold
+  # response_needed_since is present and is before breach threshold
   # returns data in the format { vita_partner_id: breach_count }
-  def attention_needed_breaches
-    count_by_vita_partner(Client.attention_needed_breaches(breach_threshold_date))
+  def response_needed_breaches
+    count_by_vita_partner(Client.response_needed_breaches(breach_threshold_date))
   end
 
   # clients who messaged us and have not been responded to _with a message, call or email_ within the breach threshold
@@ -33,15 +33,15 @@ class SLABreachService
     report = SLABreachService.new
     communication_breaches = report.outgoing_communication_breaches
     interaction_breaches = report.outgoing_interaction_breaches
-    attention_breaches = report.attention_needed_breaches
+    response_breaches = report.response_needed_breaches
     active_sla_clients = report.active_sla_clients_count
     {
         breached_at: report.breach_threshold_date,
         generated_at: report.report_generated_at,
         active_sla_clients_by_vita_partner_id: active_sla_clients,
         active_sla_clients_count: active_sla_clients.values.sum,
-        attention_needed_breaches_by_vita_partner_id: attention_breaches,
-        attention_needed_breach_count: attention_breaches.values.sum,
+        response_needed_breaches_by_vita_partner_id: response_breaches,
+        response_needed_breach_count: response_breaches.values.sum,
         communication_breaches_by_vita_partner_id: communication_breaches,
         communication_breach_count: communication_breaches.values.sum,
         interaction_breaches_by_vita_partner_id: interaction_breaches,

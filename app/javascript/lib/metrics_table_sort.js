@@ -4,7 +4,7 @@ import { initSortableColumn } from './table_sort';
 function setupOrgLevelCounts() {
     $(".org-metrics").each(function() {
         let denominator = 0;
-        let attentionCount = 0;
+        let responseCount = 0;
         let communicationCount = 0;
         let interactionCount = 0;
 
@@ -16,8 +16,8 @@ function setupOrgLevelCounts() {
             denominator += parseInt($(this).attr('data-js-count'));
         });
 
-        $(this).find('tr.site td.attention-needed-breach').each(function() {
-            attentionCount += parseInt($(this).attr('data-js-count'));
+        $(this).find('tr.site td.response-needed-breach').each(function() {
+            responseCount += parseInt($(this).attr('data-js-count'));
         });
 
         $(this).find('tr.site td.communication-breach').each(function() {
@@ -29,23 +29,23 @@ function setupOrgLevelCounts() {
         });
 
         // Set viewable value and sortable data-js-count value for org based on accumulated value.
-        $(this).find('.attention-needed-breach').first().text(attentionCount).attr('data-js-count', attentionCount);
+        $(this).find('.response-needed-breach').first().text(responseCount).attr('data-js-count', responseCount);
         $(this).find('.communication-breach').first().text(communicationCount).attr('data-js-count', communicationCount);
         $(this).find('.interaction-breach').first().text(interactionCount).attr('data-js-count', interactionCount);
-        updatePercentages(this, '.attention-needed-breach', denominator);
+        updatePercentages(this, '.response-needed-breach', denominator);
         updatePercentages(this, '.communication-breach', denominator);
         updatePercentages(this, '.interaction-breach', denominator);
 
         // // Loop through all sites to set breach percentages
         $(this).find('tr.site').each(function() {
             const siteDenominator = parseInt($(this).attr('data-js-count'))
-            updatePercentages(this, '.attention-needed-breach', siteDenominator);
+            updatePercentages(this, '.response-needed-breach', siteDenominator);
             updatePercentages(this, '.communication-breach', siteDenominator);
             updatePercentages(this, '.interaction-breach', siteDenominator);
         });
     });
     let totalSLATracked = $('.metrics-totals').attr('data-js-count');
-    updatePercentages('.metrics-totals', '.attention-needed-breach', totalSLATracked);
+    updatePercentages('.metrics-totals', '.response-needed-breach', totalSLATracked);
     updatePercentages('.metrics-totals', '.communication-breach', totalSLATracked);
     updatePercentages('.metrics-totals', '.interaction-breach', totalSLATracked);
 }
@@ -154,8 +154,8 @@ export function initMetricsTableSortAndFilter() {
         return isNaN(calc) ? 0 : calc;
     });
 
-    initSortableColumn("tbody.org-metrics", "th#needs-attention-breaches", function(row) {
-        const calc = parseInt($(row).find('.attention-needed-breach').attr('data-js-count'));
+    initSortableColumn("tbody.org-metrics", "th#needs-response-breaches", function(row) {
+        const calc = parseInt($(row).find('.response-needed-breach').attr('data-js-count'));
         return isNaN(calc) ? 0 : calc;
     });
 
@@ -163,8 +163,8 @@ export function initMetricsTableSortAndFilter() {
         return $(row).attr('data-js-vita-partner-name');
     });
 
-    initSortableColumn("tbody.org-metrics", "th#needs-attention-percentage", function (row) {
-        const calc = parseInt($(row).find('.attention-needed-breach-percentage').attr('data-js-percentage'));
+    initSortableColumn("tbody.org-metrics", "th#needs-response-percentage", function (row) {
+        const calc = parseInt($(row).find('.response-needed-breach-percentage').attr('data-js-percentage'));
         return isNaN(calc) ? 0 : calc;
     });
 

@@ -7,23 +7,23 @@ beforeEach(() => {
     <table>
         <thead>
             <th id="organization-name"></th>
-            <th id="needs-attention-breaches"></th>
+            <th id="needs-response-breaches"></th>
             <th id="profile-interaction-breaches"></th>
             <th id="outgoing-communication-breaches"></th>
         </thead>
         <tbody class="org-metrics" data-js-vita-partner-name="Apple Org">
             <tr class="org">
-                <td class="attention-needed-breach"></td>
+                <td class="response-needed-breach"></td>
                 <td class="communication-breach"></td>
                 <td class="interaction-breach"></td>
             </tr>
             <tr class="site">
-                <td class="attention-needed-breach" data-js-count="1"></td>
+                <td class="response-needed-breach" data-js-count="1"></td>
                 <td class="communication-breach" data-js-count="14"></td>
                 <td class="interaction-breach" data-js-count="14"></td>
             </tr>
             <tr class="site">
-                <td class="attention-needed-breach" data-js-count="1"></td>
+                <td class="response-needed-breach" data-js-count="1"></td>
                 <td class="communication-breach" data-js-count="1"></td>
                 <td class="interaction-breach" data-js-count="1"></td>
             </tr>
@@ -31,17 +31,17 @@ beforeEach(() => {
 
         <tbody class="org-metrics" data-js-vita-partner-name="Perfect Org">
             <tr class="org">
-                <td class="attention-needed-breach"></td>
+                <td class="response-needed-breach"></td>
                 <td class="communication-breach"></td>
                 <td class="interaction-breach"></td>
             </tr>
             <tr class="site">
-                <td class="attention-needed-breach" data-js-count="0"></td>
+                <td class="response-needed-breach" data-js-count="0"></td>
                 <td class="communication-breach" data-js-count="0"></td>
                 <td class="interaction-breach" data-js-count="0"></td>
             </tr>
             <tr class="site">
-                <td class="attention-needed-breach" data-js-count="0"></td>
+                <td class="response-needed-breach" data-js-count="0"></td>
                 <td class="communication-breach" data-js-count="0"></td>
                 <td class="interaction-breach" data-js-count="0"></td>
             </tr>
@@ -49,7 +49,7 @@ beforeEach(() => {
         <tbody class="index-table__body org-metrics" data-js-vita-partner-name="United Way of Greater Richmond and Petersburg">
           <tr class="index-table__row org">
             <td class="index-table__cell">United Way of Greater Richmond and Petersburg</td>
-            <td class="index-table__cell attention-needed-breach"  data-js-count=1>
+            <td class="index-table__cell response-needed-breach"  data-js-count=1>
               1
             </td>
             <td class="index-table__cell communication-breach" data-js-count=3>
@@ -62,7 +62,7 @@ beforeEach(() => {
           <!-- Add a row for the organization to track org-level breaches. -->
           <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px; font-style: italic;">United Way of Greater Richmond and Petersburg</td>
-            <td class="index-table__cell attention-needed-breach"  data-js-count=1>
+            <td class="index-table__cell response-needed-breach"  data-js-count=1>
               1
             </td>
             <td class="index-table__cell communication-breach" data-js-count=3>
@@ -75,7 +75,7 @@ beforeEach(() => {
 
           <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px">Chesterfield Meadowdale Library </td>
-            <td class="index-table__cell attention-needed-breach" data-js-count=0>
+            <td class="index-table__cell response-needed-breach" data-js-count=0>
               0
             </td>
             <td class="index-table__cell communication-breach" data-js-count=0>
@@ -87,7 +87,7 @@ beforeEach(() => {
           </tr>
           <tr class="index-table__row site">
             <td class="index-table__cell" style="padding-left: 60px">Libbie Mill Library </td>
-            <td class="index-table__cell attention-needed-breach" data-js-count=1>
+            <td class="index-table__cell response-needed-breach" data-js-count=1>
               1
             </td>
             <td class="index-table__cell communication-breach" data-js-count=0>
@@ -99,7 +99,7 @@ beforeEach(() => {
           </tr>
             <tr class="index-table__row site">
               <td class="index-table__cell" style="padding-left: 60px">Fairfield Library - UWGRP </td>
-              <td class="index-table__cell attention-needed-breach" data-js-count=1>
+              <td class="index-table__cell response-needed-breach" data-js-count=1>
                 1
               </td>
               <td class="index-table__cell communication-breach" data-js-count=1>
@@ -111,7 +111,7 @@ beforeEach(() => {
             </tr>
             <tr class="index-table__row site">
               <td class="index-table__cell" style="padding-left: 60px">Neighborhood Resource Center </td>
-              <td class="index-table__cell attention-needed-breach" data-js-count=0>
+              <td class="index-table__cell response-needed-breach" data-js-count=0>
                 0
               </td>
               <td class="index-table__cell communication-breach" data-js-count=0>
@@ -123,7 +123,7 @@ beforeEach(() => {
             </tr>
             <tr class="index-table__row site">
               <td class="index-table__cell" style="padding-left: 60px">UWGRP-site </td>
-              <td class="index-table__cell attention-needed-breach" data-js-count=0>
+              <td class="index-table__cell response-needed-breach" data-js-count=0>
                 0
               </td>
               <td class="index-table__cell communication-breach" data-js-count=3>
@@ -139,16 +139,16 @@ beforeEach(() => {
 });
 
 test('determines org-level counts', () => {
-    const attentionBreach = $('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.attention-needed-breach').first();
+    const responseBreach = $('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.response-needed-breach').first();
     const communicationBreach = $('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.communication-breach').first();
     const interactionBreach =$('.org-metrics[data-js-vita-partner-name="United Way of Greater Richmond and Petersburg"]').find('tr.org td.interaction-breach').first();
-    expect(attentionBreach.attr('data-js-count')).toEqual("1");
+    expect(responseBreach.attr('data-js-count')).toEqual("1");
     expect(communicationBreach.attr('data-js-count')).toEqual('3');
     expect(interactionBreach.attr('data-js-count')).toEqual('1');
 
     initMetricsTableSortAndFilter();
 
-    expect(attentionBreach.attr('data-js-count')).toEqual("3");
+    expect(responseBreach.attr('data-js-count')).toEqual("3");
     expect(communicationBreach.attr('data-js-count')).toEqual("7");
     expect(interactionBreach.attr('data-js-count')).toEqual("5");
 });
@@ -259,17 +259,17 @@ test('sorting by breach count', () => {
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
 });
 
-test('sorting by attention breach count', () => {
+test('sorting by response breach count', () => {
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Apple Org");
     initMetricsTableSortAndFilter();
-    $('th#needs-attention-breaches').click();
+    $('th#needs-response-breaches').click();
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("United Way of Greater Richmond and Petersburg");
-    expect($('.org-metrics').first().find('.org .attention-needed-breach').attr('data-js-count')).toEqual('3')
+    expect($('.org-metrics').first().find('.org .response-needed-breach').attr('data-js-count')).toEqual('3')
     expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
 
-    $('th#needs-attention-breaches').click();
+    $('th#needs-response-breaches').click();
     expect($('.org-metrics').first().attr('data-js-vita-partner-name')).toEqual("Perfect Org");
-    expect($('.org-metrics').first().find('.org .attention-needed-breach').attr('data-js-count')).toEqual('0')
+    expect($('.org-metrics').first().find('.org .response-needed-breach').attr('data-js-count')).toEqual('0')
 
     expect($('.org-metrics').last().attr('data-js-vita-partner-name')).toEqual("United Way of Greater Richmond and Petersburg");
     $('th#organization-name').click();

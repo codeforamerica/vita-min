@@ -86,6 +86,7 @@ es:
         organization: Organización/Sitio
         assigned_user: Asignado a
         no_name_given: "Nombre dejado en blanco"
+        no_toggle_response_needed: "Esperando respuesta hub"
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
@@ -1974,5 +1975,4 @@ es:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
     response_needed_since: "Esperando respuesta"
-    attention_needed_since: "Atención necesaria desde"
     consented_at: "Consentido en"

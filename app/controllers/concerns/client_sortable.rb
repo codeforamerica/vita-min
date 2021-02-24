@@ -5,7 +5,7 @@ module ClientSortable
     clients = @clients.after_consent
     clients = clients.delegated_order(@sort_column, @sort_order)
     clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
-    clients = clients.where.not(attention_needed_since: nil) if @filters[:needs_attention].present?
+    clients = clients.where.not(response_needed_since: nil) if @filters[:needs_response].present?
     clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
     clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
     clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
@@ -34,7 +34,7 @@ module ClientSortable
       stage: stage_filter,
       assigned_to_me: params[:assigned_to_me],
       unassigned: params[:unassigned],
-      needs_attention: params[:needs_attention],
+      needs_response: params[:needs_response],
       year: params[:year],
       vita_partner_id: params[:vita_partner_id].present? ? params[:vita_partner_id].to_i : nil,
       assigned_user_id: params[:assigned_user_id].present? ? params[:assigned_user_id].to_i : nil,
@@ -43,7 +43,7 @@ module ClientSortable
   end
 
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :needs_attention, :year, :vita_partner_id, :assigned_user_id]
+    [:search, :status, :unassigned, :assigned_to_me, :needs_response, :year, :vita_partner_id, :assigned_user_id]
   end
 
   # reset the raw parameters for each filter received by the form
@@ -58,7 +58,7 @@ module ClientSortable
   end
 
   def clients_sort_column
-    sortable_columns = [:id, :updated_at, :first_unanswered_incoming_interaction_at, :attention_needed_since] + Client.sortable_intake_attributes
+    sortable_columns = [:id, :updated_at, :first_unanswered_incoming_interaction_at, :response_needed_since] + Client.sortable_intake_attributes
     sortable_columns.include?(params[:column]&.to_sym) ? params[:column] : @default_order.keys.first
   end
 
