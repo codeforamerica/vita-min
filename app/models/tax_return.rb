@@ -115,18 +115,17 @@ class TaxReturn < ApplicationRecord
       if ready_to_file?
         system_change_status(:file_ready_to_file)
         Sign8879Service.create(self)
+        SystemNote::SignedDocument.generate!(signed_by_type: :primary, tax_return: self)
         client.set_attention_needed
       else
-        SystemNote.create!(
-          body: "Primary taxpayer signed #{year} form 8879. Waiting on spouse to sign.",
-          client: client
-        )
+        SystemNote::SignedDocument.generate!(signed_by_type: :primary, waiting: true, tax_return: self)
       end
 
       save!
     end
 
     raise FailedToSignReturnError if !sign_successful
+
     true
   end
 
@@ -141,23 +140,22 @@ class TaxReturn < ApplicationRecord
       if ready_to_file?
         system_change_status(:file_ready_to_file)
         Sign8879Service.create(self)
+        SystemNote::SignedDocument.generate!(signed_by_type: :spouse, tax_return: self)
         client.set_attention_needed
       else
-        SystemNote.create!(
-          body: "Spouse of taxpayer signed #{year} form 8879. Waiting on primary taxpayer to sign.",
-          client: client
-        )
+        SystemNote::SignedDocument.generate!(signed_by_type: :spouse, waiting: true, tax_return: self)
       end
       save!
     end
 
     raise FailedToSignReturnError if !sign_successful
+
     true
   end
 
   def assign!(assigned_user_id: nil, assigned_by: nil)
     update!(assigned_user_id: assigned_user_id)
-    SystemNote.create_assignment_change_note(assigned_by, self)
+    SystemNote::AssignmentChange.generate!(initiated_by: assigned_by, tax_return: self)
     if assigned_user_id.present?
       assigned_user = User.find(assigned_user_id)
       UserMailer.assignment_email(
@@ -188,7 +186,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def system_change_status(new_status)
-    SystemNote.create_system_status_change_note!(self, self.status, new_status)
+    SystemNote::StatusChange.generate!(tax_return: self, old_status: self.status, new_status: new_status)
     self.status = new_status
   end
 end

@@ -46,7 +46,7 @@ module Hub
       @form = UpdateClientForm.new(@client, update_client_form_params)
 
       if @form.valid? && @form.save
-        SystemNote.create_client_change_note(current_user, @client.intake)
+        SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
         redirect_to hub_client_path(id: @client.id)
       else
         flash[:alert] = I18n.t("forms.errors.general")

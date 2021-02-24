@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  body       :text
+#  type       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  client_id  :bigint           not null
@@ -29,9 +30,9 @@ RSpec.describe SystemNote do
       tax_return.status = :file_ready_to_file
     end
 
-    it "creates a system status change note" do
+    it "SystemNote::StatusChange.generate! with old/new status params, without user" do
       expect {
-        SystemNote.create_system_status_change_note!(tax_return, "intake_in_progress", :file_ready_to_file)
+        SystemNote::StatusChange.generate!(tax_return: tax_return, old_status: "intake_in_progress", new_status: :file_ready_to_file)
       }.to change {SystemNote.count}.by(1)
 
       system_note = SystemNote.last
@@ -43,12 +44,12 @@ RSpec.describe SystemNote do
       tax_return.client = nil
 
       expect {
-        SystemNote.create_system_status_change_note!(tax_return, "intake_in_progress", :file_ready_to_file)
+        SystemNote::StatusChange.generate!(tax_return: tax_return, old_status: "intake_in_progress", new_status: :file_ready_to_file)
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
-  describe ".create_status_change_note" do
+  describe "SystemNote::StatusChange.generate! with user, with inferred old/new status params" do
     let(:user) { create :user, name: "Olive Oil" }
     let(:tax_return) { create :tax_return, status: "intake_in_progress", year: 3020 }
 
@@ -58,7 +59,7 @@ RSpec.describe SystemNote do
       end
       it "can track the changes" do
         expect {
-          SystemNote.create_status_change_note(user, tax_return)
+          SystemNote::StatusChange.generate!(initiated_by: user, tax_return: tax_return)
         }.to change(SystemNote, :count).by 1
 
         note = SystemNote.last
@@ -81,7 +82,7 @@ RSpec.describe SystemNote do
 
       it "creates a system note summarizing all changes" do
         expect {
-          SystemNote.create_client_change_note(user, intake)
+          SystemNote::ClientChange.generate!(initiated_by: user, intake: intake)
         }.to change(SystemNote, :count).by 1
 
         note = SystemNote.last
@@ -99,7 +100,7 @@ RSpec.describe SystemNote do
     context "without any changes" do
       it "creates no system note" do
         expect {
-          SystemNote.create_client_change_note(user, Intake.find(intake.id))
+          SystemNote::ClientChange.generate!(initiated_by: user, intake: Intake.find(intake.id))
         }.not_to change(SystemNote, :count)
       end
     end
@@ -109,13 +110,13 @@ RSpec.describe SystemNote do
         intake.update(updated_at: Time.now)
 
         expect {
-          SystemNote.create_client_change_note(user, intake)
+          SystemNote::ClientChange.generate!(initiated_by: user, intake: intake)
         }.not_to change(SystemNote, :count)
       end
     end
   end
 
-  describe "#create_assignment_change_note" do
+  describe "SystemNote::AssignmentChange.generate!" do
     let(:intake) { create :intake, :with_contact_info }
     let(:tax_return) { create :tax_return, client: Client.new(intake: intake), year: 2019 }
     let(:current_user) { create :user, name: "Example User" }
@@ -128,12 +129,12 @@ RSpec.describe SystemNote do
 
       it "creates a system note" do
         expect {
-          SystemNote.create_assignment_change_note(current_user, tax_return)
+          SystemNote::AssignmentChange.generate!(initiated_by: current_user, tax_return: tax_return)
         }.to change(SystemNote, :count).by 1
       end
 
       it "describes the change" do
-        SystemNote.create_assignment_change_note(current_user, tax_return)
+        SystemNote::AssignmentChange.generate!(initiated_by: current_user, tax_return: tax_return)
         expect(SystemNote.last.client).to eq(tax_return.client)
         expect(SystemNote.last.body).to eq("Example User assigned 2019 return to Alice.")
       end
@@ -147,7 +148,7 @@ RSpec.describe SystemNote do
       end
 
       it "does not create a note" do
-        expect(SystemNote.create_assignment_change_note(current_user, tax_return)).to be_nil
+        expect(SystemNote::AssignmentChange.generate!(initiated_by: current_user, tax_return: tax_return)).to be_nil
       end
     end
 
@@ -159,7 +160,9 @@ RSpec.describe SystemNote do
       end
 
       it "creates a note indicating it was unassigned" do
-        expect { SystemNote.create_assignment_change_note(current_user, tax_return)} .to change(SystemNote, :count).by 1
+        expect {
+          SystemNote::AssignmentChange.generate!(initiated_by: current_user, tax_return: tax_return)
+        } .to change(SystemNote, :count).by 1
         expect(SystemNote.last.body).to eq "Example User removed assignment from 2019 return."
       end
     end

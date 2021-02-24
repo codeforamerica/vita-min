@@ -49,7 +49,7 @@ describe TaxReturnService do
     end
 
     it "creates a system note to record the status change" do
-      expect(SystemNote).to receive(:create_status_change_note).with(user, tax_return)
+      expect(SystemNote::StatusChange).to receive(:generate!).with(initiated_by: user, tax_return: tax_return)
 
       TaxReturnService.handle_status_change(form)
     end

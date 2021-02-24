@@ -704,7 +704,7 @@ RSpec.describe Hub::ClientsController do
 
       before do
         sign_in user
-        allow(SystemNote).to receive(:create_client_change_note)
+        allow(SystemNote::ClientChange).to receive(:generate!)
       end
 
       it "updates the clients intake and creates a system note" do
@@ -719,7 +719,7 @@ RSpec.describe Hub::ClientsController do
         expect(first_dependent.first_name).to eq "Updated Dependent"
         expect(client.intake.dependents.count).to eq 2
         expect(response).to redirect_to hub_client_path(id: client.id)
-        expect(SystemNote).to have_received(:create_client_change_note).with(user, intake)
+        expect(SystemNote::ClientChange).to have_received(:generate!).with(initiated_by: user, intake: intake)
       end
 
       context "with invalid params" do
