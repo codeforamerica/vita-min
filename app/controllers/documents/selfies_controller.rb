@@ -5,5 +5,9 @@ module Documents
     def self.document_type
       DocumentTypes::Selfie
     end
+
+    def illustration_path
+      'ids.svg'
+    end
   end
 end

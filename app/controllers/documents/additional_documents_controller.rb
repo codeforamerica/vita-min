@@ -15,5 +15,9 @@ module Documents
     def advance_to_ready
       current_intake.advance_tax_return_statuses_to("intake_ready")
     end
+
+    def illustration_path
+      "documents.svg"
+    end
   end
 end

@@ -8,6 +8,10 @@ module Documents
       def displayed_document_types
         %w[W-2 1099-K 1099-MISC Employment]
       end
+
+      def illustration_path
+        "documents.svg"
+      end
     end
   end
 end

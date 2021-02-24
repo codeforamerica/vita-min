@@ -3,8 +3,18 @@
   <section class="slab slab--white slab--not-padded question-layout">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
+        <% if prev_path %>
+          <div class="back grid">
+            <%= link_to t("general.back"), prev_path %>
+          </div>
+        <% end %>
         <%= render "shared/progress_bar" %>
         <main role="main">
+          <% if illustration_path.present? %>
+            <div class="question__illustration">
+              <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
+            </div>
+          <% end %>
           <h1 class="form-question">
             <%= yield :form_question %>
           </h1>
@@ -96,11 +106,6 @@
             <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}" do %>
               <%=t("general.continue") %>
             <% end %>
-          <% end %>
-          <% if prev_path %>
-            <div class="back grid">
-              <%= link_to t("general.back"), prev_path %>
-            </div>
           <% end %>
         </main>
       </div>
