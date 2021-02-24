@@ -9,7 +9,7 @@ module Questions
     private
 
     def illustration_path
-      current_intake.vita_partner&.logo_path
+      "file-with-help.svg"
     end
 
     def self.form_class
