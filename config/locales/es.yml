@@ -76,18 +76,17 @@ es:
         filter: Filtrar resultados
         client_id_heading: Cliente ID
         filing_year: Año para declarar
-        needs_attention_heading: Necesita attentión?
         title: Todos clientes
         no_clients: No hay clientes asignadas.
         no_filtered_clients: Ninguna cliente coincide con los filtros seleccionados.
         apply_filters: Aplicar búsqueda / filtro para encontrar clientes coincidentes.
         assigned_to_me: Asignado a mí
         unassigned: No asignado
-        needs_attention: Necesita attentión
         stage_status: Estado/etapa de declaración de impuestos
         organization: Organización/Sitio
         assigned_user: Asignado a
         no_name_given: "Nombre dejado en blanco"
+        first_unanswered_incoming_interaction_at: Acción más antiguo sin respuesta
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
@@ -133,6 +132,7 @@ es:
         title: "Clientes no vinculados"
       unlock:
         account_unlocked: "La cuenta de %{name} se ha desbloqueado."
+      urgent: "Urgente"
     documents:
       edit:
         title: Editar Documento
@@ -528,8 +528,6 @@ es:
     lived_with_spouse: Vivieron con su cónyuge
     married: Casado
     name: Nombre
-    mark_for_attention: Marcar como necesita attentión
-    needs_attention: Necesita attentión
     negative: 'No'
     next: Próximo
     no_intake: Sin ingesta
@@ -628,6 +626,9 @@ es:
     hidden: Encubierto
     locked: "Bloqueada"
     suspended: "Suspendida"
+    responded_to_client: "Respondido al cliente"
+    mark_for_response: "Marcar respuesta necesaria"
+    needs_response: "Necesita respuesta"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -1975,5 +1976,4 @@ es:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
     response_needed_since: "Esperando respuesta"
-    attention_needed_since: "Atención necesaria desde"
     consented_at: "Consentido en"

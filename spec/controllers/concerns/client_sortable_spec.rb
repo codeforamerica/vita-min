@@ -105,7 +105,7 @@ RSpec.describe ClientSortable, type: :controller do
             search: "query",
             status: "intake_in_progress",
             year: "2019",
-            needs_attention: true,
+            needs_response: true,
             assigned_to_me: true,
             unassigned: true,
             vita_partner_id: 1,
@@ -196,8 +196,8 @@ RSpec.describe ClientSortable, type: :controller do
         end
       end
 
-      context "needs_attention" do
-        let(:params) { { needs_attention: true } }
+      context "needs_response" do
+        let(:params) { { needs_response: true } }
         it "returns true" do
           expect(subject.has_search_and_sort_params?).to eq true
         end

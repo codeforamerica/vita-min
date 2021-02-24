@@ -5,7 +5,7 @@
         <h1 class="h1">
           <%= @client.preferred_name %>
         </h1>
-        <%= render "shared/client_needs_attention", client: @client %>
+        <%= render "shared/urgent_icon", client: @client %>
         <span class="text--help">#<%= @client.id %></span>
 
         <% if @client.access_locked? %>
@@ -19,13 +19,13 @@
       </div>
 
       <div class="text--help">Last client update: <%= long_formatted_datetime(@client.updated_at) %></div>
-      <% if @client.first_unanswered_incoming_interaction_at.present? %>
-        <div class="text--help">Waiting on response since: <%= long_formatted_datetime(@client.first_unanswered_incoming_interaction_at) %></div>
+      <% if @client.needs_response? %>
+        <div class="text--help">Waiting on response since: <%= long_formatted_datetime(@client.response_needed_since) %></div>
       <% end %>
 
-      <%= form_for [:hub, @client], method: :patch, url: attention_needed_hub_client_path(id: @client.id) do |f| %>
-        <%= f.hidden_field :action, value: @client.needs_attention? ? "clear" : "set" %>
-        <%= f.submit @client.needs_attention? ? t("general.resolve") : t("general.mark_for_attention"), class: "button button--small button--subtle" %>
+      <%= form_for [:hub, @client], method: :patch, url: response_needed_hub_client_path(id: @client.id) do |f| %>
+        <%= f.hidden_field :action, value: @client.needs_response? ? "clear" : "set" %>
+        <%= f.submit @client.needs_response? ? t("general.responded_to_client") : t("general.mark_for_response"), class: "button button--small button--subtle" %>
       <% end %>
     </div>
 

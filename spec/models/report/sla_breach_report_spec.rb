@@ -23,8 +23,8 @@ RSpec.describe Report::SLABreachReport, type: :model do
       {
         breached_at: 3.business_days.before(t),
         generated_at: t,
-        attention_needed_breaches_by_vita_partner_id: {  1 => 1, 2 => 2 },
-        attention_needed_breach_count: 3,
+        response_needed_breaches_by_vita_partner_id: {  1 => 1, 2 => 2 },
+        response_needed_breach_count: 3,
         communication_breaches_by_vita_partner_id: { 1 => 1 },
         communication_breach_count: 1,
         interaction_breaches_by_vita_partner_id: { 2 => 1 },
@@ -49,20 +49,20 @@ RSpec.describe Report::SLABreachReport, type: :model do
     end
   end
 
-  describe "#attention_needed_breaches" do
+  describe "#response_needed_breaches" do
     let(:report) do
       Report::SLABreachReport.create(data: {
-          attention_needed_breaches_by_vita_partner_id: { 2 => 1, 3 => 2 }
+          response_needed_breaches_by_vita_partner_id: { 2 => 1, 3 => 2 }
       }, generated_at: DateTime.current)
     end
 
     it "converts json keys into integers" do
-      expect(report.data["attention_needed_breaches_by_vita_partner_id"]).to eq ({ "2" => 1, "3" => 2 })
-      expect(report.attention_needed_breaches).to eq ({2 => 1, 3 => 2})
+      expect(report.data["response_needed_breaches_by_vita_partner_id"]).to eq ({ "2" => 1, "3" => 2 })
+      expect(report.response_needed_breaches).to eq ({2 => 1, 3 => 2})
     end
 
     it "uses 0 as a default value for hash keys that cant be found" do
-      expect(report.attention_needed_breaches[1000]).to eq 0
+      expect(report.response_needed_breaches[1000]).to eq 0
     end
   end
 
@@ -100,31 +100,31 @@ RSpec.describe Report::SLABreachReport, type: :model do
     end
   end
 
-  describe "#attention_needed_breach_count" do
+  describe "#response_needed_breach_count" do
     let(:vita_partner) { create :vita_partner }
     let(:report) do
       Report::SLABreachReport.create(data: {
-          attention_needed_breaches_by_vita_partner_id: { vita_partner.id => 1, 58394940 => 2 },
-          attention_needed_breach_count: 3
+          response_needed_breaches_by_vita_partner_id: { vita_partner.id => 1, 58394940 => 2 },
+          response_needed_breach_count: 3
       }, generated_at: DateTime.current)
     end
 
     context "without vita_partners param" do
       it "returns the raw count" do
-        expect(report.attention_needed_breach_count).to eq 3
+        expect(report.response_needed_breach_count).to eq 3
       end
     end
 
     context "with vita_partners param" do
       context "when breaches are found for the vita partners" do
         it "returns the limited count based on passed vita_partners" do
-          expect(report.attention_needed_breach_count(VitaPartner.where(id: vita_partner.id ))).to eq 1
+          expect(report.response_needed_breach_count(VitaPartner.where(id: vita_partner.id ))).to eq 1
         end
       end
 
       context "when breaches aren't found for the vita partners" do
         it "returns 0" do
-          expect(report.attention_needed_breach_count(VitaPartner.where.not(id: vita_partner.id))).to eq 0
+          expect(report.response_needed_breach_count(VitaPartner.where.not(id: vita_partner.id))).to eq 0
         end
       end
     end

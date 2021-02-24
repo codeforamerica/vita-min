@@ -21,8 +21,8 @@ class Report::SLABreachReport < Report
   end
 
   # JSON keys must be strings, but we need vita_partner id keys to be integers
-  def attention_needed_breaches
-    @attention_needed_breaches ||= format_hash(data["attention_needed_breaches_by_vita_partner_id"])
+  def response_needed_breaches
+    @response_needed_breaches ||= format_hash(data["response_needed_breaches_by_vita_partner_id"])
   end
 
   def communication_breaches
@@ -37,10 +37,10 @@ class Report::SLABreachReport < Report
     @active_sla_clients ||= format_hash(data["active_sla_clients_by_vita_partner_id"])
   end
 
-  def attention_needed_breach_count(vita_partners = nil)
-    return data["attention_needed_breach_count"] unless vita_partners.present?
+  def response_needed_breach_count(vita_partners = nil)
+    return data["response_needed_breach_count"] unless vita_partners.present?
 
-    attention_needed_breaches.slice(*vita_partners.map(&:id)).values.sum
+    response_needed_breaches.slice(*vita_partners.map(&:id)).values.sum
   end
 
   def communication_breach_count(vita_partners = nil)

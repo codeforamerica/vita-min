@@ -29,7 +29,7 @@
       <table class="index-table client-table">
         <thead class="index-table__head">
         <tr class="index-table__row">
-          <th scope="col" class="index-table__header">!<div class="sr-only"><%= t(".needs_attention_heading") %></div></th>
+          <th scope="col" class="index-table__header">!<div class="sr-only"><%= t("general.needs_response") %></div></th>
           <th scope="col" class="index-table__header">
             <%= render "shared/column_sort_link", title: t("general.name"), column_name: "preferred_name" %>
           </th>
@@ -41,24 +41,22 @@
             <%= render "shared/column_sort_link", title: t("general.language"), column_name: "locale" %>
           </th>
 
-          <% if @breach_date.present? %>
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
+          </th>
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t("clients.response_needed_since"), column_name: "needs_response" %>
+          </th>
+
+          <% if @show_first_unanswered_incoming_interaction_at %>
             <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("clients.response_needed_since"), column_name: "first_unanswered_incoming_interaction_at" %>
-            </th>
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("clients.attention_needed_since"), column_name: "attention_needed_since" %>
-            </th>
-          <% else %>
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
-            </th>
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("clients.response_needed_since"), column_name: "first_unanswered_incoming_interaction_at" %>
-            </th>
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("clients.consented_at"), column_name: "primary_consented_to_service_at" %>
+              <%= render "shared/column_sort_link", title: t(".first_unanswered_incoming_interaction_at"), column_name: "first_unanswered_incoming_interaction_at" %>
             </th>
           <% end %>
+
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t("clients.consented_at"), column_name: "primary_consented_to_service_at" %>
+          </th>
 
           <th scope="col" class="index-table__header">
             <%= render "shared/column_sort_link", title: t("general.state"), column_name: "state_of_residence" %>
@@ -70,8 +68,8 @@
         <tbody class="index-table__body clients-table">
         <% @clients.each do |client| %>
           <tr id="client-<%= client.id %>" class="index-table__row client-row">
-            <td class="index-table__cell client-attribute__needs-attention">
-              <%= render "shared/client_needs_attention", client: client %>
+            <td class="index-table__cell client-attribute__needs-response">
+              <%= render "shared/urgent_icon", client: client %>
             </td>
             <th scope="row" class="index-table__row-header client-attribute__name">
               <%= link_to hub_client_path(id: client) do %>
@@ -86,7 +84,7 @@
             <td class="index-table__cell"><%= client.intake&.locale ? t("general.language_options.#{client.intake&.locale}") : t('general.NA') %></td>
             <% if @breach_date.present? %>
               <td class="index-table__cell"><%= formatted_datetime(client.first_unanswered_incoming_interaction_at) %></td>
-              <td class="index-table__cell"><%= formatted_datetime(client.attention_needed_since) %></td>
+              <td class="index-table__cell"><%= formatted_datetime(client.response_needed_since) %></td>
             <% else %>
               <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
               <td class="index-table__cell"><%= formatted_datetime(client.first_unanswered_incoming_interaction_at) %></td>

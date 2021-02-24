@@ -92,18 +92,17 @@ en:
         clear_filters: Clear
         filter: Filter results
         filing_year: Filing Year
-        needs_attention_heading: Needs attention?
         title: All clients
         no_clients: No clients assigned.
         no_filtered_clients: No clients match selected filters.
         apply_filters: Apply search / filter to find matching clients.
         assigned_to_me: Assigned to me
         unassigned: Unassigned
-        needs_attention: Needs attention
         stage_status: Tax return stage/status
         organization: Organization/site
         assigned_user: Assigned to
         no_name_given: "Name left blank"
+        first_unanswered_incoming_interaction_at: "Oldest unanswered action"
       unlinked_clients:
         title: Unlinked clients
       navigation:
@@ -133,6 +132,7 @@ en:
         source_param: Source Param
       unlock:
         account_unlocked: "Unlocked %{name}'s account."
+      urgent: "Urgent"
     documents:
       edit:
         title: Edit Document
@@ -525,8 +525,6 @@ en:
     lived_with_spouse: Lived with spouse
     married: Married
     name: Name
-    mark_for_attention: Mark as needs attention
-    needs_attention: Needs attention
     negative: 'No'
     new: New
     next: Next
@@ -625,6 +623,9 @@ en:
     hidden: Hidden
     locked: "Locked"
     suspended: "Suspended"
+    responded_to_client: "Responded to client"
+    mark_for_response: "Mark as response needed"
+    needs_response: "Needs response"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -1948,7 +1949,6 @@ en:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
     response_needed_since: "Waiting on response"
-    attention_needed_since: "Attention needed since"
     consented_at: "Consented at"
 
 
