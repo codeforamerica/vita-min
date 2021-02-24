@@ -251,7 +251,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_users
-    @users = User.accessible_by(current_ability)
+    @users = User.accessible_by(current_ability).order(name: :asc)
   end
 
   rescue_from CanCan::AccessDenied do |exception|

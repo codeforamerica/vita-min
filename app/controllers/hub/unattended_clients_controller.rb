@@ -3,7 +3,7 @@ module Hub
     include AccessControllable
     include ClientSortable
 
-    before_action :require_sign_in, :require_admin, :load_users
+    before_action :require_sign_in, :load_users
 
     load_and_authorize_resource :client, parent: false
     load_and_authorize_resource :vita_partner, parent: false
@@ -29,10 +29,6 @@ module Hub
     def day_param
       value = params[:sla_days].to_i
       value > 0 ? value : 3
-    end
-
-    def require_admin
-      raise CanCan::AccessDenied unless current_user&.admin?
     end
   end
 end
