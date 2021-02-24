@@ -471,7 +471,7 @@ describe TaxReturn do
         end
 
         it "creates a system note" do
-          expect(SystemNote).to receive(:create_system_status_change_note!).with(tax_return, "intake_in_progress", :file_ready_to_file)
+          expect(SystemNote::StatusChange).to receive(:generate!).with(tax_return: tax_return, old_status: "intake_in_progress", new_status: :file_ready_to_file)
 
           tax_return.sign_primary!(fake_ip)
         end
@@ -546,7 +546,7 @@ describe TaxReturn do
         }.to change { SystemNote.count }.by(1)
 
         system_note = SystemNote.last
-        expect(system_note.body).to eq "Primary taxpayer signed 2019 form 8879. Waiting on spouse to sign."
+        expect(system_note.body).to eq "Primary taxpayer signed 2019 form 8879. Waiting on spouse of taxpayer to sign."
         expect(system_note.client).to eq tax_return.client
       end
 
@@ -618,7 +618,7 @@ describe TaxReturn do
         end
 
         it "creates a system note" do
-          expect(SystemNote).to receive(:create_system_status_change_note!).with(tax_return, "intake_in_progress", :file_ready_to_file)
+          expect(SystemNote::StatusChange).to receive(:generate!).with(tax_return: tax_return, old_status: "intake_in_progress", new_status: :file_ready_to_file)
 
           tax_return.sign_spouse!(fake_ip)
         end

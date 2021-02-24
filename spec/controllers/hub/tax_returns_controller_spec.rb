@@ -93,7 +93,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
       let(:user) { create :coalition_lead_user, coalition: coalition }
       before do
         sign_in user
-        allow(SystemNote).to receive(:create_assignment_change_note)
+        allow(SystemNote::AssignmentChange).to receive(:generate!)
       end
 
       context "when trying to assign the tax return to an assignable user" do
@@ -106,7 +106,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           expect(tax_return.assigned_user).to eq organization_lead
           expect(response).to render_template :show
           expect(flash.now[:notice]).to eq "Assigned Lucille's 2018 tax return to #{organization_lead.name}."
-          expect(SystemNote).to have_received(:create_assignment_change_note).with(user, tax_return)
+          expect(SystemNote::AssignmentChange).to have_received(:generate!).with({ initiated_by: user, tax_return: tax_return })
         end
       end
 
@@ -131,7 +131,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           tax_return.reload
           expect(tax_return.assigned_user).not_to be_present
           expect(flash[:notice]).to eq "Assigned Lucille's 2018 tax return to no one."
-          expect(SystemNote).to have_received(:create_assignment_change_note).with(user, tax_return)
+          expect(SystemNote::AssignmentChange).to have_received(:generate!).with({ initiated_by: user, tax_return: tax_return })
         end
       end
 
