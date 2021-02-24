@@ -39,7 +39,7 @@ class Signup < ApplicationRecord
       SignupFollowupMailer.followup(signup.email_address, signup.name).deliver_later
       Signup.where(email_address: signup.email_address).update_all(sent_followup: true)
     end
-    puts(valid_count)
+    valid_count
   end
 
   private

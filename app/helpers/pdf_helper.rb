@@ -8,7 +8,8 @@ module PdfHelper
     value ? "Yes" : nil
   end
 
-  def collective_yes_no_unfilled(*values)
+  def collective_yes_no_unsure(*values)
+    return "unfilled" if values.all?("unfilled")
     return "yes" if values.any?("yes")
     return "unsure" if values.any?("unsure")
 
