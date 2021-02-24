@@ -8,7 +8,7 @@
   <div class="hub-section">
     <h2>Contact History</h2>
   </div>
-  <% if @contact_history.present? %>
+  <% if @messages_by_day.present? %>
     <ul class="message-list" aria-live="polite" data-js="messages-pub-sub" data-client-id="<%=@client.id%>">
 
       <% @messages_by_day.each do |datetime, contact_records| %>

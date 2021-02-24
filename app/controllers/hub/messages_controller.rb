@@ -12,13 +12,7 @@ module Hub
     layout "admin"
 
     def index
-      @contact_history = (
-        @outgoing_text_messages.includes(:user) +
-        @incoming_text_messages +
-        @outgoing_emails.includes(:user) +
-        @incoming_emails
-      ).sort_by(&:datetime)
-      @messages_by_day = @contact_history.group_by { |message| message.datetime.beginning_of_day }
+      @messages_by_day = MessagePresenter.grouped_messages(@client)
       @outgoing_text_message = OutgoingTextMessage.new(client: @client)
       @outgoing_email = OutgoingEmail.new(client: @client)
     end

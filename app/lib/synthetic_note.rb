@@ -35,4 +35,8 @@ class SyntheticNote
       SyntheticNote.new(outbound_call.created_at, body)
     end.compact
   end
+
+  def datetime
+    @created_at
+  end
 end
