@@ -9,7 +9,7 @@ module Questions
     end
 
     def illustration_path
-      "eip-check.svg"
+      "ineligible.svg"
     end
   end
 end
