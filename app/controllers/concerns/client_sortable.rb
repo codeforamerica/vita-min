@@ -1,6 +1,6 @@
 module ClientSortable
   def filtered_and_sorted_clients(default_order: nil)
-    @default_order = default_order || { "first_unanswered_incoming_interaction_at" => "asc" }
+    @default_order = default_order || { "response_needed_since" => "asc" }
     setup_sortable_client unless @filters.present?
     clients = @clients.after_consent
     clients = clients.delegated_order(@sort_column, @sort_order)

@@ -479,10 +479,10 @@ RSpec.describe Hub::ClientsController do
           let!(:first_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 2.days.ago }
           let!(:second_id) { create :client, :with_return, vita_partner: organization, intake: create(:intake), first_unanswered_incoming_interaction_at: 1.day.ago }
 
-          it "defaults to sorting by first_unanswered_incoming_interaction_at, asc by default" do
+          it "defaults to sorting by response_needed_since, asc by default" do
             get :index
 
-            expect(assigns[:sort_column]).to eq "first_unanswered_incoming_interaction_at"
+            expect(assigns[:sort_column]).to eq "response_needed_since"
             expect(assigns[:sort_order]).to eq "asc"
 
             expect(assigns(:clients)).to eq [first_id, second_id]
@@ -491,7 +491,7 @@ RSpec.describe Hub::ClientsController do
           it "defaults to sorting by id, desc with bad params" do
             get :index, params: { column: "bad_sort", order: "no_order" }
 
-            expect(assigns[:sort_column]).to eq "first_unanswered_incoming_interaction_at"
+            expect(assigns[:sort_column]).to eq "response_needed_since"
             expect(assigns[:sort_order]).to eq "asc"
 
             expect(assigns(:clients)).to eq [first_id, second_id]
