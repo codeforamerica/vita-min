@@ -84,7 +84,7 @@ RSpec.describe Signup, type: :model do
     end
   end
 
-  describe ".valid_emails_with_unsent_followups_count" do
+  describe ".valid_emails_with_unsent_followups" do
     context "with signups with valid emails and invalid emails" do
       before do
         Signup.new(email_address: nil, name: "Sarah Squash").save!(validate: false)
@@ -93,7 +93,7 @@ RSpec.describe Signup, type: :model do
       end
 
       it "returns number of valid emails with unsent followups" do
-        expect(Signup.valid_emails_with_unsent_followups_count).to eq 1
+        expect(Signup.valid_emails_with_unsent_followups.length).to eq 1
       end
     end
   end

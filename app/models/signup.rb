@@ -19,27 +19,18 @@ class Signup < ApplicationRecord
   validates :email_address, 'valid_email_2/email': true
 
 
-  def self.valid_emails_with_unsent_followups_count
-    distinct(:email_address).where(sent_followup: false).pluck(:email_address).filter do |email|
-      ValidEmail2::Address.new(email).valid?
-    end.count
+  def self.valid_emails_with_unsent_followups
+    distinct(:email_address).where(sent_followup: false).filter do |signup|
+      ValidEmail2::Address.new(signup.email_address).valid? && !signup.email_address.include?("@tinfoil-fake-site.com")
+    end
   end
-
-  def self.with_unsent_followups
-    distinct(:email_address).where(sent_followup: false)
-  end
-
 
   def self.send_followup_emails(batch_size = nil)
-    valid_count = 0
-    with_unsent_followups.limit(batch_size).find_each do |signup|
-      next unless ValidEmail2::Address.new(signup.email_address).valid?
-
-      valid_count += 1
+    emails = batch_size ? valid_emails_with_unsent_followups.slice(0..(batch_size - 1)) : valid_emails_with_unsent_followups
+    emails.each do |signup|
       SignupFollowupMailer.followup(signup.email_address, signup.name).deliver_later
       Signup.where(email_address: signup.email_address).update_all(sent_followup: true)
     end
-    valid_count
   end
 
   private
