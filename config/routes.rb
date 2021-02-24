@@ -69,8 +69,7 @@ Rails.application.routes.draw do
 
     resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
 
-    resources :signups, only: [:new, :create]
-    get "/sign-up", to: "signups#new"
+    get "/sign-up", to: redirect('/')
 
     namespace :diy do
       get "/file-yourself", to: "file_yourself#edit"

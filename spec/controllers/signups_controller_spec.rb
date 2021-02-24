@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe SignupsController do
-  describe "#create" do
+  xdescribe "#create" do
     context "with valid params" do
       before do
         allow(subject).to receive(:send_mixpanel_event)
@@ -48,7 +48,7 @@ RSpec.describe SignupsController do
     end
   end
 
-  describe "#new" do
+  xdescribe "#new" do
     it "passes an empty signup to the template" do
       get :new
 
