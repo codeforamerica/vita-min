@@ -5,9 +5,10 @@ class MessagePresenter
       client.incoming_text_messages +
       client.outgoing_emails.includes(:user) +
       client.incoming_emails +
-      SystemNote::SignedDocument.where(client: client)
+      SystemNote::SignedDocument.where(client: client) +
+      SyntheticNote.from_client_documents(client) +
+      SyntheticNote.from_outbound_calls(client)
     )
-    synthetic_notes = SyntheticNote.from_outbound_calls(client)
-    (messages + synthetic_notes).sort_by(&:datetime).group_by { |message| message.datetime.beginning_of_day }
+    messages.sort_by(&:datetime).group_by { |message| message.datetime.beginning_of_day }
   end
 end
