@@ -2,11 +2,6 @@ require "rails_helper"
 
 RSpec.describe "offseason routes", type: :request do
   context "landing pages during the off-season" do
-    it "redirects /full-service to the homepage" do
-      get "/full-service"
-      expect(response).to redirect_to("/")
-    end
-
     it "redirects /EIP to the homepage" do
       get "/EIP"
       expect(response).to redirect_to("/")
