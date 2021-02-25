@@ -43,4 +43,12 @@ class SystemNote::SignedDocument < SystemNote
       client: tax_return.client,
     )
   end
+
+  def contact_record_type
+    "note"
+  end
+
+  def datetime
+    created_at
+  end
 end
