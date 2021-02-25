@@ -24,7 +24,7 @@ RSpec.describe Hub::MessagesController do
         it "shows the suspended user's name with the message" do
           get :index, params: params
 
-          expect(assigns(:contact_history)[0].user.name).to eq("Suspended Succotash")
+          expect(assigns(:messages_by_day).values.flatten[0].user.name).to eq("Suspended Succotash")
         end
       end
 
@@ -50,7 +50,7 @@ RSpec.describe Hub::MessagesController do
         it "displays all message bodies sorted by date" do
           get :index, params: params
 
-          expect(assigns(:contact_history)).to eq expected_contact_history
+          expect(assigns(:messages_by_day).values.flatten).to eq expected_contact_history
 
           messages = Nokogiri::HTML.parse(response.body).css(".message__body")
 
@@ -63,7 +63,7 @@ RSpec.describe Hub::MessagesController do
         it "groups messages by date" do
           get :index, params: params
 
-          expect(assigns(:contact_history)).to eq expected_contact_history
+          expect(assigns(:messages_by_day).values.flatten).to eq expected_contact_history
 
           expect(assigns(:messages_by_day).keys.count).to eq 3
           expect(assigns(:messages_by_day).keys[0]).to eq DateTime.new(2019, 12, 31, 0, 0, 1).in_time_zone('America/New_York').beginning_of_day
