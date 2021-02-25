@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe ReplacementParametersService do
   let(:client) { create :client, intake: create(:intake, preferred_name: "Preferred Name") }

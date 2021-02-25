@@ -713,10 +713,10 @@ en:
         body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:support@getyourrefund.org">support@getyourrefund.org</a>.
       invalid_token:
         title: "It looks like you need a new link"
-        body_html: The link you used is expired or broken. Please <a href="mailto:support@getyourrefund.org">email support</a> to get a new link.
+        body_html: The link you used is expired or broken. Please <a href="mailto:hello@getyourrefund.org">email support</a> to get a new link.
     portal:
       home:
-        title: Welcome back, %{name}!
+        title: Welcome back %{name}!
         tax_returns:
           heading: "%{year} tax documents"
           view_signed_8879: View/download signed form 8879
@@ -1950,5 +1950,51 @@ en:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
     response_needed_since: "Waiting on response"
     consented_at: "Consented at"
+  client_logins:
+    no_account_found_sms: |
+      Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
+      You can also visit %{home_url} and click “Get Started” to start the filing process.
+    login_sms: |
+      We received your request for an update on your progress. You can view your progress by following this link
+      %{login_link}
+  client_login_request_mailer:
+    login_email:
+      body_html: |
+        <p>Hello,</p>
+        <p>We received your request for an update on your progress. You can view your progress by following this link.</p>
+        <p><a href="%{login_link}">%{login_link}</a></p>
+        <p>If you did not initiate this request, please let us know.</p>
+        <p>Your tax team at GetYourRefund.org</p>
+      body_text: |
+        Hello,
 
+        We received your request for an update on your progress. You can view your progress by following this link.
 
+        %{login_link}
+
+        If you did not initiate this request, please let us know.
+
+        Your tax team at GetYourRefund.org
+    no_match:
+      subject: GetYourRefund Login Attempt
+      body_html: |
+        Hello,<br><br>
+        It looks like you attempted to sign in to GetYourRefund, but we did not find any matching contact information.<br>
+        You may have used different email address to set up your GetYourRefund account. You’ll need to sign in with the original email address you used when you signed up.<br>
+        If you have not submitted your tax information to GetYourRefund, <a href="%{home_page_url}">visit www.getyourrefund.org and click “Get Started” to start the filing process</a>.
+        <br><br>
+        We're here to help,<br><br>
+
+        Your tax team at GetYourRefund
+      body_text: |
+        Hello,
+
+        It looks like you attempted to sign in to GetYourRefund, but we did not find any matching contact information.
+        You may have used different email address to set up your GetYourRefund account. You’ll need to sign in with the original email address you used when you signed up.
+        If you have not submitted your tax information to GetYourRefund, visit www.getyourrefund.org and click “Get Started” to start the filing process.
+
+        %{home_page_url}
+
+        We're here to help,
+
+        Your tax team at GetYourRefund
