@@ -37,7 +37,7 @@
           <td>
             <%= document.tax_return&.year %>
           </td>
-          <td><%= t(".uploaded_ago", time: time_ago_in_words(document.created_at)) %></td>
+          <td><%= long_formatted_datetime document.created_at %></td>
           <td class="edit">
             <%= link_to t("general.edit"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
           </td>

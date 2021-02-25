@@ -15,7 +15,6 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
       context "with some existing documents" do
         render_views
-
         let!(:first_document) {
           create :document,
                  display_name: "some_file.jpg",
@@ -55,21 +54,17 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           first_doc_element = html.at_css("#document-#{first_document.id}")
           expect(first_doc_element).to have_text("ID")
           expect(first_doc_element).to have_text("some_file.jpg")
-          expect(first_doc_element).to have_text("2 days ago")
           document_link = first_doc_element.at_css("a:contains(\"some_file.jpg\")")
           expect(document_link["href"]).to eq hub_client_document_path(client_id: client.id, id: first_document.id)
           second_doc_element = html.at_css("#document-#{second_document.id}")
           expect(second_doc_element).to have_text("Employment")
           expect(second_doc_element).to have_text("another_file.pdf")
-          expect(second_doc_element).to have_text("3 hours ago")
           third_doc_element = html.at_css("#document-#{third_document.id}")
           expect(third_doc_element).to have_text("Email attachment")
           expect(third_doc_element).to have_text("email-attachment.pdf")
-          expect(third_doc_element).to have_text("1 hour ago")
           fourth_doc_element = html.at_css("#document-#{fourth_document.id}")
           expect(fourth_doc_element).to have_text("Email attachment")
           expect(fourth_doc_element).to have_text("zero-bytes.jpg (empty file)")
-          expect(fourth_doc_element).to have_text("1 hour ago")
         end
       end
 
