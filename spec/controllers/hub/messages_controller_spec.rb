@@ -28,6 +28,60 @@ RSpec.describe Hub::MessagesController do
         end
       end
 
+      context "viewing communication preferences" do
+        render_views
+        context "without way to communicate" do
+          before do
+            intake.update(sms_notification_opt_in: "no", email_notification_opt_in: "no", email_address: "", sms_phone_number: nil)
+          end
+
+          it "includes the cannot communicate text" do
+            get :index, params: params
+            comms = Nokogiri::HTML.parse(response.body).css(".communication-preferences")
+            expect(comms.text).to include "Client has not provided contact info"
+          end
+        end
+
+        context "when opted into text messages only" do
+          before do
+            intake.update(sms_notification_opt_in: "yes", sms_phone_number: "+18324658840", email_notification_opt_in: "no")
+          end
+          it "includes the text message preference text" do
+            get :index, params: params
+            comms = Nokogiri::HTML.parse(response.body).css(".communication-preferences")
+            expect(comms.text).to include "Client has opted in to contact by"
+            expect(comms.text).to include "Text Message"
+            expect(comms.text).not_to include "Email"
+          end
+        end
+
+        context "when opted into emails only" do
+          before do
+            intake.update(sms_notification_opt_in: "no", sms_phone_number: "+18324658840", email_notification_opt_in: "yes", email_address: "mango@example.com")
+          end
+          it "includes the text message preference text" do
+            get :index, params: params
+            comms = Nokogiri::HTML.parse(response.body).css(".communication-preferences")
+            expect(comms.text).to include "Client has opted in to contact by"
+            expect(comms.text).to include "Email"
+            expect(comms.text).not_to include "Text Message"
+          end
+        end
+
+        context "when opted into both" do
+          before do
+            intake.update(sms_notification_opt_in: "yes", sms_phone_number: "+18324658840", email_notification_opt_in: "yes", email_address: "mango@example.com")
+          end
+          it "includes the text message preference text" do
+            get :index, params: params
+            comms = Nokogiri::HTML.parse(response.body).css(".communication-preferences")
+            expect(comms.text).to include "Client has opted in to contact by"
+            expect(comms.text).to include "Email"
+            expect(comms.text).to include "Text Message"
+          end
+        end
+      end
+
       context "with existing contact history" do
         render_views
 

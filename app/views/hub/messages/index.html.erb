@@ -32,10 +32,31 @@
     <ul class="message-list" data-js="messages-pub-sub" data-client-id="<%=@client.id%>"></ul>
   <% end %>
   <div class="hub-section">
-    <%= form_with model: @outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
-      <%= f.cfa_input_field :body, t(".text_message_form.label") %>
-      <%= f.hidden_field :client_id %>
-      <%= f.submit t(".text_message_form.submit"), class: "button #{"button--disabled" if @client.sms_phone_number.blank?}", disabled: @client.sms_phone_number.blank? %>
+    <div class="communication-preferences">
+      <% unless @client&.intake.email_address.present? || @client&.intake.sms_phone_number.present? %>
+        <%= t(".no_way_to_communicate") %>
+      <% else %>
+        <%= t(".preference_intro") %>
+        <ul class="with-bullets">
+          <% if @client&.intake.sms_notification_opt_in_yes? && @client&.intake.sms_phone_number.present? %>
+            <li><%= t("general.text_message") %></li>
+          <% end %>
+          <% if @client&.intake.email_notification_opt_in_yes? && @client&.intake.email_address.present? %>
+            <li><%= t("general.email")%></li>
+        <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+
+    <% if @client&.intake.sms_phone_number.present? %>
+      <%= form_with model: @outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
+        <%= f.cfa_input_field :body, t(".text_message_form.label") %>
+        <%= f.hidden_field :client_id %>
+        <%= f.submit t(".text_message_form.submit"), class: "button" %>
+      <% end %>
+    <% else %>
+      <p><%= t(".no_sms_number") %></p>
     <% end %>
 
     <% if @client&.intake.email_address.present? %>
