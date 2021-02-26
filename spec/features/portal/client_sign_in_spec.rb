@@ -28,7 +28,6 @@ RSpec.feature "Signing in" do
       link = Nokogiri::HTML.parse(html_body).at_css("a")["href"]
       expect(link).to be_present
 
-      puts link
       visit link
       fill_in "Confirmation number", with: client.id
       click_on "Continue"

@@ -12,9 +12,18 @@
 #
 class EmailAccessToken < ApplicationRecord
   validates_presence_of :token
-  validates :email_address, presence: true, 'valid_email_2/email': true
+  validates_presence_of :email_address
+  validate :one_or_more_valid_email_addresses
 
   scope :by_raw_token, ->(raw_token) do
     where(token: Devise.token_generator.digest(EmailAccessToken, :token, raw_token))
+  end
+
+  private
+
+  def one_or_more_valid_email_addresses
+    unless email_address.present? && email_address.split(",").map { |email| ValidEmail2::Address.new(email).valid? }.all?
+      errors.add(:email_address, :invalid)
+    end
   end
 end

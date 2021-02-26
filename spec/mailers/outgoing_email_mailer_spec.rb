@@ -29,8 +29,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
     let(:fake_replacement_parameters_service) { double }
 
     before do
-      allow(ReplacementParametersService).to receive(:new).and_return(fake_replacement_parameters_service)
-      allow(fake_replacement_parameters_service).to receive(:process_sensitive_data).and_return(sensitive_body)
+      allow(LoginLinkInsertionService).to receive(:insert_links).and_return(sensitive_body)
       allow(DatadogApi).to receive(:increment)
     end
 
@@ -40,12 +39,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
         email.deliver_now
       end.to change(ActionMailer::Base.deliveries, :count).by 1
 
-      expect(ReplacementParametersService).to have_received(:new).with(
-        body: outgoing_email.body,
-        client: outgoing_email.client,
-        locale: intake.locale
-      )
-      expect(fake_replacement_parameters_service).to have_received(:process_sensitive_data)
+      expect(LoginLinkInsertionService).to have_received(:insert_links).with(outgoing_email)
 
       expect(email.subject).to eq outgoing_email.subject
       expect(email.from).to eq ["no-reply@test.localhost"]

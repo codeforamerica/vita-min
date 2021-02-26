@@ -1,5 +1,17 @@
 class ClientLoginsService
   class << self
+    def issue_email_token(email_address)
+      raw_token, hashed_token = Devise.token_generator.generate(EmailAccessToken, :token)
+      EmailAccessToken.create!(token: hashed_token, email_address: email_address)
+      raw_token
+    end
+
+    def issue_text_message_token(sms_phone_number)
+      raw_token, hashed_token = Devise.token_generator.generate(TextMessageAccessToken, :token)
+      TextMessageAccessToken.create!(token: hashed_token, sms_phone_number: sms_phone_number)
+      raw_token
+    end
+
     def request_email_login(email_address:, visitor_id:, locale:)
       email_match_exists =  Intake.where(email_address: email_address).or(
         Intake.where(spouse_email_address: email_address)
@@ -51,7 +63,9 @@ class ClientLoginsService
     end
 
     def clients_for_token(raw_token)
-      emails = EmailAccessToken.by_raw_token(raw_token).pluck(:email_address)
+      # these might have multiple email addresses
+      to_addresses = EmailAccessToken.by_raw_token(raw_token).pluck(:email_address)
+      emails = to_addresses.map { |to| to.split(",") }.flatten(1)
       email_intake_matches = Intake.where(email_address: emails)
       spouse_email_intake_matches = Intake.where(spouse_email_address: emails)
       phone_numbers = TextMessageAccessToken.by_raw_token(raw_token).pluck(:sms_phone_number)

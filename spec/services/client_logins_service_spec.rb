@@ -2,7 +2,35 @@ require "rails_helper"
 
 describe ClientLoginsService do
   before do
-    allow(Devise.token_generator).to receive(:generate).and_return(["raw_token", "encrypted_token"])
+    allow(Devise.token_generator).to receive(:generate).and_return(["raw_token", "hashed_token"])
+  end
+
+  describe ".issue_email_token" do
+    it "generates a new token, saves it, and returns the raw_token" do
+      expect do
+        result = ClientLoginsService.issue_email_token("someone@example.com")
+
+        expect(Devise.token_generator).to have_received(:generate).with(EmailAccessToken, :token)
+        expect(result).to eq "raw_token"
+      end.to change(EmailAccessToken, :count).by(1)
+      token = EmailAccessToken.last
+      expect(token.email_address).to eq "someone@example.com"
+      expect(token.token).to eq "hashed_token"
+    end
+  end
+
+  describe ".issue_text_message_token" do
+    it "generates a new token, saves it, and returns the raw_token" do
+      expect do
+        result = ClientLoginsService.issue_text_message_token("+15105551234")
+
+        expect(Devise.token_generator).to have_received(:generate).with(TextMessageAccessToken, :token)
+        expect(result).to eq "raw_token"
+      end.to change(TextMessageAccessToken, :count).by(1)
+      token = TextMessageAccessToken.last
+      expect(token.sms_phone_number).to eq "+15105551234"
+      expect(token.token).to eq "hashed_token"
+    end
   end
 
   describe ".request_email_login" do
@@ -104,7 +132,7 @@ describe ClientLoginsService do
       access_token = EmailAccessToken.last
       login_request = EmailLoginRequest.last
       expect(access_token.email_address).to eq "galloping@majestic.horse"
-      expect(access_token.token).to eq "encrypted_token"
+      expect(access_token.token).to eq "hashed_token"
       expect(login_request.email_access_token).to eq access_token
       expect(login_request.visitor_id).to eq "visitor id"
     end
@@ -130,7 +158,7 @@ describe ClientLoginsService do
       access_token = TextMessageAccessToken.last
       login_request = TextMessageLoginRequest.last
       expect(access_token.sms_phone_number).to eq "+15105551234"
-      expect(access_token.token).to eq "encrypted_token"
+      expect(access_token.token).to eq "hashed_token"
       expect(login_request.text_message_access_token).to eq access_token
       expect(login_request.visitor_id).to eq "visitor id"
     end
@@ -152,11 +180,11 @@ describe ClientLoginsService do
 
   describe ".clients_for_token" do
     before do
-      allow(Devise.token_generator).to receive(:digest).and_return("encrypted_token")
+      allow(Devise.token_generator).to receive(:digest).and_return("hashed_token")
     end
 
     context "with a client with a matching token" do
-      let!(:client) { create :client, login_token: "encrypted_token" }
+      let!(:client) { create :client, login_token: "hashed_token" }
 
       it "returns the client" do
         expect(described_class.clients_for_token("raw_token")).to match_array [client]
@@ -166,7 +194,7 @@ describe ClientLoginsService do
     context "with a client matching a TextMessageAccessToken" do
       let!(:client) { create :client }
       before do
-        create(:text_message_access_token, token: "encrypted_token", sms_phone_number: "+16505551212")
+        create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212")
         create(:intake, client: client, sms_phone_number: "+16505551212")
       end
 
@@ -178,7 +206,7 @@ describe ClientLoginsService do
     context "with a client who's email matches an EmailAccessToken" do
       let!(:client) { create :client }
       before do
-        create(:email_access_token, token: "encrypted_token", email_address: "someone@example.com")
+        create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
         create(:intake, client: client, email_address: "someone@example.com")
       end
 
@@ -190,8 +218,20 @@ describe ClientLoginsService do
     context "with a client who's spouse email matches an EmailAccessToken" do
       let!(:client) { create :client }
       before do
-        create(:email_access_token, token: "encrypted_token", email_address: "someone@example.com")
+        create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
         create(:intake, client: client, spouse_email_address: "someone@example.com")
+      end
+
+      it "returns the client" do
+        expect(described_class.clients_for_token("raw_token")).to match_array [client]
+      end
+    end
+
+    context "with a client who's email is contained in a comma-separated EmailAccessToken" do
+      let!(:client) { create :client }
+      before do
+        create(:email_access_token, token: "hashed_token", email_address: "someone@example.com,other@example.com")
+        create(:intake, client: client, email_address: "someone@example.com")
       end
 
       it "returns the client" do
