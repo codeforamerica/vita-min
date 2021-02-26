@@ -1,15 +1,7 @@
 module Stimulus
-  class StimulusController < ApplicationController
+  class StimulusController < Questions::QuestionsController
+    skip_before_action :require_intake
     before_action :require_stimulus_triage
-
-    delegate :form_name, to: :class
-    delegate :form_class, to: :class
-
-    helper_method :current_path
-    helper_method :illustration_folder
-    helper_method :illustration_path
-    helper_method :next_path
-    helper_method :prev_path
 
     layout "yes_no_question"
 
@@ -50,14 +42,6 @@ module Stimulus
       "stimulus"
     end
 
-    def illustration_path
-      "#{controller_name.dasherize}.svg"
-    end
-
-    def self.show?(stimulus_triage)
-      true
-    end
-
     private
 
     def require_stimulus_triage
@@ -74,10 +58,6 @@ module Stimulus
       @form_navigation ||= StimulusNavigation.new(self)
     end
 
-    def track_validation_error
-      send_mixpanel_validation_error(@form.errors, tracking_data)
-    end
-
     def tracking_data
       return {} unless @form.class.scoped_attributes.key?(:stimulus_triage)
 
@@ -85,19 +65,16 @@ module Stimulus
     end
 
     class << self
-      def to_param
-        controller_name.dasherize
-      end
-
       def form_key
         "stimulus/" + controller_name + "_form"
       end
 
       def form_class
-        form_key.classify.constantize
+        form_name.classify.constantize
       end
 
       def form_name
+        byebug
         form_key.parameterize(separator: "_")
       end
     end
