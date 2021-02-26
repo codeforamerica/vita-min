@@ -33,7 +33,7 @@
   <% end %>
   <div class="hub-section">
     <div class="communication-preferences">
-      <% if !@client&.intake.email_address.present? && !@client&.intake.sms_phone_number.present? %>
+      <% unless @client&.intake.email_address.present? || @client&.intake.sms_phone_number.present? %>
         <%= t(".no_way_to_communicate") %>
       <% else %>
         <%= t(".preference_intro") %>
