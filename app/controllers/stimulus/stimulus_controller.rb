@@ -38,6 +38,10 @@ module Stimulus
       nil
     end
 
+    def parent_class
+      StimulusTriage
+    end
+
     def illustration_folder
       "stimulus"
     end
@@ -65,17 +69,16 @@ module Stimulus
     end
 
     class << self
+      def form_class
+        form_key.classify.constantize
+      end
+
       def form_key
         "stimulus/" + controller_name + "_form"
       end
 
-      def form_class
-        form_name.classify.constantize
-      end
-
       def form_name
-        byebug
-        form_key.parameterize(separator: "_")
+        form_key.gsub("/", "_")
       end
     end
   end
