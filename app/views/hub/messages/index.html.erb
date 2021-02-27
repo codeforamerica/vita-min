@@ -31,7 +31,7 @@
     %>
     <ul class="message-list" data-js="messages-pub-sub" data-client-id="<%=@client.id%>"></ul>
   <% end %>
-  <div class="hub-section">
+  <div class="slab">
     <div class="communication-preferences">
       <% unless @client&.intake.email_address.present? || @client&.intake.sms_phone_number.present? %>
         <%= t(".no_way_to_communicate") %>
@@ -51,9 +51,11 @@
 
     <% if @client&.intake.sms_phone_number.present? %>
       <%= form_with model: @outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
-        <%= f.cfa_input_field :body, t(".text_message_form.label") %>
+        <%= f.cfa_textarea :body, t(".text_message_form.label") %>
         <%= f.hidden_field :client_id %>
-        <%= f.submit t(".text_message_form.submit"), class: "button" %>
+        <div>
+          <%= f.submit t(".text_message_form.submit"), class: "button" %>
+        </div>
       <% end %>
     <% else %>
       <p><%= t(".no_sms_number") %></p>
@@ -71,8 +73,9 @@
           <button id="attachment-image-clear" hidden>Remove Attachment</button>
 
         </div>
-
-        <%= f.submit t(".email_form.submit"), class: "button", disabled: @client.intake.email_address.blank? %>
+        <div>
+          <%= f.submit t(".email_form.submit"), class: "button", disabled: @client.intake.email_address.blank? %>
+        </div>
       <% end %>
     <% else %>
       <p><%= t(".no_email_address") %></p>
