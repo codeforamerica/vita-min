@@ -105,7 +105,13 @@
   }
 
   .form-group {
-    margin-bottom: $s25;
+    margin-bottom: $s35;
+    position: relative;
+    .text--error {
+      margin: 0;
+      position: absolute;
+      font-size: 1.2rem;
+    }
   }
 
   .checkbox-group {
