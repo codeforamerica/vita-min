@@ -1,5 +1,18 @@
 <% @title = t(".title") %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <%= render 'form', url: [:hub, @client, @document], method: "patch", file_upload_enabled: false %>
+  <div class="slab">
+    <div class="grid-flex">
+      <div class="item no-shrink">
+        <%= render 'form', url: [:hub, @client, @document], method: "patch", file_upload_enabled: false %>
+      </div>
+      <div class="item">
+        <% if @document.is_pdf? %>
+          <embed src="<%= transient_storage_url(@document.upload.blob) %>" width="800px" height="100%" type="application/pdf" />
+        <% else %>
+          <%= image_tag transient_storage_url(@document.upload.blob) %>
+      <% end %>
+      </div>
+    </div>
+  </div>
 <% end %>
