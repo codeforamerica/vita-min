@@ -34,7 +34,7 @@ RSpec.describe Portal::RequestClientLoginForm do
 
       it "is not valid" do
         expect(form).not_to be_valid
-        expect(form.errors).to include :email_address
+        expect(form.errors.keys).to match_array([:email_address])
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe Portal::RequestClientLoginForm do
 
       it "is not valid" do
         expect(form).not_to be_valid
-        expect(form.errors).to include :sms_phone_number
+        expect(form.errors.keys).to match_array([:sms_phone_number])
       end
     end
   end
