@@ -1,7 +1,5 @@
 class LoginLinkInsertionService
   class << self
-    include Rails.application.routes.url_helpers
-
     def insert_links(contact_record)
       e_signature_link_pattern = /<<\s*link\.e-signature\s*>>/i
 
@@ -13,7 +11,7 @@ class LoginLinkInsertionService
         ClientLoginsService.issue_email_token(contact_record.to)
       end
 
-      login_link = portal_client_login_url(locale: contact_record.client.intake.locale, id: raw_token)
+      login_link = Rails.application.routes.url_helpers.portal_client_login_url(locale: contact_record.client.intake.locale, id: raw_token)
       contact_record.body.gsub(e_signature_link_pattern, login_link)
     end
   end
