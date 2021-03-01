@@ -202,6 +202,7 @@ en:
       status:
         intake_before_consent: Before consent
         intake_in_progress: Not ready
+        intake_greeter_info_requested: Greeter - info requested
         intake_ready: Ready for review
         intake_reviewing: Reviewing
         intake_ready_for_call: Ready for call
