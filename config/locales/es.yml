@@ -203,7 +203,8 @@ es:
       status:
         intake_before_consent: Antes de consentimiento
         intake_in_progress: No listo
-        intake_ready: Ready for review
+        intake_greeter_info_requested: Saludador - Información solicitada
+        intake_ready: Listo para revisión
         intake_reviewing: Revisando
         intake_ready_for_call: Listo para llamada
         intake_info_requested: Información solicitada
