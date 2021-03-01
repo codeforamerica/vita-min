@@ -1,6 +1,4 @@
 class ClientMessagingService
-  # This module expects the controller to assign @client, typically via load_and_authorize_resource.
-
   class << self
     def send_email(client, user, body, attachment: nil, subject_locale: nil)
       create_outgoing_email(attachment, body, client, client.email_address, subject_locale, user)

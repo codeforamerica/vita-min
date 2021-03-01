@@ -15,7 +15,7 @@ RSpec.feature "a client on their portal" do
 
   scenario "viewing their tax return statuses" do
     visit portal_root_path
-    expect(page).to have_text "Welcome back, Martha Mango"
+    expect(page).to have_text "Welcome back Martha Mango"
 
     expect(page).to have_text "2019 tax documents"
     expect(page).to have_text "2018 tax documents"

@@ -9,19 +9,28 @@ module Portal
       @form = RequestClientLoginForm.new
     end
 
-    def link_sent; end
-
     def create
       @form = RequestClientLoginForm.new(request_client_login_params)
       if @form.valid?
-        ClientLoginRequestJob.perform_later(
-          email_address: @form.email_address, phone_number: @form.phone_number
-        )
+        ClientEmailLoginRequestJob.perform_later(
+          email_address: @form.email_address,
+          locale: I18n.locale,
+          visitor_id: visitor_id
+        ) if @form.email_address.present?
+
+        ClientTextMessageLoginRequestJob.perform_later(
+          sms_phone_number: @form.sms_phone_number,
+          locale: I18n.locale,
+          visitor_id: visitor_id
+        ) if @form.sms_phone_number.present?
+
         redirect_to login_link_sent_portal_client_logins_path
       else
         render :new
       end
     end
+
+    def link_sent; end
 
     def invalid_token; end
 
@@ -49,7 +58,7 @@ module Portal
     private
 
     def request_client_login_params
-      params.require(:portal_request_client_login_form).permit(:email_address, :phone_number)
+      params.require(:portal_request_client_login_form).permit(:email_address, :sms_phone_number)
     end
 
     def client_login_params
@@ -57,7 +66,7 @@ module Portal
     end
 
     def validate_token
-      @clients = Client.where(login_token: Devise.token_generator.digest(Client, :login_token, params[:id]))
+      @clients = ClientLoginsService.clients_for_token(params[:id])
       redirect_to invalid_token_portal_client_logins_path unless @clients.present?
     end
 
