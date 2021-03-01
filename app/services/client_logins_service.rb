@@ -30,9 +30,6 @@ class ClientLoginsService
     def request_text_message_login(sms_phone_number:, visitor_id:, locale:)
       if Intake.where(sms_phone_number: sms_phone_number).exists?
         create_text_message_login(sms_phone_number: sms_phone_number, visitor_id: visitor_id, locale: locale)
-      elsif Intake.where(phone_number: sms_phone_number).exists?
-        # make a system note on all matching clients
-        # count as an incoming interaction
       else
         home_url = Rails.application.routes.url_helpers.root_url(locale: locale)
         TwilioService.send_text_message(
