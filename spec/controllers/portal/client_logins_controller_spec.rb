@@ -61,7 +61,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         end
       end
 
-      context "with an SMS phone number and redirects to 'link sent' page" do
+      context "with an SMS phone number" do
         let(:contact_info_params) do
           {
             email_address: nil,
@@ -69,7 +69,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           }
         end
 
-        it "enqueues a text message login request job with the right data" do
+        it "enqueues a text message login request job with the right data and redirects to 'link sent' page" do
           post :create, params: params
 
           expect(response).to redirect_to login_link_sent_portal_client_logins_path(locale: "es")
