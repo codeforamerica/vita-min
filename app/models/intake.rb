@@ -526,7 +526,7 @@ class Intake < ApplicationRecord
     end
   end
 
-  def document_types_possibly_needed
+    def document_types_possibly_needed
     relevant_document_types.reject(&:needed_if_relevant?).reject do |document_type|
       document_type == DocumentTypes::Other
     end.reject do |document_type|

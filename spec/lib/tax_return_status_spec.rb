@@ -9,6 +9,7 @@ describe TaxReturnStatus do
       end
     end
 
+
     context "intake_more_info" do
       it "returns a template" do
         expect(TaxReturnStatus.message_template_for("intake_info_requested")).to eq I18n.t("hub.status_macros.needs_more_information", locale: "en")
@@ -25,15 +26,15 @@ describe TaxReturnStatus do
 
     context "prep_ready_for_review" do
       it "returns a template" do
-        expect(TaxReturnStatus.message_template_for("review_ready_for_qr")).to eq I18n.t("hub.status_macros.ready_for_qr", locale: "en")
-        expect(TaxReturnStatus.message_template_for(:review_ready_for_qr, "es")).to eq I18n.t("hub.status_macros.ready_for_qr", locale: "es")
+        expect(TaxReturnStatus.message_template_for("review_ready_for_qr")).to eq I18n.t("hub.status_macros.review_ready_for_qr", locale: "en")
+        expect(TaxReturnStatus.message_template_for(:review_ready_for_qr, "es")).to eq I18n.t("hub.status_macros.review_ready_for_qr", locale: "es")
       end
     end
 
     context "filed_accepted" do
       it "returns a template" do
-        expect(TaxReturnStatus.message_template_for("file_accepted")).to eq I18n.t("hub.status_macros.accepted", locale: "en")
-        expect(TaxReturnStatus.message_template_for(:file_accepted, "es")).to eq I18n.t("hub.status_macros.accepted", locale: "es")
+        expect(TaxReturnStatus.message_template_for("file_accepted")).to eq I18n.t("hub.status_macros.file_accepted", locale: "en")
+        expect(TaxReturnStatus.message_template_for(:file_accepted, "es")).to eq I18n.t("hub.status_macros.file_accepted", locale: "es")
       end
     end
 

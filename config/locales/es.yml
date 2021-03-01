@@ -233,14 +233,56 @@ es:
 
         ¡Gracias!
         <<Preparer.FirstName>> en GetYourRefund.org
-      ready_for_qr: |
+      intake_reviewing: |
+        Hola <<Client.PreferredName>>!
+
+        Me llamo <<Preparer.FirstName>>, un/a especialista de impuestos de GetYourRefund!
+
+        Actualmente estoy revisando su aplicación. Si tengo alguna pregunta, me contactaré con usted. Luego, tendremos una llamada para revisar los documentos juntos, antes de que sea preparada su declaración. No dude en comunicarse conmigo si tiene alguna pregunta.
+
+        Muchas gracias,
+        <<Preparer.FirstName>> del equipo GetYourRefund
+      intake_ready_for_call:
+        Hola <<Client.PreferredName>>!
+        Me llamo <<Preparer.FirstName>>, un/a especialista de impuestos de GetYourRefund!
+
+        He revisado su información y estamos listos para llamarle para hablar acerca de sus impuestos antes de que sea preparado su declaración.
+
+
+        Esté atento a una llamada telefónica en REPLACE ME desde <<GetYourRefund.PhoneNumber>>. Si este tiempo no funciona para usted, hágamelo saber y podemos reprogramarlo.
+
+        Muchas gracias,
+        <<Preparer.FirstName>> del equipo GetYourRefund
+      prep_preparing: |
+        Hola <<Client.PreferredName>>!
+
+        Me llamo <<Preparer.FirstName>>, su preparador de impuestos. Actualmente, estoy preparando sus impuestos.
+
+        Si tengo alguna pregunta, le notificare. Si usted tiene alguna pregunta, por favor responda a este mensaje.
+
+        Muchas gracias,
+        <<Preparer.FirstName>> del equipo GetYourRefund
+      review_ready_for_qr: |
         ¡Hola <<Client.PreferredName>>!
 
         ¡Su devolución ahora está siendo revisada en calidad!
 
         ¡Gracias!
         <<Preparer.FirstName>> en GetYourRefund.org
-      accepted: |
+      review_ready_for_call: |
+        Hola <<Client.PreferredName>>,
+
+        Me llamo <<Preparer.FirstName>>, un/a especialista de impuestos de GetYourRefund.
+
+        Su declaración de impuestos ha sido preparada y revisada. Estamos listos para llamarle para conversar acerca de los resultados.
+
+        Busque una llamada a REPLACE ME desde <<GetYourRefund.PhoneNumber>>.
+
+        Si este tiempo no funciona para usted, hágamelo saber para que podamos reprogramarlo.
+
+        Thank you!
+        <<Preparer.FirstName>> on the GetYourRefund team
+      file_accepted: |
         ¡Hola <<Client.PreferredName>>!
 
         ¡Se han aceptado sus declaraciones federales y estatales! No recibirá más notificaciones. Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
@@ -248,7 +290,7 @@ es:
 
         ¡Gracias!
         <<Preparer.FirstName>> en GetYourRefund.org
-      signature_requested: |
+      review_signature_requested: |
         ¡Hola!
 
         Su declaración de impuestos ya está lista para su firma electrónica si usted decide continuar con nosotros.
@@ -258,7 +300,25 @@ es:
         No dude en comunicarse con nosotros si tiene alguna pregunta.
 
         Muchas gracias,
-        - Su equipo de impuestos
+        Su equipo de impuestos en GetYourRefund
+      file_efiled: |
+        Hola <<Client.PreferredName>>,
+
+        Su declaración de impuestos de <<TaxReturn.TaxYear>> han sido enviados.
+
+        Si tiene alguna pregunta o actualización, nos pondremos en contacto.
+
+        Muchas gracias,
+        <<Preparer.FirstName>> del equipo GetYourRefund de <<Preparer.OrganizationName>>
+      file_mailed: |
+        Hola <<Client.PreferredName>>,
+
+        Su declaración de impuestos de <<TaxReturn.TaxYear>> están listos para ser enviados mediante correo.
+
+        Usted puede descargar una copia de sus impuestos aquí <<Link.E-signature>>: Recuerde que usted debe firmar su declaración y enviar adjunto documentos de ingreso antes de enviar la declaración al IRS y a su correspondiente oficina estatal de ingresos.
+
+        Muchas gracias,
+        <<Preparer.FirstName>> del equipo GetYourRefund
     bank_accounts:
       info_displayed: Visualización de la información de la cuenta bancaria
       bank_name: Nombre del banco

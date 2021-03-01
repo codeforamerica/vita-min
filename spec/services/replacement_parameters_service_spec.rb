@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 describe ReplacementParametersService do
-  let(:client) { create :client, intake: create(:intake, preferred_name: "Preferred Name") }
+  let(:client) { create :client, intake: create(:intake, preferred_name: "Preferred Name"), tax_returns: [create(:tax_return)] }
   let(:user) { create :user, name: "Preparer Name" }
   let(:locale) { "en" }
-  subject { ReplacementParametersService.new(body: body, client: client, preparer: user, locale: locale) }
+  subject { ReplacementParametersService.new(body: body, client: client, preparer: user, tax_return: client.tax_returns.first, locale: locale) }
 
   context "<<Client.PreferredName>>" do
     let(:body) { "Hi <<Client.PreferredName>>" }
@@ -160,7 +160,7 @@ describe ReplacementParametersService do
 
     context "accepted" do
       context "in english" do
-        let(:body) { I18n.t("hub.status_macros.accepted") }
+        let(:body) { I18n.t("hub.status_macros.file_accepted") }
 
         it "replaces the replacement strings in the template" do
           expect(subject.process).to include client.preferred_name
@@ -169,7 +169,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("hub.status_macros.accepted", locale: "es") }
+        let(:body) { I18n.t("hub.status_macros.file_accepted", locale: "es") }
         let(:locale){ "es" }
 
         it "replaces the replacement strings in the template" do
@@ -181,7 +181,7 @@ describe ReplacementParametersService do
 
     context "ready_for_qr" do
       context "in english" do
-        let(:body) { I18n.t("hub.status_macros.ready_for_qr") }
+        let(:body) { I18n.t("hub.status_macros.review_ready_for_qr") }
 
         it "replaces the replacement strings in the template" do
           expect(subject.process).to include client.preferred_name
@@ -190,7 +190,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("hub.status_macros.ready_for_qr", locale: "es") }
+        let(:body) { I18n.t("hub.status_macros.review_ready_for_qr", locale: "es") }
         let(:locale) { "es" }
 
         it "replaces the replacement strings in the template" do

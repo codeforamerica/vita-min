@@ -75,7 +75,7 @@ module Hub
       @message_body = "" and return unless status.present?
 
       template = TaxReturnStatus.message_template_for(status, locale)
-      @message_body = ReplacementParametersService.new(body: template, client: client, preparer: current_user, locale: locale).process
+      @message_body = ReplacementParametersService.new(body: template, client: client, tax_return: tax_return, preparer: current_user, locale: locale).process
     end
 
     def set_default_contact_method

@@ -33,4 +33,8 @@ class OutboundCall < ApplicationRecord
   # a webhook on the "dial" to the to_phone_number will trigger updates to the twilio_status
   # This means that if a user ends the call before completing the dial event to the client, the call will remain in
   # the "queued" status until the dial event to the client is completed.
+  #
+  def self.twilio_number
+    EnvironmentCredentials.dig(:twilio, :voice_phone_number)
+  end
 end

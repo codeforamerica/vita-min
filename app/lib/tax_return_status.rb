@@ -17,11 +17,18 @@ class TaxReturnStatus
     def message_templates
       {
           intake_info_requested: "hub.status_macros.needs_more_information",
+          intake_greeter_info_requested: "hub.status_macros.needs_more_information",
+          intake_reviewing: "hub.status_macros.intake_reviewing",
+          intake_ready_for_call: "hub.status_macros.intake_ready_for_call",
           prep_info_requested: "hub.status_macros.needs_more_information",
+          prep_preparing: "hub.status_macros.prep_preparing",
           review_info_requested: "hub.status_macros.needs_more_information",
-          review_ready_for_qr: "hub.status_macros.ready_for_qr",
-          review_signature_requested: "hub.status_macros.signature_requested",
-          file_accepted: "hub.status_macros.accepted"
+          review_ready_for_qr: "hub.status_macros.review_ready_for_qr",
+          review_ready_for_call: "hub.status_macros.review_ready_for_call",
+          review_signature_requested: "hub.status_macros.review_signature_requested",
+          file_accepted: "hub.status_macros.file_accepted",
+          file_efiled: "hub.status_macros.file_efiled",
+          file_mailed: "hub.status_macros.file_mailed",
       }
     end
   end

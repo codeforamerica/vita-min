@@ -232,15 +232,62 @@ en:
         Please let us know if you have any questions. We cannot prepare your taxes without this information.
 
         Thanks!
-        <<Preparer.FirstName>> at GetYourRefund.org
-      ready_for_qr: |
+        <<Preparer.FirstName>> on the GetYourRefund team
+      intake_reviewing: |
+        Hello <<Client.PreferredName>>!
+
+        This is <<Preparer.FirstName>>, an intake specialist with GetYourRefund!
+
+        I'm currently reviewing your online submission. If I have questions, I'll let you know. I'll call you to
+        finish the review before your taxes are prepared. Please let me know if you have any questions.
+
+        Thank you!
+        <<Preparer.FirstName>> at GetYourRefund
+      intake_ready_for_call: |
+        Hello <<Client.PreferredName>>!
+
+        This is <<Preparer.FirstName>>, an intake specialist with GetYourRefund.
+
+        I've reviewed your information and I'm ready to give you a call to review your situation before preparing your taxes.
+
+        Please look out for a phone call on REPLACE ME from <<GetYourRefund.PhoneNumber>>. If this time doesn't work for you, please let me know and we can reschedule.
+
+        Thank you!
+
+        <<Preparer.FirstName>> on the GetYourRefund team.
+      prep_preparing: |
+        Hello <<Client.PreferredName>>!
+
+        This is <<Preparer.FirstName>>, your tax preparer. I'm currently preparing your taxes. If I have any questions, I'll let you know.
+
+        Please respond to this message if you have any questions.
+
+        After your taxes are prepared, they will be reviewed by another tax expert for accuracy and then we will schedule a call to discuss your return with you.
+
+        Thanks!
+
+        <<Preparer.FirstName>> on the GetYourRefund team
+      review_ready_for_qr: |
         Hello <<Client.PreferredName>>!
 
         Your return is now being quality reviewed!
 
         Thanks!
         <<Preparer.FirstName>> at GetYourRefund.org
-      accepted: |
+      review_ready_for_call: |
+        Hello <<Client.PreferredName>>,
+
+        This is <<Preparer.FirstName>>, a quality reviewer with GetYourRefund.
+
+        Your return has been prepared and reviewed. I'm ready to give you a call to discuss the results of your return.
+
+        Please look for a call on/at REPLACE ME from <<GetYourRefund.PhoneNumber>>.
+
+        If this time doesn't work for you, let me know and we'll reschedule.
+
+        Thank you!
+        <<Preparer.FirstName>> on the GetYourRefund team
+      file_accepted: |
         Hello <<Client.PreferredName>>!
 
         Your federal and state returns have been accepted! You will not receive any further notifications. If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
@@ -248,15 +295,35 @@ en:
 
         Thanks!
         <<Preparer.FirstName>> at GetYourRefund.org
-      signature_requested: |
+      review_signature_requested: |
         Hello!
 
         Your tax return is now ready for your electronic signature if you choose to file with us.
         <<Client.YouOrMaybeYourSpouse>> can sign at this link:
         <<Link.E-signature>>
 
-        Thanks!
-        - Your tax team
+        Thanks,
+        Your GetYourRefund team
+      file_efiled: |
+        Hello <<Client.PreferredName>>,
+
+        Your tax return for <<TaxReturn.TaxYear>> has been filed.
+
+        We will notify you again when your return is accepted or if additional questions arise. Let us know if you have any questions.
+
+        Thanks,
+
+        <<Preparer.FirstName>> on the GetYourRefund team
+      file_mailed: |
+        Hello <<Client.PreferredName>>,
+
+        Your <<TaxReturn.TaxYear>> tax returns are ready to be filed by mail. You can download a copy of your returns here: <<Link.E-signature>>.
+
+        Remember to sign your tax_returns and attach proof of income before mailing to the IRS and/or your state department of revenue.
+
+        Thanks,
+
+        <<Preparer.FirstName>> on the GetYourRefund team
     bank_accounts:
       info_displayed: Displaying bank account information
       bank_name: Bank name
