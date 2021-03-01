@@ -41,7 +41,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
       before { allow(subject).to receive(:visitor_id).and_return "visitor id" }
 
-      context "with an email address and redirects to 'link sent' page" do
+      context "with an email address" do
         let(:contact_info_params) do
           {
             email_address: "client@example.com",
@@ -49,7 +49,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           }
         end
 
-        it "enqueues an email login request job with the right data" do
+        it "enqueues an email login request job with the right data and redirects to 'link sent' page" do
           post :create, params: params
 
           expect(response).to redirect_to login_link_sent_portal_client_logins_path(locale: "es")
