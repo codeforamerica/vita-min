@@ -8,10 +8,10 @@
       }
     }
     > *:first-child {
-      margin-left: 0;
+      margin-left: 0 !important;
     }
     > * {
-      margin-left: 1rem;
+      margin-left: 1rem !important; //override honeycrisp error state reset of margin
     }
 
     &.align-center {
