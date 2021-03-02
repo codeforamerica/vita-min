@@ -167,6 +167,18 @@ class Client < ApplicationRecord
     Rails.application.routes.url_helpers.portal_client_login_url(id: raw_token)
   end
 
+  def clients_with_dupe_contact_info
+    Intake.includes(:client).where(
+      "email_address = ? OR phone_number = ? OR phone_number = ? OR sms_phone_number = ? OR sms_phone_number = ?",
+      intake.email_address,
+      intake.phone_number,
+      intake.sms_phone_number,
+      intake.phone_number,
+      intake.sms_phone_number
+    ).where.not(id: intake.id)
+     .map(&:client).pluck(:id).uniq
+  end
+
   private
 
   def tax_return_assigned_user_access_maintained

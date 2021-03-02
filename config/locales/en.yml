@@ -3,6 +3,7 @@ en:
   hub:
     unlock_account: "Unlock account"
     unlock_confirmation: "Unlock %{name}'s account? Have they confirmed their identity?"
+    has_duplicates: "Potential duplicates detected: "
     back_to:
       return_to_dashboard: Return to Dashboard
       all_clients: All Clients

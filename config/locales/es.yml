@@ -3,6 +3,7 @@ es:
   hub:
     unlock_account: "Desbloquear cuenta"
     unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
+    has_duplicates: "Posibles duplicados detectados: "
     back_to:
       return_to_dashboard: Regresar al Tablero
       all_clients: Todos los Clientes
