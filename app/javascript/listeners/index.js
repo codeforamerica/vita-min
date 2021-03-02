@@ -1,25 +1,34 @@
 import consumer from "../channels/consumer";
 import { callback, getChannelName } from "../channels/client_channel";
 import { initNestedAttributesListeners } from "../lib/nested_attributes";
-import helpers from "helpers";
+import helpers from "../helpers";
 import { initTakeActionOnChangeHandlers } from "../lib/dynamic_take_action_changes";
 import { initMetricsTableSortAndFilter } from "../lib/metrics_table_sort";
+import { documentSubmittingIndicator } from "../lib/document_submitting_indicator";
 
-export function initListeners() {
-    document.addEventListener("DOMContentLoaded", function() {
-        if (window.appData.controller_action == "Hub::Users::InvitationsController#edit") {
-            helpers.setDefaultTimezone();
-        }
-        if (window.appData.controller_action == "Hub::MessagesController#index") {
-            consumer.subscriptions.create(getChannelName(window.location.href), callback);
-        }
+const Listeners =  (function(){
+    return {
+        init: function () {
+            document.addEventListener("DOMContentLoaded", function() {
+                documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.
 
-        if (["Hub::ClientsController#edit_take_action", "Hub::ClientsController#update_take_action"].includes(window.appData.controller_action)) {
-            initTakeActionOnChangeHandlers();
-        }
+                if (window.appData.controller_action == "Hub::Users::InvitationsController#edit") {
+                    helpers.setDefaultTimezone();
+                }
+                if (window.appData.controller_action == "Hub::MessagesController#index") {
+                    consumer.subscriptions.create(getChannelName(window.location.href), callback);
+                }
 
-        initMetricsTableSortAndFilter();
-        // enables the link_to_add_fields and link_to_remove_fields helper methods to work globally
-        initNestedAttributesListeners();
-    });
-}
+                if (["Hub::ClientsController#edit_take_action", "Hub::ClientsController#update_take_action"].includes(window.appData.controller_action)) {
+                    initTakeActionOnChangeHandlers();
+                }
+
+                initMetricsTableSortAndFilter();
+                // enables the link_to_add_fields and link_to_remove_fields helper methods to work globally
+                initNestedAttributesListeners();
+            });
+        }
+    }
+})();
+
+export default Listeners;

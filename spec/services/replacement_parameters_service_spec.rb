@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe ReplacementParametersService do
   let(:client) { create :client, intake: create(:intake, preferred_name: "Preferred Name") }
@@ -78,29 +78,6 @@ describe ReplacementParametersService do
 
       it "just says 'You' (capitalized)" do
         expect(subject.process).to eq "You can sign your return at this link"
-      end
-    end
-  end
-
-  context "<<Link.E-signature>>" do
-    describe "#process_sensitive_data" do
-      before { allow(client).to receive(:generate_login_link).and_return("https://getyourrefund.org/portal/account/raw_token")}
-
-      context "when <<Link.E-signature>> exists in the body" do
-        let(:body) { "Click here to sign your tax return: <<Link.E-signature>>" }
-        it "replaces with correct link" do
-          expect(subject.process_sensitive_data).to eq "Click here to sign your tax return: https://getyourrefund.org/portal/account/raw_token"
-        end
-      end
-
-      context "when <<<<Link.E-signature>> does not exist in the body" do
-        let(:body) { "Just a message" }
-
-        it "does not regenerate the login link if it is not required for the body of the message" do
-          subject.process_sensitive_data
-
-          expect(client).to_not have_received(:generate_login_link)
-        end
       end
     end
   end

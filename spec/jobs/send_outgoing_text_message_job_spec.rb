@@ -11,27 +11,21 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
 
     before do
       allow(TwilioService).to receive(:send_text_message).and_return(fake_twilio_message)
-      allow(ReplacementParametersService).to receive(:new).and_return(fake_replacement_parameters_service)
-      allow(fake_replacement_parameters_service).to receive(:process_sensitive_data).and_return("sensitive body")
+      allow(LoginLinkInsertionService).to receive(:insert_links).and_return("body with links")
     end
 
     it "replaces sensitive parameters, sends the message to Twilio with a callback URL and saves the status" do
       SendOutgoingTextMessageJob.perform_now(outgoing_text_message.id)
       expect(TwilioService).to have_received(:send_text_message).with(
         to: outgoing_text_message.to_phone_number,
-        body: "sensitive body",
+        body: "body with links",
         status_callback: "http://test.host/outgoing_text_messages/#{outgoing_text_message.id}",
       )
 
       expect(outgoing_text_message.reload.twilio_sid).to eq "123"
       expect(outgoing_text_message.reload.twilio_status).to eq "sent"
 
-      expect(ReplacementParametersService).to have_received(:new).with(
-        body: outgoing_text_message.body,
-        client: client,
-        locale: intake.locale
-      )
-      expect(fake_replacement_parameters_service).to have_received(:process_sensitive_data)
+      expect(LoginLinkInsertionService).to have_received(:insert_links).with(outgoing_text_message)
     end
   end
 end

@@ -182,6 +182,22 @@ ActiveRecord::Schema.define(version: 2021_02_24_031738) do
     t.index ["intake_id"], name: "index_documents_requests_on_intake_id"
   end
 
+  create_table "email_access_tokens", force: :cascade do |t|
+    t.citext "email_address", null: false
+    t.string "token", null: false
+    t.index ["token"], name: "index_email_access_tokens_on_token"
+  end
+
+  create_table "email_login_requests", force: :cascade do |t|
+    t.bigint "email_access_token_id", null: false
+    t.string "mailgun_id"
+    t.string "mailgun_status"
+    t.string "visitor_id", null: false
+    t.index ["email_access_token_id"], name: "index_email_login_requests_on_email_access_token_id"
+    t.index ["mailgun_id"], name: "index_email_login_requests_on_mailgun_id"
+    t.index ["visitor_id"], name: "index_email_login_requests_on_visitor_id"
+  end
+
   create_table "greeter_coalition_join_records", force: :cascade do |t|
     t.bigint "coalition_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -565,6 +581,22 @@ ActiveRecord::Schema.define(version: 2021_02_24_031738) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id", null: false
     t.index ["vita_partner_id"], name: "index_team_member_roles_on_vita_partner_id"
+  end
+
+  create_table "text_message_access_tokens", force: :cascade do |t|
+    t.string "sms_phone_number", null: false
+    t.string "token", null: false
+    t.index ["token"], name: "index_text_message_access_tokens_on_token"
+  end
+
+  create_table "text_message_login_requests", force: :cascade do |t|
+    t.bigint "text_message_access_token_id", null: false
+    t.string "twilio_sid"
+    t.string "twilio_status"
+    t.string "visitor_id", null: false
+    t.index ["text_message_access_token_id"], name: "text_message_login_request_access_token_id"
+    t.index ["twilio_sid"], name: "index_text_message_login_requests_on_twilio_sid"
+    t.index ["visitor_id"], name: "index_text_message_login_requests_on_visitor_id"
   end
 
   create_table "users", force: :cascade do |t|

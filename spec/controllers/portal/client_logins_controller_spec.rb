@@ -11,6 +11,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       )
     )
   end
+  let(:client_query) { Client.where(id: client) }
 
   describe "#new" do
     it "returns 200 OK" do
@@ -34,28 +35,59 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
     context "with valid params" do
       let(:params) do
         {
-          portal_request_client_login_form: {
-            email_address: "client@example.com",
-            phone_number: ""
-          }
+          locale: "es",
+          portal_request_client_login_form: contact_info_params
         }
       end
+      before { allow(subject).to receive(:visitor_id).and_return "visitor id" }
 
-      it "initiates the login request process background job and redirects to 'link sent' page" do
-        post :create, params: params
+      context "with an email address" do
+        let(:contact_info_params) do
+          {
+            email_address: "client@example.com",
+            sms_phone_number: nil
+          }
+        end
 
-        expect(response).to redirect_to login_link_sent_portal_client_logins_path
-        expect(ClientLoginRequestJob).to have_been_enqueued
+        it "enqueues an email login request job with the right data and redirects to 'link sent' page" do
+          post :create, params: params
+
+          expect(response).to redirect_to login_link_sent_portal_client_logins_path(locale: "es")
+          expect(ClientEmailLoginRequestJob).to have_been_enqueued.with(
+            email_address: "client@example.com",
+            locale: :es,
+            visitor_id: "visitor id"
+          )
+        end
+      end
+
+      context "with an SMS phone number" do
+        let(:contact_info_params) do
+          {
+            email_address: nil,
+            sms_phone_number: " (510) 555 1234"
+          }
+        end
+
+        it "enqueues a text message login request job with the right data and redirects to 'link sent' page" do
+          post :create, params: params
+
+          expect(response).to redirect_to login_link_sent_portal_client_logins_path(locale: "es")
+          expect(ClientTextMessageLoginRequestJob).to have_been_enqueued.with(
+            sms_phone_number: "+15105551234",
+            locale: :es,
+            visitor_id: "visitor id"
+          )
+        end
       end
     end
 
     context "with invalid params" do
-      # render_views
       let(:params) do
         {
           portal_request_client_login_form: {
             email_address: "client@example",
-            phone_number: ""
+            sms_phone_number: ""
           }
         }
       end
@@ -64,7 +96,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         post :create, params: params
 
         expect(response).to render_template :new
-        expect(ClientLoginRequestJob).not_to have_been_enqueued
+        expect(ClientEmailLoginRequestJob).not_to have_been_enqueued
       end
     end
 
@@ -80,18 +112,12 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
   end
 
   describe "#show" do
-    before do
-      allow(Devise.token_generator).to receive(:generate).and_return(['raw_token', 'encrypted_token'])
-      client.update(login_token: "encrypted_token")
-    end
 
     let(:params) { { id: "raw_token" } }
 
     context "as an unauthenticated client" do
       context "with valid token" do
-        before do
-          allow(Devise.token_generator).to receive(:digest).and_return("encrypted_token")
-        end
+        before { allow(ClientLoginsService).to receive(:clients_for_token).and_return(client_query) }
 
         it "it is ok" do
           get :show, params: params
@@ -113,9 +139,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
 
       context "with invalid token" do
-        before do
-          allow(Devise.token_generator).to receive(:digest).and_return("nonmatching_token")
-        end
+        before { allow(ClientLoginsService).to receive(:clients_for_token).and_return(Client.none) }
 
         it "redirects to a page saying you need a new token" do
           get :show, params: { id: "invalid_token" }
@@ -139,15 +163,11 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
   end
 
   describe "#update" do
-    before do
-      allow(Devise.token_generator).to receive(:generate).and_return(["raw_token", "encrypted_token"])
-      client.update(login_token: "encrypted_token")
-    end
-
     let(:params) { { id: "raw_token", client_id: client.id } }
 
     context "as an authenticated client" do
       before { sign_in client }
+
       it "redirects to client portal home" do
         post :update, params: params
 
@@ -157,9 +177,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
     context "as an unauthenticated client" do
       context "with a valid token" do
-        before do
-          allow(Devise.token_generator).to receive(:digest).and_return("encrypted_token")
-        end
+        before { allow(ClientLoginsService).to receive(:clients_for_token).and_return(client_query) }
 
         context "with a matching ssn/client ID" do
           let(:params) do
@@ -230,9 +248,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
 
       context "with an invalid token" do
-        before do
-          allow(Devise.token_generator).to receive(:digest).and_return("other_token")
-        end
+        before { allow(ClientLoginsService).to receive(:clients_for_token).and_return(Client.none) }
 
         it "redirect to a page saying you need a new token" do
           post :update, params: { id: "invalid_token" }

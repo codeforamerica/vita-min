@@ -10,6 +10,7 @@ describe TaxReturnStatusHelper do
          ["Reviewing", "intake_reviewing"],
          ["Ready for call", "intake_ready_for_call"],
          ["Info requested", "intake_info_requested"],
+         ["Greeter - info requested", "intake_greeter_info_requested"],
        ]
       ],
       ["Tax prep",

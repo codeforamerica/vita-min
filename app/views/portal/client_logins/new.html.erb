@@ -1,15 +1,18 @@
-<% content_for :form_question, t(".title") %>
+<% content_for :page_title, t(".title") %>
 
-<% content_for :form_card do %>
+<% content_for :card do %>
   <%= form_with model: @form, url: portal_client_logins_path, local: true, method: "post", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= t(".title") %></h1>
 
     <div class="form-card__content">
       <%= f.cfa_input_field(:email_address, t("general.email_address"), classes: ["form-width--long"]) %>
     </div>
+    <div class="form-card__content">
+      <%= f.cfa_input_field(:sms_phone_number, t("general.phone_for_texting"), classes: ["form-width--phone", "phone-input"]) %>
+    </div>
 
     <button class="button button--primary button--wide" type="submit">
-      <%=t("general.sign_in") %>
+      <%=t("general.continue") %>
     </button>
   <% end %>
 <% end %>

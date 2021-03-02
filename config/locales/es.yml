@@ -203,7 +203,8 @@ es:
       status:
         intake_before_consent: Antes de consentimiento
         intake_in_progress: No listo
-        intake_ready: Ready for review
+        intake_greeter_info_requested: Saludador - Información solicitada
+        intake_ready: Listo para revisión
         intake_reviewing: Revisando
         intake_ready_for_call: Listo para llamada
         intake_info_requested: Información solicitada
@@ -718,10 +719,10 @@ es:
         body_html: Esta cuenta se ha bloqueado debido a demasiados intentos fallidos de inicio de sesión. Si necesita ayuda para desbloquear esta cuenta, envíenos un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org </a>.
       invalid_token:
         title: Parece que necesita un nuevo enlace
-        body_html: El enlace que usted usó está caducado o roto. <a href="mailto:support@getyourrefund.org">Envíe un correo electrónico a soporte</a> para obtener un nuevo enlace.
+        body_html: El enlace que usted usó está caducado o roto. <a href="mailto:hello@getyourrefund.org">Envíe un correo electrónico a soporte</a> para obtener un nuevo enlace.
     portal:
       home:
-        title: "Bienvenido de nuevo, %{name}!"
+        title: "Bienvenido de nuevo %{name}!"
         tax_returns:
           heading: Documentos fiscales %{year}
           view_signed_8879: Ver/descargar formulario 8879 firmado
@@ -1979,3 +1980,50 @@ es:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
     response_needed_since: "Esperando respuesta"
     consented_at: "Consentido en"
+  client_logins:
+    no_account_found_sms: |
+      Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
+      También puede ir a %{home_url} y seleccione “Empiece ahora” para empezar su declaración.
+    login_sms: |
+      Recibimos su solicitud para saber el estatus actual de su progreso. Puede ver el estatus actualizado siguiendo este enlace
+      %{login_link}
+  client_login_request_mailer:
+    login_email:
+      body_html: |
+        <p>Hola,</p>
+        <p>Recibimos su solicitud para saber el estatus actual de su progreso. Puede ver el estatus actualizado siguiendo este enlace.</p>
+        <p><a href="%{login_link}">%{login_link}</a></p>
+        <p>Si usted no hizo esta solicitud, por favor avisenos.</p>
+        <p>Su equipo de impuestos de GetYourRefund.org</p>
+      body_text: |
+        Hola,
+
+        Recibimos su solicitud para saber el estatus actual de su progreso. Puede ver el estatus actualizado siguiendo este enlace.
+
+        %{login_link}
+
+        Si usted no hizo esta solicitud, por favor avisenos.
+
+        Su equipo de impuestos de GetYourRefund.org
+    no_match:
+      subject: Intento de inicio de sesión de GetYourRefund
+      body_html: |
+        <p>Hola,</p>
+        <p>Parece que usted intentó acceder a GetYourRefund, pero no encontramos una cuenta que corresponde a su información de contacto.</p>
+        <p>Es posible que usted usó un correo electrónico diferente para crear su cuenta de GetYourRefund.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.</p>
+        <p>Si aún no ha enviado su información de impuestos a GetYourRefund, visite <a href="%{home_page_url}">www.getyourrefund.org</a> y seleccione “Empiece ahora” para empezar el proceso de declarar sus impuestos.</p>
+        <p>Estamos aquí para servirle,</p>
+        <p>Su equipo de impuestos de GetYourRefund</p>
+      body_text: |
+        Hola,
+
+        Parece que usted intentó acceder a GetYourRefund, pero no encontramos una cuenta que corresponde a su información de contacto.
+        Es posible que usted usó un correo electrónico diferente para crear su cuenta de GetYourRefund.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.
+        Si aún no ha enviado su información de impuestos a GetYourRefund, visite www.getyourrefund.org y seleccione “Empiece ahora” para empezar el proceso de declarar sus impuestos.
+
+        %{home_page_url}
+
+        Estamos aquí para servirle,
+
+        Su equipo de impuestos de GetYourRefund
+
