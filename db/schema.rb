@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_24_031738) do
+ActiveRecord::Schema.define(version: 2021_03_02_225442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -702,6 +702,7 @@ ActiveRecord::Schema.define(version: 2021_02_24_031738) do
   add_foreign_key "greeter_organization_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "vita_partners"
   add_foreign_key "incoming_text_messages", "clients"
+  add_foreign_key "intakes", "clients"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
   add_foreign_key "notes", "users"

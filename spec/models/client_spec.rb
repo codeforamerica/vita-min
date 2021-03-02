@@ -436,7 +436,7 @@ describe Client do
     end
 
     context "when there is a matching intake with a nil client" do
-      let!(:intake) { create :intake, email_address: "fizzy_pop@example.com", client_id: 242424 } # non-existent client
+      let!(:intake) { create :intake, email_address: "fizzy_pop@example.com", client_id: nil }
 
       it "returns an empty array" do
         expect(client.clients_with_dupe_contact_info).to eq []
