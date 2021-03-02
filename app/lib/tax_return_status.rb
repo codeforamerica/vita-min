@@ -37,7 +37,7 @@ class TaxReturnStatus
   #
   # The first word of each status name is treated as a "stage" when grouping these in the interface.
   STATUSES = {
-      intake_before_consent: 100, intake_in_progress: 101, intake_ready: 102, intake_reviewing: 103, intake_ready_for_call: 104, intake_info_requested: 105,
+      intake_before_consent: 100, intake_in_progress: 101, intake_ready: 102, intake_reviewing: 103, intake_ready_for_call: 104, intake_info_requested: 105, intake_greeter_info_requested: 106,
 
       prep_ready_for_prep: 201, prep_preparing: 202, prep_info_requested: 203,
 
