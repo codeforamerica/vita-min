@@ -39,6 +39,9 @@
           options: {rows: 8},
           help_text: t(".blank_no_message_sent")
         )%>
+        <% if params.dig(:tax_return, :status)&.include?("call") || params.dig(:hub_take_action_form, :status)&.include?("call") %>
+          <div style="margin-top: -3.5rem; margin-bottom: 3.5rem"><%= t("general.interview_timing_preference")%>: <%= @take_action_form.client.intake.try(:interview_timing_preference) || t("general.NA")  %></div>
+        <% end %>
       <% else %>
         <p><%= t(".no_opt_in") %></p>
       <% end %>

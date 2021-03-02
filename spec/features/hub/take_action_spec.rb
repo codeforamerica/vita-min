@@ -5,7 +5,7 @@ RSpec.feature "Change tax return status on a client" do
     let(:organization) { create :organization }
     let(:user) { create :user, name: "Example Preparer", role: create(:organization_lead_role, organization: organization) }
     let(:client) { create :client, vita_partner: organization }
-    let!(:intake) { create :intake, client: client, locale: "en", email_address: "client@example.com", phone_number: "+14155551212", sms_phone_number: "+14155551212", email_notification_opt_in: "yes", sms_notification_opt_in: "yes" }
+    let!(:intake) { create :intake, client: client, locale: "en", email_address: "client@example.com", phone_number: "+14155551212", sms_phone_number: "+14155551212", email_notification_opt_in: "yes", interview_timing_preference: "tomorrow!", sms_notification_opt_in: "yes" }
     let!(:tax_return) { create :tax_return, year: 2019, client: client, status: "intake_in_progress" }
     let!(:other_tax_return) { create :tax_return, year: 2018, client: client, status: "intake_in_progress" }
 
@@ -53,7 +53,7 @@ RSpec.feature "Change tax return status on a client" do
       expect(page).to have_select("hub_take_action_form_locale", selected: "English")
 
       expect(page).to have_text("Send message")
-      expect(page).to have_text("Your federal and state returns have been accepted!")
+      expect(page).to have_text("Your #{tax_return.year} tax return has been accepted!")
       expect(page).to have_text("By clicking send, you will also update status, send a team note, and update followers.")
 
       click_on "Send"

@@ -6,6 +6,10 @@
   }
   .form-group {
     margin-bottom: 1.9rem;
+    .text--error {
+      position: absolute;
+      margin: 0;
+    }
   }
   &__row {
     display: flex;
@@ -21,7 +25,7 @@
     > * {
       margin-right: 1rem;
     }
-
+    
     &.align-center {
       align-items: center;
     }

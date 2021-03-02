@@ -14,6 +14,7 @@ module Hub
     validates_presence_of :status
     validate :belongs_to_client
     validate :status_has_changed
+    validate :message_body_excludes_replace_me
 
     def initialize(client, current_user, *args, **attributes)
       @client = client
@@ -94,6 +95,10 @@ module Hub
 
     def belongs_to_client
       errors.add(:tax_return_id, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.present?
+    end
+
+    def message_body_excludes_replace_me
+      errors.add(:message_body, I18n.t("forms.errors.replace_me_text")) if message_body.include?("REPLACE ME")
     end
   end
 end

@@ -4,7 +4,13 @@ describe ReplacementParametersService do
   let(:client) { create :client, intake: create(:intake, preferred_name: "Preferred Name"), tax_returns: [create(:tax_return)] }
   let(:user) { create :user, name: "Preparer Name" }
   let(:locale) { "en" }
+  let(:fake_login_link) { "http://fakeloginlink.fake" }
   subject { ReplacementParametersService.new(body: body, client: client, preparer: user, tax_return: client.tax_returns.first, locale: locale) }
+
+  before do
+    allow(EnvironmentCredentials).to receive(:dig).with(:twilio, :voice_phone_number).and_return "+13444444444"
+    allow(client).to receive(:generate_login_link).and_return fake_login_link
+  end
 
   context "<<Client.PreferredName>>" do
     let(:body) { "Hi <<Client.PreferredName>>" }
@@ -158,9 +164,9 @@ describe ReplacementParametersService do
       end
     end
 
-    context "accepted" do
+    context "intake_reviewing" do
       context "in english" do
-        let(:body) { I18n.t("hub.status_macros.file_accepted") }
+        let(:body) { I18n.t("hub.status_macros.intake_reviewing") }
 
         it "replaces the replacement strings in the template" do
           expect(subject.process).to include client.preferred_name
@@ -169,23 +175,72 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("hub.status_macros.file_accepted", locale: "es") }
-        let(:locale){ "es" }
+        let(:body) { I18n.t("hub.status_macros.intake_reviewing", locale: "es") }
 
         it "replaces the replacement strings in the template" do
-          expect(subject.process).to include client.preferred_name
-          expect(subject.process).to include user.first_name
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
         end
       end
     end
 
-    context "ready_for_qr" do
+    context "intake_ready_for_call" do
+      context "in english" do
+        let(:body) { I18n.t("hub.status_macros.intake_ready_for_call") }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
+          expect(result).to include "REPLACE ME"
+          expect(result).to include OutboundCall.twilio_number
+        end
+      end
+
+      context "in spanish" do
+        let(:body) { I18n.t("hub.status_macros.intake_ready_for_call", locale: "es") }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
+          expect(result).to include "REPLACE ME"
+          expect(result).to include OutboundCall.twilio_number
+        end
+      end
+    end
+
+    context "prep_preparing" do
+      context "in english" do
+        let(:body) { I18n.t("hub.status_macros.prep_preparing") }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
+        end
+      end
+
+      context "in spanish" do
+        let(:body) { I18n.t("hub.status_macros.prep_preparing", locale: "es") }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
+        end
+      end
+    end
+
+    context "review_ready_for_qr" do
       context "in english" do
         let(:body) { I18n.t("hub.status_macros.review_ready_for_qr") }
 
         it "replaces the replacement strings in the template" do
-          expect(subject.process).to include client.preferred_name
-          expect(subject.process).to include user.first_name
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
         end
       end
 
@@ -194,8 +249,105 @@ describe ReplacementParametersService do
         let(:locale) { "es" }
 
         it "replaces the replacement strings in the template" do
-          expect(subject.process).to include client.preferred_name
-          expect(subject.process).to include user.first_name
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
+        end
+      end
+    end
+
+    context "review_ready_for_call" do
+      context "in english" do
+        let(:body) { I18n.t("hub.status_macros.review_ready_for_call") }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
+          expect(result).to include "REPLACE ME"
+          expect(result).to include OutboundCall.twilio_number
+        end
+      end
+
+      context "in spanish" do
+        let(:body) { I18n.t("hub.status_macros.review_ready_for_call", locale: "es") }
+        let(:locale) { "es" }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
+          expect(result).to include "REPLACE ME"
+          expect(result).to include OutboundCall.twilio_number
+        end
+      end
+    end
+
+    context "review signature requested" do
+      context "in english" do
+        let(:body) { I18n.t("hub.status_macros.review_signature_requested") }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include "Your #{client.tax_returns.first.year}"
+          expect(result).to include "<<Link.E-signature>>"
+        end
+      end
+
+      context "in spanish" do
+        let(:body) { I18n.t("hub.status_macros.review_signature_requested", locale: "es") }
+        let(:locale) { "es" }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include "para #{client.tax_returns.first.year}"
+          expect(result).to include "<<Link.E-signature>>"
+        end
+      end
+
+      context "replacing sensitive" do
+        context "in english" do
+          let(:body) { I18n.t("hub.status_macros.review_signature_requested") }
+          it "replaces the document link" do
+            result = subject.process_sensitive_data
+            expect(result).not_to include "<<Link.E-signature>>"
+            expect(result).to include fake_login_link
+          end
+        end
+
+        context "in spanish" do
+          let(:body) { I18n.t("hub.status_macros.review_signature_requested", locale: "es") }
+          let(:locale) { :es }
+          it "replaces the document link" do
+            result = subject.process_sensitive_data
+            expect(result).not_to include "<<Link.E-signature>>"
+            expect(result).to include fake_login_link
+          end
+        end
+      end
+    end
+
+    context "file_accepted" do
+      context "in english" do
+        let(:body) { I18n.t("hub.status_macros.file_accepted") }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
+          expect(result).to include "Your #{client.tax_returns.first.year}"
+        end
+      end
+
+      context "in spanish" do
+        let(:body) { I18n.t("hub.status_macros.file_accepted", locale: "es") }
+        let(:locale) { "es" }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include user.first_name
+          expect(result).to include "de #{client.tax_returns.first.year}"
         end
       end
     end
