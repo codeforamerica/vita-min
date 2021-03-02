@@ -34,6 +34,14 @@ RSpec.describe Hub::TakeActionForm do
         expect(form.errors[:status]).to include "Can't be blank."
       end
     end
+
+    context "when REPLACE ME is included in the message body" do
+      let(:form_params) {{ tax_return_id: tax_return.id, message_body: "REPLACE ME" }}
+      it "add an error to the object" do
+        expect(form).not_to be_valid
+        expect(form.errors[:message_body]).to include "Replace REPLACE ME with relevant information before proceeding."
+      end
+    end
   end
 
   describe "setting default values" do

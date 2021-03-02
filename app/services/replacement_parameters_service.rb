@@ -1,9 +1,10 @@
 class ReplacementParametersService
-  attr_accessor :body, :client, :preparer_user, :locale
+  attr_accessor :body, :client, :preparer_user, :locale, :tax_return
 
-  def initialize(body:, client:, preparer: nil, locale: "en")
+  def initialize(body:, client:, preparer: nil, tax_return: nil, locale: "en")
     @body = body
     @client = client
+    @tax_return = tax_return
     @preparer_user = preparer
     @locale = locale
   end
@@ -11,6 +12,7 @@ class ReplacementParametersService
   def process
     process_replacements_hash(replacements)
   end
+
   private
 
   def process_replacements_hash(replacements_hash)
@@ -30,6 +32,8 @@ class ReplacementParametersService
         "Documents.List": documents_list,
         "Documents.UploadLink": client.intake.requested_docs_token_link,
         "Client.YouOrMaybeYourSpouse": you_or_your,
+        "GetYourRefund.PhoneNumber": OutboundCall.twilio_number,
+        "TaxReturn.TaxYear": tax_return&.year
     }
   end
 

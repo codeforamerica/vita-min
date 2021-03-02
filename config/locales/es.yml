@@ -3,6 +3,10 @@ es:
   hub:
     unlock_account: "Desbloquear cuenta"
     unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
+    has_duplicates: "Posibles duplicados detectados: "
+    last_client_update: "Última actualización de cliente: "
+    waiting_on_response: "Esperando respuesta desde: "
+    not_assigned_html: <i>No asignado</i>
     back_to:
       return_to_dashboard: Regresar al Tablero
       all_clients: Todos los Clientes
@@ -234,32 +238,87 @@ es:
 
         ¡Gracias!
         <<Preparer.FirstName>> en GetYourRefund.org
-      ready_for_qr: |
+      intake_reviewing: |
+        Hola <<Client.PreferredName>>!
+
+        Actualmente estoy revisando su aplicación. Si tengo alguna pregunta, me contactaré con usted. Luego, tendremos una llamada para revisar los documentos juntos, antes de que sea preparada su declaración. No dude en comunicarse conmigo si tiene alguna pregunta.
+
+        Muchas gracias,
+        <<Preparer.FirstName>> en GetYourRefund
+      intake_ready_for_call:
+        Hola <<Client.PreferredName>>!
+
+        He revisado su información y estamos listos para llamarle para hablar acerca de sus impuestos antes de que sea preparado su declaración.
+
+        Esté atento a una llamada telefónica en REPLACE ME desde <<GetYourRefund.PhoneNumber>>. Si este tiempo no funciona para usted, hágamelo saber y podemos reprogramarlo.
+
+        Muchas gracias,
+        <<Preparer.FirstName>> en GetYourRefund
+      prep_preparing: |
+        Hola <<Client.PreferredName>>!
+
+        Si tengo alguna pregunta, le notificare. Si usted tiene alguna pregunta, por favor responda a este mensaje.
+
+        Muchas gracias,
+        <<Preparer.FirstName>> de GetYourRefund
+      review_ready_for_qr: |
         ¡Hola <<Client.PreferredName>>!
 
         ¡Su devolución ahora está siendo revisada en calidad!
 
         ¡Gracias!
         <<Preparer.FirstName>> en GetYourRefund.org
-      accepted: |
+      review_ready_for_call: |
+        Hola <<Client.PreferredName>>,
+
+        Su declaración de impuestos ha sido preparada y revisada. Estamos listos para llamarle para conversar acerca de los resultados.
+
+        Busque una llamada a REPLACE ME desde <<GetYourRefund.PhoneNumber>>.
+
+        Si este tiempo no funciona para usted, hágamelo saber para que podamos reprogramarlo.
+
+        Thank you!
+        <<Preparer.FirstName>> en GetYourRefund
+      file_accepted: |
         ¡Hola <<Client.PreferredName>>!
 
-        ¡Se han aceptado sus declaraciones federales y estatales! No recibirá más notificaciones. Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
-        Si tiene alguna pregunta, responda a este mensaje.
+        ¡Se han aceptado sus declaraciones federales y estatales (si es aplicable) de <<TaxReturn.TaxYear>>! No recibirá más notificaciones.
+
+        Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
+
+        Puede verificar el estado de su reembolso federal en línea en <a href="https://sa.www4.irs.gov/irfof/lang/es/irfofgetstatus.jsp"> sitio del IRS' ¿Dónde está mi reembolso?</a> .
 
         ¡Gracias!
-        <<Preparer.FirstName>> en GetYourRefund.org
-      signature_requested: |
+        <<Preparer.FirstName>> en GetYourRefund
+      review_signature_requested: |
         ¡Hola!
 
-        Su declaración de impuestos ya está lista para su firma electrónica si usted decide continuar con nosotros.
+        Su declaración de impuestos para <<TaxReturn.TaxYear>> ya está lista para su firma electrónica si usted decide continuar con nosotros.
         <<Client.YouOrMaybeYourSpouse>> puede presentar su firma aquí:
         <<Link.E-signature>>
 
         No dude en comunicarse con nosotros si tiene alguna pregunta.
 
         Muchas gracias,
-        - Su equipo de impuestos
+        Su equipo de impuestos en GetYourRefund
+      file_efiled: |
+        Hola <<Client.PreferredName>>,
+
+        Su declaración de impuestos de <<TaxReturn.TaxYear>> han sido enviados.
+
+        Si tiene alguna pregunta o actualización, nos pondremos en contacto.
+
+        Muchas gracias,
+        <<Preparer.FirstName>> en GetYourRefund
+      file_mailed: |
+        Hola <<Client.PreferredName>>,
+
+        Su declaración de impuestos de <<TaxReturn.TaxYear>> están listos para ser enviados mediante correo.
+
+        Usted puede descargar una copia de sus impuestos aquí <<Link.E-signature>>: Recuerde que usted debe firmar su declaración y enviar adjunto documentos de ingreso antes de enviar la declaración al IRS y a su correspondiente oficina estatal de ingresos.
+
+        Muchas gracias,
+        <<Preparer.FirstName>> en GetYourRefund
     bank_accounts:
       info_displayed: Visualización de la información de la cuenta bancaria
       bank_name: Nombre del banco
@@ -439,6 +498,7 @@ es:
   forms:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
+      replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
       status_must_change: No se puede iniciar el cambio de estado al estado actual.
       tax_return_belongs_to_client: No se puede actualizar la declaración de impuestos que no esté relacionada con el cliente actual.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
@@ -515,6 +575,8 @@ es:
     here: aquí
     home: Inicio
     hours: Horas
+    interview_timing_preference: Preferencia de tiempo de entrevista
+
     invitations: Invitaciones
     irs_certified_volunteers: Voluntarios certificados por el IRS
     irs_free_file: Declaración de impuestos gratuita del IRS

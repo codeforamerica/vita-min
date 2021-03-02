@@ -1,4 +1,10 @@
 .hub-form {
+  .form-group {
+    .text--error {
+      position: absolute;
+      margin: 0;
+    }
+  }
   &__row {
     display: flex;
     align-items: center;
@@ -13,7 +19,7 @@
     > * {
       margin-left: 1rem !important; //override honeycrisp error state reset of margin
     }
-
+    
     &.align-center {
       align-items: center;
     }

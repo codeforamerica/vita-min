@@ -413,4 +413,26 @@ describe Client do
       expect(client.reload.login_requested_at).to eq(fake_time)
     end
   end
+
+  describe "#clients_with_dupe_contact_info" do
+    let!(:client) { create :client, intake: create(:intake, email_address: "fizzy_pop@example.com", phone_number: "+15855551212", sms_phone_number: "+18285551212") }
+
+    context "when there are other clients with the same contact info" do
+      let!(:client_dupe_email) { create :client, intake: create(:intake, email_address: "fizzy_pop@example.com") }
+      let!(:client_phone) { create :client, intake: create(:intake, phone_number: "+15855551212") }
+      let!(:client_sms) { create :client, intake: create(:intake, sms_phone_number: "+18285551212") }
+      let!(:client_phone_match_sms) { create :client, intake: create(:intake, phone_number: "+18285551212") }
+      let!(:client_sms_match_phone) { create :client, intake: create(:intake, sms_phone_number: "+15855551212") }
+
+      it "returns the other clients ids" do
+        expect(client.clients_with_dupe_contact_info).to match_array([client_dupe_email.id, client_phone.id, client_sms.id, client_phone_match_sms.id, client_sms_match_phone.id])
+      end
+    end
+
+    context "when there are no other clients with the same contact info" do
+      it "returns an empty array" do
+        expect(client.clients_with_dupe_contact_info).to eq []
+      end
+    end
+  end
 end

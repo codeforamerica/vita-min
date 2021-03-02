@@ -51,7 +51,8 @@ RSpec.describe "a user viewing a client" do
     let(:coalition) { create :coalition }
     let(:user) { create :coalition_lead_user, role: create(:coalition_lead_role, coalition: coalition) }
     let(:first_org) { create :organization, coalition: coalition }
-    let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info) }
+    let(:client) { create :client, vita_partner: first_org, intake: create(:intake, :with_contact_info, email_address: "fizzy_pop@example.com") }
+    let!(:intake_with_duplicate_email) { create :intake, email_address: "fizzy_pop@example.com", client: create(:client, vita_partner: first_org) }
     let!(:second_org) { create :organization, coalition: coalition }
     before { login_as user }
 
@@ -91,6 +92,19 @@ RSpec.describe "a user viewing a client" do
       within ".client-header" do
         expect(page).to have_text second_org.name
       end
+    end
+
+    scenario "can view potential duplicate intakes" do
+      visit hub_client_path(id: client.id)
+      expect(page).to have_text "fizzy_pop@example.com"
+
+      within ".client-header" do
+        expect(page).to have_text "Potential duplicates detected: ##{intake_with_duplicate_email.client.id}"
+        click_on "##{intake_with_duplicate_email.client.id}"
+      end
+
+      expect(page.current_path).to eq hub_client_path(id: intake_with_duplicate_email.client.id)
+      expect(page).to have_text "fizzy_pop@example.com"
     end
   end
 end

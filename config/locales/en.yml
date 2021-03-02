@@ -3,6 +3,10 @@ en:
   hub:
     unlock_account: "Unlock account"
     unlock_confirmation: "Unlock %{name}'s account? Have they confirmed their identity?"
+    has_duplicates: "Potential duplicates detected: "
+    last_client_update: "Last client update: "
+    waiting_on_response: "Waiting on response since: "
+    not_assigned_html: <i>Not assigned</i>
     back_to:
       return_to_dashboard: Return to Dashboard
       all_clients: All Clients
@@ -223,41 +227,108 @@ en:
         file_not_filing: Not filing
     status_macros:
       needs_more_information: |
-        Hello <<Client.PreferredName>>!
+        Hello <<Client.PreferredName>>,
 
-        In order to continue filing your taxes, we need you to send us:
+        In order to continue filing your taxes, we still need:
         <<Documents.List>>
-        Securely upload your documents by going to:
+        Securely upload your documents at:
         <<Documents.UploadLink>>
 
-        Please let us know if you have any questions. We cannot prepare your taxes without this information.
+        Please let us know if you have any questions. We can't begin preparing your taxes without this information.
 
-        Thanks!
-        <<Preparer.FirstName>> at GetYourRefund.org
-      ready_for_qr: |
-        Hello <<Client.PreferredName>>!
+        Thanks,
+        <<Preparer.FirstName>> at GetYourRefund
+      intake_reviewing: |
+        Hello <<Client.PreferredName>>,
 
-        Your return is now being quality reviewed!
+        Thank you for providing your tax documents. I'm currently reviewing everything you've sent. After that, we'll schedule a call to finish the review before your taxes are prepared.
 
-        Thanks!
-        <<Preparer.FirstName>> at GetYourRefund.org
-      accepted: |
-        Hello <<Client.PreferredName>>!
+        Please let me know if you have any questions.
 
-        Your federal and state returns have been accepted! You will not receive any further notifications. If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
-        If you have any questions, please reply to this message.
+        Thank you,
+        <<Preparer.FirstName>> at GetYourRefund
+      intake_ready_for_call: |
+        Hello <<Client.PreferredName>>,
 
-        Thanks!
-        <<Preparer.FirstName>> at GetYourRefund.org
-      signature_requested: |
+        I've reviewed your tax information for <<TaxReturn.TaxYear>>. The next step is for us to review your return on a phone call.
+
+        Please look out for a phone call on/at REPLACE ME from <<GetYourRefund.PhoneNumber>>.
+
+        If this time doesn't work for you, please let me know and we can reschedule.
+
+        Thank you,
+        <<Preparer.FirstName>> at GetYourRefund
+      prep_preparing: |
+        Hello <<Client.PreferredName>>,
+
+        I'm currently preparing your taxes. I'll reach out with any questions.
+
+        After your taxes are prepared, I'll pass them to another preparer to review. Then, we'll schedule a call to discuss your return with you.
+
+        Thanks,
+        <<Preparer.FirstName>> at GetYourRefund
+      review_ready_for_qr: |
+        Hello <<Client.PreferredName>>,
+
+        Your <<TaxReturn.TaxYear>> return is now being quality reviewed! We'll reach out to schedule a call to review with you soon.
+
+        Thanks,
+        <<Preparer.FirstName>> at GetYourRefund
+      review_ready_for_call: |
+        Hello <<Client.PreferredName>>,
+
+        Your return has been prepared and reviewed. I'm ready to give you a call to discuss the results of your return.
+
+        Please look for a call on/at REPLACE ME from <<GetYourRefund.PhoneNumber>>.
+
+        If this time doesn't work for you, let me know and we'll reschedule.
+
+        Thank you,
+        <<Preparer.FirstName>> at GetYourRefund
+      file_accepted: |
+        Hello <<Client.PreferredName>>,
+
+        Your <<TaxReturn.TaxYear>> tax return has been accepted!
+
+        If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
+
+        You can check the status of your federal refund online at <a href="https://sa.www4.irs.gov/irfof/lang/en/irfofgetstatus.jsp">the IRS' Where's My Refund site</a>.
+
+        Thanks for trusting GetYourRefund with your <<TaxReturn.TaxYear>> taxes.
+
+        Thanks,
+        <<Preparer.FirstName>> at GetYourRefund
+      review_signature_requested: |
         Hello!
 
-        Your tax return is now ready for your electronic signature if you choose to file with us.
+        Your <<TaxReturn.TaxYear>> tax return is now ready for your electronic signature.
+
+        If you have additional questions before you're ready to sign, please let me know.
+
         <<Client.YouOrMaybeYourSpouse>> can sign at this link:
         <<Link.E-signature>>
 
-        Thanks!
-        - Your tax team
+        Thanks,
+        Your GetYourRefund team
+      file_efiled: |
+        Hello <<Client.PreferredName>>,
+
+        Your tax return for <<TaxReturn.TaxYear>> has been filed.
+
+        We will notify you again when your return is accepted or if additional questions arise. Let us know if you have any questions.
+
+        Thanks,
+
+        <<Preparer.FirstName>> at GetYourRefund
+      file_mailed: |
+        Hello <<Client.PreferredName>>,
+
+        Your <<TaxReturn.TaxYear>> tax returns are ready to be filed by mail. You can download a copy of your returns here: <<Link.E-signature>>.
+
+        Remember to sign your tax_returns and attach proof of income before mailing to the IRS and/or your state department of revenue.
+
+        Thanks,
+        <<Preparer.FirstName>> at GetYourRefund
     bank_accounts:
       info_displayed: Displaying bank account information
       bank_name: Bank name
@@ -437,6 +508,7 @@ en:
   forms:
     errors:
       at_least_one_year: Please pick at least one year.
+      replace_me_text: Replace REPLACE ME with relevant information before proceeding.
       status_must_change: Can't initiate status change to current status.
       tax_return_belongs_to_client: Can't update tax return unrelated to current client.
       need_one_communication_method: Please choose some way for us to contact you.
@@ -512,6 +584,7 @@ en:
     here: here
     home: Home
     hours: Hours
+    interview_timing_preference: Preferred Interview Time
     invitations: Invitations
     irs_certified_volunteers: IRS Certified Volunteers
     irs_free_file: IRS Free File
