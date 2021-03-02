@@ -1985,26 +1985,204 @@ en:
     shared:
       consent_agreement:
         details:
-          cfa: I understand that GetYourRefund.org is a website run by Code for America, a non-profit organization, that will submit your tax information to a VITA preparation site.
-          civil_rights_understanding_html: I understand that VITA is a <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">free tax program</a> that <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protects my civil rights</a>.
-          collects_pii: I understand that this site collects personally identifiable information I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review my tax return.
-          contacted: I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed.
-          e_signature: I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through an electronic signature delivered via email after Quality Review is completed in order for a VITA preparation site to e-file my tax return.
+          intro: >-
+            This site is using 100% Virtual VITA/TCE Process: This method includes non-face-to-face interactions with
+            the taxpayer and any of the VITA/TCE volunteers during the intake, interview, return preparation, quality
+            review, and signing the tax return. The taxpayer will be explained the full process and is required to
+            consent to step-by-step process used by the site. This includes the virtual procedures to send required
+            documents (social security numbers, Form W-2 and other documents) through a secured file sharing system
+            to a designated volunteer for review.
+          site_process_header: The GetYourRefund Site Process
+          sections:
+            - header: Overview
+              content:
+                - >-
+                  I understand that VITA is a
+                  <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">free tax program</a>
+                  that
+                  <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protects my civil rights</a>.
+                - >-
+                  I understand that GetYourRefund.org is a website run by Code for America,
+                  a non-profit organization, that will submit your tax information to a VITA preparation site.
+            - header: Securing Taxpayer Consent Agreement
+              content:
+                - >-
+                  I understand that selecting "I agree" provides my consent to the GetYourRefund tax prep process.
+            - header: "Performing the Intake Process (Secure All Documents)"
+              content:
+                - >-
+                  Intake process: GetYourRefund will collect your information and documentation through the intake
+                  process in order to accurately prepare your tax return. All documents will be uploaded in the system
+                  and stored.
+                - >-
+                  I understand that I must provide all required information/documentation necessary to prepare an
+                  accurate return.
+            - header: Validating Taxpayer's Authentication (Reviewing photo identification and Social Security Cards/ITINS
+              content:
+                - >-
+                  I understand that this site collects personally identifiable information I provide (social security numbers,
+                  Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review
+                  my tax return. Identity is validated by review of photo identification, proof of social security number
+                  or ITIN, and a photo of you holding your identification.
+            - header: Performing the interview with the taxpayer(s)
+              content:
+                - >-
+                  I understand that I will need to participate in an Intake Interview via phone in order to have a
+                  VITA preparation site file my taxes.
+            - header: Preparing the tax return
+              content:
+                - >-
+                  Return Preparation Process: GetYourRefund will use your information/documentation to complete a tax return.
+                - >-
+                  I understand that I may be contacted for additional information using a contact preference I provide.
+                  If the preparer has everything required to prepare the return, I will not be contacted until the return
+                  is completed.
+            - header: Performing the quality review
+              content:
+                - >-
+                  I understand that I will need to participate in a Quality Review via phone in order to have a VITA
+                  preparation site file my taxes. I understand that I need to review my completed tax return to ensure the names,
+                  social security numbers, address, banking information, income, and expenses to the best of my knowledge.
+            - header: Sharing the completed return
+              content:
+                - >-
+                  Quality Review Process: GetYourRefund will provide you with your return for accuracy prior
+                  to submission.
+            - header: Signing the return
+              content:
+                - >-
+                  I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through
+                  an electronic signature delivered via email after Quality Review is completed in order for
+                  a VITA preparation site to e-file my tax return.
+                - >-
+                  I understand that me and my spouse (if applicable) are ultimately responsible for all of the
+                  information provided to GetYourRefund.
+            - header: E-filing the tax return
+              content:
+                - >-
+                  I understand that GetYourRefund will e-file my tax return with the IRS
+            - header: Request to review your tax return for accuracy
+              content:
+                - >-
+                  To ensure you are receiving quality services and an accurately prepared tax return at the
+                  volunteer site, IRS employees randomly select free tax preparation sites for review. If errors are
+                  identified, the site will make necessary corrections. IRS does not keep any personal information
+                  from your reviewed tax return and this allows them to rate our VITA/TCE return preparation programs
+                  for accurately prepared taxes. By consenting to the service, you consent to having your return
+                  reviewed for accuracy by an IRS employee if the site preparing this return is selected for a review.
+            - header: Vita Consent Disclosure
+              content:
+                - >-
+                  If you agree to have your tax return prepared and your tax documents handled in the above manner,
+                  your signature and/or agreement is required on this document. Signing this document means that you
+                  are agreeing to the procedures stated above for preparing a tax return for you.
+                  (If this is a Married Filing Joint return both spouses must sign and date this document.) If you
+                  choose not to sign this form, we may not be able to prepare your tax return using this process.
+                  Since we are preparing your tax return virtually, we have to secure your consent agreeing to this
+                  process.
+                - >-
+                  If you consent to use these non-IRS virtual systems to disclose or use your tax return information,
+                  Federal law may not protect your tax return information from further use or distribution in the
+                  event these systems are hacked or breached without our knowledge.
+                - >-
+                  If you agree to the disclosure of your tax return information, your consent is valid for the amount
+                  of time that you specify. If you do not specify the duration of your consent, your consent is valid
+                  for one year from the date of signature.
+                - >-
+                  If you believe your tax return information has been disclosed or used improperly in a manner unauthorized
+                  by law or without your permission, you may contact the Treasury Inspector General for Tax
+                  Administration (TIGTA) by telephone at 1-800-366-4484, or by e-mail at complaints@tiga.tres.gov.
+                - >-
+                  While the IRS is responsible for providing oversight requirements to Volunteer Income Tax Assistance
+                  (VITA) and Tax Counseling for the Elderly (TCE) programs, these sites are operated by IRS
+                  sponsored partners who manage the IRS site operations requirements and volunteer ethical standards.
+                  In addition, the locations of these sites may not be in or on federal property.
+                - >-
+                  By signing below, you and your spouse (if applicable) agree to participate in the process and
+                  consent to allow GetYourRefund to assist you with your taxes. You agree to the terms of the
+                  GetYourRefund privacy policy at www.GetYourRefund.org/privacy.
+          cfa: >-
+            I understand that GetYourRefund.org is a website run by Code for America,
+            a non-profit organization, that will submit your tax information to a VITA preparation site.
+          civil_rights_understanding_html: >-
+            I understand that VITA is a
+            <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">free tax program</a>
+            that
+            <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protects my civil rights</a>.
+          securing_taxpayer_consent_agreement:
+            header: Securing Taxpayer Consent Agreement
+            content: >-
+              I understand that selecting "I agree" below provides my consent to the GetYourRefund tax prep process.
+          collects_pii: >-
+            I understand that this site collects personally identifiable information
+            I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents)
+            in order to prepare and quality review my tax return.
+          contacted: >-
+            I understand that I may be contacted for additional information using a
+            contact preference I provide. If the preparer has everything required
+            to prepare the return, I will not be contacted until the return is completed.
+          e_signature: >-
+            I understand that I will need to sign Form 8879,
+            IRS e-file Signature Authorization, through an electronic signature delivered
+            via email after Quality Review is completed in order for a VITA preparation
+            site to e-file my tax return.
           header: The Details
-          intake_process: Intake Process - GetYourRefund will collect your information and documentation through the intake process in order to accurately prepare your tax return.
-          interview_and_review: I understand that I will need to participate in an Intake Interview and Quality Review via phone in order to have a VITA preparation site file my taxes.
-          irs: This consent form replaces IRS Form 14446-Virtual VITA/TCE Taxpayer Consent. A copy of this consent will be retained on site, as required by the IRS.
-          provide_required_info: I understand that I must provide all required information/documentation necessary to prepare an accurate tax return.
-          quality_review_process: Quality Review Process - GetYourRefund will provide you with your return to review for accuracy prior to submission.
-          responsible: I understand that me and my spouse (if applicable) are ultimately responsible for all of the information provided to GetYourRefund.
-          return_prep_process: Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return.
-          review_return: I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge.
-          sign_below: By signing below, you agree to participate in the process and consent to allow GetYourRefund assist you with your taxes. You agree to the terms of the GetYourRefund privacy policy at www.GetYourRefund.org/privacy.
-          efin: I understand that the VITA site I am connected with may have a Relational EFIN number (meaning their site reports to a parent VITA organization), and I understand the VITA site has the ability to see reporting data for all EFINs under the relational (primary) EFIN. This consent form replaces the Relational EFIN consent form from the tax preparation software.
-          personal_tax_info: "Consent to Disclose and Use Personal Tax Return Information: I agree to allow the VITA preparation site to use aggregate return data for statistical purposes. This consent form replaces the Use and Disclose Consent form."
-          carry_forward: "Consent to Global Carry Forward: I consent to allow TaxSlayer LLC, the provider of the VITA/TCE tax software, to make my tax return information available to ANY volunteer site participating in the IRS's VITA/TCE program that I select to prepare a tax return in the next filing season. I understand I will be able to visit any volunteer site using TaxSlayer next year and have my tax return populate with your current year data, regardless of where you filed your tax return this year. This consent is valid through November 12, 2022."
-        information_you_provide: You understand the information you provide this site (GetYourRefund.org) is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order for an IRS-certified volunteer to review your information, conduct an intake interview on the phone, prepare the tax return, and perform a quality review before filing your taxes.
-        proceed_and_confirm: By proceeding, you confirm that the following statements are true and complete to the best of your knowledge.
+          intake_process: >-
+            Intake Process - GetYourRefund will collect your information
+            and documentation through the intake process in order to accurately
+            prepare your tax return.
+          interview_and_review: >-
+            I understand that I will need to participate in an Intake Interview
+            and Quality Review via phone in order to have a VITA preparation site file my taxes.
+          irs: >-
+            This consent form replaces IRS Form 14446-Virtual VITA/TCE Taxpayer Consent.
+            A copy of this consent will be retained on site, as required by the IRS.
+          provide_required_info: >-
+            I understand that I must provide all required information/documentation
+            necessary to prepare an accurate tax return.
+          quality_review_process: >-
+            Quality Review Process - GetYourRefund will provide you with your return to
+            review for accuracy prior to submission.
+          responsible: >-
+            I understand that me and my spouse (if applicable) are
+            ultimately responsible for all of the information provided to GetYourRefund.
+          return_prep_process: >-
+            Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return.
+          review_return: >-
+            I understand I need to review my completed tax return to ensure the names,
+            social security numbers, address, banking information, income, and expenses are
+            correct to the best of my knowledge.
+          sign_below: >-
+            By signing below, you agree to participate in the process and consent to
+            allow GetYourRefund assist you with your taxes. You agree to the terms of the
+            GetYourRefund privacy policy at www.GetYourRefund.org/privacy.
+          efin: >-
+            I understand that the VITA site I am connected with may have a Relational
+            EFIN number (meaning their site reports to a parent VITA organization),
+            and I understand the VITA site has the ability to see reporting data for
+            all EFINs under the relational (primary) EFIN. This consent form replaces
+            the Relational EFIN consent form from the tax preparation software.
+          personal_tax_info: >-
+            Consent to Disclose and Use Personal Tax Return Information: I agree to allow the
+            VITA preparation site to use aggregate return data for statistical purposes.
+            This consent form replaces the Use and Disclose Consent form.
+          carry_forward: >-
+            Consent to Global Carry Forward: I consent to allow TaxSlayer LLC, the provider
+            of the VITA/TCE tax software, to make my tax return information available to
+            ANY volunteer site participating in the IRS's VITA/TCE program that I select
+            to prepare a tax return in the next filing season. I understand I will be able
+            to visit any volunteer site using TaxSlayer next year and have my tax return
+            populate with your current year data, regardless of where you filed your tax
+            return this year. This consent is valid through November 12, 2022.
+        information_you_provide: >-
+          You understand the information you provide this site (GetYourRefund.org)
+          is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order
+          for an IRS-certified volunteer to review your information, conduct an intake
+          interview on the phone, prepare the tax return, and perform a quality review
+          before filing your taxes.
+        proceed_and_confirm: >-
+          By proceeding, you confirm that the following statements
+          are true and complete to the best of your knowledge.
         terms_html: You agree to the terms of the GetYourRefund privacy policy at %{privacy_link}
       covid_warning:
         notice_html: "Note: In person services may currently be on hold due to COVID-19"
