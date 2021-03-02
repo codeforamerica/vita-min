@@ -1,30 +1,36 @@
 <% @title = t("general.organizations") %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <h1><%= @title %></h1>
+  <div class="slab">
+    <div style="display: flex; justify-content: space-between;">
+      <h1 class="h1"><%= @title %></h1>
+      <% if can? :create, VitaPartner %>
+        <%= link_to t("hub.organizations.new.title"), new_hub_organization_path, class: "button button--cta"%>
+      <% end %>
+    </div>
 
-  <p><%= t(".organizations_by_coalition") %></p>
+    <p><%= t(".organizations_by_coalition") %></p>
 
-  <% if can? :create, VitaPartner %>
-    <%= link_to t("hub.organizations.new.title"), new_hub_organization_path, class: "button button--cta"%>
-  <% end %>
 
-  <% @coalitions.each do |coalition| %>
-    <h2><%= coalition.name %></h2>
 
-    <% if coalition.organizations.present? %>
-      <% coalition.organizations.each do |organization| %>
+    <% @coalitions.each do |coalition| %>
+      <h2><%= coalition.name %></h2>
+
+      <% if coalition.organizations.present? %>
+        <% coalition.organizations.each do |organization| %>
+          <%= render "hub/organizations/listing", organization: organization %>
+        <% end %>
+      <% else %>
+        <%= t('.no_organizations') %>
+      <% end %>
+    <% end %>
+
+    <% if @independent_organizations.present? %>
+      <h2><%= t(".independent_organizations") %></h2>
+      <% @independent_organizations.each do |organization| %>
         <%= render "hub/organizations/listing", organization: organization %>
       <% end %>
-    <% else %>
-      <%= t('.no_organizations') %>
     <% end %>
-  <% end %>
+  </div>
 
-  <% if @independent_organizations.present? %>
-    <h2><%= t(".independent_organizations") %></h2>
-    <% @independent_organizations.each do |organization| %>
-      <%= render "hub/organizations/listing", organization: organization %>
-    <% end %>
-  <% end %>
 <% end %>

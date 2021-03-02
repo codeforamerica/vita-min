@@ -105,25 +105,55 @@
     font-size: 2rem;
   }
 
+  .field_with_errors {
+    select, input, textarea {
+      border: 2px solid $color-red;
+    }
+  }
+
   .form-group {
-    margin-bottom: $s25;
+    margin-bottom: $s35;
+    position: relative;
+    .text--error {
+      margin: 0;
+      position: absolute;
+      font-size: 1.2rem;
+    }
+    &--error {
+      margin-left: 0;
+      margin-right: inherit;
+      padding-left: inherit;
+      padding-right: 0;
+      &:before {
+        display: none;
+      }
+    }
+  }
+
+  .checkbox-group {
+    margin-top: 2.5rem;
   }
 
   .form-question {
     color: $color-grey-medium;
-    margin-bottom: $s10;
+    margin-bottom: $s5 !important;
+  }
+
+  .text-input, .select {
+    margin-bottom: 0; // simplify margins on form-group contents to ensure similar items are similar heights
   }
 
   .button {
     padding-left: $s15;
     padding-right: $s15;
     box-shadow: none;
+    font-weight: 500;
+    letter-spacing: .25px;
   }
 
   .button--cta {
     background-color: black;
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .button--small {
@@ -150,6 +180,10 @@
       width: 2rem;
       height: 2rem;
       margin-right: 1rem;
+    }
+
+    &.checkbox--wide {
+      width: 200px;
     }
   }
 

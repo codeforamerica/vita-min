@@ -1,8 +1,8 @@
 <% @main_heading = t("general.sign_in") %>
 <% content_for :page_title, @main_heading %>
 <% content_for :card do %>
-  <div class="hub-section">
-    <h1 class="h1 spacing-above-60"><%= @main_heading %></h1>
+  <div class="slab">
+    <h1 class="h1"><%= @main_heading %></h1>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), local: true, builder: VitaMinFormBuilder ) do |f| %>
       <%= f.cfa_input_field(:email, t("general.email"), type: 'email', classes: ['form-width--long']) %>

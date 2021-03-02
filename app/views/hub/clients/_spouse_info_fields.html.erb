@@ -1,10 +1,10 @@
 <div id="spouse-info">
-  <h3 class="h2"><%= t("hub.clients.fields.spouse_contact_info") %>:</h3>
-  <div class="hub-form__row">
-    <%= f.cfa_input_field(:spouse_first_name, t("hub.clients.fields.legal_first_name"), classes: ["form-width--long"]) %>
-    <%= f.cfa_input_field(:spouse_last_name, t("hub.clients.fields.legal_last_name"), classes: ["form-width--long"]) %>
+  <h3><%= t("hub.clients.fields.spouse_contact_info") %>:</h3>
+  <div class="hub-form__row fill">
+    <%= f.cfa_input_field(:spouse_first_name, t("hub.clients.fields.legal_first_name")) %>
+    <%= f.cfa_input_field(:spouse_last_name, t("hub.clients.fields.legal_last_name")) %>
   </div>
-  <%= f.cfa_input_field(:spouse_email_address, t("general.email"), classes: ["form-width--long"]) %>
+  <%= f.cfa_input_field(:spouse_email_address, t("general.email")) %>
   <%= f.cfa_input_field(
           :spouse_last_four_ssn,
           t("general.last_four_ssn"),

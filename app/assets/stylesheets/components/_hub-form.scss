@@ -1,11 +1,5 @@
 .hub-form {
-  @extend .hub-section;
-  .form-question {
-    font-size: 1.9rem;
-    margin-bottom: 0;
-  }
   .form-group {
-    margin-bottom: 1.9rem;
     .text--error {
       position: absolute;
       margin: 0;
@@ -13,17 +7,17 @@
   }
   &__row {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     &.fill {
-      > .form-group {
-        flex-grow: 1
-      }
-      label.checkbox {
-        margin-top: 30px
+      > * {
+        flex-grow: 1;
       }
     }
+    > *:first-child {
+      margin-left: 0 !important;
+    }
     > * {
-      margin-right: 1rem;
+      margin-left: 1rem !important; //override honeycrisp error state reset of margin
     }
     
     &.align-center {
@@ -31,3 +25,12 @@
     }
   }
 }
+
+.marital-status {
+  margin-bottom: $s25;
+  .form-group {
+    margin-bottom: 1rem;
+  }
+}
+
+

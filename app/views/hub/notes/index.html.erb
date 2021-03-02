@@ -18,10 +18,12 @@
     </ul>
   <% end %>
 
-  <div class="hub-section">
+  <div class="slab">
     <%= form_with model: [:hub, @client, @note], local: true, builder: VitaMinFormBuilder, html: {class: 'note-form'} do |f| %>
-      <%= f.cfa_input_field :body, t(".note_form.label") %>
-      <%= f.submit t(".note_form.submit"), class: "button" %>
+      <%= f.cfa_textarea :body, t(".note_form.label") %>
+      <div>
+        <%= f.submit t(".note_form.submit"), class: "button" %>
+      </div>
     <% end %>
   </div>
 
