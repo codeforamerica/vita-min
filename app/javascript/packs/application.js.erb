@@ -1,0 +1,31 @@
+import "core-js/stable"
+import "regenerator-runtime/runtime"
+import RailsUJS from "@rails/ujs";
+import * as ActiveStorage from "@rails/activestorage";
+
+import "jquery-ui";
+import Listeners from "../listeners";
+import AjaxMixpanelEvents from "../lib/ajax_mixpanel_events";
+
+// Setting globally isn't very webpack-y,
+// but we have things (views, test runner) in the app that require jquery on the window object.
+window.jQuery = $;
+window.$ = $;
+
+RailsUJS.start();
+ActiveStorage.start();
+
+// *
+// IMPLEMENTATION NOTE 2/22/21
+// I want us to be able to import honeycrisp JS directly from honeycrisp, but the main JS we need is all included
+// right inside of the cfa_styleguide_main sprockets JS file. I'm planning on making a PR to honeycrisp to change this imminently. - SB
+//
+//import "<%#= File.join(Gem.loaded_specs['cfa-styleguide'].full_gem_path, 'app', 'assets', 'javascripts', 'honeycrisp') %>";
+
+import "../lib/honeycrisp";
+
+// *
+
+AjaxMixpanelEvents.init();
+Listeners.init();
+
