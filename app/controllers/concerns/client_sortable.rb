@@ -1,4 +1,5 @@
 module ClientSortable
+  COOKIE_NAME = "persisted_filters"
   def filtered_and_sorted_clients(default_order: nil)
     @default_order = default_order || { "response_needed_since" => "asc" }
     setup_sortable_client unless @filters.present?
@@ -15,7 +16,7 @@ module ClientSortable
     clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
     clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
     if @filters[:vita_partner_id].present?
-      id = @filters[:vita_partner_id]
+      id = @filters[:vita_partner_id].to_i
       clients = clients.where('vita_partners.id = ? OR vita_partners.parent_organization_id = ?', id, id)
     end
     clients = clients.where(intake: Intake.search(@filters[:search])) if @filters[:search].present?
@@ -24,26 +25,33 @@ module ClientSortable
 
   # see if there are any overlapping keys in the provided params and search/sort set
   def has_search_and_sort_params?
-    (params.keys.map(&:to_sym) & search_and_sort_params).any?
+    overlapping_keys = (params.keys.map(&:to_sym) & search_and_sort_params)
+    hash_params = params.try(:to_unsafe_h) || params
+    overlapping_keys.any? && hash_params.slice(*overlapping_keys).any? { |_, v| v.present? }
   end
 
   private
 
   def setup_sortable_client
-    reset_filter_params if params[:clear]
+    cookies.delete(COOKIE_NAME) if params[:clear]
     @sort_column = clients_sort_column
     @sort_order = clients_sort_order
-    @filters = {
-      search: normalize_phone_number_if_present(params[:search]),
-      status: status_filter,
-      stage: stage_filter,
-      assigned_to_me: params[:assigned_to_me],
-      unassigned: params[:unassigned],
-      needs_response: params[:needs_response],
-      year: params[:year],
-      vita_partner_id: params[:vita_partner_id].present? ? params[:vita_partner_id].to_i : nil,
-      assigned_user_id: params[:assigned_user_id].present? ? params[:assigned_user_id].to_i : nil,
+    filter_source = has_search_and_sort_params? ? params : cookie_filters
+    @filters = filters_from(filter_source)
+    cookies[COOKIE_NAME] = JSON.generate(@filters.select { |_, v| v.present? })
+  end
 
+  def filters_from(source)
+    {
+      search: normalize_phone_number_if_present(source[:search]),
+      status: status_filter(source),
+      stage: stage_filter(source),
+      assigned_to_me: source[:assigned_to_me],
+      unassigned: source[:unassigned],
+      needs_response: source[:needs_response],
+      year: source[:year],
+      vita_partner_id: source[:vita_partner_id]&.to_s,
+      assigned_user_id: source[:assigned_user_id]&.to_s
     }
   end
 
@@ -51,11 +59,8 @@ module ClientSortable
     [:search, :status, :unassigned, :assigned_to_me, :needs_response, :year, :vita_partner_id, :assigned_user_id]
   end
 
-  # reset the raw parameters for each filter received by the form
-  def reset_filter_params
-    search_and_sort_params.each do |param|
-      params[param] = nil
-    end
+  def cookie_filters
+    cookies[COOKIE_NAME] ? HashWithIndifferentAccess.new(JSON.parse(cookies[COOKIE_NAME])) : {}
   end
 
   def clients_sort_order
@@ -67,19 +72,19 @@ module ClientSortable
     sortable_columns.include?(params[:column]&.to_sym) ? params[:column] : @default_order.keys.first
   end
 
-  def status_filter
-    TaxReturnStatus::STATUSES.keys.find { |status| status == params[:status]&.to_sym }
+  def status_filter(source)
+    TaxReturnStatus::STATUSES.keys.find { |status| status == source[:status]&.to_sym }
   end
 
-  def stage_filter
-    TaxReturnStatus::STAGES.find { |stage| stage == params[:status] }
+  def stage_filter(source)
+    TaxReturnStatus::STAGES.find { |stage| stage == source[:status] }
   end
 
   def limited_user_ids
     val = []
     val.push(current_user.id) if @filters[:assigned_to_me].present? || @always_current_user_assigned
+    val.push(@filters[:assigned_user_id].to_i) if @filters[:assigned_user_id].present?
     val.push(nil) if @filters[:unassigned].present?
-    val.push(@filters[:assigned_user_id]) if @filters[:assigned_user_id].present?
     val
   end
 

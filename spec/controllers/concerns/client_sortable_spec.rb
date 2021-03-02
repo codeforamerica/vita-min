@@ -7,12 +7,17 @@ RSpec.describe ClientSortable, type: :controller do
   # - it assumes that @clients is already set.
   let(:clients_query_double){ double }
   let(:intakes_query_double){ double }
-
+  let(:cookies) { double }
   controller(ApplicationController) do
     include ClientSortable
   end
 
   before do
+    allow(controller).to receive(:cookies).and_return(cookies)
+    allow(cookies).to receive(:delete)
+    allow(cookies).to receive(:[]=)
+    allow(cookies).to receive(:[])
+
     allow(subject).to receive(:params).and_return params
     subject.instance_variable_set(:@clients, clients_query_double)
     allow(clients_query_double).to receive(:after_consent).and_return clients_query_double
@@ -123,20 +128,18 @@ RSpec.describe ClientSortable, type: :controller do
       let(:params) do
         {
             clear: true,
-            search: "query",
-            status: "intake_in_progress",
-            year: "2019",
-            needs_response: true,
-            assigned_to_me: true,
-            unassigned: true,
-            vita_partner_id: 1,
             assigned_user_id: 1
         }
       end
 
-      it "clears all of the existing params" do
+      before do
+        allow(cookies).to receive(:delete)
+        allow(cookies).to receive(:[]).with(anything)
+      end
+
+      it "removes the filter cookie" do
         subject.filtered_and_sorted_clients
-        expect(assigns(:filters).values.compact).to be_empty
+        expect(cookies).to have_received(:delete).with(described_class::COOKIE_NAME)
       end
     end
 

@@ -37,17 +37,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         click_button "Filter results"
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
-        click_button "Clear"
-
-        within ".filter-form" do
-          select "Alan's Org", from: "vita_partner_id"
-          click_button "Filter results"
-          expect(page).to have_select("vita_partner_id", selected: "Alan's Org")
-        end
-
-        expect(page.all('.client-row').length).to eq 1
-        # expect(page.all('.client-row')[0]).to have_text alan_intake_in_progress.preferred_name
-        click_button "Clear"
+        click_link "Clear"
 
         within ".filter-form" do
           select "Alan's Org", from: "vita_partner_id"
@@ -57,7 +47,30 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text alan_intake_in_progress.preferred_name
-        click_button "Clear"
+        click_link "Clear"
+
+        within ".filter-form" do
+          select "Alan's Org", from: "vita_partner_id"
+          select "2020", from: "year"
+          select "Mona Mandarin", from: "assigned_user_id"
+          select "Ready for prep", from: "status"
+          fill_in "Search", with: "Zach"
+
+          click_button "Filter results"
+          expect(page).to have_select("vita_partner_id", selected: "Alan's Org")
+          expect(page).to have_select("year", selected: "2020")
+          expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
+          expect(page).to have_select("status", selected: "Ready for prep")
+
+          # reload page and filters persist
+          visit hub_clients_path
+          expect(page).to have_select("vita_partner_id", selected: "Alan's Org")
+          expect(page).to have_select("year", selected: "2020")
+          expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
+          expect(page).to have_select("status", selected: "Ready for prep")
+        end
+        
+        click_link "Clear"
 
         within ".filter-form" do
           select "Mona Mandarin", from: "assigned_user_id"
@@ -67,7 +80,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text betty_intake_in_progress.preferred_name
-        click_button "Clear"
+        click_link "Clear"
 
         within ".filter-form" do
           select "Ready for prep", from: "status"
@@ -101,7 +114,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
         end
         within ".filter-form" do
-          click_button "Clear"
+          click_link "Clear"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
@@ -139,7 +152,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
 
         within ".filter-form" do
-          click_button "Clear"
+          click_link "Clear"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
@@ -155,7 +168,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row').length).to eq 1
         end
         within ".filter-form" do
-          click_button "Clear"
+          click_link "Clear"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
