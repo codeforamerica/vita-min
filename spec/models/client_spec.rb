@@ -434,5 +434,22 @@ describe Client do
         expect(client.clients_with_dupe_contact_info).to eq []
       end
     end
+
+    context "when there is a matching intake with a nil client" do
+      let!(:intake) { create :intake, email_address: "fizzy_pop@example.com", client_id: 242424 } # non-existent client
+
+      it "returns an empty array" do
+        expect(client.clients_with_dupe_contact_info).to eq []
+      end
+    end
+
+    context "with empty contact info fields" do
+      let!(:client) { create :client, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil) }
+      let!(:other_blank_client) { create :client, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil) }
+
+      it "does not match on nil values" do
+        expect(client.clients_with_dupe_contact_info).to eq []
+      end
+    end
   end
 end

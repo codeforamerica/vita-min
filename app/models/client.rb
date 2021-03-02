@@ -168,7 +168,7 @@ class Client < ApplicationRecord
   end
 
   def clients_with_dupe_contact_info
-    Intake.includes(:client).where(
+    matching_intakes = Intake.where(
       "email_address = ? OR phone_number = ? OR phone_number = ? OR sms_phone_number = ? OR sms_phone_number = ?",
       intake.email_address,
       intake.phone_number,
@@ -176,7 +176,7 @@ class Client < ApplicationRecord
       intake.phone_number,
       intake.sms_phone_number
     ).where.not(id: intake.id)
-     .map(&:client).pluck(:id).uniq
+    Client.where(intake: matching_intakes).pluck(:id)
   end
 
   private
