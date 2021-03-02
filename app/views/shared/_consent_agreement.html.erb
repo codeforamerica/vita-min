@@ -10,9 +10,23 @@
 </p>
 <div class="consent-details">
   <h2 class="h3"><%=t("views.shared.consent_agreement.details.header") %></h2>
+
   <p>
-    <%= t("views.shared.consent_agreement.details.civil_rights_understanding_html") %>
+    <%= t("views.shared.consent_agreement.details.intro") %>
   </p>
+
+  <h3 class="h4">
+    <%= t("views.shared.consent_agreement.details.site_process_header") %>
+  </h3>
+
+  <% t("views.shared.consent_agreement.details.sections").each do |section| %>
+    <strong><%= section[:header] %></strong>
+    <% section[:content].each do |paragraph| %>
+      <p><%= paragraph.html_safe %></p>
+    <% end %>
+  <% end %>
+
+  <strong>Securing Taxpayer Consent Agreement</strong>
 
   <p>
     <%=t("views.shared.consent_agreement.details.provide_required_info") %>
@@ -23,9 +37,7 @@
   <p>
     <%=t("views.shared.consent_agreement.details.interview_and_review") %>
   </p>
-  <p>
-    <%=t("views.shared.consent_agreement.details.cfa") %>
-  </p>
+
   <p>
     <%=t("views.shared.consent_agreement.details.intake_process") %>
   </p>
