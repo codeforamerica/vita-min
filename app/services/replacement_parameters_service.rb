@@ -12,6 +12,7 @@ class ReplacementParametersService
   def process
     process_replacements_hash(replacements)
   end
+
   private
 
   def process_replacements_hash(replacements_hash)

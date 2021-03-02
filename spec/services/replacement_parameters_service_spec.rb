@@ -281,27 +281,6 @@ describe ReplacementParametersService do
           expect(result).to include "<<Link.E-signature>>"
         end
       end
-
-      context "replacing sensitive" do
-        context "in english" do
-          let(:body) { I18n.t("hub.status_macros.review_signature_requested") }
-          it "replaces the document link" do
-            result = subject.process_sensitive_data
-            expect(result).not_to include "<<Link.E-signature>>"
-            expect(result).to include fake_login_link
-          end
-        end
-
-        context "in spanish" do
-          let(:body) { I18n.t("hub.status_macros.review_signature_requested", locale: "es") }
-          let(:locale) { :es }
-          it "replaces the document link" do
-            result = subject.process_sensitive_data
-            expect(result).not_to include "<<Link.E-signature>>"
-            expect(result).to include fake_login_link
-          end
-        end
-      end
     end
 
     context "file_accepted" do
