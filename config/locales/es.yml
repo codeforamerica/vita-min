@@ -4,6 +4,9 @@ es:
     unlock_account: "Desbloquear cuenta"
     unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
     has_duplicates: "Posibles duplicados detectados: "
+    last_client_update: "Última actualización de cliente: "
+    waiting_on_response: "Esperando respuesta desde: "
+    not_assigned_html: <i>No asignado</i>
     back_to:
       return_to_dashboard: Regresar al Tablero
       all_clients: Todos los Clientes

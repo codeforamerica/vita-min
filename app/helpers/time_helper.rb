@@ -12,8 +12,9 @@ module TimeHelper
     datetime.strftime("%l:%M %p #{datetime.zone}").strip
   end
 
-  def long_formatted_datetime(datetime)
-    "#{datetime.strftime('%a')} #{default_date_format(datetime)} at #{formatted_time(datetime)}"
+  def long_formatted_datetime(datetime, use_day: true)
+    formatted_string = use_day ? "#{datetime.strftime('%a')} " : ""
+    formatted_string + "#{default_date_format(datetime)} at #{formatted_time(datetime)}"
   end
 
   def timezone_select_options
