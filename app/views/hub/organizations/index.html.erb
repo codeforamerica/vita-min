@@ -9,15 +9,32 @@
       <% end %>
     </div>
 
-    <p><%= t(".organizations_by_coalition") %></p>
 
+    <% if @coalitions.count > 0 %>
+      <p><%= t(".organizations_by_coalition") %></p>
 
+      <% @coalitions.each do |coalition| %>
 
-    <% @coalitions.each do |coalition| %>
-      <h2><%= coalition.name %></h2>
+        <h2><%= coalition.name %></h2>
 
-      <% if coalition.organizations.present? %>
-        <% coalition.organizations.each do |organization| %>
+        <% if coalition.organizations.present? %>
+          <% coalition.organizations.each do |organization| %>
+            <%= render "hub/organizations/listing", organization: organization %>
+          <% end %>
+        <% else %>
+          <%= t('.no_organizations') %>
+        <% end %>
+
+        <% if @independent_organizations.present? %>
+          <h2><%= t(".independent_organizations") %></h2>
+          <% @independent_organizations.each do |organization| %>
+            <%= render "hub/organizations/listing", organization: organization %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% if @organizations.present? %>
+        <% @organizations.each do |organization| %>
           <%= render "hub/organizations/listing", organization: organization %>
         <% end %>
       <% else %>
@@ -25,12 +42,6 @@
       <% end %>
     <% end %>
 
-    <% if @independent_organizations.present? %>
-      <h2><%= t(".independent_organizations") %></h2>
-      <% @independent_organizations.each do |organization| %>
-        <%= render "hub/organizations/listing", organization: organization %>
-      <% end %>
-    <% end %>
   </div>
 
 <% end %>
