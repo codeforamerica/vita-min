@@ -16,6 +16,7 @@ RSpec.describe ClientSortable, type: :controller do
     allow(subject).to receive(:params).and_return params
     subject.instance_variable_set(:@clients, clients_query_double)
     allow(clients_query_double).to receive(:after_consent).and_return clients_query_double
+    allow(clients_query_double).to receive(:in_intake).and_return clients_query_double
     allow(clients_query_double).to receive(:delegated_order).and_return clients_query_double
     allow(clients_query_double).to receive(:where).and_return clients_query_double
     allow(clients_query_double).to receive(:not).and_return clients_query_double
@@ -23,6 +24,22 @@ RSpec.describe ClientSortable, type: :controller do
   end
 
   describe "#filtered_and_sorted_clients" do
+    context "when user is a greeter" do
+      let(:params) do
+        {}
+      end
+      let(:user_double) { double(User) }
+      before do
+        allow(subject).to receive(:current_user).and_return(user_double)
+        allow(user_double).to receive(:greeter?).and_return(true)
+      end
+
+      it "limits to intake statuses only" do
+        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+
+        expect(clients_query_double).to have_received(:in_intake)
+      end
+    end
     context "with a 'search' param" do
       let(:params) do
         { search: "que" }

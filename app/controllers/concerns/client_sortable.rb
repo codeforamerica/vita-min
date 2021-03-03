@@ -2,7 +2,7 @@ module ClientSortable
   def filtered_and_sorted_clients(default_order: nil)
     @default_order = default_order || { "response_needed_since" => "asc" }
     setup_sortable_client unless @filters.present?
-    clients = @clients.after_consent
+    clients = current_user&.greeter? ? @clients.in_intake : @clients.after_consent
     clients = clients.delegated_order(@sort_column, @sort_order)
     clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
     clients = clients.where.not(response_needed_since: nil) if @filters[:needs_response].present?
