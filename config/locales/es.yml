@@ -638,6 +638,7 @@ es:
     sites: "Sitios"
     skip_question: Saltar pregunta
     skip_questions: Saltar preguntas
+    sms_phone_number: Número Celular
     sorry: "¡Ay, no! ¡Lo sentimos!"
     start_filing: Comenzar a declarar
     state: Estado
@@ -763,19 +764,19 @@ es:
     client_logins:
       form:
         errors:
-          at_least_one: Complete una de las dos entradas.
-          bad_confirmation_number: Número de confirmación incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
-          bad_last_four: Incorrecto últimos cuatro. Después de 5 intentos fallidos, las cuentas se bloquean
+          bad_input: ID de cliente o los 4 últimos de SSN / ITIN incorrectos. Después de 5 intentos fallidos, las cuentas se bloquean
       new:
         title: Le mandaremos un enlace seguro para que pueda ver su progreso.
+        one_form_of_contact: "Por favor ingrese 1 formulario de contacto a continuación:"
       link_sent:
         link_sent: "Para proteger su identidad, le enviamos un enlace seguro a su información de contacto."
+        link_sent_at: "Para proteger su identidad, le enviamos un enlace seguro a su información de contacto en:"
         title: "Para continuar, por favor visite su enlace seguro."
+        send_another_link: "Enviar otro enlace"
       show:
         title: Autenticación necesaria para continuar
         confirm_identity: Proteger su información fiscal es nuestra prioridad. Para continuar, confirme su identidad.
-        last_four: Últimos 4 de SSN / ITIN
-        confirmation_number: Número de confirmación
+        last_four_or_client_id: "ID de cliente o los 4 últimos de SSN / ITIN"
       account_locked:
         title: Esta cuenta ha sido bloqueada
         body_html: Esta cuenta se ha bloqueado debido a demasiados intentos fallidos de inicio de sesión. Si necesita ayuda para desbloquear esta cuenta, envíenos un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org </a>.
@@ -1756,7 +1757,6 @@ es:
           email_notification_opt_in: Envíeme un correo electrónico
           header: Nos pondremos en contacto con preguntas y actualizaciones. ¡Seleccione la opcion(es) que prefiera!
           sms_notification_opt_in: Mensaje de Texto
-          sms_phone_number: Número Celular
         title: "¿Cómo podemos actualizarlo en su declaración de impuestos?"
       other_income:
         help_text: Tales como pagos en efectivo, deberes de jurado, premios, moneda virtual, regalías o beneficios de huelga sindical (sin incluir un pago de estímulo).

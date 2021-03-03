@@ -29,7 +29,7 @@
     <%= f.hub_checkbox(:email_notification_opt_in, t("general.opt_in_email"), options: { checked_value: "yes", unchecked_value: "no" }) %>
   </div>
   <div class="hub-form__row fill">
-    <%= f.cfa_input_field(:sms_phone_number, t("general.phone_for_texting")) %>
+    <%= f.cfa_input_field(:sms_phone_number, t("general.sms_phone_number")) %>
     <%= f.hub_checkbox(:sms_notification_opt_in, t("general.opt_in_sms"), options: { checked_value: "yes", unchecked_value: "no" }) %>
   </div>
   <%= f.cfa_input_field(:phone_number, t("general.phone_number"),  classes: ["form-width--phone"]) %>

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "a client on their portal" do
-  let(:client) { create :client, intake: (create :intake, primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "yes") }
+  let(:client) { create :client, intake: (create :intake, preferred_name: "Martha", primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "yes") }
 
   before do
     tax_return2019 = create :tax_return, :ready_to_sign, year: 2019, client: client
@@ -15,7 +15,7 @@ RSpec.feature "a client on their portal" do
 
   scenario "viewing their tax return statuses" do
     visit portal_root_path
-    expect(page).to have_text "Welcome back Martha Mango"
+    expect(page).to have_text "Welcome back Martha!"
 
     expect(page).to have_text "2019 tax documents"
     expect(page).to have_text "2018 tax documents"
