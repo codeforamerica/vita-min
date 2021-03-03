@@ -1,0 +1,20 @@
+<% content_for :page_title, t(".title") %>
+
+<% content_for :card do %>
+  <div class="slab slab--padded">
+    <div class="grid">
+      <div class="grid--item width-three-fourths form-card">
+        <div class="offboarding--illustration">
+          <%= image_tag("server-error.svg", alt: "") %>
+        </div>
+        <h1><%= t(".title") %></h1>
+        <p>
+          <strong>
+            <%= t(".body_html") %>
+          </strong>
+        </p>
+      </div>
+    </div>
+  </div>
+
+<% end %>

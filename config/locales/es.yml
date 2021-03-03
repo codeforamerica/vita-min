@@ -2089,3 +2089,8 @@ es:
 
         Su equipo de impuestos de GetYourRefund
 
+
+  public_pages:
+    forbidden:
+      title: Acceso no permitido
+      body_html: ¡Huy! Parece que estás intentando acceder a una página o un cliente al que no tienes acceso. Póngase en contacto con Soporte para socios en <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> si necesita fusionar un cliente duplicado al que no tiene acceso.

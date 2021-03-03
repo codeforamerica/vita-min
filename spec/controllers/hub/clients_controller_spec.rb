@@ -256,6 +256,17 @@ RSpec.describe Hub::ClientsController do
           expect(profile).to have_css("i.urgent")
         end
       end
+
+      context "when trying to access a client you are not allowed to access" do
+        let(:user) { create :user }
+
+        it "renders a helpful interface" do
+          get :show, params: params
+
+          expect(response).to be_forbidden
+          expect(response.body).to have_text "Oops! Looks like you're trying to access a page or client you do not have access to"
+        end
+      end
     end
 
     context "as an authenticated admin" do
