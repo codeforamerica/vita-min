@@ -210,9 +210,9 @@ describe ReplacementParametersService do
       end
     end
 
-    context "review_ready_for_qr" do
+    context "review_reviewing" do
       context "in english" do
-        let(:body) { I18n.t("hub.status_macros.review_ready_for_qr") }
+        let(:body) { I18n.t("hub.status_macros.review_reviewing") }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -222,7 +222,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("hub.status_macros.review_ready_for_qr", locale: "es") }
+        let(:body) { I18n.t("hub.status_macros.review_reviewing", locale: "es") }
         let(:locale) { "es" }
 
         it "replaces the replacement strings in the template" do

@@ -267,7 +267,7 @@ en:
 
         Thanks,
         <<Preparer.FirstName>> at GetYourRefund
-      review_ready_for_qr: |
+      review_reviewing: |
         Hello <<Client.PreferredName>>,
 
         Your <<TaxReturn.TaxYear>> return is now being quality reviewed! We'll reach out to schedule a call to review with you soon.
