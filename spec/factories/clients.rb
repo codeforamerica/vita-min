@@ -34,7 +34,24 @@
 FactoryBot.define do
   factory :client do
     trait :with_return do
-      tax_returns { FactoryBot.create_list(:tax_return, 1, status: 101) }
+      tax_returns { create_list(:tax_return, 1, status: 101) }
+    end
+
+    trait :with_empty_consent do
+      after(:build) do |client|
+        create :consent,
+               client: client,
+               disclose_consented_at: nil,
+               use_consented_at: nil,
+               global_carryforward_consented_at: nil,
+               relational_efin_consented_at: nil
+      end
+    end
+
+    trait :with_consent do
+      after(:build) do |client|
+        create :consent, client: client
+      end
     end
 
     factory :client_with_intake_and_return do
