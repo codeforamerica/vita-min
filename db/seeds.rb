@@ -86,6 +86,15 @@ admin_user.update(
   password: "theforcevita")
 admin_user.update(role: AdminRole.create) if admin_user.role_type != AdminRole::TYPE
 
+
+greeter_user = User.where(email: "greeter@example.com").first_or_initialize
+greeter_user.update(
+  name: "Greeter Greg",
+  password: "theforcevita"
+)
+
+greeter_user.update(role: GreeterRole.create(organizations: [first_org])) if greeter_user.role_type != GreeterRole::TYPE
+
 client = Client.find_or_create_by(vita_partner: first_org)
 
 intake = Intake.create(client: client, preferred_name: "Captain", sms_phone_number: "+14155551212", email_address: "crunch@example.com", sms_notification_opt_in: :yes, email_notification_opt_in: :yes, visitor_id: "test_visitor_id")

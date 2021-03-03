@@ -54,4 +54,9 @@ class TaxReturnStatus
   def self.message_template_for(status, locale = "en")
     message_templates[status.to_sym] ? I18n.t(message_templates[status.to_sym], locale: locale) : ""
   end
+
+  def self.available_statuses_for(user)
+    return TaxReturnStatus::STATUSES_BY_STAGE.slice("intake") if user.greeter?
+    TaxReturnStatus::STATUSES_BY_STAGE
+  end
 end
