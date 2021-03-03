@@ -80,6 +80,36 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           )
         end
       end
+
+      context "saving contact info to session" do
+        context "with an email address" do
+          let(:contact_info_params) do
+            {
+              email_address: "client@example.com",
+              sms_phone_number: nil
+            }
+          end
+
+          it "adds it" do
+            post :create, params: params
+            expect(session[:email_address]).to eq(params[:portal_request_client_login_form][:email_address])
+          end
+        end
+
+        context "with a phone number" do
+          let(:contact_info_params) do
+            {
+              email_address: nil,
+              sms_phone_number: "4155537865"
+            }
+          end
+
+          it "adds it" do
+            post :create, params: params
+            expect(session[:sms_phone_number]).to eq("+14155537865")
+          end
+        end
+      end
     end
 
     context "with invalid params" do
@@ -112,7 +142,6 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
   end
 
   describe "#show" do
-
     let(:params) { { id: "raw_token" } }
 
     context "as an unauthenticated client" do
@@ -184,7 +213,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
             {
               id: "raw_token",
               portal_client_login_form: {
-                confirmation_number: client.id.to_s
+                number: client.id.to_s
               }
             }
           end
@@ -254,6 +283,35 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           post :update, params: { id: "invalid_token" }
 
           expect(response).to redirect_to(invalid_token_portal_client_logins_path)
+        end
+      end
+    end
+  end
+
+  describe "#link_sent" do
+    context "moving contact info from the session to an instance variable" do
+      context "with an email address" do
+        before do
+          session[:email_address] = "moveabletypo@example.com"
+        end
+
+        it "removes it from the session and saves it to a variable" do
+          get :link_sent
+
+          expect(session[:email_address]).to be_nil
+          expect(assigns(:email_address)).to eq "moveabletypo@example.com"
+        end
+      end
+      context "with an sms phone number" do
+        before do
+          session[:sms_phone_number] = "+14155537865"
+        end
+
+        it "removes it from the session and saves it to a variable" do
+          get :link_sent
+
+          expect(session[:sms_phone_number]).to be_nil
+          expect(assigns(:sms_phone_number)).to eq "+14155537865"
         end
       end
     end

@@ -12,17 +12,23 @@ module Portal
     def create
       @form = RequestClientLoginForm.new(request_client_login_params)
       if @form.valid?
-        ClientEmailLoginRequestJob.perform_later(
-          email_address: @form.email_address,
-          locale: I18n.locale,
-          visitor_id: visitor_id
-        ) if @form.email_address.present?
+        if @form.email_address.present?
+          ClientEmailLoginRequestJob.perform_later(
+            email_address: @form.email_address,
+            locale: I18n.locale,
+            visitor_id: visitor_id
+          )
+          session[:email_address] = @form.email_address
+        end
 
-        ClientTextMessageLoginRequestJob.perform_later(
-          sms_phone_number: @form.sms_phone_number,
-          locale: I18n.locale,
-          visitor_id: visitor_id
-        ) if @form.sms_phone_number.present?
+        if @form.sms_phone_number.present?
+          ClientTextMessageLoginRequestJob.perform_later(
+            sms_phone_number: @form.sms_phone_number,
+            locale: I18n.locale,
+            visitor_id: visitor_id
+          )
+          session[:sms_phone_number] = @form.sms_phone_number
+        end
 
         redirect_to login_link_sent_portal_client_logins_path
       else
@@ -30,7 +36,10 @@ module Portal
       end
     end
 
-    def link_sent; end
+    def link_sent
+      @email_address = session.delete(:email_address)
+      @sms_phone_number = session.delete(:sms_phone_number)
+    end
 
     def invalid_token; end
 
@@ -62,7 +71,7 @@ module Portal
     end
 
     def client_login_params
-      params.require(:portal_client_login_form).permit(:last_four, :confirmation_number).merge(possible_clients: @clients)
+      params.require(:portal_client_login_form).permit(:number).merge(possible_clients: @clients)
     end
 
     def validate_token

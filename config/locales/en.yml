@@ -647,6 +647,7 @@ en:
     sites: Sites
     skip_question: Skip question
     skip_questions: Skip questions
+    sms_phone_number: Cell phone number
     sorry: We're sorry!
     start_filing: Start filing
     state: State
@@ -771,19 +772,19 @@ en:
     client_logins:
       form:
         errors:
-          at_least_one: "Please fill out one of the two fields."
-          bad_confirmation_number: "Incorrect confirmation number. After 5 failed attempts, accounts are locked."
-          bad_last_four: "Incorrect last four. After 5 failed attempts, accounts are locked."
+          bad_input: "Incorrect client ID or last 4 of SSN/ITIN. After 5 failed attempts, accounts are locked."
       new:
         title: "To view your progress, we’ll send you a secure link."
+        one_form_of_contact: "Please enter 1 form of contact below:"
       link_sent:
         link_sent: "To protect your identity, we sent a secure link to your contact info."
+        link_sent_at: "To protect your identity, we sent a secure link to your contact info at:"
         title: "To continue, please visit your secure link."
+        send_another_link: "Send another link"
       show:
         title: "Authentication needed to continue."
         confirm_identity: "Protecting your tax information is our priority. To continue, please confirm your identity below."
-        last_four: "Last 4 of SSN/ITIN"
-        confirmation_number: "Confirmation number"
+        last_four_or_client_id: "Client ID or Last 4 of SSN/ITIN"
       account_locked:
         title: This account has been locked
         body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:support@getyourrefund.org">support@getyourrefund.org</a>.
@@ -1740,7 +1741,6 @@ en:
           email_notification_opt_in: Email Me
           header: We will reach out with questions and updates. Select the option(s) that you prefer!
           sms_notification_opt_in: Text Me
-          sms_phone_number: Cell phone number
         title: How can we update you on your tax return?
       other_income:
         help_text: Such as cash payments, jury duty, awards, virtual currency, royalties, or union strike benefits (not including a stimulus payment).

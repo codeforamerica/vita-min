@@ -26,7 +26,7 @@ RSpec.feature "Creating new drop off clients" do
         fill_in "Legal last name", with: "Cauliflower"
         fill_in "Email", with: "hello@cauliflower.com"
         fill_in "Phone number", with: "8324658840"
-        fill_in "Phone for texting", with: "8324651680"
+        fill_in "Cell phone number", with: "8324651680"
         fill_in "Street address", with: "123 Garden Ln"
         select "Texas", from: "State of residence"
         fill_in "City", with: "Brassicaville"

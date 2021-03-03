@@ -78,7 +78,7 @@ RSpec.describe "a user editing a clients intake fields" do
         check "Filing jointly"
         fill_in "Email", with: "hello@cauliflower.com"
         fill_in "Phone number", with: "(500) 555-0006"
-        fill_in "Phone for texting", with: "500-555-0006"
+        fill_in "Cell phone number", with: "500-555-0006"
         fill_in "Last 4 of SSN/ITIN", with: "4444"
         fill_in "Street address", with: "123 Garden Ln"
         fill_in "City", with: "Brassicaville"

@@ -1,7 +1,7 @@
-<% content_for :title, t(".title", name: current_client.intake.primary_full_name) %>
+<% content_for :title, t(".title", name: current_client.intake.preferred_name) %>
 
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title", name: current_client.intake.primary_full_name) %></h1>
+  <h1 class="h2"><%= t(".title", name: current_client.intake.preferred_name) %></h1>
 
   <% @tax_returns.each do |tax_return| %>
     <div class="tax-return-status" id=<%= "tax-year-#{tax_return.year}" %>>

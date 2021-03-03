@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Signing in" do
   context "As a client", active_job: true do
     let!(:client) do
-      create(:intake, primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006").client
+      create(:intake, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006").client
     end
     let(:raw_token) { "raw_token" }
     let(:hashed_token) { "hashed_token" }
@@ -29,17 +29,17 @@ RSpec.feature "Signing in" do
       expect(link).to be_present
 
       visit link
-      fill_in "Confirmation number", with: client.id
+      fill_in "Client ID or Last 4 of SSN/ITIN", with: client.id
       click_on "Continue"
 
-      expect(page).to have_text("Welcome back Carrie Carrot!")
+      expect(page).to have_text("Welcome back Carrie!")
     end
 
     scenario "requesting a sign-in link with a phone number and signing in with the last four of a social" do
       visit new_portal_client_login_path
 
       expect(page).to have_text "To view your progress, we’ll send you a secure link"
-      fill_in "Phone for texting", with: "(500) 555-0006"
+      fill_in "Cell phone number", with: "(500) 555-0006"
       click_on "Continue"
       expect(page).to have_text "To continue, please visit your secure link."
 
@@ -58,10 +58,10 @@ RSpec.feature "Signing in" do
 
       visit expected_link
 
-      fill_in "Last 4 of SSN/ITIN", with: "9876"
+      fill_in "Client ID or Last 4 of SSN/ITIN", with: "9876"
       click_on "Continue"
 
-      expect(page).to have_text("Welcome back Carrie Carrot!")
+      expect(page).to have_text("Welcome back Carrie!")
     end
   end
 end
