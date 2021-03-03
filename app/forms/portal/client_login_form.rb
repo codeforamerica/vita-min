@@ -16,10 +16,9 @@ module Portal
     def matches_client
       if number.present?
         @client = possible_clients.find do |client|
-          primary_match = ActiveSupport::SecurityUtils.secure_compare(client.intake&.primary_last_four_ssn.to_s, number)
-          spouse_match = ActiveSupport::SecurityUtils.secure_compare(client.intake&.spouse_last_four_ssn.to_s, number)
-          id_match = ActiveSupport::SecurityUtils.secure_compare(client.id.to_s, number)
-          primary_match || spouse_match || id_match
+          ActiveSupport::SecurityUtils.secure_compare(client.intake&.primary_last_four_ssn.to_s, number) ||
+            ActiveSupport::SecurityUtils.secure_compare(client.intake&.spouse_last_four_ssn.to_s, number) ||
+            ActiveSupport::SecurityUtils.secure_compare(client.id.to_s, number)
         end
         errors.add(:number, I18n.t("portal.client_logins.form.errors.bad_input")) if @client.blank?
       end
