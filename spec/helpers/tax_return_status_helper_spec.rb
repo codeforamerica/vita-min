@@ -40,10 +40,29 @@ describe TaxReturnStatusHelper do
        ]
       ]
     ]
-
-    it "returns status options formatted to create select optgroups" do
-      expect(helper.grouped_status_options_for_select).to eq(expected)
+    context "as a non-greeter" do
+      let(:user_double) { double(User)}
+      before do
+        allow(helper).to receive(:current_user).and_return user_double
+        allow(user_double).to receive(:greeter?).and_return false
+      end
+      it "returns status options formatted to create select optgroups" do
+        expect(helper.grouped_status_options_for_select).to eq(expected)
+      end
     end
+
+    context "as a greeter" do
+      let(:user_double) { double(User) }
+      before do
+        allow(helper).to receive(:current_user).and_return user_double
+        allow(user_double).to receive(:greeter?).and_return true
+      end
+
+      it "returns only intake statuses" do
+        expect(helper.grouped_status_options_for_select).to eq [expected[0]]
+      end
+    end
+
   end
 
   describe "#language_options" do

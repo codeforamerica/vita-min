@@ -45,4 +45,23 @@ describe TaxReturnStatus do
       end
     end
   end
+
+  context ".available_statuses_for" do
+    context "as a greeter" do
+      let(:greeter) { create :greeter_user }
+      it "only provides me with intake statuses" do
+        result = described_class.available_statuses_for(greeter)
+        expect(result.keys.length).to eq 1
+        expect(result.keys.first).to eq "intake"
+      end
+    end
+
+    context "as any other role" do
+      let(:admin) { create :admin_user }
+      it "provides all of the statuses grouped by stage" do
+        result = described_class.available_statuses_for(admin)
+        expect(result).to eq TaxReturnStatus::STATUSES_BY_STAGE
+      end
+    end
+  end
 end

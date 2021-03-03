@@ -162,6 +162,10 @@ class User < ApplicationRecord
     role_type == AdminRole::TYPE
   end
 
+  def greeter?
+    role_type == GreeterRole::TYPE
+  end
+
   def suspended?
     suspended_at.present?
   end

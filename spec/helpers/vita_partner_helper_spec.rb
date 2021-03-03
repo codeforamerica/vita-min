@@ -113,5 +113,29 @@ describe VitaPartnerHelper do
         expect(helper.grouped_organization_options).to eq(expected)
       end
     end
+
+    context "when the user's role is Greeter" do
+      let!(:site) { create :site, parent_organization: first_org }
+      let!(:greeter) { create :greeter_user }
+      let(:first_org) { create :organization }
+      before do
+        greeter.role.update(organizations: [first_org, (create :organization)] )
+      end
+
+      before do
+        allow(view).to receive(:current_user).and_return(greeter)
+      end
+
+      it "returns array grouped by organization" do
+        @vita_partners = VitaPartner.accessible_by(Ability.new(greeter))
+
+        expected =
+          [
+            [greeter.role.organizations.first.name, [[greeter.role.organizations.first.name, greeter.role.organizations.first.id], [site.name, site.id]]],
+            [greeter.role.organizations.last.name, [[greeter.role.organizations.last.name, greeter.role.organizations.last.id]]]
+          ]
+        expect(helper.grouped_organization_options).to eq(expected)
+      end
+    end
   end
 end
