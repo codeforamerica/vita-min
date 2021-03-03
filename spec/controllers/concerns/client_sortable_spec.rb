@@ -40,7 +40,7 @@ RSpec.describe ClientSortable, type: :controller do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
 
         expect(clients_query_double).to have_received(:in_intake)
-        expect(clients_query_double).to have_received(:or).with(Client.joins(:tax_returns).where({ tax_returns: { assigned_user: user_double } }))
+        expect(clients_query_double).to have_received(:or).with(Client.joins(:tax_returns).where({ tax_returns: { assigned_user: user_double } }).distinct)
       end
     end
 
