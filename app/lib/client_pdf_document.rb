@@ -1,4 +1,4 @@
-module ClientPdfDocument
+class ClientPdfDocument
   def self.create_or_update(output_file:, document_type: , client:, filename: )
     tempfile = output_file
     tempfile.seek(0)
