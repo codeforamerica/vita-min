@@ -114,6 +114,8 @@ married_client = Client.create!(vita_partner: first_org)
 married_intake = Intake.create!(
   client: married_client,
   preferred_name: "Lucky",
+  primary_first_name: "Lucky",
+  primary_last_name: "Charms",
   sms_phone_number: "+14155551212",
   email_address: "charms@example.com",
   sms_notification_opt_in: :yes,
@@ -124,3 +126,4 @@ married_intake = Intake.create!(
   spouse_email_address: "justthemarshmallows@example.com",
   visitor_id: "married_visitor_id"
 )
+TaxReturn.create!(client: married_intake.client, year: 2020, status: TaxReturnStatus::STATUSES[:prep_preparing])
