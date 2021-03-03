@@ -24,10 +24,10 @@ describe TaxReturnStatus do
       end
     end
 
-    context "prep_ready_for_review" do
+    context "review_reviewing" do
       it "returns a template" do
-        expect(TaxReturnStatus.message_template_for("review_ready_for_qr")).to eq I18n.t("hub.status_macros.review_ready_for_qr", locale: "en")
-        expect(TaxReturnStatus.message_template_for(:review_ready_for_qr, "es")).to eq I18n.t("hub.status_macros.review_ready_for_qr", locale: "es")
+        expect(TaxReturnStatus.message_template_for("review_reviewing")).to eq I18n.t("hub.status_macros.review_reviewing", locale: "en")
+        expect(TaxReturnStatus.message_template_for(:review_reviewing, "es")).to eq I18n.t("hub.status_macros.review_reviewing", locale: "es")
       end
     end
 

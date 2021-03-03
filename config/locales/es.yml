@@ -261,7 +261,7 @@ es:
 
         Muchas gracias,
         <<Preparer.FirstName>> de GetYourRefund
-      review_ready_for_qr: |
+      review_reviewing: |
         ¡Hola <<Client.PreferredName>>!
 
         ¡Su devolución ahora está siendo revisada en calidad!
