@@ -47,13 +47,13 @@
         <% end %>
       </li>
 
-      <% if can? :read, Coalition %>
+      <% if can?(:read, Coalition) || current_user.greeter? %>
         <li class="user-action-link">
           <%= link_to hub_organizations_path, class: "button button--small" do %>
             <%= t("general.organizations") %>
           <% end %>
         </li>
-      <% elsif current_user.role_type == OrganizationLeadRole::TYPE %>
+      <% elsif current_user.org_lead? %>
         <li class="user-action-link">
           <%= link_to hub_organization_path(id: current_user.role.organization), class: "button button--small" do %>
             <%= t("general.organization") %>

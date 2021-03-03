@@ -166,6 +166,10 @@ class User < ApplicationRecord
     role_type == GreeterRole::TYPE
   end
 
+  def org_lead?
+    role_type == OrganizationLeadRole::TYPE
+  end
+
   def suspended?
     suspended_at.present?
   end
