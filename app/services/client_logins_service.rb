@@ -61,11 +61,11 @@ class ClientLoginsService
 
     def clients_for_token(raw_token)
       # these might have multiple email addresses
-      to_addresses = EmailAccessToken.by_raw_token(raw_token).pluck(:email_address)
+      to_addresses = EmailAccessToken.lookup(raw_token).pluck(:email_address)
       emails = to_addresses.map { |to| to.split(",") }.flatten(1)
       email_intake_matches = Intake.where(email_address: emails)
       spouse_email_intake_matches = Intake.where(spouse_email_address: emails)
-      phone_numbers = TextMessageAccessToken.by_raw_token(raw_token).pluck(:sms_phone_number)
+      phone_numbers = TextMessageAccessToken.lookup(raw_token).pluck(:sms_phone_number)
       phone_intake_matches = Intake.where(sms_phone_number: phone_numbers)
       intake_matches = email_intake_matches.or(spouse_email_intake_matches).or(phone_intake_matches)
 

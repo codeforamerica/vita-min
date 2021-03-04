@@ -5,6 +5,8 @@
 #  id               :bigint           not null, primary key
 #  sms_phone_number :string           not null
 #  token            :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
 # Indexes
 #
@@ -14,7 +16,7 @@ class TextMessageAccessToken < ApplicationRecord
   validates_presence_of :token
   validates :sms_phone_number, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
 
-  scope :by_raw_token, ->(raw_token) do
-    where(token: Devise.token_generator.digest(TextMessageAccessToken, :token, raw_token))
+  scope :lookup, ->(raw_token) do
+    where(token: Devise.token_generator.digest(TextMessageAccessToken, :token, raw_token)).where("created_at > ?", Time.current - 2.days)
   end
 end

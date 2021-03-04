@@ -5,6 +5,8 @@
 #  id               :bigint           not null, primary key
 #  sms_phone_number :string           not null
 #  token            :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
 # Indexes
 #
