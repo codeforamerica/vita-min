@@ -13,8 +13,8 @@ RSpec.describe Portal::ClientLoginForm do
 
   describe "#client" do
     let(:possible_clients) { Client.where(id: [client.id, other_client.id]) }
-    let(:number) { nil }
-    let(:params) { { possible_clients: possible_clients, number: number } }
+    let(:last_four_or_client_id) { nil }
+    let(:params) { { possible_clients: possible_clients, last_four_or_client_id: last_four_or_client_id } }
     let(:form) { described_class.new(params) }
 
     context "without possible clients" do
@@ -27,17 +27,17 @@ RSpec.describe Portal::ClientLoginForm do
       end
     end
 
-    context "with no number" do
-      let(:number) { nil }
+    context "with no last_four_or_client_id" do
+      let(:last_four_or_client_id) { nil }
 
       it "finds no client and adds a validation error" do
         expect(form.client).to be_nil
-        expect(form.errors).to include(:number)
+        expect(form.errors).to include(:last_four_or_client_id)
       end
     end
 
     context "with a matching primary ssn" do
-      let(:number) { "0987" }
+      let(:last_four_or_client_id) { "0987" }
 
       it "finds the right client" do
         expect(form.client).to eq client
@@ -45,7 +45,7 @@ RSpec.describe Portal::ClientLoginForm do
     end
 
     context "with a matching spouse ssn" do
-      let(:number) { "1234" }
+      let(:last_four_or_client_id) { "1234" }
 
       it "finds the right client" do
         expect(form.client).to eq client
@@ -53,7 +53,7 @@ RSpec.describe Portal::ClientLoginForm do
     end
 
     context "with a matching client id" do
-      let(:number) { client.id.to_s }
+      let(:last_four_or_client_id) { client.id.to_s }
 
       it "finds the right client" do
         expect(form.client).to eq client
@@ -61,11 +61,11 @@ RSpec.describe Portal::ClientLoginForm do
     end
 
     context "with a non-matching number" do
-      let(:number) { "0000" }
+      let(:last_four_or_client_id) { "0000" }
 
       it "finds no client and adds a validation error" do
         expect(form.client).to eq nil
-        expect(form.errors).to include(:number)
+        expect(form.errors).to include(:last_four_or_client_id)
       end
     end
   end
