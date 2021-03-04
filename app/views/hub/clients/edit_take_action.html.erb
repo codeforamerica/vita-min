@@ -1,7 +1,7 @@
 <% @title = t("general.take_action") %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <div class="hub-form">
+  <div class="slab slab--not-padded">
     <%= form_with model: @take_action_form,
                   url: update_take_action_hub_client_path(id: @client.id),
                   method: :post, local: true, builder: VitaMinFormBuilder,

@@ -291,16 +291,25 @@ es:
         ¡Gracias!
         <<Preparer.FirstName>> en GetYourRefund
       review_signature_requested: |
-        ¡Hola!
+        Hola,
 
-        Su declaración de impuestos para <<TaxReturn.TaxYear>> ya está lista para su firma electrónica si usted decide continuar con nosotros.
-        <<Client.YouOrMaybeYourSpouse>> puede presentar su firma aquí:
+        Su declaración de impuestos para <<TaxReturn.TaxYear>> ya esta lista para su firma electrónica. Por favor revise su declaración para:
+
+        * asegurar que su dirección y sus números de cuenta bancaria esten correctos (Si no estan correctos puede afectar sus números finales y / o puede causar demora para recibir su reembolso.)
+        * revisar que toda la información acerca de sus dependientes este correcta (si aplica a su situación).
+        * asegurar que esten incluidos todos sus ingresos (incluyendo los beneficios de desempleo).
+
+        Si hace falta cambiar esta información o si usted tiene alguna pregunta acerca de su declaración de impuestos, por favor envienos un mensaje de regreso.
+
+        Para aprobar su declaración de impuestos haga click en el enlace más abajo, ingrese los últimos cuatro digitos de su número de seguro social y su número de cliente (Client ID). Puede revisar su declaración y marcar la casilla de verificación que dice que usted aprueba su declaración de impuestos. (Para su información: si usted esta presentando una declaración conjunta con su pareja, es necesario que el o ella de su aprobación también. Por favor comparta este mensaje con su pareja para que de su aprobación.)
+
+        Una vez que usted termine estos pasos, podremos entregar su declaración de impuestos electrónicamente.
+
+        Use este enlace para accesar su declaración y su 8879 (el formulario para que usted de su aprobación):
         <<Link.E-signature>>
 
-        No dude en comunicarse con nosotros si tiene alguna pregunta.
-
         Muchas gracias,
-        Su equipo de impuestos en GetYourRefund
+        <<Preparer.FirstName>> de GetYourRefund
       file_efiled: |
         Hola <<Client.PreferredName>>,
 
