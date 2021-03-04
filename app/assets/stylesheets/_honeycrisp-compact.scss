@@ -1,6 +1,12 @@
-
 // likely needed in main repo
 .honeycrisp-compact {
+  .tab-bar__tab {
+    background-color: $color-grey-light;
+  }
+
+  textarea {
+    background-color: $color-grey-light;
+  }
   .form-question {
     font-size: $font-size-18;
     line-height: $s18;
