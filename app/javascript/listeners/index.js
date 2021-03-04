@@ -5,6 +5,7 @@ import helpers from "../helpers";
 import { initTakeActionOnChangeHandlers } from "../lib/dynamic_take_action_changes";
 import { initMetricsTableSortAndFilter } from "../lib/metrics_table_sort";
 import { documentSubmittingIndicator } from "../lib/document_submitting_indicator";
+import { initTaggableNote } from '../lib/note_tagging';
 
 const Listeners =  (function(){
     return {
@@ -22,7 +23,7 @@ const Listeners =  (function(){
                 if (["Hub::ClientsController#edit_take_action", "Hub::ClientsController#update_take_action"].includes(window.appData.controller_action)) {
                     initTakeActionOnChangeHandlers();
                 }
-
+                initTaggableNote();
                 initMetricsTableSortAndFilter();
                 // enables the link_to_add_fields and link_to_remove_fields helper methods to work globally
                 initNestedAttributesListeners();

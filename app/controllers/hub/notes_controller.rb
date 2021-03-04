@@ -4,9 +4,12 @@ module Hub
     before_action :require_sign_in
     load_and_authorize_resource :client
     load_and_authorize_resource through: :client, only: [:create]
+    load_and_authorize_resource :user, parent: false, only: [:index]
     layout "admin"
 
     def index
+      @taggable_users = @users.to_json(only: [:name, :id]).to_s.html_safe
+      byebug
       @all_notes_by_day = NotesPresenter.grouped_notes(@client)
       @note = Note.new
     end
