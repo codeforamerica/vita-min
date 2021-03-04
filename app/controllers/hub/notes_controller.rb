@@ -9,7 +9,6 @@ module Hub
 
     def index
       @taggable_users = @users.to_json(only: [:name, :id]).to_s.html_safe
-      byebug
       @all_notes_by_day = NotesPresenter.grouped_notes(@client)
       @note = Note.new
     end
