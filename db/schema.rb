@@ -117,6 +117,19 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
     t.index ["name"], name: "index_coalitions_on_name", unique: true
   end
 
+  create_table "consents", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "disclose_consented_at"
+    t.datetime "global_carryforward_consented_at"
+    t.inet "ip"
+    t.datetime "relational_efin_consented_at"
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "use_consented_at"
+    t.string "user_agent"
+    t.index ["client_id"], name: "index_consents_on_client_id"
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "attempts", default: 0, null: false
     t.datetime "created_at"
