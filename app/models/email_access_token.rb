@@ -5,6 +5,8 @@
 #  id            :bigint           not null, primary key
 #  email_address :citext           not null
 #  token         :string           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 # Indexes
 #
@@ -15,8 +17,8 @@ class EmailAccessToken < ApplicationRecord
   validates_presence_of :email_address
   validate :one_or_more_valid_email_addresses
 
-  scope :by_raw_token, ->(raw_token) do
-    where(token: Devise.token_generator.digest(EmailAccessToken, :token, raw_token))
+  scope :lookup, ->(raw_token) do
+    where(token: Devise.token_generator.digest(EmailAccessToken, :token, raw_token)).where("created_at > ?", Time.current - 2.days)
   end
 
   private

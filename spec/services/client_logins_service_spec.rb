@@ -203,7 +203,7 @@ describe ClientLoginsService do
       end
     end
 
-    context "with a client who's email matches an EmailAccessToken" do
+    context "with a client whose email matches an EmailAccessToken" do
       let!(:client) { create :client }
       before do
         create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
@@ -215,7 +215,7 @@ describe ClientLoginsService do
       end
     end
 
-    context "with a client who's spouse email matches an EmailAccessToken" do
+    context "with a client whose spouse email matches an EmailAccessToken" do
       let!(:client) { create :client }
       before do
         create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
@@ -227,7 +227,7 @@ describe ClientLoginsService do
       end
     end
 
-    context "with a client who's email is contained in a comma-separated EmailAccessToken" do
+    context "with a client whose email is contained in a comma-separated EmailAccessToken" do
       let!(:client) { create :client }
       before do
         create(:email_access_token, token: "hashed_token", email_address: "someone@example.com,other@example.com")
@@ -236,6 +236,19 @@ describe ClientLoginsService do
 
       it "returns the client" do
         expect(described_class.clients_for_token("raw_token")).to match_array [client]
+      end
+    end
+
+    context "with a client with matching access tokens older than 2 days" do
+      let!(:client) { create :client }
+      before do
+        create(:email_access_token, token: "hashed_token", email_address: "someone@example.com", created_at: Time.current - (2.1).days)
+        create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212", created_at: Time.current - (2.1).days)
+        create(:intake, client: client, spouse_email_address: "someone@example.com")
+      end
+
+      it "returns a blank set" do
+        expect(described_class.clients_for_token("raw_token")).to match_array []
       end
     end
 
