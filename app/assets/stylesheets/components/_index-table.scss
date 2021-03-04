@@ -57,6 +57,6 @@ It expects to be the primary content of the given page (full width).
   }
 
   &__row:nth-child(2n) {
-    background-color: #F7F5F4;
+    background-color: $color-grey-light;
   }
 }
