@@ -181,6 +181,7 @@
 #
 # Foreign Keys
 #
+#  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 

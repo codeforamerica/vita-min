@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_24_031738) do
+ActiveRecord::Schema.define(version: 2021_03_03_182849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -109,6 +109,19 @@ ActiveRecord::Schema.define(version: 2021_02_24_031738) do
     t.string "name", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_coalitions_on_name", unique: true
+  end
+
+  create_table "consents", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "disclose_consented_at"
+    t.datetime "global_carryforward_consented_at"
+    t.inet "ip"
+    t.datetime "relational_efin_consented_at"
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "use_consented_at"
+    t.string "user_agent"
+    t.index ["client_id"], name: "index_consents_on_client_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -702,6 +715,7 @@ ActiveRecord::Schema.define(version: 2021_02_24_031738) do
   add_foreign_key "greeter_organization_join_records", "greeter_roles"
   add_foreign_key "greeter_organization_join_records", "vita_partners"
   add_foreign_key "incoming_text_messages", "clients"
+  add_foreign_key "intakes", "clients"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
   add_foreign_key "notes", "users"

@@ -36,5 +36,6 @@ module DocumentTypes
     DocumentTypes::Original13614C,
     DocumentTypes::Form13614CForm15080,
     DocumentTypes::Form14446,
+    DocumentTypes::AdditionalConsentForm,
   ].freeze
 end
