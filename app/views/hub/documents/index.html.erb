@@ -6,19 +6,19 @@
 
   <%= render "hub/clients/navigation" %>
 
-  <table class="data-table spacing-above-25">
-    <thead>
-    <tr>
-      <th scope="col" class="document-column__doc-type">
+  <table class="index-table spacing-above-25">
+    <thead class="index-table__head">
+    <tr class="index-table__row">
+      <th scope="col" class="index-table__header document-column__doc-type">
         <%= render "shared/column_sort_link", title: t("general.document_type"), column_name: "document_type" %>
       </th>
-      <th scope="col" class="document-column__link">
+      <th scope="col" class="index-table__header document-column__link">
         <%= render "shared/column_sort_link", title: t(".file_name"), column_name: "display_name" %>
       </th>
-      <th class="document-column__link">
+      <th class="index-table__header document-column__link">
         <%= render "shared/column_sort_link", title: t("general.tax_return"), column_name: "tax_return" %>
       </th>
-      <th scope="col" class="document-column__upload-date">
+      <th scope="col" class="index-table__header document-column__upload-date">
         <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
       </th>
       <th></th>
@@ -27,18 +27,18 @@
     <tbody>
     <% if @documents.present? %>
       <% @documents.each do |document| %>
-        <tr id="document-<%= document.id %>">
-          <td><%= document.document_type_label %></td>
-          <td>
+        <tr id="document-<%= document.id %>" class="index-table__row">
+          <td class="index-table__cell"><%= document.document_type_label %></td>
+          <td class="index-table__cell">
             <%= link_to hub_client_document_path(client_id: @client.id, id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
               <%= document.display_name %> <%= t(".empty_file") if document.upload.blob.byte_size.zero? %>
             <% end %>
           </td>
-          <td>
+          <td class="index-table__cell">
             <%= document.tax_return&.year %>
           </td>
-          <td><%= long_formatted_datetime document.created_at %></td>
-          <td class="edit">
+          <td class="index-table__cell"><%= long_formatted_datetime document.created_at %></td>
+          <td class="index-table__cell edit">
             <%= link_to t("general.edit"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
           </td>
         </tr>
