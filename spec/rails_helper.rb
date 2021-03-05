@@ -103,6 +103,10 @@ RSpec.configure do |config|
     allow(fake_dns).to receive(:close)
     allow(Resolv::DNS).to receive(:new).and_return(fake_dns)
   end
+
+  if ENV['CAPYBARA_WALKTHROUGH_SCREENSHOTS']
+    CapybaraWalkthroughScreenshots.hook!(config)
+  end
 end
 
 Shoulda::Matchers.configure do |config|
