@@ -19,5 +19,6 @@ Rails.application.config.filter_parameters += [
   :bank_routing_number,
   :bank_account_number,
   :primary_last_four_ssn,
-  :spouse_last_four_ssn
+  :spouse_last_four_ssn,
+  :last_four_or_client_id,
 ]

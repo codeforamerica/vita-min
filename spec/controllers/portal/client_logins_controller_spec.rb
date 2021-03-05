@@ -213,7 +213,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
             {
               id: "raw_token",
               portal_client_login_form: {
-                number: client.id.to_s
+                last_four_or_client_id: client.id.to_s
               }
             }
           end
@@ -243,7 +243,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
             {
               id: "raw_token",
               portal_client_login_form: {
-                confirmation_number: "0"
+                last_four_or_client_id: "0"
               }
             }
           end
