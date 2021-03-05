@@ -144,6 +144,7 @@ en:
         file_name: File Name
         upload_date: Upload Date
         add_doc: "Add document"
+        upload_by: Uploaded By
         empty_file: "(empty file)"
       display_name: Display name
     messages:
@@ -311,7 +312,7 @@ en:
 
         To approve your return, click on the link below, enter the last four digits of your social security number OR your Client ID (You can find this in your original GYR welcome email/text). You can review your return and click a box saying you approve your return.
 
-        For jointly filed returns: If you provided your spouse's contact info, they'll get this message as well. If not, please make sure they have access to this link so they can also review and sign.
+        For jointly filed returns: If you provided your spouse's contact info, they'll get this message to. If not, please make sure they have access to this link so they can review and sign as well.
 
         Once you electronically sign, we can efile your return.
 
@@ -1125,7 +1126,6 @@ en:
           header: We're committed to keeping your information secure.
         stimulus_banner:
           facts_html: &1
-          - Collect your 2020 stimulus check by filing your taxes through <a href="%{file_with_help_link}">GetYourRefund</a>!
           - Check the status of your stimulus check on the <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Get My Payment website</a>
           - 'Call the 211 Economic Impact Payment Helpline with questions: <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
           heading: Need assistance getting your stimulus check?
@@ -1277,8 +1277,6 @@ en:
       stimulus:
         facts_html: *1
         heading: Need assistance getting your stimulus check?
-        file_with_help:
-          header: Collect your 2020 stimulus check by filing your taxes today!
       stimulus_payment:
         faq:
           eip:
@@ -1506,7 +1504,7 @@ en:
           other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
       at_capacity:
         body: We're experiencing a high volume of clients at the moment. We aim to serve everyone with the best quality service. Current wait times for the File with Help option are 2-3 weeks. We apologize for the wait.
-        diy_html: To file immediately, you can try a free DIY option through <a data-track-click="mft-diy-referral" href="https://www.myfreetaxes.com/?utm_source=GYR&utm_medum=web&utm_campaign=Partner-referral">MyFreeTaxes.</a> DIY lets you prepare your own taxes for free through an online tax filing tool.
+        diy_html: To file immediately, you can try a free DIY option through <a data-track-click="mft-diy-referral" href="https://www.myfreetaxes.com/">MyFreeTaxes.</a> DIY lets you prepare your own taxes for free through an online tax filing tool.
         file_with_help: File with help
         title: Wow, it looks like we are at capacity right now.
         file_through_my_free_taxes: "File through MyFreeTaxes"
