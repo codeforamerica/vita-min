@@ -97,7 +97,11 @@ Rails.application.routes.draw do
     devise_for :clients, skip: [:sessions]
     namespace :portal do
       root "portal#home"
-      resources :client_logins, path: "account", only: [:new, :create, :show, :update] do
+
+      # Add redirect for pre-March-2021-style login token links; safe to delete in April 2021
+      get "/account/:id", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login/#{request.params[:id]}"}
+
+      resources :client_logins, path: "login", only: [:new, :create, :edit, :update], path_names: { new: '', edit: ''} do
         get "locked", to: "client_logins#account_locked", as: :account_locked, on: :collection
         get "link-sent", to: "client_logins#link_sent", as: :login_link_sent, on: :collection
         get "invalid-token", to: "client_logins#invalid_token", as: :invalid_token, on: :collection
@@ -111,6 +115,7 @@ Rails.application.routes.draw do
       end
       resources :documents, only: [:show]
     end
+
 
     # Hub Admin routes (Case Management)
     namespace :hub do

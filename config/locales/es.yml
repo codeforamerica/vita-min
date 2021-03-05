@@ -776,13 +776,13 @@ es:
           bad_input: ID de cliente o los 4 últimos de SSN / ITIN incorrectos. Después de 5 intentos fallidos, las cuentas se bloquean
       new:
         title: Le mandaremos un enlace seguro para que pueda ver su progreso.
-        one_form_of_contact: "Por favor ingrese 1 formulario de contacto a continuación:"
+        one_form_of_contact: "Por favor ingrese un formulario de contacto a continuación:"
       link_sent:
         link_sent: "Para proteger su identidad, le enviamos un enlace seguro a su información de contacto."
         link_sent_at: "Para proteger su identidad, le enviamos un enlace seguro a su información de contacto en:"
         title: "Para continuar, por favor visite su enlace seguro."
         send_another_link: "Enviar otro enlace"
-      show:
+      edit:
         title: Autenticación necesaria para continuar
         confirm_identity: Proteger su información fiscal es nuestra prioridad. Para continuar, confirme su identidad.
         last_four_or_client_id: "ID de cliente o los 4 últimos de SSN / ITIN"

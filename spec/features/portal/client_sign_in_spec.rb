@@ -45,7 +45,7 @@ RSpec.feature "Signing in" do
 
       perform_enqueued_jobs
 
-      expected_link = "http://test.host/en/portal/account/raw_token"
+      expected_link = "http://test.host/en/portal/login/raw_token"
       expected_message_body = <<~TEXT
         We received your request for an update on your progress. You can view your progress by following this link
         #{expected_link}
@@ -62,6 +62,27 @@ RSpec.feature "Signing in" do
       click_on "Continue"
 
       expect(page).to have_text("Welcome back Carrie!")
+    end
+
+    scenario "visiting a sign-in link with the pre-march-2021 url" do
+      visit new_portal_client_login_path
+
+      expect(page).to have_text "To view your progress, we’ll send you a secure link"
+      fill_in "Cell phone number", with: "(500) 555-0006"
+      click_on "Continue"
+
+      perform_enqueued_jobs
+
+      # Validate with empty locale
+      visit "/portal/account/raw_token"
+      fill_in "Client ID or Last 4 of SSN/ITIN", with: "9876"
+
+      # Validate with Spanish
+      visit "/es/portal/account/raw_token"
+      fill_in "ID de cliente o los 4 últimos de SSN / ITIN", with: "9876"
+      click_on "Continuar"
+
+      expect(page).to have_text("Bienvenido de nuevo Carrie!")
     end
   end
 end

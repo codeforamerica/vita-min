@@ -1,8 +1,8 @@
 module Portal
   class ClientLoginsController < ApplicationController
     before_action :redirect_to_portal_if_client_authenticated
-    before_action :validate_token, only: [:show, :update]
-    before_action :redirect_locked_clients, only: [:show, :update]
+    before_action :validate_token, only: [:edit, :update]
+    before_action :redirect_locked_clients, only: [:edit, :update]
     layout "portal"
 
     def new
@@ -45,7 +45,7 @@ module Portal
 
     def account_locked; end
 
-    def show
+    def edit
       @form = ClientLoginForm.new(possible_clients: @clients)
     end
 
@@ -60,7 +60,7 @@ module Portal
         # Re-checking if account is locked after incrementing
         return if redirect_locked_clients
 
-        render :show
+        render :edit
       end
     end
 

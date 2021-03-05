@@ -168,7 +168,7 @@ describe ClientLoginsService do
 
       expected_message_body = <<~TEXT
         Recibimos su solicitud para saber el estatus actual de su progreso. Puede ver el estatus actualizado siguiendo este enlace
-        http://test.host/es/portal/account/raw_token
+        http://test.host/es/portal/login/raw_token
       TEXT
 
       expect(TwilioService).to have_received(:send_text_message).with(

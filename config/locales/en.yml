@@ -785,13 +785,13 @@ en:
           bad_input: "Incorrect client ID or last 4 of SSN/ITIN. After 5 failed attempts, accounts are locked."
       new:
         title: "To view your progress, we’ll send you a secure link."
-        one_form_of_contact: "Please enter 1 form of contact below:"
+        one_form_of_contact: "Please enter one form of contact below:"
       link_sent:
         link_sent: "To protect your identity, we sent a secure link to your contact info."
         link_sent_at: "To protect your identity, we sent a secure link to your contact info at:"
         title: "To continue, please visit your secure link."
         send_another_link: "Send another link"
-      show:
+      edit:
         title: "Authentication needed to continue."
         confirm_identity: "Protecting your tax information is our priority. To continue, please confirm your identity below."
         last_four_or_client_id: "Client ID or Last 4 of SSN/ITIN"

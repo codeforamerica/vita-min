@@ -407,7 +407,7 @@ describe Client do
 
     it "generates a new login URL" do
       login_url = client.generate_login_link
-      expect(login_url).to eq("http://test.host/en/portal/account/raw_token")
+      expect(login_url).to eq("http://test.host/en/portal/login/raw_token")
       expect(Devise.token_generator).to have_received(:generate).with(Client, :login_token)
       expect(client.reload.login_token).to eq('encrypted_token')
       expect(client.reload.login_requested_at).to eq(fake_time)

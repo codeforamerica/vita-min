@@ -141,7 +141,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
     end
   end
 
-  describe "#show" do
+  describe "#edit" do
     let(:params) { { id: "raw_token" } }
 
     context "as an unauthenticated client" do
@@ -149,7 +149,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         before { allow(ClientLoginsService).to receive(:clients_for_token).and_return(client_query) }
 
         it "it is ok" do
-          get :show, params: params
+          get :edit, params: params
 
           expect(response).to be_ok
         end
@@ -160,7 +160,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           end
 
           it "redirects to the lockout page" do
-            get :show, params: params
+            get :edit, params: params
 
             expect(response).to redirect_to account_locked_portal_client_logins_path
           end
@@ -171,7 +171,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         before { allow(ClientLoginsService).to receive(:clients_for_token).and_return(Client.none) }
 
         it "redirects to a page saying you need a new token" do
-          get :show, params: { id: "invalid_token" }
+          get :edit, params: { id: "invalid_token" }
 
           expect(response).to redirect_to(invalid_token_portal_client_logins_path)
         end
@@ -184,7 +184,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
 
       it "redirects to client portal" do
-        get :show, params: params
+        get :edit, params: params
 
         expect(response).to redirect_to(portal_root_path)
       end
@@ -250,13 +250,13 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
           render_views
 
-          it "renders the :show template and increments a lockout number" do
+          it "renders the :edit template and increments a lockout number" do
             expect do
               post :update, params: params
             end.to change { client.reload.failed_attempts }.by 1
 
             expect(subject.current_client).to eq(nil)
-            expect(response).to render_template(:show)
+            expect(response).to render_template(:edit)
           end
 
           context "with 4 previous failed attempts" do
