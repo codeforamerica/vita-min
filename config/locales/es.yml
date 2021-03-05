@@ -1592,13 +1592,18 @@ es:
         primary_last_name: Apellido legal
         title: "¡Excelente! Aquí están las cosas legales ..."
       optional_consent:
-        title: A few more things...
-        cta: Continue
-        edit:
-          consent_to_use: Consent to Use
-          consent_to_disclose: Consent to Disclose
-          relational_efin: Relational EFIN
-          global_carryforward: Global Carryforward
+        title: Algunas cosas más ...
+        cta: Continuar
+        help_text_html: "Respetamos su privacidad. <strong>Tiene la opción</strong> de dar su consentimiento para lo siguiente:"
+        consent_to_use: "Consentimiento de uso: Usted nos permite incluir su declaración de impuestos en informes."
+        consent_to_disclose: "Consentimiento para divulgar: Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde)."
+        relational_efin: "EFIN Relacional: usted permite que la oficina de impuestos que prepara su declaración reporte sus datos a su organización matriz."
+        global_carryforward: "Traslado global: usted nos permite poner la información de su declaración de impuestos a disposición de otros programas de VITA que pueda visitar."
+        legal_details_title: Los detalles legales
+        legal_details_html: |
+          <p>La ley Federal requiere que le proporcionemos este formulario de consentimiento. A menos que la ley lo autorice, no podemos divulgar sin su consentimiento la información de su declaración de impuestos a terceros para propósitos diferentes a la preparación y presentación de su declaración de impuestos. Si usted da su consentimiento para la divulgación de la información de su declaración de impuestos, la ley Federal tal vez no pueda proteger la información de su declaración de impuestos de uso adicional o distribución.</p>
+
+          <p>No se le requiere completar este formulario para recibir nuestros servicios de preparación de declaraciones de impuestos. Esto se le proporcionará en una página de consentimiento separada. Si obtenemos su firma en este formulario condicionando nuestros servicios de preparación de impuestos a su consentimiento, su consentimiento no será válido. Si está de acuerdo con la divulgación de la información de su declaración de impuestos, su consentimiento es válido por la cantidad de tiempo que usted especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de su firma.</p>
       debt_forgiven:
         help_text: Como tarjeta de crédito, hipoteca u otra deuda.
         title:

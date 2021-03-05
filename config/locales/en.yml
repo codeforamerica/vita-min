@@ -1578,12 +1578,17 @@ en:
         title: Great! Here's the legal stuff...
       optional_consent:
         title: A few more things...
+        help_text_html: "We respect your privacy. <strong>You have the option</strong> to consent to the following:"
         cta: Continue
-        edit:
-          consent_to_use: Consent to Use
-          consent_to_disclose: Consent to Disclose
-          relational_efin: Relational EFIN
-          global_carryforward: Global Carryforward
+        consent_to_use: "Consent to Use: You allow us to count your return in reports."
+        consent_to_disclose: "Consent to Disclose: You allow us to send tax information to the tax software company and financial institution you specify (if any)."
+        relational_efin: "Relational EFIN: You allow the tax office that prepares your return to report data to their parent organization."
+        global_carryforward: "Global Carryforward: You allow us to make your tax return information available to other VITA programs you may visit."
+        legal_details_title: The legal details
+        legal_details_html: |
+          <p>Federal law requires these consent forms be provided to you. Unless authorized by law, we cannot disclose your tax return information to third parties for purposes other than the preparation and filing of your tax return without your consent. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.</p>
+
+          <p>You are not required to complete these forms to engage our tax return preparation services. This will be provided in a separate consent page. If we obtain your signature on this form by conditioning our tax return preparation services on your consent, your consent will not be valid. If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.</p>
       debt_forgiven:
         help_text: Such as credit card, mortgage, or other debt.
         title:
