@@ -87,6 +87,15 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     select "1971", from: "Year"
     click_on "I agree"
 
+    # Optional consent form
+    expect(page).to have_selector("h1", text: "A few more things...")
+    expect(page).to have_checked_field("Consent to Use")
+    expect(page).to have_checked_field("Consent to Disclose")
+    expect(page).to have_checked_field("Relational EFIN")
+    expect(page).to have_checked_field("Global Carryforward")
+    uncheck "Global Carryforward"
+    click_on "Continue"
+
     # Primary filer personal information
     expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2020")
     expect(track_progress).to eq(0)

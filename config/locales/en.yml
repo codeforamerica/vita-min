@@ -1576,6 +1576,14 @@ en:
         primary_last_four_ssn: Last 4 of SSN/ITIN
         primary_last_name: Legal last name
         title: Great! Here's the legal stuff...
+      optional_consent:
+        title: A few more things...
+        cta: Continue
+        edit:
+          consent_to_use: Consent to Use
+          consent_to_disclose: Consent to Disclose
+          relational_efin: Relational EFIN
+          global_carryforward: Global Carryforward
       debt_forgiven:
         help_text: Such as credit card, mortgage, or other debt.
         title:

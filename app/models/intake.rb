@@ -576,4 +576,8 @@ class Intake < ApplicationRecord
       filename: "additional-consent-2021.pdf"
     )
   end
+
+  def might_encounter_delayed_service?
+    vita_partner.at_capacity?
+  end
 end

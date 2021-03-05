@@ -1,5 +1,5 @@
 module DocumentTypes
-  class AdditionalConsentForm < DocumentType
+  class OptionalConsentForm < DocumentType
     class << self
       def relevant_to?(intake)
         # This is not used in a flow or to determine relevant types for an intake
@@ -8,7 +8,7 @@ module DocumentTypes
       end
 
       def key
-        "Additional Consent Form"
+        "Optional Consent Form"
       end
 
       def blocks_progress?

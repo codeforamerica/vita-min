@@ -1,0 +1,20 @@
+<% @main_heading = t("views.questions.optional_consent.title") %>
+
+<% content_for :form_question, @main_heading %>
+<% content_for :body_class, "consent-form" %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card form-card--long"} do |f| %>
+    <h1 class="h2"><%= @main_heading %></h1>
+
+    <%= f.cfa_checkbox(:use_consented, t("views.questions.optional_consent.edit.consent_to_use"), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+    <%= f.cfa_checkbox(:disclose_consented, t("views.questions.optional_consent.edit.consent_to_disclose"), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+    <%= f.cfa_checkbox(:relational_efin_consented, t("views.questions.optional_consent.edit.relational_efin"), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+    <%= f.cfa_checkbox(:global_carryforward_consented, t("views.questions.optional_consent.edit.global_carryforward"), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+
+    <button class="button button--primary button--wide spacing-above-60" type="submit">
+      <%= t("views.questions.optional_consent.cta") %>
+    </button>
+  <% end %>
+<% end %>
+

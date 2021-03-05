@@ -30,6 +30,7 @@ class QuestionNavigation
     Questions::ConsentController, # Advances statuses to "In Progress"
                                   # generate a 14446 signed by the primary
                                   # generate a "Preliminary" 13614-C signed by the primary
+    Questions::OptionalConsentController,
 
     # Primary filer personal information
     Questions::LifeSituationsController,

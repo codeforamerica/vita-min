@@ -1083,39 +1083,4 @@ describe Intake do
       end
     end
   end
-
-  describe "#update_or_create_additional_consent" do
-    let(:intake) { create(:intake) }
-
-    before do
-      example_pdf = Tempfile.new("example.pdf")
-      example_pdf.write("example pdf contents")
-      allow(AdditionalConsentPdf).to receive(:new).and_return(double(output_file: example_pdf))
-    end
-
-    context "when there is not an existing additional consent document" do
-      it "creates a 14446 PDF with a given filename" do
-        expect { intake.update_or_create_additional_consent_pdf }.to change(Document, :count).by(1)
-
-        doc = Document.last
-        expect(doc.display_name).to eq("additional-consent-2021.pdf")
-        expect(doc.document_type).to eq(DocumentTypes::AdditionalConsentForm.key)
-        expect(doc.client).to eq(intake.client)
-        expect(doc.upload.content_type).to eq("application/pdf")
-      end
-    end
-
-    context "when there is an existing document 14446" do
-      let!(:document) { intake.update_or_create_additional_consent_pdf }
-
-      it "updates the existing document with a regenerated form" do
-        expect {
-          expect {
-            intake.update_or_create_additional_consent_pdf
-          }.not_to change(Document, :count)
-        }.to change{document.reload.updated_at}
-        expect(document.display_name).to eq "additional-consent-2021.pdf"
-      end
-    end
-  end
 end

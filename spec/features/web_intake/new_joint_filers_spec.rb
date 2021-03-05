@@ -83,6 +83,10 @@ RSpec.feature "Web Intake Joint Filers" do
       click_on "I agree"
     end.to change { intake.reload.client.tax_returns.pluck(:status) }.from(["intake_before_consent"]).to(["intake_in_progress"])
 
+    # Optional consent form
+    expect(page).to have_selector("h1", text: "A few more things...")
+    click_on "Continue"
+
     # Primary filer personal information
     expect(page).to have_selector("h1", text: "Select any situations that were true for you in 2019")
     check "I had a permanent disability"
