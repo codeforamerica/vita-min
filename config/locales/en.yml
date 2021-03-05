@@ -775,6 +775,16 @@ en:
         Hello %{preferred_name}, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is %{client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Upload documents securely here: %{requested_docs_link}
 
         Respond to this message if you have any questions. We’re here to help!
+    surveys:
+      completion:
+        email:
+          body: |
+            Thank you for filing your taxes with GetYourRefund! You can check the status of your refund at the IRS website https://www.irs.gov/refunds.
+
+            We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went?
+
+            Take our 5 minute survey here: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_exiL2bLJx8GvjGC?ExternalDataReference=%{client_id}
+          subject: Thank you for filing your taxes with GetYourRefund!
   models:
     intake:
       your_spouse: Your spouse
