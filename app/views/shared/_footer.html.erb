@@ -63,7 +63,7 @@
           <% end %>
         </li>
 
-        <% if ! Rails.env.production? %>
+        <% unless Rails.env.production? %>
           <li><a href="https://walkthroughs-getyourrefund.github.com/">Walkthroughs</a></li>
         <% end %>
       </ul>
