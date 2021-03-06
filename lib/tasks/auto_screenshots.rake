@@ -3,15 +3,9 @@ require 'webrick'
 
 # To generate screenshots based on rspec feature specs, run:
 #
-# $ rake auto_screenshots:generate_screenshots auto_screenshots:generate_assets auto_screenshots:generate_website
+# $ rake auto_screenshots:generate_screenshots auto_screenshots:generate_website
 #
-# If you want to preview the output, run this & visit http://localhost:8000/
-#
-# $ rake auto_screenshots:serve
-#
-# If you want to edit the way the website is generated, consider:
-#
-# $ rake auto_screenshots:generate_website auto_screenshots:serve
+# To view the output, visit http://localhost:3000/walkthroughs/
 
 namespace :auto_screenshots do
   desc "Takes screenshots of the app via rspec feature specs"
@@ -31,18 +25,6 @@ namespace :auto_screenshots do
     end
     puts("Running #{specs.join(" ")}")
     system("CAPYBARA_WALKTHROUGH_SCREENSHOTS=1 bundle exec rspec #{specs.join(' ')} --format failures", exception: true)
-  end
-
-  task :generate_assets do |_task|
-    INITIAL_WORKING_DIR = Dir.pwd
-    OUT = "public/walkthroughs"
-    # Copy assets & JS packs in
-    FileUtils.mkdir_p("#{OUT}/")
-    system("RAILS_ENV=test rails assets:precompile", exception: true)
-    FileUtils.cp_r("public/assets/.", "#{OUT}/assets")
-
-    system("RAILS_ENV=test ./bin/webpack", exception: true)
-    FileUtils.cp_r("public/packs-test/.", "#{OUT}/packs-test")
   end
 
   task :generate_website do |_task|
