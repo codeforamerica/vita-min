@@ -92,6 +92,26 @@ jobs:
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - store_test_results:
           path: ~/test-results
+  update_github_pages:
+    executor: rails_executor
+    steps:
+      # Set up for running tests and run the walkthrough generator
+      - checkout
+      - install_js_dependencies
+      - install_system_dependencies
+      - install_ruby_dependencies
+      - setup_test_db
+      - run: bundle exec rake assets:precompile
+      - run: bundle exec rake auto_screenshots:generate_screenshots auto_screenshots:generate_website
+      # Add SSH key with access to walkthroughs-getyourrefund.github.io
+      - add_ssh_keys:
+          fingerprints:
+            - "50:ba:0d:e1:5c:50:68:32:a6:0d:53:92:ae:82:25:71"
+      - run: ssh-keyscan -p 22 github.com >> ~/.ssh/known_hosts
+      - run: git clone git@github.com:walkthroughs-getyourrefund/walkthroughs-getyourrefund.github.io /tmp/walkthroughs
+      - run: git config --global user.name Robot && git config --global user.email robot@example.com
+      - run: cd /tmp/walkthroughs && git rm -r * && cp -a $OLDPWD/public/walkthroughs/* . && cp -a $OLDPWD/public/assets . && git add . && git commit -m Automatic && git push
+    parallelism: 1
   deploy_to_aptible--demo:
     executor: ruby_executor
     steps:
@@ -112,15 +132,7 @@ workflows:
   version: 2
   ci-and-deploy:
     jobs:
-      - run_js_tests
-      - run_ruby_tests
-      - deploy_to_aptible--demo:
-          requires: [run_js_tests, run_ruby_tests]
+      - update_github_pages:
           filters:
             branches:
-              only: main
-      - deploy_to_aptible--production:
-          requires: [run_js_tests, run_ruby_tests]
-          filters:
-            branches:
-              only: release
+              only: github-pages-demo
