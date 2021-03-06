@@ -143,7 +143,7 @@ es:
       index:
         file_name: Nombre de archivo
         upload_date: Fecha de carga
-        add_client_envelope_doc: "Agregar documento al sobre de cliente"
+        add_doc: "Agregar documento"
         empty_file: "(archivo vacío)"
       display_name: Nombre Para Mostrar
     messages:

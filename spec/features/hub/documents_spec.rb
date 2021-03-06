@@ -41,7 +41,7 @@ RSpec.feature "View and edit documents for a client" do
     scenario "uploading a document to a client's documents page" do
       visit hub_client_documents_path(client_id: client.id)
 
-      click_on "Add client envelope document"
+      click_on "Add document"
 
       attach_file "document_upload", [
         Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"),

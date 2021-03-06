@@ -307,21 +307,6 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         end
       end
 
-      context "without an explicit document_type specified" do
-        before do
-          params[:document].delete(:document_type)
-        end
-
-        it "successfully creates the documents and set the document type to the default doc type, Other" do
-          expect {
-            post :create, params: params
-          }.to change(Document, :count).by 2
-          latest_docs = Document.last(2)
-
-          expect(latest_docs.map(&:document_type).uniq).to eq ["Other"]
-        end
-      end
-
       context "with no file chosen" do
         before do
           params[:document].delete(:upload)
