@@ -23,7 +23,7 @@ module Hub
       def create_access_log
         AccessLog.create(
           user: current_user,
-          client: @client,
+          record: @client,
           event_type: "read_ssn_itin",
           created_at: DateTime.now,
           ip_address: request.remote_ip,

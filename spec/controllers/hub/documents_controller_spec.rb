@@ -252,7 +252,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
         access_log = AccessLog.last
         expect(access_log.user).to eq user
-        expect(access_log.client).to eq client
+        expect(access_log.record).to eq document
         expect(access_log.event_type).to eq "viewed_document"
         expect(access_log.ip_address).to eq ip_address
         expect(access_log.user_agent).to eq user_agent

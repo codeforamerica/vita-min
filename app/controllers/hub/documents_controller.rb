@@ -19,7 +19,7 @@ module Hub
     def show
       AccessLog.create(
         user: current_user,
-        client: @document.client,
+        record: @document,
         created_at: DateTime.now,
         event_type: "viewed_document",
         ip_address: request.remote_ip,
