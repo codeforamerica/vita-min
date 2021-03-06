@@ -5,6 +5,12 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
+    around do |example|
+      Timecop.freeze(DateTime.new(2021, 3, 4, 5, 10))
+      example.run
+      Timecop.return
+    end
+
     context "as an authenticated team member" do
       let(:user) { create(:team_member_user) }
       let(:site) { user.role.site }
