@@ -47,40 +47,7 @@
     </tbody>
   </table>
 
-  <%= link_to t(".add_client_envelope_doc"), new_hub_client_document_path, class: "button" %>
-
-  <%= form_with model: @document, url: [:hub, @client, :documents], local: true, method: "post", builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
-    <div class="document-upload">
-      <div class="file-upload">
-        <%= f.file_field(:upload, multiple: "multiple", class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>
-        <%= f.label(:upload, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
-          <span class="is-tablet-hidden--inline">
-            <%= image_tag "upload.svg", alt: "" %>
-            <%=t("general.select_files") %>
-          </span>
-          <span class="is-desktop-hidden--inline">
-            <%= image_tag "camera.svg", alt: "" %>
-            <%=t("general.take_picture") %>
-          </span>
-        <% end %>
-      </div>
-    </div>
-
-    <% if @document.errors[:upload].any? %>
-      <div class="form-group form-group--error">
-        <% @document.errors.values.flatten.each do |error_message| %>
-          <p class="text--error"><i class="icon-warning"></i>
-            <%= error_message %>
-          </p>
-        <% end %>
-      </div>
-    <% end %>
-
-    <%= f.button class: "button button--primary button--wide" do %>
-      <%=t("general.upload") %>
-    <% end %>
-  <% end %>
-
+  <%= link_to t(".add_doc"), new_hub_client_document_path, class: "button" %>
 
   <%= render "hub/clients/client_take_action_footer" %>
 <% end %>

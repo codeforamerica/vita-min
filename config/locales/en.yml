@@ -143,7 +143,7 @@ en:
       index:
         file_name: File Name
         upload_date: Upload Date
-        add_client_envelope_doc: "Add client envelope document"
+        add_doc: "Add document"
         empty_file: "(empty file)"
       display_name: Display name
     messages:

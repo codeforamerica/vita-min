@@ -5,7 +5,7 @@
 #  id                   :bigint           not null, primary key
 #  contact_record_type  :string
 #  display_name         :string
-#  document_type        :string           default("Other"), not null
+#  document_type        :string           not null
 #  uploaded_by_type     :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -35,13 +35,6 @@ require "mini_magick"
 
 class Document < ApplicationRecord
   include InteractionTracking
-  # Permit all existing document types, plus "Requested", which is superseded by "Requested Later" (but the DB has both)
-  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested"] }
-  validates_presence_of :client
-
-  default_scope { order(created_at: :asc) }
-
-  scope :of_type, ->(type) { where(document_type: type) }
 
   belongs_to :intake, optional: true
   belongs_to :client
@@ -49,17 +42,20 @@ class Document < ApplicationRecord
   belongs_to :contact_record, polymorphic: true, optional: true
   belongs_to :tax_return, optional: true
   belongs_to :uploaded_by, polymorphic: true, optional: true
-  validates :upload, presence: true
-  validate :upload_must_have_data
-  def upload_must_have_data
-    if upload.attached? && upload.blob.byte_size.zero?
-      errors[:upload] << I18n.t("validators.file_zero_length")
-    end
-  end
 
+  validates_presence_of :client
+  validates_presence_of :upload
   validate :tax_return_belongs_to_client
+  validate :upload_must_have_data
+  # Permit all existing document types, plus "Requested", which is superseded by "Requested Later" (but the DB has both)
+  validates_presence_of :document_type
+  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested"] }, allow_blank: true
 
   before_save :set_display_name
+
+  default_scope { order(created_at: :asc) }
+
+  scope :of_type, ->(type) { where(document_type: type) }
 
   after_create_commit do
     uploaded_by.is_a?(Client) ? record_incoming_interaction : record_internal_interaction
@@ -83,10 +79,6 @@ class Document < ApplicationRecord
     self.display_name = upload.attachment.filename
   end
 
-  def tax_return_belongs_to_client
-    errors.add(:tax_return, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client
-  end
-
   def convert_heic_upload_to_jpg!
     image = MiniMagick::Image.read(upload.download)
 
@@ -94,5 +86,17 @@ class Document < ApplicationRecord
 
     upload.attach(io: File.open(jpg_image.path), filename: "#{display_name}.jpg", content_type: "image/jpg")
     update!(display_name: upload.attachment.filename)
+  end
+
+  private
+
+  def tax_return_belongs_to_client
+    errors.add(:tax_return, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client
+  end
+
+  def upload_must_have_data
+    if upload.attached? && upload.blob.byte_size.zero?
+      errors[:upload] << I18n.t("validators.file_zero_length")
+    end
   end
 end

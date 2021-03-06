@@ -6,7 +6,7 @@
 #  id                   :bigint           not null, primary key
 #  contact_record_type  :string
 #  display_name         :string
-#  document_type        :string           default("Other"), not null
+#  document_type        :string           not null
 #  uploaded_by_type     :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
