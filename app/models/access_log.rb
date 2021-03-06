@@ -22,7 +22,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class AccessLog < ApplicationRecord
-  EVENT_TYPES = ["read_bank_account_info", "read_ssn_itin"]
+  EVENT_TYPES = ["read_bank_account_info", "read_ssn_itin", "viewed_document"]
   belongs_to :client
   belongs_to :user
   validate :valid_event_type

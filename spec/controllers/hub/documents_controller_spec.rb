@@ -229,9 +229,13 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
     context "with a signed in user" do
       let(:document_transient_url) { "https://gyr-demo.s3.amazonaws.com/document.pdf?sig=whatever&expires=whatever" }
+      let(:user_agent) { "GeckoFox" }
+      let(:ip_address) { "127.0.0.1" }
       before do
         sign_in(user)
         allow(subject).to receive(:transient_storage_url).and_return(document_transient_url)
+        request.remote_ip = ip_address
+        request.user_agent = user_agent
       end
 
       it "shows the document" do
@@ -239,6 +243,19 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
         expect(response).to redirect_to(document_transient_url)
         expect(subject).to have_received(:transient_storage_url).with(document.upload.blob)
+      end
+
+      it "creates an access log with the logged in user" do
+        expect {
+          get :show, params: params
+        }.to change(AccessLog, :count).by(1)
+
+        access_log = AccessLog.last
+        expect(access_log.user).to eq user
+        expect(access_log.client).to eq client
+        expect(access_log.event_type).to eq "viewed_document"
+        expect(access_log.ip_address).to eq ip_address
+        expect(access_log.user_agent).to eq user_agent
       end
     end
   end
