@@ -62,6 +62,10 @@
             <%= t("views.shared.footer.volunteer_sign_in") %>
           <% end %>
         </li>
+
+        <% unless Rails.env.production? %>
+          <li><a href="https://walkthroughs-getyourrefund.github.io">Walkthroughs</a></li>
+        <% end %>
       </ul>
 
     </div>
