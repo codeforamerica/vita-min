@@ -66,6 +66,9 @@ jobs:
   run_js_tests:
     executor: ruby_executor
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "50:ba:0d:e1:5c:50:68:32:a6:0d:53:92:ae:82:25:71"
       - checkout
       - install_js_dependencies
       - run: mkdir ~/test-results && mkdir ~/test-results/rspec && mkdir ~/test-results/jest
@@ -79,6 +82,9 @@ jobs:
     executor: rails_executor
     parallelism: 4
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "50:ba:0d:e1:5c:50:68:32:a6:0d:53:92:ae:82:25:71"
       - checkout
       - install_js_dependencies
       - install_system_dependencies
@@ -95,6 +101,9 @@ jobs:
   deploy_to_aptible--demo:
     executor: ruby_executor
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "50:ba:0d:e1:5c:50:68:32:a6:0d:53:92:ae:82:25:71"
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
@@ -103,6 +112,9 @@ jobs:
   deploy_to_aptible--production:
     executor: ruby_executor
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "50:ba:0d:e1:5c:50:68:32:a6:0d:53:92:ae:82:25:71"
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
