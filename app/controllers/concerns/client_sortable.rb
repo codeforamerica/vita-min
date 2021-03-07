@@ -1,5 +1,4 @@
 module ClientSortable
-  COOKIE_NAME = "persisted_filters"
   def filtered_and_sorted_clients(default_order: nil)
     @default_order = default_order || { "response_needed_since" => "asc" }
     setup_sortable_client unless @filters.present?
@@ -33,12 +32,20 @@ module ClientSortable
   private
 
   def setup_sortable_client
-    cookies.delete(COOKIE_NAME) if params[:clear]
+    delete_cookie if params[:clear]
     @sort_column = clients_sort_column
     @sort_order = clients_sort_order
     filter_source = has_search_and_sort_params? ? params : cookie_filters
     @filters = filters_from(filter_source)
-    cookies[COOKIE_NAME] = JSON.generate(@filters.select { |_, v| v.present? })
+    set_cookie
+  end
+
+  def delete_cookie
+    cookies.delete(filter_cookie_name) if filter_cookie_name.present?
+  end
+
+  def set_cookie
+    cookies[filter_cookie_name] = JSON.generate(@filters.select { |_, v| v.present? }) if filter_cookie_name.present?
   end
 
   def filters_from(source)
@@ -60,7 +67,9 @@ module ClientSortable
   end
 
   def cookie_filters
-    cookies[COOKIE_NAME] ? HashWithIndifferentAccess.new(JSON.parse(cookies[COOKIE_NAME])) : {}
+    return {} unless filter_cookie_name.present?
+
+    cookies[filter_cookie_name] ? HashWithIndifferentAccess.new(JSON.parse(cookies[filter_cookie_name])) : {}
   end
 
   def clients_sort_order

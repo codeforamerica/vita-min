@@ -10,6 +10,12 @@ RSpec.describe ClientSortable, type: :controller do
   let(:cookies) { double }
   controller(ApplicationController) do
     include ClientSortable
+
+    private
+
+    def filter_cookie_name
+      "some_filter_cookie_name"
+    end
   end
 
   before do
@@ -139,7 +145,7 @@ RSpec.describe ClientSortable, type: :controller do
 
       it "removes the filter cookie" do
         subject.filtered_and_sorted_clients
-        expect(cookies).to have_received(:delete).with(described_class::COOKIE_NAME)
+        expect(cookies).to have_received(:delete).with("some_filter_cookie_name")
       end
     end
 

@@ -1,5 +1,6 @@
 module Hub
   class UnattendedClientsController < ApplicationController
+    FILTER_COOKIE_NAME = "sla_violations_filters".freeze
     include AccessControllable
     include ClientSortable
 
@@ -24,6 +25,10 @@ module Hub
     def day_param
       value = params[:sla_days].to_i
       value > 0 ? value : 3
+    end
+
+    def filter_cookie_name
+      FILTER_COOKIE_NAME
     end
   end
 end
