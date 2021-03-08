@@ -22,7 +22,6 @@ module Hub
       @tax_returns = client.tax_returns.order(year: :asc)
       @action_list = []
       super(*args, **attributes)
-
       set_default_locale if @locale.blank?
       set_default_message_body if @message_body.nil?
       set_default_contact_method if @contact_method.nil?
@@ -73,7 +72,7 @@ module Hub
     end
 
     def set_default_message_body
-      @message_body = "" and return unless status.present?
+      @message_body = "" and return unless status.present? && contact_method_options.present?
 
       template = TaxReturnStatus.message_template_for(status, locale)
       @message_body = ReplacementParametersService.new(body: template, client: client, tax_return: tax_return, preparer: current_user, locale: locale).process

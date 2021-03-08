@@ -88,11 +88,26 @@ RSpec.describe Hub::TakeActionForm do
 
       context "when a status that has a message template is provided and locale is english" do
         let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_info_requested", locale: "en" }) }
+        before do
+          allow(intake).to receive(:email_notification_opt_in_yes?).and_return true
+          allow(intake).to receive(:sms_notification_opt_in_yes?).and_return true
+        end
 
         it "sets message body to the template with replacement parameters substituted" do
           expect(form.message_body).to start_with("Hello")
           expect(form.message_body).to include client.preferred_name
           expect(form.message_body).to include current_user.first_name
+        end
+
+        context "when the user has no contact methods" do
+          let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_info_requested", locale: "en" }) }
+          before do
+            allow(intake).to receive(:email_notification_opt_in_yes?).and_return false
+            allow(intake).to receive(:sms_notification_opt_in_yes?).and_return false
+          end
+          it "does not set a message body" do
+            expect(form.message_body).to eq ""
+          end
         end
       end
 
@@ -119,6 +134,8 @@ RSpec.describe Hub::TakeActionForm do
         before do
           allow(client.intake).to receive(:relevant_document_types).and_return [DocumentTypes::Identity, DocumentTypes::Selfie, DocumentTypes::SsnItin, DocumentTypes::Other]
           allow(client.intake).to receive(:requested_docs_token_link).and_return "https://example.com/my-token-link"
+          allow(intake).to receive(:email_notification_opt_in_yes?).and_return true
+          allow(intake).to receive(:sms_notification_opt_in_yes?).and_return true
         end
 
         it "sets message body to the template with replacement parameters substituted" do
