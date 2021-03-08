@@ -7,6 +7,7 @@ es:
     last_client_update: "Última actualización de cliente: "
     waiting_on_response: "Esperando respuesta desde: "
     not_assigned_html: <i>No asignado</i>
+    system_generated_doc: "Auto-generado"
     back_to:
       return_to_dashboard: Regresar al Tablero
       all_clients: Todos los Clientes

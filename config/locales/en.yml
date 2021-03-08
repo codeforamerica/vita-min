@@ -7,6 +7,7 @@ en:
     last_client_update: "Last client update: "
     waiting_on_response: "Waiting on response since: "
     not_assigned_html: <i>Not assigned</i>
+    system_generated_doc: "Auto-generated"
     back_to:
       return_to_dashboard: Return to Dashboard
       all_clients: All Clients

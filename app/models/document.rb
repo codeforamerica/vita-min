@@ -85,7 +85,7 @@ class Document < ApplicationRecord
 
   def uploaded_by_name_label
     name_label = if uploaded_by.nil?
-             "Auto-generated"
+             I18n.t("hub.system_generated_doc")
            elsif uploaded_by.is_a? User
              uploaded_by.name
            elsif uploaded_by.is_a? Client
