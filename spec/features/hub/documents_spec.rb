@@ -2,10 +2,10 @@ require "rails_helper"
 
 RSpec.feature "View and edit documents for a client" do
   context "As an authenticated user" do
-    let(:user) { create :organization_lead_user }
+    let(:user) { create :organization_lead_user, name: "Org Lead" }
     let(:client) { create :client, vita_partner: user.role.organization, intake: create(:intake, preferred_name: "Bart Simpson") }
     let(:tax_return_1) { create :tax_return, client: client, year: 2019 }
-    let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement" }
+    let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement", uploaded_by: client }
     let!(:document_2) { create :document, display_name: "W-2.pdf", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement" }
     before do
       login_as user
@@ -19,6 +19,7 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_1.id}", text: "ID.jpg")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Care Provider Statement")
       expect(page).to have_selector("#document-#{document_1.id}", text: "2019")
+      expect(page).to have_selector("#document-#{document_1.id}", text: "Bart Simpson")
 
       within "#document-#{document_1.id}" do
         click_on "Edit"
@@ -58,6 +59,7 @@ RSpec.feature "View and edit documents for a client" do
       within "#document-#{Document.last.id}" do
         expect(page).to have_content("2017")
         expect(page).to have_content("Final Tax Document")
+        expect(page).to have_content("Org Lead")
       end
     end
   end

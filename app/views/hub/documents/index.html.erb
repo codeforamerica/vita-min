@@ -40,7 +40,10 @@
           <td class="index-table__cell">
             <%= document.tax_return&.year %>
           </td>
-          <td class="index-table__cell"><%= document.uploaded_by.present? ? document.uploaded_by.name : "" %></td>
+          <td class="index-table__cell">
+            <% uploaded_by_name = document.uploaded_by_type == 'User' ? document.uploaded_by&.name : document.uploaded_by&.legal_name || document.uploaded_by&.preferred_name %>
+            <%= uploaded_by_name if uploaded_by_name.present? %>
+          </td>
           <td class="index-table__cell"><%= long_formatted_datetime document.created_at %></td>
           <td class="index-table__cell edit">
             <%= link_to t("general.edit"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
