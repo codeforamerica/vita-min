@@ -16,6 +16,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
     context "with existing clients" do
       let(:vita_partner) { create :vita_partner, name: "Alan's Org" }
+      let!(:vita_partner_other) { create :vita_partner, name: "Some Other Org" }
       let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (create :intake, preferred_name: "Alan Avocado", primary_consented_to_service_at: 1.day.ago, state_of_residence: "CA"), tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress", assigned_user: user)] }
       let!(:betty_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Betty Banana", primary_consented_to_service_at: 2.days.ago, state_of_residence: "TX"), tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress", assigned_user: mona_user)] }
       let!(:patty_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Patty Banana", primary_consented_to_service_at: 1.day.ago, state_of_residence: "AL"), tax_returns: [(create :tax_return, year: 2019, status: "prep_ready_for_prep", assigned_user: user)] }
@@ -37,17 +38,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         click_button "Filter results"
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
-        click_button "Clear"
-
-        within ".filter-form" do
-          select "Alan's Org", from: "vita_partner_id"
-          click_button "Filter results"
-          expect(page).to have_select("vita_partner_id", selected: "Alan's Org")
-        end
-
-        expect(page.all('.client-row').length).to eq 1
-        # expect(page.all('.client-row')[0]).to have_text alan_intake_in_progress.preferred_name
-        click_button "Clear"
+        click_link "Clear"
 
         within ".filter-form" do
           select "Alan's Org", from: "vita_partner_id"
@@ -57,7 +48,58 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text alan_intake_in_progress.preferred_name
-        click_button "Clear"
+        click_link "Clear"
+
+        within ".filter-form" do
+          select "Alan's Org", from: "vita_partner_id"
+          select "2020", from: "year"
+          select "Mona Mandarin", from: "assigned_user_id"
+          select "Ready for prep", from: "status"
+          fill_in "Search", with: "Zach"
+
+          click_button "Filter results"
+          expect(page).to have_select("vita_partner_id", selected: "Alan's Org")
+          expect(page).to have_select("year", selected: "2020")
+          expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
+          expect(page).to have_select("status", selected: "Ready for prep")
+
+          # reload page and filters persist
+          visit hub_clients_path
+          expect(page).to have_select("vita_partner_id", selected: "Alan's Org")
+          expect(page).to have_select("year", selected: "2020")
+          expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
+          expect(page).to have_select("status", selected: "Ready for prep")
+
+          visit hub_root_path
+          expect(page).to have_select("vita_partner_id", selected: nil)
+          expect(page).to have_select("year", selected: nil)
+          expect(page).to have_select("status", selected: nil)
+
+          select "Some Other Org", from: "vita_partner_id"
+          select "2019", from: "year"
+          select "Not filing", from: "status"
+          fill_in "Search", with: "Bob"
+          click_button "Filter results"
+          # Filters persist after submitting with filters
+          expect(page).to have_select("vita_partner_id", selected: "Some Other Org")
+          expect(page).to have_select("year", selected: "2019")
+          expect(page).to have_select("status", selected: "Not filing")
+
+          # Filters persist when visiting the page directly
+          visit hub_root_path
+          expect(page).to have_select("vita_partner_id", selected: "Some Other Org")
+          expect(page).to have_select("year", selected: "2019")
+          expect(page).to have_select("status", selected: "Not filing")
+
+          # Can navigate to another dashboard and see that pages persisted filters again.
+          visit hub_clients_path
+          expect(page).to have_select("vita_partner_id", selected: "Alan's Org")
+          expect(page).to have_select("year", selected: "2020")
+          expect(page).to have_select("assigned_user_id", selected: "Mona Mandarin")
+          expect(page).to have_select("status", selected: "Ready for prep")
+        end
+        # Clear links on hub_clients_path filter form
+        click_link "Clear"
 
         within ".filter-form" do
           select "Mona Mandarin", from: "assigned_user_id"
@@ -67,7 +109,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text betty_intake_in_progress.preferred_name
-        click_button "Clear"
+        click_link "Clear"
 
         within ".filter-form" do
           select "Ready for prep", from: "status"
@@ -101,7 +143,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row')[1]).to have_text(zach_prep_ready_for_call.preferred_name)
         end
         within ".filter-form" do
-          click_button "Clear"
+          click_link "Clear"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
@@ -139,7 +181,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
 
         within ".filter-form" do
-          click_button "Clear"
+          click_link "Clear"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4
@@ -155,7 +197,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row').length).to eq 1
         end
         within ".filter-form" do
-          click_button "Clear"
+          click_link "Clear"
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 4

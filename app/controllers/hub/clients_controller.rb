@@ -1,5 +1,6 @@
 module Hub
   class ClientsController < ApplicationController
+    FILTER_COOKIE_NAME = "all_clients_filters".freeze
     include AccessControllable
     include ClientSortable
 
@@ -101,6 +102,10 @@ module Hub
 
     def take_action_form_params
       params.require(TakeActionForm.form_param).permit(TakeActionForm.permitted_params)
+    end
+
+    def filter_cookie_name
+      FILTER_COOKIE_NAME
     end
   end
 end

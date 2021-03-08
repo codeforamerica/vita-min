@@ -1,5 +1,6 @@
 module Hub
   class AssignedClientsController < ApplicationController
+    FILTER_COOKIE_NAME = "assigned_clients_filters".freeze
     include AccessControllable
     include ClientSortable
 
@@ -19,6 +20,12 @@ module Hub
 
     def load_vita_partners
       @vita_partners = VitaPartner.accessible_by(current_ability)
+    end
+
+    private
+
+    def filter_cookie_name
+      FILTER_COOKIE_NAME
     end
   end
 end
