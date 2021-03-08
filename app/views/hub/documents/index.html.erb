@@ -27,6 +27,9 @@
       <th class="index-table__header document-column__link">
         <%= render "shared/column_sort_link", title: t("general.tax_return"), column_name: "tax_return" %>
       </th>
+      <th class="index-table__header document-column__link">
+        <%= render "shared/column_sort_link", title: t(".upload_by"), column_name: "uploaded_by" %>
+      </th>
       <th scope="col" class="index-table__header document-column__upload-date">
         <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
       </th>
@@ -46,7 +49,12 @@
           <td class="index-table__cell">
             <%= document.tax_return&.year %>
           </td>
-          <td class="index-table__cell"><%= long_formatted_datetime document.created_at %></td>
+          <td class="index-table__cell">
+            <%= document.uploaded_by_name_label %>
+          </td>
+          <td class="index-table__cell">
+            <%= long_formatted_datetime document.created_at %>
+          </td>
           <td class="index-table__cell edit">
             <%= link_to t("general.edit"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
           </td>

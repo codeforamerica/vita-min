@@ -88,6 +88,16 @@ class Document < ApplicationRecord
     update!(display_name: upload.attachment.filename)
   end
 
+  def uploaded_by_name_label
+    if uploaded_by.is_a? User
+      uploaded_by.name || ""
+    elsif uploaded_by.is_a? Client
+      I18n.t("hub.documents.index.client_doc")
+    else
+      I18n.t("hub.documents.index.system_generated_doc")
+    end
+  end
+
   private
 
   def tax_return_belongs_to_client

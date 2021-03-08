@@ -143,8 +143,11 @@ en:
       index:
         file_name: File Name
         upload_date: Upload Date
-        add_doc: "Add document"
-        empty_file: "(empty file)"
+        add_doc: Add document
+        empty_file: (empty file)
+        system_generated_doc: Auto-generated
+        client_doc: Client
+        upload_by: Uploaded By
       display_name: Display name
     messages:
       index:
