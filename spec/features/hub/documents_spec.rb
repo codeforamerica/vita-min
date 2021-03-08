@@ -7,6 +7,7 @@ RSpec.feature "View and edit documents for a client" do
     let(:tax_return_1) { create :tax_return, client: client, year: 2019 }
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement", uploaded_by: client }
     let!(:document_2) { create :document, display_name: "W-2.pdf", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement" }
+    let!(:document_3) { create :document, display_name: "consent.pdf", client: client, intake: client.intake, uploaded_by: nil }
     before do
       login_as user
       create :tax_return, client: client, year: 2017
@@ -37,6 +38,7 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_1.id}", text: "Updated Document Title")
       expect(page).to have_selector("#document-#{document_1.id}", text: "2017")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Form 8879 (Unsigned)")
+      expect(page).to have_selector("#document-#{document_3.id}", text: "Auto-generated")
     end
 
     scenario "uploading a document to a client's documents page" do

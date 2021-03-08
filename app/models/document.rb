@@ -79,6 +79,21 @@ class Document < ApplicationRecord
     self.display_name = upload.attachment.filename
   end
 
+  def tax_return_belongs_to_client
+    errors.add(:tax_return, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client
+  end
+
+  def uploaded_by_name_label
+    name_label = if uploaded_by.nil?
+             "Auto-generated"
+           elsif uploaded_by.is_a? User
+             uploaded_by.name
+           elsif uploaded_by.is_a? Client
+             uploaded_by.preferred_name || uploaded_by.legal_name
+           end
+    name_label.present? ? name_label : ""
+  end
+
   def convert_heic_upload_to_jpg!
     image = MiniMagick::Image.read(upload.download)
 

@@ -41,8 +41,7 @@
             <%= document.tax_return&.year %>
           </td>
           <td class="index-table__cell">
-            <% uploaded_by_name = document.uploaded_by_type == 'User' ? document.uploaded_by&.name : document.uploaded_by&.legal_name || document.uploaded_by&.preferred_name %>
-            <%= uploaded_by_name if uploaded_by_name.present? %>
+            <%= document.uploaded_by_name_label %>
           </td>
           <td class="index-table__cell"><%= long_formatted_datetime document.created_at %></td>
           <td class="index-table__cell edit">
