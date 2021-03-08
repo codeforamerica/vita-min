@@ -84,14 +84,13 @@ class Document < ApplicationRecord
   end
 
   def uploaded_by_name_label
-    name_label = if uploaded_by.nil?
-             I18n.t("hub.system_generated_doc")
-           elsif uploaded_by.is_a? User
-             uploaded_by.name
-           elsif uploaded_by.is_a? Client
-             uploaded_by.preferred_name || uploaded_by.legal_name
-           end
-    name_label.present? ? name_label : ""
+    if uploaded_by.is_a? User
+      uploaded_by.name || ""
+    elsif uploaded_by.is_a? Client
+      I18n.t("hub.client_doc")
+    else
+      I18n.t("hub.system_generated_doc")
+    end
   end
 
   def convert_heic_upload_to_jpg!

@@ -8,6 +8,7 @@ es:
     waiting_on_response: "Esperando respuesta desde: "
     not_assigned_html: <i>No asignado</i>
     system_generated_doc: "Auto-generado"
+    client_doc: "Cliente"
     back_to:
       return_to_dashboard: Regresar al Tablero
       all_clients: Todos los Clientes

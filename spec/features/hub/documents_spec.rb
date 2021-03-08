@@ -20,7 +20,7 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_1.id}", text: "ID.jpg")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Care Provider Statement")
       expect(page).to have_selector("#document-#{document_1.id}", text: "2019")
-      expect(page).to have_selector("#document-#{document_1.id}", text: "Bart Simpson")
+      expect(page).to have_selector("#document-#{document_1.id}", text: "Client")
 
       within "#document-#{document_1.id}" do
         click_on "Edit"

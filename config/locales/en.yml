@@ -8,6 +8,7 @@ en:
     waiting_on_response: "Waiting on response since: "
     not_assigned_html: <i>Not assigned</i>
     system_generated_doc: "Auto-generated"
+    client_doc: "Client"
     back_to:
       return_to_dashboard: Return to Dashboard
       all_clients: All Clients
