@@ -9,10 +9,10 @@
 
     <p><%= t("views.questions.optional_consent.help_text_html") %></p>
 
-    <%= f.cfa_checkbox(:use_consented, t("views.questions.optional_consent.consent_to_use"), options: { checked_value: true, unchecked_value: false, checked: true }) %>
-    <%= f.cfa_checkbox(:disclose_consented, t("views.questions.optional_consent.consent_to_disclose"), options: { checked_value: true, unchecked_value: false, checked: true }) %>
-    <%= f.cfa_checkbox(:relational_efin_consented, t("views.questions.optional_consent.relational_efin"), options: { checked_value: true, unchecked_value: false, checked: true }) %>
-    <%= f.cfa_checkbox(:global_carryforward_consented, t("views.questions.optional_consent.global_carryforward"), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+    <%= f.cfa_checkbox(:use_consented, t("views.questions.optional_consent.consent_to_use_html", consent_to_use_url: root_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+    <%= f.cfa_checkbox(:disclose_consented, t("views.questions.optional_consent.consent_to_disclose_html", consent_to_disclose_url: root_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+    <%= f.cfa_checkbox(:relational_efin_consented, t("views.questions.optional_consent.relational_efin_html", relational_efin_url: root_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+    <%= f.cfa_checkbox(:global_carryforward_consented, t("views.questions.optional_consent.global_carryforward_html", global_carryforward_url: root_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
 
     <%= render("components/molecules/reveal", title: t("views.questions.optional_consent.legal_details_title")) do %>
       <%= t("views.questions.optional_consent.legal_details_html") %>

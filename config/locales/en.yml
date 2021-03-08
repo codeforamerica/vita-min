@@ -1580,10 +1580,10 @@ en:
         title: A few more things...
         help_text_html: "We respect your privacy. <strong>You have the option</strong> to consent to the following:"
         cta: Continue
-        consent_to_use: "Consent to Use: You allow us to count your return in reports."
-        consent_to_disclose: "Consent to Disclose: You allow us to send tax information to the tax software company and financial institution you specify (if any)."
-        relational_efin: "Relational EFIN: You allow the tax office that prepares your return to report data to their parent organization."
-        global_carryforward: "Global Carryforward: You allow us to make your tax return information available to other VITA programs you may visit."
+        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank">Consent to Use:</a> You allow us to count your return in reports.
+        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
+        relational_efin_html: <a href="%{relational_efin_url}" target="_blank">Relational EFIN:</a> You allow the tax office that prepares your return to report data to their parent organization.
+        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank">Global Carryforward:</a> You allow us to make your tax return information available to other VITA programs you may visit.
         legal_details_title: The legal details
         legal_details_html: |
           <p>Federal law requires these consent forms be provided to you. Unless authorized by law, we cannot disclose your tax return information to third parties for purposes other than the preparation and filing of your tax return without your consent. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.</p>

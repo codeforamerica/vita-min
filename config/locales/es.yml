@@ -1595,10 +1595,10 @@ es:
         title: Algunas cosas más ...
         cta: Continuar
         help_text_html: "Respetamos su privacidad. <strong>Tiene la opción</strong> de dar su consentimiento para lo siguiente:"
-        consent_to_use: "Consentimiento de uso: Usted nos permite incluir su declaración de impuestos en informes."
-        consent_to_disclose: "Consentimiento para divulgar: Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde)."
-        relational_efin: "EFIN Relacional: usted permite que la oficina de impuestos que prepara su declaración reporte sus datos a su organización matriz."
-        global_carryforward: "Traslado global: usted nos permite poner la información de su declaración de impuestos a disposición de otros programas de VITA que pueda visitar."
+        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank">Consentimiento de uso:</a> Usted nos permite incluir su declaración de impuestos en informes.
+        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
+        relational_efin_html: <a href="%{relational_efin_url}" target="_blank">EFIN Relacional:</a> usted permite que la oficina de impuestos que prepara su declaración reporte sus datos a su organización matriz.
+        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank">Traslado global:</a> usted nos permite poner la información de su declaración de impuestos a disposición de otros programas de VITA que pueda visitar.
         legal_details_title: Los detalles legales
         legal_details_html: |
           <p>La ley Federal requiere que le proporcionemos este formulario de consentimiento. A menos que la ley lo autorice, no podemos divulgar sin su consentimiento la información de su declaración de impuestos a terceros para propósitos diferentes a la preparación y presentación de su declaración de impuestos. Si usted da su consentimiento para la divulgación de la información de su declaración de impuestos, la ley Federal tal vez no pueda proteger la información de su declaración de impuestos de uso adicional o distribución.</p>
