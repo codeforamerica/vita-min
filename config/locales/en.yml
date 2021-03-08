@@ -1279,6 +1279,8 @@ en:
       stimulus:
         facts_html: *1
         heading: Need assistance getting your stimulus check?
+        file_with_help:
+          header: Collect your 2020 stimulus check by filing your taxes today!
       stimulus_payment:
         faq:
           eip:
