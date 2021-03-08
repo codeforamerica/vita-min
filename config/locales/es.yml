@@ -143,8 +143,11 @@ es:
       index:
         file_name: Nombre de archivo
         upload_date: Fecha de carga
-        add_doc: "Agregar documento"
-        empty_file: "(archivo vacío)"
+        add_doc: Agregar documento
+        empty_file: (archivo vacío)
+        system_generated_doc: Auto-generado
+        client_doc: Cliente
+        upload_by: Subido por
       display_name: Nombre Para Mostrar
     messages:
       index:
