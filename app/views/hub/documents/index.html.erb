@@ -6,7 +6,16 @@
 
   <%= render "hub/clients/navigation" %>
 
-  <table class="index-table spacing-above-25">
+
+  <section class="slab slab--half-padded">
+    <div class="grid">
+      <div class="grid-item">
+        <%= link_to t(".add_doc"), new_hub_client_document_path, class: "button spacing-below-0" %>
+      </div>
+    </div>
+  </section>
+
+  <table class="index-table">
     <thead class="index-table__head">
     <tr class="index-table__row">
       <th scope="col" class="index-table__header document-column__doc-type">
@@ -46,8 +55,6 @@
     <% end %>
     </tbody>
   </table>
-
-  <%= link_to t(".add_doc"), new_hub_client_document_path, class: "button" %>
 
   <%= render "hub/clients/client_take_action_footer" %>
 <% end %>
