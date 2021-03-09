@@ -35,13 +35,13 @@ describe Hub::Clients::SsnItinsController, type: :controller do
 
       it "creates an AccessLog" do
         expect { get :show, params: params, format: :js, xhr: true }.to change(AccessLog, :count).by(1)
-        record = AccessLog.last
-        expect(record.user).to eq(user)
-        expect(record.client).to eq(client)
-        expect(record.event_type).to eq("read_ssn_itin")
-        expect(record.created_at).to eq(back_to_the_future_day)
-        expect(record.ip_address).to eq("1.1.1.1")
-        expect(record.user_agent).to eq(user_agent_header)
+        access_log = AccessLog.last
+        expect(access_log.user).to eq(user)
+        expect(access_log.record).to eq(client)
+        expect(access_log.event_type).to eq("read_ssn_itin")
+        expect(access_log.created_at).to eq(back_to_the_future_day)
+        expect(access_log.ip_address).to eq("1.1.1.1")
+        expect(access_log.user_agent).to eq(user_agent_header)
       end
     end
   end
@@ -105,13 +105,13 @@ describe Hub::Clients::SsnItinsController, type: :controller do
 
       it "creates an AccessLog" do
         expect { get :show_spouse, params: params, format: :js, xhr: true }.to change(AccessLog, :count).by(1)
-        record = AccessLog.last
-        expect(record.user).to eq(user)
-        expect(record.client).to eq(client)
-        expect(record.event_type).to eq("read_ssn_itin")
-        expect(record.created_at).to eq(back_to_the_future_day)
-        expect(record.ip_address).to eq("1.1.1.1")
-        expect(record.user_agent).to eq(user_agent_header)
+        access_log = AccessLog.last
+        expect(access_log.user).to eq(user)
+        expect(access_log.record).to eq(client)
+        expect(access_log.event_type).to eq("read_ssn_itin")
+        expect(access_log.created_at).to eq(back_to_the_future_day)
+        expect(access_log.ip_address).to eq("1.1.1.1")
+        expect(access_log.user_agent).to eq(user_agent_header)
       end
     end
   end
