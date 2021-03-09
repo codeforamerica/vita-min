@@ -114,6 +114,13 @@ RSpec.describe Hub::MessagesController do
           expect(messages[3]).to have_text("Me too! Happy to get every notification")
         end
 
+        it "adds a 'last-item' id attribute to the last contact record" do
+          get :index, params: params
+
+          last_message = Nokogiri::HTML.parse(response.body).css(".message:last-child").first
+          expect(last_message.attr("id")).to eq "last-item"
+        end
+
         it "groups messages by date" do
           get :index, params: params
 

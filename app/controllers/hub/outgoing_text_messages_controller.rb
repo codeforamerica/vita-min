@@ -9,7 +9,7 @@ module Hub
       if outgoing_text_message_params[:body].present?
         ClientMessagingService.send_text_message(@client, current_user, outgoing_text_message_params[:body])
       end
-      redirect_to hub_client_messages_path(client_id: @client.id)
+      redirect_to hub_client_messages_path(client_id: @client.id, anchor: "last-item")
     end
 
     private

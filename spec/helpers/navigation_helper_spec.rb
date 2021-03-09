@@ -49,5 +49,21 @@ RSpec.describe NavigationHelper do
         expect(link_html["href"]).to eq hub_user_profile_path(locale: "en")
       end
     end
+
+    context "when the navigation link includes an anchor fragment but the request does not" do
+      before do
+        controller.request.path = "/hub/profile"
+      end
+
+      it "returns a tab link with is-selected" do
+        link = helper.tab_navigation_link("Tab that is selected", hub_user_profile_path(locale: "en", anchor: "section"))
+
+        link_html = Nokogiri::HTML.fragment(link).at_css("a")
+
+        expect(link_html).to have_text "Tab that is selected"
+        expect(link_html["class"]).to eq "tab-bar__tab is-selected"
+        expect(link_html["href"]).to eq hub_user_profile_path(locale: "en", anchor: "section")
+      end
+    end
   end
 end

@@ -58,10 +58,11 @@ describe Hub::OutboundCallsController, type: :controller do
     context "with a logged in user" do
       before { sign_in user }
 
-      it "updates the outbound call with the note body" do
+      it "updates the outbound call with the note body and redirects back to messages" do
         put :update, params: params
 
         expect(outbound_call.reload.note).to eq "I talked to them!"
+        expect(response).to redirect_to(hub_client_messages_path(client_id: client.id, anchor: "last-item"))
       end
     end
   end

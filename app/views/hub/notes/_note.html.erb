@@ -1,4 +1,4 @@
-<li class="note message message--<%= note.user == current_user ? "outgoing" : "incoming"%>">
+<li class="note message message--<%= note.user == current_user ? "outgoing" : "incoming"%>" id="<%= "last-item" if local_assigns[:is_last_item] %>">
   <div class="message__heading">
     <span class="message__author">
       <%= note.user.name %>

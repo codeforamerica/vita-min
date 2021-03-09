@@ -23,7 +23,7 @@ module Hub
     def update
       @outbound_call = OutboundCall.find(params[:id])
       @outbound_call.update(params.require(:outbound_call).permit(:note))
-      redirect_to hub_client_notes_path(client_id: @client.id)
+      redirect_to hub_client_messages_path(client_id: @client.id, anchor: "last-item")
     end
 
     def new
