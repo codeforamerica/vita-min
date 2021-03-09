@@ -2,20 +2,18 @@
 #
 # Table name: access_logs
 #
-#  id          :bigint           not null, primary key
-#  event_type  :string           not null
-#  ip_address  :inet
-#  record_type :string           not null
-#  user_agent  :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  record_id   :bigint           not null
-#  user_id     :bigint           not null
+#  id         :bigint           not null, primary key
+#  event_type :string           not null
+#  ip_address :inet
+#  user_agent :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  client_id  :integer
+#  user_id    :bigint           not null
 #
 # Indexes
 #
-#  index_access_logs_on_record_type_and_record_id  (record_type,record_id)
-#  index_access_logs_on_user_id                    (user_id)
+#  index_access_logs_on_user_id  (user_id)
 #
 # Foreign Keys
 #
