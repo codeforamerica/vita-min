@@ -25,12 +25,6 @@
           <%= t('.no_organizations') %>
         <% end %>
 
-        <% if @independent_organizations.present? %>
-          <h2><%= t(".independent_organizations") %></h2>
-          <% @independent_organizations.each do |organization| %>
-            <%= render "hub/organizations/listing", organization: organization %>
-          <% end %>
-        <% end %>
       <% end %>
     <% else %>
       <% if @organizations.present? %>
@@ -42,6 +36,11 @@
       <% end %>
     <% end %>
 
+    <% if @independent_organizations.present? %>
+      <h2><%= t(".independent_organizations") %></h2>
+      <% @independent_organizations.each do |organization| %>
+        <%= render "hub/organizations/listing", organization: organization %>
+      <% end %>
+    <% end %>
   </div>
-
 <% end %>
