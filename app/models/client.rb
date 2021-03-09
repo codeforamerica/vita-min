@@ -177,7 +177,7 @@ class Client < ApplicationRecord
       intake.phone_number,
       intake.sms_phone_number
     ).where.not(id: intake.id)
-    Client.where(intake: matching_intakes).pluck(:id)
+    Client.after_consent.where(intake: matching_intakes).pluck(:id)
   end
 
   private
