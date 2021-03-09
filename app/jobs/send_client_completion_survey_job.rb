@@ -1,9 +1,15 @@
 class SendClientCompletionSurveyJob < ApplicationJob
   def perform(client)
     best_contact_method = ClientMessagingService.contact_methods(client).keys.first
-    return if best_contact_method.blank? || client.completion_survey_sent_at.present?
+    return if best_contact_method.blank?
 
-    client.update!(completion_survey_sent_at: Time.current)
+    # Avoid sending duplicate emails; use lock since there are multiple job workers
+    client.with_lock do
+      return if client.completion_survey_sent_at.present?
+
+      client.update!(completion_survey_sent_at: Time.current)
+    end
+
     survey_link = "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_exiL2bLJx8GvjGC?ExternalDataReference=#{client.id}"
     case best_contact_method
     when :email
