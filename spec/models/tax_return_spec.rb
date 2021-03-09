@@ -748,7 +748,7 @@ describe TaxReturn do
     context "when a TaxReturn status is changed to a final status" do
       let!(:tax_return) { create(:tax_return) }
 
-      it "does not send the survey" do
+      it "does send the survey" do
         expect {
           tax_return.update!(status: "file_accepted")
         }.to have_enqueued_job(SendClientCompletionSurveyJob).with(tax_return.client)
