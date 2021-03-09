@@ -17,7 +17,7 @@ module Portal
       form_class = Portal::PrimarySignForm8879
       @form = form_class.new(@tax_return, permitted_params(form_class))
       if @form.sign
-        flash[:success] = I18n.t("controllers.tax_returns_controller.success", year: @tax_return.year)
+        flash[:notice] = I18n.t("controllers.tax_returns_controller.success", year: @tax_return.year)
         redirect_to :portal_root
       else
         flash.now[:alert] = I18n.t("controllers.tax_returns_controller.errors.#{@form.errors.keys.first}")

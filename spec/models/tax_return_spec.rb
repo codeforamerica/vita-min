@@ -217,21 +217,13 @@ describe TaxReturn do
           end
         end
 
-        context "the primary has signed" do
+        context "there are no unsigned 8879s" do
           let(:primary_signed_tax_return) {
             create :tax_return,
                    primary_signature: "Bob Pineapple",
                    primary_signed_ip: "127.0.0.1",
                    primary_signed_at: DateTime.current
           }
-
-          before do
-            create :document,
-                   document_type: DocumentTypes::UnsignedForm8879.key,
-                   tax_return: primary_signed_tax_return,
-                   client: primary_signed_tax_return.client,
-                   upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
-          end
 
           it "returns false" do
             expect(primary_signed_tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
@@ -372,41 +364,39 @@ describe TaxReturn do
     end
   end
 
-  describe "#unsigned_8879" do
-    subject { tax_return.unsigned_8879 }
+  describe "#unsigned_8879s" do
+    subject { tax_return.unsigned_8879s }
 
     context "when an unsigned form 8879 exists for the tax return" do
       let(:tax_return) { create :tax_return, :ready_to_sign }
-      it "returns the document object" do
-        expect(subject).to be_a Document
-        expect(subject.document_type).to eq "Form 8879 (Unsigned)"
+      it "returns form8879 unsigned document objects" do
+        expect(subject.pluck(:document_type).uniq).to eq ["Form 8879 (Unsigned)"]
       end
     end
 
-    context "when an unsigned 8879 does not exist" do
+    context "when unsigned 8879s do not exist" do
       let(:tax_return) { create :tax_return }
 
       it "returns nil" do
-        expect(subject).to be nil
+        expect(subject).to be_empty
       end
     end
   end
 
-  describe "#signed_8879" do
-    subject { tax_return.signed_8879 }
+  describe "#signed_8879s" do
+    subject { tax_return.signed_8879s }
 
     context "when a signed form 8879 exists" do
       let(:tax_return) { create :tax_return, :ready_to_file_solo }
-      it "returns the document object" do
-        expect(subject).to be_a Document
-        expect(subject.document_type).to eq "Form 8879 (Signed)"
+      it "returns the signed document objects" do
+        expect(subject.pluck(:document_type).uniq).to eq ["Form 8879 (Signed)"]
       end
     end
 
     context "when a signed form 8879 does not exist" do
       let(:tax_return) { create :tax_return }
       it "returns nil" do
-        expect(subject).to be nil
+        expect(subject).to be_empty
       end
     end
   end

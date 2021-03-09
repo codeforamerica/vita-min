@@ -73,6 +73,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def spouse_has_signed?
+
     spouse_signature.present? && spouse_signed_at? && spouse_signed_ip?
   end
 
@@ -81,23 +82,22 @@ class TaxReturn < ApplicationRecord
   end
 
   def ready_for_signature?(signature_type)
-    return false if signature_type == TaxReturn::PRIMARY_SIGNATURE && primary_has_signed?
-    return false if signature_type == TaxReturn::SPOUSE_SIGNATURE && (spouse_has_signed? || !filing_joint?)
-    return false if signed_8879.present?
+    return true if unsigned_8879s.present? && signature_type == TaxReturn::PRIMARY_SIGNATURE
+    return true if unsigned_8879s.present? && signature_type == TaxReturn::SPOUSE_SIGNATURE && filing_joint?
 
-    unsigned_8879.present?
+    false
   end
 
   def ready_to_file?
     (filing_joint? && primary_has_signed? && spouse_has_signed?) || (!filing_joint? && primary_has_signed?)
   end
 
-  def unsigned_8879
-    documents.find_by(document_type: DocumentTypes::UnsignedForm8879.key)
+  def unsigned_8879s
+    documents.where(document_type: DocumentTypes::UnsignedForm8879.key)
   end
 
-  def signed_8879
-    documents.find_by(document_type: DocumentTypes::CompletedForm8879.key)
+  def signed_8879s
+    documents.where(document_type: DocumentTypes::CompletedForm8879.key)
   end
 
   def final_tax_documents
@@ -105,7 +105,9 @@ class TaxReturn < ApplicationRecord
   end
 
   def sign_primary!(ip)
-    raise AlreadySignedError if primary_has_signed?
+    unless unsigned_8879s.present?
+      raise AlreadySignedError if primary_has_signed?
+    end
 
     sign_successful = ActiveRecord::Base.transaction do
       self.primary_signed_at = DateTime.current
@@ -120,17 +122,18 @@ class TaxReturn < ApplicationRecord
       else
         SystemNote::SignedDocument.generate!(signed_by_type: :primary, waiting: true, tax_return: self)
       end
-
       save!
     end
 
-    raise FailedToSignReturnError if !sign_successful
+    raise FailedToSignReturnError unless sign_successful
 
     true
   end
 
   def sign_spouse!(ip)
-    raise AlreadySignedError if spouse_has_signed?
+    unless unsigned_8879s.present?
+      raise AlreadySignedError if spouse_has_signed?
+    end
 
     sign_successful = ActiveRecord::Base.transaction do
       self.spouse_signed_at = DateTime.current

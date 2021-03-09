@@ -2,10 +2,10 @@ require "rails_helper"
 
 RSpec.feature "a client on their portal" do
   let(:client) { create :client, intake: (create :intake, preferred_name: "Martha", primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "yes") }
-
+  let(:tax_return2019) { create :tax_return, :ready_to_sign, year: 2019, client: client }
+  let(:tax_return2018) { create :tax_return, :ready_to_file_solo, year: 2018, client: client }
   before do
-    tax_return2019 = create :tax_return, :ready_to_sign, year: 2019, client: client
-    tax_return2018 = create :tax_return, :ready_to_sign, :ready_to_file_solo, year: 2018, client: client
+    create :document, display_name: "Another 8879", document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return2019, client: tax_return2019.client
     create :tax_return, year: 2017, client: client
     create :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: tax_return2019, client: tax_return2019.client
     create :document, document_type: DocumentTypes::FinalTaxDocument.key, display_name: "Some final tax document", tax_return: tax_return2018, client: tax_return2018.client
@@ -22,7 +22,9 @@ RSpec.feature "a client on their portal" do
     expect(page).to have_text "2017 tax documents"
 
     within "#tax-year-2019" do
-      expect(page).to have_link "View/download form 8879"
+      expect(page).to have_link "View/download Another 8879"
+      expect(page).to have_link "View/download " + tax_return2019.unsigned_8879s.first.display_name
+
       expect(page).to have_link "View/download final 2019 tax document"
       expect(page).to have_link "Submit primary taxpayer signature"
       expect(page).to have_link "Submit spouse signature"

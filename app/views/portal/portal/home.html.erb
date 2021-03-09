@@ -25,14 +25,32 @@
           <% end %>
         <% end %>
 
-        <% if tax_return.signed_8879.present? %>
-          <div class="tax-return-status__solo">
-            <%= link_to t(".tax_returns.view_signed_8879"), portal_document_path(id: tax_return.signed_8879.id), target: "_blank" %>
-          </div>
-        <% elsif tax_return.unsigned_8879.present? %>
-          <div class="tax-return-status__row tax-return-status__solo">
-            <%= link_to t(".tax_returns.view_unsigned_8879"), portal_document_path(id: tax_return.unsigned_8879.id), target: "_blank" %>
-          </div>
+        <% if tax_return.signed_8879s.present? %>
+          <% if tax_return.signed_8879s.count == 1 %>
+            <div class="tax-return-status__row tax-return-status__solo">
+              <%= link_to t(".tax_returns.view_signed_8879"), portal_document_path(id: tax_return.signed_8879s.first.id), target: "_blank" %>
+            </div>
+          <% else %>
+            <% tax_return.signed_8879s.each do |tax_doc| %>
+              <div class="tax-return-status__row tax-return-status__solo">
+                <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if tax_return.unsigned_8879s.present? %>
+          <% if tax_return.unsigned_8879s.count == 1 %>
+            <div class="tax-return-status__row tax-return-status__solo">
+              <%= link_to t(".tax_returns.view_unsigned_8879"), portal_document_path(id: tax_return.unsigned_8879s.first.id), target: "_blank" %>
+            </div>
+          <% else %>
+            <% tax_return.unsigned_8879s.each do |tax_doc| %>
+              <div class="tax-return-status__row tax-return-status__solo">
+                <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
+              </div>
+            <% end %>
+          <% end %>
 
           <% if tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
             <div class="tax-return-status__row tax-return-status__with-alert">
@@ -49,7 +67,7 @@
           <% end %>
         <% end %>
 
-        <% if !tax_return.final_tax_documents.present? && !tax_return.unsigned_8879.present? && !tax_return.signed_8879.present? %>
+        <% if !tax_return.final_tax_documents.present? && !tax_return.unsigned_8879s.present? && !tax_return.signed_8879s.present? %>
           <div class="tax-return-status__row tax-return-status__solo">
             <span class="tax-return-status__empty-state"><%= t(".tax_returns.empty_state") %></span>
           </div>

@@ -135,8 +135,8 @@ describe Portal::TaxReturnsController do
       before { sign_in tax_return.client }
 
       context "clients tax return cannot be signed" do
-        context "because the tax_return is already signed" do
-          let(:tax_return) { create :tax_return, :ready_to_sign, :ready_to_file_solo, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+        context "because there are no unsigned 8879s is already signed" do
+          let(:tax_return) { create :tax_return, :ready_to_file_solo, client: (create :client, intake: (create :intake, filing_joint: "no")) }
 
           let(:params) { { tax_return_id: tax_return.id } }
 
@@ -188,7 +188,7 @@ describe Portal::TaxReturnsController do
           context "when form successfully saves" do
             it "redirects to success page" do
               post :sign, params: params
-              expect(flash[:success]).to eq "Successfully signed 2019 tax form!"
+              expect(flash[:notice]).to eq "Successfully signed 2019 tax form!"
               expect(response).to redirect_to(portal_root_path)
             end
           end
@@ -267,8 +267,8 @@ describe Portal::TaxReturnsController do
       before { sign_in tax_return.client }
 
       context "tax return cannot be signed" do
-        context "because the signed tax return document is already created" do
-          let(:tax_return) { create :tax_return, :ready_to_sign, :ready_to_file_joint, client: (create :client, intake: (create :intake, filing_joint: "yes"))}
+        context "because there are no unsigned 8879s" do
+          let(:tax_return) { create :tax_return, :ready_to_file_joint, client: (create :client, intake: (create :intake, filing_joint: "yes"))}
 
           let(:params) { { tax_return_id: tax_return.id } }
 
