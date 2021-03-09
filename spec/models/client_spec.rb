@@ -419,14 +419,22 @@ describe Client do
     let!(:client) { create :client, intake: create(:intake, email_address: "fizzy_pop@example.com", phone_number: "+15855551212", sms_phone_number: "+18285551212") }
 
     context "when there are other clients with the same contact info" do
-      let!(:client_dupe_email) { create :client, intake: create(:intake, email_address: "fizzy_pop@example.com") }
-      let!(:client_phone) { create :client, intake: create(:intake, phone_number: "+15855551212") }
-      let!(:client_sms) { create :client, intake: create(:intake, sms_phone_number: "+18285551212") }
-      let!(:client_phone_match_sms) { create :client, intake: create(:intake, phone_number: "+18285551212") }
-      let!(:client_sms_match_phone) { create :client, intake: create(:intake, sms_phone_number: "+15855551212") }
+      let!(:client_dupe_email) { create :client_with_status, intake: create(:intake, email_address: "fizzy_pop@example.com"), status: "intake_ready" }
+      let!(:client_phone) { create :client_with_status, intake: create(:intake, phone_number: "+15855551212"), status: "intake_ready"  }
+      let!(:client_sms) { create :client_with_status, intake: create(:intake, sms_phone_number: "+18285551212"), status: "intake_ready"  }
+      let!(:client_phone_match_sms) { create :client_with_status, intake: create(:intake, phone_number: "+18285551212"), status: "intake_ready"  }
+      let!(:client_sms_match_phone) { create :client_with_status, intake: create(:intake, sms_phone_number: "+15855551212"), status: "intake_ready"  }
 
       it "returns the other clients ids" do
         expect(client.clients_with_dupe_contact_info).to match_array([client_dupe_email.id, client_phone.id, client_sms.id, client_phone_match_sms.id, client_sms_match_phone.id])
+      end
+
+      context "with a client who hasn't reached consent" do
+        let!(:client_before_consent) { create :client_with_status, intake: create(:intake, email_address: "fizzy_pop@example.com"), status: "intake_before_consent" }
+
+        it "does not return the client who hasn't consented" do
+          expect(client.clients_with_dupe_contact_info).not_to include(client_before_consent.id)
+        end
       end
     end
 
@@ -445,8 +453,8 @@ describe Client do
     end
 
     context "with empty contact info fields" do
-      let!(:client) { create :client, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil) }
-      let!(:other_blank_client) { create :client, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil) }
+      let!(:client) { create :client_with_status, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), status: "intake_ready" }
+      let!(:other_blank_client) { create :client_with_status, intake: create(:intake, email_address: nil, phone_number: nil, sms_phone_number: nil), status: "intake_ready" }
 
       it "does not match on nil values" do
         expect(client.clients_with_dupe_contact_info).to eq []

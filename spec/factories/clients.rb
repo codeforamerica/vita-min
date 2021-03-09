@@ -35,7 +35,16 @@
 FactoryBot.define do
   factory :client do
     trait :with_return do
-      tax_returns { FactoryBot.create_list(:tax_return, 1, status: 101) }
+      transient do
+        status { "intake_in_progress" }
+      end
+      after(:create) do |client, evaluator|
+        create :tax_return, client: client, status: evaluator.status
+      end
+    end
+
+    factory :client_with_status do
+      with_return
     end
 
     factory :client_with_intake_and_return do
