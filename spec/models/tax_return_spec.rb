@@ -748,10 +748,13 @@ describe TaxReturn do
     context "when a TaxReturn status is changed to a final status" do
       let!(:tax_return) { create(:tax_return) }
 
-      it "does not send the survey" do
-        expect {
-          tax_return.update!(status: "file_accepted")
-        }.to have_enqueued_job(SendClientCompletionSurveyJob).with(tax_return.client)
+      it "does send the survey a day later" do
+        t = Time.utc(2021, 2, 11, 10, 5, 0)
+        Timecop.freeze(t) do
+          expect {
+            tax_return.update!(status: "file_accepted")
+          }.to have_enqueued_job(SendClientCompletionSurveyJob).at(Time.utc(2021, 2, 11, 10, 5, 0) + 1.day).with(tax_return.client)
+        end
       end
     end
   end
