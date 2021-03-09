@@ -735,9 +735,9 @@ describe TaxReturn do
   end
 
   describe "completion survey" do
-    context "when a TaxReturn status is changed to a non-final status" do
-      let!(:tax_return) { create(:tax_return) }
+    let!(:tax_return) { create(:tax_return) }
 
+    context "when a TaxReturn status is changed to a non-final status" do
       it "does not send the survey" do
         expect {
           tax_return.update!(status: "file_ready_to_file")
@@ -746,8 +746,6 @@ describe TaxReturn do
     end
 
     context "when a TaxReturn status is changed to a final status" do
-      let!(:tax_return) { create(:tax_return) }
-
       it "does send the survey a day later" do
         t = Time.utc(2021, 2, 11, 10, 5, 0)
         Timecop.freeze(t) do

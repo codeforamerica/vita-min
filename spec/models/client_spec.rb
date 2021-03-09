@@ -87,6 +87,24 @@ describe Client do
     end
   end
 
+  describe ".needs_in_progress_survey scope" do
+    # send to people that have been in "not ready" for 10 days and who have not sent any inbound messages
+    # and (not uploaded any docs or not uploaded after 24 hours of intake creation)
+    #   = (documents.where("created_at > ? ", intake.created_at + 1.day).empty?
+
+    context "for a client with tax returns that have been in the `intake_in_progress` status for 10 days, does not have any inbound messages and has not uploaded any documents after 24 hours of intake creation" do
+      let(:client) { create :client }
+      let(:tax_return) { create :tax_return, status: "intake_in_progress", client: client }
+      let(:intake) { create :intake, primary_consented_to_service_at: Time.utc(2021, 2, 6, 0, 0, 0) - 10.days, client: client }
+
+      it "is included" do
+        Timecop.freeze(Time.utc(2021, 2, 6, 0, 0, 0)) do
+          expect(Client.needs_in_progress_survey).to include(client)
+        end
+      end
+    end
+  end
+
   describe "#needs_response?" do
     context "when last_response_at is nil" do
       let!(:client) { create :client }
