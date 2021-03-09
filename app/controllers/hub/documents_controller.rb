@@ -17,14 +17,6 @@ module Hub
     end
 
     def show
-      AccessLog.create(
-        user: current_user,
-        record: @document,
-        created_at: DateTime.now,
-        event_type: "viewed_document",
-        ip_address: request.remote_ip,
-        user_agent: request.user_agent,
-      )
       redirect_to transient_storage_url(@document.upload.blob)
     end
 

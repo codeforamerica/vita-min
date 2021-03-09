@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_06_011032) do
+ActiveRecord::Schema.define(version: 2021_03_05_233848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -18,15 +18,14 @@ ActiveRecord::Schema.define(version: 2021_03_06_011032) do
   enable_extension "postgis"
 
   create_table "access_logs", force: :cascade do |t|
+    t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.string "event_type", null: false
     t.inet "ip_address"
-    t.bigint "record_id", null: false
-    t.string "record_type", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_agent", null: false
     t.bigint "user_id", null: false
-    t.index ["record_type", "record_id"], name: "index_access_logs_on_record_type_and_record_id"
+    t.index ["client_id"], name: "index_access_logs_on_client_id"
     t.index ["user_id"], name: "index_access_logs_on_user_id"
   end
 
@@ -693,6 +692,7 @@ ActiveRecord::Schema.define(version: 2021_03_06_011032) do
     t.index ["last_scrape_id"], name: "index_vita_providers_on_last_scrape_id"
   end
 
+  add_foreign_key "access_logs", "clients"
   add_foreign_key "access_logs", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "clients", "vita_partners"
