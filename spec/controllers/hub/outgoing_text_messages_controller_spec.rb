@@ -25,7 +25,7 @@ RSpec.describe Hub::OutgoingTextMessagesController do
         post :create, params: params
 
         expect(ClientMessagingService).to have_received(:send_text_message).with(client, user, "This is an outgoing text")
-        expect(response).to redirect_to(hub_client_messages_path(client_id: client.id))
+        expect(response).to redirect_to(hub_client_messages_path(client_id: client.id, anchor: "last-item"))
       end
 
       context "with a blank body" do
@@ -42,7 +42,7 @@ RSpec.describe Hub::OutgoingTextMessagesController do
           post :create, params: params
 
           expect(ClientMessagingService).not_to have_received(:send_text_message)
-          expect(response).to redirect_to(hub_client_messages_path(client_id: client.id))
+          expect(response).to redirect_to(hub_client_messages_path(client_id: client.id, anchor: "last-item"))
         end
       end
     end

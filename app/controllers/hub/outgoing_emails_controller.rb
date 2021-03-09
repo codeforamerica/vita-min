@@ -9,7 +9,7 @@ module Hub
       if outgoing_email_params[:body].present?
         ClientMessagingService.send_email(@client, current_user, outgoing_email_params[:body], attachment: outgoing_email_params[:attachment])
       end
-      redirect_to hub_client_messages_path(client_id: @client)
+      redirect_to hub_client_messages_path(client_id: @client, anchor: "last-item")
     end
 
     private

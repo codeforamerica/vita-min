@@ -9,10 +9,14 @@
 
   <% if @all_notes_by_day.present? %>
     <ul class="message-list">
-      <% @all_notes_by_day.each do |datetime, records| %>
+      <% @all_notes_by_day.each_with_index do |(datetime, records), day_index| %>
         <li class="message__day-heading"><%= date_heading(datetime) %></li>
-        <% records.each do |note| %>
-          <%= render note.class.name == "Note" ? "note" : "system_note", note: note %>
+        <% records.each_with_index do |note, note_index| %>
+          <% if note_index == (records.size - 1) && day_index == (@all_notes_by_day.size - 1) %>
+            <%= render note.class.name == "Note" ? "note" : "system_note", note: note, is_last_item: true %>
+          <% else %>
+            <%= render note.class.name == "Note" ? "note" : "system_note", note: note %>
+          <% end %>
         <% end %>
       <% end %>
     </ul>

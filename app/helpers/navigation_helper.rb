@@ -13,6 +13,7 @@ module NavigationHelper
   end
 
   def remove_leading_locale_from_path(path)
+    path = URI.parse(path).path
     current_locale_path = "/#{I18n.locale}"
     if path.start_with? current_locale_path
       path[current_locale_path.length..-1]

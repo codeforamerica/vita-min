@@ -11,12 +11,15 @@
   <% if @messages_by_day.present? %>
     <ul class="message-list" aria-live="polite" data-js="messages-pub-sub" data-client-id="<%=@client.id%>">
 
-      <% @messages_by_day.each do |datetime, contact_records| %>
-
+      <% @messages_by_day.each_with_index do |(datetime, contact_records), day_index| %>
         <li class="message__day-heading"><%= date_heading(datetime) %></li>
 
-        <% contact_records.each do |contact_record| %>
-          <%= render "shared/message_list_contact_record", contact_record: contact_record %>
+        <% contact_records.each_with_index do |contact_record, contact_record_index| %>
+          <% if contact_record_index == (contact_records.size - 1) && day_index == (@messages_by_day.size - 1) %>
+            <%= render "shared/message_list_contact_record", contact_record: contact_record, is_last_item: true %>
+          <% else %>
+            <%= render "shared/message_list_contact_record", contact_record: contact_record %>
+          <% end %>
         <% end %>
 
       <% end %> <%# end of day %>
@@ -31,7 +34,8 @@
     %>
     <ul class="message-list" data-js="messages-pub-sub" data-client-id="<%=@client.id%>"></ul>
   <% end %>
-  <div class="slab">
+
+  <div class="slab" id="composer">
     <div class="communication-preferences">
       <% unless @client&.intake.email_address.present? || @client&.intake.sms_phone_number.present? %>
         <%= t(".no_way_to_communicate") %>

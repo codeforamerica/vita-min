@@ -31,7 +31,7 @@ RSpec.describe Hub::NotesController, type: :controller do
         expect(note.body).to eq "Note body"
         expect(note.client).to eq client
         expect(note.user).to eq user
-        expect(response).to redirect_to hub_client_notes_path(client_id: client.id)
+        expect(response).to redirect_to hub_client_notes_path(client_id: client.id, anchor: "last-item")
       end
 
       context "with invalid params" do
@@ -75,6 +75,17 @@ RSpec.describe Hub::NotesController, type: :controller do
         it "renders a form" do
           get :index, params: params
           expect(assigns(:note)).to be_a(Note)
+        end
+
+        context "when rendering HTML" do
+          render_views
+
+          it "adds a 'last-item' id attribute to the last note" do
+            get :index, params: params
+
+            last_note = Nokogiri::HTML.parse(response.body).css(".note:last-child").first
+            expect(last_note.attr("id")).to eq "last-item"
+          end
         end
       end
 

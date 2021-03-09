@@ -14,7 +14,7 @@ module Hub
     def create
       return render :index unless @note.save
 
-      redirect_to hub_client_notes_path(client_id: params[:client_id])
+      redirect_to hub_client_notes_path(client_id: params[:client_id], anchor: "last-item")
     end
 
     private
