@@ -72,7 +72,6 @@ RSpec.describe ClientMessagingService do
     end
   end
 
-
   describe ".send_email_to_all_signers", active_job: true do
     context "with a nil user" do
       it "raises an error" do
@@ -170,7 +169,7 @@ RSpec.describe ClientMessagingService do
     end
   end
 
-  describe "#send_text_message", active_job: true do
+  describe ".send_text_message", active_job: true do
     context "with a nil user" do
       it "raises an error" do
         expect do
@@ -205,7 +204,7 @@ RSpec.describe ClientMessagingService do
     end
   end
 
-  describe "#send_system_text_message", active_job: true do
+  describe ".send_system_text_message", active_job: true do
     it "saves a new system text message with the right info, enqueues job, and broadcasts to ClientChannel" do
       expect do
         described_class.send_system_text_message(client, "hello")
@@ -218,6 +217,68 @@ RSpec.describe ClientMessagingService do
       expect(system_text_message.to_phone_number).to eq client.sms_phone_number
       expect(ClientChannel).to have_received(:broadcast_contact_record).with(system_text_message)
       expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(system_text_message.id)
+    end
+  end
+
+  describe ".contact_methods" do
+    context "with a client opted-in to email" do
+      let(:client) { create(:intake, email_address: email_address, email_notification_opt_in: "yes").client }
+      context "when the client has an email address" do
+        let(:email_address) { "example@example.com" }
+
+        it "returns the email address" do
+          expect(described_class.contact_methods(client)).to eq({email: "example@example.com"})
+        end
+      end
+
+      context "when the client has no email address" do
+        let(:email_address) { nil }
+
+        it "returns an empty hash" do
+          expect(described_class.contact_methods(client)).to eq({})
+        end
+      end
+    end
+
+    context "with a client opted-in to nothing" do
+      let(:client) { create(:intake).client }
+
+      it "returns an empty hash" do
+        expect(described_class.contact_methods(client)).to eq({})
+      end
+    end
+
+    context "with a client opted-in to sms" do
+      let(:client) { create(:intake, sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes").client }
+      context "when the client has an sms number" do
+        let(:sms_phone_number) { "+14155551212" }
+
+        it "returns the number" do
+          expect(described_class.contact_methods(client)).to eq({sms_phone_number: "+14155551212"})
+        end
+      end
+
+      context "when the client has no sms number" do
+        let(:sms_phone_number) { nil }
+
+        it "returns an empty hash" do
+          expect(described_class.contact_methods(client)).to eq({})
+        end
+      end
+    end
+
+    context "with a client opted-in to both" do
+      let(:client) { create(:intake, email_address: email_address, sms_phone_number: sms_phone_number, email_notification_opt_in: "yes", sms_notification_opt_in: "yes").client }
+      context "when the client has an sms number and email address" do
+        let(:email_address) { "example@example.com" }
+        let(:sms_phone_number) { "+14155551212" }
+
+        it "returns both, email address first" do
+          contact_methods = described_class.contact_methods(client)
+          expect(contact_methods).to eq({email: "example@example.com", sms_phone_number: "+14155551212"})
+          expect(contact_methods.keys.first).to eq(:email)
+        end
+      end
     end
   end
 end
