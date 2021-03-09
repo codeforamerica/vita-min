@@ -783,8 +783,10 @@ en:
 
             We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went?
 
-            Take our 5 minute survey here: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_exiL2bLJx8GvjGC?ExternalDataReference=%{client_id}
+            Take our 5 minute survey here: %{survey_link}
           subject: Thank you for filing your taxes with GetYourRefund!
+        text: |
+          Thank you for filing your taxes with GetYourRefund. We want to improve the service for future tax filers and need your feedback. Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
   models:
     intake:
       your_spouse: Your spouse

@@ -774,8 +774,10 @@ es:
 
             Queremos mejorar nuestro servicio y nos hace falta tu comentario. ¿Puedes contarnos cómo ha sido?
 
-            Te agradeceríamos si pudieras rellenar nuestra encuesta, solo te tomará unos 5 minutos: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_cOnqi60Vo05Gl4p?ExternalDataReference=%{client_id}
+            Te agradeceríamos si pudieras rellenar nuestra encuesta, solo te tomará unos 5 minutos: %{survey_link}
           subject: ¡Gracias por declarar tus impuestos con GetYourRefund!
+        text: |
+          Gracias por declarar tus impuestos con GetYourRefund. Queremos mejorar nuestro servicio y nos hace falta tu comentario. ¿Puedes contarnos cómo ha sido? Por favor tome unos 5 minutos para rellenar nuestra encuesta: %{survey_link}
   models:
     intake:
       your_spouse: Su cónyuge
