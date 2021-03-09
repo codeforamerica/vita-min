@@ -192,7 +192,7 @@ class TaxReturn < ApplicationRecord
 
   def send_client_completion_survey
     if saved_change_to_status? && TaxReturnStatus::TERMINAL_STATUSES.map(&:to_s).include?(status)
-      SendClientCompletionSurveyJob.perform_later(client)
+      SendClientCompletionSurveyJob.set(wait_until: Time.current + 1.day).perform_later(client)
     end
   end
 end
