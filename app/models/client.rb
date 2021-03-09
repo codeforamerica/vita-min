@@ -4,6 +4,7 @@
 #
 #  id                                       :bigint           not null, primary key
 #  attention_needed_since                   :datetime
+#  completion_survey_sent_at                :datetime
 #  current_sign_in_at                       :datetime
 #  current_sign_in_ip                       :inet
 #  failed_attempts                          :integer          default(0), not null

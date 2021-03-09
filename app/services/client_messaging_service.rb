@@ -43,6 +43,13 @@ class ClientMessagingService
       )
     end
 
+    def contact_methods(client)
+      methods = {}
+      methods[:email] = client.intake.email_address if client.intake.email_notification_opt_in_yes? && client.intake.email_address.present?
+      methods[:sms_phone_number] = client.intake.sms_phone_number if client.intake.sms_notification_opt_in_yes? && client.intake.sms_phone_number.present?
+      methods
+    end
+
     private
 
     def create_outgoing_email(attachment, body, client, to, subject_locale, user)

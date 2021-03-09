@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_05_233848) do
+ActiveRecord::Schema.define(version: 2021_03_08_233133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2021_03_05_233848) do
 
   create_table "clients", force: :cascade do |t|
     t.datetime "attention_needed_since"
+    t.datetime "completion_survey_sent_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "current_sign_in_at"
     t.inet "current_sign_in_ip"

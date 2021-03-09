@@ -574,7 +574,7 @@ describe TaxReturn do
     let(:tax_return) { create :tax_return, :ready_to_sign }
     let(:fake_ip) { IPAddr.new }
     let(:document_service_double) { double }
-    let(:client) { 
+    let(:client) {
       create :client,
              intake: (create :intake,
                              primary_first_name: "Primary",
@@ -731,6 +731,28 @@ describe TaxReturn do
 
     it "includes all filed statuses" do
       expect(result["file"].length).to eq 6
+    end
+  end
+
+  describe "completion survey" do
+    context "when a TaxReturn status is changed to a non-final status" do
+      let!(:tax_return) { create(:tax_return) }
+
+      it "does not send the survey" do
+        expect {
+          tax_return.update!(status: "file_ready_to_file")
+        }.not_to have_enqueued_job(SendClientCompletionSurveyJob)
+      end
+    end
+
+    context "when a TaxReturn status is changed to a final status" do
+      let!(:tax_return) { create(:tax_return) }
+
+      it "does not send the survey" do
+        expect {
+          tax_return.update!(status: "file_accepted")
+        }.to have_enqueued_job(SendClientCompletionSurveyJob).with(tax_return.client)
+      end
     end
   end
 

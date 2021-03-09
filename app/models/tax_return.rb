@@ -46,7 +46,7 @@ class TaxReturn < ApplicationRecord
   validates :year, presence: true
 
   attr_accessor :status_last_changed_by
-  after_update :send_mixpanel_status_change_event, :record_internal_interaction
+  after_update_commit :send_mixpanel_status_change_event, :record_internal_interaction, :send_client_completion_survey
 
   before_save do
     if status == "prep_ready_for_prep" && status_changed?
@@ -188,6 +188,12 @@ class TaxReturn < ApplicationRecord
   def system_change_status(new_status)
     SystemNote::StatusChange.generate!(tax_return: self, old_status: self.status, new_status: new_status)
     self.status = new_status
+  end
+
+  def send_client_completion_survey
+    if saved_change_to_status? && %w[file_accepted file_rejected file_mailed].include?(status)
+      SendClientCompletionSurveyJob.perform_later(client)
+    end
   end
 end
 
