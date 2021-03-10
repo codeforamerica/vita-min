@@ -90,9 +90,13 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     # Optional consent form
     expect(page).to have_selector("h1", text: "A few more things...")
     expect(page).to have_checked_field("Consent to Use")
+    expect(page).to have_link("Consent to Use", href: consent_to_use_path)
     expect(page).to have_checked_field("Consent to Disclose")
+    expect(page).to have_link("Consent to Disclose", href: consent_to_disclose_path)
     expect(page).to have_checked_field("Relational EFIN")
+    expect(page).to have_link("Relational EFIN", href: relational_efin_path)
     expect(page).to have_checked_field("Global Carryforward")
+    expect(page).to have_link("Global Carryforward", href: global_carryforward_path)
     uncheck "Global Carryforward"
     click_on "Continue"
 

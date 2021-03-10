@@ -1,0 +1,8 @@
+<% @main_heading = t('views.consent_pages.consent_to_disclose.title') %>
+<% content_for :page_title, @main_heading %>
+
+<h1><%= @main_heading %></h1>
+
+<div class="spacing-below-60">
+  <%=  simple_format(t('views.consent_pages.consent_to_disclose.content_html')) %>
+</div>

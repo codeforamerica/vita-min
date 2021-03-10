@@ -869,6 +869,67 @@ en:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
   views:
+    consent_pages:
+      consent_to_use:
+        title: Consent to Use
+        content_html: |
+          Federal law requires this consent form be provided to you ("you" refers to each taxpayer, if more than one). Unless authorized by law, we cannot disclose, without your consent, your tax return information to third parties for purposes other than the preparation and filing of your tax return. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.
+
+          You are not required to complete this form to engage our tax return preparation services. If we obtain your signature on this form by conditioning our tax return preparation services on your consent, your consent will not be valid. If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.
+
+          <strong>I authorize the VITA site:</strong>
+          1 year-Use: I authorize the VITA site to use non-identifying information from my tax return to compile aggregate reports to existing and potential funders.
+
+          1 year-Purpose: Tax return information will be used to measure program outcomes in order to secure ongoing funding for the VITA program.
+
+          If you believe your tax return information has been disclosed or used improperly in a manner unauthorized by law or without your permission, you may contact the Treasury Inspector General for Tax Administration (TIGTA) by telephone at 1-800-366-4484, or by email at complaints@tigta.treas.gov.
+      consent_to_disclose:
+        title: Consent to Disclose
+        content_html: |
+          Federal law requires this consent form be provided to you ("you" refers to each taxpayer, if more than one). Unless authorized by law, we cannot disclose, without your consent, your tax return information to third parties for purposes other than the preparation and filing of your tax return. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.
+
+          You are not required to complete this form to engage our tax return preparation services. If we obtain your signature on this form by conditioning our tax return preparation services on your consent, your consent will not be valid. If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.
+
+          <strong>I authorize the VITA site:</strong>
+          1 year-Disclosure: I authorize the VITA site to release my personal tax information to the tax software (TaxSlayer) and/or the financial institution(s) I specified (if any).
+
+          1 year-Purpose: Personal tax information will be disclosed to the tax software (TaxSlayer) for electronic filing purposes, and to financial institution(s) for direct deposit or debit (if applicable).
+
+          If you believe your tax return information has been disclosed or used improperly in a manner unauthorized by law or without your permission, you may contact the Treasury Inspector General for Tax Administration (TIGTA) by telephone at 1-800-366-4484, or by email at complaints@tigta.treas.gov.
+      relational_efin:
+        title: Relational EFIN
+        content_html: |
+          Federal law requires this consent form be provided to you ("you" refers to each taxpayer, if more than one). Unless authorized by law, we cannot disclose, without your consent, your tax return information to third parties for purposes other than the preparation and filing of your tax return. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.
+
+          You are not required to complete this form to engage our tax return preparation services. If we obtain your signature on this form by conditioning our tax return preparation services on your consent, your consent will not be valid. If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.
+
+          <strong>I authorize the VITA site:</strong>
+          3 years-Disclosure: Tax Preparer will disclose the Personal Information to the Software Developer through Software Developer's tax preparation software. The Software Developer will disclose the Personal Information to the VITA program Relational Office.
+
+          3 years-Purpose: The purpose of the Disclosures is for the Software Developer to make available the Taxpayer's Personal Information to the VITA program Relational Office in order for them to provide support and administrative assistance to the Tax Preparer.
+      global_carryforward:
+        title: Global Carryforward
+        content_html: |
+          Federal law requires this consent form be provided to you ("you" refers to each taxpayer, if more than one). Unless authorized by law, we cannot disclose, without your consent, your tax return information to third parties for purposes other than the preparation and filing of your tax return. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.
+
+          You are not required to complete this form to engage our tax return preparation services. If we obtain your signature on this form by conditioning our tax return preparation services on your consent, your consent will not be valid. If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.
+
+          <strong>I authorize the VITA site:</strong>
+          Global Carry Forward of data allows TaxSlayer LLC, the provider of the VITA/TCE tax software to make your tax return information available to ANY volunteer site participating in the IRS's VITA/TCE program that you select to prepare a tax return in the next filing season. This means you will be able to visit any volunteer site using TaxSlayer next year and have your tax return populate with your current year data, regardless of where you filed your tax return this year.
+
+          <strong>This consent is valid through November 12, 2022</strong>
+
+          The tax return information that will be disclosed includes, but is not limited to, demographic, financial and other personally identifiable information, about you, your tax return and your sources of income, which was input into the tax preparation software for the purpose of preparing your tax return.
+
+          This information includes your name, address, date of birth, phone number, SSN, filing status, occupation, employer's name and address, and the amounts and sources of income, deductions and credits that were claimed on, or contained within, your tax return. The tax return information that will be disclosed also includes the name, SSN, date of birth, and relationship of any dependents that were claimed on your tax return.
+
+          You do not need to provide consent for the VITA/TCE partner preparing your tax return this year Carry Forward will assist you only if you visit a different VITA or TCE partner next year.
+
+          <i>Limitation on the Duration of Consent</i>: I/we, the taxpayer, do not wish to limit the duration of the consent-of the disclosure of tax return information to a date earlier than presented above (November 12, 2022). If I/we wish to limit the duration of the consent of the disclosure to an earlier date, I will deny consent.
+
+          <i>Limitation on the Scope of Disclosure</i>: I/we, the taxpayer, do not wish to limit the scope of the disclosure of tax return information further than presented above. If I/we wish to limit the scope of the disclosure of tax return information further than presented above, I/we will deny consent.
+
+          If you believe your tax return information has been disclosed or used improperly in a manner unauthorized by law or without your permission, you may contact the Treasury Inspector General for Tax Administration (TIGTA) by telephone at 1-800-366-4484, or by email at complaints@tigta.treas.gov.
     dependents:
       form:
         birth_date: Date of birth
