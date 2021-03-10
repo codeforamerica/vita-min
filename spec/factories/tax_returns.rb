@@ -59,7 +59,7 @@ FactoryBot.define do
         create :document,
                tax_return: tax_return,
                client: tax_return.client,
-               upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf") ,
+               upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"),
                document_type: DocumentTypes::CompletedForm8879.key
       end
     end

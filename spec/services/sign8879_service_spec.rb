@@ -17,7 +17,7 @@ describe Sign8879Service do
                               primary_signed_ip: IPAddr.new,
                               primary_signed_at: DateTime.current
     }
-    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user) }
+    let!(:document) { create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user), upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf") }
 
     before do
       allow(tax_return).to receive(:filing_joint?).and_return false
@@ -40,10 +40,10 @@ describe Sign8879Service do
     it "creates a signed document for the tax return, uploaded by the client" do
       expect {
         Sign8879Service.create(tax_return)
-      }.to change(tax_return.documents, :count).by 1
+      }.to change(tax_return.documents.where(document_type: DocumentTypes::CompletedForm8879.key), :count).by 1
       new_doc = Document.last
       expect(new_doc.document_type).to eq "Form 8879 (Signed)"
-      expect(new_doc.display_name).to eq "Taxpayer Signed 2019 8879"
+      expect(new_doc.display_name).to eq "test-pdf.pdf (Signed)"
       expect(new_doc.uploaded_by).to eq client
     end
 
@@ -58,6 +58,19 @@ describe Sign8879Service do
         Sign8879Service.create(tax_return)
 
         expect(document_service_double).to have_received(:write).with(:spouse_signature, "Spouse Taxpayer")
+      end
+    end
+
+    context "with multiple Unsigned 8879s for the tax year" do
+      before do
+        # create a second document
+        create :document, document_type: DocumentTypes::UnsignedForm8879.key, tax_return: tax_return, client: client, uploaded_by: (create :user), upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
+      end
+
+      it "should create a completed 8879 for each unsigned 8879" do
+        expect {
+          Sign8879Service.create(tax_return)
+        }.to change(tax_return.documents.where(document_type: DocumentTypes::CompletedForm8879.key), :count).by(2)
       end
     end
   end
