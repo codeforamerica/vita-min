@@ -600,7 +600,7 @@ RSpec.describe Hub::ClientsController do
 
   describe "#response_needed" do
     let(:params) do
-      { id: client.id, client: {} }
+      { id: client.id, client: { action: "set" } }
     end
     let(:client) { create :client, vita_partner: organization }
     before { sign_in(user) }
@@ -615,12 +615,17 @@ RSpec.describe Hub::ClientsController do
       before do
         params[:client][:action] = "clear"
         client.touch(:response_needed_since)
+        allow(SystemNote::ResponseNeededToggledOff).to receive(:generate!)
       end
 
-      it "removes response_needed_since value from client" do
+      it "removes response_needed_since value from client and makes a system note" do
         patch :response_needed, params: params
 
         expect(client.reload.response_needed_since).to be_nil
+        expect(SystemNote::ResponseNeededToggledOff).to have_received(:generate!).with(
+          client: client,
+          initiated_by: user
+        )
       end
     end
 
@@ -628,15 +633,20 @@ RSpec.describe Hub::ClientsController do
       before do
         params[:client][:action] = "set"
         client.clear_response_needed
+        allow(SystemNote::ResponseNeededToggledOn).to receive(:generate!)
       end
 
-      it "adds response_needed_since to client" do
+      it "adds response_needed_since to client and leaves a system note" do
         expect {
           patch :response_needed, params: params
         }.to change{ client.reload.response_needed_since }
+
+        expect(SystemNote::ResponseNeededToggledOn).to have_received(:generate!).with(
+          client: client,
+          initiated_by: user
+        )
       end
     end
-
   end
 
   describe "#edit" do
