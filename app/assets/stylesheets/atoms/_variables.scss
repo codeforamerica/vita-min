@@ -17,6 +17,7 @@ $color-venice-blue: #03578c;
 $color-stimulus-blue: #89DDEF;
 
 $color-grey-light: #F7F7F7;
+$color-grey: darken($color-grey-light, 10%); // override form honeycrisp $color-grey w/brownish tint
 $color-grey-medium: #757575;
 $color-grey-dark: #4F4E4E;
 

@@ -39,7 +39,7 @@
 
       <%= form_for [:hub, @client], method: :patch, url: response_needed_hub_client_path(id: @client.id) do |f| %>
         <%= f.hidden_field :action, value: @client.needs_response? ? "clear" : "set" %>
-        <%= f.submit @client.needs_response? ? t("general.responded_to_client") : t("general.mark_for_response"), class: "button button--small button--subtle" %>
+        <%= f.submit @client.needs_response? ? t("general.responded_to_client") : t("general.mark_for_response"), class: "button button--small" %>
       <% end %>
     </div>
 

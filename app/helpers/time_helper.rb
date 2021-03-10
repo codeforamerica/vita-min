@@ -17,6 +17,10 @@ module TimeHelper
     formatted_string + "#{default_date_format(datetime)} at #{formatted_time(datetime)}"
   end
 
+  def timestamp(datetime)
+    "#{default_date_format(datetime)} #{formatted_time(datetime)}"
+  end
+
   def timezone_select_options
     ActiveSupport::TimeZone.us_zones.map { |tz| [tz.name, tz.tzinfo.name] }
   end

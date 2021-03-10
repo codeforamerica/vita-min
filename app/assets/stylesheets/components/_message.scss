@@ -1,45 +1,98 @@
+@mixin message_body {
+  border: 1px solid $color-grey;
+  padding: 1rem 1rem 1rem;
+  border-radius: 3px;
+  p {
+    margin-bottom: 1rem;
+  }
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
 .message {
-  margin-bottom: 2rem;
+  padding: 0 12rem 2rem 12rem;
+  width: fit-content;
+  &--system-note, &--outbound_call {
+    .message__body {
+      background-color: $color-grey-light;
+      border-color: $color-grey-light;
+    }
+    .message__time {
+      border-bottom: 1px solid darken($color-grey-light, 5%);
+    }
+  }
 
   &__heading {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
+    font-size: 1.4rem;
+    margin-bottom: 2px;
+    line-height: 2rem;
   }
 
+  &__contact-info {
+    padding-right: .5rem;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+  &__authority {
+    display: flex;
+    align-items: center;
+  }
   &__author {
+    display: flex;
+    padding-right: .5rem;
+    &::before {
+      font-family: $font-icon;
+      content: "";
+      font-size: 1.8rem;
+    }
     font-weight: bold;
   }
 
   &__status {
-    color: $color-grey-dark;
+    font-size: 1.4rem;
+    height: 20px;
   }
 
   &__body {
-    background-color: white;
-    padding: 2rem;
+    border: 1px solid $color-grey;
+    padding: 1rem 2rem 1rem;
+    border-radius: 3px;
+    p {
+      margin-bottom: 1rem;
+    }
+    p:last-of-type {
+      margin-bottom: 0;
+    }
   }
 
   &__subject {
-    color: $color-grey-dark;
-    &::before {
-      content: "✉️ ";
-    }
+    margin-bottom: 1rem;
+    color: $color-grey-medium;
+  }
+
+  &__time {
+    font-size: 1.2rem;
+    color: grey;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid $color-grey-light;
+
   }
 
   &__day-heading {
     text-align: center;
     color: $color-grey-dark;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    &:first-of-type {
-      padding-top: inherit;
-    }
-  }
-
-  &--incoming_text_message, &--outgoing_text_message {
-    .message__body {
-      border-radius: 2rem;
-    }
+    border-bottom: 1px solid $color-grey-light;
+    border-top: 1px solid $color-grey-light;
+    padding: 10px;
+    margin: 0 0 1.5rem;
+    font-size: 1.6rem;
   }
 
   &--hr {
@@ -53,29 +106,81 @@
     }
   }
 
-  &--outgoing_text_message, &--outgoing_email, &--outgoing {
-    margin-left: 3rem;
 
+  &--outgoing_text_message, &--outgoing, &--outgoing_email, &--outbound_call {
+    padding-right: 0;
     .message__heading {
-      padding-left: 3rem;
+      flex-direction: row-reverse;
     }
-
-    .message__body {
-      padding-left: 3rem;
-      padding-right: 0.75rem;
+    .message__info {
+      align-items: flex-end;
     }
   }
 
-  &--incoming_text_message, &--incoming_email, &--incoming {
-    margin-right: 3rem;
+  &--incoming_text_message, &--incoming, &--incoming_email, &--system-note {
+    padding-left: 0;
+  }
 
-    .message__heading {
-      padding-left: 1rem;
+  &--incoming_text_message, &--outgoing_text_message {
+    .message__author {
+      &::before {
+        content: 'phone_iphone';
+        margin-right: .5rem;
+      }
     }
+  }
 
-    .message__body {
-      padding-left: 1rem;
-      padding-right: 2rem;
+  &--outgoing_email, &--incoming_email {
+    .message__author {
+      &::before {
+        content: 'email';
+        margin-right: .5rem;
+      }
+    }
+  }
+
+  &--outbound_call {
+    .message__author {
+      &::before {
+        content: 'phone';
+        margin-right: .5rem;
+      }
+    }
+  }
+}
+
+.message-list.notes {
+  .message {
+    padding: 0 0 2rem;
+    width: 100%;
+  }
+}
+
+.note {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+
+  &__heading {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.4rem;
+    margin-bottom: .3rem;
+  }
+  &__author {
+    font-size: 1.4rem;
+  }
+  &__time {
+    font-size: 1.2rem;
+    color: $color-grey-medium;
+  }
+  &__body {
+    @include message_body;
+  }
+  &.system-note {
+    .note__body {
+      background: $color-grey-light;
+      border-color: $color-grey-light;
     }
   }
 }

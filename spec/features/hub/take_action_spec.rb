@@ -34,7 +34,7 @@ RSpec.feature "Change tax return status on a client" do
       click_on "Notes"
       expect(page).to have_text("Leaving a note to the client")
       click_on "Messages"
-      expect(page).to have_text "Text to (415) 555-1212"
+      expect(page).to have_text "(415) 555-1212"
       expect(page).to have_text "Heads up! I am still working on it."
     end
 

@@ -1,9 +1,7 @@
-.message-list {
-  border-top: 2rem solid darken($color-grey-light, 50%);
-  background-color: darken($color-grey-light, 10%);
-  padding: 1rem;
+.client-container {
+  width: 760px;
 }
 
-.message-list:empty {
-  display: none;
+ul.message-list {
+  margin-top: 0;
 }

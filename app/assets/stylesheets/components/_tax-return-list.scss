@@ -10,7 +10,7 @@
     text-align: center;
 
     &.label--unassigned {
-      background: darken($color-grey-light, 5%);
+      background: $color-grey;
       color: black;
     }
   }
