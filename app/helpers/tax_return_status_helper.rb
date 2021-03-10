@@ -42,9 +42,7 @@ module TaxReturnStatusHelper
     classes = %w[label certification-label]
     classes << "label--unassigned" if tax_return.certification_level.blank?
     localization_key = tax_return.certification_level.blank? ? "NA" : "certification_abbrev.#{tax_return.certification_level}"
-    text = t("general.#{localization_key}")
-    text = "#{text} | #{t("general.hsa")}" if tax_return.is_hsa?
-    tag.span(text, class: classes)
+    tag.span(t("general.#{localization_key}"), class: classes)
   end
 
   def self.stage_translation_from_status(status)

@@ -13,7 +13,7 @@ module Hub
       end
 
       def tax_return_params
-        params.permit(:certification_level, :is_hsa)
+        params.permit(:certification_level)
       end
     end
   end
