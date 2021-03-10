@@ -96,7 +96,7 @@
   }
   .slab--padded {
     padding-top: 1.5rem;
-    padding-bottom: 2rem;
+    padding-bottom: 1.5rem;
   }
 
   .toolbar {
@@ -159,6 +159,7 @@
 
   .button--cta {
     background-color: black;
+    border: 1px solid black;
     font-weight: 500;
   }
 

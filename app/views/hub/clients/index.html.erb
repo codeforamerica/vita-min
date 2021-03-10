@@ -6,22 +6,25 @@
   </section>
   <%= render "shared/dashboard_navigation" %>
   <section class="slab slab--padded">
-    <%= render "shared/client_filters" %>
+    <%= render "shared/client_filters_and_add_client" %> <!-- also includes Add Client button to layout !-->
   </section>
   <section class="slab slab--padded">
-    <div class="actions-wrapper">
-      <%= link_to t(".add_client"), new_hub_client_path, class: "button" %>
+    <div class="pagination-wrapper">
+      <div>
+        <%= page_entries_info @clients, model: "client" %>
+      </div>
+      <div>
+        <%= will_paginate(
+                @clients,
+                previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
+                next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+                inner_window: 1,
+                outer_window: 1,
+                param_name: "page",
+                ) %>
+      </div>
     </div>
 
-    <%= page_entries_info @clients, model: "entry" %>
-    <%= will_paginate(
-          @clients,
-          previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\"> Previous</span>",
-          next_label: "<span class=\"hide-on-mobile\">Next </span><i class=\"icon icon-keyboard_arrow_right\"></i>",
-          inner_window: 1,
-          outer_window: 1,
-          param_name: "page",
-    ) %>
   </section>
 
   <section class="scrollable-table-wrapper">
@@ -98,10 +101,7 @@
       </table>
     </section>
   <% else %>
-
-    <div class="slab slab--not-padded">
-      <h1 class="h2"><%= @page_title %></h1>
-    </div>
+    <h1 class="sr-only"><%= @page_title %></h1>
     <div class="empty-clients">
       <% if !@filters %>
         <%= t("hub.clients.index.apply_filters") %>

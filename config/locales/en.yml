@@ -91,7 +91,6 @@ en:
           success: 'Success: Action taken! %{action_list}.'
           text_message: sent text message
       index:
-        add_client: Add client
         client_id_heading: Client ID
         clear_filters: Clear
         filter: Filter results
@@ -537,6 +536,7 @@ en:
         certification_level: certification level
       general: Please fix indicated errors before continuing.
   general:
+    add_client: Add client
     all_organizations: "All organizations"
     at_time: at %{time}
     NA: N/A
