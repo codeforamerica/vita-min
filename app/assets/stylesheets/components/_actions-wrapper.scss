@@ -1,13 +1,7 @@
 .actions-wrapper {
-  position: relative;
+  display: flex;
+  justify-content: space-between;
   .button {
-    position: absolute;
-    right: 0;
-    bottom: $s15;
     margin-bottom: 0;
-    &:active {
-      top: auto; // override default top: 1 for active buttons
-      bottom: $s15 - 0.1rem;
-    }
   }
 }

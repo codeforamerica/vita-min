@@ -1,5 +1,4 @@
 .filter-form {
-  margin-top: 2rem;
   .form-group{
     margin-bottom: $s5;
   }
@@ -25,7 +24,8 @@
 
   .checkboxes-wrapper {
     display: flex;
-    margin-bottom: $s25;
+    margin-top: .5rem;
+    margin-bottom: 2rem;
     > * {
       margin-right: 2rem;
     }

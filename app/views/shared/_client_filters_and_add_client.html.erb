@@ -84,10 +84,15 @@
     </label>
   </div>
 
-  <div>
-    <%= submit_tag t("hub.clients.index.filter"), class: "button button--cta spacing-below-35", name: nil %>
-    <% if @filters && @filters.values.any? %>
-      <%= link_to t("hub.clients.index.clear_filters"), { column: @sort_column, order: @sort_order, clear: true } , class: "button button--danger", name: "clear" %>
-    <% end %>
+  <div class="actions-wrapper">
+    <div>
+      <%= submit_tag t("hub.clients.index.filter"), class: "button button--cta", name: nil %>
+      <% if @filters && @filters.values.any? %>
+        <%= link_to t("hub.clients.index.clear_filters"), { column: @sort_column, order: @sort_order, clear: true } , class: "button button--danger", name: "clear" %>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to t("general.add_client"), new_hub_client_path, class: "button" %>
+    </div>
   </div>
 <% end %>

@@ -4,12 +4,25 @@
   margin-right: .1rem;
   min-width: 2.4em;
 }
-
+.pagination-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  .pagination {
+    padding: 0;
+  }
+  .pagination > * {
+    margin-bottom: 0 !important;
+  }
+}
 .pagination {
   @extend .pagination__buttons;
   > a { // page links
     @extend .button;
     @extend .button--small;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
   }
   > em { // current page
     font-style: normal;
@@ -24,6 +37,13 @@
   }
   > span.gap { // ellipsis between pages
     @extend .pagination__ellipsis;
+  }
+  > .previous_page {
+    padding-left: 3px !important;
+  }
+  > .next_page {
+    padding-right: 3px !important;
+    margin-left: 0 !important;
   }
 
   > .button {
@@ -43,6 +63,14 @@
     > span.gap {
       padding: .5rem 0;
       width: 1em;
+    }
+  }
+}
+
+.honeycrisp-compact {
+  .pagination {
+    > * {
+      line-height: 20px !important;
     }
   }
 }

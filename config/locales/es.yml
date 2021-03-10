@@ -75,7 +75,6 @@ es:
         add_dependent: Agregar dependiente
         remove: Eliminado
       index:
-        add_client: Agregar cliente
         clear_filters: Claros
         filter: Filtrar resultados
         client_id_heading: Cliente ID
@@ -526,6 +525,7 @@ es:
         certification_level: nivel de certificación
       general: Por favor, corrija los errores indicados antes de continuar.
   general:
+    add_client: Agregar cliente
     at_time: a las %{time}
     NA: N/A
     address: Dirección
