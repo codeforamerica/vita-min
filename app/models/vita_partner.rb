@@ -53,7 +53,7 @@ class VitaPartner < ApplicationRecord
 
     return false if capacity_limit.blank? || organization_capacity.active_client_count.nil?
 
-    return organization_capacity.active_client_count >= capacity_limit
+    organization_capacity.active_client_count >= capacity_limit
   end
 
   def organization?

@@ -89,7 +89,7 @@ RSpec.describe VitaPartnerState, type: :model do
         let!(:third_vps) { create :vita_partner_state, routing_fraction: 0.0, state: "RI" }
 
         it "returns an empty array" do
-          expect(VitaPartnerState.weighted_state_routing_ranges("RI")).to eq []
+          expect(VitaPartnerState.weighted_routing_ranges(VitaPartnerState.where(state:"RI"))).to eq []
         end
       end
 
@@ -119,7 +119,7 @@ RSpec.describe VitaPartnerState, type: :model do
             }
           ]
 
-          expect(VitaPartnerState.weighted_state_routing_ranges("RI")).to eq expected_array
+          expect(VitaPartnerState.weighted_routing_ranges(VitaPartnerState.where(state: "RI"))).to eq expected_array
         end
       end
     end
