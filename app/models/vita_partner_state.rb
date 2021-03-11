@@ -23,27 +23,7 @@ class VitaPartnerState < ApplicationRecord
   validate :invalid_state
   validates :state, uniqueness: { scope: :vita_partner_id }
 
-  def balanced_routing_fraction
-    (routing_fraction / VitaPartnerState.where(state: state).sum(:routing_fraction)).round(4)
-  end
 
-  def self.weighted_routing_ranges(vita_partner_states)
-    routing_ranges = []
-    vita_partner_states.each_with_index do |vps, i|
-      next if vps.routing_fraction.zero?
-
-      range = { id: vps.vita_partner_id }
-      if i.zero?
-        range[:low] = 0.0
-        range[:high] = vps.balanced_routing_fraction
-      else
-        range[:low] = routing_ranges.last[:high]
-        range[:high] = i == vita_partner_states.count - 1 ? 1.0 : range[:low] + vps.balanced_routing_fraction
-      end
-      routing_ranges << range
-    end
-    routing_ranges
-  end
 
   private
 

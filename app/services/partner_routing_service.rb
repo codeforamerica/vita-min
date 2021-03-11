@@ -9,11 +9,14 @@ class PartnerRoutingService
 
   # @return VitaPartner the object of the vita_partner we recommend routing to.
   def determine_partner
-    return vita_partner_from_source_param if @source_param.present? && vita_partner_from_source_param.present?
+    from_source_param = vita_partner_from_source_param if @source_param.present?
+    return from_source_param if from_source_param.present?
 
-    return vita_partner_from_zip_code if @zip_code.present? && vita_partner_from_zip_code.present?
+    from_zip_code = vita_partner_from_zip_code if @zip_code.present?
+    return from_zip_code if  from_zip_code.present?
 
-    return vita_partner_from_state if @zip_code.present? && vita_partner_from_state.present?
+    from_state_routing = vita_partner_from_state if @zip_code.present?
+    return from_state_routing if from_state_routing.present?
 
     route_to_national_overflow_partner
   end
@@ -47,11 +50,12 @@ class PartnerRoutingService
     return false unless @zip_code.present?
 
     state = ZipCodes.details(@zip_code)[:state]
-    state_routed_vita_partner_ids = VitaPartnerState.joins(:vita_partner).select("vita_partner.*").where(state: state)
-    eligible_with_capacity = OrganizationCapacity.with_capacity.where(vita_partner_id: state_routed_vita_partner_ids).pluck(:vita_partner_id)
-    routing_ranges = VitaPartnerState.weighted_routing_ranges(eligible_with_capacity)
+    # create a VitaPartnerState-like object from VitaPartner query
+    select = "vita_partners.*, vita_partner_states.routing_fraction, vita_partner_states.id as vita_partner_state_id"
+    eligible_with_capacity = VitaPartner.with_capacity.joins(:serviced_states).select(select)
+                                        .where({ vita_partner_states: { state: state } })
+    routing_ranges = WeightedRoutingService.new(eligible_with_capacity).weighted_routing_ranges
     random_num = Random.rand(0..1.0)
-
     vita_partner_id = routing_ranges.map do |range|
       range[:id] if random_num.between?(range[:low], range[:high])
     end

@@ -48,10 +48,10 @@ class VitaPartner < ApplicationRecord
   scope :with_capacity, lambda {
     capacities = OrganizationCapacity.arel_table
     joins(:organization_capacity).where(
-      capacities[:active_client_count].lt(arel_table[:capacity_limit])
-          .or(capacities[:active_client_count].eq(nil))
-          .or(arel_table[:capacity_limit].eq(nil))
-    )
+      capacities[:active_client_count].lteq(arel_table[:capacity_limit])
+          .or(capacities[:active_client_count].eq(nil)) # if active_client_count is not set, assume capacity
+          .or(arel_table[:capacity_limit].eq(nil)) # if capacity_limit is not set, assume capacity
+    ).where.not(capacity_limit: 0)
   }
   accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: lambda { |attributes| attributes['code'].blank? }
 
