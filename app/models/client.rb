@@ -107,6 +107,14 @@ class Client < ApplicationRecord
     where(intake: email_matches.or(spouse_email_matches).or(phone_number_matches).or(sms_phone_number_matches))
   end
 
+  scope :needs_in_progress_survey, -> do
+    includes(:tax_returns).where(tax_returns: { status: "intake_in_progress" })
+    .includes(:intake).where("primary_consented_to_service_at < ?", 10.days.ago)
+    .includes(:incoming_text_messages).where(incoming_text_messages: { client_id: nil })
+    .includes(:incoming_emails).where(incoming_emails: { client_id: nil })
+    .includes(:documents).where("documents.client_id IS NULL OR documents.created_at < (interval '1 day' + clients.created_at)")
+  end
+
   def legal_name
     return unless intake&.primary_first_name? && intake&.primary_last_name?
 
