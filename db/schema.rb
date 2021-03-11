@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_205504) do
+ActiveRecord::Schema.define(version: 2021_03_11_230830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_205504) do
     t.inet "current_sign_in_ip"
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "first_unanswered_incoming_interaction_at"
+    t.datetime "in_progress_survey_sent_at"
     t.datetime "last_incoming_interaction_at"
     t.datetime "last_internal_or_outgoing_interaction_at"
     t.datetime "last_sign_in_at"
@@ -94,6 +95,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_205504) do
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vita_partner_id"
+    t.index ["in_progress_survey_sent_at"], name: "index_clients_on_in_progress_survey_sent_at"
     t.index ["login_token"], name: "index_clients_on_login_token"
     t.index ["vita_partner_id"], name: "index_clients_on_vita_partner_id"
   end

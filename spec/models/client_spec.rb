@@ -9,6 +9,7 @@
 #  current_sign_in_ip                       :inet
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
+#  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
 #  last_sign_in_at                          :datetime
@@ -25,8 +26,9 @@
 #
 # Indexes
 #
-#  index_clients_on_login_token      (login_token)
-#  index_clients_on_vita_partner_id  (vita_partner_id)
+#  index_clients_on_in_progress_survey_sent_at  (in_progress_survey_sent_at)
+#  index_clients_on_login_token                 (login_token)
+#  index_clients_on_vita_partner_id             (vita_partner_id)
 #
 # Foreign Keys
 #
@@ -92,7 +94,7 @@ describe Client do
 
     context "clients who should get the survey" do
       context "with a client who has had tax returns in intake_in_progress for >10 days" do
-        let!(:tax_return_in_scope) { create :tax_return, status: "intake_in_progress", client: create(:client, intake: create(:intake, primary_consented_to_service_at: fake_time - 10.days - 1.minute)) }
+        let!(:tax_return_in_scope) { create :tax_return, status: "intake_in_progress", client: create(:client, in_progress_survey_sent_at: nil, intake: create(:intake, primary_consented_to_service_at: fake_time - 10.days - 1.minute)) }
 
         context "with no inbound messages or documents" do
           it "includes the client" do
@@ -115,8 +117,9 @@ describe Client do
     end
 
     context "clients who should not get the survey" do
-      let!(:tax_return) { create :tax_return, status: status, client: create(:client, intake: create(:intake, primary_consented_to_service_at: primary_consented_to_service_at)) }
+      let!(:tax_return) { create :tax_return, status: status, client: create(:client, in_progress_survey_sent_at: in_progress_survey_sent_at, intake: create(:intake, primary_consented_to_service_at: primary_consented_to_service_at)) }
       let(:status) { "intake_in_progress" }
+      let(:in_progress_survey_sent_at) { nil }
       let(:primary_consented_to_service_at) { fake_time - 11.days }
 
       context "with a tax return that does not have a intake_in_progress status" do
@@ -159,9 +162,10 @@ describe Client do
           end
         end
 
-        xcontext "with a client who already received the survey" do
-          xit "is not included" do
-
+        context "with a client who already received the survey" do
+          let(:in_progress_survey_sent_at) { DateTime.current }
+          it "is not included" do
+            Timecop.freeze(fake_time) { expect(Client.needs_in_progress_survey).not_to include(tax_return.client) }
           end
         end
       end
