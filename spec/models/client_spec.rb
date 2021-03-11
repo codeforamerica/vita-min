@@ -88,18 +88,89 @@ describe Client do
   end
 
   describe ".needs_in_progress_survey scope" do
-    # send to people that have been in "not ready" for 10 days and who have not sent any inbound messages
-    # and (not uploaded any docs or not uploaded after 24 hours of intake creation)
-    #   = (documents.where("created_at > ? ", intake.created_at + 1.day).empty?
+    let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
 
-    context "for a client with tax returns that have been in the `intake_in_progress` status for 10 days, does not have any inbound messages and has not uploaded any documents after 24 hours of intake creation" do
-      let(:client) { create :client }
-      let(:tax_return) { create :tax_return, status: "intake_in_progress", client: client }
-      let(:intake) { create :intake, primary_consented_to_service_at: Time.utc(2021, 2, 6, 0, 0, 0) - 10.days, client: client }
+    context "clients who should get the survey" do
 
-      it "is included" do
-        Timecop.freeze(Time.utc(2021, 2, 6, 0, 0, 0)) do
-          expect(Client.needs_in_progress_survey).to include(client)
+      context "with a client with tax returns that have been in the intake_in_progress status for 10 days or more and has no inbound messages or documents" do
+        let!(:tax_return_in_scope) { create :tax_return, status: "intake_in_progress", client: create(:client, intake: create(:intake, primary_consented_to_service_at: fake_time - 10.days - 1.minute)) }
+
+        it "includes them" do
+          Timecop.freeze(fake_time) do
+            expect(Client.needs_in_progress_survey).to include(tax_return_in_scope.client)
+          end
+        end
+      end
+
+      context "with a client that has uploaded a document less than a day after intake creation" do
+        let!(:tax_return_in_scope) { create :tax_return, status: "intake_in_progress", client: create(:client, intake: create(:intake, primary_consented_to_service_at: fake_time - 11.days)) }
+        let!(:document) { create :document, uploaded_by: tax_return_in_scope.client, client: tax_return_in_scope.client, created_at: tax_return_in_scope.client.intake.created_at + 10.minutes }
+
+        it "does include them" do
+          Timecop.freeze(fake_time) do
+            expect(Client.needs_in_progress_survey).to include(tax_return_in_scope.client)
+          end
+        end
+      end
+    end
+
+    context "clients who should not get the survey" do
+      context "with a tax return that does not have a intake_in_progress status" do
+        let!(:tax_return_out_of_scope) { create :tax_return, status: "intake_ready", client: create(:client, intake: create(:intake, primary_consented_to_service_at: fake_time - 11.days)) }
+
+        it "does not include them" do
+          Timecop.freeze(fake_time) do
+            expect(Client.needs_in_progress_survey).not_to include(tax_return_out_of_scope.client)
+          end
+        end
+      end
+
+      context "with a tax return that has been in progress for less than 10 days" do
+        let!(:tax_return_out_of_scope) { create :tax_return, status: "intake_in_progress", client: create(:client, intake: create(:intake, primary_consented_to_service_at: fake_time - 9.days)) }
+
+        it "does not include them" do
+          Timecop.freeze(fake_time) do
+            expect(Client.needs_in_progress_survey).not_to include(tax_return_out_of_scope.client)
+          end
+        end
+      end
+
+      context "with a client that has inbound text messages" do
+        let!(:tax_return_out_of_scope) { create :tax_return, status: "intake_in_progress", client: create(:client, intake: create(:intake, primary_consented_to_service_at: fake_time - 11.days)) }
+        let!(:inbound_text_message) { create :incoming_text_message, client: tax_return_out_of_scope.client }
+
+        it "does not include them" do
+          Timecop.freeze(fake_time) do
+            expect(Client.needs_in_progress_survey).not_to include(tax_return_out_of_scope.client)
+          end
+        end
+      end
+
+      context "for a client that has inbound email messages" do
+        let!(:tax_return_out_of_scope) { create :tax_return, status: "intake_in_progress", client: create(:client, intake: create(:intake, primary_consented_to_service_at: fake_time - 11.days)) }
+        let!(:inbound_email) { create :incoming_email, client: tax_return_out_of_scope.client }
+
+        it "does not include them" do
+          Timecop.freeze(fake_time) do
+            expect(Client.needs_in_progress_survey).not_to include(tax_return_out_of_scope.client)
+          end
+        end
+      end
+
+      context "with a client that has uploaded a document more than one day after intake creation" do
+        let!(:tax_return_out_of_scope) { create :tax_return, status: "intake_in_progress", client: create(:client, intake: create(:intake, primary_consented_to_service_at: fake_time - 11.days)) }
+        let!(:document) { create :document, uploaded_by: tax_return_out_of_scope.client, client: tax_return_out_of_scope.client, created_at: tax_return_out_of_scope.client.intake.created_at + 1.day + 1.second }
+
+        it "does not include them" do
+          Timecop.freeze(fake_time) do
+            expect(Client.needs_in_progress_survey).not_to include(tax_return_out_of_scope.client)
+          end
+        end
+      end
+
+      xcontext "with a client who already received the survey" do
+        xit "is not included" do
+
         end
       end
     end
