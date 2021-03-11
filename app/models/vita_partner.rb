@@ -33,6 +33,7 @@ class VitaPartner < ApplicationRecord
   has_many :serviced_zip_codes, class_name: "VitaPartnerZipCode"
   has_many :serviced_states, class_name: "VitaPartnerState"
   belongs_to :parent_organization, class_name: "VitaPartner", optional: true
+  has_one :organization_capacity
   validate :one_level_of_depth
   validate :no_coalitions_for_sites
   validate :no_capacity_for_sites
@@ -50,12 +51,9 @@ class VitaPartner < ApplicationRecord
   def at_capacity?
     return parent_organization.at_capacity? if site?
 
-    return false if capacity_limit.blank?
+    return false if capacity_limit.blank? || organization_capacity.active_client_count.nil?
 
-    Client
-      .where(vita_partner_id: [id, *child_site_ids])
-      .joins(:tax_returns).where(tax_returns: { status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY })
-      .count >= capacity_limit
+    return organization_capacity.active_client_count >= capacity_limit
   end
 
   def organization?
