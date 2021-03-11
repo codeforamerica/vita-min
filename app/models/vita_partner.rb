@@ -45,7 +45,14 @@ class VitaPartner < ApplicationRecord
   has_many :child_sites, -> { order(:id) }, class_name: "VitaPartner", foreign_key: "parent_organization_id"
 
   default_scope { includes(:child_sites).order(name: :asc) }
-
+  scope :with_capacity, lambda {
+    capacities = OrganizationCapacity.arel_table
+    joins(:organization_capacity).where(
+      capacities[:active_client_count].lt(arel_table[:capacity_limit])
+          .or(capacities[:active_client_count].eq(nil))
+          .or(arel_table[:capacity_limit].eq(nil))
+    )
+  }
   accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: lambda { |attributes| attributes['code'].blank? }
 
   def at_capacity?

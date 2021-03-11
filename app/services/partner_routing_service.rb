@@ -47,7 +47,9 @@ class PartnerRoutingService
     return false unless @zip_code.present?
 
     state = ZipCodes.details(@zip_code)[:state]
-    routing_ranges = VitaPartnerState.weighted_state_routing_ranges(state)
+    state_routed_vita_partner_ids = VitaPartnerState.joins(:vita_partner).select("vita_partner.*").where(state: state)
+    eligible_with_capacity = OrganizationCapacity.with_capacity.where(vita_partner_id: state_routed_vita_partner_ids).pluck(:vita_partner_id)
+    routing_ranges = VitaPartnerState.weighted_routing_ranges(eligible_with_capacity)
     random_num = Random.rand(0..1.0)
 
     vita_partner_id = routing_ranges.map do |range|

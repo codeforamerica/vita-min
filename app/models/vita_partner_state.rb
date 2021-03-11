@@ -30,7 +30,7 @@ class VitaPartnerState < ApplicationRecord
   def self.weighted_routing_ranges(vita_partner_states)
     routing_ranges = []
     vita_partner_states.each_with_index do |vps, i|
-      next if vps.routing_fraction == 0
+      next if vps.routing_fraction.zero?
 
       range = { id: vps.vita_partner_id }
       if i.zero?
