@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_233133) do
+ActiveRecord::Schema.define(version: 2021_03_10_205504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -728,4 +728,34 @@ ActiveRecord::Schema.define(version: 2021_03_08_233133) do
   add_foreign_key "vita_partner_zip_codes", "vita_partners"
   add_foreign_key "vita_partners", "coalitions"
   add_foreign_key "vita_providers", "provider_scrapes", column: "last_scrape_id"
+
+  create_view "organization_capacities", sql_definition: <<-SQL
+      WITH organization_id_by_vita_partner_id AS (
+           SELECT vita_partners_1.id,
+                  CASE
+                      WHEN (vita_partners_1.parent_organization_id IS NULL) THEN vita_partners_1.id
+                      ELSE vita_partners_1.parent_organization_id
+                  END AS organization_id
+             FROM vita_partners vita_partners_1
+          ), client_ids AS (
+           SELECT DISTINCT tax_returns.client_id
+             FROM tax_returns
+            WHERE ((tax_returns.status > 101) AND (tax_returns.status < 403) AND (tax_returns.status <> 106) AND (tax_returns.status <> 404))
+          ), partner_and_client_counts AS (
+           SELECT organization_id_by_vita_partner_id.organization_id,
+              count(clients.id) AS active_client_count
+             FROM (organization_id_by_vita_partner_id
+               LEFT JOIN clients ON ((organization_id_by_vita_partner_id.id = clients.vita_partner_id)))
+            WHERE (clients.id IN ( SELECT client_ids.client_id
+                     FROM client_ids))
+            GROUP BY organization_id_by_vita_partner_id.organization_id
+          )
+   SELECT vita_partners.id AS vita_partner_id,
+      vita_partners.name,
+      vita_partners.capacity_limit,
+      partner_and_client_counts.active_client_count
+     FROM (vita_partners
+       LEFT JOIN partner_and_client_counts ON ((vita_partners.id = partner_and_client_counts.organization_id)))
+    WHERE (vita_partners.parent_organization_id IS NULL);
+  SQL
 end
