@@ -53,8 +53,9 @@ class TaxReturnStatus
   STAGES = STATUSES_BY_STAGE.keys.freeze
   TERMINAL_STATUSES = [:file_accepted, :file_rejected, :file_mailed].freeze
   # If you change the statuses included in capacity, please also update the organization capacities sql view
-  # status > 101 AND status < 403 AND status != 106 AND status != 404
-  STATUS_KEYS_INCLUDED_IN_CAPACITY = (STATUSES.keys - TERMINAL_STATUSES - ONBOARDING_STATUSES).freeze
+  # tax_returns.status >= 102 AND tax_returns.status <= 404 AND tax_returns.status != 403 AND tax_returns.status != 106
+  EXCLUDED_FROM_CAPACITY = (ONBOARDING_STATUSES + [:file_mailed, :file_accepted, :file_not_filing]).freeze
+  STATUS_KEYS_INCLUDED_IN_CAPACITY = (STATUSES.keys - EXCLUDED_FROM_CAPACITY).freeze
 
   def self.message_template_for(status, locale = "en")
     message_templates[status.to_sym] ? I18n.t(message_templates[status.to_sym], locale: locale) : ""

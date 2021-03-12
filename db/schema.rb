@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_205504) do
+ActiveRecord::Schema.define(version: 2021_03_12_004659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -740,7 +740,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_205504) do
           ), client_ids AS (
            SELECT DISTINCT tax_returns.client_id
              FROM tax_returns
-            WHERE ((tax_returns.status > 101) AND (tax_returns.status < 403) AND (tax_returns.status <> 106) AND (tax_returns.status <> 404))
+            WHERE ((tax_returns.status >= 102) AND (tax_returns.status <= 404) AND (tax_returns.status <> 403) AND (tax_returns.status <> 106))
           ), partner_and_client_counts AS (
            SELECT organization_id_by_vita_partner_id.organization_id,
               count(clients.id) AS active_client_count
@@ -753,7 +753,10 @@ ActiveRecord::Schema.define(version: 2021_03_10_205504) do
    SELECT vita_partners.id AS vita_partner_id,
       vita_partners.name,
       vita_partners.capacity_limit,
-      partner_and_client_counts.active_client_count
+          CASE
+              WHEN (partner_and_client_counts.active_client_count IS NULL) THEN (0)::bigint
+              ELSE partner_and_client_counts.active_client_count
+          END AS active_client_count
      FROM (vita_partners
        LEFT JOIN partner_and_client_counts ON ((vita_partners.id = partner_and_client_counts.organization_id)))
     WHERE (vita_partners.parent_organization_id IS NULL);
