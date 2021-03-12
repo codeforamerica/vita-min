@@ -130,7 +130,6 @@ describe VitaPartner do
       let(:parent_organization) { create :organization, capacity_limit: 10 }
       let(:site) { create :site, parent_organization: parent_organization }
 
-
       context "when parent org is at capacity" do
         before do
           10.times do
