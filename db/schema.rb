@@ -18,14 +18,17 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
   enable_extension "postgis"
 
   create_table "access_logs", force: :cascade do |t|
-    t.bigint "client_id", null: false
+    t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.string "event_type", null: false
     t.inet "ip_address"
+    t.bigint "record_id"
+    t.string "record_type"
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_agent", null: false
     t.bigint "user_id", null: false
     t.index ["client_id"], name: "index_access_logs_on_client_id"
+    t.index ["record_type", "record_id"], name: "index_access_logs_on_record_type_and_record_id"
     t.index ["user_id"], name: "index_access_logs_on_user_id"
   end
 

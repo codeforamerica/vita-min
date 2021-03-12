@@ -15,6 +15,8 @@ RSpec.feature "View and edit documents for a client" do
     end
 
     scenario "view document list and edit document attributes" do
+      page.driver.header("User-Agent", "GeckoFox")
+
       visit hub_client_documents_path(client_id: client.id)
 
       expect(page).to have_selector("h1", text: "Bart Simpson")
