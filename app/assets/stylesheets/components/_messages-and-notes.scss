@@ -15,8 +15,28 @@
   margin-bottom: 2px;
 }
 
-li.message-wrapper {
-  display: flex;
+@mixin system_note {
+  background: transparentize($color-lavender, .9);
+  border-color: transparentize($color-lavender, .8);
+}
+
+ul.day-list {
+  margin-top: 0;
+  li {
+    display: flex;
+  }
+  .day-heading {
+    justify-content: center;
+    color: $color-grey-dark;
+    border-top: 1px solid $color-grey;
+    padding: 2.5rem 0 0;
+    margin: 0 0 1.5rem;
+    font-size: 1.6rem;
+    &:first-of-type {
+      border-top: 0px;
+      padding-top: 0px;
+    }
+  }
 }
 
 .message {
@@ -24,11 +44,10 @@ li.message-wrapper {
   padding: 0 12rem 2rem 12rem;
   &--system-note, &--outbound_call {
     .message__body {
-      background: transparentize($color-lavender, .8);
-      border-color: transparentize($color-lavender, .8);
+      @include system_note;
     }
     .message__time {
-      border-bottom: 1px solid darken($color-grey-light, 5%);
+      border-color: transparentize($color-lavender, .8);
     }
   }
 
@@ -88,14 +107,13 @@ li.message-wrapper {
     color: grey;
     margin-bottom: 1rem;
     border-bottom: 1px solid $color-grey-light;
-
   }
 
   &__day-heading {
-    text-align: center;
+    justify-content: center;
     color: $color-grey-dark;
     border-top: 1px solid $color-grey;
-    padding: 2.5rem 0 1.5rem;
+    padding: 2.5rem 0 0;
     margin: 0 0 1.5rem;
     font-size: 1.6rem;
     &:first-of-type {
@@ -170,7 +188,9 @@ li.message-wrapper {
   display: flex;
   flex-direction: column;
   margin-bottom: 1.5rem;
+  &__day-heading {
 
+  }
   &__heading {
     display: flex;
     justify-content: space-between;
@@ -181,18 +201,19 @@ li.message-wrapper {
     @include message_heading;
     font-weight: bold;
     font-size: 1.4rem;
+    padding-left: 1rem; // match indention to body
   }
   &__time {
     font-size: 1.2rem;
     color: $color-grey-medium;
+    padding-right: 1rem;
   }
   &__body {
     @include message_body;
   }
   &.system-note {
     .note__body {
-      background: transparentize($color-lavender, .8);
-      border-color: transparentize($color-lavender, .8);
+      @include system_note;
     }
   }
 }

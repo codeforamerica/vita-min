@@ -8,10 +8,10 @@
   <div class="slab slab--padded">
     <div class="client-container">
       <% if @messages_by_day.present? %>
-        <ul class="message-list" aria-live="polite" data-js="messages-pub-sub" data-client-id="<%=@client.id%>">
+        <ul class="day-list" aria-live="polite" data-js="messages-pub-sub" data-client-id="<%=@client.id%>">
 
           <% @messages_by_day.each_with_index do |(datetime, contact_records), day_index| %>
-            <li class="message__day-heading"><%= date_heading(datetime) %></li>
+            <li class="day-heading"><%= date_heading(datetime) %></li>
 
             <% contact_records.each_with_index do |contact_record, contact_record_index| %>
               <% if contact_record_index == (contact_records.size - 1) && day_index == (@messages_by_day.size - 1) %>

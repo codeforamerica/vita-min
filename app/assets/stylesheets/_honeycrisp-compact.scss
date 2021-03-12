@@ -281,5 +281,9 @@
   .client-navigation {
     @include no-bleed();
   }
+
+  .client-container {
+    width: 760px;
+  }
 }
 
