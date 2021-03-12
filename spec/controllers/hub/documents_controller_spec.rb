@@ -76,36 +76,43 @@ RSpec.describe Hub::DocumentsController, type: :controller do
       end
 
       context "sorting and ordering" do
+        let!(:earlier_identity_document) { create :document, document_type: DocumentTypes::Identity.key, display_name: "Alligator doc", created_at: 1.hour.ago, client: client, tax_return: create(:tax_return, year: "2019", client: client) }
+        let!(:later_employment_document) { create :document, document_type: DocumentTypes::Employment.key, display_name: "Zebra doc", created_at: 1.minute.ago, client: client, tax_return: create(:tax_return, year: "2020", client: client) }
+
         context "with a sort param" do
           let(:params) { { client_id: client.id, column: "created_at", order: "desc" } }
-          let!(:earlier_document) { create :document, display_name: "Alligator doc", created_at: 1.hour.ago, client: client }
-          let!(:later_document) { create :document, display_name: "Zebra doc", created_at: 1.minute.ago, client: client }
 
           it "orders documents by that column" do
             get :index, params: params
 
             expect(assigns[:sort_column]).to eq("created_at")
             expect(assigns[:sort_order]).to eq("desc")
-            expect(assigns(:documents)).to eq [later_document, earlier_document]
+            expect(assigns(:documents)).to eq [later_employment_document, earlier_identity_document]
+          end
+
+          context "when sorting by tax_returns.year" do
+            let(:params) { { client_id: client.id, column: "tax_returns.year", order: "desc" } }
+            it "orders documents by that column" do
+              get :index, params: params
+
+              expect(assigns[:sort_column]).to eq("tax_returns.year")
+              expect(assigns[:sort_order]).to eq("desc")
+              expect(assigns(:documents)).to eq [later_employment_document, earlier_identity_document]
+            end
           end
         end
 
         context "with no params" do
           let(:params) { { client_id: client.id } }
-          let!(:identity_document) { create :document, client: client, document_type: DocumentTypes::Identity.key, display_name: "alligator doc" }
-          let!(:employment_document) { create :document, client: client, document_type: DocumentTypes::Employment.key, display_name: "zebra doc" }
-
           it "defaults to sorting by document_type" do
             get :index, params: params
             expect(assigns[:sort_column]).to eq("document_type")
             expect(assigns[:sort_order]).to eq("asc")
-            expect(assigns(:documents)).to eq [employment_document, identity_document]
+            expect(assigns(:documents)).to eq [later_employment_document, earlier_identity_document]
           end
         end
 
         context "with bad sort param" do
-          let!(:identity_document) { create :document, client: client, document_type: DocumentTypes::Identity.key, display_name: "alligator doc" }
-          let!(:employment_document) { create :document, client: client, document_type: DocumentTypes::Employment.key, display_name: "zebra doc" }
           let(:params) { { client_id: client.id, column: "bad_param", order: "nonsensical_order" } }
 
           it "defaults to sorting by document_type" do
@@ -113,7 +120,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
             expect(assigns[:sort_column]).to eq("document_type")
             expect(assigns[:sort_order]).to eq("asc")
-            expect(assigns(:documents)).to eq [employment_document, identity_document]
+            expect(assigns(:documents)).to eq [later_employment_document, earlier_identity_document]
           end
         end
       end

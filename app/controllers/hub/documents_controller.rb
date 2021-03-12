@@ -12,7 +12,7 @@ module Hub
     def index
       @sort_order = sort_order
       @sort_column = sort_column
-      @documents = @documents.except(:order).order({ @sort_column => @sort_order })
+      @documents = @documents.except(:order).joins(:tax_return).merge(sort_query)
       @document = Document.new # used for form to upload documents
     end
 
@@ -67,11 +67,19 @@ module Hub
     end
 
     def sort_column
-      %w[created_at display_name document_type].include?(params[:column]) ? params[:column] : "document_type"
+      %w[created_at display_name document_type tax_returns.year].include?(params[:column]) ? params[:column] : "document_type"
     end
 
     def sort_order
       %w[asc desc].include?(params[:order]) ? params[:order] : "asc"
+    end
+
+    def sort_query
+      if @sort_column == "tax_returns.year"
+        TaxReturn.order(year: @sort_order)
+      else
+        Document.except(:order).order({ @sort_column => @sort_order })
+      end
     end
   end
 end
