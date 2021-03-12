@@ -4,6 +4,13 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   let(:organization) { create :organization }
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
   let(:client) { create :client, vita_partner: organization, intake: create(:intake, vita_partner: organization) }
+  let(:user_agent) { "GeckoFox" }
+  let(:ip_address) { "127.0.0.1" }
+
+  before do
+    request.remote_ip = ip_address
+    request.user_agent = user_agent
+  end
 
   describe "#index" do
     let(:params) { { client_id: client.id } }
@@ -153,7 +160,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
       end
 
       it "lists the available tax returns" do
-        get :new, params: params
+        get :edit, params: params
 
         tax_return_select = Nokogiri::HTML.parse(response.body).at_css("select#document_tax_return_id")
         expect(tax_return_select).to have_text "2020"
@@ -239,6 +246,19 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
         expect(response).to redirect_to(document_transient_url)
         expect(subject).to have_received(:transient_storage_url).with(document.upload.blob)
+      end
+
+      it "creates an access log with the logged in user" do
+        expect {
+          get :show, params: params
+        }.to change(AccessLog, :count).by(1)
+
+        access_log = AccessLog.last
+        expect(access_log.user).to eq user
+        expect(access_log.record).to eq document
+        expect(access_log.event_type).to eq "viewed_document"
+        expect(access_log.ip_address).to eq ip_address
+        expect(access_log.user_agent).to eq user_agent
       end
     end
   end

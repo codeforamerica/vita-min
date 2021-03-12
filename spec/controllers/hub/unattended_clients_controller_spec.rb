@@ -1,4 +1,3 @@
-
 require "rails_helper"
 
 RSpec.describe Hub::UnattendedClientsController, type: :controller do

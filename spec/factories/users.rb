@@ -47,13 +47,13 @@
 #
 FactoryBot.define do
   factory :user do
-    sequence(:email) { |n| "gary.gardengnome#{n}@example.green" }
+    sequence(:email) { |n| "gary.gardengnome#{n}@example.com" }
     sequence(:name) { |n| "Gary Gnome the #{n}th" }
     password { "userExamplePassword" }
     role { build(:greeter_role) }
 
     factory :organization_lead_user do
-      sequence(:email) { |n| "org.lead#{n}@example.green" }
+      sequence(:email) { |n| "org.lead#{n}@example.com" }
       sequence(:name) { |n| "Org Lead the #{n}th" }
 
       transient do
@@ -64,7 +64,7 @@ FactoryBot.define do
     end
 
     factory :coalition_lead_user do
-      sequence(:email) { |n| "coalition.lead#{n}@example.green" }
+      sequence(:email) { |n| "coalition.lead#{n}@example.com" }
       sequence(:name) { |n| "Coalition Lead the #{n}th" }
 
       transient do
@@ -75,7 +75,7 @@ FactoryBot.define do
     end
 
     factory :site_coordinator_user do
-      sequence(:email) { |n| "site.coordinator#{n}@example.green" }
+      sequence(:email) { |n| "site.coordinator#{n}@example.com" }
       sequence(:name) { |n| "Site Coordinator the #{n}th" }
 
       transient do
@@ -86,7 +86,7 @@ FactoryBot.define do
     end
 
     factory :team_member_user do
-      sequence(:email) { |n| "team.member#{n}@example.green" }
+      sequence(:email) { |n| "team.member#{n}@example.com" }
       sequence(:name) { |n| "Team Member the #{n}th" }
 
       transient do
@@ -97,21 +97,21 @@ FactoryBot.define do
     end
 
     factory :admin_user do
-      sequence(:email) { |n| "admin#{n}@example.green" }
+      sequence(:email) { |n| "admin#{n}@example.com" }
       sequence(:name) { |n| "Admin the #{n}th" }
 
       role { build(:admin_role) }
     end
 
     factory :greeter_user do
-      sequence(:email) { |n| "greeter#{n}@example.green" }
+      sequence(:email) { |n| "greeter#{n}@example.com" }
       sequence(:name) { |n| "Greeter the #{n}th" }
 
       role { build(:greeter_role) }
     end
 
     factory :client_success_user do
-      sequence(:email) { |n| "client.success#{n}@example.green" }
+      sequence(:email) { |n| "client.success#{n}@example.com" }
       sequence(:name) { |n| "Client Success the #{n}th" }
 
       role { build(:client_success_role) }
