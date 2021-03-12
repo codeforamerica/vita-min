@@ -10,13 +10,22 @@
   }
 }
 
+@mixin message_heading {
+  font-size: 1.4rem;
+  margin-bottom: 2px;
+}
+
+li.message-wrapper {
+  display: flex;
+}
+
 .message {
+  display: flex;
   padding: 0 12rem 2rem 12rem;
-  width: fit-content;
   &--system-note, &--outbound_call {
     .message__body {
-      background-color: $color-grey-light;
-      border-color: $color-grey-light;
+      background: transparentize($color-lavender, .8);
+      border-color: transparentize($color-lavender, .8);
     }
     .message__time {
       border-bottom: 1px solid darken($color-grey-light, 5%);
@@ -24,12 +33,10 @@
   }
 
   &__heading {
+    @include message_heading;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    font-size: 1.4rem;
-    margin-bottom: 2px;
-    line-height: 2rem;
   }
 
   &__contact-info {
@@ -50,14 +57,13 @@
     &::before {
       font-family: $font-icon;
       content: "";
-      font-size: 1.8rem;
+      font-size: 1.6rem;
     }
     font-weight: bold;
   }
 
   &__status {
-    font-size: 1.4rem;
-    height: 20px;
+    height: 1.5rem;
   }
 
   &__body {
@@ -88,11 +94,14 @@
   &__day-heading {
     text-align: center;
     color: $color-grey-dark;
-    border-bottom: 1px solid $color-grey-light;
-    border-top: 1px solid $color-grey-light;
-    padding: 10px;
+    border-top: 1px solid $color-grey;
+    padding: 2.5rem 0 1.5rem;
     margin: 0 0 1.5rem;
     font-size: 1.6rem;
+    &:first-of-type {
+      border-top: 0px;
+      padding-top: 0px;
+    }
   }
 
   &--hr {
@@ -106,9 +115,10 @@
     }
   }
 
-
   &--outgoing_text_message, &--outgoing, &--outgoing_email, &--outbound_call {
     padding-right: 0;
+    display: flex;
+    justify-content: flex-end;
     .message__heading {
       flex-direction: row-reverse;
     }
@@ -168,6 +178,8 @@
     margin-bottom: .3rem;
   }
   &__author {
+    @include message_heading;
+    font-weight: bold;
     font-size: 1.4rem;
   }
   &__time {
@@ -179,8 +191,8 @@
   }
   &.system-note {
     .note__body {
-      background: $color-grey-light;
-      border-color: $color-grey-light;
+      background: transparentize($color-lavender, .8);
+      border-color: transparentize($color-lavender, .8);
     }
   }
 }
