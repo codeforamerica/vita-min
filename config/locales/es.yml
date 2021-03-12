@@ -1595,7 +1595,7 @@ es:
         title: Algunas cosas más ...
         cta: Continuar
         help_text_html: "Respetamos su privacidad. <strong>Tiene la opción</strong> de dar su consentimiento para lo siguiente:"
-        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank">Consentimiento de uso:</a> Usted nos permite incluir su declaración de impuestos en informes.
+        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank">Consentimiento para usar:</a> Usted nos permite incluir su declaración de impuestos en informes.
         consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
         relational_efin_html: <a href="%{relational_efin_url}" target="_blank">EFIN Relacional:</a> usted permite que la oficina de impuestos que prepara su declaración reporte sus datos a su organización matriz.
         global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank">Traslado global:</a> usted nos permite poner la información de su declaración de impuestos a disposición de otros programas de VITA que pueda visitar.
@@ -2221,6 +2221,49 @@ es:
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
         search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
+    consent_pages:
+      consent_to_use:
+        title: Consentimiento para usar
+        content_html: |
+          La ley Federal requiere que le proporcionemos este formulario de consentimiento a usted (con usted, se refiere a cada contribuyente, si hubiera más de uno). A menos de que lo autorice la ley, no podemos divulgar, sin su consentimiento su información de declaración de impuestos a terceros con fines distintos a la preparación y presentación de su declaración de impuestos. Si usted consiente en la divulgación de su información de declaración de impuestos, la ley federal pudiera no proteger su información de declaración de impuestos de un uso o distribución posterior.
+
+          No se le requiere completar este formulario para recibir nuestros servicios de preparación de declaraciones de impuestos. Si obtenemos su firma en este formulario condicionando nuestros servicios de preparación de declaraciones de impuestos a su consentimiento, su consentimiento no será válido. Si acepta la divulgación de su información de declaración de impuestos, su consentimiento es válido por el tiempo que especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de la firma.
+
+          <strong>Autorizo el sitio VITA:</strong>
+
+          Uso por 1 año: Autorizo al sitio VITA a usar información no identificativa de mi declaración de impuestos para compilar informes agregados a los donantes existentes y potenciales.
+
+          Para propósitos de 1 año: La información de declaración de impuestos será utilizada para medir los resultados del programa con el fin de asegurar la financiación continua para el programa VITA.
+
+          Si usted cree que la información de su declaración de impuestos ha sido divulgada o utilizada indebidamente de una manera no autorizada por la ley o sin su permiso, puede comunicarse con el Inspector General del Tesoro para la Administración Tributaria (TIGTA, por sus siglas en inglés) por teléfono al 1-800-366-4484 o por correo electrónico a complaints@tigta.treas.gov.
+      consent_to_disclose:
+        title: Consentimiento para divulgar
+        content_html: |
+          La ley Federal requiere que le proporcionemos este formulario de consentimiento a usted (con usted, se refiere a cada contribuyente, si hubiera más de uno). A menos de que lo autorice la ley, no podemos divulgar, sin su consentimiento su información de declaración de impuestos a terceros con fines distintos a la preparación y presentación de su declaración de impuestos. Si usted consiente en la divulgación de su información de declaración de impuestos, la ley federal pudiera no proteger su información de declaración de impuestos de un uso o distribución posterior.
+
+          No se le requiere completar este formulario para recibir nuestros servicios de preparación de declaraciones de impuestos. Si obtenemos su firma en este formulario condicionando nuestros servicios de preparación de declaraciones de impuestos a su consentimiento, su consentimiento no será válido. Si acepta la divulgación de su información de declaración de impuestos, su consentimiento es válido por el tiempo que especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de la firma.
+
+          <strong>Autorizo el sitio VITA:</strong>
+
+          Divulgación de 1 año: Le autorizo al sitio VITA  divulgar mi información fiscal personal al software fiscal (TaxSlayer) y/o a la o las instituciones financieras que especifique (si las hubiera).
+
+          Para propósitos de 1 año: La información fiscal personal se le divulgará al software fiscal (TaxSlayer) para fines de presentación electrónica, y a la institución o las instituciones financieras para depósito directo o débito (si procede).
+
+          Si usted cree que la información de su declaración de impuestos ha sido divulgada o utilizada indebidamente de una manera no autorizada por la ley o sin su permiso, puede comunicarse con el Inspector General del Tesoro para la Administración Tributaria (TIGTA, por sus siglas en inglés) por teléfono al 1-800-366-4484 o por correo electrónico a complaints@tigta.treas.gov.
+      relational_efin:
+        title: EFIN relacional
+        content_html: |
+          La ley Federal requiere que le proporcionemos este formulario de consentimiento a usted (con usted, se refiere a cada contribuyente, si hubiera más de uno). A menos de que lo autorice la ley, no podemos divulgar, sin su consentimiento su información de declaración de impuestos a terceros con fines distintos a la preparación y presentación de su declaración de impuestos. Si usted consiente en la divulgación de su información de declaración de impuestos, la ley federal pudiera no proteger su información de declaración de impuestos de un uso o distribución posterior.
+
+          No se le requiere completar este formulario para recibir nuestros servicios de preparación de declaraciones de impuestos. Si obtenemos su firma en este formulario condicionando nuestros servicios de preparación de declaraciones de impuestos a su consentimiento, su consentimiento no será válido. Si acepta la divulgación de su información de declaración de impuestos, su consentimiento es válido por el tiempo que especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de la firma.
+
+          <strong>Autorizo el sitio VITA:</strong>
+
+          Divulgación de 3 años: El Preparador de Impuestos divulgará la Información Personal al Desarrollador de Software a través del software de preparación de impuestos del Desarrollador de Software. El desarrollador de software divulgará la Información Personal a la Oficina Relacional/Relational Office del programa VITA.
+
+          Para propósitos de 3 años: El propósito de la divulgación es con el fin de que el Desarrollador de Software le proporcione la Información Personal del Contribuyente al programa VITA de la Oficina Relational/Relational Office de manera que puedan proporcionar apoyo y asistencia administrativa al Preparador de Impuestos.
+      global_carryforward:
+        title: Traslado global
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
