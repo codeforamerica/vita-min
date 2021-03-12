@@ -1,13 +1,12 @@
 .tax-return-list {
-  font-size: 1.6rem;
+  font-size: $font-size-18;
   margin: 0;
-
   a {
     color: black;
   }
 
   .certification-label {
-    width: 80px;
+    width: 60px;
     text-align: center;
 
     &.label--unassigned {
@@ -29,7 +28,7 @@
 
     .select__element {
       line-height: 2.5;
-      font-size: 1.6rem;
+      font-size: $font-size-18;
       padding: 0 4rem 0 1.5rem;
       width: 315px;
     }
@@ -42,7 +41,6 @@
   li {
     align-items: center;
     display: flex;
-    justify-content: flex-end;
     line-height: 3.5rem;
     min-height: 60px;
   }
@@ -51,6 +49,7 @@
     position: relative;
     border: 2px solid black;
     min-height: 44px;
+    min-width: 175px;
     display: flex;
     align-items: center;
     font-weight: normal;
@@ -68,12 +67,13 @@
     }
 
     button {
-      margin-left: 5px;
       display: flex;
+      height: 20px;
+      width: 20px;
+      padding: 3px;
 
       img {
-        height: 16px;
-        height: 16px;
+        height: 100%;
       }
     }
 
@@ -83,24 +83,35 @@
       justify-content: flex-end;
       align-items: center;
       position: absolute;
-      top: -28px;
+      top: -18px;
       margin: 0;
     }
 
     .offset-label {
       position: absolute;
       top: -24px;
-      font-size: 1.6rem;
+      font-size: $font-size-18;
       font-weight: bold;
       left: 0;
     }
   }
 
   &__assignee {
-    font-size: 1.6rem;
-    font-weight: bold;
+    font-size: 1.4rem;
     margin-right: 1.25rem;
-    flex-grow: 1;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 175px;
+    a {
+      display: block;
+      overflow: auto;
+      text-overflow: ellipsis;
+      text-decoration: none;
+      line-height: $font-size-18;
+    }
+    a.button {
+      display: inline;
+    }
     .button {
       margin-right: 0;
     }
@@ -108,23 +119,23 @@
 
   &__assignment {
     font-size: 1.4rem;
-    flex-grow: 1;
     display: flex;
-    min-height: 60px;
+    min-height: 65px;
     align-items: center;
     > div {
       margin-right: 5px;
     }
   }
 
-  &__certification {
-    margin-right: 1.5rem;
+  &__right {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  &__status-form {
-    .button {
-      height: 44px;
-    }
+  &__certification {
+    margin-right: 1.5rem;
   }
 
   &__service-type {
@@ -135,19 +146,8 @@
 
   &__year {
     font-weight: bold;
-    font-size: 1.6rem;
+    font-size: $font-size-18;
     margin-right: $s10;
-  }
-}
-
-// Style the component a bit differently on the client header where we have more room.
-.client-header {
-  .tax-return-list__assignment {
-    width: 300px;
-  }
-
-  .tax-return-list__service-type {
-    width: 4rem;
   }
 }
 
@@ -156,7 +156,7 @@
   color: black;
   text-transform: none;
   font-size: $font-size-18;
-  line-height: 1.6rem;
+  line-height: $font-size-18;
   padding: $s5 $s10;
   border: 1px solid $color-green-money;
 }
