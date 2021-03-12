@@ -1,2 +1,2 @@
 0 0 * * 0 bundle exec rake vita_providers:scrape_vita_providers
-@hourly bundle exec rake client_surveys:send_client_in_progress_surveys
+20 21 * * 1-5 bundle exec rake client_surveys:send_client_in_progress_surveys
