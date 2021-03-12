@@ -227,6 +227,7 @@ en:
         file_rejected: Rejected
         file_accepted: Accepted
         file_not_filing: Not filing
+        file_hold: Hold
     status_macros:
       needs_more_information: |
         Hello <<Client.PreferredName>>,
