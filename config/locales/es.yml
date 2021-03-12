@@ -228,7 +228,7 @@ es:
         file_rejected: Rechazado
         file_accepted: Aceptado
         file_not_filing: No archivar
-        file_hold: Agarre
+        file_hold: En pausa
     status_macros:
       needs_more_information: |
         ¡Hola <<Client.PreferredName>>!
