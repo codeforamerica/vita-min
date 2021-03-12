@@ -44,7 +44,7 @@ RSpec.feature "Read and send messages to a client", js: true do
         click_on "Send"
       end
 
-      within(".message-list") do
+      within(".day-list") do
         expect(page).to have_text "Example text message"
       end
     end
@@ -63,7 +63,7 @@ RSpec.feature "Read and send messages to a client", js: true do
         click_on "Send"
       end
 
-      within(".message-list") do
+      within(".day-list") do
         expect(page).to have_text "Example email"
         expect(page).to have_text "document_bundle.pdf"
       end

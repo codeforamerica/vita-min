@@ -42,7 +42,7 @@ ul.day-list {
 .message {
   display: flex;
   padding: 0 12rem 2rem 12rem;
-  &--system-note, &--outbound_call {
+  &--system_note, &--outbound_call {
     .message__body {
       @include system_note;
     }
@@ -145,7 +145,7 @@ ul.day-list {
     }
   }
 
-  &--incoming_text_message, &--incoming, &--incoming_email, &--system-note {
+  &--incoming_text_message, &--incoming, &--incoming_email, &--system_note {
     padding-left: 0;
   }
 
@@ -211,7 +211,7 @@ ul.day-list {
   &__body {
     @include message_body;
   }
-  &.system-note {
+  &.system_note {
     .note__body {
       @include system_note;
     }

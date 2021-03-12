@@ -45,7 +45,7 @@ class SystemNote::SignedDocument < SystemNote
   end
 
   def contact_record_type
-    "system-note"
+    "system_note"
   end
 
   def datetime

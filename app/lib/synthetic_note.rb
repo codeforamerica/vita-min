@@ -20,7 +20,7 @@ class SyntheticNote
       SyntheticNote.new(
         created_at: values[-1].created_at,
         body: I18n.t("hub.notes.index.document_note", count: values.length),
-        contact_record_type: "system-note"
+        contact_record_type: "system_note"
       )
     end
   end

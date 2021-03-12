@@ -27,6 +27,6 @@ class SystemNote < ApplicationRecord
   validates_presence_of :body
 
   def contact_record_type
-    "system-note"
+    "system_note"
   end
 end
