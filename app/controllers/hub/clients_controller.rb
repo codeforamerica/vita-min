@@ -56,8 +56,15 @@ module Hub
     end
 
     def response_needed
-      @client.clear_response_needed if params.fetch(:client, {})[:action] == "clear"
-      @client.set_response_needed! if params.fetch(:client, {})[:action] == "set"
+      case response_needed_params[:action]
+      when "clear"
+        @client.clear_response_needed
+        SystemNote::ResponseNeededToggledOff.generate!(client: @client, initiated_by: current_user)
+      when "set"
+        @client.set_response_needed!
+        SystemNote::ResponseNeededToggledOn.generate!(client: @client, initiated_by: current_user)
+      end
+
       redirect_back(fallback_location: hub_client_path(id: @client.id))
     end
 
@@ -91,6 +98,10 @@ module Hub
     end
 
     private
+
+    def response_needed_params
+      params.require(:client).permit(:action)
+    end
 
     def update_client_form_params
       params.require(UpdateClientForm.form_param).permit(UpdateClientForm.permitted_params)

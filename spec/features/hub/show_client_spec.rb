@@ -37,12 +37,6 @@ RSpec.describe "a user viewing a client" do
         click_button("button")
         expect(page).to have_text("BAS")
         expect(page).not_to have_css(".tax-return-inline-form")
-
-        # change from basic to basic hsa
-        click_on("BAS")
-        check "is_hsa"
-        click_button("button")
-        expect(page).to have_text("BAS | HSA")
       end
     end
   end

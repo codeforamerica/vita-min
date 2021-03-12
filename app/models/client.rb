@@ -9,6 +9,7 @@
 #  current_sign_in_ip                       :inet
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
+#  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
 #  last_sign_in_at                          :datetime
@@ -25,8 +26,9 @@
 #
 # Indexes
 #
-#  index_clients_on_login_token      (login_token)
-#  index_clients_on_vita_partner_id  (vita_partner_id)
+#  index_clients_on_in_progress_survey_sent_at  (in_progress_survey_sent_at)
+#  index_clients_on_login_token                 (login_token)
+#  index_clients_on_vita_partner_id             (vita_partner_id)
 #
 # Foreign Keys
 #
@@ -105,6 +107,15 @@ class Client < ApplicationRecord
     phone_number_matches = phone_number.present? ? Intake.where(phone_number: phone_number) : Intake.none
     sms_phone_number_matches = phone_number.present? ? Intake.where(sms_phone_number: phone_number) : Intake.none
     where(intake: email_matches.or(spouse_email_matches).or(phone_number_matches).or(sms_phone_number_matches))
+  end
+
+  scope :needs_in_progress_survey, -> do
+    where(in_progress_survey_sent_at: nil)
+      .includes(:tax_returns).where(tax_returns: { status: "intake_in_progress" })
+      .includes(:intake).where("primary_consented_to_service_at < ?", 10.days.ago)
+      .includes(:incoming_text_messages).where(incoming_text_messages: { client_id: nil })
+      .includes(:incoming_emails).where(incoming_emails: { client_id: nil })
+      .includes(:documents).where("documents.client_id IS NULL OR documents.created_at < (interval '1 day' + clients.created_at)")
   end
 
   def legal_name

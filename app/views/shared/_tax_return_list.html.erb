@@ -4,57 +4,64 @@
   <% client.tax_returns.each do |tax_return| %>
     <li id="tax-return-<%= tax_return.id %>">
       <div class="tax-return-list__assignment">
-        <span class="tax-return-list__year">
+        <div class="tax-return-list__year">
           <%= tax_return.year %>
-          &nbsp;
-        </span>
-        <span class="tax-return-list__service-type"><%
-          if tax_return.service_type == "drop_off"
-        %><span class="icon-move_to_inbox" aria-hidden="true" role="img"></span><span class="sr-only"><%=
+        </div>
+        <div class="tax-return-list__service-type">
+          <% if tax_return.service_type == "drop_off" %>
+            <span class="icon-move_to_inbox" aria-hidden="true" role="img"></span>
+            <span class="sr-only"><%=
           t("general.drop_off")
-        %></span><% end %></span><span class ="tax-return-list__assignee">
-          <%= render "hub/tax_returns/assignee", tax_return: tax_return %>
-        </span>
-      </div>
+        %></span>
+          <% end %>
+        </div>
 
-      <div class="tax-return-list__certification">
-        <% if params[:update_cert] && params[:tax_return_id]&.to_i == tax_return.id %>
-          <%= render "shared/tax_return_certification_form", tax_return: tax_return %>
-        <% else %>
-          <% if status_updateable %>
-            <%= link_to update_cert: true, tax_return_id: tax_return.id do %>
+        <div class ="tax-return-list__assignee">
+          <%= render "hub/tax_returns/assignee", tax_return: tax_return %>
+        </div>
+      </div>
+      <div class="tax-return-list__right">
+        <div class="tax-return-list__certification">
+          <% if params[:update_cert] && params[:tax_return_id]&.to_i == tax_return.id %>
+            <%= render "shared/tax_return_certification_form", tax_return: tax_return %>
+          <% else %>
+            <% if status_updateable %>
+              <%= link_to update_cert: true, tax_return_id: tax_return.id do %>
+                <%= certification_label(tax_return) %>
+              <% end %>
+            <% else %>
               <%= certification_label(tax_return) %>
             <% end %>
-          <% else %>
-            <%= certification_label(tax_return) %>
           <% end %>
+        </div>
+
+        <% if status_updateable %>
+          <%= form_with model: tax_return, url: edit_take_action_hub_client_path(id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "tax-return-list__status-form form-wrapper"} do |f| %>
+            <%= f.hidden_field "id", value: tax_return.id %>
+            <div>
+              <label for=<%= "tax_return_status_#{tax_return.id}"%>>
+                <div class="sr-only"><%= t("general.status") %></div>
+                <div class="select">
+                  <select name="tax_return[status]" class="select__element" id=<%= "tax_return_status_#{tax_return.id}"%>>
+                    <option value></option>
+                    <% TaxReturnStatus.available_statuses_for(current_user).each do |stage, statuses| %>
+                      <optgroup label=<%= stage_translation(stage) %>></optgroup>
+                      <% statuses.each do |status| %>
+                        <option value="<%= status %>" <%= tax_return.status == status.to_s && "selected" %>>&emsp;<%= status_translation(status) %></option>
+                      <% end %>
+                    <% end %>
+                  </select>
+                </div>
+              </label>
+            </div>
+            <%= f.submit "Update", class: "button"%>
+          <% end %>
+        <% else %>
+          <div>
+            <div class="tax-return-list__status label label--status"><%= stage_translation_from_status(tax_return.status) %>/<%= status_translation(tax_return.status) %></div>
+          </div>
         <% end %>
       </div>
-
-      <% if status_updateable %>
-        <%= form_with model: tax_return, url: edit_take_action_hub_client_path(id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "tax-return-list__status-form form-wrapper"} do |f| %>
-          <%= f.hidden_field "id", value: tax_return.id %>
-          <div>
-            <label for=<%= "tax_return_status_#{tax_return.id}"%>>
-              <div class="sr-only"><%= t("general.status") %></div>
-              <div class="select">
-                <select name="tax_return[status]" class="select__element" id=<%= "tax_return_status_#{tax_return.id}"%>>
-                  <option value></option>
-                  <% TaxReturnStatus.available_statuses_for(current_user).each do |stage, statuses| %>
-                    <optgroup label=<%= stage_translation(stage) %>></optgroup>
-                    <% statuses.each do |status| %>
-                      <option value="<%= status %>" <%= tax_return.status == status.to_s && "selected" %>>&emsp;<%= status_translation(status) %></option>
-                    <% end %>
-                  <% end %>
-                </select>
-              </div>
-            </label>
-          </div>
-          <%= f.submit "Update", class: "button button--small"%>
-        <% end %>
-      <% else %>
-        <div class="tax-return-list__status label label--status"><%= stage_translation_from_status(tax_return.status) %>/<%= status_translation(tax_return.status) %></div>
-      <% end %>
     </li>
   <% end %>
 </ul>

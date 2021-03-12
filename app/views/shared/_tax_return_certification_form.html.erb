@@ -7,9 +7,6 @@
     <%= f.select :certification_level, certification_options_for_select, include_blank: true, selected: tax_return.certification_level %>
   </label>
   <%= hidden_field_tag :next, request.path.split("?")[0] %>
-  <label for="is_hsa">
-    <%= f.check_box :is_hsa, checked: tax_return.is_hsa? %><%= "#{t("general.hsa")}?" %>
-  </label>
   <div>
     <%= f.button :submit do %>
       <span class="sr-only"><%= t("general.save") %></span>

@@ -9,6 +9,7 @@
 #  current_sign_in_ip                       :inet
 #  failed_attempts                          :integer          default(0), not null
 #  first_unanswered_incoming_interaction_at :datetime
+#  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
 #  last_sign_in_at                          :datetime
@@ -25,8 +26,9 @@
 #
 # Indexes
 #
-#  index_clients_on_login_token      (login_token)
-#  index_clients_on_vita_partner_id  (vita_partner_id)
+#  index_clients_on_in_progress_survey_sent_at  (in_progress_survey_sent_at)
+#  index_clients_on_login_token                 (login_token)
+#  index_clients_on_vita_partner_id             (vita_partner_id)
 #
 # Foreign Keys
 #

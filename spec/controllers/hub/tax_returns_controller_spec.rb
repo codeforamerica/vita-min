@@ -6,8 +6,8 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
   let(:site) { create :site, parent_organization: organization }
 
   let!(:organization_lead) { create :organization_lead_user, organization: organization }
-  let!(:site_coordinator) { create :site_coordinator_user, site: site }
-  let!(:team_member) { create :team_member_user, site: site }
+  let!(:site_coordinator) { create :site_coordinator_user, site: site, name: "Barbara" }
+  let!(:team_member) { create :team_member_user, site: site, name: "Aaron" }
 
   let(:currently_assigned_coalition_lead) { create :coalition_lead_user, coalition: coalition }
   let(:user) { currently_assigned_coalition_lead }
@@ -43,18 +43,22 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           get :edit, params: params, format: :js, xhr: true
 
           expect(response).to be_ok
-          expect(assigns(:assignable_users)).to match_array([user, currently_assigned_coalition_lead, organization_lead])
+          expect(assigns(:assignable_users)).to eq [user, currently_assigned_coalition_lead, organization_lead]
         end
       end
 
       context "client is assigned to a site" do
         let(:client_assigned_group) { site }
 
-        it "returns a list of site coordinators and team members at the client's assigned site + the assigned user + myself" do
+        it "returns a list of sorted site coordinators and team members at the client's assigned site + the assigned user + myself" do
           get :edit, params: params, format: :js, xhr: true
 
           expect(response).to be_ok
-          expect(assigns(:assignable_users)).to match_array([user, currently_assigned_coalition_lead, site_coordinator, team_member])
+          expect(assigns(:assignable_users).first).to eq user # current user should always be first
+          expect(assigns(:assignable_users).second).to eq currently_assigned_coalition_lead # current assignee should be second
+          # remaining are alphabetical ordering by name
+          expect(assigns(:assignable_users).third).to eq team_member # Aaron
+          expect(assigns(:assignable_users).fourth).to eq site_coordinator # Barbara
         end
       end
 
@@ -76,7 +80,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
     let(:assigned_user_id) { assigned_user.id }
     let(:params) {
       {
-        id: tax_return.id,
+        id: tax_return.id.to_s,
         assigned_user_id: assigned_user_id
       }
     }

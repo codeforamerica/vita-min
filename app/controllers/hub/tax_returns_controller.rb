@@ -26,19 +26,17 @@ module Hub
 
     def load_assignable_users
       @client = @tax_return.client
-      @assignable_users = User.where(id: [current_user.id, @tax_return.assigned_user_id])
+      @assignable_users = [current_user, @tax_return.assigned_user].compact
       if @client.vita_partner.present?
         if @client.vita_partner.site?
           team_members = User.where(role: TeamMemberRole.where(site: @client.vita_partner))
           site_coordinators = User.where(role: SiteCoordinatorRole.where(site: @client.vita_partner))
-          @assignable_users = @assignable_users.or(team_members).or(site_coordinators)
+          @assignable_users += team_members.or(site_coordinators).active.order(name: :asc)
         else # client.vita_partner is an organization
           org_leads = User.where(role: OrganizationLeadRole.where(organization: @client.vita_partner))
-          @assignable_users = @assignable_users.or(org_leads)
+          @assignable_users += org_leads.active.order(name: :asc)
         end
       end
-
-      @assignable_users = @assignable_users.active
     end
 
     def assign_params
@@ -48,7 +46,7 @@ module Hub
     def authorize_assignee
       return if assign_params[:assigned_user_id].blank?
 
-      raise CanCan::AccessDenied unless @assignable_users.find_by(id: assign_params[:assigned_user_id]).present?
+      raise CanCan::AccessDenied unless User.where(id: @assignable_users).where(id: assign_params[:assigned_user_id]).exists?
     end
   end
 end
