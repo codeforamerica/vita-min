@@ -709,6 +709,7 @@ es:
     responded_to_client: "Respondido al cliente"
     mark_for_response: "Marcar respuesta necesaria"
     needs_response: "Necesita respuesta"
+    received_unemployment_income: "Recibió compensación por desempleo"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
