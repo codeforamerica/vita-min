@@ -43,6 +43,11 @@
           <th scope="col" class="index-table__header">
             <%= render "shared/column_sort_link", title: t("general.language"), column_name: "locale" %>
           </th>
+
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t("general.ui"), column_name: "unemployment_income" %>
+          </th>
+
           <th scope="col" class="index-table__header">
             <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
           </th>
@@ -83,6 +88,7 @@
             <td class="index-table__cell"><%= client.id %></td>
             <td class="index-table__cell"><%= client.vita_partner&.name || t("general.none")  %></td>
             <td class="index-table__cell"><%= client.intake&.locale ? t("general.language_options.#{client.intake&.locale}") : t('general.NA') %></td>
+            <td class="index-table__cell"><%= "✓" if client.intake.had_unemployment_income_yes? %></td>
             <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
             <td class="index-table__cell"><%= formatted_datetime(client.response_needed_since) %></td>
 

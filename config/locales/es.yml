@@ -710,6 +710,7 @@ es:
     mark_for_response: "Marcar respuesta necesaria"
     needs_response: "Necesita respuesta"
     received_unemployment_income: "Recibió compensación por desempleo"
+    ui: "UI"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
