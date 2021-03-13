@@ -15,6 +15,7 @@ describe WeightedRoutingService do
       end
 
       context "when there are multiple vita partners with different routing fractions" do
+        let!(:zeroth_vps) { create :vita_partner_state, routing_fraction: 0.0, state: "RI" }
         let!(:first_vps) { create :vita_partner_state, routing_fraction: 0.2, state: "RI" }
         let!(:second_vps) { create :vita_partner_state, routing_fraction: 0.9, state: "RI" }
         let!(:third_vps) { create :vita_partner_state, routing_fraction: 0.0, state: "RI" }
