@@ -12,7 +12,7 @@ RSpec.describe Questions::AtCapacityController do
   describe ".show?" do
     context "when vita partner is at capacity" do
       before do
-        allow(vita_partner).to receive(:at_capacity?).and_return true
+        vita_partner.update(capacity_limit: 0)
       end
 
       it "returns true" do
@@ -22,7 +22,7 @@ RSpec.describe Questions::AtCapacityController do
 
     context "when vita partner is not yet at capacity" do
       before do
-        allow(vita_partner).to receive(:at_capacity?).and_return false
+        vita_partner.update(capacity_limit: 10000)
       end
 
       it "returns false" do
