@@ -1,6 +1,6 @@
 @mixin message_body {
   border: 1px solid $color-grey;
-  padding: 1rem 1rem 1rem;
+  padding: 1rem;
   border-radius: 3px;
   p {
     margin-bottom: 1rem;
@@ -29,8 +29,7 @@ ul.day-list {
     justify-content: center;
     color: $color-grey-dark;
     border-top: 1px solid $color-grey;
-    padding: 2.5rem 0 0;
-    margin: 0 0 1.5rem;
+    padding: 1.5rem 0;
     font-size: 1.6rem;
     &:first-of-type {
       border-top: 0px;
@@ -41,7 +40,7 @@ ul.day-list {
 
 .message {
   display: flex;
-  padding: 0 12rem 2rem 12rem;
+  padding: 0 12rem 1.5rem 12rem;
   &--system_note, &--outbound_call {
     .message__body {
       @include system_note;
@@ -104,7 +103,7 @@ ul.day-list {
 
   &__time {
     font-size: 1.2rem;
-    color: grey;
+    color: $color-grey-medium;
     margin-bottom: 1rem;
     border-bottom: 1px solid $color-grey-light;
   }
