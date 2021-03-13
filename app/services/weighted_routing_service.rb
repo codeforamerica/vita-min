@@ -1,26 +1,22 @@
 class WeightedRoutingService
   def initialize(collection)
-    @collection = collection
-    @balanced_total = @collection.sum(:routing_fraction)
+    @collection = collection.reject { |obj| obj.routing_fraction.zero? }
+    @balanced_total = collection.sum(:routing_fraction)
   end
 
   def weighted_routing_ranges
     routing_ranges = []
-
-    @collection.each_with_index do |obj, i|
-      next if obj.routing_fraction.zero?
-
+    next_range_start = 0.0
+    @collection.each_with_index do |obj|
       applied_routing_fraction = balanced_routing_fraction(obj.routing_fraction)
+
       range = { id: obj.vita_partner_id }
-      if i.zero?
-        range[:low] = 0.0
-        range[:high] = applied_routing_fraction
-      else
-        range[:low] = routing_ranges.last[:high]
-        range[:high] = i == @collection.count - 1 ? 1.0 : range[:low] + applied_routing_fraction
-      end
+      range[:low] = next_range_start
+      range[:high] = applied_routing_fraction + next_range_start
+      next_range_start += applied_routing_fraction
       routing_ranges << range
     end
+    routing_ranges.last[:high] = 1 unless routing_ranges.empty?
     routing_ranges
   end
 
