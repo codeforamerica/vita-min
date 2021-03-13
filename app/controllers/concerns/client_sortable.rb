@@ -14,9 +14,11 @@ module ClientSortable
     clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
     clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
     clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
+    clients = clients.where("intakes.locale = :language OR intakes.preferred_interview_language = :language", language: @filters[:language]) if @filters[:language].present?
+    clients = clients.where(tax_returns: { service_type: "online_intake" }) if @filters[:exclude_dropoffs].present?
     if @filters[:vita_partner_id].present?
       id = @filters[:vita_partner_id].to_i
-      clients = clients.where('vita_partners.id = ? OR vita_partners.parent_organization_id = ?', id, id)
+      clients = clients.where('vita_partners.id = :id OR vita_partners.parent_organization_id = :id', id: id)
     end
     clients = clients.where(intake: Intake.search(@filters[:search])) if @filters[:search].present?
     clients
@@ -58,12 +60,14 @@ module ClientSortable
       needs_response: source[:needs_response],
       year: source[:year],
       vita_partner_id: source[:vita_partner_id]&.to_s,
-      assigned_user_id: source[:assigned_user_id]&.to_s
+      assigned_user_id: source[:assigned_user_id]&.to_s,
+      language: source[:language],
+      exclude_dropoffs: source[:exclude_dropoffs]
     }
   end
 
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :needs_response, :year, :vita_partner_id, :assigned_user_id]
+    [:search, :status, :unassigned, :assigned_to_me, :needs_response, :year, :vita_partner_id, :assigned_user_id, :language, :exclude_dropoffs]
   end
 
   def cookie_filters
