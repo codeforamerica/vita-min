@@ -45,7 +45,9 @@
           </th>
 
           <th scope="col" class="index-table__header">
-            <%= render "shared/column_sort_link", title: t("general.ui"), column_name: "unemployment_income" %>
+            <span class="tooltip" data-position="top" title="<%= t("general.unemployment_income") %>">
+              <%= t("general.ui") %>
+            </span>
           </th>
 
           <th scope="col" class="index-table__header">

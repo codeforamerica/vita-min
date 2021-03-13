@@ -710,6 +710,7 @@ es:
     needs_response: "Necesita respuesta"
     received_unemployment_income: "Recibió compensación por desempleo"
     ui: "UI"
+    unemployment_income: "Compensación de desempleo"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
