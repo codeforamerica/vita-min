@@ -11,7 +11,7 @@ class RemoveClientFromAccessLog < ActiveRecord::Migration[6.0]
       SET client_id = NULL
     SQL
 
-    remove_reference :access_logs, :client
+    remove_reference :access_logs, :client, foreign_key: true
     change_column_null :access_logs, :record_id, false
     change_column_null :access_logs, :record_type, false
   end
