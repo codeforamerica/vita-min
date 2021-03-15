@@ -4,7 +4,11 @@ class RemoveClientFromAccessLog < ActiveRecord::Migration[6.0]
     update <<-SQL.squish
       UPDATE access_logs
       SET record_type = 'Client', record_id = client_id
-      WHERE record_id = NULL
+      WHERE record_id IS NULL
+    SQL
+    update <<-SQL.squish
+      UPDATE access_logs
+      SET client_id = NULL
     SQL
 
     remove_reference :access_logs, :client
