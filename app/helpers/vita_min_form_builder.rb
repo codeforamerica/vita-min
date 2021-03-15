@@ -75,6 +75,29 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_output.html_safe
   end
 
+  def simplified_cfa_checkbox(method, label_text, options: {})
+    checked_value = options[:checked_value] || "1"
+    unchecked_value = options[:unchecked_value] || "0"
+
+    classes = ["checkbox checkbox--simplified"]
+    if options[:disabled] && object.public_send(method) == checked_value
+      classes.push("is-selected")
+    end
+    if options[:disabled]
+      classes.push("is-disabled")
+    end
+
+    options_with_errors = options.merge(error_attributes(method: method))
+    <<~HTML.html_safe
+      <fieldset class="input-group form-group#{error_state(object, method)}">
+        <label class="#{classes.join(' ')}">
+          #{check_box(method, options_with_errors, checked_value, unchecked_value)} #{label_text}
+        </label>
+        #{errors_for(object, method)}
+      </fieldset>
+    HTML
+  end
+
   def hub_checkbox(method, label_text, options: {})
     checked_value = options[:checked_value] || "1"
     unchecked_value = options[:unchecked_value] || "0"

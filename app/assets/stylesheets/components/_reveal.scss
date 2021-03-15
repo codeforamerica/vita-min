@@ -1,0 +1,29 @@
+.reveal {
+  color: #034E46;
+  border: 2px solid #034E46;
+  background-color: #EBFFFA;
+  border-radius: 10px;
+  padding: .2em .5em .3em .7em;
+}
+
+.reveal > p:first-of-type {
+  margin-bottom: 0;
+}
+
+.reveal__link {
+  border: none;
+  background: transparent;
+  font-weight: $font-weight-bold;
+  display: flex;
+  justify-content: space-between;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.reveal__content {
+  background-color: transparent;
+  border: none;
+  margin-top: 0;
+}

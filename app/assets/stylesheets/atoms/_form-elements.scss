@@ -14,6 +14,34 @@
   }
 }
 
+.checkbox--simplified {
+  font-size: 1.9rem;
+  font-weight: $font-weight-normal;
+  border: none;
+  margin: 0;
+  padding-bottom: 0;
+  padding-top: 0.5rem;
+  padding-left: 4rem;
+
+  &.is-selected {
+    background-color: transparent;
+  }
+
+  &:focus-within {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:hover {
+    background-color: transparent;
+  }
+
+  input[type='checkbox'] {
+    top: 1rem;
+    left: 0;
+  }
+}
+
 .checkbox-help {
   font-size: 1.6rem;
   font-weight: 400;

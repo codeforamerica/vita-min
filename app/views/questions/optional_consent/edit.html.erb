@@ -1,0 +1,26 @@
+<% @main_heading = t("views.questions.optional_consent.title") %>
+
+<% content_for :form_question, @main_heading %>
+<% content_for :body_class, "consent-form" %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card form-card--long"} do |f| %>
+    <h1 class="h2"><%= @main_heading %></h1>
+
+    <p><%= t("views.questions.optional_consent.help_text_html") %></p>
+
+    <%= f.simplified_cfa_checkbox(:use_consented,  t("views.questions.optional_consent.consent_to_use_html", consent_to_use_url: consent_to_use_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+    <%= f.simplified_cfa_checkbox(:disclose_consented, t("views.questions.optional_consent.consent_to_disclose_html", consent_to_disclose_url: consent_to_disclose_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+    <%= f.simplified_cfa_checkbox(:relational_efin_consented, t("views.questions.optional_consent.relational_efin_html", relational_efin_url: relational_efin_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+    <%= f.simplified_cfa_checkbox(:global_carryforward_consented, t("views.questions.optional_consent.global_carryforward_html", global_carryforward_url: global_carryforward_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
+
+    <%= render("components/molecules/reveal", title: t("views.questions.optional_consent.legal_details_title")) do %>
+      <%= t("views.questions.optional_consent.legal_details_html") %>
+    <% end %>
+
+    <button class="button button--primary button--wide spacing-above-60" type="submit">
+      <%= t("views.questions.optional_consent.cta") %>
+    </button>
+  <% end %>
+<% end %>
+

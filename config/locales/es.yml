@@ -1592,6 +1592,19 @@ es:
         primary_last_four_ssn: Últimos 4 de SSN / ITIN
         primary_last_name: Apellido legal
         title: "¡Excelente! Aquí están las cosas legales ..."
+      optional_consent:
+        title: Algunas cosas más ...
+        cta: Continuar
+        help_text_html: "Respetamos su privacidad. <strong>Tiene la opción</strong> de dar su consentimiento para lo siguiente:"
+        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank">Consentimiento para usar:</a> Usted nos permite incluir su declaración de impuestos en informes.
+        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
+        relational_efin_html: <a href="%{relational_efin_url}" target="_blank">EFIN Relacional:</a> usted permite que la oficina de impuestos que prepara su declaración reporte sus datos a su organización matriz.
+        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank">Traspaso global:</a> usted nos permite poner la información de su declaración de impuestos a disposición de otros programas de VITA que pueda visitar.
+        legal_details_title: Los detalles legales
+        legal_details_html: |
+          <p>La ley Federal requiere que le proporcionemos este formulario de consentimiento. A menos que la ley lo autorice, no podemos divulgar sin su consentimiento la información de su declaración de impuestos a terceros para propósitos diferentes a la preparación y presentación de su declaración de impuestos. Si usted da su consentimiento para la divulgación de la información de su declaración de impuestos, la ley Federal tal vez no pueda proteger la información de su declaración de impuestos de uso adicional o distribución.</p>
+
+          <p>No se le requiere completar este formulario para recibir nuestros servicios de preparación de declaraciones de impuestos. Esto se le proporcionará en una página de consentimiento separada. Si obtenemos su firma en este formulario condicionando nuestros servicios de preparación de impuestos a su consentimiento, su consentimiento no será válido. Si está de acuerdo con la divulgación de la información de su declaración de impuestos, su consentimiento es válido por la cantidad de tiempo que usted especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de su firma.</p>
       debt_forgiven:
         help_text: Como tarjeta de crédito, hipoteca u otra deuda.
         title:
@@ -2001,26 +2014,151 @@ es:
     shared:
       consent_agreement:
         details:
-          cfa: Entiendo que GetYourRefund.org es un sitio web dirigido por Code for America, una organización sin fines de lucro, que enviará mi información tributaria a un sitio de preparación de VITA.
-          civil_rights_understanding_html: Comprendo esta Asistencia Voluntaria al Contribuyente Tributario (VITA) es una <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">Programas de Impuestos Gratuitos Ofrecidos</a> que <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protege mis derechos civiles</a>.
-          collects_pii: Entiendo que este sitio recopila la información de identificación personal que proporciono (números del Seguro Social, formularios W-2 o 1099, identificación con foto y otros documentos) para preparar mi declaración de impuestos y hacer un control de calidad de ella.
-          contacted: Entiendo que alguien podría comunicarse conmigo a través del medio que yo prefiera para obtener más información. Si el preparador tiene todo lo necesario para preparar la declaración, nadie se comunicará conmigo hasta que la declaración esté lista.
-          e_signature: Entiendo que tendré que firmar el formulario 8879 (SP), la autorización de firma electrónica del IRS para presentar la declaración por Internet, mediante una firma electrónica que enviaré por correo electrónico, después de completar control de calidad para que un sitio de preparación de VITA pueda presentar mi declaración de impuestos en línea.
-          header: Los detalles
-          intake_process: 'Proceso de admisión: GetYourRefund recopilará su información y su documentación a través del proceso de admisión con el fin de preparar correctamente su declaración de impuestos.'
-          interview_and_review: Entiendo que tendré que participar en una entrevista telefónica de admisión y control de calidad para que un sitio de preparación de VITA presente mi declaración de impuestos.
-          irs: Este formulario de consentimiento reemplaza el formulario 14446 (SP) del IRS, consentimiento del contribuyente del VITA/TCE Virtual. Una copia copia de este consentimiento sera conservada, como lo exige el IRS.
-          provide_required_info: Entiendo que debo de proporcionar toda la información/documentación requerida para preparar una declaración de impuestos correcta.
-          quality_review_process: 'Proceso de control de calidad: GetYourRefund le enviará su declaración para que la verifique antes de presentarla.'
-          responsible: Entiendo que mi pareja (si tengo) y yo somos responsables en última instancia de toda la información proporcionada a GetYourRefund.
-          return_prep_process: 'Proceso de preparación de la declaración: GetYourRefund utilizará su información/documentación para completar una declaración de impuestos.'
-          review_return: Entiendo que tengo que revisar mi declaración de impuestos cuando esté lista para verificar que los nombres, números del Seguro Social, la dirección, la información bancaria, los ingresos y gastos sean correctos a mi entender.
-          sign_below: Al firmar, usted quiere participar en este proceso y permite que GetYourRefund lo ayude con su declaración de impuestos. Asimismo, acepta los términos de la política de dilvulgación de información privada de GetYourRefund, disponible en www.GetYourRefund.org/privacy.
-          efin: Entiendo que el sitio VITA con el que estoy conectado puede tener un número EFIN relacional (es decir que su sitio reporta a una organización matriz de VITA ), y entiendo que el sitio VITA tiene la capacidad de ver los datos de presentación de informes para todas las EFIN bajo la EFIN relacional (primaria). Este formulario de consentimiento reemplaza el formulario de consentimiento EFIN Relacional del software de preparación de impuestos.
-          personal_tax_info: "Consentimiento para divulgar y usar información personal de declaración de impuestos: Acepto permitir que el sitio de preparación de VITA utilice datos de declaración agregados para fines estadísticos. Este formulario de consentimiento reemplaza el formulario de consentimiento de uso y divulgación."
-          carry_forward: "Consentimiento para Global Forward: Doy mi consentimiento y permito que TaxSlayer LLC, el proveedor del software de impuestos VITA/TCE, ponga mi información de declaración de impuestos a disposición de CUALQUIER sitio voluntario que participe en el programa VITA/TCE del IRS que yo seleccione para preparar la declaración de impuestos para la próxima temporada. Entiendo que podré visitar cualquier sitio voluntario usando TaxSlayer el año siguiente y dejar que mi declaración de impuestos se llene con sus datos del año actual, independientemente de dónde haya presentado su declaración de impuestos este año. Este consentimiento es válido hasta el 12 de noviembre de 2022."
-        information_you_provide: Usted entiende que la información que proporciona en este sitio de web (GetYourRefund.org) se envía a un sitio de preparación de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) para que un voluntario certificado por el Servicio de Rentas Internas (SRI) revise su información, realice una entrevista de admisión por teléfono, prepare su declaración de impuestos y haga un control de calidad antes de presentarla.
-        proceed_and_confirm: Al continuar, usted confirma que las siguientes declaraciones son verdaderas y completas hasta donde se sabe.
+          header: Detalles
+          intro: >-
+            Este sitio utiliza un proceso 100% virtual de VITA / TCE: este método incluye interacciones no cara a cara
+            con el contribuyente y cualquiera de los voluntarios de VITA / TCE durante la admisión, entrevista,
+            preparación de la declaración, revisión de calidad y firma de la declaración de impuestos. Se le explicará
+            al contribuyente el proceso completo y se requiere que dé su consentimiento para el proceso paso a paso
+            utilizado por el sitio. Esto incluye los procedimientos virtuales para enviar los documentos requeridos
+            (números de seguro social, formulario W-2 y otros documentos) a través de un sistema seguro para compartir
+            archivos a un voluntario designado para su revisión.
+          site_process_header: El Proceso en el Sitio de GetYourRefund
+          sections:
+            - header: Resumen
+              content:
+                - >-
+                  Comprendo esta Asistencia Voluntaria al Contribuyente Tributario (VITA) es una
+                  <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">Programas de Impuestos Gratuitos Ofrecidos</a>
+                  que
+                  <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protege mis derechos civiles</a>.
+                - >-
+                  Entiendo que GetYourRefund.org es un sitio web dirigido por Code for America, una organización
+                  sin fines de lucro, que enviará mi información tributaria a un sitio de preparación de VITA.
+            - header: La obtención del acuerdo de consentimiento del contribuyente
+              content:
+                - >-
+                  Entiendo que seleccionar "Acepto" a continuación proporciona mi consentimiento para el
+                  proceso de preparación de impuestos de GetYourRefund.
+            - header: "La realización del proceso de admisión (obtener todos los documentos)"
+              content:
+                - >-
+                  Proceso de admisión: GetYourRefund coleccionará su información y documentación a través del proceso
+                  de admisión para preparar con precisión su declaración de impuestos. Todos los documentos seran
+                  guardados y asegurados en el sistema.
+                - >-
+                  Entiendo que debo de proporcionar toda la información/documentación requerida para preparar
+                  una declaración de impuestos correcta.
+            - header: Validación de la autenticidad del contribuyente (revisión de identificación con foto y tarjetas de seguro social / ITINS)
+              content:
+                - >-
+                  Entiendo que este sitio recopila la información de identificación personal que proporciono
+                  (números de seguro social, Formulario W-2 y / o 1099, identificación con foto y otros documentos)
+                  para preparar y revisar mi declaración de impuestos. La identidad se valida mediante
+                  la revisión de una identificación con foto, prueba de número de seguro social o ITIN y una
+                  foto del contribuyente con su identificación.
+            - header: La realización de la entrevista con el (los) contribuyente (s)
+              content:
+                - >-
+                  Entiendo que debo participar en una entrevista de admisión por teléfono para que un sitio de
+                  VITA prepare mi declaración de impuestos.
+            - header: La preparación de la declaración de impuestos
+              content:
+                - >-
+                  Proceso de preparación de la declaración: GetYourRefund utilizará su información/documentación
+                  para completar una declaración de impuestos.
+                - >-
+                  Entiendo que alguien podría comunicarse conmigo a través del medio que yo prefiera para obtener más
+                  información. Si el preparador tiene todo lo necesario para preparar la declaración, nadie se
+                  comunicará conmigo hasta que la declaración esté lista.
+            - header: La realización de la revisión de calidad
+              content:
+                - >-
+                  Entiendo que debo participar en una Revisión de Calidad por teléfono para que un sitio VITA
+                  prepare mi declaración de impuestos.
+                - >-
+                  Entiendo que tengo que revisar mi declaración de impuestos cuando esté lista para verificar que los
+                  nombres, números del Seguro Social, la dirección, la información bancaria,
+                  los ingresos y gastos sean correctos a mi entender.
+            - header: Compartir la declaración completa
+              content:
+                - >-
+                  Proceso de control de calidad: GetYourRefund le enviará su declaración para que la verifique
+                  antes de presentarla.
+            - header: La firma de la declaración
+              content:
+                - >-
+                  Entiendo que tendré que firmar el formulario 8879 (SP), la autorización de firma electrónica del
+                  IRS para presentar la declaración por Internet, mediante una firma electrónica que enviaré por
+                  correo electrónico, después de completar la revisión de calidad para que un sitio de preparación
+                  de VITA pueda presentar mi declaración de impuestos en línea.
+                - >-
+                  Entiendo que mi pareja (si tengo) y yo somos responsables en última instancia de toda la
+                  información proporcionada a GetYourRefund.
+            - header: La presentación electrónica de la declaración de impuestos
+              content:
+                - >-
+                  Entiendo que GetYourRefund va a entregar mi declaración de impuestos al IRS electrónicamente.
+            - header: Solicitud Para Verificar la Precisión de su Declaración de Impuestos
+              content:
+                - >-
+                  Para asegurar que usted esta recibiendo servicio de alta calidad y una declaración de impuestos
+                  preparada correctamente en el sitio de voluntarios, los empleados del IRS hacen una selección
+                  aleatoria de los sitios de preparación gratuita de impuestos para revisión. Si se identifican
+                  errores el sitio hará las correcciones necesarias. El IRS no retiene ninguna información personal
+                  de su declaración de impuestos durante la revisión, y esta les permite dar una calificación a
+                  nuestros programas de preparación de impuestos VITA/TCE por preparar declaraciones de impuestos
+                  correctamente. Al dar su consentimiento a este servicio usted también da su consentimiento a que
+                  su declaración sea revisada por un empleado del IRS para verificar su precisión si el sitio que
+                  prepara esta declaración es elegido para revisión.
+            - header: Consentimiento virtual para la divulgación
+              content:
+                - >-
+                  Si acepta que su declaración de impuestos se prepare y sus documentos tributarios se tramiten de la
+                  manera anterior, su firma y/o acuerdo son obligatorios en este documento. Firmar este documento
+                  significa que usted está de acuerdo con los procedimientos indicados anteriormente para que le
+                  preparen una declaración de impuestos. (Si se trata de una declaración de casado con presentación
+                  conjunta, ambos cónyuges tienen que firmar y fechar este documento). Si opta por no firmar este
+                  formulario, es posible que no podamos preparar su declaración de impuestos mediante este proceso.
+                  Ya que preparamos su declaración de impuestos virtualmente, tenemos que obtener su consentimiento
+                  de que acepta este proceso.
+                - >-
+                  Si usted da su consentimiento para utilizar estos sistemas virtuales que no pertenecen al IRS para
+                  divulgar o utilizar su información sobre la declaración de impuestos, la ley federal puede que no
+                  proteja la información de su declaración de impuestos de un uso o distribución adicional en caso
+                  de que estos sistemas sean pirateados o violados sin nuestro conocimiento.
+                - >-
+                  Si usted acepta la divulgación de la información de su declaración de impuestos, su consentimiento
+                  es válido por la cantidad de tiempo que lo especifique. Si no especifica la duración de su
+                  consentimiento, su consentimiento es válido por un año a partir de la fecha de la firma.
+                - >-
+                  Si usted cree que la información de su declaración de impuestos ha sido divulgada o utilizada
+                  indebidamente de una manera no autorizada por la ley o sin su permiso, puede comunicarse con el
+                  Inspector General del Tesoro para la Administración Tributaria (TIGTA, por sus siglas en inglés)
+                  por teléfono al 1-800-366-4484 o por correo electrónico a complaints@tigta.treas.gov.
+                - >-
+                  Mientras que el IRS es responsable de proveer los requisitos de supervisión a los programas de
+                  Asistencia Voluntaria con los Impuestos sobre los Ingresos (VITA, por sus siglas en inglés) y la
+                  Asesoría Tributaria para la Personas de Edad Avanzada (TCE, por sus siglas en inglés), estos sitios
+                  son operados por socios patrocinados por el IRS que gestionan los requisitos de las operaciones del
+                  sitio del IRS y las normas éticas de los voluntarios. Además, las ubicaciones de estos sitios pueden
+                  no estar en la propiedad federal.
+                - >-
+                  Al firmar más abajo, usted y su cónyuge (si aplica a su situación) aceptan participar en el proceso
+                  y dan su consentimiento a que GetYourRefund les ayude a preparar sus impuestos. Ustedes aceptan
+                  los términos de la política de privacidad en www.GetYourRefund.org/privacy.
+                - >-
+                  Este formulario de consentimiento reemplaza el formulario 14446 (SP) del IRS, consentimiento del
+                  contribuyente del VITA/TCE Virtual. Una copia copia de este consentimiento sera conservada, como
+                  lo exige el IRS.
+        information_you_provide: >-
+          Usted entiende que la información que proporciona en este sitio web (GetYourRefund.org)
+          se envía a un sitio de preparación de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés)
+          para que un voluntario certificado por el Servicio de Rentas Internas (IRS, por sus siglas en inglés)
+          revise su información, realice una entrevista de admisión por teléfono, prepare su declaración de impuestos
+          y haga una revisión de calidad antes de presentarla.
+        proceed_and_confirm: >-
+          Al continuar, usted confirma que las siguientes declaraciones son verdaderas y completas hasta donde se sabe.
         terms_html: Usted está de acuerdo con los términos de la política de divulgación de información privada de GetYourRefund disponible en %{privacy_link}
       covid_warning:
         notice_html: "Nota: los servicios en persona pueden estar actualmente en espera debido a COVID-19"
@@ -2084,6 +2222,63 @@ es:
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
         search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
+    consent_pages:
+      consent_to_use:
+        title: Consentimiento para usar
+        content_html: |
+          La ley Federal requiere que le proporcionemos este formulario de consentimiento a usted (con usted, se refiere a cada contribuyente, si hubiera más de uno). A menos de que lo autorice la ley, no podemos divulgar, sin su consentimiento su información de declaración de impuestos a terceros con fines distintos a la preparación y presentación de su declaración de impuestos. Si usted consiente en la divulgación de su información de declaración de impuestos, la ley federal pudiera no proteger su información de declaración de impuestos de un uso o distribución posterior.
+
+          No se le requiere completar este formulario para recibir nuestros servicios de preparación de declaraciones de impuestos. Si obtenemos su firma en este formulario condicionando nuestros servicios de preparación de declaraciones de impuestos a su consentimiento, su consentimiento no será válido. Si acepta la divulgación de su información de declaración de impuestos, su consentimiento es válido por el tiempo que especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de la firma.
+
+          <strong>Autorizo el sitio VITA:</strong>
+
+          Uso por 1 año: Autorizo al sitio VITA a usar información no identificativa de mi declaración de impuestos para compilar informes agregados a los donantes existentes y potenciales.
+
+          Para propósitos de 1 año: La información de declaración de impuestos será utilizada para medir los resultados del programa con el fin de asegurar la financiación continua para el programa VITA.
+
+          Si usted cree que la información de su declaración de impuestos ha sido divulgada o utilizada indebidamente de una manera no autorizada por la ley o sin su permiso, puede comunicarse con el Inspector General del Tesoro para la Administración Tributaria (TIGTA, por sus siglas en inglés) por teléfono al 1-800-366-4484 o por correo electrónico a complaints@tigta.treas.gov.
+      consent_to_disclose:
+        title: Consentimiento para divulgar
+        content_html: |
+          La ley Federal requiere que le proporcionemos este formulario de consentimiento a usted (con usted, se refiere a cada contribuyente, si hubiera más de uno). A menos de que lo autorice la ley, no podemos divulgar, sin su consentimiento su información de declaración de impuestos a terceros con fines distintos a la preparación y presentación de su declaración de impuestos. Si usted consiente en la divulgación de su información de declaración de impuestos, la ley federal pudiera no proteger su información de declaración de impuestos de un uso o distribución posterior.
+
+          No se le requiere completar este formulario para recibir nuestros servicios de preparación de declaraciones de impuestos. Si obtenemos su firma en este formulario condicionando nuestros servicios de preparación de declaraciones de impuestos a su consentimiento, su consentimiento no será válido. Si acepta la divulgación de su información de declaración de impuestos, su consentimiento es válido por el tiempo que especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de la firma.
+
+          <strong>Autorizo el sitio VITA:</strong>
+
+          Divulgación de 1 año: Le autorizo al sitio VITA  divulgar mi información fiscal personal al software fiscal (TaxSlayer) y/o a la o las instituciones financieras que especifique (si las hubiera).
+
+          Para propósitos de 1 año: La información fiscal personal se le divulgará al software fiscal (TaxSlayer) para fines de presentación electrónica, y a la institución o las instituciones financieras para depósito directo o débito (si procede).
+
+          Si usted cree que la información de su declaración de impuestos ha sido divulgada o utilizada indebidamente de una manera no autorizada por la ley o sin su permiso, puede comunicarse con el Inspector General del Tesoro para la Administración Tributaria (TIGTA, por sus siglas en inglés) por teléfono al 1-800-366-4484 o por correo electrónico a complaints@tigta.treas.gov.
+      relational_efin:
+        title: EFIN relacional
+        content_html: |
+          La ley Federal requiere que le proporcionemos este formulario de consentimiento a usted (con usted, se refiere a cada contribuyente, si hubiera más de uno). A menos de que lo autorice la ley, no podemos divulgar, sin su consentimiento su información de declaración de impuestos a terceros con fines distintos a la preparación y presentación de su declaración de impuestos. Si usted consiente en la divulgación de su información de declaración de impuestos, la ley federal pudiera no proteger su información de declaración de impuestos de un uso o distribución posterior.
+
+          No se le requiere completar este formulario para recibir nuestros servicios de preparación de declaraciones de impuestos. Si obtenemos su firma en este formulario condicionando nuestros servicios de preparación de declaraciones de impuestos a su consentimiento, su consentimiento no será válido. Si acepta la divulgación de su información de declaración de impuestos, su consentimiento es válido por el tiempo que especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de la firma.
+
+          <strong>Autorizo el sitio VITA:</strong>
+
+          Divulgación de 3 años: El Preparador de Impuestos divulgará la Información Personal al Desarrollador de Software a través del software de preparación de impuestos del Desarrollador de Software. El desarrollador de software divulgará la Información Personal a la Oficina Relacional/Relational Office del programa VITA.
+
+          Para propósitos de 3 años: El propósito de la divulgación es con el fin de que el Desarrollador de Software le proporcione la Información Personal del Contribuyente al programa VITA de la Oficina Relational/Relational Office de manera que puedan proporcionar apoyo y asistencia administrativa al Preparador de Impuestos.
+      global_carryforward:
+        title: Traspaso global
+        content_html: |
+          La ley Federal requiere que le proporcionemos este formulario de consentimiento a usted (con usted, se refiere a cada contribuyente, si hubiera más de uno). A menos de que lo autorice la ley, no podemos divulgar, sin su consentimiento su información de declaración de impuestos a terceros con fines distintos a la preparación y presentación de su declaración de impuestos. Si usted consiente en la divulgación de su información de declaración de impuestos, la ley federal pudiera no proteger su información de declaración de impuestos de un uso o distribución posterior.
+
+          No se le requiere completar este formulario para recibir nuestros servicios de preparación de declaraciones de impuestos. Si obtenemos su firma en este formulario condicionando nuestros servicios de preparación de declaraciones de impuestos a su consentimiento, su consentimiento no será válido. Si acepta la divulgación de su información de declaración de impuestos, su consentimiento es válido por el tiempo que especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de la firma.
+
+          El Traspaso Global de datos permite a TaxSlayer LLC, el proveedor del software tributario utilizado en los sitios de VITA/TCE, hacer que la información de su declaración de impuestos esté disponible para CUALQUIER sitio de voluntarios que participe en el programa de VITA/TCE del IRS que usted seleccione para preparar una declaración de impuestos en la próxima temporada de presentación de impuestos. Esto significa que el próximo año usted podrá visitar cualquier sitio de voluntarios que utilice el programa TaxSlayer y hacer que su declaración de impuestos se llene con sus datos del año actual, independientemente del lugar donde presentó su declaración de impuestos este año. Este consentimiento es válido hasta el 13 de noviembre de 2022.
+
+          La información de la declaración de impuestos que será divulgada incluye, pero no se limita a, la información demográfica, financiera, y otra personalmente identificable sobre usted, su declaración de impuestos y sus fuentes de ingresos, que fue ingresado en el software de preparación de impuestos para el propósito de preparar su declaración de impuestos. Esta información incluye su nombre, dirección, fecha de nacimiento, número de teléfono, número de Seguro Social, estado civil para efectos de la declaración de impuestos, ocupación, nombre y dirección del empleador, las cantidades y fuentes de ingresos, y las deducciones y los créditos que reclamó o incluyó en su declaración de impuestos. La información de la declaración de impuestos que será divulgada también incluye el nombre, número de Seguro Social, fecha de nacimiento y la relación con todo dependiente que reclamó en su declaración de impuestos.
+
+          No tiene que dar el consentimiento al socio de VITA/TCE que prepara su declaración de impuestos este año. El Traspaso Global le ayudará únicamente si visita un socio diferente de VITA o TCE el próximo año que utiliza TaxSlayer.
+
+          Limitación de la duración del consentimiento: Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha más temprana a la indicada anteriormente (13 de noviembre de 2022). Si yo/nosotros deseamos limitar la duración del consentimiento de la divulgación a una fecha anterior, yo/ nosotros denegaremos el consentimiento.
+
+          Limitación del alcance de la divulgación: Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo indicado anteriormente. Si yo/nosotros deseamos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo indicado anteriormente, yo/nosotros denegaremos el consentimiento
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
