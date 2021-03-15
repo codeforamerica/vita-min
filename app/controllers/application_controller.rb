@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_intake
-    Intake.find_by_id(session[:intake_id])
+    current_client&.intake || Intake.find_by_id(session[:intake_id])
   end
 
   def intake_from_completed_session
@@ -252,6 +252,13 @@ class ApplicationController < ActionController::Base
 
   def load_users
     @users = User.accessible_by(current_ability).order(name: :asc)
+  end
+
+  def set_current_step
+    return unless current_intake.present?
+    return unless request.method_symbol == :get # skip uploads
+
+    current_intake.update(current_step: current_path) unless current_intake.current_step == current_path
   end
 
   rescue_from CanCan::AccessDenied do |exception|

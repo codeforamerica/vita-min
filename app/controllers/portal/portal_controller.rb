@@ -4,7 +4,14 @@ module Portal
     layout "portal"
 
     def home
-      @tax_returns = current_client.tax_returns.order(year: :desc)
+      @current_step = nil
+      @tax_returns = []
+
+      if current_client.completed_intake_process?
+        @tax_returns = current_client.tax_returns.order(year: :desc)
+      else
+        @current_step = current_client.intake.determine_current_step
+      end
     end
 
     def current_intake

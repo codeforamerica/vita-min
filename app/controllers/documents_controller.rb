@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
   include AccessControllable
-  before_action :require_intake
-  
+  before_action :require_intake, :set_current_step
+
   def illustration_path; end
 
   def destroy
@@ -14,5 +14,9 @@ class DocumentsController < ApplicationController
     else
       redirect_to overview_documents_path
     end
+  end
+
+  def current_path(params = {})
+    documents_path(self.class.to_param, params)
   end
 end

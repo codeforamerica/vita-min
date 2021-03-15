@@ -863,6 +863,8 @@ en:
           empty_state: No documents ready to review yet - check back later.
           view_document: "View/download %{display_name}"
           view_final_tax_document: "View/download final %{year} tax document"
+          submit_additional_documents: Submit remaining tax documents
+          answer_questions: Complete all tax questions
     tax_returns:
       authorize_signature:
         efile_acceptance: I authorize GetYourRefund to enter or generate my PIN as my signature on my tax year %{year} electronically filed income tax return.

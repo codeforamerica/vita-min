@@ -2,6 +2,15 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title", name: current_client.intake.preferred_name) %></h1>
+  <% if @current_step.present? %>
+    <div class="tax-return-status">
+      <div class="tax-return-status__row tax-return-status__with-alert">
+        <%= image_tag("attn.svg", alt: "") %>
+        <% link_text = @current_step.include?("/documents/") ? t(".tax_returns.submit_additional_documents") : t(".tax_returns.answer_questions") %>
+        <%= link_to link_text, @current_step %>
+      </div>
+    </div>
+  <% end %>
 
   <% @tax_returns.each do |tax_return| %>
     <div class="tax-return-status" id=<%= "tax-year-#{tax_return.year}" %>>

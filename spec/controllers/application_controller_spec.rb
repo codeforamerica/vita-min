@@ -788,6 +788,7 @@ RSpec.describe ApplicationController do
         allow(subject).to receive(:visitor_id).and_return(visitor_id)
         allow(subject).to receive(:current_user).and_return(current_user)
         allow(subject).to receive(:current_client).and_return(current_client)
+        allow(current_client).to receive(:intake)
         allow(subject).to receive(:request).and_return(request)
         allow(Raven).to receive(:extra_context)
       end

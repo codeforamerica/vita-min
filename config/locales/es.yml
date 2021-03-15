@@ -853,6 +853,8 @@ es:
           empty_state: Aún no hay documentos listos para revisar; vuelva a consultar más tarde.
           view_document: Ver/descargar el documento %{display_name}
           view_final_tax_document: Ver/descargar el documento fiscal final de %{year}
+          submit_additional_documents: Envíe los documentos fiscales restantes
+          answer_questions: Complete todas las preguntas sobre impuestos
     tax_returns:
       authorize_signature:
         efile_acceptance: Autorizo a GetYourRefund a ingresar o generar mi PIN como firma mía en mi declaración de impuestos del año %{year} que presentó electrónicamente.
