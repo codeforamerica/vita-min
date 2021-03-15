@@ -2088,10 +2088,9 @@ en:
                 - >-
                   Intake process: GetYourRefund will collect your information and documentation through the intake
                   process in order to accurately prepare your tax return. All documents will be uploaded in the system
-                  and stored.
+                  and secured.
                 - >-
-                  I understand that I must provide all required information/documentation necessary to prepare an
-                  accurate return.
+                  I understand that I must provide all required information/documentation necessary to prepare an accurate tax return.
             - header: Validating Taxpayer's Authentication (Reviewing photo identification and Social Security Cards/ITINS)
               content:
                 - >-
@@ -2107,7 +2106,7 @@ en:
             - header: Preparing the tax return
               content:
                 - >-
-                  Return Preparation Process: GetYourRefund will use your information/documentation to complete a tax return.
+                  Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return.
                 - >-
                   I understand that I may be contacted for additional information using a contact preference I provide.
                   If the preparer has everything required to prepare the return, I will not be contacted until the return
@@ -2116,13 +2115,11 @@ en:
               content:
                 - >-
                   I understand that I will need to participate in a Quality Review via phone in order to have a VITA
-                  preparation site file my taxes. I understand that I need to review my completed tax return to ensure the names,
-                  social security numbers, address, banking information, income, and expenses to the best of my knowledge.
+                  preparation site file my taxes. I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge.
             - header: Sharing the completed return
               content:
                 - >-
-                  Quality Review Process: GetYourRefund will provide you with your return for accuracy prior
-                  to submission.
+                  Quality Review Process - GetYourRefund will provide you with your return to review for accuracy prior to submission.
             - header: Signing the return
               content:
                 - >-
@@ -2135,17 +2132,17 @@ en:
             - header: E-filing the tax return
               content:
                 - >-
-                  I understand that GetYourRefund will e-file my tax return with the IRS
-            - header: Request to review your tax return for accuracy
+                  I understand that GetYourRefund will e-file my tax return with the IRS.
+            - header: Request to Review your Tax Return for Accuracy
               content:
                 - >-
                   To ensure you are receiving quality services and an accurately prepared tax return at the
                   volunteer site, IRS employees randomly select free tax preparation sites for review. If errors are
-                  identified, the site will make necessary corrections. IRS does not keep any personal information
+                  identified, the site will make the necessary corrections. IRS does not keep any personal information
                   from your reviewed tax return and this allows them to rate our VITA/TCE return preparation programs
-                  for accurately prepared taxes. By consenting to the service, you consent to having your return
+                  for accurately prepared tax returns. By consenting to the service, you consent to having your return
                   reviewed for accuracy by an IRS employee if the site preparing this return is selected for a review.
-            - header: Vita Consent Disclosure
+            - header: Virtual Consent Disclosure
               content:
                 - >-
                   If you agree to have your tax return prepared and your tax documents handled in the above manner,
@@ -2166,11 +2163,11 @@ en:
                 - >-
                   If you believe your tax return information has been disclosed or used improperly in a manner unauthorized
                   by law or without your permission, you may contact the Treasury Inspector General for Tax
-                  Administration (TIGTA) by telephone at 1-800-366-4484, or by e-mail at complaints@tiga.tres.gov.
+                  Administration (TIGTA) by telephone at 1-800-366-4484, or by e-mail at complaints@tigta.treas.gov.
                 - >-
                   While the IRS is responsible for providing oversight requirements to Volunteer Income Tax Assistance
                   (VITA) and Tax Counseling for the Elderly (TCE) programs, these sites are operated by IRS
-                  sponsored partners who manage the IRS site operations requirements and volunteer ethical standards.
+                  sponsored partners who manage IRS site operations requirements and volunteer ethical standards.
                   In addition, the locations of these sites may not be in or on federal property.
                 - >-
                   By signing below, you and your spouse (if applicable) agree to participate in the process and
