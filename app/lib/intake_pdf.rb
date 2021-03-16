@@ -95,7 +95,6 @@ class IntakePdf
     answers.merge!(primary_info)
     answers.merge!(spouse_info)
     answers.merge!(dependents_info) if @dependents.present?
-    answers.merge!(signature_info) if @intake.consented?
     answers
   end
 
@@ -159,15 +158,6 @@ class IntakePdf
       demographic_spouse_race_prefer_not_to_answer_race: bool_checkbox_0(@intake.demographic_spouse_prefer_not_to_answer_race),
       demographic_primary_ethnicity: @intake.demographic_primary_ethnicity,
       demographic_spouse_ethnicity: @intake.demographic_spouse_ethnicity,
-    }
-  end
-
-  def signature_info
-    {
-      primary_legal_name: @intake.primary_full_name,
-      spouse_legal_name: @intake.spouse_full_name,
-      primary_signed_date: strftime_date(@intake.primary_consented_to_service_at),
-      spouse_signed_date: strftime_date(@intake.spouse_consented_to_service_at)
     }
   end
 

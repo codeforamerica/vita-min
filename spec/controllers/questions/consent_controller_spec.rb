@@ -89,7 +89,7 @@ RSpec.describe Questions::ConsentController do
 
     it "enqueues a job to generate the consent form and the intake form" do
       expect(Intake14446PdfJob).to receive(:perform_later).with(intake, "Consent Form 14446.pdf")
-      expect(IntakePdfJob).to receive(:perform_later).with(intake.id, "Preliminary 13614-C with 15080.pdf")
+      expect(IntakePdfJob).to receive(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
 
       subject.after_update_success
     end

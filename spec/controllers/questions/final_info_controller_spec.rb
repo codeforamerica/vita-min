@@ -21,7 +21,7 @@ RSpec.describe Questions::FinalInfoController do
       it "the model after_update when completed at changes should enqueue the creation of the 13614c document" do
         post :update, params: params
 
-        expect(IntakePdfJob).to have_received(:perform_later).with(intake.id, "Original 13614-C with 15080.pdf")
+        expect(IntakePdfJob).to have_received(:perform_later).with(intake.id, "Original 13614-C.pdf")
       end
 
       context "client is opted into emails" do
