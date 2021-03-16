@@ -1,5 +1,5 @@
 module DocumentTypes
-  class Form13614CForm15080 < DocumentType
+  class Form13614C < DocumentType
     class << self
       def relevant_to?(intake)
         # This is not used in a flow or to determine relevant types for an intake
@@ -8,7 +8,7 @@ module DocumentTypes
       end
 
       def key
-        "F13614C / F15080 2020"
+        "F13614C 2020"
       end
 
       def blocks_progress?

@@ -553,7 +553,7 @@ class Intake < ApplicationRecord
   def update_or_create_13614c_document(filename)
     ClientPdfDocument.create_or_update(
       output_file: pdf,
-      document_type: DocumentTypes::Form13614CForm15080,
+      document_type: DocumentTypes::Form13614C,
       client: client,
       filename: filename
     )
