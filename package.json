@@ -10,7 +10,8 @@
     "jquery-ui": "^1.12.1",
     "rails-erb-loader": "^5.5.2",
     "regenerator-runtime": "^0.13.7",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "uswds": "^2.10.2"
   },
   "devDependencies": {
     "expose-loader": "^2.0.0",

@@ -12,6 +12,7 @@
  *
  *= require_self
  */
+@import "../../../node_modules/uswds/src/stylesheets/uswds";
 @import "cfa_styleguide_main";
 @import "mixins/sr-only";
 @import "atoms/variables";
@@ -50,6 +51,7 @@
 @import "components/hub-image-upload";
 @import "components/portal-tax-returns";
 @import "components/user-header";
+@import "components/usa-tooltip";
 @import "components/pagination";
 @import "organisms/form-cards";
 @import "organisms/offboarding";
