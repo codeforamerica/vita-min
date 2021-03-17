@@ -95,7 +95,7 @@ rails jobs:work
 
 ### Emails
 
-To see emails in development, run `bin/rails jobs:work`. All emails are printed to its output console.
+To see emails in development, run `rails jobs:work`. All emails are printed to its output console.
 They are also logged in `tmp/mail/#{to_address}`.
 
 ### Run some tests!
