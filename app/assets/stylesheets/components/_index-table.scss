@@ -26,12 +26,19 @@ It expects to be the primary content of the given page (full width).
   &__head {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
+
+    .tooltip {
+      display: table-cell;
+    }
   }
 
   &__header {
     padding: 0.8rem $s25/2;
     font-weight: $font-weight-normal;
     white-space: nowrap;
+  }
+
+  &__row > &__header {
     &:first-child {
       padding-left: 3rem;
     }

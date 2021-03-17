@@ -1,0 +1,115 @@
+// Variables
+$triangle-size: 0.5rem;
+
+/* Tooltips */
+.tooltip {
+  display: inline-block;
+  position: relative;
+
+  &__body {
+    transition: opacity 0.08s ease-in-out;
+    background-color: $color-grey-darkest;
+    border-radius: $border-radius;
+    bottom: 0;
+    color: $color-white;
+    display: none;
+    font-size: $font-size-18;
+    padding: 0.8rem;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    opacity: 0;
+    transform: translateX(-50%);
+    width: auto;
+    white-space: pre;
+    z-index: 100000;
+
+    &:after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      border-left: $triangle-size solid transparent;
+      border-right: $triangle-size solid transparent;
+      border-top: $triangle-size solid $color-grey-darkest;
+      position: absolute;
+      bottom: -$triangle-size;
+      left: 50%;
+      margin-left: -$triangle-size;
+    }
+  }
+
+  &__trigger {
+    @include outline();
+    cursor: pointer;
+
+    > svg {
+      display: block;
+      pointer-events: none;
+    }
+  }
+
+  &__body--wrap {
+    width: 100%;
+    white-space: normal;
+  }
+
+  &__body.is-set {
+    display: block;
+  }
+
+  &__body.is-visible {
+    opacity: 1;
+  }
+
+  &__body--bottom {
+    bottom: auto;
+    top: 0;
+
+    &:after {
+      border-left: $triangle-size solid transparent;
+      border-right: $triangle-size solid transparent;
+      border-bottom: $triangle-size solid $color-grey-darkest;
+      border-top: 0;
+      bottom: auto;
+      top: -$triangle-size;
+    }
+  }
+
+  &__body--right {
+    top: auto;
+    transform: translateX(0);
+
+    &:after {
+      border-top: $triangle-size solid transparent;
+      border-bottom: $triangle-size solid transparent;
+      border-right: $triangle-size solid $color-grey-darkest;
+      border-left: 0;
+      right: auto;
+      top: 50%;
+      bottom: 0;
+      left: -$triangle-size;
+      margin: -$triangle-size 0 0 0;
+    }
+  }
+
+  &__body--left {
+    top: auto;
+    left: 0;
+    right: auto;
+    transform: translateX(0);
+
+    &:after {
+      border-top: $triangle-size solid transparent;
+      border-bottom: $triangle-size solid transparent;
+      border-left: $triangle-size solid $color-grey-darkest;
+      border-right: 0;
+      right: -$triangle-size;
+      top: 50%;
+      bottom: 0;
+      left: auto;
+      margin: -$triangle-size 0 0 0;
+    }
+  }
+}
