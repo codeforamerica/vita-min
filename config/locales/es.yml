@@ -95,6 +95,7 @@ es:
         client_messages: Mensajes
         client_notes: Notas
         client_profile: Perfil del cliente
+        notifications: Mis Actualizaciones
       show:
         email: Email
         dependents: Dependents
@@ -362,6 +363,12 @@ es:
       displayed: Visualización de la SSN o ITIN
     client_channel:
       please_reload_html: "↻ Vuelva a cargar la página para ver un mensaje nuevo."
+    notifications:
+      index:
+      tax_return_assigned:
+        title: Le han asignado un cliente
+        body_html: "%{assigner} le ha asignado  la declaración de impuestos %{tax_return_year} de %{client_link}."
+        body_link: "%{client_name}"
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
@@ -712,6 +719,7 @@ es:
     received_unemployment_income: "Recibió compensación por desempleo"
     ui: "UI"
     unemployment_income: "Compensación de desempleo"
+    unread: Notificación no leída
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

@@ -1,0 +1,6 @@
+<% unless notification.read? %>
+  <span class="unread-wrapper">
+    <i class="unread" aria-hidden="true"></i>
+    <span class="sr-only"><%= t("general.unread") %></span>
+  </span>
+<% end %>

@@ -1,0 +1,42 @@
+.notification {
+  margin-bottom: 3rem;
+
+  &__unread {
+    border: .2rem solid #2FA7C6;
+
+    .unread-wrapper {
+      float: right;
+    }
+  }
+
+  &__read {
+    border: .2rem solid $color-grey-medium;
+  }
+
+  &__heading {
+    font-weight: $font-weight-bold;
+    position: absolute;
+  }
+
+  &__date{
+    color: $color-grey-medium;
+    position: relative;
+    text-align: right;
+    margin-bottom: 1rem;
+  }
+
+  &__body {
+    padding: 1rem;
+    border-radius: .5rem;
+  }
+}
+
+.day-heading {
+  text-align: center;
+  color: $color-grey-dark;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  &:first-of-type {
+    padding-top: inherit;
+  }
+}

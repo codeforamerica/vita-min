@@ -1,0 +1,13 @@
+<div class="notification">
+  <div class="notification__heading"><%= t(".title") %></div>
+  <div class="notification__date"><%= long_formatted_datetime(tra.created_at, use_day: false) %></div>
+  <div class="notification__body <%= tra.user_notification.read ? 'notification__read' : 'notification__unread' %>">
+    <%= t(".body_html",
+          assigner: tra.assigner.name,
+          tax_return_year: tra.tax_return.year.to_s,
+          client_link: link_to(t(".body_link", client_name: tra.tax_return.client.preferred_name), hub_client_path(id: tra.tax_return.client)))
+    %>
+    <%= render 'shared/unread_icon', notification: tra.user_notification %>
+  </div>
+</div>
+<!--change tra to just notification-->

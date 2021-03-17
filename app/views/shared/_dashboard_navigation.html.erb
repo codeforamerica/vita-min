@@ -5,4 +5,6 @@
   <% if current_user.admin? %>
     <%= tab_navigation_link(t("hub.clients.unlinked_clients.title"), hub_unlinked_clients_path) %>
   <% end %>
+  <%= tab_navigation_link(t("hub.clients.navigation.notifications"), hub_notifications_path) %>
+<!--  #add notification marker-->
 </div>
