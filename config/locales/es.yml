@@ -811,15 +811,12 @@ es:
     client_logins:
       form:
         errors:
-          bad_input: ID de cliente o los 4 últimos de SSN / ITIN incorrectos. Después de 5 intentos fallidos, las cuentas se bloquean
+          bad_input: ID de cliente o los 4 últimos de SSN / ITIN incorrectos. Después de 5 intentos fallidos, las cuentas se bloquean.
+          bad_verification_code: Código incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
       new:
-        title: Le mandaremos un enlace seguro para que pueda ver su progreso.
+        title: Le mandaremos un código seguro para que pueda ver su progreso.
         one_form_of_contact: "Por favor ingrese un formulario de contacto a continuación:"
-      link_sent:
-        link_sent: "Para proteger su identidad, le enviamos un enlace seguro a su información de contacto."
-        link_sent_at: "Para proteger su identidad, le enviamos un enlace seguro a su información de contacto en:"
-        title: "Para continuar, por favor visite su enlace seguro."
-        send_another_link: "Enviar otro enlace"
+        send_code: "Enviar código"
       edit:
         title: Autenticación necesaria para continuar
         confirm_identity: Proteger su información fiscal es nuestra prioridad. Para continuar, confirme su identidad.
@@ -830,6 +827,11 @@ es:
       invalid_token:
         title: Parece que necesita un nuevo enlace
         body_html: El enlace que usted usó está caducado o roto. <a href="mailto:hello@getyourrefund.org">Envíe un correo electrónico a soporte</a> para obtener un nuevo enlace.
+      enter_verification_code:
+        title: "¡Verifiquemos ese código!"
+        code_sent_to_html: "Se ha enviado un mensaje con tu código a: <strong>%{address}</strong>"
+        verify: "Verificar"
+        enter_6_digit_code: "TODO Enter 6 digit code"
     portal:
       home:
         title: "Bienvenido de nuevo %{name}!"
@@ -2292,22 +2294,18 @@ es:
       Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
       También puede ir a %{home_url} y seleccione “Empiece ahora” para empezar su declaración.
     login_sms: |
-      Recibimos su solicitud para saber el estatus actual de su progreso. Puede ver el estatus actualizado siguiendo este enlace
-      %{login_link}
+      Su código de verificación de 6 dígitos para GetYourRefund es: %{verification_code}. Este código expirará en dos días.
   client_login_request_mailer:
     login_email:
       body_html: |
-        <p>Hola,</p>
-        <p>Recibimos su solicitud para saber el estatus actual de su progreso. Puede ver el estatus actualizado siguiendo este enlace.</p>
-        <p><a href="%{login_link}">%{login_link}</a></p>
+        <p>¡Hola!</p>
+        <p>Su código de verificación de 6 dígitos para GetYourRefund es: %{verification_code}. Este código expirará en dos días.</p>
         <p>Si usted no hizo esta solicitud, por favor avisenos.</p>
         <p>Su equipo de impuestos de GetYourRefund.org</p>
       body_text: |
-        Hola,
+        ¡Hola!
 
-        Recibimos su solicitud para saber el estatus actual de su progreso. Puede ver el estatus actualizado siguiendo este enlace.
-
-        %{login_link}
+        Su código de verificación de 6 dígitos para GetYourRefund es: %{verification_code}. Este código expirará en dos días.
 
         Si usted no hizo esta solicitud, por favor avisenos.
 
@@ -2333,8 +2331,6 @@ es:
         Estamos aquí para servirle,
 
         Su equipo de impuestos de GetYourRefund
-
-
   public_pages:
     forbidden:
       title: Acceso no permitido

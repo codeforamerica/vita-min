@@ -13,6 +13,10 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
   end
   let(:client_query) { Client.where(id: client) }
 
+  before do
+    allow(DatadogApi).to receive(:increment)
+  end
+
   describe "#new" do
     it "returns 200 OK" do
       get :new
@@ -49,15 +53,16 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           }
         end
 
-        it "enqueues an email login request job with the right data and redirects to 'link sent' page" do
+        it "enqueues an email login request job with the right data and asks for verification code" do
           post :create, params: params
 
-          expect(response).to redirect_to login_link_sent_portal_client_logins_path(locale: "es")
           expect(ClientEmailLoginRequestJob).to have_been_enqueued.with(
             email_address: "client@example.com",
             locale: :es,
             visitor_id: "visitor id"
           )
+          expect(response).to be_ok
+          expect(response).to render_template(:enter_verification_code)
         end
       end
 
@@ -69,45 +74,16 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           }
         end
 
-        it "enqueues a text message login request job with the right data and redirects to 'link sent' page" do
+        it "enqueues a text message login request job with the right data and renders the 'enter verification code' page" do
           post :create, params: params
 
-          expect(response).to redirect_to login_link_sent_portal_client_logins_path(locale: "es")
           expect(ClientTextMessageLoginRequestJob).to have_been_enqueued.with(
             sms_phone_number: "+15105551234",
             locale: :es,
             visitor_id: "visitor id"
           )
-        end
-      end
-
-      context "saving contact info to session" do
-        context "with an email address" do
-          let(:contact_info_params) do
-            {
-              email_address: "client@example.com",
-              sms_phone_number: nil
-            }
-          end
-
-          it "adds it" do
-            post :create, params: params
-            expect(session[:email_address]).to eq(params[:portal_request_client_login_form][:email_address])
-          end
-        end
-
-        context "with a phone number" do
-          let(:contact_info_params) do
-            {
-              email_address: nil,
-              sms_phone_number: "4155537865"
-            }
-          end
-
-          it "adds it" do
-            post :create, params: params
-            expect(session[:sms_phone_number]).to eq("+14155537865")
-          end
+          expect(response).to be_ok
+          expect(response).to render_template(:enter_verification_code)
         end
       end
     end
@@ -288,30 +264,132 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
     end
   end
 
-  describe "#link_sent" do
-    context "moving contact info from the session to an instance variable" do
-      context "with an email address" do
-        before do
-          session[:email_address] = "moveabletypo@example.com"
-        end
+  describe "#check_verification_code" do
+    context "with valid params" do
+      let(:email_address) { "example@example.com" }
+      let(:verification_code) { "000004" }
+      let(:hashed_verification_code) { "hashed_verification_code" }
+      let(:params) { { portal_verification_code_form: {
+        contact_info: email_address,
+        verification_code: verification_code
+      }}}
+      let(:client) { create(:client) }
 
-        it "removes it from the session and saves it to a variable" do
-          get :link_sent
+      before do
+        allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
+        allow(ClientLoginsService).to receive(:clients_for_token).with(hashed_verification_code).and_return(Client.where(id: client))
+      end
 
-          expect(session[:email_address]).to be_nil
-          expect(assigns(:email_address)).to eq "moveabletypo@example.com"
+      it "redirects to the next page for login" do
+        post :check_verification_code, params: params
+        expect(response).to redirect_to(edit_portal_client_login_path(id: hashed_verification_code))
+      end
+
+      context "Datadog" do
+        it "increments a counter" do
+          post :check_verification_code, params: params
+          expect(DatadogApi).to have_received(:increment).with("client_logins.verification_codes.right_code")
         end
       end
-      context "with an sms phone number" do
+    end
+
+    context "with invalid params" do
+      context "with clients matching the contact info but invalid verification code" do
+        let(:email_address) { "example@example.com" }
+        let(:wrong_verification_code) { "000005" }
+        let(:hashed_wrong_verification_code) { "hashed_wrong_verification_code" }
+        let(:params) { { portal_verification_code_form: {
+          contact_info: email_address,
+          verification_code: wrong_verification_code,
+        }}}
+        let!(:client) { create(:intake, email_address: email_address).client }
+
         before do
-          session[:sms_phone_number] = "+14155537865"
+          allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, wrong_verification_code).and_return(hashed_wrong_verification_code)
+          allow(ClientLoginsService).to receive(:clients_for_token).with(hashed_wrong_verification_code).and_return(Client.none)
         end
 
-        it "removes it from the session and saves it to a variable" do
-          get :link_sent
+        it "increments their lockout counter & shows an error in the form" do
+          expect {
+            post :check_verification_code, params: params
+          }.to change { client.reload.failed_attempts }
 
-          expect(session[:sms_phone_number]).to be_nil
-          expect(assigns(:sms_phone_number)).to eq "+14155537865"
+          expect(response).to be_ok
+          expect(assigns[:verification_code_form]).to be_present
+          expect(assigns[:verification_code_form].errors).to include(:verification_code)
+        end
+
+        context "Datadog" do
+          it "increments a counter" do
+            post :check_verification_code, params: params
+            expect(DatadogApi).to have_received(:increment).with("client_logins.verification_codes.wrong_code")
+          end
+        end
+      end
+
+      context "with clients matching the contact info & token but locked out" do
+        let(:email_address) { "example@example.com" }
+        let(:wrong_verification_code) { "000005" }
+        let(:params) { { portal_verification_code_form: {
+          contact_info: email_address,
+          verification_code: wrong_verification_code,
+        }}}
+        let!(:client) { create(:client, intake: create(:intake, email_address: email_address), locked_at: DateTime.now) }
+
+        it "redirects to the account locked page" do
+          post :check_verification_code, params: params
+
+          expect(response).to redirect_to(account_locked_portal_client_logins_path)
+        end
+      end
+
+      context "with blank contact info" do
+        let(:params) { { portal_verification_code_form: {
+          contact_info: "",
+          verification_code: "999999",
+        }} }
+
+        it "shows a Bad Request error" do
+          post :check_verification_code, params: params
+          expect(response.status).to eq(400)
+        end
+      end
+
+      context "with invalid data in the verification code" do
+        let(:email_address) { "example@example.com" }
+        let!(:client) { create(:intake, email_address: email_address).client }
+        let(:params) { { portal_verification_code_form: {
+          contact_info: email_address,
+          verification_code: "invalid",
+        }}}
+
+        it "re-renders the form with errors and does not increment lockout counter" do
+          expect { post :check_verification_code, params: params }.not_to change { client.reload.failed_attempts }
+          expect(response).to be_ok
+          expect(assigns[:verification_code_form].errors).to include(:verification_code)
+        end
+      end
+
+      context "with no clients matching the contact info" do
+        let(:email_address) { "example@example.com" }
+        let(:verification_code) { "000004" }
+        let(:hashed_verification_code) { "hashed_verification_code" }
+
+        before do
+          allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
+          allow(ClientLoginsService).to receive(:clients_for_token).with(hashed_verification_code).and_return(Client.none)
+        end
+
+        let(:params) { { portal_verification_code_form: {
+          contact_info: email_address,
+          verification_code: verification_code
+        }}}
+
+        it "renders the page with an error in the verification code field" do
+          post :check_verification_code, params: params
+          expect(response).to be_ok
+          expect(assigns[:verification_code_form]).to be_present
+          expect(assigns[:verification_code_form].errors).to include(:verification_code)
         end
       end
     end

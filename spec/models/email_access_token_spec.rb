@@ -5,6 +5,7 @@
 #  id            :bigint           not null, primary key
 #  email_address :citext           not null
 #  token         :string           not null
+#  token_type    :string           default("link")
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
@@ -58,6 +59,26 @@ describe EmailAccessToken do
 
         it "is valid" do
           expect(access_token).to be_valid
+        end
+      end
+    end
+
+    describe "#token_type" do
+      let(:access_token) { build :email_access_token, token_type: token_type }
+
+      context "with a valid token type" do
+        let(:token_type) { "verification_code" }
+
+        it "is valid" do
+          expect(access_token).to be_valid
+        end
+      end
+
+      context "with an invalid token type" do
+        let(:token_type) { "not_a_type" }
+
+        it "is not valid" do
+          expect(access_token).not_to be_valid
         end
       end
     end

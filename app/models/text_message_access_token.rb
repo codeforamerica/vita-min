@@ -5,6 +5,7 @@
 #  id               :bigint           not null, primary key
 #  sms_phone_number :string           not null
 #  token            :string           not null
+#  token_type       :string           default("link")
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
@@ -14,6 +15,7 @@
 #
 class TextMessageAccessToken < ApplicationRecord
   validates_presence_of :token
+  validates :token_type, inclusion: %w(link verification_code)
   validates :sms_phone_number, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
 
   scope :lookup, ->(raw_token) do
