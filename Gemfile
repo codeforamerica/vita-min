@@ -8,7 +8,7 @@ gem 'rails', '>= 6.0.3.5'
 gem 'puma', '>= 4.3.5'
 gem 'sass-rails', '~> 5.0'
 gem 'terser', '~> 1.0'
-gem 'cfa-styleguide', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'master'
+gem 'cfa-styleguide', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'mini_racer', platforms: :ruby
 gem 'nokogiri', '>= 1.10.8'
