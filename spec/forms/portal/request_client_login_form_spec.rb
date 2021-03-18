@@ -38,6 +38,19 @@ RSpec.describe Portal::RequestClientLoginForm do
       end
     end
 
+    context "with an invalid email that requires DNS lookup to check if it is really valid" do
+      let(:params){ { sms_phone_number: "", email_address: "client@example.horse" } }
+
+      before do
+        allow_any_instance_of(ValidEmail2::Address).to receive(:valid_mx?) { false }
+      end
+
+      it "is not valid" do
+        expect(form).not_to be_valid
+        expect(form.errors.keys).to match_array([:email_address])
+      end
+    end
+
     context "with an invalid phone number" do
       let(:params){ { sms_phone_number: "510 555 123", email_address: "" } }
 

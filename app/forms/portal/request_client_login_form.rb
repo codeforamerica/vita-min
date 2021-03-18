@@ -3,7 +3,7 @@ module Portal
     attr_accessor :email_address, :sms_phone_number
 
     before_validation :normalize_phone_number
-    validates :email_address, 'valid_email_2/email': true
+    validates :email_address, 'valid_email_2/email': { mx: true }
     validates :sms_phone_number, allow_blank: true, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
     validate :phone_number_or_email_address
 
