@@ -107,7 +107,7 @@ Rails.application.routes.draw do
 
       resources :client_logins, path: "login", only: [:new, :create, :edit, :update], path_names: { new: '', edit: ''} do
         get "locked", to: "client_logins#account_locked", as: :account_locked, on: :collection
-        get "link-sent", to: "client_logins#link_sent", as: :login_link_sent, on: :collection
+        put "check-verification-code", to: "client_logins#check_verification_code", as: :check_verification_code, on: :collection
         get "invalid-token", to: "client_logins#invalid_token", as: :invalid_token, on: :collection
       end
       resources :tax_returns, only: [], path: '/tax-returns' do

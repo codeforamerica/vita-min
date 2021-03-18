@@ -821,14 +821,11 @@ en:
       form:
         errors:
           bad_input: "Incorrect client ID or last 4 of SSN/ITIN. After 5 failed attempts, accounts are locked."
+          bad_verification_code: "Incorrect verification code. After 5 failed attempts, accounts are locked."
       new:
-        title: "To view your progress, we’ll send you a secure link."
+        title: "To view your progress, we’ll send you a secure code."
         one_form_of_contact: "Please enter one form of contact below:"
-      link_sent:
-        link_sent: "To protect your identity, we sent a secure link to your contact info."
-        link_sent_at: "To protect your identity, we sent a secure link to your contact info at:"
-        title: "To continue, please visit your secure link."
-        send_another_link: "Send another link"
+        send_code: "Send code"
       edit:
         title: "Authentication needed to continue."
         confirm_identity: "Protecting your tax information is our priority. To continue, please confirm your identity below."
@@ -839,6 +836,11 @@ en:
       invalid_token:
         title: "It looks like you need a new link"
         body_html: The link you used is expired or broken. Please <a href="mailto:hello@getyourrefund.org">email support</a> to get a new link.
+      enter_verification_code:
+        title: "Let’s verify that code!"
+        code_sent_to_html: "A message with your code has been sent to: <strong>%{address}</strong>"
+        verify: "Verify"
+        enter_6_digit_code: "Enter 6 digit code"
     portal:
       home:
         title: Welcome back %{name}!
@@ -2263,22 +2265,18 @@ en:
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
       You can also visit %{home_url} and click “Get Started” to start the filing process.
     login_sms: |
-      We received your request for an update on your progress. You can view your progress by following this link
-      %{login_link}
+      Your 6-digit GetYourRefund verification code is: %{verification_code}. This code will expire after two days.
   client_login_request_mailer:
     login_email:
       body_html: |
-        <p>Hello,</p>
-        <p>We received your request for an update on your progress. You can view your progress by following this link.</p>
-        <p><a href="%{login_link}">%{login_link}</a></p>
+        <p>Hello!</p>
+        <p>Your 6-digit GetYourRefund verification code is: %{verification_code}. This code will expire after two days.</p>
         <p>If you did not initiate this request, please let us know.</p>
         <p>Your tax team at GetYourRefund.org</p>
       body_text: |
-        Hello,
+        Hello!
 
-        We received your request for an update on your progress. You can view your progress by following this link.
-
-        %{login_link}
+        Your 6-digit GetYourRefund verification code is: %{verification_code}. This code will expire after two days.
 
         If you did not initiate this request, please let us know.
 

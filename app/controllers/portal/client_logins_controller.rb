@@ -1,5 +1,6 @@
 module Portal
   class ClientLoginsController < ApplicationController
+    include PhoneNumberHelper
     before_action :redirect_to_portal_if_client_authenticated
     before_action :validate_token, only: [:edit, :update]
     before_action :redirect_locked_clients, only: [:edit, :update]
@@ -18,7 +19,6 @@ module Portal
             locale: I18n.locale,
             visitor_id: visitor_id
           )
-          session[:email_address] = @form.email_address
         end
 
         if @form.sms_phone_number.present?
@@ -27,18 +27,37 @@ module Portal
             locale: I18n.locale,
             visitor_id: visitor_id
           )
-          session[:sms_phone_number] = @form.sms_phone_number
         end
 
-        redirect_to login_link_sent_portal_client_logins_path
+        @verification_code_form = Portal::VerificationCodeForm.new(contact_info: @form.email_address.present? ? @form.email_address : local_phone_number(@form.sms_phone_number))
+        render :enter_verification_code
       else
         render :new
       end
     end
 
-    def link_sent
-      @email_address = session.delete(:email_address)
-      @sms_phone_number = session.delete(:sms_phone_number)
+    def check_verification_code
+      params = check_verification_code_params
+      if params[:contact_info].blank?
+        head :bad_request
+        return
+      end
+      hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], params[:verification_code])
+
+      if ClientLoginsService.clients_for_token(hashed_verification_code).exists?
+        redirect_to edit_portal_client_login_path(id: hashed_verification_code)
+      else
+        @verification_code_form = Portal::VerificationCodeForm.new(contact_info: params[:contact_info], verification_code: params[:verification_code])
+        if @verification_code_form.valid?
+          @clients = Client.by_contact_info(email_address: params[:contact_info], phone_number: params[:contact_info])
+          @clients.map(&:increment_failed_attempts)
+          return if redirect_locked_clients
+
+          @verification_code_form.errors.add(:verification_code, I18n.t("portal.client_logins.form.errors.bad_verification_code"))
+        end
+
+        render :enter_verification_code
+      end
     end
 
     def invalid_token; end
@@ -72,6 +91,10 @@ module Portal
 
     def client_login_params
       params.require(:portal_client_login_form).permit(:last_four_or_client_id).merge(possible_clients: @clients)
+    end
+
+    def check_verification_code_params
+      params.require(:portal_verification_code_form).permit(:contact_info, :verification_code)
     end
 
     def validate_token

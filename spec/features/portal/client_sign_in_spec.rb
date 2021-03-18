@@ -5,84 +5,99 @@ RSpec.feature "Signing in" do
     let!(:client) do
       create(:intake, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006").client
     end
-    let(:raw_token) { "raw_token" }
-    let(:hashed_token) { "hashed_token" }
-    before do
-      allow(TwilioService).to receive(:send_text_message)
-      allow(Devise.token_generator).to receive(:generate).and_return([raw_token, hashed_token])
-      allow(Devise.token_generator).to receive(:digest).and_return(hashed_token)
+
+    context "signing in with verification code" do
+      let(:hashed_verification_code) { "hashed_verification_code" }
+      let(:double_hashed_verification_code) { "double_hashed_verification_code" }
+
+      before do
+        allow(VerificationCodeService).to receive(:generate).with(anything).and_return ["000004", hashed_verification_code]
+        allow(Devise.token_generator).to receive(:digest).and_return(double_hashed_verification_code)
+        allow(TwilioService).to receive(:send_text_message)
+      end
+
+      scenario "requesting a verification code with an email address and signing in with a client id" do
+        visit new_portal_client_login_path
+
+        expect(page).to have_text "To view your progress, we’ll send you a secure code"
+        fill_in "Email address", with: client.intake.email_address
+        click_on "Send code"
+        expect(page).to have_text "Let’s verify that code!"
+
+        perform_enqueued_jobs
+
+        mail = ActionMailer::Base.deliveries.last
+        text_body = mail.body.parts[0].decoded
+        expect(text_body).to include("Your 6-digit GetYourRefund verification code is: 000004. This code will expire after two days.")
+
+        fill_in "Enter 6 digit code", with: "000004"
+        click_on "Verify"
+
+        fill_in "Client ID or Last 4 of SSN/ITIN", with: client.id
+        click_on "Continue"
+
+        expect(page).to have_text("Welcome back Carrie!")
+      end
+
+      scenario "requesting a verification code with a phone number and signing in with the last four of a social" do
+        visit new_portal_client_login_path
+
+        expect(page).to have_text "To view your progress, we’ll send you a secure code"
+        fill_in "Cell phone number", with: "(500) 555-0006"
+        click_on "Send code"
+        expect(page).to have_text "Let’s verify that code!"
+
+        perform_enqueued_jobs
+
+        expect(TwilioService).to have_received(:send_text_message).with(
+          to: "+15005550006",
+          body: "Your 6-digit GetYourRefund verification code is: 000004. This code will expire after two days."
+        )
+
+        fill_in "Enter 6 digit code", with: "000004"
+        click_on "Verify"
+
+        fill_in "Client ID or Last 4 of SSN/ITIN", with: "9876"
+        click_on "Continue"
+
+        expect(page).to have_text("Welcome back Carrie!")
+      end
     end
 
-    scenario "requesting a sign-in link with an email address and signing in with a confirmation number" do
-      visit new_portal_client_login_path
+    context "signing in with link" do
+      let(:raw_token) { "raw_token" }
+      let(:hashed_token) { "hashed_token" }
 
-      expect(page).to have_text "To view your progress, we’ll send you a secure link"
-      fill_in "Email address", with: client.intake.email_address
-      click_on "Continue"
-      expect(page).to have_text "To continue, please visit your secure link."
+      before do
+        allow(Devise.token_generator).to receive(:generate).and_return [raw_token, hashed_token]
+        allow(Devise.token_generator).to receive(:digest).and_return(hashed_token)
+      end
 
-      perform_enqueued_jobs
+      before do
+        # Set up login link
+        ClientLoginsService.issue_email_token("example@example.com")
+      end
 
-      mail = ActionMailer::Base.deliveries.last
-      html_body = mail.body.parts[1].decoded
-      link = Nokogiri::HTML.parse(html_body).at_css("a")["href"]
-      expect(link).to be_present
+      scenario "visiting sign-in link at its current url" do
+        visit edit_portal_client_login_path(id: "raw_token", locale: "es")
+        fill_in "ID de cliente o los 4 últimos de SSN / ITIN", with: "9876"
+        click_on "Continuar"
 
-      visit link
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: client.id
-      click_on "Continue"
+        expect(page).to have_text("Bienvenido de nuevo Carrie!")
+      end
 
-      expect(page).to have_text("Welcome back Carrie!")
-    end
+      scenario "visiting a sign-in link with the pre-march-2021 url" do
+        # Validate with empty locale
+        visit "/portal/account/raw_token"
+        fill_in "Client ID or Last 4 of SSN/ITIN", with: "9876"
 
-    scenario "requesting a sign-in link with a phone number and signing in with the last four of a social" do
-      visit new_portal_client_login_path
+        # Validate with Spanish
+        visit "/es/portal/account/raw_token"
+        fill_in "ID de cliente o los 4 últimos de SSN / ITIN", with: "9876"
+        click_on "Continuar"
 
-      expect(page).to have_text "To view your progress, we’ll send you a secure link"
-      fill_in "Cell phone number", with: "(500) 555-0006"
-      click_on "Continue"
-      expect(page).to have_text "To continue, please visit your secure link."
-
-      perform_enqueued_jobs
-
-      expected_link = "http://test.host/en/portal/login/raw_token"
-      expected_message_body = <<~TEXT
-        We received your request for an update on your progress. You can view your progress by following this link
-        #{expected_link}
-      TEXT
-
-      expect(TwilioService).to have_received(:send_text_message).with(
-        to: "+15005550006",
-        body: expected_message_body
-      )
-
-      visit expected_link
-
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: "9876"
-      click_on "Continue"
-
-      expect(page).to have_text("Welcome back Carrie!")
-    end
-
-    scenario "visiting a sign-in link with the pre-march-2021 url" do
-      visit new_portal_client_login_path
-
-      expect(page).to have_text "To view your progress, we’ll send you a secure link"
-      fill_in "Cell phone number", with: "(500) 555-0006"
-      click_on "Continue"
-
-      perform_enqueued_jobs
-
-      # Validate with empty locale
-      visit "/portal/account/raw_token"
-      fill_in "Client ID or Last 4 of SSN/ITIN", with: "9876"
-
-      # Validate with Spanish
-      visit "/es/portal/account/raw_token"
-      fill_in "ID de cliente o los 4 últimos de SSN / ITIN", with: "9876"
-      click_on "Continuar"
-
-      expect(page).to have_text("Bienvenido de nuevo Carrie!")
+        expect(page).to have_text("Bienvenido de nuevo Carrie!")
+      end
     end
   end
 end

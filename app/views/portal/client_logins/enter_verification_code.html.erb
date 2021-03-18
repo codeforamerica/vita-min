@@ -1,0 +1,21 @@
+<% content_for :page_title, t(".title") %>
+
+<% content_for :card do %>
+  <div class="question__illustration">
+    <%= image_tag("portal/verification-code.svg", alt: "") %>
+  </div>
+
+  <%= form_with model: @verification_code_form, url: check_verification_code_portal_client_logins_path, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+    <div class="form-card__content">
+      <h1 class="h2"><%= t(".title") %></h1>
+
+      <p class="spacing-below-15"><%= t(".code_sent_to_html", address: @verification_code_form.contact_info) %></p>
+      <%= f.hidden_field(:contact_info) %>
+      <%= f.cfa_input_field(:verification_code, t(".enter_6_digit_code"), classes: ["form-width--long"]) %>
+
+      <button class="button button--primary button--wide" type="submit">
+        <%= t(".verify") %>
+      </button>
+    </div>
+  <% end %>
+<% end %>
