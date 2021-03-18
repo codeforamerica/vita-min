@@ -47,9 +47,9 @@ class Document < ApplicationRecord
   validates_presence_of :upload
   validate :tax_return_belongs_to_client
   validate :upload_must_have_data
-  # Permit all existing document types, plus "Requested", which is superseded by "Requested Later" (but the DB has both)
+  # Permit all existing document types plus two historical ones
   validates_presence_of :document_type
-  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested"] }, allow_blank: true
+  validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested", "F13614C / F15080 2020"] }, allow_blank: true
 
   before_save :set_display_name
 

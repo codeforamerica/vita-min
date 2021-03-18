@@ -93,6 +93,11 @@
       <%= check_box_tag :exclude_dropoffs, true, @filters[:exclude_dropoffs] %>
       <%= "Exclude dropoffs" %>
     </label>
+    
+    <label class="checkbox--gyr">
+      <%= check_box_tag :unemployment_income, true, @filters[:unemployment_income] %>
+      <%= t("general.received_unemployment_income") %>
+    </label>
   </div>
 
   <div class="actions-wrapper">

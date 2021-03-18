@@ -93,6 +93,10 @@ Rails.application.routes.draw do
     get "/500", to: "public_pages#internal_server_error"
     get "/422", to: "public_pages#internal_server_error"
     get "/404", to: "public_pages#page_not_found"
+    get "/consent-to-use", to: "consent_pages#consent_to_use"
+    get "/consent-to-disclose", to: "consent_pages#consent_to_disclose"
+    get "/relational-efin", to: "consent_pages#relational_efin"
+    get "/global-carryforward", to: "consent_pages#global_carryforward"
 
     devise_for :clients, skip: [:sessions]
     namespace :portal do

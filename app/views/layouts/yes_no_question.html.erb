@@ -45,7 +45,7 @@
                 <% if has_unsure_option? %>
                   <div class="i-dont-know">
                     <%= f.button :submit, name: "#{f.object_name}[#{method_name}", value: "unsure", class: "button button--link", "aria-describedby": "main-question" do %>
-                      <%= "I don't know." %>
+                      <%= t("general.unsure") %>
                     <% end %>
                   </div>
                 <% end %>

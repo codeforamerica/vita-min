@@ -57,7 +57,7 @@ RSpec.describe Questions::SpouseConsentController do
         post :update, params: params
 
         expect(Intake14446PdfJob).to have_received(:perform_later).with(intake, "Consent Form 14446.pdf")
-        expect(IntakePdfJob).to have_received(:perform_later).with(intake.id, "Preliminary 13614-C with 15080.pdf")
+        expect(IntakePdfJob).to have_received(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
       end
     end
 
