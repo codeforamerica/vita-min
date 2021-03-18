@@ -13,6 +13,7 @@ module Hub
 
     def mark_all_notifications_read
       @user_notifications.update_all(read: true)
+      redirect_to hub_user_notifications_path
     end
   end
 end
