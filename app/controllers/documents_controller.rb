@@ -15,8 +15,4 @@ class DocumentsController < ApplicationController
       redirect_to overview_documents_path
     end
   end
-
-  def current_path(params = {})
-    documents_path(self.class.to_param, params)
-  end
 end

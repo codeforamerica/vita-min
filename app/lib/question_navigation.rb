@@ -165,10 +165,14 @@ class QuestionNavigation
     Questions::FeedbackController,
   ].freeze
 
-  def self.determine_current_question(intake)
+  # Provides a backfill to determine the current_step value for clients who started intake previous to the addition of
+  # determining current_step during the intake flow
+  def self.determine_current_step(intake)
     return nil if intake.completed_at?
     return Questions::ConsentController.to_path_helper unless intake.primary_consented_to_service_at?
 
+    # If yes/no questions have been completed and we definitely still need certain documents, send
+    # them to the upload docs page.
     if intake.completed_yes_no_questions_at? && intake.document_types_definitely_needed.present?
       return Documents::OverviewController.to_path_helper
     end

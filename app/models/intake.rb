@@ -585,7 +585,7 @@ class Intake < ApplicationRecord
   def determine_current_step
     return current_step if current_step.present?
 
-    step = QuestionNavigation.determine_current_question(self)
+    step = QuestionNavigation.determine_current_step(self)
     update(current_step: step)
     step
   end

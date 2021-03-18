@@ -1,11 +1,11 @@
 require "rails_helper"
 
 describe QuestionNavigation do
-  context ".determine_current_question" do
+  context ".determine_current_step" do
     context "when before consent" do
       let(:intake) { create :intake }
       it "directs to the consent page" do
-        expect(described_class.determine_current_question(intake)).to eq "/en/questions/consent"
+        expect(described_class.determine_current_step(intake)).to eq "/en/questions/consent"
       end
     end
 
@@ -16,7 +16,7 @@ describe QuestionNavigation do
       end
 
       it "directs to the documents overview page" do
-        expect(described_class.determine_current_question(intake)).to eq "/en/documents/overview"
+        expect(described_class.determine_current_step(intake)).to eq "/en/documents/overview"
       end
     end
 
@@ -28,7 +28,7 @@ describe QuestionNavigation do
                  was_full_time_student: "yes"
         }
         it "has next step as issued-identity-pin" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/issued-identity-pin"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/issued-identity-pin"
         end
       end
 
@@ -41,7 +41,7 @@ describe QuestionNavigation do
                  ever_married: "yes"
         }
         it "has next step as married" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/married"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/married"
         end
       end
 
@@ -54,7 +54,7 @@ describe QuestionNavigation do
                  ever_married: "no"
         }
         it "has next step as had-dependents" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/had-dependents"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/had-dependents"
         end
       end
 
@@ -69,7 +69,7 @@ describe QuestionNavigation do
                  paid_dependent_care: "unfilled"
         }
         it "has next step as dependent-care" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/dependent-care"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/dependent-care"
         end
       end
 
@@ -90,7 +90,7 @@ describe QuestionNavigation do
 
         }
         it "has next step as other-states" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/other-states"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/other-states"
         end
       end
 
@@ -116,7 +116,7 @@ describe QuestionNavigation do
                  had_asset_sale_income: "unfilled"
         }
         it "has next step as other-states" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/asset-sale-income"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/asset-sale-income"
         end
       end
 
@@ -145,7 +145,7 @@ describe QuestionNavigation do
                  bought_health_insurance: "unfilled"
         }
         it "has next step as health-insurance" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/health-insurance"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/health-insurance"
         end
       end
 
@@ -179,7 +179,7 @@ describe QuestionNavigation do
                  paid_school_supplies: "unfilled"
         }
         it "has next step as health-insurance" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/school-supplies"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/school-supplies"
         end
       end
 
@@ -219,7 +219,7 @@ describe QuestionNavigation do
                  had_disaster_loss: "unfilled"
         }
         it "has next step as health-insurance" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/disaster-loss"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/disaster-loss"
         end
       end
 
@@ -266,7 +266,7 @@ describe QuestionNavigation do
                  additional_info: nil
         }
         it "has next step as additional-info" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/additional-info"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/additional-info"
         end
       end
 
@@ -280,7 +280,7 @@ describe QuestionNavigation do
       context "without interview scheduling answered" do
         let(:intake) { create :intake, primary_consented_to_service_at: DateTime.current, completed_yes_no_questions_at: DateTime.current }
         it "sends you to interview scheduling" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/interview-scheduling"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/interview-scheduling"
         end
       end
 
@@ -294,7 +294,7 @@ describe QuestionNavigation do
         }
 
         it "sends you to refund payment options" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/refund-payment"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/refund-payment"
         end
       end
 
@@ -308,7 +308,7 @@ describe QuestionNavigation do
         }
 
         it "sends you to refund payment options" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/savings-options"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/savings-options"
         end
       end
 
@@ -326,7 +326,7 @@ describe QuestionNavigation do
         }
 
         it "sends you to refund payment options" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/demographic-questions"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/demographic-questions"
         end
       end
 
@@ -345,7 +345,7 @@ describe QuestionNavigation do
         }
 
         it "sends you to refund payment options" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/final-info"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/final-info"
         end
       end
 
@@ -364,7 +364,7 @@ describe QuestionNavigation do
         }
 
         it "takes you through the demographic questions" do
-          expect(described_class.determine_current_question(intake)).to eq "/en/questions/demographic-english-conversation"
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/demographic-english-conversation"
         end
 
         context "when demographic questions are opted into" do
@@ -387,7 +387,7 @@ describe QuestionNavigation do
           }
 
           it "takes you through the demographic questions" do
-            expect(described_class.determine_current_question(intake)).to eq "/en/questions/demographic-primary-ethnicity"
+            expect(described_class.determine_current_step(intake)).to eq "/en/questions/demographic-primary-ethnicity"
           end
         end
 
