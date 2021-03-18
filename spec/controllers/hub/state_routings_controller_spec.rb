@@ -3,10 +3,21 @@ require "rails_helper"
 describe Hub::StateRoutingsController do
   describe '#index' do
     context "when not authenticated" do
+      it "redirects to login" do
+        get :index
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context "when authenticated as a user type without access to VitaPartnerState objects" do
+      let(:user) { create :team_member_user }
+      before do
+        sign_in user
+      end
 
       it "is forbidden" do
         get :index
-        expect(response.status).to be 302
+        expect(response).to be_forbidden
       end
     end
 

@@ -2,6 +2,7 @@ module Hub
   class StateRoutingsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
+    authorize_resource :vita_partner_state
     layout "admin"
 
     def index
