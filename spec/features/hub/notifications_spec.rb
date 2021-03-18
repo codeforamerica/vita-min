@@ -12,7 +12,7 @@ RSpec.feature "View user notifications" do
     end
 
     scenario "view notifications" do
-      visit hub_notifications_path
+      visit hub_user_notifications_path
 
       expect(page).to have_text("You've Been Assigned a Client")
       expect(page).to have_text("Jia Tolentino has assigned")

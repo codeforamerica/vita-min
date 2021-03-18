@@ -161,6 +161,13 @@ class TaxReturn < ApplicationRecord
     SystemNote::AssignmentChange.generate!(initiated_by: assigned_by, tax_return: self)
     if assigned_user_id.present?
       assigned_user = User.find(assigned_user_id)
+      UserNotification.create!(
+        user: assigned_user,
+        notifiable: TaxReturnAssignment.create!(
+          assigner: assigned_by,
+          tax_return: self
+        )
+      )
       UserMailer.assignment_email(
         assigned_user: assigned_user,
         assigning_user: assigned_by,

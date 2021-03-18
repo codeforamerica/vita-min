@@ -22,4 +22,6 @@
 class UserNotification < ApplicationRecord
   belongs_to :notifiable, polymorphic: true
   belongs_to :user
+
+  self.per_page = 25
 end

@@ -103,14 +103,21 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
       context "when trying to assign the tax return to an assignable user" do
         let(:assigned_user) { organization_lead }
 
-        it "assigns the user to the tax return and creates a system note" do
+        it "assigns the user to the tax return, creates a system note and creates a user notification" do
           put :update, params: params, format: :js, xhr: true
 
           tax_return.reload
           expect(tax_return.assigned_user).to eq organization_lead
           expect(response).to render_template :show
           expect(flash.now[:notice]).to eq "Assigned Lucille's 2018 tax return to #{organization_lead.name}."
+
           expect(SystemNote::AssignmentChange).to have_received(:generate!).with({ initiated_by: user, tax_return: tax_return })
+
+          notification = UserNotification.last
+          expect(notification.user).to eq assigned_user
+          expect(notification.read).to eq false
+          expect(notification.notifiable.assigner).to eq user
+          expect(notification.notifiable.tax_return).to eq tax_return
         end
       end
 

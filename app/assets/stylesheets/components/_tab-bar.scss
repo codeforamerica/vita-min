@@ -31,6 +31,6 @@ a.tab-bar__tab:first-of-type {
   }
 }
 
-.tab-bar__tab.notifications {
-//  add circle to tab
+.tab-bar__notifications span{
+ margin-left: $s5;
 }

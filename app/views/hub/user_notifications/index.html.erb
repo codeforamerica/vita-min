@@ -1,0 +1,38 @@
+<% content_for :page_title, @page_title %>
+
+<% content_for :card do %>
+  <section class="slab slab--padded client-index-header">
+    <%= render "shared/user_header" %>
+  </section>
+  <%= render "shared/dashboard_navigation" %>
+
+  <section class="slab slab--padded">
+    <div class="pagination-wrapper">
+      <div>
+        <%= page_entries_info @user_notifications, model: "notification" %>
+      </div>
+      <div>
+        <%= will_paginate(
+                @user_notifications,
+                previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
+                next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+                inner_window: 1,
+                outer_window: 1,
+                param_name: "page",
+                ) %>
+      </div>
+    </div>
+  </section>
+
+  <section class="slab slab--padded">
+    <% all_notifications_by_day = @user_notifications.group_by do |notification| %>
+      <% notification.created_at.beginning_of_day %>
+    <% end %>
+    <% all_notifications_by_day.map do |date, notifications| %>
+      <div class="day-heading"><%= default_date_format(date) %></div>
+      <% notifications.map do |n| %>
+        <%= render "#{n.notifiable_type.underscore}", notification: n %>
+      <% end %>
+    <% end %>
+  </section>
+<% end %>
