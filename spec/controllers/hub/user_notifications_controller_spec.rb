@@ -25,6 +25,8 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
   end
 
   describe "#mark_all_notifications_read" do
+    let!(:notification_other) { create :user_notification, user: create(:user), read: false }
+
     before do
       controller.instance_variable_set(:@user_notifications, UserNotification.where(user: user))
     end
@@ -34,6 +36,7 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
         controller.mark_all_notifications_read
         expect(notification_first.reload.read).to eq true
         expect(notification_second.reload.read).to eq true
+        expect(notification_other.reload.read).to eq false
       end
     end
   end
