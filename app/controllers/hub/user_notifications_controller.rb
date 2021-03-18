@@ -3,7 +3,6 @@ module Hub
     include AccessControllable
 
     before_action :require_sign_in
-    after_action :mark_all_notifications_read, only: [:index]
     load_and_authorize_resource
     layout "admin"
 

@@ -163,6 +163,7 @@ Rails.application.routes.draw do
         patch "/update_role", to: "users#update_role", on: :member, as: :update_role
       end
       resources :user_notifications, only: [:index], path: "/notifications"
+      post '/mark_all_notifications_read', to: 'user_notifications#mark_all_notifications_read', as: :mark_all_notifications_read
       get "/profile" => "users#profile", as: :user_profile
     end
 

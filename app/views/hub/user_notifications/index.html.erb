@@ -6,6 +6,10 @@
   </section>
   <%= render "shared/dashboard_navigation" %>
 
+  <section class="mark_all_notifications_read slab slab--padded">
+    <%= link_to "Mark all as Read", hub_mark_all_notifications_read_path, method: :post %>
+  </section>
+
   <section class="slab slab--padded">
     <div class="pagination-wrapper">
       <div>
