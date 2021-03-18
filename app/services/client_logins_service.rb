@@ -1,9 +1,13 @@
 class ClientLoginsService
   class << self
     def issue_email_verification_code(email_address)
+      existing_tokens = EmailAccessToken.where(email_address: email_address, token_type: "verification_code")
+      existing_tokens.order(created_at: :asc).limit(existing_tokens.count - 4).delete_all if existing_tokens.count > 4
       raw_verification_code, hashed_verification_code = VerificationCodeService.generate(email_address)
+      DatadogApi.increment("client_logins.verification_codes.email.created")
       [raw_verification_code, EmailAccessToken.create!(
         email_address: email_address,
+        token_type: "verification_code",
         token: Devise.token_generator.digest(EmailAccessToken, :token, hashed_verification_code))]
     end
 
@@ -14,9 +18,13 @@ class ClientLoginsService
     end
 
     def issue_text_message_verification_code(sms_phone_number)
+      existing_tokens = TextMessageAccessToken.where(sms_phone_number: sms_phone_number, token_type: "verification_code")
+      existing_tokens.order(created_at: :asc).limit(existing_tokens.count - 4).delete_all if existing_tokens.count > 4
+      DatadogApi.increment("client_logins.verification_codes.text_message.created")
       raw_verification_code, hashed_verification_code = VerificationCodeService.generate(sms_phone_number)
       [raw_verification_code, TextMessageAccessToken.create!(
         sms_phone_number: sms_phone_number,
+        token_type: "verification_code",
         token: Devise.token_generator.digest(TextMessageAccessToken, :token, hashed_verification_code))]
     end
 

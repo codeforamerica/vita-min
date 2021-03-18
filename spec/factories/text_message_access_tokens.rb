@@ -5,6 +5,7 @@
 #  id               :bigint           not null, primary key
 #  sms_phone_number :string           not null
 #  token            :string           not null
+#  token_type       :string           default("link")
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #

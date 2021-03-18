@@ -13,6 +13,10 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
   end
   let(:client_query) { Client.where(id: client) }
 
+  before do
+    allow(DatadogApi).to receive(:increment)
+  end
+
   describe "#new" do
     it "returns 200 OK" do
       get :new
@@ -280,9 +284,65 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         post :check_verification_code, params: params
         expect(response).to redirect_to(edit_portal_client_login_path(id: hashed_verification_code))
       end
+
+      context "Datadog" do
+        it "increments a counter" do
+          post :check_verification_code, params: params
+          expect(DatadogApi).to have_received(:increment).with("client_logins.verification_codes.right_code")
+        end
+      end
     end
 
     context "with invalid params" do
+      context "with clients matching the contact info but invalid verification code" do
+        let(:email_address) { "example@example.com" }
+        let(:wrong_verification_code) { "000005" }
+        let(:hashed_wrong_verification_code) { "hashed_wrong_verification_code" }
+        let(:params) { { portal_verification_code_form: {
+          contact_info: email_address,
+          verification_code: wrong_verification_code,
+        }}}
+        let!(:client) { create(:intake, email_address: email_address).client }
+
+        before do
+          allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, wrong_verification_code).and_return(hashed_wrong_verification_code)
+          allow(ClientLoginsService).to receive(:clients_for_token).with(hashed_wrong_verification_code).and_return(Client.none)
+        end
+
+        it "increments their lockout counter & shows an error in the form" do
+          expect {
+            post :check_verification_code, params: params
+          }.to change { client.reload.failed_attempts }
+
+          expect(response).to be_ok
+          expect(assigns[:verification_code_form]).to be_present
+          expect(assigns[:verification_code_form].errors).to include(:verification_code)
+        end
+
+        context "Datadog" do
+          it "increments a counter" do
+            post :check_verification_code, params: params
+            expect(DatadogApi).to have_received(:increment).with("client_logins.verification_codes.wrong_code")
+          end
+        end
+      end
+
+      context "with clients matching the contact info & token but locked out" do
+        let(:email_address) { "example@example.com" }
+        let(:wrong_verification_code) { "000005" }
+        let(:params) { { portal_verification_code_form: {
+          contact_info: email_address,
+          verification_code: wrong_verification_code,
+        }}}
+        let!(:client) { create(:client, intake: create(:intake, email_address: email_address), locked_at: DateTime.now) }
+
+        it "redirects to the account locked page" do
+          post :check_verification_code, params: params
+
+          expect(response).to redirect_to(account_locked_portal_client_logins_path)
+        end
+      end
+
       context "with blank contact info" do
         let(:params) { { portal_verification_code_form: {
           contact_info: "",
@@ -330,48 +390,6 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           expect(response).to be_ok
           expect(assigns[:verification_code_form]).to be_present
           expect(assigns[:verification_code_form].errors).to include(:verification_code)
-        end
-      end
-
-      context "with clients matching the contact info but invalid verification code" do
-        let(:email_address) { "example@example.com" }
-        let(:wrong_verification_code) { "000005" }
-        let(:hashed_wrong_verification_code) { "hashed_wrong_verification_code" }
-        let(:params) { { portal_verification_code_form: {
-          contact_info: email_address,
-          verification_code: wrong_verification_code,
-        }}}
-        let!(:client) { create(:intake, email_address: email_address).client }
-
-        before do
-          allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, wrong_verification_code).and_return(hashed_wrong_verification_code)
-          allow(ClientLoginsService).to receive(:clients_for_token).with(hashed_wrong_verification_code).and_return(Client.none)
-        end
-
-        it "increments their lockout counter & shows an error in the form" do
-          expect {
-            post :check_verification_code, params: params
-          }.to change { client.reload.failed_attempts }
-
-          expect(response).to be_ok
-          expect(assigns[:verification_code_form]).to be_present
-          expect(assigns[:verification_code_form].errors).to include(:verification_code)
-        end
-      end
-
-      context "with clients matching the contact info & token but locked out" do
-        let(:email_address) { "example@example.com" }
-        let(:wrong_verification_code) { "000005" }
-        let(:params) { { portal_verification_code_form: {
-          contact_info: email_address,
-          verification_code: wrong_verification_code,
-        }}}
-        let!(:client) { create(:client, intake: create(:intake, email_address: email_address), locked_at: DateTime.now) }
-
-        it "redirects to the account locked page" do
-          post :check_verification_code, params: params
-
-          expect(response).to redirect_to(account_locked_portal_client_logins_path)
         end
       end
     end

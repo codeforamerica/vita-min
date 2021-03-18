@@ -41,22 +41,26 @@ module Portal
         head :bad_request
         return
       end
-      hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], params[:verification_code])
 
-      if ClientLoginsService.clients_for_token(hashed_verification_code).exists?
-        redirect_to edit_portal_client_login_path(id: hashed_verification_code)
-      else
-        @verification_code_form = Portal::VerificationCodeForm.new(contact_info: params[:contact_info], verification_code: params[:verification_code])
-        if @verification_code_form.valid?
+      @verification_code_form = Portal::VerificationCodeForm.new(contact_info: params[:contact_info], verification_code: params[:verification_code])
+      if @verification_code_form.valid?
+        hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], params[:verification_code])
+
+        if ClientLoginsService.clients_for_token(hashed_verification_code).exists?
+          DatadogApi.increment("client_logins.verification_codes.right_code")
+          redirect_to edit_portal_client_login_path(id: hashed_verification_code)
+          return
+        else
+          @verification_code_form.errors.add(:verification_code, I18n.t("portal.client_logins.form.errors.bad_verification_code"))
+          DatadogApi.increment("client_logins.verification_codes.wrong_code")
+
           @clients = Client.by_contact_info(email_address: params[:contact_info], phone_number: params[:contact_info])
           @clients.map(&:increment_failed_attempts)
           return if redirect_locked_clients
-
-          @verification_code_form.errors.add(:verification_code, I18n.t("portal.client_logins.form.errors.bad_verification_code"))
         end
-
-        render :enter_verification_code
       end
+
+      render :enter_verification_code
     end
 
     def invalid_token; end

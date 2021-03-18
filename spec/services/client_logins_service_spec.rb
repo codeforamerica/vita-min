@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe ClientLoginsService do
+  before do
+    allow(DatadogApi).to receive(:increment)
+  end
+
   describe ".issue_email_token" do
     before do
       allow(Devise.token_generator).to receive(:generate).and_return(["raw_token", "hashed_token"])
@@ -15,6 +19,7 @@ describe ClientLoginsService do
       end.to change(EmailAccessToken, :count).by(1)
       token = EmailAccessToken.last
       expect(token.email_address).to eq "someone@example.com"
+      expect(token.token_type).to eq "link"
       expect(token.token).to eq "hashed_token"
     end
   end
@@ -30,9 +35,32 @@ describe ClientLoginsService do
       raw_verification_code, access_token = described_class.issue_email_verification_code("someone@example.com")
       expect(raw_verification_code).to eq "000004"
       expect(access_token).to eq(EmailAccessToken.last)
+      expect(access_token.token_type).to eq "verification_code"
       expect(access_token.email_address).to eq("someone@example.com")
       expect(Devise.token_generator).to have_received(:digest).with(EmailAccessToken, :token, "hashed_verification_code")
       expect(access_token.token).to eq "double_hashed_verification_code"
+    end
+
+    context "if there are already 5 live verification codes" do
+      let!(:email_access_token_link) { create(:email_access_token, created_at: (1.5).days.ago, email_address: "someone@example.com", token_type: "link") }
+      let!(:oldest_email_access_token) { create(:email_access_token, created_at: 1.day.ago, email_address: "someone@example.com", token_type: "verification_code") }
+      let!(:email_access_tokens) { create_list(:email_access_token, 4, email_address: "someone@example.com", token_type: "verification_code") }
+
+      it "deletes the oldest of the existing codes" do
+        described_class.issue_email_verification_code("someone@example.com")
+
+        expect {
+          EmailAccessToken.find(oldest_email_access_token.id)
+        }.to raise_error ActiveRecord::RecordNotFound
+        expect(EmailAccessToken.find(email_access_token_link.reload.id)).to eq email_access_token_link
+      end
+    end
+
+    context "Datadog" do
+      it "increments a metric when creating an access token" do
+        described_class.issue_email_verification_code("someone@example.com")
+        expect(DatadogApi).to have_received(:increment).with("client_logins.verification_codes.email.created")
+      end
     end
   end
 
@@ -50,6 +78,7 @@ describe ClientLoginsService do
       end.to change(TextMessageAccessToken, :count).by(1)
       token = TextMessageAccessToken.last
       expect(token.sms_phone_number).to eq "+15105551234"
+      expect(token.token_type).to eq "link"
       expect(token.token).to eq "hashed_token"
     end
   end
@@ -65,9 +94,32 @@ describe ClientLoginsService do
       raw_verification_code, access_token = described_class.issue_text_message_verification_code("+14155551212")
       expect(raw_verification_code).to eq "000004"
       expect(access_token).to eq(TextMessageAccessToken.last)
+      expect(access_token.token_type).to eq("verification_code")
       expect(access_token.sms_phone_number).to eq "+14155551212"
       expect(Devise.token_generator).to have_received(:digest).with(TextMessageAccessToken, :token, "hashed_verification_code")
       expect(access_token.token).to eq "double_hashed_verification_code"
+    end
+
+    context "if there are already 5 live verification codes" do
+      let!(:text_message_access_token_link) { create(:text_message_access_token, created_at: (1.5).days.ago, sms_phone_number: "+14155551212", token_type: "link") }
+      let!(:oldest_text_message_access_token) { create(:text_message_access_token, created_at: 1.day.ago, sms_phone_number: "+14155551212", token_type: "verification_code") }
+      let!(:text_message_access_tokens) { create_list(:text_message_access_token, 4, sms_phone_number: "+14155551212", token_type: "verification_code") }
+
+      it "deletes the oldest of the existing codes" do
+        described_class.issue_text_message_verification_code("+14155551212")
+
+        expect {
+          TextMessageAccessToken.find(oldest_text_message_access_token.id)
+        }.to raise_error ActiveRecord::RecordNotFound
+        expect(TextMessageAccessToken.find(text_message_access_token_link.id)).to eq text_message_access_token_link
+      end
+    end
+
+    context "Datadog" do
+      it "increments a metric when creating an access token" do
+        described_class.issue_text_message_verification_code("+14155551212")
+        expect(DatadogApi).to have_received(:increment).with("client_logins.verification_codes.text_message.created")
+      end
     end
   end
 
