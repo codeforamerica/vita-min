@@ -9,7 +9,7 @@
     <div class="form-card__content">
       <h1 class="h2"><%= t(".title") %></h1>
 
-      <p class="spacing-below-15"><%= t(".code_sent_to_html", address: @verification_code_form.contact_info) %></p>
+      <p class="spacing-below-15"><%= t(".code_sent_to_html", address: @verification_code_form.formatted_contact_info) %></p>
       <%= f.hidden_field(:contact_info) %>
       <%= f.cfa_input_field(:verification_code, t(".enter_6_digit_code"), classes: ["form-width--long"]) %>
 

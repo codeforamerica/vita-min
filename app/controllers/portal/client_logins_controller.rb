@@ -1,6 +1,5 @@
 module Portal
   class ClientLoginsController < ApplicationController
-    include PhoneNumberHelper
     before_action :redirect_to_portal_if_client_authenticated
     before_action :validate_token, only: [:edit, :update]
     before_action :redirect_locked_clients, only: [:edit, :update]
@@ -29,7 +28,7 @@ module Portal
           )
         end
 
-        @verification_code_form = Portal::VerificationCodeForm.new(contact_info: @form.email_address.present? ? @form.email_address : local_phone_number(@form.sms_phone_number))
+        @verification_code_form = Portal::VerificationCodeForm.new(contact_info: @form.email_address.present? ? @form.email_address : @form.sms_phone_number)
         render :enter_verification_code
       else
         render :new

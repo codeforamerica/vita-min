@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Signing in" do
+RSpec.feature "Logging in" do
   context "As a client", active_job: true do
     let!(:client) do
       create(:intake, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006").client
@@ -12,7 +12,11 @@ RSpec.feature "Signing in" do
 
       before do
         allow(VerificationCodeService).to receive(:generate).with(anything).and_return ["000004", hashed_verification_code]
-        allow(Devise.token_generator).to receive(:digest).and_return(double_hashed_verification_code)
+        # mock case for correct code
+        allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(client.intake.email_address, "000004").and_return(hashed_verification_code)
+        allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(client.intake.sms_phone_number, "000004").and_return(hashed_verification_code)
+        # mock case for wrong code
+        allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(client.intake.sms_phone_number, "999999").and_return("hashed_wrong_verification_code")
         allow(TwilioService).to receive(:send_text_message)
       end
 
@@ -46,6 +50,7 @@ RSpec.feature "Signing in" do
         fill_in "Cell phone number", with: "(500) 555-0006"
         click_on "Send code"
         expect(page).to have_text "Let’s verify that code!"
+        expect(page).to have_text("A message with your code has been sent to: (500) 555-0006")
 
         perform_enqueued_jobs
 
@@ -61,6 +66,34 @@ RSpec.feature "Signing in" do
         click_on "Continue"
 
         expect(page).to have_text("Welcome back Carrie!")
+      end
+
+      scenario "getting locked out due to too many wrong verification codes" do
+        visit new_portal_client_login_path
+
+        expect(page).to have_text "To view your progress, we’ll send you a secure code"
+        fill_in "Cell phone number", with: "(500) 555-0006"
+        click_on "Send code"
+        expect(page).to have_text "Let’s verify that code!"
+
+        perform_enqueued_jobs
+
+        fill_in "Enter 6 digit code", with: "999999"
+        click_on "Verify"
+
+        fill_in "Enter 6 digit code", with: "999999"
+        click_on "Verify"
+
+        fill_in "Enter 6 digit code", with: "999999"
+        click_on "Verify"
+
+        fill_in "Enter 6 digit code", with: "999999"
+        click_on "Verify"
+
+        fill_in "Enter 6 digit code", with: "999999"
+        click_on "Verify"
+
+        expect(page).to have_text("This account has been locked")
       end
     end
 

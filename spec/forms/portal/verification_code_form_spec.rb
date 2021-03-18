@@ -31,5 +31,23 @@ RSpec.describe Portal::VerificationCodeForm do
       end
     end
   end
+
+  describe "#formatted_contact_info" do
+    it "formats phone numbers" do
+      form = described_class.new({
+        contact_info: "+14155551212"
+      })
+
+      expect(form.formatted_contact_info).to eq "(415) 555-1212"
+    end
+
+    it "does not do anything to email addresses" do
+      form = described_class.new({
+        contact_info: "email@example.boring"
+      })
+
+      expect(form.formatted_contact_info).to eq "email@example.boring"
+    end
+  end
 end
 
