@@ -166,7 +166,7 @@ CREATE OR REPLACE VIEW analytics.stimulus_triages AS
     FROM public.stimulus_triages;
 
 CREATE OR REPLACE VIEW analytics.system_notes AS
-    SELECT id, client_id, created_at, updated_at, user_id
+    SELECT id, client_id, created_at, type, updated_at, user_id
     FROM public.system_notes;
 
 CREATE OR REPLACE VIEW analytics.tax_returns AS
