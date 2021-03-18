@@ -1,0 +1,35 @@
+<% @page_title = t("general.state_routing") %>
+<% content_for :page_title, @page_title %>
+
+<% content_for :card do %>
+  <div class="slab slab--half-padded">
+    <div class="grid">
+      <h1><%= @page_title %></h1>
+      <div class="grid__item width-one-half">
+        <div class="organization-list">
+          <ul>
+            <% States.keys.each do |state| %>
+              <h3 class="h4"><%= state_name_from_abbreviation(state) %></h3>
+              <% state_routing = @state_routings.find { |sr| sr[0] == state } %>
+              <% if state_routing.present? %>
+
+                  <% state_routing[1].each do |entry| %>
+                    <li>
+                      <div>
+                        <%= entry.vita_partner.name  %>
+                      </div>
+                      <div>
+                        <%= routing_fraction_to_percentage entry.routing_fraction %>
+                      </div>
+                    </li>
+                  <% end %>
+              <% else %>
+                <li class="empty"><%= t("general.NA") %>></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

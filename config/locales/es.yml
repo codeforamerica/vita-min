@@ -639,6 +639,8 @@ es:
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
     role: Rol
+    routing: Enrutamiento
+    state_routing: Enrutamiento estatal
     save: Guardar
     search: Búsqueda
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.

@@ -1,0 +1,12 @@
+.organization-list {
+  li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .75rem;
+    border-bottom: 1px solid darken($color-grey-light, 10%);
+    &.empty {
+      border-bottom: 0;
+      font-style: italic;
+    }
+  }
+}
