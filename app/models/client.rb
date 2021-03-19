@@ -196,7 +196,7 @@ class Client < ApplicationRecord
   def preferred_language
     return intake.preferred_interview_language if intake.preferred_interview_language && intake.preferred_interview_language != "en"
 
-    intake.locale
+    intake.locale || intake.preferred_interview_language
   end
 
   private

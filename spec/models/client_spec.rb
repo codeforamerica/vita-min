@@ -571,5 +571,13 @@ describe Client do
         expect(client.preferred_language).to eq "en"
       end
     end
+
+    context "when preferred language is set to en, and locale is not set" do
+      let(:client) { create :client, intake: (create :intake, locale: nil, preferred_interview_language: "en")}
+
+      it "falls through to locale" do
+        expect(client.preferred_language).to eq "en"
+      end
+    end
   end
 end
