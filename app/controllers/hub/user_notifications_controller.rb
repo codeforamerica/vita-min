@@ -3,7 +3,7 @@ module Hub
     include AccessControllable
 
     before_action :require_sign_in
-    load_and_authorize_resource
+    load_and_authorize_resource only: [:index]
     layout "admin"
 
     def index
@@ -12,7 +12,8 @@ module Hub
     end
 
     def mark_all_notifications_read
-      @user_notifications.update_all(read: true)
+      UserNotification.accessible_by(current_ability).update_all(read: true)
+
       redirect_to hub_user_notifications_path
     end
   end
