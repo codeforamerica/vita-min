@@ -276,12 +276,28 @@ describe Ability do
           expect(subject.can?(:read, inaccessible_user)).to eq false
         end
       end
+
+      context "Viewing user notifications" do
+        let(:user) { create :team_member_user } # role is arbitrary in this test
+        let(:other_user) { create :team_member_user }
+        let(:user_notification) { create :user_notification, user: user }
+        let(:other_user_notification) { create :user_notification, user: other_user }
+
+
+        it "allows viewing your notifications" do
+          expect(subject.can?(:read, user_notification)).to eq true
+        end
+
+        it "does not allow viewing other notifications" do
+          expect(subject.can?(:read, other_user_notification)).to eq false
+        end
+      end
     end
 
     context "Permissions regarding Role objects" do
       context "AdminRole" do
         let(:target_role) { AdminRole }
-        
+
         context "current user is an admin" do
           let(:user) { create(:admin_user) }
 

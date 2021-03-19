@@ -4,7 +4,7 @@ module Hub
     before_action :require_sign_in
     load_and_authorize_resource
     before_action :load_assignable_users, only: [:edit, :update]
-    before_action :authorize_assignee, only: [:update]
+    before_action :load_and_authorize_assignee, only: [:update]
 
     layout "admin"
     respond_to :js
@@ -14,7 +14,7 @@ module Hub
     def show; end
 
     def update
-      @tax_return.assign!(assigned_user_id: assign_params[:assigned_user_id], assigned_by: current_user)
+      @tax_return.assign!(assigned_user: @assigned_user, assigned_by: current_user)
       flash.now[:notice] = I18n.t("hub.tax_returns.update.flash_success",
                                   client_name: @tax_return.client.preferred_name,
                                   tax_year: @tax_return.year,
@@ -43,10 +43,11 @@ module Hub
       params.permit(:assigned_user_id)
     end
 
-    def authorize_assignee
+    def load_and_authorize_assignee
       return if assign_params[:assigned_user_id].blank?
+      @assigned_user = User.where(id: @assignable_users).find_by(id: assign_params[:assigned_user_id])
 
-      raise CanCan::AccessDenied unless User.where(id: @assignable_users).where(id: assign_params[:assigned_user_id]).exists?
+      raise CanCan::AccessDenied unless @assigned_user.present?
     end
   end
 end

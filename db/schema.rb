@@ -574,6 +574,15 @@ ActiveRecord::Schema.define(version: 2021_03_18_180556) do
     t.index ["user_id"], name: "index_system_notes_on_user_id"
   end
 
+  create_table "tax_return_assignments", force: :cascade do |t|
+    t.bigint "assigner_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "tax_return_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["assigner_id"], name: "index_tax_return_assignments_on_assigner_id"
+    t.index ["tax_return_id"], name: "index_tax_return_assignments_on_tax_return_id"
+  end
+
   create_table "tax_returns", force: :cascade do |t|
     t.bigint "assigned_user_id"
     t.integer "certification_level"
@@ -620,6 +629,17 @@ ActiveRecord::Schema.define(version: 2021_03_18_180556) do
     t.index ["text_message_access_token_id"], name: "text_message_login_request_access_token_id"
     t.index ["twilio_sid"], name: "index_text_message_login_requests_on_twilio_sid"
     t.index ["visitor_id"], name: "index_text_message_login_requests_on_visitor_id"
+  end
+
+  create_table "user_notifications", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "notifiable_id"
+    t.string "notifiable_type"
+    t.boolean "read", default: false, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_user_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["user_id"], name: "index_user_notifications_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -737,9 +757,12 @@ ActiveRecord::Schema.define(version: 2021_03_18_180556) do
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "system_notes", "clients"
   add_foreign_key "system_notes", "users"
+  add_foreign_key "tax_return_assignments", "tax_returns"
+  add_foreign_key "tax_return_assignments", "users", column: "assigner_id"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "team_member_roles", "vita_partners"
+  add_foreign_key "user_notifications", "users"
   add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "vita_partner_states", "vita_partners"
   add_foreign_key "vita_partner_zip_codes", "vita_partners"
