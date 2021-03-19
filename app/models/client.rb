@@ -193,6 +193,12 @@ class Client < ApplicationRecord
     Client.after_consent.where(intake: matching_intakes).pluck(:id)
   end
 
+  def preferred_language
+    return intake.preferred_interview_language if intake.preferred_interview_language && intake.preferred_interview_language != "en"
+
+    intake.locale || intake.preferred_interview_language
+  end
+
   private
 
   def tax_return_assigned_user_access_maintained

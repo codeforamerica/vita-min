@@ -93,7 +93,33 @@ RSpec.describe ClientSortable, type: :controller do
 
       it "creates a query for the search and scopes to vita partner" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:where).with('vita_partners.id = ? OR vita_partners.parent_organization_id = ?', vita_partner.id, vita_partner.id)
+        expect(clients_query_double).to have_received(:where).with('vita_partners.id = :id OR vita_partners.parent_organization_id = :id', id: vita_partner.id)
+      end
+    end
+
+    context "with a provided language" do
+      let(:params) {
+        {
+            language: "de"
+        }
+      }
+
+      it "creates a query for the search and scopes to vita partner" do
+        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+        expect(clients_query_double).to have_received(:where).with('intakes.locale = :language OR intakes.preferred_interview_language = :language', language: "de")
+      end
+    end
+
+    context "with exclude dropoffs checked" do
+      let(:params) {
+        {
+          exclude_dropoffs: true
+        }
+      }
+
+      it "creates a query for the search and scopes to vita partner" do
+        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+        expect(clients_query_double).to have_received(:where).with({tax_returns: { service_type: "online_intake" } })
       end
     end
 

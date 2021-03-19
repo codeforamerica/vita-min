@@ -7,12 +7,30 @@
     margin: 0;
     margin-bottom: $s5;
   }
+  select#status-filter {
+    width: 215px;
+  }
+  select#year {
+    width: 8rem;
+  }
+  select#assignee-filter {
+    width: 15rem;
+  }
+  input {
+    max-width: 275px;
+  }
+
+  .select__element {
+    max-width: 275px;
+    padding-right: 3rem !important;
+    padding-left: 1rem !important;
+  }
 
   .filters-wrapper {
     display: inline-flex;
     align-items: top;
     .form-group {
-      margin-right: $s15;
+      margin-right: 1rem;
     }
   }
 
