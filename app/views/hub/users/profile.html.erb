@@ -60,6 +60,14 @@
           <% end %>
         </li>
       <% end %>
+
+      <% if can?(:manage, VitaPartnerState) %>
+        <li class="user-action-link">
+          <%= link_to hub_state_routings_path, class: "button button--small" do %>
+            <%= t("general.routing") %>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
   </section>
 <% end %>

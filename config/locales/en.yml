@@ -656,6 +656,8 @@ en:
     return_home: Return to home
     return_search: Return to search
     role: Role
+    routing: Routing
+    state_routing: State Routing
     save: Save
     search: Search
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
