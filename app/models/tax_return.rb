@@ -159,7 +159,8 @@ class TaxReturn < ApplicationRecord
   def assign!(assigned_user_id: nil, assigned_by: nil)
     update!(assigned_user_id: assigned_user_id)
     SystemNote::AssignmentChange.generate!(initiated_by: assigned_by, tax_return: self)
-    if assigned_user_id.present?
+
+    if assigned_user_id.present? && assigned_user_id.to_i != assigned_by.id.to_i
       assigned_user = User.find(assigned_user_id)
       UserNotification.create!(
         user: assigned_user,

@@ -100,18 +100,46 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         allow(SystemNote::AssignmentChange).to receive(:generate!)
       end
 
+      context "when assigning the tax return to themselves" do
+        let(:assigned_user) { user }
+
+        it "does not create a user notification or send an email alert" do
+          expect {
+            put :update, params: params, format: :js, xhr: true
+          }.to change(UserNotification, :count).by(0)
+        end
+
+        it "assigns the user to the tax return, creates a system note" do
+          put :update, params: params, format: :js, xhr: true
+
+          tax_return.reload
+          expect(response).to render_template :show
+          expect(flash.now[:notice]).to eq "Assigned Lucille's 2018 tax return to #{user.name}."
+
+          expect(SystemNote::AssignmentChange).to have_received(:generate!).with({ initiated_by: user, tax_return: tax_return })
+        end
+      end
+
       context "when trying to assign the tax return to an assignable user" do
         let(:assigned_user) { organization_lead }
 
-        it "assigns the user to the tax return, creates a system note and creates a user notification" do
+        it "assigns the user to the tax return" do
           put :update, params: params, format: :js, xhr: true
 
           tax_return.reload
           expect(tax_return.assigned_user).to eq organization_lead
           expect(response).to render_template :show
           expect(flash.now[:notice]).to eq "Assigned Lucille's 2018 tax return to #{organization_lead.name}."
+        end
+
+        it "creates a system note" do
+          put :update, params: params, format: :js, xhr: true
 
           expect(SystemNote::AssignmentChange).to have_received(:generate!).with({ initiated_by: user, tax_return: tax_return })
+        end
+
+        it "creates a user notification for tax return assignment" do
+          put :update, params: params, format: :js, xhr: true
 
           notification = UserNotification.last
           expect(notification.user).to eq assigned_user
