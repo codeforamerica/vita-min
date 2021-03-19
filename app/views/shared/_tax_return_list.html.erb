@@ -9,10 +9,10 @@
         </div>
         <div class="tax-return-list__service-type">
           <% if tax_return.service_type == "drop_off" %>
-            <span class="icon-move_to_inbox" aria-hidden="true" role="img"></span>
-            <span class="sr-only"><%=
-          t("general.drop_off")
-        %></span>
+            <span class="tooltip" data-position="bottom" title="<%= t("general.drop_off") %>">
+              <%= image_tag("file-earmark.svg", alt: "") %>
+              <span class="sr-only"><%= t("general.drop_off") %></span>
+            </span>
           <% end %>
         </div>
 
