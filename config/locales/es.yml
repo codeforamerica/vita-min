@@ -831,7 +831,7 @@ es:
         title: "¡Verifiquemos ese código!"
         code_sent_to_html: "Se ha enviado un mensaje con tu código a: <strong>%{address}</strong>"
         verify: "Verificar"
-        enter_6_digit_code: "TODO Enter 6 digit code"
+        enter_6_digit_code: "Ingrese el código de 6 dígitos"
     portal:
       home:
         title: "Bienvenido de nuevo %{name}!"
