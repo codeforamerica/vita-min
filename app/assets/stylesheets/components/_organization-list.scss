@@ -2,11 +2,17 @@
   li {
     display: flex;
     justify-content: space-between;
-    margin-bottom: .75rem;
+    padding: .5rem 0;
     border-bottom: 1px solid darken($color-grey-light, 10%);
     &.empty {
       border-bottom: 0;
       font-style: italic;
+    }
+    &.zero {
+      color: $color-grey-medium;
+      a {
+        color: $color-grey-medium !important;
+      }
     }
   }
 }

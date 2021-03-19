@@ -14,9 +14,9 @@
               <% if state_routing.present? %>
 
                   <% state_routing[1].each do |entry| %>
-                    <li>
+                    <li class=<%= "zero" if entry.routing_fraction.zero? %>>
                       <div>
-                        <%= entry.vita_partner.name  %>
+                        <%= link_to entry.vita_partner.name, edit_hub_organization_path(id: entry.vita_partner.id)  %>
                       </div>
                       <div>
                         <%= routing_fraction_to_percentage entry.routing_fraction %>
