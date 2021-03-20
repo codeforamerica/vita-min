@@ -37,6 +37,7 @@ module Hub
           @assignable_users += org_leads.active.order(name: :asc)
         end
       end
+      @assignable_users.uniq!
     end
 
     def assign_params
