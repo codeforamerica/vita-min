@@ -109,7 +109,7 @@ CREATE OR REPLACE VIEW analytics.intakes AS
            needs_help_2019, needs_help_2020, no_eligibility_checks_apply, no_ssn, paid_alimony,
            paid_charitable_contributions, paid_dependent_care, paid_local_tax, paid_medical_expenses,
            paid_mortgage_interest, paid_retirement_contributions, paid_school_supplies, paid_student_loan_interest,
-           phone_number_can_receive_texts, primary_consented_to_service, primary_consented_to_service_at,
+           phone_number_can_receive_texts, preferred_interview_language, primary_consented_to_service, primary_consented_to_service_at,
            received_alimony, received_irs_letter, refund_payment_method, reported_asset_sale_loss,
            reported_self_employment_loss, requested_docs_token_created_at, satisfaction_face,
            savings_purchase_bond, savings_split_refund, separated, separated_year, signature_method,
