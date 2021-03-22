@@ -1,4 +1,4 @@
-<div class="note <%= "system_note" if note.is_a? SystemNote %>" id="<%= "last-item" if local_assigns[:is_last_item] %>">
+<div class="note <%= "system_note" unless note.is_a? Note %>" id="<%= "last-item" if local_assigns[:is_last_item] %>">
   <div class="note__heading">
     <div class="note__author">
       <%= note&.user&.name unless note.is_a? SystemNote %>

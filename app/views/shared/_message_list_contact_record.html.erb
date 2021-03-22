@@ -3,7 +3,7 @@
   to add new messages to the page as a result of a websocket broadcast
 !-->
 <% self.extend(ContactRecordHelper) %>
-<li class="message message--<%= contact_record.contact_record_type %>" id=<%= "last-item" if local_assigns[:is_last_item] %>>
+<li class="message message--<%= contact_record.contact_record_type %>" id="<%= "last-item" if local_assigns[:is_last_item] %>">
   <div class="message__content">
     <div class="message__heading">
       <div class="message__authority">
