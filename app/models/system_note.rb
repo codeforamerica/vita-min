@@ -25,4 +25,8 @@ class SystemNote < ApplicationRecord
   belongs_to :user, required: false
 
   validates_presence_of :body
+
+  def contact_record_type
+    "system_note"
+  end
 end

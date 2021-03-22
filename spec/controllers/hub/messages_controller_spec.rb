@@ -49,7 +49,7 @@ RSpec.describe Hub::MessagesController do
           it "includes the text message preference text" do
             get :index, params: params
             comms = Nokogiri::HTML.parse(response.body).css(".communication-preferences")
-            expect(comms.text).to include "Client has opted in to contact by"
+            expect(comms.text).to include "#{client.preferred_name} has opted in to contact by"
             expect(comms.text).to include "Text Message"
             expect(comms.text).not_to include "Email"
           end
@@ -62,7 +62,7 @@ RSpec.describe Hub::MessagesController do
           it "includes the text message preference text" do
             get :index, params: params
             comms = Nokogiri::HTML.parse(response.body).css(".communication-preferences")
-            expect(comms.text).to include "Client has opted in to contact by"
+            expect(comms.text).to include "#{client.preferred_name} has opted in to contact by"
             expect(comms.text).to include "Email"
             expect(comms.text).not_to include "Text Message"
           end
@@ -75,7 +75,7 @@ RSpec.describe Hub::MessagesController do
           it "includes the text message preference text" do
             get :index, params: params
             comms = Nokogiri::HTML.parse(response.body).css(".communication-preferences")
-            expect(comms.text).to include "Client has opted in to contact by"
+            expect(comms.text).to include "#{client.preferred_name} has opted in to contact by"
             expect(comms.text).to include "Email"
             expect(comms.text).to include "Text Message"
           end
@@ -142,8 +142,8 @@ RSpec.describe Hub::MessagesController do
               message_record = Nokogiri::HTML.parse(response.body).at_css(".message--outgoing_text_message")
               expect(message_record).to have_text("Lucille")
               expect(message_record).to have_text("7:00 PM EST")
-              expect(message_record).to have_text("Text to (415) 553-2222")
-              expect(message_record).to have_text("queued")
+              expect(message_record).to have_text("(415) 553-2222")
+              expect(message_record).to have_css(".message__status[alt='queued']")
               expect(message_record).to have_text("Your tax return is great")
             end
           end
@@ -151,10 +151,11 @@ RSpec.describe Hub::MessagesController do
           context "without Twilio status" do
             let(:twilio_status) { nil }
 
-            it "shows sending... as Twilio status" do
+            it "shows sending as Twilio status" do
               get :index, params: params
 
-              expect(response.body).to include("sending...")
+              message_record = Nokogiri::HTML.parse(response.body).at_css(".message--outgoing_text_message")
+              expect(message_record).to have_css(".message__status[alt='sending']")
             end
           end
         end
@@ -165,7 +166,7 @@ RSpec.describe Hub::MessagesController do
 
             message_record = Nokogiri::HTML.parse(response.body).at_css(".message--incoming_text_message")
             expect(message_record).to have_text("7:00 PM EST")
-            expect(message_record).to have_text("Text from (415) 553-7865")
+            expect(message_record).to have_text("(415) 553-7865")
             expect(message_record).to have_text("Thx appreciate yr gratitude")
           end
         end
@@ -177,7 +178,7 @@ RSpec.describe Hub::MessagesController do
             message_record = Nokogiri::HTML.parse(response.body).at_css(".message--outgoing_email")
             expect(message_record).to have_text("Gob")
             expect(message_record).to have_text("9:00 AM EST")
-            expect(message_record).to have_text("Email to always@banana.stand")
+            expect(message_record).to have_text("always@banana.stand")
             expect(message_record).to have_text("We are really excited to work with you")
           end
         end
@@ -188,7 +189,7 @@ RSpec.describe Hub::MessagesController do
 
             message_record = Nokogiri::HTML.parse(response.body).at_css(".message--incoming_email")
             expect(message_record).to have_text("1:00 PM EST")
-            expect(message_record).to have_text("Email from Georgie <money@banana.stand>")
+            expect(message_record).to have_text("Georgie <money@banana.stand>")
             expect(message_record).to have_text("Me too! Happy to get every notification")
           end
         end

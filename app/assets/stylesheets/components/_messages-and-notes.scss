@@ -1,0 +1,218 @@
+@mixin message_body {
+  border: 1px solid $color-grey;
+  padding: 1rem;
+  border-radius: 3px;
+  p {
+    margin-bottom: 1rem;
+  }
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+@mixin message_heading {
+  font-size: 1.4rem;
+  margin-bottom: 2px;
+}
+
+@mixin system_note {
+  background: transparentize($color-lavender, .9);
+  border-color: transparentize($color-lavender, .8);
+}
+
+ul.day-list {
+  margin-top: 0;
+  li {
+    display: flex;
+  }
+  .day-heading {
+    justify-content: center;
+    color: $color-grey-dark;
+    border-top: 1px solid $color-grey;
+    padding: 1.5rem 0;
+    font-size: 1.6rem;
+    &:first-of-type {
+      border-top: 0px;
+      padding-top: 0px;
+    }
+  }
+}
+
+.message {
+  display: flex;
+  padding: 0 12rem 1.5rem;
+  &--system_note, &--outbound_call {
+    .message__body {
+      @include system_note;
+    }
+    .message__time {
+      border-color: transparentize($color-lavender, .8);
+    }
+  }
+
+  &__heading {
+    @include message_heading;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  &__contact-info {
+    padding-right: .5rem;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+  &__authority {
+    display: flex;
+    align-items: center;
+  }
+  &__author {
+    display: flex;
+    padding-right: .5rem;
+    &::before {
+      font-family: $font-icon;
+      content: "";
+      font-size: 1.6rem;
+    }
+    font-weight: bold;
+  }
+
+  &__status {
+    height: 1.5rem;
+  }
+
+  &__body {
+    border: 1px solid $color-grey;
+    padding: 1rem 2rem 1rem;
+    border-radius: 3px;
+    p {
+      margin-bottom: 1rem;
+    }
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &__subject {
+    margin-bottom: 1rem;
+    color: $color-grey-medium;
+  }
+
+  &__time {
+    font-size: 1.2rem;
+    color: $color-grey-medium;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid $color-grey-light;
+  }
+
+  &__day-heading {
+    justify-content: center;
+    color: $color-grey-dark;
+    border-top: 1px solid $color-grey;
+    padding: 2.5rem 0 0;
+    margin: 0 0 1.5rem;
+    font-size: 1.6rem;
+    &:first-of-type {
+      border-top: 0px;
+      padding-top: 0px;
+    }
+  }
+
+  &--hr {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  &--attachments {
+    &__heading {
+      margin-bottom: 0;
+    }
+  }
+
+  &--outgoing_text_message, &--outgoing, &--outgoing_email, &--outbound_call {
+    padding-right: 0;
+    display: flex;
+    justify-content: flex-end;
+    .message__heading {
+      flex-direction: row-reverse;
+    }
+    .message__info {
+      align-items: flex-end;
+    }
+  }
+
+  &--incoming_text_message, &--incoming, &--incoming_email, &--system_note {
+    padding-left: 0;
+  }
+
+  &--incoming_text_message, &--outgoing_text_message {
+    .message__author {
+      &::before {
+        content: 'phone_iphone';
+        margin-right: .5rem;
+      }
+    }
+  }
+
+  &--outgoing_email, &--incoming_email {
+    .message__author {
+      &::before {
+        content: 'email';
+        margin-right: .5rem;
+      }
+    }
+  }
+
+  &--outbound_call {
+    .message__author {
+      &::before {
+        content: 'phone';
+        margin-right: .5rem;
+      }
+    }
+  }
+}
+
+.message-list.notes {
+  .message {
+    padding: 0 0 2rem;
+    width: 100%;
+  }
+}
+
+.note {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  &__day-heading {
+
+  }
+  &__heading {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.4rem;
+    margin-bottom: .3rem;
+  }
+  &__author {
+    @include message_heading;
+    font-weight: bold;
+    font-size: 1.4rem;
+    padding-left: 1rem; // match indention to body
+  }
+  &__time {
+    font-size: 1.2rem;
+    color: $color-grey-medium;
+    padding-right: 1rem;
+  }
+  &__body {
+    @include message_body;
+  }
+  &.system_note {
+    .note__body {
+      @include system_note;
+    }
+  }
+}

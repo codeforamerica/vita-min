@@ -3,60 +3,54 @@
   to add new messages to the page as a result of a websocket broadcast
 !-->
 <% self.extend(ContactRecordHelper) %>
-<li class="message message--<%= contact_record.contact_record_type %>" id="<%= "last-item" if local_assigns[:is_last_item] %>">
-  <div class="message__heading">
-    <div>
-      <span class="message__author">
-        <%= contact_record.try(:author) %>
-      </span>
+<li class="message message--<%= contact_record.contact_record_type %>" id=<%= "last-item" if local_assigns[:is_last_item] %>>
+  <div class="message__content">
+    <div class="message__heading">
+      <div class="message__authority">
+        <div class="message__author">
+          <%= display_author(contact_record) %>
+        </div>
 
-      <span class="message__phone_number">
-        <%= message_heading(contact_record) %>
-      </span>
+        <div class="message__contact-info">
+          <%= message_heading(contact_record) %>
+        </div>
 
-      <% if :outgoing_text_message == contact_record.contact_record_type %>
-        <span class="message__status">
-          <%= contact_record.twilio_status || "sending..." %>
-        </span>
-      <% end %>
+        <%= twilio_deliverability_status(contact_record.twilio_status) if contact_record.respond_to? :twilio_status %>
+      </div>
+    </div>
 
+    <div class="message__body">
+      <div class="message__time">
+        <%= timestamp(contact_record.datetime) %>
+      </div>
       <% if contact_record.try(:subject) %>
         <div class="message__subject">
-          <%= contact_record.subject %>
+          Subj: <%= contact_record.subject %>
         </div>
       <% end %>
-    </div>
+      <%= simple_format(contact_record.body)  %>
 
-    <div>
-      <span class="message__time">
-        <%= long_formatted_datetime(contact_record.datetime) %>
-      </span>
-    </div>
-  </div>
-
-  <div class="message__body">
-    <%= render "shared/contact_record_body", body: contact_record.body if contact_record.body.present? %>
-
-    <% if contact_record.contact_record_type == :outgoing_email %>
-      <% if contact_record.attachments.present? %>
-        <h4 class="message--attachments__heading">Attachments:</h4>
-        <ul class="attachments-list">
-          <% contact_record.attachments.each do |attachment| %>
-            <li><%= attachment.filename %></li>
-          <% end %>
-        </ul>
+      <% if contact_record.contact_record_type == :outgoing_email %>
+        <% if contact_record.attachments.present? %>
+          <h4 class="message--attachments__heading">Attachments:</h4>
+          <ul class="attachments-list">
+            <% contact_record.attachments.each do |attachment| %>
+              <li><%= attachment.filename %></li>
+            <% end %>
+          </ul>
+        <% end %>
       <% end %>
-    <% end %>
 
-    <% if contact_record.contact_record_type == :incoming_email || contact_record.contact_record_type == :incoming_text_message %>
-      <% if contact_record.documents.present? %>
-        <h4 class="message--attachments__heading">Attachments:</h4>
-        <ul class="attachments-list">
-          <% contact_record.documents.each do |document| %>
-            <li><%= document.display_name %></li>
-          <% end %>
-        </ul>
+      <% if contact_record.contact_record_type == :incoming_email || contact_record.contact_record_type == :incoming_text_message %>
+        <% if contact_record.documents.present? %>
+          <h4 class="message--attachments__heading">Attachments:</h4>
+          <ul class="attachments-list">
+            <% contact_record.documents.each do |document| %>
+              <li><%= document.display_name %></li>
+            <% end %>
+          </ul>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </li>

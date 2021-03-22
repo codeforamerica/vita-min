@@ -160,12 +160,10 @@ es:
         no_email_address: No se encontró la dirección de correo electrónico de este cliente.
         no_sms_number: El cliente no ha proporcionado un número de teléfono SMS.
         no_way_to_communicate: El cliente no ha proporcionado información de contacto para la comunicación digital.
-        preference_intro: "El cliente ha optado por contactar por:"
-      email_from: Email de
-      email_to: Email a
+        preference_intro: "%{preferred_name} ha optado por contactar por:"
       automated: Automatizado
-      text_from: Texto de
-      text_to: Texto a
+      from: de
+      to: a
     notes:
       index:
         note_form:
@@ -187,7 +185,6 @@ es:
         notice_list:
           - Su número de teléfono permanecerá privado, no es accesible para el cliente.
           - Siempre llamaremos desde este número; considere agregarlo a sus contactos.
-
       show:
         body_html: |
           <p>Se está inicializando una llamada a %{from_phone_number}.</p>

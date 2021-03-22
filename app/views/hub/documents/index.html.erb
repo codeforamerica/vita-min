@@ -52,7 +52,7 @@
             <%= document.uploaded_by_name_label %>
           </td>
           <td class="index-table__cell">
-            <%= long_formatted_datetime document.created_at %>
+            <%= timestamp document.created_at %>
           </td>
           <td class="index-table__cell edit">
             <%= link_to t("general.edit"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>

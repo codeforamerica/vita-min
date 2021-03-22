@@ -160,12 +160,10 @@ en:
         no_email_address: Client has not provided an email address.
         no_sms_number: Client has not provided an SMS phone number.
         no_way_to_communicate: Client has not provided contact info for digital communication.
-        preference_intro: "Client has opted in to contact by:"
-      email_from: Email from
-      email_to: Email to
+        preference_intro: "%{preferred_name} has opted in to contact by:"
       automated: Automated
-      text_from: Text from
-      text_to: Text to
+      from: from
+      to: to
     notes:
       index:
         note_form:

@@ -7,30 +7,28 @@
 
   <%= render "hub/clients/navigation" %>
 
-  <% if @all_notes_by_day.present? %>
-    <ul class="message-list">
-      <% @all_notes_by_day.each_with_index do |(datetime, records), day_index| %>
-        <li class="message__day-heading"><%= date_heading(datetime) %></li>
-        <% records.each_with_index do |note, note_index| %>
-          <% if note_index == (records.size - 1) && day_index == (@all_notes_by_day.size - 1) %>
-            <%= render note.class.name == "Note" ? "note" : "system_note", note: note, is_last_item: true %>
-          <% else %>
-            <%= render note.class.name == "Note" ? "note" : "system_note", note: note %>
+  <div class="slab slab--padded">
+    <div class="client-container">
+      <ul class="day-list">
+        <% if @all_notes_by_day.present? %>
+          <% @all_notes_by_day.each_with_index do |(datetime, records), day_index| %>
+            <li class="day-heading"><%= date_heading(datetime) %></li>
+            <% records.each_with_index do |note, note_index| %>
+              <%= render "note", note: note, is_last_item: note_index == (records.size - 1) && day_index == (@all_notes_by_day.size - 1) %>
+            <% end %>
           <% end %>
-        <% end %>
+         <% end %>
+      </ul>
+    <hr/>
+    <div class="single-input-form">
+      <%= form_with model: [:hub, @client, @note], local: true, builder: VitaMinFormBuilder, html: {class: 'note-form'} do |f| %>
+        <%= f.cfa_textarea :body, t(".note_form.label") %>
+        <div>
+          <%= f.submit t(".note_form.submit"), class: "button" %>
+        </div>
       <% end %>
-    </ul>
-  <% end %>
-
-  <div class="slab">
-    <%= form_with model: [:hub, @client, @note], local: true, builder: VitaMinFormBuilder, html: {class: 'note-form'} do |f| %>
-      <%= f.cfa_textarea :body, t(".note_form.label") %>
-      <div>
-        <%= f.submit t(".note_form.submit"), class: "button" %>
-      </div>
-    <% end %>
+    </div>
   </div>
-
 
   <%= render "hub/clients/client_take_action_footer" %>
 <% end %>

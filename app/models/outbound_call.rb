@@ -37,4 +37,8 @@ class OutboundCall < ApplicationRecord
   def self.twilio_number
     EnvironmentCredentials.dig(:twilio, :voice_phone_number)
   end
+
+  def to
+    Phonelib.parse(to_phone_number, "US").local_number
+  end
 end

@@ -7,6 +7,18 @@
   textarea, input.text-input {
     background-color: $color-grey-light;
   }
+
+  textarea {
+    border-width: 1px;
+  }
+
+  hr {
+    background-color: $color-grey;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    height: 1px;
+  }
+
   .form-question {
     font-size: $font-size-18;
     line-height: $s18;
@@ -83,7 +95,6 @@
     margin-right: 0;
   }
 
-  // Override the negative margin and padding on the full-bleed classes that messes with default 100% width in browser.
   .slab {
     margin: {
       left: 0;
@@ -94,9 +105,27 @@
       right: $s25;
     }
   }
+
   .slab--padded {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .slab--half-padded {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .single-input-form {
+    textarea {
+      margin-bottom: 0;
+    }
+    .form-group {
+      margin-bottom: 2.5rem;
+    }
+    .button {
+      margin-bottom: 0 !important
+    }
   }
 
   .toolbar {
@@ -118,7 +147,6 @@
   }
 
   .form-group {
-    margin-bottom: $s35;
     position: relative;
     .text--error {
       margin: 0;
@@ -252,6 +280,10 @@
 
   .client-navigation {
     @include no-bleed();
+  }
+
+  .client-container {
+    max-width: 800px;
   }
 }
 
