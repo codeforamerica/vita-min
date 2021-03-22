@@ -76,6 +76,7 @@ RSpec.describe Portal::PortalController, type: :controller do
         it "loads the client tax returns in desc order" do
           get :home
           expect(assigns(:tax_returns).map(&:year)).to eq [2020, 2018, 2017]
+          expect(assigns(:current_step)).to eq nil
         end
       end
     end

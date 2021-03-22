@@ -115,7 +115,7 @@ describe QuestionNavigation do
                  sold_assets: "yes",
                  had_asset_sale_income: "unfilled"
         }
-        it "has next step as other-states" do
+        it "has next step as asset-sale-income" do
           expect(described_class.determine_current_step(intake)).to eq "/en/questions/asset-sale-income"
         end
       end

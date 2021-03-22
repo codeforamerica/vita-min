@@ -582,6 +582,7 @@ class Intake < ApplicationRecord
   end
 
   # Backfills current_step for clients who started intake before we tracked current_step
+  # TODO: Remove after 2021 tax season.
   def determine_current_step
     return current_step if current_step.present?
 

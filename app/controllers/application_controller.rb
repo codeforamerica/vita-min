@@ -256,7 +256,7 @@ class ApplicationController < ActionController::Base
 
   def set_current_step
     return unless current_intake.present?
-    return unless request.method_symbol == :get # skip uploads
+    return unless request.get? # skip uploads
 
     current_intake.update(current_step: current_path) unless current_intake.current_step == current_path
   end
