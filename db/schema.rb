@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2021_03_18_180556) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -289,6 +288,7 @@ ActiveRecord::Schema.define(version: 2021_03_18_180556) do
     t.datetime "completed_yes_no_questions_at"
     t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
+    t.string "current_step"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false
     t.integer "demographic_english_reading", default: 0, null: false
