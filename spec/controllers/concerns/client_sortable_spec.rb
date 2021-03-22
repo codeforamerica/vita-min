@@ -110,16 +110,30 @@ RSpec.describe ClientSortable, type: :controller do
       end
     end
 
-    context "with exclude dropoffs checked" do
-      let(:params) {
-        {
-          exclude_dropoffs: true
+    context "with service type selected" do
+      context "online_intake" do
+        let(:params) {
+          {
+              service_type: "online_intake"
+          }
         }
-      }
 
-      it "creates a query for the search and scopes to vita partner" do
-        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:where).with({tax_returns: { service_type: "online_intake" } })
+        it "creates a query for the search and scopes to vita partner" do
+          expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+          expect(clients_query_double).to have_received(:where).with({ tax_returns: { service_type: "online_intake" } })
+        end
+      end
+
+      context "drop_off" do
+        let(:params) {
+          {
+            service_type: "drop_off"
+          }
+        }
+        it "creates a query for the search and scopes to vita partner" do
+          expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+          expect(clients_query_double).to have_received(:where).with({ tax_returns: { service_type: "drop_off" } })
+        end
       end
     end
 

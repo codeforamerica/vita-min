@@ -68,6 +68,10 @@ class TaxReturn < ApplicationRecord
     [2020, 2019, 2018, 2017]
   end
 
+  def self.service_type_options
+    [[I18n.t("general.drop_off"), "drop_off"], [I18n.t("general.online"), "online_intake"]]
+  end
+
   def primary_has_signed?
     primary_signature.present? && primary_signed_at? && primary_signed_ip?
   end

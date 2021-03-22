@@ -64,6 +64,13 @@
         <%= select_tag :language, options_for_select(language_options(only_locales: false), @filters[:language]), include_blank: true, class: "select__element" %>
       </div>
     </div>
+
+    <div class="form-group">
+      <label for="service_type" class="form-question"><%= t("hub.clients.fields.service_type") %></label>
+      <div class="select">
+        <%= select_tag :service_type, options_for_select(TaxReturn.service_type_options, @filters[:service_type]), include_blank: true, class: "select__element" %>
+      </div>
+    </div>
     <div class="search-wrapper form-group" role="search">
       <label for="search" class="form-question">
         <%= t("general.search") %>
@@ -87,11 +94,6 @@
     <label class="checkbox--gyr">
       <%= check_box_tag :needs_response, true, @filters[:needs_response] %>
       <%= t("general.needs_response") %>
-    </label>
-
-    <label class="checkbox--gyr">
-      <%= check_box_tag :exclude_dropoffs, true, @filters[:exclude_dropoffs] %>
-      <%= "Exclude dropoffs" %>
     </label>
     
     <label class="checkbox--gyr">
