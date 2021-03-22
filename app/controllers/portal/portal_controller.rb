@@ -40,7 +40,7 @@ module Portal
     # TODO: Remove after 2021 tax season.
     def backfill_current_step
       step = QuestionNavigation.determine_current_step(current_intake)
-      current_intake.update(current_step: step)
+      current_intake.update!(current_step: step)
       step
     end
   end
