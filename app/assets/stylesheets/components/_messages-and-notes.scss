@@ -87,15 +87,7 @@ ul.day-list {
   }
 
   &__body {
-    border: 1px solid $color-grey;
-    padding: 1rem 2rem 1rem;
-    border-radius: 3px;
-    p {
-      margin-bottom: 1rem;
-    }
-    p:last-of-type {
-      margin-bottom: 0;
-    }
+    @include message_body;
   }
 
   &__subject {
