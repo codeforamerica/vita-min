@@ -40,7 +40,7 @@ ul.day-list {
 
 .message {
   display: flex;
-  padding: 0 12rem 1.5rem 12rem;
+  padding: 0 12rem 1.5rem;
   &--system_note, &--outbound_call {
     .message__body {
       @include system_note;
