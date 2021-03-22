@@ -104,7 +104,7 @@ RSpec.describe Questions::FinalInfoController do
 
       let(:intake) { create :intake }
 
-      it "updates completed_intake_at" do
+      it "updates completed_at" do
         post :update, params: params
 
         expect(intake.completed_at).to be_within(2.seconds).of(Time.now)

@@ -393,5 +393,16 @@ describe QuestionNavigation do
 
       end
     end
+
+    context "with a completed intake" do
+      before do
+        allow(intake).to receive(:document_types_definitely_needed).and_return []
+      end
+
+      let(:intake) { create :intake, primary_consented_to_service_at: DateTime.current, completed_yes_no_questions_at: DateTime.current, completed_at: DateTime.current }
+      it "returns nil because there are no further questions" do
+        expect(described_class.determine_current_step(intake)).to eq nil
+      end
+    end
   end
 end
