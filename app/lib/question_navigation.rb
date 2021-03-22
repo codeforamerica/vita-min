@@ -178,7 +178,7 @@ class QuestionNavigation
       return Documents::OverviewController.to_path_helper
     end
 
-    # If yes/no questions completed + docs uploaded, start at InterviewSscheduling. Else, start after OptionalConsent
+    # If yes/no questions completed + docs uploaded, start at InterviewScheduling. Else, start after OptionalConsent
     first_relevant_question_index = intake.completed_yes_no_questions_at? ? FLOW.index(Questions::InterviewSchedulingController) : FLOW.index(Questions::LifeSituationsController)
     relevant_questions = FLOW.slice(first_relevant_question_index..)
     relevant_questions.each do |question|
