@@ -1,9 +1,31 @@
 class ClientLoginsService
   class << self
+    def issue_email_verification_code(email_address)
+      existing_tokens = EmailAccessToken.where(email_address: email_address, token_type: "verification_code")
+      existing_tokens.order(created_at: :asc).limit(existing_tokens.count - 4).delete_all if existing_tokens.count > 4
+      raw_verification_code, hashed_verification_code = VerificationCodeService.generate(email_address)
+      DatadogApi.increment("client_logins.verification_codes.email.created")
+      [raw_verification_code, EmailAccessToken.create!(
+        email_address: email_address,
+        token_type: "verification_code",
+        token: Devise.token_generator.digest(EmailAccessToken, :token, hashed_verification_code))]
+    end
+
     def issue_email_token(email_address)
       raw_token, hashed_token = Devise.token_generator.generate(EmailAccessToken, :token)
       EmailAccessToken.create!(token: hashed_token, email_address: email_address)
       raw_token
+    end
+
+    def issue_text_message_verification_code(sms_phone_number)
+      existing_tokens = TextMessageAccessToken.where(sms_phone_number: sms_phone_number, token_type: "verification_code")
+      existing_tokens.order(created_at: :asc).limit(existing_tokens.count - 4).delete_all if existing_tokens.count > 4
+      DatadogApi.increment("client_logins.verification_codes.text_message.created")
+      raw_verification_code, hashed_verification_code = VerificationCodeService.generate(sms_phone_number)
+      [raw_verification_code, TextMessageAccessToken.create!(
+        sms_phone_number: sms_phone_number,
+        token_type: "verification_code",
+        token: Devise.token_generator.digest(TextMessageAccessToken, :token, hashed_verification_code))]
     end
 
     def issue_text_message_token(sms_phone_number)
@@ -40,22 +62,19 @@ class ClientLoginsService
     end
 
     def create_email_login(email_address:, visitor_id:, locale:)
-      raw_token, hashed_token = Devise.token_generator.generate(EmailAccessToken, :token)
-      access_token = EmailAccessToken.create!(token: hashed_token, email_address: email_address)
+      verification_code, access_token = issue_email_verification_code(email_address)
       EmailLoginRequest.create!(email_access_token: access_token, visitor_id: visitor_id)
       ClientLoginRequestMailer.with(
         to: email_address,
-        raw_token: raw_token,
+        verification_code: verification_code,
         locale: locale
       ).login_email.deliver_later
     end
 
     def create_text_message_login(sms_phone_number:, visitor_id:, locale:)
-      raw_token, hashed_token = Devise.token_generator.generate(TextMessageAccessToken, :token)
-      access_token = TextMessageAccessToken.create!(token: hashed_token, sms_phone_number: sms_phone_number)
+      verification_code, access_token = issue_text_message_verification_code(sms_phone_number)
       TextMessageLoginRequest.create!(text_message_access_token: access_token, visitor_id: visitor_id)
-      login_token_link = Rails.application.routes.url_helpers.portal_client_login_url(locale: locale, id: raw_token)
-      text_message_body = I18n.t("client_logins.login_sms", locale: locale, login_link: login_token_link)
+      text_message_body = I18n.t("client_logins.login_sms", locale: locale, verification_code: verification_code).strip
       TwilioService.send_text_message(to: sms_phone_number, body: text_message_body)
     end
 

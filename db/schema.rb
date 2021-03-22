@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_12_004659) do
+ActiveRecord::Schema.define(version: 2021_03_18_180556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -18,14 +18,15 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
   enable_extension "postgis"
 
   create_table "access_logs", force: :cascade do |t|
-    t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.string "event_type", null: false
     t.inet "ip_address"
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_agent", null: false
     t.bigint "user_id", null: false
-    t.index ["client_id"], name: "index_access_logs_on_client_id"
+    t.index ["record_type", "record_id"], name: "index_access_logs_on_record_type_and_record_id"
     t.index ["user_id"], name: "index_access_logs_on_user_id"
   end
 
@@ -114,6 +115,19 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
     t.index ["name"], name: "index_coalitions_on_name", unique: true
   end
 
+  create_table "consents", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "disclose_consented_at"
+    t.datetime "global_carryforward_consented_at"
+    t.inet "ip"
+    t.datetime "relational_efin_consented_at"
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "use_consented_at"
+    t.string "user_agent"
+    t.index ["client_id"], name: "index_consents_on_client_id"
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "attempts", default: 0, null: false
     t.datetime "created_at"
@@ -189,6 +203,7 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
     t.datetime "created_at", precision: 6, null: false
     t.citext "email_address", null: false
     t.string "token", null: false
+    t.string "token_type", default: "link"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["token"], name: "index_email_access_tokens_on_token"
   end
@@ -274,6 +289,7 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
     t.datetime "completed_yes_no_questions_at"
     t.boolean "continued_at_capacity", default: false
     t.datetime "created_at"
+    t.string "current_step"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false
     t.integer "demographic_english_reading", default: 0, null: false
@@ -559,6 +575,15 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
     t.index ["user_id"], name: "index_system_notes_on_user_id"
   end
 
+  create_table "tax_return_assignments", force: :cascade do |t|
+    t.bigint "assigner_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "tax_return_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["assigner_id"], name: "index_tax_return_assignments_on_assigner_id"
+    t.index ["tax_return_id"], name: "index_tax_return_assignments_on_tax_return_id"
+  end
+
   create_table "tax_returns", force: :cascade do |t|
     t.bigint "assigned_user_id"
     t.integer "certification_level"
@@ -592,6 +617,7 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
     t.datetime "created_at", precision: 6, null: false
     t.string "sms_phone_number", null: false
     t.string "token", null: false
+    t.string "token_type", default: "link"
     t.datetime "updated_at", precision: 6, null: false
     t.index ["token"], name: "index_text_message_access_tokens_on_token"
   end
@@ -604,6 +630,17 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
     t.index ["text_message_access_token_id"], name: "text_message_login_request_access_token_id"
     t.index ["twilio_sid"], name: "index_text_message_login_requests_on_twilio_sid"
     t.index ["visitor_id"], name: "index_text_message_login_requests_on_visitor_id"
+  end
+
+  create_table "user_notifications", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "notifiable_id"
+    t.string "notifiable_type"
+    t.boolean "read", default: false, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_user_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["user_id"], name: "index_user_notifications_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -695,7 +732,6 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
     t.index ["last_scrape_id"], name: "index_vita_providers_on_last_scrape_id"
   end
 
-  add_foreign_key "access_logs", "clients"
   add_foreign_key "access_logs", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "clients", "vita_partners"
@@ -722,9 +758,12 @@ ActiveRecord::Schema.define(version: 2021_03_12_004659) do
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "system_notes", "clients"
   add_foreign_key "system_notes", "users"
+  add_foreign_key "tax_return_assignments", "tax_returns"
+  add_foreign_key "tax_return_assignments", "users", column: "assigner_id"
   add_foreign_key "tax_returns", "clients"
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "team_member_roles", "vita_partners"
+  add_foreign_key "user_notifications", "users"
   add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "vita_partner_states", "vita_partners"
   add_foreign_key "vita_partner_zip_codes", "vita_partners"

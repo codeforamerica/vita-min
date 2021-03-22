@@ -720,7 +720,7 @@ describe TaxReturn do
     end
 
     it "includes all filed statuses" do
-      expect(result["file"].length).to eq 6
+      expect(result["file"].length).to eq 7
     end
   end
 
@@ -851,7 +851,7 @@ describe TaxReturn do
     context "when assigned_user_id is nil" do
       it "updates the assigned user to be nil, creates a note, does not send email" do
         expect {
-          tax_return.assign!(assigned_user_id: nil, assigned_by: assigned_by)
+          tax_return.assign!(assigned_user: nil, assigned_by: assigned_by)
         }.to change(tax_return.reload, :assigned_user_id).to(nil)
          .and change(SystemNote, :count).by(1)
 
@@ -862,7 +862,7 @@ describe TaxReturn do
     context "when assigned_user_id is present" do
       it "updates the user, creates a system note, and sends an email" do
         expect {
-          tax_return.assign!(assigned_user_id: assigned_user.id, assigned_by: assigned_by)
+          tax_return.assign!(assigned_user: assigned_user, assigned_by: assigned_by)
         }.to change(tax_return.reload, :assigned_user_id).to(assigned_user.id)
          .and change(SystemNote, :count).by(1)
 

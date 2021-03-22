@@ -30,6 +30,7 @@ class QuestionNavigation
     Questions::ConsentController, # Advances statuses to "In Progress"
                                   # generate a 14446 signed by the primary
                                   # generate a "Preliminary" 13614-C signed by the primary
+    Questions::OptionalConsentController,
 
     # Primary filer personal information
     Questions::LifeSituationsController,
@@ -158,9 +159,34 @@ class QuestionNavigation
     Questions::DemographicSpouseEthnicityController,
 
     # Additional Information
-    Questions::FinalInfoController, # sets 'completed_intake_at' & creates Original 13614-C
+    Questions::FinalInfoController, # sets 'completed_at' & creates Original 13614-C
                                     # replace "Preliminary" with "Original" 13614-C completely filled out
     Questions::SuccessfullySubmittedController,
     Questions::FeedbackController,
   ].freeze
+
+  # Provides a backfill to determine the current_step value for clients who started intake previous to the addition of
+  # determining current_step during the intake flow
+  # TODO: Remove after 2021 tax season closes.
+  def self.determine_current_step(intake)
+    return if intake.completed_at?
+    return Questions::ConsentController.to_path_helper unless intake.primary_consented_to_service_at?
+
+    # If yes/no questions have been completed and we definitely still need certain documents, send
+    # them to the upload docs page.
+    if intake.completed_yes_no_questions_at? && intake.document_types_definitely_needed.present?
+      return Documents::OverviewController.to_path_helper
+    end
+
+    # If yes/no questions completed + docs uploaded, start at InterviewScheduling. Else, start after OptionalConsent
+    first_relevant_question_index = intake.completed_yes_no_questions_at? ? FLOW.index(Questions::InterviewSchedulingController) : FLOW.index(Questions::LifeSituationsController)
+    relevant_questions = FLOW.slice(first_relevant_question_index..)
+    relevant_questions.each do |question|
+      # Skip if not relevant to this intake
+      next unless question.show?(intake)
+      # Return if unfilled
+      answer = intake.send(question.form_class.attribute_names.first)
+      return question.to_path_helper.to_s if ["unfilled", nil].include? answer
+    end
+  end
 end

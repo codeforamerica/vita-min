@@ -31,4 +31,65 @@ describe OrganizationCapacity do
       end
     end
   end
+
+  describe '.with_capacity' do
+    context "with a site" do
+      let!(:site) { create(:site) }
+      it "does not have capacity" do
+        expect(described_class.with_capacity.pluck(:vita_partner_id)).not_to include(site)
+      end
+    end
+
+    context "with an organization whose active clients equal capacity" do
+      let(:organization) { create :organization, capacity_limit: 1 }
+      before do
+        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization
+      end
+
+      it "does not have capacity" do
+        expect(described_class.with_capacity.pluck(:vita_partner_id)).not_to include(organization.id)
+      end
+    end
+
+    context "with an organization with 0 capacity limit" do
+      let!(:organization) { create :organization, capacity_limit: 0 }
+
+      it "does not have capacity" do
+        expect(described_class.with_capacity.pluck(:vita_partner_id)).not_to include(organization.id)
+      end
+    end
+
+    context "with an organization whose active clients are below its capacity" do
+      let!(:organization) { create :organization, capacity_limit: 2 }
+      before do
+        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization
+      end
+
+      it "has capacity" do
+        expect(described_class.with_capacity.pluck(:vita_partner_id)).to include(organization.id)
+      end
+    end
+
+    context "with an organization whose active clients are above its capacity" do
+      let(:organization) { create :organization, capacity_limit: 0 }
+      before do
+        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization
+      end
+
+      it "does not have capacity" do
+        expect(described_class.with_capacity.pluck(:vita_partner_id)).not_to include(organization.id)
+      end
+    end
+
+    context "with an organization whose capacity_limit is nil" do
+      let(:organization) { create :organization, capacity_limit: nil }
+      before do
+        create :client_with_status, status: TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY[0], vita_partner: organization
+      end
+
+      it "has capacity" do
+        expect(described_class.with_capacity.pluck(:vita_partner_id)).to include(organization.id)
+      end
+    end
+  end
 end

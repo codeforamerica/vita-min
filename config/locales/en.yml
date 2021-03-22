@@ -113,6 +113,7 @@ en:
         client_messages: Messages
         client_notes: Notes
         client_profile: Client Profile
+        notifications: My Updates
       show:
         email: Email
         dependents: Dependents
@@ -225,6 +226,7 @@ en:
         file_rejected: Rejected
         file_accepted: Accepted
         file_not_filing: Not filing
+        file_hold: Hold
     status_macros:
       needs_more_information: |
         Hello <<Client.PreferredName>>,
@@ -370,6 +372,12 @@ en:
       displayed: Displaying SSN or ITIN
     client_channel:
       please_reload_html: "<li style='text-align: right'>↻ Please reload the page to see a new message.</li>"
+    user_notifications:
+      tax_return_assignment:
+        title: You've Been Assigned a Client
+        body_html: "%{assigner} has assigned %{client_link} %{tax_return_year} return to you."
+        body_link: "%{client_name}'s"
+
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
@@ -621,6 +629,7 @@ en:
     not_at_all: Not at all
     not_well: Not well
     oops: Oops!
+    online: Online
     open: Open
     opt_in_email: Opt into email notifications
     opt_in_sms: Opt into sms notifications
@@ -646,6 +655,8 @@ en:
     return_home: Return to home
     return_search: Return to search
     role: Role
+    routing: Routing
+    state_routing: State Routing
     save: Save
     search: Search
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
@@ -670,6 +681,7 @@ en:
     today: Today
     updated_at: Updated At
     unassigned: Unassigned
+    unsure: I don't know
     upload: Upload
     very_well: Very well
     visit_free_file: Visit IRS Free File
@@ -714,6 +726,10 @@ en:
     responded_to_client: "Responded to client"
     mark_for_response: "Mark as response needed"
     needs_response: "Needs response"
+    received_unemployment_income: "Received Unemployment Income"
+    ui: "UI"
+    unemployment_income: "Unemployment Income"
+    unread: Notification unread
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -814,14 +830,11 @@ en:
       form:
         errors:
           bad_input: "Incorrect client ID or last 4 of SSN/ITIN. After 5 failed attempts, accounts are locked."
+          bad_verification_code: "Incorrect verification code. After 5 failed attempts, accounts are locked."
       new:
-        title: "To view your progress, we’ll send you a secure link."
+        title: "To view your progress, we’ll send you a secure code."
         one_form_of_contact: "Please enter one form of contact below:"
-      link_sent:
-        link_sent: "To protect your identity, we sent a secure link to your contact info."
-        link_sent_at: "To protect your identity, we sent a secure link to your contact info at:"
-        title: "To continue, please visit your secure link."
-        send_another_link: "Send another link"
+        send_code: "Send code"
       edit:
         title: "Authentication needed to continue."
         confirm_identity: "Protecting your tax information is our priority. To continue, please confirm your identity below."
@@ -832,6 +845,11 @@ en:
       invalid_token:
         title: "It looks like you need a new link"
         body_html: The link you used is expired or broken. Please <a href="mailto:hello@getyourrefund.org">email support</a> to get a new link.
+      enter_verification_code:
+        title: "Let’s verify that code!"
+        code_sent_to_html: "A message with your code has been sent to: <strong>%{address}</strong>"
+        verify: "Verify"
+        enter_6_digit_code: "Enter 6 digit code"
     portal:
       home:
         title: Welcome back %{name}!
@@ -844,6 +862,8 @@ en:
           empty_state: No documents ready to review yet - check back later.
           view_document: "View/download %{display_name}"
           view_final_tax_document: "View/download final %{year} tax document"
+          submit_additional_documents: Submit remaining tax documents
+          answer_questions: Complete all tax questions
     tax_returns:
       authorize_signature:
         efile_acceptance: I authorize GetYourRefund to enter or generate my PIN as my signature on my tax year %{year} electronically filed income tax return.
@@ -866,6 +886,67 @@ en:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
   views:
+    consent_pages:
+      consent_to_use:
+        title: Consent to Use
+        content_html: |
+          Federal law requires this consent form be provided to you ("you" refers to each taxpayer, if more than one). Unless authorized by law, we cannot disclose, without your consent, your tax return information to third parties for purposes other than the preparation and filing of your tax return. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.
+
+          You are not required to complete this form to engage our tax return preparation services. If we obtain your signature on this form by conditioning our tax return preparation services on your consent, your consent will not be valid. If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.
+
+          <strong>I authorize the VITA site:</strong>
+          1 year-Use: I authorize the VITA site to use non-identifying information from my tax return to compile aggregate reports to existing and potential funders.
+
+          1 year-Purpose: Tax return information will be used to measure program outcomes in order to secure ongoing funding for the VITA program.
+
+          If you believe your tax return information has been disclosed or used improperly in a manner unauthorized by law or without your permission, you may contact the Treasury Inspector General for Tax Administration (TIGTA) by telephone at 1-800-366-4484, or by email at complaints@tigta.treas.gov.
+      consent_to_disclose:
+        title: Consent to Disclose
+        content_html: |
+          Federal law requires this consent form be provided to you ("you" refers to each taxpayer, if more than one). Unless authorized by law, we cannot disclose, without your consent, your tax return information to third parties for purposes other than the preparation and filing of your tax return. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.
+
+          You are not required to complete this form to engage our tax return preparation services. If we obtain your signature on this form by conditioning our tax return preparation services on your consent, your consent will not be valid. If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.
+
+          <strong>I authorize the VITA site:</strong>
+          1 year-Disclosure: I authorize the VITA site to release my personal tax information to the tax software (TaxSlayer) and/or the financial institution(s) I specified (if any).
+
+          1 year-Purpose: Personal tax information will be disclosed to the tax software (TaxSlayer) for electronic filing purposes, and to financial institution(s) for direct deposit or debit (if applicable).
+
+          If you believe your tax return information has been disclosed or used improperly in a manner unauthorized by law or without your permission, you may contact the Treasury Inspector General for Tax Administration (TIGTA) by telephone at 1-800-366-4484, or by email at complaints@tigta.treas.gov.
+      relational_efin:
+        title: Relational EFIN
+        content_html: |
+          Federal law requires this consent form be provided to you ("you" refers to each taxpayer, if more than one). Unless authorized by law, we cannot disclose, without your consent, your tax return information to third parties for purposes other than the preparation and filing of your tax return. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.
+
+          You are not required to complete this form to engage our tax return preparation services. If we obtain your signature on this form by conditioning our tax return preparation services on your consent, your consent will not be valid. If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.
+
+          <strong>I authorize the VITA site:</strong>
+          3 years-Disclosure: Tax Preparer will disclose the Personal Information to the Software Developer through Software Developer's tax preparation software. The Software Developer will disclose the Personal Information to the VITA program Relational Office.
+
+          3 years-Purpose: The purpose of the Disclosures is for the Software Developer to make available the Taxpayer's Personal Information to the VITA program Relational Office in order for them to provide support and administrative assistance to the Tax Preparer.
+      global_carryforward:
+        title: Global Carryforward
+        content_html: |
+          Federal law requires this consent form be provided to you ("you" refers to each taxpayer, if more than one). Unless authorized by law, we cannot disclose, without your consent, your tax return information to third parties for purposes other than the preparation and filing of your tax return. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.
+
+          You are not required to complete this form to engage our tax return preparation services. If we obtain your signature on this form by conditioning our tax return preparation services on your consent, your consent will not be valid. If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.
+
+          <strong>I authorize the VITA site:</strong>
+          Global Carry Forward of data allows TaxSlayer LLC, the provider of the VITA/TCE tax software to make your tax return information available to ANY volunteer site participating in the IRS's VITA/TCE program that you select to prepare a tax return in the next filing season. This means you will be able to visit any volunteer site using TaxSlayer next year and have your tax return populate with your current year data, regardless of where you filed your tax return this year.
+
+          <strong>This consent is valid through November 12, 2022</strong>
+
+          The tax return information that will be disclosed includes, but is not limited to, demographic, financial and other personally identifiable information, about you, your tax return and your sources of income, which was input into the tax preparation software for the purpose of preparing your tax return.
+
+          This information includes your name, address, date of birth, phone number, SSN, filing status, occupation, employer's name and address, and the amounts and sources of income, deductions and credits that were claimed on, or contained within, your tax return. The tax return information that will be disclosed also includes the name, SSN, date of birth, and relationship of any dependents that were claimed on your tax return.
+
+          You do not need to provide consent for the VITA/TCE partner preparing your tax return this year Carry Forward will assist you only if you visit a different VITA or TCE partner next year.
+
+          <i>Limitation on the Duration of Consent</i>: I/we, the taxpayer, do not wish to limit the duration of the consent-of the disclosure of tax return information to a date earlier than presented above (November 12, 2022). If I/we wish to limit the duration of the consent of the disclosure to an earlier date, I will deny consent.
+
+          <i>Limitation on the Scope of Disclosure</i>: I/we, the taxpayer, do not wish to limit the scope of the disclosure of tax return information further than presented above. If I/we wish to limit the scope of the disclosure of tax return information further than presented above, I/we will deny consent.
+
+          If you believe your tax return information has been disclosed or used improperly in a manner unauthorized by law or without your permission, you may contact the Treasury Inspector General for Tax Administration (TIGTA) by telephone at 1-800-366-4484, or by email at complaints@tigta.treas.gov.
     dependents:
       form:
         birth_date: Date of birth
@@ -1573,6 +1654,19 @@ en:
         primary_last_four_ssn: Last 4 of SSN/ITIN
         primary_last_name: Legal last name
         title: Great! Here's the legal stuff...
+      optional_consent:
+        title: A few more things...
+        help_text_html: "We respect your privacy. <strong>You have the option</strong> to consent to the following:"
+        cta: Continue
+        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank">Consent to Use:</a> You allow us to count your return in reports.
+        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
+        relational_efin_html: <a href="%{relational_efin_url}" target="_blank">Relational EFIN:</a> You allow the tax office that prepares your return to report data to their parent organization.
+        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank">Global Carryforward:</a> You allow us to make your tax return information available to other VITA programs you may visit.
+        legal_details_title: The legal details
+        legal_details_html: |
+          <p>Federal law requires these consent forms be provided to you. Unless authorized by law, we cannot disclose your tax return information to third parties for purposes other than the preparation and filing of your tax return without your consent. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.</p>
+
+          <p>You are not required to complete these forms to engage our tax return preparation services. This will be provided in a separate consent page. If we obtain your signature on this form by conditioning our tax return preparation services on your consent, your consent will not be valid. If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.</p>
       debt_forgiven:
         help_text: Such as credit card, mortgage, or other debt.
         title:
@@ -1982,26 +2076,133 @@ en:
     shared:
       consent_agreement:
         details:
-          cfa: I understand that GetYourRefund.org is a website run by Code for America, a non-profit organization, that will submit your tax information to a VITA preparation site.
-          civil_rights_understanding_html: I understand that VITA is a <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">free tax program</a> that <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protects my civil rights</a>.
-          collects_pii: I understand that this site collects personally identifiable information I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review my tax return.
-          contacted: I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed.
-          e_signature: I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through an electronic signature delivered via email after Quality Review is completed in order for a VITA preparation site to e-file my tax return.
+          intro: >-
+            This site is using 100% Virtual VITA/TCE Process: This method includes non-face-to-face interactions with
+            the taxpayer and any of the VITA/TCE volunteers during the intake, interview, return preparation, quality
+            review, and signing the tax return. The taxpayer will be explained the full process and is required to
+            consent to step-by-step process used by the site. This includes the virtual procedures to send required
+            documents (social security numbers, Form W-2 and other documents) through a secured file sharing system
+            to a designated volunteer for review.
+          site_process_header: The GetYourRefund Site Process
+          sections:
+            - header: Overview
+              content:
+                - >-
+                  I understand that VITA is a
+                  <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">free tax program</a>
+                  that
+                  <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protects my civil rights</a>.
+                - >-
+                  I understand that GetYourRefund.org is a website run by Code for America,
+                  a non-profit organization, that will submit your tax information to a VITA preparation site.
+            - header: Securing Taxpayer Consent Agreement
+              content:
+                - >-
+                  I understand that selecting "I agree" provides my consent to the GetYourRefund tax prep process.
+            - header: "Performing the Intake Process (Secure All Documents)"
+              content:
+                - >-
+                  Intake process: GetYourRefund will collect your information and documentation through the intake
+                  process in order to accurately prepare your tax return. All documents will be uploaded in the system
+                  and secured.
+                - >-
+                  I understand that I must provide all required information/documentation necessary to prepare an accurate tax return.
+            - header: Validating Taxpayer's Authentication (Reviewing photo identification and Social Security Cards/ITINS)
+              content:
+                - >-
+                  I understand that this site collects personally identifiable information I provide (social security numbers,
+                  Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review
+                  my tax return. Identity is validated by review of photo identification, proof of social security number
+                  or ITIN, and a photo of you holding your identification.
+            - header: Performing the interview with the taxpayer(s)
+              content:
+                - >-
+                  I understand that I will need to participate in an Intake Interview via phone in order to have a
+                  VITA preparation site file my taxes.
+            - header: Preparing the tax return
+              content:
+                - >-
+                  Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return.
+                - >-
+                  I understand that I may be contacted for additional information using a contact preference I provide.
+                  If the preparer has everything required to prepare the return, I will not be contacted until the return
+                  is completed.
+            - header: Performing the quality review
+              content:
+                - >-
+                  I understand that I will need to participate in a Quality Review via phone in order to have a VITA
+                  preparation site file my taxes. I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge.
+            - header: Sharing the completed return
+              content:
+                - >-
+                  Quality Review Process - GetYourRefund will provide you with your return to review for accuracy prior to submission.
+            - header: Signing the return
+              content:
+                - >-
+                  I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through
+                  an electronic signature delivered via email after Quality Review is completed in order for
+                  a VITA preparation site to e-file my tax return.
+                - >-
+                  I understand that me and my spouse (if applicable) are ultimately responsible for all of the
+                  information provided to GetYourRefund.
+            - header: E-filing the tax return
+              content:
+                - >-
+                  I understand that GetYourRefund will e-file my tax return with the IRS.
+            - header: Request to Review your Tax Return for Accuracy
+              content:
+                - >-
+                  To ensure you are receiving quality services and an accurately prepared tax return at the
+                  volunteer site, IRS employees randomly select free tax preparation sites for review. If errors are
+                  identified, the site will make the necessary corrections. IRS does not keep any personal information
+                  from your reviewed tax return and this allows them to rate our VITA/TCE return preparation programs
+                  for accurately prepared tax returns. By consenting to the service, you consent to having your return
+                  reviewed for accuracy by an IRS employee if the site preparing this return is selected for a review.
+            - header: Virtual Consent Disclosure
+              content:
+                - >-
+                  If you agree to have your tax return prepared and your tax documents handled in the above manner,
+                  your signature and/or agreement is required on this document. Signing this document means that you
+                  are agreeing to the procedures stated above for preparing a tax return for you.
+                  (If this is a Married Filing Joint return both spouses must sign and date this document.) If you
+                  choose not to sign this form, we may not be able to prepare your tax return using this process.
+                  Since we are preparing your tax return virtually, we have to secure your consent agreeing to this
+                  process.
+                - >-
+                  If you consent to use these non-IRS virtual systems to disclose or use your tax return information,
+                  Federal law may not protect your tax return information from further use or distribution in the
+                  event these systems are hacked or breached without our knowledge.
+                - >-
+                  If you agree to the disclosure of your tax return information, your consent is valid for the amount
+                  of time that you specify. If you do not specify the duration of your consent, your consent is valid
+                  for one year from the date of signature.
+                - >-
+                  If you believe your tax return information has been disclosed or used improperly in a manner unauthorized
+                  by law or without your permission, you may contact the Treasury Inspector General for Tax
+                  Administration (TIGTA) by telephone at 1-800-366-4484, or by e-mail at complaints@tigta.treas.gov.
+                - >-
+                  While the IRS is responsible for providing oversight requirements to Volunteer Income Tax Assistance
+                  (VITA) and Tax Counseling for the Elderly (TCE) programs, these sites are operated by IRS
+                  sponsored partners who manage IRS site operations requirements and volunteer ethical standards.
+                  In addition, the locations of these sites may not be in or on federal property.
+                - >-
+                  By signing below, you and your spouse (if applicable) agree to participate in the process and
+                  consent to allow GetYourRefund to assist you with your taxes. You agree to the terms of the
+                  GetYourRefund privacy policy at www.GetYourRefund.org/privacy.
+                - >-
+                  This consent form replaces IRS Form 14446-Virtual VITA/TCE Taxpayer Consent.
+                  A copy of this consent will be retained on site, as required by the IRS.
+
           header: The Details
-          intake_process: Intake Process - GetYourRefund will collect your information and documentation through the intake process in order to accurately prepare your tax return.
-          interview_and_review: I understand that I will need to participate in an Intake Interview and Quality Review via phone in order to have a VITA preparation site file my taxes.
-          irs: This consent form replaces IRS Form 14446-Virtual VITA/TCE Taxpayer Consent. A copy of this consent will be retained on site, as required by the IRS.
-          provide_required_info: I understand that I must provide all required information/documentation necessary to prepare an accurate tax return.
-          quality_review_process: Quality Review Process - GetYourRefund will provide you with your return to review for accuracy prior to submission.
-          responsible: I understand that me and my spouse (if applicable) are ultimately responsible for all of the information provided to GetYourRefund.
-          return_prep_process: Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return.
-          review_return: I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge.
-          sign_below: By signing below, you agree to participate in the process and consent to allow GetYourRefund assist you with your taxes. You agree to the terms of the GetYourRefund privacy policy at www.GetYourRefund.org/privacy.
-          efin: I understand that the VITA site I am connected with may have a Relational EFIN number (meaning their site reports to a parent VITA organization), and I understand the VITA site has the ability to see reporting data for all EFINs under the relational (primary) EFIN. This consent form replaces the Relational EFIN consent form from the tax preparation software.
-          personal_tax_info: "Consent to Disclose and Use Personal Tax Return Information: I agree to allow the VITA preparation site to use aggregate return data for statistical purposes. This consent form replaces the Use and Disclose Consent form."
-          carry_forward: "Consent to Global Carry Forward: I consent to allow TaxSlayer LLC, the provider of the VITA/TCE tax software, to make my tax return information available to ANY volunteer site participating in the IRS's VITA/TCE program that I select to prepare a tax return in the next filing season. I understand I will be able to visit any volunteer site using TaxSlayer next year and have my tax return populate with your current year data, regardless of where you filed your tax return this year. This consent is valid through November 12, 2022."
-        information_you_provide: You understand the information you provide this site (GetYourRefund.org) is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order for an IRS-certified volunteer to review your information, conduct an intake interview on the phone, prepare the tax return, and perform a quality review before filing your taxes.
-        proceed_and_confirm: By proceeding, you confirm that the following statements are true and complete to the best of your knowledge.
+        information_you_provide: >-
+          You understand the information you provide this site (GetYourRefund.org)
+          is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order
+          for an IRS-certified volunteer to review your information, conduct an intake
+          interview on the phone, prepare the tax return, and perform a quality review
+          before filing your taxes.
+        proceed_and_confirm: >-
+          By proceeding, you confirm that the following statements
+          are true and complete to the best of your knowledge.
         terms_html: You agree to the terms of the GetYourRefund privacy policy at %{privacy_link}
       covid_warning:
         notice_html: "Note: In person services may currently be on hold due to COVID-19"
@@ -2075,22 +2276,18 @@ en:
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
       You can also visit %{home_url} and click “Get Started” to start the filing process.
     login_sms: |
-      We received your request for an update on your progress. You can view your progress by following this link
-      %{login_link}
+      Your 6-digit GetYourRefund verification code is: %{verification_code}. This code will expire after two days.
   client_login_request_mailer:
     login_email:
       body_html: |
-        <p>Hello,</p>
-        <p>We received your request for an update on your progress. You can view your progress by following this link.</p>
-        <p><a href="%{login_link}">%{login_link}</a></p>
+        <p>Hello!</p>
+        <p>Your 6-digit GetYourRefund verification code is: %{verification_code}. This code will expire after two days.</p>
         <p>If you did not initiate this request, please let us know.</p>
         <p>Your tax team at GetYourRefund.org</p>
       body_text: |
-        Hello,
+        Hello!
 
-        We received your request for an update on your progress. You can view your progress by following this link.
-
-        %{login_link}
+        Your 6-digit GetYourRefund verification code is: %{verification_code}. This code will expire after two days.
 
         If you did not initiate this request, please let us know.
 

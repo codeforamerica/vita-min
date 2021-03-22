@@ -23,6 +23,7 @@ RSpec.describe Portal::PortalController, type: :controller do
       end
     end
   end
+
   describe "#home" do
     context "when unauthenticated" do
       it "redirects to home page" do
@@ -33,24 +34,62 @@ RSpec.describe Portal::PortalController, type: :controller do
     end
 
     context "as an authenticated client" do
-      let(:client) { create :client }
-
       before do
-        create :tax_return, year: 2018, client: client
-        create :tax_return, year: 2017, client: client
-        create :tax_return, year: 2020, client: client
         sign_in client
+        allow(QuestionNavigation).to receive(:determine_current_step).and_return("/en/questions/asset-sale-loss")
       end
 
-      it "is ok" do
-        get :home
+      context "with onboarding still to do" do
+        let(:client) { create :client, intake: (create :intake, current_step: "/en/questions/additional-info") }
 
-        expect(response).to be_ok
+        before do
+          create :tax_return, year: 2018, status: :intake_in_progress, client: client
+          create :tax_return, year: 2017, status: :intake_in_progress, client: client
+        end
+
+        it "is ok" do
+          get :home
+
+          expect(response).to be_ok
+        end
+
+        it "exposes current_step and tax_returns are empty" do
+          get :home
+
+          expect(assigns(:current_step)).to eq "/en/questions/additional-info"
+          expect(assigns(:tax_returns)).to eq []
+        end
+
+        context "with current_step nil" do
+          let(:client) { create :client, intake: (create :intake) }
+          it "backfills onto intake" do
+            get :home
+            expect(client.reload.intake.current_step).to eq "/en/questions/asset-sale-loss"
+            expect(assigns(:current_step)).to eq "/en/questions/asset-sale-loss"
+          end
+        end
       end
 
-      it "loads the client tax returns in desc order" do
-        get :home
-        expect(assigns(:tax_returns).map(&:year)).to eq [2020, 2018, 2017]
+      context "post-onboarding" do
+        let(:client) { create :client, intake: (create :intake) }
+
+        before do
+          create :tax_return, year: 2018, status: :intake_in_progress, client: client
+          create :tax_return, year: 2017, status: :prep_ready_for_prep, client: client
+          create :tax_return, year: 2020, status: :intake_ready_for_call, client: client
+        end
+
+        it "is ok" do
+          get :home
+
+          expect(response).to be_ok
+        end
+
+        it "loads the client tax returns in desc order" do
+          get :home
+          expect(assigns(:tax_returns).map(&:year)).to eq [2020, 2018, 2017]
+          expect(assigns(:current_step)).to eq nil
+        end
       end
     end
   end

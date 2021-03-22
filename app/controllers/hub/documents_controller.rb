@@ -17,6 +17,7 @@ module Hub
     end
 
     def show
+      log_document_access!
       redirect_to transient_storage_url(@document.upload.blob)
     end
 
@@ -47,6 +48,17 @@ module Hub
     end
 
     private
+
+    def log_document_access!
+      AccessLog.create!(
+        user: current_user,
+        record: @document,
+        created_at: DateTime.now,
+        event_type: "viewed_document",
+        ip_address: request.remote_ip,
+        user_agent: request.user_agent,
+      )
+    end
 
     def document_params
       params.require(:document)

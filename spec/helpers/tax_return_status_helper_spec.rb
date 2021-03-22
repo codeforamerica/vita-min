@@ -36,7 +36,8 @@ describe TaxReturnStatusHelper do
          ["Filed by mail", "file_mailed"],
          ["Rejected", "file_rejected"],
          ["Accepted", "file_accepted"],
-         ["Not filing", "file_not_filing"]
+         ["Not filing", "file_not_filing"],
+         ["Hold", "file_hold"]
        ]
       ]
     ]

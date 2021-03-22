@@ -5,6 +5,7 @@
 #  id            :bigint           not null, primary key
 #  email_address :citext           not null
 #  token         :string           not null
+#  token_type    :string           default("link")
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
@@ -15,6 +16,7 @@
 class EmailAccessToken < ApplicationRecord
   validates_presence_of :token
   validates_presence_of :email_address
+  validates :token_type, inclusion: %w(link verification_code)
   validate :one_or_more_valid_email_addresses
 
   scope :lookup, ->(raw_token) do

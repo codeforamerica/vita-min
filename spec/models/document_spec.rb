@@ -60,6 +60,20 @@ describe Document do
         expect(document.document_type).to be_blank
         expect(document.errors[:document_type]).to eq ["Can't be blank."]
       end
+
+      context "document types not in DocumentTypes::ALL_TYPES" do
+        it "allows 'Requested'" do
+          document = Document.new(document_type: "Requested")
+          document.valid?
+          expect(document.errors).not_to include :document_type
+        end
+
+        it "allows 'F13614C / F15080 2020'" do
+          document = Document.new(document_type: "F13614C / F15080 2020")
+          document.valid?
+          expect(document.errors).not_to include :document_type
+        end
+      end
     end
 
     describe "#tax_return_belongs_to_client" do

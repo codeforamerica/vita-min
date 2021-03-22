@@ -41,6 +41,7 @@ class Client < ApplicationRecord
 
   belongs_to :vita_partner, optional: true
   has_one :intake
+  has_one :consent
   has_many :documents
   has_many :outgoing_text_messages
   has_many :outgoing_emails
@@ -190,6 +191,12 @@ class Client < ApplicationRecord
       intake.sms_phone_number
     ).where.not(id: intake.id)
     Client.after_consent.where(intake: matching_intakes).pluck(:id)
+  end
+
+  def preferred_language
+    return intake.preferred_interview_language if intake.preferred_interview_language && intake.preferred_interview_language != "en"
+
+    intake.locale || intake.preferred_interview_language
   end
 
   private

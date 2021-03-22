@@ -12,7 +12,7 @@ RSpec.describe Questions::AdditionalInfoController do
       post :update, params: {}
 
       expect(intake.reload.completed_yes_no_questions_at).to be_present
-      expect(IntakePdfJob).to have_been_enqueued.with(intake.id, "Preliminary 13614-C with 15080.pdf")
+      expect(IntakePdfJob).to have_been_enqueued.with(intake.id, "Preliminary 13614-C.pdf")
     end
   end
 end

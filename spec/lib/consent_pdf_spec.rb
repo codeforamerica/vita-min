@@ -18,6 +18,7 @@ RSpec.describe ConsentPdf do
           "primary_email" => nil,
           "primary_name" => nil,
           "primary_phone" => nil,
+          "primary_signature" => nil,
           "primary_ssn_last_four" => nil,
           "spouse_consented_at" => nil,
           "spouse_consented_ip" => nil,
@@ -25,6 +26,7 @@ RSpec.describe ConsentPdf do
           "spouse_email" => nil,
           "spouse_name" => nil,
           "spouse_phone" => nil,
+          "spouse_signature" => nil,
           "spouse_ssn_last_four" => nil,
         })
       end
@@ -60,6 +62,7 @@ RSpec.describe ConsentPdf do
            "primary_dob" => "9/4/1955",
            "primary_email" => "me@oscar.orange",
            "primary_name" => "Oscar Orange",
+           "primary_signature" => "Oscar Orange",
            "primary_phone" => "(415) 816-1286",
            "primary_ssn_last_four" => "5555",
            "spouse_consented_at" => "4/17/2020",
@@ -67,6 +70,7 @@ RSpec.describe ConsentPdf do
            "spouse_dob" => "9/5/1952",
            "spouse_email" => "owen@oscar.orange",
            "spouse_name" => "Owen Orange",
+           "spouse_signature" => "Owen Orange",
            "spouse_phone" => nil,
            "spouse_ssn_last_four" => "4444",
         })

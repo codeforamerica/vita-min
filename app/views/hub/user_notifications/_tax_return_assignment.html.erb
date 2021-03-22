@@ -1,0 +1,12 @@
+<div class="notification">
+  <div class="notification__heading"><%= t(".title") %></div>
+  <div class="notification__date"><%= long_formatted_datetime(notification.created_at, use_day: false) %></div>
+  <div class="notification__body <%= notification.read ? 'notification__read' : 'notification__unread' %>">
+    <%= t(".body_html",
+          assigner: notification.notifiable.assigner.name,
+          tax_return_year: notification.notifiable.tax_return.year.to_s,
+          client_link: link_to(t(".body_link", client_name: notification.notifiable.tax_return.client.preferred_name), hub_client_path(id: notification.notifiable.tax_return.client)))
+    %>
+    <%= render 'shared/unread_icon', flag: true unless notification.read? %>
+  </div>
+</div>

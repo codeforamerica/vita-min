@@ -1,0 +1,10 @@
+.unread-wrapper {
+  display: inline;
+  i.unread {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: $color-notification-blue;
+    border-radius: 20px;
+  }
+}

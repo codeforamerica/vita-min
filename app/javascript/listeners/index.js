@@ -5,6 +5,7 @@ import helpers from "../helpers";
 import { initTakeActionOnChangeHandlers } from "../lib/dynamic_take_action_changes";
 import { initMetricsTableSortAndFilter } from "../lib/metrics_table_sort";
 import { documentSubmittingIndicator } from "../lib/document_submitting_indicator";
+import tooltip from "../components/tooltip";
 
 const Listeners =  (function(){
     return {
@@ -26,6 +27,8 @@ const Listeners =  (function(){
                 initMetricsTableSortAndFilter();
                 // enables the link_to_add_fields and link_to_remove_fields helper methods to work globally
                 initNestedAttributesListeners();
+
+                tooltip.init();
             });
         }
     }

@@ -23,8 +23,6 @@ class VitaPartnerState < ApplicationRecord
   validate :invalid_state
   validates :state, uniqueness: { scope: :vita_partner_id }
 
-
-
   private
 
   def invalid_state

@@ -268,4 +268,10 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
       end
     end
   end
+
+  describe "#prev_path" do
+    it "returns nil" do
+      expect(subject.prev_path).to eq(nil)
+    end
+  end
 end

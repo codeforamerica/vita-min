@@ -14,10 +14,6 @@
 -- `rails analytics:remove` or DROP SCHEMA IF EXISTS analytics CASCADE;
 CREATE SCHEMA IF NOT EXISTS analytics;
 
-CREATE OR REPLACE VIEW analytics.access_logs AS
-    SELECT id, client_id, created_at, event_type, updated_at, user_id, user_agent
-    FROM public.access_logs;
-
 CREATE OR REPLACE VIEW analytics.active_storage_attachments AS
     SELECT id, blob_id, created_at, record_id, record_type
     FROM public.active_storage_attachments;
@@ -170,7 +166,7 @@ CREATE OR REPLACE VIEW analytics.stimulus_triages AS
     FROM public.stimulus_triages;
 
 CREATE OR REPLACE VIEW analytics.system_notes AS
-    SELECT id, client_id, created_at, updated_at, user_id
+    SELECT id, client_id, created_at, type, updated_at, user_id
     FROM public.system_notes;
 
 CREATE OR REPLACE VIEW analytics.tax_returns AS

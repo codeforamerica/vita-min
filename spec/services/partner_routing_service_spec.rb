@@ -65,47 +65,6 @@ describe PartnerRoutingService do
 
           let!(:expected_vita_partner) { create :vita_partner }
 
-          context "with state-qualified organizations with excess capacity" do
-            let!(:org_with_capacity_and_routing_1) {
-              vita_partner = create(:vita_partner, capacity_limit: 10)
-              create(:vita_partner_state, state: "NC", routing_fraction: 0.3, vita_partner: vita_partner)
-              vita_partner
-            }
-            let!(:org_with_capacity_and_routing_2) {
-              vita_partner = create(:vita_partner, capacity_limit: 10)
-              create(:vita_partner_state, state: "NC", routing_fraction: 0.3, vita_partner: vita_partner)
-              vita_partner
-            }
-            let!(:org_with_routing_without_capacity) {
-              vita_partner = create(:vita_partner, capacity_limit: 0)
-              create(:vita_partner_state, state: "NC", routing_fraction: 0.3, vita_partner: vita_partner)
-              vita_partner
-            }
-            let!(:org_with_routing_without_excess_capacity) {
-              vita_partner = create(:vita_partner, capacity_limit: 5)
-              create(:vita_partner_state, state: "NC", routing_fraction: 0.3, vita_partner: vita_partner)
-              (vita_partner.capacity_limit + 1).times do
-                create :client_with_status, vita_partner: vita_partner, status: "intake_ready"
-              end
-            }
-            before do
-              weighted_service_double = double(WeightedRoutingService)
-              allow(WeightedRoutingService).to receive(:new).and_return weighted_service_double
-              allow(weighted_service_double).to receive(:weighted_routing_ranges).and_return(
-                [
-                  { id: 1, low: 0.0, high: 0.2 },
-                  { id: org_with_capacity_and_routing_1.id, low: 0.2, high: 0.6 },
-                  { id: 3, low: 0.6, high: 1.0 }
-                ]
-              )
-            end
-
-            it "only considers vita partners with capacity" do
-              subject.determine_partner
-              expect(WeightedRoutingService).to have_received(:new).with([org_with_capacity_and_routing_1, org_with_capacity_and_routing_2])
-            end
-          end
-
           context "with state qualified vita partners, but none have capacity" do
             let!(:org_state_routed_no_capacity) {
               vita_partner = create(:vita_partner, capacity_limit: 0)
@@ -114,12 +73,12 @@ describe PartnerRoutingService do
             }
             let!(:org_state_routed_no_excess_capacity) {
               vita_partner = create(:vita_partner, capacity_limit: 5)
-              create(:vita_partner_state, state: "NC", routing_fraction: 0.3, vita_partner: vita_partner)
+              create(:vita_partner_state, state: "NC", routing_fraction: 0.4, vita_partner: vita_partner)
               (vita_partner.capacity_limit + 1).times do
                 create :client_with_status, vita_partner: vita_partner, status: "intake_ready"
               end
             }
-            
+
             it "assigns to a national vita partner" do
               expect(subject.determine_partner.national_overflow_location).to eq true
             end

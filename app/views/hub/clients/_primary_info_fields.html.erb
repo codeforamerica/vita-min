@@ -19,7 +19,7 @@
   <%= f.cfa_select(
           :preferred_interview_language,
           t("hub.clients.fields.preferred_interview_language"),
-          I18n.backend.translations[I18n.locale][:general][:language_options].invert,
+          language_options(only_locales: false),
           include_blank: true,
           selected: @form.preferred_interview_language
       ) %>

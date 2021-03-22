@@ -93,6 +93,10 @@ Rails.application.routes.draw do
     get "/500", to: "public_pages#internal_server_error"
     get "/422", to: "public_pages#internal_server_error"
     get "/404", to: "public_pages#page_not_found"
+    get "/consent-to-use", to: "consent_pages#consent_to_use"
+    get "/consent-to-disclose", to: "consent_pages#consent_to_disclose"
+    get "/relational-efin", to: "consent_pages#relational_efin"
+    get "/global-carryforward", to: "consent_pages#global_carryforward"
 
     devise_for :clients, skip: [:sessions]
     namespace :portal do
@@ -103,7 +107,7 @@ Rails.application.routes.draw do
 
       resources :client_logins, path: "login", only: [:new, :create, :edit, :update], path_names: { new: '', edit: ''} do
         get "locked", to: "client_logins#account_locked", as: :account_locked, on: :collection
-        get "link-sent", to: "client_logins#link_sent", as: :login_link_sent, on: :collection
+        put "check-verification-code", to: "client_logins#check_verification_code", as: :check_verification_code, on: :collection
         get "invalid-token", to: "client_logins#invalid_token", as: :invalid_token, on: :collection
       end
       resources :tax_returns, only: [], path: '/tax-returns' do
@@ -123,6 +127,7 @@ Rails.application.routes.draw do
       resources :metrics, only: [:index]
       resources :tax_returns, only: [:edit, :update, :show]
       resources :unlinked_clients, only: [:index]
+      resources :state_routings, only: [:index]
       resources :clients do
         get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches
         get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization
@@ -157,6 +162,9 @@ Rails.application.routes.draw do
         patch "/unlock", to: "users#unlock", on: :member, as: :unlock
         get "/edit_role", to: "users#edit_role", on: :member, as: :edit_role
         patch "/update_role", to: "users#update_role", on: :member, as: :update_role
+      end
+      resources :user_notifications, only: [:index], path: "/notifications" do
+        post "/mark-all-read", to: 'user_notifications#mark_all_notifications_read', as: :mark_all_read, on: :collection
       end
       get "/profile" => "users#profile", as: :user_profile
     end

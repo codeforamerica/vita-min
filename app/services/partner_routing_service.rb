@@ -50,10 +50,9 @@ class PartnerRoutingService
     return false unless @zip_code.present?
 
     state = ZipCodes.details(@zip_code)[:state]
-    # create a VitaPartnerState-like object from VitaPartner query
-    select = "vita_partners.*, vita_partner_states.routing_fraction, vita_partner_states.vita_partner_id as vita_partner_id"
-    eligible_with_capacity = VitaPartner.with_capacity.joins(:serviced_states).select(select)
-                                        .where({ vita_partner_states: { state: state } })
+    eligible_with_capacity = VitaPartnerState.where(state: state).joins(vita_partner: :organization_capacity).merge(
+      OrganizationCapacity.with_capacity
+    )
     routing_ranges = WeightedRoutingService.new(eligible_with_capacity).weighted_routing_ranges
     random_num = Random.rand(0..1.0)
     vita_partner_id = routing_ranges.map do |range|

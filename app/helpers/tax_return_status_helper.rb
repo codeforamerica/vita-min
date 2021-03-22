@@ -27,9 +27,12 @@ module TaxReturnStatusHelper
     "#{stage_translation_from_status(status)}/#{status_translation(status)}"
   end
 
-  def language_options
+  def language_options(only_locales: true)
     all_interview_languages = I18n.backend.translations.dig(I18n.locale, :general, :language_options)
-    all_interview_languages.select { |key, _| I18n.locale_available?(key) }.invert # only show available locales
+    if only_locales
+      return all_interview_languages.select { |key, _| I18n.locale_available?(key) }.invert
+    end
+    all_interview_languages.invert.sort
   end
 
   def certification_options_for_select

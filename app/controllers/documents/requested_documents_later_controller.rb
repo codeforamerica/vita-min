@@ -11,6 +11,8 @@ module Documents
       end
     end
 
+    def prev_path; end
+
     def documents_request
       DocumentsRequest.find_by(id: session[:documents_request_id])
     end
