@@ -527,7 +527,7 @@ class Intake < ApplicationRecord
     end
   end
 
-    def document_types_possibly_needed
+  def document_types_possibly_needed
     relevant_document_types.reject(&:needed_if_relevant?).reject do |document_type|
       document_type == DocumentTypes::Other
     end.reject do |document_type|
@@ -579,5 +579,15 @@ class Intake < ApplicationRecord
 
   def might_encounter_delayed_service?
     vita_partner.at_capacity?
+  end
+
+  # Backfills current_step for clients who started intake before we tracked current_step
+  # TODO: Remove after 2021 tax season.
+  def determine_current_step
+    return current_step if current_step.present?
+
+    step = QuestionNavigation.determine_current_step(self)
+    update(current_step: step)
+    step
   end
 end

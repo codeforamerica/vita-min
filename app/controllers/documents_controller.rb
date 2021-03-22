@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
   include AccessControllable
-  before_action :require_intake
-  
+  before_action :require_intake, :set_current_step
+
   def illustration_path; end
 
   def destroy

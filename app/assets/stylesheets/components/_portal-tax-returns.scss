@@ -5,6 +5,7 @@
     color: $color-grey-darkest;
     text-decoration: none;
     border-bottom: 1px solid;
+    position: relative;
   }
 
   &__content {
@@ -37,7 +38,9 @@
   }
 
   a::after {
-    content: " \003E";
-    margin-right: .5rem;
+    content: "keyboard_arrow_right";
+    font-family: "Material Icons";
+    position: absolute;
+    top: 2px;
   }
 }

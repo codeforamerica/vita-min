@@ -1082,5 +1082,28 @@ describe Intake do
         expect(document.display_name).to eq "new-filename.pdf"
       end
     end
+
+    describe ".determine_current_step" do
+      before do
+        allow(QuestionNavigation).to receive(:determine_current_step).and_return("/en/questions/something")
+      end
+      context "when current_step is already present" do
+        let(:intake) { create :intake, current_step: "already-set" }
+
+        it "does not update the intake" do
+          expect(intake.determine_current_step).to eq "already-set"
+          expect(QuestionNavigation).not_to have_received(:determine_current_step)
+        end
+      end
+
+      context "when current_step is not present" do
+        let(:intake) { create :intake, current_step: nil }
+
+        it "updates with the result of the current question" do
+          expect(intake.determine_current_step).to eq "/en/questions/something"
+          expect(QuestionNavigation).to have_received(:determine_current_step)
+        end
+      end
+    end
   end
 end

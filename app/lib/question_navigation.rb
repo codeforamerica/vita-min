@@ -164,4 +164,35 @@ class QuestionNavigation
     Questions::SuccessfullySubmittedController,
     Questions::FeedbackController,
   ].freeze
+
+  # Provides a backfill to determine the current_step value for clients who started intake previous to the addition of
+  # determining current_step during the intake flow
+  # TODO: Remove after 2021 tax season closes.
+  def self.determine_current_step(intake)
+    return nil if intake.completed_at?
+    return Questions::ConsentController.to_path_helper unless intake.primary_consented_to_service_at?
+
+    # If yes/no questions have been completed and we definitely still need certain documents, send
+    # them to the upload docs page.
+    if intake.completed_yes_no_questions_at? && intake.document_types_definitely_needed.present?
+      return Documents::OverviewController.to_path_helper
+    end
+
+    # If yes/no questions completed + docs uploaded, start at InterviewSscheduling. Else, start after OptionalConsent
+    i = intake.completed_yes_no_questions_at? ? FLOW.index(Questions::OverviewDocumentsController) : FLOW.index(Questions::OptionalConsentController)
+    found_path = nil
+    while found_path.nil?
+      i += 1
+      next if i == FLOW.index(Questions::OverviewDocumentsController) # we handle documents seperately above
+
+      question = FLOW[i]
+      next unless question.show?(intake)
+
+      answer = intake.send(question.form_class.attribute_names.first)
+      next unless ["unfilled", nil].include? answer
+
+      found_path = question.to_path_helper # otherwise, this is the found_path
+    end
+    found_path.to_s
+  end
 end
