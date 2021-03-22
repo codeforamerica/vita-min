@@ -2,6 +2,8 @@
   border: 1px solid $color-grey;
   padding: 1rem;
   border-radius: 3px;
+  display: inline-block;
+  word-break: break-word;
   p {
     margin-bottom: 1rem;
   }
