@@ -51,7 +51,7 @@ describe Portal::UploadDocumentsController do
       end
 
       context "when a documents request does not yet exist for the session" do
-        it "does not create a document request" do
+        it "creates a new documents request" do
           expect {
             get :new
           }.to change(DocumentsRequest, :count).by(1)
@@ -139,9 +139,11 @@ describe Portal::UploadDocumentsController do
       end
 
       context "when the provided document does not belong to the client" do
+        let!(:document) { create :document }
+
         it "does not delete the document" do
           expect {
-            delete :destroy, params: { id: 900000 }
+            delete :destroy, params: { id: document.id }
           }.not_to change(Document, :count)
           expect(response).to redirect_to new_portal_upload_document_path
         end
