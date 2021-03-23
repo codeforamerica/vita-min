@@ -10,78 +10,82 @@
         <%= link_to link_text, @current_step %>
       </div>
     </div>
-  <% end %>
+  <% else %>
 
-  <% @tax_returns.each do |tax_return| %>
-    <div class="tax-return-status" id=<%= "tax-year-#{tax_return.year}" %>>
-      <h2 class="tax-return-status__header"><%= t(".tax_returns.heading", year: tax_return.year) %></h2>
-      <div class="tax-return-status__content">
-        <!--
-          If there is a single final tax document for the tax year, label it with a fully-translateable generic title.
-          If there is more than one final tax document, label it with the provided document name to distinguish
-        !-->
-        <% if tax_return.final_tax_documents.present? %>
-          <% if tax_return.final_tax_documents.count == 1 %>
-            <div class="tax-return-status__row tax-return-status__solo">
-              <%= link_to t(".tax_returns.view_final_tax_document", year: tax_return.year), portal_document_path(id: tax_return.final_tax_documents.first.id), target: "_blank" %>
-            </div>
-          <% else %>
-            <% tax_return.final_tax_documents.each do |tax_doc| %>
+    <% @tax_returns.each do |tax_return| %>
+      <div class="tax-return-status" id=<%= "tax-year-#{tax_return.year}" %>>
+        <h2 class="tax-return-status__header"><%= t(".tax_returns.heading", year: tax_return.year) %></h2>
+        <div class="tax-return-status__content">
+          <!--
+            If there is a single final tax document for the tax year, label it with a fully-translateable generic title.
+            If there is more than one final tax document, label it with the provided document name to distinguish
+          !-->
+          <% if tax_return.final_tax_documents.present? %>
+            <% if tax_return.final_tax_documents.count == 1 %>
               <div class="tax-return-status__row tax-return-status__solo">
-                <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
+                <%= link_to t(".tax_returns.view_final_tax_document", year: tax_return.year), portal_document_path(id: tax_return.final_tax_documents.first.id), target: "_blank" %>
               </div>
-            <% end %>
-          <% end %>
-        <% end %>
-
-        <% if tax_return.signed_8879s.present? %>
-          <% if tax_return.signed_8879s.count == 1 %>
-            <div class="tax-return-status__row tax-return-status__solo">
-              <%= link_to t(".tax_returns.view_signed_8879"), portal_document_path(id: tax_return.signed_8879s.first.id), target: "_blank" %>
-            </div>
-          <% else %>
-            <% tax_return.signed_8879s.each do |tax_doc| %>
-              <div class="tax-return-status__row tax-return-status__solo">
-                <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
-              </div>
-            <% end %>
-          <% end %>
-        <% end %>
-
-        <% if tax_return.unsigned_8879s.present? %>
-          <% if tax_return.unsigned_8879s.count == 1 %>
-            <div class="tax-return-status__row tax-return-status__solo">
-              <%= link_to t(".tax_returns.view_unsigned_8879"), portal_document_path(id: tax_return.unsigned_8879s.first.id), target: "_blank" %>
-            </div>
-          <% else %>
-            <% tax_return.unsigned_8879s.each do |tax_doc| %>
-              <div class="tax-return-status__row tax-return-status__solo">
-                <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
-              </div>
+            <% else %>
+              <% tax_return.final_tax_documents.each do |tax_doc| %>
+                <div class="tax-return-status__row tax-return-status__solo">
+                  <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
+                </div>
+              <% end %>
             <% end %>
           <% end %>
 
-          <% if tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
-            <div class="tax-return-status__row tax-return-status__with-alert">
-              <%= image_tag("attn.svg", alt: "") %>
-              <%= link_to t(".tax_returns.submit_primary"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id) %>
-            </div>
+          <% if tax_return.signed_8879s.present? %>
+            <% if tax_return.signed_8879s.count == 1 %>
+              <div class="tax-return-status__row tax-return-status__solo">
+                <%= link_to t(".tax_returns.view_signed_8879"), portal_document_path(id: tax_return.signed_8879s.first.id), target: "_blank" %>
+              </div>
+            <% else %>
+              <% tax_return.signed_8879s.each do |tax_doc| %>
+                <div class="tax-return-status__row tax-return-status__solo">
+                  <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
+                </div>
+              <% end %>
+            <% end %>
           <% end %>
 
-          <% if tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
-            <div class="tax-return-status__row tax-return-status__with-alert">
-              <%= image_tag("attn.svg", alt: "") %>
-              <%= link_to t(".tax_returns.submit_spouse"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id) %>
+          <% if tax_return.unsigned_8879s.present? %>
+            <% if tax_return.unsigned_8879s.count == 1 %>
+              <div class="tax-return-status__row tax-return-status__solo">
+                <%= link_to t(".tax_returns.view_unsigned_8879"), portal_document_path(id: tax_return.unsigned_8879s.first.id), target: "_blank" %>
+              </div>
+            <% else %>
+              <% tax_return.unsigned_8879s.each do |tax_doc| %>
+                <div class="tax-return-status__row tax-return-status__solo">
+                  <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
+                </div>
+              <% end %>
+            <% end %>
+
+            <% if tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
+              <div class="tax-return-status__row tax-return-status__with-alert">
+                <%= image_tag("attn.svg", alt: "") %>
+                <%= link_to t(".tax_returns.submit_primary"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id) %>
+              </div>
+            <% end %>
+
+            <% if tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
+              <div class="tax-return-status__row tax-return-status__with-alert">
+                <%= image_tag("attn.svg", alt: "") %>
+                <%= link_to t(".tax_returns.submit_spouse"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id) %>
+              </div>
+            <% end %>
+          <% end %>
+
+          <% if !tax_return.final_tax_documents.present? && !tax_return.unsigned_8879s.present? && !tax_return.signed_8879s.present? %>
+            <div class="tax-return-status__row tax-return-status__solo">
+              <span class="tax-return-status__empty-state"><%= t(".tax_returns.empty_state") %></span>
             </div>
           <% end %>
-        <% end %>
-
-        <% if !tax_return.final_tax_documents.present? && !tax_return.unsigned_8879s.present? && !tax_return.signed_8879s.present? %>
-          <div class="tax-return-status__row tax-return-status__solo">
-            <span class="tax-return-status__empty-state"><%= t(".tax_returns.empty_state") %></span>
-          </div>
-        <% end %>
+        </div>
       </div>
+    <% end %>
+    <div class="spacing-above-35">
+      <%= link_to t(".submit_documents"), new_portal_upload_document_path, class: "button button--wide" %>
     </div>
-  <% end %>
+  <%end %>
 <% end %>

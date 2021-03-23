@@ -118,6 +118,7 @@ Rails.application.routes.draw do
         get '/success', to: 'tax_returns#success', as: :success
       end
       resources :documents, only: [:show]
+      resources :upload_documents, only: [:new, :create, :destroy]
     end
 
 
