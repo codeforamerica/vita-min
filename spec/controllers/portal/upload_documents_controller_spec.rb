@@ -45,6 +45,7 @@ describe Portal::UploadDocumentsController do
         it "instantiates a form object" do
           get :new
           expect(assigns(:form)).to eq requested_docs_double
+          expect(assigns(:form_method)).to eq "post"
           expect(RequestedDocumentUploadForm).to have_received(:new).with(doc_request)
         end
       end
@@ -64,6 +65,7 @@ describe Portal::UploadDocumentsController do
         it "instantiates a form object" do
           get :new
           expect(assigns(:form)).to be_an_instance_of RequestedDocumentUploadForm
+          expect(assigns(:form_method)).to eq "post"
         end
       end
     end

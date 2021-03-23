@@ -10,6 +10,7 @@ RSpec.feature "a client on their portal" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Katie!"
       expect(page).to have_link("Complete all tax questions", href: "/en/questions/asset-loss")
+      expect(page).not_to have_link "Submit additional documents"
     end
   end
 
@@ -21,9 +22,12 @@ RSpec.feature "a client on their portal" do
     scenario "linking to next step" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Randall!"
-      expect(page).to have_link("Submit remaining tax documents", href: "/en/documents/overview" )
+      expect(page).to have_link("Submit remaining tax documents", href: "/en/documents/overview")
+      expect(page).not_to have_link "Submit additional documents"
+
     end
   end
+
   context "a client with tax returns ready that have actions to take" do
     let(:client) { create :client, intake: (create :intake, preferred_name: "Martha", primary_first_name: "Martha", primary_last_name: "Mango", filing_joint: "yes") }
     let(:tax_return2019) { create :tax_return, :ready_to_sign, year: 2019, client: client }
@@ -37,7 +41,7 @@ RSpec.feature "a client on their portal" do
       login_as client, scope: :client
     end
 
-    scenario "viewing their tax return statuses" do
+    scenario "viewing their tax return statuses", :js do
       visit portal_root_path
       expect(page).to have_text "Welcome back Martha!"
 
@@ -64,6 +68,34 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2017" do
         expect(page).to have_text "No documents ready to review yet - check back later."
       end
+      expect(client.documents.where(document_type: "Requested Later").length).to eq 0
+
+      click_link "Submit additional documents"
+      expect(page).to have_text "Please share any additional documents."
+
+      attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
+      expect(page).to have_content("test-pattern.png")
+
+      expect(client.documents.where(document_type: "Requested Later").length).to eq 1
+
+      expect(page).to have_text "Please share any additional documents."
+
+      click_on "Continue"
+      expect(page).to have_text "Welcome back"
+      click_on "Submit additional documents"
+      expect(page).to have_content("test-pattern.png")
+
+      expect(page).to have_text "Please share any additional documents"
+
+      page.accept_alert 'Are you sure you want to remove "test-pattern.png"?' do
+        click_on "Remove"
+      end
+      expect(page).not_to have_content("test-pattern.png")
+
+      expect(client.documents.where(document_type: "Requested Later").length).to eq 0
+
+      click_on "Go back"
+      expect(page).to have_text "Welcome back"
     end
   end
 end
