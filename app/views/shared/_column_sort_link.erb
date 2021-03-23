@@ -1,3 +1,16 @@
 <% new_order = @sort_column == column_name && @sort_order == "asc" ? "desc" : "asc" %>
-<% arrow = if @sort_column == column_name then @sort_order == "desc" ? "↑" : "↓" end %>
-<%= link_to "#{title} #{arrow}", { column: column_name, order: new_order, status: params[:status] }, id: "sort-#{column_name}"  %>
+
+<%= link_to ({ column: column_name, order: new_order, status: params[:status] }), id: "sort-#{column_name}", class: "sortable-column-link" do %>
+  <% if @sort_column == column_name %>
+    <% if @sort_order == "desc" %>
+      <span><%= title %></span><%= image_tag "icons/arrow_down.svg", alt: "", class: "sort-arrow" %>
+    <% else %>
+      <span><%= title %></span><%= image_tag "icons/arrow_up.svg", alt: "", class: "sort-arrow" %>
+    <% end %>
+  <% else %>
+      <span><%= title %></span><%= image_tag "icons/arrow_stacked.svg", alt: "", class: "sort-arrow" %>
+  <% end %>
+<% end %>
+
+
+

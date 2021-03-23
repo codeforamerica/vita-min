@@ -86,8 +86,8 @@
   .main-header {
     @include no-bleed();
     background: black;
-    height: $s60;
-    line-height: $s60;
+    height: $s35;
+    line-height: $s35;
   }
 
   .grid {

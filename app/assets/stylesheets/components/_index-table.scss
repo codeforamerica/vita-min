@@ -36,6 +36,15 @@ It expects to be the primary content of the given page (full width).
     padding: 0.8rem $s25/2;
     font-weight: $font-weight-normal;
     white-space: nowrap;
+
+    .sortable-column-link {
+      display: flex;
+      align-items: center;
+
+      .sort-arrow {
+        max-width: unset;
+      }
+    }
   }
 
   &__row > &__header {

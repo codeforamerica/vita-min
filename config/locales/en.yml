@@ -2214,8 +2214,6 @@ en:
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
-      user_header:
-        welcome_html: Welcome, <a href="%{url}"><strong>%{name}</strong></a>
     stimulus:
       file_for_stimulus:
         info: You might also be eligible for additional money through tax credits. We’ll help you get the most out of your return!

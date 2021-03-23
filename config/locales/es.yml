@@ -2184,8 +2184,6 @@ es:
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
-      user_header:
-        welcome_html: Saludos, <a href="%{url}"><strong>%{name}</strong></a>
     stimulus:
       file_for_stimulus:
         info: Puede que también califique para recibir dinero adicional a través de créditos fiscales. ¡Vamos a ayudarle a máximizar su desembolso!
