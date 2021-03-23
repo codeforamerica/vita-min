@@ -58,7 +58,7 @@ RSpec.feature "Client uploads a requested document" do
     expect(page).to have_content("test-pattern.png")
     click_on "Continue"
 
-    expect(intake.documents.count).to eq(0)
-    expect(second_intake.documents.count).to eq(1)
+    expect(intake.client.documents.count).to eq(0)
+    expect(second_intake.client.documents.count).to eq(1)
   end
 end
