@@ -1,7 +1,7 @@
 <tr class="index-table__row <%= type %>" data-js-count="<%= @report.active_sla_clients[id] %>">
   <td class="index-table__cell"><%= name %></td>
   <td class="index-table__cell response-needed-breach"  data-js-count=<%= @report.response_needed_breaches[id] %>>
-    <%= @report.response_needed_breaches[id]%>
+    <%= @report.response_needed_breaches[id] %>
   </td>
   <td class="index-table__cell response-needed-breach-percentage">
     <%= @report.active_sla_clients_count[id] %>
@@ -12,7 +12,6 @@
 
   <td class="index-table__cell communication-breach-percentage">
     <%= @report.active_sla_clients_count[id] %>
-
   </td>
   <td class="index-table__cell interaction-breach" data-js-count=<%= @report.interaction_breaches[id] %>>
     <%= @report.interaction_breaches[id]%>

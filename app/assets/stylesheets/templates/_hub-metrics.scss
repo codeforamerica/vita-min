@@ -55,7 +55,9 @@
 
   tfoot th {
     position: sticky;
-    bottom: 94px;
+    bottom: 8.7rem;
+    height: 5rem;
+    border-bottom: 1px solid $color-teal-light;
     z-index: 5;
     background: $color-teal-light;
   }

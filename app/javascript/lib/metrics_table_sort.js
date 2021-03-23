@@ -9,7 +9,10 @@ function setupOrgLevelCounts() {
         let interactionCount = 0;
 
         if ($(this).find('tr.site').length == 0) {
-            denominator += parseInt($(this).find('tr.org').first().attr('data-js-count'));
+            denominator = parseInt($(this).find('tr.org').first().attr('data-js-count'));
+            responseCount = parseInt($(this).find('tr.org td.response-needed-breach').first().attr('data-js-count'));
+            communicationCount = parseInt($(this).find('tr.org td.communication-breach').first().attr('data-js-count'));
+            interactionCount = parseInt($(this).find('tr.org td.interaction-breach').first().attr('data-js-count'));
         }
 
         $(this).find('tr.site').each(function() {
