@@ -17,7 +17,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     click_on "Sign in"
 
     # Expect to be redirected to dashboard
-    expect(page).to have_text "Welcome, German Geranium"
+    expect(page).to have_text "Welcome German Geranium"
     expect(page).to have_text "Assigned clients"
 
     click_on "Sign out"
