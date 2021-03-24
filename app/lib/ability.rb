@@ -21,9 +21,6 @@ class Ability
     # Anyone can read info about users that they can access
     can :read, User, id: user.accessible_users.pluck(:id)
 
-    # Anyone can read their own user notifications
-    can :read, UserNotification, user: user
-
     # Anyone can read info about an organization or site they can access
     can :read, VitaPartner, id: accessible_groups.pluck(:id)
 

@@ -87,6 +87,7 @@ RSpec.feature "a client on their portal" do
       click_on "Continue"
       expect(page).to have_text "Welcome back"
       click_on "Submit additional documents"
+
       expect(page).not_to have_content("test-pattern.png")
 
       expect(page).to have_text "Please share any additional documents"
