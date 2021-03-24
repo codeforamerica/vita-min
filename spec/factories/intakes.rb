@@ -16,6 +16,7 @@
 #  completed_at                                         :datetime
 #  completed_yes_no_questions_at                        :datetime
 #  continued_at_capacity                                :boolean          default(FALSE)
+#  current_step                                         :string
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
 #  demographic_english_reading                          :integer          default("unfilled"), not null

@@ -1,4 +1,3 @@
-<% @form_method ||= "put" %>
 <% content_for :page_title, (yield :form_question) %>
 <% content_for :main do %>
   <section class="slab slab--white slab--not-padded question-layout">
@@ -57,7 +56,7 @@
           </ul>
 
           <%# document upload form %>
-          <%= form_with model: @form, url: current_path, method: @form_method, local: true, builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
+          <%= form_with model: @form, url: current_path, method: "put", local: true, builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
             <div class="document-upload">
               <div class="file-upload">
                 <%= f.file_field(:document, class: "form__documentuploader file-input", data: { "upload-immediately" => true}) %>

@@ -2,10 +2,11 @@
 #
 # Table name: documents_requests
 #
-#  id         :bigint           not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  intake_id  :bigint
+#  id           :bigint           not null, primary key
+#  completed_at :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  intake_id    :bigint
 #
 # Indexes
 #
