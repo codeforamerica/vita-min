@@ -6,25 +6,20 @@ describe Portal::DocumentsController do
   let(:document) { create :document, client: client }
   let(:transient_url) { "https://gyr-demo.s3.amazonaws.com/data.csv?sig=whatever&expires=whatever" }
 
-  describe '#show' do
-    context "when not logged in" do
-      it "redirects to root_url" do
-        get :show, params: params
-        expect(response).to redirect_to :root
-      end
-    end
+  describe "#show" do
+
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :show
 
     context "when logged in" do
-
       context "when the document does not belong to the client" do
         before do
           sign_in create :client
         end
 
-        it "redirects to the client's portal dashboard" do
+        it "shows a not found page" do
           get :show, params: params
 
-          expect(response).to redirect_to :portal_root
+          expect(response).to be_not_found
         end
       end
 

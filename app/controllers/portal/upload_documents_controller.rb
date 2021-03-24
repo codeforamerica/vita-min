@@ -3,7 +3,7 @@ module Portal
     before_action :find_or_create_document_request
     alias prev_path portal_complete_documents_request_path
     alias next_path portal_complete_documents_request_path
-    helper_method :prev_path, :next_path, :illustration_path, :current_path, :document_type, :destroy_document_path, :current_path
+    helper_method :prev_path, :next_path, :illustration_path, :current_path, :document_type, :destroy_document_path
     layout "document_upload"
 
     def edit
