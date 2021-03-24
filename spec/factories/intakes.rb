@@ -191,6 +191,10 @@ FactoryBot.define do
     client
     sequence(:visitor_id) { |n| "visitor_id_#{n}" }
 
+    trait :primary_consented do
+      primary_consented_to_service_at { 2.weeks.ago }
+    end
+
     trait :eip_only do
       eip_only { true }
     end
