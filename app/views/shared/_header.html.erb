@@ -14,6 +14,11 @@
       <% if I18n.locale != :es %>
         <%= link_to_spanish(class: "toolbar__item text--small") %>
       <% end %>
+      <% if current_client.present? %>
+        <%= form_with url: destroy_user_session_path, local: true, method: :delete, class: "toolbar__item text--small" do |f| %>
+          <%= f.submit value: t("general.sign_out"), class: "button--link" %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </header>
