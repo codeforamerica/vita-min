@@ -37,7 +37,7 @@ RSpec.describe Hub::CreateClientForm do
           spouse_last_name: "Wed",
           spouse_email_address: "spouse@example.com",
           spouse_last_four_ssn: "5678",
-          filing_joint: "yes",
+          filing_joint: filing_joint,
           timezone: "America/Chicago",
           needs_help_2020: "yes",
           needs_help_2019: "yes",
@@ -71,12 +71,15 @@ RSpec.describe Hub::CreateClientForm do
           }
       }
     end
+    let(:filing_joint) { "yes" }
     let(:current_user) { create :user }
+    let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
+    let(:ip_address) { "127.0.0.1" }
 
     context "with valid params and context" do
       it "creates a client" do
         expect do
-          described_class.new(params).save(current_user)
+          described_class.new(params).save(current_user, ip_address)
         end.to change(Client, :count).by 1
         client = Client.last
         expect(client.vita_partner).to eq vita_partner
@@ -84,13 +87,13 @@ RSpec.describe Hub::CreateClientForm do
 
       it "assigns client to an instance on the form object" do
         form = described_class.new(params)
-        form.save(current_user)
+        form.save(current_user, ip_address)
         expect(form.client).to eq Client.last
       end
 
       it "creates an intake" do
         expect do
-          described_class.new(params).save(current_user)
+          described_class.new(params).save(current_user, ip_address)
         end.to change(Intake, :count).by 1
         intake = Intake.last
         expect(intake.vita_partner).to eq vita_partner
@@ -100,7 +103,7 @@ RSpec.describe Hub::CreateClientForm do
 
       it "creates tax returns for each tax_return where _create is true" do
         expect do
-          described_class.new(params).save(current_user)
+          described_class.new(params).save(current_user, ip_address)
         end.to change(TaxReturn, :count).by 3
         tax_returns = Client.last.tax_returns
         intake = Intake.last
@@ -113,6 +116,21 @@ RSpec.describe Hub::CreateClientForm do
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]
       end
 
+      it "sets the consented at timestamp on the intake" do
+        Timecop.freeze(fake_time) do
+          described_class.new(params).save(current_user, ip_address)
+        end
+
+        intake = Intake.last
+        expect(intake.primary_consented_to_service_at).to eq fake_time
+        expect(intake.primary_consented_to_service).to eq 'yes'
+        expect(intake.primary_consented_to_service_ip).to eq ip_address
+
+        expect(intake.spouse_consented_to_service_at).to eq fake_time
+        expect(intake.spouse_consented_to_service).to eq 'yes'
+        expect(intake.spouse_consented_to_service_ip).to eq ip_address
+      end
+
       context "mixpanel" do
         let(:fake_tracker) { double('mixpanel tracker') }
         let(:fake_mixpanel_data) { {} }
@@ -123,7 +141,7 @@ RSpec.describe Hub::CreateClientForm do
         end
 
         it "sends drop_off_submitted event to Mixpanel" do
-          described_class.new(params).save(current_user)
+          described_class.new(params).save(current_user, ip_address)
           tax_returns = Client.last.tax_returns
 
           expect(MixpanelService).to have_received(:send_event).with(
@@ -140,7 +158,7 @@ RSpec.describe Hub::CreateClientForm do
 
       context "phone numbers" do
         it "normalizes phone_number and sms_phone_number" do
-          described_class.new(params.update(sms_phone_number: "650-555-1212", phone_number: "(650) 555-1212")).save(current_user)
+          described_class.new(params.update(sms_phone_number: "650-555-1212", phone_number: "(650) 555-1212")).save(current_user, ip_address)
           client = Client.last
           expect(client.intake.sms_phone_number).to eq "+16505551212"
           expect(client.intake.phone_number).to eq "+16505551212"
@@ -156,7 +174,26 @@ RSpec.describe Hub::CreateClientForm do
         end
 
         it "does not save the associations" do
-          expect { form.save(current_user) }.to raise_error ActiveRecord::RecordInvalid
+          expect { form.save(current_user, ip_address) }.to raise_error ActiveRecord::RecordInvalid
+        end
+      end
+
+      context "when the client is not filing jointly" do
+        let(:filing_joint) { "no" }
+
+        it "does not set the spouse consented at timestamp on the intake" do
+          Timecop.freeze(fake_time) do
+            described_class.new(params).save(current_user, ip_address)
+          end
+
+          intake = Intake.last
+          expect(intake.primary_consented_to_service_at).to eq fake_time
+          expect(intake.primary_consented_to_service).to eq 'yes'
+          expect(intake.primary_consented_to_service_ip).to eq ip_address
+
+          expect(intake.spouse_consented_to_service_at).to eq nil
+          expect(intake.spouse_consented_to_service).to eq "unfilled"
+          expect(intake.spouse_consented_to_service_ip).to eq nil
         end
       end
     end

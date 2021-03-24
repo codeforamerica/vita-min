@@ -52,20 +52,20 @@ module Hub
       super(attributes)
     end
 
-    def save(current_user)
+    def save(current_user, ip_address)
       return false unless valid?
 
       @client = Client.create!(
-        vita_partner_id: attributes_for(:intake)[:vita_partner_id],
-        intake_attributes: attributes_for(:intake).merge(visitor_id: SecureRandom.hex(26)),
-        tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
+          vita_partner_id: attributes_for(:intake)[:vita_partner_id],
+          intake_attributes: intake_attributes(ip_address),
+          tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
       )
 
       @client.tax_returns.each do |tax_return|
         MixpanelService.send_event(
-          event_id: @client.intake.visitor_id,
-          event_name: "drop_off_submitted",
-          data: MixpanelService.data_from([@client, tax_return, current_user])
+            event_id: @client.intake.visitor_id,
+            event_name: "drop_off_submitted",
+            data: MixpanelService.data_from([@client, tax_return, current_user])
         )
       end
     end
@@ -77,6 +77,23 @@ module Hub
     end
 
     private
+
+    def intake_attributes(ip_address)
+      intake_attributes = attributes_for(:intake)
+      consent_attributes = {
+          primary_consented_to_service: "yes",
+          primary_consented_to_service_at: Time.current,
+          primary_consented_to_service_ip: ip_address,
+      }
+      if intake_attributes[:filing_joint] == "yes"
+        consent_attributes.merge!(
+          spouse_consented_to_service: "yes",
+          spouse_consented_to_service_at: Time.current,
+          spouse_consented_to_service_ip: ip_address,
+        )
+      end
+      intake_attributes.merge(visitor_id: SecureRandom.hex(26)).merge(consent_attributes)
+    end
 
     def tax_return_defaults
       { status: :prep_ready_for_prep }.merge(attributes_for(:tax_return))
