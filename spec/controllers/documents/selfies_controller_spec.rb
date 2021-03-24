@@ -10,10 +10,7 @@ RSpec.describe Documents::SelfiesController do
       primary_last_name: "Gnome"
     )
   end
-
-  before do
-    allow(subject).to receive(:current_intake).and_return intake
-  end
+  before { sign_in intake.client }
 
   describe "#edit" do
     it_behaves_like :a_required_document_controller

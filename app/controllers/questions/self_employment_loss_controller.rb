@@ -1,5 +1,5 @@
 module Questions
-  class SelfEmploymentLossController < QuestionsController
+  class SelfEmploymentLossController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

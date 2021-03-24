@@ -1,5 +1,5 @@
 module Questions
-  class IssuedIdentityPinController < QuestionsController
+  class IssuedIdentityPinController < AuthenticatedIntakeController
     layout "yes_no_question"
   end
 end

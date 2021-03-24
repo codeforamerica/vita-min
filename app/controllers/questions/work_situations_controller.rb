@@ -1,5 +1,5 @@
 module Questions
-  class WorkSituationsController < QuestionsController
+  class WorkSituationsController < AuthenticatedIntakeController
     def illustration_path
       "job-count.svg"
     end

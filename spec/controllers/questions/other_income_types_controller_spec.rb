@@ -4,7 +4,7 @@ RSpec.describe Questions::OtherIncomeTypesController do
   let(:intake) { create :intake }
 
   before do
-    allow(subject).to receive(:current_intake).and_return(intake)
+    sign_in intake.client
   end
 
   describe ".show?" do

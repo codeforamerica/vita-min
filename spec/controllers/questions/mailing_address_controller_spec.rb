@@ -6,7 +6,7 @@ RSpec.describe Questions::MailingAddressController do
   let(:intake) { create :intake }
 
   before do
-    allow(subject).to receive(:current_intake).and_return(intake)
+    sign_in intake.client
     allow(subject).to receive(:send_mixpanel_event)
   end
 

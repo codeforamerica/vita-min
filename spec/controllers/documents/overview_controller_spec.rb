@@ -4,10 +4,7 @@ RSpec.describe Documents::OverviewController do
   render_views
   let(:attributes) { {} }
   let(:intake) { create :intake, **attributes }
-
-  before do
-    allow(subject).to receive(:current_intake).and_return intake
-  end
+  before { sign_in intake.client }
 
   describe "#edit" do
     let(:documents) { [] }

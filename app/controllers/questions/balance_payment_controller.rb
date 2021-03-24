@@ -1,5 +1,5 @@
 module Questions
-  class BalancePaymentController < QuestionsController
+  class BalancePaymentController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

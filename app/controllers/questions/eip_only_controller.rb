@@ -1,5 +1,5 @@
 module Questions
-  class EipOnlyController < QuestionsController
+  class EipOnlyController < AnonymousIntakeController
     # this is a placeholder until we finish the streamlined eip intake
     layout "intake"
 

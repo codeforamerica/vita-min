@@ -1,5 +1,5 @@
 module Questions
-  class MedicalExpensesController < QuestionsController
+  class MedicalExpensesController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

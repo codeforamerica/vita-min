@@ -1,5 +1,5 @@
 module Questions
-  class AdoptedChildController < QuestionsController
+  class AdoptedChildController < AuthenticatedIntakeController
     layout "yes_no_question"
   end
 end

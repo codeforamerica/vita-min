@@ -1,5 +1,7 @@
 class DependentsController < ApplicationController
-  before_action :require_intake
+  include ClientAccessControlConcern
+
+  before_action :require_client_login
   helper_method :next_path
 
   def index

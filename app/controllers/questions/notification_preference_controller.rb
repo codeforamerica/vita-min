@@ -1,5 +1,5 @@
 module Questions
-  class NotificationPreferenceController < QuestionsController
+  class NotificationPreferenceController < AnonymousIntakeController
     private
 
     def tracking_data

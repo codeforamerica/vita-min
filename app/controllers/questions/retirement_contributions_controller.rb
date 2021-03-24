@@ -1,5 +1,5 @@
 module Questions
-  class RetirementContributionsController < QuestionsController
+  class RetirementContributionsController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     def self.show?(intake)

@@ -1,5 +1,5 @@
 module Questions
-  class PhoneNumberController < QuestionsController
+  class PhoneNumberController < AnonymousIntakeController
     def tracking_data
       {}
     end

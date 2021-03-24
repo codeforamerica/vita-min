@@ -354,9 +354,9 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     click_on "Return to home"
     expect(page).to have_selector("h1", text: "Free tax filing")
 
-    # going back to another page after submit redirects to beginning, does not reset current_step
+    # going back to another page after submit redirects to client login, does not reset current_step
     visit "/questions/work-situations"
     expect(intake.reload.current_step).to eq("/en/questions/feedback")
-    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
+    expect(page).to have_selector("h1", text: "To view your progress, we’ll send you a secure code.")
   end
 end

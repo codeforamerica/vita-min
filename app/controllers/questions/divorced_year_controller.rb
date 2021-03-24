@@ -1,5 +1,5 @@
 module Questions
-  class DivorcedYearController < QuestionsController
+  class DivorcedYearController < AuthenticatedIntakeController
     layout "intake"
 
     def self.show?(intake)

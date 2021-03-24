@@ -1,5 +1,5 @@
 module Questions
-  class SoldHomeController < QuestionsController
+  class SoldHomeController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

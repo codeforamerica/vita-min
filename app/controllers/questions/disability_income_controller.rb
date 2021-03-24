@@ -1,5 +1,5 @@
 module Questions
-  class DisabilityIncomeController < QuestionsController
+  class DisabilityIncomeController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

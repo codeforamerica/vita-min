@@ -1,5 +1,5 @@
 module Questions
-  class OverviewDocumentsController < QuestionsController
+  class OverviewDocumentsController < AuthenticatedIntakeController
     before_action :require_intake
     layout "intake"
 

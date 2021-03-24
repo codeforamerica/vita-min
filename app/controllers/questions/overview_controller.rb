@@ -1,5 +1,5 @@
 module Questions
-  class OverviewController < QuestionsController
+  class OverviewController < AnonymousIntakeController
     layout "intake"
 
     def illustration_path; end

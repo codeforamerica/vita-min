@@ -1,5 +1,5 @@
 module Questions
-  class SocialSecurityOrRetirementController < QuestionsController
+  class SocialSecurityOrRetirementController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     def illustration_path

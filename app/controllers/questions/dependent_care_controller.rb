@@ -1,5 +1,5 @@
 module Questions
-  class DependentCareController < QuestionsController
+  class DependentCareController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     def method_name

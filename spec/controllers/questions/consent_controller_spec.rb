@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe Questions::ConsentController do
   let(:intake) { create :intake, preferred_name: "Ruthie Rutabaga" }
-  let!(:tax_return) { create :tax_return, client: intake.client }
+  let(:client) { intake.client }
+  let!(:tax_return) { create :tax_return, client: client }
 
   before do
     allow(subject).to receive(:current_intake).and_return(intake)
@@ -53,6 +54,14 @@ RSpec.describe Questions::ConsentController do
             :primary_last_four_ssn
           )
         ))
+      end
+
+      it "authenticates the client and clears the intake_id from the session" do
+        expect do
+          post :update, params: params
+        end.to change{ subject.current_client }.from(nil).to(client)
+
+        expect(session[:intake_id]).to be_nil
       end
     end
 

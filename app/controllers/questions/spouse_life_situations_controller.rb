@@ -1,5 +1,5 @@
 module Questions
-  class SpouseLifeSituationsController < QuestionsController
+  class SpouseLifeSituationsController < AuthenticatedIntakeController
     def self.show?(intake)
       intake.filing_joint_yes?
     end

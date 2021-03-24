@@ -5,7 +5,7 @@ RSpec.describe Questions::SpouseConsentController do
   let(:intake) { create :intake, filing_joint: filing_joint }
 
   before do
-    allow(subject).to receive(:current_intake).and_return(intake)
+    sign_in intake.client
   end
 
   describe ".show?" do

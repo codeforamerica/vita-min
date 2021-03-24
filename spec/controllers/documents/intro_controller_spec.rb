@@ -4,10 +4,7 @@ RSpec.describe Documents::IntroController do
   render_views
   let(:attributes) { {} }
   let(:intake) { create :intake, visitor_id: "visitor_id", **attributes }
-
-  before do
-    allow(subject).to receive(:current_intake).and_return intake
-  end
+  before { sign_in intake.client }
 
   describe "#edit" do
     context "with a set of answers on an intake" do

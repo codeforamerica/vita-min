@@ -1,5 +1,5 @@
 module Questions
-  class InterviewSchedulingController < QuestionsController
+  class InterviewSchedulingController < AuthenticatedIntakeController
     layout "intake"
 
     def edit

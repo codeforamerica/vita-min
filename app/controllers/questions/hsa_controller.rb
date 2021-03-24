@@ -1,5 +1,5 @@
 module Questions
-  class HsaController < QuestionsController
+  class HsaController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

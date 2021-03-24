@@ -3,22 +3,8 @@ require "rails_helper"
 RSpec.describe Questions::JobCountController do
   let(:intake) { create :intake }
 
-  before do
-    allow(subject).to receive(:current_intake).and_return(intake)
-  end
-
   describe "#edit" do
-    context "when user doesn't have a current intake" do
-      before do
-        allow(subject).to receive(:current_intake).and_return(nil)
-      end
-
-      it "redirects to the start of the questions flow" do
-        get :edit
-
-        expect(response).to redirect_to(welcome_questions_path)
-      end
-    end
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :edit
   end
 
   describe "#update" do
@@ -35,16 +21,22 @@ RSpec.describe Questions::JobCountController do
         allow(subject).to receive(:send_mixpanel_event).and_return(true)
       end
 
-      it "saves data to the model" do
-        post :update, params: params
+      it_behaves_like :a_post_action_for_authenticated_clients_only, action: :update
 
-        expect(intake.reload.job_count).to eq 3
-      end
+      context "as an authenticated client" do
+        before { sign_in intake.client }
 
-      it "calls send_mixpanel_event with the right data" do
-        post :update, params: params
+        it "saves data to the model" do
+          post :update, params: params
 
-        expect(subject).to have_received(:send_mixpanel_event).with(event_name: "question_answered", data: { job_count: "3" })
+          expect(intake.reload.job_count).to eq 3
+        end
+
+        it "calls send_mixpanel_event with the right data" do
+          post :update, params: params
+
+          expect(subject).to have_received(:send_mixpanel_event).with(event_name: "question_answered", data: { job_count: "3" })
+        end
       end
     end
   end

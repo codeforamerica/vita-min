@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def clear_intake_session
+    sign_out current_client
     session.delete("intake_id")
   end
 

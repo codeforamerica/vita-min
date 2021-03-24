@@ -1,4 +1,4 @@
 module Questions
-  class RefundPaymentController < QuestionsController
+  class RefundPaymentController < AuthenticatedIntakeController
   end
 end

@@ -1,5 +1,5 @@
 module Questions
-  class PersonalInfoController < QuestionsController
+  class PersonalInfoController < AnonymousIntakeController
     def illustration_path; end
 
     def tracking_data

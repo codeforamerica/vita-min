@@ -4,6 +4,7 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
   render_views
 
   let(:intake) { create :intake }
+  let(:client) { intake.client }
 
   before do
     allow(MixpanelService).to receive(:send_event)
@@ -16,15 +17,14 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
   end
 
   describe "#edit" do
-    context "with an intake in the session" do
-      before do
-        session[:intake_id] = intake.id
-      end
+    context "with an authenticated client " do
+      before { sign_in client }
 
-      it "clears the session and sets a completed_intake_id in the session" do
-        get :edit
+      it "signs out the client and sets a completed_intake_id in the session" do
+        expect do
+          get :edit
+        end.to change{ subject.current_client }.from(client).to(nil)
 
-        expect(session[:intake_id]).to be_nil
         expect(session[:completed_intake_id]).to eq intake.id
       end
 
@@ -41,7 +41,7 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
       end
     end
 
-    context "without an intake in the session" do
+    context "without an authenticated client or intake in the session" do
       it "Still renders the page with a success message" do
         get :edit
 

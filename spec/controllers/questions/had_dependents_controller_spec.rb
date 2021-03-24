@@ -3,10 +3,7 @@ require "rails_helper"
 RSpec.describe Questions::HadDependentsController do
   let(:had_dependents) { "unfilled" }
   let(:intake) { create :intake, had_dependents: had_dependents }
-
-  before do
-    allow(subject).to receive(:current_intake).and_return intake
-  end
+  before { sign_in intake.client }
 
   describe "#next_path" do
     context "when the user had dependents" do
