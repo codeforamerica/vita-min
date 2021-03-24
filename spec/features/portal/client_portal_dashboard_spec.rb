@@ -68,7 +68,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2017" do
         expect(page).to have_text "No documents ready to review yet - check back later."
       end
-      expect(client.documents.where(document_type: "Requested Later").length).to eq 0
+      expect(client.documents.where(document_type: "Other").length).to eq 0
 
       click_link "Submit additional documents"
       expect(page).to have_text "Please share any additional documents."
@@ -76,23 +76,20 @@ RSpec.feature "a client on their portal" do
       attach("requested_document_upload_form[document]", Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"))
       expect(page).to have_content("test-pattern.png")
 
-      expect(client.documents.where(document_type: "Requested Later").length).to eq 1
+      expect(client.documents.where(document_type: "Other").length).to eq 1
+      page.accept_alert 'Are you sure you want to remove "test-pattern.png"?' do
+        click_on "Remove"
+      end
 
       expect(page).to have_text "Please share any additional documents."
+      expect(client.documents.where(document_type: "Other").length).to eq 0
 
       click_on "Continue"
       expect(page).to have_text "Welcome back"
       click_on "Submit additional documents"
-      expect(page).to have_content("test-pattern.png")
-
-      expect(page).to have_text "Please share any additional documents"
-
-      page.accept_alert 'Are you sure you want to remove "test-pattern.png"?' do
-        click_on "Remove"
-      end
       expect(page).not_to have_content("test-pattern.png")
 
-      expect(client.documents.where(document_type: "Requested Later").length).to eq 0
+      expect(page).to have_text "Please share any additional documents"
 
       click_on "Go back"
       expect(page).to have_text "Welcome back"

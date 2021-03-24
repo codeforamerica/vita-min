@@ -4,7 +4,7 @@ describe Portal::UploadDocumentsController do
   describe "#new" do
     context "when not authenticated" do
       it "redirects to root" do
-        get :new
+        get :edit
         expect(response).to redirect_to :root
       end
     end
@@ -17,8 +17,8 @@ describe Portal::UploadDocumentsController do
       end
 
       it 'renders the document_upload layout' do
-        get :new
-        expect(response).to render_template(:new, layout: :document_upload)
+        get :edit
+        expect(response).to render_template(:edit, layout: :document_upload)
       end
 
       context "when a documents request exists for the session" do
@@ -33,19 +33,18 @@ describe Portal::UploadDocumentsController do
 
         it "does not create a document request" do
           expect {
-            get :new
+            get :edit
           }.not_to change(DocumentsRequest, :count)
         end
 
         it "assigns existing documents on the docs request to @documents" do
-          get :new
+          get :edit
           expect(assigns(:documents).length).to eq 5
         end
 
         it "instantiates a form object" do
-          get :new
+          get :edit
           expect(assigns(:form)).to eq requested_docs_double
-          expect(assigns(:form_method)).to eq "post"
           expect(RequestedDocumentUploadForm).to have_received(:new).with(doc_request)
         end
       end
@@ -53,19 +52,18 @@ describe Portal::UploadDocumentsController do
       context "when a documents request does not yet exist for the session" do
         it "creates a new documents request" do
           expect {
-            get :new
+            get :edit
           }.to change(DocumentsRequest, :count).by(1)
         end
 
         it "assigns @documents to an empty array because there are no existing documents" do
-          get :new
+          get :edit
           expect(assigns(:documents).length).to eq 0
         end
 
         it "instantiates a form object" do
-          get :new
+          get :edit
           expect(assigns(:form)).to be_an_instance_of RequestedDocumentUploadForm
-          expect(assigns(:form_method)).to eq "post"
         end
       end
     end
@@ -74,7 +72,7 @@ describe Portal::UploadDocumentsController do
   describe '#create' do
     context "when not authenticated" do
       it "redirects to root" do
-        get :new
+        get :edit
         expect(response).to redirect_to :root
       end
     end
@@ -94,8 +92,8 @@ describe Portal::UploadDocumentsController do
         end
 
         it "sets a flash message and redirects to new action" do
-          post :create
-          expect(response).to redirect_to new_portal_upload_document_path
+          put :update
+          expect(response).to redirect_to portal_upload_documents_path
           expect(flash[:notice]).to eq I18n.t("portal.upload_documents.success")
         end
       end
@@ -106,8 +104,8 @@ describe Portal::UploadDocumentsController do
         end
 
         it "displays an error message and renders new action" do
-          post :create
-          expect(response).to render_template :new
+          put :update
+          expect(response).to render_template :edit
           expect(flash[:error]).to eq I18n.t("portal.upload_documents.error")
         end
       end
@@ -117,7 +115,7 @@ describe Portal::UploadDocumentsController do
   describe "#destroy" do
     context "when not authenticated" do
       it "redirects to root" do
-        get :new
+        get :edit
         expect(response).to redirect_to :root
       end
     end
@@ -134,7 +132,7 @@ describe Portal::UploadDocumentsController do
           expect {
             delete :destroy, params: { id: client.documents.first.id }
           }.to change(client.documents, :count).by(-1)
-          expect(response).to redirect_to new_portal_upload_document_path
+          expect(response).to redirect_to portal_upload_documents_path
         end
       end
 
@@ -145,7 +143,7 @@ describe Portal::UploadDocumentsController do
           expect {
             delete :destroy, params: { id: document.id }
           }.not_to change(Document, :count)
-          expect(response).to redirect_to new_portal_upload_document_path
+          expect(response).to redirect_to portal_upload_documents_path
         end
       end
     end
