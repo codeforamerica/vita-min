@@ -7,7 +7,10 @@ class WriteToPdfDocumentService
   def initialize(document, document_type_klass)
     @document = document
     @document_klass = document_type_klass
-    @combine_pdf = CombinePDF.parse(streamed_original)
+    # Passing allow_optional_content flag to turn off optional content protection.
+    # We may need to reassess if this results in malformed final files, but in early testing on complex pdfs seems fine.
+    # https://github.com/boazsegev/combine_pdf/issues/28
+    @combine_pdf = CombinePDF.parse(streamed_original, { allow_optional_content: true })
   end
 
   def tempfile_output
