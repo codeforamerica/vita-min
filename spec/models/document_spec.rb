@@ -36,6 +36,7 @@ require "rails_helper"
 
 describe Document do
   let(:attachment) { Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png") }
+
   describe "validations" do
     let(:document) { build :document }
     it "requires essential fields" do
@@ -45,7 +46,6 @@ describe Document do
       expect(document.errors).to include :document_type
       expect(document.errors).to include :upload
     end
-
 
     describe "#document_type" do
       it "expects document_type to be a valid choice" do
@@ -111,6 +111,27 @@ describe Document do
       it "rejects the file as invalid" do
         expect(document).not_to be_valid
         expect(document.errors).to include :upload
+      end
+    end
+
+    describe "#file_type" do
+      context "Form 8879 (Unsigned)" do
+        context "not a PDF" do
+          let(:document) { build :document, document_type: "Form 8879 (Unsigned)" }
+
+          it "is not valid" do
+            expect(document).not_to be_valid
+            expect(document.errors[:upload]).to include "Form 8879 (Unsigned) must be a PDF file"
+          end
+        end
+
+        context "a PDF" do
+          let(:document) { build :document, document_type: "Form 8879 (Unsigned)", upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf") }
+
+          it "is valid" do
+            expect(document).to be_valid
+          end
+        end
       end
     end
   end

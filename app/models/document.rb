@@ -47,6 +47,7 @@ class Document < ApplicationRecord
   validates_presence_of :upload
   validate :tax_return_belongs_to_client
   validate :upload_must_have_data
+  validate :file_type
   # Permit all existing document types plus two historical ones
   validates_presence_of :document_type
   validates :document_type, inclusion: { in: DocumentTypes::ALL_TYPES.map(&:key) + ["Requested", "F13614C / F15080 2020"] }, allow_blank: true
@@ -107,6 +108,12 @@ class Document < ApplicationRecord
   def upload_must_have_data
     if upload.attached? && upload.blob.byte_size.zero?
       errors[:upload] << I18n.t("validators.file_zero_length")
+    end
+  end
+
+  def file_type
+    if upload.attached? && document_type == "Form 8879 (Unsigned)" && !upload.content_type.in?(%w(application/pdf))
+      errors.add(:upload, I18n.t("validators.pdf_file_type", document_type: document_type))
     end
   end
 end

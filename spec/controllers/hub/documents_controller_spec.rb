@@ -340,6 +340,33 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           expect(response).to be_ok
         end
       end
+
+      context "required file types" do
+        context "Form 8879 (Unsigned)" do
+          render_views
+
+          let(:params) do
+            { client_id: client.id,
+              document: {
+                upload: [
+                  fixture_file_upload("attachments/test-pattern.png", "image/png"),
+                ],
+                tax_return_id: tax_return.id,
+                display_name: "This is a document for the client",
+                document_type: DocumentTypes::UnsignedForm8879.key
+              }
+            }
+          end
+
+          it "validates that the document is a pdf" do
+            post :create, params: params
+            expect(assigns(:document).valid?).to eq false
+
+            expect(response).to render_template :new
+            expect(response.body).to include "Form 8879 (Unsigned) must be a PDF file"
+          end
+        end
+      end
     end
   end
 end
