@@ -75,7 +75,7 @@ module Portal
       @form = ClientLoginForm.new(client_login_params)
       if @form.valid?
         sign_in @form.client
-        redirect_to portal_root_path
+        redirect_to session.delete(:after_client_login_path) || portal_root_path
       else
         @clients.each(&:increment_failed_attempts)
 

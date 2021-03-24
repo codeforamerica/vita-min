@@ -1,6 +1,9 @@
 module Portal
   class PortalController < ApplicationController
-    before_action :require_client_sign_in
+    include ClientAccessControlConcern
+
+    before_action :require_client_login
+
     layout "portal"
 
     def home
@@ -19,10 +22,6 @@ module Portal
     end
 
     private
-
-    def require_client_sign_in
-      redirect_to root_path unless current_client.present?
-    end
 
     # We'll consider a client to have completed onboarding process if they've
     # a) completed_at the intake

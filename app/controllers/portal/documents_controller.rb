@@ -9,7 +9,7 @@ module Portal
 
     def load_document
       @document = current_client.documents.find_by(id: params[:id])
-      redirect_to :portal_root if @document.nil?
+      render "public_pages/page_not_found", status: 404 unless @document.present?
     end
   end
 end

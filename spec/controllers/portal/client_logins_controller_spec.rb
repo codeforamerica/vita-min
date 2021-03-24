@@ -27,7 +27,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
     context "as an authenticated client" do
       before { sign_in client }
 
-      it "redirects to client portal home" do
+      it "redirects to client portal home by default" do
         get :new
 
         expect(response).to redirect_to portal_root_path
@@ -199,6 +199,29 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
             expect(subject.current_client).to eq(client)
             expect(response).to redirect_to portal_root_path
+          end
+
+          context "when the client was trying to access a protected page" do
+            let(:original_path) { "/portal/fake-page?test=1234" }
+            let(:params) do
+              {
+                id: "raw_token",
+                portal_client_login_form: {
+                  last_four_or_client_id: client.id.to_s,
+                }
+              }
+            end
+
+            before do
+              session[:after_client_login_path] = original_path
+            end
+
+            it "redirects to that page and removes the path from the session" do
+              post :update, params: params
+
+              expect(response).to redirect_to original_path
+              expect(session).not_to include :after_client_login_path
+            end
           end
 
           context "when a client is locked out" do

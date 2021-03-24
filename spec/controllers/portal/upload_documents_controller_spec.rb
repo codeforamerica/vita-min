@@ -1,13 +1,8 @@
 require "rails_helper"
 
 describe Portal::UploadDocumentsController do
-  describe "#new" do
-    context "when not authenticated" do
-      it "redirects to root" do
-        get :edit
-        expect(response).to redirect_to :root
-      end
-    end
+  describe "#edit" do
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :edit
 
     context "when authenticated" do
       let(:client) { create :client, intake: (create :intake), current_sign_in_at: Time.now }
@@ -16,7 +11,7 @@ describe Portal::UploadDocumentsController do
         sign_in client
       end
 
-      it 'renders the document_upload layout' do
+      it "renders the document_upload layout" do
         get :edit
         expect(response).to render_template(:edit, layout: :document_upload)
       end
@@ -69,21 +64,13 @@ describe Portal::UploadDocumentsController do
     end
   end
 
-  describe '#create' do
-    context "when not authenticated" do
-      it "redirects to root" do
-        get :edit
-        expect(response).to redirect_to :root
-      end
-    end
+  describe "#update" do
+    let(:requested_docs_double) { double RequestedDocumentUploadForm}
+    before { allow(RequestedDocumentUploadForm).to receive(:new).and_return requested_docs_double }
+    it_behaves_like :a_post_action_for_authenticated_clients_only, action: :update
 
     context "when authenticated" do
-      let(:requested_docs_double) { double RequestedDocumentUploadForm}
-      before do
-        sign_in create :client
-        allow(RequestedDocumentUploadForm).to receive(:new).and_return requested_docs_double
-
-      end
+      before { sign_in create :client }
 
       context "when upload is successful" do
         before do
@@ -113,24 +100,19 @@ describe Portal::UploadDocumentsController do
   end
 
   describe "#destroy" do
-    context "when not authenticated" do
-      it "redirects to root" do
-        get :edit
-        expect(response).to redirect_to :root
-      end
-    end
+    let(:client) { create :client }
+    let(:params) { { id: client.documents.first.id } }
+    before { create :document, client: client }
+
+    it_behaves_like :a_post_action_for_authenticated_clients_only, action: :destroy
 
     context "when authenticated" do
-      let(:client) { create :client }
-      before do
-        sign_in client
-        create :document, client: client
-      end
+      before { sign_in client }
 
       context "when the provided document belongs to the client" do
         it "deletes the document and redirects" do
           expect {
-            delete :destroy, params: { id: client.documents.first.id }
+            delete :destroy, params: params
           }.to change(client.documents, :count).by(-1)
           expect(response).to redirect_to portal_upload_documents_path
         end

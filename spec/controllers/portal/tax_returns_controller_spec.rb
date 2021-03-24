@@ -2,24 +2,19 @@ require 'rails_helper'
 
 describe Portal::TaxReturnsController do
   describe "#authorize_signature" do
+    let(:tax_return) { create :tax_return, :ready_to_sign }
     let(:params) { { tax_return_id: tax_return.id } }
 
-    context "when not logged in" do
-      let(:tax_return) { create :tax_return, :ready_to_sign }
-      it "redirects me to root path" do
-        get :authorize_signature, params: params
-
-        expect(response).to redirect_to :root
-      end
-    end
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :authorize_signature
 
     context "when trying to access another clients tax return" do
       let(:tax_return) { create :tax_return, :ready_to_sign }
       before { sign_in create :client }
 
-      it "it redirects to root" do
+      it "shows a not found page" do
         get :authorize_signature, params: params
-        expect(response).to redirect_to :portal_root
+
+        expect(response).to be_not_found
       end
     end
 
@@ -58,29 +53,23 @@ describe Portal::TaxReturnsController do
   end
 
   describe "#spouse_authorize_signature" do
+    let(:tax_return) { create :tax_return, :ready_to_sign }
     let(:params) { { tax_return_id: tax_return.id } }
 
     before do
       allow_any_instance_of(TaxReturn).to receive(:filing_joint?).and_return true
     end
 
-    context "when not logged in as a client" do
-      let(:tax_return) { create :tax_return, :ready_to_sign }
-      it "redirects to unauthenticated root" do
-        get :spouse_authorize_signature, params: params
-
-        expect(response).to redirect_to :root
-      end
-    end
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :spouse_authorize_signature
 
     context "when the client does not own the tax return" do
       let(:tax_return) { create :tax_return, :ready_to_sign }
       before { sign_in create :client }
 
-      it "redirects to client portal root" do
+      it "is not found" do
         get :spouse_authorize_signature, params: params
 
-        expect(response).to redirect_to :portal_root
+        expect(response).to be_not_found
       end
     end
 
@@ -89,6 +78,7 @@ describe Portal::TaxReturnsController do
 
       context "without a tax form that is ready to sign" do
         let(:tax_return) { create :tax_return }
+
         it "redirects to client portal root" do
           get :spouse_authorize_signature, params: params
 
@@ -109,24 +99,21 @@ describe Portal::TaxReturnsController do
   end
 
   describe "#sign" do
-    context "when not logged in as a client" do
-      let(:params) { { tax_return_id: tax_return.id } }
-      let(:tax_return) { create :tax_return, :ready_to_sign, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+    let(:params) { { tax_return_id: tax_return.id } }
+    let(:tax_return) { create :tax_return, :ready_to_sign, client: (create :client, intake: (create :intake, filing_joint: "no")) }
 
-      it "redirects to root" do
-        get :sign, params: params
-
-        expect(response).to redirect_to :root
-      end
-    end
+    it_behaves_like :a_post_action_for_authenticated_clients_only, action: :sign
 
     context "when logged in but not the owner of the tax return" do
       let(:params) { { tax_return_id: tax_return.id } }
       let(:tax_return) { create :tax_return, :ready_to_sign, client: (create :client, intake: (create :intake, filing_joint: "no")) }
 
-      it "redirects to root" do
-        get :sign, params: params
-        expect(response).to redirect_to :root
+      before { sign_in create(:client) }
+
+      it "shows a not found page" do
+        put :sign, params: params
+
+        expect(response).to be_not_found
       end
     end
 
@@ -141,7 +128,7 @@ describe Portal::TaxReturnsController do
           let(:params) { { tax_return_id: tax_return.id } }
 
           it "redirects to client portal root" do
-            post :sign, params: params
+            put :sign, params: params
             expect(flash[:notice]).to eq I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
             expect(response).to redirect_to :portal_root
           end
@@ -245,9 +232,9 @@ describe Portal::TaxReturnsController do
       let(:tax_return) { create :tax_return, :ready_to_sign, client: (create :client, intake: (create :intake, filing_joint: "yes"))}
       let(:params) { { tax_return_id: tax_return.id } }
 
-      it "redirects to root" do
+      it "redirects to login" do
         get :spouse_sign, params: params
-        expect(response).to redirect_to :root
+        expect(response).to redirect_to new_portal_client_login_path
       end
     end
 
@@ -257,9 +244,10 @@ describe Portal::TaxReturnsController do
 
       before { sign_in create :client }
 
-      it "redirects to client portal root" do
+      it "shows a not found page" do
         get :sign, params: params
-        expect(response).to redirect_to :portal_root
+
+        expect(response).to be_not_found
       end
     end
 

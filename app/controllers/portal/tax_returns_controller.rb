@@ -43,7 +43,8 @@ module Portal
 
     def load_client_tax_return
       @tax_return = current_client.tax_returns.includes(client: [:intake]).find_by(id: params[:tax_return_id])
-      redirect_to :portal_root if @tax_return.nil?
+
+      return render "public_pages/page_not_found", status: 404 unless @tax_return.present?
     end
 
     def permitted_params(form_class)

@@ -13,10 +13,12 @@ RSpec.describe Portal::PortalController, type: :controller do
       before do
         sign_in client, scope: :client
       end
+
       it "is the clients intake" do
         expect(subject.current_intake).to eq client.intake
       end
     end
+
     context "when the client is not authenticated" do
       it "is nil" do
         expect(subject.current_intake).to eq nil
@@ -25,13 +27,7 @@ RSpec.describe Portal::PortalController, type: :controller do
   end
 
   describe "#home" do
-    context "when unauthenticated" do
-      it "redirects to home page" do
-        get :home
-        # TODO: once the rest of the login flow is implemented we want to change this to redirect to the client sign in path
-        expect(response).to redirect_to(root_path)
-      end
-    end
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :home
 
     context "as an authenticated client" do
       before do
@@ -87,6 +83,7 @@ RSpec.describe Portal::PortalController, type: :controller do
 
         it "loads the client tax returns in desc order" do
           get :home
+
           expect(assigns(:tax_returns).map(&:year)).to eq [2020, 2018, 2017]
           expect(assigns(:current_step)).to eq nil
         end
