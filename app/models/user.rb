@@ -61,6 +61,7 @@ class User < ApplicationRecord
   validates :email, 'valid_email_2/email': { mx: true }
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_many :access_logs
+  has_many :notifications, class_name: "UserNotification"
   belongs_to :role, polymorphic: true
 
   belongs_to :organization_lead_role, -> { where(users: { role_type: 'OrganizationLeadRole' }) }, foreign_key: 'role_id', optional: true
