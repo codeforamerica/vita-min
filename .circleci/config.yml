@@ -143,7 +143,7 @@ workflows:
           requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
-              only: [circleci-update-walkthroughs, main]
+              only: [circleci-update-walkthroughs]
       - deploy_to_aptible--production:
           requires: [run_js_tests, run_ruby_tests]
           filters:
