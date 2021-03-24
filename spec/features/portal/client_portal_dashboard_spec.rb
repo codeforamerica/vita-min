@@ -86,7 +86,6 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_content("test-pattern.png")
 
       expect(page).to have_text "Please share any additional documents"
-
       page.accept_alert 'Are you sure you want to remove "test-pattern.png"?' do
         click_on "Remove"
       end

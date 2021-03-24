@@ -8,6 +8,6 @@
   <% is_selected = locale_agnostic_current_path?(hub_user_notifications_path) ? " is-selected" : "" %>
   <%= link_to hub_user_notifications_path, class: "tab-bar__tab#{is_selected} tab-bar__notifications" do %>
     <%= t("hub.clients.navigation.notifications")%>
-    <%= render 'shared/unread_icon', flag: true if UserNotification.where(user: current_user, read: false).present? %>
+    <%= render 'shared/unread_icon', flag: true if current_user.notifications.unread.present? %>
   <% end %>
 </div>
