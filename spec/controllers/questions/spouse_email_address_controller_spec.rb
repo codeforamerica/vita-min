@@ -7,7 +7,7 @@ RSpec.describe Questions::SpouseEmailAddressController do
   let(:intake) { create :intake, filing_joint: filing_joint }
 
   before do
-    allow(subject).to receive(:current_intake).and_return(intake)
+    sign_in intake.client
     allow(MixpanelService).to receive(:send_event)
   end
 

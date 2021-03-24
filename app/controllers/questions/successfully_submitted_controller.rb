@@ -1,5 +1,5 @@
 module Questions
-  class SuccessfullySubmittedController < QuestionsController
+  class SuccessfullySubmittedController < AnonymousIntakeController
     skip_before_action :require_intake
     append_after_action :set_completed_intake_session, :clear_intake_session, :track_page_view
 

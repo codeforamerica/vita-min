@@ -1,4 +1,4 @@
 module Questions
-  class EmailAddressController < QuestionsController
+  class EmailAddressController < AnonymousIntakeController
   end
 end

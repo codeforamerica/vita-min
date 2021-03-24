@@ -4,9 +4,7 @@ RSpec.describe Documents::EmploymentController, type: :controller do
   let(:intake) { create :intake }
   render_views
 
-  before do
-    allow(controller).to receive(:current_intake).and_return intake
-  end
+  before { sign_in intake.client }
 
   describe ".show?" do
     let(:intake) { create :intake, **attributes }

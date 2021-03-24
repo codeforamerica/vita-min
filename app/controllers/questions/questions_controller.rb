@@ -1,6 +1,6 @@
 module Questions
   class QuestionsController < ApplicationController
-    before_action :require_intake, :set_current_step
+    before_action :set_current_step
 
     delegate :form_name, to: :class
     delegate :form_class, to: :class

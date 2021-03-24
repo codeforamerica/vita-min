@@ -76,9 +76,7 @@ RSpec.describe Questions::BankDetailsController do
   describe "#update" do
     let(:intake) { create :intake }
 
-    before do
-      allow(subject).to receive(:current_intake).and_return intake
-    end
+    before { sign_in intake.client }
 
     context "with no values" do
       let(:params) do

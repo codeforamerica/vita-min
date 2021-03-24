@@ -1,5 +1,5 @@
 module Questions
-  class DisasterLossController < QuestionsController
+  class DisasterLossController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

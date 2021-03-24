@@ -45,7 +45,7 @@ RSpec.feature "Client uploads a requested document" do
     expect(page).to have_button("Continue", disabled: true)
 
     visit "/questions/job-count"
-    expect(current_path).to eq(welcome_questions_path())
+    expect(current_path).to eq(new_portal_client_login_path)
   end
 
   scenario "partner goes to multiple documents link and attaches doc to last intake", :js do

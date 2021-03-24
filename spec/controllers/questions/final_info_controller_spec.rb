@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Questions::FinalInfoController do
   before do
-    allow(subject).to receive(:current_intake).and_return(intake)
+    sign_in intake.client
   end
 
   describe "#update" do
@@ -39,7 +39,7 @@ RSpec.describe Questions::FinalInfoController do
               locale: "en",
               preferred_name: intake.preferred_name,
               client_id: intake.client_id,
-              document_upload_url: "http://test.host/documents/add/#{intake.requested_docs_token}"
+              document_upload_url: "http://test.host/documents/add/#{intake.reload.requested_docs_token}"
           )
         end
 
@@ -52,7 +52,7 @@ RSpec.describe Questions::FinalInfoController do
               locale: "es",
               preferred_name: intake.preferred_name,
               client_id: intake.client_id,
-              document_upload_url: "http://test.host/es/documents/add/#{intake.requested_docs_token}"
+              document_upload_url: "http://test.host/es/documents/add/#{intake.reload.requested_docs_token}"
           )
         end
       end
@@ -77,7 +77,7 @@ RSpec.describe Questions::FinalInfoController do
               locale: "es",
               preferred_name: intake.preferred_name,
               client_id: intake.client_id,
-              document_upload_url: "http://test.host/es/documents/add/#{intake.requested_docs_token}"
+              document_upload_url: "http://test.host/es/documents/add/#{intake.reload.requested_docs_token}"
           )
         end
       end
@@ -107,7 +107,7 @@ RSpec.describe Questions::FinalInfoController do
       it "updates completed_at" do
         post :update, params: params
 
-        expect(intake.completed_at).to be_within(2.seconds).of(Time.now)
+        expect(intake.reload.completed_at).to be_within(2.seconds).of(Time.now)
       end
 
       context "mixpanel" do

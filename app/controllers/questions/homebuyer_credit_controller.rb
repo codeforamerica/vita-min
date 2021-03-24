@@ -1,5 +1,5 @@
 module Questions
-  class HomebuyerCreditController < QuestionsController
+  class HomebuyerCreditController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     def method_name

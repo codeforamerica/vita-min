@@ -1,89 +1,62 @@
 require "rails_helper"
 
 RSpec.describe DependentsController do
-  render_views
-
   let(:intake) { create :intake }
-
-  before do
-    allow(subject).to receive(:current_intake).and_return intake
-    allow(MixpanelService).to receive(:send_event)
-  end
+  before { allow(MixpanelService).to receive(:send_event) }
 
   describe "#next_path" do
-    context "without an eip only return" do
-      it "returns a link to dependent care questions" do
-        expect(subject.next_path).to include dependent_care_questions_path
-      end
-    end
+    before { sign_in intake.client }
 
-    context "with an eip only return" do
-      let(:intake) { create :intake, :eip_only }
-
-      it "navigates to additional info" do
-        expect(subject.next_path).to include additional_info_questions_path
-      end
+    it "returns a link to dependent care questions" do
+      expect(subject.next_path).to include dependent_care_questions_path
     end
   end
 
   describe "#index" do
-    context "with existing dependents" do
-      let!(:dependent_one) { create :dependent, first_name: "Kylie", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
-      let!(:dependent_two) { create :dependent, first_name: "Kelly", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :index
 
-      it "renders information about each dependent" do
-        get :index
+    context "with an authenticated client" do
+      before { sign_in intake.client }
 
-        expect(response.body).to include "Kylie Kiwi 4/21/2012"
-        expect(response.body).to include "Kelly Kiwi 4/21/2012"
-      end
-    end
+      context "with existing dependents" do
+        render_views
+        let!(:dependent_one) { create :dependent, first_name: "Kylie", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
+        let!(:dependent_two) { create :dependent, first_name: "Kelly", last_name: "Kiwi", birth_date: Date.new(2012, 4, 21), intake: intake}
 
-    context "with no intake at all" do
-      let(:intake) { nil }
-
-      context "in production or test" do
-        before { allow(Rails).to receive(:env).and_return "production".inquiry }
-
-        it "redirects to the start of the questions workflow" do
+        it "renders information about each dependent" do
           get :index
 
-          expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
-        end
-      end
-
-      context "in any other environment" do
-        before { allow(Rails).to receive(:env).and_return "demo".inquiry }
-
-        it "redirects to the start of the questions workflow" do
-          get :index
-
-          expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
+          expect(response.body).to include "Kylie Kiwi 4/21/2012"
+          expect(response.body).to include "Kelly Kiwi 4/21/2012"
         end
       end
     end
   end
 
   describe "#create" do
-    context "with valid params" do
-      let(:params) do
-        {
-          dependent: {
-            first_name: "Kylie",
-            last_name: "Kiwi",
-            birth_date_month: "6",
-            birth_date_day: "15",
-            birth_date_year: "2015",
-            relationship: "Nibling",
-            months_in_home: "12",
-            was_student: "no",
-            on_visa: "no",
-            north_american_resident: "yes",
-            disabled: "no",
-            was_married: "no"
-          }
+    let(:params) do
+      {
+        dependent: {
+          first_name: "Kylie",
+          last_name: "Kiwi",
+          birth_date_month: "6",
+          birth_date_day: "15",
+          birth_date_year: "2015",
+          relationship: "Nibling",
+          months_in_home: "12",
+          was_student: "no",
+          on_visa: "no",
+          north_american_resident: "yes",
+          disabled: "no",
+          was_married: "no"
         }
-      end
+      }
+    end
+
+    it_behaves_like :a_post_action_for_authenticated_clients_only, action: :create
+
+    context "with an authenticated client" do
+      before { sign_in intake.client }
 
       it "creates a new dependent linked to the current intake and redirects to the index" do
         expect do
@@ -123,48 +96,50 @@ RSpec.describe DependentsController do
           }
         ))
       end
-    end
 
-    context "with invalid params" do
-      let(:params) do
-        {
-          dependent: {
-            first_name: "Kylie",
-            birth_date_month: "12",
-            birth_date_day: "2",
-            birth_date_year: "",
-            relationship: "Nibling",
-            months_in_home: "12",
-            was_student: "no",
-            on_visa: "no",
-            north_american_resident: "yes",
-            disabled: "no",
-            was_married: "no"
+      context "with invalid params" do
+        render_views
+
+        let(:params) do
+          {
+            dependent: {
+              first_name: "Kylie",
+              birth_date_month: "12",
+              birth_date_day: "2",
+              birth_date_year: "",
+              relationship: "Nibling",
+              months_in_home: "12",
+              was_student: "no",
+              on_visa: "no",
+              north_american_resident: "yes",
+              disabled: "no",
+              was_married: "no"
+            }
           }
-        }
-      end
+        end
 
-      it "renders new with validation errors" do
-        expect do
+        it "renders new with validation errors" do
+          expect do
+            post :create, params: params
+          end.not_to change(Dependent, :count)
+
+          expect(response).to render_template(:new)
+
+          expect(response.body).to include "Please enter a valid date."
+          expect(response.body).to include "Please enter a last name."
+        end
+
+        it "sends validation errors to mixpanel" do
           post :create, params: params
-        end.not_to change(Dependent, :count)
 
-        expect(response).to render_template(:new)
-
-        expect(response.body).to include "Please enter a valid date."
-        expect(response.body).to include "Please enter a last name."
-      end
-
-      it "sends validation errors to mixpanel" do
-        post :create, params: params
-
-        expect(MixpanelService).to have_received(:send_event).with(hash_including(
-          event_name: "validation_error",
-          data: {
-            invalid_birth_date: true,
-            invalid_last_name: true,
-          }
-        ))
+          expect(MixpanelService).to have_received(:send_event).with(hash_including(
+            event_name: "validation_error",
+            data: {
+              invalid_birth_date: true,
+              invalid_last_name: true,
+            }
+          ))
+        end
       end
     end
   end
@@ -178,14 +153,23 @@ RSpec.describe DependentsController do
              relationship: "Kid",
              intake: intake
     end
+    let(:params) { { id: dependent.id } }
 
-    it "renders information about the existing dependent and renders a delete button" do
-      get :edit, params: { id: dependent.id }
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :edit
 
-      expect(response.body).to include("Mary")
-      expect(response.body).to include("Mango")
-      expect(response.body).to include("Kid")
-      expect(response.body).to include("Remove this person")
+    context "with an authenticated client" do
+      render_views
+
+      before { sign_in intake.client }
+
+      it "renders information about the existing dependent and renders a delete button" do
+        get :edit, params: params
+
+        expect(response.body).to include("Mary")
+        expect(response.body).to include("Mango")
+        expect(response.body).to include("Kid")
+        expect(response.body).to include("Remove this person")
+      end
     end
   end
 
@@ -198,27 +182,31 @@ RSpec.describe DependentsController do
              relationship: "Kid",
              intake: intake
     end
-
-    context "with valid params" do
-      let(:params) do
-        {
-          id: dependent.id,
-          dependent: {
-            first_name: "Kylie",
-            last_name: "Kiwi",
-            birth_date_month: "6",
-            birth_date_day: "15",
-            birth_date_year: "2015",
-            relationship: "Nibling",
-            months_in_home: "12",
-            was_student: "no",
-            on_visa: "no",
-            north_american_resident: "yes",
-            disabled: "no",
-            was_married: "no"
-          }
+    let(:params) do
+      {
+        id: dependent.id,
+        dependent: {
+          first_name: "Kylie",
+          last_name: "Kiwi",
+          birth_date_month: "6",
+          birth_date_day: "15",
+          birth_date_year: "2015",
+          relationship: "Nibling",
+          months_in_home: "12",
+          was_student: "no",
+          on_visa: "no",
+          north_american_resident: "yes",
+          disabled: "no",
+          was_married: "no"
         }
-      end
+      }
+    end
+
+    it_behaves_like :a_post_action_for_authenticated_clients_only, action: :update
+
+
+    context "with an authenticated client" do
+      before { sign_in intake.client }
 
       it "updates the dependent and redirects to the index" do
         post :update, params: params
@@ -255,50 +243,52 @@ RSpec.describe DependentsController do
           }
         ))
       end
-    end
 
-    context "with invalid params" do
-      let(:params) do
-        {
-          id: dependent.id,
-          dependent: {
-            first_name: "Kylie",
-            last_name: "",
-            birth_date_month: "16",
-            birth_date_day: "2",
-            birth_date_year: "2015",
-            relationship: "Nibling",
-            months_in_home: "12",
-            was_student: "no",
-            on_visa: "no",
-            north_american_resident: "yes",
-            disabled: "no",
-            was_married: "no"
+      context "with invalid params" do
+        render_views
+
+        let(:params) do
+          {
+            id: dependent.id,
+            dependent: {
+              first_name: "Kylie",
+              last_name: "",
+              birth_date_month: "16",
+              birth_date_day: "2",
+              birth_date_year: "2015",
+              relationship: "Nibling",
+              months_in_home: "12",
+              was_student: "no",
+              on_visa: "no",
+              north_american_resident: "yes",
+              disabled: "no",
+              was_married: "no"
+            }
           }
-        }
-      end
+        end
 
-      it "renders edit with validation errors" do
-        expect do
-          post :update, params: params
-        end.not_to change(Dependent, :count)
+        it "renders edit with validation errors" do
+          expect do
+            post :update, params: params
+          end.not_to change(Dependent, :count)
 
-        expect(response).to render_template(:edit)
+          expect(response).to render_template(:edit)
 
-        expect(response.body).to include "Please enter a valid date."
-        expect(response.body).to include "Please enter a last name."
-      end
+          expect(response.body).to include "Please enter a valid date."
+          expect(response.body).to include "Please enter a last name."
+        end
 
-      it "sends validation errors to mixpanel" do
-        post :create, params: params
+        it "sends validation errors to mixpanel" do
+          post :create, params: params
 
-        expect(MixpanelService).to have_received(:send_event).with(hash_including(
-          event_name: "validation_error",
-          data: {
-            invalid_birth_date: true,
-            invalid_last_name: true,
-          }
-        ))
+          expect(MixpanelService).to have_received(:send_event).with(hash_including(
+            event_name: "validation_error",
+            data: {
+              invalid_birth_date: true,
+              invalid_last_name: true,
+            }
+          ))
+        end
       end
     end
   end
@@ -312,20 +302,27 @@ RSpec.describe DependentsController do
              relationship: "Kid",
              intake: intake
     end
+    let(:params) { { id: dependent.id } }
 
-    it "deletes the dependent and adds a flash message and redirects to dependents path" do
-      expect do
-        delete :destroy, params: { id: dependent.id }
-      end.to change(Dependent, :count).by(-1)
+    it_behaves_like :a_post_action_for_authenticated_clients_only, action: :destroy
 
-      expect(response).to redirect_to dependents_path
-      expect(flash[:notice]).to eq "Removed Mary Mango."
-    end
+    context "with an authenticated client" do
+      before { sign_in intake.client }
 
-    it "sends analytics to mixpanel" do
-      delete :destroy, params: { id: dependent.id }
+      it "deletes the dependent and adds a flash message and redirects to dependents path" do
+        expect do
+          delete :destroy, params: params
+        end.to change(Dependent, :count).by(-1)
 
-      expect(MixpanelService).to have_received(:send_event).with(hash_including(event_name: "dependent_removed"))
+        expect(response).to redirect_to dependents_path
+        expect(flash[:notice]).to eq "Removed Mary Mango."
+      end
+
+      it "sends analytics to mixpanel" do
+        delete :destroy, params: params
+
+        expect(MixpanelService).to have_received(:send_event).with(hash_including(event_name: "dependent_removed"))
+      end
     end
   end
 end

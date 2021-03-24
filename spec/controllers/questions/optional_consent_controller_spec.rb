@@ -5,7 +5,7 @@ RSpec.describe Questions::OptionalConsentController do
   let!(:tax_return) { create :tax_return, client: intake.client }
 
   before do
-    allow(subject).to receive(:current_intake).and_return(intake)
+    sign_in intake.client
   end
 
   describe "#update" do

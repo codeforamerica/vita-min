@@ -1,5 +1,5 @@
 module Questions
-  class MortgageInterestController < QuestionsController
+  class MortgageInterestController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

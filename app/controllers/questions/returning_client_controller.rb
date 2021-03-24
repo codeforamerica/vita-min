@@ -1,5 +1,5 @@
 module Questions
-  class ReturningClientController < QuestionsController
+  class ReturningClientController < AnonymousIntakeController
     layout "application"
 
     def self.show?(intake)

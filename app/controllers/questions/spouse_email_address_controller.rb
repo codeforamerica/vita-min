@@ -1,5 +1,5 @@
 module Questions
-  class SpouseEmailAddressController < QuestionsController
+  class SpouseEmailAddressController < AuthenticatedIntakeController
     def self.show?(intake)
       intake.filing_joint_yes?
     end

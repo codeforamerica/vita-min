@@ -1,5 +1,5 @@
 module Questions
-  class SocialSecurityIncomeController < QuestionsController
+  class SocialSecurityIncomeController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     def self.show?(intake)

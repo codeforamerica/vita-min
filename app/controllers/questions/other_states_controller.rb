@@ -1,5 +1,5 @@
 module Questions
-  class OtherStatesController < QuestionsController
+  class OtherStatesController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     def edit

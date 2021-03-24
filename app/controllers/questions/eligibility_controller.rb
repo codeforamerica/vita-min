@@ -1,5 +1,5 @@
 module Questions
-  class EligibilityController < QuestionsController
+  class EligibilityController < AnonymousIntakeController
     layout "intake"
 
     private

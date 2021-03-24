@@ -1,5 +1,5 @@
 module Questions
-  class LocalTaxController < QuestionsController
+  class LocalTaxController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

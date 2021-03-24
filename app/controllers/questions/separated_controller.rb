@@ -1,5 +1,5 @@
 module Questions
-  class SeparatedController < QuestionsController
+  class SeparatedController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     def self.show?(intake)

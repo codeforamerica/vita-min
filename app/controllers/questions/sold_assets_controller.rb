@@ -1,5 +1,5 @@
 module Questions
-  class SoldAssetsController < QuestionsController
+  class SoldAssetsController < AuthenticatedIntakeController
     layout "yes_no_question"
 
   end

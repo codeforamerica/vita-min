@@ -1,5 +1,5 @@
 module Questions
-  class InterestIncomeController < QuestionsController
+  class InterestIncomeController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

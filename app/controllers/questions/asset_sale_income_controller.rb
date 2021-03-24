@@ -1,5 +1,5 @@
 module Questions
-  class AssetSaleIncomeController < QuestionsController
+  class AssetSaleIncomeController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     def self.show?(intake)

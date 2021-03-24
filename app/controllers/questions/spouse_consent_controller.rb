@@ -1,5 +1,5 @@
 module Questions
-  class SpouseConsentController < QuestionsController
+  class SpouseConsentController < AuthenticatedIntakeController
     layout "application"
 
     def self.show?(intake)

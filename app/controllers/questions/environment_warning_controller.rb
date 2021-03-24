@@ -1,5 +1,5 @@
 module Questions
-  class EnvironmentWarningController < QuestionsController
+  class EnvironmentWarningController < AnonymousIntakeController
     layout "intake"
 
     def self.show?(_)

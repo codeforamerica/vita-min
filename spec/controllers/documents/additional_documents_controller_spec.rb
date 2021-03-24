@@ -4,10 +4,7 @@ RSpec.describe Documents::AdditionalDocumentsController do
   render_views
 
   let(:intake) { create :intake }
-
-  before do
-    allow(subject).to receive(:current_intake).and_return intake
-  end
+  before { sign_in intake.client }
 
   describe "#edit" do
     let!(:tax_return) { create :tax_return, client: intake.client, status: "intake_in_progress" }

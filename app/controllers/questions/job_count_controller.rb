@@ -1,5 +1,5 @@
 module Questions
-  class JobCountController < QuestionsController
+  class JobCountController < AuthenticatedIntakeController
     layout "intake"
   end
 end

@@ -1,5 +1,5 @@
 module Questions
-  class ReceivedAlimonyController < QuestionsController
+  class ReceivedAlimonyController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     def self.show?(intake)

@@ -1,5 +1,5 @@
 module Questions
-  class LocalTaxRefundController < QuestionsController
+  class LocalTaxRefundController < AuthenticatedIntakeController
     layout "yes_no_question"
 
     private

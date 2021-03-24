@@ -1,5 +1,5 @@
 module Questions
-  class SavingsOptionsController < QuestionsController
+  class SavingsOptionsController < AuthenticatedIntakeController
     private
 
     def illustration_path

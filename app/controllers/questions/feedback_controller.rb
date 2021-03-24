@@ -1,5 +1,5 @@
 module Questions
-  class FeedbackController < QuestionsController
+  class FeedbackController < AnonymousIntakeController
     layout "intake"
 
     def current_intake
