@@ -20,5 +20,14 @@ RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controll
         expect(response).to redirect_to(root_path)
       end
     end
+
+    context "without an existing documents request in the session" do
+      it "successfully redirects to root path" do
+        get :edit
+        expect(session[:documents_request_id]).to be_nil
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
   end
 end

@@ -6,9 +6,9 @@ module Documents
     def edit
       @documents_request = DocumentsRequest.find_by(id: session[:documents_request_id])
       if @documents_request.nil?
-        flash[:warning] =  t("controllers.send_requested_documents_later_controller.not_found")
+        flash[:warning] = t("controllers.send_requested_documents_later_controller.not_found")
       else
-        flash[:notice] =  t("controllers.send_requested_documents_later_controller.success")
+        flash[:notice] = t("controllers.send_requested_documents_later_controller.success")
       end
       redirect_to(root_path)
     end
@@ -26,7 +26,7 @@ module Documents
     end
 
     def complete_documents_request
-      @documents_request.touch(:completed_at)
+      @documents_request.touch(:completed_at) if @documents_request.present?
     end
   end
 end
