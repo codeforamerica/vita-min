@@ -1,16 +1,14 @@
 module Documents
   class SendRequestedDocumentsLaterController < DocumentUploadQuestionController
-    append_after_action :reset_session, :track_page_view, only: :edit
-    append_after_action :add_flash_message, :reset_session, only: :edit
+    append_after_action :reset_session, :track_page_view, :complete_documents_request, only: :edit
     skip_before_action :require_intake
 
     def edit
-      documents_request = DocumentsRequest.find_by(id: session[:documents_request_id])
-      if documents_request.nil?
-        @flash_warning = t("controllers.send_requested_documents_later_controller.not_found")
+      @documents_request = DocumentsRequest.find_by(id: session[:documents_request_id])
+      if @documents_request.nil?
+        flash[:warning] =  t("controllers.send_requested_documents_later_controller.not_found")
       else
-        intake = documents_request.intake
-        @flash_notice = t("controllers.send_requested_documents_later_controller.success")
+        flash[:notice] =  t("controllers.send_requested_documents_later_controller.success")
       end
       redirect_to(root_path)
     end
@@ -27,9 +25,8 @@ module Documents
       nil
     end
 
-    def add_flash_message
-      flash[:notice] = @flash_notice if @flash_notice.present?
-      flash[:warning] = @flash_warning if @flash_warning.present?
+    def complete_documents_request
+      @documents_request.touch(:completed_at)
     end
   end
 end

@@ -14,8 +14,9 @@ RSpec.describe Documents::SendRequestedDocumentsLaterController, type: :controll
 
       it "clears the session and redirects to root path" do
         get :edit
-
+        expect(documents_request.reload.completed_at).not_to be_nil
         expect(session[:documents_request_id]).to be_nil
+
         expect(response).to redirect_to(root_path)
       end
     end
