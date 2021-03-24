@@ -21,7 +21,7 @@ RSpec.feature "Logging in" do
           allow(TwilioService).to receive(:send_text_message)
         end
 
-        scenario "requesting a verification code with an email address and signing in with a client id" do
+        scenario "requesting a verification code with an email address and signing in with a client id and signing out" do
           visit new_portal_client_login_path
 
           expect(page).to have_text "To view your progress, we’ll send you a secure code"
@@ -42,6 +42,9 @@ RSpec.feature "Logging in" do
           click_on "Continue"
 
           expect(page).to have_text("Welcome back Carrie!")
+
+          click_on "Sign out"
+          expect(page).not_to have_text("Carrie")
         end
 
         scenario "requesting a verification code with a phone number and signing in with the last four of a social" do

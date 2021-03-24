@@ -98,7 +98,7 @@ Rails.application.routes.draw do
     get "/relational-efin", to: "consent_pages#relational_efin"
     get "/global-carryforward", to: "consent_pages#global_carryforward"
 
-    devise_for :clients, skip: [:sessions]
+    devise_for :clients
     namespace :portal do
       root "portal#home"
 
@@ -122,6 +122,9 @@ Rails.application.routes.draw do
       match 'upload-documents', to: 'upload_documents#edit', via: :get
       match 'upload-documents', to: 'upload_documents#update', via: :put
       match 'complete-documents-request', to: 'upload_documents#complete_documents_request', via: :get
+      # devise_for :clients, path: "portal", controllers: {
+      #   sessions: "clients/sessions"
+      # }
     end
 
 
