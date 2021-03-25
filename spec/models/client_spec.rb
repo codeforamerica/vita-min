@@ -445,7 +445,7 @@ describe Client do
       let(:email_address) { "client@example.com" }
 
       context "with a client whose email matches" do
-        let!(:client) { create(:client, intake: create(:intake, email_address: email_address)) }
+        let!(:client) { create(:client, intake: create(:intake, email_address: email_address))}
 
         it "finds the client" do
           expect(described_class.by_contact_info(email_address: "client@example.com", phone_number: nil)).to include(client)
@@ -453,7 +453,7 @@ describe Client do
       end
 
       context "with a client whose spouse email matches" do
-        let!(:client) { create(:client, intake: create(:intake, spouse_email_address: email_address)) }
+        let!(:client) { create(:client, intake: create(:intake, spouse_email_address: email_address))}
 
         it "finds the client" do
           expect(described_class.by_contact_info(email_address: "client@example.com", phone_number: nil)).to include(client)

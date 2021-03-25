@@ -87,7 +87,7 @@ class Client < ApplicationRecord
         arel_table[:first_unanswered_incoming_interaction_at]
       ).or(arel_table[:last_internal_or_outgoing_interaction_at].eq(nil))
     )
-  end
+    end
   scope :by_raw_login_token, ->(raw_token) do
     where(login_token: Devise.token_generator.digest(Client, :login_token, raw_token))
   end
