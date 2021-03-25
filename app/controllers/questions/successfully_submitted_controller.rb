@@ -13,8 +13,6 @@ module Questions
       intake_from_completed_session if action_name == "update"
     end
 
-    def prev_path; end
-
     private
 
     def initialized_update_form
