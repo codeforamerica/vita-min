@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.feature "Logging in" do
   context "With a client who consented", active_job: true do
-    let!(:client) do
-      create(:intake, :primary_consented, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006").client
-    end
+    let(:tax_return) { create(:tax_return, :ready_to_sign) }
+    let(:client) { create :client, tax_returns: [tax_return] }
+    let!(:intake) { create :intake, :primary_consented, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006", client: client }
 
     context "As a client logging in from the login page" do
       context "signing in with verification code" do
@@ -133,7 +133,6 @@ RSpec.feature "Logging in" do
     end
 
     context "As a client trying to access a protected page" do
-      let(:tax_return) { create(:tax_return, :ready_to_sign, client: client) }
       let(:hashed_verification_code) { "hashed_verification_code" }
       let(:double_hashed_verification_code) { "double_hashed_verification_code" }
 

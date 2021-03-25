@@ -194,6 +194,8 @@ FactoryBot.define do
 
     trait :primary_consented do
       primary_consented_to_service_at { 2.weeks.ago }
+      primary_consented_to_service { "yes" }
+      primary_consented_to_service_ip { "127.0.0.1" }
     end
 
     trait :eip_only do
