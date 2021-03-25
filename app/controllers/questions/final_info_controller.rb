@@ -1,5 +1,5 @@
 module Questions
-  class FinalInfoController < QuestionsController
+  class FinalInfoController < AuthenticatedIntakeController
     layout "intake"
 
     private
