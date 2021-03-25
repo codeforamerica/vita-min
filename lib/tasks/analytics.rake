@@ -11,12 +11,10 @@
 
 namespace :analytics do
   desc "Prepare database for analytics use with Metabase"
-  task delete_views: :environment do |_task|
-    ActiveRecord::Base.connection.execute('DROP SCHEMA IF EXISTS analytics CASCADE;')
-  end
-
   task create_views: :environment do |_task|
     ActiveRecord::Base.connection.execute(File.read("db/create_analytics_views.sql"))
+    ActiveRecord::Base.connection.execute('GRANT USAGE ON SCHEMA "analytics" TO "metabase";')
+    ActiveRecord::Base.connection.execute('GRANT SELECT ON ALL TABLES IN SCHEMA "analytics" TO "metabase";')
   end
 
   task delete_metabase_user: :environment do |_task|
