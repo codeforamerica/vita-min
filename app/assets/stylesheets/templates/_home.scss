@@ -83,8 +83,10 @@
         }
 
         @media screen and (min-width: $site-max-up) {
-          max-width: none;
-          padding: 0 $s25;
+          .hero-illustration__desktop {
+            max-width: none;
+          }
+          padding: 0 0 0 5rem;
         }
       }
 
