@@ -44,6 +44,16 @@ RSpec.feature "Logging in" do
           expect(page).to have_text("Welcome back Carrie!")
         end
 
+        scenario "signing out" do
+          login_as(client, scope: :client)
+          visit portal_root_path
+          expect(page).to have_text("Carrie")
+
+          click_on "Sign out"
+          visit portal_root_path
+          expect(page).not_to have_text("Carrie")
+        end
+
         scenario "requesting a verification code with a phone number and signing in with the last four of a social" do
           visit new_portal_client_login_path
 

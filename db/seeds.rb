@@ -97,7 +97,7 @@ greeter_user.update(role: GreeterRole.create(organizations: [first_org])) if gre
 
 client = Client.find_or_create_by(vita_partner: first_org)
 
-intake = Intake.create(client: client, preferred_name: "Captain", primary_first_name: "Captain", primary_last_name: "Hook", sms_phone_number: "+14155551212", email_address: "crunch@example.com", sms_notification_opt_in: :yes, email_notification_opt_in: :yes, visitor_id: "test_visitor_id")
+intake = Intake.create(client: client, preferred_name: "Captain", primary_first_name: "Captain", primary_last_name: "Hook", sms_phone_number: "+14155551212", email_address: "crunch@example.com", primary_consented_to_service_at: DateTime.current, sms_notification_opt_in: :yes, email_notification_opt_in: :yes, visitor_id: "test_visitor_id")
 
 Document.find_or_create_by(display_name: "My Employment", document_type: "Employment", client: client, created_at: 1.day.ago, intake: intake)
 Document.find_or_create_by(display_name: "Identity Document", document_type: "ID", client: client, created_at: 2.months.ago, intake: intake)
@@ -133,6 +133,7 @@ married_intake = Intake.create!(
   spouse_first_name: "Marsha",
   spouse_last_name: "Charms",
   spouse_email_address: "justthemarshmallows@example.com",
-  visitor_id: "married_visitor_id"
+  visitor_id: "married_visitor_id",
+  primary_consented_to_service_at: DateTime.current
 )
 TaxReturn.create!(client: married_intake.client, year: 2020, status: TaxReturnStatus::STATUSES[:prep_preparing])
