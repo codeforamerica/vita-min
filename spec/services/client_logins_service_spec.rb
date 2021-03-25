@@ -124,20 +124,48 @@ describe ClientLoginsService do
   end
 
   describe ".request_email_login" do
+    let(:service_type) { "online_intake" }
+    let(:intake) { create(:intake, :primary_consented, **contact_info) }
+    let(:contact_info) { { email_address: "client@example.com" } }
+    let!(:client) { create :client, intake: intake, tax_returns: [create(:tax_return, service_type: service_type)] }
+
     before do
-      create :client, intake: create(:intake, email_address: "client@example.com")
       allow(ClientLoginsService).to receive(:create_email_login)
     end
 
     context "with an email that matches a client" do
       let(:arguments) do
-        { email_address: "client@example.com", visitor_id: "a_visitor_id", locale: "es" }
+        { **contact_info, visitor_id: "a_visitor_id", locale: "es" }
       end
 
       it "creates an email login" do
         ClientLoginsService.request_email_login(arguments)
 
         expect(ClientLoginsService).to have_received(:create_email_login).with(arguments)
+      end
+
+      context "when the matching client has not filled out the consent form" do
+        let(:intake) { create(:intake, **contact_info) }
+
+        context "with an online intake" do
+          it "sends an email to let that person know that no match was found" do
+            expect do
+              ClientLoginsService.request_email_login(arguments)
+            end.to have_enqueued_mail(ClientLoginRequestMailer, :no_match_found).with(
+              a_hash_including(params: { locale: "es", to: "client@example.com" })
+            )
+          end
+        end
+
+        context "with a drop off" do
+          let(:service_type) { "drop_off" }
+
+          it "creates a email login" do
+            ClientLoginsService.request_email_login(arguments)
+
+            expect(ClientLoginsService).to have_received(:create_email_login).with(arguments)
+          end
+        end
       end
     end
 
@@ -157,8 +185,9 @@ describe ClientLoginsService do
   end
 
   describe ".request_text_message_login" do
+    let(:contact_info) { { sms_phone_number: "+15105551234" } }
     let(:arguments) do
-      { sms_phone_number: "+15105551234", visitor_id: "a_visitor_id", locale: "es" }
+      { **contact_info, visitor_id: "a_visitor_id", locale: "es" }
     end
 
     before do
@@ -167,22 +196,53 @@ describe ClientLoginsService do
     end
 
     context "with a matching client" do
-      before { create :client, intake: create(:intake, sms_phone_number: "+15105551234") }
+      let(:service_type) { "online_intake" }
+      let(:intake) { create(:intake, :primary_consented, **contact_info) }
+      let!(:client) { create :client, intake: intake, tax_returns: [create(:tax_return, service_type: service_type)] }
 
-      it "creates an text message login" do
+      it "creates a text message login" do
         ClientLoginsService.request_text_message_login(arguments)
 
         expect(ClientLoginsService).to have_received(:create_text_message_login).with(arguments)
       end
+
+      context "when the matching client has not filled out the consent form" do
+        let(:intake) { create(:intake, **contact_info) }
+
+        context "with an online intake" do
+          it "lets that person know that no match was found" do
+            ClientLoginsService.request_text_message_login(arguments)
+
+            expected_message_body = <<~BODY
+              Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
+              También puede ir a http://test.host/es y seleccione “Empiece ahora” para empezar su declaración.
+            BODY
+            expect(TwilioService).to have_received(:send_text_message).with(
+              to: "+15105551234",
+              body: expected_message_body
+            )
+          end
+        end
+
+        context "with a drop off" do
+          let(:service_type) { "drop_off" }
+
+          it "creates a text message login" do
+            ClientLoginsService.request_text_message_login(arguments)
+
+            expect(ClientLoginsService).to have_received(:create_text_message_login).with(arguments)
+          end
+        end
+      end
     end
 
     context "with a client who matches on phone_number but not sms_phone_number" do
-      let!(:client) { create :client, intake: create(:intake, phone_number: "+15105551234") }
+      let!(:client) { create :client, intake: create(:intake, :primary_consented, phone_number: "+15105551234") }
 
       xit "adds a note to the client's profile and marks them as needing attention" do
         expect do
           ClientLoginsService.request_text_message_login(arguments)
-        end.to change{ client.system_notes.count }.by(1)
+        end.to change { client.system_notes.count }.by(1)
         expected_note_body = <<~NOTE
           This client requested a text message login link, but their phone number is not designated for text messages.
         NOTE
@@ -275,12 +335,17 @@ describe ClientLoginsService do
   end
 
   describe ".clients_for_token" do
+    let(:service_type) { "online_intake" }
+    let!(:tax_return) { create :tax_return, service_type: service_type }
+    let!(:client) { create :client, login_token: login_token, tax_returns: [tax_return] }
+    let(:login_token) { nil }
+
     before do
       allow(Devise.token_generator).to receive(:digest).and_return("hashed_token")
     end
 
     context "with a client with a matching token" do
-      let!(:client) { create :client, login_token: "hashed_token" }
+      let(:login_token) { "hashed_token" }
 
       it "returns the client" do
         expect(described_class.clients_for_token("raw_token")).to match_array [client]
@@ -288,10 +353,9 @@ describe ClientLoginsService do
     end
 
     context "with a client matching a TextMessageAccessToken" do
-      let!(:client) { create :client }
       before do
         create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212")
-        create(:intake, client: client, sms_phone_number: "+16505551212")
+        create(:intake, :primary_consented, client: client, sms_phone_number: "+16505551212")
       end
 
       it "returns the client" do
@@ -300,10 +364,9 @@ describe ClientLoginsService do
     end
 
     context "with a client whose email matches an EmailAccessToken" do
-      let!(:client) { create :client }
       before do
         create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
-        create(:intake, client: client, email_address: "someone@example.com")
+        create(:intake, :primary_consented, client: client, email_address: "someone@example.com")
       end
 
       it "returns the client" do
@@ -312,10 +375,9 @@ describe ClientLoginsService do
     end
 
     context "with a client whose spouse email matches an EmailAccessToken" do
-      let!(:client) { create :client }
       before do
         create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
-        create(:intake, client: client, spouse_email_address: "someone@example.com")
+        create(:intake, :primary_consented, client: client, spouse_email_address: "someone@example.com")
       end
 
       it "returns the client" do
@@ -324,10 +386,9 @@ describe ClientLoginsService do
     end
 
     context "with a client whose email is contained in a comma-separated EmailAccessToken" do
-      let!(:client) { create :client }
       before do
         create(:email_access_token, token: "hashed_token", email_address: "someone@example.com,other@example.com")
-        create(:intake, client: client, email_address: "someone@example.com")
+        create(:intake, :primary_consented, client: client, email_address: "someone@example.com")
       end
 
       it "returns the client" do
@@ -340,7 +401,7 @@ describe ClientLoginsService do
       before do
         create(:email_access_token, token: "hashed_token", email_address: "someone@example.com", created_at: Time.current - (2.1).days)
         create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212", created_at: Time.current - (2.1).days)
-        create(:intake, client: client, spouse_email_address: "someone@example.com")
+        create(:intake, :primary_consented, client: client, spouse_email_address: "someone@example.com", sms_phone_number: "+16505551212")
       end
 
       it "returns a blank set" do
@@ -351,6 +412,26 @@ describe ClientLoginsService do
     context "with no matching token" do
       it "returns a blank set" do
         expect(described_class.clients_for_token("raw_token")).to match_array []
+      end
+    end
+
+    context "with a client with no consent to service" do
+      before do
+        create(:email_access_token, token: "hashed_token", email_address: "someone@example.com")
+        create(:text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212")
+        create(:intake, client: client, spouse_email_address: "someone@example.com", sms_phone_number: "+16505551212")
+      end
+
+      it "returns a blank set" do
+        expect(described_class.clients_for_token("raw_token")).to match_array []
+      end
+
+      context "with a client that is a drop off" do
+        let(:service_type) { "drop_off" }
+
+        it "returns the client" do
+          expect(described_class.clients_for_token("raw_token")).to match_array [client]
+        end
       end
     end
   end

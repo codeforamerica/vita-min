@@ -198,6 +198,7 @@ class Intake < ApplicationRecord
   has_many :documents
   has_many :dependents, -> { order(created_at: :asc) }
   belongs_to :client, optional: true
+  has_many :tax_returns, through: :client
   belongs_to :vita_partner, optional: true
   belongs_to :triage_source, optional: true, polymorphic: true
   accepts_nested_attributes_for :dependents, allow_destroy: true
