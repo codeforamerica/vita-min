@@ -18,6 +18,8 @@
         <%= form_with url: destroy_user_session_path, local: true, method: :delete, class: "toolbar__item text--small" do |f| %>
           <%= f.submit value: t("general.sign_out"), class: "button--link" %>
         <% end %>
+      <% elsif @show_client_sign_in_link %>
+        <%= link_to t("general.sign_in"), new_portal_client_login_path, class: "toolbar__item text--small" %>
       <% end %>
     </div>
   </div>
