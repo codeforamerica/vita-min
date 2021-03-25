@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Logging in" do
   context "With a client who consented", active_job: true do
     let!(:client) do
-        create(:intake, :primary_consented, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006").client
+      create(:intake, :primary_consented, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006").client
     end
 
     context "As a client logging in from the login page" do
