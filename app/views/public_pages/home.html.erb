@@ -23,6 +23,17 @@
         <% else %>
           <%= link_to t("general.register"), new_signup_path, id: "firstCta", class: "button button--med-wide button--primary" %>
         <% end %>
+
+        <p>
+          <strong>
+            <%= link_to t(".already_started"), new_portal_client_login_path %>
+          </strong>
+        </p>
+      </div>
+
+      <div class="grid__item width-one-half hero-illustration">
+        <%= image_tag "homepage-hero-mobile.svg", alt: "", class: "hero-illustration__mobile" %>
+        <%= image_tag "homepage-hero.svg", alt: "", class: "hero-illustration__desktop" %>
       </div>
     </div>
   </div>
