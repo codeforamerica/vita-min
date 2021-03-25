@@ -2321,3 +2321,5 @@ en:
     forbidden:
       title: Access not allowed
       body_html: Oops! Looks like you're trying to access a page or client you do not have access to. Please contact Partner Support at <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> if you need to merge a duplicate client you do not have access to.
+    home:
+      already_started: "Already started? Find out next steps with a progress update."

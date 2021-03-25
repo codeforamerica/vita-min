@@ -2347,3 +2347,5 @@ es:
     forbidden:
       title: Acceso no permitido
       body_html: ¡Huy! Parece que estás intentando acceder a una página o un cliente al que no tienes acceso. Póngase en contacto con Soporte para socios en <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> si necesita fusionar un cliente duplicado al que no tiene acceso.
+    home:
+      already_started: "¿Ya iniciado? Descubra los próximos pasos con una actualización de progreso."
