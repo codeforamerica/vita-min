@@ -1,5 +1,5 @@
 module Questions
-  class StartWithCurrentYearController < QuestionsController
+  class StartWithCurrentYearController < AnonymousIntakeController
     layout "intake"
 
     private
