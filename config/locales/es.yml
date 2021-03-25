@@ -79,6 +79,7 @@ es:
         filter: Filtrar resultados
         client_id_heading: Cliente ID
         filing_year: Año para declarar
+        from_saved_search: de tu búsqueda guardada
         title: Todos clientes
         no_clients: No hay clientes asignadas.
         no_filtered_clients: Ninguna cliente coincide con los filtros seleccionados.

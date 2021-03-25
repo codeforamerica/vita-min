@@ -1,7 +1,11 @@
 module ClientSortable
   def filtered_and_sorted_clients(default_order: nil)
     @default_order = default_order || { "response_needed_since" => "asc" }
-    setup_sortable_client unless @filters.present?
+    @sort_column = clients_sort_column
+    @sort_order = clients_sort_order
+    setup_sortable_client
+    return bulk_edit_clients_only if params[:bulk_edit].present?
+
     clients = if current_user&.greeter?
               # Greeters should only have "search" access to clients in intake stage AND clients assigned to them.
                 @clients.in_intake.or(Client.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct)
@@ -37,9 +41,8 @@ module ClientSortable
 
   def setup_sortable_client
     delete_cookie if params[:clear]
-    @sort_column = clients_sort_column
-    @sort_order = clients_sort_order
     filter_source = has_search_and_sort_params? ? params : cookie_filters
+    filter_source = { saved_search: true } if params[:bulk_edit].present? # ignore filters for bulk_edit display
     @filters = filters_from(filter_source)
     set_cookie
   end
@@ -49,7 +52,25 @@ module ClientSortable
   end
 
   def set_cookie
+    return if params[:bulk_edit].present?
+
     cookies[filter_cookie_name] = JSON.generate(@filters.select { |_, v| v.present? }) if filter_cookie_name.present?
+  end
+
+  def bulk_edit_clients_only
+    bulk_edit = BulkEdit.find_by(id: params[:bulk_edit])
+    return @clients unless bulk_edit.present?
+
+    record_type = bulk_edit.record_type
+    record_ids = if params[:only] == "successful"
+                   bulk_edit.successful_ids
+                 elsif params[:only] == "failed"
+                   bulk_edit.failed_ids
+                 else
+                   bulk_edit.successful_ids + bulk_edit.failed_ids
+                 end
+    query = record_type == Client ? { id: record_ids } : { bulk_edit.record_type.table_name.to_sym => { id: record_ids } }
+    @clients.where(query)
   end
 
   def filters_from(source)
@@ -65,7 +86,8 @@ module ClientSortable
       vita_partner_id: source[:vita_partner_id]&.to_s,
       assigned_user_id: source[:assigned_user_id]&.to_s,
       language: source[:language],
-      service_type: source[:service_type]
+      service_type: source[:service_type],
+      saved_search: source[:saved_search]
     }
   end
 

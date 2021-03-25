@@ -8,7 +8,7 @@
   <section class="slab slab--padded">
     <div class="pagination-wrapper">
       <div>
-        <%= page_entries_info @clients, model: "client" %>
+        <%= page_entries_info @clients, model: "client" %> <%= t(".from_saved_search") if @filters[:saved_search].present? %>
       </div>
       <div>
         <%= will_paginate(

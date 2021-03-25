@@ -36,6 +36,114 @@ RSpec.describe ClientSortable, type: :controller do
   end
 
   describe "#filtered_and_sorted_clients" do
+    context "when bulk_edit param is present" do
+      context "if a bulk edit cannot be found" do
+        let(:params) do
+          { bulk_edit: "x" }
+        end
+        it "returns unscoped clients" do
+          expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+          expect(clients_query_double).not_to have_received(:where)
+        end
+      end
+
+      context "with additional filter params" do
+        let(:params) do
+          {
+            bulk_edit: "1",
+            search: "que"
+          }
+        end
+        it "ignores additional params and does not set them as filters" do
+          expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+          expect(Intake).not_to have_received(:search).with "que"
+          expect(assigns(:filters)).to include({ saved_search: true })
+          other_filters = assigns(:filters).except(:saved_search).values
+          expect(other_filters.uniq).to eq [nil]
+        end
+      end
+
+      context "with a bulk edit of record type Client" do
+        let(:bulk_edit) { BulkEdit.generate!(user: (create :user), failed_ids: [1, 2, 3], successful_ids: [4, 5, 6], record_type: Client)}
+        context "without an only param" do
+          let(:params) do
+            { bulk_edit: bulk_edit.id }
+          end
+          it "queries for all client record ids" do
+            expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+            expect(clients_query_double).to have_received(:where).with({ id: [4, 5, 6, 1, 2, 3] })
+          end
+        end
+
+        context "with an only successful param" do
+          let(:params) do
+            { bulk_edit: bulk_edit.id,
+              only: "successful"
+            }
+          end
+          it "queries for only the successful ids" do
+            expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+            expect(clients_query_double).to have_received(:where).with({ id: [4, 5, 6] })
+          end
+        end
+
+        context "with an only failed param" do
+          let(:params) do
+            {
+              bulk_edit: bulk_edit.id,
+              only: "failed"
+            }
+          end
+          it "queries for only failed client ids" do
+            expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+            expect(clients_query_double).to have_received(:where).with({ id: [1, 2, 3] })
+          end
+        end
+      end
+
+
+      context "when bulk_edit record_type is TaxReturn" do
+        let(:bulk_edit) { BulkEdit.generate!(user: (create :user), failed_ids: [1, 2, 3], successful_ids: [4, 5, 6], record_type: TaxReturn)}
+
+        context "without an only param" do
+          let(:params) do
+            { bulk_edit: bulk_edit.id }
+          end
+          it "queries for all client record ids" do
+            expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+            expect(clients_query_double).to have_received(:where).with({ tax_returns: { id: [4, 5, 6, 1, 2, 3] } })
+          end
+        end
+
+        context "with an only successful param" do
+          let(:params) do
+            {
+              bulk_edit: bulk_edit.id,
+              only: "successful"
+            }
+          end
+
+          it "queries for only successful client record ids" do
+            expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+            expect(clients_query_double).to have_received(:where).with({ tax_returns: { id: [4, 5, 6] } })
+          end
+        end
+
+        context "with an only failed param" do
+          let(:params) do
+            {
+              bulk_edit: bulk_edit.id,
+              only: "failed"
+            }
+          end
+          it "queries for only failed client ids" do
+            expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+            expect(clients_query_double).to have_received(:where).with({ tax_returns: { id: [1, 2, 3] } })
+          end
+        end
+      end
+    end
+    
     context "when user is a greeter" do
       let(:params) do
         {}
