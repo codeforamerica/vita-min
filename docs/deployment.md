@@ -99,6 +99,7 @@ It may be necessary in some circumstances to trigger a deploy of code that isn't
 
 1. `git fetch` to make sure you have the latest code
 1. `git checkout release` to switch to the release branch
+1. `git reset --hard origin/release` to make your release branch match what's on GitHub
 1. `git log` to validate that you're on an identical commit to `origin/release`
 1. Make whatever commits you need to make. Consider `git cherry-pick` to grab individual commits from main. For example `git cherry-pick commitId` will grab a commit whose ID is `commitId`.
 1. `git tag version-N.N.N` with the next version. You can find the previous versions listed on the GitHub releases page, or in the output of `git tag`.
