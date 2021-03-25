@@ -1,13 +1,17 @@
 require "rails_helper"
 
 RSpec.describe Questions::FinalInfoController do
-  before do
-    sign_in intake.client
+  describe "#edit" do
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :edit
   end
 
   describe "#update" do
     let(:params) do
       { final_info_form: { final_info: "I moved here from Alaska." } }
+    end
+
+    before do
+      sign_in intake.client
     end
 
     context "for any intake" do

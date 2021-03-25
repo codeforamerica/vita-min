@@ -77,4 +77,10 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
       end
     end
   end
+
+  describe "#prev_path" do
+    it "returns nil" do
+      expect(subject.prev_path).to be_nil
+    end
+  end
 end
