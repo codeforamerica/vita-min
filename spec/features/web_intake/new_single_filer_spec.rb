@@ -12,6 +12,9 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
 
     # Welcome
     expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
+    within ".main-header" do
+      expect(page).to have_text("Sign in")
+    end
     click_on "File taxes with help"
 
     # File With Help
