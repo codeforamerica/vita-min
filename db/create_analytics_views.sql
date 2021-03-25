@@ -9,84 +9,83 @@
 --
 -- VIEWs in this file are listed alphabetically, like tables in schema.db.
 --
--- We use CREATE OR REPLACE VIEW to avoid dropping and re-generating views every time.
--- If you need to drop these views for some reason, it's OK. Do so with with:
--- `rails analytics:remove` or DROP SCHEMA IF EXISTS analytics CASCADE;
-CREATE SCHEMA IF NOT EXISTS analytics;
+-- We drop the schema to avoid CREATE OR REPLACE failing if column order changes
+DROP SCHEMA IF EXISTS analytics CASCADE;
+CREATE SCHEMA analytics;
 
-CREATE OR REPLACE VIEW analytics.active_storage_attachments AS
+CREATE VIEW analytics.active_storage_attachments AS
     SELECT id, blob_id, created_at, record_id, record_type
     FROM public.active_storage_attachments;
 
-CREATE OR REPLACE VIEW analytics.active_storage_blobs AS
+CREATE VIEW analytics.active_storage_blobs AS
     SELECT id, byte_size, checksum, content_type, created_at, key
     FROM public.active_storage_blobs;
 
-CREATE OR REPLACE VIEW analytics.admin_roles AS
+CREATE VIEW analytics.admin_roles AS
     SELECT id, created_at, updated_at
     FROM public.admin_roles;
 
-CREATE OR REPLACE VIEW analytics.anonymized_diy_intake_csv_extracts AS
+CREATE VIEW analytics.anonymized_diy_intake_csv_extracts AS
     SELECT id, created_at, record_count, run_at, updated_at
     FROM public.anonymized_diy_intake_csv_extracts;
 
-CREATE OR REPLACE VIEW analytics.anonymized_intake_csv_extracts AS
+CREATE VIEW analytics.anonymized_intake_csv_extracts AS
     SELECT id, created_at, record_count, run_at, updated_at
     FROM public.anonymized_intake_csv_extracts;
 
-CREATE OR REPLACE VIEW analytics.client_success_roles AS
+CREATE VIEW analytics.client_success_roles AS
     SELECT id, created_at, updated_at
     FROM public.client_success_roles;
 
-CREATE OR REPLACE VIEW analytics.clients AS
+CREATE VIEW analytics.clients AS
     SELECT id, attention_needed_since, created_at, current_sign_in_at, failed_attempts, first_unanswered_incoming_interaction_at, last_incoming_interaction_at, last_internal_or_outgoing_interaction_at, last_sign_in_at, locked_at, login_requested_at, routing_method, sign_in_count, updated_at, vita_partner_id
     FROM public.clients;
 
-CREATE OR REPLACE VIEW analytics.coalition_lead_roles AS
+CREATE VIEW analytics.coalition_lead_roles AS
     SELECT id, coalition_id, created_at, updated_at
     FROM public.coalition_lead_roles;
 
-CREATE OR REPLACE VIEW analytics.coalitions AS
+CREATE VIEW analytics.coalitions AS
     SELECT id, created_at, name, updated_at
     FROM public.coalitions;
 
-CREATE OR REPLACE VIEW analytics.delayed_jobs AS
+CREATE VIEW analytics.delayed_jobs AS
     SELECT id, attempts, created_at, failed_at, locked_at, locked_by, priority, queue, run_at, updated_at
     FROM public.delayed_jobs;
 
-CREATE OR REPLACE VIEW analytics.dependents AS
+CREATE VIEW analytics.dependents AS
     SELECT id, created_at, disabled, intake_id, months_in_home, north_american_resident, on_visa, updated_at, was_married, was_student
     FROM public.dependents;
 
-CREATE OR REPLACE VIEW analytics.diy_intakes AS
+CREATE VIEW analytics.diy_intakes AS
     SELECT id, created_at, locale, referrer, source, updated_at, visitor_id, zip_code
     FROM public.diy_intakes;
 
-CREATE OR REPLACE VIEW analytics.documents AS
+CREATE VIEW analytics.documents AS
     SELECT id, client_id, contact_record_id, contact_record_type, created_at, document_type, documents_request_id, intake_id, tax_return_id, updated_at, uploaded_by_id, uploaded_by_type
     FROM public.documents;
 
-CREATE OR REPLACE VIEW analytics.documents_requests AS
+CREATE VIEW analytics.documents_requests AS
     SELECT id, created_at, intake_id, updated_at
     FROM public.documents_requests;
 
-CREATE OR REPLACE VIEW analytics.greeter_coalition_join_records AS
+CREATE VIEW analytics.greeter_coalition_join_records AS
     SELECT id, coalition_id, created_at, greeter_role_id, updated_at
     FROM public.greeter_coalition_join_records;
 
-CREATE OR REPLACE VIEW analytics.greeter_organization_join_records AS
+CREATE VIEW analytics.greeter_organization_join_records AS
     SELECT id, greeter_role_id, updated_at, vita_partner_id
     FROM public.greeter_organization_join_records;
 
-CREATE OR REPLACE VIEW analytics.greeter_roles AS
+CREATE VIEW analytics.greeter_roles AS
     SELECT id, created_at, updated_at
     FROM public.greeter_roles;
 
-CREATE OR REPLACE VIEW analytics.incoming_emails AS
+CREATE VIEW analytics.incoming_emails AS
     SELECT id, attachment_count, client_id, created_at, received_at, updated_at
     FROM public.incoming_emails;
 
-CREATE OR REPLACE VIEW analytics.intakes AS
+CREATE VIEW analytics.intakes AS
     SELECT id, adopted_child, already_applied_for_stimulus, already_filed, balance_pay_from_bank,
            bank_account_type, bought_energy_efficient_items, bought_health_insurance, city,
            claimed_by_another, client_id, completed_at, completed_yes_no_questions_at, continued_at_capacity,
@@ -120,83 +119,79 @@ CREATE OR REPLACE VIEW analytics.intakes AS
            was_on_visa, widowed
     FROM public.intakes;
 
-CREATE OR REPLACE VIEW analytics.notes AS
+CREATE VIEW analytics.notes AS
     SELECT id, client_id, created_at, updated_at, user_id
     FROM public.notes;
 
-CREATE OR REPLACE VIEW analytics.organization_lead_roles AS
+CREATE VIEW analytics.organization_lead_roles AS
     SELECT id, created_at, updated_at, vita_partner_id
     FROM public.organization_lead_roles;
 
-CREATE OR REPLACE VIEW analytics.outbound_calls AS
+CREATE VIEW analytics.outbound_calls AS
     SELECT id, client_id, created_at, twilio_call_duration, twilio_sid, twilio_status, updated_at, user_id
     FROM public.outbound_calls;
 
-CREATE OR REPLACE VIEW analytics.outgoing_emails AS
+CREATE VIEW analytics.outgoing_emails AS
     SELECT id, client_id, created_at, sent_at, updated_at, user_id
     FROM public.outgoing_emails;
 
-CREATE OR REPLACE VIEW analytics.outgoing_text_messages AS
+CREATE VIEW analytics.outgoing_text_messages AS
     SELECT id, body, client_id, created_at, sent_at, twilio_sid, twilio_status, updated_at, user_id
     FROM public.outgoing_text_messages;
 
-CREATE OR REPLACE VIEW analytics.provider_scrapes AS
+CREATE VIEW analytics.provider_scrapes AS
     SELECT id, archived_count, changed_count, created_at, created_count, updated_at
     FROM public.provider_scrapes;
 
-CREATE OR REPLACE VIEW analytics.signups AS
+CREATE VIEW analytics.signups AS
     SELECT id, created_at, updated_at
     FROM public.signups;
 
-CREATE OR REPLACE VIEW analytics.site_coordinator_roles AS
+CREATE VIEW analytics.site_coordinator_roles AS
     SELECT id, created_at, updated_at, vita_partner_id
     FROM public.site_coordinator_roles;
 
-CREATE OR REPLACE VIEW analytics.source_parameters AS
+CREATE VIEW analytics.source_parameters AS
     SELECT id, code, created_at, updated_at, vita_partner_id
     FROM public.source_parameters;
 
-CREATE OR REPLACE VIEW analytics.source_parameters AS
-    SELECT id, code, created_at, updated_at, vita_partner_id
-    FROM public.source_parameters;
-
-CREATE OR REPLACE VIEW analytics.stimulus_triages AS
+CREATE VIEW analytics.stimulus_triages AS
     SELECT id, chose_to_file, created_at, filed_prior_years, filed_recently, need_to_correct,
            need_to_file, source, updated_at
     FROM public.stimulus_triages;
 
-CREATE OR REPLACE VIEW analytics.system_notes AS
+CREATE VIEW analytics.system_notes AS
     SELECT id, client_id, created_at, type, updated_at, user_id
     FROM public.system_notes;
 
-CREATE OR REPLACE VIEW analytics.tax_returns AS
+CREATE VIEW analytics.tax_returns AS
     SELECT id, assigned_user_id, certification_level, client_id, created_at, is_hsa,
            primary_signature, primary_signed_at, ready_for_prep_at, service_type, spouse_signature, spouse_signed_at,
            status, updated_at, year
     FROM public.tax_returns;
 
-CREATE OR REPLACE VIEW analytics.team_member_roles AS
+CREATE VIEW analytics.team_member_roles AS
     SELECT id, created_at, updated_at, vita_partner_id
     FROM public.team_member_roles;
 
-CREATE OR REPLACE VIEW analytics.users AS
+CREATE VIEW analytics.users AS
     SELECT id, created_at, current_sign_in_at, failed_attempts, invitation_accepted_at, invitation_created_at,
            invitation_limit, invitation_sent_at, invitations_count, invited_by_id, last_sign_in_at,
            locked_at, reset_password_sent_at, role_id, role_type, sign_in_count, suspended_at, timezone, updated_at
     FROM public.users;
 
-CREATE OR REPLACE VIEW analytics.vita_partner_states AS
+CREATE VIEW analytics.vita_partner_states AS
     SELECT id, created_at, routing_fraction, state, updated_at, vita_partner_id
     FROM public.vita_partner_states;
 
-CREATE OR REPLACE VIEW analytics.vita_partner_zip_codes AS
+CREATE VIEW analytics.vita_partner_zip_codes AS
     SELECT id, created_at, updated_at, vita_partner_id, zip_code
     FROM public.vita_partner_zip_codes;
 
-CREATE OR REPLACE VIEW analytics.vita_partners AS
+CREATE VIEW analytics.vita_partners AS
     SELECT id, archived, capacity_limit, coalition_id, created_at, logo_path, name, national_overflow_location, parent_organization_id, timezone, updated_at
     FROM public.vita_partners;
 
-CREATE OR REPLACE VIEW analytics.vita_providers AS
+CREATE VIEW analytics.vita_providers AS
     SELECT id, appointment_info, archived, coordinates, created_at, dates, details, hours, irs_id, languages, last_scrape_id, name, updated_at
     FROM public.vita_providers;
