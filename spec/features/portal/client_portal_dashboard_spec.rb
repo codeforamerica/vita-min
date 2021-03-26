@@ -45,9 +45,9 @@ RSpec.feature "a client on their portal" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Martha!"
 
-      expect(page).to have_text "2019 tax documents"
-      expect(page).to have_text "2018 tax documents"
-      expect(page).to have_text "2017 tax documents"
+      expect(page).to have_text "2019 tax return"
+      expect(page).to have_text "2018 tax return"
+      expect(page).to have_text "2017 tax return"
 
       within "#tax-year-2019" do
         expect(page).to have_link "View or download Another 8879"
