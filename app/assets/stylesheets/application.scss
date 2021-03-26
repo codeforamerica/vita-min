@@ -123,10 +123,12 @@ body {
 
   .main-header__logo {
     padding-left: 3rem;
+
     &:before {
       top: 0.4rem;
       width: 2.0rem;
       height: 1.7rem;
+      background-size: 100% auto;
       @include retina-bg(checkbox-logo--white, 100% auto);
     }
   }
