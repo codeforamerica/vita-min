@@ -8,7 +8,7 @@
   <% if @current_step.present? %>
     <div class="tax-return-status">
       <div class="tax-return-status__row tax-return-status__with-alert">
-        <%= image_tag("attn.svg", alt: "") %>
+        <%= image_tag("icons/exclamation.svg", alt: "") %>
         <% link_text = @current_step.include?("/documents/") ? t(".tax_returns.submit_additional_documents") : t(".tax_returns.answer_questions") %>
         <%= link_to link_text, @current_step %>
       </div>
@@ -72,14 +72,14 @@
 
             <% if tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
               <div class="tax-return-status__row tax-return-status__with-alert">
-                <%= image_tag("attn.svg", alt: "") %>
+                <%= image_tag("icons/exclamation.svg", alt: "") %>
                 <%= link_to t(".tax_returns.submit_primary"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id) %>
               </div>
             <% end %>
 
             <% if tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
               <div class="tax-return-status__row tax-return-status__with-alert">
-                <%= image_tag("attn.svg", alt: "") %>
+                <%= image_tag("icons/exclamation.svg", alt: "") %>
                 <%= link_to t(".tax_returns.submit_spouse"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id) %>
               </div>
             <% end %>
