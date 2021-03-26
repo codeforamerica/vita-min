@@ -10,7 +10,8 @@
       <h1 class="h2"><%= t(".title") %></h1>
 
       <p><%= t(".confirm_identity") %></p>
-      <%= f.cfa_input_field(:last_four_or_client_id, t(".last_four_or_client_id"), classes: ["form-width--long"], options: { pattern: "[0-9]*", inputmode: "numeric" }) %>
+      <%= f.cfa_input_field(:last_four_or_client_id, t(".last_four_or_client_id"), classes: ["form-width--long"]) %>
+      <%# when we upgrade honeycrisp: options: { pattern: "[0-9]{6}", inputmode: "numeric", minlength: "6" } %>
     </div>
 
     <%= f.submit t("general.continue"), class: "button button--primary button--wide" %>

@@ -2,6 +2,9 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title", name: current_client.intake.preferred_name) %></h1>
+
+  <p><%= t(".heres_what_we_need") %></p>
+
   <% if @current_step.present? %>
     <div class="tax-return-status">
       <div class="tax-return-status__row tax-return-status__with-alert">
@@ -23,11 +26,13 @@
           <% if tax_return.final_tax_documents.present? %>
             <% if tax_return.final_tax_documents.count == 1 %>
               <div class="tax-return-status__row tax-return-status__solo">
+                <%= image_tag("icons/check.svg", alt: "") %>
                 <%= link_to t(".tax_returns.view_final_tax_document", year: tax_return.year), portal_document_path(id: tax_return.final_tax_documents.first.id), target: "_blank" %>
               </div>
             <% else %>
               <% tax_return.final_tax_documents.each do |tax_doc| %>
                 <div class="tax-return-status__row tax-return-status__solo">
+                  <%= image_tag("icons/check.svg", alt: "") %>
                   <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
                 </div>
               <% end %>
@@ -37,11 +42,13 @@
           <% if tax_return.signed_8879s.present? %>
             <% if tax_return.signed_8879s.count == 1 %>
               <div class="tax-return-status__row tax-return-status__solo">
+                <%= image_tag("icons/check.svg", alt: "") %>
                 <%= link_to t(".tax_returns.view_signed_8879"), portal_document_path(id: tax_return.signed_8879s.first.id), target: "_blank" %>
               </div>
             <% else %>
               <% tax_return.signed_8879s.each do |tax_doc| %>
                 <div class="tax-return-status__row tax-return-status__solo">
+                <%= image_tag("icons/check.svg", alt: "") %>
                   <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
                 </div>
               <% end %>
@@ -51,11 +58,13 @@
           <% if tax_return.unsigned_8879s.present? %>
             <% if tax_return.unsigned_8879s.count == 1 %>
               <div class="tax-return-status__row tax-return-status__solo">
+                <%= image_tag("icons/check.svg", alt: "") %>
                 <%= link_to t(".tax_returns.view_unsigned_8879"), portal_document_path(id: tax_return.unsigned_8879s.first.id), target: "_blank" %>
               </div>
             <% else %>
               <% tax_return.unsigned_8879s.each do |tax_doc| %>
                 <div class="tax-return-status__row tax-return-status__solo">
+                  <%= image_tag("icons/check.svg", alt: "") %>
                   <%= link_to t(".tax_returns.view_document", display_name: tax_doc.display_name), portal_document_path(id: tax_doc.id), target: "_blank" %>
                 </div>
               <% end %>
@@ -84,7 +93,7 @@
         </div>
       </div>
     <% end %>
-    <div class="spacing-above-35">
+    <div class="spacing-above-60">
       <%= link_to t(".submit_documents"), portal_upload_documents_path, class: "button button--wide" %>
     </div>
   <%end %>
