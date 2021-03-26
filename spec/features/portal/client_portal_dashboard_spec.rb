@@ -45,23 +45,23 @@ RSpec.feature "a client on their portal" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Martha!"
 
-      expect(page).to have_text "2019 tax documents"
-      expect(page).to have_text "2018 tax documents"
-      expect(page).to have_text "2017 tax documents"
+      expect(page).to have_text "2019 tax return"
+      expect(page).to have_text "2018 tax return"
+      expect(page).to have_text "2017 tax return"
 
       within "#tax-year-2019" do
-        expect(page).to have_link "View/download Another 8879"
-        expect(page).to have_link "View/download " + tax_return2019.unsigned_8879s.first.display_name
+        expect(page).to have_link "View or download Another 8879"
+        expect(page).to have_link "View or download " + tax_return2019.unsigned_8879s.first.display_name
 
-        expect(page).to have_link "View/download final 2019 tax document"
+        expect(page).to have_link "View or download final 2019 tax document"
         expect(page).to have_link "Submit primary taxpayer signature"
         expect(page).to have_link "Submit spouse signature"
       end
 
       within "#tax-year-2018" do
-        expect(page).to have_link "View/download signed form 8879"
-        expect(page).to have_link "View/download Some final tax document"
-        expect(page).to have_link "View/download Another final tax document"
+        expect(page).to have_link "View or download signed form 8879"
+        expect(page).to have_link "View or download Some final tax document"
+        expect(page).to have_link "View or download Another final tax document"
         expect(page).not_to have_link "Submit primary taxpayer signature"
       end
 
