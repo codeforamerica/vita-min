@@ -10,8 +10,8 @@ module Hub
       self.client_phone_number = PhoneParser.normalize(client_phone_number)
     end
 
-    validates :user_phone_number, phone: true
-    validates :client_phone_number, phone: true
+    validates :user_phone_number, e164_phone: true
+    validates :client_phone_number, e164_phone: true
 
     def initialize(attrs = {}, **kwargs)
       @user = kwargs[:user]

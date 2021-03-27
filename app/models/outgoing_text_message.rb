@@ -31,7 +31,7 @@ class OutgoingTextMessage < ApplicationRecord
   belongs_to :user, optional: true
   validates_presence_of :body
   validates_presence_of :sent_at
-  validates :to_phone_number, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
+  validates :to_phone_number, e164_phone: true
 
   after_create :deliver, :broadcast
   after_create :record_outgoing_interaction, if: ->(msg) { msg.user.present? }

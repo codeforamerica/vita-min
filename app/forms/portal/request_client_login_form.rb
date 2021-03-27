@@ -4,7 +4,7 @@ module Portal
 
     before_validation :normalize_phone_number
     validates :email_address, 'valid_email_2/email': { mx: true }
-    validates :sms_phone_number, allow_blank: true, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
+    validates :sms_phone_number, allow_blank: true, e164_phone: true
     validate :phone_number_or_email_address
 
     private

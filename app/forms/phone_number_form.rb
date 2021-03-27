@@ -2,7 +2,7 @@ class PhoneNumberForm < QuestionsForm
   set_attributes_for :intake, :phone_number, :phone_number_confirmation, :phone_number_can_receive_texts
   before_validation :normalize_phone_numbers
 
-  validates :phone_number, phone: true
+  validates :phone_number, e164_phone: true
   validates :phone_number, confirmation: true
   validates :phone_number_confirmation, presence: true
 

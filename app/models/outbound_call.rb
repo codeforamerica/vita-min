@@ -23,8 +23,7 @@ class OutboundCall < ApplicationRecord
   include InteractionTracking
   belongs_to :user
   belongs_to :client
-  validates :to_phone_number, phone: true, presence: true
-  validates :from_phone_number, phone: true, presence: true
+  validates :from_phone_number, :to_phone_number, e164_phone: true, presence: true
 
   after_create :record_outgoing_interaction
 

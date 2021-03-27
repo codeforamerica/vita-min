@@ -57,7 +57,7 @@ class User < ApplicationRecord
   self.per_page = 25
 
   before_validation :format_phone_number
-  validates :phone_number, phone: true, allow_blank: true, format: { with: /\A\+1[0-9]{10}\z/ }
+  validates :phone_number, e164_phone: true, allow_blank: true
   validates :email, 'valid_email_2/email': { mx: true }
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_many :access_logs

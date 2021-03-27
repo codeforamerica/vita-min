@@ -3,6 +3,7 @@ class NotificationPreferenceForm < QuestionsForm
   before_validation :parse_sms_phone_number
   validate :need_phone_number_for_sms_opt_in
   validate :need_one_communication_method
+  validates :sms_phone_number, allow_blank: true, e164_phone: true
 
   def save
     intake.update(attributes_for(:intake))
