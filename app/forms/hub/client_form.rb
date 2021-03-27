@@ -19,14 +19,13 @@ module Hub
       self.preferred_name = preferred_name.presence || "#{primary_first_name} #{primary_last_name}"
     end
 
+    validates :email_address, 'valid_email_2/email': true
+    validates :phone_number, allow_blank: true, e164_phone: true
+    validates :sms_phone_number, allow_blank: true, e164_phone: true
+    validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
     validates :primary_first_name, presence: true, allow_blank: false
     validates :primary_last_name, presence: true, allow_blank: false
-    validates :phone_number, allow_blank: true, phone: true
     validates :state_of_residence, inclusion: { in: States.keys }
-
-    validates :sms_phone_number, phone: true, if: -> { sms_phone_number.present? }
-    validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
-    validates :email_address, 'valid_email_2/email': true
     validates :preferred_interview_language, presence: true, allow_blank: false
     validate :at_least_one_contact_method
 

@@ -206,7 +206,7 @@ class Intake < ApplicationRecord
   scope :completed_yes_no_questions, -> { where.not(completed_yes_no_questions_at: nil) }
 
   validates :email_address, 'valid_email_2/email': true
-  validates :phone_number, :sms_phone_number, allow_blank: true, phone: true, format: { with: /\A\+1[0-9]{10}\z/ }
+  validates :phone_number, :sms_phone_number, allow_blank: true, e164_phone: true
   validates_presence_of :visitor_id
 
   after_save do
