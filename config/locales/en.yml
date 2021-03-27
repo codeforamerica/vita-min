@@ -148,7 +148,10 @@ en:
         system_generated_doc: Auto-generated
         client_doc: Client
         upload_by: Uploaded By
+        archived_documents: "Archived documents"
       display_name: Display name
+      form:
+        archived_label: "Archive document"
     messages:
       index:
         email_form:
@@ -729,6 +732,7 @@ en:
     ui: "UI"
     unemployment_income: "Unemployment Income"
     unread: Notification unread
+    documents: "Documents"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

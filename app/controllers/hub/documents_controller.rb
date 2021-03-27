@@ -10,10 +10,13 @@ module Hub
     layout "admin"
 
     def index
-      @sort_order = sort_order
-      @sort_column = sort_column
-      @documents = @documents.except(:order).order({ @sort_column => @sort_order })
-      @document = Document.new # used for form to upload documents
+      @documents = sorted_documents.active
+    end
+
+    def archived
+      @documents = sorted_documents.archived
+      @show_archived_index = true
+      render :index
     end
 
     def show
@@ -49,6 +52,12 @@ module Hub
 
     private
 
+    def sorted_documents
+      @sort_order = sort_order
+      @sort_column = sort_column
+      @documents.except(:order).order({ @sort_column => @sort_order })
+    end
+
     def log_document_access!
       AccessLog.create!(
         user: current_user,
@@ -62,7 +71,7 @@ module Hub
 
     def document_params
       params.require(:document)
-          .permit(:document_type, :display_name, :tax_return_id, upload: [])
+          .permit(:document_type, :display_name, :tax_return_id, :archived, upload: [])
           .merge({ client: @client })
     end
 

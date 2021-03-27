@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_143154) do
+ActiveRecord::Schema.define(version: 2021_03_27_024035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -172,6 +172,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_143154) do
   end
 
   create_table "documents", force: :cascade do |t|
+    t.boolean "archived", default: false, null: false
     t.bigint "client_id"
     t.bigint "contact_record_id"
     t.string "contact_record_type"
