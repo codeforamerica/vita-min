@@ -1,7 +1,7 @@
 <% status_updateable ||= false %>
 
 <ul class="tax-return-list">
-  <% client.tax_returns.each do |tax_return| %>
+  <% client.tax_returns.sort_by(&:year).each do |tax_return| %>
     <li id="tax-return-<%= tax_return.id %>">
       <div class="tax-return-list__assignment">
         <div class="tax-return-list__year">

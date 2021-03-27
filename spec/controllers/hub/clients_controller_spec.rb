@@ -522,11 +522,31 @@ RSpec.describe Hub::ClientsController do
           }
         end
 
+        before do
+          create(:tax_return, year: 2018, client: Client.first)
+        end
+
         it "only shows the 26th client" do
           get :index, params: params
 
           expect(assigns(:clients).length).to eq 1
           expect(assigns(:clients)).to match_array [last_client]
+        end
+      end
+
+      context "ordering tax returns" do
+        let(:client) { (create :intake).client }
+        let!(:tax_return_2020) { create :tax_return, client: client, year: 2020 }
+        let!(:tax_return_2019) { create :tax_return, client: client, year: 2019 }
+        before { client.update(vita_partner: organization) }
+        render_views
+
+        it "shows the tax returns in order of year" do
+          get :index, params: {}
+
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.css(".tax-return-list__year").first).to have_text("2019")
+          expect(html.css(".tax-return-list__year").last).to have_text("2020")
         end
       end
 
