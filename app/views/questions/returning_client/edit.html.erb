@@ -5,22 +5,20 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
-        <main role="main">
-          <div class="question__illustration spacing-above-0">
-            <%= image_tag("returning-client.svg", alt: "") %>
-          </div>
+        <div class="question__illustration spacing-above-0">
+          <%= image_tag("returning-client.svg", alt: "") %>
+        </div>
 
-          <h1 class="form-question">
-            <%= @main_heading %>
-          </h1>
-          <p>
-            <%=t("views.questions.returning_client.next_steps_html", :email_link => mail_to("support@getyourrefund.org")) %>
-          <p>
+        <h1 class="form-question">
+          <%= @main_heading %>
+        </h1>
+        <p>
+          <%= t("views.questions.returning_client.next_steps_html", :email_link => mail_to("hello@getyourrefund.org")) %>
+        <p>
 
-          <%= link_to root_path, class: "button button--primary text--centered button--wide spacing-above-60" do %>
-              <%=t("general.return_home") %>
-          <% end %>
-        </main>
+        <%= link_to new_portal_client_login_path, "data-track-click": "login_from_returning_clients", class: "button button--primary text--centered button--wide spacing-above-60" do %>
+          <%= t("general.sign_in") %>
+        <% end %>
       </div>
     </div>
   </section>
