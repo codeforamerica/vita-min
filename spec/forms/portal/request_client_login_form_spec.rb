@@ -59,5 +59,15 @@ RSpec.describe Portal::RequestClientLoginForm do
         expect(form.errors.keys).to match_array([:sms_phone_number])
       end
     end
+
+    context "with a phone number and email address" do
+      let(:params){ { sms_phone_number: "510 555 1234", email_address: "example@example.com" } }
+
+      it "is not valid" do
+        expect(form).not_to be_valid
+        expect(form.errors.keys).to match_array([:email_address])
+        expect(form.errors[:email_address]).to eq ["Please enter only one form of contact."]
+      end
+    end
   end
 end

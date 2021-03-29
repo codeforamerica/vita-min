@@ -530,6 +530,7 @@ en:
       status_must_change: Can't initiate status change to current status.
       tax_return_belongs_to_client: Can't update tax return unrelated to current client.
       need_one_communication_method: Please choose some way for us to contact you.
+      need_exactly_one_communication_method: Please enter only one form of contact.
       need_phone_number: Please enter a cell phone number.
       dependents: Please enter the %{attrs} of each dependent.
       dependents_attributes:
