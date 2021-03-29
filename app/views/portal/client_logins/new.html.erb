@@ -5,7 +5,7 @@
     <div class="form-card__content">
       <h1 class="h2"><%= t(".title") %></h1>
       <p><%= t(".one_form_of_contact") %></p>
-      <%= f.cfa_input_field(:sms_phone_number, t("general.sms_phone_number"), classes: ["form-width--long", "phone-input"]) %>
+      <%= f.cfa_input_field(:sms_phone_number, t("general.sms_phone_number"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:email_address, t("general.email_address"), classes: ["form-width--long"]) %>
 
       <button class="button button--primary button--wide" type="submit">
