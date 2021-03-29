@@ -106,6 +106,7 @@ en:
         assigned_user: Assigned to
         no_name_given: "Name left blank"
         first_unanswered_incoming_interaction_at: "Oldest unanswered action"
+        created_at: Created at
       unlinked_clients:
         title: Unlinked clients
       navigation:
