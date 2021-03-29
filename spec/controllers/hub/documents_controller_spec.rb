@@ -146,7 +146,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
   describe "#edit" do
     let(:document) { create :document, client: client }
-    let(:params) { { id: document.id, client_id: client.id }}
+    let(:params) { { id: document.id, client_id: client.id } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
@@ -161,7 +161,6 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
       it "lists the available tax returns" do
         get :edit, params: params
-
         tax_return_select = Nokogiri::HTML.parse(response.body).at_css("select#document_tax_return_id")
         expect(tax_return_select).to have_text "2020"
         expect(tax_return_select).to have_text "2019"

@@ -6,6 +6,7 @@ module Hub
     before_action :require_sign_in
     load_and_authorize_resource :client
     load_and_authorize_resource through: :client
+    helper_method :transient_storage_url
 
     layout "admin"
 

@@ -287,3 +287,17 @@
   }
 }
 
+.grid-flex {
+  display: flex;
+
+  .no-shrink {
+    flex-shrink: 0;
+  }
+  .item {
+    margin-right: 60px;
+  }
+  .item:last-of-type {
+    margin-right: 0;
+  }
+}
+

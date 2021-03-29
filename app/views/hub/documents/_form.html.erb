@@ -1,29 +1,27 @@
-<section class="slab" xmlns="http://www.w3.org/1999/html">
-  <div class="grid">
-    <%= form_with model: @document, url: url, local: true, method: method, file_upload_enabled: file_upload_enabled, builder: VitaMinFormBuilder do |f| %>
+<div>
+  <%= form_with model: @document, url: url, local: true, method: method, file_upload_enabled: file_upload_enabled, builder: VitaMinFormBuilder do |f| %>
 
-      <h1 class="h2"><%= @title %></h1>
-      <% if file_upload_enabled %>
-        <div class="form-group <%= "form-group--error" if @document.errors[:upload].present? %>">
-          <%= f.label(:upload, t("general.select_files"), class: "form-question") %>
-          <%= f.file_field :upload, multiple: "multiple", class: "attachment-upload file-input" %>
-          <% @document.errors[:upload].each do |error_message| %>
-            <p class="text--error"><i class="icon-warning"></i>
-              <%= error_message %>
-            </p>
-          <% end %>
-        </div>
-      <% end %>
-      <%= f.vita_min_text_field :display_name, t('hub.documents.display_name'), classes: ["form-width--long"] %>
-      <%= f.cfa_select :document_type, t("general.document_type"), DocumentTypes::ALL_TYPES.map { |doc_type| [doc_type.label, doc_type.key] }, include_blank: true %>
-      <%= f.cfa_select :tax_return_id, t("general.tax_return"), @client.tax_returns.map { |tax_return| [tax_return.year, tax_return.id] }, include_blank: true %>
-
-
-      <button class="button button--cta" type="submit">
-        <%= t("general.save") %>
-      </button>
-
-      <%= link_to t("general.cancel"), hub_client_documents_path(client_id: @client), class: "button" %>
+    <h1 class="h2"><%= @title %></h1>
+    <% if file_upload_enabled %>
+      <div class="form-group <%= "form-group--error" if @document.errors[:upload].present? %>">
+        <%= f.label(:upload, t("general.select_files"), class: "form-question") %>
+        <%= f.file_field :upload, multiple: "multiple", class: "attachment-upload file-input" %>
+        <% @document.errors[:upload].each do |error_message| %>
+          <p class="text--error"><i class="icon-warning"></i>
+            <%= error_message %>
+          </p>
+        <% end %>
+      </div>
     <% end %>
-  </div>
-</section>
+    <%= f.vita_min_text_field :display_name, t('hub.documents.display_name'), classes: ["form-width--long"] %>
+    <%= f.cfa_select :document_type, t("general.document_type"), DocumentTypes::ALL_TYPES.map { |doc_type| [doc_type.label, doc_type.key] }, include_blank: true %>
+    <%= f.cfa_select :tax_return_id, t("general.tax_return"), @client.tax_returns.map { |tax_return| [tax_return.year, tax_return.id] }, include_blank: true %>
+
+
+    <button class="button button--cta" type="submit">
+      <%= t("general.save") %>
+    </button>
+
+    <%= link_to t("general.cancel"), hub_client_documents_path(client_id: @client), class: "button" %>
+  <% end %>
+</div>

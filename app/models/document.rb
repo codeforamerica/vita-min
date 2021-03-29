@@ -70,6 +70,10 @@ class Document < ApplicationRecord
   # the HEIC conversion; see https://github.com/rails/rails/issues/37304
   has_one_attached :upload
 
+  def is_pdf?
+    upload&.content_type == "application/pdf"
+  end
+
   def document_type_label
     DocumentTypes::ALL_TYPES.find { |doc_type_class| doc_type_class.key == document_type } || document_type
   end
