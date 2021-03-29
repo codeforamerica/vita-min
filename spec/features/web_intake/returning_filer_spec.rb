@@ -21,7 +21,9 @@ RSpec.feature "Web Intake Single Filer" do
     click_on "Continue"
 
     expect(current_path).to eq(returning_client_questions_path)
-    click_on("Return to home")
-    expect(current_path).to eq(root_path)
+    within "main" do
+      click_on("Sign in")
+    end
+    expect(current_path).to eq(new_portal_client_login_path)
   end
 end
