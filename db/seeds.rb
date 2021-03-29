@@ -134,6 +134,8 @@ married_intake = Intake.create!(
   spouse_last_name: "Charms",
   spouse_email_address: "justthemarshmallows@example.com",
   visitor_id: "married_visitor_id",
-  primary_consented_to_service_at: DateTime.current
+  primary_consented_to_service_at: DateTime.current,
+  primary_consented_to_service: "yes",
+  primary_consented_to_service_ip: "127.0.0.1",
 )
 TaxReturn.create!(client: married_intake.client, year: 2020, status: TaxReturnStatus::STATUSES[:prep_preparing])
