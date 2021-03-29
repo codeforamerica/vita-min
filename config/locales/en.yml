@@ -2274,7 +2274,6 @@ en:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
     response_needed_since: "Waiting on response"
-    created_at: Created at
   client_logins:
     no_account_found_sms: |
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
