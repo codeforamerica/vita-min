@@ -54,7 +54,7 @@
             <% end %>
 
             <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("clients.consented_at"), column_name: "primary_consented_to_service_at" %>
+              <%= render "shared/column_sort_link", title: t(".created_at"), column_name: "created_at" %>
             </th>
 
             <th scope="col" class="index-table__header">
@@ -89,7 +89,7 @@
                 <td class="index-table__cell"><%= formatted_datetime(client.first_unanswered_incoming_interaction_at) %></td>
               <% end %>
 
-              <td class="index-table__cell"><%= formatted_datetime(client.intake.primary_consented_to_service_at) || "-"%> </td>
+              <td class="index-table__cell"><%= formatted_datetime(client.intake.created_at) || "-"%> </td>
               <td class="index-table__cell"><%= client.intake.state_of_residence %></td>
               <td class="index-table__cell">
                 <%= render "shared/tax_return_list", client: client %>

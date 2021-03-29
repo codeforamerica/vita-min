@@ -90,6 +90,7 @@ es:
         assigned_user: Asignado a
         no_name_given: "Nombre dejado en blanco"
         first_unanswered_incoming_interaction_at: Acción más antiguo sin respuesta
+        created_at: Creado en
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
@@ -2301,7 +2302,6 @@ es:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
     response_needed_since: "Esperando respuesta"
-    consented_at: "Consentido en"
   client_logins:
     no_account_found_sms: |
       Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
