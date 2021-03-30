@@ -1962,7 +1962,7 @@ en:
           one: In %{year}, did you have any income from a retirement account, pension, or annuity proceeds?
           other: In %{year}, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?
       returning_client:
-        next_steps_html: Sign in to your account to complete the tax questions or send documents to your tax preparer. If you have any questions you can email %{email_link}.
+        next_steps_html: Sign in to your account to complete the tax questions or send documents to your tax preparer. If you have any questions, you can email %{email_link}.
         title: Looks like you’ve already started!
       savings_options:
         savings_purchase_bond: Purchase United States Savings Bond
