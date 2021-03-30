@@ -153,8 +153,8 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           get :archived, params: params
 
           html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css(".document-index-actions a")).to have_text "Documents"
-          expect(html.at_css(".document-index-actions a")["href"]).to eq hub_client_documents_path(client_id: client)
+          expect(html.at_css(".actions-section a")).to have_text "Documents"
+          expect(html.at_css(".actions-section a")["href"]).to eq hub_client_documents_path(client_id: client)
         end
       end
     end
