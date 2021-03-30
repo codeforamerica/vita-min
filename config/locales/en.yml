@@ -378,6 +378,10 @@ en:
         title: You've Been Assigned a Client
         body_html: "%{assigner} has assigned %{client_link} %{tax_return_year} return to you."
         body_link: "%{client_name}'s"
+    client_selections:
+      client_selection_help_text:
+        one: You are viewing %{count} item from your saved search
+        other: You are viewing %{count} items from your saved search
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!

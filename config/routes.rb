@@ -155,6 +155,7 @@ Rails.application.routes.draw do
           post "update_take_action"
         end
       end
+      resources :client_selections, path: "client-selections", only: [:show]
 
       resources :tax_returns, only: [] do
         patch "update_certification", to: "tax_returns/certifications#update", on: :member
