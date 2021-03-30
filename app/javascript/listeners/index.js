@@ -5,6 +5,7 @@ import helpers from "../helpers";
 import { initTakeActionOnChangeHandlers } from "../lib/dynamic_take_action_changes";
 import { initMetricsTableSortAndFilter } from "../lib/metrics_table_sort";
 import { documentSubmittingIndicator } from "../lib/document_submitting_indicator";
+import { initStateRoutingsListeners } from "../lib/state_routings";
 import tooltip from "../components/tooltip";
 
 const Listeners =  (function(){
@@ -22,6 +23,10 @@ const Listeners =  (function(){
 
                 if (["Hub::ClientsController#edit_take_action", "Hub::ClientsController#update_take_action"].includes(window.appData.controller_action)) {
                     initTakeActionOnChangeHandlers();
+                }
+
+                if(["Hub::StateRoutingsController#edit", "Hub::StateRoutingsController#update"].includes(window.appData.controller_action)) {
+                    initStateRoutingsListeners();
                 }
 
                 initMetricsTableSortAndFilter();

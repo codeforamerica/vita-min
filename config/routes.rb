@@ -131,7 +131,9 @@ Rails.application.routes.draw do
       resources :metrics, only: [:index]
       resources :tax_returns, only: [:edit, :update, :show]
       resources :unlinked_clients, only: [:index]
-      resources :state_routings, only: [:index]
+      resources :state_routings, only: [:index, :edit, :update], param: :state do
+        delete "/:id", to: "state_routings#destroy", on: :member, as: :destroy
+      end
       resources :clients do
         get "/sla-breaches", to: "unattended_clients#index", on: :collection, as: :sla_breaches
         get "/organization", to: "clients/organizations#edit", on: :member, as: :edit_organization

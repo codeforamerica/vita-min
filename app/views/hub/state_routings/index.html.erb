@@ -1,4 +1,4 @@
-<% @page_title = t("general.state_routing") %>
+<% @page_title = t("general.states_routing") %>
 <% content_for :page_title, @page_title %>
 
 <% content_for :card do %>
@@ -9,12 +9,12 @@
         <div class="organization-list">
           <ul>
             <% States.keys.each do |state| %>
-              <h3 class="h4"><%= state_name_from_abbreviation(state) %></h3>
+              <h3 class="h4"><%= link_to state_name_from_abbreviation(state), edit_hub_state_routing_path(state) %></h3>
               <% state_routing = @state_routings.find { |sr| sr[0] == state } %>
               <% if state_routing.present? %>
 
                   <% state_routing[1].each do |entry| %>
-                    <li class=<%= "zero" if entry.routing_fraction.zero? %>>
+                    <li <%= "class='zero'" if entry.routing_fraction.zero? %>>
                       <div>
                         <%= link_to entry.vita_partner.name, edit_hub_organization_path(id: entry.vita_partner.id)  %>
                       </div>

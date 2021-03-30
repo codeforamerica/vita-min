@@ -1,5 +1,5 @@
 module VitaPartnerHelper
-  def grouped_organization_options
+  def grouped_vita_partner_options
     if current_user.role_type == TeamMemberRole::TYPE || current_user.role_type == SiteCoordinatorRole::TYPE
       vita_partner = @vita_partners.first
       [
