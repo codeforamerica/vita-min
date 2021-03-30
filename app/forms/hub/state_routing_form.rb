@@ -15,13 +15,13 @@ module Hub
     def vita_partner_states
       if @vita_partner_states_attributes
         @vita_partner_states_attributes&.values.map do |v|
-          routing_fraction = routing_fraction_from_percentage(v.delete([:routing_percentage]))
+          routing_fraction = routing_fraction_from_percentage(v[:routing_percentage])
           if v[:id].present?
            vps = VitaPartnerState.find(v[:id])
            vps.assign_attributes(routing_fraction: routing_fraction)
            vps
           else
-            VitaPartnerState.new(v.merge(routing_fraction: routing_fraction))
+            VitaPartnerState.new(v.except(:routing_percentage).merge(routing_fraction: routing_fraction))
           end
         end
       else
