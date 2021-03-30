@@ -1,0 +1,22 @@
+.documents-index {
+  .actions-section a {
+    color: inherit;
+  }
+
+  .index-table__cell:first-child {
+    font-weight: $font-weight-bold;
+  }
+
+  .archived-documents-link-row {
+    a {
+      display: flex;
+    }
+    a:before {
+      font-family: "Material Icons";
+      font-size: 1.8rem;
+      content: "folder";
+      height: 100%;
+      margin-right: .5rem;
+    }
+  }
+}

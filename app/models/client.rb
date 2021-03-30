@@ -64,7 +64,7 @@ class Client < ApplicationRecord
   end
 
   def self.sortable_intake_attributes
-    [:primary_consented_to_service_at, :state_of_residence] + delegated_intake_attributes
+    [:created_at, :state_of_residence] + delegated_intake_attributes
   end
 
   delegate *delegated_intake_attributes, to: :intake
@@ -151,6 +151,7 @@ class Client < ApplicationRecord
   def destroy_completely
     intake.dependents.destroy_all
     DocumentsRequest.where(intake: intake).destroy_all
+    ClientSelectionClient.where(client: self).destroy_all
     documents.destroy_all
     intake.documents.destroy_all
     incoming_emails.destroy_all

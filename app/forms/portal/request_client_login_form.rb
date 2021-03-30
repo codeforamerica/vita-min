@@ -17,6 +17,10 @@ module Portal
       if sms_phone_number.blank? && email_address.blank?
         errors.add(:email_address, I18n.t("forms.errors.need_one_communication_method"))
       end
+
+      if sms_phone_number.present? && email_address.present?
+        errors.add(:email_address, I18n.t("forms.errors.need_exactly_one_communication_method"))
+      end
     end
   end
 end

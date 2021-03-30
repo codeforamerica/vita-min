@@ -90,6 +90,7 @@ es:
         assigned_user: Asignado a
         no_name_given: "Nombre dejado en blanco"
         first_unanswered_incoming_interaction_at: Acción más antiguo sin respuesta
+        created_at: Creado en
       navigation:
         client_documents: Documentos
         client_messages: Mensajes
@@ -148,7 +149,10 @@ es:
         system_generated_doc: Auto-generado
         client_doc: Cliente
         upload_by: Subido por
+        archived_documents: "Documentos archivados"
       display_name: Nombre Para Mostrar
+      form:
+        archived_label: "Archivar el documento"
     messages:
       index:
         email_form:
@@ -371,6 +375,16 @@ es:
       routing_entry:
         delete_confirmation: "¿Estás segura de que quieres eliminar %{name}?"
         routing_percentage: Porcentaje de enrutamiento
+    client_selections:
+      page_title:
+        one: "Selección de clientes #%{id} (%{count} resultado)"
+        other: "Selección de clientes #%{id} (%{count} resultados)"
+      client_selection_help_text:
+        one: "Está viendo %{count} resultado de su búsqueda guardada"
+        other: "Está viendo %{count} resultados de su búsqueda guardada"
+      client_selection_help_text_missing_results:
+        one: "(Ya no tiene accesso a %{count} resultado)"
+        other: "(Ya no tiene accesso a %{count} resultados)"
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
@@ -523,6 +537,7 @@ es:
       status_must_change: No se puede iniciar el cambio de estado al estado actual.
       tax_return_belongs_to_client: No se puede actualizar la declaración de impuestos que no esté relacionada con el cliente actual.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
+      need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_phone_number: Por favor, introduzca un número de teléfono celular.
       dependents: Por favor, ingrese %{attrs} de su dependiente.
       dependents_attributes:
@@ -731,6 +746,7 @@ es:
     ui: "UI"
     unemployment_income: "Compensación de desempleo"
     unread: Notificación no leída
+    documents: "Documentos"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida
@@ -1921,8 +1937,8 @@ es:
           one: En %{year}, ¿tuvo algún ingreso de una cuenta de jubilación, pensión o ingresos de la anualidad?
           other: En el %{year}, ¿tuvo usted o su pareja algún ingreso de una cuenta de jubilación, pensión o anualidad?
       returning_client:
-        next_steps_html: Debería haber recibido un correo electrónico de confirmación o un mensaje de texto de su preparador de impuestos con los siguientes pasos. Si no ha tenido noticias de su preparador de impuestos en los últimos 3 días, o tiene preguntas adicionales, puede enviar un correo electrónico a %{email_link}
-        title: Parece que ya ha comenzado su formulario de impuestos.
+        title: Parece que usted ya empezó el proceso.
+        next_steps_html: Entre a su cuenta para terminar las preguntas sobre sus impuestos o para enviar documentos al preparador de su declaración de impuestos. Si tiene alguna pregunta puede enviar un mensaje a %{email_link}.
       savings_options:
         savings_purchase_bond: Compra de bonos de ahorro de Estados Unidos
         savings_split_refund: Dividir mi reembolso entre cuentas
@@ -2313,7 +2329,6 @@ es:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
     response_needed_since: "Esperando respuesta"
-    consented_at: "Consentido en"
   client_logins:
     no_account_found_sms: |
       Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?

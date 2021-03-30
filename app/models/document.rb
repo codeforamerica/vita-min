@@ -3,6 +3,7 @@
 # Table name: documents
 #
 #  id                   :bigint           not null, primary key
+#  archived             :boolean          default(FALSE), not null
 #  contact_record_type  :string
 #  display_name         :string
 #  document_type        :string           not null
@@ -57,6 +58,8 @@ class Document < ApplicationRecord
   default_scope { order(created_at: :asc) }
 
   scope :of_type, ->(type) { where(document_type: type) }
+  scope :active, ->() { where(archived: false) }
+  scope :archived, ->() { where(archived: true) }
 
   after_create_commit do
     uploaded_by.is_a?(Client) ? record_incoming_interaction : record_internal_interaction
@@ -69,6 +72,10 @@ class Document < ApplicationRecord
   # has_one_attached needs to be called after defining any callbacks that access attachments, like
   # the HEIC conversion; see https://github.com/rails/rails/issues/37304
   has_one_attached :upload
+
+  def is_pdf?
+    upload&.content_type == "application/pdf"
+  end
 
   def document_type_label
     DocumentTypes::ALL_TYPES.find { |doc_type_class| doc_type_class.key == document_type } || document_type

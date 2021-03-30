@@ -106,6 +106,7 @@ en:
         assigned_user: Assigned to
         no_name_given: "Name left blank"
         first_unanswered_incoming_interaction_at: "Oldest unanswered action"
+        created_at: Created at
       unlinked_clients:
         title: Unlinked clients
       navigation:
@@ -148,7 +149,10 @@ en:
         system_generated_doc: Auto-generated
         client_doc: Client
         upload_by: Uploaded By
+        archived_documents: "Archived documents"
       display_name: Display name
+      form:
+        archived_label: "Archive document"
     messages:
       index:
         email_form:
@@ -383,6 +387,16 @@ en:
       routing_entry:
         delete_confirmation: Are you sure you want to remove routing for %{name}?
         routing_percentage: Routing percentage
+    client_selections:
+      page_title:
+        one: "Client selection #%{id} (%{count} result)"
+        other: "Client selection #%{id} (%{count} results)"
+      client_selection_help_text:
+        one: You are viewing %{count} result from your saved search
+        other: You are viewing %{count} results from your saved search
+      client_selection_help_text_missing_results:
+        one: "(%{count} result is no longer accessible to you)"
+        other: "(%{count} results are no longer accessible to you)"
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
@@ -535,6 +549,7 @@ en:
       status_must_change: Can't initiate status change to current status.
       tax_return_belongs_to_client: Can't update tax return unrelated to current client.
       need_one_communication_method: Please choose some way for us to contact you.
+      need_exactly_one_communication_method: Please enter only one form of contact.
       need_phone_number: Please enter a cell phone number.
       dependents: Please enter the %{attrs} of each dependent.
       dependents_attributes:
@@ -741,6 +756,7 @@ en:
     ui: "UI"
     unemployment_income: "Unemployment Income"
     unread: Notification unread
+    documents: "Documents"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -1968,8 +1984,8 @@ en:
           one: In %{year}, did you have any income from a retirement account, pension, or annuity proceeds?
           other: In %{year}, did you or your spouse have any income from a retirement account, pension, or annuity proceeds?
       returning_client:
-        next_steps_html: You should have received a confirmation email or text from your tax preparer with next steps. If you have not heard from your tax preparer in the last 3 days, or have additional questions, you can email %{email_link}
-        title: Looks like you’ve already started the process.
+        next_steps_html: Sign in to your account to complete the tax questions or send documents to your tax preparer. If you have any questions, you can email %{email_link}.
+        title: Looks like you’ve already started!
       savings_options:
         savings_purchase_bond: Purchase United States Savings Bond
         savings_split_refund: Split my refund between accounts
@@ -2285,7 +2301,6 @@ en:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
     response_needed_since: "Waiting on response"
-    consented_at: "Consented at"
   client_logins:
     no_account_found_sms: |
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?

@@ -53,6 +53,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           doc.save(validate: false)
           doc
         end
+        let!(:archived_document) { create :archived_document, client: client }
 
         it "displays all the documents for the client" do
           get :index, params: params
@@ -72,6 +73,14 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           fourth_doc_element = html.at_css("#document-#{fourth_document.id}")
           expect(fourth_doc_element).to have_text("Email attachment")
           expect(fourth_doc_element).to have_text("zero-bytes.jpg (empty file)")
+        end
+
+        it "excludes archived documents but has a link for them in last row of the table" do
+          get :index, params: params
+
+          expect(assigns(:documents)).not_to include archived_document
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css("tbody tr:last-child a")).to have_text "Archived documents"
         end
       end
 
@@ -120,6 +129,37 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     end
   end
 
+  describe "#archived" do
+    let(:params) { { client_id: client.id } }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :archived
+
+    context "as an authenticated user" do
+      let!(:not_archived_document) { create :document, client: client }
+      let!(:archived_document) { create :archived_document, client: client }
+      before { sign_in(user) }
+
+      it "shows only archived documents, no other documents" do
+        get :archived, params: params
+
+        expect(assigns(:documents)).to include archived_document
+        expect(assigns(:documents)).not_to include not_archived_document
+      end
+
+      context "when rendering" do
+        render_views
+
+        it "includes a link to return to documents index" do
+          get :archived, params: params
+
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css(".actions-section a")).to have_text "Documents"
+          expect(html.at_css(".actions-section a")["href"]).to eq hub_client_documents_path(client_id: client)
+        end
+      end
+    end
+  end
+
   describe "#new" do
     let!(:tax_return_1) { create :tax_return, client: client, year: 2020 }
     let!(:tax_return_2) { create :tax_return, client: client, year: 2019 }
@@ -146,7 +186,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
   describe "#edit" do
     let(:document) { create :document, client: client }
-    let(:params) { { id: document.id, client_id: client.id }}
+    let(:params) { { id: document.id, client_id: client.id } }
 
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
 
@@ -161,7 +201,6 @@ RSpec.describe Hub::DocumentsController, type: :controller do
 
       it "lists the available tax returns" do
         get :edit, params: params
-
         tax_return_select = Nokogiri::HTML.parse(response.body).at_css("select#document_tax_return_id")
         expect(tax_return_select).to have_text "2020"
         expect(tax_return_select).to have_text "2019"
@@ -181,7 +220,8 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         document: {
           display_name: new_display_name,
           tax_return_id: new_tax_return.id,
-          document_type: new_doc_type.key
+          document_type: new_doc_type.key,
+          archived: "true"
         }
       }
     end
@@ -200,6 +240,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           expect(document.display_name).to eq new_display_name
           expect(document.document_type).to eq new_doc_type.key
           expect(document.tax_return_id).to eq new_tax_return.id
+          expect(document.archived).to eq true
         end
       end
 

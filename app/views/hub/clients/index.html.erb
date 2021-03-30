@@ -6,6 +6,13 @@
     <%= render "shared/client_filters_and_add_client" %> <!-- also includes Add Client button to layout !-->
   </section>
   <section class="slab slab--padded">
+    <% if @client_index_help_text.present? %>
+      <div class="grid client-index-help-text spacing-below-15">
+        <div class="grid__item width-one-half">
+          <p class="form-question"><%= @client_index_help_text %></p>
+        </div>
+      </div>
+    <% end %>
     <div class="pagination-wrapper">
       <div>
         <%= page_entries_info @clients, model: "client" %>
@@ -54,7 +61,7 @@
             <% end %>
 
             <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("clients.consented_at"), column_name: "primary_consented_to_service_at" %>
+              <%= render "shared/column_sort_link", title: t(".created_at"), column_name: "created_at" %>
             </th>
 
             <th scope="col" class="index-table__header">
@@ -89,7 +96,7 @@
                 <td class="index-table__cell"><%= formatted_datetime(client.first_unanswered_incoming_interaction_at) %></td>
               <% end %>
 
-              <td class="index-table__cell"><%= formatted_datetime(client.intake.primary_consented_to_service_at) || "-"%> </td>
+              <td class="index-table__cell"><%= formatted_datetime(client.intake.created_at) || "-"%> </td>
               <td class="index-table__cell"><%= client.intake.state_of_residence %></td>
               <td class="index-table__cell">
                 <%= render "shared/tax_return_list", client: client %>

@@ -406,6 +406,7 @@ describe Client do
       let(:intake) { create :intake, client: client, vita_partner: vita_partner }
       let!(:unrelated_intake) { create :intake }
       let(:attachment) { fixture_file_upload("attachments/test-pattern.png") }
+      let!(:client_selection) { create(:client_selection, clients: [client]) }
       before do
         create_list :document, 2, client: client, intake: intake
         create_list :dependent, 2, intake: intake
@@ -435,6 +436,7 @@ describe Client do
         expect(OutgoingEmail.count).to eq 0
         expect(OutgoingTextMessage.count).to eq 0
         expect(DocumentsRequest.count).to eq 0
+        expect(client_selection.clients.count).to eq 0
       end
     end
   end

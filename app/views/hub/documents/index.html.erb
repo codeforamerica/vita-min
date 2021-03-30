@@ -1,67 +1,85 @@
-<%= content_for :back_to, "clients" %>
+<% content_for :back_to, "clients" %>
 <% content_for :page_title, "#{@client.preferred_name} ##{@client.id} documents" %>
 
 <% content_for :card do %>
   <%= render "hub/clients/client_header" %>
 
   <%= render "hub/clients/navigation" %>
-
-  <section class="slab slab--half-padded">
-    <div class="grid">
-      <div class="grid-item">
-        <%= link_to t(".add_doc"), new_hub_client_document_path, class: "button spacing-below-0" %>
+  <div class="documents-index">
+    <section class="slab slab--padded actions-section">
+      <div class="grid">
+        <div class="grid-item">
+          <% if @show_archived_index %>
+            <%= link_to t("general.documents"), hub_client_documents_path %>
+            >
+            <%= t(".archived_documents") %>
+          <% else %>
+            <%= link_to t(".add_doc"), new_hub_client_document_path, class: "button spacing-below-0" %>
+          <% end %>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <table class="index-table">
-    <thead class="index-table__head">
-    <tr class="index-table__row">
-      <th scope="col" class="index-table__header document-column__doc-type">
-        <%= render "shared/column_sort_link", title: t("general.document_type"), column_name: "document_type" %>
-      </th>
-      <th scope="col" class="index-table__header document-column__link">
-        <%= render "shared/column_sort_link", title: t(".file_name"), column_name: "display_name" %>
-      </th>
-      <th class="index-table__header document-column__link">
-        <%= render "shared/column_sort_link", title: t("general.tax_return"), column_name: "tax_return" %>
-      </th>
-      <th class="index-table__header document-column__link">
-        <%= render "shared/column_sort_link", title: t(".upload_by"), column_name: "uploaded_by" %>
-      </th>
-      <th scope="col" class="index-table__header document-column__upload-date">
-        <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
-      </th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% if @documents.present? %>
-      <% @documents.each do |document| %>
-        <tr id="document-<%= document.id %>" class="index-table__row">
-          <td class="index-table__cell"><%= document.document_type_label %></td>
-          <td class="index-table__cell">
-            <%= link_to hub_client_document_path(client_id: @client.id, id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
-              <%= document.display_name %> <%= t(".empty_file") if document.upload.blob.byte_size.zero? %>
+    <table class="index-table documents-index-table">
+      <thead class="index-table__head">
+      <tr class="index-table__row">
+        <th scope="col" class="index-table__header document-column__doc-type">
+          <%= render "shared/column_sort_link", title: t("general.document_type"), column_name: "document_type" %>
+        </th>
+        <th scope="col" class="index-table__header document-column__link">
+          <%= render "shared/column_sort_link", title: t(".file_name"), column_name: "display_name" %>
+        </th>
+        <th class="index-table__header document-column__link">
+          <%= render "shared/column_sort_link", title: t("general.tax_return"), column_name: "tax_return" %>
+        </th>
+        <th class="index-table__header document-column__link">
+          <%= render "shared/column_sort_link", title: t(".upload_by"), column_name: "uploaded_by" %>
+        </th>
+        <th scope="col" class="index-table__header document-column__upload-date">
+          <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
+        </th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% if @documents.present? %>
+        <% @documents.each do |document| %>
+          <tr id="document-<%= document.id %>" class="index-table__row">
+            <td class="index-table__cell"><%= document.document_type_label %></td>
+            <td class="index-table__cell">
+              <%= link_to hub_client_document_path(client_id: @client.id, id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
+                <%= document.display_name %> <%= t(".empty_file") if document.upload.blob.byte_size.zero? %>
+              <% end %>
+            </td>
+            <td class="index-table__cell">
+              <%= document.tax_return&.year %>
+            </td>
+            <td class="index-table__cell">
+              <%= document.uploaded_by_name_label %>
+            </td>
+            <td class="index-table__cell">
+              <%= timestamp document.created_at %>
+            </td>
+            <td class="index-table__cell edit">
+              <%= link_to t("general.edit"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+
+      <% if !@show_archived_index && @client.documents.archived.exists? %>
+        <tr class="index-table__row archived-documents-link-row">
+          <td class="index-table__cell archived-documents-cell" colspan="6">
+            <%= link_to archived_hub_client_documents_path do %>
+              <%= t(".archived_documents") %>
             <% end %>
-          </td>
-          <td class="index-table__cell">
-            <%= document.tax_return&.year %>
-          </td>
-          <td class="index-table__cell">
-            <%= document.uploaded_by_name_label %>
-          </td>
-          <td class="index-table__cell">
-            <%= timestamp document.created_at %>
-          </td>
-          <td class="index-table__cell edit">
-            <%= link_to t("general.edit"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
           </td>
         </tr>
       <% end %>
-    <% end %>
-    </tbody>
-  </table>
 
+      </tbody>
+    </table>
+  </div>
   <%= render "hub/clients/client_take_action_footer" %>
 <% end %>

@@ -13,9 +13,9 @@
 
       <% @organization.source_parameters.each do |source_parameter| %>
         <%= f.fields_for :source_parameters, source_parameter, builder: VitaMinFormBuilder do |source_parameter_form| %>
-          <div class="inline-form-items-wrapper no-bottom-margin-children">
+          <div class="inline-form-items-wrapper">
             <%= source_parameter_form.cfa_input_field :code, t("general.unique_link"), classes: ["form-width--short"] %>
-            <%= source_parameter_form.cfa_checkbox(:_destroy, t("general.remove")) %>
+            <%= source_parameter_form.hub_checkbox(:_destroy, t("general.remove")) %>
           </div>
         <% end %>
       <% end %>

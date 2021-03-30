@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_143154) do
+ActiveRecord::Schema.define(version: 2021_03_29_180145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -67,6 +67,20 @@ ActiveRecord::Schema.define(version: 2021_03_24_143154) do
     t.datetime "created_at", precision: 6, null: false
     t.integer "record_count"
     t.datetime "run_at"
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "client_selection_clients", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "client_selection_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_client_selection_clients_on_client_id"
+    t.index ["client_selection_id"], name: "index_client_selection_clients_on_client_selection_id"
+  end
+
+  create_table "client_selections", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
@@ -172,6 +186,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_143154) do
   end
 
   create_table "documents", force: :cascade do |t|
+    t.boolean "archived", default: false, null: false
     t.bigint "client_id"
     t.bigint "contact_record_id"
     t.string "contact_record_type"
@@ -735,6 +750,8 @@ ActiveRecord::Schema.define(version: 2021_03_24_143154) do
 
   add_foreign_key "access_logs", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "client_selection_clients", "client_selections"
+  add_foreign_key "client_selection_clients", "clients"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "documents", "clients"

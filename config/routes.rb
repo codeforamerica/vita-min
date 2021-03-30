@@ -145,7 +145,9 @@ Rails.application.routes.draw do
         get "/hide-ssn", to: "clients/ssn_itins#hide", on: :member, as: :hide_ssn_itin
         get "/spouse-ssn", to: "clients/ssn_itins#show_spouse", on: :member, as: :show_spouse_ssn_itin
         get "/hide-spouse-ssn", to: "clients/ssn_itins#hide_spouse", on: :member, as: :hide_spouse_ssn_itin
-        resources :documents, only: [:index, :edit, :update, :show, :create, :new]
+        resources :documents, only: [:index, :edit, :update, :show, :create, :new] do
+          get "/archived", to: "documents#archived", on: :collection, as: :archived
+        end
         resources :notes, only: [:create, :index]
         resources :messages, only: [:index]
         resources :outgoing_text_messages, only: [:create]
@@ -157,6 +159,7 @@ Rails.application.routes.draw do
           post "update_take_action"
         end
       end
+      resources :client_selections, path: "client-selections", only: [:show]
 
       resources :tax_returns, only: [] do
         patch "update_certification", to: "tax_returns/certifications#update", on: :member

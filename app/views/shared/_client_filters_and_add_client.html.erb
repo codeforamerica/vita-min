@@ -1,9 +1,8 @@
-<%= form_with method: "get", local: true, builder: VitaMinFormBuilder, class: "filter-form" do |f| %>
+<%= form_with method: "get", local: true, builder: VitaMinFormBuilder, url: @client_filter_form_path, class: "filter-form" do |f| %>
   <%= f.hidden_field :order, value: @sort_order %>
   <%= f.hidden_field :column, value: @sort_column %>
 
   <div class="filters-wrapper">
-
     <div class="form-group">
       <label for="status-filter" class="form-question"><%= t("hub.clients.index.stage_status") %></label>
       <div class="select">
