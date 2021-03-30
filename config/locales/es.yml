@@ -149,7 +149,10 @@ es:
         system_generated_doc: Auto-generado
         client_doc: Cliente
         upload_by: Subido por
+        archived_documents: "Documentos archivados"
       display_name: Nombre Para Mostrar
+      form:
+        archived_label: "Archivar el documento"
     messages:
       index:
         email_form:
@@ -721,6 +724,7 @@ es:
     ui: "UI"
     unemployment_income: "Compensación de desempleo"
     unread: Notificación no leída
+    documents: "Documentos"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

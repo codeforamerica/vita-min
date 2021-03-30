@@ -1,0 +1,13 @@
+.document-index-actions a {
+  color: inherit;
+}
+
+.index-table__cell:first-child {
+  font-weight: $font-weight-bold;
+}
+
+.archived-documents-link-row {
+  img {
+    margin-right: $s10;
+  }
+}

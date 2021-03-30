@@ -6,35 +6,42 @@
 
   <%= render "hub/clients/navigation" %>
 
-  <section class="slab slab--half-padded">
+  <section class="slab slab--padded document-index-actions">
     <div class="grid">
       <div class="grid-item">
-        <%= link_to t(".add_doc"), new_hub_client_document_path, class: "button spacing-below-0" %>
+        <% if @show_archived_index %>
+          <%= link_to t("general.documents"), hub_client_documents_path %>
+          >
+          <%= t(".archived_documents") %>
+        <% else %>
+          <%= link_to t(".add_doc"), new_hub_client_document_path, class: "button spacing-below-0" %>
+        <% end %>
       </div>
     </div>
   </section>
 
   <table class="index-table">
     <thead class="index-table__head">
-    <tr class="index-table__row">
-      <th scope="col" class="index-table__header document-column__doc-type">
-        <%= render "shared/column_sort_link", title: t("general.document_type"), column_name: "document_type" %>
-      </th>
-      <th scope="col" class="index-table__header document-column__link">
-        <%= render "shared/column_sort_link", title: t(".file_name"), column_name: "display_name" %>
-      </th>
-      <th class="index-table__header document-column__link">
-        <%= render "shared/column_sort_link", title: t("general.tax_return"), column_name: "tax_return" %>
-      </th>
-      <th class="index-table__header document-column__link">
-        <%= render "shared/column_sort_link", title: t(".upload_by"), column_name: "uploaded_by" %>
-      </th>
-      <th scope="col" class="index-table__header document-column__upload-date">
-        <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
-      </th>
-      <th></th>
-    </tr>
+      <tr class="index-table__row">
+        <th scope="col" class="index-table__header document-column__doc-type">
+          <%= render "shared/column_sort_link", title: t("general.document_type"), column_name: "document_type" %>
+        </th>
+        <th scope="col" class="index-table__header document-column__link">
+          <%= render "shared/column_sort_link", title: t(".file_name"), column_name: "display_name" %>
+        </th>
+        <th class="index-table__header document-column__link">
+          <%= render "shared/column_sort_link", title: t("general.tax_return"), column_name: "tax_return" %>
+        </th>
+        <th class="index-table__header document-column__link">
+          <%= render "shared/column_sort_link", title: t(".upload_by"), column_name: "uploaded_by" %>
+        </th>
+        <th scope="col" class="index-table__header document-column__upload-date">
+          <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
+        </th>
+        <th></th>
+      </tr>
     </thead>
+
     <tbody>
     <% if @documents.present? %>
       <% @documents.each do |document| %>
@@ -60,6 +67,17 @@
         </tr>
       <% end %>
     <% end %>
+
+    <% if !@show_archived_index && @client.documents.archived.exists? %>
+      <tr class="index-table__row archived-documents-link-row">
+        <td class="index-table__cell" colspan="6">
+          <%= link_to archived_hub_client_documents_path do %>
+            <%= image_tag("icons/folder.svg", alt: "") %><%= t(".archived_documents") %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+
     </tbody>
   </table>
 

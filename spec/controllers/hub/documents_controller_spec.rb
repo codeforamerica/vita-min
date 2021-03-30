@@ -53,6 +53,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           doc.save(validate: false)
           doc
         end
+        let!(:archived_document) { create :archived_document, client: client }
 
         it "displays all the documents for the client" do
           get :index, params: params
@@ -72,6 +73,14 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           fourth_doc_element = html.at_css("#document-#{fourth_document.id}")
           expect(fourth_doc_element).to have_text("Email attachment")
           expect(fourth_doc_element).to have_text("zero-bytes.jpg (empty file)")
+        end
+
+        it "excludes archived documents but has a link for them in last row of the table" do
+          get :index, params: params
+
+          expect(assigns(:documents)).not_to include archived_document
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css("tbody tr:last-child a")).to have_text "Archived documents"
         end
       end
 
@@ -115,6 +124,37 @@ RSpec.describe Hub::DocumentsController, type: :controller do
             expect(assigns[:sort_order]).to eq("asc")
             expect(assigns(:documents)).to eq [employment_document, identity_document]
           end
+        end
+      end
+    end
+  end
+
+  describe "#archived" do
+    let(:params) { { client_id: client.id } }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :archived
+
+    context "as an authenticated user" do
+      let!(:not_archived_document) { create :document, client: client }
+      let!(:archived_document) { create :archived_document, client: client }
+      before { sign_in(user) }
+
+      it "shows only archived documents, no other documents" do
+        get :archived, params: params
+
+        expect(assigns(:documents)).to include archived_document
+        expect(assigns(:documents)).not_to include not_archived_document
+      end
+
+      context "when rendering" do
+        render_views
+
+        it "includes a link to return to documents index" do
+          get :archived, params: params
+
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css(".document-index-actions a")).to have_text "Documents"
+          expect(html.at_css(".document-index-actions a")["href"]).to eq hub_client_documents_path(client_id: client)
         end
       end
     end
@@ -180,7 +220,8 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         document: {
           display_name: new_display_name,
           tax_return_id: new_tax_return.id,
-          document_type: new_doc_type.key
+          document_type: new_doc_type.key,
+          archived: "true"
         }
       }
     end
@@ -199,6 +240,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           expect(document.display_name).to eq new_display_name
           expect(document.document_type).to eq new_doc_type.key
           expect(document.tax_return_id).to eq new_tax_return.id
+          expect(document.archived).to eq true
         end
       end
 

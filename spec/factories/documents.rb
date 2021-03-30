@@ -4,6 +4,7 @@
 # Table name: documents
 #
 #  id                   :bigint           not null, primary key
+#  archived             :boolean          default(FALSE), not null
 #  contact_record_type  :string
 #  display_name         :string
 #  document_type        :string           not null
@@ -49,6 +50,10 @@ FactoryBot.define do
         io: File.open(evaluator.upload_path),
         filename: File.basename(evaluator.upload_path)
       )
+    end
+
+    factory :archived_document do
+      archived { true }
     end
   end
 end
