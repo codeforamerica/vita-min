@@ -1,5 +1,5 @@
-<% content_for :page_title do%>
-  <%=t("views.public_pages.home.title") %>
+<% content_for :page_title do %>
+  <%= t("views.public_pages.home.title") %>
 <% end %>
 
 <% content_for :body_class, "body--home" %>
@@ -38,6 +38,14 @@
     </div>
   </div>
 
+  <div class="slab banner">
+    <div class="grid">
+      <div class="grid__item width-one-whole">
+        <%= t('views.public_pages.home.extension_banner_html') %>
+      </div>
+    </div>
+  </div>
+
   <div class="slab slab--info-section">
     <div class="grid">
       <div class="grid__item width-one-whole">
@@ -59,12 +67,12 @@
     <div class="grid">
       <div class="grid__item width-two-thirds">
         <p class="cta-text">
-          <strong><%=t("views.public_pages.home.stimulus_faq.info") %></strong>
+          <strong><%= t("views.public_pages.home.stimulus_faq.info") %></strong>
         </p>
       </div>
       <div class="grid__item width-one-third button-container">
         <%= link_to stimulus_path, class: "button" do %>
-          <%=t("general.visit_stimulus_faq") %>
+          <%= t("general.visit_stimulus_faq") %>
         <% end %>
       </div>
     </div>
@@ -76,16 +84,16 @@
         <%= image_tag("irs-certified.svg", alt: "") %>
       </div>
       <div class="grid__item width-two-thirds">
-        <h2><%=t("views.public_pages.home.accuracy.header") %></h2>
-        <p><%=t("views.public_pages.home.accuracy.body1") %></p>
-        <p><%=t("views.public_pages.home.accuracy.body2") %></p>
+        <h2><%= t("views.public_pages.home.accuracy.header") %></h2>
+        <p><%= t("views.public_pages.home.accuracy.body1") %></p>
+        <p><%= t("views.public_pages.home.accuracy.body2") %></p>
       </div>
     </div>
     <div class="grid__divider"></div>
     <div class="grid spacing-above-60">
       <div class="grid__item width-two-thirds">
-        <h2><%=t("views.public_pages.home.backtaxes.header") %></h2>
-        <p class="spacing-below-0"><%=t("views.public_pages.home.backtaxes.body") %></p>
+        <h2><%= t("views.public_pages.home.backtaxes.header") %></h2>
+        <p class="spacing-below-0"><%= t("views.public_pages.home.backtaxes.body") %></p>
       </div>
       <div id="money-fan" class="grid__item width-one-fourth">
         <%= image_tag("money-fan.svg", alt: "") %>
@@ -95,14 +103,14 @@
 
   <div class="slab slab--partners">
     <div class="grid">
-      <h3 class="text--centered"><%=t("views.public_pages.home.partners.header") %></h3>
+      <h3 class="text--centered"><%= t("views.public_pages.home.partners.header") %></h3>
       <ul class="partner-logos">
         <%= render(
                 "shared/grayscale_partner_logo",
                 name: "United Way Bay Area",
                 image_name: "uwba",
                 website: "https://uwba.org/"
-            )%>
+            ) %>
 
         <%= render(
                 "shared/grayscale_partner_logo",
@@ -110,14 +118,14 @@
                 image_name: "thc",
                 image_class: "multiply",
                 website: "https://taxhelpco.org/"
-            )%>
+            ) %>
 
         <%= render(
                 "shared/grayscale_partner_logo",
                 name: "Prosperity Now",
                 image_name: "prosperity-now",
                 website: "https://prosperitynow.org/"
-            )%>
+            ) %>
 
         <%= render(
                 "shared/grayscale_partner_logo",
@@ -125,18 +133,18 @@
                 image_name: "gwisr",
                 image_class: "multiply",
                 website: "https://www.goodwillsr.org/"
-            )%>
+            ) %>
 
         <%= render(
                 "shared/grayscale_partner_logo",
                 name: "United Way of Tucson and Southern Arizona",
                 image_name: "uwtsa",
                 website: "https://www.unitedwaytucson.org/"
-            )%>
+            ) %>
       </ul>
       <p class="text--centered text--small spacing-below-0 spacing-above-10">
-        <%= link_to about_us_path, id:"about-us-link" do %>
-          <%=t("views.public_pages.home.partners.learn_more_html") %>
+        <%= link_to about_us_path, id: "about-us-link" do %>
+          <%= t("views.public_pages.home.partners.learn_more_html") %>
         <% end %>
       </p>
     </div>
@@ -144,23 +152,23 @@
 
   <div class="slab slab--testimonials">
     <div class="grid">
-      <h2 class="text--centered"><%=t("views.public_pages.home.clients.header") %></h2>
+      <h2 class="text--centered"><%= t("views.public_pages.home.clients.header") %></h2>
       <div id="star-rating" class="text--centered">
         <%= image_tag("star_rating.svg", alt: "") %>
         <p class="text--small text--bold text--centered spacing-above-5 spacing-below-0">
-          <%=t("views.public_pages.home.clients.rating") %>
+          <%= t("views.public_pages.home.clients.rating") %>
         </p>
         <p class="text--small text--centered spacing-below-0">
-          <%=t("views.public_pages.home.clients.across_us") %>
+          <%= t("views.public_pages.home.clients.across_us") %>
         </p>
       </div>
       <div id="testimonial-left" class="grid__item width-one-half">
-          <p class="text--small text--bold"><%=t("views.public_pages.home.clients.quote1.header") %></p>
-          <p class="text--small spacing-below-0"><%=t("views.public_pages.home.clients.quote1.body") %></p>
+        <p class="text--small text--bold"><%= t("views.public_pages.home.clients.quote1.header") %></p>
+        <p class="text--small spacing-below-0"><%= t("views.public_pages.home.clients.quote1.body") %></p>
       </div>
-      <div  id="testimonial-right" class="grid__item width-one-half">
-        <p class="text--small text--bold"><%=t("views.public_pages.home.clients.quote2.header") %></p>
-        <p class="text--small spacing-below-0"><%=t("views.public_pages.home.clients.quote2.body") %></p>
+      <div id="testimonial-right" class="grid__item width-one-half">
+        <p class="text--small text--bold"><%= t("views.public_pages.home.clients.quote2.header") %></p>
+        <p class="text--small spacing-below-0"><%= t("views.public_pages.home.clients.quote2.body") %></p>
       </div>
     </div>
   </div>
@@ -168,17 +176,18 @@
   <div class="slab slab--secondary-cta">
     <div class="grid">
       <div class="grid__item width-three-fourths cta-text">
-        <h3 class="spacing-below-0"><%=t("views.public_pages.home.features.header") %></h3>
+        <h3 class="spacing-below-0"><%= t("views.public_pages.home.features.header") %></h3>
         <ul class="list--bulleted text--small text--semibold">
-          <li class="spacing-below-0"><%=t("views.public_pages.home.features.free") %></li>
-          <li class="spacing-below-0"><%=t("views.public_pages.home.features.chat") %></li>
-          <li class="spacing-below-0"><%=t("views.public_pages.home.features.backtaxes") %></li>
-          <li class="spacing-below-0"><%=t("views.public_pages.home.features.amendments") %></li>
+          <li class="spacing-below-0"><%= t("views.public_pages.home.features.free") %></li>
+          <li class="spacing-below-0"><%= t("views.public_pages.home.features.chat") %></li>
+          <li class="spacing-below-0"><%= t("views.public_pages.home.features.backtaxes") %></li>
+          <li class="spacing-below-0"><%= t("views.public_pages.home.features.amendments") %></li>
         </ul>
-        <p class="text--small spacing-below-0"><%=t("views.public_pages.home.features.questions") %></p>
+        <p class="text--small spacing-below-0"><%= t("views.public_pages.home.features.questions") %></p>
       </div>
       <div class="grid__item width-one-fourth button-container">
-        <%= link_to faq_path, class: "button button--med-wide" do %><%=t("views.public_pages.home.features.faq_cta") %><% end %>
+        <%= link_to faq_path, class: "button button--med-wide" do %><%= t("views.public_pages.home.features.faq_cta") %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -188,8 +197,8 @@
       <div class="grid__item width-one-whole">
         <div><%= image_tag("lock-gear.svg", alt: "a padlock icon") %></div>
         <div>
-          <h4 class="spacing-below-5"><%=t("views.public_pages.home.security.header") %></h4>
-          <p class="text--small spacing-below-0"><%=t("views.public_pages.home.security.body") %></p>
+          <h4 class="spacing-below-5"><%= t("views.public_pages.home.security.header") %></h4>
+          <p class="text--small spacing-below-0"><%= t("views.public_pages.home.security.body") %></p>
         </div>
       </div>
     </div>
