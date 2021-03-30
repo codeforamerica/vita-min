@@ -369,6 +369,16 @@ es:
         title: Le han asignado un cliente
         body_html: "%{assigner} le ha asignado  la declaración de impuestos %{tax_return_year} de %{client_link}."
         body_link: "%{client_name}"
+    client_selections:
+      page_title:
+        one: "Selección de clientes #%{id} (%{count} resultado)"
+        other: "Selección de clientes #%{id} (%{count} resultados)"
+      client_selection_help_text:
+        one: "Está viendo %{count} resultado de su búsqueda guardada"
+        other: "Está viendo %{count} resultados de su búsqueda guardada"
+      client_selection_help_text_missing_results:
+        one: "(Ya no tiene accesso a %{count} resultado)"
+        other: "(Ya no tiene accesso a %{count} resultados)"
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
