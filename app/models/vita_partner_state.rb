@@ -23,6 +23,10 @@ class VitaPartnerState < ApplicationRecord
   validate :invalid_state
   validates :state, uniqueness: { scope: :vita_partner_id }
 
+  def routing_percentage
+    (routing_fraction * 100).to_i
+  end
+
   private
 
   def invalid_state

@@ -1,0 +1,50 @@
+.state-routings-edit {
+  ul {
+    position: relative;
+  }
+  .state-routing-item {
+    position: relative;
+  }
+
+  .form-group {
+    padding: 1rem 0;
+    margin-bottom: 0;
+  }
+
+  .delete-item {
+    position: absolute;
+    right: -2rem;
+    bottom: 2.5rem;
+    text-decoration: none;
+    a {
+      text-decoration: none; // target class and child a due to slightly different implementations for persisted vs unpersisted.
+    }
+    i {
+      font-size: 1.8rem;
+    }
+  }
+
+  .routing-percentage-input-wrapper {
+    position: relative;
+    &:after {
+      position: absolute;
+      content: '%';
+      top: 54%;
+      right: .5rem;
+    }
+    input {
+      text-align: right;
+      padding-right: 2rem;
+    }
+  }
+  .routing-percentage-total {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 0;
+    font-weight: bold;
+    margin: 0 .5rem;
+    // match text--error styling
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+  }
+}

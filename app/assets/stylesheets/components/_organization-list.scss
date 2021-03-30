@@ -2,6 +2,7 @@
   li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: .5rem 0;
     border-bottom: 1px solid darken($color-grey-light, 10%);
     &.empty {

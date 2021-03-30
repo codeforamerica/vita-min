@@ -369,6 +369,12 @@ es:
         title: Le han asignado un cliente
         body_html: "%{assigner} le ha asignado  la declaración de impuestos %{tax_return_year} de %{client_link}."
         body_link: "%{client_name}"
+    state_routings:
+      edit:
+        add_routing: Agregar enrutamiento
+      routing_entry:
+        delete_confirmation: "¿Estás segura de que quieres eliminar %{name}?"
+        routing_percentage: Porcentaje de enrutamiento
     client_selections:
       page_title:
         one: "Selección de clientes #%{id} (%{count} resultado)"
@@ -542,6 +548,11 @@ es:
       tax_returns_attributes:
         is_hsa: es HSA
         certification_level: nivel de certificación
+      state_routings:
+        must_equal_100: Los porcentajes de enrutamiento deben totalizar el 100%.
+        duplicate_vita_partner: Una organización está duplicada en la lista de enrutamiento.
+        zero_to_delete: Para eliminar una regla de enrutamiento persistente, el porcentaje de enrutamiento debe ser 0%.
+        not_found: No se pudo encontrar la entrada de enrutamiento coincidente para %{state}. Intentar otra vez.
       general: Por favor, corrija los errores indicados antes de continuar.
   general:
     add_client: Agregar cliente
@@ -659,7 +670,8 @@ es:
     return_search: Volver a la búsqueda
     role: Rol
     routing: Enrutamiento
-    state_routing: Enrutamiento estatal
+    states_routing: Enrutamiento estatal
+    state_routing: "Enrutamiento de %{state}"
     save: Guardar
     search: Búsqueda
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.

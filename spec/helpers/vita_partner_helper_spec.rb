@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe VitaPartnerHelper do
-  describe "#grouped_organization_options" do
+  describe "#grouped_vita_partner_options" do
     context "when user's role is Team Member" do
       let(:team_member) { create :team_member_user }
 
@@ -18,7 +18,7 @@ describe VitaPartnerHelper do
           ]
         ]
 
-        expect(helper.grouped_organization_options).to eq(expected)
+        expect(helper.grouped_vita_partner_options).to eq(expected)
       end
     end
 
@@ -38,7 +38,7 @@ describe VitaPartnerHelper do
           ]
         ]
 
-        expect(helper.grouped_organization_options).to eq(expected)
+        expect(helper.grouped_vita_partner_options).to eq(expected)
       end
     end
 
@@ -65,7 +65,7 @@ describe VitaPartnerHelper do
             ["Org Without Sites", [["Org Without Sites", org_3.id]]],
             ["Second Org", [["Second Org", org_2.id], ["Site Of 2nd Org", site_3.id]]],
           ]
-        expect(helper.grouped_organization_options).to match_array(expected)
+        expect(helper.grouped_vita_partner_options).to match_array(expected)
       end
     end
 
@@ -92,7 +92,7 @@ describe VitaPartnerHelper do
             ["Second Org", [["Second Org", org_2.id], ["Site of 2nd Org", site_3.id]]],
             ["Org Without Sites", [["Org Without Sites", org_3.id]]],
           ]
-        expect(helper.grouped_organization_options).to match_array(expected)
+        expect(helper.grouped_vita_partner_options).to match_array(expected)
       end
     end
 
@@ -110,7 +110,7 @@ describe VitaPartnerHelper do
           [
             [organization_lead.role.organization.name, [[organization_lead.role.organization.name, organization_lead.role.organization.id], [site.name, site.id]]],
           ]
-        expect(helper.grouped_organization_options).to eq(expected)
+        expect(helper.grouped_vita_partner_options).to eq(expected)
       end
     end
 
@@ -134,7 +134,7 @@ describe VitaPartnerHelper do
             [greeter.role.organizations.first.name, [[greeter.role.organizations.first.name, greeter.role.organizations.first.id], [site.name, site.id]]],
             [greeter.role.organizations.last.name, [[greeter.role.organizations.last.name, greeter.role.organizations.last.id]]]
           ]
-        expect(helper.grouped_organization_options).to eq(expected)
+        expect(helper.grouped_vita_partner_options).to eq(expected)
       end
     end
   end
