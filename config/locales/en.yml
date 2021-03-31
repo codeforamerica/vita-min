@@ -2402,3 +2402,21 @@ en:
       body_html: Oops! Looks like you're trying to access a page or client you do not have access to. Please contact Partner Support at <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> if you need to merge a duplicate client you do not have access to.
     home:
       already_started: "Already started? Sign in"
+  confirmation_message:
+    email:
+      subject: Thank you for submitting your tax information
+      body: |
+        Hello %{preferred_name},
+
+        Your tax information has been successfully submitted to your tax preparer at %{org_name}! Your Client ID is %{confirmation_number}.
+
+        Your tax specialist will review your information and will reach out to you in 3-5 business days to review your situation before preparing your taxes.
+
+        You can securely upload any additional tax documents here: %{doc_upload_link}
+
+        If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> or text message 58750.
+
+        We’re here to help!
+        Your tax team at GetYourRefund.org
+    sms:
+      body: Hello %{preferred_name}, thank you for submitting your tax information to %{org_name}! Your Client ID is %{confirmation_number}. Respond to this message if you have any questions. We’re here to help!
