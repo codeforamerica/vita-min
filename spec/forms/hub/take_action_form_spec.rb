@@ -118,10 +118,9 @@ RSpec.describe Hub::TakeActionForm do
             ¡Hola Luna Lemon!
 
             Para continuar presentando sus impuestos, necesitamos que nos envíe:
-              - Identificación
-              - Selfie
-              - SSN o ITIN
-              - Otro
+              - Identificación con foto
+              - Foto de usted sosteniendo su identificación con la foto cerca de su barbilla
+              - Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes
             Sube tus documentos de forma segura por https://example.com/my-token-link
 
             Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
