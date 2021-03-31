@@ -747,6 +747,7 @@ es:
     unemployment_income: "Compensación de desempleo"
     unread: Notificación no leída
     documents: "Documentos"
+    client: "Cliente"
   helpers:
     birth_date_helper:
       valid_birth_date: Por favor, seleccione una fecha válida

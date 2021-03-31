@@ -125,6 +125,41 @@ RSpec.describe Hub::DocumentsController, type: :controller do
             expect(assigns(:documents)).to eq [employment_document, identity_document]
           end
         end
+
+        context "when sorting by tax return year" do
+          let(:earlier_tax_return) { create :tax_return, client: client, year: 2019 }
+          let(:later_tax_return) { create :tax_return, client: client, year: 2020 }
+          let!(:document_later_one) { create :document, client: client, tax_return: later_tax_return }
+          let!(:document_earlier_one) { create :document, client: client, tax_return: earlier_tax_return }
+          let!(:document_later_two) { create :document, client: client, tax_return: later_tax_return }
+          let!(:document_earlier_two) { create :document, client: client, tax_return: earlier_tax_return }
+          let(:params){ { client_id: client.id, column: "tax_return", order: "desc" } }
+
+          it "successfully sorts the documents" do
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("tax_return")
+            expect(assigns[:sort_order]).to eq("desc")
+            expect(assigns(:documents)).to eq [document_later_one, document_later_two, document_earlier_one, document_earlier_two]
+          end
+        end
+
+        context "when sorting by tax return year" do
+          let(:first_uploader) { create :user, name: "Aaron Avocado" }
+          let(:second_uploader) { create :user, name: "Zachary Zucchini" }
+          let!(:expected_third_doc) { create :document, client: client, uploaded_by: second_uploader }
+          let!(:expected_second_doc) { create :document, client: client, uploaded_by: client }
+          let!(:expected_first_doc) { create :document, client: client, uploaded_by: first_uploader }
+          let(:params){ { client_id: client.id, column: "uploaded_by", order: "asc" } }
+
+          it "successfully sorts the documents" do
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("uploaded_by")
+            expect(assigns[:sort_order]).to eq("asc")
+            expect(assigns(:documents)).to eq [expected_first_doc, expected_second_doc, expected_third_doc]
+          end
+        end
       end
     end
   end

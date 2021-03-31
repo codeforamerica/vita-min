@@ -11,11 +11,13 @@ module Hub
     layout "admin"
 
     def index
-      @documents = sorted_documents.active
+      @documents = @documents.active
+      @documents = sorted_documents
     end
 
     def archived
-      @documents = sorted_documents.archived
+      @documents = @documents.archived
+      @documents = sorted_documents
       @show_archived_index = true
       render :index
     end
@@ -56,7 +58,18 @@ module Hub
     def sorted_documents
       @sort_order = sort_order
       @sort_column = sort_column
-      @documents.except(:order).order({ @sort_column => @sort_order })
+      @documents = @documents.except(:order).includes(:tax_return)
+      if @sort_column == "tax_return"
+        @documents.joins(:tax_return).order("tax_returns.year #{@sort_order}")
+      elsif @sort_column == "uploaded_by"
+        @documents.sort_by do |document|
+          # uploaded by is a polymorphic association, it wasn't clear how to construct that query
+          # so we are resorting to a ruby sort here.
+          document.uploaded_by.is_a?(User) ? document.uploaded_by.name : I18n.t("general.client")
+        end
+      else
+        @documents.order({ @sort_column => @sort_order })
+      end
     end
 
     def log_document_access!
@@ -76,8 +89,12 @@ module Hub
           .merge({ client: @client })
     end
 
+    def document_sort_columns
+      %w[created_at display_name document_type]
+    end
+
     def sort_column
-      %w[created_at display_name document_type].include?(params[:column]) ? params[:column] : "document_type"
+      (document_sort_columns + ["tax_return", "uploaded_by"]).include?(params[:column]) ? params[:column] : "document_type"
     end
 
     def sort_order

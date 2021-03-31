@@ -757,6 +757,7 @@ en:
     unemployment_income: "Unemployment Income"
     unread: Notification unread
     documents: "Documents"
+    client: "Client"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
