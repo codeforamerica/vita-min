@@ -1,0 +1,22 @@
+.link-table {
+  border-top: 1px solid $color-grey;
+
+  &__row {
+   border-bottom: 1px solid $color-grey;
+    display: flex;
+    padding: $s10;
+  }
+
+  &__link {
+    flex-basis: $s250;
+    padding-right: $s10;
+  }
+
+  &__description {
+    margin: 0;
+  }
+
+  &__navigation {
+    padding-top: $s60;
+  }
+}

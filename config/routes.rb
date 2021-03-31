@@ -159,7 +159,17 @@ Rails.application.routes.draw do
           post "update_take_action"
         end
       end
-      resources :client_selections, path: "client-selections", only: [:show]
+
+      resources :client_selections, path: "client-selections", only: [:show] do
+        member do
+          get "/bulk-action", to: "client_selections#bulk_action"
+        end
+      end
+
+      namespace :bulk_actions do
+        get "/:client_selection_id/change-organization", to: "change_organization#edit", as: :edit_change_organization
+        put "/:client_selection_id/change-organization", to: "change_organization#update", as: :update_change_organization
+      end
 
       resources :tax_returns, only: [] do
         patch "update_certification", to: "tax_returns/certifications#update", on: :member
