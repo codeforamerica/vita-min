@@ -17,18 +17,19 @@
               <%= render "note", note: note, is_last_item: note_index == (records.size - 1) && day_index == (@all_notes_by_day.size - 1) %>
             <% end %>
           <% end %>
-         <% end %>
+        <% end %>
       </ul>
-    <hr/>
-    <div class="single-input-form">
-      <%= form_with model: [:hub, @client, @note], local: true, builder: VitaMinFormBuilder, html: {class: 'note-form'} do |f| %>
-        <%= f.cfa_textarea :body, t(".note_form.label") %>
-        <div>
-          <%= f.submit t(".note_form.submit"), class: "button" %>
-        </div>
-      <% end %>
+      <hr/>
+      <div class="single-input-form">
+        <%= form_with model: [:hub, @client, @note], local: true, builder: VitaMinFormBuilder, html: { class: 'note-form' } do |f| %>
+          <%= f.cfa_textarea :body, t(".note_form.label") %>
+          <div>
+            <%= f.submit t(".note_form.submit"), class: "button" %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
 
-  <%= render "hub/clients/client_take_action_footer" %>
+    <%= render "hub/clients/client_take_action_footer" %>
+  </div>
 <% end %>
