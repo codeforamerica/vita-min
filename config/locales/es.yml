@@ -231,6 +231,14 @@ es:
         file_accepted: Aceptado
         file_not_filing: No archivar
         file_hold: En pausa
+      new:
+        title: Nuevo año fiscal para %{name}
+        current_years: "Años fiscales actuales:"
+        tax_year: Año fiscal
+        certification_level: Nivel de certificación (opcional)
+        assigned_user: Usuario asignado (opcional)
+      create:
+        success: Declaración de impuestos de %{year} creada para %{name}.
     status_macros:
       needs_more_information: |
         ¡Hola <<Client.PreferredName>>!
@@ -694,6 +702,7 @@ es:
     text_message: Mensaje de texto
     timezone: Zona horaria
     today: Hoy
+    update: Actualizar
     updated_at: Actualizado en
     upload: Subir
     unassigned: No asignado
@@ -2061,6 +2070,8 @@ es:
           one: Cuéntanos sobre tu trabajo en %{year}
           other: Cuéntenos sobre usted y el trabajo de su cónyuge en %{year}
     shared:
+      tax_return_list:
+        add_tax_year: Agregar año fiscal
       consent_agreement:
         details:
           header: Detalles

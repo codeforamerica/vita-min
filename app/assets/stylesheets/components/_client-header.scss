@@ -1,15 +1,22 @@
 .client-header {
-  position: relative;
 
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: $tablet-up) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
   &__left {
-    display: inline-block;
-    max-width: 50rem;
+    max-width: 40rem;
+    margin-right: 1.5rem;
   }
   &__right {
-    position: absolute;
-    right: 0;
-    top: 0;
+    min-width: 50%;
+    li:first-child {
+      margin-top: -1.5rem; // line the first tax return with the top of the left-hand-side div.
+    }
   }
+
   .h1 {
     margin-right: $s10;
     margin-bottom: $s10;
