@@ -86,6 +86,16 @@ class User < ApplicationRecord
     end
   end
 
+  def role_name
+    return nil unless role_type.present?
+
+    role_type.gsub("Role", "").underscore.humanize.titlecase
+  end
+
+  def served_entity
+    role.served_entity
+  end
+
   def accessible_vita_partners
     case role_type
     when AdminRole::TYPE

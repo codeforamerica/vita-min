@@ -22,6 +22,7 @@ module Hub
     def create
       if @tax_return.valid?
         @tax_return.save!
+        SystemNote::TaxReturnCreated.generate!(initiated_by: current_user, tax_return: @tax_return)
         flash[:notice] = I18n.t("hub.tax_returns.create.success", year: @tax_return.year, name: @client.preferred_name)
         redirect_to hub_client_path(id: @client.id)
       else

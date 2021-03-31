@@ -8,4 +8,6 @@
 #
 class AdminRole < ApplicationRecord
   TYPE = "AdminRole"
+
+  def served_entity; end
 end

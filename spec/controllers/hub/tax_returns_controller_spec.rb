@@ -72,6 +72,8 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           expect {
             post :create, params: params
           }.to change(client.tax_returns, :count).by(1)
+           .and change(client.system_notes, :count).by(1)
+          
           tax_return = TaxReturn.last
           expect(tax_return.year).to eq 2020
           expect(tax_return.status).to eq "intake_in_progress"

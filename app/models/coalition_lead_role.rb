@@ -19,4 +19,8 @@ class CoalitionLeadRole < ApplicationRecord
   TYPE = "CoalitionLeadRole"
 
   belongs_to :coalition
+
+  def served_entity
+    coalition
+  end
 end

@@ -379,4 +379,82 @@ RSpec.describe User, type: :model do
       expect(User.active).to match_array([user])
     end
   end
+
+  describe "#served_entity" do
+    context "an admin user" do
+      let(:user) { create :admin_user }
+      it "returns nil" do
+        expect(user.served_entity).to eq nil
+      end
+    end
+
+    context "a team member user" do
+      let(:site) { create :site}
+      let(:user) { create :team_member_user, site: site }
+      it "returns their site" do
+        expect(user.served_entity).to eq site
+      end
+    end
+
+    context "a coalition lead user" do
+      let(:coalition) { create :coalition }
+      let(:user) { create :coalition_lead_user, coalition: coalition }
+      it "returns their coalition" do
+        expect(user.served_entity).to eq coalition
+      end
+    end
+
+    context "a org lead user" do
+      let(:organization) { create :organization }
+      let(:user) { create :organization_lead_user, organization: organization }
+      it "returns their organization" do
+        expect(user.served_entity).to eq organization
+      end
+    end
+
+    context "a site coordinator user" do
+      let(:site) { create :site }
+      let(:user) { create :site_coordinator_user, site: site }
+      it "returns their organization" do
+        expect(user.served_entity).to eq site
+      end
+    end
+  end
+
+  describe "#role_name" do
+    context "an admin" do
+      let(:user) { create :admin_user }
+      it "is Admin" do
+        expect(user.role_name).to eq "Admin"
+      end
+    end
+
+    context "a team member" do
+      let(:user) { create :team_member_user }
+      it "is Admin" do
+        expect(user.role_name).to eq "Team Member"
+      end
+    end
+
+    context "site coordinator" do
+      let(:user) { create :site_coordinator_user }
+      it "is Site Coordinator" do
+        expect(user.role_name).to eq "Site Coordinator"
+      end
+    end
+
+    context "coalition lead" do
+      let(:user) { create :coalition_lead_user }
+      it "is Admin" do
+        expect(user.role_name).to eq "Coalition Lead"
+      end
+    end
+
+    context "organization lead" do
+      let(:user) { create :organization_lead_user }
+      it "is Admin" do
+        expect(user.role_name).to eq "Organization Lead"
+      end
+    end
+  end
 end
