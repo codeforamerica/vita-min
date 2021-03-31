@@ -379,6 +379,11 @@ es:
       client_selection_help_text_missing_results:
         one: "(Ya no tiene accesso a %{count} resultado)"
         other: "(Ya no tiene accesso a %{count} resultados)"
+      bulk_action:
+        change_organization: "Cambiar de organización"
+        change_organization_description: "Actualizar la organización responsable de estas devoluciones"
+        title: "Elija su acción masiva"
+        choose_operation_html: "Elija la operación que desea realizar en los <strong>%{client_count} clientes</strong> seleccionados."
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!

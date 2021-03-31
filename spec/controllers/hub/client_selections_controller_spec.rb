@@ -54,4 +54,21 @@ RSpec.describe Hub::ClientSelectionsController do
       end
     end
   end
+
+  describe "#bulk_action" do
+    let(:params) { { id: client_selection.id } }
+
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :bulk_action
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      it "should set client_selection and return 200 OK" do
+        get :bulk_action, params: params
+
+        expect(assigns(:client_count)).to eq 3
+        expect(response).to be_ok
+      end
+    end
+  end
 end
