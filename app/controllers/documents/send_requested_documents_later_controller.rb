@@ -1,7 +1,7 @@
 module Documents
   class SendRequestedDocumentsLaterController < DocumentUploadQuestionController
     append_after_action :reset_session, :track_page_view, only: :edit
-    skip_before_action :require_client_login
+    skip_before_action :require_client_login, :set_current_step
 
     def edit
       @documents_request = DocumentsRequest.find_by(id: session[:documents_request_id])

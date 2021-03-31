@@ -2,7 +2,7 @@ module Documents
   class RequestedDocumentsLaterController < DocumentUploadQuestionController
     before_action :handle_session, only: :edit
     before_action :current_session_or_home, only: [:update, :destroy]
-    skip_before_action :require_client_login
+    skip_before_action :require_client_login, :set_current_step
 
     rescue_from ActionController::InvalidAuthenticityToken do
       switch_locale do
