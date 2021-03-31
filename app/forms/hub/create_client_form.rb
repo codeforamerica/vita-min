@@ -61,7 +61,7 @@ module Hub
         tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
       )
 
-      locale = @client.preferred_language == "es" ? "es" : "en"
+      locale = @client.intake.preferred_interview_language == "es" ? "es" : "en"
       if @client.intake.sms_notification_opt_in == "yes"
         body = I18n.t("confirmation_message.sms.body",
                       locale: locale,
