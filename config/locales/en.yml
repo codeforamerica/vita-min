@@ -1279,7 +1279,7 @@ en:
         subheader: Maximize your refund by filing with our certified tax specialists virtually.
         subheader_offseason: GetYourRefund services will be opening in February for the 2021 tax season. Sign up and we'll notify you when our service is open!
         title: Free tax help from IRS-certified volunteers.
-        extension_banner_html: "<strong>Reminder: The federal income tax filing deadline has been extended to May 17, you can check your state filing deadline <a href='https://www.cnbc.com/2021/03/29/irs-extended-the-federal-tax-deadline-when-state-tax-returns-are-due.html' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank'>IRS form</a> requesting an extension."
+        extension_banner_html: "<strong>Reminder: The federal income tax filing deadline has been extended to May 17, you can check your state filing deadline <a href='https://www.taxadmin.org/index.php?option=com_content&view=article&id=1151:state-filing-dates&catid=20:site-content&Itemid=393' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank'>IRS form</a> requesting an extension."
       maintenance:
         contact_html: You can also %{email_link}.
         email: submit a question via email to GetYourRefund
