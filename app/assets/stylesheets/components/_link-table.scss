@@ -1,8 +1,8 @@
 .link-table {
-  border-top: 1px solid $color-grey;
+  border-top: 1px solid $color-grey-medium-light;
 
   &__row {
-   border-bottom: 1px solid $color-grey;
+    border-bottom: 1px solid $color-grey-medium-light;
     display: flex;
     padding: $s10;
   }
