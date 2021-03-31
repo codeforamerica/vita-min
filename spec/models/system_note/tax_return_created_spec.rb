@@ -39,7 +39,7 @@ describe SystemNote::TaxReturnCreated do
         expect(note).to be_persisted
         expect(note.client).to eq tax_return.client
         expect(note.user).to eq user
-        expect(note.body).to eq "Team User (Team Member - Site 1) added a 2018 tax return."
+        expect(note.body).to eq "Team User (Team Member - Some Site) added a 2018 tax return."
       end
     end
 

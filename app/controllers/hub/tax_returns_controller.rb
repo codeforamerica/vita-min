@@ -2,9 +2,10 @@ module Hub
   class TaxReturnsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    authorize_resource :client, parent: false, only: [:new, :create]
     load_and_authorize_resource except: [:new, :create]
-    load_resource through: @client, only: [:new, :create]
+    # on new/create, authorize through client but initialize tax return object
+    authorize_resource :client, parent: false, only: [:new, :create]
+    load_resource only: [:new, :create]
     before_action :prepare_form, only: [:new]
     before_action :load_assignable_users, except: [:show]
     before_action :load_and_authorize_assignee, only: [:update]
@@ -49,7 +50,6 @@ module Hub
 
     def load_assignable_users
       @client ||= @tax_return.client
-      @tax_return ||= TaxReturn.new
       @assignable_users = [current_user, @tax_return.assigned_user].compact
       if @client.vita_partner.present?
         if @client.vita_partner.site?
