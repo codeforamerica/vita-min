@@ -422,9 +422,9 @@ en:
         other: "(%{count} results are no longer accessible to you)"
       bulk_action:
         change_organization: "Change organization"
-        change_organization_description: "Update the organization responsible for these returns"
+        change_organization_description_html: "Update the organization responsible for these <strong>%{count} clients</strong>."
         title: "Choose your bulk action"
-        choose_operation_html: "Choose the operation you wish to perform on the selected <strong>%{client_count} clients</strong>."
+        choose_operation: "Choose the operation you wish to perform."
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
