@@ -235,7 +235,7 @@ es:
       intake_greeter_info_requested: |
         ¡Hola <<Client.PreferredName>>!
 
-        Para continuar presentando sus impuestos, iniciar sesión en https://www.getyourrefund.org/es/portal/login.
+        Para continuar presentando sus impuestos, iniciar sesión en https://www.getyourrefund.org/es/portal/login
 
         Cuando termine su formulario de admisión, puede enviar sus documentos fiscales. Tenga a mano su identificación con foto, tarjeta de Seguro Social y cualquier documento de ingresos.
 
