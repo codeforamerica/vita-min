@@ -235,7 +235,7 @@ en:
       intake_greeter_info_requested: |
         Hello <<Client.PreferredName>>,
 
-        In order to continue filing your taxes, sign in here: https://www.getyourrefund.org/en/portal/login.
+        In order to continue filing your taxes, sign in here: https://www.getyourrefund.org/en/portal/login
 
         When you finish your intake form you can submit your tax documents. Have your photo ID, Social Security card, and any income documents ready.
 
