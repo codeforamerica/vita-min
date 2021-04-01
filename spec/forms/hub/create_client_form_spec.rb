@@ -153,7 +153,7 @@ RSpec.describe Hub::CreateClientForm do
 
             Your tax specialist will review your information and will reach out to you in 3-5 business days to review your situation before preparing your taxes.
 
-            You can securely upload any additional tax documents here: #{client.intake.requested_docs_token_link}
+            You can securely upload any additional tax documents here: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
 
             If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> or text message 58750.
 
@@ -190,7 +190,7 @@ RSpec.describe Hub::CreateClientForm do
 
             Su especialista de impuestos revisará su información y se pondrá en contacto con usted de 3-5 días laborables para revisar su situación antes de preparar sus impuestos.
 
-            Puede someter cualquier documento adicional de forma segura aquí: #{client.intake.requested_docs_token_link}
+            Puede someter cualquier documento adicional de forma segura aquí: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
 
             Si tiene alguna pregunta, puede ponerse en contacto con su especialista de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> o del mensaje de texto 58750.
 

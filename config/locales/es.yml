@@ -2429,7 +2429,7 @@ es:
       body_html: ¡Huy! Parece que estás intentando acceder a una página o un cliente al que no tienes acceso. Póngase en contacto con Soporte para socios en <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> si necesita fusionar un cliente duplicado al que no tiene acceso.
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
-  confirmation_message:
+  drop_off_confirmation_message:
     email:
       subject: Gracias por enviar su información de impuestos
       body: |
@@ -2439,7 +2439,7 @@ es:
 
         Su especialista de impuestos revisará su información y se pondrá en contacto con usted de 3-5 días laborables para revisar su situación antes de preparar sus impuestos.
 
-        Puede someter cualquier documento adicional de forma segura aquí: %{doc_upload_link}
+        Puede someter cualquier documento adicional de forma segura aquí: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
 
         Si tiene alguna pregunta, puede ponerse en contacto con su especialista de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> o del mensaje de texto 58750.
 
