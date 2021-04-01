@@ -86,6 +86,28 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         end
       end
 
+      context "when existing tax return is drop_off" do
+        let(:params) do
+          {
+              client_id: client.id,
+              tax_return: {
+                  year: "2020",
+                  certification_level: "basic",
+                  assigned_user_id: user.id,
+                  status: :intake_in_progress
+              }
+          }
+        end
+        let!(:tax_return) { create :tax_return, client: client, year: 2018, service_type: 'drop_off' }
+
+        it "sets service type on created returns to be drop off" do
+          expect {
+            post :create, params: params
+          }.to change(client.tax_returns, :count).by(1)
+          expect(TaxReturn.last.service_type).to eq "drop_off"
+        end
+      end
+
       context "with invalid tax return" do
         before do
           allow_any_instance_of(TaxReturn).to receive(:valid?).and_return false

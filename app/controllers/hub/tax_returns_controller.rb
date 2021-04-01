@@ -8,7 +8,6 @@ module Hub
     load_resource only: [:new, :create]
     before_action :prepare_form, only: [:new]
     before_action :load_assignable_users, except: [:show]
-
     before_action :load_and_authorize_assignee, only: [:update]
 
     layout "admin"
@@ -70,7 +69,9 @@ module Hub
     end
 
     def tax_return_params
-      params.require(:tax_return).permit(:year, :assigned_user_id, :certification_level, :status).merge(client_id: params[:client_id])
+      merge_params = { client_id: params[:client_id] }
+      merge_params[:service_type] = "drop_off" if Client.find(params[:client_id]).tax_returns.pluck(:service_type).include? "drop_off"
+      params.require(:tax_return).permit(:year, :assigned_user_id, :certification_level, :status).merge(merge_params)
     end
 
     def prepare_form
