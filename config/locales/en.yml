@@ -241,6 +241,20 @@ en:
       create:
         success: "%{year} return created for %{name}."
     status_macros:
+      intake_greeter_info_requested: |
+        Hello <<Client.PreferredName>>,
+
+        In order to continue filing your taxes, sign in here: https://www.getyourrefund.org/en/portal/login
+
+        When you finish your intake form you can submit your tax documents. Have your photo ID, Social Security card, and any income documents ready.
+
+        We still need:
+        <<Documents.List>>
+
+        If you don’t need help with filing your taxes anymore, please reply “STOP” and we will close your account here at GetYourRefund.
+
+        Let us know if you have any questions,
+        Your tax team at GetYourRefund
       needs_more_information: |
         Hello <<Client.PreferredName>>,
 
@@ -619,6 +633,25 @@ en:
       ssn_or_itin: SSN or ITIN
       student_account_statement: Student Account Statement
       text_message_attachment: Text message attachment
+      with_descriptions:
+        id: Photo of your ID
+        selfie: Photo of yourself, holding your ID near your chin (for identity verification)
+        ssn_or_itin: Photo of your SSN or ITIN cards for yourself, spouse, and dependents, if applicable
+        employment: Income tax documents (W2's, 1099-NEC, etc)
+        1099-G: 1099-G for unemployment benefits or local or state tax refund
+        SSA-1099: SSA-1099 for social security benefits or disability income
+        prior_year_tax_return: Prior year tax return
+        property_tax_statment: Relevant property tax statements
+        student_account_statement: Relevant student account statements
+        1099-INT: 1099-INT for interest income
+        1099-DIV: 1099-DIV for dividend income
+        1098-T: 1098-T for student tuition
+        1095-A: 1095-A for marketplace health insurance
+        1099-R: 1099-R for retirement income
+        RRB-1099: RRB-1099 for railroad retirement benefits
+        1099-SA: 1099-SA for health savings account
+        ira_statements: IRA / retirement account statements
+        other: Any other tax documents you'd like us to consider
     edit: Edit
     email: Email
     error:

@@ -17,7 +17,7 @@ class TaxReturnStatus
     def message_templates
       {
           intake_info_requested: "hub.status_macros.needs_more_information",
-          intake_greeter_info_requested: "hub.status_macros.needs_more_information",
+          intake_greeter_info_requested: "hub.status_macros.intake_greeter_info_requested",
           intake_reviewing: "hub.status_macros.intake_reviewing",
           intake_ready_for_call: "hub.status_macros.intake_ready_for_call",
           prep_info_requested: "hub.status_macros.needs_more_information",

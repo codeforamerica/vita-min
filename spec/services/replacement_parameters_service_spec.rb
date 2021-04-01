@@ -56,11 +56,11 @@ describe ReplacementParametersService do
   context "<<Documents.List>>" do
     let(:body) { "We need these: <<Documents.List>>" }
     before do
-      allow(client.intake).to receive(:relevant_document_types).and_return [DocumentTypes::Identity, DocumentTypes::Selfie, DocumentTypes::SsnItin, DocumentTypes::Other]
+      allow(client.intake).to receive(:document_types_definitely_needed).and_return [DocumentTypes::Identity, DocumentTypes::Selfie, DocumentTypes::SsnItin, DocumentTypes::Other]
     end
 
     it "replaces with necessary document types" do
-      expect(subject.process).to eq "We need these:   - ID\n  - Selfie\n  - SSN or ITIN\n  - Other"
+      expect(subject.process).to eq "We need these:   - Photo of your ID\n  - Photo of yourself, holding your ID near your chin (for identity verification)\n  - Photo of your SSN or ITIN cards for yourself, spouse, and dependents, if applicable\n  - Any other tax documents you'd like us to consider"
     end
   end
 
@@ -122,7 +122,9 @@ describe ReplacementParametersService do
 
         it "replaces the replacement strings in the template" do
           expect(subject.process).to include client.preferred_name
-          expect(subject.process).to include "- ID\n  - Selfie\n  - SSN or ITIN\n  - Other"
+          expect(subject.process).to include "- Photo of your ID"
+          expect(subject.process).to include "- Photo of yourself, holding your ID near your chin (for identity verification)"
+          expect(subject.process).to include "- Photo of your SSN or ITIN cards for yourself, spouse, and dependents, if applicable"
           expect(subject.process).to include "https://example.com/my-token-link"
           expect(subject.process).to include user.first_name
         end
@@ -135,8 +137,36 @@ describe ReplacementParametersService do
         it "replaces the replacement strings in the template" do
           expect(subject.process).to include client.preferred_name
           expect(subject.process).to include "https://example.com/my-token-link"
-          expect(subject.process).to include "- Identificación\n  - Selfie\n  - SSN o ITIN\n  - Otro"
+          expect(subject.process).to include "- Identificación con foto"
+          expect(subject.process).to include "- Foto de usted sosteniendo su identificación con la foto cerca de su barbilla"
+          expect(subject.process).to include "- Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes"
+
           expect(subject.process).to include user.first_name
+        end
+      end
+    end
+
+    context "intake_greeter_info_requested" do
+      context "in english" do
+        let(:body) { I18n.t("hub.status_macros.intake_greeter_info_requested") }
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include "- Photo of your ID"
+          expect(result).to include "- Photo of yourself, holding your ID near your chin (for identity verification)"
+          expect(result).to include "- Photo of your SSN or ITIN cards for yourself, spouse, and dependents, if applicable"
+        end
+      end
+
+      context "in spanish" do
+        let(:body) { I18n.t("hub.status_macros.intake_greeter_info_requested", locale: "es") }
+        let(:locale){ "es" }
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include client.preferred_name
+          expect(result).to include "- Identificación con foto"
+          expect(result).to include "- Foto de usted sosteniendo su identificación con la foto cerca de su barbilla"
+          expect(result).to include "- Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes"
         end
       end
     end
