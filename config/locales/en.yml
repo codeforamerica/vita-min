@@ -237,6 +237,7 @@ en:
         tax_year: Tax year
         certification_level: Certification level (optional)
         assigned_user: Assigned user (optional)
+        no_remaining_years: There are no remaining tax years for which to create a return.
       create:
         success: "%{year} return created for %{name}."
     status_macros:

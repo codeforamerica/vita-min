@@ -32,12 +32,4 @@ class SystemNote::TaxReturnCreated < SystemNote
       user: initiated_by
     )
   end
-
-  def contact_record_type
-    "system_note"
-  end
-
-  def datetime
-    created_at
-  end
 end

@@ -8,6 +8,7 @@ module Hub
     load_resource only: [:new, :create]
     before_action :prepare_form, only: [:new]
     before_action :load_assignable_users, except: [:show]
+
     before_action :load_and_authorize_assignee, only: [:update]
 
     layout "admin"
@@ -15,7 +16,7 @@ module Hub
 
     def new
       if @remaining_years.blank?
-        flash[:notice] = "There are no remaining tax years to create a return for."
+        flash[:notice] = I18n.t("hub.tax_returns.new.no_remaining_years")
         redirect_to hub_client_path(id: @client.id)
       end
     end

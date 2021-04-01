@@ -29,4 +29,8 @@ class SystemNote < ApplicationRecord
   def contact_record_type
     "system_note"
   end
+
+  def datetime
+    created_at
+  end
 end

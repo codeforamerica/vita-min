@@ -34,6 +34,8 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
       it "renders the new template and assigns tax_return related variables" do
         get :new, params: params
         expect(response).to render_template :new
+        expect(assigns(:client)).to eq client
+        expect(assigns(:tax_return)).to be_an_instance_of TaxReturn
         expect(assigns(:tax_return_years)).to eq [2018]
         expect(assigns(:remaining_years)).to eq TaxReturn.filing_years - [2018]
       end

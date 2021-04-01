@@ -33,11 +33,22 @@ RSpec.feature "Add a tax return for an existing client" do
         expect(page).to have_text "Org Lead"
         expect(page).to have_text "Greeter - info requested"
       end
-      # when tax returns are created for all years, do not show Add tax year button
-      create :tax_return, client: client, year: 2018
-      create :tax_return, client: client, year: 2020
-      visit hub_client_path(id: client.id)
-      expect(page).not_to have_text "Add tax year"
     end
+
+    context "when there are no more tax return years to create objects for" do
+      before do
+        # 2019 already created above
+        create :tax_return, client: client, year: 2018
+        create :tax_return, client: client, year: 2020
+        create :tax_return, client: client, year: 2017
+      end
+
+      scenario "it does not show the button on the client show page" do
+        # when tax returns are created for all years, do not show Add tax year button
+        visit hub_client_path(id: client.id)
+        expect(page).not_to have_text "Add tax year"
+      end
+    end
+
   end
 end

@@ -237,6 +237,7 @@ es:
         tax_year: Año fiscal
         certification_level: Nivel de certificación (opcional)
         assigned_user: Usuario asignado (opcional)
+        no_remaining_years: No hay años fiscales restantes para los que crear una declaración.
       create:
         success: Declaración de impuestos de %{year} creada para %{name}.
     status_macros:
