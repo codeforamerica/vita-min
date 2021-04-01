@@ -14,13 +14,19 @@ describe ReplacementParametersService do
 
   context "<<Client.PreferredName>>" do
     let(:body) { "Hi <<Client.PreferredName>>" }
-
-    it "replaces with client's preferred name" do
-      expect(subject.process).to eq "Hi #{client.preferred_name}"
+    before do
+      client.intake.preferred_name = "lowercased name"
+    end
+    
+    it "replaces with client's preferred name (titleized)" do
+      expect(subject.process).to eq "Hi Lowercased Name"
     end
 
     context "client without preferred name" do
-      let(:client) { build :client, intake: create(:intake) }
+      before do
+        client.intake.preferred_name = nil
+      end
+
       it "handles as gracefully as possible" do
         expect(subject.process).to eq "Hi "
       end

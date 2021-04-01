@@ -27,7 +27,7 @@ class ReplacementParametersService
 
   def replacements
     {
-        "Client.PreferredName": client&.preferred_name,
+        "Client.PreferredName": client&.preferred_name&.titleize,
         "Preparer.FirstName": preparer_first_name,
         "Documents.List": documents_list,
         "Documents.UploadLink": client.intake.requested_docs_token_link,
