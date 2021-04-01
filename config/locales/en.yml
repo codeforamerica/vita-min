@@ -231,6 +231,15 @@ en:
         file_accepted: Accepted
         file_not_filing: Not filing
         file_hold: Hold
+      new:
+        title: Add tax year for %{name}
+        current_years: "Current Tax Years:"
+        tax_year: Tax year
+        certification_level: Certification level (optional)
+        assigned_user: Assigned user (optional)
+        no_remaining_years: There are no remaining tax years for which to create a return.
+      create:
+        success: "%{year} return created for %{name}."
     status_macros:
       needs_more_information: |
         Hello <<Client.PreferredName>>,
@@ -710,6 +719,7 @@ en:
     text_message: Text Message
     timezone: Timezone
     today: Today
+    update: Update
     updated_at: Updated At
     unassigned: Unassigned
     unsure: I don't know
@@ -2113,6 +2123,8 @@ en:
           one: Tell us about your work in %{year}
           other: Tell us about you and your spouse's work in %{year}
     shared:
+      tax_return_list:
+        add_tax_year: Add tax year
       consent_agreement:
         details:
           intro: >-

@@ -20,17 +20,16 @@
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (user_id => users.id)
 #
-class SystemNote < ApplicationRecord
-  belongs_to :client
-  belongs_to :user, required: false
+class SystemNote::TaxReturnCreated < SystemNote
+  def self.generate!(tax_return:, initiated_by:)
+    user_info = initiated_by.role_name
+    user_info += " - #{initiated_by.served_entity.name}" if initiated_by.role.served_entity.present?
+    body = "#{initiated_by.name} (#{user_info}) added a #{tax_return.year} tax return."
 
-  validates_presence_of :body
-
-  def contact_record_type
-    "system_note"
-  end
-
-  def datetime
-    created_at
+    create!(
+      body: body,
+      client: tax_return.client,
+      user: initiated_by
+    )
   end
 end

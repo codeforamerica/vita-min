@@ -2,12 +2,37 @@ module Hub
   class TaxReturnsController < ApplicationController
     include AccessControllable
     before_action :require_sign_in
-    load_and_authorize_resource
-    before_action :load_assignable_users, only: [:edit, :update]
+    load_and_authorize_resource except: [:new, :create]
+    # on new/create, authorize through client but initialize tax return object
+    authorize_resource :client, parent: false, only: [:new, :create]
+    load_resource only: [:new, :create]
+    before_action :prepare_form, only: [:new]
+    before_action :load_assignable_users, except: [:show]
+
     before_action :load_and_authorize_assignee, only: [:update]
 
     layout "admin"
-    respond_to :js
+    respond_to :js, except: [:new, :create]
+
+    def new
+      if @remaining_years.blank?
+        flash[:notice] = I18n.t("hub.tax_returns.new.no_remaining_years")
+        redirect_to hub_client_path(id: @client.id)
+      end
+    end
+
+    def create
+      if @tax_return.valid?
+        @tax_return.save!
+        SystemNote::TaxReturnCreated.generate!(initiated_by: current_user, tax_return: @tax_return)
+        flash[:notice] = I18n.t("hub.tax_returns.create.success", year: @tax_return.year, name: @client.preferred_name)
+        redirect_to hub_client_path(id: @client.id)
+      else
+        prepare_form
+        flash[:notice] = I18n.t("forms.errors.general")
+        render :new
+      end
+    end
 
     def edit; end
 
@@ -25,7 +50,7 @@ module Hub
     private
 
     def load_assignable_users
-      @client = @tax_return.client
+      @client ||= @tax_return.client
       @assignable_users = [current_user, @tax_return.assigned_user].compact
       if @client.vita_partner.present?
         if @client.vita_partner.site?
@@ -44,8 +69,19 @@ module Hub
       params.permit(:assigned_user_id)
     end
 
+    def tax_return_params
+      params.require(:tax_return).permit(:year, :assigned_user_id, :certification_level, :status).merge(client_id: params[:client_id])
+    end
+
+    def prepare_form
+      @client = Client.find_by(id: params[:client_id])
+      @tax_return_years = @client.tax_returns.pluck(:year)
+      @remaining_years = TaxReturn.filing_years - @tax_return_years
+    end
+
     def load_and_authorize_assignee
       return if assign_params[:assigned_user_id].blank?
+
       @assigned_user = User.where(id: @assignable_users).find_by(id: assign_params[:assigned_user_id])
 
       raise CanCan::AccessDenied unless @assigned_user.present?

@@ -21,6 +21,10 @@ class SiteCoordinatorRole < ApplicationRecord
   belongs_to :site, foreign_key: "vita_partner_id", class_name: "VitaPartner"
   validate :no_organizations
 
+  def served_entity
+    site
+  end
+
   private
 
   def no_organizations
