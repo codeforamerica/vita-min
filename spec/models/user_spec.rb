@@ -388,6 +388,13 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context "a greeter user" do
+      let(:user) { create :greeter_user }
+      it "returns nil" do
+        expect(user.served_entity).to eq nil
+      end
+    end
+
     context "a team member user" do
       let(:site) { create :site}
       let(:user) { create :team_member_user, site: site }

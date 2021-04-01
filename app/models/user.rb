@@ -93,7 +93,7 @@ class User < ApplicationRecord
   end
 
   def served_entity
-    role.served_entity
+    role&.served_entity
   end
 
   def accessible_vita_partners
