@@ -41,22 +41,27 @@ RSpec.feature "Adjust state routing", :js do
 
       click_on "Save"
 
+      crocodile_routing_percentage_field = "hub_state_routing_form[vita_partner_states_attributes][0][routing_percentage]"
+      coconut_routing_percentage_field = "hub_state_routing_form[vita_partner_states_attributes][1][routing_percentage]"
+      orange_routing_percentage_field = "hub_state_routing_form[vita_partner_states_attributes][2][routing_percentage]"
+
       new_vps_id = VitaPartnerState.last.id
       within "#vita_partner_state-#{new_vps_id}" do
         expect(page).to have_text "Coconut Cooperative"
-        expect(find_field("hub_state_routing_form[vita_partner_states_attributes][1][routing_percentage]").value).to eq "10"
+        expect(find_field(coconut_routing_percentage_field).value).to eq "10"
       end
 
-      expect(find_field("hub_state_routing_form[vita_partner_states_attributes][0][routing_percentage]").value).to eq "90"
-      expect(find_field("hub_state_routing_form[vita_partner_states_attributes][1][routing_percentage]").value).to eq "10"
-      expect(find_field("hub_state_routing_form[vita_partner_states_attributes][2][routing_percentage]").value).to eq "0"
+      expect(find_field(crocodile_routing_percentage_field).value).to eq "90"
+      expect(find_field(coconut_routing_percentage_field).value).to eq "10"
+      expect(find_field(orange_routing_percentage_field).value).to eq "0"
 
       within "#vita_partner_state-#{orange_vps.id}" do
         expect(page).to have_css('i.icon-delete_forever')
         page.accept_alert 'Are you sure you want to remove routing for Orange Organization?' do
-          find(:css, '.delete-item').click
+          find(:css, '.delete-item a').click
         end
       end
+
       expect(page).not_to have_text "Orange Organization"
 
       click_on "Add routing"
