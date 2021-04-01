@@ -61,6 +61,26 @@ module Hub
         tax_returns_attributes: @tax_returns_attributes.map { |_, v| create_tax_return_for_year?(v[:year]) ? tax_return_defaults.merge(v) : nil }.compact
       )
 
+      locale = @client.intake.preferred_interview_language == "es" ? "es" : "en"
+      if @client.intake.sms_notification_opt_in == "yes"
+        body = I18n.t("drop_off_confirmation_message.sms.body",
+                      locale: locale,
+                      preferred_name: @client.intake.preferred_name,
+                      org_name: @client.vita_partner.name,
+                      confirmation_number: @client.id)
+        ClientMessagingService.send_system_text_message(@client, body)
+      end
+
+      if @client.intake.email_notification_opt_in == "yes"
+        subject = I18n.t("drop_off_confirmation_message.email.subject", locale: locale)
+        body = I18n.t("drop_off_confirmation_message.email.body",
+                      locale: locale,
+                      preferred_name: @client.intake.preferred_name,
+                      org_name: @client.vita_partner.name,
+                      confirmation_number: @client.id)
+        ClientMessagingService.send_system_email(@client, body, subject)
+      end
+
       @client.tax_returns.each do |tax_return|
         MixpanelService.send_event(
           event_id: @client.intake.visitor_id,

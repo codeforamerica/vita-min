@@ -411,9 +411,9 @@ es:
         other: "(Ya no tiene accesso a %{count} resultados)"
       bulk_action:
         change_organization: "Cambiar de organización"
-        change_organization_description: "Actualizar la organización responsable de estas devoluciones"
+        change_organization_description_html: "Actualizar la organización responsable de estos <strong>%{count} clientes</strong>."
         title: "Elija su acción masiva"
-        choose_operation_html: "Elija la operación que desea realizar en los <strong>%{client_count} clientes</strong> seleccionados."
+        choose_operation: "Elija la operación que desea realizar."
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
@@ -2429,3 +2429,22 @@ es:
       body_html: ¡Huy! Parece que estás intentando acceder a una página o un cliente al que no tienes acceso. Póngase en contacto con Soporte para socios en <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> si necesita fusionar un cliente duplicado al que no tiene acceso.
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
+  drop_off_confirmation_message:
+    email:
+      subject: Gracias por enviar su información de impuestos
+      body: |
+        Hola %{preferred_name},
+
+        Su información ha sido enviada con éxito a su preparador de impuestos en %{org_name}. Su ID de cliente es %{confirmation_number}.
+
+        Su especialista de impuestos revisará su información y se pondrá en contacto con usted de 3-5 días laborables para revisar su situación antes de preparar sus impuestos.
+
+        Puede someter cualquier documento adicional de forma segura aquí: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
+
+        Si tiene alguna pregunta, puede ponerse en contacto con su especialista de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> o del mensaje de texto 58750.
+
+        ¡Estamos aquí para ayudarle!
+
+        Su equipo de impuestos en GetYourRefund.org
+    sms:
+      body: Hola %{preferred_name}, ¡Gracias por enviar su información de impuestos a %{org_name}! Su ID de cliente es %{confirmation_number}. Responda a este mensaje si tiene alguna pregunta. Estamos aquí para ayudarle.
