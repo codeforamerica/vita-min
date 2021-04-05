@@ -102,7 +102,7 @@ module Portal
 
     def validate_token
       @clients = ClientLoginsService.clients_for_token(params[:id])
-      redirect_to invalid_token_portal_client_logins_path unless @clients.present?
+      redirect_to portal_client_logins_path unless @clients.present?
     end
 
     def redirect_locked_clients

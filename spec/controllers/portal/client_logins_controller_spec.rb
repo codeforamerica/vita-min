@@ -278,10 +278,10 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       context "with an invalid token" do
         before { allow(ClientLoginsService).to receive(:clients_for_token).and_return(Client.none) }
 
-        it "redirect to a page saying you need a new token" do
+        it "redirects you to the portal login page" do
           post :update, params: { id: "invalid_token" }
 
-          expect(response).to redirect_to(invalid_token_portal_client_logins_path)
+          expect(response).to redirect_to(portal_client_logins_path)
         end
       end
     end
