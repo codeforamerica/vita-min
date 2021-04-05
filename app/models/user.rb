@@ -158,9 +158,9 @@ class User < ApplicationRecord
     users = User.where(role_type: [AdminRole::TYPE, ClientSuccessRole::TYPE, GreeterRole::TYPE])
     coalition = client.vita_partner&.coalition || client.vita_partner&.parent_organization&.coalition
     users = users.or(User.where(role: CoalitionLeadRole.where(coalition: coalition))) if coalition.present?
-    users = users.or(User.where(role: OrganizationLeadRole.where(organization: client.vita_partner))) if client.vita_partner.organization?
+    users = users.or(User.where(role: OrganizationLeadRole.where(organization: client.vita_partner))) if client.vita_partner&.organization?
 
-    if client.vita_partner.site?
+    if client.vita_partner&.site?
       team_members = User.where(role: TeamMemberRole.where(site: client.vita_partner))
       site_leads = User.where(role: SiteCoordinatorRole.where(site: client.vita_partner))
       org_leads = User.where(role: OrganizationLeadRole.where(organization: client.vita_partner.parent_organization))

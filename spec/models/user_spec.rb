@@ -350,7 +350,8 @@ RSpec.describe User, type: :model do
     let(:organization_lead_user) { create :organization_lead_user, organization: client_organization }
     let(:site_coordinator_user) { create :site_coordinator_user, site: client_site }
     let(:team_member_user) { create :team_member_user, site: client_site }
-    context "a user assigned to an organization" do
+
+    context "with a client assigned to an organization" do
 
       let(:client) { create :client, vita_partner: client_organization }
 
@@ -359,11 +360,17 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context "a user assigned to a site" do
+    context "with a client assigned to a site" do
       let(:client) { create :client, vita_partner: client_site }
       it "includes users who can access the client" do
         expect(User.taggable_for(client)).to contain_exactly(admin_user, client_success_user, greeter_user, coalition_lead_user, organization_lead_user, site_coordinator_user, team_member_user)
+      end
+    end
 
+    context "with an unassigned client" do
+      let(:client) { create :client, vita_partner: nil }
+      it "includes users who can access the client" do
+        expect(User.taggable_for(client)).to contain_exactly(admin_user, client_success_user, greeter_user)
       end
     end
   end
@@ -377,7 +384,7 @@ RSpec.describe User, type: :model do
     end
 
     context "Luke Skywalker" do
-      let(:user) { build :user, name: "Luke Skywalker"}
+      let(:user) { build :user, name: "Luke Skywalker" }
       it "returns nil" do
         expect(user.first_name).to eq "Luke"
       end
