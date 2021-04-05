@@ -1,4 +1,5 @@
 import Tagify from '@yaireo/tagify'
+import { removeMentionedId, addMentionedId } from "./callbacks";
 
 export function initTaggableNote() {
     // limit with feature-flagging
@@ -24,6 +25,10 @@ export function initTaggableNote() {
             position: 'text', // <-- render the suggestions list next to the typed text
             mapValueTo: 'name_with_role_and_entity', // <-- defines which attr is used for dropdown items
             highlightFirst: true  // automatically highlights first suggestion item in the dropdown
+        },
+        callbacks: {
+            add: addMentionedId,
+            remove: removeMentionedId
         }
     });
 }

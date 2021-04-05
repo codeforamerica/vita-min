@@ -393,6 +393,10 @@ es:
         title: Le han asignado un cliente
         body_html: "%{assigner} le ha asignado  la declaración de impuestos %{tax_return_year} de %{client_link}."
         body_link: "%{client_name}"
+      note:
+        title: Le han etiquetado en una nota
+        body_html: "%{assigner} te ha etiquetado en la nota de %{client_link}."
+        body_link: "%{client_name}"
     state_routings:
       edit:
         add_routing: Agregar enrutamiento

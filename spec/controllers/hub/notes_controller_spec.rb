@@ -6,16 +6,18 @@ RSpec.describe Hub::NotesController, type: :controller do
   let!(:intake) { create :intake, client: client }
   let(:timezone) { "America/New_York" }
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: timezone) }
-
+  let(:other_user) { create(:user) }
   describe "#create" do
-    let(:params) {
+    let(:mentions) { "" }
+    let(:params) do
       {
         client_id: client.id,
         note: {
-          body: "Note body"
+          body: "Note body",
+          mentioned_ids: mentions
         }
       }
-    }
+    end
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
@@ -24,14 +26,36 @@ RSpec.describe Hub::NotesController, type: :controller do
         sign_in user
       end
 
-      it "creates a new note" do
-        post :create, params: params
+      context "with mentions" do
+        let(:mentions) { "#{user.id},#{other_user.id}" }
+        it "creates a new note and saves notifications for mentioned users" do
+          expect {
+            post :create, params: params
+          }.to change(client.notes, :count).by(1)
+           .and change(user.notifications, :count).by(1)
+           .and change(other_user.notifications, :count).by(1)
 
-        note = Note.last
-        expect(note.body).to eq "Note body"
-        expect(note.client).to eq client
-        expect(note.user).to eq user
-        expect(response).to redirect_to hub_client_notes_path(client_id: client.id, anchor: "last-item")
+          note = Note.last
+          expect(note.body).to eq "Note body"
+          expect(note.user).to eq user
+          expect(user.notifications.last.notifiable).to eq note
+          expect(other_user.notifications.last.notifiable).to eq note
+          expect(response).to redirect_to hub_client_notes_path(client_id: client.id, anchor: "last-item")
+        end
+      end
+
+      context "without mentioned users" do
+        let(:mentions) { "" }
+        it "creates a note without changing notifications length" do
+          expect {
+            post :create, params: params
+          }.to change(client.notes, :count).by(1)
+           .and not_change(user.notifications, :count)
+
+          note = Note.last
+          expect(note.body).to eq "Note body"
+          expect(note.user).to eq user
+        end
       end
 
       context "with invalid params" do
