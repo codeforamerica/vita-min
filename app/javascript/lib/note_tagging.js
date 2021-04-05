@@ -1,7 +1,7 @@
 import Tagify from '@yaireo/tagify'
 
 export function initTaggableNote() {
-    // enable feature-flagging
+    // limit with feature-flagging
     const url = new URLSearchParams(location.search);
     if (!url.has("test-tagging")) { return }
 
