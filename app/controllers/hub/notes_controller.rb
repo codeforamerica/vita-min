@@ -14,7 +14,17 @@ module Hub
     end
 
     def create
-      return render :index unless @note.save
+      if @note.valid?
+        @note.save!
+        if params[:note][:mentioned_ids].present?
+          mentioned_user_ids = params[:note][:mentioned_ids].split(",")
+          mentioned_user_ids.each do |id|
+            UserNotification.create(notifiable: @note, user_id: id)
+          end
+        end
+      else
+        return render :index
+      end
 
       redirect_to hub_client_notes_path(client_id: params[:client_id], anchor: "last-item")
     end
