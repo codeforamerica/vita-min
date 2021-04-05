@@ -22,6 +22,7 @@ RSpec.describe "a user editing an organization" do
 
         select "Central Time (US & Canada)", from: "Timezone"
         fill_in "Capacity limit", with: "200"
+        check "Allows Greeters"
 
         click_on "Save"
 
@@ -29,6 +30,7 @@ RSpec.describe "a user editing an organization" do
 
         expect(page).to have_select("Timezone", selected: "Central Time (US & Canada)")
         expect(find_field('Capacity limit').value).to eq "200"
+        expect(find_field('Allows Greeters').value).to eq "true"
 
         # Now do the same for the child site
 
