@@ -90,8 +90,12 @@ RSpec.describe Hub::NotesController, type: :controller do
       end
 
       context "loads notes" do
+        let(:admin_user) { create :admin_user, name: "Penelope Persimmon" }
+        let(:team_member) { create :team_member_user, name: "Mel Melon", site: (create :site, name: "Some Site") }
         before do
+
           allow(NotesPresenter).to receive(:grouped_notes).with(client).and_return({})
+          allow(User).to receive(:taggable_for).with(client).and_return([team_member, admin_user])
         end
 
         let(:timezone) { "America/Los_Angeles" }
@@ -100,6 +104,12 @@ RSpec.describe Hub::NotesController, type: :controller do
           get :index, params: params
           expect(NotesPresenter).to have_received(:grouped_notes).with(client)
           expect(assigns(:all_notes_by_day)).not_to be_nil
+        end
+
+        it "assigns taggable_users as stringified json" do
+          get :index, params: params
+          expect(User).to have_received(:taggable_for).with(client)
+          expect(assigns(:taggable_users)).to eq "[{\"id\":#{team_member.id},\"name\":\"Mel Melon\",\"name_with_role_and_entity\":\"Mel Melon - Team Member - Some Site\"},{\"id\":#{admin_user.id},\"name\":\"Penelope Persimmon\",\"name_with_role_and_entity\":\"Penelope Persimmon - Admin\"}]"
         end
       end
     end

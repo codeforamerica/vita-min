@@ -332,6 +332,42 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe ".taggable_for" do
+    let(:admin_user) { create :admin_user }
+    let(:client_success_user) { create :client_success_user }
+    let(:greeter_user) { create :greeter_user }
+
+    let!(:outside_coalition_lead_user) { create :coalition_lead_user }
+    let!(:outside_organization_lead_user) { create :organization_lead_user }
+    let!(:outside_site_coordinator_user) { create :site_coordinator_user }
+    let!(:outside_team_member_user) { create :team_member_user }
+
+    let(:client_coalition) { create :coalition }
+    let(:client_organization) { create :organization, coalition: client_coalition }
+    let(:client_site) { create :site, parent_organization: client_organization }
+
+    let(:coalition_lead_user) { create :coalition_lead_user, coalition: client_coalition }
+    let(:organization_lead_user) { create :organization_lead_user, organization: client_organization }
+    let(:site_coordinator_user) { create :site_coordinator_user, site: client_site }
+    let(:team_member_user) { create :team_member_user, site: client_site }
+    context "a user assigned to an organization" do
+
+      let(:client) { create :client, vita_partner: client_organization }
+
+      it "includes users who can access the client" do
+        expect(User.taggable_for(client)).to contain_exactly(admin_user, client_success_user, greeter_user, coalition_lead_user, organization_lead_user)
+      end
+    end
+
+    context "a user assigned to a site" do
+      let(:client) { create :client, vita_partner: client_site }
+      it "includes users who can access the client" do
+        expect(User.taggable_for(client)).to contain_exactly(admin_user, client_success_user, greeter_user, coalition_lead_user, organization_lead_user, site_coordinator_user, team_member_user)
+
+      end
+    end
+  end
+
   describe "first_name" do
     context "Luke" do
       let(:user) { build :user, name: "Luke"}
