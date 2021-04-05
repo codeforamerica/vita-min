@@ -96,6 +96,12 @@ class User < ApplicationRecord
     role&.served_entity
   end
 
+  def name_with_role_and_entity
+    content = "#{name} - #{role_name}"
+    content += " - #{served_entity.name}" if served_entity.present?
+    content
+  end
+
   def accessible_vita_partners
     case role_type
     when AdminRole::TYPE

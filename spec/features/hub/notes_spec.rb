@@ -11,7 +11,7 @@ RSpec.feature "View and add internal notes for a client" do
       login_as user
     end
 
-    scenario "view document list and change a display name" do
+    scenario "add an internal note to a client" do
       visit hub_client_notes_path(client_id: client.id)
 
       expect(page).to have_selector("h1", text: "Bart Simpson")
@@ -23,6 +23,23 @@ RSpec.feature "View and add internal notes for a client" do
       new_note = Note.last
       expect(new_note.client).to eq client
       expect(new_note.user).to eq user
+    end
+
+    scenario "tagging a user", :js do
+      visit hub_client_notes_path(client_id: client.id, 'test-tagging': true) # feature flagged
+      expect(page).not_to have_css(".tagify__dropdown")
+      input = find('span.tagify__input')
+      input.click
+      input.send_keys("@")
+      expect(page).to have_css(".tagify__dropdown")
+      option = find("div.tagify__dropdown__wrapper div")
+      expect(option).to have_text("#{user.name} - Organization Lead - #{organization.name}")
+      option.click
+      expect(input).to have_text("#{user.name}")
+      click_on "Save"
+
+      note = find(".note#last-item")
+      expect(note).to have_text "@#{user.name}"
     end
   end
 end

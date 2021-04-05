@@ -56,6 +56,7 @@
 @import "components/tooltip";
 @import "components/pagination";
 @import "components/link-table";
+@import "components/tagify-overrides";
 @import "organisms/form-cards";
 @import "organisms/offboarding";
 @import "organisms/provider-list";
@@ -80,7 +81,6 @@
 @import "templates/satisfaction-survey";
 @import "templates/question";
 @import "templates/home";
-
 
 html {
   background-color: black;

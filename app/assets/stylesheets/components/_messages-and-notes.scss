@@ -6,6 +6,7 @@
   word-break: break-word;
   p {
     margin-bottom: 1rem;
+    line-height: 2.2rem; // increase line height to account for padding on tags
   }
   p:last-of-type {
     margin-bottom: 0;
@@ -34,8 +35,8 @@ ul.day-list {
     padding: 1.5rem 0;
     font-size: 1.6rem;
     &:first-of-type {
-      border-top: 0px;
-      padding-top: 0px;
+      border-top: 0;
+      padding-top: 0;
     }
   }
 }
@@ -181,9 +182,6 @@ ul.day-list {
   display: flex;
   flex-direction: column;
   margin-bottom: 1.5rem;
-  &__day-heading {
-
-  }
   &__heading {
     display: flex;
     justify-content: space-between;
@@ -208,5 +206,11 @@ ul.day-list {
     .note__body {
       @include system_note;
     }
+  }
+  .user-tag {
+    background: $color-tag-bg;
+    color: $color-venice-blue;
+    padding: .3rem;
+    border-radius: 3px;
   }
 }
