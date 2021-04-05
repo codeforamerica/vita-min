@@ -908,9 +908,6 @@ es:
       account_locked:
         title: Esta cuenta ha sido bloqueada
         body_html: Esta cuenta se ha bloqueado debido a demasiados intentos fallidos de inicio de sesión. Si necesita ayuda para desbloquear esta cuenta, envíenos un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org </a>.
-      invalid_token:
-        title: Parece que necesita un nuevo enlace
-        body_html: El enlace que usted usó está caducado o roto. <a href="mailto:hello@getyourrefund.org">Envíe un correo electrónico a soporte</a> para obtener un nuevo enlace.
       enter_verification_code:
         title: "¡Verifiquemos ese código!"
         code_sent_to_html: "Se ha enviado un mensaje con tu código a: <strong>%{address}</strong>"

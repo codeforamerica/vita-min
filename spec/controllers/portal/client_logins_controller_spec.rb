@@ -417,12 +417,4 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
     end
   end
-
-  describe "#invalid_token" do
-    it "redirects to the portal login page" do
-      get :invalid_token
-
-      expect(response).to redirect_to(portal_client_logins_path)
-    end
-  end
 end
