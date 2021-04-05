@@ -29,8 +29,9 @@ const Listeners =  (function(){
                 if(["Hub::StateRoutingsController#edit", "Hub::StateRoutingsController#update"].includes(window.appData.controller_action)) {
                     initStateRoutingsListeners();
                 }
-
-                initTaggableNote();
+                if (document.querySelector('.taggable-note')) {
+                  initTaggableNote();
+                }
                 initMetricsTableSortAndFilter();
                 // enables the link_to_add_fields and link_to_remove_fields helper methods to work globally
                 initNestedAttributesListeners();
