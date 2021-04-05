@@ -404,6 +404,10 @@ en:
         title: You've Been Assigned a Client
         body_html: "%{assigner} has assigned %{client_link} %{tax_return_year} return to you."
         body_link: "%{client_name}'s"
+      note:
+        title: You've Been Tagged in a Note
+        body_html: "%{assigner} has tagged you in %{client_link} notes."
+        body_link: "%{client_name}'s"
     state_routings:
       edit:
         add_routing: Add routing

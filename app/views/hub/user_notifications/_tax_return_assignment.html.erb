@@ -1,6 +1,6 @@
 <div class="notification">
   <div class="notification__heading"><%= t(".title") %></div>
-  <div class="notification__date"><%= long_formatted_datetime(notification.created_at, use_day: false) %></div>
+  <div class="notification__date"><%= timestamp(notification.created_at) %></div>
   <div class="notification__body <%= notification.read ? 'notification__read' : 'notification__unread' %>">
     <%= t(".body_html",
           assigner: notification.notifiable.assigner.name,

@@ -26,6 +26,7 @@ module Hub
         return render :index
       end
 
+      create_notifications if params.dig(:note, :mentioned_ids).present?
       redirect_to hub_client_notes_path(client_id: params[:client_id], anchor: "last-item")
     end
 
@@ -33,6 +34,11 @@ module Hub
 
     def note_params
       params.require(:note).permit(:body).merge(user: current_user, client: @client)
+    end
+
+    def create_notifications
+      mentioned_user_ids = params.dig(:note, :mentioned_ids).split(",")
+      mentioned_user_ids.each { |id| UserNotification.create(notifiable: @note, user_id: id) }
     end
   end
 end

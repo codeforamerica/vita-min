@@ -26,14 +26,16 @@
   </section>
 
   <section class="slab slab--padded">
-    <% all_notifications_by_day = @user_notifications.group_by do |notification| %>
-      <% notification.created_at.beginning_of_day %>
-    <% end %>
-    <% all_notifications_by_day.map do |date, notifications| %>
-      <div class="day-heading"><%= default_date_format(date) %></div>
-      <% notifications.map do |n| %>
-        <%= render "#{n.notifiable_type.underscore}", notification: n %>
+    <div class="day-list">
+      <% all_notifications_by_day = @user_notifications.group_by do |notification| %>
+        <% notification.created_at.beginning_of_day %>
       <% end %>
-    <% end %>
+      <% all_notifications_by_day.map do |date, notifications| %>
+        <div class="day-heading"><%= default_date_format(date) %></div>
+        <% notifications.map do |n| %>
+          <%= render "#{n.notifiable_type.underscore}", notification: n %>
+        <% end %>
+      <% end %>
+    </div>
   </section>
 <% end %>
