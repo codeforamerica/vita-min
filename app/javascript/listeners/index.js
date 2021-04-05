@@ -7,6 +7,7 @@ import { initMetricsTableSortAndFilter } from "../lib/metrics_table_sort";
 import { documentSubmittingIndicator } from "../lib/document_submitting_indicator";
 import { initStateRoutingsListeners } from "../lib/state_routings";
 import tooltip from "../components/tooltip";
+import { initTaggableNote } from '../lib/note_tagging';
 
 const Listeners =  (function(){
     return {
@@ -29,6 +30,7 @@ const Listeners =  (function(){
                     initStateRoutingsListeners();
                 }
 
+                initTaggableNote();
                 initMetricsTableSortAndFilter();
                 // enables the link_to_add_fields and link_to_remove_fields helper methods to work globally
                 initNestedAttributesListeners();
