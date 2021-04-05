@@ -3,6 +3,7 @@
 # Table name: vita_partners
 #
 #  id                         :bigint           not null, primary key
+#  allows_greeters            :boolean
 #  archived                   :boolean          default(FALSE)
 #  capacity_limit             :integer
 #  logo_path                  :string
@@ -276,6 +277,43 @@ describe VitaPartner do
       valid_params[:capacity_limit] = -1
 
       expect(described_class.new(valid_params)).not_to be_valid
+    end
+  end
+
+  describe "#allows_greeters?" do
+    let(:allows_greeters) { true }
+    let(:parent_organization) { nil }
+    let(:vita_partner) { create :vita_partner, parent_organization: parent_organization, allows_greeters: allows_greeters }
+
+    context "vita partner is an org" do
+      context "allow_greeter is true" do
+        it "returns true" do
+          expect(vita_partner.allows_greeters?).to be true
+        end
+      end
+
+      context "allow_greeter is false" do
+        let(:allows_greeters) { false }
+        it "returns false" do
+          expect(vita_partner.allows_greeters?).to be false
+        end
+      end
+    end
+
+    context "vita partner is a site" do
+      let(:parent_organization) { create :organization, allows_greeters: allows_greeters }
+      context "allow_greeter for the parent organization is true" do
+        it "returns true" do
+          expect(vita_partner.allows_greeters?).to be true
+        end
+      end
+
+      context "allow_greeter for the parent organization is false" do
+        let(:allows_greeters) { false }
+        it "returns false" do
+          expect(vita_partner.allows_greeters?).to be false
+        end
+      end
     end
   end
 end
