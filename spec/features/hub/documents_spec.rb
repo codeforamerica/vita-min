@@ -44,7 +44,7 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_3.id}", text: "Auto-generated")
     end
 
-    scenario "uploading a document to a client's documents page" do
+    scenario "uploading a document to a client's documents page", :js do
       visit hub_client_documents_path(client_id: client.id)
 
       click_on "Add document"
@@ -64,6 +64,28 @@ RSpec.feature "View and edit documents for a client" do
       within "#document-#{Document.last.id}" do
         expect(page).to have_content("2017")
         expect(page).to have_content("Final Tax Document")
+        expect(page).to have_content("Org Lead")
+      end
+
+      click_on "Add document"
+
+      attach_file "document_upload", [
+        Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf"),
+      ]
+
+      fill_in "Display name", with: "Unsigned 8879"
+
+      select "Form 8879 (Unsigned)", from: "Document type"
+      select "2017", from: "Tax return"
+
+
+      page.accept_alert "Have you confirmed that this is Bart Simpson's Final Tax Document?" do
+        click_on "Save"
+      end
+
+      within "#document-#{Document.last.id}" do
+        expect(page).to have_content("2017")
+        expect(page).to have_content("Form 8879 (Unsigned)")
         expect(page).to have_content("Org Lead")
       end
     end
