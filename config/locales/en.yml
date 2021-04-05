@@ -917,9 +917,6 @@ en:
       account_locked:
         title: This account has been locked
         body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:support@getyourrefund.org">support@getyourrefund.org</a>.
-      invalid_token:
-        title: "It looks like you need a new link"
-        body_html: The link you used is expired or broken. Please <a href="mailto:hello@getyourrefund.org">email support</a> to get a new link.
       enter_verification_code:
         title: "Let’s verify that code!"
         code_sent_to_html: "A message with your code has been sent to: <strong>%{address}</strong>"
