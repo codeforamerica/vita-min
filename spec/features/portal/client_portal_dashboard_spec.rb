@@ -91,7 +91,7 @@ RSpec.feature "a client on their portal" do
       expect(page).not_to have_content("test-pattern.png")
 
       expect(page).to have_text "Please share any additional documents"
-
+      expect(page).not_to have_text "I don't have this right now."
       click_on "Go back"
       expect(page).to have_text "Welcome back"
     end

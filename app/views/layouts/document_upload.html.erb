@@ -1,3 +1,4 @@
+<% @hide_dont_have ||= false %>
 <% content_for :page_title, (yield :form_question) %>
 <% content_for :main do %>
   <section class="slab slab--white slab--not-padded question-layout">
@@ -99,8 +100,10 @@
               </button>
             <% end %>
           <% else %>
-            <%= link_to next_path, class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type.key}" do %>
-              <%=t("views.layouts.document_upload.dont_have") %>
+            <% unless @hide_dont_have %>
+              <%= link_to next_path, class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type.key}" do %>
+                <%=t("views.layouts.document_upload.dont_have") %>
+              <% end %>
             <% end %>
 
             <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}" do %>

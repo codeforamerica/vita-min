@@ -3,11 +3,12 @@ module Portal
     before_action :find_or_create_document_request
     alias prev_path portal_complete_documents_request_path
     alias next_path portal_complete_documents_request_path
-    helper_method :prev_path, :next_path, :illustration_path, :current_path, :document_type, :destroy_document_path
+    helper_method :prev_path, :next_path, :illustration_path, :illustration_folder, :current_path, :document_type, :destroy_document_path
     layout "document_upload"
 
     def edit
       @form = form_class.new(@document_request)
+      @hide_dont_have = true
       @documents = @document_request.documents
     end
 
@@ -41,7 +42,12 @@ module Portal
       DocumentTypes::Other
     end
 
-    def illustration_path; end
+    def illustration_folder
+      "questions"
+    end
+    def illustration_path
+      "documents.svg"
+    end
 
     def destroy_document_path(document)
       portal_upload_document_path(id: document.id)
