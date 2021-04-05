@@ -3,6 +3,7 @@
 # Table name: vita_partners
 #
 #  id                         :bigint           not null, primary key
+#  allows_greeters            :boolean
 #  archived                   :boolean          default(FALSE)
 #  capacity_limit             :integer
 #  logo_path                  :string
@@ -46,6 +47,12 @@ class VitaPartner < ApplicationRecord
 
   default_scope { includes(:child_sites).order(name: :asc) }
   accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: lambda { |attributes| attributes['code'].blank? }
+
+  def allows_greeters?
+    return parent_organization.allows_greeters? if site?
+
+    allows_greeters
+  end
 
   def at_capacity?
     return parent_organization.at_capacity? if site?

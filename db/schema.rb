@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_180145) do
+ActiveRecord::Schema.define(version: 2021_04_05_173821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -716,6 +716,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_180145) do
   end
 
   create_table "vita_partners", force: :cascade do |t|
+    t.boolean "allows_greeters"
     t.boolean "archived", default: false
     t.integer "capacity_limit"
     t.bigint "coalition_id"
