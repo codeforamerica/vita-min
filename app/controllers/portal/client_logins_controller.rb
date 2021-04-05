@@ -63,7 +63,9 @@ module Portal
       render :enter_verification_code
     end
 
-    def invalid_token; end
+    def invalid_token
+      redirect_to portal_client_logins_path
+    end
 
     def account_locked; end
 
