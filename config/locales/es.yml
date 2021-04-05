@@ -627,18 +627,18 @@ es:
         selfie: Foto de usted sosteniendo su identificación con la foto cerca de su barbilla
         ssn_or_itin: Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes
         employment: Documentos de impuestos (W2, 1099-NEC, etc.)
-        1099-G: 1099-G para beneficios de desempleo o devolución de impuestos locales o estatales
-        SSA-1099: SSA-1099 para beneficios de seguro social o ingresos por discapacidad
+        1099-g: 1099-G para beneficios de desempleo o devolución de impuestos locales o estatales
+        ssa-1099: SSA-1099 para beneficios de seguro social o ingresos por discapacidad
         property_tax_statment: Declaración de impuestos sobre la propiedad
         prior_year_tax_return: Declaración de impuestos del año anterior
         student_account_statement: Estado de cuenta del estudiante
-        1099-INT: 1099-INT para ingresos por intereses
-        1099-DIV: 1099-DIV para ingresos por dividendos
-        1098-T: 1098-T para matrícula estudiantil
-        1095-A: 1095-A para seguros médicos de mercado
-        1099-R: 1099-R para ingresos de jubilación
-        RRB-1099: RRB-1099 para beneficios de jubilación ferroviaria
-        1099-SA: 1099-SA para cuenta de ahorros para la salud
+        1099-int: 1099-INT para ingresos por intereses
+        1099-div: 1099-DIV para ingresos por dividendos
+        1098-t: 1098-T para matrícula estudiantil
+        1095-a: 1095-A para seguros médicos de mercado
+        1099-r: 1099-R para ingresos de jubilación
+        rrb-1099: RRB-1099 para beneficios de jubilación ferroviaria
+        1099-sa: 1099-SA para cuenta de ahorros para la salud
         ira_statements: Declaración de plan de pensión (IRA)
         other: Cualquier otro documento fiscal que desee que consideremos
     edit: Editar

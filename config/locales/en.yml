@@ -638,18 +638,18 @@ en:
         selfie: Photo of yourself, holding your ID near your chin (for identity verification)
         ssn_or_itin: Photo of your SSN or ITIN cards for yourself, spouse, and dependents, if applicable
         employment: Income tax documents (W2's, 1099-NEC, etc)
-        1099-G: 1099-G for unemployment benefits or local or state tax refund
-        SSA-1099: SSA-1099 for social security benefits or disability income
+        1099-g: 1099-G for unemployment benefits or local or state tax refund
+        ssa-1099: SSA-1099 for social security benefits or disability income
         prior_year_tax_return: Prior year tax return
         property_tax_statment: Relevant property tax statements
         student_account_statement: Relevant student account statements
-        1099-INT: 1099-INT for interest income
-        1099-DIV: 1099-DIV for dividend income
-        1098-T: 1098-T for student tuition
-        1095-A: 1095-A for marketplace health insurance
-        1099-R: 1099-R for retirement income
-        RRB-1099: RRB-1099 for railroad retirement benefits
-        1099-SA: 1099-SA for health savings account
+        1099-int: 1099-INT for interest income
+        1099-div: 1099-DIV for dividend income
+        1098-t: 1098-T for student tuition
+        1095-a: 1095-A for marketplace health insurance
+        1099-r: 1099-R for retirement income
+        rrb-1099: RRB-1099 for railroad retirement benefits
+        1099-sa: 1099-SA for health savings account
         ira_statements: IRA / retirement account statements
         other: Any other tax documents you'd like us to consider
     edit: Edit
