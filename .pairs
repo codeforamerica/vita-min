@@ -8,12 +8,10 @@ pairs:
   lk: Laura Kogler
   dbd: Dimitri DeFigueiredo
   al: Asheesh Laroia
-  sn: Sarah Niemeyer
-  as: Alex Sartan
   sb: Shannon Byrne
   em: Em Barnard-Shao
-  bs: Ben Smith
   cb: Colt Borg
+  ct: Catie Talbot
 email_addresses:
   jh: jheath@codeforamerica.org
   bg: bgolder@codeforamerica.org
@@ -22,9 +20,7 @@ email_addresses:
   lk: lkogler@codeforamerica.org
   dbd: ddefigueiredo@codeforamerica.org
   al: alaroia@codeforamerica.org
-  sn: sniemeyer@vmware.com
-  as: asartan@vmware.com
   sb: sbyrne@codeforamerica.org
   em: ebarnard@codeforamerica.org
-  bs: besmith@vmware.com
+  ct: ctalbot@codeforamerica.org
 global: false  # Set to true for git-pair to change git configuration for all your projects
