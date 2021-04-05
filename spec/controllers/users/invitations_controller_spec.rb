@@ -219,9 +219,9 @@ RSpec.describe Users::InvitationsController do
       end
 
       context "inviting a greeter" do
-        let(:coalition) { create(:coalition) }
-        let(:coalition_2) { create(:coalition) }
-        let(:organization) { create(:organization) }
+        let!(:org_1) { create(:organization, allows_greeters: true) }
+        let!(:org_2) { create(:organization, allows_greeters: true) }
+        let!(:org_3) { create(:organization, allows_greeters: false) }
 
         let(:params) do
           {
@@ -229,12 +229,6 @@ RSpec.describe Users::InvitationsController do
               name: "Gary Guava",
               email: "gary@example.com",
               role: GreeterRole::TYPE,
-            },
-            greeter_coalition_join_record: {
-              coalition_ids: [coalition.id, coalition_2.id],
-            },
-            greeter_organization_join_record: {
-              organization_ids: [organization.id],
             }
           }
         end
@@ -248,8 +242,7 @@ RSpec.describe Users::InvitationsController do
 
           invited_user = User.last
           expect(invited_user.role).to eq greeter_role
-          expect(greeter_role.organization_ids).to eq([organization.id])
-          expect(greeter_role.coalition_ids).to eq([coalition.id, coalition_2.id])
+          expect(greeter_role.organization_ids).to match_array([org_1.id, org_2.id])
 
           expect(invited_user.name).to eq "Gary Guava"
           expect(invited_user.email).to eq "gary@example.com"
