@@ -23,7 +23,7 @@
 class SystemNote::TaxReturnCreated < SystemNote
   def self.generate!(tax_return:, initiated_by:)
     user_info = initiated_by.role_name
-    user_info += " - #{initiated_by.served_entity.name}" if initiated_by.role.served_entity.present?
+    user_info += " - #{initiated_by.served_entity.name}" if initiated_by.served_entity.present?
     body = "#{initiated_by.name} (#{user_info}) added a #{tax_return.year} tax return."
 
     create!(

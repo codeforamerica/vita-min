@@ -93,7 +93,7 @@ class User < ApplicationRecord
   end
 
   def served_entity
-    role&.served_entity
+    role&.served_entity if role.respond_to? :served_entity
   end
 
   def name_with_role_and_entity

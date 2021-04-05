@@ -13,6 +13,4 @@ class GreeterRole < ApplicationRecord
   has_many :organizations, through: :greeter_organization_join_records, class_name: "VitaPartner"
   has_many :greeter_coalition_join_records
   has_many :coalitions, through: :greeter_coalition_join_records
-
-  def served_entity; end
 end
