@@ -66,7 +66,7 @@ RSpec.feature "a client on their portal" do
       end
 
       within "#tax-year-2017" do
-        expect(page).to have_text "No documents ready to review yet - check back later."
+        expect(page).to have_text "No documents ready to review yet."
       end
       expect(client.documents.where(document_type: "Other").length).to eq 0
 

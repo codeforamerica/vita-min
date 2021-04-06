@@ -929,7 +929,7 @@ es:
           view_unsigned_8879: Ver o descargar formulario 8879
           submit_primary: Presentar la firma del contribuyente principal
           submit_spouse: Presentar la firma del cónyuge
-          empty_state: Aún no hay documentos listos para revisar; vuelva a consultar más tarde.
+          empty_state: Aún no hay documentos listos para revisar.
           view_document: Ver o descargar el documento %{display_name}
           view_final_tax_document: Ver o descargar el documento fiscal final de %{year}
           submit_additional_documents: Envíe los documentos fiscales restantes
