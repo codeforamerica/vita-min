@@ -3,9 +3,8 @@
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title", name: current_client.intake.preferred_name) %></h1>
 
-  <p><%= t(".heres_what_we_need") %></p>
-
   <% if @current_step.present? %>
+    <p><%= t(".heres_what_we_need") %></p>
     <div class="tax-return-status">
       <div class="tax-return-status__row tax-return-status__with-alert">
         <%= image_tag("icons/exclamation.svg", alt: "") %>
@@ -17,10 +16,10 @@
 
     <% @tax_returns.each do |tax_return| %>
       <div class="tax-return-status" id=<%= "tax-year-#{tax_return.year}" %>>
-        <h2 class="tax-return-status__header"><%= t(".tax_returns.heading", year: tax_return.year) %></h2>
+        <h2 class="h3"><%= t(".tax_returns.heading", year: tax_return.year) %></h2>
         <div class="tax-return-status__content">
           <!--
-            If there is a single final tax document for the tax year, label it with a fully-translateable generic title.
+            If there is a single final tax document for the tax year, label it with a fully-translatable generic title.
             If there is more than one final tax document, label it with the provided document name to distinguish
           !-->
           <% if tax_return.final_tax_documents.present? %>
