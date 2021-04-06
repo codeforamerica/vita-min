@@ -8,7 +8,7 @@ module Hub
     layout "admin"
 
     def index
-      @taggable_users = @users.to_json(only: [:name, :id], methods: :name_with_role_and_entity).to_s.html_safe
+      @taggable_users = User.taggable_for(@client).to_json(only: [:name, :id], methods: :name_with_role_and_entity).to_s.html_safe
       @all_notes_by_day = NotesPresenter.grouped_notes(@client)
       @note = Note.new
     end
