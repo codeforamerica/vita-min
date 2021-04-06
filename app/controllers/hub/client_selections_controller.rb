@@ -13,10 +13,8 @@ module Hub
       @clients = Client.accessible_by(current_ability).where(id: @client_selection.clients)
       @client_index_help_text = I18n.t("hub.client_selections.client_selection_help_text", count: @clients.size)
       inaccessible_client_count = @client_selection.clients.where.not(id: @clients).size
-      if inaccessible_client_count > 0
-        missing_results_message = I18n.t("hub.client_selections.client_selection_help_text_missing_results", count: inaccessible_client_count)
-        @client_index_help_text += " #{missing_results_message}"
-      end
+      @missing_results_message = I18n.t("hub.client_selections.client_selection_help_text_missing_results", count: inaccessible_client_count) unless inaccessible_client_count.zero?
+
       @clients = filtered_and_sorted_clients.page(params[:page])
       @page_title = I18n.t("hub.client_selections.page_title", count: @client_selection.clients.size, id: @client_selection.id)
 

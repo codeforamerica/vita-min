@@ -422,8 +422,8 @@ en:
         one: You are viewing %{count} result from your saved search
         other: You are viewing %{count} results from your saved search
       client_selection_help_text_missing_results:
-        one: "(%{count} result is no longer accessible to you)"
-        other: "(%{count} results are no longer accessible to you)"
+        one: "%{count} result is no longer accessible to you"
+        other: "%{count} results are no longer accessible to you"
       bulk_action:
         change_organization: "Change organization"
         change_organization_description_html: "Update the organization responsible for these <strong>%{count} clients</strong>."

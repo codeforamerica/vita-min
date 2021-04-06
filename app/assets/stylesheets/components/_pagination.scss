@@ -12,6 +12,14 @@
   .pagination {
     padding: 0;
   }
+  .count-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    p {
+      margin-bottom: unset;
+    }
+  }
   .pagination > * {
     margin-bottom: 0 !important;
   }

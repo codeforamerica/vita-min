@@ -6,15 +6,14 @@
     <%= render "shared/client_filters_and_add_client" %> <!-- also includes Add Client button to layout !-->
   </section>
   <section class="slab slab--padded">
-    <% if @client_index_help_text.present? %>
-      <div class="grid client-index-help-text spacing-below-15">
-        <div class="grid__item width-one-half">
-          <p class="form-question"><%= @client_index_help_text %></p>
-        </div>
-      </div>
-    <% end %>
     <div class="pagination-wrapper">
-      <div>
+      <div class="count-wrapper">
+        <% if @client_index_help_text.present? %>
+          <p class="text--help"><%= @client_index_help_text %></p>
+        <% end %>
+        <% if @missing_results_message.present? %>
+          <p class="text--help"><%= @missing_results_message %></p>
+        <% end %>
         <%= page_entries_info @clients, model: "client" %>
       </div>
       <div>
