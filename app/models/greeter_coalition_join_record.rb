@@ -18,6 +18,7 @@
 #  fk_rails_...  (coalition_id => coalitions.id)
 #  fk_rails_...  (greeter_role_id => greeter_roles.id)
 #
+# TODO: delete
 class GreeterCoalitionJoinRecord < ApplicationRecord
   # This model exists solely to support GreeterRole.
   belongs_to :greeter_role

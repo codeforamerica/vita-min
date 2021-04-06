@@ -18,6 +18,7 @@
 #  fk_rails_...  (greeter_role_id => greeter_roles.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
+# TODO: delete
 class GreeterOrganizationJoinRecord < ApplicationRecord
   # This model exists solely to support GreeterRole.
   belongs_to :greeter_role

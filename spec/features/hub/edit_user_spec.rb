@@ -95,27 +95,15 @@ RSpec.describe "a user editing a user" do
         end
 
         context "assigning to a greeter role" do
-          let!(:yes_coalition) { create :coalition, name: "Koala Koalition" }
-          let!(:no_coalition) { create :coalition, name: "Coal Coalition" }
-          let!(:yes_organization) { create :organization, name: "Orange Organization" }
-          let!(:no_organization) { create :organization, name: "Odious Organization" }
-
           scenario "editing an admin user to be a greeter" do
             user_to_edit = create(:admin_user)
 
             visit edit_hub_user_path(id: user_to_edit)
             click_on "Greeter"
-
-            expect(page).to have_text("Coal Coalition")
-            expect(page).to have_text("Odious Organization")
-
-            check "Koala Koalition"
-            check "Orange Organization"
-
             click_on "Submit"
 
             within "#current-role" do
-              expect(page).to have_text "Greeter, Koala Koalition, Orange Organization"
+              expect(page).to have_text "Greeter"
             end
           end
         end

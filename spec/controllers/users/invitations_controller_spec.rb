@@ -242,7 +242,6 @@ RSpec.describe Users::InvitationsController do
 
           invited_user = User.last
           expect(invited_user.role).to eq greeter_role
-          expect(greeter_role.organization_ids).to match_array([org_1.id, org_2.id])
 
           expect(invited_user.name).to eq "Gary Guava"
           expect(invited_user.email).to eq "gary@example.com"

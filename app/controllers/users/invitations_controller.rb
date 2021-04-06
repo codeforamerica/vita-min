@@ -53,9 +53,7 @@ class Users::InvitationsController < Devise::InvitationsController
       when ClientSuccessRole::TYPE
         ClientSuccessRole.new
       when GreeterRole::TYPE
-        GreeterRole.new(
-          organizations: @vita_partners.organizations.where(allows_greeters: true),
-        )
+        GreeterRole.new
       when TeamMemberRole::TYPE
         TeamMemberRole.new(site: @vita_partners.sites.find(params.require(:site_id)))
       end

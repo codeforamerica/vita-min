@@ -149,6 +149,15 @@ describe Ability do
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs
         end
+
+        context "a greeter" do
+          let(:user) { create :greeter_user }
+
+          it_behaves_like :can_manage_accessible_client
+          it_behaves_like :cannot_manage_inaccessible_client
+          it_behaves_like :can_only_read_accessible_org_or_site
+          it_behaves_like :cannot_manage_any_sites_or_orgs
+        end
       end
 
       context "users in invalid states" do
@@ -502,6 +511,11 @@ describe Ability do
             expect(subject.can?(:manage, target_role)).to eq false
           end
         end
+      end
+
+      xcontext "Greeter" do
+        # TODO: who can manage a greeter?
+        # only admins??
       end
     end
   end
