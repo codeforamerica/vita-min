@@ -2,10 +2,6 @@ import Tagify from '@yaireo/tagify'
 import { removeMentionedId, addMentionedId } from "./callbacks";
 
 export function initTaggableNote() {
-    // limit with feature-flagging
-    const url = new URLSearchParams(location.search);
-    if (!url.has("test-tagging")) { return }
-
     const input = document.querySelector('.taggable-note');
 
     const whitelist = window.taggableItems.map((i) => {

@@ -26,7 +26,7 @@ RSpec.feature "View and add internal notes for a client" do
     end
 
     scenario "tagging a user", :js do
-      visit hub_client_notes_path(client_id: client.id, 'test-tagging': true) # feature flagged
+      visit hub_client_notes_path(client_id: client.id)
       expect(page).not_to have_css(".tagify__dropdown")
       input = find('span.tagify__input')
       input.click
