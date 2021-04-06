@@ -94,6 +94,10 @@ RSpec.feature "Web Intake Joint Filers" do
     check "I was a full-time student in a college or a trade school"
     check "I was in the US on a Visa"
     click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Did you receive an Economic Impact Payment (stimulus) in 2020?")
+    click_on "No"
+
     expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
     click_on "No"
 

@@ -150,6 +150,7 @@ RSpec.describe IntakePdf do
           "had_tax_credit_disallowed" => "unfilled",
           "received_irs_letter" => "unfilled",
           "made_estimated_tax_payments" => "unfilled",
+          "received_stimulus_payment" => "unfilled",
           "additional_comments" => ""
         }))
       end
@@ -260,6 +261,7 @@ RSpec.describe IntakePdf do
           balance_pay_from_bank: "no",
           claimed_by_another: "no",
           job_count: 5,
+          received_stimulus_payment: "yes"
         )
       end
       before do
@@ -462,6 +464,7 @@ RSpec.describe IntakePdf do
            "had_tax_credit_disallowed" => "yes",
            "received_irs_letter" => "no",
            "made_estimated_tax_payments" => "unsure",
+           "received_stimulus_payment" => "yes",
            "additional_comments" => "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.",
         }))
       end

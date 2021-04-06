@@ -89,7 +89,8 @@ class IntakePdf
       savings_purchase_bond: @intake.savings_purchase_bond,
       balance_due_transfer: @intake.balance_pay_from_bank,
       spouse_was_on_visa: yes_no_unfilled_to_checkbox_0(@intake.spouse_was_on_visa),
-      primary_was_on_visa: yes_no_unfilled_to_checkbox_0(@intake.was_on_visa)
+      primary_was_on_visa: yes_no_unfilled_to_checkbox_0(@intake.was_on_visa),
+      received_stimulus_payment: @intake.received_stimulus_payment,
     }
     answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes?
     answers.merge!(primary_info)

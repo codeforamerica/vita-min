@@ -35,6 +35,7 @@ class QuestionNavigation
 
     # Primary filer personal information
     Questions::LifeSituationsController,
+    Questions::StimulusPaymentsController,
     Questions::IssuedIdentityPinController,
 
     # Marital Status

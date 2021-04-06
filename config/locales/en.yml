@@ -2090,6 +2090,8 @@ en:
         info: We’ll start by asking about your situation in %{year}.
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: Let's get started
+      stimulus_payments:
+        title: Did you receive an Economic Impact Payment (stimulus) in 2020?
       student:
         help_text: This includes community college, technical school, professional development classes, higher education, and vocational education.
         title: In %{year}, was someone in your family a college or other post high school student?
