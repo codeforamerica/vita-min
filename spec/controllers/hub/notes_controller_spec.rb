@@ -32,8 +32,7 @@ RSpec.describe Hub::NotesController, type: :controller do
           expect {
             post :create, params: params
           }.to change(client.notes, :count).by(1)
-           .and change(user.notifications, :count).by(1)
-           .and change(other_user.notifications, :count).by(1)
+           .and change(UserNotification, :count).by(2)
 
           note = Note.last
           expect(note.body).to eq "Note body"
