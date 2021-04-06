@@ -12,7 +12,7 @@
           <p class="text--help"><%= @client_index_help_text %></p>
         <% end %>
         <% if @missing_results_message.present? %>
-          <p class="text--help"><<%= @missing_results_message %></p>
+          <p class="text--help"><%= @missing_results_message %></p>
         <% end %>
         <%= page_entries_info @clients, model: "client" %>
       </div>

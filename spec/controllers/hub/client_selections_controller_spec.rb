@@ -36,7 +36,8 @@ RSpec.describe Hub::ClientSelectionsController do
         it "shows a count of inaccessible clients" do
           get :show, params: params
 
-          expect(assigns(:client_index_help_text)).to eq("You are viewing 2 results from your saved search (3 results are no longer accessible to you)")
+          expect(assigns(:client_index_help_text)).to eq("You are viewing 2 results from your saved search")
+          expect(assigns(:missing_results_message)).to eq "3 results are no longer accessible to you"
         end
       end
 
@@ -49,7 +50,7 @@ RSpec.describe Hub::ClientSelectionsController do
           expect(response).to be_ok
           html = Nokogiri::HTML.parse(response.body)
           expect(html.at_css(".filter-form")["action"]).to eq hub_clients_path
-          expect(html.at_css(".count-wrapper p")[0].text.strip).to eq "You are viewing 3 results from your saved search"
+          expect(html.at_css(".count-wrapper .text--help").text.strip).to eq "You are viewing 3 results from your saved search"
         end
       end
     end

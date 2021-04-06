@@ -407,8 +407,8 @@ es:
         one: "Está viendo %{count} resultado de su búsqueda guardada"
         other: "Está viendo %{count} resultados de su búsqueda guardada"
       client_selection_help_text_missing_results:
-        one: "(Ya no tiene accesso a %{count} resultado)"
-        other: "(Ya no tiene accesso a %{count} resultados)"
+        one: "Ya no tiene accesso a %{count} resultado"
+        other: "Ya no tiene accesso a %{count} resultados"
       bulk_action:
         change_organization: "Cambiar de organización"
         change_organization_description_html: "Actualizar la organización responsable de estos <strong>%{count} clientes</strong>."
