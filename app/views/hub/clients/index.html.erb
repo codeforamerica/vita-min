@@ -14,7 +14,9 @@
         <% if @missing_results_message.present? %>
           <p class="text--help"><%= @missing_results_message %></p>
         <% end %>
-        <%= page_entries_info @clients, model: "client" %>
+        <div>
+          <%= page_entries_info @clients, model: "client" %>
+        </div>
       </div>
       <div>
         <%= will_paginate(
