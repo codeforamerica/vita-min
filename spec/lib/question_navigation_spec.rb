@@ -27,7 +27,7 @@ describe QuestionNavigation do
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes"
         }
-        it "has next step as issued-identity-pin" do
+        it "has next step as issued-identity-pin (skips stimulus because is on ignore list)" do
           expect(described_class.determine_current_step(intake)).to eq "/en/questions/issued-identity-pin"
         end
       end
@@ -38,6 +38,7 @@ describe QuestionNavigation do
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes",
                  issued_identity_pin: "no",
+                 received_stimulus_payment: "no",
                  ever_married: "yes"
         }
         it "has next step as married" do
@@ -50,6 +51,7 @@ describe QuestionNavigation do
           create :intake,
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes",
+                 received_stimulus_payment: "no",
                  issued_identity_pin: "no",
                  ever_married: "no"
         }
@@ -63,6 +65,7 @@ describe QuestionNavigation do
           create :intake,
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes",
+                 received_stimulus_payment: "no",
                  issued_identity_pin: "no",
                  ever_married: "no",
                  had_dependents: "yes",
@@ -78,6 +81,7 @@ describe QuestionNavigation do
           create :intake,
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes",
+                 received_stimulus_payment: "no",
                  issued_identity_pin: "no",
                  ever_married: "no",
                  had_dependents: "no",
@@ -99,6 +103,7 @@ describe QuestionNavigation do
           create :intake,
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes",
+                 received_stimulus_payment: "no",
                  issued_identity_pin: "no",
                  ever_married: "no",
                  had_dependents: "no",
@@ -125,6 +130,7 @@ describe QuestionNavigation do
           create :intake,
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes",
+                 received_stimulus_payment: "no",
                  issued_identity_pin: "no",
                  ever_married: "no",
                  had_dependents: "no",
@@ -154,6 +160,7 @@ describe QuestionNavigation do
           create :intake,
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes",
+                 received_stimulus_payment: "no",
                  issued_identity_pin: "no",
                  ever_married: "no",
                  had_dependents: "no",
@@ -188,6 +195,7 @@ describe QuestionNavigation do
           create :intake,
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes",
+                 received_stimulus_payment: "no",
                  issued_identity_pin: "no",
                  ever_married: "no",
                  had_dependents: "no",
@@ -228,6 +236,7 @@ describe QuestionNavigation do
           create :intake,
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes",
+                 received_stimulus_payment: "no",
                  issued_identity_pin: "no",
                  ever_married: "no",
                  had_dependents: "no",

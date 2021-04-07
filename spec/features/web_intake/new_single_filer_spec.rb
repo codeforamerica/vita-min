@@ -111,6 +111,10 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     expect(track_progress).to eq(0)
     click_on "Continue"
 
+    expect(page).to have_selector("h1", text: "Did you receive an Economic Impact Payment (stimulus) in 2020?")
+    expect{ track_progress }.to change { @current_progress }.by_at_least(1)
+    click_on "Yes"
+
     expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
     expect{ track_progress }.to change { @current_progress }.by_at_least(1)
     click_on "No"

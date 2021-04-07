@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_173821) do
+ActiveRecord::Schema.define(version: 2021_04_06_145219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -413,6 +413,7 @@ ActiveRecord::Schema.define(version: 2021_04_05_173821) do
     t.integer "received_alimony", default: 0, null: false
     t.integer "received_homebuyer_credit", default: 0, null: false
     t.integer "received_irs_letter", default: 0, null: false
+    t.integer "received_stimulus_payment", default: 0, null: false
     t.string "referrer"
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false

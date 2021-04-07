@@ -35,6 +35,7 @@ class QuestionNavigation
 
     # Primary filer personal information
     Questions::LifeSituationsController,
+    Questions::StimulusPaymentsController,
     Questions::IssuedIdentityPinController,
 
     # Marital Status
@@ -181,15 +182,23 @@ class QuestionNavigation
       return Documents::OverviewController.to_path_helper
     end
 
+    first_relevant_question_index = intake.completed_yes_no_questions_at? ? FLOW.index(Questions::OverviewDocumentsController) : FLOW.index(Questions::OptionalConsentController)
     # If yes/no questions completed + docs uploaded, start at InterviewScheduling. Else, start after OptionalConsent
-    first_relevant_question_index = intake.completed_yes_no_questions_at? ? FLOW.index(Questions::InterviewSchedulingController) : FLOW.index(Questions::LifeSituationsController)
-    relevant_questions = FLOW.slice(first_relevant_question_index..)
+    relevant_questions = FLOW.slice(first_relevant_question_index+1..)
     relevant_questions.each do |question|
       # Skip if not relevant to this intake
       next unless question.show?(intake)
+      next if later_questions_2020.include?(question)
+
       # Return if unfilled
       answer = intake.send(question.form_class.attribute_names.first)
       return question.to_path_helper.to_s if ["unfilled", nil].include? answer
     end
+  end
+
+  # Questions added later in the season in 2020 -- we don't need to send returning clients back to answer new questions,
+  # per product.
+  def self.later_questions_2020
+    [Questions::StimulusPaymentsController]
   end
 end

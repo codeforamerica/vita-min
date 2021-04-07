@@ -2048,6 +2048,8 @@ es:
         info: Comenzaremos preguntando sobre su situación en el %{year}.
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Empecemos
+      stimulus_payments:
+        title: ¿Recibió un Pago de alivio por impacto económico (estímulo) en 2020?
       student:
         help_text: Esto incluye colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional.
         title: En el %{year}, ¿alguien de su familia era estudiante universitario u otro estudiante de secundaria?
