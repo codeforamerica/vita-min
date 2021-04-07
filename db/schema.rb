@@ -70,12 +70,6 @@ ActiveRecord::Schema.define(version: 2021_04_06_145219) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "bulk_edits", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.jsonb "data"
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "client_selection_clients", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "client_selection_id", null: false
