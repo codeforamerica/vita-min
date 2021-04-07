@@ -37,6 +37,9 @@ RSpec.describe Hub::Clients::OrganizationsController, type: :controller do
           patch :update, params: params
           client.reload
         }.to change(client, :vita_partner).from(client.vita_partner).to(site)
+         .and change(SystemNote::OrganizationChange, :count).by(1)
+
+        expect(SystemNote.last.user).to eq user
 
         expect(response).to redirect_to hub_client_path(id: client.id)
       end

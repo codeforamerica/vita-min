@@ -581,4 +581,28 @@ describe Client do
       end
     end
   end
+
+  context "after_commit for creating vita partner note" do
+    let(:user) { create :user }
+    let(:client) { create :client }
+    let(:new_vita_partner) { create :vita_partner }
+    before do
+      allow(SystemNote::OrganizationChange).to receive(:generate!)
+    end
+
+    context "when updating the vita partner" do
+      it "should create a system note recording the change" do
+        client.update(vita_partner: new_vita_partner, change_initiated_by: user)
+        expect(SystemNote::OrganizationChange).to have_received(:generate!).with({ client: client, initiated_by: user })
+      end
+    end
+
+    context "when updating other attributes" do
+      it "should not create a system note recording the change" do
+        client.update(routing_method: "source_param")
+        expect(SystemNote::OrganizationChange).not_to have_received(:generate!)
+
+      end
+    end
+  end
 end

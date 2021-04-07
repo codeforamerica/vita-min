@@ -22,7 +22,7 @@ module Hub
       private
 
       def client_params
-        params.require(:client).permit(:vita_partner_id)
+        params.require(:client).permit(:vita_partner_id).merge(change_initiated_by: current_user)
       end
 
       def load_vita_partners
