@@ -89,6 +89,13 @@ class MailgunWebhooksController < ActionController::Base
     head :ok
   end
 
+  def update_outgoing_email_status
+    email_to_update = OutgoingEmail.find_by(message_id: params.dig("event-data", "message", "headers", "message-id"))
+    DatadogApi.increment("mailgun.update_outgoing_email_status.email_not_found") if email_to_update.nil?
+    email_to_update&.update(mailgun_status: params.dig("event-data", "event"))
+
+    head :ok
+  end
   private
 
   def authenticate_mailgun_request

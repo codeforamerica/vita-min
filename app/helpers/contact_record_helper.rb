@@ -30,4 +30,16 @@ module ContactRecordHelper
     icon = "icons/check.svg" if sent_statuses.include?(status)
     image_tag(icon, alt: status, title: status, class: 'message__status')
   end
+
+  def mailgun_deliverability_status(message)
+    return unless message.message_id.present?
+
+    status = message.mailgun_status || "sending"
+    sent_statuses = %w[delivered]
+    failed_statuses = %w[failed]
+    icon = "icons/waiting.svg"
+    icon = "icons/exclamation.svg" if failed_statuses.include?(status)
+    icon = "icons/check.svg" if sent_statuses.include?(status)
+    image_tag(icon, alt: status, title: status, class: 'message__status')
+  end
 end

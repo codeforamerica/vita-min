@@ -2,15 +2,17 @@
 #
 # Table name: outgoing_emails
 #
-#  id         :bigint           not null, primary key
-#  body       :string           not null
-#  sent_at    :datetime         not null
-#  subject    :string           not null
-#  to         :citext           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  client_id  :bigint           not null
-#  user_id    :bigint
+#  id             :bigint           not null, primary key
+#  body           :string           not null
+#  mailgun_status :string
+#  sent_at        :datetime         not null
+#  subject        :string           not null
+#  to             :citext           not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  client_id      :bigint           not null
+#  message_id     :string
+#  user_id        :bigint
 #
 # Indexes
 #

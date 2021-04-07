@@ -229,4 +229,54 @@ RSpec.describe MailgunWebhooksController do
       end
     end
   end
+
+  describe "#update_outgoing_email_status" do
+    let(:message_id) { "DACSsAdVSeGpLid7TN03WA" }
+    let(:params) do
+      {
+          "signature":
+              {
+                  "timestamp": "1529006854",
+                  "token": "a8ce0edb2dd8301dee6c2405235584e45aa91d1e9f979f3de0",
+                  "signature": "d2271d12299f6592d9d44cd9d250f0704e4674c30d79d07c47a66f95ce71cf55"
+              },
+          "event-data":
+            {
+                  "event": "opened",
+                  "timestamp": 1529006854.329574,
+                  "message":
+                    {
+                    "headers":
+                      {
+                        "message-id": message_id
+                      }
+                  }
+              }
+      }
+    end
+    let!(:outgoing_email) { create :outgoing_email, message_id: "DACSsAdVSeGpLid7TN03WA"  }
+
+    context "with HTTP basic auth credentials" do
+      before do
+        request.env["HTTP_AUTHORIZATION"] = valid_auth_credentials
+        allow(DatadogApi).to receive(:increment)
+      end
+
+      it "updates an existing outgoing email with matching mailgun id with provided status" do
+        post :update_outgoing_email_status, params: params
+        expect(outgoing_email.reload.mailgun_status).to eq "opened"
+      end
+
+      context "when there is no outgoing message with a matching mailgun id" do
+        let(:message_id) { "something_not_matching" }
+        it "fails gracefully + reports failure to datadog" do
+          post :update_outgoing_email_status, params: params
+          expect(DatadogApi).to have_received(:increment).with("mailgun.update_outgoing_email_status.email_not_found")
+
+          expect(response).to be_ok
+        end
+      end
+    end
+
+  end
 end
