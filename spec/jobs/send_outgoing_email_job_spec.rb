@@ -13,7 +13,7 @@ RSpec.describe SendOutgoingEmailJob, type: :job do
     it "sends the message using deliver_now and persists the message_id to the object" do
       described_class.perform_now(outgoing_email.id)
       expect(OutgoingEmailMailer).to have_received(:user_message).with(outgoing_email: outgoing_email)
-      expect(outgoing_email.reload.mailgun_id).to eq message_id
+      expect(outgoing_email.reload.message_id).to eq message_id
     end
   end
 end

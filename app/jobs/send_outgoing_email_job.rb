@@ -5,6 +5,6 @@ class SendOutgoingEmailJob < ApplicationJob
   def perform(outgoing_email_id)
     outgoing_email = OutgoingEmail.find(outgoing_email_id)
     mailer_response = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email).deliver_now
-    outgoing_email.update(mailgun_id: mailer_response.message_id)
+    outgoing_email.update(message_id: mailer_response.message_id)
   end
 end

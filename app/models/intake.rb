@@ -118,11 +118,7 @@
 #  received_alimony                                     :integer          default("unfilled"), not null
 #  received_homebuyer_credit                            :integer          default("unfilled"), not null
 #  received_irs_letter                                  :integer          default("unfilled"), not null
-<<<<<<< HEAD
 #  received_stimulus_payment                            :integer          default("unfilled"), not null
-=======
-#  received_stimulus_payment                            :integer          default(0), not null
->>>>>>> WIP
 #  referrer                                             :string
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null

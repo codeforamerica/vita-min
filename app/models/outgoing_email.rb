@@ -11,7 +11,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  client_id      :bigint           not null
-#  mailgun_id     :string
+#  message_id     :string
 #  user_id        :bigint
 #
 # Indexes

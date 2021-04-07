@@ -32,7 +32,7 @@ module ContactRecordHelper
   end
 
   def mailgun_deliverability_status(message)
-    return unless message.mailgun_id.present?
+    return unless message.message_id.present?
 
     status = message.mailgun_status || "sending"
     sent_statuses = %w[delivered]

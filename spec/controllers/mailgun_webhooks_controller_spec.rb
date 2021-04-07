@@ -231,7 +231,7 @@ RSpec.describe MailgunWebhooksController do
   end
 
   describe "#update_outgoing_email_status" do
-    let(:mailgun_id) { "DACSsAdVSeGpLid7TN03WA" }
+    let(:message_id) { "DACSsAdVSeGpLid7TN03WA" }
     let(:params) do
       {
           "signature":
@@ -248,13 +248,13 @@ RSpec.describe MailgunWebhooksController do
                     {
                     "headers":
                       {
-                        "message-id": mailgun_id
+                        "message-id": message_id
                       }
                   }
               }
       }
     end
-    let!(:outgoing_email) { create :outgoing_email, mailgun_id: "DACSsAdVSeGpLid7TN03WA"  }
+    let!(:outgoing_email) { create :outgoing_email, message_id: "DACSsAdVSeGpLid7TN03WA"  }
 
     context "with HTTP basic auth credentials" do
       before do
@@ -268,7 +268,7 @@ RSpec.describe MailgunWebhooksController do
       end
 
       context "when there is no outgoing message with a matching mailgun id" do
-        let(:mailgun_id) { "something_not_matching" }
+        let(:message_id) { "something_not_matching" }
         it "fails gracefully + reports failure to datadog" do
           post :update_outgoing_email_status, params: params
           expect(DatadogApi).to have_received(:increment).with("mailgun.update_outgoing_email_status.email_not_found")

@@ -40,14 +40,14 @@ describe ContactRecordHelper do
     end
 
     describe "#mailgun_deliverability_status" do
-      context "when there is no mailgun_id saved to the message record" do
-        let(:outgoing_email) { create :outgoing_email, mailgun_id: nil }
+      context "when there is no message_id saved to the message record" do
+        let(:outgoing_email) { create :outgoing_email, message_id: nil }
         it "returns nil" do
           expect(helper.mailgun_deliverability_status(outgoing_email)).to eq nil
         end
       end
-      context "when there is a mailgun_id saved to the message record" do
-        let(:outgoing_email) { create :outgoing_email, mailgun_id: "some_fake_id", mailgun_status: mailgun_status}
+      context "when there is a message_id saved to the message record" do
+        let(:outgoing_email) { create :outgoing_email, message_id: "some_fake_id", mailgun_status: mailgun_status}
         context "when the mailgun_status is nil" do
           let(:mailgun_status) { nil }
           let(:image_tag) { helper.image_tag("icons/waiting.svg", alt: "sending", title: "sending", class: 'message__status') }
