@@ -21,10 +21,10 @@ RSpec.describe ClientMessagingService do
     end
 
     context "with an authenticated user" do
-      it "saves a new outgoing email with the right info, enqueues email, and broadcasts to ClientChannel" do
+      it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
         expect do
           described_class.send_email(client, user, "hello")
-        end.to change(OutgoingEmail, :count).by(1).and have_enqueued_mail(OutgoingEmailMailer, :user_message)
+        end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
 
         outgoing_email = OutgoingEmail.last
         expect(outgoing_email.subject).to eq("Update from GetYourRefund")
@@ -82,10 +82,10 @@ RSpec.describe ClientMessagingService do
     end
 
     context "with an authenticated user" do
-      it "saves a new outgoing email with the right info, enqueues email, and broadcasts to ClientChannel" do
+      it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
         expect do
           described_class.send_email_to_all_signers(client, user, "hello")
-        end.to change(OutgoingEmail, :count).by(1).and have_enqueued_mail(OutgoingEmailMailer, :user_message)
+        end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
 
         outgoing_email = OutgoingEmail.last
         expect(outgoing_email.subject).to eq("Update from GetYourRefund")
@@ -138,10 +138,10 @@ RSpec.describe ClientMessagingService do
   end
 
   describe ".send_system_email", active_job: true do
-    it "saves a new outgoing email with the right info, enqueues email, and broadcasts to ClientChannel" do
+    it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
       expect do
         described_class.send_system_email(client, "hello", "subject")
-      end.to change(OutgoingEmail, :count).by(1).and have_enqueued_mail(OutgoingEmailMailer, :user_message)
+      end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
 
       system_email = OutgoingEmail.last
       expect(system_email.subject).to eq("subject")
