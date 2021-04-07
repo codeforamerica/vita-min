@@ -126,13 +126,15 @@ describe VitaPartnerHelper do
 
       it "returns array grouped by organization" do
         @vita_partners = greeter.accessible_vita_partners
+        national_org = VitaPartner.where(name: "GYR National Organization").first
 
         expected =
           [
+            [national_org.name, [[national_org.name, national_org.id]]],
             [first_org.name, [[first_org.name, first_org.id], [site.name, site.id]]],
             [second_org.name, [[second_org.name, second_org.id]]]
           ]
-        expect(helper.grouped_vita_partner_options).to eq(expected)
+        expect(helper.grouped_vita_partner_options).to match_array(expected)
       end
     end
   end

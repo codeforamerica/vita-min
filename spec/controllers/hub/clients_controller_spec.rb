@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Hub::ClientsController do
-  let!(:organization) { create :organization }
+  let!(:organization) { create :organization, allows_greeters: false }
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
 
   describe "#new" do

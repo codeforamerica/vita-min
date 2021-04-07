@@ -236,7 +236,8 @@ RSpec.describe User, type: :model do
 
       it "returns all the organizations (and their sites) where allows greeters is true" do
         accessible_groups = user.accessible_vita_partners
-        expect(accessible_groups).to match_array([organization, other_organization, site, other_site])
+        national_org = VitaPartner.where(name: "GYR National Organization").first
+        expect(accessible_groups).to match_array([national_org, organization, other_organization, site, other_site])
         expect(accessible_groups).not_to include(not_accessible_org)
         expect(accessible_groups).not_to include(not_accessible_site)
       end
