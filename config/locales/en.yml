@@ -2095,7 +2095,8 @@ en:
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: Let's get started
       stimulus_payments:
-        title: Did you receive an Economic Impact Payment (stimulus) in 2020?
+        title: Did you receive the first two stimulus checks (Economic Impact Payments) in 2020 and 2021?
+        help_text: If you did not receive the first two stimulus payments, you will claim the amount owed to you on your tax return. Respond "No" if you received only one stimulus payment.
       student:
         help_text: This includes community college, technical school, professional development classes, higher education, and vocational education.
         title: In %{year}, was someone in your family a college or other post high school student?

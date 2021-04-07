@@ -2049,7 +2049,8 @@ es:
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Empecemos
       stimulus_payments:
-        title: ¿Recibió un Pago de alivio por impacto económico (estímulo) en 2020?
+        title: ¿Recibió los dos primeros cheques de estímulo (Pagos de impacto económico) en 2020 y 2021?
+        help_text: Si usted no recibió los dos primeros pagos de estímulo puede reclamar el monto que se le debe en su declaración de impuestos. Responda “no” si solo recibió uno de los pagos de estímulo.
       student:
         help_text: Esto incluye colegio comunitario, escuela técnica, clases de desarrollo profesional, educación superior y educación vocacional.
         title: En el %{year}, ¿alguien de su familia era estudiante universitario u otro estudiante de secundaria?

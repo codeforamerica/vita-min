@@ -95,7 +95,7 @@ RSpec.feature "Web Intake Joint Filers" do
     check "I was in the US on a Visa"
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Did you receive an Economic Impact Payment (stimulus) in 2020?")
+    expect(page).to have_selector("h1", text: "Did you receive the first two stimulus checks (Economic Impact Payments) in 2020 and 2021?")
     click_on "No"
 
     expect(page).to have_selector("h1", text: "Have you ever been issued an IP PIN because of identity theft?")
