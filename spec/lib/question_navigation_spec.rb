@@ -27,8 +27,8 @@ describe QuestionNavigation do
                  primary_consented_to_service_at: DateTime.current,
                  was_full_time_student: "yes"
         }
-        it "has next step as stimulus-payments" do
-          expect(described_class.determine_current_step(intake)).to eq "/en/questions/stimulus-payments"
+        it "has next step as issued-identity-pin (skips stimulus because is on ignore list)" do
+          expect(described_class.determine_current_step(intake)).to eq "/en/questions/issued-identity-pin"
         end
       end
 
