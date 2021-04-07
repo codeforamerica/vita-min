@@ -241,10 +241,16 @@ RSpec.describe MailgunWebhooksController do
                   "signature": "d2271d12299f6592d9d44cd9d250f0704e4674c30d79d07c47a66f95ce71cf55"
               },
           "event-data":
-              {
+            {
                   "event": "opened",
                   "timestamp": 1529006854.329574,
-                  "id": mailgun_id,
+                  "message":
+                    {
+                    "headers":
+                      {
+                        "message-id": mailgun_id
+                      }
+                  }
               }
       }
     end
@@ -253,15 +259,12 @@ RSpec.describe MailgunWebhooksController do
     context "with HTTP basic auth credentials" do
       before do
         request.env["HTTP_AUTHORIZATION"] = valid_auth_credentials
+        allow(DatadogApi).to receive(:increment)
       end
 
       it "updates an existing outgoing email with matching mailgun id with provided status" do
         post :update_outgoing_email_status, params: params
         expect(outgoing_email.reload.mailgun_status).to eq "opened"
-      end
-
-      before do
-        allow(DatadogApi).to receive(:increment)
       end
 
       context "when there is no outgoing message with a matching mailgun id" do
