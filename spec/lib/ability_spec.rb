@@ -512,11 +512,6 @@ describe Ability do
           end
         end
       end
-
-      xcontext "Greeter" do
-        # TODO: who can manage a greeter?
-        # only admins??
-      end
     end
   end
 end
