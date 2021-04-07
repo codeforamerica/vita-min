@@ -43,6 +43,20 @@ class ClientMessagingService
       )
     end
 
+    def send_message_to_all_opted_in_contact_methods(client, user, body)
+      message_records = {
+        outgoing_email: nil,
+        outgoing_text_message: nil,
+      }
+      if client.intake.email_notification_opt_in_yes? && client.email_address.present?
+        message_records[:outgoing_email] = send_email(client, user, body)
+      end
+      if client.intake.sms_notification_opt_in_yes? && client.sms_phone_number.present?
+        message_records[:outgoing_text_message] = send_text_message(client, user, body)
+      end
+      message_records
+    end
+
     def contact_methods(client)
       methods = {}
       methods[:email] = client.intake.email_address if client.intake.email_notification_opt_in_yes? && client.intake.email_address.present?
