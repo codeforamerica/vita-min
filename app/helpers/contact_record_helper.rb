@@ -35,8 +35,8 @@ module ContactRecordHelper
     return unless message.message_id.present?
 
     status = message.mailgun_status || "sending"
-    sent_statuses = %w[delivered]
-    failed_statuses = %w[failed]
+    sent_statuses = %w[delivered opened]
+    failed_statuses = %w[permanent_fail]
     icon = "icons/waiting.svg"
     icon = "icons/exclamation.svg" if failed_statuses.include?(status)
     icon = "icons/check.svg" if sent_statuses.include?(status)

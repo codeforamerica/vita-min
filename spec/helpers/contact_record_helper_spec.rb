@@ -64,8 +64,8 @@ describe ContactRecordHelper do
           end
         end
 
-        context "when the mailgun_status is failed" do
-          let(:mailgun_status) { "failed" }
+        context "when the mailgun_status is permanent_fail" do
+          let(:mailgun_status) { "permanent_fail" }
           let(:image_tag) { helper.image_tag("icons/exclamation.svg", alt: mailgun_status, title: mailgun_status, class: 'message__status') }
           it "returns the correct image tag" do
             expect(helper.mailgun_deliverability_status(outgoing_email)).to eq image_tag
