@@ -24,16 +24,15 @@ class SystemNote::OrganizationChange < SystemNote
   def self.generate!(client:, initiated_by: nil)
     return unless client.saved_change_to_vita_partner_id? # if the assigned user didn't change, don't continue
 
-    vita_partner_id_change = client.vita_partner_id_previous_change #[prev, current]
+    previous_partner = VitaPartner.find_by(id: client.vita_partner_id_previous_change[0])
+    current_partner = client.vita_partner
 
-    action = if vita_partner_id_change[0] && vita_partner_id_change[1]
-               previous_partner_name = VitaPartner.find_by(id: vita_partner_id_change[0])&.name
-               "changed assigned partner from #{previous_partner_name} to #{client.vita_partner.name}."
-             elsif vita_partner_id_change[1].present? # nil -> assigned
-               "assigned client to #{client.vita_partner.name}."
+    action = if previous_partner.present? && current_partner.present?
+               "changed assigned partner from #{previous_partner.name} to #{current_partner.name}."
+             elsif current_partner.present? # nil -> assigned
+               "assigned client to #{current_partner.name}."
              else # assigned -> nil
-               previous_partner_name = VitaPartner.find_by(id: vita_partner_id_change[0])&.name
-               "removed partner assignment from client. (Previously assigned to #{previous_partner_name}.)"
+               "removed partner assignment from client. (Previously assigned to #{previous_partner.name}.)"
              end
 
     body = initiated_by ? "#{initiated_by.name} #{action}" : "A system action #{action}"
