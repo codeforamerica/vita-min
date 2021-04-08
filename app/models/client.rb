@@ -55,9 +55,11 @@ class Client < ApplicationRecord
   has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
+  attr_accessor :change_initiated_by
   enum routing_method: { most_org_leads: 0, source_param: 1, zip_code: 2, national_overflow: 3, state: 4 }
 
   validate :tax_return_assigned_user_access_maintained, if: :vita_partner_id_changed?
+  after_update_commit :create_org_change_note, if: :saved_change_to_vita_partner_id?
 
   def self.delegated_intake_attributes
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
@@ -221,5 +223,9 @@ class Client < ApplicationRecord
         )
       end
     end
+  end
+
+  def create_org_change_note
+    SystemNote::OrganizationChange.generate!(client: self, initiated_by: change_initiated_by)
   end
 end
