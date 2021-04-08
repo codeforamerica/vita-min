@@ -143,102 +143,102 @@ RSpec.describe Hub::ClientForm do
           end
         end
       end
+    end
 
-      describe "#email_address" do
-        context "when not provided" do
-          before do
-            form_attributes[:email_address] = nil
-            form.valid?
-          end
-
-          it "does not add an email error" do
-            expect(form.errors).not_to include(:email_address)
-          end
+    describe "#email_address" do
+      context "when not provided" do
+        before do
+          form_attributes[:email_address] = nil
+          form.valid?
         end
 
-        context "when not a valid email address" do
-          before do
-            form_attributes[:email_address] = "not_valid!!"
-            form.valid?
-          end
-
-          it "adds an error to the attribute" do
-            expect(form.errors[:email_address]).to eq ["Please enter a valid email address."]
-          end
+        it "does not add an email error" do
+          expect(form.errors).not_to include(:email_address)
         end
       end
 
-      describe "#preferred_interview_language" do
-        context "when nil" do
-          before do
-            form_attributes[:preferred_interview_language] = nil
-            form.valid?
-          end
-
-          it "adds an error to the field" do
-            expect(form.errors[:preferred_interview_language]).to eq ["Can't be blank."]
-          end
+      context "when not a valid email address" do
+        before do
+          form_attributes[:email_address] = "not_valid!!"
+          form.valid?
         end
 
-        context "when blank" do
-          before do
-            form_attributes[:preferred_interview_language] = ""
-            form.valid?
-          end
+        it "adds an error to the attribute" do
+          expect(form.errors[:email_address]).to eq ["Please enter a valid email address."]
+        end
+      end
+    end
 
-          it "adds an error to the field" do
-            expect(form.errors[:preferred_interview_language]).to eq ["Can't be blank."]
-          end
+    describe "#preferred_interview_language" do
+      context "when nil" do
+        before do
+          form_attributes[:preferred_interview_language] = nil
+          form.valid?
+        end
+
+        it "adds an error to the field" do
+          expect(form.errors[:preferred_interview_language]).to eq ["Can't be blank."]
         end
       end
 
-      describe "at least one communication preference is required" do
-        context "when neither sms or email are opted in to" do
-          before do
-            form_attributes[:sms_notification_opt_in] = "no"
-            form_attributes[:email_notification_opt_in] = "no"
-            form.valid?
-          end
-
-          it "adds an error for communication_preference" do
-            expect(form.errors[:communication_preference]).to eq ["Please choose some way for us to contact you."]
-          end
+      context "when blank" do
+        before do
+          form_attributes[:preferred_interview_language] = ""
+          form.valid?
         end
 
-        context "when sms is opted into but email is not" do
-          before do
-            form_attributes[:sms_notification_opt_in] = "yes"
-            form_attributes[:email_notification_opt_in] = "no"
-            form.valid?
-          end
+        it "adds an error to the field" do
+          expect(form.errors[:preferred_interview_language]).to eq ["Can't be blank."]
+        end
+      end
+    end
 
-          it "is a valid field with no errors" do
-            expect(form.errors[:communication_preference]).to be_blank
-          end
+    describe "at least one communication preference is required" do
+      context "when neither sms or email are opted in to" do
+        before do
+          form_attributes[:sms_notification_opt_in] = "no"
+          form_attributes[:email_notification_opt_in] = "no"
+          form.valid?
         end
 
-        context "when email is opted into but sms is not" do
-          before do
-            form_attributes[:sms_notification_opt_in] = "no"
-            form_attributes[:email_notification_opt_in] = "yes"
-            form.valid?
-          end
+        it "adds an error for communication_preference" do
+          expect(form.errors[:communication_preference]).to eq ["Please choose some way for us to contact you."]
+        end
+      end
 
-          it "is a valid field with no errors" do
-            expect(form.errors[:communication_preference]).to be_blank
-          end
+      context "when sms is opted into but email is not" do
+        before do
+          form_attributes[:sms_notification_opt_in] = "yes"
+          form_attributes[:email_notification_opt_in] = "no"
+          form.valid?
         end
 
-        context "when both sms and email are opted into" do
-          before do
-            form_attributes[:sms_notification_opt_in] = "yes"
-            form_attributes[:email_notification_opt_in] = "yes"
-            form.valid?
-          end
+        it "is a valid field with no errors" do
+          expect(form.errors[:communication_preference]).to be_blank
+        end
+      end
 
-          it "is a valid field with no errors" do
-            expect(form.errors[:communication_preference]).to be_blank
-          end
+      context "when email is opted into but sms is not" do
+        before do
+          form_attributes[:sms_notification_opt_in] = "no"
+          form_attributes[:email_notification_opt_in] = "yes"
+          form.valid?
+        end
+
+        it "is a valid field with no errors" do
+          expect(form.errors[:communication_preference]).to be_blank
+        end
+      end
+
+      context "when both sms and email are opted into" do
+        before do
+          form_attributes[:sms_notification_opt_in] = "yes"
+          form_attributes[:email_notification_opt_in] = "yes"
+          form.valid?
+        end
+
+        it "is a valid field with no errors" do
+          expect(form.errors[:communication_preference]).to be_blank
         end
       end
     end
