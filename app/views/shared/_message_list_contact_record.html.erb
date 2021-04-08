@@ -16,7 +16,7 @@
         </div>
 
         <%= twilio_deliverability_status(contact_record.twilio_status) if contact_record.respond_to? :twilio_status %>
-        <%= mailgun_deliverability_status(contact_record) if contact_record.respond_to? :mailgun_status %>
+        <%= mailgun_deliverability_status(contact_record.mailgun_status) if contact_record.respond_to? :mailgun_status %>
       </div>
     </div>
 

@@ -31,10 +31,9 @@ module ContactRecordHelper
     image_tag(icon, alt: status, title: status, class: 'message__status')
   end
 
-  def mailgun_deliverability_status(message)
-    return unless message.message_id.present?
+  def mailgun_deliverability_status(status)
+    return unless status.present?
 
-    status = message.mailgun_status || "sending"
     sent_statuses = %w[delivered opened]
     failed_statuses = %w[permanent_fail]
     icon = "icons/waiting.svg"

@@ -105,4 +105,23 @@ RSpec.describe OutgoingEmail, type: :model do
       expect(ClientChannel).to have_received(:broadcast_contact_record).with(message)
     end
   end
+
+  context "before create" do
+    let(:outgoing_email) { build :outgoing_email, mailgun_status: "accepted" }
+    context "when a status is already set" do
+      it "does not overwrite the status" do
+        outgoing_email.save
+        expect(outgoing_email.reload.mailgun_status).to eq "accepted"
+      end
+    end
+
+    context "when the status is blank" do
+      let(:outgoing_email) { build :outgoing_email, mailgun_status: nil }
+
+      it "defaults the status to sending" do
+        outgoing_email.save
+        expect(outgoing_email.reload.mailgun_status).to eq "sending"
+      end
+    end
+  end
 end

@@ -40,27 +40,18 @@ describe ContactRecordHelper do
     end
 
     describe "#mailgun_deliverability_status" do
-      context "when there is no message_id saved to the message record" do
-        let(:outgoing_email) { create :outgoing_email, message_id: nil }
+      context "when the status is nil" do
         it "returns nil" do
-          expect(helper.mailgun_deliverability_status(outgoing_email)).to eq nil
+          expect(helper.mailgun_deliverability_status(nil)).to eq nil
         end
       end
-      context "when there is a message_id saved to the message record" do
-        let(:outgoing_email) { create :outgoing_email, message_id: "some_fake_id", mailgun_status: mailgun_status}
-        context "when the mailgun_status is nil" do
-          let(:mailgun_status) { nil }
-          let(:image_tag) { helper.image_tag("icons/waiting.svg", alt: "sending", title: "sending", class: 'message__status') }
-          it "returns the correct image tag" do
-            expect(helper.mailgun_deliverability_status(outgoing_email)).to eq image_tag
-          end
-        end
 
+      context "when status is not nil" do
         context "when the mailgun_status is delivered" do
           let(:mailgun_status) { "delivered" }
           let(:image_tag) { helper.image_tag("icons/check.svg", alt: mailgun_status, title: mailgun_status, class: 'message__status') }
           it "returns the correct image tag" do
-            expect(helper.mailgun_deliverability_status(outgoing_email)).to eq image_tag
+            expect(helper.mailgun_deliverability_status(mailgun_status)).to eq image_tag
           end
         end
 
@@ -68,7 +59,7 @@ describe ContactRecordHelper do
           let(:mailgun_status) { "permanent_fail" }
           let(:image_tag) { helper.image_tag("icons/exclamation.svg", alt: mailgun_status, title: mailgun_status, class: 'message__status') }
           it "returns the correct image tag" do
-            expect(helper.mailgun_deliverability_status(outgoing_email)).to eq image_tag
+            expect(helper.mailgun_deliverability_status(mailgun_status)).to eq image_tag
           end
         end
       end
