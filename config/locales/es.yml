@@ -1250,7 +1250,7 @@ es:
         stimulus_banner:
           facts_html: &1
           - Recoja su cheque de estímulo de 2020 declarando sus impuestos a través de <a href="%{file_with_help_link}">GetYourRefund</a>!
-          - Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage'>IRS Get My Payment website</a>
+          - Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage'>IRS Obtener mi pago website</a>
           - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
           heading: "¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?"
         stimulus_faq:
@@ -1407,207 +1407,203 @@ es:
       stimulus_payment:
         faq:
           eip:
-            header: Preguntas frecuentes sobre el pago de impacto económico (pago de estímulo)
+            header: Preguntas frecuentes sobre el cheque de pago de impacto económico (estímulo)
             items:
-              - title: ¿Cuándo recibiré mi cheque?
+              - title: ¿El cheque del EIP afectará mis otros beneficios gubernamentales?
                 content_html: >-
-                  La segunda ronda de Pagos de Impacto Económicos se comenzó a enviar en diciembre del 2020. Si aún no has recibido tu pago puedes revisar el estatus en
+                  No, los cheques del EIP se tratan como un crédito fiscal. Esto significa que su
+                  pago no afectará los beneficios que reciba ahora o en el futuro.
+              - title: Todavía necesito presentar una declaración de impuestos ¿Cuánto tiempo están disponibles los pagos por impacto económico?
+                content_html: >-
+                  Estos pagos seguirán estando disponibles mediante la presentación de una declaración de impuestos.
+                  Aunque la fecha límite oficial es el 17 de mayo, puede continuar presentando su solicitud
+                  hasta el 15 de octubre a través de GetYourRefund.org.
+              - title: ¿Si debo impuestos, o tengo un acuerdo de pago con el IRS, o tengo otras deudas federales o estatales, seguiré recibiendo el EIP?
+                content_html: >-
+                  Si bien los pagos de estímulo realizados en 2020 estaban protegidos del embargo, no
+                  ocurre lo mismo con los pagos realizados a través de Créditos de recuperación de reembolso.
+              - title: ¿Qué pasa si estoy sobregirado en mi banco?
+                content_html: >-
+                  Si su banco o cooperativa de crédito ha tomado una parte de su EIP para cubrir el dinero
+                  que les debe,
                   <a
-                    href="https://www.irs.gov/es/coronavirus/get-my-payment"
+                    href="https://www.consumerfinance.gov/about-us/blog/consumer-advisory-protect-your-economic-payment-if-your-account-is-overdrawn/"
                     rel="nofollow"
                     target="_blank"
-                    data-track-click="stimulus-irs-get-my-payment"
-                    data-track-attribute-position="stimulus-general-faq1">
-                  el sitio web Obtener Mi Pago del IRS</a>.
-                  Si no encuentras un estatus en la página Obtener Mi Pago debes presentar tu declaración de
-                  impuestos del año 2020 para recibir tu estímulo.
-              - title: Si recibo el EIP, ¿Afectará mis otros beneficios del gobierno?
+                    data-track-click="consumer-advisory-protection-recommendations"
+                    data-track-attribute-position="eip-faq4">
+                  la Oficina de Protección Financiera del Consumidor recomienda</a> llamarlos para
+                  preguntarles si están dispuestos a ser flexibles.
+              - title: ¿Qué pasa si alguien ofrece un pago más rápido?
                 content_html: >-
-                  No, los cheques del EIP se tratan como un crédito tributario, lo que significa que no afectará a
-                  los beneficios que recibes ahora o en el futuro.
-              - title: "Aún no he presentado mi declaración de impuestos. ¿Durante cuánto tiempo estarán disponibles los pagos de impacto económico?"
-                content_html: >-
-                  Para la tranquilidad de aquellos que quieran consultar en persona a un
-                  profesional o a una organización comunitaria local especializados en
-                  impuestos para que los ayuden con la declaración, estos pagos de impacto económico
-                  estarán disponibles durante la temporada de declaración de impuestos del 2021.
-              - title: "¿Puedo recibir el EIP si debo impuestos, si tengo un acuerdo de pagos con el IRS o si tengo otras deudas federales o estatales?"
-                content_html: >-
-                  Si, recientemente los pagos de estimulo se declararon exentos de la mayoría
-                  de las formas de embargo de salaro privadas o del gobierno."
-              - title: ¿Habrá más pagos?
-                content_html: >-
-                  Actualmente, el gobierno de Estados Unidos solo ha autorizado dos rondas de pagos de estímulo.
-                  Actualizaremos esta página con cualquier cambio.
-              - title: ¿Que pasa si alguien ofrece un pago mas rápido?
-                content_html: >-
-                  No hagas clic en enlaces cuyos orígenes no estas 100% seguro.
-                  Ten cuidado con las estafas. Si parece demasiado bueno para ser cierto,
-                  probablemente lo es. Y no mandes dinero a alguien que no conoces.
+                  No haga clic en enlaces cuyos orígenes no esté 100% seguro. Tenga cuidado con las estafas.
+                  Si parece demasiado bueno para ser verdad, probablemente lo sea. Y no envíe dinero a
+                  alguien que no conoce. Mire las tarifas que se cobran si está pagando su servicio de
+                  preparación de impuestos o un préstamo de anticipación de reembolso al hacer que se deduzcan
+                  de su reembolso.
           how_to_get_paid:
-            header: Cómo recibir el pago
+            header: ¿Cómo cobrar?
             items:
-              - title: "¿Cómo obtengo mi Pago de Impacto Económico?"
+              - title: "¿Cómo puedo recibir mi cheque del Pago de Impacto Económico?"
                 content_html: >-
-                  Si el IRS aún no te ha enviado el pago de la primera o de la
-                  segunda ronda de estímulo, o si recibiste un monto incorrecto
-                  para cualquiera de los dos pagos, deberás presentar una
-                  declaración de impuestos para el año 2020 para recibirlo.
-              - title: "¿Cómo sé si el IRS envió mi cheque de estímulo?"
+                  Si el IRS aún no ha enviado su primera o segunda ronda de pagos de estímulo,
+                  o si recibió una cantidad incorrecta para cualquiera de los dos pagos, tendrá
+                  que presentar una declaración de impuestos de 2020 para poder recibirlo.
+              - title: "¿Cómo puedo determinar si el IRS ha enviado mi cheque de estímulo?"
                 content_html: >-
-                  Si no estas seguro(a) si el IRS envió tus pagos o si quieres revisar el estatus, puedes
-                  buscarlo en la pagina de web del
+                  Si no está seguro de si el IRS ha enviado su tercer pago de estímulo o quiere comprobar el
+                  estado, puede buscar en el sitio web del IRS
                   <a
                     href="https://www.irs.gov/es/coronavirus/get-my-payment"
                     rel="nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-get-my-payment"
                     data-track-attribute-position="stimulus-how-faq2">
-                  IRS llamada Obtener Mi Pago de Impacto Económico</a>.
-              - title: "¿Qué pasa si hay un problema con mi información de cuenta bancaria?"
-                content_html: >-
-                  Si antes proporcionaste información de una cuenta bancaria al IRS y esta información ha cambiado
-                  o no reconoces el número registrado en el sistema, por favor consulta
-                  <a href="https://www.irs.gov/es/newsroom/irs-statement-update-on-economic-impact-payments"
+                  Obtener mi pago</a>. Para
+                  ver si ha recibido los anteriores pagos de estímulo, y qué cantidad, debe
+                  <a
+                    href="https://www.irs.gov/es/payments/view-your-tax-account"
                     rel="nofollow"
                     target="_blank"
-                    data-track-click="stimulus-irs-website"
-                    data-track-attribute-position="stimulus-how-faq3">
-                  el sitio web del IRS</a>
-                  para más información..
-              - title: ¿Cuánto voy a recibir?
+                    data-track-click="stimulus-irs-view-your-tax-account"
+                    data-track-attribute-position="stimulus-how-faq2">
+                  ver o crear una cuenta en línea con el IRS</a>.
+              - title: "¿Qué pasa si hay problemas con los datos de mi cuenta bancaria?"
                 content_html: >-
-                  Los contribuyentes elegibles recibirán un pago de impacto económico de hasta $600 para individuos o
-                  $1,200 para parejas casadas que presentan una declaración conjunta y hasta
-                  $600 por cada hijo(a) que califica.
-                  <a
-                    href="https://www.irs.gov/pub/irs-utl/how_do_I_calculate_my_eip.pdf"
-                    rel="nofollow"
-                    target="_blank"
-                    data-track-click="stimulus-irs-calculate-eip"
-                    data-track-attribute-position="stimulus-how-faq4">
-                  El IRS tiene una página web llamada "Cálculo del pago de impacto económico"</a>
-                  para ayudarte a calcular el monto que debes recibir para la primera
-                  ronda de pagos. Para la segunda ronda de pagos deberas completar la
-                  hoja de Crédito de Recuperación de Reembolso para la linea 30 de la
-                  forma de impuestos 1040 para el año 2020. Te podemos ayudar con estas
-                  formas si presentas tu declaración de impuestos con GetYourRefund.
-              - title: "¿Qué debo hacer si no he presentado una declaración de impuestos federales?"
-                content_html: >-
-                  Recomendamos que presentes una declaración de impuestos para poder tener
-                  acesso a los Pagos de Impacto Económicos y otros créditos tributarios
-                  adicionales si eres elegible para ellos. Puedes presentar declaraciones para los
-                  años 2017, 2018, 2019 y 2020 de manera gratuita con GetYourRefund."
-              - title: "¿Qué debo hacer si no tengo una cuenta bancaria?"
-                content_html: >-
-                  Si no tienes una cuenta bancaria, tu cheque EIP podría tardar hasta cinco meses en llegar por correo.
-                  Para recibir tu pago rápidamente a través de un depósito directo,
-                  <a
-                    href="https://joinbankon.org/home/remotebanking/"
-                    rel="nofollow" target="_blank" data-track-click="stimulus-irs-online-banking"
-                    data-track-attribute-position="stimulus-how-faq6">
-                    abre una cuenta bancaria en línea</a>
-                  y agrega la información de tu cuenta en el sitio web del
+                  Si el IRS no puede depositar en la cuenta que tiene registrada, le enviarán el pago por correo
+                  a la dirección que tiene registrada.   Si el correo es devuelto, la herramienta
                   <a
                     href="https://www.irs.gov/es/coronavirus/get-my-payment"
                     rel="nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-get-my-payment"
-                    data-track-attribute-position="stimulus-how-faq6">
-                    IRS Recibir Mi Pago</a>.
-                  Si no deseas abrir una cuenta bancaria, puedes vincular una targeta de débito prepagada o tu cuenta de
+                    data-track-attribute-position="stimulus-how-faq3">
+                  Obtener mi pago</a> mostrará un estado de "se necesita más información" y usted tendrá la
+                  oportunidad de proporcionar nueva información bancaria.
+              - title: "¿Qué pasa si no he declarado los impuestos federales?"
+                content_html: >-
+                  Le recomendamos que presente sus impuestos para poder acceder a los Pagos por Impacto Económico
+                  y a cualquier crédito fiscal adicional al que pueda optar. Puede presentar las declaraciones
+                  de 2017, 2018, 2019 y 2020 de forma gratuita con GetYourRefund.
+              - title: "¿Qué pasa si no tengo una cuenta bancaria?"
+                content_html: >-
+                  Si no tiene una cuenta bancaria,  puede tardar hasta cinco meses en recibir su cheque
+                  del EIP por correo. Para recibir su pago rápidamente a través de un depósito directo,
+                  <a
+                    href="https://covidbanking.joinbankon.org/espanol.html"
+                    rel="nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-online-banking"
+                    data-track-attribute-position="stimulus-how-faq5">
+                  regístrese en una cuenta bancaria en línea</a> y añada la información de su cuenta
+                  cuando presente su declaración. Si no quiere registrarse en una cuenta bancaria, puede
+                  vincular su tarjeta de débito prepagada o
                   <a
                     href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
                     rel="nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-cash-app"
-                    data-track-attribute-position="stimulus-how-faq6">
-                  Cash App</a>
-                  Muchos de nuestros socios de VITA también pueden asignarte una tarjeta de crédito prepagada si
-                  presentas tu declaración con GetYourRefund.
-              - title: "¿Qué debo hacer si me mudé después de presentar mi declaración de impuestos?"
+                    data-track-attribute-position="stimulus-how-faq5">
+                  Cash App</a> en su lugar. Muchos de
+                  nuestros colaboradores de VITA también pueden inscribirlo en una tarjeta de débito prepagada
+                  cuando presente su declaración.
+              - title: "¿Y si me he mudado desde el año pasado?"
                 content_html: >-
-                  Si quieres recibir to cheque EIP por correo, asegura que tu dirección
-                  esta actualizada en
+                  La forma más fácil de actualizar su dirección es presentando su declaración de 2020 con la
+                  dirección correcta.  Si ya ha presentado la declaración con su antigua dirección, puede
+                  utilizar el sitio web de cambio de dirección del
                   <a
-                    href="https://www.irs.gov/faqs/irs-procedures/address-changes"
+                    href="https://www.irs.gov/es/faqs/irs-procedures/address-changes"
                     rel="nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-address-changes"
-                    data-track-attribute-position="stimulus-faq7">
-                  en el sitio web para cambios de dirección</a>.
-                  There may be delays – it could take up to five months to receive your check by mail.
-        header: Obtenga su Cheque de Estímulo (EIP)
+                    data-track-attribute-position="stimulus-how-faq6">
+                  IRS para actualizar su dirección</a>.
+                  Puede haber retrasos en la recepción de su EIP - podría tardar hasta cinco meses en
+                  recibir su cheque por correo.
+        header: Obtener su comprobación de estímulo (EIP en Inglés)
         intro:
           common_questions: >-
-            Sabemos que hay muchas dudas sobre los pagos de impacto económico
-            (EIP, por sus siglas en inglés) y tenemos algunas respuestas.
-            Hemos seleccionado algunas preguntas frecuentes que podrían ayudarlo.
+            Sabemos que hay muchas preguntas en torno a los Pagos de Impacto Económico
+            (EIP) y tenemos algunas respuestas. Hemos escogido algunas preguntas comunes para ayudarle.
           description:
             - >-
-              Desde que comenzó la pandemia de COVID-19, el gobierno federal ha enviado dos rondas de Pagos de
-              Impacto Económico (a menudo llamados cheques de estímulo). Para la primera ronda,
-              individuos recibieron hasta $ 1,200 para ellos mismos ($ 2,400 para una pareja casada que
-              presenta una declaración conjunta) y $ 500 adicionales por cada hijo(a) dependiente menor de 17 años.
+              El gobierno federal ha comenzado a enviar la tercera ronda de pagos de impacto
+              económico (EIPs en Inglés) a menudo llamada verificación de estímulo).
+              En esta ronda, los individuos pueden recibir hasta $1,400 por sí mismos
+              ($2,800 por una pareja casada que se presenta conjuntamente) y $1,400
+              adicionales por cada dependiente.
             - >-
-              Para la segunda ronda, individuos reciben hasta $600 para ellos mismos
-              ($1,200 para una pareja casada que presenta una declaración conjunta) y $ 600 adicionales por
-              cada hijo(a) dependiente menor de 17 años. Si aún no ha recibido ninguna de las rondas de pagos,
-              no es ¡demasiado tarde! Aún puede reclamarlos presentando una declaración de impuestos este año.
-
+              Si aún no ha recibido este pago o rondas de pagos anteriores,
+              ¡no es demasiado tarde! Todavía puede reclamarlos en la
+              declaración de impuestos de este año.
           eligibility:
             header: "¿Quién es elegible?"
+            list:
+              - Solo recibió un pago parcial debido a la eliminación gradual, pero perdió su trabajo debido a COVID-19 y sus ingresos fueron menores en 2020 que en 2019.
+              - Tuviste un nuevo bebé en 2020.
+              - Usted podría ser reclamado como dependiente de otra persona en 2019, pero no en 2020.
+              - No estaba obligado a presentar una declaración de impuestos en 2018 o 2019, y no cumplió con la fecha límite para utilizar el portal de no declarantes para reclamar los pagos.
             info:
               - >-
-                Hay diferentes requisitos de eligibilidad para las dos rondas de
-                cheques de estímulo. Para la primera ronda, los declarantes de impuestos
-                con un ingreso bruto ajustado de hasta $75,000 para individuos y
-                hasta $150,000 para parejas casadas presentando una declaración
-                conjunta, recibirán el pago completo. Para declarantes con ingresos
-                mayores a estas cantidades, el monto de pago se reduce por $5 por cada
-                $100 por encima de las cantidades $75,000/$150,000.
-                Declarantes individuales con ingresos superiores a $99,000, o
-                $198,000 si es una pareja que presenta una declaración conjunta
-                que no tenga hijos, no son elegibles.
+                Para la primera ronda, los contribuyentes elegibles recibieron un pago de impacto
+                económico de hasta $1,200 para individuos o $2,400 para parejas casadas y hasta
+                $500 por cada niño calificado menor de 17 años.  Para la segunda ronda,
+                los contribuyentes elegibles recibieron un pago de impacto económico de hasta $600
+                para individuos o $1,200 para parejas casadas y hasta $600 por cada niño calificado.
               - >-
-                Para la primera ronda los contribuyentes recibieron pagos de impacto
-                económico de hasta $1,200 para individuos o $2,400 para parejas casadas
-                que presentan una declaración conjunta, y hasta $500 por cada hijo(a)
-                que califica.
+                En cada ronda de pagos, los declarantes de impuestos con ingresos brutos ajustados
+                de hasta $75,000 para individuos, hasta $112,500 para aquellos que se presentan como
+                jefes de familia, y hasta $150,000 para parejas casadas que presentan declaraciones
+                conjuntas reciben el pago completo. Para los declarantes con ingresos superiores a
+                esas cantidades, el monto del pago se reduce gradualmente.
               - >-
-                Para la segunda ronda, los declarantes de impuestos con un ingreso
-                bruto ajustado de hasta $75,000 para individuos, y hasta $150,000 para
-                parejas casadas presentando una declaración conjunta, de nuevo
-                recibirán el pago completo. Para declarantes con ingresos superiores
-                a estas cantidades el pago del estimulo se reduce más rápido que en
-                la primera ronda. Declarantes individuales con ingresos superiores a
-                $87,000 o $174,000 si es una pareja presentando una declaración
-                conjunta que no tenga hijos, no son elegibles.
+                En las dos primeras rondas de pagos, sólo los niños menores de 17 años podían
+                ser reclamados por el pago de dependiente.  Otros dependientes no eran elegibles
+                — y tampoco podían reclamar el EIP ellos mismos.  En la tercera ronda de
+                pagos, todos los dependientes, incluidos los estudiantes universitarios y los
+                dependientes adultos, pueden ser reclamados.  Además, como se describe a
+                continuación, algunos niños en hogares de estatus de inmigración mixta que antes no
+                eran elegibles, pueden recibir el tercer pago.
               - >-
-                Para la segunda ronda los contribuyentes elegibles recibirán un
-                pago de impacto económico de hasta $600 para individuos o $1,200
-                para parejas casadas que presentan una declaración conjunta, y
-                hasta $600 por cada hijo(a) que califica.
+                El IRS realizó las dos primeras rondas de pagos basándose en la información que tenía
+                de las declaraciones de impuestos de 2018 o 2019.  Si usted es elegible para un
+                pago más grande basado en su información de 2020, puede reclamar este crédito
+                cuando presente su declaración de 2020.  Por ejemplo:
+            info_last_html:
               - >-
-                Si tienes ingresos de trabajo o dependientes podrías tener
-                acceso a créditos tributarios o beneficios adicionales si presentas
-                una declaración o actualizas tu información con el IRS. Por favor
-                contactanos por chat para obtener más información.
+                Para reclamar este crédito, deberá informar cuánto recibió de los dos IPE en 2020.
+                Sin embargo, no tendrá que pagar los pagos de estímulo que recibió si sus ingresos
+                aumentaron en 2020 o el número de dependientes que afirmó bajó.  Deberá completar la
+                <a href="https://www.irs.gov/es/node/39996">hoja de trabajo de crédito de reembolso de recuperación</a> para la línea 30 del
+                formulario de impuestos 2020 1040. Podemos ayudarle con estos formularios si presenta
+                su devolución a través de GetYourRefund.
+              - >-
+                Si tiene ingresos del trabajo o dependientes, es posible que pueda acceder
+                a créditos o beneficios fiscales adicionales al presentar o actualizar su información con el
+                IRS. Comuníquese a través del chat para obtener más información.
           mixed_status_eligibility:
-            header: ¿Las familias con estatus de imigración diferentes son elegibles?
+            header: ¿Son elegibles las familias de estatus migratorio mixto?
             info:
               - >-
-                Originalmente las familias con diferentes estatus migratorios no eran
-                elegibles para la primera ronda de pagos. Sin embargo, ahora las familias
-                con diferentes estatus migratorios pueden reclamar la primera y la segunda
-                ronda de pagos en la declaración de impuestos de este año. Para la segunda
-                ronda de pagos si presentas una declaración conjunta con tu pareja y solo
-                uno de ustedes tiene un Número de Seguro Social (SSN) válido la personal que
-                tenga SSN válido recibirá $600 y hasta $600 por cada hijo(a) que califica y
-                que tenga SSN. Sin embargo, el cónyuge sin SSN válido no es elegible.
-                Las mismas reglas ahora aplican para la primera ronda de pagos también.
-          irs_info_html: El IRS publicará toda la información importate en %{irs_eip_link} cuanto este disponible.
-          last_updated: Actualizado el 25 de Enero de 2021
+                Originalmente, las familias con estatus migratorio mixto no tenían derecho
+                a la primera ronda de pagos. Sin embargo, ahora las familias con estatus
+                mixto pueden solicitar tanto la primera como la segunda ronda de pagos en
+                la declaración de la renta de este año. Para la segunda ronda de pagos,
+                si usted presenta la declaración conjuntamente con su cónyuge y sólo uno de ustedes
+                tiene un número de seguro social válido, el cónyuge con el número de
+                seguro social válido recibirá hasta 600 dólares y hasta 600 dólares por cualquier
+                hijo que reúna los requisitos y tenga un número de seguro social. Sin embargo,
+                el cónyuge que no tenga un número de seguro social válido no será elegible.
+                Las mismas reglas se aplican ahora también para la primera ronda de pagos.
+              - >-
+                Para la tercera ronda de pagos, los declarantes que presenten sus impuestos
+                con el Números de Identificación de Contribuyente Individual (ITIN) pueden solicitar
+                el EIP para sus dependientes que tengan números de la Seguridad Social.  Puede obtener un
+                ITIN presentando el formulario I-7 y la documentación requerida con su declaración de
+                impuestos, o llevando el formulario y la documentación a un Agente de Aceptación Certificado.
+          irs_info_html: El Departamento del Tesoro y el Servicio de Impuestos Internos (IRS) publicará toda la información importante en %{irs_eip_link} tan pronto como esté disponible.
+          last_updated: Actualizado el 6 de Abril de 2021
         title: Pago de estímulo
       tax_questions:
         cannot_answer:

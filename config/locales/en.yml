@@ -1477,43 +1477,32 @@ en:
       stimulus_payment:
         faq:
           eip:
-            header: Economic Impact Payment (stimulus payment) FAQs
+            header: Economic Impact Payment (stimulus) check FAQs
             items:
-              - title: When will I receive my check?
-                content_html: >-
-                  The second Economic Impact Payments were sent beginning in December 2020.
-                  If you have not received your payment you can check the
-                  status on the IRS <a
-                    href="https://www.irs.gov/coronavirus/get-my-payment"
-                    rel="nofollow"
-                    target="_blank"
-                    data-track-click="stimulus-irs-get-my-payment"
-                    data-track-attribute-position="stimulus-general-faq1">
-                  Get My Payment website</a>.
-                  If you do not see a status on the Get My Payment portal
-                  you will need to file your 2020 tax return to access your stimulus.
               - title: Will the EIP check affect my other government benefits?
                 content_html: >-
-                  No, the EIP checks are treated as a tax credit. This means your payment will not impact the
-                  benefits you receive now or in the future.
+                  No, the EIP checks are treated as a tax credit. This means your payment will not impact
+                  the benefits you receive now or in the future.
               - title: I still need to file a tax return. How long are the economic impact payments available?
                 content_html: >-
-                  For those concerned about visiting a tax professional or local community
-                  organization in person to get help with a tax return, these economic impact
-                  payments will be available throughout the 2021 tax filing season.
+                  These payments will continue to be available by filing a tax return. Although the
+                  official deadline is May 17, you can continue to file until October 15 via GetYourRefund.org.
               - title: If I owe taxes, or have a payment agreement with the IRS, or owe other federal or state debts, will I still get the EIP?
                 content_html: >-
-                  Yes, the stimulus payments were recently made exempt from most forms of government and private garnishment.
-
-              - title: Will there be more payments?
+                  While the stimulus payments made in 2020 were protected from garnishment, the same is
+                  not true for payments made through Rebate Recovery Credits.
+              - title: What if I am overdrawn at my bank?
                 content_html: >-
-                  Currently, only two rounds of stimulus payments have been authorized by the U.S.
-                  government. We will update this page with any changes.
+                  If your bank or credit union has taken a portion of your EIP to cover money you
+                  owe them, the <a href="https://www.consumerfinance.gov/about-us/blog/consumer-advisory-protect-your-economic-payment-if-your-account-is-overdrawn/">Consumer Financial Protection Bureau recommends</a>
+                  calling them to ask if they are willing to be flexible.
               - title: What if someone offers a quicker payment?
                 content_html: >-
                   Don’t click on links whose origins you aren’t 100% sure of. Be wary of scams.
-                  If it looks too good to be true, it probably is. And don’t send money to someone
-                  you don’t know.
+                  If it looks too good to be true, it probably is. And don’t send money to
+                  someone you don’t know.  Look at the fees being charged if you are paying
+                  for your tax preparation service or a refund anticipation loan by having
+                  them deducted from your refund.
           how_to_get_paid:
             header: How to get paid
             items:
@@ -1608,40 +1597,52 @@ en:
             to help you out.
           description:
             - >-
-              Since the COVID-19 pandemic started, the federal government has sent out two rounds of Economic Impact
-              Payments (often called a stimulus check). For the first round, individuals received up to $1,200 for
-              themselves ($2,400 for a married couple filing jointly) and an additional $500 for every dependent
-              child under the age of 17.
+              The federal government has begun sending out the third round of Economic
+              Impact Payments (EIPs) often called a stimulus check). In this round,
+              individuals can receive up to $1,400 for themselves ($2,800 for a married
+              couple filing jointly) and an additional $1,400 for every dependent.
             - >-
-              For the second round, individuals receive up to $600 for themselves ($1,200 for a married couple filing
-              jointly) and an additional $600 for every dependent child under the age of 17.
-              If you have not yet received either rounds of payments yet, it is not too late!
-              You can still claim them by filing a tax return this year.
+              If you have not yet received this payment or earlier rounds of payments, it
+              is not too late! You can still claim them by filing a tax return this year.
           eligibility:
             header: Who is eligible?
+            list:
+              - You only got a partial payment due to the phase out, but you lost your job due to COVID-19 and your income was lower in 2020 than in 2019.
+              - You had a new baby in 2020.
+              - You could be claimed as someone else’s dependent in 2019, but not in 2020.
+              - You were not required to file a tax return in 2018 or 2019, and missed the deadline for using the non-filers portal to claim the payments.
             info:
               - >-
-                There are different eligibility levels for the two rounds of stimulus checks.
-                For the first round, tax filers with adjusted gross income up to $75,000 for
-                individuals and up to $150,000 for married couples filing joint returns will receive the
-                full payment. For filers with income above those amounts, the payment amount is reduced
-                by $5 for each $100 above the $75,000/$150,000 thresholds. Single filers with income
-                exceeding $99,000 and $198,000 for joint filers with no children are not eligible.
-              - >-
                 For the first round, eligible taxpayers received an economic impact payment of up to $1,200
-                for individuals or $2,400 for married couples and up to $500 for each qualifying child.
+                for individuals or $2,400 for married couples and up to $500 for each qualifying child under the
+                age of 17.  For the second round, eligible taxpayers received an economic impact payment of
+                up to $600 for individuals or $1,200 for married couples and up to $600 for each qualifying child.
               - >-
-                For the second round, income tax filers with adjusted gross income up to $75,000 for
-                individuals and up to $150,000 for married couples filing joint returns will again receive
-                the full payment. For filers with income above those amounts, the payment amount phases out
-                more quickly than in the first round. Single filers with income exceeding $87,000 and $174,000
-                for joint filers with no children are not eligible.
+                In each round of payments, tax filers with adjusted gross income up to $75,000 for individuals,
+                up to $112,500 for those filing as head of household,  and up to $150,000 for married couples
+                filing joint returns receive the full payment. For filers with income above those amounts, the
+                payment amount phases down gradually.
               - >-
-                For the second round, eligible taxpayers will receive an economic impact payment of up to $600 for
-                individuals or $1,200 for married couples and up to $600 for each qualifying child.
+                In the first two rounds of payments, only children under age 17 could be claimed for the
+                dependent payment. Other dependents were not eligible—and also could not claim the EIP
+                themselves. In the third round of payments, all dependents, including college students and
+                adult dependents can be claimed.  In addition, as discussed below, some children in
+                mixed-immigration status households who were previously ineligible, can receive the third payment.
               - >-
-                If you have any earned income or dependents, you may be able to access additional tax credits or
-                benefits by filing or updating your info with the IRS. Please reach out via chat for more information.
+                The IRS made the first two rounds of payments based on the information it had from 2018 or
+                2019 tax returns.  If you are eligible for a larger payment based on your 2020 information, you
+                can claim that credit when you file your 2020 return.  For example:
+            info_last_html:
+              - >-
+                To claim this credit, you will need to report how much you received from the two EIPs in 2020.
+                However, you will not have to repay the stimulus payments you received if your income went
+                up in 2020 or the number of dependents you claimed went down.  You will need to complete <a href="https://www.irs.gov/instructions/i1040gi#idm140693714589984">the
+                Recovery Rebate Credit Worksheet</a> for line 30 of the 2020 1040 tax form. We can assist you with these
+                forms if you file your return through GetYourRefund.
+              - >-
+                If you have any earned income or dependents, you may be able to access additional tax credits
+                or benefits by filing or updating your info with the IRS. Please reach out via chat for more
+                information.
           mixed_status_eligibility:
             header: Are mixed immigration status families eligible?
             info:
@@ -1653,7 +1654,7 @@ en:
                 up to $600 for any qualifying children with SSNs. However, the spouse without a valid SSN is not
                 eligible. The same rules now apply for the first round of payments as well.
           irs_info_html: The IRS will post all key information on %{irs_eip_link} as soon as it becomes available.
-          last_updated: Updated on January 25, 2021
+          last_updated: Updated on April 6, 2021
         title: Stimulus Payment
       tax_questions:
         cannot_answer:
