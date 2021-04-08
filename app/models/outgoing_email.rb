@@ -34,6 +34,7 @@ class OutgoingEmail < ApplicationRecord
   validates_presence_of :body
   validates_presence_of :subject
   validates_presence_of :sent_at
+  before_create :set_sending_status, if: ->(email) { email.mailgun_status.blank? }
   # Use `after_create_commit` so that the attachment is fully saved to S3 before delivering it
   after_create_commit :deliver, :broadcast
   after_create_commit :record_outgoing_interaction, if: ->(email) { email.user.present? }
@@ -53,6 +54,10 @@ class OutgoingEmail < ApplicationRecord
   end
 
   private
+
+  def set_sending_status
+    self.mailgun_status = "sending"
+  end
 
   def deliver
     SendOutgoingEmailJob.perform_later(id)
