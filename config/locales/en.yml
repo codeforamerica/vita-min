@@ -1332,8 +1332,7 @@ en:
       maintenance:
         contact_html: You can also %{email_link}.
         email: submit a question via email to GetYourRefund
-        info_html: We're making some updates to GetYourRefund, and we'll be back soon! We expect the maintenance to be finished at <strong>3:00 a.m. Eastern (12:00 a.m. Pacific)</strong>, and we encourage you to come back after that time.
-        questions: If you have any questions in the meantime, feel free to reach out via the chat/help button in the bottom right.
+        info_html: We're making some updates to GetYourRefund, and we'll be back soon! We expect the maintenance to be finished within an hour. We encourage you to come back after that time.
         title: GetYourRefund is temporarily down for maintenance
       maybe_ineligible:
         info: We’re happy to answer any questions you may have about GetYourRefund! Contact us by using our chat feature below.

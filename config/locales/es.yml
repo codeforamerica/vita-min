@@ -1262,8 +1262,7 @@ es:
       maintenance:
         contact_html: También puede %{email_link}.
         email: enviar una pregunta por correo electrónico a GetYourRefund
-        info_html: Estamos haciendo algunas actualizaciones en GetYourRefund. ¡Volveremos pronto! Esperamos terminar el mantenimiento para <strong>las 3:00 a. m. ET (12:00 a. m. PT)</strong>, visítenos después de esa hora.
-        questions: Si tiene alguna pregunta mientras tanto, no dude en comunicarse con nosotros haciendo clic en el botón "Chat"/"Ayuda", en la parte inferior derecha.
+        info_html: Estamos haciendo algunas actualizaciones en GetYourRefund. ¡Volveremos pronto! Esperamos terminar el mantenimiento dentro de una hora. Por favor visítenos después de esa hora.
         title: GetYourRefund no está disponible temporalmente por tareas de mantenimiento
       maybe_ineligible:
         info: "¡Nos complace responder cualquier pregunta que pueda tener sobre GetYourRefund! Contáctenos usando nuestra función de chat abajo de esta pagina."
