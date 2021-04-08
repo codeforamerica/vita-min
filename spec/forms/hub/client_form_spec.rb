@@ -167,21 +167,6 @@ RSpec.describe Hub::ClientForm do
           expect(form.errors[:email_address]).to eq ["Please enter a valid email address."]
         end
       end
-
-      context "when opted in to email notifications" do
-        before do
-          form_attributes[:email_notification_opt_in] = "yes"
-        end
-
-        context "with a blank email address" do
-          before { form_attributes[:email_address] = "" }
-
-          it "is invalid" do
-            expect(form).not_to be_valid
-            expect(form.errors).to include(:email_address)
-          end
-        end
-      end
     end
 
     describe "#preferred_interview_language" do

@@ -22,10 +22,9 @@ module Hub
     validates :email_address, 'valid_email_2/email': true
     validates :phone_number, allow_blank: true, e164_phone: true
     validates :sms_phone_number, allow_blank: true, e164_phone: true
-    validates_presence_of :email_address, if: -> { opted_in_email? }
-    validates_presence_of :sms_phone_number, if: -> { opted_in_sms? }
-    validates_presence_of :primary_first_name
-    validates_presence_of :primary_last_name
+    validates :sms_phone_number, presence: true, allow_blank: false, if: -> { opted_in_sms? }
+    validates :primary_first_name, presence: true, allow_blank: false
+    validates :primary_last_name, presence: true, allow_blank: false
     validates :state_of_residence, inclusion: { in: States.keys }
     validates :preferred_interview_language, presence: true, allow_blank: false
     validate :at_least_one_contact_method
