@@ -10,10 +10,11 @@ RSpec.describe SendOutgoingEmailJob, type: :job do
       allow(mailer).to receive(:deliver_now).and_return Mail::Message.new(message_id: message_id)
     end
 
-    it "sends the message using deliver_now and persists the message_id to the object" do
+    it "sends the message using deliver_now and persists the message_id and default status to the object" do
       described_class.perform_now(outgoing_email.id)
       expect(OutgoingEmailMailer).to have_received(:user_message).with(outgoing_email: outgoing_email)
       expect(outgoing_email.reload.message_id).to eq message_id
+      expect(outgoing_email.reload.mailgun_status).to eq "sending"
     end
   end
 end
