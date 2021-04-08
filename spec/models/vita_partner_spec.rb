@@ -3,7 +3,7 @@
 # Table name: vita_partners
 #
 #  id                         :bigint           not null, primary key
-#  allows_greeters            :boolean          default(TRUE)
+#  allows_greeters            :boolean
 #  archived                   :boolean          default(FALSE)
 #  capacity_limit             :integer
 #  logo_path                  :string
@@ -187,6 +187,11 @@ describe VitaPartner do
       site = VitaPartner.new(parent_organization: create(:organization), capacity_limit: 1)
       expect(site.valid?).to eq false
     end
+
+    it "allows_greeters cannot be assigned a value" do
+      site = VitaPartner.new(parent_organization: create(:organization), allows_greeters: false)
+      expect(site.valid?).to eq false
+    end
   end
 
   context "organization-specific properties" do
@@ -282,36 +287,36 @@ describe VitaPartner do
 
   describe "#allows_greeters?" do
     let(:allows_greeters) { true }
-    let(:parent_organization) { nil }
-    let(:vita_partner) { create :vita_partner, parent_organization: parent_organization, allows_greeters: allows_greeters }
+    let(:org) { create :organization, allows_greeters: allows_greeters }
 
     context "vita partner is an org" do
       context "allow_greeter is true" do
         it "returns true" do
-          expect(vita_partner.allows_greeters?).to be true
+          expect(org.allows_greeters?).to be true
         end
       end
 
       context "allow_greeter is false" do
         let(:allows_greeters) { false }
         it "returns false" do
-          expect(vita_partner.allows_greeters?).to be false
+          expect(org.allows_greeters?).to be false
         end
       end
     end
 
     context "vita partner is a site" do
-      let(:parent_organization) { create :organization, allows_greeters: allows_greeters }
+      let(:site) { create :site, parent_organization: org }
+
       context "allow_greeter for the parent organization is true" do
         it "returns true" do
-          expect(vita_partner.allows_greeters?).to be true
+          expect(site.allows_greeters?).to be true
         end
       end
 
       context "allow_greeter for the parent organization is false" do
         let(:allows_greeters) { false }
         it "returns false" do
-          expect(vita_partner.allows_greeters?).to be false
+          expect(site.allows_greeters?).to be false
         end
       end
     end

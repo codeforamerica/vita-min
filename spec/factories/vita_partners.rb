@@ -3,7 +3,7 @@
 # Table name: vita_partners
 #
 #  id                         :bigint           not null, primary key
-#  allows_greeters            :boolean          default(TRUE)
+#  allows_greeters            :boolean
 #  archived                   :boolean          default(FALSE)
 #  capacity_limit             :integer
 #  logo_path                  :string

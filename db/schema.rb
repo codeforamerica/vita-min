@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_003612) do
+ActiveRecord::Schema.define(version: 2021_04_06_145219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -67,6 +67,12 @@ ActiveRecord::Schema.define(version: 2021_04_07_003612) do
     t.datetime "created_at", precision: 6, null: false
     t.integer "record_count"
     t.datetime "run_at"
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "bulk_edits", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.jsonb "data"
     t.datetime "updated_at", precision: 6, null: false
   end
 
@@ -717,7 +723,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_003612) do
   end
 
   create_table "vita_partners", force: :cascade do |t|
-    t.boolean "allows_greeters", default: true
+    t.boolean "allows_greeters"
     t.boolean "archived", default: false
     t.integer "capacity_limit"
     t.bigint "coalition_id"

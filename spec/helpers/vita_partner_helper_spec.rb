@@ -119,6 +119,7 @@ describe VitaPartnerHelper do
       let(:first_org) { create :organization, allows_greeters: true }
       let!(:site) { create :site, parent_organization: first_org }
       let(:second_org) { create :organization, allows_greeters: true }
+      let(:third_org) { create :organization, allows_greeters: false }
 
       before do
         allow(view).to receive(:current_user).and_return(greeter)

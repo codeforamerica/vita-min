@@ -4,7 +4,7 @@ RSpec.describe "a user editing an organization" do
   context "as an authenticated user" do
     context "as an admin" do
       let(:current_user) { create :admin_user }
-      let(:organization) { create :organization, capacity_limit: 100 }
+      let(:organization) { create :organization, capacity_limit: 100, allows_greeters: false }
       let!(:site) { create :site, parent_organization: organization, name: "Child Site" }
       before { login_as current_user }
 

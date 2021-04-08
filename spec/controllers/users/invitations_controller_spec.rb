@@ -219,10 +219,6 @@ RSpec.describe Users::InvitationsController do
       end
 
       context "inviting a greeter" do
-        let!(:org_1) { create(:organization, allows_greeters: true) }
-        let!(:org_2) { create(:organization, allows_greeters: true) }
-        let!(:org_3) { create(:organization, allows_greeters: false) }
-
         let(:params) do
           {
             user: {

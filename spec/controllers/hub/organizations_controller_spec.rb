@@ -170,7 +170,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
   end
 
   describe "#update" do
-    let(:organization) { create :organization, coalition: parent_coalition, capacity_limit: 100 }
+    let(:organization) { create :organization, coalition: parent_coalition, capacity_limit: 100, allows_greeters: false }
     let(:source_parameter) { create(:source_parameter, vita_partner: organization, code: "shortlink") }
     let(:new_coalition) { create :coalition, name: "Carrot Coalition" }
     let(:params) do
