@@ -1654,7 +1654,7 @@ en:
                 up to $600 for any qualifying children with SSNs. However, the spouse without a valid SSN is not
                 eligible. The same rules now apply for the first round of payments as well.
           irs_info_html: The IRS will post all key information on %{irs_eip_link} as soon as it becomes available.
-          last_updated: Updated on March 20, 2021
+          last_updated: Updated on April 6, 2021
         title: Stimulus Payment
       tax_questions:
         cannot_answer:

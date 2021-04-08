@@ -1250,7 +1250,7 @@ es:
         stimulus_banner:
           facts_html: &1
           - Recoja su cheque de estímulo de 2020 declarando sus impuestos a través de <a href="%{file_with_help_link}">GetYourRefund</a>!
-          - Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage'>IRS Get My Payment website</a>
+          - Revisa el estado de tu cheque de estímulo en <a href='https://www.irs.gov/es/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage'>IRS Obtener mi pago website</a>
           - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
           heading: "¿Necesitas ayuda para conseguir tu cheque de estímulo (también conocido como Pago de Impacto Económico)?"
         stimulus_faq:
@@ -1459,7 +1459,7 @@ es:
                     target="_blank"
                     data-track-click="stimulus-irs-get-my-payment"
                     data-track-attribute-position="stimulus-how-faq2">
-                  Get My Payment</a>. Para
+                  Obtener mi pago</a>. Para
                   ver si ha recibido los anteriores pagos de estímulo, y qué cantidad, debe
                   <a
                     href="https://www.irs.gov/es/payments/view-your-tax-account"
@@ -1478,7 +1478,7 @@ es:
                     target="_blank"
                     data-track-click="stimulus-irs-get-my-payment"
                     data-track-attribute-position="stimulus-how-faq3">
-                  Get My Payment</a> mostrará un estado de "se necesita más información" y usted tendrá la
+                  Obtener mi pago</a> mostrará un estado de "se necesita más información" y usted tendrá la
                   oportunidad de proporcionar nueva información bancaria.
               - title: "¿Qué pasa si no he declarado los impuestos federales?"
                 content_html: >-
@@ -1603,7 +1603,7 @@ es:
                 ITIN presentando el formulario I-7 y la documentación requerida con su declaración de
                 impuestos, o llevando el formulario y la documentación a un Agente de Aceptación Certificado.
           irs_info_html: El Departamento del Tesoro y el Servicio de Impuestos Internos (IRS) publicará toda la información importante en %{irs_eip_link} tan pronto como esté disponible.
-          last_updated: Actualizado el 20 de Marzo de 2021
+          last_updated: Actualizado el 6 de Abril de 2021
         title: Pago de estímulo
       tax_questions:
         cannot_answer:
