@@ -21,7 +21,7 @@
 class TaxReturnAssignment < ApplicationRecord
   TYPE = "TaxReturnAssignment".freeze
 
-  has_one :user_notification, as: :notifiable
+  has_one :user_notification, as: :notifiable, dependent: :destroy
   belongs_to :tax_return
   belongs_to :assigner, class_name: "User"
 end

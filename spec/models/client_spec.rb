@@ -397,7 +397,7 @@ describe Client do
     end
   end
 
-  describe "#destroy_completely" do
+  describe "#destroy" do
     context "with many associated records" do
       let(:vita_partner) { create :vita_partner }
       let(:user) { create :user }
@@ -421,7 +421,7 @@ describe Client do
       end
 
       it "destroys everything associated with the client" do
-        client.destroy_completely
+        client.destroy
         expect(Client.count).to eq 1
         expect(Client.last).to eq unrelated_intake.client
         expect(Intake.count).to eq 1

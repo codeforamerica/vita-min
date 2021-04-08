@@ -39,6 +39,7 @@ class TaxReturn < ApplicationRecord
   belongs_to :client
   belongs_to :assigned_user, class_name: "User", optional: true
   has_many :documents
+  has_many :assignments, class_name: "TaxReturnAssignment", dependent: :destroy
 
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
   enum certification_level: { advanced: 1, basic: 2 }
