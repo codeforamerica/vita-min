@@ -146,6 +146,14 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context "greeter user" do
+      let(:user) { create :user, role: create(:greeter_role) }
+
+      it "does not include coalition" do
+        expect(user.accessible_coalitions).to be_empty
+      end
+    end
+
     context "coalition lead user" do
       let(:user) { create(:coalition_lead_user, coalition: coalition) }
 
@@ -159,14 +167,6 @@ RSpec.describe User, type: :model do
 
       it "includes all coalitions" do
         expect(user.accessible_coalitions).to match_array([coalition, other_coalition])
-      end
-    end
-
-    context "greeter user" do
-      let(:user) { create :user, role: create(:greeter_role, coalitions: [coalition])}
-
-      it "includes the coalition" do
-        expect(user.accessible_coalitions).to eq([coalition])
       end
     end
   end
@@ -226,17 +226,20 @@ RSpec.describe User, type: :model do
 
     context "greeter user" do
       let!(:coalition) { create :coalition }
-      let!(:organization) { create :organization, coalition: coalition }
+      let!(:organization) { create :organization, coalition: coalition, allows_greeters: true }
       let!(:site) { create :site, parent_organization: organization }
-      let!(:other_organization) { create :organization }
+      let!(:other_organization) { create :organization, allows_greeters: true }
       let!(:other_site) { create :site, parent_organization: other_organization }
-      let!(:not_accessible_partner) { create :vita_partner, name: "Not accessible" }
-      let(:user) { create :user, role: create(:greeter_role, coalitions: [coalition], organizations: [other_organization]) }
+      let!(:not_accessible_org) { create :organization, name: "Not accessible", allows_greeters: false }
+      let!(:not_accessible_site) { create :site, parent_organization: not_accessible_org }
+      let(:user) { create :user, role: create(:greeter_role) }
 
-      it "includes sites and organizations based on the hierarchy" do
+      it "returns all the organizations (and their sites) where allows greeters is true" do
         accessible_groups = user.accessible_vita_partners
-        expect(accessible_groups).to match_array([organization, other_organization, site, other_site])
-        expect(accessible_groups).not_to include(not_accessible_partner)
+        national_org = VitaPartner.where(name: "GYR National Organization").first
+        expect(accessible_groups).to match_array([national_org, organization, other_organization, site, other_site])
+        expect(accessible_groups).not_to include(not_accessible_org)
+        expect(accessible_groups).not_to include(not_accessible_site)
       end
     end
 

@@ -79,8 +79,6 @@ class User < ApplicationRecord
       Coalition.all
     when CoalitionLeadRole::TYPE
       Coalition.where(id: role.coalition)
-    when GreeterRole::TYPE
-      role.coalitions
     else
       Coalition.none
     end
@@ -117,9 +115,7 @@ class User < ApplicationRecord
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organizations.or(sites)
     when GreeterRole::TYPE
-      direct_organizations = VitaPartner.organizations.where(id: role.organizations)
-      child_organizations = VitaPartner.where(coalition: role.coalitions)
-      organizations = direct_organizations.or(child_organizations)
+      organizations = VitaPartner.organizations.where(allows_greeters: true)
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organizations.or(sites)
     else

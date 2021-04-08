@@ -8,9 +8,4 @@
 #
 class GreeterRole < ApplicationRecord
   TYPE = "GreeterRole"
-
-  has_many :greeter_organization_join_records
-  has_many :organizations, through: :greeter_organization_join_records, class_name: "VitaPartner"
-  has_many :greeter_coalition_join_records
-  has_many :coalitions, through: :greeter_coalition_join_records
 end

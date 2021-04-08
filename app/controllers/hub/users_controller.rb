@@ -106,13 +106,7 @@ module Hub
         when ClientSuccessRole::TYPE
           ClientSuccessRole.new
         when GreeterRole::TYPE
-          greeter_params = params.require(:greeter_organization_join_record).permit(organization_ids: []).merge(
-            params.require(:greeter_coalition_join_record).permit(coalition_ids: [])
-          )
-          GreeterRole.new(
-            coalitions: @coalitions.where(id: greeter_params[:coalition_ids]),
-            organizations: @vita_partners.organizations.where(id: greeter_params[:organization_ids]),
-          )
+          GreeterRole.new
         when TeamMemberRole::TYPE
           TeamMemberRole.new(site: @vita_partners.sites.find(params.require(:site_id)))
         end

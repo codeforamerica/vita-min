@@ -115,26 +115,27 @@ describe VitaPartnerHelper do
     end
 
     context "when the user's role is Greeter" do
-      let!(:site) { create :site, parent_organization: first_org }
       let!(:greeter) { create :greeter_user }
-      let(:first_org) { create :organization }
-      before do
-        greeter.role.update(organizations: [first_org, (create :organization)] )
-      end
+      let(:first_org) { create :organization, allows_greeters: true }
+      let!(:site) { create :site, parent_organization: first_org }
+      let(:second_org) { create :organization, allows_greeters: true }
+      let(:third_org) { create :organization, allows_greeters: false }
 
       before do
         allow(view).to receive(:current_user).and_return(greeter)
       end
 
       it "returns array grouped by organization" do
-        @vita_partners = VitaPartner.accessible_by(Ability.new(greeter))
+        @vita_partners = greeter.accessible_vita_partners
+        national_org = VitaPartner.where(name: "GYR National Organization").first
 
         expected =
           [
-            [greeter.role.organizations.first.name, [[greeter.role.organizations.first.name, greeter.role.organizations.first.id], [site.name, site.id]]],
-            [greeter.role.organizations.last.name, [[greeter.role.organizations.last.name, greeter.role.organizations.last.id]]]
+            [national_org.name, [[national_org.name, national_org.id]]],
+            [first_org.name, [[first_org.name, first_org.id], [site.name, site.id]]],
+            [second_org.name, [[second_org.name, second_org.id]]]
           ]
-        expect(helper.grouped_vita_partner_options).to eq(expected)
+        expect(helper.grouped_vita_partner_options).to match_array(expected)
       end
     end
   end

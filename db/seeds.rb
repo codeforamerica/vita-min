@@ -1,5 +1,5 @@
 # Create client_support_org if needed
-VitaPartner.find_or_create_by!(name: "GYR National Organization")
+VitaPartner.find_or_create_by!(name: "GYR National Organization", allows_greeters: true)
 
 koalas = Coalition.find_or_create_by(name: "Koala Koalition")
 Coalition.find_or_create_by(name: "Cola Coalition")
@@ -93,7 +93,7 @@ greeter_user.update(
   password: "theforcevita"
 )
 
-greeter_user.update(role: GreeterRole.create(organizations: [first_org])) if greeter_user.role_type != GreeterRole::TYPE
+greeter_user.update(role: GreeterRole.create ) if greeter_user.role_type != GreeterRole::TYPE
 
 client = Client.find_or_create_by(vita_partner: first_org)
 

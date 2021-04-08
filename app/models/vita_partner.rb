@@ -38,6 +38,7 @@ class VitaPartner < ApplicationRecord
   validate :one_level_of_depth
   validate :no_coalitions_for_sites
   validate :no_capacity_for_sites
+  validate :no_allows_greeters_for_sites
   validates :name, uniqueness: { scope: [:coalition, :parent_organization] }
   validates :capacity_limit, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
 
@@ -84,6 +85,12 @@ class VitaPartner < ApplicationRecord
   def no_capacity_for_sites
     if site? && capacity_limit.present?
       errors.add(:capacity_limit, "Sites cannot be assigned a capacity")
+    end
+  end
+
+  def no_allows_greeters_for_sites
+    if site? && !allows_greeters.nil?
+      errors.add(:allows_greeters, "Allows greeters is set on an organization level and cannot be set on a site")
     end
   end
 

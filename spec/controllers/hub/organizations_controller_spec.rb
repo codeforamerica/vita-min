@@ -170,7 +170,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
   end
 
   describe "#update" do
-    let(:organization) { create :organization, coalition: parent_coalition, capacity_limit: 100 }
+    let(:organization) { create :organization, coalition: parent_coalition, capacity_limit: 100, allows_greeters: false }
     let(:source_parameter) { create(:source_parameter, vita_partner: organization, code: "shortlink") }
     let(:new_coalition) { create :coalition, name: "Carrot Coalition" }
     let(:params) do
@@ -181,6 +181,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
           name: "Oregano Organization",
           timezone: "America/Chicago",
           capacity_limit: "200",
+          allows_greeters: "true",
           source_parameters_attributes: {
             "0": {
               id: source_parameter.id.to_s,
@@ -209,6 +210,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
           expect(organization.coalition).to eq new_coalition
           expect(organization.timezone).to eq "America/Chicago"
           expect(organization.capacity_limit).to eq 200
+          expect(organization.allows_greeters).to eq true
           expect(response).to redirect_to(edit_hub_organization_path(id: organization.id))
           expect(SourceParameter.find_by(code: "shortlink")).to be_nil
           expect(organization.reload.source_parameters.pluck(:code)).to eq(["newshortlink"])

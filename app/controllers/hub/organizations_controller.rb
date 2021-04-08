@@ -51,7 +51,7 @@ module Hub
     private
 
     def vita_partner_params
-      params.require(:vita_partner).permit(:name, :coalition_id, :timezone, :capacity_limit, source_parameters_attributes: [:_destroy, :id, :code])
+      params.require(:vita_partner).permit(:name, :coalition_id, :timezone, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code])
     end
   end
 end

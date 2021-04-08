@@ -86,7 +86,7 @@ RSpec.configure do |config|
 
   config.before(:all) do
     # Create client support org
-    VitaPartner.find_or_create_by!(name: "GYR National Organization")
+    VitaPartner.find_or_create_by!(name: "GYR National Organization", allows_greeters: true)
   end
 
   config.before(:each) do
