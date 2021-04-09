@@ -1583,7 +1583,7 @@ es:
                 IRS. Comuníquese a través del chat para obtener más información.
           mixed_status_eligibility:
             header: ¿Son elegibles las familias de estatus migratorio mixto?
-            info:
+            info_html:
               - >-
                 Originalmente, las familias con estatus migratorio mixto no tenían derecho
                 a la primera ronda de pagos. Sin embargo, ahora las familias con estatus
@@ -1599,8 +1599,22 @@ es:
                 Para la tercera ronda de pagos, los declarantes que presenten sus impuestos
                 con el Número de Identificación de Contribuyente Individual (ITIN) pueden solicitar
                 el EIP para sus dependientes que tengan números de seguro social. Puede obtener un
-                ITIN presentando el formulario I-7 y la documentación requerida con su declaración de
-                impuestos, o llevando el formulario y la documentación a un Agente de Aceptación Certificado.
+                ITIN presentando el
+                <a
+                  href="https://www.irs.gov/es/node/41556"
+                  rel="nofollow"
+                  target="_blank"
+                  data-track-click="stimulus-irs-i-7"
+                  data-track-attribute-position="stimulus-mixed-eligible1">
+                formulario I-7</a> y la documentación requerida con su declaración de
+                impuestos, o llevando el formulario y la documentación a un
+                <a
+                  href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program"
+                  rel="nofollow"
+                  target="_blank"
+                  data-track-click="stimulus-irs-certified-acceptance-agent"
+                  data-track-attribute-position="stimulus-mixed-eligible2">
+                Agente de Aceptación Certificado</a>.
           irs_info_html: El Departamento del Tesoro y el Servicio de Impuestos Internos (IRS) publicará toda la información importante en %{irs_eip_link} tan pronto como esté disponible.
           last_updated: Actualizado el 6 de Abril de 2021
         title: Pago de estímulo

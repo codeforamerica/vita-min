@@ -1512,82 +1512,74 @@ en:
                 you will need to file a 2020 tax return in order to receive it.
             - title: How do I determine if the IRS has sent my stimulus check?
               content_html: >-
-                If you are not sure if the IRS has sent your payment(s) or want to check the status, you can search at the IRS
+                If you are not sure if the IRS has sent your third stimulus payment or want to check the status, you can search
+                at the IRS
                 <a
                   href="https://www.irs.gov/coronavirus/get-my-payment"
                   rel="nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-get-my-payment"
                   data-track-attribute-position="stimulus-how-faq2">
-                Get My Payment</a>
-                website.
+                Get My Payment</a> website. To see if you received the earlier stimulus payments, and for what amount, you must
+                <a
+                  href="https://www.irs.gov/payments/view-your-tax-account"
+                  rel="nofollow"
+                  target="_blank"
+                  data-track-click="stimulus-irs-view-your-tax-account"
+                  data-track-attribute-position="stimulus-how-faq2">
+                view or create an online account</a with the IRS.
             - title: What if there are issues with my bank account information?
               content_html: >-
-                If you provided bank account information earlier to the IRS that has since changed
-                or do not recognize the number in their system, please see the
-                <a href="https://www.irs.gov/newsroom/irs-statement-update-on-economic-impact-payments"
-                  rel="nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-website"
-                  data-track-attribute-position="stimulus-how-faq3">
-                the IRS website</a>
-                for more information.
-            - title: How much will I receive?
-              content_html: >-
-                Eligible taxpayers will receive an economic impact payment of up to $600 for individuals or
-                $1,200 for married couples and up to $600 for each qualifying child. The
-                <a
-                  href="https://www.irs.gov/pub/irs-utl/how_do_I_calculate_my_eip.pdf"
-                  rel="nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-calculate-eip"
-                  data-track-attribute-position="stimulus-how-faq4">
-                IRS has a "How do I calculate my EIP" website</a>
-                to help you calculate how much you will receive for the first round of payments. For the second round of payments, you will need to complete <a href="https://www.irs.gov/instructions/i1040gi#idm140693714589984" rel="nofollow" target="_blank" data-track-click="stimulus-irs-rebate-worksheet" data-track-attribute-position="stimulus-how-faq4">the Recovery Rebate Credit Worksheet</a> for line 30 of the 2020 1040 tax form. We can assist you with these forms if you file your return through GetYourRefund.
-            - title: What if I haven’t filed federal taxes?
-              content_html: >-
-                We recommend that you file your taxes in order to access the Economic Impact Payments and any
-                additional tax credits you may be eligible for. You can file 2017, 2018, 2019, and 2020 returns for
-                free with GetYourRefund.
-            - title: What if I don’t have a bank account?
-              content_html: >-
-                If you don’t have a bank account, it could take up to five months to receive your EIP check by mail.
-                To get your payment quickly via direct deposit,
-                <a
-                  href="https://joinbankon.org/home/remotebanking/"
-                  rel="nofollow" target="_blank" data-track-click="stimulus-irs-online-banking"
-                  data-track-attribute-position="stimulus-how-faq6">
-                  sign up for a bank account online</a>
-                and add your account information on the
+                If the IRS is not able to deposit to the account it has on record, it will mail the payment
+                to the address it has on file. If mail is returned, the
                 <a
                   href="https://www.irs.gov/coronavirus/get-my-payment"
                   rel="nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-get-my-payment"
-                  data-track-attribute-position="stimulus-how-faq6">
-                  IRS Get My Payment website</a>.
-                If you don’t want to sign up for a bank account, you can link your prepaid debit card or
+                  data-track-attribute-position="stimulus-how-faq3">
+                Get My Payment</a> tool will show a
+                status of “more information needed” and you will have the opportunity to provide new bank information.
+            - title: What if I haven’t filed federal taxes?
+              content_html: >-
+                We recommend that you file your taxes in order to access the Economic Impact Payments
+                and any additional tax credits you may be eligible for. You can file 2017, 2018, 2019,b
+                and 2020 returns for free with GetYourRefund.
+            - title: What if I don’t have a bank account?
+              content_html: >-
+                If you don’t have a bank account, it could take up to five months to receive your EIP check by
+                mail. To get your payment quickly via direct deposit,
+                <a
+                  href="https://joinbankon.org/home/remotebanking/"
+                  rel="nofollow"
+                  target="_blank"
+                  data-track-click="stimulus-irs-online-banking"
+                  data-track-attribute-position="stimulus-how-faq5">
+                sign up for a bank account online</a> and
+                add your account information when you file your return. If you don’t want to sign up for a
+                bank account, you can link your prepaid debit card or
                 <a
                   href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
                   rel="nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-cash-app"
-                  data-track-attribute-position="stimulus-how-faq6">
-                Cash App</a>
-                instead. Many of our VITA partners can also enroll you in a prepaid debit card when you file your
-                return through GetYourRefund.
-            - title: What if I moved since filing my taxes?
+                  data-track-attribute-position="stimulus-how-faq5">
+                Cash App</a> instead. Many of our VITA
+                partners can also enroll you in a prepaid debit card when you file your return through
+                GetYourRefund.
+            - title: What if I moved since last year?
               content_html: >-
-                If you want your EIP check mailed to you, make sure your address is up to date on the
+                The easiest way to update your address is by filing your 2020 return with the correct address.
+                If you have already filed with your old address, you can use the
                 <a
                   href="https://www.irs.gov/faqs/irs-procedures/address-changes"
                   rel="nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-address-changes"
-                  data-track-attribute-position="stimulus-faq7">
-                  IRS address change website</a>.
-                There may be delays – it could take up to five months to receive your check by mail.
-
+                  data-track-attribute-position="stimulus-how-faq6">
+                IRS address change website</a> to
+                update your address. There may be delays in receiving your EIP – it could take up to five months
+                to receive your check by mail.
         header: Get your Stimulus Check (EIP)
         intro:
           common_questions: >-
@@ -1597,7 +1589,7 @@ en:
           description:
             - >-
               The federal government has begun sending out the third round of Economic
-              Impact Payments (EIPs) often called a stimulus check. In this round,
+              Impact Payments (EIPs), often called a stimulus check. In this round,
               individuals can receive up to $1,400 for themselves or $2,800 for a married
               couple filing jointly and an additional $1,400 for every dependent.
             - >-
@@ -1644,7 +1636,7 @@ en:
                 information.
           mixed_status_eligibility:
             header: Are mixed immigration status families eligible?
-            info:
+            info_html:
               - >-
                 Originally, mixed status families were not eligible for the first round of payments.
                 However, now mixed status families can claim both the first and second round of payments on this year’s
@@ -1652,6 +1644,25 @@ en:
                 of you has a valid Social Security Number, the spouse with the valid SSN will receive up to $600 and
                 up to $600 for any qualifying children with SSNs. However, the spouse without a valid SSN is not
                 eligible. The same rules now apply for the first round of payments as well.
+              - >-
+                For the third round of payments, taxpayers who file with Individual Taxpayer Identification Numbers (ITINs)
+                can claim the EIP for their dependents who have Social Security Numbers.  You may obtain an ITIN by filing
+                the
+                <a
+                  href="https://www.irs.gov/instructions/iw7"
+                  rel="nofollow"
+                  target="_blank"
+                  data-track-click="stimulus-irs-i-7"
+                  data-track-attribute-position="stimulus-mixed-eligible1">
+                form I-7</a> and required documentation with your tax return, or by bringing the form and documentation
+                to a
+                <a
+                  href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program"
+                  rel="nofollow"
+                  target="_blank"
+                  data-track-click="stimulus-irs-certified-acceptance-agent"
+                  data-track-attribute-position="stimulus-mixed-eligible2">
+                Certified Acceptance Agent</a>.
           irs_info_html: The IRS will post all key information on %{irs_eip_link} as soon as it becomes available.
           last_updated: Updated on April 6, 2021
         title: Stimulus Payment
