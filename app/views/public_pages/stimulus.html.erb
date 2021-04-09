@@ -52,7 +52,7 @@
       <div class="grid__item width-seven-twelfths">
         <h2 class="h3"><%= t("views.public_pages.stimulus_payment.intro.mixed_status_eligibility.header") %></h2>
         <div class="last">
-          <% t("views.public_pages.stimulus_payment.intro.mixed_status_eligibility.info").each do |paragraph| %>
+          <% t("views.public_pages.stimulus_payment.intro.mixed_status_eligibility.info_html").each do |paragraph| %>
             <p><%= paragraph %></p>
           <% end %>
         </div>
@@ -93,7 +93,7 @@
         <% t("views.public_pages.stimulus_payment.faq.how_to_get_paid.items").each do |faq| %>
           <% @faq_counter += 1 %>
           <div class="accordion">
-            <a href="#" class="accordion__button" aria-expanded="true" aria-controls=<%= "a#{@faq_counter}" %>
+            <a href="#" class="accordion__button" aria-expanded="true" aria-controls="<%= "a#{@faq_counter}" %>">
                 <h3><%= faq[:title] %></h3>
             </a>
             <div class="accordion__content" id="a1">
@@ -107,7 +107,7 @@
         <% t("views.public_pages.stimulus_payment.faq.eip.items").each do |faq| %>
           <% @faq_counter += 1 %>
           <div class="accordion">
-            <a href="#" class="accordion__button" aria-expanded="true" aria-controls=<%= "a#{@faq_counter}" %>
+            <a href="#" class="accordion__button" aria-expanded="true" aria-controls="<%= "a#{@faq_counter}" %>">
                 <h3><%= faq[:title] %></h3>
             </a>
             <div class="accordion__content" id="a1">
