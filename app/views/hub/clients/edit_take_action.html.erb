@@ -2,6 +2,8 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <div class="slab slab--not-padded">
+    <%= render "hub/read_only_client_header", client: @client %>
+
     <%= form_with model: @take_action_form,
                   url: update_take_action_hub_client_path(id: @client.id),
                   method: :post, local: true, builder: VitaMinFormBuilder,

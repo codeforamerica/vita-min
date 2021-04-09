@@ -1,7 +1,9 @@
-<% @title = t(".title") %>
+<% @title = "#{@client.preferred_name} | #{t(".title")}" %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <div class="slab">
+  <div class="slab slab--not-padded">
+    <%= render "hub/read_only_client_header", client: @client %>
+
     <div class="grid-flex">
       <div class="item no-shrink">
         <%= render 'form', url: [:hub, @client, @document], method: "patch", file_upload_enabled: false %>
