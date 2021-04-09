@@ -397,7 +397,7 @@ describe Client do
     end
   end
 
-  describe "#destroy_completely" do
+  describe "#destroy" do
     context "with many associated records" do
       let(:vita_partner) { create :vita_partner }
       let(:user) { create :user }
@@ -410,8 +410,11 @@ describe Client do
       before do
         create_list :document, 2, client: client, intake: intake
         create_list :dependent, 2, intake: intake
-        create :tax_return, client: client, assigned_user: user
-        create :note, client: client, user: user
+        tax_return = create :tax_return, client: client, assigned_user: user
+        tax_return_assignment = create :tax_return_assignment, tax_return: tax_return
+        create :user_notification, user: user, notifiable: tax_return_assignment
+        note = create :note, client: client, user: user
+        create :user_notification, user: user, notifiable: note
         create :system_note, client: client
         create :incoming_email, client: client
         create :incoming_text_message, client: client
@@ -421,7 +424,7 @@ describe Client do
       end
 
       it "destroys everything associated with the client" do
-        client.destroy_completely
+        client.destroy
         expect(Client.count).to eq 1
         expect(Client.last).to eq unrelated_intake.client
         expect(Intake.count).to eq 1
@@ -437,6 +440,8 @@ describe Client do
         expect(OutgoingTextMessage.count).to eq 0
         expect(DocumentsRequest.count).to eq 0
         expect(client_selection.clients.count).to eq 0
+        expect(TaxReturnAssignment.count).to eq 0
+        expect(UserNotification.count).to eq 0
       end
     end
   end

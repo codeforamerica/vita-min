@@ -40,18 +40,19 @@ class Client < ApplicationRecord
   self.per_page = 25
 
   belongs_to :vita_partner, optional: true
-  has_one :intake
-  has_one :consent
-  has_many :documents
-  has_many :outgoing_text_messages
-  has_many :outgoing_emails
-  has_many :incoming_text_messages
-  has_many :incoming_emails
-  has_many :notes
-  has_many :system_notes
-  has_many :tax_returns
+  has_one :intake, dependent: :destroy
+  has_one :consent, dependent: :destroy
+  has_many :documents, dependent: :destroy
+  has_many :outgoing_text_messages, dependent: :destroy
+  has_many :outgoing_emails, dependent: :destroy
+  has_many :incoming_text_messages, dependent: :destroy
+  has_many :incoming_emails, dependent: :destroy
+  has_many :notes, dependent: :destroy
+  has_many :system_notes, dependent: :destroy
+  has_many :tax_returns, dependent: :destroy
   has_many :access_logs
-  has_many :outbound_calls
+  has_many :outbound_calls, dependent: :destroy
+  has_many :client_selections, class_name: 'ClientSelectionClient', dependent: :destroy
   has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
@@ -148,23 +149,6 @@ class Client < ApplicationRecord
 
   def bank_account_info?
     intake.encrypted_bank_name || intake.encrypted_bank_routing_number || intake.encrypted_bank_account_number
-  end
-
-  def destroy_completely
-    intake.dependents.destroy_all
-    DocumentsRequest.where(intake: intake).destroy_all
-    ClientSelectionClient.where(client: self).destroy_all
-    documents.destroy_all
-    intake.documents.destroy_all
-    incoming_emails.destroy_all
-    incoming_text_messages.destroy_all
-    outgoing_emails.destroy_all
-    outgoing_text_messages.destroy_all
-    notes.destroy_all
-    system_notes.destroy_all
-    tax_returns.destroy_all
-    intake.destroy
-    destroy
   end
 
   def increment_failed_attempts

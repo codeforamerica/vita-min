@@ -196,8 +196,9 @@ class Intake < ApplicationRecord
     :email_address, :phone_number, :sms_phone_number
   ], using: { tsearch: { prefix: true } }
 
-  has_many :documents
-  has_many :dependents, -> { order(created_at: :asc) }
+  has_many :documents, dependent: :destroy
+  has_many :documents_requests, dependent: :destroy
+  has_many :dependents, -> { order(created_at: :asc) }, dependent: :destroy
   belongs_to :client, optional: true
   has_many :tax_returns, through: :client
   belongs_to :vita_partner, optional: true
