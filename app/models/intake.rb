@@ -470,7 +470,7 @@ class Intake < ApplicationRecord
 
   def contact_info_filtered_by_preferences
     contact_info = {}
-    contact_info[:sms_phone_number] = standardized_sms_phone_number if sms_notification_opt_in_yes?
+    contact_info[:sms_phone_number] = sms_phone_number if sms_notification_opt_in_yes?
     contact_info[:email] = email_address if email_notification_opt_in_yes?
     contact_info
   end

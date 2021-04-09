@@ -10,12 +10,13 @@
 
   textarea {
     border-width: 1px;
+    min-height: 18rem;
   }
 
   hr {
     background-color: $color-grey;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-top: $s35;
+    margin-bottom: $s35;
     height: 1px;
   }
 
@@ -183,6 +184,10 @@
     box-shadow: none;
     font-weight: 500;
     letter-spacing: .25px;
+  }
+
+  .button + .button {
+    margin-left: $s15;
   }
 
   .button--cta {

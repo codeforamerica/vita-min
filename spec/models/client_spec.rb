@@ -37,7 +37,7 @@
 require "rails_helper"
 
 describe Client do
-  describe "valid?" do
+  describe "#valid?" do
     context "when assigning to a new partner would remove access for a tax return assignee" do
       let(:current_site) { create :site }
       let(:client) { create :client, vita_partner: current_site }
@@ -168,6 +168,24 @@ describe Client do
           end
         end
       end
+    end
+  end
+
+  describe ".with_insufficient_contact_info scope" do
+    let!(:client_with_contact_info) { create(:intake, :with_contact_info).client }
+    let!(:client_no_info) { create(:intake, email_notification_opt_in: "yes", email_address: nil, sms_notification_opt_in: "yes", sms_phone_number: nil).client }
+    let!(:client_no_email) { create(:intake, email_notification_opt_in: "yes", email_address: nil).client }
+    let!(:client_no_phone) { create(:intake, sms_notification_opt_in: "yes", sms_phone_number: nil).client }
+    let!(:client_no_preferences) {
+      create(:intake, email_notification_opt_in: "no", email_address: "irrelevant@example.com", sms_notification_opt_in: "no", sms_phone_number: "+14155537865").client
+    }
+    let!(:client_no_preferences_no_info) { create(:intake, email_notification_opt_in: "no", email_address: nil, sms_notification_opt_in: "no", sms_phone_number: nil).client }
+
+    it "correctly counts the number of clients who either haven't opted in or have opted in but without contact info" do
+      expect(Client.with_insufficient_contact_info).to match_array [
+        client_no_info, client_no_email, client_no_phone, client_no_preferences, client_no_preferences_no_info
+      ]
+      expect(Client.where.not(id: Client.with_insufficient_contact_info)).to match_array [client_with_contact_info]
     end
   end
 
@@ -603,6 +621,18 @@ describe Client do
         expect(SystemNote::OrganizationChange).not_to have_received(:generate!)
 
       end
+    end
+  end
+
+  describe ".locale_counts" do
+    before do
+      create(:client, intake: create(:intake, locale: "en"))
+      create(:client, intake: create(:intake, locale: "es"))
+      create(:client, intake: create(:intake, locale: nil))
+    end
+
+    it "takes locales and counts them into a hash" do
+      expect(Client.all.locale_counts).to eq({ "en" => 1, "es" => 1, nil => 1 })
     end
   end
 end

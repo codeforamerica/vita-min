@@ -739,7 +739,7 @@ describe Intake do
   describe "#contact_info_filtered_by_preferences" do
     let(:intake) do
       build :intake,
-            sms_phone_number: "14158161286",
+            sms_phone_number: "+14158161286",
             email_address: "supermane@fantastic.horse",
             email_notification_opt_in: email,
             sms_notification_opt_in: sms
@@ -795,8 +795,8 @@ describe Intake do
     context "when the intake has a different phone_number and sms_phone_number" do
       let(:intake) do
         build :intake,
-              sms_phone_number: "14159997777",
-              phone_number: "14158161286",
+              sms_phone_number: "+14159997777",
+              phone_number: "+14158161286",
               email_address: "supermane@fantastic.horse",
               email_notification_opt_in: "no",
               sms_notification_opt_in: "yes"

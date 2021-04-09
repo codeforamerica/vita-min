@@ -40,6 +40,8 @@ class Client < ApplicationRecord
   self.per_page = 25
 
   belongs_to :vita_partner, optional: true
+  has_many :client_selection_clients
+  has_many :client_selections, through: :client_selection_clients
   has_one :intake
   has_one :consent
   has_many :documents
@@ -112,6 +114,13 @@ class Client < ApplicationRecord
     where(intake: email_matches.or(spouse_email_matches).or(phone_number_matches).or(sms_phone_number_matches))
   end
 
+  scope :with_insufficient_contact_info, -> do
+    no_opt_in = Intake.where(sms_notification_opt_in: ["no", "unfilled"], email_notification_opt_in: ["no", "unfilled"])
+    opt_in_email_with_no_address = Intake.where(email_notification_opt_in: "yes", email_address: nil)
+    opt_in_sms_with_no_number = Intake.where(sms_notification_opt_in: "yes", sms_phone_number: nil)
+    where(intake: no_opt_in.or(opt_in_email_with_no_address).or(opt_in_sms_with_no_number))
+  end
+
   scope :needs_in_progress_survey, -> do
     where(in_progress_survey_sent_at: nil)
       .includes(:tax_returns).where(tax_returns: { status: "intake_in_progress" })
@@ -119,6 +128,10 @@ class Client < ApplicationRecord
       .includes(:incoming_text_messages).where(incoming_text_messages: { client_id: nil })
       .includes(:incoming_emails).where(incoming_emails: { client_id: nil })
       .includes(:documents).where("documents.client_id IS NULL OR documents.created_at < (interval '1 day' + clients.created_at)")
+  end
+
+  def self.locale_counts
+    joins(:intake).group(:locale).count
   end
 
   def legal_name
