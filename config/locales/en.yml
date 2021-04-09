@@ -998,6 +998,7 @@ en:
     file_type: Please upload a valid document type. Accepted types include jpg, pdf, and png.
     zip: Please enter a valid 5-digit zip code.
     pdf_file_type: "%{document_type} must be a PDF file"
+    final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} must be associated with a tax year."
   views:
     consent_pages:
       consent_to_use:

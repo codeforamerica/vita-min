@@ -989,6 +989,7 @@ es:
     zip: Por favor, introduzca un código postal válido de 5 dígitos.
     file_zero_length: "Sube un archivo válido. El archivo que cargó parece estar vacío."
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
+    final_tax_doc_and_unsigned_8879_have_tax_return: "%{document_type} debe estar asociado con un año fiscal"
   views:
     dependents:
       form:
