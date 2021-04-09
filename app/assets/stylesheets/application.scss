@@ -25,6 +25,7 @@
 @import "honeycrisp-compact";
 @import "components/actions-wrapper";
 @import "components/checkmark-list";
+@import "components/icons";
 @import "components/icons-list";
 @import "components/client-header";
 @import "components/client-filters";
@@ -80,6 +81,7 @@
 @import "templates/stimulus";
 @import "templates/satisfaction-survey";
 @import "templates/question";
+@import "templates/bulk-action-form";
 @import "templates/home";
 
 html {

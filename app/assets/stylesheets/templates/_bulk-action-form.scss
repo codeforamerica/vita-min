@@ -1,0 +1,17 @@
+.bulk-action-form {
+  .hr {
+    background-color: $color-grey-medium-light;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+    .textarea {
+      margin-bottom: 0;
+    }
+  }
+  .form-warnings {
+    p:last-child {
+      margin-bottom: $s35;
+    }
+  }
+}

@@ -10,7 +10,7 @@ module Hub
 
     def show
       @client_filter_form_path = hub_clients_path
-      @clients = Client.accessible_by(current_ability).where(id: @client_selection.clients)
+      @clients = @client_selection.clients.accessible_by(current_ability)
       @client_index_help_text = I18n.t("hub.client_selections.client_selection_help_text", count: @clients.size)
       inaccessible_client_count = @client_selection.clients.where.not(id: @clients).size
       @missing_results_message = I18n.t("hub.client_selections.client_selection_help_text_missing_results", count: inaccessible_client_count) unless inaccessible_client_count.zero?

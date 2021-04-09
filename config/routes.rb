@@ -166,7 +166,7 @@ Rails.application.routes.draw do
         end
       end
 
-      namespace :bulk_actions do
+      namespace :bulk_actions, path: "bulk-actions" do
         get "/:client_selection_id/change-organization", to: "change_organization#edit", as: :edit_change_organization
         put "/:client_selection_id/change-organization", to: "change_organization#update", as: :update_change_organization
       end
