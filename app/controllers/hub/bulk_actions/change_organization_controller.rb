@@ -47,9 +47,8 @@ module Hub
       end
 
       def unassign_users_who_will_lose_access!
-        TaxReturn.where(client: @clients).where.not(assigned_user: nil).find_each do |tax_return|
-          assigned_user_retains_access = tax_return.assigned_user.accessible_vita_partners.include?(@new_vita_partner)
-          tax_return.update!(assigned_user: nil) unless assigned_user_retains_access
+        TaxReturn.where(client: @clients).where.not(assigned_user: @new_vita_partner.users_who_can_access).find_each do |tax_return|
+          tax_return.update!(assigned_user: nil)
         end
       end
 

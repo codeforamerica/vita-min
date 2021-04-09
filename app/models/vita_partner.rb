@@ -49,6 +49,22 @@ class VitaPartner < ApplicationRecord
   default_scope { includes(:child_sites).order(name: :asc) }
   accepts_nested_attributes_for :source_parameters, allow_destroy: true, reject_if: lambda { |attributes| attributes['code'].blank? }
 
+  def users_who_can_access
+    users = User.where(role_type: AdminRole::TYPE)
+    if organization?
+      users = users.or(User.where(role: CoalitionLeadRole.where(coalition: coalition)))
+      users = users.or(User.where(role: OrganizationLeadRole.where(organization: self)))
+      users = users.or(User.where(role_type: GreeterRole::TYPE)) if allows_greeters
+    elsif site?
+      users = users.or(User.where(role: CoalitionLeadRole.where(coalition: parent_organization.coalition)))
+      users = users.or(User.where(role: OrganizationLeadRole.where(organization: parent_organization)))
+      users = users.or(User.where(role: SiteCoordinatorRole.where(site: self)))
+      users = users.or(User.where(role: TeamMemberRole.where(site: self)))
+      users = users.or(User.where(role_type: GreeterRole::TYPE)) if parent_organization.allows_greeters
+    end
+    users
+  end
+
   def allows_greeters?
     return parent_organization.allows_greeters? if site?
 
