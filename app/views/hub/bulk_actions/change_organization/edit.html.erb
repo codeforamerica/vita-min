@@ -1,0 +1,66 @@
+<% content_for :page_title, t(".title") %>
+<% content_for :body_class, "bulk-action-form " %>
+<% content_for :card do %>
+  <section class="slab slab--padded">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
+        <%= form_with model: @form, method: :put, url: hub_bulk_actions_update_change_organization_path, local: true, builder: VitaMinFormBuilder do |f| %>
+
+          <h1 class="h1"><%= t(".title") %></h1>
+          <p>
+            <%= t(".selected_action_and_client_count_html", count: @client_selection.clients.size) %><br/>
+            <%= @current_vita_partner_names.to_sentence(locale: locale) %>
+          </p>
+          <p class="text--help text--bold spacing-below-25"><%= t(".help_text_html") %></p>
+
+          <%= f.cfa_select :vita_partner_id, t(".new_organization"), grouped_vita_partner_options %>
+
+          <hr class="hr">
+
+          <div class="form-warnings">
+            <% if @inaccessible_client_count > 0 %>
+              <p class="text--bold text--help">
+                <i class="icon-warning"></i>
+                <%= t(".inaccessible_clients_warning", count: @inaccessible_client_count) %>
+              </p>
+            <% end %>
+
+            <% if @no_contact_info_count > 0 %>
+              <p class="text--bold text--help">
+                <i class="icon-warning"></i>
+                <%= t(".no_contact_info_warning", count: @no_contact_info_count) %>
+              </p>
+            <% end %>
+          </div>
+
+          <% if @locale_count["en"].present? || @locale_count[nil].present? %>
+            <%= f.cfa_textarea(
+                  :message_body_en,
+                  t(".message_label_text_en"),
+                  help_text: t(".message_help_text_en_html", count: (@locale_count["en"] || 0) + (@locale_count[nil] || 0)),
+            ) %>
+            <p class="text--help spacing-below-35"><%= t(".character_limit") %></p>
+          <% end %>
+
+          <% if @locale_count["es"].present? %>
+            <%= f.cfa_textarea(
+                  :message_body_es,
+                  t(".message_label_text_es"),
+                  help_text: t(".message_help_text_es_html", count: @locale_count["es"]),
+            ) %>
+            <p class="text--help spacing-below-35"><%= t(".character_limit") %></p>
+          <% end %>
+
+          <%= f.cfa_textarea :note_body, t(".note_body_label"), help_text: t(".note_body_help_text"), classes: ["spacing-below-35"] %>
+
+          <p class="text--help text--bold spacing-below-25"><%= t(".by_clicking_submit") %></p>
+
+          <button type="submit" class="button button--cta">
+            <%= t("general.submit") %>
+          </button><%= link_to t("general.cancel"), :back, class: "button" %>
+
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

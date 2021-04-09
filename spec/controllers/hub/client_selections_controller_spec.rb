@@ -17,7 +17,7 @@ RSpec.describe Hub::ClientSelectionsController do
       it "can see the right clients listed" do
         get :show, params: params
 
-        expect(assigns(:clients)).to eq clients
+        expect(assigns(:clients)).to match_array clients
       end
 
       context "as a user who does not have access to all the clients in the client selection" do
@@ -30,7 +30,7 @@ RSpec.describe Hub::ClientSelectionsController do
         it "only shows the allowed clients" do
           get :show, params: params
 
-          expect(assigns(:clients)).to eq clients_for_site
+          expect(assigns(:clients)).to match_array clients_for_site
         end
 
         it "shows a count of inaccessible clients" do
