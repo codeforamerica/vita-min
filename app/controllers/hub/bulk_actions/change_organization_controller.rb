@@ -40,7 +40,7 @@ module Hub
       end
 
       def load_template_variables
-        @current_vita_partner_names = VitaPartner.where(clients: @client_selection.clients).pluck(:name)
+        @current_vita_partner_names = VitaPartner.where(clients: @client_selection.clients).pluck(:name).uniq.sort
         @inaccessible_client_count = @client_selection.clients.where.not(id: @clients).size
         @locale_count = @clients.locale_counts
         @no_contact_info_count = @clients.with_insufficient_contact_info.size

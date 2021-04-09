@@ -98,13 +98,14 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
         before do
           create :client_with_intake_and_return, vita_partner: site_a, client_selections: [client_selection]
           create :client_with_intake_and_return, vita_partner: site_b, client_selections: [client_selection]
+          create :client_with_intake_and_return, vita_partner: site_b, client_selections: [client_selection]
           create :client_with_intake_and_return, vita_partner: site_c, client_selections: [client_selection]
         end
 
         it "shows a list of the partners with an oxford comma" do
           get :edit, params: params
 
-          expect(response.body).to have_text "You’ve selected Change Organization for 3 clients in the current organizations:"
+          expect(response.body).to have_text "You’ve selected Change Organization for 4 clients in the current organizations:"
           expect(response.body).to have_text "Apple Alliance, Banana Builders, and Carrot Communities"
         end
       end
