@@ -1520,7 +1520,7 @@ es:
                   IRS para actualizar su dirección</a>.
                   Puede haber retrasos en la recepción de su EIP - podría tardar hasta cinco meses en
                   recibir su cheque por correo.
-        header: Obtener su comprobación de estímulo (EIP en Inglés)
+        header: Obtener su cheque de estímulo (EIP en Inglés)
         intro:
           common_questions: >-
             Sabemos que hay muchas preguntas en torno a los Pagos de Impacto Económico
@@ -1528,7 +1528,7 @@ es:
           description:
             - >-
               El gobierno federal ha comenzado a enviar la tercera ronda de pagos de impacto
-              económico (EIPs en Inglés) a menudo llamada verificación de estímulo).
+              económico (EIPs en Inglés) a menudo llamada cheque de estímulo).
               En esta ronda, los individuos pueden recibir hasta $1,400 por sí mismos
               ($2,800 por una pareja casada que se presenta conjuntamente) y $1,400
               adicionales por cada dependiente.
@@ -1540,7 +1540,7 @@ es:
             header: "¿Quién es elegible?"
             list:
               - Solo recibió un pago parcial debido a la eliminación gradual, pero perdió su trabajo debido a COVID-19 y sus ingresos fueron menores en 2020 que en 2019.
-              - Tuviste un nuevo bebé en 2020.
+              - Tuvo un nuevo bebé en 2020.
               - Usted podría ser reclamado como dependiente de otra persona en 2019, pero no en 2020.
               - No estaba obligado a presentar una declaración de impuestos en 2018 o 2019, y no cumplió con la fecha límite para utilizar el portal de no declarantes para reclamar los pagos.
             info:
@@ -1571,7 +1571,7 @@ es:
                 cuando presente su declaración de 2020.  Por ejemplo:
             info_last_html:
               - >-
-                Para reclamar este crédito, deberá informar cuánto recibió de los dos IPE en 2020.
+                Para reclamar este crédito, deberá informar cuánto recibió de los dos EIP en 2020.
                 Sin embargo, no tendrá que pagar los pagos de estímulo que recibió si sus ingresos
                 aumentaron en 2020 o el número de dependientes que afirmó bajó.  Deberá completar la
                 <a href="https://www.irs.gov/es/node/39996">hoja de trabajo de crédito de reembolso de recuperación</a> para la línea 30 del
@@ -1588,17 +1588,17 @@ es:
                 Originalmente, las familias con estatus migratorio mixto no tenían derecho
                 a la primera ronda de pagos. Sin embargo, ahora las familias con estatus
                 mixto pueden solicitar tanto la primera como la segunda ronda de pagos en
-                la declaración de la renta de este año. Para la segunda ronda de pagos,
+                la declaración de impuestos de este año. Para la segunda ronda de pagos,
                 si usted presenta la declaración conjuntamente con su cónyuge y sólo uno de ustedes
                 tiene un número de seguro social válido, el cónyuge con el número de
                 seguro social válido recibirá hasta 600 dólares y hasta 600 dólares por cualquier
                 hijo que reúna los requisitos y tenga un número de seguro social. Sin embargo,
                 el cónyuge que no tenga un número de seguro social válido no será elegible.
-                Las mismas reglas se aplican ahora también para la primera ronda de pagos.
+                Las mismas reglas ahora también se aplican para la primera ronda de pagos.
               - >-
                 Para la tercera ronda de pagos, los declarantes que presenten sus impuestos
-                con el Números de Identificación de Contribuyente Individual (ITIN) pueden solicitar
-                el EIP para sus dependientes que tengan números de la Seguridad Social.  Puede obtener un
+                con el Número de Identificación de Contribuyente Individual (ITIN) pueden solicitar
+                el EIP para sus dependientes que tengan números de seguro social. Puede obtener un
                 ITIN presentando el formulario I-7 y la documentación requerida con su declaración de
                 impuestos, o llevando el formulario y la documentación a un Agente de Aceptación Certificado.
           irs_info_html: El Departamento del Tesoro y el Servicio de Impuestos Internos (IRS) publicará toda la información importante en %{irs_eip_link} tan pronto como esté disponible.
