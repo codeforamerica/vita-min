@@ -115,10 +115,9 @@ class Client < ApplicationRecord
   end
 
   scope :with_insufficient_contact_info, -> do
-    no_opt_in = Intake.where(sms_notification_opt_in: ["no", "unfilled"], email_notification_opt_in: ["no", "unfilled"])
-    opt_in_email_with_no_address = Intake.where(email_notification_opt_in: "yes", email_address: nil)
-    opt_in_sms_with_no_number = Intake.where(sms_notification_opt_in: "yes", sms_phone_number: nil)
-    where(intake: no_opt_in.or(opt_in_email_with_no_address).or(opt_in_sms_with_no_number))
+    can_use_email = Intake.where(email_notification_opt_in: "yes").where.not(email_address: nil)
+    can_use_sms = Intake.where(sms_notification_opt_in: "yes").where.not(sms_phone_number: nil)
+    where.not(intake: can_use_email.or(can_use_sms))
   end
 
   scope :needs_in_progress_survey, -> do
