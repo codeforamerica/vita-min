@@ -176,16 +176,21 @@ describe Client do
     let!(:client_no_info) { create(:intake, email_notification_opt_in: "yes", email_address: nil, sms_notification_opt_in: "yes", sms_phone_number: nil).client }
     let!(:client_no_email) { create(:intake, email_notification_opt_in: "yes", email_address: nil).client }
     let!(:client_no_phone) { create(:intake, sms_notification_opt_in: "yes", sms_phone_number: nil).client }
+    let!(:client_opted_into_both_but_only_one_contact) {
+      create(:intake, email_notification_opt_in: "yes", sms_notification_opt_in: "yes", email_address: nil, sms_phone_number: "+14155537865").client
+    }
     let!(:client_no_preferences) {
       create(:intake, email_notification_opt_in: "no", email_address: "irrelevant@example.com", sms_notification_opt_in: "no", sms_phone_number: "+14155537865").client
     }
     let!(:client_no_preferences_no_info) { create(:intake, email_notification_opt_in: "no", email_address: nil, sms_notification_opt_in: "no", sms_phone_number: nil).client }
 
-    it "correctly counts the number of clients who either haven't opted in or have opted in but without contact info" do
+    it "correctly filters the clients who either haven't opted in or have opted in but without contact info" do
       expect(Client.with_insufficient_contact_info).to match_array [
         client_no_info, client_no_email, client_no_phone, client_no_preferences, client_no_preferences_no_info
       ]
-      expect(Client.where.not(id: Client.with_insufficient_contact_info)).to match_array [client_with_contact_info]
+      expect(Client.where.not(id: Client.with_insufficient_contact_info)).to match_array [
+        client_with_contact_info, client_opted_into_both_but_only_one_contact
+      ]
     end
   end
 
