@@ -527,7 +527,6 @@ es:
             - Su situación fiscal es simple/clara
             - Necesita una solución rápida
         title: "¡Declare aquí sus impuestos usted mismo!"
-        continue_through_my_free_taxes: "Continuar con MyFreeTaxes"
     diy_intakes:
       new:
         title: "Para acceder a este sitio, proporcione su dirección de correo electrónico."
