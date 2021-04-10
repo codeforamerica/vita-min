@@ -73,6 +73,9 @@ Rails.application.routes.draw do
 
     namespace :diy do
       get "/file-yourself", to: "file_yourself#edit"
+      get "/email", to: "diy_intakes#new"
+      post "/email", to: "diy_intakes#create"
+      get "/tax-slayer", to: "tax_slayer#show", as: :tax_slayer
     end
 
     # Stimulus routes

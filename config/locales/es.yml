@@ -528,6 +528,21 @@ es:
             - Necesita una solución rápida
         title: "¡Declare aquí sus impuestos usted mismo!"
         continue_through_my_free_taxes: "Continuar con MyFreeTaxes"
+    diy_intakes:
+      new:
+        title: "Para acceder a este sitio, proporcione su dirección de correo electrónico."
+    tax_slayer:
+      show:
+        title: "¡Declare impuestos por su cuenta!"
+        steps:
+          description:
+            - Para comenzar a declarar, cree un inicio de sesión en TaxSlayer.
+            - No haga clic en 'atrás' ni navegue fuera de la página TaxSlayer.
+            - Revisa su ortografía.
+        continue_to_tax_slayer: "Continuar con TaxSlayer"
+        phone_support:
+          note: "¡Nuestros socios en United Ways Worldwide están brindando soporte telefónico!"
+          contact_html: "Si tiene alguna pregunta, llame al <a href=\"tel:+18666989435\" data-track-click=\"call-211-hotline\">866-698-9435</a>, 10 AM-10 PM ET."
   errors:
     attributes:
       birth_date:
