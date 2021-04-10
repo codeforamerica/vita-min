@@ -1,19 +1,32 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake New Client wants to file on their own" do
-  scenario "a new client files through My Free Taxes", js: true do
+  let(:fake_taxslayer_link) { "http://example.com/fake-taxslayer" }
+
+  before do
+    allow(EnvironmentCredentials).to receive(:dig).with(:tax_slayer_link).and_return fake_taxslayer_link
+  end
+
+  scenario "a new client files through TaxSlayer" do
     allow(MixpanelService).to receive(:send_event)
 
     visit "/questions/welcome"
     click_on "File taxes myself"
 
     expect(page).to have_selector("h1", text: "File your taxes yourself!")
+    click_on "Continue"
 
-    new_window = window_opened_by { click_on "Continue through MyFreeTaxes" }
-    within_window new_window do
-      expect(current_url).to eq("https://www.myfreetaxes.com/?utm_source=GYR&utm_medum=web&utm_campaign=Partner-referral")
-    end
+    expect(page).to have_selector("h1", text: "To access this site, please provide your e-mail address.")
+    fill_in "E-mail address", with: "example@example.com"
+    fill_in "Confirm e-mail address", with: "example@example.com"
+    click_on "Continue"
 
-    expect(MixpanelService).to have_received(:send_event).with(hash_including({event_name: "click_mft-diy-referral"}))
+    expect(page).to have_selector("h1", text: "File taxes on your own!")
+    # should have the button that links to tax slayer and tracks clicks in mixpanel
+    expect(page).to have_selector(
+                      "a.button[href=\"#{fake_taxslayer_link}\"][data-track-click=\"diy-cfa-taxslayer-link\"]",
+                      text: "Continue to TaxSlayer")
+    # should show a telephone link to call 211 direct line for TaxSlayer help
+    expect(page).to have_selector("a[href=\"tel:+18666989435\"][data-track-click=\"call-211-hotline\"]")
   end
 end

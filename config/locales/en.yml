@@ -508,6 +508,21 @@ en:
             - You need a quick option
         title: File your taxes yourself!
         continue_through_my_free_taxes: "Continue through MyFreeTaxes"
+    diy_intakes:
+      new:
+        title: "To access this site, please provide your e-mail address."
+    tax_slayer:
+      show:
+        title: "File taxes on your own!"
+        steps:
+          description:
+            - To start filing, create a login in TaxSlayer.
+            - Do not click 'back' or navigate away from the TaxSlayer page.
+            - Double check your spelling.
+        continue_to_tax_slayer: "Continue to TaxSlayer"
+        phone_support:
+          note: "Our partners at United Ways Worldwide are providing phone support!"
+          contact_html: "If you have any questions, please call <a href=\"tel:+18666989435\" data-track-click=\"call-211-hotline\">866-698-9435</a>, 10 AM-10 PM ET."
   errors:
     attributes:
       birth_date:
