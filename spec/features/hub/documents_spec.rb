@@ -49,10 +49,7 @@ RSpec.feature "View and edit documents for a client" do
 
       click_on "Add document"
 
-      attach_file "document_upload", [
-        Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"),
-        Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf"),
-      ]
+      attach_file "document_upload", Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf")
 
       fill_in "Display name", with: "A new final document"
 
@@ -60,6 +57,9 @@ RSpec.feature "View and edit documents for a client" do
       select "2017", from: "Tax return"
 
       click_on "Save"
+
+      expect(page).to have_text("Confirm Final Tax Document")
+      click_on "Yes"
 
       within "#document-#{Document.last.id}" do
         expect(page).to have_content("2017")

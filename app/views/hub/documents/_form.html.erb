@@ -4,7 +4,7 @@
     <% if file_upload_enabled %>
       <div class="form-group <%= "form-group--error" if @document.errors[:upload].present? %>">
         <%= f.label(:upload, t("general.select_files"), class: "form-question") %>
-        <%= f.file_field :upload, multiple: "multiple", class: "attachment-upload file-input" %>
+        <%= f.file_field :upload, class: "attachment-upload file-input" %>
         <% @document.errors[:upload].each do |error_message| %>
           <p class="text--error"><i class="icon-warning"></i>
             <%= error_message %>

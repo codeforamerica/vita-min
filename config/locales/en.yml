@@ -139,6 +139,9 @@ en:
         account_unlocked: "Unlocked %{name}'s account."
       urgent: "Urgent"
     documents:
+      confirm:
+        title: Confirm %{document_type}
+        text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?
       edit:
         title: Edit Document
       index:

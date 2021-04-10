@@ -149,6 +149,7 @@ Rails.application.routes.draw do
         get "/hide-spouse-ssn", to: "clients/ssn_itins#hide_spouse", on: :member, as: :hide_spouse_ssn_itin
         resources :documents, only: [:index, :edit, :update, :show, :create, :new] do
           get "/archived", to: "documents#archived", on: :collection, as: :archived
+          get "/confirm", to: "documents#confirm", on: :member, as: :confirm
         end
         resources :notes, only: [:create, :index]
         resources :messages, only: [:index]
