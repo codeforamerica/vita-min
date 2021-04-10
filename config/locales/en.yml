@@ -507,7 +507,6 @@ en:
             - Your tax situation is simple/straightforward
             - You need a quick option
         title: File your taxes yourself!
-        continue_through_my_free_taxes: "Continue through MyFreeTaxes"
     diy_intakes:
       new:
         title: "To access this site, please provide your e-mail address."
