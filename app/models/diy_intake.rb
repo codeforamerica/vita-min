@@ -13,6 +13,7 @@
 #  visitor_id    :string
 #
 class DiyIntake < ApplicationRecord
-  # Production has some DIY Intakes that were created up until Feb 8th, 2021.
-  # The app doesn't use this anymore, but we'll keep it in case we want to easily access it in the future.
+  attr_accessor :email_address_confirmation
+
+  validates :email_address, presence: true, 'valid_email_2/email': { mx: true }, confirmation: true
 end

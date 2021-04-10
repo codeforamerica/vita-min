@@ -1,39 +1,35 @@
 <% @main_heading = t(".title") %>
 <% content_for :page_title, @main_heading %>
 
-<main role="main">
-  <section class="slab slab--white">
-    <div class="grid">
-      <div class="grid__item width-three-fourths shift-one-eighth">
-        <main role="main">
-          <div class="question__illustration spacing-above-0">
-            <%= image_tag("diy/file-yourself.svg", alt: "") %>
-          </div>
+<section class="slab slab--white">
+  <div class="grid">
+    <div class="grid__item width-three-fourths shift-one-eighth">
+      <main role="main">
+        <div class="question__illustration spacing-above-0">
+          <%= image_tag("diy/file-yourself.svg", alt: "") %>
+        </div>
 
-          <h1 class="form-question">
-            <%= @main_heading %>
-          </h1>
-          <p><%=t(".info") %></p>
+        <h1 class="form-question">
+          <%= @main_heading %>
+        </h1>
+        <p><%=t(".info") %></p>
 
-          <div class="text--semibold spacing-below-35">
-            <p><%= t(".right_option.header") %></p>
-            <ul class="checkmark-list">
-              <% t(".right_option.description").each do |item| %>
-              <li>
-                <%= render "shared/svg/checkmark", fill_class: "purple" %>
-                <span><%= item %> </span>
-              </li>
-              <% end %>
-            </ul>
-          </div>
+        <div class="text--semibold spacing-below-35">
+          <p><%= t(".right_option.header") %></p>
+          <ul class="checkmark-list">
+            <% t(".right_option.description").each do |item| %>
+            <li>
+              <%= render "shared/svg/checkmark", fill_class: "purple" %>
+              <span><%= item %> </span>
+            </li>
+            <% end %>
+          </ul>
+        </div>
 
-          <%= link_to t(".assistance"), file_with_help_questions_path %>
+        <%= link_to t(".assistance"), file_with_help_questions_path %>
 
-          <a data-track-click="mft-diy-referral" href="https://www.myfreetaxes.com/?utm_source=GYR&utm_medum=web&utm_campaign=Partner-referral" target="_blank" rel="noopener nofollow" class="button button--primary text--centered button--wide spacing-above-60">
-            <%= t(".continue_through_my_free_taxes") %>
-          </a>
-        </main>
-      </div>
+        <%= link_to t("general.continue"), diy_email_path, class: "button button--primary text--centered button--wide spacing-above-60" %>
+      </main>
     </div>
-  </section>
-</main>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+<% @main_heading = t(".title") %>
+<% content_for :page_title, @main_heading %>
+
+<section class="slab slab--white">
+  <div class="grid">
+    <div class="grid__item width-three-fourths shift-one-eighth">
+      <main role="main">
+        <%= form_with model: @diy_intake, method: :post, url: diy_email_path, local: true, builder: VitaMinFormBuilder, class: "form-card form-card--long" do |f| %>
+          <div class="question__illustration spacing-above-0">
+            <%= image_tag("questions/email-address.svg", alt: "") %>
+          </div>
+
+          <h1 class="h2">
+            <%= @main_heading %>
+          </h1>
+          <%= f.cfa_input_field(:email_address, t("views.questions.email_address.email_address"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:email_address_confirmation, t("views.questions.email_address.email_address_confirmation"), classes: ["form-width--long"]) %>
+
+          <button type="submit" class="button button--primary text--centered button--wide spacing-above-60">
+            <%= t("general.continue") %>
+          </button>
+        <% end %>
+      </main>
+    </div>
+  </div>
+</section>
