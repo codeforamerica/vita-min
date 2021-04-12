@@ -16,6 +16,8 @@ module ContactRecordHelper
       "#{I18n.t("hub.messages.from")} #{contact_record.from}"
     when :outgoing_email
       "#{I18n.t("hub.messages.to")} #{contact_record.to}"
+    when :incoming_portal_message
+      I18n.t("hub.messages.portal_message")
     else
       contact_record.try(:heading)
     end
@@ -40,5 +42,13 @@ module ContactRecordHelper
     icon = "icons/exclamation.svg" if failed_statuses.include?(status)
     icon = "icons/check.svg" if sent_statuses.include?(status)
     image_tag(icon, alt: status, title: status, class: 'message__status')
+  end
+
+  def client_contact_preference(client, no_tags: false)
+    contact_methods = ClientMessagingService.contact_methods(client)
+    methods = contact_methods.keys&.map { |k| I18n.t("general.contact_methods.#{k}") }&.join("/")
+    contacts = contact_methods.values&.join(" or ")
+    message = I18n.t("portal.messages.new.contact_preference", contact_info: contacts, contact_method: methods)
+    no_tags ? message : content_tag(:span, message)
   end
 end

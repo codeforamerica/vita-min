@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_194514) do
+ActiveRecord::Schema.define(version: 2021_04_12_195623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -67,6 +67,12 @@ ActiveRecord::Schema.define(version: 2021_04_07_194514) do
     t.datetime "created_at", precision: 6, null: false
     t.integer "record_count"
     t.datetime "run_at"
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "bulk_edits", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.jsonb "data"
     t.datetime "updated_at", precision: 6, null: false
   end
 
@@ -277,6 +283,14 @@ ActiveRecord::Schema.define(version: 2021_04_07_194514) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_agent"
     t.index ["client_id"], name: "index_incoming_emails_on_client_id"
+  end
+
+  create_table "incoming_portal_messages", force: :cascade do |t|
+    t.text "body"
+    t.bigint "client_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_incoming_portal_messages_on_client_id"
   end
 
   create_table "incoming_text_messages", force: :cascade do |t|

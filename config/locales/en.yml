@@ -168,6 +168,7 @@ en:
       automated: Automated
       from: from
       to: to
+      portal_message: "from client portal"
     notes:
       index:
         note_form:
@@ -662,6 +663,9 @@ en:
     city: City
     coalition: Coalition
     confirm: Confirm
+    contact_methods:
+      email: email
+      sms_phone_number: text
     continue: Continue
     continue_example: Continue to example
     divorced: Divorced
@@ -974,6 +978,7 @@ en:
       home:
         title: Welcome back %{name}!
         submit_documents: Submit additional documents
+        send_message: Message my tax specialist
         tax_returns:
           heading: "%{year} tax return"
           view_signed_8879: View or download signed form 8879
@@ -1001,6 +1006,16 @@ en:
         full_declaration:
           title: Full Taxpayer Declaration and Signature Authorization
           body_html: <p>Under penalties of perjury, I declare that I have examined a copy of my electronic individual income tax return and accompanying schedules and statements for the tax year ending December 31, %{year}, and to the best of my knowledge and belief, they are true, correct, and complete.</p><p>I further declare that the amounts in Part I above are the amounts from my electronic income tax return. I consent to allow my intermediate service provider, transmitter, or electronic return originator (ERO) to send my return to the IRS and to receive from the IRS (a) an acknowledgement of receipt or reason for rejection of the transmission, (b) the reason for any delay in processing the return or refund, and (c) the date of any refund.</p><p>If applicable, I authorize the U.S. Treasury and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my federal taxes owed on this return and/or a payment of estimated tax, and the financial institution to debit the entry to this account. This authorization is to remain in full force and effect until I notify the U.S. Treasury Financial Agent to terminate the authorization. To revoke (cancel) a payment, I must contact the U.S. Treasury Financial Agent at 1-888-353-4537. Payment cancellation requests must be received no later than 2 business days prior to the payment (settlement) date.</p><p>I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment. I further acknowledge that the personal identification number (PIN) below is my signature for my electronic income tax return and, if applicable, my Electronic Funds Withdrawal Consent.</p>
+    messages:
+      new:
+        title: Send a message to %{partner_name}
+        your_tax_preparers: your tax preparers
+        help_text: We're happy to answer any questions you may have about our service.
+        contact_preference: Responses will be sent by %{contact_method} to %{contact_info}.
+        wait_time: Please allow up to 3 business days for a response.
+        body_label: What's on your mind?
+      create:
+        message_sent: Message sent!
   signups:
     flash_notice: Thank you! You will receive a notification when we open in January 2021.
     new:

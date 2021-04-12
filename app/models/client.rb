@@ -49,6 +49,7 @@ class Client < ApplicationRecord
   has_many :outgoing_emails, dependent: :destroy
   has_many :incoming_text_messages, dependent: :destroy
   has_many :incoming_emails, dependent: :destroy
+  has_many :incoming_portal_messages, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :system_notes, dependent: :destroy
   has_many :tax_returns, dependent: :destroy

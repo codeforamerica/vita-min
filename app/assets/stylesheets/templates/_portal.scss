@@ -21,4 +21,19 @@
   a.back:visited {
     color: inherit;
   }
+
+  .textarea {
+    border-radius: 3px;
+  }
+
+  .portal-message-form {
+    .form-question {
+      font-size: 1.9rem;
+      margin-bottom: 2.5rem;
+      font-weight: normal;
+    }
+    .textarea {
+      height: 200px;
+    }
+  }
 }
