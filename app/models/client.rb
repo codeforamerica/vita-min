@@ -129,6 +129,10 @@ class Client < ApplicationRecord
       .includes(:documents).where("documents.client_id IS NULL OR documents.created_at < (interval '1 day' + clients.created_at)")
   end
 
+  scope :accessible_to_user, ->(user) do
+    accessible_by(Ability.new(user))
+  end
+
   def self.locale_counts
     joins(:intake).group(:locale).count
   end
