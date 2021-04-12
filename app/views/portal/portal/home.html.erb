@@ -1,7 +1,6 @@
 <% content_for :title, t(".title", name: current_client.intake.preferred_name) %>
 
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title", name: current_client.intake.preferred_name) %></h1>
   <% if @heres_what_we_need %>
     <p><%= t(".heres_what_we_need") %></p>
   <% end %>
@@ -17,10 +16,24 @@
 
   <% if @answer_questions %>
     <div class="tax-return-status">
+      <% if @answered_initial_qs %>
+        <div class="">
+          <%= image_tag("icons/grey_check.svg", alt: "") %>
+          <%= t(".tax_returns.answered_questions") %>
+        </div>
+      <% end %>
+
       <div class="tax-return-status__row tax-return-status__with-alert">
         <%= image_tag("icons/exclamation.svg", alt: "") %>
         <%= link_to t(".tax_returns.answer_questions"), @current_step %>
       </div>
+    </div>
+  <% end %>
+
+  <% if @shared_initial_docs %>
+    <div class="">
+      <%= image_tag("icons/grey_check.svg", alt: "") %>
+      <%= t(".tax_returns.shared_documents") %>
     </div>
   <% end %>
 

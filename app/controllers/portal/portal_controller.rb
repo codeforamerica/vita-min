@@ -19,6 +19,11 @@ module Portal
         @submit_additional_documents = @current_step.include?("/documents/")
         @answer_questions = !@current_step.include?("/documents/")
       end
+
+      @answered_initial_qs = @current_step.include?("/documents/") || completed_onboarding_process?
+      @shared_initial_docs = completed_onboarding_process?
+
+
     end
 
     def current_intake

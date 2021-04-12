@@ -1,8 +1,12 @@
 require "rails_helper"
 
 RSpec.feature "a client on their portal" do
-  context "when a client has not yet completed onboarding and next step is a question" do
-    let(:client) { create :client, intake: (create :intake, preferred_name: "Katie", current_step: "/en/questions/asset-loss") }
+  context "when a client has not yet completed intake questions" do
+    let(:client) do
+      create :client,
+             intake: (create :intake, preferred_name: "Katie", current_step: "/en/questions/asset-loss"),
+             tax_returns: [create(:tax_return, status: :intake_in_progress)]
+    end
     before do
       login_as client, scope: :client
     end
@@ -10,13 +14,20 @@ RSpec.feature "a client on their portal" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Katie!"
       expect(page).to have_text "Here’s what we still need from you:"
+      # status
+      expect(page).not_to have_text "Answered initial tax questions"
+      # links
       expect(page).to have_link("Complete all tax questions", href: "/en/questions/asset-loss")
       expect(page).not_to have_link "Submit additional documents"
     end
   end
 
-  context "when a client has not yet completed onboarding and next step is documents" do
-    let(:client) { create :client, intake: (create :intake, preferred_name: "Randall", current_step: "/en/documents/overview") }
+  context "when a client has completed intake questions and has started but not finished uploading documents" do
+    let(:client) do
+      create :client,
+             intake: (create :intake, preferred_name: "Randall", current_step: "/en/documents/overview"),
+             tax_returns: [create(:tax_return, status: :intake_in_progress)]
+    end
     before do
       login_as client, scope: :client
     end
@@ -24,9 +35,146 @@ RSpec.feature "a client on their portal" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Randall!"
       expect(page).to have_text "Here’s what we still need from you:"
+      # status
+      expect(page).to have_text "Answered initial tax questions"
+      # links
       expect(page).to have_link("Submit remaining tax documents", href: "/en/documents/overview")
       expect(page).not_to have_link "Submit additional documents"
+    end
+  end
 
+  context "when a client has completed intake questions and reached the end of the document flow and is waiting for review" do
+    let(:client) do
+      create :client,
+             intake: (create :intake, preferred_name: "Randall"),
+             tax_returns: [create(:tax_return, year: 2019, status: :intake_ready)]
+    end
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "waiting for review" do
+      visit portal_root_path
+      expect(page).to have_text "Welcome back Randall!"
+
+      # status
+      expect(page).to have_text "Answered initial tax questions"
+      expect(page).to have_text "Shared initial tax documents"
+      expect(page).to have_text "2019 tax return"
+
+      within "#tax-year-2019" do
+        expect(page).to have_text "Waiting on your tax team for initial review"
+      end
+    end
+  end
+
+  context "when the client's status is tax ready for prep or preparing" do
+    let(:client) do
+      create :client,
+             intake: (create :intake),
+             tax_returns: [(create :tax_return, year: 2020, status: :prep_preparing)]
+    end
+
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "waiting for tax team tp prepare the return" do
+      visit portal_root_path
+
+      expect(page).to have_text "Answered initial tax questions"
+      expect(page).to have_text "Shared initial tax documents"
+      expect(page).to have_text "Completed review"
+
+      expect(page).to have_text "2020 Tax Return"
+      within "#tax-year-2020" do
+        expect(page).to have_text "Your tax team is preparing the return"
+      end
+    end
+  end
+
+  context "when the tax return is being quality reviewed" do
+    let(:client) do
+      create :client,
+             intake: (create :intake),
+             tax_returns: [(create :tax_return, year: 2020, status: :review_reviewing)]
+    end
+
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "waiting on quality review" do
+      visit portal_root_path
+
+      expect(page).to have_text "Answered initial tax questions"
+      expect(page).to have_text "Shared initial tax documents"
+      expect(page).to have_text "Completed review"
+
+
+      expect(page).to have_text "2020 Tax Return"
+      within "#tax-year-2020" do
+        expect(page).to have_text "Return prepared"
+        expect(page).to have_text "Waiting on your tax team for a quality review of 2020 return"
+      end
+    end
+  end
+
+  context "when the client needs to review & sign" do
+    let(:client) do
+      create :client,
+             intake: (create :intake),
+             tax_returns: [(create :tax_return, year: 2020, status: :review_signature_requested)]
+    end
+
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "waiting on quality review" do
+      visit portal_root_path
+
+      expect(page).to have_text "Answered initial tax questions"
+      expect(page).to have_text "Shared initial tax documents"
+      expect(page).to have_text "Completed review"
+
+
+      expect(page).to have_text "2020 Tax Return"
+      within "#tax-year-2020" do
+        expect(page).to have_text "Return prepared"
+        expect(page).to have_text "Completed quality review for 2020"
+        expect(page).to have_text "Add final signature for 2020"
+      end
+    end
+  end
+
+
+  context "when the client has finished filing" do
+    let(:client) do
+      create :client,
+             intake: (create :intake),
+             tax_returns: [(create :tax_return, year: 2020, status: :review_signature_requested)]
+    end
+
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "able to download final tax papers" do
+      visit portal_root_path
+
+      expect(page).to have_text "Answered initial tax questions"
+      expect(page).to have_text "Shared initial tax documents"
+      expect(page).to have_text "Completed review"
+
+
+      expect(page).to have_text "2020 Tax Return"
+      within "#tax-year-2020" do
+        expect(page).to have_text "Return prepared"
+        expect(page).to have_text "Completed quality review for 2020"
+        expect(page).to have_text "Final signature added for 2020"
+        expect(page).to have_link("Download final tax papers 2020")
+      end
     end
   end
 
@@ -47,6 +195,7 @@ RSpec.feature "a client on their portal" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Martha!"
 
+      # tax returns
       expect(page).to have_text "2019 tax return"
       expect(page).to have_text "2018 tax return"
       expect(page).to have_text "2017 tax return"

@@ -984,6 +984,8 @@ en:
           empty_state: No documents ready to review yet.
           submit_additional_documents: Submit remaining tax documents
           answer_questions: Complete all tax questions
+          answered_questions: "Answered initial tax questions"
+          shared_documents: "Shared initial tax documents"
         heres_what_we_need: "Here’s what we still need from you:"
       document_link:
         view_signed_8879: View or download signed form 8879
