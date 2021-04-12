@@ -422,12 +422,12 @@ es:
       change_organization:
         edit:
           message_help_text_en_html:
-            one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes."
-            other: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes."
+            one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
+            other: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
           title: "Acción masiva"
           message_help_text_es_html:
-            one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en español. <br>Si está en blanco, no se envía ningún mensaje a estos clientes."
-            other: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en español. <br>Si está en blanco, no se envía ningún mensaje a estos clientes."
+            one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en español. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
+            other: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en español. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
           inaccessible_clients_warning:
             one: "%{count} cliente no se actualizará porque no puede acceder a su cuenta"
             other: "%{count} clientes no se actualizarán porque no puede acceder a sus cuentas"
@@ -443,7 +443,6 @@ es:
           help_text_html: "Nota: Todos las declaraciones de estos clientes se reasignarán a la organización seleccionada. <br/>Cambiar la organización puede hacer que los usuarios del hub asignados pierdan el acceso y se anulen la asignación."
           note_body_label: "Agregar una nota interna"
           note_body_help_text: "Si está en blanco, no se agrega ninguna nota interna."
-          character_limit: "Límite de caracteres: 900 caracteres"
           by_clicking_submit: Al hacer clic en enviar, está cambiando la organización, enviando una nota de equipo y actualizando seguidores.
       bulk_action_form:
         errors:

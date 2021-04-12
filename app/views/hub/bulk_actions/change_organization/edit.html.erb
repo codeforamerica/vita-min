@@ -39,7 +39,6 @@
                   t(".message_label_text_en"),
                   help_text: t(".message_help_text_en_html", count: (@locale_count["en"] || 0) + (@locale_count[nil] || 0)),
             ) %>
-            <p class="text--help spacing-below-35"><%= t(".character_limit") %></p>
           <% end %>
 
           <% if @locale_count["es"].present? %>
@@ -48,7 +47,6 @@
                   t(".message_label_text_es"),
                   help_text: t(".message_help_text_es_html", count: @locale_count["es"]),
             ) %>
-            <p class="text--help spacing-below-35"><%= t(".character_limit") %></p>
           <% end %>
 
           <%= f.cfa_textarea :note_body, t(".note_body_label"), help_text: t(".note_body_help_text"), classes: ["spacing-below-35"] %>

@@ -433,12 +433,12 @@ en:
       change_organization:
         edit:
           message_help_text_en_html:
-            one: "<strong>%{count} client</strong> prefers to receive their message in English. <br>If blank, no message is sent to these clients."
-            other: "<strong>%{count} clients</strong> prefer to receive their message in English. <br>If blank, no message is sent to these clients."
+            one: "<strong>%{count} client</strong> prefers to receive their message in English. <br>If blank, no message is sent to these clients. 900 characters allowed."
+            other: "<strong>%{count} clients</strong> prefer to receive their message in English. <br>If blank, no message is sent to these clients. 900 characters allowed."
           title: "Bulk Action"
           message_help_text_es_html:
-            one: "<strong>%{count} client</strong> prefers to receive their message in Spanish. <br>If blank, no message is sent to these clients."
-            other: "<strong>%{count} clients</strong> prefer to receive their message in Spanish. <br>If blank, no message is sent to these clients."
+            one: "<strong>%{count} client</strong> prefers to receive their message in Spanish. <br>If blank, no message is sent to these clients. 900 characters allowed."
+            other: "<strong>%{count} clients</strong> prefer to receive their message in Spanish. <br>If blank, no message is sent to these clients. 900 characters allowed."
           inaccessible_clients_warning:
             one: "%{count} client will not be updated because you cannot access them."
             other: "%{count} clients will not be updated because you cannot access them."
@@ -454,7 +454,6 @@ en:
           help_text_html: "Note: All returns for these clients will be reassigned to the selected new organization. <br/>Changing the organization may cause assigned hub users to lose access and be unassigned."
           note_body_label: "Add an internal note"
           note_body_help_text: "If blank, no internal note is added."
-          character_limit: "900 characters allowed"
           by_clicking_submit: By clicking submit, you are changing the organization, sending a team note, and updating followers.
       bulk_action_form:
         errors:
