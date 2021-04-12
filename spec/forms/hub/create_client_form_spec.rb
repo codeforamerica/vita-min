@@ -129,13 +129,6 @@ RSpec.describe Hub::CreateClientForm do
         end
       end
 
-      context "when the client's preferred language is spanish" do
-
-        it "sends the message in spanish" do
-
-        end
-      end
-
       context "when the client's preferred language is not Spanish" do
         let(:preferred_interview_language) { "en" }
         let(:email_opt_in) { "yes" }

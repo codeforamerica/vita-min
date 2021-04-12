@@ -228,10 +228,11 @@ RSpec.describe ClientMessagingService do
       let(:intake) { create :intake, sms_notification_opt_in: "no", email_notification_opt_in: "no" }
 
       it "returns a hash with nil for both message record types" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body)).to eq({
-          outgoing_email: nil,
-          outgoing_text_message: nil
-        })
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+          .to eq({
+                   outgoing_email: nil,
+                   outgoing_text_message: nil
+                 })
       end
     end
 
@@ -243,10 +244,11 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash with the output of send_email as the value for outgoing_email" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body)).to eq({
-          outgoing_email: outgoing_email,
-          outgoing_text_message: nil
-        })
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+          .to eq({
+                   outgoing_email: outgoing_email,
+                   outgoing_text_message: nil
+                 })
         expect(described_class).to have_received(:send_email).with(client, user, body)
       end
     end
@@ -259,10 +261,11 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash with the output of send_text_message as the value for outgoing_text_message" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body)).to eq({
-          outgoing_text_message: outgoing_text_message,
-          outgoing_email: nil
-        })
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+          .to eq({
+                   outgoing_text_message: outgoing_text_message,
+                   outgoing_email: nil
+                 })
         expect(described_class).to have_received(:send_text_message).with(client, user, body)
       end
     end
@@ -271,10 +274,11 @@ RSpec.describe ClientMessagingService do
       let(:intake) { create :intake, sms_notification_opt_in: "yes", email_notification_opt_in: "no", sms_phone_number: nil }
 
       it "returns a hash with nil as the value for contact record" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body)).to eq({
-          outgoing_text_message: nil,
-          outgoing_email: nil
-        })
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+          .to eq({
+                   outgoing_text_message: nil,
+                   outgoing_email: nil
+                 })
       end
     end
 
@@ -288,10 +292,11 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash containing all contact records" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body)).to eq({
-          outgoing_text_message: outgoing_text_message,
-          outgoing_email: outgoing_email
-        })
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+          .to eq({
+                   outgoing_text_message: outgoing_text_message,
+                   outgoing_email: outgoing_email
+                 })
         expect(described_class).to have_received(:send_email).with(client, user, body)
         expect(described_class).to have_received(:send_text_message).with(client, user, body)
       end
@@ -305,11 +310,113 @@ RSpec.describe ClientMessagingService do
       end
 
       it "returns a hash containing with only one contact record for the fully usable method" do
-        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body)).to eq({
-          outgoing_text_message: nil,
-          outgoing_email: outgoing_email
-        })
+        expect(described_class.send_message_to_all_opted_in_contact_methods(client, user, body))
+          .to eq({
+                   outgoing_text_message: nil,
+                   outgoing_email: outgoing_email
+                 })
         expect(described_class).to have_received(:send_email).with(client, user, body)
+      end
+    end
+  end
+
+  describe ".send_system_message_to_all_opted_in_contact_methods", active_job: true do
+    let(:email_body) { "heyo" }
+    let(:sms_body) { "hi!" }
+    let(:subject) { "email subject" }
+
+    context "when the client has not opted in to anything" do
+      let(:intake) { create :intake, sms_notification_opt_in: "no", email_notification_opt_in: "no" }
+
+      it "returns a hash with nil for both message record types" do
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, email_body: email_body, sms_body: sms_body, subject: subject))
+          .to eq({
+                   outgoing_email: nil,
+                   outgoing_text_message: nil
+                 })
+      end
+    end
+
+    context "when client has opted in to email and has an email_address" do
+      let(:intake) { create :intake, sms_notification_opt_in: "no", email_notification_opt_in: "yes", email_address: "something@example.com" }
+      let(:outgoing_email) { build :outgoing_email }
+      before do
+        allow(described_class).to receive(:send_system_email).and_return(outgoing_email)
+      end
+
+      it "returns a hash with the output of send_email as the value for outgoing_email" do
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, email_body: email_body, subject: subject))
+          .to eq({
+                   outgoing_email: outgoing_email,
+                   outgoing_text_message: nil
+                 })
+        expect(described_class).to have_received(:send_system_email).with(client, email_body, subject)
+      end
+    end
+
+    context "when the client has opted into sms and has an sms_phone_number" do
+      let(:intake) { create :intake, sms_notification_opt_in: "yes", email_notification_opt_in: "no", sms_phone_number: "+14155551212" }
+      let(:outgoing_text_message) { build :outgoing_text_message }
+      before do
+        allow(described_class).to receive(:send_system_text_message).and_return(outgoing_text_message)
+      end
+
+      it "returns a hash with the output of send_text_message as the value for outgoing_text_message" do
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, sms_body: sms_body))
+          .to eq({
+                   outgoing_text_message: outgoing_text_message,
+                   outgoing_email: nil
+                 })
+        expect(described_class).to have_received(:send_system_text_message).with(client, sms_body)
+      end
+    end
+
+    context "when the client has opted into one contact method but lacks the contact info" do
+      let(:intake) { create :intake, sms_notification_opt_in: "yes", email_notification_opt_in: "no", sms_phone_number: nil }
+
+      it "returns a hash with nil as the value for contact record" do
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, email_body: email_body, sms_body: sms_body, subject: subject))
+          .to eq({
+                   outgoing_text_message: nil,
+                   outgoing_email: nil
+                 })
+      end
+    end
+
+    context "when the client prefers both and has all the contact info" do
+      let(:intake) { create :intake, sms_notification_opt_in: "yes", email_notification_opt_in: "yes", sms_phone_number: "+14155551212", email_address: "client@example.com" }
+      let(:outgoing_email) { build :outgoing_email }
+      let(:outgoing_text_message) { build :outgoing_text_message }
+      before do
+        allow(described_class).to receive(:send_system_email).and_return(outgoing_email)
+        allow(described_class).to receive(:send_system_text_message).and_return(outgoing_text_message)
+      end
+
+      it "returns a hash containing all contact records" do
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, email_body: email_body, sms_body: sms_body, subject: subject))
+          .to eq({
+                   outgoing_text_message: outgoing_text_message,
+                   outgoing_email: outgoing_email
+                 })
+        expect(described_class).to have_received(:send_system_email).with(client, email_body, subject)
+        expect(described_class).to have_received(:send_system_text_message).with(client, sms_body)
+      end
+    end
+
+    context "when the client prefers both but only has contact info for one" do
+      let(:intake) { create :intake, sms_notification_opt_in: "yes", email_notification_opt_in: "yes", sms_phone_number: nil, email_address: "client@example.com" }
+      let(:outgoing_email) { build :outgoing_email }
+      before do
+        allow(described_class).to receive(:send_system_email).and_return(outgoing_email)
+      end
+
+      it "returns a hash containing with only one contact record for the fully usable method" do
+        expect(described_class.send_system_message_to_all_opted_in_contact_methods(client, email_body: email_body, sms_body: sms_body, subject: subject))
+          .to eq({
+                   outgoing_text_message: nil,
+                   outgoing_email: outgoing_email
+                 })
+        expect(described_class).to have_received(:send_system_email).with(client, email_body, subject)
       end
     end
   end
@@ -321,7 +428,7 @@ RSpec.describe ClientMessagingService do
         let(:email_address) { "example@example.com" }
 
         it "returns the email address" do
-          expect(described_class.contact_methods(client)).to eq({email: "example@example.com"})
+          expect(described_class.contact_methods(client)).to eq({ email: "example@example.com" })
         end
       end
 
@@ -348,7 +455,7 @@ RSpec.describe ClientMessagingService do
         let(:sms_phone_number) { "+14155551212" }
 
         it "returns the number" do
-          expect(described_class.contact_methods(client)).to eq({sms_phone_number: "+14155551212"})
+          expect(described_class.contact_methods(client)).to eq({ sms_phone_number: "+14155551212" })
         end
       end
 
@@ -369,7 +476,7 @@ RSpec.describe ClientMessagingService do
 
         it "returns both, email address first" do
           contact_methods = described_class.contact_methods(client)
-          expect(contact_methods).to eq({email: "example@example.com", sms_phone_number: "+14155551212"})
+          expect(contact_methods).to eq({ email: "example@example.com", sms_phone_number: "+14155551212" })
           expect(contact_methods.keys.first).to eq(:email)
         end
       end
