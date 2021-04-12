@@ -59,7 +59,7 @@ describe SyntheticNote do
         result = SyntheticNote.from_outbound_calls(client)
         expect(result.length).to eq 1
         expect(result[0].body).to include "Called by #{user.name}. Call was completed and lasted 1m15s."
-        expect(result[0].body).to include "I talked to them!"
+        expect(result[0].body).to match /^I talked to them!$/
       end
     end
   end
