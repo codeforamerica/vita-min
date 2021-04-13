@@ -48,19 +48,16 @@ module Hub
     end
 
     def destroy
-      return redirect_back(fallback_location: hub_client_documents_path) unless @client.id == @document.client_id
+      if params[:reupload].present?
+        @document.destroy!
 
-      if @document.destroy!
-        if params[:new]
-          flash[:notice] = "Please upload correct document for #{@client.legal_name}."
-          render :new and return
-        else
-          flash[:notice] = "Document deleted."
-        end
+        flash[:notice] = "Please upload correct document for #{@client.legal_name}."
+        render :new and return
       else
-        flash[:notice] = "Could not delete specified document. Try again."
+        @document.update(archived: true)
+        flash[:notice] = "Document archived."
       end
-      
+
       redirect_back(fallback_location: hub_client_documents_path)
     end
 

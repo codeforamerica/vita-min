@@ -819,7 +819,7 @@ es:
       basic: "BAS"
     hsa: "HSA"
     drop_off: Entrega
-    select_files: Seleccionar archivos
+    select_file: Seleccionar archivo
     take_picture: Sacar foto
     certification: Certificación
     my_profile: Mi perfil

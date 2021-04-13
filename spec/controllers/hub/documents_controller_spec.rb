@@ -414,4 +414,65 @@ RSpec.describe Hub::DocumentsController, type: :controller do
       end
     end
   end
+
+  describe "#destroy" do
+    let(:admin) { create :admin_user }
+    let!(:document) { create :document, client: client }
+    let(:client) { create :client, intake: create(:intake) }
+    before do
+      sign_in admin
+    end
+
+    context "when client id and documents client dont match" do
+      let(:params) do
+        {
+            id: create(:document),
+            client_id: client.id
+        }
+      end
+
+      it "raises an error and doesnt alter document" do
+        expect {
+          delete :destroy, params: params
+        }.to raise_error ActiveRecord::RecordNotFound
+
+        expect(document.reload.archived).to eq false
+      end
+    end
+
+    context "with reupload param (after the user clicks no on confirmation page)" do
+      let(:params) do
+        {
+            id: document,
+            client_id: client.id,
+            reupload: true
+        }
+      end
+
+      it "renders new page with document params and deletes the original document so that the user can reupload" do
+        expect {
+          delete :destroy, params: params
+        }.to change(client.documents, :count).by(-1)
+
+        expect(response).to render_template :new
+      end
+    end
+
+    context "without reupload param" do
+      let(:params) do
+        {
+            id: document,
+            client_id: client.id
+        }
+      end
+
+      it "archives the document" do
+        expect {
+          delete :destroy, params: params
+        }.not_to change(client.documents, :count)
+
+        expect(document.reload.archived).to eq true
+      end
+    end
+  end
 end

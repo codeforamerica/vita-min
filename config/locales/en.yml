@@ -829,7 +829,7 @@ en:
       basic: "BAS"
     hsa: "HSA"
     drop_off: Drop Off
-    select_files: Select files
+    select_file: Select file
     take_picture: Take picture
     certification: Certification
     my_profile: My profile
