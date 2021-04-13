@@ -19,11 +19,12 @@ RSpec.describe MessagePresenter do
       incoming_text = create :incoming_text_message, client: client, received_at: day1 # UTC
       outgoing_text = create :outgoing_text_message, client: client, sent_at: day2
       incoming_email = create :incoming_email, client: client, received_at: day1
+      incoming_portal_message = create :incoming_portal_message, client: client, created_at: day1
       signed_document_message = SystemNote::SignedDocument.create(client: client, body: "You signed!", created_at: day1)
       all_notes_by_day = MessagePresenter.grouped_messages(client)
 
       expect(all_notes_by_day.keys).to eq [day1.beginning_of_day, day2.beginning_of_day]
-      expect(all_notes_by_day[day1.beginning_of_day]).to eq [incoming_text, incoming_email, signed_document_message, document_note_double]
+      expect(all_notes_by_day[day1.beginning_of_day]).to eq [incoming_text, incoming_email, incoming_portal_message, signed_document_message, document_note_double]
       expect(all_notes_by_day[day2.beginning_of_day]).to eq [outgoing_text, outbound_call_note_double]
     end
   end

@@ -5,6 +5,7 @@ class MessagePresenter
       client.incoming_text_messages +
       client.outgoing_emails.includes(:user) +
       client.incoming_emails +
+      client.incoming_portal_messages +
       SystemNote::SignedDocument.where(client: client) +
       SyntheticNote.from_client_documents(client) +
       SyntheticNote.from_outbound_calls(client)

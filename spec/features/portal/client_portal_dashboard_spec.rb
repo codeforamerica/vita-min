@@ -12,6 +12,7 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Here’s what we still need from you:"
       expect(page).to have_link("Complete all tax questions", href: "/en/questions/asset-loss")
       expect(page).not_to have_link "Submit additional documents"
+      expect(page).to have_link "Message my tax specialist"
     end
   end
 
@@ -26,6 +27,7 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Here’s what we still need from you:"
       expect(page).to have_link("Submit remaining tax documents", href: "/en/documents/overview")
       expect(page).not_to have_link "Submit additional documents"
+      expect(page).to have_link "Message my tax specialist"
 
     end
   end
@@ -96,6 +98,9 @@ RSpec.feature "a client on their portal" do
       expect(page).not_to have_text "I don't have this right now."
       click_on "Go back"
       expect(page).to have_text "Welcome back"
+
+      expect(page).to have_link "Message my tax specialist"
+
     end
   end
 end

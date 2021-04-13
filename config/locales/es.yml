@@ -171,6 +171,7 @@ es:
       automated: Automatizado
       from: de
       to: a
+      portal_message: "desde el portal del cliente"
     notes:
       index:
         note_form:
@@ -654,6 +655,9 @@ es:
     city: Ciudad
     coalition: Coalición
     confirm: Confirmar
+    contact_methods:
+      email: email
+      sms_phone_number: mensaje de texto
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
     divorced: Divorciado
@@ -967,8 +971,19 @@ es:
     upload_documents:
       success: "¡Documento cargado con éxito!"
       error: Hubo un error al cargar su documento. Intentar otra vez.
+    messages:
+      new:
+        title: Mandar un mensaje a %{partner_name}
+        your_tax_preparers: mi especialista en impuestos
+        help_text: Nos da gusto contestar cualquier pregunta que usted tenga acerca de nuestros servicios.
+        contact_preference: Enviaremos la respuesta por %{contact_method} a %{contact_info}.
+        wait_time: Por favor permita hasta tres días hábiles para recibir una respuesta.
+        body_label: Mandar un mensaje
+      create:
+        message_sent: "¡Mensaje enviado!"
     portal:
       home:
+        send_message: Mandar mensaje a mi especialista en impuestos
         title: "Bienvenido de nuevo %{name}!"
         tax_returns:
           heading: Declaración de impuestos de %{year}

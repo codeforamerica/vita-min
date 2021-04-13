@@ -1,0 +1,31 @@
+# == Schema Information
+#
+# Table name: incoming_portal_messages
+#
+#  id         :bigint           not null, primary key
+#  body       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  client_id  :bigint
+#
+# Indexes
+#
+#  index_incoming_portal_messages_on_client_id  (client_id)
+#
+class IncomingPortalMessage < ApplicationRecord
+  include ContactRecord
+  include InteractionTracking
+
+  belongs_to :client
+
+  after_create :record_incoming_interaction
+  validates :body, presence: true
+
+  def datetime
+    created_at
+  end
+
+  def author
+    client.preferred_name
+  end
+end
