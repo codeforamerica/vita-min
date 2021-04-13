@@ -22,7 +22,8 @@
 class UserNotification < ApplicationRecord
   ALLOWED_NOTIFIABLE_TYPES = [
     "Note",
-    "TaxReturnAssignment"
+    "TaxReturnAssignment",
+    "BulkClientOrganizationUpdate"
   ].freeze
 
   belongs_to :notifiable, polymorphic: true
