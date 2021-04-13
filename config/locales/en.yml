@@ -1575,7 +1575,7 @@ en:
                   target="_blank"
                   data-track-click="stimulus-irs-view-your-tax-account"
                   data-track-attribute-position="stimulus-how-faq2">
-                view or create an online account</a with the IRS.
+                view or create an online account</a> with the IRS.
             - title: What if there are issues with my bank account information?
               content_html: >-
                 If the IRS is not able to deposit to the account it has on record, it will mail the payment
@@ -1591,7 +1591,7 @@ en:
             - title: What if I haven’t filed federal taxes?
               content_html: >-
                 We recommend that you file your taxes in order to access the Economic Impact Payments
-                and any additional tax credits you may be eligible for. You can file 2017, 2018, 2019,b
+                and any additional tax credits you may be eligible for. You can file 2017, 2018, 2019,
                 and 2020 returns for free with GetYourRefund.
             - title: What if I don’t have a bank account?
               content_html: >-
