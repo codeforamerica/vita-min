@@ -20,9 +20,15 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class UserNotification < ApplicationRecord
+  ALLOWED_NOTIFIABLE_TYPES = [
+    "Note",
+    "TaxReturnAssignment"
+  ].freeze
+
   belongs_to :notifiable, polymorphic: true
   belongs_to :user
   scope :unread, -> { where(read: false) }
+  validates :notifiable_type, presence: true, inclusion: { in: ALLOWED_NOTIFIABLE_TYPES }
 
   self.per_page = 25
 end
