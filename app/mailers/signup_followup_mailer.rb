@@ -3,9 +3,10 @@ class SignupFollowupMailer < ApplicationMailer
 
   def followup(email_address, name)
     @name = name
+    @subject = "Start your taxes with GetYourRefund now"
     mail(
       to: email_address,
-      subject: "Start your taxes with GetYourRefund now",
+      subject: @subject,
     )
   end
 end
