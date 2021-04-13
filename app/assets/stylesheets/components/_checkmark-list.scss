@@ -1,29 +1,38 @@
 ul.checkmark-list {
-  font-size: 16px;
+  font-size: 1.6rem;
   li {
+    list-style: none;
     margin-bottom: 1.3rem;
     position: relative;
+    display: flex;
+    align-items: center;
   }
-  li > * {
+
+  li::before {
+    content: image-url('icons/checkmark-purple.svg');
+    height: 20px;
+    width: 20px;
     display: inline-block;
+    margin-right: 1rem;
   }
-  li > span {
-    margin-left: 3.2rem;
+
+  &.teal {
+    li::before {
+      content: image-url('icons/checkmark-teal.svg')
+    }
   }
-  svg.checkmark {
-    position: absolute;
-    top: 7px;
-    margin-right: 1.5rem;
-    &.teal {
-      fill: #02CEAA;
+  &.purple {
+    li::before {
+      content: image-url('icons/checkmark-purple.svg')
     }
+  }
 
-    &.purple {
-      fill: $color-purple;
+  &.blue {
+    li::before {
+      content: image-url('icons/checkmark-blue.svg')
     }
-
-    &.venice-blue {
-      fill: $color-venice-blue;
-    }
-   }
+  }
 }
+
+
+

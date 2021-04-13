@@ -307,17 +307,16 @@ RSpec.describe Hub::DocumentsController, type: :controller do
   describe "#create" do
     let!(:intake) { client.intake }
     let!(:tax_return) { create :tax_return, client: client, year: 2017 }
+    let(:document_type) { DocumentTypes::Form1098E.key }
+    let(:upload) { fixture_file_upload("attachments/test-pattern.png", "image/png") }
 
     let(:params) do
       { client_id: client.id,
         document: {
-          upload: [
-              fixture_file_upload("attachments/test-pattern.png", "image/png"),
-              fixture_file_upload("attachments/document_bundle.pdf", "application/pdf")
-          ],
+          upload: upload,
           tax_return_id: tax_return.id,
           display_name: "This is a document for the client",
-          document_type: DocumentTypes::Form1098E.key
+          document_type: document_type
         }
       }
     end
@@ -327,31 +326,39 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     context "with an authenticated user" do
       before { sign_in(user) }
 
-      it "appends the documents to the client's documents list" do
+      it "appends the document to the client's documents list and redirects to client index" do
         expect {
           post :create, params: params
-        }.to change(Document, :count).by 2
+        }.to change(Document, :count).by 1
 
-        latest_docs = Document.last(2)
-        expect(latest_docs.map(&:document_type).uniq).to eq ["1098-E"]
-        expect(latest_docs.first.upload.filename).to eq "test-pattern.png"
-        expect(latest_docs.second.upload.filename).to eq "document_bundle.pdf"
-        expect(latest_docs.first.display_name).to eq "This is a document for the client"
-        expect(latest_docs.second.display_name).to eq "This is a document for the client"
-        expect(latest_docs.map(&:client).uniq).to eq [client]
-        expect(latest_docs.map(&:tax_return_id).uniq).to eq [tax_return.id]
-        expect(latest_docs.map(&:uploaded_by).uniq).to eq [user]
+        latest_doc = Document.last
+        expect(latest_doc.document_type).to eq "1098-E"
+        expect(latest_doc.upload.filename).to eq "test-pattern.png"
+        expect(latest_doc.display_name).to eq "This is a document for the client"
+        expect(latest_doc.client).to eq client
+        expect(latest_doc.tax_return_id).to eq tax_return.id
+        expect(latest_doc.uploaded_by).to eq user
         expect(response).to redirect_to(hub_client_documents_path(client_id: client.id))
+      end
+
+      context "when the document type requires confirmation" do
+        let(:document_type) { DocumentTypes::FinalTaxDocument.key }
+        let(:upload) { fixture_file_upload("attachments/document_bundle.pdf", "application/pdf") }
+        it "redirects to the confirmation page after creation" do
+          expect {
+            post :create, params: params
+          }.to change(client.documents, :count).by 1
+
+          doc = Document.last
+          expect(response).to redirect_to confirm_hub_client_document_path(id: doc.id, client_id: doc.client.id)
+        end
       end
 
       context "with no display name, or tax return" do
         let(:params) do
           { client_id: client.id,
             document: {
-              upload: [
-                fixture_file_upload("attachments/test-pattern.png", "image/png"),
-                fixture_file_upload("attachments/document_bundle.pdf", "application/pdf")
-              ],
+              upload: fixture_file_upload("attachments/test-pattern.png", "image/png"),
               display_name: "",
               document_type: DocumentTypes::Other.key
             }
@@ -361,10 +368,9 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         it "sets default file name, does not set tax return" do
           post :create, params: params
 
-          latest_docs = Document.last(2)
-          expect(latest_docs.first.display_name).to eq "test-pattern.png"
-          expect(latest_docs.second.display_name).to eq "document_bundle.pdf"
-          expect(latest_docs.map(&:tax_return_id).uniq).to eq [nil]
+          latest_doc = Document.last
+          expect(latest_doc.display_name).to eq "test-pattern.png"
+          expect(latest_doc.tax_return_id).to eq nil
         end
       end
 
@@ -389,9 +395,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           let(:params) do
             { client_id: client.id,
               document: {
-                upload: [
-                  fixture_file_upload("attachments/test-pattern.png", "image/png"),
-                ],
+                upload: fixture_file_upload("attachments/test-pattern.png", "image/png"),
                 tax_return_id: tax_return.id,
                 display_name: "This is a document for the client",
                 document_type: DocumentTypes::UnsignedForm8879.key
@@ -407,6 +411,67 @@ RSpec.describe Hub::DocumentsController, type: :controller do
             expect(response.body).to include "Form 8879 (Unsigned) must be a PDF file"
           end
         end
+      end
+    end
+  end
+
+  describe "#destroy" do
+    let(:admin) { create :admin_user }
+    let!(:document) { create :document, client: client }
+    let(:client) { create :client, intake: create(:intake) }
+    before do
+      sign_in admin
+    end
+
+    context "when client id and documents client dont match" do
+      let(:params) do
+        {
+            id: create(:document),
+            client_id: client.id
+        }
+      end
+
+      it "raises an error and doesnt alter document" do
+        expect {
+          delete :destroy, params: params
+        }.to raise_error ActiveRecord::RecordNotFound
+
+        expect(document.reload.archived).to eq false
+      end
+    end
+
+    context "with reupload param (after the user clicks no on confirmation page)" do
+      let(:params) do
+        {
+            id: document,
+            client_id: client.id,
+            reupload: true
+        }
+      end
+
+      it "renders new page with document params and deletes the original document so that the user can reupload" do
+        expect {
+          delete :destroy, params: params
+        }.to change(client.documents, :count).by(-1)
+
+        expect(response).to render_template :new
+      end
+    end
+
+    context "without reupload param" do
+      let(:params) do
+        {
+            id: document,
+            client_id: client.id
+        }
+      end
+
+      it "archives the document" do
+        expect {
+          delete :destroy, params: params
+        }.not_to change(client.documents, :count)
+
+        expect(document.reload.archived).to eq true
       end
     end
   end

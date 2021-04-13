@@ -3,7 +3,7 @@ module Questions
     private
 
     def illustration_path
-      "refund-payment.svg"
+      "hand-holding-check.svg"
     end
   end
 end

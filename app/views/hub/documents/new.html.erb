@@ -1,8 +1,12 @@
-<% @title = t("hub.documents.index.add_doc") %>
+<% @title = "#{t("hub.documents.index.add_doc")} | #{@client.legal_name}" %>
 <% content_for :page_title, @title %>
 
 <% content_for :card do %>
-  <div class="slab">
+
+
+  <div class="slab slab--not-padded">
+    <%= render "hub/read_only_client_header", client: @client %>
+    <hr/>
     <%= render 'form', url: hub_client_documents_path, method: "post", file_upload_enabled: true %>
   </div>
 <% end %>

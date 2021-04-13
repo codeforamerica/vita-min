@@ -25,22 +25,18 @@ module Hub
       redirect_to transient_storage_url(@document.upload.blob)
     end
 
+    def confirm; end
+
     def new; end
 
     def edit; end
 
     def create
-      file_uploads = document_params.delete(:upload) || []
-      # Validate that at least one doc is present
-      @document = Document.new(document_params.merge(upload: file_uploads.first, uploaded_by: current_user))
-      if @document.valid?
-        file_uploads.each do |upload|
-          Document.create!(document_params.merge(upload: upload, uploaded_by: current_user))
-        end
-        redirect_to(hub_client_documents_path(client_id: @client))
-      else
-        render :new
-      end
+      @document = @client.documents.new(document_params)
+      render :new and return unless @document.save
+
+      next_path = @document.confirmation_needed? ? confirm_hub_client_document_path(id: @document) : hub_client_documents_path(client_id: @client)
+      redirect_to next_path
     end
 
     def update
@@ -49,6 +45,20 @@ module Hub
       else
         render :edit
       end
+    end
+
+    def destroy
+      if params[:reupload].present?
+        @document.destroy!
+
+        flash[:notice] = "Please upload correct document for #{@client.legal_name}."
+        render :new and return
+      else
+        @document.update(archived: true)
+        flash[:notice] = "Document archived."
+      end
+
+      redirect_back(fallback_location: hub_client_documents_path)
     end
 
     private
@@ -72,8 +82,8 @@ module Hub
 
     def document_params
       params.require(:document)
-          .permit(:document_type, :display_name, :tax_return_id, :archived, upload: [])
-          .merge({ client: @client })
+          .permit(:document_type, :display_name, :tax_return_id, :archived, :upload)
+          .merge({ uploaded_by: current_user })
     end
 
     def sort_column
