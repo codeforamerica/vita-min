@@ -2211,6 +2211,8 @@ en:
           - Receive addition money through tax credits, if you qualify
           - File for previous years and collect past refunds
           - Access our free tax filing assistance that will answer all of your questions
+        help_me: Yes! Help me file my taxes.
+        faq: Visit Stimulus FAQ
       triage_tax_needs:
         title: What can we help you with?
         help_text: "Select all the situations that apply to you:"
@@ -2218,15 +2220,7 @@ en:
         file_previous_years: File taxes for previous years
         collect_stimulus: Collect my stimulus check
       welcome:
-        diy:
-          header: File taxes myself
-          info: File quickly with our DIY tool.
-        intake:
-          header: File taxes with help
-          info: Review and file with the help of a tax expert.
-        question:
-          header: Ask a question
-          info: Get your tax related questions answered.
+        help_text: To provide the best service, we'll start with a few questions.
         title: Welcome to GetYourRefund!
       widowed:
         title: As of December 31, %{year}, were you widowed?

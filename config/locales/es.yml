@@ -2126,59 +2126,53 @@ es:
           one: "¿Ha sido rechazado en el año anterior el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos, el Crédito por Oportunidad Estadounidense o el estado civil de Jefe de Familia?"
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
       triage_arp:
-        title: Your tax return may be delayed so that we can ensure you receive the highest refund!
+        title: ¡Su declaración de impuestos  podría retrasarse para que podamos asegurar que usted consiga el mejor reembolso!
         help_text_html: >-
-          The
-          <a href="https://www.whitehouse.gov/american-rescue-plan/">American Rescue Plan</a>
-          may increase the amount of premium tax credits for which you and others in your
-          household are eligible, which may result in a higher refund. Your tax preparer will update you on the process.
+          El
+          <a href="https://www.whitehouse.gov/american-rescue-plan/">Plan de Rescate Americano</a>
+          puede aumentar los créditos fiscales para los cuales usted y los miembros de su hogar pueden ser elegibles.
+          Esto podría resultar en un reembolso más alto. Su preparador de impuestos le mantendrá actualizado sobre el proceso.
       triage_backtaxes:
-        title: Have you filed taxes for 2017, 2018, and 2019?
-        help_text: If you earned income and you have filed for all the above years, answer yes. Even if you used a different service to file for previous years.
+        title: "¿Ha declarado impuestos para los años 2017, 2018, y 2019?"
+        help_text: Si ganó ingreso y ha presentado para todos los años anteriores, conteste sí. Incluso si usó un servicio diferente para declarar en los años anteriores.
       triage_eligibility:
-        info: "TODO: we need translations"
+        info: Díganos si cualquiera de las siguientes situaciones aplican a usted.
         situations:
           had_farm_income: Gané dinero por tener una granja
           had_rental_income: Gané dinero de una propiedad alquilada
           income_over_limit: Gané más de $ 66,000 en %{year}
-        title: "TODO: we need translations"
+        title: Sí, nuestro servicio es completamente gratis. ¡Nos aseguraremos de que usted califica!
       triage_lookback:
-        title: 2020 tax situations
-        help_text: Do any of the situations below apply to 2020?
-        had_income_decrease: My income decreased from 2019
-        had_unemployment: I received unemployment income
-        had_marketplace_insurance: I purchased health insurance through the marketplace
+        title: ¿Se aplican algunas de las situaciones que siguen para 2020?
+        help_text: ¿Se aplican algunas de las situaciones que siguen para 2020?
+        had_income_decrease: Mi ingreso disminuyó desde 2019
+        had_unemployment: Recibí beneficios de desempleo
+        had_marketplace_insurance: Compré seguros médicos del mercado de seguros médicos
       triage_prepare_solo:
-        title: Are you interested in preparing your own return?
-        help_text: Preparing your return is easy, especially if you have less than 3 jobs. We'll provide chat support as you go through our DIY option.
+        title: ¿Le interesa preparar su propia declaración?
+        help_text: Es simple para preparar su declaración, especialmente si tiene menos de 3 empleos. Proveeremos chats de asistencia mientras usted sigue con nuestra opción de auto-servicio.
       triage_simple_tax:
-        title: Do you have simple taxes?
-        help_text: "Answer yes if you have 1-3 jobs to report and no deductions. You might have these forms: W-2, 1099R, 1099SSA, 1099G"
+        title: ¿Tiene impuestos simples?
+        help_text: "Conteste sí, si tiene 1-3 empleos para declarar y no tiene ninguna deducción. Podría tener estos formularios: W-2, 1099R, 1099SSA, 1099G."
       triage_stimulus_check:
-        title: In order to collect your stimulus check, you are required to file your taxes.
-        help_text: Don't worry, we're here to support you throughout the process. We'll help you collect your stimulus payment, file your taxes, and make sure you receive the maximum refund owed to you!
-        get_your_money: Get all the cash support you're owed!
+        title: Para cobrar su cheque de estímulo económico, se requiere que presente los impuestos.
+        help_text: "¡No se preocupe! Estamos aquí para ayudarle durante todo el proceso. Le ayudaremos a cobrar su pago de estímulo, declarar sus impuestos, y asegurar que reciba el máximo reembolso que se le debe."
+        get_your_money: "¡Consiga todo el apoyo monetario que se le debe!"
         perks:
-          - Receive addition money through tax credits, if you qualify
-          - File for previous years and collect past refunds
-          - Access our free tax filing assistance that will answer all of your questions
+          - Reciba dinero adicional por medio de créditos fiscales, si usted califica
+          - Declare impuestos para años anteriores y reciba los reembolsos pasados
+          - Tenga acceso a nuestro servicio gratuito de asistencia de declaración de impuestos que contestará todas sus preguntas.
+        help_me: "¡Sí! Ayúdame a presentar los impuestos."
+        faq: Visitar la sección de Preguntas Frecuentes sobre el estímulo económico
       triage_tax_needs:
-        title: What can we help you with?
-        help_text: "Select all the situations that apply to you:"
-        file_this_year: File my %{current_year} taxes
-        file_previous_years: File taxes for previous years
-        collect_stimulus: Collect my stimulus check
+        title: "¿En qué podemos ayudarle?"
+        help_text: "Seleccione todas las situaciones que se aplican a usted:"
+        file_this_year: Declarar los impuestos para %{current_year}
+        file_previous_years: Declarar los impuestos para años anteriores
+        collect_stimulus: Cobrar mi cheque de estímulo económico
       welcome:
-        diy:
-          header: Declarar impuestos mi mismo
-          info: Declare rápidamente con nuestra herramienta DIY.
-        intake:
-          header: Declarar impuestos con ayuda
-          info: Revise y declare con la ayuda de un experto de impuestos.
-        question:
-          header: Hacer una pregunta
-          info: Obtenga respuestas a sus preguntas de impuestos.
-        title: "¡Bienvenidos! ¿Cómo podemos ayudarle?"
+        help_text: Para proporcionar el mejor servicio, empecemos con algunas preguntas.
+        title: "¡Bienvenidos a GetYourRefund!"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
       widowed_year:
