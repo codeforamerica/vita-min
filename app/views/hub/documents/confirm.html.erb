@@ -20,7 +20,8 @@
             <% end %>
           </div>
           <div class="item">
-            <%= link_to edit_hub_client_document_path(id: @document.id), class: "button button--icon button--icon--centered", "data-track-click": "document-confirmed-no" do %>
+            <%= form_with  %>
+            <%= link_to hub_client_document_path(id: @document.id, new: true), method: :delete, class: "button button--icon button--icon--centered", "data-track-click": "document-confirmed-no" do %>
               <%= image_tag("crossmark.svg", alt: "") %><%=t("general.negative") %>
             <% end %>
           </div>

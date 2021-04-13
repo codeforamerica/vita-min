@@ -47,6 +47,23 @@ module Hub
       end
     end
 
+    def destroy
+      return redirect_back(fallback_location: hub_client_documents_path) unless @client.id == @document.client_id
+
+      if @document.destroy!
+        if params[:new]
+          flash[:notice] = "Please upload correct document for #{@client.legal_name}."
+          render :new and return
+        else
+          flash[:notice] = "Document deleted."
+        end
+      else
+        flash[:notice] = "Could not delete specified document. Try again."
+      end
+      
+      redirect_back(fallback_location: hub_client_documents_path)
+    end
+
     private
 
     def sorted_documents
