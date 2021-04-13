@@ -21,6 +21,7 @@
 #
 FactoryBot.define do
   factory :user_notification do
+    user
     notifiable { build(:tax_return_assignment) }
   end
 end
