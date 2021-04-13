@@ -20,7 +20,7 @@ module Portal
         @answer_questions = !@current_step.include?("/documents/")
       end
 
-      @answered_initial_qs = @current_step.include?("/documents/") || completed_onboarding_process?
+      @answered_initial_qs = completed_onboarding_process? || (@current_step.include?("/documents/") if @current_step)
       @shared_initial_docs = completed_onboarding_process?
 
 

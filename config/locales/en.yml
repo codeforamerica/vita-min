@@ -977,6 +977,7 @@ en:
       home:
         title: Welcome back %{name}!
         submit_documents: Submit additional documents
+        heres_what_we_need: "Here’s what we still need from you:"
         tax_returns:
           heading: "%{year} tax return"
           submit_primary: Submit primary taxpayer signature
@@ -986,7 +987,8 @@ en:
           answer_questions: Complete all tax questions
           answered_questions: "Answered initial tax questions"
           shared_documents: "Shared initial tax documents"
-        heres_what_we_need: "Here’s what we still need from you:"
+          waiting_for_review: "Waiting on your tax team for initial review"
+          completed_review: "Completed review"
       document_link:
         view_signed_8879: View or download signed form 8879
         view_unsigned_8879: View or download form 8879

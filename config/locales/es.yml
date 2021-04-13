@@ -970,6 +970,8 @@ es:
     portal:
       home:
         title: "Bienvenido de nuevo %{name}!"
+        submit_documents: Enviar documentos adicionales
+        heres_what_we_need: "Esto es lo que todavía necesitamos de usted:"
         tax_returns:
           heading: Declaración de impuestos de %{year}
           submit_primary: Presentar la firma del contribuyente principal
@@ -979,8 +981,8 @@ es:
           answer_questions: Complete todas las preguntas sobre impuestos
           answered_questions: "Ha respondido a las preguntas sobre impuestos"
           shared_documents: "Ha compartido documentos iniciales"
-        submit_documents: Enviar documentos adicionales
-        heres_what_we_need: "Esto es lo que todavía necesitamos de usted:"
+          waiting_for_review: "Waiting on your tax team for initial review"
+          completed_review: "Completed review"
       document_link:
         view_signed_8879: Ver o descargar formulario 8879 firmado
         view_unsigned_8879: Ver o descargar formulario 8879
