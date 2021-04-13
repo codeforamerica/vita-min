@@ -968,20 +968,20 @@ es:
     upload_documents:
       success: "¡Documento cargado con éxito!"
       error: Hubo un error al cargar su documento. Intentar otra vez.
+    messages:
+      new:
+        title: Mandar un mensaje a %{partner_name}
+        your_tax_preparers: mi especialista en impuestos
+        help_text: Nos da gusto contestar cualquier pregunta que usted tenga acerca de nuestros servicios.
+        contact_preference: Enviaremos la respuesta por %{contact_method} a %{contact_info}.
+        wait_time: Por favor permita hasta tres días hábiles para recibir una respuesta.
+        body_label: Mandar un mensaje
+      create:
+        message_sent: "¡Mensaje enviado!"
     portal:
       home:
         send_message: Mandar mensaje a mi especialista en impuestos
         title: "Bienvenido de nuevo %{name}!"
-        messages:
-          new:
-            title: Mandar un mensaje a %{partner_name}
-            your_tax_preparers: mi especialista en impuestos
-            help_text: Nos da gusto contestar cualquier pregunta que usted tenga acerca de nuestros servicios.
-            contact_preference: Enviaremos la respuesta por %{contact_method} a %{contact_info}.
-            wait_time: Por favor permita hasta tres días hábiles para recibir una respuesta.
-            body_label: Mandar un mensaje
-          create:
-            message_sent: Message sent!
         tax_returns:
           heading: Declaración de impuestos de %{year}
           view_signed_8879: Ver o descargar formulario 8879 firmado
@@ -1007,9 +1007,6 @@ es:
         full_declaration:
           title: Declaración del contribuyente y autorización para la firma
           body_html: Bajo pena de perjurio, declaro haber examinado una copia de mi declaración electrónica del impuesto sobre el ingreso y todo anexo y documento acompañante para el año tributario que termina el 31 de diciembre de %{year} y, según mi leal saber y entender, son verídicos, correctos y completos. Declaro además que las cantidades provistas anteriormente en la Parte I son las mismas indicadas en mi declaración electrónica del impuesto sobre el ingreso. Autorizo a que mi proveedor intermediario de servicios, transmisor o iniciador de declaraciones electrónicas (ERO, por sus siglas en inglés) envíe mi declaración al IRS y que reciba del mismo (a) acuse de recibo o justificación de rechazo de la transmisión, (b) la razón por toda demora en la tramitación de la declaración o reembolso y (c) la fecha de todo reembolso. Si corresponde, autorizo al U.S. Treasury (Departamento del Tesoro de los Estados Unidos) y a su Agente Financiero designado para que tramiten ante la ACH una transacción de retiro electrónico de fondos (débito directo) en la cuenta de la institución financiera indicada en el programa de computadora (software) de preparación de declaraciones para pagar los impuestos federales que adeudo en esta declaración y/o pagar el impuesto estimado, y además autorizo a la institución financiera para que cargue la entrada a esta cuenta. Esta autorización quedará en pleno vigor hasta que yo notifique al Agente Financiero del Departamento del Tesoro de los Estados Unidos para que éste cancele la autorización. Para revocar (cancelar) un pago, tengo que comunicarme con el Agente Financiero del Departamento del Tesoro de los Estados Unidos llamando al 1-888-353-4537. Las solicitudes de cancelación de pago se tienen que recibir a más tardar 2 días laborables antes de la fecha de pago (liquidación). También autorizo a las instituciones financieras que participan en la tramitación del pago electrónico de impuestos para que reciban información confidencial necesaria para responder a preguntas y resolver dudas relacionadas con dicho pago. Certifico además que el número de identificación personal (PIN, por sus siglas en inglés) que aparece a continuación es el que he escogido como firma para mi declaración electrónica del impuesto sobre el ingreso y, si corresponde, mi autorización para el retiro de fondos por vías electrónicas.
-    messages:
-      new:
-        title: ""
   signups:
     flash_notice: "¡Gracias! Recibirá una notificación cuando abramos en enero de 2021."
     new:
