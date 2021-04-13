@@ -14,11 +14,10 @@
           </h1>
 
           <div class="text--semibold spacing-below-35">
-            <ul class="checkmark-list">
+            <ul class="checkmark-list teal">
               <% t(".steps.description").each do |item| %>
                 <li>
-                  <%= render "shared/svg/checkmark", fill_class: "teal" %>
-                  <span><%= item %> </span>
+                  <%= item %>
                 </li>
               <% end %>
             </ul>
