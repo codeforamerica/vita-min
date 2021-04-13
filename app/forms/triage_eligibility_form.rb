@@ -1,5 +1,5 @@
 class TriageEligibilityForm < QuestionsForm
-  set_attributes_for :eligibility, :had_farm_income, :had_rental_income, :income_over_limit
+  set_attributes_for :triage, :had_farm_income, :had_rental_income, :income_over_limit
 
   def initialize(form_params = {})
     super(nil, form_params)

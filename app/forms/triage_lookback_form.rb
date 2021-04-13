@@ -1,5 +1,5 @@
 class TriageLookbackForm < QuestionsForm
-  set_attributes_for :triage_lookback, :had_income_decrease, :had_unemployment, :had_marketplace_insurance, :none
+  set_attributes_for :triage, :had_income_decrease, :had_unemployment, :had_marketplace_insurance, :none
   validate :at_least_one_selection
 
   def initialize(form_params = {})

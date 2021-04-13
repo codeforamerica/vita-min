@@ -1,5 +1,5 @@
 class TriageTaxNeedsForm < QuestionsForm
-  set_attributes_for :tax_needs, :file_this_year, :file_previous_years, :collect_stimulus
+  set_attributes_for :triage, :file_this_year, :file_previous_years, :collect_stimulus
   validate :at_least_one_selection
 
   def initialize(form_params = {})

@@ -3,7 +3,7 @@ class QuestionsForm < Form
 
   attr_accessor :intake
 
-  def initialize(intake, params = {})
+  def initialize(intake = nil, params = {})
     @intake = intake
     super(params)
   end

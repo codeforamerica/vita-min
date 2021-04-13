@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Questions::EligibilityController do
+RSpec.describe Questions::TriageEligibilityController do
   describe "#edit" do
     it "renders the corresponding template" do
       get :edit
@@ -13,12 +13,7 @@ RSpec.describe Questions::EligibilityController do
     let(:had_farm_income) { "no" }
     let(:had_rental_income) { "no" }
     let(:income_over_limit) { "no" }
-    let(:params) { { eligibility_form: { had_farm_income: had_farm_income, had_rental_income: had_rental_income, income_over_limit: income_over_limit } } }
-    let(:intake_from_session) { create :intake }
-
-    before do
-      session[:intake_id] = intake_from_session.id
-    end
+    let(:params) { { triage_eligibility_form: { had_farm_income: had_farm_income, had_rental_income: had_rental_income, income_over_limit: income_over_limit } } }
 
     RSpec.shared_examples "an offboarding flow" do
       describe "triage_eligibility checks" do

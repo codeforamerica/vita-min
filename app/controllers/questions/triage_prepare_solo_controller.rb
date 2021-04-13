@@ -1,20 +1,11 @@
 module Questions
-  class TriagePrepareSoloController < AnonymousIntakeController
+  class TriagePrepareSoloController < TriageController
     layout "yes_no_question"
 
-    skip_before_action :require_intake
+    private
 
     def illustration_path
       "person-check.svg"
-    end
-
-    def edit
-      @form = form_class.new
-    end
-
-    def update
-      @form = form_class.new(form_params)
-      redirect_to next_path
     end
 
     def next_path

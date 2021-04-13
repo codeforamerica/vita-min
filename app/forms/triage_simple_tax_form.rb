@@ -1,7 +1,7 @@
 class TriageSimpleTaxForm < QuestionsForm
-  set_attributes_for :simple_tax, :has_simple_taxes
+  set_attributes_for :triage, :has_simple_taxes
 
-  def initialize(form_params={})
+  def initialize(form_params = {})
     super(nil, form_params)
   end
 

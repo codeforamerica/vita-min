@@ -1,11 +1,6 @@
 module Questions
-  class TriageStimulusCheckController < AnonymousIntakeController
+  class TriageStimulusCheckController < TriageController
     layout "intake"
-    skip_before_action :require_intake
-
-    def update
-      redirect_to next_path
-    end
 
     private
 
@@ -15,10 +10,6 @@ module Questions
 
     def form_class
       NullForm
-    end
-
-    def prev_path
-      :back
     end
   end
 end
