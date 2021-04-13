@@ -957,12 +957,6 @@ Style/TrailingCommaInArrayLiteral:
 Style/TrailingCommaInHashLiteral:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/UnlessElse:
-  Exclude:
-    - 'app/controllers/questions/eligibility_controller.rb'
-
 # Offense count: 59
 # Cop supports --auto-correct.
 # Configuration parameters: WordRegex.

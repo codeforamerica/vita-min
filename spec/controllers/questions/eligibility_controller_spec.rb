@@ -2,12 +2,10 @@ require "rails_helper"
 
 RSpec.describe Questions::EligibilityController do
   describe "#edit" do
-    context "without an intake" do
-      it "redirects to the beginning of the intake flow" do
-        get :edit
+    it "renders the corresponding template" do
+      get :edit
 
-        expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
-      end
+      expect(response).to render_template :edit
     end
   end
 
@@ -22,27 +20,10 @@ RSpec.describe Questions::EligibilityController do
       session[:intake_id] = intake_from_session.id
     end
 
-    context "without an intake" do
-      before do
-        session[:intake_id] = nil
-      end
-
-      it "redirects to the beginning of the intake flow" do
-        post :update, params: params
-
-        expect(response).to redirect_to(question_path(:id => QuestionNavigation.first))
-      end
-    end
-
     RSpec.shared_examples "an offboarding flow" do
-      describe "eligibility checks" do
-        it "updates the intake from the session and offboards them" do
+      describe "triage_eligibility checks" do
+        it "offboards them to ineligible path" do
           post :update, params: params
-
-          intake_from_session.reload
-          expect(intake_from_session.had_farm_income).to eq had_farm_income
-          expect(intake_from_session.had_rental_income).to eq had_rental_income
-          expect(intake_from_session.income_over_limit).to eq income_over_limit
 
           expect(response).to redirect_to(maybe_ineligible_path)
         end
@@ -68,14 +49,10 @@ RSpec.describe Questions::EligibilityController do
     end
 
     context "when they do not check any of the boxes" do
-      it "updates the intake from the session and allows them to continue to sign in " do
+      it "redirects to the next path" do
         post :update, params: params
 
-        intake_from_session.reload
-        expect(intake_from_session.had_farm_income).to eq had_farm_income
-        expect(intake_from_session.had_rental_income).to eq had_rental_income
-        expect(intake_from_session.income_over_limit).to eq income_over_limit
-        expect(response).to redirect_to(overview_questions_path)
+        expect(response).to redirect_to(triage_backtaxes_questions_path)
       end
     end
   end

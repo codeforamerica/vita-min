@@ -91,10 +91,11 @@
 }
 
 .question__illustration {
-  margin: 0 0 2.5rem 0;
-  text-align: center;
+  margin: 0 0 2.5rem;
+  display: flex;
+  justify-content: center;
   @media screen and (min-width: $tablet-up) {
-    text-align: left;
+    justify-content: flex-start;
   }
 }
 

@@ -1,0 +1,23 @@
+<% content_for :page_title, t("views.questions.triage_tax_needs.title") %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <h1 class="form-question spacing-below-35">
+      <%= content_for(:page_title) %>
+    </h1>
+    <p class="text--help">
+      <%=t("views.questions.triage_tax_needs.help_text") %>
+    </p>
+    <div class="form-card__stacked-checkboxes spacing-above-0">
+      <%= f.cfa_checkbox(:file_this_year, t("views.questions.triage_tax_needs.file_this_year", current_year: TaxReturn.filing_years.first), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:file_previous_years, t("views.questions.triage_tax_needs.file_previous_years"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:collect_stimulus, t("views.questions.triage_tax_needs.collect_stimulus"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+    </div>
+
+    <%= error_message(@form, :at_least_one_selection) %>
+
+    <button class="button button--primary button--wide" type="submit">
+      <%=t("general.continue") %>
+    </button>
+  <% end %>
+<% end %>

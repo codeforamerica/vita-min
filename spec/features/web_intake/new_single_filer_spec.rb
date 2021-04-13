@@ -11,19 +11,35 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     visit "/en/questions/welcome"
 
     # Welcome
-    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
+    expect(page).to have_selector("h1", text: "Welcome to GetYourRefund")
     within ".main-header" do
       expect(page).to have_text("Sign in")
     end
-    click_on "File taxes with help"
+    click_on "Continue"
 
-    # File With Help
+    # Tax Needs
+    expect(page).to have_selector("h1", text: "What can we help you with?")
+    check "Collect my stimulus check"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "In order to collect your stimulus check, you are required to file your taxes.")
+    click_on "Yes! Help me file my taxes."
+
+    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify.")
+    check "None of the above"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
+    click_on "Continue"
+
     expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
     click_on "Continue"
 
     # Ask about backtaxes
-    expect(page).to have_selector("h1", text: "What years do you need to file for?")
-
+    expect(page).to have_selector("h1", text: "What years would you like to file for?")
     check "2020"
     check "2017"
     click_on "Continue"
@@ -31,19 +47,12 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
 
     expect(intake.client.tax_returns.pluck(:year).sort).to eq [2017, 2020]
 
-    #Non-production environment warning
+    # Non-production environment warning
     expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
     click_on "Continue to example"
 
     expect(page).to have_selector("h1", text: "Let's get started")
     expect(page).to have_text("We’ll start by asking about your situation in 2020.")
-    click_on "Continue"
-
-    # VITA eligibility checks
-    expect(page).to have_selector("h1", text: "Let’s check a few things.")
-    expect(intake.reload.current_step).to eq("/en/questions/eligibility")
-
-    check "None of the above"
     click_on "Continue"
 
     # Overview

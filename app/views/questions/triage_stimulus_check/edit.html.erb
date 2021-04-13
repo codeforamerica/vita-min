@@ -1,0 +1,27 @@
+<% content_for :form_question, t("views.questions.triage_stimulus_check.title") %>
+
+<% content_for :form_card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--yes-no" } do |f| %>
+    <h1 class="form-question">
+      <%= content_for :form_question %>
+    </h1>
+
+    <p><%= t("views.questions.triage_stimulus_check.help_text") %></p>
+
+    <p class="text--small">
+      <%= t("views.questions.triage_stimulus_check.get_your_money") %>
+    </p>
+
+    <ul class="checkmark-list purple spacing-below-60">
+      <% t("views.questions.triage_stimulus_check.perks").each do |perk| %>
+        <li>
+          <%= perk %>
+        </li>
+      <% end %>
+    </ul>
+    <button class="button button--primary button--wide" type="submit">
+       Yes! Help me file my taxes.
+    </button>
+    <%= link_to "Visit stimulus FAQ", stimulus_path, target: "_blank",  rel: "noopener", class: "button button--wide text--centered" %>
+  <% end %>
+<% end %>

@@ -1763,7 +1763,7 @@ en:
         file_through_my_free_taxes: "File through MyFreeTaxes"
       backtaxes:
         select_all_that_apply: Select all that apply.
-        title: What years do you need to file for?
+        title: What years would you like to file for?
       balance_payment:
         title: If you have a balance due, would you like to make a payment directly from your bank account?
       bank_details:
@@ -1872,14 +1872,6 @@ en:
         received_ssi: Supplemental Security Income (SSI)
         received_va: VA Compensation and Pension (C&P)
         title: Great! Let's help you collect your stimulus.
-      eligibility:
-        info: We have a few additional questions to determine if you qualify for our services.
-        situations:
-          had_farm_income: I earned money from owning a farm
-          had_rental_income: I earned money from a rental property
-          header: Please check any situation that applies to you.
-          income_over_limit: I earned more than $66,000 in %{year}
-        title: Let’s check a few things.
       email_address:
         email_address: E-mail address
         email_address_confirmation: Confirm e-mail address
@@ -2011,6 +2003,7 @@ en:
         help_text: Answer "Yes" if you own a home and pay a mortgage. You might find this listed on a 1098 form.
         title:
           one: In %{year}, did you pay any mortgage interest?
+          other: In %{year}, did you or your spouse pay any mortgage interest?
           other: In %{year}, did you or your spouse pay any mortgage interest?
       notification_preference:
         note_html: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply. Text HELP to 58750 for help. Text STOP to 58750 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a href="%{terms_url}">Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.
@@ -2181,6 +2174,49 @@ en:
         title:
           one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
+      triage_arp:
+        title: Your tax return may be delayed so that we can ensure you receive the highest refund!
+        help_text_html: >-
+          The
+          <a href="https://www.whitehouse.gov/american-rescue-plan/">American Rescue Plan</a>
+          may increase the amount of premium tax credits for which you and others in your
+          household are eligible, which may result in a higher refund. Your tax preparer will update you on the process.
+      triage_backtaxes:
+        title: Have you filed taxes for 2017, 2018, and 2019?
+        help_text: If you earned income and you have filed for all the above years, answer yes. Even if you used a different service to file for previous years.
+      triage_eligibility:
+        info: Let us know if any of the situations below apply to you.
+        situations:
+          had_farm_income: I earned money from owning a farm
+          had_rental_income: I earned money from a rental property
+          income_over_limit: I earned more than $66,000 in %{year}
+        title: Yes, our service is completely free. Let's make sure you qualify.
+      triage_lookback:
+        title: 2020 tax situations
+        help_text: Do any of the situations below apply to 2020?
+        had_income_decrease: My income decreased from 2019
+        had_unemployment: I received unemployment income
+        had_marketplace_insurance: I purchased health insurance through the marketplace
+      triage_prepare_solo:
+        title: Are you interested in preparing your own return?
+        help_text: Preparing your return is easy, especially if you have less than 3 jobs. We'll provide chat support as you go through our DIY option.
+      triage_simple_tax:
+        title: Do you have simple taxes?
+        help_text: "Answer yes if you have 1-3 jobs to report and no deductions. You might have these forms: W-2, 1099R, 1099SSA, 1099G"
+      triage_stimulus_check:
+        title: In order to collect your stimulus check, you are required to file your taxes.
+        help_text: Don't worry, we're here to support you throughout the process. We'll help you collect your stimulus payment, file your taxes, and make sure you receive the maximum refund owed to you!
+        get_your_money: Get all the cash support you're owed!
+        perks:
+          - Receive addition money through tax credits, if you qualify
+          - File for previous years and collect past refunds
+          - Access our free tax filing assistance that will answer all of your questions
+      triage_tax_needs:
+        title: What can we help you with?
+        help_text: "Select all the situations that apply to you:"
+        file_this_year: File my %{current_year} taxes
+        file_previous_years: File taxes for previous years
+        collect_stimulus: Collect my stimulus check
       welcome:
         diy:
           header: File taxes myself
@@ -2191,7 +2227,7 @@ en:
         question:
           header: Ask a question
           info: Get your tax related questions answered.
-        title: Welcome! How can we help you?
+        title: Welcome to GetYourRefund!
       widowed:
         title: As of December 31, %{year}, were you widowed?
       widowed_year:

@@ -5,54 +5,19 @@
     <div class="grid">
       <div class="grid__item width-three-fourths shift-one-eighth">
         <main role="main">
+          <div class="question__illustration">
+            <%= image_tag "questions/welcome.svg"%>
+          </div>
+
           <h1 class="form-question">
             <%= content_for(:page_title) %>
           </h1>
 
-          <%= link_to diy_file_yourself_path do %>
-            <div class="link-box">
-              <div class="link-box--content">
-                <div>
-                  <%= image_tag("start-filing-yourself.svg", alt: "") %>
-                </div>
-                <div>
-                  <h2 class="file-myself"><%=t("views.questions.welcome.diy.header") %></h2>
-                  <p><%=t("views.questions.welcome.diy.info") %></p>
-                </div>
-              </div>
-              <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
-            </div>
-          <% end %>
+          <p class="text--help">
+            <%= "To provide the best service for you, we'll start with a few questions." %>
+          </p>
 
-          <%= link_to file_with_help_questions_path do %>
-            <div class="link-box">
-              <div class="link-box--content">
-                <div>
-                  <%= image_tag("headset.svg", alt: "") %>
-                </div>
-                <div>
-                  <h2 class="file-with-help"><%=t("views.questions.welcome.intake.header") %></h2>
-                  <p><%=t("views.questions.welcome.intake.info") %></p>
-                </div>
-              </div>
-              <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
-            </div>
-          <% end %>
-
-          <%= link_to tax_questions_path do %>
-            <div class="link-box">
-              <div class="link-box--content">
-                <div>
-                  <%= image_tag("chat-question.svg", alt: "") %>
-                </div>
-                <div>
-                  <h2 class="ask-a-question"><%=t("views.questions.welcome.question.header") %></h2>
-                  <p><%=t("views.questions.welcome.question.info") %></p>
-                </div>
-              </div>
-              <%= image_tag("right-arrow.svg", alt: "", class: "arrow") %>
-            </div>
-          <% end %>
+          <%= link_to "Continue", next_path, class: "button button--primary button--wide text--centered" %>
         </main>
       </div>
     </div>
