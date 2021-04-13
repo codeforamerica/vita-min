@@ -299,10 +299,22 @@
     flex-shrink: 0;
   }
   .item {
-    margin-right: 60px;
+    margin-right: 6rem;
   }
   .item:last-of-type {
     margin-right: 0;
+  }
+
+  .item-15r {
+    margin-right: 1.5rem;
+  }
+
+  &.full-height, .full-height {
+    height: 100vh;
+  }
+
+  &.column-column {
+    flex-direction: column;
   }
 }
 

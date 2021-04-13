@@ -139,6 +139,9 @@ en:
         account_unlocked: "Unlocked %{name}'s account."
       urgent: "Urgent"
     documents:
+      confirm:
+        title: Confirm %{document_type}
+        text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?
       edit:
         title: Edit Document
       index:
@@ -826,7 +829,7 @@ en:
       basic: "BAS"
     hsa: "HSA"
     drop_off: Drop Off
-    select_files: Select files
+    select_file: Select file
     take_picture: Take picture
     certification: Certification
     my_profile: My profile

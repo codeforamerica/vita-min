@@ -1,0 +1,40 @@
+<% @title = t(".title") %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid-flex full-height">
+      <div class="item">
+        <h1><%= t("hub.documents.confirm.title", document_type: @document.document_type) %></h1>
+        <p>
+          <%= t("hub.documents.confirm.text",
+                document_type: @document.document_type,
+                client_name: @document.client.legal_name,
+                filing_year: @document.tax_return.year
+                )
+          %>
+        </p>
+        <div class="grid-flex">
+          <div class="item-15r">
+            <%= link_to hub_client_documents_path(client_id: @document.client.id), class: "button button--icon button--icon--centered", "data-track-click": "document-confirmed-yes" do %>
+              <%= image_tag("checkmark.svg", alt: "") %><%= t("general.affirmative") %>
+            <% end %>
+          </div>
+          <div class="item">
+            <%= form_with  %>
+            <%= link_to hub_client_document_path(id: @document.id, reupload: true), method: :delete, class: "button button--icon button--icon--centered", "data-track-click": "document-confirmed-no" do %>
+              <%= image_tag("crossmark.svg", alt: "") %><%=t("general.negative") %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+      <div class="item">
+        <% if @document.is_pdf? %>
+          <embed src="<%= transient_storage_url(@document.upload.blob) %>" width="800px" height="100%" type="application/pdf" />
+        <% else %>
+          <%= image_tag transient_storage_url(@document.upload.blob) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

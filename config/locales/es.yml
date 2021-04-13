@@ -153,6 +153,9 @@ es:
       display_name: Nombre Para Mostrar
       form:
         archived_label: "Archivar el documento"
+      confirm:
+        title: Confirmar %{document_type}
+        text: ¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?
     messages:
       index:
         email_form:
@@ -816,7 +819,7 @@ es:
       basic: "BAS"
     hsa: "HSA"
     drop_off: Entrega
-    select_files: Seleccionar archivos
+    select_file: Seleccionar archivo
     take_picture: Sacar foto
     certification: Certificación
     my_profile: Mi perfil

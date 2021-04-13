@@ -45,14 +45,13 @@ RSpec.feature "View and edit documents for a client" do
     end
 
     scenario "uploading a document to a client's documents page" do
+      original_document_count = client.documents.count
+
       visit hub_client_documents_path(client_id: client.id)
 
       click_on "Add document"
 
-      attach_file "document_upload", [
-        Rails.root.join("spec", "fixtures", "attachments", "test-pattern.png"),
-        Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf"),
-      ]
+      attach_file "document_upload", Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf")
 
       fill_in "Display name", with: "A new final document"
 
@@ -60,12 +59,30 @@ RSpec.feature "View and edit documents for a client" do
       select "2017", from: "Tax return"
 
       click_on "Save"
+      expect(client.documents.count).to eq original_document_count + 1
+
+      expect(page).to have_text("Confirm Final Tax Document")
+      click_on "No"
+
+      # deletes the original document and renders new
+      expect(client.documents.count).to eq original_document_count + 0
+
+      expect(page).to have_select("Document type", selected: "Final Tax Document")
+      expect(page).to have_select("Tax return", selected: "2017")
+      expect(page).to have_field("Display name", with: "A new final document")
+      attach_file "document_upload", Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf")
+
+      click_on "Save"
+
+      expect(page).to have_text("Confirm Final Tax Document")
+      click_on "Yes"
 
       within "#document-#{Document.last.id}" do
         expect(page).to have_content("2017")
         expect(page).to have_content("Final Tax Document")
         expect(page).to have_content("Org Lead")
       end
+      expect(client.documents.count).to eq original_document_count + 1
     end
   end
 end

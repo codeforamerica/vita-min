@@ -107,6 +107,10 @@ class Document < ApplicationRecord
     end
   end
 
+  def confirmation_needed?
+    document_type.in? [DocumentTypes::FinalTaxDocument.key, DocumentTypes::UnsignedForm8879.key]
+  end
+
   private
 
   def tax_return_belongs_to_client
