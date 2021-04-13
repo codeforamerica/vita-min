@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_12_195623) do
+ActiveRecord::Schema.define(version: 2021_04_13_203201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -68,6 +68,13 @@ ActiveRecord::Schema.define(version: 2021_04_12_195623) do
     t.integer "record_count"
     t.datetime "run_at"
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "bulk_client_organization_updates", force: :cascade do |t|
+    t.bigint "client_selection_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_selection_id"], name: "index_bulk_client_organization_updates_on_client_selection_id"
   end
 
   create_table "bulk_edits", force: :cascade do |t|
@@ -768,6 +775,7 @@ ActiveRecord::Schema.define(version: 2021_04_12_195623) do
 
   add_foreign_key "access_logs", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bulk_client_organization_updates", "client_selections"
   add_foreign_key "client_selection_clients", "client_selections"
   add_foreign_key "client_selection_clients", "clients"
   add_foreign_key "clients", "vita_partners"
