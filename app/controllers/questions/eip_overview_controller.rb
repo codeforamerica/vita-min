@@ -5,7 +5,7 @@ module Questions
     end
 
     def illustration_path
-      "eip-check.svg"
+      "hand-holding-check.svg"
     end
 
     def form_params

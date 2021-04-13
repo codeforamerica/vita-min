@@ -1,7 +1,7 @@
 module Questions
   class EipEligibilityController < QuestionsController
     def illustration_path
-      "eip-check.svg"
+      "hand-holding-check.svg"
     end
   end
 end
