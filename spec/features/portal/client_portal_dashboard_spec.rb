@@ -9,6 +9,7 @@ RSpec.feature "a client on their portal" do
     scenario "linking to next step" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Katie!"
+      expect(page).to have_text "Here’s what we still need from you:"
       expect(page).to have_link("Complete all tax questions", href: "/en/questions/asset-loss")
       expect(page).not_to have_link "Submit additional documents"
     end
@@ -22,6 +23,7 @@ RSpec.feature "a client on their portal" do
     scenario "linking to next step" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Randall!"
+      expect(page).to have_text "Here’s what we still need from you:"
       expect(page).to have_link("Submit remaining tax documents", href: "/en/documents/overview")
       expect(page).not_to have_link "Submit additional documents"
 
