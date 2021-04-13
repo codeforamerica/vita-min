@@ -12,6 +12,16 @@ RSpec.describe UserNotification do
           expect(user_notification.errors[:notifiable_type]).to be_present
         end
       end
+
+      context "with a class that is one of the allowed notifiable types" do
+        let(:notifiable) { create :note }
+        let(:user_notification) { build :user_notification, notifiable: notifiable }
+
+        it "is valid" do
+          expect(user_notification).to be_valid
+          expect(user_notification.errors[:notifiable_type]).to be_empty
+        end
+      end
     end
   end
 end
