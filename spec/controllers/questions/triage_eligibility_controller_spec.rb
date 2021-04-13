@@ -14,6 +14,9 @@ RSpec.describe Questions::TriageEligibilityController do
     let(:had_rental_income) { "no" }
     let(:income_over_limit) { "no" }
     let(:params) { { triage_eligibility_form: { had_farm_income: had_farm_income, had_rental_income: had_rental_income, income_over_limit: income_over_limit } } }
+    before do
+      allow(MixpanelService).to receive(:send_event)
+    end
 
     RSpec.shared_examples "an offboarding flow" do
       describe "triage_eligibility checks" do
@@ -48,6 +51,19 @@ RSpec.describe Questions::TriageEligibilityController do
         post :update, params: params
 
         expect(response).to redirect_to(triage_backtaxes_questions_path)
+        expect(MixpanelService).to have_received(:send_event).with(
+          hash_including({
+             data:
+             {
+              had_farm_income: "no",
+              had_rental_income: "no",
+              income_over_limit: "no"
+             },
+             subject: "triage",
+             event_name: "answered_question"
+             }
+          )
+        )
       end
     end
   end
