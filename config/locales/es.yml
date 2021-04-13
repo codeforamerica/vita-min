@@ -972,17 +972,18 @@ es:
         title: "Bienvenido de nuevo %{name}!"
         tax_returns:
           heading: Declaración de impuestos de %{year}
-          view_signed_8879: Ver o descargar formulario 8879 firmado
-          view_unsigned_8879: Ver o descargar formulario 8879
           submit_primary: Presentar la firma del contribuyente principal
           submit_spouse: Presentar la firma del cónyuge
           empty_state: Aún no hay documentos listos para revisar.
-          view_document: Ver o descargar el documento %{display_name}
-          view_final_tax_document: Ver o descargar el documento fiscal final de %{year}
           submit_additional_documents: Envíe los documentos fiscales restantes
           answer_questions: Complete todas las preguntas sobre impuestos
         submit_documents: Enviar documentos adicionales
         heres_what_we_need: "Esto es lo que todavía necesitamos de usted:"
+      document_link:
+        view_signed_8879: Ver o descargar formulario 8879 firmado
+        view_unsigned_8879: Ver o descargar formulario 8879
+        view_document: Ver o descargar el documento %{display_name}
+        view_final_tax_document: Ver o descargar el documento fiscal final de %{year}
     tax_returns:
       authorize_signature:
         efile_acceptance: Autorizo a GetYourRefund a ingresar o generar mi PIN como firma mía en mi declaración de impuestos del año %{year} que presentó electrónicamente.

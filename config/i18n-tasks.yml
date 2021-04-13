@@ -107,6 +107,7 @@ ignore_unused:
   - 'hub.tax_returns.stage.*'
   - 'hub.tax_returns.status.*'
   - 'hub.status_macros.*'
+  - 'portal.portal.document_link.*'
 # - 'activerecord.attributes.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

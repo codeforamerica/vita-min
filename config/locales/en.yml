@@ -979,16 +979,17 @@ en:
         submit_documents: Submit additional documents
         tax_returns:
           heading: "%{year} tax return"
-          view_signed_8879: View or download signed form 8879
-          view_unsigned_8879: View or download form 8879
           submit_primary: Submit primary taxpayer signature
           submit_spouse:  Submit spouse signature
           empty_state: No documents ready to review yet.
-          view_document: "View or download %{display_name}"
-          view_final_tax_document: "View or download final %{year} tax document"
           submit_additional_documents: Submit remaining tax documents
           answer_questions: Complete all tax questions
         heres_what_we_need: "Here’s what we still need from you:"
+      document_link:
+        view_signed_8879: View or download signed form 8879
+        view_unsigned_8879: View or download form 8879
+        view_document: "View or download %{display_name}"
+        view_final_tax_document: "View or download final %{year} tax document"
     upload_documents:
       success: Successfully uploaded document!
       error: There was an error uploading your document. Try again.
