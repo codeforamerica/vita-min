@@ -16,11 +16,10 @@
 
         <div class="text--semibold spacing-below-35">
           <p><%= t(".right_option.header") %></p>
-          <ul class="checkmark-list">
+          <ul class="checkmark-list purple">
             <% t(".right_option.description").each do |item| %>
             <li>
-              <%= render "shared/svg/checkmark", fill_class: "purple" %>
-              <span><%= item %> </span>
+              <%= item %>
             </li>
             <% end %>
           </ul>
