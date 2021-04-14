@@ -32,8 +32,7 @@ RSpec.feature "Logging in" do
           perform_enqueued_jobs
 
           mail = ActionMailer::Base.deliveries.last
-          text_body = mail.body.parts[0].decoded
-          expect(text_body).to include("Your 6-digit GetYourRefund verification code is: 000004. This code will expire after two days.")
+          expect(mail.encoded).to include("Your 6-digit GetYourRefund verification code is: 000004. This code will expire after two days.")
 
           fill_in "Enter 6 digit code", with: "000004"
           click_on "Verify"
