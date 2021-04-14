@@ -2196,7 +2196,7 @@ en:
         title: Your tax return may be delayed so that we can ensure you receive the highest refund!
         help_text_html: >-
           The
-          <a href="https://www.whitehouse.gov/american-rescue-plan/">American Rescue Plan</a>
+          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="nofollow">American Rescue Plan</a>
           may increase the amount of premium tax credits for which you and others in your
           household are eligible, which may result in a higher refund. Your tax preparer will update you on the process.
       triage_backtaxes:
@@ -2208,7 +2208,7 @@ en:
           had_farm_income: I earned money from owning a farm
           had_rental_income: I earned money from a rental property
           income_over_limit: I earned more than $66,000 in %{year}
-        title: Yes, our service is completely free. Let's make sure you qualify.
+        title: Yes, our service is completely free. Let's make sure you qualify!
       triage_lookback:
         title: 2020 tax situations
         help_text: Do any of the situations below apply to 2020?

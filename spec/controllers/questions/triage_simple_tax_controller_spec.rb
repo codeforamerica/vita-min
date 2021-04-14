@@ -19,7 +19,7 @@ RSpec.describe Questions::TriageSimpleTaxController do
     context "when yes" do
       it "redirects to the prepare yourself path" do
         put :update, params: params
-        expect(response).to redirect_to triage_prepare_solo_questions_path
+        expect(response).to redirect_to diy_file_yourself_path
         expect(MixpanelService).to have_received(:send_event).with(
           hash_including({
                              data:
@@ -37,7 +37,7 @@ RSpec.describe Questions::TriageSimpleTaxController do
       let(:has_simple_taxes) { "no" }
       it "redirects to the next triage question" do
         put :update, params: params
-        expect(response).to redirect_to triage_arp_questions_path
+        expect(response).to redirect_to triage_prepare_solo_questions_path
         expect(MixpanelService).to have_received(:send_event).with(
           hash_including({
                              data:

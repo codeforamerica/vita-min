@@ -25,7 +25,7 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     expect(page).to have_selector("h1", text: "In order to collect your stimulus check, you are required to file your taxes.")
     click_on "Yes! Help me file my taxes."
 
-    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify.")
+    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")
     check "None of the above"
     click_on "Continue"
 

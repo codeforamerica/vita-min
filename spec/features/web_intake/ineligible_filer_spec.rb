@@ -13,7 +13,7 @@ RSpec.feature "client is not eligible for VITA services" do
     check "File my 2020 taxes"
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify.")
+    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")
 
     expect(page).to have_selector("p", text: "Let us know if any of the situations below apply to you.")
     check "I earned money from a rental property"

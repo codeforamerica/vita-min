@@ -18,7 +18,7 @@ RSpec.feature "Web Intake Joint Filers" do
     check "Collect my stimulus check"
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify.")
+    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")
     # VITA triage_eligibility checks
     expect(page).to have_selector("p", text: "Let us know if any of the situations below apply to you.")
     check "I earned money from a rental property"
@@ -27,7 +27,7 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "We’re unsure if you qualify for our services")
     click_on "Go back"
 
-    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify.")
+    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify!")
     check "None of the above"
     click_on "Continue"
 
@@ -68,17 +68,17 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Do you have simple taxes?")
     click_on "No"
 
-    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
+    expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
     click_on "Go back"
 
     expect(page).to have_selector("h1", text: "Do you have simple taxes?")
     click_on "Yes"
 
-    expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
-    click_on "Yes"
-
     expect(page).to have_selector("h1", text: "File your taxes yourself!")
     click_on "Go back"
+
+    expect(page).to have_selector("h1", text: "Do you have simple taxes?")
+    click_on "No"
 
     expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
     click_on "No"

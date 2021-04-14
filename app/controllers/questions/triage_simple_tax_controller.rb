@@ -7,7 +7,7 @@ module Questions
     end
 
     def next_path
-      @form.has_simple_taxes? ? super : triage_arp_questions_path
+      @form.has_simple_taxes? ? diy_file_yourself_path : super
     end
 
     def method_name

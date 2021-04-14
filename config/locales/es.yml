@@ -2148,7 +2148,7 @@ es:
         title: ¡Su declaración de impuestos  podría retrasarse para que podamos asegurar que usted consiga el mejor reembolso!
         help_text_html: >-
           El
-          <a href="https://www.whitehouse.gov/american-rescue-plan/">Plan de Rescate Americano</a>
+          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="nofollow">Plan de Rescate Americano</a>
           puede aumentar los créditos fiscales para los cuales usted y los miembros de su hogar pueden ser elegibles.
           Esto podría resultar en un reembolso más alto. Su preparador de impuestos le mantendrá actualizado sobre el proceso.
       triage_backtaxes:
