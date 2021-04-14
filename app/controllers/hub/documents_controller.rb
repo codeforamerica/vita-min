@@ -32,7 +32,7 @@ module Hub
     def edit; end
 
     def create
-      @document = @client.documents.new(document_params)
+      @document = @client.documents.new(document_params.merge({ uploaded_by: current_user }))
       render :new and return unless @document.save
 
       next_path = @document.confirmation_needed? ? confirm_hub_client_document_path(id: @document) : hub_client_documents_path(client_id: @client)
@@ -81,9 +81,7 @@ module Hub
     end
 
     def document_params
-      params.require(:document)
-          .permit(:document_type, :display_name, :tax_return_id, :archived, :upload)
-          .merge({ uploaded_by: current_user })
+      params.require(:document).permit(:document_type, :display_name, :tax_return_id, :archived, :upload)
     end
 
     def sort_column

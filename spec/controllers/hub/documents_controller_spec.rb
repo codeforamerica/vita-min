@@ -212,7 +212,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     let(:new_display_name) { "New Display Name" }
     let(:new_tax_return) { create :tax_return, client: client }
     let(:new_doc_type) { DocumentTypes::Employment }
-    let(:document) { create :document, client: client }
+    let(:document) { create :document, client: client, uploaded_by: client }
     let(:params) do
       {
         client_id: client.id,
@@ -240,6 +240,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           expect(document.display_name).to eq new_display_name
           expect(document.document_type).to eq new_doc_type.key
           expect(document.tax_return_id).to eq new_tax_return.id
+          expect(document.uploaded_by).to eq client
           expect(document.archived).to eq true
         end
       end
