@@ -14,7 +14,7 @@ RSpec.describe "create VITA organization hierarchy" do
 
       expect(page).to have_selector("h1", text: "Organizations")
       expect(page).to have_selector("h2", text: "Koala Koalition")
-      expect(page).to have_selector("h3", text: "Orangutan Organization")
+      expect(page).to have_selector("li", text: "Orangutan Organization")
 
       # create a new organization
       click_on "New Organization"
@@ -24,6 +24,8 @@ RSpec.describe "create VITA organization hierarchy" do
 
       # update the organization
       click_on "Origami Organization"
+      expect(page).to have_text "0 active clients"
+
       expect(page).to have_text("No sites")
 
       fill_in "Name", with: "Oregano Org"

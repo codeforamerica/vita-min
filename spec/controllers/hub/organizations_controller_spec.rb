@@ -83,7 +83,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
 
   describe "#index" do
-    let(:coalition) { create :coalition}
+    let(:coalition) { create :coalition }
     let!(:external_coalition) { create :coalition }
     let!(:external_organization) { create :organization, coalition: external_coalition }
     let!(:organization) { create :organization, coalition: coalition }

@@ -7,13 +7,15 @@ beforeEach(() => {
     <table>
         <thead>
             <th id="organization-name"></th>
+            <th id="capacity-percentage"></th>
             <th id="needs-response-breaches"></th>
             <th id="profile-interaction-breaches"></th>
             <th id="outgoing-communication-breaches"></th>
         </thead>
         <tbody class="org-metrics" data-js-vita-partner-name="Apple Org">
-            <tr class="org">
+            <tr class="org" data-js-capacity="10">
                 <td class="response-needed-breach"></td>
+                <td class="capacity capacity-percentage" data-js-count="5">5/10</td>
                 <td class="communication-breach"></td>
                 <td class="interaction-breach"></td>
             </tr>
@@ -151,6 +153,13 @@ test('determines org-level counts', () => {
     expect(responseBreach.attr('data-js-count')).toEqual("3");
     expect(communicationBreach.attr('data-js-count')).toEqual("7");
     expect(interactionBreach.attr('data-js-count')).toEqual("5");
+});
+
+test("determining capacity percentage", () => {
+    const capacityPercentage = $('.org-metrics[data-js-vita-partner-name="Apple Org"]').find('tr.org td.capacity-percentage').first();
+    expect(capacityPercentage.text()).toEqual("5/10");
+    initMetricsTableSortAndFilter();
+    expect(capacityPercentage.text()).toEqual("5/10 (50%)");
 });
 
 test('adds breach classes to each row', () => {

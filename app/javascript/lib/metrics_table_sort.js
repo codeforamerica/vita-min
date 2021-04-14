@@ -2,12 +2,17 @@ import { initSortableColumn } from './table_sort';
 
 // Sum site-level counts into org-level values for org row.
 function setupOrgLevelCounts() {
+    let totalCapacityCount = 0;
+    let totalActiveCount = 0;
     $(".org-metrics").each(function() {
         let denominator = 0;
         let responseCount = 0;
         let communicationCount = 0;
         let interactionCount = 0;
-
+        const capacityCount = parseInt($(this).find('tr.org').first().attr('data-js-capacity'));
+        const activeClientCount = parseInt($(this).find('tr.org td.capacity-percentage').first().attr('data-js-count'));
+        totalCapacityCount += capacityCount;
+        totalActiveCount += activeClientCount;
         if ($(this).find('tr.site').length == 0) {
             denominator = parseInt($(this).find('tr.org').first().attr('data-js-count'));
             responseCount = parseInt($(this).find('tr.org td.response-needed-breach').first().attr('data-js-count'));
@@ -38,6 +43,7 @@ function setupOrgLevelCounts() {
         updatePercentages(this, '.response-needed-breach', denominator);
         updatePercentages(this, '.communication-breach', denominator);
         updatePercentages(this, '.interaction-breach', denominator);
+        updatePercentages(this, '.capacity', capacityCount);
 
         // // Loop through all sites to set breach percentages
         $(this).find('tr.site').each(function() {
@@ -51,6 +57,8 @@ function setupOrgLevelCounts() {
     updatePercentages('.metrics-totals', '.response-needed-breach', totalSLATracked);
     updatePercentages('.metrics-totals', '.communication-breach', totalSLATracked);
     updatePercentages('.metrics-totals', '.interaction-breach', totalSLATracked);
+    $(".metrics-totals").find(".capacity").attr('data-js-count', totalActiveCount);
+    updatePercentages('.metrics-totals', '.capacity', totalCapacityCount)
 }
 
 function updatePercentages(sectionSelector, breachTypeSelector, denominator) {
@@ -61,8 +69,10 @@ function updatePercentages(sectionSelector, breachTypeSelector, denominator) {
 }
 
 function determineBreachPercentages(breachCount, totalCount) {
-    let percentage = isNaN(breachCount/totalCount) ? 0 : (breachCount/totalCount * 100).toFixed(2).replace(/[.,]00$/, "");
-    let text = `${breachCount}/${totalCount} (${percentage}%)`;
+    let value = breachCount/totalCount;
+    let percentage = isNaN(value) ? 0 : (breachCount/totalCount * 100).toFixed(2).replace(/[.,]00$/, "");
+    percentage = !isFinite(value) ? "-1" : percentage;
+    let text = isFinite(value) ? `${breachCount}/${totalCount} (${percentage}%)` : `${breachCount}/${totalCount}`;
     return [percentage, text];
 }
 
@@ -178,6 +188,11 @@ export function initMetricsTableSortAndFilter() {
 
     initSortableColumn("tbody.org-metrics", "th#profile-interaction-percentage", function (row) {
         const calc = parseInt($(row).find('.interaction-breach-percentage').attr('data-js-percentage'));
+        return isNaN(calc) ? 0 : calc;
+    });
+
+    initSortableColumn("tbody.org-metrics", "th#capacity-percentage", function (row) {
+        const calc = parseInt($(row).find('.capacity-percentage').attr('data-js-percentage'));
         return isNaN(calc) ? 0 : calc;
     });
 }
