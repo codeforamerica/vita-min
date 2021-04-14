@@ -1,5 +1,14 @@
+<% vita_partner = vita_partner || nil %>
+
 <tr class="index-table__row <%= type %>" data-js-count="<%= @report.active_sla_clients[id] %>">
   <td class="index-table__cell"><%= name %></td>
+  <% if vita_partner.present? %>
+    <td class="index-table__cell capacity-percentage" data-js-capacity="<%= vita_partner.organization_capacity&.capacity_limit || 0%>" data-js-count="<%= vita_partner.organization_capacity&.active_client_count || 0 %>">
+      <%= vita_partner.organization_capacity.active_client_count || "-" %>/<%= vita_partner.organization_capacity.capacity_limit || "-" %>
+    </td>
+  <% else %>
+    <td class="index-table__cell capacity-percentage" data-js-capacity="0" data-js-count="0"></td>
+  <% end %>
   <td class="index-table__cell response-needed-breach"  data-js-count=<%= @report.response_needed_breaches[id] %>>
     <%= @report.response_needed_breaches[id] %>
   </td>

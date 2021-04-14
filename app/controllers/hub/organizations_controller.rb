@@ -27,8 +27,9 @@ module Hub
 
     def index
       @coalitions = Coalition.accessible_by(current_ability).includes(:organizations)
-      @organizations = @vita_partners.organizations
-      @independent_organizations = @vita_partners.organizations.where(coalition: nil)
+      @vita_partners = @vita_partners.organizations.includes(:organization_capacity)
+      @organizations = @vita_partners
+      @independent_organizations = @vita_partners.organizations.includes(:organization_capacity).where(coalition: nil)
     end
 
     def edit

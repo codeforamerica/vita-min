@@ -381,6 +381,10 @@ es:
         site_count:
           one: "%{count} sitio"
           other: "%{count} sitios"
+      form:
+        allows_greeters: ""
+        active_clients: ""
+        excludes: ""
     sites:
       new:
         title: "Agregar sitio"

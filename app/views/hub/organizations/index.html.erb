@@ -9,38 +9,53 @@
       <% end %>
     </div>
 
+    <div class="grid">
+      <div class="grid__item width-one-half">
+        <% if @coalitions.count > 0 %>
+          <p><%= t(".organizations_by_coalition") %></p>
 
-    <% if @coalitions.count > 0 %>
-      <p><%= t(".organizations_by_coalition") %></p>
+          <% @coalitions.each do |coalition| %>
+            <div class="grid-flex space-between center-aligned spacing-above-10">
+              <h2 class="spacing-below-0"><%= coalition.name %></h2>
+              <div class="help-text">Capacity</div>
+            </div>
 
-      <% @coalitions.each do |coalition| %>
-
-        <h2><%= coalition.name %></h2>
-
-        <% if coalition.organizations.present? %>
-          <% coalition.organizations.each do |organization| %>
-            <%= render "hub/organizations/listing", organization: organization %>
+            <div class="organization-list spacing-below-25">
+              <ul>
+                <% if coalition.organizations.present? %>
+                  <% coalition.organizations.each do |organization| %>
+                    <%= render "hub/organizations/listing", organization: organization %>
+                  <% end %>
+                <% else %>
+                  <%= t('.no_organizations') %>
+                <% end %>
+              </ul>
+            </div>
           <% end %>
         <% else %>
-          <%= t('.no_organizations') %>
+          <% if @organizations.present? %>
+            <ul>
+              <% @organizations.each do |organization| %>
+                <%= render "hub/organizations/listing", organization: organization %>
+              <% end %>
+            </ul>
+          <% else %>
+            <%= t('.no_organizations') %>
+          <% end %>
         <% end %>
 
-      <% end %>
-    <% else %>
-      <% if @organizations.present? %>
-        <% @organizations.each do |organization| %>
-          <%= render "hub/organizations/listing", organization: organization %>
+        <% if @independent_organizations.present? %>
+          <h2><%= t(".independent_organizations") %></h2>
+          <div class="organization-list">
+            <ul>
+              <% @independent_organizations.each do |organization| %>
+                <%= render "hub/organizations/listing", organization: organization %>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      <% else %>
-        <%= t('.no_organizations') %>
-      <% end %>
-    <% end %>
+      </div>
+    </div>
 
-    <% if @independent_organizations.present? %>
-      <h2><%= t(".independent_organizations") %></h2>
-      <% @independent_organizations.each do |organization| %>
-        <%= render "hub/organizations/listing", organization: organization %>
-      <% end %>
-    <% end %>
   </div>
 <% end %>

@@ -392,6 +392,10 @@ en:
         independent_organizations: "Independent Organizations"
         no_organizations: "No organizations"
         organizations_by_coalition: "Organizations grouped by coalition:"
+      form:
+        allows_greeters: "Allows Greeters"
+        active_clients: "active clients"
+        excludes: "excludes statuses: Accepted, Not filing, On hold"
     sites:
       new:
         title: "Add site"
