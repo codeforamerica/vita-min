@@ -58,9 +58,10 @@
   <% end %>
 
   <div class="spacing-above-60">
+    <%= link_to t(".send_message"), new_portal_message_path, class: "button button--wide button--primary" %>
+
     <% if @submit_documents %>
       <%= link_to t(".submit_documents"), portal_upload_documents_path, class: "button button--wide" %>
     <% end %>
-    <%= link_to t(".send_message"), new_portal_message_path, class: "button button--wide button--primary" %>
   </div>
 <% end %>
