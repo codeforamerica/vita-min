@@ -159,8 +159,8 @@ es:
     messages:
       index:
         email_form:
-          label: Send an email
-          submit: Send
+          label: Enviar un correo electrónico
+          submit: Enviar
         text_message_form:
           label: Enviar un mensaje de texto
           submit: Enviar
@@ -1843,14 +1843,6 @@ es:
         received_ssi: Seguridad de Ingreso suplementario (SSI)
         received_va: Beneficios de Asuntos de Veteranos (C&P)
         title: "¡Excelente! Nos vamos a trabajar juntos para asugara que usted puede recibir tu pago de estimulo."
-      eligibility:
-        info: Tenemos algunas preguntas adicionales para determinar si califica para nuestros servicios.
-        situations:
-          had_farm_income: Gané dinero por tener una granja
-          had_rental_income: Gané dinero de una propiedad alquilada
-          header: Por favor marque cualquier situación que se aplique a usted.
-          income_over_limit: Gané más de $ 66,000 en %{year}
-        title: Veamos algunas cosas.
       email_address:
         email_address: Dirección de correo electrónico
         email_address_confirmation: Confirmar el correo
@@ -2152,17 +2144,54 @@ es:
         title:
           one: "¿Ha sido rechazado en el año anterior el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos, el Crédito por Oportunidad Estadounidense o el estado civil de Jefe de Familia?"
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
+      triage_arp:
+        title: ¡Su declaración de impuestos  podría retrasarse para que podamos asegurar que usted consiga el mejor reembolso!
+        help_text_html: >-
+          El
+          <a href="https://www.whitehouse.gov/american-rescue-plan/">Plan de Rescate Americano</a>
+          puede aumentar los créditos fiscales para los cuales usted y los miembros de su hogar pueden ser elegibles.
+          Esto podría resultar en un reembolso más alto. Su preparador de impuestos le mantendrá actualizado sobre el proceso.
+      triage_backtaxes:
+        title: "¿Ha declarado impuestos para los años 2017, 2018, y 2019?"
+        help_text: Si ganó ingreso y ha presentado para todos los años anteriores, conteste sí. Incluso si usó un servicio diferente para declarar en los años anteriores.
+      triage_eligibility:
+        info: Díganos si cualquiera de las siguientes situaciones aplican a usted.
+        situations:
+          had_farm_income: Gané dinero por tener una granja
+          had_rental_income: Gané dinero de una propiedad alquilada
+          income_over_limit: Gané más de $ 66,000 en %{year}
+        title: Sí, nuestro servicio es completamente gratis. ¡Nos aseguraremos de que usted califica!
+      triage_lookback:
+        title: ¿Se aplican algunas de las situaciones que siguen para 2020?
+        help_text: ¿Se aplican algunas de las situaciones que siguen para 2020?
+        had_income_decrease: Mi ingreso disminuyó desde 2019
+        had_unemployment: Recibí beneficios de desempleo
+        had_marketplace_insurance: Compré seguros médicos del mercado de seguros médicos
+      triage_prepare_solo:
+        title: ¿Le interesa preparar su propia declaración?
+        help_text: Es simple para preparar su declaración, especialmente si tiene menos de 3 empleos. Proveeremos chats de asistencia mientras usted sigue con nuestra opción de auto-servicio.
+      triage_simple_tax:
+        title: ¿Tiene impuestos simples?
+        help_text: "Conteste sí, si tiene 1-3 empleos para declarar y no tiene ninguna deducción. Podría tener estos formularios: W-2, 1099R, 1099SSA, 1099G."
+      triage_stimulus_check:
+        title: Para cobrar su cheque de estímulo económico, se requiere que presente los impuestos.
+        help_text: "¡No se preocupe! Estamos aquí para ayudarle durante todo el proceso. Le ayudaremos a cobrar su pago de estímulo, declarar sus impuestos, y asegurar que reciba el máximo reembolso que se le debe."
+        get_your_money: "¡Consiga todo el apoyo monetario que se le debe!"
+        perks:
+          - Reciba dinero adicional por medio de créditos fiscales, si usted califica
+          - Declare impuestos para años anteriores y reciba los reembolsos pasados
+          - Tenga acceso a nuestro servicio gratuito de asistencia de declaración de impuestos que contestará todas sus preguntas.
+        help_me: "¡Sí! Ayúdame a presentar los impuestos."
+        faq: Visitar la sección de Preguntas Frecuentes sobre el estímulo económico
+      triage_tax_needs:
+        title: "¿En qué podemos ayudarle?"
+        help_text: "Seleccione todas las situaciones que se aplican a usted:"
+        file_this_year: Declarar los impuestos para %{current_year}
+        file_previous_years: Declarar los impuestos para años anteriores
+        collect_stimulus: Cobrar mi cheque de estímulo económico
       welcome:
-        diy:
-          header: Declarar impuestos mi mismo
-          info: Declare rápidamente con nuestra herramienta DIY.
-        intake:
-          header: Declarar impuestos con ayuda
-          info: Revise y declare con la ayuda de un experto de impuestos.
-        question:
-          header: Hacer una pregunta
-          info: Obtenga respuestas a sus preguntas de impuestos.
-        title: "¡Bienvenidos! ¿Cómo podemos ayudarle?"
+        help_text: Para proporcionar el mejor servicio, empecemos con algunas preguntas.
+        title: "¡Bienvenidos a GetYourRefund!"
       widowed:
         title: Al 31 de diciembre, %{year}, ¿eras viudo/a?
       widowed_year:

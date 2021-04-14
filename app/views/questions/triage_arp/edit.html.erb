@@ -1,0 +1,17 @@
+<% content_for :form_question, t("views.questions.triage_arp.title") %>
+<% content_for :form_help_text, t("views.questions.triage_arp.help_text_html") %>
+
+<% content_for :form_card do %>
+  <h1 class="form-question">
+    <%= content_for :form_question %>
+  </h1>
+
+  <p class="text--help">
+    <%= content_for :form_help_text %>
+  </p>
+
+  <%= link_to t("general.continue"),
+              next_path,
+              class: "button button--primary button--wide text--centered spacing-above-35"
+  %>
+<% end %>

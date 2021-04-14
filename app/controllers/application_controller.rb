@@ -126,14 +126,14 @@ class ApplicationController < ActionController::Base
     )
   end
 
-  def send_mixpanel_event(event_name:, data: {})
+  def send_mixpanel_event(event_name:, data: {}, subject: nil)
     return if user_agent.bot?
 
     MixpanelService.send_event(
       event_id: visitor_id,
       event_name: event_name,
       data: data,
-      subject: visitor_record,
+      subject: subject || visitor_record,
       request: request,
       source: self,
       path_exclusions: all_identifiers

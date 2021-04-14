@@ -1,16 +1,18 @@
-<% @main_heading = t(".title") %>
-<% content_for :page_title, @main_heading %>
+<% content_for :page_title, t(".title") %>
 
-<section class="slab slab--white">
+<section class="slab slab--white question-layout">
   <div class="grid">
-    <div class="grid__item width-three-fourths shift-one-eighth">
+    <div class="grid__item question-wrapper">
       <main role="main">
+        <div class="back grid">
+          <%= link_to t("general.back"), :back %>
+        </div>
         <div class="question__illustration spacing-above-0">
-          <%= image_tag("diy/file-yourself.svg", alt: "") %>
+          <%= image_tag("questions/person-check.svg", alt: "") %>
         </div>
 
         <h1 class="form-question">
-          <%= @main_heading %>
+          <%= content_for :page_title %>
         </h1>
         <p><%=t(".info") %></p>
 
@@ -25,9 +27,9 @@
           </ul>
         </div>
 
+        <%= link_to t("general.continue"), diy_email_path, class: "button button--primary text--centered button--wide spacing-above-60" %>
         <%= link_to t(".assistance"), file_with_help_questions_path %>
 
-        <%= link_to t("general.continue"), diy_email_path, class: "button button--primary text--centered button--wide spacing-above-60" %>
       </main>
     </div>
   </div>

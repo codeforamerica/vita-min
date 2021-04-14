@@ -18,16 +18,12 @@ feature "Intake Routing Spec" do
 
     expect(page).to have_text "Free tax filing, made simple."
 
-    within ".slab--hero" do
-      click_on "Get started"
-    end
-
-    click_on "File taxes with help"
+    visit "questions/file-with-help"
 
     expect(page).to have_text "File with the help of a tax expert!"
     click_on "Continue"
 
-    expect(page).to have_text "What years do you need to file for?"
+    expect(page).to have_text "What years would you like to file for?"
     check "2020"
     click_on "Continue"
 
@@ -36,10 +32,6 @@ feature "Intake Routing Spec" do
     click_on "Continue to example"
 
     expect(page).to have_text "Let's get started"
-    click_on "Continue"
-
-    expect(page).to have_text "Let’s check a few things"
-    check "None of the above"
     click_on "Continue"
 
     expect(page).to have_text "Just a few simple steps to file!"
@@ -54,13 +46,12 @@ feature "Intake Routing Spec" do
   end
 
   scenario "routing by zip code" do
-    visit "/questions/welcome"
-    click_on "File taxes with help"
+    visit "/questions/file-with-help"
 
     expect(page).to have_text "File with the help of a tax expert!"
     click_on "Continue"
 
-    expect(page).to have_text "What years do you need to file for?"
+    expect(page).to have_text "What years would you like to file for?"
     check "2020"
     click_on "Continue"
 
@@ -69,10 +60,6 @@ feature "Intake Routing Spec" do
     click_on "Continue to example"
 
     expect(page).to have_text "Let's get started"
-    click_on "Continue"
-
-    expect(page).to have_text "Let’s check a few things"
-    check "None of the above"
     click_on "Continue"
 
     expect(page).to have_text "Just a few simple steps to file!"
@@ -87,13 +74,12 @@ feature "Intake Routing Spec" do
   end
 
   scenario "routing by state" do
-    visit "/questions/welcome"
-    click_on "File taxes with help"
+    visit "/questions/file-with-help"
 
     expect(page).to have_text "File with the help of a tax expert!"
     click_on "Continue"
 
-    expect(page).to have_text "What years do you need to file for?"
+    expect(page).to have_text "What years would you like to file for?"
     check "2020"
     click_on "Continue"
 
@@ -102,10 +88,6 @@ feature "Intake Routing Spec" do
     click_on "Continue to example"
 
     expect(page).to have_text "Let's get started"
-    click_on "Continue"
-
-    expect(page).to have_text "Let’s check a few things"
-    check "None of the above"
     click_on "Continue"
 
     expect(page).to have_text "Just a few simple steps to file!"

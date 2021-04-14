@@ -10,17 +10,13 @@ RSpec.feature "Web Intake Filer Tries Multiple Intake Paths" do
 
     # Intake with eip_only: true has been created
 
-    # Skip to welcome page with options (DIY, full service, etc.)
-    visit "/questions/welcome"
-    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
-    click_on "File taxes with help"
-
+    # Skip to file-with-help
+    visit "/questions/file-with-help"
     expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
     click_on "Continue"
 
     # Doesn't get stuck trying to do full service flow
-    expect(page).to have_selector("h1", text: "What years do you need to file for?")
-
+    expect(page).to have_selector("h1", text: "What years would you like to file for?")
     check "2017"
     check "2019"
     click_on "Continue"

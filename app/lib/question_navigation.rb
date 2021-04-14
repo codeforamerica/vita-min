@@ -2,17 +2,21 @@ class QuestionNavigation
   include ControllerNavigation
 
   FLOW = [
-      # Triage
       Questions::WelcomeController,
+      Questions::TriageTaxNeedsController,
+      Questions::TriageStimulusCheckController,
+      Questions::TriageEligibilityController, # VITA triage_eligibility checks\
+      Questions::TriageBacktaxesController,
+      Questions::TriageLookbackController,
+      Questions::TriageSimpleTaxController,
+      Questions::TriagePrepareSoloController,
+      Questions::TriageArpController,
+
+      ## Main flow
       Questions::FileWithHelpController,
-      Questions::EipOnlyController,
-      # FilingMightHelpController redirects to BackTaxesController to start a full intake from stimulus triage
-      Questions::BacktaxesController, # create Intake record
+      Questions::BacktaxesController, # creates Intake record
       Questions::EnvironmentWarningController,
       Questions::StartWithCurrentYearController,
-
-      # VITA eligibility checks
-      Questions::EligibilityController,
 
       # Overview
       Questions::OverviewController,
@@ -28,9 +32,9 @@ class QuestionNavigation
 
       # Consent
       Questions::ConsentController, # Authenticates the client
-      # Advances statuses to "In Progress"
-      # generate a 14446 signed by the primary
-      # generate a "Preliminary" 13614-C signed by the primary
+                                    # Advances statuses to "In Progress"
+                                    # generate a 14446 signed by the primary
+                                    # generate a "Preliminary" 13614-C signed by the primary
       Questions::OptionalConsentController, # This and all later controllers require a client to be signed in.
 
       # Primary filer personal information
@@ -61,7 +65,7 @@ class QuestionNavigation
 
       # Spouse consent
       Questions::SpouseConsentController, # generate and replace the 14446 signed by the primary
-      # generate and replace "Preliminary" 13614-C signed by the primary and spouse
+                                          # generate and replace "Preliminary" 13614-C signed by the primary and spouse
 
       # Spouse personal information
       Questions::SpouseLifeSituationsController,
@@ -136,7 +140,7 @@ class QuestionNavigation
 
       # Additional Information
       Questions::AdditionalInfoController, # sets 'completed_yes_no_questions_at'
-      # generate and replace the "Preliminary" 13614-C signed by the primary and spouse with yes/no questions filled out
+                                           # generate and replace the "Preliminary" 13614-C signed by the primary and spouse with yes/no questions filled out
 
       # Documents --> See DocumentNavigation
       Questions::OverviewDocumentsController,
@@ -164,7 +168,7 @@ class QuestionNavigation
 
       # Additional Information
       Questions::FinalInfoController, # sets 'completed_at' & creates Original 13614-C
-      # replace "Preliminary" with "Original" 13614-C completely filled out
+                                      # replace "Preliminary" with "Original" 13614-C completely filled out
       Questions::SuccessfullySubmittedController,
       Questions::FeedbackController,
   ].freeze

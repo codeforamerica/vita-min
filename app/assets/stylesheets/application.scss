@@ -189,3 +189,9 @@ ul.with-bullets {
   margin-left: 20px;
   list-style-type: disc;
 }
+
+.text--error {
+  .icon-warning {
+    margin-right: .5rem;
+  }
+}

@@ -1,26 +1,96 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake Joint Filers" do
-  let(:ticket_id) { 9876 }
-
   before do
     create :vita_partner, name: "Virginia Partner", national_overflow_location: true
-    # see note below about skipping redirects
   end
 
   scenario "new client filing joint taxes with spouse and dependents" do
     visit "/en/questions/welcome"
 
-    # Welcome
-    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
-    click_on "File taxes with help"
+    expect(page).to have_selector("h1", text: "Welcome to GetYourRefund")
+    click_on "Continue"
 
     # File With Help
-    expect(current_path).to eq(file_with_help_questions_path)
+    # Tax Needs
+    expect(page).to have_selector("h1", text: "What can we help you with?")
+    check "File my 2020 taxes"
+    check "Collect my stimulus check"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify.")
+    # VITA triage_eligibility checks
+    expect(page).to have_selector("p", text: "Let us know if any of the situations below apply to you.")
+    check "I earned money from a rental property"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "We’re unsure if you qualify for our services")
+    click_on "Go back"
+
+    expect(page).to have_selector("h1", text: "Yes, our service is completely free. Let's make sure you qualify.")
+    check "None of the above"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
+    click_on "Go back"
+
+    expect(page).to have_selector("h1", text: "Have you filed taxes for 2017, 2018, and 2019?")
+    click_on "Yes"
+
+    expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
+    check "My income decreased from 2019"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
+    click_on "Go back"
+
+    expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
+    check "I received unemployment income"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
+    click_on "Go back"
+
+    expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
+    check "I purchased health insurance through the marketplace"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
+    click_on "Go back"
+
+    expect(page).to have_selector("p", text: "Do any of the situations below apply to 2020?")
+    check "None of the above"
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "Do you have simple taxes?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
+    click_on "Go back"
+
+    expect(page).to have_selector("h1", text: "Do you have simple taxes?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
+    click_on "Yes"
+
+    expect(page).to have_selector("h1", text: "File your taxes yourself!")
+    click_on "Go back"
+
+    expect(page).to have_selector("h1", text: "Are you interested in preparing your own return?")
+    click_on "No"
+
+    expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
+    click_on "Continue"
+
+    expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
     click_on "Continue"
 
     # Ask about backtaxes
-    expect(page).to have_selector("h1", text: "What years do you need to file for?")
+    expect(page).to have_selector("h1", text: "What years would you like to file for?")
     check "2019"
     click_on "Continue"
 
@@ -28,16 +98,11 @@ RSpec.feature "Web Intake Joint Filers" do
     intake = Intake.last
     expect(intake.client.tax_returns.map(&:year)).to eq [2019]
 
-    #Non-production environment warning
+    # Non-production environment warning
     expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
     click_on "Continue to example"
 
     expect(page).to have_selector("h1", text: "Let's get started")
-    click_on "Continue"
-
-    # VITA eligibility checks
-    expect(page).to have_selector("h1", text: "Let’s check a few things.")
-    check "None of the above"
     click_on "Continue"
 
     # Overview

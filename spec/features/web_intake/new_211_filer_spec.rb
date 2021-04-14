@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Web Intake 211 Assisted Filer" do
-  let(:ticket_id) { 9876 }
-
   before do
     # Create the hard-coded VITA partner for EIP-only returns
     create(:vita_partner, name: "Get Your Refund")
@@ -11,16 +9,13 @@ RSpec.feature "Web Intake 211 Assisted Filer" do
   scenario "new EIP-only client filing joint with a dependent" do
     # visit home with 211 source param
     visit "/211intake"
-    visit "/en/questions/welcome"
-
-    expect(page).to have_selector("h1", text: "Welcome! How can we help you?")
-    click_on "File taxes with help"
+    visit "/en/questions/file-with-help"
 
     expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
     click_on "Continue"
 
     # Intake created on backtaxes page
-    expect(page).to have_selector("h1", text: "What years do you need to file for?")
+    expect(page).to have_selector("h1", text: "What years would you like to file for?")
     check "2019"
     click_on "Continue"
 
@@ -42,7 +37,7 @@ RSpec.feature "Web Intake 211 Assisted Filer" do
 
     # After additional info, navigation skips documents section and goes to interview time preferences
     fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
-    expect(page) .to have_select(
+    expect(page).to have_select(
       "What is your preferred language for the review?", selected: "English"
     )
     select("Spanish", from: "What is your preferred language for the review?")
