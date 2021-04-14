@@ -32,7 +32,7 @@ RSpec.feature "Logging in" do
           perform_enqueued_jobs
 
           mail = ActionMailer::Base.deliveries.last
-          expect(mail.encoded).to include("Your 6-digit GetYourRefund verification code is: 000004. This code will expire after two days.")
+          expect(mail.html_part.body.to_s).to include("Your 6-digit GetYourRefund verification code is: 000004. This code will expire after two days.")
 
           fill_in "Enter 6 digit code", with: "000004"
           click_on "Verify"
@@ -161,8 +161,7 @@ RSpec.feature "Logging in" do
         perform_enqueued_jobs
 
         mail = ActionMailer::Base.deliveries.last
-        text_body = mail.body.parts[0].decoded
-        expect(text_body).to include("Su código de verificación de 6 dígitos para GetYourRefund es: 000004. Este código expirará en dos días.")
+        expect(mail.html_part.body.to_s).to have_text("de 6 dígitos para GetYourRefund es: 000004. Este código expirará en dos días.")
 
         fill_in "Ingrese el código de 6 dígitos", with: "000004"
         click_on "Verificar"
