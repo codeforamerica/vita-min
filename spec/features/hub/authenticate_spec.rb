@@ -62,7 +62,7 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     # Expect subject to
     expect(email.subject).to eq("Reset password instructions")
 
-    html_body = email.body.parts[1].decoded
+    html_body = email.body.encoded
     reset_password_link = Nokogiri::HTML.parse(html_body).at_css("a")["href"]
     visit(reset_password_link)
     expect(page).to have_text "Change your password"

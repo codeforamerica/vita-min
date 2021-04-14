@@ -11,8 +11,8 @@ class UserMailer < ApplicationMailer
     @assigning_user = assigning_user
     @assigned_at = assigned_at.in_time_zone(@assigned_user.timezone)
     @client = tax_return.client
-    subject = "GetYourRefund Client ##{@client.id} Assigned to You"
+    @subject = "GetYourRefund Client ##{@client.id} Assigned to You"
 
-    mail(to: @assigned_user.email, subject: subject)
+    mail(to: @assigned_user.email, subject: @subject)
   end
 end

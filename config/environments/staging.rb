@@ -6,6 +6,8 @@ Rails.application.configure do
   config.action_mailer.default_options = { from: 'hello@mg-staging.getyourrefund-testing.org' }
   config.address_for_transactional_authentication_emails = 'no-reply@mg-staging.getyourrefund-testing.org'
   config.action_mailer.default_url_options = { host: 'staging.getyourrefund.org' }
+  config.action_mailer.asset_host = "https://staging.getyourrefund.org"
+
   config.offseason = false
   Rails.application.default_url_options = config.action_mailer.default_url_options
 end

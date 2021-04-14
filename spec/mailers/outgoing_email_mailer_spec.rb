@@ -61,7 +61,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
       it "includes the attachment in the email" do
         email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
 
-        expect(email.attachments.length).to eq 1
+        expect(email.attachments.length).to eq 2 # the attachment + the logo
       end
     end
 
@@ -71,7 +71,7 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
         expect do
           email.deliver_now
         end.to change(ActionMailer::Base.deliveries, :count).by 1
-        expect(email.attachments.length).to eq 0
+        expect(email.attachments.length).to eq 1 # the logo
       end
     end
 
