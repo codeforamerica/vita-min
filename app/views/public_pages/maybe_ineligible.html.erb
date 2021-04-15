@@ -19,14 +19,12 @@
             <p><%=t("views.public_pages.maybe_ineligible.info") %></p>
 
             <strong>
-              <%=t("views.questions.at_capacity.diy_html") %>
+              <%=t("views.public_pages.maybe_ineligible.diy_option") %>
             </strong>
           </div>
 
-          <div class="buttons--vertical-stack">
-            <a data-track-click="mft-diy-referral" href="https://www.myfreetaxes.com/?utm_source=GYR&utm_medum=web&utm_campaign=Partner-referral" target="_blank" rel="noopener nofollow" class="button button--primary text--centered button--wide spacing-above-60">
-              <%= t("views.questions.at_capacity.file_through_my_free_taxes") %>
-            </a>
+          <div class="spacing-above-60">
+            <%= link_to t("views.public_pages.maybe_ineligible.cta"), diy_file_yourself_path, "data-track_click": "maybe-ineligible-file-yourself-link", class: "button button--wide button--primary text--centered" %>
           </div>
         </main>
       </div>

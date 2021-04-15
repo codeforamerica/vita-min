@@ -1840,6 +1840,8 @@ es:
       eip_maybe_ineligible:
         info: Según sus respuestas, no podemos ayudarlo a recibir su estímulo. Si tiene preguntas, "Chat" con nosotros o visita nuestra página de preguntas frecuentes de estímulo.
         title: Desafortunadamente, no califica para nuestra ayuda.
+        diy_option: Para presentar de inmediato, puede probar nuestra opción gratuita de bricolaje. ¡DIY le permite preparar sus propios impuestos de forma gratuita a través de una herramienta de declaración de impuestos en línea!
+        cta: Presentar mis impuestos por mi cuenta gratis
       eip_overview:
         hotline_notice:
           number: Llame +1 844 322 3639

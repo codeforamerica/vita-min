@@ -1410,6 +1410,8 @@ en:
       maybe_ineligible:
         info: We’re happy to answer any questions you may have about GetYourRefund! Contact us by using our chat feature below.
         title: We’re unsure if you qualify for our services.
+        diy_option: To file immediately, you can try our free DIY option. DIY lets you prepare your own taxes for free through an online tax filing tool!
+        cta: File DIY
       other_options:
         info: We are excited to help you with your taxes, but we need to verify your identity to get started. Identify verification is important to ensure that your information is safe and secure, but if it's not for you, you can learn about other free filing options below.
         title: Let's find a way to help you!
