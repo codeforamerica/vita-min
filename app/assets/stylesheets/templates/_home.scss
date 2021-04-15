@@ -68,6 +68,11 @@
           display: none;
         }
 
+        &__image {
+          width: 100%;
+          max-width: 30rem;
+        }
+
         @media screen and (min-width: $tablet-up) {
           padding: 0 $s60;
 
@@ -79,6 +84,10 @@
             display: inline-block;
             width: 100%;
             max-width: 30rem;
+          }
+
+          .hero-illustration__image {
+            max-width: none;
           }
         }
 
