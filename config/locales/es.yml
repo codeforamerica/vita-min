@@ -1340,6 +1340,8 @@ es:
       maybe_ineligible:
         info: "¡Nos complace responder cualquier pregunta que pueda tener sobre GetYourRefund! Contáctenos usando nuestra función de chat abajo de esta pagina."
         title: No estamos seguros de que califique para nuestros servicios.
+        diy_option: Para presentar de inmediato, puede probar nuestra opción gratuita de bricolaje. ¡DIY le permite preparar sus propios impuestos de forma gratuita a través de una herramienta de declaración de impuestos en línea!
+        cta: Presentar mis impuestos por mi cuenta gratis
       other_options:
         info: Estamos encantados de ayudarlo con sus impuestos, pero necesitamos verificar su identidad antes. La verificación de identidad es importante porque nos permite asegurarnos de que su información está protegida. Si no está de acuerdo con esto, a continuación tiene información sobre otras opciones gratuitas para presentar su declaración.
         title: "¡Veamos cómo podemos ayudarlo!"
@@ -1840,8 +1842,6 @@ es:
       eip_maybe_ineligible:
         info: Según sus respuestas, no podemos ayudarlo a recibir su estímulo. Si tiene preguntas, "Chat" con nosotros o visita nuestra página de preguntas frecuentes de estímulo.
         title: Desafortunadamente, no califica para nuestra ayuda.
-        diy_option: Para presentar de inmediato, puede probar nuestra opción gratuita de bricolaje. ¡DIY le permite preparar sus propios impuestos de forma gratuita a través de una herramienta de declaración de impuestos en línea!
-        cta: Presentar mis impuestos por mi cuenta gratis
       eip_overview:
         hotline_notice:
           number: Llame +1 844 322 3639
