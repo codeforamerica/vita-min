@@ -1,7 +1,10 @@
-<h3>
-  <% if can? :edit, organization %>
-    <%= link_to "#{organization.name} (#{t(".site_count", count: organization.child_sites.count)})", edit_hub_organization_path(id: organization) %>
-  <% else %>
-    <%= link_to "#{organization.name} (#{t(".site_count", count: organization.child_sites.count)})", hub_organization_path(id: organization) %>
-  <% end %>
-</h3>
+<li>
+  <div>
+    <% if can? :edit, organization %>
+      <%= link_to "#{organization.name} (#{t(".site_count", count: organization.child_sites.count)})", edit_hub_organization_path(id: organization) %>
+    <% else %>
+      <%= link_to "#{organization.name} (#{t(".site_count", count: organization.child_sites.count)})", hub_organization_path(id: organization) %>
+    <% end %>
+  </div>
+  <div><%= "#{organization.organization_capacity.active_client_count || "-"} / #{organization.organization_capacity.capacity_limit || "-"}" %></div>
+</li>

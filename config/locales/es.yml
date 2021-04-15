@@ -381,6 +381,10 @@ es:
         site_count:
           one: "%{count} sitio"
           other: "%{count} sitios"
+      form:
+        allows_greeters: Permite saludadores
+        active_clients: clientes activos
+        excludes: "Excluye estados: Aceptado, No Archivar, en En Pausa"
     sites:
       new:
         title: "Agregar sitio"

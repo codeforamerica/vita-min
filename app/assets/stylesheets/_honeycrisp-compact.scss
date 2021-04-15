@@ -292,8 +292,21 @@
   }
 }
 
+// Plain help text without extra line height or margin.
+.help-text {
+  color: $color-grey-medium;
+}
+
 .grid-flex {
   display: flex;
+
+  &.space-between {
+    justify-content: space-between;
+  }
+
+  &.center-aligned {
+    align-items: center;
+  }
 
   .no-shrink {
     flex-shrink: 0;
