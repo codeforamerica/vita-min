@@ -1,0 +1,9 @@
+<% if documents.present? %>
+  <% if documents.count == 1 %>
+    <%= render "document_link", url: portal_document_path(id: documents.first.id), text: t(label, year: documents.first.tax_return.year) %>
+  <% else %>
+    <% documents.each do |document| %>
+      <%= render "document_link", url: portal_document_path(id: document.id), text: t(".view_document", display_name: document.display_name) %>
+    <% end %>
+  <% end %>
+<% end %>

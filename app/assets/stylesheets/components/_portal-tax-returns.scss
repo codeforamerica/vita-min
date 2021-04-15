@@ -1,17 +1,25 @@
 .tax-return-status {
-  margin-bottom: 2.5rem;
-  a {
+  margin-bottom: 1.5rem;
+
+  .document_link {
     font-weight: 700;
     color: $color-grey-darkest;
     text-decoration: none;
-    border-bottom: 1px solid;
-    position: relative;
+
+    &__border {
+      border-bottom: 1px solid;
+    }
+
+    &__icon {
+      font-weight: 700;
+    }
   }
 
   &__row {
     margin-bottom: 2rem;
     display: flex;
     align-items: center;
+
     img {
       width: 2rem;
       margin-right: 1rem;
@@ -20,12 +28,5 @@
 
   &__empty-state {
     font-style: italic;
-  }
-
-  a::after {
-    content: "keyboard_arrow_right";
-    font-family: "Material Icons";
-    position: absolute;
-    top: 2px;
   }
 }

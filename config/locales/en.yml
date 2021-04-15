@@ -994,7 +994,7 @@ en:
           submit_additional_documents: Submit remaining tax documents
           answer_questions: Complete all tax questions
         heres_what_we_need: "Here’s what we still need from you:"
-      document_link:
+      document_links:
         view_signed_8879: View or download signed form 8879
         view_unsigned_8879: View or download form 8879
         view_document: "View or download %{display_name}"

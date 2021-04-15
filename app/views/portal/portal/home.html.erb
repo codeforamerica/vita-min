@@ -29,9 +29,9 @@
       <div class="tax-return-status" id=<%= "tax-year-#{tax_return.year}" %>>
         <h2 class="h3"><%= t(".tax_returns.heading", year: tax_return.year) %></h2>
         <div class="tax-return-status__content">
-          <%= render "document_link", label: ".view_final_tax_document", documents: tax_return.final_tax_documents %>
-          <%= render "document_link", label: ".view_signed_8879", documents: tax_return.signed_8879s %>
-          <%= render "document_link", label: ".view_unsigned_8879", documents: tax_return.unsigned_8879s %>
+          <%= render "document_links", label: ".view_final_tax_document", documents: tax_return.final_tax_documents %>
+          <%= render "document_links", label: ".view_signed_8879", documents: tax_return.signed_8879s %>
+          <%= render "document_links", label: ".view_unsigned_8879", documents: tax_return.unsigned_8879s %>
 
           <% if tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
             <div class="tax-return-status__row tax-return-status__with-alert">
