@@ -6,12 +6,14 @@
     <%= content_for :form_question %>
   </h1>
 
-  <p class="text--help">
+  <p>
     <%= content_for :form_help_text %>
   </p>
+  <div class="spacing-above-60">
+    <%= link_to t("general.continue"),
+                next_path,
+                class: "button button--primary button--wide text--centered spacing-above-35"
+    %>
+  </div>
 
-  <%= link_to t("general.continue"),
-              next_path,
-              class: "button button--primary button--wide text--centered spacing-above-35"
-  %>
 <% end %>
