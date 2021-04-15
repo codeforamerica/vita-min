@@ -9,7 +9,9 @@
             <%= image_tag("questions/documents.svg", alt: "") %>
           </div>
           <h1 class="h2 spacing-above-0"><%= t(".title", year: @tax_return.year) %></h1>
-          <p><%= t(".description") %></p>
+          <% if @tax_return.final_tax_documents.count == 1 %>
+            <p><%= t(".description") %></p>
+          <% end %>
           <div class="tax-return-status">
             <div class="tax-return-status__content">
               <% if @tax_return.final_tax_documents.count == 1 %>
