@@ -166,7 +166,7 @@ RSpec.describe Questions::ConsentController do
 
             You can securely upload your ID and additional tax documents here: #{intake.requested_docs_token_link}
 
-            If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> or text message 58750.
+            If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
             Remember, we’ll review everything with you before filing so just do the best you can. Then we’ll help you get the tax credits that belong to you!
 
@@ -213,7 +213,7 @@ RSpec.describe Questions::ConsentController do
 
             Puede subir su identificación o documentos de impuestos adicionales a su enlace de envío seguro aquí: #{intake.requested_docs_token_link}
 
-            Si tiene alguna pregunta puede contactar a su equipo de preparación de impuestos por correo electrónico a <a href="mailto:hello@getyourrefund.org"></a>, o enviar un mensaje de texto al 58750.
+            Si tiene alguna pregunta puede contactar a su equipo de preparación de impuestos por correo electrónico a <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a>, o enviar un mensaje de texto al 58750.
 
             Recuerde, nosotros revisaremos todo con usted antes de presentar sus documentos, así que procure hacer lo mejor posible. ¡Así le ayudaremos a conseguir los créditos fiscales que le pertenecen!
 
