@@ -907,7 +907,7 @@ en:
 
         You can securely upload your ID and additional tax documents here: %{requested_docs_link}
 
-        If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> or text message 58750.
+        If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
         Remember, we’ll review everything with you before filing so just do the best you can. Then we’ll help you get the tax credits that belong to you!
 
@@ -977,23 +977,32 @@ en:
       home:
         title: Welcome back %{name}!
         submit_documents: Submit additional documents
-        heres_what_we_need: "Here’s what we still need from you:"
-        tax_returns:
-          heading: "%{year} tax return"
-          submit_primary: Submit primary taxpayer signature
-          submit_spouse:  Submit spouse signature
-          empty_state: No documents ready to review yet.
-          submit_additional_documents: Submit remaining tax documents
+        tax_return_heading: "%{year} Tax Return"
+        empty_state: No documents ready to review yet
+        action_state:
           answer_questions: Complete all tax questions
-          answered_questions: "Answered initial tax questions"
-          shared_documents: "Shared initial tax documents"
-          waiting_for_review: "Waiting on your tax team for initial review"
-          completed_review: "Completed review"
+          submit_additional_documents: Submit remaining tax documents
+          tax_return:
+            submit_primary: Add final primary taxpayer signature for %{year}
+            submit_spouse:  Add final spouse signature for %{year}
+        waiting_state:
+          tax_return:
+            waiting_for_review: Waiting on your tax team for initial review
+            preparing_return: Your tax team is preparing the return
+            waiting_for_qr: "Waiting on your tax team for a quality review of %{year} return"
+        progress_state:
+          answered_questions: Answered initial tax questions
+          shared_documents: Shared initial tax documents
+          tax_return:
+            completed_review: Completed review
+            return_prepared: Return prepared
+            completed_qr: "Completed quality review for %{year}"
+            final_signature_added: "Final signature added for %{year}"
       document_link:
         view_signed_8879: View or download signed form 8879
         view_unsigned_8879: View or download form 8879
         view_document: "View or download %{display_name}"
-        view_final_tax_document: "View or download final %{year} tax document"
+        view_final_tax_document: "Download final tax papers %{year}"
     upload_documents:
       success: Successfully uploaded document!
       error: There was an error uploading your document. Try again.
@@ -2482,7 +2491,7 @@ en:
 
         You can securely upload any additional tax documents here: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
 
-        If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> or text message 58750.
+        If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
         We’re here to help!
         Your tax team at GetYourRefund.org

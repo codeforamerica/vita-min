@@ -1,12 +1,12 @@
 <% if documents.present? %>
   <% if documents.count == 1 %>
-    <div class="tax-return-status__row tax-return-status__solo">
+    <div class="tax-return-status__row">
       <%= image_tag("icons/check.svg", alt: "") %>
       <%= link_to t(label, year: documents.first.tax_return.year), portal_document_path(id: documents.first.id), target: "_blank" %>
     </div>
   <% else %>
     <% documents.each do |document| %>
-      <div class="tax-return-status__row tax-return-status__solo">
+      <div class="tax-return-status__row">
         <%= image_tag("icons/check.svg", alt: "") %>
         <%= link_to t(".view_document", display_name: document.display_name), portal_document_path(id: document.id), target: "_blank" %>
       </div>

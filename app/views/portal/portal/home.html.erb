@@ -1,71 +1,92 @@
 <% content_for :title, t(".title", name: current_client.intake.preferred_name) %>
 
 <% content_for :card do %>
-  <% if @heres_what_we_need %>
-    <p><%= t(".heres_what_we_need") %></p>
-  <% end %>
+  <h1 class="h2"><%= t(".title", name: current_client.intake.preferred_name) %></h1>
 
-  <% if @submit_additional_documents %>
-    <div class="tax-return-status">
-      <div class="tax-return-status__row tax-return-status__with-alert">
-        <%= image_tag("icons/exclamation.svg", alt: "") %>
-        <%= link_to t(".tax_returns.submit_additional_documents"), @current_step %>
-      </div>
-    </div>
-  <% end %>
-
-  <% if @answer_questions %>
-    <div class="tax-return-status">
-      <% if @answered_initial_qs %>
-        <div class="">
-          <%= image_tag("icons/grey_check.svg", alt: "") %>
-          <%= t(".tax_returns.answered_questions") %>
+  <div class="tax-return-status">
+    <% if @answered_initial_qs %>
+      <%= render "progress_state", label: t(".progress_state.answered_questions") %>
+    <% else %>
+      <div class="tax-return-status">
+        <div class="tax-return-status__row tax-return-status__with-alert">
+          <%= image_tag("icons/exclamation.svg", alt: "") %>
+          <%= link_to t(".action_state.answer_questions"), @current_step %>
         </div>
-      <% end %>
-
-      <div class="tax-return-status__row tax-return-status__with-alert">
-        <%= image_tag("icons/exclamation.svg", alt: "") %>
-        <%= link_to t(".tax_returns.answer_questions"), @current_step %>
       </div>
-    </div>
-  <% end %>
+    <% end %>
 
-  <% if @shared_initial_docs %>
-    <div class="">
-      <%= image_tag("icons/grey_check.svg", alt: "") %>
-      <%= t(".tax_returns.shared_documents") %>
-    </div>
-  <% end %>
+    <% if @shared_initial_docs %>
+      <%= render "progress_state", label: t(".progress_state.shared_documents") %>
+    <% end %>
+
+    <% if @submit_additional_documents %>
+      <div class="tax-return-status">
+        <div class="tax-return-status__row tax-return-status__with-alert">
+          <%= image_tag("icons/exclamation.svg", alt: "") %>
+          <%= link_to t(".action_state.submit_additional_documents"), @current_step %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
   <% if @tax_returns.present? %>
     <% @tax_returns.each do |tax_return| %>
       <div class="tax-return-status" id=<%= "tax-year-#{tax_return.year}" %>>
-        <h2 class="h3"><%= t(".tax_returns.heading", year: tax_return.year) %></h2>
-        <div class="tax-return-status__content">
-          <%= render "document_link", label: ".view_final_tax_document", documents: tax_return.final_tax_documents %>
-          <%= render "document_link", label: ".view_signed_8879", documents: tax_return.signed_8879s %>
-          <%= render "document_link", label: ".view_unsigned_8879", documents: tax_return.unsigned_8879s %>
+        <h2 class="h3"><%= t(".tax_return_heading", year: tax_return.year) %></h2>
+        <% status = tax_return.status.to_sym %>
+        <% status_number = TaxReturnStatus::STATUSES[status] %>
 
-          <% if tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
-            <div class="tax-return-status__row tax-return-status__with-alert">
-              <%= image_tag("icons/exclamation.svg", alt: "") %>
-              <%= link_to t(".tax_returns.submit_primary"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id) %>
-            </div>
-          <% end %>
+        <% if status_number >= 201 %>
+          <%= render "progress_state", label: t(".progress_state.tax_return.completed_review") %>
+        <% end %>
 
-          <% if tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
-            <div class="tax-return-status__row tax-return-status__with-alert">
-              <%= image_tag("icons/exclamation.svg", alt: "") %>
-              <%= link_to t(".tax_returns.submit_spouse"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id) %>
-            </div>
-          <% end %>
+        <% if status_number >= 201 %>
+          <%= render "progress_state", label: t(".progress_state.tax_return.return_prepared") %>
+        <% end %>
 
-          <% if tax_return.final_tax_documents.blank? && tax_return.signed_8879s.blank? && tax_return.unsigned_8879s.blank? %>
-            <div class="tax-return-status__row tax-return-status__solo">
-              <span class="tax-return-status__empty-state"><%= t(".tax_returns.empty_state") %></span>
-            </div>
-          <% end %>
-        </div>
+        <% if status_number >= 304 %>
+          <%= render "progress_state", label: t(".progress_state.tax_return.completed_qr", year: tax_return.year) %>
+        <% end %>
+
+        <% if status_number >= 304 %>
+          <%= render "progress_state", label: t(".progress_state.tax_return.final_signature_added", year: tax_return.year) %>
+        <% end %>
+
+        <% if status_number.between?(102, 104) %>
+          <%= render "waiting_state", label: t(".waiting_state.tax_return.waiting_for_review") %>
+        <% end %>
+
+        <% if [:prep_ready_for_prep, :prep_preparing].include?(status) %>
+          <%= render "waiting_state", label: t(".waiting_state.tax_return.preparing_return") %>
+        <% end %>
+
+        <% if :review_reviewing == status %>
+          <%= render "waiting_state", label: t(".waiting_state.tax_return.waiting_for_qr", year: tax_return.year) %>
+        <% end %>
+
+        <% if tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE) || :review_signature_requested == status %>
+          <div class="tax-return-status__row">
+            <%= image_tag("icons/exclamation.svg", alt: "") %>
+            <%= link_to t(".action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id) %>
+          </div>
+        <% end %>
+
+        <% if tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
+          <div class="tax-return-status__row">
+            <%= image_tag("icons/exclamation.svg", alt: "") %>
+            <%= link_to t(".action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id) %>
+          </div>
+        <% end %>
+
+        <%= render "document_link", label: ".view_final_tax_document", documents: tax_return.final_tax_documents %>
+        <%= render "document_link", label: ".view_signed_8879", documents: tax_return.signed_8879s %>
+        <%= render "document_link", label: ".view_unsigned_8879", documents: tax_return.unsigned_8879s %>
+
+        <% if tax_return.final_tax_documents.blank? && tax_return.signed_8879s.blank? && tax_return.unsigned_8879s.blank? %>
+          <div class="tax-return-status__row tax-return-status__solo">
+            <span class="tax-return-status__empty-state"><%= t(".empty_state") %></span>
+          </div>
+        <% end %>
       </div>
     <% end %>
   <% end %>

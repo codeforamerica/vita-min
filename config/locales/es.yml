@@ -971,18 +971,27 @@ es:
       home:
         title: "Bienvenido de nuevo %{name}!"
         submit_documents: Enviar documentos adicionales
-        heres_what_we_need: "Esto es lo que todavía necesitamos de usted:"
-        tax_returns:
-          heading: Declaración de impuestos de %{year}
-          submit_primary: Presentar la firma del contribuyente principal
-          submit_spouse: Presentar la firma del cónyuge
-          empty_state: Aún no hay documentos listos para revisar.
-          submit_additional_documents: Envíe los documentos fiscales restantes
+        tax_return_heading: Declaración de impuestos de %{year}
+        empty_state: Aún no hay documentos listos para revisar.
+        action_state:
           answer_questions: Complete todas las preguntas sobre impuestos
-          answered_questions: "Ha respondido a las preguntas sobre impuestos"
-          shared_documents: "Ha compartido documentos iniciales"
-          waiting_for_review: "Waiting on your tax team for initial review"
-          completed_review: "Completed review"
+          submit_additional_documents: Envíe los documentos fiscales restantes
+          tax_return:
+            submit_primary: Presentar la firma del contribuyente principal para %{year}
+            submit_spouse: Presentar la firma del cónyuge para %{year}
+        waiting_state:
+          tax_return:
+            waiting_for_review: Esperando a su equipo de impuestos para una revisión inicial
+            preparing_return: Your tax team is preparing the return
+            waiting_for_qr: Esperando a su equipo de impuestos para una revisión de calidad del %{year} retorno
+        progress_state:
+          answered_questions: Ha respondido a las preguntas sobre impuestos
+          shared_documents: Ha compartido documentos iniciales
+          tax_return:
+            completed_review: Revisión completa
+            return_prepared: Return prepared
+            completed_qr: Revisión de calidad completada para %{year}
+            final_signature_added: Firma final agregada para %{year}
       document_link:
         view_signed_8879: Ver o descargar formulario 8879 firmado
         view_unsigned_8879: Ver o descargar formulario 8879
@@ -2507,7 +2516,7 @@ es:
 
         Puede someter cualquier documento adicional de forma segura aquí: <a href="https://getyourrefund.org/portal/login">https://getyourrefund.org/portal/login</a>
 
-        Si tiene alguna pregunta, puede ponerse en contacto con su especialista de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org>hello@getyourrefund.org</a> o del mensaje de texto 58750.
+        Si tiene alguna pregunta, puede ponerse en contacto con su especialista de impuestos a través del correo electrónico <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> o del mensaje de texto 58750.
 
         ¡Estamos aquí para ayudarle!
 

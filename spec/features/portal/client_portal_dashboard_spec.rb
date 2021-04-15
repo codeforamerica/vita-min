@@ -13,12 +13,13 @@ RSpec.feature "a client on their portal" do
     scenario "linking to next step" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Katie!"
-      expect(page).to have_text "Here’s what we still need from you:"
-      # status
-      expect(page).not_to have_text "Answered initial tax questions"
-      # links
-      expect(page).to have_link("Complete all tax questions", href: "/en/questions/asset-loss")
+      expect(page).to have_link("Complete all tax questions", href: "/en/questions/asset-loss") # links
+      # expect(page).to have_link "Message my tax specialist"
+
+      expect(page).not_to have_text "Here’s what we still need from you:"
+      expect(page).not_to have_text "Answered initial tax questions" # status
       expect(page).not_to have_link "Submit additional documents"
+
     end
   end
 
@@ -34,11 +35,10 @@ RSpec.feature "a client on their portal" do
     scenario "linking to next step" do
       visit portal_root_path
       expect(page).to have_text "Welcome back Randall!"
-      expect(page).to have_text "Here’s what we still need from you:"
-      # status
-      expect(page).to have_text "Answered initial tax questions"
-      # links
+      expect(page).to have_text "Answered initial tax questions" # grey state
       expect(page).to have_link("Submit remaining tax documents", href: "/en/documents/overview")
+      # expect(page).to have_link "Message my tax specialist"
+
       expect(page).not_to have_link "Submit additional documents"
     end
   end
@@ -60,7 +60,7 @@ RSpec.feature "a client on their portal" do
       # status
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
-      expect(page).to have_text "2019 tax return"
+      expect(page).to have_text "2019 Tax Return"
 
       within "#tax-year-2019" do
         expect(page).to have_text "Waiting on your tax team for initial review"
@@ -79,15 +79,15 @@ RSpec.feature "a client on their portal" do
       login_as client, scope: :client
     end
 
-    scenario "waiting for tax team tp prepare the return" do
+    scenario "waiting for tax team to prepare the return" do
       visit portal_root_path
 
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
-      expect(page).to have_text "Completed review"
 
       expect(page).to have_text "2020 Tax Return"
       within "#tax-year-2020" do
+        expect(page).to have_text "Completed review"
         expect(page).to have_text "Your tax team is preparing the return"
       end
     end
@@ -109,11 +109,10 @@ RSpec.feature "a client on their portal" do
 
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
-      expect(page).to have_text "Completed review"
-
 
       expect(page).to have_text "2020 Tax Return"
       within "#tax-year-2020" do
+        expect(page).to have_text "Completed review"
         expect(page).to have_text "Return prepared"
         expect(page).to have_text "Waiting on your tax team for a quality review of 2020 return"
       end
@@ -131,19 +130,18 @@ RSpec.feature "a client on their portal" do
       login_as client, scope: :client
     end
 
-    scenario "waiting on quality review" do
+    scenario "waiting on review and signature " do
       visit portal_root_path
 
       expect(page).to have_text "Answered initial tax questions"
       expect(page).to have_text "Shared initial tax documents"
-      expect(page).to have_text "Completed review"
-
 
       expect(page).to have_text "2020 Tax Return"
       within "#tax-year-2020" do
+        expect(page).to have_text "Completed review"
         expect(page).to have_text "Return prepared"
         expect(page).to have_text "Completed quality review for 2020"
-        expect(page).to have_text "Add final signature for 2020"
+        expect(page).to have_link "Add final primary taxpayer signature for 2020"
       end
     end
   end
@@ -153,10 +151,11 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, year: 2020, status: :review_signature_requested)]
+             tax_returns: [(create :tax_return, year: 2020, status: :file_efiled)]
     end
 
     before do
+      create :document, document_type: DocumentTypes::FinalTaxDocument.key, tax_return: client.tax_returns.first, client: client
       login_as client, scope: :client
     end
 
@@ -196,28 +195,28 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Welcome back Martha!"
 
       # tax returns
-      expect(page).to have_text "2019 tax return"
-      expect(page).to have_text "2018 tax return"
-      expect(page).to have_text "2017 tax return"
+      expect(page).to have_text "2019 Tax Return"
+      expect(page).to have_text "2018 Tax Return"
+      expect(page).to have_text "2017 Tax Return"
 
       within "#tax-year-2019" do
         expect(page).to have_link "View or download Another 8879"
         expect(page).to have_link "View or download " + tax_return2019.unsigned_8879s.first.display_name
 
-        expect(page).to have_link "View or download final 2019 tax document"
-        expect(page).to have_link "Submit primary taxpayer signature"
-        expect(page).to have_link "Submit spouse signature"
+        expect(page).to have_link "Download final tax papers 2019"
+        expect(page).to have_link "Add final primary taxpayer signature for 2019"
+        expect(page).to have_link "Add final spouse signature for 2019"
       end
 
       within "#tax-year-2018" do
         expect(page).to have_link "View or download signed form 8879"
         expect(page).to have_link "View or download Some final tax document"
         expect(page).to have_link "View or download Another final tax document"
-        expect(page).not_to have_link "Submit primary taxpayer signature"
+        expect(page).not_to have_link "Add final primary taxpayer signature for 2018"
       end
 
       within "#tax-year-2017" do
-        expect(page).to have_text "No documents ready to review yet."
+        expect(page).to have_text "No documents ready to review yet"
       end
       expect(client.documents.where(document_type: "Other").length).to eq 0
 
