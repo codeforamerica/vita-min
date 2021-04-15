@@ -113,6 +113,7 @@ Rails.application.routes.draw do
         put "check-verification-code", to: "client_logins#check_verification_code", as: :check_verification_code, on: :collection
       end
       resources :tax_returns, only: [], path: '/tax-returns' do
+        get '/show', to: 'tax_returns#show', as: :show
         get '/sign', to: 'tax_returns#authorize_signature', as: :authorize_signature
         put '/sign', to: 'tax_returns#sign', as: :sign
         get '/spouse-sign', to: 'tax_returns#spouse_authorize_signature', as: :spouse_authorize_signature

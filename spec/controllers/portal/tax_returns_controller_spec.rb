@@ -175,8 +175,7 @@ describe Portal::TaxReturnsController do
           context "when form successfully saves" do
             it "redirects to success page" do
               post :sign, params: params
-              expect(flash[:notice]).to eq "Successfully signed 2019 tax form!"
-              expect(response).to redirect_to(portal_root_path)
+              expect(response).to redirect_to(portal_tax_return_show_path(tax_return_id: tax_return.id))
             end
           end
 
@@ -322,8 +321,7 @@ describe Portal::TaxReturnsController do
           context "when form successfully saves" do
             it "redirects to success page" do
               post :spouse_sign, params: params
-              expect(flash[:success]).to eq "Successfully signed 2019 tax form!"
-              expect(response).to redirect_to :portal_root
+              expect(response).to redirect_to portal_tax_return_show_path(tax_return_id: tax_return.id)
             end
           end
 
@@ -366,6 +364,37 @@ describe Portal::TaxReturnsController do
             expect(flash[:alert]).to eq "Please confirm that you are the listed taxpayer to continue."
           end
         end
+      end
+    end
+  end
+
+  describe "#show" do
+    let(:tax_return) { create :tax_return, client: (create :client, intake: (create :intake, filing_joint: "no")) }
+
+    let(:params) { { tax_return_id: tax_return.id } }
+
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :show
+
+    context "with more than one final tax doc" do
+      let!(:documents) do
+        create_list(:document, 2,
+                    client: tax_return.client,
+                    tax_return: tax_return,
+                    upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"),
+                    document_type: DocumentTypes::FinalTaxDocument.key)
+      end
+
+      before do
+        sign_in tax_return.client
+      end
+
+      render_views
+
+      it "links to each doc" do
+        get :show, params: params
+
+        expect(response.body).to include portal_document_path(id: documents.first.id)
+        expect(response.body).to include portal_document_path(id: documents.second.id)
       end
     end
   end

@@ -17,8 +17,7 @@ module Portal
       form_class = Portal::PrimarySignForm8879
       @form = form_class.new(@tax_return, permitted_params(form_class))
       if @form.sign
-        flash[:notice] = I18n.t("controllers.tax_returns_controller.success", year: @tax_return.year)
-        redirect_to :portal_root
+        redirect_to portal_tax_return_show_path(tax_return_id: @tax_return.id)
       else
         flash.now[:alert] = I18n.t("controllers.tax_returns_controller.errors.#{@form.errors.keys.first}")
         render :authorize_signature
@@ -29,8 +28,7 @@ module Portal
       form_class = Portal::SpouseSignForm8879
       @form = form_class.new(@tax_return, permitted_params(form_class))
       if @form.sign
-        flash[:success] = I18n.t("controllers.tax_returns_controller.success", year: @tax_return.year)
-        redirect_to :portal_root
+        redirect_to portal_tax_return_show_path(tax_return_id: @tax_return.id)
       else
         flash.now[:alert] = I18n.t("controllers.tax_returns_controller.errors.#{@form.errors.keys.first}")
         render :spouse_authorize_signature
@@ -38,6 +36,8 @@ module Portal
     end
 
     def success; end
+
+    def show; end
 
     private
 

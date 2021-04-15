@@ -1,0 +1,29 @@
+<% content_for :page_title, t(".title", year: @tax_return.year) %>
+
+<% content_for :main do %>
+  <section class="slab slab--white slab--not-padded question-layout">
+    <div class="grid">
+      <div class="grid__item width-three-fourths shift-one-eighth">
+        <main role="main">
+          <div class="question__illustration">
+            <%= image_tag("questions/documents.svg", alt: "") %>
+          </div>
+          <h1 class="h2 spacing-above-0"><%= t(".title", year: @tax_return.year) %></h1>
+          <p><%= t(".description") %></p>
+          <div class="tax-return-status">
+            <div class="tax-return-status__content">
+              <% if @tax_return.final_tax_documents.count == 1 %>
+                <%= render "document_link", url: portal_document_path(id: @tax_return.final_tax_documents.first.id), text: t(".download_final_tax_document", year: @tax_return.year) %>
+              <% else %>
+                <% @tax_return.final_tax_documents.each do |tax_doc| %>
+                  <%= render "document_link", url: portal_document_path(id: tax_doc.id), text: t(".download_with_display_name", display_name: tax_doc.display_name) %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <%= link_to t(".return"), portal_root_path, class: "button button--wide text--centered spacing-above-60" %>
+        </main>
+      </div>
+    </div>
+  </section>
+<% end %>

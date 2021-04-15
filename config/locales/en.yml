@@ -483,7 +483,6 @@ en:
         new:
           invalid_email_or_password: Incorrect email or password. After 5 login attempts, accounts are locked.
     tax_returns_controller:
-      success: Successfully signed %{year} tax form!
       errors:
         primary_accepts_terms: &accepts_terms Please click the authorize checkbox to continue.
         spouse_accepts_terms: *accepts_terms
@@ -1014,6 +1013,12 @@ en:
         full_declaration:
           title: Full Taxpayer Declaration and Signature Authorization
           body_html: <p>Under penalties of perjury, I declare that I have examined a copy of my electronic individual income tax return and accompanying schedules and statements for the tax year ending December 31, %{year}, and to the best of my knowledge and belief, they are true, correct, and complete.</p><p>I further declare that the amounts in Part I above are the amounts from my electronic income tax return. I consent to allow my intermediate service provider, transmitter, or electronic return originator (ERO) to send my return to the IRS and to receive from the IRS (a) an acknowledgement of receipt or reason for rejection of the transmission, (b) the reason for any delay in processing the return or refund, and (c) the date of any refund.</p><p>If applicable, I authorize the U.S. Treasury and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my federal taxes owed on this return and/or a payment of estimated tax, and the financial institution to debit the entry to this account. This authorization is to remain in full force and effect until I notify the U.S. Treasury Financial Agent to terminate the authorization. To revoke (cancel) a payment, I must contact the U.S. Treasury Financial Agent at 1-888-353-4537. Payment cancellation requests must be received no later than 2 business days prior to the payment (settlement) date.</p><p>I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment. I further acknowledge that the personal identification number (PIN) below is my signature for my electronic income tax return and, if applicable, my Electronic Funds Withdrawal Consent.</p>
+      show:
+        download_final_tax_document: "Download final %{year} tax forms"
+        download_with_display_name: "Download %{display_name}"
+        return: "Return to welcome page"
+        title: "Thank you for submitting your final %{year} signature!"
+        description: "Would you like to download your final tax forms?"
     messages:
       new:
         title: Send a message to %{partner_name}
