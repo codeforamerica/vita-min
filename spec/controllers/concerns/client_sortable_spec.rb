@@ -28,7 +28,7 @@ RSpec.describe ClientSortable, type: :controller do
     subject.instance_variable_set(:@clients, clients_query_double)
     allow(clients_query_double).to receive(:after_consent).and_return clients_query_double
     allow(clients_query_double).to receive(:or).and_return clients_query_double
-    allow(clients_query_double).to receive(:in_intake).and_return clients_query_double
+    allow(clients_query_double).to receive(:greetable).and_return clients_query_double
     allow(clients_query_double).to receive(:delegated_order).and_return clients_query_double
     allow(clients_query_double).to receive(:where).and_return clients_query_double
     allow(clients_query_double).to receive(:not).and_return clients_query_double
@@ -50,7 +50,7 @@ RSpec.describe ClientSortable, type: :controller do
       it "limits to intake statuses only" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
 
-        expect(clients_query_double).to have_received(:in_intake)
+        expect(clients_query_double).to have_received(:greetable)
         expect(clients_query_double).to have_received(:or).with(Client.joins(:tax_returns).where({ tax_returns: { assigned_user: user_double } }).distinct)
       end
     end

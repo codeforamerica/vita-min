@@ -62,7 +62,7 @@ class TaxReturnStatus
     message_templates[status.to_sym] ? I18n.t(message_templates[status.to_sym], locale: locale) : ""
   end
 
-  def self.available_statuses_for(user, role: nil)
+  def self.available_statuses_for(user = nil, role: nil)
     if role == "GreeterRole" || user&.greeter?
       statuses = TaxReturnStatus::STATUSES_BY_STAGE.slice("intake")
       statuses["file"] = GREETER_FILE_STATUSES

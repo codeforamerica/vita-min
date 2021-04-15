@@ -59,8 +59,18 @@ describe TaxReturnStatusHelper do
         allow(user_double).to receive(:greeter?).and_return true
       end
 
-      it "returns only intake statuses" do
-        expect(helper.grouped_status_options_for_select).to eq [expected[0]]
+      it "returns limited statuses" do
+        pp helper.grouped_status_options_for_select
+        expect(helper.grouped_status_options_for_select).to eq (
+                                                                   [["Intake",
+                                                                     [["Not ready", "intake_in_progress"],
+                                                                      ["Ready for review", "intake_ready"],
+                                                                      ["Reviewing", "intake_reviewing"],
+                                                                      ["Ready for call", "intake_ready_for_call"],
+                                                                      ["Info requested", "intake_info_requested"],
+                                                                      ["Greeter - info requested", "intake_greeter_info_requested"]]],
+                                                                    ["Final steps", [["Not filing", "file_not_filing"], ["Hold", "file_hold"]]]]
+                                                               )
       end
     end
 

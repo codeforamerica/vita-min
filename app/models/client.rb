@@ -75,7 +75,7 @@ class Client < ApplicationRecord
   delegate *delegated_intake_attributes, to: :intake
   scope :after_consent, -> { distinct.joins(:tax_returns).merge(TaxReturn.where("status > 100")) }
   scope :greetable, -> do
-    greeter_statuses = TaxReturnStatus.available_statuses_for(role: "GreeterRole").values.flatten
+    greeter_statuses = TaxReturnStatus.available_statuses_for(role: GreeterRole::TYPE).values.flatten
     distinct.joins(:tax_returns).where(TaxReturn.where(status: greeter_statuses))
   end
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }

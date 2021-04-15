@@ -66,5 +66,25 @@ describe TaxReturnStatus do
         expect(result).to eq TaxReturnStatus::STATUSES_BY_STAGE
       end
     end
+
+    context "with role keyword arg" do
+      context "when role is GreeterRole" do
+        it "only provides me with limited statuses" do
+          result = described_class.available_statuses_for(role: GreeterRole::TYPE)
+          expect(result.keys.length).to eq 2
+          expect(result.keys.first).to eq "intake"
+          expect(result.keys.last).to eq "file"
+          expect(result["intake"]).to eq TaxReturnStatus::STATUSES_BY_STAGE["intake"]
+          expect(result["file"]).to eq TaxReturnStatus::GREETER_FILE_STATUSES
+        end
+      end
+
+      context "when role is anything else" do
+        it "only provides all statuses" do
+          result = described_class.available_statuses_for(role: AdminRole::TYPE)
+          expect(result).to eq TaxReturnStatus::STATUSES_BY_STAGE
+        end
+      end
+    end
   end
 end
