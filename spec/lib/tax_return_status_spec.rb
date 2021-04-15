@@ -49,10 +49,13 @@ describe TaxReturnStatus do
   context ".available_statuses_for" do
     context "as a greeter" do
       let(:greeter) { create :greeter_user }
-      it "only provides me with intake statuses" do
+      it "only provides me with limited statuses" do
         result = described_class.available_statuses_for(greeter)
-        expect(result.keys.length).to eq 1
+        expect(result.keys.length).to eq 2
         expect(result.keys.first).to eq "intake"
+        expect(result.keys.last).to eq "file"
+        expect(result["intake"]).to eq TaxReturnStatus::STATUSES_BY_STAGE["intake"]
+        expect(result["file"]).to eq TaxReturnStatus::GREETER_FILE_STATUSES
       end
     end
 

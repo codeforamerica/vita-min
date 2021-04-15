@@ -57,13 +57,17 @@ class TaxReturnStatus
   # tax_returns.status >= 102 AND tax_returns.status <= 404 AND tax_returns.status != 403 AND tax_returns.status != 106
   EXCLUDED_FROM_CAPACITY = (ONBOARDING_STATUSES + [:file_mailed, :file_accepted, :file_not_filing, :file_hold]).freeze
   STATUS_KEYS_INCLUDED_IN_CAPACITY = (STATUSES.keys - EXCLUDED_FROM_CAPACITY).freeze
-
+  GREETER_FILE_STATUSES = [:file_not_filing, :file_hold]
   def self.message_template_for(status, locale = "en")
     message_templates[status.to_sym] ? I18n.t(message_templates[status.to_sym], locale: locale) : ""
   end
 
-  def self.available_statuses_for(user)
-    return TaxReturnStatus::STATUSES_BY_STAGE.slice("intake") if user.greeter?
+  def self.available_statuses_for(user, role: nil)
+    if role == "GreeterRole" || user&.greeter?
+      statuses = TaxReturnStatus::STATUSES_BY_STAGE.slice("intake")
+      statuses["file"] = GREETER_FILE_STATUSES
+      return statuses
+    end
     TaxReturnStatus::STATUSES_BY_STAGE
   end
 end

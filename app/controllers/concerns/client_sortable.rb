@@ -4,7 +4,7 @@ module ClientSortable
     setup_sortable_client unless @filters.present?
     clients = if current_user&.greeter?
               # Greeters should only have "search" access to clients in intake stage AND clients assigned to them.
-                @clients.in_intake.or(Client.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct)
+                @clients.greetable.or(Client.joins(:tax_returns).where(tax_returns: { assigned_user: current_user }).distinct)
               else
                 @clients.after_consent
               end
