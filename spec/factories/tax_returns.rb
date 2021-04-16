@@ -91,5 +91,11 @@ FactoryBot.define do
                document_type: DocumentTypes::CompletedForm8879.key
       end
     end
+
+    trait :primary_has_signed do
+      primary_signed_at { DateTime.now }
+      primary_signed_ip { IPAddr.new }
+      primary_signature { "Primary Taxpayer" }
+    end
   end
 end

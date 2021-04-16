@@ -111,12 +111,6 @@ ActiveRecord::Schema.define(version: 2021_04_13_235430) do
     t.index ["vita_partner_id"], name: "index_bulk_client_organization_updates_on_vita_partner_id"
   end
 
-  create_table "bulk_edits", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.jsonb "data"
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "client_selection_clients", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "client_selection_id", null: false
