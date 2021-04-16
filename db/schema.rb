@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_203201) do
+ActiveRecord::Schema.define(version: 2021_04_13_235430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -70,11 +70,45 @@ ActiveRecord::Schema.define(version: 2021_04_13_203201) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "bulk_client_message_outgoing_emails", force: :cascade do |t|
+    t.bigint "bulk_client_message_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "outgoing_email_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bulk_client_message_id"], name: "index_bcmoe_on_bulk_client_message_id"
+    t.index ["outgoing_email_id"], name: "index_bcmoe_on_outgoing_email_id"
+  end
+
+  create_table "bulk_client_message_outgoing_text_messages", force: :cascade do |t|
+    t.bigint "bulk_client_message_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.bigint "outgoing_text_message_id", null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bulk_client_message_id"], name: "index_bcmotm_on_bulk_client_message_id"
+    t.index ["outgoing_text_message_id"], name: "index_bcmotm_on_outgoing_text_message_id"
+  end
+
+  create_table "bulk_client_messages", force: :cascade do |t|
+    t.bigint "client_selection_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_selection_id"], name: "index_bulk_client_messages_on_client_selection_id"
+  end
+
+  create_table "bulk_client_notes", force: :cascade do |t|
+    t.bigint "client_selection_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_selection_id"], name: "index_bulk_client_notes_on_client_selection_id"
+  end
+
   create_table "bulk_client_organization_updates", force: :cascade do |t|
     t.bigint "client_selection_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "vita_partner_id", null: false
     t.index ["client_selection_id"], name: "index_bulk_client_organization_updates_on_client_selection_id"
+    t.index ["vita_partner_id"], name: "index_bulk_client_organization_updates_on_vita_partner_id"
   end
 
   create_table "bulk_edits", force: :cascade do |t|
@@ -775,7 +809,14 @@ ActiveRecord::Schema.define(version: 2021_04_13_203201) do
 
   add_foreign_key "access_logs", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bulk_client_message_outgoing_emails", "bulk_client_messages"
+  add_foreign_key "bulk_client_message_outgoing_emails", "outgoing_emails"
+  add_foreign_key "bulk_client_message_outgoing_text_messages", "bulk_client_messages"
+  add_foreign_key "bulk_client_message_outgoing_text_messages", "outgoing_text_messages"
+  add_foreign_key "bulk_client_messages", "client_selections"
+  add_foreign_key "bulk_client_notes", "client_selections"
   add_foreign_key "bulk_client_organization_updates", "client_selections"
+  add_foreign_key "bulk_client_organization_updates", "vita_partners"
   add_foreign_key "client_selection_clients", "client_selections"
   add_foreign_key "client_selection_clients", "clients"
   add_foreign_key "clients", "vita_partners"

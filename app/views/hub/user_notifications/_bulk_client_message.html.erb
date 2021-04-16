@@ -1,0 +1,53 @@
+<div class="notification notification--<%= notification.notifiable.status %> notification--<%= notification.read ? 'read' : 'unread' %>" id="notification-<%= notification.id %>">
+  <div class="notification__heading"><%= t(".#{notification.notifiable.status}-title_html") %></div>
+  <div class="notification__date"><%= timestamp(notification.created_at) %></div>
+  <div class="notification__body">
+    <%= render 'shared/unread_icon', flag: true unless notification.read? %>
+
+    <p class="total">
+      <%= t(".total_body_html",
+            client_selection_link:
+              link_to(
+                t("hub.clients.count", count: notification.notifiable.client_selection.clients.size),
+                hub_bulk_client_message_path(id: notification.notifiable.client_selection.id)
+              )
+          ) %>
+    </p>
+
+    <% if notification.notifiable.status == BulkClientMessage::IN_PROGRESS %>
+      <p class="in-progress">
+        <%= t(".in_progress_body_html",
+              client_selection_link:
+                link_to(
+                  t("hub.clients.count", count: notification.notifiable.clients_with_in_progress_messages.size),
+                  hub_bulk_client_message_path(id: notification.notifiable.id, status: BulkClientMessage::IN_PROGRESS)
+                )
+            ) %>
+      </p>
+    <% end %>
+
+    <% if notification.notifiable.clients_with_successfully_sent_messages.size > 0 %>
+      <p class="succeeded">
+        <%= t(".succeeded_body_html",
+          client_selection_link:
+            link_to(
+              t("hub.clients.count", count: notification.notifiable.clients_with_successfully_sent_messages.size),
+              hub_bulk_client_message_path(id: notification.notifiable.id, status: BulkClientMessage::SUCCEEDED)
+            )
+        ) %>
+      </p>
+    <% end %>
+
+    <% if notification.notifiable.clients_with_no_successfully_sent_messages.size > 0 %>
+      <p class="failed">
+        <%= t(".failed_body_html",
+              client_selection_link:
+                link_to(
+                  t("hub.clients.count", count: notification.notifiable.clients_with_no_successfully_sent_messages.size),
+                  hub_bulk_client_message_path(id: notification.notifiable.id, status: BulkClientMessage::FAILED)
+                )
+            ) %>
+      </p>
+    <% end %>
+  </div>
+</div>

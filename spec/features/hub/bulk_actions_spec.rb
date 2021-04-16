@@ -27,12 +27,15 @@ RSpec.describe "Creating and reviewing bulk actions", active_job: true do
     fill_in "Add an internal note", with: "Moved!"
     click_on "Submit"
 
-    # check notifications here
-    # expect(current_path).to eq hub_user_notifications_path
+    expect(current_path).to eq hub_user_notifications_path
+    expect(page).to have_text "You successfully moved 2 clients to Orange Organization."
+    expect(page).to have_text "You successfully added internal notes to 2 clients."
+    expect(page).to have_text "Bulk Send a Message In Progress"
+    expect(page).to have_text "We are still contacting 2 clients."
 
-    # until notifications are ready, we will redirect back to the client selection
-    expect(current_path).to eq hub_client_selection_path(id: client_selection.id)
-    visit(hub_client_selection_path(id: client_selection))
+    within ".in-progress" do
+      click_on "2 clients"
+    end
 
     within "#client-#{client_es.id}" do
       expect(page).to have_text "Orange Organization"

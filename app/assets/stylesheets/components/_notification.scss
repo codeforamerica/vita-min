@@ -1,16 +1,20 @@
 .notification {
   margin-bottom: 3rem;
 
-  &__unread {
-    border: .2rem solid $color-notification-blue;
+  &--unread {
+    .notification__body {
+      border-color: $color-notification-blue;
+    }
 
     .unread-wrapper {
       float: right;
     }
   }
 
-  &__read {
-    border: .2rem solid $color-grey-medium;
+  &--failed { // should come last to take precedence over other states
+    .notification__body {
+      border-color: $color-orange-dark;
+    }
   }
 
   &__heading {
@@ -26,8 +30,16 @@
   }
 
   &__body {
+    border: .2rem solid $color-grey-medium;
     padding: 1rem;
     border-radius: .5rem;
+
+    p {
+      margin-bottom: $s10;
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 

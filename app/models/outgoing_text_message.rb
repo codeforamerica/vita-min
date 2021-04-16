@@ -36,6 +36,9 @@ class OutgoingTextMessage < ApplicationRecord
   after_create :deliver, :broadcast
   after_create :record_outgoing_interaction, if: ->(msg) { msg.user.present? }
 
+  FAILED_TWILIO_STATUSES = ["undelivered", "failed", "delivery_unknown"].freeze
+  SUCCESSFUL_TWILIO_STATUSES = ["sent", "delivered"].freeze
+
   def datetime
     sent_at
   end

@@ -25,22 +25,19 @@ module ContactRecordHelper
 
   def twilio_deliverability_status(status)
     status ||= "sending"
-    sent_statuses = %w[sent delivered]
-    failed_statuses = %w[undelivered failed delivery_unknown]
+
     icon = "icons/waiting.svg"
-    icon = "icons/exclamation.svg" if failed_statuses.include?(status)
-    icon = "icons/check.svg" if sent_statuses.include?(status)
+    icon = "icons/exclamation.svg" if OutgoingTextMessage::FAILED_TWILIO_STATUSES.include?(status)
+    icon = "icons/check.svg" if OutgoingTextMessage::SUCCESSFUL_TWILIO_STATUSES.include?(status)
     image_tag(icon, alt: status, title: status, class: 'message__status')
   end
 
   def mailgun_deliverability_status(status)
     return unless status.present?
 
-    sent_statuses = %w[delivered opened]
-    failed_statuses = %w[permanent_fail]
     icon = "icons/waiting.svg"
-    icon = "icons/exclamation.svg" if failed_statuses.include?(status)
-    icon = "icons/check.svg" if sent_statuses.include?(status)
+    icon = "icons/exclamation.svg" if OutgoingEmail::FAILED_MAILGUN_STATUSES.include?(status)
+    icon = "icons/check.svg" if OutgoingEmail::SUCCESSFUL_MAILGUN_STATUSES.include?(status)
     image_tag(icon, alt: status, title: status, class: 'message__status')
   end
 

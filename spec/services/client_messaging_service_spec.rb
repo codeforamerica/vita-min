@@ -482,4 +482,116 @@ RSpec.describe ClientMessagingService do
       end
     end
   end
+
+  describe ".send_bulk_message" do
+    let(:message_body_en) { "Hey how's it going?" }
+    let(:message_body_es) { "Oye como va?" }
+    let!(:client_selection) { create :client_selection }
+    let(:user) { create :admin_user }
+    before do
+      allow(ClientMessagingService).to receive(:send_message_to_all_opted_in_contact_methods).and_return({
+                                                                                                           outgoing_email: nil,
+                                                                                                           outgoing_text_message: nil
+                                                                                                         })
+    end
+
+    context "with messages for both locales" do
+      let!(:client_es) { create :client, client_selections: [client_selection], intake: create(:intake, locale: "es") }
+      let!(:client_en) { create :client, client_selections: [client_selection], intake: create(:intake, locale: "en") }
+      let!(:client_nil) { create :client, client_selections: [client_selection], intake: create(:intake, locale: nil) }
+
+      it "sends messages to clients with the appropriate locales" do
+        described_class.send_bulk_message(client_selection, user, en: message_body_en, es: message_body_es)
+        expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+          client_es, user, message_body_es
+        )
+        expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+          client_en, user, message_body_en
+        )
+        expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+          client_nil, user, message_body_en
+        )
+      end
+
+      context "with message records returned by send_message_to_all_opted_in_contact_methods" do
+        let(:outgoing_text_message_1) { build :outgoing_text_message }
+        let(:outgoing_text_message_2) { build :outgoing_text_message }
+
+        let(:outgoing_email_1) { build :outgoing_email }
+        let(:outgoing_email_2) { build :outgoing_email }
+
+        before do
+          allow(ClientMessagingService).to receive(:send_message_to_all_opted_in_contact_methods).and_return({
+                                                                                                               outgoing_email: outgoing_email_1,
+                                                                                                               outgoing_text_message: outgoing_text_message_1
+                                                                                                             }, {
+                                                                                                               outgoing_email: outgoing_email_2,
+                                                                                                               outgoing_text_message: nil
+                                                                                                             }, {
+                                                                                                               outgoing_email: nil,
+                                                                                                               outgoing_text_message: outgoing_text_message_2
+                                                                                                             })
+        end
+
+        it "creates the correct records" do
+          expect do
+            described_class.send_bulk_message(client_selection, user, en: message_body_en, es: message_body_es)
+          end.to change(BulkClientMessage, :count).by(1).and(
+            change(BulkClientMessageOutgoingEmail, :count).by(2)
+          ).and(
+            change(BulkClientMessageOutgoingTextMessage, :count).by(2)
+          )
+        end
+
+        it "returns the BulkClientMessage with the correct records attached" do
+          bulk_message = described_class.send_bulk_message(client_selection, user, en: message_body_en, es: message_body_es)
+          expect(bulk_message.outgoing_emails).to match_array([outgoing_email_1, outgoing_email_2])
+          expect(bulk_message.outgoing_text_messages).to match_array([outgoing_text_message_1, outgoing_text_message_2])
+       end
+      end
+    end
+
+    context "with one message body" do
+      context "and one matching locale among clients" do
+        let!(:client_es) { create :client, client_selections: [client_selection], intake: create(:intake, locale: "es") }
+
+        it "sends messages to the clients without problems" do
+          described_class.send_bulk_message(client_selection, user, es: message_body_es)
+
+          expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+            client_es, user, message_body_es
+          )
+        end
+      end
+
+      context "and two locales among clients" do
+        let!(:client_es) { create :client, client_selections: [client_selection], intake: create(:intake, locale: "es") }
+        let!(:client_en) { create :client, client_selections: [client_selection], intake: create(:intake, locale: "en") }
+
+        it "raises an error" do
+          expect do
+            described_class.send_bulk_message(client_selection, user, es: message_body_es)
+          end.to raise_error(ArgumentError)
+        end
+      end
+    end
+
+    context "when the sender can't access some of the clients" do
+      let(:organization) { create :organization }
+      let(:other_org) { create :organization }
+      let(:user) { create :organization_lead_user, organization: organization }
+      let!(:accessible_client) { create(:intake, client: create(:client, client_selections: [client_selection], vita_partner: organization)).client }
+      let!(:inaccessible_client) { create(:intake, client: create(:client, client_selections: [client_selection], vita_partner: other_org)).client }
+
+      it "scopes down to only the accessible clients" do
+        described_class.send_bulk_message(client_selection, user, en: message_body_en)
+        expect(ClientMessagingService).to have_received(:send_message_to_all_opted_in_contact_methods).with(
+          accessible_client, user, message_body_en
+        )
+        expect(ClientMessagingService).not_to have_received(:send_message_to_all_opted_in_contact_methods).with(
+          inaccessible_client, user, message_body_en
+        )
+      end
+    end
+  end
 end
