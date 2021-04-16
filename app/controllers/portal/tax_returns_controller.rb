@@ -55,7 +55,7 @@ module Portal
     end
 
     def redirect_unless_signature_required(signature_type)
-      unless @tax_return.ready_for_signature?(signature_type)
+      unless @tax_return.ready_for_8879_signature?(signature_type)
         flash[:notice] = I18n.t("controllers.tax_returns_controller.errors.cannot_sign")
         redirect_to :portal_root
       end
