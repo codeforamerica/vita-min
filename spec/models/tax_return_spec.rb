@@ -101,11 +101,11 @@ describe TaxReturn do
     end
   end
 
-  describe "#primary_has_signed?" do
+  describe "#primary_has_signed_consent?" do
     context "when primary_signed_at and primary_signed_ip are present" do
       let(:tax_return) { create :tax_return, primary_signed_at: DateTime.now, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
       it "returns true" do
-        expect(tax_return.primary_has_signed?).to be true
+        expect(tax_return.primary_has_signed_consent?).to be true
 
       end
     end
@@ -114,7 +114,7 @@ describe TaxReturn do
       let(:tax_return) { create :tax_return, primary_signed_at: nil, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
 
       it "returns false" do
-        expect(tax_return.primary_has_signed?).to be false
+        expect(tax_return.primary_has_signed_consent?).to be false
       end
     end
 
@@ -122,16 +122,16 @@ describe TaxReturn do
       let(:tax_return) { create :tax_return, primary_signed_at: DateTime.now, primary_signed_ip: nil, primary_signature: "Primary Taxpayer" }
 
       it "returns false" do
-        expect(tax_return.primary_has_signed?).to be false
+        expect(tax_return.primary_has_signed_consent?).to be false
       end
     end
   end
 
-  describe "#spouse_has_signed?" do
+  describe "#spouse_has_signed_consent?" do
     context "when spouse_signed_at and spouse_signed_ip are present" do
       let(:tax_return) { create :tax_return, spouse_signed_at: DateTime.now, spouse_signed_ip: IPAddr.new, spouse_signature: "Spouse Name" }
       it "returns true" do
-        expect(tax_return.spouse_has_signed?).to be true
+        expect(tax_return.spouse_has_signed_consent?).to be true
       end
     end
 
@@ -139,7 +139,7 @@ describe TaxReturn do
       let(:tax_return) { create :tax_return, spouse_signed_at: nil, spouse_signed_ip: IPAddr.new, spouse_signature: "Spouse Name" }
 
       it "returns false" do
-        expect(tax_return.spouse_has_signed?).to be false
+        expect(tax_return.spouse_has_signed_consent?).to be false
       end
     end
 
@@ -147,7 +147,7 @@ describe TaxReturn do
       let(:tax_return) { create :tax_return, spouse_signed_at: DateTime.now, spouse_signed_ip: nil, spouse_signature: "Spouse Name" }
 
       it "returns false" do
-        expect(tax_return.spouse_has_signed?).to be false
+        expect(tax_return.spouse_has_signed_consent?).to be false
       end
     end
   end
