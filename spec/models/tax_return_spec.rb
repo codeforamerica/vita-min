@@ -284,7 +284,7 @@ describe TaxReturn do
     end
   end
 
-  describe "signatures_completed?" do
+  describe "completely_signed_8879?" do
     let(:filing_joint) { "no" }
     let(:intake) { create :intake, filing_joint: filing_joint }
     let(:tax_return) { create :tax_return, client: create(:client, intake: intake) }

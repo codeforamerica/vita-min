@@ -16,7 +16,6 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_link("Complete all tax questions", href: "/en/questions/asset-loss")
       expect(page).to have_link "Message my tax specialist"
 
-      expect(page).not_to have_text "Here’s what we still need from you:"
       expect(page).not_to have_text "Answered initial tax questions"
       expect(page).not_to have_link "Submit additional documents"
     end
@@ -121,7 +120,7 @@ RSpec.feature "a client on their portal" do
   context "when the client needs to review & sign" do
     let(:client) do
       create :client,
-             intake: (create :intake),
+             intake: (create :intake, filing_joint: "yes"),
              tax_returns: [(create :tax_return, year: 2020, status: :review_signature_requested)]
     end
 
@@ -146,6 +145,7 @@ RSpec.feature "a client on their portal" do
         expect(page).to have_text "Return prepared"
         expect(page).to have_text "Completed quality review for 2020"
         expect(page).to have_link "Add final primary taxpayer signature for 2020"
+        expect(page).to have_link "Add final spouse signature for 2020"
       end
     end
   end
