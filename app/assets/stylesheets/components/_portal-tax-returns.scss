@@ -15,6 +15,15 @@
     }
   }
 
+  .action_link {
+    color: $color-grey-darkest;
+    text-decoration: none;
+
+    &__border {
+      border-bottom: 1px solid;
+    }
+  }
+
   &__row {
     margin-bottom: 2rem;
     display: flex;

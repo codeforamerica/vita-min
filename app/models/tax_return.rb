@@ -92,6 +92,14 @@ class TaxReturn < ApplicationRecord
     false
   end
 
+  def completely_signed_8879?
+    if filing_joint?
+      primary_has_signed_8879? && spouse_has_signed_8879?
+    else
+      primary_has_signed_8879?
+    end
+  end
+
   def ready_to_file?
     (filing_joint? && primary_has_signed_8879? && spouse_has_signed_8879?) || (!filing_joint? && primary_has_signed_8879?)
   end
@@ -155,7 +163,7 @@ class TaxReturn < ApplicationRecord
       save!
     end
 
-    raise FailedToSignReturnError if !sign_successful
+    raise FailedToSignReturnError unless sign_successful
 
     true
   end
