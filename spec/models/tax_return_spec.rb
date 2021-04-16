@@ -91,7 +91,7 @@ describe TaxReturn do
 
     context "with a status that comes after the current status" do
       let(:status) { "intake_in_progress" }
-      let(:new_status) { "file_ready_to_file"}
+      let(:new_status) { "file_ready_to_file" }
 
       it "changes to the new status" do
         expect do
@@ -106,7 +106,6 @@ describe TaxReturn do
       let(:tax_return) { create :tax_return, primary_signed_at: DateTime.now, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
       it "returns true" do
         expect(tax_return.primary_has_signed?).to be true
-
       end
     end
 
@@ -161,7 +160,6 @@ describe TaxReturn do
       }
       it "returns false" do
         expect(tax_return.filing_joint?).to eq false
-
       end
     end
 
@@ -287,7 +285,57 @@ describe TaxReturn do
   end
 
   describe "signatures_completed?" do
+    let(:filing_joint) { "no" }
+    let(:intake) { create :intake, filing_joint: filing_joint }
+    let(:tax_return) { create :tax_return, client: create(:client, intake: intake) }
 
+    context "single filing" do
+      context "primary signed" do
+        before do
+          allow(tax_return).to receive(:primary_has_signed?).and_return(true)
+        end
+
+        it "returns true" do
+          expect(tax_return.signatures_completed?).to eq true
+        end
+      end
+
+      context "primary has not signed" do
+        before do
+          allow(tax_return).to receive(:primary_has_signed?).and_return(false)
+        end
+
+        it "returns false" do
+          expect(tax_return.signatures_completed?).to eq false
+        end
+      end
+    end
+
+    context "filing jointly" do
+      let!(:filing_joint) { "yes" }
+
+      context "primary and spouse signed 8879" do
+        before do
+          allow(tax_return).to receive(:primary_has_signed?).and_return(true)
+          allow(tax_return).to receive(:spouse_has_signed?).and_return(true)
+        end
+
+        it "returns true" do
+          expect(tax_return.signatures_completed?).to eq true
+        end
+      end
+
+      context "only primary signed 8879" do
+        before do
+          allow(tax_return).to receive(:primary_has_signed?).and_return(true)
+          allow(tax_return).to receive(:spouse_has_signed?).and_return(false)
+        end
+
+        it "returns false" do
+          expect(tax_return.signatures_completed?).to eq false
+        end
+      end
+    end
   end
 
   describe "#ready_to_file?" do
@@ -303,7 +351,7 @@ describe TaxReturn do
       end
 
       context "when the return has been signed" do
-        let(:tax_return) { create :tax_return, primary_signed_at: DateTime.current, primary_signed_ip: "127.0.1.1", primary_signature: "Joe Crabapple" , client: client }
+        let(:tax_return) { create :tax_return, primary_signed_at: DateTime.current, primary_signed_ip: "127.0.1.1", primary_signature: "Joe Crabapple", client: client }
 
         it "return false" do
           expect(tax_return.ready_to_file?).to eq true

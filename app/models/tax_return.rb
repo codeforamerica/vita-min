@@ -78,7 +78,6 @@ class TaxReturn < ApplicationRecord
   end
 
   def spouse_has_signed?
-
     spouse_signature.present? && spouse_signed_at? && spouse_signed_ip?
   end
 
@@ -94,7 +93,11 @@ class TaxReturn < ApplicationRecord
   end
 
   def signatures_completed?
-    false
+    if filing_joint?
+      primary_has_signed? && spouse_has_signed?
+    else
+      primary_has_signed?
+    end
   end
 
   def ready_to_file?
@@ -160,7 +163,7 @@ class TaxReturn < ApplicationRecord
       save!
     end
 
-    raise FailedToSignReturnError if !sign_successful
+    raise FailedToSignReturnError unless sign_successful
 
     true
   end

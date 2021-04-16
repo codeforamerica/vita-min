@@ -22,7 +22,7 @@
 
     <% if @submit_additional_documents %>
       <%= render "action_state", is_link: true do %>
-        <%= link_to t("portal.portal.home.action_state.submit_additional_documents"), @current_step %>
+        <%= link_to t("portal.portal.home.action_state.submit_additional_documents"), @current_step , class: "action_link"%>
       <% end %>
     <% end %>
   </div>
@@ -72,13 +72,13 @@
 
         <% if tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
           <%= render "action_state", is_link: true do %>
-            <%= link_to t("portal.portal.home.action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id) %>
+            <%= link_to t("portal.portal.home.action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "action_link" %>
           <% end %>
         <% end %>
 
         <% if tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
           <%= render "action_state", is_link: true do %>
-            <%= link_to t("portal.portal.home.action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id) %>
+            <%= link_to t("portal.portal.home.action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "action_link" %>
           <% end %>
         <% end %>
 
@@ -88,9 +88,9 @@
           <% end %>
         <% end %>
 
-        <%= render "document_links", label: ".view_final_tax_document", documents: tax_return.final_tax_documents %>
-        <%= render "document_links", label: ".view_signed_8879", documents: tax_return.signed_8879s %>
-        <%= render "document_links", label: ".view_unsigned_8879", documents: tax_return.unsigned_8879s %>
+        <%= render "document_links", label: t("portal.portal.home.document_link.view_final_tax_document", year: tax_return.year), documents: tax_return.final_tax_documents %>
+        <%= render "document_links", label: t("portal.portal.home.document_link.view_signed_8879", year: tax_return.year), documents: tax_return.signed_8879s %>
+        <%= render "document_links", label: t("portal.portal.home.document_link.view_unsigned_8879", year: tax_return.year), documents: tax_return.unsigned_8879s %>
 
         <% if tax_return.final_tax_documents.blank? && tax_return.signed_8879s.blank? && tax_return.unsigned_8879s.blank? %>
           <div class="tax-return-status__row">

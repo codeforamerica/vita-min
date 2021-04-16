@@ -127,6 +127,11 @@ RSpec.feature "a client on their portal" do
 
     before do
       login_as client, scope: :client
+      create :document,
+             document_type: DocumentTypes::UnsignedForm8879.key,
+             tax_return: client.tax_returns.first,
+             client: client,
+             upload_path: Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
     end
 
     scenario "waiting on review and signature" do
@@ -150,7 +155,7 @@ RSpec.feature "a client on their portal" do
     let(:client) do
       create :client,
              intake: (create :intake),
-             tax_returns: [(create :tax_return, year: 2020, status: :file_efiled)]
+             tax_returns: [(create :tax_return, :primary_has_signed, year: 2020, status: :file_efiled)]
     end
 
     before do

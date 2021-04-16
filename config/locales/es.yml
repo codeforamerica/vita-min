@@ -986,9 +986,9 @@ es:
         message_sent: "¡Mensaje enviado!"
     portal:
       home:
-        send_message: Mandar mensaje a mi especialista en impuestos
         title: "Bienvenido de nuevo %{name}!"
         submit_documents: Enviar documentos adicionales
+        send_message: Mandar mensaje a mi especialista en impuestos
         tax_return_heading: Declaración de impuestos de %{year}
         empty_state: Aún no hay documentos listos para revisar.
         action_state:
@@ -1010,11 +1010,11 @@ es:
             return_prepared: Return prepared
             completed_qr: Revisión de calidad completada para %{year}
             final_signature_added: Firma final agregada para %{year}
-      document_link:
-        view_signed_8879: Ver o descargar formulario 8879 firmado
-        view_unsigned_8879: Ver o descargar formulario 8879
-        view_document: Ver o descargar el documento %{display_name}
-        view_final_tax_document: Ver o descargar el documento fiscal final de %{year}
+        document_link:
+          view_signed_8879: Ver o descargar formulario 8879 firmado
+          view_unsigned_8879: Ver o descargar formulario 8879
+          view_document: Ver o descargar el documento %{display_name}
+          view_final_tax_document: Ver o descargar el documento fiscal final de %{year}
     tax_returns:
       authorize_signature:
         efile_acceptance: Autorizo a GetYourRefund a ingresar o generar mi PIN como firma mía en mi declaración de impuestos del año %{year} que presentó electrónicamente.
