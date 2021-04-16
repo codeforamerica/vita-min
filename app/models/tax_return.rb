@@ -93,6 +93,10 @@ class TaxReturn < ApplicationRecord
     false
   end
 
+  def signatures_completed?
+    false
+  end
+
   def ready_to_file?
     (filing_joint? && primary_has_signed? && spouse_has_signed?) || (!filing_joint? && primary_has_signed?)
   end

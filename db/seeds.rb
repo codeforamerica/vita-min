@@ -120,12 +120,14 @@ Intake.create(client: other_client, preferred_name: "Tony", email_address: "tige
 
 married_client = Client.create!(vita_partner: first_org)
 
+# Use this client for portal login; log in by email address & run rails jobs:work for the verification code; see SSN last 4 below
 married_intake = Intake.create!(
   client: married_client,
   preferred_name: "Lucky",
   primary_first_name: "Lucky",
   primary_last_name: "Charms",
   sms_phone_number: "+14155551212",
+  primary_last_four_ssn: "1111",
   email_address: "charms@example.com",
   sms_notification_opt_in: :yes,
   email_notification_opt_in: :yes,
