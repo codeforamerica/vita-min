@@ -286,6 +286,10 @@ describe TaxReturn do
     end
   end
 
+  describe "signatures_completed?" do
+
+  end
+
   describe "#ready_to_file?" do
     context "not filing jointly" do
       let(:client) { create :client, intake: (create :intake, filing_joint: "no") }

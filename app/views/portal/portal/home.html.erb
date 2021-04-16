@@ -9,12 +9,9 @@
         <%= t("portal.portal.home.progress_state.answered_questions") %>
       <% end %>
     <% else %>
-      <div class="tax-return-status">
-        <div class="tax-return-status__row">
-          <%= image_tag("icons/exclamation.svg", alt: "") %>
-          <%= link_to t(".action_state.answer_questions"), @current_step %>
-        </div>
-      </div>
+      <%= render "action_state", is_link: true do %>
+        <%= link_to t("portal.portal.home.action_state.answer_questions"), @current_step, class: "action_link" %>
+      <% end %>
     <% end %>
 
     <% if @shared_initial_docs %>
@@ -24,12 +21,9 @@
     <% end %>
 
     <% if @submit_additional_documents %>
-      <div class="tax-return-status">
-        <div class="tax-return-status__row">
-          <%= image_tag("icons/exclamation.svg", alt: "") %>
-          <%= link_to t(".action_state.submit_additional_documents"), @current_step %>
-        </div>
-      </div>
+      <%= render "action_state", is_link: true do %>
+        <%= link_to t("portal.portal.home.action_state.submit_additional_documents"), @current_step %>
+      <% end %>
     <% end %>
   </div>
 
@@ -77,18 +71,15 @@
         <% end %>
 
         <% if tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
-          <div class="tax-return-status__row">
-            <%= image_tag("icons/exclamation.svg", alt: "") %>
-            
-            <%= link_to t(".action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id) %>
-          </div>
+          <%= render "action_state", is_link: true do %>
+            <%= link_to t("portal.portal.home.action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id) %>
+          <% end %>
         <% end %>
 
         <% if tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
-          <div class="tax-return-status__row">
-            <%= image_tag("icons/exclamation.svg", alt: "") %>
-            <%= link_to t(".action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id) %>
-          </div>
+          <%= render "action_state", is_link: true do %>
+            <%= link_to t("portal.portal.home.action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id) %>
+          <% end %>
         <% end %>
 
         <% if tax_return.signatures_completed? %>
