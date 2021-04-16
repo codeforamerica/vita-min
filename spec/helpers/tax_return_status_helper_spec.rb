@@ -60,7 +60,6 @@ describe TaxReturnStatusHelper do
       end
 
       it "returns limited statuses" do
-        pp helper.grouped_status_options_for_select
         expect(helper.grouped_status_options_for_select).to eq (
                                                                    [["Intake",
                                                                      [["Not ready", "intake_in_progress"],
