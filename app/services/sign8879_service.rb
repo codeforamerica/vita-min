@@ -7,7 +7,7 @@ class Sign8879Service
       document_writer.write(:primary_signature, tax_return.primary_signature)
       document_writer.write(:primary_signed_on, tax_return.primary_signed_at.strftime("%m/%d/%Y"))
 
-      if tax_return.spouse_has_signed?
+      if tax_return.spouse_has_signed_8879?
         document_writer.write(:spouse_signature, tax_return.spouse_signature)
         document_writer.write(:spouse_signed_on, tax_return.spouse_signed_at.strftime("%m/%d/%Y"))
       end

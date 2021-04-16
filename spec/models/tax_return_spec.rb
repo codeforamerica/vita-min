@@ -101,11 +101,11 @@ describe TaxReturn do
     end
   end
 
-  describe "#primary_has_signed?" do
+  describe "#primary_has_signed_8879?" do
     context "when primary_signed_at and primary_signed_ip are present" do
       let(:tax_return) { create :tax_return, primary_signed_at: DateTime.now, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
       it "returns true" do
-        expect(tax_return.primary_has_signed?).to be true
+        expect(tax_return.primary_has_signed_8879?).to be true
 
       end
     end
@@ -114,7 +114,7 @@ describe TaxReturn do
       let(:tax_return) { create :tax_return, primary_signed_at: nil, primary_signed_ip: IPAddr.new, primary_signature: "Primary Taxpayer" }
 
       it "returns false" do
-        expect(tax_return.primary_has_signed?).to be false
+        expect(tax_return.primary_has_signed_8879?).to be false
       end
     end
 
@@ -122,16 +122,16 @@ describe TaxReturn do
       let(:tax_return) { create :tax_return, primary_signed_at: DateTime.now, primary_signed_ip: nil, primary_signature: "Primary Taxpayer" }
 
       it "returns false" do
-        expect(tax_return.primary_has_signed?).to be false
+        expect(tax_return.primary_has_signed_8879?).to be false
       end
     end
   end
 
-  describe "#spouse_has_signed?" do
+  describe "#spouse_has_signed_8879?" do
     context "when spouse_signed_at and spouse_signed_ip are present" do
       let(:tax_return) { create :tax_return, spouse_signed_at: DateTime.now, spouse_signed_ip: IPAddr.new, spouse_signature: "Spouse Name" }
       it "returns true" do
-        expect(tax_return.spouse_has_signed?).to be true
+        expect(tax_return.spouse_has_signed_8879?).to be true
       end
     end
 
@@ -139,7 +139,7 @@ describe TaxReturn do
       let(:tax_return) { create :tax_return, spouse_signed_at: nil, spouse_signed_ip: IPAddr.new, spouse_signature: "Spouse Name" }
 
       it "returns false" do
-        expect(tax_return.spouse_has_signed?).to be false
+        expect(tax_return.spouse_has_signed_8879?).to be false
       end
     end
 
@@ -147,7 +147,7 @@ describe TaxReturn do
       let(:tax_return) { create :tax_return, spouse_signed_at: DateTime.now, spouse_signed_ip: nil, spouse_signature: "Spouse Name" }
 
       it "returns false" do
-        expect(tax_return.spouse_has_signed?).to be false
+        expect(tax_return.spouse_has_signed_8879?).to be false
       end
     end
   end
@@ -191,13 +191,13 @@ describe TaxReturn do
       end
 
       it "returns false" do
-        expect(tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
+        expect(tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
       end
     end
 
     context "when uploaded 8879 does not exist" do
       it "return false" do
-        expect(tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
+        expect(tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
       end
     end
 
@@ -213,7 +213,7 @@ describe TaxReturn do
       context "checking for primary" do
         context "the primary hasn't signed yet" do
           it "returns true" do
-            expect(tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq true
+            expect(tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq true
           end
         end
 
@@ -226,7 +226,7 @@ describe TaxReturn do
           }
 
           it "returns false" do
-            expect(primary_signed_tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
+            expect(primary_signed_tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
           end
         end
       end
@@ -247,7 +247,7 @@ describe TaxReturn do
           end
 
           it "returns false" do
-            expect(spouse_not_required_tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq false
+            expect(spouse_not_required_tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq false
           end
         end
 
@@ -258,7 +258,7 @@ describe TaxReturn do
                    client: client
           }
           it "returns true" do
-            expect(tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq true
+            expect(tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq true
           end
         end
 
@@ -279,7 +279,7 @@ describe TaxReturn do
           end
 
           it "returns false" do
-            expect(spouse_signed_tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq false
+            expect(spouse_signed_tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq false
           end
         end
       end

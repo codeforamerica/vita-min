@@ -33,14 +33,14 @@
           <%= render "document_links", label: ".view_signed_8879", documents: tax_return.signed_8879s %>
           <%= render "document_links", label: ".view_unsigned_8879", documents: tax_return.unsigned_8879s %>
 
-          <% if tax_return.ready_for_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
+          <% if tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
             <div class="tax-return-status__row tax-return-status__with-alert">
               <%= image_tag("icons/exclamation.svg", alt: "") %>
               <%= link_to t(".tax_returns.submit_primary"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id) %>
             </div>
           <% end %>
 
-          <% if tax_return.ready_for_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
+          <% if tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
             <div class="tax-return-status__row tax-return-status__with-alert">
               <%= image_tag("icons/exclamation.svg", alt: "") %>
               <%= link_to t(".tax_returns.submit_spouse"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id) %>

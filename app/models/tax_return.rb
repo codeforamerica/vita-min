@@ -73,12 +73,11 @@ class TaxReturn < ApplicationRecord
     [[I18n.t("general.drop_off"), "drop_off"], [I18n.t("general.online"), "online_intake"]]
   end
 
-  def primary_has_signed?
+  def primary_has_signed_8879?
     primary_signature.present? && primary_signed_at? && primary_signed_ip?
   end
 
-  def spouse_has_signed?
-
+  def spouse_has_signed_8879?
     spouse_signature.present? && spouse_signed_at? && spouse_signed_ip?
   end
 
@@ -86,7 +85,7 @@ class TaxReturn < ApplicationRecord
     client.intake.filing_joint_yes?
   end
 
-  def ready_for_signature?(signature_type)
+  def ready_for_8879_signature?(signature_type)
     return true if unsigned_8879s.present? && signature_type == TaxReturn::PRIMARY_SIGNATURE
     return true if unsigned_8879s.present? && signature_type == TaxReturn::SPOUSE_SIGNATURE && filing_joint?
 
@@ -94,7 +93,7 @@ class TaxReturn < ApplicationRecord
   end
 
   def ready_to_file?
-    (filing_joint? && primary_has_signed? && spouse_has_signed?) || (!filing_joint? && primary_has_signed?)
+    (filing_joint? && primary_has_signed_8879? && spouse_has_signed_8879?) || (!filing_joint? && primary_has_signed_8879?)
   end
 
   def unsigned_8879s
@@ -111,7 +110,7 @@ class TaxReturn < ApplicationRecord
 
   def sign_primary!(ip)
     unless unsigned_8879s.present?
-      raise AlreadySignedError if primary_has_signed?
+      raise AlreadySignedError if primary_has_signed_8879?
     end
 
     sign_successful = ActiveRecord::Base.transaction do
@@ -137,7 +136,7 @@ class TaxReturn < ApplicationRecord
 
   def sign_spouse!(ip)
     unless unsigned_8879s.present?
-      raise AlreadySignedError if spouse_has_signed?
+      raise AlreadySignedError if spouse_has_signed_8879?
     end
 
     sign_successful = ActiveRecord::Base.transaction do
