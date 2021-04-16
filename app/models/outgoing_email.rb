@@ -41,6 +41,9 @@ class OutgoingEmail < ApplicationRecord
   # has_one_attached needs to be called after defining any callbacks that access attachments, like :deliver; see https://github.com/rails/rails/issues/37304
   has_one_attached :attachment
 
+  FAILED_MAILGUN_STATUSES = ["permanent_fail"].freeze
+  SUCCESSFUL_MAILGUN_STATUSES = ["delivered", "opened"].freeze
+
   def datetime
     sent_at
   end

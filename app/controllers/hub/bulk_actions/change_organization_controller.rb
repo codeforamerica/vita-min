@@ -18,11 +18,14 @@ module Hub
 
         @new_vita_partner = @vita_partners.find(@form.vita_partner_id)
 
-        unassign_users_who_will_lose_access!
-        update_clients_with_new_partner_and_note!
-        enqueue_bulk_messaging_job
+        ActiveRecord::Base.transaction do
+          unassign_users_who_will_lose_access!
+          update_clients_with_new_partner_and_note!
+          create_outgoing_messages!
+          create_user_notifications!
+        end
 
-        redirect_to hub_client_selection_path(id: @client_selection)
+        redirect_to hub_user_notifications_path
       end
 
       private
@@ -55,7 +58,7 @@ module Hub
 
       def update_clients_with_new_partner_and_note!
         @clients.find_each do |client|
-          client.update(vita_partner: @new_vita_partner)
+          client.update!(vita_partner: @new_vita_partner)
 
           if @form.note_body.present?
             client.notes.create!(body: @form.note_body, user: current_user)
@@ -63,14 +66,28 @@ module Hub
         end
       end
 
-      def enqueue_bulk_messaging_job
+      def create_outgoing_messages!
         if @form.message_body_en.present? || @form.message_body_es.present?
-          BulkClientMessagingJob.perform_later(
+          @bulk_client_message = ClientMessagingService.send_bulk_message(
             @client_selection,
             current_user,
             en: @form.message_body_en,
             es: @form.message_body_es,
-            )
+          )
+        end
+      end
+
+      def create_user_notifications!
+        bulk_update = BulkClientOrganizationUpdate.create!(client_selection: @client_selection, vita_partner: @new_vita_partner)
+        UserNotification.create!(notifiable: bulk_update, user: current_user)
+
+        if @form.note_body.present?
+          bulk_note = BulkClientNote.create!(client_selection: @client_selection)
+          UserNotification.create!(notifiable: bulk_note, user: current_user)
+        end
+
+        if @bulk_client_message.present?
+          UserNotification.create!(notifiable: @bulk_client_message, user: current_user)
         end
       end
     end

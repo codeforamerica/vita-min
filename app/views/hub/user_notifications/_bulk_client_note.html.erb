@@ -1,11 +1,14 @@
 <div class="notification notification--<%= notification.read ? 'read' : 'unread' %>" id="notification-<%=notification.id%>">
   <div class="notification__heading"><%= t(".title") %></div>
   <div class="notification__date"><%= timestamp(notification.created_at) %></div>
-  <div class="notification__body <%= notification.read ? 'notification__read' : 'notification__unread' %>">
+  <div class="notification__body">
     <%= render 'shared/unread_icon', flag: true unless notification.read? %>
     <%= t(".body_html",
-          assigner: notification.notifiable.user.name,
-          client_link: link_to(t(".body_link", client_name: notification.notifiable.client.preferred_name), hub_client_notes_path(client_id: notification.notifiable.client, anchor: 'last-item')))
-    %>
+      client_selection_link:
+        link_to(
+          t("hub.clients.count", count: notification.notifiable.client_selection.clients.count),
+          hub_client_selection_path(id: notification.notifiable.client_selection.id)
+        )
+    ) %>
   </div>
 </div>

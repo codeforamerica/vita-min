@@ -37,7 +37,7 @@ RSpec.describe Hub::ClientSelectionsController do
           get :show, params: params
 
           expect(assigns(:client_index_help_text)).to eq("You are viewing 2 results from your saved search")
-          expect(assigns(:missing_results_message)).to eq "3 results are no longer accessible to you"
+          expect(assigns(:missing_results_message)).to eq "3 results are no longer accessible to you."
         end
       end
 

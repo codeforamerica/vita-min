@@ -127,7 +127,7 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
     end
   end
 
-  describe "#update", active_job: true do
+  describe "#update" do
     let(:new_vita_partner) { create :site, parent_organization: organization }
     let(:params) do
       {
@@ -146,13 +146,21 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
       context "updating organization" do
         let!(:selected_client) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: organization }
 
-        it "updates the organization on all selected clients and redirects to client selection page" do
+        it "updates the organization on all selected clients, creates the right record, and redirects to the notification page" do
           expect {
             put :update, params: params
-          }.to change { selected_client.reload.vita_partner }.from(organization).to(new_vita_partner)
+          }.to change { selected_client.reload.vita_partner }.from(organization).to(new_vita_partner).and(
+            change(BulkClientOrganizationUpdate, :count).by(1)
+          ).and(
+            change(UserNotification, :count).by(1)
+          )
 
-          # once notifications are in place, this should redirect to notifications instead
-          expect(response).to redirect_to hub_client_selection_path(id: client_selection)
+          bulk_update = BulkClientOrganizationUpdate.last
+          expect(bulk_update.client_selection).to eq client_selection
+          expect(bulk_update.user_notification.user).to eq user
+          expect(bulk_update.user_notification.notifiable.vita_partner).to eq new_vita_partner
+
+          expect(response).to redirect_to hub_user_notifications_path
         end
 
         context "when user only has access to update some clients" do
@@ -187,6 +195,9 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
       end
 
       context "sending messages" do
+        let(:bulk_client_message) { create :bulk_client_message }
+        before { allow(ClientMessagingService).to receive(:send_bulk_message).and_return(bulk_client_message) }
+
         context "with valid message params" do
           let(:english_message_body) { "I moved your case to a new org!" }
           let(:spanish_message_body) { "¡Mové su caso a una organización nueva!" }
@@ -205,15 +216,25 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
             allow_any_instance_of(Hub::BulkActionForm).to receive(:valid?).and_return true
           end
 
-          it "enqueues a BulkMessagingJob with the right arguments" do
+          it "calls the ClientMessagingService with the right arguments" do
             put :update, params: params
 
-            expect(BulkClientMessagingJob).to have_been_enqueued.with(
+            expect(ClientMessagingService).to have_received(:send_bulk_message).with(
               client_selection,
               user,
               en: english_message_body,
               es: spanish_message_body,
             )
+          end
+
+          it "creates a Notification for BulkClientMessage" do
+            expect do
+              put :update, params: params
+            end.to change { UserNotification.where(notifiable_type: "BulkClientMessage").count }.by(1)
+
+            bulk_message_notification = UserNotification.where(notifiable_type: "BulkClientMessage").last
+            expect(bulk_message_notification.user).to eq(user)
+            expect(bulk_message_notification.notifiable).to eq(bulk_client_message)
           end
         end
 
@@ -225,7 +246,7 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
           it "does not enqueue a job" do
             put :update, params: params
 
-            expect(BulkClientMessagingJob).not_to have_been_enqueued
+            expect(ClientMessagingService).not_to have_received(:send_bulk_message)
           end
         end
       end
@@ -247,12 +268,22 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
         it "saves a note and fires related after creation hooks" do
           expect {
             put :update, params: params
-          }.to change(Note, :count).by(2).and(change { selected_client_1.reload.last_internal_or_outgoing_interaction_at })
+          }.to change(Note, :count).by(2).and(
+            change { selected_client_1.reload.last_internal_or_outgoing_interaction_at }
+          ).and(
+            change(BulkClientNote, :count).by(1)
+          ).and(
+            change { UserNotification.where(notifiable_type: "BulkClientNote").count }.by(1)
+          )
 
           expect(selected_client_1.notes.first.body).to eq note_body
           expect(selected_client_1.notes.first.user).to eq user
           expect(selected_client_2.notes.first.body).to eq note_body
           expect(selected_client_2.notes.first.user).to eq user
+
+          bulk_note = BulkClientNote.last
+          expect(bulk_note.client_selection).to eq client_selection
+          expect(bulk_note.user_notification.user).to eq user
         end
       end
     end
