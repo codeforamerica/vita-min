@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_235430) do
+ActiveRecord::Schema.define(version: 2021_04_16_225043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -557,7 +557,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_235430) do
     t.string "body", null: false
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
-    t.string "mailgun_status"
+    t.string "mailgun_status", default: "sending"
     t.string "message_id"
     t.datetime "sent_at", null: false
     t.string "subject", null: false

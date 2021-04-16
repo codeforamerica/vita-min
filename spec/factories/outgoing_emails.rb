@@ -4,7 +4,7 @@
 #
 #  id             :bigint           not null, primary key
 #  body           :string           not null
-#  mailgun_status :string
+#  mailgun_status :string           default("sending")
 #  sent_at        :datetime         not null
 #  subject        :string           not null
 #  to             :citext           not null
