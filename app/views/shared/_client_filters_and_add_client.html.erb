@@ -8,7 +8,7 @@
       <div class="select">
         <select name="status" class="select__element" id="status-filter">
           <option value></option>
-          <% TaxReturnStatus.available_statuses_for(current_user).each do |stage, statuses| %>
+          <% TaxReturnStatus.statuses_by_role_type(current_user.role_type).each do |stage, statuses| %>
             <option value="<%= stage %>" <%= @filters[:stage] == stage && "selected" %>><%= TaxReturnStatusHelper.stage_translation(stage) %></option>
             <% statuses.each do |status| %>
               <option value="<%= status %>" <%= [status, status.to_s].include?(@filters[:status]) && "selected" %>>&emsp;<%= status_translation(status) %></option>
@@ -94,7 +94,7 @@
       <%= check_box_tag :needs_response, true, @filters[:needs_response] %>
       <%= t("general.needs_response") %>
     </label>
-    
+
     <label class="checkbox--gyr">
       <%= check_box_tag :unemployment_income, true, @filters[:unemployment_income] %>
       <%= t("general.received_unemployment_income") %>

@@ -194,6 +194,35 @@ describe Client do
     end
   end
 
+  describe ".greetable scope" do
+    let(:greetable_status) { :intake_in_progress }
+    let(:ungreetable_status) { :prep_preparing }
+    let(:client) { create(:client) }
+    before do
+      allow(TaxReturnStatus).to receive(:statuses_by_role_type).with(GreeterRole::TYPE).and_return({ "intake" => [greetable_status]})
+    end
+
+    context "with a client whose tax return is in a greetable status" do
+      before do
+        create(:tax_return, status: greetable_status, client: client)
+      end
+
+      it "is included" do
+        expect(Client.greetable).to match_array [client]
+      end
+    end
+
+    context "with a client whose tax return is in an ungreetable status" do
+      before do
+        create(:tax_return, status: ungreetable_status, client: client)
+      end
+
+      it "is not included" do
+        expect(Client.greetable).to match_array []
+      end
+    end
+  end
+
   describe "#needs_response?" do
     context "when last_response_at is nil" do
       let!(:client) { create :client }
