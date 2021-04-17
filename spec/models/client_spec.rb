@@ -198,7 +198,7 @@ describe Client do
     let!(:greetable_client) { create(:client, tax_returns: [create(:tax_return, status: :intake_in_progress)]) }
     let!(:ungreetable_client) { create(:client, tax_returns: [create(:tax_return, status: :prep_preparing)]) }
     before do
-      allow(TaxReturnStatus).to receive(:available_statuses_for).with(GreeterRole::TYPE).and_return({ "intake" => [:intake_in_progress]})
+      allow(TaxReturnStatus).to receive(:available_statuses_for).with(role_type: GreeterRole::TYPE).and_return({ "intake" => [:intake_in_progress]})
     end
 
     it "returns just the greetable clients" do
