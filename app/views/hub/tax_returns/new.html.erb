@@ -11,22 +11,7 @@
           <%= f.cfa_select :year, t(".tax_year"), @remaining_years %>
           <%= f.cfa_select :assigned_user_id, t(".assigned_user"), @assignable_users.map { |u| [u.name, u.id]} , { include_blank: true } %>
           <%= f.cfa_select :certification_level, t(".certification_level"), certification_options_for_select, { include_blank: true } %>
-          <div>
-            <label for="tax_return_status">
-              <p class="form-question"><%= t("general.status") %></p>
-              <div class="select">
-                <select name="tax_return[status]" class="select__element" id="tax_return_status">
-                  <option value></option>
-                  <% TaxReturnStatus.available_statuses_for(current_user).each do |stage, statuses| %>
-                    <optgroup label=<%= stage_translation(stage) %>></optgroup>
-                    <% statuses.each do |status| %>
-                      <option value="<%= status %>" <%= status == :intake_in_progress && "selected" %>>&emsp;<%= status_translation(status) %></option>
-                    <% end %>
-                  <% end %>
-                </select>
-              </div>
-            </label>
-          </div>
+          <%= f.cfa_select(:status, t("general.status"), grouped_status_options_for_select) %>
 
           <% if @tax_return.errors.present? %>
             <% @tax_return.errors.keys.each do |key| %>

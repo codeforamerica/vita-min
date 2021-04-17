@@ -18,6 +18,7 @@ module Hub
         flash[:notice] = I18n.t("hub.tax_returns.new.no_remaining_years")
         redirect_to hub_client_path(id: @client.id)
       end
+      @tax_return.status = "intake_in_progress"
     end
 
     def create
