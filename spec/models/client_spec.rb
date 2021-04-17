@@ -195,31 +195,14 @@ describe Client do
   end
 
   describe ".greetable scope" do
-    let(:greetable_status) { :intake_in_progress }
-    let(:ungreetable_status) { :prep_preparing }
-    let(:client) { create(:client) }
+    let!(:greetable_client) { create(:client, tax_returns: [create(:tax_return, status: :intake_in_progress)]) }
+    let!(:ungreetable_client) { create(:client, tax_returns: [create(:tax_return, status: :prep_preparing)]) }
     before do
-      allow(TaxReturnStatus).to receive(:statuses_by_role_type).with(GreeterRole::TYPE).and_return({ "intake" => [greetable_status]})
+      allow(TaxReturnStatus).to receive(:available_statuses_for).with(GreeterRole::TYPE).and_return({ "intake" => [:intake_in_progress]})
     end
 
-    context "with a client whose tax return is in a greetable status" do
-      before do
-        create(:tax_return, status: greetable_status, client: client)
-      end
-
-      it "is included" do
-        expect(Client.greetable).to match_array [client]
-      end
-    end
-
-    context "with a client whose tax return is in an ungreetable status" do
-      before do
-        create(:tax_return, status: ungreetable_status, client: client)
-      end
-
-      it "is not included" do
-        expect(Client.greetable).to match_array []
-      end
+    it "returns just the greetable clients" do
+      expect(Client.greetable).to match_array [greetable_client]
     end
   end
 

@@ -45,10 +45,10 @@ describe TaxReturnStatus do
     end
   end
 
-  context ".statuses_by_role_type" do
+  context ".available_statuses_for" do
     context "when role_type is GreeterRole type" do
       it "only provides limited statuses" do
-        result = described_class.statuses_by_role_type(GreeterRole::TYPE)
+        result = described_class.available_statuses_for(role_type: GreeterRole::TYPE)
         expect(result.keys.length).to eq 2
         expect(result.keys.first).to eq "intake"
         expect(result.keys.last).to eq "file"
@@ -59,7 +59,7 @@ describe TaxReturnStatus do
 
     context "when role is anything else" do
       it "provides all statuses" do
-        result = described_class.statuses_by_role_type(AdminRole::TYPE)
+        result = described_class.available_statuses_for(role_type: AdminRole::TYPE)
         expect(result).to eq TaxReturnStatus::STATUSES_BY_STAGE
       end
     end

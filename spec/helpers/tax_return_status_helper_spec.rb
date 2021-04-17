@@ -45,7 +45,7 @@ describe TaxReturnStatusHelper do
       let(:user_double) { double(User)}
       before do
         allow(helper).to receive(:current_user).and_return user_double
-        allow(user_double).to receive(:greeter?).and_return false
+        allow(user_double).to receive(:role_type).and_return TeamMemberRole::TYPE
       end
       it "returns status options formatted to create select optgroups" do
         expect(helper.grouped_status_options_for_select).to eq(expected)
@@ -56,7 +56,7 @@ describe TaxReturnStatusHelper do
       let(:user_double) { double(User) }
       before do
         allow(helper).to receive(:current_user).and_return user_double
-        allow(user_double).to receive(:greeter?).and_return true
+        allow(user_double).to receive(:role_type).and_return GreeterRole::TYPE
       end
 
       it "returns limited statuses" do

@@ -62,7 +62,7 @@ class TaxReturnStatus
     message_templates[status.to_sym] ? I18n.t(message_templates[status.to_sym], locale: locale) : ""
   end
 
-  def self.statuses_by_role_type(role_type)
+  def self.available_statuses_for(role_type:)
     return TaxReturnStatus::STATUSES_BY_STAGE.slice("intake").merge(GREETER_STATUSES_BEYOND_INTAKE) if role_type == GreeterRole::TYPE
 
     TaxReturnStatus::STATUSES_BY_STAGE

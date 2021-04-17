@@ -39,22 +39,7 @@
         <% if status_updateable %>
           <%= form_with model: tax_return, url: edit_take_action_hub_client_path(id: tax_return.client.id), method: :get, local: true, builder: VitaMinFormBuilder, html: {class: "tax-return-list__status-form form-wrapper"} do |f| %>
             <%= f.hidden_field "id", value: tax_return.id %>
-            <div>
-              <label for=<%= "tax_return_status_#{tax_return.id}"%>>
-                <div class="sr-only"><%= t("general.status") %></div>
-                <div class="select">
-                  <select name="tax_return[status]" class="select__element" id=<%= "tax_return_status_#{tax_return.id}"%>>
-                    <option value></option>
-                    <% TaxReturnStatus.statuses_by_role_type(current_user.role_type).each do |stage, statuses| %>
-                      <optgroup label=<%= stage_translation(stage) %>></optgroup>
-                      <% statuses.each do |status| %>
-                        <option value="<%= status %>" <%= tax_return.status == status.to_s && "selected" %>>&emsp;<%= status_translation(status) %></option>
-                      <% end %>
-                    <% end %>
-                  </select>
-                </div>
-              </label>
-            </div>
+            <%= f.cfa_select(:status, t("general.status"), grouped_status_options_for_select, hide_label: true) %>
             <%= f.submit t("general.update"), class: "button"%>
           <% end %>
         <% else %>
