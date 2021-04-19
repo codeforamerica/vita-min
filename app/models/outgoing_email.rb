@@ -4,7 +4,7 @@
 #
 #  id             :bigint           not null, primary key
 #  body           :string           not null
-#  mailgun_status :string
+#  mailgun_status :string           default("sending")
 #  sent_at        :datetime         not null
 #  subject        :string           not null
 #  to             :citext           not null
@@ -28,21 +28,28 @@ class OutgoingEmail < ApplicationRecord
   include ContactRecord
   include InteractionTracking
 
+  FAILED_MAILGUN_STATUSES = ["permanent_fail", "failed"].freeze
+  SUCCESSFUL_MAILGUN_STATUSES = ["delivered", "opened"].freeze
+  IN_PROGRESS_MAILGUN_STATUSES = ["sending", nil].freeze
+  ALL_KNOWN_MAILGUN_STATUSES = FAILED_MAILGUN_STATUSES + SUCCESSFUL_MAILGUN_STATUSES + IN_PROGRESS_MAILGUN_STATUSES
+
   belongs_to :client
   belongs_to :user, optional: true
   validates_presence_of :to
   validates_presence_of :body
   validates_presence_of :subject
   validates_presence_of :sent_at
-  before_create :set_sending_status, if: ->(email) { email.mailgun_status.blank? }
+  validates :mailgun_status, inclusion: { in: ALL_KNOWN_MAILGUN_STATUSES }
+
   # Use `after_create_commit` so that the attachment is fully saved to S3 before delivering it
   after_create_commit :deliver, :broadcast
   after_create_commit :record_outgoing_interaction, if: ->(email) { email.user.present? }
   # has_one_attached needs to be called after defining any callbacks that access attachments, like :deliver; see https://github.com/rails/rails/issues/37304
   has_one_attached :attachment
 
-  FAILED_MAILGUN_STATUSES = ["permanent_fail"].freeze
-  SUCCESSFUL_MAILGUN_STATUSES = ["delivered", "opened"].freeze
+  scope :succeeded, ->{ where(mailgun_status: SUCCESSFUL_MAILGUN_STATUSES) }
+  scope :failed, ->{ where(mailgun_status: FAILED_MAILGUN_STATUSES) }
+  scope :in_progress, ->{ where(mailgun_status: IN_PROGRESS_MAILGUN_STATUSES) }
 
   def datetime
     sent_at
@@ -57,10 +64,6 @@ class OutgoingEmail < ApplicationRecord
   end
 
   private
-
-  def set_sending_status
-    self.mailgun_status = "sending"
-  end
 
   def deliver
     SendOutgoingEmailJob.perform_later(id)

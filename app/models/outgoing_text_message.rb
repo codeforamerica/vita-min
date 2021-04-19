@@ -27,17 +27,24 @@ class OutgoingTextMessage < ApplicationRecord
   include ContactRecord
   include InteractionTracking
 
+  FAILED_TWILIO_STATUSES = ["undelivered", "failed", "delivery_unknown"].freeze
+  SUCCESSFUL_TWILIO_STATUSES = ["sent", "delivered"].freeze
+  IN_PROGRESS_TWILIO_STATUSES = ["accepted", "queued", nil].freeze
+  ALL_KNOWN_TWILIO_STATUSES = FAILED_TWILIO_STATUSES + SUCCESSFUL_TWILIO_STATUSES + IN_PROGRESS_TWILIO_STATUSES
+
   belongs_to :client
   belongs_to :user, optional: true
   validates_presence_of :body
   validates_presence_of :sent_at
   validates :to_phone_number, e164_phone: true
+  validates :twilio_status, inclusion: { in: ALL_KNOWN_TWILIO_STATUSES }
 
   after_create :deliver, :broadcast
   after_create :record_outgoing_interaction, if: ->(msg) { msg.user.present? }
 
-  FAILED_TWILIO_STATUSES = ["undelivered", "failed", "delivery_unknown"].freeze
-  SUCCESSFUL_TWILIO_STATUSES = ["sent", "delivered"].freeze
+  scope :succeeded, -> { where(twilio_status: SUCCESSFUL_TWILIO_STATUSES) }
+  scope :failed, -> { where(twilio_status: FAILED_TWILIO_STATUSES) }
+  scope :in_progress, -> { where(twilio_status: IN_PROGRESS_TWILIO_STATUSES) }
 
   def datetime
     sent_at

@@ -4,7 +4,7 @@
 #
 #  id             :bigint           not null, primary key
 #  body           :string           not null
-#  mailgun_status :string
+#  mailgun_status :string           default("sending")
 #  sent_at        :datetime         not null
 #  subject        :string           not null
 #  to             :citext           not null
@@ -48,35 +48,48 @@ RSpec.describe OutgoingEmail, type: :model do
     end
   end
 
-  describe "required fields" do
-    context "without required fields" do
-      let(:email) { OutgoingEmail.new }
+  describe "#valid?" do
+    describe "required fields" do
+      context "without required fields" do
+        let(:email) { OutgoingEmail.new }
 
-      it "is not valid and adds an error to each field" do
-        expect(email).not_to be_valid
-        expect(email.errors).to include :client
-        expect(email.errors).to include :to
-        expect(email.errors).to include :subject
-        expect(email.errors).to include :body
-        expect(email.errors).to include :sent_at
+        it "is not valid and adds an error to each field" do
+          expect(email).not_to be_valid
+          expect(email.errors).to include :client
+          expect(email.errors).to include :to
+          expect(email.errors).to include :subject
+          expect(email.errors).to include :body
+          expect(email.errors).to include :sent_at
+        end
+      end
+
+      context "with all required fields" do
+        let(:message) do
+          OutgoingEmail.new(
+              client: create(:client),
+              to: "someone@example.com",
+              subject: "this is a subject",
+              body: "hi",
+              sent_at: DateTime.now,
+              user: create(:user)
+              )
+        end
+
+        it "is valid and does not have errors" do
+          expect(message).to be_valid
+          expect(message.errors).to be_blank
+        end
       end
     end
 
-    context "with all required fields" do
-      let(:message) do
-        OutgoingEmail.new(
-            client: create(:client),
-            to: "someone@example.com",
-            subject: "this is a subject",
-            body: "hi",
-            sent_at: DateTime.now,
-            user: create(:user)
-            )
-      end
+    describe "#mailgun_status" do
+      context "with an unknown status" do
+        let(:email) { build :outgoing_email, mailgun_status: "unfamiliar_status" }
 
-      it "is valid and does not have errors" do
-        expect(message).to be_valid
-        expect(message.errors).to be_blank
+        it "adds an error and is not valid" do
+          expect(email).not_to be_valid
+          expect(email.errors).to include :mailgun_status
+        end
       end
     end
   end
@@ -106,21 +119,52 @@ RSpec.describe OutgoingEmail, type: :model do
     end
   end
 
-  context "before create" do
-    let(:outgoing_email) { build :outgoing_email, mailgun_status: "accepted" }
-    context "when a status is already set" do
-      it "does not overwrite the status" do
-        outgoing_email.save
-        expect(outgoing_email.reload.mailgun_status).to eq "accepted"
-      end
-    end
+  context "default mailgun status" do
+    let(:outgoing_email) { build :outgoing_email, mailgun_status: "delivered" }
 
     context "when the status is blank" do
-      let(:outgoing_email) { build :outgoing_email, mailgun_status: nil }
+      let(:outgoing_email) do
+        OutgoingEmail.new(
+          client: create(:client),
+          to: "someone@example.com",
+          subject: "this is a subject",
+          body: "hi",
+          sent_at: DateTime.now,
+          user: create(:user),
+          attachment: fixture_file_upload("attachments/test-pattern.png"),
+          )
+      end
 
       it "defaults the status to sending" do
         outgoing_email.save
         expect(outgoing_email.reload.mailgun_status).to eq "sending"
+      end
+    end
+  end
+
+  describe "scopes for statuses" do
+    let!(:opened) { create :outgoing_email, mailgun_status: "opened" }
+    let!(:delivered) { create :outgoing_email, mailgun_status: "delivered" }
+    let!(:failed) { create :outgoing_email, mailgun_status: "failed" }
+    let!(:permanent_fail) { create :outgoing_email, mailgun_status: "permanent_fail" }
+    let!(:nil_status) { create :outgoing_email, mailgun_status: nil }
+    let!(:sending) { create :outgoing_email, mailgun_status: "sending" }
+
+    describe ".succeeded" do
+      it "returns records with the right mailgun statuses" do
+        expect(described_class.succeeded).to match_array [opened, delivered]
+      end
+    end
+
+    describe ".failed" do
+      it "returns records with the right mailgun statuses" do
+        expect(described_class.failed).to match_array [failed, permanent_fail]
+      end
+    end
+
+    describe ".in_progress" do
+      it "returns records with the right mailgun statuses" do
+        expect(described_class.in_progress).to match_array [nil_status, sending]
       end
     end
   end
