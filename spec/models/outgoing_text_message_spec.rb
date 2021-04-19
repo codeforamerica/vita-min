@@ -161,6 +161,8 @@ RSpec.describe OutgoingTextMessage, type: :model do
     let!(:delivery_unknown) { create :outgoing_text_message, twilio_status: "delivery_unknown" }
     let!(:sent) { create :outgoing_text_message, twilio_status: "sent" }
     let!(:delivered) { create :outgoing_text_message, twilio_status: "delivered" }
+    let!(:accepted) { create :outgoing_text_message, twilio_status: "accepted" }
+    let!(:queued) { create :outgoing_text_message, twilio_status: "queued" }
     let!(:nil_status) { create :outgoing_text_message, twilio_status: nil }
 
     describe ".succeeded" do
@@ -177,7 +179,7 @@ RSpec.describe OutgoingTextMessage, type: :model do
 
     describe ".in_progress" do
       it "returns records with the right twilio statuses" do
-        expect(described_class.in_progress).to match_array [nil_status]
+        expect(described_class.in_progress).to match_array [accepted, nil_status, queued]
       end
     end
   end

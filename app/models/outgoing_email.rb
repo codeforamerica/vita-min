@@ -28,9 +28,9 @@ class OutgoingEmail < ApplicationRecord
   include ContactRecord
   include InteractionTracking
 
-  FAILED_MAILGUN_STATUSES = ["permanent_fail"].freeze
+  FAILED_MAILGUN_STATUSES = ["permanent_fail", "failed"].freeze
   SUCCESSFUL_MAILGUN_STATUSES = ["delivered", "opened"].freeze
-  IN_PROGRESS_MAILGUN_STATUSES = ["sending"].freeze
+  IN_PROGRESS_MAILGUN_STATUSES = ["sending", nil].freeze
   ALL_KNOWN_MAILGUN_STATUSES = FAILED_MAILGUN_STATUSES + SUCCESSFUL_MAILGUN_STATUSES + IN_PROGRESS_MAILGUN_STATUSES
 
   belongs_to :client
@@ -64,10 +64,6 @@ class OutgoingEmail < ApplicationRecord
   end
 
   private
-
-  def set_sending_status
-    self.mailgun_status = "sending"
-  end
 
   def deliver
     SendOutgoingEmailJob.perform_later(id)

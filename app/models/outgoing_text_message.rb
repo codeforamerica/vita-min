@@ -29,7 +29,7 @@ class OutgoingTextMessage < ApplicationRecord
 
   FAILED_TWILIO_STATUSES = ["undelivered", "failed", "delivery_unknown"].freeze
   SUCCESSFUL_TWILIO_STATUSES = ["sent", "delivered"].freeze
-  IN_PROGRESS_TWILIO_STATUSES = ["queued", nil].freeze
+  IN_PROGRESS_TWILIO_STATUSES = ["accepted", "queued", nil].freeze
   ALL_KNOWN_TWILIO_STATUSES = FAILED_TWILIO_STATUSES + SUCCESSFUL_TWILIO_STATUSES + IN_PROGRESS_TWILIO_STATUSES
 
   belongs_to :client

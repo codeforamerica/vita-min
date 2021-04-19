@@ -121,12 +121,6 @@ RSpec.describe OutgoingEmail, type: :model do
 
   context "default mailgun status" do
     let(:outgoing_email) { build :outgoing_email, mailgun_status: "delivered" }
-    context "when a status is already set" do
-      it "does not overwrite the status" do
-        outgoing_email.save!
-        expect(outgoing_email.reload.mailgun_status).to eq "delivered"
-      end
-    end
 
     context "when the status is blank" do
       let(:outgoing_email) do
@@ -151,7 +145,9 @@ RSpec.describe OutgoingEmail, type: :model do
   describe "scopes for statuses" do
     let!(:opened) { create :outgoing_email, mailgun_status: "opened" }
     let!(:delivered) { create :outgoing_email, mailgun_status: "delivered" }
+    let!(:failed) { create :outgoing_email, mailgun_status: "failed" }
     let!(:permanent_fail) { create :outgoing_email, mailgun_status: "permanent_fail" }
+    let!(:nil_status) { create :outgoing_email, mailgun_status: nil }
     let!(:sending) { create :outgoing_email, mailgun_status: "sending" }
 
     describe ".succeeded" do
@@ -162,13 +158,13 @@ RSpec.describe OutgoingEmail, type: :model do
 
     describe ".failed" do
       it "returns records with the right mailgun statuses" do
-        expect(described_class.failed).to match_array [permanent_fail]
+        expect(described_class.failed).to match_array [failed, permanent_fail]
       end
     end
 
     describe ".in_progress" do
       it "returns records with the right mailgun statuses" do
-        expect(described_class.in_progress).to match_array [sending]
+        expect(described_class.in_progress).to match_array [nil_status, sending]
       end
     end
   end
