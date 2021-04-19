@@ -1003,7 +1003,6 @@ en:
         submit_documents: Submit additional documents
         send_message: Message my tax specialist
         tax_return_heading: "%{year} Tax Return"
-        empty_state: "No documents ready to review yet"
         action_state:
           answer_questions: "Complete all tax questions"
           submit_additional_documents: "Submit remaining tax documents"
@@ -1012,9 +1011,9 @@ en:
             submit_spouse: "Add final spouse signature for %{year}"
         waiting_state:
           tax_return:
-            waiting_for_review: "Waiting on your tax team for initial review"
+            waiting_for_review: "Your tax team is waiting for an initial review with you"
             preparing_return: "Your tax team is preparing the return"
-            waiting_for_qr: "Waiting on your tax team for a quality review of %{year} return"
+            waiting_for_qr: "Your tax team is waiting to discuss your final %{year} return with you"
         progress_state:
           answered_questions: "Answered initial tax questions"
           shared_documents: "Shared initial tax documents"

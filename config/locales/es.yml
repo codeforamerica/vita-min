@@ -1003,11 +1003,10 @@ es:
         message_sent: "¡Mensaje enviado!"
     portal:
       home:
-        title: "Bienvenido de nuevo %{name}!"
+        title: Bienvenido de nuevo %{name}!
         submit_documents: Enviar documentos adicionales
         send_message: Mandar mensaje a mi especialista en impuestos
         tax_return_heading: Declaración de impuestos de %{year}
-        empty_state: Aún no hay documentos listos para revisar.
         action_state:
           answer_questions: Complete todas las preguntas sobre impuestos
           submit_additional_documents: Envíe los documentos fiscales restantes
@@ -1016,9 +1015,9 @@ es:
             submit_spouse: Presentar la firma del cónyuge para %{year}
         waiting_state:
           tax_return:
-            waiting_for_review: Esperando a su equipo de impuestos para una revisión inicial
+            waiting_for_review: Su equipo de impuestos está esperando una revisión inicial con usted
             preparing_return: Your tax team is preparing the return
-            waiting_for_qr: Esperando a su equipo de impuestos para una revisión de calidad del %{year} retorno
+            waiting_for_qr: Su equipo de impuestos está esperando para discutir con usted su devolución de %{year} final
         progress_state:
           answered_questions: Ha respondido a las preguntas sobre impuestos
           shared_documents: Ha compartido documentos iniciales
