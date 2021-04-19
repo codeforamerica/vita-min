@@ -61,7 +61,7 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "2019 Tax Return"
 
       within "#tax-year-2019" do
-        expect(page).to have_text "Waiting on your tax team for initial review"
+        expect(page).to have_text "Your tax team is waiting for an initial review with you"
       end
     end
   end
@@ -112,7 +112,7 @@ RSpec.feature "a client on their portal" do
       within "#tax-year-2020" do
         expect(page).to have_text "Completed review"
         expect(page).to have_text "Return prepared"
-        expect(page).to have_text "Waiting on your tax team for a quality review of 2020 return"
+        expect(page).to have_text "Your tax team is waiting to discuss your final 2020 return with you"
       end
     end
   end
@@ -218,9 +218,6 @@ RSpec.feature "a client on their portal" do
         expect(page).not_to have_link "Add final primary taxpayer signature for 2018"
       end
 
-      within "#tax-year-2017" do
-        expect(page).to have_text "No documents ready to review yet"
-      end
       expect(client.documents.where(document_type: "Other").length).to eq 0
 
       click_link "Submit additional documents"
@@ -249,7 +246,6 @@ RSpec.feature "a client on their portal" do
       expect(page).to have_text "Welcome back"
 
       expect(page).to have_link "Message my tax specialist"
-
     end
   end
 end
