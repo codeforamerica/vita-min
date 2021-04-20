@@ -477,7 +477,7 @@ es:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
     application_controller:
-      maintenance: GetYourRefund.org estará fuera de servicio esta noche debido a un mantenimiento programado entre las 11:00 p.m. hora del Este (8:00 p.m. hora del Pacífico) hasta las 3:00 a.m. hora del Este (12:00 a.m. hora del Pacífico). Le recomendamos que responda  todas las preguntas antes de estos horarios o que comience una nueva sesión mañana.
+      maintenance: GetYourRefund.org estará inactivo por mantenimiento programado durante aproximadamente 1 hora a partir de %{time}.
       redirect: Usted ha perdidio su tiquete. En producción,  lo redireccionaremos al inicio.
     dependents_controller:
       removed_dependent: Eliminado %{full_name}.
