@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_16_225043) do
+ActiveRecord::Schema.define(version: 2021_04_19_220349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -543,6 +543,7 @@ ActiveRecord::Schema.define(version: 2021_04_16_225043) do
     t.datetime "created_at", precision: 6, null: false
     t.string "from_phone_number", null: false
     t.text "note"
+    t.integer "queue_time_ms"
     t.string "to_phone_number", null: false
     t.integer "twilio_call_duration"
     t.string "twilio_sid"
