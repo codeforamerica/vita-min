@@ -6,7 +6,7 @@
       <%= content_for :page_title do %>Free tax help from IRS-certified volunteers.<% end %>
     <% end %>
 
-    <title><%= content_for(:page_title) %> | GetYourRefund.org</title>
+    <title><%= content_for(:page_title) %> | GetYourRefund</title>
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
@@ -15,12 +15,12 @@
     <meta name="description" content="<%=t("views.layouts.application.meta.description") %>">
     <meta property="og:type" content="website">
     <meta property="og:url" content="<%= canonical_url %>">
-    <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund.org">
+    <meta property="og:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
     <meta property="og:description" content="<%=t("views.layouts.application.meta.description") %>">
     <meta property="og:image" content="<%= image_url("social_share_banner.png") %>">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="<%= canonical_url %>">
-    <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund.org">
+    <meta property="twitter:title" content="<%= content_for(:page_title) -%> | GetYourRefund">
     <meta property="twitter:description" content="<%=t("views.layouts.application.meta.description") %>">
     <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
 
