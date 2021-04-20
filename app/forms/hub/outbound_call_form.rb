@@ -43,7 +43,7 @@ module Hub
 
         DatadogApi.increment("twilio.outbound_calls.initiated")
 
-        @outbound_call.update(twilio_sid: twilio_call.sid, twilio_status: twilio_call.status)
+        @outbound_call.update(twilio_sid: twilio_call.sid, twilio_status: twilio_call.status, queue_time_ms: twilio_call.queue_time)
       end
     end
 

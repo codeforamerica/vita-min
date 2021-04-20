@@ -5,6 +5,7 @@
 #  id                   :bigint           not null, primary key
 #  from_phone_number    :string           not null
 #  note                 :text
+#  queue_time_ms        :integer
 #  to_phone_number      :string           not null
 #  twilio_call_duration :integer
 #  twilio_sid           :string

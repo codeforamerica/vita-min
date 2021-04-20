@@ -34,7 +34,7 @@ describe Hub::OutboundCallForm do
     subject { described_class.new(client: client, user: user) }
     let(:twilio_double) { double(Twilio::REST::Client) }
     let(:twilio_calls_double) { double }
-    let(:twilio_response_double) { double(Twilio::REST::Api::V2010::AccountContext::CallInstance, sid: "123456", status: "initiated") }
+    let(:twilio_response_double) { double(Twilio::REST::Api::V2010::AccountContext::CallInstance, sid: "123456", status: "initiated", queue_time: "1000") }
     let(:twilio_phone_number) { "+14156393361" }
 
     before do
@@ -82,6 +82,7 @@ describe Hub::OutboundCallForm do
       call.client = client
       call.to_phone_number = user.phone_number
       call.from_phone_number = client.phone_number
+      expect(call.queue_time_ms).to eq twilio_response_double.queue_time.to_i
     end
 
     it "sends a metric to Datadog" do
@@ -89,6 +90,5 @@ describe Hub::OutboundCallForm do
 
       expect(DatadogApi).to have_received(:increment).with "twilio.outbound_calls.initiated"
     end
-
   end
 end
