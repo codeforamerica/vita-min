@@ -4,10 +4,10 @@ describe Hub::OutboundCallForm do
   let(:user) { create :admin_user, phone_number: "+18324658840" }
   let(:client) { create :client, intake: (create :intake, phone_number: "+18324651680") }
   context "initialization" do
-    context 'with client and user, no custom params' do
+    context "with client and user, no custom params" do
       subject { described_class.new(client: client, user: user) }
 
-      it 'sets client_phone_number from client and user_phone_number from user' do
+      it "sets client_phone_number from client and user_phone_number from user" do
         expect(subject.user_phone_number).to eq user.phone_number
         expect(subject.client_phone_number).to eq client.phone_number
       end
@@ -76,12 +76,12 @@ describe Hub::OutboundCallForm do
     it "returns an OutboundCall object" do
       expect { subject.dial }.to change(OutboundCall, :count).by(1)
       call = OutboundCall.last
-      call.twilio_status = twilio_response_double.status
-      call.twilio_sid = twilio_response_double.sid
-      call.user = user
-      call.client = client
-      call.to_phone_number = user.phone_number
-      call.from_phone_number = client.phone_number
+      expect(call.twilio_status).to eq twilio_response_double.status
+      expect(call.twilio_sid).to eq twilio_response_double.sid
+      expect(call.user).to eq user
+      expect(call.client).to eq client
+      expect(call.to_phone_number).to eq client.phone_number
+      expect(call.from_phone_number).to eq user.phone_number
       expect(call.queue_time_ms).to eq twilio_response_double.queue_time.to_i
     end
 
