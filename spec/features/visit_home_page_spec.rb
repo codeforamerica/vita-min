@@ -4,7 +4,7 @@ RSpec.feature "Visit home page" do
   scenario "has most critical content" do
     visit "/"
     within(".main-header") do
-      expect(page).to have_link("GetYourRefund.org", href: root_path)
+      expect(page).to have_link("GetYourRefund", href: root_path)
     end
     expect(page).to have_text "Free tax filing"
     expect(page).to have_link "Get started"
