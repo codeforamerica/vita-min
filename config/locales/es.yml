@@ -477,7 +477,7 @@ es:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
     application_controller:
-      maintenance: GetYourRefund.org estará inactivo por mantenimiento programado durante aproximadamente 1 hora a partir de %{time}.
+      maintenance: GetYourRefund.org estará inactivo para mantenimiento programado durante aproximadamente 1 hora a partir de %{time}.
       redirect: Usted ha perdidio su tiquete. En producción,  lo redireccionaremos al inicio.
     dependents_controller:
       removed_dependent: Eliminado %{full_name}.
