@@ -488,7 +488,7 @@ en:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
     application_controller:
-      maintenance: GetYourRefund.org will be down for scheduled maintenance tonight at 11:00 p.m. Eastern (8:00 p.m. Pacific) until 3:00 a.m. Eastern (12:00 a.m. Pacific). We recommend that you answer all questions by this time or start a new session tomorrow.
+      maintenance: GetYourRefund.org will be down for scheduled maintenance for about 1 hour starting at %{time}.
       redirect: You're missing a ticket or intake. In production, we would have redirected you to the beginning.
     dependents_controller:
       removed_dependent: Removed %{full_name}.

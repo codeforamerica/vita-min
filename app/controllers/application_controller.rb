@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
-  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context, :check_maintenance_mode
+  before_action :redirect_to_getyourrefund, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_sentry_context
   around_action :switch_locale
+  before_action :check_maintenance_mode
   after_action :track_page_view
   helper_method :include_analytics?, :current_intake, :show_progress?, :show_offseason_banner?, :canonical_url, :hreflang_url, :hub?, :open_for_intake?
   # This needs to be a class method for the devise controller to have access to it
@@ -223,7 +224,7 @@ class ApplicationController < ActionController::Base
     if ENV['MAINTENANCE_MODE'].present?
       return redirect_to maintenance_path
     elsif ENV['MAINTENANCE_MODE_SCHEDULED'].present?
-      flash.now[:warning] = I18n.t("controllers.application_controller.maintenance")
+      flash.now[:warning] = I18n.t("controllers.application_controller.maintenance", time: ENV['MAINTENANCE_MODE_SCHEDULED'])
     end
   end
 
