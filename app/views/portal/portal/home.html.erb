@@ -82,7 +82,8 @@
           <% end %>
         <% end %>
 
-        <% if tax_return.completely_signed_8879? %>
+        <% ready_for_8879 = tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) || tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
+        <% if tax_return.completely_signed_8879? && !ready_for_8879 %>
           <%= render "progress_state" do %>
             <%= t("portal.portal.home.progress_state.tax_return.final_signature_added", year: tax_return.year) %>
           <% end %>
