@@ -10,7 +10,7 @@
       <% end %>
     <% else %>
       <%= render "action_state", link: true do %>
-        <%= link_to(t("portal.portal.home.action_state.answer_questions"), @current_step, class: "action_link") %>
+        <%= link_to(t("portal.portal.home.action_state.answer_questions"), @current_step, class: "link") %>
       <% end %>
     <% end %>
 
@@ -22,7 +22,7 @@
 
     <% if @submit_additional_documents %>
       <%= render "action_state", link: true do %>
-        <%= link_to t("portal.portal.home.action_state.submit_additional_documents"), @current_step, class: "action_link" %>
+        <%= link_to t("portal.portal.home.action_state.submit_additional_documents"), @current_step, class: "link" %>
       <% end %>
     <% end %>
   </div>
@@ -72,13 +72,13 @@
 
         <% if tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) %>
           <%= render "action_state", link: true do %>
-            <%= link_to t("portal.portal.home.action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "action_link" %>
+            <%= link_to t("portal.portal.home.action_state.tax_return.submit_primary", year: tax_return.year), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "link" %>
           <% end %>
         <% end %>
 
         <% if tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) %>
           <%= render "action_state", link: true do %>
-            <%= link_to t("portal.portal.home.action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "action_link" %>
+            <%= link_to t("portal.portal.home.action_state.tax_return.submit_spouse", year: tax_return.year), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "link" %>
           <% end %>
         <% end %>
 
