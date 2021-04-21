@@ -13,7 +13,7 @@ class PartnerRoutingService
     return from_source_param if from_source_param.present?
 
     from_zip_code = vita_partner_from_zip_code if @zip_code.present?
-    return from_zip_code if  from_zip_code.present?
+    return from_zip_code if from_zip_code.present?
 
     from_state_routing = vita_partner_from_state if @zip_code.present?
     return from_state_routing if from_state_routing.present?
@@ -38,7 +38,11 @@ class PartnerRoutingService
   def vita_partner_from_zip_code
     return false unless @zip_code.present?
 
-    vita_partner = VitaPartnerZipCode.where(zip_code: @zip_code).first&.vita_partner
+    eligible_with_capacity = VitaPartnerZipCode.where(zip_code: @zip_code).joins(vita_partner: :organization_capacity).merge(
+      OrganizationCapacity.with_capacity
+    )
+
+    vita_partner = eligible_with_capacity.first&.vita_partner
 
     if vita_partner.present?
       @routing_method = :zip_code

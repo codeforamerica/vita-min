@@ -57,6 +57,16 @@ describe PartnerRoutingService do
           expect(subject.determine_partner).to eq vita_partner
           expect(subject.routing_method).to eq :zip_code
         end
+
+        context "when a Vita Partner matches the zip code but they do not have capacity" do
+          before do
+            vita_partner.update(capacity_limit: 0)
+          end
+          it "does not route to that vita partner by zip code" do
+            expect(subject.determine_partner).not_to eq vita_partner
+            expect(subject.routing_method).not_to eq :zip_code
+          end
+        end
       end
 
       context "when clients zip code doesn't correspond to a Vita Partner" do
