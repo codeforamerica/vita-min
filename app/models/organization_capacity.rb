@@ -12,7 +12,7 @@ class OrganizationCapacity < ApplicationRecord
   self.primary_key = :vita_partner_id # vita partner id
   scope :with_capacity, lambda {
     where(arel_table[:capacity_limit].eq(nil)).or(
-        where.not(arel_table[:capacity_limit].eq(0))
+      where.not(arel_table[:capacity_limit].eq(0))
         .where(arel_table[:active_client_count].lt(arel_table[:capacity_limit]))
     )
   }

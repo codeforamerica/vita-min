@@ -759,7 +759,7 @@ describe TaxReturn do
     end
 
     it "includes all intake statuses except before consent" do
-      expect(result["intake"].length).to eq 6
+      expect(result["intake"].length).to eq 7
       expect(result["intake"]).not_to include "intake_before_consent"
     end
 

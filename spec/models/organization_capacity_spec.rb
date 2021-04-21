@@ -19,6 +19,7 @@ describe OrganizationCapacity do
         before do
           create :client_with_status, status: status[0], vita_partner: organization
         end
+
         if TaxReturnStatus::STATUS_KEYS_INCLUDED_IN_CAPACITY.include?(status[0])
           it "includes client in client count" do
             expect(described_class.find(organization.id).active_client_count).to eq 1

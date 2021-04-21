@@ -11,6 +11,7 @@ describe TaxReturnStatusHelper do
          ["Ready for call", "intake_ready_for_call"],
          ["Info requested", "intake_info_requested"],
          ["Greeter - info requested", "intake_greeter_info_requested"],
+         ["Needs doc help", "intake_needs_doc_help"],
        ]
       ],
       ["Tax prep",
@@ -42,7 +43,7 @@ describe TaxReturnStatusHelper do
       ]
     ]
     context "as a non-greeter" do
-      let(:user_double) { double(User)}
+      let(:user_double) { double(User) }
       before do
         allow(helper).to receive(:current_user).and_return user_double
         allow(user_double).to receive(:role_type).and_return TeamMemberRole::TYPE
@@ -60,16 +61,18 @@ describe TaxReturnStatusHelper do
       end
 
       it "returns limited statuses" do
-        expect(helper.grouped_status_options_for_select).to eq (
-                                                                   [["Intake",
-                                                                     [["Not ready", "intake_in_progress"],
-                                                                      ["Ready for review", "intake_ready"],
-                                                                      ["Reviewing", "intake_reviewing"],
-                                                                      ["Ready for call", "intake_ready_for_call"],
-                                                                      ["Info requested", "intake_info_requested"],
-                                                                      ["Greeter - info requested", "intake_greeter_info_requested"]]],
-                                                                    ["Final steps", [["Not filing", "file_not_filing"], ["Hold", "file_hold"]]]]
-                                                               )
+        expect(helper.grouped_status_options_for_select)
+          .to eq (
+                   [["Intake",
+                     [["Not ready", "intake_in_progress"],
+                      ["Ready for review", "intake_ready"],
+                      ["Reviewing", "intake_reviewing"],
+                      ["Ready for call", "intake_ready_for_call"],
+                      ["Info requested", "intake_info_requested"],
+                      ["Greeter - info requested", "intake_greeter_info_requested"],
+                      ["Needs doc help", "intake_needs_doc_help"]]],
+                    ["Final steps", [["Not filing", "file_not_filing"], ["Hold", "file_hold"]]]]
+                 )
       end
     end
 
@@ -80,9 +83,10 @@ describe TaxReturnStatusHelper do
       before { allow(I18n).to receive(:locale).and_return(:es) }
 
       it "shows the translated locale options" do
-        expect(helper.language_options).to eq({
-          "Inglés" => :en, "Español" => :es
-        })
+        expect(helper.language_options)
+          .to eq({
+                   "Inglés" => :en, "Español" => :es
+                 })
       end
     end
   end
