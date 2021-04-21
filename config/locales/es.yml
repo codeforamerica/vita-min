@@ -223,6 +223,7 @@ es:
         intake_reviewing: Revisando
         intake_ready_for_call: Listo para llamada
         intake_info_requested: Información solicitada
+        intake_needs_doc_help: Necesita ayuda con los documentos
         prep_ready_for_prep: Listo para la preparación
         prep_preparing: Preparando
         prep_info_requested: Información solicitada

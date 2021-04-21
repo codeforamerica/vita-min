@@ -47,7 +47,7 @@ class TaxReturnStatus
   }.freeze
 
 
-  ONBOARDING_STATUSES = [:intake_before_consent, :intake_in_progress, :intake_greeter_info_requested]
+  ONBOARDING_STATUSES = [:intake_before_consent, :intake_in_progress, :intake_greeter_info_requested, :intake_needs_doc_help]
   EXCLUDED_FROM_SLA = [:intake_before_consent, :file_accepted, :file_not_filing, :file_hold].freeze
   STATUS_KEYS_INCLUDED_IN_SLA = (STATUSES.keys - EXCLUDED_FROM_SLA).freeze
   STATUSES_BY_STAGE = determine_statuses_by_stage.freeze
@@ -55,7 +55,7 @@ class TaxReturnStatus
   TERMINAL_STATUSES = [:file_accepted, :file_rejected, :file_mailed].freeze
   # If you change the statuses included in capacity, please also update the organization capacities sql view
   # tax_returns.status >= 102 AND tax_returns.status <= 404 AND tax_returns.status != 403 AND tax_returns.status != 106
-  EXCLUDED_FROM_CAPACITY = (ONBOARDING_STATUSES + [:file_mailed, :file_accepted, :file_not_filing, :file_hold, :intake_needs_doc_help]).freeze
+  EXCLUDED_FROM_CAPACITY = (ONBOARDING_STATUSES + [:file_mailed, :file_accepted, :file_not_filing, :file_hold]).freeze
   STATUS_KEYS_INCLUDED_IN_CAPACITY = (STATUSES.keys - EXCLUDED_FROM_CAPACITY).freeze
   GREETER_STATUSES_BEYOND_INTAKE = { "file" => [:file_not_filing, :file_hold] }.freeze
 

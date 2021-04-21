@@ -223,6 +223,7 @@ en:
         intake_reviewing: Reviewing
         intake_ready_for_call: Ready for call
         intake_info_requested: Info requested
+        intake_needs_doc_help: Needs doc help
         prep_ready_for_prep: Ready for prep
         prep_preparing: Preparing
         prep_info_requested: Info requested
