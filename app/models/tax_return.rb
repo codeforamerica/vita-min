@@ -74,11 +74,25 @@ class TaxReturn < ApplicationRecord
   end
 
   def primary_has_signed_8879?
-    primary_signature.present? && primary_signed_at? && primary_signed_ip?
+    primary_signature.present? && primary_signed_after_unsigned_8879_upload? && primary_signed_ip?
   end
 
   def spouse_has_signed_8879?
-    spouse_signature.present? && spouse_signed_at? && spouse_signed_ip?
+    spouse_signature.present? && spouse_signed_after_unsigned_8879_upload? && spouse_signed_ip?
+  end
+
+  def primary_signed_after_unsigned_8879_upload?
+    return false unless primary_signed_at.present?
+    return true if unsigned_8879s.empty?
+
+    unsigned_8879s.pluck(:created_at).max < primary_signed_at
+  end
+
+  def spouse_signed_after_unsigned_8879_upload?
+    return false unless spouse_signed_at.present?
+    return true if unsigned_8879s.empty?
+
+    unsigned_8879s.pluck(:created_at).max < spouse_signed_at
   end
 
   def filing_joint?
@@ -86,9 +100,14 @@ class TaxReturn < ApplicationRecord
   end
 
   def ready_for_8879_signature?(signature_type)
-    return true if unsigned_8879s.present? && signature_type == TaxReturn::PRIMARY_SIGNATURE
-    return true if unsigned_8879s.present? && signature_type == TaxReturn::SPOUSE_SIGNATURE && filing_joint?
-
+    case signature_type
+    when TaxReturn::PRIMARY_SIGNATURE
+      return true if unsigned_8879s.present? && !primary_has_signed_8879?
+    when TaxReturn::SPOUSE_SIGNATURE
+      return true if unsigned_8879s.present? && filing_joint? && !spouse_has_signed_8879?
+    else
+      raise StandardError, "Invalid signature_type parameter"
+    end
     false
   end
 
@@ -124,7 +143,7 @@ class TaxReturn < ApplicationRecord
     sign_successful = ActiveRecord::Base.transaction do
       self.primary_signed_at = DateTime.current
       self.primary_signed_ip = ip
-      self.primary_signature = client.legal_name
+      self.primary_signature = client.legal_name || "N/A"
 
       if ready_to_file?
         system_change_status(:file_ready_to_file)
@@ -150,7 +169,7 @@ class TaxReturn < ApplicationRecord
     sign_successful = ActiveRecord::Base.transaction do
       self.spouse_signed_at = DateTime.current
       self.spouse_signed_ip = ip
-      self.spouse_signature = client.spouse_legal_name
+      self.spouse_signature = client.spouse_legal_name || "N/A"
 
       if ready_to_file?
         system_change_status(:file_ready_to_file)
