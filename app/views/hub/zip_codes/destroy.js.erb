@@ -1,0 +1,5 @@
+<% if @error_message.present? %>
+  alert("<%= @error_message %>");
+<% else %>
+  $("#zip-code-routing-rule-<%= @zip_code_routing.id %>").hide();
+<% end %>

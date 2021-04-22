@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "a user editing an organization" do
+RSpec.describe "a user editing an organization", :js do
   context "as an authenticated user" do
     context "as an admin" do
       let(:current_user) { create :admin_user }
@@ -23,8 +23,9 @@ RSpec.describe "a user editing an organization" do
         select "Central Time (US & Canada)", from: "Timezone"
         fill_in "Capacity limit", with: "200"
         check "Allows Greeters"
-
-        click_on "Save"
+        within "#organization-form" do
+          click_on "Save"
+        end
 
         expect(page).to have_text "Changes saved"
 
@@ -32,22 +33,31 @@ RSpec.describe "a user editing an organization" do
         expect(find_field('Capacity limit').value).to eq "200"
         expect(find_field('Allows Greeters').value).to eq "true"
 
-        # Now do the same for the child site
+        within "#zip-code-routing-form" do
+          expect(page).to have_field("Zip code")
+          fill_in "Zip code", with: "94606"
+          click_on "Save"
+          # Now do the same for the child site
+        end
+
 
         click_on "Child Site"
 
-        expect(find_field('Name').value).to eq 'Child Site'
-        expect(page).to_not have_text("Capacity limit")
 
-        expect(page).to have_select("Timezone", selected: "Eastern Time (US & Canada)")
 
-        select "Central Time (US & Canada)", from: "Timezone"
+        within "#site-form" do
+          expect(find_field('Name').value).to eq 'Child Site'
+          expect(page).to_not have_text("Capacity limit")
+          expect(page).to have_select("Timezone", selected: "Eastern Time (US & Canada)")
 
-        click_on "Save"
+          select "Central Time (US & Canada)", from: "Timezone"
 
-        expect(page).to have_text "Changes saved"
+          click_on "Save"
 
-        expect(page).to have_select("Timezone", selected: "Central Time (US & Canada)")
+          expect(page).to have_select("Timezone", selected: "Central Time (US & Canada)")
+
+        end
+
 
       end
     end

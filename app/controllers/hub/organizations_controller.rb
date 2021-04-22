@@ -21,7 +21,9 @@ module Hub
     end
 
     def show
-      @organization = VitaPartner.organizations.find(params[:id])
+      @organization = @vita_partner
+      raise ActionController::RoutingError.new('Not Found') unless @vita_partner.organization?
+
       @sites = @organization.child_sites
     end
 
@@ -33,6 +35,8 @@ module Hub
 
     def edit
       @coalitions = Coalition.all
+      @routing_form = ZipCodeRoutingForm.new(@vita_partner)
+      @source_params_form = SourceParamsForm.new(@vita_partner)
       @organization = @vita_partner
     end
 

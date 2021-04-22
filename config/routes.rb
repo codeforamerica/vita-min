@@ -179,6 +179,9 @@ Rails.application.routes.draw do
         put "/:client_selection_id/change-organization", to: "change_organization#update", as: :update_change_organization
       end
 
+      resources :zip_codes, only: [:create, :destroy]
+      resources :source_params, only: [:create, :destroy]
+
       resources :tax_returns, only: [] do
         patch "update_certification", to: "tax_returns/certifications#update", on: :member
       end

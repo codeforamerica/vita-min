@@ -1,7 +1,11 @@
 <% @title = t(".title") %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <div class="hub-form">
-    <%= render "hub/sites/form", url: hub_sites_path(parent_organization_id: @organization), http_method: :post %>
+  <div class="slab slab--padded">
+    <div class="grid">
+      <div class="grid-item width-one-half">
+        <%= render "hub/sites/form", url: hub_sites_path(parent_organization_id: @organization), http_method: :post %>
+      </div>
+    </div>
   </div>
 <% end %>

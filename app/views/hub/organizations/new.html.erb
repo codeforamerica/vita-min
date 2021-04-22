@@ -1,7 +1,7 @@
 <% @title = t(".title") %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <div class="hub-form">
+  <div class="slab slab--padded">
     <%= form_with model: @organization, url: hub_organizations_path, method: :post, local: true, builder: VitaMinFormBuilder do |f| %>
       <h1 class="form-card__title">
         <%= @title %>
@@ -9,9 +9,6 @@
 
       <%= render "hub/organizations/edit_organization", f: f, additional_options: { checked: "checked" } %>
 
-      <button class="button button--primary button--wide" type="submit">
-        <%= t("general.save") %>
-      </button>
     <% end %>
   </div>
 <% end %>

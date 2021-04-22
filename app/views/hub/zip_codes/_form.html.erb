@@ -1,0 +1,23 @@
+<h2>Zip Code Routing</h2>
+<% if @success_message %>
+  <p aria-live="assertive" class="sr-only"><%= @success %></p>
+<% end %>
+
+<ul class="organization-list">
+  <% form.vita_partner.serviced_zip_codes.each do |szc| %>
+  <% next unless szc.id.present? %>
+    <li id="<%= "zip-code-routing-rule-#{szc.id}" %>">
+      <%= szc.zip_code %> <%= szc.city_state %>
+      <%= link_to t("general.delete"), hub_zip_code_path(id: szc.id), method: :delete, remote: true, "data-confirm": I18n.t("hub.zip_codes.confirm", code: szc.zip_code, name: form.vita_partner.name), class: "button button--small spacing-below-0" %>
+    </li>
+  <% end %>
+</ul>
+
+<%= form_with model: form, url: hub_zip_codes_path(vita_partner_id: form.vita_partner_id), builder: VitaMinFormBuilder do |f| %>
+  <div>
+    <%= f.cfa_input_field :zip_code, "Zip code", classes: ["form-width--short"] %>
+    <div>
+      <%= f.submit t("general.save"), class: "button button--cta button--wide" %>
+    </div>
+  </div>
+<% end %>

@@ -23,6 +23,8 @@ module Hub
 
     def edit
       @site = @vita_partner
+      @routing_form = ZipCodeRoutingForm.new(@vita_partner)
+      @source_params_form = SourceParamsForm.new(@vita_partner)
       @show_unique_links = true
     end
 
