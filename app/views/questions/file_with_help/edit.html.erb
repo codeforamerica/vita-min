@@ -10,24 +10,16 @@
       <%=t("views.questions.file_with_help.info") %>
     </p>
 
-    <p>
-      <strong><%=t("views.questions.file_with_help.right_option.header") %></strong>
-    </p>
+    <p class="text--error"><%= t("views.questions.file_with_help.note") %></p>
 
-    <ul class="checkmark-list teal">
-      <li>
-        <%=t("views.questions.file_with_help.right_option.need_assistance") %>
-      </li>
-      <li>
-        <%=t("views.questions.file_with_help.right_option.confused") %>
-      </li>
-      <li>
-        <%=t("views.questions.file_with_help.right_option.nervous") %>
-      </li>
-    </ul>
+    <div class="notice--warning">
+      <p><%= t("views.questions.file_with_help.extension_notice_html") %></p>
+    </div>
 
     <%= link_to next_path, class: "button button--primary text--centered button--wide spacing-above-60" do %>
       <%=t("general.continue") %>
     <% end %>
+
+    <%= link_to t("views.questions.file_with_help.diy"), diy_file_yourself_path %>
   </div>
 <% end %>

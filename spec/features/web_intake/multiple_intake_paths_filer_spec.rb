@@ -12,7 +12,7 @@ RSpec.feature "Web Intake Filer Tries Multiple Intake Paths" do
 
     # Skip to file-with-help
     visit "/questions/file-with-help"
-    expect(page).to have_selector("h1", text: "File with the help of a tax expert!")
+    expect(page).to have_selector("h1", text: "Based on your answers, we think our full service option is right for you!")
     click_on "Continue"
 
     # Doesn't get stuck trying to do full service flow
