@@ -1,8 +1,7 @@
 .tax-return-status {
   margin-bottom: 1.5rem;
 
-  .document_link {
-    font-weight: 700;
+  .link {
     color: $color-grey-darkest;
     text-decoration: none;
 
@@ -15,13 +14,8 @@
     }
   }
 
-  .action_link {
-    color: $color-grey-darkest;
-    text-decoration: none;
-
-    &__border {
-      border-bottom: 1px solid;
-    }
+  &__progress-state {
+    color: $color-grey-dark;
   }
 
   &__row {
@@ -33,9 +27,5 @@
       width: 2rem;
       margin-right: 1rem;
     }
-  }
-
-  &__empty-state {
-    font-style: italic;
   }
 }

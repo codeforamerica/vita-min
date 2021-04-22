@@ -1,7 +1,7 @@
 <div class="tax-return-status__row">
   <%= image_tag("icons/exclamation.svg", alt: "") %>
   <% if link %>
-    <span class="action_link__border"><%= yield %></span><i class="icon-keyboard_arrow_right"></i>
+    <span class="link__border"><%= yield %></span><i class="icon-keyboard_arrow_right link__icon"></i>
   <% else %>
     <%= yield %>
   <% end %>

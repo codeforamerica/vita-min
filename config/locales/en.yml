@@ -1015,6 +1015,7 @@ en:
             waiting_for_review: "Your tax team is waiting for an initial review with you"
             preparing_return: "Your tax team is preparing the return"
             waiting_for_qr: "Your tax team is waiting to discuss your final %{year} return with you"
+            info_requested: "Submit requested tax documents"
         progress_state:
           answered_questions: "Answered initial tax questions"
           shared_documents: "Shared initial tax documents"

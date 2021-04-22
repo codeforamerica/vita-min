@@ -176,7 +176,7 @@ describe TaxReturn do
 
   end
 
-  describe "#ready_for_signature?" do
+  describe "#ready_for_8879_signature?" do
     let(:tax_return) { create :tax_return }
 
     context "when signed 8879 already exists" do
@@ -205,7 +205,8 @@ describe TaxReturn do
                document_type: DocumentTypes::UnsignedForm8879.key,
                tax_return: tax_return,
                client: tax_return.client,
-               upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf")
+               upload_path:  Rails.root.join("spec", "fixtures", "attachments", "test-pdf.pdf"),
+               created_at: DateTime.yesterday
       end
 
       context "checking for primary" do
@@ -215,16 +216,61 @@ describe TaxReturn do
           end
         end
 
-        context "there are no unsigned 8879s" do
-          let(:primary_signed_tax_return) {
+        context "when the primary has signed the tax return" do
+          let(:tax_return) {
+            create :tax_return,
+                   primary_signature: "Bob Pineapple",
+                   primary_signed_ip: "127.0.0.1",
+                   primary_signed_at: DateTime.current
+          }
+          before do
+            tax_return.unsigned_8879s.update(document_type: DocumentTypes::CompletedForm8879.key)
+          end
+
+          it "returns false" do
+            expect(tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
+          end
+        end
+
+        context "the primary has signed and there is an unsigned 8879 that the spouse needs to sign" do
+          let(:tax_return) {
             create :tax_return,
                    primary_signature: "Bob Pineapple",
                    primary_signed_ip: "127.0.0.1",
                    primary_signed_at: DateTime.current
           }
 
-          it "returns false" do
-            expect(primary_signed_tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
+          before do
+            tax_return.client.intake.update!(filing_joint: "yes")
+          end
+
+          it "returns false for primary" do
+            expect(tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq false
+          end
+
+          it "returns true for spouse" do
+            expect(tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq true
+          end
+        end
+
+        context "the spouse has signed and there is an unsigned 8879 that the primary needs to sign" do
+          let(:tax_return) {
+            create :tax_return,
+                   spouse_signature: "Jane Pineapple",
+                   spouse_signed_ip: "127.0.0.99",
+                   spouse_signed_at: DateTime.current
+          }
+
+          before do
+            tax_return.client.intake.update!(filing_joint: "yes")
+          end
+
+          it "returns false for spouse" do
+            expect(tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)).to eq false
+          end
+
+          it "returns true for primary" do
+            expect(tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)).to eq true
           end
         end
       end
@@ -284,7 +330,7 @@ describe TaxReturn do
     end
   end
 
-  describe "completely_signed_8879?" do
+  describe "#completely_signed_8879?" do
     let(:filing_joint) { "no" }
     let(:intake) { create :intake, filing_joint: filing_joint }
     let(:tax_return) { create :tax_return, client: create(:client, intake: intake) }
