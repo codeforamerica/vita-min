@@ -1944,13 +1944,11 @@ en:
         body: We appreciate any additional feedback you have to better serve clients in the future!
         title: Thank you for sharing your experience.
       file_with_help:
-        info: You selected our full service option. We’ll have you answer a series of questions about your tax situation (to the best of your ability) and have a tax specialist review everything with you.
-        right_option:
-          confused: Your tax situation is confusing/complicated
-          header: 'This is the right option for you if:'
-          need_assistance: You need assistance with tax filing
-          nervous: You’re nervous to file completely on your own
-        title: File with the help of a tax expert!
+        info: With our full-service option, our VITA partners will provide hands-on support and work with you to get the biggest return!
+        title: Based on your answers, we think our full service option is right for you!
+        note: "Note: this process takes 2-3 weeks."
+        extension_notice_html: "<strong>The federal income tax filing deadline has been extended to May 17, you can check your state filing deadline <a href='https://www.taxadmin.org/index.php?option=com_content&view=article&id=1151:state-filing-dates&catid=20:site-content&Itemid=393' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank'>IRS form</a> requesting an extension."
+        diy: "No thank you, I’m looking for a quicker option."
       filing_joint:
         help_text: Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return.
         title: Are you filing joint taxes with your spouse?

@@ -20,7 +20,7 @@ feature "Intake Routing Spec" do
 
     visit "questions/file-with-help"
 
-    expect(page).to have_text "File with the help of a tax expert!"
+    expect(page).to have_text "Based on your answers, we think our full service option is right for you!"
     click_on "Continue"
 
     expect(page).to have_text "What years would you like to file for?"
@@ -48,7 +48,7 @@ feature "Intake Routing Spec" do
   scenario "routing by zip code" do
     visit "/questions/file-with-help"
 
-    expect(page).to have_text "File with the help of a tax expert!"
+    expect(page).to have_text "Based on your answers, we think our full service option is right for you!"
     click_on "Continue"
 
     expect(page).to have_text "What years would you like to file for?"
@@ -76,7 +76,7 @@ feature "Intake Routing Spec" do
   scenario "routing by state" do
     visit "/questions/file-with-help"
 
-    expect(page).to have_text "File with the help of a tax expert!"
+    expect(page).to have_text "Based on your answers, we think our full service option is right for you!"
     click_on "Continue"
 
     expect(page).to have_text "What years would you like to file for?"
