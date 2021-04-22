@@ -1017,7 +1017,7 @@ es:
           tax_return:
             waiting_for_review: Su equipo de impuestos espera una primera revisión con usted
             preparing_return: Su equipo de impuestos está preparando la declaración
-            waiting_for_qr: Esperando una revisión de calidad para el %{year} de su equipo de impuestos
+            waiting_for_qr: Nuestro equipo de impuestos está esperando para hablar sobre su declaración final de %{year} con usted
             info_requested: Enviar documentos adicionales
         progress_state:
           answered_questions: Ha respondido a las preguntas sobre impuestos

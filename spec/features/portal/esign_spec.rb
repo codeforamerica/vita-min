@@ -102,7 +102,7 @@ RSpec.feature "Submitting final tax filing signature" do
       expect(page).to have_text "Final signature added for 2019"
     end
 
-    scenario "when a unsigned document is uploaded after signing a document" do
+    scenario "when an unsigned document is uploaded after signing a document" do
       # signing document
       visit portal_root_path
       expect(page).to have_link "Add final primary taxpayer signature for 2019"
