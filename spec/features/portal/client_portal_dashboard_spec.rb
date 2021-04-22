@@ -91,6 +91,52 @@ RSpec.feature "a client on their portal" do
     end
   end
 
+  context "when the client's status is info requested" do
+    let(:client) do
+      create :client,
+             intake: (create :intake),
+             tax_returns: [(create :tax_return, year: 2020, status: :prep_info_requested)]
+    end
+
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "link to submit tax documents" do
+      visit portal_root_path
+
+      expect(page).to have_text "Answered initial tax questions"
+      expect(page).to have_text "Shared initial tax documents"
+
+      expect(page).to have_text "2020 Tax Return"
+      within "#tax-year-2020" do
+        expect(page).to have_text "Completed review"
+        expect(page).to have_text "Submit requested tax documents"
+      end
+    end
+  end
+
+  context "when the client's status is greeter info requested" do
+    let(:client) do
+      create :client,
+             intake: (create :intake),
+             tax_returns: [(create :tax_return, year: 2020, status: :intake_greeter_info_requested)]
+    end
+
+    before do
+      login_as client, scope: :client
+    end
+
+    scenario "link to submit tax documents" do
+      visit portal_root_path
+
+      expect(page).to have_text "Answered initial tax questions"
+      expect(page).to have_text "Shared initial tax documents"
+      expect(page).not_to have_text "Submit remaining tax documents"
+      expect(page).to have_text "Submit requested tax documents"
+    end
+  end
+
   context "when the tax return is being quality reviewed" do
     let(:client) do
       create :client,
@@ -149,7 +195,6 @@ RSpec.feature "a client on their portal" do
       end
     end
   end
-
 
   context "when the client has finished filing" do
     let(:client) do

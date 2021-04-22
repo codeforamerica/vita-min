@@ -24,6 +24,10 @@
       <%= render "action_state", link: true do %>
         <%= link_to t("portal.portal.home.action_state.submit_additional_documents"), @current_step, class: "link" %>
       <% end %>
+    <% elsif @tax_returns.pluck(:status).include?("intake_greeter_info_requested") %>
+      <%= render "action_state", link: true do %>
+        <%= link_to t("portal.portal.home.waiting_state.tax_return.info_requested"), portal_upload_documents_path, class: "link" %>
+      <% end %>
     <% end %>
   </div>
 
@@ -86,6 +90,12 @@
         <% if tax_return.completely_signed_8879? && !ready_for_8879 %>
           <%= render "progress_state" do %>
             <%= t("portal.portal.home.progress_state.tax_return.final_signature_added", year: tax_return.year) %>
+          <% end %>
+        <% end %>
+
+        <% if [:intake_info_requested, :prep_info_requested, :review_info_requested].include?(status) %>
+          <%= render "action_state", link: true do %>
+            <%= link_to t("portal.portal.home.waiting_state.tax_return.info_requested"), portal_upload_documents_path, class: "link" %>
           <% end %>
         <% end %>
 
