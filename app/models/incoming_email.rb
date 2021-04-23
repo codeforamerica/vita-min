@@ -15,7 +15,7 @@
 #  stripped_signature :string
 #  stripped_text      :string
 #  subject            :string
-#  to                 :citext           not null
+#  to                 :citext
 #  user_agent         :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

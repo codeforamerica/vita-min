@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_21_172930) do
+ActiveRecord::Schema.define(version: 2021_04_23_211100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -320,7 +320,7 @@ ActiveRecord::Schema.define(version: 2021_04_21_172930) do
     t.string "stripped_signature"
     t.string "stripped_text"
     t.string "subject"
-    t.citext "to", null: false
+    t.citext "to"
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_agent"
     t.index ["client_id"], name: "index_incoming_emails_on_client_id"
