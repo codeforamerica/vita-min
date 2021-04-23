@@ -685,6 +685,7 @@ en:
     changes_saved: Changes saved
     chat_with_us: Chat with us
     city: City
+    client_info: Client Info
     coalition: Coalition
     confirm: Confirm
     contact_methods:
@@ -870,6 +871,7 @@ en:
     new_unique_link: "Additional unique link"
     delete: "Delete"
     last_four_ssn: Last 4 of SSN/ITIN
+    spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
     hidden: Hidden
     locked: "Locked"
     suspended: "Suspended"

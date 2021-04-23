@@ -674,6 +674,7 @@ es:
     changes_saved: Cambios guardados
     chat_with_us: Hable con nosotros por el chat
     city: Ciudad
+    client_info: Información del cliente
     coalition: Coalición
     confirm: Confirmar
     contact_methods:
@@ -861,6 +862,7 @@ es:
     new_unique_link: "Nuevo Enlace único"
     delete: "Eliminar"
     last_four_ssn: Últimos 4 de SSN / ITIN
+    spouse_last_four_ssn: Últimos 4 de SSN / ITIN (cónyuge)
     hidden: Encubierto
     locked: "Bloqueada"
     suspended: "Suspendida"
