@@ -45,6 +45,11 @@ FactoryBot.define do
       upload_path { Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg") }
     end
 
+    trait :pdf do
+      transient do
+        upload_path { Rails.root.join("spec", "fixtures", "attachments", "document_bundle.pdf") }
+      end
+    end
     after(:build) do |document, evaluator|
       document.upload.attach(
         io: File.open(evaluator.upload_path),
@@ -55,5 +60,6 @@ FactoryBot.define do
     factory :archived_document do
       archived { true }
     end
+
   end
 end
