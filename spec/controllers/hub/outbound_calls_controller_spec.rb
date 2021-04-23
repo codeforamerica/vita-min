@@ -43,9 +43,35 @@ describe Hub::OutboundCallsController, type: :controller do
   end
 
   describe "#show" do
-    let(:client) { create :client }
-    let(:params) { { client_id: client.id, id: "123" } }
+    let(:filing_jointly) { "no" }
+    let(:client) { create :client, intake: build(:intake, primary_last_four_ssn: "2222", filing_joint: filing_jointly, spouse_last_four_ssn: "1111") }
+    let(:outbound_call) { create :outbound_call, client: client }
+    let(:params) { { client_id: client.id, id: outbound_call.id } }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
+
+    context "with a logged in user" do
+      let(:user) { create :admin_user }
+      before { sign_in user }
+      render_views
+
+      it "shows the ssn last four" do
+        get :show, params: params
+
+        expect(response.body).to have_text "2222"
+        expect(response.body).not_to have_text "Spouse's last 4 of SSN/ITIN:"
+      end
+
+      context "with a client filing jointly" do
+        let(:filing_jointly) { "yes" }
+
+        it "shows the ssn last four" do
+          get :show, params: params
+
+          expect(response.body).to have_text "Spouse's last 4 of SSN/ITIN:"
+          expect(response.body).to have_text "1111"
+        end
+      end
+    end
   end
 
   describe "#update" do
