@@ -8,8 +8,8 @@ module Hub
       vita_partner = VitaPartner.find(params[:vita_partner_id])
       @form = form_class.new(vita_partner, permitted_params)
       if @form.valid?
-        source_param = @form.save
-        @success_message = I18n.t("hub.source_params.success", code: source_param.code, name: vita_partner.name)
+        @form.save!
+        @success_message = I18n.t("hub.source_params.success", code: @form.code, name: vita_partner.name)
       else
         flash.now[:alert] = @form.error_summary
       end

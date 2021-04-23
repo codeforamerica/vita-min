@@ -14,9 +14,8 @@ module Hub
 
     end
 
-    def save
-      @serviced_zip_code.save
-      @serviced_zip_code
+    def save!
+      @serviced_zip_code.save!
     end
 
     def vita_partner_id

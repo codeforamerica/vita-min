@@ -17,6 +17,7 @@ es:
       already_taken: "%{zip_code} ya está enrutado a <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
       already_applied: "%{zip_code} ya está enrutado a este socio."
       not_found: Código postal no encontrado. Intentar otra vez.
+      success: Se agregó %{code} a %{name}.
       confirm: ¿Estás segura de que quieres eliminar? %{code} de %{name}?
     source_params:
       already_taken: "%{code} ya está siendo utilizado por <a href=%{vita_partner_path}>%{vita_partner_name}</a>."

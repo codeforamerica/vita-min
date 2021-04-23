@@ -13,9 +13,8 @@ module Hub
 
     end
 
-    def save
-      @source_param.save
-      @source_param
+    def save!
+      @source_param.save!
     end
 
     def vita_partner_id

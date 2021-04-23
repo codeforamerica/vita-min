@@ -17,6 +17,7 @@ en:
       already_taken: "%{zip_code} is already routed to <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
       already_applied: "%{zip_code} is already routed to this partner."
       not_found: Zip code not found. Try again.
+      success: Added %{code} to %{name}.
       confirm: Are you sure you want to delete %{code} from %{name}?
     source_params:
       already_taken: "%{code} is already in use by <a href=%{vita_partner_path}>%{vita_partner_name}</a>."

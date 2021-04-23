@@ -17,9 +17,9 @@ describe Hub::ZipCodesController do
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
-    context "an authenticated user" do
+    context "an authenticated admin user" do
       before do
-        sign_in admin_user
+        sign_in (create :admin_user)
       end
 
       it "responds with js" do
@@ -48,6 +48,19 @@ describe Hub::ZipCodesController do
           expect {
             post :create, params: params, format: :js, xhr: true
           }.not_to change(VitaPartnerZipCode, :count)
+        end
+      end
+    end
+
+    context "other user types" do
+      describe "when attempting to create" do
+        before do
+          sign_in (create :greeter_user)
+        end
+
+        it "is not authorized" do
+          post :create, params: params, format: :js, xhr: true
+          expect(response.status).to eq 403
         end
       end
     end

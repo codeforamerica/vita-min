@@ -19,13 +19,17 @@
         </div>
 
         <hr/>
+        <% if can? :create, VitaPartnerZipCode %>
+          <div id="zip-code-routing-form">
+            <%= render "hub/zip_codes/form", form: @routing_form %>
+          </div>
+          <hr/>
+        <% end %>
 
-        <div id="zip-code-routing-form">
-          <%= render "hub/zip_codes/form", form: @routing_form %>
-        </div>
-
-        <hr/>
         <h2><%= t("general.sites") %></h2>
+        <div class="spacing-below-25">
+          <%= link_to t("hub.sites.new.title"), new_hub_site_path(parent_organization_id: @organization), class: "button button--cta"%>
+        </div>
         <% if @organization.child_sites.exists? %>
           <ul class="organization-list">
             <% @organization.child_sites.map do |site| %>
@@ -38,9 +42,7 @@
           </div>
 
         <% end %>
-        <div>
-          <%= link_to t("hub.sites.new.title"), new_hub_site_path(parent_organization_id: @organization), class: "button button--cta button--wide text--centered"%>
-        </div>
+
       </div>
     </div>
   </section>
