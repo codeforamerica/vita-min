@@ -20,7 +20,6 @@
   white-space: nowrap;
   border-spacing: 0 1px;
   border-top: 1px solid black;
-  background: darken($color-grey-light, 20%);
   max-height: 500px;
   margin-bottom: 0;
   thead {
@@ -44,13 +43,15 @@
     }
   }
 
-  tr {
-    background: white;
+  td {
+    background: unset;
+    border-bottom: 1px solid $color-grey-light;
   }
 
   tr > :first-child {
     position: sticky;
     left: 0;
+    opacity: 1;
   }
 
   tfoot th {
@@ -76,6 +77,7 @@
 
   tbody {
     overflow: scroll;
+    max-width: 100%;
   }
 
   .org {

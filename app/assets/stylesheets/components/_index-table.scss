@@ -71,8 +71,16 @@ It expects to be the primary content of the given page (full width).
       padding-right: 3rem;
     }
   }
-
-  &__row:nth-child(2n) {
+  &__row:nth-child(odd) {
+    background-color: white;
+    td {
+      background-color: white; // necessary for sticky first column
+    }
+  }
+  &__row:nth-child(even) {
     background-color: $color-grey-light;
+    td {
+      background: $color-grey-light; // necessary for sticky first column
+    }
   }
 }
