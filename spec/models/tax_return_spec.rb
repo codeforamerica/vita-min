@@ -426,10 +426,20 @@ describe TaxReturn do
       end
     end
 
+    context "when an unsigned form 8879 exists but it is archived" do
+      let(:tax_return) { create :tax_return }
+      before do
+        create :document, :pdf, document_type: DocumentTypes::UnsignedForm8879.key, archived: true, tax_return: tax_return, client: tax_return.client
+      end
+      it "is empty" do
+        expect(subject).to be_empty
+      end
+    end
+
     context "when unsigned 8879s do not exist" do
       let(:tax_return) { create :tax_return }
 
-      it "returns nil" do
+      it "is empty" do
         expect(subject).to be_empty
       end
     end
@@ -442,6 +452,16 @@ describe TaxReturn do
       let(:tax_return) { create :tax_return, :ready_to_file_solo }
       it "returns the signed document objects" do
         expect(subject.pluck(:document_type).uniq).to eq ["Form 8879 (Signed)"]
+      end
+    end
+
+    context "when a signed form 8879 exists but it is archived" do
+      let(:tax_return) { create :tax_return }
+      before do
+        create :document, :pdf, document_type: DocumentTypes::CompletedForm8879.key, archived: true, tax_return: tax_return, client: tax_return.client
+      end
+      it "is empty" do
+        expect(subject).to be_empty
       end
     end
 
@@ -461,15 +481,16 @@ describe TaxReturn do
       before do
         create :document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: tax_return.client
         create :document, document_type: DocumentTypes::Other, tax_return: tax_return, client: tax_return.client
+        create :document, document_type: DocumentTypes::Other, tax_return: tax_return, client: tax_return.client, archived: true
         create :document, document_type: DocumentTypes::FinalTaxDocument, tax_return: tax_return, client: tax_return.client
       end
 
-      it "returns all documents of type DocumentTypes::FinalTaxDocument associated with the tax return" do
+      it "returns all documents of type DocumentTypes::FinalTaxDocument associated with the tax return that are not archived" do
         expect(tax_return.final_tax_documents.length).to eq 2
         expect(tax_return.final_tax_documents.map(&:document_type).uniq).to eq [DocumentTypes::FinalTaxDocument.key]
       end
     end
-
+    
     context "with no final tax documents " do
       it "returns an empty array" do
         expect(subject).to eq []

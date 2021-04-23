@@ -105,15 +105,15 @@ class TaxReturn < ApplicationRecord
   end
 
   def unsigned_8879s
-    documents.where(document_type: DocumentTypes::UnsignedForm8879.key)
+    documents.active.where(document_type: DocumentTypes::UnsignedForm8879.key)
   end
 
   def signed_8879s
-    documents.where(document_type: DocumentTypes::CompletedForm8879.key)
+    documents.active.where(document_type: DocumentTypes::CompletedForm8879.key)
   end
 
   def final_tax_documents
-    documents.where(document_type: DocumentTypes::FinalTaxDocument.key)
+    documents.active.where(document_type: DocumentTypes::FinalTaxDocument.key)
   end
 
   def sign_primary!(ip)
