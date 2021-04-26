@@ -141,6 +141,8 @@ en:
       count:
         one: "%{count} client"
         other: "%{count} clients"
+      bulk_action:
+        count_html: 'You have selected <strong><span id="take-action-count">%{count}</span> return(s)</strong>'
     documents:
       confirm:
         title: Confirm %{document_type}
@@ -449,6 +451,11 @@ en:
       client_selection_help_text_missing_results:
         one: "%{count} result is no longer accessible to you."
         other: "%{count} results are no longer accessible to you."
+      new:
+        change_organization: "Change organization"
+        change_organization_description_html: "Update the organization responsible for these <strong>%{count} clients</strong>."
+        title: "Choose your bulk action"
+        choose_operation: "Choose the operation you wish to perform."
       bulk_action:
         change_organization: "Change organization"
         change_organization_description_html: "Update the organization responsible for these <strong>%{count} clients</strong>."
@@ -2306,6 +2313,8 @@ en:
     shared:
       tax_return_list:
         add_tax_year: Add tax year
+        select_tax_return: Select %{tax_year}
+        add_all: Add all
       consent_agreement:
         details:
           intro: >-
