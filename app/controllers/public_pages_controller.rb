@@ -9,9 +9,9 @@ class PublicPagesController < ApplicationController
   end
 
   def source_routing
-    source_parameter = SourceParameter.includes(:vita_partner).find_by(code: params[:source]&.downcase)
-    if source_parameter.present?
-      flash[:notice] = I18n.t("controllers.public_pages.partner_welcome_notice", partner_name: source_parameter.vita_partner.name)
+    vita_partner = SourceParameter.find_vita_partner_by_code(params[:source])
+    if vita_partner.present?
+      flash[:notice] = I18n.t("controllers.public_pages.partner_welcome_notice", partner_name: vita_partner.name)
       cookies[:intake_open] = { value: DateTime.current, expires: 1.year.from_now.utc }
     end
     redirect_to root_path, { locale: I18n.locale }

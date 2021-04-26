@@ -71,7 +71,7 @@ RSpec.describe PublicPagesController do
     end
   end
 
-  describe "source_routing" do
+  describe "#source_routing" do
     context "when it can find a matching source parameter" do
       let(:source_parameter) { create :source_parameter, vita_partner: (create :vita_partner, name: "Oregano Organization") }
 

@@ -18,9 +18,12 @@ feature "Intake Routing Spec" do
 
     expect(page).to have_text "Free tax filing, made simple."
 
-    visit "questions/file-with-help"
+    # clients with matching vita partner source param skip triage questions
+    click_on "Get started", id: "firstCta"
+    expect(page).to have_text "Welcome"
+    click_on "Continue"
 
-    expect(page).to have_text "Based on your answers, we think our full service option is right for you!"
+    expect(page).to have_text "Our full service option is right for you!"
     click_on "Continue"
 
     expect(page).to have_text "What years would you like to file for?"
@@ -48,7 +51,7 @@ feature "Intake Routing Spec" do
   scenario "routing by zip code" do
     visit "/questions/file-with-help"
 
-    expect(page).to have_text "Based on your answers, we think our full service option is right for you!"
+    expect(page).to have_text "Our full service option is right for you!"
     click_on "Continue"
 
     expect(page).to have_text "What years would you like to file for?"
@@ -76,7 +79,7 @@ feature "Intake Routing Spec" do
   scenario "routing by state" do
     visit "/questions/file-with-help"
 
-    expect(page).to have_text "Based on your answers, we think our full service option is right for you!"
+    expect(page).to have_text "Our full service option is right for you!"
     click_on "Continue"
 
     expect(page).to have_text "What years would you like to file for?"

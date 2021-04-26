@@ -1,5 +1,6 @@
 module Questions
   class TriageController < AnonymousIntakeController
+    before_action :redirect_if_matching_source_param
     skip_before_action :require_intake
 
     def edit
@@ -24,6 +25,10 @@ module Questions
 
     def prev_path
       :back
+    end
+
+    def redirect_if_matching_source_param
+      redirect_to file_with_help_questions_path if SourceParameter.find_vita_partner_by_code(session[:source]).present?
     end
   end
 end

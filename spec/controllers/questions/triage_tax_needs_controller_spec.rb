@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Questions::TriageTaxNeedsController do
+  it_behaves_like :a_controller_which_is_skipped_when_vita_partner_source_param_is_present
+
   describe "#edit" do
     it "renders the corresponding template" do
       get :edit

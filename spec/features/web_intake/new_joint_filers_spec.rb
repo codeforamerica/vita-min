@@ -86,7 +86,7 @@ RSpec.feature "Web Intake Joint Filers" do
     expect(page).to have_selector("h1", text: "Your tax return may be delayed so that we can ensure you receive the highest refund!")
     click_on "Continue"
 
-    expect(page).to have_selector("h1", text: "Based on your answers, we think our full service option is right for you!")
+    expect(page).to have_selector("h1", text: "Our full service option is right for you!")
     click_on "Continue"
 
     # Ask about backtaxes

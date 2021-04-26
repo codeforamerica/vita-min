@@ -11,7 +11,7 @@ RSpec.feature "Web Intake 211 Assisted Filer" do
     visit "/211intake"
     visit "/en/questions/file-with-help"
 
-    expect(page).to have_selector("h1", text: "Based on your answers, we think our full service option is right for you!")
+    expect(page).to have_selector("h1", text: "Our full service option is right for you!")
     click_on "Continue"
 
     # Intake created on backtaxes page
