@@ -1,16 +1,18 @@
-<%= form_with class: tax_return, url: update_certification_hub_tax_return_path(id: tax_return.id), local: true, method: :patch, builder: VitaMinFormBuilder, html: { class: "tax-return-inline-form" } do |f| %>
-  <div class="before">
-    <%= link_to "Cancel", url_for(:locale => params[:locale]) %>
-  </div>
-  <label for="certification_level">
-    <div class="offset-label"><%= t("general.certification") %></div>
-    <%= f.select :certification_level, certification_options_for_select, include_blank: true, selected: tax_return.certification_level %>
-  </label>
-  <%= hidden_field_tag :next, request.path.split("?")[0] %>
-  <div>
-    <%= f.button :submit do %>
-      <span class="sr-only"><%= t("general.save") %></span>
-      <%= image_tag("checkmark.svg", alt: "") %>
-    <% end %>
-  </div>
-<% end %>
+<div role="alert">
+  <%= form_with class: tax_return, url: update_certification_hub_tax_return_path(id: tax_return.id), local: true, method: :patch, builder: VitaMinFormBuilder, html: { class: "tax-return-inline-form" } do |f| %>
+    <div class="before">
+      <%= link_to "Cancel", url_for(:locale => params[:locale]) %>
+    </div>
+    <label for="certification_level">
+      <div class="offset-label"><%= t("general.certification") %></div>
+      <%= f.select :certification_level, certification_options_for_select, include_blank: true, selected: tax_return.certification_level %>
+    </label>
+    <%= hidden_field_tag :next, request.path.split("?")[0] %>
+    <div>
+      <%= f.button :submit do %>
+        <span class="sr-only"><%= t("general.save") %></span>
+        <%= image_tag("checkmark.svg", alt: "") %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -5,7 +5,7 @@ RSpec.describe Hub::TaxReturns::CertificationsController do
     let(:user) { create :organization_lead_user }
     let(:tax_return) { create :tax_return, client: (create :client, vita_partner: user.role.organization) }
     let(:next_path) { "/next/path" }
-    let(:params) { { id: tax_return.id, certification_level: "advanced", next: next_path } }
+    let(:params) { { id: tax_return.id, certification_level: "foreign_student", next: next_path } }
 
     it_behaves_like :a_post_action_for_authenticated_users_only, action: :update
 
@@ -18,7 +18,7 @@ RSpec.describe Hub::TaxReturns::CertificationsController do
         expect {
           patch :update, params: params
           tax_return.reload
-        }.to change(tax_return, :certification_level).to('advanced')
+        }.to change(tax_return, :certification_level).to('foreign_student')
       end
       context "redirecting on success" do
         context "with next param" do
