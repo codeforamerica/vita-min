@@ -141,6 +141,8 @@ es:
       count:
         one: "%{count} cliente"
         other: "%{count} clientes"
+      bulk_action:
+        count_html: 'Has seleccionado <strong><span id="take-action-count">%{count}</span> declaración</strong>'
     documents:
       edit:
         title: Editar Documento
@@ -439,6 +441,11 @@ es:
       client_selection_help_text_missing_results:
         one: "Ya no tiene accesso a %{count} resultado."
         other: "Ya no tiene accesso a %{count} resultados."
+      new:
+        change_organization: "Cambiar de organización"
+        change_organization_description_html: "Actualizar la organización responsable de estos <strong>%{count} clientes</strong>."
+        title: "Elija su acción masiva"
+        choose_operation: "Elija la operación que desea realizar."
       bulk_action:
         change_organization: "Cambiar de organización"
         change_organization_description_html: "Actualizar la organización responsable de estos <strong>%{count} clientes</strong>."
@@ -2258,6 +2265,8 @@ es:
     shared:
       tax_return_list:
         add_tax_year: Agregar año fiscal
+        select_tax_return: Seleccione %{tax_year}
+        add_all: Añadir todo
       consent_agreement:
         details:
           header: Detalles
