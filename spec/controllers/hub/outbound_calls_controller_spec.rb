@@ -51,7 +51,16 @@ describe Hub::OutboundCallsController, type: :controller do
 
     context "with a logged in user" do
       let(:user) { create :admin_user }
-      before { sign_in user }
+      let(:back_to_the_future_day) { DateTime.new(2015, 10, 21, 0, 0, 0) }
+      let(:user_agent_header) { "CERN-NextStep-WorldWideWeb.app/1.1 libwww/2.07" }
+
+      before do
+        allow(DateTime).to receive(:now).and_return(back_to_the_future_day)
+        request.remote_ip = "1.1.1.1"
+        request.headers["HTTP_USER_AGENT"] = user_agent_header
+        sign_in user
+      end
+
       render_views
 
       it "shows the ssn last four" do
@@ -59,6 +68,19 @@ describe Hub::OutboundCallsController, type: :controller do
 
         expect(response.body).to have_text "2222"
         expect(response.body).not_to have_text "Spouse's last 4 of SSN/ITIN:"
+      end
+
+      it "creates an AccessLog" do
+        expect {
+          get :show, params: params
+        }.to change(AccessLog, :count)
+        access_log = AccessLog.last
+        expect(access_log.user).to eq(user)
+        expect(access_log.record).to eq(client)
+        expect(access_log.event_type).to eq("viewed_call_page_ssn_itin")
+        expect(access_log.created_at).to eq(back_to_the_future_day)
+        expect(access_log.ip_address).to eq("1.1.1.1")
+        expect(access_log.user_agent).to eq(user_agent_header)
       end
 
       context "with a client filing jointly" do
