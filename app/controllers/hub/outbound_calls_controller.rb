@@ -17,7 +17,7 @@ module Hub
 
     def show
       @outbound_call = OutboundCall.find(params[:id])
-      AccessLog.create(
+      AccessLog.create!(
         user: current_user,
         record: @client,
         event_type: "viewed_call_page_ssn_itin",

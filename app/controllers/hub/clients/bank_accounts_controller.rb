@@ -6,7 +6,7 @@ module Hub
       load_and_authorize_resource :client, parent: false
 
       def show
-        AccessLog.create(
+        AccessLog.create!(
           user: current_user,
           record: @client,
           created_at: DateTime.now,
