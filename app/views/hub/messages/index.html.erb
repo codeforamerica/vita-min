@@ -5,6 +5,7 @@
   <%= render "hub/clients/client_header" %>
 
   <%= render "hub/clients/navigation" %>
+
   <div class="slab slab--padded">
     <div class="client-container">
       <% if @messages_by_day.present? %>
@@ -52,7 +53,7 @@
       <% if @client&.intake.sms_phone_number.present? %>
         <div class="single-input-form">
           <%= form_with model: @outgoing_text_message, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
-            <%= f.cfa_textarea :body, t(".text_message_form.label") %>
+            <%= f.cfa_textarea :body, t(".text_message_form.label"), options: { spellcheck: true } %>
             <%= f.hidden_field :client_id %>
             <div>
               <%= f.submit t(".text_message_form.submit"), class: "button" %>
@@ -66,7 +67,7 @@
       <% if @client&.intake.email_address.present? %>
         <div class="single-input-form spacing-above-25">
           <%= form_with model: @outgoing_email, url: hub_client_outgoing_emails_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'email-form'} do |f| %>
-            <%= f.cfa_textarea :body, t(".email_form.label") %>
+            <%= f.cfa_textarea :body, t(".email_form.label"), options: { spellcheck: true } %>
             <%= f.hidden_field :client_id %>
             <div class="attachment-uploader">
               <%= f.cfa_file_field :attachment, t('general.attachment'), classes: ['attachment-upload'] %>
@@ -86,9 +87,9 @@
 
     </div>
   </div>
+
   <%= render "hub/clients/client_take_action_footer" %>
 <% end %>
-
 
 <% content_for :script do %>
   <script>
