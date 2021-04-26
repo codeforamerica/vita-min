@@ -50,7 +50,7 @@
         <% end %>
       </div>
       <% if show_checkboxes %>
-        <div style="padding: 0 1.5rem;" class="checkbox--gyr">
+        <div class="bulk-action-checkbox checkbox--gyr">
               <!-- Using form attribute to connect to a form elsewhere on the page -->
               <input id="tr_ids_<%= tax_return.id %>" type="checkbox" name="tr_ids[]" form="take-action-form" value="<%= tax_return.id %>">
               <label class="sr-only" for="tr_ids_<%= tax_return.id %>"><% t('views.shared.tax_return_list.select_tax_return', tax_year: tax_return.year) %></label>
