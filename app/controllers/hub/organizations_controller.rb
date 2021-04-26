@@ -21,9 +21,9 @@ module Hub
     end
 
     def show
-      @organization = @vita_partner
       raise ActionController::RoutingError.new('Not Found') unless @vita_partner.organization?
 
+      @organization = @vita_partner
       @sites = @organization.child_sites
     end
 
