@@ -1,4 +1,5 @@
-  <%= form_with model: @site, url: url, method: http_method, local: true, builder: VitaMinFormBuilder do |f| %>
+<div>
+  <%= form_with model: @site, url: url, method: http_method, local: true, builder: VitaMinFormBuilder, id: "site-form" do |f| %>
     <h1 class="form-card__title">
       <%= @title %>
     </h1>
@@ -6,24 +7,8 @@
     <%= f.cfa_input_field :name, t("general.name") %>
     <%= f.cfa_select :parent_organization_id, t("general.organization"), @organizations.map { |c| [c.name, c.id] } %>
     <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
-
-    <% if @show_unique_links %>
-      <% @site.source_parameters.each do |source_parameter| %>
-        <%= f.fields_for :source_parameters, source_parameter, builder: VitaMinFormBuilder do |source_parameter_form| %>
-          <div class="inline-form-items-wrapper no-bottom-margin-children">
-            <%= source_parameter_form.cfa_input_field :code, t("general.unique_link"), classes: ["form-width--short"] %>
-            <%= source_parameter_form.cfa_checkbox(:_destroy, t("general.remove")) %>
-          </div>
-        <% end %>
-      <% end %>
-
-      <%= f.fields_for :source_parameters, @site.source_parameters.build do |source_parameter_form| %>
-        <%= source_parameter_form.cfa_input_field :code, t("general.new_unique_link"), classes: ["form-width--short"] %>
-      <% end %>
-    <% end %>
-
-    <button class="button button--primary button--wide" type="submit">
-      <%= t("general.save") %>
-    </button>
+    <div>
+      <%= f.submit t("general.save"), class: "button button--primary button--wide" %>
+    </div>
   <% end %>
 </div>

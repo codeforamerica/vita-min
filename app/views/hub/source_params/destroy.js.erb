@@ -1,0 +1,5 @@
+<% if @error_message.present? %>
+  alert("<%= @error_message %>");
+<% else %>
+  $("#source-param-<%= @source_param.id %>").hide();
+<% end %>

@@ -3,41 +3,47 @@
 <% content_for :card do %>
   <section class="slab slab--padded">
     <%= link_to t("general.all_organizations"), hub_organizations_path %>
+    <div class="grid">
+      <div class="grid--item width-one-half">
+        <%= form_with model: @organization, url: hub_organization_path, method: :put, local: true, builder: VitaMinFormBuilder, id: "organization-form" do |f| %>
+          <h1 class="form-card__title">
+            <%= @title %>
+          </h1>
 
-    <%= form_with model: @organization, url: hub_organization_path, method: :put, local: true, builder: VitaMinFormBuilder do |f| %>
-      <h1 class="form-card__title">
-        <%= @title %>
-      </h1>
+          <%= render "hub/organizations/edit_organization", f: f, additional_options: {} %>
+        <% end %>
+        <hr/>
 
-      <%= render "hub/organizations/edit_organization", f: f, additional_options: {} %>
+        <div id="source-params-form">
+          <%= render "hub/source_params/form", form: @source_params_form %>
+        </div>
 
-      <% @organization.source_parameters.each do |source_parameter| %>
-        <%= f.fields_for :source_parameters, source_parameter, builder: VitaMinFormBuilder do |source_parameter_form| %>
-          <div class="inline-form-items-wrapper">
-            <%= source_parameter_form.cfa_input_field :code, t("general.unique_link"), classes: ["form-width--short"] %>
-            <%= source_parameter_form.hub_checkbox(:_destroy, t("general.remove")) %>
+        <hr/>
+        <% if can? :create, VitaPartnerZipCode %>
+          <div id="zip-code-routing-form">
+            <%= render "hub/zip_codes/form", form: @routing_form %>
           </div>
+          <hr/>
         <% end %>
-      <% end %>
 
-      <%= f.fields_for :source_parameters, @organization.source_parameters.build do |source_parameter_form| %>
-        <%= source_parameter_form.cfa_input_field :code, t("general.new_unique_link"), classes: ["form-width--short"] %>
-      <% end %>
+        <h2><%= t("general.sites") %></h2>
+        <div class="spacing-below-25">
+          <%= link_to t("hub.sites.new.title"), new_hub_site_path(parent_organization_id: @organization), class: "button button--cta"%>
+        </div>
+        <% if @organization.child_sites.exists? %>
+          <ul class="organization-list">
+            <% @organization.child_sites.map do |site| %>
+              <li><h3 class="spacing-below-0"><%= link_to site.name, edit_hub_site_path(id: site) %></h3></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <div class="spacing-below-25">
+            <%= t("hub.organizations.no_sites") %>
+          </div>
 
-      <button class="button button--primary button--wide" type="submit">
-        <%= t("general.save") %>
-      </button>
-      <hr />
-      <h2><%= t("general.sites") %></h2>
-      <%= link_to t("hub.sites.new.title"), new_hub_site_path(parent_organization_id: @organization), class: "button button--cta" %>
-
-      <% if @organization.child_sites.exists? %>
-        <% @organization.child_sites.map do |site| %>
-          <h3><%= link_to site.name, edit_hub_site_path(parent_organization_id: @organization, id: site) %></h3>
         <% end %>
-      <% else %>
-        <%= t("hub.organizations.no_sites") %>
-      <% end %>
-    <% end %>
+
+      </div>
+    </div>
   </section>
 <% end %>

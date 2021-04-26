@@ -8,7 +8,9 @@
     <%= form_with model: @client, url: organization_hub_client_path(id: @client.id), local: true, method: :patch, builder: VitaMinFormBuilder do |f|%>
 
       <%= f.cfa_select(:vita_partner_id, t("general.organization"), grouped_vita_partner_options) %>
-      <%= f.submit t("general.save"), class: "button button--primary" %>
+      <div>
+        <%= f.submit t("general.save"), class: "button button--primary" %>
+      </div>
     <% end %>
   </div>
 <% end %>

@@ -22,9 +22,13 @@ class VitaPartnerZipCode < ApplicationRecord
   validate :record_of_zip_code
   validates :zip_code, uniqueness: true
 
+  def city_state
+    ZipCodes.details(zip_code)[:name]
+  end
+
   private
 
   def record_of_zip_code
-    errors.add(:zip_code, "No record of zip code") unless ZipCodes.has_key?(zip_code)
+    errors.add(:zip_code, "#{zip_code} is not a valid US zip code.") unless ZipCodes.has_key?(zip_code)
   end
 end

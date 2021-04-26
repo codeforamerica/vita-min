@@ -64,7 +64,10 @@ RSpec.describe Hub::SitesController, type: :controller do
     it_behaves_like :a_get_action_for_admins_only, action: :new
 
     context "as an authenticated admin user" do
-      before { sign_in admin_user }
+      before do
+        create :vita_partner_zip_code, zip_code: 94606, vita_partner: site
+        sign_in admin_user
+      end
 
       it "retrieves the site, a list of organizations, and returns OK" do
         get :edit, params: params
@@ -88,6 +91,16 @@ RSpec.describe Hub::SitesController, type: :controller do
 
           expect(response.body).to include("shortlink1")
           expect(response.body).to include("shortlink2")
+        end
+      end
+
+      context "zip code routings" do
+        render_views
+        it "displays existing routings and prepares the form" do
+          get :edit, params: params
+          expect(response.body).to include "94606 Oakland, California"
+
+          expect(assigns(:routing_form)).to be_an_instance_of Hub::ZipCodeRoutingForm
         end
       end
     end

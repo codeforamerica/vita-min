@@ -75,7 +75,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
         it "is not found" do
           expect do
             get :show, params: params
-          end.to raise_error(ActiveRecord::RecordNotFound) # in deployment configs, this would be a 404
+          end.to raise_error(ActionController::RoutingError) # in deployment configs, this would be a 404
         end
       end
     end
@@ -143,6 +143,7 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
         create :site, parent_organization: organization, name: "Salmon Site"
         create :site, parent_organization: organization, name: "Sea Lion Site"
+        create :vita_partner_zip_code, zip_code: 94606, vita_partner: organization
       end
 
       it "displays a list of existing sites and a link to the site" do
@@ -164,6 +165,15 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
           expect(response.body).to include("shortlink1")
           expect(response.body).to include("shortlink2")
+        end
+      end
+
+      context "zip code routings" do
+        it "displays existing routings and prepares the form" do
+          get :edit, params: params
+          expect(response.body).to include "94606 Oakland, California"
+
+          expect(assigns(:routing_form)).to be_an_instance_of Hub::ZipCodeRoutingForm
         end
       end
     end

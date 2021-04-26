@@ -13,6 +13,16 @@ en:
       return_to_profile: Return to Profile
       my_clients: My Clients
       my_profile: My Profile
+    zip_codes:
+      already_taken: "%{zip_code} is already routed to <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
+      already_applied: "%{zip_code} is already routed to this partner."
+      success: Added %{code} to %{name}.
+      confirm: Are you sure you want to delete %{code} from %{name}?
+    source_params:
+      already_taken: "%{code} is already in use by <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
+      already_applied: "%{code} is already applied to this partner."
+      success: Added unique link %{code} to %{name}.
+      confirm: Are you sure you want to delete %{code} from %{name}?
     users:
       edit:
         delete_confirmation: "Are you sure you want to delete %{name}'s account?"

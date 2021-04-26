@@ -13,6 +13,16 @@ es:
       return_to_profile: Volver al Perfil
       my_clients: Mis Clientes
       my_profile: Mi Perfil
+    zip_codes:
+      already_taken: "%{zip_code} ya está enrutado a <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
+      already_applied: "%{zip_code} ya está enrutado a este socio."
+      success: Se agregó %{code} a %{name}.
+      confirm: ¿Estás segura de que quieres eliminar? %{code} de %{name}?
+    source_params:
+      already_taken: "%{code} ya está siendo utilizado por <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
+      already_applied: "%{code} ya se aplicó a este socio."
+      success: Se agregó un enlace único %{code} a %{name}.
+      confirm: ¿Estás segura de que quieres eliminar? %{code} de %{name}?
     users:
       edit:
         delete_confirmation: "¿Desea eliminar la cuenta de %{name}?"
