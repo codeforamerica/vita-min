@@ -7,18 +7,29 @@
         <h1 class="h1"><%= t(".title") %></h1>
         <p><%= t(".choose_operation") %></p>
         <div class="link-table">
+
+        <%= form_with(model: @client_selection, url: hub_client_selections_path, method: :post, local: true, builder: VitaMinFormBuilder) do |f| %>
+          <% (@tr_ids || []).each do |tr_id| %>
+            <input value="<%= tr_id %>" type="hidden" name="create_client_selection[tr_ids][]" />
+          <% end %>
           <div class="link-table__row">
             <div class="link-table__link">
-              <%= form_with(model: @client_selection, url: hub_client_selections_path, method: :post, local: true, builder: VitaMinFormBuilder) do |f| %>
-                <% (@tr_ids || []).each do |tr_id| %>
-                  <input value="<%= tr_id %>" type="hidden" name="create_client_selection[tr_ids][]" />
-                <% end %>
-                <input value="change-organization" type="hidden" name="create_client_selection[action_type]">
-                <%= f.submit t(".change_organization"), class: "button--link" %>
-              <% end %>
+              <button type="submit" name="create_client_selection[action_type]" value="change-organization" class="button--link" >
+                <%= t(".change_organization") %>
+              </button>
             </div>
             <p class="link-table__description"><%= t(".change_organization_description_html", count: @client_count) %></p>
           </div>
+          <div class="link-table__row">
+            <div class="link-table__link">
+              <button type="submit" name="create_client_selection[action_type]" value="send-a-message" class="button--link" >
+                <%= t(".send_a_message") %>
+              </button>
+            </div>
+            <p class="link-table__description"><%= t(".send_a_message_description_html", count: @client_count) %></p>
+          </div>
+          <% end %>
+
           <div class="link-table__navigation">
             <%= link_to t("general.cancel"), :back, class: "button" %>
           </div>

@@ -4,16 +4,13 @@
   <section class="slab slab--padded">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <%= form_with model: @form, method: :put, url: hub_bulk_actions_update_change_organization_path, local: true, builder: VitaMinFormBuilder do |f| %>
+        <%= form_with model: @form, method: :put, url: hub_bulk_actions_update_send_a_message_path, local: true, builder: VitaMinFormBuilder do |f| %>
 
           <h1 class="h1"><%= t(".title") %></h1>
           <p>
             <%= t(".selected_action_and_client_count_html", count: @client_selection.clients.size) %><br/>
             <%= @current_vita_partner_names.to_sentence(locale: locale) %>
           </p>
-          <p class="text--help text--bold spacing-below-25"><%= t(".help_text_html") %></p>
-
-          <%= f.cfa_select :vita_partner_id, t(".new_organization"), grouped_vita_partner_options %>
 
           <hr class="hr">
 

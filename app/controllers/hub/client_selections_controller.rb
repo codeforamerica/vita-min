@@ -8,12 +8,23 @@ module Hub
     before_action :require_sign_in, :load_vita_partners, :load_users
     before_action :load_client_selection, only: [:show, :bulk_action]
 
+    ALLOWED_ACTION_TYPES = ["change-organization", "send-a-message"]
+
     def create
-      return head 404 unless create_params[:action_type] == "change-organization"
+      action_type = create_params[:action_type]
+
+      return head 404 unless ALLOWED_ACTION_TYPES.include? action_type
 
       client_selection = ClientSelection.create!(clients: Client.accessible_by(current_ability).distinct.joins(:tax_returns).where(tax_returns: { id: create_params[:tr_ids] }))
 
-      redirect_to hub_bulk_actions_edit_change_organization_path(client_selection_id: client_selection.id)
+      case action_type
+      when "change-organization"
+        redirect_to hub_bulk_actions_edit_change_organization_path(client_selection_id: client_selection.id)
+      when "send-a-message"
+        redirect_to hub_bulk_actions_edit_send_a_message_path(client_selection_id: client_selection.id)
+      else
+        head 404
+      end
     end
 
     def new
@@ -33,10 +44,6 @@ module Hub
       @page_title = I18n.t("hub.client_selections.page_title", count: @client_selection.clients.size, id: @client_selection.id)
 
       render "hub/clients/index"
-    end
-
-    def bulk_action
-      @client_count = @client_selection.clients.size
     end
 
     private
