@@ -86,19 +86,6 @@ describe Hub::ZipCodesController do
       expect { delete :destroy, params: params }.to raise_error ActionController::UnknownFormat
     end
 
-    context "when the zip code object does not exist" do
-      let(:id) { "fake" }
-
-      before do
-        request.env['HTTP_REFERER'] = "https://www.getyourrefund.org/welcome"
-      end
-
-      it "flashes an error and redirects" do
-        delete :destroy, params: params, format: :js, xhr: true
-        expect(response).to redirect_to "https://www.getyourrefund.org/welcome"
-      end
-    end
-
     context "when the zip code object exists" do
       let!(:id) { vita_partner_zip_code.id }
 

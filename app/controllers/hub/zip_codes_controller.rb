@@ -20,12 +20,8 @@ module Hub
     end
 
     def destroy
-      @zip_code_routing = VitaPartnerZipCode.find_by(id: params[:id])
-
-      unless @zip_code_routing.present?
-        flash[:error] = I18n.t("hub.zip_codes.not_found")
-        redirect_to request.referrer and return
-      end
+      @zip_code_routing = VitaPartnerZipCode.find(params[:id])
+      
       @zip_code_routing.destroy!
 
       respond_to do |format|

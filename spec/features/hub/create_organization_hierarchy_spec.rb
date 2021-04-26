@@ -39,9 +39,7 @@ RSpec.describe "create VITA organization hierarchy", :js do
       within "#zip-code-routing-form" do
         fill_in "Zip code", with: "94606"
         click_on "Save"
-        Capybara.using_wait_time(10) do
-          expect(page).to have_text "94606 Oakland, California"
-        end
+        expect(page).to have_text "94606 Oakland, California"
         zip = VitaPartnerZipCode.find_by(zip_code: "94606")
         within "#zip-code-routing-rule-#{zip.id}" do
           page.accept_alert "Are you sure you want to delete 94606 from Oregano Org?" do
@@ -55,9 +53,7 @@ RSpec.describe "create VITA organization hierarchy", :js do
       within "#source-params-form" do
         fill_in "Unique link", with: "oregano"
         click_on "Save"
-        Capybara.using_wait_time(10) do
-          expect(page).to have_text "oregano"
-        end
+        expect(page).to have_text "oregano"
         sp = SourceParameter.find_by(code: "oregano")
         within "#source-param-#{sp.id}" do
           page.accept_alert "Are you sure you want to delete oregano from Oregano Org?" do

@@ -19,12 +19,8 @@ module Hub
     end
 
     def destroy
-      @source_param = SourceParameter.find_by(id: params[:id])
+      @source_param = SourceParameter.find(params[:id])
 
-      unless @source_param.present?
-        flash[:error] = I18n.t("hub.source_params.not_found")
-        redirect_to request.referrer and return
-      end
       @source_param.destroy!
       respond_to do |format|
         format.js
