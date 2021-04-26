@@ -20,6 +20,10 @@ module DocumentTypes
         false
       end
 
+      def provide_doc_help?
+        false
+      end
+
       def label
         I18n.t("general.document_types.#{key.parameterize(separator: "_")}", default: key)
       end

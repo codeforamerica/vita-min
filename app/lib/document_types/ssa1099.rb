@@ -8,6 +8,10 @@ module DocumentTypes
       def key
         "SSA-1099"
       end
+
+      def provide_doc_help?
+        true
+      end
     end
   end
 end
