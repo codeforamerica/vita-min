@@ -17,6 +17,14 @@ module Hub
 
     def show
       @outbound_call = OutboundCall.find(params[:id])
+      AccessLog.create(
+        user: current_user,
+        record: @client,
+        event_type: "viewed_call_page_ssn_itin",
+        created_at: DateTime.now,
+        ip_address: request.remote_ip,
+        user_agent: request.user_agent,
+      )
     end
 
     # The form that posts to update is on the show page, and only includes a textarea to update the note.

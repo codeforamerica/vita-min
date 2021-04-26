@@ -8,7 +8,7 @@ describe Hub::Clients::SsnItinsController, type: :controller do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
     context "with a logged in user" do
-      let(:back_to_the_future_day) { DateTime.new(2015, 10, 21, 0, 0, 0)}
+      let(:back_to_the_future_day) { DateTime.new(2015, 10, 21, 0, 0, 0) }
       let(:user) { create(:admin_user) }
       let(:user_agent_header) { "CERN-NextStep-WorldWideWeb.app/1.1 libwww/2.07" }
 
