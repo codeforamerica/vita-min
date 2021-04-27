@@ -102,7 +102,18 @@
     flex-grow: 0;
     flex-shrink: 0;
     width: 175px;
-
+    a.current-assignee {
+      display: block;
+      overflow-x: auto;
+      text-overflow: ellipsis;
+      text-decoration: none;
+      line-height: $font-size-18;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
     a.button { // assign button
       display: inline;
     }
