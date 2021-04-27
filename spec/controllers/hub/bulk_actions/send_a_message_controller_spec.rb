@@ -5,29 +5,6 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
   let(:client_selection) { create :client_selection }
   let(:user) { create :organization_lead_user, organization: organization }
 
-  describe "#edit" do
-    let(:params) { { client_selection_id: client_selection.id } }
-
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit
-
-    context "as an authenticated user" do
-      before { sign_in user }
-
-      context "since most users can't assign to all vita partners" do
-        let!(:site) { create :site, parent_organization: organization }
-        let!(:other_site) { create :site, parent_organization: organization }
-        let!(:external_org) { create :organization }
-        let!(:external_site) { create :site, parent_organization: external_org }
-
-        it "only shows accessible vita partners in the dropdown" do
-          get :edit, params: params
-
-          expect(assigns(:vita_partners)).to match_array [organization, site, other_site]
-        end
-      end
-    end
-  end
-
   describe "#update" do
     let(:new_vita_partner) { create :site, parent_organization: organization }
     let(:params) do
@@ -43,57 +20,6 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
 
     context "as an authenticated user" do
       before { sign_in user }
-
-      context "updating organization" do
-        let!(:selected_client) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: organization }
-
-        it "updates the organization on all selected clients, creates the right record, and redirects to the notification page" do
-          expect {
-            put :update, params: params
-          }.to change { selected_client.reload.vita_partner }.from(organization).to(new_vita_partner).and(
-            change(BulkClientOrganizationUpdate, :count).by(1)
-          ).and(
-            change(UserNotification, :count).by(1)
-          )
-
-          bulk_update = BulkClientOrganizationUpdate.last
-          expect(bulk_update.client_selection).to eq client_selection
-          expect(bulk_update.user_notification.user).to eq user
-          expect(bulk_update.user_notification.notifiable.vita_partner).to eq new_vita_partner
-
-          expect(response).to redirect_to hub_user_notifications_path
-        end
-
-        context "when user only has access to update some clients" do
-          let!(:inaccessible_selected_client) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: create(:organization) }
-
-          it "only updates the clients that the user can access" do
-            expect {
-              put :update, params: params
-            }.not_to change { inaccessible_selected_client.reload.vita_partner }
-          end
-        end
-
-        context "when users are assigned to the returns and don't have access through the new partner" do
-          let(:old_site) { create :site, parent_organization: organization }
-          let(:assigned_user_at_old_site) { create :site_coordinator_user, site: old_site }
-          let(:assigned_user_who_retains_access) { create :organization_lead_user, organization: organization }
-          let(:selected_client) { create :client_with_intake_and_return, vita_partner: old_site, client_selections: [client_selection] }
-          let!(:other_assigned_return) { create :tax_return, client: selected_client, assigned_user: assigned_user_who_retains_access, year: 2018 }
-          let!(:unassigned_return) { create :tax_return, client: selected_client, year: 2017 }
-
-          before do
-            selected_client.tax_returns.first.update(assigned_user: assigned_user_at_old_site)
-          end
-
-          it "unassigns all users who are losing access" do
-            put :update, params: params
-
-            expect(assigned_user_at_old_site.reload.assigned_tax_returns).to be_empty
-            expect(assigned_user_who_retains_access.reload.assigned_tax_returns).to eq [other_assigned_return]
-          end
-        end
-      end
 
       context "sending messages" do
         let(:bulk_client_message) { create :bulk_client_message }

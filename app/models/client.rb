@@ -138,7 +138,15 @@ class Client < ApplicationRecord
   end
 
   def self.locale_counts
-    joins(:intake).group(:locale).count
+    counts = joins(:intake).group(:locale).count
+    counts["en"] = 0 unless counts.key?("en")
+    counts["es"] = 0 unless counts.key?("es")
+
+    nil_count = counts.delete(nil)
+    if nil_count.present?
+      counts["en"] += nil_count
+    end
+    counts
   end
 
   def legal_name

@@ -168,7 +168,7 @@ Rails.application.routes.draw do
 
       resources :client_selections, path: "client-selections", only: [:create, :show, :new] do
         member do
-          get "/bulk-action", to: "client_selections#bulk_action"
+          get "/bulk-action", to: "client_selections#bulk_action", only: [:show]
         end
       end
 
@@ -177,6 +177,8 @@ Rails.application.routes.draw do
       namespace :bulk_actions, path: "bulk-actions" do
         get "/:client_selection_id/change-organization", to: "change_organization#edit", as: :edit_change_organization
         put "/:client_selection_id/change-organization", to: "change_organization#update", as: :update_change_organization
+        get "/:client_selection_id/send-a-message", to: "send_a_message#edit", as: :edit_send_a_message
+        put "/:client_selection_id/send-a-message", to: "send_a_message#update", as: :update_send_a_message
       end
 
       resources :zip_codes, only: [:create, :destroy]

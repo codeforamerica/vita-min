@@ -465,43 +465,47 @@ en:
       new:
         change_organization: "Change organization"
         change_organization_description_html: "Update the organization responsible for these <strong>%{count} clients</strong>."
-        title: "Choose your bulk action"
-        choose_operation: "Choose the operation you wish to perform."
-      bulk_action:
-        change_organization: "Change organization"
-        change_organization_description_html: "Update the organization responsible for these <strong>%{count} clients</strong>."
+        send_a_message: "Send a message"
+        send_a_message_description_html: "Send a message to these <strong>%{count} clients</strong>."
         title: "Choose your bulk action"
         choose_operation: "Choose the operation you wish to perform."
     bulk_actions:
-      change_organization:
-        edit:
-          message_help_text_en_html:
-            one: "<strong>%{count} client</strong> prefers to receive their message in English. <br>If blank, no message is sent to these clients. 900 characters allowed."
-            other: "<strong>%{count} clients</strong> prefer to receive their message in English. <br>If blank, no message is sent to these clients. 900 characters allowed."
-          title: "Bulk Action"
-          message_help_text_es_html:
-            one: "<strong>%{count} client</strong> prefers to receive their message in Spanish. <br>If blank, no message is sent to these clients. 900 characters allowed."
-            other: "<strong>%{count} clients</strong> prefer to receive their message in Spanish. <br>If blank, no message is sent to these clients. 900 characters allowed."
-          inaccessible_clients_warning:
-            one: "%{count} client will not be updated because you cannot access them."
-            other: "%{count} clients will not be updated because you cannot access them."
-          no_contact_info_warning:
-            one: "%{count} client does not have contact information and will not receive a message."
-            other: "%{count} clients do not have contact information and will not receive a message."
-          new_organization: "New organization"
-          message_label_text_en: "Send message (English)"
-          message_label_text_es: "Send message (Spanish)"
-          selected_action_and_client_count_html:
-            one: "You’ve selected <strong>Change Organization</strong> for <strong>%{count} client</strong> in the current organization:"
-            other: "You’ve selected <strong>Change Organization</strong> for <strong>%{count} clients</strong> in the current organizations:"
-          help_text_html: "Note: All returns for these clients will be reassigned to the selected new organization. <br/>Changing the organization may cause assigned hub users to lose access and be unassigned."
-          note_body_label: "Add an internal note"
-          note_body_help_text: "If blank, no internal note is added."
-          by_clicking_submit: By clicking submit, you are changing the organization, sending a team note, and updating followers.
       bulk_action_form:
         errors:
           missing_message_locale: "Please include a message for clients who prefer %{missing_language}."
           message_length: "Please limit your message to 900 characters"
+        message_help_text_en_html:
+          one: "<strong>%{count} client</strong> prefers to receive their message in English. <br>If blank, no message is sent to these clients. 900 characters allowed."
+          other: "<strong>%{count} clients</strong> prefer to receive their message in English. <br>If blank, no message is sent to these clients. 900 characters allowed."
+        message_help_text_es_html:
+          one: "<strong>%{count} client</strong> prefers to receive their message in Spanish. <br>If blank, no message is sent to these clients. 900 characters allowed."
+          other: "<strong>%{count} clients</strong> prefer to receive their message in Spanish. <br>If blank, no message is sent to these clients. 900 characters allowed."
+        inaccessible_clients_warning:
+          one: "%{count} client will not be updated because you cannot access them."
+          other: "%{count} clients will not be updated because you cannot access them."
+        no_contact_info_warning:
+          one: "%{count} client does not have contact information and will not receive a message."
+          other: "%{count} clients do not have contact information and will not receive a message."
+        message_label_text_en: "Send message (English)"
+        message_label_text_es: "Send message (Spanish)"
+        note_body_label: "Add an internal note"
+        note_body_help_text: "If blank, no internal note is added."
+      change_organization:
+        edit:
+          title: "Bulk Action"
+          new_organization: "New organization"
+          selected_action_and_client_count_html:
+            one: "You’ve selected <strong>Change Organization</strong> for <strong>%{count} client</strong> in the current organization:"
+            other: "You’ve selected <strong>Change Organization</strong> for <strong>%{count} clients</strong> in the current organizations:"
+          help_text_html: "Note: All returns for these clients will be reassigned to the selected new organization. <br/>Changing the organization may cause assigned hub users to lose access and be unassigned."
+          by_clicking_submit: By clicking submit, you are changing the organization, sending a team note, and updating followers.
+      send_a_message:
+        edit:
+          title: "Bulk Action"
+          selected_action_and_client_count_html:
+            one: "You’ve selected <strong>Send a Message</strong> for <strong>%{count} client</strong>"
+            other: "You’ve selected <strong>Send a Message</strong> for <strong>%{count} clients</strong>"
+          by_clicking_submit: By clicking submit, you are sending a message, sending a team note, and updating followers.
   controllers:
     public_pages:
       partner_welcome_notice: Thanks for visiting via %{partner_name}!

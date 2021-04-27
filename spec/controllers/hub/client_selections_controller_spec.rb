@@ -56,18 +56,95 @@ RSpec.describe Hub::ClientSelectionsController do
     end
   end
 
-  describe "#bulk_action" do
-    let(:params) { { id: client_selection.id } }
+  describe "#create" do
+    let(:tax_return1) { create(:tax_return, client: clients[0], year: 2020) }
+    let(:tax_return2) { create(:tax_return, client: clients[0], year: 2018) }
+    let(:tax_return3) { create(:tax_return, client: clients[1], year: 2018) }
+    let(:params) { { create_client_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: action_type } } }
+    let(:action_type) { "change-organization" }
 
-    it_behaves_like :a_get_action_for_authenticated_users_only, action: :bulk_action
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
 
     context "as an authenticated user" do
       before { sign_in user }
 
-      it "should set client_selection and return 200 OK" do
-        get :bulk_action, params: params
+      context "when the action type is changing organization" do
+        it "should create client_selection and redirect to the appropriate bulk action page for change-organization" do
+          expect {
+            post :create, params: params
+          }.to change(ClientSelection, :count).by(1)
 
-        expect(assigns(:client_count)).to eq 3
+          client_selection = ClientSelection.last
+          expect(client_selection.clients.count).to eq(2)
+          expect(client_selection.clients).to match_array [clients[0], clients[1]]
+
+          expect(response).to redirect_to(hub_bulk_actions_edit_change_organization_path(client_selection_id: client_selection.id))
+        end
+      end
+
+      context "when the action type is sending a message" do
+        let(:action_type) { "send-a-message" }
+
+        it "should create client_selection and redirect to the appropriate bulk action page for send-a-message" do
+          expect {
+            post :create, params: params
+          }.to change(ClientSelection, :count).by(1)
+
+          client_selection = ClientSelection.last
+          expect(client_selection.clients.count).to eq(2)
+          expect(client_selection.clients).to match_array [clients[0], clients[1]]
+
+          expect(response).to redirect_to(hub_bulk_actions_edit_send_a_message_path(client_selection_id: client_selection.id))
+        end
+      end
+
+
+      context "if action_type is not properly set" do
+        let(:params) { { create_client_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: "not-a-valid-type" } } }
+
+        it "should not be found" do
+          expect {
+            post :create, params: params
+          }.to change(ClientSelection, :count).by(0)
+          expect(response).to be_not_found
+        end
+      end
+
+      context "with tax returns the user doesn't have access to" do
+        let(:tax_return1) { create(:tax_return, client: clients[0], year: 2020) }
+        let(:tax_return2) { create(:tax_return, client: clients[0], year: 2018) }
+        let(:tax_return3) { create(:tax_return, client: create(:client), year: 2018) }
+        let(:params) { { create_client_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: "change-organization" } } }
+
+        it "only selects clients that the user does have access to" do
+          expect {
+            post :create, params: params
+          }.to change(ClientSelection, :count).by(1)
+
+          client_selection = ClientSelection.last
+          expect(client_selection.clients.count).to eq(1)
+          expect(client_selection.clients).to match_array [clients[0]]
+        end
+      end
+    end
+  end
+
+  describe "#new" do
+    let(:tax_return1) { create(:tax_return, client: clients[0], year: 2020) }
+    let(:tax_return2) { create(:tax_return, client: clients[0], year: 2018) }
+    let(:tax_return3) { create(:tax_return, client: clients[1], year: 2018) }
+    let(:params) { { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s) } }
+
+    it_behaves_like :a_post_action_for_authenticated_users_only, action: :create
+
+    context "as an authenticated user" do
+      before { sign_in user }
+
+      it "sets client count and is OK" do
+        get :new, params: params
+
+        expect(assigns(:client_count)).to eq 2
+        expect(assigns(:tr_ids)).to eq params[:tr_ids]
         expect(response).to be_ok
       end
     end
