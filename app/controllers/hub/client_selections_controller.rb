@@ -8,6 +8,20 @@ module Hub
     before_action :require_sign_in, :load_vita_partners, :load_users
     before_action :load_client_selection, only: [:show, :bulk_action]
 
+    def create
+      return head 404 unless create_params[:action_type] == "change-organization"
+
+      client_selection = ClientSelection.create!(clients: Client.accessible_by(current_ability).distinct.joins(:tax_returns).where(tax_returns: { id: create_params[:tr_ids] }))
+
+      redirect_to hub_bulk_actions_edit_change_organization_path(client_selection_id: client_selection.id)
+    end
+
+    def new
+      @client_count = Client.accessible_by(current_ability).distinct.joins(:tax_returns).where(tax_returns: { id: new_params[:tr_ids] }).count
+      @client_selection = ClientSelection.new
+      @tr_ids = new_params[:tr_ids]
+    end
+
     def show
       @client_filter_form_path = hub_clients_path
       @clients = @client_selection.clients.accessible_by(current_ability)
@@ -31,6 +45,14 @@ module Hub
 
     def load_client_selection
       @client_selection = ClientSelection.find(params[:id])
+    end
+
+    def create_params
+      params.require(:create_client_selection).permit(:action_type, tr_ids: [])
+    end
+
+    def new_params
+      params.permit(tr_ids: [])
     end
   end
 end

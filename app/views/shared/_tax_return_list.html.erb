@@ -1,5 +1,6 @@
 <% status_updateable ||= false %>
 <% tax_return_creatable ||= false %>
+<% show_checkboxes ||= false %>
 
 <ul class="tax-return-list">
   <% client.tax_returns.sort_by(&:year).each do |tax_return| %>
@@ -48,6 +49,13 @@
           </div>
         <% end %>
       </div>
+      <% if show_checkboxes %>
+        <div class="bulk-action-checkbox checkbox--gyr">
+              <!-- Using form attribute to connect to a form elsewhere on the page -->
+              <input id="tr_ids_<%= tax_return.id %>" type="checkbox" name="tr_ids[]" form="take-action-form" value="<%= tax_return.id %>">
+              <label class="sr-only" for="tr_ids_<%= tax_return.id %>"><% t('views.shared.tax_return_list.select_tax_return', tax_year: tax_return.year) %></label>
+          </div>
+      <% end %>
     </li>
   <% end %>
   <% if tax_return_creatable && client.tax_returns.length != TaxReturn.filing_years.length %>
