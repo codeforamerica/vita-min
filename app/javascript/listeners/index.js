@@ -13,7 +13,7 @@ import { initBulkAction } from "../lib/bulk_action";
 const Listeners =  (function(){
     return {
         init: function () {
-            document.addEventListener("DOMContentLoaded", function() {
+            window.addEventListener("load", function() {
                 documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.
 
                 if (window.appData.controller_action == "Hub::Users::InvitationsController#edit") {
