@@ -870,6 +870,7 @@ en:
     certification_abbrev:
       advanced: "ADV"
       basic: "BAS"
+      foreign_student: "FS"
     hsa: "HSA"
     drop_off: Drop Off
     select_file: Select file

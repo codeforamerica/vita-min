@@ -42,7 +42,7 @@ class TaxReturn < ApplicationRecord
   has_many :assignments, class_name: "TaxReturnAssignment", dependent: :destroy
 
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
-  enum certification_level: { advanced: 1, basic: 2 }
+  enum certification_level: { advanced: 1, basic: 2, foreign_student: 3 }
   enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type
   validates :year, presence: true
 

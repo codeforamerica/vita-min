@@ -860,6 +860,7 @@ es:
     certification_abbrev:
       advanced: "AVA"
       basic: "BAS"
+      foreign_student: "EI"
     hsa: "HSA"
     drop_off: Entrega
     select_file: Seleccionar archivo

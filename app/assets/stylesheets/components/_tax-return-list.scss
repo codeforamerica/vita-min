@@ -83,35 +83,41 @@
       justify-content: flex-end;
       align-items: center;
       position: absolute;
-      top: -18px;
+      top: -29px;
       margin: 0;
     }
 
     .offset-label {
       position: absolute;
-      top: -24px;
+      top: -25px;
       font-size: $font-size-18;
       font-weight: bold;
       left: 0;
     }
   }
 
-  &__assignee {
+  &__assignee, &__certification {
     font-size: 1.4rem;
     margin-right: 1.25rem;
     flex-grow: 0;
     flex-shrink: 0;
     width: 175px;
-    a {
+    a.current-assignee {
       display: block;
-      overflow: auto;
+      overflow-x: auto;
       text-overflow: ellipsis;
       text-decoration: none;
       line-height: $font-size-18;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
-    a.button {
+    a.button { // assign button
       display: inline;
     }
+
     .button {
       margin-right: 0;
     }
