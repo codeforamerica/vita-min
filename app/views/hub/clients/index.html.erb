@@ -38,7 +38,7 @@
           <th scope="col" class="index-table__header">!
             <div class="sr-only"><%= t("general.needs_response") %></div>
           </th>
-          <th scope="col" class="index-table__header index-table__name-column">
+          <th scope="col" class="index-table__header index-table__header--sticky">
             <%= render "shared/column_sort_link", title: t("general.name"), column_name: "preferred_name" %>
           </th>
           <th scope="col" class="index-table__header">
@@ -87,7 +87,7 @@
             <td class="index-table__cell client-attribute__needs-response">
               <%= render "shared/urgent_icon", client: client %>
             </td>
-            <th scope="row" class="index-table__row-header client-attribute__name">
+            <th scope="row" class="index-table__row-header index-table__row-header--sticky client-attribute__name">
               <%= link_to hub_client_path(id: client) do %>
                 <%= client.preferred_name || t(".no_name_given") %>
               <% end %>

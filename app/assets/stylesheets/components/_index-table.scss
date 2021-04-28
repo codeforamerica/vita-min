@@ -39,6 +39,31 @@ It expects to be the primary content of the given page (full width).
     font-weight: $font-weight-normal;
     white-space: nowrap;
 
+    &--sticky {
+      position: sticky;
+      left: 0;
+      background-color: inherit;
+      z-index: 1;
+    }
+
+    &--sticky:after,
+    &--sticky:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+    }
+
+    &--sticky:before {
+      top: -1px;
+      border-top: 1px solid black;
+    }
+
+    &--sticky:after {
+      bottom: -1px;
+      border-bottom: 1px solid black;
+    }
+
     .sortable-column-link {
       display: flex;
       align-items: center;
@@ -60,37 +85,15 @@ It expects to be the primary content of the given page (full width).
   }
 
   &__row-header {
-    position: sticky;
-    left: 0;
-    z-index: 1;
-    background-color: inherit;
     white-space: nowrap;
     padding: 0.8rem $s25 / 2;
   }
 
-  &__name-column {
+  &__row-header--sticky {
     position: sticky;
     left: 0;
-    background-color: inherit;
     z-index: 1;
-  }
-
-  &__name-column:after,
-  &__name-column:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 100%;
-  }
-
-  &__name-column:before {
-    top: -1px;
-    border-top: 1px solid black;
-  }
-
-  &__name-column:after {
-    bottom: -1px;
-    border-bottom: 1px solid black;
+    background-color: inherit;
   }
 
   &__cell {
@@ -122,14 +125,14 @@ It expects to be the primary content of the given page (full width).
     }
   }
 
-  &__row:first-of-type &__row-header::before {
+  &__row:first-of-type &__row-header--sticky::before {
     content: '';
     position: absolute;
     left: 0;
     width: 100%;
   }
 
-  &__row:first-of-type &__row-header::before {
+  &__row:first-of-type &__row-header--sticky::before {
     top: -1px;
     border-top: 1px solid black;
   }
