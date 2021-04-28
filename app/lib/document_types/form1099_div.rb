@@ -8,6 +8,10 @@ module DocumentTypes
       def key
         "1099-DIV"
       end
+
+      def provide_doc_help?
+        true
+      end
     end
   end
 end

@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       get "/requested-documents-later/not-found", to: "requested_documents_later#not_found", as: :requested_docs_not_found
       get "/add/success", to: "send_requested_documents_later#success", as: :requested_documents_success
       get "/add/:token", to: "requested_documents_later#edit", as: :add_requested_documents
+      get "/doc-help/:doc_type", to: "documents_help#show", as: :help
     end
 
     resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]
