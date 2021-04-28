@@ -8,7 +8,9 @@
 }
 
 .flash--notice {
-  background-color: $color-green;
+  background-color: $color-green-money;
+  color: #000;
+  font-weight: bold;
 }
 
 .flash--alert {
