@@ -472,6 +472,7 @@ es:
         inaccessible_clients_warning:
           one: "%{count} cliente no se actualizará porque no puede acceder a su cuenta"
           other: "%{count} clientes no se actualizarán porque no puede acceder a sus cuentas"
+        all_no_contact_info_warning: "Ningún cliente seleccionado tiene información de contacto."
         no_contact_info_warning:
           one: "%{count} cliente no tiene información de contacto y no recibirá un mensaje."
           other: "%{count} clientes no tienen información de contacto y no recibirán un mensaje."

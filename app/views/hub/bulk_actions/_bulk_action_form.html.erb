@@ -1,12 +1,17 @@
 <div class="form-warnings">
-  <% if inaccessible_client_count.present? %>
+  <% if inaccessible_client_count.nonzero? %>
     <p class="text--bold text--help">
       <i class="icon-warning"></i>
       <%= t(".inaccessible_clients_warning", count: inaccessible_client_count) %>
     </p>
   <% end %>
 
-  <% if no_contact_info_count.present? %>
+  <% if locale_counts.values.sum == 0 %>
+    <p class="text--bold text--help">
+      <i class="icon-warning"></i>
+      <%= t(".all_no_contact_info_warning") %>
+    </p>
+  <% elsif no_contact_info_count.nonzero? %>
     <p class="text--bold text--help">
       <i class="icon-warning"></i>
       <%= t(".no_contact_info_warning", count: no_contact_info_count) %>

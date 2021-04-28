@@ -60,7 +60,7 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
           end
         end
 
-        context "with clients who don't have sufficient contact info" do
+        context "with only clients who don't have sufficient contact info" do
           before do
             client = create :client, vita_partner: organization, client_selections: [client_selection]
             create :intake, client: client, email_notification_opt_in: "yes", email_address: nil, sms_notification_opt_in: "yes", sms_phone_number: nil
@@ -70,6 +70,12 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
             get :edit, params: params
 
             expect(assigns(:no_contact_info_count)).to eq(1)
+          end
+
+          it "excludes them from locale_counts" do
+            get :edit, params: params
+
+            expect(assigns(:locale_counts).values.sum).to eq(0)
           end
         end
       end

@@ -483,6 +483,7 @@ en:
         inaccessible_clients_warning:
           one: "%{count} client will not be updated because you cannot access them."
           other: "%{count} clients will not be updated because you cannot access them."
+        all_no_contact_info_warning: "No selected clients have contact information."
         no_contact_info_warning:
           one: "%{count} client does not have contact information and will not receive a message."
           other: "%{count} clients do not have contact information and will not receive a message."
