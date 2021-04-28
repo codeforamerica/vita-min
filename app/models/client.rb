@@ -119,8 +119,8 @@ class Client < ApplicationRecord
   end
 
   scope :with_insufficient_contact_info, -> do
-    can_use_email = Intake.where(email_notification_opt_in: "yes").where.not(email_address: nil)
-    can_use_sms = Intake.where(sms_notification_opt_in: "yes").where.not(sms_phone_number: nil)
+    can_use_email = Intake.where(email_notification_opt_in: "yes").where.not(email_address: nil).where.not(email_address: "")
+    can_use_sms = Intake.where(sms_notification_opt_in: "yes").where.not(sms_phone_number: nil).where.not(sms_phone_number: "")
     where.not(intake: can_use_email.or(can_use_sms))
   end
 
@@ -138,7 +138,15 @@ class Client < ApplicationRecord
   end
 
   def self.locale_counts
-    joins(:intake).group(:locale).count
+    counts = joins(:intake).group(:locale).count
+    counts["en"] = 0 unless counts.key?("en")
+    counts["es"] = 0 unless counts.key?("es")
+
+    nil_count = counts.delete(nil)
+    if nil_count.present?
+      counts["en"] += nil_count
+    end
+    counts
   end
 
   def legal_name
