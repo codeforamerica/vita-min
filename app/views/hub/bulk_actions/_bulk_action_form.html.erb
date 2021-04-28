@@ -14,19 +14,19 @@
   <% end %>
 </div>
 
-<% if locale_count["en"].present? %>
+<% if locale_counts["en"].nonzero? %>
   <%= f.cfa_textarea(
         :message_body_en,
         t(".message_label_text_en"),
-        help_text: t(".message_help_text_en_html", count: locale_count["en"]),
+        help_text: t(".message_help_text_en_html", count: locale_counts["en"]),
         ) %>
 <% end %>
 
-<% if locale_count["es"].present? %>
+<% if locale_counts["es"].nonzero? %>
   <%= f.cfa_textarea(
         :message_body_es,
         t(".message_label_text_es"),
-        help_text: t(".message_help_text_es_html", count: locale_count["es"]),
+        help_text: t(".message_help_text_es_html", count: locale_counts["es"]),
         ) %>
 <% end %>
 

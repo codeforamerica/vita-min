@@ -24,7 +24,7 @@ module Hub
 
       locale_counts = @client_selection.clients.locale_counts
 
-      if locale_counts.include?("es") && message_body_es.blank?
+      if locale_counts["es"].nonzero? && message_body_es.blank?
         errors.add(
           :message_body_es,
           I18n.t(
@@ -34,7 +34,7 @@ module Hub
         )
       end
 
-      if (locale_counts.include?("en") || locale_counts.include?(nil)) && message_body_en.blank?
+      if locale_counts["en"].nonzero? && message_body_en.blank?
         errors.add(
           :message_body_en,
           I18n.t(

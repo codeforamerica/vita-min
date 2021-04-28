@@ -56,7 +56,7 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
 
           it "only uses the accessible clients when computing locale count" do
             get :edit, params: params
-            expect(assigns(:locale_count).values.sum).to eq(1)
+            expect(assigns(:locale_counts).values.sum).to eq(1)
           end
         end
 
