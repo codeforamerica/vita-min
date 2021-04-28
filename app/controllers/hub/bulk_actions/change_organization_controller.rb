@@ -13,7 +13,8 @@ module Hub
 
         ActiveRecord::Base.transaction do
           unassign_users_who_will_lose_access!
-          update_clients_with_new_partner_and_note!
+          update_clients_with_new_partner!
+          create_notes!
           create_change_org_notifications!
           create_outgoing_messages!
           create_user_notifications!
@@ -23,6 +24,10 @@ module Hub
       end
 
       private
+
+      def update_params
+        params.require(:hub_bulk_action_form).permit(:vita_partner_id, :note_body, :message_body_en, :message_body_es)
+      end
 
       def load_current_vita_partner_names
         @current_vita_partner_names = VitaPartner.where(clients: @client_selection.clients).pluck(:name).uniq.sort
@@ -42,13 +47,9 @@ module Hub
         end
       end
 
-      def update_clients_with_new_partner_and_note!
+      def update_clients_with_new_partner!
         @clients.find_each do |client|
           client.update!(vita_partner: @new_vita_partner)
-
-          if @form.note_body.present?
-            client.notes.create!(body: @form.note_body, user: current_user)
-          end
         end
       end
     end

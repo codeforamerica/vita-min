@@ -45,7 +45,9 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
 
         context "when the user cannot access all the selected clients" do
           let(:inaccessible_org) { create :organization }
-          let!(:accessible_client) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: organization }
+          let(:intake) { create(:intake, :with_contact_info) }
+          let(:tax_return) { create(:tax_return, status: "intake_in_progress") }
+          let!(:accessible_client) { create :client, intake: intake, tax_returns: [tax_return], client_selections: [client_selection], vita_partner: organization }
           let!(:inaccessible_client) { create :client_with_intake_and_return, client_selections: [client_selection], vita_partner: inaccessible_org }
 
           it "sets @inaccessible_client_count" do

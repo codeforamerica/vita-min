@@ -166,11 +166,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :client_selections, path: "client-selections", only: [:create, :show, :new] do
-        member do
-          get "/bulk-action", to: "client_selections#bulk_action", only: [:show]
-        end
-      end
+      resources :client_selections, path: "client-selections", only: [:create, :show, :new]
 
       resources :bulk_client_messages, path: "bulk-client-messages", only: [:show]
 

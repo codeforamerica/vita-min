@@ -16,10 +16,6 @@ module Hub
         @form = BulkActionForm.new(@client_selection)
       end
 
-      def update_params
-        params.require(:hub_bulk_action_form).permit(:vita_partner_id, :note_body, :message_body_en, :message_body_es)
-      end
-
       def load_clients
         @clients = @client_selection.clients.accessible_by(current_ability)
       end
@@ -42,6 +38,14 @@ module Hub
             en: @form.message_body_en,
             es: @form.message_body_es,
             )
+        end
+      end
+
+      def create_notes!
+        @clients.find_each do |client|
+          if @form.note_body.present?
+            client.notes.create!(body: @form.note_body, user: current_user)
+          end
         end
       end
 

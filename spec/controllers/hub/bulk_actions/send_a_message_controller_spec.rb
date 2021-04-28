@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Hub::BulkActions::ChangeOrganizationController do
+RSpec.describe Hub::BulkActions::SendAMessageController do
   let(:organization) { create :organization }
   let(:client_selection) { create :client_selection }
   let(:user) { create :organization_lead_user, organization: organization }
@@ -86,7 +86,6 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
           {
             client_selection_id: client_selection.id,
             hub_bulk_action_form: {
-              vita_partner_id: new_vita_partner.id,
               note_body: note_body
             }
           }
