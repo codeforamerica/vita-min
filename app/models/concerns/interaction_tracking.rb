@@ -13,6 +13,7 @@ module InteractionTracking
   # When we contact a client, update our last touch to them for SLA purposes and clear the response flag
   def record_outgoing_interaction
     client&.update!(
+      last_outgoing_interaction_at: Time.now,
       last_internal_or_outgoing_interaction_at: Time.now.to_datetime,
       response_needed_since: nil,
       first_unanswered_incoming_interaction_at: nil, # we've explicitly responded to them somehow, so we can clear this value.

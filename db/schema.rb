@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_23_211100) do
+ActiveRecord::Schema.define(version: 2021_04_28_233857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -111,12 +111,6 @@ ActiveRecord::Schema.define(version: 2021_04_23_211100) do
     t.index ["vita_partner_id"], name: "index_bulk_client_organization_updates_on_vita_partner_id"
   end
 
-  create_table "bulk_edits", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.jsonb "data"
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "client_selection_clients", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "client_selection_id", null: false
@@ -147,6 +141,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_211100) do
     t.datetime "in_progress_survey_sent_at"
     t.datetime "last_incoming_interaction_at"
     t.datetime "last_internal_or_outgoing_interaction_at"
+    t.datetime "last_outgoing_interaction_at"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.datetime "locked_at"

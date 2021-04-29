@@ -52,6 +52,7 @@ shared_examples_for "an outgoing interaction" do
       .and change(subject.client, :first_unanswered_incoming_interaction_at).to(nil)
       .and change(subject.client, :last_internal_or_outgoing_interaction_at)
       .and change(subject.client, :updated_at)
+      .and change(subject.client, :last_outgoing_interaction_at)
       .and not_change(subject.client, :last_incoming_interaction_at)
   end
 end
