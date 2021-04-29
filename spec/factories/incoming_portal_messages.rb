@@ -14,6 +14,7 @@
 #
 FactoryBot.define do
   factory :incoming_portal_message do
+    client
     body { "an incoming message from the portal" }
   end
 end

@@ -28,12 +28,11 @@
 #
 class IncomingEmail < ApplicationRecord
   include ContactRecord
-  include InteractionTracking
 
   belongs_to :client
   has_many :documents, as: :contact_record
 
-  after_create :record_incoming_interaction
+  after_create { InteractionTrackingService.record_incoming_interaction(client) }
 
   def body
     stripped_text || body_plain
