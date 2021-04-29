@@ -40,7 +40,7 @@ shared_examples_for "an internal interaction" do
   end
 end
 
-shared_examples_for "an outgoing interaction" do
+shared_examples_for "a user-initiated outgoing interaction" do
   before do
     subject.client.response_needed_since = Time.now
     subject.client.first_unanswered_incoming_interaction_at = Time.now

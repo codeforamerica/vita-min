@@ -14,11 +14,10 @@
 #
 class IncomingPortalMessage < ApplicationRecord
   include ContactRecord
-  include InteractionTracking
 
   belongs_to :client
 
-  after_create :record_incoming_interaction
+  after_create { InteractionTrackingService.record_incoming_interaction(client) }
   validates :body, presence: true
 
   def datetime

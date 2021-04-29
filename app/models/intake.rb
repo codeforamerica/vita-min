@@ -188,7 +188,6 @@
 #
 
 class Intake < ApplicationRecord
-  include InteractionTracking
   include PgSearch::Model
 
   pg_search_scope :search, against: [
@@ -213,9 +212,9 @@ class Intake < ApplicationRecord
 
   after_save do
     if saved_change_to_completed_at?(from: nil)
-      record_incoming_interaction # client completed intake
+      InteractionTrackingService.record_incoming_interaction(client) # client completed intake
     elsif completed_at.present?
-      record_internal_interaction # user updated completed intake
+      InteractionTrackingService.record_internal_interaction(client) # user updated completed intake
     end
   end
 

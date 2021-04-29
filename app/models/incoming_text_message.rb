@@ -20,7 +20,6 @@
 #
 class IncomingTextMessage < ApplicationRecord
   include ContactRecord
-  include InteractionTracking
 
   belongs_to :client
   has_many :documents, as: :contact_record
@@ -29,7 +28,7 @@ class IncomingTextMessage < ApplicationRecord
   validates_presence_of :documents, if: -> { body.blank? }
   validates :from_phone_number, presence: true, e164_phone: true
 
-  after_create :record_incoming_interaction
+  after_create { InteractionTrackingService.record_incoming_interaction(client) }
 
   def datetime
     received_at

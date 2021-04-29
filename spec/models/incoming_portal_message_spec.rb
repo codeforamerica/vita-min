@@ -15,5 +15,7 @@
 require 'rails_helper'
 
 RSpec.describe IncomingPortalMessage, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it_behaves_like "an incoming interaction" do
+    let(:subject) { build(:incoming_portal_message) }
+  end
 end

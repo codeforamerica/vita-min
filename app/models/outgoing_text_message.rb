@@ -25,7 +25,6 @@
 #
 class OutgoingTextMessage < ApplicationRecord
   include ContactRecord
-  include InteractionTracking
 
   FAILED_TWILIO_STATUSES = ["undelivered", "failed", "delivery_unknown"].freeze
   SUCCESSFUL_TWILIO_STATUSES = ["sent", "delivered"].freeze
@@ -40,7 +39,7 @@ class OutgoingTextMessage < ApplicationRecord
   validates :twilio_status, inclusion: { in: ALL_KNOWN_TWILIO_STATUSES }
 
   after_create :deliver, :broadcast
-  after_create :record_outgoing_interaction, if: ->(msg) { msg.user.present? }
+  after_create { |msg| InteractionTrackingService.record_user_initiated_outgoing_interaction(client) if msg.user.present? }
 
   scope :succeeded, -> { where(twilio_status: SUCCESSFUL_TWILIO_STATUSES) }
   scope :failed, -> { where(twilio_status: FAILED_TWILIO_STATUSES) }
