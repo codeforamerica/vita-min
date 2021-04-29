@@ -1,9 +1,6 @@
 require "rails_helper"
 
-describe DocumentTypes::SsnItin do
-  context 'when condition' do
-    it 'succeeds' do
-      expect(true).to eq true
-    end
-  end
+describe "DocumentTypes::SsnItin" do
+  let(:described_class) { DocumentTypes::Identity }
+  it_behaves_like "a document type that provides doc help"
 end
