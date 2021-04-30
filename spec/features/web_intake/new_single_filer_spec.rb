@@ -243,6 +243,7 @@ RSpec.feature "Web Intake Single Filer", active_job: true do
     click_on "Continue"
 
     expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
+    expect(page).to have_text("We accept: .jpg, .jpeg, .png, .pdf, .heic, .bmp, .txt, .tiff, .gif")
     attach_file("document_type_upload_form_document", Rails.root.join("spec", "fixtures", "attachments", "picture_id.jpg"))
     click_on "Upload"
     click_on "Continue"

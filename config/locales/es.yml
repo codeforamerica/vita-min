@@ -1265,6 +1265,7 @@ es:
         remove_confirmation: ¿Está seguro de que desea quitar "%{filename}"?
         select_file: Elija un archivo
         take_picture: Agregar una foto
+        accepted_file_types: "Nosotros aceptamos: .jpg, .jpeg, .png, .pdf, .heic, .bmp, .txt, .tiff, .gif"
     passwords:
       edit:
         change_my_password: Cambiar mi contraseña
