@@ -15,7 +15,7 @@
     <div class="security-blurb spacing-below-60">
       <%= image_tag("lock.svg", alt: "", class: "lock-icon") %>
       <p>
-        <%=t("general.security_html", :privacy_link => link_to(t("general.privacy_policy"), privacy_path, target: "_blank")) %>
+        <%=t("general.security_html", :privacy_link => link_to(t("general.privacy_policy"), privacy_path, target: "_blank", rel: "noopener")) %>
       </p>
     </div>
 
