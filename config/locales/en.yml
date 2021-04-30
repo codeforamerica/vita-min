@@ -1345,7 +1345,7 @@ en:
         back: Back to sign in
         forgot_your_password: Forgot your password?
         send_me_reset_password_instructions: Send me reset password instructions
-      password_help_text_html: We recommend using a <a href="https://www.consumerreports.org/digital-security/everything-you-need-to-know-about-password-managers/" target="_blank" rel="nofollow">password manager</a> or inventing a long unusual phrase with random characters that you can remember. Please do not reuse a password from another website.
+      password_help_text_html: We recommend using a <a href="https://www.consumerreports.org/digital-security/everything-you-need-to-know-about-password-managers/" target="_blank" rel="nofollow noopener">password manager</a> or inventing a long unusual phrase with random characters that you can remember. Please do not reuse a password from another website.
     public_pages:
       about_us:
         how_it_helps: You can save up to $300 when you file for free. We also ensure eligible taxpayers claim the Earned Income Tax Credit (EITC), which can be over $3,000 per family.
@@ -1457,7 +1457,7 @@ en:
         subheader: Maximize your refund by filing with our certified tax specialists virtually.
         subheader_offseason: GetYourRefund services will be opening in February for the 2021 tax season. Sign up and we'll notify you when our service is open!
         title: Free tax help from IRS-certified volunteers.
-        extension_banner_html: "<strong>Reminder: The federal income tax filing deadline has been extended to May 17. You can check your state filing deadline <a href='https://www.taxadmin.org/index.php?option=com_content&view=article&id=1151:state-filing-dates&catid=20:site-content&Itemid=393' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank'>IRS form</a> requesting an extension."
+        extension_banner_html: "<strong>Reminder: The federal income tax filing deadline has been extended to May 17. You can check your state filing deadline <a href='https://www.taxadmin.org/index.php?option=com_content&view=article&id=1151:state-filing-dates&catid=20:site-content&Itemid=393' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener'>IRS form</a> requesting an extension."
       maintenance:
         contact_html: You can also %{email_link}.
         email: submit a question via email to GetYourRefund
@@ -1647,14 +1647,14 @@ en:
                 at the IRS
                 <a
                   href="https://www.irs.gov/coronavirus/get-my-payment"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-get-my-payment"
                   data-track-attribute-position="stimulus-how-faq2">
                 Get My Payment</a> website. To see if you received the earlier stimulus payments, and for what amount, you must
                 <a
                   href="https://www.irs.gov/payments/view-your-tax-account"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-view-your-tax-account"
                   data-track-attribute-position="stimulus-how-faq2">
@@ -1665,7 +1665,7 @@ en:
                 to the address it has on file. If mail is returned, the
                 <a
                   href="https://www.irs.gov/coronavirus/get-my-payment"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-get-my-payment"
                   data-track-attribute-position="stimulus-how-faq3">
@@ -1682,7 +1682,7 @@ en:
                 mail. To get your payment quickly via direct deposit,
                 <a
                   href="https://joinbankon.org/home/remotebanking/"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-online-banking"
                   data-track-attribute-position="stimulus-how-faq5">
@@ -1691,7 +1691,7 @@ en:
                 bank account, you can link your prepaid debit card or
                 <a
                   href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-cash-app"
                   data-track-attribute-position="stimulus-how-faq5">
@@ -1704,7 +1704,7 @@ en:
                 If you have already filed with your old address, you can use the
                 <a
                   href="https://www.irs.gov/faqs/irs-procedures/address-changes"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-address-changes"
                   data-track-attribute-position="stimulus-how-faq6">
@@ -1781,7 +1781,7 @@ en:
                 the
                 <a
                   href="https://www.irs.gov/instructions/iw7"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-i-7"
                   data-track-attribute-position="stimulus-mixed-eligible1">
@@ -1789,7 +1789,7 @@ en:
                 to a
                 <a
                   href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-certified-acceptance-agent"
                   data-track-attribute-position="stimulus-mixed-eligible2">
@@ -1883,10 +1883,10 @@ en:
         title: A few more things...
         help_text_html: "We respect your privacy. <strong>You have the option</strong> to consent to the following:"
         cta: Continue
-        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank">Consent to Use:</a> You allow us to count your return in reports.
-        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
-        relational_efin_html: <a href="%{relational_efin_url}" target="_blank">Relational EFIN:</a> You allow the tax office that prepares your return to report data to their parent organization.
-        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank">Global Carryforward:</a> You allow us to make your tax return information available to other VITA programs you may visit.
+        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consent to Use:</a> You allow us to count your return in reports.
+        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
+        relational_efin_html: <a href="%{relational_efin_url}" target="_blank" rel="noopener">Relational EFIN:</a> You allow the tax office that prepares your return to report data to their parent organization.
+        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank" rel="noopener">Global Carryforward:</a> You allow us to make your tax return information available to other VITA programs you may visit.
         legal_details_title: The legal details
         legal_details_html: |
           <p>Federal law requires these consent forms be provided to you. Unless authorized by law, we cannot disclose your tax return information to third parties for purposes other than the preparation and filing of your tax return without your consent. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.</p>
@@ -1986,7 +1986,7 @@ en:
         info: With our full-service option, our VITA partners will provide hands-on support and work with you to get the biggest return!
         title: Our full service option is right for you!
         note: "Note: this process takes 2-3 weeks."
-        extension_notice_html: "<strong>The federal income tax filing deadline has been extended to May 17. You can check your state filing deadline <a href='https://www.taxadmin.org/index.php?option=com_content&view=article&id=1151:state-filing-dates&catid=20:site-content&Itemid=393' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank'>IRS form</a> requesting an extension."
+        extension_notice_html: "<strong>The federal income tax filing deadline has been extended to May 17. You can check your state filing deadline <a href='https://www.taxadmin.org/index.php?option=com_content&view=article&id=1151:state-filing-dates&catid=20:site-content&Itemid=393' target='_blank' rel='noopener noreferrer'>here</a>.</strong> Unless you are filing a 2017 return or anticipate owing money this year, you can file until October 15th without a penalty. If you aren’t sure whether or not you will owe, you can complete and mail this <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener'>IRS form</a> requesting an extension."
         diy: "No thank you, I’m looking for a quicker option."
       filing_joint:
         help_text: Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return.
@@ -2261,7 +2261,7 @@ en:
         title: Your tax return may be delayed so that we can ensure you receive the highest refund!
         help_text_html: >-
           The
-          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="nofollow">American Rescue Plan</a>
+          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="noopener nofollow">American Rescue Plan</a>
           may increase the amount of premium tax credits for which you and others in your
           household are eligible, which may result in a higher refund. Your tax preparer will update you on the process.
       triage_backtaxes:

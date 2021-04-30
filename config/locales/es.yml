@@ -1275,7 +1275,7 @@ es:
         back: Regresar para iniciar sesión
         forgot_your_password: "¿Ha olvidado su contraseña?"
         send_me_reset_password_instructions: Envíeme las instrucciones para resetear mi contraseña
-      password_help_text_html: Recomendamos utilizar un <a href="https://www.cnet.com/es/noticias/mejores-gestores-de-contrasenas-lastpass-1password/" target="_blank" rel="nofollow">gestor de contraseñas</a> o inventar una frase larga e inusual con caracteres aleatorios que pueda recordar. Por favor, no vuelva a usar una contraseña de otro sitio web.
+      password_help_text_html: Recomendamos utilizar un <a href="https://www.cnet.com/es/noticias/mejores-gestores-de-contrasenas-lastpass-1password/" target="_blank" rel="noopener nofollow">gestor de contraseñas</a> o inventar una frase larga e inusual con caracteres aleatorios que pueda recordar. Por favor, no vuelva a usar una contraseña de otro sitio web.
     public_pages:
       about_us:
         how_it_helps: Puede ahorrar hasta $300 dólares cuando prepares sus impuestos gratis. También garantizamos que los contribuyentes elegibles reclamen el Crédito por Ingreso del Trabajo (EITC, por sus siglas en inglés), que puede superar hasta $3,000 por familia.
@@ -1558,7 +1558,7 @@ es:
                   que les debe,
                   <a
                     href="https://www.consumerfinance.gov/about-us/blog/consumer-advisory-protect-your-economic-payment-if-your-account-is-overdrawn/"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="consumer-advisory-protection-recommendations"
                     data-track-attribute-position="eip-faq4">
@@ -1585,7 +1585,7 @@ es:
                   estado, puede buscar en el sitio web del IRS
                   <a
                     href="https://www.irs.gov/es/coronavirus/get-my-payment"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-get-my-payment"
                     data-track-attribute-position="stimulus-how-faq2">
@@ -1593,7 +1593,7 @@ es:
                   ver si ha recibido los anteriores pagos de estímulo, y qué cantidad, debe
                   <a
                     href="https://www.irs.gov/es/payments/view-your-tax-account"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-view-your-tax-account"
                     data-track-attribute-position="stimulus-how-faq2">
@@ -1604,7 +1604,7 @@ es:
                   a la dirección que tiene registrada.   Si el correo es devuelto, la herramienta
                   <a
                     href="https://www.irs.gov/es/coronavirus/get-my-payment"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-get-my-payment"
                     data-track-attribute-position="stimulus-how-faq3">
@@ -1621,7 +1621,7 @@ es:
                   del EIP por correo. Para recibir su pago rápidamente a través de un depósito directo,
                   <a
                     href="https://covidbanking.joinbankon.org/espanol.html"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-online-banking"
                     data-track-attribute-position="stimulus-how-faq5">
@@ -1630,7 +1630,7 @@ es:
                   vincular su tarjeta de débito prepagada o
                   <a
                     href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-cash-app"
                     data-track-attribute-position="stimulus-how-faq5">
@@ -1644,7 +1644,7 @@ es:
                   utilizar el sitio web de cambio de dirección del
                   <a
                     href="https://www.irs.gov/es/faqs/irs-procedures/address-changes"
-                    rel="nofollow"
+                    rel="noopener nofollow"
                     target="_blank"
                     data-track-click="stimulus-irs-address-changes"
                     data-track-attribute-position="stimulus-how-faq6">
@@ -1733,7 +1733,7 @@ es:
                 ITIN presentando el
                 <a
                   href="https://www.irs.gov/es/node/41556"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-i-7"
                   data-track-attribute-position="stimulus-mixed-eligible1">
@@ -1741,7 +1741,7 @@ es:
                 impuestos, o llevando el formulario y la documentación a un
                 <a
                   href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program"
-                  rel="nofollow"
+                  rel="noopener nofollow"
                   target="_blank"
                   data-track-click="stimulus-irs-certified-acceptance-agent"
                   data-track-attribute-position="stimulus-mixed-eligible2">
@@ -1835,10 +1835,10 @@ es:
         title: Algunas cosas más ...
         cta: Continuar
         help_text_html: "Respetamos su privacidad. <strong>Tiene la opción</strong> de dar su consentimiento para lo siguiente:"
-        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank">Consentimiento para usar:</a> Usted nos permite incluir su declaración de impuestos en informes.
-        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
-        relational_efin_html: <a href="%{relational_efin_url}" target="_blank">EFIN Relacional:</a> usted permite que la oficina de impuestos que prepara su declaración reporte sus datos a su organización matriz.
-        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank">Traspaso global:</a> usted nos permite poner la información de su declaración de impuestos a disposición de otros programas de VITA que pueda visitar.
+        consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consentimiento para usar:</a> Usted nos permite incluir su declaración de impuestos en informes.
+        consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
+        relational_efin_html: <a href="%{relational_efin_url}" target="_blank" rel="noopener">EFIN Relacional:</a> usted permite que la oficina de impuestos que prepara su declaración reporte sus datos a su organización matriz.
+        global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank" rel="noopener">Traspaso global:</a> usted nos permite poner la información de su declaración de impuestos a disposición de otros programas de VITA que pueda visitar.
         legal_details_title: Los detalles legales
         legal_details_html: |
           <p>La ley Federal requiere que le proporcionemos este formulario de consentimiento. A menos que la ley lo autorice, no podemos divulgar sin su consentimiento la información de su declaración de impuestos a terceros para propósitos diferentes a la preparación y presentación de su declaración de impuestos. Si usted da su consentimiento para la divulgación de la información de su declaración de impuestos, la ley Federal tal vez no pueda proteger la información de su declaración de impuestos de uso adicional o distribución.</p>
@@ -2213,7 +2213,7 @@ es:
         title: ¡Su declaración de impuestos  podría retrasarse para que podamos asegurar que usted consiga el mejor reembolso!
         help_text_html: >-
           El
-          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="nofollow">Plan de Rescate Americano</a>
+          <a href="https://www.whitehouse.gov/american-rescue-plan/" target="_blank" rel="noopener nofollow">Plan de Rescate Americano</a>
           puede aumentar los créditos fiscales para los cuales usted y los miembros de su hogar pueden ser elegibles.
           Esto podría resultar en un reembolso más alto. Su preparador de impuestos le mantendrá actualizado sobre el proceso.
       triage_backtaxes:
