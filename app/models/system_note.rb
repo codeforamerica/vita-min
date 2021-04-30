@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  body       :text
+#  data       :jsonb
 #  type       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -24,7 +25,8 @@ class SystemNote < ApplicationRecord
   belongs_to :client
   belongs_to :user, required: false
 
-  validates_presence_of :body
+  validates_presence_of :body, unless: Proc.new { |note| note.data.present? }
+  validates_presence_of :data, unless: Proc.new { |note| note.body.present? }
 
   def contact_record_type
     "system_note"
