@@ -22,14 +22,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class SystemNote::DocumentHelp < SystemNote
-  HELP_TYPES = [
-    :doesnt_apply,
-    :cant_locate,
-    :cant_obtain
-  ].freeze
-
   def self.generate!(client:, help_type:, doc_type:)
-    raise ArgumentError, "Invalid help_type" unless HELP_TYPES.include?(help_type.to_sym)
+    raise ArgumentError, "Invalid help_type" unless DocumentTypes::HELP_TYPES.include?(help_type.to_sym)
     raise ArgumentError, "Invalid doc_type" unless DocumentTypes::ALL_TYPES.include?(doc_type)
 
     create!(

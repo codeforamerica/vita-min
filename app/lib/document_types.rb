@@ -38,4 +38,10 @@ module DocumentTypes
     DocumentTypes::Form14446,
     DocumentTypes::OptionalConsentForm,
   ].freeze
+
+  HELP_TYPES = [
+    :doesnt_apply,
+    :cant_locate,
+    :cant_obtain
+  ].freeze
 end
