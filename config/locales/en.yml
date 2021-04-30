@@ -214,6 +214,12 @@ en:
 
           <p>You don't need to remain on this page to continue the call.</p>
         back: Back to client
+    system_notes:
+      document_help: "%{name} requested document assistance:"
+      document_help_types:
+        cant_locate: "I need help finding my %{doc_type} document(s)."
+        cant_obtain: "I can't get %{doc_type} document(s)."
+        doesnt_apply: "I dont think this %{doc_type} document applies to me."
     tax_returns:
       edit:
         assigned_user_label: Assign to
