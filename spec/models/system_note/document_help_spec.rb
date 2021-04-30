@@ -23,7 +23,7 @@ describe SystemNote::DocumentHelp do
         }.to raise_error ArgumentError
       end
     end
-    
+
     context "with an invalid doc type" do
       it "raises an ArgumentError" do
         expect {
