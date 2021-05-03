@@ -36,6 +36,10 @@ RSpec.describe OutgoingEmail, type: :model do
       let(:subject) { build :outgoing_email }
     end
 
+    it_behaves_like "an outgoing interaction" do
+      let(:subject) { build :outgoing_text_message }
+    end
+
     context "for an automated email with no user" do
       let(:client) { create :client, first_unanswered_incoming_interaction_at: 4.business_days.ago }
       let(:email) { build :outgoing_email, client: client, user: nil }
