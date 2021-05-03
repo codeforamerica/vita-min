@@ -12,6 +12,7 @@
 #  in_progress_survey_sent_at               :datetime
 #  last_incoming_interaction_at             :datetime
 #  last_internal_or_outgoing_interaction_at :datetime
+#  last_outgoing_interaction_at             :datetime
 #  last_sign_in_at                          :datetime
 #  last_sign_in_ip                          :inet
 #  locked_at                                :datetime
@@ -174,7 +175,7 @@ describe Client do
   describe ".with_insufficient_contact_info scope" do
     let!(:client_with_contact_info) { create(:intake, :with_contact_info).client }
     let!(:client_no_info) { create(:intake, email_notification_opt_in: "yes", email_address: nil, sms_notification_opt_in: "yes", sms_phone_number: nil).client }
-    let!(:client_no_email) { create(:intake, email_notification_opt_in: "yes", email_address: nil).client }
+    let!(:client_no_email) { create(:intake, email_notification_opt_in: "yes", email_address: "").client }
     let!(:client_no_phone) { create(:intake, sms_notification_opt_in: "yes", sms_phone_number: nil).client }
     let!(:client_opted_into_both_but_only_one_contact) {
       create(:intake, email_notification_opt_in: "yes", sms_notification_opt_in: "yes", email_address: nil, sms_phone_number: "+14155537865").client
@@ -641,20 +642,32 @@ describe Client do
       it "should not create a system note recording the change" do
         client.update(routing_method: "source_param")
         expect(SystemNote::OrganizationChange).not_to have_received(:generate!)
-
       end
     end
   end
 
   describe ".locale_counts" do
-    before do
-      create(:client, intake: create(:intake, locale: "en"))
-      create(:client, intake: create(:intake, locale: "es"))
-      create(:client, intake: create(:intake, locale: nil))
+    context "with all languages present" do
+      before do
+        create(:client, intake: create(:intake, locale: "en"))
+        create(:client, intake: create(:intake, locale: "es"))
+        create(:client, intake: create(:intake, locale: nil))
+      end
+
+      it "takes locales and counts them into a hash, counting nil as en" do
+        expect(Client.all.locale_counts).to eq({ "en" => 2, "es" => 1})
+      end
     end
 
-    it "takes locales and counts them into a hash" do
-      expect(Client.all.locale_counts).to eq({ "en" => 1, "es" => 1, nil => 1 })
+    context "with only one language present" do
+      before do
+        create(:client, intake: create(:intake, locale: "en"))
+        create(:client, intake: create(:intake, locale: nil))
+      end
+
+      it "returns a hash with both en & es" do
+        expect(Client.all.locale_counts).to eq({ "en" => 2, "es" => 0})
+      end
     end
   end
 

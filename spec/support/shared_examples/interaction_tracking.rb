@@ -40,7 +40,7 @@ shared_examples_for "an internal interaction" do
   end
 end
 
-shared_examples_for "an outgoing interaction" do
+shared_examples_for "a user-initiated outgoing interaction" do
   before do
     subject.client.response_needed_since = Time.now
     subject.client.first_unanswered_incoming_interaction_at = Time.now
@@ -53,5 +53,14 @@ shared_examples_for "an outgoing interaction" do
       .and change(subject.client, :last_internal_or_outgoing_interaction_at)
       .and change(subject.client, :updated_at)
       .and not_change(subject.client, :last_incoming_interaction_at)
+  end
+end
+
+shared_examples_for "an outgoing interaction" do
+  it "updates the associated client" do
+    Timecop.freeze do
+      expect { subject.save }
+      .to change(subject.client, :last_outgoing_interaction_at).to(Time.now)
+    end
   end
 end

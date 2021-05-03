@@ -32,7 +32,6 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class TaxReturn < ApplicationRecord
-  include InteractionTracking
 
   PRIMARY_SIGNATURE = "primary".freeze
   SPOUSE_SIGNATURE = "spouse".freeze
@@ -42,12 +41,13 @@ class TaxReturn < ApplicationRecord
   has_many :assignments, class_name: "TaxReturnAssignment", dependent: :destroy
 
   enum status: TaxReturnStatus::STATUSES, _prefix: :status
-  enum certification_level: { advanced: 1, basic: 2 }
+  enum certification_level: { advanced: 1, basic: 2, foreign_student: 3 }
   enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type
   validates :year, presence: true
 
   attr_accessor :status_last_changed_by
-  after_update_commit :send_mixpanel_status_change_event, :record_internal_interaction, :send_client_completion_survey
+  after_update_commit :send_mixpanel_status_change_event, :send_client_completion_survey
+  after_update_commit { InteractionTrackingService.record_internal_interaction(client) }
 
   before_save do
     if status == "prep_ready_for_prep" && status_changed?

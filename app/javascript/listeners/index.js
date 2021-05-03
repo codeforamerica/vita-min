@@ -8,11 +8,12 @@ import { documentSubmittingIndicator } from "../lib/document_submitting_indicato
 import { initStateRoutingsListeners } from "../lib/state_routings";
 import tooltip from "../components/tooltip";
 import { initTaggableNote } from '../lib/note_tagging';
+import { initBulkAction } from "../lib/bulk_action";
 
 const Listeners =  (function(){
     return {
         init: function () {
-            document.addEventListener("DOMContentLoaded", function() {
+            window.addEventListener("load", function() {
                 documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.
 
                 if (window.appData.controller_action == "Hub::Users::InvitationsController#edit") {
@@ -37,6 +38,14 @@ const Listeners =  (function(){
                 initNestedAttributesListeners();
 
                 tooltip.init();
+
+                if (
+                    document.querySelector('#take-action-footer') &&
+                    document.querySelector('#bulk-edit-select-all') &&
+                    document.querySelector('#take-action-form')
+                ) {
+                    initBulkAction();
+                }
             });
         }
     }

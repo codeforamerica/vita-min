@@ -35,8 +35,6 @@
 require "mini_magick"
 
 class Document < ApplicationRecord
-  include InteractionTracking
-
   belongs_to :intake, optional: true
   belongs_to :client
   belongs_to :documents_request, optional: true
@@ -63,7 +61,7 @@ class Document < ApplicationRecord
   scope :archived, ->() { where(archived: true) }
 
   after_create_commit do
-    uploaded_by.is_a?(Client) ? record_incoming_interaction : record_internal_interaction
+    uploaded_by.is_a?(Client) ? InteractionTrackingService.record_incoming_interaction(client) : InteractionTrackingService.record_internal_interaction(client)
 
     if upload.filename.extension_without_delimiter.downcase == "heic"
       HeicToJpgJob.perform_later(id)

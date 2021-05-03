@@ -20,103 +20,120 @@
       </div>
       <div>
         <%= will_paginate(
-                @clients,
-                previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
-                next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
-                inner_window: 1,
-                outer_window: 1,
-                param_name: "page",
-                ) %>
+              @clients,
+              previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
+              next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+              inner_window: 1,
+              outer_window: 1,
+              param_name: "page",
+            ) %>
       </div>
     </div>
   </section>
   <section class="scrollable-table-wrapper">
     <% if @clients.present? %>
-        <table class="index-table client-table">
-          <thead class="index-table__head">
-            <tr class="index-table__row">
-            <th scope="col" class="index-table__header">!<div class="sr-only"><%= t("general.needs_response") %></div></th>
+      <table class="index-table client-table">
+        <thead class="index-table__head">
+        <tr class="index-table__row">
+          <th scope="col" class="index-table__header">!
+            <div class="sr-only"><%= t("general.needs_response") %></div>
+          </th>
+          <th scope="col" class="index-table__header index-table__header--sticky">
+            <%= render "shared/column_sort_link", title: t("general.name"), column_name: "preferred_name" %>
+          </th>
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t(".client_id_heading"), column_name: "id" %>
+          </th>
+          <th scope="col" class="index-table__header"><%= t("general.organization") %></th>
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t("general.language"), column_name: "locale" %>
+          </th>
+          <th scope="col" class="index-table__header tooltip" data-position="bottom" title="<%= t("general.unemployment_income") %>">
+            <%= t("general.ui") %>
+          </th>
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
+          </th>
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t("clients.response_needed_since"), column_name: "response_needed_since" %>
+          </th>
+          <% if @show_first_unanswered_incoming_interaction_at %>
             <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("general.name"), column_name: "preferred_name" %>
+              <%= render "shared/column_sort_link", title: t(".first_unanswered_incoming_interaction_at"), column_name: "first_unanswered_incoming_interaction_at" %>
             </th>
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t(".client_id_heading"), column_name: "id" %>
+          <% end %>
+
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t(".created_at"), column_name: "created_at" %>
+          </th>
+
+          <th scope="col" class="index-table__header">
+            <%= render "shared/column_sort_link", title: t("general.state"), column_name: "state_of_residence" %>
+          </th>
+          <th scope="col" class="index-table__header index-table__header-filing_year" style="width: 100%; display: flex; align-items: center; justify-content: space-between;">
+            <span><%= t(".filing_year") %>, <%= t("general.assignee") %>, <%= t("general.certification") %>
+              , <%= t("general.status") %></span>
+            <label class="checkbox--gyr">
+              <input id="bulk-edit-select-all" type="checkbox" name="add-all">
+              <span><%= t('views.shared.tax_return_list.add_all') %></span>
+            </label>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody class="index-table__body clients-table">
+        <% @clients.each do |client| %>
+          <tr id="client-<%= client.id %>" class="index-table__row client-row">
+            <td class="index-table__cell client-attribute__needs-response">
+              <%= render "shared/urgent_icon", client: client %>
+            </td>
+            <th scope="row" class="index-table__row-header index-table__row-header--sticky client-attribute__name">
+              <%= link_to hub_client_path(id: client) do %>
+                <%= client.preferred_name || t(".no_name_given") %>
+              <% end %>
+              <% if client.access_locked? %>
+                <span class="locked label label--red"><%= t("general.locked") %></span>
+              <% end %>
             </th>
-            <th scope="col" class="index-table__header"><%= t("general.organization") %></th>
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("general.language"), column_name: "locale" %>
-            </th>
-            <th scope="col" class="index-table__header tooltip" data-position="bottom" title="<%= t("general.unemployment_income") %>">
-              <%= t("general.ui") %>
-            </th>
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("general.updated_at"), column_name: "updated_at" %>
-            </th>
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("clients.response_needed_since"), column_name: "response_needed_since" %>
-            </th>
+            <td class="index-table__cell"><%= client.id %></td>
+            <td class="index-table__cell"><%= client.vita_partner&.name || t("general.none") %></td>
+            <td class="index-table__cell"><%= client.preferred_language ? t("general.language_options.#{client.preferred_language}") : t('general.NA') %></td>
+            <td class="index-table__cell"><%= "✓" if client.intake.had_unemployment_income_yes? %></td>
+            <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
+            <td class="index-table__cell"><%= formatted_datetime(client.response_needed_since) %></td>
+
             <% if @show_first_unanswered_incoming_interaction_at %>
-              <th scope="col" class="index-table__header">
-                <%= render "shared/column_sort_link", title: t(".first_unanswered_incoming_interaction_at"), column_name: "first_unanswered_incoming_interaction_at" %>
-              </th>
+              <td class="index-table__cell"><%= formatted_datetime(client.first_unanswered_incoming_interaction_at) %></td>
             <% end %>
 
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t(".created_at"), column_name: "created_at" %>
-            </th>
-
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t("general.state"), column_name: "state_of_residence" %>
-            </th>
-            <th scope="col" class="index-table__header index-table__header-filing_year" style="width: 35%"><%= t(".filing_year") %>, <%= t("general.assignee") %>, <%= t("general.certification") %>, <%= t("general.status") %></th>
+            <td class="index-table__cell"><%= formatted_datetime(client.intake.created_at) || "-" %> </td>
+            <td class="index-table__cell"><%= client.intake.state_of_residence %></td>
+            <td class="index-table__cell">
+              <%= render "shared/tax_return_list", client: client, show_checkboxes: true %>
+            </td>
           </tr>
-          </thead>
-
-          <tbody class="index-table__body clients-table">
-          <% @clients.each do |client| %>
-            <tr id="client-<%= client.id %>" class="index-table__row client-row">
-              <td class="index-table__cell client-attribute__needs-response">
-                <%= render "shared/urgent_icon", client: client %>
-              </td>
-              <th scope="row" class="index-table__row-header client-attribute__name">
-                <%= link_to hub_client_path(id: client) do %>
-                  <%= client.preferred_name || t(".no_name_given") %>
-                <% end %>
-                <% if client.access_locked? %>
-                  <span class="locked label label--red"><%= t("general.locked") %></span>
-                <% end %>
-              </th>
-              <td class="index-table__cell"><%= client.id %></td>
-              <td class="index-table__cell"><%= client.vita_partner&.name || t("general.none")  %></td>
-              <td class="index-table__cell"><%= client.preferred_language ? t("general.language_options.#{client.preferred_language}") : t('general.NA') %></td>
-              <td class="index-table__cell"><%= "✓" if client.intake.had_unemployment_income_yes? %></td>
-              <td class="index-table__cell"><%= formatted_datetime(client.updated_at) %></td>
-              <td class="index-table__cell"><%= formatted_datetime(client.response_needed_since) %></td>
-
-              <% if @show_first_unanswered_incoming_interaction_at %>
-                <td class="index-table__cell"><%= formatted_datetime(client.first_unanswered_incoming_interaction_at) %></td>
-              <% end %>
-
-              <td class="index-table__cell"><%= formatted_datetime(client.intake.created_at) || "-"%> </td>
-              <td class="index-table__cell"><%= client.intake.state_of_residence %></td>
-              <td class="index-table__cell">
-                <%= render "shared/tax_return_list", client: client %>
-              </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+        <% end %>
+        </tbody>
+      </table>
     <% else %>
       <h1 class="sr-only"><%= @page_title %></h1>
       <div class="empty-clients">
         <% if !@filters %>
           <%= t("hub.clients.index.apply_filters") %>
         <% elsif @filters&.values&.any? %>
-          <%= t("hub.clients.index.no_filtered_clients")  %>
+          <%= t("hub.clients.index.no_filtered_clients") %>
         <% else %>
           <%= t("hub.clients.index.no_clients") %>
         <% end %>
       </div>
     <% end %>
   </section>
+  <div class="sticky-action-footer">
+    <section class="take-action-box bulk-action-footer" id="take-action-footer" style="display: none;">
+      <span class="bulk-action-count"><%= t('hub.clients.bulk_action.count_html', count: 0) %></span>
+      <%= form_with(url: new_hub_client_selection_path, local: true, method: :get, builder: VitaMinFormBuilder, html: { id: 'take-action-form' }) do |f| %>
+        <%= f.submit t("general.take_action"), class: "button button--primary" %>
+      <% end %>
+    </section>
+  </div>
 <% end %>

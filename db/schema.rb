@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(version: 2021_04_30_160828) do
     t.datetime "in_progress_survey_sent_at"
     t.datetime "last_incoming_interaction_at"
     t.datetime "last_internal_or_outgoing_interaction_at"
+    t.datetime "last_outgoing_interaction_at"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.datetime "locked_at"

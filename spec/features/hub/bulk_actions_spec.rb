@@ -12,12 +12,18 @@ RSpec.describe "Creating and reviewing bulk actions", active_job: true do
     client_en.intake.update(preferred_name: "Name", locale: "en", sms_notification_opt_in: "yes", sms_phone_number: "+15005550006")
   end
 
-  scenario "bulk changing clients' organizations" do
+  scenario "bulk changing clients' organizations", js: true do
+    visit hub_clients_path
 
-    # creation process should be added, but until then, we'll create one for the tail end of the feature spec
-    client_selection = create :client_selection, clients: [client_es, client_en]
+    expect(page).not_to have_text "Take action"
+    within "#client-#{client_en.id}" do
+      check "tr_ids_#{client_en.tax_returns.first.id}"
+    end
+    within "#client-#{client_es.id}" do
+      check "tr_ids_#{client_es.tax_returns.first.id}"
+    end
+    click_on "Take action"
 
-    visit bulk_action_hub_client_selection_path(id: client_selection.id)
     click_on "Change organization"
 
     expect(page).to have_text "You’ve selected Change Organization for 2 clients"
@@ -49,12 +55,62 @@ RSpec.describe "Creating and reviewing bulk actions", active_job: true do
     click_on "Messages"
     expect(page).to have_text "Naranja es la mejor"
 
-    visit hub_client_selection_path(id: client_selection.id)
+    visit hub_user_notifications_path
+    within ".in-progress" do
+      click_on "2 clients"
+    end
+
     within "#client-#{client_en.id}" do
       click_on "Name"
     end
     click_on "Notes"
     expect(page).to have_text "Moved!"
+    click_on "Messages"
+    expect(page).to have_text "Orange is your best bet"
+  end
+
+  scenario "bulk sending a message", js: true do
+    visit hub_clients_path
+
+    expect(page).not_to have_text "Take action"
+    within "#client-#{client_en.id}" do
+      check "tr_ids_#{client_en.tax_returns.first.id}"
+    end
+    within "#client-#{client_es.id}" do
+      check "tr_ids_#{client_es.tax_returns.first.id}"
+    end
+    click_on "Take action"
+
+    click_on "Send a message"
+
+    expect(page).to have_text "You’ve selected Send a Message for 2 clients"
+    fill_in "Send message (English)", with: "Orange is your best bet"
+    fill_in "Send message (Spanish)", with: "Naranja es la mejor"
+    click_on "Submit"
+
+    expect(current_path).to eq hub_user_notifications_path
+    expect(page).to have_text "Bulk Send a Message In Progress"
+    expect(page).to have_text "We are still contacting 2 clients."
+
+    perform_enqueued_jobs
+
+    within ".in-progress" do
+      click_on "2 clients"
+    end
+    within "#client-#{client_es.id}" do
+      click_on "Nombre"
+    end
+    click_on "Messages"
+    expect(page).to have_text "Naranja es la mejor"
+
+    visit hub_user_notifications_path
+    within ".in-progress" do
+      click_on "2 clients"
+    end
+
+    within "#client-#{client_en.id}" do
+      click_on "Name"
+    end
     click_on "Messages"
     expect(page).to have_text "Orange is your best bet"
   end

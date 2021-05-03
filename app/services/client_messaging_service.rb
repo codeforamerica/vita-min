@@ -82,7 +82,7 @@ class ClientMessagingService
       locales = Intake.where(client: client_selection.clients).pluck(:locale).uniq
 
       sorted_locales_without_nil = locales.compact.blank? ? ["en"] : locales.compact.sort
-      raise ArgumentError, "Missing message bodies for some client locales" unless sorted_locales_without_nil == message_bodies_by_locale.keys.map(&:to_s).sort
+      raise ArgumentError, "Missing message bodies for some client locales" unless sorted_locales_without_nil == message_bodies_by_locale.keys.filter { |key| message_bodies_by_locale[key].present? }.map(&:to_s).sort
 
       bulk_client_message = BulkClientMessage.create!(client_selection: client_selection)
 

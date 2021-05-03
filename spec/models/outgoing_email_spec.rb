@@ -32,15 +32,19 @@ RSpec.describe OutgoingEmail, type: :model do
   end
 
   context "interaction tracking" do
-    it_behaves_like "an outgoing interaction" do
+    it_behaves_like "a user-initiated outgoing interaction" do
       let(:subject) { build :outgoing_email }
+    end
+
+    it_behaves_like "an outgoing interaction" do
+      let(:subject) { build :outgoing_text_message }
     end
 
     context "for an automated email with no user" do
       let(:client) { create :client, first_unanswered_incoming_interaction_at: 4.business_days.ago }
       let(:email) { build :outgoing_email, client: client, user: nil }
 
-      it "does not count as an outgoing interaction" do
+      it "does not count as a user-initiated outgoing interaction" do
         expect do
           email.save
         end.not_to change { client.first_unanswered_incoming_interaction_at }

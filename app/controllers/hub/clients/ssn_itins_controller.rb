@@ -21,7 +21,7 @@ module Hub
       private
 
       def create_access_log
-        AccessLog.create(
+        AccessLog.create!(
           user: current_user,
           record: @client,
           event_type: "read_ssn_itin",

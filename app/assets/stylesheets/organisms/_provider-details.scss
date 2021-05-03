@@ -4,6 +4,10 @@
 
   &__icon {
     margin-right: 1.9rem;
+    min-width: $s25;
+    img {
+      width: $s25;
+    }
   }
 
   &__label {

@@ -151,6 +151,8 @@ es:
       count:
         one: "%{count} cliente"
         other: "%{count} clientes"
+      bulk_action:
+        count_html: 'Has seleccionado <strong><span id="take-action-count">%{count}</span> declaración</strong>'
     documents:
       edit:
         title: Editar Documento
@@ -455,41 +457,51 @@ es:
       client_selection_help_text_missing_results:
         one: "Ya no tiene accesso a %{count} resultado."
         other: "Ya no tiene accesso a %{count} resultados."
-      bulk_action:
+      new:
         change_organization: "Cambiar de organización"
         change_organization_description_html: "Actualizar la organización responsable de estos <strong>%{count} clientes</strong>."
         title: "Elija su acción masiva"
         choose_operation: "Elija la operación que desea realizar."
+        send_a_message: "Enviar un mensaje"
+        send_a_message_description_html: "Envía un mensaje a estos <strong>%{count} clientes</strong>."
     bulk_actions:
-      change_organization:
-        edit:
-          message_help_text_en_html:
-            one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
-            other: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
-          title: "Acción masiva"
-          message_help_text_es_html:
-            one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en español. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
-            other: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en español. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
-          inaccessible_clients_warning:
-            one: "%{count} cliente no se actualizará porque no puede acceder a su cuenta"
-            other: "%{count} clientes no se actualizarán porque no puede acceder a sus cuentas"
-          no_contact_info_warning:
-            one: "%{count} cliente no tiene información de contacto y no recibirá un mensaje."
-            other: "%{count} clientes no tienen información de contacto y no recibirán un mensaje."
-          new_organization: "Organización nuevo"
-          message_label_text_en: "Enviar mensaje (inglés)"
-          message_label_text_es: "Enviar mensaje (español)"
-          selected_action_and_client_count_html:
-            one: "Ha seleccionado <strong>Cambiar Organización</strong> para <strong>%{count} cliente</strong> en la organización:"
-            other: "Ha seleccionado <strong>Cambiar Organización</strong> para <strong>%{count} clientes</strong> en estas organizaciónes:"
-          help_text_html: "Nota: Todos las declaraciones de estos clientes se reasignarán a la organización seleccionada. <br/>Cambiar la organización puede hacer que los usuarios del hub asignados pierdan el acceso y se anulen la asignación."
-          note_body_label: "Agregar una nota interna"
-          note_body_help_text: "Si está en blanco, no se agrega ninguna nota interna."
-          by_clicking_submit: Al hacer clic en enviar, está cambiando la organización, enviando una nota de equipo y actualizando seguidores.
       bulk_action_form:
         errors:
           missing_message_locale: "Por favor incluye un mensaje para los clientes que prefieren %{missing_language}."
           message_length: "Limite su mensaje a 900 caracteres"
+        message_help_text_en_html:
+          one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
+          other: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en inglés. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
+        message_help_text_es_html:
+          one: "<strong>%{count} cliente</strong> prefiere recibir su mensaje en español. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
+          other: "<strong>%{count} clientes</strong> prefieren recibir su mensaje en español. <br>Si está en blanco, no se envía ningún mensaje a estos clientes. Se permite 900 caracteres."
+        inaccessible_clients_warning:
+          one: "%{count} cliente no se actualizará porque no puede acceder a su cuenta"
+          other: "%{count} clientes no se actualizarán porque no puede acceder a sus cuentas"
+        all_no_contact_info_warning: "Ningún cliente seleccionado tiene información de contacto."
+        no_contact_info_warning:
+          one: "%{count} cliente no tiene información de contacto y no recibirá un mensaje."
+          other: "%{count} clientes no tienen información de contacto y no recibirán un mensaje."
+        message_label_text_en: "Enviar mensaje (inglés)"
+        message_label_text_es: "Enviar mensaje (español)"
+        note_body_label: "Agregar una nota interna"
+        note_body_help_text: "Si está en blanco, no se agrega ninguna nota interna."
+      change_organization:
+        edit:
+          title: "Acción masiva"
+          new_organization: "Organización nuevo"
+          selected_action_and_client_count_html:
+            one: "Ha seleccionado <strong>Cambiar Organización</strong> para <strong>%{count} cliente</strong> en la organización:"
+            other: "Ha seleccionado <strong>Cambiar Organización</strong> para <strong>%{count} clientes</strong> en estas organizaciónes:"
+          help_text_html: "Nota: Todos las declaraciones de estos clientes se reasignarán a la organización seleccionada. <br/>Cambiar la organización puede hacer que los usuarios del hub asignados pierdan el acceso y se anulen la asignación."
+          by_clicking_submit: Al hacer clic en enviar, está cambiando la organización, enviando una nota de equipo y actualizando seguidores.
+      send_a_message:
+        edit:
+          title: "Acción masiva"
+          selected_action_and_client_count_html:
+            one: "Ha seleccionado <strong>Enviar un Mensaje</strong> para <strong>%{count} cliente</strong>"
+            other: "Ha seleccionado <strong>Enviar un Mensaje</strong> para <strong>%{count} clientes</strong>"
+          by_clicking_submit: Al hacer clic en enviar, está enviando un mensaje, enviando una nota de equipo y actualizando seguidores.
   controllers:
     public_pages:
       partner_welcome_notice: ¡Gracias por visitarnos a través de %{partner_name}!
@@ -690,6 +702,7 @@ es:
     changes_saved: Cambios guardados
     chat_with_us: Hable con nosotros por el chat
     city: Ciudad
+    client_info: Información del cliente
     coalition: Coalición
     confirm: Confirmar
     contact_methods:
@@ -858,6 +871,7 @@ es:
     certification_abbrev:
       advanced: "AVA"
       basic: "BAS"
+      foreign_student: "EI"
     hsa: "HSA"
     drop_off: Entrega
     select_file: Seleccionar archivo
@@ -877,6 +891,7 @@ es:
     new_unique_link: "Nuevo Enlace único"
     delete: "Eliminar"
     last_four_ssn: Últimos 4 de SSN / ITIN
+    spouse_last_four_ssn: Últimos 4 de SSN / ITIN (cónyuge)
     hidden: Encubierto
     locked: "Bloqueada"
     suspended: "Suspendida"
@@ -1256,6 +1271,7 @@ es:
         remove_confirmation: ¿Está seguro de que desea quitar "%{filename}"?
         select_file: Elija un archivo
         take_picture: Agregar una foto
+        accepted_file_types: "Nosotros aceptamos: .jpg, .jpeg, .png, .pdf, .heic, .bmp, .txt, .tiff, .gif"
     passwords:
       edit:
         change_my_password: Cambiar mi contraseña
@@ -2274,6 +2290,8 @@ es:
     shared:
       tax_return_list:
         add_tax_year: Agregar año fiscal
+        select_tax_return: Seleccione %{tax_year}
+        add_all: Añadir todo
       consent_agreement:
         details:
           header: Detalles

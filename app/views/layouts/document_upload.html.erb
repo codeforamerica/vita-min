@@ -64,13 +64,14 @@
                 <%= f.label(:document, class: "button button--wide button--icon js-only", style: "display: none !important;") do %>
                   <span class="is-tablet-hidden--inline">
                     <%= image_tag "upload.svg", alt: "" %>
-                    <%=t("views.layouts.document_upload.select_file") %>
+                    <%= t("views.layouts.document_upload.select_file") %>
                   </span>
                   <span class="is-desktop-hidden--inline">
                     <%= image_tag "camera.svg", alt: "" %>
-                    <%=t("views.layouts.document_upload.take_picture") %>
+                    <%= t("views.layouts.document_upload.take_picture") %>
                   </span>
                 <% end %>
+                <span class="is-tablet-hidden--inline text--small"><%= t("views.layouts.document_upload.accepted_file_types") %></span>
               </div>
             </div>
 

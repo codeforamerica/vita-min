@@ -32,6 +32,10 @@ RSpec.describe OutgoingTextMessage, type: :model do
   end
 
   describe "interaction tracking" do
+    it_behaves_like "a user-initiated outgoing interaction" do
+      let(:subject) { build :outgoing_text_message }
+    end
+
     it_behaves_like "an outgoing interaction" do
       let(:subject) { build :outgoing_text_message }
     end
@@ -40,7 +44,7 @@ RSpec.describe OutgoingTextMessage, type: :model do
       let(:client) { create :client, first_unanswered_incoming_interaction_at: 4.business_days.ago }
       let(:message) { build :outgoing_text_message, client: client, user: nil }
 
-      it "does not count as an outgoing interaction" do
+      it "does not count as a user-initiated outgoing interaction" do
         expect do
           message.save
         end.not_to change { client.first_unanswered_incoming_interaction_at }

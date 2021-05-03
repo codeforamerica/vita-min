@@ -37,6 +37,11 @@ RSpec.describe "a user viewing a client" do
         click_button("button")
         expect(page).to have_text("BAS")
         expect(page).not_to have_css(".tax-return-inline-form")
+        click_on "BAS"
+        select "Foreign Student", from: "Certification"
+        click_button("button")
+        expect(page).to have_text("FS")
+        expect(page).not_to have_css(".tax-return-inline-form")
       end
     end
   end
