@@ -13,9 +13,9 @@ RSpec.describe Hub::UnattendedClientsController, type: :controller do
     context "as an authenticated team member" do
       let(:user) { create(:team_member_user) }
       let(:site) { user.role.site }
-      let!(:client_within_sla) { create :client_with_intake_and_return, response_needed_since: 2.business_days.ago, vita_partner: site }
-      let!(:four_day_breach_client) { create :client_with_intake_and_return, response_needed_since: 4.business_days.ago, vita_partner: site }
-      let!(:six_day_breach_client) { create :client_with_intake_and_return, response_needed_since: 6.business_days.ago, vita_partner: site }
+      let!(:client_within_sla) { create :client_with_intake_and_return, response_needed_since: 2.business_days.ago, last_outgoing_interaction_at: 2.business_days.ago, vita_partner: site }
+      let!(:four_day_breach_client) { create :client_with_intake_and_return, response_needed_since: 4.business_days.ago, last_outgoing_interaction_at: 4.business_days.ago, vita_partner: site }
+      let!(:six_day_breach_client) { create :client_with_intake_and_return, response_needed_since: 6.business_days.ago, last_outgoing_interaction_at: 6.business_days.ago, vita_partner: site }
       before do
         sign_in user
         [client_within_sla, four_day_breach_client, six_day_breach_client].each do |client|

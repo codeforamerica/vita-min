@@ -55,6 +55,15 @@ RSpec.describe ClientSortable, type: :controller do
       end
     end
 
+    context "default sort order" do
+      let(:params) {{}}
+
+      it "sorts clients by last_outgoing_interaction_at" do
+        expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+        expect(clients_query_double).to have_received(:delegated_order).with("last_outgoing_interaction_at", "asc")
+      end
+    end
+
     context "with a 'search' param" do
       let(:params) do
         { search: "que" }

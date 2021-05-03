@@ -2554,7 +2554,7 @@ es:
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} perdería el acceso si asigna este cliente a %{new_partner}. Cambie las asignaciones de la declaración de impuestos antes de reasignar a este cliente."
-    response_needed_since: "Esperando respuesta"
+    response_needed_since: "Último mensaje en"
   client_logins:
     no_account_found_sms: |
       Alguien intentó ingresar a GetYourRefund con este número de teléfono, pero no encontramos el número en nuestro registro. ¿Usó otro número para registrarse?
