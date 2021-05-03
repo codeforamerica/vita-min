@@ -21,16 +21,25 @@
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (user_id => users.id)
 #
-class SystemNote::TaxReturnCreated < SystemNote
-  def self.generate!(tax_return:, initiated_by:)
-    user_info = initiated_by.role_name
-    user_info += " - #{initiated_by.served_entity.name}" if initiated_by.served_entity.present?
-    body = "#{initiated_by.name} (#{user_info}) added a #{tax_return.year} tax return."
+class SystemNote::DocumentHelp < SystemNote
+  def self.generate!(client:, help_type:, doc_type:)
+    raise ArgumentError, "Invalid help_type" unless DocumentTypes::HELP_TYPES.include?(help_type.to_sym)
+    raise ArgumentError, "Invalid doc_type" unless DocumentTypes::ALL_TYPES.include?(doc_type)
 
     create!(
-      body: body,
-      client: tax_return.client,
-      user: initiated_by
+      client: client,
+      data: {
+        help_type: help_type,
+        doc_type: doc_type.name
+      }
     )
+  end
+
+  def help_type
+    data["help_type"]
+  end
+
+  def doc_type
+    data["doc_type"].constantize
   end
 end
