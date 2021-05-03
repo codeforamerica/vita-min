@@ -2593,14 +2593,16 @@ en:
         cant_get: "I can't get this document."
         doesnt_apply: "This document doesn't apply to me."
         title: "Document help"
-  reminder_link:
-    notice: "Great! We just sent you a reminder link."
-    subject: Reminder to upload %{doc_type} on GetYourRefund
-    email_body_html: |
-      Hello %{first_name},
-      We received your request for a reminder. Please send us %{doc_type} with this <a href="%{reminder_link}">link</a>.
-      Your tax team at GetYourRefund
-    sms_body: |
-      Hello %{first_name},
-      We received your request for a reminder. Please send us %{doc_type} with this %{reminder_link}.
-      Your tax team at GetYourRefund
+    reminder_link:
+      notice: "Great! We just sent you a reminder link."
+      subject: Your tax document reminder
+      email_body_html: |
+        Hello %{first_name},
+        We received your request for a reminder. Please <a href="%{reminder_link}">login here</a> to upload %{doc_type} documents.
+        Your tax team at GetYourRefund
+      sms_body: |
+        Hello %{first_name},
+        We received your request for a reminder. Please login here to upload %{doc_type} documents: %{reminder_link}
+        Your tax team at GetYourRefund
+    updated_specialist:
+      notice: "Thank you! We updated your tax specialist."

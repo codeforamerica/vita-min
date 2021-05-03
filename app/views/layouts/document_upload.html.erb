@@ -91,7 +91,7 @@
 
           <div class="spacing-above-60">
             <% if @documents.present? || !document_type.provide_doc_help? %>
-              <%= link_to next_path, class: "button button--primary button--wide text--centered", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}", disabled: document_type.blocks_progress? && @documents.count.zero? do %>
+              <%= link_to next_path, class: "button button--primary button--wide text--centered", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}", disabled: document_type.blocks_progress? && @documents&.count&.zero? do %>
                 <%=t("general.continue") %>
               <% end %>
             <% else %>

@@ -11,19 +11,26 @@ module Documents
     def send_reminder
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         current_intake.client,
-        email_body: I18n.t(".reminder_link.email_body_html",
+        email_body: I18n.t("documents.reminder_link.email_body_html",
                            first_name: current_intake.preferred_name,
                            doc_type: params[:doc_type].constantize.key,
                            reminder_link: new_portal_client_login_url
         ),
-        sms_body: I18n.t(".reminder_link.sms_body",
+        sms_body: I18n.t("documents.reminder_link.sms_body",
                          first_name: current_intake.preferred_name,
                          doc_type: params[:doc_type].constantize.key,
                          reminder_link: new_portal_client_login_url
         ),
-        subject: I18n.t(".reminder_link.subject", doc_type: params[:doc_type].constantize.key)
+        subject: I18n.t("documents.reminder_link.subject")
       )
-      flash[:notice] = I18n.t(".reminder_link.notice")
+      flash[:notice] = I18n.t("documents.reminder_link.notice")
+      redirect_to(next_path)
+    end
+
+    def request_doc_help
+      raise ArgumentError unless DocumentTypes::HELP_TYPES.include? params[:help_type].to_sym
+      current_client.request_document_help(doc_type: params[:doc_type].constantize, help_type: params[:help_type])
+      flash[:notice] = I18n.t("documents.updated_specialist.notice")
       redirect_to(next_path)
     end
 

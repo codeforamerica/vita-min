@@ -54,8 +54,7 @@ RSpec.describe Documents::RequestedDocumentsLaterController, type: :controller d
             it "includes a disabled button but no link to next path" do
               get :edit
 
-              expect(response.body).to have_css("button[disabled].button--disabled")
-              expect(response.body).not_to have_css("a.button--primary")
+              expect(response.body).to have_css("a.button--primary")
             end
           end
 

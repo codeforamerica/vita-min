@@ -18,13 +18,13 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
 
       sms_body = <<~SMS
         Hello Gilly,
-        We received your request for a reminder. Please send us ID with this http://test.host/en/portal/login.
+        We received your request for a reminder. Please login here to upload ID documents: http://test.host/en/portal/login.
         Your tax team at GetYourRefund
       SMS
 
       email_body = <<~EMAIL
         Hello Gilly,
-        We received your request for a reminder. Please send us ID with this <a href="http://test.host/en/portal/login">link</a>.
+        We received your request for a reminder. Please <a href=\"http://test.host/en/portal/login\">login here</a> to upload ID documents.
         Your tax team at GetYourRefund
       EMAIL
 
@@ -32,7 +32,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
         client,
         email_body: email_body,
         sms_body: sms_body,
-        subject: "Reminder to upload ID on GetYourRefund"
+        subject: "Your tax document reminder"
       )
     end
 
@@ -43,40 +43,54 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
     end
   end
 
-  # Controller action for needs_doc_help
-  # status change: Change status,
-  # create system note,
-  # and maybe needs response change,
-  # maybe notification. AND flash message.
   describe "#request_doc_help" do
-    let!(:client) { create :client }
-    let(:params) do
-      { next_path: "/en/documents/selfies",
-        doc_type: "DocumentTypes::Identity" }
-    end
+    let!(:client) { create :client, intake: create(:intake) }
 
     before do
       sign_in client
+      allow_any_instance_of(Client).to receive(:request_document_help)
     end
 
     context "client needs help finding document" do
-      it "flashes a notice and redirects to next path" do
-        post :find_doc_help, params: params
-        expect(response).to redirect_to("/en/documents/selfies")
-        expect(flash.now[:notice]).to eq "Thank you! We updated your tax specialist."
+      let(:help_type){ }
+      let(:params) do
+        { next_path: "/en/documents/selfies",
+          doc_type: "DocumentTypes::Identity",
+          help_type: help_type
+        }
+      end
+      context "for each valid help type" do
+        DocumentTypes::HELP_TYPES.each do |help_type_sym|
+          let(:help_type) { help_type_sym.to_s }
+          context "#{help_type_sym}" do
+            it "flashes a notice and redirects to next path" do
+              post :request_doc_help, params: params
+              expect(response).to redirect_to("/en/documents/selfies")
+              expect(flash.now[:notice]).to eq "Thank you! We updated your tax specialist."
+            end
+
+            it "calls client request_doc_help" do
+              post :request_doc_help, params: params
+              expect(assigns(:current_client)).to have_received(:request_document_help).with(doc_type: DocumentTypes::Identity, help_type: help_type)
+            end
+          end
+        end
+      end
+    end
+
+    context "not valid help type" do
+      let(:invalid_params) do
+        { next_path: "/en/documents/selfies",
+          doc_type: "DocumentTypes::Identity",
+          help_type: "garbage"
+        }
       end
 
-      # it "changes the status" do
-      #
-      # end
-      #
-      # it "creates a system note and notification" do
-      #
-      # end
-      #
-      # it "changes need response" do
-      #
-      # end
+      it "raises an error" do
+        expect do
+          post :request_doc_help, params: invalid_params
+        end.to raise_error(ArgumentError)
+      end
     end
   end
 end
