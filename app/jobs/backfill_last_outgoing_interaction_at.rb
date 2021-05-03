@@ -14,7 +14,7 @@ class BackfillLastOutgoingInteractionAt < ApplicationJob
       last_interaction_timestamp = [text, email, call].compact.max
 
       if last_interaction_timestamp.present?
-        if client.update!(last_outgoing_interaction_at: last_interaction_timestamp)
+        if client.update(last_outgoing_interaction_at: last_interaction_timestamp)
           puts "SUCCESS #{client.id}: updated last outgoing interaction to #{last_interaction_timestamp}"
         else
           puts "ERROR #{client.id}: could not persist last_outgoing_interaction to #{last_interaction_timestamp}"

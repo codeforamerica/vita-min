@@ -8,7 +8,8 @@ RSpec.describe BackfillLastOutgoingInteractionAt, type: :job do
 
     let!(:text) { create(:outgoing_text_message, created_at: Time.now - 1.day, client: client1) }
     let!(:text2) { create(:outgoing_text_message, created_at: Time.now, client: client1) }
-    let!(:email) { create(:outgoing_email, client: client2) }
+    let!(:text3) { create(:outgoing_text_message, created_at: Time.now - 1.day, client: client2) }
+    let!(:email) { create(:outgoing_email, created_at: Time.now, client: client2) }
     let!(:call) { create(:outbound_call, client: client3) }
 
     context "when a client has no last_outgoing_interaction_at" do
@@ -22,7 +23,6 @@ RSpec.describe BackfillLastOutgoingInteractionAt, type: :job do
       it "sets the last_outgoing_interaction_at to the last interactions created_at" do
         expect do
           subject.perform_now
-          # TIL that "change" does not reload in-memory objects
           client1.reload
           client2.reload
           client3.reload
