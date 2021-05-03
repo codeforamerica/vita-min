@@ -66,6 +66,8 @@ Rails.application.routes.draw do
       get "/add/success", to: "send_requested_documents_later#success", as: :requested_documents_success
       get "/add/:token", to: "requested_documents_later#edit", as: :add_requested_documents
       get "/doc-help/:doc_type", to: "documents_help#show", as: :help
+      post '/doc-help/send-reminder', to: 'documents_help#send_reminder', as: :send_reminder
+      post '/doc-help/request-doc-help', to: 'documents_help#request_doc_help', as: :request_doc_help
     end
 
     resources :dependents, only: [:index, :new, :create, :edit, :update, :destroy]

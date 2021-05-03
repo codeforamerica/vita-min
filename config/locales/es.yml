@@ -2604,3 +2604,13 @@ es:
         Su equipo de impuestos en GetYourRefund.org
     sms:
       body: Hola %{preferred_name}, ¡Gracias por enviar su información de impuestos a %{org_name}! Su ID de cliente es %{confirmation_number}. Responda a este mensaje si tiene alguna pregunta. Estamos aquí para ayudarle.
+  documents:
+    documents_help:
+      show:
+        header: "We know documents can be hard to collect. Let us know how we can help!"
+        reminder_link: "Send a reminder link for this document."
+        need_help_find: "I need help finding this document."
+        cant_get: "I can't get this document."
+        doesnt_apply: "This document doesn't apply to me."
+        title: "Document help"
+  reminder_link_notice: "Great! We just sent you a reminder link."

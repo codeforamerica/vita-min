@@ -31,7 +31,6 @@ RSpec.feature "Document Help Flow", active_job: true do
     expect(page).to have_text "Thank you! We updated your tax specialist."
     expect(page).to have_text "Attach photos of Social Security Card or ITIN"
     click_on "I don't have this right now"
-
     expect do
       click_on "I can't get this document"
     end.to change(SystemNote, :count).by(1)

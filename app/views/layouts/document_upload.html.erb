@@ -100,7 +100,7 @@
               </button>
             <% end %>
             <% unless @hide_dont_have %>
-              <%= link_to (document_type.provide_doc_help? ? documents_help_path(doc_type: document_type.name) : next_path), class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type.key}" do %>
+              <%= link_to (document_type.provide_doc_help? ? documents_help_path(doc_type: document_type.name, next_path: next_path) : next_path), class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type.key}" do %>
                 <%=t("views.layouts.document_upload.dont_have") %>
               <% end %>
             <% end %>
