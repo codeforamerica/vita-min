@@ -17,7 +17,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
     context "with existing clients" do
       let(:vita_partner) { create :vita_partner, name: "Alan's Org" }
       let!(:vita_partner_other) { create :vita_partner, name: "Some Other Org" }
-      let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (create :intake, preferred_name: "Alan Avocado", created_at: 1.day.ago, state_of_residence: "CA"), last_outgoing_interaction_at: Time.new(2021, 4, 26), tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress", assigned_user: user)] }
+      let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (create :intake, preferred_name: "Alan Avocado", created_at: 1.day.ago, state_of_residence: "CA"), last_outgoing_interaction_at: Time.new(2021, 4, 22), tax_returns: [(create :tax_return, year: 2019, status: "intake_in_progress", assigned_user: user)] }
       let!(:betty_intake_in_progress) { create :client, intake: (create :intake, preferred_name: "Betty Banana", created_at: 2.days.ago, state_of_residence: "TX"), last_outgoing_interaction_at: Time.new(2021, 4, 28), tax_returns: [(create :tax_return, year: 2018, status: "intake_in_progress", assigned_user: mona_user)] }
       let!(:patty_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Patty Banana", created_at: 1.day.ago, state_of_residence: "AL"), last_outgoing_interaction_at: Time.new(2021, 5, 1), tax_returns: [(create :tax_return, year: 2019, status: "prep_ready_for_prep", assigned_user: user)] }
       let!(:zach_prep_ready_for_call) { create :client, intake: (create :intake, preferred_name: "Zach Zucchini", created_at: 3.days.ago, state_of_residence: "WI"), last_outgoing_interaction_at: Time.new(2021, 5, 3), tax_returns: [(create :tax_return, year: 2018, status: "prep_ready_for_prep")] }
@@ -171,9 +171,11 @@ RSpec.describe "searching, sorting, and filtering clients" do
         # return to default sort order
         click_link "sort-last_outgoing_interaction_at"
         expect(page.all('.client-row')[0]).to have_text(alan_intake_in_progress.preferred_name)
-        expect(page.all('.client-row')[0]).to have_text("6 business days")
+        expect(page.all('.client-row')[0]).to have_text("8 business days")
+        expect(page.all('.client-row')[0]).to have_css(".text--red-bold")
         expect(page.all('.client-row')[1]).to have_text(betty_intake_in_progress.preferred_name)
         expect(page.all('.client-row')[1]).to have_text("4 business days")
+        expect(page.all('.client-row')[1]).not_to have_css(".text--red-bold")
         expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
         expect(page.all('.client-row')[2]).to have_text("1 business day")
         expect(page.all('.client-row')[3]).to have_text(zach_prep_ready_for_call.preferred_name)

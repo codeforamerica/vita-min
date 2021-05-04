@@ -41,8 +41,7 @@ module TimeHelper
   def business_days(time)
     return unless time
 
-    business_days_ago = DateTime.parse(time.to_s).business_days_until(DateTime.now)
-    I18n.t("general.business_days", count: business_days_ago)
+    DateTime.parse(time.to_s).business_days_until(DateTime.now)
   end
 
   def formatted_datetime(datetime)

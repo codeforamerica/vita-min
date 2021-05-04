@@ -24,14 +24,7 @@ describe TimeHelper do
     it "returns a string formatted to the number of business days since the given date" do
       Time.use_zone("America/Los_Angeles") do
         test_date = Time.new(2021, 4, 28)
-        expect(helper.business_days(test_date)).to eq("4 business days")
-      end
-    end
-
-    it "correctly pluralizes the days" do
-      Time.use_zone("America/Los_Angeles") do
-        test_date = Time.new(2021, 5, 3)
-        expect(helper.business_days(test_date)).to eq("1 business day")
+        expect(helper.business_days(test_date)).to eq(4)
       end
     end
   end
