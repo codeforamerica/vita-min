@@ -38,12 +38,11 @@ module TimeHelper
     datetime.strftime("%b %d %-l:%M %p")
   end
 
-  def business_days(datetime)
-    return unless datetime
+  def business_days(time)
+    return unless time
 
-    business_days_ago = DateTime.parse(datetime.to_s).business_days_until(DateTime.now)
-    # TODO: add i18n
-    "#{business_days_ago} business days"
+    business_days_ago = DateTime.parse(time.to_s).business_days_until(DateTime.now)
+    I18n.t("general.business_days", count: business_days_ago)
   end
 
   def formatted_datetime(datetime)

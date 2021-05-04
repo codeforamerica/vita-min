@@ -906,6 +906,9 @@ en:
     unemployment_income: "Unemployment Income"
     unread: Notification unread
     documents: "Documents"
+    business_days:
+      one: "%{count} business day"
+      other: "%{count} business days"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date

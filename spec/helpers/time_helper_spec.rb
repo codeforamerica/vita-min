@@ -18,13 +18,20 @@ describe TimeHelper do
 
   describe "#business_days" do
     before do
-      allow(DateTime).to receive(:now).and_return DateTime.new(2021, 5, 3)
+      allow(DateTime).to receive(:now).and_return DateTime.new(2021, 5, 4)
     end
 
     it "returns a string formatted to the number of business days since the given date" do
       Time.use_zone("America/Los_Angeles") do
-        test_date = DateTime.new(2021, 4, 28)
-        expect(helper.business_days(test_date)).to eq("3 business days")
+        test_date = Time.new(2021, 4, 28)
+        expect(helper.business_days(test_date)).to eq("4 business days")
+      end
+    end
+
+    it "correctly pluralizes the days" do
+      Time.use_zone("America/Los_Angeles") do
+        test_date = Time.new(2021, 5, 3)
+        expect(helper.business_days(test_date)).to eq("1 business day")
       end
     end
   end
