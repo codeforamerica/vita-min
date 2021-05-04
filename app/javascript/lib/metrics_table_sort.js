@@ -167,18 +167,8 @@ export function initMetricsTableSortAndFilter() {
         return isNaN(calc) ? 0 : calc;
     });
 
-    initSortableColumn("tbody.org-metrics", "th#needs-response-breaches", function(row) {
-        const calc = parseInt($(row).find('.response-needed-breach').attr('data-js-count'));
-        return isNaN(calc) ? 0 : calc;
-    });
-
     initSortableColumn("tbody.org-metrics", "th#organization-name", function (row) {
         return $(row).attr('data-js-vita-partner-name');
-    });
-
-    initSortableColumn("tbody.org-metrics", "th#needs-response-percentage", function (row) {
-        const calc = parseInt($(row).find('.response-needed-breach-percentage').attr('data-js-percentage'));
-        return isNaN(calc) ? 0 : calc;
     });
 
     initSortableColumn("tbody.org-metrics", "th#outgoing-communication-percentage", function (row) {

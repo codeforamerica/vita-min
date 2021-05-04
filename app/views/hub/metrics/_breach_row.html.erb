@@ -16,7 +16,7 @@
     <%= @report.active_sla_clients_count[id] %>
   </td>
   <td class="index-table__cell communication-breach" data-js-count=<%= @report.communication_breaches[id] %>>
-    <%= @report.communication_breaches[id]%>
+    <%= @report.last_outgoing_communication_breaches[id]%>
   </td>
 
   <td class="index-table__cell communication-breach-percentage">

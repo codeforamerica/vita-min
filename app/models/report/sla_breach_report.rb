@@ -29,6 +29,10 @@ class Report::SLABreachReport < Report
     @communication_breaches ||= format_hash(data["communication_breaches_by_vita_partner_id"])
   end
 
+  def last_outgoing_communication_breaches
+    @last_outgoing_communication_breaches ||= format_hash(data["last_outgoing_communication_breaches_by_vita_partner_id"])
+  end
+
   def interaction_breaches
     @interaction_breaches ||= format_hash(data["interaction_breaches_by_vita_partner_id"])
   end
@@ -45,6 +49,12 @@ class Report::SLABreachReport < Report
 
   def communication_breach_count(vita_partners = nil)
     return data["communication_breach_count"] unless vita_partners.present?
+
+    communication_breaches.slice(*vita_partners.map(&:id)).values.sum
+  end
+
+  def last_outgoing_communication_breach_count(vita_partners = nil)
+    return data["last_outgoing_communication_breach_count"] unless vita_partners.present?
 
     communication_breaches.slice(*vita_partners.map(&:id)).values.sum
   end

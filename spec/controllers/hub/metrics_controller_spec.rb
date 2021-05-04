@@ -15,10 +15,12 @@ describe Hub::MetricsController do
         breached_at: breach_threshold_date,
         response_needed_breaches_by_vita_partner_id: breach_data,
         communication_breaches_by_vita_partner_id: breach_data,
+        last_outgoing_communication_breaches_by_vita_partner_id: breach_data,
         interaction_breaches_by_vita_partner_id: breach_data,
         response_needed_breach_count: breach_count,
         interaction_breach_count: breach_count,
         communication_breach_count: breach_count,
+        last_outgoing_communication_breach_count: breach_count,
         active_sla_clients_by_vita_partner_id: breach_data,
         active_sla_clients_count: breach_count
       }

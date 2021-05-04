@@ -30,12 +30,6 @@
           <th scope="col" class="index-table__header sortable" id="capacity-percentage">
             Capacity %<sup>1</sup>
           </th>
-          <th scope="col" class="index-table__header sortable" id="needs-response-breaches" >
-            Response breaches<sup>2</sup>
-          </th>
-          <th scope="col" class="index-table__header sortable" id="needs-response-percentage">
-            Response %
-          </th>
           <th scope="col" class="index-table__header sortable" id="outgoing-communication-breaches" >
             Outgoing comm. breaches<sup>3</sup>
           </th>
@@ -73,11 +67,6 @@
           <tr class="metrics-totals" data-js-count=<%= @total_breaches[:total_count] %>>
             <th></th>
             <th class="index_table__cell capacity capacity-percentage"></th>
-            <th class="index-table__cell response-needed-breach" data-js-count=<%= @total_breaches[:response_needed] %>>
-              <strong><%= @total_breaches[:response_needed] %></strong>
-            </th>
-            <th class="index-table__cell response-needed-breach-percentage">
-            </th>
             <th class="index-table__cell communication-breach" data-js-count="<%= @total_breaches[:communication] %>">
               <strong><%= @total_breaches[:communication] %></strong>
             </th>
