@@ -23,6 +23,10 @@ class DocumentType
       false
     end
 
+    def skip_dont_have?
+      false
+    end
+
     def label
       I18n.t("general.document_types.#{key.parameterize(separator: "_")}", default: key)
     end

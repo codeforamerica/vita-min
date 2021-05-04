@@ -8,7 +8,6 @@ module Portal
 
     def edit
       @form = form_class.new(@document_request)
-      @hide_dont_have = true
       @documents = @document_request.documents
     end
 

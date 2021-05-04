@@ -18,7 +18,7 @@ RSpec.describe Documents::DocumentsHelpController, type: :controller do
 
       sms_body = <<~SMS
         Hello Gilly,
-        We received your request for a reminder. Please login here to upload ID documents: http://test.host/en/portal/login.
+        We received your request for a reminder. Please login here to upload ID documents: http://test.host/en/portal/login
         Your tax team at GetYourRefund
       SMS
 

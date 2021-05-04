@@ -8,6 +8,10 @@ module DocumentTypes
       def key
         "Other"
       end
+
+      def skip_dont_have?
+        true
+      end
     end
   end
 end
