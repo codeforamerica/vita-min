@@ -25,7 +25,8 @@ class UserNotification < ApplicationRecord
     "TaxReturnAssignment",
     "BulkClientOrganizationUpdate",
     "BulkClientNote",
-    "BulkClientMessage"
+    "BulkClientMessage",
+    "SystemNote::DocumentHelp"
   ].freeze
 
   belongs_to :notifiable, polymorphic: true

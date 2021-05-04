@@ -670,4 +670,49 @@ describe Client do
       end
     end
   end
+
+  describe "#request_doc_help" do
+    let(:client) { create :client, intake: (create :intake) }
+    let(:assigned_user_a) { create :user }
+    let(:assigned_user_b) { create :user }
+    before do
+      create :tax_return, year: 2019, assigned_user: assigned_user_a, client: client
+      create :tax_return, year: 2018, assigned_user: assigned_user_b, client: client
+      create :tax_return, year: 2020, assigned_user: assigned_user_a, client: client
+    end
+
+    context "with valid data" do
+      it "creates a system note, user notifications, changes tax return statuses, and sets response needed" do
+        expect {
+          client.request_document_help(doc_type: DocumentTypes::Employment, help_type: "cant_locate")
+          assigned_user_a.reload
+          assigned_user_b.reload
+        }.to change(SystemNote::DocumentHelp, :count).by(1)
+         .and change(client, :response_needed_since).from(nil)
+         .and change(assigned_user_a.notifications, :count).by(1)
+         .and change(assigned_user_b.notifications, :count).by(1)
+        expect(assigned_user_a.notifications.last.notifiable).to eq SystemNote::DocumentHelp.last
+        expect(assigned_user_b.notifications.last.notifiable).to eq SystemNote::DocumentHelp.last
+        expect(client.tax_returns.map(&:status).uniq).to eq ["intake_needs_doc_help"]
+      end
+    end
+
+    context "with invalid data" do
+      context "invalid doc_type" do
+        it "raises an ArgumentError" do
+          expect {
+            client.request_document_help(doc_type: "employment", help_type: "cant_locate")
+          }.to raise_error(ArgumentError)
+        end
+      end
+
+      context "invalid help_type" do
+        it "raises an ArgumentError" do
+          expect {
+            client.request_document_help(doc_type: "Employment", help_type: "cant_locate")
+          }.to raise_error(ArgumentError)
+        end
+      end
+    end
+  end
 end

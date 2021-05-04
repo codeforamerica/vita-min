@@ -8,6 +8,10 @@ module DocumentTypes
       def key
         "RRB-1099"
       end
+
+      def provide_doc_help?
+        true
+      end
     end
   end
 end

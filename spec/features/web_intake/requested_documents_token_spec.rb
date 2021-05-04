@@ -42,7 +42,7 @@ RSpec.feature "Client uploads a requested document" do
     visit "/documents/add/1234ABCDEF"
 
     expect(page).to have_selector("h1", text: "Your tax specialist is requesting additional documents")
-    expect(page).to have_button("Continue", disabled: true)
+    expect(page).to have_link("Continue")
 
     visit "/questions/job-count"
     expect(current_path).to eq(new_portal_client_login_path)

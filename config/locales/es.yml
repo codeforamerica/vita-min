@@ -216,6 +216,12 @@ es:
 
           <p>No es necesario que permanezca en esta página para continuar la llamada.</p>
         back: Volver al cliente
+    system_notes:
+      document_help: "%{name} asistencia con los documentos solicitados:"
+      document_help_types:
+        cant_locate: Necesito ayuda para encontrar mis documentos de %{doc_type}.
+        cant_obtain: No puedo obtener documentos de %{doc_type}.
+        doesnt_apply: No creo que este documento de %{doc_type} me aplique.
     tax_returns:
       edit:
         assigned_user_label: Asignar a
@@ -2622,3 +2628,26 @@ es:
         Su equipo de impuestos en GetYourRefund.org
     sms:
       body: Hola %{preferred_name}, ¡Gracias por enviar su información de impuestos a %{org_name}! Su ID de cliente es %{confirmation_number}. Responda a este mensaje si tiene alguna pregunta. Estamos aquí para ayudarle.
+  documents:
+    documents_help:
+      show:
+        header: Sabemos que los documentos pueden ser difíciles de recoger.
+          ¡Díganos cómo podemos ayudarle!
+        reminder_link: Enviar un enlace de recordatorio para este documento.
+        need_help_find: Necesito ayuda para encontrar este documento.
+        cant_get: No logro conseguir este documento.
+        doesnt_apply: Este documento no se aplica a mi caso.
+        title: Ayuda de documentos
+    reminder_link:
+      notice: ¡Genial! Acabamos de enviarle un enlace de recordatorio.
+      subject: Su recordatorio de documento fiscal
+      email_body_html: |
+        Hola %{first_name},
+        Hemos recibido su solicitud de recordatorio. Por favor, envíenos un %{doc_type} con <a href="%{reminder_link}">este enlace</a>.
+        Su equipo de impuestos en GetYourRefund
+      sms_body: |
+        Hola %{first_name},
+        Hemos recibido su solicitud de recordatorio. Por favor, envíenos un %{doc_type} con este enlace: %{reminder_link}
+        Su equipo de impuestos en GetYourRefund
+    updated_specialist:
+      notice: ¡Gracias! Actualizamos a su especialista en impuestos.

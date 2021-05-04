@@ -214,6 +214,15 @@ class Client < ApplicationRecord
     intake.locale || intake.preferred_interview_language
   end
 
+  def request_document_help(doc_type:, help_type:)
+    note = SystemNote::DocumentHelp.generate!(client: self, doc_type: doc_type, help_type: help_type)
+    tax_returns.map(&:assigned_user).uniq.each do |user|
+      UserNotification.create(notifiable_type: "SystemNote::DocumentHelp", notifiable_id: note.id, user: user)
+    end
+    tax_returns.each { |tax_return| tax_return.update(status: :intake_needs_doc_help) }
+    set_response_needed!
+  end
+
   private
 
   def tax_return_assigned_user_access_maintained

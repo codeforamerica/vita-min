@@ -1,4 +1,3 @@
-<% @hide_dont_have ||= false %>
 <% content_for :page_title, (yield :form_question) %>
 <% content_for :main do %>
   <section class="slab slab--white slab--not-padded question-layout">
@@ -90,27 +89,23 @@
             <% end %>
           <% end %>
 
-          <% if document_type.blocks_progress? %>
-            <% if @documents.present? %>
-              <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}" do %>
+          <div class="spacing-above-60">
+            <% if @documents.present? || !document_type.provide_doc_help? %>
+              <%= link_to next_path, class: "button button--primary button--wide text--centered", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}", disabled: document_type.blocks_progress? && @documents&.count&.zero? do %>
                 <%=t("general.continue") %>
               <% end %>
             <% else %>
-              <button class="button button--primary button--disabled button--wide text--centered spacing-above-60" disabled>
+              <button class="button button--primary button--disabled button--wide text--centered" disabled>
                 <%=t("general.continue") %>
               </button>
             <% end %>
-          <% else %>
-            <% unless @hide_dont_have %>
-              <%= link_to next_path, class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type.key}" do %>
+            <% unless document_type.skip_dont_have? %>
+              <%= link_to (document_type.provide_doc_help? ? documents_help_path(doc_type: document_type.name, next_path: next_path) : next_path), class: "link--cta spacing-above-25", "data-track-click": "dont_have_doc", "data-track-attribute-document_type": "#{document_type.key}" do %>
                 <%=t("views.layouts.document_upload.dont_have") %>
               <% end %>
             <% end %>
+          </div>
 
-            <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60", "data-track-click": "continue", "data-track-attribute-document_type": "#{document_type.key}" do %>
-              <%=t("general.continue") %>
-            <% end %>
-          <% end %>
         </main>
       </div>
     </div>

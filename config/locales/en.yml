@@ -216,6 +216,12 @@ en:
 
           <p>You don't need to remain on this page to continue the call.</p>
         back: Back to client
+    system_notes:
+      document_help: "%{name} requested document assistance:"
+      document_help_types:
+        cant_locate: "I need help finding my %{doc_type} document(s)."
+        cant_obtain: "I can't get %{doc_type} document(s)."
+        doesnt_apply: "I dont think this %{doc_type} document applies to me."
     tax_returns:
       edit:
         assigned_user_label: Assign to
@@ -2596,3 +2602,25 @@ en:
         Your tax team at GetYourRefund.org
     sms:
       body: Hello %{preferred_name}, thank you for submitting your tax information to %{org_name}! Your Client ID is %{confirmation_number}. Respond to this message if you have any questions. We’re here to help!
+  documents:
+    documents_help:
+      show:
+        header: "We know documents can be hard to collect. Let us know how we can help!"
+        reminder_link: "Send a reminder link for this document."
+        need_help_find: "I need help finding this document."
+        cant_get: "I can't get this document."
+        doesnt_apply: "This document doesn't apply to me."
+        title: "Document help"
+    reminder_link:
+      notice: "Great! We just sent you a reminder link."
+      subject: Your tax document reminder
+      email_body_html: |
+        Hello %{first_name},
+        We received your request for a reminder. Please <a href="%{reminder_link}">login here</a> to upload %{doc_type} documents.
+        Your tax team at GetYourRefund
+      sms_body: |
+        Hello %{first_name},
+        We received your request for a reminder. Please login here to upload %{doc_type} documents: %{reminder_link}
+        Your tax team at GetYourRefund
+    updated_specialist:
+      notice: "Thank you! We updated your tax specialist."

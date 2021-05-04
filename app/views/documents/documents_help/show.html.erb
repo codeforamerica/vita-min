@@ -1,0 +1,44 @@
+<% content_for :page_title, t(".title") %>
+
+<%= content_for :form_card do %>
+  <div class="form-card doc-help">
+    <h1 class="form-question spacing-below-35">
+      <%= t(".header") %>
+    </h1>
+    <div class="doc-help__item">
+      <%= image_tag("doc-help/check-chat-bubble--green.svg", alt: "", class: "doc-help__icon") %>
+      <div>
+        <%= link_to documents_send_reminder_path(doc_type: params[:doc_type], next_path: next_path), class: "doc-help__link", method: :post do %>
+          <%= t(".reminder_link") %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="doc-help__item">
+      <%= image_tag("doc-help/doc-magnify--orange.svg", alt: "", class: "doc-help__icon") %>
+      <div>
+        <%= link_to documents_request_doc_help_path(doc_type: params[:doc_type], help_type: "cant_locate", next_path: next_path), class: "doc-help__link", method: :post do %>
+          <%= t(".need_help_find") %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="doc-help__item">
+      <%= image_tag("doc-help/doc-question--purple.svg", alt: "", class: "doc-help__icon") %>
+      <div>
+        <%= link_to documents_request_doc_help_path(doc_type: params[:doc_type], help_type: "cant_obtain", next_path: next_path), class: "doc-help__link", method: :post do %>
+          <%= t(".cant_get") %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="doc-help__item">
+      <%= image_tag("doc-help/doc-x--red.svg", alt: "", class: "doc-help__icon") %>
+      <div>
+        <%= link_to documents_request_doc_help_path(doc_type: params[:doc_type], help_type: "doesnt_apply", next_path: next_path), class: "doc-help__link", method: :post do %>
+          <%= t(".doesnt_apply") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

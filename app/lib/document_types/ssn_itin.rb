@@ -16,6 +16,10 @@ module DocumentTypes
       def blocks_progress?
         true
       end
+
+      def provide_doc_help?
+        true
+      end
     end
   end
 end

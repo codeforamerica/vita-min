@@ -12,6 +12,10 @@ module DocumentTypes
       def needed_if_relevant?
         true
       end
+
+      def provide_doc_help?
+        true
+      end
     end
   end
 end

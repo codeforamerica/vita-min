@@ -42,11 +42,6 @@ describe Portal::UploadDocumentsController do
           expect(assigns(:form)).to eq requested_docs_double
           expect(RequestedDocumentUploadForm).to have_received(:new).with(doc_request)
         end
-
-        it "forces the document layout to hide the dont have link" do
-          get :edit
-          expect(assigns(:hide_dont_have)).to eq true
-        end
       end
 
       context "when a documents request does not yet exist for the session" do
