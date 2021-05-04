@@ -33,13 +33,10 @@
       </div>
 
       <div class="text--help"><%= t("hub.last_client_update") + timestamp(@client.updated_at) %></div>
-      <% if @client.needs_response? %>
-        <div class="text--help"><%= t("hub.waiting_on_response") + timestamp(@client.response_needed_since) %></div>
-      <% end %>
 
-      <%= form_for [:hub, @client], method: :patch, url: response_needed_hub_client_path(id: @client.id) do |f| %>
-        <%= f.hidden_field :action, value: @client.needs_response? ? "clear" : "set" %>
-        <%= f.submit @client.needs_response? ? t("general.responded_to_client") : t("general.mark_for_response"), class: "button button--small" %>
+      <%= form_for [:hub, @client], method: :patch, url: mark_as_flagged_hub_client_path(id: @client.id) do |f| %>
+        <%= f.hidden_field :action, value: @client.marked_as_flagged ? "clear" : "set" %>
+        <%= f.submit t("general.flag"), class: "button button--small" %>
       <% end %>
     </div>
 

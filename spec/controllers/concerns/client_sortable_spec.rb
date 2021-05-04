@@ -266,8 +266,8 @@ RSpec.describe ClientSortable, type: :controller do
         end
       end
 
-      context "needs_response" do
-        let(:params) { { needs_response: true } }
+      context "marked_as_flagged" do
+        let(:params) { { marked_as_flagged: true } }
         it "returns true" do
           expect(subject.has_search_and_sort_params?).to eq true
         end

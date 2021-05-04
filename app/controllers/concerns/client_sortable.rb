@@ -10,7 +10,7 @@ module ClientSortable
               end
     clients = clients.delegated_order(@sort_column, @sort_order)
     clients = clients.where(tax_returns: { status: TaxReturnStatus::STATUSES_BY_STAGE[@filters[:stage]] }) if @filters[:stage].present?
-    clients = clients.where.not(response_needed_since: nil) if @filters[:needs_response].present?
+    clients = clients.where(marked_as_flagged: true) if @filters[:marked_as_flagged].present?
     clients = clients.where(tax_returns: { assigned_user: limited_user_ids }) unless limited_user_ids.empty?
     clients = clients.where(tax_returns: { year: @filters[:year] }) if @filters[:year].present?
     clients = clients.where(tax_returns: { status: @filters[:status] }) if @filters[:status].present?
@@ -59,7 +59,7 @@ module ClientSortable
       stage: stage_filter(source),
       assigned_to_me: source[:assigned_to_me],
       unassigned: source[:unassigned],
-      needs_response: source[:needs_response],
+      marked_as_flagged: source[:marked_as_flagged],
       unemployment_income: source[:unemployment_income],
       year: source[:year],
       vita_partner_id: source[:vita_partner_id]&.to_s,
@@ -70,7 +70,7 @@ module ClientSortable
   end
 
   def search_and_sort_params
-    [:search, :status, :unassigned, :assigned_to_me, :needs_response, :unemployment_income, :year, :vita_partner_id, :assigned_user_id, :language, :service_type]
+    [:search, :status, :unassigned, :assigned_to_me, :marked_as_flagged, :unemployment_income, :year, :vita_partner_id, :assigned_user_id, :language, :service_type]
   end
 
   def cookie_filters

@@ -55,14 +55,12 @@ module Hub
       end
     end
 
-    def response_needed
-      case response_needed_params[:action]
+    def mark_as_flagged
+      case mark_as_flagged_params[:action]
       when "clear"
-        @client.clear_response_needed
-        SystemNote::ResponseNeededToggledOff.generate!(client: @client, initiated_by: current_user)
+        @client.update(marked_as_flagged: false)
       when "set"
-        @client.set_response_needed!
-        SystemNote::ResponseNeededToggledOn.generate!(client: @client, initiated_by: current_user)
+        @client.update(marked_as_flagged: true)
       end
 
       redirect_back(fallback_location: hub_client_path(id: @client.id))
@@ -99,7 +97,7 @@ module Hub
 
     private
 
-    def response_needed_params
+    def mark_as_flagged_params
       params.require(:client).permit(:action)
     end
 

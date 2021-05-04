@@ -5,7 +5,6 @@ es:
     unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
     has_duplicates: "Posibles duplicados detectados: "
     last_client_update: "Última actualización de cliente: "
-    waiting_on_response: "Esperando respuesta desde: "
     not_assigned_html: <i>No asignado</i>
     back_to:
       return_to_dashboard: Regresar al Tablero
@@ -891,6 +890,8 @@ es:
     suspended: "Suspendida"
     responded_to_client: "Respondido al cliente"
     mark_for_response: "Marcar respuesta necesaria"
+    flag: "Marcar"
+    marked_as_flagged: "Marcado como marcado"
     needs_response: "Necesita respuesta"
     received_unemployment_income: "Recibió compensación por desempleo"
     ui: "UI"

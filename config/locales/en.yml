@@ -5,7 +5,6 @@ en:
     unlock_confirmation: "Unlock %{name}'s account? Have they confirmed their identity?"
     has_duplicates: "Potential duplicates detected: "
     last_client_update: "Last client update: "
-    waiting_on_response: "Waiting on response since: "
     not_assigned_html: <i>Not assigned</i>
     back_to:
       return_to_dashboard: Return to Dashboard
@@ -900,6 +899,8 @@ en:
     suspended: "Suspended"
     responded_to_client: "Responded to client"
     mark_for_response: "Mark as response needed"
+    flag: "Flag"
+    marked_as_flagged: "Marked as flagged"
     needs_response: "Needs response"
     received_unemployment_income: "Received Unemployment Income"
     ui: "UI"

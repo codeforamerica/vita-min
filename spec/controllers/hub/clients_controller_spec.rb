@@ -247,10 +247,10 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text("2")
       end
 
-      context "when a client needs a response" do
-        before { client.touch(:response_needed_since) }
+      context "when a client is marked as flagged" do
+        before { client.update(marked_as_flagged: true) }
 
-        it "adds the needs response icon into the DOM" do
+        it "adds the marked as flagged icon into the DOM" do
           get :show, params: params
           profile = Nokogiri::HTML.parse(response.body)
           expect(profile).to have_css("i.urgent")
@@ -346,8 +346,8 @@ RSpec.describe Hub::ClientsController do
           expect(tobias_2018_assignee).to have_text "Lindsay"
         end
 
-        context "when a client needs a response" do
-          before { tobias.touch(:response_needed_since) }
+        context "when a client is marked as flagged" do
+          before { tobias.update(marked_as_flagged: true) }
 
           it "adds the needs response icon into the DOM" do
             get :index
@@ -587,11 +587,11 @@ RSpec.describe Hub::ClientsController do
           end
         end
 
-        context "filtering by needs response" do
-          let!(:needs_response) { create :client, response_needed_since: DateTime.now, vita_partner: organization, tax_returns: [(create :tax_return)] }
+        context "filtering by flagged" do
+          let!(:flagged) { create :client, marked_as_flagged: true, vita_partner: organization, tax_returns: [(create :tax_return)] }
           it "filters in" do
-            get :index, params: { needs_response: true }
-            expect(assigns(:clients)).to include needs_response
+            get :index, params: { marked_as_flagged: true }
+            expect(assigns(:clients)).to include flagged
           end
         end
       end
@@ -619,53 +619,38 @@ RSpec.describe Hub::ClientsController do
     end
   end
 
-  describe "#response_needed" do
+  describe "#mark_as_flagged" do
     let(:params) do
-      { id: client.id, client: { action: "set" } }
+      { id: client.id, client: { action: action } }
     end
-    let(:client) { create :client, vita_partner: organization }
+    let(:action) { "set" }
+    let(:client) { create :client, vita_partner: organization, marked_as_flagged: true }
     before { sign_in(user) }
 
     it "redirects to hub client path" do
-      patch :response_needed, params: params
+      patch :mark_as_flagged, params: params
+
       expect(response).to redirect_to(hub_client_path(id: client.id))
     end
 
-    context "with dismiss param" do
+    context "with the clear flag param" do
+      let(:action) { "clear" }
 
-      before do
-        params[:client][:action] = "clear"
-        client.touch(:response_needed_since)
-        allow(SystemNote::ResponseNeededToggledOff).to receive(:generate!)
-      end
+      it "sets marked_as_flagged to false" do
+        patch :mark_as_flagged, params: params
 
-      it "removes response_needed_since value from client and makes a system note" do
-        patch :response_needed, params: params
-
-        expect(client.reload.response_needed_since).to be_nil
-        expect(SystemNote::ResponseNeededToggledOff).to have_received(:generate!).with(
-          client: client,
-          initiated_by: user
-        )
+        expect(client.reload.marked_as_flagged).to eq(false)
       end
     end
 
-    context "with add flag param" do
-      before do
-        params[:client][:action] = "set"
-        client.clear_response_needed
-        allow(SystemNote::ResponseNeededToggledOn).to receive(:generate!)
-      end
+    context "with the set flag param" do
+      let(:action) { "set" }
+      let(:client) { create :client, vita_partner: organization, marked_as_flagged: false }
 
-      it "adds response_needed_since to client and leaves a system note" do
-        expect {
-          patch :response_needed, params: params
-        }.to change{ client.reload.response_needed_since }
+      it "sets marked_as_flagged to true" do
+        patch :mark_as_flagged, params: params
 
-        expect(SystemNote::ResponseNeededToggledOn).to have_received(:generate!).with(
-          client: client,
-          initiated_by: user
-        )
+        expect(client.reload.marked_as_flagged).to eq(true)
       end
     end
   end
