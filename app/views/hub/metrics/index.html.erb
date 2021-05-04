@@ -31,13 +31,13 @@
             Capacity %<sup>1</sup>
           </th>
           <th scope="col" class="index-table__header sortable" id="outgoing-communication-breaches" >
-            Outgoing comm. breaches<sup>3</sup>
+            Outgoing comm. breaches<sup>2</sup>
           </th>
           <th scope="col" class="index-table__header sortable" id="outgoing-communication-percentage" >
             Outgoing comm. %
           </th>
           <th scope="col" class="index-table__header sortable" id="profile-interaction-breaches" >
-            Interaction breaches<sup>4</sup>
+            Interaction breaches<sup>3</sup>
           </th>
           <th scope="col" class="index-table__header sortable" id="profile-interaction-percentage" >
             Interaction %
@@ -86,16 +86,12 @@
     <section class="take-action-box">
       <div>
         <small><sup>1 </sup><%= t("hub.organizations.form.excludes") %></small>
-
       </div>
       <div>
-        <small><sup>2 </sup>Client needs response indicator has been on for more than 3 business days.</small>
+        <small><sup>2 </sup>We have not contacted this client by email/text/phone call in more than three business days.</small>
       </div>
       <div>
-        <small><sup>3 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not contacted them by text/call/email.</small>
-      </div>
-      <div>
-        <small><sup>4 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not interacted with their profile (written internal note, changed status, assigned user, etc).</small>
+        <small><sup>3 </sup>Client messaged us or uploaded document more than 3 business days ago, and we have not interacted with their profile (written internal note, changed status, assigned user, etc).</small>
       </div>
     </section>
   <% end %>
