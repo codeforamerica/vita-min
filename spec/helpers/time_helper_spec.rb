@@ -16,6 +16,19 @@ describe TimeHelper do
     end
   end
 
+  describe "#business_days" do
+    before do
+      allow(DateTime).to receive(:now).and_return DateTime.new(2021, 5, 3)
+    end
+
+    it "returns a string formatted to the number of business days since the given date" do
+      Time.use_zone("America/Los_Angeles") do
+        test_date = DateTime.new(2021, 4, 28)
+        expect(helper.business_days(test_date)).to eq("3 business days")
+      end
+    end
+  end
+
   describe "#displayed_timezone" do
     it "returns the readable for display timezone" do
       expect(helper.displayed_timezone("America/Los_Angeles")).to eq "Pacific Time (US & Canada)"

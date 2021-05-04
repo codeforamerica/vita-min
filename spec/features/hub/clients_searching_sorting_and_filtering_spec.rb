@@ -166,6 +166,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         # return to default sort order
         click_link "sort-last_outgoing_interaction_at"
+        # CB - possibly failing because of timezone
         expect(page.all('.client-row')[0]).to have_text(alan_intake_in_progress.preferred_name)
         expect(page.all('.client-row')[0]).to have_text("4 business days")
         expect(page.all('.client-row')[1]).to have_text(betty_intake_in_progress.preferred_name)
