@@ -170,11 +170,11 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row')[0]).to have_text(alan_intake_in_progress.preferred_name)
         expect(page.all('.client-row')[0]).to have_text("4 business days")
         expect(page.all('.client-row')[1]).to have_text(betty_intake_in_progress.preferred_name)
-        expect(page.all('.client-row')[0]).to have_text("3 business days")
+        expect(page.all('.client-row')[1]).to have_text("3 business days")
         expect(page.all('.client-row')[2]).to have_text(patty_prep_ready_for_call.preferred_name)
-        expect(page.all('.client-row')[0]).to have_text("2 business days")
+        expect(page.all('.client-row')[2]).to have_text("2 business days")
         expect(page.all('.client-row')[3]).to have_text(zach_prep_ready_for_call.preferred_name)
-        expect(page.all('.client-row')[0]).to have_text("1 business day")
+        expect(page.all('.client-row')[3]).to have_text("1 business day")
 
         within ".filter-form" do
           select "2019", from: "year"
