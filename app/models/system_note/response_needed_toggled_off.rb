@@ -30,15 +30,3 @@ class SystemNote::ResponseNeededToggledOff < SystemNote
     )
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,39 @@
 require "rails_helper"
 
 RSpec.describe Documents::DocumentsHelpController, type: :controller do
+  describe "#show" do
+    let!(:client) { create :client, intake: create(:intake) }
+    let(:next_path) { "/en/next" }
+    let(:params) do
+      {
+          doc_type: "DocumentTypes::Identity",
+          next_path: next_path
+      }
+    end
+
+    before do
+      sign_in client
+    end
+
+    context "without a next_path param provided" do
+      let(:next_path) { nil }
+      it "redirects" do
+        get :show, params: params
+        expect(response).to redirect_to "/en/portal"
+      end
+    end
+
+    it "renders show template" do
+      get :show, params: params
+      expect(response).to render_template :show
+    end
+
+    it "does not set current step on the intake" do
+      get :show, params: params
+      expect(client.intake.reload.current_step).to eq nil
+    end
+  end
+
   describe "#send_reminder" do
     let!(:client) { create(:intake, email_address: "gork@example.com", sms_phone_number: "+14155537865", email_notification_opt_in: "yes", sms_notification_opt_in: "yes", preferred_name: "Gilly").client }
     let(:params) do

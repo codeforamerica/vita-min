@@ -4,9 +4,7 @@ module Documents
     skip_before_action :set_current_step
     before_action :redirect_unless_next_path
 
-    def show
-      @doc_type = params[:doc_type]
-    end
+    def show; end
 
     def send_reminder
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
@@ -29,12 +27,11 @@ module Documents
 
     def request_doc_help
       raise ArgumentError unless DocumentTypes::HELP_TYPES.include? params[:help_type].to_sym
+
       current_client.request_document_help(doc_type: params[:doc_type].constantize, help_type: params[:help_type])
       flash[:notice] = I18n.t("documents.updated_specialist.notice")
       redirect_to(next_path)
     end
-
-    #doc help --> create doc_type: SystemNote::DocumentHelp; help_type: :doesnt_apply
 
     private
 
