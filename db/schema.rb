@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_30_160828) do
+ActiveRecord::Schema.define(version: 2021_05_03_214214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 2021_04_30_160828) do
     t.datetime "locked_at"
     t.datetime "login_requested_at"
     t.string "login_token"
+    t.boolean "marked_as_flagged"
     t.datetime "response_needed_since"
     t.integer "routing_method"
     t.integer "sign_in_count", default: 0, null: false

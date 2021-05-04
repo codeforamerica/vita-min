@@ -18,6 +18,7 @@
 #  locked_at                                :datetime
 #  login_requested_at                       :datetime
 #  login_token                              :string
+#  marked_as_flagged                        :boolean
 #  response_needed_since                    :datetime
 #  routing_method                           :integer
 #  sign_in_count                            :integer          default(0), not null
