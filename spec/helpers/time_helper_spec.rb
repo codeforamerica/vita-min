@@ -16,16 +16,19 @@ describe TimeHelper do
     end
   end
 
-  describe "#business_days" do
+  describe "#formatted_business_days_ago" do
     before do
-      allow(DateTime).to receive(:now).and_return DateTime.new(2021, 5, 4)
+      allow(DateTime).to receive(:now).and_return DateTime.new(2021, 5, 4, 11, 0, 0, "PDT")
     end
 
     it "returns a string formatted to the number of business days since the given date" do
-      Time.use_zone("America/Los_Angeles") do
-        test_date = Time.new(2021, 4, 28)
-        expect(helper.business_days(test_date)).to eq(4)
-      end
+      test_date = Time.new(2021, 4, 28, 11, 0, 0, '-07:00')
+      expect(helper.formatted_business_days_ago(test_date)).to eq(4)
+    end
+
+    it "returns 0 when given the same business day" do
+      test_date = Time.new(2021, 5, 4, 8, 0, 0, '-07:00')
+      expect(helper.formatted_business_days_ago(test_date)).to eq(0)
     end
   end
 
