@@ -4,10 +4,6 @@ RSpec.describe LoginLinkInsertionService do
   describe ".insert_links" do
     let(:client) { create :client }
     let!(:intake) { create :intake, locale: "es", client: client }
-    before do
-      allow(ClientLoginsService).to receive(:issue_email_token).and_return("raw_token")
-      allow(ClientLoginsService).to receive(:issue_text_message_token).and_return("raw_token")
-    end
 
     context "when there are matches" do
       let(:body) { "something <<Link.E-signature>>" }
@@ -18,7 +14,6 @@ RSpec.describe LoginLinkInsertionService do
         it "creates a text message access token and inserts the link" do
           result = LoginLinkInsertionService.insert_links(contact_record)
 
-          expect(ClientLoginsService).to have_received(:issue_text_message_token).with(contact_record.to_phone_number)
           expect(result).to eq "something http://test.host/es/portal/login"
         end
       end
@@ -29,7 +24,6 @@ RSpec.describe LoginLinkInsertionService do
         it "creates an email access token and inserts the link" do
           result = LoginLinkInsertionService.insert_links(contact_record)
 
-          expect(ClientLoginsService).to have_received(:issue_email_token).with(contact_record.to)
           expect(result).to eq "something http://test.host/es/portal/login"
         end
       end
@@ -60,8 +54,6 @@ RSpec.describe LoginLinkInsertionService do
       it "does not make any tokens and outputs the exact same body" do
         result = LoginLinkInsertionService.insert_links(contact_record)
 
-        expect(ClientLoginsService).not_to have_received(:issue_email_token)
-        expect(ClientLoginsService).not_to have_received(:issue_text_message_token)
         expect(result).to eq body
       end
     end
