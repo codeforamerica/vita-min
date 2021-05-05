@@ -46,6 +46,17 @@ RSpec.describe DocumentTypeUploadForm do
         expect(form.errors[:document]).to eq(["Example error"])
       end
     end
+
+    context "when the document is missing" do
+      let(:params) { { } }
+
+      it "is not valid" do
+        form = described_class.new("Other", intake, params)
+
+        expect(form).not_to be_valid
+        expect(form.errors[:document]).to be_present
+      end
+    end
   end
 
   describe "#save" do

@@ -18,6 +18,11 @@ class DocumentTypeUploadForm < QuestionsForm
 
   def load_and_validate_document
     document_file_upload = attributes_for(:intake)[:document]
+    if document_file_upload.blank?
+      errors[:document] << I18n.t("validators.file_type")
+      return
+    end
+
     # Rewind to avoid IntegrityError
     document_file_upload.tempfile.rewind
     doc = @intake.documents.new(
