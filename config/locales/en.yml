@@ -991,7 +991,7 @@ en:
           body: |
             Hello %{preferred_name},
 
-            We noticed you haven't completed providing the information we need to prepare your taxes. You can use this personalized secure link to upload your tax documents: %{doc_upload_link}
+            We noticed you haven't completed providing the information we need to prepare your taxes. Log in to continue the process and upload tax documents: %{portal_login_url}
 
             We'll review everything with you on the phone!
 
