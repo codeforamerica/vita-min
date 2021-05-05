@@ -912,6 +912,9 @@ en:
     unemployment_income: "Unemployment Income"
     unread: Notification unread
     documents: "Documents"
+    business_days:
+      one: "%{count} business day"
+      other: "%{count} business days"
   helpers:
     birth_date_helper:
       valid_birth_date: Please select a valid date
@@ -2533,7 +2536,7 @@ en:
   clients:
     errors:
       tax_return_assigned_user_access: "%{affected_users} would lose access if you assign this client to %{new_partner}. Please change tax return assignments before reassigning this client."
-    response_needed_since: "Waiting on response"
+    last_outgoing_message_at: "Last outgoing message at"
   client_logins:
     no_account_found_sms: |
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
