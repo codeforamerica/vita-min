@@ -121,7 +121,7 @@ RSpec.describe Hub::TakeActionForm do
               - Identificación con foto
               - Foto de usted sosteniendo su identificación con la foto cerca de su barbilla
               - Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes
-            Sube tus documentos de forma segura por https://example.com/my-token-link
+            Inicie sesión para cargar los documentos de forma segura: http://test.host/es/portal/login
 
             Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
 

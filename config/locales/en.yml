@@ -270,7 +270,7 @@ en:
       intake_greeter_info_requested: |
         Hello <<Client.PreferredName>>,
 
-        In order to continue filing your taxes, sign in here: https://www.getyourrefund.org/en/portal/login
+        In order to continue filing your taxes, sign in here: <<Client.LoginLink>>
 
         You can submit your tax documents once you finish your intake form. Have your photo ID, Social Security card, and any income documents ready.
 
@@ -286,8 +286,8 @@ en:
 
         In order to continue filing your taxes, we still need:
         <<Documents.List>>
-        Securely upload your documents at:
-        <<Documents.UploadLink>>
+        Log in to securely upload your documents at:
+        <<Client.LoginLink>>
 
         Please let us know if you have any questions. We can't begin preparing your taxes without this information.
 
@@ -940,7 +940,7 @@ en:
 
         Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
 
-        Use this link to securely submit additional information or documents you’d like to share with your tax preparer: %{document_upload_url}
+        Log in to securely submit additional information or documents you’d like to share with your tax preparer: %{portal_login_url}
 
         If you have any questions, please reply to this message.
 
@@ -951,7 +951,7 @@ en:
         Hello %{preferred_name},
         Your tax information has been successfully submitted to your tax preparer! Your confirmation number is %{client_id}.
         Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
-        Use this link to securely submit additional information or documents you’d like to share with your tax preparer: %{document_upload_url}
+        Log in to securely submit additional information or documents you’d like to share with your tax preparer: %{portal_login_url}
         If you have any questions, please reply to this message.
         We’re here to help!
         Your tax team at GetYourRefund.org
@@ -961,7 +961,7 @@ en:
 
         Thanks for starting your taxes with GetYourRefund - you’re almost there! Your client id is %{client_id}. We will prepare your taxes once we have all of your required information and tax documents.
 
-        You can securely upload your ID and additional tax documents here: %{requested_docs_link}
+        You can securely upload additional tax documents by logging in here: %{portal_login_url}
 
         If you have any questions you can contact your tax team via email <a href="mailto:hello@getyourrefund.org">hello@getyourrefund.org</a> or text message 58750.
 
@@ -971,7 +971,7 @@ en:
         Your Tax Team at GetYourRefund.org
       email_subject: Getting your taxes started with GetYourRefund
       sms_body: |
-        Hello %{preferred_name}, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is %{client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Upload documents securely here: %{requested_docs_link}
+        Hello %{preferred_name}, thanks for starting your taxes with GetYourRefund, you’re almost there! Your client id is %{client_id}. We won’t be able to prepare your taxes until we have all of your required information and tax documents. Log in to upload documents securely here: %{portal_login_url}
 
         Respond to this message if you have any questions. We’re here to help!
     surveys:
