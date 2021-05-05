@@ -982,7 +982,7 @@ es:
           body: |
             Hola %{preferred_name},
 
-            Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Puede usar este enlace personalizado para subir sus documentos de impuestos de manera segura. %{doc_upload_link}
+            Notamos que no ha completado el suministro de la información que necesitamos para preparar sus impuestos. Inicie sesión aquí para continuar el proceso y cargar documentos fiscales: %{portal_login_url}
 
             ¡Revisaremos todo contigo por teléfono!
 

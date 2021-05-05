@@ -1,4 +1,5 @@
 class SendClientInProgressSurveyJob < ApplicationJob
+  delegate :new_portal_client_login_url, to: "Rails.application.routes.url_helpers"
   def perform(client)
     best_contact_method = ClientMessagingService.contact_methods(client).keys.first
     return if best_contact_method.blank?
@@ -15,7 +16,7 @@ class SendClientInProgressSurveyJob < ApplicationJob
     when :email
       ClientMessagingService.send_system_email(
         client,
-        I18n.t("messages.surveys.in_progress.email.body", locale: client.intake.locale, survey_link: survey_link, preferred_name: client.preferred_name, doc_upload_link: client.intake.requested_docs_token_link),
+        I18n.t("messages.surveys.in_progress.email.body", locale: client.intake.locale, survey_link: survey_link, preferred_name: client.preferred_name, portal_login_url: new_portal_client_login_url(locale: client.intake.locale)),
         I18n.t("messages.surveys.in_progress.email.subject", locale: client.intake.locale)
       )
     when :sms_phone_number
