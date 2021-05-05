@@ -41,8 +41,8 @@ module TimeHelper
   def formatted_business_days_ago(time)
     return unless time
 
-    converted_time = Date.parse(time.to_s)
-    converted_now = Date.parse(DateTime.now.to_s)
+    converted_time = Date.parse(time.utc.to_s)
+    converted_now = Date.parse(DateTime.now.utc.to_s)
 
     converted_time.business_days_until(converted_now)
   end
