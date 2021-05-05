@@ -952,7 +952,7 @@ es:
 
         Gracias por comenzar el trámite de sus impuestos con GetYourRefund - ¡ya le falta poco! Su cliente id es %{client_id}. Empezaremos a preparar sus impuestos una vez que recibamos toda la información requerida y los documentos de sus impuestos.
 
-        Puede subir su identificación o documentos de impuestos adicionales a su enlace de envío seguro aquí: %{requested_docs_link}
+        Puede subir su identificación o documentos de impuestos adicionales, inicia sesión aquí: %{portal_login_url}
 
         Si tiene alguna pregunta puede contactar a su equipo de preparación de impuestos por correo electrónico a <a href="mailto:hello@getyourrefund.org"></a>, o enviar un mensaje de texto al 58750.
 
@@ -963,7 +963,7 @@ es:
         Su Equipo de Impuestos de GetYourRefund.org
       email_subject: Comience a tramitar sus impuestos con GetYourRefund
       sms_body: |
-        Hola %{preferred_name}, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es %{client_id}. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Suba sus documentos a su enlace de envío seguro aquí: %{requested_docs_link}
+        Hola %{preferred_name}, gracias por comenzar su declaración de impuestos con GetYourRefund !ya le falta poco! Su cliente id es %{client_id}. No podremos preparar sus impuestos hasta que tengamos toda la información requerida y los documentos de impuestos. Inicia sesión para suba sus documentos a su enlace de envío seguro aquí: %{portal_login_url}
         Responda a este mensaje con cualquier pregunta. ¡Estamos aquí para servirle!
     surveys:
       completion:
