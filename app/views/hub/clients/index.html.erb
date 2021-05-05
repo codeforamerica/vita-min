@@ -57,12 +57,6 @@
           <th scope="col" class="index-table__header">
             <%= render "shared/column_sort_link", title: t("clients.last_outgoing_message_at"), column_name: "last_outgoing_interaction_at" %>
           </th>
-          <% if @show_first_unanswered_incoming_interaction_at %>
-            <th scope="col" class="index-table__header">
-              <%= render "shared/column_sort_link", title: t(".first_unanswered_incoming_interaction_at"), column_name: "first_unanswered_incoming_interaction_at" %>
-            </th>
-          <% end %>
-
           <th scope="col" class="index-table__header">
             <%= render "shared/column_sort_link", title: t(".created_at"), column_name: "created_at" %>
           </th>
@@ -106,9 +100,6 @@
               <td class="index-table__cell <%= business_days_urgent %>"><%= t("general.business_days", count: business_days_count) %></td>
             <% else %>
               <td class="index-table__cell"></td>
-            <% end %>
-            <% if @show_first_unanswered_incoming_interaction_at %>
-              <td class="index-table__cell"><%= formatted_datetime(client.first_unanswered_incoming_interaction_at) %></td>
             <% end %>
             <td class="index-table__cell"><%= formatted_datetime(client.intake.created_at) || "-" %> </td>
             <td class="index-table__cell"><%= client.intake.state_of_residence %></td>

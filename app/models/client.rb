@@ -85,7 +85,9 @@ class Client < ApplicationRecord
   scope :response_needed_breaches, ->(breach_threshold_datetime) do
     sla_tracked.where(arel_table[:response_needed_since].lteq(breach_threshold_datetime))
   end
-
+  scope :last_outgoing_interaction_breaches, ->(breach_threshold_datetime) do
+    sla_tracked.where(arel_table[:last_outgoing_interaction_at].lteq(breach_threshold_datetime))
+  end
   scope :outgoing_interaction_breaches, ->(breach_threshold_datetime) do
     sla_tracked.where(
       arel_table[:first_unanswered_incoming_interaction_at].lteq(breach_threshold_datetime)
