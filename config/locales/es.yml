@@ -931,7 +931,7 @@ es:
 
         Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
 
-        Use este enlace para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{document_upload_url}
+        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{portal_login_url}
 
         Si tiene alguna pregunta, por favor responda a este mensaje.
 
@@ -942,7 +942,7 @@ es:
         Hola %{preferred_name},
         ¡Su información de impuestos ha sido presentada con éxito a su preparador de impuestos! Su número de confirmación es %{client_id}.
         Su especialista en impuestos revisará su información y se pondrá en contacto con usted en 3-5 días hábiles para una llamada telefónica para revisar su situación antes de preparar sus impuestos.
-        Use este enlace para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{document_upload_url}
+        Inicia sesión para enviar de forma segura información adicional o documentos que le gustaría compartir con su preparador de impuestos: %{portal_login_url}
         Si tiene alguna pregunta, por favor responda a este mensaje.
         ¡Estamos aquí para ayudar!
         Su equipo de impuestos en GetYourRefund.org

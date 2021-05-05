@@ -940,7 +940,7 @@ en:
 
         Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
 
-        Use this link to securely submit additional information or documents you’d like to share with your tax preparer: %{document_upload_url}
+        Log in to securely submit additional information or documents you’d like to share with your tax preparer: %{portal_login_url}
 
         If you have any questions, please reply to this message.
 
@@ -951,7 +951,7 @@ en:
         Hello %{preferred_name},
         Your tax information has been successfully submitted to your tax preparer! Your confirmation number is %{client_id}.
         Your tax specialist will review your information and will reach out to you in 3-5 business days for a phone call to review your situation before preparing your taxes.
-        Use this link to securely submit additional information or documents you’d like to share with your tax preparer: %{document_upload_url}
+        Log in to securely submit additional information or documents you’d like to share with your tax preparer: %{portal_login_url}
         If you have any questions, please reply to this message.
         We’re here to help!
         Your tax team at GetYourRefund.org

@@ -19,7 +19,7 @@ RSpec.describe Questions::FinalInfoController do
         allow(IntakePdfJob).to receive(:perform_later)
       end
 
-      let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com" }
+      let(:intake) { create :intake, sms_phone_number: "+15105551234", email_address: "someone@example.com", locale: "en" }
       let(:client) { intake.client }
 
       it "the model after_update when completed at changes should enqueue the creation of the 13614c document" do
@@ -37,27 +37,27 @@ RSpec.describe Questions::FinalInfoController do
           expect do
             post :update, params: params
           end.to change(OutgoingEmail, :count).by(1).and change(OutgoingTextMessage, :count).by(0)
-
-          expect(OutgoingEmail.last.body).to eq I18n.t(
+          email = I18n.t(
               "messages.successful_submission.email_body",
               locale: "en",
               preferred_name: intake.preferred_name,
               client_id: intake.client_id,
-              document_upload_url: "http://test.host/documents/add/#{intake.reload.requested_docs_token}"
+              portal_login_url: "http://test.host/en/portal/login"
           )
+          expect(OutgoingEmail.last.body.squish).to eq email.squish
         end
 
         it "sends a success email in the correct language" do
           intake.update(locale: "es")
           post :update, params: params
 
-          expect(OutgoingEmail.last.body).to eq I18n.t(
+          expect(OutgoingEmail.last.body.squish).to eq I18n.t(
               "messages.successful_submission.email_body",
               locale: "es",
               preferred_name: intake.preferred_name,
               client_id: intake.client_id,
-              document_upload_url: "http://test.host/es/documents/add/#{intake.reload.requested_docs_token}"
-          )
+              portal_login_url: "http://test.host/es/portal/login"
+          ).squish
         end
       end
 
@@ -76,13 +76,13 @@ RSpec.describe Questions::FinalInfoController do
           intake.update(locale: "es")
           post :update, params: params
 
-          expect(OutgoingTextMessage.last.body).to eq I18n.t(
+          expect(OutgoingTextMessage.last.body.squish).to eq I18n.t(
               "messages.successful_submission.sms_body",
               locale: "es",
               preferred_name: intake.preferred_name,
               client_id: intake.client_id,
-              document_upload_url: "http://test.host/es/documents/add/#{intake.reload.requested_docs_token}"
-          )
+              portal_login_url: "http://test.host/es/portal/login"
+          ).squish
         end
       end
 
