@@ -12,8 +12,7 @@ module Hub
       @vita_partners = @vita_partners.includes(:organization_capacity)
       limited_partners = @vita_partners unless current_user.admin?
       @total_breaches = {
-        response_needed: @report.response_needed_breach_count(limited_partners),
-        communication: @report.communication_breach_count(limited_partners),
+        communication: @report.last_outgoing_communication_breach_count(limited_partners),
         interaction: @report.interaction_breach_count(limited_partners),
         total_count: @report.active_sla_clients_count(limited_partners)
       }
